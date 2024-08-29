@@ -210,11 +210,8 @@ analyse_FadingMeasurement <- function(
 
       ##check whether this is empty now
       if(length(object) == 0)
-      stop(
-        "[analyse_FadingMeasurement()] 'object' expects an 'RLum.Analysis' object or a
-        'list' of such objects!", call. = FALSE
-      )
-
+        .throw_error("'object' must be an 'RLum.Analysis' object ",
+                     "or a 'list' of such objects")
     }
 
   } else if (inherits(object, "RLum.Analysis")) {
@@ -222,7 +219,8 @@ analyse_FadingMeasurement <- function(
 
   } else if(inherits(object,"data.frame")){
     if (ncol(object) %% 3 != 0) {
-      stop("[analyse_FadingMeasurement()] 'object': if you provide a data.frame as input, the number of columns must be a multiple of 3.")
+      .throw_error("'object': if you provide a data.frame as input, ",
+                   "the number of columns must be a multiple of 3.")
     } else {
       object <- do.call(rbind,
                         lapply(seq(1, ncol(object), 3), function(col) {
@@ -240,19 +238,17 @@ analyse_FadingMeasurement <- function(
 
 
   }else{
-    stop(
-      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!",
-      call. = FALSE
-    )
-
+    .throw_error("'object' must be an 'RLum.Analysis' object ",
+                 "or a 'list' of such objects")
   }
 
 
   # Prepare data --------------------------------------------------------------------------------
   if(!is.null(object)){
-    ##support read_XSYG2R()
-    if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
-       unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
+    originators <- unique(unlist(lapply(object, slot, name = "originator")))
+
+    ## support read_XSYG2R()
+    if (length(originators) == 1 && originators == "read_XSYG2R") {
 
       ## extract irradiation times
       irradiation_times <- extract_IrradiationTimes(object)
@@ -269,7 +265,6 @@ analyse_FadingMeasurement <- function(
           x@data$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
                                            x = x@data$irr.times[["STEP"]],
                                            fixed = TRUE)]
-
       }))
 
 
@@ -277,8 +272,8 @@ analyse_FadingMeasurement <- function(
       object_clean <- unlist(get_RLum(object, curveType = "measured"))
 
       ##support read_BIN2R()
-    }else if (length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
-              unique(unlist(lapply(object, slot, name = "originator"))) %in% c("read_BIN2R","Risoe.BINfileData2RLum.Analysis")){
+    } else if (length(originators) == 1 &&
+               originators %in% c("read_BIN2R", "Risoe.BINfileData2RLum.Analysis")) {
 
       ##assign object, unlist and drop it
       object_clean <- unlist(get_RLum(object))
@@ -313,10 +308,7 @@ analyse_FadingMeasurement <- function(
         }
 
         ##return warning
-        warning(
-          paste0("[analyse_FadingMeasurement()] ",
-                 rm_records, " records 'time since irradiation' value removed from the dataset!"),
-                call. = FALSE)
+        .throw_warning(rm_records, " records 'time since irradiation' value removed from the dataset")
         rm(rm_records)
 
       }
@@ -329,9 +321,8 @@ analyse_FadingMeasurement <- function(
 
       ##not support
     }else{
-      try(stop("[analyse_FadingMeasurement()] Unknown or unsupported originator!", call. = FALSE))
+      message("[analyse_FadingMeasurement()] Error: Unknown or unsupported originator")
       return(NULL)
-
     }
 
     ##correct irradiation time for t_star
@@ -363,8 +354,7 @@ analyse_FadingMeasurement <- function(
         t_star <- t1
 
       }else{
-        stop("[analyse_FadingMeasurement()] Invalid input for t_star.", call. = FALSE)
-
+        .throw_error("Invalid input for t_star.")
       }
     }
 
@@ -387,9 +377,8 @@ analyse_FadingMeasurement <- function(
       Tx_data <- NULL
 
     }else{
-      try(stop("[analyse_FadingMeasurement()] I have no idea what your structure means!", call. = FALSE))
+      message("[analyse_FadingMeasurement()] Error: I have no idea what your structure means")
       return(NULL)
-
     }
 
     ##calculate Lx/Tx table
@@ -469,7 +458,7 @@ analyse_FadingMeasurement <- function(
 
 
   # Fitting -------------------------------------------------------------------------------------
-  ##prevent that n.MC can became smaller than 2
+  ## prevent that n.MC can become smaller than 2
   n.MC <- max(c(n.MC[1],2))
 
   ##we need to fit the data to get the g_value
@@ -561,12 +550,9 @@ analyse_FadingMeasurement <- function(
 
   ##calculate final g_value
   ##the 2nd term corrects for the (potential) offset from one
-  if(inherits(fit, "try-error")){
-    g_value_fit <- NA
-
-  }else{
+  g_value_fit <- NA
+  if (!inherits(fit, "try-error")) {
     g_value_fit <- -fit$coefficient[2] * 1 / fit$coefficient[1] * 100
-
   }
 
   ##construct output data.frame
@@ -724,10 +710,7 @@ analyse_FadingMeasurement <- function(
               lty = 2,
               col = "red"
             )
-
           }
-
-
         }
 
       } else{

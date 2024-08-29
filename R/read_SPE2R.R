@@ -5,14 +5,14 @@
 #'
 #' @details Function provides an R only import routine for the Princeton Instruments
 #' SPE format. Import functionality is based on the file format description provided by
-#' Princeton Instruments and a MatLab script written by Carl Hall (s.
+#' Princeton Instruments and a MatLab script written by Carl Hall (see
 #' references).
 #'
 #' @param file [character] (**required**):
 #' SPE-file name (including path), e.g.
 #' - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
-#' - `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`. Additionally internet connections
-#' are supported.
+#' - `[MAC/LINUX]`: `read_SPE2R("/User/test/Desktop/test.spe")`.
+#' Additionally, it can be a URL starting with http:// or https://.
 #'
 #' @param output.object [character] (*with default*):
 #' set `RLum` output object.  Allowed types are `"RLum.Data.Spectrum"`,
@@ -114,37 +114,39 @@ read_SPE2R <- function(
 
   # Consistency check -------------------------------------------------------
 
+  valid.output.object <- c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix")
+  if (!output.object %in% valid.output.object) {
+    .throw_error("'output.object' not supported, valid options are ",
+                 paste(valid.output.object, collapse = ", "))
+  }
+
   ##check if file exists
   if(!file.exists(file)){
 
-    ##check if the file as an URL ... you never know
-    if(grepl(pattern = "http", x = file, fixed = TRUE)){
+    ## check if the file is an URL ... you never know
+    if (grepl(pattern = "^https?://", x = file)) {
       if(verbose){
         cat("[read_SPE2R()] URL detected, checking connection ... ")
       }
 
       ##check URL
       if(!httr::http_error(file)){
-        if(verbose) cat("OK")
+        if (verbose) cat("OK\n")
 
         ##download file
         file_link <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
-        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE}, mode = "wb")
+        download.file(file, destfile = file_link, quiet = !verbose, mode = "wb")
         file <- file_link
 
       }else{
-        cat("FAILED")
-        file <- NULL
-        try(stop("[read_SPE2R()] File does not exist! Return NULL!", call. = FALSE))
+        if (verbose) cat("FAILED\n")
+        message("[read_SPE2R()] Error: File does not exist, NULL returned")
         return(NULL)
-
       }
 
     }else{
-      file <- NULL
-      try(stop("[read_SPE2R()] File does not exist! Return NULL!", call. = FALSE))
+      message("[read_SPE2R()] Error: File does not exist, NULL returned")
       return(NULL)
-
     }
 
   }
@@ -152,17 +154,13 @@ read_SPE2R <- function(
   ##check file extension
   if(!grepl(basename(file), pattern = "SPE$", ignore.case = TRUE)){
     if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
-      temp.text <- paste("[read_SPE2R()] Unsupported file format: *.",
-                         strsplit(file, split = "\\.")[[1]][2], sep = "")
-
-      stop(temp.text, call. = FALSE)
-
+      .throw_error("Unsupported file format: *.",
+                   strsplit(file, split = "\\.")[[1]][2], sep = "")
   }}
 
 
   # Open Connection ---------------------------------------------------------
 
-  #open connection
   con <- file(file, "rb")
 
   # read header -------------------------------------------------------------
@@ -247,10 +245,8 @@ read_SPE2R <- function(
   NumFrames <- readBin(con, what="int", 1, size=4, endian="little", signed = TRUE)
 
   if(NumFrames > 100 & missing(frame.range) & output.object == "RLum.Data.Image"){
-
-    error.message <- paste0("[read_SPE2R()] Import aborted. This file containes > 100 (", NumFrames, "). Use argument 'frame.range' to force import.")
-    stop(error.message)
-
+    .throw_error("Import aborted: this file containes > 100 frames (",
+                 NumFrames, "). Use argument 'frame.range' to force import.")
   }
 
   ##set frame.range
@@ -338,15 +334,14 @@ read_SPE2R <- function(
     }
 
   }else{
-    stop("[read_SPE2R()] Unknown 'datatype'.")
-
+    .throw_error("Unknown 'datatype'")
   }
 
 
   ##loop over all frames
   ##output
   if(verbose)
-    cat(paste("\n[read_SPE2R()]\n\t >> ",file,sep=""), fill=TRUE)
+    cat("\n[read_SPE2R()]\n\t >>", file)
 
   ##set progressbar
   if(txtProgressBar & verbose){
@@ -379,9 +374,9 @@ read_SPE2R <- function(
   }
 
   ##close
-  if(txtProgressBar & verbose){close(pb)
-                           ##output
-                           cat(paste("\t >> ",i," records have been read successfully!\n\n", sep=""))
+  if(txtProgressBar & verbose){
+    close(pb)
+    cat("\t >>", i,"records have been read successfully!\n\n")
   }
 
   # Output ------------------------------------------------------------------
@@ -410,14 +405,14 @@ read_SPE2R <- function(
       class = "RLum.Data.Spectrum",
       originator = "read_SPE2R",
       recordType = "Spectrum",
-                                     curveType = "measured",
-                                     data = data.spectrum.matrix,
-                                     info = temp.info)
+      curveType = "measured",
+      data = data.spectrum.matrix,
+      info = temp.info)
 
     ##optional matrix object
-    if(output.object == "matrix"){
-
-      object <- get_RLum(object)}
+    if (output.object == "matrix") {
+      object <- get_RLum(object)
+    }
 
 
   }else if(output.object == "RLum.Data.Image"){
@@ -426,9 +421,6 @@ read_SPE2R <- function(
     object@recordType = "Image"
     object@curveType <- "measured"
     object@info <- temp.info
-
-  }else{
-    stop("[read_SPE2R()] Chosen 'output.object' not supported. Please check manual!")
 
   }
 
