@@ -8,12 +8,6 @@ test_that("test pure success of the plotting without warning or error", {
   expect_silent(plot_RadialPlot(ExampleData.DeValues))
   expect_silent(plot_KDE(ExampleData.DeValues))
 
-  ##filter combinations
-  filter1 <- density(rnorm(100, mean = 450, sd = 20))
-  filter1 <- matrix(c(filter1$x, filter1$y/max(filter1$y)), ncol = 2)
-  filter2 <- matrix(c(200:799,rep(c(0,0.8,0),each = 200)), ncol = 2)
-  expect_silent(plot_FilterCombinations(filters = list(filter1, filter2)))
-
    ##plot_Det
   data(ExampleData.BINfileData, envir = environment())
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)

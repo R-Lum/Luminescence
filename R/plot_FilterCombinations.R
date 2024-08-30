@@ -161,24 +161,15 @@ plot_FilterCombinations <- function(
 
   #check filters
   if (!is(filters, "list")) {
-    stop("[plot_FilterCombinations()] 'filters' should be of type 'list'")
-
+    .throw_error("'filters' should be of type 'list'")
   }
 
   #input should either data.frame or matrix
   lapply(filters, function(x) {
     if (!is(x, "data.frame") & !is(x, "matrix") & !is(x, "list")) {
-      stop(
-        paste(
-          "[plot_FilterCombinations()] input for filter",
-          x,
-          "is not of type 'matrix', 'data.frame' or 'list'!"
-        )
-      )
-
+      .throw_error("All elements of 'filter' must be of type ",
+                   "'matrix', 'data.frame' or 'list'")
     }
-
-
   })
 
   #check for named list, if not set names
@@ -190,45 +181,39 @@ plot_FilterCombinations <- function(
 
   # Data Preparation ----------------------------------------------------------------------------
 
-  ##check if filters are provided with their tickness, if so correct
-  ##transmission for this ... relevant for glass filters
+  ## check if filters are provided with their thickness, if so correct
+  ## transmission for this ... relevant for glass filters
   filters <- lapply(filters, function(x) {
     if (is(x, "list")) {
 
-      ##correction for the transmission accounting for filter tickness, the
-      ##provided thickness is always assumed to be 1
+      ## correction for the transmission accounting for filter thickness,
+      ## the provided thickness is always assumed to be 1
       if(length(x) > 1){
         x[[1]][, 2] <- x[[1]][, 2] ^ (x[[2]])
 
       }else{
         return(x[[1]])
-
       }
 
-      ##account for potentially provided transmission relexion factor
+      ## account for potentially provided transmission reflection factor
       if(length(x) > 2){
        x[[1]][,2] <-  x[[1]][,2] * x[[3]]
        return(x[[1]])
 
       }else{
        return(x[[1]])
-
       }
 
     } else{
       return(x)
-
     }
-
   })
 
   #check if there are transmission values greater than one, this is not possible
   lapply(filters, function(x) {
     if (max(x[, 2], na.rm = TRUE) > 1.01) {
-      stop("[plot_FilterCombinations()] transmission values > 1 found. Check your data.")
-
+      .throw_error("Transmission values > 1 found, check your data")
     }
-
   })
 
   ##combine everything in a matrix using approx for interpolation
@@ -242,7 +227,6 @@ plot_FilterCombinations <- function(
   net_transmission_window <- matrix(
     c(wavelength_range, matrixStats::rowProds(filter_matrix)),
     ncol = 2)
-
 
   ##add optical density to filter matrix
 
@@ -285,7 +269,6 @@ plot_FilterCombinations <- function(
       net_transmission.col = rgb(0,0.7,0,.2),
       net_transmission.col_lines = "grey",
       net_transmission.density = 20
-
     )
 
     ##modify settings on request
@@ -296,8 +279,7 @@ plot_FilterCombinations <- function(
       ##check for plotly
       if (!requireNamespace("plotly", quietly = TRUE)) {
         # nocov start
-        stop("[plot_FilterCombinations()] Package 'plotly' needed interactive plot functionality. Please install it.",
-             call. = FALSE)
+        .throw_error("Package 'plotly' is required for interactive plots")
         # nocov end
       }
 
@@ -317,7 +299,6 @@ plot_FilterCombinations <- function(
                         name = colnames(filter_matrix_transmisison)[i],
                         mode = 'lines')
           }
-
         }
 
 
@@ -330,8 +311,6 @@ plot_FilterCombinations <- function(
                         y = c(net_transmission_window[, 2], rep(0, length(wavelength_range))),
                         name = "net transmission"
                         )
-
-
 
       ##change graphical parameters
       p <-  plotly::layout(
@@ -363,12 +342,10 @@ plot_FilterCombinations <- function(
         lty = plot_settings$lty,
         lwd = plot_settings$lwd,
         col = plot_settings$col
-
       )
 
       if (!is.null(plot_settings$grid)) {
         graphics::grid(eval(plot_settings$grid))
-
       }
 
       ##show effective transmission, which is the minimum for each row
@@ -405,9 +382,7 @@ plot_FilterCombinations <- function(
           bty = "n"
         )
       }
-
     }
-
   }
 
 
@@ -422,7 +397,4 @@ plot_FilterCombinations <- function(
     ),
     info = list(call = sys.call())
   ))
-
-
-
 }
