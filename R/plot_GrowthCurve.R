@@ -1913,7 +1913,7 @@ plot_GrowthCurve <- function(
       }
     }
 
-    fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+    fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
     ##set plot check
     plot_check <- NULL
@@ -2217,9 +2217,7 @@ plot_GrowthCurve <- function(
         }
 
         ## FUN by R Luminescence Team
-        if (fun == TRUE) {
-          sTeve()
-        }
+        if (fun == TRUE) sTeve() # nocov
 
       }#endif::output.plotExtended
 

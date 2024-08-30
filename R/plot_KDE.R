@@ -1239,7 +1239,7 @@ plot_KDE <- function(
        cex.axis = cex)
 
   ## FUN by R Luminescence Team
-  if(fun==TRUE){sTeve()}
+  if (fun == TRUE) sTeve() # nocov
 
   if(output == TRUE) {
     return(invisible(list(De.stats = De.stats,

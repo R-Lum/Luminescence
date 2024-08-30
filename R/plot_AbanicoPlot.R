@@ -665,8 +665,7 @@ plot_AbanicoPlot <- function(
   }
 
   if ("fun" %in% names(extraArgs)) {
-    fun <- list(...)$fun
-
+    fun <- list(...)$fun # nocov
   } else {
     fun <- FALSE
   }
@@ -3555,7 +3554,7 @@ plot_AbanicoPlot <- function(
   }
 
   ##sTeve
-  if(fun & !interactive){sTeve()}
+  if (fun && !interactive) sTeve() # nocov
 
   ## create numeric output
   plot.output <- list(xlim = limits.x,

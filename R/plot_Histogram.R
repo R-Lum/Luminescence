@@ -705,8 +705,7 @@ plot_Histogram <- function(
         cex = 0.8 * cex.global)
 
   ## FUN by R Luminescence Team
-  if(fun & !interactive)
-    sTeve()
+  if (fun && !interactive) sTeve() # nocov
 
   ## Optionally: Interactive Plot ----------------------------------------------
   if (interactive) {

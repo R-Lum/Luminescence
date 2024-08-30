@@ -291,7 +291,7 @@ plot_DRTResults <- function(
   ##axis labels
   las <- if("las" %in% names(extraArgs)) extraArgs$las else 0
 
-  fun <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   ## calculations and settings-------------------------------------------------
 
@@ -750,7 +750,6 @@ plot_DRTResults <- function(
         cex = 0.8 * cex)
 
   ##FUN by R Luminescence Team
-  if(fun == TRUE) {sTeve()}
-
+  if (fun == TRUE) sTeve() # nocov
 }
 
