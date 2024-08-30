@@ -108,7 +108,7 @@ https://doi.org/10.1016/j.radmeas.2018.07.013
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://CRAN.R-project.org/package=Luminescence}
+  \item \url{https://r-lum.github.io/Luminescence/}
   \item Report bugs at \url{https://github.com/R-Lum/Luminescence/issues}
 }
 

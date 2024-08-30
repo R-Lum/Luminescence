@@ -209,7 +209,7 @@ by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 \code{LxTx}, the \code{LxTx} error and the dose values for all regeneration points.
 
-\strong{How the systematic error contribution is calculated?}
+\strong{How is the systematic error contribution calculated?}
 
 Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 and added to final central dose by:
@@ -265,7 +265,7 @@ by \link{verify_SingleGrainData} might be not totally sufficient.
 
 If an \linkS4class{RLum.Results} object is provided as input and(!) this object was
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
-is skipped and the function starts directly the Bayesian analysis. This option is very powerful
+is skipped and the function starts directly with the Bayesian analysis. This option is very powerful
 as it allows to change parameters for the Bayesian analysis without the need to repeat
 the data pre-processing. If furthermore the argument \code{aliquot_range} is set, aliquots
 can be manually excluded based on previous runs.

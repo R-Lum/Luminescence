@@ -45,11 +45,12 @@ exclude NA values from the data set prior to any further operations.}
 \description{
 Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin
 is constructed using a mirrored density curve. This plot is especially designed for cases
-where the individual errors are zero or to small to be visualised. The idea for this plot is
+where the individual errors are zero or too small to be visualised. The idea for this plot is
 based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
-The general idea for the violin plot seems to be introduced by Hintze and Nelson (1998).
+The general idea for the violin plot seems to have been introduced by
+Hintze and Nelson (1998).
 
-The function is passing several arguments to the function \link{plot},
+The function is passing several arguments to the functions \link{plot},
 \link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
 
 Supported arguments are:

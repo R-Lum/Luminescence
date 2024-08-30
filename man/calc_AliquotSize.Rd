@@ -109,7 +109,7 @@ The sample diameter has
 \eqn{\mu = sample.diameter} and \eqn{\sigma = 0.2} to take into account
 variations in sample disc preparation (i.e. applying silicon spray to the
 disc). A lower truncation point at \code{x = 0.5} is used, which assumes
-that aliqouts with smaller sample diameters of 0.5 mm are discarded.
+that aliquots with smaller sample diameters of 0.5 mm are discarded.
 Likewise, the normal distribution is truncated at 9.8 mm, which is the
 diameter of the sample disc.
 

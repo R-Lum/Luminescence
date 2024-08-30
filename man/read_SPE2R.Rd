@@ -18,8 +18,8 @@ read_SPE2R(
 SPE-file name (including path), e.g.
 \itemize{
 \item \verb{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
-\item \verb{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}. Additionally internet connections
-are supported.
+\item \verb{[MAC/LINUX]}: \code{read_SPE2R("/User/test/Desktop/test.spe")}.
+Additionally, it can be a URL starting with http:// or https://.
 }}
 
 \item{output.object}{\link{character} (\emph{with default}):
@@ -68,7 +68,7 @@ provides \linkS4class{RLum.Data.Image} objects as output.
 \details{
 Function provides an R only import routine for the Princeton Instruments
 SPE format. Import functionality is based on the file format description provided by
-Princeton Instruments and a MatLab script written by Carl Hall (s.
+Princeton Instruments and a MatLab script written by Carl Hall (see
 references).
 }
 \note{

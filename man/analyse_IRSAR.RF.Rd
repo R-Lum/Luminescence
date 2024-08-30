@@ -228,7 +228,7 @@ changed with \code{method.control}.
 \strong{\code{method.control}}
 
 To keep the generic argument list as clear as possible, arguments to control the methods
-for De estimation are all pre set with meaningful default parameters and can be
+for De estimation are all preset with meaningful default parameters and can be
 handled using the argument \code{method.control} only, e.g.,
 \code{method.control = list(trace = TRUE)}. Supported arguments are:
 

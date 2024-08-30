@@ -17,7 +17,7 @@ calc_gSGC(
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
 input data of providing the following columns: \code{LnTn}, \code{LnTn.error}, \code{Lr1Tr1}, \code{Lr1Tr1.error}, \code{Dr1}
-\strong{Note:} column names are not required. The function expect the input data in the given order}
+\strong{Note:} column names are not required. The function expects the input data in the given order}
 
 \item{gSGC.type}{\link{character} (\emph{with default}):
 define the function parameters that
