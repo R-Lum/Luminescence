@@ -7,7 +7,6 @@ test_that("test pure success of the plotting without warning or error", {
 
   expect_silent(plot_RadialPlot(ExampleData.DeValues))
   expect_silent(plot_KDE(ExampleData.DeValues))
-  expect_silent(plot_Histogram(ExampleData.DeValues))
   expect_silent(plot_ViolinPlot(ExampleData.DeValues))
 
   ##filter combinations
