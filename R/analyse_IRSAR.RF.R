@@ -1054,7 +1054,7 @@ analyse_IRSAR.RF<- function(
           x$sliding_vector_min_index}, FUN.VALUE = numeric(length = 1))
 
         ##get also the vertical slide indices
-        temp_vslide_indicies <- vapply(temp_minium_list, function(x){
+        temp_vslide_indices <- vapply(temp_minium_list, function(x){
           x$vslide_index}, FUN.VALUE = numeric(length = 1))
 
         ##get all the minimum values
@@ -1070,9 +1070,9 @@ analyse_IRSAR.RF<- function(
         ##is considered, otherwise it is too biased by the user's choice
         ##ToDo: So far the algorithm error is not sufficiently documented
         if(!is.null(algorithm_error)){
-          algorithm_error <- sd(vapply(1:length(temp_vslide_indicies), function(k){
+          algorithm_error <- sd(vapply(1:length(temp_vslide_indices), function(k){
             temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
-            matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + temp_vslide_indicies[k]), ncol = 2)[1,1]
+            matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + temp_vslide_indices[k]), ncol = 2)[1,1]
 
           }, FUN.VALUE = numeric(length = 1)))
 
@@ -1123,8 +1123,8 @@ analyse_IRSAR.RF<- function(
                   temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x]
                 )
 
-              ##there is low change to get two indicies, in
-              ##such cases we should take the mean
+              ## there is low change to get two indices, in
+              ## such cases we should take the mean
               temp.sliding.step.MC <-
                 RF_reg.limited[t_n.id.MC] - t_min
 

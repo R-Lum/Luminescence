@@ -3,11 +3,12 @@
 #' @description
 #' Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin
 #' is constructed using a mirrored density curve. This plot is especially designed for cases
-#' where the individual errors are zero or to small to be visualised. The idea for this plot is
+#' where the individual errors are zero or too small to be visualised. The idea for this plot is
 #' based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
-#' The general idea for the violin plot seems to be introduced by Hintze and Nelson (1998).
+#' The general idea for the violin plot seems to have been introduced by
+#' Hintze and Nelson (1998).
 #'
-#' The function is passing several arguments to the function [plot],
+#' The function is passing several arguments to the functions [plot],
 #' [stats::density], [graphics::boxplot]:
 #'
 #' Supported arguments are:
@@ -96,22 +97,19 @@ plot_ViolinPlot <- function(
     ##Prechecks
 
     if(missing(data)){
-      stop("[plot_ViolinPlot()] I don't know what to do, data input needed." )
+      .throw_error("I don't know what to do, data input needed.")
 
     }else{
 
       ##check for RLum.Results object
       if(is(data, "RLum.Results")){
         data <- get_RLum(data, "data")
-
       }
 
       ##if data.frame or matrix
       if(is(data, "data.frame") | is(data, "matrix")){
         data <- data[,1]
-
       }
-
     }
 
     ##Remove NA values
@@ -119,20 +117,18 @@ plot_ViolinPlot <- function(
       data <- na.exclude(data)
 
       if(length(attr(data, "na.action")) > 0){
-        warning(paste("[plot_ViolinPlot()]", length(attr(data, "na.action")), "NA values removed!"), call. = FALSE)
+        .throw_warning(length(attr(data, "na.action")), " NA values removed")
       }
-
     }
 
     #Further checks
     if(!is(summary.pos, "character")){
-      stop("[plot_ViolinPlot()] argument 'summary.pos' needs to be of type character!")
-
+      .throw_error("'summary.pos' needs to be of type character")
     }
 
   ##stop if only one or 0 values are left in data
   if(length(data) == 0){
-    warning("[plot_ViolinePlot()] Actually it is rather hard to plot 0 values. NULL returned", call. = FALSE)
+    .throw_warning("Actually it is rather hard to plot 0 values, returning")
     return()
   }
 
@@ -147,8 +143,7 @@ plot_ViolinPlot <- function(
 
   }else{
     density <- NULL
-    warning("[plot_ViolinePlot()] single data point found, no density calculated.", call. = FALSE)
-
+    .throw_warning("Single data point found, no density calculated")
   }
 
 
@@ -164,8 +159,9 @@ plot_ViolinPlot <- function(
 
     ##at least show a warning for invalid keywords
     if(!all(summary %in% names(stat.summary[[1]]))){
-      warning(paste0("[plot_ViolinePlot()] Only keywords for weighted statistical measures are supported. Valid keywords are: ",
-                     paste(names(stat.summary[[1]]), collapse = ", ")), call. = FALSE)
+      .throw_warning("Only keywords for weighted statistical measures ",
+                     "are supported. Valid keywords are: ",
+                     paste(names(stat.summary[[1]]), collapse = ", "))
     }
 
     ##make sure that only valid keywords make it
@@ -260,12 +256,9 @@ plot_ViolinPlot <- function(
       legend(summary.pos, legend = stat.text, bty = "n")
 
     }else{
-      warning_text <- paste0("Value provided for 'summary.pos' is not a valid keyword, valid keywords are:",
-                             paste(valid_keywords, collapse = ", "))
-      warning(warning_text)
-
+      .throw_warning("Value provided for 'summary.pos' is not ",
+                     "a valid keyword, valid keywords are:",
+                     paste(valid_keywords, collapse = ", "))
     }
-
   }
-
 }

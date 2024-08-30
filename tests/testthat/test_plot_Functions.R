@@ -7,14 +7,6 @@ test_that("test pure success of the plotting without warning or error", {
 
   expect_silent(plot_RadialPlot(ExampleData.DeValues))
   expect_silent(plot_KDE(ExampleData.DeValues))
-  expect_silent(plot_Histogram(ExampleData.DeValues))
-  expect_silent(plot_ViolinPlot(ExampleData.DeValues))
-
-  ##filter combinations
-  filter1 <- density(rnorm(100, mean = 450, sd = 20))
-  filter1 <- matrix(c(filter1$x, filter1$y/max(filter1$y)), ncol = 2)
-  filter2 <- matrix(c(200:799,rep(c(0,0.8,0),each = 200)), ncol = 2)
-  expect_silent(plot_FilterCombinations(filters = list(filter1, filter2)))
 
    ##plot_Det
   data(ExampleData.BINfileData, envir = environment())
@@ -30,12 +22,6 @@ test_that("test pure success of the plotting without warning or error", {
     ),
     "RLum.Results"
   )
-
-  ##plot DRT
-  data(ExampleData.DeValues, envir = environment())
-  expect_silent(plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-                  given.dose = 2800, mtext = "Example data"))
-
 
   ##various RLum plots
 

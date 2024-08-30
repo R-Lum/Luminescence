@@ -198,10 +198,9 @@ plot_DRTResults <- function(
 
   ##avoid crash for wrongly set boxlot argument
   if(missing(preheat) & boxplot == TRUE){
-
-    warning("[plot_DRTResults()] Option 'boxplot' not valid without any value in 'preheat'. Reset to FALSE.")
-    boxplot  <- FALSE
-
+    boxplot <- FALSE
+    .throw_warning("Option 'boxplot' requires a value in 'preheat', ",
+                   "reset to FALSE")
   }
 
   if(missing(summary) == TRUE) {summary <- NULL}
@@ -215,8 +214,7 @@ plot_DRTResults <- function(
   for(i in 1:length(values)) {
     if(is(values[[i]], "RLum.Results")==FALSE &
          is(values[[i]], "data.frame")==FALSE){
-      stop(paste("[plot_DRTResults()] Wrong input data format",
-                 "(!= 'data.frame' or 'RLum.Results')"))
+      .throw_error("Input data must be one of 'data.frame' or 'RLum.Results'")
     } else {
       if(is(values[[i]], "RLum.Results")==TRUE){
         values[[i]] <- get_RLum(values[[i]])[,1:2]
@@ -230,7 +228,7 @@ plot_DRTResults <- function(
     ##check for preheat temperature values
     if(missing(preheat) == FALSE) {
       if(length(preheat) != nrow(values[[i]])){
-        stop("[plot_DRTResults()] number of preheat temperatures != De values!")
+        .throw_error("Number of preheat temperatures != De values")
       }
     }
 
@@ -240,7 +238,7 @@ plot_DRTResults <- function(
       ##currently we assume that all input data sets comprise a similar of data
       if(!missing(preheat) & i == length(values)){
 
-        ##find and mark NA value indicies
+        ## find and mark NA value indices
         temp.NA.values <- unique(c(which(is.na(values[[i]][,1])), which(is.na(values[[i]][,2]))))
 
         ##remove preheat entries
@@ -249,7 +247,6 @@ plot_DRTResults <- function(
       }
 
       values[[i]] <- na.exclude(values[[i]])
-
     }
   }
 
@@ -291,7 +288,7 @@ plot_DRTResults <- function(
   ##axis labels
   las <- if("las" %in% names(extraArgs)) extraArgs$las else 0
 
-  fun <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   ## calculations and settings-------------------------------------------------
 
@@ -301,7 +298,7 @@ plot_DRTResults <- function(
     if(length(given.dose) > 1){
 
       if(length(values) < length(given.dose)){
-        stop("[plot_DRTResults()] 'given.dose' > number of input data sets!", call. = FALSE)
+        .throw_error("'given.dose' > number of input data sets")
 
       }
 
@@ -750,7 +747,5 @@ plot_DRTResults <- function(
         cex = 0.8 * cex)
 
   ##FUN by R Luminescence Team
-  if(fun == TRUE) {sTeve()}
-
+  if (fun == TRUE) sTeve() # nocov
 }
-

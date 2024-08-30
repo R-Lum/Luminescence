@@ -255,5 +255,5 @@ plot_Risoe.BINfileData<- function(
 
   }#endforloop
 
-  if (fun) sTeve() # nocov
+  if (fun == TRUE) sTeve() # nocov
 }

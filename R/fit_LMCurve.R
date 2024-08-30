@@ -335,7 +335,7 @@ fit_LMCurve<- function(
   else {0.8}
 
 
-  fun       <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   # layout safety settings
   par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
@@ -1031,9 +1031,7 @@ fit_LMCurve<- function(
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 
-    # nocov start
-    if(fun){sTeve()}
-    # nocov end
+    if (fun == TRUE) sTeve() # nocov
   }
   ##-----------------------------------------------------------------------------
   ##remove objects

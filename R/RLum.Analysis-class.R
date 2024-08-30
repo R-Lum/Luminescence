@@ -452,7 +452,7 @@ setMethod("get_RLum",
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
-              ##values instead of numerical indicies
+              ##values instead of numerical indices
               if (is.logical(record.id)) {
                 record.id <- c(1:length(object@records))[record.id]
 

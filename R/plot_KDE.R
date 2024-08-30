@@ -178,31 +178,34 @@ plot_KDE <- function(
   ## account for depreciated arguments
   if("centrality" %in% names(list(...))) {
     boxplot <- TRUE
-    warning(paste("[plot_KDE()] Argument 'centrality' no longer supported. ",
-                  "Replaced by 'boxplot = TRUE'."))
+    .throw_warning("Argument 'centrality' no longer supported. ",
+                   "Replaced by 'boxplot = TRUE'.")
   }
 
   if("dispersion" %in% names(list(...))) {
     boxplot <- TRUE
-    warning(paste("[plot_KDE()] Argument 'dispersion' no longer supported. ",
-                  "Replaced by 'boxplot = TRUE'."))
+    .throw_warning("Argument 'dispersion' no longer supported. ",
+                   "Replaced by 'boxplot = TRUE'.")
   }
 
   if("polygon.col" %in% names(list(...))) {
     boxplot <- TRUE
-    warning(paste("[plot_KDE()] Argument 'polygon.col' no longer supported. ",
-                  "Replaced by 'boxplot = TRUE'."))
+    .throw_warning("Argument 'polygon.col' no longer supported. ",
+                   "Replaced by 'boxplot = TRUE'.")
   }
 
   if("weights" %in% names(list(...))) {
-    warning(paste("[plot_KDE()] Argument 'weights' no longer supported. ",
-                  "Weights are omitted."))
+    .throw_warning("Argument 'weights' no longer supported. ",
+                   "Weights are omitted.")
+  }
+
+  if (is(data, "list") && length(data) == 0) {
+    .throw_error("'data' is an empty list")
   }
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {
     data <- list(data)
-
   }
 
   ## check/adjust input data structure
@@ -210,8 +213,8 @@ plot_KDE <- function(
     if(is(data[[i]], "RLum.Results") == FALSE &
          is(data[[i]], "data.frame") == FALSE &
          is.numeric(data[[i]]) == FALSE) {
-      stop(paste("[plot_KDE()] Input data format is neither",
-                 "'data.frame', 'RLum.Results' nor 'numeric'"), call. = FALSE)
+      .throw_error("Input data must be one of 'data.frame', ",
+                   "'RLum.Results' or 'numeric'")
     } else {
 
       ##extract RLum.Results
@@ -222,18 +225,17 @@ plot_KDE <- function(
       ##make sure we only take the first two columns
       data[[i]] <- data[[i]][,1:2]
 
-
       ##account for very short datasets
       if(length(data[[i]]) < 2) {
         data[[i]] <- cbind(data[[i]], rep(NA, length(data[[i]])))
       }
-
     }
 
     ##check for Inf values and remove them if need
     if(any(is.infinite(unlist(data[[i]])))){
       Inf_id <- which(is.infinite(unlist(data[[i]]))[1:nrow(data[[i]])/ncol(data[[i]])])
-      warning(paste("[plot_KDE()] Inf values removed in row(s):", paste(Inf_id, collapse = ", "), "in data.frame", i), call. = FALSE)
+      .throw_warning("Inf values removed in rows: ",
+                     paste(Inf_id, collapse = ", "), " in data.frame ", i)
       data[[i]] <- data[[i]][-Inf_id,]
       rm(Inf_id)
 
@@ -242,15 +244,12 @@ plot_KDE <- function(
         data[i] <- NULL
 
       }
-
     }
-
   }
 
   ##check if list is empty
   if(length(data) == 0)
-    stop("[plot_KDE()] Your input is empty, intentionally or maybe after Inf removal? Nothing plotted!", call. = FALSE)
-
+    .throw_error("Your input is empty due to Inf removal")
 
   ## check/set function parameters
   if(missing(summary) == TRUE) {
@@ -336,10 +335,8 @@ plot_KDE <- function(
 
     }else{
       De.density[[length(De.density) + 1]] <- NA
-      warning("[plot_KDE()] Less than 2 points provided, no density plotted.", call. = FALSE)
-
+      .throw_warning("Single data point found, no density calculated")
     }
-
   }
 
   ## remove dummy list element
@@ -615,6 +612,9 @@ plot_KDE <- function(
 
   if("ylim" %in% names(list(...))) {
     ylim.plot <- list(...)$ylim
+    if (length(ylim.plot) < 4) {
+      .throw_error("'ylim' must be a vector of length 4")
+    }
   } else {
     if(!is.na(De.density.range[1])){
       ylim.plot <- c(De.density.range[3],
@@ -807,7 +807,7 @@ plot_KDE <- function(
   }
 
   if("fun" %in% names(list(...))) {
-    fun <- list(...)$fun
+    fun <- list(...)$fun # nocov
   } else {
     fun <- FALSE
   }
@@ -1239,7 +1239,7 @@ plot_KDE <- function(
        cex.axis = cex)
 
   ## FUN by R Luminescence Team
-  if(fun==TRUE){sTeve()}
+  if (fun == TRUE) sTeve() # nocov
 
   if(output == TRUE) {
     return(invisible(list(De.stats = De.stats,
@@ -1248,4 +1248,3 @@ plot_KDE <- function(
   }
 
 }
-

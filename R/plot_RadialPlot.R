@@ -719,11 +719,7 @@ if(centrality[1] == "mean") {
   show <- if("show" %in% names(extraArgs)) {extraArgs$show} else {TRUE}
   if(show != TRUE) {show <- FALSE}
 
-  fun <- if("fun" %in% names(extraArgs)) {
-    extraArgs$fun
-  } else {
-    FALSE
-  }
+  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   ## define auxiliary plot parameters -----------------------------------------
 
@@ -1591,7 +1587,7 @@ label.text[[1]] <- NULL
     }
 
     ##FUN by R Luminescence Team
-    if(fun==TRUE){sTeve()}
+    if (fun == TRUE) sTeve() # nocov
   }
 
   if(output) {
