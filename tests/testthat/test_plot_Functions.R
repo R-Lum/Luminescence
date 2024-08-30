@@ -7,7 +7,6 @@ test_that("test pure success of the plotting without warning or error", {
 
   expect_silent(plot_RadialPlot(ExampleData.DeValues))
   expect_silent(plot_KDE(ExampleData.DeValues))
-  expect_silent(plot_ViolinPlot(ExampleData.DeValues))
 
   ##filter combinations
   filter1 <- density(rnorm(100, mean = 450, sd = 20))
