@@ -621,7 +621,7 @@ if(centrality[1] == "mean") {
 
   if("xlab" %in% names(extraArgs)) {
     if(length(extraArgs$xlab) != 2) {
-      stop("Argmuent xlab is not of length 2!")
+      stop("Argument xlab is not of length 2!")
     } else {xlab <- extraArgs$xlab}
   } else {
     xlab <- c(if(log.z == TRUE) {
