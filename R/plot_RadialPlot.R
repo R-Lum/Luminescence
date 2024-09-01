@@ -324,14 +324,6 @@ plot_RadialPlot <- function(
     grid.col <- rep("grey70", length(data))
   }
 
-  if(missing(summary) == TRUE) {
-    summary <- NULL
-  }
-
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- "topleft"
-  }
-
   if(missing(mtext) == TRUE) {
     mtext <- ""
   }
