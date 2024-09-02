@@ -382,7 +382,15 @@ analyse_FadingMeasurement <- function(
     }
 
     ##calculate Lx/Tx table
+    len.Tx <- length(Tx_data)
     LxTx_table <- merge_RLum(.warningCatcher(lapply(1:length(Lx_data), function(x) {
+      ## we operate only up to the shortest common length to avoid indexing
+      ## into Tx_data with an invalid index
+      if (len.Tx > 0 && x > len.Tx) {
+        .throw_warning("Lx and Tx have different sizes: skipped sample ", x,
+                       ", NULL returned")
+        return(NULL)
+      }
       calc_OSLLxTxRatio(
         Lx.data = Lx_data[[x]],
         Tx.data = Tx_data[[x]],
@@ -404,7 +412,6 @@ analyse_FadingMeasurement <- function(
           list(...)$background.count.distribution
         }
       )
-
     })))$LxTx.table
 
   }
@@ -581,23 +588,23 @@ analyse_FadingMeasurement <- function(
                                xout = 0.5), silent = TRUE)
 
   if(inherits(T_0.5.interpolated, 'try-error')){
-    T_0.5.predict <- NULL
-    T_0.5.interpolated <- NULL
-
+    T_0.5 <- data.frame(
+        T_0.5_INTERPOLATED = NA,
+        T_0.5_PREDICTED = NA,
+        T_0.5_PREDICTED.LOWER = NA,
+        T_0.5_PREDICTED.UPPER = NA
+    )
   }else{
     T_0.5.predict <- stats::predict.lm(fit_predict,newdata = data.frame(x = 0.5),
                                        interval = "predict")
-
+    T_0.5 <- data.frame(
+        T_0.5_INTERPOLATED = T_0.5.interpolated$y,
+        T_0.5_PREDICTED = (10 ^ T_0.5.predict[, 1]) * tc,
+        T_0.5_PREDICTED.LOWER = (10 ^ T_0.5.predict[, 2]) * tc,
+        T_0.5_PREDICTED.UPPER = (10 ^ T_0.5.predict[, 2]) * tc
+    )
   }
 
-
-  T_0.5 <- data.frame(
-    T_0.5_INTERPOLATED = T_0.5.interpolated$y,
-    T_0.5_PREDICTED =  (10^T_0.5.predict[,1])*tc,
-    T_0.5_PREDICTED.LOWER =  (10^T_0.5.predict[,2])*tc,
-    T_0.5_PREDICTED.UPPER =  (10^T_0.5.predict[,2])*tc
-
-  )
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot) {
@@ -682,7 +689,7 @@ analyse_FadingMeasurement <- function(
             xlab = plot_settings$xlab,
             log = plot_settings$log,
             legend.pos = "outside",
-            main = expression(paste(T[x], " - curves")),
+            main = bquote(expression(paste(T[x], " - curves"))),
             mtext = plot_settings$mtext
           )
 
