@@ -8,6 +8,9 @@ test_that("input validation", {
                "Input data must be one of 'data.frame', 'RLum.Results' or")
   expect_error(plot_KDE(list()),
                "'data' is an empty list")
+  expect_error(expect_warning(plot_KDE(data.frame(a = Inf, b = 1)),
+                              "Inf values removed in rows: 1 in data.frame 1"),
+               "Your input is empty due to Inf removal")
   expect_error(plot_KDE(df, ylim = c(0, 1)),
                "'ylim' must be a vector of length 4")
 
@@ -49,6 +52,15 @@ test_that("check functionality", {
 
   ## RLum.Results object
   expect_silent(plot_KDE(calc_CommonDose(df, plot = FALSE, verbose = FALSE)))
+
+  ## infinite values
+  df.inf <- df
+  df.inf[9, 1] <- Inf
+  expect_warning(plot_KDE(df.inf),
+                 "Inf values removed in rows: 9 in data.frame 1")
+  df.inf[2, 2] <- Inf
+  expect_warning(plot_KDE(df.inf),
+                 "Inf values removed in rows: 2, 9 in data.frame 1")
 
   ## missing values
   df.na <- df
