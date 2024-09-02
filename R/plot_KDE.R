@@ -231,18 +231,19 @@ plot_KDE <- function(
       }
     }
 
-    ##check for Inf values and remove them if need
-    if(any(is.infinite(unlist(data[[i]])))){
-      Inf_id <- which(is.infinite(unlist(data[[i]]))[1:nrow(data[[i]])/ncol(data[[i]])])
+    ## find the index Inf values in each of the two columns and remove the
+    ## corresponding rows if needed
+    inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+    if (length(inf.idx) > 0) {
+      inf.row <- sort(unique(inf.idx))
       .throw_warning("Inf values removed in rows: ",
-                     paste(Inf_id, collapse = ", "), " in data.frame ", i)
-      data[[i]] <- data[[i]][-Inf_id,]
-      rm(Inf_id)
+                     paste(inf.row, collapse = ", "), " in data.frame ", i)
+      data[[i]] <- data[[i]][-inf.row, ]
+      rm(inf.idx, inf.row)
 
       ##check if empty
       if(nrow(data[[i]]) == 0){
         data[i] <- NULL
-
       }
     }
   }
