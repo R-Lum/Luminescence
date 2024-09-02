@@ -410,7 +410,6 @@ plot_RadialPlot <- function(
   z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
 
-  if(is(z, "list") == FALSE) {z <- list(z)}
   data <- lapply(1:length(data), function(x) {
      cbind(data[[x]], z[[x]])})
   rm(z)
@@ -427,7 +426,6 @@ plot_RadialPlot <- function(
       data[[x]][,2]
     }}, De.add = De.add)
 
-  if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])})
   rm(se)
@@ -488,7 +486,6 @@ plot_RadialPlot <- function(
   ## calculate precision
   precision <- lapply(1:length(data), function(x){
     1 / data[[x]][,4]})
-  if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], precision[[x]])})
   rm(precision)
@@ -496,7 +493,6 @@ plot_RadialPlot <- function(
   ## calculate standard estimate
   std.estimate <- lapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
-  if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], std.estimate[[x]])})
 
