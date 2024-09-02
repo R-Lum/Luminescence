@@ -187,6 +187,7 @@
 #' plot_RadialPlot(
 #'   data = ExampleData.DeValues,
 #'   log.z = FALSE,
+#'   xlim = c(0, 5),
 #'   zlim = c(100, 200))
 #'
 #' ## now the two plots with serious but seasonally changing fun
@@ -288,6 +289,10 @@ plot_RadialPlot <- function(
   output = FALSE,
   ...
 ) {
+  if (is(data, "list") && length(data) == 0) {
+    .throw_error("'data' is an empty list")
+  }
+
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {data <- list(data)}
 
@@ -295,8 +300,7 @@ plot_RadialPlot <- function(
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &
          is(data[[i]], "data.frame") == FALSE) {
-      stop(paste("[plot_RadialPlot] Error: Input data format is neither",
-                 "'data.frame' nor 'RLum.Results'"), call. = FALSE)
+      .throw_error("Error: Input data must be 'data.frame' or 'RLum.Results'")
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
         data[[i]] <- get_RLum(data[[i]], "data")
@@ -330,8 +334,8 @@ plot_RadialPlot <- function(
 
   ## check z-axis log-option for grouped data sets
   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
-    warning(paste("Option 'log.z' is not set to 'TRUE' altough more than one",
-                  "data set (group) is provided."))
+    .throw_warning("Option 'log.z' is not set to 'TRUE' altough ",
+                   "more than one data set (group) is provided.")
   }
 
   ## optionally, remove NA-values
@@ -476,7 +480,7 @@ plot_RadialPlot <- function(
     z.central <- lapply(1:length(data), function(x){
       rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else {
-    stop("[plot_RadialPlot()] Measure of centrality not supported!", call. = FALSE)
+    .throw_error("Measure of centrality not supported")
   }
 
   data <- lapply(1:length(data), function(x) {
@@ -595,9 +599,9 @@ if(centrality[1] == "mean") {
   ## print warning for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
     small.sigma <- TRUE
-    message(paste("Attention, small standardised estimate scatter.",
-                "Toggle off y.ticks?"))
-}
+    message("Attention, small standardised estimate scatter. ",
+            "Toggle off y.ticks?")
+  }
 
   ## read out additional arguments---------------------------------------------
   extraArgs <- list(...)
@@ -609,7 +613,7 @@ if(centrality[1] == "mean") {
 
   if("xlab" %in% names(extraArgs)) {
     if(length(extraArgs$xlab) != 2) {
-      stop("Argument xlab is not of length 2!")
+      .throw_error("'xlab' must have length 2")
     } else {xlab <- extraArgs$xlab}
   } else {
     xlab <- c(if(log.z == TRUE) {
@@ -650,7 +654,7 @@ if(centrality[1] == "mean") {
 
   if(limits.x[1] != 0) {
     limits.x[1] <- 0
-    warning("Lower x-axis limit not set to zero, issue corrected!")
+    .throw_warning("Lower x-axis limit not set to zero, corrected")
   }
 
   if("ylim" %in% names(extraArgs)) {
@@ -837,8 +841,7 @@ if(centrality[1] == "mean") {
                             min(abs(ellipse.y - polygon_y_min))]
 
   if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
-    warning("[plot_RadialPlot()] z-scale touches 2s-polygon. Decrease plot ratio.",
-            call. = FALSE)
+    .throw_warning("z-scale touches 2s-polygon. Decrease plot ratio.")
   }
 
   ## calculate statistical labels

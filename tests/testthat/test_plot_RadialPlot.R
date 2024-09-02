@@ -1,11 +1,36 @@
+data(ExampleData.DeValues, envir = environment())
+
+set.seed(12310)
+x <- rnorm(30, 5, 0.5)
+y <- x * runif(30, 0.05, 0.10)
+df <- data.frame(x, y)
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(plot_RadialPlot("error"),
+               "Input data must be 'data.frame' or 'RLum.Results'")
+  expect_error(plot_RadialPlot(list()),
+               "'data' is an empty list")
+  expect_error(plot_RadialPlot(df[, 1]),
+               "Input data must be 'data.frame' or 'RLum.Results'")
+  expect_error(plot_RadialPlot(df, xlab = "x"),
+               "'xlab' must have length 2")
+  expect_error(plot_RadialPlot(df, centrality = "error"),
+               "Measure of centrality not supported")
+
+  expect_warning(plot_RadialPlot(df, xlim = c(-1, 100), show = FALSE),
+                 "Lower x-axis limit not set to zero, corrected")
+  expect_warning(plot_RadialPlot(ExampleData.DeValues, log.z = FALSE,
+                                 xlim = c(0, 5), zlim = c(100, 200),
+                                 show = FALSE),
+                 "Option 'log.z' is not set to 'TRUE' altough more than one")
+})
+
 test_that("dedicated test for the radialplot", {
   testthat::skip_on_cran()
 
   ##distribution plots
-  set.seed(12310)
-  x <- rnorm(30,5,0.5)
-  y <- x * runif(30, 0.05, 0.10)
-  df <- data.frame(x,y)
 
   ## standard data
   ## simple test
@@ -46,6 +71,43 @@ test_that("dedicated test for the radialplot", {
       centrality = -1,
       log.z = FALSE))
 
+  ## more coverage
+  expect_type(plot_RadialPlot(df, main = "Title", sub = "Subtitle", rug = TRUE,
+                              centrality = "mean", log.z = TRUE,
+                              stats = c("min", "max", "median"),
+                              summary = "mean", summary.pos = c(0, 40),
+                              legend = TRUE, legend.pos = c(4, 40),
+                              xlab = c("x1", "x2"), xlim = c(0, 20),
+                              ylab = "y", ylim = c(-10, 10),
+                              zlab = "z", zlim = c(3, 7),
+                              line = c(3.5, 5.5), y.ticks = FALSE,
+                              cex = 0.8, lty = 2, lwd = 2, pch = 2, col = 2,
+                              tck = 1, tcl = 2, output = TRUE),
+              "list")
+
+  plot_RadialPlot(df, show = FALSE, centrality = "median",
+                  summary.pos = "topleft", legend.pos = "topright",
+                  log.z = FALSE, rug = TRUE)
+  plot_RadialPlot(df, show = FALSE, centrality = "median.weighted",
+                  summary.pos = "top", legend.pos = "bottom")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "topright", legend.pos = "topleft")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "left", legend.pos = "right")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "center", legend.pos = "center")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "right", legend.pos = "left")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "bottomleft", legend.pos = "bottomright")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "bottom", legend.pos = "top")
+  plot_RadialPlot(df, show = FALSE,
+                  summary.pos = "bottomright", legend.pos = "bottomleft")
+
+  ## RLum.Results object
+  expect_silent(plot_RadialPlot(calc_CommonDose(ExampleData.DeValues$BT998,
+                                                verbose = FALSE)))
 
   # Messages,  Warnings, and Errors -----------------------------------------
   ## trigger message
@@ -64,12 +126,4 @@ test_that("dedicated test for the radialplot", {
       log.z = FALSE),
       "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
     )
-
-  ## trigger stop
-  expect_error(
-    plot_RadialPlot(
-      data = df,
-      centrality = "error"),
-    "\\[plot\\_RadialPlot\\(\\)\\] Measure of centrality not supported\\!")
-
 })
