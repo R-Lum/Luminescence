@@ -22,6 +22,8 @@ an object containing no records of the appropriate type (#184, @mcol).
 
 ### `analyse_FadingMeasurements()`
 * Add `...` support to disable the blue trend line via `plot.trend = FALSE` 
+* Fix #175 to deal gracefully with the case when the size of Lx and Tx
+doesn't match (#192, @mcol).
 
 ### `analyse_portableOSL()`
 * Function did not respect argument `main`; fixed.
