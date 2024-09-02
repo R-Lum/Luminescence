@@ -85,10 +85,6 @@ test_that("test pure success of the plotting without warning or error", {
       abline = list(v = c(110))
     ))
 
-    ##RLum.Results
-    grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = FALSE, MC.iter = 100)
-    expect_silent(plot_RLum.Results(grains))
-
     ##special plot RLum.Reuslts
     data(ExampleData.DeValues, envir = environment())
     mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)

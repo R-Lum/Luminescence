@@ -951,7 +951,7 @@ plot_AbanicoPlot <- function(
       if (length(extraArgs$xlab) == 3) {
         xlab <- c(extraArgs$xlab[1:2], "Density")
       } else {
-        stop("Argmuent xlab is not of length 2!")
+        stop("Argument xlab is not of length 2!")
       }
     } else {xlab <- c(extraArgs$xlab, "Density")}
   } else {
