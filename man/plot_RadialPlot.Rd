@@ -194,6 +194,7 @@ plot1$zlim
 plot_RadialPlot(
   data = ExampleData.DeValues,
   log.z = FALSE,
+  xlim = c(0, 5),
   zlim = c(100, 200))
 
 ## now the two plots with serious but seasonally changing fun
