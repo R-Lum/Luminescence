@@ -225,6 +225,11 @@ plot_KDE <- function(
         data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
       }
 
+      ## ensure that the dataset it not degenerate
+      if (NROW(data[[i]]) == 0) {
+       .throw_error("Input data ", i, " has 0 rows")
+      }
+
       ## if `data[[i]]` is a numeric vector or a single-column data frame,
       ## append a second column with a small non-zero value (10^-9 for
       ## consistency with what `calc_Statistics() does)
