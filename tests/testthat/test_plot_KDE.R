@@ -6,6 +6,8 @@ test_that("input validation", {
 
   expect_error(plot_KDE("error"),
                "Input data must be one of 'data.frame', 'RLum.Results' or")
+  expect_error(plot_KDE(df[0, ]),
+               "Input data 1 has 0 rows")
   expect_error(plot_KDE(list()),
                "'data' is an empty list")
   expect_error(expect_warning(plot_KDE(data.frame(a = Inf, b = 1)),
