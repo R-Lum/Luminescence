@@ -20,8 +20,11 @@ plot_KDE(
 )
 }
 \arguments{
-\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
-for \code{data.frame}: two columns: De (\code{values[,1]}) and De error (\code{values[,2]}).
+\item{data}{\link{data.frame}, \link{vector} or \linkS4class{RLum.Results} object (\strong{required}):
+for \code{data.frame}: either two columns: De (\code{values[,1]}) and De error
+(\code{values[,2]}), or one: De (\code{values[,1]}). If a numeric vector or a
+single-column data frame is provided, De error is assumed to be 10^-9
+for all measurements and error bars are not drawn.
 For plotting multiple data sets, these must be provided as
 \code{list} (e.g. \code{list(dataset1, dataset2)}).}
 

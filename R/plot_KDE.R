@@ -43,8 +43,11 @@
 #' with the appropriate keyword using the argument `summary.method`.
 #'
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
-#' for `data.frame`: two columns: De (`values[,1]`) and De error (`values[,2]`).
+#' @param data [data.frame], [vector] or [RLum.Results-class] object (**required**):
+#' for `data.frame`: either two columns: De (`values[,1]`) and De error
+#' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
+#' single-column data frame is provided, De error is assumed to be 10^-9
+#' for all measurements and error bars are not drawn.
 #' For plotting multiple data sets, these must be provided as
 #' `list` (e.g. `list(dataset1, dataset2)`).
 #'
@@ -222,12 +225,16 @@ plot_KDE <- function(
         data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
       }
 
-      ##make sure we only take the first two columns
-      data[[i]] <- data[[i]][,1:2]
-
-      ##account for very short datasets
-      if(length(data[[i]]) < 2) {
-        data[[i]] <- cbind(data[[i]], rep(NA, length(data[[i]])))
+      ## if `data[[i]]` is a numeric vector or a single-column data frame,
+      ## append a second column with a small non-zero value (10^-9 for
+      ## consistency with what `calc_Statistics() does)
+      if (NCOL(data[[i]]) < 2) {
+        data[[i]] <- data.frame(data[[i]], 10^-9)
+        attr(data[[i]], "De.errors.available") <- FALSE
+      } else {
+        ## keep only the first two columns
+        data[[i]] <- data[[i]][, 1:2]
+        attr(data[[i]], "De.errors.available") <- TRUE
       }
     }
 
@@ -280,13 +287,16 @@ plot_KDE <- function(
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
     for(i in 1:length(data)) {
-      n.NA <- sum(is.na(data[[i]][,1]))
+      na.idx <- which(is.na(data[[i]][, 1]))
+      n.NA <- length(na.idx)
       if(n.NA == 1) {
         message(paste("1 NA value excluded from data set", i, "."))
       } else if(n.NA > 1) {
         message(paste(n.NA, "NA values excluded from data set", i, "."))
       }
-      data[[i]] <- na.exclude(data[[i]])
+      if (n.NA > 0) {
+        data[[i]] <- data[[i]][-na.idx, ]
+      }
     }
   }
 
@@ -368,8 +378,6 @@ plot_KDE <- function(
       De.density.range[i,1:4] <- NA
       De.stats[i,4] <- NA
     }
-
-
   }
 
   ## Get global range of densities
@@ -1210,15 +1218,16 @@ plot_KDE <- function(
 
     ## add De error bars
     for(i in 1:length(data)) {
-      arrows(data[[i]][,1] - data[[i]][,2],
-             1:length(data[[i]][,1]),
-             data[[i]][,1] + data[[i]][,2],
-             1:length(data[[i]][,1]),
-             code = 3,
-             angle = 90,
-             length = 0.05,
-             col = col.value.bar[i])
-
+      if (attr(data[[i]], "De.errors.available")) {
+        arrows(data[[i]][, 1] - data[[i]][, 2],
+               1:length(data[[i]][,1]),
+               data[[i]][, 1] + data[[i]][, 2],
+               1:length(data[[i]][, 1]),
+               code = 3,
+               angle = 90,
+               length = 0.05,
+               col = col.value.bar[i])
+      }
       ## add De measurements
       points(data[[i]][,1], 1:De.stats[i,1],
              col = col.value.dot[i],

@@ -56,6 +56,11 @@ which would generate unexpected warnings (#163, @mcol).
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
 The values is part of the output table. 
 
+### `plot_KDE()`
+* It now officially supports numeric vectors and single-column data frames,
+for which it assumes that the De error at each measurement is 10^-9 (#189,
+fixed in #194, @mcol).
+
 ### `plot_NRt()`
 * The function reports an helpful message rather than crashing when applied
 to an object of unexpected type or when there is a mismatch in time values
