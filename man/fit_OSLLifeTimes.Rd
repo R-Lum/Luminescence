@@ -19,7 +19,8 @@ fit_OSLLifeTimes(
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}, \link{data.frame} or \link{matrix} \strong{(required)}:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
-processing. Please note: \code{NA} values are automatically removed and the dataset should comprise at least 5 data points.}
+processing. Please note: \code{NA} values are automatically removed and the dataset should comprise at least 5 data points (possibly more if \code{n.components} is
+set to a value greater than 1)}
 
 \item{tp}{\link{numeric} (\emph{with default}): option to account for the stimulation pulse width. For off-time measurements
 the default value is 0. \code{tp} has the same unit as the measurement data, e.g., µs. Please set this parameter

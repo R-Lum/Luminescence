@@ -18,12 +18,17 @@ test_that("input validation", {
                "recordType NA not supported for input object")
 
   expect_message(expect_null(fit_OSLLifeTimes(temp_mat[1:3, ])),
-                 "Error: The dataset has fewer than 5 data points, NULL returned")
+                 "For 1 components the dataset must have at least 5 signal points")
+  expect_message(fit_OSLLifeTimes(temp_mat, n.components = 1,
+                                  signal_range = c(1, 3), verbose = FALSE),
+                 "For 1 components the dataset must have at least 5 signal points")
+  expect_message(fit_OSLLifeTimes(temp_mat, n.components = 2,
+                                  signal_range = c(1, 6), verbose = FALSE),
+                 "For 2 components the dataset must have at least 7 signal points")
 
-#  crash: 'start_parameters' not found
-#  expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
-#                                  signal_range = 1:3, verbose = FALSE),
-#                 "'signal_range' has more than 2 elements")
+  expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
+                                  signal_range = c(1, 150:200), verbose = FALSE),
+                 "'signal_range' has more than 2 elements")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = c(1, 300), verbose = FALSE),
                  "'signal_range' > number of channels, reset to maximum")
