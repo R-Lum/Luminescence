@@ -50,6 +50,12 @@ test_that("check functionality", {
   expect_silent(plot_KDE(data = df, summary.pos = "bottom"))
   expect_silent(plot_KDE(data = df, summary.pos = "bottomright"))
 
+  ## numeric vector
+  expect_silent(plot_KDE(df[, 1]))
+
+  ## single-column data.frame
+  expect_silent(plot_KDE(df[, 1, drop = FALSE]))
+
   ## RLum.Results object
   expect_silent(plot_KDE(calc_CommonDose(df, plot = FALSE, verbose = FALSE)))
 
