@@ -46,6 +46,11 @@ an exponential fit is applied then this values are used as start parameters.
 * Parameter `input_scale` was not correctly propagated when the function would
 self-call (#160, @mcol).
 
+### `fit_OSLLifeTimes()`
+* The validation of the minimum dataset size didn't account for the use of
+the `signal.range` argument (#182, fixed by #195, @mcol).
+
+
 ### `fit_SurfaceExposure()`
 * Fix #162 to remove a dimension mismatch if the input data contained `NA`s,
 which would generate unexpected warnings (#163, @mcol).

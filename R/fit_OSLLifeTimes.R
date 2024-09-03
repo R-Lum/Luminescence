@@ -44,7 +44,8 @@
 #'
 #' @param object [RLum.Data.Curve-class], [RLum.Analysis-class], [data.frame] or [matrix] **(required)**:
 #' Input object containing the data to be analysed. All objects can be provided also as list for an automated
-#' processing. Please note: `NA` values are automatically removed and the dataset should comprise at least 5 data points.
+#' processing. Please note: `NA` values are automatically removed and the dataset should comprise at least 5 data points (possibly more if `n.components` is
+#' set to a value greater than 1)
 #'
 #' @param tp [numeric] (*with default*): option to account for the stimulation pulse width. For off-time measurements
 #' the default value is 0. `tp` has the same unit as the measurement data, e.g., µs. Please set this parameter
@@ -287,15 +288,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   ##rename columns for data.frame
   colnames(df) <- c("x","y")
 
-  .validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE)
-
-  ##make sure that we have a minimum of data points available
-  if(nrow(df) < 5){
-    message("[fit_OSLLifeTimes()] Error: The dataset has fewer than 5 ",
-            "data points, NULL returned")
-    return(NULL)
-  }
-
   #check for 0 data in dataset ... we opt for hard stop
   if(any(df[[2]] == 0)){
     .throw_warning("The dataset contains 0, a value of 0.1 ",
@@ -332,6 +324,25 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     ##set range
     df <- df[signal_range[1]:signal_range[2],]
 
+  }
+
+  ## number of components requested
+  .validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE)
+  if (is.null(n.components)){
+    m <- 1
+  } else{
+    m <- n.components
+  }
+
+  ## ensure that we have a minimum of data points available: the minimum
+  ## is computed so that the degrees of freedom for the F distribution is
+  ## positive (see `qf()` in the `while` loop further down at (B))
+  min.num.signals <- 2 * m + 2 + 1
+  if (nrow(df) < min.num.signals) {
+    message("[fit_OSLLifeTimes()] Error: For ", m, " components ",
+            "the dataset must have at least ", min.num.signals,
+            " signal points, NULL returned")
+    return(NULL)
   }
 
 
@@ -404,13 +415,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   F <- c(Inf, Inf)
   start <- NULL
 
-  if(is.null(n.components)){
-    m <- 1
-
-  }else{
-    m <- n.components
-
-  }
   ##
   ##
   ##(4) set seed
