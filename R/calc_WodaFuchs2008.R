@@ -9,8 +9,10 @@
 #' model is estimated based on all input equivalent doses smaller that of the
 #' modelled central value.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
-#' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`).
+#' @param data [data.frame] [vector], or [RLum.Results-class] object (**required**):
+#' for [data.frame]: either two columns: De (`values[,1]`) and De error
+#' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
+#' single-column data frame is provided, De error is set to `NA`.
 #' For plotting multiple data sets, these must be provided as `list`
 #' (e.g. `list(dataset1, dataset2)`).
 #'
@@ -79,12 +81,10 @@ calc_WodaFuchs2008 <- function(
 
       }
 
-      if(length(data) < 2) {
-
-        data <- cbind(data,
-                      rep(x = NA,
-                          times = length(data)))
-
+      ## if data is a numeric vector or a single-column data frame,
+      ## append a second column of NAs
+      if (NCOL(data) < 2) {
+        data <- cbind(data, NA)
       }
     }
 
@@ -103,16 +103,15 @@ calc_WodaFuchs2008 <- function(
   ## calculations -------------------------------------------------------------
 
   ## estimate bin width based on Woda and Fuchs (2008)
-  if(sum(is.na(data[,2]) == nrow(data))) {
-    message("[calc_WodFuchs2008()] No errors provided. Bin width set by 10 percent of input data!")
-
+  if (all(is.na(data[, 2]))) {
+    message("[calc_WodFuchs2008()] No errors provided. Bin width set ",
+            "by 10 percent of input data")
     bin_width <- median(data[,1] / 10,
                         na.rm = TRUE)
   } else {
 
     bin_width <- median(data[,2],
                         na.rm = TRUE)
-
   }
 
   ## optionally estimate class breaks based on bin width
