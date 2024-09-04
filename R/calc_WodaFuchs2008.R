@@ -117,14 +117,8 @@ calc_WodaFuchs2008 <- function(
 
   ## optionally estimate class breaks based on bin width
   if(is.null(breaks)) {
-
-    n_breaks <- (max(data[,1],
-                     na.rm = TRUE) -
-                   min(data[,1],
-                       na.rm = TRUE) / bin_width)
-
+    n_breaks <- diff(range(data[, 1], na.rm = TRUE)) / bin_width
   } else {
-
     n_breaks <- breaks
   }
 

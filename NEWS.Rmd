@@ -42,6 +42,10 @@ an exponential fit is applied then this values are used as start parameters.
 ### `calc_TLLxTxRatio()`
 * Function crashed for `Tx.data.background = NULL` (#129); fixed with #130 thanks to @mcol
 
+### `calc_WodaFuchs2008()`
+* The function computed the number of breaks for the histogram incorrectly
+(#197, fixed with #198).
+
 ### `fit_EmissionSpectra()`
 * Parameter `input_scale` was not correctly propagated when the function would
 self-call (#160, @mcol).
