@@ -1,15 +1,16 @@
+data(ExampleData.portableOSL, envir = environment())
+
+## generate test data set for profile
+merged <- surface <- merge_RLum(ExampleData.portableOSL)
+
+## generate dataset for surface
+surface@records <- lapply(surface@records, function(x){
+  x@info$settings$Sample <- paste0("Test_x:", runif(1), "|y:", runif(1))
+  x
+})
+
 test_that("check class and length of output", {
     testthat::skip_on_cran()
-
-    ## generate test data set for profile
-    data("ExampleData.portableOSL", envir = environment())
-    merged <- surface <- merge_RLum(ExampleData.portableOSL)
-
-    ## generate dataset for surface
-    surface@records <- lapply(surface@records, function(x){
-      x@info$settings$Sample <- paste0("Test_x:", runif(1), "|y:", runif(1))
-      x
-    })
 
     ## standard run profile
     results <- expect_s4_class(
@@ -64,6 +65,7 @@ test_that("check class and length of output", {
         xlim = c(0.1, 0.4),
         ylim = c(0.1, 0.4),
         zlim = c(0.1, 2),
+        zlim_image = c(1, 2),
         col_ramp = "red",
         surface_values = c("BSL", "IRSL"),
         normalise = TRUE,
@@ -87,11 +89,13 @@ test_that("check class and length of output", {
       sample = "test"
     ),
     "RLum.Results")
+})
 
-    ## trigger stops
-    ## Only RLum.Analysis
+test_that("input validation", {
+    testthat::skip_on_cran()
+
     expect_error(analyse_portableOSL("error"),
-                 regexp = "\\[analyse\\_portableOSL\\(\\)\\] Only objects of class.+")
+                 "Only objects of class 'RLum.Analysis' are allowed")
 
     ## Only RLum.Data.Curves
     tmp <- merged
@@ -108,33 +112,19 @@ test_that("check class and length of output", {
     ## Sequence pattern
     tmp <- merged
     tmp@records <- tmp@records[-1]
-    expect_error(
-      object = analyse_portableOSL(tmp),
-      regexp = "\\[analyse\\_portableOSL\\(\\)\\] Sequence pattern not supported.+")
+    expect_error(analyse_portableOSL(tmp),
+                 "Sequence pattern not supported")
 
     ## coordinates not list or matrix
-    expect_error(
-      analyse_portableOSL(
-        surface,
-        signal.integral = 1:5,
-        invert = FALSE,
-        mode = "surface",
-        coord = "error",
-        normalise = TRUE,
-        plot = FALSE),
-      regexp = "\\[analyse\\_portableOSL\\(\\)\\] Argument 'coord' needs to be a.+")
+    expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
+                                     coord = "error"),
+      "'coord' must be a matrix or a list")
 
     ## coordinates are not of the correct size
-    expect_error(
-      analyse_portableOSL(
-        surface,
-        signal.integral = 1:5,
-        invert = FALSE,
-        mode = "surface",
-        coord = coord[1:2,],
-        normalise = TRUE,
-        plot = FALSE),
-      regexp = "\\[analyse\\_portableOSL\\(\\)\\] Number of coordinates differ from the number.+")
+    expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
+                                     coord = list(COORD_X = c(0, 0),
+                                                  COORD_Y = c(1, 2))),
+                 "Number of coordinates differ from the number of samples")
 
     ## trigger warning
     expect_warning(
@@ -147,7 +137,7 @@ test_that("check class and length of output", {
         surface_value = c("BSL"),
         plot = TRUE,
         sample = "test"),
-      regexp = "\\[analyse\\_portableOSL\\(\\)\\] Surface interpolation failed, this.+")
+      "Surface interpolation failed: this happens when all points are")
 
     expect_warning(
       analyse_portableOSL(
@@ -161,6 +151,12 @@ test_that("check class and length of output", {
         sample = "test"),
       regexp = "\\[analyse\\_portableOSL\\(\\)\\] In profile mode, zlim.+")
 
+    suppressWarnings( # generated the same warning twice
+    expect_warning(analyse_portableOSL(merged[1:5],
+                                       signal.integral = c(1, 102)),
+                   "'signal.integral' (1, 102) exceeded the number",
+                   fixed = TRUE)
+    )
 })
 
 test_that("check output", {
