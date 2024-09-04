@@ -19,4 +19,12 @@ test_that("Test general functionality", {
   set.seed(1)
   df <- data.frame(rnorm(20, 10), rnorm(20, 0.5))
   expect_silent(calc_WodaFuchs2008(df))
+
+  ## numeric vector
+  expect_message(calc_WodaFuchs2008(df[, 1]),
+                 "No errors provided")
+
+  ## single-column data.frame
+  expect_message(calc_WodaFuchs2008(df[, 1, drop = FALSE]),
+                 "No errors provided")
 })
