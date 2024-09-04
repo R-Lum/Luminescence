@@ -342,7 +342,7 @@ fit_EmissionSpectra <- function(
 
   ##set fit function
   x <- 0 #cheat R check routine
-  fit_forumla <- function(n.components){
+  fit_formula <- function(n.components) {
     sigma <- paste0("sigma.",1:n.components)
     mu <- paste0("mu.",1:n.components)
     C <- paste0("C.",1:n.components)
@@ -414,7 +414,7 @@ fit_EmissionSpectra <- function(
 
     ##run fitting using the Levenberg-Marquardt algorithm
     fit_try <- try(minpack.lm::nlsLM(
-      formula = fit_forumla(n.components = length(mu)),
+      formula = fit_formula(n.components = length(mu)),
       data = df,
       start = c(sigma, mu, C),
       trace = method_control$trace,

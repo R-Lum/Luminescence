@@ -370,7 +370,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   ##
   ##(1) >> set fitting function for minpack.lm
   x <- 0 #cheat R check routine
-  fit_forumla <- function(n.components, tp){
+  fit_formula <- function(n.components, tp) {
     A <- paste0("A.",1:n.components)
     tau <- paste0("tau.",1:n.components)
     as.formula(paste0("y ~ ", paste(A," * exp(- x/(",tau," + ", tp, "))", collapse = " + ")))
@@ -410,7 +410,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   }
   ##
   ##
-  ##(3) initialse objects
+  ##(3) initialise objects
   chi_squared <- c(NA, NA)
   F <- c(Inf, Inf)
   start <- NULL
@@ -553,7 +553,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
     ##run fitting using the Levenberg-Marquardt algorithm
     fit <- try(minpack.lm::nlsLM(
-      formula = fit_forumla(n.components = m, tp = tp),
+      formula = fit_formula(n.components = m, tp = tp),
       data = df,
       start = c(A, tau),
       upper = if(method_control_setting$nlsLM.upper){

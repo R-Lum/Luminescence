@@ -141,27 +141,25 @@ analyse_portableOSL <- function(
   ## INPUT VERIFICATION ----
   ## only RLum.Analysis objects
   if (!inherits(object, "RLum.Analysis"))
-    stop("[analyse_portableOSL()] Only objects of class 'RLum.Analysis' are allowed.",
-         call. = FALSE)
+    .throw_error("Only objects of class 'RLum.Analysis' are allowed")
+
   ## only curve objects
   if (!all(sapply(object, class) == "RLum.Data.Curve"))
-    stop("[analyse_portableOSL()] The 'RLum.Analysis' object must contain only objects of class 'RLum.Data.Curve'.",
-         call. = FALSE)
+    .throw_error("The 'RLum.Analysis' object must contain only objects ",
+                 "of class 'RLum.Data.Curve'")
 
   ## check originator
   if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
-    stop("[analyse_portableOSL()] Only objects originating from 'read_PSL2R()' are allowed.",
-         call. = FALSE)
+    .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
 
   ## check sequence pattern
   if(!all(names(object)[1:5] == c("USER", "IRSL", "USER", "OSL", "USER")))
-    stop("[analyse_portableOSL()] Sequence pattern not supported, please read manual for details!",
-         call. = FALSE)
+    .throw_error("Sequence pattern not supported, please read manual for details")
 
   if (is.null(signal.integral)) {
     signal.integral <- c(1, 1)
-    warning("No value for 'signal.integral' provided. Only the first data point of each curve was used!",
-            call. = FALSE)
+    .throw_warning("No value for 'signal.integral' provided. Only the ",
+                   "first data point of each curve was used")
   }
 
 
@@ -213,17 +211,14 @@ analyse_portableOSL <- function(
 
   } else {
     if(!inherits(coord, "matrix") && !inherits(coord, "list"))
-      stop("[analyse_portableOSL()] Argument 'coord' needs to be a matrix or list!",
-           call. = FALSE)
+      .throw_error("'coord' must be a matrix or a list")
 
     if(inherits(coord, "list"))
       coord <- do.call(rbind, coord)
 
     ## check length
     if(nrow(coord) != length(OSL$sum_signal))
-      stop("[analyse_portableOSL()] Number of coordinates differ from the number of samples!",
-           call. = FALSE)
-
+      .throw_error("Number of coordinates differ from the number of samples")
   }
 
   ### GENERATE SUMMARY data.frame -----
@@ -304,15 +299,13 @@ analyse_portableOSL <- function(
    if(mode[1] == "surface") {
      ### check for validity of surface value -------
      if(!all(plot_settings$surface_value %in% names(m_list)))
-       stop(paste0("[analyse_portableOSL()] Unknown value to plot: Valid are: ",
-            paste(names(m_list), collapse = ", ")),
-            call. = FALSE)
+       .throw_error("Unknown value to plot: Valid are: ",
+                    paste(names(m_list), collapse = ", "))
 
      ## set par -------
      if(length(plot_settings$surface_value) > 1) {
        par.default <- par(mfrow = c(2,2))
        on.exit(par(par.default))
-
      }
 
      ## loop over surface values -------
@@ -340,7 +333,9 @@ analyse_portableOSL <- function(
 
        ## show only warning
        if(inherits(s, "try-error"))
-         warning("[analyse_portableOSL()] Surface interpolation failed, this happens when all points are arranged in one line. Nothing plotted!", call. = FALSE)
+         .throw_warning("Surface interpolation failed: this happens when ",
+                        "all points are arranged in one line. ",
+                        "Nothing plotted!")
 
        ## show error
        if(!inherits(s, "try-error")) {
@@ -469,9 +464,8 @@ analyse_portableOSL <- function(
 
     ## make sure that wrong zlim settings do not screw up the function
     if(!inherits(plot_settings$zlim, "list")) {
-      warning("[analyse_portableOSL()] In profile mode, zlim needs to be provided
-               as named list. Example: list(BSL = c(0,1)). Reset to default.",
-              call. = FALSE)
+      .throw_warning("In profile mode, zlim needs to be provided as a named ",
+                     "list, example: list(BSL = c(0,1)). Reset to default")
       plot_settings$zlim <- attr(m_list, "zlim")
     }
 
@@ -656,9 +650,11 @@ analyse_portableOSL <- function(
     sigint <- range(signal.integral)
     if (sigint[2] > length(raw_signal)) {
       sigint[2] <- length(raw_signal)
-      warning("'signal.integral' (", paste(range(signal.integral), collapse = ", "),") ",
-              "exceeded the number of available data points (n = ", length(raw_signal),") and ",
-              "has been automatically reduced to the maximum number.", call. = FALSE)
+      .throw_warning("'signal.integral' (",
+                     paste(range(signal.integral), collapse = ", "), ") ",
+                     "exceeded the number of available data points (n = ",
+                     length(raw_signal),") and has been automatically ",
+                     "reduced to the maximum number.")
     }
     sum_signal <- sum(raw_signal[sigint[1]:sigint[2]])
     sum_signal_err <- sqrt(sum(x@info$raw_data$counts_per_cycle_error[sigint[1]:sigint[2]]^2))

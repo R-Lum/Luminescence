@@ -199,12 +199,16 @@ read_XSYG2R <- function(
   if(is(file, "character")) {
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      if(verbose) cat("\n[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
-      file <-
-        as.list(paste0(file, dir(
-          file, recursive = TRUE, pattern = pattern
-        )))
-
+      if (verbose)
+        message("\n[read_XSYG2R()] Directory detected, trying to extract ",
+                "'*.xsyg' files ...\n")
+      file <- as.list(dir(file, recursive = TRUE, pattern = pattern))
+      if (length(file) == 0) {
+        if (verbose)
+          message("[read_XSYG2R()] No files matching the given pattern ",
+                  "found in directory, NULL returned")
+        return(NULL)
+      }
     }
   }
 
@@ -227,7 +231,6 @@ read_XSYG2R <- function(
 
       } else{
         return(as.data.frame(data.table::rbindlist(temp.return)))
-
       }
 
     } else{
@@ -343,7 +346,6 @@ read_XSYG2R <- function(
 
     }
 
-
       ##additional option for fastForward == TRUE
       if(fastForward){
 
@@ -352,10 +354,8 @@ read_XSYG2R <- function(
         colnames(temp.sample) <- paste0("sample::", colnames(temp.sample))
         output <- cbind(temp.sequence.header, temp.sample)
 
-
       }else{
         output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
-
       }
 
     return(output)
@@ -414,7 +414,6 @@ read_XSYG2R <- function(
             temp.sequence.object.recordType  <- "IRSL"
 
           }
-
         }
 
         ##loop 3rd level
@@ -443,7 +442,6 @@ read_XSYG2R <- function(
           temp.sequence.object.info <- c(temp.sequence.object.info,
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
-
 
 
 
@@ -507,7 +505,6 @@ read_XSYG2R <- function(
                       min(temp.sequence.object.curveValue.spectrum.time) &
                       temp.sequence.object.curveValue.heating.element[,1] <=
                       max(temp.sequence.object.curveValue.spectrum.time),]
-
               }
 
               ## calculate corresponding heating rate, this makes only sense
@@ -611,16 +608,14 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
 
-                    warning("[read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K",
-                            call. = FALSE)
-
+                    .throw_warning("Temperature values are found to be ",
+                                   "duplicated and increased by 1 K")
                   }
 
                   ##CASE (2)  (equal)
                 }else{
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element[,2]
-
                 }
 
                 ##reset values of the matrix
@@ -633,8 +628,6 @@ read_XSYG2R <- function(
               }
 
 
-
-
             }##endif
           }##endif recalculate.TL.curves == TRUE
 
@@ -645,7 +638,6 @@ read_XSYG2R <- function(
 
 
 
-
     # Set RLum.Data-objects -----------------------------------------------------------------------
           if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
 
@@ -653,9 +645,7 @@ read_XSYG2R <- function(
 
               temp.sequence.object.curveValue <-
                 src_get_XSYG_curve_values(XML::xmlValue(temp.sequence.object.curveValue))
-
             }
-
 
             set_RLum(
               class = "RLum.Data.Curve",
@@ -674,9 +664,7 @@ read_XSYG2R <- function(
 
               temp.sequence.object.curveValue <-
                 get_XSYG.spectrum.values(temp.sequence.object.curveValue)
-
             }
-
 
             set_RLum(
               class = "RLum.Data.Spectrum",
@@ -687,9 +675,7 @@ read_XSYG2R <- function(
               curveType = temp.sequence.object.curveType,
               data = temp.sequence.object.curveValue,
               info = temp.sequence.object.info)
-
           }
-
         })
 
         }else{
@@ -754,9 +740,8 @@ read_XSYG2R <- function(
 
       }
 
-
-      warning(paste0(length(output[sapply(output, is.null)])), " incomplete sequence(s) removed.")
-
+      .throw_warning(length(output[sapply(output, is.null)]),
+                     " incomplete sequence(s) removed.")
     }
 
     ##output
@@ -768,4 +753,3 @@ read_XSYG2R <- function(
   return(output[!sapply(output,is.null)])
 
 }
-

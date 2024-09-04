@@ -67,18 +67,14 @@ calc_WodaFuchs2008 <- function(
          is(data, "data.frame") == FALSE &
          is.numeric(data) == FALSE) {
 
-      warning(paste("[calc_WodaFuchs()] Input data format is neither",
-                    "'data.frame', 'RLum.Results' nor 'numeric'.",
-                    "No output generated!"))
-
+      .throw_warning("Input data must be one of 'data.frame', 'RLum.Results' ",
+                     "or 'numeric', NULL returned")
       return(NULL)
 
     } else {
 
       if(is(data, "RLum.Results") == TRUE) {
-
         data <- get_RLum(data, "data")
-
       }
 
       ## if data is a numeric vector or a single-column data frame,
@@ -93,11 +89,9 @@ calc_WodaFuchs2008 <- function(
   if("trace" %in% names(list(...))) {
 
     trace <- list(...)$trace
-
   } else {
 
     trace <- FALSE
-
   }
 
   ## calculations -------------------------------------------------------------
@@ -122,7 +116,7 @@ calc_WodaFuchs2008 <- function(
   }
 
   if (n_breaks <= 3) {
-    .throw_warning("Fewer than 4 bins produced, 'n_breaks' reset to 4")
+    .throw_warning("Fewer than 4 bins produced, 'breaks' set to 4")
     n_breaks = 4
   }
 
@@ -147,8 +141,7 @@ calc_WodaFuchs2008 <- function(
 
   ## optionally print warning
   if(length(class_center) != 1) {
-    warning("[calc_WodaFuchs()] More than one maximum. Fit may be invalid!", call. = FALSE)
-
+    .throw_warning("More than one maximum, fit may be invalid")
     class_center <- class_center[1]
   }
 
@@ -189,7 +182,6 @@ calc_WodaFuchs2008 <- function(
       ylim = NULL,
       main = expression(paste(D[e]," applying Woda and Fuchs (2008)")),
       sub = NULL
-
     )
 
     plot_settings <- modifyList(x = plot_settings, val = list(...), keep.null = TRUE)
@@ -212,7 +204,6 @@ calc_WodaFuchs2008 <- function(
           to = class_center,
           col = "red"
           )
-
   }
 
   ## return output ------------------------------------------------------------
@@ -231,8 +222,5 @@ calc_WodaFuchs2008 <- function(
       breaks = H$breaks
     ),
     info = list(call = sys.call())
-
   ))
-
-
 }
