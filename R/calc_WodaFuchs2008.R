@@ -117,33 +117,20 @@ calc_WodaFuchs2008 <- function(
 
   ## optionally estimate class breaks based on bin width
   if(is.null(breaks)) {
-
-    n_breaks <- (max(data[,1],
-                     na.rm = TRUE) -
-                   min(data[,1],
-                       na.rm = TRUE) / bin_width)
-
+    n_breaks <- diff(range(data[, 1], na.rm = TRUE)) / bin_width
   } else {
-
     n_breaks <- breaks
+  }
+
+  if (n_breaks <= 3) {
+    .throw_warning("Fewer than 4 bins produced, 'n_breaks' reset to 4")
+    n_breaks = 4
   }
 
   ## calculate histogram
   H <- hist(x = data[,1],
             breaks = n_breaks,
             plot = FALSE)
-
-  ## check/do log-normal model fit if needed
-  if(n_breaks <= 3) {
-
-    warning("[calc_WodaFuchs()] Less than four bins, now set to four!")
-
-    ## calculate histogram
-    H <- hist(x = data[,1],
-              breaks = 4,
-              plot = FALSE)
-
-  }
 
   ## extract values from histogram object
   H_c <- H$counts
