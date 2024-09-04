@@ -5,7 +5,6 @@ test_that("subset RLum.Analysis", {
   data(ExampleData.RLum.Analysis, envir = environment())
   temp <- IRSAR.RF.Data
 
-
   ## subset.RLum.Analysis() - S3 method
   ### empty call
   expect_s4_class(subset(temp), "RLum.Analysis")
@@ -13,8 +12,12 @@ test_that("subset RLum.Analysis", {
   expect_identical(subset(temp)[[1]], temp[[1]])
 
   ### errors
-  expect_error(subset(temp, LTYPE == "RF"), regexp = "Valid terms are")
-  expect_null(subset(temp, recordType == "xx"))
+  expect_error(subset(temp, LTYPE == "RF"),
+               "Invalid subset expression, valid terms are") # FIXME(mcol): long function name produced by .throw_error()
+  SW({
+  expect_message(expect_null(subset(temp, recordType == "xx")),
+                 "'subset' expression produced an empty selection, NULL returned")
+  })
 
   ### valid
   expect_s4_class(subset(temp, recordType == "RF"), class = "RLum.Analysis")
