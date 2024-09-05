@@ -17,7 +17,7 @@ plot_DRCSummary(
 \arguments{
 \item{object}{\linkS4class{RLum.Results} object (\strong{required}): input object created by the function \link{analyse_SAR.CWOSL}. The input object can be provided as \link{list}.}
 
-\item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.}
+\item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.}
 
 \item{sel_curves}{\link{numeric} (optional): id of the curves to be plotting in its occurring order. A sequence can
 be provided for selecting, e.g., only every 2nd curve from the input object}

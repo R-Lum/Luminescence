@@ -10,7 +10,7 @@
 #'
 #'@param object [RLum.Results-class] object (**required**): input object created by the function [analyse_SAR.CWOSL]. The input object can be provided as [list].
 #'
-#'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.
+#'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.
 #'
 #'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occurring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
@@ -100,12 +100,12 @@ if(inherits(object, "list")){
 
   }else{
     main <- as.list(rep("DRC", length(object)))
-
   }
 
   results <- lapply(1:length(object), function(o){
     plot_DRCSummary(
       object = object[[o]],
+      source_dose_rate = source_dose_rate,
       sel_curves = sel_curves,
       show_dose_points = show_dose_points,
       show_natural = show_natural,
@@ -113,7 +113,6 @@ if(inherits(object, "list")){
       main = main[[o]],
       ... = plot_settings
       )
-
   })
 
   ##return merged object
@@ -123,7 +122,7 @@ if(inherits(object, "list")){
 
 # Check input ---------------------------------------------------------------------------------
   if(!inherits(object, "RLum.Results"))
-    stop("[plot_DRCSummary()] The input is not of class 'RLum.Results'!",call. = FALSE)
+    .throw_error("'object' is not of class 'RLum.Results'")
 
 # Extract data from object --------------------------------------------------------------------
   ##get data from RLum.Results object
@@ -136,7 +135,7 @@ if(inherits(object, "list")){
       if(min(sel_curves) < 1 ||
          max(sel_curves) > length(object@data$Formula) ||
          length(sel_curves) > length(object@data$Formula)){
-        warning("[plot_DRCSummary()] 'sel_curves' out of bounds, reset to full dataset.", call. = FALSE, immediate. = TRUE)
+        .throw_warning("'sel_curves' out of bounds, reset to full dataset")
         sel_curves <- 1:length(object@data$Formula)
       }
 
@@ -144,8 +143,8 @@ if(inherits(object, "list")){
 
     ## check the whether the fitting was all the same
     if(length(unique(object@data[["data"]][["Fit"]])) != 1)
-      stop("[plot_DRCSummary()] I can only visualise dose-response curves based on the same fitting equation!",
-           call. = FALSE)
+      .throw_error("I can only visualise dose-response curves based ",
+                   "on the same fitting equation")
 
     ##get DRC
     DRC <- object@data$Formula[sel_curves]
@@ -167,10 +166,8 @@ if(inherits(object, "list")){
    })[sel_curves]
 
   }else{
-    stop(
-      "[plot_DRCSummary()] 'object' was created by none supported function, cf. manual for allowed originators!",
-      call. = FALSE)
-
+    .throw_error("'object' was not created by a supported function, ",
+                 "see the manual for allowed originators")
   }
 
 # Plotting ------------------------------------------------------------------------------------
@@ -240,7 +237,6 @@ if(inherits(object, "list")){
         col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
-
     }
 
     ##plot dose points
@@ -263,8 +259,8 @@ if(inherits(object, "list")){
     y <- eval(DRC[[i]])
 
     if (any(is.na(y)) || any(is.nan(y))) {
-      warning("[plot_DRCSummary()] Dose response curve ", i, " is NA/NaN and was removed before plotting.",
-              call. = FALSE)
+      .throw_warning("Dose response curve ", i,
+                     " is NA/NaN and was removed before plotting")
       next
     }
 
@@ -275,7 +271,6 @@ if(inherits(object, "list")){
       lwd = plot_settings$lwd,
       lty = plot_settings$lty[[i]]
     )
-
   }
 
   ## Results -------------------------------------------------------------------

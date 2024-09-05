@@ -90,13 +90,11 @@ setAs("list", "RLum.Results",
         new(to,
             originator = "coercion",
             data = from)
-
       })
 
 setAs("RLum.Results", "list",
       function(from){
         from@data
-
       })
 
 # show() --------------------------------------------------------------------------------------
@@ -120,16 +118,12 @@ setMethod("show",
                                           " : ",
                                           is(object@data[[x]])[1],
                                           sep = "")
-
-
                                   })
             } else{
               temp.type <- paste0("\t .. $", temp.names, " : ", is(object@data)[1])
-
             }
 
             temp.type <- paste(temp.type, collapse = "\n")
-
 
             ##print information
             cat("\n [RLum.Results-class]")
@@ -194,7 +188,6 @@ setMethod("set_RLum",
             newRLumReuslts@.pid <- .pid
 
             return(newRLumReuslts)
-
           })
 
 
@@ -246,18 +239,14 @@ setMethod(
       } else {
         ##check for entries
         if (length(object@info) == 0) {
-          warning("[get_RLum] This RLum.Results object has no info objects! NULL returned!)", call. = FALSE)
-
+          warning("[get_RLum()] This 'RLum.Results' object has no info ",
+                  "objects, NULL returned)", call. = FALSE)
         } else {
-          warning(paste0(
-            "[get_RLum] Invalid info.object name. Valid names are: ",
-            paste(names(object@info), collapse = ", ")
-          ),
-          call. = FALSE)
-
+          warning("[get_RLum()] Invalid 'info.object' name, valid names are: ",
+                  paste(names(object@info), collapse = ", "),
+                  call. = FALSE)
         }
         return(NULL)
-
       }
 
     } else{
@@ -271,21 +260,16 @@ setMethod(
             if (length(data.object) > 1) {
               temp.return <- sapply(data.object, function(x) {
                 object@data[[x]]
-
               })
 
             } else{
               temp.return <- list(data.object = object@data[[data.object]])
 
             }
-
-
           } else {
-            stop(paste0("[get_RLum()] data.object(s) unknown, valid names are: ",
-              paste(names(object@data), collapse = ", ")), call. = FALSE)
-
+            stop("[get_RLum()] unknown 'data.object', valid names are: ",
+                 paste(names(object@data), collapse = ", "), call. = FALSE)
           }
-
         }
 
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -300,8 +284,6 @@ setMethod(
               object@data[[x]]
 
             })
-
-
           } else {
             temp.return <- list(object@data[[data.object]])
 
@@ -338,10 +320,7 @@ setMethod(
           originator = object@originator,
           data = temp.return
         ))
-
-
       }
-
     }
   }
 )
@@ -365,7 +344,6 @@ setMethod("length_RLum",
           function(object){
 
             length(object@data)
-
           })
 
 # names_RLum() --------------------------------------------------------------------------------
@@ -384,5 +362,4 @@ setMethod("names_RLum",
           "RLum.Results",
           function(object){
              names(object@data)
-
           })
