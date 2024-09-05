@@ -29,16 +29,12 @@ merge_RLum.Results <- function(
 
             ##check if input object is a list
             if(!is(objects, "list")){
-              stop("[merge_RLum.Results()] 'objects' has to of type 'list'!",
-                   call. = FALSE)
-
+              .throw_error("'objects' has to be of type 'list'")
             }else{
               ##check if objects in the list are of type RLum.Results
               temp.originator <- sapply(1:length(objects), function(x){
                 if(is(objects[[x]], "RLum.Results") == FALSE){
-                  stop("[merge_RLum.Results()] Objects to merge have
-                       to be of type 'RLum.Results'!", call. = FALSE)
-
+                  .throw_error("All objects to be merged must have type 'RLum.Results'")
                 }
 
                 objects[[x]]@originator
@@ -48,8 +44,7 @@ merge_RLum.Results <- function(
 
             ##check if originator is different
             if(length(unique(temp.originator))>1){
-              stop("[merge_RLum.Results()] 'RLum.Results' object originator
-                   differs!", call. = FALSE)
+              .throw_error("Objects cannot be merged, different 'RLum.Results' originators found")
             }
 
             ##-------------------------------------------------------------
@@ -71,8 +66,7 @@ merge_RLum.Results <- function(
 
                 ##check whether the objects can be combined by rbind
                 if(length(unique(unlist(lapply(temp.list, FUN = ncol)))) > 1)
-                  stop("[merge_RLum.Results()] Objects cannot be combined, number of columns differs.",
-                       call. = FALSE)
+                  .throw_error("Objects cannot be merged, different number of columns")
 
                 ##combine them using rbind or data.table::rbindList (depends on the data type)
                 if(is(objects[[1]]@data[[i]], "numeric")){
@@ -134,5 +128,4 @@ merge_RLum.Results <- function(
               })))
 
             return(objects_merged)
-
 }
