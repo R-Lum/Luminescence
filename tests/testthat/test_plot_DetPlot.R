@@ -14,6 +14,7 @@ test_that("plot_DetPlot", {
     regexp = "\\[plot_DetPlot\\(\\)\\] input must be an RLum\\.Analysis object\\!")
 
   ## simple run with default
+  SW({
   results <- expect_s4_class(plot_DetPlot(
     object,
     method = "shift",
@@ -25,6 +26,7 @@ test_that("plot_DetPlot", {
       fit.method = "LIN"),
     n.channels = 2),
     "RLum.Results")
+  })
 
   ## simple run with default but no plot
   results <- expect_s4_class(plot_DetPlot(
@@ -37,6 +39,7 @@ test_that("plot_DetPlot", {
     analyse_function.control = list(
       fit.method = "LIN"),
     n.channels = 2,
+    verbose = FALSE,
     plot = FALSE),
     "RLum.Results")
 
@@ -53,10 +56,12 @@ test_that("plot_DetPlot", {
       trim_channels = TRUE
       ),
     n.channels = 2,
+    verbose = FALSE,
     plot = FALSE),
     "RLum.Results")
 
   ## test self call with multi core
+  SW({
   results <- expect_s4_class(plot_DetPlot(
     object = list(x = object, y = object),
     method = "shift",
@@ -70,8 +75,10 @@ test_that("plot_DetPlot", {
     ),
     multicore = 1,
     n.channels = 2,
+    verbose = TRUE,
     plot = FALSE),
     "RLum.Results")
+  })
 
   ## simple run with default
   results <- expect_s4_class(plot_DetPlot(
@@ -83,6 +90,7 @@ test_that("plot_DetPlot", {
     background.integral.max = 1000,
     analyse_function.control = list(
       fit.method = "LIN"),
+    verbose = FALSE,
     n.channels = 2),
     "RLum.Results")
 
@@ -100,6 +108,7 @@ test_that("plot_DetPlot", {
     background.integral.max = 1000,
     analyse_function.control = list(
       fit.method = "EXP"),
+    verbose = FALSE,
     n.channels = 1)),
     "RLum.Results")
 
