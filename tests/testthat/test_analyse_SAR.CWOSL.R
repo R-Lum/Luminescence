@@ -263,6 +263,13 @@ test_that("simple run", {
   expect_error(analyse_SAR.CWOSL("fail"),
                "Input object is not of type 'RLum.Analysis'")
 
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1.2,
+                                 signal.integral.max = 3.5,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000),
+               "'signal.integral' or 'background.integral' is not of type integer")
+
   ## check stop for OSL.components ... failing
   SW({
   expect_null(analyse_SAR.CWOSL(
@@ -289,7 +296,7 @@ test_that("simple run", {
      fit.method = "LIN",
      plot = FALSE,
      verbose = FALSE
-   ), regexp = "length 'dose.points' differs from number of curves")
+   ), regexp = "Length of 'dose.points' differs from number of curves")
 
 
   expect_message(
@@ -326,7 +333,7 @@ test_that("simple run", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "integral signal limits cannot be equal")
+  ), "Integral signal limits cannot be equal")
 
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
@@ -337,7 +344,7 @@ test_that("simple run", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "background integral for Tx curves set, but not for the signal integral")
+  ), "Background integral for Tx curves set, but not for the signal integral")
 
   expect_warning(expect_message(
       analyse_SAR.CWOSL(
@@ -350,7 +357,7 @@ test_that("simple run", {
           plot = FALSE,
           verbose = FALSE
       ), "Something went wrong while generating the LxTx table"),
-  "signal integral for Tx curves set, but not for the background integral")
+  "Signal integral for Tx curves set, but not for the background integral")
 
   ## this generates multiple warnings
   warnings <- capture_warnings(analyse_SAR.CWOSL(
@@ -494,6 +501,7 @@ test_that("advance tests run", {
       rejection.criteria = list(list(recycling.ratio = 0)),
       fit.method = "LIN",
       unknown_argument = "hallo",
+      main = "Title",
       plot = TRUE,
       verbose = FALSE
     ),
