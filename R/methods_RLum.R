@@ -292,7 +292,7 @@ dim.RLum.Data.Spectrum <- function(x) dim(as(x, "matrix"))
 rep.RLum <- function(x, ...) replicate_RLum(x, ...)
 
 ####################################################################################################
-# methods for generic: name()
+# methods for generic: names()
 # ##################################################################################################
 #' @rdname methods_RLum
 #' @export

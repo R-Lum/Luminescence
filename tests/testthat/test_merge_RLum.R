@@ -41,8 +41,8 @@ test_that("Merge tests", {
   ## unsupported
   data(ExampleData.RLum.Data.Image, envir = environment())
   expect_error(merge_RLum(list(ExampleData.RLum.Data.Image)),
-               "merging of 'RLum.Data.Image' objects is currently not supported")
+               "Merging of 'RLum.Data.Image' objects is currently not supported")
   data(ExampleData.XSYG, envir = environment())
   expect_error(merge_RLum(list(TL.Spectrum)),
-               "merging of 'RLum.Data.Spectrum' objects is currently not supported")
+               "Merging of 'RLum.Data.Spectrum' objects is currently not supported")
 })
