@@ -846,7 +846,8 @@ calc_MinDose <- function(
                          "\n h = %.2f",
                          "\n\n Creating %d bootstrap replicates..."),
                    M, N, sigmab, sigmab.sd, h, N+M)
-    message(msg)
+    if (verbose)
+      message(msg)
 
     n <- length(data[ ,1])
     # Draw N+M samples of a normale distributed sigmab
@@ -860,18 +861,27 @@ calc_MinDose <- function(
     # Using multiple CPU cores can reduce the computation cost, but may
     # not work for all machines.
     if (multicore) {
-      message(paste("\n Spawning", cores, "instances of R for parallel computation. This may take a few seconds..."))
+      if (verbose) {
+        message("\n Spawning ", cores, " instances of R for ",
+                "parallel computation. This may take a few seconds...")
+      }
       cl <- parallel::makeCluster(cores)
-      message("\n Done! Applying the model to all replicates. This may take a while...")
+      if (verbose) {
+        message(" Done!\n Applying the model to all replicates. ",
+                "This may take a while...")
+      }
       mle <- parallel::parLapply(cl, replicates, Get_mle)
       parallel::stopCluster(cl)
     } else {
-      message("\n Applying the model to all replicates. This may take a while...")
+      if (verbose) {
+        message("\n Applying the model to all replicates. This may take a while...")
+      }
       mle <- lapply(replicates, Get_mle)
     }
 
     # Final bootstrap calculations
-    message("\n Calculating the likelihoods...")
+    if (verbose)
+      message("\n Calculating the likelihoods...")
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
     b2mamvec <- as.matrix(sapply(mle[1:N], save_Gamma, simplify = TRUE))
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
@@ -882,7 +892,8 @@ calc_MinDose <- function(
     pairs <- make_Pairs(theta, b2mamvec, prodterm)
 
     ## --------- FIT POLYNOMIALS -------------- ##
-    message("\n Fit curves to dose-likelihood pairs...")
+    if (verbose)
+      message("\n Fit curves to dose-likelihood pairs...")
     # polynomial fits of increasing degrees
 
     ## if the input values are too close to zero, we may get
@@ -890,9 +901,12 @@ calc_MinDose <- function(
     if(any(is.infinite(pairs))){
       inf_count <- length(which(is.infinite(pairs[,2])))/nrow(pairs)
       pairs <- pairs[!is.infinite(pairs[,2]),]
-      warning(
-      paste0("[calc_MinDose()] Inf values produced by bootstrapping removed for LOcal polynominal regrESSion fitting (loess)!\n The removed values represent  ",round(inf_count * 100,2)," % of the total dataset. This message usually indicates that your values are close to 0."), call. = FALSE)
-
+      .throw_warning("Inf values produced by bootstrapping removed ",
+                     "for LOcal polynominal regrESSion fitting (loess)!",
+                     "\n The removed values represent ",
+                     round(inf_count * 100,2), " % of the total dataset. ",
+                     "This message usually indicates that your values ",
+                     "are close to 0.")
     }
 
     poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 3, raw = TRUE))
@@ -978,7 +992,7 @@ calc_MinDose <- function(
                              error=gamma_err,
                              row.names=""), 2))
 
-    } else if (bootstrap) {
+    } else if (bootstrap && verbose) {
       message("\n Finished!")
     }
   }
