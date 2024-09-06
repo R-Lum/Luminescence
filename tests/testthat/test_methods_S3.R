@@ -22,6 +22,9 @@ test_that("Test various S3 methods", {
   expect_s4_class(analysis[[1]], "RLum.Data.Curve")
   expect_type(analysis[["RF"]], "list")
   expect_length(analysis$RF, 2)
+  expect_true(is.RLum(analysis))
+  expect_true(is.RLum.Analysis(analysis))
+  expect_false(is.RLum.Data(analysis))
 
   ## RLum.Results
   result <- calc_SourceDoseRate(
@@ -43,6 +46,9 @@ test_that("Test various S3 methods", {
   expect_visible(result[1])
   expect_visible(result[[1]])
   expect_visible(result$dose.rate)
+  expect_true(is.RLum(result))
+  expect_true(is.RLum.Results(result))
+  expect_false(is.RLum.Data(result))
 
   ## RLum.Data.Curve
   data(ExampleData.CW_OSL_Curve, envir = environment())
@@ -72,6 +78,10 @@ test_that("Test various S3 methods", {
   expect_visible(curve * curve)
   expect_visible(curve / curve)
   expect_vector(curve[1])
+  expect_equal(curve$a, c(a = "test"))
+  expect_true(is.RLum(curve))
+  expect_true(is.RLum.Data(curve))
+  expect_true(is.RLum.Data.Curve(curve))
 
   ## RLum.Data.Image
   data(ExampleData.RLum.Data.Image, envir = environment())
@@ -88,6 +98,9 @@ test_that("Test various S3 methods", {
   expect_error(merge(image, image),
                "Merging of 'RLum.Data.Image' objects is currently not supported")
   expect_vector(image[1])
+  expect_true(is.RLum(image))
+  expect_true(is.RLum.Data(image))
+  expect_true(is.RLum.Data.Image(image))
 
   ## RLum.Data.Spectrum
   data(ExampleData.XSYG, envir = environment())
@@ -105,6 +118,9 @@ test_that("Test various S3 methods", {
   expect_error(merge(spectrum, spectrum),
                "Merging of 'RLum.Data.Spectrum' objects is currently not supported")
   expect_vector(spectrum[1])
+  expect_true(is.RLum(spectrum))
+  expect_true(is.RLum.Data(spectrum))
+  expect_true(is.RLum.Data.Spectrum(spectrum))
 
   ## Risoe.BINfileData
   data(ExampleData.BINfileData, envir = environment())
