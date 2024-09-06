@@ -2,6 +2,20 @@
 github.url <- file.path("https://github.com/R-Lum/Luminescence",
                         "raw/dev_0.9.x/tests/testthat/_data")
 
+## `read_SPE2R()` calls `download.file()` which, in turn, uses curl to
+## perform the actual download. If `verbose = TRUE`, curl is invoked with
+## `quiet = FALSE`, and the output it produces cannot be captured by `SW()`,
+## nor by other simple R apporaches because curl writes directly to the
+## console bypassing R. The workaround is to divert all output to a file, see:
+## https://stackoverflow.com/questions/66138345/how-to-suppress-download-file-trying-url-message-in-r
+sink.curl.messages <- function(expr) {
+  nullcon <- file(nullfile(), open = "wb")
+  sink(nullcon, type = "message")
+  expr
+  sink(type = "message")
+  close(nullcon)
+}
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -25,10 +39,12 @@ test_that("Test general functionality", {
   testthat::skip_on_cran()
 
   ## default values
-  SW({
-  expect_s4_class(read_SPE2R(file.path(github.url, "SPEfile.SPE")),
-                  "RLum.Data.Image")
-  })
+  sink.curl.messages(
+  expect_output(
+      expect_s4_class(read_SPE2R(file.path(github.url, "SPEfile.SPE")),
+                      "RLum.Data.Image"),
+      "URL detected, checking connection")
+  )
 
   ## test output.object
   expect_s4_class(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
