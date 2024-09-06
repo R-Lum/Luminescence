@@ -31,7 +31,8 @@ Can be provided as a \link{list} of such objects.}
 lower bound of the signal integral.}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
-upper bound of the signal integral.}
+upper bound of the signal integral. Must be strictly greater than
+\code{signal.integral.min}.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral.}

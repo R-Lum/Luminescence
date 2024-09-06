@@ -29,7 +29,8 @@
 #' lower bound of the signal integral.
 #'
 #' @param signal.integral.max [integer] (**required**):
-#' upper bound of the signal integral.
+#' upper bound of the signal integral. Must be strictly greater than
+#' `signal.integral.min`.
 #'
 #' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral.
@@ -202,10 +203,21 @@ plot_DetPlot <- function(
 # Integrity Tests -----------------------------------------------------------------------------
   ##check input
   if(!inherits(object, "RLum.Analysis"))
-    stop("[plot_DetPlot()] input must be an RLum.Analysis object!", call. = FALSE)
+    .throw_error("Input must be an 'RLum.Analysis' object")
 
   ##get structure
   object.structure <- structure_RLum(object)
+
+  ## signal.integral
+  .validate_positive_scalar(signal.integral.min, int = TRUE)
+  .validate_positive_scalar(signal.integral.max, int = TRUE)
+  if (signal.integral.min >= signal.integral.max) {
+    .throw_error("'signal.integral.max' must be greater than 'signal.integral.min'")
+  }
+
+  ## background.integral
+  .validate_positive_scalar(background.integral.min, int = TRUE)
+  .validate_positive_scalar(background.integral.min, int = TRUE)
 
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels
@@ -213,7 +225,9 @@ plot_DetPlot <- function(
     n.channels <- ceiling(
       (background.integral.min - 1 - signal.integral.max) / (signal.integral.max - signal.integral.min)
     )
-
+    if (verbose) {
+      message("'n.channels' not specified, set to ", n.channels)
+    }
   }
 
   analyse_function.settings <- list(
@@ -240,9 +254,7 @@ plot_DetPlot <- function(
         seq(signal.integral.min,
             background.integral.min - 1,
             by = signal.integral.max - signal.integral.min)
-
     }
-
   }
 
   if(analyse_function  == "analyse_SAR.CWOSL"){
@@ -286,12 +298,9 @@ plot_DetPlot <- function(
 
     }))
 
-
-
   }
   else{
-   stop("[plot_DetPlot()] 'analyse_function' unknown!", call. = FALSE)
-
+   .throw_error("Unknown 'analyse_function'")
   }
 
 

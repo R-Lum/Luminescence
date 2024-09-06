@@ -1,17 +1,20 @@
-test_that("plot_DetPlot", {
+data(ExampleData.BINfileData, envir = environment())
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##ExampleData.BINfileData contains two BINfileData objects
-  ##CWOSL.SAR.Data and TL.SAR.Data
-  data(ExampleData.BINfileData, envir = environment())
+  expect_error(plot_DetPlot("error"),
+               "Input must be an 'RLum.Analysis' object")
+  expect_error(plot_DetPlot(object, signal.integral.min = "error"),
+               "'signal.integral.min' must be a positive integer scalar")
+  expect_error(plot_DetPlot(object, signal.integral.min = 1,
+                            signal.integral.max = 1),
+               "'signal.integral.max' must be greater than 'signal.integral.min'")
+})
 
-  ##transform the values from the first position in a RLum.Analysis object
-  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-
-  ## trigger stop
-  expect_error(
-    plot_DetPlot(object = "error"),
-    regexp = "\\[plot_DetPlot\\(\\)\\] input must be an RLum\\.Analysis object\\!")
+test_that("plot_DetPlot", {
+  testthat::skip_on_cran()
 
   ## simple run with default
   SW({
