@@ -196,18 +196,16 @@ report_RLum <- function(
 
   # check if required namespace(s) are available
   # nocov start
-  if (!requireNamespace("rmarkdown", quietly = TRUE))
-    stop("Creating object reports requires the 'rmarkdown' package.",
-         " To install this package run 'install.packages('rmarkdown')' in your R console.",
-         call. = FALSE)
-  if (!requireNamespace("pander", quietly = TRUE))
-    stop("Creating object reports requires the 'pander' package.",
-         " To install this package run 'install.packages('pander')' in your R console.",
-         call. = FALSE)
+  for (package.name in c("rmarkdown", "pander")) {
+    if (!requireNamespace(package.name, quietly = TRUE))
+      .throw_error("Creating object reports requires the '", package.name,
+                   "' package. To install it, run 'install.packages('",
+                   package.name, "')' in your R console.")
+  }
   if (!requireNamespace("rstudioapi", quietly = TRUE)) {
-    warning("Creating object reports requires the 'rstudioapi' package.",
-            " To install this package run 'install.packages('rstudioapi')' in your R console.",
-            call. = FALSE)
+    .throw_warning("Creating object reports requires the 'rstudioapi' ",
+                   "package. To install it, run 'install.packages('rstudioapi')' ",
+                   "in your R console.")
     isRStudio <- FALSE
   } else {
     isRStudio <- rstudioapi::isAvailable()
@@ -217,7 +215,7 @@ report_RLum <- function(
   # check if files exist
   if (!is.null(css.file))
     if(!file.exists(css.file))
-      stop("Couldn't find the specified CSS file at '", css.file, "'", call. = FALSE)
+      .throw_error("Couldn't find the specified CSS file at '", css.file, "'")
 
   ## ------------------------------------------------------------------------ ##
   ## STRUCTURE ----
@@ -562,6 +560,7 @@ report_RLum <- function(
   ## SHOW FILE -----
 
   # SHOW REPORT IN RSTUDIOS VIEWER PANE ----
+  # nocov start
   if (isRStudio && show_report) {
     if (isTemp) {
       try(rstudioapi::viewer(file.html))
@@ -582,7 +581,7 @@ report_RLum <- function(
     if (!is.null(opened))
       try(browseURL(file.html))
   }
-
+  # nocov end
 
   ## ------------------------------------------------------------------------ ##
   ## CLEANUP ----
