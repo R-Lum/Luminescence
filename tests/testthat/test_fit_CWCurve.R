@@ -49,12 +49,9 @@ test_that("check values from output example", {
   # }
 
   SW({
-  fit_CWCurve(ExampleData.CW_OSL_Curve,
-              fit.method = "LM", fit.calcError = TRUE,
-              output.path = tempdir())
-  fit_CWCurve(ExampleData.CW_OSL_Curve,
-              fit.method = "LM", fit.calcError = TRUE,
-              log = "xy",
-              output.path = tempdir())
+  expect_warning(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "LM",
+                             fit.calcError = TRUE,
+                             output.path = tempdir()),
+                 "Argument 'output.path' no longer supported")
   })
 })

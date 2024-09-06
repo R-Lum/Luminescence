@@ -84,11 +84,6 @@
 #' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (`mtext`).
 #'
-#' @param output.path [character] (*optional*):
-#' output path for table output containing the results of the fit. The file
-#' name is set automatically. If the file already exists in the directory,
-#' the values are appended.
-#'
 #' @param output.terminal [logical] (*with default*):
 #' terminal output with fitting results.
 #'
@@ -105,12 +100,6 @@
 #' **plot (*optional*)**
 #'
 #' the fitted CW-OSL curves are returned as plot.
-#'
-#' **table (*optional*)**
-#'
-#' an output table (`*.csv`) with parameters of the fitted components is
-#' provided if the `output.path` is set.
-#'
 #'
 #' **RLum.Results**
 #'
@@ -171,7 +160,7 @@
 #' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -215,15 +204,11 @@ fit_CWCurve<- function(
   LED.wavelength = 470,
   cex.global = 0.6,
   sample_code = "Default",
-  output.path,
   output.terminal = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
   ...
 ){
-  ##TODO
-  ##remove output.path
-
   # INTEGRITY CHECKS --------------------------------------------------------
 
   ##INPUT OBJECTS
@@ -266,6 +251,8 @@ fit_CWCurve<- function(
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
   {paste("OSL [cts/",round(max(x)/length(x), digits = 2)," s]",sep="")}
 
+  if ("output.path" %in% names(extraArgs))
+    .throw_warning("Argument 'output.path' no longer supported, ignored")
 
   ##============================================================================##
   ## FITTING
@@ -388,9 +375,7 @@ fit_CWCurve<- function(
       ))#end try
 
     }else{
-
-      stop("[fit_CWCurve()] fit.method unknown.", call. = FALSE)
-
+      .throw_error("'fit.method' unknown")
     }
 
 
@@ -533,7 +518,7 @@ fit_CWCurve<- function(
     pR<-round(1-RSS/TSS,digits=4)
 
     if(pR<0){
-      warning("pseudo-R^2 < 0!")
+      .throw_warning("pseudo-R^2 < 0!")
     }
 
     ## ---------------------------------------------
@@ -634,22 +619,6 @@ fit_CWCurve<- function(
       ##alter column names
       colnames(output.table)<-c("sample_code","n.components",
                                 output.tableColNames,"pseudo-R^2")
-
-      if(missing(output.path)==FALSE){
-
-        ##write file with just the header if the file not exists
-        if(file.exists(paste(output.path,"fit_CWCurve_Output_",sample_code,".csv",sep=""))==FALSE){
-          write.table(output.table,file=paste(output.path,"fit_CWCurve_Output_",
-                                              sample_code,".csv",sep=""), sep=";"
-                      ,row.names=FALSE)
-        }else{
-          write.table(output.table,file=paste(output.path,"fit_CWCurve_Output_",
-                                              sample_code,".csv",sep=""), sep=";"
-                      ,row.names=FALSE, append=TRUE, col.names=FALSE)
-
-        }#endif::for write option
-
-      }#endif::table output
 
       ##============================================================================##
       ## COMPONENT TO SUM CONTRIBUTION PLOT
