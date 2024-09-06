@@ -33,9 +33,8 @@ test_that("Full check", {
   expect_s4_class(analyse_Al2O3C_ITC(list(data_ITC), signal_integral = 2,
                                      method_control = list(fit.method = "EXP")),
                   "RLum.Results")
-  })
-
   expect_warning(expect_null(analyse_Al2O3C_ITC(list(data_ITC),
                                                 dose_points = list(2))),
                  "Nothing was merged as the object list was found to be empty")
+  })
 })

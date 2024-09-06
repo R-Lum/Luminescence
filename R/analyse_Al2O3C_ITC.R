@@ -154,7 +154,7 @@ analyse_Al2O3C_ITC <- function(
         plot = plot,
         main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
         ...
-      ))
+      ), outFile = stdout()) # redirect error messages so they can be silenced
 
       ##catch error
       if(inherits(results, "try-error")){

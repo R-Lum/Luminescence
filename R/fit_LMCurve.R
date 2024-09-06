@@ -581,16 +581,14 @@ fit_LMCurve<- function(
 
   }else{#endif::missing start values
     ##------------------------------------------------------------------------##
-    old.opts <- options(try.outFile = stdout()) # redirect error messages
     fit<-try(nls(y~eval(fit.function),
                  trace=fit.trace, data.frame(x=values[,1],y=values[,2]),
                  algorithm="port", start=list(Im=start_values[,1],xm=start_values[,2]),#end start values input
                  nls.control(maxiter=500),
                  lower=c(xm=0,Im=0),
                  #upper=c(xm=max(x),Im=max(y)*1.1)# set lower boundaries for components
-    )# nls
-    )# end try
-    options(old.opts) # restore original options
+                 ), outFile = stdout() # redirect error messages so they can be silenced
+             ) # end try
   }#endif::startparameter
 
   ##------------------------------------------------------------------------##

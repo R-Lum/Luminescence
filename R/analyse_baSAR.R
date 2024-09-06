@@ -1978,7 +1978,6 @@ analyse_baSAR <- function(
 
   ##>> try here is much better, as the user might run a very long preprocessing and do not
   ##want to fail here
-  old.opts <- options(try.outFile = stdout()) # redirect error messages
   results <-
     try(.baSAR_function(
       Nb_aliquots = Nb_aliquots,
@@ -1993,8 +1992,7 @@ analyse_baSAR <- function(
       method_control = method_control,
       baSAR_model = baSAR_model,
       verbose = verbose
-    ))
-  options(old.opts) # restore original options
+    ), outFile = stdout()) # redirect error messages so they can be silenced
 
   ##check whether this became NULL
   if(!is(results, "try-error")){
