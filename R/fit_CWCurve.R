@@ -267,16 +267,6 @@ fit_CWCurve<- function(
   }
   ##////equation used for fitting///(end)
 
-  ##////equation used for fitting////(start)
-  fit.equation.simple <- function(I0.i,lambda.i){
-    equation<-parse(
-      text=paste("I0[",I0.i,"]*exp(-lambda[",lambda.i,"]*x)",
-                 collapse="+",sep=""))
-    return(equation)
-  }
-  ##////equation used for fitting///(end)
-
-
   ##set formula elements for fitting functions
   ## the upper two funtions should be removed ... but chances are needed ... TODO
   ##////equation used for fitting////(start)
