@@ -45,13 +45,6 @@
 \alias{as.matrix.RLum.Data.Curve}
 \alias{as.matrix.RLum.Data.Spectrum}
 \alias{as.matrix.RLum.Data.Image}
-\alias{is.RLum}
-\alias{is.RLum.Data}
-\alias{is.RLum.Data.Curve}
-\alias{is.RLum.Data.Spectrum}
-\alias{is.RLum.Data.Image}
-\alias{is.RLum.Analysis}
-\alias{is.RLum.Results}
 \alias{merge.RLum}
 \alias{unlist.RLum.Analysis}
 \alias{+.RLum.Data.Curve}
@@ -156,20 +149,6 @@ bin.RLum.Data.Spectrum(x, bin_size.row = 1, bin_size.col = 1, ...)
 \method{as.matrix}{RLum.Data.Spectrum}(x, ...)
 
 \method{as.matrix}{RLum.Data.Image}(x, ...)
-
-is.RLum(x, ...)
-
-is.RLum.Data(x, ...)
-
-is.RLum.Data.Curve(x, ...)
-
-is.RLum.Data.Spectrum(x, ...)
-
-is.RLum.Data.Image(x, ...)
-
-is.RLum.Analysis(x, ...)
-
-is.RLum.Results(x, ...)
 
 \method{merge}{RLum}(x, y, ...)
 

@@ -392,40 +392,6 @@ as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
 # for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
 ####################################################################################################
-# methods for generic: is()
-####################################################################################################
-#For this function no S4 method was written, as this would come at the cost of performance and
-#is totally unnecessary
-
-#' @rdname methods_RLum
-#' @export
-is.RLum <- function(x, ...) is(x, "RLum")
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data <- function(x, ...) is(x, "RLum.Data")
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data.Curve <- function(x, ...) is(x, "RLum.Data.Curve")
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data.Spectrum <- function(x, ...) is(x, "RLum.Data.Spectrum")
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data.Image <- function(x, ...) is(x, "RLum.Data.Image")
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Analysis <- function(x, ...) is(x, "RLum.Analysis")
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Results <- function(x, ...) is(x, "RLum.Results")
-
-####################################################################################################
 # methods for generic: merge()
 ####################################################################################################
 #' @rdname methods_RLum
