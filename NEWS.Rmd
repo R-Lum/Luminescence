@@ -63,6 +63,11 @@ which would generate unexpected warnings (#163, @mcol).
 * The function doesn't stop anymore with an error if called on an
 `RLum.Results` object (#165, @mcol).
 
+### `plot_DetPlot()`
+* Argument `signal.integral.max` is now enforced to be greater than
+`signal.integral.min`, as otherwise the computation of the number of channels
+would produce `Inf` (#203, fixed in #206).
+
 ### `plot_GrowthCurve()`
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
 The values is part of the output table. 
