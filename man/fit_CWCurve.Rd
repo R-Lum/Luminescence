@@ -15,7 +15,6 @@ fit_CWCurve(
   LED.wavelength = 470,
   cex.global = 0.6,
   sample_code = "Default",
-  output.path,
   output.terminal = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
@@ -60,11 +59,6 @@ global scaling factor.}
 \item{sample_code}{\link{character} (\emph{optional}):
 sample code used for the plot and the optional output table (\code{mtext}).}
 
-\item{output.path}{\link{character} (\emph{optional}):
-output path for table output containing the results of the fit. The file
-name is set automatically. If the file already exists in the directory,
-the values are appended.}
-
 \item{output.terminal}{\link{logical} (\emph{with default}):
 terminal output with fitting results.}
 
@@ -81,11 +75,6 @@ returns a plot of the fitted curves.}
 \strong{plot (\emph{optional})}
 
 the fitted CW-OSL curves are returned as plot.
-
-\strong{table (\emph{optional})}
-
-an output table (\verb{*.csv}) with parameters of the fitted components is
-provided if the \code{output.path} is set.
 
 \strong{RLum.Results}
 
@@ -192,7 +181,7 @@ The function \strong{does not} ensure that the fitting procedure has reached a
 global minimum rather than a local minimum!
 }
 \section{Function version}{
- 0.5.2
+ 0.5.3
 }
 
 \examples{

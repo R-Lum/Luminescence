@@ -48,6 +48,10 @@ data frames as input (#200).
 * The function computed the number of breaks for the histogram incorrectly
 (#197, fixed with #198).
 
+### `fit_CWCurve()`
+* Argument `output.path` has been removed, and a warning is raised when
+attempting to use it (#207, fixed in #209).
+
 ### `fit_EmissionSpectra()`
 * Parameter `input_scale` was not correctly propagated when the function would
 self-call (#160, @mcol).
@@ -56,12 +60,16 @@ self-call (#160, @mcol).
 * The validation of the minimum dataset size didn't account for the use of
 the `signal.range` argument (#182, fixed by #195, @mcol).
 
-
 ### `fit_SurfaceExposure()`
 * Fix #162 to remove a dimension mismatch if the input data contained `NA`s,
 which would generate unexpected warnings (#163, @mcol).
 * The function doesn't stop anymore with an error if called on an
 `RLum.Results` object (#165, @mcol).
+
+### `plot_DetPlot()`
+* Argument `signal.integral.max` is now enforced to be greater than
+`signal.integral.min`, as otherwise the computation of the number of channels
+would produce `Inf` (#203, fixed in #206).
 
 ### `plot_GrowthCurve()`
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
