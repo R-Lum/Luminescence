@@ -70,10 +70,12 @@ which would generate unexpected warnings (#163, @mcol).
 * Argument `signal.integral.max` is now enforced to be greater than
 `signal.integral.min`, as otherwise the computation of the number of channels
 would produce `Inf` (#203, fixed in #206).
+* Fix a crash when using option `analyse_function = "analyse_pIRIRSequence"`
+(#210, fixed in #211).
 
 ### `plot_GrowthCurve()`
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
-The values is part of the output table. 
+The values is part of the output table.
 
 ### `plot_KDE()`
 * It now officially supports numeric vectors and single-column data frames,
