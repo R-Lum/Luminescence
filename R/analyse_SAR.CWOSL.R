@@ -693,8 +693,9 @@ error.list <- list()
 
     ##combine in the data frame
     temp.LnLxTnTx <- data.frame(
-      Name = factor(x = temp.DoseName[,"Name"], levels = temp.DoseName[,"Name"]),
-      Repeated = as.logical(temp.DoseName[,"Repeated"]))
+        Name = factor(x = temp.DoseName[, "Name"],
+                      levels = unique(temp.DoseName[, "Name"])),
+        Repeated = as.logical(temp.DoseName[, "Repeated"]))
 
     LnLxTnTx <- cbind(temp.LnLxTnTx,LnLxTnTx)
     LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
