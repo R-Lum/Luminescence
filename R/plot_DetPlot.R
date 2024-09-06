@@ -305,7 +305,7 @@ plot_DetPlot <- function(
     } else {
       results <- merge_RLum(result.temp.list)
     }
-    rm(results.temp.list)
+    rm(result.temp.list)
   }
   else{
    .throw_error("Unknown 'analyse_function'")

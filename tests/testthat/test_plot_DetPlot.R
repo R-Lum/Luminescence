@@ -116,6 +116,21 @@ test_that("plot_DetPlot", {
     "RLum.Results")
 
   SW({
+  ## analyse_pIRIRSequence
+  tmp <- subset(object, recordType != "IRSL" & ID != 1)
+  plot_DetPlot(
+      tmp,
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      analyse_function = "analyse_pIRIRSequence",
+      analyse_function.control = list(
+          sequence.structure = c("TL", "IR50"),
+          fit.method = "LIN"),
+      n.channels = 2)
+
+  ## analyse_pIRIRSequence on an inconsistent object
   suppressWarnings( # ignore additional warnings from plot_GrowthCurve()
   expect_error(
       expect_warning(plot_DetPlot(
