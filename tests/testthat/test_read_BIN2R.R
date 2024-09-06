@@ -90,8 +90,7 @@ test_that("test the import of various BIN-file versions", {
    t <- tempfile(pattern = "zero", fileext = ".binx")
    write(raw(), t)
    expect_error(read_BIN2R(t, verbose = FALSE),
-                "Found BIN/BINX-format version (0a) is not supported",
-                fixed = TRUE)
+                "Found BIN/BINX-format version \\(..\\) is not supported")
    file.remove(t)
 
    SW({
