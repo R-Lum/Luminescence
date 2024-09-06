@@ -210,7 +210,7 @@ report_RLum <- function(
             call. = FALSE)
     isRStudio <- FALSE
   } else {
-    isRStudio <- TRUE
+    isRStudio <- rstudioapi::isAvailable()
   }
   # nocov end
 
