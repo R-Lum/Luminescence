@@ -65,7 +65,7 @@ test_that("Test examples from the example page", {
 
   ## now with user-defined green line for minimum age model
   CAM <- calc_CentralDose(ExampleData.DeValues,
-                          plot = FALSE)
+                          plot = FALSE, verbose = FALSE)
 
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                    line = CAM,

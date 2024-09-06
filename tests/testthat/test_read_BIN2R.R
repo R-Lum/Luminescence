@@ -10,23 +10,23 @@ test_that("test the import of various BIN-file versions", {
   if (!httr::http_error(github.url)) {
     ## V3
     expect_s4_class(read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
-                               txtProgressBar = FALSE),
+                               verbose = FALSE),
                     class = "Risoe.BINfileData")
   }
 
   ## V4
   expect_s4_class(read_BIN2R(test_path("_data/BINfile_V4.bin"),
-                             txtProgressBar = FALSE),
+                             verbose = FALSE),
                   class = "Risoe.BINfileData")
 
   ## V5
   expect_s4_class(read_BIN2R(test_path("_data/BINfile_V5.binx"),
-                             txtProgressBar = FALSE),
+                             verbose = FALSE),
                   class = "Risoe.BINfileData")
 
   ## V6
   expect_s4_class(read_BIN2R(test_path("_data/BINfile_V6.binx"),
-                             txtProgressBar = FALSE),
+                             verbose = FALSE),
                   class = "Risoe.BINfileData")
 
   ## V6 - show method
@@ -35,9 +35,10 @@ test_that("test the import of various BIN-file versions", {
 
   ## V7
   expect_s4_class(read_BIN2R(test_path("_data/BINfile_V7.binx"),
-                             txtProgressBar = FALSE),
+                             verbose = FALSE),
                   class = "Risoe.BINfileData")
 
+  SW({
   ## V8 - as part of the package
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   expect_s4_class(read_BIN2R(bin.v8, txtProgressBar = FALSE),
@@ -83,17 +84,22 @@ test_that("test the import of various BIN-file versions", {
                          txtProgressBar = FALSE, n.records = 1,
                          fastForward = TRUE, verbose = FALSE),
               "list")
+  })
 
    ## check for broken files
    t <- tempfile(pattern = "zero", fileext = ".binx")
    write(raw(), t)
-   expect_error(read_BIN2R(t), regexp = "\\[read\\_BIN2R\\(\\)\\] Found BIN\\/BINX-format version \\(..\\) is not supported or the BIN/BINX-file is broken! Supported version numbers are: 03, 04, 05, 06, 07, 08.")
+   expect_error(read_BIN2R(t, verbose = FALSE),
+                "Found BIN/BINX-format version (0a) is not supported",
+                fixed = TRUE)
    file.remove(t)
 
+   SW({
    ## check ignore RECTYPE settings
-   t <- expect_s4_class(read_BIN2R(bin.v8, txtProgressBar = FALSE,
+   t <- expect_s4_class(read_BIN2R(bin.v8, verbose = TRUE,
                                    ignore.RECTYPE = 1),
                         class = "Risoe.BINfileData")
+   })
 
     ## should be zero now
     expect_length(t@DATA, n = 0)

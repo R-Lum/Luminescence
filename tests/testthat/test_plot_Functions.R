@@ -19,6 +19,7 @@ test_that("test pure success of the plotting without warning or error", {
       background.integral.min = 900,
       background.integral.max = 1000,
       n.channels = 5,
+      verbose = FALSE,
     ),
     "RLum.Results"
   )
@@ -87,11 +88,12 @@ test_that("test pure success of the plotting without warning or error", {
 
     ##special plot RLum.Reuslts
     data(ExampleData.DeValues, envir = environment())
-    mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
+    mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2,
+                        log = TRUE, plot = FALSE, verbose = FALSE)
     expect_silent(plot_RLum(mam))
-    cdm <- calc_CentralDose(ExampleData.DeValues$CA1)
+    cdm <- calc_CentralDose(ExampleData.DeValues$CA1, verbose = FALSE)
     expect_silent(plot_RLum(cdm))
-    FMM <- calc_FiniteMixture(ExampleData.DeValues$CA1,
+    FMM <- calc_FiniteMixture(ExampleData.DeValues$CA1, verbose = FALSE,
                              sigmab = 0.2, n.components = c(2:4),
                              pdf.weight = TRUE, dose.scale = c(0, 100))
     plot_RLum(FMM)

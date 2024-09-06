@@ -1329,7 +1329,8 @@ analyse_baSAR <- function(
         sheet = additional_arguments$sheet,
         col_names = additional_arguments$col_names,
         col_types = additional_arguments$col_types,
-        skip = additional_arguments$skip
+        skip = additional_arguments$skip,
+        progress = FALSE,
       ), stringsAsFactors = FALSE)
 
       ###check whether data format is somehow odd, check only the first three columns
