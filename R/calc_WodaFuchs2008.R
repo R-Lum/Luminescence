@@ -83,6 +83,11 @@ calc_WodaFuchs2008 <- function(
       if (NCOL(data) < 2) {
         data <- cbind(data, NA)
       }
+
+      ## with just one data point, it's possible to cause nls() to hang
+      if (nrow(data) < 2) {
+        .throw_error("Insufficient number of data points")
+      }
     }
 
   ## read additional arguments
