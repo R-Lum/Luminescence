@@ -1,7 +1,17 @@
+data(ExampleData.DeValues, envir = environment())
+ExampleData.DeValues <- ExampleData.DeValues$CA1
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
+               "'plot.ratio' must be a positive scalar")
+})
+
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
 
-   ## load example data and recalculate to Gray
+  ## load example data and recalculate to Gray
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- ExampleData.DeValues$CA1
 
