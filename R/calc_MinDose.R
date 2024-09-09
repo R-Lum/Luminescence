@@ -371,6 +371,12 @@ calc_MinDose <- function(
     }
   }
 
+  ## par can only be 3 or 4
+  .validate_positive_scalar(par, int = TRUE)
+  if (!par %in% c(3, 4)) {
+    .throw_error("'par' can only be set to 3 or 4")
+  }
+
   ##============================================================================##
   ## ... ARGUMENTS
   ##============================================================================##
