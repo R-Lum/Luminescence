@@ -295,7 +295,7 @@ plot_DetPlot <- function(
       .throw_error("No valid results produced")
     }
     if (num.valid.results == 1) {
-      results <- results.temp.list
+      results <- result.temp.list
     } else {
       results <- merge_RLum(result.temp.list)
     }
