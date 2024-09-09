@@ -551,6 +551,9 @@ plot_AbanicoPlot <- function(
     }
   }
 
+  ## plot.ratio must be numeric and positive
+  .validate_positive_scalar(plot.ratio)
+
   ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)
   cex_old <- par()$cex
