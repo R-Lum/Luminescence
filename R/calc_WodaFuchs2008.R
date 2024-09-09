@@ -74,7 +74,8 @@ calc_WodaFuchs2008 <- function(
     } else {
 
       if(is(data, "RLum.Results") == TRUE) {
-        data <- get_RLum(data, "data")
+        data <- tryCatch(get_RLum(data, "data"),
+                         error = function(e) get_RLum(data))
       }
 
       ## if data is a numeric vector or a single-column data frame,
