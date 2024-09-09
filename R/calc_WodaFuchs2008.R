@@ -74,13 +74,19 @@ calc_WodaFuchs2008 <- function(
     } else {
 
       if(is(data, "RLum.Results") == TRUE) {
-        data <- get_RLum(data, "data")
+        data <- tryCatch(get_RLum(data, "data"),
+                         error = function(e) get_RLum(data))
       }
 
       ## if data is a numeric vector or a single-column data frame,
       ## append a second column of NAs
       if (NCOL(data) < 2) {
         data <- cbind(data, NA)
+      }
+
+      ## with just one data point, it's possible to cause nls() to hang
+      if (nrow(data) < 2) {
+        .throw_error("Insufficient number of data points")
       }
     }
 

@@ -47,6 +47,9 @@ an exponential fit is applied then this values are used as start parameters.
 data frames as input (#200).
 * The function computed the number of breaks for the histogram incorrectly
 (#197, fixed with #198).
+* The function now supports more types of `RLum.Results` objects without
+crashing, although if the object contains only one data point it will stop
+immediately to avoid problems with `nls()` (#199, fixed in #219).
 
 ### `fit_CWCurve()`
 * Argument `output.path` has been removed, and a warning is raised when
