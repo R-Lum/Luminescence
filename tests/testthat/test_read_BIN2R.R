@@ -2,7 +2,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(read_BIN2R(file = "error"),
-               "File 'error' does not exist")
+               "File '.*error' does not exist")
   expect_message(expect_null(read_BIN2R(test_path("test_read_BIN2R.R"))),
                  "is not a file of type 'BIN' or 'BINX'")
   expect_error(read_BIN2R(test_path("_data/BINfile_V3.bin"), verbose = FALSE,
