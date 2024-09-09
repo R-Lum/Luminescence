@@ -38,7 +38,9 @@
 #' - `"skewness"` (skewness).
 #'
 #' @param data [data.frame] or [RLum.Results-class] object (**required**):
-#' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`).
+#' for `data.frame`: either two columns: De (`data[,1]`) and De error
+#' (`data[,2]`), or one: De (`values[,1]`). If a single-column data frame
+#' is provided, De error is assumed to be 10^-9 for all measurements.
 #' To plot several data sets in one plot, the data sets must be provided as
 #' `list`, e.g. `list(data.1, data.2)`.
 #'
@@ -306,8 +308,20 @@ plot_RadialPlot <- function(
         data[[i]] <- get_RLum(data[[i]], "data")
       }
 
-      ##use only the first two columns
-      data[[i]] <- data[[i]][,1:2]
+      ## ensure that the dataset it not degenerate
+      if (nrow(data[[i]]) == 0) {
+       .throw_error("Input data ", i, " has 0 rows")
+      }
+
+      ## if `data[[i]]` is a single-column data frame, append a second
+      ## column with a small non-zero value (10^-9 for consistency with
+      ## what `calc_Statistics() does)
+      if (ncol(data[[i]]) < 2) {
+        data[[i]] <- data.frame(data[[i]], 10^-9)
+      } else if (ncol(data[[i]]) > 2) {
+        ## keep only the first two columns
+        data[[i]] <- data[[i]][, 1:2]
+      }
     }
   }
 

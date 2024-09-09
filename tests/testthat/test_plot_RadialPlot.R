@@ -14,6 +14,8 @@ test_that("input validation", {
                "'data' is an empty list")
   expect_error(plot_RadialPlot(df[, 1]),
                "Input data must be 'data.frame' or 'RLum.Results'")
+  expect_error(plot_RadialPlot(df[0, ]),
+               "Input data 1 has 0 rows")
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' must have length 2")
   expect_error(plot_RadialPlot(df, centrality = "error"),
@@ -70,6 +72,10 @@ test_that("dedicated test for the radialplot", {
       data = df,
       centrality = -1,
       log.z = FALSE))
+
+  ## single-column data frame
+  expect_message(plot_RadialPlot(df[, 1, drop = FALSE]),
+                 "Attention, small standardised estimate scatter")
 
   ## more coverage
   expect_type(plot_RadialPlot(df, main = "Title", sub = "Subtitle", rug = TRUE,
