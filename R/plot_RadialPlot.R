@@ -564,8 +564,8 @@ if(centrality[1] == "mean") {
       if (df[k] < 0)
         k <- k + 1
       else if (df[k] == 0)
-        return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] +
-                                                      w[k - 1]))
+        return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + w[k - 1]))
+
       else return(y[k - 1])
     }
   }
