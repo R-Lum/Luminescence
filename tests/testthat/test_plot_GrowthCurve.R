@@ -93,10 +93,6 @@ test_that("plot_GrowthCurve", {
     "RLum.Results")
   })
 
-  ## test defunct
-  expect_error(
-    object = plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE, na.rm = FALSE))
-
   ## do not include reg point
   expect_s4_class(
     object = plot_GrowthCurve(
@@ -523,7 +519,7 @@ temp_LambertW <-
     verbose = TRUE),
     "fit.method set to 'LIN'"))
   })
-  expect_match(warnings, "1 NA value(s) excluded",
+  expect_match(warnings, "1 NA values removed",
                all = FALSE, fixed = TRUE)
   expect_match(warnings, "Fitting using an exponential term requires",
                all = FALSE, fixed = TRUE)
