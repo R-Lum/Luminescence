@@ -11,6 +11,13 @@ test_that("input validation", {
   expect_error(plot_DetPlot(object, signal.integral.min = 1,
                             signal.integral.max = 1),
                "'signal.integral.max' must be greater than 'signal.integral.min'")
+  expect_error(plot_DetPlot(object, signal.integral.min = 1,
+                            signal.integral.max = 2,
+                            background.integral.min = 900,
+                            background.integral.max = 1000,
+                            analyse_function = "error",
+                            verbose = FALSE),
+               "Unknown 'analyse_function'")
 })
 
 test_that("plot_DetPlot", {
@@ -116,10 +123,23 @@ test_that("plot_DetPlot", {
     "RLum.Results")
 
   SW({
+  ## n.channels not set
+  expect_message(plot_DetPlot(object,
+                              method = "shift",
+                              signal.integral.min = 5,
+                              signal.integral.max = 6,
+                              background.integral.min = 10,
+                              background.integral.max = 50,
+                              analyse_function.control = list(
+                                  fit.method = "LIN"),
+                              verbose = TRUE),
+                 "'n.channels' not specified, set to 3")
+
   ## analyse_pIRIRSequence
   tmp <- subset(object, recordType != "IRSL" & ID != 1)
   plot_DetPlot(
       tmp,
+      method = "expansion",
       signal.integral.min = 1,
       signal.integral.max = 2,
       background.integral.min = 900,
@@ -128,6 +148,7 @@ test_that("plot_DetPlot", {
       analyse_function.control = list(
           sequence.structure = c("TL", "IR50"),
           fit.method = "LIN"),
+      respect_RC.Status = TRUE,
       n.channels = 2)
 
   ## analyse_pIRIRSequence on an inconsistent object

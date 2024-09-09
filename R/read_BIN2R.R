@@ -149,7 +149,8 @@ read_BIN2R <- function(
       ##If this is not really a path we skip this here
       if (all(dir.exists(file)) & length(dir(file)) > 0) {
         if (verbose)
-          cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
+          message("[read_BIN2R()] Directory detected, trying to extract ",
+                  "'*.bin'/'*.binx' files ...\n")
 
         ##get files
         file <- as.list(list.files(
@@ -158,14 +159,11 @@ read_BIN2R <- function(
           pattern = "\\.bin*",
           full.names = TRUE,
           ignore.case = TRUE))
-
       }
 
     }else if(dir.exists(file)){
       file <- as.list(list.files(file, pattern = pattern, full.names = TRUE, recursive = TRUE))
-
     }
-
   }
 
   if (is.list(file)) {
@@ -177,7 +175,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list(position), length = length(file))
-
     }
 
     ##n.records
@@ -186,7 +183,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list(n.records), length = length(file))
-
     }
 
     ##zero_data.rm
@@ -195,7 +191,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list(zero_data.rm), length = length(file))
-
     }
 
     ##duplicated.rm
@@ -204,7 +199,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list(duplicated.rm), length = length(file))
-
     }
 
     ## show.raw.values
@@ -213,7 +207,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list( show.raw.values), length = length(file))
-
     }
 
     ## show.record.number
@@ -222,7 +215,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list(show.record.number), length = length(file))
-
     }
 
     ##forced.VersionNumber
@@ -231,7 +223,6 @@ read_BIN2R <- function(
 
     }else{
       rep(list(forced.VersionNumber), length = length(file))
-
     }
 
     temp.return <- lapply(1:length(file), function(x) {
@@ -245,10 +236,10 @@ read_BIN2R <- function(
         show.record.number = show.record.number[[x]],
         txtProgressBar = txtProgressBar,
         forced.VersionNumber = forced.VersionNumber[[x]],
+        ignore.RECTYPE = ignore.RECTYPE,
         verbose = verbose,
         ...
       )
-
     })
 
     ##return
@@ -257,9 +248,7 @@ read_BIN2R <- function(
 
     }else{
       return(temp.return)
-
     }
-
   }
 
   # Config --------------------------------------------------------------------------------------
@@ -274,9 +263,7 @@ read_BIN2R <- function(
     ##close connection
     if(exists("con") && !is.null(con)){
       close(con)
-
     }
-
   }
   on.exit(expr = on_exit())
 
@@ -294,22 +281,19 @@ read_BIN2R <- function(
 
   ## check whether file exists
   if(!file.exists(file))
-     stop("[read_BIN2R()] File does not exist!", call. = FALSE)
-
+    .throw_error("File does not exist")
 
   ## check if file is a BIN or BINX file
   if(!any(tolower(tools::file_ext(file)) %in%  c("bin", "binx"))) {
-      message(paste0("[read_BIN2R()] '", file, "'is not a file or not of type 'BIN' or 'BINX'!
-                     Skipped and NULL returned!"))
-
+    message("[read_BIN2R()] '", file, "' is not a file of type ",
+            "'BIN' or 'BINX', skipped and NULL returned")
     con <- NULL
     return(NULL)
-
   }
 
   # Config ------------------------------------------------------------------
   ##set supported BIN format version
-  VERSION.supported <- as.raw(c(03, 04, 05, 06, 07, 08))
+  VERSIONS.supported <- as.raw(c(03, 04, 05, 06, 07, 08))
 
   # Short file parsing to get number of records -------------------------------------------------
   #open connection
@@ -320,7 +304,8 @@ read_BIN2R <- function(
 
   ##skip if zero-byte
   if(file.size$size == 0){
-    message(paste0("[read_BIN2R()] ", basename(file)," is a zero-byte file, skipped!"))
+    message("[read_BIN2R()] ", basename(file), " is a zero-byte file, ",
+            "NULL returned")
     return(NULL)
   }
 
@@ -333,19 +318,20 @@ read_BIN2R <- function(
      ##force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
+      if (verbose)
+        message("[read_BIN2R()] 'forced.VersionNumber' set to ", temp.VERSION,
+                ", but this version may not match your input file")
     }
 
     ##stop input if wrong VERSION
-    if(!all((temp.VERSION %in% VERSION.supported))){
+    if (!temp.VERSION %in% VERSIONS.supported) {
       if(temp.ID > 0){
         if(is.null(n.records)){
-          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID," record(s)."),
-                  call. = FALSE)
-
+          .throw_warning("BIN-file appears to be corrupt, import limited ",
+                         "to the first ", temp.ID, " records")
         }else{
-          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. 'n.records' reset to ", temp.ID,"."),
-                  call. = FALSE)
-
+          .throw_warning("BIN-file appears to be corrupt, 'n.records' ",
+                         "reset to ", temp.ID)
         }
 
         ##set or reset n.records
@@ -353,14 +339,11 @@ read_BIN2R <- function(
         break()
 
       }else{
-        ##show error message
-        error.text <- paste("[read_BIN2R()] Found BIN/BINX-format version (",temp.VERSION,") is not supported or the BIN/BINX-file is broken! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
-
-        ##show error
-        stop(error.text, call. = FALSE)
-
+        .throw_error("BIN/BINX format version (", temp.VERSION, ") ",
+                     "is not supported or file is broken. ",
+                     "Supported version numbers are: ",
+                     paste(VERSIONS.supported, collapse = ", "))
       }
-
     }
 
     #empty byte position
@@ -595,12 +578,6 @@ read_BIN2R <- function(
 
   # Open Connection ---------------------------------------------------------
 
-  ##show warning if version number check has been cheated
-
-  if(!is.null(forced.VersionNumber)){
-    warning("Argument 'forced.VersionNumber' has been used. BIN-file version might be not supported!")
-  }
-
   #open connection
   con <- file(file, "rb")
 
@@ -641,16 +618,6 @@ read_BIN2R <- function(
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
-    ##stop input if wrong VERSION
-    if((temp.VERSION%in%VERSION.supported) == FALSE){
-
-      ##show error message
-      error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
-
-      stop(error.text, call. = FALSE)
-
-    }
-
     ##print record ID for debugging purposes
     if(verbose){
       if(show.record.number == TRUE){
@@ -682,7 +649,6 @@ read_BIN2R <- function(
         temp.ID <- temp.ID + 1
         readBin(con, what = "raw", n = temp.LENGTH - 14, size = 1, endian = "little")
         next()
-
       }
 
       #for temp.VERSION == 08
@@ -694,7 +660,8 @@ read_BIN2R <- function(
           if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
             STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
             if(verbose)
-              cat(paste0("\n[read_BIN2R()] Record #",temp.ID+1,", skipped due to ignore.RECTYPE setting!"))
+              message("\n[read_BIN2R()] Record #", temp.ID + 1,
+                      " skipped due to ignore.RECTYPE setting")
             next()
           }
 
@@ -702,13 +669,14 @@ read_BIN2R <- function(
           ##jump to the next record by stepping the record length minus the already read bytes
           STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
             if(!ignore.RECTYPE){
-              stop(
-                paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"!
-                       Check your BIN/BINX file!"), call. = FALSE)
-
+              .throw_error("Byte RECTYPE = ", temp.RECTYPE,
+                           " is not supported in record #", temp.ID + 1, ", ",
+                           "check your BIN/BINX file")
             } else {
               if(verbose)
-                cat(paste0("\n[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,", record skipped!"))
+                message("\n[read_BIN2R()] Byte RECTYPE = ", temp.RECTYPE,
+                        " is not supported in record #", temp.ID + 1,
+                        ", record skipped")
 
               ## update and jump to next record, to avoid further trouble
               ## we set the VERSION to NA and remove it later, otherwise we
@@ -716,7 +684,6 @@ read_BIN2R <- function(
               temp.ID <- temp.ID + 1
               results.METADATA[temp.ID,`:=` (VERSION = NA)]
               next()
-
             }
         }
       }
@@ -818,7 +785,6 @@ read_BIN2R <- function(
 
         }else{
           TIME_SIZE <- 0
-
         }
 
         if(6-TIME_SIZE>0){
@@ -1195,12 +1161,7 @@ read_BIN2R <- function(
 
         ##RESERVED
         temp.RESERVED2 <- readBin(con, what="raw", 10, size=1, endian="little")
-
       }
-
-    }else{
-      stop("[read_BIN2R()] Unsupported BIN/BINX-file version.", call. = FALSE)
-
     }
 
      #DPOINTS
@@ -1216,7 +1177,6 @@ read_BIN2R <- function(
            ROICOLOR = readBin(con, what = "integer", 1, size = 4, endian = "little"),
            X = readBin(con, what = "double", 50, size = 4, endian = "little"),
            Y = readBin(con, what = "double", 50, size = 4, endian = "little"))
-
        })
      }
 
@@ -1320,7 +1280,6 @@ read_BIN2R <- function(
       MARKPOS_X3 = temp.MARKPOS_X3,
       MARKPOS_Y3 = temp.MARKPOS_Y3,
       SEQUENCE = temp.SEQUENCE
-
     )]
 
     results.DATA[[id_row]] <- temp.DPOINTS
@@ -1345,7 +1304,7 @@ read_BIN2R <- function(
 
   ##output
   if(verbose)
-    cat(paste0("\t >> ", length(results.DATA) ," record(s) have been read successfully!\n\n"))
+    message("\t >> ", length(results.DATA), " records read successfully\n")
 
   # Further limitation --------------------------------------------------------------------------
   if(!is.null(position)){
@@ -1358,18 +1317,14 @@ read_BIN2R <- function(
         results.METADATA[["ID"]] <- 1:length(results.DATA )
 
         ##show a message
-        message("[read_BIN2R()] The record index has been recalculated!")
+        message("[read_BIN2R()] The record index has been recalculated")
 
     }else{
       valid.position <-
         paste(unique(results.METADATA[["POSITION"]]), collapse = ", ")
-      warning(
-        paste0(
-          "Position limitation omitted. At least one position number is not valid, valid position numbers are: ", valid.position
-        )
-      )
+      .throw_warning("At least one position number is not valid, ",
+                     "valid position numbers are: ", valid.position)
     }
-
   }
 
   ##check for position that have no data at all (error during the measurement)
@@ -1388,15 +1343,10 @@ read_BIN2R <- function(
       ##recalculate record index
       results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
 
-      warning(
-        paste0(
-          "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed! ",
-          "\n >> Record index re-calculated."
-        ), call. = FALSE
-      )
-
+      .throw_warning("\n", length(zero_data.check),
+                     " zero data records detected and removed. ",
+                     "\n >> Record index re-calculated.")
     }
-
   }
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
@@ -1422,28 +1372,17 @@ read_BIN2R <- function(
 
         ##message
         if(verbose) {
-          message(
-            paste0(
-              "[read_BIN2R()] duplicated record(s) detected and removed: ",
-              paste(duplication.check, collapse = ", "),
-              ". Record index re-calculated."
-            )
-          )
+          message("[read_BIN2R()] duplicated records detected and removed: ",
+                  paste(duplication.check, collapse = ", "),
+                  ", record index re-calculated")
         }
 
       } else{
-        warning(
-          paste0(
-            "[read_BIN2R()] duplicated record(s) detected: ",
-            paste(duplication.check, collapse = ", "),
-            ". \n\n >> You should consider 'duplicated.rm = TRUE'."
-          )
-        )
-
+        .throw_warning("Duplicated records detected: ",
+                       paste(duplication.check, collapse = ", "),
+                       "\n\n >> You should consider 'duplicated.rm = TRUE'.")
       }
-
     }
-
   }
 
   ##produce S4 object for output
@@ -1451,6 +1390,13 @@ read_BIN2R <- function(
     METADATA = results.METADATA,
     DATA = results.DATA,
     .RESERVED =  results.RESERVED)
+
+  if (length(object) == 0) {
+    if (verbose) {
+      message("[read_BIN2R()] Empty object returned")
+    }
+    return(object)
+  }
 
   # Convert Translation Matrix Values ---------------------------------------
   if (!show.raw.values) {
@@ -1476,28 +1422,21 @@ read_BIN2R <- function(
 
               } else{
                 return(object@METADATA[["LTYPE"]][x])
-
               }
-
             })
-
         }
 
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
     if (TIME_SIZE == 6) {
       object@METADATA[["TIME"]] <-
         format(strptime(as.character(object@METADATA[["TIME"]]), "%H%M%S"), "%H:%M:%S")
-
     }
-
   }
 
   ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
   ## This can happen if the user uses different equipment
   if(all(is.na(object@METADATA[["FNAME"]]))){
     object@METADATA[["FNAME"]] <- strsplit(x = basename(file), split = ".", fixed = TRUE)[[1]][1]
-
-
   }
 
   # Fast Forward --------------------------------------------------------------------------------
@@ -1505,8 +1444,7 @@ read_BIN2R <- function(
   if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
      fastForward == FALSE) {
     fastForward <- TRUE
-    warning("[read_BIN2R()] automatically reset 'fastForward = TRUE'", call. = FALSE)
-
+    .throw_warning("Automatically reset 'fastForward = TRUE'")
   }
 
   ##return values
@@ -1517,10 +1455,7 @@ read_BIN2R <- function(
      ##because we expect a list
      if(!inherits(object, "list"))
        object <- list(object)
-
   }
 
    return(object)
-
 }
-

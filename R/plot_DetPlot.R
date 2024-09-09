@@ -246,15 +246,9 @@ plot_DetPlot <- function(
 # Analyse -------------------------------------------------------------------------------------
   ##set integral sequence
   if (is.null(signal_integral.seq)) {
-    if(signal.integral.min == signal.integral.max){
-      signal_integral.seq <- signal.integral.min:(background.integral.min - 1)
-
-    }else{
-      signal_integral.seq <-
-        seq(signal.integral.min,
-            background.integral.min - 1,
-            by = signal.integral.max - signal.integral.min)
-    }
+    signal_integral.seq <- seq(signal.integral.min,
+                               background.integral.min - 1,
+                               by = signal.integral.max - signal.integral.min)
   }
 
   if(analyse_function  == "analyse_SAR.CWOSL"){
