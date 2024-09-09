@@ -98,8 +98,6 @@
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.
 #'
-#' @param na.rm [logical] (*with default*): excludes `NA` values from the data set prior to any further operations. This argument is defunct and will be removed in a future version!
-#'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
 #' - `"interpolation"` (default) calculates the De by interpolation,
@@ -304,7 +302,6 @@
 #' @export
 plot_GrowthCurve <- function(
   sample,
-  na.rm = TRUE,
   mode = "interpolation",
   fit.method = "EXP",
   fit.force_through_origin = FALSE,
@@ -368,29 +365,19 @@ plot_GrowthCurve <- function(
     return(NULL)
   }
 
-  ## optionally, count and exclude NA values and print result
-  if(na.rm[1]) {
-    ## write warning
-    if(sum(!complete.cases(sample)) > 0)
-      warning(paste("[plot_GrowthCurve()]",
-                    sum(!complete.cases(sample)),
-                    "NA value(s) excluded."),
-              call. = FALSE)
+  ## count and exclude NA values and print result
+  if (sum(!complete.cases(sample)) > 0)
+    .throw_warning(sum(!complete.cases(sample)),
+                   " NA values removed")
 
-    ## exclude NA
-    sample <- na.exclude(sample)
+  ## exclude NA
+  sample <- na.exclude(sample)
 
-    ##Check if anything is left after removal
-    if(nrow(sample) == 0){
-      message("[plot_GrowthCurve()] Error: After NA removal, nothing is left ",
-              "from the data set, NULL returned")
-      return(NULL)
-    }
-
-  }else{
-    stop("[plot_GrowthCurve()] Sorry, the argument 'na.rm' is defunct and will be removed in future!",
-         call. = FALSE)
-
+  ## Check if anything is left after removal
+  if (nrow(sample) == 0) {
+    message("[plot_GrowthCurve()] Error: After NA removal, nothing is left ",
+            "from the data set, NULL returned")
+    return(NULL)
   }
 
   ##3. verbose mode

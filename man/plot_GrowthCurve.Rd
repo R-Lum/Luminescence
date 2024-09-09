@@ -6,7 +6,6 @@
 \usage{
 plot_GrowthCurve(
   sample,
-  na.rm = TRUE,
   mode = "interpolation",
   fit.method = "EXP",
   fit.force_through_origin = FALSE,
@@ -31,8 +30,6 @@ data frame with three columns for \code{x = Dose},\code{y = LxTx},\code{z = LxTx
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.}
-
-\item{na.rm}{\link{logical} (\emph{with default}): excludes \code{NA} values from the data set prior to any further operations. This argument is defunct and will be removed in a future version!}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.

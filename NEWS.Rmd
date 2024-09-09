@@ -74,8 +74,11 @@ would produce `Inf` (#203, fixed in #206).
 (#210, fixed in #211).
 
 ### `plot_GrowthCurve()`
-* The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
-The values is part of the output table.
+* The function now calculates the relative saturation (`n/N`) using the ratio
+of the two integrates. The value is part of the output table.
+* Argument `na.rm` has been removed: as of version 0.9.23, it was defunct
+and only accepted `TRUE` as valid value and produced an error otherwise,
+so there is no effective change in behaviour (#137, fixed in #214).
 
 ### `plot_KDE()`
 * It now officially supports numeric vectors and single-column data frames,
