@@ -281,7 +281,7 @@ read_BIN2R <- function(
 
   ## check whether file exists
   if(!file.exists(file))
-    .throw_error("File '", file, "' does not exist")
+    .throw_error("File does not exist")
 
   ## check if file is a BIN or BINX file
   if(!any(tolower(tools::file_ext(file)) %in%  c("bin", "binx"))) {

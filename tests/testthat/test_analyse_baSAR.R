@@ -9,9 +9,9 @@ test_that("input validation", {
   skip_on_cran()
 
   expect_error(analyse_baSAR("error", verbose = FALSE),
-               "File '.*error' does not exist")
+               "File does not exist")
   expect_error(analyse_baSAR(list("error"), verbose = FALSE),
-               "File 'error' does not exist")
+               "File does not exist")
   expect_error(analyse_baSAR(data.frame(), verbose = FALSE),
                "'data.frame' as input is not supported")
   expect_error(analyse_baSAR(list(data.frame()), verbose = FALSE),

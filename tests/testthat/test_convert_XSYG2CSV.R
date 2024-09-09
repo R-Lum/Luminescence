@@ -7,7 +7,7 @@ test_that("test convert functions", {
   expect_error(convert_BIN2CSV(),
                "file is missing")
   expect_error(convert_BIN2CSV(file = "error", export = FALSE),
-               "File '.*error' does not exist")
+               "File does not exist")
   #expect_error(convert_PSL2CSV(file = "", export = FALSE))
   expect_error(expect_message(convert_XSYG2CSV(file = "", export = FALSE),
                               "XML file not readable, nothing imported"),
