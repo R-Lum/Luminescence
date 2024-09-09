@@ -274,13 +274,11 @@ plot_DetPlot <- function(
         plot.single = analyse_function.settings$plot.single,
         verbose = verbose
       )
-
     }))
-
 
   }
   else if(analyse_function  == "analyse_pIRIRSequence"){
-    results <- merge_RLum(lapply(1:n.channels, function(x){
+    result.temp.list <- lapply(1:n.channels, function(x) {
       analyse_pIRIRSequence(
         object = object,
         signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
@@ -293,11 +291,21 @@ plot_DetPlot <- function(
         plot.single = analyse_function.settings$plot.single,
         sequence.structure = analyse_function.settings$sequence.structure,
         verbose = verbose
-
       )
+    })
 
-    }))
-
+    ## as the analyse_pIRIRSequence() may fail, we see how many results
+    ## we've actually managed to produce
+    num.valid.results <- sum(!sapply(result.temp.list, is.null))
+    if (num.valid.results == 0) {
+      .throw_error("No valid results produced")
+    }
+    if (num.valid.results == 1) {
+      results <- results.temp.list
+    } else {
+      results <- merge_RLum(result.temp.list)
+    }
+    rm(result.temp.list)
   }
   else{
    .throw_error("Unknown 'analyse_function'")

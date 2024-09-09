@@ -566,7 +566,7 @@ analyse_pIRIRSequence <- function(
 
       ##check whether NULL was return
       if (is.null(temp.results)) {
-        try(stop("[plot_pIRIRSequence()] An error occurred, analysis skipped. Check your sequence!", call. = FALSE))
+        message("[plot_pIRIRSequence()] An error occurred, analysis skipped. Check your sequence!")
         return(NULL)
       }
 
