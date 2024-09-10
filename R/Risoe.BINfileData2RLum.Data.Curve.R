@@ -76,11 +76,9 @@
   # grep id of record -------------------------------------------------------
   ##if id is set, no input for pos and run is necessary
   if (missing(id)) {
-    id <- METADATA[METADATA[["POSITION"]] == pos &
-                     METADATA[["SET"]] == set &
-                     METADATA[["RUN"]] == run,
-                   "ID"]
-
+    id <- METADATA$ID[METADATA[["POSITION"]] == pos &
+                      METADATA[["SET"]] == set &
+                      METADATA[["RUN"]] == run]
   }
 
   ##grep info elements
