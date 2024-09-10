@@ -15,7 +15,8 @@ test_that("check functionality", {
                      bootstrap = TRUE, bs.M = 10, bs.N = 10,
                      plot = FALSE, verbose = FALSE)
   expect_silent(plot_RLum.Results(d1, main = "Title"))
-  expect_silent(plot_RLum.Results(d1, single = FALSE))
+  expect_silent(plot_RLum.Results(d1, single = FALSE, log = "", lty = 1,
+                                  type = "l", col = 2))
 
   ## calc_CentralDose
   d2 <-calc_CentralDose(ExampleData.DeValues$CA1,
@@ -26,13 +27,19 @@ test_that("check functionality", {
   d3 <- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5,
                            plot = FALSE, verbose = FALSE)
   expect_silent(plot_RLum.Results(d3))
+  expect_silent(plot_RLum.Results(d3, main = "Title", sub = "Subtitle",
+                                  xlab = "x", xlim = c(2500, 4000),
+                                  ylab = "y", ylim = c(0, 25), mtext = "",
+                                  cex = 1, lwd = 1, pch = 1))
 
   ## calc_FiniteMixture
   d4 <- calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                            n.components = c(2:4),
                            dose.scale = c(0, 100),
                            plot = FALSE, verbose = FALSE)
-  expect_silent(plot_RLum.Results(d4, pdf.colors="colors"))
+  expect_silent(plot_RLum.Results(d4, pdf.colors = "colors"))
+  expect_silent(plot_RLum.Results(d4, main = "Title", plot.proportions = FALSE,
+                                  pdf.weight = FALSE, pdf.sigma = "sigmab"))
 
   ## calc_AliquotSize
   d5 <- calc_AliquotSize(grain.size = c(100, 150), sample.diameter = 1,
