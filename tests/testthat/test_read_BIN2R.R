@@ -25,6 +25,18 @@ test_that("input validation", {
   write(raw(), zero)
   expect_error(read_BIN2R(zero, verbose = FALSE),
                "BIN/BINX format version \\(..\\) is not supported or file is")
+  SW({
+  expect_warning(
+      expect_message(expect_null(read_BIN2R(zero, verbose = TRUE,
+                                            forced.VersionNumber = 8)),
+                     "Record #1 skipped due to wrong record length"),
+      "0 records read, NULL returned")
+  expect_warning(
+      expect_message(expect_null(read_BIN2R(zero, verbose = TRUE,
+                                            forced.VersionNumber = 3)),
+                     "Record #1 skipped due to wrong record length"),
+      "0 records read, NULL returned")
+  })
 
   fake <- tempfile(pattern = "fake", fileext = ".binx")
   writeBin(as.raw(c(  8, 0,       # version

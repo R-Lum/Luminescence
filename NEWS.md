@@ -144,6 +144,8 @@
   this type will be ignored during import.
 - BINX-files with `RECTYPE = 128` will not crash anymore, thanks for
   asking Anna-Maartje Boer and replying Karsten Bracht.
+- The function now stops graciously when attempting to read an empty
+  file (#225, fixed in \#226).
 
 ### `read_PSL2R()`
 
