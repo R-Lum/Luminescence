@@ -873,6 +873,7 @@ fancy_scientific <- function(l) {
 
 #' @title Silence Output and Warnings during Tests
 #'
+#' @description
 #' This is helpful so that during tests the terminal is not filled up by
 #' the output from the function tested, which is often left intentionally
 #' verbose to facilitate the coverage analysis.
