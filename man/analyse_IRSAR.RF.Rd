@@ -64,7 +64,7 @@ error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL}
 MC runs. Note: Large values will significantly increase the computation time}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progression bar during MC runs}
+enables \code{TRUE} or disables \code{FALSE} the progress bar during MC runs}
 
 \item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE} or \code{FALSE})}

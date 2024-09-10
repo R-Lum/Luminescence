@@ -45,7 +45,7 @@ this option is parsed only if a BIN/BINX file is produced and it will reset all 
 values to a max. value of 48, cf.\link{write_R2BIN}}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progression bars during import and export}
+enables \code{TRUE} or disables \code{FALSE} the progress bars during import and export}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned with the

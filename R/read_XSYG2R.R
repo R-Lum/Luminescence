@@ -101,7 +101,7 @@
 #' the `txtProgressBar` is also switched off
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables `TRUE` or disables `FALSE` the progression bar during import
+#' enables `TRUE` or disables `FALSE` the progress bar during import
 #'
 #' @return
 #' **Using the option `import = FALSE`**
@@ -321,7 +321,6 @@ read_XSYG2R <- function(
   if(is(temp, "try-error") == TRUE){
     if(verbose) message("[read_XSYG2R()] XML file not readable, nothing imported!")
     return(NULL)
-
   }
 
   # (2) Further file processing ---------------------------------------------
@@ -366,7 +365,7 @@ read_XSYG2R <- function(
 
     ##Display output
     if(verbose)
-      paste0("[read_XSYG2R()]\n  Importing: ",file)
+      cat("[read_XSYG2R()]\n  Importing: ", file)
 
     ##PROGRESS BAR
     if(verbose && txtProgressBar){
@@ -400,7 +399,6 @@ read_XSYG2R <- function(
          ##create a fallback, the function should not fail
          if(is.null(temp.sequence.object.recordType) || is.na(temp.sequence.object.recordType)){
            temp.sequence.object.recordType <- "not_set"
-
          }
 
         ##correct record type in depending on the stimulator
@@ -412,7 +410,6 @@ read_XSYG2R <- function(
               XML::xmlSize(temp[[x]][[i]])]])["stimulator"] == "ir_LD_850"){
 
             temp.sequence.object.recordType  <- "IRSL"
-
           }
         }
 
@@ -437,12 +434,10 @@ read_XSYG2R <- function(
           ##get additional information
           temp.sequence.object.info <- as.list(XML::xmlAttrs(temp.sequence.object.curveValue))
 
-
           ##add stimulator and detector and so on
           temp.sequence.object.info <- c(temp.sequence.object.info,
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
-
 
 
           ## TL curve recalculation ============================================
@@ -465,7 +460,6 @@ read_XSYG2R <- function(
                 temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
                   temp[[x]][[i]][[3]]))
 
-
               }else{
 
                 temp.sequence.object.curveValue.spectrum <- get_XSYG.spectrum.values(
@@ -478,7 +472,6 @@ read_XSYG2R <- function(
                 ##round values (1 digit is technical resolution of the heating element)
                 temp.sequence.object.curveValue.spectrum.time <- round(
                   temp.sequence.object.curveValue.spectrum.time, digits = 1)
-
               }
 
               #grep values from heating element
@@ -495,7 +488,6 @@ read_XSYG2R <- function(
                       min(temp.sequence.object.curveValue.PMT[,1]) &
                       temp.sequence.object.curveValue.heating.element[,1] <=
                       max(temp.sequence.object.curveValue.PMT[,1]), ,drop = FALSE]
-
               }else{
 
                 #reduce matrix values to values of the detection
@@ -521,7 +513,6 @@ read_XSYG2R <- function(
                 (heating.rate.values[length(heating.rate.values[,1]), 1] -
                    heating.rate.values[1,1])
 
-
               ##round values
               heating.rate <- round(heating.rate, digits=1)
 
@@ -531,7 +522,6 @@ read_XSYG2R <- function(
 
               ##PERFORM RECALCULATION
               ##check which object contains more data
-
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
                 ##CASE (1)
                 if(nrow(temp.sequence.object.curveValue.PMT) >
@@ -570,7 +560,6 @@ read_XSYG2R <- function(
                     temp.sequence.object.curveValue.heating.element[,2]
 
                   count.values <- temp.sequence.object.curveValue.PMT[,2]
-
                 }
 
                 ##combine as matrix
@@ -580,7 +569,6 @@ read_XSYG2R <- function(
 
                 ##set curve identifier
                 temp.sequence.object.info$curveDescripter <- "Temperature [\u00B0C]; Counts [a.u.]"
-
 
               }else{
                 ##CASE (1) here different approach. in contrast to the PMT measurements, as
@@ -607,7 +595,6 @@ read_XSYG2R <- function(
 
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
-
                     .throw_warning("Temperature values are found to be ",
                                    "duplicated and increased by 1 K")
                   }
@@ -624,9 +611,7 @@ read_XSYG2R <- function(
 
                 ##change curve descriptor
                 temp.sequence.object.info$curveDescripter <- "Temperature [\u00B0C]; Wavelength [nm]; Counts [1/ch]"
-
               }
-
 
             }##endif
           }##endif recalculate.TL.curves == TRUE
@@ -635,8 +620,6 @@ read_XSYG2R <- function(
     # Cleanup info objects ------------------------------------------------------------------------
     if("curveType" %in% names(temp.sequence.object.info))
       temp.sequence.object.info[["curveType"]] <- NULL
-
-
 
     # Set RLum.Data-objects -----------------------------------------------------------------------
           if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
@@ -687,7 +670,6 @@ read_XSYG2R <- function(
       }),
        use.names = FALSE)
 
-
       ##if the XSYG file is broken we get NULL as list element
       if (!is.null(temp.sequence.object)) {
         ##set RLum.Analysis object
@@ -707,19 +689,16 @@ read_XSYG2R <- function(
           setTxtProgressBar(pb, x)
         }
 
-
         ##merge output and return values
         if(fastForward){
           return(temp.sequence.object)
 
         }else{
           return(list(Sequence.Header = temp.sequence.header, Sequence.Object = temp.sequence.object))
-
         }
 
       }else{
         return(temp.sequence.object)
-
       }
 
     })##end loop for sequence list
@@ -737,7 +716,6 @@ read_XSYG2R <- function(
 
       if(verbose){
         paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.", XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n")
-
       }
 
       .throw_warning(length(output[sapply(output, is.null)]),
@@ -751,5 +729,4 @@ read_XSYG2R <- function(
 
   ##get rid of the NULL elements (as stated before ... invalid files)
   return(output[!sapply(output,is.null)])
-
 }
