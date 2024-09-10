@@ -66,6 +66,13 @@
   stop immediately to avoid problems with `nls()` (#199, fixed in
   \#219).
 
+### `extract_IrradiationTimes()`
+
+- If a BIX-file is provided, the function will now check that it
+  contains the same amount of data as the corresponding XSYG file a bit
+  earlier than before, thus avoiding a possible crash (#228, fixed in
+  \#229).
+
 ### `fit_CWCurve()`
 
 - Argument `output.path` has been removed, and a warning is raised when
