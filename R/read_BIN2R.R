@@ -349,24 +349,33 @@ read_BIN2R <- function(
     #empty byte position
     EMPTY <- readBin(con, what = "raw", 1, size = 1, endian = "little")
 
+    ## get record LENGTH
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-      ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what = "int", 1, size = 4, endian = "little")
-      STEPPING <- readBin(con, what = "raw", max(c(0,temp.LENGTH - 6)), size = 1, endian = "little")
-
+      STEPPING <- readBin(con, what = "raw", n = max(0, temp.LENGTH - 6),
+                          size = 1, endian = "little")
     }else{
-      ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what = "int", 1, size = 2, endian = "little")
-      STEPPING <- readBin(con, what = "raw", temp.LENGTH - 4, size = 1, endian = "little")
-
+      STEPPING <- readBin(con, what = "raw", n = max(0, temp.LENGTH - 4),
+                          size = 1, endian = "little")
     }
 
+    ## STEPPING has 0 length when we have read for a length n = 0
+    if (length(STEPPING) == 0) {
+      if (verbose)
+        message("\n[read_BIN2R()] Record #", temp.ID + 1,
+                " skipped due to wrong record length")
+      next()
+    }
     temp.ID <- temp.ID + 1
-
   }
 
   ##set n.length we will need it later
   n.length <- temp.ID
+  if (n.length == 0) {
+    .throw_warning("0 records read, NULL returned")
+    return(NULL)
+  }
 
   rm(temp.ID)
   close(con) ##we have to close the connection here
