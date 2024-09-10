@@ -86,7 +86,7 @@
 #' Time'. The table output returns only the real 'Time Since Irradiation', i.e. time between the
 #' end of the irradiation and the next step.
 #'
-#' **Negative values for `TIMESINCELAS.STEP`?**
+#' **Negative values for `TIMESINCELAST.STEP`?**
 #'
 #' Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
 #' Example: TL step may comprise three curves:
@@ -157,7 +157,6 @@ extract_IrradiationTimes <- function(
       }else{
         recordType <-
           rep(list(recordType), length = length(object))
-
       }
 
       ##run function
@@ -167,7 +166,6 @@ extract_IrradiationTimes <- function(
           recordType = recordType[[x]],
           txtProgressBar = txtProgressBar
         )
-
       })
 
       ##DO NOT use invisible here, this will stop the function from stopping
@@ -176,9 +174,7 @@ extract_IrradiationTimes <- function(
 
       }else{
         return(results)
-
       }
-
   }
 
 # Integrity tests -----------------------------------------------------------------------------
@@ -199,8 +195,7 @@ extract_IrradiationTimes <- function(
     ##check if file is XML file
     if(tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "xsyg" &
          tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "XSYG" ){
-      stop("[extract_IrradiationTimes()] File is not of type 'XSYG'!", call. = FALSE)
-
+      .throw_error("File is expected to have 'xsyg' or 'XSYG' extension")
     }
 
     ##BINX
@@ -212,16 +207,17 @@ extract_IrradiationTimes <- function(
       ##check if file is XML file
       if(tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "binx" &
            tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "BINX" ){
-        stop("[extract_IrradiationTimes()] File is not of type 'BINX'!", call. = FALSE)
-
+        .throw_error("File is expected to have 'binx' or 'BINX' extension")
       }
     }
 
     # Settings and import XSYG --------------------------------------------------------------------
-    temp.XSYG <- read_XSYG2R(file.XSYG, txtProgressBar = txtProgressBar)
+    temp.XSYG <- read_XSYG2R(file.XSYG, txtProgressBar = txtProgressBar,
+                             verbose = txtProgressBar)
 
     if(!missing(file.BINX)){
-      temp.BINX <- read_BIN2R(file.BINX, txtProgressBar = txtProgressBar)
+      temp.BINX <- read_BIN2R(file.BINX, txtProgressBar = txtProgressBar,
+                              verbose = txtProgressBar)
       temp.BINX.dirname <- (dirname(file.XSYG))
     }
 
@@ -239,7 +235,6 @@ extract_IrradiationTimes <- function(
 
       ##get corresponding position number, this will be needed later on
       temp.sequence.position <- as.numeric(as.character(temp.XSYG[[i]]$Sequence.Header["position",]))
-
     }
 
   }else{
@@ -247,7 +242,6 @@ extract_IrradiationTimes <- function(
     ##select sequence and reduce the data set to really wanted values, note that no
     ##record selection was made!
     temp.sequence.list <- list(object)
-
   }
 
   ##merge objects
@@ -256,7 +250,6 @@ extract_IrradiationTimes <- function(
 
   }else{
     temp.sequence <- temp.sequence.list[[1]]
-
   }
 
 # Grep relevant information -------------------------------------------------------------------
@@ -286,7 +279,6 @@ extract_IrradiationTimes <- function(
 
     ##a little bit reformatting.
     START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
-
   }
 
   ##DURATION of each STEP
@@ -299,6 +291,7 @@ extract_IrradiationTimes <- function(
   END <- START + DURATION.STEP
 
   ##add position number so far an XSYG file was the input
+  POSITION <- NA
   if(exists("file.XSYG")){
     POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
@@ -316,10 +309,6 @@ extract_IrradiationTimes <- function(
 
       tmp
     }, numeric(1))
-
-  }else{
-    POSITION <- NA
-
   }
 
   ##Combine the results

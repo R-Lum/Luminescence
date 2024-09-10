@@ -6,14 +6,20 @@ test_that("input validation", {
 
   expect_error(extract_IrradiationTimes("fail"),
                "Wrong XSYG file name or file does not exist!")
+  expect_error(extract_IrradiationTimes(tempdir()),
+               "File is expected to have 'xsyg' or 'XSYG' extension")
   expect_error(extract_IrradiationTimes(FALSE),
                "neither of type 'character' nor of type 'RLum.Analysis")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = "fail"),
                "Wrong BINX file name or file does not exist!")
+  expect_error(extract_IrradiationTimes(xsyg, file.BINX = tempdir()),
+               "File is expected to have 'binx' or 'BINX' extension")
+
   expect_message(extract_IrradiationTimes(xsyg, file.BINX = binx,
                                           txtProgressBar = FALSE),
                  "XSYG-file and BINX-file do not contain similar entries")
-  expect_warning(extract_IrradiationTimes(list(xsyg), file.BINX = binx),
+  expect_warning(extract_IrradiationTimes(list(xsyg), file.BINX = binx,
+                                          txtProgressBar = FALSE),
                  "'file.BINX' is not supported in self-call mode")
 })
 
@@ -29,9 +35,10 @@ test_that("Test the extraction of irradiation times", {
   ##check whether it makes sense
   expect_equal(sum(res$irr.times$IRR_TIME), 80)
 
-  SW({
-  extract_IrradiationTimes(list(xsyg), recordType = list("OSL (UVVIS)"))
-  })
+  ## recordType
+  res <- extract_IrradiationTimes(list(xsyg), recordType = list("OSL (UVVIS)"),
+                                  txtProgressBar = FALSE)
+  expect_true(all(res[[1]]@data$irr.times$STEP == "OSL (UVVIS)"))
 
   ## apply the function to something previously imported via read_BIN2R
   SW({

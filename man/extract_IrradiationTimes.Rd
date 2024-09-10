@@ -99,7 +99,7 @@ The way the value 'Time Since Irradiation' is defined differs. In the BINX-file 
 Time'. The table output returns only the real 'Time Since Irradiation', i.e. time between the
 end of the irradiation and the next step.
 
-\strong{Negative values for \code{TIMESINCELAS.STEP}?}
+\strong{Negative values for \code{TIMESINCELAST.STEP}?}
 
 Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
 Example: TL step may comprise three curves:
