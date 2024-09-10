@@ -210,7 +210,7 @@
 #' MC runs. Note: Large values will significantly increase the computation time
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables `TRUE` or disables `FALSE` the progression bar during MC runs
+#' enables `TRUE` or disables `FALSE` the progress bar during MC runs
 #'
 #' @param plot [logical] (*with default*):
 #' plot output (`TRUE` or `FALSE`)

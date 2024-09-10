@@ -344,8 +344,8 @@ calc_MinDose <- function(
   ## ============================================================================##
   if (!missing(data)) {
     if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
-      stop("[calc_MinDose()] Error: 'data' object has to be of type ",
-           "'data.frame' or 'RLum.Results'!")
+      .throw_error("Error: 'data' object must be of type ",
+                   "'data.frame' or 'RLum.Results'")
     }
     if (is(data, "RLum.Results")) {
       data <- get_RLum(data, "data")
@@ -582,7 +582,7 @@ calc_MinDose <- function(
       )
 
     }, error = function(e) {
-      stop(paste("Sorry, seems like I encountered an error...:", e), call. = FALSE)
+      .throw_error("Sorry, seems like I encountered an error: ", e)
     })
     return(mle)
   }
@@ -653,11 +653,10 @@ calc_MinDose <- function(
   maxsteps <- 100
   cnt <- 1
   while (!inherits(prof, "profile.mle2")) {
-    message(paste0("## Trying to find a better fit (", cnt, "/10) ##"))
     if (maxsteps == 0L)
-      stop(paste("Sorry, but I can't find a converging fit for the profile log-likelihood."),
-           call. = FALSE)
-
+      .throw_error("Couldn't find a converging fit for the profile log-likelihood")
+    if (verbose)
+      message("## Trying to find a better fit (", cnt, "/10) ##")
     prof <- suppressWarnings(
       bbmle::profile(ests,
                      which = which,
@@ -1037,16 +1036,14 @@ calc_MinDose <- function(
   if (plot)
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
 
-
   # if (!debug)
   #   options(warn = 0)
 
   if (!is.na(summary$mu) && !is.na(summary$de)) {
     if (log(summary$de) > summary$mu)
-      warning("Gamma is larger than mu. Consider re-running the model",
-              " with new boundary values (see details '?calc_MinDose').", call. = FALSE)
+      .throw_warning("Gamma is larger than mu, consider running the model ",
+                     "with new boundary values (see details '?calc_MinDose')")
   }
 
   invisible(newRLumResults.calc_MinDose)
-
 }

@@ -55,7 +55,6 @@ test_that("dedicated test for the radialplot", {
       centrality = 5,
       log.z = FALSE))
 
-
   ## simple test - unlogged with statistics
   expect_silent(
     plot_RadialPlot(
@@ -77,6 +76,14 @@ test_that("dedicated test for the radialplot", {
   expect_message(plot_RadialPlot(df[, 1, drop = FALSE]),
                  "Attention, small standardised estimate scatter")
 
+  ## data frame with more than 2 columns
+  expect_silent(plot_RadialPlot(cbind(df, df)))
+
+  ## data frame with negative values
+  df.neg <- df
+  df.neg[, 1] <- df.neg[, 1] - 5
+  plot_RadialPlot(df.neg)
+
   ## more coverage
   expect_type(plot_RadialPlot(df, main = "Title", sub = "Subtitle", rug = TRUE,
                               centrality = "mean", log.z = TRUE,
@@ -91,6 +98,7 @@ test_that("dedicated test for the radialplot", {
                               tck = 1, tcl = 2, output = TRUE),
               "list")
 
+  plot_RadialPlot(df, show = FALSE, centrality = c(1, 2, 3))
   plot_RadialPlot(df, show = FALSE, centrality = "median",
                   summary.pos = "topleft", legend.pos = "topright",
                   log.z = FALSE, rug = TRUE)

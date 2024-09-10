@@ -45,7 +45,7 @@ this option is parsed only if a BIN/BINX file is produced and it will reset all 
 values to a max. value of 48, cf.\link{write_R2BIN}}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progression bars during import and export}
+enables \code{TRUE} or disables \code{FALSE} the progress bars during import and export}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned with the
@@ -99,7 +99,7 @@ The way the value 'Time Since Irradiation' is defined differs. In the BINX-file 
 Time'. The table output returns only the real 'Time Since Irradiation', i.e. time between the
 end of the irradiation and the next step.
 
-\strong{Negative values for \code{TIMESINCELAS.STEP}?}
+\strong{Negative values for \code{TIMESINCELAST.STEP}?}
 
 Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
 Example: TL step may comprise three curves:

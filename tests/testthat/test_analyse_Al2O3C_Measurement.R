@@ -20,6 +20,9 @@ test_that("input validation", {
                                           irradiation_time_correction = 7),
                "must have length 2")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
+                                          irradiation = set_RLum("RLum.Results")),
+               "was created by an unsupported function")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = "a"),
                "must be a numeric vector or an 'RLum.Results' object")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
@@ -57,4 +60,16 @@ test_that("analyse_Al2O3C_Measurements", {
   expect_message(analyse_Al2O3C_Measurement(temp, travel_dosimeter = 2000),
                  "Invalid position in 'travel_dosimeter', nothing corrected")
   })
+
+  ## irradiation_time_correction
+  it.corr <- analyse_Al2O3C_ITC(data_ITC, verbose = FALSE)
+  analyse_Al2O3C_Measurement(temp, irradiation_time_correction = list(it.corr),
+                             plot = 1, verbose = FALSE)
+
+  ## cross_talk_correction
+  ct.corr <- analyse_Al2O3C_CrossTalk(data_CrossTalk)
+  suppressWarnings( # FIXME(mcol): warnings come from a poorly fitted ct.corr
+  analyse_Al2O3C_Measurement(temp, cross_talk_correction = list(ct.corr),
+                             plot = FALSE, verbose = FALSE)
+  )
 })

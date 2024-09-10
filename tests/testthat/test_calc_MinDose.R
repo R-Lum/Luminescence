@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(calc_MinDose(),
                "is missing, with no default")
   expect_error(calc_MinDose("test"),
-               "'data' object has to be of type 'data.frame' or 'RLum.Results'")
+               "'data' object must be of type 'data.frame' or 'RLum.Results'")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "is missing, with no default")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, init.values = 1:4),
@@ -44,13 +44,24 @@ test_that("check class and length of output", {
 
   ## bootstrap
   expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                              bootstrap = TRUE, bs.M = 10, par = 4),
+                              bootstrap = TRUE, bs.M = 10, bs.N = 5),
                  "Recycled Bootstrap")
   expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                              bootstrap = TRUE, bs.M = 10,
+                              bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 5,
+                              sigmab.sd = 0.04, debug = TRUE,
                               multicore = TRUE, cores = 2),
                  "Spawning 2 instances of R for parallel computation")
   })
+
+  ## RLum.Results object
+  calc_MinDose(temp, sigmab = 0.1, verbose = FALSE, log = FALSE, par = 4,
+               init.values = list(gamma = 54, sigma = 1, p0 = 0.01, mu = 70))
+
+  ## missing values
+  data.na <- ExampleData.DeValues$CA1
+  data.na[1, 1] <- NA
+  expect_message(calc_MinDose(data.na, sigmab = 0.1, verbose = FALSE),
+                 "Input data contained NA/NaN values, which were removed")
 })
 
 test_that("check values from output example", {
@@ -69,5 +80,4 @@ test_that("check values from output example", {
   expect_equal(results$mu, NA)
   expect_equal(round(results$Lmax, digits = 5), -43.57969)
   expect_equal(round(results$BIC, digits = 4), 106.4405)
-
 })

@@ -190,7 +190,10 @@ bin-width for KDE, choose a numeric value for manual setting.}
 \item{interactive}{\link{logical} (\emph{with default}):
 create an interactive abanico plot (requires the \code{'plotly'} package)}
 
-\item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}). Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex}, \code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tck}, \code{tcl}, \code{at}, \code{breaks}. \code{xlab} must be a vector of length two, specifying the upper and lower x-axes labels.}
+\item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}).
+Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex},
+\code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tck}, \code{tcl}, \code{at}, \code{breaks}. \code{xlab} must be
+a vector of length two, specifying the upper and lower x-axis labels.}
 }
 \value{
 returns a plot object and, optionally, a list with plot calculus data.
@@ -208,7 +211,7 @@ error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
 Galbraith & Green (1990). The function authors are thankful for the
-thought provoking figure in this article.
+thought-provoking figure in this article.
 
 The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
@@ -265,8 +268,8 @@ measures in three different ways: \code{unweighted}, \code{weighted} and
 MCM-based version is used. If you wish to use another method, indicate this
 with the appropriate keyword using the argument \code{summary.method}.
 
-The optional parameter \code{layout} allows to modify the entire plot more
-sophisticated. Each element of the plot can be addressed and its properties
+The optional parameter \code{layout} allows more sophisticated ways to modify
+the entire plot. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
 cf. \code{get_Layout()} or type e.g., for the layout type \code{"journal"}

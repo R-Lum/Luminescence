@@ -5,7 +5,6 @@ df <- data.frame(LnTn = 2.361, LnTn.error = 0.087,
 test_that("input validation", {
   testthat::skip_on_cran()
 
-
   expect_error(calc_gSGC(data = NA),
                "'data' must be a data.frame")
   expect_error(calc_gSGC(data.frame(a = 1, b = 1, c = 1, d = 1, e = 1, f = 1)),
@@ -14,10 +13,9 @@ test_that("input validation", {
                "'gSGC.type' must be of type 'character'")
   expect_error(calc_gSGC(df, gSGC.type = "error"),
                "Unknown 'gSGC.type'")
-
 })
 
-test_that("plot and verbose and so", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   SW({
@@ -32,10 +30,6 @@ test_that("plot and verbose and so", {
   expect_s4_class(calc_gSGC(data = df, gSGC.parameters = pars),
                   "RLum.Results")
   })
-})
-
-test_that("check class and length of output", {
-  testthat::skip_on_cran()
 
   set.seed(seed = 1)
   temp <- calc_gSGC(df, plot = FALSE, verbose = FALSE)
@@ -47,4 +41,15 @@ test_that("check class and length of output", {
 
   expect_equal(round(sum(temp$De), digits = 2), 30.39)
   expect_equal(round(sum(temp$De.MC[[1]]), 0), 10848)
+
+  ## apply some random values for more coverage
+  df1 <- data.frame(LnTn = 0.361, LnTn.error = 2.087,
+                    Lr1Tr1 = 0.744, Lr1Tr1.error = 10.091,
+                    Dr1 = 0.4)
+  expect_silent(calc_gSGC(df1, plot = TRUE, verbose = FALSE))
+
+  df2 <- data.frame(LnTn = 10.361, LnTn.error = 0.087,
+                    Lr1Tr1 = 0.044, Lr1Tr1.error = 0.091,
+                    Dr1 = 0.04)
+  expect_silent(calc_gSGC(df2, plot = TRUE, verbose = FALSE))
 })

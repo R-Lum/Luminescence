@@ -1,14 +1,28 @@
-test_that("test pure success of the plotting without warning or error", {
+data(ExampleData.XSYG, envir = environment())
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(plot_RLum.Data.Spectrum("error"),
+               "'object' must be of type 'RLum.Data.Spectrum' or 'matrix'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "error"),
+               "Unknown plot type")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
+               "Input for 'bg.spectrum' not supported")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
+               "'bin.cols' and 'bin.rows' have to be > 1")
+
+  expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = -2),
+                 "'bg.channels' out of range")
+})
+
+test_that("check functionality", {
   testthat::skip_on_cran()
 
     ##RLum.Data.Spectrum -------
-    data(ExampleData.XSYG, envir = environment())
     m <- TL.Spectrum@data
     bg.spectrum <- set_RLum(class = "RLum.Data.Spectrum", data = TL.Spectrum@data[,15:16, drop = FALSE])
 
-    ##crash the function with wrong input
-    expect_error(plot_RLum.Data.Spectrum(object = "test"),
-                 regexp = "Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'.")
 
     ##try a matrix as input
     expect_message(plot_RLum.Data.Spectrum(object = m),
@@ -23,12 +37,11 @@ test_that("test pure success of the plotting without warning or error", {
     ## test duplicated column names
     t <- TL.Spectrum
     colnames(t@data) <- rep(50, ncol(t@data))
-    expect_warning(
-      object = plot_RLum.Data.Spectrum(t),
-      regexp = "\\[plot\\_RLum.Analysis\\(\\)\\] Duplicated column names found")
+    expect_warning(plot_RLum.Data.Spectrum(t),
+                   "Duplicated column names found")
 
     ##standard plot with some settings
-    expect_silent(plot(
+    expect_silent(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       plot.type = "contour",
       main = "Test",
@@ -78,7 +91,7 @@ test_that("test pure success of the plotting without warning or error", {
       bg.spectrum = bg.spectrum,
       bin.rows = 10,
       bin.cols = 1
-    ), "\\[plot_RLum.Data.Spectrum\\(\\)\\] 6 channel\\(s\\) removed due to row \\(wavelength\\) binning.")
+    ), "6 channels removed due to row \\(wavelength\\) binning")
 
     ## check output and limit counts
     expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
@@ -252,22 +265,9 @@ test_that("test pure success of the plotting without warning or error", {
       )
     ))
 
-    ## bg.channels
-    expect_warning(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum, xlim = c(310, 750), ylim = c(0, 300),
-        bg.channels = -2),
-     "'bg.channels' out of range")
-
-    ##create more error
-    expect_error(plot(
-      TL.Spectrum,
-      plot.type = "contour",
-      xlim = c(310, 750),
-      ylim = c(0, 300),
-      bin.cols = 0
-    ))
-
-
-
+  ## more coverage
+  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "multiple.lines",
+                          phi = 15, theta = -30, r = 10, log = "xyz",
+                          shade = 0.4, expand = 0.5, border = 1,
+                          axes = FALSE, norm = "min", col = 2)
 })

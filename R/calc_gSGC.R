@@ -248,7 +248,7 @@ for(i in 1:nrow(data)){
       De.error <- sd(temp.MC.matrix[,7])
 
   }else{
-    warning("No solution was found!", call. = FALSE)
+    .throw_warning("No solution was found")
     De <- NA
     Eta <- NA
     De.error <- NA
@@ -302,14 +302,12 @@ for(i in 1:nrow(data)){
 
     if(!is.null(plot.settings$grid)){
       graphics::grid(eval(plot.settings$grid))
-
     }
 
     if(!inherits(temp, "try-error")){
 
       if(temp$root < 450 & temp$root > 0){
         points(temp$root,Eta*LnTn, col = plot.settings$col, pch = plot.settings$pch)
-
         segments(De - De.error,Eta * LnTn,
                  De + De.error,Eta * LnTn)
 
@@ -334,7 +332,6 @@ for(i in 1:nrow(data)){
             arr.type = "triangle",
             col = "red"
           )
-
         }else{
 
             shape::Arrows(
@@ -390,24 +387,21 @@ for(i in 1:nrow(data)){
 
     ##matrix - to prevent memory overload limit output
     if(n.MC * nrow(data) > 1e6){
+      # nocov start
       if(i == 1){
         output.De.MC[[i]] <- temp.MC.matrix
-
       }else{
         output.De.MC[[i]] <- NA
-
       }
 
-      warning("Only the first MC matrix is returned to prevent memory overload!", call. = FALSE)
-
+      .throw_warning("Only the first MC matrix is returned to prevent ",
+                     "memory overload")
+      # nocov end
     }else{
       output.De.MC[[i]] <- temp.MC.matrix
-
     }
 
-
     output.uniroot[[i]] <- temp
-
 
 }##end for loop
 

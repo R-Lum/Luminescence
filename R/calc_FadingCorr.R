@@ -286,7 +286,7 @@ calc_FadingCorr <- function(
   tempMC.sd.count <- 1:10
   counter <- 1
 
-  ##show some progression bar of the process
+  ## show a progress bar of the process
   if (n.MC == 'auto') {
     n.MC.i <- 10000
 

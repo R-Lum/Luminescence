@@ -251,7 +251,6 @@ plot_RLum.Data.Spectrum <- function(
   ...
 ){
 
-
   # Integrity check -----------------------------------------------------------
 
   ##check if object is of class RLum.Data.Spectrum
@@ -263,22 +262,16 @@ plot_RLum.Data.Spectrum <- function(
       }
       if(is.null(rownames(object))){
         rownames(object) <- 1:nrow(object)
-
       }
-
 
       object <- set_RLum(class = "RLum.Data.Spectrum",
                          data = object)
 
       message("[plot_RLum.Data.Spectrum()] Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
 
-
     }else{
-      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'.",
-           call. = FALSE)
-
+      .throw_error("'object' must be of type 'RLum.Data.Spectrum' or 'matrix'")
     }
-
   }
 
   ##XSYG
@@ -297,7 +290,6 @@ plot_RLum.Data.Spectrum <- function(
       "Row values [a.u.]"}else{"Energy [eV]"}
     ylab <- "Column values [a.u.]"
     zlab <- "Cell values [a.u.]"
-
   }
 
   # Do energy axis conversion -------------------------------------------------------------------
@@ -308,15 +300,12 @@ plot_RLum.Data.Spectrum <- function(
     ##modify row order (otherwise subsequent functions, like persp, have a problem)
     object@data[] <- object@data[order(as.numeric(rownames(object@data))),]
     rownames(object@data) <- sort(as.numeric(rownames(object@data)))
-
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
   if(any(duplicated(colnames(object@data)))) {
-    warning("[plot_RLum.Analysis()] Duplicated column names found, replaced by index!",
-            call. = FALSE)
+    .throw_warning("Duplicated column names found, replaced by index")
     colnames(object@data) <- 1:ncol(object@data[])
-
   }
 
   ##deal with addition arguments
@@ -388,7 +377,6 @@ plot_RLum.Data.Spectrum <- function(
 
     } else{
       "l"
-
     }
   }
 
@@ -429,7 +417,6 @@ plot_RLum.Data.Spectrum <- function(
     ##reduce for ylim
     temp.xyz <- temp.xyz[, as.numeric(colnames(temp.xyz)) >= ylim[1] &
                            as.numeric(colnames(temp.xyz)) <= ylim[2]]
-
   }
 
   ## wavelength
@@ -466,7 +453,6 @@ plot_RLum.Data.Spectrum <- function(
         ##modify row order (otherwise subsequent functions, like persp, have a problem)
         bg.xyz <- bg.xyz[order(as.numeric(rownames(bg.xyz))),,drop = FALSE]
         rownames(bg.xyz) <- sort(as.numeric(rownames(bg.xyz)))
-
       }
 
       ##reduce for xlim
@@ -474,11 +460,8 @@ plot_RLum.Data.Spectrum <- function(
                              as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
 
     }else{
-      stop("[plot_RLum.Data.Spectrum()] Input for 'bg.spectrum' not supported, please check manual!",
-           call. = FALSE)
-
+      .throw_error("Input for 'bg.spectrum' not supported")
     }
-
   }
 
   # Background subtraction ---------------------------------------------------
@@ -492,13 +475,8 @@ plot_RLum.Data.Spectrum <- function(
       bg.channels[bg.channels <= 0] <- 1
       bg.channels[bg.channels >= ncol(bg.xyz)] <- ncol(bg.xyz)
 
-      warning(
-        paste0(
-          "[plot_RLum.Data.Spectrum()] 'bg.channels' out of range, corrected to: ",
-          min(bg.channels),
-          ":",
-          max(bg.channels)
-        ), call. = FALSE)
+      .throw_warning("'bg.channels' out of range, corrected to: ",
+                     min(bg.channels), ":", max(bg.channels))
     }
 
     if(length(bg.channels) > 1){
@@ -507,7 +485,6 @@ plot_RLum.Data.Spectrum <- function(
 
     }else{
       temp.xyz <- temp.xyz - bg.xyz[,bg.channels]
-
     }
 
     ##set values < 0 to 0
@@ -518,9 +495,7 @@ plot_RLum.Data.Spectrum <- function(
       message("[plot_RLum.Data.Spectrum()] After background subtraction all counts < 0. Nothing plotted, NULL returned!")
       return(NULL)
     }
-
   }
-
 
   # Channel binning ---------------------------------------------------------
   ##rewrite arguments; makes things easier
@@ -529,7 +504,7 @@ plot_RLum.Data.Spectrum <- function(
 
   ##fatal check (not needed anymore, but never change running code)
   if(bin.cols < 1 | bin.rows < 1)
-    stop("[plot_RLum.Data.Spectrum()] 'bin.cols' and 'bin.rows' have to be > 1!", call. = FALSE)
+    .throw_error("'bin.cols' and 'bin.rows' have to be > 1!")
 
   if(bin.rows > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.rows, bin_col = FALSE, names = "mean")
@@ -537,18 +512,13 @@ plot_RLum.Data.Spectrum <- function(
 
     ##remove last channel (this is the channel that included less data)
     if(length(x)%%bin.rows != 0){
-      ##return warning
-      warning(
-        paste0("[plot_RLum.Data.Spectrum()] ",length(x)%%bin.rows,
-               " channel(s) removed due to row (wavelength) binning."),
-        call. = FALSE)
+      .throw_warning(length(x) %% bin.rows,
+                     " channels removed due to row (wavelength) binning")
 
       ##do it
       temp.xyz <- temp.xyz[-length(x),]
       x <- x[-length(x)]
-
     }
-
   }
 
   if(bin.cols > 1){
@@ -557,19 +527,13 @@ plot_RLum.Data.Spectrum <- function(
 
     ##remove last channel (this is the channel that included less data)
     if(length(y)%%bin.cols != 0){
-
-      ##return warning
-      warning(
-        paste0("[plot_RLum.Data.Spectrum()] ",length(y)%%bin.cols,
-               " channel(s) removed due to column (frame) binning."),
-        call. = FALSE)
+      .throw_warning(length(y) %% bin.cols,
+                     " channels removed due to column (frame) binning")
 
       ##do it
       temp.xyz <- temp.xyz[,-length(y)]
       y <- y[-length(y)]
-
     }
-
   }
 
   ##limit z-values if requested, this idea was taken from the Diss. by Thomas Schilles, 2002
@@ -583,7 +547,6 @@ plot_RLum.Data.Spectrum <- function(
 
     if(norm == "max")
       temp.xyz <- temp.xyz/max(temp.xyz)
-
   }
 
   ##check for zlim
@@ -615,9 +578,7 @@ plot_RLum.Data.Spectrum <- function(
           else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
           else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
           else if(x[i] <= col.infrared[2]){"#BEBEBE"}
-
         }))
-
 
       }else{
         ##wavelength colours for wavelength axis
@@ -640,10 +601,7 @@ plot_RLum.Data.Spectrum <- function(
           else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
           else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
           else if(x[i] >= col.infrared[1]){"#BEBEBE"}
-
         }))
-
-
       }
 
       ##find unique colours
@@ -692,19 +650,15 @@ plot_RLum.Data.Spectrum <- function(
 
         }else if(diff(c(length(col), nrow(temp.xyz))) > 0){
           col <- col[1:c(length(col) + diff(c(length(col), nrow(temp.xyz))))]
-
         }
-
       }
 
     }else{
       col <- "black"
-
     }
 
   }else{
     col <- extraArgs$col
-
   }
 
   # Do log scaling if needed -------------------------------------------------
@@ -729,14 +683,14 @@ if(plot){
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1 && plot.type != "single"){
     plot.type <- "single"
-    warning("[plot_RLum.Data.Spectrum()] Single column matrix: plot.type has been automatically reset to 'single'", call. = FALSE)
+    .throw_warning("Single column matrix: plot.type has been automatically ",
+                   "reset to 'single'")
   }
 
   ##do not let old code break down ...
   if(plot.type == "persp3d"){
     plot.type <- "interactive"
-    warning("[plot_RLum.Data.Spectrum()] 'plot.type' has been automatically reset to interactive!", call. = FALSE)
-
+    .throw_warning("'plot.type' has been automatically reset to interactive")
   }
 
   if(plot.type == "persp" && ncol(temp.xyz) > 1){
@@ -880,8 +834,7 @@ if(plot){
     ##http://r-pkgs.had.co.nz/description.html
     if (!requireNamespace("plotly", quietly = TRUE)) {
       # nocov start
-      stop("[plot_RLum.Data.Spectrum()] Package 'plotly' needed for this plot type. Please install it.",
-           call. = FALSE)
+      .throw_error("Package 'plotly' needed for this plot type. Please install it.")
       # nocov end
     }
 
@@ -1163,8 +1116,7 @@ if(plot){
     mtext(mtext, side = 3, cex = cex*0.8)
 
   }else{
-    stop("[plot_RLum.Data.Spectrum()] Unknown plot type.", call. = FALSE)
-
+    .throw_error("Unknown plot type")
  }
 
 ## option for plotting nothing

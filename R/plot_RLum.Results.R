@@ -892,7 +892,6 @@ plot_RLum.Results<- function(
         # add subtitle
         mtext("Proportion of components",
               side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-
       }
       ##--------------------------------------------------------------------------
       ## PLOT 3: BIC & LLIK
@@ -1038,9 +1037,7 @@ plot_RLum.Results<- function(
     ##reduce the size for plotting, more than 100 points makes no sense
     if(nrow(df)>100) {
       df <- df[seq(1,nrow(df), length = 100),]
-
     }
-
 
     ##plot settings
     plot.settings <- list(
@@ -1098,7 +1095,6 @@ plot_RLum.Results<- function(
 
     if(!is.null(plot.settings$grid)){
       grid(eval(plot.settings$grid))
-
     }
 
   }#EndOf::Case 6 - calc_SourceDoseRate()

@@ -42,7 +42,7 @@ specific XSYG-files}
 the \code{txtProgressBar} is also switched off}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progression bar during import}
+enables \code{TRUE} or disables \code{FALSE} the progress bar during import}
 }
 \value{
 \strong{Using the option \code{import = FALSE}}
