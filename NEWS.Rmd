@@ -125,6 +125,10 @@ with the measured sequence. This way, if the original sequence was lost, it can 
 ### `read_Daybreak2R()`
 * Fix #135 to improve detection of non-ASCII files (#140, @mcol).
 
+### `Risoe.BINfileData2RLum.Analysis()`
+* Fix a crash when reading an empty Risoe.BINfileData input (#215, fixed in
+#224).
+
 ## Internals
 * New internal function + tests added `.get_named_list_element()`. It just does what 
 the names says.

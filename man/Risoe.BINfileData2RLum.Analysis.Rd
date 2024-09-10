@@ -25,7 +25,7 @@ Risoe.BINfileData2RLum.Analysis(
 object for which the curves are stored in the \code{RLum.Analysis} object.
 If \code{length(position)>1} a list of \code{RLum.Analysis} objects is returned.
 If nothing is provided every position will be converted.
-If the position is not valid \code{NA} is returned.}
+If the position is not valid \code{NULL} is returned.}
 
 \item{grain}{\link{vector}, \link{numeric} (\emph{optional}):
 grain number from the measurement to limit the converted data set
