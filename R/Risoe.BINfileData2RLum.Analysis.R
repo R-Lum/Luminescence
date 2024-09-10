@@ -15,7 +15,7 @@
 #' object for which the curves are stored in the `RLum.Analysis` object.
 #' If `length(position)>1` a list of `RLum.Analysis` objects is returned.
 #' If nothing is provided every position will be converted.
-#' If the position is not valid `NA` is returned.
+#' If the position is not valid `NULL` is returned.
 #'
 #' @param grain [vector], [numeric] (*optional*):
 #' grain number from the measurement to limit the converted data set
@@ -113,7 +113,6 @@ Risoe.BINfileData2RLum.Analysis<- function(
       pos <- intersect(pos, positions.valid)
     }
   }
-
 
   # Grep run and set data ---------------------------------------------------
 
@@ -214,7 +213,6 @@ Risoe.BINfileData2RLum.Analysis<- function(
       ##if no grain information is given, we select all grains in the particular position
       if(is.null(grain)){
         grain <- unique(object@METADATA[object@METADATA[["POSITION"]] == pos, "GRAIN"])
-
       }
 
       ##loop over the grains and produce RLum.Analysis objects
@@ -233,16 +231,26 @@ Risoe.BINfileData2RLum.Analysis<- function(
               object@METADATA[["DTYPE"]] %in% dtype
             , "ID"]
 
-        ##create curve object
-        object <- set_RLum(
-          class = "RLum.Analysis",
-          records = lapply(temp_id,function(x) {
+        ## if the input object is empty, bypass the creation of curve objects
+        if (length(object@DATA) == 0) {
+          message("Empty Risoe.BINfileData object detected")
+          records <- list()
+        } else {
+          ## create curve object
+          records <- lapply(temp_id, function(x) {
             ## skip ROI information
-            if(!is.null(object@METADATA[["RECTYPE"]]) && object@METADATA[["RECTYPE"]][x] == 128)
+            if (!is.null(object@METADATA[["RECTYPE"]]) &&
+                object@METADATA[["RECTYPE"]][x] == 128)
               set_RLum(class = "RLum.Data.Curve")
             else
               .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
-          }),
+          })
+        }
+
+        ## create the RLum.Analysis object
+        object <- set_RLum(
+          class = "RLum.Analysis",
+          records = records,
           protocol = protocol,
           originator = "Risoe.BINfileData2RLum.Analysis"
         )
@@ -254,11 +262,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
         .set_pid(object)
 
         return(object)
-
       })
 
       return(object)
-
     })
 
     ##this is necessary to not break with previous code, i.e. if only one element is included
