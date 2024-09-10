@@ -11,7 +11,7 @@
 #' distribution of the values, on the actual scale of the measured data (e.g.
 #' seconds, equivalent dose, years). The principle of the plot is shown in
 #' Galbraith & Green (1990). The function authors are thankful for the
-#' thought provoking figure in this article.
+#' thought-provoking figure in this article.
 #'
 #' The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 #' line here, which actually is the basis for combining this polar (radial)
@@ -68,8 +68,8 @@
 #' MCM-based version is used. If you wish to use another method, indicate this
 #' with the appropriate keyword using the argument `summary.method`.
 #'
-#' The optional parameter `layout` allows to modify the entire plot more
-#' sophisticated. Each element of the plot can be addressed and its properties
+#' The optional parameter `layout` allows more sophisticated ways to modify
+#' the entire plot. Each element of the plot can be addressed and its properties
 #' can be defined. This includes font type, size and decoration, colours and
 #' sizes of all plot items. To infer the definition of a specific layout style
 #' cf. `get_Layout()` or type e.g., for the layout type `"journal"`
@@ -222,7 +222,10 @@
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
-#' @param ... Further plot arguments to pass (see [graphics::plot.default]). Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`, `lty`, `lwd`, `pch`, `col`, `tck`, `tcl`, `at`, `breaks`. `xlab` must be a vector of length two, specifying the upper and lower x-axes labels.
+#' @param ... Further plot arguments to pass (see [graphics::plot.default]).
+#' Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`,
+#' `lty`, `lwd`, `pch`, `col`, `tck`, `tcl`, `at`, `breaks`. `xlab` must be
+#' a vector of length two, specifying the upper and lower x-axis labels.
 #'
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
@@ -475,11 +478,16 @@ plot_AbanicoPlot <- function(
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &
        is(data[[i]], "data.frame") == FALSE) {
-      stop(paste("[plot_AbanicoPlot()] Input data format is neither",
-                 "'data.frame' nor 'RLum.Results'"))
+      .throw_error("Input data format must be 'data.frame' or 'RLum.Results'")
+
     } else {
       if(is(data[[i]], "RLum.Results"))
         data[[i]] <- get_RLum(data[[i]], "data")
+
+      if (ncol(data[[i]]) < 2) {
+        .throw_error("Data set (", i, ") has fewer than 2 columns: data ",
+                     "without errors cannot be displayed")
+      }
 
       data[[i]] <- data[[i]][,c(1:2)]
     }
@@ -491,14 +499,11 @@ plot_AbanicoPlot <- function(
 
       n.NA <- sum(!complete.cases(data[[i]]))
 
-      if(n.NA == 1) {message(paste0("[plot_AbanicoPlot()] data set (",
-                                    i, "): 1 NA value excluded."))
-      } else if(n.NA > 1) {
-        message(paste0("[plot_AbanicoPlot()] data set (", i,"): ",
-                       n.NA, " NA values excluded."))
+      if (n.NA > 0) {
+        message("[plot_AbanicoPlot()] Data set (", i, "): ", n.NA,
+                " NA value", ifelse (n.NA > 1, "s", ""), " excluded")
+        data[[i]] <- na.exclude(data[[i]])
       }
-
-      data[[i]] <- na.exclude(data[[i]])
     }
   }
 
@@ -506,9 +511,8 @@ plot_AbanicoPlot <- function(
   ##(1)
   ##check if there is still data left in the entire set
   if(all(sapply(data, nrow) == 0)){
-    try(stop("[plot_AbanicoPlot()] Nothing plotted, your data set is empty!", call. = FALSE))
+    message("[plot_AbanicoPlot()] Error: Nothing plotted, your data set is empty")
     return(NULL)
-
   }
   ##(2)
   ##check for sets with only 1 row or 0 rows at all
@@ -518,36 +522,30 @@ plot_AbanicoPlot <- function(
     NArm.id <- which(sapply(data, nrow) <= 1)
     data[NArm.id] <- NULL
 
-    warning(paste0("[plot_AbanicoPlot()] Data sets ",
-                   paste(NArm.id, collapse = ", "),
-                   " are found to be empty or consisting of only 1 row. Sets removed!"))
+    .throw_warning("Data sets ", paste(NArm.id, collapse = ", "),
+                   " are found to be empty or consisting of only 1 row. Sets removed!")
 
     rm(NArm.id)
 
     ##unfortunately, the data set might become now empty at all
     if(length(data) == 0){
-      try(stop("[plot_AbanicoPlot()] After removing invalid entries, nothing is plotted!", call. = FALSE))
+      message("[plot_AbanicoPlot()] Error: After removing invalid entries, ",
+              "nothing is plotted")
       return(NULL)
-
     }
-
   }
 
   ## check for zero-error values
   for(i in 1:length(data)) {
 
-    if(length(data[[i]]) < 2) {
-      stop("Data without errors cannot be displayed!")
-    }
-
     if(sum(data[[i]][,2] == 0) > 0) {
       data[[i]] <- data[[i]][data[[i]][,2] > 0,]
 
       if(nrow(data[[i]]) < 1) {
-        stop("[plot_AbanicoPlot()] Data set contains only values with zero errors.", call. = FALSE)
+        .throw_error("Data set contains only values with zero errors")
       }
 
-      warning("[plot_AbanicoPlot()] values with zero errors cannot be displayed and were removed!",call. = FALSE)
+      .throw_warning("Values with zero errors cannot be displayed and were removed")
     }
   }
 
@@ -663,7 +661,7 @@ plot_AbanicoPlot <- function(
                    silent = TRUE)
     if(grepl(pattern = "Error", x = bw.test[1]) == TRUE) {
       bw <- "nrd0"
-      warning("[plot_AbanicoPlot()] Option for bw not possible. Set to nrd0!", call. = FALSE)
+      .throw_warning("Option for bw not possible. Set to nrd0!")
     }
   }
 
@@ -783,8 +781,7 @@ plot_AbanicoPlot <- function(
 
   } else {
 
-    stop("Value for z.0 not supported!")
-
+    .throw_error("Value for 'z.0' not supported")
   }
 
   data <- lapply(1:length(data), function(x) {
@@ -898,8 +895,6 @@ plot_AbanicoPlot <- function(
     z.central.global <- ifelse(log.z == TRUE,
                                log(z.0),
                                z.0)
-  } else {
-    stop("Value for z.0 not supported!")
   }
 
   ## create column names
@@ -954,7 +949,7 @@ plot_AbanicoPlot <- function(
       if (length(extraArgs$xlab) == 3) {
         xlab <- c(extraArgs$xlab[1:2], "Density")
       } else {
-        stop("Argument xlab is not of length 2!")
+        .throw_error("'xlab' must have length 2")
       }
     } else {xlab <- c(extraArgs$xlab, "Density")}
   } else {
@@ -996,7 +991,7 @@ plot_AbanicoPlot <- function(
 
   if(limits.x[1] != 0) {
     limits.x[1] <- 0
-    warning("Lower x-axis limit not set to zero, issue corrected!")
+    .throw_warning("Lower x-axis limit not set to zero, issue corrected!")
   }
 
   if("ylim" %in% names(extraArgs)) {
@@ -1095,12 +1090,14 @@ plot_AbanicoPlot <- function(
   ## update central line colour
   centrality.col <- rep(centrality.col, length(bar))
 
+  ## FIXME(mcol): tck seems completely unused
   tck <- if("tck" %in% names(extraArgs)) {
     extraArgs$tck
   } else {
     NA
   }
 
+  ## FIXME(mcol): tcl seems completely unused
   tcl <- if("tcl" %in% names(extraArgs)) {
     extraArgs$tcl
   } else {
@@ -1695,7 +1692,7 @@ plot_AbanicoPlot <- function(
         ci.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
       }
     } else {
-      stop("Measure of dispersion not supported.")
+      .throw_error("Measure of dispersion not supported.")
     }
 
     if(log.z == TRUE) {
@@ -3581,9 +3578,9 @@ plot_AbanicoPlot <- function(
   if (interactive) {
     if (!requireNamespace("plotly", quietly = TRUE))
       # nocov start
-      stop("The interactive abanico plot requires the 'plotly' package. To install",
-           " this package run 'install.packages('plotly')' in your R console.",
-           call. = FALSE)
+      .throw_error("The interactive abanico plot requires the 'plotly' ",
+                   "package. To install it, run 'install.packages('plotly')' ",
+                   "in your R console.")
       # nocov end
 
     ##cheat R check (global visible binding error)
