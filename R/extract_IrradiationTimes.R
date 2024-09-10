@@ -381,33 +381,31 @@ extract_IrradiationTimes <- function(
     ##(1) remove all irradiation steps as there is no record in the BINX file and update information
     results.BINX <- results[-which(results[,"STEP"] == "irradiation (NA)"),]
 
-    ##(1a)  update information on the irradiation time
-    temp.BINX@METADATA[["IRR_TIME"]] <- results.BINX[["IRR_TIME"]]
+    ## (2) compare entries in the BINX-file with the entries in the table
+    ## to make sure that both have the same length
+    if(nrow(results.BINX) == nrow(temp.BINX@METADATA)){
 
-    ##(1b) update information on the time since irradiation by using the Risoe definition of thi
-    ##parameter, to make the file compatible to the Analyst
-    temp.BINX@METADATA[["TIMESINCEIRR"]] <- results.BINX[["IRR_TIME"]] + results.BINX[["TIMESINCEIRR"]]
+      ## (1a) update information on the irradiation time
+      temp.BINX@METADATA[["IRR_TIME"]] <- results.BINX[["IRR_TIME"]]
 
-    ##(2) compare entries in the BINX-file with the entries in the table to make sure
-    ## that both have the same length
-    if(!missing(file.BINX)){
-      if(nrow(results.BINX) == nrow(temp.BINX@METADATA)){
+      ## (1b) update information on the time since irradiation by using the
+      ## Risoe definition of the parameter, to make the file compatible to
+      ## the Analyst
+      temp.BINX@METADATA[["TIMESINCEIRR"]] <- results.BINX[["IRR_TIME"]] + results.BINX[["TIMESINCEIRR"]]
 
-        ##update BINX-file
-        try <- write_R2BIN(temp.BINX, version = "06",
-                   file = paste0(file.BINX,"_extract_IrradiationTimes.BINX"),
-                   compatibility.mode =  compatibility.mode,
-                   txtProgressBar = txtProgressBar)
+      ## update BINX-file
+      try <- write_R2BIN(temp.BINX, version = "06",
+                         file = paste0(file.BINX,"_extract_IrradiationTimes.BINX"),
+                         compatibility.mode = compatibility.mode,
+                         txtProgressBar = txtProgressBar)
 
-        ##set message on the format definition
-        if(!inherits(x = try, 'try-error')){
-          message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
-        }
-
+      ##set message on the format definition
+      if(!inherits(x = try, 'try-error')){
+        message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
       }
-    }else{
+    } else {
       message("[extract_IrradiationTimes()] XSYG-file and BINX-file ",
-              "did not contain similar entries. BINX-file update skipped!")
+              "do not contain similar entries, BINX-file update skipped")
     }
   }
 

@@ -10,15 +10,11 @@ test_that("input validation", {
                "neither of type 'character' nor of type 'RLum.Analysis")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = "fail"),
                "Wrong BINX file name or file does not exist!")
-
-  SW({
-  ## FIXME(mcol): catch this error properly
-  expect_error(extract_IrradiationTimes(xsyg, file.BINX = binx,
-                                        txtProgressBar = FALSE),
-               "replacement has 3 rows, data has 2")
+  expect_message(extract_IrradiationTimes(xsyg, file.BINX = binx,
+                                          txtProgressBar = FALSE),
+                 "XSYG-file and BINX-file do not contain similar entries")
   expect_warning(extract_IrradiationTimes(list(xsyg), file.BINX = binx),
                  "'file.BINX' is not supported in self-call mode")
-  })
 })
 
 test_that("Test the extraction of irradiation times", {
