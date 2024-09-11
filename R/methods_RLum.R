@@ -243,6 +243,13 @@ subset.RLum.Analysis <- function(x, subset = NULL, ...) {
 ####################################################################################################
 # methods for generic: bin()
 # ##################################################################################################
+
+#' @rdname methods_RLum
+#' @export
+bin <- function(x, ...) {
+  UseMethod("bin")
+}
+
 #' @rdname methods_RLum
 #' @export
 bin.RLum.Data.Curve <- function(x, bin_size = 2, ...) bin_RLum.Data(x, bin_size = bin_size)

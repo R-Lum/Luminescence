@@ -66,6 +66,7 @@ test_that("Test various S3 methods", {
   expect_s3_class(summary(curve), "table")
   expect_equal(length(curve), 40)
   expect_equal(dim(curve), c(1000, 2))
+  expect_s4_class(bin(curve), "RLum.Data.Curve")
   expect_length(rep(curve, 2), 2)
   expect_equal(names(curve), "a")
   expect_s3_class(as.data.frame(curve), "data.frame")
@@ -108,6 +109,7 @@ test_that("Test various S3 methods", {
 
   expect_silent(plot(spectrum))
   expect_silent(plot(list(spectrum, spectrum)))
+  expect_s4_class(bin(spectrum), "RLum.Data.Spectrum")
   expect_equal(dim(spectrum), c(1024, 24))
   expect_length(rep(spectrum, 2), 2)
   expect_equal(names(spectrum)[1:3], c("state", "parentID", "startDate"))
