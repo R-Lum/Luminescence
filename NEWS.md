@@ -117,6 +117,11 @@
   otherwise, so there is no effective change in behaviour (#137, fixed
   in \#214).
 
+### `plot_Histogram()`
+
+- The function doesn’t crash anymore when setting `interactive = TRUE`
+  (#186, fixed in \#231).
+
 ### `plot_KDE()`
 
 - It now officially supports numeric vectors and single-column data

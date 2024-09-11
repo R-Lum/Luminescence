@@ -717,15 +717,14 @@ plot_Histogram <- function(
     if (length(grep("paste", as.character(xlab.plot))) > 0)
       xlab.plot <- "Equivalent dose [Gy]"
 
-
     ## create plots ----
 
     # histogram
-    hist <- plotly::plot_ly(data = data, x = x,
+    hist <- plotly::plot_ly(data = data, x = ~x,
                             type = "histogram",
                             showlegend = FALSE,
                             name = "Bin", opacity = 0.75,
-                            marker = list(color = "428BCA",
+                            marker = list(color = "#428BCA",
                                           line = list(width = 1.0,
                                                       color = "white")),
                             histnorm = ifelse(normal_curve, "probability density", ""),
@@ -738,12 +737,12 @@ plot_Histogram <- function(
       density.curve <- density(data$x)
       normal.curve <- data.frame(x = density.curve$x, y = density.curve$y)
 
-      hist <- plotly::add_trace(hist, data = normal.curve, x = x, y = y,
+      hist <- plotly::add_trace(hist, data = normal.curve, x = ~x, y = ~y,
+                                inherit = FALSE,
                                 type = "scatter", mode = "lines",
-                                marker = list(color = "red"),
+                                line = list(color = "red"),
                                 name = "Normal curve",
                                 yaxis = "y")
-
     }
 
     # scatter plot of individual errors
@@ -755,14 +754,15 @@ plot_Histogram <- function(
       se.text <- paste0("Measured value:</br>",
                         data$x, " &plusmn; ", data$y,"</br>")
 
-      hist <- plotly::add_trace(hist, data = data, x = x, y = y,
+      hist <- plotly::add_trace(hist, data = data, x = ~x, y = ~y,
+                                inherit = FALSE,
                                 type = "scatter", mode = "markers",
                                 name = "Error", hoverinfo = "text",
                                 text = se.text,
                                 marker = list(color = "black"),
                                 yaxis = "y2")
 
-      hist <- plotly::layout(yaxis2 = yaxis2)
+      hist <- plotly::layout(hist, yaxis2 = yaxis2)
     }
 
     # set layout ----
