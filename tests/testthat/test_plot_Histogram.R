@@ -34,6 +34,10 @@ test_that("check functionality", {
   expect_silent(plot_Histogram(df, summary.pos = "bottom"))
   expect_silent(plot_Histogram(df, summary.pos = "bottomright"))
 
+  ## interactive
+  expect_silent(plot_Histogram(df, interactive = TRUE,
+                               normal_curve = TRUE, se = TRUE))
+
   ## missing values
   df.na <- df
   df.na[10, 1] <- NA
