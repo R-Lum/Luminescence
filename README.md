@@ -127,6 +127,14 @@ more details.
   receives funding from the DFG Heisenberg programme [No
   505822867](https://gepris.dfg.de/gepris/projekt/505822867).
 
+- since 08/2024 the future and sustainable development of
+  `'Luminescence'` towards better reproducibility and usability is
+  supported through the DFG programme “REPLAY: REProducible Luminescence
+  Data AnalYses” [No
+  528704761](https://gepris.dfg.de/gepris/projekt/528704761?language=en)
+  led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE) and Dr
+  Thomas Kolb (PI at Justus-Liebig-University Giessen, DE).
+
 - All other authors gratefully received additional funding from various
   public funding bodies.
 
