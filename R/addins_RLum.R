@@ -23,7 +23,6 @@
 ##    package 'rstudioapi', 'devtools' and get happy.
 
 
-
 #'Install package development version
 #'
 #'The function uses the GitHub APconnection provided by Christoph Burow
@@ -32,8 +31,7 @@
 #'
 #'@noRd
 .installDevelopmentVersion <- function(){
-  install_DevelopmentVersion(force_install = TRUE)
-
+  install_DevelopmentVersion(force_install = TRUE) # nocov
 }
 
 #'Search for TODOs in the source code and list them in the terminal
@@ -45,10 +43,9 @@
 #'
 #'@noRd
 .listTODO <- function(){
-
+  # nocov start
   ##check if package is installed
   if(!requireNamespace("rstudioapi", quietly = TRUE)){
-    # nocov start
     message("Package 'rstudioapi' is not installed but needed to search for TODOs, do you want to install it?\n\n",
             " [n/N]: No (default)\n",
             " [y/Y]: Yes\n")
@@ -59,7 +56,6 @@
     if(tolower(answer) == "y"){
       utils::install.packages("rstudioapi", dependencies = TRUE)
     }
-    # nocov end
   }else{
 
   ##parse code
@@ -72,9 +68,7 @@
   cat("\n", "[", length(id), " issue(s)]\n", sep = "")
    for(i in id){
     cat(" line ", i, ": ->", code[i], "\n", sep = "")
-
    }
-
- }
-
+  }
+  # nocov end
 }
