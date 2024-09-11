@@ -3587,18 +3587,19 @@ plot_AbanicoPlot <- function(
     x <- NA
     y <- NA
 
-
     ## tidy data ----
     data <- plot.output
     kde <- data.frame(x = data$KDE[[1]][ ,2], y = data$KDE[[1]][ ,1])
 
     # radial scatter plot ----
-    point.text <- paste0("Measured value:</br>",
-                         data$data.global$De, " &plusmn; ", data$data.global$error,"</br>",
+    point.text <- paste0("Measured value:<br />",
+                         data$data.global$De, " &plusmn; ",
+                         data$data.global$error, "<br />",
                          "P(",format(data$data.global$precision,  digits = 2, nsmall = 1),", ",
                          format(data$data.global$std.estimate,  digits = 2, nsmall = 1),")")
-
-    IAP <- plotly::plot_ly(data = data$data.global, x = precision, y = std.estimate,
+    IAP <- plotly::plot_ly(data = data$data.global,
+                           x = data$data.global$precision,
+                           y = data$data.global$std.estimate,
                            type = "scatter", mode = "markers",
                            hoverinfo = "text", text = point.text,
                            name = "Points",
@@ -3606,10 +3607,10 @@ plot_AbanicoPlot <- function(
 
     ellipse <- as.data.frame(ellipse)
     IAP <- plotly::add_trace(IAP, data = ellipse,
-                             x = ellipse.x, y = ellipse.y,
-                             hoverinfo = "none",
-                             name = "z-axis (left)",
+                             x = ~ellipse.x, y = ~ellipse.y,
                              type = "scatter", mode = "lines",
+                             hoverinfo = "none", text = "",
+                             name = "z-axis (left)",
                              line = list(color = "black",
                                          width = 1),
                              yaxis = "y")
@@ -3618,10 +3619,10 @@ plot_AbanicoPlot <- function(
     ellipse.right$ellipse.x <- ellipse.right$ellipse.x * 1/0.75
 
     IAP <- plotly::add_trace(IAP, data = ellipse.right,
-                             x = ellipse.x, y = ellipse.y,
-                             hoverinfo = "none",
-                             name = "z-axis (right)",
+                             x = ~ellipse.x, y = ~ellipse.y,
                              type = "scatter", mode = "lines",
+                             hoverinfo = "none", text = "",
+                             name = "z-axis (right)",
                              line = list(color = "black",
                                          width = 1),
                              yaxis = "y")
@@ -3640,9 +3641,9 @@ plot_AbanicoPlot <- function(
     for (i in 1:length(major.ticks.y)) {
       major.tick <- data.frame(x = major.ticks.x, y = rep(major.ticks.y[i], 2))
       IAP <- plotly::add_trace(IAP, data = major.tick,
-                               x = x, y = y, showlegend = FALSE,
-                               hoverinfo = "none",
+                               x = ~x, y = ~y, showlegend = FALSE,
                                type = "scatter", mode = "lines",
+                               hoverinfo = "none", text = "",
                                line = list(color = "black",
                                            width = 1),
                                yaxis = "y")
@@ -3652,14 +3653,13 @@ plot_AbanicoPlot <- function(
     for (i in 1:length(minor.ticks.y)) {
       minor.tick <- data.frame(x = minor.ticks.x, y = rep(minor.ticks.y[i], 2))
       IAP <- plotly::add_trace(IAP, data = minor.tick,
-                               hoverinfo = "none",
-                               x = x, y = y, showlegend = FALSE,
+                               x = ~x, y = ~y, showlegend = FALSE,
                                type = "scatter", mode = "lines",
+                               hoverinfo = "none", text = "",
                                line = list(color = "black",
                                            width = 1),
                                yaxis = "y")
     }
-
 
     # z-tick label
     tick.text <- paste(" ", exp(tick.values.major))
@@ -3667,9 +3667,9 @@ plot_AbanicoPlot <- function(
                            y = major.ticks.y)
 
     IAP <- plotly::add_trace(IAP, data = tick.pos,
-                             x = x, y = y, showlegend = FALSE,
-                             text = tick.text, textposition = "right",
+                             x = ~x, y = ~y, showlegend = FALSE,
                              hoverinfo = "none",
+                             text = tick.text, textposition = "right",
                              type = "scatter", mode = "text",
                              yaxis = "y")
 
@@ -3679,7 +3679,7 @@ plot_AbanicoPlot <- function(
                                 format(exp(z.central.global), digits = 2, nsmall = 1))
 
     IAP <- plotly::add_trace(IAP, data = central.line,
-                             x = x, y = y, name = "Central line",
+                             x = ~x, y = ~y, name = "Central line",
                              type = "scatter", mode = "lines",
                              hoverinfo = "text", text = central.line.text,
                              yaxis = "y",
@@ -3692,17 +3692,16 @@ plot_AbanicoPlot <- function(
     KDE.y <- (KDE[[1]][ ,1] - z.central.global) * min(ellipse[,1])
     KDE.curve <- data.frame(x = KDE.x, y = KDE.y)
     KDE.curve <- KDE.curve[KDE.curve$x != xy.0[1], ]
-
     KDE.text <- paste0("Value:",
-                       format(exp(KDE[[1]][ ,1]), digits = 2, nsmall = 1), "</br>",
+                       format(exp(KDE.curve$x), digits = 2, nsmall = 1), "<br />",
                        "Density:",
-                       format(KDE[[1]][ ,2], digits = 2, nsmall = 1))
+                       format(KDE.curve$y, digits = 2, nsmall = 1))
 
     IAP <- plotly::add_trace(IAP, data = KDE.curve,
+                             x = ~x, y = ~y, name = "KDE",
+                             type = "scatter", mode = "lines",
                              hoverinfo = "text",
                              text = KDE.text,
-                             x = x, y = y, name = "KDE",
-                             type = "scatter", mode = "lines",
                              line = list(color = "red"),
                              yaxis = "y")
 
@@ -3727,7 +3726,6 @@ plot_AbanicoPlot <- function(
                                              xref = "x", yref = "y",
                                              fillcolor = "grey",
                                              opacity = 0.2))
-
     )
 
     # show and return interactive plot ----

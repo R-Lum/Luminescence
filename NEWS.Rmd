@@ -77,6 +77,8 @@ which would generate unexpected warnings (#163, @mcol).
 ### `plot_AbanicoPlot()`
 * Argument `plot.ratio` will now throw an error on non-positive numerical
 values (#221, fixed in #222).
+* The function doesn't crash anymore when setting `interactive = TRUE` (#220,
+fixed in #233).
 
 ### `plot_DetPlot()`
 * Argument `signal.integral.max` is now enforced to be greater than
