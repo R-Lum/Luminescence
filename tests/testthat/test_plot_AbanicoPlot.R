@@ -193,6 +193,9 @@ test_that("Test examples from the example page", {
   expect_type(plot_AbanicoPlot(data = ExampleData.DeValues,
                          pch = NA,
                          output = TRUE), "list")
+
+  ## interactive mode
+  expect_silent(plot_AbanicoPlot(ExampleData.DeValues, interactive = TRUE))
 })
 
 test_that("more coverage", {
