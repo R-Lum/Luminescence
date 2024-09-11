@@ -87,18 +87,33 @@ test_that("Test various S3 methods", {
   ## RLum.Data.Image
   data(ExampleData.RLum.Data.Image, envir = environment())
   image <- ExampleData.RLum.Data.Image
+  image3 <- set_RLum("RLum.Data.Image",
+                     data = array(runif(300, 0, 255), c(10, 10, 3)),
+                     info = list(NumFrames = 3))
 
   expect_silent(plot(image))
   expect_silent(plot(list(image, image)))
+  expect_silent(plot(image3))
+  expect_silent(hist(image))
+  expect_silent(hist(image3))
+  expect_s3_class(summary(image), "table")
+  expect_s3_class(summary(image3), "table")
   expect_length(rep(image, 2), 2)
   expect_equal(names(image)[1:3],
                c("ControllerVersion", "LogicOutput", "AmpHiCapLowNoise"))
+  expect_equal(names(image3), "NumFrames")
   expect_type(as.list(image), "list")
+  expect_length(as.list(image), 1)
+  expect_length(as.list(image3), 3)
   expect_vector(as.matrix(image))
+  expect_error(as.matrix(image3),
+               "No viable coercion to matrix, object contains multiple frames")
   expect_equal(is(image), c("RLum.Data.Image", "RLum.Data", "RLum"))
   expect_error(merge(image, image),
                "Merging of 'RLum.Data.Image' objects is currently not supported")
   expect_vector(image[1])
+  expect_error(image3[1],
+               "No viable coercion to matrix, object contains multiple frames")
   expect_true(is.RLum(image))
   expect_true(is.RLum.Data(image))
   expect_true(is.RLum.Data.Image(image))

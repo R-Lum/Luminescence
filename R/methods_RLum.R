@@ -149,7 +149,7 @@ hist.RLum.Results <- function(x, ...) plot_Histogram(data = x, ...)
 
 #' @rdname methods_RLum
 #' @export
-hist.RLum.Data.Image <- function(x, ...) hist(x =get_RLum(x)@data@values, ...)
+hist.RLum.Data.Image <- function(x, ...) hist(x = get_RLum(x), ...)
 
 #' @rdname methods_RLum
 #' @export
@@ -177,7 +177,7 @@ summary.RLum.Analysis <- function(object, ...) lapply(object@records, function(x
 #' @rdname methods_RLum
 #' @method summary RLum.Data.Image
 #' @export
-summary.RLum.Data.Image <- function(object, ...) summary(object@data@data@values)
+summary.RLum.Data.Image <- function(object, ...) summary(object@data)
 
 # summary.RLum.Data.Spectrum <- function(object, ...)
 
