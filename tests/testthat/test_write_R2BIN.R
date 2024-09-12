@@ -83,7 +83,7 @@ data(ExampleData.BINfileData, envir = environment())
   temp <- new
   temp@METADATA <- temp@METADATA[, 1:79]
   expect_error(write_R2BIN(object = temp, file = "test"),
-               "The number of columns in your slot 'METADATA' does not fit")
+               "Your Risoe.BINfileData object is not compatible with the latest")
 
   temp <- new
   temp@METADATA[1, "SEQUENCE"] <- "1234567890"
