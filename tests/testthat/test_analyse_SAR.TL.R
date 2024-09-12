@@ -20,6 +20,11 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
                               signal.integral.max = 2),
                "Input TL curves are not a multiple of the sequence structure")
+  expect_error(analyse_SAR.TL(object, dose.points = c(2, 2),
+                              signal.integral.min = 210,
+                              signal.integral.max = 220,
+                              sequence.structure = c("SIGNAL", "BACKGROUND")),
+               "Length of 'dose.points' not compatible with number of signals")
 })
 
 test_that("Test examples", {

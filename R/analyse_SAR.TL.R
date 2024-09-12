@@ -218,6 +218,18 @@ analyse_SAR.TL <- function(
   TL.background.ID <- temp.sequence.structure[
     temp.sequence.structure[,"protocol.step"] == "BACKGROUND","id"]
 
+  ## check that `dose.points` is compatible with our signals:
+  ## as we expect each signal to have an Lx and a Tx components (see calls
+  ## to calc_TLLxTxRatio()), `dose.points` must divide `length(TL.signal.ID)`
+  ## in order for vector recycling to work when further down we do
+  ## `LnLxTnTx$Dose <- dose.points`
+  if (!missing(dose.points)) {
+    if ((length(TL.signal.ID) / 2) %% length(dose.points) != 0) {
+      .throw_error("Length of 'dose.points' not compatible with number ",
+                   "of signals")
+    }
+  }
+
   ##comfort ... translate integral limits from temperature to channel
   if(integral_input == "temperature"){
     signal.integral.min <-
