@@ -1,0 +1,20 @@
+## +++++++++++++++++++++++++++++++++++++++++++++++++++
+## + BayLum YAML Config Reference Template - v1.0.0  +
+## +++++++++++++++++++++++++++++++++++++++++++++++++++
+- sample: "reference"
+  files: null
+  settings:
+    dose_points: null
+    dose_source: { value:  0, error: 0 }
+    dose_env: { value: 0, error: 0 }
+    rules:
+        beginSignal: 0
+        endSignal: 0
+        beginBackground: 0
+        endBackground: 0
+        beginTest: 0
+        endTest: 0
+        beginTestBackground: 0
+        endTestBackground: 0
+        inflatePercent: 0
+        nbOfLastCycleToRemove: 0

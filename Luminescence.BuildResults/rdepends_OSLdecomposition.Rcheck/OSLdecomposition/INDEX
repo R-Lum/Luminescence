@@ -1,0 +1,26 @@
+OSLdecomposition-package
+                        Signal Component Analysis for Optically
+                        Stimulated Luminescence
+RLum.OSL_correction     Check and correct CW-OSL curves in
+                        RLum.Analysis data sets
+RLum.OSL_decomposition
+                        Separate CW-OSL components in RLum.Analysis
+                        data sets
+RLum.OSL_global_fitting
+                        Identify CW-OSL signal components in
+                        RLum.Analysis data sets
+decompose_OSLcurve      Multi-exponential CW-OSL decomposition
+fit_OSLcurve            Multi-exponential CW-OSL curve fitting
+optimise_OSLintervals   Find adequate integration intervals for CW-OSL
+                        decomposition
+plot_OSLcurve           Advanced plot function for component resolved
+                        CW-OSL curves
+plot_PhotoCrosssections
+                        Plot comparison of CW-OSL component
+                        photoionisation cross sections of different
+                        models
+simulate_OSLcomponents
+                        Simulates signal component decay curves and
+                        whole CW-OSL curves
+sum_OSLcurves           Combine RLum OSL records to one global average
+                        curve

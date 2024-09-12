@@ -1,0 +1,12 @@
+citHeader("To cite the R package 'BayLum' please cite the R package itself and the following article:")
+citation(auto = meta)
+
+	 bibentry(bibtype = "Article",
+			  title = "BayLum - An R package for Bayesian analysis of OSL ages: An introduction",
+				author = "Anne Philippe, Guillaume Guerin, Sebastian Kreutzer",
+				year = "2019",
+				journal = "Quaternary Geochronology",
+				volume = "49",
+				number = "",
+				pages = "16-24",
+				doi = "10.1016/j.quageo.2018.05.009")

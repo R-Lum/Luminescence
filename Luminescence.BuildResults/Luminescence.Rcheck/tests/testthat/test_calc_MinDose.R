@@ -1,0 +1,83 @@
+data(ExampleData.DeValues, envir = environment())
+temp <- calc_MinDose(data = ExampleData.DeValues$CA1,
+                     sigmab = 0.1,
+                     verbose = FALSE,
+                     plot = FALSE)
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_MinDose(),
+               "is missing, with no default")
+  expect_error(calc_MinDose("test"),
+               "'data' object must be of type 'data.frame' or 'RLum.Results'")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1),
+               "is missing, with no default")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, init.values = 1:4),
+               "'init.values' is expected to be a named list")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1,
+                            init.values = list(1, 2, 3)),
+               "Please provide initial values for all model parameters")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1,
+                            init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
+               "Missing parameters: gamma, sigma")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = "error"),
+               "'par' must be a positive integer scalar")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = 2),
+               "'par' can only be set to 3 or 4")
+})
+
+test_that("check class and length of output", {
+  testthat::skip_on_cran()
+
+  expect_s4_class(temp, "RLum.Results")
+  expect_equal(length(temp), 9)
+
+  ## invert
+  expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                             invert = TRUE, verbose = FALSE, plot = FALSE))
+  SW({
+  expect_output(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                             invert = TRUE, log = FALSE, log.output = TRUE,
+                             verbose = TRUE, plot = FALSE),
+                "'log' was automatically changed to TRUE")
+
+  ## bootstrap
+  expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              bootstrap = TRUE, bs.M = 10, bs.N = 5),
+                 "Recycled Bootstrap")
+  expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 5,
+                              sigmab.sd = 0.04, debug = TRUE,
+                              multicore = TRUE, cores = 2),
+                 "Spawning 2 instances of R for parallel computation")
+  })
+
+  ## RLum.Results object
+  calc_MinDose(temp, sigmab = 0.1, verbose = FALSE, log = FALSE, par = 4,
+               init.values = list(gamma = 54, sigma = 1, p0 = 0.01, mu = 70))
+
+  ## missing values
+  data.na <- ExampleData.DeValues$CA1
+  data.na[1, 1] <- NA
+  expect_message(calc_MinDose(data.na, sigmab = 0.1, verbose = FALSE),
+                 "Input data contained NA/NaN values, which were removed")
+})
+
+test_that("check values from output example", {
+  testthat::skip_on_cran()
+
+  results <- get_RLum(temp)
+
+  expect_equal(round(results$de, digits = 5), 34.31834)
+  expect_equal(round(results$de_err, digits = 6), 2.550964)
+  expect_equal(results$ci_level, 0.95)
+  expect_equal(round(results$ci_lower, digits = 5), 29.37526)
+  expect_equal(round(results$ci_upper, digits = 5), 39.37503)
+  expect_equal(results$par, 3)
+  expect_equal(round(results$sig, digits = 2), 2.07)
+  expect_equal(round(results$p0, digits = 8), 0.01053938)
+  expect_equal(results$mu, NA)
+  expect_equal(round(results$Lmax, digits = 5), -43.57969)
+  expect_equal(round(results$BIC, digits = 4), 106.4405)
+})
