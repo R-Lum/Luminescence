@@ -10,7 +10,7 @@
 #'
 #' **Provided rejection criteria**
 #'
-#' `[recyling.ratio]`: calculated for every repeated regeneration dose point.
+#' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by
 #' comparing the `Lx/Tx` values of the zero regeneration point with the `Ln/Tn`
@@ -40,7 +40,7 @@
 #' specifies the general sequence structure. Three steps are allowed
 #' (`"PREHEAT"`, `"SIGNAL"`, `"BACKGROUND"`), in addition a
 #' parameter `"EXCLUDE"`. This allows excluding TL curves which are not
-#' relevant for the protocol analysis.  (**Note:** None TL are removed by default)
+#' relevant for the protocol analysis.  (**Note:** No TL are removed by default)
 #'
 #' @param rejection.criteria [list] (*with default*):
 #' list containing rejection criteria in percentage for the calculation.
@@ -193,6 +193,7 @@ analyse_SAR.TL <- function(
   ##remove TL curves which are excluded
   temp.sequence.structure <- temp.sequence.structure[which(
     temp.sequence.structure[,"protocol.step"]!="EXCLUDE"),]
+
   ##check integrity; signal and bg range should be equal
   if(length(
     unique(
@@ -230,23 +231,19 @@ analyse_SAR.TL <- function(
   }
 
   ##calculate LxTx values using external function
+  LnLxTnTx <- NULL
   for(i in seq(1,length(TL.signal.ID),by=2)){
+    Lx.data.background <- Tx.data.background <- NULL
+    if (length(TL.background.ID) > 0) {
+      Lx.data.background <- get_RLum(object, record.id = TL.background.ID[i])
+      Tx.data.background <- get_RLum(object, record.id = TL.background.ID[i + 1])
+    }
     temp.LnLxTnTx <- get_RLum(
       calc_TLLxTxRatio(
         Lx.data.signal = get_RLum(object, record.id = TL.signal.ID[i]),
-        Lx.data.background = if (length(TL.background.ID) == 0) {
-          NULL
-        } else{
-          get_RLum(object, record.id = TL.background.ID[i])
-        },
         Tx.data.signal = get_RLum(object, record.id = TL.signal.ID[i + 1]),
-        Tx.data.background =  if (length(TL.background.ID) == 0){
-          NULL
-
-        }else{
-          get_RLum(object, record.id = TL.background.ID[i + 1])
-
-        },
+        Lx.data.background = Lx.data.background,
+        Tx.data.background = Tx.data.background,
         signal.integral.min,
         signal.integral.max
       )
@@ -254,60 +251,42 @@ analyse_SAR.TL <- function(
 
     ##grep dose
     temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
-
-      ##take about NULL values
-      if(is.null(temp.Dose)){
-        temp.Dose <- NA
-
-      }
-
-    ##bind data.frame
-    temp.LnLxTnTx <- cbind(Dose=temp.Dose, temp.LnLxTnTx)
-
-    if(exists("LnLxTnTx")==FALSE){
-      LnLxTnTx <- data.frame(temp.LnLxTnTx)
-
-    }else{
-      LnLxTnTx <- rbind(LnLxTnTx,temp.LnLxTnTx)
-
+    if (is.null(temp.Dose)) {
+      temp.Dose <- NA
     }
+
+    ## append row to the data.frame
+    LnLxTnTx <- rbind(LnLxTnTx, cbind(Dose = temp.Dose, temp.LnLxTnTx))
   }
 
   ##set dose.points manually if argument was set
   if(!missing(dose.points)){
     temp.Dose <- dose.points
     LnLxTnTx$Dose <- dose.points
-
   }
 
   # Set regeneration points -------------------------------------------------
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseID <- c(0:(length(LnLxTnTx[["Dose"]]) - 1))
-  temp.DoseName <- paste0("R", temp.DoseID)
-  temp.DoseName <- cbind(Name = temp.DoseName, Dose = LnLxTnTx[["Dose"]])
+  temp.DoseName <- data.frame(Name = paste0("R", seq(nrow(LnLxTnTx)) - 1),
+                              Dose = LnLxTnTx[["Dose"]])
 
   ##set natural
   temp.DoseName[temp.DoseName[, "Name"] == "R0", "Name"] <- "Natural"
 
   ##set R0
-  temp.DoseName[temp.DoseName[,"Name"]!="Natural" & temp.DoseName[,"Dose"]==0,"Name"]<-"R0"
+  temp.DoseName[temp.DoseName[, "Name"] != "Natural" &
+                temp.DoseName[, "Dose"] == 0, "Name"] <- "R0"
 
   ##find duplicated doses (including 0 dose - which means the Natural)
-  temp.DoseDuplicated<-duplicated(temp.DoseName[,"Dose"])
-
-  ##combine temp.DoseName
-  temp.DoseName<-cbind(temp.DoseName,Repeated=temp.DoseDuplicated)
+  temp.DoseName <- cbind(temp.DoseName,
+                         Repeated = duplicated(temp.DoseName[, "Dose"]))
 
   ##correct value for R0 (it is not really repeated)
   temp.DoseName[temp.DoseName[,"Dose"]==0,"Repeated"]<-FALSE
 
   ##combine in the data frame
-  temp.LnLxTnTx <- data.frame(Name = temp.DoseName[, "Name"],
-                              Repeated = as.logical(temp.DoseName[, "Repeated"]))
-
-
-  LnLxTnTx<-cbind(temp.LnLxTnTx,LnLxTnTx)
-  LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
+  LnLxTnTx <- cbind(temp.DoseName[, c("Name", "Repeated")],
+                    LnLxTnTx)
 
   # Calculate Recycling Ratio -----------------------------------------------
   RecyclingRatio <- NA_real_
@@ -348,7 +327,6 @@ analyse_SAR.TL <- function(
   }
 
   # Combine and Evaluate Rejection Criteria ---------------------------------
-
   RejectionCriteria <- data.frame(
     criterion = c(if (is.na(RecyclingRatio)) "recycling ratio" else colnames(RecyclingRatio),
                    "recuperation rate"),

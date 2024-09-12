@@ -1,10 +1,10 @@
 ## load data
 data(ExampleData.BINfileData, envir = environment())
 
-## transform the values from the first position in a RLum.Analysis object
+## transform the values from the third position in an RLum.Analysis object
 object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
 
-test_that("Input validation", {
+test_that("input validation", {
   skip_on_cran()
 
   expect_error(analyse_SAR.TL(),
