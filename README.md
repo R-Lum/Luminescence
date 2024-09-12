@@ -24,7 +24,8 @@ DOI](https://zenodo.org/badge/23153315.svg)](https://zenodo.org/badge/latestdoi/
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 
-[![R-CMD-check](https://github.com/R-Lum/Luminescence/workflows/GitHub%20Actions%20CI/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
+[![R-CMD-check](https://github.com/R-Lum/Luminescence/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
+
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://app.codecov.io/github/R-Lum/Luminescence?branch=master)
 
