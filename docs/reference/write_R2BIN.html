@@ -9,7 +9,7 @@ opened by the Analyst software or other Risø software."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,6 +121,10 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
     <p>0.5.2</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2024. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 <a href="https://www.fysik.dtu.dk" class="external-link">https://www.fysik.dtu.dk</a></p>
@@ -131,7 +135,8 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
@@ -141,12 +146,11 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_BIN2R.html">read_BIN2R</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [read_BIN2R()]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpmFd3Sy/temp_libpathbca0420b0e9e/Luminescence/extdata</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpmFd3Sy/temp_libpathbca0420b0e9e/Luminescence/extdata/BINfile_V8.binx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmphF58fG/temp_libpath1650f4326b3ba/Luminescence/extdata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmphF58fG/temp_libpath1650f4326b3ba/Luminescence/extdata/BINfile_V8.binx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  n_rec: 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 record(s) have been read successfully!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 records read successfully</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##create temporary file path</span></span></span>
 <span class="r-in"><span><span class="co">##(for usage replace by own path)</span></span></span>
@@ -155,9 +159,9 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
 <span class="r-in"><span><span class="co">##export to temporary file path</span></span></span>
 <span class="r-in"><span><span class="fu">write_R2BIN</span><span class="op">(</span><span class="va">temp</span>, file <span class="op">=</span> <span class="va">temp_file</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [write_R2BIN()]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//RtmpfJ2x6U/outpute7c73e413688.binx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//RtmpcDvxBC/output2ea3460cf051.binx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2records have been written successfully!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 records have been written successfully!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

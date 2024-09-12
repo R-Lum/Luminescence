@@ -13,7 +13,7 @@ uses the nls function with the port algorithm."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,6 @@ uses the <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a
 <span>  LED.wavelength <span class="op">=</span> <span class="fl">470</span>,</span>
 <span>  cex.global <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>  sample_code <span class="op">=</span> <span class="st">"Default"</span>,</span>
-<span>  <span class="va">output.path</span>,</span>
 <span>  output.terminal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  output.terminalAdvanced <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -127,13 +126,6 @@ global scaling factor.</p></dd>
 sample code used for the plot and the optional output table (<code>mtext</code>).</p></dd>
 
 
-<dt id="arg-output-path">output.path<a class="anchor" aria-label="anchor" href="#arg-output-path"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-output path for table output containing the results of the fit. The file
-name is set automatically. If the file already exists in the directory,
-the values are appended.</p></dd>
-
-
 <dt id="arg-output-terminal">output.terminal<a class="anchor" aria-label="anchor" href="#arg-output-terminal"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 terminal output with fitting results.</p></dd>
@@ -158,9 +150,6 @@ returns a plot of the fitted curves.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><strong>plot (<em>optional</em>)</strong></p>
 <p>the fitted CW-OSL curves are returned as plot.</p>
-<p><strong>table (<em>optional</em>)</strong></p>
-<p>an output table (<code>*.csv</code>) with parameters of the fitted components is
-provided if the <code>output.path</code> is set.</p>
 <p><strong>RLum.Results</strong></p>
 <p>Beside the plot and table output options, an <a href="RLum.Results-class.html">RLum.Results</a> object is
 returned.</p>
@@ -236,7 +225,11 @@ global minimum rather than a local minimum!</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.5.2</p>
+    <p>0.5.3</p>
+    </div>
+    <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2024. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -254,7 +247,8 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">

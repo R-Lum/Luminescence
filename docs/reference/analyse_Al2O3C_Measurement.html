@@ -9,7 +9,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018"><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +91,7 @@ based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5
 <dt id="arg-irradiation-time-correction">irradiation_time_correction<a class="anchor" aria-label="anchor" href="#arg-irradiation-time-correction"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="RLum.Results-class.html">RLum.Results</a> (<em>optional</em>):
 information on the used irradiation time correction obtained by another experiments.
-I a <code>numeric</code> is provided it has to be of length two: mean, standard error</p></dd>
+If a <code>numeric</code> is provided it has to be of length two: mean, standard error</p></dd>
 
 
 <dt id="arg-cross-talk-correction">cross_talk_correction<a class="anchor" aria-label="anchor" href="#arg-cross-talk-correction"></a></dt>
@@ -103,7 +103,7 @@ mean, 2.5 % quantile, 97.5 % quantile.</p></dd>
 
 <dt id="arg-travel-dosimeter">travel_dosimeter<a class="anchor" aria-label="anchor" href="#arg-travel-dosimeter"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): specify the position of the travel dosimeter
-(so far measured a the same time). The dose of travel dosimeter will be subtracted from all
+(so far measured at the same time). The dose of travel dosimeter will be subtracted from all
 other values.</p></dd>
 
 
@@ -171,6 +171,10 @@ unity than the defined by the threshold, a warning is returned.</p>
     <p>0.2.6</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2024. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
@@ -182,7 +186,8 @@ Geochronometria 45, 56-67.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
@@ -192,7 +197,7 @@ Geochronometria 45, 56-67.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##run analysis</span></span></span>
 <span class="r-in"><span><span class="fu">analyse_Al2O3C_Measurement</span><span class="op">(</span><span class="va">data_CrossTalk</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>TL peak shift detected for aliquot position 1! Check curves!</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[analyse_Al2O3C_Measurement()] TL peak shift detected for aliquot position 1, check the curves</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [analyse_Al2O3_Measurement()] #1 DE: 0 ± 0</span>
 <span class="r-plt img"><img src="analyse_Al2O3C_Measurement-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ... (#1 | ALQ POS: 1)</span>

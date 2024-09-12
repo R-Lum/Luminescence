@@ -129,7 +129,7 @@ contour, contour.col (&quot;image&quot;)"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -355,7 +355,12 @@ attributes such as the <code>colour</code> and <code>pmat</code> (the transpose 
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
+    </div>
+    <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2024. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -372,7 +377,7 @@ attributes such as the <code>colour</code> and <code>pmat</code> (the transpose 
 <span class="r-in"><span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">300</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span> bin.rows<span class="op">=</span><span class="fl">10</span>,</span></span>
 <span class="r-in"><span> bin.cols <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 6 channels removed due to row (wavelength) binning</span>
 <span class="r-plt img"><img src="plot_RLum.Data.Spectrum-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(2) plot spectrum (3D)</span></span></span>
@@ -383,7 +388,7 @@ attributes such as the <code>colour</code> and <code>pmat</code> (the transpose 
 <span class="r-in"><span>  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  bin.rows<span class="op">=</span><span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  bin.cols <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 6 channels removed due to row (wavelength) binning</span>
 <span class="r-plt img"><img src="plot_RLum.Data.Spectrum-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(3) plot spectrum on energy axis</span></span></span>
@@ -395,7 +400,7 @@ attributes such as the <code>colour</code> and <code>pmat</code> (the transpose 
 <span class="r-in"><span>bg.channels <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>bin.cols <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>xaxis.energy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 3 channel(s) removed due to row (wavelength) binning.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 3 channels removed due to row (wavelength) binning</span>
 <span class="r-plt img"><img src="plot_RLum.Data.Spectrum-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(4) plot multiple lines (2D) - multiple.lines (with ylim)</span></span></span>
@@ -406,7 +411,7 @@ attributes such as the <code>colour</code> and <code>pmat</code> (the transpose 
 <span class="r-in"><span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span> bin.rows<span class="op">=</span><span class="fl">10</span>,</span></span>
 <span class="r-in"><span> bin.cols <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_RLum.Data.Spectrum()] 6 channels removed due to row (wavelength) binning</span>
 <span class="r-plt img"><img src="plot_RLum.Data.Spectrum-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>

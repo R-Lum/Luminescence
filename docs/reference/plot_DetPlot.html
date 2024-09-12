@@ -13,7 +13,7 @@ Example: legend.pos for legend position, legend for legend text."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,8 @@ lower bound of the signal integral.</p></dd>
 
 <dt id="arg-signal-integral-max">signal.integral.max<a class="anchor" aria-label="anchor" href="#arg-signal-integral-max"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-upper bound of the signal integral.</p></dd>
+upper bound of the signal integral. Must be strictly greater than
+<code>signal.integral.min</code>.</p></dd>
 
 
 <dt id="arg-background-integral-min">background.integral.min<a class="anchor" aria-label="anchor" href="#arg-background-integral-min"></a></dt>
@@ -196,6 +197,10 @@ calculations using several hundreds of channels.</p>
     <p>0.1.7</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 using De as a function of illumination time. Radiation Measurements 37, 511-518.
@@ -207,7 +212,8 @@ doi:10.1016/S1350-4487(03)00063-5</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">

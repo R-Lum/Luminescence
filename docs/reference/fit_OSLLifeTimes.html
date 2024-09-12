@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,8 @@
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> <strong>(required)</strong>:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
-processing. Please note: <code>NA</code> values are automatically removed and the dataset should comprise at least 5 data points.</p></dd>
+processing. Please note: <code>NA</code> values are automatically removed and the dataset should comprise at least 5 data points (possibly more if <code>n.components</code> is
+set to a value greater than 1)</p></dd>
 
 
 <dt id="arg-tp">tp<a class="anchor" aria-label="anchor" href="#arg-tp"></a></dt>
@@ -158,6 +159,10 @@ The default values is <code>TRUE</code></td></tr><tr><td><code>nlsLM.trace</code
     <p>0.1.5</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., Schmidt, C., 2024. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
 Radiation Measurements 41, 886-891. <a href="https://doi.org/10.1016/j.radmeas.2006.05.016" class="external-link">doi:10.1016/j.radmeas.2006.05.016</a>
@@ -177,7 +182,8 @@ Journal of Global Optimization 11, 341–359.</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University,
-Christoph Schmidt, University of Bayreuth (Germany)</p>
+Christoph Schmidt, University of Bayreuth (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">

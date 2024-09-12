@@ -9,7 +9,7 @@ using the protocol according to Erfurt et al. (2003) and beyond."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +121,7 @@ MC runs. Note: Large values will significantly increase the computation time</p>
 
 <dt id="arg-txtprogressbar">txtProgressBar<a class="anchor" aria-label="anchor" href="#arg-txtprogressbar"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar during MC runs</p></dd>
+enables <code>TRUE</code> or disables <code>FALSE</code> the progress bar during MC runs</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
@@ -212,7 +212,7 @@ range will is set to <code>"auto"</code> (see <code>method.control</code>). This
 changed with <code>method.control</code>.</p>
 <p><strong><code>method.control</code></strong></p>
 <p>To keep the generic argument list as clear as possible, arguments to control the methods
-for De estimation are all pre set with meaningful default parameters and can be
+for De estimation are all preset with meaningful default parameters and can be
 handled using the argument <code>method.control</code> only, e.g.,
 <code>method.control = list(trace = TRUE)</code>. Supported arguments are:</p>
 <table class="table table"><tr><td><strong>ARGUMENT</strong></td><td><strong>METHOD</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>trace</code></td><td><code>FIT</code>, <code>SLIDE</code> or <code>VSLIDE</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>; shows sum of squared residuals</td></tr><tr><td><code>trace_vslide</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> argument to enable or disable the tracing of the vertical sliding</td></tr><tr><td><code>maxiter</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>warnOnly</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>minFactor</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>correct_onset</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td>The logical argument shifts the curves along the x-axis by the first channel,
@@ -289,6 +289,10 @@ findings by Buylaert et al. (2012).</p>
     <p>0.7.10</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
@@ -342,7 +346,8 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
@@ -360,7 +365,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 <span class="r-out co"><span class="r-pr">#&gt;</span>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DATE SEQUENCE_NAME                               UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2024-08-26-09:05.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2024-09-12-01:45.0.18945696670562</span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"test_parameters"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA</span>
@@ -372,14 +377,14 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       NA               beta        NA 5.418719e-01     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8       NA          delta.phi        NA 2.103400e+03     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-08-26-09:05.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2024-08-26-09:05.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-09-12-01:45.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2024-09-12-01:45.0.18945696670562</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(2) perform analysis using the method 'SLIDE'</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>, method <span class="op">=</span> <span class="st">"SLIDE"</span>, n.MC <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>

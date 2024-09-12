@@ -17,7 +17,7 @@ standard deviation as pale bold line and pale polygon, respectively."></head><bo
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,8 +74,11 @@ standard deviation as pale bold line and pale polygon, respectively.</p>
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="RLum.Results-class.html">RLum.Results</a> object (<strong>required</strong>):
-for <code>data.frame</code>: two columns: De (<code>values[,1]</code>) and De error (<code>values[,2]</code>).
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> or <a href="RLum.Results-class.html">RLum.Results</a> object (<strong>required</strong>):
+for <code>data.frame</code>: either two columns: De (<code>values[,1]</code>) and De error
+(<code>values[,2]</code>), or one: De (<code>values[,1]</code>). If a numeric vector or a
+single-column data frame is provided, De error is assumed to be 10^-9
+for all measurements and error bars are not drawn.
 For plotting multiple data sets, these must be provided as
 <code>list</code> (e.g. <code>list(dataset1, dataset2)</code>).</p></dd>
 
@@ -191,7 +194,12 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Michael Dietze, GFZ Potsdam (Germany)<br>
-Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)</p>
+Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+, RLum Developer Team</p>
+    </div>
+    <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Dietze, M., 2024. plot_KDE(): Plot kernel density estimate with statistics. Function version 3.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">

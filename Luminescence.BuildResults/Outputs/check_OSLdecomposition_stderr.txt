@@ -1,5 +1,0 @@
-
-See
-  ‘/Users/kreutzer/GitHub/Luminescence/Luminescence.BuildResults/OSLdecomposition.Rcheck/00check.log’
-for details.
-

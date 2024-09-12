@@ -17,7 +17,7 @@ published code."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -284,7 +284,7 @@ implemented to simplify the analysis for the user as all needed data pre-process
 by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 <code>LxTx</code>, the <code>LxTx</code> error and the dose values for all regeneration points.</p>
-<p><strong>How the systematic error contribution is calculated?</strong></p>
+<p><strong>How is the systematic error contribution calculated?</strong></p>
 <p>Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 and added to final central dose by:</p>
 <p>$$systematic.error = 1/n \sum SE(source.doserate)$$</p>
@@ -318,7 +318,7 @@ by <a href="verify_SingleGrainData.html">verify_SingleGrainData</a> might be not
 <p><strong>(2) - <code>object</code> <code>RLum.Results object</code></strong></p>
 <p>If an <a href="RLum.Results-class.html">RLum.Results</a> object is provided as input and(!) this object was
 previously created by the function <code>analyse_baSAR()</code> itself, the pre-processing part
-is skipped and the function starts directly the Bayesian analysis. This option is very powerful
+is skipped and the function starts directly with the Bayesian analysis. This option is very powerful
 as it allows to change parameters for the Bayesian analysis without the need to repeat
 the data pre-processing. If furthermore the argument <code>aliquot_range</code> is set, aliquots
 can be manually excluded based on previous runs.</p>
@@ -370,6 +370,10 @@ a <code>list</code> with the same number of elements for the following parameter
     <p>0.1.33</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Mercier, N., Kreutzer, S., 2024. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
@@ -394,7 +398,8 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) <br>
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
-The underlying Bayesian model based on a contribution by Combès et al., 2015.</p>
+The underlying Bayesian model based on a contribution by Combès et al., 2015.
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">

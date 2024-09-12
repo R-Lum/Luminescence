@@ -11,7 +11,7 @@ kernel density estimate, histogram and/or dot plot of the dose values."></head><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -285,7 +285,10 @@ create an interactive abanico plot (requires the <code>'plotly'</code> package)<
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Further plot arguments to pass (see <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot.default</a>). Supported are: <code>main</code>, <code>sub</code>, <code>ylab</code>, <code>xlab</code>, <code>zlab</code>, <code>zlim</code>, <code>ylim</code>, <code>cex</code>, <code>lty</code>, <code>lwd</code>, <code>pch</code>, <code>col</code>, <code>tck</code>, <code>tcl</code>, <code>at</code>, <code>breaks</code>. <code>xlab</code> must be a vector of length two, specifying the upper and lower x-axes labels.</p></dd>
+<dd><p>Further plot arguments to pass (see <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot.default</a>).
+Supported are: <code>main</code>, <code>sub</code>, <code>ylab</code>, <code>xlab</code>, <code>zlab</code>, <code>zlim</code>, <code>ylim</code>, <code>cex</code>,
+<code>lty</code>, <code>lwd</code>, <code>pch</code>, <code>col</code>, <code>tck</code>, <code>tcl</code>, <code>at</code>, <code>breaks</code>. <code>xlab</code> must be
+a vector of length two, specifying the upper and lower x-axis labels.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -301,7 +304,7 @@ error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
 Galbraith &amp; Green (1990). The function authors are thankful for the
-thought provoking figure in this article.</p>
+thought-provoking figure in this article.</p>
 <p>The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
 part of the plot with any other Cartesian visualisation method
@@ -347,8 +350,8 @@ measures in three different ways: <code>unweighted</code>, <code>weighted</code>
 <code>MCM-based</code> (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
 with the appropriate keyword using the argument <code>summary.method</code>.</p>
-<p>The optional parameter <code>layout</code> allows to modify the entire plot more
-sophisticated. Each element of the plot can be addressed and its properties
+<p>The optional parameter <code>layout</code> allows more sophisticated ways to modify
+the entire plot. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
 cf. <code><a href="get_Layout.html">get_Layout()</a></code> or type e.g., for the layout type <code>"journal"</code>
@@ -362,6 +365,10 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
     <p>0.1.17</p>
+    </div>
+    <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Dietze, M., Kreutzer, S., 2024. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -381,7 +388,8 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Michael Dietze, GFZ Potsdam (Germany)<br>
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
-Inspired by a plot introduced by Galbraith &amp; Green (1990)</p>
+Inspired by a plot introduced by Galbraith &amp; Green (1990)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">

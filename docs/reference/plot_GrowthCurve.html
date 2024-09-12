@@ -11,7 +11,7 @@ extrapolation to calculate the equivalent dose."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25.9000-51</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,6 @@ extrapolation to calculate the equivalent dose.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
 <span>  <span class="va">sample</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"interpolation"</span>,</span>
 <span>  fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span>
 <span>  fit.force_through_origin <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -76,10 +75,6 @@ data frame with three columns for <code>x = Dose</code>,<code>y = LxTx</code>,<c
 The column for the test dose response is optional, but requires <code>'TnTx'</code> as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.</p></dd>
-
-
-<dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): excludes <code>NA</code> values from the data set prior to any further operations. This argument is defunct and will be removed in a future version!</p></dd>
 
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
@@ -262,6 +257,10 @@ Each error estimation is done with the function of the chosen fitting method.</p
     <p>1.11.13</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., Dietze, M., 2024. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.11.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.</p>
 <p>Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
@@ -278,7 +277,8 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. <a href="h
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
-Michael Dietze, GFZ Potsdam (Germany)</p>
+Michael Dietze, GFZ Potsdam (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
@@ -326,7 +326,7 @@ Michael Dietze, GFZ Potsdam (Germany)</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
 <span class="r-in"><span><span class="co">##dev.off()</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##(4) plot resulting function for given intervall x</span></span></span>
+<span class="r-in"><span><span class="co">##(4) plot resulting function for given interval x</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10000</span>, by <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span> x <span class="op">=</span> <span class="va">x</span>,</span></span>
