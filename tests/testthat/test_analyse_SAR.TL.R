@@ -83,5 +83,14 @@ test_that("regression tests", {
     analyse_SAR.TL(object, sequence.structure = c("SIGNAL", "BACKGROUND"),
                    signal.integral.min = 2, signal.integral.max = 3,)
   )
+
+  seq.structure <- c("SIGNAL", "EXCLUDE", "BACKGROUND", "EXCLUDE", "PREHEAT",
+                     "EXCLUDE", "BACKGROUND", "SIGNAL", "EXCLUDE", "EXCLUDE",
+                     "EXCLUDE", "EXCLUDE")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 2,
+                              signal.integral.max = 2,
+                              sequence.structure = seq.structure),
+               "[calc_TLLxTxRatio()] Data types of Lx and Tx data differ",
+               fixed = TRUE)
   })
 })

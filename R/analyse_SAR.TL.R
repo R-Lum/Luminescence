@@ -238,16 +238,16 @@ analyse_SAR.TL <- function(
       Lx.data.background <- get_RLum(object, record.id = TL.background.ID[i])
       Tx.data.background <- get_RLum(object, record.id = TL.background.ID[i + 1])
     }
-    temp.LnLxTnTx <- get_RLum(
-      calc_TLLxTxRatio(
+    LxTxRatio <- calc_TLLxTxRatio(
         Lx.data.signal = get_RLum(object, record.id = TL.signal.ID[i]),
         Tx.data.signal = get_RLum(object, record.id = TL.signal.ID[i + 1]),
         Lx.data.background = Lx.data.background,
         Tx.data.background = Tx.data.background,
         signal.integral.min,
         signal.integral.max
-      )
     )
+    temp.LnLxTnTx <- get_RLum(LxTxRatio)
+    rm(LxTxRatio)
 
     ##grep dose
     temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
