@@ -504,19 +504,17 @@ analyse_SAR.TL <- function(
     lines(NTL.net.LnLx, col = col[1])
     lines(Reg1.net.LnLx, col = col[2])
 
-
     ##plot
+    TL.tmp <- TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max), 2]
+    ylim.max <- quantile(TL.tmp[!is.infinite(TL.tmp)],
+                         probs = 0.90, na.rm = TRUE)
     par(new = TRUE)
     plot(
       TL.Plateau.LnLx,
       axes = FALSE,
       xlab = "",
       ylab = "",
-      ylim = c(0,
-               quantile(
-                 TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max), 2],
-                 probs = c(0.90), na.rm = TRUE
-               ) + 3),
+      ylim = c(0, ylim.max + 3),
       col = "darkgreen"
     )
     axis(4)

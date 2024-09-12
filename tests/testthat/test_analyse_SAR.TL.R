@@ -71,3 +71,17 @@ test_that("Test examples", {
   "'fit.weights' ignored since the error column is invalid or 0")
   })
 })
+
+test_that("regression tests", {
+  skip_on_cran()
+
+  ## issue 147 --------------------------------------------------------------
+
+  SW({
+  set.seed(1)
+  expect_snapshot_RLum(
+    analyse_SAR.TL(object, sequence.structure = c("SIGNAL", "BACKGROUND"),
+                   signal.integral.min = 2, signal.integral.max = 3,)
+  )
+  })
+})
