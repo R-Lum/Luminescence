@@ -1,11 +1,11 @@
 ## path to the SPE file on github, as it's not included in the package
 github.url <- file.path("https://github.com/R-Lum/Luminescence",
-                        "raw/dev_0.9.x/tests/testthat/_data")
+                        "raw/master/tests/testthat/_data")
 
 ## `read_SPE2R()` calls `download.file()` which, in turn, uses curl to
 ## perform the actual download. If `verbose = TRUE`, curl is invoked with
 ## `quiet = FALSE`, and the output it produces cannot be captured by `SW()`,
-## nor by other simple R apporaches because curl writes directly to the
+## nor by other simple R approaches because curl writes directly to the
 ## console bypassing R. The workaround is to divert all output to a file, see:
 ## https://stackoverflow.com/questions/66138345/how-to-suppress-download-file-trying-url-message-in-r
 sink.curl.messages <- function(expr) {
