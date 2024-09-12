@@ -639,14 +639,19 @@ analyse_SAR.TL <- function(
     ...
   ))
 
-  ##check for error
+  ## plot_GrowthCurve() can fail in two ways:
+  ## 1. either with a hard error, in which case there's nothing much we
+  ##    can do and stop early by returning NULL
   if(inherits(temp.GC, "try-error")){
     return(NULL)
-
-  }else{
-    temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
-
   }
+
+  ## 2. or with a soft error by returning NULL, in which case we set
+  ##    temp.GC to NA and continue (this can be done after the call to
+  ##    get_RLum(), as it deals well with NULLs)
+  temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
+  if (is.null(temp.GC))
+    temp.GC <- NA
 
   ##add rejection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
