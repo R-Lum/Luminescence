@@ -1,0 +1,12 @@
+OSLdecomposition-package	OSLdecomposition-package
+decompose_OSLcurve	decompose_OSLcurve
+fit_OSLcurve	fit_OSLcurve
+optimise_OSLintervals	optimise_OSLintervals
+OSLdecomposition	OSLdecomposition-package
+plot_OSLcurve	plot_OSLcurve
+plot_PhotoCrosssections	plot_PhotoCrosssections
+RLum.OSL_correction	RLum.OSL_correction
+RLum.OSL_decomposition	RLum.OSL_decomposition
+RLum.OSL_global_fitting	RLum.OSL_global_fitting
+simulate_OSLcomponents	simulate_OSLcomponents
+sum_OSLcurves	sum_OSLcurves

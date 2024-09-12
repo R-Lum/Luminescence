@@ -8,7 +8,7 @@
 #'
 #' The function compares the expected values (\eqn{E(X)}) and the variance
 #' (\eqn{Var(X)}) of the count values for each curve. Assuming that the
-#' background roughly follows a Poisson distribution the absolute difference
+#' background roughly follows a Poisson distribution, the absolute difference
 #' of both values should be zero or at least around zero as
 #'
 #' \deqn{E(x) = Var(x) = \lambda}
@@ -18,7 +18,7 @@
 #' \deqn{abs(E(x) - Var(x)) >= \Theta}
 #'
 #' With \eqn{\Theta} an arbitrary, user defined, threshold. Values above the
-#' threshold indicating curves comprising a signal.
+#' threshold indicate curves comprising a signal.
 #'
 #' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the
 #' ratio was chosen as both terms can become 0 which would result in 0 or `Inf`,
@@ -32,7 +32,7 @@
 #' the `var` of the count values (see details)
 #'
 #' @param cleanup [logical] (*with default*):
-#' if set to `TRUE` curves identified as zero light level curves are
+#' if set to `TRUE`, curves identified as zero light level curves are
 #' automatically removed. Output is an object as same type as the input, i.e.
 #' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
@@ -40,7 +40,7 @@
 #' selects the level for the clean-up of the input data sets.
 #' Two options are allowed: `"curve"` or `"aliquot"`:
 #'
-#' - If  `"curve"` is selected every single curve marked as `invalid` is removed.
+#' - If  `"curve"` is selected, every single curve marked as `invalid` is removed.
 #' - If `"aliquot"` is selected, curves of one aliquot (grain or disc) can be
 #' marked as invalid, but will not be removed. An aliquot will be only removed
 #' if all curves of this aliquot are marked as invalid.
@@ -79,9 +79,9 @@
 #' **Output variation**
 #'
 #' For `cleanup = TRUE` the same object as the input is returned, but cleaned up
-#' (invalid curves were removed). This means: Either an [Risoe.BINfileData-class]
+#' (invalid curves were removed). This means: Either a [Risoe.BINfileData-class]
 #' or an [RLum.Analysis-class] object is returned in such cases.
-#' An [Risoe.BINfileData-class] object can be exported to a BIN-file by
+#' A [Risoe.BINfileData-class] object can be exported to a BIN-file by
 #' using the function [write_R2BIN].
 #'
 #' @note
@@ -439,8 +439,8 @@ verify_SingleGrainData <- function(
 
 
   }else{
-    stop(paste0("[verify_SingleGrainData()] Input type '", is(object)[1], "' is not allowed for this function!"), call. = FALSE)
-
+    stop("[verify_SingleGrainData()] Input type '", is(object)[1],
+         "' is not allowed for this function!", call. = FALSE)
   }
 
   # Plot ----------------------------------------------------------------------------------------
@@ -487,6 +487,4 @@ verify_SingleGrainData <- function(
 
   # Return --------------------------------------------------------------------------------------
   return(return_object)
-
-
 }

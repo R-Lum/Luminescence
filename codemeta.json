@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.22",
+  "version": "0.9.25",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2023-07-21 r84719)",
+  "runtimePlatform": "R version 4.4.1 Patched (2024-08-21 r87049)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -25,7 +25,7 @@
       "@type": "Person",
       "givenName": "Sebastian",
       "familyName": "Kreutzer",
-      "email": "sebastian.kreutzer@uni-heidelberg.de",
+      "email": "maintainer_luminescence@r-luminescence.org",
       "@id": "https://orcid.org/0000-0002-0734-2199"
     },
     {
@@ -104,6 +104,12 @@
       "givenName": "Jean-Michel",
       "familyName": "Galharret",
       "@id": "https://orcid.org/0000-0003-2219-8727"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Marco",
+      "familyName": "Colombo",
+      "@id": "https://orcid.org/0000-0001-6672-0623"
     }
   ],
   "contributor": [
@@ -152,7 +158,7 @@
       "@type": "Person",
       "givenName": "Sebastian",
       "familyName": "Kreutzer",
-      "email": "sebastian.kreutzer@uni-heidelberg.de",
+      "email": "maintainer_luminescence@r-luminescence.org",
       "@id": "https://orcid.org/0000-0002-0734-2199"
     },
     {
@@ -177,7 +183,7 @@
       "@type": "Person",
       "givenName": "Sebastian",
       "familyName": "Kreutzer",
-      "email": "sebastian.kreutzer@uni-heidelberg.de",
+      "email": "maintainer_luminescence@r-luminescence.org",
       "@id": "https://orcid.org/0000-0002-0734-2199"
     },
     {
@@ -197,7 +203,7 @@
       "@type": "Person",
       "givenName": "Sebastian",
       "familyName": "Kreutzer",
-      "email": "sebastian.kreutzer@uni-heidelberg.de",
+      "email": "maintainer_luminescence@r-luminescence.org",
       "@id": "https://orcid.org/0000-0002-0734-2199"
     }
   ],
@@ -206,7 +212,7 @@
       "@type": "SoftwareApplication",
       "identifier": "spelling",
       "name": "spelling",
-      "version": ">= 2.2.1",
+      "version": ">= 2.3.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -219,7 +225,7 @@
       "@type": "SoftwareApplication",
       "identifier": "plotly",
       "name": "plotly",
-      "version": ">= 4.10.2",
+      "version": ">= 4.10.4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -232,7 +238,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
-      "version": ">= 2.23",
+      "version": ">= 2.27",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -245,7 +251,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rstudioapi",
       "name": "rstudioapi",
-      "version": ">= 0.15.0",
+      "version": ">= 0.16.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -258,7 +264,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rjags",
       "name": "rjags",
-      "version": ">= 4-14",
+      "version": ">= 4-15",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -297,7 +303,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 3.1.10",
+      "version": ">= 3.2.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -310,7 +316,7 @@
       "@type": "SoftwareApplication",
       "identifier": "tiff",
       "name": "tiff",
-      "version": ">= 0.1-11",
+      "version": ">= 0.1-12",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -336,7 +342,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R.rsp",
       "name": "R.rsp",
-      "version": ">= 0.45.0",
+      "version": ">= 0.46.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -351,7 +357,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 4.1"
+      "version": ">= 4.3"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -362,7 +368,7 @@
       "@type": "SoftwareApplication",
       "identifier": "bbmle",
       "name": "bbmle",
-      "version": ">= 1.0.25",
+      "version": ">= 1.0.25.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -375,7 +381,7 @@
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
-      "version": ">= 1.14.6.8",
+      "version": ">= 1.15.4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -401,7 +407,7 @@
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
-      "version": ">= 1.4.6",
+      "version": ">= 1.4.7",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -412,9 +418,22 @@
     },
     "7": {
       "@type": "SoftwareApplication",
+      "identifier": "interp",
+      "name": "interp",
+      "version": ">= 1.1-6",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=interp"
+    },
+    "8": {
+      "@type": "SoftwareApplication",
       "identifier": "lamW",
       "name": "lamW",
-      "version": ">= 2.1.2",
+      "version": ">= 2.2.3",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -423,11 +442,11 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lamW"
     },
-    "8": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "matrixStats",
       "name": "matrixStats",
-      "version": ">= 1.0.0",
+      "version": ">= 1.3.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -436,16 +455,16 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=matrixStats"
     },
-    "9": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "10": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "minpack.lm",
       "name": "minpack.lm",
-      "version": ">= 1.2-3",
+      "version": ">= 1.2-4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -454,11 +473,11 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=minpack.lm"
     },
-    "11": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "mclust",
       "name": "mclust",
-      "version": ">= 6.0.0",
+      "version": ">= 6.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -466,19 +485,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=mclust"
-    },
-    "12": {
-      "@type": "SoftwareApplication",
-      "identifier": "plotrix",
-      "name": "plotrix",
-      "version": ">= 3.8-2",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=plotrix"
     },
     "13": {
       "@type": "SoftwareApplication",
@@ -497,7 +503,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
-      "version": ">= 1.0.11",
+      "version": ">= 1.0.12",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -528,7 +534,7 @@
       "@type": "SoftwareApplication",
       "identifier": "XML",
       "name": "XML",
-      "version": ">= 3.99-0.14",
+      "version": ">= 3.99-0.16",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -552,17 +558,17 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4957.286KB",
+  "fileSize": "4784.457KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
-      "datePublished": "2023",
+      "datePublished": "2024",
       "author": [
         {
           "@type": "Person",
           "givenName": "Sebastian",
           "familyName": "Kreutzer",
-          "email": "sebastian.kreutzer@uni-heidelberg.de",
+          "email": "maintainer_luminescence@r-luminescence.org",
           "@id": "https://orcid.org/0000-0002-0734-2199"
         },
         {
@@ -641,11 +647,17 @@
           "givenName": "Jean-Michel",
           "familyName": "Galharret",
           "@id": "https://orcid.org/0000-0003-2219-8727"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Marco",
+          "familyName": "Colombo",
+          "@id": "https://orcid.org/0000-0001-6672-0623"
         }
       ],
       "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
-      "url": "https://CRAN.R-project.org/package=Luminescence",
-      "description": "R package version 0.9.22"
+      "url": "https://r-lum.github.io/Luminescence/",
+      "description": "R package version 0.9.25"
     },
     {
       "@type": "ScholarlyArticle",
@@ -1115,7 +1127,7 @@
       }
     }
   ],
-  "relatedLink": "https://CRAN.R-project.org/package=Luminescence",
+  "relatedLink": ["https://r-lum.github.io/Luminescence/", "https://CRAN.R-project.org/package=Luminescence"],
   "releaseNotes": "https://github.com/R-Lum/Luminescence/blob/master/NEWS.md",
   "contIntegration": "https://app.codecov.io/github/R-Lum/Luminescence?branch=master",
   "developmentStatus": "https://www.repostatus.org/#active"

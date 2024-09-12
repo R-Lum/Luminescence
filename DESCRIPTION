@@ -1,32 +1,10 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.24
-Date: 2024-06-07
-Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
-    Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
-    Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
-    Margret C. Fuchs [aut] (<https://orcid.org/0000-0001-7210-1132>), 
-    Christoph Schmidt [aut] (<https://orcid.org/0000-0002-2309-3209>),
-    Manfred Fischer [aut, trl],
-    Johannes Friedrich [aut] (<https://orcid.org/0000-0002-0805-9547>),
-    Norbert Mercier [aut] (<https://orcid.org/0000-0002-6375-9108>),
-    Rachel K. Smedley [ctb] (<https://orcid.org/0000-0001-7773-5193>),
-    Claire Christophe [ctb],
-    Antoine Zink [ctb] (<https://orcid.org/0000-0001-7146-1101>),
-    Julie Durcan [ctb] (<https://orcid.org/0000-0001-8724-8022>),
-    Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
-    Anne Philippe [aut] (<https://orcid.org/0000-0002-5331-5087>),
-    Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
-    Svenja Riedesel [aut] (<https://orcid.org/0000-0003-2936-8776>),
-    Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
-    Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
-    Dirk Mittelstrass [aut] (<https://orcid.org/0000-0002-9567-8791>),
-    Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
-    Jean-Michel Galharret [aut] (<https://orcid.org/0000-0003-2219-8727>),
-    Markus Fuchs [ths] (<https://orcid.org/0000-0003-4669-6528>)
+Version: 0.9.25
+Date: 2024-09-12
 Authors@R: c(
-    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@uni-heidelberg.de", comment = c(ORCID = "0000-0002-0734-2199")),
+    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
     person("Michael", "Dietze", role = c("aut"), comment = c(ORCID = "0000-0001-6063-1726")),
     person("Margret C.", "Fuchs", role = c("aut"), comment = c(ORCID = "0000-0001-7210-1132")),
@@ -47,14 +25,16 @@ Authors@R: c(
     person("Dirk", "Mittelstrass", role = c("aut"), comment = c(ORCID = "0000-0002-9567-8791")),
     person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
     person("Jean-Michel", "Galharret", role = c("aut"), comment = c(ORCID = "0000-0003-2219-8727")),
+    person("Marco", "Colombo", role = c("aut"), comment = c(ORCID = "0000-0001-6672-0623")),
     person("Markus", "Fuchs", role = c("ths"), comment = c(ORCID = "0000-0003-4669-6528")))
-Maintainer: Sebastian Kreutzer <sebastian.kreutzer@uni-heidelberg.de>
+Maintainer: Sebastian Kreutzer <maintainer_luminescence@r-luminescence.org>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
     plotting of equivalent dose distributions.
 Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
+URL: https://r-lum.github.io/Luminescence/
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 4.3),
@@ -91,7 +71,6 @@ Suggests:
     devtools (>= 2.4.5),
     R.rsp (>= 0.46.0)
 VignetteBuilder: R.rsp
-URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
 Language: en-US
 Collate: 
@@ -219,6 +198,7 @@ Collate:
     'plot_ViolinPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
+    'read_HeliosOSL2R.R'
     'read_PSL2R.R'
     'read_RF2R.R'
     'read_SPE2R.R'
@@ -237,4 +217,5 @@ Collate:
     'write_R2TIFF.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
+Config/testthat/edition: 3

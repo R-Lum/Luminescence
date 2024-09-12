@@ -16,7 +16,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^packrat/$
-^tests/testdata$
+^tests/testthat/_data/SPEfile.SPE$
 ^\test\*
 ^_pkgdown\.yml$
 ^docs$

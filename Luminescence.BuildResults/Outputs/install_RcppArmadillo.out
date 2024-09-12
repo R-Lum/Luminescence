@@ -1,0 +1,49 @@
+* installing *source* package ‘RcppArmadillo’ ...
+** package ‘RcppArmadillo’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether clang++ -arch arm64 -std=gnu++17 accepts -g... yes
+checking for clang++ -arch arm64 -std=gnu++17 option to enable C++11 features... none needed
+checking how to run the C++ preprocessor... clang++ -arch arm64 -std=gnu++17 -E
+checking whether the compiler supports GNU C++... (cached) yes
+checking whether clang++ -arch arm64 -std=gnu++17 accepts -g... (cached) yes
+checking for clang++ -arch arm64 -std=gnu++17 option to enable C++11 features... (cached) none needed
+checking whether we have a suitable tempdir... /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T
+checking whether R CMD SHLIB can already compile programs using OpenMP... no
+checking whether g++ version is sufficient... almost
+configure: WARNING: Compiler self-identifies as being compliant with GNUC extensions but is not g++.
+checking for macOS... found
+checking for macOS Apple compiler... not found
+checking for clang compiler... found
+checking for OpenMP compatible version of clang... not found
+configure: WARNING: OpenMP unavailable and turned off.
+checking LAPACK_LIBS... R-supplied partial LAPACK found
+configure: WARNING: Some complex-valued LAPACK functions may not be available
+configure: creating ./config.status
+config.status: creating inst/include/RcppArmadillo/config/RcppArmadilloConfigGenerated.h
+config.status: creating src/Makevars
+** libs
+using C++ compiler: ‘Apple clang version 15.0.0 (clang-1500.3.9.4)’
+using SDK: ‘’
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include -I'/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2   -c RcppArmadillo.cpp -o RcppArmadillo.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include -I'/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2   -c RcppExports.cpp -o RcppExports.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include -I'/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2   -c fastLm.cpp -o fastLm.o
+clang++ -arch arm64 -std=gnu++17 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Library/Frameworks/R.framework/Resources/lib -L/opt/R/arm64/lib -o RcppArmadillo.so RcppArmadillo.o RcppExports.o fastLm.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/opt/gfortran/lib/gcc/aarch64-apple-darwin20.0/12.2.0 -L/opt/gfortran/lib -lgfortran -lemutls_w -lquadmath -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+installing to /Users/kreutzer/GitHub/Luminescence/Luminescence.BuildResults/Library/00LOCK-RcppArmadillo/00new/RcppArmadillo/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (RcppArmadillo)

@@ -1,6 +1,6 @@
-#' Plot function for an RLum.Analysis S4 class object
+#' @title Plot function for an RLum.Analysis S4 class object
 #'
-#' The function provides a standardised plot output for curve data of an
+#' @description The function provides a standardised plot output for curve data of an
 #' RLum.Analysis S4 class object
 #'
 #' The function produces a multiple plot output. A file output is recommended
@@ -48,7 +48,7 @@
 #' @param records_max [numeric] (*optional*): limits number of records
 #' shown if `combine = TRUE`. Shown are always the first and the last curve,
 #' the other number of curves to be shown a distributed evenly, this may result
-#' in less number of curves plotted as specified. This parameter has only
+#' in fewer curves plotted as specified. This parameter has only
 #' an effect for  n > 2.
 #'
 #' @param curve.transformation [character] (*optional*):
@@ -78,7 +78,7 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.14
+#' @section Function version: 0.3.15
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -134,8 +134,7 @@ plot_RLum.Analysis <- function(
 
   ##check if object is of class RLum.Analysis (lists are handled via plot_RLum())
   if (!is(object, "RLum.Analysis"))
-    stop("[plot_RLum.Analysis()] Input object is not of type 'RLum.Analysis'", call. = FALSE)
-
+    .throw_error("Input object is not of type 'RLum.Analysis'")
 
   # Make selection if wanted  -------------------------------------------------------------------
 
@@ -176,16 +175,15 @@ plot_RLum.Analysis <- function(
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
-
-  if(combine){
+  if(combine)
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
-
-  }else{
+  else
     n.plots <- length_RLum(object)
 
-  }
+  if (!missing(nrows)) .validate_positive_scalar(nrows)
+  if (!missing(ncols)) .validate_positive_scalar(ncols)
 
-
+  ## set appropriate values for nrows and ncols if not both specified
   if (missing(ncols) | missing(nrows)) {
     if (missing(ncols) & !missing(nrows)) {
       if (n.plots  == 1) {
@@ -193,9 +191,7 @@ plot_RLum.Analysis <- function(
 
       } else{
         ncols <- 2
-
       }
-
     }
     else if (!missing(ncols) & missing(nrows)) {
       if (n.plots  == 1) {
@@ -207,11 +203,10 @@ plot_RLum.Analysis <- function(
 
       } else{
         nrows <- 3
-
       }
 
-
     } else{
+
       if (n.plots  == 1) {
         nrows <- 1
         ncols <- 1
@@ -231,14 +226,11 @@ plot_RLum.Analysis <- function(
         ncols <- 2
 
       }
-
     }
-
   }
 
 
   # Plotting ------------------------------------------------------------------
-
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(1) NORMAL (combine == FALSE)
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -246,13 +238,11 @@ plot_RLum.Analysis <- function(
 
     ##show warning message
     if(combine & length(object@records) == 1){
-      warning("Nothing to combine, object contains a single curve.")
-
+      .throw_warning("Nothing to combine, object contains a single curve")
     }
 
     ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
     temp <- lapply(1:length(object@records), function(x){
-
       if(is(object@records[[x]], "RLum.Data.Curve") ||
          is(object@records[[x]], "RLum.Data.Spectrum")){
 
@@ -332,40 +322,41 @@ plot_RLum.Analysis <- function(
             temp[[i]] <- CW2pPMi(temp[[i]])
 
           }else{
-            warning("Function for 'curve.transformation' is unknown. No transformation is performed.")
-
+            .throw_warning("Function for 'curve.transformation' is unknown, ",
+                           "no transformation performed")
           }
-
         }
-
 
         ##check plot settings and adjust
         ##xlim
         if (!is.null(plot.settings$xlim)) {
           xlim.set <- plot.settings$xlim[[i]]
           if (plot.settings$xlim[[i]][1] < min(temp[[i]]@data[,1])) {
-            warning(paste0("[plot_RLum.Analysis()] min('xlim') < x-value range for curve #",i,"; reset to minimum."), call. = FALSE)
+            .throw_warning("min('xlim') < x-value range for curve #", i,
+                           ", reset to minimum")
             xlim.set[1] <- min(temp[[i]]@data[,1])
           }
           if (plot.settings$xlim[[i]][2] > max(temp[[i]]@data[,1])) {
-            warning(paste0("[plot_RLum.Analysis()] max('xlim') > x-value range for curve #",i,"; reset to maximum."), call. = FALSE)
+            .throw_warning("max('xlim') > x-value range for curve #", i,
+                           ", reset to maximum")
             xlim.set[2] <- max(temp[[i]]@data[,1])
           }
 
         }else{
           xlim.set <- plot.settings$xlim[[i]]
-
         }
 
         ##ylim
         if (!is.null(plot.settings$ylim)) {
           ylim.set <- plot.settings$ylim[[i]]
           if (plot.settings$ylim[[i]][1] < min(temp[[i]]@data[,2])) {
-            warning(paste0("[plot_RLum.Analysis()] min('ylim') < y-value range for curve #",i,"; reset to minimum."), call. = FALSE)
+            .throw_warning("min('ylim') < y-value range for curve #", i,
+                           ", reset to minimum")
             ylim.set[1] <- min(temp[[i]]@data[,2])
           }
           if (plot.settings$ylim[[i]][2] > max(temp[[i]]@data[,2])) {
-            warning(paste0("[plot_RLum.Analysis()] max('ylim') > y-value range for curve #",i,"; reset to maximum."), call. = FALSE)
+            .throw_warning("max('ylim') > y-value range for curve #", i,
+                           ", reset to maximum")
             ylim.set[2] <- max(temp[[i]]@data[,2])
           }
 
@@ -401,7 +392,6 @@ plot_RLum.Analysis <- function(
         ##PLOT
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##plot RLum.Data.Curve curve
-
           ##we have to do this via this way, otherwise we run into a duplicated arguments
           ##problem
           ##check and remove duplicated arguments
@@ -442,21 +432,16 @@ plot_RLum.Analysis <- function(
 
         }
 
+      } else if(inherits(temp[[i]], "RLum.Data.Spectrum")) {
+        ## remove already provided arguments
+        args <- list(...)[!names(list(...)) %in% c("object", "mtext", "par.local", "main")]
 
-      } else if(is(temp[[i]], "RLum.Data.Spectrum")) {
-
-        plot_RLum.Data.Spectrum(temp[[i]],
-                                mtext =  if(!is.null(plot.settings$mtext[[i]])){
-                                  plot.settings$mtext[[i]]
-                                }else{
-                                  paste("#", i, sep = "")
-                                },
-                                par.local = FALSE,
-                                main = if(!is.null(plot.settings$main)){
-                                  plot.settings$main
-                                }else{
-                                  temp[[i]]@recordType
-                                })
+        do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
+            object = temp[[i]],
+            mtext =  if(!is.null(plot.settings$mtext[[i]])) plot.settings$mtext[[i]] else paste("#", i, sep = ""),
+            par.local = FALSE,
+            main = if(!is.null(plot.settings$main)) plot.settings$main else temp[[i]]@recordType
+        ), args))
 
       }
 
@@ -472,13 +457,9 @@ plot_RLum.Analysis <- function(
 
     sapply(object.list, function(o){
       if(!inherits(o, "RLum.Data.Curve")){
-        stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.",
-             call. = FALSE)
-
+        .throw_error("Using 'combine' is limited to 'RLum.Data.Curve' objects")
       }
-
     })
-
 
     ##account for different curve types, combine similar
     temp.object.structure  <- structure_RLum(object)
@@ -490,9 +471,7 @@ plot_RLum.Analysis <- function(
 
       if(!missing(ncols) & !missing(nrows)){
         par(mfrow = c(nrows, ncols))
-
       }
-
 
       ##this 2nd par request is needed as setting mfrow resets the par settings ... this might
       ##not be wanted
@@ -501,9 +480,7 @@ plot_RLum.Analysis <- function(
     }else{
       par.default <- par()[c("cex")]
       par(cex = plot.settings$cex)
-
     }
-
 
     ##expand plot settings list
     ##expand list
@@ -514,9 +491,7 @@ plot_RLum.Analysis <- function(
 
         }else{
           rep_len(list(plot.settings[[x]]), length.out = length(temp.recordType))
-
         }
-
 
       } else{
         plot.settings[[x]]
@@ -577,9 +552,7 @@ plot_RLum.Analysis <- function(
 
           }else if (curve.transformation == "CW2pPMi") {
             object.list[[x]] <- CW2pPMi(object.list[[x]])
-
           }
-
         }
 
         temp.data <- as(object.list[[x]], "data.frame")
@@ -602,8 +575,8 @@ plot_RLum.Analysis <- function(
           ##check for Inf and NA
           if(any(is.infinite(temp.data[[2]])) || anyNA(temp.data[[2]])){
             temp.data[[2]][is.infinite(temp.data[[2]]) | is.na(temp.data[[2]])] <- 0
-            warning("[plot_RLum.Data.Analysis()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
-
+            .throw_warning("Normalisation led to Inf or NaN values, ",
+                           "values replaced by 0", nframe = 3)
           }
         }
 
@@ -631,7 +604,6 @@ plot_RLum.Analysis <- function(
                "RBR" = "Time [s]",
                "LM-OSL" = "Time [s]"
         )
-
       }
 
       ##ylab
@@ -786,11 +758,8 @@ plot_RLum.Analysis <- function(
             temp.data.list[[n]],
             col = col[n],
             pch = pch[n],
-
           )
-
         }
-
       }
 
       ##add abline
@@ -837,11 +806,10 @@ plot_RLum.Analysis <- function(
           cex = 0.8 * plot.settings$cex[[k]]
         )
 
-        # revert the overplotting
+        # revert the over plotting
         if (legend.pos == "outside")
           par(xpd = FALSE)
       }
-
     }
 
     ##reset graphic settings
@@ -851,7 +819,5 @@ plot_RLum.Analysis <- function(
     }
     par(par.default)
     rm(par.default)
-
   }
-
 }

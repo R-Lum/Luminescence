@@ -1,0 +1,36 @@
+## BayLum example configuration file
+## Please read the package vignette for details and explanations
+- sample: "samp1"
+  files: null
+  settings:
+    dose_points: null
+    dose_source: { value: 0.1535, error: 0.00005891 }
+    dose_env: { value: 2.512, error: 0.05626 }
+    rules:
+        beginSignal: 6
+        endSignal: 8
+        beginBackground: 50
+        endBackground: 55
+        beginTest: 6
+        endTest: 8
+        beginTestBackground: 50
+        endTestBackground: 55
+        inflatePercent: 0.027
+        nbOfLastCycleToRemove: 1
+- sample: "samp2"
+  files: null
+  settings:
+    dose_points: [0, 10, 20, 30, 40, 50 ]
+    dose_source: { value: 0.1535, error: 0.00005891 }
+    dose_env: { value: 2.512, error: 0.05626 }
+    rules:
+        beginSignal: 6
+        endSignal: 8
+        beginBackground: 50
+        endBackground: 55
+        beginTest: 6
+        endTest: 8
+        beginTestBackground: 50
+        endTestBackground: 55
+        inflatePercent: 0.027
+        nbOfLastCycleToRemove: 1

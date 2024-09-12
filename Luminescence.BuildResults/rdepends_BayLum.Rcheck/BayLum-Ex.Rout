@@ -1,0 +1,1835 @@
+
+R version 4.4.1 Patched (2024-08-21 r87049) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "BayLum"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> base::assign(".ExTimings", "BayLum-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('BayLum')
+Loading required package: coda
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("AgeC14_Computation")
+> ### * AgeC14_Computation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: AgeC14_Computation
+> ### Title: Bayesian analysis for C-14 age estimations of various samples
+> ### Aliases: AgeC14_Computation
+> 
+> ### ** Examples
+> 
+> ## Load data
+> data(DATA_C14,envir = environment())
+> C14Cal <- DATA_C14$C14[,1]
+> SigmaC14Cal <- DATA_C14$C14[,2]
+> Names <- DATA_C14$Names
+> nb_sample <- length(Names)
+> 
+> ## Age computation of samples without stratigraphic relations
+> Age <- AgeC14_Computation(
++  Data_C14Cal = C14Cal,
++  Data_SigmaC14Cal = SigmaC14Cal,
++  SampleNames = Names,
++  Nb_sample = nb_sample,
++  PriorAge = rep(c(20,60),nb_sample),
++  Iter = 500,
++  quiet = TRUE,
++  roundingOfValue = 3)
+Warning: [plot_MCMC()] 'n.iter' out of range, reset to number of observations
+
+
+>> MCMC Convergence of Age parameters <<
+----------------------------------------------
+Sample name   Bayes estimate   Uppers credible interval
+A_S-EVA-26510 	 1.004 		 1.024 
+A_S-EVA-26506 	 1.004 		 1.016 
+A_S-EVA-26507 	 1.01 		 1.01 
+A_S-EVA-26508 	 1.006 		 1.02 
+
+
+---------------------------------------------------------------------------------------------------
+ *** WARNING: The following information are only valid if the MCMC chains have converged  ***
+---------------------------------------------------------------------------------------------------
+
+
+
+>> Bayes estimates of Age for each sample and credible interval <<
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26510 	 41.9564170135823 
+						 lower bound 	 upper bound
+				 at level 95% 	 41.444 		 42.32 
+				 at level 68% 	 41.838 		 42.23 
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26506 	 45.6984947366761 
+						 lower bound 	 upper bound
+				 at level 95% 	 45.046 		 46.263 
+				 at level 68% 	 45.413 		 45.993 
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26507 	 44.9008249466511 
+						 lower bound 	 upper bound
+				 at level 95% 	 43.904 		 45.782 
+				 at level 68% 	 44.416 		 45.302 
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26508 	 44.9918407580286 
+						 lower bound 	 upper bound
+				 at level 95% 	 43.923 		 46.082 
+				 at level 68% 	 44.368 		 45.334 
+
+------------------------------------------------------
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("AgeC14_Computation", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("AgeS")
+> ### * AgeS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: AgeS
+> ### Title: Output of 'AgeS_Computation' function for the samples: "GDB5"
+> ###   and "GDB3"
+> ### Aliases: AgeS
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(AgeS)
+> str(AgeS)
+List of 6
+ $ Sampling         :List of 3
+  ..$ : 'mcmc' num [1:2000, 1:6] 6.39 6.17 8.38 7.91 7.47 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : NULL
+  .. .. ..$ : chr [1:6] "A[1]" "A[2]" "D[1]" "D[2]" ...
+  .. ..- attr(*, "mcpar")= num [1:3] 20005 30000 5
+  ..$ : 'mcmc' num [1:2000, 1:6] 6.54 6.84 6.81 6.53 6.84 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : NULL
+  .. .. ..$ : chr [1:6] "A[1]" "A[2]" "D[1]" "D[2]" ...
+  .. ..- attr(*, "mcpar")= num [1:3] 20005 30000 5
+  ..$ : 'mcmc' num [1:2000, 1:6] 7.31 8.47 6.95 7.37 6.26 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : NULL
+  .. .. ..$ : chr [1:6] "A[1]" "A[2]" "D[1]" "D[2]" ...
+  .. ..- attr(*, "mcpar")= num [1:3] 20005 30000 5
+  ..- attr(*, "class")= chr "mcmc.list"
+ $ Model_GrowthCurve: chr "AgesMultiCS2_EXPLIN"
+ $ Distribution     : chr "cauchy"
+ $ PriorAge         : num [1:4] 1 100 1 100
+ $ StratiConstraints: num [1:3, 1:2] 1 0 0 1 0 0
+ $ CovarianceMatrix : num [1:2, 1:2] 0.0566 0 0 0.062
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("AgeS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("AgeS_Computation")
+> ### * AgeS_Computation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: AgeS_Computation
+> ### Title: Bayesian analysis for OSL age estimation of various samples
+> ### Aliases: AgeS_Computation
+> 
+> ### ** Examples
+> 
+> ## Age computation of samples GDB5 and GDB3,
+> ## load data
+> data(DATA2) # GD85
+> data(DATA1) # GD83
+> 
+> ## produce DataFile
+> Data <- combine_DataFiles(DATA2, DATA1)
+> 
+> ## without common error, assuming GDB5 age younger than GDB3 age
+> Nb_sample <- 2
+> SC <- matrix(
++   data = c(1,1,0,1,0,0),
++   ncol = 2,
++   nrow = (Nb_sample+1),
++   byrow = TRUE)
+> 
+> ## Not run: 
+> ##D ## run standard
+> ##D Age <- AgeS_Computation(
+> ##D   DATA = Data,
+> ##D   Nb_sample = Nb_sample,
+> ##D   SampleNames = c("GDB5","GDB3"),
+> ##D   PriorAge = rep(c(1,100), 2),
+> ##D   StratiConstraints = SC,
+> ##D   Iter = 100,
+> ##D   quiet = FALSE,
+> ##D   jags_method = "rjags"
+> ##D )
+> ##D 
+> ##D ## extend model
+> ##D Age_extended <- AgeS_Computation(
+> ##D   DATA = Age,
+> ##D   Nb_sample = Nb_sample,
+> ##D   SampleNames = c("GDB5","GDB3"),
+> ##D   PriorAge = rep(c(1,100), 2),
+> ##D   StratiConstraints = SC,
+> ##D   adapt = 0,
+> ##D   burnin = 500,
+> ##D   Iter = 1000,
+> ##D   quiet = FALSE,
+> ##D   jags_method = "rjags"
+> ##D )
+> ##D 
+> ##D ## autorun mode
+> ##D Age <- AgeS_Computation(
+> ##D   DATA = Data,
+> ##D   Nb_sample = Nb_sample,
+> ##D   SampleNames = c("GDB5","GDB3"),
+> ##D   PriorAge = rep(c(1,100), 2),
+> ##D   StratiConstraints = SC,
+> ##D   Iter = 10000,
+> ##D   quiet = FALSE,
+> ##D   jags_method = "rjags",
+> ##D   autorun = TRUE)
+> ##D 
+> ##D ## parallel mode
+> ##D Age <- AgeS_Computation(
+> ##D   DATA = Data,
+> ##D   Nb_sample = Nb_sample,
+> ##D   SampleNames = c("GDB5","GDB3"),
+> ##D   PriorAge = rep(c(1,100), 2),
+> ##D   StratiConstraints = SC,
+> ##D   Iter = 10000,
+> ##D   quiet = FALSE,
+> ##D   jags_method = "rjparallel")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("AgeS_Computation", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Age_Computation")
+> ### * Age_Computation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Age_Computation
+> ### Title: Bayesian analysis for the OSL age estimation of one sample
+> ### Aliases: Age_Computation
+> 
+> ### ** Examples
+> 
+> ## load data file generated by the function Generate_DataFile
+> data(DATA1,envir = environment())
+> priorage <- c(10,60) # GDB3 is an old sample
+> Age <- Age_Computation(
++  DATA = DATA1,
++  SampleName = "GDB3",
++  PriorAge = priorage,
++  Iter = 100,
++  quiet = TRUE)
+Warning: [plot_MCMC()] 'n.iter' out of range, reset to number of observations
+
+
+>> Sample name <<
+----------------------------------------------
+GDB3
+
+>> Results of the Gelman and Rubin criterion of convergence <<
+----------------------------------------------
+	 Point estimate Uppers confidence interval
+A	 1.033 		 1.132 
+D	 1.151 		 1.488 
+sD	 0.997 		 1.035 
+
+
+---------------------------------------------------------------------------------------------------
+ *** WARNING: The following information are only valid if the MCMC chains have converged  ***
+---------------------------------------------------------------------------------------------------
+
+parameter 	 Bayes estimate 	  Credible interval 
+----------------------------------------------
+A 		 46.647 
+						 lower bound 	 upper bound
+				 at level 95%	 40.41 		 52.118 
+				 at level 68%	 40.41 		 47.532 
+----------------------------------------------
+D 		 102.655 
+						 lower bound 	 upper bound
+				 at level 95%	 96.437 		 110.003 
+				 at level 68%	 102.106 		 107.886 
+----------------------------------------------
+sD 		 15.8 
+						 lower bound 	 upper bound
+				 at level 95%	 11.278 		 19.655 
+				 at level 68%	 14.491 		 18.313 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Age_Computation", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Age_OSLC14")
+> ### * Age_OSLC14
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Age_OSLC14
+> ### Title: Bayesian analysis for age estimation of OSL measurements and
+> ###   C-14 ages of various samples
+> ### Aliases: Age_OSLC14
+> 
+> ### ** Examples
+> 
+> ## Load data
+> # OSL data
+> data(DATA1,envir = environment())
+> data(DATA2,envir = environment())
+> Data <- combine_DataFiles(DATA2,DATA1)
+> 
+> # 14C data
+> C14Cal <- DATA_C14$C14[1,1]
+> SigmaC14Cal <- DATA_C14$C14[1,2]
+> Names <- DATA_C14$Names[1]
+> 
+> # Prior Age
+> prior <- rep(c(1,60),3)
+> samplenature <- matrix(
++  data = c(1,0,1,0,1,0),
++  ncol = 3,
++  nrow = 2,
++  byrow = TRUE)
+> 
+> SC <- matrix(
++  data = c(1,1,1,0,1,1,0,0,1,0,0,0),
++  ncol = 3,
++  nrow =4 ,
++  byrow = TRUE)
+> 
+> ## Age computation of samples
+> ## Not run: 
+> ##D Age <- Age_OSLC14(
+> ##D  DATA = Data,
+> ##D  Data_C14Cal = C14Cal,
+> ##D  Data_SigmaC14Cal = SigmaC14Cal,
+> ##D  SampleNames = c("GDB5",Names,"GDB3"),
+> ##D  Nb_sample = 3,
+> ##D  SampleNature = samplenature,
+> ##D  PriorAge = prior,
+> ##D  StratiConstraints = SC,
+> ##D  Iter = 20,
+> ##D  burnin = 20,
+> ##D  adapt = 20,
+> ##D  n.chains = 2)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Age_OSLC14", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("DATA1")
+> ### * DATA1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: DATA1
+> ### Title: DATA of sample named GDB3
+> ### Aliases: DATA1
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(DATA1)
+> str(DATA1)
+List of 11
+ $ LT            :List of 1
+  ..$ : num [1:101, 1:6] 5.66 6.9 4.05 3.43 4.97 ...
+ $ sLT           :List of 1
+  ..$ : num [1:101, 1:6] 0.373 0.315 0.245 0.181 0.246 ...
+ $ ITimes        :List of 1
+  ..$ : num [1:101, 1:5] 160 160 160 160 160 160 160 160 160 160 ...
+ $ dLab          : num [1:2, 1] 1.53e-01 5.89e-05
+ $ ddot_env      : num [1:2, 1] 2.26 0.0617
+ $ regDose       :List of 1
+  ..$ : num [1:101, 1:5] 24.6 24.6 24.6 24.6 24.6 ...
+ $ J             : num 101
+ $ K             : num 5
+ $ Nb_measurement: num 14
+ $ SampleNames   : chr "samp 1"
+ $ Nb_sample     : num 1
+ - attr(*, "originator")= chr "create_DataFile"
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("DATA1", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("DATA2")
+> ### * DATA2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: DATA2
+> ### Title: DATA on sample named GDB5
+> ### Aliases: DATA2
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(DATA2)
+> str(DATA2)
+List of 11
+ $ LT            :List of 1
+  ..$ : num [1:188, 1:6] 4.54 2.73 2.54 2.27 1.48 ...
+ $ sLT           :List of 1
+  ..$ : num [1:188, 1:6] 0.333 0.386 0.128 0.171 0.145 ...
+ $ ITimes        :List of 1
+  ..$ : num [1:188, 1:5] 40 40 40 40 40 40 40 40 40 40 ...
+ $ dLab          : num [1:2, 1] 1.53e-01 5.89e-05
+ $ ddot_env      : num [1:2, 1] 2.512 0.0563
+ $ regDose       :List of 1
+  ..$ : num [1:188, 1:5] 6.14 6.14 6.14 6.14 6.14 6.14 6.14 6.14 6.14 6.14 ...
+ $ J             : num 188
+ $ K             : num 5
+ $ Nb_measurement: num 14
+ $ SampleNames   : chr "samp 1"
+ $ Nb_sample     : num 1
+ - attr(*, "originator")= chr "create_DataFile"
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("DATA2", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("DATA3")
+> ### * DATA3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: DATA3
+> ### Title: DATA of sample named FER1
+> ### Aliases: DATA3
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(DATA3)
+> str(DATA3)
+List of 13
+ $ LT            :List of 1
+  ..$ : num [1:10, 1:6] 6.91 5.97 7.26 4.63 10.29 ...
+ $ sLT           :List of 1
+  ..$ : num [1:10, 1:6] 0.0744 0.035 0.0474 0.1428 0.0451 ...
+ $ ITimes        :List of 1
+  ..$ : num [1:10, 1:5] 400 400 400 400 400 400 400 400 400 400 ...
+ $ dLab          : num [1:2, 1] 0.081 0.0004
+ $ ddot_env      : num [1:2, 1] 1.93 0.00548
+ $ regDose       :List of 1
+  ..$ : num [1:10, 1:5] 32.4 32.4 32.4 32.4 32.4 32.4 32.4 32.4 32.4 32.4 ...
+ $ J             : num 10
+ $ K             : num 5
+ $ Nb_measurement: num 16
+ $ SampleNames   : chr "samp 1"
+ $ Nb_sample     : num 1
+ $ SampleNames   : chr "samp 1"
+ $ Nb_sample     : num 1
+ - attr(*, "originator")= chr "create_DataFile"
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("DATA3", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("DATA_C14")
+> ### * DATA_C14
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: DATA_C14
+> ### Title: C14 cal age estiamte and its error
+> ### Aliases: DATA_C14
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(DATA_C14)
+> (DATA_C14)
+$Names
+[1] "S-EVA-26510" "S-EVA-26506" "S-EVA-26507" "S-EVA-26508"
+
+$C14
+      [,1] [,2]
+[1,] 37379  382
+[2,] 43369  291
+[3,] 42153  652
+[4,] 42367  678
+
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("DATA_C14", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Generate_DataFile-deprecated")
+> ### * Generate_DataFile-deprecated
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Generate_DataFile-deprecated
+> ### Title: Generates, from one (or several) BIN-file(s) of Single-grain OSL
+> ###   measurements, a list of luminescence data and information before
+> ###   statistical analysis (DEPRECATED)
+> ### Aliases: Generate_DataFile-deprecated Generate_DataFile
+> 
+> ### ** Examples
+> 
+> 
+> ## Not run: 
+> ##D ## Example for one sample with one Bin File
+> ##D path<- system.file("extdata/samp1", "", package="BayLum")
+> ##D folder=""
+> ##D nbsample=1  # give the number of sample
+> ##D Data <- Generate_DataFile(
+> ##D  Path = path,
+> ##D  FolderNames = folder,
+> ##D  Nb_sample = nbsample,
+> ##D  verbose = FALSE)
+> ##D str(Data)
+> ##D 
+> ##D ## to save information in RData object in folder containing bin file
+> ##D # save(Data,file=c(paste(path,folder,'Data.RData',sep="")))
+> ##D ## to load information containing Data.RData object
+> ##D # load(file=c(paste(path,folder,"Data.RData",sep="")))
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Generate_DataFile-deprecated", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Generate_DataFile_MG-deprecated")
+> ### * Generate_DataFile_MG-deprecated
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Generate_DataFile_MG-deprecated
+> ### Title: Generates, from one (or several) BIN file(s) of Multi-grain OSL
+> ###   measurements a list of luminescence data and information before
+> ###   statistical analysis (DEPRECATED)
+> ### Aliases: Generate_DataFile_MG-deprecated Generate_DataFile_MG
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D path <- system.file("extdata/FER1", "", package="BayLum")
+> ##D folder <- ""
+> ##D # give the number of sample
+> ##D nbsample <- 1
+> ##D DATA <- Generate_DataFile_MG(
+> ##D  Path = path,
+> ##D  FolderNames = folder,
+> ##D  Nb_sample = nbsample)
+> ##D str(DATA)
+> ##D 
+> ##D # to save information in RData object in folder containing bin file
+> ##D #save(DATA,file=c(paste(path,folder,'DATA.RData',sep="")))
+> ##D # to load information containing DATA.RData object
+> ##D #load(file=c(paste(path,folder,"DATA.RData",sep="")))
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Generate_DataFile_MG-deprecated", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("IntCal13")
+> ### * IntCal13
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: IntCal13
+> ### Title: Atmospheric North data for calibration of 14C age
+> ### Aliases: IntCal13
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(IntCal13)
+> ## maybe str(IntCal13) ; head(IntCal13) ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("IntCal13", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("IntCal20")
+> ### * IntCal20
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: IntCal20
+> ### Title: Atmospheric North data for calibration of 14C age
+> ### Aliases: IntCal20
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(IntCal20)
+> ## maybe str(IntCal20) ; head(IntCal20) ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("IntCal20", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("LT_RegenDose-deprecated")
+> ### * LT_RegenDose-deprecated
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: LT_RegenDose-deprecated
+> ### Title: Plots Lx/Tx as a function of the regenerative dose (DEPRECATED)
+> ### Aliases: LT_RegenDose-deprecated LT_RegenDose
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ## load data file generated by the function Generate_DataFile
+> ##D data(DATA3,envir = environment())
+> ##D path<- system.file("extdata/FER1", "", package="BayLum")
+> ##D folder=""
+> ##D samplename <- "FER1"
+> ##D LT_RegenDose(
+> ##D  DATA = DATA3,
+> ##D  Path = path,
+> ##D  FolderNames = folder,
+> ##D  SampleNames = samplename,
+> ##D  Nb_sample = 1,
+> ##D  SG = FALSE)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("LT_RegenDose-deprecated", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("MCMCsample")
+> ### * MCMCsample
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: MCMCsample
+> ### Title: MCMC sample from the posterior distribution of the dataset GDB5
+> ### Aliases: MCMCsample
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(MCMCsample)
+> ## maybe str(MCMCsample) ; plot(MCMCsample[,1],type="l") ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("MCMCsample", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Marine13")
+> ### * Marine13
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Marine13
+> ### Title: Marine data for calibration of 14C age
+> ### Aliases: Marine13
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Marine13)
+> ## maybe str(Marine13) ; head(Marine13) ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Marine13", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Marine20")
+> ### * Marine20
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Marine20
+> ### Title: Marine data for calibration of 14C age
+> ### Aliases: Marine20
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Marine20)
+> ## maybe str(Marine20) ; head(Marine20) ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Marine20", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ModelC14")
+> ### * ModelC14
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ModelC14
+> ### Title: Likelihood of C14 samples for JAGS models use in 'Age_OSLC14'
+> ### Aliases: ModelC14
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Model_AgeC14)
+> writeLines(Model_AgeC14$full)
+model{
+  # vraisemblance
+  for(i in 1:N){
+    X[i] ~ dnorm(mu[i], prec[i])
+    mu[i] <- interp.lin(Age[i], xTableauCalib, yTableauCalib)
+    Z[i]~dcat(c(0.1,0.9))
+    err[i] <- interp.lin(Age[i], xTableauCalib, zTableauCalib)
+    prec[i] <- 1/(alpha[i]^(-Z[i]+2)*(pow(sigma[i],2)+pow(err[i],2)))
+  }
+  # a priori
+  Age[1]~dunif(xbound[1],xbound[2])
+  invalpha[1]~dgamma(3,4)
+  alpha[1]<-1/invalpha[1]
+  for(j in 2:N){
+    amin[j]<-max(StratiConstraints[1:j,j]*c(xbound[(2*(j-1)+1)],Age[1:(j-1)]))
+    Age[j]~dunif(amin[j],xbound[2*j])
+    invalpha[j]~dgamma(3,4)
+    alpha[j]<-1/invalpha[j]
+    }
+  }
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ModelC14", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ModelOSL")
+> ### * ModelOSL
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ModelOSL
+> ### Title: Likelihood of OSL samples for JAGS models use in 'Age_OSLC14'
+> ### Aliases: ModelOSL
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(ModelOSL)
+> ## The JAGS model of the likelyhood for a saturating exponential plus linear growth
+> ## (a function of the type \code{f(x)=a(1-exp(-x/b))+cx+d})
+> ## and a gaussian distribution of equivalent doses around the palaeodose:
+> writeLines(ModelOSL$AgesMultiOSL_EXPLIN$gaussian)
+D~dmnorm(mu,omega)
+for(i1 in ind_OSL){
+  sD[CS_OSL[i1]]~dt(0,pow(0.16*D[CS_OSL[i1]],-2),1)T(0,)
+  pD[CS_OSL[i1]]<-pow(sD[CS_OSL[i1]],-2)
+  mu[CS_OSL[i1]]<-A[i1]*ddot[CS_OSL[i1]]
+  for(i2 in ind_OSL){
+    Sigma[CS_OSL[i1],CS_OSL[i2]]=A[i1]*A[i2]*Gamma[CS_OSL[i1],CS_OSL[i2]]
+  }
+}
+omega<-inverse(Sigma)
+
+# Likelihood:
+for(i in ind_OSL){
+  for(bf in (CSBinPerSample[CS_OSL[i]]-BinPerSample[CS_OSL[i]]+1):(CSBinPerSample[CS_OSL[i]])){
+    for(j in 1:J[bf]){
+      # prior on growth function
+      xa[(index[bf]+j)]~dnorm(6.5,1/(9.2^2))T(0,)
+      xb[(index[bf]+j)]~dnorm(50,1/(1000^2))T(0,)
+      xc[(index[bf]+j)]~dnorm(0.002,1/(0.01^2))T(0,)
+      xd[(index[bf]+j)]~dnorm(0.5,1/(2.5^2))T(-xa[(index[bf]+j)],)
+      sigmaf[(index[bf]+j)]~dexp(20)
+      
+      De[(index[bf]+j),1]~dnorm(D[CS_OSL[i]],pD[CS_OSL[i]])
+      #
+      xprecision[(index[bf]+j),1]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),1]^2) ##<-- ???? sN[j,1]^2 ????
+      N[(index[bf]+j),1]~dnorm(xQ[(index[bf]+j),1],xprecision[(index[bf]+j),1])
+      xQ[(index[bf]+j),1]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),1]/xb[(index[bf]+j)]))+xc[(index[bf]+j)]*De[(index[bf]+j),1]+xd[(index[bf]+j)]
+      
+      for(k in 2:K[bf]){
+        xprecision[(index[bf]+j),k]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),k]^2)
+        N[(index[bf]+j),k]~dnorm(xQ[(index[bf]+j),k],xprecision[(index[bf]+j),k])
+        xQ[(index[bf]+j),k]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),k]/xb[(index[bf]+j)]))+xc[(index[bf]+j)]*De[(index[bf]+j),k]+xd[(index[bf]+j)]
+        De[(index[bf]+j),k]<-IT[(index[bf]+j),(k-1)]*sDlab[bf]
+      }
+    }
+  }
+}
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ModelOSL", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ModelPrior")
+> ### * ModelPrior
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ModelPrior
+> ### Title: Prior for JAGS models use in 'Age_OSLC14'
+> ### Aliases: ModelPrior
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(ModelPrior)
+> ## ModelPrior[[OSL]]
+> writeLines(ModelPrior$OSL)
+
+      # donnee OSL
+      kk<-k+1
+      for(i in (ind_change[2*q+1]+1):ind_change[2*(q+1)]){
+      u[CS_OSL[i]]~dunif(0,1)
+      CS[i]<-max(StratiConstraints[(1:i),i]*c(xbound[(2*i-1)],A[1:(i-1)]))
+      A[i]<-exp(u[CS_OSL[i]]*log(xbound[2*(i-1)]/CS[i])+log(CS[i]))
+      }
+      
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ModelPrior", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Model_Age")
+> ### * Model_Age
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Model_Age
+> ### Title: JAGS models use in 'Age_Computation'
+> ### Aliases: Model_Age
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Model_Age)
+> ## Terminal print
+> ## The JAGS model for a saturating exponential plus linear growth
+> ## (a function of the type \code{f(x)=a(1-exp(-x/b))+cx+d})
+> ## and a gaussian distribution of equivalent doses around the palaeodose:
+> writeLines(Model_Age$AgeMultiBF_EXPLIN$cauchy)
+model {
+    D~dnorm(A*ddot,omega)
+    sD~dt(0,pow(0.16*D,-2),1)T(0,)#dgamma(0.01,0.01)
+    pD<-pow(sD,-2)
+
+    # Likelihood:
+    for(bf in 1:BinPerSample){
+      for(j in 1:J[bf]){
+        # prior on growth function
+        xa[(index[bf]+j)]~dnorm(6.5,1/(9.2^2))T(0,)
+        xb[(index[bf]+j)]~dnorm(50,1/(1000^2))T(0,)
+        xc[(index[bf]+j)]~dnorm(0.002,1/(0.01^2))T(0,)
+        xd[(index[bf]+j)]~dnorm(0.5,1/(2.5^2))T(-xa[(index[bf]+j)],)
+        sigmaf[(index[bf]+j)]~dexp(20)
+
+        De[(index[bf]+j),1]~dt(D,pD,1)
+        #
+        xprecision[(index[bf]+j),1]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),1]^2) ##<-- ???? sN[j,1]^2 ????
+        N[(index[bf]+j),1]~dnorm(xQ[(index[bf]+j),1],xprecision[(index[bf]+j),1])
+        xQ[(index[bf]+j),1]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),1]/xb[(index[bf]+j)]))+xc[(index[bf]+j)]*De[(index[bf]+j),1]+xd[(index[bf]+j)]
+
+        for(k in 2:K[bf]){
+          xprecision[(index[bf]+j),k]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),k]^2)
+          N[(index[bf]+j),k]~dnorm(xQ[(index[bf]+j),k],xprecision[(index[bf]+j),k])
+          xQ[(index[bf]+j),k]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),k]/xb[(index[bf]+j)]))+xc[(index[bf]+j)]*De[(index[bf]+j),k]+xd[(index[bf]+j)]
+          De[(index[bf]+j),k]<-IT[(index[bf]+j),(k-1)]*sDlab[bf]
+        }
+
+      }
+    }
+    omega<-1/(A^2*Sigma)
+    u~dunif(0,1)
+    A<-exp(u*log(xbound[2]/xbound[1])+log(xbound[1]))
+  }
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Model_Age", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Model_AgeC14")
+> ### * Model_AgeC14
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Model_AgeC14
+> ### Title: JAGS models use in 'AgeC14_Computation'
+> ### Aliases: Model_AgeC14
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Model_AgeC14)
+> writeLines(Model_AgeC14$full)
+model{
+  # vraisemblance
+  for(i in 1:N){
+    X[i] ~ dnorm(mu[i], prec[i])
+    mu[i] <- interp.lin(Age[i], xTableauCalib, yTableauCalib)
+    Z[i]~dcat(c(0.1,0.9))
+    err[i] <- interp.lin(Age[i], xTableauCalib, zTableauCalib)
+    prec[i] <- 1/(alpha[i]^(-Z[i]+2)*(pow(sigma[i],2)+pow(err[i],2)))
+  }
+  # a priori
+  Age[1]~dunif(xbound[1],xbound[2])
+  invalpha[1]~dgamma(3,4)
+  alpha[1]<-1/invalpha[1]
+  for(j in 2:N){
+    amin[j]<-max(StratiConstraints[1:j,j]*c(xbound[(2*(j-1)+1)],Age[1:(j-1)]))
+    Age[j]~dunif(amin[j],xbound[2*j])
+    invalpha[j]~dgamma(3,4)
+    alpha[j]<-1/invalpha[j]
+    }
+  }
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Model_AgeC14", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Model_AgeS")
+> ### * Model_AgeS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Model_AgeS
+> ### Title: JAGS models use in 'AgeS_Computation'
+> ### Aliases: Model_AgeS
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Model_AgeS)
+> ## The JAGS model for a saturating exponential plus linear growth
+> ## (a function of the type \code{f(x)=a(1-exp(-x/b))+cx+d})
+> ## and a gaussian distribution of equivalent doses around the palaeodose:
+> writeLines(Model_AgeS$AgesMultiCS2_EXP$gaussian)
+model {
+
+  D~dmnorm(mu,omega)
+  for(i1 in 1:I){
+  sD[i1]~dt(0,pow(0.16*D[i1],-2),1)T(0,)
+  pD[i1]<-pow(sD[i1],-2)
+  mu[i1]<-A[i1]*ddot[i1]
+  for(i2 in 1:I){
+  Sigma[i1,i2]=A[i1]*A[i2]*Gamma[i1,i2]
+  }
+  }
+  omega<-inverse(Sigma)
+
+  # Likelihood:
+  for(i in 1:I){
+  for(bf in (CSBinPerSample[i]-BinPerSample[i]+1):(CSBinPerSample[i])){
+  for(j in 1:J[bf]){
+  # prior on growth function
+  xa[(index[bf]+j)]~dnorm(6.5,1/(9.2^2))T(0,)
+  xb[(index[bf]+j)]~dnorm(50,1/(1000^2))T(0,)
+  xd[(index[bf]+j)]~dnorm(0.5,1/(2.5^2))T(-xa[(index[bf]+j)],)
+  sigmaf[(index[bf]+j)]~dexp(20)
+
+  De[(index[bf]+j),1]~dnorm(D[i],pD[i])
+  #
+  xprecision[(index[bf]+j),1]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),1]^2) ##<-- ???? sN[j,1]^2 ????
+  N[(index[bf]+j),1]~dnorm(xQ[(index[bf]+j),1],xprecision[(index[bf]+j),1])
+  xQ[(index[bf]+j),1]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),1]/xb[(index[bf]+j)]))+xd[(index[bf]+j)]
+
+  for(k in 2:K[bf]){
+  xprecision[(index[bf]+j),k]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),k]^2)
+  N[(index[bf]+j),k]~dnorm(xQ[(index[bf]+j),k],xprecision[(index[bf]+j),k])
+  xQ[(index[bf]+j),k]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),k]/xb[(index[bf]+j)]))+xd[(index[bf]+j)]
+  De[(index[bf]+j),k]<-IT[(index[bf]+j),(k-1)]*sDlab[bf]
+  }
+  }
+  }
+  }
+
+  Atemp[1]=xbound[1]
+  # i0=2
+  u[1]~dunif(0,1)
+  CS[1]=xbound[1]
+  Atemp[2]<-exp(u[1]*log(xbound[2]/CS[1])+log(CS[1]))
+  # i0>2
+  for(i0 in 3:(I+1)){
+  u[i0-1]~dunif(0,1)
+  CS[i0-1]=max(StratiConstraints[(1:(i0-1)),(i0-1)]*c(xbound[(2*(i0-1)-1)],Atemp[2:(i0-1)]))
+  Atemp[i0]<-exp(u[(i0-1)]*log(xbound[2*(i0-1)]/CS[i0-1])+log(CS[i0-1]))
+  }
+  A=Atemp[2:(I+1)]
+  }
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Model_AgeS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Model_Palaeodose")
+> ### * Model_Palaeodose
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Model_Palaeodose
+> ### Title: JAGS models use in 'Palaeodose_Computation'
+> ### Aliases: Model_Palaeodose
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Model_Palaeodose)
+> writeLines(Model_Palaeodose$PalaeodosesMultiBF_EXPLIN$gaussian)
+model {
+
+  for(i0 in 1:I){
+  D[i0]~dunif(xbound[1],xbound[2])
+  sD[i0]~dt(0,pow(0.16*D[i0],-2),1)T(0,)
+  pD[i0]<-pow(sD[i0],-2)
+  }
+
+  # Likelihood:
+  for(i in 1:I){
+  for(bf in (CSBinPerSample[i]-BinPerSample[i]+1):(CSBinPerSample[i])){
+  for(j in 1:J[bf]){
+  # prior on growth function
+  xa[(index[bf]+j)]~dnorm(6.5,1/(9.2^2))T(0,)
+  xb[(index[bf]+j)]~dnorm(50,1/(1000^2))T(0,)
+  xc[(index[bf]+j)]~dnorm(0.002,1/(0.01^2))T(0,)
+  xd[(index[bf]+j)]~dnorm(0.5,1/(2.5^2))T(-xa[(index[bf]+j)],)
+  sigmaf[(index[bf]+j)]~dexp(20)
+
+  De[(index[bf]+j),1]~dnorm(D[i],pD[i])
+  #
+  xprecision[(index[bf]+j),1]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),1]^2) ##<-- ???? sN[j,1]^2 ????
+  N[(index[bf]+j),1]~dnorm(xQ[(index[bf]+j),1],xprecision[(index[bf]+j),1])
+  xQ[(index[bf]+j),1]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),1]/xb[(index[bf]+j)]))+xc[(index[bf]+j)]*De[(index[bf]+j),1]+xd[(index[bf]+j)]
+
+  for(k in 2:K[bf]){
+  xprecision[(index[bf]+j),k]<-1/(sigmaf[(index[bf]+j)]^2+sN[(index[bf]+j),k]^2)
+  N[(index[bf]+j),k]~dnorm(xQ[(index[bf]+j),k],xprecision[(index[bf]+j),k])
+  xQ[(index[bf]+j),k]<-xa[(index[bf]+j)]*(1-exp(-De[(index[bf]+j),k]/xb[(index[bf]+j)]))+xc[(index[bf]+j)]*De[(index[bf]+j),k]+xd[(index[bf]+j)]
+  De[(index[bf]+j),k]<-IT[(index[bf]+j),(k-1)]*sDlab[bf]
+  }
+  }
+  }
+  }
+
+  }
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Model_Palaeodose", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Palaeodose_Computation")
+> ### * Palaeodose_Computation
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Palaeodose_Computation
+> ### Title: Bayesian analysis for the palaeodose estimation of various
+> ###   samples
+> ### Aliases: Palaeodose_Computation
+> 
+> ### ** Examples
+> 
+> ## Load data
+> data(DATA1,envir = environment())
+> ## Palaeodose computation of samples GDB3
+> P=Palaeodose_Computation(DATA=DATA1,Nb_sample=1,SampleNames=c("GDB5"),Iter=100)
+Compiling model graph
+   Resolving undeclared variables
+   Allocating nodes
+Graph information:
+   Observed stochastic nodes: 505
+   Unobserved stochastic nodes: 608
+   Total graph size: 7216
+
+Initializing model
+
+Warning: [plot_MCMC()] 'n.iter' out of range, reset to number of observations
+
+
+>> Results of the Gelman and Rubin criterion of convergence <<
+----------------------------------------------
+ Sample name:  GDB5 
+---------------------
+		 Point estimate Uppers confidence interval
+D_GDB5 	 1.01 		 1.02 
+sD_GDB5 	 1.1 		 1.36 
+
+
+---------------------------------------------------------------------------------------------------
+ *** WARNING: The following information are only valid if the MCMC chains have converged  ***
+---------------------------------------------------------------------------------------------------
+
+
+
+>> Bayes estimates of Age, Palaeodose and its dispersion for each sample and credible interval <<
+----------------------------------------------
+ Sample name:  GDB5 
+---------------------
+Parameter 	 Bayes estimate 	  Credible interval 
+D_GDB5 	 104.788 
+						 lower bound 	 upper bound
+				 at level 95% 	 99 		 110 
+				 at level 68% 	 102 		 107 
+
+Parameter 	 Bayes estimate 	  Credible interval 
+sD_GDB5 	 15.99 
+						 lower bound 	 upper bound
+				 at level 95% 	 11 		 20 
+				 at level 68% 	 14 		 18 
+
+----------------------------------------------
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Palaeodose_Computation", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("SCMatrix")
+> ### * SCMatrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: SCMatrix
+> ### Title: Construct the Stratigraphic Constrain Matrix Interactively
+> ### Aliases: SCMatrix
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D SCMatrix(
+> ##D  Nb_sample = 2,
+> ##D  SampleNames = c("sample1","sample2"))
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("SCMatrix", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("SC_Ordered")
+> ### * SC_Ordered
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: SC_Ordered
+> ### Title: Create Stratigraphically Ordered Sample Matrix
+> ### Aliases: SC_Ordered
+> ### Keywords: datagen
+> 
+> ### ** Examples
+> 
+> SC <- SC_Ordered(Nb_sample = 3)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("SC_Ordered", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("SHCal13")
+> ### * SHCal13
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: SHCal13
+> ### Title: Atmospheric South data for calibration of 14C age
+> ### Aliases: SHCal13
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(SHCal13)
+> ## maybe str(SHCal13) ; head(SHCal13) ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("SHCal13", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("SHCal20")
+> ### * SHCal20
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: SHCal20
+> ### Title: Atmospheric South data for calibration of 14C age
+> ### Aliases: SHCal20
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(SHCal20)
+> ## maybe str(SHCal20) ; head(SHCal20) ...
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("SHCal20", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("combine_DataFiles")
+> ### * combine_DataFiles
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: combine_DataFiles
+> ### Title: Combine objects
+> ### Aliases: combine_DataFiles Concat_DataFile
+> 
+> ### ** Examples
+> 
+> # load data files
+> data(DATA1,envir = environment())
+> data(DATA2,envir = environment())
+> 
+> #combine objects
+> DATA3 <- combine_DataFiles(DATA1, DATA2)
+> str(DATA3)
+List of 11
+ $ LT            :List of 2
+  ..$ : num [1:101, 1:6] 5.66 6.9 4.05 3.43 4.97 ...
+  ..$ : num [1:188, 1:6] 4.54 2.73 2.54 2.27 1.48 ...
+ $ sLT           :List of 2
+  ..$ : num [1:101, 1:6] 0.373 0.315 0.245 0.181 0.246 ...
+  ..$ : num [1:188, 1:6] 0.333 0.386 0.128 0.171 0.145 ...
+ $ ITimes        :List of 2
+  ..$ : num [1:101, 1:5] 160 160 160 160 160 160 160 160 160 160 ...
+  ..$ : num [1:188, 1:5] 40 40 40 40 40 40 40 40 40 40 ...
+ $ dLab          : num [1:2, 1:2] 1.53e-01 5.89e-05 1.53e-01 5.89e-05
+ $ ddot_env      : num [1:2, 1:2] 2.26 0.0617 2.512 0.0563
+ $ regDose       :List of 2
+  ..$ : num [1:101, 1:5] 24.6 24.6 24.6 24.6 24.6 ...
+  ..$ : num [1:188, 1:5] 6.14 6.14 6.14 6.14 6.14 6.14 6.14 6.14 6.14 6.14 ...
+ $ J             : num [1:2] 101 188
+ $ K             : num [1:2] 5 5
+ $ Nb_measurement: num [1:2] 14 14
+ $ SampleNames   : chr [1:2] "samp 1" "samp 1"
+ $ Nb_sample     : num 2
+ - attr(*, "originator")= chr "create_DataFile"
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("combine_DataFiles", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("create_DataFile")
+> ### * create_DataFile
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: create_DataFile
+> ### Title: Prepare input data for subsequent BayLum Analysis
+> ### Aliases: create_DataFile
+> 
+> ### ** Examples
+> 
+> ##set path to YAML file
+> yaml_file <- system.file("extdata/example.yml", package = "BayLum")
+> 
+> samp1_file <- system.file("extdata/samp1/bin.bin", package = "BayLum")
+> samp2_file <- system.file("extdata/samp2/bin.bin", package = "BayLum")
+> 
+> ## import BIN files
+> samp1 <- Luminescence::read_BIN2R(samp1_file, verbose = FALSE) |>
++  subset(POSITION == 2 & GRAIN == 32)
+> samp2 <- Luminescence::read_BIN2R(samp2_file, verbose = FALSE) |>
++  subset(POSITION == 2 & GRAIN == 32)
+> 
+> ## create file
+> create_DataFile(yaml_file)
+── BayLum - [create_DataFile()] ────────────────────────────────────────────────
+⠙ Load YAML configuration file ... 
+✔ Load YAML configuration file ...  [6ms]
+
+⠙ Sanitize sample names ... 
+✔ Sanitize sample names ...  [13ms]
+
+⠙ Generate object list ... 
+! ... samp1: Risoe.BINfileData instead of RLum.Analysis detected ... 
+⠙ Generate object list ... ℹ ... samp1: Convert Risoe.BINfileData to RLum.Analysis ... TRUE
+✔ ... samp1: Convert Risoe.BINfileData to RLum.Analysis ... TRUE [9ms]
+
+⠙ Generate object list ... ⠙ ... samp1: Remove 2 dose points ... 
+✔ ... samp1: Remove 2 dose points ...  [6ms]
+
+⠙ Generate object list ... ! ... samp2: Risoe.BINfileData instead of RLum.Analysis detected ... 
+⠙ Generate object list ... ℹ ... samp2: Convert Risoe.BINfileData to RLum.Analysis ... TRUE
+✔ ... samp2: Convert Risoe.BINfileData to RLum.Analysis ... TRUE [4ms]
+
+⠙ Generate object list ... ⠙ ... samp2: Remove 2 dose points ... 
+✔ ... samp2: Remove 2 dose points ...  [7ms]
+
+⠙ Generate object list ... ✔ Generate object list ...  [38ms]
+
+⠙ Run additional checks ... 
+✔ Run additional checks ...  [44ms]
+
+⠙ Extract information and calculate values ... 
+✔ Extract information and calculate values ...  [8ms]
+
+⠙ Combine list ... 
+✔ Combine list ...  [5ms]
+
+$LT
+$LT$LT
+         [,1]      [,2]     [,3]     [,4]     [,5]        [,6]      [,7]
+[1,] 2.041958 0.8417722 1.677686 3.826087 4.258427 -0.01449275 0.5222222
+
+$LT$LT
+         [,1]      [,2]     [,3]     [,4]     [,5]        [,6]      [,7]
+[1,] 2.041958 0.8417722 1.677686 3.826087 4.258427 -0.01449275 0.5222222
+
+
+$sLT
+$sLT$sLT
+          [,1]      [,2]     [,3]    [,4]      [,5]       [,6]     [,7]
+[1,] 0.3443061 0.1622987 0.328323 0.80272 0.9405404 -0.0207172 0.178253
+
+$sLT$sLT
+          [,1]      [,2]     [,3]    [,4]      [,5]       [,6]     [,7]
+[1,] 0.3443061 0.1622987 0.328323 0.80272 0.9405404 -0.0207172 0.178253
+
+
+$ITimes
+$ITimes[[1]]
+     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]   15   30   60  100    0   15
+
+$ITimes[[2]]
+     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    0   10   20   30   40   50
+
+
+$dLab
+           [,1]      [,2]
+value 1.535e-01 1.535e-01
+error 5.891e-05 5.891e-05
+
+$ddot_env
+         [,1]    [,2]
+value 2.51200 2.51200
+error 0.05626 0.05626
+
+$regDose
+$regDose[[1]]
+       [,1]  [,2] [,3]  [,4] [,5]   [,6]
+[1,] 2.3025 4.605 9.21 15.35    0 2.3025
+
+$regDose[[2]]
+     [,1]  [,2] [,3]  [,4] [,5]  [,6]
+[1,]    0 1.535 3.07 4.605 6.14 7.675
+
+
+$J
+[1] 1 1
+
+$K
+[1] 6 6
+
+$Nb_measurement
+[1] 14 14
+
+$SampleNames
+[1] "samp1" "samp2"
+
+$Nb_sample
+[1] 2
+
+attr(,"originator")
+[1] "create_DataFile"
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("create_DataFile", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("create_FolderTemplates")
+> ### * create_FolderTemplates
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: create_FolderTemplates
+> ### Title: Create Folder Templates
+> ### Aliases: create_FolderTemplates
+> ### Keywords: IO datagen
+> 
+> ### ** Examples
+> 
+> create_FolderTemplates(tempdir())
+
+[create_FolderTemplates()]
+-|
+ |__(dir created:) /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//Rtmp6dHeLm 
+All templates created. Please modify the parameters according to your data!
+> 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("create_FolderTemplates", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("create_ThetaMatrix")
+> ### * create_ThetaMatrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: create_ThetaMatrix
+> ### Title: Create Theta Matrix
+> ### Aliases: create_ThetaMatrix
+> ### Keywords: IO datagen
+> 
+> ### ** Examples
+> 
+> ##(1) return template data.frame (no file output)
+> create_ThetaMatrix()
+[create_ThetaMatrix()] 'input' missing, input template returned!
+  SAMPLE_ID DR_BETA_K DR_BETA_U DR_BETA_TH DR_GAMMA_K DR_GAMMA_U DR_GAMMA_TH
+1        NA        NA        NA         NA         NA         NA          NA
+  DR_GAMMA_TOTAL DR_TOTAL DR_TOTAL_X
+1             NA       NA         NA
+> 
+> ## Not run: 
+> ##D ##(2) return template as data.frame + file
+> ##D file_path <- tempfile(fileext = ".csv")
+> ##D create_ThetaMatrix(output_file = file_path )
+> ##D 
+> ##D ##NOT RUNNING EXAMPLE for sigma_s
+> ##D calc_ThetaMatrix(...,
+> ##D sigma_s =  c(
+> ##D  s_betaK = 0.010,
+> ##D  s_betaU = 0.007,
+> ##D  s_betaTh = 0.006,
+> ##D  s_gammaK = 0.010,
+> ##D  s_gammaU = 0.007,
+> ##D  s_gammaTh = 0.006,
+> ##D  s_gammaDR = 0.05,
+> ##D  s_CAL = 0.020,
+> ##D  s_intDR = 0.030))
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("create_ThetaMatrix", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot_Ages")
+> ### * plot_Ages
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot_Ages
+> ### Title: Create Age Plot
+> ### Aliases: plot_Ages
+> 
+> ### ** Examples
+> 
+> ## load data
+> data(DATA_C14,envir = environment())
+> C14Cal <- DATA_C14$C14[,1]
+> SigmaC14Cal <- DATA_C14$C14[,2]
+> Names <- DATA_C14$Names
+> nb_sample <- length(Names)
+> 
+> ## Age computation
+> Age <- AgeC14_Computation(
++    Data_C14Cal = C14Cal,
++    Data_SigmaC14Cal = SigmaC14Cal,
++    SampleNames = Names,
++    Nb_sample = nb_sample,
++    PriorAge = rep(c(20,60),nb_sample),
++    Iter = 500,
++    quiet = TRUE)
+Warning: [plot_MCMC()] 'n.iter' out of range, reset to number of observations
+
+
+>> MCMC Convergence of Age parameters <<
+----------------------------------------------
+Sample name   Bayes estimate   Uppers credible interval
+A_S-EVA-26510 	 1.02 		 1.062 
+A_S-EVA-26506 	 1.012 		 1.036 
+A_S-EVA-26507 	 1.002 		 1.009 
+A_S-EVA-26508 	 1.008 		 1.014 
+
+
+---------------------------------------------------------------------------------------------------
+ *** WARNING: The following information are only valid if the MCMC chains have converged  ***
+---------------------------------------------------------------------------------------------------
+
+
+
+>> Bayes estimates of Age for each sample and credible interval <<
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26510 	 41.9456323499471 
+						 lower bound 	 upper bound
+				 at level 95% 	 41.454 		 42.394 
+				 at level 68% 	 41.833 		 42.223 
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26506 	 45.7009575559214 
+						 lower bound 	 upper bound
+				 at level 95% 	 45.138 		 46.338 
+				 at level 68% 	 45.325 		 45.93 
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26507 	 44.8428216016135 
+						 lower bound 	 upper bound
+				 at level 95% 	 43.594 		 45.738 
+				 at level 68% 	 44.441 		 45.361 
+------------------------------------------------------
+Sample name 	 Bayes estimate  Credible interval: 
+A_S-EVA-26508 	 45.0545049096251 
+						 lower bound 	 upper bound
+				 at level 95% 	 44.003 		 46.309 
+				 at level 68% 	 44.405 		 45.461 
+
+------------------------------------------------------
+> 
+> ## plot output
+> plot_Ages(Age)
+       SAMPLE      AGE HPD68.MIN HPD68.MAX HPD95.MIN HPD95.MAX ALT_SAMPLE_NAME
+1 S-EVA-26510 41.94563    41.833    42.223    41.454    42.394              NA
+2 S-EVA-26506 45.70096    45.325    45.930    45.138    46.338              NA
+3 S-EVA-26507 44.84282    44.441    45.361    43.594    45.738              NA
+4 S-EVA-26508 45.05450    44.405    45.461    44.003    46.309              NA
+  AT
+1  4
+2  3
+3  2
+4  1
+> 
+> ## plot output
+> plot_Ages(Age, plot_mode = "density")
+       SAMPLE      AGE HPD68.MIN HPD68.MAX HPD95.MIN HPD95.MAX ALT_SAMPLE_NAME
+1 S-EVA-26510 41.94563    41.833    42.223    41.454    42.394              NA
+2 S-EVA-26506 45.70096    45.325    45.930    45.138    46.338              NA
+3 S-EVA-26507 44.84282    44.441    45.361    43.594    45.738              NA
+4 S-EVA-26508 45.05450    44.405    45.461    44.003    46.309              NA
+  AT
+1  4
+2  3
+3  2
+4  1
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot_Ages", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot_MCMC")
+> ### * plot_MCMC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot_MCMC
+> ### Title: Plot MCMC trajectories and posterior distributions
+> ### Aliases: plot_MCMC
+> ### Keywords: dplot
+> 
+> ### ** Examples
+> 
+> data(MCMCsample,envir = environment())
+> object <- coda::as.mcmc(MCMCsample)
+> plot_MCMC(object)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot_MCMC", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot_RegDosePoints")
+> ### * plot_RegDosePoints
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot_RegDosePoints
+> ### Title: Plot Regeneration Dose Points
+> ### Aliases: plot_RegDosePoints
+> 
+> ### ** Examples
+> 
+> 
+> data(DATA3,envir = environment())
+> plot_RegDosePoints(DATA3)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot_RegDosePoints", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot_Scatterplots")
+> ### * plot_Scatterplots
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot_Scatterplots
+> ### Title: Display Scatter Plot Matrix of the Bayesian Age Results
+> ### Aliases: plot_Scatterplots ScatterSamples
+> 
+> ### ** Examples
+> 
+> data(AgeS,envir = environment())
+> 
+> ##hexbin
+> plot_Scatterplots(
++    object = AgeS$Sampling,
++    sample_names = c("GDB5", "GDB3"),
++    sample_selection = c(1,2)
++  )
+> 
+> ##scatter smooth (matrix)
+> plot_Scatterplots(
++    object = AgeS$Sampling,
++    sample_names = c("GDB5", "GDB3"),
++    sample_selection = c(1,2),
++    plot_type = "smoothScatter")
+> 
+> 
+> ##scatter smooth (single)
+> plot_Scatterplots(
++    object = AgeS$Sampling,
++    sample_names = c("GDB5", "GDB3"),
++    sample_selection = c(1,2),
++    plot_type = "smoothScatter",
++    plot_mode = "single")
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot_Scatterplots", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("write_BayLumFiles")
+> ### * write_BayLumFiles
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: write_BayLumFiles
+> ### Title: Write BayLum .csv-files
+> ### Aliases: write_BayLumFiles
+> ### Keywords: IO datagen
+> 
+> ### ** Examples
+> 
+> # example samples
+> SampleNames <- c("OSL-1-MG","OSL-2-SG")
+> 
+> # number of .bin-files for each sample
+> BinPerSample <- c(1,3)
+> 
+> # List of data.frames of accepted aliquot/grain to be included
+> # in the analysis for each .bin-file.
+> DiscPos <- list(
++ data.frame("position" = 1:48),
++ data.frame("position" = c(1,1,1,1), "grain" = c(4,67,92,99)),
++ data.frame("position" = c(2,2,2,2), "grain" = c(7,13,41,72)),
++ data.frame("position" = c(3,3,3,3), "grain" = c(7,52,67,88)))
+> 
+> # example 1: write to disk (all together)
+> write_BayLumFiles(
++ folder = paste(tempdir(),"new_BayLum_folder",sep = "/"),
++ SampleNames = SampleNames,
++ BinPerSample = BinPerSample,
++ DiscPos = DiscPos,
++ DRenv = c(1.75, 1.52, 1.52, 1.52),
++ DRenv.error = c(0.04, 0.03, 0.03, 0.03),
++ DRsource = c(0.2075, 0.1501, 0.1501, 0.1501),
++ DRsource.error = c(0.0010, 0.0008, 0.0008, 0.0008))
+> 
+> # example 2: write to disk (by sample)
+> write_BayLumFiles(
++ folder = paste(tempdir(),"new_BayLum_folder",sep = "/"),
++ SampleNames = "OSL-1-MG",
++ BinPerSample = 1,
++ DiscPos = DiscPos[[1]],
++ DRenv = 1.75,
++ DRenv.error = 0.04,
++ DRsource = 0.2075,
++ DRsource.error = 0.0010)
+> 
+> write_BayLumFiles(
++ folder = paste(tempdir(),"new_BayLum_folder",sep = "/"),
++ SampleNames = "OSL-2-SG",
++ BinPerSample = 3,
++ DiscPos = DiscPos[2:4],
++ DRenv = 1.75,
++ DRenv.error = 0.04,
++ DRsource = 0.2075,
++ DRsource.error = 0.0010)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("write_BayLumFiles", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("write_YAMLConfigFile")
+> ### * write_YAMLConfigFile
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: write_YAMLConfigFile
+> ### Title: Write Auto Generated YAML BayLum Configuration File to the Disc
+> ### Aliases: write_YAMLConfigFile
+> 
+> ### ** Examples
+> 
+> 
+> ## generate list
+> write_YAMLConfigFile(
++ sample = c("samp1", "samp2"),
++ settings.rules.endTest = 10)
+── Allowed function parameters (start) ─────────────────────────────────────────
+sample
+files
+settings.dose_points
+settings.dose_source.value
+settings.dose_source.error
+settings.dose_env.value
+settings.dose_env.error
+settings.rules.beginSignal
+settings.rules.endSignal
+settings.rules.beginBackground
+settings.rules.endBackground
+settings.rules.beginTest
+settings.rules.endTest
+settings.rules.beginTestBackground
+settings.rules.endTestBackground
+settings.rules.inflatePercent
+settings.rules.nbOfLastCycleToRemove
+── Allowed function parameters (end) ───────────────────────────────────────────
+> 
+> ## generate file (here written in tempdir)
+> write_YAMLConfigFile(
++  output_file = tempfile("configuration.yml"),
++  sample = c("samp1", "samp2"),
++  settings.rules.endTest = 10)
+[1] "/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//Rtmp6dHeLm/configuration.yml8ca651233b4.yml"
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("write_YAMLConfigFile", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  4.356 0.065 4.447 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
