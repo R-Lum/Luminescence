@@ -8,6 +8,18 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+## New functions
+
+
+## Bugfixes
+
+
+## Internals
+
+
+
+# Changes in version 0.9.25 (2024-09-12)
+
 **This package version requires R >= 4.3**
 
 ## New functions
