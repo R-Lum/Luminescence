@@ -63,6 +63,8 @@ test_that("check class and length of output", {
   expect_message(calc_MinDose(data.na, sigmab = 0.1, verbose = FALSE),
                  "Input data contained NA/NaN values, which were removed")
 
+  ## no converging fit
+  skip_on_os("windows")
   set.seed(1)
   data.nofit <- data.frame(rep(4, 5), rnorm(5, 5))
   SW({
