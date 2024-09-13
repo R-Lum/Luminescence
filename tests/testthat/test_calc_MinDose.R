@@ -62,6 +62,13 @@ test_that("check class and length of output", {
   data.na[1, 1] <- NA
   expect_message(calc_MinDose(data.na, sigmab = 0.1, verbose = FALSE),
                  "Input data contained NA/NaN values, which were removed")
+
+  set.seed(1)
+  data.nofit <- data.frame(rep(4, 5), rnorm(5, 5))
+  SW({
+  expect_error(calc_MinDose(data.nofit, sigmab = 0.9, par=4),
+               "Couldn't find a converging fit for the profile log-likelihood")
+  })
 })
 
 test_that("check values from output example", {

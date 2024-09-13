@@ -661,7 +661,7 @@ calc_MinDose <- function(
       bbmle::profile(ests,
                      which = which,
                      std.err = as.vector(coef_err),
-                     try_harder = TRUE,
+                     # try_harder = TRUE,
                      quietly = TRUE,
                      maxsteps = maxsteps,
                      tol.newmin = Inf,
