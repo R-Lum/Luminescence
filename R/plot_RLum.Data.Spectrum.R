@@ -32,6 +32,8 @@
 #' - `shade`: default is `0.4`
 #' - `phi`: default is `15`
 #' - `theta`: default is `-30`
+#' - `lphi`: default is `15`
+#' - `ltheta`: default is `-30`
 #' - `expand`: default is `1`
 #' - `axes`: default is `TRUE`
 #' - `box`: default is `TRUE`; accepts `"alternate"` for a custom plot design
@@ -56,7 +58,7 @@
 #'-`frames`: pick the frames to be plotted (depends on the binning!). Check without
 #' this setting before plotting.
 #'
-#' '**`plot.type = "image"` or `plot.type = "contour" **
+#'**`plot.type = "image"` or `plot.type = "contour"`**
 #'
 #' These plot types use the R functions [graphics::image] or [graphics::contour].
 #' The advantage is that many plots can be arranged conveniently using standard
@@ -158,7 +160,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.8
+#' @section Function version: 0.6.9
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -344,6 +346,12 @@ plot_RLum.Data.Spectrum <- function(
   {15}
 
   theta <- if("theta" %in% names(extraArgs)) {extraArgs$theta} else
+  {-30}
+
+  lphi <- if("lphi" %in% names(extraArgs)) {extraArgs$lphi} else
+  {15}
+
+  ltheta <- if("ltheta" %in% names(extraArgs)) {extraArgs$ltheta} else
   {-30}
 
   r <- if("r" %in% names(extraArgs)) {extraArgs$r} else
@@ -570,7 +578,6 @@ plot_RLum.Data.Spectrum <- function(
 
         #set colour palette
         col <- unlist(sapply(1:length(x), function(i){
-
           if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
           else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
           else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
@@ -592,8 +599,7 @@ plot_RLum.Data.Spectrum <- function(
           c(790, ifelse(max(xlim) >= 800, max(xlim), 800))
 
         #set colour palette
-        col <- unlist(sapply(1:length(x), function(i){
-
+        col <- unlist(lapply(1:length(x), function(i){
           if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
           else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
           else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
@@ -610,39 +616,30 @@ plot_RLum.Data.Spectrum <- function(
       ##if only one colour value, then skip gradient calculation as it causes
       ##an error
       if(length(col.unique) > 1){
-
         ##set colour function for replacement
         colfunc <- colorRampPalette(col.unique)
 
         ##get index for colour values to be cut from the current palette
-        col.unique.index <-
-          vapply(col.unique, function(i) {
-            max(which(col == i))
-
-          }, numeric(1))
+        col.unique.index <- vapply(col.unique, function(i) which.max(col == i), numeric(1))
 
         ##remove last index (no colour gradient needed), for energy axis use the first value
         col.unique.index <- col.unique.index[-length(col.unique.index)]
 
         ##set borders for colour gradient recalculation
-        col.unique.index.min <- col.unique.index - (50/bin.rows)
-        col.unique.index.max <- col.unique.index + (50/bin.rows)
+        col.unique.index.min <- floor(col.unique.index - (50/bin.rows))
+        col.unique.index.max <- ceiling(col.unique.index + (50/bin.rows))
 
         ##set negative values to the lowest index
         col.unique.index.min[col.unique.index.min<=0] <- 1
 
         ##build up new index sequence (might be better)
-        col.gradient.index <- as.vector(unlist((
-          sapply(1:length(col.unique.index.min), function(j){
-
+        col.gradient.index <- unlist(lapply(seq_along(col.unique.index.min), function(j){
             seq(col.unique.index.min[j],col.unique.index.max[j], by = 1)
 
-          }))))
-
+          }))
 
         ##generate colour ramp and replace values
-        col.new <- colfunc(length(col.gradient.index))
-        col[col.gradient.index] <- col.new
+        col[col.gradient.index] <- colfunc(length(col.gradient.index))
 
         ##correct for overcharged colour values (causes zebra colour pattern)
         if (diff(c(length(col), nrow(temp.xyz))) < 0) {
@@ -663,13 +660,13 @@ plot_RLum.Data.Spectrum <- function(
 
   # Do log scaling if needed -------------------------------------------------
   ##x
-  if(grepl("x", log)==TRUE){x <- log10(x)}
+  if(grepl("x", log)[1]) x <- log10(x)
 
   ##y
-  if(grepl("y", log)==TRUE){y <- log10(y)}
+  if(grepl("y", log)[1]) y <- log10(y)
 
   ##z
-  if(grepl("z", log)==TRUE){temp.xyz <- log10(temp.xyz)}
+  if(grepl("z", log)[1]) temp.xyz <- log10(temp.xyz)
 
 # PLOT --------------------------------------------------------------------
 
@@ -703,6 +700,8 @@ if(plot){
       axes = if(box[1] == "alternate") FALSE else axes,
       phi = phi,
       theta = theta,
+      ltheta = ltheta,
+      lphi = lphi,
       xlab = xlab,
       ylab = ylab,
       zlab = zlab,
@@ -1123,7 +1122,6 @@ if(plot){
 }
 
 # Return ------------------------------------------------------------------
-
 ## add some attributes
 attr(temp.xyz, "colour") <- col
 attr(temp.xyz, "pmat") <- pmat

@@ -135,6 +135,8 @@ Arguments that will be passed to \link[graphics:persp]{graphics::persp}:
 \item \code{shade}: default is \code{0.4}
 \item \code{phi}: default is \code{15}
 \item \code{theta}: default is \code{-30}
+\item \code{lphi}: default is \code{15}
+\item \code{ltheta}: default is \code{-30}
 \item \code{expand}: default is \code{1}
 \item \code{axes}: default is \code{TRUE}
 \item \code{box}: default is \code{TRUE}; accepts \code{"alternate"} for a custom plot design
@@ -160,7 +162,7 @@ All frames plotted in one frame.
 -\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
 this setting before plotting.
 
-'**\code{plot.type = "image"} or `plot.type = "contour" **
+\strong{\code{plot.type = "image"} or \code{plot.type = "contour"}}
 
 These plot types use the R functions \link[graphics:image]{graphics::image} or \link[graphics:contour]{graphics::contour}.
 The advantage is that many plots can be arranged conveniently using standard
@@ -188,7 +190,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.8
+ 0.6.9
 }
 
 \examples{
@@ -261,10 +263,5 @@ plot_RLum.Data.Spectrum(
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \keyword{aplot}
