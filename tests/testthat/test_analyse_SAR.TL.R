@@ -26,6 +26,8 @@ test_that("Test examples", {
   skip_on_cran()
 
   ##perform analysis
+  ## FIXME(mcol): this example doesn't work with snapshotting, presumably
+  ## due to setting the `fit.method = "EXP OR LIN"` option
   SW({
   expect_s4_class(
     analyse_SAR.TL(
@@ -38,31 +40,34 @@ test_that("Test examples", {
     "RLum.Results"
   )
 
-  expect_s4_class(
+  expect_snapshot_RLum(
     analyse_SAR.TL(
         list(object, object),
         signal.integral.min = 210,
         signal.integral.max = 220,
         dose.points = 1:7,
         integral_input = "temperature",
-        sequence.structure = c("SIGNAL", "BACKGROUND")),
-    "RLum.Results"
+        sequence.structure = c("SIGNAL", "BACKGROUND"))
   )
 
   expect_warning(
+  expect_snapshot_RLum(
     analyse_SAR.TL(
         list(object),
         signal.integral.min = 210,
         signal.integral.max = 220,
         dose.points = 1:7,
         log = "x",
-        sequence.structure = c("SIGNAL", "BACKGROUND")),
+        sequence.structure = c("SIGNAL", "BACKGROUND"))
+    ),
     "log-scale needs positive values; log-scale disabled"
   )
 
   expect_warning(
+  expect_snapshot_RLum(
     analyse_SAR.TL(object, signal.integral.min = 2, signal.integral.max = 3,
-                   sequence.structure = c("SIGNAL", "EXCLUDE")),
-    "'fit.weights' ignored since the error column is invalid or 0")
+                   sequence.structure = c("SIGNAL", "EXCLUDE"))
+    ),
+  "'fit.weights' ignored since the error column is invalid or 0")
   })
 })
