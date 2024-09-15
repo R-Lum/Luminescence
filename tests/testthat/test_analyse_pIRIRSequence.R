@@ -29,7 +29,7 @@ results <- analyse_pIRIRSequence(
   fit.method = "EXP",
   sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
   main = "Pseudo pIRIR data set based on quartz OSL",
-  plot = FALSE,
+  plot = TRUE,
   plot.single = TRUE,
   verbose = FALSE
 )
@@ -50,6 +50,24 @@ suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and plot_GrowthCurve
     verbose = FALSE
   )
 )
+})
+
+test_that("check plot stuff", {
+  ## it show throw a warning about the plot size
+  expect_warning(analyse_pIRIRSequence(
+    object,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    fit.method = "EXP",
+    sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+    main = "Pseudo pIRIR data set based on quartz OSL",
+    plot = TRUE,
+    plot.single = TRUE,
+    verbose = FALSE
+  ), regexp = "\\[analyse\\_pIRIRSequence\\(\\)\\] Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in!")
+
 })
 
 test_that("input validation", {

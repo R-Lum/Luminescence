@@ -262,14 +262,6 @@ analyse_pIRIRSequence <- function(
   }
 
 # General Integrity Checks ---------------------------------------------------
-  ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
-  ## required size.
-  if(plot[1] & all(grDevices::dev.size("in") < 20)) {
-    plot <- FALSE
-    .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in! Consider plotting via pdf(..., height = 20, width = 20).")
-
-  }
-
   ##GENERAL
     ##INPUT OBJECTS
     if(is(object, "RLum.Analysis")==FALSE){
@@ -290,6 +282,14 @@ analyse_pIRIRSequence <- function(
         temp.collect.invalid.terms, " not allowed in 'sequence.structure'!")
     }
 
+  ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
+  ## required size.
+    if(plot[1] & all(grDevices::dev.size("in") < 20)) {
+      plot <- FALSE
+      .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in!
+                        -> Consider plotting via pdf(..., height = 20, width = 20).")
+
+    }
 
 # Deal with extra arguments -------------------------------------------------------------------
   ## default values
