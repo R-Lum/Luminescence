@@ -615,7 +615,6 @@ analyse_pIRIRSequence <- function(
 
   }
 
-
 ##============================================================================##
 # Plotting additional --------------------------------------------------------
 ##============================================================================##
@@ -649,7 +648,6 @@ if(plot){
     x <- seq(0,max(LnLxTnTx.table$Dose)*1.05, length.out = 100)
 
     for(j in 1:length(pIRIR.curve.names)){
-
      ##dose points
      temp.curve.points <-  LnLxTnTx.table[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
 
@@ -686,7 +684,6 @@ if(plot){
     }
 
     rm(x)
-
 
     ##plot legend
     legend("bottomright", legend = pIRIR.curve.names,
@@ -741,7 +738,6 @@ if(plot){
          pch = c(1:length(pIRIR.curve.names))
          )
 
-
    ##Rejection criteria
    temp.rejection.criteria <- get_RLum(temp.results.final,
                                                data.object = "rejection.criteria")
@@ -774,7 +770,6 @@ if(plot){
           y = c(21,29,29,21), col = "gray", border = NA)
     polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
 
-
    ##consider possibility of multiple pIRIR signals and multiple recycling ratios
    col.id  <- 1
 
@@ -783,7 +778,6 @@ if(plot){
 
    for(i in seq(1,nrow(temp.rc.recuperation.rate),
                   length(unique(temp.rc.recuperation.rate[,"Criteria"])))){
-
 
         for(j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))){
          points(temp.rc.reycling.ratio[i+j, "Value"]-1,
@@ -797,8 +791,6 @@ if(plot){
    }#endif
 
     rm(col.id)
-
-
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recuperation rate
@@ -836,13 +828,12 @@ if(plot){
    polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(1,9,9,1))
    polygon(x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45)
 
-
    for(i in 1:nrow(temp.rc.palaedose.error)){
-
-     points(temp.rc.palaedose.error[i, "Value"],
-            y = 5,
-            pch = i,
-            col = i)
+     if(length(temp.rc.palaedose.error[i, "Value"]) > 0 && !is.na(temp.rc.palaedose.error[i, "Value"]))
+       points(temp.rc.palaedose.error[i, "Value"],
+              y = 5,
+              pch = i,
+              col = i)
 
    }
 
