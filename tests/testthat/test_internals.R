@@ -160,12 +160,15 @@ test_that("Test internals", {
   fun.int <- function() .throw_warning("Warning message")
   fun.ext <- function() fun.int()
   fun.docall <- function() do.call(fun.ext, args = list())
+  fun.docall_do <- function() fun.docall()
   expect_warning(fun.int(),
                  "[fun.int()] Warning message", fixed = TRUE)
   expect_warning(fun.ext(),
                  "[fun.int()] Warning message", fixed = TRUE)
   expect_warning(fun.docall(),
                  "[fun.int()] Warning message", fixed = TRUE)
+  expect_warning(fun.docall_do(),
+               "[fun.int()] Warning message", fixed = TRUE)
 
   fun.int <- function() .throw_warning("Warning message", nframe = 2)
   fun.ext <- function() fun.int()
