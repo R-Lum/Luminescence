@@ -843,11 +843,21 @@ fancy_scientific <- function(l) {
 #'@md
 #'@noRd
 .throw_error <- function(..., nframe = 1) {
-  ## get name of calling function
-  f_calling <- paste0("[", deparse(sys.call(-nframe)[1]), "] ")
+  ##1st try to get the name of the calling
+  f_calling <- deparse(sys.call(-nframe)[1])
+
+  ##2nd try if the length is > 1 than something went wrong
+  ##so we go one deeper
+  if(length(f_calling) > 1)
+    f_calling <- deparse(sys.call(- nframe -1)[2])
+
+  ##3rd here we stop otherwise it takes to long to go
+  ##down in the stack
+  if(length(f_calling) > 1)
+    f_calling <- "unknown()"
 
   ## stop
-  stop(paste0(f_calling, ...), call. = FALSE)
+  stop(paste0("[", f_calling, "] ", ...), call. = FALSE)
 
 }
 
@@ -863,11 +873,21 @@ fancy_scientific <- function(l) {
 #'@md
 #'@noRd
 .throw_warning <- function(..., nframe = 1) {
-  ## get name of calling function
-  f_calling <- paste0("[", deparse(sys.call(-nframe)[1]), "] ")
+  ##1st try to get the name of the calling
+  f_calling <- deparse(sys.call(-nframe)[1])
 
-  ## stop
-  warning(paste0(f_calling, ...), call. = FALSE)
+  ##2nd try if the length is > 1 than something went wrong
+  ##so we go one deeper
+  if(length(f_calling) > 1)
+    f_calling <- deparse(sys.call(- nframe -1)[2])
+
+  ##3rd here we stop otherwise it takes to long to go
+  ##down in the stack
+  if(length(f_calling) > 1)
+    f_calling <- "unknown()"
+
+  ## warning
+  warning(paste0("[", f_calling, "] ", ...), call. = FALSE)
 
 }
 
