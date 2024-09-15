@@ -180,13 +180,11 @@ analyse_pIRIRSequence <- function(
   ...
 ){
 
-  if (missing("object")) {
+  if (missing("object"))
     stop("[analyse_pIRIRSequence()] No value set for 'object'!")
-  }
 
 # SELF CALL -----------------------------------------------------------------------------------
  if(is.list(object)){
-
     ##make live easy
     if(missing("signal.integral.min")){
       signal.integral.min <- 1
@@ -256,21 +254,23 @@ analyse_pIRIRSequence <- function(
     results <- merge_RLum(temp)
 
     ##DO NOT use invisible here, this will stop the function from stopping
-    if(length(results) == 0){
+    if(length(results) == 0)
       return(NULL)
-
-    }else{
+    else
       return(results)
-
-    }
 
   }
 
-
 # General Integrity Checks ---------------------------------------------------
+  ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
+  ## required size.
+  if(plot[1] & all(grDevices::dev.size("in") < 20)) {
+    plot <- FALSE
+    .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in! Consider plotting via pdf(..., height = 20, width = 20).")
+
+  }
 
   ##GENERAL
-
     ##INPUT OBJECTS
     if(is(object, "RLum.Analysis")==FALSE){
       stop("[analyse_pIRIRSequence()] Input object is not of type 'RLum.Analyis'!",
@@ -292,7 +292,6 @@ analyse_pIRIRSequence <- function(
 
 
 # Deal with extra arguments -------------------------------------------------------------------
-
   ## default values
   mtext.outer <- "MEASUREMENT INFO"
   main <- ""
@@ -308,7 +307,6 @@ analyse_pIRIRSequence <- function(
 
 
 # Protocol Integrity Checks --------------------------------------------------
-
   ##(1) Check structure and remove curves that fit not the recordType criteria
 
   ##get sequence structure
@@ -619,11 +617,9 @@ analyse_pIRIRSequence <- function(
 
 
 ##============================================================================##
-# Plotting additionals--------------------------------------------------------
+# Plotting additional --------------------------------------------------------
 ##============================================================================##
-
 if(plot){
-
   ##extract LnLnxTnTx.table
   LnLxTnTx.table <- get_RLum(temp.results.final, "LnLxTnTx.table")
 
@@ -633,7 +629,6 @@ if(plot){
 
     if(any(is.infinite(LnLxTnTx.table[["LxTx.Error"]])))
       LnLxTnTx.table[["LxTx.Error"]][is.infinite(LnLxTnTx.table[["LxTx.Error"]])] <- NA
-
 
   ##plot growth curves
   plot(NA, NA,
@@ -650,9 +645,8 @@ if(plot){
        ylab = expression(L[x]/T[x]),
        main = "Summarised Dose Response Curves")
 
-
     ##set x for expression evaluation
-    x <- seq(0,max(LnLxTnTx.table$Dose)*1.05,length = 100)
+    x <- seq(0,max(LnLxTnTx.table$Dose)*1.05, length.out = 100)
 
     for(j in 1:length(pIRIR.curve.names)){
 
@@ -724,7 +718,7 @@ if(plot){
     plot(NA, NA,
        xlim = c(0,nrow(LnLxTnTx.table)/
                      n.loops),
-       ylim = range(temp.curve.TnTx.matrix),
+       ylim = if(any(is.na(range(temp.curve.TnTx.matrix)))) c(0,1) else range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
        ylab = expression(T[x]/T[n]),
        main = "Sensitivity change")
@@ -733,7 +727,6 @@ if(plot){
     abline(h = 1:nrow(temp.curve.TnTx.matrix), col = "gray")
 
     for(j in 1:length(pIRIR.curve.names)){
-
      lines(1:nrow(temp.curve.TnTx.matrix),
            temp.curve.TnTx.matrix[,j],
            type = "b",
@@ -875,6 +868,5 @@ if(plot){
 ##============================================================================##
 
   return(temp.results.final)
-
 
 }
