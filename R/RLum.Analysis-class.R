@@ -25,7 +25,7 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.16
+#' @section Class version: 0.4.17
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -350,7 +350,8 @@ setMethod(
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
-                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL, env = parent.frame(2)) {
+                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
+                   info.object = NULL, subset = NULL, env = parent.frame(2)) {
 
             if (!is.null(substitute(subset))) {
               # To account for different lengths and elements in the @info slot we first
@@ -513,21 +514,28 @@ setMethod("get_RLum",
               record.id <- 1:length(object@records)
 
               ##select curves according to the chosen parameter
-              if (length(record.id) > 1) {
+              if (length(record.id) >= 1) {
                 temp <- lapply(record.id, function(x) {
                   if (is(object@records[[x]])[1] %in% RLum.type) {
-                    ##as input a vector is allowed
+                      ##as input a vector is allowed
                     temp <- lapply(1:length(recordType), function(k) {
                       ##translate input to regular expression
                       recordType[k] <- glob2rx(recordType[k])
                       recordType[k] <- substr(recordType[k], start = 2, stop = nchar(recordType[k]) - 1)
 
+                      ##handle NA
+                      if(is.na(object@records[[x]]@recordType))
+                        recordType_comp <- "NA"
+                      else
+                        recordType_comp <- object@records[[x]]@recordType
+
                       ## get the results object and if requested, get the index
-                      if (grepl(recordType[k], object@records[[x]]@recordType) &
+                      if (grepl(recordType[k], recordType_comp) &
                           object@records[[x]]@curveType %in% curveType) {
                         if (!get.index) object@records[[x]] else x
 
                       }
+
                     })
 
                     ##remove empty entries and select just one to unlist

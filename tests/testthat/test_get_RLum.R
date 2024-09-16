@@ -7,8 +7,6 @@ temp_RLumDataSpectrum <- set_RLum(class = "RLum.Data.Spectrum")
 temp_RLumAnalysis <- set_RLum(class = "RLum.Analysis")
 temp_RLumResults <- set_RLum(class = "RLum.Results")
 
-
-
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
@@ -46,6 +44,8 @@ test_that("check get_RLum on a list and NULL", {
   ##check class argument
   a <- list(set_RLum("RLum.Results"), set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))))
   expect_type(get_RLum(a, class = "test", drop = FALSE), "list")
+  expect_type(get_RLum(a, class = "test", drop = TRUE), "list")
   expect_type(get_RLum(a, class = "RLum.Results", drop = FALSE), "list")
+  expect_type(get_RLum(a, class = "RLum.Analysis", drop = TRUE), "list")
   expect_type(get_RLum(list(temp_RLumResults, temp_RLumAnalysis)), "list")
 })
