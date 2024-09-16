@@ -24,6 +24,7 @@ it shows a warning with instructions and set `plot = FALSE`. This should prevent
 ### `analyse_SAR.TL()`
 * The function now produces a more correct `rejection.criteria` data frame
 (#245, fixed in #246).
+* Several edge cases that led to crashes have been fixed (#147, fixed in #247).
 
 ### `get_RLum()`
 * When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would 
