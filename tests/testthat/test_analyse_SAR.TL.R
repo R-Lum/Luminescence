@@ -98,4 +98,12 @@ test_that("regression tests", {
                "[calc_TLLxTxRatio()] Data types of Lx and Tx data differ",
                fixed = TRUE)
   })
+
+  expect_message(
+  expect_snapshot_RLum(
+    analyse_SAR.TL(object, dose.points = 2,
+                   signal.integral.min = 210, signal.integral.max = 220,
+                   sequence.structure = c("SIGNAL", "BACKGROUND"))
+  ),
+  "Error: All points have the same dose, NULL returned")
 })

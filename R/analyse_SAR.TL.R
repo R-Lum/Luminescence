@@ -300,67 +300,52 @@ analyse_SAR.TL <- function(
   LnLxTnTx <- cbind(temp.DoseName[, c("Name", "Repeated")],
                     LnLxTnTx)
 
+  ## convert to data.table for more convenient column manipulation
+  temp <- data.table(LnLxTnTx[, c("Name", "Dose", "Repeated", "LxTx")])
+
   # Calculate Recycling Ratio -----------------------------------------------
-  RecyclingRatio <- NA_real_
-  if(length(LnLxTnTx[LnLxTnTx[,"Repeated"]==TRUE,"Repeated"])>0){
+  ## we first create a dummy object to use in case there are no repeated doses,
+  ## but replace it in the `if` block if there are any
+  rej.thresh <- rejection.criteria$recycling.ratio / 100
+  rej.thresh.text <- paste("\u00b1", rej.thresh) # \u00b1 is ±
+  RecyclingRatio <- data.table(criterion = "recycling ratio",
+                               value = NA,
+                               threshold = rej.thresh.text,
+                               status = NA_character_)
+  if (any(temp$Repeated)) {
 
-    ##identify repeated doses
-    temp.Repeated<-LnLxTnTx[LnLxTnTx[,"Repeated"]==TRUE,c("Name","Dose","LxTx")]
+    ## find the index of the previous dose of each repeated dose
+    temp[, prev.idx := match(Dose, Dose)]
 
-    ##find concering previous dose for the repeated dose
-    temp.Previous<-t(sapply(1:length(temp.Repeated[,1]),function(x){
-      LnLxTnTx[LnLxTnTx[,"Dose"]==temp.Repeated[x,"Dose"] &
-                 LnLxTnTx[,"Repeated"]==FALSE,c("Name","Dose","LxTx")]
-    }))
+    ## calculate the recycling ratio
+    temp[, criterion := paste0(Name, "/", Name[prev.idx])]
+    temp[, value := LxTx / LxTx[prev.idx]]
 
-    ##convert to data.frame
-    temp.Previous<-as.data.frame(temp.Previous)
+    ## set status according to the given rejection threshold
+    temp[, threshold := rej.thresh.text]
+    temp[, status := fifelse(abs(1 - value) > rej.thresh, "FAILED", "OK")]
 
-    ##set column names
-    temp.ColNames<-sapply(1:length(temp.Repeated[,1]),function(x){
-      paste(temp.Repeated[x,"Name"],"/",
-            temp.Previous[temp.Previous[,"Dose"]==temp.Repeated[x,"Dose"],"Name"],
-            sep="")
-    })
-
-    ##Calculate Recycling Ratio
-    RecyclingRatio<-as.numeric(temp.Repeated[,"LxTx"])/as.numeric(temp.Previous[,"LxTx"])
-
-    ##Just transform the matrix and add column names
-    RecyclingRatio<-t(RecyclingRatio)
-    colnames(RecyclingRatio)<-temp.ColNames
+    ## keep only the repeated doses
+    RecyclingRatio <- temp[Repeated == TRUE,
+                           .(criterion, value, threshold, status)]
   }
 
   # Calculate Recuperation Rate ---------------------------------------------
-  Recuperation <- NA_real_
-  if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
-    Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
-                          LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)
+  ## we first create a dummy object to use in case there is no R0 dose,
+  ## but replace it in the `if` block if there is one
+  Recuperation <- data.table(criterion = "recuperation rate",
+                             value = NA_real_,
+                             threshold = rejection.criteria$recuperation.rate / 100,
+                             status = NA_character_)
+  if ("R0" %in% temp$Name) {
+    Recuperation[, value := round(temp[Name == "R0", LxTx] /
+                                  temp[Name == "Natural", LxTx], digits = 4)]
+    Recuperation[, status := fifelse(value > threshold, "FAILED", "OK")]
   }
 
-  # Combine and Evaluate Rejection Criteria ---------------------------------
-  RejectionCriteria <- data.frame(
-    criterion = c(if (is.na(RecyclingRatio)) "recycling ratio" else colnames(RecyclingRatio),
-                   "recuperation rate"),
-    value = c(RecyclingRatio,Recuperation),
-    threshold = c(
-      rep(paste("\u00b1", rejection.criteria$recycling.ratio/100)
-          ,length(RecyclingRatio)),
-      rejection.criteria$recuperation.rate/100
-    ),
-    status = c(
-
-      if(is.na(RecyclingRatio)==FALSE){
-
-        sapply(1:length(RecyclingRatio), function(x){
-          if(abs(1-RecyclingRatio[x])>(rejection.criteria$recycling.ratio/100)){
-            "FAILED"
-          }else{"OK"}})}else{NA},
-
-      if(is.na(Recuperation)==FALSE) {
-        if (Recuperation > rejection.criteria$recuperation.rate / 100) "FAILED" else "OK"
-      } else NA_character_
-    ))
+  ## join the two tables and convert back to data.frame
+  RejectionCriteria <- as.data.frame(rbind(RecyclingRatio, Recuperation))
+  rm(temp)
 
   ##============================================================================##
   ##PLOTTING
