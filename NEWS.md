@@ -24,6 +24,11 @@
 - The function will not crash anymore during the plotting in another
   edge case related to single grain data.
 
+### `analyse_SAR.TL()`
+
+- The function now produces a more correct `rejection.criteria` data
+  frame (#245, fixed in \#246).
+
 ### `get_RLum()`
 
 - When the function was used on a list of `RLum.Analysis-class` objects
@@ -59,5 +64,3 @@
   particular circumstances. Now the functions make only two attempts to
   get the name of their called and then return an `unknown()` as
   function name.
-
-## Internals

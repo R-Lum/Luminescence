@@ -310,7 +310,7 @@ analyse_SAR.TL <- function(
   LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
 
   # Calculate Recycling Ratio -----------------------------------------------
-  RecyclingRatio <- NA
+  RecyclingRatio <- NA_real_
   if(length(LnLxTnTx[LnLxTnTx[,"Repeated"]==TRUE,"Repeated"])>0){
 
     ##identify repeated doses
@@ -341,7 +341,7 @@ analyse_SAR.TL <- function(
   }
 
   # Calculate Recuperation Rate ---------------------------------------------
-  Recuperation <- NA
+  Recuperation <- NA_real_
   if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
     Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
                           LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)
@@ -350,12 +350,13 @@ analyse_SAR.TL <- function(
   # Combine and Evaluate Rejection Criteria ---------------------------------
 
   RejectionCriteria <- data.frame(
-    citeria = c(colnames(RecyclingRatio), "recuperation rate"),
+    criterion = c(if (is.na(RecyclingRatio)) "recycling ratio" else colnames(RecyclingRatio),
+                   "recuperation rate"),
     value = c(RecyclingRatio,Recuperation),
     threshold = c(
-      rep(paste("+/-", rejection.criteria$recycling.ratio/100)
+      rep(paste("\u00b1", rejection.criteria$recycling.ratio/100)
           ,length(RecyclingRatio)),
-      paste("", rejection.criteria$recuperation.rate/100)
+      rejection.criteria$recuperation.rate/100
     ),
     status = c(
 
@@ -366,9 +367,9 @@ analyse_SAR.TL <- function(
             "FAILED"
           }else{"OK"}})}else{NA},
 
-      if(is.na(Recuperation)==FALSE &
-           Recuperation>rejection.criteria$recuperation.rate){"FAILED"}else{"OK"}
-
+      if(is.na(Recuperation)==FALSE) {
+        if (Recuperation > rejection.criteria$recuperation.rate / 100) "FAILED" else "OK"
+      } else NA_character_
     ))
 
   ##============================================================================##
