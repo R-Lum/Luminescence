@@ -354,7 +354,7 @@ analyse_SAR.TL <- function(
                    "recuperation rate"),
     value = c(RecyclingRatio,Recuperation),
     threshold = c(
-      rep(paste("±", rejection.criteria$recycling.ratio/100)
+      rep(paste("\u00b1", rejection.criteria$recycling.ratio/100)
           ,length(RecyclingRatio)),
       rejection.criteria$recuperation.rate/100
     ),
