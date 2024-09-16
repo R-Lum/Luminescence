@@ -303,6 +303,10 @@ analyse_SAR.TL <- function(
   ## convert to data.table for more convenient column manipulation
   temp <- data.table(LnLxTnTx[, c("Name", "Dose", "Repeated", "LxTx")])
 
+  ## silence notes raised by R CMD check
+  prev.idx <- criterion <- value <- threshold <- status <- NULL
+  Name <- Dose <- LxTx <- Repeated <- NULL
+
   # Calculate Recycling Ratio -----------------------------------------------
   ## we first create a dummy object to use in case there are no repeated doses,
   ## but replace it in the `if` block if there are any
@@ -327,7 +331,7 @@ analyse_SAR.TL <- function(
 
     ## keep only the repeated doses
     RecyclingRatio <- temp[Repeated == TRUE,
-                           .(criterion, value, threshold, status)]
+                           list(criterion, value, threshold, status)]
   }
 
   # Calculate Recuperation Rate ---------------------------------------------
