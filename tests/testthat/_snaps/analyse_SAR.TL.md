@@ -985,7 +985,7 @@
                   "value": [6, 3, 6, 30, 3, 30, 6, 6]
                 }
               },
-              "value": ["analyse_SAR.TL(object, sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"), ", "    signal.integral.min = 2, signal.integral.max = 3, )"]
+              "value": ["analyse_SAR.TL(object, sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"), ", "    signal.integral.min = 2, signal.integral.max = 3)"]
             }
           ]
         },

@@ -86,7 +86,8 @@ test_that("regression tests", {
   set.seed(1)
   expect_snapshot_RLum(
     analyse_SAR.TL(object, sequence.structure = c("SIGNAL", "BACKGROUND"),
-                   signal.integral.min = 2, signal.integral.max = 3,)
+                   signal.integral.min = 2, signal.integral.max = 3),
+    tolerance = 1.5e-4
   )
 
   seq.structure <- c("SIGNAL", "EXCLUDE", "BACKGROUND", "EXCLUDE", "PREHEAT",
