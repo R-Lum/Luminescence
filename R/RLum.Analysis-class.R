@@ -349,12 +349,10 @@ setMethod(
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
-
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
                    protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL, env = parent.frame(2)) {
 
             if (!is.null(substitute(subset))) {
-
               # To account for different lengths and elements in the @info slot we first
               # check all unique elements (in all records)
               info_el <- unique(unlist(lapply(object@records, function(el) names(el@info))))
@@ -431,7 +429,6 @@ setMethod("get_RLum",
 
               ##check for records
               if (length(object@records) == 0) {
-
                 .throw_warning("This 'RLum.Analysis' object has no records, ",
                                "NULL returned", nframe = 3)
                 return(NULL)
@@ -518,27 +515,23 @@ setMethod("get_RLum",
               ##select curves according to the chosen parameter
               if (length(record.id) > 1) {
                 temp <- lapply(record.id, function(x) {
-                  if (is(object@records[[x]])[1] %in% RLum.type == TRUE) {
+                  if (is(object@records[[x]])[1] %in% RLum.type) {
                     ##as input a vector is allowed
                     temp <- lapply(1:length(recordType), function(k) {
                       ##translate input to regular expression
                       recordType[k] <- glob2rx(recordType[k])
                       recordType[k] <- substr(recordType[k], start = 2, stop = nchar(recordType[k]) - 1)
 
-                      if (grepl(recordType[k], object@records[[x]]@recordType) == TRUE &
+                      ## get the results object and if requested, get the index
+                      if (grepl(recordType[k], object@records[[x]]@recordType) &
                           object@records[[x]]@curveType %in% curveType) {
-                        if (!get.index) {
-                          object@records[[x]]
+                        if (!get.index) object@records[[x]] else x
 
-                        } else{
-                          x
-                        }
                       }
-
                     })
 
                     ##remove empty entries and select just one to unlist
-                    temp <- temp[!sapply(temp, is.null)]
+                    temp <- temp[!vapply(temp, is.null,logical(1))]
 
                     ##if list has length 0 skip entry
                     if (length(temp) != 0) {
@@ -549,9 +542,8 @@ setMethod("get_RLum",
                   }
                 })
 
-
                 ##remove empty list element
-                temp <- temp[!sapply(temp, is.null)]
+                temp <- temp[!vapply(temp, is.null, logical(1))]
 
                 ##check if the produced object is empty and show warning message
                 if (length(temp) == 0)
@@ -563,7 +555,6 @@ setMethod("get_RLum",
                   return(unlist(temp))
 
                 } else{
-
                   if (!drop) {
                     temp <- set_RLum(
                       class = "RLum.Analysis",
@@ -586,7 +577,7 @@ setMethod("get_RLum",
                 }
 
               } else{
-                if (get.index == FALSE) {
+                if (!get.index[1]) {
                   if (drop == FALSE) {
                     ##needed to keep the argument drop == TRUE
                     temp <- set_RLum(
