@@ -143,7 +143,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["citeria", "value", "threshold", "status"]
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -160,22 +160,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["recuperation rate", "recuperation rate", "recuperation rate", "recuperation rate"]
+                  "value": ["recycling ratio", "recuperation rate", "recycling ratio", "recuperation rate"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA", "NA", "NA"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["± 0.1", "0.1", "± 0.1", "0.1"]
+                },
+                {
+                  "type": "character",
                   "attributes": {},
                   "value": [null, null, null, null]
-                },
-                {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["+/- 0.1", " 0.1", "+/- 0.1", " 0.1"]
-                },
-                {
-                  "type": "character",
-                  "attributes": {},
-                  "value": [null, "OK", null, "OK"]
                 }
               ]
             }
@@ -416,7 +416,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["citeria", "value", "threshold", "status"]
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -433,22 +433,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["recuperation rate", "recuperation rate"]
+                  "value": ["recycling ratio", "recuperation rate"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["± 0.1", "0.1"]
+                },
+                {
+                  "type": "character",
                   "attributes": {},
                   "value": [null, null]
-                },
-                {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["+/- 0.1", " 0.1"]
-                },
-                {
-                  "type": "character",
-                  "attributes": {},
-                  "value": [null, "OK"]
                 }
               ]
             }
@@ -564,7 +564,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK"]
+                  "value": ["FAILED"]
                 }
               ]
             },
@@ -661,7 +661,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["citeria", "value", "threshold", "status"]
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "class": {
                   "type": "character",
@@ -688,12 +688,12 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["+/- 0.1", " 0.1"]
+                  "value": ["± 0.1", "0.1"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK", "OK"]
+                  "value": ["OK", "FAILED"]
                 }
               ]
             }
