@@ -21,9 +21,22 @@ affected was also `analyse_SAR.CWOSL()`.
 it shows a warning with instructions and set `plot = FALSE`. This should prevent "Figure margins too large" errors. 
 * The function will not crash anymore during the plotting in another edge case related to single grain data. 
 
+### `get_RLum()`
+* When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would 
+remove all `NULL` objects, but not elements that became `list()` (empty list) during the selection; fixed.
+
+
+### `plot_RLum.Data.Spectrum()`
+* Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
+* Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 
 ## Internals
 
 * Two new internal functions `.throw_warning()` and `.throw_error()` sometimes flushed the
 terminal with messages if call (internally) in particular circumstances. Now the functions
 make only two attempts to get the name of their called and then return an `unknown()` as function name. 
+
+## Internals
+
+
+
