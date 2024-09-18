@@ -271,7 +271,7 @@ use_DRAC <- function(
       reply <- readline("Do you want to see the DRAC error message (Y/N)?")
       if (reply == "Y" || reply == "y" || reply == 1)
         cat(error_msg)
-    })
+    }, add = TRUE)
     # nocov end
 
     .throw_error("\n\t We got a response from the server, but it\n",

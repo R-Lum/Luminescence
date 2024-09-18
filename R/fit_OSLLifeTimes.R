@@ -686,7 +686,7 @@ if(plot) {
 
     if(!plot_simple){
       ##make sure that the screen closes if something is wrong
-      on.exit(close.screen(all.screens = TRUE))
+      on.exit(close.screen(all.screens = TRUE), add = TRUE)
 
       split.screen(rbind(
         c(0.1,1,0.32, 0.98),

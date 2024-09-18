@@ -617,7 +617,7 @@ analyse_Al2O3C_Measurement <- function(
     if (plot) {
       ##get plot settings
       par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default))
+      on.exit(par(mfrow = par.default), add = TRUE)
 
       ##settings
       plot_settings <- list(

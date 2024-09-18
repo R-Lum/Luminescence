@@ -965,7 +965,7 @@ calc_Huntley2006 <-
     }
 
     # recover plot parameters
-    on.exit(par(par.old.full))
+    on.exit(par(par.old.full), add = TRUE)
 
   }
 

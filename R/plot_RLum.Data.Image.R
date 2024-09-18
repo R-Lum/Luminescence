@@ -148,7 +148,7 @@ plot_settings <- modifyList(x = list(
 # plot.raster -------------------------------------------------------------
     for(i in 1:dim(object)[3]) {
       par.default <- par(mar = c(4.5,4.5,4,3))
-      on.exit(par(par.default))
+      on.exit(par(par.default), add = TRUE)
       x <- object[, , i, drop = FALSE]
       image <-.stretch(x, type = plot_settings$stretch)
 
@@ -180,7 +180,7 @@ plot_settings <- modifyList(x = list(
       ## add legend
       if(plot_settings$legend) {
         par.default <- c(par.default, par(xpd = TRUE))
-        on.exit(par(par.default))
+        on.exit(par(par.default), add = TRUE)
         col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 14)]
         slices <- seq(0,1,length.out = 15)
         for(s in 1:(length(slices) - 1)){

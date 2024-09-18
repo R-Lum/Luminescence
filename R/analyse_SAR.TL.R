@@ -358,7 +358,7 @@ analyse_SAR.TL <- function(
   # Plotting - Config -------------------------------------------------------
   ##grep plot parameter
   par.default <- par(no.readonly = TRUE)
-  on.exit(par(par.default))
+  on.exit(par(par.default), add = TRUE)
 
   ##grep colours
   col <- get("col", pos = .LuminescenceEnv)

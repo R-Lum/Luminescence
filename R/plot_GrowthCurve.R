@@ -1915,7 +1915,7 @@ plot_GrowthCurve <- function(
 
       ## safe par settings
       par.old.full <- par(no.readonly = TRUE)
-      on.exit(par(par.old.full))
+      on.exit(par(par.old.full), add = TRUE)
 
       ##set new parameter
       layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
