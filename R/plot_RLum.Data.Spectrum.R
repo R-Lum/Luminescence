@@ -866,7 +866,7 @@ if(plot){
        )
 
        print(p)
-       on.exit(return(p))
+       on.exit(return(p), add = TRUE)
 
 
   }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {

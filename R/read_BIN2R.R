@@ -265,7 +265,7 @@ read_BIN2R <- function(
       close(con)
     }
   }
-  on.exit(expr = on_exit())
+  on.exit(expr = on_exit(), add = TRUE)
 
   ## check for URL and attempt download
   if(verbose)

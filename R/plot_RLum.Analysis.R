@@ -261,11 +261,10 @@ plot_RLum.Analysis <- function(
 
     ##set par
     par.default <- par("mfrow")
-    if(!plot.single){on.exit(par(mfrow = par.default))}
     if(!plot.single) {
       par(mfrow = c(nrows, ncols))
+      on.exit(par(mfrow = par.default), add = TRUE)
     }
-
 
     ##expand plot settings list
     plot.settings <- lapply(setNames(1:length(plot.settings), names(plot.settings)),

@@ -463,7 +463,7 @@ calc_AverageDose <- function(
   ##get change par setting and reset on exit
   if(plot) {
     par.default <- par()$mfrow
-    on.exit(par(mfrow = par.default))
+    on.exit(par(mfrow = par.default), add = TRUE)
     par(mfrow = c(1,3))
   }
 

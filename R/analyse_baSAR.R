@@ -2250,7 +2250,7 @@ analyse_baSAR <- function(
 
     if(!plot.single){
       par(mfrow = c(1,2))
-      on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE))
+      on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE), add = TRUE)
     }
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##DOSE RESPONSE CURVES AND Lx/Tx VALUES

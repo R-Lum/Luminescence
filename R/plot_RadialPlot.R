@@ -1341,7 +1341,7 @@ label.text[[1]] <- NULL
         cex = cex)
 
     ## reset on exit
-    on.exit(par(default))
+    on.exit(par(default), add = TRUE)
 
     ## create empty plot
     plot(NA,

@@ -325,7 +325,7 @@ plot_FilterCombinations <- function(
       )
 
       print(p)
-      on.exit(return(p))
+      on.exit(return(p), add = TRUE)
 
 
     }else{

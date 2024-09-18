@@ -255,7 +255,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
     ##get plot settings
     par.default <- par(no.readonly = TRUE)
-    on.exit(par(par.default))
+    on.exit(par(par.default), add = TRUE)
 
     ##settings
     plot_settings <- list(

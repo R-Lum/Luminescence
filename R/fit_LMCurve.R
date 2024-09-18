@@ -339,7 +339,7 @@ fit_LMCurve<- function(
 
   # layout safety settings
   par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
-  on.exit(par(par.default))
+  on.exit(par(par.default), add = TRUE)
 
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION

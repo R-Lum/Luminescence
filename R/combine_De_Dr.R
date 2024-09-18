@@ -125,7 +125,7 @@
     ),
     val = method_control)
 
-  on.exit(close(model))
+  on.exit(close(model), add = TRUE)
   ## select model
   if(length(theta) == 1) {
     data1$theta <- NULL
@@ -268,7 +268,7 @@
     ),
     val = method_control)
 
-  on.exit(close(model))
+  on.exit(close(model), add = TRUE)
   data <-
     list(
       'theta' = theta,
@@ -712,7 +712,7 @@ if(plot){
   ##make sure we reset plots
   if(par_local) {
     old.par <- par(mfrow = c(1, 2))
-    on.exit(par(old.par))
+    on.exit(par(old.par), add = TRUE)
 
   }
 
