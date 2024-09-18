@@ -35,10 +35,15 @@ the function returned the `RLum.Data.Curve-class` object *regardless* of the sel
 If a user tried `recordType = "TL"` on an `RLum.Analysis-class` object that contained only a single IRSL curve, the
 function would still return that single IRSL curve instead of an empty element. The reason for this behaviour was a poor attempt to deal with `NA` in the `recordType` name that led to missing values and unexpected behaviour for a logical comparison. Now, before the subset happens, `NA` values in `recordType` are converted to `"NA"` (a character) and the wiggling around that was causing the lousy subsetting was removed. 
 
-
 ### `plot_RLum.Data.Spectrum()`
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
+
+### `write_R2BIN()`
+* Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
+file export. To avoid this now all non-ASCII characters are replaced by `_` before writing them to the BIN/BINX files. 
+* The function now returns the file path of the export. 
+* Fix a bug that left connections open if the function crashed. 
 
 ## Internals
 
