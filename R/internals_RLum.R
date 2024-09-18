@@ -913,7 +913,9 @@ fancy_scientific <- function(l) {
 #'
 #' @md
 #' @noRd
-SW <- function(expr) capture.output(suppressMessages(suppressWarnings(expr)))
+SW <- function(expr) {
+  capture.output(suppressMessages(suppressWarnings(expr)))
+}
 
 #' @title Validate Scalar Variables Expected to be Positive
 #'
