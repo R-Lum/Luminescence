@@ -25,10 +25,15 @@ it shows a warning with instructions and set `plot = FALSE`. This should prevent
 * When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would 
 remove all `NULL` objects, but not elements that became `list()` (empty list) during the selection; fixed.
 
-
 ### `plot_RLum.Data.Spectrum()`
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
+
+### `write_R2BIN()`
+* Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
+file export. To avoid this now all non-ASCII characters are replaced by `_` before writing them to the BIN/BINX files. 
+* The function now returns the file path of the export. 
+* Fix a bug that left connections open if the function crashed. 
 
 ## Internals
 

@@ -117,4 +117,12 @@ data(ExampleData.BINfileData, envir = environment())
   write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"),
               version = "08")
   })
+
+  ## check UTF-8 characters
+  new_utf8 <- new
+  new_utf8@METADATA$FNAME <- c("I do not belong in here \xb5m")
+  t <- expect_silent(suppressMessages(write_R2BIN(object = new_utf8, file = paste0(path, "BINfile_V8.bin"),
+              version = "08", txtProgressBar = FALSE)))
+  expect_type(object = t, type = "character")
 })
+

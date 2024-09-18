@@ -37,7 +37,7 @@
 #' @param txtProgressBar [logical] (*with default*):
 #' enables or disables [txtProgressBar].
 #'
-#' @return Write a binary file.
+#' @return Write a binary file and returns the name and path of the file as [character].
 #'
 #' @note
 #' The function just roughly checks the data structures. The validity of
@@ -55,7 +55,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the ones
 #' directly produced by the Risø readers!
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -95,19 +95,15 @@ write_R2BIN <- function(
 ){
 
   # Config ------------------------------------------------------------------
-
   ##set supported BIN format version
   VERSION.supported <- as.raw(c(3, 4, 5, 6, 7, 8))
 
   # Check integrity ---------------------------------------------------------
-
   ##check if input object is of type 'Risoe.BINfileData'
-  if(is(object, "Risoe.BINfileData") == FALSE){
-    stop("[write_R2BIN()] Input object is not of type Risoe.BINfileData!", call. = FALSE)
+  if(!inherits(object, "Risoe.BINfileData"))
+    .throw_error("Input object is not of type Risoe.BINfileData!")
 
-  }
-
-  ## check if it fulfills the latest definition ...
+  ## check if it fulfils the latest definition ...
   if(ncol(object@METADATA) != ncol(set_Risoe.BINfileData()@METADATA)){
     .throw_error("Your Risoe.BINfileData object is not compatible with the ",
                  "latest specification of this S4-class object. You are ",
@@ -117,13 +113,11 @@ write_R2BIN <- function(
   }
 
   ##check if input file is of type 'character'
-  if(is(file, "character") == FALSE){
-    stop("[write_R2BIN()] argument 'file' has to be of type character!", call. = FALSE)
-
-  }
+  if(is(file, "character") == FALSE)
+    .throw_error("argument 'file' has to be of type character!")
 
   # Check Risoe.BINfileData Struture ----------------------------------------
-  ##check wether the BIN-file DATA slot contains more than 9999 records; needs to be run all the time
+  ##check whether the BIN-file DATA slot contains more than 9999 records; needs to be run all the time
   temp_check <- vapply(object@DATA, function(x){
     if(length(x) > 9999){
       TRUE
@@ -135,9 +129,9 @@ write_R2BIN <- function(
 
   ##force compatibility
   if(compatibility.mode && any(temp_check)){
-
     ##drop warning
-    warning("[write_R2BIN()] Compatibility mode selected: Some data sets are longer than 9,999 points and will be binned!", call. = FALSE)
+    warning("[write_R2BIN()] Compatibility mode selected: Some data sets are longer than 9,999 points and will be binned!",
+            call. = FALSE)
 
     ##BIN data to reduce amount of data if the BIN-file is too long
     object@DATA <- lapply(object@DATA, function(x){
@@ -165,7 +159,7 @@ write_R2BIN <- function(
     temp_check <- FALSE
 
     ##get new number of points
-    temp_NPOINTS <- sapply(object@DATA, length)
+    temp_NPOINTS <- vapply(object@DATA, length, numeric(1))
 
     ##correct LENGTH
     object@METADATA[["LENGTH"]] <- object@METADATA[["LENGTH"]] - (4 * object@METADATA[["NPOINTS"]]) + (temp_NPOINTS * 4)
@@ -187,18 +181,20 @@ write_R2BIN <- function(
   ##remove
   rm(temp_check)
 
+  ## UTF-8 conversion
+  object@METADATA[["SAMPLE"]] <- base::iconv(object@METADATA[["SAMPLE"]], "latin1", "ASCII", sub="_")
+  object@METADATA[["COMMENT"]] <- base::iconv(object@METADATA[["COMMENT"]], "latin1", "ASCII", sub="_")
+  object@METADATA[["FNAME"]] <- base::iconv(object@METADATA[["FNAME"]], "latin1", "ASCII", sub="_")
+  object@METADATA[["USER"]] <- base::iconv(object@METADATA[["USER"]], "latin1", "ASCII", sub="_")
+  object@METADATA[["SEQUENCE"]] <- base::iconv(object@METADATA[["SEQUENCE"]], "latin1", "ASCII", sub="_")
 
   ##VERSION
-
   ##If missing version argument set to the highest value
   if(missing(version)){
-
     version <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version.original <- version
 
-
   }else{
-
     version.original <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version <- as.raw(version)
     object@METADATA[["VERSION"]] <- version
@@ -383,7 +379,8 @@ write_R2BIN <- function(
   object@METADATA[,"TAG"] <- ifelse(object@METADATA[,"SEL"] == TRUE, 1, 0)
 
   # SET FILE AND VALUES -----------------------------------------------------
-  con<-file(file, "wb")
+  con <- file(file, "wb")
+  on.exit(close(con))
 
   ##get records
   n.records <- length(object@METADATA[,"ID"])
@@ -1227,7 +1224,6 @@ write_R2BIN <- function(
         }
 
       }else{
-
         ##DETECTOR_ID
         writeBin(as.integer(object@METADATA[ID,"DETECTOR_ID"]),
                  con,
@@ -1317,12 +1313,13 @@ write_R2BIN <- function(
     }
   }
 
-  # ##close con
-  close(con)
   #
   # ##close
   if(txtProgressBar) close(pb)
 
   ##output
   message("\t >> ", ID - 1, " records have been written successfully!\n\n")
+
+  ## return path
+  invisible(file)
 }
