@@ -382,7 +382,7 @@ write_R2BIN <- function(
 
   # SET FILE AND VALUES -----------------------------------------------------
   con <- file(file, "wb")
-  on.exit(close(con))
+  on.exit(close(con), add = TRUE)
 
   ##get records
   n.records <- length(object@METADATA[,"ID"])
