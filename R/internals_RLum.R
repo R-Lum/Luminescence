@@ -877,61 +877,23 @@ fancy_scientific <- function(l) {
 #'@title Throws a Custom Tailored Error Message
 #'
 #'@param ... the error message to throw
-#'@param nframe [numeric] (*with default*): the frame where the function
-#'       name to return in the error message should be searched: the
-#'       default value of 1 is generally fine, unless [throw_error] is
-#'       called from an internal function (whose name is not of interest
-#'       to the user), in which case a value of 2 should be used.
 #'
 #'@md
 #'@noRd
-.throw_error <- function(..., nframe = 1) {
-  ##1st try to get the name of the calling
-  f_calling <- deparse(sys.call(-nframe)[1])
-
-  ##2nd try if the length is > 1 than something went wrong
-  ##so we go one deeper
-  if(length(f_calling) > 1)
-    f_calling <- deparse(sys.call(- nframe -1)[2])
-
-  ##3rd here we stop otherwise it takes to long to go
-  ##down in the stack
-  if(length(f_calling) > 1)
-    f_calling <- "unknown()"
-
-  ## stop
-  stop(paste0("[", f_calling, "] ", ...), call. = FALSE)
-
+.throw_error <- function(...) {
+  top.idx <- length(.LuminescenceEnv$fn_stack)
+  stop("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] ", ..., call. = FALSE)
 }
 
 #'@title Throws a Custom Tailored Warning Message
 #'
 #'@param ... the warning message to throw
-#'@param nframe [numeric] (*with default*): the frame where the function
-#'       name to return in the warning message should be searched: the
-#'       default value of 1 is generally fine, unless [throw_warning] is
-#'       called from an internal function (whose name is not of interest
-#'       to the user), in which case a value of 2 should be used
 #'
 #'@md
 #'@noRd
-.throw_warning <- function(..., nframe = 1) {
-  ##1st try to get the name of the calling
-  f_calling <- deparse(sys.call(-nframe)[1])
-
-  ##2nd try if the length is > 1 than something went wrong
-  ##so we go one deeper
-  if(length(f_calling) > 1)
-    f_calling <- deparse(sys.call(- nframe -1)[2])
-
-  ##3rd here we stop otherwise it takes to long to go
-  ##down in the stack
-  if(length(f_calling) > 1)
-    f_calling <- "unknown()"
-
-  ## warning
-  warning(paste0("[", f_calling, "] ", ...), call. = FALSE)
-
+.throw_warning <- function(...) {
+  top.idx <- length(.LuminescenceEnv$fn_stack)
+  warning("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] ", ..., call. = FALSE)
 }
 
 #' @title Silence Output and Warnings during Tests
@@ -981,6 +943,6 @@ SW <- function(expr) {
     if (is.null(name))
       name <- all.vars(match.call())[1]
     .throw_error("'", name, "' must be a positive ", if (int) "integer ",
-                 "scalar", nframe = 2)
+                 "scalar")
   }
 }

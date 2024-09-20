@@ -207,7 +207,7 @@ fit_EmissionSpectra <- function(
       }else{
         if(max(frame) > ncol(o@data)|| min(frame) < 1){
           .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
-                       ncol(o@data), nframe = 3) # we are inside an lapply closure
+                       ncol(o@data))
         }
       }
 
@@ -239,7 +239,7 @@ fit_EmissionSpectra <- function(
     }else{
       if(max(frame) > (ncol(object)-1) || min(frame) < 1){
         .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
-                     ncol(object) - 1, nframe = 3) # we are inside an lapply closure
+                     ncol(object) - 1)
       }
     }
 
@@ -372,7 +372,7 @@ fit_EmissionSpectra <- function(
   ## check graining parameter
   if (method_control$graining >= nrow(m))
     .throw_error("method_control$graining cannot exceed the ",
-                 "available channels (", nrow(m) ,")", nframe = 5)
+                 "available channels (", nrow(m) ,")")
 
   ##initialise objects
   success_counter <- 0

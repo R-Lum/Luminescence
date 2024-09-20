@@ -161,11 +161,6 @@ test_that("Test internals", {
   expect_error(fun.docall_do(),
                "[fun.int()] Error message", fixed = TRUE)
 
-  fun.int <- function() .throw_error("Error message", nframe = 2)
-  fun.ext <- function() fun.int()
-  expect_error(fun.ext(),
-               "[fun.ext()] Error message", fixed = TRUE)
-
   ## .throw_warning() -------------------------------------------------------
   fun.int <- function() {
     .set_function_name("fun.int")
@@ -182,12 +177,7 @@ test_that("Test internals", {
   expect_warning(fun.docall(),
                  "[fun.int()] Warning message", fixed = TRUE)
   expect_warning(fun.docall_do(),
-               "[fun.int()] Warning message", fixed = TRUE)
-
-  fun.int <- function() .throw_warning("Warning message", nframe = 2)
-  fun.ext <- function() fun.int()
-  expect_warning(fun.ext(),
-                 "[fun.ext()] Warning message", fixed = TRUE)
+                 "[fun.int()] Warning message", fixed = TRUE)
 
   ## SW() ------------------------------------------------------------------
   expect_silent(SW(cat("silenced message")))

@@ -48,6 +48,7 @@ file export. To avoid this now all non-ASCII characters are replaced by `_` befo
 ## Internals
 
 * Two new internal functions `.throw_warning()` and `.throw_error()` sometimes flushed the
-terminal with messages if call (internally) in particular circumstances. Now the functions
-make only two attempts to get the name of their called and then return an `unknown()` as function name. 
+terminal with messages if call (internally) in particular circumstances. Now we maintain a
+stack of function names, so that at any time we can report correctly the name of the
+function where an error or a warning is thrown (#254, fixed in #256).
 
