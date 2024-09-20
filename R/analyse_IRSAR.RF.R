@@ -424,7 +424,9 @@ analyse_IRSAR.RF<- function(
   plot = TRUE,
   plot_reduced = FALSE,
   ...
-){
+) {
+  .set_function_name("analyse_IRSAR.RF")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO
   ## - if a file path is given, the function should try to find out whether an XSYG-file or

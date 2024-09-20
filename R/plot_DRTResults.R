@@ -192,7 +192,9 @@ plot_DRTResults <- function(
   par.local = TRUE,
   na.rm  = FALSE,
   ...
-){
+) {
+  .set_function_name("plot_DRTResults")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Validity checks ----------------------------------------------------------
 

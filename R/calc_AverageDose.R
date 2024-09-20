@@ -133,7 +133,9 @@ calc_AverageDose <- function(
   plot = TRUE,
   verbose = TRUE,
   ...
-){
+) {
+  .set_function_name("calc_AverageDose")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Define internal functions ------------------------------------------------------------------
 

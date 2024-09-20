@@ -123,6 +123,8 @@ calc_FastRatio <- function(object,
                            fitCW.curve = FALSE,
                            plot = TRUE,
                            ...) {
+  .set_function_name("calc_FastRatio")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Input verification --------------------------------------------------------
   .validate_positive_scalar(Ch_L1, int = TRUE)

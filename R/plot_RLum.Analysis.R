@@ -128,7 +128,9 @@ plot_RLum.Analysis <- function(
   curve.transformation,
   plot.single = FALSE,
   ...
-){
+) {
+  .set_function_name("plot_RLum.Analysis")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity check ----------------------------------------------------------------------------
 

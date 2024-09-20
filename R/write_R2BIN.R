@@ -92,7 +92,9 @@ write_R2BIN <- function(
   version,
   compatibility.mode = FALSE,
   txtProgressBar = TRUE
-){
+) {
+  .set_function_name("write_R2BIN")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Config ------------------------------------------------------------------
   ##set supported BIN format version

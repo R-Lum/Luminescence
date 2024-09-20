@@ -352,6 +352,8 @@ setMethod("get_RLum",
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
                    protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
                    info.object = NULL, subset = NULL, env = parent.frame(2)) {
+            .set_function_name("get_RLum")
+            on.exit(.unset_function_name(), add = TRUE)
 
             if (!is.null(substitute(subset))) {
               # To account for different lengths and elements in the @info slot we first
@@ -631,6 +633,8 @@ setMethod("get_RLum",
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
           definition = function(object, fullExtent = FALSE) {
+            .set_function_name("structure_RLum")
+            on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
             if(!all(vapply(object@records, FUN = class, character(1)) == "RLum.Data.Curve"))

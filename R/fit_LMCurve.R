@@ -260,7 +260,9 @@ fit_LMCurve<- function(
   plot = TRUE,
   plot.BG = FALSE,
   ...
-){
+) {
+  .set_function_name("fit_LMCurve")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # (0) Integrity checks -------------------------------------------------------
 

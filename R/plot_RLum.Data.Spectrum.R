@@ -251,7 +251,9 @@ plot_RLum.Data.Spectrum <- function(
   legend.text,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("plot_RLum.Data.Spectrum")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity check -----------------------------------------------------------
 

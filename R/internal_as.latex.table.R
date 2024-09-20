@@ -172,6 +172,9 @@
                                        split = NULL,
                                        tabular_only = FALSE,
                                        ...) {
+  .set_function_name("as.latex.table.data.frame")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Integrity checks ----
   if (!is.data.frame(x))
     .throw_error("'x' must be a data frame")

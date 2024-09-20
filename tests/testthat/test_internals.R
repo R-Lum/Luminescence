@@ -1,6 +1,12 @@
 test_that("Test internals", {
   testthat::skip_on_cran()
 
+  ## since below we are testing internal functions that use `.throw_error()`
+  ## and `.throw_warning()`, we need to treat this block as a function
+  ## definition and set the function name
+  .set_function_name("test")
+  on.exit(.unset_function_name(), add = TRUE)
+
   # .expand_parameters() ------------------------------------------------------
   ##create empty function ... reminder
   ##this is an internal function, the first object is always discarded, it
@@ -138,7 +144,11 @@ test_that("Test internals", {
   expect_equal(sum(unlist(t)), expected = 110)
 
   ## .throw_error() ---------------------------------------------------------
-  fun.int <- function() .throw_error("Error message")
+  fun.int <- function() {
+    .set_function_name("fun.int")
+    on.exit(.unset_function_name(), add = TRUE)
+    .throw_error("Error message")
+  }
   fun.ext <- function() fun.int()
   fun.docall <- function() do.call(fun.ext, args = list())
   fun.docall_do <- function() fun.docall()
@@ -157,7 +167,11 @@ test_that("Test internals", {
                "[fun.ext()] Error message", fixed = TRUE)
 
   ## .throw_warning() -------------------------------------------------------
-  fun.int <- function() .throw_warning("Warning message")
+  fun.int <- function() {
+    .set_function_name("fun.int")
+    on.exit(.unset_function_name(), add = TRUE)
+    .throw_warning("Warning message")
+  }
   fun.ext <- function() fun.int()
   fun.docall <- function() do.call(fun.ext, args = list())
   fun.docall_do <- function() fun.docall()

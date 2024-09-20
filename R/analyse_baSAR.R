@@ -437,7 +437,9 @@ analyse_baSAR <- function(
   plot.single = FALSE,
   verbose = TRUE,
   ...
-){
+) {
+  .set_function_name("analyse_baSAR")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##////////////////////////////////////////////////////////////////////////////////////////////////
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model

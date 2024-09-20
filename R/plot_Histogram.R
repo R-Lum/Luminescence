@@ -128,6 +128,8 @@ plot_Histogram <- function(
   interactive = FALSE,
   ...
 ) {
+  .set_function_name("plot_Histogram")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity tests ---------------------------------------------------------
   ## check/adjust input data structure

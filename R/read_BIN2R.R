@@ -137,7 +137,9 @@ read_BIN2R <- function(
   pattern = NULL,
   verbose = TRUE,
   ...
-){
+) {
+  .set_function_name("read_BIN2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection

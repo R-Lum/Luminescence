@@ -285,8 +285,7 @@
 #' }
 #' @md
 #' @export
-calc_Huntley2006 <-
-  function(
+calc_Huntley2006 <- function(
     data,
     LnTn = NULL,
     rhop,
@@ -298,7 +297,10 @@ calc_Huntley2006 <-
     summary = TRUE,
     plot = TRUE,
     ...
-){
+) {
+  .set_function_name("calc_Huntley2006")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate Input ------------------------------------------------------------
 
   ## Check fit method

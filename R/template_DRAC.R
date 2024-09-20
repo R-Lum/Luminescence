@@ -91,7 +91,9 @@ template_DRAC <- function(
   nrow = 1L,
   preset = NULL,
   notification = TRUE
-){
+) {
+  .set_function_name("template_DRAC")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## TODO:
   # 1 - allow mineral specific presets; new argument 'mineral'

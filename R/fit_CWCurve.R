@@ -208,7 +208,10 @@ fit_CWCurve<- function(
   output.terminalAdvanced = TRUE,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("fit_CWCurve")
+  on.exit(.unset_function_name(), add = TRUE)
+
   # INTEGRITY CHECKS --------------------------------------------------------
 
   ##INPUT OBJECTS

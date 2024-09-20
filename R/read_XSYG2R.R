@@ -182,7 +182,9 @@ read_XSYG2R <- function(
   pattern = ".xsyg",
   verbose = TRUE,
   txtProgressBar = TRUE
-){
+) {
+  .set_function_name("read_XSYG2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO: this function should be reshaped:
   ##  - metadata from the sequence should go into the info slot of the RLum.Analysis object

@@ -177,8 +177,9 @@ fit_EmissionSpectra <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("fit_EmissionSpectra")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO: Find a way to get a significant number of components
   ## This function works only on a list of matrices, so what ever we do here, we have to

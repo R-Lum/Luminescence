@@ -115,7 +115,10 @@ use_DRAC <- function(
   print_references = TRUE,
   citation_style = "text",
   ...
-){
+) {
+  .set_function_name("use_DRAC")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## TODO:
   ## (1) Keep the data set as unmodified as possible. Check structure and order of parameters
   ## for meaningful combination.
