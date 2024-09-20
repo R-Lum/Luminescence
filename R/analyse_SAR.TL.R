@@ -119,7 +119,9 @@ analyse_SAR.TL <- function(
   dose.points,
   log = "",
   ...
-){
+) {
+  .set_function_name("analyse_SAR.TL")
+  on.exit(.unset_function_name(), add = TRUE)
 
   if (missing("object")) {
     stop("[analyse_SAR.TL()] No value set for 'object'!", call. = FALSE)

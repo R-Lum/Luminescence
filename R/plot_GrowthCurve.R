@@ -319,6 +319,8 @@ plot_GrowthCurve <- function(
   verbose = TRUE,
   ...
 ) {
+  .set_function_name("plot_GrowthCurve")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##1. Check input variable
   switch(

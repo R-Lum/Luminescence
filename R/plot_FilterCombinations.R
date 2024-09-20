@@ -156,7 +156,11 @@ plot_FilterCombinations <- function(
   show_net_transmission = TRUE,
   interactive = FALSE,
   plot = TRUE,
-  ...) {
+  ...
+) {
+  .set_function_name("plot_FilterCombinations")
+  on.exit(.unset_function_name(), add = TRUE)
+
   # Integrity tests -----------------------------------------------------------------------------
 
   #check filters

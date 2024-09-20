@@ -196,7 +196,9 @@ analyse_FadingMeasurement <- function(
   plot = TRUE,
   plot.single = FALSE,
   ...
-){
+) {
+  .set_function_name("analyse_FadingMeasurement")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Tests -----------------------------------------------------------------------------
   if (is(object, "list")) {

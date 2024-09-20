@@ -106,5 +106,6 @@ test_that("regression tests", {
                    signal.integral.min = 210, signal.integral.max = 220,
                    sequence.structure = c("SIGNAL", "BACKGROUND"))
   ),
-  "Error: All points have the same dose, NULL returned")
+  "[plot_GrowthCurve()] Error: All points have the same dose, NULL returned",
+  fixed = TRUE)
 })

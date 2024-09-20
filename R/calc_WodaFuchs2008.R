@@ -55,6 +55,8 @@ calc_WodaFuchs2008 <- function(
   plot = TRUE,
   ...
 ) {
+  .set_function_name("calc_WodaFuchs2008")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO
   # - complete manual

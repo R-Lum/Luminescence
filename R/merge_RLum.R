@@ -57,7 +57,9 @@
 merge_RLum<- function(
   objects,
   ...
-){
+) {
+  .set_function_name("merge_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity check ----------------------------------------------------------
     if(!inherits(objects, "list"))

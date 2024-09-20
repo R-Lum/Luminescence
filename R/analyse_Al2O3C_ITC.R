@@ -114,8 +114,9 @@ analyse_Al2O3C_ITC <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("analyse_Al2O3C_ITC")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){

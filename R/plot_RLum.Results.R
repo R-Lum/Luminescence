@@ -57,7 +57,9 @@ plot_RLum.Results<- function(
   object,
   single = TRUE,
   ...
-){
+) {
+  .set_function_name("plot_RLum.Results")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA

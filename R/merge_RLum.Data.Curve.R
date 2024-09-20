@@ -121,7 +121,9 @@ merge_RLum.Data.Curve<- function(
   object,
   merge.method = "mean",
   method.info
-){
+) {
+  .set_function_name("merge_RLum.Data.Curve")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Integrity checks ----------------------------------------------------------------------------
 

@@ -13,7 +13,8 @@ test_that("subset RLum.Analysis", {
 
   ### errors
   expect_error(subset(temp, LTYPE == "RF"),
-               "Invalid subset expression, valid terms are") # FIXME(mcol): long function name produced by .throw_error()
+               "[get_RLum()] Invalid subset expression, valid terms are",
+               fixed = TRUE)
   SW({
   expect_message(expect_null(subset(temp, recordType == "xx")),
                  "'subset' expression produced an empty selection, NULL returned")

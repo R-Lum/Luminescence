@@ -270,6 +270,8 @@ analyse_SAR.CWOSL<- function(
   onlyLxTxTable = FALSE,
   ...
 ) {
+  .set_function_name("analyse_SAR.CWOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){

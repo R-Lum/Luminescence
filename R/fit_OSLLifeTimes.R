@@ -178,8 +178,9 @@ fit_OSLLifeTimes <- function(
   plot_simple = FALSE,
   verbose = TRUE,
   ...
-  ){
-
+) {
+  .set_function_name("fit_OSLLifeTimes")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call -----------------------------------------------------------------------------------
 if(inherits(object, "list") || inherits(object, "RLum.Analysis")){

@@ -352,6 +352,8 @@ setMethod("get_RLum",
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
                    protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
                    info.object = NULL, subset = NULL, env = parent.frame(2)) {
+            .set_function_name("get_RLum")
+            on.exit(.unset_function_name(), add = TRUE)
 
             if (!is.null(substitute(subset))) {
               # To account for different lengths and elements in the @info slot we first
@@ -383,12 +385,11 @@ setMethod("get_RLum",
               ),
               error = function(e) {
                 .throw_error("Invalid subset expression, valid terms are: ",
-                             paste(names(envir), collapse = ", "), nframe = 6)
+                             paste(names(envir), collapse = ", "))
               })
 
               if (!is.logical(sel)) {
-                .throw_error("'subset' must contain a logical expression",
-                             nframe = 2)
+                .throw_error("'subset' must contain a logical expression")
               }
 
               if (all(is.na(sel)))
@@ -416,12 +417,10 @@ setMethod("get_RLum",
                 ##check for entries
                 if(length(object@info) == 0){
                   .throw_warning("This 'RLum.Analysis' object has no info ",
-                                 "objects, NULL returned",
-                                 nframe = 3)
+                                 "objects, NULL returned")
                 }else{
                   .throw_warning("Invalid 'info.object' name, valid names are: ",
-                                 paste(names(object@info), collapse = ", "),
-                                 nframe = 3)
+                                 paste(names(object@info), collapse = ", "))
                 }
                 return(NULL)
               }
@@ -431,7 +430,7 @@ setMethod("get_RLum",
               ##check for records
               if (length(object@records) == 0) {
                 .throw_warning("This 'RLum.Analysis' object has no records, ",
-                               "NULL returned", nframe = 3)
+                               "NULL returned")
                 return(NULL)
               }
 
@@ -442,7 +441,7 @@ setMethod("get_RLum",
               } else if (!is.numeric(record.id) &
                          !is.logical(record.id)) {
                 .throw_error("'record.id' has to be of type 'numeric' or ",
-                             "'logical'", nframe = 3)
+                             "'logical'")
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
@@ -466,8 +465,7 @@ setMethod("get_RLum",
                     x@recordType, character(1)))
 
               } else if (!inherits(recordType, "character")){
-                .throw_error("'recordType' has to be of type 'character'",
-                             nframe = 3)
+                .throw_error("'recordType' has to be of type 'character'")
               }
 
               ##curveType
@@ -478,8 +476,7 @@ setMethod("get_RLum",
                                                   })))
 
               } else if (!is(curveType, "character")) {
-                .throw_error("'curveType' has to be of type 'character'",
-                             nframe = 3)
+                .throw_error("'curveType' has to be of type 'character'")
               }
 
               ##RLum.type
@@ -487,8 +484,7 @@ setMethod("get_RLum",
                 RLum.type <- c("RLum.Data.Curve", "RLum.Data.Spectrum", "RLum.Data.Image")
 
               } else if (!is(RLum.type, "character")) {
-                .throw_error("'RLum.type' has to be of type 'character'",
-                             nframe = 3)
+                .throw_error("'RLum.type' has to be of type 'character'")
               }
 
               ##get.index
@@ -496,8 +492,7 @@ setMethod("get_RLum",
                 get.index <- FALSE
 
               } else if (!is(get.index, "logical")) {
-                .throw_error("'get.index' has to be of type 'logical'",
-                             nframe = 3)
+                .throw_error("'get.index' has to be of type 'logical'")
               }
 
               ##get originator
@@ -555,8 +550,7 @@ setMethod("get_RLum",
 
                 ##check if the produced object is empty and show warning message
                 if (length(temp) == 0)
-                  .throw_warning("This request produced an empty list of records",
-                                 nframe = 3)
+                  .throw_warning("This request produced an empty list of records")
 
                 ##remove list for get.index
                 if (get.index) {
@@ -631,6 +625,8 @@ setMethod("get_RLum",
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
           definition = function(object, fullExtent = FALSE) {
+            .set_function_name("structure_RLum")
+            on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
             if(!all(vapply(object@records, FUN = class, character(1)) == "RLum.Data.Curve"))

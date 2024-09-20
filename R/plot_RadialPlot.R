@@ -291,6 +291,9 @@ plot_RadialPlot <- function(
   output = FALSE,
   ...
 ) {
+  .set_function_name("plot_RadialPlot")
+  on.exit(.unset_function_name(), add = TRUE)
+
   if (is(data, "list") && length(data) == 0) {
     .throw_error("'data' is an empty list")
   }

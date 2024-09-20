@@ -114,8 +114,10 @@ analyse_portableOSL <- function(
   mode = "profile",
   coord = NULL,
   plot = TRUE,
-  ...)
-  {
+  ...
+) {
+  .set_function_name("analyse_portableOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## TODO
   ## - add tests for background image option

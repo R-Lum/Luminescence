@@ -161,7 +161,8 @@ plot_DetPlot <- function(
   plot = TRUE,
   ...
 ) {
-
+  .set_function_name("plot_DetPlot")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # SELF CALL ---------------------------------------------------------------
   if(inherits(object, "list")) {

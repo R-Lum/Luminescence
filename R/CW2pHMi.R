@@ -114,9 +114,9 @@
 #'
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 #' LM-OSL curves. Radiation Measurements, 32, 141-145.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #'
 #' ##(1) - simple transformation
@@ -197,8 +197,9 @@
 CW2pHMi<- function(
   values,
   delta
-){
-
+) {
+  .set_function_name("CW2pHMi")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##(1) data.frame or RLum.Data.Curve object?
   if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){

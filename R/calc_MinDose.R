@@ -337,7 +337,9 @@ calc_MinDose <- function(
   plot = TRUE,
   multicore = FALSE,
   ...
-){
+) {
+  .set_function_name("calc_MinDose")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA

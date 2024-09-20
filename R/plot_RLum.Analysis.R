@@ -128,7 +128,9 @@ plot_RLum.Analysis <- function(
   curve.transformation,
   plot.single = FALSE,
   ...
-){
+) {
+  .set_function_name("plot_RLum.Analysis")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity check ----------------------------------------------------------------------------
 
@@ -575,7 +577,7 @@ plot_RLum.Analysis <- function(
           if(any(is.infinite(temp.data[[2]])) || anyNA(temp.data[[2]])){
             temp.data[[2]][is.infinite(temp.data[[2]]) | is.na(temp.data[[2]])] <- 0
             .throw_warning("Normalisation led to Inf or NaN values, ",
-                           "values replaced by 0", nframe = 3)
+                           "values replaced by 0")
           }
         }
 

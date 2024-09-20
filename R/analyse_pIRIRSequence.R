@@ -178,7 +178,9 @@ analyse_pIRIRSequence <- function(
   plot = TRUE,
   plot.single = FALSE,
   ...
-){
+) {
+  .set_function_name("analyse_pIRIRSequence")
+  on.exit(.unset_function_name(), add = TRUE)
 
   if (missing("object"))
     stop("[analyse_pIRIRSequence()] No value set for 'object'!")
