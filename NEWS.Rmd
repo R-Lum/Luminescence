@@ -10,6 +10,9 @@ header-includes:
 
 ## New functions
 
+## Removed functions
+* Function `calc_Kars2008()` (deprecated since version 0.8.1) is now officially defunct,
+`calc_Huntley2006()` should be used instead (#252, fixed in #257).
 
 ## Bugfixes
 
