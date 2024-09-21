@@ -171,7 +171,7 @@
 #' @param ...
 #' Further parameters:
 #' - `verbose` [logical]: Show or hide console output
-#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `100000`).
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `10000`).
 #' **Note** that it is generally advised to have a large number of Monte Carlo
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
@@ -422,7 +422,7 @@ calc_Huntley2006 <- function(
   settings <- modifyList(
     list(
       verbose = TRUE,
-      n.MC = 100000),
+      n.MC = 10000),
     list(...))
 
   ## Define Constants ----------------------------------------------------------
@@ -1072,4 +1072,4 @@ calc_Huntley2006 <- function(
 
   ## Return value --------------------------------------------------------------
   return(results)
-  }
+}
