@@ -30,7 +30,7 @@ only IRSL curves representing Lx (and Tx)}
 
 If data from multiple aliquots are provided please \strong{see the details below} with regard to
 Lx/Tx normalisation. \strong{The function assumes that all your measurements are related to
-one (comparable) sample. If you to treat independent samples, you have use this function
+one (comparable) sample. If you have to treat independent samples, you have use this function
 in a loop.}}
 
 \item{structure}{\link{character} (\emph{with default}):
@@ -136,16 +136,18 @@ it calls \code{fun(t1)}. The name of the function does not matter.
 \strong{Density of recombination centres}
 
 The density of recombination centres, expressed by the dimensionless variable rho', is estimated
-by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
+by fitting equation 5 in Kars et al. (2008) to the data. For the fitting the function
 \link[stats:nls]{stats::nls} is used without applying weights. For the error estimation the same
 procedure as for the g-value is applied (see above).
 
 \strong{Multiple aliquots & Lx/Tx normalisation}
 
-Be aware that this function will always normalise all \code{Lx/Tx} values by the \code{Lx/Tx} value of the
+Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}} values
+by the \eqn{\frac{L_x}{T_x}} value of the
 prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-inter-aliquot variations in the \code{Lx/Tx} values. If deemed necessary to normalise the \code{Lx/Tx} values
-of each aliquot by its individual prompt measurement please do so \strong{before} running
+inter-aliquot variations in the \eqn{\frac{L_x}{T_x}} values.
+If deemed necessary to normalise the \eqn{\frac{L_x}{T_x}} values  of each
+aliquot by its individual prompt measurement please do so \strong{before} running
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 
 \strong{Shine-down curve plots}
@@ -179,12 +181,7 @@ age.faded = c(100,2),
 g_value = g_value,
 n.MC = 10)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Burow, C., 2024. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.22. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
 Academic Press, London, Orlando.
@@ -207,5 +204,5 @@ Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 Christoph Burow, University of Cologne (Germany)
-, RLum Developer Team}
+}
 \keyword{datagen}
