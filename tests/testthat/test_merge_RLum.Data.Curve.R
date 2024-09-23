@@ -18,7 +18,7 @@ test_that("Merge tests", {
                "At least object 1 is not of class 'RLum.Data.Curve'")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                      merge.method = "error"),
-               "Unsupported or unknown merge method")
+               "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_types)),
                "Only similar record types are supported")
 

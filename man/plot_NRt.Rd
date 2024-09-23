@@ -21,8 +21,9 @@ X,Y data of measured values (time and counts). See details on individual data st
 \item{log}{\link{character} (\emph{optional}):
 logarithmic axes (\code{c("x", "y", "xy")}).}
 
-\item{smooth}{\link{character} (\emph{optional}):
-apply data smoothing. Use \code{"rmean"} to calculate the rolling where \code{k}
+\item{smooth}{\link{character} (\emph{with default}):
+apply data smoothing. If \code{"none"} (default), no data smoothing is applied.
+Use \code{"rmean"} to calculate the rolling where \code{k}
 determines the width of the rolling window (see \link[zoo:rollmean]{zoo::rollmean}). \code{"spline"}
 applies a smoothing spline to each curve (see \link[stats:smooth.spline]{stats::smooth.spline})}
 

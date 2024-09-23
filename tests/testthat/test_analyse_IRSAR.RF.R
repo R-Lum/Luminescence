@@ -11,6 +11,8 @@ test_that("input validation", {
                "'sequence_structure' must be of type 'character'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
                "'n.MC' must be a positive integer scalar")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
+               "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
                "'method.control' has to be of type 'list'")
 
@@ -34,9 +36,6 @@ test_that("input validation", {
   expect_message(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(cores = "4")),
                  "Invalid value for control argument 'cores'")
-
-  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "UNKNOWN"),
-                 "Analysis skipped: Unknown method or threshold of test")
   })
 })
 

@@ -1,3 +1,29 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  ## wrong file name
+  expect_error(use_DRAC("error"),
+               "[use_DRAC()] It seems that the file doesn't exist",
+               fixed = TRUE)
+  expect_error(use_DRAC(NA),
+               "The provided data object is not a valid DRAC template")
+
+  ## exceed allowed limit
+  SW({
+  expect_warning(input <- template_DRAC(preset = "DRAC-example_quartz",
+                                        nrow = 5001),
+                 "More than 5000 datasets might not be supported")
+  })
+  expect_error(use_DRAC(input), "The limit of allowed datasets is 5000")
+
+  ## citation style
+  expect_error(use_DRAC(template_DRAC(preset = "DRAC-example_quartz",
+                                      notification = FALSE),
+                        citation_style = "error"),
+               "[use_DRAC()] 'citation_style' should be one of",
+               fixed = TRUE)
+})
+
 ##Full check
 test_that("Test DRAC", {
   testthat::skip_on_cran()
@@ -61,18 +87,4 @@ test_that("Test DRAC", {
  fake.xls <- system.file("extdata/clippy.xls", package = "readxl")
  expect_error(use_DRAC(fake.xls),
               "you are not using the original DRAC v1.1 XLSX template")
-
- ## crash function
- ## wrong file name
- expect_error(use_DRAC("error"), "\\[use_DRAC\\(\\)\\] It seems that the file doesn't exist!")
- expect_error(use_DRAC(NA),
-              "The provided data object is not a valid DRAC template")
-
- ## exceed allowed limit
- SW({
- expect_warning(input <- template_DRAC(preset = "DRAC-example_quartz",
-                                       nrow = 5001),
-                "More than 5000 datasets might not be supported")
- })
- expect_error(use_DRAC(input), "The limit of allowed datasets is 5000!")
 })

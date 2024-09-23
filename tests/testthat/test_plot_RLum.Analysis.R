@@ -38,8 +38,8 @@ test_that("input validation", {
   expect_match(warnings, all = FALSE, fixed = TRUE,
                "max('ylim') > y-value range for curve #1, reset to maximum")
 
-  expect_warning(plot_RLum.Analysis(c1, curve.transformation = "error"),
-                 "Function for 'curve.transformation' is unknown")
+  expect_error(plot_RLum.Analysis(c1, curve.transformation = "error"),
+               "'curve.transformation' should be one of 'CW2pLM', 'CW2pLMi'")
   expect_warning(.warningCatcher(
       plot_RLum.Analysis(temp, subset = list(recordType = "TL"),
                          norm = TRUE, log = "y")),

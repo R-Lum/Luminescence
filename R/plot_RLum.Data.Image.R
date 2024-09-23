@@ -71,7 +71,9 @@ plot_RLum.Data.Image <- function(
   par.local = TRUE,
   plot.type = "plot.raster",
   ...
-){
+) {
+  .set_function_name("plot_RLum.Data.Image")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Integrity check -----------------------------------------------------------
   ##check if object is of class RLum.Data.Image
@@ -104,6 +106,8 @@ plot_RLum.Data.Image <- function(
 
   return(x)
 }
+
+ plot.type <- .match_args(plot.type, c("plot.raster", "contour"))
 
 # Plot settings -----------------------------------------------------------
 plot_settings <- modifyList(x = list(
@@ -244,12 +248,6 @@ plot_settings <- modifyList(x = list(
       ylab[c(1,length(ylab))] <- c(0,dim(x)[1])
       yat <- seq(0,1,length.out = length(ylab))
       graphics::axis(side = 2, at = yat, labels = ylab)
-
     }
-
-  }else{
-    stop("[plot_RLum.Data.Image()] Unknown plot type.", call. = FALSE)
-
   }
-
 }

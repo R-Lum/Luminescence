@@ -23,9 +23,15 @@ test_that("input validation", {
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlab = "x"),
                "'xlab' must have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = "error"),
-               "Value for 'z.0' not supported")
+               "'z.0' should be one of 'mean', 'mean.weighted', 'median' or")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "error"),
-               "Measure of dispersion not supported")
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p5"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p5a"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p500"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
 
   ## zero-error values
   data.zeros <- ExampleData.DeValues

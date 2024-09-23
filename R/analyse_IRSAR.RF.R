@@ -536,6 +536,9 @@ analyse_IRSAR.RF<- function(
     .throw_error("'sequence_structure' must be of type 'character'")
   }
 
+  ## method
+  method <- .match_args(method, c("FIT", "SLIDE", "VSLIDE"))
+
   ## n.MC
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
@@ -1340,9 +1343,6 @@ analyse_IRSAR.RF<- function(
       De.lower <- De - quantile(De.diff, 0.975, na.rm = TRUE)
       De.upper <- De - quantile(De.diff, 0.025, na.rm = TRUE)
     }
-
-  }else{
-    .throw_warning("Analysis skipped: Unknown method or threshold of test parameter exceeded.")
   }
 
   ##===============================================================================================#

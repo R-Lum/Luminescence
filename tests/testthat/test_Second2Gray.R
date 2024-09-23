@@ -25,7 +25,7 @@ test_that("check class and length of output", {
   expect_error(Second2Gray(ExampleData.DeValues$BT998,
                            dose.rate = results,
                            error.propagation = "test"),
-               "unsupported error propagation method")
+               "'error.propagation' should be one of 'omit', 'gaussian'")
   dose.rate@originator <- "unexpected-originator"
   expect_error(Second2Gray(ExampleData.DeValues$BT998, dose.rate = dose.rate),
                "Wrong originator for dose.rate 'RLum.Results' object")

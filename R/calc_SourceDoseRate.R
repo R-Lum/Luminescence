@@ -140,8 +140,9 @@ calc_SourceDoseRate <- function(
   source.type = "Sr-90",
   dose.rate.unit = "Gy/s",
   predict = NULL
-){
-
+) {
+  .set_function_name("calc_SourceDoseRate")
+  on.exit(.unset_function_name(), add = TRUE)
 
   if (is(measurement.date, "character")) {
         measurement.date <- as.Date(measurement.date)
@@ -151,6 +152,11 @@ calc_SourceDoseRate <- function(
   if(is(calib.date, "character")) {
     calib.date <- as.Date(calib.date)
   }
+
+  ## source type and dose rate unit
+  source.type <- .match_args(source.type,
+                             c("Sr-90", "Am-214", "Co-60", "Cs-137"))
+  dose.rate.unit <- .match_args(dose.rate.unit, c("Gy/s", "Gy/min"))
 
   # --- if predict is set
   if(!is.null(predict) && predict > 1){
@@ -173,10 +179,6 @@ calc_SourceDoseRate <- function(
     "Cs-137" = 30.08
     )
 
-  if(is.null(halflife.years))
-    stop("[calc_SourceDoseRate()] Source type unknown or currently not supported!", call. = FALSE)
-
-
   halflife.days  <- halflife.years * 365
 
   # N(t) = N(0)*e^((lambda * t) with lambda = log(2)/T1.2)
@@ -196,7 +198,6 @@ calc_SourceDoseRate <- function(
   }else if(dose.rate.unit == "Gy/s"){
     source.dose.rate <- measurement.dose.rate
     source.dose.rate.error <- measurement.dose.rate.error
-
   }
 
 

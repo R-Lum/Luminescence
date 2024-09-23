@@ -19,8 +19,9 @@
 #' @param log [character] (*optional*):
 #' logarithmic axes (`c("x", "y", "xy")`).
 #'
-#' @param smooth [character] (*optional*):
-#' apply data smoothing. Use `"rmean"` to calculate the rolling where `k`
+#' @param smooth [character] (*with default*):
+#' apply data smoothing. If `"none"` (default), no data smoothing is applied.
+#' Use `"rmean"` to calculate the rolling where `k`
 #' determines the width of the rolling window (see [zoo::rollmean]). `"spline"`
 #' applies a smoothing spline to each curve (see [stats::smooth.spline])
 #'
@@ -157,6 +158,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     .throw_error("'data' is expected to be a list, matrix, data.frame or ",
                  "'RLum.Analysis' object")
   }
+
+  smooth <- .match_args(smooth, c("none", "spline", "rmean"))
 
   ## BASIC SETTINGS ------
   natural <- curves[[1]]

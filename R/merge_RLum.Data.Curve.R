@@ -8,11 +8,7 @@
 #'
 #' **Supported merge operations are [RLum.Data.Curve-class]**
 #'
-#' `"sum"`
-#'
-#' All count values will be summed up using the function [rowSums].
-#'
-#' `"mean"`
+#' `"mean"` (default)
 #'
 #' The mean over the count values is calculated using the function
 #' [rowMeans].
@@ -21,6 +17,10 @@
 #'
 #' The median over the count values is calculated using the function
 #' [matrixStats::rowMedians].
+#'
+#' `"sum"`
+#'
+#' All count values will be summed up using the function [rowSums].
 #'
 #' `"sd"`
 #'
@@ -64,7 +64,8 @@
 #' list of S4 objects of class `RLum.Curve`.
 #'
 #' @param merge.method [character] (**required**):
-#' method for combining of the objects, e.g.  `'mean'`, `'sum'`, see details for
+#' method for combining of the objects, e.g. `'mean'` (default), `'median'`,
+#' `'sum'`, see details for
 #' further information and allowed methods.  Note: Elements in slot info will
 #' be taken from the first curve in the list.
 #'
@@ -144,6 +145,10 @@ merge_RLum.Data.Curve<- function(
     .throw_error("Only similar record types are supported; you are trying to merge: ",
                  paste0("'", record.types, "'", collapse = ", "))
   }
+
+  merge.method <- .match_args(merge.method,
+                              c("mean", "median", "sum", "sd", "var", "max",
+                                "min", "append", "-", "*", "/"))
 
 # Merge objects ----------------------------------------------------------------
   ##merge data objects
@@ -230,8 +235,6 @@ merge_RLum.Data.Curve<- function(
       .throw_warning(length(id.inf),
                      " 'inf' values have been replaced by 0 in the matrix.")
     }
-  }else{
-    .throw_error("Unsupported or unknown merge method")
   }
 
   ##add first column

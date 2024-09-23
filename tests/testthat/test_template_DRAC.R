@@ -37,9 +37,9 @@ test_that("Check template creation ", {
   expect_warning(template_DRAC(nrow = 5001, notification = FALSE),
                  regexp = "\\[template_DRAC\\(\\)\\] More than 5000 datasets might not be supported!")
   expect_error(template_DRAC(preset = "does_not_exist"),
-               "Invalid preset")
+               "'preset' should be one of 'quartz_coarse', 'quartz_fine'")
   expect_error(template_DRAC(preset = c("does_not_exist", "neither_this_one")),
-               "'preset' must be a 'character' of length 1")
+               "'preset' contains multiple values but not all of them match 'choices'")
   expect_error(template_DRAC(preset = 999),
-               "'preset' must be a 'character' of length 1")
+               "'preset' should be one of 'quartz_coarse', 'quartz_fine'")
 })

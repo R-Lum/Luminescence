@@ -17,7 +17,7 @@ test_that("input validation", {
                             background.integral.max = 1000,
                             analyse_function = "error",
                             verbose = FALSE),
-               "Unknown 'analyse_function'")
+               "'analyse_function' should be one of 'analyse_SAR.CWOSL'")
 })
 
 test_that("plot_DetPlot", {

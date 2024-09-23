@@ -194,7 +194,9 @@ calc_FiniteMixture <- function(
   plot.proportions = TRUE,
   plot=TRUE,
   ...
-){
+) {
+  .set_function_name("calc_FiniteMixture")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## CONSISTENCY CHECK OF INPUT DATA --------
   ##============================================================================##
@@ -217,10 +219,8 @@ calc_FiniteMixture <- function(
     stop("[calc_FiniteMixture()] At least two components need to be fitted",
          call. = FALSE)
   }
-  if (pdf.sigma != "se" && pdf.sigma != "sigmab") {
-    stop("Only 'se' or 'sigmab' allowed for the pdf.sigma argument",
-         call. = FALSE)
-  }
+  pdf.sigma <- .match_args(pdf.sigma, c("sigmab", "se"))
+  pdf.colors <- .match_args(pdf.colors, c("gray", "colors", "none"))
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")

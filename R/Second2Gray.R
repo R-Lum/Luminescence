@@ -99,7 +99,9 @@ Second2Gray <- function(
   data,
   dose.rate,
   error.propagation = "omit"
-){
+) {
+  .set_function_name("Second2Gray")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity tests -----------------------------------------------------------------------------
 
@@ -126,9 +128,10 @@ Second2Gray <- function(
       stop("[Second2Gray()] the data frames in 'data' and 'dose.rate' need to be of similar length!")
 
     }
-
   }
 
+  error.propagation <- .match_args(error.propagation,
+                                   c("omit", "gaussian", "absolute"))
 
   ##(4) check for right orginator
   if(is(dose.rate, "RLum.Results")){
@@ -152,9 +155,7 @@ Second2Gray <- function(
         dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
 
       }
-
     }
-
   }
 
 
@@ -204,11 +205,6 @@ Second2Gray <- function(
       De.error.gray <- round(abs(dose.rate[1] * De.error.seconds) + abs(De.seconds * dose.rate[2]), digits=3)
 
     }
-
-  }else{
-
-    stop("[Second2Gray()] unsupported error propagation method!" )
-
   }
 
   # Return --------------------------------------------------------------------------------------

@@ -25,6 +25,12 @@ test_that("input validation", {
                               signal.integral.max = 220,
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
                "Length of 'dose.points' not compatible with number of signals")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
+                              signal.integral.max = 2,
+                              sequence.structure = c("SIGNAL", "BACKGROUND"),
+                              integral_input = "error"),
+               "[analyse_SAR.TL()] 'integral_input' should be one of ",
+               fixed = TRUE)
 })
 
 test_that("Test examples", {

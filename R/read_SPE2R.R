@@ -117,10 +117,7 @@ read_SPE2R <- function(
   # Consistency check -------------------------------------------------------
 
   valid.output.object <- c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix")
-  if (!output.object %in% valid.output.object) {
-    .throw_error("'output.object' not supported, valid options are ",
-                 paste(valid.output.object, collapse = ", "))
-  }
+  .match_args(output.object, valid.output.object)
 
   ##check if file exists
   if(!file.exists(file)){

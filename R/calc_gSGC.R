@@ -94,8 +94,7 @@ calc_gSGC<- function(
     .throw_error("'data' must be a data.frame")
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")
-  if (!is.character(gSGC.type))
-    .throw_error("'gSGC.type' must be of type 'character'")
+  gSGC.type <- .match_args(gSGC.type, c("0-250", "0-450"))
 
   ##rename columns for consistency reasons
   colnames(data) <- c('LnTn', 'LnTn.error', 'Lr1Tr1', 'Lr1Tr1.error', 'Dr1')
@@ -147,9 +146,6 @@ calc_gSGC<- function(
         Y0.error <- 0.00490
 
         range <- c(0.1,250)
-
-      }else{
-        .throw_error("Unknown 'gSGC.type'")
       }
     }
 

@@ -51,10 +51,11 @@
 #' in fewer curves plotted as specified. This parameter has only
 #' an effect for  n > 2.
 #'
-#' @param curve.transformation [character] (*optional*):
+#' @param curve.transformation [character] (*with default*):
 #' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 #' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`,
-#' `CW2pHMi` and `CW2pPMi`. See details.
+#' `CW2pHMi` and `CW2pPMi`, see details. If set to `None` (default), no
+#' transformation is applied.
 #'
 #' @param plot.single [logical] (*with default*):
 #' global par settings are considered, normally this should end in one plot per page
@@ -125,7 +126,7 @@ plot_RLum.Analysis <- function(
   abline = NULL,
   combine = FALSE,
   records_max = NULL,
-  curve.transformation,
+  curve.transformation = "None",
   plot.single = FALSE,
   ...
 ) {
@@ -231,6 +232,9 @@ plot_RLum.Analysis <- function(
     }
   }
 
+  curve.transformation <- .match_args(curve.transformation,
+                                      c("CW2pLM", "CW2pLMi",
+                                        "CW2pHMi", "CW2pPMi", "None"))
 
   # Plotting ------------------------------------------------------------------
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -307,8 +311,8 @@ plot_RLum.Analysis <- function(
       if(is(temp[[i]], "RLum.Data.Curve") == TRUE){
 
         ##set curve transformation if wanted
-        if((grepl("IRSL", temp[[i]]@recordType) | grepl("OSL", temp[[i]]@recordType)) &
-           !missing(curve.transformation)){
+        if (grepl("IRSL", temp[[i]]@recordType) ||
+            grepl("OSL", temp[[i]]@recordType)) {
 
           if(curve.transformation=="CW2pLM"){
             temp[[i]] <- CW2pLM(temp[[i]])
@@ -321,10 +325,6 @@ plot_RLum.Analysis <- function(
 
           }else if(curve.transformation=="CW2pPMi"){
             temp[[i]] <- CW2pPMi(temp[[i]])
-
-          }else{
-            .throw_warning("Function for 'curve.transformation' is unknown, ",
-                           "no transformation performed")
           }
         }
 
@@ -529,11 +529,6 @@ plot_RLum.Analysis <- function(
         records_show <- ceiling(seq(1,length(object.list), length.out = records_max))
         object.list[(1:length(object.list))[-records_show]] <- NULL
 
-      }
-
-      ##prevent problems for non set argument
-      if (missing(curve.transformation)) {
-        curve.transformation <- "None"
       }
 
       ##transform values to data.frame and norm values

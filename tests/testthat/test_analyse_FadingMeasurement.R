@@ -13,6 +13,12 @@ test_that("input validation", {
       "'object' must be an 'RLum.Analysis' object or a 'list' of such objects")
   expect_error(analyse_FadingMeasurement(cbind(fading_data, fading_data[, 1])),
                "if you provide a data.frame as input, the number of columns")
+
+  ## check various for t_star
+  ## stop t_star
+  expect_error(analyse_FadingMeasurement(fading_data, t_star = "error"),
+               "'t_star' should be one of 'half', 'half_complex', 'end' or a function")
+
 })
 
 test_that("general test", {
@@ -100,13 +106,6 @@ test_that("test XSYG file fading data", {
     structure = "Lx"
   ), "RLum.Results")
   })
-
-  ## check various for t_star
-  ## stop t_star
-  expect_error(analyse_FadingMeasurement(
-    object,
-    t_star = "error",
-  ), "\\[analyse_FadingMeasurement\\(\\)\\] Invalid input for t_star.")
 
   SW({
   expect_s4_class(analyse_FadingMeasurement(
