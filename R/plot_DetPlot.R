@@ -220,6 +220,10 @@ plot_DetPlot <- function(
   .validate_positive_scalar(background.integral.min, int = TRUE)
   .validate_positive_scalar(background.integral.min, int = TRUE)
 
+  ## analyse_function
+  analyse_function <- .match_args(analyse_function,
+                                  c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
+
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels
   if(is.null(n.channels)){
@@ -301,9 +305,6 @@ plot_DetPlot <- function(
       results <- merge_RLum(result.temp.list)
     }
     rm(result.temp.list)
-  }
-  else{
-   .throw_error("Unknown 'analyse_function'")
   }
 
 

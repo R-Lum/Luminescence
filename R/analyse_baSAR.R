@@ -796,10 +796,7 @@ analyse_baSAR <- function(
   # nocov end
 
   ## fit.method
-  if (!fit.method %in% c("EXP", "EXP+LIN", "LIN")) {
-    .throw_error("'fit.method' not recognised, supported methods are: ",
-                 "'EXP', 'EXP+LIN' and 'LIN'")
-  }
+  fit.method <- .match_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
 
   .validate_positive_scalar(n.MCMC, int = TRUE)
 

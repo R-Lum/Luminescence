@@ -1,12 +1,18 @@
-test_that("Various function test", {
+data(ExampleData.XSYG, envir = environment())
+object <- get_RLum(OSL.SARMeasurement$Sequence.Object,
+                   recordType = "OSL (UVVIS)", drop = FALSE)
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(verify_SingleGrainData("test"),
                "Input type 'character' is not allowed for this function")
+  expect_error(verify_SingleGrainData(object, cleanup_level = "error"),
+               "'cleanup_level' should be one of 'aliquot', 'curve'")
+})
 
-  data(ExampleData.XSYG, envir = environment())
-  object <- get_RLum(
-    OSL.SARMeasurement$Sequence.Object, recordType = "OSL (UVVIS)", drop = FALSE)
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ## RLum.Analysis object
   expect_warning(output <- verify_SingleGrainData(object),

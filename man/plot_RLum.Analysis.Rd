@@ -12,7 +12,7 @@ plot_RLum.Analysis(
   abline = NULL,
   combine = FALSE,
   records_max = NULL,
-  curve.transformation,
+  curve.transformation = "None",
   plot.single = FALSE,
   ...
 )
@@ -50,10 +50,11 @@ the other number of curves to be shown a distributed evenly, this may result
 in fewer curves plotted as specified. This parameter has only
 an effect for  n > 2.}
 
-\item{curve.transformation}{\link{character} (\emph{optional}):
+\item{curve.transformation}{\link{character} (\emph{with default}):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
-\code{CW2pHMi} and \code{CW2pPMi}. See details.}
+\code{CW2pHMi} and \code{CW2pPMi}, see details. If set to \code{None} (default), no
+transformation is applied.}
 
 \item{plot.single}{\link{logical} (\emph{with default}):
 global par settings are considered, normally this should end in one plot per page}

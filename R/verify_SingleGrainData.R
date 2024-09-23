@@ -146,8 +146,9 @@ verify_SingleGrainData <- function(
     verbose = TRUE,
     plot = FALSE,
     ...
-){
-
+) {
+  .set_function_name("verify_SingleGrainData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##three types of input are allowed:
   ##(1) RisoeBINfileData
@@ -178,6 +179,10 @@ verify_SingleGrainData <- function(
     }
 
   }
+
+  ## ------------------------------------------------------------------------
+  ## input validation
+  cleanup_level <- .match_args(cleanup_level, c("aliquot", "curve"))
 
   ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##RisoeBINfileData

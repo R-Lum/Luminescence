@@ -23,7 +23,7 @@ test_that("input validation", {
                  "Error: File does not exist, NULL returned")
   expect_error(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
                           output.object = "error"),
-               "'output.object' not supported, valid options are")
+               "'output.object' should be one of 'RLum.Data.Image'")
 
   SW({
   expect_message(expect_null(read_SPE2R("http://httpbun.org/status/404")),

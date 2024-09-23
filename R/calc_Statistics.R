@@ -18,8 +18,8 @@
 #' To plot several data sets in one plot the data sets must be provided 
 #' as `list`, e.g. `list(data.1, data.2)`.
 #'
-#' @param weight.calc [character]: 
-#' type of weight calculation. One out of `"reciprocal"` (weight is 1/error), 
+#' @param weight.calc [character]:
+#' type of weight calculation. One out of `"reciprocal"` (weight is 1/error),
 #' `"square"` (weight is 1/error^2). Default is `"square"`.
 #'
 #' @param digits [integer] (*with default*): 
@@ -70,6 +70,8 @@ calc_Statistics <- function(
   n.MCM = NULL,
   na.rm = TRUE
 ) {
+  .set_function_name("calc_Statistics")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Check input data
   if(is(data, "RLum.Results") == FALSE &
@@ -100,12 +102,11 @@ calc_Statistics <- function(
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
+  weight.calc <- .match_args(weight.calc, c("square", "reciprocal"))
   if(weight.calc == "reciprocal") {
     S.weights <- 1 / data[,2]
   } else if(weight.calc == "square") {
     S.weights <- 1 / data[,2]^2
-  } else {
-    stop ("[calc_Statistics()] Weight calculation type not supported!", call. = FALSE)
   }
 
   S.weights <- S.weights / sum(S.weights)

@@ -10,4 +10,7 @@ test_that("basic checks", {
   df$Distance[[14]] <- 50000
   expect_error(calc_CobbleDoseRate(df),
                "Slices outside of cobble. Please check your distances and make sure they are in mm and diameter is in cm!")
+
+  expect_error(calc_CobbleDoseRate(ExampleData.CobbleData, conversion = "error"),
+               "'conversion' should be one of 'Guerinetal2011', 'Cresswelletal2018'")
 })

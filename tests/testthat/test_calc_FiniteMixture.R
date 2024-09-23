@@ -21,8 +21,11 @@ test_that("check class and length of output", {
                                   n.components = 1),
                "At least two components need to be fitted")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
-                                  n.components = 2, pdf.sigma = "test"),
-               "Only 'se' or 'sigmab' allowed for the pdf.sigma argument")
+                                  n.components = 2, pdf.sigma = "error"),
+               "'pdf.sigma' should be one of 'sigmab', 'se'")
+  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                  n.components = 2, pdf.colors = "error"),
+               "'pdf.colors' should be one of 'gray', 'colors', 'none'")
 
   ## simple run
   SW({

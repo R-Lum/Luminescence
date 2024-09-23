@@ -4,10 +4,11 @@ test_that("plot_GrowthCurve", {
   ## load data
   data(ExampleData.LxTxData, envir = environment())
 
-  ##fit.method
+  ## fit.method
   expect_error(
-    object = plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
-    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Fit method not supported, supported.+")
+    plot_GrowthCurve(LxTxData, fit.method = "error"),
+    "[plot_GrowthCurve()] 'fit.method' should be one of 'LIN', 'QDR', 'EXP'",
+    fixed = TRUE)
 
   ## input object
   expect_error(
@@ -19,10 +20,11 @@ test_that("plot_GrowthCurve", {
     object = plot_GrowthCurve(LxTxData[1:2,]),
     regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least three regeneration points are required!")
 
-  ## wrong argument for mode
+  ## mode
   expect_error(
-    object = plot_GrowthCurve(LxTxData, mode = "fail"),
-    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Unknown input for argument 'mode'")
+    plot_GrowthCurve(LxTxData, mode = "error"),
+    "[plot_GrowthCurve()] 'mode' should be one of 'interpolation', 'extrapolation'",
+    fixed = TRUE)
 
   ## wrong combination of fit.method and mode
   expect_error(

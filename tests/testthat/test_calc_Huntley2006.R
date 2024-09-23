@@ -32,7 +32,7 @@ test_that("input validation", {
                "'data' must be a data frame")
 
   expect_error(calc_Huntley2006(data, fit.method = "test"),
-               "Invalid fit option 'test'")
+               "'fit.method' should be one of 'EXP', 'GOK'")
   expect_error(calc_Huntley2006(data, fit.method = "GOK", lower.bounds = 0),
                "Argument 'lower.bounds' must be of length 4")
 

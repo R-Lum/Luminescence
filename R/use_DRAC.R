@@ -169,6 +169,10 @@ use_DRAC <- function(
   if (nrow(input.raw) > 5000)
     .throw_error("The limit of allowed datasets is 5000!")
 
+  citation_style <- .match_args(citation_style,
+                                c("text", "Bibtex", "citation", "html",
+                                  "latex", "R"))
+
   # Settings ------------------------------------------------------------------------------------
   settings <- list(
     name = ifelse(missing(name),

@@ -99,9 +99,10 @@
 #'
 #' @param dispersion [character] (*with default*):
 #' measure of dispersion, used for drawing the scatter polygon. One out of
-#' - `"qr"` (quartile range),
+#' - `"qr"` (quartile range, default),
 #' - `"pnn"` (symmetric percentile range with `nn` the lower percentile, e.g.
-#' - `"p05"` depicting the range between 5 and 95 %),
+#' `"p05"` indicating the range between 5 and 95 %, or `"p10"` indicating
+#' the range between 10 and 90 %), or
 #' - `"sd"` (standard deviation) and
 #' - `"2sd"` (2 standard deviations),
 #'
@@ -554,6 +555,17 @@ plot_AbanicoPlot <- function(
 
   ## plot.ratio must be numeric and positive
   .validate_positive_scalar(plot.ratio)
+
+  if (!is.numeric(z.0)) {
+    z.0 <- .match_args(z.0, c("mean", "mean.weighted", "median"),
+                       extra = "a numerical value")
+  }
+
+  ## the 'pnn' option need some special treatment
+  main.choices <- c("qr", "sd", "2sd")
+  extra.choice <-"a percentile of the form 'pnn' (eg. 'p05')"
+  if (!dispersion %in% main.choices && !grepl("^p[0-9][0-9]$", dispersion))
+    dispersion <- .match_args(dispersion, main.choices, extra = extra.choice)
 
   ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)
@@ -1694,8 +1706,6 @@ plot_AbanicoPlot <- function(
         ci.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
         ci.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
       }
-    } else {
-      .throw_error("Measure of dispersion not supported.")
     }
 
     if(log.z == TRUE) {

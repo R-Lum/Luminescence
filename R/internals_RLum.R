@@ -922,6 +922,80 @@ SW <- function(expr) {
   capture.output(suppressMessages(suppressWarnings(expr)))
 }
 
+#' @title Validate a character argument from a list of choices
+#'
+#' @description
+#' This is inspired by [base::match.arg], but is has a more user-friendly
+#' error message as it reports the exact name of the argument that is being
+#' validated. This function always requires the choices to be specified: this
+#' better fits with the current state of the Luminescence package, which only
+#' rarely lists all choices in the formal function arguments, so
+#' [base::match.arg] would have very limited use.
+#'
+#' @param arg [character] (**required**): variable to validate.
+#' @param choices [vector] [character] (**required**): a vector of candidate
+#'        values.
+#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
+#'        considered valid (`FALSE` by default).
+#' @param name [character] (*with default*): variable name to report in case
+#'        of error; if not specified it's inferred from the name of the
+#'        variable tested.
+#' @param extra [character] (*with default*): additional choice to be reported
+#'        after the valid choices and preceded by "or". If `null.ok = TRUE`,
+#'        the text reported is automatically set to `"or NULL"`, otherwise it
+#'        will take the form `"or {extra}"`.
+#'
+#' @return
+#' The validated choice (may be `NULL` if `arg = NULL` and `null.ok = TRUE`).
+#' If `arg` contains multiple elements, only the first matching one will be
+#' returned.
+#'
+#' @md
+#' @noRd
+.match_args <- function(arg, choices, null.ok = FALSE,
+                        name = NULL, extra = NULL) {
+
+  if (is.null(arg) && null.ok)
+    return(NULL)
+
+  if (missing(choices)) {
+    .throw_error("'choices' must be provided")
+  }
+
+  ## name of the argument to report if not specified
+  if (is.null(name))
+    name <- all.vars(match.call())[1]
+
+  ## `arg` will have multiple values when the available choices are listed
+  ## in the function's formal arguments: in that case all elements in `arg`
+  ## are also in `choices` and we return the first one
+  if (length(arg) > 1L) {
+    if (all(arg %in% choices))
+      return(arg[1L])
+
+    ## we throw an error to catch cases when the formal arguments are
+    ## changed but `choices` has not been updated
+    .throw_error("'", name, "' contains multiple values but not all of them ",
+                 "match 'choices'")
+  }
+
+  ## additional text to append after the valid choices to account for
+  ## extra options that cannot be validated or for NULL
+  add.text <- NULL
+  if (!is.null(extra))
+    add.text <- paste(add.text, "or", extra)
+  if (null.ok)
+    add.text <- paste(add.text, "or NULL")
+
+  idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
+  if (all(idx.match == 0L))
+    .throw_error("'", name, "' should be one of ",
+                 paste(sQuote(choices, q = FALSE), collapse = ", "),
+                 add.text)
+  idx <- idx.match[idx.match > 0L]
+  choices[idx]
+}
+
 #' @title Validate Scalar Variables Expected to be Positive
 #'
 #' @param val [numeric] (**required**): value to validate
@@ -929,8 +1003,9 @@ SW <- function(expr) {
 #'        integer (`FALSE` by default)
 #' @param null.ok [logical] (*with default*): whether a `NULL` value should be
 #'        considered valid (`FALSE` by default)
-#' @param name [character] (*with default*): Variable name to report in case of error; if not specified
-#'        it's inferred from the name of the name of the variable tested
+#' @param name [character] (*with default*): variable name to report in case
+#'        of error; if not specified it's inferred from the name of the
+#'        variable tested.
 #'
 #' @md
 #' @noRd

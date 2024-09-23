@@ -236,6 +236,7 @@ fit_CWCurve<- function(
 
   }
 
+  fit.method <- .match_args(fit.method, c("port", "LM"))
 
   # Deal with extra arguments -----------------------------------------------
 

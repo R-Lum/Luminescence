@@ -304,9 +304,7 @@ calc_Huntley2006 <- function(
   ## Validate Input ------------------------------------------------------------
 
   ## Check fit method
-  if (!fit.method[1] %in% c("EXP", "GOK"))
-    .throw_error("Invalid fit option '", fit.method[1],
-                 "'. Only 'EXP' and 'GOK' allowed for argument 'fit.method'.")
+  fit.method <- .match_args(fit.method, c("EXP", "GOK"))
 
   ## Check length of lower.bounds
   if (fit.method[1] == "GOK" && length(lower.bounds) != 4)

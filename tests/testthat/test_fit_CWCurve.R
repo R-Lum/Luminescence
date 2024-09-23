@@ -6,7 +6,7 @@ test_that("input validation", {
   expect_error(fit_CWCurve("error"),
                "Input object is not of type 'RLum.Data.Curve' or 'data.frame'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
-               "'fit.method' unknown")
+               "'fit.method' should be one of 'port', 'LM'")
 })
 
 test_that("check class and length of output", {

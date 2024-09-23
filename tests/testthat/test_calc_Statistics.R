@@ -40,8 +40,8 @@ test_that("check error messages", {
   expect_error(calc_Statistics(data = matrix(0,2)),
                regexp = "[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'",
                fixed = TRUE)
-  expect_error(calc_Statistics(data = df, weight.calc = "test"))
-
+  expect_error(calc_Statistics(data = df, weight.calc = "error"),
+               "'weight.calc' should be one of 'square', 'reciprocal'")
 })
 
 

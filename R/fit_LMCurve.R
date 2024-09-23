@@ -294,6 +294,9 @@ fit_LMCurve<- function(
       }
   }
 
+  input.dataType <- .match_args(input.dataType, c("LM", "pLM"))
+  fit.method <- .match_args(fit.method, c("port", "LM"))
+
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
 
@@ -562,9 +565,6 @@ fit_LMCurve<- function(
             trace = fit.trace,
             control = minpack.lm::nls.lm.control(maxiter = 500)
           ), silent = TRUE)
-
-        }else{
-          .throw_error("Unknown method for 'fit.method'")
         }
 
       }#endifelse::fit.advanced

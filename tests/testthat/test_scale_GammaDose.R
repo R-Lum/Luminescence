@@ -122,34 +122,18 @@ test_that("check input data", {
   },
   "Impossible! Sample offset larger than the target-layer's thickness!"
   )
-  expect_error({
-    scale_GammaDose(d, conversion_factors = c("a", "b"), plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, conversion_factors = 1, plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, conversion_factors = "HansGuenter2020", plot = FALSE, verbose = TRUE)
-  },
-  "Invalid 'conversion_factors'. Valid options:"
-  )
-  expect_error({
-    scale_GammaDose(d, fractional_gamma_dose = c("a", "b"), plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, fractional_gamma_dose = 1, plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, fractional_gamma_dose = "momgetthecameraiamontheinternet1995", plot = FALSE, verbose = TRUE)
-  },
-  "Invalid 'fractional_gamma_dose'. Valid options:"
-  )
+
+  expect_error(scale_GammaDose(d, conversion_factors = c("a", "b")),
+               "'conversion_factors' contains multiple values but not all of")
+  expect_error(scale_GammaDose(d, conversion_factors = 1),
+               "'conversion_factors' should be one of 'Cresswelletal2018'")
+  expect_error(scale_GammaDose(d, conversion_factors = "HansGuenter2020"),
+               "'conversion_factors' should be one of 'Cresswelletal2018'")
+
+  expect_error(scale_GammaDose(d, fractional_gamma_dose = c("a", "b")),
+               "'fractional_gamma_dose' contains multiple values but not all")
+  expect_error(scale_GammaDose(d, fractional_gamma_dose = 1),
+               "'fractional_gamma_dose' should be one of 'Aitken1985'")
+  expect_error(scale_GammaDose(d, fractional_gamma_dose = "error"),
+               "'fractional_gamma_dose' should be one of 'Aitken1985'")
 })

@@ -1,15 +1,19 @@
-test_that("check function", {
+## load data
+data(ExampleData.XSYG, envir = environment())
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##load data
-  data(ExampleData.XSYG, envir = environment())
-
-  ##crash the function
   expect_error(
     apply_CosmicRayRemoval("error"),
     regexp = "An object of class 'character' is not supported as input; please read the manual!")
   expect_error(apply_CosmicRayRemoval(TL.Spectrum, method = "error"),
-               "Unknown method for cosmic ray removal")
+               "'method' should be one of 'smooth', 'smooth.spline', 'Pych'",
+               fixed = TRUE)
+})
+
+test_that("check function", {
+  testthat::skip_on_cran()
 
   ##run basic tests
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych"))

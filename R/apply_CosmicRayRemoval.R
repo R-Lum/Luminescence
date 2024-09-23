@@ -104,7 +104,9 @@ apply_CosmicRayRemoval <- function(
   verbose = FALSE,
   plot = FALSE,
   ...
-){
+) {
+  .set_function_name("apply_CosmicRayRemoval")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call ----------------------------------------------------------------------------------
   ##Black magic: The function recalls itself until all RLum.Data.Spectrum objects have been treated
@@ -182,6 +184,8 @@ apply_CosmicRayRemoval <- function(
     stop(paste0("[apply_CosmicRayRemoval()] An object of class '",class(object)[1], "' is not supported as input; please read the manual!"), call. = FALSE)
 
   }
+
+  .match_args(method, c("smooth", "smooth.spline", "Pych"))
 
   ##deal with addition arguments
   extraArgs <- list(...)
@@ -355,12 +359,6 @@ apply_CosmicRayRemoval <- function(
       return(object.data.temp[,x])
 
     })#end loop
-
-
-  }else{
-
-    stop("[apply_CosmicRayRemoval()] Unknown method for cosmic ray removal.")
-
   }
 
   # Correct row and column names --------------------------------------------

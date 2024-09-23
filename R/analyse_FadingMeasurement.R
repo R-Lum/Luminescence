@@ -247,6 +247,11 @@ analyse_FadingMeasurement <- function(
   }
 
 
+  if (!is(t_star, "function")) {
+    t_star <- .match_args(t_star, c("half", "half_complex", "end"),
+                          extra = "a function")
+  }
+
   # Prepare data --------------------------------------------------------------------------------
   if(!is.null(object)){
     originators <- unique(unlist(lapply(object, slot, name = "originator")))
@@ -356,9 +361,6 @@ analyse_FadingMeasurement <- function(
       }else if (t_star == "end"){
         ##set t_start as t_1 (so after the end of irradiation)
         t_star <- t1
-
-      }else{
-        .throw_error("Invalid input for t_star.")
       }
     }
 

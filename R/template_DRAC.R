@@ -112,16 +112,7 @@ template_DRAC <- function(
   ## PRESETS ----
   valid_presets <- c("quartz_coarse", "quartz_fine", "feldspar_coarse", "polymineral_fine",
                      "DRAC-example_quartz", "DRAC-example_feldspar", "DRAC-example_polymineral")
-
-  if (!is.null(preset)) {
-    if (length(preset) != 1 || !is.character(preset))
-      stop("\n[template_DRAC()]: Argument 'preset' must be a 'character' of length 1.",
-           call. = FALSE)
-
-    if (!preset %in% valid_presets)
-      stop("\n[template_DRAC()]: Invalid preset. Please use on of the following: ",
-           paste(valid_presets, collapse = ", "), call. = FALSE)
-  }
+  preset <- .match_args(preset, valid_presets, null.ok = TRUE)
 
   ## LEGAL NOTICE ----
   messages <- list("\n",

@@ -175,6 +175,7 @@ analyse_SAR.TL <- function(
     .throw_error("No value set for 'signal.integral.max'")
   }
 
+  integral_input <- .match_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------
 

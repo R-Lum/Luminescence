@@ -26,7 +26,7 @@ test_that("check class and length of output", {
 
   expect_error(
     object = convert_Activity2Concentration(data = data_activity, input_unit = "stop"),
-    regexp = "\\[convert\\_Activity2Concentrations\\(\\)\\] Input for parameter 'input_unit' invalid.")
+    "'input_unit' should be one of 'activity', 'abundance'")
 
   ## check for standard input
   SW({

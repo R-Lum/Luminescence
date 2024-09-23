@@ -11,7 +11,8 @@ merge_RLum.Data.Curve(object, merge.method = "mean", method.info)
 list of S4 objects of class \code{RLum.Curve}.}
 
 \item{merge.method}{\link{character} (\strong{required}):
-method for combining of the objects, e.g.  \code{'mean'}, \code{'sum'}, see details for
+method for combining of the objects, e.g. \code{'mean'} (default), \code{'median'},
+\code{'sum'}, see details for
 further information and allowed methods.  Note: Elements in slot info will
 be taken from the first curve in the list.}
 
@@ -34,11 +35,7 @@ the 2nd column of the data matrix of the object.
 
 \strong{Supported merge operations are \linkS4class{RLum.Data.Curve}}
 
-\code{"sum"}
-
-All count values will be summed up using the function \link{rowSums}.
-
-\code{"mean"}
+\code{"mean"} (default)
 
 The mean over the count values is calculated using the function
 \link{rowMeans}.
@@ -47,6 +44,10 @@ The mean over the count values is calculated using the function
 
 The median over the count values is calculated using the function
 \link[matrixStats:rowMedians]{matrixStats::rowMedians}.
+
+\code{"sum"}
+
+All count values will be summed up using the function \link{rowSums}.
 
 \code{"sd"}
 

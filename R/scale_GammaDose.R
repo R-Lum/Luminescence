@@ -245,7 +245,10 @@ scale_GammaDose <- function(
   verbose = TRUE,
   plot = TRUE,
   plot_single = TRUE,
-  ...) {
+  ...
+) {
+  .set_function_name("scale_GammaDose")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## HELPER FUNCTION ----
   # Wrapper for formatC to enforce precise digit printing
@@ -308,23 +311,20 @@ scale_GammaDose <- function(
   if (data$sample_offset[which(!is.na(data$sample_offset))] > data$thickness[which(!is.na(data$sample_offset))])
     stop("Impossible! Sample offset larger than the target-layer's thickness!", call. = FALSE)
 
-  # conversion factors
-  if (length(conversion_factors) != 1 || !is.character(conversion_factors))
-    stop("'conversion_factors' must be an object of length 1 and of class 'character'.",
-         call. = FALSE)
-  if (!conversion_factors %in% names(BaseDataSet.ConversionFactors))
-    stop("Invalid 'conversion_factors'. Valid options: ",
-         paste(names(BaseDataSet.ConversionFactors), collapse = ", "), ".",
-         call. = FALSE)
+  ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
+  ## as it is in alphabetical level, but we want to have 'Cresswelletal2018'
+  ## in first position, as that is our default value
+  valid_conversion_factors <- c("Cresswelletal2018", "Guerinetal2011",
+                                "AdamiecAitken1998", "Liritzisetal2013")
+  stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
+                valid_conversion_factors))
+  conversion_factors <- .match_args(conversion_factors,
+                                    valid_conversion_factors)
 
-  # tables for gamma dose fractions
-  if (length(fractional_gamma_dose) != 1 || !is.character(fractional_gamma_dose))
-    stop("'fractional_gamma_dose' must be an object of length 1 and of class 'character'.",
-         call. = FALSE)
-  if (!fractional_gamma_dose %in% names(BaseDataSet.FractionalGammaDose))
-    stop("Invalid 'fractional_gamma_dose'. Valid options: ",
-         paste(names(BaseDataSet.FractionalGammaDose), collapse = ", "), ".",
-         call. = FALSE)
+  ## fractional gamma dose
+  fractional_gamma_dose <- .match_args(fractional_gamma_dose,
+                                       names(BaseDataSet.FractionalGammaDose))
+
 
   ## ------------------------------------------------------------------------ ##
   ## Select tables

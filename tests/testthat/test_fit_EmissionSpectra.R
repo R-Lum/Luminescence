@@ -12,6 +12,10 @@ test_that("standard check", {
   expect_error(fit_EmissionSpectra(list(TL.Spectrum, "fail")),
                "\\[fit\\_EmissionSpectra\\(\\)\\] List elements of different class detected!")
 
+  ## input scale
+  expect_error(fit_EmissionSpectra(TL.Spectrum, input_scale = "error"),
+               "'input_scale' should be one of 'wavelength', 'energy' or NULL")
+
   ## wrong frame range -------
   expect_error(fit_EmissionSpectra(TL.Spectrum, frame = 1000),
                "\\[fit\\_EmissionSpectra\\(\\)\\] 'frame' invalid. Allowed range min: 1 and max: 24")

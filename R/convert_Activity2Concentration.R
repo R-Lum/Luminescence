@@ -104,7 +104,10 @@ convert_Activity2Concentration <- function(
   input_unit = "activity",
   verbose = TRUE
 
-){
+) {
+  .set_function_name("convert_Activity2Concentration")
+  on.exit(.unset_function_name(), add = TRUE)
+
   # Integrity checks ----------------------------------------------------------------------------
   if(missing(data))
     stop("[convert_Activity2Concentration()] I'm still waiting for input data ...", call. = FALSE)
@@ -135,10 +138,9 @@ convert_Activity2Concentration <- function(
 
   ## check input unit
   ## we silently let the old input values unflagged for back compatibility reasons
-  input_unit <- tolower(input_unit[1])
-  if(!input_unit[1] %in% c("activity", "abundance", "bq/kg", "ppm/%"))
-    stop("[convert_Activity2Concentrations()] Input for parameter 'input_unit' invalid. Valid are 'activity' or 'abundance'!",
-         call. = FALSE)
+  if (!tolower(input_unit[1]) %in% c("bq/kg", "ppm/%")) {
+    input_unit <- .match_args(tolower(input_unit), c("activity", "abundance"))
+  }
 
   # Set conversion factors ----------------------------------------------------------------------
 
