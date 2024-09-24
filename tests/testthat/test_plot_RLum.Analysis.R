@@ -121,7 +121,8 @@ test_that("Test the basic plot functionality", {
     subset = list(recordType = "TL"),
     combine = FALSE,
     norm = TRUE,
-    ylim = c(1,100),
+    smooth = TRUE,
+    ylim = c(0, 1),
     xlim = c(1,100),
     abline = list(v = c(110))
   ))
