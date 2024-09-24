@@ -93,6 +93,7 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
   ## as it is in alphabetical level, but we want to have 'Guerinetal2011'
   ## in first position, as that is our default value
+  BaseDataSet.ConversionFactors <- NULL
   load(system.file("data", "BaseDataSet.ConversionFactors.rda",
                    package = "Luminescence"))
   valid_conversion_factors <- c("Guerinetal2011", "Cresswelletal2018",
