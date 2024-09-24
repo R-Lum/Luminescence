@@ -29,13 +29,17 @@ test_that("input validation", {
                "The time values for the natural signal don't match those for")
 })
 
-test_that("check", {
+test_that("full functionality", {
   testthat::skip_on_cran()
 
   ## list
   expect_silent(plot_NRt(curves))
   expect_silent(plot_NRt(curves, smooth = "spline", log = "x"))
-  expect_silent(plot_NRt(curves, smooth = "rmean", k = 10))
+
+  small <- curves[1:3]
+  for (idx in 1:length(small))
+    small[[idx]]@data <- small[[idx]]@data[1:175, ]
+  expect_snapshot_RLum(plot_NRt(small, smooth = "rmean", k = 10))
 
   ## matrix
   plot_NRt(cbind(curves[[1]]@data, curves[[1]]@data))
