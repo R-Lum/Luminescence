@@ -125,11 +125,13 @@ consider using the functions \link{analyse_SAR.CWOSL} or
 data(ExampleData.BINfileData, envir = environment())
 
 ##analyse data
+suppressWarnings( # silence the deprecation warning
 output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data,
                               signal.integral = c(1:5),
                               background.integral = c(900:1000),
                               position = c(1:1),
                               output.plot = TRUE)
+)
 
 ##combine results relevant for further analysis
 output.SAR <- data.frame(Dose = output$LnLxTnTx[[1]]$Dose,
