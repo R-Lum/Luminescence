@@ -18,16 +18,6 @@ test_that("input validation", {
 
   expect_warning(plot_KDE(df[1, ]),
                  "Single data point found, no density calculated")
-
-  ## deprecated arguments
-  expect_warning(plot_KDE(df, centrality = TRUE),
-                 "Argument 'centrality' no longer supported")
-  expect_warning(plot_KDE(df, dispersion = TRUE),
-                 "Argument 'dispersion' no longer supported")
-  expect_warning(plot_KDE(df, polygon.col = TRUE),
-                 "Argument 'polygon.col' no longer supported")
-  expect_warning(plot_KDE(df, weights = TRUE),
-                 "Argument 'weights' no longer supported")
 })
 
 test_that("check functionality", {

@@ -180,30 +180,6 @@ plot_KDE <- function(
 
   ## check data and parameter consistency -------------------------------------
 
-  ## account for depreciated arguments
-  if("centrality" %in% names(list(...))) {
-    boxplot <- TRUE
-    .throw_warning("Argument 'centrality' no longer supported. ",
-                   "Replaced by 'boxplot = TRUE'.")
-  }
-
-  if("dispersion" %in% names(list(...))) {
-    boxplot <- TRUE
-    .throw_warning("Argument 'dispersion' no longer supported. ",
-                   "Replaced by 'boxplot = TRUE'.")
-  }
-
-  if("polygon.col" %in% names(list(...))) {
-    boxplot <- TRUE
-    .throw_warning("Argument 'polygon.col' no longer supported. ",
-                   "Replaced by 'boxplot = TRUE'.")
-  }
-
-  if("weights" %in% names(list(...))) {
-    .throw_warning("Argument 'weights' no longer supported. ",
-                   "Weights are omitted.")
-  }
-
   if (is(data, "list") && length(data) == 0) {
     .throw_error("'data' is an empty list")
   }
