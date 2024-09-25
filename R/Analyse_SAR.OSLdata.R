@@ -1,4 +1,4 @@
-#' Analyse SAR CW-OSL measurements.
+#' Analyse SAR CW-OSL measurements (deprecated).
 #'
 #' The function analyses SAR CW-OSL curve data and provides a summary of the
 #' measured data for every position. The output of the function is optimised
@@ -122,11 +122,13 @@
 #' data(ExampleData.BINfileData, envir = environment())
 #'
 #' ##analyse data
+#' suppressWarnings( # silence the deprecation warning
 #' output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data,
 #'                               signal.integral = c(1:5),
 #'                               background.integral = c(900:1000),
 #'                               position = c(1:1),
 #'                               output.plot = TRUE)
+#' )
 #'
 #' ##combine results relevant for further analysis
 #' output.SAR <- data.frame(Dose = output$LnLxTnTx[[1]]$Dose,
@@ -150,7 +152,8 @@ Analyse_SAR.OSLdata <- function(
   output.plot.single = FALSE,
   cex.global = 1,
   ...
-){
+) {
+  .Deprecated("analyse_SAR.CWOSL")
 
   ##============================================================================##
   ##CONFIG
@@ -652,6 +655,4 @@ Analyse_SAR.OSLdata <- function(
   return(list(LnLxTnTx=LnLxTnTx_List,
               RejectionCriteria=RejectionCriteria,
               SARParameters=SARParameters))
-
-
 }
