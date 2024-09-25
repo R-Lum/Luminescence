@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyse_SAR.OSLdata.R
 \name{Analyse_SAR.OSLdata}
 \alias{Analyse_SAR.OSLdata}
-\title{Analyse SAR CW-OSL measurements.}
+\title{Analyse SAR CW-OSL measurements (deprecated).}
 \usage{
 Analyse_SAR.OSLdata(
   input.data,

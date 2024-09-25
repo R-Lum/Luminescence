@@ -1,6 +1,7 @@
 test_that("full example test", {
   testthat::skip_on_cran()
 
+  SW({ # ignore deprecation warnings
   data(ExampleData.BINfileData, envir = environment())
   output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data,
                                 signal.integral = c(1:5),
@@ -25,7 +26,6 @@ test_that("full example test", {
                regexp = "No 'OSL' curves found")
 
   ## should work
-  SW({
   expect_type(Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data, signal.integral = 1:3,
                                   background.integral = 200:250, position = 1,
                                   background.count.distribution = "non-poisson",
