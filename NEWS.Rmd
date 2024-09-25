@@ -38,6 +38,11 @@ the function returned the `RLum.Data.Curve-class` object *regardless* of the sel
 If a user tried `recordType = "TL"` on an `RLum.Analysis-class` object that contained only a single IRSL curve, the
 function would still return that single IRSL curve instead of an empty element. The reason for this behaviour was a poor attempt to deal with `NA` in the `recordType` name that led to missing values and unexpected behaviour for a logical comparison. Now, before the subset happens, `NA` values in `recordType` are converted to `"NA"` (a character) and the wiggling around that was causing the lousy subsetting was removed. 
 
+### `plot_RLum.Data.Curve()`
+* Argument `norm` is now better validated so that specifying an incorrect
+value returns an error instead of silently skip curve normalisation (#250,
+fixed in #263).
+
 ### `plot_RLum.Data.Spectrum()`
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
