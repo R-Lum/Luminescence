@@ -446,7 +446,7 @@ setMethod(f = "bin_RLum.Data",
 
 # smooth_RLum() -------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Curve
-#' Smoothing of RLum.Data.Curve objects using the function [zoo::rollmean] or [zoo::rollmedian][zoo::rollmean].
+#' Smoothing of RLum.Data.Curve objects using a rolling mean or median.
 #' In particular the internal function `.smoothing` is used.
 #'
 #' @param k [`smooth_RLum`]; [integer] (*with default*):
@@ -491,4 +491,3 @@ setMethod(
 
     }
  )
-

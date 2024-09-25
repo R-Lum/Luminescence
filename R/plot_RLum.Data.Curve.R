@@ -38,7 +38,7 @@
 #' modes `"max"`, `"min"` and `"huot"` for a background corrected normalisation, see details.
 #'
 #' @param smooth [logical] (*with default*):
-#' provides an automatic curve smoothing based on [zoo::rollmean]
+#' provides automatic curve smoothing based on the internal function `.smoothing`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function
@@ -203,8 +203,7 @@ plot_RLum.Data.Curve<- function(
     ##smooth
     if(smooth){
       k <- ceiling(length(object@data[, 2])/100)
-      object@data[, 2] <- zoo::rollmean(object@data[, 2],
-                                        k = k, fill = NA)
+      object@data[, 2] <- .smoothing(object@data[, 2], k = k, align = "center")
     }
 
     ##plot curve

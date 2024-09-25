@@ -40,14 +40,13 @@ test_that("Test internals", {
 
   # .smoothing ----------------------------------------------------------------------------------
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))
-  suppressWarnings( # suppress second warning: number of items to replace
-                    #   is not a multiple of replacement length
-  expect_warning(.smoothing(runif(100), k = 4, method = "median"),
-                 "'k' must be odd")
-  )
   expect_silent(.smoothing(runif(200), method = "median"))
   expect_silent(.smoothing(runif(100), k = 4, method = "mean"))
-  expect_error(Luminescence:::.smoothing(runif(100), method = "test"))
+  expect_silent(.smoothing(runif(100), k = 4, method = "median"))
+  expect_error(.smoothing(runif(100), method = "error"),
+               "'method' should be one of 'mean', 'median'")
+  expect_error(.smoothing(runif(100), align = "error"),
+               "'align' should be one of 'right', 'center', 'left'")
 
   # fancy_scientific ()--------------------------------------------------------------------------
   plot(seq(1e10, 1e20, length.out = 10),1:10, xaxt = "n")

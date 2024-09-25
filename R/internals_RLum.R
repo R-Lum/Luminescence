@@ -114,33 +114,33 @@
 #+ .smoothing()      +
 #+++++++++++++++++++++
 
-#' Allows smoothing of data based on the function zoo::rollmean
+#' Allows smoothing of data based on rolling means or medians
 #'
-#' The function just allows a direct and meaningful access to the functionality of the zoo::rollmean()
-#' function. Arguments of the function are only partly valid.
+#' The function just allows a direct and meaningful access to the
+#' functionality of `data.table::frollmean()` and `data.table::frollmedian()`.
+#' Arguments of the function are only partly valid.
 #'
 #' @param x [numeric] (**required**):
 #' the object for which the smoothing should be applied.
 #'
 #' @param k [integer] (*with default*):
-#' window for the rolling mean; must be odd for rollmedian.
-#' If nothing is set k is set automatically
+#' window for the rolling mean. If not set, `k` is set automatically.
 #'
 #' @param fill [numeric] (*with default*):
-#' a vector defining the left and the right hand data
+#' value used to pad the result so to have the same length as the input
 #'
 #' @param align [character] (*with default*):
-#' specifying whether the index of the result should be
-#' left- or right-aligned or centered (default) compared to the rolling window of observations,
-#' allowed `"right"`, `"center"` and `left`
+#' one of `"right"`, `"center"` or `"left"`, specifying whether the index
+#' of the result should be right-aligned (default), centered, or lef-aligned
+#' compared to the rolling window of observations
 #'
 #' @param method [method] (*with default*):
 #' defines which method should be applied for the smoothing: `"mean"` or `"median"`
 #'
 #' @return
-#' Returns the same object as the input and a warning table
+#' Returns the same object as the input
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.2
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -157,26 +157,25 @@
   fill = NA,
   align = "right",
   method = "mean") {
+  .set_function_name(".smoothing")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  .match_args(align, c("right", "center", "left"))
+  .match_args(method, c("mean", "median"))
 
   ##set k
   if (is.null(k)){
    k <- ceiling(length(x) / 100)
-   if(method == "median" && k %%2 ==0)
-     k <- k + 1
   }
 
   ##smooth data
   if(method == "mean"){
-    zoo::rollmean(x, k = k, fill = fill, align = align)
+    data.table::frollmean(x, n = k, fill = fill, align = align)
 
   }else if(method == "median"){
-    zoo::rollmedian(x, k = k, fill = fill, align = align)
-
-  }else{
-    stop("[Luminescence:::.smoothing()] Unvalid input for 'method'!")
-
+    data.table::frollapply(x, n = k, FUN = "median",
+                           fill = fill, align = align)
   }
-
 }
 
 

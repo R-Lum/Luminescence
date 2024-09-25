@@ -21,8 +21,8 @@
 #'
 #' @param smooth [character] (*with default*):
 #' apply data smoothing. If `"none"` (default), no data smoothing is applied.
-#' Use `"rmean"` to calculate the rolling where `k`
-#' determines the width of the rolling window (see [zoo::rollmean]). `"spline"`
+#' Use `"rmean"` to calculate the rolling mean, where `k` determines the
+#' width of the rolling window (see [data.table::frollmean]). `"spline"`
 #' applies a smoothing spline to each curve (see [stats::smooth.spline])
 #'
 #' @param k [integer] (*with default*):
@@ -181,8 +181,12 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     NR <- lapply(NR, function(nr) { smooth.spline(nr)$y })
   }
   if (smooth[1] == "rmean") {
-    NR <- lapply(NR, function(nr) { zoo::rollmean(nr, k) })
-    time <- zoo::rollmean(time, k)
+    ## here we'd like to use the smoothed values with no fill: as .smoothing()
+    ## relies on data.table::frollmean(), the only way to remove the fill
+    ## is by setting `fill = NA` (which is already the default) and then
+    ## omitting the NA values
+    NR <- lapply(NR, function(nr) na.omit(.smoothing(nr, k)))
+    time <- na.omit(.smoothing(time, k))
   }
 
   # normalise data
