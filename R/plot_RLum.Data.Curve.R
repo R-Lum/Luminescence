@@ -14,7 +14,7 @@
 #' `norm = TRUE` or `norm = "max"`: Curve values are normalised to the highest
 #' count value in the curve
 #'
-#' `norm = "last"`: Curves values are normalised to the last count value
+#' `norm = "last"`: Curve values are normalised to the last count value
 #' (this can be useful in particular for radiofluorescence curves)
 #'
 #' `norm = "huot"`: Curve values are normalised as suggested by Sébastien Huot
@@ -33,9 +33,9 @@
 #' use local graphical parameters for plotting, e.g. the plot is shown in one
 #' column and one row. If `par.local = FALSE`, global parameters are inherited.
 #'
-#' @param norm [logical] [character] (*with default*): allows curve normalisation to the
-#' highest count value ('default'). Alternatively, the function offers the
-#' modes `"max"`, `"min"` and `"huot"` for a background corrected normalisation, see details.
+#' @param norm [logical] [character] (*with default*): whether curve
+#' normalisation should occur (`FALSE` by default). Alternatively, the function
+#' offers modes `"max"` (used with `TRUE`), `"last"` and `"huot"`, see details.
 #'
 #' @param smooth [logical] (*with default*):
 #' provides automatic curve smoothing based on the internal function `.smoothing`
@@ -78,7 +78,9 @@ plot_RLum.Data.Curve<- function(
   norm = FALSE,
   smooth = FALSE,
   ...
-){
+) {
+  .set_function_name("plot_RLum.Data.Curve")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Integrity check -------------------------------------------------------------
 
@@ -90,9 +92,13 @@ plot_RLum.Data.Curve<- function(
   if(all(is.na(object@data))){
     warning("[plot_RLum.Data.Curve()] Curve contains only NA-values, nothing plotted.", call. = FALSE)
     return(NULL)
-
   }
 
+  if (is.logical(norm))
+    norm <- norm[1]
+  else
+    norm <- .match_args(norm, c("max", "last", "huot"),
+                        extra = "a logical value")
 
 # Preset plot -------------------------------------------------------------
     ## preset
@@ -109,7 +115,6 @@ plot_RLum.Data.Curve<- function(
       } else if(object@recordType[1] == "TL") {
         lab.unit <- "\u00B0C"
         lab.xlab <- "Temperature"
-
       }
     }
 
@@ -123,22 +128,19 @@ plot_RLum.Data.Curve<- function(
 
       xlab.xsyg <- temp.lab[1]
       ylab.xsyg <- temp.lab[2]
-
     }
 
     ##normalise curves if argument has been set
-    if(norm[1] %in% c('max', 'last', 'huot') || norm[1] == TRUE){
-      if (norm[1] == "max" || norm[1] == TRUE) {
+    if (norm == "max" || norm == TRUE) {
         object@data[,2] <- object@data[,2] / max(object@data[,2])
 
-      } else if (norm[1] == "last") {
+    } else if (norm == "last") {
         object@data[,2] <- object@data[,2] / object@data[nrow(object@data),2]
 
-      } else if (norm[1] == "huot") {
+    } else if (norm == "huot") {
         bg <- median(object@data[floor(nrow(object@data)*0.8):nrow(object@data),2])
         object@data[,2] <-  (object@data[,2] - bg) / max(object@data[,2] - bg)
-
-      }
+    }
 
       ##check for Inf and NA
       if(any(is.infinite(object@data[,2])) || anyNA(object@data[,2])){
@@ -146,9 +148,6 @@ plot_RLum.Data.Curve<- function(
         warning("[plot_RLum.Data.Curve()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
 
       }
-
-    }
-
 
     ylab <- if (!is.na(ylab.xsyg)) {
       ylab.xsyg
