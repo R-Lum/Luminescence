@@ -23,8 +23,8 @@ logarithmic axes (\code{c("x", "y", "xy")}).}
 
 \item{smooth}{\link{character} (\emph{with default}):
 apply data smoothing. If \code{"none"} (default), no data smoothing is applied.
-Use \code{"rmean"} to calculate the rolling where \code{k}
-determines the width of the rolling window (see \link[zoo:rollmean]{zoo::rollmean}). \code{"spline"}
+Use \code{"rmean"} to calculate the rolling mean, where \code{k} determines the
+width of the rolling window (see \link[data.table:froll]{data.table::frollmean}). \code{"spline"}
 applies a smoothing spline to each curve (see \link[stats:smooth.spline]{stats::smooth.spline})}
 
 \item{k}{\link{integer} (\emph{with default}):

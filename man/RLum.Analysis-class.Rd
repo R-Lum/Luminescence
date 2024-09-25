@@ -178,8 +178,7 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
-\link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmean]{zoo::rollmedian}. In particular the internal
-function \code{.smoothing} is used.
+using the internal function \code{.smoothing}.
 
 }}
 \section{Slots}{
@@ -200,7 +199,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 }
 
 \section{Class version}{
- 0.4.16
+ 0.4.17
 }
 
 \examples{

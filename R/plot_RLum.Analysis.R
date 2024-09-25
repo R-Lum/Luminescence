@@ -725,8 +725,9 @@ plot_RLum.Analysis <- function(
         if(plot.settings$smooth[[k]]){
 
           k_factor <- ceiling(length(temp.data.list[[n]][, 2])/100)
-          temp.data.list[[n]][, 2] <- zoo::rollmean(temp.data.list[[n]][, 2],
-                                            k = k_factor, fill = NA)
+          temp.data.list[[n]][, 2] <- .smoothing(temp.data.list[[n]][, 2],
+                                                 k = k_factor, fill = NA,
+                                                 align = "center")
         }
 
         ##remove 0 values if plotted on a log-scale

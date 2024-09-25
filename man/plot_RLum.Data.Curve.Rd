@@ -25,7 +25,7 @@ highest count value ('default'). Alternatively, the function offers the
 modes \code{"max"}, \code{"min"} and \code{"huot"} for a background corrected normalisation, see details.}
 
 \item{smooth}{\link{logical} (\emph{with default}):
-provides an automatic curve smoothing based on \link[zoo:rollmean]{zoo::rollmean}}
+provides automatic curve smoothing based on the internal function \code{.smoothing}}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function}
