@@ -65,9 +65,9 @@ test_that("check plot stuff", {
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
     plot.single = TRUE,
-    verbose = FALSE
-  ), regexp = "\\[analyse\\_pIRIRSequence\\(\\)\\] Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in!")
-
+    verbose = FALSE),
+    "[analyse_pIRIRSequence()] Argument 'plot' reset to 'FALSE'",
+    fixed = TRUE)
 })
 
 test_that("input validation", {

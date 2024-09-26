@@ -286,11 +286,12 @@ analyse_pIRIRSequence <- function(
 
   ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
   ## required size.
-    if(plot[1] & all(grDevices::dev.size("in") < 20)) {
+    if (plot[1] && plot.single && all(grDevices::dev.size("in") < 20)) {
       plot <- FALSE
-      .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in!
-                        -> Consider plotting via pdf(..., height = 20, width = 20).")
-
+      .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot ",
+                     "size required is 20 x 20 in.\n",
+                     "Consider plotting via `pdf(..., height = 20, width = 20)` ",
+                     "or setting `plot.single = FALSE`")
     }
 
 # Deal with extra arguments -------------------------------------------------------------------
