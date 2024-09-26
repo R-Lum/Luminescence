@@ -1,17 +1,19 @@
 #'@title Import Thermochronometry Data
 #'
-#'@description Import Excel Data from Thermochronometry Experiments into R.
-#'This function is an adaption of the script `STAGE1, ExcelToStructure` by
-#'Benny Guralnik, 2014
+#' @description
+#' Import data from thermochronometry experiments into R.
+#' This function is an adaption of the script `STAGE1, ExcelToStructure` by
+#' Benny Guralnik, 2014, modified to accept CSV files with the same structure
+#' as the original Excel files.
 #'
-#'@param file [character] (**required**): path to XLS file; alternatively a [list] created
+#'@param file [character] (**required**): path to a CSV file; alternatively a
+#' [vector] of paths
 #'
 #'@param output_type [character] (*with default*): defines the output for the function,
 #'which can be either `"RLum.Results"` (the default) or a plain R list (`"list"`)
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [readxl::read_excel]
 #'
 #'@returns Depending on the setting of `output_type` it will be either a plain R [list]
 #'or an [RLum.Results-class] object with the following structure data elements
@@ -50,18 +52,21 @@
 # Import ------------------------------------------------------------------
   ## preset records
   records <- file[1]
-
   if (inherits(file, "character")) {
-  ## get number of sheets in the file
-  sheets <- readxl::excel_sheets(file)
 
-  ## import data from all sheets ... separate header and body
-  tmp_records <- lapply(sheets, function(x) {
-    header <- readxl::read_excel(file, sheet = x, .name_repair = "unique_quiet", n_max = 3)
-    body <- readxl::read_excel(file, sheet = x, .name_repair = "unique_quiet", skip = 3)
-    list(as.data.frame(header), as.data.frame(body))
-  })
-  names(tmp_records) <- sheets
+    if (grepl("xlsx?", tools::file_ext(file[1]), ignore.case = TRUE)) {
+      .throw_error("XLS/XLSX format is not supported, use CSV instead")
+    }
+
+    ## import data from all files ... separate header and body
+    tmp_records <- lapply(file, function(x) {
+      if (!file.exists(x))
+        .throw_error("File does not exist")
+      header <- data.table::fread(x, nrows = 3, select = c(1:5))
+      body <- data.table::fread(x, skip = 3, header = TRUE)
+      list(as.data.frame(header), as.data.frame(body))
+    })
+    names(tmp_records) <- basename(tools::file_path_sans_ext(file))
 
   ## compile records
   records <- lapply(tmp_records, function(x){
@@ -84,7 +89,7 @@
   ## assign originator to this list
   attr(records, "originator") <- ".import_ThermochronometryData "
 
-  }#end XLSX import
+  } # end CSV import
 
   ## if input is a list check what is coming in
   if(!inherits(records, "list") ||
