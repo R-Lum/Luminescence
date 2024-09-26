@@ -29,6 +29,9 @@
   file,
   output_type = "RLum.Results"
 ) {
+  .set_function_name(".import_ThermochronometryData")
+  on.exit(.unset_function_name(), add = TRUE)
+
 # Helper functions -------------------------------------------------------
   ## consistently extract numerical data
   .extract_numerics <- function(x) {
@@ -38,6 +41,8 @@
 
     tmp
   }
+
+  .match_args(output_type, c("RLum.Results", "list"))
 
   ## define variable
   ka <- 1e+3 * 365 * 24 * 3600 # ka in seconds
@@ -85,7 +90,7 @@
   if(!inherits(records, "list") ||
      is.null(attr(records, "originator")) ||
      attr(records, "originator") != ".import_ThermochronometryData ")
-    stop("[.import_ThermochronometryData ] import not supported!", call. = FALSE)
+    .throw_error("Input type not supported")
 
   # Create output -----------------------------------------------------------
   if (output_type == "RLum.Results") {
