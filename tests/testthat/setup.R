@@ -6,6 +6,7 @@
 expect_snapshot_RLum <- function(object, ...) {
   object@.uid <- NA_character_
   object@.pid <- NA_character_
+  object@info$call <- NULL
   if ("records" %in% slotNames(object)) {
     for (idx in seq_along(object@records)) {
       object@records[[idx]]@info$args <- NULL
