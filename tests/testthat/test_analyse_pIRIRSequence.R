@@ -65,34 +65,83 @@ test_that("check plot stuff", {
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
     plot.single = TRUE,
-    verbose = FALSE
-  ), regexp = "\\[analyse\\_pIRIRSequence\\(\\)\\] Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in!")
-
+    verbose = FALSE),
+    "[analyse_pIRIRSequence()] Argument 'plot' reset to 'FALSE'",
+    fixed = TRUE)
 })
 
 test_that("input validation", {
   expect_error(analyse_pIRIRSequence(),
                "No value set for 'object'")
   expect_error(analyse_pIRIRSequence("test"),
-               "Input object is not of type 'RLum.Analyis'")
+               "Input object is not of type 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(list("test"),
                                      signal.integral.min = 1,
                                      signal.integral.max = 2,
                                      background.integral.min = 900,
                                      background.integral.max = 1000),
-               "Input object is not of type 'RLum.Analyis'")
+               "Input object is not of type 'RLum.Analysis'")
+  expect_error(analyse_pIRIRSequence(object,
+                                     signal.integral.min = 1,
+                                     signal.integral.max = 2,
+                                     background.integral.min = 900,
+                                     background.integral.max = 1000,
+                                     sequence.structure = "error"),
+               "'error' not allowed in 'sequence.structure'")
 
   SW({
   expect_warning(analyse_pIRIRSequence(list(object),
                                        signal.integral.max = 2,
                                        background.integral.min = 900,
-                                       background.integral.max = 1000),
+                                       background.integral.max = 1000,
+                                       plot = FALSE),
                  "'signal.integral.min' missing, set to 1")
   expect_warning(analyse_pIRIRSequence(list(object),
                                        signal.integral.min = 1,
                                        background.integral.min = 900,
-                                       background.integral.max = 1000),
+                                       background.integral.max = 1000,
+                                       plot = FALSE),
                  "'signal.integral.max' missing, set to 2")
+  expect_warning(analyse_pIRIRSequence(list(object),
+                                       signal.integral.min = 1,
+                                       signal.integral.max = 2,
+                                       background.integral.min = 900,
+                                       background.integral.max = 1000,
+                                       sequence.structure = c("TL", "IRSL",
+                                                              "EXCLUDE"),
+                                       plot = FALSE),
+                 "14 records have been removed due to EXCLUDE")
+
+  expect_message(expect_null(
+      analyse_pIRIRSequence(list(object),
+                            signal.integral.min = 1,
+                            signal.integral.max = 2,
+                            background.integral.min = 900,
+                            background.integral.max = 1000,
+                            sequence.structure = c("TL", "pseudoIRSL1"),
+                            plot = FALSE)),
+      "The number of records is not a multiple of the defined sequence structure")
+
+  object.warn <- object
+  for (i in 1:6) object.warn@records[[i]]@recordType <- "error"
+  expect_warning(analyse_pIRIRSequence(object.warn,
+                                       main = "Title",
+                                       signal.integral.min = 1,
+                                       signal.integral.max = 2,
+                                       background.integral.min = 900,
+                                       background.integral.max = 1000,
+                                       plot = FALSE),
+                 "The following unrecognised record types have been removed: error")
+
+  object.noTL <- subset(object, recordType != "TL")
+  expect_warning(analyse_pIRIRSequence(list(object.noTL),
+                                       main = "Title",
+                                       signal.integral.min = 1,
+                                       signal.integral.max = 2,
+                                       background.integral.min = 900,
+                                       background.integral.max = 1000,
+                                       plot = FALSE),
+                 "Your sequence does not contain 'TL' curves")
   })
 })
 
@@ -103,12 +152,6 @@ test_that("check class and length of output", {
     expect_equal(length(results), 4)
     expect_s3_class(results$LnLxTnTx.table, "data.frame")
     expect_s3_class(results$rejection.criteria, "data.frame")
-
-
-})
-
-test_that("check output", {
-   testthat::skip_on_cran()
 
    expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)

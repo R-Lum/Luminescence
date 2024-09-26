@@ -183,21 +183,20 @@ analyse_pIRIRSequence <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   if (missing("object"))
-    stop("[analyse_pIRIRSequence()] No value set for 'object'!")
+    .throw_error("No value set for 'object'")
 
 # SELF CALL -----------------------------------------------------------------------------------
  if(is.list(object)){
     ##make live easy
     if(missing("signal.integral.min")){
       signal.integral.min <- 1
-      warning("[analyse_pIRIRSequence()] 'signal.integral.min' missing, set to 1", call. = FALSE)
+      .throw_warning("'signal.integral.min' missing, set to 1")
     }
 
     if(missing("signal.integral.max")){
       signal.integral.max <- 2
-      warning("[analyse_pIRIRSequence()] 'signal.integral.max' missing, set to 2", call. = FALSE)
+      .throw_warning("'signal.integral.max' missing, set to 2")
     }
-
 
     ##now we have to extend everything to allow list of arguments ... this is just consequent
     signal.integral.min <- rep(list(signal.integral.min), length = length(object))
@@ -229,12 +228,10 @@ analyse_pIRIRSequence <- function(
         main_list <- as.list(main_list)
 
       }
-
     }
 
     ##run analysis
     temp <- lapply(1:length(object), function(x){
-
       analyse_pIRIRSequence(object[[x]],
                         signal.integral.min = signal.integral.min[[x]],
                         signal.integral.max = signal.integral.max[[x]],
@@ -267,8 +264,7 @@ analyse_pIRIRSequence <- function(
   ##GENERAL
     ##INPUT OBJECTS
     if(is(object, "RLum.Analysis")==FALSE){
-      stop("[analyse_pIRIRSequence()] Input object is not of type 'RLum.Analyis'!",
-           call. = FALSE)
+      .throw_error("Input object is not of type 'RLum.Analysis'")
     }
 
     ##CHECK ALLOWED VALUES IN SEQUENCE STRUCTURE
@@ -280,17 +276,18 @@ analyse_pIRIRSequence <- function(
       collapse = ", ")
 
     if(temp.collect.invalid.terms != ""){
-      stop("[analyse_pIRIRSequence()] ",
-        temp.collect.invalid.terms, " not allowed in 'sequence.structure'!")
+      .throw_error("'", temp.collect.invalid.terms,
+                   "' not allowed in 'sequence.structure'")
     }
 
   ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
   ## required size.
-    if(plot[1] & all(grDevices::dev.size("in") < 20)) {
+    if (plot[1] && plot.single && all(grDevices::dev.size("in") < 20)) {
       plot <- FALSE
-      .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot size required is 20 x 20 in!
-                        -> Consider plotting via pdf(..., height = 20, width = 20).")
-
+      .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot ",
+                     "size required is 20 x 20 in.\n",
+                     "Consider plotting via `pdf(..., height = 20, width = 20)` ",
+                     "or setting `plot.single = FALSE`")
     }
 
 # Deal with extra arguments -------------------------------------------------------------------
@@ -328,14 +325,9 @@ analyse_pIRIRSequence <- function(
         drop = FALSE
       )
 
-  ##compile warning message
-  temp.sequence.rm.warning <- paste(
-    temp.sequence.structure[temp.sequence.rm.id, "recordType"], collapse = ", ")
-
-  temp.sequence.rm.warning <- paste(
-    "Record types are unrecognised and have been removed:", temp.sequence.rm.warning)
-
-  warning(temp.sequence.rm.warning, call. = FALSE)
+  .throw_warning("The following unrecognised record types have been removed: ",
+                 paste(temp.sequence.structure[temp.sequence.rm.id,
+                                               "recordType"], collapse = ", "))
   }
 
   ##(2) Apply user sequence structure
@@ -345,8 +337,8 @@ analyse_pIRIRSequence <- function(
 
     ##try to account for a very common mistake
     if(any(grepl(sequence.structure, pattern = "TL", fixed = TRUE)) && !any(grepl(temp.sequence.structure[["recordType"]], pattern = "TL", fixed = TRUE))){
-      warning("[analyse_pIRIRSequence()] Your sequence does not contain 'TL' curves, trying to adapt 'sequence.structure' for you ...",
-              call. = FALSE, immediate. = TRUE)
+      .throw_warning("Your sequence does not contain 'TL' curves, trying ",
+                     "to adapt 'sequence.structure' for you ...")
       sequence.structure <- sequence.structure[!grepl(sequence.structure, pattern = "TL", fixed = TRUE)]
     }
 
@@ -358,9 +350,9 @@ analyse_pIRIRSequence <- function(
       sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))
 
   }else{
-    try(stop("[analyse_pIRIRSequence()] Number of records is not a multiple of the defined sequence structure! NULL returned!", call. = FALSE))
+    message("[analyse_pIRIRSequence()] Error: The number of records is not a ",
+            "multiple of the defined sequence structure, NULL returned")
     return(NULL)
-
   }
 
   ##remove values that have been excluded
@@ -383,8 +375,8 @@ analyse_pIRIRSequence <- function(
       sequence.structure, nrow(temp.sequence.structure)/2/length(temp.sequence.structure))
 
     ##print warning message
-    warning("[analyse_pIRIRSequence()] ", length(temp.sequence.rm.id), " records have been removed due to EXCLUDE!", call. = FALSE)
-
+    .throw_warning(length(temp.sequence.rm.id),
+                   " records have been removed due to EXCLUDE")
   }
 
 ##============================================================================##
@@ -546,7 +538,6 @@ analyse_pIRIRSequence <- function(
 
    }else{
       temp.plot.single  <- c(2,4,6)
-
    }
 
     ##start analysis
@@ -611,10 +602,7 @@ analyse_pIRIRSequence <- function(
 
       } else{
         temp.results.final <- temp.results
-
       }
-
-
   }
 
 ##============================================================================##
@@ -815,7 +803,6 @@ if(plot){
            y = 15,
            pch = i,
            col = i)
-
   }
   }#endif
 
@@ -836,7 +823,6 @@ if(plot){
               y = 5,
               pch = i,
               col = i)
-
    }
 
    ##add 0 value
@@ -861,5 +847,4 @@ if(plot){
 ##============================================================================##
 
   return(temp.results.final)
-
 }
