@@ -15,7 +15,7 @@ test_that("input validation", {
   expect_warning(expect_null(plot_RLum.Data.Curve(temp_NA)),
                  "Curve contains only NA-values, nothing plotted")
   expect_warning(plot_RLum.Data.Curve(set_RLum("RLum.Data.Curve"), norm = TRUE),
-                 "Normalisation led to Inf or NaN values. Values replaced by 0")
+                 "Curve normalisation produced Inf/NaN values, values replaced by 0")
 })
 
 test_that("check functionality", {

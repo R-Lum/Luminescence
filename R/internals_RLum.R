@@ -178,6 +178,50 @@
   }
 }
 
+#++++++++++++++++++++++++++++++
+#+ Curve normalisation        +
+#++++++++++++++++++++++++++++++
+
+#' Curve normalisation
+#'
+#' Details on the normalisation methods are specified in [plot_RLum.Analysis]
+#' and [plot_RLum.Data.Curve].
+#'
+#' The function assumes that `NA` or other invalid values have already been
+#' removed by the caller function, and that the `norm` option has already
+#' been validated.
+#'
+#' @param data [numeric] (**required**):
+#' the curve data to be normalised
+#'
+#' @param norm [logical] [character] (**required**):
+#' if logical, whether curve normalisation should occur; alternatively, one
+#' of `"max"` (used with `TRUE`), `"last"` and `"huot"`.
+#'
+#' @md
+#' @noRd
+.normalise_curve <- function(data, norm) {
+
+  if (norm == "max" || norm == TRUE) {
+    data <- data / max(data)
+  }
+  else if (norm == "last") {
+    data <- data / data[length(data)]
+  }
+  else if (norm == "huot") {
+    bg <- median(data[floor(length(data) * 0.8):length(data)])
+    data <- (data - bg) / max(data - bg)
+  }
+
+  ## check for Inf and NA
+  if (any(is.infinite(data)) || anyNA(data)) {
+    data[is.infinite(data) | is.na(data)] <- 0
+    .throw_warning("Curve normalisation produced Inf/NaN values, ",
+                   "values replaced by 0")
+  }
+
+  return(data)
+}
 
 #++++++++++++++++++++++++++++++
 #+ Scientific axis annotation +

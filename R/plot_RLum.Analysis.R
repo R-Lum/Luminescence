@@ -553,27 +553,11 @@ plot_RLum.Analysis <- function(
 
         temp.data <- as(object.list[[x]], "data.frame")
 
-        ##normalise curves if argument has been set
-        if(plot.settings$norm[[k]][1] %in% c('max', 'last', 'huot') || plot.settings$norm[[k]][1] == TRUE){
-          if (plot.settings$norm[[k]] == "max" || plot.settings$norm[[k]] == TRUE) {
-             temp.data[[2]] <-  temp.data[[2]] / max(temp.data[[2]])
-
-          } else if (plot.settings$norm[[k]] == "last") {
-            temp.data[[2]] <-  temp.data[[2]] / temp.data[[2]][length(temp.data[[2]])]
-
-
-          } else if (plot.settings$norm[[k]] == "huot") {
-            bg <- median(temp.data[[2]][floor(nrow(temp.data)*0.8):nrow(temp.data)])
-            temp.data[[2]] <-  (temp.data[[2]] - bg) / max(temp.data[[2]] - bg)
-
-          }
-
-          ##check for Inf and NA
-          if(any(is.infinite(temp.data[[2]])) || anyNA(temp.data[[2]])){
-            temp.data[[2]][is.infinite(temp.data[[2]]) | is.na(temp.data[[2]])] <- 0
-            .throw_warning("Normalisation led to Inf or NaN values, ",
-                           "values replaced by 0")
-          }
+        ## curve normalisation
+        if (plot.settings$norm[[k]][1] == TRUE ||
+            plot.settings$norm[[k]][1] %in% c("max", "last", "huot")) {
+          temp.data[[2]] <- .normalise_curve(temp.data[[2]],
+                                             plot.settings$norm[[k]])
         }
 
         return(temp.data)
