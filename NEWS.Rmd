@@ -22,9 +22,10 @@ header-includes:
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
 was caused by a regression while implementing the `n_N` calculation in `plot_GrowthCurve()`. Potentially
-affected was also `analyse_SAR.CWOSL()`. 
-* The functions tries to be more soft on the user when plot output on a too small device is attempted. Now 
-it shows a warning with instructions and set `plot = FALSE`. This should prevent "Figure margins too large" errors. 
+affected was also `analyse_SAR.CWOSL()`.
+* The function now shows a warning and sets `plot = FALSE` when option
+`plot.single = TRUE` is set but the device size is too small. This should
+prevent "Figure margins too large" errors.
 * The function will not crash anymore during the plotting in another edge case related to single grain data. 
 
 ### `analyse_SAR.TL()`
