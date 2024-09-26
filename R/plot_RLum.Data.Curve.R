@@ -130,24 +130,10 @@ plot_RLum.Data.Curve<- function(
       ylab.xsyg <- temp.lab[2]
     }
 
-    ##normalise curves if argument has been set
-    if (norm == "max" || norm == TRUE) {
-        object@data[,2] <- object@data[,2] / max(object@data[,2])
-
-    } else if (norm == "last") {
-        object@data[,2] <- object@data[,2] / object@data[nrow(object@data),2]
-
-    } else if (norm == "huot") {
-        bg <- median(object@data[floor(nrow(object@data)*0.8):nrow(object@data),2])
-        object@data[,2] <-  (object@data[,2] - bg) / max(object@data[,2] - bg)
+    ## curve normalisation
+    if (norm == TRUE || norm %in% c("max", "last", "huot")) {
+      object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
     }
-
-      ##check for Inf and NA
-      if(any(is.infinite(object@data[,2])) || anyNA(object@data[,2])){
-        object@data[,2][is.infinite(object@data[,2]) | is.na(object@data[,2])] <- 0
-        warning("[plot_RLum.Data.Curve()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
-
-      }
 
     ylab <- if (!is.na(ylab.xsyg)) {
       ylab.xsyg

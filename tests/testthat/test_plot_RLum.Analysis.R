@@ -58,7 +58,7 @@ test_that("Test the basic plot functionality", {
       c1@records[[1]],
       set_RLum("RLum.Data.Curve", recordType = "OSL")
       )), norm = TRUE, combine = TRUE),
-    "[plot_RLum.Analysis()] Normalisation led to Inf or NaN values, values replaced by 0",
+    "[plot_RLum.Analysis()] Curve normalisation produced Inf/NaN values",
     fixed = TRUE))
 
   ##Basic plot

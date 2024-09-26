@@ -48,6 +48,17 @@ test_that("Test internals", {
   expect_error(.smoothing(runif(100), align = "error"),
                "'align' should be one of 'right', 'center', 'left'")
 
+  ## .normalise_curve() -----------------------------------------------------
+  data <- runif(100)
+  expect_equal(data, .normalise_curve(data, FALSE))
+  expect_equal(.normalise_curve(data, TRUE), .normalise_curve(data, "max"))
+  expect_silent(.normalise_curve(data, "last"))
+  expect_silent(.normalise_curve(data, "huot"))
+
+  data[100] <- 0
+  expect_warning(.normalise_curve(data, "last"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
+
   # fancy_scientific ()--------------------------------------------------------------------------
   plot(seq(1e10, 1e20, length.out = 10),1:10, xaxt = "n")
   expect_silent(axis(1, at = axTicks(1),labels = Luminescence:::fancy_scientific(axTicks(1))))
