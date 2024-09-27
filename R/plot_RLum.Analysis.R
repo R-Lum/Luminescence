@@ -145,7 +145,6 @@ plot_RLum.Analysis <- function(
     ##check whether the user set the drop option and remove it, as we cannot work with it
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
     object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
-
   }
 
   # Deal with additional arguments.  ------------------------------------------------------------
@@ -213,7 +212,6 @@ plot_RLum.Analysis <- function(
       if (n.plots  == 1) {
         nrows <- 1
         ncols <- 1
-
       }
       else if (n.plots  > 1 & n.plots  <= 2) {
         nrows <- 1
@@ -222,12 +220,10 @@ plot_RLum.Analysis <- function(
       } else if (n.plots  > 2 & n.plots <= 4) {
         nrows <- 2
         ncols <- 2
-
       }
       else{
         nrows <- 3
         ncols <- 2
-
       }
     }
   }
@@ -262,7 +258,6 @@ plot_RLum.Analysis <- function(
 
     } else{
       n.pages <- length(temp) / (nrows * ncols)
-
     }
 
     ##set par
@@ -280,20 +275,16 @@ plot_RLum.Analysis <- function(
 
                                   if(is(plot.settings[[x]], "list")){
                                     rep_len(plot.settings[[x]], length.out = length(temp))
-
                                   }else{
                                    rep_len(list(plot.settings[[x]]), length.out = length(temp))
-
                                   }
 
                                 }else{
                                   rep_len(plot.settings[[x]], length.out = length(temp))
-
                                 }
 
                               } else{
                                 plot.settings[[x]]
-
                               }
                             })
 
@@ -302,7 +293,6 @@ plot_RLum.Analysis <- function(
       abline.names <- rep_len(names(abline), length.out = length(temp))
       abline <- rep_len(abline, length.out = length(temp))
       names(abline) <- abline.names
-
     }
 
     ##apply curve transformation
@@ -363,7 +353,6 @@ plot_RLum.Analysis <- function(
 
         }else{
           ylim.set <- plot.settings$ylim[[i]]
-
         }
 
         ##col
@@ -430,7 +419,6 @@ plot_RLum.Analysis <- function(
         ##add abline
         if(!is.null(abline[[i]])){
           do.call(what = "abline", args = abline[i])
-
         }
 
       } else if(inherits(temp[[i]], "RLum.Data.Spectrum")) {
@@ -443,7 +431,6 @@ plot_RLum.Analysis <- function(
             par.local = FALSE,
             main = if(!is.null(plot.settings$main)) plot.settings$main else temp[[i]]@recordType
         ), args))
-
       }
 
     }#end for loop
@@ -505,7 +492,6 @@ plot_RLum.Analysis <- function(
       abline.names <- rep_len(names(abline), length.out = length(temp.recordType))
       abline <- rep_len(abline, length.out = length(temp.recordType))
       names(abline) <- abline.names
-
     }
 
 
@@ -528,7 +514,6 @@ plot_RLum.Analysis <- function(
       if(!is.null(records_max) && records_max[1] > 2){
         records_show <- ceiling(seq(1,length(object.list), length.out = records_max))
         object.list[(1:length(object.list))[-records_show]] <- NULL
-
       }
 
       ##transform values to data.frame and norm values
@@ -576,14 +561,10 @@ plot_RLum.Analysis <- function(
       xlab <- if(!is.null(plot.settings$xlab[[k]])){
         plot.settings$xlab[[k]]
       }else{
-        switch(temp.recordType[[k]],
-               "TL" = "Temperature [\u00B0C]",
-               "IRSL" = "Time [s]",
-               "OSL" = "Time [s]",
-               "RF" = "Time [s]",
-               "RBR" = "Time [s]",
-               "LM-OSL" = "Time [s]"
-        )
+        if (temp.recordType[[k]] == "TL")
+          "Temperature [\u00B0C]"
+        else
+          "Time [s]"
       }
 
       ##ylab
@@ -609,7 +590,6 @@ plot_RLum.Analysis <- function(
         range(unlist(lapply(X = temp.data.list, FUN = function(x){
           range(x[,2])
         })))
-
       }
 
       if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
@@ -621,13 +601,11 @@ plot_RLum.Analysis <- function(
 
       }else{
         col <- get("col", pos = .LuminescenceEnv)
-
       }
 
       ##if length of provided colours is < the number of objects, just one colour is supported
       if (length(col) < length(object.list)) {
         col <- rep_len(col, length(object.list))
-
       }
 
       ##lty
@@ -636,7 +614,6 @@ plot_RLum.Analysis <- function(
 
       }else{
         lty <- plot.settings$lty[[k]]
-
       }
 
       ##pch
@@ -645,7 +622,6 @@ plot_RLum.Analysis <- function(
 
       }else{
         pch <- plot.settings$pch[[k]]
-
       }
 
       ##legend.text
@@ -658,9 +634,7 @@ plot_RLum.Analysis <- function(
 
         } else {
           paste("Curve", 1:length(object.list))
-
         }
-
       }
 
       ##legend.col
@@ -669,7 +643,6 @@ plot_RLum.Analysis <- function(
 
       }else{
         NULL
-
       }
 
       ##legend.pos
@@ -678,7 +651,6 @@ plot_RLum.Analysis <- function(
 
       }else{
         "topright"
-
       }
 
       if (legend.pos == "outside") {
@@ -701,7 +673,6 @@ plot_RLum.Analysis <- function(
       ##plot single curve values
       ## ...?Why using matplot is a bad idea: The channel resolution might be different
       for (n in 1:length(temp.data.list)) {
-
 
         ##smooth
         ##Why here again ... because the call differs from the one before, where the argument
@@ -730,7 +701,6 @@ plot_RLum.Analysis <- function(
             lty = lty[n],
             lwd = plot.settings$lwd[[k]]
           )
-
         }
 
         ##add points if requested
@@ -746,7 +716,6 @@ plot_RLum.Analysis <- function(
       ##add abline
       if(!is.null(abline[[k]])){
         do.call(what = "abline", args = abline[k])
-
       }
 
       ##mtext

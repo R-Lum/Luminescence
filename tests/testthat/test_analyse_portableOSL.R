@@ -139,6 +139,14 @@ test_that("input validation", {
         sample = "test"),
       "Surface interpolation failed: this happens when all points are")
 
+    expect_error(
+      analyse_portableOSL(
+        merged,
+        signal.integral = 1:5,
+        mode = "surface",
+        surface_value = "error"),
+      "Unknown value to plot, valid values are:")
+
     expect_warning(
       analyse_portableOSL(
         merged,

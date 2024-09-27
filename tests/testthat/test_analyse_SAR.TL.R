@@ -74,6 +74,13 @@ test_that("Test examples", {
     "log-scale needs positive values; log-scale disabled"
   )
 
+  SW({
+  expect_message(analyse_SAR.TL(object, signal.integral.min = 2,
+                                signal.integral.max = 3,
+                                sequence.structure = "SIGNAL"),
+                 "Too many curves, only the first 21 curves are plotted")
+  })
+
   expect_warning(
   expect_snapshot_RLum(
     analyse_SAR.TL(object, signal.integral.min = 2, signal.integral.max = 3,

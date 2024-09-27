@@ -111,6 +111,8 @@ test_that("Test the basic plot functionality", {
     norm = TRUE,
     sub_title = "(5 K/s)",
     records_max = 5,
+    smooth = TRUE,
+    type = "p",
     abline = list(v = c(110))
   ))
 
@@ -121,7 +123,6 @@ test_that("Test the basic plot functionality", {
     subset = list(recordType = "TL"),
     combine = FALSE,
     norm = TRUE,
-    smooth = TRUE,
     ylim = c(0, 1),
     xlim = c(1,100),
     abline = list(v = c(110))

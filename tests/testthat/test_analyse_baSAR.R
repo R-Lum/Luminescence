@@ -132,6 +132,18 @@ test_that("input validation", {
   data(ExampleData.RLum.Analysis, envir = environment())
   expect_error(analyse_baSAR(list(IRSAR.RF.Data), verbose = FALSE),
                "At least two aliquots are needed for the calculation")
+
+  SW({
+  expect_warning(expect_output(
+      analyse_baSAR(list(CWOSL.sub, CWOSL.sub), verbose = TRUE,
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = c(1:2),
+                    background.integral = c(80:100),
+                    fit.method = "LIN", fit.force_through_origin = FALSE,
+                    distribution = "normal",
+                    n.MCMC = 75)),
+      "'1' is a duplicate and therefore removed from the input")
+  })
 })
 
 test_that("Full check of analyse_baSAR function", {
