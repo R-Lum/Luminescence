@@ -145,7 +145,7 @@ enables or disables single plots or plots arranged by \code{analyse_baSAR}}
 enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio}
-(almost full support), \link[readxl:read_excel]{readxl::read_excel} (full support), \link{read_BIN2R} (\code{n.records},
+(almost full support), \link[data.table:fread]{data.table::fread} (\code{skip}), \link{read_BIN2R} (\code{n.records},
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \value{
@@ -334,10 +334,7 @@ functions.
 \tabular{llll}{
 \strong{Supported argument} \tab \strong{Corresponding function} \tab \strong{Default} \tab **Short description **\cr
 \code{threshold} \tab \link{verify_SingleGrainData} \tab \code{30} \tab change rejection threshold for curve selection \cr
-\code{sheet} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{1} \tab select XLS-sheet for import\cr
-\code{col_names} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{TRUE} \tab first row in XLS-file is header\cr
-\code{col_types} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{NULL} \tab limit import to specific columns\cr
-\code{skip} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{0} \tab number of rows to be skipped during import\cr
+\code{skip} \tab \link[data.table:fread]{data.table::fread} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit records during BIN-file import\cr
 \code{duplicated.rm} \tab \link{read_BIN2R} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
@@ -437,7 +434,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
-\link[readxl:read_excel]{readxl::read_excel}, \link{verify_SingleGrainData},
+\link[data.table:fread]{data.table::fread}, \link{verify_SingleGrainData},
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{

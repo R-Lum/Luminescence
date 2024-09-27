@@ -142,10 +142,7 @@
 #' \tabular{llll}{
 #' **Supported argument** \tab **Corresponding function** \tab **Default** \tab **Short description **\cr
 #' `threshold` \tab [verify_SingleGrainData] \tab `30` \tab change rejection threshold for curve selection \cr
-#' `sheet` \tab [readxl::read_excel] \tab `1` \tab select XLS-sheet for import\cr
-#' `col_names` \tab [readxl::read_excel] \tab `TRUE` \tab first row in XLS-file is header\cr
-#' `col_types` \tab [readxl::read_excel] \tab `NULL` \tab limit import to specific columns\cr
-#' `skip` \tab [readxl::read_excel] \tab `0` \tab number of rows to be skipped during import\cr
+#' `skip` \tab [data.table::fread] \tab `0` \tab number of rows to be skipped during import\cr
 #' `n.records` \tab [read_BIN2R] \tab `NULL` \tab limit records during BIN-file import\cr
 #' `duplicated.rm` \tab [read_BIN2R] \tab `TRUE` \tab remove duplicated records in the BIN-file\cr
 #' `pattern` \tab [read_BIN2R] \tab `TRUE` \tab select BIN-file by name pattern\cr
@@ -271,7 +268,7 @@
 #' enables or disables verbose mode
 #'
 #' @param ... parameters that can be passed to the function [calc_OSLLxTxRatio]
-#' (almost full support), [readxl::read_excel] (full support), [read_BIN2R] (`n.records`,
+#' (almost full support), [data.table::fread] (`skip`), [read_BIN2R] (`n.records`,
 #' `position`, `duplicated.rm`), see details.
 #'
 #'
@@ -327,7 +324,7 @@
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [read_BIN2R], [calc_OSLLxTxRatio], [plot_GrowthCurve],
-#' [readxl::read_excel], [verify_SingleGrainData],
+#' [data.table::fread], [verify_SingleGrainData],
 #' [rjags::jags.model], [rjags::coda.samples], [boxplot.default]
 #'
 #'
@@ -808,6 +805,9 @@ analyse_baSAR <- function(
 
     ##calc_OSLLxTxRatio()
     background.count.distribution = "non-poisson",
+
+    ## data.table::fread()
+    skip = 0,
 
     ##read_BIN2R()
     n.records = NULL,
@@ -1313,8 +1313,9 @@ analyse_baSAR <- function(
         .throw_error("'CSV_file' does not exist")
       }
 
-      ##import CSV file
-      datalu <- as.data.frame(data.table::fread(CSV_file))
+      ## import CSV file
+      datalu <- data.table::fread(CSV_file, data.table = FALSE,
+                                  skip = additional_arguments$skip)
 
       ###check whether data format is somehow odd, check only the first three columns
       if (ncol(datalu) < 3) {
