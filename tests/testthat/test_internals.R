@@ -269,6 +269,13 @@ test_that("Test internals", {
   expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "var"),
                "'var' must be a positive integer")
 
+  ## .collapse() ------------------------------------------------------------
+  expect_equal(.collapse(1:3),
+               "'1', '2', '3'")
+  expect_equal(.collapse(1:3, quote = FALSE),
+               "1, 2, 3")
+  expect_equal(.collapse(NULL), "")
+
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
   # src_create_RLumDataCurve_matrix -------------------------------------------------------------

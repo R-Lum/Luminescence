@@ -1064,3 +1064,23 @@ SW <- function(expr) {
                  "scalar")
   }
 }
+
+#' Comma-separated string concatenation
+#'
+#' Collapse the elements of a vector into a comma-separated string, with
+#' the option of quoting each element.
+#'
+#' @param x [vector] A vector of elements to be collapsed into a comma-separated
+#'        string.
+#' @param quote [logical] (*with default*) Whether each element should be
+#'        surrounded by single quotes (`TRUE` by default).
+#'
+#' @return
+#' A comma-separated string where each element of the original vector is
+#' optionally surrounded by single quotes.
+#'
+#' @md
+#' @noRd
+.collapse <- function(x, quote = TRUE) {
+  paste0(if (quote) sQuote(x, FALSE) else x, collapse=", ")
+}
