@@ -76,8 +76,9 @@ data(ExampleData.BINfileData, envir = environment())
 
   ##catch errors
   expect_error(write_R2BIN(object = new, file = FALSE),
-               "argument 'file' has to be of type character")
-  expect_error(write_R2BIN(object = "a", file = ""), "[write_R2BIN()] Input object is not of type Risoe.BINfileData!", fixed = TRUE)
+               "Argument 'file' has to be of type character")
+  expect_error(write_R2BIN(object = "a", file = ""),
+               "Input object is not of type Risoe.BINfileData")
   expect_error(suppressWarnings(write_R2BIN(object = set_Risoe.BINfileData(), file = "")))
 
   temp <- new
@@ -109,7 +110,7 @@ data(ExampleData.BINfileData, envir = environment())
     expect_error(write_R2BIN(object = temp, compatibility.mode = TRUE,
                              file = paste0(path, "BINfile_V8.binx")),
                  "'COMMENT' exceeds storage limit"),
-    "Some data sets are longer than 9,999 points")
+    "some data sets have more than 9,999 points")
 
   ## silent correction of the file extension
   SW({
@@ -125,4 +126,3 @@ data(ExampleData.BINfileData, envir = environment())
               version = "08", txtProgressBar = FALSE)))
   expect_type(object = t, type = "character")
 })
-

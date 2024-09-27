@@ -301,7 +301,7 @@ analyse_portableOSL <- function(
    if(mode[1] == "surface") {
      ### check for validity of surface value -------
      if(!all(plot_settings$surface_value %in% names(m_list)))
-       .throw_error("Unknown value to plot: Valid are: ",
+       .throw_error("Unknown value to plot, valid values are: ",
                     paste(names(m_list), collapse = ", "))
 
      ## set par -------

@@ -15,6 +15,9 @@ test_that("input validation", {
                "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
                "'method.control' has to be of type 'list'")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
+                                sequence_struct = c("REGENERATED", "NATURAL")),
+               "Number of data channels in RF_nat > RF_reg")
 
   SW({
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data,
@@ -119,16 +122,19 @@ test_that("test edge cases", {
   RF_reg@data[,2] <- runif(length(RF_reg@data[,2]), 0.007557956, 0.05377426 )
   RF_nat@data[,2] <- runif(length(RF_nat@data[,2]), 65.4, 76.7)
   RF_nat@data <- RF_nat@data[1:50,]
+  RF_nat@info <- list(startDate = "20210101150845")
+  object <- set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg))
 
   SW({
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
-    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    object,
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE,
                           show_fit = TRUE, trace = TRUE),
     RF_nat.lim = 2,
     RF_reg.lim = 2,
     plot = TRUE,
+    main = "Title",
     mtext = "Subtitle",
     txtProgressBar = FALSE
   )), "RLum.Results")
@@ -137,7 +143,7 @@ test_that("test edge cases", {
   ## this RF_nat.lim after
   ##  'length = 2' in coercion to 'logical(1)' error
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
-    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    object,
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE),
     RF_nat.lim = c(10,100),
@@ -147,7 +153,7 @@ test_that("test edge cases", {
   )), "RLum.Results")
 
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
-    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    object,
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE),
     #RF_nat.lim = c(10,100),

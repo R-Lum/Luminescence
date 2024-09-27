@@ -128,8 +128,7 @@ use_DRAC <- function(
   # Integrity tests -----------------------------------------------------------------------------
   if (inherits(file, "character")) {
     if(!file.exists(file)){
-      stop("[use_DRAC()] It seems that the file doesn't exist!", call. = FALSE)
-
+      .throw_error("Input file does not exist")
     }
 
     if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {

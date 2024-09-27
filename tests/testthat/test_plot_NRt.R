@@ -27,6 +27,10 @@ test_that("input validation", {
                "The time values for the natural signal don't match those for")
   expect_error(plot_NRt(merge_RLum.Analysis(list(obj, IRSAR.RF.Data))),
                "The time values for the natural signal don't match those for")
+
+  data(ExampleData.CW_OSL_Curve, envir = environment())
+  expect_error(plot_NRt(ExampleData.CW_OSL_Curve),
+               "The provided data.frame only contains curve data of the natural signal")
 })
 
 test_that("full functionality", {

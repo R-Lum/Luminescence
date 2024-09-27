@@ -3,10 +3,18 @@ test_that("input validation", {
 
   ## wrong file name
   expect_error(use_DRAC("error"),
-               "[use_DRAC()] It seems that the file doesn't exist",
+               "[use_DRAC()] Input file does not exist",
                fixed = TRUE)
   expect_error(use_DRAC(NA),
                "The provided data object is not a valid DRAC template")
+
+  ## CSV file with the wrong header
+  fake <- data.table::fread(test_path("_data/DRAC_Input_Template.csv"))
+  fake[1, 1] <- "error"
+  fake.csv <- tempfile(fileext = ".csv")
+  data.table::fwrite(fake, file = fake.csv)
+  expect_error(use_DRAC(fake.csv),
+               "you are not using the original DRAC v1.2 CSV template")
 
   ## exceed allowed limit
   SW({
