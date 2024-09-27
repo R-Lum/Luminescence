@@ -385,7 +385,7 @@ setMethod("get_RLum",
               ),
               error = function(e) {
                 .throw_error("Invalid subset expression, valid terms are: ",
-                             paste(names(envir), collapse = ", "))
+                             .collapse(names(envir)))
               })
 
               if (!is.logical(sel)) {
@@ -399,8 +399,9 @@ setMethod("get_RLum",
                 object@records <- object@records[sel]
                 return(object)
               } else {
-                tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) },
-                              names(envir), envir)
+                tmp <- mapply(function(name, op) {
+                  message("  ", name, ": ", .collapse(unique(op), quote = FALSE))
+                }, names(envir), envir)
                 message("\n [get_RLum()] 'subset' expression produced an ",
                         "empty selection, NULL returned")
                 return(NULL)
@@ -420,7 +421,7 @@ setMethod("get_RLum",
                                  "objects, NULL returned")
                 }else{
                   .throw_warning("Invalid 'info.object' name, valid names are: ",
-                                 paste(names(object@info), collapse = ", "))
+                                 .collapse(names(object@info)))
                 }
                 return(NULL)
               }

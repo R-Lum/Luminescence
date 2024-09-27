@@ -39,11 +39,11 @@ print.DRAC.highlights <- function(x, ...) {
 
 #' @export
 print.DRAC.list <- function(x, blueprint = FALSE, ...) {
-  
+
   ## CASE 1: Pretty print the structure of the DRAC list
   if (!blueprint) {
     limit <- 80
-    
+
     for (i in 1:length(x)) {
       # for pretty printing we insert newlines and tabs at specified lengths
       ls <- attributes(x[[i]])$description
@@ -51,22 +51,22 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       ls.block <- floor(ls.n / limit)
       strStarts <- seq(0, ls.n, limit)
       strEnds <- seq(limit-1, ls.n + limit, limit)
-      blockString <- paste(mapply(function(start, end) { 
+      blockString <- paste(mapply(function(start, end) {
         trimmedString <- paste(substr(ls, start, end), "\n\t\t\t")
         if (substr(trimmedString, 1, 1) == " ")
           trimmedString <- gsub("^[ ]*", "", trimmedString)
         return(trimmedString)
       }, strStarts, strEnds), collapse="")
-      
+
       msg <- paste(attributes(x[[i]])$key, "=>",names(x)[i], "\n",
-                   "\t VALUES =", paste(x[[i]], collapse = ", "), "\n",
+                   "\t VALUES =", .collapse(x[[i]], quote = FALSE), "\n",
                    "\t ALLOWS 'X' = ", attributes(x[[i]])$allowsX, "\n",
                    "\t REQUIRED =", attributes(x[[i]])$required, "\n",
                    "\t DESCRIPTION = ", blockString, "\n"
       )
       if (!is.null(levels(x[[i]]))) {
         msg <- paste(msg,
-                     "\t OPTIONS = ", paste(levels(x[[i]]), collapse = ", "),
+                     "\t OPTIONS = ", .collapse(levels(x[[i]]), quote = FALSE),
                      "\n\n")
       } else {
         msg <- paste(msg, "\n")
@@ -74,28 +74,28 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       cat(msg)
     }
   }
-  
+
   ## CASE 2: Return a 'blueprint' that can be copied from the console to a
   ## script so the user does not need to write down all >50 fields by hand
   if (blueprint) {
     var <- as.list(sys.call())[[2]]
     names <- names(x)
-    
+
     for (i in 1:length(x)) {
-      
+
       # in case of factors also show available levels as comments so you don't
       # have to look it up
       if (is.factor(x[[i]]))
-        options <- paste("# OPTIONS:", paste(levels(x[[i]]), collapse = ", "))
+        options <- paste("# OPTIONS:", .collapse(levels(x[[i]]), quote = FALSE))
       else
         options <- ""
-      
+
       # determine if values need brackets (strings)
       if (is.numeric(x[[i]]) | is.integer(x[[i]]))
-        values <- paste(x[[i]], collapse = ", ")
+        values <- .collapse(x[[i]], quote = FALSE)
       if (is.character(x[[i]]) | is.factor(x[[i]]))
-        values <- paste0("'", paste0(x[[i]], collapse = "', '"), "'")
-      
+        values <- .collapse(paste0(x[[i]]))
+
       cat(paste0(var, "$`", names[i], "` <- c(", values,") ", options ,"\n"))
     }
     message("\n\t You can copy all lines above to your script and fill in the data.")
@@ -108,8 +108,9 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 
 #' @export
 `[[<-.DRAC.list` <- function(x, i, value) {
-  
-  
+  .set_function_name("[[<-.DRAC.list]]")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## REJECT ALL INADEQUATE CLASSES ----
   acceptedClasses <- c("integer", "character", "numeric", "factor")
   if (is.na(match(class(value), acceptedClasses))) {
@@ -200,24 +201,24 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       return(x)
     }
   }
-  
+
   ## CHECK IF VALID OPTION ----
-  # in case of 'factor's the user is only allowed input that matches one of 
+  # in case of 'factor's the user is only allowed input that matches one of
   # the options specified by the factor levels. if it is a valid option,
   # the input is converted to a factor to keep the information.
   if (class.old == "factor") {
     levels <- levels(x[[i]])
     if (any(`%in%`(value, levels) == FALSE)) {
-      warning(paste(names(x)[i], ": Invalid option. Valid options are:", paste(levels, collapse = ", ")),
-              call. = FALSE)
+      .throw_warning(names(x)[i], ": Invalid option. Valid options are:",
+                     .collapse(levels))
       return(x)
     } else {
       value <- factor(value, levels)
     }
   }
-  
+
   ## WRITE NEW VALUES ----
-  # we strip our custom class and the attributes, pass the object to the default generic and 
+  # we strip our custom class and the attributes, pass the object to the default generic and
   # finally re-attach our class and attributes
   tmp.attributes <- attributes(x[[i]])[names(attributes(x[[i]])) != "class"]
   class(x) <- "list"

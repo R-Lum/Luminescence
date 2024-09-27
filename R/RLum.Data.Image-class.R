@@ -333,7 +333,7 @@ setMethod("get_RLum",
               } else {
                 stop(paste0(
                   "[get_RLum] Invalid element name. Valid names are: ",
-                  paste(names(object@info), collapse = ", ")
+                  .collapse(names(object@info))
                 ),
                 call. = FALSE)
              }
@@ -360,4 +360,3 @@ setMethod(
   "names_RLum",
   "RLum.Data.Image",
   function(object) names(object@info))
-

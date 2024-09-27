@@ -344,7 +344,7 @@ read_BIN2R <- function(
         .throw_error("BIN/BINX format version (", temp.VERSION, ") ",
                      "is not supported or file is broken. ",
                      "Supported version numbers are: ",
-                     paste(VERSIONS.supported, collapse = ", "))
+                     .collapse(VERSIONS.supported))
       }
     }
 
@@ -1331,10 +1331,10 @@ read_BIN2R <- function(
         message("[read_BIN2R()] The record index has been recalculated")
 
     }else{
-      valid.position <-
-        paste(unique(results.METADATA[["POSITION"]]), collapse = ", ")
       .throw_warning("At least one position number is not valid, ",
-                     "valid position numbers are: ", valid.position)
+                     "valid position numbers are: ",
+                     .collapse(unique(results.METADATA[["POSITION"]]),
+                               quote = FALSE))
     }
   }
 
@@ -1384,13 +1384,13 @@ read_BIN2R <- function(
         ##message
         if(verbose) {
           message("[read_BIN2R()] duplicated records detected and removed: ",
-                  paste(duplication.check, collapse = ", "),
+                  .collapse(duplication.check, quote = FALSE),
                   ", record index re-calculated")
         }
 
       } else{
         .throw_warning("Duplicated records detected: ",
-                       paste(duplication.check, collapse = ", "),
+                       .collapse(duplication.check, quote = FALSE),
                        "\n\n >> You should consider 'duplicated.rm = TRUE'.")
       }
     }

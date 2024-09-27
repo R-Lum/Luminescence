@@ -243,7 +243,7 @@ setMethod(
                   "objects, NULL returned)", call. = FALSE)
         } else {
           warning("[get_RLum()] Invalid 'info.object' name, valid names are: ",
-                  paste(names(object@info), collapse = ", "),
+                  .collapse(names(object@info)),
                   call. = FALSE)
         }
         return(NULL)
@@ -268,7 +268,7 @@ setMethod(
             }
           } else {
             stop("[get_RLum()] unknown 'data.object', valid names are: ",
-                 paste(names(object@data), collapse = ", "), call. = FALSE)
+                 .collapse(names(object@data)), call. = FALSE)
           }
         }
 

@@ -143,7 +143,7 @@ merge_RLum.Data.Curve<- function(
   record.types <- unique(temp.recordType.test)
   if (length(record.types) > 1) {
     .throw_error("Only similar record types are supported; you are trying to merge: ",
-                 paste0("'", record.types, "'", collapse = ", "))
+                 .collapse(record.types))
   }
 
   merge.method <- .match_args(merge.method,

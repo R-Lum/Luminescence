@@ -110,7 +110,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     if (length(setdiff(pos, positions.valid)) > 0) {
       .throw_warning("Invalid position number skipped: ",
-                     paste(setdiff(pos, positions.valid), collapse = ", "))
+                     .collapse(setdiff(pos, positions.valid), quote = FALSE))
       pos <- intersect(pos, positions.valid)
     }
   }
@@ -125,7 +125,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
       grain.valid <- unique(object@METADATA[["GRAIN"]])
       if(length(setdiff(grain, grain.valid)) > 0){
         .throw_warning("Invalid grain number skipped: ",
-                       paste(setdiff(grain, grain.valid), collapse = ", "))
+                       .collapse(setdiff(grain, grain.valid), quote = FALSE))
 
         grain <- intersect(grain, grain.valid)
       }
@@ -137,11 +137,10 @@ Risoe.BINfileData2RLum.Analysis<- function(
     } else{
       if (TRUE %in% unique(unique(object@METADATA[["RUN"]]) %in% run) != TRUE) {
         ##get and check valid positions
-        run.valid <-
-          paste(as.character(unique(object@METADATA[, "RUN"])), collapse = ", ")
-
-        .throw_error("run = ", paste(run, collapse = ","),
-                     " contains invalid runs. Valid runs are: ", run.valid)
+        .throw_error("run = ", .collapse(run, quote = FALSE),
+                     " contains invalid runs. Valid runs are: ",
+                     .collapse(unique(object@METADATA[, "RUN"]),
+                               quote = FALSE))
       }
     }
 
@@ -152,10 +151,10 @@ Risoe.BINfileData2RLum.Analysis<- function(
       if(TRUE %in% unique(unique(object@METADATA[["SET"]]) %in% set) != TRUE){
 
         ##get and check valid positions
-        set.valid <- paste(as.character(unique(object@METADATA[,"SET"])), collapse=", ")
-
-        .throw_error("set = ", paste(set, collapse = ","),
-                     " contains invalid sets. Valid sets are: ", set.valid)
+        .throw_error("set = ", .collapse(set, quote = FALSE),
+                     " contains invalid sets. Valid sets are: ",
+                     .collapse(unique(object@METADATA[, "SET"]),
+                               quote = FALSE))
       }
     }
 
@@ -165,11 +164,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
     } else{
       if (TRUE %in% unique(unique(object@METADATA[, "LTYPE"]) %in% ltype) != TRUE) {
         ##get and check valid positions
-        ltype.valid <-
-          paste(as.character(unique(object@METADATA[, "LTYPE"])), collapse = ", ")
-
-        .throw_error("ltype = ", paste(ltype, collapse = ","),
-                     " contains invalid ltypes. Valid ltypes are: ", ltype.valid)
+        .throw_error("ltype = ", .collapse(ltype),
+                     " contains invalid ltypes. Valid ltypes are: ",
+                     .collapse(unique(object@METADATA[, "LTYPE"])))
       }
     }
 
@@ -179,11 +176,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
     } else{
       if (TRUE %in% unique(unique(object@METADATA[, "DTYPE"]) %in% dtype) != TRUE) {
         ##get and check valid positions
-        dtype.valid <-
-          paste(as.character(unique(object@METADATA[, "DTYPE"])), collapse = ", ")
-
-        .throw_error("dtype = ", paste(dtype, collapse = ","),
-                     " contains invalid dtypes. Valid dtypes are: ", dtype.valid)
+        .throw_error("dtype = ", .collapse(dtype),
+                     " contains invalid dtypes. Valid dtypes are: ",
+                     .collapse(unique(object@METADATA[, "DTYPE"])))
       }
     }
 

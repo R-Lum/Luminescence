@@ -210,7 +210,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
     enclos = parent.frame()
   ),
   error = function(e) {
-    stop("\n\nInvalid subset options. \nValid terms are: ", paste(names(x@METADATA), collapse = ", "))
+    stop("\n\nInvalid subset options.\nValid terms are: ",
+         .collapse(names(x@METADATA)))
   })
 
   ##probably everything is FALSE now?

@@ -102,7 +102,7 @@ calc_OSLLxTxDecomposed <- function(
 
     } else {
       .throw_error("Invalid OSL component name, valid names are: ",
-                  paste(Lx.data$name, collapse = ", "))
+                   .collapse(Lx.data$name))
     }
   }
 

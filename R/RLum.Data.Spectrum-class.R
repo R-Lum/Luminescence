@@ -308,12 +308,8 @@ setMethod("get_RLum",
                 unlist(object@info[info.object])
 
               } else {
-                stop(paste0(
-                  "[get_RLum] Invalid element name. Valid names are: ",
-                  paste(names(object@info), collapse = ", ")
-                ),
-                call. = FALSE)
-
+                stop("[get_RLum()] Invalid element name, valid names are: ",
+                     .collapse(names(object@info)), call. = FALSE)
               }
             } else {
               object@data
@@ -402,4 +398,3 @@ setMethod(f = "bin_RLum.Data",
             ##return object
             return(object)
           })
-

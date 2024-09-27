@@ -326,8 +326,8 @@ analyse_pIRIRSequence <- function(
       )
 
   .throw_warning("The following unrecognised record types have been removed: ",
-                 paste(temp.sequence.structure[temp.sequence.rm.id,
-                                               "recordType"], collapse = ", "))
+                 .collapse(temp.sequence.structure[temp.sequence.rm.id,
+                                                   "recordType"]))
   }
 
   ##(2) Apply user sequence structure

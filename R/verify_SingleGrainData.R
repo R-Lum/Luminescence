@@ -246,7 +246,7 @@ verify_SingleGrainData <- function(
 
 
       ##print message
-      selection_id <- paste(selection_id, collapse = ", ")
+      selection_id <- .collapse(selection_id, quote = FALSE)
       if(verbose){
         cat(paste0("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
         cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
@@ -389,7 +389,7 @@ verify_SingleGrainData <- function(
 
       ##print message
       if(verbose){
-        selection_id_text <- paste(selection_id, collapse = ", ")
+        selection_id_text <- .collapse(selection_id, quote = FALSE)
         cat(paste0("\n[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
                    selection_id_text), "\n")
 

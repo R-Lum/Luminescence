@@ -302,7 +302,7 @@ analyse_portableOSL <- function(
      ### check for validity of surface value -------
      if(!all(plot_settings$surface_value %in% names(m_list)))
        .throw_error("Unknown value to plot, valid values are: ",
-                    paste(names(m_list), collapse = ", "))
+                    .collapse(names(m_list)))
 
      ## set par -------
      if(length(plot_settings$surface_value) > 1) {
@@ -653,7 +653,7 @@ analyse_portableOSL <- function(
     if (sigint[2] > length(raw_signal)) {
       sigint[2] <- length(raw_signal)
       .throw_warning("'signal.integral' (",
-                     paste(range(signal.integral), collapse = ", "), ") ",
+                     .collapse(range(signal.integral), quote = FALSE), ") ",
                      "exceeded the number of available data points (n = ",
                      length(raw_signal),") and has been automatically ",
                      "reduced to the maximum number.")

@@ -566,7 +566,7 @@ fit_SurfaceExposure <- function(
     cat(" Fixed parameters(s):\n",
         "--------------------\n")
     if (!is.null(age))
-      cat(paste0(" age (a):\t", paste(age, collapse = ", "), "\n"))
+      cat(paste0(" age (a):\t", .collapse(age, quote = FALSE), "\n"))
     if (!is.null(sigmaphi))
       cat(paste0(" sigmaphi:\t", sigmaphi, "\n"))
     if (!is.null(mu))

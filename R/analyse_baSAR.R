@@ -638,9 +638,9 @@ analyse_baSAR <- function(
       ##check whether the input for distribution was sufficient
       if (!distribution %in% names(baSAR_models)) {
         .throw_error("No pre-defined model for the requested distribution. ",
-                     "Please select one of '",
-                     paste(rev(names(baSAR_models))[-1], collapse = "', '"),
-                     "', or define an own model using argument 'baSAR_model'")
+                     "Please select one of ",
+                     .collapse(rev(names(baSAR_models))[-1]),
+                     ", or define an own model using argument 'baSAR_model'")
       }
 
       if (distribution == "user_defined" && is.null(baSAR_model)) {

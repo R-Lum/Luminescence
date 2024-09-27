@@ -332,13 +332,19 @@ setMethod(f = "show",
               else
                 id_128 <- rep(TRUE, nrow(object@METADATA))
 
-              version <- suppressWarnings(paste(unique(object@METADATA[id_128,"VERSION"]), collapse = ", "))
-              systemID <- suppressWarnings(paste(unique(object@METADATA[id_128,"SYSTEMID"]), collapse = ", "))
+              version <- suppressWarnings(
+                  .collapse(unique(object@METADATA[id_128, "VERSION"]),
+                            quote = FALSE))
+              systemID <- suppressWarnings(
+                  .collapse(unique(object@METADATA[id_128, "SYSTEMID"]),
+                            quote = FALSE))
               filename <- as.character(object@METADATA[1,"FNAME"])
               records.overall <- length(object@DATA)
               records.type <- table(object@METADATA[id_128,"LTYPE"])
-              user <- paste(unique(as.character(object@METADATA[id_128,"USER"])), collapse = ", ")
-              date <- paste(unique(as.character(object@METADATA[id_128,"DATE"])), collapse = ", ")
+              user <- .collapse(unique(object@METADATA[id_128, "USER"]),
+                                quote = FALSE)
+              date <- .collapse(unique(object@METADATA[id_128, "DATE"]),
+                                quote = FALSE)
               run.range <- suppressWarnings(range(object@METADATA[id_128,"RUN"]))
               set.range <- suppressWarnings(range(object@METADATA[id_128,"SET"]))
               grain.range <- suppressWarnings(range(object@METADATA[id_128,"GRAIN"]))
@@ -371,7 +377,8 @@ setMethod(f = "show",
 
               ## if id_128
               if(any(!id_128))
-                cat("\n\t + additional ROI data found in record(s):", paste(which(!id_128), collapse = ", "), "\n")
+                cat("\n\t + additional ROI data found in record(s):",
+                    .collapse(which(!id_128), quote = FALSE), "\n")
 
             }else{
               cat("\n[Risoe.BINfileData object]")
