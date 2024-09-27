@@ -1227,13 +1227,6 @@ analyse_baSAR <- function(
     background.integral <- rep(list(background.integral), length = length(fileBIN.list))
   }
 
-  ##test_parameter = background.integral
-  if(is(background.integral, "list")){
-    background.integral <- rep(background.integral, length = length(fileBIN.list))
-  }else{
-    background.integral <- rep(list(background.integral), length = length(fileBIN.list))
-  }
-
   ##test_parameter = background.integral.Tx
   if (!is.null(background.integral.Tx)) {
     if (is(background.integral.Tx, "list")) {
