@@ -746,7 +746,7 @@ error.list <- list()
     ## check for incorrect key words
     if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
       .throw_error("Recuperation reference invalid, valid are: ",
-                   paste(LnLxTnTx[,"Name"], collapse = ", "))
+                   .collapse(LnLxTnTx[, "Name"], quote = FALSE))
 
 
     ##Recuperation Rate (capable of handling multiple type of recuperation values)

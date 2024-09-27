@@ -73,7 +73,9 @@ calc_gSGC_feldspar <- function (
   gSGC.parameters,
   n.MC = 100,
   plot = FALSE
-){
+) {
+  .set_function_name("calc_gSGC_feldspar")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Integrity checks --------------------------------------------------------
   if (!is(data, "data.frame")) {
@@ -138,10 +140,8 @@ calc_gSGC_feldspar <- function (
 
     } else {
       # give error if input is wrong
-      stop(
-        paste0("[calc_gSGC_feldspar()] 'gSGC.type' needs to be one of the accepted values, such as: ",
-          paste(params$Type, collapse = ", ")),
-        call. = FALSE)
+      .throw_error("'gSGC.type' needs to be one of the accepted values: ",
+                   .collapse(params$Type))
     }
   }
 

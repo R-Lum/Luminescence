@@ -162,7 +162,7 @@ plot_ViolinPlot <- function(
     if(!all(summary %in% names(stat.summary[[1]]))){
       .throw_warning("Only keywords for weighted statistical measures ",
                      "are supported. Valid keywords are: ",
-                     paste(names(stat.summary[[1]]), collapse = ", "))
+                     .collapse(names(stat.summary[[1]])))
     }
 
     ##make sure that only valid keywords make it
@@ -259,7 +259,7 @@ plot_ViolinPlot <- function(
     }else{
       .throw_warning("Value provided for 'summary.pos' is not ",
                      "a valid keyword, valid keywords are:",
-                     paste(valid_keywords, collapse = ", "))
+                     .collapse(valid_keywords))
     }
   }
 }

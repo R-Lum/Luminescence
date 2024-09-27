@@ -712,7 +712,7 @@ analyse_IRSAR.RF<- function(
       .throw_warning("'",  paste(names(method.control)[unsupported.idx],
                                  collapse = ", "),
                      "' not supported for 'method.control'. Supported arguments are: ",
-                     paste(names(method.control.settings), collapse = ", "))
+                     .collapse(names(method.control.settings)))
     }
 
     ##modify list
@@ -1623,15 +1623,15 @@ analyse_IRSAR.RF<- function(
 
       ##build list of failed TP
       mtext.message <- paste0(
-        "Threshold exceeded for:  ",
-        paste(subset(TP.data.frame, TP.data.frame$STATUS == "FAILED")$PARAMETER, collapse = ", "),". For details see manual.")
+        "Threshold exceeded for: ",
+        .collapse(TP.data.frame$PARAMETER[TP.data.frame$STATUS == "FAILED"]),
+                  ". For details see manual.")
 
       ##print mtext
       mtext(text = mtext.message,
             side = 3, outer = TRUE, col = "red",
             cex = 0.8 * par()[["cex"]])
-      warning(mtext.message, call. = FALSE)
-
+      .throw_warning(mtext.message)
     }
 
     ##use scientific format for y-axis

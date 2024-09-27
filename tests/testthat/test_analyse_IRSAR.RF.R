@@ -126,7 +126,7 @@ test_that("test edge cases", {
   object <- set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg))
 
   SW({
-  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+  expect_warning(expect_s4_class(analyse_IRSAR.RF(
     object,
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE,
@@ -136,8 +136,9 @@ test_that("test edge cases", {
     plot = TRUE,
     main = "Title",
     mtext = "Subtitle",
-    txtProgressBar = FALSE
-  )), "RLum.Results")
+    txtProgressBar = FALSE),
+    "RLum.Results"),
+    "Threshold exceeded for: 'curves_ratio'")
   })
 
   ## this RF_nat.lim after

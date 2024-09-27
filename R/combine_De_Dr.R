@@ -507,6 +507,8 @@ combine_De_Dr <- function(
   plot = TRUE,
   ...
 ) {
+  .set_function_name("combine_De_Dr")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Check input data --------------------------------------------------------
 if (!all(t_pkg <- c(
@@ -515,9 +517,8 @@ if (!all(t_pkg <- c(
   requireNamespace("mclust", quietly = TRUE)))) {
   # nocov start
   t_names <- c('rjags', 'coda', 'mclust')
-    stop(paste0("[combine_De_Dr()] To use this function you have to first
-         install the package(s) ", paste(t_names[!t_pkg], collapse = ",")),
-         call. = FALSE)
+  .throw_error("To use this function you have to first install packages: ",
+               .collapse(t_names[!t_pkg]))
   # nocov end
 }
 

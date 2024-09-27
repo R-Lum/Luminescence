@@ -8,13 +8,13 @@ test_that("input validation", {
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = "test"),
                "'pos' has to be of type numeric")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, run = 10:12),
-               "run = 10,11,12 contains invalid runs")
+               "run = 10, 11, 12 contains invalid runs")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, set = 10:12),
-               "set = 10,11,12 contains invalid sets")
+               "set = 10, 11, 12 contains invalid sets")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, ltype = 10:12),
-               "ltype = 10,11,12 contains invalid ltypes")
+               "ltype = '10', '11', '12' contains invalid ltypes")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, dtype = 10:12),
-               "dtype = 10,11,12 contains invalid dtypes")
+               "dtype = '10', '11', '12' contains invalid dtypes")
 
   expect_warning(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:30),
                  "Invalid position number skipped")

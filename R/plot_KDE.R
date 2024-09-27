@@ -227,7 +227,7 @@ plot_KDE <- function(
     if (length(inf.idx) > 0) {
       inf.row <- sort(unique(inf.idx))
       .throw_warning("Inf values removed in rows: ",
-                     paste(inf.row, collapse = ", "), " in data.frame ", i)
+                     .collapse(inf.row, quote = FALSE), " in data.frame ", i)
       data[[i]] <- data[[i]][-inf.row, ]
       rm(inf.idx, inf.row)
 

@@ -241,7 +241,7 @@ calc_FastRatio <- function(object,
       t_L3_end <- (log(x2 / 100)) / (-sigmaM * I0)
     } else {
       if (any(Ch_L3 > nrow(A))) {
-        .throw_error("Value in Ch_L3 (", paste(Ch_L3, collapse = ", "),
+        .throw_error("Value in Ch_L3 (", .collapse(Ch_L3, quote = FALSE),
                      ") exceeds number of available channels (", nrow(A), ")")
       }
       t_L3_start <- A[Ch_L3[1], 1]
@@ -251,7 +251,7 @@ calc_FastRatio <- function(object,
     ## Channel number(s) of L2 and L3
     if (is.null(Ch_L2))
       Ch_L2 <- which.min(abs(A[,1] - t_L2))
-    
+
     if (Ch_L2 <= 1) {
       msg <- sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
                      t_L2, Ch_L2)

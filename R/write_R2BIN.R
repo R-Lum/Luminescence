@@ -233,7 +233,7 @@ write_R2BIN <- function(
     .throw_error("Writing BIN-files in format version (",
                  object@METADATA[1, "VERSION"], ") is currently not supported, ",
                  "supported version numbers are: ",
-                 paste(VERSION.supported, collapse = ", "), ".")
+                 .collapse(VERSION.supported))
   }
 
   ##CHECK file name for version == 06 it has to be *.binx and correct for it
