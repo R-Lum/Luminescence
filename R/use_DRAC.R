@@ -1,13 +1,12 @@
 #' Use DRAC to calculate dose rate data
 #'
 #' The function provides an interface from R to DRAC. An R-object or a
-#' pre-formatted XLS/XLSX file is passed to the DRAC website and the
-#' results are re-imported into R.
-#'
+#' CSV file is passed to the DRAC website and results are re-imported into R.
 #'
 #' @param file [character] (**required**):
-#' spreadsheet to be passed to the DRAC website for calculation. Can also be a
-#' DRAC template object obtained from `template_DRAC()`.
+#' name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
+#' be sent to the DRAC website for calculation. It can also be a DRAC template
+#' object obtained from [template_DRAC()].
 #'
 #' @param name [character] (*with default*):
 #' Optional user name submitted to DRAC. If omitted, a random name will be generated
@@ -133,29 +132,22 @@ use_DRAC <- function(
 
     }
 
-    # Import data ---------------------------------------------------------------------------------
+    if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {
+      .throw_error("XLS/XLSX format no longer supported, use CSV instead")
+    }
+
+    ## Import data ----------------------------------------------------------
 
     ## Import and skip the first rows and remove NA lines and the 2 row, as this row contains
     ## only meta data
 
-    ## DRAC v1.1 - XLS sheet
-    ##check if is the original DRAC table
-    if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {
-      if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input")
-        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.1 XLSX template. This is currently not supported!", call. = FALSE)
-
-      warning("\n[use_DRAC()] The current DRAC version is 1.2, but you provided the v1.1 excel input template.",
-              "\nPlease transfer your data to the new CSV template introduced with DRAC v1.2.", call. = FALSE)
-      input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
-    }
-
     ## DRAC v1.2 - CSV sheet
-    if (tools::file_ext(file) == "csv") {
-      if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs")
-        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.2 CSV template. This is currently not supported!", call. = FALSE)
+    if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs")
+      .throw_error("It looks like that you are not using the original ",
+                   "DRAC v1.2 CSV template, this is currently not supported")
 
-      input.raw <- read.csv(file, skip = 8, check.names = FALSE, header = TRUE, stringsAsFactors = FALSE)[-1, ]
-    }
+    input.raw <- read.csv(file, skip = 8, check.names = FALSE, header = TRUE,
+                          stringsAsFactors = FALSE)[-1, ]
 
   } else if (inherits(file, "DRAC.list")) {
     input.raw <- as.data.frame(file)

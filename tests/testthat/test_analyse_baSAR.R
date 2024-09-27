@@ -34,48 +34,47 @@ test_that("input validation", {
                              signal.integral = c(1:2)),
                'argument "background.integral" is missing, with no default')
 
-  ## XLS_file
+  ## CSV_file
+  csv.file <- tempfile()
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
-                             XLS_file = list()),
-               "Input type for 'XLS_file' not supported")
+                             CSV_file = list()),
+               "Input type for 'CSV_file' not supported")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
-                             XLS_file = "error"),
-               "XLS_file does not exist")
+                             CSV_file = "error"),
+               "'CSV_file' does not exist")
+  data.table::fwrite(data.frame(BIN_file = "a", DISC = 1), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
-                             XLS_file = system.file("extdata/clippy.xls",
-                                                    package = "readxl")),
-               "The XLS_file requires at least 3 columns")
-  SW({
+                             CSV_file = csv.file),
+               "'CSV_file' requires at least 3 columns for 'BIN_file', 'DISC'")
+  data.table::fwrite(data.frame(a = "error", b = 1, c = 2), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
-                             XLS_file = system.file("extdata/deaths.xls",
-                                                    package = "readxl")),
-               "One of the first 3 columns in your XLS_file has no header")
-  })
+                             CSV_file = csv.file),
+               "One of the first 3 columns in 'CSV_file' has no header")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
-                             XLS_file = data.frame(a = NA, b = NA)),
-               "The data.frame provided via 'XLS_file' must have at least 3")
+                             CSV_file = data.frame(a = NA, b = NA)),
+               "The data.frame provided via 'CSV_file' must have at least 3")
   expect_warning(expect_error(
                  analyse_baSAR(CWOSL.sub, verbose = FALSE,
                                source_doserate = c(0.04, 0.001),
                                signal.integral = c(1:2),
                                background.integral = c(80:100),
-                               XLS_file = data.frame(a = "error", b = 1, c = 2)),
-                 "BIN-file names in XLS_file do not match the loaded BIN-files",
+                               CSV_file = data.frame(a = "error", b = 1, c = 2)),
+                 "BIN-file names provided via 'CSV_file' do not match the loaded BIN-files",
                  fixed = TRUE),
   "'error' not recognised or not loaded, skipped")
 
@@ -83,7 +82,7 @@ test_that("input validation", {
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
-                             XLS_file = data.frame(a = NA, b = 1, c = 2)),
+                             CSV_file = data.frame(a = NA, b = 1, c = 2)),
                "Number of discs/grains = 0")
 
   expect_error(suppressWarnings(

@@ -10,6 +10,13 @@ header-includes:
 
 ## New functions
 
+## Breaking changes
+* We have dropped our dependency on the `readxl` package: functions
+`analyse_baSAR()` and `use_DRAC()` now do not accept XLS files anymore but
+CSV files instead (#237, fixed in #270). CSV files can be easily generated
+from XLS files by Excel or similar applications, or by reading them with
+`readxl::read_excel()` and saving them with `write.csv()`.
+
 ## Removed functions and deprecations
 * Function `Analyse_SAR.OSLdata()` is now officially deprecated,
 `analyse_SAR.CWOSL()` should be used instead (#216, fixed in #264).
@@ -18,6 +25,10 @@ header-includes:
 `calc_Huntley2006()` should be used instead (#252, fixed in #257).
 
 ## Bugfixes
+
+### `analyse_baSAR()`
+* Argument `XLS_file` has been replaced by `CSV_file` and, as mentioned
+above, the function now only accepts CSV files as input (#237, fixed in #270).
 
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
@@ -51,6 +62,10 @@ fixed in #263).
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 
+### `use_DRAC()`
+* Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
+CSV files according to the DRAC v1.2 CSV template.
+
 ### `write_R2BIN()`
 * Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
 file export. To avoid this now all non-ASCII characters are replaced by `_` before writing them to the BIN/BINX files. 
@@ -63,4 +78,3 @@ file export. To avoid this now all non-ASCII characters are replaced by `_` befo
 terminal with messages if call (internally) in particular circumstances. Now we maintain a
 stack of function names, so that at any time we can report correctly the name of the
 function where an error or a warning is thrown (#254, fixed in #256).
-

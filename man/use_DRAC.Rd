@@ -8,8 +8,9 @@ use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
-spreadsheet to be passed to the DRAC website for calculation. Can also be a
-DRAC template object obtained from \code{template_DRAC()}.}
+name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
+be sent to the DRAC website for calculation. It can also be a DRAC template
+object obtained from \code{\link[=template_DRAC]{template_DRAC()}}.}
 
 \item{name}{\link{character} (\emph{with default}):
 Optional user name submitted to DRAC. If omitted, a random name will be generated}
@@ -52,8 +53,7 @@ The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function provides an interface from R to DRAC. An R-object or a
-pre-formatted XLS/XLSX file is passed to the DRAC website and the
-results are re-imported into R.
+CSV file is passed to the DRAC website and results are re-imported into R.
 }
 \section{Function version}{
  0.14

@@ -1,3 +1,8 @@
+input.xls <- test_path("_data/CLBR.xlsx")
+input.csv <- file.path(test_path("_data"),
+                       paste0("CLBR_IR", c(50, 100, 150, 225), ".csv"))
+
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -5,15 +10,16 @@ test_that("input validation", {
                "Input type not supported")
   expect_error(.import_ThermochronometryData("filename", output_type = "error"),
                "'output_type' should be one of 'RLum.Results', 'list'")
+  expect_error(.import_ThermochronometryData(input.xls),
+               "XLS/XLSX format is not supported, use CSV instead")
   expect_error(.import_ThermochronometryData("error"),
-               "`path` does not exist: 'error'") # from readxl
+               "File does not exist")
 })
 
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  input <- test_path("_data/CLBR.xlsx")
-  expect_snapshot_RLum(.import_ThermochronometryData(input))
-  expect_type(.import_ThermochronometryData(input, output_type = "list"),
+  expect_snapshot_RLum(.import_ThermochronometryData(input.csv))
+  expect_type(.import_ThermochronometryData(input.csv, output_type = "list"),
               "list")
 })

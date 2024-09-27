@@ -6,7 +6,7 @@
 \usage{
 analyse_baSAR(
   object,
-  XLS_file = NULL,
+  CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
   signal.integral,
@@ -41,15 +41,15 @@ provided the list can only contain either \code{Risoe.BINfileData} objects or \c
 providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
-\item{XLS_file}{\link{character} (\emph{optional}):
-XLS_file with data for the analysis. This file must contain 3 columns:
+\item{CSV_file}{\link{character} (\emph{optional}):
+CSV_file with data for the analysis. This file must contain 3 columns:
 the name of the file, the disc position and the grain position
 (the last being 0 for multi-grain measurements).\cr
 Alternatively a \code{data.frame} of similar structure can be provided.}
 
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
-This argument has only an effect if the argument \code{XLS_file} is used or
+This argument has only an effect if the argument \code{CSV_file} is used or
 the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
 new selection will add the aliquots to the removed aliquots table.}
 
@@ -145,7 +145,7 @@ enables or disables single plots or plots arranged by \code{analyse_baSAR}}
 enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio}
-(almost full support), \link[readxl:read_excel]{readxl::read_excel} (full support), \link{read_BIN2R} (\code{n.records},
+(almost full support), \link[data.table:fread]{data.table::fread} (\code{skip}), \link{read_BIN2R} (\code{n.records},
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \value{
@@ -236,10 +236,10 @@ be produced by using the function \link{read_BIN2R}, but this function is called
 if only a file name and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.
 
-\verb{[XLS_file = NULL]}
+\verb{[CSV_file = NULL]}
 
-If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
-consists of the following steps:
+If no CSV file (or data frame with the same format) is provided, the
+function runs an automatic process that consists of the following steps:
 \enumerate{
 \item Select all valid aliquots using the function \link{verify_SingleGrainData}
 \item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
@@ -248,16 +248,16 @@ consists of the following steps:
 
 These proceeded data are subsequently used in for the Bayesian analysis
 
-\verb{[XLS_file != NULL]}
+\verb{[CSV_file != NULL]}
 
-If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
-steps consists of the following steps:
+If a CSV file is provided (or a \code{data.frame} containing similar information)
+the pre-processing phase consists of the following steps:
 \enumerate{
 \item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
 \item Calculate De values using the function \link{plot_GrowthCurve}
 }
 
-Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+The CSV file should contain a selection of the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by \link{verify_SingleGrainData} might be not totally sufficient.
 
@@ -334,10 +334,7 @@ functions.
 \tabular{llll}{
 \strong{Supported argument} \tab \strong{Corresponding function} \tab \strong{Default} \tab **Short description **\cr
 \code{threshold} \tab \link{verify_SingleGrainData} \tab \code{30} \tab change rejection threshold for curve selection \cr
-\code{sheet} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{1} \tab select XLS-sheet for import\cr
-\code{col_names} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{TRUE} \tab first row in XLS-file is header\cr
-\code{col_types} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{NULL} \tab limit import to specific columns\cr
-\code{skip} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{0} \tab number of rows to be skipped during import\cr
+\code{skip} \tab \link[data.table:fread]{data.table::fread} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit records during BIN-file import\cr
 \code{duplicated.rm} \tab \link{read_BIN2R} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
@@ -393,11 +390,11 @@ results <- analyse_baSAR(
 print(results)
 
 
-##XLS_file template
+##CSV_file template
 ##copy and paste this the code below in the terminal
 ##you can further use the function write.csv() to export the example
 
-XLS_file <-
+CSV_file <-
 structure(
 list(
  BIN_FILE = NA_character_,
@@ -437,7 +434,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
-\link[readxl:read_excel]{readxl::read_excel}, \link{verify_SingleGrainData},
+\link[data.table:fread]{data.table::fread}, \link{verify_SingleGrainData},
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{

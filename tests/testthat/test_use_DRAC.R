@@ -84,7 +84,7 @@ test_that("Test DRAC", {
                  "RLum.Results")
 
  ## XLS input
- fake.xls <- system.file("extdata/clippy.xls", package = "readxl")
+ file.create(fake.xls <- tempfile(fileext = ".xls"))
  expect_error(use_DRAC(fake.xls),
-              "you are not using the original DRAC v1.1 XLSX template")
+              "XLS/XLSX format no longer supported, use CSV instead")
 })

@@ -42,10 +42,10 @@
 #' if only a file name and/or a path is provided. In both cases it will become the data that can be
 #' used for the analysis.
 #'
-#' `[XLS_file = NULL]`
+#' `[CSV_file = NULL]`
 #'
-#' If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
-#' consists of the following steps:
+#' If no CSV file (or data frame with the same format) is provided, the
+#' function runs an automatic process that consists of the following steps:
 #'
 #'  1. Select all valid aliquots using the function [verify_SingleGrainData]
 #'  2. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
@@ -53,15 +53,15 @@
 #'
 #' These proceeded data are subsequently used in for the Bayesian analysis
 #'
-#' `[XLS_file != NULL]`
+#' `[CSV_file != NULL]`
 #'
-#' If an XLS-file is provided or a `data.frame` providing similar information the pre-processing
-#' steps consists of the following steps:
+#' If a CSV file is provided (or a `data.frame` containing similar information)
+#' the pre-processing phase consists of the following steps:
 #'
 #'  1. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
 #'  2. Calculate De values using the function [plot_GrowthCurve]
 #'
-#' Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+#' The CSV file should contain a selection of the BIN-file names and the aliquots selected
 #' for the further analysis. This allows a manual selection of input data, as the automatic selection
 #' by [verify_SingleGrainData] might be not totally sufficient.
 #'
@@ -142,10 +142,7 @@
 #' \tabular{llll}{
 #' **Supported argument** \tab **Corresponding function** \tab **Default** \tab **Short description **\cr
 #' `threshold` \tab [verify_SingleGrainData] \tab `30` \tab change rejection threshold for curve selection \cr
-#' `sheet` \tab [readxl::read_excel] \tab `1` \tab select XLS-sheet for import\cr
-#' `col_names` \tab [readxl::read_excel] \tab `TRUE` \tab first row in XLS-file is header\cr
-#' `col_types` \tab [readxl::read_excel] \tab `NULL` \tab limit import to specific columns\cr
-#' `skip` \tab [readxl::read_excel] \tab `0` \tab number of rows to be skipped during import\cr
+#' `skip` \tab [data.table::fread] \tab `0` \tab number of rows to be skipped during import\cr
 #' `n.records` \tab [read_BIN2R] \tab `NULL` \tab limit records during BIN-file import\cr
 #' `duplicated.rm` \tab [read_BIN2R] \tab `TRUE` \tab remove duplicated records in the BIN-file\cr
 #' `pattern` \tab [read_BIN2R] \tab `TRUE` \tab select BIN-file by name pattern\cr
@@ -167,15 +164,15 @@
 #' providing a file connection. Mixing of both types is not allowed. If an [RLum.Results-class]
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
-#' @param XLS_file [character] (*optional*):
-#' XLS_file with data for the analysis. This file must contain 3 columns:
+#' @param CSV_file [character] (*optional*):
+#' CSV_file with data for the analysis. This file must contain 3 columns:
 #' the name of the file, the disc position and the grain position
 #' (the last being 0 for multi-grain measurements).\cr
 #' Alternatively a `data.frame` of similar structure can be provided.
 #'
 #' @param aliquot_range [numeric] (*optional*):
 #' allows to limit the range of the aliquots used for the analysis.
-#' This argument has only an effect if the argument `XLS_file` is used or
+#' This argument has only an effect if the argument `CSV_file` is used or
 #' the input is the previous output (i.e. is [RLum.Results-class]). In this case the
 #' new selection will add the aliquots to the removed aliquots table.
 #'
@@ -271,7 +268,7 @@
 #' enables or disables verbose mode
 #'
 #' @param ... parameters that can be passed to the function [calc_OSLLxTxRatio]
-#' (almost full support), [readxl::read_excel] (full support), [read_BIN2R] (`n.records`,
+#' (almost full support), [data.table::fread] (`skip`), [read_BIN2R] (`n.records`,
 #' `position`, `duplicated.rm`), see details.
 #'
 #'
@@ -327,7 +324,7 @@
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [read_BIN2R], [calc_OSLLxTxRatio], [plot_GrowthCurve],
-#' [readxl::read_excel], [verify_SingleGrainData],
+#' [data.table::fread], [verify_SingleGrainData],
 #' [rjags::jags.model], [rjags::coda.samples], [boxplot.default]
 #'
 #'
@@ -392,11 +389,11 @@
 #' print(results)
 #'
 #'
-#' ##XLS_file template
+#' ##CSV_file template
 #' ##copy and paste this the code below in the terminal
 #' ##you can further use the function write.csv() to export the example
 #'
-#' XLS_file <-
+#' CSV_file <-
 #' structure(
 #' list(
 #'  BIN_FILE = NA_character_,
@@ -413,7 +410,7 @@
 #' @export
 analyse_baSAR <- function(
   object,
-  XLS_file = NULL,
+  CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
   signal.integral,
@@ -809,10 +806,7 @@ analyse_baSAR <- function(
     ##calc_OSLLxTxRatio()
     background.count.distribution = "non-poisson",
 
-    ##readxl::read_excel()
-    sheet = 1,
-    col_names = TRUE,
-    col_types = NULL,
+    ## data.table::fread()
     skip = 0,
 
     ##read_BIN2R()
@@ -1251,12 +1245,11 @@ analyse_baSAR <- function(
     }
   }
 
-  # Read EXCEL sheet ----------------------------------------------------------------------------
-  if(is.null(XLS_file)){
+  # Read CSV file -----------------------------------------------------------
+  if (is.null(CSV_file)) {
     ##select aliquots giving light only, this function accepts also a list as input
     if(verbose){
-      cat("\n[analyse_baSAR()] No XLS-file provided, running automatic grain selection ...\n")
-
+      cat("\n[analyse_baSAR()] 'CSV_file' was not provided, running automatic grain selection ...\n")
     }
 
     for (k in 1:length(fileBIN.list)) {
@@ -1312,32 +1305,26 @@ analyse_baSAR <- function(
     }
     rm(k)
 
-  } else if (is(XLS_file, "data.frame") || is(XLS_file, "character")) {
-    ##load file if we have an XLS file
-    if (is(XLS_file, "character")) {
+  } else if (is.data.frame(CSV_file) || is.character(CSV_file)) {
+    ##load file if we have a filename
+    if (is.character(CSV_file)) {
       ##test for valid file
-      if(!file.exists(XLS_file)){
-        .throw_error("XLS_file does not exist")
+      if(!file.exists(CSV_file)){
+        .throw_error("'CSV_file' does not exist")
       }
 
-      ##import Excel sheet
-      datalu <- as.data.frame(readxl::read_excel(
-        path = XLS_file,
-        sheet = additional_arguments$sheet,
-        col_names = additional_arguments$col_names,
-        col_types = additional_arguments$col_types,
-        skip = additional_arguments$skip,
-        progress = FALSE,
-      ), stringsAsFactors = FALSE)
+      ## import CSV file
+      datalu <- data.table::fread(CSV_file, data.table = FALSE,
+                                  skip = additional_arguments$skip)
 
       ###check whether data format is somehow odd, check only the first three columns
       if (ncol(datalu) < 3) {
-        .throw_error("The XLS_file requires at least 3 columns for ",
+        .throw_error("'CSV_file' requires at least 3 columns for ",
                      "'BIN_file', 'DISC' and 'GRAIN'")
       }
       if(!all(grepl(colnames(datalu), pattern = " ")[1:3])){
-        .throw_error("One of the first 3 columns in your XLS_file has no ",
-                     "header. Your XLS_file requires at least 3 columns for ",
+        .throw_error("One of the first 3 columns in 'CSV_file' has no ",
+                     "header. Your CSV file requires at least 3 columns for ",
                      "'BIN_file', 'DISC' and 'GRAIN'")
       }
 
@@ -1346,11 +1333,11 @@ analyse_baSAR <- function(
 
     } else{
 
-      datalu <- XLS_file
+      datalu <- CSV_file
 
       ##check number of number of columns in data.frame
       if(ncol(datalu) < 3){
-        .throw_error("The data.frame provided via 'XLS_file' must have ",
+        .throw_error("The data.frame provided via 'CSV_file' must have ",
                      "at least 3 columns (see manual)")
       }
 
@@ -1407,12 +1394,12 @@ analyse_baSAR <- function(
     ##if k is NULL it means it was not set so far, so there was
     ##no corresponding BIN-file found
     if(is.null(k)){
-      .throw_error("BIN-file names in XLS_file do not match the loaded ",
-                   "BIN-files")
+      .throw_error("The BIN-file names provided via 'CSV_file' do not match ",
+                   "the loaded BIN-files")
     }
 
   } else{
-    .throw_error("Input type for 'XLS_file' not supported")
+    .throw_error("Input type for 'CSV_file' not supported")
   }
 
 

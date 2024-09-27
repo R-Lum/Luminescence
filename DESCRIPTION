@@ -52,7 +52,6 @@ Imports:
     methods,
     minpack.lm (>= 1.2-4),
     mclust (>= 6.1),
-    readxl (>= 1.4.3),
     Rcpp (>= 1.0.12),
     shape (>= 1.4.6),
     parallel,
