@@ -797,6 +797,11 @@ analyse_baSAR <- function(
 
   .validate_positive_scalar(n.MCMC, int = TRUE)
 
+  distribution_plot <- .match_args(distribution_plot, c("kde", "abanico"),
+                                   null.ok = TRUE)
+  if (is.null(distribution_plot))
+    distribution_plot <- ""
+
   #capture additional piped arguments
   additional_arguments <- list(
 
