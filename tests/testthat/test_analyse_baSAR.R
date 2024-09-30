@@ -70,9 +70,12 @@ test_that("input validation", {
                "The data.frame provided via 'CSV_file' must have at least 3")
   expect_warning(expect_error(
                  analyse_baSAR(CWOSL.sub, verbose = FALSE,
-                               source_doserate = c(0.04, 0.001),
-                               signal.integral = c(1:2),
-                               background.integral = c(80:100),
+                               sigmab = list(0.23), sig0 = list(0.02),
+                               source_doserate = list(0.04, 0.001),
+                               signal.integral = list(1, 2),
+                               signal.integral.Tx = c(2:4),
+                               background.integral = list(80, 100),
+                               background.integral.Tx = c(80:100),
                                CSV_file = data.frame(a = "error", b = 1, c = 2)),
                  "BIN-file names provided via 'CSV_file' do not match the loaded BIN-files",
                  fixed = TRUE),
@@ -85,10 +88,12 @@ test_that("input validation", {
                              CSV_file = data.frame(a = NA, b = 1, c = 2)),
                "Number of discs/grains = 0")
 
+  SW({
   expect_error(suppressWarnings(
       analyse_baSAR(Risoe.BINfileData2RLum.Analysis(CWOSL.sub),
-                    verbose = FALSE)),
+                    verbose = TRUE)),
       "No records of the appropriate type were found")
+  })
 
   expect_warning(expect_output(
       analyse_baSAR(CWOSL.sub, verbose = FALSE,
@@ -129,11 +134,11 @@ test_that("input validation", {
                     distribution = "user_defined")),
       "Channel numbers of Lx and Tx data differ")
 
+  SW({
   data(ExampleData.RLum.Analysis, envir = environment())
-  expect_error(analyse_baSAR(list(IRSAR.RF.Data), verbose = FALSE),
+  expect_error(analyse_baSAR(list(IRSAR.RF.Data), verbose = TRUE),
                "At least two aliquots are needed for the calculation")
 
-  SW({
   expect_warning(expect_output(
       analyse_baSAR(list(CWOSL.sub, CWOSL.sub), verbose = TRUE,
                     source_doserate = c(0.04, 0.001),
@@ -225,6 +230,21 @@ test_that("Full check of analyse_baSAR function", {
       method_control = list(n.chains = 2, thin = 25),
       n.MCMC = 100)
 
+  expect_message(
+      analyse_baSAR(
+          object = results,
+          plot = FALSE,
+          verbose = TRUE,
+          txtProgressBar = FALSE,
+          fit.method = "EXP",
+          fit.force_through_origin = TRUE,
+          distribution = "cauchy",
+          aliquot_range = 100:300,
+          distribution_plot = NULL,
+          method_control = list(n.chains = 1, thin = 25),
+          n.MCMC = 100),
+      "Error: 'aliquot_range' out of bounds, input ignored")
+
   expect_warning(expect_error(
       analyse_baSAR(
           object = results,
@@ -249,6 +269,26 @@ test_that("Full check of analyse_baSAR function", {
                                            method_control = list(n.chains = 1),
                                            n.MCMC = 100)),
                  "No records selected, NULL returned")
+
+  CWOSL.mod <- CWOSL.sub
+  CWOSL.mod@METADATA$SEL[19:24] <- FALSE
+  expect_message(analyse_baSAR(CWOSL.mod, verbose = TRUE,
+                               source_doserate = c(0.04, 0.001),
+                               signal.integral = c(1:2),
+                               background.integral = c(80:100),
+                               method_control = list(n.chains = 1),
+                               n.MCMC = 100),
+                 "Record pre-selection in BIN-file detected")
+
+  CWOSL.mod <- CWOSL.sub
+  CWOSL.mod@METADATA$GRAIN[-c(19:24)] <- 2
+  expect_warning(analyse_baSAR(CWOSL.mod, verbose = TRUE,
+                               source_doserate = c(0.04, 0.001),
+                               signal.integral = c(1:2),
+                               background.integral = c(80:100),
+                               method_control = list(n.chains = 1),
+                               n.MCMC = 100),
+                 "Automatic grain selection: 3 curves with grain index 0 have been removed")
   })
 
   results2@originator <- "unknown"
