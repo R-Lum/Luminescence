@@ -797,6 +797,11 @@ analyse_baSAR <- function(
 
   .validate_positive_scalar(n.MCMC, int = TRUE)
 
+  distribution_plot <- .match_args(distribution_plot, c("kde", "abanico"),
+                                   null.ok = TRUE)
+  if (is.null(distribution_plot))
+    distribution_plot <- ""
+
   #capture additional piped arguments
   additional_arguments <- list(
 
@@ -856,9 +861,8 @@ analyse_baSAR <- function(
      Nb_aliquots <- nrow(object$input_object)
 
      ## return NULL if not at least three aliquots are used for the calculation
-     if(Nb_aliquots < 2){
-       message("[analyse_baSAR()] Error: number of aliquots < 3, ",
-               "this makes no sense, NULL returned")
+     if (Nb_aliquots < 3) {
+       message("[analyse_baSAR()] Error: Number of aliquots < 3, NULL returned")
        return(NULL)
      }
 
@@ -948,9 +952,7 @@ analyse_baSAR <- function(
 
          ##set removed aliquots
          removed_aliquots <- object$removed_aliquots
-
        }
-
 
      } else{
        ##set the normal case
@@ -977,7 +979,6 @@ analyse_baSAR <- function(
     if(verbose){
       cat("\n[analyse_baSAR()] ---- PRE-PROCESSING ----\n")
     }
-
 
     ##Supported input types are:
     ##  (1) BIN-file
@@ -1051,7 +1052,6 @@ analyse_baSAR <- function(
         ##delete objects
         rm(rm_id)
       }
-
     }
 
     if (is(object, "Risoe.BINfileData")) {
@@ -1110,9 +1110,16 @@ analyse_baSAR <- function(
     record.selected <- unlist(lapply(fileBIN.list,
                                      FUN = function(x) x@METADATA[["SEL"]] ))
     if (!all(record.selected)) {
+      if (verbose) {
+        message("[analyse_baSAR()] Record pre-selection in BIN-file detected,",
+                "record reduced to selection\n")
+      }
+      if (sum(record.selected) == 0) {
+        .throw_warning("No records selected, NULL returned")
+        return(NULL)
+      }
 
       fileBIN.list <- lapply(fileBIN.list, function(x){
-
             ##reduce data
             x@DATA <- x@DATA[x@METADATA[["SEL"]]]
             x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
@@ -1120,13 +1127,7 @@ analyse_baSAR <- function(
             ##reset index
             x@METADATA[["ID"]] <- 1:nrow(x@METADATA)
             return(x)
-
       })
-
-      if(verbose){
-        cat("\n[analyse_baSAR()] Record pre-selection in BIN-file detected >> record reduced to selection")
-
-      }
     }
 
     # Declare variables ---------------------------------------------------------------------------
@@ -1153,27 +1154,23 @@ analyse_baSAR <- function(
 
       ##get BIN-file name
       object.file_name[[i]] <- unique(fileBIN.list[[i]]@METADATA[["FNAME"]])
-
     }
 
-    ##check for duplicated entries; remove them as they would cause a function crash
-    if(any(duplicated(unlist(object.file_name)))){
-      msg <- paste0("'", paste(
-            object.file_name[which(duplicated(unlist(object.file_name)))],
-            collapse = ", "),
-            "' is a duplicate and therefore removed from the input")
-      ##provide messages
+    ## remove duplicated entries
+    is.duplicated <- duplicated(unlist(object.file_name))
+    if (any(is.duplicated)) {
+      msg <- paste(.collapse(object.file_name[is.duplicated]),
+                   "is a duplicate and therefore removed from the input")
       if(verbose){
         message("[analyse_baSAR()] ", msg)
       }
-
       .throw_warning(msg)
 
       ##remove entry
-      Disc[which(duplicated(unlist(object.file_name)))] <- NULL
-      Grain[which(duplicated(unlist(object.file_name)))] <- NULL
-      fileBIN.list[which(duplicated(unlist(object.file_name)))] <- NULL
-      object.file_name[which(duplicated(unlist(object.file_name)))] <- NULL
+      Disc[is.duplicated] <- NULL
+      Grain[is.duplicated] <- NULL
+      fileBIN.list[is.duplicated] <- NULL
+      object.file_name[is.duplicated] <- NULL
     }
 
   # Expand parameter list -----------------------------------------------------------------------
@@ -1227,13 +1224,6 @@ analyse_baSAR <- function(
     background.integral <- rep(list(background.integral), length = length(fileBIN.list))
   }
 
-  ##test_parameter = background.integral
-  if(is(background.integral, "list")){
-    background.integral <- rep(background.integral, length = length(fileBIN.list))
-  }else{
-    background.integral <- rep(list(background.integral), length = length(fileBIN.list))
-  }
-
   ##test_parameter = background.integral.Tx
   if (!is.null(background.integral.Tx)) {
     if (is(background.integral.Tx, "list")) {
@@ -1249,7 +1239,7 @@ analyse_baSAR <- function(
   if (is.null(CSV_file)) {
     ##select aliquots giving light only, this function accepts also a list as input
     if(verbose){
-      cat("\n[analyse_baSAR()] 'CSV_file' was not provided, running automatic grain selection ...\n")
+      cat("[analyse_baSAR()] 'CSV_file' not provided, running automatic grain selection ...\n")
     }
 
     for (k in 1:length(fileBIN.list)) {
@@ -1270,7 +1260,7 @@ analyse_baSAR <- function(
                               na.rm = TRUE)
         if (sum(num.grain.pos0) > 0) {
           .throw_warning("Automatic grain selection: ", num.grain.pos0,
-                         "curve(s) with grain index 0 had been removed ",
+                         " curves with grain index 0 have been removed ",
                          "from the dataset")
         }
 
@@ -1352,7 +1342,6 @@ analyse_baSAR <- function(
     ##limit aliquot range
     if (!is.null(aliquot_range)) {
       datalu <- datalu[aliquot_range,]
-
     }
 
     Nb_ali <-  0
@@ -1402,7 +1391,6 @@ analyse_baSAR <- function(
     .throw_error("Input type for 'CSV_file' not supported")
   }
 
-
   ###################################### loops on files_number
   for (k in 1:length(fileBIN.list)) {
     Disc_Grain.list[[k]] <- list()   # data.file number
@@ -1410,27 +1398,25 @@ analyse_baSAR <- function(
 
       if(n_aliquots_k == 0){
         fileBIN.list[[k]] <- NULL
+        msg <- paste("No data has been selected from BIN-file", k,
+                     " >> BIN-file removed from input")
         if(verbose){
-          message("[analyse_baSAR()] No data has been selected from BIN-file ",
-                  k, " >> BIN-file removed from input!")
+          message("[analyse_baSAR()] ", msg)
         }
-        .throw_warning("No data has been selected from BIN-file ", k,
-                       " >> BIN-file removed from input")
+        .throw_warning(msg)
         next()
       }
 
     for (d in 1:n_aliquots_k) {
       dd <-  as.integer(unlist(Disc[[k]][d]))
       Disc_Grain.list[[k]][[dd]] <- list()  # data.file number ,  disc_number
-    }
 
-    for (d in 1:n_aliquots_k) {
-      dd <-  as.integer(unlist(Disc[[k]][d]))
       if (Mono_grain == FALSE) {
         gg <- 1
       }
       if (Mono_grain == TRUE)  {
-        gg <- as.integer(unlist(Grain[[k]][d]))}
+        gg <- as.integer(unlist(Grain[[k]][d]))
+      }
 
         Disc_Grain.list[[k]][[dd]][[gg]] <- list()  # data.file number ,  disc_number, grain_number
         for (z in 1:6) {
@@ -1444,7 +1430,6 @@ analyse_baSAR <- function(
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
     cat("\n[analyse_baSAR()] Hang on, this may take a while ... \n")
   }
-
 
   for (k in 1:length(fileBIN.list)) {
     n_index.vector <- vector("numeric")
@@ -1526,13 +1511,11 @@ analyse_baSAR <- function(
 
               }else{
                 dose.value <-  irrad_time.vector[t]
-
               }
 
               s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
               Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][s] <- n_index.vector[t]  # indexes
               if ( s%%2 == 1) { Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]][as.integer(1+s/2)] <- dose.value  }      # irradiation doses
-
           }
     }
   }
@@ -1546,7 +1529,6 @@ analyse_baSAR <- function(
   for (k in 1:length(fileBIN.list)) {
 
     if (Mono_grain == TRUE) (max.grains <- 100) else (max.grains <- 1)
-
 
     ##plot Ln and Tn curves if wanted
     ##we want to plot the Ln and Tn curves to get a better feeling
@@ -1580,7 +1562,6 @@ analyse_baSAR <- function(
       if(!plot.single){
         par.default <- par()$mfrow
         par(mfrow = c(1, 2))
-
       }
 
       ##get natural curve and combine them in matrix
@@ -1592,7 +1573,6 @@ analyse_baSAR <- function(
         xlab = "Channel",
         main = expression(paste(L[n], " - curves")),
         type = "l"
-
       )
 
       ##add integration limits
@@ -1608,7 +1588,6 @@ analyse_baSAR <- function(
         xlab = "Channel",
         main = expression(paste(T[n], " - curves")),
         type = "l"
-
       )
 
       ##add integration limits depending on the choosen value
@@ -1617,7 +1596,6 @@ analyse_baSAR <- function(
 
       }else{
         abline(v = range(signal.integral.Tx[[k]]), lty = 2, col = "green")
-
       }
 
       if(is.null(background.integral.Tx[[k]])){
@@ -1625,7 +1603,6 @@ analyse_baSAR <- function(
 
       }else{
         abline(v = range(background.integral.Tx[[k]]), lty = 2, col = "red")
-
       }
 
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
@@ -1634,12 +1611,10 @@ analyse_baSAR <- function(
       ##reset par
       if(!plot.single){
         par(mfrow = par.default)
-
       }
 
       ##remove some variables
       rm(curve_index, Ln_matrix, Tn_matrix)
-
     }
 
 
@@ -1737,7 +1712,6 @@ analyse_baSAR <- function(
         }else{
           ##we have to do this, otherwise the grains will be sorted out
           Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][1:4] <- NA
-
         }
 
         Limited_cycles[previous.Nb_aliquots + i] <-
@@ -1746,12 +1720,10 @@ analyse_baSAR <- function(
         if (length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]]) > max_cycles) {
           max_cycles <-
             length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
-
         }
 
         previous.Nb_aliquots <-
             length(stats::na.exclude(Limited_cycles)) # Total count of aliquots
-
 
       count <- count + 1
     }
@@ -1793,7 +1765,6 @@ analyse_baSAR <- function(
     paste0("DOSE_", 1:max_cycles),
     paste0("LxTx_", 1:max_cycles),
     paste0("LxTx_", 1:max_cycles, ".SD")
-
   )
 
   comptage <- 0
@@ -1859,7 +1830,6 @@ analyse_baSAR <- function(
           as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
 
      }
-
     }
   }
 
@@ -1986,6 +1956,7 @@ analyse_baSAR <- function(
     ##(1) source_doserate is a list, not a vector, but the user can
     ##provide many source dose rates and he can provide only a single vector (no error)
 
+    systematic_error <- 0
     if(!is.null(unlist(source_doserate)) || !is.null(function_arguments$source_doserate)){
 
       ##if it comes from the previous call, it is, unfortunately not that simple
@@ -2004,11 +1975,7 @@ analyse_baSAR <- function(
         } else{
           NULL
         }
-
         }))
-
-    }else{
-      systematic_error <- 0
     }
 
     ##state are warning for very different errors
@@ -2041,20 +2008,13 @@ analyse_baSAR <- function(
     cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
     cat("------------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
-    if(!is.null(removed_aliquots)){
-      if(!is.null(aliquot_range)){
-        cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"/",
-                   results[[1]][["NB_ALIQUOTS"]] + nrow(removed_aliquots),
-                   " (manually removed: " ,length(aliquot_range),")\n"))
-
-      }else{
-        cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"/",
-                   results[[1]][["NB_ALIQUOTS"]] + nrow(removed_aliquots),"\n"))
-      }
-
-    }else{
-      cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"/", results[[1]][["NB_ALIQUOTS"]],"\n"))
-
+    num.aliquots <- results[[1]][["NB_ALIQUOTS"]]
+    tot.aliquots <- num.aliquots + nrow(removed_aliquots)
+    cat(paste0("Number of aliquots used:\t", num.aliquots, "/", tot.aliquots))
+    if (!is.null(aliquot_range)) {
+      cat(" (manually removed: ", length(aliquot_range), ")\n")
+    } else {
+      cat("\n")
     }
 
     if(!is.null(baSAR_model)){
@@ -2424,7 +2384,6 @@ analyse_baSAR <- function(
         }
       }else{
         plot_check <- NULL
-
       }
 
       ##In case the Abanico plot will not work because of negative values
