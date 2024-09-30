@@ -155,7 +155,7 @@ test_that("Full check of analyse_baSAR function", {
     ##please not that the here selected parameters are
     ##chosen for performance, not for reliability
     SW({
-    results <- suppressWarnings(analyse_baSAR(
+    expect_snapshot_RLum(results <- suppressWarnings(analyse_baSAR(
       object = CWOSL.sub,
       source_doserate = c(0.04, 0.001),
       signal.integral = c(1:2),
@@ -170,14 +170,9 @@ test_that("Full check of analyse_baSAR function", {
       verbose = TRUE,
       n.MCMC = 100,
       txtProgressBar = TRUE
-    ))
+      )),
+      tolerance = 1.5e-6)
     })
-
-    expect_s4_class(results, class = "RLum.Results")
-    expect_s3_class(results$summary, "data.frame")
-    expect_s3_class(results$mcmc, "mcmc.list")
-    expect_type(results$models, "list")
-    expect_type(round(sum(results$summary[, c(6:9)]), 2),type = "double")
 
   ## rerun with previous results as input
   SW({
