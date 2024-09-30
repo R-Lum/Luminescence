@@ -239,6 +239,16 @@ test_that("Full check of analyse_baSAR function", {
       "Plots for 'central_D' and 'sigma_D' could not be produced",
       fixed = TRUE),
       "'source_doserate' is ignored in this mode as it was already set")
+
+  CWOSL.mod <- CWOSL.sub
+  CWOSL.mod@METADATA$SEL <- FALSE
+  expect_warning(expect_null(analyse_baSAR(CWOSL.mod, verbose = TRUE,
+                                           source_doserate = c(0.04, 0.001),
+                                           signal.integral = c(1:2),
+                                           background.integral = c(80:100),
+                                           method_control = list(n.chains = 1),
+                                           n.MCMC = 100)),
+                 "No records selected, NULL returned")
   })
 
   results2@originator <- "unknown"

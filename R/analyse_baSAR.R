@@ -1052,7 +1052,6 @@ analyse_baSAR <- function(
         ##delete objects
         rm(rm_id)
       }
-
     }
 
     if (is(object, "Risoe.BINfileData")) {
@@ -1111,9 +1110,16 @@ analyse_baSAR <- function(
     record.selected <- unlist(lapply(fileBIN.list,
                                      FUN = function(x) x@METADATA[["SEL"]] ))
     if (!all(record.selected)) {
+      if (verbose) {
+        message("[analyse_baSAR()] Record pre-selection in BIN-file detected,",
+                "record reduced to selection\n")
+      }
+      if (sum(record.selected) == 0) {
+        .throw_warning("No records selected, NULL returned")
+        return(NULL)
+      }
 
       fileBIN.list <- lapply(fileBIN.list, function(x){
-
             ##reduce data
             x@DATA <- x@DATA[x@METADATA[["SEL"]]]
             x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
@@ -1121,13 +1127,7 @@ analyse_baSAR <- function(
             ##reset index
             x@METADATA[["ID"]] <- 1:nrow(x@METADATA)
             return(x)
-
       })
-
-      if(verbose){
-        cat("\n[analyse_baSAR()] Record pre-selection in BIN-file detected >> record reduced to selection")
-
-      }
     }
 
     # Declare variables ---------------------------------------------------------------------------
