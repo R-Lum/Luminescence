@@ -244,4 +244,9 @@ test_that("Full check of analyse_baSAR function", {
   results2@originator <- "unknown"
   expect_error(analyse_baSAR(object = results2),
                "'object' is of type 'RLum.Results', but was not produced by")
+
+  results2@originator <- "analyse_baSAR"
+  results2@data$input_object <- results2$input_object[1:2, ]
+  expect_message(expect_null(analyse_baSAR(object = results2)),
+                 "Error: Number of aliquots < 3, NULL returned")
 })

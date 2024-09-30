@@ -856,9 +856,8 @@ analyse_baSAR <- function(
      Nb_aliquots <- nrow(object$input_object)
 
      ## return NULL if not at least three aliquots are used for the calculation
-     if(Nb_aliquots < 2){
-       message("[analyse_baSAR()] Error: number of aliquots < 3, ",
-               "this makes no sense, NULL returned")
+     if (Nb_aliquots < 3) {
+       message("[analyse_baSAR()] Error: Number of aliquots < 3, NULL returned")
        return(NULL)
      }
 
