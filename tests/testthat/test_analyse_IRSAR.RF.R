@@ -46,11 +46,16 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   set.seed(1)
+  expect_snapshot_RLum(
+      results_fit <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
+                                      plot = TRUE))
+  expect_warning(expect_snapshot_RLum(
+      results_slide <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
+                                        plot = TRUE, n.MC = NULL)),
+      "Narrow density distribution, no density distribution plotted")
   SW({
-  results_fit <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "FIT")
-  results_slide <- suppressWarnings(
-    analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "SLIDE", n.MC = NULL))
-  results_slide_alt <- expect_s4_class(
+  expect_snapshot_RLum(
+  results_slide_alt <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -58,9 +63,11 @@ test_that("check class and length of output", {
       n.MC = 10,
       method.control = list(vslide_range = 'auto', trace_vslide = TRUE),
       txtProgressBar = FALSE
-    ), class = "RLum.Results")
+    )
+  )
 
-  results_slide_alt2 <- expect_s4_class(
+  expect_snapshot_RLum(
+  results_slide_alt2 <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -68,22 +75,12 @@ test_that("check class and length of output", {
       n.MC = 10,
       method.control = list(vslide_range = 'auto', trace_vslide = FALSE),
       txtProgressBar = FALSE
-    ), class = "RLum.Results")
+    )
+  )
   })
 
-  expect_equal(is(results_fit), c("RLum.Results", "RLum"))
-  expect_equal(length(results_fit), 5)
-  expect_equal(length(results_slide), 5)
   expect_s3_class(results_fit$fit, class = "nls")
   expect_s3_class(results_slide$fit, class = "nls")
-  expect_length(results_slide$slide, 10)
-
-  expect_equal(results_fit$data$DE, 623.25)
-  expect_equal(results_fit$data$DE.LOWER, 600.63)
-  expect_equal(results_slide$data$DE, 610.17)
-  expect_equal(round(results_slide_alt$data$DE, digits = 0), 384)
-  expect_equal(round(results_slide_alt2$data$DE, digits = 0), 384)
-
 })
 
 test_that("test controlled crash conditions", {
