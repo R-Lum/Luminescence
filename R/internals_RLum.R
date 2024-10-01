@@ -1039,6 +1039,64 @@ SW <- function(expr) {
   choices[idx]
 }
 
+#' @title Validate an argument from a list of classes
+#'
+#' @param arg [character] (**required**): variable to validate.
+#' @param classes [vector] [character] (**required**): a vector of candidate
+#'        classes or types.
+#' @param throw.error [logical] (*with default*): whether an error should be
+#'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
+#'        the function raises a warning and proceeds.
+#' @param extra [character] (*with default*): additional choice to be reported
+#'        after the valid choices and preceded by "or".
+#' @param name [character] (*with default*): variable name to report in case
+#'        of error: if specified, it's reported as is; if not specified it's
+#'        inferred from the name of the variable tested and reported with
+#'        quotes.
+#'
+#' @return
+#' If `throw.error = TRUE`, the function throws an error and doesn't return
+#' anything. Otherwise, it will return a boolean to indicate whether validation
+#' was successful or not.
+#'
+#' @md
+#' @noRd
+.validate_class <- function(arg, classes, throw.error = TRUE,
+                            name = NULL, extra = NULL) {
+
+  if (missing(classes)) {
+    .throw_error("'classes' must be provided")
+  }
+
+  ## name of the argument to report if not specified
+  if (is.null(name))
+    name <- sprintf("'%s'", all.vars(match.call())[1])
+
+  if (missing(arg) || sum(inherits(arg, classes)) == 0L) {
+    ## additional text to append after the valid classes to account for
+    ## extra options that cannot be validated but we want to report
+    classes.extra <- c(classes, extra)
+
+    ## use an 'or' instead of a comma before the last choice
+    if (length(classes.extra) > 1) {
+      msg.head <- head(classes.extra, -1)
+      msg.tail <- paste(" or",
+                        if (is.null(extra)) sQuote(tail(classes.extra, 1),
+                                                   q =FALSE)
+                        else tail(classes.extra, 1))
+    } else {
+      msg.head <- classes.extra
+      msg.tail <- NULL
+    }
+    msg <- paste0(name, " should be of class ", .collapse(msg.head), msg.tail)
+    if (throw.error)
+      .throw_error(msg)
+    .throw_warning(msg)
+    return(FALSE)
+  }
+  return(TRUE)
+}
+
 #' @title Validate Scalar Variables Expected to be Positive
 #'
 #' @param val [numeric] (**required**): value to validate

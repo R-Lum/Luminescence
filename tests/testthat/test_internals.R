@@ -248,6 +248,39 @@ test_that("Test internals", {
                "[test()] 'choices' must be provided",
                fixed = TRUE)
 
+  ## .validate_class() -------------------------------------------------------
+  fun1 <- function(arg) {
+    .validate_class(arg, "data.frame")
+  }
+  fun2 <- function(arg) {
+    .validate_class(arg, "data.frame", throw.error = FALSE)
+  }
+  expect_true(fun1(iris))
+  expect_true(.validate_class(iris, c("data.frame", "integer")))
+  expect_true(.validate_class(iris, c("data.frame", "integer"),
+                              throw.error = FALSE))
+  expect_warning(expect_false(.validate_class(arg <- NULL, "data.frame",
+                                   throw.error = FALSE)),
+      "'arg' should be of class 'data.frame'")
+  expect_error(fun1(),
+               "'arg' should be of class 'data.frame'")
+  expect_error(fun1(NULL),
+               "'arg' should be of class 'data.frame'")
+  expect_error(.validate_class(test <- 1:5, "data.frame"),
+               "'test' should be of class 'data.frame'")
+  expect_error(.validate_class(test <- 1:5, c("list", "data.frame", "numeric")),
+               "'test' should be of class 'list', 'data.frame' or 'numeric'")
+  expect_error(.validate_class(test <- 1:5, c("list", "data.frame")),
+               "'test' should be of class 'list' or 'data.frame'")
+  expect_error(.validate_class(test <- 1:5, c("list", "data.frame"),
+                               extra = "another type"),
+               "'test' should be of class 'list', 'data.frame' or another")
+  expect_error(.validate_class(test <- 1:5, c("list", "data.frame"),
+                               name = "'other_name'"),
+               "'other_name' should be of class 'list' or 'data.frame'")
+  expect_warning(fun2(),
+                 "'arg' should be of class 'data.frame'")
+
 
   ## .validate_positive_scalar() --------------------------------------------
   expect_silent(.validate_positive_scalar(1.3))
