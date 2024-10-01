@@ -275,7 +275,7 @@ CW2pHMi<- function(
   invalid_values.id <- c(which(is.infinite(temp[,2]) | is.nan(temp[,2])))
 
   if(length(invalid_values.id) > 0){
-    .throw_warning(length(invalid_values.id), " values have been found ",
+    .throw_warning(length(invalid_values.id), " invalid values have been found ",
                    "and replaced by the mean of the nearest values")
   }
 

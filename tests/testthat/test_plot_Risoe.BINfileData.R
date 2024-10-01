@@ -23,7 +23,7 @@ test_that("general test", {
 
   expect_warning(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                         curve.transformation = "CW2pHMi"),
-                 "132 values have been found and replaced by the mean")
+                 "132 invalid values have been found and replaced by the mean")
   SW({
   expect_warning(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                         curve.transformation = "CW2pPMi"),

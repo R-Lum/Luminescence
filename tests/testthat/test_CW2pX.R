@@ -2,27 +2,34 @@
 data(ExampleData.CW_OSL_Curve, envir = environment())
 values <- CW_Curve.BosWallinga2012
 
-test_that("Check the example and the numerical values", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
-  values_pLM <- CW2pLM(values)
-  values_pLMi <- CW2pLMi(values, P = 1/20)
-  values_pLMi_alt <- CW2pLMi(values)
-  values_pHMi <- suppressWarnings(CW2pHMi(values, delta = 40))
-  values_pHMi_alt <- suppressWarnings(CW2pHMi(values))
-  values_pHMi_alt1 <- suppressWarnings(CW2pHMi(values, delta = 2))
-  values_pPMi <- suppressWarnings(CW2pPMi(values, P = 1/10))
-
-    ##check conversion sum values
-    expect_equal(round(sum(values_pLM), digits = 0),90089)
-    expect_equal(round(sum(values_pLMi[,1:2]), digits = 0),197522)
-    expect_equal(round(sum(values_pLMi_alt[,1:2]), digits = 0),197522)
-    expect_equal(round(sum(values_pHMi[,1:2]), digits = 0),217431)
-    expect_equal(round(sum(values_pHMi_alt[,1:2]), digits = 0),217519)
-    expect_equal(round(sum(values_pHMi_alt1[,1:2]), digits = 0), 221083)
-    expect_equal(round(sum(values_pPMi[,1:2]), digits = 0),196150)
-
-
+  tol <- 1.5e-6
+  expect_snapshot_plain(CW2pLM(values),
+                        tolerance = tol)
+  expect_snapshot_plain(CW2pLMi(values, P = 1/20),
+                        tolerance = tol)
+  expect_snapshot_plain(CW2pLMi(values),
+                        tolerance = tol)
+  expect_warning(
+      expect_snapshot_plain(CW2pHMi(values),
+                            tolerance = tol),
+      "56 invalid values have been found")
+  expect_warning(
+      expect_snapshot_plain(CW2pHMi(values, delta = 40),
+                            tolerance = tol),
+      "56 invalid values have been found")
+  SW({ # repeated warning about invalid values
+  expect_warning(
+      expect_snapshot_plain(CW2pHMi(values, delta = 2),
+                            tolerance = tol),
+      "t' is beyond the time resolution and more than two data points")
+  })
+  expect_warning(
+      expect_snapshot_plain(CW2pPMi(values, P = 1/10),
+                            tolerance = tol),
+      "t' is beyond the time resolution. Only two data points have been extrapolated")
 })
 
 test_that("Test RLum.Types", {
@@ -37,7 +44,6 @@ test_that("Test RLum.Types", {
       curveType = "measured",
       recordType = "OSL"
     )
-
 
   ##transform values
   expect_s4_class(CW2pLM(object), class = "RLum.Data.Curve")
@@ -65,6 +71,4 @@ test_that("Test RLum.Types", {
   expect_error(object = CW2pPMi(values = object),
                regexp = "[CW2pPMi()] recordType RF is not allowed for the transformation!",
                fixed = TRUE)
-
-
 })
