@@ -137,7 +137,7 @@ plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 #' @rdname methods_RLum
 #' @method plot Risoe.BINfileData
 #' @export
-plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(BINfileData = x, ...)
+plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(data = x, ...)
 
 ####################################################################################################
 # methods for generic: hist()

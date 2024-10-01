@@ -4,11 +4,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(fit_LMCurve("error"),
-               "'values' has to be of type 'data.frame' or 'RLum.Data.Curve'")
+               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "OSL")),
                "recordType should be 'RBR' or 'LM-OSL'")
   expect_error(fit_LMCurve(values.curve, values.bg = "error"),
-               "'values.bg' must be of type 'data.frame' or 'RLum.Data.Curve'")
+               "'values.bg' should be of class 'data.frame' or 'RLum.Data.Curve'")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "LM-OSL"),
                            values.bg = values.curveBG),
                "Lengths of 'values' and 'values.bg' differ")

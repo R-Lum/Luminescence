@@ -1,18 +1,18 @@
 #' Export Risoe BIN-file(s) to CSV-files
 #'
 #' This function is a wrapper function around the functions [read_BIN2R] and
-#' [write_RLum2CSV] and it imports a Risoe BIN-file and directly exports its 
-#' content to CSV-files. If nothing is set for the argument `path` 
+#' [write_RLum2CSV] and it imports a Risoe BIN-file and directly exports its
+#' content to CSV-files. If nothing is set for the argument `path`
 #' ([write_RLum2CSV]) the input folder will become the output folder.
-#' 
-#' @param file [character] (**required**): 
+#'
+#' @param file [character] (**required**):
 #' name of the BIN-file to be converted to CSV-files
 #'
-#' @param ... further arguments that will be passed to the function 
+#' @param ... further arguments that will be passed to the function
 #' [read_BIN2R] and [write_RLum2CSV]
 #'
-#' @return 
-#' The function returns either a CSV-file (or many of them) or for the 
+#' @return
+#' The function returns either a CSV-file (or many of them) or for the
 #' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #' @section Function version: 0.1.0
@@ -44,17 +44,13 @@
 convert_BIN2CSV <- function(
   file,
   ...
+) {
+  .set_function_name("convert_BIN2CSV")
+  on.exit(.unset_function_name(), add = TRUE)
 
-){
+  ## Integrity tests --------------------------------------------------------
 
-  # General tests -------------------------------------------------------------------------------
-
-  ##file is missing?
-  if(missing(file)){
-    stop("[convert_BIN2CSV()] file is missing!", call. = FALSE)
-
-  }
-
+  .validate_class(file, c("character", "Risoe.BINfileData"))
 
   ##set input arguments
   convert_BIN2CSV_settings.default <- list(
@@ -71,7 +67,6 @@ convert_BIN2CSV <- function(
     pattern = NULL,
     verbose = TRUE,
     export = TRUE
-
   )
 
   ##modify list on demand
@@ -97,8 +92,6 @@ convert_BIN2CSV <- function(
 
   }else{
    object <- Risoe.BINfileData2RLum.Analysis(file)
-
-
   }
 
   # Export to CSV -------------------------------------------------------------------------------
@@ -113,7 +106,5 @@ convert_BIN2CSV <- function(
 
   }else{
     do.call("write_RLum2CSV", arguments)
-
   }
-
 }

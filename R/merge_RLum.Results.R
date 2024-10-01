@@ -36,12 +36,10 @@ merge_RLum.Results <- function(
             }else{
               ##check if objects in the list are of type RLum.Results
               temp.originator <- sapply(1:length(objects), function(x){
-                if(is(objects[[x]], "RLum.Results") == FALSE){
-                  .throw_error("All objects to be merged must have type 'RLum.Results'")
-                }
+                .validate_class(objects[[x]], "RLum.Results",
+                                name = "All elements of 'object'")
 
                 objects[[x]]@originator
-
               })
               }
 
@@ -80,7 +78,6 @@ merge_RLum.Results <- function(
 
                 }else{
                   objects[[1]]@data[[i]] <- as.data.frame(data.table::rbindlist(temp.list))
-
                 }
 
                 ## continue attribute preservation
@@ -101,7 +98,6 @@ merge_RLum.Results <- function(
                   for(n in names(attrs))
                     attr(objects[[1]]@data[[i]], n) <- attrs[[n]]
                 }
-
 
               }else{
                 ##all other elements

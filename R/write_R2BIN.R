@@ -100,10 +100,10 @@ write_R2BIN <- function(
   ##set supported BIN format version
   VERSION.supported <- as.raw(c(3, 4, 5, 6, 7, 8))
 
-  # Check integrity ---------------------------------------------------------
-  ##check if input object is of type 'Risoe.BINfileData'
-  if (!inherits(object, "Risoe.BINfileData"))
-    .throw_error("Input object is not of type Risoe.BINfileData")
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(object, "Risoe.BINfileData")
+  .validate_class(file, "character")
 
   ## check if it fulfills the latest definition ...
   if(ncol(object@METADATA) != ncol(set_Risoe.BINfileData()@METADATA)){
@@ -113,10 +113,6 @@ write_R2BIN <- function(
                  "workspace you produced manually or with an old version. ",
                  "Please re-import the BIN-file using function read_BIN2R().")
   }
-
-  ##check if input file is of type 'character'
-  if (!is.character(file))
-    .throw_error("Argument 'file' has to be of type character")
 
   # Check Risoe.BINfileData Struture ----------------------------------------
   ##check whether the BIN-file DATA slot contains more than 9999 records; needs to be run all the time

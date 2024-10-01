@@ -11,13 +11,13 @@ test_that("simple test", {
 
   ## input validation
   expect_error(PSL2Risoe.BINfileData("wrong-class"),
-               "Only objects of class 'RLum.Analysis' are allowed")
+               "'object' should be of class 'RLum.Analysis'")
 
   ## manipulate the object to trigger other errors
   fake <- merged
   fake@records[20] <- "unexpected-subclass"
   expect_error(PSL2Risoe.BINfileData(fake),
-               "must only contain objects of class 'RLum.Data.Curve'")
+               "All elements of 'object' should be of class 'RLum.Data.Curve'")
 
   fake <- merged
   fake@records[10][[1]]@originator <- "unexpected-originator"

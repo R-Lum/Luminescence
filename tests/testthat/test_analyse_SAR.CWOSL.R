@@ -261,7 +261,7 @@ test_that("simple run", {
    ##trigger stops for parameters
    ##object
   expect_error(analyse_SAR.CWOSL("fail"),
-               "Input object is not of type 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis'")
 
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal.integral.min = 1.2,

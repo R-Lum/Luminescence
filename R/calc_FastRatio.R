@@ -108,8 +108,8 @@
 #'
 #' @md
 #' @export
-calc_FastRatio <- function(object, 
-                           stimulation.power = 30.6, 
+calc_FastRatio <- function(object,
+                           stimulation.power = 30.6,
                            wavelength = 470,
                            sigmaF = 2.6E-17,
                            sigmaM = 4.28E-18,
@@ -126,7 +126,9 @@ calc_FastRatio <- function(object,
   .set_function_name("calc_FastRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Input verification --------------------------------------------------------
+  ## Input verification -----------------------------------------------------
+  .validate_class(object, c("RLum.Analysis", "RLum.Results", "RLum.Data.Curve",
+                            "data.frame", "matrix"))
   .validate_positive_scalar(Ch_L1, int = TRUE)
   .validate_positive_scalar(Ch_L2, int = TRUE, null.ok = TRUE)
   if (!is.null(Ch_L3)) {
@@ -146,11 +148,11 @@ calc_FastRatio <- function(object,
 
   if (inherits(object, "RLum.Results"))
     object <- get_RLum(object, "data")
-  
+
   if (!inherits(object, "list"))
     object <-list(object)
-  
-  
+
+
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE,
                    n.components.max = 3,

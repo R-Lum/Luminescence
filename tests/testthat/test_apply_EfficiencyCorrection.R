@@ -9,10 +9,9 @@ test_that("check function", {
 
   ##break function
   expect_error(apply_EfficiencyCorrection(object = "ERROR"),
-               regexp = "Input object is not of type RLum.Data.Spectrum")
-
+               "'object' should be of class 'RLum.Data.Spectrum'")
   expect_error(apply_EfficiencyCorrection(object = TL.Spectrum, spectral.efficiency = "ERROR"),
-               regexp = "'spectral.efficiency' is not of type data.frame")
+               "'spectral.efficiency' should be of class 'data.frame'")
 
   eff_data_false <- eff_data
   eff_data_false[1,2] <- 2

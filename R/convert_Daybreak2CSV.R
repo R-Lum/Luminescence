@@ -40,17 +40,13 @@
 convert_Daybreak2CSV <- function(
   file,
   ...
+) {
+  .set_function_name("convert_Daybreak2CSV")
+  on.exit(.unset_function_name(), add = TRUE)
 
-){
+  ## Integrity tests --------------------------------------------------------
 
-  # General tests -------------------------------------------------------------------------------
-
-  ##file is missing?
-  if(missing(file)){
-    stop("[convert_Daybreak2R()] file is missing!", call. = FALSE)
-
-  }
-
+  .validate_class(file, c("character", "RLum"))
 
   ##set input arguments
   convert_Daybreak2R_settings.default <- list(
@@ -70,11 +66,9 @@ convert_Daybreak2CSV <- function(
       raw = convert_Daybreak2R_settings$raw,
       verbose = convert_Daybreak2R_settings$raw,
       txtProgressBar = convert_Daybreak2R_settings$raw
-
    )
   }else{
     object <- file
-
   }
 
   # Export to CSV -------------------------------------------------------------------------------
@@ -89,7 +83,5 @@ convert_Daybreak2CSV <- function(
 
   }else{
     do.call("write_RLum2CSV", arguments)
-
   }
-
 }

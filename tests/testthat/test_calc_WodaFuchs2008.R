@@ -4,7 +4,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_warning(expect_null(calc_WodaFuchs2008("error")),
-                 "Input data must be one of 'data.frame', 'RLum.Results' or")
+                 "'data' should be of class 'data.frame', 'RLum.Results' or")
   res <- calc_WodaFuchs2008(ExampleData.DeValues$CA1)
   expect_error(calc_WodaFuchs2008(res, breaks = 4),
                "Insufficient number of data points")

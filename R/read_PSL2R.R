@@ -62,7 +62,11 @@
 #' @md
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
+  .set_function_name("read_PSL2R")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## INPUT VALIDATION ----
+  .validate_class(file, "character")
   if (length(file) == 1) {
     if (!grepl(".psl$", file, ignore.case = TRUE)) {
       file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)

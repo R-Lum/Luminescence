@@ -29,7 +29,7 @@ test_that("check functionality", {
   expect_warning(
       expect_snapshot_plain(CW2pPMi(values, P = 1/10),
                             tolerance = tol),
-      "t' is beyond the time resolution. Only two data points have been extrapolated")
+      "t' is beyond the time resolution: only two data points have been extrapolated")
 })
 
 test_that("Test RLum.Types", {
@@ -54,21 +54,25 @@ test_that("Test RLum.Types", {
   ##test error handling
   expect_error(CW2pLMi(values, P = 0), regexp = "[CW2pLMi] P has to be > 0!", fixed = TRUE)
   expect_warning(CW2pLMi(values, P = 10))
-  expect_error(object = CW2pLM(values = matrix(0, 2)))
-  expect_error(object = CW2pLMi(values = matrix(0, 2)))
-  expect_error(object = CW2pHMi(values = matrix(0, 2)))
-  expect_error(object = CW2pPMi(values = matrix(0, 2)))
+  expect_error(CW2pHMi(values = matrix(0, 2)),
+               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pLMi(values = matrix(0, 2)),
+               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pLM(values = matrix(0, 2)),
+               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pPMi(values = matrix(0, 2)),
+               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
 
   object@recordType <- "RF"
   expect_error(CW2pLM(values = object),
                "recordType RF is not allowed for the transformation")
   expect_error(object = CW2pLMi(values = object),
-               regexp = "[CW2pLMi()] recordType RF is not allowed for the transformation!",
+               "[CW2pLMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
   expect_error(object = CW2pHMi(values = object),
-               regexp = "[CW2pHMi()] recordType RF is not allowed for the transformation!",
+               "[CW2pHMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
   expect_error(object = CW2pPMi(values = object),
-               regexp = "[CW2pPMi()] recordType RF is not allowed for the transformation!",
+               "[CW2pPMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
 })

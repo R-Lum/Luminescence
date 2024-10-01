@@ -38,6 +38,8 @@ read_RF2R <- function(
   file,
   ...
 ) {
+  .set_function_name("read_RF2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call -----------------------------------------------------------------------------------
   if(inherits(file, "list")){
@@ -52,25 +54,22 @@ read_RF2R <- function(
       }else{
         return(temp)
       }
-
     })
 
     return(unlist(results_list, recursive = FALSE))
-
   }
 
 
-# Integrity check -----------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(file, c("character", "list"))
+
   ##throw warning if we have a vector
   if(length(file) > 1){
     warning("[read_RF2R()] 'file' has a length > 1. Only the first element was taken!
             If you want to import multiple files, 'file' has to be of type 'list'.", call. = TRUE)
     file <- file[1]
   }
-
-  ##check input
-  if(!inherits(file, "character"))
-    stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)
 
   ##check whether file is available
   if(!file.exists(file))
@@ -83,7 +82,7 @@ read_RF2R <- function(
                               regexpr("(?<=macro\\_version=)[0-9-.]+", vers_str, perl = TRUE))
 
   if (!any(version_found %in% version_supported))
-    stop("[read_RF2R()] File format not supported!", call. = FALSE)
+    .throw_error("File format not supported")
 
 # Import --------------------------------------------------------------------------------------
 
@@ -204,7 +203,6 @@ read_RF2R <- function(
 
         }else{
           temp_curve <- m_RF_reg[,c(2,2 + a)]
-
         }
 
         ##write curve
@@ -215,8 +213,6 @@ read_RF2R <- function(
           recordType = "RF",
           data = temp_curve
         )
-
-
       })
 
       ##create RLum.Analysis object
@@ -227,10 +223,8 @@ read_RF2R <- function(
                  as.list(df_statistics[a,]),
                  header
                  ))
-
     })
 
 # Return --------------------------------------------------------------------------------------
 return(object_list)
-
 }

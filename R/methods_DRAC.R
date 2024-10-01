@@ -113,16 +113,15 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 
   ## REJECT ALL INADEQUATE CLASSES ----
   acceptedClasses <- c("integer", "character", "numeric", "factor")
-  if (is.na(match(class(value), acceptedClasses))) {
-    warning(paste("I cannot use objects of class", class(value)), 
-            call. = FALSE)
+  if (!.validate_class(value, acceptedClasses,
+                       throw.error = FALSE)) {
     return(x)
   }
-  
+
   ## CHECK INPUT LENGTH ----
   length.old <- length(x[[i]])
   length.new <- length(value)
-  
+
   if (length.old != length.new) {
     warning(paste(names(x)[i], ": Input must be of length", length.old), 
             call. = FALSE)
@@ -209,7 +208,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   if (class.old == "factor") {
     levels <- levels(x[[i]])
     if (any(`%in%`(value, levels) == FALSE)) {
-      .throw_warning(names(x)[i], ": Invalid option. Valid options are:",
+      .throw_warning(names(x)[i], ": Invalid option. Valid options are: ",
                      .collapse(levels))
       return(x)
     } else {

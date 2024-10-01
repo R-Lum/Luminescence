@@ -4,7 +4,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_RLum.Results("error"),
-               "Input object is not of type 'RLum.Results'")
+               "'object' should be of class 'RLum.Results'")
 })
 
 test_that("check functionality", {

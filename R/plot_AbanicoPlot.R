@@ -480,13 +480,10 @@ plot_AbanicoPlot <- function(
 
   ## Check input data
   for(i in 1:length(data)) {
-    if(is(data[[i]], "RLum.Results") == FALSE &
-       is(data[[i]], "data.frame") == FALSE) {
-      .throw_error("Input data format must be 'data.frame' or 'RLum.Results'")
-
-    } else {
-      if(is(data[[i]], "RLum.Results"))
-        data[[i]] <- get_RLum(data[[i]], "data")
+    .validate_class(data[[i]], c("data.frame", "RLum.Results"),
+                    name = "All elements of 'data'")
+    if (inherits(data[[i]], "RLum.Results"))
+      data[[i]] <- get_RLum(data[[i]], "data")
 
       if (ncol(data[[i]]) < 2) {
         .throw_error("Data set (", i, ") has fewer than 2 columns: data ",
@@ -494,7 +491,6 @@ plot_AbanicoPlot <- function(
       }
 
       data[[i]] <- data[[i]][,c(1:2)]
-    }
   }
 
   ## optionally, remove NA-values

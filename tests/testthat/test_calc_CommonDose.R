@@ -9,9 +9,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_CommonDose(),
-               "is missing, with no default")
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_CommonDose("test"),
-               "object has to be of type 'data.frame' or 'RLum.Results'")
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_CommonDose(data.frame(col = 1:10)),
                "'data' object must have two columns")
   expect_error(calc_CommonDose(data.frame(col = 1:10)),

@@ -7,10 +7,12 @@ test_that("Test general functionality", {
 
   ##crash function
   expect_error(write_R2TIFF(object = "test"),
-        "\\[write\\_R2TIFF\\(\\)\\] Only RLum.Data.Image and RLum.Data.Spectrum objects are supported!")
+               "[write_R2TIFF()] 'object' should be of class 'RLum.Data.Image'",
+               fixed = TRUE)
 
-  expect_error(write_R2TIFF(object = ExampleData.RLum.Data.Image, file = "error/error"),
-               "\\[write\\_R2TIFF\\(\\)\\] Path does not exist!")
+  expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = "error/error"),
+               "[write_R2TIFF()] Path does not exist",
+               fixed = TRUE)
 
   ## export RLum.Data.Image
   expect_null(write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile(fileext = "tiff")))
@@ -20,5 +22,4 @@ test_that("Test general functionality", {
 
   ## a list
   expect_null(write_R2TIFF(list(ExampleData.RLum.Data.Image, TL.Spectrum), file = tempfile(fileext = "tiff")))
-
 })

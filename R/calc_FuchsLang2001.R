@@ -83,17 +83,14 @@ calc_FuchsLang2001 <- function(
   startDeValue = 1,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("calc_FuchsLang2001")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Tests ---------------------------------------------------------
-  if(!missing(data)){
-    if(!is(data, "data.frame") & !is(data,"RLum.Results")){
-      stop("[calc_FuchsLang2001()] 'data' has to be of type 'data.frame' or 'RLum.Results'!", call. = FALSE)
-    } else {
-      if(is(data, "RLum.Results")){
-        data <- get_RLum(data, "data")
-      }
-    }
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
 
   # Deal with extra arguments -----------------------------------------------

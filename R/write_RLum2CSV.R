@@ -83,13 +83,9 @@ write_RLum2CSV <- function(
   export = TRUE,
   compact = TRUE,
   ...
-
-){
-  # General tests -------------------------------------------------------------------------------
-  if(missing(object)){
-    stop("[write_RLum2CSV()] input object is missing!", call. = FALSE)
-
-  }
+) {
+  .set_function_name("write_RLum2CSV")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
@@ -128,40 +124,36 @@ write_RLum2CSV <- function(
         return(temp)
 
       }
-
   }
 
-  # Integrity tests -----------------------------------------------------------------------------
-  ##check path
-    ##if NULL condition
-    if(export == TRUE && is.null(path)){
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve",
+                            "RLum.Data.Image", "RLum.Data.Spectrum",
+                            "RLum.Results", "data.frame"))
+
+  ## check export path
+  if (export == TRUE) {
+    if (is.null(path)) {
       path <- getwd()
-      message(paste0("[write_RLum2CSV()] Path automatically set to: ", path))
-
+      message("[write_RLum2CSV()] Path automatically set to: ", path)
+    } else if (!dir.exists(path)) {
+      .throw_error("Directory provided via the argument 'path' does not exist")
     }
-
-    ##non NULL conditon
-    if(export == TRUE && !dir.exists(path)){
-      stop("[write_RLum2CSV()] Directory provided via the argument 'path' does not exist!", call. = FALSE)
-
-    }
+  }
 
   ## What do we need at the end of the day is a named list of data.frames or matrices we can export
   ## using the function write.table; the name of the list elements will become the file names
-  if(inherits(object, "RLum")){
-    if(is(object, "RLum.Analysis") ||
-       is(object, "RLum.Data.Curve") ||
-       is(object, "RLum.Data.Spectrum") || is(object, "RLum.Data.Image")){
 
-      ##extract all elements ... depending on the input
-      if(is(object, "RLum.Analysis")){
+  ## extract all elements ... depending on the input
+  if (inherits(object, "RLum.Analysis")) {
         ##tricky, we cannot use get_RLum() as the function lapply calls as.list() for an object!
         object_list <- lapply(object, function(x){get_RLum(x)})
 
         ##change names of the list and produce the right format straight away
         names(object_list) <- paste0(1:length(object_list),"_",names(object))
 
-      } else {
+  } else if (inherits(object, "RLum.Data")) {
 
         ##get object and make list
         object_list <- list(get_RLum(object))
@@ -169,9 +161,7 @@ write_RLum2CSV <- function(
         ##set new name
         names(object_list) <- paste0("1_",object@recordType)
 
-      }
-
-    } else if (is(object, "RLum.Results")){
+  } else if (inherits(object, "RLum.Results")) {
       ##unlist what ever comes, but do not break structures like matrices, numerics and
       names <- names(object@data)
 
@@ -205,28 +195,17 @@ write_RLum2CSV <- function(
 
       ##set warning
       if(any(!object_list_rm))
-        warning(paste0("[write_RLum2CSV()] ", length(which(!object_list_rm)), " elements could not be converted to a CSV-structure!"), call. = FALSE)
+        .throw_warning(length(which(!object_list_rm)),
+                       " elements could not be converted to CSV")
 
       ##adjust the names
       names(object_list) <- paste0(1:length(object_list),"_",names(object_list))
-
-    } else {
-      # nocov start
-      message("[write_RLum2CSV()] Error: One particular RLum-object ",
-              "is not yet supported, NULL returned")
-      return(NULL)
-      # nocov end
-    }
 
   } else if (inherits(object, "data.frame")) {
     object_list <- list(object)
     if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  filename <- ""
 
     names(object_list) <- paste0("conv_", attr(object, "list_name"), filename)
-
-  }else{
-   stop("[write_RLum2CSV()] Object needs to be a member of the object class RLum!", call. = FALSE)
-
   }
 
   # Export --------------------------------------------------------------------------------------
@@ -264,12 +243,10 @@ write_RLum2CSV <- function(
         col.names =  export_settings$col.names,
         qmethod =  export_settings$qmethod,
         fileEncoding =  export_settings$fileEncoding)
-
     }
 
   }else{
     return(object_list)
 
   }
-
 }

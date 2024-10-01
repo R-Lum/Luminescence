@@ -6,11 +6,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(analyse_FadingMeasurement(object = "test"),
-               "'object' must be an 'RLum.Analysis' object or a 'list' of such objects")
+               "'object' should be of class 'RLum.Analysis', 'data.frame' or")
   expect_error(expect_warning(
       analyse_FadingMeasurement(list(fading_data, "test")),
       "2 non-supported records removed"),
-      "'object' must be an 'RLum.Analysis' object or a 'list' of such objects")
+      "'object' should be of class 'RLum.Analysis', 'data.frame' or a 'list'")
   expect_error(analyse_FadingMeasurement(cbind(fading_data, fading_data[, 1])),
                "if you provide a data.frame as input, the number of columns")
 

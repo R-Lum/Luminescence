@@ -5,7 +5,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_AbanicoPlot(data = "error"),
-               "Input data format must be 'data.frame' or 'RLum.Results'")
+               "All elements of 'data' should be of class 'data.frame'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues[, 1, drop = FALSE]),
                "Data set (1) has fewer than 2 columns: data without errors",
                fixed = TRUE)

@@ -74,40 +74,30 @@
 #' @export
 CW2pLM <- function(
   values
-){
+) {
+  .set_function_name("CW2pLM")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Checks --------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-    stop("[CW2pLM()] 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
-
-  }
+  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if(is(values, "RLum.Data.Curve") == TRUE){
-
+  if (inherits(values, "RLum.Data.Curve")) {
     if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
-
-      stop(paste("[CW2pLM()] recordType ",values@recordType, " is not allowed for the transformation!",
-                 sep=""), call. = FALSE)
-
-    }else{
-
-      temp.values <- as(values, "data.frame")
-
+      .throw_error("recordType ", values@recordType,
+                   " is not allowed for the transformation")
     }
+
+    temp.values <- as(values, "data.frame")
 
   }else{
 
     temp.values <- values
-
-
   }
 
-
   # Calculation -------------------------------------------------------------
-
 
   ##curve transformation
   P<-2*max(temp.values[,1])
@@ -137,5 +127,4 @@ CW2pLM <- function(
     return(newRLumDataCurves.CW2pLM)
 
   }
-
 }

@@ -8,9 +8,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_MinDose(),
-               "is missing, with no default")
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_MinDose("test"),
-               "'data' object must be of type 'data.frame' or 'RLum.Results'")
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "is missing, with no default")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, init.values = 1:4),

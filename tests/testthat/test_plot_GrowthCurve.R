@@ -13,7 +13,8 @@ test_that("plot_GrowthCurve", {
   ## input object
   expect_error(
     object = plot_GrowthCurve("test"),
-    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Argument 'sample' needs to be of type 'data.frame'\\!")
+    "[plot_GrowthCurve()] 'sample' should be of class 'data.frame'",
+    fixed = TRUE)
 
   ## shorten dataframe
   expect_error(
@@ -352,7 +353,7 @@ temp_LambertW <-
   LIN <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN",
                      main = "Title", xlab = "x-axis", ylab = "y-axis",
-                     xlim = c(0, 10), ylim = c(0, 10), fun = TRUE),
+                     xlim = c(0, 10), ylim = c(0, 10)),
     "RLum.Results")
   EXP <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"),

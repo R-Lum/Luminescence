@@ -90,8 +90,7 @@ calc_gSGC<- function(
 ##CHECK INPUT DATA
 ##============================================================================##
 
-  if (!is.data.frame(data))
-    .throw_error("'data' must be a data.frame")
+  .validate_class(data, "data.frame")
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")
   gSGC.type <- .match_args(gSGC.type, c("0-250", "0-450"))

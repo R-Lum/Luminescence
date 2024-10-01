@@ -91,14 +91,11 @@ Risoe.BINfileData2RLum.Analysis<- function(
   .set_function_name("Risoe.BINfileData2RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity Check ---------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
-  if (!is(object,"Risoe.BINfileData")){
-    .throw_error("Input object is not of type 'Risoe.BINfileData'.")
-  }
-
-  if (!is.null(pos) && !is(pos,"numeric")){
-    .throw_error("Argument 'pos' has to be of type numeric.")
+  .validate_class(object, "Risoe.BINfileData")
+  if (!is.null(pos)) {
+    .validate_class(pos, c("numeric", "integer"))
   }
 
   if (is.null(pos)) {

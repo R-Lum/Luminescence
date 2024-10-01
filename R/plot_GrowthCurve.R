@@ -328,9 +328,7 @@ plot_GrowthCurve <- function(
     data.frame = sample,
     matrix = sample <- as.data.frame(sample),
     list = sample <- as.data.frame(sample),
-    stop(
-      "[plot_GrowthCurve()] Argument 'sample' needs to be of type 'data.frame'!",
-      call. = FALSE)
+    .throw_error("'sample' should be of class 'data.frame'")
   )
 
   ##2. Check supported fit methods
@@ -414,10 +412,6 @@ plot_GrowthCurve <- function(
       x = sample[1:(fit.NumberRegPoints+1),1],
       y = sample[1:(fit.NumberRegPoints+1),2])
     y.Error <- sample[1:(fit.NumberRegPoints+1),3]
-
-  }else{
-    stop("[plot_GrowthCurve()] Unknown input for argument 'mode'", call. = FALSE)
-
   }
 
   ##1.1.1 produce weights for weighted fitting

@@ -8,8 +8,8 @@ temp_mat <- get_RLum(ExampleData.TR_OSL)[1:200, ]
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_message(expect_null(fit_OSLLifeTimes("error")),
-                 "Error: Class 'character' not supported as input, NULL returned")
+  expect_warning(expect_null(fit_OSLLifeTimes("error")),
+                 "'object' should be of class 'RLum.Data.Curve', 'data.frame'")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
                "'n.components' must be a positive integer scalar")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),

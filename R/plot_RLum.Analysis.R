@@ -133,13 +133,9 @@ plot_RLum.Analysis <- function(
   .set_function_name("plot_RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity check ----------------------------------------------------------------------------
-
-  ##check if object is of class RLum.Analysis (lists are handled via plot_RLum())
-  if (!is(object, "RLum.Analysis"))
-    .throw_error("Input object is not of type 'RLum.Analysis'")
-
-  # Make selection if wanted  -------------------------------------------------------------------
+  ## Integrity tests  -------------------------------------------------------
+  ## check if object is of class RLum.Analysis (lists are handled via plot_RLum())
+  .validate_class(object, "RLum.Analysis")
 
   if(!is.null(subset)){
     ##check whether the user set the drop option and remove it, as we cannot work with it

@@ -255,27 +255,21 @@ plot_RLum.Data.Spectrum <- function(
   .set_function_name("plot_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity check -----------------------------------------------------------
+  ## Integrity tests  -------------------------------------------------------
 
-  ##check if object is of class RLum.Data.Spectrum
-  if(!inherits(object, "RLum.Data.Spectrum")){
-    if(inherits(object, "matrix")){
-      if(is.null(colnames(object))){
+  .validate_class(object, c("RLum.Data.Spectrum", "matrix"))
+
+  if (inherits(object, "matrix")) {
+    if (is.null(colnames(object))) {
         colnames(object) <- 1:ncol(object)
-
-      }
-      if(is.null(rownames(object))){
-        rownames(object) <- 1:nrow(object)
-      }
-
-      object <- set_RLum(class = "RLum.Data.Spectrum",
-                         data = object)
-
-      message("[plot_RLum.Data.Spectrum()] Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
-
-    }else{
-      .throw_error("'object' must be of type 'RLum.Data.Spectrum' or 'matrix'")
     }
+    if (is.null(rownames(object))) {
+        rownames(object) <- 1:nrow(object)
+    }
+
+    object <- set_RLum(class = "RLum.Data.Spectrum", data = object)
+    message("[plot_RLum.Data.Spectrum()] Input has been converted to a ",
+            "'RLum.Data.Spectrum' object using set_RLum()")
   }
 
   ##XSYG

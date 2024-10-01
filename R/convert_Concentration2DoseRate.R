@@ -123,7 +123,6 @@ convert_Concentration2DoseRate <- function(
       WaterContent_SE = NA_integer_)
 
     return(df)
-
   }
 
 
@@ -140,10 +139,8 @@ convert_Concentration2DoseRate <- function(
   ## we do this to be consistent with the code written by Svenja and Martin
   GSA <- BaseDataSet.GrainSizeAttenuation
 
-# Integrity tests ------------------------------------------------------------
-  if(!inherits(input, "data.frame") & !inherits(input, "matrix"))
-    stop("[convert_Concentration2DoseRate()] input must be of type 'data.frame or 'matrix'!",
-         call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(input, c("data.frame", "matrix"))
 
   if(ncol(input) != ncol(suppressMessages(convert_Concentration2DoseRate())) || nrow(input) > 1)
     stop("[convert_Concentration2DoseRate()] number of rows/columns in input does not match the requirements. See manual!",
@@ -260,5 +257,4 @@ convert_Concentration2DoseRate <- function(
       info = list(
         call = sys.call()
       )))
-
 }

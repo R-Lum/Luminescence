@@ -13,13 +13,13 @@ test_that("Full check", {
 
   ## input validation
   expect_error(analyse_Al2O3C_CrossTalk("test"),
-               "The elements in 'object' are not all of type 'RLum.Analysis'")
+               "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         method_control = "EXP"),
-               "'method_control' is expected to be a list")
+               "'method_control' should be of class 'list'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = FALSE),
-               "'irradiation_time_correction' is expected to be")
+               "'irradiation_time_correction' should be of class 'numeric' or")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = res),
                "was created by an unsupported function")

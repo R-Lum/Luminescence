@@ -36,13 +36,12 @@
 subset_SingleGrainData <- function (
     object,
     selection
-){
+) {
+  .set_function_name("subset_SingleGrainData")
+  on.exit(.unset_function_name(), add = TRUE)
 
-# Integrity tests ---------------------------------------------------------
-  ## check object
-  if (!inherits(object, "Risoe.BINfileData"))
-    stop("[subset_SingleGrainData()] Only Risoe.BINfileData-class objects are allowed as input!",
-         call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(object, "Risoe.BINfileData")
 
   ## try to work with selection
   selection <- as.data.frame(selection)[,1:2]
@@ -59,6 +58,4 @@ subset_SingleGrainData <- function (
 
 # Return ------------------------------------------------------------------
   return(object)
-
 }
-

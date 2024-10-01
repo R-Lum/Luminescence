@@ -185,6 +185,8 @@ fit_EmissionSpectra <- function(
   ## This function works only on a list of matrices, so what ever we do here, we have to
   ## create a list of data treat, frame controls the number of frames analysed
 
+  .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
+
   ##input RLum.Data.Spectrum ... make list either way
   if(inherits(object, "RLum.Data.Spectrum"))
     object <- list(object)
@@ -215,7 +217,6 @@ fit_EmissionSpectra <- function(
       temp_frame <- lapply(frame, function(f) cbind(x, o@data[,f]))
       names(temp_frame) <- paste0("Frame: ", frame)
       return(temp_frame)
-
     })
 
     ##set object name
@@ -225,7 +226,6 @@ fit_EmissionSpectra <- function(
     object <- unlist(temp, use.names = TRUE, recursive = FALSE)
     names(object) <- gsub(" .", names(object), replacement = " | ", fixed = TRUE)
     rm(temp)
-
   }
 
   ##handle a single matrix that may have different columns
@@ -282,12 +282,10 @@ fit_EmissionSpectra <- function(
         plot = plot,
         args_list)
       )
-
     })
 
     ##merge output and return
     return(merge_RLum(results))
-
   }
 
 
@@ -325,7 +323,6 @@ fit_EmissionSpectra <- function(
   }else if(input_scale == "wavelength"){
     m <- convert_Wavelength2Energy(m, order = TRUE)
     if(verbose) cat(">> Wavelength to energy scale conversion ... \t[OK]\n")
-
   }
 
 
@@ -437,12 +434,10 @@ fit_EmissionSpectra <- function(
       if (verbose) cat("\r>> Searching components ... \t\t\t[/]")
     } else{
       if (verbose) cat("\r>> Searching components ... \t\t\t[\\]")
-
     }
 
     ##update run counter
     run <- run + 1
-
   }
 
 
@@ -685,5 +680,4 @@ fit_EmissionSpectra <- function(
 
   ##return
   return(results)
-
 }

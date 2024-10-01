@@ -71,7 +71,8 @@ trim_RLum.Data <- function(
     recordType = NULL,
     trim_range = NULL
 ) {
-
+  .set_function_name("trim_RLum.Data")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call ---------------------------------------------------------------
   if(inherits(object, "list")) {
@@ -150,13 +151,11 @@ trim_RLum.Data <- function(
     })
 
     return(object)
-
   }
 
-# Dispatcher -------------------------------------------------------------------
-  ## stop for wrong input
-  if(!inherits(object, "RLum.Data") && !inherits(object, "RLum.Analysis"))
-    stop("[trim_RLum.Data()] Unsupported input class!", call. = FALSE)
+  ## Dispatcher -------------------------------------------------------------
+
+  .validate_class(object, c("RLum.Data", "RLum.Analysis"))
 
   ## determine classes for record Types
   if(is.null(recordType)) {
@@ -184,5 +183,4 @@ trim_RLum.Data <- function(
    "RLum.Data.Image" = .trim_RLum.Data.Image(object, type = recordType, range = trim_range),
    "RLum.Analysis" = .trim_RLum.Analysis(object, type = recordType, range = trim_range)
  )
-
 }

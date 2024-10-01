@@ -5,7 +5,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_DetPlot("error"),
-               "Input must be an 'RLum.Analysis' object")
+               "'object' should be of class 'RLum.Analysis'")
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
                "'signal.integral.min' must be a positive integer scalar")
   expect_error(plot_DetPlot(object, signal.integral.min = 1,

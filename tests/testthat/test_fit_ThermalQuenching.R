@@ -8,17 +8,21 @@ data_list <- list(data, data)
 data_NA <- data
 data_NA[1,] <- NA
 
-
-test_that("standard check", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   ##trigger errors
-  expect_error(fit_ThermalQuenching(data = "test"))
+  expect_error(fit_ThermalQuenching(data = "test"),
+               "'data' should be of class 'data.frame' or a 'list' of such objects")
 
   ##simple run with error
   expect_error(fit_ThermalQuenching(
     data = data[,1:2],
     n.MC = NULL), regexp = "'data' is empty or has less than three columns!")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ##simple run with warning
   SW({

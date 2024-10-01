@@ -20,7 +20,7 @@ test_that("methods_DRAC", {
   expect_warning({
     input <- template_DRAC()
     input[[1]] <- 1i
-  }, regexp = "cannot use objects of class")
+  }, regexp = "'value' should be of class 'integer', 'character', 'numeric' or")
   expect_warning({
     input <- template_DRAC()
     input[[1]] <- c(1, 2)

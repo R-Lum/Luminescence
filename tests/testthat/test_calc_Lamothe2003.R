@@ -1,56 +1,43 @@
-test_that("Force function to break", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##argument check
+  df <- data.frame(x = c(0, 10, 20), y = c(1.4, 0.7, 2.3),
+                   z = c(0.01, 0.02, 0.03))
 
-  ##object
-  expect_error(calc_Lamothe2003(), regexp = "Input for 'object' missing but required!")
+  expect_error(calc_Lamothe2003(),
+               "'object' should be of class 'data.frame' or 'RLum.Results'")
 
   ##dose_rate.envir
-  expect_error(calc_Lamothe2003(object = NULL), regexp = "Input for 'dose_rate.envir' missing but required!")
-  expect_error(calc_Lamothe2003(object = NULL, dose_rate.envir = 1, dose_rate.source = 1, g_value = 1),
-               regexp = "Input for 'dose_rate.envir' is not of type 'numeric' and/or of length < 2!")
+  expect_error(calc_Lamothe2003(df),
+               "'dose_rate.envir' should be of class 'numeric'")
+  expect_error(calc_Lamothe2003(df, dose_rate.envir = 1),
+               "'dose_rate.envir' should contain 2 elements")
 
   ##dose_rate.source
-  expect_error(calc_Lamothe2003(object = NULL, dose_rate.envir = NULL), regexp = "Input for 'dose_rate.source' missing but required!")
-  expect_error(calc_Lamothe2003(object = NULL, dose_rate.envir = c(1,1), dose_rate.source = 1, g_value = 1),
-               regexp = "Input for 'dose_rate.source' is not of type 'numeric' and/or of length < 2!")
+  expect_error(calc_Lamothe2003(df, dose_rate.envir = c(1, 1)),
+               "'dose_rate.source' should be of class 'numeric'")
+  expect_error(calc_Lamothe2003(df, dose_rate.envir = c(1, 1),
+                                dose_rate.source = 1),
+               "'dose_rate.source' should contain 2 elements")
+
+  ##g_value
+  expect_error(calc_Lamothe2003(object = df, dose_rate.envir = c(1, 1),
+                                dose_rate.source = c(1, 2)),
+               "'g_value' should be of class 'numeric'")
+  expect_error(calc_Lamothe2003(object = df, dose_rate.envir = c(1, 2),
+                                dose_rate.source = c(1, 2), g_value = 1),
+               "'g_value' should contain 2 elements")
 
   ##check warnings
   SW({
-  expect_s4_class(
-    suppressWarnings(calc_Lamothe2003(
-      object = data.frame(
-        x = c(0,10,20), y = c(1.4,0.7,2.3), z = c(0.01,0.02, 0.03)),
-      dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1,1))),
-    "RLum.Results")
+  expect_warning(
+      expect_s4_class(calc_Lamothe2003(object = df,
+                                       dose_rate.envir = c(1, 2, 3),
+                                       dose_rate.source = c(1, 2, 3),
+                                       g_value = c(1, 1, 1)),
+                      "RLum.Results"),
+      "taking only the first two entries")
   })
-
-  ##g_value
-  expect_error(
-    calc_Lamothe2003(
-      object = NULL,
-      dose_rate.envir = NULL,
-      dose_rate.source = NULL
-    ),
-    regexp = "Input for 'g_value' missing but required!"
-  )
-  expect_error(
-    calc_Lamothe2003(object = NULL, dose_rate.envir = c(1,2),
-                     dose_rate.source = c(1,2), g_value = 1),
-    "Input for 'g_value' is not of type 'numeric' and/or of length < 2"
-  )
-
-  ##object
-  expect_error(suppressWarnings(
-    calc_Lamothe2003(
-      object = NULL,
-      dose_rate.envir = c(1, 2, 3),
-      dose_rate.source = c(1, 2, 3),
-      g_value = c(1, 2)
-    )),
-    regexp = "Unsupported data type for 'object'"
-  )
 
   expect_error(suppressWarnings(
     calc_Lamothe2003(

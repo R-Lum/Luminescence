@@ -4,9 +4,8 @@ data(ExampleData.XSYG, envir = environment())
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(
-    apply_CosmicRayRemoval("error"),
-    regexp = "An object of class 'character' is not supported as input; please read the manual!")
+  expect_error(apply_CosmicRayRemoval("error"),
+               "'object' should be of class 'RLum.Data.Spectrum'")
   expect_error(apply_CosmicRayRemoval(TL.Spectrum, method = "error"),
                "'method' should be one of 'smooth', 'smooth.spline', 'Pych'",
                fixed = TRUE)

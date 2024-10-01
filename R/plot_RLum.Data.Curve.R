@@ -82,15 +82,13 @@ plot_RLum.Data.Curve<- function(
   .set_function_name("plot_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Integrity check -------------------------------------------------------------
+  ## Integrity tests  -------------------------------------------------------
 
-  ##check if object is of class RLum.Data.Curve
-  if(!inherits(object, "RLum.Data.Curve"))
-    stop("[plot_RLum.Data.Curve()] Input object is not of type RLum.Data.Curve", call. = FALSE)
+  .validate_class(object, "RLum.Data.Curve")
 
   ## check for NA values
   if(all(is.na(object@data))){
-    warning("[plot_RLum.Data.Curve()] Curve contains only NA-values, nothing plotted.", call. = FALSE)
+    .throw_warning("Curve contains only NA-values, nothing plotted")
     return(NULL)
   }
 

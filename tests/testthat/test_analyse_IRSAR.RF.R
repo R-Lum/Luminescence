@@ -6,7 +6,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(),
                "is missing, with no default")
   expect_error(analyse_IRSAR.RF("test"),
-               "Input object must be of type 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),
                "'sequence_structure' must be of type 'character'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),

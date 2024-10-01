@@ -5,7 +5,8 @@ test_that("General test", {
   file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
 
   ##stop
-  expect_error(convert_PSL2CSV())
+  expect_error(convert_PSL2CSV(),
+               "'file' should be of class 'character' or 'RLum'")
 
   ##the case where we have an object of type RLum
   expect_type(convert_PSL2CSV(read_PSL2R(file), export = FALSE), "list")

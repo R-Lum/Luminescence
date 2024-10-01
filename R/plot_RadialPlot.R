@@ -303,11 +303,10 @@ plot_RadialPlot <- function(
 
   ## Check input data
   for(i in 1:length(data)) {
-    if(is(data[[i]], "RLum.Results") == FALSE &
-         is(data[[i]], "data.frame") == FALSE) {
-      .throw_error("Error: Input data must be 'data.frame' or 'RLum.Results'")
-    } else {
-      if(is(data[[i]], "RLum.Results") == TRUE) {
+    .validate_class(data[[i]], c("data.frame", "RLum.Results"),
+                    name = "All elements of 'data'")
+
+    if (inherits(data[[i]], "RLum.Results")) {
         data[[i]] <- get_RLum(data[[i]], "data")
       }
 
@@ -325,7 +324,6 @@ plot_RadialPlot <- function(
         ## keep only the first two columns
         data[[i]] <- data[[i]][, 1:2]
       }
-    }
   }
 
   ## check data and parameter consistency--------------------------------------

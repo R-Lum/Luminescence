@@ -108,12 +108,11 @@ convert_Activity2Concentration <- function(
   .set_function_name("convert_Activity2Concentration")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity checks ----------------------------------------------------------------------------
-  if(missing(data))
-    stop("[convert_Activity2Concentration()] I'm still waiting for input data ...", call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(data, "data.frame")
 
   if(ncol(data)<3)
-    stop("[convert_Activity2Concentration()] Input data.frame should have at least three columns.", call. = FALSE)
+    .throw_error("'data' should have at least 3 columns")
 
   # Set output data.frame -----------------------------------------------------------------------
   output <- data.frame(
@@ -168,7 +167,6 @@ convert_Activity2Concentration <- function(
     output[U,2:3] <- data[U,2:3]
     output[Th,2:3] <- data[Th,2:3]
     output[K,2:3] <- data[K,2:3]
-
   }
 
   ##Concentration to activity
@@ -180,7 +178,6 @@ convert_Activity2Concentration <- function(
     output[U,4:5] <- data[U,2:3]
     output[Th,4:5] <- data[Th,2:3]
     output[K,4:5] <- data[K,2:3]
-
   }
 
   # Return value --------------------------------------------------------------------------------
@@ -190,5 +187,4 @@ convert_Activity2Concentration <- function(
     class = "RLum.Results",
     data = list(data = output),
     info = list(call = sys.call())))
-
 }

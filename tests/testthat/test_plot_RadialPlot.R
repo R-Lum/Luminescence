@@ -9,11 +9,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_RadialPlot("error"),
-               "Input data must be 'data.frame' or 'RLum.Results'")
+               "All elements of 'data' should be of class 'data.frame' or")
   expect_error(plot_RadialPlot(list()),
                "'data' is an empty list")
   expect_error(plot_RadialPlot(df[, 1]),
-               "Input data must be 'data.frame' or 'RLum.Results'")
+               "All elements of 'data' should be of class 'data.frame' or")
   expect_error(plot_RadialPlot(df[0, ]),
                "Input data 1 has 0 rows")
   expect_error(plot_RadialPlot(df, xlab = "x"),

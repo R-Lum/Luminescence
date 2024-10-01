@@ -22,7 +22,7 @@
 #' done by using the 'Run Info' option within the Sequence Editor or by editing
 #' in R.
 #'
-#' @param BINfileData [Risoe.BINfileData-class] (**required**):
+#' @param data [Risoe.BINfileData-class] (**required**):
 #' requires an S4 object returned by the [read_BIN2R] function.
 #'
 #' @param position [vector] (*optional*):
@@ -104,7 +104,7 @@
 #' @md
 #' @export
 plot_Risoe.BINfileData<- function(
-  BINfileData,
+  data,
   position,
   run,
   set,
@@ -120,10 +120,9 @@ plot_Risoe.BINfileData<- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ##check if the object is of type Risoe.BINfileData
-  if(!inherits(BINfileData, "Risoe.BINfileData"))
-    .throw_error("'object' is expected to be of type 'Risoe.BINfileData'")
+  .validate_class(data, "Risoe.BINfileData")
 
-  temp<-BINfileData
+  temp <- data
 
   # Missing check ----------------------------------------------------------------
 

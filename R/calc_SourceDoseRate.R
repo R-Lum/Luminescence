@@ -144,6 +144,9 @@ calc_SourceDoseRate <- function(
   .set_function_name("calc_SourceDoseRate")
   on.exit(.unset_function_name(), add = TRUE)
 
+  .validate_class(measurement.date, c("Date", "character"))
+  .validate_class(calib.date, c("Date", "character"))
+
   if (is(measurement.date, "character")) {
         measurement.date <- as.Date(measurement.date)
       }
@@ -161,7 +164,6 @@ calc_SourceDoseRate <- function(
   # --- if predict is set
   if(!is.null(predict) && predict > 1){
     measurement.date <- seq(tail(measurement.date), by = 1, length = predict)
-
   }
 
   # -- calc days since source calibration
@@ -187,8 +189,6 @@ calc_SourceDoseRate <- function(
   measurement.dose.rate.error <- (calib.error) *
     exp((-log(2) / halflife.days) * as.numeric(decay.days))
 
-
-
   # -- convert to input unit to [Gy/s]
   if(dose.rate.unit == "Gy/min"){
     source.dose.rate <- measurement.dose.rate / 60
@@ -199,7 +199,6 @@ calc_SourceDoseRate <- function(
     source.dose.rate <- measurement.dose.rate
     source.dose.rate.error <- measurement.dose.rate.error
   }
-
 
   # Output --------------------------------------------------------------------------------------
 
@@ -221,5 +220,4 @@ calc_SourceDoseRate <- function(
     ))
 
   return(temp.return)
-
 }

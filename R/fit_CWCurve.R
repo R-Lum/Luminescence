@@ -212,13 +212,9 @@ fit_CWCurve<- function(
   .set_function_name("fit_CWCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # INTEGRITY CHECKS --------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
-  ##INPUT OBJECTS
-  if(is(values, "RLum.Data.Curve") == FALSE & is(values, "data.frame") == FALSE){
-    .throw_error("Input object is not of type 'RLum.Data.Curve' or 'data.frame'")
-  }
-
+  .validate_class(values, c("RLum.Data.Curve", "data.frame"))
 
   if(is(values, "RLum.Data.Curve") == TRUE){
 
@@ -233,7 +229,6 @@ fit_CWCurve<- function(
     ##set x and y values
     x<-values[,1]
     y<-values[,2]
-
   }
 
   fit.method <- .match_args(fit.method, c("port", "LM"))
@@ -345,7 +340,6 @@ fit_CWCurve<- function(
                                             maxiter = 500
                                           )),
                                     silent = TRUE
-
       ))#end try
 
 
@@ -367,11 +361,7 @@ fit_CWCurve<- function(
                                         lower=rep(0,n.components * 2)# set lower boundaries for components
       ), silent=TRUE# nls
       ))#end try
-
-    }else{
-      .throw_error("'fit.method' unknown")
     }
-
 
     ##(3) FIT WITH THE FULL FUNCTION
     if(inherits(fit.try,"try-error") == FALSE){
@@ -407,7 +397,6 @@ fit_CWCurve<- function(
 
       }else{
 
-
         ##try fit
         fit.try<-suppressWarnings(try(nls(fit.formula(n.components),
                                           trace=fit.trace,
@@ -439,7 +428,6 @@ fit_CWCurve<- function(
       fit.failure_counter <- fit.failure_counter+1
       if(n.components==fit.failure_counter & exists("fit")==FALSE){fit<-fit.try}}
 
-
     ##stop fitting after a given number of wrong attempts
     if(fit.failure_counter>=fit.failure_threshold){
 
@@ -449,7 +437,6 @@ fit_CWCurve<- function(
     }else if(n.components == n.components.max & exists("fit") == FALSE){
 
       fit <- fit.try
-
     }
 
   }##end while
@@ -696,7 +683,6 @@ fit_CWCurve<- function(
 
           matrixStats::rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
                          component.contribution.matrix[,x]))
-
         })
 
       ##append to existing matrix
@@ -828,7 +814,6 @@ fit_CWCurve<- function(
       }
       rm(stepping)
 
-
     }#end if try-error for fit
 
     par(par.default)
@@ -854,5 +839,4 @@ fit_CWCurve<- function(
   rm(component.contribution.matrix)
 
   invisible(newRLumResults.fit_CWCurve)
-
 }

@@ -301,7 +301,9 @@ calc_Huntley2006 <- function(
   .set_function_name("calc_Huntley2006")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Validate Input ------------------------------------------------------------
+  ## Validate Input ---------------------------------------------------------
+
+  .validate_class(data, "data.frame")
 
   ## Check fit method
   fit.method <- .match_args(fit.method, c("EXP", "GOK"))
@@ -375,9 +377,6 @@ calc_Huntley2006 <- function(
       data[1, 3] <- LnTn_error_tmp
       data <- data[complete.cases(data), ]
     }
-
-  } else {
-    .throw_error("'data' must be a data frame.")
   }
 
   ## Check 'rhop'

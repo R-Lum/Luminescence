@@ -21,17 +21,11 @@ temp2 <- calc_ThermalLifetime(
   plot = FALSE
 )
 
-
 test_that("check class and length of output example 1", {
   testthat::skip_on_cran()
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 2)
-
-})
-#
-test_that("check values from output example 1", {
-  testthat::skip_on_cran()
 
   expect_type(temp$lifetimes, "double")
   expect_equal(dim(temp$lifetimes), c(1, 2, 11))
@@ -52,7 +46,6 @@ test_that("check values from output example 1", {
   expect_equal(round(results[[9]], digits = 4),  c("1.66" = 172.0421, "1.7" = 847.2879))
   expect_equal(round(results[[10]], digits = 4), c("1.66" = 137.1765, "1.7" = 671.9020))
   expect_equal(round(results[[11]], digits = 4), c("1.66" = 109.5458, "1.7" = 533.6641))
-
 })
 
 
@@ -61,24 +54,19 @@ test_that("check class and length of output example 2", {
   expect_s4_class(temp2, c("RLum.Results"))
   testthat::expect_equal(length(temp2), 2)
 
-})
-
-test_that("check values from output example 2", {
-  testthat::skip_on_cran()
-
   testthat::expect_type(temp2$lifetimes, "double")
   testthat::expect_equal(class(temp2$lifetimes), "numeric")
   testthat::expect_equal(length(temp2$lifetimes), 1000)
   testthat::expect_equal(dim(temp2$profiling_matrix), c(1000, 4))
 })
 
-
-test_that("check arguments", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##missing E and/or s
   expect_error(calc_ThermalLifetime(),
-               "'E' or 's' or both are missing, but required")
+               "'E' should be of class 'numeric'")
+  expect_error(calc_ThermalLifetime(E = 1.4),
+               "'s' should be of class 'numeric'")
 
   ##profiling settings
   SW({
@@ -106,5 +94,4 @@ test_that("check arguments", {
   })
   expect_output(calc_ThermalLifetime(E = 1.4, s = 1e05, verbose = TRUE))
   expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03), plot = TRUE, profiling = TRUE))
-
 })

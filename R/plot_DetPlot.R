@@ -198,13 +198,11 @@ plot_DetPlot <- function(
      fun = function(x, arg = args_default) do.call(plot_DetPlot, c(list(object = x), arg)))
 
    return(merge_RLum(return_list))
-
   }
 
-# Integrity Tests -----------------------------------------------------------------------------
+  ## Integrity Tests --------------------------------------------------------
   ##check input
-  if(!inherits(object, "RLum.Analysis"))
-    .throw_error("Input must be an 'RLum.Analysis' object")
+  .validate_class(object, "RLum.Analysis")
 
   ##get structure
   object.structure <- structure_RLum(object)

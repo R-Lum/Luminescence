@@ -95,7 +95,8 @@ test_that("input validation", {
     testthat::skip_on_cran()
 
     expect_error(analyse_portableOSL("error"),
-                 "Only objects of class 'RLum.Analysis' are allowed")
+                 "[analyse_portableOSL()] 'object' should be of class 'RLum.Analysis'",
+                 fixed = TRUE)
 
     ## Only RLum.Data.Curves
     tmp <- merged

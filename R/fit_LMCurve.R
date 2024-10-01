@@ -267,9 +267,7 @@ fit_LMCurve<- function(
   # (0) Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if (!is(values, "data.frame") && !is(values, "RLum.Data.Curve")) {
-    .throw_error("'values' has to be of type 'data.frame' or 'RLum.Data.Curve'")
-  }
+  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
   if (is(values, "RLum.Data.Curve")) {
     if (values@recordType != "RBR" && values@recordType != "LM-OSL") {
@@ -283,9 +281,8 @@ fit_LMCurve<- function(
 
   ##(2) data.frame or RLum.Data.Curve object?
   if (!missing(values.bg)) {
-    if (!is(values.bg, "data.frame") && !is(values.bg, "RLum.Data.Curve")) {
-      .throw_error("'values.bg' must be of type 'data.frame' or 'RLum.Data.Curve'")
-    }
+    .validate_class(values.bg, c("data.frame", "RLum.Data.Curve"))
+
     if (is(values, "RLum.Data.Curve") && values@recordType != "RBR") {
       .throw_error("'recordType' should be 'RBR'!")
 

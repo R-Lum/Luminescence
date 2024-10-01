@@ -8,7 +8,7 @@ test_that("basic checks", {
 
   ## break function
   expect_error(convert_Concentration2DoseRate(input = "fail"),
-               regexp = "input must be of type 'data.frame or 'matrix'")
+               "'input' should be of class 'data.frame' or 'matrix'")
 
   expect_error(convert_Concentration2DoseRate(input = data.frame(x = 1, y = 2)),
                regexp = "number of rows/columns in input does not match the requirements. See manual!")

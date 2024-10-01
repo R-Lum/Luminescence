@@ -28,7 +28,7 @@
 #' @note
 #' **`[BETA VERSION]`**
 #' This function still needs to be tested properly. In particular
-#' the function has underwent only very rough rests using a few files.
+#' the function has underwent only very rough tests using a few files.
 #'
 #' @section Function version: 0.3.2
 #'
@@ -57,7 +57,9 @@ read_Daybreak2R <- function(
   verbose = TRUE,
   txtProgressBar = TRUE,
   ...
-){
+) {
+  .set_function_name("read_Daybreak2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO
   ## - run tests
@@ -69,6 +71,8 @@ read_Daybreak2R <- function(
   # with that many file can be read in at the same time
   # Option (b): The input is just a path, the function tries to grep ALL Daybreaks-txt files in the
   # directory and import them, if this is detected, we proceed as list
+
+  .validate_class(file, c("character", "list"))
 
   if(is(file, "character")) {
     ##If this is not really a path we skip this here

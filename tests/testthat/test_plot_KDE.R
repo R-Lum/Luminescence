@@ -5,7 +5,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_KDE("error"),
-               "Input data must be one of 'data.frame', 'RLum.Results' or")
+               "'data' should be of class 'RLum.Results', 'data.frame' or 'numeric'")
   expect_error(plot_KDE(df[0, ]),
                "Input data 1 has 0 rows")
   expect_error(plot_KDE(list()),

@@ -30,8 +30,14 @@
 read_TIFF2R <- function(
   file,
   ...
-){
-# Integrity ---------------------------------------------------------------
+) {
+  .set_function_name("read_TIFF2R")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(file, "character")
+
   ## most of the users don't need this import, no need to bother them
   ## with required libraries
   if (!requireNamespace("tiff", quietly = TRUE))
@@ -42,7 +48,7 @@ read_TIFF2R <- function(
     # nocov end
 
   if(!file.exists(file))
-    stop("[read_TIFF2R()] File does not exist or is not readable!", call. = FALSE)
+    .throw_error("File does not exist or is not readable")
 
 # Import ------------------------------------------------------------------
   ## import

@@ -9,9 +9,9 @@ test_that("input validation", {
 
   data <- ExampleData.DeValues$CA1
   expect_error(calc_AverageDose(),
-               "is missing, with no default")
+               "'data' should be of class 'RLum.Results' or 'data.frame'")
   expect_error(calc_AverageDose("test"),
-               "Input must be of type 'RLum.Results' or 'data.frame'")
+               "'data' should be of class 'RLum.Results' or 'data.frame'")
   expect_error(calc_AverageDose(data),
                "\"sigma_m\" is missing, with no default")
   expect_error(calc_AverageDose(data, sigma_m = NULL),

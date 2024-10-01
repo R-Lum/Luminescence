@@ -200,10 +200,7 @@ calc_FiniteMixture <- function(
 
   ## CONSISTENCY CHECK OF INPUT DATA --------
   ##============================================================================##
-  if (!is(data, "data.frame") && !is(data,"RLum.Results")) {
-    stop("[calc_FiniteMixture()] 'data' object has to be of type ",
-         "'data.frame' or 'RLum.Results'!", call. = FALSE)
-  }
+  .validate_class(data, c("data.frame", "RLum.Results"))
   if (is(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }

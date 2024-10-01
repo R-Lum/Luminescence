@@ -154,6 +154,8 @@ Analyse_SAR.OSLdata <- function(
   ...
 ) {
   .Deprecated("analyse_SAR.CWOSL")
+  .set_function_name("analyse_SAR.CWOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ##CONFIG
@@ -166,9 +168,8 @@ Analyse_SAR.OSLdata <- function(
   ##============================================================================##
   ##ERROR HANDLING
   ##============================================================================##
-
-  if(missing(input.data)==TRUE){stop("[Analyse_SAR.OSLdata] No input data given!")
-  }else{sample.data<-input.data}
+  .validate_class(input.data, c("Risoe.BINfileData"))
+  sample.data <- input.data
 
   if(missing(signal.integral)==TRUE){stop("[Analyse_SAR.OSLdata] No signal integral is given!")}
   if(missing(background.integral)==TRUE){stop("[Analyse_SAR.OSLdata] No background integral is given!")}

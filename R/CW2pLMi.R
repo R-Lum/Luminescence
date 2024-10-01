@@ -151,34 +151,27 @@
 CW2pLMi<- function(
   values,
   P
-){
+) {
+  .set_function_name("CW2pLMi")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # (0) Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-    stop("[CW2pLMi()] 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
-
-  }
+  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if(is(values, "RLum.Data.Curve") == TRUE){
-
+  if (inherits(values, "RLum.Data.Curve")) {
     if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
-
-      stop(paste("[CW2pLMi()] recordType ",values@recordType, " is not allowed for the transformation!",
-                 sep=""), call. = FALSE)
-
-    }else{
-
-      temp.values <- as(values, "data.frame")
-
+      .throw_error("recordType ", values@recordType,
+                   " is not allowed for the transformation")
     }
+
+    temp.values <- as(values, "data.frame")
 
   }else{
 
     temp.values <- values
-
   }
 
 
@@ -211,7 +204,6 @@ CW2pLMi<- function(
 
     if(P==0){stop("[CW2pLMi] P has to be > 0!", call. = FALSE)}
     t.transformed<-0.5*1/P*t^2
-
   }
   #endif
 
@@ -260,7 +252,9 @@ CW2pLMi<- function(
   temp.method<-c(rep("extrapolation",length(y.i)),rep("interpolation",(length(temp[,2])-length(y.i))))
 
   ##print a warning message for more than two extrapolation points
-  if(length(y.i)>2){warning("t' is beyond the time resolution and more than two data points have been extrapolated!")}
+  if (length(y.i) > 2) {
+    .throw_warning("t' is beyond the time resolution and more than two ",
+                   "data points have been extrapolated")}
 
   # (4) Convert, transform and combine values ---------------------------------------------------
 
@@ -284,7 +278,6 @@ CW2pLMi<- function(
 
   }else{
 
-
     ##add old info elements to new info elements
     temp.info <- c(values@info,
                    CW2pLMi.x.t = list(temp.values$x.t),
@@ -296,7 +289,5 @@ CW2pLMi<- function(
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
     return(newRLumDataCurves.CW2pLMi)
-
   }
-
 }

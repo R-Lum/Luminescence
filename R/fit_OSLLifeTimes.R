@@ -259,7 +259,15 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
 }
 
-# Input integrity tests ------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
+
+  is.valid <- .validate_class(object,
+                              c("RLum.Data.Curve", "data.frame", "matrix"),
+                              extra = "a 'list' of such objects",
+                              throw.error = FALSE)
+  if (!is.valid)
+    return(NULL)
+
   if(inherits(object, "RLum.Data.Curve")){
    if(!grepl(pattern = "POSL", x = object@recordType, fixed = TRUE))
      .throw_error("recordType ", object@recordType,
@@ -272,12 +280,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   } else if(inherits(object, "matrix")){
     df <- as.data.frame(object[,1:2])
-
-  }else{
-    message("[fit_OSLLifeTime()] Error: Class '", class(object),
-            "' not supported as input, NULL returned!")
-    return(NULL)
-
   }
 
   ##remove NA values, whatever it is worth for

@@ -136,14 +136,12 @@ analyse_portableOSL <- function(
       }))
 
       return(merge_RLum(temp))
-
   }
 
-# Start function ----------------------------------------------------------
-  ## INPUT VERIFICATION ----
+  ## Start function ---------------------------------------------------------
+
   ## only RLum.Analysis objects
-  if (!inherits(object, "RLum.Analysis"))
-    .throw_error("Only objects of class 'RLum.Analysis' are allowed")
+  .validate_class(object, "RLum.Analysis")
 
   ## only curve objects
   if (!all(sapply(object, class) == "RLum.Data.Curve"))

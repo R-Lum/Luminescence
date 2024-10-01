@@ -202,7 +202,11 @@ analyse_FadingMeasurement <- function(
   .set_function_name("analyse_FadingMeasurement")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity Tests -----------------------------------------------------------------------------
+  ## Integrity Tests --------------------------------------------------------
+
+  .validate_class(object, c("RLum.Analysis", "data.frame"),
+                  extra = "a 'list' of such objects")
+
   if (is(object, "list")) {
     if (any(sapply(object, class) != "RLum.Analysis")) {
       ##warning
@@ -239,13 +243,7 @@ analyse_FadingMeasurement <- function(
     TIMESINCEIRR <- object[[3]]
     irradiation_times <- TIMESINCEIRR
     object <- NULL
-
-
-  }else{
-    .throw_error("'object' must be an 'RLum.Analysis' object ",
-                 "or a 'list' of such objects")
   }
-
 
   if (!is(t_star, "function")) {
     t_star <- .match_args(t_star, c("half", "half_complex", "end"),
