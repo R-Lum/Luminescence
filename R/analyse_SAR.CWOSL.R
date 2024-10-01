@@ -328,9 +328,8 @@ if(is.list(object)){
 error.list <- list()
 
 # General Integrity Checks ---------------------------------------------------
-  ##MISSING INPUT
-  if(!inherits(object, "RLum.Analysis"))
-    .throw_error("Input object is not of type 'RLum.Analysis'")
+
+  .validate_class(object, "RLum.Analysis")
 
   ## trim OSL or IRSL channels
   if(trim_channels[1]) {

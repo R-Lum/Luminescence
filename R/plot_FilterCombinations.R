@@ -161,19 +161,15 @@ plot_FilterCombinations <- function(
   .set_function_name("plot_FilterCombinations")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity tests -----------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
   #check filters
-  if (!is(filters, "list")) {
-    .throw_error("'filters' should be of type 'list'")
-  }
+  .validate_class(filters, "list")
 
   #input should either data.frame or matrix
   lapply(filters, function(x) {
-    if (!is(x, "data.frame") & !is(x, "matrix") & !is(x, "list")) {
-      .throw_error("All elements of 'filter' must be of type ",
-                   "'matrix', 'data.frame' or 'list'")
-    }
+    .validate_class(x, c("data.frame", "matrix", "list"),
+                    name = "All elements of 'filters'")
   })
 
   #check for named list, if not set names

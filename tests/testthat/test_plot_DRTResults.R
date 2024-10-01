@@ -7,9 +7,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_DRTResults("error"),
-               "Input data must be one of 'data.frame' or 'RLum.Results'")
+               "'values' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(list("error")),
-               "Input data must be one of 'data.frame' or 'RLum.Results'")
+               "'values' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(df, preheat = c(200, 240, 240)),
                "Number of preheat temperatures != De values")
   expect_error(plot_DRTResults(df, given.dose = c(2800, 3000)),

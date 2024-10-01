@@ -14,13 +14,13 @@ test_that("test convert functions", {
     polygon(x = c(m[, 1], rev(m[, 1])), y = c(m[, 2], rep(0, nrow(m))))
     for (i in 1:nrow(m)) {
       lines(x = rep(m[i, 1], 2), y = c(0, m[i, 2]))
-
     }
   }
 
   # Test ----------------------------------------------------------------------------------------
   ##crash function
-  expect_error(convert_Wavelength2Energy("test"), regexp = "Class 'character' not supported as input!")
+  expect_error(convert_Wavelength2Energy("test"),
+               "'object' should be of class 'RLum.Data.Spectrum', 'data.frame'")
 
   ##test all three allowed input objects
   expect_type(convert_Wavelength2Energy(data), "double")

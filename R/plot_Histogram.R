@@ -131,12 +131,10 @@ plot_Histogram <- function(
   .set_function_name("plot_Histogram")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity tests ---------------------------------------------------------
-  ## check/adjust input data structure
-  if (!is(data, "RLum.Results") && !is.data.frame(data)) {
-    .throw_error("Input data format is neither 'data.frame' nor 'RLum.Results'")
-  }
-  if (is(data, "RLum.Results")) {
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data)[,1:2]
   }
 

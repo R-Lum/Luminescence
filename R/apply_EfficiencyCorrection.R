@@ -50,8 +50,9 @@
 apply_EfficiencyCorrection <- function(
   object,
   spectral.efficiency
-){
-
+) {
+  .set_function_name("apply_EfficiencyCorrection")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # self-call -----------------------------------------------------------------------------------
 
@@ -86,21 +87,13 @@ apply_EfficiencyCorrection <- function(
     })
 
     return(object)
-
   }
 
 
+  ## Integrity checks -------------------------------------------------------
 
-  # Integrity check -----------------------------------------------------------
-
-  ##check if object is of class RLum.Data.Spectrum
-  if(!inherits(object, "RLum.Data.Spectrum"))
-    stop("[apply_EfficiencyCorrection()] Input object is not of type RLum.Data.Spectrum",call. = FALSE)
-
-
-  if(!inherits(spectral.efficiency, "data.frame"))
-    stop("[apply_EfficiencyCorrection()] 'spectral.efficiency' is not of type data.frame", call. = FALSE)
-
+  .validate_class(object, "RLum.Data.Spectrum")
+  .validate_class(spectral.efficiency, "data.frame")
 
   ## grep data matrix from the input object
   temp.matrix <- as(object, "matrix")

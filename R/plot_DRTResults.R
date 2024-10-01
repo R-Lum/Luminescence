@@ -214,13 +214,10 @@ plot_DRTResults <- function(
   if(is(values, "list") == FALSE) {values <- list(values)}
 
   for(i in 1:length(values)) {
-    if(is(values[[i]], "RLum.Results")==FALSE &
-         is(values[[i]], "data.frame")==FALSE){
-      .throw_error("Input data must be one of 'data.frame' or 'RLum.Results'")
-    } else {
-      if(is(values[[i]], "RLum.Results")==TRUE){
-        values[[i]] <- get_RLum(values[[i]])[,1:2]
-      }
+    .validate_class(values[[i]], c("data.frame", "RLum.Results"),
+                    name = "'values'")
+    if (inherits(values[[i]], "RLum.Results")) {
+      values[[i]] <- get_RLum(values[[i]])[,1:2]
     }
   }
 

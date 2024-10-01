@@ -77,18 +77,14 @@ calc_gSGC_feldspar <- function (
   .set_function_name("calc_gSGC_feldspar")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Integrity checks --------------------------------------------------------
-  if (!is(data, "data.frame")) {
-    stop("[calc_gSGC_feldspar()] 'data' needs to be of type data.frame.", call. = FALSE)
-  }
-  if (!is(gSGC.type[1], "character")) {
-    stop("[calc_gSGC_feldspar()] 'gSGC.type' needs to be of type character.", call. = FALSE)
-  }
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(data, "data.frame")
   if (ncol(data) != 5) {
     stop("[calc_gSGC_feldspar()] Structure of 'data' does not fit the expectations.", call. = FALSE)
   }
   colnames(data) <- c("LnTn", "LnTn.error", "Lr1Tr1", "Lr1Tr1.error",
                       "Dr1")
+  .validate_class(gSGC.type, "character")
 
 # Parametrize -------------------------------------------------------------
   params <- data.frame( # this is the data from Table 3 of Li et al., 2015

@@ -4,9 +4,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(Risoe.BINfileData2RLum.Analysis("test"),
-               "Input object is not of type 'Risoe.BINfileData")
+               "'object' should be of class 'Risoe.BINfileData")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = "test"),
-               "'pos' has to be of type numeric")
+               "'pos' should be of class 'numeric' or 'integer'")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, run = 10:12),
                "run = 10, 11, 12 contains invalid runs")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, set = 10:12),

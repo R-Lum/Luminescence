@@ -27,9 +27,9 @@ test_that("input validation", {
   rhop.test@originator <- "unexpected"
 
   expect_error(calc_Huntley2006(),
-               "\"data\" is missing, with no default")
+               "'data' should be of class 'data.frame'")
   expect_error(calc_Huntley2006("test"),
-               "'data' must be a data frame")
+               "'data' should be of class 'data.frame'")
 
   expect_error(calc_Huntley2006(data, fit.method = "test"),
                "'fit.method' should be one of 'EXP', 'GOK'")

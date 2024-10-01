@@ -182,30 +182,24 @@ calc_OSLLxTxRatio <- function(
   sigmab = NULL,
   sig0 = 0,
   digits = NULL
-){
+) {
+  .set_function_name("calc_OSLLxTxRatio")
+  on.exit(.unset_function_name(), add = TRUE)
 
+  ## Integrity tests --------------------------------------------------------
 
-# Test input data ---------------------------------------------------------
-  ##(1) - integrity checks
+  .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
+
   if(!is.null(Tx.data)){
     ##(a) - check data type
     if(is(Lx.data)[1]!=is(Tx.data)[1]){
-      stop("[calc_OSLLxTxRatio()] Data type of Lx and Tx data differs!",
-           call. = FALSE)
+      .throw_error("'Lx.data' and 'Tx.data' have different types")
     }
 
     ##(b) - test if data.type is valid in general
     if(inherits(Lx.data, "RLum.Data.Curve")){
       Lx.data <- as(Lx.data, "data.frame")
       Tx.data <- as(Tx.data, "data.frame")
-
-    }else{
-      ##go further
-      if((is(Lx.data)[1] != "data.frame" &
-          is(Lx.data)[1] != "numeric") &
-         is(Lx.data)[1] != "matrix"){
-        stop("[calc_OSLLxTxRatio()] Data type error! Required types are data.frame or numeric vector.", call. = FALSE)
-      }
     }
 
     ##(c) - convert vector to data.frame if necessary
@@ -226,13 +220,11 @@ calc_OSLLxTxRatio <- function(
     ##support RLum.objects
     if(inherits(Lx.data, "RLum.Data.Curve")){
       Lx.data <- as(Lx.data, "data.frame")
-
     }
 
     ##check for matrix
     if(is(Lx.data)[1] == "matrix"){
       Lx.data <- as.data.frame(Lx.data)
-
     }
 
     ##no it should be a data.frame, if not, try to produce one
@@ -267,7 +259,6 @@ calc_OSLLxTxRatio <- function(
         calc.parameters = NULL,
       info = list(call = sys.call())
     )))
-
   }
 
   # Continue checks ---------------------------------------------------------
@@ -290,7 +281,6 @@ calc_OSLLxTxRatio <- function(
       warning("[calc_OSLLxTxRatio()] For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.", call. = FALSE)
       signal.integral.Tx <- signal.integral
       background.integral.Tx <- background.integral
-
     }
 
     if(min(signal.integral.Tx) < 1 | max(signal.integral.Tx>length(Tx.data[,2]))){
@@ -311,18 +301,15 @@ calc_OSLLxTxRatio <- function(
   }else{
     signal.integral.Tx <- signal.integral
     background.integral.Tx <- background.integral
-
   }
 
   ##check sigmab
   if (!is.null(sigmab)) {
-      if (!is(sigmab, "numeric")) {
-        stop("[calc_OSLLxTxRatio()] 'sigmab' has to be of type numeric.", call. = FALSE)
-      }
+    .validate_class(sigmab, "numeric")
 
-      if (length(sigmab) > 2) {
-        stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.", call. = FALSE)
-      }
+    if (length(sigmab) > 2) {
+      .throw_error("'sigmab' can have at most length 2")
+    }
   }
 
   ##--------------------------------------------------------------------------##
@@ -341,7 +328,6 @@ calc_OSLLxTxRatio <- function(
 
   }else{
     m.Tx <- length(background.integral.Tx)
-
   }
 
   k.Tx <- m.Tx/n.Tx
@@ -363,7 +349,6 @@ calc_OSLLxTxRatio <- function(
 
   }else{
     Tx.background <- sum(Tx.curve[background.integral.Tx])*1/k.Tx
-
   }
 
   TnTx <- (Tx.signal-Tx.background)
@@ -404,15 +389,12 @@ calc_OSLLxTxRatio <- function(
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m < 25) {
-      warning(
-        "[calc_OSLLxTxRatio()] Number of background channels for Lx < 25; error estimation might not be reliable!",
-        call. = FALSE)
-
+      .throw_warning("Number of background channels for Lx < 25, ",
+                     "error estimation might not be reliable")
     }
 
     sigmab.LnLx <- abs((var(Lx.curve[background.integral]) -
                           mean(Lx.curve[background.integral])) * n)
-
   }
 
   if (round(k.Tx, digits = 1) >= 2 &
@@ -437,15 +419,13 @@ calc_OSLLxTxRatio <- function(
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m.Tx < 25 && use_previousBG == FALSE) {
-      warning("[calc_OSLLxTxRatio()] Number of background channels for Tx < 25; error estimation might not be reliable!",
-              call. = FALSE)
-
+      .throw_warning("Number of background channels for Tx < 25, ",
+                     "error estimation might not be reliable")
     }
 
     sigmab.TnTx <- abs((var(Tx.curve[background.integral.Tx]) -
                           mean(Tx.curve[background.integral.Tx])) * n.Tx)
   }
-
 
   ##account for a manually set sigmab value
   if (!is.null(sigmab)) {
@@ -456,7 +436,6 @@ calc_OSLLxTxRatio <- function(
       }else{
         sigmab.LnLx <- sigmab[1]
         sigmab.TnTx <- sigmab[1]
-
       }
   }
 
@@ -483,7 +462,6 @@ calc_OSLLxTxRatio <- function(
       (Y.0 - Y.1/k)
     TnTx.relError <- sqrt(Y.0_TnTx + Y.1_TnTx/k^2 + sigmab.TnTx*(1+1/k))/
       (Y.0_TnTx - Y.1_TnTx/k)
-
   }
 
   ##(d)
@@ -543,7 +521,6 @@ calc_OSLLxTxRatio <- function(
   ##apply digits if wanted
   if(!is.null(digits)){
     temp[1,] <- round(temp[1,], digits = digits)
-
   }
 
   calc.parameters <- list(
@@ -559,5 +536,4 @@ calc_OSLLxTxRatio <- function(
         calc.parameters = calc.parameters),
       info = list(call = sys.call())
     ))
-
 }

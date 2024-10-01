@@ -97,21 +97,17 @@ calc_TLLxTxRatio <- function(
   Tx.data.background = NULL,
   signal.integral.min,
   signal.integral.max
-){
+) {
+  .set_function_name("calc_TLLxTxRatio")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  ##--------------------------------------------------------------------------##
-  ##(1) - a few integrity check
-   ##check DATA TYPE differences
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(Lx.data.signal, c("data.frame", "RLum.Data.Curve"))
+
+  ##check DATA TYPE differences
    if(is(Lx.data.signal)[1] != is(Tx.data.signal)[1])
      stop("[calc_TLLxTxRatio()] Data types of Lx and Tx data differ!", call. = FALSE)
-
-   ##check for allowed data.types
-   if(!inherits(Lx.data.signal, "data.frame") &
-      !inherits(Lx.data.signal, "RLum.Data.Curve")){
-       stop("[calc_TLLxTxRatio()] Input data type for not allowed. Allowed are 'RLum.Data.Curve' and 'data.frame'",
-            call. = FALSE)
-
-     }
 
   ##--------------------------------------------------------------------------##
   ## Type conversion (assuming that all input variables are of the same type)
@@ -133,7 +129,8 @@ calc_TLLxTxRatio <- function(
 
    ##(e) - check if signal integral is valid
    if(signal.integral.min < 1 | signal.integral.max > length(Lx.data.signal[,2])){
-     stop("[calc_TLLxTxRatio()] signal.integral is not valid!", call. = FALSE)}
+     .throw_error("'signal.integral' is not valid")
+   }
 
 #  Background Consideration --------------------------------------------------
    LnLx.BG <- TnTx.BG <- NA
@@ -160,28 +157,22 @@ calc_TLLxTxRatio <- function(
        BG.Error <- sd(c(LnLx.BG, TnTx.BG))
 
        if(BG.Error == 0) {
-         warning(
-           "[calc_TLLxTxRatio()] The background signals for Lx and Tx appear to be similar, no background error was calculated.",
-           call. = FALSE
-         )
+         .throw_warning("The background signals for Lx and Tx appear ",
+                        "to be similar, no background error was calculated")
          BG.Error <- NA
-
        }
-
      }
 
     ## calculate net LnLx
     if(!is.na(LnLx.BG)){
       net_LnLx <-  LnLx - LnLx.BG
       net_LnLx.Error <- abs(net_LnLx * BG.Error/LnLx.BG)
-
     }
 
     ## calculate net TnTx
     if(!is.na(TnTx.BG)){
          net_TnTx <-  TnTx - TnTx.BG
          net_TnTx.Error <- abs(net_TnTx * BG.Error/TnTx.BG)
-
     }
 
     ## calculate LxTx
@@ -192,7 +183,6 @@ calc_TLLxTxRatio <- function(
     }else{
       LxTx <- net_LnLx/net_TnTx
       LxTx.Error <- abs(LxTx*((net_LnLx.Error/net_LnLx) + (net_TnTx.Error/net_TnTx)))
-
     }
 
     ##COMBINE into a data.frame
@@ -215,5 +205,4 @@ calc_TLLxTxRatio <- function(
       data = list(LxTx.table = temp.results),
       info = list(call = sys.call())
     ))
-
 }

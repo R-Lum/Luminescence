@@ -49,14 +49,17 @@
 #' @md
 #' @export
 PSL2Risoe.BINfileData <- function(object, ...) {
+  .set_function_name("PSL2Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  ## INTEGRITY CHECKS ----
-  if (!inherits(object, "RLum.Analysis"))
-    stop("Only objects of class 'RLum.Analysis' are allowed.", call. = FALSE)
-  if (!all(sapply(object, class) == "RLum.Data.Curve"))
-    stop("The 'RLum.Analysis' object must only contain objects of class 'RLum.Data.Curve'.", call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(object, "RLum.Analysis")
+  sapply(object, function(x) {
+    .validate_class(x, "RLum.Data.Curve",
+                    name = "All elements of 'object'")
+  })
   if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
-    stop("Only objects originating from 'read_PSL2R()' are allowed.", call. = FALSE)
+    .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
 
   ## EXTRACT CURVE INFORMATION ----
   curves <- get_RLum(object)

@@ -99,17 +99,16 @@
 #' @md
 #' @export
 calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRUE, ...) {
+  .set_function_name("calc_CentralDose")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ## ============================================================================##
-  if (!missing(data)) {
-    if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
-      stop("[calc_CentralDose()] 'data' has to be of type 'data.frame' or 'RLum.Results'!", call. = FALSE)
-    } else {
-      if (is(data, "RLum.Results")) {
-        data <- get_RLum(data, "data")
-      }
-    }
+
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
 
   ##remove NA values

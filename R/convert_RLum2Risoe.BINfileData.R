@@ -35,9 +35,9 @@
 convert_RLum2Risoe.BINfileData <- function(
   object,
   keep.position.number = FALSE
-
-){
-
+) {
+  .set_function_name("convert_RLum2Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self call -----------------------------------------------------------------------------------
   if(is(object, "list")){
@@ -53,20 +53,16 @@ convert_RLum2Risoe.BINfileData <- function(
 
     }else{
       return(merge_Risoe.BINfileData(object_list, keep.position.number = keep.position.number))
-
     }
-
   }
 
-  # Integrity tests -----------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve"),
+                  extra = "a 'list' of such objects")
   ##RLum.Data.Curve
   if(inherits(object, "RLum.Data.Curve"))
     object <- set_RLum(class = "RLum.Analysis", records = list(object))
-
-   ##RLum.Analysis - final check, from here we just accept RLum.Analysis
-   if(!inherits(object, "RLum.Analysis"))
-     stop("[convert_RLum2Risoe.BINfileData()] Input object needs to be of class 'RLum.Analysis', 'RLum.Data.Curve' or a 'list' of such objects!", call. = FALSE)
-
 
   # Set PROTOTYPE & DATA --------------------------------------------------------------------------
 
@@ -97,9 +93,7 @@ convert_RLum2Risoe.BINfileData <- function(
 
     }else{
       return(list(ID = NA))
-
     }
-
   })
 
   ##make data.frame out of it
@@ -115,7 +109,6 @@ convert_RLum2Risoe.BINfileData <- function(
   ##helper function ...otherwise the code gets too nasty ... only used for NA values!
   .replace <- function(field, value){
     prototype@METADATA[[field]][which(sapply(prototype@METADATA[[field]], is.na))] <<- value
-
   }
 
   ## >> ID << ##
@@ -136,7 +129,6 @@ convert_RLum2Risoe.BINfileData <- function(
       length(x@data)/2
 
     }, FUN.VALUE = numeric(1))
-
   }
 
   ## >> LENGTH <<  + PREVIOUS
@@ -144,7 +136,6 @@ convert_RLum2Risoe.BINfileData <- function(
     ##even we have values here before, it will make no difference
     prototype@METADATA[["LENGTH"]] <- (prototype@METADATA[["NPOINTS"]] * 4) + 507
     prototype@METADATA[["PREVIOUS"]] <- c(0,prototype@METADATA[["LENGTH"]][1:length(records) - 1])
-
   }
 
   ## >> RUN << ##
@@ -182,11 +173,9 @@ convert_RLum2Risoe.BINfileData <- function(
 
       }else{
         "unknown"
-
       }
 
     }, character(length = 1))
-
   }
 
   ## >> COMMENT << ##
@@ -209,8 +198,6 @@ convert_RLum2Risoe.BINfileData <- function(
         as.character(format(Sys.Date(),"%Y%m%d"))
 
       }
-
-
     }, character(length = 1))
 
     ##set time
@@ -237,7 +224,6 @@ convert_RLum2Risoe.BINfileData <- function(
        min(records[[x]]@data[,1])
 
     }, numeric(length = 1))
-
   }
 
   ## >> HIGH << ##
@@ -250,7 +236,6 @@ convert_RLum2Risoe.BINfileData <- function(
       max(records[[x]]@data[,1])
 
     }, numeric(length = 1))
-
   }
 
   ## >> SEQUENCE << ##
@@ -267,7 +252,6 @@ convert_RLum2Risoe.BINfileData <- function(
       }else{
         s
       }
-
 
     }, FUN.VALUE = character(1))
 
@@ -295,8 +279,6 @@ convert_RLum2Risoe.BINfileData <- function(
   ##all remaining values are numbers
   prototype@METADATA <- replace(prototype@METADATA, is.na(prototype@METADATA), 0L)
 
-
   # Return --------------------------------------------------------------------------------------
   return(prototype)
-
 }

@@ -14,7 +14,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_DRCSummary("test"),
-               "'object' is not of class 'RLum.Results'")
+               "'object' should be of class 'RLum.Results'")
   expect_error(plot_DRCSummary(set_RLum("RLum.Results")),
                "'object' was not created by a supported function")
 

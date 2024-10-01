@@ -79,7 +79,7 @@ test_that("check input data", {
 
   expect_error(
     scale_GammaDose(NA, plot = FALSE, verbose = TRUE),
-    "must be a data frame"
+    "'data' should be of class 'data.frame'"
   )
   expect_error(
     scale_GammaDose(d[ ,1:10], plot = FALSE, verbose = TRUE),

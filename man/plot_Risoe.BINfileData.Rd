@@ -5,7 +5,7 @@
 \title{Plot single luminescence curves from a BIN file object}
 \usage{
 plot_Risoe.BINfileData(
-  BINfileData,
+  data,
   position,
   run,
   set,
@@ -19,7 +19,7 @@ plot_Risoe.BINfileData(
 )
 }
 \arguments{
-\item{BINfileData}{\linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{data}{\linkS4class{Risoe.BINfileData} (\strong{required}):
 requires an S4 object returned by the \link{read_BIN2R} function.}
 
 \item{position}{\link{vector} (\emph{optional}):

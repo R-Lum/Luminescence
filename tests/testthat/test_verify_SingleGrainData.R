@@ -6,7 +6,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(verify_SingleGrainData("test"),
-               "Input type 'character' is not allowed for this function")
+               "'object' should be of class 'Risoe.BINfileData' or 'RLum.Analysis'")
   expect_error(verify_SingleGrainData(object, cleanup_level = "error"),
                "'cleanup_level' should be one of 'aliquot', 'curve'")
 })

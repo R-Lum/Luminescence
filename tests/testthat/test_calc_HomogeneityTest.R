@@ -11,7 +11,7 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   expect_error(calc_HomogeneityTest(TRUE),
-               "'data' object has to be of type 'data.frame' or 'RLum.Results'")
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 3)

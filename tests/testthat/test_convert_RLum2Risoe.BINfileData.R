@@ -1,10 +1,9 @@
 test_that("test for errors", {
   testthat::skip_on_cran()
 
-  expect_error(convert_RLum2Risoe.BINfileData(object = NA))
-
+  expect_error(convert_RLum2Risoe.BINfileData(object = NA),
+               "'object' should be of class 'RLum.Analysis', 'RLum.Data.Curve' or")
 })
-
 
 test_that("functionality", {
   testthat::skip_on_cran()

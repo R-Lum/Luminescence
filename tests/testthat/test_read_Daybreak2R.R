@@ -26,6 +26,13 @@ test_that("Test functionality", {
   SW({
   expect_type(read_Daybreak2R(list(dat.file)), "list")
   })
+})
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(read_Daybreak2R(data.frame()),
+               "'file' should be of class 'character' or 'list'")
 
   ## directory
   expect_error(
@@ -41,7 +48,7 @@ test_that("Test functionality", {
     "The provided file is no ASCII-file and cannot be imported")
 
   file.nonascii <- tempfile()
-  writeLines(gsub("ScriptFile", "ScriptFile ö",
+  writeLines(gsub("ScriptFile", "ScriptFile \uf6", # ö
                   readLines(system.file("extdata/Daybreak_TestFile.txt",
                                         package = "Luminescence"))),
              file.nonascii)

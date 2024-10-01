@@ -132,8 +132,9 @@ fit_ThermalQuenching <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("fit_ThermalQuenching")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(data, "list")){
@@ -143,7 +144,6 @@ fit_ThermalQuenching <- function(
     args[[1]] <- NULL
     args$data <- NULL
 
-
     ##run function
     results_list <- lapply(data, function(x){
        do.call(fit_ThermalQuenching, c(list(data = x),args))
@@ -151,16 +151,15 @@ fit_ThermalQuenching <- function(
 
     ##combine and return
     return(merge_RLum(results_list))
-
   }
 
 
-  # Integrity checks ----------------------------------------------------------------------------
-  if(!inherits(data, 'data.frame')){
-    stop("[fit_ThermalQuenching()] 'data' must by of type 'data.frame' or list of 'data.frames'!", call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
 
-  }else{
-    if(nrow(data) < 1 || ncol(data) < 3)
+  .validate_class(data, "data.frame",
+                  extra = "a 'list' of such objects")
+
+  if(nrow(data) < 1 || ncol(data) < 3)
       stop("[fit_ThermalQuenching()] 'data' is empty or has less than three columns!", call. = FALSE)
 
     if(ncol(data) > 3)
@@ -172,9 +171,6 @@ fit_ThermalQuenching <- function(
 
     ##this we do anyway, you never know
     data <- na.exclude(data[,1:3])
-  }
-
-
 
   # Prepare data --------------------------------------------------------------------------------
   ##set formula for quenching accordingt to Wintle 1973
@@ -301,7 +297,6 @@ if(verbose){
     cat(" W = ", W, " \u00b1 ",W_MC_X, " eV\n")
     cat(" c = ", c, " \u00b1 ",c_MC_X, "\n")
     cat(" --------------------------------\n")
-
 }
 
 # Potting -------------------------------------------------------------------------------------
@@ -342,7 +337,6 @@ if(verbose){
     if(!is.null(plot_settings$xaxt) && plot_settings$xaxt == "n"){
       at <- pretty(round(axTicks(side = 1) - 273.15))
       axis(side = 1, at = at + 273.15, labels = at)
-
     }
 
     ##reset n.MC
@@ -355,7 +349,6 @@ if(verbose){
         c <- fit_coef_MC_full[4,i]
         x <- 0
         curve((A / (1 + C * (exp(-W / (k * x))))) + c, col = rgb(0,0,0,.1), add = TRUE)
-
       }
     }
 
@@ -369,7 +362,6 @@ if(verbose){
              y1 = data[[2]] - data[[3]],
              col = plot_settings$col_points
              )
-
 
     ##add central fit
       A <- fit_coef[["A"]]
@@ -389,7 +381,6 @@ if(verbose){
 
     ##add mtext
     mtext(side = 3, text = plot_settings$mtext)
-
   }
 
 
@@ -414,11 +405,8 @@ if(verbose){
     ),
     info = list(
       call = sys.call()
-
     )
   )
 
   return(output)
-
-
 }

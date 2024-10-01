@@ -5,7 +5,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_Histogram("error"),
-               "Input data format is neither 'data.frame' nor 'RLum.Results'")
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_Histogram(df, ylim = c(0, 1)),
                "'ylim' must be a vector of length 4")
 })

@@ -287,8 +287,7 @@ scale_GammaDose <- function(
 
   ## Input data
   # basic class and length check
-  if (!is.data.frame(data))
-    stop("'data' must be a data frame.", call. = FALSE)
+  .validate_class(data, "data.frame")
   if (ncol(data) != 12)
     stop("'data' must have 12 columns (currently ", ncol(data), ").", call. = FALSE)
 

@@ -65,20 +65,15 @@ calc_WodaFuchs2008 <- function(
 
   ## check data and parameter consistency -------------------------------------
 
-    if(is(data, "RLum.Results") == FALSE &
-         is(data, "data.frame") == FALSE &
-         is.numeric(data) == FALSE) {
+  if (!.validate_class(data, c("data.frame", "RLum.Results", "numeric"),
+                       throw.error = FALSE)) {
+    return(NULL)
+  }
 
-      .throw_warning("Input data must be one of 'data.frame', 'RLum.Results' ",
-                     "or 'numeric', NULL returned")
-      return(NULL)
-
-    } else {
-
-      if(is(data, "RLum.Results") == TRUE) {
+  if (inherits(data, "RLum.Results")) {
         data <- tryCatch(get_RLum(data, "data"),
                          error = function(e) get_RLum(data))
-      }
+  }
 
       ## if data is a numeric vector or a single-column data frame,
       ## append a second column of NAs
@@ -90,7 +85,6 @@ calc_WodaFuchs2008 <- function(
       if (nrow(data) < 2) {
         .throw_error("Insufficient number of data points")
       }
-    }
 
   ## read additional arguments
 

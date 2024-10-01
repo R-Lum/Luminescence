@@ -56,20 +56,23 @@ extract_ROI <- function(
   roi,
   roi_summary = "mean",
   plot = FALSE
-){
+) {
+  .set_function_name("extract_ROI")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self call ---------------------------------------------------------------
   if (is(object, "list"))
     return(merge_RLum(lapply(object, extract_ROI, roi = roi, plot = plot)))
 
-# Check input -------------------------------------------------------------
-  ## check input for ROIs
-  if (!is.matrix(roi) || nrow(roi) < 1 || ncol(roi) < 3)
-    stop("[extract_ROI()] Please check the format of roi, it looks wrong!", call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
 
-  ## check input for object
-  if (!is(object, "matrix") && !is(object, "array") &&  !is(object, "RLum.Data.Image"))
-    stop("[extract_ROI()] Input for argument 'object' not supported!", call. = FALSE)
+  .validate_class(object, c("RLum.Data.Image", "matrix", "array"),
+                  extra = "a 'list' of such objects")
+
+  ## check input for ROIs
+  .validate_class(roi, "matrix")
+  if (nrow(roi) < 1 || ncol(roi) < 3)
+    .throw_error("'roi' does not have the expected format")
 
   ## calculate the radius
   roi <- roi[,1:3]
@@ -115,7 +118,6 @@ extract_ROI <- function(
     ## iterate through a stack if needed
     temp <- lapply(1:(dim(a)[3]), function(z){
       .extract_pixel(a[,,z], roi[x,3], mid = roi[x,1:2])
-
     })
 
     ## compile into matrix
@@ -125,7 +127,6 @@ extract_ROI <- function(
     colnames(m) <- paste0("frame_", 1:ncol(m))
     attr(m, "px_coord") <- attr(temp[[1]], "coord")
     return(m)
-
   })
 
   ## add names
@@ -166,9 +167,7 @@ extract_ROI <- function(
     for (i in 1:nrow(roi)) {
       lines(shape::getellipse(rx = roi[i, 3], mid = c(roi[i, 1:2], dr = 0.1)), col = "red", lwd = 1.5)
       text(x = roi[i,1], y = roi[i,2], i, col = "black", cex = 1.2)
-
     }
-
   }
 
 # ROI summary -------------------------------------------------------------
@@ -216,5 +215,4 @@ extract_ROI <- function(
         roi_coord = roi),
       info = list(
         call = sys.call())))
-
 }

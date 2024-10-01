@@ -93,25 +93,17 @@ plot_ViolinPlot <- function(
   .set_function_name("plot_ViolinPlot")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity tests and conversion --------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
-    ##Prechecks
+  .validate_class(data, c("RLum.Results", "data.frame", "matrix"))
+  .validate_class(summary.pos, "character")
 
-    if(missing(data)){
-      .throw_error("I don't know what to do, data input needed.")
-
-    }else{
-
-      ##check for RLum.Results object
-      if(is(data, "RLum.Results")){
-        data <- get_RLum(data, "data")
-      }
-
-      ##if data.frame or matrix
-      if(is(data, "data.frame") | is(data, "matrix")){
-        data <- data[,1]
-      }
-    }
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
+  }
+  if (is.data.frame(data) || is.matrix(data)) {
+    data <- data[, 1]
+  }
 
     ##Remove NA values
     if(na.rm){
@@ -122,11 +114,6 @@ plot_ViolinPlot <- function(
       }
     }
 
-    #Further checks
-    if(!is(summary.pos, "character")){
-      .throw_error("'summary.pos' needs to be of type character")
-    }
-
   ##stop if only one or 0 values are left in data
   if(length(data) == 0){
     .throw_warning("Actually it is rather hard to plot 0 values, returning")
@@ -134,7 +121,6 @@ plot_ViolinPlot <- function(
   }
 
   # Pre-calculations ----------------------------------------------------------------------------
-
 
   ##density for the violin
   if(length(data)>1){
@@ -213,8 +199,6 @@ plot_ViolinPlot <- function(
       col = plot.settings$col.violin,
       border = plot.settings$col.violin
     )
-
-
   }
 
   ##add the boxplot
@@ -228,19 +212,16 @@ plot_ViolinPlot <- function(
       add = TRUE,
       col = plot.settings$col.boxplot
     )
-
   }
 
   ##add rug
   if(rug){
     rug(x = data)
-
   }
 
   ##add mtext
   if(!is.null(plot.settings$mtext)){
     mtext(side = 3, text = plot.settings$mtext)
-
   }
 
   ##add stat.text

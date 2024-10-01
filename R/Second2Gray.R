@@ -78,9 +78,6 @@
 #' Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
 #'
-#'
-#'
-#'
 #' ##(B) for source dose rate calibration data
 #' ## - calculate source dose rate first
 #' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
@@ -103,30 +100,19 @@ Second2Gray <- function(
   .set_function_name("Second2Gray")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity tests -----------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(!is(data, "data.frame")){
-
-    stop("[Second2Gray()] 'data' object has to be of type 'data.frame'!")
-
-  }
+  .validate_class(data, "data.frame")
 
   ##(2) numeric, data.frame or RLum.Data.Curve object?
-  if(!is(dose.rate, "numeric")  &  !is(dose.rate, "RLum.Results") & !is(dose.rate, "data.frame")){
-
-    stop("[Second2Gray()] 'dose.rate' object has to be of type 'numeric', 'data.frame' or 'RLum.Results'!")
-
-  }
-
+  .validate_class(dose.rate, c("RLum.Results", "data.frame", "numeric"))
 
   ##(3) last check to avoid problems
   if(is(dose.rate, "data.frame")){
 
     if(nrow(dose.rate)!=nrow(data)){
-
-      stop("[Second2Gray()] the data frames in 'data' and 'dose.rate' need to be of similar length!")
-
+      .throw_error("Data frames in 'data' and 'dose.rate' must have the same length")
     }
   }
 
@@ -153,7 +139,6 @@ Second2Gray <- function(
       }else{
 
         dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
-
       }
     }
   }

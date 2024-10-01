@@ -74,13 +74,13 @@ test_that("input validation", {
   expect_error(analyse_pIRIRSequence(),
                "No value set for 'object'")
   expect_error(analyse_pIRIRSequence("test"),
-               "Input object is not of type 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(list("test"),
                                      signal.integral.min = 1,
                                      signal.integral.max = 2,
                                      background.integral.min = 900,
                                      background.integral.max = 1000),
-               "Input object is not of type 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(object,
                                      signal.integral.min = 1,
                                      signal.integral.max = 2,

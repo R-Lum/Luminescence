@@ -36,15 +36,18 @@ write_R2TIFF <- function(
   file = tempfile(),
   norm = 65535,
   ...
-){
-# Integrity ---------------------------------------------------------------
+) {
+  .set_function_name("write_R2TIFF")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## Integrity tests --------------------------------------------------------
   ## most of the users don't need this import, no need to bother them
   ## with required libraries
   if (!requireNamespace("tiff", quietly = TRUE))
     # nocov start
-    stop("Exporting objects to TIFF files requires the package tiff.\n",
-         "To install this package run 'install.packages('tiff')' in your R console.",
-         call. = FALSE)
+    .throw_error("Exporting objects to TIFF files requires the 'tiff' ",
+                 "package. To install it, run 'install.packages('tiff')'",
+                 "in your R console.")
     # nocov end
 
 # Transform  --------------------------------------------------------------
@@ -53,12 +56,14 @@ write_R2TIFF <- function(
     object <- list(object)
 
   ## check list input
-  if(!any(vapply(object, function(x) class(x)[1], character(1)) %in% c("RLum.Data.Image", "RLum.Data.Spectrum")))
-    stop("[write_R2TIFF()] Only RLum.Data.Image and RLum.Data.Spectrum objects are supported!", call. = FALSE)
+  sapply(object, function(x) {
+    .validate_class(x, c("RLum.Data.Image", "RLum.Data.Spectrum"),
+                    name = "'object'")
+  })
 
   ## check path
   if(!dir.exists(dirname(file)))
-    stop("[write_R2TIFF()] Path does not exist!", call. = FALSE)
+    .throw_error("Path does not exist")
 
   ## create file names
   file <- normalizePath(file, mustWork = FALSE)
@@ -83,7 +88,5 @@ write_R2TIFF <- function(
     object[[i]]@data[] <- as.numeric(object[[i]]@data)
     object[[i]]@data[] <- object[[i]]@data / norm[1]
     do.call(what = tiff::writeTIFF, args = c(list(object[[i]]@data, where = file[i]), args))
-
   }
-
 }

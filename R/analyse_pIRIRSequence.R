@@ -262,10 +262,9 @@ analyse_pIRIRSequence <- function(
 
 # General Integrity Checks ---------------------------------------------------
   ##GENERAL
+
     ##INPUT OBJECTS
-    if(is(object, "RLum.Analysis")==FALSE){
-      .throw_error("Input object is not of type 'RLum.Analysis'")
-    }
+    .validate_class(object, "RLum.Analysis")
 
     ##CHECK ALLOWED VALUES IN SEQUENCE STRUCTURE
     temp.collect.invalid.terms <- paste(sequence.structure[

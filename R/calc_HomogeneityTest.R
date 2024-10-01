@@ -59,24 +59,17 @@ calc_HomogeneityTest <- function(
   data,
   log = TRUE,
   ...
-){
+) {
+  .set_function_name("calc_HomogeneityTest")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
 
-  if(missing(data)==FALSE){
-    if(!is(data, "data.frame") & !is(data, "RLum.Results")){
-      stop(
-        "[calc_HomogeneityTest()] 'data' object has to be of type 'data.frame' or 'RLum.Results'!",
-        call. = FALSE
-      )
-    } else {
-      if(is(data, "RLum.Results")){
-        data <- get_RLum(data, "data")
-
-      }
-    }
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
 
   ##==========================================================================##

@@ -33,23 +33,26 @@ read_HeliosOSL2R <- function(
   verbose = TRUE,
   ...
 ) {
+  .set_function_name("read_HeliosOSL2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call ---------------------------------------------------------------
   if(inherits(file, "list")) {
     out <- lapply(file, function(x) {
       read_HeliosOSL2R(x)
-
     })
 
     return(out)
   }
 
 
-# Incoming ----------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(file, c("character", "list"))
+
   ## check file format
   if (tolower(ext <- tools::file_ext(file)) != "osl")
-    stop(paste0("[read_HeliosOSL2R()] File extension <", ext, "> unsupported!"),
-         call. = FALSE)
+    .throw_error("File extension '", ext, "' not supported")
 
   ## fix path
   file <- normalizePath(file)
@@ -66,7 +69,6 @@ read_HeliosOSL2R <- function(
 
     cat("\n[read_HeliosOSL2R()] \n -> Importing ... \n -> path: ", dirname(file))
     cat("\n -> file: ", file_name, "\n")
-
   }
 
   ## read entire file

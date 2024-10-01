@@ -193,6 +193,8 @@ read_XSYG2R <- function(
   ##  - the should be a mode importing ALL metadata
   ##  - xlum should be general, xsyg should take care about subsequent details
 
+  .validate_class(file, c("character", "list"))
+
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
   # with that many file can be read in at the same time
@@ -237,9 +239,7 @@ read_XSYG2R <- function(
 
     } else{
       return(temp.return)
-
     }
-
   }
 
 # Consistency check -----------------------------------------------------------

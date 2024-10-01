@@ -8,13 +8,13 @@ test_that("input validation", {
   expect_error(analyse_Al2O3C_Measurement(),
                "is missing, with no default")
   expect_error(analyse_Al2O3C_Measurement("error"),
-               "'object' must be an 'RLum.Analysis' object or a list of such objects")
+               "'object' should be of class 'RLum.Analysis' or a 'list' of such objects")
   expect_error(analyse_Al2O3C_Measurement(list(data_CrossTalk, "error")),
-               "Elements in 'object' are not all of type 'RLum.Analysis'")
+               "All elements of 'object' should be of class 'RLum.Analysis'")
   suppressWarnings(
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           travel_dosimeter = "error"),
-               "Input for 'travel_dosimeter' is not numeric")
+               "'travel_dosimeter' should be of class 'numeric'")
   )
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = 7),

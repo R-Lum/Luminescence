@@ -518,7 +518,6 @@ analyse_IRSAR.RF<- function(
       return(results)
 
     }
-
   }
 
 
@@ -527,9 +526,7 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
 
   ##INPUT OBJECTS
-  if(!is(object, "RLum.Analysis")){
-    .throw_error("Input object must be of type 'RLum.Analysis'")
-  }
+  .validate_class(object, "RLum.Analysis")
 
   ##CHECK OTHER ARGUMENTS
   if (!is.character(sequence_structure)) {

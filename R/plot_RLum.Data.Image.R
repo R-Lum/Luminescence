@@ -75,10 +75,9 @@ plot_RLum.Data.Image <- function(
   .set_function_name("plot_RLum.Data.Image")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Integrity check -----------------------------------------------------------
-  ##check if object is of class RLum.Data.Image
-  if(!inherits(object, "RLum.Data.Image"))
-    stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image.", call. = FALSE)
+  ## Integrity tests  -------------------------------------------------------
+
+  .validate_class(object, "RLum.Data.Image")
 
   ## extract object
   object <- object@data

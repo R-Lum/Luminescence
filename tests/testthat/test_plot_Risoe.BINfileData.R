@@ -3,7 +3,7 @@ test_that("input validation", {
 
   data(ExampleData.BINfileData, envir = environment())
   expect_error(plot_Risoe.BINfileData("error"),
-               "'object' is expected to be of type 'Risoe.BINfileData'")
+               "'data' should be of class 'Risoe.BINfileData'")
 })
 
 test_that("general test", {

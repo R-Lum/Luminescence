@@ -11,7 +11,6 @@ test_that("check class and length of output", {
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
-
 })
 
 test_that("test arguments", {
@@ -42,7 +41,6 @@ test_that("test arguments", {
     background.integral = c(85:100),
     background.count.distribution = "poisson"
   ))
-
 })
 
 
@@ -94,7 +92,7 @@ test_that("test input", {
 
 })
 
-test_that("force function break", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_OSLLxTxRatio(
@@ -104,20 +102,10 @@ test_that("force function break", {
     background.integral = c(85:100)
   ), "Channel numbers of Lx and Tx data differ!")
 
-  expect_error(calc_OSLLxTxRatio(
-    "Lx.data",
-    Tx.data,
-    signal.integral = c(1:2),
-    background.integral = c(85:100)
-  ), "Data type of Lx and Tx data differs!")
-
-  expect_error(calc_OSLLxTxRatio(
-    "Lx.data",
-    "Tx.data",
-    signal.integral = c(1:2),
-    background.integral = c(85:100)
-  ), "Data type error! Required types are data.frame or numeric vector.")
-
+  expect_error(calc_OSLLxTxRatio(Lx.data, "error"),
+               "'Lx.data' and 'Tx.data' have different types")
+  expect_error(calc_OSLLxTxRatio("error", "error"),
+               "'Lx.data' should be of class 'RLum.Data.Curve', 'data.frame'")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -182,17 +170,15 @@ test_that("force function break", {
     signal.integral = c(1:20),
     background.integral = 80:100,
     sigmab = "test"
-  ), "'sigmab' has to be of type numeric.")
+  ), "'sigmab' should be of class 'numeric'")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal.integral = c(1:20),
     background.integral = 80:100,
-    sigmab = 1:100
-  ), "Maximum allowed vector length for 'sigmab' is 2.")
-
-
+    sigmab = c(1, 2, 3)
+  ), "'sigmab' can have at most length 2")
 })
 
 test_that("create warnings", {
@@ -205,7 +191,7 @@ test_that("create warnings", {
     signal.integral.Tx = c(1:20),
     background.integral = 80:100,
     background.integral.Tx = 60:100
-  ), "Number of background channels for Lx < 25; error estimation might not be reliable!")
+  ), "Number of background channels for Lx < 25, error estimation might not be reliable")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -214,7 +200,7 @@ test_that("create warnings", {
     signal.integral.Tx = c(1:20),
     background.integral = 60:100,
     background.integral.Tx = 80:100
-  ), "Number of background channels for Tx < 25; error estimation might not be reliable!",)
+  ), "Number of background channels for Tx < 25, error estimation might not be reliable")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -233,7 +219,6 @@ test_that("create warnings", {
     background.integral.Tx = 40:100,
     use_previousBG = TRUE
   ), "For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.")
-
 })
 
 
@@ -288,8 +273,6 @@ test_that("check weird circumstances", {
     signal.integral = c(1:2),
     background.integral = c(85:100)
   )$LxTx.table, type = "list")
-
-
 })
 
 test_that("check values from output example", {
@@ -307,7 +290,6 @@ test_that("check values from output example", {
   expect_equal(round(results$Net_TnTx.Error, digits = 5), 88.53581)
   expect_equal(round(results$LxTx, digits = 5), 11.78215)
   expect_equal(round(results$LxTx.Error, digits = 7), 0.1570077)
-
 })
 
 test_that("test NA mode with no signal integrals", {
@@ -321,5 +303,4 @@ test_that("test NA mode with no signal integrals", {
     background.integral = NA), "RLum.Results")
 
   expect_equal(round(sum(temp$LxTx.table[1,]),0), 391926)
-
 })

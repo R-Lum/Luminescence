@@ -15,7 +15,7 @@ test_that("Merge tests", {
 
   ##check for error
   expect_error(merge_RLum.Data.Curve("", merge.method = "/"),
-               "At least object 1 is not of class 'RLum.Data.Curve'")
+               "All elements of 'object' should be of class 'RLum.Data.Curve'")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                      merge.method = "error"),
                "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")

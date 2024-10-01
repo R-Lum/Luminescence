@@ -76,9 +76,9 @@ data(ExampleData.BINfileData, envir = environment())
 
   ##catch errors
   expect_error(write_R2BIN(object = new, file = FALSE),
-               "Argument 'file' has to be of type character")
+               "'file' should be of class 'character'")
   expect_error(write_R2BIN(object = "a", file = ""),
-               "Input object is not of type Risoe.BINfileData")
+               "'object' should be of class 'Risoe.BINfileData'")
   expect_error(suppressWarnings(write_R2BIN(object = set_Risoe.BINfileData(), file = "")))
 
   temp <- new

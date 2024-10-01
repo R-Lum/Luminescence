@@ -14,8 +14,10 @@ test_that("full example test", {
   expect_length(output, 3)
 
   ## errors
-  expect_error({ Analyse_SAR.OSLdata() },
-               regexp = "No input data given")
+  expect_error(Analyse_SAR.OSLdata(),
+               "'input.data' should be of class 'Risoe.BINfileData'")
+  expect_error(Analyse_SAR.OSLdata("error"),
+               "'input.data' should be of class 'Risoe.BINfileData'")
   expect_error({ Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data) },
                regexp = "No signal integral is given")
   expect_error({ Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data, signal.integral = 1:3) },

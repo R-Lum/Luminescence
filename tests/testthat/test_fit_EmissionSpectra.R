@@ -31,7 +31,7 @@ test_that("standard check", {
 
   ## for matrix input -------
   expect_error(fit_EmissionSpectra("fail"),
-               "Objects of type 'character' are not supported")
+               "'object' should be of class 'RLum.Data.Spectrum', 'matrix' or")
 
   mat <- get_RLum(TL.Spectrum)[, 1:4]
   expect_error(fit_EmissionSpectra(object = mat, frame = 1000),

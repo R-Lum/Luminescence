@@ -8,6 +8,8 @@ test_that("basic checks", {
   ## break the function
   df <- ExampleData.CobbleData
   df$Distance[[14]] <- 50000
+  expect_error(calc_CobbleDoseRate("error"),
+               "'input' should be of class 'data.frame'")
   expect_error(calc_CobbleDoseRate(df),
                "Slices outside of cobble. Please check your distances and make sure they are in mm and diameter is in cm!")
 

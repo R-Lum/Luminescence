@@ -165,9 +165,7 @@ analyse_SAR.TL <- function(
   ##=============================================================================#
   # General Integrity Checks ---------------------------------------------------
 
-  if (!is(object, "RLum.Analysis")) {
-    .throw_error("Input object is not of type 'RLum.Analyis'")
-  }
+  .validate_class(object, "RLum.Analysis")
   if (missing("signal.integral.min")) {
     .throw_error("No value set for 'signal.integral.min'")
   }

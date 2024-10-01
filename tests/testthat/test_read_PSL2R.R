@@ -15,8 +15,11 @@ test_that("Test functionality", {
   ), "RLum.Analysis")
 })
 
-test_that("Input validation", {
+test_that("input validation", {
   testthat::skip_on_cran()
+
+  expect_error(read_PSL2R(data.frame()),
+               "'file' should be of class 'character'")
 
   ## directory given (assumes that we have a .psl file under inst/extdata)
   expect_message(

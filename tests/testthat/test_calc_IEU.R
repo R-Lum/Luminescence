@@ -4,6 +4,13 @@ temp <- calc_IEU(ExampleData.DeValues$CA1,
                  b = 1.9,
                  interval = 1, verbose = FALSE, plot = FALSE)
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_IEU("error", a = 0.2, b = 1.9, interval = 1),
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
+})
+
 test_that("Test general behaviour", {
   testthat::skip_on_cran()
 
@@ -39,17 +46,7 @@ test_that("Test general behaviour", {
     plot = FALSE
   ))
 
-  ##cause stop
-  expect_error(calc_IEU(
-    "ExampleData.DeValues$CA1",
-    a = 0.2,
-    b = 1.9,
-    interval = 1,
-    plot = FALSE
-  ))
-
   ##provide RLum.Results
-  ##cause stop
   expect_silent(calc_IEU(
     set_RLum(class = "RLum.Results", data = list(test = ExampleData.DeValues$CA1)),
     a = 0.2,

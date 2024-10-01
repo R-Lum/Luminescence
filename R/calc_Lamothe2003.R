@@ -153,62 +153,42 @@ calc_Lamothe2003 <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("calc_Lamothe2003")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  # Input parameter test ------------------------------------------------------------------------
-  ##object
-    if(missing(object)){
-      stop("[calc_Lamothe2003()] Input for 'object' missing but required!", call. = FALSE)
-    }
+  ## Input parameter test ---------------------------------------------------
 
-  ##dose_rate.envir
-  if(missing(dose_rate.envir)){
-    stop("[calc_Lamothe2003()] Input for 'dose_rate.envir' missing but required!", call. = FALSE)
+  .validate_class(object, c("data.frame", "RLum.Results"))
+
+  ## dose_rate.envir
+  .validate_class(dose_rate.envir, "numeric")
+  if (length(dose_rate.envir) < 2) {
+    .throw_error("'dose_rate.envir' should contain 2 elements")
+  }
+  if (length(dose_rate.envir) > 2) {
+    .throw_warning("'dose_rate.envir' has length > 2, taking only the first two entries")
+    dose_rate.envir <- dose_rate.envir[1:2]
   }
 
-  ##dose_rate.source
-  if(missing(dose_rate.source)){
-    stop("[calc_Lamothe2003()] Input for 'dose_rate.source' missing but required!", call. = FALSE)
+  ## dose_rate.source
+  .validate_class(dose_rate.source, "numeric")
+  if (length(dose_rate.source) < 2) {
+    .throw_error("'dose_rate.source' should contain 2 elements")
   }
-
-  ##g_value
-  if(missing(g_value)){
-    stop("[calc_Lamothe2003()] Input for 'g_value' missing but required!", call. = FALSE)
-  }
-
-  ##check input type and length
-  ##dose_rate.envir
-  if(!inherits(dose_rate.envir, "numeric") || length(dose_rate.envir) < 2){
-    stop("[calc_Lamothe2003()] Input for 'dose_rate.envir' is not of type 'numeric' and/or of length < 2!", call. = FALSE)
-
-  }else{
-    if(length(dose_rate.envir) > 2){
-      warning("[calc_Lamothe2003()] 'dose_rate.envir' has length > 2. Take only the first two entries.",call. = FALSE, immediate. = TRUE)
-      dose_rate.envir <- dose_rate.envir[1:2]
-    }
-
-  }
-
-  ##dose_rate.source
-  if(!inherits(dose_rate.source, "numeric") || length(dose_rate.source) < 2){
-    stop("[calc_Lamothe2003()] Input for 'dose_rate.source' is not of type 'numeric' and/or of length < 2!", call. = FALSE)
-
-  }else{
-    if(length(dose_rate.source) > 2){
-      warning("[calc_Lamothe2003()] 'dose_rate.source' has length > 2. Take only the first two entries.",call. = FALSE, immediate. = TRUE)
-      dose_rate.source <- dose_rate.source[1:2]
-    }
+  if (length(dose_rate.source) > 2) {
+    .throw_warning("'dose_rate.source' has length > 2, taking only the first two entries")
+    dose_rate.source <- dose_rate.source[1:2]
   }
 
   ## g_value
-  if (!inherits(g_value, "numeric") || length(g_value) < 2) {
-    stop("[calc_Lamothe2003()] Input for 'g_value' is not of type 'numeric' and/or of length < 2!", call. = FALSE)
-  } else {
-    if (length(g_value) > 2) {
-      warning("[calc_Lamothe2003()] 'g_value' has length > 2. Take only the first two entries.",
-              call. = FALSE, immediate. = TRUE)
-      g_value <- g_value[1:2]
-    }
+  .validate_class(g_value, "numeric")
+  if (length(g_value) < 2) {
+    .throw_error("'g_value' should contain 2 elements")
+  }
+  if (length(g_value) > 2) {
+    .throw_warning("'g_value' has length > 2, taking only the first two entries")
+    g_value <- g_value[1:2]
   }
 
   ##tc
@@ -269,11 +249,6 @@ calc_Lamothe2003 <- function(
       stop(paste0("[calc_Lamothe2003()] Input for 'object' created by function ",object@originator, "() not supported!"), call. = FALSE)
 
     }
-
-
-  }else{
-    stop("[calc_Lamothe2003()] Unsupported data type for 'object'!", call. = FALSE)
-
   }
 
   # Apply correction----------------------------------------------------------------------------

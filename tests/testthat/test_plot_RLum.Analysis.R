@@ -12,7 +12,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_RLum.Analysis("error"),
-               "Input object is not of type 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis'")
 
   expect_error(plot_RLum.Analysis(temp, nrows = -1),
                "'nrows' must be a positive scalar")

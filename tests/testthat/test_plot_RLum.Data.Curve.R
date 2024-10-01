@@ -6,7 +6,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_RLum.Data.Curve("error"),
-               "Input object is not of type RLum.Data.Curve")
+               "'object' should be of class 'RLum.Data.Curve'")
   expect_error(plot_RLum.Data.Curve(temp, norm = "error"),
                "'norm' should be one of 'max', 'last', 'huot'")
 

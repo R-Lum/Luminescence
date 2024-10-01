@@ -175,13 +175,13 @@ verify_SingleGrainData <- function(
 
     }else{
       return(merge_RLum(results))
-
     }
-
   }
 
   ## ------------------------------------------------------------------------
   ## input validation
+
+  .validate_class(object, c("Risoe.BINfileData", "RLum.Analysis"))
   cleanup_level <- .match_args(cleanup_level, c("aliquot", "curve"))
 
   ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -192,7 +192,6 @@ verify_SingleGrainData <- function(
     ##MEAN + SD
     temp.results_matrix <- lapply(X = object@DATA, FUN = function(x){
       c(mean(x), var(x))
-
     })
 
     temp.results_matrix <- do.call(rbind,  temp.results_matrix)
@@ -224,18 +223,13 @@ verify_SingleGrainData <- function(
           .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &
             .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
         )
-
-
       })))
-
 
     }else{
 
       ##reduce data to TRUE selection
       selection_id <- which(selection[["VALID"]])
-
     }
-
 
     ##select output on the chosen input
     if(cleanup){
@@ -418,7 +412,6 @@ verify_SingleGrainData <- function(
             selection_id = selection_id,
             selection_full = selection)
         )
-
       }
 
       ##return
@@ -428,7 +421,6 @@ verify_SingleGrainData <- function(
       if(any(is.na(selection_id))){
         warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!",
                 call. = FALSE)
-
       }
 
       return_object <- set_RLum(
@@ -441,11 +433,6 @@ verify_SingleGrainData <- function(
       )
 
     }
-
-
-  }else{
-    stop("[verify_SingleGrainData()] Input type '", is(object)[1],
-         "' is not allowed for this function!", call. = FALSE)
   }
 
   # Plot ----------------------------------------------------------------------------------------

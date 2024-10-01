@@ -18,7 +18,8 @@ sink.curl.messages <- function(expr) {
 
 test_that("input validation", {
   testthat::skip_on_cran()
-
+  expect_error(read_SPE2R(data.frame()),
+               "'file' should be of class 'character'")
   expect_message(expect_null(read_SPE2R("error")),
                  "Error: File does not exist, NULL returned")
   expect_error(read_SPE2R(file.path(github.url, "SPEfile.SPE"),

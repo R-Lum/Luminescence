@@ -132,15 +132,12 @@ test_that("RLum.Analysis", {
    object = t@records[[4]]@data[,1], n = 11)
  testthat::expect_length(
    object = t@records[[1]]@data[,1], n = 250)
-
 })
 
-
-test_that("Crash function", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## trigger stop
-  testthat::expect_error(
-    object = trim_RLum.Data("error"),
-    regexp = "\\[trim\\_RLum.Data\\(\\)\\] Unsupported input class\\!")
+  expect_error(trim_RLum.Data("error"),
+               "[trim_RLum.Data()] 'object' should be of class 'RLum.Data' or",
+               fixed = TRUE)
 })

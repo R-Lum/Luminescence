@@ -179,12 +179,12 @@ extract_IrradiationTimes <- function(
       }
   }
 
-# Integrity tests -----------------------------------------------------------------------------
-  ##check whether an character or an RLum.Analysis object is provided
-  if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
-    .throw_error("Input object is neither of type 'character' nor ",
-                 "of type 'RLum.Analysis'.")
-  } else if(is(object)[1] == "character"){
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(object, c("character", "RLum.Analysis"),
+                  extra = "a 'list' of such objects")
+
+  if (is.character(object[1])) {
 
     ##set object to file.XSYG
     file.XSYG <- object
@@ -347,7 +347,6 @@ extract_IrradiationTimes <- function(
 
       }else{
         return(difftime(temp.results[x,"START"],time.irr.end, units = "secs"))
-
       }
     }
 

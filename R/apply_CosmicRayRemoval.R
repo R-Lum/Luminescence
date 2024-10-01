@@ -179,12 +179,7 @@ apply_CosmicRayRemoval <- function(
 
   # Integrity check -----------------------------------------------------------
 
-  ##check if object is of class RLum.Data.Spectrum
-  if(!inherits(object,"RLum.Data.Spectrum")){
-    stop(paste0("[apply_CosmicRayRemoval()] An object of class '",class(object)[1], "' is not supported as input; please read the manual!"), call. = FALSE)
-
-  }
-
+  .validate_class(object, "RLum.Data.Spectrum")
   .match_args(method, c("smooth", "smooth.spline", "Pych"))
 
   ##deal with addition arguments

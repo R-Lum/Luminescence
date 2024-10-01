@@ -159,33 +159,27 @@
 CW2pPMi<- function(
   values,
   P
-){
+) {
+  .set_function_name("CW2pPMi")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # (0) Integrity checks ------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-    stop("[CW2pPMi()] 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
-
-  }
+  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if(is(values, "RLum.Data.Curve") == TRUE){
-
+  if (inherits(values, "RLum.Data.Curve")) {
     if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
-      stop(paste("[CW2pPMi()] recordType ",values@recordType, " is not allowed for the transformation!",
-                 sep=""), call. = FALSE)
-
-    }else{
-
-      temp.values <- as(values, "data.frame")
-
+      .throw_error("recordType ", values@recordType,
+                   " is not allowed for the transformation")
     }
+
+    temp.values <- as(values, "data.frame")
 
   }else{
 
     temp.values <- values
-
   }
 
 
@@ -249,7 +243,10 @@ CW2pPMi<- function(
 
 
   ##print a warning message for more than two extrapolation points
-  if(temp.sel.id>2){warning("t' is beyond the time resolution. Only two data points have been extrapolated, the first ",temp.sel.id-3, " points have been set to 0!")}
+  if (temp.sel.id > 2) {
+    warning("t' is beyond the time resolution: only two data points have been ",
+            "extrapolated, the first ", temp.sel.id - 3, " points were set to 0")
+  }
 
   # (6) Convert, transform and combine values ---------------------------------
 

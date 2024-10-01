@@ -127,7 +127,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   .set_function_name("plot_NRt")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## DATA INPUT EVALUATION -----
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(data, c("list", "data.frame", "matrix", "RLum.Analysis"))
   if (inherits(data, "list")) {
     if (length(data) < 2)
       .throw_error("The provided list only contains curve data ",
@@ -154,9 +155,6 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     if (length(curves) < 2)
       .throw_error("The provided 'RLum.Analysis' object ",
                    "only contains curve data of the natural signal")
-  } else {
-    .throw_error("'data' is expected to be a list, matrix, data.frame or ",
-                 "'RLum.Analysis' object")
   }
 
   smooth <- .match_args(smooth, c("none", "spline", "rmean"))

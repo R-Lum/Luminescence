@@ -7,9 +7,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_NRt("error"),
-               "'data' is expected to be a list, matrix, data.frame or")
+               "'data' should be of class 'list', 'data.frame', 'matrix' or")
   expect_error(plot_NRt(obj[[2]]),
-               "'data' is expected to be a list, matrix, data.frame or")
+               "'data' should be of class 'list', 'data.frame', 'matrix' or")
   expect_error(plot_NRt(curves[1]),
                 "The provided list only contains curve data of the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),

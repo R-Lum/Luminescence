@@ -4,7 +4,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(fit_CWCurve("error"),
-               "Input object is not of type 'RLum.Data.Curve' or 'data.frame'")
+               "'values' should be of class 'RLum.Data.Curve' or 'data.frame'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
                "'fit.method' should be one of 'port', 'LM'")
 })

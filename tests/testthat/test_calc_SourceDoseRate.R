@@ -3,6 +3,14 @@ temp <- calc_SourceDoseRate(measurement.date = "2012-01-27",
                            calib.dose.rate = 0.0438,
                            calib.error = 0.0019)
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_SourceDoseRate(data.frame()),
+               "'measurement.date' should be of class 'Date' or 'character'")
+  expect_error(calc_SourceDoseRate("2024-10-01", data.frame()),
+               "'calib.date' should be of class 'Date' or 'character'")
+})
 
 test_that("General tests", {
   testthat::skip_on_cran()

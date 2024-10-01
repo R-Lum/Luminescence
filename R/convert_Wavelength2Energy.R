@@ -126,13 +126,13 @@ convert_Wavelength2Energy <- function(
   object,
   digits = 3L,
   order = FALSE
-  ){
-
+) {
+  .set_function_name("convert_Wavelength2Energy")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
     return(lapply(object, convert_Wavelength2Energy))
-
   }
 
   # Conversion function -------------------------------------------------------------------------
@@ -151,11 +151,13 @@ convert_Wavelength2Energy <- function(
 
       ##return results
       return(m)
-
   }
 
+  ## Integrity tests --------------------------------------------------------
 
-  # Treat input data ----------------------------------------------------------------------------
+  .validate_class(object, c("RLum.Data.Spectrum", "data.frame", "matrix"),
+                  extra = "a 'list' of such objects")
+
   if(inherits(object, "RLum.Data.Spectrum")){
      ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
@@ -164,7 +166,6 @@ convert_Wavelength2Energy <- function(
          message("[convert_Wavelength2Energy()] Your object has already an energy scale, nothing done!")
          return(object)
      }
-
     }
 
 
@@ -176,7 +177,6 @@ convert_Wavelength2Energy <- function(
       object@data <- object@data[order(as.numeric(rownames(object@data))), ,
                                  drop = FALSE]
       rownames(object@data) <- sort(as.numeric(rownames(object@data)))
-
     }
 
     ##correct $curveDescripter (we do not attach the table, otherwise the object gets too big)
@@ -211,16 +211,5 @@ convert_Wavelength2Energy <- function(
       return(as.data.frame(temp))
 
     return(temp)
-  }else{
-    stop(
-      paste0(
-        "[convert_Wavelength2Energy()] Class '",
-        class(object)[1],
-        "' not supported as input!"
-      ),
-      call. = FALSE
-    )
-
   }
-
 }

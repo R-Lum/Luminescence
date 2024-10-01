@@ -118,12 +118,10 @@ if(inherits(object, "list")){
 
   ##return merged object
   return(results)
-
 }
 
-# Check input ---------------------------------------------------------------------------------
-  if(!inherits(object, "RLum.Results"))
-    .throw_error("'object' is not of class 'RLum.Results'")
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(object, "RLum.Results")
 
 # Extract data from object --------------------------------------------------------------------
   ##get data from RLum.Results object

@@ -92,15 +92,15 @@ analyse_Al2O3C_CrossTalk <- function(
   method_control = NULL,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("analyse_Al203C_CrossTalk")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity check  ---------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
-  ##check input object
-  if(!all(unlist(lapply(object, function(x){is(x, "RLum.Analysis")})))){
-    stop("[analyse_Al2O3C_CrossTalk()] The elements in 'object' are not all of type 'RLum.Analysis'", call. = FALSE)
-
-  }
+  lapply(object,
+         function(x) .validate_class(x, "RLum.Analysis",
+                                     name = "All elements of 'object'"))
 
   ##TODO ... do more, push harder
   ##Accept the entire sequence ... including TL and extract
@@ -110,25 +110,18 @@ analyse_Al2O3C_CrossTalk <- function(
   ##select curves based on the recordType selection; if not NULL
   if(!is.null(recordType)){
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
-
   }
 
   #set method control
   method_control_settings <- list(
     fit.method = "EXP"
-
   )
 
   ##modify on request
   if(!is.null(method_control)){
-    if (!is.list(method_control)) {
-      stop("[analyse_Al2O3C_CrossTalk()] 'method_control' is expected ",
-           "to be a list", call. = FALSE)
-    }
+    .validate_class(method_control, "list")
     method_control_settings <- modifyList(x = method_control_settings, val = method_control)
-
   }
-
 
   ##set signal integral
   if(is.null(signal_integral)){
@@ -145,18 +138,11 @@ analyse_Al2O3C_CrossTalk <- function(
         call. = FALSE
       )
     }
-
   }
 
   ##check irradiation time correction
   if (!is.null(irradiation_time_correction)) {
-
-    if (!is.numeric(irradiation_time_correction) &&
-        !is(irradiation_time_correction, "RLum.Results")) {
-      stop("[analyse_Al2O3C_CrossTalk()] 'irradiation_time_correction' ",
-           "is expected to be a numeric value or an RLum.Results object",
-           call. = FALSE)
-    }
+    .validate_class(irradiation_time_correction, c("numeric", "RLum.Results"))
 
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
@@ -168,9 +154,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
         }else{
           irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
-
         }
-
       } else{
         stop(
           "[analyse_Al2O3C_CrossTalk()] The object provided for the argument 'irradiation_time_correction' was created by an unsupported function!",
@@ -215,7 +199,6 @@ analyse_Al2O3C_CrossTalk <- function(
     temp_df$DOSE_ERROR[id_zero] <- 0
 
     return(temp_df)
-
   })
 
   APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(1:length(object), function(x){
@@ -226,9 +209,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
     }else{
       DOSE <- signal_table_list[[x]]$DOSE[2]
-
     }
-
 
     ##calculation
     temp <- (DOSE * signal_table_list[[x]]$NET_INTEGRAL[1])/signal_table_list[[x]]$NET_INTEGRAL[2]
@@ -237,13 +218,11 @@ analyse_Al2O3C_CrossTalk <- function(
       POSITION = signal_table_list[[x]]$POSITION[1],
       AD = mean(temp),
       AD_ERROR = sd(temp))
-
   })))
 
   ##add apparent dose to the information
   signal_table_list <- lapply(1:length(signal_table_list), function(x){
       cbind(signal_table_list[[x]], rep(APPARENT_DOSE[x,2:3], 2))
-
   })
 
   ##combine
@@ -338,7 +317,6 @@ analyse_Al2O3C_CrossTalk <- function(
              y = sin(step) * .85,
              labels = i)
         step <- step + arc.step
-
       }
 
       ##add center plot with position
@@ -388,7 +366,6 @@ analyse_Al2O3C_CrossTalk <- function(
         pos = 3,
         cex = 1.1
       )
-
     }
 
   # Output --------------------------------------------------------------------------------------
@@ -408,5 +385,4 @@ analyse_Al2O3C_CrossTalk <- function(
       call = sys.call()
     )
   )
-
 }

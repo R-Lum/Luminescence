@@ -191,17 +191,13 @@ plot_KDE <- function(
 
   ## check/adjust input data structure
   for(i in 1:length(data)) {
-    if(is(data[[i]], "RLum.Results") == FALSE &
-         is(data[[i]], "data.frame") == FALSE &
-         is.numeric(data[[i]]) == FALSE) {
-      .throw_error("Input data must be one of 'data.frame', ",
-                   "'RLum.Results' or 'numeric'")
-    } else {
+    .validate_class(data[[i]], c("RLum.Results", "data.frame", "numeric"),
+                    name = "'data'")
 
-      ##extract RLum.Results
-      if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
-      }
+    ## extract RLum.Results
+    if (inherits(data[[i]], "RLum.Results")) {
+      data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
+    }
 
       ## ensure that the dataset it not degenerate
       if (NROW(data[[i]]) == 0) {
@@ -219,7 +215,7 @@ plot_KDE <- function(
         data[[i]] <- data[[i]][, 1:2]
         attr(data[[i]], "De.errors.available") <- TRUE
       }
-    }
+
 
     ## find the index Inf values in each of the two columns and remove the
     ## corresponding rows if needed

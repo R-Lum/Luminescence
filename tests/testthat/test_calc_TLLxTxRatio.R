@@ -22,7 +22,8 @@ test_that("calc_TLLxTxRatio", {
       Tx.data.background,
       signal.integral.min,
       signal.integral.max),
-    regexp = "\\[calc\\_TLLxTxRatio\\(\\)\\] Data types of Lx and Tx data differ.+")
+      "[calc_TLLxTxRatio()] Data types of Lx and Tx data differ",
+      fixed = TRUE)
 
     ## different data types
     expect_error(calc_TLLxTxRatio(
@@ -32,7 +33,8 @@ test_that("calc_TLLxTxRatio", {
       Tx.data.background,
       signal.integral.min,
       signal.integral.max),
-      regexp = "\\[calc\\_TLLxTxRatio\\(\\)\\] Data types of Lx and Tx data differ.+")
+      "[calc_TLLxTxRatio()] Data types of Lx and Tx data differ",
+      fixed = TRUE)
 
     ## check for allowed data types
     expect_error(calc_TLLxTxRatio(
@@ -42,7 +44,7 @@ test_that("calc_TLLxTxRatio", {
       Tx.data.background,
       signal.integral.min,
       signal.integral.max),
-      regexp = "\\[calc\\_TLLxTxRatio\\(\\)\\] Input data type for not allowed.+")
+      "'Lx.data.signal' should be of class 'data.frame' or 'RLum.Data.Curve'")
 
     ## check for different channel numbers
     expect_error(calc_TLLxTxRatio(
@@ -62,7 +64,8 @@ test_that("calc_TLLxTxRatio", {
       Tx.data.background,
       signal.integral.min = 10,
       signal.integral.max = 1000),
-      regexp = "\\[calc\\_TLLxTxRatio\\(\\)\\] signal.integral is not valid.+")
+      "[calc_TLLxTxRatio()] 'signal.integral' is not valid",
+      fixed = TRUE)
 
   ## trigger warning
   expect_warning(calc_TLLxTxRatio(

@@ -344,14 +344,10 @@ calc_MinDose <- function(
   ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ## ============================================================================##
-  if (!missing(data)) {
-    if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
-      .throw_error("Error: 'data' object must be of type ",
-                   "'data.frame' or 'RLum.Results'")
-    }
-    if (is(data, "RLum.Results")) {
-      data <- get_RLum(data, "data")
-    }
+
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (is(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
 
   if (any(!complete.cases(data))) {

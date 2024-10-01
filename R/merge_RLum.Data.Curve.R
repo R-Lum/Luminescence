@@ -130,13 +130,11 @@ merge_RLum.Data.Curve<- function(
 
   ##(1) check if object is of class RLum.Data.Curve
   temp.recordType.test <- sapply(1:length(object), function(x){
-    if(!inherits(object[[x]], "RLum.Data.Curve")){
-      .throw_error("At least object ", x, " is not of class 'RLum.Data.Curve'")
-    }
+    .validate_class(object[[x]], "RLum.Data.Curve",
+                    name = "All elements of 'object'")
 
     ##provide class of objects
     return(object[[x]]@recordType)
-
   })
 
   ##(2) Check for similar record types
@@ -175,9 +173,7 @@ merge_RLum.Data.Curve<- function(
 
     }else{
       object[[x]]@data[,2]
-
     }
-
   }))
 
   ##(2) apply selected method for merging
@@ -266,7 +262,6 @@ merge_RLum.Data.Curve<- function(
 
   }else{
     temp.info <- object[[method.info]]@info
-
   }
 
   # Build new RLum.Data.Curve object --------------------------------------------------------------
@@ -280,10 +275,8 @@ merge_RLum.Data.Curve<- function(
     .pid = unlist(lapply(object, function(x) {
       x@.uid
     }))
-
   )
 
 # Return object -------------------------------------------------------------------------------
   return(temp.new.Data.Curve)
-
 }

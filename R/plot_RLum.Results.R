@@ -65,10 +65,7 @@ plot_RLum.Results<- function(
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
 
-  ##check if object is of class RLum.Data.Curve
-  if(!is(object,"RLum.Results")){
-    .throw_error("Input object is not of type 'RLum.Results'")
-  }
+  .validate_class(object, "RLum.Results")
 
   ##============================================================================##
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT

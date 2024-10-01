@@ -38,10 +38,14 @@ test_that("check error messages", {
   df <- ExampleData.DeValues$BT998
 
   expect_error(calc_Statistics(data = matrix(0,2)),
-               regexp = "[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'",
+               "[calc_Statistics()] 'data' should be of class 'RLum.Results' or 'data.frame'",
                fixed = TRUE)
   expect_error(calc_Statistics(data = df, weight.calc = "error"),
                "'weight.calc' should be one of 'square', 'reciprocal'")
+  expect_error(calc_Statistics(df, digits = 2.4),
+               "'digits' must be a positive integer scalar")
+  expect_error(calc_Statistics(df, n.MCM = "error"),
+               "'n.MCM' must be a positive integer scalar")
 })
 
 

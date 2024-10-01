@@ -1,3 +1,13 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+
+  expect_error(convert_SG2MG(data.frame()),
+               "'object' should be of class 'character' or 'Risoe.BINfileData'")
+  expect_error(convert_SG2MG("error"),
+               "File does not exist")
+})
+
 test_that("test conversion from single grain data to multiple grain data", {
   testthat::skip_on_cran()
 

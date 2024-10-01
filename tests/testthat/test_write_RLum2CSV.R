@@ -2,10 +2,8 @@ test_that("test errors and general export function", {
   testthat::skip_on_cran()
 
   ##test error
-  expect_error(write_RLum2CSV(),
-               "input object is missing")
   expect_error(write_RLum2CSV(object = "", export = FALSE),
-               regexp = "[write_RLum2CSV()] Object needs to be a member of the object class RLum!",
+               "[write_RLum2CSV()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
 
   ##test export
@@ -34,19 +32,19 @@ test_that("test errors and general export function", {
 
   ##using option compact
   expect_warning(write_RLum2CSV(object = results,export = FALSE),
-                 regexp = "elements could not be converted to a CSV-structure!")
+                 "elements could not be converted to CSV")
 
   ##using option compact = FALSE
   expect_warning(write_RLum2CSV(object = results, export = FALSE,
                                 compact = FALSE),
-                 "elements could not be converted to a CSV-structure")
+                 "elements could not be converted to CSV")
   expect_warning(write_RLum2CSV(object = results,export = FALSE, compact = TRUE),
-                 regexp = "elements could not be converted to a CSV-structure!")
+                 "elements could not be converted to CSV")
 
   ##real export
   expect_warning(
     write_RLum2CSV(object = results, path = tempdir(), compact = TRUE),
-    regexp = "elements could not be converted to a CSV-structure!")
+    "elements could not be converted to CSV")
 
   ## data.frame
   df <- results@data$data

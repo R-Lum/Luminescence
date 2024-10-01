@@ -7,14 +7,16 @@ test_that("test errors", {
     data = "data",
     gSGC.type = "50LxTx",
     plot = FALSE),
-    "\\[calc_gSGC_feldspar\\(\\)\\] 'data' needs to be of type data.frame.")
+    "[calc_gSGC_feldspar()] 'data' should be of class 'data.frame'",
+    fixed = TRUE)
 
   ##no character
   expect_error(calc_gSGC_feldspar(
-    data = data.frame(),
+    data = data.frame(a  = 1, b = 1, c = 1, d = 1, e = 1),
     gSGC.type = 1,
     plot = FALSE),
-    "\\[calc_gSGC_feldspar\\(\\)\\] 'gSGC.type' needs to be of type character.")
+    "[calc_gSGC_feldspar()] 'gSGC.type' should be of class 'character'",
+    fixed = TRUE)
 
   ## input is somewhat not what we expect for gSGC
   expect_error(

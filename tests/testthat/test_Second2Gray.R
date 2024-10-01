@@ -16,12 +16,12 @@ test_that("check class and length of output", {
   expect_s3_class(results, class = "data.frame")
 
   expect_error(Second2Gray("test"),
-               "'data' object has to be of type 'data.frame'")
+               "'data' should be of class 'data.frame'")
   expect_error(Second2Gray(ExampleData.DeValues$BT998, dose.rate = FALSE),
-               "'dose.rate' object has to be of type")
+               "'dose.rate' should be of class 'RLum.Results', 'data.frame' or")
   expect_error(Second2Gray(ExampleData.DeValues$BT998,
                            dose.rate = results[1:5, ]),
-               "'data' and 'dose.rate' need to be of similar length")
+               "'data' and 'dose.rate' must have the same length")
   expect_error(Second2Gray(ExampleData.DeValues$BT998,
                            dose.rate = results,
                            error.propagation = "test"),

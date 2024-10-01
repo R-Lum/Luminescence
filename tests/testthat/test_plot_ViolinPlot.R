@@ -5,9 +5,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_ViolinPlot(),
-               "data input needed")
+               "'data' should be of class 'RLum.Results', 'data.frame' or 'matrix'")
+  expect_error(plot_ViolinPlot("error"),
+               "'data' should be of class 'RLum.Results', 'data.frame' or 'matrix'")
   expect_error(plot_ViolinPlot(df, summary.pos = 5),
-               "'summary.pos' needs to be of type character")
+               "'summary.pos' should be of class 'character'")
 
   expect_warning(plot_ViolinPlot(df[0, ]),
                  "it is rather hard to plot 0 values, returning")

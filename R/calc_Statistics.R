@@ -13,24 +13,22 @@
 #' values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 #' [plot_AbanicoPlot] for details.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
-#' for [data.frame] two columns: De (`data[,1]`) and De error (`data[,2]`). 
-#' To plot several data sets in one plot the data sets must be provided 
-#' as `list`, e.g. `list(data.1, data.2)`.
+#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' for [data.frame] two columns: De (`data[, 1]`) and De error (`data[, 2]`).
 #'
 #' @param weight.calc [character]:
 #' type of weight calculation. One out of `"reciprocal"` (weight is 1/error),
 #' `"square"` (weight is 1/error^2). Default is `"square"`.
 #'
-#' @param digits [integer] (*with default*): 
-#' round numbers to the specified digits. 
-#' If digits is set to `NULL` nothing is rounded.
+#' @param digits [integer] (*with default*):
+#' number of decimal places to be used when rounding numbers. If set to `NULL`
+#' (default), no rounding occurs.
 #'
-#' @param n.MCM [numeric] (*with default*): 
-#' number of samples drawn for Monte Carlo-based statistics. 
+#' @param n.MCM [numeric] (*with default*):
+#' number of samples drawn for Monte Carlo-based statistics.
 #' `NULL` (the default) disables MC runs.
 #'
-#' @param na.rm [logical] (*with default*): 
+#' @param na.rm [logical] (*with default*):
 #' indicating whether `NA` values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
@@ -74,14 +72,9 @@ calc_Statistics <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Check input data
-  if(is(data, "RLum.Results") == FALSE &
-       is(data, "data.frame") == FALSE) {
-    stop("[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'", call. = FALSE)
-
-  } else {
-    if(is(data, "RLum.Results")) {
-      data <- get_RLum(data, "data")[,1:2]
-    }
+  .validate_class(data, c("RLum.Results", "data.frame"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")[, 1:2]
   }
 
   ##strip na values
@@ -110,6 +103,9 @@ calc_Statistics <- function(
   }
 
   S.weights <- S.weights / sum(S.weights)
+
+  .validate_positive_scalar(digits, int = TRUE, null.ok = TRUE)
+  .validate_positive_scalar(n.MCM, int = TRUE, null.ok = TRUE)
 
   ## create MCM data
   if (is.null(n.MCM)) {

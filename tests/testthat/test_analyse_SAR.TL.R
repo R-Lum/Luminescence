@@ -10,7 +10,8 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(),
                "No value set for 'object'")
   expect_error(analyse_SAR.TL("test"),
-               "Input object is not of type 'RLum.Analyis'")
+               "[analyse_SAR.TL()] 'object' should be of class 'RLum.Analysis'",
+               fixed = TRUE)
   expect_error(analyse_SAR.TL(object),
                "No value set for 'signal.integral.min'")
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1),

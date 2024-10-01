@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(merge_RLum.Results("error"),
                "'objects' has to be of type 'list'")
   expect_error(merge_RLum.Results(list(res, "error")),
-               "All objects to be merged must have type 'RLum.Results'")
+               "All elements of 'object' should be of class 'RLum.Results'")
 
   res2 <- res
   res2@originator <- "unknown"
@@ -35,6 +35,4 @@ test_that("Merge RLum.Results", {
 
   a <- merge_RLum.Results(list(res, res))
   expect_s3_class(a@data$summary, "data.frame")
-
-
 })

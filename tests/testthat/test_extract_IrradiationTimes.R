@@ -9,7 +9,7 @@ test_that("input validation", {
   expect_error(extract_IrradiationTimes(tempdir()),
                "File is expected to have 'xsyg' or 'XSYG' extension")
   expect_error(extract_IrradiationTimes(FALSE),
-               "neither of type 'character' nor of type 'RLum.Analysis")
+               "'object' should be of class 'character', 'RLum.Analysis' or a")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = "fail"),
                "Wrong BINX file name or file does not exist!")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = tempdir()),

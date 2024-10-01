@@ -11,7 +11,8 @@ temp_NA[1,1] <- NA
 test_that("errors and warnings function", {
   testthat::skip_on_cran()
 
-  expect_error(calc_CentralDose(data = "error"), "'data' has to be of type 'data.frame' or 'RLum.Results'!")
+  expect_error(calc_CentralDose(data = "error"),
+               "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_CentralDose(temp, sigmab = 10), "sigmab needs to be given as a fraction between 0 and 1")
   expect_error(calc_CentralDose(data.frame()),
                "should have at least two columns and two rows")

@@ -83,13 +83,16 @@ merge_Risoe.BINfileData <- function(
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0
-){
+) {
+  .set_function_name("merge_Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Checks --------------------------------------------------------
+
+  .validate_class(input.objects, c("character", "list"))
   if(length(input.objects) < 2){
     message("[merge_Risoe.BINfileData()] Nothing done: at least two input objects are needed!")
     return(input.objects)
-
   }
 
   if(is(input.objects, "character") == TRUE){
@@ -107,13 +110,8 @@ merge_Risoe.BINfileData <- function(
         if(is(input.objects[[i]], "Risoe.BINfileData") == FALSE){
 
           stop("[merge_Risoe.BINfileData()] Input list does not contain Risoe.BINfileData objects!")
-
         }
-
       }
-
-    }else{
-      stop("[merge_Risoe.BINfileData()] Input object is neither a character nor a list!")
     }
   }
 

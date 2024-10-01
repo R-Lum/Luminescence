@@ -5,10 +5,11 @@ SW({
 xsyg.file <- .download_file(github.url, tempfile("test_read_XSYG2R"))
 })
 
-test_that("test import of XSYG files", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##force error
+  expect_error(read_XSYG2R(data.frame()),
+               "'file' should be of class 'character' or 'list'")
   expect_message(expect_null(read_XSYG2R("_error_file_")),
                 "XML file not readable, nothing imported")
   expect_message(expect_null(read_XSYG2R("/Test", fastForward = TRUE)),
@@ -17,6 +18,10 @@ test_that("test import of XSYG files", {
   expect_message(expect_null(read_XSYG2R(test_path("_data"))),
                  "No files matching the given pattern found in directory")
   })
+})
+
+test_that("test import of XSYG files", {
+  testthat::skip_on_cran()
 
   ## download from github
   expect_type(read_XSYG2R(github.url, import = FALSE, verbose = FALSE),

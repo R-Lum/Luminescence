@@ -10,7 +10,8 @@ test_that("check class and length of output", {
     cvThreshold = 5,
     plot = FALSE,
     verbose = FALSE),
-    "\\[calc_FuchsLang2001\\(\\)\\] 'data' has to be of type 'data.frame' or 'RLum.Results'\\!")
+    "[calc_FuchsLang2001()] 'data' should be of class 'data.frame' or 'RLum.Results'",
+    fixed = TRUE)
 
   ##the simple and silent run
   temp <- expect_s4_class(

@@ -18,11 +18,13 @@ test_that("check class and length of output", {
   ## crash function
   expect_error(
     object = convert_Activity2Concentration(),
-    regexp = "\\[convert\\_Activity2Concentration\\(\\)\\] I'm still waiting for input data ...")
+    "[convert_Activity2Concentration()] 'data' should be of class 'data.frame'",
+    fixed = TRUE)
 
   expect_error(
     object = convert_Activity2Concentration(data = data_activity[,1:2]),
-    regexp = "\\[convert\\_Activity2Concentration\\(\\)\\] Input data.frame should have at least three columns.")
+    "[convert_Activity2Concentration()] 'data' should have at least 3 columns",
+    fixed = TRUE)
 
   expect_error(
     object = convert_Activity2Concentration(data = data_activity, input_unit = "stop"),

@@ -5,13 +5,13 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_OSLLxTxDecomposed(),
-               "is missing, with no default")
+               "'Lx.data' should be of class 'data.frame")
   expect_error(calc_OSLLxTxDecomposed("test"),
-               "No valid component data.frame for Lx value")
+               "'Lx.data' should be of class 'data.frame")
   expect_error(calc_OSLLxTxDecomposed(data.frame(col = integer(0))),
                "No valid component data.frame for Lx value")
   expect_error(calc_OSLLxTxDecomposed(Lx.data, "test"),
-               "No valid component data.frame for Tx value")
+               "'Tx.data' should be of class 'data.frame")
   expect_error(calc_OSLLxTxDecomposed(Lx.data, data.frame(col = integer(0))),
                "No valid component data.frame for Tx value")
   expect_error(calc_OSLLxTxDecomposed(Lx.data, Tx.data,

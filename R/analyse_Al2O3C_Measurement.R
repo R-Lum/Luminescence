@@ -153,9 +153,9 @@ analyse_Al2O3C_Measurement <- function(
 
   # Self call -----------------------------------------------------------------------------------
   if(is(object, "list")){
-    if(!all(unlist(lapply(object, function(x){is(x, "RLum.Analysis")})))){
-      .throw_error("Elements in 'object' are not all of type 'RLum.Analysis'")
-    }
+    lapply(object,
+           function(x) .validate_class(x, "RLum.Analysis",
+                                       name = "All elements of 'object'"))
 
     ##expand input arguments
     if(!is.null(signal_integral)){
@@ -242,9 +242,7 @@ analyse_Al2O3C_Measurement <- function(
     ##travel dosimeter
     ##check for travel dosimeter and subtract the values so far this is meaningful at all
     if(!is.null(travel_dosimeter)){
-      ##check data type
-      if(!is(travel_dosimeter, "numeric"))
-        .throw_error("Input for 'travel_dosimeter' is not numeric")
+      .validate_class(travel_dosimeter, c("numeric", "integer"))
 
       ##check whether everything is subtracted from everything ... you never know, users do weird stuff
       if(length(travel_dosimeter) == nrow(results$data))
@@ -290,16 +288,15 @@ analyse_Al2O3C_Measurement <- function(
 
     ##return results
     return(results)
-
-  } else if (!is(object, "RLum.Analysis")) {
-    .throw_error("'object' must be an 'RLum.Analysis' object or ",
-                 "a list of such objects")
   }
 
-  # Integrity check  ---------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
   ##TODO ... do more, push harder
   ##Add sufficient unit tests
+
+  .validate_class(object, "RLum.Analysis",
+                  extra = "a 'list' of such objects")
 
   # Preparation ---------------------------------------------------------------------------------
 

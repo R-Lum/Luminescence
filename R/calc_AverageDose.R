@@ -234,21 +234,15 @@ calc_AverageDose <- function(
 
   # Integrity checks ----------------------------------------------------------------------------
 
-  if(!is(data, "RLum.Results") & !is(data, "data.frame")){
-    .throw_error("Input must be of type 'RLum.Results' or 'data.frame'")
-  }else {
-
-    if(is(data, "RLum.Results")){
-      data <- get_RLum(data)
-
-    }
-  }
-
+  .validate_class(data, c("RLum.Results", "data.frame"))
   .validate_positive_scalar(sigma_m)
   .validate_positive_scalar(Nb_BE, int = TRUE)
 
-
   # Data preparation -----------------------------------------------------------------------------
+
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data)
+  }
 
   ##problem: the entire code refers to column names the user may not provide...
   ##  >> to avoid changing the entire code, the data will shape to a format that

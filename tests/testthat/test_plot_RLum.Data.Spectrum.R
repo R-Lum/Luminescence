@@ -4,7 +4,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_RLum.Data.Spectrum("error"),
-               "'object' must be of type 'RLum.Data.Spectrum' or 'matrix'")
+               "'object' should be of class 'RLum.Data.Spectrum' or 'matrix'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "error"),
                "Unknown plot type")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
@@ -26,13 +26,13 @@ test_that("check functionality", {
 
     ##try a matrix as input
     expect_message(plot_RLum.Data.Spectrum(object = m),
-                   regexp = "Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
+                   "Input has been converted to a 'RLum.Data.Spectrum' object")
 
     ##remove rownames and column names
     rownames(m) <- NULL
     colnames(m) <- NULL
     expect_message(plot_RLum.Data.Spectrum(object = m),
-        regexp = "Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
+        regexp = "Input has been converted to a 'RLum.Data.Spectrum' object")
 
     ## test duplicated column names
     t <- TL.Spectrum
