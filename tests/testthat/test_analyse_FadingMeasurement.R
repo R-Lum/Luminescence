@@ -7,10 +7,10 @@ test_that("input validation", {
 
   expect_error(analyse_FadingMeasurement(object = "test"),
                "'object' should be of class 'RLum.Analysis', 'data.frame' or")
-  expect_error(expect_warning(
+  expect_warning(expect_error(
       analyse_FadingMeasurement(list(fading_data, "test")),
-      "2 non-supported records removed"),
-      "'object' should be of class 'RLum.Analysis', 'data.frame' or a 'list'")
+      "No valid records in 'object' left"),
+      "2 unsupported records removed")
   expect_error(analyse_FadingMeasurement(cbind(fading_data, fading_data[, 1])),
                "if you provide a data.frame as input, the number of columns")
 
