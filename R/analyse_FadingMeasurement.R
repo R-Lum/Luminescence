@@ -204,24 +204,19 @@ analyse_FadingMeasurement <- function(
 
   ## Integrity Tests --------------------------------------------------------
 
-  .validate_class(object, c("RLum.Analysis", "data.frame"),
-                  extra = "a 'list' of such objects")
+  .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
 
   if (is(object, "list")) {
-    if (any(sapply(object, class) != "RLum.Analysis")) {
-      ##warning
-      warning(paste("[analyse_FadingMeasurement()]",
-                    length(which(sapply(object, class) != "RLum.Analysis")), "non-supported records removed!"), call. = FALSE)
+    wrong.class <- sapply(object, class) != "RLum.Analysis"
+    if (any(wrong.class)) {
+      .throw_warning(sum(wrong.class), " unsupported records removed")
 
-      ##remove unwanted stuff
-      object[sapply(object, class) != "RLum.Analysis"] <- NULL
-
-      ##check whether this is empty now
-      if(length(object) == 0)
-        .throw_error("'object' must be an 'RLum.Analysis' object ",
-                     "or a 'list' of such objects")
+      ## remove unwanted stuff
+      object[wrong.class] <- NULL
+      if (length(object) == 0) {
+        .throw_error("No valid records in 'object' left")
+      }
     }
-
   } else if (inherits(object, "RLum.Analysis")) {
     object <- list(object)
 

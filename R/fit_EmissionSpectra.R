@@ -290,9 +290,6 @@ fit_EmissionSpectra <- function(
 
 
   # Start main core -----------------------------------------------------------------------------
-  ##backstop, from here we allow only a matrix
-  if(!inherits(object, "matrix"))
-    .throw_error("Objects of type '", is(object)[1], "' are not supported")
 
   input_scale <- .match_args(input_scale, c("wavelength", "energy"),
                              null.ok = TRUE)
