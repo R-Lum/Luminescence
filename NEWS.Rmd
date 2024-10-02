@@ -30,6 +30,11 @@ from XLS files by Excel or similar applications, or by reading them with
 * Argument `XLS_file` has been replaced by `CSV_file` and, as mentioned
 above, the function now only accepts CSV files as input (#237, fixed in #270).
 
+### `analyse_FadingMeasurement()`
+* The function now checks for the version of the BIN-file that originated the
+`RLum.Analysis` given as input, and reports a message if a version older than 05
+was used (#281, fixed in #282).
+
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
 was caused by a regression while implementing the `n_N` calculation in `plot_GrowthCurve()`. Potentially

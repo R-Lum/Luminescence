@@ -18,7 +18,6 @@ test_that("input validation", {
   ## stop t_star
   expect_error(analyse_FadingMeasurement(fading_data, t_star = "error"),
                "'t_star' should be one of 'half', 'half_complex', 'end' or a function")
-
 })
 
 test_that("general test", {
@@ -145,4 +144,13 @@ test_that("test XSYG file fading data", {
                                            structure = c("Lx", "error")),
                  "Nothing to combine, object contains a single curve")
   })
+})
+
+test_that("test BIN file while fading data", {
+  testthat::skip_on_cran()
+
+  data(ExampleData.BINfileData, envir = environment())
+  d1 <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
+  expect_error(analyse_FadingMeasurement(d1),
+               "BIN-file has version 03, but only versions from 05 on are supported")
 })
