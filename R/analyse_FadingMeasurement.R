@@ -279,6 +279,11 @@ analyse_FadingMeasurement <- function(
 
       ##assign object, unlist and drop it
       object_clean <- unlist(get_RLum(object))
+      bin.version <- object_clean[[1]]@info$VERSION
+      if (as.integer(bin.version) < 5) {
+        .throw_error("BIN-file has version ", bin.version,
+                     ", but only versions from 05 on are supported")
+      }
 
       ##set TIMESINCEIRR vector
       TIMESINCEIRR <- vapply(object_clean, function(o){
@@ -306,13 +311,11 @@ analyse_FadingMeasurement <- function(
         }else{
           object_clean[TIMESINCEIRR < 0] <- NULL
           TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
-
         }
 
         ##return warning
         .throw_warning(rm_records, " records 'time since irradiation' value removed from the dataset")
         rm(rm_records)
-
       }
 
       ##set irradiation times
