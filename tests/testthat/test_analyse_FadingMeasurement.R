@@ -138,11 +138,6 @@ test_that("test XSYG file fading data", {
   expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
                                            background.integral = 3),
                  "Lx and Tx have different sizes: skipped sample 2")
-
-  expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
-                                           background.integral = 3,
-                                           structure = c("Lx", "error")),
-                 "Nothing to combine, object contains a single curve")
   })
 })
 

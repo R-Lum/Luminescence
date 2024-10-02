@@ -651,10 +651,11 @@ analyse_FadingMeasurement <- function(
 
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 1 %in% plot.single)) {
+          records <- object_clean[seq(1, length(object_clean), by = 2)]
           plot_RLum(
             set_RLum(class = "RLum.Analysis",
-                     records = object_clean[seq(1, length(object_clean), by = 2)]),
-            combine = TRUE,
+                     records = records),
+            combine = length(records) > 1,
             col = c(col[1:5], rep(
               rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             )),
@@ -681,10 +682,11 @@ analyse_FadingMeasurement <- function(
         # plot Tx-curves ----
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 2 %in% plot.single)) {
+          records <- object_clean[seq(2, length(object_clean), by = 2)]
           plot_RLum(
             set_RLum(class = "RLum.Analysis",
-                     records = object_clean[seq(2, length(object_clean), by = 2)]),
-            combine = TRUE,
+                     records = records),
+            combine = length(records) > 1,
             records_max = 10,
             plot.single = TRUE,
             legend.text = paste(round(irradiation_times.unique, 1), "s"),
