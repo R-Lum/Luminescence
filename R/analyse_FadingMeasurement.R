@@ -652,7 +652,7 @@ analyse_FadingMeasurement <- function(
             combine = length(records) > 1,
             col = c(col[1:5], rep(
               rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
-            )),
+            ))[1:length(records)],
             records_max = 10,
             plot.single = TRUE,
             legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
