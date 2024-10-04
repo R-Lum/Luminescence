@@ -275,13 +275,7 @@ plot_FilterCombinations <- function(
     plot_settings <- modifyList(plot_settings, list(...))
 
     if(interactive){
-
-      ##check for plotly
-      if (!requireNamespace("plotly", quietly = TRUE)) {
-        # nocov start
-        .throw_error("Package 'plotly' is required for interactive plots")
-        # nocov end
-      }
+      .require_suggested_package("plotly", "Producing interactive plots")
 
       ##create basic plot
       p <-

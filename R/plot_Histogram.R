@@ -702,13 +702,7 @@ plot_Histogram <- function(
 
   ## Optionally: Interactive Plot ----------------------------------------------
   if (interactive) {
-
-    if (!requireNamespace("plotly", quietly = TRUE))
-      # nocov start
-      stop("The interactive histogram requires the 'plotly' package. To install",
-           " this package run 'install.packages('plotly')' in your R console.",
-           call. = FALSE)
-      # nocov end
+    .require_suggested_package("plotly", "The interactive histogram")
 
     ## tidy data ----
     data <- as.data.frame(data)

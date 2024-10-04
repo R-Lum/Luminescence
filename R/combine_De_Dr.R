@@ -510,17 +510,10 @@ combine_De_Dr <- function(
   .set_function_name("combine_De_Dr")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Check input data --------------------------------------------------------
-if (!all(t_pkg <- c(
-  requireNamespace("rjags", quietly = TRUE),
-  requireNamespace("coda", quietly = TRUE),
-  requireNamespace("mclust", quietly = TRUE)))) {
-  # nocov start
-  t_names <- c('rjags', 'coda', 'mclust')
-  .throw_error("To use this function you have to first install packages: ",
-               .collapse(t_names[!t_pkg]))
-  # nocov end
-}
+  ## check package availability ---------------------------------------------
+  .require_suggested_package("rjags")
+  .require_suggested_package("coda")
+  .require_suggested_package("mclust")
 
 # Integrity checks --------------------------------------------------------
  if(length(De) != length(s))

@@ -814,7 +814,6 @@ if(plot){
         zlab,
         srt = m,
         xpd = TRUE)
-
     }
 
     ##plot additional mtext
@@ -826,12 +825,7 @@ if(plot){
     ## ==========================================================================#
 
     ## Plot: interactive ----
-    ##http://r-pkgs.had.co.nz/description.html
-    if (!requireNamespace("plotly", quietly = TRUE)) {
-      # nocov start
-      .throw_error("Package 'plotly' needed for this plot type. Please install it.")
-      # nocov end
-    }
+    .require_suggested_package("plotly", "Displaying interactive plots")
 
        ##set up plot
         p <- plotly::plot_ly(
