@@ -1123,6 +1123,39 @@ SW <- function(expr) {
   }
 }
 
+#' Check that a suggested package is installed
+#'
+#' Report a message with installation instructions if a suggested package
+#' is not available.
+#'
+#' @param pkg [character] (**required**): name of the package to check.
+#' @param reason [character] (*with default*): subject of the sentence,
+#'        helpful to clarify why the package is being required.
+#' @param throw.error [logical] (*with default*): whether an error should be
+#'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
+#'        the function raises a warning and proceeds.
+#'
+#' @return
+#' If `throw.error = TRUE`, the function throws an error and doesn't return
+#' anything. Otherwise, it will return a boolean to indicate whether validation
+#' was successful or not.
+#'
+#' @md
+#' @noRd
+.require_suggested_package <- function(pkg, reason = "This function",
+                                       throw.error = TRUE) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    msg <- paste("%s requires the '%s' package: to install it, run",
+                 "`install.packages('%s')` in your R console")
+    msg <- sprintf(msg, reason, pkg, pkg)
+    if (throw.error)
+      .throw_error(msg)
+    .throw_warning(msg)
+    return(FALSE)
+  }
+  return(TRUE)
+}
+
 #' Comma-separated string concatenation
 #'
 #' Collapse the elements of a vector into a comma-separated string, with
