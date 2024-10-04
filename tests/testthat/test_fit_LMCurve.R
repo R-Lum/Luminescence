@@ -18,9 +18,9 @@ test_that("input validation", {
   expect_error(fit_LMCurve(values.curve, n.components = "error"),
                "'n.components' must be a positive integer scalar")
   expect_error(fit_LMCurve(values.curve, input.dataType = "error"),
-               "'input.dataType' should be one of 'LM', 'pLM'")
+               "'input.dataType' should be one of 'LM' or 'pLM'")
   expect_error(fit_LMCurve(values.curve, fit.method = "error"),
-               "'fit.method' should be one of 'port', 'LM'")
+               "'fit.method' should be one of 'port' or 'LM'")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
   if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))

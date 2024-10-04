@@ -9,7 +9,7 @@ test_that("input validation", {
   expect_error(.import_ThermochronometryData(list()),
                "Input type not supported")
   expect_error(.import_ThermochronometryData("filename", output_type = "error"),
-               "'output_type' should be one of 'RLum.Results', 'list'")
+               "'output_type' should be one of 'RLum.Results' or 'list'")
   expect_error(.import_ThermochronometryData(input.xls),
                "XLS/XLSX format is not supported, use CSV instead")
   expect_error(.import_ThermochronometryData("error"),

@@ -14,7 +14,7 @@ test_that("input validation", {
   suppressWarnings(
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           travel_dosimeter = "error"),
-               "'travel_dosimeter' should be of class 'numeric'")
+               "'travel_dosimeter' should be of class 'numeric' or 'integer'")
   )
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = 7),

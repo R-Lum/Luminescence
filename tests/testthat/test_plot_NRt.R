@@ -15,7 +15,7 @@ test_that("input validation", {
   expect_error(plot_NRt(curves[[1]]@data),
                "The provided matrix only contains curve data of the natural signal")
   expect_error(plot_NRt(curves, smooth = "error"),
-               "'smooth' should be one of 'none', 'spline', 'rmean'")
+               "'smooth' should be one of 'none', 'spline' or 'rmean'")
 
   data(ExampleData.XSYG, envir = environment())
   obj.mixed <- merge_RLum.Analysis(list(obj, TL.Spectrum))

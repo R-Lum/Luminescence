@@ -54,14 +54,14 @@ test_that("General tests", {
     calib.date = "2014-12-19",
     calib.dose.rate = 0.0438,
     calib.error = 0.0019, source.type = "error"),
-    "'source.type' should be one of 'Sr-90', 'Am-214', 'Co-60', 'Cs-137'")
+    "'source.type' should be one of 'Sr-90', 'Am-214', 'Co-60' or 'Cs-137'")
 
   expect_error(calc_SourceDoseRate(
     measurement.date = "2018-01-02",
     calib.date = "2014-12-19",
     calib.dose.rate = 0.0438,
     calib.error = 0.0019, dose.rate.unit = "error"),
-    "'dose.rate.unit' should be one of 'Gy/s', 'Gy.min'")
+    "'dose.rate.unit' should be one of 'Gy/s' or 'Gy.min'")
 })
 
 test_that("check class and length of output", {

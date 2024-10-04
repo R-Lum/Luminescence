@@ -1024,17 +1024,23 @@ SW <- function(expr) {
 
   ## additional text to append after the valid choices to account for
   ## extra options that cannot be validated or for NULL
-  add.text <- NULL
-  if (!is.null(extra))
-    add.text <- paste(add.text, "or", extra)
+  choices.extra <- c(sQuote(choices, q = FALSE), extra)
   if (null.ok)
-    add.text <- paste(add.text, "or NULL")
+    choices.extra <- c(choices.extra, "NULL")
+
+  ## use an 'or' instead of a comma before the last choice
+  if (length(choices.extra) > 1) {
+    msg.head <- head(choices.extra, -1)
+    msg.tail <- paste(" or", tail(choices.extra, 1))
+  } else {
+    msg.head <- choices.extra
+    msg.tail <- NULL
+  }
 
   idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
   if (all(idx.match == 0L))
     .throw_error("'", name, "' should be one of ",
-                 paste(sQuote(choices, q = FALSE), collapse = ", "),
-                 add.text)
+                 .collapse(msg.head, quote = FALSE), msg.tail)
   idx <- idx.match[idx.match > 0L]
   choices[idx]
 }
@@ -1075,20 +1081,18 @@ SW <- function(expr) {
   if (missing(arg) || sum(inherits(arg, classes)) == 0L) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
-    classes.extra <- c(classes, extra)
+    classes.extra <- c(sQuote(classes, q = FALSE), extra)
 
     ## use an 'or' instead of a comma before the last choice
     if (length(classes.extra) > 1) {
       msg.head <- head(classes.extra, -1)
-      msg.tail <- paste(" or",
-                        if (is.null(extra)) sQuote(tail(classes.extra, 1),
-                                                   q =FALSE)
-                        else tail(classes.extra, 1))
+      msg.tail <- paste(" or", tail(classes.extra, 1))
     } else {
       msg.head <- classes.extra
       msg.tail <- NULL
     }
-    msg <- paste0(name, " should be of class ", .collapse(msg.head), msg.tail)
+    msg <- paste0(name, " should be of class ",
+                  .collapse(msg.head, quote = FALSE), msg.tail)
     if (throw.error)
       .throw_error(msg)
     .throw_warning(msg)
