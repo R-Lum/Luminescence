@@ -24,7 +24,7 @@ test_that("input validation", {
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE),
                "'source_doserate' is missing, but the current implementation")
   expect_error(analyse_baSAR(CWOSL.sub, fit.method = "error"),
-               "'fit.method' should be one of 'EXP', 'EXP+LIN', 'LIN'",
+               "'fit.method' should be one of 'EXP', 'EXP+LIN' or 'LIN'",
                fixed = TRUE)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001)),

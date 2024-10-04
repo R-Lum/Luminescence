@@ -216,8 +216,8 @@ calc_FiniteMixture <- function(
     stop("[calc_FiniteMixture()] At least two components need to be fitted",
          call. = FALSE)
   }
-  pdf.sigma <- .match_args(pdf.sigma, c("sigmab", "se"))
-  pdf.colors <- .match_args(pdf.colors, c("gray", "colors", "none"))
+  pdf.sigma <- .validate_args(pdf.sigma, c("sigmab", "se"))
+  pdf.colors <- .validate_args(pdf.colors, c("gray", "colors", "none"))
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")

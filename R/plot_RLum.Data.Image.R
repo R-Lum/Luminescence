@@ -106,7 +106,7 @@ plot_RLum.Data.Image <- function(
   return(x)
 }
 
- plot.type <- .match_args(plot.type, c("plot.raster", "contour"))
+ plot.type <- .validate_args(plot.type, c("plot.raster", "contour"))
 
 # Plot settings -----------------------------------------------------------
 plot_settings <- modifyList(x = list(

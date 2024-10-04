@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(verify_SingleGrainData("test"),
                "'object' should be of class 'Risoe.BINfileData' or 'RLum.Analysis'")
   expect_error(verify_SingleGrainData(object, cleanup_level = "error"),
-               "'cleanup_level' should be one of 'aliquot', 'curve'")
+               "'cleanup_level' should be one of 'aliquot' or 'curve'")
 })
 
 test_that("check functionality", {

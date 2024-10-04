@@ -44,7 +44,7 @@
     tmp
   }
 
-  .match_args(output_type, c("RLum.Results", "list"))
+  .validate_args(output_type, c("RLum.Results", "list"))
 
   ## define variable
   ka <- 1e+3 * 365 * 24 * 3600 # ka in seconds

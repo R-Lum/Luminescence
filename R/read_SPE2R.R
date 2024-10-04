@@ -118,7 +118,7 @@ read_SPE2R <- function(
 
   .validate_class(file, "character")
   valid.output.object <- c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix")
-  .match_args(output.object, valid.output.object)
+  .validate_args(output.object, valid.output.object)
 
   ##check if file exists
   if(!file.exists(file)){

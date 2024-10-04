@@ -182,7 +182,7 @@ verify_SingleGrainData <- function(
   ## input validation
 
   .validate_class(object, c("Risoe.BINfileData", "RLum.Analysis"))
-  cleanup_level <- .match_args(cleanup_level, c("aliquot", "curve"))
+  cleanup_level <- .validate_args(cleanup_level, c("aliquot", "curve"))
 
   ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##RisoeBINfileData

@@ -144,9 +144,9 @@ merge_RLum.Data.Curve<- function(
                  .collapse(record.types))
   }
 
-  merge.method <- .match_args(merge.method,
-                              c("mean", "median", "sum", "sd", "var", "max",
-                                "min", "append", "-", "*", "/"))
+  merge.method <- .validate_args(merge.method,
+                                 c("mean", "median", "sum", "sd", "var", "max",
+                                   "min", "append", "-", "*", "/"))
 
 # Merge objects ----------------------------------------------------------------
   ##merge data objects

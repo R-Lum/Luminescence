@@ -317,12 +317,12 @@ scale_GammaDose <- function(
                                 "AdamiecAitken1998", "Liritzisetal2013")
   stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
                 valid_conversion_factors))
-  conversion_factors <- .match_args(conversion_factors,
-                                    valid_conversion_factors)
+  conversion_factors <- .validate_args(conversion_factors,
+                                       valid_conversion_factors)
 
   ## fractional gamma dose
-  fractional_gamma_dose <- .match_args(fractional_gamma_dose,
-                                       names(BaseDataSet.FractionalGammaDose))
+  fractional_gamma_dose <- .validate_args(fractional_gamma_dose,
+                                          names(BaseDataSet.FractionalGammaDose))
 
 
   ## ------------------------------------------------------------------------ ##

@@ -231,7 +231,7 @@ fit_CWCurve<- function(
     y<-values[,2]
   }
 
-  fit.method <- .match_args(fit.method, c("port", "LM"))
+  fit.method <- .validate_args(fit.method, c("port", "LM"))
 
   # Deal with extra arguments -----------------------------------------------
 

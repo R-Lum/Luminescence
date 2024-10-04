@@ -332,9 +332,9 @@ plot_GrowthCurve <- function(
   )
 
   ##2. Check supported fit methods
-  mode <- .match_args(mode, c("interpolation", "extrapolation", "alternate"))
+  mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "LambertW")
-  fit.method <- .match_args(fit.method, fit.method_supported)
+  fit.method <- .validate_args(fit.method, fit.method_supported)
 
   ##2. check if sample contains a least three rows
   if(length(sample[[1]]) < 3 && fit.method != "LIN")

@@ -138,7 +138,7 @@ convert_Activity2Concentration <- function(
   ## check input unit
   ## we silently let the old input values unflagged for back compatibility reasons
   if (!tolower(input_unit[1]) %in% c("bq/kg", "ppm/%")) {
-    input_unit <- .match_args(tolower(input_unit), c("activity", "abundance"))
+    input_unit <- .validate_args(tolower(input_unit), c("activity", "abundance"))
   }
 
   # Set conversion factors ----------------------------------------------------------------------

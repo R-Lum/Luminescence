@@ -28,7 +28,7 @@ test_that("check class and length of output", {
 
   expect_error(
     object = convert_Activity2Concentration(data = data_activity, input_unit = "stop"),
-    "'input_unit' should be one of 'activity', 'abundance'")
+    "'input_unit' should be one of 'activity' or 'abundance'")
 
   ## check for standard input
   SW({

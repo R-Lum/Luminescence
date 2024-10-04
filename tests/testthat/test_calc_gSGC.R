@@ -10,9 +10,9 @@ test_that("input validation", {
   expect_error(calc_gSGC(data.frame(a = 1, b = 1, c = 1, d = 1, e = 1, f = 1)),
                "'data' is expected to have 5 columns")
   expect_error(calc_gSGC(df, gSGC.type = 3),
-               "'gSGC.type' should be one of '0-250', '0-450'")
+               "'gSGC.type' should be one of '0-250' or '0-450'")
   expect_error(calc_gSGC(df, gSGC.type = "error"),
-               "'gSGC.type' should be one of '0-250', '0-450'")
+               "'gSGC.type' should be one of '0-250' or '0-450'")
 })
 
 test_that("check functionality", {

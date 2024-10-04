@@ -116,8 +116,8 @@ Second2Gray <- function(
     }
   }
 
-  error.propagation <- .match_args(error.propagation,
-                                   c("omit", "gaussian", "absolute"))
+  error.propagation <- .validate_args(error.propagation,
+                                      c("omit", "gaussian", "absolute"))
 
   ##(4) check for right orginator
   if(is(dose.rate, "RLum.Results")){

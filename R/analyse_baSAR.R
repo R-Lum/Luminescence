@@ -783,12 +783,12 @@ analyse_baSAR <- function(
   .require_suggested_package("coda")
 
   ## fit.method
-  fit.method <- .match_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
+  fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
 
   .validate_positive_scalar(n.MCMC, int = TRUE)
 
-  distribution_plot <- .match_args(distribution_plot, c("kde", "abanico"),
-                                   null.ok = TRUE)
+  distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
+                                      null.ok = TRUE)
   if (is.null(distribution_plot))
     distribution_plot <- ""
 

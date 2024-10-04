@@ -112,7 +112,7 @@ template_DRAC <- function(
   ## PRESETS ----
   valid_presets <- c("quartz_coarse", "quartz_fine", "feldspar_coarse", "polymineral_fine",
                      "DRAC-example_quartz", "DRAC-example_feldspar", "DRAC-example_polymineral")
-  preset <- .match_args(preset, valid_presets, null.ok = TRUE)
+  preset <- .validate_args(preset, valid_presets, null.ok = TRUE)
 
   ## LEGAL NOTICE ----
   messages <- list("\n",

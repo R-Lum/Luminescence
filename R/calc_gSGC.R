@@ -93,7 +93,7 @@ calc_gSGC<- function(
   .validate_class(data, "data.frame")
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")
-  gSGC.type <- .match_args(gSGC.type, c("0-250", "0-450"))
+  gSGC.type <- .validate_args(gSGC.type, c("0-250", "0-450"))
 
   ##rename columns for consistency reasons
   colnames(data) <- c('LnTn', 'LnTn.error', 'Lr1Tr1', 'Lr1Tr1.error', 'Dr1')

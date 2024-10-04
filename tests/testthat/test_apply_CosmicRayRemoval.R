@@ -7,7 +7,7 @@ test_that("input validation", {
   expect_error(apply_CosmicRayRemoval("error"),
                "'object' should be of class 'RLum.Data.Spectrum'")
   expect_error(apply_CosmicRayRemoval(TL.Spectrum, method = "error"),
-               "'method' should be one of 'smooth', 'smooth.spline', 'Pych'",
+               "'method' should be one of 'smooth', 'smooth.spline' or 'Pych'",
                fixed = TRUE)
 })
 

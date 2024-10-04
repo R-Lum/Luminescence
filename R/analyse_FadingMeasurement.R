@@ -241,8 +241,8 @@ analyse_FadingMeasurement <- function(
   }
 
   if (!is(t_star, "function")) {
-    t_star <- .match_args(t_star, c("half", "half_complex", "end"),
-                          extra = "a function")
+    t_star <- .validate_args(t_star, c("half", "half_complex", "end"),
+                             extra = "a function")
   }
 
   # Prepare data --------------------------------------------------------------------------------

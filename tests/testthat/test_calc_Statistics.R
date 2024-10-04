@@ -41,7 +41,7 @@ test_that("check error messages", {
                "[calc_Statistics()] 'data' should be of class 'RLum.Results' or 'data.frame'",
                fixed = TRUE)
   expect_error(calc_Statistics(data = df, weight.calc = "error"),
-               "'weight.calc' should be one of 'square', 'reciprocal'")
+               "'weight.calc' should be one of 'square' or 'reciprocal'")
   expect_error(calc_Statistics(df, digits = 2.4),
                "'digits' must be a positive integer scalar")
   expect_error(calc_Statistics(df, n.MCM = "error"),
