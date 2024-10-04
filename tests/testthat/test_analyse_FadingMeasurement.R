@@ -61,6 +61,7 @@ test_that("test XSYG file fading data", {
   # Create artificial object ------------------------------------------------
   l <- list()
   time <- 0
+  set.seed(0)
   for(x in runif(3, 120,130)) {
     ## set irr
     irr  <-
@@ -148,4 +149,12 @@ test_that("test BIN file while fading data", {
   d1 <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
   expect_error(analyse_FadingMeasurement(d1),
                "BIN-file has version 03, but only versions from 05 on are supported")
+
+  v5 <- read_BIN2R(test_path("_data/BINfile_V5.binx"), verbose = FALSE)
+  SW({
+  d2 <- Risoe.BINfileData2RLum.Analysis(v5)
+  })
+  expect_output(analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                                          background.integral = 10:30,
+                                          plot = TRUE))
 })

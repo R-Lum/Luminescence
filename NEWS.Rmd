@@ -32,8 +32,10 @@ above, the function now only accepts CSV files as input (#237, fixed in #270).
 
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the
-`RLum.Analysis` given as input, and reports a message if a version older than 05
-was used (#281, fixed in #282).
+`RLum.Analysis` given as input, and reports a message if a version older than
+5 was used (#281, fixed in #282).
+* The function doesn't crash anymore on some `RLum.Analysis` input files
+(#283, fixed in #288).
 
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
