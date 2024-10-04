@@ -198,17 +198,11 @@ report_RLum <- function(
   ## PRE-CHECKS ----
 
   # check if required namespace(s) are available
+  .require_suggested_package("rmarkdown", "Creating object reports")
+  .require_suggested_package("pander", "Creating object reports")
   # nocov start
-  for (package.name in c("rmarkdown", "pander")) {
-    if (!requireNamespace(package.name, quietly = TRUE))
-      .throw_error("Creating object reports requires the '", package.name,
-                   "' package. To install it, run 'install.packages('",
-                   package.name, "')' in your R console.")
-  }
-  if (!requireNamespace("rstudioapi", quietly = TRUE)) {
-    .throw_warning("Creating object reports requires the 'rstudioapi' ",
-                   "package. To install it, run 'install.packages('rstudioapi')' ",
-                   "in your R console.")
+  if (.require_suggested_package("rstudioapi", "Creating object reports",
+                                 throw.error = FALSE)) {
     isRStudio <- FALSE
   } else {
     isRStudio <- rstudioapi::isAvailable()

@@ -779,18 +779,8 @@ analyse_baSAR <- function(
 
   # Integrity tests -----------------------------------------------------------------------------
 
-  ##check whether rjags is available
-  ##code snippet taken from
-  ##http://r-pkgs.had.co.nz/description.html
-  # nocov start
-  if (!requireNamespace("rjags", quietly = TRUE)) {
-    .throw_error("To use this function you have to first install package 'rjags'")
-  }
-
-  if (!requireNamespace("coda", quietly = TRUE)) {
-    .throw_error("To use this function you have to first install package 'coda'.")
-  }
-  # nocov end
+  .require_suggested_package("rjags")
+  .require_suggested_package("coda")
 
   ## fit.method
   fit.method <- .match_args(fit.method, c("EXP", "EXP+LIN", "LIN"))

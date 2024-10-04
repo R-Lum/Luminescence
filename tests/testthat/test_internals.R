@@ -302,6 +302,18 @@ test_that("Test internals", {
   expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "var"),
                "'var' must be a positive integer")
 
+  ## .require_suggested_package() -------------------------------------------
+
+  expect_true(.require_suggested_package("utils"))
+  expect_error(.require_suggested_package("error"),
+               "This function requires the 'error' package: to install it")
+  expect_error(.require_suggested_package("error",
+                                          reason = "Reporting a good error"),
+               "Reporting a good error requires the 'error' package")
+  expect_warning(
+      expect_false(.require_suggested_package("error", throw.error = FALSE),
+                   "This function requires the 'error' package: to install it"))
+
   ## .collapse() ------------------------------------------------------------
   expect_equal(.collapse(1:3),
                "'1', '2', '3'")

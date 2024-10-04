@@ -43,12 +43,7 @@ write_R2TIFF <- function(
   ## Integrity tests --------------------------------------------------------
   ## most of the users don't need this import, no need to bother them
   ## with required libraries
-  if (!requireNamespace("tiff", quietly = TRUE))
-    # nocov start
-    .throw_error("Exporting objects to TIFF files requires the 'tiff' ",
-                 "package. To install it, run 'install.packages('tiff')'",
-                 "in your R console.")
-    # nocov end
+  .require_suggested_package("tiff", "Exporting objects to TIFF files")
 
 # Transform  --------------------------------------------------------------
   ## make a list ... it is just easier

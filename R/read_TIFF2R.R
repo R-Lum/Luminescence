@@ -35,17 +35,8 @@ read_TIFF2R <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity tests --------------------------------------------------------
-
   .validate_class(file, "character")
-
-  ## most of the users don't need this import, no need to bother them
-  ## with required libraries
-  if (!requireNamespace("tiff", quietly = TRUE))
-    # nocov start
-    stop("Importing TIFF files requires the package tiff.\n",
-         "To install this package run 'install.packages('tiff')' in your R console.",
-         call. = FALSE)
-    # nocov end
+  .require_suggested_package("tiff", "Importing TIFF files")
 
   if(!file.exists(file))
     .throw_error("File does not exist or is not readable")
@@ -59,5 +50,4 @@ read_TIFF2R <- function(
 
 # Return ------------------------------------------------------------------
   set_RLum(class = "RLum.Data.Image", data = temp@data)
-
 }
