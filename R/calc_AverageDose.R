@@ -292,6 +292,12 @@ calc_AverageDose <- function(
 
   # calculate starting values and weights
   sigma_d <- sd(dat$cd) / mean(dat$cd)
+
+  ## sigma_d may be NA if there is only one measurement (NA values in the
+  ## data have already been excluded prior to this)
+  if (is.na(sigma_d))
+    sigma_d <- 0
+
   wu <- 1 / (sigma_d ^ 2 + su ^ 2)
 
   delta <- mean(dat$cd)
@@ -472,7 +478,7 @@ calc_AverageDose <- function(
   hist <- lapply(1:length(data_list), function(x){
     temp <- suppressWarnings(hist(
       x = data_list[[x]],
-      breaks = plot_settings$breaks[[x]],
+      breaks = if (NROW(data_list[[x]]) > 1) plot_settings$breaks[[x]] else 1,
       probability = plot_settings$probability[[x]],
       main = plot_settings$main[[x]],
       xlab = plot_settings$xlab[[x]],

@@ -49,4 +49,8 @@ test_that("check summary output", {
   expect_equal(round(results$AVERAGE_DOSE, digits = 4), 65.3597)
   expect_equal(round(results$SIGMA_D, digits = 4), 0.3092)
   expect_equal(round(results$L_MAX, digits = 5), -19.25096)
+
+  ## RLum.Results
+  expect_warning(calc_AverageDose(temp, sigma_m = 0.1, verbose = FALSE),
+                 "number of columns in data set > 2. Only the first two columns")
 })
