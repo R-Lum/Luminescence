@@ -219,8 +219,8 @@ plot_DetPlot <- function(
   .validate_positive_scalar(background.integral.min, int = TRUE)
 
   ## analyse_function
-  analyse_function <- .match_args(analyse_function,
-                                  c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
+  analyse_function <- .validate_args(analyse_function,
+                                     c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels

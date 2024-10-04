@@ -180,7 +180,7 @@ apply_CosmicRayRemoval <- function(
   # Integrity check -----------------------------------------------------------
 
   .validate_class(object, "RLum.Data.Spectrum")
-  .match_args(method, c("smooth", "smooth.spline", "Pych"))
+  .validate_args(method, c("smooth", "smooth.spline", "Pych"))
 
   ##deal with addition arguments
   extraArgs <- list(...)

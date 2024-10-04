@@ -95,7 +95,7 @@ calc_Statistics <- function(
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
-  weight.calc <- .match_args(weight.calc, c("square", "reciprocal"))
+  weight.calc <- .validate_args(weight.calc, c("square", "reciprocal"))
   if(weight.calc == "reciprocal") {
     S.weights <- 1 / data[,2]
   } else if(weight.calc == "square") {

@@ -157,9 +157,9 @@ calc_SourceDoseRate <- function(
   }
 
   ## source type and dose rate unit
-  source.type <- .match_args(source.type,
-                             c("Sr-90", "Am-214", "Co-60", "Cs-137"))
-  dose.rate.unit <- .match_args(dose.rate.unit, c("Gy/s", "Gy/min"))
+  source.type <- .validate_args(source.type,
+                                c("Sr-90", "Am-214", "Co-60", "Cs-137"))
+  dose.rate.unit <- .validate_args(dose.rate.unit, c("Gy/s", "Gy/min"))
 
   # --- if predict is set
   if(!is.null(predict) && predict > 1){

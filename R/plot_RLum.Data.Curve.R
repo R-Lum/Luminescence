@@ -95,8 +95,8 @@ plot_RLum.Data.Curve<- function(
   if (is.logical(norm))
     norm <- norm[1]
   else
-    norm <- .match_args(norm, c("max", "last", "huot"),
-                        extra = "a logical value")
+    norm <- .validate_args(norm, c("max", "last", "huot"),
+                           extra = "a logical value")
 
 # Preset plot -------------------------------------------------------------
     ## preset

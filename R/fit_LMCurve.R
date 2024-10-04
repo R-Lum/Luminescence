@@ -291,8 +291,8 @@ fit_LMCurve<- function(
       }
   }
 
-  input.dataType <- .match_args(input.dataType, c("LM", "pLM"))
-  fit.method <- .match_args(fit.method, c("port", "LM"))
+  input.dataType <- .validate_args(input.dataType, c("LM", "pLM"))
+  fit.method <- .validate_args(fit.method, c("port", "LM"))
 
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list

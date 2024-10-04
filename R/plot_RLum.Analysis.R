@@ -224,9 +224,9 @@ plot_RLum.Analysis <- function(
     }
   }
 
-  curve.transformation <- .match_args(curve.transformation,
-                                      c("CW2pLM", "CW2pLMi",
-                                        "CW2pHMi", "CW2pPMi", "None"))
+  curve.transformation <- .validate_args(curve.transformation,
+                                         c("CW2pLM", "CW2pLMi",
+                                           "CW2pHMi", "CW2pPMi", "None"))
 
   # Plotting ------------------------------------------------------------------
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

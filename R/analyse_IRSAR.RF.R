@@ -534,7 +534,7 @@ analyse_IRSAR.RF<- function(
   }
 
   ## method
-  method <- .match_args(method, c("FIT", "SLIDE", "VSLIDE"))
+  method <- .validate_args(method, c("FIT", "SLIDE", "VSLIDE"))
 
   ## n.MC
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)

@@ -199,9 +199,9 @@ test_that("Test internals", {
   expect_error(SW(.throw_error("error message")),
                "error message")
 
-  ## .match_args() ----------------------------------------------------------
+  ## .validate_args() -------------------------------------------------------
   fun1 <- function(arg) {
-    .match_args(arg, c("val1", "val2", "val3"), null.ok = TRUE)
+    .validate_args(arg, c("val1", "val2", "val3"), null.ok = TRUE)
   }
   expect_silent(fun1(NULL))
   expect_equal(fun1(arg = "val1"), "val1")
@@ -215,7 +215,7 @@ test_that("Test internals", {
                fixed = TRUE)
 
   fun2 <- function(arg = c("val1", "val2", "val3")) {
-    .match_args(arg, c("val1", "val2", "val3"), name = "other_name")
+    .validate_args(arg, c("val1", "val2", "val3"), name = "other_name")
   }
   expect_equal(fun2(), "val1")
   expect_error(fun2(arg = NULL),
@@ -226,23 +226,23 @@ test_that("Test internals", {
                fixed = TRUE)
 
   fun3 <- function(arg) {
-    .match_args(arg, c("val1", "val2"),
-                extra = "'other.val'", null.ok = FALSE)
+    .validate_args(arg, c("val1", "val2"),
+                   extra = "'other.val'", null.ok = FALSE)
   }
   expect_error(fun3(arg = "error"),
                "[test()] 'arg' should be one of 'val1', 'val2' or 'other.val'",
                fixed = TRUE)
 
   fun4 <- function(arg) {
-    .match_args(arg, c("val1", "val2"),
-                extra = "'other.val'", null.ok = TRUE)
+    .validate_args(arg, c("val1", "val2"),
+                   extra = "'other.val'", null.ok = TRUE)
   }
   expect_error(fun4(arg = "error"),
                "[test()] 'arg' should be one of 'val1', 'val2' or 'other.val' or NULL",
                fixed = TRUE)
 
   fun.err <- function(arg) {
-    .match_args(arg)
+    .validate_args(arg)
   }
   expect_error(fun.err("val1"),
                "[test()] 'choices' must be provided",

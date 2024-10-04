@@ -160,8 +160,8 @@
   .set_function_name(".smoothing")
   on.exit(.unset_function_name(), add = TRUE)
 
-  .match_args(align, c("right", "center", "left"))
-  .match_args(method, c("mean", "median"))
+  .validate_args(align, c("right", "center", "left"))
+  .validate_args(method, c("mean", "median"))
 
   ##set k
   if (is.null(k)){
@@ -995,8 +995,8 @@ SW <- function(expr) {
 #'
 #' @md
 #' @noRd
-.match_args <- function(arg, choices, null.ok = FALSE,
-                        name = NULL, extra = NULL) {
+.validate_args <- function(arg, choices, null.ok = FALSE,
+                           name = NULL, extra = NULL) {
 
   if (is.null(arg) && null.ok)
     return(NULL)

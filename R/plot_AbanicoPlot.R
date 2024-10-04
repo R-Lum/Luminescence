@@ -553,15 +553,15 @@ plot_AbanicoPlot <- function(
   .validate_positive_scalar(plot.ratio)
 
   if (!is.numeric(z.0)) {
-    z.0 <- .match_args(z.0, c("mean", "mean.weighted", "median"),
-                       extra = "a numerical value")
+    z.0 <- .validate_args(z.0, c("mean", "mean.weighted", "median"),
+                          extra = "a numerical value")
   }
 
   ## the 'pnn' option need some special treatment
   main.choices <- c("qr", "sd", "2sd")
   extra.choice <-"a percentile of the form 'pnn' (eg. 'p05')"
   if (!dispersion %in% main.choices && !grepl("^p[0-9][0-9]$", dispersion))
-    dispersion <- .match_args(dispersion, main.choices, extra = extra.choice)
+    dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
 
   ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)

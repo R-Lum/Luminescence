@@ -101,7 +101,7 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
                                 "AdamiecAitken1998", "Liritzisetal2013")
   stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
                 valid_conversion_factors))
-  conversion <- .match_args(conversion, valid_conversion_factors)
+  conversion <- .validate_args(conversion, valid_conversion_factors)
 
   # Calculate Dose Rate -----------------------------------------------------
   SedDoseData <- matrix(data = NA, nrow = 1, ncol = 10)

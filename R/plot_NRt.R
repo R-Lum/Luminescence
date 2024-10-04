@@ -157,7 +157,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
                    "only contains curve data of the natural signal")
   }
 
-  smooth <- .match_args(smooth, c("none", "spline", "rmean"))
+  smooth <- .validate_args(smooth, c("none", "spline", "rmean"))
 
   ## BASIC SETTINGS ------
   natural <- curves[[1]]

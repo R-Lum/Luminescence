@@ -153,7 +153,7 @@ convert_Concentration2DoseRate <- function(
                                 "AdamiecAitken1998", "Liritzisetal2013")
   stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
                 valid_conversion_factors))
-  conversion <- .match_args(conversion, valid_conversion_factors)
+  conversion <- .validate_args(conversion, valid_conversion_factors)
 
   if(!any(input[,1] %in% c("FS","Q")))
     stop("[convert_Concentration2DoseRate()] As mineral only 'FS' or 'Q' is supported!", call. = FALSE)

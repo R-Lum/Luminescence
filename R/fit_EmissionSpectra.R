@@ -291,8 +291,8 @@ fit_EmissionSpectra <- function(
 
   # Start main core -----------------------------------------------------------------------------
 
-  input_scale <- .match_args(input_scale, c("wavelength", "energy"),
-                             null.ok = TRUE)
+  input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
+                                null.ok = TRUE)
 
   ##extract matrix for everything below
   m <- object[,1:2]

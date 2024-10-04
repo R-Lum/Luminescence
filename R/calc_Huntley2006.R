@@ -306,7 +306,7 @@ calc_Huntley2006 <- function(
   .validate_class(data, "data.frame")
 
   ## Check fit method
-  fit.method <- .match_args(fit.method, c("EXP", "GOK"))
+  fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
 
   ## Check length of lower.bounds
   if (fit.method[1] == "GOK" && length(lower.bounds) != 4)
