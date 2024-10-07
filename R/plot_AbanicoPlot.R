@@ -1520,148 +1520,46 @@ plot_AbanicoPlot <- function(
 
   if(rotate == FALSE) {
     ## convert keywords into summary placement coordinates
-    if(missing(summary.pos) == TRUE) {
-      summary.pos <- c(limits.x[1], limits.y[2])
-      summary.adj <- c(0, 1)
-    } else if(length(summary.pos) == 2) {
-      summary.pos <- summary.pos
-      summary.adj <- c(0, 1)
-    } else if(summary.pos[1] == "topleft") {
-      summary.pos <- c(limits.x[1], limits.y[2] - par()$cxy[2] * 1)
-      summary.adj <- c(0, 1)
-    } else if(summary.pos[1] == "top") {
-      summary.pos <- c(mean(limits.x), limits.y[2] - par()$cxy[2] * 1)
-      summary.adj <- c(0.5, 1)
-    } else if(summary.pos[1] == "topright") {
-      summary.pos <- c(limits.x[2], limits.y[2] - par()$cxy[2] * 1)
-      summary.adj <- c(1, 1)
-    }  else if(summary.pos[1] == "left") {
-      summary.pos <- c(limits.x[1], mean(limits.y))
-      summary.adj <- c(0, 0.5)
-    } else if(summary.pos[1] == "center") {
-      summary.pos <- c(mean(limits.x), mean(limits.y))
-      summary.adj <- c(0.5, 0.5)
-    } else if(summary.pos[1] == "right") {
-      summary.pos <- c(limits.x[2], mean(limits.y))
-      summary.adj <- c(1, 0.5)
-    }else if(summary.pos[1] == "bottomleft") {
-      summary.pos <- c(limits.x[1], limits.y[1] + par()$cxy[2] * 3.5)
-      summary.adj <- c(0, 0)
-    } else if(summary.pos[1] == "bottom") {
-      summary.pos <- c(mean(limits.x), limits.y[1] + par()$cxy[2] * 3.5)
-      summary.adj <- c(0.5, 0)
-    } else if(summary.pos[1] == "bottomright") {
-      summary.pos <- c(limits.x[2], limits.y[1] + par()$cxy[2] * 3.5)
-      summary.adj <- c(1, 0)
+    coords <- .get_keyword_coordinates(summary.pos, limits.x, limits.y)
+
+    ## apply some adjustments to the y positioning
+    if (!missing(summary.pos)) {
+      if (summary.pos[1] %in% c("topleft", "top", "topright")) {
+        coords$pos[2] <- coords$pos[2] - par()$cxy[2] * 1.0
+      } else if (summary.pos[1] %in% c("bottomleft", "bottom", "bottomright")) {
+        coords$pos[2] <- coords$pos[2] + par()$cxy[2] * 3.5
+      }
     }
+    summary.pos <- coords$pos
+    summary.adj <- coords$adj
 
     ## convert keywords into legend placement coordinates
-    if(missing(legend.pos) == TRUE) {
-      legend.pos <- c(limits.x[1], limits.y[2])
-      legend.adj <- c(0, 1)
-    } else if(length(legend.pos) == 2) {
-      legend.pos <- legend.pos
-      legend.adj <- c(0, 1)
-    } else if(legend.pos[1] == "topleft") {
-      legend.pos <- c(limits.x[1], limits.y[2])
-      legend.adj <- c(0, 1)
-    } else if(legend.pos[1] == "top") {
-      legend.pos <- c(mean(limits.x), limits.y[2])
-      legend.adj <- c(0.5, 1)
-    } else if(legend.pos[1] == "topright") {
-      legend.pos <- c(limits.x[2], limits.y[2])
-      legend.adj <- c(1, 1)
-    } else if(legend.pos[1] == "left") {
-      legend.pos <- c(limits.x[1], mean(limits.y))
-      legend.adj <- c(0, 0.5)
-    } else if(legend.pos[1] == "center") {
-      legend.pos <- c(mean(limits.x), mean(limits.y))
-      legend.adj <- c(0.5, 0.5)
-    } else if(legend.pos[1] == "right") {
-      legend.pos <- c(limits.x[2], mean(limits.y))
-      legend.adj <- c(1, 0.5)
-    } else if(legend.pos[1] == "bottomleft") {
-      legend.pos <- c(limits.x[1], limits.y[1])
-      legend.adj <- c(0, 0)
-    } else if(legend.pos[1] == "bottom") {
-      legend.pos <- c(mean(limits.x), limits.y[1])
-      legend.adj <- c(0.5, 0)
-    } else if(legend.pos[1] == "bottomright") {
-      legend.pos <- c(limits.x[2], limits.y[1])
-      legend.adj <- c(1, 0)
-    }
+    coords <- .get_keyword_coordinates(legend.pos, limits.x, limits.y)
+    legend.pos <- coords$pos
+    legend.adj <- coords$adj
+
   } else {
     ## convert keywords into summary placement coordinates
-    if(missing(summary.pos) == TRUE) {
-      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
-      summary.adj <- c(0, 0)
-    } else if(length(summary.pos) == 2) {
-      summary.pos <- summary.pos
-      summary.adj <- c(0, 1)
-    } else if(summary.pos[1] == "topleft") {
-      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[2])
-      summary.adj <- c(0, 1)
-    } else if(summary.pos[1] == "top") {
-      summary.pos <- c(mean(limits.y), limits.x[2])
-      summary.adj <- c(0.5, 1)
-    } else if(summary.pos[1] == "topright") {
-      summary.pos <- c(limits.y[2], limits.x[2])
-      summary.adj <- c(1, 1)
-    }  else if(summary.pos[1] == "left") {
-      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, mean(limits.x))
-      summary.adj <- c(0, 0.5)
-    } else if(summary.pos[1] == "center") {
-      summary.pos <- c(mean(limits.y), mean(limits.x))
-      summary.adj <- c(0.5, 0.5)
-    } else if(summary.pos[1] == "right") {
-      summary.pos <- c(limits.y[2], mean(limits.x))
-      summary.adj <- c(1, 0.5)
-    }else if(summary.pos[1] == "bottomleft") {
-      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
-      summary.adj <- c(0, 0)
-    } else if(summary.pos[1] == "bottom") {
-      summary.pos <- c(mean(limits.y), limits.x[1])
-      summary.adj <- c(0.5, 0)
-    } else if(summary.pos[1] == "bottomright") {
-      summary.pos <- c(limits.y[2], limits.x[1])
-      summary.adj <- c(1, 0)
+    ## this time we swap x and y limits as we are rotated, then apply some
+    ## adjustments to the x positioning
+    coords <- .get_keyword_coordinates(summary.pos, limits.y, limits.x)
+    if (!missing(summary.pos) &&
+        summary.pos[1] %in% c("topleft", "left", "bottomleft")) {
+      coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
     }
+    summary.pos <- coords$pos
+    summary.adj <- coords$adj
 
     ## convert keywords into legend placement coordinates
-    if(missing(legend.pos) == TRUE) {
-      legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
-      legend.adj <- c(0, 0)
-    } else if(length(legend.pos) == 2) {
-      legend.pos <- legend.pos
-      legend.adj <- c(1, 0)
-    } else if(legend.pos[1] == "topleft") {
-      legend.pos <- c(limits.y[1] + par()$cxy[1] * 11, limits.x[2])
-      legend.adj <- c(1, 0)
-    } else if(legend.pos[1] == "top") {
-      legend.pos <- c(mean(limits.y), limits.x[2])
-      legend.adj <- c(1, 0.5)
-    } else if(legend.pos[1] == "topright") {
-      legend.pos <- c(limits.y[2], limits.x[2])
-      legend.adj <- c(1, 1)
-    } else if(legend.pos[1] == "left") {
-      legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, mean(limits.x))
-      legend.adj <- c(0.5, 0)
-    } else if(legend.pos[1] == "center") {
-      legend.pos <- c(mean(limits.y), mean(limits.x))
-      legend.adj <- c(0.5, 0.5)
-    } else if(legend.pos[1] == "right") {
-      legend.pos <- c(limits.y[2], mean(limits.x))
-      legend.adj <- c(0.5, 1)
-    } else if(legend.pos[1] == "bottomleft") {
-      legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
-      legend.adj <- c(0, 0)
-    } else if(legend.pos[1] == "bottom") {
-      legend.pos <- c(mean(limits.y), limits.x[1])
-      legend.adj <- c(0, 0.5)
-    } else if(legend.pos[1] == "bottomright") {
-      legend.pos <- c(limits.y[2], limits.x[1])
-      legend.adj <- c(0, 1)
+    ## this time we swap x and y limits as we are rotated, then apply some
+    ## adjustments to the x positioning
+    coords <- .get_keyword_coordinates(legend.pos, limits.y, limits.x)
+    if (!missing(legend.pos) &&
+        legend.pos[1] %in% c("topleft", "left", "bottomleft")) {
+      coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
     }
+    legend.pos <- coords$pos
+    legend.adj <- coords$adj
   }
 
   ## define cartesian plot origins

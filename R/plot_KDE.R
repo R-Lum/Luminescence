@@ -801,40 +801,9 @@ plot_KDE <- function(
   }
 
   ## convert keywords into summary placement coordinates
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- c(xlim.plot[1], ylim.plot[2])
-    summary.adj <- c(0, 1)
-  } else if(length(summary.pos) == 2) {
-    summary.pos <- summary.pos
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "topleft") {
-    summary.pos <- c(xlim.plot[1], ylim.plot[2])
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "top") {
-    summary.pos <- c(mean(xlim.plot), ylim.plot[2])
-    summary.adj <- c(0.5, 1)
-  } else if(summary.pos[1] == "topright") {
-    summary.pos <- c(xlim.plot[2], ylim.plot[2])
-    summary.adj <- c(1, 1)
-  }  else if(summary.pos[1] == "left") {
-    summary.pos <- c(xlim.plot[1], mean(ylim.plot[1:2]))
-    summary.adj <- c(0, 0.5)
-  } else if(summary.pos[1] == "center") {
-    summary.pos <- c(mean(xlim.plot), mean(ylim.plot[1:2]))
-    summary.adj <- c(0.5, 0.5)
-  } else if(summary.pos[1] == "right") {
-    summary.pos <- c(xlim.plot[2], mean(ylim.plot[1:2]))
-    summary.adj <- c(1, 0.5)
-  }else if(summary.pos[1] == "bottomleft") {
-    summary.pos <- c(xlim.plot[1], ylim.plot[1])
-    summary.adj <- c(0, 0)
-  } else if(summary.pos[1] == "bottom") {
-    summary.pos <- c(mean(xlim.plot), ylim.plot[1])
-    summary.adj <- c(0.5, 0)
-  } else if(summary.pos[1] == "bottomright") {
-    summary.pos <- c(xlim.plot[2], ylim.plot[1])
-    summary.adj <- c(1, 0)
-  }
+  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot)
+  summary.pos <- coords$pos
+  summary.adj <- coords$adj
 
   ## plot data sets -----------------------------------------------------------
 

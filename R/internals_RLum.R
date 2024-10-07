@@ -322,6 +322,59 @@ fancy_scientific <- function(l) {
     args))
 }
 
+#' Convert position keywords into summary placement coordinates
+#'
+#' @param pos [numeric] or [character] (**required**) Position coordinates
+#'        or keyword (one of "topleft", "top", "topright", "left", "center",
+#'        "right", "bottomleft", "bottom", "bottomright").
+#' @param xlim [numeric] (**required**) The x-axis limits.
+#' @param ylim [numeric] (**required**) The y-axis limits.
+#'
+#' @return
+#' A list of two elements: `pos` and `adj`.
+#'
+#' @md
+#' @noRd
+.get_keyword_coordinates <- function(pos, xlim, ylim) {
+  adj <- NA
+  if (missing(pos)) {
+    pos <- c(xlim[1], ylim[2])
+    adj <- c(0, 1)
+  } else if (length(pos) == 2) {
+    pos <- pos
+    adj <- c(0, 1)
+  } else if (pos[1] == "topleft") {
+    pos <- c(xlim[1], ylim[2])
+    adj <- c(0, 1)
+  } else if (pos[1] == "top") {
+    pos <- c(mean(xlim), ylim[2])
+    adj <- c(0.5, 1)
+  } else if (pos[1] == "topright") {
+    pos <- c(xlim[2], ylim[2])
+    adj <- c(1, 1)
+  } else if (pos[1] == "left") {
+    pos <- c(xlim[1], mean(ylim))
+    adj <- c(0, 0.5)
+  } else if (pos[1] == "center") {
+    pos <- c(mean(xlim), mean(ylim))
+    adj <- c(0.5, 0.5)
+  } else if (pos[1] == "right") {
+    pos <- c(xlim[2], mean(ylim))
+    adj <- c(1, 0.5)
+  }else if (pos[1] == "bottomleft") {
+    pos <- c(xlim[1], ylim[1])
+    adj <- c(0, 0)
+  } else if (pos[1] == "bottom") {
+    pos <- c(mean(xlim), ylim[1])
+    adj <- c(0.5, 0)
+  } else if (pos[1] == "bottomright") {
+    pos <- c(xlim[2], ylim[1])
+    adj <- c(1, 0)
+  }
+
+  return(list(pos = pos, adj = adj))
+}
+
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #+ Statistical Summary for Plot functions
