@@ -3,22 +3,24 @@ set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
 
-results <- analyse_SAR.CWOSL(
-  object = object[[1]],
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min = 900,
-  background.integral.max = 1000,
-  plot = FALSE,
-  verbose = FALSE
-)
-
 ##generate different datasets removing TL curves
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
 object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
 
 test_that("tests class elements", {
   testthat::skip_on_cran()
+
+  expect_snapshot_RLum(
+    results <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      plot = FALSE,
+      verbose = FALSE
+    ), tolerance = 1.5e-6
+  )
 
   expect_s4_class(results, "RLum.Results")
   expect_equal(length(results), 4)
@@ -37,13 +39,9 @@ test_that("tests class elements", {
 
   expect_equal(round(sum(results$rejection.criteria$Value), digits = 0),
                1669)
-})
 
-test_that("simple run", {
-  testthat::skip_on_cran()
-
-  ##verbose and plot off
-  t <- expect_s4_class(
+  ## fit.method
+  expect_snapshot_RLum(
     analyse_SAR.CWOSL(
       object = object[1:2],
       signal.integral.min = 1,
@@ -53,12 +51,8 @@ test_that("simple run", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-    ),
-    class = "RLum.Results"
+    ), tolerance = 1.5e-6
   )
-
-  ## check aliquot numbers
-  expect_equal(sum(t@data$data$ALQ), 3)
 
   ##remove position information from the curve
   ##data
@@ -82,6 +76,10 @@ test_that("simple run", {
   )
 
   expect_type(t@data$data$POS, "logical")
+})
+
+test_that("simple run", {
+  testthat::skip_on_cran()
 
   ##signal integral set to NA
   expect_warning(
