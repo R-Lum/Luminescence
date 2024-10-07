@@ -12,6 +12,12 @@ expect_snapshot_RLum <- function(object, ...) {
       object@data$fit <- NULL
     if ("data" %in% names(object@data))
       object@data$data$UID <- NULL
+    if ("Formula" %in% names(object@data))
+      object@data$Formula <- NULL
+    if ("LnLxTnTx.table" %in% names(object@data))
+      object@data$LnLxTnTx.table$UID <- NULL
+    if ("rejection.criteria" %in% names(object@data))
+      object@data$rejection.criteria$UID <- NULL
     if ("test_parameters" %in% names(object@data))
       object@data$test_parameters$UID <- NULL
   }

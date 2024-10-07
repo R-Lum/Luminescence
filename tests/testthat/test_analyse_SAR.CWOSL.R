@@ -3,23 +3,31 @@ set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
 
-results <- analyse_SAR.CWOSL(
-  object = object[[1]],
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min = 900,
-  background.integral.max = 1000,
-  plot = FALSE,
-  verbose = FALSE
-)
-
-
 ##generate different datasets removing TL curves
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
 object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
 
+## FIXME(mcol): snapshots were produced on R 4.3.3, and a tolerance of 1.5e-6
+## was sufficient; however, both R 4.4 and Rdevel produce slightly different
+## values that required increasing the tolerance to 1.5e-3. When a new R
+## release happens, so that R 4.3.3 is no longer oldrel, the snapshots should
+## be rebuilt and the tolerance restored to 1.5e-6.
+snapshot.tolerance <- 1.5e-3
+
 test_that("tests class elements", {
   testthat::skip_on_cran()
+
+  expect_snapshot_RLum(
+    results <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      plot = FALSE,
+      verbose = FALSE
+    ), tolerance = snapshot.tolerance
+  )
 
   expect_s4_class(results, "RLum.Results")
   expect_equal(length(results), 4)
@@ -27,17 +35,8 @@ test_that("tests class elements", {
   expect_s3_class(results$LnLxTnTx.table, "data.frame")
   expect_s3_class(results$rejection.criteria, "data.frame")
   expect_type(results$Formula, "expression")
-})
-
-test_that("regression tests De values", {
-  testthat::skip_on_cran()
 
   expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
-})
-
-test_that("regression test LxTx table", {
-  testthat::skip_on_cran()
-
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx), digits = 5),  20.92051)
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx.Error), digits = 2), 0.34)
 
@@ -45,20 +44,11 @@ test_that("regression test LxTx table", {
   expect_equal(object = results$data$POS, 1)
   expect_type(object = results$data$ALQ, "double")
 
-})
-
-test_that("regression test - check rejection criteria", {
-  testthat::skip_on_cran()
-
   expect_equal(round(sum(results$rejection.criteria$Value), digits = 0),
                1669)
-})
 
-test_that("simple run", {
-  testthat::skip_on_cran()
-
-  ##verbose and plot off
-  t <- expect_s4_class(
+  ## fit.method
+  expect_snapshot_RLum(
     analyse_SAR.CWOSL(
       object = object[1:2],
       signal.integral.min = 1,
@@ -68,12 +58,8 @@ test_that("simple run", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-    ),
-    class = "RLum.Results"
+    ), tolerance = snapshot.tolerance
   )
-
-  ## check aliquot numbers
-  expect_equal(sum(t@data$data$ALQ), 3)
 
   ##remove position information from the curve
   ##data
@@ -81,7 +67,6 @@ test_that("simple run", {
   object_f@records <- lapply(object_f@records, function(x){
     x@info$POSITION <- NULL
     x
-
   })
   t <- expect_s4_class(
     analyse_SAR.CWOSL(
@@ -98,6 +83,10 @@ test_that("simple run", {
   )
 
   expect_type(t@data$data$POS, "logical")
+})
+
+test_that("simple run", {
+  testthat::skip_on_cran()
 
   ##signal integral set to NA
   expect_warning(
@@ -111,8 +100,9 @@ test_that("simple run", {
       plot = FALSE,
       verbose = FALSE,
       fit.weights = FALSE
-    ), "\\[analyse_SAR.CWOSL\\(\\)\\] No signal or background integral applied, because they were set to NA\\!")
-
+    ),
+    "[analyse_SAR.CWOSL()] No signal or background integral applied as they",
+    fixed = TRUE)
 
   expect_s4_class(
     suppressWarnings(analyse_SAR.CWOSL(
@@ -272,18 +262,17 @@ test_that("simple run", {
 
   ## check stop for OSL.components ... failing
   SW({
-  expect_null(analyse_SAR.CWOSL(
+  expect_message(expect_null(
+      analyse_SAR.CWOSL(
        object = object[[1]],
        signal.integral.min = 1,
        signal.integral.max = 2,
        background.integral.min = 900,
        background.integral.max = 1000,
-       dose.points = c(0,1,2),
-       fit.method = "LIN",
        OSL.component = 1,
-       plot = FALSE,
        verbose = FALSE
-     ))
+      )),
+      "Something went wrong while generating the LxTx table, NULL returned")
   })
 
    expect_error(analyse_SAR.CWOSL(
@@ -297,7 +286,6 @@ test_that("simple run", {
      plot = FALSE,
      verbose = FALSE
    ), regexp = "Length of 'dose.points' differs from number of curves")
-
 
   expect_message(
    expect_null(analyse_SAR.CWOSL(
@@ -381,13 +369,21 @@ test_that("simple run", {
                                  plot.single = list()),
                "Invalid data type for 'plot.single'")
 
+  ## add one OSL curve
+  expect_warning(expect_null(
+      analyse_SAR.CWOSL(
+          object = merge(object[[1]], object[[1]][[2]]),
+          signal.integral.min = 1, signal.integral.max = 2,
+          background.integral.min = 800, background.integral.max = 1200)),
+      "Input OSL/IRSL curves are not a multiple of two")
+
    ## check different curve numbers by shorten one OSL curve
    object_short <- object
    object_short[[1]]@records[[2]]@data <- object_short[[1]]@records[[2]]@data[-nrow(object_short[[1]]@records[[2]]@data),]
 
    ## without fix
-   t <- testthat::expect_warning(
-     object = analyse_SAR.CWOSL(
+   expect_warning(
+     analyse_SAR.CWOSL(
        object = object_short[[1]],
        signal.integral.min = 1,
        signal.integral.max = 2,
@@ -396,7 +392,8 @@ test_that("simple run", {
        fit.method = "LIN",
        plot = FALSE,
        verbose = FALSE),
-     regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Input curves lengths differ\\.")
+     "[analyse_SAR.CWOSL()] Input curves have different lengths",
+     fixed = TRUE)
 
    ## with new parameter
    testthat::expect_s4_class(
@@ -411,11 +408,52 @@ test_that("simple run", {
        plot = FALSE,
        verbose = FALSE),
    class = "RLum.Results")
-
 })
 
 test_that("advance tests run", {
   testthat::skip_on_cran()
+
+  ## irradiation information in a separate curve
+  obj_irr<- set_RLum(
+      "RLum.Analysis",
+      protocol = "testthat",
+      records = list(
+          object[[1]][[1]], object[[1]][[2]],
+          object[[2]][[1]], object[[2]][[2]],
+          set_RLum(
+          "RLum.Data.Curve",
+          recordType = "irradiation",
+          data = object[[1]]@records[[1]]@data,
+          info = object[[1]]@records[[1]]@info,
+          )),
+      originator = "Risoe.BINfileData2RLum.Analysis"
+  )
+  SW({ # repeated message
+  expect_message(
+      analyse_SAR.CWOSL(list(obj_irr, obj_irr),
+                        signal.integral.min = 1,
+                        signal.integral.max = 2,
+                        background.integral.min = 900,
+                        background.integral.max = 1000,
+                        fit.method = "LIN", verbose = FALSE),
+      "All points have the same dose, NULL returned"
+  )
+  })
+
+  ## more coverage
+  SW({ # Number of background channels for Lx < 25
+  expect_warning(expect_warning(
+      analyse_SAR.CWOSL(merge(object[[1]], object[[2]],
+                              object[[1]], object[[2]]),
+                        signal.integral.min = 1,
+                        signal.integral.max = 2,
+                        background.integral.min = 900,
+                        background.integral.max = 900,
+                        background.count.distribution = "poisson",
+                        log = "xy", verbose = FALSE),
+      "Too many curves, only the first 21 curves are plotted"),
+      "Multiple IRSL curves detected")
+  })
 
   ##this tests basically checks the parameter expansion and make
   ##sure everything is evaluated properly
