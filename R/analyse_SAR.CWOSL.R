@@ -983,22 +983,28 @@ error.list <- list()
       }#plot.single.sel
 
       # Plotting LnLx Curves ----------------------------------------------------
+
+      ## if we want to apply a log-transform on x and the first time point
+      ## is 0, we shift the curves by one channel
+      if (log == "x" || log == "xy") {
+        sapply(1:length(OSL.Curves.ID.Lx), function(x) {
+          x.vals <- object@records[[OSL.Curves.ID.Lx[[x]]]]@data[, 1]
+          if (x.vals[1] == 0) {
+            object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1, ] <-
+              object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1, ] + x.vals[2] - x.vals[1]
+            .throw_warning("Curves shifted by one channel for log-plot")
+          }
+        })
+      }
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
         ylim.range <- vapply(OSL.Curves.ID.Lx, function(x) {
           range(object@records[[x]]@data[,2])
         }, numeric(2))
 
-        if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[1]]]]@data[1,1] == 0){
-          xlim <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1],
-                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]) +
-                      object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1])
-
-        }else{
         xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
 
-        }
         #open plot area LnLx
         plot(
           NA,NA,
@@ -1017,15 +1023,7 @@ error.list <- list()
 
         ##plot curves
         sapply(1:length(OSL.Curves.ID.Lx), function(x) {
-          if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1] == 0){
-            object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] <-
-              object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] +
-              diff(c(object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1],
-                     object@records[[OSL.Curves.ID.Lx[[x]]]]@data[2,1]))
-            .throw_warning("Curves shifted by one chanel for log-plot")
-          }
           lines(object@records[[OSL.Curves.ID.Lx[[x]]]]@data,col = col[x])
-
         })
 
         ##mark integration limit Lx curves
@@ -1091,7 +1089,6 @@ error.list <- list()
             lines(object@records[[TL.Curves.ID.Tx[[x]]]]@data,col = col[x])
           })
 
-
         }else{
           plot(
             NA,NA,xlim = c(0,1), ylim = c(0,1), main = "",
@@ -1111,14 +1108,8 @@ error.list <- list()
           range(object@records[[x]]@data[,2])
         }, numeric(2))
 
-        if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[1]]]]@data[1,1] == 0){
-          xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1],
-                    max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]) +
-                      object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1])
-        }else{
-          xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
-                    max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
-        }
+        xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
+                  max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
 
         #open plot area LnLx
         plot(
@@ -1138,17 +1129,6 @@ error.list <- list()
 
         ##plot curves and get legend values
         sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
-
-          ##account for log-scale and 0 values
-          if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1] == 0){
-            object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,] <-
-              object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,] +
-                 diff(c(object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1],
-                      object@records[[OSL.Curves.ID.Tx[[x]]]]@data[2,1]))
-
-            .throw_warning("Curves shifted by one channel for log-plot")
-          }
-
           lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
         })
 
