@@ -69,6 +69,36 @@ test_that("Test internals", {
   expect_silent(Luminescence:::.add_fancy_log_axis(side = 2, las = 1))
   expect_null(.add_fancy_log_axis(side = 1, las = 1))
 
+  # .get_keyword_coordinates() ----------------------------------------------
+  xlim <- c(0, 5)
+  ylim <- c(2, 10)
+  coords <- .get_keyword_coordinates(xlim = xlim, ylim = ylim)
+  expect_type(coords, "list")
+  expect_named(coords, c("pos", "adj"))
+  expect_length(coords, 2)
+  expect_equal(coords$pos,
+               c(0, 10))
+  expect_equal(.get_keyword_coordinates(pos = c(1, 2), xlim, ylim)$pos,
+               c(1, 2))
+  expect_equal(.get_keyword_coordinates(pos = "topleft", xlim, ylim)$pos,
+               c(0, 10))
+  expect_equal(.get_keyword_coordinates(pos = "top", xlim, ylim)$pos,
+               c(2.5, 10))
+  expect_equal(.get_keyword_coordinates(pos = "topright", xlim, ylim)$pos,
+               c(5, 10))
+  expect_equal(.get_keyword_coordinates(pos = "left", xlim, ylim)$pos,
+               c(0, 6))
+  expect_equal(.get_keyword_coordinates(pos = "center", xlim, ylim)$pos,
+               c(2.5, 6))
+  expect_equal(.get_keyword_coordinates(pos = "right", xlim, ylim)$pos,
+               c(5, 6))
+  expect_equal(.get_keyword_coordinates(pos = "bottomleft", xlim, ylim)$pos,
+               c(0, 2))
+  expect_equal(.get_keyword_coordinates(pos = "bottom", xlim, ylim)$pos,
+               c(2.5, 2))
+  expect_equal(.get_keyword_coordinates(pos = "bottomright", xlim, ylim)$pos,
+               c(5, 2))
+
   # .create_StatisticalSummaryText() ------------------------------------------------------------
   stats <- calc_Statistics(data.frame(1:10,1:10))
   expect_silent(Luminescence:::.create_StatisticalSummaryText())
