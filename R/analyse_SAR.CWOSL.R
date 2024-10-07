@@ -341,14 +341,14 @@ error.list <- list()
 
     ## trim
     object <- trim_RLum.Data(object, recordType = tmp_names)
-
   }
 
   ##skip all those tests if signal integral is NA
   if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
-    warning("[analyse_SAR.CWOSL()] No signal or background integral applied, because they were set to NA!", call. = FALSE)
+    .throw_warning("No signal or background integral applied ",
+                   "as they were set to NA")
 
   } else {
   ##build signal and background integrals
@@ -468,19 +468,16 @@ error.list <- list()
     for(i in 1:length(object@records)){
       if(is.null(object@records[[i]]@info$IRR_TIME))
         object@records[[i]]@info <- c(object@records[[i]]@info, IRR_TIME = temp.irradiation[i])
-
-
     }
 
     ## remove irradiation curves
     object <- get_RLum(object, record.id = c(!temp.ltype %in% "irradiation"), drop = FALSE)
-
   }
 
   ##check if the wanted curves are a multiple of two
   ##gsub removes unwanted information from the curves
   if(table(temp.ltype)[CWcurve.type]%%2!=0){
-    error.list[[1]] <- "[analyse_SAR.CWOSL()] Input OSL/IRSL curves are not a multiple of two."
+    error.list[[1]] <- "Input OSL/IRSL curves are not a multiple of two"
   }
 
   ##check if the curve lengths differ
@@ -491,8 +488,7 @@ error.list <- list()
   }))
 
   if(length(unique(temp.matrix.length))!=1){
-    error.list[[2]] <- "[analyse_SAR.CWOSL()] Input curves lengths differ."
-
+    error.list[[2]] <- "Input curves have different lengths"
   }
 
   ##just proceed if error list is empty
@@ -512,7 +508,6 @@ error.list <- list()
              max(background.integral) == min(background.integral)) {
       background.integral <-
         c((min(background.integral) - 1) : max(background.integral))
-
     }
 
     if (!all(is.na(background.integral)) &&
@@ -523,7 +518,6 @@ error.list <- list()
       ##prevent that the background integral becomes negative
       if(min(background.integral) < max(signal.integral)){
         background.integral <- c((max(signal.integral) + 1):max(background.integral))
-
       }
 
       .throw_warning("Background integral out of bounds. Set to: c(",
@@ -536,20 +530,16 @@ error.list <- list()
       if (max(background.integral.Tx) == min(background.integral.Tx)) {
         background.integral.Tx <-
           c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
-
       }
 
       if (max(background.integral.Tx) > temp.matrix.length[2]) {
         background.integral.Tx <-
           c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
 
-
         ##prevent that the background integral becomes negative
         if (min(background.integral.Tx) < max(signal.integral.Tx)) {
           background.integral.Tx <-
             c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
-
-
         }
 
         .throw_warning(
@@ -559,7 +549,6 @@ error.list <- list()
           max(background.integral.Tx),
           ")"
         )
-
       }
     }
 
@@ -608,7 +597,6 @@ error.list <- list()
             background.count.distribution = background.count.distribution,
             sigmab = sigmab,
             sig0 = sig0))
-
       }
 
         ##grep dose
@@ -625,7 +613,7 @@ error.list <- list()
     ##fails if something goes wrong therein
     if(inherits(LnLxTnTx, "try-error")){
       message("[analyse_SAR.CWOSL()] Something went wrong while generating ",
-              "the LxTx table. Return NULL.")
+              "the LxTx table, NULL returned")
       return(NULL)
     }
 
@@ -881,7 +869,6 @@ error.list <- list()
       par(oma = c(0, 0, 0, 0),
           mar = c(4, 4, 3, 1),
           cex = cex * 0.6)
-
       }
 
 
@@ -920,14 +907,13 @@ error.list <- list()
 
         }else{
           plot.single.sel <- c(1,2,3,4,5,6,7,8)
-
         }
       }
 
       ##warning if number of curves exceed colour values
       if (length(col) < length(OSL.Curves.ID) / 2) {
-        .throw_warning("Too many curves! Only the first ", length(col),
-                       " curves are plotted!")
+        .throw_warning("Too many curves, only the first ",
+                       length(col), " curves are plotted")
       }
 
       ##legend text
@@ -983,9 +969,7 @@ error.list <- list()
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Lx) ,function(x) {
             lines(object@records[[TL.Curves.ID.Lx[[x]]]]@data,col = col[x])
-
           })
-
 
         }else{
           plot(
@@ -995,7 +979,6 @@ error.list <- list()
             xlab = ""
           )
           text(0.5,0.5, "No TL curve detected")
-
         }
       }#plot.single.sel
 
@@ -1106,7 +1089,6 @@ error.list <- list()
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
             lines(object@records[[TL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-
           })
 
 
@@ -1118,7 +1100,6 @@ error.list <- list()
             xlab = ""
           )
           text(0.5,0.5, "No TL curve detected")
-
         }
 
       }#plot.single.sel
@@ -1134,8 +1115,6 @@ error.list <- list()
           xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1],
                     max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]) +
                       object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1])
-
-
         }else{
           xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
                     max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
@@ -1171,7 +1150,6 @@ error.list <- list()
           }
 
           lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-
         })
 
         ##mark integration limit Tx curves
@@ -1226,7 +1204,6 @@ error.list <- list()
 
       }#plot.single.sel
 
-
     }##end plot
 
 
@@ -1267,6 +1244,8 @@ error.list <- list()
         stringsAsFactors = FALSE)
 
     ##Fit and plot growth curve
+    temp.GC <- temp.GC.all.na
+    temp.GC.fit.Formula <- NULL
     if(!onlyLxTxTable){
       temp.GC <- do.call(plot_GrowthCurve, args = modifyList(
           list(
@@ -1292,7 +1271,6 @@ error.list <- list()
               shape::emptyplot()
               shape::emptyplot()
               shape::emptyplot()
-
             }
           }
 
@@ -1309,7 +1287,6 @@ error.list <- list()
 
           }else{
             palaeodose.error.calculated <- round(temp.GC[,2] / temp.GC[,1], digits = 5)
-
           }
 
           palaeodose.error.threshold <-
@@ -1327,7 +1304,6 @@ error.list <- list()
 
             }else{
               palaeodose.error.status <- "OK"
-
             }
           }
 
@@ -1346,7 +1322,6 @@ error.list <- list()
 
           }else{
             status.exceed.max.regpoint <- "OK"
-
           }
 
           exceed.max.regpoint.data.frame <- data.frame(
@@ -1374,15 +1349,9 @@ error.list <- list()
 
         }else{
           temp.GC <- data.frame(temp.GC, RC.Status = "OK", stringsAsFactors = FALSE)
-
         }
        }#endif for is.null
-
-     ##end onlyLxTxTable
-     }else{
-       temp.GC <- temp.GC.all.na
-       temp.GC.fit.Formula <- NULL
-     }
+    }
 
       ##add information on the integration limits
       temp.GC.extended <-
@@ -1494,7 +1463,6 @@ error.list <- list()
               col = col.id,
               cex = 1.3 * cex
             )
-
           }
           col.id <- col.id + 1
         }
@@ -1540,7 +1508,6 @@ error.list <- list()
             col = i,
             cex = 1.3 * cex
           )
-
         }
       }
 
@@ -1637,7 +1604,6 @@ error.list <- list()
           .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
         }else{
           shape::emptyplot()
-
         }
 
       }else{
@@ -1651,7 +1617,7 @@ error.list <- list()
     invisible(temp.results.final)
 
   }else{
-    .throw_warning("\n", paste(unlist(error.list), collapse = "\n"),
+    .throw_warning(paste(unlist(error.list), collapse = "\n"),
                    "\n... >> nothing was done here!")
     invisible(NULL)
   }
