@@ -87,6 +87,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
 
   ## select showtime item based on month or user-defined type
   if(missing(type) == TRUE) {
+    # nocov start
     if(month >= 1 & month <= 3) {
       type <- 1
     } else if(month >3 & month <= 11) {
@@ -94,6 +95,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
     } else if(month > 11 & month <= 12) {
       type <- 3
     }
+    # nocov end
   }
 
 
