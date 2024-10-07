@@ -7,6 +7,13 @@ object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
 object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
 
+## FIXME(mcol): snapshots were produced on R 4.3.3, and a tolerance of 1.5e-6
+## was sufficient; however, both R 4.4 and Rdevel produce slightly different
+## values that required increasing the tolerance to 1.5e-3. When a new R
+## release happens, so that R 4.3.3 is no longer oldrel, the snapshots should
+## be rebuilt and the tolerance restored to 1.5e-6.
+snapshot.tolerance <- 1.5e-3
+
 test_that("tests class elements", {
   testthat::skip_on_cran()
 
@@ -19,7 +26,7 @@ test_that("tests class elements", {
       background.integral.max = 1000,
       plot = FALSE,
       verbose = FALSE
-    ), tolerance = 1.5e-6
+    ), tolerance = snapshot.tolerance
   )
 
   expect_s4_class(results, "RLum.Results")
@@ -51,7 +58,7 @@ test_that("tests class elements", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-    ), tolerance = 1.5e-6
+    ), tolerance = snapshot.tolerance
   )
 
   ##remove position information from the curve
