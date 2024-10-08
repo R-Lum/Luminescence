@@ -516,34 +516,21 @@ analyse_IRSAR.RF<- function(
 
     }else{
       return(results)
-
     }
   }
 
 
-  ##===============================================================================================#
-  ## INTEGRITY TESTS AND SEQUENCE STRUCTURE TESTS
-  ##===============================================================================================#
+  ## Integrity tests --------------------------------------------------------
 
-  ##INPUT OBJECTS
   .validate_class(object, "RLum.Analysis")
-
-  ##CHECK OTHER ARGUMENTS
-  if (!is.character(sequence_structure)) {
-    .throw_error("'sequence_structure' must be of type 'character'")
-  }
-
-  ## method
+  .validate_class(sequence_structure, "character")
   method <- .validate_args(method, c("FIT", "SLIDE", "VSLIDE"))
-
-  ## n.MC
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
   if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
     object <- get_RLum(object, curveType= "measured", drop = FALSE)
-
   }
 
   ##INVESTIGATE SEQUENCE OBJECT STRUCTURE
@@ -698,9 +685,7 @@ analyse_IRSAR.RF<- function(
 
   ##modify list if necessary
   if(!is.null(method.control)){
-    if(!is(method.control, "list")){
-      .throw_error("'method.control' has to be of type 'list'!")
-    }
+    .validate_class(method.control, "list")
 
     ##check whether this arguments are supported at all
     unsupported.idx <- which(!names(method.control) %in%
@@ -717,7 +702,6 @@ analyse_IRSAR.RF<- function(
       x = method.control.settings,
       val = method.control,
       keep.null = TRUE)
-
   }
 
 
@@ -756,7 +740,6 @@ analyse_IRSAR.RF<- function(
     if (method == "SLIDE" &
         method.control.settings$correct_onset == TRUE) {
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
-
     }
 
 

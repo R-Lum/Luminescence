@@ -210,9 +210,7 @@ analyse_portableOSL <- function(
     coord <- .extract_PSL_coord(object)
 
   } else {
-    if(!inherits(coord, "matrix") && !inherits(coord, "list"))
-      .throw_error("'coord' must be a matrix or a list")
-
+    .validate_class(coord, c("matrix", "list"))
     if(inherits(coord, "list"))
       coord <- do.call(rbind, coord)
 

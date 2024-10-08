@@ -322,6 +322,8 @@ analyse_Al2O3C_Measurement <- function(
 
   ## Set Irradiation Time Correction ---------------
   if (!is.null(irradiation_time_correction)) {
+    .validate_class(irradiation_time_correction, c("RLum.Results", "numeric"))
+
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -341,8 +343,6 @@ analyse_Al2O3C_Measurement <- function(
     } else if (is.numeric(irradiation_time_correction)) {
       if (length(irradiation_time_correction) != 2)
         .throw_error("'irradiation_time_correction' must have length 2")
-    } else {
-      .throw_error("'irradiation_time_correction' must be a numeric vector or an 'RLum.Results' object")
     }
   }
 

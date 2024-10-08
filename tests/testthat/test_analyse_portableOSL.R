@@ -119,7 +119,7 @@ test_that("input validation", {
     ## coordinates not list or matrix
     expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
                                      coord = "error"),
-      "'coord' must be a matrix or a list")
+      "'coord' should be of class 'matrix' or 'list'")
 
     ## coordinates are not of the correct size
     expect_error(analyse_portableOSL(surface, signal.integral = 1:5,

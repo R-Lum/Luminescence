@@ -303,8 +303,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   ##signal_range
   if(!is.null(signal_range)){
-    if (!is.numeric(signal_range))
-      .throw_error("'signal_range' must be of type numeric")
+    .validate_class(signal_range, "numeric")
 
     ##check lengths
     if(length(signal_range) == 1)
