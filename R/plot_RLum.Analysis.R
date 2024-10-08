@@ -178,8 +178,8 @@ plot_RLum.Analysis <- function(
   else
     n.plots <- length_RLum(object)
 
-  if (!missing(nrows)) .validate_positive_scalar(nrows)
-  if (!missing(ncols)) .validate_positive_scalar(ncols)
+  .validate_positive_scalar(nrows)
+  .validate_positive_scalar(ncols)
 
   ## set appropriate values for nrows and ncols if not both specified
   if (missing(ncols) | missing(nrows)) {

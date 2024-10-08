@@ -315,6 +315,7 @@ test_that("Test internals", {
 
 
   ## .validate_positive_scalar() --------------------------------------------
+  expect_silent(.validate_positive_scalar(int = TRUE))
   expect_silent(.validate_positive_scalar(1.3))
   expect_silent(.validate_positive_scalar(2, int = TRUE))
   expect_silent(.validate_positive_scalar(NULL, int = TRUE, null.ok = TRUE))
@@ -335,7 +336,6 @@ test_that("Test internals", {
                "'var' must be a positive integer")
 
   ## .require_suggested_package() -------------------------------------------
-
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),
                "This function requires the 'error' package: to install it")
@@ -352,6 +352,7 @@ test_that("Test internals", {
   expect_equal(.collapse(1:3, quote = FALSE),
                "1, 2, 3")
   expect_equal(.collapse(NULL), "")
+
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
