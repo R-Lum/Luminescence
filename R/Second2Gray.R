@@ -102,50 +102,35 @@ Second2Gray <- function(
 
   ## Integrity tests --------------------------------------------------------
 
-  ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(data, "data.frame")
-
-  ##(2) numeric, data.frame or RLum.Data.Curve object?
   .validate_class(dose.rate, c("RLum.Results", "data.frame", "numeric"))
 
-  ##(3) last check to avoid problems
-  if(is(dose.rate, "data.frame")){
-
+  if (is.data.frame(dose.rate)) {
     if(nrow(dose.rate)!=nrow(data)){
       .throw_error("Data frames in 'data' and 'dose.rate' must have the same length")
+    }
+  } else if (inherits(dose.rate, "RLum.Results")) {
+
+    ## check for right orginator
+    if(dose.rate@originator != "calc_SourceDoseRate"){
+      .throw_error("Wrong originator for dose.rate 'RLum.Results' object")
+    }
+
+    ## extract dose.rate and convert it to data.frame if necessary
+    dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
+    if (!is.data.frame(dose.rate)) {
+      dose.rate <- data.frame(
+          dose.rate = as.numeric(dose.rate[1]),
+          dose.rate.error = as.numeric(dose.rate[2])
+      )
     }
   }
 
   error.propagation <- .validate_args(error.propagation,
                                       c("omit", "gaussian", "absolute"))
 
-  ##(4) check for right orginator
-  if(is(dose.rate, "RLum.Results")){
 
-    if(dose.rate@originator != "calc_SourceDoseRate"){
-
-      stop("[Second2Gray()] Wrong originator for dose.rate 'RLum.Results' object.")
-
-    }else{
-
-      ##check what is what
-      if(!is(get_RLum(dose.rate, data.object = "dose.rate"), "data.frame")){
-
-        dose.rate <- data.frame(
-          dose.rate  <- as.numeric(get_RLum(dose.rate, data.object = "dose.rate")[1]),
-          dose.rate.error <- as.numeric(get_RLum(dose.rate, data.object = "dose.rate")[2])
-          )
-
-      }else{
-
-        dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
-      }
-    }
-  }
-
-
-  # Calculation ---------------------------------------------------------------------------------
-
+  ## Calculation ------------------------------------------------------------
 
   De.seconds <- data[,1]
   De.error.seconds <- data[,2]
@@ -158,7 +143,6 @@ Second2Gray <- function(
 
   }else{
     De.gray <- round(De.seconds*dose.rate[1], digits=2)
-
   }
 
   if(error.propagation == "omit"){
@@ -168,7 +152,6 @@ Second2Gray <- function(
 
     }else{
       De.error.gray <- round(dose.rate[1]*De.error.seconds, digits=3)
-
     }
 
   }else if(error.propagation == "gaussian"){
@@ -178,7 +161,6 @@ Second2Gray <- function(
 
     }else{
       De.error.gray <- round(sqrt((De.seconds*dose.rate[2])^2+(dose.rate[1]*De.error.seconds)^2), digits=3)
-
     }
 
   }else if (error.propagation == "absolute"){
@@ -188,15 +170,11 @@ Second2Gray <- function(
 
     }else{
       De.error.gray <- round(abs(dose.rate[1] * De.error.seconds) + abs(De.seconds * dose.rate[2]), digits=3)
-
     }
   }
 
-  # Return --------------------------------------------------------------------------------------
-
+  ## Return -----------------------------------------------------------------
   data <- data.frame(De=De.gray, De.error=De.error.gray)
 
-
   return(data)
-
 }
