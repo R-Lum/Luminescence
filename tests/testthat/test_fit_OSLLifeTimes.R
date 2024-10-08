@@ -11,9 +11,9 @@ test_that("input validation", {
   expect_warning(expect_null(fit_OSLLifeTimes("error")),
                  "'object' should be of class 'RLum.Data.Curve', 'data.frame'")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
-               "'n.components' must be a positive integer scalar")
+               "'n.components' should be a positive integer scalar")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
-               "'signal_range' must be of type numeric")
+               "'signal_range' should be of class 'numeric'")
   expect_error(fit_OSLLifeTimes(set_RLum(class = "RLum.Data.Curve")),
                "recordType NA not supported for input object")
 

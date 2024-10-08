@@ -15,9 +15,9 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
 
   expect_error(plot_RLum.Analysis(temp, nrows = -1),
-               "'nrows' must be a positive scalar")
+               "'nrows' should be a positive scalar")
   expect_error(plot_RLum.Analysis(temp, ncols = -1),
-               "'ncols' must be a positive scalar")
+               "'ncols' should be a positive scalar")
 
   expect_error(plot_RLum.Analysis(
       set_RLum("RLum.Analysis", records = list(c1@records[[1]],

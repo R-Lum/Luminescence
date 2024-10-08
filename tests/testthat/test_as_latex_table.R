@@ -24,7 +24,7 @@ test_that("Check .as.latex.table.data.frame()", {
   testthat::skip_on_cran()
 
   expect_error(.as.latex.table.data.frame("error"),
-               "'x' must be a data frame")
+               "'x' should be of class 'data.frame'")
 
   df <- data.frame(x = "test", y = 1:10)
   expect_error(.as.latex.table.data.frame(df, col.names = "col1"),

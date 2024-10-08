@@ -8,7 +8,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(fit_SurfaceExposure("test"),
-               "'data' must be of class data.frame")
+               "'data' should be of class 'data.frame'")
   expect_error(fit_SurfaceExposure(list(d1)),
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = 1e4),

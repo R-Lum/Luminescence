@@ -99,11 +99,7 @@ template_DRAC <- function(
   # 1 - allow mineral specific presets; new argument 'mineral'
   # 2 - add option to return the DRAC example data set
 
-  ## correct incoming to prevent negative values
-  if (!is.numeric(nrow)) {
-    .throw_error("'nrow' must be a positive integer scalar")
-  }
-  nrow <- max(1, nrow[1])
+  .validate_positive_scalar(nrow, int = TRUE)
 
   ## throw warning
   if (nrow > 5000)

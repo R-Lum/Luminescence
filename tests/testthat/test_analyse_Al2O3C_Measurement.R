@@ -24,7 +24,7 @@ test_that("input validation", {
                "was created by an unsupported function")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = "a"),
-               "must be a numeric vector or an 'RLum.Results' object")
+               "should be of class 'RLum.Results' or 'numeric'")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           cross_talk_correction = "a"),
                "'cross_talk_correction' was created by an unsupported function")

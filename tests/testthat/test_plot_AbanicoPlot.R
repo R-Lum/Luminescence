@@ -19,7 +19,7 @@ test_that("input validation", {
       "Data sets 1 are found to be empty or consisting of only 1 row")
 
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
-               "'plot.ratio' must be a positive scalar")
+               "'plot.ratio' should be a positive scalar")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlab = "x"),
                "'xlab' must have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = "error"),

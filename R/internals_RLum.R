@@ -1169,13 +1169,13 @@ SW <- function(expr) {
 #' @noRd
 .validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
                                       name = NULL) {
-  if (is.null(val) && null.ok)
+  if (missing(val) || is.null(val) && null.ok)
     return()
   if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && val != as.integer(val))) {
     if (is.null(name))
       name <- all.vars(match.call())[1]
-    .throw_error("'", name, "' must be a positive ", if (int) "integer ",
+    .throw_error("'", name, "' should be a positive ", if (int) "integer ",
                  "scalar")
   }
 }

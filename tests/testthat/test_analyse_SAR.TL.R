@@ -17,7 +17,7 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1),
                "No value set for 'signal.integral.max'")
   expect_error(analyse_SAR.TL(list(object, "test")),
-               "elements in the input list must be of class 'RLum.Analysis'")
+               "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
                               signal.integral.max = 2),
                "Input TL curves are not a multiple of the sequence structure")

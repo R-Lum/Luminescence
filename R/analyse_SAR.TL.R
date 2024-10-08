@@ -129,9 +129,9 @@ analyse_SAR.TL <- function(
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
-   if(!all(sapply(object, class) == "RLum.Analysis"))
-     stop("[analyse_SAR.TL()] All elements in the input list must be of class 'RLum.Analysis'!",
-          call. = FALSE)
+    lapply(object,
+           function(x) .validate_class(x, "RLum.Analysis",
+                                       name = "All elements of 'object'"))
 
     ##run sequence
     results <- lapply(object, function(o){

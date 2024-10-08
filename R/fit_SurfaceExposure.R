@@ -224,7 +224,10 @@ fit_SurfaceExposure <- function(
     legend = TRUE,
     error_bars = TRUE,
     coord_flip = FALSE,
-...) {
+    ...
+) {
+  .set_function_name("fit_SurfaceExposure")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## SETTINGS ----
   settings <- list(
@@ -275,8 +278,7 @@ fit_SurfaceExposure <- function(
   }
 
   # Exit if data type is invalid
-  if (!inherits(data, "data.frame"))
-    stop("'data' must be of class data.frame.", call. = FALSE)
+  .validate_class(data, "data.frame")
 
   # Check which parameters have been provided
   if (!is.null(age) && any(is.na(age))) age <- NULL

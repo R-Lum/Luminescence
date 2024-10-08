@@ -380,6 +380,8 @@ calc_Huntley2006 <- function(
   }
 
   ## Check 'rhop'
+  .validate_class(rhop, c("numeric", "RLum.Results"))
+
   # check if numeric
   if (is.numeric(rhop)) {
 
@@ -397,8 +399,6 @@ calc_Huntley2006 <- function(
     else
       .throw_error("'rhop' accepts RLum.Results objects only if produced ",
                    "by 'analyse_FadingMeasurement()'")
-  } else {
-    .throw_error("'rhop' must be a numeric vector or an RLum.Results object")
   }
 
   # check if 'rhop' is actually a positive value

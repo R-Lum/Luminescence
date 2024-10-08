@@ -48,7 +48,7 @@ test_that("input validation", {
   expect_error(calc_Huntley2006(data, rhop = 1),
                "'rhop' must be a vector of length 2")
   expect_error(calc_Huntley2006(data, rhop = "test"),
-               "'rhop' must be a numeric vector or an RLum.Results object")
+               "'rhop' should be of class 'numeric' or 'RLum.Results'")
   expect_error(calc_Huntley2006(data, rhop = rhop.test),
                "'rhop' accepts RLum.Results objects only if produced by")
   expect_error(calc_Huntley2006(data, rhop = c(-1, 4.9e-7)),

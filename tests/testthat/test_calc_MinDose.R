@@ -22,7 +22,7 @@ test_that("input validation", {
                             init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
                "Missing parameters: gamma, sigma")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = "error"),
-               "'par' must be a positive integer scalar")
+               "'par' should be a positive integer scalar")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = 2),
                "'par' can only be set to 3 or 4")
 })

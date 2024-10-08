@@ -366,12 +366,12 @@ setMethod("names_RLum",
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Spectrum",
           function(object, bin_size.col = 1, bin_size.row = 1) {
+            .set_function_name("bin_RLum.Data.Spectrum")
+            on.exit(.unset_function_name(), add = TRUE)
 
             ##make sure that we have no input problems
-            if (!inherits(bin_size.col, "numeric") || !inherits(bin_size.row, "numeric")){
-              stop("[bin_RLum.Data()] 'bin_size.row' and 'bin_size.col' must be of class 'numeric'!",
-                   call. = FALSE)
-            }
+            .validate_class(bin_size.row, c("numeric", "integer"))
+            .validate_class(bin_size.col, c("numeric", "integer"))
 
             ##make sure that we do not get in trouble with negative values
             bin_size.col <- abs(bin_size.col)

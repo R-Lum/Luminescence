@@ -8,13 +8,13 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF("test"),
                "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),
-               "'sequence_structure' must be of type 'character'")
+               "'sequence_structure' should be of class 'character'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
-               "'n.MC' must be a positive integer scalar")
+               "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
                "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
-               "'method.control' has to be of type 'list'")
+               "'method.control' should be of class 'list'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
                                 sequence_struct = c("REGENERATED", "NATURAL")),
                "Number of data channels in RF_nat > RF_reg")

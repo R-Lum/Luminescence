@@ -315,27 +315,27 @@ test_that("Test internals", {
 
 
   ## .validate_positive_scalar() --------------------------------------------
+  expect_silent(.validate_positive_scalar(int = TRUE))
   expect_silent(.validate_positive_scalar(1.3))
   expect_silent(.validate_positive_scalar(2, int = TRUE))
   expect_silent(.validate_positive_scalar(NULL, int = TRUE, null.ok = TRUE))
 
   expect_error(.validate_positive_scalar(test <- "a"),
-               "'test' must be a positive scalar")
+               "'test' should be a positive scalar")
   expect_error(.validate_positive_scalar(test <- NULL),
-               "'test' must be a positive scalar")
+               "'test' should be a positive scalar")
   expect_error(.validate_positive_scalar(iris),
-               "'iris' must be a positive scalar")
+               "'iris' should be a positive scalar")
   expect_error(.validate_positive_scalar(1:2, name = "var"),
-               "'var' must be a positive scalar")
+               "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(0, name = "var"),
-               "'var' must be a positive scalar")
+               "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(-1, name = "var"),
-               "'var' must be a positive scalar")
+               "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "var"),
-               "'var' must be a positive integer")
+               "'var' should be a positive integer")
 
   ## .require_suggested_package() -------------------------------------------
-
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),
                "This function requires the 'error' package: to install it")
@@ -352,6 +352,7 @@ test_that("Test internals", {
   expect_equal(.collapse(1:3, quote = FALSE),
                "1, 2, 3")
   expect_equal(.collapse(NULL), "")
+
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##

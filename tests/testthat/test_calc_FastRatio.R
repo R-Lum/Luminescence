@@ -9,16 +9,16 @@ test_that("input validation", {
   expect_error(calc_FastRatio("error"),
                "'object' should be of class 'RLum.Analysis', 'RLum.Results'")
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
-               "'Ch_L1' must be a positive integer scalar")
+               "'Ch_L1' should be a positive integer scalar")
   expect_error(calc_FastRatio(obj, Ch_L1 = 0),
-               "'Ch_L1' must be a positive integer scalar")
+               "'Ch_L1' should be a positive integer scalar")
   expect_error(calc_FastRatio(obj, Ch_L1 = c(1, 2)),
-               "'Ch_L1' must be a positive integer scalar")
+               "'Ch_L1' should be a positive integer scalar")
 
   expect_error(calc_FastRatio(obj, Ch_L2 = 0),
-               "'Ch_L2' must be a positive integer scalar")
+               "'Ch_L2' should be a positive integer scalar")
   expect_error(calc_FastRatio(obj, Ch_L2 = c(1, 2)),
-               "'Ch_L2' must be a positive integer scalar")
+               "'Ch_L2' should be a positive integer scalar")
 
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve,
                               Ch_L3 = 50),
@@ -29,7 +29,7 @@ test_that("input validation", {
   expect_error(calc_FastRatio(obj, Ch_L3 = list(4, 5)),
                "Input for 'Ch_L3' must be a vector of length 2")
   expect_error(calc_FastRatio(obj, Ch_L3 = c(0, 2)),
-               "'Ch_L3[1]' must be a positive integer scalar",
+               "'Ch_L3[1]' should be a positive integer scalar",
                fixed = TRUE)
   expect_error(calc_FastRatio(obj, Ch_L3 = c(5, 2)),
                "Ch_L3[2] must be greater than or equal to Ch_L3[1]",
