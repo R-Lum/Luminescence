@@ -16,7 +16,7 @@ test_that("consistency checks", {
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2),
                "'packing.density' expects values between 0 and 1")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1),
-               "'sample.diameter' must be a positive scalar")
+               "'sample.diameter' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,
                                 MC = TRUE),
                "'grain.size' must be a vector containing the min and max")

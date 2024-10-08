@@ -16,7 +16,7 @@ test_that("input validation", {
                            bg.subtraction = "error"),
                "Invalid method for background subtraction")
   expect_error(fit_LMCurve(values.curve, n.components = "error"),
-               "'n.components' must be a positive integer scalar")
+               "'n.components' should be a positive integer scalar")
   expect_error(fit_LMCurve(values.curve, input.dataType = "error"),
                "'input.dataType' should be one of 'LM' or 'pLM'")
   expect_error(fit_LMCurve(values.curve, fit.method = "error"),

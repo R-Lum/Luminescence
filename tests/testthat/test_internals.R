@@ -321,19 +321,19 @@ test_that("Test internals", {
   expect_silent(.validate_positive_scalar(NULL, int = TRUE, null.ok = TRUE))
 
   expect_error(.validate_positive_scalar(test <- "a"),
-               "'test' must be a positive scalar")
+               "'test' should be a positive scalar")
   expect_error(.validate_positive_scalar(test <- NULL),
-               "'test' must be a positive scalar")
+               "'test' should be a positive scalar")
   expect_error(.validate_positive_scalar(iris),
-               "'iris' must be a positive scalar")
+               "'iris' should be a positive scalar")
   expect_error(.validate_positive_scalar(1:2, name = "var"),
-               "'var' must be a positive scalar")
+               "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(0, name = "var"),
-               "'var' must be a positive scalar")
+               "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(-1, name = "var"),
-               "'var' must be a positive scalar")
+               "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "var"),
-               "'var' must be a positive integer")
+               "'var' should be a positive integer")
 
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))

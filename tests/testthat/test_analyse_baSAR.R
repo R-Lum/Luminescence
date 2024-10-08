@@ -19,7 +19,7 @@ test_that("input validation", {
   expect_error(analyse_baSAR(list(data.frame(), matrix()), verbose = FALSE),
                "'object' only accepts a list with objects of similar type")
   expect_error(analyse_baSAR(CWOSL.sub, n.MCMC = NULL),
-               "'n.MCMC' must be a positive integer scalar")
+               "'n.MCMC' should be a positive integer scalar")
 
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE),
                "'source_doserate' is missing, but the current implementation")

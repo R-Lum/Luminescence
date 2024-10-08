@@ -7,7 +7,7 @@ test_that("input validation", {
   expect_error(plot_DetPlot("error"),
                "'object' should be of class 'RLum.Analysis'")
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
-               "'signal.integral.min' must be a positive integer scalar")
+               "'signal.integral.min' should be a positive integer scalar")
   expect_error(plot_DetPlot(object, signal.integral.min = 1,
                             signal.integral.max = 1),
                "'signal.integral.max' must be greater than 'signal.integral.min'")

@@ -33,7 +33,7 @@ test_that("Check template creation ", {
 
   ## expect failure
   expect_error(template_DRAC("preset"),
-               "'nrow' must be a positive integer scalar")
+               "'nrow' should be a positive integer scalar")
   expect_warning(template_DRAC(nrow = 5001, notification = FALSE),
                  regexp = "\\[template_DRAC\\(\\)\\] More than 5000 datasets might not be supported!")
   expect_error(template_DRAC(preset = "does_not_exist"),

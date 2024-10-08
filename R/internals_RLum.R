@@ -1175,7 +1175,7 @@ SW <- function(expr) {
       (int && val != as.integer(val))) {
     if (is.null(name))
       name <- all.vars(match.call())[1]
-    .throw_error("'", name, "' must be a positive ", if (int) "integer ",
+    .throw_error("'", name, "' should be a positive ", if (int) "integer ",
                  "scalar")
   }
 }

@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),
                "'sequence_structure' must be of type 'character'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
-               "'n.MC' must be a positive integer scalar")
+               "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
                "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
