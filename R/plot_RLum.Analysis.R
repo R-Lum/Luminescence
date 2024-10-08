@@ -173,6 +173,7 @@ plot_RLum.Analysis <- function(
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
+  .validate_class(combine, "logical")
   if(combine)
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
   else
@@ -182,44 +183,23 @@ plot_RLum.Analysis <- function(
   .validate_positive_scalar(ncols)
 
   ## set appropriate values for nrows and ncols if not both specified
-  if (missing(ncols) | missing(nrows)) {
-    if (missing(ncols) & !missing(nrows)) {
-      if (n.plots  == 1) {
+  if (missing(nrows) || missing(ncols)) {
+    if (n.plots == 1) {
+      if (missing(nrows))
+        nrows <- 1
+      if (missing(ncols))
         ncols <- 1
 
-      } else{
+    } else { # n.plots > 1
+      if (missing(ncols)) {
         ncols <- 2
       }
-    }
-    else if (!missing(ncols) & missing(nrows)) {
-      if (n.plots  == 1) {
-        nrows <- 1
-
-      }
-      else if (n.plots  > 1 & n.plots <= 4) {
-        nrows <- 2
-
-      } else{
-        nrows <- 3
-      }
-
-    } else{
-
-      if (n.plots  == 1) {
-        nrows <- 1
-        ncols <- 1
-      }
-      else if (n.plots  > 1 & n.plots  <= 2) {
-        nrows <- 1
-        ncols <- 2
-
-      } else if (n.plots  > 2 & n.plots <= 4) {
-        nrows <- 2
-        ncols <- 2
-      }
-      else{
-        nrows <- 3
-        ncols <- 2
+      if (missing(nrows)) {
+        if (n.plots <= 4) {
+          nrows <- ceiling(n.plots / 2)
+        } else {
+          nrows <- 3
+        }
       }
     }
   }
@@ -228,24 +208,23 @@ plot_RLum.Analysis <- function(
                                          c("CW2pLM", "CW2pLMi",
                                            "CW2pHMi", "CW2pPMi", "None"))
 
+  if (combine && length(object@records) == 1) {
+    combine <- FALSE
+    .throw_warning("Nothing to combine, object contains a single curve")
+  }
+
   # Plotting ------------------------------------------------------------------
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(1) NORMAL (combine == FALSE)
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  if(!combine || length(object@records) == 1){
 
-    ##show warning message
-    if(combine & length(object@records) == 1){
-      .throw_warning("Nothing to combine, object contains a single curve")
-    }
+  if (!combine) {
 
     ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
     temp <- lapply(1:length(object@records), function(x){
-      if(is(object@records[[x]], "RLum.Data.Curve") ||
-         is(object@records[[x]], "RLum.Data.Spectrum")){
-
+      if (inherits(object@records[[x]], "RLum.Data.Curve") ||
+          inherits(object@records[[x]], "RLum.Data.Spectrum")) {
         object@records[[x]]
-
       }})
 
     ##calculate number of pages for mtext
@@ -294,24 +273,14 @@ plot_RLum.Analysis <- function(
     ##apply curve transformation
     for(i in 1:length(temp)){
 
-      if(is(temp[[i]], "RLum.Data.Curve") == TRUE){
+      if (inherits(temp[[i]], "RLum.Data.Curve")) {
 
         ##set curve transformation if wanted
-        if (grepl("IRSL", temp[[i]]@recordType) ||
-            grepl("OSL", temp[[i]]@recordType)) {
+        if (grepl("IRSL|OSL", temp[[i]]@recordType) &&
+            curve.transformation != "None") {
 
-          if(curve.transformation=="CW2pLM"){
-            temp[[i]] <- CW2pLM(temp[[i]])
-
-          }else if(curve.transformation=="CW2pLMi"){
-            temp[[i]] <- CW2pLMi(temp[[i]])
-
-          }else if(curve.transformation=="CW2pHMi"){
-            temp[[i]]<- CW2pHMi(temp[[i]])
-
-          }else if(curve.transformation=="CW2pPMi"){
-            temp[[i]] <- CW2pPMi(temp[[i]])
-          }
+          ## get the actual function from the parameter value and apply it
+          temp[[i]] <- get(curve.transformation)(temp[[i]])
         }
 
         ##check plot settings and adjust
@@ -356,15 +325,12 @@ plot_RLum.Analysis <- function(
           col <- plot.settings$col[i]
 
         } else{
+          col <- "black"
           if (grepl("IRSL", temp[[i]]@recordType)) {
             col <- "red"
-          } else
-            if (grepl("OSL", temp[[i]]@recordType)) {
-              col <- "blue"
-            } else
-            {
-              col <- "black"
-            }
+          } else if (grepl("OSL", temp[[i]]@recordType)) {
+            col <- "blue"
+          }
         }
 
         ##main
@@ -401,6 +367,7 @@ plot_RLum.Analysis <- function(
               norm = plot.settings$norm,
               pch = plot.settings$pch[[i]],
               cex = plot.settings$cex[[i]],
+              legend.col = plot.settings$legend.col[[i]],
               smooth = plot.settings$smooth[[i]]
             ),
             list(...)
@@ -479,7 +446,6 @@ plot_RLum.Analysis <- function(
 
       } else{
         plot.settings[[x]]
-
       }
     })
 
@@ -514,22 +480,13 @@ plot_RLum.Analysis <- function(
 
       ##transform values to data.frame and norm values
       temp.data.list <- lapply(1:length(object.list), function(x) {
-        ##set curve transformation if wanted
 
-        if (grepl("IRSL", object.list[[x]]@recordType) |
-            grepl("OSL", object.list[[x]]@recordType)) {
-          if (curve.transformation == "CW2pLM") {
-            object.list[[x]] <- CW2pLM(object.list[[x]])
+        ## set curve transformation if wanted
+        if (grepl("IRSL|OSL", object.list[[x]]@recordType) &&
+            curve.transformation != "None") {
 
-          }else if (curve.transformation == "CW2pLMi") {
-            object.list[[x]] <- CW2pLMi(object.list[[x]])
-
-          }else if (curve.transformation == "CW2pHMi") {
-            object.list[[x]] <- CW2pHMi(object.list[[x]])
-
-          }else if (curve.transformation == "CW2pPMi") {
-            object.list[[x]] <- CW2pPMi(object.list[[x]])
-          }
+          ## get the actual function from the parameter value and apply it
+          object.list[[x]] <- get(curve.transformation)(object.list[[x]])
         }
 
         temp.data <- as(object.list[[x]], "data.frame")
@@ -605,19 +562,15 @@ plot_RLum.Analysis <- function(
       }
 
       ##lty
+      lty <- plot.settings$lty[[k]]
       if (length(plot.settings$lty[[k]]) < length(object.list)) {
         lty <- rep(plot.settings$lty[[k]], times = length(object.list))
-
-      }else{
-        lty <- plot.settings$lty[[k]]
       }
 
       ##pch
+      pch <- plot.settings$pch[[k]]
       if (length(plot.settings$pch[[k]]) < length(object.list)) {
         pch <- rep(plot.settings$pch[[k]], times = length(object.list))
-
-      }else{
-        pch <- plot.settings$pch[[k]]
       }
 
       ##legend.text
@@ -634,12 +587,7 @@ plot_RLum.Analysis <- function(
       }
 
       ##legend.col
-      legend.col <- if(!is.null(plot.settings$legend.col[[k]])){
-        plot.settings$legend.col[[k]]
-
-      }else{
-        NULL
-      }
+      legend.col <- plot.settings$legend.col[[k]]
 
       ##legend.pos
       legend.pos <- if(!is.null(plot.settings$legend.pos[[k]])){
@@ -723,16 +671,14 @@ plot_RLum.Analysis <- function(
         par(xpd = TRUE)
 
         # determine legend position on log(y) scale
+        ypos <- par()$usr[4]
         if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
           ypos <- 10^par()$usr[4]
-        else
-          ypos <- par()$usr[4]
 
         # determine position on log(x) scale
+        xpos <- par()$usr[2]
         if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
           xpos <- 10^par()$usr[2]
-        else
-          xpos <- par()$usr[2]
       }
 
       ##legend
@@ -761,9 +707,7 @@ plot_RLum.Analysis <- function(
     ##reset graphic settings
     if (exists("par.default.outside")) {
       par(par.default.outside)
-      rm(par.default.outside)
     }
     par(par.default)
-    rm(par.default)
   }
 }

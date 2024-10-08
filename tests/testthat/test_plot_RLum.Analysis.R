@@ -18,6 +18,8 @@ test_that("input validation", {
                "'nrows' should be a positive scalar")
   expect_error(plot_RLum.Analysis(temp, ncols = -1),
                "'ncols' should be a positive scalar")
+  expect_error(plot_RLum.Analysis(temp, combine = -1),
+               "'combine' should be of class 'logical'")
 
   expect_error(plot_RLum.Analysis(
       set_RLum("RLum.Analysis", records = list(c1@records[[1]],
@@ -113,7 +115,16 @@ test_that("Test the basic plot functionality", {
     records_max = 5,
     smooth = TRUE,
     type = "p",
-    abline = list(v = c(110))
+    abline = list(v = c(110)),
+    ## more coverage
+    main = "TL curves combined",
+    log = "xy",
+    col = get("col", pos = .LuminescenceEnv)[1:4],
+    xlab = "Temperature recorded [log \u00B0C]", ylab = "log TL [a.u.]",
+    xlim = c(0, 200), ylim = c(0, 1), lty = c(1, 2),
+    legend.text = paste("Curve", 1:4),
+    legend.col = get("col", pos = .LuminescenceEnv)[1:4],
+    legend.pos = "outside",
   ))
 
   ##test arguments
@@ -127,4 +138,18 @@ test_that("Test the basic plot functionality", {
     xlim = c(1,100),
     abline = list(v = c(110))
   ))
+
+  ## curve transformation
+  plot_RLum.Analysis(temp,
+                     subset = list(recordType = "IRSL"),
+                     curve.transformation = "CW2pLMi")
+
+  plot_RLum.Analysis(temp,
+                     subset = list(recordType = "OSL"),
+                     curve.transformation = "CW2pHMi")
+
+  plot_RLum.Analysis(temp,
+                     subset = list(recordType = "TL"),
+                     combine = TRUE,
+                     curve.transformation = "CW2pPMi")
 })
