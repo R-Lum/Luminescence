@@ -29,9 +29,10 @@ test_that("Check template creation ", {
   expect_true(!all(is.na(template_DRAC(preset = "DRAC-example_polymineral", notification = FALSE))))
   expect_equal(length(template_DRAC(notification = FALSE)), 53)
   expect_equal(length(template_DRAC(nrow = 10, notification = FALSE)[[1]]), 10)
-  expect_s3_class(template_DRAC(nrow = -1, notification = FALSE), "DRAC.list")
 
   ## expect failure
+  expect_error(template_DRAC(nrow = -1),
+               "'nrow' should be a positive integer scalar")
   expect_error(template_DRAC("preset"),
                "'nrow' should be a positive integer scalar")
   expect_warning(template_DRAC(nrow = 5001, notification = FALSE),
