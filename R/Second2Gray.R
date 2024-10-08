@@ -119,10 +119,8 @@ Second2Gray <- function(
     ## extract dose.rate and convert it to data.frame if necessary
     dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
     if (!is.data.frame(dose.rate)) {
-      dose.rate <- data.frame(
-          dose.rate = as.numeric(dose.rate[1]),
-          dose.rate.error = as.numeric(dose.rate[2])
-      )
+      dose.rate <- data.frame(dose.rate = as.numeric(dose.rate[1]),
+                              dose.rate.error = as.numeric(dose.rate[2]))
     }
   }
 
@@ -134,43 +132,21 @@ Second2Gray <- function(
 
   De.seconds <- data[,1]
   De.error.seconds <- data[,2]
+  De.gray <- round(De.seconds * dose.rate[[1]], digits = 2)
 
-  De.gray <- NA
-  De.error.gray <- NA
+  if (error.propagation == "omit") {
+    De.error.gray <- round(dose.rate[[1]] * De.error.seconds,
+                           digits = 3)
 
-  if(is(dose.rate,"data.frame")){
-    De.gray <- round(De.seconds*dose.rate[,1], digits=2)
+  } else if(error.propagation == "gaussian") {
+    De.error.gray <- round(sqrt((dose.rate[[1]] * De.error.seconds) ^ 2 +
+                                (De.seconds * dose.rate[[2]]) ^ 2),
+                           digits = 3)
 
-  }else{
-    De.gray <- round(De.seconds*dose.rate[1], digits=2)
-  }
-
-  if(error.propagation == "omit"){
-
-    if(is(dose.rate,"data.frame")){
-      De.error.gray <- round(dose.rate[,1]*De.error.seconds, digits=3)
-
-    }else{
-      De.error.gray <- round(dose.rate[1]*De.error.seconds, digits=3)
-    }
-
-  }else if(error.propagation == "gaussian"){
-
-    if(is(dose.rate,"data.frame")){
-       De.error.gray <- round(sqrt((De.seconds*dose.rate[,2])^2+(dose.rate[,1]*De.error.seconds)^2), digits=3)
-
-    }else{
-      De.error.gray <- round(sqrt((De.seconds*dose.rate[2])^2+(dose.rate[1]*De.error.seconds)^2), digits=3)
-    }
-
-  }else if (error.propagation == "absolute"){
-
-    if(is(dose.rate,"data.frame")){
-      De.error.gray <- round(abs(dose.rate[,1] * De.error.seconds) + abs(De.seconds * dose.rate[,2]), digits=3)
-
-    }else{
-      De.error.gray <- round(abs(dose.rate[1] * De.error.seconds) + abs(De.seconds * dose.rate[2]), digits=3)
-    }
+  } else if (error.propagation == "absolute") {
+    De.error.gray <- round(abs(dose.rate[[1]] * De.error.seconds) +
+                           abs(De.seconds * dose.rate[[2]]),
+                           digits = 3)
   }
 
   ## Return -----------------------------------------------------------------
