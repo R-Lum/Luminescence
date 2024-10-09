@@ -225,7 +225,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   ##run function
   temp_results <- lapply(1:length(object), function(x){
-      temp <- try(do.call(what = fit_OSLLifeTimes,
+    temp <- try(do.call(what = fit_OSLLifeTimes,
         c(list(
          object = object[[x]],
          tp = tp[[x]],
@@ -481,7 +481,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       if(!is.na(chi_squared[1])){
         F[2] <- (abs(diff(chi_squared))/2) /
           (chi_squared[2]/(nrow(df) - 2 * m  - 2))
-
       }
 
       ##terminal feedback
@@ -642,7 +641,6 @@ if(verbose){
   }
   cat(paste(string, collapse = ""))
   cat("\n")
-
 }
 
 # Plotting ------------------------------------------------------------------------------------
@@ -660,16 +658,17 @@ if(plot) {
     lty = rep(1, (m + 1)),
     legend.pos = "topright",
     legend.text = c("sum", paste0("comp. ", 1:m))
-
   )
 
     ##modify settings on request
     plot_settings <- modifyList(x = plot_settings, val = list(...))
 
     ##catch log scale
+    if (is.list(plot_settings$log))
+      plot_settings$log <- unlist(plot_settings$log)
     if(grepl(pattern = "x", plot_settings$log, fixed = TRUE)){
       if(plot_settings$xlim[1] == 0){
-        plot_settings$xlim[1] <- if(min(df_raw[[1]]) == 0) 1e-04 else min(df_raw[[1]])
+        plot_settings$xlim[1] <- max(min(df_raw[[1]]), 1e-4)
         .throw_warning("log-scale requires x-values > 0, set min xlim to ",
                        round(plot_settings$xlim[1], 4))
       }
@@ -677,7 +676,7 @@ if(plot) {
 
     if(grepl(pattern = "y", plot_settings$log, fixed = TRUE)){
       if(plot_settings$ylim[1] == 0){
-        plot_settings$ylim[1] <- if(min(df_raw[[2]]) == 0) 1e-04 else min(df_raw[[2]])
+        plot_settings$ylim[1] <- max(min(df_raw[[2]]), 1e-04)
         .throw_warning("log-scale requires y-values > 0, set min ylim to ",
                        round(plot_settings$ylim[1], 4))
       }
@@ -738,7 +737,6 @@ if(plot) {
         col = plot_settings$col[i + 1],
         lty = plot_settings$lty[i + 1]
       )
-
     }
 
     ##+ add legend

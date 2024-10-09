@@ -114,7 +114,7 @@ test_that("standard check", {
           verbose = FALSE,
           plot = TRUE,
           plot_simple = TRUE,
-          log = "xy",
+          log = list("xy"),
           lty = 1,
           n.components = 1),
       "log-scale requires x-values > 0, set min xlim to 0.01"),
