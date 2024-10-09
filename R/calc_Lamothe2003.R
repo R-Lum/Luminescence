@@ -281,14 +281,8 @@ calc_Lamothe2003 <- function(
   # apply to input data
   data[[2]][1] <-  data[[2]][1] / Fading_C
   data[[3]][1] <-  sqrt((data[[3]][1]/data[[2]][1])^2 +
-                            ((1/Fading_C - 1) * sFading_C/Fading_C)^2) * data[[2]][1]
+                        (sFading_C/Fading_C)^2) * data[[2]][1]
 
-  ##TODO discuss with Norbert
-  # data[[3]][1] <-  sqrt((data[[3]][1]/data[[2]][1])^2 +
-  #                         (sFading_C/Fading_C)^2) * data[[2]][1]
-  #
-  # print(LnTn_BEFORE.ERROR/LnTn_BEFORE)
-  # print(data[[3]][1]/ data[[2]][1] )
 
   # Fitting ---------------------------------------------------------------------------------
   ##set arguments
