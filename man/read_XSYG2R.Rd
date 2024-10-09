@@ -7,6 +7,7 @@
 read_XSYG2R(
   file,
   recalculate.TL.curves = TRUE,
+  n_records = NULL,
   fastForward = FALSE,
   import = TRUE,
   pattern = ".xsyg",
@@ -26,6 +27,9 @@ if set to \code{TRUE}, TL curves are returned as temperature against count value
 (see details for more information) Note: The option overwrites the time vs.
 count TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
+
+\item{n_records}{\link{numeric} (\emph{with default}): set the number of records to be imported; by default
+the function attempts ot import all records}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
 if \code{TRUE} for a more efficient data processing only a list of \linkS4class{RLum.Analysis}
@@ -144,7 +148,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.12
+ 0.6.13
 }
 
 \examples{
@@ -173,12 +177,7 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. read_XSYG2R(): Import XSYG files to R. Function version 0.6.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany
@@ -192,5 +191,5 @@ XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+}
 \keyword{IO}

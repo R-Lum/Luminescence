@@ -85,6 +85,9 @@
 #' (see details for more information) Note: The option overwrites the time vs.
 #' count TL curve. Select `FALSE` to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
+#' 
+#' @param n_records [numeric] (*with default*): set the number of records to be imported; by default
+#' the function attempts ot import all records
 #'
 #' @param fastForward [logical] (*with default*):
 #' if `TRUE` for a more efficient data processing only a list of [RLum.Analysis-class]
@@ -126,7 +129,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.12
+#' @section Function version: 0.6.13
 #'
 #'
 #' @author
@@ -177,6 +180,7 @@
 read_XSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
+  n_records = NULL,
   fastForward = FALSE,
   import = TRUE,
   pattern = ".xsyg",
@@ -194,6 +198,7 @@ read_XSYG2R <- function(
   ##  - xlum should be general, xsyg should take care about subsequent details
 
   .validate_class(file, c("character", "list"))
+  .validate_class(n_records, c("numeric", "NULL"))
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -329,7 +334,7 @@ read_XSYG2R <- function(
 
   ##==========================================================================##
   ##SHOW STRUCTURE
-  if(import == FALSE){
+  if(!import){
     ##sample information
     temp.sample <- as.data.frame(XML::xmlAttrs(temp), stringsAsFactors = FALSE)
 
@@ -374,9 +379,12 @@ read_XSYG2R <- function(
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
 
+    ## set n_records
+    if(is.null(n_records))
+      n_records <- XML::xmlSize(temp)
+    
     ##loop over the entire sequence by sequence
-    output <- lapply(1:XML::xmlSize(temp), function(x){
-
+    output <- lapply(1:min(XML::xmlSize(temp),n_records[1]), function(x){
       ##read sequence header
       temp.sequence.header <- as.data.frame(XML::xmlAttrs(temp[[x]]), stringsAsFactors = FALSE)
 
@@ -405,7 +413,6 @@ read_XSYG2R <- function(
 
         ##correct record type in depending on the stimulator
         if(temp.sequence.object.recordType == "OSL"){
-
           if(XML::xmlAttrs(temp[[x]][[i]][[
             XML::xmlSize(temp[[x]][[i]])]])["stimulator"] == "ir_LED_850" |
             XML::xmlAttrs(temp[[x]][[i]][[
@@ -417,10 +424,9 @@ read_XSYG2R <- function(
 
         ##loop 3rd level
         lapply(1:XML::xmlSize(temp[[x]][[i]]), function(j){
-
           ##get values
           temp.sequence.object.curveValue <- temp[[x]][[i]][[j]]
-
+          
           ##get curveType
           temp.sequence.object.curveType <- as.character(
             XML::xmlAttrs(temp[[x]][[i]][[j]])["curveType"])
@@ -444,7 +450,6 @@ read_XSYG2R <- function(
 
           ## TL curve recalculation ============================================
           if(recalculate.TL.curves){
-
             ##TL curve heating values is stored in the 3rd curve of every set
             if(temp.sequence.object.recordType == "TL" && j == 1){
 
@@ -480,9 +485,7 @@ read_XSYG2R <- function(
               temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
                 temp[[x]][[i]][[3]]))
 
-
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
-
                 #reduce matrix values to values of the detection
                 temp.sequence.object.curveValue.heating.element <-
                   temp.sequence.object.curveValue.heating.element[
@@ -491,7 +494,6 @@ read_XSYG2R <- function(
                       temp.sequence.object.curveValue.heating.element[,1] <=
                       max(temp.sequence.object.curveValue.PMT[,1]), ,drop = FALSE]
               }else{
-
                 #reduce matrix values to values of the detection
                 temp.sequence.object.curveValue.heating.element <-
                   temp.sequence.object.curveValue.heating.element[

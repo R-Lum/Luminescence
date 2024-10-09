@@ -45,6 +45,14 @@ test_that("test import of XSYG files", {
                          type = "list")
   expect_type(results[[1]]@info$file, type = "character")
   expect_output(print(results))
+  
+  ## check n_records argument
+  expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 1),
+              "list")
+  expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 10),
+              "list")
+  expect_error(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = "error"), 
+               regexp = "\\[read\\_XSYG2R\\(\\)\\] 'n\\_records' should be of class")
 
   ## list input
   expect_type(read_XSYG2R(list(xsyg.file), fastForward = TRUE,

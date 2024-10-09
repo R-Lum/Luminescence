@@ -69,6 +69,9 @@ fixed in #263).
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 
+### `read_XSYG2R()`
+* Add a new argument `n_records` that enables to limit the number of imported records in case the file was faulty or only a limited number of records is wanted.  
+
 ### `use_DRAC()`
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
 CSV files according to the DRAC v1.2 CSV template.
