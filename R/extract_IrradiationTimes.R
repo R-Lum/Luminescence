@@ -150,19 +150,11 @@ extract_IrradiationTimes <- function(
       .throw_warning("argument 'file.BINX' is not supported in self-call mode.")
     }
 
-    ##extend arguments
-      ##extent recordType
-      if(is(recordType, "list")){
-        recordType <-
-          rep(recordType, length = length(object))
+    ## expand input arguments
+    recordType <- .listify(recordType, length(object))
 
-      }else{
-        recordType <-
-          rep(list(recordType), length = length(object))
-      }
-
-      ##run function
-      results <- lapply(1:length(object), function(x) {
+    ## run function
+    results <- lapply(1:length(object), function(x) {
         extract_IrradiationTimes(
           object = object[[x]],
           recordType = recordType[[x]],

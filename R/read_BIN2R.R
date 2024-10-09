@@ -169,63 +169,16 @@ read_BIN2R <- function(
   }
 
   if (is.list(file)) {
-    ##extend list of parameters
+    ## expand input arguments
+    rep.length <- length(file)
 
-    ##position
-    position <- if(is.list(position)){
-      rep(position, length = length(file))
-
-    }else{
-      rep(list(position), length = length(file))
-    }
-
-    ##n.records
-    n.records <- if(is.list(n.records)){
-      rep(n.records, length = length(file))
-
-    }else{
-      rep(list(n.records), length = length(file))
-    }
-
-    ##zero_data.rm
-    zero_data.rm<- if(is.list(zero_data.rm)){
-      rep(zero_data.rm, length = length(file))
-
-    }else{
-      rep(list(zero_data.rm), length = length(file))
-    }
-
-    ##duplicated.rm
-    duplicated.rm <- if(is.list(duplicated.rm)){
-      rep(duplicated.rm, length = length(file))
-
-    }else{
-      rep(list(duplicated.rm), length = length(file))
-    }
-
-    ## show.raw.values
-    show.raw.values <- if(is.list(show.raw.values)){
-      rep( show.raw.values, length = length(file))
-
-    }else{
-      rep(list( show.raw.values), length = length(file))
-    }
-
-    ## show.record.number
-    show.record.number <- if(is.list(show.record.number)){
-      rep(show.record.number, length = length(file))
-
-    }else{
-      rep(list(show.record.number), length = length(file))
-    }
-
-    ##forced.VersionNumber
-    forced.VersionNumber <- if(is.list(forced.VersionNumber)){
-      rep(forced.VersionNumber, length = length(file))
-
-    }else{
-      rep(list(forced.VersionNumber), length = length(file))
-    }
+    position <- .listify(position, rep.length)
+    n.records <- .listify(n.records, rep.length)
+    zero_data.rm <- .listify(zero_data.rm, rep.length)
+    duplicated.rm <- .listify(duplicated.rm, rep.length)
+    show.raw.values <- .listify(show.raw.values, rep.length)
+    show.record.number <- .listify(show.record.number, rep.length)
+    forced.VersionNumber <- .listify(forced.VersionNumber, rep.length)
 
     temp.return <- lapply(1:length(file), function(x) {
       temp <- read_BIN2R(

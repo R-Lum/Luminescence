@@ -281,16 +281,10 @@ if(is.list(object)){
 
   ##handle main separately
   if("main"%in% names(list(...))){
-    if(inherits(list(...)$main, "list")){
-      main <- rep(list(...)$main,length = length(object))
-
-    }else{
-      main <- rep(as.list(list(...)$main),length = length(object))
-    }
+    main <- .listify(list(...)$main, length = length(object))
 
   }else{
     main <- as.list(paste0("ALQ #",1:length(object)))
-
   }
 
   results <- merge_RLum(lapply(1:length(object), function(x){

@@ -261,9 +261,8 @@ fit_EmissionSpectra <- function(
       mtext <- names(object)
 
     }else{
-      mtext <- as.list(rep(args_list$mtext, length(object)))
+      mtext <- .listify(args_list$mtext, length(object))
       args_list$mtext <- NULL
-
     }
 
     ##run over the list

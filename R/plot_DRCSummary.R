@@ -92,15 +92,15 @@ if(inherits(object, "list")){
   ##catch ... arguments
   plot_settings <- list(...)
 
-  ##expand arguments
+  ## expand input arguments
   if("main" %in% names(list(...))){
-    main <- as.list(rep(list(...)[["main"]], length(object)))
+    main <- .listify(list(...)[["main"]], length(object))
 
     ##filter main from the ... argument list otherwise we will have a collusion
     plot_settings["main" %in% names(plot_settings)] <- NULL
 
   }else{
-    main <- as.list(rep("DRC", length(object)))
+    main <- .listify("DRC", length(object))
   }
 
   results <- lapply(1:length(object), function(o){

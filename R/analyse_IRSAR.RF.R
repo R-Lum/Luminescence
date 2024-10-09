@@ -436,45 +436,27 @@ analyse_IRSAR.RF<- function(
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-    ##extent the list of arguments if set
+    ## expand input arguments
+    rep.length <- length(object)
 
-    ##sequence_structure
-    sequence_structure <- rep(list(sequence_structure), length = length(object))
-
-    ##RF_nat.lim
-    RF_nat.lim <- rep(list(RF_nat.lim), length = length(object))
-
-    ##RF_reg.lim
-    RF_reg.lim <- rep(list(RF_reg.lim), length = length(object))
-
-    ##method
-    method <- rep(list(method), length = length(object))
-
-    ##method.control
-    method.control <- rep(list(method.control), length = length(object))
+    sequence_structure <- .listify(sequence_structure, rep.length)
+    RF_nat.lim <- .listify(RF_nat.lim, rep.length)
+    RF_reg.lim <- .listify(RF_reg.lim, rep.length)
+    method <- .listify(method, rep.length)
+    method.control <- .listify(method.control, rep.length)
+    n.MC <- .listify(n.MC, rep.length)
 
     ##test_parameters
     if(is(test_parameters[[1]], "list")){
-      test_parameters <- rep(test_parameters, length = length(object))
+      test_parameters <- rep(test_parameters, rep.length)
 
     }else{
-     test_parameters <- rep(list(test_parameters), length = length(object))
-
+     test_parameters <- rep(list(test_parameters), rep.length)
     }
-
-    ##n.MC
-    n.MC <- rep(list(n.MC), length = length(object))
 
     ##main
     if("main"%in% names(list(...))){
-
-      if(is(list(...)$main, "list")){
-        temp_main <- rep(list(...)$main, length = length(object))
-
-      }else{
-        temp_main <- rep(list(list(...)$main), length = length(object))
-
-      }
+      temp_main <- .listify(list(...)$main, rep.length)
 
     }else{
       if(object[[1]]@originator == "read_RF2R"){
@@ -482,7 +464,6 @@ analyse_IRSAR.RF<- function(
       } else {
         temp_main <- as.list(paste0("ALQ #",1:length(object)))
       }
-
     }
 
 

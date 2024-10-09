@@ -189,16 +189,14 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     inherits(x, "RLum.Analysis")}, logical(1)))){
     object <- lapply(object, function(x){x@records})
     object <- .unlist_RLum(object)
-
   }
 
-  ##expand parameters
-  ##n.components
-  if(!is.null(n.components))
-    n.components <- as.list(rep(n.components, length(object)))
+  ## expand input arguments
+  rep.length <- length(object)
 
-  ##tp
-  tp <- as.list(rep(tp, length(object)))
+  if (!is.null(n.components))
+    n.components <- .listify(n.components, rep.length)
+  tp <- .listify(tp, rep.length)
 
   ## names of extra arguments
   arg_names <- names(list(...))
@@ -219,7 +217,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       })
       names(args) <- arg_names
       args
-
     })
   }
 
@@ -256,7 +253,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   ##return
   return(results)
-
 }
 
   ## Integrity tests --------------------------------------------------------
@@ -376,7 +372,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     A <- paste0("A.",1:n.components)
     tau <- paste0("tau.",1:n.components)
     as.formula(paste0("y ~ ", paste(A," * exp(- x/(",tau," + ", tp, "))", collapse = " + ")))
-
   }
   ##
   ##
@@ -400,7 +395,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
     }else{
       w <- "1"
-
     }
 
     ##combine
@@ -408,7 +402,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
     ##parse ... if we do it here, we boost the speed of the evaluation
     parse(text = eval(term))
-
   }
   ##
   ##
@@ -430,7 +423,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       cat("\n[fit_OSLLifeTime()]\n")
       cat("\n(1) Start parameter and component adapation")
       cat("\n---------------------(start adaption)------------------------------------")
-
     }
 
     while(!is.na(suppressWarnings(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2))) && (
@@ -496,7 +488,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
           cat("---------------------(end adaption)--------------------------------------\n\n")
 
         }
-
       }
 
       ##break here if n.components was set others than NULL, in such case we force the number
@@ -513,7 +504,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       ##update objects
       chi_squared[1] <- chi_squared[2]
       m <- m + 1
-
     }
 
     ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -530,7 +520,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
       }else{
         m <- m - 2
-
       }
     }
 
@@ -549,7 +538,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       cat("\n>> Applied component matrix\n")
       print(start_matrix)
       cat("\n\n")
-
     }
 
     ##run fitting using the Levenberg-Marquardt algorithm
