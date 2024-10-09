@@ -1213,6 +1213,22 @@ SW <- function(expr) {
   return(TRUE)
 }
 
+#' Create a list of objects repeated a given number of times
+#'
+#' @param x [vector] (**required**) An object to be repeated into a list.
+#' @param length [integer] (**required**) Length of the list to be produced.
+#'
+#' @return
+#' A list with the object repeated the specified number of times.
+#'
+#' @md
+#' @noRd
+.listify <- function(x, length) {
+  if (!inherits(x, "list"))
+    x <- list(x)
+  rep(x, length = length)
+}
+
 #' Comma-separated string concatenation
 #'
 #' Collapse the elements of a vector into a comma-separated string, with

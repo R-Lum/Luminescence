@@ -346,6 +346,13 @@ test_that("Test internals", {
       expect_false(.require_suggested_package("error", throw.error = FALSE),
                    "This function requires the 'error' package: to install it"))
 
+  ## .listify() -------------------------------------------------------------
+  expect_equal(.listify(1, length = 3),
+               list(1, 1, 1))
+  expect_equal(.listify(letters, length = 5),
+               .listify(list(letters), length = 5))
+
+
   ## .collapse() ------------------------------------------------------------
   expect_equal(.collapse(1:3),
                "'1', '2', '3'")
