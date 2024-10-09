@@ -51,6 +51,11 @@ prevent "Figure margins too large" errors.
 (#245, fixed in #246).
 * Several edge cases that led to crashes have been fixed (#147, fixed in #247).
 
+### `calc_Lamothe2003()`
+* We addressed a long-standing issue (#96) regarding the calculation of the
+calculation of the `Ln/Tn` error after fading correction, which led to smaller
+than expected errors (fixed in #296).
+
 ### `get_RLum()`
 * When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would 
 remove all `NULL` objects, but not elements that became `list()` (empty list) during the selection; fixed.
