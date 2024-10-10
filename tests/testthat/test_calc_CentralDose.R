@@ -37,6 +37,20 @@ test_that("check functionality", {
   expect_snapshot_RLum(calc_CentralDose(ExampleData.DeValues$CA1,
                                         log = FALSE, trace = TRUE),
                        tolerance = snapshot.tolerance)
-  })
 
+  ## negative De values
+  neg_vals <- data.frame(De = c(-0.56, -0.16, 0.0, 0.04),
+                         De.err = c(0.15, 0.1, 0.12, 0.1))
+  expect_warning(calc_CentralDose(neg_vals, log = TRUE),
+                 "'data' contains non-positive De values, 'log' set to FALSE")
+
+  ## negative De errors
+  neg_errs <- data.frame(De = c(0.56, 0.16, 0.1, 0.04),
+                         De.err = c(-0.15, -0.1, 0.12, -0.1))
+  res1 <- calc_CentralDose(neg_errs)
+  res2 <- calc_CentralDose(abs(neg_errs))
+  res1@info$call <- res2@info$call <- NULL
+  res1@.uid <- res2@.uid <- NA_character_
+  expect_equal(res1, res2)
+  })
 })

@@ -21,9 +21,8 @@ a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FAL
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
 \item{log}{\link{logical} (\emph{with default}):
-fit the (un-)logged central age model to De data}
-
-\item{na.rm}{\link{logical} (\emph{with default}): strip \code{NA} values before the computation proceeds}
+fit the (un-)logged central age model to De data. Log transformation is
+allowed only if the De values are positive.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 plot output}

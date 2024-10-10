@@ -28,7 +28,8 @@
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #'
 #' @param log [logical] (*with default*):
-#' fit the (un-)logged central age model to De data
+#' fit the (un-)logged central age model to De data. Log transformation is
+#' allowed only if the De values are positive.
 #'
 #' @param plot [logical] (*with default*):
 #' plot output
@@ -124,6 +125,17 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   ##extract only the first two columns and set column names
   data <- data[,1:2]
   colnames(data) <- c("ED", "ED_Error")
+
+  ## don't allow log transformation if there are non-positive values
+  if (any(data[, 1] <= 0) && log == TRUE) {
+    log <- FALSE
+    .throw_warning("'data' contains non-positive De values, 'log' set to FALSE")
+  }
+
+  ## don't allow negative errors, silently make them positive
+  if (any(data[, 2] < 0)) {
+    data[, 2] <- abs(data[, 2])
+  }
 
   if (!missing(sigmab)) {
     if (sigmab < 0 | sigmab > 1 & log)
