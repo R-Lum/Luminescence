@@ -51,6 +51,14 @@ prevent "Figure margins too large" errors.
 (#245, fixed in #246).
 * Several edge cases that led to crashes have been fixed (#147, fixed in #247).
 
+### `calc_CentralDose()`
+* Argument `na.rm` is now deprecated: the function will now always remove
+missing values, as otherwise the presence of any `NA` would propagate and
+produce unusable results (all `NA`s) or buggy behaviour (#302, fixed in #304).
+* The function stops the fixed-point iteration for the computation of the
+profile log-likelihood as soon as `sigma < 1e-16`, as allowing `sigma` to
+become zero leads to infinities and buggy behaviour (also fixed in #304).
+
 ### `calc_Lamothe2003()`
 * We addressed a long-standing issue (#96) regarding the calculation of the
 calculation of the `Ln/Tn` error after fading correction, which led to smaller

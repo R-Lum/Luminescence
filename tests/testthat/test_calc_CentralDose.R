@@ -5,6 +5,7 @@ temp <- calc_CentralDose(
   plot = FALSE,
   verbose = FALSE)
 
+set.seed(1)
 temp_NA <- data.frame(rnorm(10)+5, rnorm(10)+5)
 temp_NA[1,1] <- NA
 
@@ -13,39 +14,47 @@ test_that("errors and warnings function", {
 
   expect_error(calc_CentralDose(data = "error"),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
-  expect_error(calc_CentralDose(temp, sigmab = 10), "sigmab needs to be given as a fraction between 0 and 1")
+  expect_error(calc_CentralDose(temp, sigmab = 10),
+               "'sigmab' should be a fraction between 0 and 1")
   expect_error(calc_CentralDose(data.frame()),
                "should have at least two columns and two rows")
 
   SW({
   expect_s4_class(calc_CentralDose(temp_NA), "RLum.Results")
-  expect_warning(calc_CentralDose(temp_NA, na.rm = TRUE))
+  expect_warning(calc_CentralDose(temp, na.rm = FALSE),
+                 "'na.rm' is deprecated, missing values are always")
+  expect_message(calc_CentralDose(temp_NA),
+                 "NA values removed from dataset")
   })
 })
 
-
-test_that("standard and output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
-  expect_equal(is(temp), c("RLum.Results", "RLum"))
-  expect_equal(length(temp), 4)
-
-  ##log and trace
+  snapshot.tolerance <- 1.5e-6
+  expect_snapshot_RLum(temp,
+                       tolerance = snapshot.tolerance)
   SW({
-  expect_s4_class(calc_CentralDose(ExampleData.DeValues$CA1, log = FALSE, trace = TRUE), "RLum.Results")
+  expect_snapshot_RLum(calc_CentralDose(ExampleData.DeValues$CA1,
+                                        log = FALSE, trace = TRUE),
+                       tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_CentralDose(temp_NA, log = FALSE),
+                       tolerance = snapshot.tolerance)
+
+  ## negative De values
+  neg_vals <- data.frame(De = c(-0.56, -0.16, 0.0, 0.04),
+                         De.err = c(0.15, 0.1, 0.12, 0.1))
+  expect_warning(calc_CentralDose(neg_vals, log = TRUE),
+                 "'data' contains non-positive De values, 'log' set to FALSE")
+
+  ## negative De errors
+  neg_errs <- data.frame(De = c(0.56, 0.16, 0.1, 0.04),
+                         De.err = c(-0.15, -0.1, 0.12, -0.1))
+  res1 <- calc_CentralDose(neg_errs)
+  res2 <- calc_CentralDose(abs(neg_errs))
+  res1@info$call <- res2@info$call <- NULL
+  res1@.uid <- res2@.uid <- NA_character_
+  expect_equal(res1, res2)
   })
-})
-
-test_that("check summary output", {
-  testthat::skip_on_cran()
-
-  results <- get_RLum(temp)
-
-  expect_equal(round(results$de, digits = 5), 65.70929)
-  expect_equal(round(results$de_err, digits = 6), 3.053443)
-  expect_equal(round(results$OD, digits = 5), 22.79495)
-  expect_equal(round(results$OD_err, digits = 6), 2.272736)
-  expect_equal(round(results$rel_OD, digits = 5), 34.69061)
-  expect_equal(round(results$rel_OD_err, digits = 6), 3.458774)
-  expect_equal(round(results$Lmax, digits = 5), 31.85046)
 })
