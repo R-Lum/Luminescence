@@ -90,15 +90,13 @@ write_RLum2CSV <- function(
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
   if(is.list(object) && !is.data.frame(object)){
-    ##extent the list of arguments if set
-      ##path
-      path <- rep(list(path), length = length(object))
+    ## expand input arguments
+    rep.length <- length(object)
+    path <- .listify(path, rep.length)
+    export <- .listify(export, rep.length)
 
       ##prefix ... create automatic prefix if nothing is provided
       prefix <- as.list(paste0(prefix[1], "[[",1:length(object),"]]_"))
-
-      ##export
-      export <- rep(list(export), length = length(object))
 
       ## write list name to object
       for (i in 1:length(object))

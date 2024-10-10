@@ -198,40 +198,22 @@ analyse_pIRIRSequence <- function(
       .throw_warning("'signal.integral.max' missing, set to 2")
     }
 
-    ##now we have to extend everything to allow list of arguments ... this is just consequent
-    signal.integral.min <- rep(list(signal.integral.min), length = length(object))
-    signal.integral.max <- rep(list(signal.integral.max), length = length(object))
-    background.integral.min <- rep(list(background.integral.min), length = length(object))
-    background.integral.max <- rep(list(background.integral.max), length = length(object))
-    sequence.structure <- rep(list(sequence.structure), length = length(object))
+   ## expand input arguments
+   rep.length <- length(object)
 
-    if(!is.null(dose.points)){
+   signal.integral.min <- .listify(signal.integral.min, rep.length)
+   signal.integral.max <- .listify(signal.integral.max, rep.length)
+   background.integral.min <- .listify(background.integral.min, rep.length)
+   background.integral.max <- .listify(background.integral.max, rep.length)
+   sequence.structure <- .listify(sequence.structure, rep.length)
+   dose.points <- .listify(dose.points, rep.length)
 
-      if(is(dose.points, "list")){
-        dose.points <- rep(dose.points, length = length(object))
+   if ("main" %in% names(list(...))) {
+     main_list <- .listify(list(...)$main, rep.length)
+   }
 
-      }else{
-        dose.points <- rep(list(dose.points), length = length(object))
-
-      }
-
-    }else{
-      dose.points <- rep(list(NULL), length(object))
-
-    }
-
-    ##main
-    if("main" %in% names(list(...))){
-      main_list <- rep(list(...)$main, length.out = length(object))
-
-      if(!inherits(main_list, "list")){
-        main_list <- as.list(main_list)
-
-      }
-    }
-
-    ##run analysis
-    temp <- lapply(1:length(object), function(x){
+   ## run analysis
+   temp <- lapply(1:length(object), function(x) {
       analyse_pIRIRSequence(object[[x]],
                         signal.integral.min = signal.integral.min[[x]],
                         signal.integral.max = signal.integral.max[[x]],
@@ -243,7 +225,6 @@ analyse_pIRIRSequence <- function(
                         plot.single = plot.single,
                         main = ifelse("main"%in% names(list(...)), main_list[[x]], paste0("ALQ #",x)),
                         ...)
-
     })
 
     ##combine everything to one RLum.Results object as this as what was written ... only
@@ -257,7 +238,6 @@ analyse_pIRIRSequence <- function(
       return(NULL)
     else
       return(results)
-
   }
 
 # General Integrity Checks ---------------------------------------------------
@@ -451,12 +431,10 @@ analyse_pIRIRSequence <- function(
     temp.IRSL.layout.vector <- c(temp.IRSL.layout.vector.first,
                                  temp.IRSL.layout.vector.middle,
                                  temp.IRSL.layout.vector.last)
-
   }else{
 
     temp.IRSL.layout.vector <- c(temp.IRSL.layout.vector.first,
                                  temp.IRSL.layout.vector.last)
-
   }
 
   ##get layout information
@@ -484,7 +462,6 @@ analyse_pIRIRSequence <- function(
 
   ## show the regions that have been allocated to each plot for debug
   #layout.show(nf)
-
   }
 
   ##(1) INFO PLOT
@@ -523,7 +500,6 @@ analyse_pIRIRSequence <- function(
       temp.signal.integral.max <- signal.integral.max
       temp.background.integral.min <- background.integral.min
       temp.background.integral.max <- background.integral.max
-
     }
 
     ##(c) call analysis sequence and plot

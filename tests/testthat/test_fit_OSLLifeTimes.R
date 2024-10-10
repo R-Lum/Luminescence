@@ -1,8 +1,5 @@
 ##load example data
 data(ExampleData.TR_OSL, envir = environment())
-
-temp_list <- list(ExampleData.TR_OSL, ExampleData.TR_OSL)
-temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
 temp_mat <- get_RLum(ExampleData.TR_OSL)[1:200, ]
 
 test_that("input validation", {
@@ -71,6 +68,7 @@ test_that("standard check", {
     n.components = 1), class = "RLum.Results")
 
   ##simple list
+  temp_list <- list(ExampleData.TR_OSL, ExampleData.TR_OSL)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = temp_list,
     plot = FALSE,
@@ -80,6 +78,7 @@ test_that("standard check", {
   })
 
   ##simple RLum.Analysis
+  temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = temp_analysis,
     verbose = FALSE,

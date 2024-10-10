@@ -1163,66 +1163,25 @@ analyse_baSAR <- function(
       object.file_name[is.duplicated] <- NULL
     }
 
-  # Expand parameter list -----------------------------------------------------------------------
+  ## Expand input arguments -------------------------------------------------
 
-  ##test_parameter = source_doserate
-  if(!is.null(source_doserate)){
-    if(is(source_doserate, "list")){
-      source_doserate <- rep(source_doserate, length = length(fileBIN.list))
-    }else{
-      source_doserate <- rep(list(source_doserate), length = length(fileBIN.list))
-    }
-  }else{
+  rep.length <- length(fileBIN.list)
+
+  if (is.null(source_doserate)) {
     .throw_error("'source_doserate' is missing, but the current ",
                  "implementation expects dose values in Gy")
   }
+  source_doserate <- .listify(source_doserate, rep.length)
+  sigmab <- .listify(sigmab, rep.length)
+  sig0 <- .listify(sig0, rep.length)
+  signal.integral <- .listify(signal.integral, rep.length)
+  background.integral <- .listify(background.integral, rep.length)
 
-  ##sigmab
-  if(is(sigmab, "list")){
-    sigmab <- rep(sigmab, length = length(fileBIN.list))
-    }else{
-    sigmab <- rep(list(sigmab), length = length(fileBIN.list))
-    }
-
-  ##sig0
-  if(is(sig0, "list")){
-    sig0 <- rep(sig0, length = length(fileBIN.list))
-  }else{
-    sig0 <- rep(list(sig0), length = length(fileBIN.list))
-  }
-
-  ##test_parameter = signal.integral
-  if(is(signal.integral, "list")){
-    signal.integral <- rep(signal.integral, length = length(fileBIN.list))
-  }else{
-    signal.integral <- rep(list(signal.integral), length = length(fileBIN.list))
-  }
-
-  ##test_parameter = signal.integral.Tx
   if (!is.null(signal.integral.Tx)) {
-    if (is(signal.integral.Tx, "list")) {
-      signal.integral.Tx <- rep(signal.integral.Tx, length = length(fileBIN.list))
-    } else{
-      signal.integral.Tx <- rep(list(signal.integral.Tx), length = length(fileBIN.list))
-    }
+    signal.integral.Tx <- .listify(signal.integral.Tx, rep.length)
   }
-
-  ##test_parameter = background.integral
-  if(is(background.integral, "list")){
-    background.integral <- rep(background.integral, length = length(fileBIN.list))
-  }else{
-    background.integral <- rep(list(background.integral), length = length(fileBIN.list))
-  }
-
-  ##test_parameter = background.integral.Tx
   if (!is.null(background.integral.Tx)) {
-    if (is(background.integral.Tx, "list")) {
-      background.integral.Tx <-
-        rep(background.integral.Tx, length = length(fileBIN.list))
-    } else{
-      background.integral.Tx <-
-        rep(list(background.integral.Tx), length = length(fileBIN.list))
-    }
+    background.integral.Tx <- .listify(background.integral.Tx, rep.length)
   }
 
   # Read CSV file -----------------------------------------------------------

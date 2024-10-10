@@ -157,44 +157,18 @@ analyse_Al2O3C_Measurement <- function(
            function(x) .validate_class(x, "RLum.Analysis",
                                        name = "All elements of 'object'"))
 
-    ##expand input arguments
+    ## expand input arguments
+    rep.length <- length(object)
+
     if(!is.null(signal_integral)){
-      signal_integral <- rep(list(signal_integral), length = length(object))
+      signal_integral <- .listify(list(signal_integral), rep.length)
     }
 
-    ##dose points
-    if(is(dose_points, "list")){
-      dose_points <- rep(dose_points, length = length(object))
-
-    }else{
-      dose_points <- rep(list(dose_points), length = length(object))
-    }
-
-    ##irradiation time correction
-    if(is(irradiation_time_correction, "list")){
-      irradiation_time_correction <- rep(irradiation_time_correction, length = length(object))
-
-    }else{
-      irradiation_time_correction <- rep(list(irradiation_time_correction), length = length(object))
-    }
-
-    ##cross talk correction
-    if(is( cross_talk_correction, "list")){
-      cross_talk_correction <- rep( cross_talk_correction, length = length(object))
-
-    }else{
-      cross_talk_correction <- rep(list( cross_talk_correction), length = length(object))
-    }
-
-    ##test_parameters
-    if(is(test_parameters[[1]], "list")){
-      test_parameters <- rep(test_parameters, length = length(object))
-
-    }else{
-      test_parameters <- rep(list(test_parameters), length = length(object))
-    }
-
-    ##verbose
+    dose_points <- .listify(dose_points, rep.length)
+    irradiation_time_correction <- .listify(irradiation_time_correction,
+                                            rep.length)
+    cross_talk_correction <- .listify(cross_talk_correction, rep.length)
+    test_parameters <- .listify(test_parameters, rep.length)
 
     ##plot
     if(is(plot, "logical")){

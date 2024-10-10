@@ -125,18 +125,10 @@ analyse_Al2O3C_ITC <- function(
            function(x) .validate_class(x, "RLum.Analysis",
                                        name = "All elements of 'object'"))
 
-    ##expand input arguments
-    if(!is.null(signal_integral)){
-      signal_integral <- rep(list(signal_integral, length = length(object)))
-    }
-
-    ##dose points
-    if(is(dose_points, "list")){
-      dose.points <- rep(dose_points, length = length(object))
-
-    }else{
-      dose_points <- rep(list(dose_points), length = length(object))
-    }
+    ## expand input arguments
+    rep.length <- length(object)
+    signal_integral <- .listify(signal_integral, rep.length)
+    dose_points <- .listify(dose_points, rep.length)
 
     ##method_control
     ##verbose
@@ -252,7 +244,6 @@ analyse_Al2O3C_ITC <- function(
     fit.method = method_control_settings$fit.method,
     verbose = FALSE
   )
-
 
   ##output
   if(verbose){

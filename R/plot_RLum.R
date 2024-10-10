@@ -106,11 +106,9 @@ plot_RLum<- function(
     ##(2) check if empty, if empty do nothing ...
     if (length(object) != 0) {
       ## If we iterate over a list, this might be extremely useful to have different plot titles
+      main <- NULL
       if("main" %in% names(list(...))){
-        if(is(list(...)$main,"list")){
-          main.list <- rep(list(...)$main, length = length(object))
-
-        }
+        main <- .listify(list(...)$main, length = length(object))
       }
 
       ##set also mtext, but in a different way
@@ -126,25 +124,15 @@ plot_RLum<- function(
         mtext <- rep(list(...)$mtext, length.out = length(object))
 
       }
-      if(exists("main.list")){
-        ##dispatch objects
-        for (i in 1:length(object)) {
-          RLum.dispatcher(object = object[[i]],
-                          main = main.list[[i]],
-                          mtext = mtext[[i]],
-                          ...)
-        }
-      }else{
-        for (i in 1:length(object)) {
-          RLum.dispatcher(object = object[[i]],
-                          mtext = mtext[[i]],
-                          ...)
-        }
+      for (i in 1:length(object)) {
+        RLum.dispatcher(object = object[[i]],
+                        main = main[[i]],
+                        mtext = mtext[[i]],
+                        ...)
       }
     }
   }else{
     ##dispatch object
     RLum.dispatcher(object = object, ...)
-
   }
 }
