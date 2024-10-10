@@ -61,11 +61,14 @@
 plot_RLum<- function(
   object,
   ...
-){
-# Define dispatcher function ----------------------------------------------------------
-##check if object is of class RLum
+) {
+  .set_function_name("plot_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## Define dispatcher function ---------------------------------------------
   RLum.dispatcher <- function(object, ...) {
-    if (inherits(object, "RLum")) {
+    .validate_class(object, "RLum")
+
       ##grep object class
       object.class <- is(object)[1]
 
@@ -87,12 +90,6 @@ plot_RLum<- function(
         },
 
         RLum.Results = plot_RLum.Results(object = object, ...))
-    }else{
-      stop(paste0(
-        "[plot_RLum()] Sorry, I don't know what to do for object of type '", is(object)[1], "'."
-      ), call. = FALSE)
-
-    }
   }
 
   # Run dispatcher ------------------------------------------------------------------------------
