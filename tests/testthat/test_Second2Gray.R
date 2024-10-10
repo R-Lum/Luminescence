@@ -1,7 +1,8 @@
 data(ExampleData.DeValues, envir = environment())
 
 results <- Second2Gray(ExampleData.DeValues$BT998, c(0.2,0.01))
-dose.rate <- calc_SourceDoseRate(calib.date = "2014-12-19",
+dose.rate <- calc_SourceDoseRate(measurement.date = "2024-10-09",
+                                 calib.date = "2014-12-19",
                                  calib.dose.rate = 0.2, calib.error = 0.01)
 
 test_that("input validation", {
