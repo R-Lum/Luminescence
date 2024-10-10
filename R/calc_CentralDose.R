@@ -202,6 +202,10 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     # print iterations
     if (options$trace)
       print(round(c(delta, sigma), 4))
+
+    ## don't let sigma become zero
+    if (sigma < 1e-16)
+      break()
   }
 
   # save parameters for terminal output

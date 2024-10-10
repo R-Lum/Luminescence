@@ -5,6 +5,7 @@ temp <- calc_CentralDose(
   plot = FALSE,
   verbose = FALSE)
 
+set.seed(1)
 temp_NA <- data.frame(rnorm(10)+5, rnorm(10)+5)
 temp_NA[1,1] <- NA
 
@@ -36,6 +37,9 @@ test_that("check functionality", {
   SW({
   expect_snapshot_RLum(calc_CentralDose(ExampleData.DeValues$CA1,
                                         log = FALSE, trace = TRUE),
+                       tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_CentralDose(temp_NA, log = FALSE),
                        tolerance = snapshot.tolerance)
 
   ## negative De values

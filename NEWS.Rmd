@@ -55,6 +55,9 @@ prevent "Figure margins too large" errors.
 * Argument `na.rm` is now deprecated: the function will now always remove
 missing values, as otherwise the presence of any `NA` would propagate and
 produce unusable results (all `NA`s) or buggy behaviour (#302, fixed in #304).
+* The function stops the fixed-point iteration for the computation of the
+profile log-likelihood as soon as `sigma < 1e-16`, as allowing `sigma` to
+become zero leads to infinities and buggy behaviour (also fixed in #304).
 
 ### `calc_Lamothe2003()`
 * We addressed a long-standing issue (#96) regarding the calculation of the
