@@ -29,7 +29,7 @@ count TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
 
 \item{n_records}{\link{numeric} (\emph{with default}): set the number of records to be imported; by default
-the function attempts ot import all records}
+the function attempts to import all records}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
 if \code{TRUE} for a more efficient data processing only a list of \linkS4class{RLum.Analysis}

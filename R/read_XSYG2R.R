@@ -85,9 +85,9 @@
 #' (see details for more information) Note: The option overwrites the time vs.
 #' count TL curve. Select `FALSE` to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
-#' 
+#'
 #' @param n_records [numeric] (*with default*): set the number of records to be imported; by default
-#' the function attempts ot import all records
+#' the function attempts to import all records
 #'
 #' @param fastForward [logical] (*with default*):
 #' if `TRUE` for a more efficient data processing only a list of [RLum.Analysis-class]
@@ -382,7 +382,7 @@ read_XSYG2R <- function(
     ## set n_records
     if(is.null(n_records))
       n_records <- XML::xmlSize(temp)
-    
+
     ##loop over the entire sequence by sequence
     output <- lapply(1:min(XML::xmlSize(temp),n_records[1]), function(x){
       ##read sequence header
@@ -426,7 +426,7 @@ read_XSYG2R <- function(
         lapply(1:XML::xmlSize(temp[[x]][[i]]), function(j){
           ##get values
           temp.sequence.object.curveValue <- temp[[x]][[i]][[j]]
-          
+
           ##get curveType
           temp.sequence.object.curveType <- as.character(
             XML::xmlAttrs(temp[[x]][[i]][[j]])["curveType"])
