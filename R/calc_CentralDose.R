@@ -3,7 +3,7 @@
 #'
 #' This function calculates the central dose and dispersion of the De
 #' distribution, their standard errors and the profile log likelihood function
-#' for sigma.
+#' for `sigma`.
 #'
 #' This function uses the equations of Galbraith & Roberts (2012). The
 #' parameters `delta` and `sigma` are estimated by numerically solving
@@ -16,7 +16,8 @@
 #' Galbraith & Roberts (2012, 15)
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
-#' for [data.frame]: two columns with De `(data[,1])` and De error `(data[,2])`
+#' for [data.frame]: two columns with De `(data[,1])` and De error `(data[,2])`.
+#' Records containing missing values will be removed.
 #'
 #' @param sigmab [numeric] (*with default*):
 #' additional spread in De values.
@@ -28,8 +29,6 @@
 #'
 #' @param log [logical] (*with default*):
 #' fit the (un-)logged central age model to De data
-#'
-#' @param na.rm [logical] (*with default*): strip `NA` values before the computation proceeds
 #'
 #' @param plot [logical] (*with default*):
 #' plot output
@@ -47,7 +46,7 @@
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @section Function version: 1.4.1
+#' @section Function version: 1.5
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -98,7 +97,7 @@
 #'
 #' @md
 #' @export
-calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRUE, ...) {
+calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   .set_function_name("calc_CentralDose")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -112,14 +111,15 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
   }
 
   ##remove NA values
-  if(na.rm == TRUE && any(is.na(data))){
-    warning("[calc_CentralDose()] ", length(which(is.na(data))), " NA value(s) removed from dataset!", call. = FALSE)
+  if (any(is.na(data))) {
+    message("[calc_CentralDose()] ", length(which(is.na(data))),
+            " NA values removed from dataset")
     data <- na.exclude(data)
   }
 
   ##make sure we consider onlyt take the first two columns
   if(ncol(data) < 2 || nrow(data) < 2)
-    stop("[calc_CentralDose()] 'data' should have at least two columns and two rows!", call. = FALSE)
+    .throw_error("'data' should have at least two columns and two rows")
 
   ##extract only the first two columns and set column names
   data <- data[,1:2]
@@ -127,11 +127,8 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
 
   if (!missing(sigmab)) {
     if (sigmab < 0 | sigmab > 1 & log)
-      stop("[calc_CentralDose()] sigmab needs to be given as a fraction between 0 and 1 (e.g., 0.2)!", call. = FALSE)
-
+      .throw_error("'sigmab' should be a fraction between 0 and 1 (e.g., 0.2)")
   }
-
-
 
 
   ## ============================================================================##
@@ -142,6 +139,12 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
                   trace = FALSE)
 
   options <- modifyList(options, list(...))
+
+  ## deprecated argument
+  if ("na.rm" %in% names(list(...))) {
+    .throw_warning("'na.rm' is deprecated, missing values are always removed ",
+                   "by default")
+  }
 
 
   ## ============================================================================##
@@ -212,7 +215,6 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
     out.sedelta <- sedelta / out.delta * 100
     out.sesigma <- sqrt((sedelta / delta)^2 +
                           (sesigma / out.delta * 100 / out.sigma)^2) * out.sigma / 100
-
   }
 
   # profile log likelihood

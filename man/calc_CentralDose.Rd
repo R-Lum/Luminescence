@@ -5,11 +5,12 @@
 \title{Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 De distribution}
 \usage{
-calc_CentralDose(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRUE, ...)
+calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
-for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}}
+for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}.
+Records containing missing values will be removed.}
 
 \item{sigmab}{\link{numeric} (\emph{with default}):
 additional spread in De values.
@@ -44,7 +45,7 @@ The output should be accessed using the function \link{get_RLum}
 \description{
 This function calculates the central dose and dispersion of the De
 distribution, their standard errors and the profile log likelihood function
-for sigma.
+for \code{sigma}.
 }
 \details{
 This function uses the equations of Galbraith & Roberts (2012). The
@@ -58,7 +59,7 @@ be found in the appendix of Galbraith & Laslett (1993, 468-470) and
 Galbraith & Roberts (2012, 15)
 }
 \section{Function version}{
- 1.4.1
+ 1.5
 }
 
 \examples{
