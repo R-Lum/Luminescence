@@ -39,7 +39,7 @@ selects calculation mode of the function.
 \item \code{"alternate"} calculates no equivalent dose and just fits the data points.
 }
 
-Please note that for option \code{"regenerative"} the first point is considered
+Please note that for option \code{"interpolation"} the first point is considered
 as natural dose}
 
 \item{fit.method}{\link{character} (\emph{with default}):
@@ -150,7 +150,7 @@ The solution is found by transforming the function or using \link{uniroot}.
 \code{LIN}: fits a linear function to the data using
 \link{lm}: \deqn{y = mx + n}
 
-\code{QDR}: fits a linear function to the data using
+\code{QDR}: fits a linear function with a quadratic term to the data using
 \link{lm}: \deqn{y = a + bx + cx^2}
 
 \code{EXP}: tries to fit a function of the form

@@ -20,7 +20,7 @@
 #' `LIN`: fits a linear function to the data using
 #' [lm]: \deqn{y = mx + n}
 #'
-#' `QDR`: fits a linear function to the data using
+#' `QDR`: fits a linear function with a quadratic term to the data using
 #' [lm]: \deqn{y = a + bx + cx^2}
 #'
 #' `EXP`: tries to fit a function of the form
@@ -104,7 +104,7 @@
 #' - `"extrapolation"` calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
 #' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
-#' Please note that for option `"regenerative"` the first point is considered
+#' Please note that for option `"interpolation"` the first point is considered
 #' as natural dose
 #'
 #' @param fit.method [character] (*with default*):
@@ -550,7 +550,7 @@ plot_GrowthCurve <- function(
   #take slope from x - y scaling
   g <- max(data[,2]/max(data[,1]))
 
-  #set D01 and D02 (in case of EXp+EXP)
+  #set D01 and D02 (in case of EXP+EXP)
   D01 <- NA
   D01.ERROR <- NA
   D02 <- NA
@@ -587,7 +587,6 @@ plot_GrowthCurve <- function(
       ##give function for uniroot
       De.fs <- function(x, y) {
         0 + coef(fit)[1] * x + coef(fit)[2] * x ^ 2 - y
-
       }
 
     }else{
@@ -597,9 +596,7 @@ plot_GrowthCurve <- function(
       ##give function for uniroot
       De.fs <- function(x, y) {
         coef(fit)[1] + coef(fit)[2] * x + coef(fit)[3] * x ^ 2 - y
-
       }
-
     }
 
     ##solve and get De
@@ -674,9 +671,7 @@ plot_GrowthCurve <- function(
         ##give function for uniroot
         De.fs.MC <- function(x, y) {
           coef(fit.MC)[1] + coef(fit.MC)[2] * x + coef(fit.MC)[3] * x ^ 2 - y
-
         }
-
       }
 
       De.MC <- NA
@@ -947,9 +942,7 @@ plot_GrowthCurve <- function(
 
         }else if(mode == "extrapolation"){
           De <- (0-fit.lm$coefficients[1])/fit.lm$coefficients[2]
-
         }
-
       }
 
       ##remove vector labels
@@ -966,9 +959,7 @@ plot_GrowthCurve <- function(
             "| De = ",
             round(abs(De), 2)
           ))
-
         }
-
       }
 
       #start loop for Monte Carlo Error estimation
@@ -985,7 +976,6 @@ plot_GrowthCurve <- function(
 
           }else if (mode == "extrapolation"){
             x.natural[i] <- 0
-
           }
 
         }else{
@@ -1000,9 +990,7 @@ plot_GrowthCurve <- function(
           }else if (mode == "extrapolation"){
             x.natural[i] <- abs((0-fit.lmMC$coefficients[1])/
                                   fit.lmMC$coefficients[2])
-
           }
-
         }
 
       }#endfor::loop for MC
@@ -1046,8 +1034,6 @@ plot_GrowthCurve <- function(
 
         ##end: with EXP function
         ##---------------------------------------------------------##
-
-
       }
 
       fit<-try({
@@ -1271,9 +1257,7 @@ plot_GrowthCurve <- function(
 
           }else{
             x.natural[i] <- NA
-
           }
-
         }
         ##update progress bar
         if(txtProgressBar) setTxtProgressBar(pb, i)
@@ -1295,10 +1279,8 @@ plot_GrowthCurve <- function(
             fit.method,
             " | De = NA (fitting FAILED)"
           ))
-
         }
       }
-
 
     } #end if "try-error" Fit Method
 
@@ -1619,7 +1601,6 @@ plot_GrowthCurve <- function(
            "extrapolation" = suppressWarnings(abs(-(var.b[i] * (( (var.a[i] * var.d[i] - 0)/var.a[i])^var.c[i] - 1) *
                                                       ( ((var.a[i] * var.d[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])),
            NA)
-
         }
 
       }#end for loop
@@ -1637,7 +1618,6 @@ plot_GrowthCurve <- function(
 
     } else{
       Dint_lower <- 0.01
-
     }
 
     fit <- try(minpack.lm::nlsLM(
@@ -1703,7 +1683,6 @@ plot_GrowthCurve <- function(
                 N = N,
                 Dint = Dint)$minimum), silent = TRUE)
             }
-
           }
 
           if(inherits(De, "try-error")) De <- NA
@@ -1799,7 +1778,6 @@ plot_GrowthCurve <- function(
               }##endif extrapolation
               if(!inherits(try, "try-error") && !inherits(try, "function"))
                 x.natural[i] <- try
-
             }
 
           }#end for loop
@@ -1846,13 +1824,11 @@ plot_GrowthCurve <- function(
 
     ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
     {
-      if(mode == "regenration"){
+      if (mode == "interpolation") {
         expression(L[x]/T[x])
-
       }else{
         "Luminescence [a.u.]"
       }
-
     }
 
     if("cex" %in% names(extraArgs)) {cex.global <- extraArgs$cex}
@@ -1866,7 +1842,6 @@ plot_GrowthCurve <- function(
       }else{
         c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
       }
-
     }
 
     xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
@@ -1881,12 +1856,10 @@ plot_GrowthCurve <- function(
 
           }else{
             c(De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-
           }
 
         }else{
           c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-
         }
       }
     }
@@ -1914,7 +1887,6 @@ plot_GrowthCurve <- function(
 
     } else {
       par(cex = cex.global)
-
     }
 
     #PLOT		#Plot input values
@@ -1925,7 +1897,6 @@ plot_GrowthCurve <- function(
 
     } else {
       temp.xy.plot  <- xy[1:fit.NumberRegPointsReal,]
-
     }
 
     plot_check <- try(plot(
@@ -1942,7 +1913,6 @@ plot_GrowthCurve <- function(
       if(mode == "extrapolation"){
         abline(v = 0, lty = 1, col = "grey")
         abline(h = 0, lty = 1, col = "grey")
-
       }
 
       ### add header --------
@@ -1965,7 +1935,6 @@ plot_GrowthCurve <- function(
 
       }else if (mode == "extrapolation"){
         points(x = De, y = 0, col = "red")
-
       }
 
       #repeated Point
@@ -2016,9 +1985,7 @@ plot_GrowthCurve <- function(
         if(!is.na(De)){
           abline(v = De, lty = 2, col = "red")
           lines(x = c(0,De), y = c(0,0), lty = 2, col = "red")
-
         }
-
       }
 
       ## check/set mtext
@@ -2070,7 +2037,6 @@ plot_GrowthCurve <- function(
           cex = 0.8 * cex.global,
           bty = "n"
         )
-
       }
 
       ##plot only if wanted
@@ -2079,7 +2045,6 @@ plot_GrowthCurve <- function(
 
         if (output.plotExtended.single != TRUE) {
           par(cex = 0.7 * cex.global)
-
         }
 
         ##(A) Calculate histogram data
@@ -2273,7 +2238,6 @@ plot_GrowthCurve <- function(
     )
   )
   invisible(output.final)
-
 }
 
 # Helper functions in plot_GrowthCurve() --------------------------------------
