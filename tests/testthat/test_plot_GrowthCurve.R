@@ -4,28 +4,43 @@ data(ExampleData.LxTxData, envir = environment())
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## fit.method
+  ## sample
   expect_error(
-    plot_GrowthCurve(LxTxData, fit.method = "error"),
-    "[plot_GrowthCurve()] 'fit.method' should be one of 'LIN', 'QDR', 'EXP'",
-    fixed = TRUE)
-
-  ## input object
-  expect_error(
-    object = plot_GrowthCurve("test"),
-    "[plot_GrowthCurve()] 'sample' should be of class 'data.frame'",
-    fixed = TRUE)
-
-  ## shorten dataframe
-  expect_error(
-    object = plot_GrowthCurve(LxTxData[1:2,]),
-    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least three regeneration points are required!")
+      object = plot_GrowthCurve("error"),
+      "[plot_GrowthCurve()] 'sample' should be of class 'data.frame', 'matrix' or",
+      fixed = TRUE)
 
   ## mode
   expect_error(
     plot_GrowthCurve(LxTxData, mode = "error"),
     "[plot_GrowthCurve()] 'mode' should be one of 'interpolation', 'extrapolation'",
     fixed = TRUE)
+
+  ## fit.method
+  expect_error(
+    plot_GrowthCurve(LxTxData, fit.method = "error"),
+    "[plot_GrowthCurve()] 'fit.method' should be one of 'LIN', 'QDR', 'EXP'",
+    fixed = TRUE)
+
+  ## other arguments
+  expect_error(plot_GrowthCurve(LxTxData, fit.force_through_origin = "error"),
+               "'fit.force_through_origin' should be of class 'logical'")
+  expect_error(plot_GrowthCurve(LxTxData, fit.weights = "error"),
+               "'fit.weights' should be of class 'logical'")
+  expect_error(plot_GrowthCurve(LxTxData, fit.includingRepeatedRegPoints = "error"),
+               "'fit.includingRepeatedRegPoints' should be of class 'logical'")
+  expect_error(plot_GrowthCurve(LxTxData, fit.NumberRegPoints = "error"),
+               "'fit.NumberRegPoints' should be a positive integer scalar")
+  expect_error(plot_GrowthCurve(LxTxData, fit.NumberRegPointsReal = "error"),
+               "'fit.NumberRegPointsReal' should be a positive integer scalar")
+  expect_error(plot_GrowthCurve(LxTxData, fit.bounds = "error"),
+               "'fit.bounds' should be of class 'logical'")
+  expect_error(plot_GrowthCurve(LxTxData, NumberIterations.MC = "error"),
+               "'NumberIterations.MC' should be a positive integer scalar")
+
+  ## shorten dataframe
+  expect_warning(plot_GrowthCurve(LxTxData[1:2, ], verbose = FALSE),
+                 "Fitting a non-linear least-squares model requires at least 3")
 
   ## wrong combination of fit.method and mode
   expect_error(
@@ -301,6 +316,18 @@ temp_LambertW <-
     verbose = FALSE,
     NumberIterations.MC = 10
   )
+
+  ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
+  ##              here too as coverage currenlty runs on 4.3
+  temp_QDR2 <- plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      mode = "extrapolation",
+      fit.force_through_origin = TRUE,
+      verbose = TRUE,
+      NumberIterations.MC = 10
+  )
   })
 
   expect_s3_class(temp_EXP$Fit, class = "nls")
@@ -517,10 +544,10 @@ temp_LambertW <-
         LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
     output.plot = FALSE,
     verbose = TRUE),
-    "fit.method set to 'LIN'"))
+    "'fit.method' set to 'LIN'"))
   })
   expect_match(warnings, "1 NA values removed",
                all = FALSE, fixed = TRUE)
-  expect_match(warnings, "Fitting using an exponential term requires",
+  expect_match(warnings, "Fitting a non-linear least-squares model requires",
                all = FALSE, fixed = TRUE)
 })
