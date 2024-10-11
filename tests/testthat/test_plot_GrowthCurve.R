@@ -316,6 +316,18 @@ temp_LambertW <-
     verbose = FALSE,
     NumberIterations.MC = 10
   )
+
+  ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
+  ##              here too as coverage currenlty runs on 4.3
+  temp_QDR2 <- plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      mode = "extrapolation",
+      fit.force_through_origin = TRUE,
+      verbose = TRUE,
+      NumberIterations.MC = 10
+  )
   })
 
   expect_s3_class(temp_EXP$Fit, class = "nls")
