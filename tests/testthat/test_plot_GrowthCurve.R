@@ -228,9 +228,16 @@ test_that("snapshot tests", {
       NumberIterations.MC = 10
   ), tolerance = snapshot.tolerance)
 
-  ## FIXME(mcol): expect_snapshot_RLum() produced an error on this test:
-  ##              object could not be safely serialized with `style = "json2"`
-  temp_QDR <- plot_GrowthCurve(
+  expect_snapshot_RLum(plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      mode = "extrapolation",
+      verbose = TRUE,
+      NumberIterations.MC = 10
+  ), tolerance = 2.0e-5)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "QDR",
       output.plot = FALSE,
@@ -238,7 +245,7 @@ test_that("snapshot tests", {
       fit.force_through_origin = TRUE,
       verbose = TRUE,
       NumberIterations.MC = 10
-  )
+  ), tolerance = 5.0e-5)
   })
 })
 
