@@ -87,7 +87,7 @@ test_that("Test examples", {
     analyse_SAR.TL(object, signal.integral.min = 2, signal.integral.max = 3,
                    sequence.structure = c("SIGNAL", "EXCLUDE"))
     ),
-  "'fit.weights' ignored since the error column is invalid or 0")
+  "Error column invalid or 0, 'fit.weights' ignored")
   })
 })
 

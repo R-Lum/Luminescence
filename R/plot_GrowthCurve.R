@@ -385,14 +385,12 @@ plot_GrowthCurve <- function(
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
   rownames(sample) <- NULL
 
-  ##zero values in the data.frame are not allowed for the y-column
-  if(length(sample[sample[,2]==0,2])>0){
-    warning(
-      paste("[plot_GrowthCurve()]",
-            length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by ",
-            .Machine$double.eps),
-      call. = FALSE)
-    sample[sample[, 2] == 0, 2] <- .Machine$double.eps
+  ## zero values in the data.frame are not allowed for the y-column
+  y.zero <- sample[, 2] == 0
+  if (sum(y.zero) > 0) {
+    .throw_warning(sum(y.zero), " values with 0 for Lx/Tx detected, ",
+                   "replaced by ", .Machine$double.eps)
+    sample[y.zero, 2] <- .Machine$double.eps
   }
 
   ##1. INPUT
@@ -405,37 +403,37 @@ plot_GrowthCurve <- function(
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
   }
 
-  #1.1 Produce data.frame from input values, two options for different modes
-  if(mode[1] == "interpolation"){
-    xy <- data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
-    y.Error <- sample[2:(fit.NumberRegPoints+1),3]
+  ## 1.1 Produce data.frame from input values
 
-  } else if (mode[1] == "extrapolation" || mode[1] == "alternate") {
-    xy <- data.frame(
-      x = sample[1:(fit.NumberRegPoints+1),1],
-      y = sample[1:(fit.NumberRegPoints+1),2])
-    y.Error <- sample[1:(fit.NumberRegPoints+1),3]
-  }
+
+  ## for interpolation the first point is considered as natural dose
+  first.idx <- ifelse(mode == "interpolation", 2, 1)
+  last.idx <- fit.NumberRegPoints + 1
+
+  xy <- sample[first.idx:last.idx, 1:2]
+  colnames(xy) <- c("x", "y")
+  y.Error <- sample[first.idx:last.idx, 3]
 
   ##1.1.1 produce weights for weighted fitting
   if(fit.weights){
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
-    if(any(is.na(fit.weights))){
+    if(any(is.na(fit.weights))){ # FIXME(mcol): infinities?
       fit.weights <- rep(1, length(y.Error))
-      warning(
-        "[plot_GrowthCurve()] 'fit.weights' ignored since the error column is invalid or 0.",
-        call. = FALSE)
+      .throw_warning("Error column invalid or 0, 'fit.weights' ignored")
     }
   }else{
     fit.weights <- rep(1, length(y.Error))
-
   }
 
   #1.2 Prepare data sets regeneration points for MC Simulation
-  if (mode[1] == "interpolation") {
-    data.MC <- t(vapply(
-      X = seq(2, fit.NumberRegPoints + 1, by = 1),
+
+  ## for interpolation the first point is considered as natural dose
+  first.idx <- ifelse(mode == "interpolation", 2, 1)
+  last.idx <- fit.NumberRegPoints + 1
+
+  data.MC <- t(vapply(
+      X = first.idx:last.idx,
       FUN = function(x) {
         sample(rnorm(
           n = 10000,
@@ -448,38 +446,21 @@ plot_GrowthCurve <- function(
       FUN.VALUE = vector("numeric", length = NumberIterations.MC)
     ))
 
+  if (mode == "interpolation") {
     #1.3 Do the same for the natural signal
-    data.MC.De <- numeric(NumberIterations.MC)
     data.MC.De <-
       sample(rnorm(10000, mean = sample[1, 2], sd = abs(sample[1, 3])),
              NumberIterations.MC,
              replace = TRUE)
-
-  }else{
-    data.MC <- t(vapply(
-      X = seq(1, fit.NumberRegPoints + 1, by = 1),
-      FUN = function(x) {
-        sample(rnorm(
-          n = 10000,
-          mean = sample[x, 2],
-          sd = abs(sample[x, 3])
-        ),
-        size = NumberIterations.MC,
-        replace = TRUE)
-      },
-      FUN.VALUE = vector("numeric", length = NumberIterations.MC)
-    ))
-
   }
 
   #1.3 set x.natural
-  x.natural <- vector("numeric", length = NumberIterations.MC)
   x.natural <- NA
 
   ##1.4 set initialise variables
   De <- De.Error <- D01 <-  R <-  Dc <- N <- NA
 
-  # FITTING ----------------------------------------------------------------------
+  ## FITTING ----------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
   ## set functions for fitting
   ## REMINDER: DO NOT ADD {} brackets, otherwise the formula construction will not
@@ -504,18 +485,15 @@ plot_GrowthCurve <- function(
   ### Lambert W -------------
   fit.functionLambertW <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
-  ##input data for fitting; exclude repeated RegPoints
+  ## input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
-    data <-
-      data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
-    fit.weights <- fit.weights[!duplicated(xy[[1]])]
-    data.MC <- data.MC[!duplicated(xy[[1]]),,drop = FALSE]
-    y.Error <- y.Error[!duplicated(xy[[1]])]
-    xy <- xy[!duplicated(xy[[1]]),,drop = FALSE]
-
-  }else{
-    data <- data.frame(xy)
+    is.dup <- duplicated(xy$x)
+    fit.weights <- fit.weights[!is.dup]
+    data.MC <- data.MC[!is.dup, , drop = FALSE]
+    y.Error <- y.Error[!is.dup]
+    xy <- xy[!is.dup, , drop = FALSE]
   }
+  data <- xy
 
   ## for unknown reasons with only two points the nls() function is trapped in
   ## an endless mode, therefore the minimum length for data is 3
@@ -613,7 +591,6 @@ plot_GrowthCurve <- function(
           if (mode != "alternate") {
             writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
               " (", mode,") ", "| De = ", round(De,2)))
-
           }
         }
 
@@ -661,7 +638,6 @@ plot_GrowthCurve <- function(
         De.fs.MC <- function(x, y) {
           0 + coef(fit.MC)[1] * x + coef(fit.MC)[2] * x ^ 2 - y
           0 + coef(fit.MC)[1] * x + coef(fit.MC)[2] * x ^ 2 - y
-
         }
 
       }else{
@@ -708,7 +684,6 @@ plot_GrowthCurve <- function(
       if(txtProgressBar) setTxtProgressBar(pb, i)
 
       return(De.MC)
-
     })
 
     if(txtProgressBar) close(pb)
@@ -799,7 +774,6 @@ plot_GrowthCurve <- function(
         if(inherits(fit, "try-error") & !inherits(fit.initial, "try-error")){
           fit <- fit.initial
           rm(fit.initial)
-
         }
 
         #get parameters out of it
@@ -898,7 +872,6 @@ plot_GrowthCurve <- function(
 
             }else{
               x.natural[i] <- NA
-
             }
           }
 
@@ -918,7 +891,9 @@ plot_GrowthCurve <- function(
     ##two options: just linear fit or LIN fit after the EXP fit failed
 
     #set fit object, if fit object was not set before
-    if(exists("fit")==FALSE){fit<-NA}
+    if (!exists("fit")) {
+      fit <- NA
+    }
 
     if ((fit.method=="EXP OR LIN" & inherits(fit, "try-error")) |
         fit.method=="LIN" | length(data[,1])<2) {
