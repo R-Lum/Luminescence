@@ -136,6 +136,11 @@ test_that("input validation", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  ## see https://github.com/R-Lum/Luminescence/pull/308
+  skip_on_os("windows")
+  skip_on_os("mac")
+  skip_if(getRversion() < "4.4")
+
   snapshot.tolerance <- 1.5e-6
 
   set.seed(1)
@@ -192,7 +197,6 @@ test_that("snapshot tests", {
       NumberIterations.MC = 10
   ), tolerance = snapshot.tolerance)
 
-
   expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "GOK",
@@ -221,7 +225,10 @@ test_that("snapshot tests", {
       NumberIterations.MC = 10
   )
   })
+})
 
+test_that("additional tests", {
+  testthat::skip_on_cran()
 
 # Check more output -------------------------------------------------------
   data(ExampleData.LxTxData, envir = environment())
@@ -295,6 +302,14 @@ temp_LambertW <-
     NumberIterations.MC = 10
   )
   })
+
+  expect_s3_class(temp_EXP$Fit, class = "nls")
+  expect_s3_class(temp_LIN$Fit, class = "lm")
+  expect_s3_class(temp_EXPLIN$Fit, class = "nls")
+  expect_s3_class(temp_EXPEXP$Fit, class = "nls")
+  expect_s3_class(temp_QDR$Fit, class = "lm")
+  expect_s3_class(temp_GOK$Fit, class = "nls")
+  expect_s3_class(temp_LambertW$Fit, class = "nls")
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
