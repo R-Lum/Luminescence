@@ -39,9 +39,8 @@ test_that("input validation", {
                "'NumberIterations.MC' should be a positive integer scalar")
 
   ## shorten dataframe
-  expect_error(
-    object = plot_GrowthCurve(LxTxData[1:2,]),
-    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least three regeneration points are required!")
+  expect_warning(plot_GrowthCurve(LxTxData[1:2, ], verbose = FALSE),
+                 "Fitting a non-linear least-squares model requires at least 3")
 
   ## wrong combination of fit.method and mode
   expect_error(
@@ -533,10 +532,10 @@ temp_LambertW <-
         LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
     output.plot = FALSE,
     verbose = TRUE),
-    "fit.method set to 'LIN'"))
+    "'fit.method' set to 'LIN'"))
   })
   expect_match(warnings, "1 NA values removed",
                all = FALSE, fixed = TRUE)
-  expect_match(warnings, "Fitting using an exponential term requires",
+  expect_match(warnings, "Fitting a non-linear least-squares model requires",
                all = FALSE, fixed = TRUE)
 })

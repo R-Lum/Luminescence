@@ -343,10 +343,6 @@ plot_GrowthCurve <- function(
     list = sample <- as.data.frame(sample),
   )
 
-  ##2. check if sample contains a least three rows
-  if(length(sample[[1]]) < 3 && fit.method != "LIN")
-    stop("\n [plot_GrowthCurve()] At least three regeneration points are required!", call. = FALSE)
-
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
   if(ncol(sample) == 2)
@@ -524,16 +520,13 @@ plot_GrowthCurve <- function(
   ## for unknown reasons with only two points the nls() function is trapped in
   ## an endless mode, therefore the minimum length for data is 3
   ## (2016-05-17)
-  if(any(fit.method %in% c("EXP", "EXP+LIN", "EXP+EXP", "EXP OR LIN")) && length(data[,1])<=2) {
-    ##set to LIN
+  if (!fit.method %in% c("LIN", "QDR") && nrow(data) < 3) {
     fit.method <- "LIN"
-
-    warning("[plot_GrowthCurve()] Fitting using an exponential term requires at
-            least 3 dose points! fit.method set to 'LIN'", call. = FALSE)
-
-    if(verbose)
-      message("[plot_GrowthCurve()] fit.method set to 'LIN', see warnings()")
-
+    msg <- paste("Fitting a non-linear least-squares model requires",
+                 "at least 3 dose points, 'fit.method' set to 'LIN'")
+    .throw_warning(msg)
+    if (verbose)
+      message("[plot_GrowthCurve()] ", msg)
   }
 
   ##START PARAMETER ESTIMATION
