@@ -1,8 +1,8 @@
-test_that("plot_GrowthCurve", {
-  testthat::skip_on_cran()
+## load data
+data(ExampleData.LxTxData, envir = environment())
 
-  ## load data
-  data(ExampleData.LxTxData, envir = environment())
+test_that("input validation", {
+  testthat::skip_on_cran()
 
   ## fit.method
   expect_error(
@@ -131,29 +131,32 @@ test_that("plot_GrowthCurve", {
     class = "RLum.Results")
 
   expect_true(is.na(t$De[[1]]))
+})
 
-# Check output for regression ---------------------------------------------
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
   set.seed(1)
-  data(ExampleData.LxTxData, envir = environment())
   SW({
-  temp_EXP <-
-    plot_GrowthCurve(
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "EXP",
       output.plot = FALSE,
       verbose = FALSE,
       NumberIterations.MC = 10
-    )
-  temp_LIN <-
-    plot_GrowthCurve(
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "LIN",
       output.plot = FALSE,
       verbose = FALSE,
       NumberIterations.MC = 10
-    )
-  temp_LIN <-
-    plot_GrowthCurve(
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "LIN",
       mode = "extrapolation",
@@ -161,9 +164,9 @@ test_that("plot_GrowthCurve", {
       output.plot = FALSE,
       verbose = FALSE,
       NumberIterations.MC = 10
-    )
-  temp_EXPLIN <-
-    plot_GrowthCurve(
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "EXP+LIN",
       fit.bounds = FALSE,
@@ -171,25 +174,44 @@ test_that("plot_GrowthCurve", {
       output.plot = FALSE,
       verbose = FALSE,
       NumberIterations.MC = 10
-    )
-  temp_EXPEXP <-
-    plot_GrowthCurve(
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "EXP+EXP",
       output.plot = FALSE,
       verbose = TRUE,
       NumberIterations.MC = 10
-    )
-  temp_QDR <-
-    plot_GrowthCurve(
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
       LxTxData,
       fit.method = "QDR",
       output.plot = FALSE,
       verbose = TRUE,
       NumberIterations.MC = 10
-    )
-  temp_QDR <-
-    plot_GrowthCurve(
+  ), tolerance = snapshot.tolerance)
+
+
+  expect_snapshot_RLum(plot_GrowthCurve(
+      LxTxData,
+      fit.method = "GOK",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(plot_GrowthCurve(
+      LxTxData,
+      fit.method = "LambertW",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+  ), tolerance = snapshot.tolerance)
+
+  ## FIXME(mcol): expect_snapshot_RLum() produced an error on this test:
+  ##              object could not be safely serialized with `style = "json2"`
+  temp_QDR <- plot_GrowthCurve(
       LxTxData,
       fit.method = "QDR",
       output.plot = FALSE,
@@ -197,49 +219,9 @@ test_that("plot_GrowthCurve", {
       fit.force_through_origin = TRUE,
       verbose = TRUE,
       NumberIterations.MC = 10
-    )
-  temp_GOK <-
-    plot_GrowthCurve(
-      LxTxData,
-      fit.method = "GOK",
-      output.plot = FALSE,
-      verbose = FALSE,
-      NumberIterations.MC = 10
-    )
-  temp_LambertW <-
-    plot_GrowthCurve(
-      LxTxData,
-      fit.method = "LambertW",
-      output.plot = FALSE,
-      verbose = FALSE,
-      NumberIterations.MC = 10
-    )
+  )
   })
 
-  expect_s4_class(temp_EXP, class = "RLum.Results")
-    expect_s3_class(temp_EXP$Fit, class = "nls")
-
-  expect_s4_class(temp_LIN, class = "RLum.Results")
-    expect_s3_class(temp_LIN$Fit, class = "lm")
-
-  expect_s4_class(temp_EXPLIN, class = "RLum.Results")
-   expect_s3_class(temp_EXPLIN$Fit, class = "nls")
-
-  expect_s4_class(temp_EXPEXP, class = "RLum.Results")
-    expect_s3_class(temp_EXPEXP$Fit, class = "nls")
-
-  expect_s4_class(temp_QDR, class = "RLum.Results")
-    expect_s3_class(temp_QDR$Fit, class = "lm")
-
-  expect_s4_class(temp_GOK, class = "RLum.Results")
-    expect_s3_class(temp_GOK$Fit, class = "nls")
-
-  expect_s4_class(temp_LambertW, class = "RLum.Results")
-    expect_s3_class(temp_LambertW$Fit, class = "nls")
-
-  ## check n_N calculation
-  expect_equal(round(temp_EXP$De$n_N, 1), 0.5)
-  expect_equal(round(temp_LambertW$De$n_N, 1), 0.6)
 
 # Check more output -------------------------------------------------------
   data(ExampleData.LxTxData, envir = environment())
