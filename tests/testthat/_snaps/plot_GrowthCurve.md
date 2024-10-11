@@ -1174,3 +1174,297 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["De", "De.MC"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [38.6899891]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.39886094]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00030389]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-38.31783644]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["QDR"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-39.62912953]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-37.36545939]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-40.76856081]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-35.64871627]
+                }
+              ]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [-38.69116731, -39.49372174, -38.82570931, -38.85488204, -40.26606975, -37.32510744, -37.96030455, -35.1485078, -38.84913316, -37.76376128]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["plot_GrowthCurve"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["De", "De.MC"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4.70773252e-06]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.00001567]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4.8266576e-18]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-5.49687638e-06]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["QDR"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00001917]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4.45632678e-06]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00003589]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.00002445]
+                }
+              ]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [-6.38893784e-06, -0.00001699, 0.00003051, -2.77700759e-06, -0.00002978, -8.59208378e-06, -6.50030518e-06, 1.40328309e-06, -0.0000155, -3.59310991e-07]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["plot_GrowthCurve"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
