@@ -12,6 +12,8 @@ expect_snapshot_RLum <- function(object, ...) {
       object@data$fit <- NULL
     if ("data" %in% names(object@data))
       object@data$data$UID <- NULL
+    if ("Fit" %in% names(object@data))
+      object@data$Fit <- NULL
     if ("Formula" %in% names(object@data))
       object@data$Formula <- NULL
     if ("LnLxTnTx.table" %in% names(object@data))
