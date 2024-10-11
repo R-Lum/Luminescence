@@ -534,10 +534,11 @@ plot_GrowthCurve <- function(
   D02 <- NA
   D02.ERROR <- NA
 
-  ##--------------------------------------------------------------------------##
-  ##to be a little bit more flexible the start parameters varries within a normal distribution
+  ## ------------------------------------------------------------------------
+  ## to be a little bit more flexible, the start parameters varies within
+  ## a normal distribution
 
-  ##draw 50 start values from a normal distribution a start values
+  ## draw 50 start values from a normal distribution
   if (fit.method != "LIN") {
     a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
 
@@ -555,68 +556,53 @@ plot_GrowthCurve <- function(
     g.start <- NA
   }
 
-  # QDR ------------------------------------------------------------------------
-  if (fit.method == "QDR"){
-    ##Do fitting with option to force curve through the origin
-    if(fit.force_through_origin){
-      ##linear fitting ... polynomial
-      fit  <- lm(data$y ~  0 + I(data$x) + I(data$x^2), weights = fit.weights)
+  ## QDR --------------------------------------------------------------------
+  if (fit.method == "QDR") {
 
-      ##give function for uniroot
-      De.fs <- function(x, y) {
+    ## establish models without and with intercept term
+    if (fit.force_through_origin) {
+      model.qdr <- y ~ 0 + I(x) + I(x^2)
+      De.fs <- function(fit, x, y) {
         0 + coef(fit)[1] * x + coef(fit)[2] * x ^ 2 - y
       }
-
-    }else{
-      ##linear fitting ... polynomial
-      fit  <- lm(data$y ~  I(data$x) + I(data$x^2), weights = fit.weights)
-
-      ##give function for uniroot
-      De.fs <- function(x, y) {
+    } else {
+      model.qdr <- y ~ I(x) + I(x^2)
+      De.fs <- function(fit, x, y) {
         coef(fit)[1] + coef(fit)[2] * x + coef(fit)[3] * x ^ 2 - y
       }
     }
 
-    ##solve and get De
-    De <- NA
     if (mode == "interpolation") {
+      y <- sample[1, 2]
+      lower <- 0
+    } else if (mode == "extrapolation") {
+      y <- 0
+      lower <- -1e06
+    }
+
+    ## linear fitting
+    fit <- lm(model.qdr, data = data, weights = fit.weights)
+
+    ## solve and get De
+    De <- NA
+    if (mode != "alternate") {
       De.uniroot <- try(uniroot(De.fs,
-                                y = sample[1, 2],
-                                lower = 0,
+                                fit = fit,
+                                y = y,
+                                lower = lower,
                                 upper = max(sample[, 1]) * 1.5), silent = TRUE)
 
       if (!inherits(De.uniroot, "try-error")) {
         De <- De.uniroot$root
-        if (verbose) {
-          if (mode != "alternate") {
-            writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
-              " (", mode,") ", "| De = ", round(De,2)))
-          }
-        }
-
-      } else{
-        if (verbose)
-          writeLines("[plot_GrowthCurve()] no solution found for QDR fit")
       }
-    }else if (mode == "extrapolation"){
-      De.uniroot <- try(uniroot(De.fs,
-                                y = 0,
-                                lower = -1e06,
-                                upper = max(sample[, 1]) * 1.5), silent = TRUE)
 
-      if (!inherits(De.uniroot, "try-error")) {
-        De <- De.uniroot$root
-        if (verbose) {
-          if (mode != "alternate") {
+      if (verbose) {
+        if (!inherits(De.uniroot, "try-error")) {
             writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
-                              " (", mode,") ", "| De = ", round(abs(De), 2)))
-
-          }
+              " (", mode,") ", "| De = ", round(De, 2)))
+        } else{
+          writeLines("[plot_GrowthCurve()] No solution found for QDR fit")
         }
-
-      } else{
-        if (verbose)
-          writeLines("[plot_GrowthCurve()] no solution found for QDR fit")
       }
     }
 
@@ -626,54 +612,26 @@ plot_GrowthCurve <- function(
       pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
     }
 
-    #start loop for Monte Carlo Error estimation
+    ## Monte Carlo Error estimation
     fit.MC <- sapply(1:NumberIterations.MC, function(i){
       data <- data.frame(x = xy$x, y = data.MC[,i])
 
-      if(fit.force_through_origin){
-        ##linear fitting ... polynomial
-        fit.MC  <- lm(data$y ~  0 + I(data$x) + I(data$x^2), weights = fit.weights)
-
-        ##give function for uniroot
-        De.fs.MC <- function(x, y) {
-          0 + coef(fit.MC)[1] * x + coef(fit.MC)[2] * x ^ 2 - y
-          0 + coef(fit.MC)[1] * x + coef(fit.MC)[2] * x ^ 2 - y
-        }
-
-      }else{
-        ##linear fitting ... polynomial
-        fit.MC  <- lm(data$y ~  I(data$x) + I(data$x^2), weights = fit.weights)
-
-        ##give function for uniroot
-        De.fs.MC <- function(x, y) {
-          coef(fit.MC)[1] + coef(fit.MC)[2] * x + coef(fit.MC)[3] * x ^ 2 - y
-        }
+      if (mode == "interpolation") {
+        y <- data.MC.De[i]
       }
 
+      ## linear fitting
+      fit.MC <- lm(model.qdr, data = data, weights = fit.weights)
+
+      ## solve and get De
       De.MC <- NA
-      if (mode == "interpolation") {
-        ##solve and get De
-        De.uniroot.MC <- try(uniroot(
-          De.fs.MC,
-          y = data.MC.De[i],
-          lower = 0,
-          upper = max(sample[, 1]) * 1.5
-        ),
-        silent = TRUE)
-
-        if (!inherits(De.uniroot.MC, "try-error")) {
-          De.MC <- De.uniroot.MC$root
-        }
-
-      }else if (mode == "extrapolation"){
-        ##solve and get De
-        De.uniroot.MC <- try(uniroot(
-          De.fs.MC,
-          y = 0,
-          lower = -1e6,
-          upper = max(sample[, 1]) * 1.5
-        ),
-        silent = TRUE)
+      if (mode != "alternate") {
+        De.uniroot.MC <- try(uniroot(De.fs,
+                                     fit = fit.MC,
+                                     y = y,
+                                     lower = lower,
+                                     upper = max(sample[, 1]) * 1.5),
+                             silent = TRUE)
 
         if (!inherits(De.uniroot.MC, "try-error")) {
           De.MC <- De.uniroot.MC$root
