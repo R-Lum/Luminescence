@@ -148,7 +148,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.13
+ 0.6.14
 }
 
 \examples{

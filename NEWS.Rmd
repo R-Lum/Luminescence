@@ -84,6 +84,8 @@ fixed in #263).
 
 ### `read_XSYG2R()`
 * Add a new argument `n_records` that enables to limit the number of imported records in case the file was faulty or only a limited number of records is wanted.  
+* The function sometimes struggled with the import if only a directory was provided; fixed. 
+* The function truncated the terminal output under certain circumstances; fixed.
 
 ### `use_DRAC()`
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use

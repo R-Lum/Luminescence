@@ -129,7 +129,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.13
+#' @section Function version: 0.6.14
 #'
 #'
 #' @author
@@ -211,7 +211,7 @@ read_XSYG2R <- function(
       if (verbose)
         message("\n[read_XSYG2R()] Directory detected, trying to extract ",
                 "'*.xsyg' files ...\n")
-      file <- as.list(dir(file, recursive = TRUE, pattern = pattern))
+      file <- as.list(dir(file, recursive = TRUE, pattern = pattern, full.names = TRUE))
       if (length(file) == 0) {
         if (verbose)
           message("[read_XSYG2R()] No files matching the given pattern ",
@@ -372,7 +372,7 @@ read_XSYG2R <- function(
 
     ##Display output
     if(verbose)
-      cat("[read_XSYG2R()]\n  Importing: ", file)
+      cat("[read_XSYG2R()]\n  Importing: ", file, "\n")
 
     ##PROGRESS BAR
     if(verbose && txtProgressBar){
