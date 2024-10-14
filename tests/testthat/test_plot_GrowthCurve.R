@@ -46,7 +46,7 @@ test_that("input validation", {
   expect_error(
     plot_GrowthCurve(LxTxData, fit.method = "EXP+EXP",
                      mode = "extrapolation"),
-    "mode 'extrapolation' for fitting method 'EXP+EXP' currently not supported",
+    "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
 
 # Weird LxTx values --------------------------------------------------------
