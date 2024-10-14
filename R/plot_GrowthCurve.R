@@ -93,7 +93,7 @@
 #' `mtext = ""`. To plot any other subtitle text, use `mtext`.
 #'
 #' @param sample [data.frame] (**required**):
-#' data frame with three columns for `x = Dose`,`y = LxTx`,`z = LxTx.Error`, `y1 = TnTx`.
+#' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.

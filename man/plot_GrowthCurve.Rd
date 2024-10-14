@@ -26,7 +26,7 @@ plot_GrowthCurve(
 }
 \arguments{
 \item{sample}{\link{data.frame} (\strong{required}):
-data frame with three columns for \code{x = Dose},\code{y = LxTx},\code{z = LxTx.Error}, \code{y1 = TnTx}.
+data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.}
