@@ -10,6 +10,7 @@
 \alias{names_RLum,RLum.Data.Curve-method}
 \alias{bin_RLum.Data,RLum.Data.Curve-method}
 \alias{smooth_RLum,RLum.Data.Curve-method}
+\alias{melt_RLum,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
@@ -34,6 +35,8 @@
 \S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
 
 \S4method{smooth_RLum}{RLum.Data.Curve}(object, k = NULL, fill = NA, align = "right", method = "mean")
+
+\S4method{melt_RLum}{RLum.Data.Curve}(object)
 }
 \arguments{
 \item{object}{\code{\link{get_RLum}}, \code{\link{length_RLum}}, \code{\link{names_RLum}} (\strong{required}):
@@ -114,6 +117,10 @@ Same object as input, after applying the binning.
 \strong{\code{smooth_RLum}}
 
 Same object as input, after smoothing
+
+\strong{\code{melt_RLum}}
+
+Flat \link{data.frame} with \code{X}, \code{Y}, \code{TYPE}, \code{UID}
 }
 \description{
 Class for representing luminescence curve data.
@@ -138,6 +145,9 @@ value time/temperature of the curve (corresponding to the stimulation length)
 
 \item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of RLum.Data.Curve objects using a rolling mean or median.
 In particular the internal function \code{.smoothing} is used.
+
+\item \code{melt_RLum(RLum.Data.Curve)}: Melts \linkS4class{RLum.Data.Curve} objects into a flat data.frame to be used
+in combination with other packages such as \code{ggplot2}.
 
 }}
 \section{Slots}{
@@ -191,11 +201,6 @@ set_RLum(class = "RLum.Data.Curve")
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \keyword{classes}
 \keyword{internal}

@@ -181,4 +181,8 @@ test_that("structure_RLum", {
   expect_equal(ncol(res2), 13)
   expect_equal(names(res2), names(res))
   expect_equal(res2$info, NA)
+  
+  ## melt 
+  t <- melt_RLum(tmp)
+  expect_type(t, "list")
 })

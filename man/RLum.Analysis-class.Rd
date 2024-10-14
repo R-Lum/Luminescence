@@ -10,6 +10,7 @@
 \alias{length_RLum,RLum.Analysis-method}
 \alias{names_RLum,RLum.Analysis-method}
 \alias{smooth_RLum,RLum.Analysis-method}
+\alias{melt_RLum,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
 \usage{
 \S4method{show}{RLum.Analysis}(object)
@@ -46,6 +47,8 @@
 \S4method{names_RLum}{RLum.Analysis}(object)
 
 \S4method{smooth_RLum}{RLum.Analysis}(object, ...)
+
+\S4method{melt_RLum}{RLum.Analysis}(object)
 }
 \arguments{
 \item{object}{\code{\link{get_RLum}}: \code{\link{names_RLum}}, \code{\link{length_RLum}}, \code{\link{structure_RLum}} (\strong{required}):
@@ -148,6 +151,10 @@ Returns the names of the record types (\code{recordType}) in this object.
 \strong{\code{smooth_RLum}}
 
 Same object as input, after smoothing
+
+\strong{\code{melt_RLum}}
+
+Flat \link{data.frame} with \code{X}, \code{Y}, \code{TYPE}, \code{UID}
 }
 \description{
 Object class to represent analysis data for protocol analysis, i.e. all curves,
@@ -179,6 +186,9 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
 using the internal function \code{.smoothing}.
+
+\item \code{melt_RLum(RLum.Analysis)}: Melts \linkS4class{RLum.Analysis} objects into a flat data.frame to be used
+in combination with other packages such as \code{ggplot2}.
 
 }}
 \section{Slots}{
@@ -226,12 +236,7 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \keyword{classes}
 \keyword{internal}
 \keyword{methods}

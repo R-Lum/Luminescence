@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R
 NULL
 
 #' Class `"RLum.Analysis"`
@@ -791,5 +791,26 @@ setMethod(
         })
 
     return(object)
+  }
+)
+
+# melt_RLum() -------------------------------------------------------------------------------
+#' @describeIn RLum.Analysis
+#' Melts [RLum.Analysis-class] objects into a flat data.frame to be used
+#' in combination with other packages such as `ggplot2`.
+#'
+#' @return 
+#' 
+#' **`melt_RLum`**
+#' 
+#' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
+#'
+#' @md
+#' @export
+setMethod(
+  f = "melt_RLum",
+  signature = "RLum.Analysis",
+  function(object) {
+    melt_RLum(object@records)
   }
 )

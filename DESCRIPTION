@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.25.9000-16
-Date: 2024-10-13
+Version: 0.9.25.9000-21
+Date: 2024-10-14
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
@@ -82,6 +82,7 @@ Collate:
     'RcppExports.R'
     'replicate_RLum.R'
     'RLum-class.R'
+    'melt_RLum.R'
     'smooth_RLum.R'
     'names_RLum.R'
     'structure_RLum.R'

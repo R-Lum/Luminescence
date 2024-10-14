@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R melt_RLum.R
 NULL
 
 #' Class `"RLum.Data.Curve"`
@@ -491,3 +491,28 @@ setMethod(
 
     }
  )
+
+# melt_RLum() -------------------------------------------------------------------------------
+#' @describeIn RLum.Data.Curve
+#' Melts [RLum.Data.Curve-class] objects into a flat data.frame to be used
+#' in combination with other packages such as `ggplot2`.
+#'
+#' @return 
+#' 
+#' **`melt_RLum`**
+#' 
+#' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
+#'
+#' @md
+#' @export
+setMethod(
+  f = "melt_RLum",
+  signature = "RLum.Data.Curve",
+  function(object) {
+    data.frame(
+      X = object@data[,1], 
+      Y = object@data[,2], 
+      TYPE = object@recordType, 
+      UID = object@.uid)
+  }
+)
