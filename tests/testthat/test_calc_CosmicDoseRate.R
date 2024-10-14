@@ -2,7 +2,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_CosmicDoseRate(depth = -2),
-               "No negative values allowed for depth and density")
+               "No negative values allowed for 'depth' and 'density'")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    corr.fieldChanges = TRUE),
                "requires an age estimate")
@@ -23,7 +23,7 @@ test_that("input validation", {
                                     corr.fieldChanges = TRUE, est.age = 100,
                                     latitude = 38.0645, longitude = 1.4964,
                                     altitude = 364),
-                "No geomagnetic field change correction for samples older >80 ka possible")
+                "No geomagnetic field change correction for samples older than 80")
   expect_output(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                     corr.fieldChanges = TRUE, est.age = 20,
                                     latitude = 38.0645, longitude = 1.4964,
