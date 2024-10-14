@@ -115,6 +115,8 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #' @md
 #' @export
 github_branches <- function(user = "r-lum", repo = "luminescence") {
+  .set_function_name("github_branches")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user, "/", repo, "/branches")
@@ -160,6 +162,8 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' @md
 #' @export
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
+  .set_function_name("github_issues")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user,"/", repo, "/issues")
@@ -216,7 +220,8 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 .github_getContent <- function(url) {
   response <- GET(url, accept_json())
   if (status_code(response) != 200)
-    .throw_error("Contacting ", url, " had status code ", status_code(response))
+    .throw_error("Contacting ", url, " returned status code ",
+                 status_code(response))
   content <- content(response)
   return(content)
 }
