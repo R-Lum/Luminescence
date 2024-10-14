@@ -13,9 +13,9 @@ test_that("input validation", {
   expect_error(merge_RLum.Analysis(list(c1)),
                "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(o1, "test")),
-               "At least element #2 is not of class 'RLum' or a derivative")
+               "All elements of 'object' should be of class 'RLum'")
   expect_error(merge_RLum.Analysis(list(o1, r1)),
-               "Object of class 'RLum.Results' not supported")
+               "'objects' should be of class 'RLum.Analysis' or 'RLum.Data'")
 
   expect_s4_class(merge_RLum.Analysis(list(o1)),
                   "RLum.Analysis")

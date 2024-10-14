@@ -297,26 +297,22 @@ setMethod(
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
           definition = function(object, info.object) {
-            ##if missing info.object just show the curve values
+              .set_function_name("get_RLum")
+              on.exit(.unset_function_name(), add = TRUE)
 
-            if (missing(info.object) == FALSE){
-              if(is(info.object, "character") == FALSE)
-                stop("[get_RLum] 'info.object' has to be a character!", call. = FALSE)
+              ##if missing info.object just show the curve values
+              if (!missing(info.object)) {
+                .validate_class(info.object, "character")
 
-
-              if (info.object %in% names(object@info) == TRUE){
+                if (!info.object %in% names(object@info)) {
+                  .throw_error("Invalid element name, valid names are: ",
+                               .collapse(names(object@info)))
+                }
                 unlist(object@info[info.object])
-
               } else {
-                stop("[get_RLum()] Invalid element name, valid names are: ",
-                     .collapse(names(object@info)), call. = FALSE)
+                object@data
               }
-            } else {
-              object@data
-
-            }
           })
-
 
 
 # names() -------------------------------------------------------------------------------------
@@ -335,9 +331,7 @@ setMethod("names_RLum",
           "RLum.Data.Spectrum",
           function(object){
             names(object@info)
-
           })
-
 
 
 # bin_RLum() ----------------------------------------------------------------------------------#

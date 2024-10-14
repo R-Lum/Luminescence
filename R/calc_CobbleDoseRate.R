@@ -88,7 +88,8 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   .validate_class(input, "data.frame")
   if ((max(input[,1])>input$CobbleDiameter[1]*10) ||
       ((max(input[,1]) + input[length(input[,1]),3]) > input$CobbleDiameter[1]*10))
-    stop("[calc_CobblDoseRate()] Slices outside of cobble. Please check your distances and make sure they are in mm and diameter is in cm!", call. = FALSE)
+    .throw_error("Slices outside of cobble: please ensure your distances ",
+                 "are in mm and diameter is in cm")
 
 
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly

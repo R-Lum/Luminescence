@@ -80,7 +80,7 @@ calc_gSGC_feldspar <- function (
   ## Integrity checks -------------------------------------------------------
   .validate_class(data, "data.frame")
   if (ncol(data) != 5) {
-    stop("[calc_gSGC_feldspar()] Structure of 'data' does not fit the expectations.", call. = FALSE)
+    .throw_error("Structure of 'data' does not fit the expectations")
   }
   colnames(data) <- c("LnTn", "LnTn.error", "Lr1Tr1", "Lr1Tr1.error",
                       "Dr1")

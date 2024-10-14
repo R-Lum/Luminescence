@@ -54,7 +54,8 @@ test_that("calc_TLLxTxRatio", {
       Tx.data.background,
       signal.integral.min,
       signal.integral.max),
-      regexp = "\\[calc\\_TLLxTxRatio\\(\\)\\] Channel numbers differ for Lx and Tx data.+")
+      "[calc_TLLxTxRatio()] Channel numbers differ for Lx and Tx data",
+      fixed = TRUE)
 
     ## use invalid signal integral
     expect_error(calc_TLLxTxRatio(

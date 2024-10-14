@@ -906,9 +906,8 @@ fit_LMCurve<- function(
 
     ##change xlim values in case of the log plot the avoid problems
     if((log == "x" | log == "xy") && xlim[1] == 0){
-      warning("[fit_LMCurve()] x-axis limitation change to avoid 0 values for log-scale!", call. = FALSE)
+      .throw_warning("'xlim' changed to avoid 0 values for log-scale")
       xlim <- c(2^0.5/2 * max(values[,1])/length(values[,1]), xlim[2])
-
     }
 
     ##set plot frame

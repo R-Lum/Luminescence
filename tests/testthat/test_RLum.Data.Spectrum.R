@@ -12,7 +12,8 @@ test_that("check class", {
   object <- set_RLum(class = "RLum.Data.Spectrum", data = object, info = list(a = "test"))
   expect_error(get_RLum(object, info.object = "test"),
                "Invalid element name, valid names are: 'a'")
-  expect_error(get_RLum(object, info.object = 1L), "'info.object' has to be a character!")
+  expect_error(get_RLum(object, info.object = 1L),
+               "'info.object' should be of class 'character'")
   expect_type(get_RLum(object, info.object = "a"), "character")
 
   ##test method names

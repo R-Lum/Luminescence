@@ -101,7 +101,6 @@ read_Daybreak2R <- function(
 
     ##return
       return(temp.return)
-
   }
 
 
@@ -109,8 +108,7 @@ read_Daybreak2R <- function(
 
   ##check if file exists
   if(!file.exists(file)){
-    stop("[read_Daybreak2R()] file name does not seem to exist.", call. = FALSE)
-
+    .throw_error("File does not exist")
   }
 
 
@@ -315,7 +313,6 @@ read_Daybreak2R <- function(
 
     if(verbose){
       cat("\n[read_Daybreak] file extension not of type '.DAT' try to import ASCII-file ... \n")
-
     }
 
     ##read file
@@ -324,7 +321,7 @@ read_Daybreak2R <- function(
     ## check whether the file contains non-ASCII characters: the [^ -~]
     ## regexp matches all ASCII characters from space to tilde
     if (any(grepl("[^ -~]", file2read[1]))) {
-      stop("[read_Daybreak2R()] The provided file is no ASCII-file and cannot be imported!", call. = FALSE)
+      .throw_error("The provided file is not ASCII and cannot be imported")
     }
 
     ##(0) get rid off all the empty lines

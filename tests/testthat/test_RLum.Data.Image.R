@@ -16,7 +16,8 @@ test_that("check class ", {
   expect_output(show(ExampleData.RLum.Data.Image))
 
   ##get-method
-  expect_error(get_RLum(ExampleData.RLum.Data.Image, info.object = 1), regexp = "'info.object' has to be a character!")
+  expect_error(get_RLum(ExampleData.RLum.Data.Image, info.object = 1),
+               "'info.object' should be of class 'character'")
   expect_error(get_RLum(ExampleData.RLum.Data.Image, info.object = "unknown"))
   expect_type(get_RLum(ExampleData.RLum.Data.Image, info.object = "NumFrames"), "integer")
 

@@ -259,7 +259,6 @@ verify_SingleGrainData <- function(
           selection_full = selection),
         info = list(call = sys.call())
       )
-
     }
 
 
@@ -271,13 +270,11 @@ verify_SingleGrainData <- function(
     object_list <- lapply(get_RLum(object), function(x){
       ##yes, would work differently, but it is faster
       x@data[,2]
-
     })
 
     ##MEAN + SD
     temp.results_matrix <- lapply(X = object_list, FUN = function(x){
       c(mean(x), var(x))
-
     })
 
     temp.results_matrix <- do.call(rbind,  temp.results_matrix)
@@ -330,8 +327,7 @@ verify_SingleGrainData <- function(
 
     } else{
 
-      stop("[verify_SingleGrainData()] I don't know what to do object 'originator' not supported!",
-           call. = FALSE)
+      .throw_error("Object originator '", object@originator, "' not supported")
     }
 
 
@@ -343,13 +339,10 @@ verify_SingleGrainData <- function(
           selection_id <-
             sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
               which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
-
-
             })))
 
         }else{
           selection_id <- NA
-
         }
 
 
@@ -363,12 +356,10 @@ verify_SingleGrainData <- function(
 
 
           })))
-
       }
 
       ##make sure that we do not break subsequent code
       if(length(selection_id) == 0) selection_id <- NA
-
 
     } else{
       ##reduce data to TRUE selection
@@ -386,7 +377,6 @@ verify_SingleGrainData <- function(
         selection_id_text <- .collapse(selection_id, quote = FALSE)
         cat(paste0("\n[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
                    selection_id_text), "\n")
-
       }
 
       ##selected wanted elements
@@ -419,8 +409,7 @@ verify_SingleGrainData <- function(
 
     }else{
       if(any(is.na(selection_id))){
-        warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!",
-                call. = FALSE)
+        .throw_warning("'selection_id' is NA, nothing removed, everything selected for removal")
       }
 
       return_object <- set_RLum(
@@ -431,7 +420,6 @@ verify_SingleGrainData <- function(
           selection_full = selection),
         info = list(call = sys.call())
       )
-
     }
   }
 
@@ -444,8 +432,6 @@ verify_SingleGrainData <- function(
         ylim = range(c(selection[["RATIO"]], threshold * 1.1))
       ),
       val = list(...))
-
-
 
     ##plot area
     plot(

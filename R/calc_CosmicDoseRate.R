@@ -248,6 +248,8 @@ calc_CosmicDoseRate<- function(
   error = 10,
   ...
 ) {
+  .set_function_name("calc_CosmicDoseRate")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -260,14 +262,13 @@ calc_CosmicDoseRate<- function(
   ##============================================================================##
 
   if(any(depth < 0) || any(density < 0)) {
-    stop("[calc_CosmicDoseRate()] No negative values allowed for ",
-         "depth and density", call. = FALSE)
+    .throw_error("No negative values allowed for depth and density")
   }
 
   if(corr.fieldChanges == TRUE) {
     if(is.na(est.age) == TRUE) {
-      stop("[calc_CosmicDoseRate()] Correction for geomagnetic field ",
-           "changes requires an age estimate.", call. = FALSE)
+      .throw_error("Correction for geomagnetic field ",
+                   "changes requires an age estimate")
     }
     if(est.age > 80) {
       cat("\nCAUTION: No geomagnetic field change correction for samples",
@@ -277,8 +278,8 @@ calc_CosmicDoseRate<- function(
   }
 
   if(length(density) > length(depth)) {
-    stop("\nIf you provide more than one value for density please",
-         " provide an equal number of values for depth.", call. = FALSE)
+    .throw_error("If you provide more than one value for density, please ",
+                 " provide an equal number of values for depth")
   }
 
 
@@ -495,7 +496,7 @@ calc_CosmicDoseRate<- function(
 
       } else {
         if (settings$verbose)
-          cat(paste("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!"))
+          cat("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!")
       }
     }
 
@@ -614,6 +615,5 @@ calc_CosmicDoseRate<- function(
 
     # Return values
     invisible(newRLumResults.calc_CosmicDoseRate)
-
   }
 }

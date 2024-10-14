@@ -101,7 +101,6 @@ setAs("RLum.Data.Image", "data.frame",
           } else {
             stop("No viable coercion to data.frame, object contains multiple frames.",
                  call. = FALSE)
-
           }
         })
 
@@ -123,7 +122,6 @@ setAs("RLum.Data.Image", "matrix",
           from@data[,,1, drop = TRUE]
         } else {
          stop("No viable coercion to matrix, object contains multiple frames. Please convert to array instead.", call. = FALSE)
-
         }
       })
 
@@ -135,7 +133,6 @@ setAs("array", "RLum.Data.Image",
             curveType = "NA",
             data = from,
             info = list())
-
       })
 
 ## to array ----
@@ -154,14 +151,12 @@ setAs("list", "RLum.Data.Image",
             data = array(unlist(array_list),
                          c(nrow(array_list[[1]]), ncol(array_list[[1]]), length(array_list))),
             info = list())
-
       })
 
 ## to list ----
 setAs("RLum.Data.Image", "list",
       function(from){
        lapply(1:dim(from@data)[3], function(x) from@data[,,x])
-
     })
 
 # show() --------------------------------------------------------------------------------------
@@ -192,7 +187,6 @@ setMethod("show",
             #cat("\n\t\t >> names:", names(object@info))
           }
 )
-
 
 
 # set_RLum() ----------------------------------------------------------------------------------
@@ -321,21 +315,17 @@ setMethod(
 setMethod("get_RLum",
           signature("RLum.Data.Image"),
           definition = function(object, info.object) {
+            .set_function_name("get_RLum")
+            on.exit(.unset_function_name(), add = TRUE)
 
-            ##if missing info.object just show the curve values
             if(!missing(info.object)){
-              if(!inherits(info.object, "character"))
-                stop("[get_RLum] 'info.object' has to be a character!", call. = FALSE)
-
+              .validate_class(info.object, "character")
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
 
               } else {
-                stop(paste0(
-                  "[get_RLum] Invalid element name. Valid names are: ",
-                  .collapse(names(object@info))
-                ),
-                call. = FALSE)
+                .throw_error("Invalid element name, valid names are: ",
+                             .collapse(names(object@info)))
              }
             } else {
               object@data

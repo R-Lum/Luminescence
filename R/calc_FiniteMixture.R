@@ -205,16 +205,13 @@ calc_FiniteMixture <- function(
     data <- get_RLum(data, "data")
   }
   if (ncol(data) < 2) {
-    stop("[calc_FiniteMixture()] 'data' object must have two columns",
-         call. = FALSE)
+    .throw_error("'data' object must have two columns")
   }
   if (sigmab < 0 || sigmab > 1) {
-    stop("[calc_FiniteMixture()] 'sigmab' must be a value between 0 and 1",
-         call. = FALSE)
+    .throw_error("'sigmab' must be a value between 0 and 1")
   }
   if(any(n.components<2) == TRUE) {
-    stop("[calc_FiniteMixture()] At least two components need to be fitted",
-         call. = FALSE)
+    .throw_error("At least two components need to be fitted")
   }
   pdf.sigma <- .validate_args(pdf.sigma, c("sigmab", "se"))
   pdf.colors <- .validate_args(pdf.colors, c("gray", "colors", "none"))
@@ -592,8 +589,9 @@ calc_FiniteMixture <- function(
       single.comp=single.comp))
 
   if (anyNA(unlist(summary)) && verbose)
-    warning("\n[calc_FiniteMixture] The model produced NA values. Either the input data are inapplicable for the model",
-            " or the the model parameters need to be adjusted (e.g. 'sigmab')", call. = FALSE)
+    .throw_warning("The model produced NA values: either the input data are ",
+                   "inapplicable for the model, or the the model parameters ",
+                   "need to be adjusted (e.g. 'sigmab')")
 
   ##=========##
   ## PLOTTING -----------

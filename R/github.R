@@ -68,17 +68,19 @@ NULL
 #' @export
 github_commits <- function(user = "r-lum", repo = "luminescence",
                            branch = "master", n = 5) {
+  .set_function_name("github_commits")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # fetch available branches and check if provided branch exists
   branches <- github_branches(user, repo)
   if (!any(grepl(branch, branches$BRANCH)))
-    stop("Branch ", branch, " does not exist.", call. = FALSE)
+    .throw_error("Branch ", branch, " does not exist")
 
   # build URL and retrieve content
   sha <- branches$SHA[grep(paste0("^", branch, "$"), branches$BRANCH)]
   url <- paste0("https://api.github.com/repos/", user, "/", repo, "/commits?",
                 "per_page=", n, "&sha=", sha)
-  content <- github_getContent(url)
+  content <- .github_getContent(url)
 
   # format output as data.frame
   output <- do.call(rbind, lapply(content, function(x) {
@@ -116,7 +118,7 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user, "/", repo, "/branches")
-  content <- github_getContent(url)
+  content <- .github_getContent(url)
 
   # extract relevant information from server response
   branches <- sapply(content, function(x) x$name)
@@ -161,7 +163,7 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user,"/", repo, "/issues")
-  content <- github_getContent(url)
+  content <- .github_getContent(url)
 
   # format output as nested list
   issues <- lapply(content, function(x) {
@@ -200,7 +202,6 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
                  'milestone: "', x$MILESTONE, '"', "\n",
                  "description: >\n", DESCRIPTION,
                  "\n\n\n"))
-
     })
   }
   # return invisible as we explicitly print the output
@@ -208,16 +209,14 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 }
 
 
-
 # HELPER ------------------------------------------------------------------
 
 # This function queries the URL, checks the server response and returns
 # the content.
-github_getContent <- function(url) {
+.github_getContent <- function(url) {
   response <- GET(url, accept_json())
   if (status_code(response) != 200)
-    stop("Contacting ", url, " had status code ", status_code(response),
-         call. = FALSE)
+    .throw_error("Contacting ", url, " had status code ", status_code(response))
   content <- content(response)
   return(content)
 }

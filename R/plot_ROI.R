@@ -67,12 +67,16 @@ plot_ROI <- function(
   dim.CCD = NULL,
   bg_image = NULL,
   plot = TRUE,
-  ...) {
+  ...
+) {
+  .set_function_name("plot_ROI")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ##helper function to extract content
   .spatial_data <- function(x) {
     ##ignore all none RLum.Analysis
     if (!inherits(x, "RLum.Analysis") || x@originator != "read_RF2R")
-      stop("[plot_ROI()] Input for 'object' not supported, please check documentation!", call. = FALSE)
+      .throw_error("Input for 'object' not supported, please check documentation")
 
     ##extract some of the elements
     info <- x@info
@@ -87,7 +91,6 @@ plot_ROI <- function(
       img_width = info$image_width,
       img_height = info$image_height,
       grain_d = info$grain_d)
-
   }
 
   if(is(object, "RLum.Results") && object@originator == "extract_ROI") {
@@ -162,7 +165,8 @@ plot_ROI <- function(
         as(bg_image, "RLum.Data.Image")
       }, silent = TRUE)
       if(inherits(a, "try-error")) {
-        warning("[plot_ROI()] 'bg_image' is not of type RLum.Data.Image and cannot be converted into such; background image plot skipped!")
+        .throw_warning("'bg_image' is not of class 'RLum.Data.Image' and ",
+                       "cannot be converted into it, background image plot skipped")
       } else {
         a <- a@data
         graphics::image(
@@ -218,7 +222,6 @@ plot_ROI <- function(
         lcol = plot_settings$col.ROI,
         lty = plot_settings$lty.ROI,
         lwd = plot_settings$lwd.ROI)
-
     }
 
     ## add distance marker
@@ -252,7 +255,6 @@ plot_ROI <- function(
         legend = plot_settings$legend.text,
         col = c(plot_settings$col.ROI, plot_settings$col.pixel, "red")
       )
-
     }
 
   }##end if plot
@@ -266,5 +268,4 @@ plot_ROI <- function(
     info = list(
       call = sys.call()
     )))
-
 }

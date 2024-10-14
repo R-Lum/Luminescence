@@ -193,7 +193,7 @@ fit_EmissionSpectra <- function(
 
   ##stop, mixed input is not allowed
   if(inherits(object, "list") && length(unique(sapply(object, class))) != 1)
-     stop("[fit_EmissionSpectra()] List elements of different class detected!", call. = FALSE)
+    .throw_error("List elements of different class detected")
 
   ##deal with RLum.Data.Spectrum lists
   if(inherits(object, "list") && all(sapply(object, class) == "RLum.Data.Spectrum")){
@@ -313,7 +313,6 @@ fit_EmissionSpectra <- function(
       if(verbose) cat(">> Wavelength scale detected ...\n")
       m <- convert_Wavelength2Energy(m, order = TRUE)
       if(verbose) cat(">> Wavelength to energy scale conversion ... \t[OK]\n")
-
     }
 
   }else if(input_scale == "wavelength"){
@@ -334,7 +333,6 @@ fit_EmissionSpectra <- function(
     v <- max.col(z, ties.method = "first") == ceiling(10^(3 - log10(nrow(m)))) + s
     result <- c(rep(FALSE, s), v)
     which(result[1:(length(result) - s)])
-
   }
 
   ##set fit function
@@ -347,7 +345,6 @@ fit_EmissionSpectra <- function(
       paste0("y ~ ",
              paste(C," * 1/(",sigma," * sqrt(2 * pi)) * exp(-0.5 * ((x - ",mu,")/",sigma,")^2)",
                    collapse = " + ")))
-
   }
 
 # Fitting -------------------------------------------------------------------------------------

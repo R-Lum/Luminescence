@@ -21,6 +21,9 @@ test_that("input validation", {
   expect_error(extract_ROI(object = m, matrix(ncol = 3, nrow = 0)),
                "[extract_ROI()] 'roi' does not have the expected format",
                fixed = TRUE)
+  expect_error(extract_ROI(object = RLum, roi, roi_summary = "error"),
+               "[extract_ROI()] 'roi_summary' should be one of 'mean', 'median'",
+               fixed = TRUE)
 })
 
 test_that("extract_ROI", {
@@ -65,9 +68,4 @@ test_that("extract_ROI", {
 
   t_sum <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "sum")@data$roi_summary, "double")
   expect_equal(sum(t_sum), 8117, tolerance = 0.001)
-
-  ## crash
-  expect_error(extract_ROI(object = RLum, roi, roi_summary = "error"),
-               "\\[extract\\_ROI\\(\\)\\] roi\\_summary method not supported, check manual!")
-
 })

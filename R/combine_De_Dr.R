@@ -517,7 +517,7 @@ combine_De_Dr <- function(
 
 # Integrity checks --------------------------------------------------------
  if(length(De) != length(s))
-   stop("[combine_De_Dr()] 'De' and 's' are not of similar length!", call. = FALSE)
+   .throw_error("'De' and 's' are not of similar length!")
 
 # Prepare data ------------------------------------------------------------
   ## we have to fetch the function otherwise

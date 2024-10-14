@@ -29,9 +29,9 @@ test_that("get_RLum", {
 
   ## input validation
   expect_error(get_RLum(obj, "error"),
-               "unknown 'data.object', valid names are:")
+               "Unknown 'data.object', valid names are:")
   expect_error(get_RLum(obj, FALSE),
-               "'data.object' has to be of type character or numeric")
+               "'data.object' should be of class 'character' or 'numeric'")
   expect_error(get_RLum(obj, 100),
                "'data.object' index out of bounds")
   expect_warning(expect_null(get_RLum(obj, info.object = "error")),

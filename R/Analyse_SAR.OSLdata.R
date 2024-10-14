@@ -171,8 +171,12 @@ Analyse_SAR.OSLdata <- function(
   .validate_class(input.data, c("Risoe.BINfileData"))
   sample.data <- input.data
 
-  if(missing(signal.integral)==TRUE){stop("[Analyse_SAR.OSLdata] No signal integral is given!")}
-  if(missing(background.integral)==TRUE){stop("[Analyse_SAR.OSLdata] No background integral is given!")}
+  if (missing(signal.integral)) {
+    .throw_error("No signal integral is given")
+  }
+  if (missing(background.integral)) {
+    .throw_error("No background integral is given")
+  }
 
   ##set values for run and set if they are not defined by the user
   if(missing(position)==TRUE){position<-min(sample.data@METADATA[,"POSITION"]):max(sample.data@METADATA[,"POSITION"])}
@@ -220,9 +224,7 @@ Analyse_SAR.OSLdata <- function(
 
       ##check if OSL curves are part of the data set
       if(nrow(sample.data@METADATA[sample.data@METADATA[,"LTYPE"]=="OSL",]) == 0){
-
-        stop("[Analyse_SAR.OSLdata()] No 'OSL' curves found!")
-
+        .throw_error("No 'OSL' curves found")
       }
 
       if(!keep.SEL){

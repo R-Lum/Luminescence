@@ -160,17 +160,17 @@ fit_ThermalQuenching <- function(
                   extra = "a 'list' of such objects")
 
   if(nrow(data) < 1 || ncol(data) < 3)
-      stop("[fit_ThermalQuenching()] 'data' is empty or has less than three columns!", call. = FALSE)
+    .throw_error("'data' is empty or has fewer than three columns")
 
-    if(ncol(data) > 3)
-      warning("[fit_ThermalQuenching()] 'data' has more than 3 columns, taking only the first three!", call. = FALSE)
+  if (ncol(data) > 3) {
+    .throw_warning("'data' has more than 3 columns, taking only the first three")
+    data <- data[, 1:3]
+  }
 
-    if(any(is.na(data)))
-      warning("[fit_ThermalQuenching()] NA values in 'data' automatically removed!", call. = FALSE)
-
-
-    ##this we do anyway, you never know
-    data <- na.exclude(data[,1:3])
+  if (any(is.na(data))) {
+    .throw_warning("NA values in 'data' automatically removed")
+    data <- na.exclude(data)
+  }
 
   # Prepare data --------------------------------------------------------------------------------
   ##set formula for quenching accordingt to Wintle 1973

@@ -52,7 +52,8 @@ test_that("Test RLum.Types", {
   expect_s4_class(suppressWarnings(CW2pPMi(object)), class = "RLum.Data.Curve")
 
   ##test error handling
-  expect_error(CW2pLMi(values, P = 0), regexp = "[CW2pLMi] P has to be > 0!", fixed = TRUE)
+  expect_error(CW2pLMi(values, P = 0),
+               "[CW2pLMi()] P has to be > 0", fixed = TRUE)
   expect_warning(CW2pLMi(values, P = 10))
   expect_error(CW2pHMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")

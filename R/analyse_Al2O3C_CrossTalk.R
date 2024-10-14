@@ -124,19 +124,15 @@ analyse_Al2O3C_CrossTalk <- function(
   }
 
   ##set signal integral
+  max.signal_integral <- nrow(object[[1]][[1]][])
   if(is.null(signal_integral)){
-    signal_integral <- c(1:nrow(object[[1]][[1]][]))
+    signal_integral <- 1:max.signal_integral
 
   }else{
     ##check whether the input is valid, otherwise make it valid
-    if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][[1]][])){
-      signal_integral <- c(1:nrow(object[[1]][[1]][]))
-      warning(
-        paste0(
-          "[analyse_Al2O3C_ITC()] Input for 'signal_integral' corrected to 1:", nrow(object[[1]][[1]][])
-        ),
-        call. = FALSE
-      )
+    if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
+      signal_integral <- 1:max.signal_integral
+      .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
     }
   }
 
@@ -156,10 +152,8 @@ analyse_Al2O3C_CrossTalk <- function(
           irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
         }
       } else{
-        stop(
-          "[analyse_Al2O3C_CrossTalk()] The object provided for the argument 'irradiation_time_correction' was created by an unsupported function!",
-          call. = FALSE
-        )
+        .throw_error("The object provided for 'irradiation_time_correction' ",
+                     "was created by an unsupported function")
       }
     }
   }

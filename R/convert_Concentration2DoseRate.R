@@ -143,8 +143,7 @@ convert_Concentration2DoseRate <- function(
   .validate_class(input, c("data.frame", "matrix"))
 
   if(ncol(input) != ncol(suppressMessages(convert_Concentration2DoseRate())) || nrow(input) > 1)
-    stop("[convert_Concentration2DoseRate()] number of rows/columns in input does not match the requirements. See manual!",
-         call. = FALSE)
+    .throw_error("Number of rows/columns in input does not match the requirements")
 
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
   ## as it is in alphabetical level, but we want to have 'Guerinetal2011'
@@ -156,7 +155,7 @@ convert_Concentration2DoseRate <- function(
   conversion <- .validate_args(conversion, valid_conversion_factors)
 
   if(!any(input[,1] %in% c("FS","Q")))
-    stop("[convert_Concentration2DoseRate()] As mineral only 'FS' or 'Q' is supported!", call. = FALSE)
+    .throw_error("As mineral only 'FS' or 'Q' is supported")
 
 # Convert -----------------------------------------------------------------
     InfDR <- matrix(data = NA, nrow = 2, ncol = 6)

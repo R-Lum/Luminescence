@@ -107,7 +107,7 @@ calc_TLLxTxRatio <- function(
 
   ##check DATA TYPE differences
    if(is(Lx.data.signal)[1] != is(Tx.data.signal)[1])
-     stop("[calc_TLLxTxRatio()] Data types of Lx and Tx data differ!", call. = FALSE)
+     .throw_error("Data types of Lx and Tx data differ")
 
   ##--------------------------------------------------------------------------##
   ## Type conversion (assuming that all input variables are of the same type)
@@ -120,12 +120,11 @@ calc_TLLxTxRatio <- function(
 
     if(!missing(Tx.data.background) && !is.null(Tx.data.background))
       Tx.data.background <- as(Tx.data.background, "matrix")
-
   }
 
   ##(d) - check if Lx and Tx curves have the same channel length
      if(length(Lx.data.signal[,2])!=length(Tx.data.signal[,2])){
-       stop("[calc_TLLxTxRatio()] Channel numbers differ for Lx and Tx data!", call. = FALSE)}
+       .throw_error("Channel numbers differ for Lx and Tx data")}
 
    ##(e) - check if signal integral is valid
    if(signal.integral.min < 1 | signal.integral.max > length(Lx.data.signal[,2])){

@@ -8,7 +8,7 @@ test_that("input validation", {
   skip_on_cran()
 
   expect_error(analyse_SAR.TL(),
-               "No value set for 'object'")
+               "is missing, with no default")
   expect_error(analyse_SAR.TL("test"),
                "[analyse_SAR.TL()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
@@ -72,7 +72,7 @@ test_that("Test examples", {
         log = "x",
         sequence.structure = c("SIGNAL", "BACKGROUND"))
     ),
-    "log-scale needs positive values; log-scale disabled"
+    "Non-positive values detected, log-scale disabled"
   )
 
   SW({

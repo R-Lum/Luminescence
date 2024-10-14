@@ -20,7 +20,8 @@ test_that("Merge tests", {
 
   ## with unwanted objects
   expect_error(merge_RLum(list(o1,o2, "test")),
-               regexp = "\\[merge\\_RLum\\(\\)\\]: At least element \\#3 is not of class 'RLum' or a derivative class\\!")
+               "[merge_RLum()] All elements of 'objects' should be of class 'RLum'",
+               fixed = TRUE)
 
   ## single object
   expect_s4_class(
@@ -32,11 +33,13 @@ test_that("Merge tests", {
     regexp = "\\[merge\\_RLum\\(\\)\\] Nothing was merged as the .+")
 
   ## crash with non-list
-  expect_error(merge_RLum("errr"), "\\[merge\\_RLum\\(\\)\\] argument 'objects' .*")
+  expect_error(merge_RLum("errr"),
+               "[merge_RLum()] 'objects' should be of class 'list'",
+               fixed = TRUE)
 
   ## mixed objects
   expect_error(merge_RLum(list(r1, c1)),
-               "So far only similar input objects in the list are supported")
+               "Only similar input objects in the list are supported")
 
   ## unsupported
   data(ExampleData.RLum.Data.Image, envir = environment())

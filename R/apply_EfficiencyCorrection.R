@@ -63,14 +63,12 @@ apply_EfficiencyCorrection <- function(
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
-        warning(paste0("[apply_EfficiencyCorrection()] Skipping ",class(o)," object in input list."), call. = FALSE)
+        .throw_warning("Skipping ", class(o), " object in input list")
         return(o)
       }
-
     })
 
     return(output_list)
-
   }
 
   ##the case of an RLum.Analysis object
@@ -80,10 +78,9 @@ apply_EfficiencyCorrection <- function(
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
-        warning(paste0("[apply_EfficiencyCorrection()] Skipping ",class(o)," object in input list."), call. = FALSE)
+        .throw_warning("Skipping ", class(o), " object in input list")
         return(o)
       }
-
     })
 
     return(object)
@@ -103,7 +100,7 @@ apply_EfficiencyCorrection <- function(
 
   ##test max
   if(max(temp.efficiency[,2]) > 1)
-    stop("[apply_EfficiencyCorrection()] Relative quantum efficiency values > 1 are not allowed.", call. = FALSE)
+    .throw_error("Relative quantum efficiency values > 1 are not allowed")
 
   # Apply method ------------------------------------------------------------
 

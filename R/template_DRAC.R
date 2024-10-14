@@ -103,7 +103,7 @@ template_DRAC <- function(
 
   ## throw warning
   if (nrow > 5000)
-    warning("[template_DRAC()] More than 5000 datasets might not be supported!", call. = FALSE)
+    .throw_warning("More than 5000 datasets might not be supported")
 
   ## PRESETS ----
   valid_presets <- c("quartz_coarse", "quartz_fine", "feldspar_coarse", "polymineral_fine",

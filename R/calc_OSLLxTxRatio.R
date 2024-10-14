@@ -211,8 +211,7 @@ calc_OSLLxTxRatio <- function(
 
     ##(d) - check if Lx and Tx curves have the same channel length
     if(length(Lx.data[,2]) != length(Tx.data[,2]))
-      stop("[calc_OSLLxTxRatio()] Channel numbers of Lx and Tx data differ!",
-           call. = FALSE)
+      .throw_error("Channel numbers of Lx and Tx data differ")
 
   }else{
     Tx.data <- data.frame(x = NA,y = NA)
@@ -264,40 +263,46 @@ calc_OSLLxTxRatio <- function(
   # Continue checks ---------------------------------------------------------
   ##(e) - check if signal integral is valid
   if(min(signal.integral) < 1 | max(signal.integral>length(Lx.data[,2]))){
-    stop("[calc_OSLLxTxRatio()] signal.integral is not valid!", call. = FALSE)}
+    .throw_error("'signal.integral' is not valid")
+  }
 
   ##(f) - check if background integral is valid
   if(min(background.integral)<1 | max(background.integral>length(Lx.data[,2]))){
-    stop(paste("[calc_OSLLxTxRatio()] background.integral is not valid! Max: ",length(Lx.data[,2]),sep=""), call. = FALSE)}
+    .throw_error("'background.integral' is not valid, max: ",
+                 length(Lx.data[, 2]))
+  }
 
   ##(g) - check if signal and background integral overlapping
   if(min(background.integral)<=max(signal.integral)){
-    stop("[calc_OSLLxTxRatio()] Overlapping of 'signal.integral' and 'background.integral' is not permitted!", call. = FALSE)}
+    .throw_error("'signal.integral' and 'background.integral' overlap")
+  }
 
   ##(h) - similar procedure for the Tx limits
   if(all(c(!is.null(signal.integral.Tx),!is.null(background.integral.Tx)))){
 
     if(use_previousBG){
-      warning("[calc_OSLLxTxRatio()] For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.", call. = FALSE)
+      .throw_warning("With 'use_previousBG = TRUE' independent Lx and Tx ",
+                     "integral limits are not allowed. Integral limits ",
+                     "of Lx used for Tx.")
       signal.integral.Tx <- signal.integral
       background.integral.Tx <- background.integral
     }
 
     if(min(signal.integral.Tx) < 1 | max(signal.integral.Tx>length(Tx.data[,2]))){
-      stop("[calc_OSLLxTxRatio()] signal.integral.Tx is not valid!", call. = FALSE)}
-
+      .throw_error("'signal.integral.Tx' is not valid")
+    }
     if(min(background.integral.Tx)<1 | max(background.integral.Tx>length(Tx.data[,2]))){
-      stop(paste("[calc_OSLLxTxRatio()] background.integral.Tx is not valid! Max: ",length(Tx.data[,2]),sep=""),
-           call. = FALSE)}
+      .throw_error("'background.integral.Tx' is not valid, max: ",
+                   length(Tx.data[, 2]))
+    }
 
     if(min(background.integral.Tx)<=max(signal.integral.Tx)){
-      stop("[calc_OSLLxTxRatio()] Overlapping of 'signal.integral.Tx' and 'background.integral.Tx' is not permitted!",
-           call. = FALSE)}
+      .throw_error("'signal.integral.Tx' and 'background.integral.Tx' overlap")
+    }
 
   }else if(!all(c(is.null(signal.integral.Tx),is.null(background.integral.Tx)))){
-    stop("[calc_OSLLxTxRatio()] You have to provide both: signal.integral.Tx and background.integral.Tx!",
-         call. = FALSE)
-
+    .throw_error("You have to provide both 'signal.integral.Tx' and ",
+                 "'background.integral.Tx'")
   }else{
     signal.integral.Tx <- signal.integral
     background.integral.Tx <- background.integral
@@ -456,7 +461,9 @@ calc_OSLLxTxRatio <- function(
 
     ##(c.2) estimate relative standard error for a non-poisson distribution
     if(background.count.distribution != "non-poisson"){
-      warning("Unknown method for background.count.distribution. A non-poisson distribution is assumed!", call. = FALSE)}
+      .throw_warning("Unknown method for 'background.count.distribution', ",
+                     "a non-poisson distribution is assumed")
+    }
 
     LnLx.relError <- sqrt(Y.0 + Y.1/k^2 + sigmab.LnLx*(1+1/k))/
       (Y.0 - Y.1/k)

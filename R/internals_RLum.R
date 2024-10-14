@@ -585,10 +585,11 @@ fancy_scientific <- function(l) {
   bin_size = 1,
   bin_col = FALSE,
   names = NULL) {
+  .set_function_name(".matrix_binning")
+  on.exit(.unset_function_name(), add = TRUE)
 
   #@ The only check
-  if(!inherits(m, "matrix"))
-    stop("[.matrix_binning()] Input is not of class 'matrix'!", call. = FALSE)
+  .validate_class(m, "matrix")
 
   ## transpose in column mode
   if(bin_col) m <- t(m)
@@ -698,8 +699,7 @@ fancy_scientific <- function(l) {
   for(i in 1:length(args)){
     if(is.na(names(args[i])) || names(args[i]) == "...") next
     if(class(args[[i]])[1] == "name" & names(args[i]) != "...") {
-      stop(paste0("[",f_call[[1]],"()]: Argument <",
-                  names(args[i]), "> missing; with no default!"), call. = FALSE)
+      .throw_error("Argument '", names(args[i]), "' missing, with no default")
     }
 
     ##evaluate and cover special cases

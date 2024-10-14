@@ -253,12 +253,14 @@ fit_SurfaceExposure <- function(
 
     # Global fitting requires and equal amount of ages to be provided
     if (length(data) != length(age))
-      stop("If 'data' is a list of data sets for global fitting, 'age' must be of the same length.", call. = FALSE)
+      .throw_error("If 'data' is a list of data sets for global fitting, ",
+                   "'age' must be of the same length.")
 
     # TODO: Support weighted fitting for global fit
     if (weights) {
       if (settings$verbose)
-        warning("[fit_SurfaceExposure()] Argument 'weights' is not supported when multiple data sets are provided for global fitting.", call. = FALSE)
+        .throw_warning("'weights' is not supported when multiple data sets ",
+                       "are provided for global fitting")
       weights <- FALSE
     }
 
@@ -295,7 +297,7 @@ fit_SurfaceExposure <- function(
   if (any(is.na(data))) {
     data <- data[complete.cases(data), ]
     if (settings$verbose)
-      warning("[fit_SurfaceExposure()] NA values in 'data' were removed.", call. = FALSE)
+      message("[fit_SurfaceExposure()] NA values in 'data' were removed")
   }
 
   ## extract errors into separate variable

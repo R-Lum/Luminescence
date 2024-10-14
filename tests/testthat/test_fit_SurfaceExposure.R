@@ -15,7 +15,7 @@ test_that("input validation", {
                "'age' must be of the same length")
 
   SW({
-  expect_warning(fit_SurfaceExposure(rbind(d1, NA), mu = 0.9),
+  expect_message(fit_SurfaceExposure(rbind(d1, NA), mu = 0.9),
                  "\\[fit\\_SurfaceExposure\\(\\)\\] NA values in 'data' were removed")
   })
 })
