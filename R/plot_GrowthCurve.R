@@ -1098,47 +1098,31 @@ plot_GrowthCurve <- function(
           var.c[i] <- as.vector((parameters["c"]))
           var.g[i] <- as.vector((parameters["g"]))
 
-          #problem: analytical it is not easy to calculate x,
-          #use uniroot to solve this problem
           if (mode == "interpolation") {
-            temp.De.MC <-  try(uniroot(
+            LnTn <- data.MC.De[i]
+            min.val <- 0
+          } else if (mode == "extrapolation") {
+            LnTn <- 0
+            min.val <- -1e6
+          }
+
+          #problem: analytically it is not easy to calculate x,
+          #use uniroot to solve this problem
+          temp.De.MC <- try(uniroot(
               f = f.unirootEXPLIN,
-              interval = c(0, max(xy$x) * 1.5),
+              interval = c(min.val, max(xy$x) * 1.5),
               tol = 0.001,
               a = var.a[i],
               b = var.b[i],
               c = var.c[i],
               g = var.g[i],
-              LnTn = data.MC.De[i]
+              LnTn = LnTn
             ),
             silent = TRUE)
 
-            if (!inherits(temp.De.MC, "try-error")) {
-              x.natural[i] <- temp.De.MC$root
-            } else{
-              x.natural[i] <- NA
-            }
-
-          } else if (mode == "extrapolation"){
-            temp.De.MC <-  try(uniroot(
-              f = f.unirootEXPLIN,
-              interval = c(-1e6, max(xy$x) * 1.5),
-              tol = 0.001,
-              a = var.a[i],
-              b = var.b[i],
-              c = var.c[i],
-              g = var.g[i],
-              LnTn = 0
-            ),
-            silent = TRUE)
-
-            if (!inherits(temp.De.MC, "try-error")) {
-              x.natural[i] <- abs(temp.De.MC$root)
-            } else{
-              x.natural[i] <- NA
-            }
-
-          }else{
+          if (!inherits(temp.De.MC, "try-error")) {
+            x.natural[i] <- temp.De.MC$root
+          } else{
             x.natural[i] <- NA
           }
         }
@@ -1373,6 +1357,10 @@ plot_GrowthCurve <- function(
 
   ## GOK --------------------------------------------------------------------
   else if (fit.method[1] == "GOK") {
+
+    lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
+    upper <- if (fit.force_through_origin) c(Inf, Inf, Inf, 1) else rep(Inf, 4)
+
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionGOK, env = currn_env),
       data = data,
@@ -1380,8 +1368,8 @@ plot_GrowthCurve <- function(
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
-      lower = if (fit.bounds) c(0,0,0,0) else c(-Inf,-Inf,-Inf,-Inf),
-      upper = if(fit.force_through_origin) c(Inf, Inf, Inf, 1) else c(Inf, Inf, Inf, Inf),
+      lower = lower,
+      upper = upper,
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = TRUE)
 
@@ -1431,8 +1419,8 @@ plot_GrowthCurve <- function(
       #	--take De_Error
 
       #set variables
-      var.b <- vector(mode = "numeric", length = NumberIterations.MC)
       var.a <- vector(mode = "numeric", length = NumberIterations.MC)
+      var.b <- vector(mode = "numeric", length = NumberIterations.MC)
       var.c <- vector(mode = "numeric", length = NumberIterations.MC)
       var.d <- vector(mode = "numeric", length = NumberIterations.MC)
 
@@ -1449,12 +1437,8 @@ plot_GrowthCurve <- function(
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
-          lower = if (fit.bounds) {
-            c(0,0,0,0)
-          }else{
-            c(-Inf,-Inf,-Inf, -Inf)
-          },
-          upper = if(fit.force_through_origin) c(Inf, Inf, Inf, 1) else c(Inf, Inf, Inf, Inf),
+          lower = lower,
+          upper = upper,
           control = minpack.lm::nls.lm.control(maxiter = 500)
         )}, silent = TRUE)
 
@@ -1465,8 +1449,8 @@ plot_GrowthCurve <- function(
         } else {
           # get parameters out
           parameters<-coef(fit.MC)
-          var.b[i] <- as.vector((parameters["b"])) #D0
           var.a[i] <- as.vector((parameters["a"])) #Imax
+          var.b[i] <- as.vector((parameters["b"])) #D0
           var.c[i] <- as.vector((parameters["c"])) #kinetic order modifier
           var.d[i] <- as.vector((parameters["d"])) #origin
 
@@ -1488,14 +1472,20 @@ plot_GrowthCurve <- function(
       ##remove values
       rm(var.b, var.a, var.c)
       }
-    } else if (fit.method == "LambertW") {
-    # LambertW -----
+  }
+
+  ## LambertW ---------------------------------------------------------------
+  else if (fit.method == "LambertW") {
+
     if(mode == "extrapolation"){
       Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
     } else{
       Dint_lower <- 0.01
     }
+
+    lower <- if (fit.bounds) c(0, 0, 0, Dint_lower) else rep(-Inf, 4)
+    upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
 
     fit <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionLambertW, env = currn_env),
@@ -1504,8 +1494,8 @@ plot_GrowthCurve <- function(
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
-          lower = if (fit.bounds) c(0, 0, 0, Dint_lower) else c(-Inf,-Inf,-Inf, -Inf),
-          upper = if(fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf),
+          lower = lower,
+          upper = upper,
           control = minpack.lm::nls.lm.control(maxiter = 500)
         ), silent = TRUE)
 
@@ -1521,6 +1511,7 @@ plot_GrowthCurve <- function(
           Dint <- as.vector((parameters["Dint"]))
 
           #calculate De
+          De <- NA
           if(mode == "interpolation"){
              De <- try(suppressWarnings(stats::uniroot(
                f = function(x, R, Dc, N, Dint, LnTn) {
@@ -1600,7 +1591,7 @@ plot_GrowthCurve <- function(
               trace = FALSE,
               algorithm = "LM",
               lower = if (fit.bounds) c(0, 0, 0, Dint*runif(1,0,2)) else c(-Inf,-Inf,-Inf, -Inf),
-              upper = if(fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf),
+              upper = upper,
               control = minpack.lm::nls.lm.control(maxiter = 500)
             ), silent = TRUE)
 
