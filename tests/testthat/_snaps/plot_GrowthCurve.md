@@ -19,17 +19,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -92,16 +92,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1719.71740889]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1665.09177077]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1827.86513688]
                 }
               ]
             },
@@ -166,17 +156,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -239,16 +229,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1882.6877783]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1758.1801344]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1923.04203442]
                 }
               ]
             },
@@ -313,17 +293,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -386,16 +366,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.55674886]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-1.11016389]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1.10349624]
                 }
               ]
             },
@@ -460,17 +430,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -533,16 +503,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1914.52462249]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1623.60534998]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1975.4391272]
                 }
               ]
             },
@@ -607,17 +567,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -670,16 +630,6 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["EXP+EXP"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "logical",
@@ -754,17 +704,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -827,16 +777,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1664.18544782]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1543.17772435]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1768.20963115]
                 }
               ]
             },
@@ -901,17 +841,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -974,16 +914,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1815.21374651]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1687.30519429]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1884.87286414]
                 }
               ]
             },
@@ -1048,17 +978,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -1121,16 +1051,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1861.38817349]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1580.77946599]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1889.17121384]
                 }
               ]
             },
@@ -1195,17 +1115,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -1268,16 +1188,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-37.36545939]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-40.76856081]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-35.64871627]
                 }
               ]
             },
@@ -1342,17 +1252,17 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U"]
-                },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -1415,16 +1325,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [4.45632678e-06]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-0.00003589]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.00002445]
                 }
               ]
             },
