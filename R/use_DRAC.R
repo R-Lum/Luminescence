@@ -247,8 +247,8 @@ use_DRAC <- function(
                                           "drac_data[table]" = DRAC_input))
   ## check for correct response
   if (DRAC.response$status_code != 200) {
-    stop(paste0("[use_DRAC()] transmission failed with HTTP status code: ",
-                DRAC.response$status_code))
+    .throw_error("Transmission failed with HTTP status code: ",
+                 DRAC.response$status_code)
   } else {
     if (settings$verbose) message("\t The request was successful, processing the reply...")
   }

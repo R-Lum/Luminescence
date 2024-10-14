@@ -5,7 +5,8 @@ test_that("Test functionality", {
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 
   ##crash function
-  expect_error(read_RF2R("file"), regexp = "File 'file' does not exist!")
+  expect_error(read_RF2R("error"),
+               "File 'error' does not exist")
   expect_error(read_RF2R(2),
                "'file' should be of class 'character' or 'list'")
 
@@ -18,7 +19,8 @@ test_that("Test functionality", {
               type = "list")
 
   ##import false list
-  expect_warning(read_RF2R(c(file, file)), regexp = "'file' has a length > 1. Only the first element was taken!")
+  expect_warning(read_RF2R(c(file, file)),
+                 "'file' has length > 1, only the first element was taken")
 
   ## create a file with unsupported version
   file.wrong <- "RF_wrong_version.Rf"

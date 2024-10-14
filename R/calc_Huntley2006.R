@@ -480,8 +480,8 @@ calc_Huntley2006 <- function(
   GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
 
   if (inherits(GC.measured$Fit, "try-error"))
-    stop("\n[calc_Huntley2006()] Unable to fit growth curve to measured data. Try to set fit.bounds to FALSE!",
-         call. = FALSE)
+    .throw_error("Unable to fit growth curve to measured data, try setting ",
+                 "'fit.bounds = FALSE'")
 
   # extract results and calculate age
   GC.results <- get_RLum(GC.measured)
@@ -664,17 +664,14 @@ calc_Huntley2006 <- function(
   }
 
   if (Ln > max(LxTx.sim) * 1.1)
-    warning("[calc_Huntley2006()] Ln is >10 % larger than the maximum computed LxTx value.",
-            " The De and age should be regarded as infinite estimates.",
-            call. = FALSE)
+    .throw_warning("Ln is >10 % larger than the maximum computed LxTx value.",
+                   " The De and age should be regarded as infinite estimates.")
 
   if (Ln < min(LxTx.sim) * 0.95)
-    warning("[calc_Huntley2006()] Ln/Tn is smaller than the minimum computed LxTx value.
-            If, in consequence, your age result is NA, either your input values are
-            unsuitable, or you should consider using a different model for your dataset!",
-            call. = FALSE)
-
-
+    .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value.",
+                   "If, in consequence, your age result is NA, either your ",
+                   "input values are unsuitable, or you should consider using ",
+                   "a different model for your dataset")
 
   # Estimate nN_(steady state) by Monte Carlo Simulation
   ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
@@ -741,9 +738,8 @@ calc_Huntley2006 <- function(
       control = list(maxiter = settings$maxiter)), silent = TRUE)
 
     if(inherits(fit_unfaded, "try-error"))
-      stop("[calc_Huntely2006()] Could not fit simulated curve.
-           -> Check suitability of the model and the parameters!",
-           call. = FALSE)
+      .throw_error("Could not fit simulated curve, check suitability of ",
+                   "model and parameters")
   }
 
   D0.unfaded <- coef(fit_unfaded)[["D0"]]

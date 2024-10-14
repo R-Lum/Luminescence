@@ -128,7 +128,7 @@ test_that("test XSYG file fading data", {
 
   expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
                                          background.integral = 2),
-               "Overlapping of 'signal.integral' and 'background.integral'")
+               "'signal.integral' and 'background.integral' overlap")
 
   SW({
   expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,

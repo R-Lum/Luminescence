@@ -123,15 +123,14 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   length.new <- length(value)
 
   if (length.old != length.new) {
-    warning(paste(names(x)[i], ": Input must be of length", length.old), 
-            call. = FALSE)
+    .throw_warning(names(x)[i], ": Input must be of length ", length.old)
     return(x)
   }
-  
+
   ## CHECK INPUT CLASS ----
   class.old <- class(x[[i]])
   class.new <- class(value)
-  
+
   ## CHECK INPUT FIELDS THAT ALLOW 'X' -----
   # the following checks apply to fields that are normally numeric, but also 
   # accept 'X' as input. this EXCLUDES factors!
@@ -140,63 +139,58 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
     # "character" or "numeric/integer". hence, we check if input is "X" and 
     # if the filed allows it. If so, we change the old class to "character".
     if (any(value == "X") && attributes(x[[i]])$allowsX) {
-      
+
       if (any(is.na(as.numeric(value[which(value != "X")])))) {
-        warning(paste("Cannot coerce <", value[which(value != "X")], "> to a numeric value.",
-                      "Input must be numeric or 'X'."), 
-                call. = FALSE)
+        .throw_warning("Cannot coerce '", value[which(value != "X")],
+                       "' to a numeric value, Input must be numeric or 'X'")
         return(x)
       }
       class.old <- "character" 
     }
-    
+
     # where the input field is alreay "X" we have to check whether the new
     # non-character input is allowed
     if (!all(is.na(x[[i]]))) {
       if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
         if (any(is.na(as.numeric(value[which(value != "X")])))) {
-          warning(paste("Cannot coerce <", value[which(value != "X")], "> to a numeric value.",
-                        "Input must be numeric or 'X'. \n"), 
-                  call. = FALSE)
+          .throw_warning("Cannot coerce '", value[which(value != "X")],
+                         "' to a numeric value, input must be numeric or 'X'\n")
           return(x)
         }
         class.new <- "character"
         value <- as.character(value)
       }
     }
-    
+
     # when a numeric input field was inserted an "X" it was coerced to class
     # character. since we are now allowed to insert any character (later tests)
     # we need to make sure that the new input can be coerced to class numeric.
     # and if the new values are numeric, we coerce them to character
     if (attributes(x[[i]])$allowsX && class.old == "character") {
       if (any(is.na(as.numeric(value[which(value != "X")])))) {
-        warning(paste("Cannot coerce <", value[which(value != "X")], "> to a numeric value.",
-                      "Input must be numeric or 'X'. \n"), 
-                call. = FALSE)
+        .throw_warning("Cannot coerce '", value[which(value != "X")],
+                       "' to a numeric value, input must be numeric or 'X'\n")
         return(x)
-      } 
+      }
       class.new <- "character"
       value <- as.character(value)
     }
   }
-  
-  
+
+
   # numeric input can be both of class 'integer' or 'numeric'. We will
   # allow any combination and reject only non-numeric/integer input
   if (class.old == "numeric" || class.old == "integer") {
     if (class.new != "numeric" && class.new != "integer") {
-      warning(paste(names(x)[i], ": Input must be of class", class.old),
-              call. = FALSE)
+      .throw_warning(names(x)[i], ": Input must be of class ", class.old)
       return(x)
     }
   }
-  
-  # for 'factor' and 'character' elements only 'character' input is allowed 
+
+  # for 'factor' and 'character' elements only 'character' input is allowed
   if (class.old == "factor" || class.old == "character") {
     if (class.new != "character") {
-      warning(paste(names(x)[i], ": Input must be of class", "character"),
-              call. = FALSE)
+      .throw_warning(names(x)[i], ": Input must be of class 'character'")
       return(x)
     }
   }

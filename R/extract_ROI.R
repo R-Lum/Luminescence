@@ -172,11 +172,8 @@ extract_ROI <- function(
 
 # ROI summary -------------------------------------------------------------
   ## set roi fun and avoid add input
-  if(!any(roi_summary[1]%in%c("mean", "median", "sd", "sum")))
-    stop("[extract_ROI()] roi_summary method not supported, check manual!", call. = FALSE)
-
-  ## set function
-  roi_fun <- roi_summary[1]
+  .validate_class(roi_summary, "character")
+  roi_fun <- .validate_args(roi_summary, c("mean", "median", "sd", "sum"))
 
   ## create summary using matrixStats
   roi_summary <- matrix(unlist(

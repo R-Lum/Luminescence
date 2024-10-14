@@ -100,7 +100,7 @@ test_that("input validation", {
     Tx.data,
     signal.integral = c(1:2),
     background.integral = c(85:100)
-  ), "Channel numbers of Lx and Tx data differ!")
+  ), "Channel numbers of Lx and Tx data differ")
 
   expect_error(calc_OSLLxTxRatio(Lx.data, "error"),
                "'Lx.data' and 'Tx.data' have different types")
@@ -112,14 +112,14 @@ test_that("input validation", {
     Tx.data,
     signal.integral = c(1:2000),
     background.integral = c(85:100)
-  ), "signal.integral is not valid!")
+  ), "'signal.integral' is not valid")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal.integral = c(1:90),
     background.integral = c(85:100)
-  ), "Overlapping of 'signal.integral' and 'background.integral' is not permitted!")
+  ), "'signal.integral' and 'background.integral' overlap")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -128,14 +128,14 @@ test_that("input validation", {
     signal.integral.Tx = c(1:90),
     background.integral = c(85:100),
     background.integral.Tx = c(85:100)
-  ), "Overlapping of 'signal.integral.Tx' and 'background.integral.Tx' is not permitted!")
+  ), "'signal.integral.Tx' and 'background.integral.Tx' overlap")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal.integral = c(1:20),
     background.integral = c(85:1000)
-  ), "background.integral is not valid! Max: 100")
+  ), "'background.integral' is not valid, max: 100")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -144,7 +144,7 @@ test_that("input validation", {
     signal.integral.Tx = c(1:10),
     background.integral = c(85:100),
     background.integral.Tx = c(85:10000)
-  ), "background.integral.Tx is not valid! Max: 100")
+  ), "'background.integral.Tx' is not valid, max: 100")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -153,7 +153,7 @@ test_that("input validation", {
     signal.integral.Tx = c(1:1000),
     background.integral = c(85:100),
     background.integral.Tx = c(85:100)
-  ), "signal.integral.Tx is not valid!")
+  ), "'signal.integral.Tx' is not valid")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -162,7 +162,7 @@ test_that("input validation", {
     signal.integral.Tx = c(1:20),
     background.integral = 80:100,
     background.integral.Tx = NULL
-  ), "You have to provide both: signal.integral.Tx and background.integral.Tx!")
+  ), "You have to provide both 'signal.integral.Tx' and 'background.integral.Tx'")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -208,7 +208,7 @@ test_that("create warnings", {
     signal.integral = c(1:20),
     background.integral = 60:100,
     background.count.distribution = "hallo"
-  ), "Unknown method for background.count.distribution. A non-poisson distribution is assumed!")
+  ), "Unknown method for 'background.count.distribution', a non-poisson")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -218,7 +218,7 @@ test_that("create warnings", {
     background.integral = 60:100,
     background.integral.Tx = 40:100,
     use_previousBG = TRUE
-  ), "For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.")
+  ), "With 'use_previousBG = TRUE' independent Lx and Tx integral limits are")
 })
 
 

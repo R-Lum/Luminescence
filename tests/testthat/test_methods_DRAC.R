@@ -34,13 +34,13 @@ test_that("methods_DRAC", {
     input <- template_DRAC()
     input[[5]] <- "X"
     Luminescence:::.warningCatcher(input[[5]] <- "abc")
-  }, regexp = "Cannot coerce < abc > to a numeric value")
+  }, regexp = "Cannot coerce 'abc' to a numeric value")
 
   expect_warning({
     input <- template_DRAC(nrow = 2)
     input[[5]] <- c("X", 1)
     Luminescence:::.warningCatcher(input[[5]] <- c("X", "abc"))
-  }, regexp = "Cannot coerce < abc > to a numeric value")
+  }, regexp = "Cannot coerce 'abc' to a numeric value")
 
   expect_warning({
     input <- template_DRAC()
@@ -54,7 +54,7 @@ test_that("methods_DRAC", {
   expect_warning({
     input <- template_DRAC()
     input[[13]] <- 1
-  }, regexp = "Input must be of class character")
+  }, regexp = "Input must be of class 'character'")
 
   ## [<-
   expect_identical(

@@ -71,13 +71,14 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     if (!grepl(".psl$", file, ignore.case = TRUE)) {
       file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)
       if (length(file) == 0)
-        stop("[read_PSL2R()]: No .psl files found", call. = FALSE)
-      message("[read_PSL2R()]: The following files were found and imported: \n", paste(" ..", file, collapse = "\n"))
+        .throw_error("No .psl files found")
+      message("[read_PSL2R()] The following files were found and imported:\n",
+              paste(" ..", file, collapse = "\n"))
     }
   }
   if (!all(file.exists(file)))
-    stop("The following files do not exist, please check: \n",
-         paste(file[!file.exists(file)], collapse = "\n"), call. = FALSE)
+    .throw_error("The following files do not exist, please check:\n",
+                 paste(file[!file.exists(file)], collapse = "\n"))
 
   ## MAIN ----
   results <- vector("list", length(file))
@@ -179,7 +180,6 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
        STIM = strsplit(tmp[2], split = " ", fixed = TRUE)[[1]][2],
        ON_OFF = strsplit(tmp[3], split = "(us)", fixed = TRUE)[[1]][2],
        CYCLE = strsplit(tmp[4], split = "(ms),", fixed = TRUE)[[1]][2])
-
     }))
 
     ## RETURN ----
@@ -285,7 +285,6 @@ format_Measurements <- function(x, convert, header) {
     raw_data = df))
 
   return(object)
-
 }
 
 ## ---------------------------- FORMAT HEADER ------------------------------- ##

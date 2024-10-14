@@ -18,8 +18,7 @@ test_that("check function", {
   expect_error(apply_EfficiencyCorrection(
     object = TL.Spectrum,
     spectral.efficiency = eff_data_false),
-               regexp = "Relative quantum efficiency values > 1 are not allowed.")
-
+    "Relative quantum efficiency values > 1 are not allowed")
 
   ##run tests
   expect_s4_class(apply_EfficiencyCorrection(TL.Spectrum,spectral.efficiency = eff_data),
@@ -28,7 +27,7 @@ test_that("check function", {
   ##run list test
   expect_warning(
     apply_EfficiencyCorrection(list(a = "test", TL.Spectrum), spectral.efficiency = eff_data),
-    regexp = "Skipping character object in input list.")
+    "Skipping character object in input list")
 
   ##run test with RLum.Analysis objects
   expect_s4_class(
@@ -39,10 +38,9 @@ test_that("check function", {
       apply_EfficiencyCorrection(set_RLum("RLum.Analysis",
                                           records = list(TL.Spectrum, "test")),
                                  spectral.efficiency = eff_data),
-      regexp = "Skipping character object in input list.")
+      "Skipping character object in input list")
 
   ##run test with everything combined
   input <- list(a = "test", TL.Spectrum,set_RLum("RLum.Analysis", records = list(TL.Spectrum)))
   expect_warning(apply_EfficiencyCorrection(input, eff_data), "Skipping character object in input list")
-
 })

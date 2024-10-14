@@ -18,7 +18,7 @@ test_that("Test internals", {
 
   ##test some functions
   ##missing arguments must be identified
-  expect_error(f(), "Argument <a> missing; with no default!")
+  expect_error(f(), "Argument 'a' missing, with no default")
 
   ##check whether the objects are properly recycled
   expect_type(f(object, a = 1), "list")
@@ -132,7 +132,7 @@ test_that("Test internals", {
 
     ##crash the function
     expect_error(Luminescence:::.matrix_binning("none matrix"),
-                 regexp = "Input is not of class 'matrix'!")
+                 "'m' should be of class 'matrix'")
 
     ##test operation modes and arguments
     expect_type(Luminescence:::.matrix_binning(m, bin_size = 4, bin_col = FALSE), "integer")

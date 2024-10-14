@@ -289,26 +289,28 @@ scale_GammaDose <- function(
   # basic class and length check
   .validate_class(data, "data.frame")
   if (ncol(data) != 12)
-    stop("'data' must have 12 columns (currently ", ncol(data), ").", call. = FALSE)
+    .throw_error("'data' should have 12 columns (currently ", ncol(data), ")")
 
   # make sure that it has the correct column names
   colnames_expected <- c("id","thickness","sample_offset","K","K_se","Th","Th_se","U","U_se",
                          "water_content","water_content_se", "density")
   if (is.null(names(data)) || any(names(data) != colnames_expected)) {
     if (verbose)
-      warning("Unexpected column names for 'data'. New names were automatically assigned. ",
-              "Please make sure that columns are in proper order. See documentation.", call. = FALSE)
+      .throw_warning("Unexpected column names for 'data', new names were ",
+                     "automatically assigned. See documentation to ensure ",
+                     "that columns are in proper order")
     colnames(data) <- colnames_expected
   }
   # check if there is only one target layer
   if (sum(!is.na(data$sample_offset)) != 1)
-    stop("Only one layer must be contain a numeric value in column 'sample_offset', all other rows must be `NA`.", call. = FALSE)
+    .throw_error("Only one layer must be contain a numeric value in column ",
+                 "'sample_offset', all other rows must be NA")
   if (!is.numeric(data$sample_offset[which(!is.na(data$sample_offset))]))
-    stop("Non-numeric value in the the row of the target layer.", call. = FALSE)
+    .throw_error("Non-numeric value in the the row of the target layer")
   if (data$sample_offset[which(!is.na(data$sample_offset))] < 0)
-    stop("The numeric value in 'sample_offset' must be positive.", call. = FALSE)
+    .throw_error("The numeric value in 'sample_offset' must be positive")
   if (data$sample_offset[which(!is.na(data$sample_offset))] > data$thickness[which(!is.na(data$sample_offset))])
-    stop("Impossible! Sample offset larger than the target-layer's thickness!", call. = FALSE)
+    .throw_error("Sample offset larger than the target-layer's thickness")
 
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
   ## as it is in alphabetical level, but we want to have 'Cresswelletal2018'

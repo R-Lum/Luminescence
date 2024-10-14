@@ -83,7 +83,7 @@ test_that("check input data", {
   )
   expect_error(
     scale_GammaDose(d[ ,1:10], plot = FALSE, verbose = TRUE),
-    "must have 12 columns"
+    "'data' should have 12 columns"
   )
   SW({
   expect_warning({
@@ -106,21 +106,21 @@ test_that("check input data", {
     tmp$sample_offset[5] <- "target"
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
     },
-    "Non-numeric value in the the row of the target layer."
+    "Non-numeric value in the the row of the target layer"
   )
   expect_error({
     tmp <- d
     tmp$sample_offset[5] <- -1
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
   },
-  "The numeric value in 'sample_offset' must be positive."
+  "The numeric value in 'sample_offset' must be positive"
   )
   expect_error({
     tmp <- d
     tmp$sample_offset[5] <- 20
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
   },
-  "Impossible! Sample offset larger than the target-layer's thickness!"
+  "Sample offset larger than the target-layer's thickness"
   )
 
   expect_error(scale_GammaDose(d, conversion_factors = c("a", "b")),

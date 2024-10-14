@@ -255,16 +255,16 @@ calc_FastRatio <- function(object,
       Ch_L2 <- which.min(abs(A[,1] - t_L2))
 
     if (Ch_L2 <= 1) {
-      msg <- sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
+      msg <- sprintf("Calculated time/channel for L2 is too small (%.f, %.f), NULL returned",
                      t_L2, Ch_L2)
       settings$info <- modifyList(settings$info, list(L2 = msg))
-      warning(msg, call. = FALSE)
+      .throw_warning(msg)
       return(NULL)
     }
-    
+
     Ch_L3st<- which.min(abs(A[,1] - t_L3_start))
     Ch_L3end <- which.min(abs(A[,1] - t_L3_end))
-    
+
     ## Counts in channels L1, L2, L3
     # L1 ----
     Cts_L1 <- A[Ch_L1, 2]
@@ -272,10 +272,10 @@ calc_FastRatio <- function(object,
     # L2 ----
     if (Ch_L2 > nrow(A)) {
       msg <- sprintf(paste("The calculated channel for L2 (%i) exceeds",
-                           "the number of available channels (%i).",
-                           "Returned NULL."), Ch_L2, nrow(A))
+                           "the number of available channels (%i),",
+                           "NULL returned"), Ch_L2, nrow(A))
       settings$info <- modifyList(settings$info, list(L2 = msg))
-      warning(msg, call. = FALSE)
+      .throw_warning(msg)
       return(NULL)
     }
 
@@ -297,15 +297,15 @@ calc_FastRatio <- function(object,
                            "\nThe background has instead been estimated from the last",
                            "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
       settings$info <- modifyList(settings$info, list(L3 = msg))
-      warning(msg, call. = FALSE)
+      .throw_warning(msg)
       Ch_L3st <- nrow(A) - 5
       Ch_L3end <- nrow(A)
       t_L3_start <- A[Ch_L3st,1]
       t_L3_end <- A[Ch_L3end,1]
     }
-    
+
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
-    
+
     # optional: predict the counts from the fitted curve
     if (fitCW.curve) {
       if (!inherits(fitCW.res, "try-error")) {
@@ -313,12 +313,12 @@ calc_FastRatio <- function(object,
         Cts_L3 <- mean(predict(nls, list(x = c(t_L3_start, t_L3_end))))
       }
     }
-    
+
     # Warn if counts are not in decreasing order
     if (Cts_L3 >= Cts_L2)
-      warning(sprintf("L3 contains more counts (%.f) than L2 (%.f).",
-                      Cts_L3, Cts_L2), call. = FALSE)
-    
+      .throw_warning(sprintf("L3 contains more counts (%.f) than L2 (%.f)",
+                             Cts_L3, Cts_L2))
+
     ## Fast Ratio
     FR <- (Cts_L1 - Cts_L3) / (Cts_L2 - Cts_L3)
     if (length(FR) != 1)
@@ -331,11 +331,11 @@ calc_FastRatio <- function(object,
 
       # number of channels the background was derived from
       nBG <- abs(Ch_L3end - Ch_L3st)
-      
+
       # relative standard errors
       rse_L1 <- sqrt(Cts_L1 + Cts_L3 / nBG) / (Cts_L1 - Cts_L3)
       rse_L2 <- sqrt(Cts_L2 + Cts_L3 / nBG) / (Cts_L2 - Cts_L3)
-      
+
       # absolute standard errors
       se_L1 <- rse_L1 * (Cts_L1 - Cts_L3)
       se_L2 <- rse_L2 * (Cts_L2 - Cts_L3)
@@ -369,7 +369,7 @@ calc_FastRatio <- function(object,
                           Cts_L1 = Cts_L1,
                           Cts_L2 = Cts_L2,
                           Cts_L3 = Cts_L3)
-    
+
     fast.ratio <- set_RLum(class = "RLum.Results",
                            originator = "calc_FastRatio",
                            data = list(summary = summary,

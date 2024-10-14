@@ -58,10 +58,8 @@ test_that("input validation", {
       g_value = c(1, 1),
       tc.g_value = 1000
     )),
-    "If you set 'tc.g_value' you have to provide a value for 'tc' too!"
+    "If you set 'tc.g_value' you have to provide a value for 'tc' too"
   )
-
-
 })
 
 test_that("Test the function itself", {

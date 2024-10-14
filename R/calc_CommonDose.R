@@ -113,13 +113,11 @@ calc_CommonDose <- function(
     data <- get_RLum(data, "data")
   }
   if (ncol(data) < 2) {
-    stop("[calc_FiniteMixture()] 'data' object must have two columns",
-         call. = FALSE)
+    .throw_error("'data' object must have two columns")
   }
   if(!missing(sigmab)) {
     if (sigmab < 0 || sigmab > 1) {
-      stop("[calc_FiniteMixture()] 'sigmab' must be a value between 0 and 1",
-           call. = FALSE)
+      .throw_error("'sigmab' must be a value between 0 and 1")
     }
   }
 

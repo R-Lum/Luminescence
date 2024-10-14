@@ -10,7 +10,8 @@ test_that("standard check", {
   # break function -----------
   ## unwanted list element in list ---------
   expect_error(fit_EmissionSpectra(list(TL.Spectrum, "fail")),
-               "\\[fit\\_EmissionSpectra\\(\\)\\] List elements of different class detected!")
+               "[fit_EmissionSpectra()] List elements of different class detected",
+               fixed = TRUE)
 
   ## input scale
   expect_error(fit_EmissionSpectra(TL.Spectrum, input_scale = "error"),

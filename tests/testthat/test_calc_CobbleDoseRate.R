@@ -11,7 +11,7 @@ test_that("basic checks", {
   expect_error(calc_CobbleDoseRate("error"),
                "'input' should be of class 'data.frame'")
   expect_error(calc_CobbleDoseRate(df),
-               "Slices outside of cobble. Please check your distances and make sure they are in mm and diameter is in cm!")
+               "Slices outside of cobble: please ensure your distances are in mm")
 
   expect_error(calc_CobbleDoseRate(ExampleData.CobbleData, conversion = "error"),
                "'conversion' should be one of 'Guerinetal2011', 'Cresswelletal2018'")

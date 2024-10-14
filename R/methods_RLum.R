@@ -198,10 +198,11 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 #' @md
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
+  .set_function_name("subset.Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   if(length(list(...)))
-    warning(paste("Argument not supported and skipped:", names(list(...))))
-
+    .throw_warning("Argument not supported and skipped:", names(list(...)))
 
   ##select relevant rows
   sel <- tryCatch(eval(
@@ -210,8 +211,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
     enclos = parent.frame()
   ),
   error = function(e) {
-    stop("\n\nInvalid subset options.\nValid terms are: ",
-         .collapse(names(x@METADATA)))
+    .throw_error("\nInvalid subset options, valid terms are: ",
+                 .collapse(names(x@METADATA)))
   })
 
   ##probably everything is FALSE now?
@@ -224,14 +225,11 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 
     } else{
       return(NULL)
-
     }
   }else{
     x@METADATA[["SEL"]] <- sel
     return(x)
-
   }
-
 }
 
 #' @rdname methods_RLum
@@ -360,7 +358,6 @@ as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FAL
 
   ##convert to data.frame and bind
   cbind(x@METADATA, as.data.frame(m))
-
 }
 
 
@@ -456,9 +453,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 
   }else{
     return(temp)
-
   }
-
 }
 
 ####################################################################################################
@@ -523,7 +518,6 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 
   } else{
     get_RLum(x, record.id = i, drop = drop)
-
   }
 }
 

@@ -11,14 +11,15 @@ test_that("basic checks", {
                "'input' should be of class 'data.frame' or 'matrix'")
 
   expect_error(convert_Concentration2DoseRate(input = data.frame(x = 1, y = 2)),
-               regexp = "number of rows/columns in input does not match the requirements. See manual!")
+               "Number of rows/columns in input does not match the requirements")
 
   expect_error(convert_Concentration2DoseRate(
       suppressMessages(convert_Concentration2DoseRate()), conversion = "error"),
     "'conversion' should be one of 'Guerinetal2011', 'Cresswelletal2018'")
 
   template[[1]] <- "fail"
-  expect_error(convert_Concentration2DoseRate(template), regexp = "As mineral only 'FS' or 'Q' is supported!")
+  expect_error(convert_Concentration2DoseRate(template),
+               "As mineral only 'FS' or 'Q' is supported")
 
   ## run function
   ## for FS

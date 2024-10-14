@@ -91,7 +91,7 @@ calc_Statistics <- function(
   data[is.na(data[,2]),2] <- 0
 
   if(sum(data[,2]) == 0) {
-    warning("[calc_Statistics()] All errors are NA or zero! Automatically set to 10^-9!", call. = FALSE)
+    .throw_warning("All errors are NA or zero! Automatically set to 10^-9")
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 

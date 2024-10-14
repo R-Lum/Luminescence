@@ -202,7 +202,9 @@ CW2pLMi<- function(
     }#end::while
   }else{
 
-    if(P==0){stop("[CW2pLMi] P has to be > 0!", call. = FALSE)}
+    if (P == 0) {
+      .throw_error("P has to be > 0")
+    }
     t.transformed<-0.5*1/P*t^2
   }
   #endif

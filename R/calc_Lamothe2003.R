@@ -193,7 +193,7 @@ calc_Lamothe2003 <- function(
 
   ##tc
   if(is.null(tc) && !is.null(tc.g_value))
-    stop("[calc_Lamothe2003()] If you set 'tc.g_value' you have to provide a value for 'tc' too!", call. = FALSE)
+    .throw_error("If you set 'tc.g_value' you have to provide a value for 'tc' too")
 
 
   # Input assignment -----------------------------------------------------------------------------
@@ -246,8 +246,8 @@ calc_Lamothe2003 <- function(
         ##merge output
         return(merge_RLum(results))
     }else{
-      stop(paste0("[calc_Lamothe2003()] Input for 'object' created by function ",object@originator, "() not supported!"), call. = FALSE)
-
+      .throw_error("Input for 'object' created by function ",
+                   object@originator, "() not supported")
     }
   }
 

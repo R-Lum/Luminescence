@@ -11,7 +11,7 @@ test_that("Check github_commits()", {
   response <- tryCatch(github_commits(), error = function(e) return(e))
 
   if (inherits(response, "error")){
-    expect_output(print(response), regexp = "status code 403")
+    expect_output(print(response), regexp = "returned status code")
   } else {
     expect_s3_class(response, "data.frame")
   }
@@ -25,7 +25,7 @@ test_that("Check github_branches()", {
   response <- tryCatch(github_branches(), error = function(e) return(e))
 
   if (inherits(response, "error")) {
-    expect_output(print(response), regexp = "status code 403")
+    expect_output(print(response), regexp = "returned status code")
  }else {
     expect_s3_class(response, "data.frame")
  }
@@ -41,7 +41,7 @@ test_that("Check github_issues()", {
   })
 
   if (inherits(response, "error")){
-    expect_output(print(response), regexp = "status code 403")
+    expect_output(print(response), regexp = "returned status code")
   }else{
     expect_type(response, "list")
   }

@@ -524,7 +524,8 @@ analyse_IRSAR.RF<- function(
   if(length(unique(temp.sequence_structure[["x.max"]])) == 1 &&
      method == "SLIDE" &&
      (is.null(RF_nat.lim) & is.null(RF_reg.lim))) {
-    stop("[analyse_IRSAR.RF()] There is no further sliding space left. All curves have the same length and no limitation was set!", call. = FALSE)
+    .throw_error("There is no further sliding space left. All curves have ",
+                 "the same length and no limitation was set")
   }
 
   ##grep name of the sequence and the position this will be useful later on
@@ -566,8 +567,7 @@ analyse_IRSAR.RF<- function(
   ##check if the first curve is shorter than the first curve
   if (temp.sequence_structure[which(temp.sequence_structure[["protocol.step"]] == "NATURAL"),"n.channels"] >
         temp.sequence_structure[which(temp.sequence_structure[["protocol.step"]] == "REGENERATED"),"n.channels"]) {
-     stop("[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!", call. = FALSE)
-
+     .throw_error("Number of data channels in RF_nat > RF_reg, this is not supported")
   }
 
   ##===============================================================================================#

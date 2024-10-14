@@ -25,7 +25,7 @@ test_that("Full check", {
                "was created by an unsupported function")
   expect_warning(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                           signal_integral = 0),
-                 "Input for 'signal_integral' corrected to")
+                 "'signal_integral' corrected to 1:99")
 
   ## irradiation_time_correction
   SW({

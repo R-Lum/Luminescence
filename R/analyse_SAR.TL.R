@@ -123,10 +123,6 @@ analyse_SAR.TL <- function(
   .set_function_name("analyse_SAR.TL")
   on.exit(.unset_function_name(), add = TRUE)
 
-  if (missing("object")) {
-    stop("[analyse_SAR.TL()] No value set for 'object'!", call. = FALSE)
-  }
-
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
     lapply(object,
@@ -423,10 +419,9 @@ analyse_SAR.TL <- function(
   ##catch log-scale problem
   if(log != ""){
     if(min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0){
-      warning("[analyse_SAR.TL()] log-scale needs positive values; log-scale disabled!", call. = FALSE)
+      .throw_warning("Non-positive values detected, log-scale disabled")
     log <- ""
     }
-
   }
 
   #open plot area LnLx

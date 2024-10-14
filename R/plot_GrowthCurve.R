@@ -1601,11 +1601,10 @@ plot_GrowthCurve <- function(
             ## there are cases where the function cannot calculate the root
             ## due to its shape, here we have to use the minimum
             if(inherits(De, "try-error")){
-              warning(
-                "[plot_GrowthCurve()] Standard root estimation using stats::uniroot() failed.
-                Using stats::optimize() instead, which may lead, however, to unexpected and
-                inconclusive results for fit.method = 'LambertW'!",
-                call. = FALSE)
+              .throw_warning(
+                  "Standard root estimation using stats::uniroot() failed. ",
+                  "Using stats::optimize() instead, which may lead, however, ",
+                  "to unexpected and inconclusive results for fit.method = 'LambertW'")
 
               De <- try(suppressWarnings(stats::optimize(
                 f = function(x, R, Dc, N, Dint) {

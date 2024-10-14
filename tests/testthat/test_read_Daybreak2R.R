@@ -39,13 +39,13 @@ test_that("input validation", {
     expect_output(read_Daybreak2R(
       file = system.file("extdata", package = "Luminescence")),
       "Directory detected, trying to extract"),
-  "file name does not seem to exist")
+    "File does not exist")
 
   ## test presence of non-ascii characters
   expect_error(read_Daybreak2R(
     file = system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
     verbose = FALSE),
-    "The provided file is no ASCII-file and cannot be imported")
+    "The provided file is not ASCII and cannot be imported")
 
   file.nonascii <- tempfile()
   writeLines(gsub("ScriptFile", "ScriptFile \uf6", # ö
@@ -53,5 +53,5 @@ test_that("input validation", {
                                         package = "Luminescence"))),
              file.nonascii)
   expect_error(read_Daybreak2R(file = file.nonascii, verbose = FALSE),
-    "The provided file is no ASCII-file and cannot be imported")
+    "The provided file is not ASCII and cannot be imported")
 })

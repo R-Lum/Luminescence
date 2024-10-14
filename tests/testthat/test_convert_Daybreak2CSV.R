@@ -4,7 +4,7 @@ test_that("input validation", {
   expect_error(convert_Daybreak2CSV(),
                "'file' should be of class 'character' or 'RLum'")
   expect_error(convert_Daybreak2CSV(""),
-               "file name does not seem to exist")
+               "File does not exist")
 })
 
 test_that("check class and length of output", {

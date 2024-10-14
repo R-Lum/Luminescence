@@ -66,14 +66,15 @@ read_RF2R <- function(
 
   ##throw warning if we have a vector
   if(length(file) > 1){
-    warning("[read_RF2R()] 'file' has a length > 1. Only the first element was taken!
-            If you want to import multiple files, 'file' has to be of type 'list'.", call. = TRUE)
+    .throw_warning("'file' has length > 1, only the first element was taken. ",
+                   "If you want to import multiple files, 'file' has to be ",
+                   "of type 'list'")
     file <- file[1]
   }
 
   ##check whether file is available
   if(!file.exists(file))
-    stop("[read_RF2R()] File '", file, "' does not exist!", call. = FALSE)
+    .throw_error("File '", file, "' does not exist")
 
   ##read first line to ensure the format
   vers_str <-  readLines(file, 1)

@@ -61,26 +61,19 @@ merge_RLum<- function(
   .set_function_name("merge_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity check ----------------------------------------------------------
-    if(!inherits(objects, "list"))
-      stop("[merge_RLum()] argument 'objects' needs to be of type list!",
-           call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(objects, "list")
 
     ##we are friendly and remove all empty list elements, this helps a lot if we place things
     ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
     objects <- objects[!sapply(objects, is.null)]
 
   ##if list is empty afterwards we do nothing
-   if(length(objects) >= 1) {
+  if(length(objects) >= 1) {
       ##check if objects are of class RLum
-      temp.class.test <- unique(sapply(1:length(objects), function(x) {
-        if (!is(objects[[x]], "RLum")) {
-          temp.text <-
-            paste0(
-              "[merge_RLum()]: At least element #", x, " is not of class 'RLum' or a derivative class!"
-            )
-          stop(temp.text, call. = FALSE)
-        }
+     temp.class.test <- unique(sapply(1:length(objects), function(x) {
+       .validate_class(objects[[x]], "RLum",
+                       name = "All elements of 'objects'")
         ##provide class of objects ... so far they should be similar
         is(objects[[x]])[1]
       }))
@@ -89,7 +82,7 @@ merge_RLum<- function(
       if (length(temp.class.test) > 1) {
         ##This is not valid for RLum.Analysis objects
         if (!"RLum.Analysis" %in% temp.class.test) {
-          stop("[merge_RLum()] So far only similar input objects in the list are supported!")
+          .throw_error("Only similar input objects in the list are supported")
         }
       }
 
@@ -100,21 +93,16 @@ merge_RLum<- function(
       ##select which merge function should be used
       switch (
         objects.class,
-        RLum.Data.Image = stop(
-          "[merge_RLum()] Merging of 'RLum.Data.Image' objects is currently not supported"
-        ),
-        RLum.Data.Spectrum = stop(
-          "[merge_RLum()] Merging of 'RLum.Data.Spectrum' objects is currently not supported"
-        ),
+        RLum.Data.Image = .throw_error("Merging of 'RLum.Data.Image' objects is currently not supported"),
+        RLum.Data.Spectrum = .throw_error("Merging of 'RLum.Data.Spectrum' objects is currently not supported"),
         RLum.Data.Curve = merge_RLum.Data.Curve(objects, ...),
         RLum.Analysis = merge_RLum.Analysis(objects, ...),
         RLum.Results = merge_RLum.Results(objects, ...)
       )
 
     }else{
-      warning("[merge_RLum()] Nothing was merged as the object list was found to be empty or contains only one object!")
+      .throw_warning("Nothing was merged as the object list was found ",
+                     "to be empty or contains only one object")
       return(NULL)
-
     }
-
 }

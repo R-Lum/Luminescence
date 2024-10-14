@@ -209,6 +209,8 @@ calc_FadingCorr <- function(
   txtProgressBar = TRUE,
   verbose = TRUE
 ){
+  .set_function_name("calc_FadingCorr")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity checks ---------------------------------------------------------------------------
   stopifnot(!missing(age.faded), !missing(g_value))
@@ -228,11 +230,11 @@ calc_FadingCorr <- function(
 
   ##check if tc is still NULL
   if(is.null(tc[1]))
-    stop("[calc_FadingCorr()] 'tc' needs to be set!", call. = FALSE)
+    .throw_error("'tc' must be set")
 
   ##check type
   if(!all(is(age.faded, "numeric") && is(g_value, "numeric") && is(tc, "numeric")))
-    stop("[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' need be of type numeric!", call. = FALSE)
+    .throw_error("'age.faded', 'g_value' and 'tc' must be of type numeric")
 
   ##============================================================================##
   ##DEFINE FUNCTION
@@ -275,9 +277,10 @@ calc_FadingCorr <- function(
     )), silent = TRUE)
 
   if(inherits(temp, "try-error")){
-    message("[calc_FadingCorr()] No solution found, return NULL. This usually happens for very large, unrealistic g-values. Please consider another model for the fading correction!")
+    message("[calc_FadingCorr()] No solution found, NULL returned: ",
+            "this usually happens for very large, unrealistic g-values, ",
+            "please consider another model for the fading correction")
     return(NULL)
-
   }
 
   ##--------------------------------------------------------------------------##
@@ -297,9 +300,7 @@ calc_FadingCorr <- function(
     }
   }else{
     n.MC.i <- n.MC
-
   }
-
 
 
   # Start loop  ---------------------------------------------------------------------------------
@@ -315,7 +316,6 @@ calc_FadingCorr <- function(
     ##set previous
     if(!is.na(tempMC.sd.recent)){
       tempMC.sd.count[counter] <- tempMC.sd.recent
-
     }
 
     ##set seed
@@ -383,8 +383,6 @@ calc_FadingCorr <- function(
         text[1:length(unique(tempMC.sd.count))] <- " CAL "
       }
 
-
-
       cat(paste("\r ",paste(rev(text), collapse = " ")))
     }
 
@@ -421,7 +419,6 @@ calc_FadingCorr <- function(
 
     if (tc != tc.g_value) {
       cat("\n >> g-value re-calculated for the given tc")
-
     }
 
     cat(paste(
@@ -468,7 +465,6 @@ calc_FadingCorr <- function(
       " ka"
     ))
     cat("\n ---------------------------------------------- \n")
-
   }
 
   ##============================================================================##
@@ -480,5 +476,4 @@ calc_FadingCorr <- function(
                 age.corr.MC = tempMC),
     info = list(call = sys.call())
   ))
-
 }

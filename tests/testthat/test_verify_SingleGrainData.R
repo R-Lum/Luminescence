@@ -16,7 +16,7 @@ test_that("check functionality", {
 
   ## RLum.Analysis object
   expect_warning(output <- verify_SingleGrainData(object),
-                 "selection_id is NA, nothing removed, everything selected")
+                 "'selection_id' is NA, nothing removed, everything selected")
   expect_s4_class(output, "RLum.Results")
   expect_s3_class(output$selection_full, "data.frame")
   expect_equal(sum(output@data$selection_full$VALID), 11)

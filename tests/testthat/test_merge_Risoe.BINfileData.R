@@ -5,7 +5,7 @@ test_that("Test merging", {
   expect_error(merge_Risoe.BINfileData(input.objects = c("data", "data2")),
                "File 'data' does not exist")
   expect_error(merge_Risoe.BINfileData(input.objects = list("data", "data2")),
-               "Input list does not contain Risoe.BINfileData objects!")
+               "All elements of 'input.objects' should be of class 'Risoe.BINfileData'")
   expect_error(merge_Risoe.BINfileData(input.objects = c(FALSE, FALSE)),
                "'input.objects' should be of class 'character' or 'list'")
 

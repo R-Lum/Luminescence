@@ -7,7 +7,8 @@ test_that("Complete test", {
 
   ##crash function
   expect_error(plot_ROI(object = "stop"),
-               regexp = "\\[plot\\_ROI\\(\\)\\] Input for 'object' not supported, please check documentation!")
+               "[plot_ROI()] Input for 'object' not supported, please check",
+               fixed = TRUE)
 
   ##test standard cases
   expect_silent(plot_ROI(temp))
@@ -31,6 +32,6 @@ test_that("Complete test", {
 
   ## trigger warning
   expect_warning(plot_ROI(t, bg_image = "stop", exclude_ROI = NULL),
-    "\\[plot\\_ROI\\(\\)] 'bg\\_image' is not of type RLum.Data.Image and cannot be converted into such; background image plot skipped!")
-
+                 "[plot_ROI()] 'bg_image' is not of class 'RLum.Data.Image'",
+                 fixed = TRUE)
 })
