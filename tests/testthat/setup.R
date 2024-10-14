@@ -22,6 +22,13 @@ expect_snapshot_RLum <- function(object, ...) {
       object@data$rejection.criteria$UID <- NULL
     if ("test_parameters" %in% names(object@data))
       object@data$test_parameters$UID <- NULL
+
+    ## This should be removed once we do not run coverage
+    ## anymore on R 4.3 (issue #312)
+    if ("De" %in% names(object@data)) {
+      object@data$De$HPDI95_L <- NULL
+      object@data$De$HPDI95_U <- NULL
+    }
   }
   if ("records" %in% slotNames(object)) {
     for (idx in seq_along(object@records)) {

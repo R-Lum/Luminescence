@@ -154,7 +154,6 @@ test_that("snapshot tests", {
   ## see https://github.com/R-Lum/Luminescence/pull/308
   skip_on_os("windows")
   skip_on_os("mac")
-  skip_if(getRversion() < "4.4")
 
   snapshot.tolerance <- 1.5e-6
 
