@@ -100,7 +100,7 @@ function using \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the de
 sometimes it may be useful to restrict the lower bounds to e.g.
 c(\verb{0, 0, 0}). The values of the vector are for parameters
 \code{a}, \code{D0} and \code{c} in that particular order (see details in
-\link{plot_GrowthCurve}).}
+\link{fit_DoseResponseCurve}).}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user
@@ -113,13 +113,13 @@ enables/disables plot output.}
 \item{...}{Further parameters:
 \itemize{
 \item \code{verbose} \link{logical}: Show or hide console output
-\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{100000}).
+\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{10000}).
 \strong{Note} that it is generally advised to have a large number of Monte Carlo
 iterations for the results to converge. Decreasing the number of iterations
 will often result in unstable estimates.
 }
 
-All other arguments are passed to \link{plot} and \link{plot_GrowthCurve} (in particular
+All other arguments are passed to \link{plot} and \link{fit_DoseResponseCurve} (in particular
 \code{mode} for the fit mode and \code{fit.force_through_origin})}
 }
 \value{
@@ -181,7 +181,7 @@ irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eq
 Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
 response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
 \verb{[1]} and \verb{[2]}. Computed \eqn{\frac{L_x}{T_x}} values are then fitted using the
-\link{plot_GrowthCurve} function and the laboratory measured LnTn can then
+\link{fit_DoseResponseCurve} function and the laboratory measured LnTn can then
 be interpolated onto this curve to determine the fading corrected
 \eqn{D_e} value, from which the fading corrected age is calculated.
 

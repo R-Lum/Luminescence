@@ -294,14 +294,13 @@ calc_Lamothe2003 <- function(
     txtProgressBar = verbose,
     output.plotExtended = FALSE,
     output.plot = plot
-
   )
 
   ##filter doubled arguments
   argument_list <- modifyList(x = argument_list, val = list(...))
 
   ##run plot function
-  fit_results <- do.call(what = plot_GrowthCurve,args = argument_list)
+  fit_results <- do.call(what = plot_GrowthCurve, args = argument_list)
 
 
   # Age calculation -----------------------------------------------------------------------------

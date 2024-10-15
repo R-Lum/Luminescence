@@ -54,7 +54,7 @@
 #' are to be logarithmic. See
 #' [plot.default]).
 #'
-#' @param ... further arguments that will be passed to the function [plot_GrowthCurve]
+#' @param ... further arguments that will be passed to the function [fit_DoseResponseCurve]
 #'
 #' @return
 #' A plot (*optional*) and an [RLum.Results-class] object is
@@ -77,7 +77,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
+#' @seealso [calc_TLLxTxRatio], [fit_DoseResponseCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
 #'
 #' @references
@@ -619,12 +619,12 @@ analyse_SAR.TL <- function(
   temp.sample[is.na(temp.sample$LxTx.Error),"LxTx.Error"] <- 0
 
   ##run curve fitting
-  temp.GC <- try(plot_GrowthCurve(
+  temp.GC <- try(fit_DoseResponseCurve(
     sample = temp.sample,
     ...
   ))
 
-  ## plot_GrowthCurve() can fail in two ways:
+  ## fit_DoseResponseCurve() can fail in two ways:
   ## 1. either with a hard error, in which case there's nothing much we
   ##    can do and stop early by returning NULL
   if(inherits(temp.GC, "try-error")){

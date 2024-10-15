@@ -102,7 +102,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Margret C. Fuchs, HZDR, Freiberg (Germany)
 #'
-#' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [plot_GrowthCurve]
+#' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [fit_DoseResponseCurve]
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

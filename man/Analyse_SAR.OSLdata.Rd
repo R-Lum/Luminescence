@@ -157,7 +157,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\link{calc_OSLLxTxRatio}, \linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{plot_GrowthCurve}
+\link{calc_OSLLxTxRatio}, \linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{fit_DoseResponseCurve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr

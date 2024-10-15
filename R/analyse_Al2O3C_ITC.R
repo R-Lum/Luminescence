@@ -20,8 +20,8 @@
 #'
 #' \tabular{lll}{
 #' **ARGUMENT** \tab **FUNCTION** \tab **DESCRIPTION**\cr
-#' `mode` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the mode used for fitting\cr
-#' `fit.method` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
+#' `mode` \tab `fit_DoseResponseCurve` \tab as in [fit_DoseResponseCurve]; sets the mode used for fitting\cr
+#' `fit.method` \tab `fit_DoseResponseCurve` \tab as in [fit_DoseResponseCurve]; sets the function applied for fitting\cr
 #' }
 #'
 #' @param object [RLum.Analysis-class] or [list] **(required)**:
@@ -68,7 +68,7 @@
 #'  `$data` \tab `data.frame` \tab correction value and error \cr
 #'  `$table` \tab `data.frame` \tab table used for plotting  \cr
 #'  `$table_mean` \tab `data.frame` \tab table used for fitting \cr
-#'  `$fit` \tab `lm` or `nls` \tab the fitting as returned by the function [plot_GrowthCurve]
+#'  `$fit` \tab `lm` or `nls` \tab the fitting as returned by the function [fit_DoseResponseCurve]
 #' }
 #'
 #'**slot:** **`@info`**
@@ -85,7 +85,7 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot_GrowthCurve]
+#' @seealso [fit_DoseResponseCurve]
 #'
 #' @references
 #'
@@ -236,11 +236,9 @@ analyse_Al2O3C_ITC <- function(
 
 
   ##calculate GC
-  GC <- plot_GrowthCurve(
+  GC <- fit_DoseResponseCurve(
     sample = df_mean,
     mode = method_control_settings$mode,
-    output.plotExtended = FALSE,
-    output.plot = FALSE,
     fit.method = method_control_settings$fit.method,
     verbose = FALSE
   )

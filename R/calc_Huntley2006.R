@@ -36,7 +36,7 @@
 #' Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
 #' response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
 #' `[1]` and `[2]`. Computed \eqn{\frac{L_x}{T_x}} values are then fitted using the
-#' [plot_GrowthCurve] function and the laboratory measured LnTn can then
+#' [fit_DoseResponseCurve] function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
 #' \eqn{D_e} value, from which the fading corrected age is calculated.
 #'
@@ -156,7 +156,7 @@
 #' sometimes it may be useful to restrict the lower bounds to e.g.
 #' c(`0, 0, 0`). The values of the vector are for parameters
 #' `a`, `D0` and `c` in that particular order (see details in
-#' [Luminescence::plot_GrowthCurve]).
+#' [Luminescence::fit_DoseResponseCurve]).
 #'
 #' @param normalise [logical] (*with default*): If `TRUE` (the default) all measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the pre-exponential factor `A` (see details).
 #'
@@ -176,7 +176,7 @@
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
 #'
-#' All other arguments are passed to [plot] and [plot_GrowthCurve] (in particular
+#' All other arguments are passed to [plot] and [fit_DoseResponseCurve] (in particular
 #' `mode` for the fit mode and `fit.force_through_origin`)
 #'
 #' @return An [RLum.Results-class] object is returned:
@@ -477,7 +477,7 @@ calc_Huntley2006 <- function(
   force_through_origin <- GC.settings$fit.force_through_origin
 
   ## call the fitting
-  GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
+  GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings))
 
   if (inherits(GC.measured$Fit, "try-error"))
     .throw_error("Unable to fit growth curve to measured data, try setting ",
@@ -633,7 +633,7 @@ calc_Huntley2006 <- function(
 
   ## calculate simulated DE
   suppressWarnings(
-    GC.simulated <- try(do.call(plot_GrowthCurve, GC.settings))
+    GC.simulated <- try(do.call(fit_DoseResponseCurve, GC.settings))
   )
 
   if (!inherits(GC.simulated, "try-error")) {

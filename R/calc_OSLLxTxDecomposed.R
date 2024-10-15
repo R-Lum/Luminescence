@@ -48,7 +48,7 @@
 #'
 #' @author Dirk Mittelstrass
 #'
-#' @seealso [RLum.Data.Curve-class], [plot_GrowthCurve], [analyse_SAR.CWOSL]
+#' @seealso [RLum.Data.Curve-class], [fit_DoseResponseCurve], [analyse_SAR.CWOSL]
 #'
 #' @references Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019.
 #' Automated identification and separation of quartz CW-OSL signal components with R.
