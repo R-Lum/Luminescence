@@ -534,6 +534,15 @@ plot_GrowthCurve <- function(
   D02 <- NA
   D02.ERROR <- NA
 
+  ## helper to report the fit
+  .report_fit <- function(De, ...) {
+    if (verbose && mode != "alternate") {
+      writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
+                        " (", mode,") ", "| De = ", round(abs(De), 2),
+                        ...))
+    }
+  }
+
   ## ------------------------------------------------------------------------
   ## to be a little bit more flexible, the start parameters varies within
   ## a normal distribution
@@ -598,8 +607,7 @@ plot_GrowthCurve <- function(
 
       if (verbose) {
         if (!inherits(De.uniroot, "try-error")) {
-            writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
-              " (", mode,") ", "| De = ", round(De, 2)))
+          .report_fit(De)
         } else{
           writeLines("[plot_GrowthCurve()] No solution found for QDR fit")
         }
@@ -753,21 +761,9 @@ plot_GrowthCurve <- function(
 
         #print D01 value
         D01 <- b
-        if (verbose) {
-          if (mode != "alternate") {
-            writeLines(paste0(
-              "[plot_GrowthCurve()] Fit: ",
-              fit.method,
-              " (",
-              mode,
-              ")",
-              " | De = ",
-              round(abs(De), digits = 2),
-              " | D01 = ",
-              round(D01, 2)
-            ))
-          }
-        }
+
+        .report_fit(De, " | D01 = ", round(D01, 2))
+
 
         #EXP MC -----
         ##Monte Carlo Simulation
@@ -824,7 +820,6 @@ plot_GrowthCurve <- function(
 
         }#end for loop
 
-
         ##write D01.ERROR
         D01.ERROR <- sd(var.b, na.rm = TRUE)
 
@@ -869,21 +864,7 @@ plot_GrowthCurve <- function(
       }
 
       ##remove vector labels
-      De <- as.numeric(as.character(De))
-
-      if (verbose) {
-        if (mode != "alternate") {
-          writeLines(paste0(
-            "[plot_GrowthCurve()] Fit: ",
-            fit.method,
-            " (",
-            mode,
-            ") ",
-            "| De = ",
-            round(abs(De), 2)
-          ))
-        }
-      }
+      .report_fit(as.numeric(as.character(De)))
 
       #start loop for Monte Carlo Error estimation
       #LIN MC ---------
@@ -1036,18 +1017,7 @@ plot_GrowthCurve <- function(
           De <- temp.De$root
         }
 
-        if (verbose) {
-          writeLines(paste0(
-            "[plot_GrowthCurve()] Fit: ",
-            fit.method,
-            " (",
-            mode,
-            ")"
-            ,
-            " | De = ",
-            round(abs(De),2)
-          ))
-        }
+        .report_fit(De)
       }
 
       ##Monte Carlo Simulation for error estimation
@@ -1138,16 +1108,7 @@ plot_GrowthCurve <- function(
       rm(var.b, var.a, var.c, var.g)
 
     }else{
-      #print message
-      if (verbose) {
-        if (mode != "alternate") {
-          writeLines(paste0(
-            "[plot_GrowthCurve()] Fit: ",
-            fit.method,
-            " | De = NA (fitting FAILED)"
-          ))
-        }
-      }
+      .report_fit(NA, " (fitting FAILED)")
 
     } #end if "try-error" Fit Method
 
@@ -1259,11 +1220,7 @@ plot_GrowthCurve <- function(
       }
 
       #print D0 and De value values
-      if(verbose){
-        if(mode != "alternate"){
-        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De, "| D01 = ",D01, " | D02 = ",D02))
-        }
-      }
+      .report_fit(De, " | D01 = ", D01, " | D02 = ", D02)
 
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
@@ -1344,10 +1301,7 @@ plot_GrowthCurve <- function(
       rm(var.b1, var.b2, var.a1, var.a2)
 
     }else{
-      #print message
-      if(verbose){
-        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = NA (fitting FAILED)"))
-      }
+      .report_fit(NA, " (fitting FAILED)")
 
     } #end if "try-error" Fit Method
 
@@ -1395,23 +1349,7 @@ plot_GrowthCurve <- function(
       #print D01 value
       D01 <- b
 
-      if (verbose) {
-        if (mode != "alternate") {
-          writeLines(paste0(
-            "[plot_GrowthCurve()] Fit: ",
-            fit.method,
-            " (",
-            mode,
-            ")",
-            " | De = ",
-            round(abs(De), digits = 2),
-            " | D01 = ",
-            round(D01,2),
-            " | c = ",
-            round(c, digits = 2)
-          ))
-        }
-      }
+      .report_fit(De, " | D01 = ", round(D01, 2), " | c = ", round(c, 2))
 
       #EXP MC -----
       ##Monte Carlo Simulation
@@ -1471,7 +1409,7 @@ plot_GrowthCurve <- function(
 
       ##remove values
       rm(var.b, var.a, var.c)
-      }
+    }
   }
 
   ## LambertW ---------------------------------------------------------------
@@ -1553,23 +1491,8 @@ plot_GrowthCurve <- function(
           }
 
           if(inherits(De, "try-error")) De <- NA
-          if (verbose) {
-            if (mode != "alternate") {
-              writeLines(paste0(
-                "[plot_GrowthCurve()] Fit: ",
-                fit.method,
-                " (",
-                mode,
-                ")",
-                " | De = ",
-                round(abs(De), digits = 2),
-                " | R = ",
-                round(R,2),
-                " | Dc = ",
-                round(Dc, digits = 2)
-              ))
-            }
-          }
+
+          .report_fit(De, " | R = ", round(R, 2), " | Dc = ", round(Dc, 2))
 
           #LambertW MC -----
           ##Monte Carlo Simulation
@@ -1838,7 +1761,6 @@ plot_GrowthCurve <- function(
             lty = 2,
             lwd = 1.25
           ), silent = TRUE)
-
         }
         try(lines(
           c(De, De),
@@ -2134,7 +2056,6 @@ plot_GrowthCurve <- function(
       param[2:(length(coef(f))+1)] <- coef(f)
     else
       param[1:length(coef(f))] <- coef(f)
-
   }
 
   ## replace
