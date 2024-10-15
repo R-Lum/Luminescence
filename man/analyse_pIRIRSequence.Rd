@@ -57,7 +57,8 @@ single plot output (\code{TRUE/FALSE}) to allow for plotting the results in sing
 windows. Requires \code{plot = TRUE}.}
 
 \item{...}{further arguments that will be passed to the function
-\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}. Furthermore, the arguments \code{main} (headers), \code{log} (IRSL curves), \code{cex} (control
+\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}. Furthermore, the
+arguments \code{main} (headers), \code{log} (IRSL curves), \code{cex} (control
 the size) and \code{mtext.outer} (additional text on the plot area) can be passed to influence the plotting. If the input
 is list, \code{main} can be passed as \link{vector} or \link{list}.}
 }

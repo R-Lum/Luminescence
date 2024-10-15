@@ -60,7 +60,7 @@ Function returns results numerically and graphically:
 \verb{$data} \tab \code{data.frame} \tab correction value and error \cr
 \verb{$table} \tab \code{data.frame} \tab table used for plotting  \cr
 \verb{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-\verb{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{plot_GrowthCurve}
+\verb{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{fit_DoseResponseCurve}
 }
 
 \strong{slot:} \strong{\verb{@info}}
@@ -96,8 +96,8 @@ handled using the argument \code{method_control} only, e.g.,
 
 \tabular{lll}{
 \strong{ARGUMENT} \tab \strong{FUNCTION} \tab \strong{DESCRIPTION}\cr
-\code{mode} \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the mode used for fitting\cr
-\code{fit.method} \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the function applied for fitting\cr
+\code{mode} \tab \code{fit_DoseResponseCurve} \tab as in \link{fit_DoseResponseCurve}; sets the mode used for fitting\cr
+\code{fit.method} \tab \code{fit_DoseResponseCurve} \tab as in \link{fit_DoseResponseCurve}; sets the function applied for fitting\cr
 }
 }
 \section{Function version}{
@@ -124,7 +124,7 @@ Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3
 Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
 \seealso{
-\link{plot_GrowthCurve}
+\link{fit_DoseResponseCurve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

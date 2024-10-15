@@ -154,6 +154,7 @@ Collate:
     'extract_IrradiationTimes.R'
     'extract_ROI.R'
     'fit_CWCurve.R'
+    'fit_DoseResponseCurve.R'
     'fit_EmissionSpectra.R'
     'fit_LMCurve.R'
     'fit_OSLLifeTimes.R'

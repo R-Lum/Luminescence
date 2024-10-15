@@ -55,7 +55,7 @@ a character string which contains \code{"x"} if the x-axis is to be logarithmic,
 are to be logarithmic. See
 \link{plot.default}).}
 
-\item{...}{further arguments that will be passed to the function \link{plot_GrowthCurve}}
+\item{...}{further arguments that will be passed to the function \link{fit_DoseResponseCurve}}
 }
 \value{
 A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
@@ -127,7 +127,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\link{calc_TLLxTxRatio}, \link{plot_GrowthCurve}, \linkS4class{RLum.Analysis},
+\link{calc_TLLxTxRatio}, \link{fit_DoseResponseCurve}, \linkS4class{RLum.Analysis},
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{

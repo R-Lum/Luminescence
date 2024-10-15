@@ -14,17 +14,15 @@ calc_Statistics(
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
-for \link{data.frame} two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
-To plot several data sets in one plot the data sets must be provided
-as \code{list}, e.g. \code{list(data.1, data.2)}.}
+for \link{data.frame} two columns: De (\code{data[, 1]}) and De error (\code{data[, 2]}).}
 
 \item{weight.calc}{\link{character}:
 type of weight calculation. One out of \code{"reciprocal"} (weight is 1/error),
 \code{"square"} (weight is 1/error^2). Default is \code{"square"}.}
 
 \item{digits}{\link{integer} (\emph{with default}):
-round numbers to the specified digits.
-If digits is set to \code{NULL} nothing is rounded.}
+number of decimal places to be used when rounding numbers. If set to \code{NULL}
+(default), no rounding occurs.}
 
 \item{n.MCM}{\link{numeric} (\emph{with default}):
 number of samples drawn for Monte Carlo-based statistics.

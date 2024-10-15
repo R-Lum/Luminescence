@@ -152,7 +152,7 @@ test_that("plot_DetPlot", {
       n.channels = 2)
 
   ## analyse_pIRIRSequence on an inconsistent object
-  suppressWarnings( # ignore additional warnings from plot_GrowthCurve()
+  suppressWarnings( # ignore additional warnings from fit_DoseResponseCurve()
   expect_error(
       expect_warning(plot_DetPlot(
           object,

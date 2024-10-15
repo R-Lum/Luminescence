@@ -64,7 +64,8 @@
 #' windows. Requires `plot = TRUE`.
 #'
 #' @param ... further arguments that will be passed to the function
-#' [analyse_SAR.CWOSL] and [plot_GrowthCurve]. Furthermore, the arguments `main` (headers), `log` (IRSL curves), `cex` (control
+#' [analyse_SAR.CWOSL] and [plot_GrowthCurve]. Furthermore, the
+#' arguments `main` (headers), `log` (IRSL curves), `cex` (control
 #' the size) and `mtext.outer` (additional text on the plot area) can be passed to influence the plotting. If the input
 #' is list, `main` can be passed as [vector] or [list].
 #'

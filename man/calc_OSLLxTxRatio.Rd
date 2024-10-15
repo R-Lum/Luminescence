@@ -188,7 +188,7 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{Analyse_SAR.OSLdata}, \link{plot_GrowthCurve},
+\linkS4class{RLum.Data.Curve}, \link{Analyse_SAR.OSLdata}, \link{fit_DoseResponseCurve},
 \link{analyse_SAR.CWOSL}
 }
 \author{

@@ -105,7 +105,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -242,7 +242,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -379,7 +379,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -516,7 +516,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -653,7 +653,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -790,7 +790,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -927,7 +927,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -1064,7 +1064,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -1201,7 +1201,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",
@@ -1338,7 +1338,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": ["plot_GrowthCurve"]
+          "value": ["fit_DoseResponseCurve"]
         },
         "info": {
           "type": "list",

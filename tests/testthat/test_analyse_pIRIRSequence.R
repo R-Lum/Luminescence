@@ -11,7 +11,6 @@ sequence.structure <-
 
 object <-  sapply(1:length(sequence.structure), function(x) {
   object[[sequence.structure[x]]]
-
 })
 
 object <-
@@ -35,7 +34,7 @@ results <- analyse_pIRIRSequence(
 )
 
 ## plot.single = FALSE && plot == TRUE
-suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and plot_GrowthCurve
+suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCurve
   analyse_pIRIRSequence(
     object,
     signal.integral.min = c(1, 2),

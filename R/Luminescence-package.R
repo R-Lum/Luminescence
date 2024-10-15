@@ -1006,7 +1006,7 @@ NULL
 #' IR50_De.LxTx <- ExampleData.Fading$equivalentDose.data$IR50
 #'
 #' ## Calculate the De of the IR50 signal
-#' IR50_De <- plot_GrowthCurve(IR50_De.LxTx,
+#' IR50_De <- fit_DoseResponseCurve(IR50_De.LxTx,
 #'                                 mode = "interpolation",
 #'                                 fit.method = "EXP")
 #'
@@ -1313,6 +1313,3 @@ NULL
 #' @name extdata
 #' @md
 NULL
-
-
-
