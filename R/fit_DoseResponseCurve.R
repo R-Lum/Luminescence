@@ -162,6 +162,7 @@
 #' `..$De.MC` : \tab `numeric` \tab Table with De values from MC runs \cr
 #' `..$Fit` : \tab [nls] or [lm] \tab object from the fitting for `EXP`, `EXP+LIN` and `EXP+EXP`.
 #' In case of a resulting  linear fit when using `LIN`, `QDR` or `EXP OR LIN` \cr
+#' `..Fit.Args` : \tab `list` \tab Arguments to the function \cr
 #' `..$Formula` : \tab [expression] \tab Fitting formula as R expression \cr
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
@@ -1599,6 +1600,18 @@ fit_DoseResponseCurve <- function(
       De = output,
       De.MC = x.natural,
       Fit = fit,
+      Fit.Args = list(
+          sample = sample,
+          fit.method = fit.method,
+          mode = mode,
+          fit.force_through_origin = fit.force_through_origin,
+          fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
+          fit.NumberRegPoints = fit.NumberRegPoints,
+          fit.NumberRegPointsReal = fit.NumberRegPointsReal,
+          fit.weights = fit.weights,
+          fit.bounds = fit.bounds,
+          NumberIterations.MC = NumberIterations.MC
+      ),
       Formula = fit_formula
     ),
     info = list(

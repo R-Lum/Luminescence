@@ -100,6 +100,7 @@ following elements:
 \code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
 \code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}.
 In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EXP OR LIN} \cr
+\code{..Fit.Args} : \tab \code{list} \tab Arguments to the function \cr
 \code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
 \code{..$call} : \tab \code{call} \tab The original function call\cr
 }
