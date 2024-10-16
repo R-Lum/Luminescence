@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_GrowthCurve.R
 \name{plot_GrowthCurve}
 \alias{plot_GrowthCurve}
-\title{Plot a dose-response curve for luminescence data (Lx/Tx against dose)}
+\title{Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)}
 \usage{
 plot_GrowthCurve(
   sample,
@@ -79,26 +79,13 @@ enables or disables terminal feedback.}
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}).}
 }
 \value{
-Along with a plot (so far wanted) an \code{RLum.Results} object is returned containing,
-the slot \code{data} contains the following elements:
-
-\tabular{lll}{
-\strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
-\code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
-\code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
-\code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}.
-In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EXP OR LIN} \cr
-\code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
-\code{..$call} : \tab \code{call} \tab The original function call\cr
-}
+Along with a plot (if wanted) the \code{RLum.Results} object produced by
+\link{fit_DoseResponseCurve} is returned.
 }
 \description{
 A dose-response curve is produced for luminescence measurements using a
-regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
-}
-\details{
-To avoid plotting the subtitle information, provide an empty user \code{mtext}
-\code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
+regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}
+and \link{plot_DoseResponseCurve}
 }
 \section{Function version}{
  1.2
@@ -152,7 +139,7 @@ Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose r
 based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 }
 \seealso{
-\link{fit_DoseResponseCurve}
+\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
