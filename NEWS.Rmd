@@ -10,9 +10,16 @@ header-includes:
 
 ## New functions
 
+* `fit_DoseResponseCurve()` and `plot_DoseResponseCurve()` are two new
+functions derived from `plot_GrowthCurve()`: the first only performs the
+fitting of a dose-response curve, while the second plots it. This brings
+greater flexibility and increased speed, as plotting is now independent of
+fitting (#141, fixed in #318).
+
 * `melt_RLum()`: Creates a new flat `data.frame` from the objects that can be
 used for instance in combination with `'ggplot2'`. Works only on `RLum.Data.Curve-class`
 and `RLum.Analysis-class` objects and lists of such objects.
+
 
 ## Breaking changes
 * We have dropped our dependency on the `readxl` package: functions
@@ -76,6 +83,11 @@ remove all `NULL` objects, but not elements that became `list()` (empty list) du
 the function returned the `RLum.Data.Curve-class` object *regardless* of the selection in `recordType`. In other words: 
 If a user tried `recordType = "TL"` on an `RLum.Analysis-class` object that contained only a single IRSL curve, the
 function would still return that single IRSL curve instead of an empty element. The reason for this behaviour was a poor attempt to deal with `NA` in the `recordType` name that led to missing values and unexpected behaviour for a logical comparison. Now, before the subset happens, `NA` values in `recordType` are converted to `"NA"` (a character) and the wiggling around that was causing the lousy subsetting was removed. 
+
+### `plot_GrowthCurve()`
+* The function is now implemented as a wrapper around `fit_DoseResponseCurve()`
+and `plot_DoseResponseCurve()`. There should be no visible user-facing
+changes (#319, fixed in #322).
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect

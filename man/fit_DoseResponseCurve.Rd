@@ -162,7 +162,7 @@ according to Pagonis et al. (2020). The function has the form
 with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-the offset on the x-axis. Please not that finding the root in \code{mode = "extrapolation"}
+the offset on the x-axis. Please note that finding the root in \code{mode = "extrapolation"}
 is a non-easy task due to the shape of the function and the results might be
 unexpected.
 
@@ -178,7 +178,7 @@ Error estimation is done using a parametric bootstrapping approach. A set of
 \code{Lx/Tx} values is constructed by randomly drawing curve data sampled from normal
 distributions. The normal distribution is defined by the input values (\code{mean = value}, \code{sd = value.error}). Then, a dose-response curve fit is attempted for each
 dataset resulting in a new distribution of single \code{De} values. The standard
-deviation of this distribution is becomes then the error of the \code{De}. With increasing
+deviation of this distribution becomes then the error of the \code{De}. With increasing
 iterations, the error value becomes more stable. However, naturally the error
 will not decrease with more MC runs.
 

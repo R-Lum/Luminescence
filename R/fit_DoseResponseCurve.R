@@ -59,7 +59,7 @@
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 #' of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-#' the offset on the x-axis. Please not that finding the root in `mode = "extrapolation"`
+#' the offset on the x-axis. Please note that finding the root in `mode = "extrapolation"`
 #' is a non-easy task due to the shape of the function and the results might be
 #' unexpected.
 #'
@@ -76,7 +76,7 @@
 #' distributions. The normal distribution is defined by the input values (`mean
 #' = value`, `sd = value.error`). Then, a dose-response curve fit is attempted for each
 #' dataset resulting in a new distribution of single `De` values. The standard
-#' deviation of this distribution is becomes then the error of the `De`. With increasing
+#' deviation of this distribution becomes then the error of the `De`. With increasing
 #' iterations, the error value becomes more stable. However, naturally the error
 #' will not decrease with more MC runs.
 #'
