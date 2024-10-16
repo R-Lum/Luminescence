@@ -332,8 +332,8 @@ analyse_portableOSL <- function(
        ## show only warning
        if(inherits(s, "try-error"))
          .throw_warning("Surface interpolation failed: this happens when ",
-                        "all points are arranged in one line. ",
-                        "Nothing plotted!")
+                        "all points are arranged in one line or xlim/ylim/zlim ",
+                        "are too tight. Nothing plotted!")
 
        ## show error
        if(!inherits(s, "try-error")) {
