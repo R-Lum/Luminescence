@@ -788,10 +788,10 @@ fit_DoseResponseCurve <- function(
       ## establish models without and with intercept term
       if (fit.force_through_origin) {
         model.lin <- y ~ 0 + x
-        De.fs <- function(fit, y) y / coef(fit)[1]
+        De.fs <- function(fit, x, y) y / coef(fit)[1]
       } else {
         model.lin <- y ~ x
-        De.fs <- function(fit, y) (y - coef(fit)[1]) / coef(fit)[2]
+        De.fs <- function(fit, x, y) (y - coef(fit)[1]) / coef(fit)[2]
       }
 
       if (mode == "interpolation") {
@@ -804,7 +804,7 @@ fit_DoseResponseCurve <- function(
       fit.lm <- lm(model.lin, data = data, weights = fit.weights)
 
       if (mode != "alternate") {
-        De <- De.fs(fit.lm, y)
+        De <- De.fs(fit.lm, NA, y)
       }
 
       ##remove vector labels
@@ -823,7 +823,7 @@ fit_DoseResponseCurve <- function(
         fit.lmMC <- lm(model.lin, data = data, weights=fit.weights)
 
         if (mode != "alternate") {
-          x.natural[i] <- De.fs(fit.lmMC, y)
+          x.natural[i] <- De.fs(fit.lmMC, NA, y)
         }
 
       }#endfor::loop for MC
