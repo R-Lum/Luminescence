@@ -541,9 +541,17 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ##limit z-values if requested, this idea was taken from the Diss. by Thomas Schilles, 2002
-  if(!is.null(limit_counts[1]))
+  if(!is.null(limit_counts[1])) { 
+    if(min(temp.xyz) > limit_counts[1]) {
+      limit_counts <- floor(limit_counts[1] + min(temp.xyz))
+      .throw_warning(
+        "Lowest count value is larger than the set count threshold. Set limit_counts = ", limit_counts, ".")  
+    }
+    
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
 
+  }
+  
   # Normalise if wanted -------------------------------------------------------------------------
   if(!is.null(norm)){
     if(norm == "min")
@@ -1120,3 +1128,20 @@ attr(temp.xyz, "pmat") <- pmat
 if(plot) invisible(temp.xyz) else return(temp.xyz)
 
 }
+
+# plot_RLum.Data.Spectrum(
+#   object = apply_EfficiencyCorrection(tmp_clean[[1]][[3]], spectral.efficiency = df_eff), 
+#   plot.type = "persp",
+#   #bg.spectrum = tmp_clean[[1]][[4]],
+#   bin.rows = 2, 
+#   ylim = c(0,450),
+#   bin.cols = 2,
+#   shade = 0.5,
+#   lphi = 50,
+#   ltheta = -20,
+#   # theta = 30,
+#   # phi = 20, 
+#   cex = 1,
+#   expand = 0.5,
+#   limit_counts = 1000,
+#   main = "TL (nat) - Th7")

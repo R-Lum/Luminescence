@@ -103,6 +103,15 @@ test_that("check functionality", {
       bin.rows = 10,
       bin.cols = 1
     )), "double")
+    
+    expect_warning(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      plot.type = "persp",
+      xlim = c(310, 750),
+      limit_counts = 2,
+      bin.rows = 1,
+      bin.cols = 1
+    ), "Lowest count value is larger than the set count threshold")
 
     ## check our axes
     expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
