@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -99,6 +99,105 @@
               "type": "double",
               "attributes": {},
               "value": [1684.85735459, 1763.54183457, 1762.187853, 1850.03438636, 1774.63110596, 1703.33986596, 1793.5411331, 1717.19383989, 1760.88144126, 1752.14151321]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["EXP"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -146,7 +245,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -236,6 +335,105 @@
               "type": "double",
               "attributes": {},
               "value": [1848.89549991, 1846.15066074, 1893.0524396, 1868.55650236, 1796.110008, 1901.66508559, 1788.41533458, 1789.27853976, 1835.17171587, 1831.04728281]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LIN"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -283,7 +481,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -373,6 +571,105 @@
               "type": "double",
               "attributes": {},
               "value": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LIN"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["extrapolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.02108303, 0.05525209, 0.02967242, 0.01978161, 0.01780345, 0.05525209, 0.8011553]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -420,7 +717,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -510,6 +807,105 @@
               "type": "double",
               "attributes": {},
               "value": [1914.24507169, 1828.69651434, 1745.45958838, 1778.69356335, 1893.51533194, 1672.19640451, 1796.04639439, 1911.58346151, 1688.02254728, 1803.70430134]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["EXP+LIN"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -557,7 +953,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -647,6 +1043,105 @@
               "type": "double",
               "attributes": {},
               "value": ["NA", 1824.8371709, "NA", 1830.71377093, 1776.78064125, 1864.234325, 1746.9287764, 1831.20796013, 1804.82820438, "NA"]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["EXP+EXP"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -694,7 +1189,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -784,6 +1279,105 @@
               "type": "double",
               "attributes": {},
               "value": [1610.90625651, 1571.71222246, 1605.16197247, 1740.38278054, 1618.06265129, 1702.16986024, 1616.05022924, 1701.93514277, 1668.3974487, 1707.17166934]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["QDR"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -831,7 +1425,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -921,6 +1515,105 @@
               "type": "double",
               "attributes": {},
               "value": [1808.35894275, 1836.22119257, 1727.57455606, 1758.36721033, 1768.18562486, 1868.39982966, 1747.13953135, 1738.69135603, 1722.99453709, 1792.13043382]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["GOK"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -968,7 +1661,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -1058,6 +1751,105 @@
               "type": "double",
               "attributes": {},
               "value": [1799.42248907, 1829.68778811, 1776.23866755, 1754.03040759, 1792.50205253, 1781.25824859, 1691.51738922, 1604.2103926, 1847.21826033, 1658.34194408]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LambertW"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -1105,7 +1897,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -1195,6 +1987,105 @@
               "type": "double",
               "attributes": {},
               "value": [-38.69116731, -39.49372174, -38.82570931, -38.85488204, -40.26606975, -37.32510744, -37.96030455, -35.1485078, -38.84913316, -37.76376128]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["QDR"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["extrapolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.02108303, 0.05525209, 0.02967242, 0.01978161, 0.01780345, 0.05525209, 0.8011553]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
@@ -1242,7 +2133,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["De", "De.MC"]
+              "value": ["De", "De.MC", "Fit.Args"]
             }
           },
           "value": [
@@ -1332,6 +2223,105 @@
               "type": "double",
               "attributes": {},
               "value": [-6.38893784e-06, -0.00001699, 0.00003051, -2.77700759e-06, -0.00002978, -8.59208378e-06, -6.50030518e-06, 1.40328309e-06, -0.0000155, -3.59310991e-07]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["QDR"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["extrapolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.02108303, 0.05525209, 0.02967242, 0.01978161, 0.01780345, 0.05525209, 0.8011553]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
             }
           ]
         },
