@@ -223,10 +223,8 @@ read_BIN2R <- function(
   on.exit(expr = on_exit(), add = TRUE)
 
   ## check for URL and attempt download
-  if(verbose)
-    url_file <- .download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx"))
-  else
-    url_file <- suppressMessages(.download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx")))
+  url_file <- .download_file(file, verbose = verbose,
+                             tempfile("read_BIN22R_FILE", fileext = ".binx"))
 
   if(!is.null(url_file))
     file <- url_file

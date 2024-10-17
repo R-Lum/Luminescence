@@ -1,9 +1,8 @@
 ## path to the XSYG file on github
 github.url <- file.path("https://raw.githubusercontent.com/R-Lum",
                         "rxylib/master/inst/extdata/TLSpectrum.xsyg")
-SW({
-xsyg.file <- .download_file(github.url, tempfile("test_read_XSYG2R"))
-})
+xsyg.file <- .download_file(github.url, tempfile("test_read_XSYG2R"),
+                            verbose = FALSE)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -45,13 +44,13 @@ test_that("test import of XSYG files", {
                          type = "list")
   expect_type(results[[1]]@info$file, type = "character")
   expect_output(print(results))
-  
+
   ## check n_records argument
   expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 1),
               "list")
   expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 10),
               "list")
-  expect_error(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = "error"), 
+  expect_error(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = "error"),
                regexp = "\\[read\\_XSYG2R\\(\\)\\] 'n\\_records' should be of class")
 
   ## list input

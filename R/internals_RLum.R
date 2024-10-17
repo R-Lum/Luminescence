@@ -813,6 +813,8 @@ fancy_scientific <- function(l) {
 #'
 #'@param dest [character] (*with default*)
 #'
+#'@param verbose [logical] (*with default*)
+#'
 #'@returns Returns either nothing (no URL) or the file path of the downloaded file
 #'
 #'@author Sebastian Kreutzer, Insitut of Geography, Heidelberg University, Germany
@@ -833,7 +835,8 @@ fancy_scientific <- function(l) {
 #'@noRd
 .download_file <- function(
     url,
-    destfile = tempfile()
+    destfile = tempfile(),
+    verbose = TRUE
 ) {
 
   ## get name of calling function
@@ -843,8 +846,10 @@ fancy_scientific <- function(l) {
   ## detect and extract URL
   if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
     ## status reports
-    message(paste0(caller, " URL detected: ", url), appendLF = TRUE)
-    message(paste0(caller, " Attempting download ... "), appendLF = FALSE)
+    if (verbose) {
+      message(paste0(caller, " URL detected: ", url))
+      message(paste0(caller, " Attempting download ... "), appendLF = FALSE)
+    }
 
     ## extract URL from string only
     url <- regmatches(x = url, m = regexec(pattern = "https?\\:\\/\\/.+", text = url, perl = TRUE))[[1]]
@@ -859,26 +864,26 @@ fancy_scientific <- function(l) {
         cacheOK = FALSE,
         method = "auto"),
       warning = function(w) {
-        message("FAILED ", appendLF = TRUE)
+        if (verbose)
+          message("FAILED ")
         return(NULL)
       },
       error = function(e) {
-        message("FAILED ", appendLF = TRUE)
+        if (verbose)
+          message("FAILED ")
         return(NULL)
       })
 
     if(!is.null(t) && t == 0) {
-      message("OK ", appendLF = TRUE)
+      if (verbose)
+        message("OK ", appendLF = TRUE)
       out_file_path <- destfile
       unlink(url)
-
     }
-
   }
 
   ## return file path
   return(out_file_path)
-
 }
 
 #'@title Extract named element from nested list

@@ -249,10 +249,8 @@ read_XSYG2R <- function(
 
 # Consistency check -----------------------------------------------------------
   ## check for URL and attempt download
-  if(verbose)
-    url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"))
-  else
-    url_file <- suppressMessages(.download_file(file, tempfile("read_XSYG2R_FILE")))
+  url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"),
+                             verbose = verbose)
 
   if(!is.null(url_file))
     file <- url_file
