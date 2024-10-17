@@ -41,6 +41,8 @@ test_that("check class ", {
   ## to and from list
   expect_s4_class(as(list(matrix(1, nrow = 10, ncol = 5), matrix(1, nrow = 10, ncol = 5)), "RLum.Data.Image"),
                   "RLum.Data.Image")
+  expect_s4_class(as(list(), "RLum.Data.Image"),
+                  "RLum.Data.Image")
   expect_type(as(ExampleData.RLum.Data.Image, "list"), "list")
 
   ## check edge cases

@@ -143,8 +143,10 @@ setAs("RLum.Data.Image", "array",
 ## from list ----
 setAs("list", "RLum.Data.Image",
       function(from, to){
-        array_list <- lapply(from, function(x) array(unlist(as.vector(x)), c(nrow(x), ncol(x), 1)))
+        if (length(from) == 0)
+          return(set_RLum("RLum.Data.Image"))
 
+        array_list <- lapply(from, function(x) array(unlist(as.vector(x)), c(nrow(x), ncol(x), 1)))
         new(to,
             recordType = "unknown curve type",
             curveType = "NA",
@@ -185,6 +187,7 @@ setMethod("show",
             cat("\n\t .. .. full pixel value range:", paste(format(range(object@data), scientific = TRUE, digits = 2), collapse=" : "))
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
+            cat("\n")
           }
 )
 

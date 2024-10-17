@@ -173,15 +173,12 @@ setMethod("show",
                         } else if (linebreak) {
                           last <- "\n\t .. .. : "
                           assign(x = "linebreak", value = FALSE, envir = env)
-
                         }
-
                       }
                       return(paste0(first,last))
 
                     }else{
                       return("")
-
                     }
 
               }, FUN.VALUE = vector(mode = "character", length = 1))
@@ -195,15 +192,13 @@ setMethod("show",
 
                  } else{
                    cat("\n\t .. .. : ", terminal_output, sep = "")
-
                  }
-
               })
 
             }else{
               cat("\n\t >> This is an empty object, which cannot be used for further analysis! <<")
-
             }
+            cat("\n")
           }
 )##end show method
 

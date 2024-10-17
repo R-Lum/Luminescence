@@ -35,5 +35,10 @@ test_that("check class", {
   expect_s4_class(as(object = data.frame(x = 1:10), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
   expect_s3_class(as(set_RLum("RLum.Data.Spectrum"), "data.frame"), "data.frame")
   expect_s4_class(as(object = matrix(1:10,ncol = 2), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
-
+  expect_s4_class(as(list(1:10), "RLum.Data.Spectrum"),
+                  "RLum.Data.Spectrum")
+  expect_s4_class(as(list(), "RLum.Data.Spectrum"),
+                  "RLum.Data.Spectrum")
+  expect_type(as(set_RLum("RLum.Data.Spectrum"), "list"),
+              "list")
 })

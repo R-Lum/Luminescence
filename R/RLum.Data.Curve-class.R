@@ -103,7 +103,8 @@ setClass("RLum.Data.Curve",
 #' @name as
 setAs("list", "RLum.Data.Curve",
       function(from,to){
-
+        if (length(from) == 0)
+          return(set_RLum("RLum.Data.Curve"))
         new(to,
             recordType = "unknown curve type",
             curveType = NA_character_,
@@ -115,7 +116,6 @@ setAs("list", "RLum.Data.Curve",
 setAs("RLum.Data.Curve", "list",
       function(from){
           list(x = from@data[,1], y = from@data[,2])
-
       })
 
 ##DATA.FRAME
@@ -497,10 +497,10 @@ setMethod(
 #' Melts [RLum.Data.Curve-class] objects into a flat data.frame to be used
 #' in combination with other packages such as `ggplot2`.
 #'
-#' @return 
-#' 
+#' @return
+#'
 #' **`melt_RLum`**
-#' 
+#'
 #' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
 #'
 #' @md
