@@ -83,15 +83,14 @@ setClass(
 #'
 #' for `[RLum.Data.Spectrum-class]`
 #'
-#'
 #' **[RLum.Data.Spectrum-class]**
 #'
 #' \tabular{ll}{
 #'   **from** \tab **to**\cr
 #'   `data.frame` \tab `data.frame`\cr
 #'   `matrix` \tab `matrix`
+#'   `list` \tab `list`
 #' }
-#'
 #'
 #' @md
 #' @name as
@@ -108,9 +107,7 @@ setAs("data.frame", "RLum.Data.Spectrum",
 setAs("RLum.Data.Spectrum", "data.frame",
       function(from){
         as.data.frame(from@data)
-
       })
-
 
 ##MATRIX
 ##COERCE RLum.Data.Spectrum >> matrix AND matrix >> RLum.Data.Spectrum
@@ -126,7 +123,24 @@ setAs("matrix", "RLum.Data.Spectrum",
 setAs("RLum.Data.Spectrum", "matrix",
       function(from){
         from@data
+      })
 
+## LIST
+## COERCE RLum.Data.Spectrum >> list AND list >> RLum.Data.Spectrum
+setAs("list", "RLum.Data.Spectrum",
+      function(from, to){
+        if (length(from) == 0)
+          return(set_RLum("RLum.Data.Spectrum"))
+        new(to,
+            recordType = NA_character_,
+            curveType = NA_character_,
+            data = matrix(unlist(from)),
+            info = list())
+      })
+
+setAs("RLum.Data.Spectrum", "list",
+      function(from){
+        apply(from@data, 2, list)
       })
 
 # show() -------------------------------------------------------------------------------------
