@@ -187,6 +187,7 @@ setMethod("show",
             cat("\n\t .. .. full pixel value range:", paste(format(range(object@data), scientific = TRUE, digits = 2), collapse=" : "))
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
+            cat("\n")
           }
 )
 

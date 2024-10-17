@@ -171,6 +171,7 @@ setMethod("show",
             cat("\n\t .. .. range count values:", z.range)
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
+            cat("\n")
           }
 )
 
