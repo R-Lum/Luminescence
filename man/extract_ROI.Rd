@@ -23,7 +23,7 @@ image frame is shown}
 \value{
 \linkS4class{RLum.Results} object with the following elements:
 \code{..$roi_signals}: a named \link{list} with all ROI values and their coordinates
-\code{..$roi_summary}: an \link{matrix} where rows are frames from the image, and columns are different ROI
+\code{..$roi_summary}: a \link{matrix} where rows are frames from the image, and columns are different ROI
 The element has two attributes: \code{summary} (the method used to summarise pixels) and \code{area} (the pixel area)
 \code{..$roi_coord}: a \link{matrix} that can be passed to \link{plot_ROI}
 

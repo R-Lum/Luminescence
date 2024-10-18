@@ -7,7 +7,7 @@ test_that("input validation", {
   expect_error(convert_BIN2CSV(),
                "'file' should be of class 'character' or 'Risoe.BINfileData'")
   expect_error(convert_BIN2CSV(file = "error", export = FALSE),
-               "File does not exist")
+               "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(convert_PSL2CSV(file = "error"),
                "No .psl files found")
   expect_error(expect_message(convert_XSYG2CSV(file = "", export = FALSE),

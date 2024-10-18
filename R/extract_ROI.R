@@ -28,7 +28,7 @@
 #'
 #'@return [RLum.Results-class] object with the following elements:
 #'`..$roi_signals`: a named [list] with all ROI values and their coordinates
-#'`..$roi_summary`: an [matrix] where rows are frames from the image, and columns are different ROI
+#'`..$roi_summary`: a [matrix] where rows are frames from the image, and columns are different ROI
 #'The element has two attributes: `summary` (the method used to summarise pixels) and `area` (the pixel area)
 #'`..$roi_coord`: a [matrix] that can be passed to [plot_ROI]
 #'
