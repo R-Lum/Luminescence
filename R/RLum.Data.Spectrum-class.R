@@ -85,7 +85,7 @@ setClass(
 #'
 #' **[RLum.Data.Spectrum-class]**
 #'
-#' \tabular{ll}{
+#' \tabular{lll}{
 #'   **from** \tab **to**\cr
 #'   `data.frame` \tab `data.frame`\cr
 #'   `matrix` \tab `matrix`

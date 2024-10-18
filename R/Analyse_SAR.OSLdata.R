@@ -1,6 +1,6 @@
-#' Analyse SAR CW-OSL measurements (deprecated).
+#' @title Analyse SAR CW-OSL measurements (deprecated)
 #'
-#' The function analyses SAR CW-OSL curve data and provides a summary of the
+#' @description The function analyses SAR CW-OSL curve data and provides a summary of the
 #' measured data for every position. The output of the function is optimised
 #' for SAR OSL measurements on quartz.
 #'

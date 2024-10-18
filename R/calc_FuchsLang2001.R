@@ -1,8 +1,10 @@
-#' Apply the model after Fuchs & Lang (2001) to a given De distribution.
+#' @title Apply the model after Fuchs & Lang (2001) to a given De distribution
 #'
-#' This function applies the method according to Fuchs & Lang (2001) for
+#' @description This function applies the method according to Fuchs & Lang (2001) for
 #' heterogeneously bleached samples with a given coefficient of variation
 #' threshold.
+#' 
+#' @details
 #'
 #' **Used values**
 #'

@@ -35,7 +35,7 @@ Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
 
 \strong{\linkS4class{RLum.Data.Curve}}
 
-\tabular{ll}{
+\tabular{lll}{
 \strong{from} \tab \strong{to}\cr
 \code{list} \tab \code{list} \cr
 \code{data.frame} \tab \code{data.frame}\cr
@@ -52,10 +52,11 @@ Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
 
 \strong{\linkS4class{RLum.Data.Spectrum}}
 
-\tabular{ll}{
+\tabular{lll}{
 \strong{from} \tab \strong{to}\cr
 \code{data.frame} \tab \code{data.frame}\cr
 \code{matrix} \tab \code{matrix}
+\code{list} \tab \code{list}
 }
 
 \strong{\linkS4class{RLum.Results}}
