@@ -50,9 +50,10 @@
 #' @param show.record.number [logical] (*with default*):
 #' shows record number of the imported record, for debugging usage only.
 #' Can be provided as `list` if `file` is a `list`.
+#' Ignored if `verbose = FALSE`.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar].
+#' enables or disables [txtProgressBar]. Ignored if `verbose = FALSE`.
 #'
 #' @param forced.VersionNumber [integer] (*optional*):
 #' allows to cheat the version number check in the function by own values for
@@ -222,6 +223,11 @@ read_BIN2R <- function(
   }
   on.exit(expr = on_exit(), add = TRUE)
 
+  ## never show the progress bar if not verbose
+  if (!verbose) {
+    txtProgressBar <- FALSE
+  }
+
   ## check for URL and attempt download
   url_file <- .download_file(file, verbose = verbose,
                              tempfile("read_BIN22R_FILE", fileext = ".binx"))
@@ -233,13 +239,22 @@ read_BIN2R <- function(
   file <- suppressWarnings(normalizePath(file))
 
   ## check whether file exists
-  if(!file.exists(file))
-    .throw_error("File does not exist")
+  info <- file.info(file)
+  if (is.na(info$size)) {
+    .throw_error("File '", file, "' does not exist")
+  }
+
+  ## skip if zero-byte
+  if (info$size == 0) {
+    message("[read_BIN2R()] File '", file, "' is a zero-byte file, ",
+            "NULL returned")
+    return(NULL)
+  }
 
   ## check if file is a BIN or BINX file
   if(!any(tolower(tools::file_ext(file)) %in%  c("bin", "binx"))) {
-    message("[read_BIN2R()] '", file, "' is not a file of type ",
-            "'BIN' or 'BINX', skipped and NULL returned")
+    message("[read_BIN2R()] File '", file, "' is not a file of type ",
+            "'BIN' or 'BINX', NULL returned")
     con <- NULL
     return(NULL)
   }
@@ -251,16 +266,6 @@ read_BIN2R <- function(
   # Short file parsing to get number of records -------------------------------------------------
   #open connection
   con <- file(file, "rb")
-
-  ##get information about file size
-  file.size <- file.info(file)
-
-  ##skip if zero-byte
-  if(file.size$size == 0){
-    message("[read_BIN2R()] ", basename(file), " is a zero-byte file, ",
-            "NULL returned")
-    return(NULL)
-  }
 
   ##read data up to the end of con
   ##set ID
@@ -377,7 +382,6 @@ read_BIN2R <- function(
     "6" = "Green laser (single grain)",
     "7" = "IR laser (single grain)"
   )
-
 
   ##PRESET VALUES
   temp.CURVENO <- NA
@@ -543,9 +547,6 @@ read_BIN2R <- function(
   #open connection
   con <- file(file, "rb")
 
-  ##get information about file size
-  file.size <- file.info(file)
-
   ##output
   if(verbose) {
      file_name <- file
@@ -562,8 +563,8 @@ read_BIN2R <- function(
   }
 
   ##set progress bar
-  if(txtProgressBar & verbose){
-    pb <- txtProgressBar(min=0 ,max = file.size$size, char="=", style=3)
+  if (txtProgressBar) {
+    pb <- txtProgressBar(min = 0, max = info$size, char = "=", style = 3)
   }
 
   ##read data up to the end of con
@@ -677,9 +678,8 @@ read_BIN2R <- function(
         temp.SAMPLE <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
 
         #however it should be set to 20
-
         #step forward in con
-        if(20-c(SAMPLE_SIZE)>0){
+        if (SAMPLE_SIZE < 20) {
           STEPPING<-readBin(con, what="raw", (20-c(SAMPLE_SIZE)),
                             size=1, endian="little")
         }
@@ -690,7 +690,7 @@ read_BIN2R <- function(
           readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
 
         #step forward in con
-        if(80-c(COMMENT_SIZE)>0){
+        if (COMMENT_SIZE < 80) {
           STEPPING<-readBin(con, what="raw", (80-c(COMMENT_SIZE)),
                             size=1, endian="little")
         }
@@ -710,7 +710,7 @@ read_BIN2R <- function(
         }
 
         #step forward in con
-        if(100-c(FNAME_SIZE)>0){
+        if (FNAME_SIZE < 100) {
           STEPPING<-readBin(con, what="raw", (100-c(FNAME_SIZE)),
                             size=1, endian="little")
         }
@@ -728,7 +728,7 @@ read_BIN2R <- function(
         }
 
         #step forward in con
-        if(30-c(USER_SIZE)>0){
+        if (USER_SIZE < 30) {
           STEPPING<-readBin(con, what="raw", (30-c(USER_SIZE)),
                             size=1, endian="little")
         }
@@ -749,7 +749,7 @@ read_BIN2R <- function(
           TIME_SIZE <- 0
         }
 
-        if(6-TIME_SIZE>0){
+        if (TIME_SIZE < 6) {
           STEPPING<-readBin(con, what="raw", (6-TIME_SIZE),
                             size=1, endian="little")
         }
@@ -991,7 +991,7 @@ read_BIN2R <- function(
       temp.SEQUENCE<-readChar(con, SEQUENCE_SIZE, useBytes=TRUE)
 
       #step forward in con
-      if(8-SEQUENCE_SIZE>0){
+      if (SEQUENCE_SIZE < 8) {
         STEPPING<-readBin(con, what="raw", (8-c(SEQUENCE_SIZE)),size=1, endian="little")
       }
 
@@ -1000,7 +1000,7 @@ read_BIN2R <- function(
       temp.USER<-readChar(con, USER_SIZE, useBytes=FALSE)
 
       #step forward in con
-      if(8-c(USER_SIZE)>0){
+      if (USER_SIZE < 8) {
         STEPPING<-readBin(con, what="raw", (8-c(USER_SIZE)), size=1, endian="little")
       }
 
@@ -1040,7 +1040,7 @@ read_BIN2R <- function(
       temp.SAMPLE<-readChar(con, SAMPLE_SIZE, useBytes=TRUE) #however it should be set to 20
 
       #step forward in con
-      if(20-c(SAMPLE_SIZE)>0){
+      if (SAMPLE_SIZE < 20) {
         STEPPING<-readBin(con, what="raw", (20-c(SAMPLE_SIZE)), size=1, endian="little")
       }
 
@@ -1049,7 +1049,7 @@ read_BIN2R <- function(
       temp.COMMENT <- readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
 
       #step forward in con
-      if(80-c(COMMENT_SIZE)>0){
+      if (COMMENT_SIZE < 80) {
         STEPPING<-readBin(con, what="raw", (80-c(COMMENT_SIZE)), size=1, endian="little")
       }
 
@@ -1149,7 +1149,7 @@ read_BIN2R <- function(
     temp.ID <- temp.ID + 1
 
      ##update progress bar
-    if(txtProgressBar & verbose){
+    if (txtProgressBar) {
       setTxtProgressBar(pb, seek(con,origin="current"))
     }
 
@@ -1259,7 +1259,9 @@ read_BIN2R <- function(
   }#endwhile::end loop
 
   ##close
-  if(txtProgressBar & verbose){close(pb)}
+  if (txtProgressBar) {
+    close(pb)
+  }
 
   ## remove NA values created by skipping records
   results.METADATA <- na.omit(results.METADATA, cols = "VERSION")

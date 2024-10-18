@@ -60,10 +60,11 @@ Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{show.record.number}{\link{logical} (\emph{with default}):
 shows record number of the imported record, for debugging usage only.
-Can be provided as \code{list} if \code{file} is a \code{list}.}
+Can be provided as \code{list} if \code{file} is a \code{list}.
+Ignored if \code{verbose = FALSE}.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}.}
+enables or disables \link{txtProgressBar}. Ignored if \code{verbose = FALSE}.}
 
 \item{forced.VersionNumber}{\link{integer} (\emph{optional}):
 allows to cheat the version number check in the function by own values for
