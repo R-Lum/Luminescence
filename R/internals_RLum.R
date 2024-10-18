@@ -1253,3 +1253,30 @@ SW <- function(expr) {
 .collapse <- function(x, quote = TRUE) {
   paste0(if (quote) sQuote(x, FALSE) else x, collapse=", ")
 }
+
+#' Shorten a filename
+#'
+#' Shorten a filename to the given width by cutting out characters from the
+#' middle, leaving the most significant parts.
+#'
+#' @param filename [character] (**required**) A file name
+#' @param max.width [integer] (*with default*) The maximum width available
+#'
+#' @return
+#' A filename not longer than the maximum available width.
+#'
+#' @md
+#' @noRd
+.shorten_filename <- function(filename, max.width = 50) {
+  name.len <- nchar(filename)
+
+  ## return the current file name if it already fits the available width
+  if (name.len <= max.width)
+    return(filename)
+
+  ## shorten the filename
+  part1.end <- ceiling(max.width / 5)
+  part2.beg <- part1.end + name.len - max.width + 2
+  paste0(substring(filename, first = 1, last = part1.end), "…",
+         substring(filename, first = part2.beg))
+}

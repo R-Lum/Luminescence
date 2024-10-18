@@ -360,6 +360,13 @@ test_that("Test internals", {
                "1, 2, 3")
   expect_equal(.collapse(NULL), "")
 
+  ## .shorten_filename() ----------------------------------------------------
+  expect_equal(.shorten_filename("/path/to/filename"),
+               "/path/to/filename")
+  expect_equal(.shorten_filename("/path/to/a_somewhat_longer_filename",
+                                 max.width = 27),
+               "/path/…what_longer_filename")
+
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
