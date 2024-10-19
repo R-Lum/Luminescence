@@ -276,22 +276,27 @@ read_BIN2R <- function(
 
   ## convert bytes to characters
   .bin2char <- function(n) {
-    rawToChar(.bin2raw(n))
+    readChar(.bin2raw(n), n, useBytes = TRUE)
   }
 
-  ## convert little endian bytes to an unsigned integer
-  .bin2int <- function(n) {
-    as.numeric(paste0("0x", paste(rev(.bin2raw(n)), collapse = "")))
+  ## convert little endian bytes to an 8-bit (signed) integer
+  .bin2int8 <- function(n = 1, signed = TRUE) {
+    readBin(.bin2raw(1 * n), "integer", n, size = 1, signed = signed)
+  }
+
+  ## convert little endian bytes to a 16-bit (signed) integer
+  .bin2int16 <- function(n = 1, signed = TRUE) {
+    readBin(.bin2raw(2 * n), "integer", n, size = 2, signed = signed)
   }
 
   ## convert little endian bytes to a 32-bit (signed) integer
-  .bin2int32 <- function(signed = TRUE) {
-    readBin(.bin2raw(4), "integer", size = 4, signed = signed)
+  .bin2int32 <- function(n = 1, signed = TRUE) {
+    readBin(.bin2raw(4 * n), "integer", n, size = 4, signed = signed)
   }
 
   ## convert little endian bytes to a double
-  .bin2double <- function(n) {
-    readBin(.bin2raw(n), "double", size = 4)
+  .bin2double <- function(n = 1) {
+    readBin(.bin2raw(4 * n), "double", size = 4)
   }
 
   # Short file parsing to get number of records -------------------------------------------------
@@ -348,15 +353,15 @@ read_BIN2R <- function(
 
     ## get record LENGTH
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-      temp.LENGTH  <- .bin2int(4)
+      temp.LENGTH  <- .bin2int32()
       num.toread <- max(0, temp.LENGTH - 6)
     }else{
-      temp.LENGTH  <- .bin2int(2)
+      temp.LENGTH  <- .bin2int16()
       num.toread <- max(0, temp.LENGTH - 4)
     }
 
     if (num.toread > 0) {
-      STEPPING <- .bin2int(num.toread)
+      current <- current + num.toread
     } else {
       if (verbose)
         message("\n[read_BIN2R()] Record #", temp.ID + 1,
@@ -633,7 +638,7 @@ read_BIN2R <- function(
           cat("\n")
         }
       }
-   }
+    }
 
     ## skip empty byte position
     current <- current + 1
@@ -643,10 +648,11 @@ read_BIN2R <- function(
     if(temp.VERSION == 05 | temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
       ##(1) Header size and structure
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
-      temp.LENGTH <- .bin2int(4)
-      temp.PREVIOUS <- .bin2int(4)
-      temp.NPOINTS <- .bin2int(4)
-#      cat("id:", temp.ID, "version:", temp.VERSION, " length:", temp.LENGTH, "\n")
+      temp <- .bin2int32(3)
+      temp.LENGTH <- temp[1]
+      temp.PREVIOUS <- temp[2]
+      temp.NPOINTS <- temp[3]
+
       ## skip record if not selected
       ## the first condition boosts the speed of reading if n.records is not
       ## used; otherwise for each record the condition is checked whether
@@ -660,7 +666,7 @@ read_BIN2R <- function(
       #for temp.VERSION == 08
       #RECTYPE
       if(temp.VERSION == 08){
-        temp.RECTYPE <- .bin2int(1)
+        temp.RECTYPE <- .bin2int8(signed = FALSE)
 
         ## we can check for a specific value for temp.RECTYPE
         if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
@@ -707,17 +713,18 @@ read_BIN2R <- function(
       } else {
         ##(2) Sample characteristics
         ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
-        temp.RUN <- .bin2int(2)
-        temp.SET <- .bin2int(2)
-        temp.POSITION <- .bin2int(2)
-        temp.GRAINNUMBER <- .bin2int(2)
-        temp.CURVENO <- .bin2int(2)
-        temp.XCOORD <- .bin2int(2)
-        temp.YCOORD <- .bin2int(2)
+        temp <- .bin2int16(7)
+        temp.RUN <- temp[1]
+        temp.SET <- temp[2]
+        temp.POSITION <- temp[3]
+        temp.GRAINNUMBER <- temp[4]
+        temp.CURVENO <- temp[5]
+        temp.XCOORD <- temp[6]
+        temp.YCOORD <- temp[7]
 
         ##SAMPLE, COMMENT
         ##SAMPLE
-        SAMPLE_SIZE <- .bin2int(1)
+        SAMPLE_SIZE <- .bin2int8()
         temp.SAMPLE <- .bin2char(SAMPLE_SIZE)
 
         #however it should be set to 20
@@ -726,7 +733,7 @@ read_BIN2R <- function(
         }
 
         ##COMMENT
-        COMMENT_SIZE <- .bin2int(1)
+        COMMENT_SIZE <- .bin2int8()
 
         if (COMMENT_SIZE > 0) {
           temp.COMMENT <- suppressWarnings(.bin2char(COMMENT_SIZE))
@@ -741,10 +748,10 @@ read_BIN2R <- function(
 
         ##(3) Instrument and sequence characteristic
         ##SYSTEMID
-        temp.SYSTEMID <- .bin2int(2)
+        temp.SYSTEMID <- .bin2int16()
 
         ##FNAME
-        FNAME_SIZE <- .bin2int(1)
+        FNAME_SIZE <- .bin2int8()
 
         ##correct for 0 file name length
         if (FNAME_SIZE > 0) {
@@ -759,7 +766,7 @@ read_BIN2R <- function(
         }
 
         ##USER
-        USER_SIZE <- .bin2int(1)
+        USER_SIZE <- .bin2int8()
 
         ##correct for 0 user size length
         if (USER_SIZE > 0) {
@@ -774,7 +781,7 @@ read_BIN2R <- function(
         }
 
         ##TIME
-        TIME_SIZE <- .bin2int(1)
+        TIME_SIZE <- .bin2int8()
 
         ##time size corrections for wrong time formats; set n to 6 for all values
         ##according to the handbook by Geoff Duller, 2007
@@ -794,7 +801,7 @@ read_BIN2R <- function(
         }
 
         ##DATE
-        DATE_SIZE <- .bin2int(1)
+        DATE_SIZE <- .bin2int8()
 
         ##date size corrections for wrong date formats; set n to 6 for all values
         ##according to the handbook of Geoff Duller, 2007
@@ -803,25 +810,26 @@ read_BIN2R <- function(
 
         ##(4) Analysis
         ##DTYPE
-        temp.DTYPE <- .bin2int(1)
+        temp.DTYPE <- .bin2int8()
 
         ##BL_TIME
-        temp.BL_TIME <- .bin2double(4)
+        temp.BL_TIME <- .bin2double()
 
         ##BL_UNIT
-        temp.BL_UNIT <- .bin2int(1)
+        temp.BL_UNIT <- .bin2int8()
 
         ##NORM1, NORM2, NORM3, BG
-        temp.NORM1 <- .bin2double(4)
-        temp.NORM2 <- .bin2double(4)
-        temp.NORM3 <- .bin2double(4)
-        temp.BG <- .bin2double(4)
+        temp <- .bin2double(4)
+        temp.NORM1 <- temp[1]
+        temp.NORM2 <- temp[2]
+        temp.NORM3 <- temp[3]
+        temp.BG <- temp[4]
 
         ##SHIFT
-        temp.SHIFT <- .bin2int(2)
+        temp.SHIFT <- .bin2int16()
 
         ##TAG
-        temp.TAG <- .bin2int(1)
+        temp.TAG <- .bin2int8()
 
         ##RESERVED
         temp.RESERVED1 <- .bin2raw(20)
@@ -829,85 +837,88 @@ read_BIN2R <- function(
         ##(5) Measurement characteristics
 
         ##LTYPE
-        temp.LTYPE <- .bin2int(1)
-
         ##LTYPESOURCE
-        temp.LIGHTSOURCE <- .bin2int(1)
+        temp <- .bin2int8(2)
+        temp.LTYPE <- temp[1]
+        temp.LIGHTSOURCE <- temp[2]
 
         ##LIGHTPOWER, LOW, HIGH, RATE
-        temp.LIGHTPOWER <- .bin2int(4)
-        temp.LOW <- .bin2double(4)
-        temp.HIGH <- .bin2double(4)
-        temp.RATE <- .bin2double(4)
+        temp.LIGHTPOWER <- .bin2int32()
+        temp <- .bin2double(3)
+        temp.LOW <- temp[1]
+        temp.HIGH <- temp[2]
+        temp.RATE <- temp[3]
 
         ##TEMPERATURE
-        temp.TEMPERATURE <- .bin2int(2)
-
         ##MEASTEMP
-        temp.MEASTEMP <- .bin2int(2)
+        temp <- .bin2int16(2)
+        temp.TEMPERATURE <- temp[1]
+        temp.MEASTEMP <- temp[2]
 
         ##AN_TEMP
-        temp.AN_TEMP <- .bin2double(4)
-
         ##AN_TIME
-        temp.AN_TIME <- .bin2double(4)
+        temp <- .bin2double(2)
+        temp.AN_TEMP <- temp[1]
+        temp.AN_TIME <- temp[2]
 
         ##DELAY, ON, OFF
-        temp.TOLDELAY <- .bin2int(2)
-        temp.TOLON <- .bin2int(2)
-        temp.TOLOFF <- .bin2int(2)
+        temp <- .bin2int16(3)
+        temp.TOLDELAY <- temp[1]
+        temp.TOLON <- temp[2]
+        temp.TOLOFF <- temp[3]
 
         ##IRR_TIME
-        temp.IRR_TIME <- .bin2double(4)
+        temp.IRR_TIME <- .bin2double()
 
         ##IRR_TYPE
-        temp.IRR_TYPE <- .bin2int(1)
+        temp.IRR_TYPE <- .bin2int8()
 
         ##IRR_DOSERATE
-        temp.IRR_DOSERATE <- .bin2double(4)
+        temp.IRR_DOSERATE <- .bin2double()
 
         ##IRR_DOSERATEERR
         if(temp.VERSION != 05)
-          temp.IRR_DOSERATEERR <- .bin2double(4)
+          temp.IRR_DOSERATEERR <- .bin2double()
 
         ##TIMESINCEIRR
         temp.TIMESINCEIRR <- .bin2int32()
 
         ##TIMETICK
-        temp.TIMETICK <- .bin2double(4)
+        temp.TIMETICK <- .bin2double()
 
         ##ONTIME
-        temp.ONTIME <- .bin2int(4)
-
         ##STIMPERIOD
-        temp.STIMPERIOD <- .bin2int(4)
+        temp <- .bin2int32(2)
+        temp.ONTIME <- temp[1]
+        temp.STIMPERIOD <- temp[2]
 
         ##GATE_ENABLED
         temp.GATE_ENABLED <- .bin2raw(1)
 
         ##GATE_START
-        temp.GATE_START <- .bin2int(4)
-
         ##GATE_STOP
-        temp.GATE_STOP <- .bin2int(4)
+        temp <- .bin2int32(2)
+        temp.GATE_START <- temp[1]
+        temp.GATE_STOP <- temp[2]
 
         ##PTENABLED
-        temp.PTENABLED <- .bin2raw(1)
-
         ##DTENABLED
-        temp.DTENABLED <- .bin2raw(1)
+        temp <- .bin2raw(2)
+        temp.PTENABLED <- temp[1]
+        temp.DTENABLED <- temp[2]
 
         ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
-        temp.DEADTIME <- .bin2double(4)
-        temp.MAXLPOWER <- .bin2double(4)
-        temp.XRF_ACQTIME <- .bin2double(4)
-        temp.XRF_HV <- .bin2double(4)
+        temp <- .bin2double(4)
+        temp.DEADTIME <- temp[1]
+        temp.MAXLPOWER <- temp[2]
+        temp.XRF_ACQTIME <- temp[3]
+        temp.XRF_HV <- temp[4]
 
         ##XRF_CURR
-        temp.XRF_CURR <- .bin2int(4)
-
         ##XRF_DEADTIMEF
-        temp.XRF_DEADTIMEF <- .bin2int(4)
+        temp <- .bin2int32(2)
+        temp.XRF_CURR <- temp[1]
+        temp.XRF_DEADTIMEF <- temp[2]
 
         ###Account for differences between V5, V6 and V7
         if(temp.VERSION == 06){
@@ -921,14 +932,15 @@ read_BIN2R <- function(
         }else{
 
           ##DETECTOR_ID
-          temp.DETECTOR_ID <- .bin2int(1)
+          temp.DETECTOR_ID <- .bin2int8()
 
           ##LOWERFILTER_ID, UPPERFILTER_ID
-          temp.LOWERFILTER_ID <- .bin2int(2)
-          temp.UPPERFILTER_ID <- .bin2int(2)
+          temp <- .bin2int16(2)
+          temp.LOWERFILTER_ID <- temp[1]
+          temp.UPPERFILTER_ID <- temp[2]
 
           ##ENOISEFACTOR
-          temp.ENOISEFACTOR <- .bin2double(4)
+          temp.ENOISEFACTOR <- .bin2double()
 
           ##CHECK FOR VERSION 07
           if(temp.VERSION == 07){
@@ -936,16 +948,16 @@ read_BIN2R <- function(
 
           }else {
             ##MARKER_POSITION
-            temp.MARPOS_X1 <- .bin2double(4)
-            temp.MARPOS_Y1 <- .bin2double(4)
-            temp.MARPOS_X2 <- .bin2double(4)
-            temp.MARPOS_Y2 <- .bin2double(4)
-            temp.MARPOS_X3 <- .bin2double(4)
-            temp.MARPOS_Y3 <- .bin2double(4)
-
             ###EXTR_START, EXTR_END
-            temp.EXTR_START <- .bin2double(4)
-            temp.EXTR_END <- .bin2double(4)
+            temp <- .bin2double(8)
+            temp.MARPOS_X1 <- temp[1]
+            temp.MARPOS_Y1 <- temp[2]
+            temp.MARPOS_X2 <- temp[3]
+            temp.MARPOS_Y2 <- temp[4]
+            temp.MARPOS_X3 <- temp[5]
+            temp.MARPOS_Y3 <- temp[6]
+            temp.EXTR_START <- temp[7]
+            temp.EXTR_END <- temp[8]
 
             temp.RESERVED2 <- .bin2raw(42)
           }
@@ -955,42 +967,43 @@ read_BIN2R <- function(
       ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ##START BIN FILE FORMAT SUPPORT  (vers. 03 and 04)
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
-
-      temp.LENGTH <- .bin2int(2)
-      temp.PREVIOUS <- .bin2int(2)
-      temp.NPOINTS <- .bin2int(2)
+      temp <- .bin2int16(3)
+      temp.LENGTH <- temp[1]
+      temp.PREVIOUS <- temp[2]
+      temp.NPOINTS <- temp[3]
 
       ## set temp ID if within select
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
-        .bin2raw(temp.LENGTH - 8)
+        current <- current + temp.LENGTH - 8
         next()
       }
 
       ##LTYPE
-      temp.LTYPE <- .bin2int(1)
+      temp.LTYPE <- .bin2int8()
 
       ##LOW, HIGH, RATE
-      temp.LOW <- .bin2double(4)
-      temp.HIGH <- .bin2double(4)
-      temp.RATE <- .bin2double(4)
-
-      temp.TEMPERATURE <- .bin2int(2)
+      temp <- .bin2double(3)
+      temp.LOW <- temp[1]
+      temp.HIGH <- temp[2]
+      temp.RATE <- temp[3]
 
       ##XCOORD, YCOORD, TOLDELAY, TOLON, TOLOFF
-      temp.XCOORD <- .bin2int(2)
-      temp.YCOORD <- .bin2int(2)
-      temp.TOLDELAY <- .bin2int(2)
-      temp.TOLON <- .bin2int(2)
-      temp.TOLOFF <- .bin2int(2)
+      temp <- .bin2int16(6)
+      temp.TEMPERATURE <- temp[1]
+      temp.XCOORD <- temp[2]
+      temp.YCOORD <- temp[3]
+      temp.TOLDELAY <- temp[4]
+      temp.TOLON <- temp[5]
+      temp.TOLOFF <- temp[6]
 
       ##POSITION
-      temp.POSITION <- .bin2int(1)
-
       ##RUN
-      temp.RUN <- .bin2int(1)
+      temp <- .bin2int8(2, signed = FALSE)
+      temp.POSITION <- temp[1]
+      temp.RUN <- temp[2]
 
       ##TIME
-      TIME_SIZE <- .bin2int(1)
+      TIME_SIZE <- .bin2int8()
 
       ##time size corrections for wrong time formats; set n to 6 for all values
       ##according to the handbook of Geoff Duller, 2007
@@ -998,7 +1011,7 @@ read_BIN2R <- function(
       temp.TIME <- .bin2char(TIME_SIZE)
 
       ##DATE
-      DATE_SIZE <- .bin2int(1)
+      DATE_SIZE <- .bin2int8()
 
       ##date size corrections for wrong date formats; set n to 6 for all values
       ##according to the handbook of Geoff Duller, 2007
@@ -1007,7 +1020,7 @@ read_BIN2R <- function(
 
 
       ##SEQUENCE
-      SEQUENCE_SIZE <- .bin2int(1)
+      SEQUENCE_SIZE <- .bin2int8()
       temp.SEQUENCE <- .bin2char(SEQUENCE_SIZE)
 
       #step forward in con
@@ -1016,7 +1029,7 @@ read_BIN2R <- function(
       }
 
       ##USER
-      USER_SIZE <- .bin2int(1)
+      USER_SIZE <- .bin2int8()
       temp.USER <- .bin2char(USER_SIZE)
 
       #step forward in con
@@ -1025,36 +1038,37 @@ read_BIN2R <- function(
       }
 
       ##DTYPE
-      temp.DTYPE <- .bin2int(1)
+      temp.DTYPE <- .bin2int8()
 
       ##IRR_TIME
-      temp.IRR_TIME <- .bin2int(4)
+      temp.IRR_TIME <- .bin2int32()
 
       ##IRR_TYPE
-      temp.IRR_TYPE <- .bin2int(1)
-
       ##IRR_UNIT
-      temp.IRR_UNIT <- .bin2int(1)
+      temp <- .bin2int8(2)
+      temp.IRR_TYPE <- temp[1]
+      temp.IRR_UNIT <- temp[2]
 
       ##BL_TIME
-      temp.BL_TIME <- .bin2int(4)
+      temp.BL_TIME <- .bin2int32()
 
       ##BL_UNIT
-      temp.BL_UNIT <- .bin2int(1)
+      temp.BL_UNIT <- .bin2int8()
 
       ##AN_TEMP, AN_TIME, NORM1, NORM2, NORM3, BG
-      temp.AN_TEMP <- .bin2double(4)
-      temp.AN_TIME <- .bin2double(4)
-      temp.NORM1 <- .bin2double(4)
-      temp.NORM2 <- .bin2double(4)
-      temp.NORM3 <- .bin2double(4)
-      temp.BG <- .bin2double(4)
+      temp <- .bin2double(6)
+      temp.AN_TEMP <- temp[1]
+      temp.AN_TIME <- temp[2]
+      temp.NORM1 <- temp[3]
+      temp.NORM2 <- temp[4]
+      temp.NORM3 <- temp[5]
+      temp.BG <- temp[6]
 
       ##SHIFT
-      temp.SHIFT <- .bin2int(2)
+      temp.SHIFT <- .bin2int16()
 
       ##SAMPLE
-      SAMPLE_SIZE <- .bin2int(1)
+      SAMPLE_SIZE <- .bin2int8()
       temp.SAMPLE <- .bin2char(SAMPLE_SIZE)
 
       ## however it should be set to 20
@@ -1063,7 +1077,7 @@ read_BIN2R <- function(
       }
 
       ##COMMENT
-      COMMENT_SIZE <- .bin2int(1)
+      COMMENT_SIZE <- .bin2int8()
       temp.COMMENT <- .bin2char(COMMENT_SIZE)
 
       ## set to 80 (manual)
@@ -1072,18 +1086,19 @@ read_BIN2R <- function(
       }
 
       ##LIGHTSOURCE, SET, TAG
-      temp.LIGHTSOURCE <- .bin2int(1)
-      temp.SET <- .bin2int(1)
-      temp.TAG <- .bin2int(1)
+      temp <- .bin2int8(3)
+      temp.LIGHTSOURCE <- temp[1]
+      temp.SET <- temp[2]
+      temp.TAG <- temp[3]
 
       ##GRAIN
-      temp.GRAIN <- .bin2int(2)
+      temp.GRAIN <- .bin2int16()
 
       ##LPOWER
-      temp.LPOWER <- .bin2int(4)
+      temp.LPOWER <- .bin2int32()
 
       ##SYSTEMID
-      temp.SYSTEMID <- .bin2int(2)
+      temp.SYSTEMID <- .bin2int16()
 
       ##Unfortunately an inconsitent BIN-file structure forces a differenciation ...
       if(temp.VERSION == 03){
@@ -1091,16 +1106,18 @@ read_BIN2R <- function(
         temp.RESERVED1 <- .bin2raw(36)
 
         ##ONTIME, OFFTIME
-        temp.ONTIME <- .bin2double(4)
-        temp.OFFTIME <- .bin2double(4)
+        temp <- .bin2double(2)
+        temp.ONTIME <- temp[1]
+        temp.OFFTIME <- temp[2]
 
         ##Enable flags  #GateEnabled for v 06
         temp.ENABLE_FLAGS <- .bin2raw(1)
         temp.GATE_ENABLED <- temp.ENABLE_FLAGS
 
         ##ONGATEDELAY, OFFGATEDELAY
-        temp.GATE_START <- .bin2double(4)
-        temp.GATE_STOP <- .bin2double(4)
+        temp <- .bin2double(2)
+        temp.GATE_START <- temp[1]
+        temp.GATE_STOP <- temp[2]
 
         ##RESERVED
         temp.RESERVED2 <- .bin2raw(1)
@@ -1110,47 +1127,49 @@ read_BIN2R <- function(
         temp.RESERVED1 <- .bin2raw(20)
 
         ##CURVENO
-        temp.CURVENO <- .bin2int(2)
+        temp.CURVENO <- .bin2int16()
 
         ##TIMETICK
-        temp.TIMETICK <- .bin2int(4)
-
         ##ONTIME, STIMPERIOD
-        temp.ONTIME <- .bin2int(4)
-        temp.STIMPERIOD <- .bin2int(4)
+        temp <- .bin2int32(3)
+        temp.TIMETICK <- temp[1]
+        temp.ONTIME <- temp[2]
+        temp.STIMPERIOD <- temp[3]
 
         ##GATE_ENABLED
         temp.GATE_ENABLED <- .bin2raw(1)
 
         ##ONGATEDELAY, OFFGATEDELAY
-        temp.GATE_START <- .bin2double(4)
-        temp.GATE_END <- .bin2double(4)
+        temp <- .bin2double(2)
+        temp.GATE_START <- temp[1]
+        temp.GATE_END <- temp[2]
         temp.GATE_STOP <- temp.GATE_END
 
         ##PTENABLED
-        temp.PTENABLED <- .bin2raw(1)
-
         ##RESERVED
-        temp.RESERVED2 <- .bin2raw(10)
+        temp <- .bin2raw(11)
+        temp.PTENABLED <- temp[1]
+        temp.RESERVED2 <- temp[2:11]
       }
     }
 
      #DPOINTS
     if(temp.RECTYPE != 128) {
       if (temp.NPOINTS > 0) {
-        temp.DPOINTS <- sapply(1:temp.NPOINTS,
-                               function(x) .bin2int(4))
+        temp.DPOINTS <- .bin2int32(temp.NPOINTS)
       }
       else temp.DPOINTS <- integer(0)
      } else {
        temp.DPOINTS <- lapply(1:temp.NPOINTS, function(x) {
+         temp1 <- as.logical(.bin2raw(96))
+         temp2 <- .bin2double(100)
          list(
-           NOFPOINTS = .bin2int(4),
-           USEDFOR = as.logical(.bin2raw(48)),
-           SHOWFOR = as.logical(.bin2raw(48)),
-           ROICOLOR = .bin2int(4),
-           X = sapply(1:50, function(x) .bin2double(4)),
-           Y = sapply(1:50, function(x) .bin2double(4)))
+           NOFPOINTS = .bin2int32(),
+           USEDFOR = temp1[1:48],
+           SHOWFOR = temp1[1:48 + 48],
+           ROICOLOR = .bin2int32(),
+           X = temp2[1:50],
+           Y = temp2[1:50 + 50])
        })
      }
 
