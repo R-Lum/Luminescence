@@ -29,6 +29,9 @@
 #' `TRUE` to merge all `RLum.Analysis` objects. Only applicable if multiple
 #' files are imported.
 #'
+#' @param verbose [logical] (*with default*):
+#' enables or disables verbose mode.
+#'
 #' @param ... currently not used.
 #'
 #' @return
@@ -61,7 +64,15 @@
 #'
 #' @md
 #' @export
-read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
+read_PSL2R <- function(
+  file,
+  drop_bg = FALSE,
+  as_decay_curve = TRUE,
+  smooth = FALSE,
+  merge = FALSE,
+  verbose = TRUE,
+  ...
+) {
   .set_function_name("read_PSL2R")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -83,6 +94,14 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
   ## MAIN ----
   results <- vector("list", length(file))
   for (i in 1:length(file)) {
+
+    if (verbose) {
+      cat("\n[read_PSL2R()] Importing ...")
+      cat("\n path: ", dirname(file[i]))
+      cat("\n file: ", .shorten_filename(basename(file[i])))
+      cat("\n")
+    }
+
     ## Read in file ----
     doc <- readLines(file[i])
 

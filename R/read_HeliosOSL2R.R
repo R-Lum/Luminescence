@@ -57,18 +57,13 @@ read_HeliosOSL2R <- function(
   ## fix path
   file <- normalizePath(file)
 
-# Import ------------------------------------------------------------------
-  if(verbose) {
-    file_name <- basename(file)
-    len_str <- nchar(basename(file_name))
-    if(len_str > 50)
-      file_name <- paste0(
-        substr(file_name, start = 1, stop = 10),
-        "...",
-        substr(file_name, start = len_str - 40, stop = len_str))
+  ## Import -----------------------------------------------------------------
 
-    cat("\n[read_HeliosOSL2R()] \n -> Importing ... \n -> path: ", dirname(file))
-    cat("\n -> file: ", file_name, "\n")
+  if (verbose) {
+    cat("\n[read_HeliosOSL2R()] Importing ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n")
   }
 
   ## read entire file

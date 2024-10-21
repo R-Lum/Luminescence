@@ -368,9 +368,12 @@ read_XSYG2R <- function(
     ##==========================================================================##
     ##IMPORT XSYG FILE
 
-    ##Display output
-    if(verbose)
-      cat("[read_XSYG2R()]\n  Importing: ", file, "\n")
+    if (verbose) {
+      cat("\n[read_XSYG2R()] Importing ...")
+      cat("\n path: ", dirname(file))
+      cat("\n file: ", .shorten_filename(basename(file)))
+      cat("\n")
+    }
 
     ##PROGRESS BAR
     if(verbose && txtProgressBar){

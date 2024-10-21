@@ -9,5 +9,7 @@ test_that("Test general functionality", {
 
   ## test import
   file <- system.file("extdata", "TIFFfile.tif", package = "Luminescence")
+  SW({
   expect_s4_class(read_TIFF2R(file), "RLum.Data.Image")
+  })
 })
