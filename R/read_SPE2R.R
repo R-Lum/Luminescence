@@ -163,6 +163,13 @@ read_SPE2R <- function(
 
   con <- file(file, "rb")
 
+  if (verbose) {
+    cat("\n[read_SPE2R()] Importing ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n")
+  }
+
   # read header -------------------------------------------------------------
 
   temp <- readBin(con, what="int", 2, size=2, endian="little", signed = TRUE)

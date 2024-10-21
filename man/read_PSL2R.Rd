@@ -10,6 +10,7 @@ read_PSL2R(
   as_decay_curve = TRUE,
   smooth = FALSE,
   merge = FALSE,
+  verbose = TRUE,
   ...
 )
 }
@@ -35,6 +36,9 @@ to hardware errors.}
 \item{merge}{\link{logical} (\emph{with default}):
 \code{TRUE} to merge all \code{RLum.Analysis} objects. Only applicable if multiple
 files are imported.}
+
+\item{verbose}{\link{logical} (\emph{with default}):
+enables or disables verbose mode.}
 
 \item{...}{currently not used.}
 }

@@ -4,11 +4,14 @@
 \alias{read_RF2R}
 \title{Import RF-files to R}
 \usage{
-read_RF2R(file, ...)
+read_RF2R(file, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}): path and file name of the RF file. Alternatively a list of file
 names can be provided.}
+
+\item{verbose}{\link{logical} (\emph{with default}):
+enable or disable verbose mode.}
 
 \item{...}{not used, only for compatible reasons}
 }

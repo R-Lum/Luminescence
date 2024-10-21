@@ -10,6 +10,9 @@
 #' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
 #' names can be provided.
 #'
+#' @param verbose [logical] (*with default*):
+#' enable or disable verbose mode.
+#'
 #' @param ... not used, only for compatible reasons
 #'
 #' @return Returns an S4 [RLum.Analysis-class] object containing
@@ -36,6 +39,7 @@
 #' @export
 read_RF2R <- function(
   file,
+  verbose = TRUE,
   ...
 ) {
   .set_function_name("read_RF2R")
@@ -44,7 +48,7 @@ read_RF2R <- function(
 # Self-call -----------------------------------------------------------------------------------
   if(inherits(file, "list")){
     results_list <- lapply(file, function(f){
-      temp <- try(read_RF2R(file = f), silent = TRUE)
+      temp <- try(read_RF2R(file = f, verbose = verbose), silent = TRUE)
 
       ##check whether it worked
       if(inherits(temp, "try-error")){
@@ -62,7 +66,7 @@ read_RF2R <- function(
 
   ## Integrity tests --------------------------------------------------------
 
-  .validate_class(file, c("character", "list"))
+  .validate_class(file, "character", extra = "'list'")
 
   ##throw warning if we have a vector
   if(length(file) > 1){
@@ -85,7 +89,14 @@ read_RF2R <- function(
   if (!any(version_found %in% version_supported))
     .throw_error("File format not supported")
 
-# Import --------------------------------------------------------------------------------------
+  ## Import -----------------------------------------------------------------
+
+  if (verbose) {
+    cat("\n[read_RF2R()] Importing ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n")
+  }
 
   ##import the entire file
   temp <- readLines(file, warn = FALSE)

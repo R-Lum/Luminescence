@@ -85,9 +85,7 @@ read_Daybreak2R <- function(
         as.list(paste0(file,dir(
           file, recursive = FALSE, pattern = ".txt"
         )))
-
     }
-
   }
 
   ##if the input is already a list
@@ -110,7 +108,6 @@ read_Daybreak2R <- function(
   if(!file.exists(file)){
     .throw_error("File does not exist")
   }
-
 
   ##check for file extension ... distinguish between TXT and DAT
   if(substr(file, start = nchar(file) - 3, stop = nchar(file)) == ".DAT"){
@@ -165,8 +162,10 @@ read_Daybreak2R <- function(
 
       ##TERMINAL FEEDBACK
       if(verbose){
-        cat("\n[read_Daybreak2R()]")
-        cat(paste("\n >> Importing:", file[1],"\n"))
+        cat("\n[read_Daybreak()] Importing ...")
+        cat("\n path: ", dirname(file[1]))
+        cat("\n file: ", .shorten_filename(basename(file[1])))
+        cat("\n")
       }
 
       ##PROGRESS BAR
@@ -304,7 +303,6 @@ read_Daybreak2R <- function(
 
       ##return object
       return(output)
-
       }
 
   }else{
@@ -344,7 +342,6 @@ read_Daybreak2R <- function(
         return(file2read[records.row_number[x]:length(file2read)])
 
       }
-
     })
 
       ##clear memory
@@ -353,8 +350,10 @@ read_Daybreak2R <- function(
 
     ##TERMINAL FEEDBACK
     if(verbose){
-      cat("\n[read_Daybreak2R()]")
-      cat(paste("\n >> Importing:", file[1],"\n"))
+      cat("\n[read_Daybreak()] Importing ...")
+      cat("\n path: ", dirname(file[1]))
+      cat("\n file: ", .shorten_filename(basename(file[1])))
+      cat("\n")
     }
 
     ##PROGRESS BAR
@@ -416,9 +415,7 @@ read_Daybreak2R <- function(
           point.y <- rep(1, length(point.x))
 
           data <- matrix(c(point.x,point.y), ncol = 2)
-
         }
-
       }
 
       ##update progress bar
@@ -448,7 +445,6 @@ read_Daybreak2R <- function(
     positions.id <-  sapply(RLum.Data.Curve.list, function(x){
 
       get_RLum(x, info.object = "position")
-
     })
 
     ##(4)
@@ -461,7 +457,6 @@ read_Daybreak2R <- function(
       ##make list
       temp.list <- lapply(n, function(x){
         RLum.Data.Curve.list[[x]]
-
       })
 
       ##put in RLum.Analysis object
@@ -476,8 +471,6 @@ read_Daybreak2R <- function(
       object <- .set_pid(object)
 
       return(object)
-
-
     })
 
     ##TERMINAL FEEDBACK

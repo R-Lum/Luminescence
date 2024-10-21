@@ -5,6 +5,8 @@
 #'
 #'@param file [character] (**required**): file name
 #'
+#'@param verbose [logical] (*with default*): enable or disable verbose mode
+#'
 #'@param ... not in use, for compatibility reasons only
 #'
 #'@return [RLum.Data.Image-class] object
@@ -29,6 +31,7 @@
 #'@export
 read_TIFF2R <- function(
   file,
+  verbose = TRUE,
   ...
 ) {
   .set_function_name("read_TIFF2R")
@@ -41,7 +44,15 @@ read_TIFF2R <- function(
   if(!file.exists(file))
     .throw_error("File does not exist or is not readable")
 
-# Import ------------------------------------------------------------------
+  ## Import -----------------------------------------------------------------
+
+  if (verbose) {
+    cat("\n[read_TIFF2R()] Importing ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n")
+  }
+
   ## import
   temp <- tiff::readTIFF(file, all = TRUE, as.is = TRUE)
 

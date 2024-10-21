@@ -1277,6 +1277,6 @@ SW <- function(expr) {
   ## shorten the filename
   part1.end <- ceiling(max.width / 5)
   part2.beg <- part1.end + name.len - max.width + 2
-  paste0(substring(filename, first = 1, last = part1.end), "…",
+  paste0(substring(filename, first = 1, last = part1.end), "\u2026", # "…"
          substring(filename, first = part2.beg))
 }

@@ -71,7 +71,8 @@ convert_PSL2CSV <- function(
     as_decay_curve = TRUE,
     smooth = FALSE,
     merge = if(single_table) TRUE else FALSE,
-    export = TRUE
+    export = TRUE,
+    verbose = TRUE
   )
 
   ##modify list on demand
@@ -84,7 +85,8 @@ convert_PSL2CSV <- function(
       drop_bg = convert_PSL2R_settings$drop_bg,
       as_decay_curve = convert_PSL2R_settings$as_decay_curve,
       smooth = convert_PSL2R_settings$smooth,
-      merge = convert_PSL2R_settings$merge
+      merge = convert_PSL2R_settings$merge,
+      verbose = convert_PSL2R_settings$verbose
    )
   }else{
     object <- file
