@@ -260,11 +260,11 @@ read_BIN2R <- function(
     return(NULL)
   }
 
-  # Config ------------------------------------------------------------------
   ##set supported BIN format version
   VERSIONS.supported <- as.raw(c(03, 04, 05, 06, 07, 08))
 
-  # Short file parsing to get number of records -------------------------------------------------
+  ## Short file parsing to get number of records ----------------------------
+
   #open connection
   con <- file(file, "rb")
 
@@ -274,7 +274,7 @@ read_BIN2R <- function(
 
   ##start for BIN-file check up
   while(length(temp.VERSION <- readBin(con, what="raw", 1, size=1, endian="little"))>0) {
-     ##force version number
+    ## force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
       if (verbose)
@@ -310,17 +310,18 @@ read_BIN2R <- function(
 
     ## get record LENGTH
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-      temp.LENGTH  <- readBin(con, what = "int", 1, size = 4, endian = "little")
-      STEPPING <- readBin(con, what = "raw", n = max(0, temp.LENGTH - 6),
-                          size = 1, endian = "little")
+      length.size <- 4
     }else{
-      temp.LENGTH  <- readBin(con, what = "int", 1, size = 2, endian = "little")
-      STEPPING <- readBin(con, what = "raw", n = max(0, temp.LENGTH - 4),
-                          size = 1, endian = "little")
+      length.size <- 2
     }
 
-    ## STEPPING has 0 length when we have read for a length n = 0
-    if (length(STEPPING) == 0) {
+    temp.LENGTH  <- readBin(con, what = "integer", 1, size = length.size,
+                            endian = "little")
+    num.toread <- max(0, temp.LENGTH - length.size - 2)
+    if (num.toread > 0) {
+      STEPPING <- readBin(con, what = "raw", n = num.toread,
+                          size = 1, endian = "little")
+    } else {
       if (verbose)
         message("\n[read_BIN2R()] Record #", temp.ID + 1,
                 " skipped due to wrong record length")
@@ -720,7 +721,6 @@ read_BIN2R <- function(
             suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
         }else{
           USER_SIZE <- 0
-
         }
 
         #step forward in con
@@ -739,7 +739,7 @@ read_BIN2R <- function(
 
           ##correct the mess by others
           if(nchar(temp.TIME) == 5)
-            temp.TIME <- paste(c("0", temp.TIME), collapse = "")
+            temp.TIME <- paste0("0", temp.TIME)
 
         }else{
           TIME_SIZE <- 0
@@ -749,7 +749,6 @@ read_BIN2R <- function(
           STEPPING<-readBin(con, what="raw", (6-TIME_SIZE),
                             size=1, endian="little")
         }
-
 
         ##DATE
         DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
@@ -771,7 +770,6 @@ read_BIN2R <- function(
 
         ##NORM1, NORM2, NORM3, BG
         temp <- readBin(con, what="double", 4, size=4, endian="little")
-
         temp.NORM1 <- temp[1]
         temp.NORM2 <- temp[2]
         temp.NORM3 <- temp[3]
@@ -796,7 +794,6 @@ read_BIN2R <- function(
 
         ##LIGHTPOWER, LOW, HIGH, RATE
         temp <- readBin(con, what="double", 4, size=4, endian="little")
-
         temp.LIGHTPOWER <- temp[1]
         temp.LOW <- temp[2]
         temp.HIGH <- temp[3]
@@ -816,7 +813,6 @@ read_BIN2R <- function(
 
         ##DELAY, ON, OFF
         temp <- readBin(con, what="int", 3, size=2, endian="little")
-
         temp.TOLDELAY <- temp[1]
         temp.TOLON <- temp[2]
         temp.TOLOFF <- temp[3]
@@ -896,9 +892,8 @@ read_BIN2R <- function(
           ##ENOISEFACTOR
           temp.ENOISEFACTOR <- readBin(con, what="double", 1, size=4, endian="little")
 
-          ##CHECK FOR VERSION 08
+          ##CHECK FOR VERSION 07
           if(temp.VERSION == 07){
-             ##RESERVED for version 07
             temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
 
           }else {
@@ -917,7 +912,6 @@ read_BIN2R <- function(
               temp.EXTR_END <- temp[2]
 
             temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
-
           }
         }# end RECTYPE 128
       }
@@ -925,7 +919,6 @@ read_BIN2R <- function(
       ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ##START BIN FILE FORMAT SUPPORT  (vers. 03 and 04)
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
-
       temp <- readBin(con, what="int", 3, size=2, endian="little")
       temp.LENGTH <- temp[1]
       temp.PREVIOUS <- temp[2]
@@ -1020,7 +1013,6 @@ read_BIN2R <- function(
 
       ##AN_TEMP, AN_TIME, NORM1, NORM2, NORM3, BG
       temp <- readBin(con, what="double", 6, size=4, endian="little")
-
       temp.AN_TEMP <- temp[1]
       temp.AN_TIME <- temp[2]
       temp.NORM1 <- temp[3]
@@ -1071,7 +1063,6 @@ read_BIN2R <- function(
 
         ##ONTIME, OFFTIME
         temp <- readBin(con, what="double", 2, size=4, endian="little")
-
         temp.ONTIME <- temp[1]
         temp.OFFTIME <- temp[2]
 
@@ -1081,7 +1072,6 @@ read_BIN2R <- function(
 
         ##ONGATEDELAY, OFFGATEDELAY
         temp <- readBin(con, what="double", 2, size=4, endian="little")
-
         temp.GATE_START <- temp[1]
         temp.GATE_STOP <- temp[2]
 
@@ -1100,7 +1090,6 @@ read_BIN2R <- function(
 
         ##ONTIME, STIMPERIOD
         temp <- readBin(con, what="integer", 2, size=4, endian="little")
-
         temp.ONTIME <- temp[1]
         temp.STIMPERIOD <- temp[2]
 
@@ -1109,7 +1098,6 @@ read_BIN2R <- function(
 
         ##ONGATEDELAY, OFFGATEDELAY
         temp <- readBin(con, what="double", 2, size=4, endian="little")
-
         temp.GATE_START <- temp[1]
         temp.GATE_END <- temp[2]
         temp.GATE_STOP <- temp.GATE_END
