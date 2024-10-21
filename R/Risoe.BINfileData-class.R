@@ -383,8 +383,8 @@ setMethod(f = "show",
             }else{
               cat("\n[Risoe.BINfileData object]")
               cat("\n\n >> This object is empty!<<")
-
-             }
+            }
+            cat("\n")
           }#end function
           )#end setMethod
 
