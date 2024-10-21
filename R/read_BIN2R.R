@@ -787,10 +787,10 @@ read_BIN2R <- function(
         ##(5) Measurement characteristics
 
         ##LTYPE
-        temp.LTYPE <- readBin(con, what="int", 1, size=1, endian="little")
-
         ##LTYPESOURCE
-        temp.LIGHTSOURCE <- readBin(con, what="int", 1, size=1, endian="little")
+        temp <- readBin(con, what = "integer", 2, size = 1, endian = "little")
+        temp.LTYPE <- temp[1]
+        temp.LIGHTSOURCE <- temp[2]
 
         ##LIGHTPOWER, LOW, HIGH, RATE
         temp <- readBin(con, what="double", 4, size=4, endian="little")
@@ -800,16 +800,16 @@ read_BIN2R <- function(
         temp.RATE <- temp[4]
 
         ##TEMPERATURE
-        temp.TEMPERATURE <- readBin(con, what="int", 1, size=2, endian="little")
-
         ##MEASTEMP
-        temp.MEASTEMP <- readBin(con, what="integer", 1, size=2, endian="little")
+        temp <- readBin(con, what = "integer", 2, size = 2, endian = "little")
+        temp.TEMPERATURE <- temp[1]
+        temp.MEASTEMP <- temp[2]
 
         ##AN_TEMP
-        temp.AN_TEMP <- readBin(con, what="double", 1, size=4, endian="little")
-
         ##AN_TIME
-        temp.AN_TIME <- readBin(con, what="double", 1, size=4, endian="little")
+        temp <- readBin(con, what = "double", 2, size = 4, endian = "little")
+        temp.AN_TEMP <- temp[1]
+        temp.AN_TIME <- temp[2]
 
         ##DELAY, ON, OFF
         temp <- readBin(con, what="int", 3, size=2, endian="little")
@@ -837,25 +837,25 @@ read_BIN2R <- function(
         temp.TIMETICK <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##ONTIME
-        temp.ONTIME <- readBin(con, what="integer", 1, size=4, endian="little")
-
         ##STIMPERIOD
-        temp.STIMPERIOD <- readBin(con, what="integer", 1, size=4, endian="little")
+        temp <- readBin(con, what = "integer", 2, size = 4, endian = "little")
+        temp.ONTIME <- temp[1]
+        temp.STIMPERIOD <- temp[2]
 
         ##GATE_ENABLED
         temp.GATE_ENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
 
         ##GATE_START
-        temp.GATE_START <- readBin(con, what="integer", 1, size=4, endian="little")
-
         ##GATE_STOP
-        temp.GATE_STOP <- readBin(con, what="integer", 1, size=4, endian="little")
+        temp <- readBin(con, what = "integer", 2, size = 4, endian = "little")
+        temp.GATE_START <- temp[1]
+        temp.GATE_STOP <- temp[2]
 
         ##PTENABLED
-        temp.PTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
-
         ##DTENABLED
-        temp.DTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+        temp <- readBin(con, what = "raw", 2, size = 1, endian = "little")
+        temp.PTENABLED <- temp[1]
+        temp.DTENABLED <- temp[2]
 
         ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
         temp <- readBin(con, what="double", 4, size=4, endian="little")
@@ -898,18 +898,16 @@ read_BIN2R <- function(
 
           }else {
             ##MARKER_POSITION
-            temp <- readBin(con, what="double", 6, size=4, endian="little")
+            ###EXTR_START, EXTR_END
+            temp <- readBin(con, what = "double", 8, size = 4, endian = "little")
               temp.MARPOS_X1 <- temp[1]
               temp.MARPOS_Y1 <- temp[2]
               temp.MARPOS_X2 <- temp[3]
               temp.MARPOS_Y2 <- temp[4]
               temp.MARPOS_X3 <- temp[5]
               temp.MARPOS_Y3 <- temp[6]
-
-            ###EXTR_START, EXTR_END
-            temp <- readBin(con, what="double", 2, size=4, endian="little")
-              temp.EXTR_START <- temp[1]
-              temp.EXTR_END <- temp[2]
+              temp.EXTR_START <- temp[7]
+              temp.EXTR_END <- temp[8]
 
             temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
           }
@@ -939,23 +937,21 @@ read_BIN2R <- function(
       temp.HIGH <- temp[2]
       temp.RATE <- temp[3]
 
-      temp.TEMPERATURE<-readBin(con, what="integer", 1, size=2, endian="little")
-
       ##XCOORD, YCOORD, TOLDELAY, TOLON, TOLOFF
-      temp <- readBin(con, what="integer", 5, size=2, endian="little")
-      temp.XCOORD <- temp[1]
-      temp.YCOORD <- temp[2]
-      temp.TOLDELAY <- temp[3]
-      temp.TOLON <- temp[4]
-      temp.TOLOFF <- temp[5]
+      temp <- readBin(con, what = "integer", 6, size = 2, endian = "little")
+      temp.TEMPERATURE <- temp[1]
+      temp.XCOORD <- temp[2]
+      temp.YCOORD <- temp[3]
+      temp.TOLDELAY <- temp[4]
+      temp.TOLON <- temp[5]
+      temp.TOLOFF <- temp[6]
 
       ##POSITION
-      temp.POSITION <- readBin(
-        con, what="int", 1, size=1, endian="little", signed = FALSE)
-
       ##RUN
-      temp.RUN <- readBin(
-        con, what="int", 1, size=1, endian="little", signed = FALSE)
+      temp <- readBin(con, what = "integer", 2, size = 1, endian = "little",
+                      signed = FALSE)
+      temp.POSITION <- temp[1]
+      temp.RUN <- temp[2]
 
       ##TIME
       TIME_SIZE <- readBin(
@@ -1000,10 +996,10 @@ read_BIN2R <- function(
       temp.IRR_TIME <- readBin(con, what="double", 1, size=4, endian="little")
 
       ##IRR_TYPE
-      temp.IRR_TYPE<-readBin(con, what="int", 1, size=1, endian="little")
-
       ##IRR_UNIT
-      temp.IRR_UNIT<-readBin(con, what="int", 1, size=1, endian="little")
+      temp <- readBin(con, what = "integer", 2, size = 1, endian = "little")
+      temp.IRR_TYPE <- temp[1]
+      temp.IRR_UNIT <- temp[2]
 
       ##BL_TIME
       temp.BL_TIME<-readBin(con, what="double", 1, size=4, endian="little")
@@ -1103,10 +1099,10 @@ read_BIN2R <- function(
         temp.GATE_STOP <- temp.GATE_END
 
         ##PTENABLED
-        temp.PTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
-
         ##RESERVED
-        temp.RESERVED2 <- readBin(con, what="raw", 10, size=1, endian="little")
+        temp <- readBin(con, what = "raw", 11, size = 1, endian = "little")
+        temp.PTENABLED <- temp[1]
+        temp.RESERVED2 <- temp[2:11]
       }
     }
 
