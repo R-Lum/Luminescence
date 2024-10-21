@@ -118,7 +118,7 @@ The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
 }
 \section{Function version}{
- 0.17.3
+ 0.18
 }
 
 \examples{
@@ -145,6 +145,7 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team}
 \keyword{IO}

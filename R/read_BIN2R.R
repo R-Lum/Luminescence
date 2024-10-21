@@ -95,11 +95,12 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' @section Function version: 0.17.3
+#' @section Function version: 0.18
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
 #'
@@ -437,104 +438,104 @@ read_BIN2R <- function(
   ## set index for entry row in table
   id_row <- 1
 
-  ##initialise data.frame
-  results.METADATA <- data.table::data.table(
+  ## initialise default empty list
+  results.METADATA.defaults <- list(
     ##1 to 7
-    ID = integer(length = n.length),
-    SEL = logical(length = n.length),
-    VERSION = numeric(length = n.length),
-    LENGTH = integer(length = n.length),
-    PREVIOUS = integer(length = n.length),
-    NPOINTS = integer(length = n.length),
-    RECTYPE = integer(length = n.length),
+    ID = 0,
+    SEL = FALSE,
+    VERSION = 0,
+    LENGTH = 0L,
+    PREVIOUS = 0L,
+    NPOINTS = 0L,
+    RECTYPE = 0L,
 
     #8 to 17
-    RUN = integer(length = n.length),
-    SET = integer(length = n.length),
-    POSITION = integer(length = n.length),
-    GRAIN = integer(length = n.length),
-    GRAINNUMBER = integer(length = n.length),
-    CURVENO = integer(length = n.length),
-    XCOORD = integer(length = n.length),
-    YCOORD = integer(length = n.length),
-    SAMPLE = character(length = n.length),
-    COMMENT = character(length = n.length),
+    RUN = 0L,
+    SET = 0L,
+    POSITION = 0L,
+    GRAIN = 0L,
+    GRAINNUMBER = 0L,
+    CURVENO = 0L,
+    XCOORD = 0L,
+    YCOORD = 0L,
+    SAMPLE = "",
+    COMMENT = "",
 
     #18 to 22
-    SYSTEMID = integer(length = n.length),
-    FNAME = character(length = n.length),
-    USER = character(length = n.length),
-    TIME = character(length = n.length),
-    DATE = character(length = n.length),
+    SYSTEMID = 0L,
+    FNAME = "",
+    USER = "",
+    TIME = "",
+    DATE = "",
 
     ##23 to 31
-    DTYPE = character(length = n.length),
-    BL_TIME = numeric(length = n.length),
-    BL_UNIT = integer(length = n.length),
-    NORM1 = numeric(length = n.length),
-    NORM2 = numeric(length = n.length),
-    NORM3 = numeric(length = n.length),
-    BG = numeric(length = n.length),
-    SHIFT = integer(length = n.length),
-    TAG = integer(length = n.length),
+    DTYPE = NA_character_,
+    BL_TIME = 0,
+    BL_UNIT = 0L,
+    NORM1 = 0,
+    NORM2 = 0,
+    NORM3 = 0,
+    BG = 0,
+    SHIFT = 0L,
+    TAG = 0L,
 
     ##32 to 67
-    LTYPE = character(length = n.length),
-    LIGHTSOURCE = character(length = n.length),
-    LPOWER = numeric(length = n.length),
-    LIGHTPOWER = numeric(length = n.length),
-    LOW = numeric(length = n.length),
-    HIGH = numeric(length = n.length),
-    RATE = numeric(length = n.length),
-    TEMPERATURE = numeric(length = n.length),
-    MEASTEMP = numeric(length = n.length),
-    AN_TEMP = numeric(length = n.length),
-    AN_TIME = numeric(length = n.length),
-    TOLDELAY = integer(length = n.length),
-    TOLON = integer(length = n.length),
-    TOLOFF = integer(length = n.length),
-    IRR_TIME = numeric(length = n.length),
-    IRR_TYPE = integer(length = n.length),
-    IRR_UNIT = integer(length = n.length),
-    IRR_DOSERATE = numeric(length = n.length),
-    IRR_DOSERATEERR = numeric(length = n.length),
-    TIMESINCEIRR = numeric(length = n.length),
-    TIMETICK = numeric(length = n.length),
-    ONTIME = numeric(length = n.length),
-    OFFTIME = numeric(length = n.length),
-    STIMPERIOD = integer(length = n.length),
-    GATE_ENABLED = numeric(length = n.length),
-    ENABLE_FLAGS = numeric(length = n.length),
-    GATE_START  = numeric(length = n.length),
-    GATE_STOP = numeric(length = n.length),
-    PTENABLED = numeric(length = n.length),
-    DTENABLED = numeric(length = n.length),
-    DEADTIME = numeric(length = n.length),
-    MAXLPOWER = numeric(length = n.length),
-    XRF_ACQTIME = numeric(length = n.length),
-    XRF_HV = numeric(length = n.length),
-    XRF_CURR = numeric(length = n.length),
-    XRF_DEADTIMEF = numeric(length = n.length),
+    LTYPE = NA_character_,
+    LIGHTSOURCE = "",
+    LPOWER = 0,
+    LIGHTPOWER = 0,
+    LOW = 0,
+    HIGH = 0,
+    RATE = 0,
+    TEMPERATURE = 0,
+    MEASTEMP = 0,
+    AN_TEMP = 0,
+    AN_TIME = 0,
+    TOLDELAY = 0L,
+    TOLON = 0L,
+    TOLOFF = 0L,
+    IRR_TIME = 0,
+    IRR_TYPE = 0L,
+    IRR_UNIT = 0L,
+    IRR_DOSERATE = 0,
+    IRR_DOSERATEERR = 0,
+    TIMESINCEIRR = 0,
+    TIMETICK = 0,
+    ONTIME = 0,
+    OFFTIME = 0,
+    STIMPERIOD = 0L,
+    GATE_ENABLED = 0,
+    ENABLE_FLAGS = 0,
+    GATE_START  = 0,
+    GATE_STOP = 0,
+    PTENABLED = 0,
+    DTENABLED = 0,
+    DEADTIME = 0,
+    MAXLPOWER = 0,
+    XRF_ACQTIME = 0,
+    XRF_HV = 0,
+    XRF_CURR = 0,
+    XRF_DEADTIMEF = 0,
 
     #68 to 79
-    DETECTOR_ID = integer(length = n.length),
-    LOWERFILTER_ID = integer(length = n.length),
-    UPPERFILTER_ID = integer(length = n.length),
-    ENOISEFACTOR = numeric(length = n.length),
-    MARKPOS_X1 = numeric(length = n.length),
-    MARKPOS_Y1 = numeric(length = n.length),
-    MARKPOS_X2 = numeric(length = n.length),
-    MARKPOS_Y2 = numeric(length = n.length),
-    MARKPOS_X3 = numeric(length = n.length),
-    MARKPOS_Y3 = numeric(length = n.length),
-    EXTR_START = numeric(length = n.length),
-    EXTR_END = numeric(length = n.length),
+    DETECTOR_ID = 0L,
+    LOWERFILTER_ID = 0L,
+    UPPERFILTER_ID = 0L,
+    ENOISEFACTOR = 0,
+    MARKPOS_X1 = 0,
+    MARKPOS_Y1 = 0,
+    MARKPOS_X2 = 0,
+    MARKPOS_Y2 = 0,
+    MARKPOS_X3 = 0,
+    MARKPOS_Y3 = 0,
+    EXTR_START = 0,
+    EXTR_END = 0,
 
     ##80
-    SEQUENCE = character(length = n.length)
+    SEQUENCE = ""
+  )
 
-  ) #end set data table
-
+  results.METADATA.list <- list(results.METADATA.defaults)
 
   #set variable for DPOINTS handling
   results.DATA <- list()
@@ -582,7 +583,7 @@ read_BIN2R <- function(
           cat("\n")
         }
       }
-   }
+    }
 
     #empty byte position
     EMPTY <- readBin(con, what="raw", 1, size=1, endian="little")
@@ -638,7 +639,9 @@ read_BIN2R <- function(
               ## we set the VERSION to NA and remove it later, otherwise we
               ## break expected functionality
               temp.ID <- temp.ID + 1
-              results.METADATA[temp.ID,`:=` (VERSION = NA)]
+              results.METADATA.list[[length(results.METADATA.list) + 1]] <-
+                modifyList(x = results.METADATA.defaults,
+                           val = list(ID = temp.ID, VERSION = NA))
               next()
             }
         }
@@ -1156,7 +1159,7 @@ read_BIN2R <- function(
     temp.SEL <- if(temp.TAG == 1) TRUE else FALSE
 
     ##replace values in the data.table with values
-    results.METADATA[id_row, `:=` (
+    results.METADATA.list[[length(results.METADATA.list) + 1]] <- list(
       ID = temp.ID,
       SEL = temp.SEL,
       VERSION = as.numeric(temp.VERSION),
@@ -1234,8 +1237,16 @@ read_BIN2R <- function(
       MARKPOS_Y2 = temp.MARKPOS_Y2,
       MARKPOS_X3 = temp.MARKPOS_X3,
       MARKPOS_Y3 = temp.MARKPOS_Y3,
+
+      ## FIXME(mcol): these two fields were not present when we were building
+      ## up a data.table directly, so to reproduce exactly the objects as
+      ## the previous code, we set them to 0, but arguably this is not
+      ## correct
+      EXTR_START = 0, # temp.EXTR_START,
+      EXTR_END = 0, # temp.EXTR_END,
+
       SEQUENCE = temp.SEQUENCE
-    )]
+    )
 
     results.DATA[[id_row]] <- temp.DPOINTS
 
@@ -1257,7 +1268,13 @@ read_BIN2R <- function(
   }
 
   ## remove NA values created by skipping records
+  results.METADATA <- rbindlist(results.METADATA.list)
   results.METADATA <- na.omit(results.METADATA, cols = "VERSION")
+
+  ## remove the first row (default) unless it's the only one left
+  if (nrow(results.METADATA) > 1) {
+    results.METADATA <- results.METADATA[-1]
+  }
 
   ##output
   if(verbose)
