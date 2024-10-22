@@ -306,7 +306,7 @@ read_BIN2R <- function(
     }
 
     #empty byte position
-    EMPTY <- readBin(con, what = "raw", 1, size = 1, endian = "little")
+    seek(con, 1, origin = "current")
 
     ## get record LENGTH
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
@@ -319,8 +319,7 @@ read_BIN2R <- function(
                             endian = "little")
     num.toread <- max(0, temp.LENGTH - length.size - 2)
     if (num.toread > 0) {
-      STEPPING <- readBin(con, what = "raw", n = num.toread,
-                          size = 1, endian = "little")
+      seek(con, num.toread, origin = "current")
     } else {
       if (verbose)
         message("\n[read_BIN2R()] Record #", temp.ID + 1,
@@ -587,7 +586,7 @@ read_BIN2R <- function(
     }
 
     #empty byte position
-    EMPTY <- readBin(con, what="raw", 1, size=1, endian="little")
+    seek(con, 1, origin = "current")
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
@@ -605,7 +604,7 @@ read_BIN2R <- function(
       ## used or not.
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
         temp.ID <- temp.ID + 1
-        readBin(con, what = "raw", n = temp.LENGTH - 14, size = 1, endian = "little")
+        seek(con, temp.LENGTH - 14, origin = "current")
         next()
       }
 
@@ -615,8 +614,8 @@ read_BIN2R <- function(
         temp.RECTYPE <- readBin(con, what = "int", 1, size = 1, endian = "little", signed = FALSE)
 
         ## we can check for a specific value for temp.RECTYPE
-          if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
-            STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
+        if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
+          seek(con, temp.LENGTH - 15, origin = "current")
             if(verbose)
               message("\n[read_BIN2R()] Record #", temp.ID + 1,
                       " skipped due to ignore.RECTYPE setting")
@@ -625,7 +624,7 @@ read_BIN2R <- function(
 
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
-          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
+          seek(con, temp.LENGTH - 15, origin = "current")
             if(!ignore.RECTYPE){
               .throw_error("Byte RECTYPE = ", temp.RECTYPE,
                            " is not supported in record #", temp.ID + 1, ", ",
@@ -655,7 +654,7 @@ read_BIN2R <- function(
       ## the data
       ## This is a very ugly construction and the function should be refactored
       if (temp.RECTYPE == 128){
-        readBin(con, what = "raw", size = 1, n = 492)
+        seek(con, 492, origin = "current")
 
       } else {
         ##(2) Sample characteristics
@@ -677,8 +676,7 @@ read_BIN2R <- function(
         #however it should be set to 20
         #step forward in con
         if (SAMPLE_SIZE < 20) {
-          STEPPING<-readBin(con, what="raw", (20-c(SAMPLE_SIZE)),
-                            size=1, endian="little")
+          seek(con, 20 - SAMPLE_SIZE, origin = "current")
         }
 
         ##COMMENT
@@ -688,8 +686,7 @@ read_BIN2R <- function(
 
         #step forward in con
         if (COMMENT_SIZE < 80) {
-          STEPPING<-readBin(con, what="raw", (80-c(COMMENT_SIZE)),
-                            size=1, endian="little")
+          seek(con, 80 - COMMENT_SIZE, origin = "current")
         }
 
         ##(3) Instrument and sequence characteristic
@@ -708,8 +705,7 @@ read_BIN2R <- function(
 
         #step forward in con
         if (FNAME_SIZE < 100) {
-          STEPPING<-readBin(con, what="raw", (100-c(FNAME_SIZE)),
-                            size=1, endian="little")
+          seek(con, 100 - FNAME_SIZE, origin = "current")
         }
 
         ##USER
@@ -725,8 +721,7 @@ read_BIN2R <- function(
 
         #step forward in con
         if (USER_SIZE < 30) {
-          STEPPING<-readBin(con, what="raw", (30-c(USER_SIZE)),
-                            size=1, endian="little")
+          seek(con, 30 - USER_SIZE, origin = "current")
         }
 
         ##TIME
@@ -746,8 +741,7 @@ read_BIN2R <- function(
         }
 
         if (TIME_SIZE < 6) {
-          STEPPING<-readBin(con, what="raw", (6-TIME_SIZE),
-                            size=1, endian="little")
+          seek(con, 6 - TIME_SIZE, origin = "current")
         }
 
         ##DATE
@@ -924,7 +918,7 @@ read_BIN2R <- function(
 
       ## set temp ID if within select
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
-        readBin(con, what = "raw", n =  temp.LENGTH - 8, size = 1, endian = "little")
+        seek(con, temp.LENGTH - 8, origin = "current")
         next()
       }
 
@@ -977,7 +971,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (SEQUENCE_SIZE < 8) {
-        STEPPING<-readBin(con, what="raw", (8-c(SEQUENCE_SIZE)),size=1, endian="little")
+        seek(con, 8 - SEQUENCE_SIZE, origin = "current")
       }
 
       ##USER
@@ -986,7 +980,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (USER_SIZE < 8) {
-        STEPPING<-readBin(con, what="raw", (8-c(USER_SIZE)), size=1, endian="little")
+        seek(con, 8 - USER_SIZE, origin = "current")
       }
 
       ##DTYPE
@@ -1025,7 +1019,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (SAMPLE_SIZE < 20) {
-        STEPPING<-readBin(con, what="raw", (20-c(SAMPLE_SIZE)), size=1, endian="little")
+        seek(con, 20 - SAMPLE_SIZE, origin = "current")
       }
 
       ##COMMENT
@@ -1034,7 +1028,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (COMMENT_SIZE < 80) {
-        STEPPING<-readBin(con, what="raw", (80-c(COMMENT_SIZE)), size=1, endian="little")
+        seek(con, 80 - COMMENT_SIZE, origin = "current")
       }
 
       ##LIGHTSOURCE, SET, TAG
