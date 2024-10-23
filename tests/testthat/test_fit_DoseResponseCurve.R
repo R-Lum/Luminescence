@@ -363,9 +363,7 @@ temp_LambertW <-
   LxTxData[1,2:3] <- c(0.5, 0.001)
   SW({
   LIN <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "LIN",
-                     main = "Title", xlab = "x-axis", ylab = "y-axis",
-                     xlim = c(0, 10), ylim = c(0, 10)),
+    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"),
     "RLum.Results")
   EXP <- expect_s4_class(
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"),
