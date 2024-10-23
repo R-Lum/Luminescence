@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -79,6 +79,11 @@
                   "value": [1674.83051133]
                 },
                 {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1668.25051746]
+                },
+                {
                   "type": "character",
                   "attributes": {},
                   "value": ["EXP"]
@@ -96,7 +101,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1581.40910176]
+                  "value": [1580.77337983]
                 },
                 {
                   "type": "double",
@@ -325,7 +330,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -385,6 +390,11 @@
                   "value": [1770.23018623, 1669.32980118]
                 },
                 {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1768.62308496, 1660.6965308]
+                },
+                {
                   "type": "character",
                   "attributes": {},
                   "value": ["LIN", "LIN"]
@@ -402,12 +412,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1694.49193165, 1565.71247498]
+                  "value": [1694.00062711, 1565.71247498]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1844.33981662, 1751.68431891]
+                  "value": [1844.33981662, 1752.32339741]
                 },
                 {
                   "type": "character",
@@ -615,7 +625,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [297, 5, 313, 10, 5, 10, 297, 313]
+                  "value": [291, 5, 307, 10, 5, 10, 291, 307]
                 }
               },
               "value": ["analyse_SAR.CWOSL(object = object[[x]], signal.integral.min = parm$signal.integral.min[[x]], ", "    signal.integral.max = parm$signal.integral.max[[x]], background.integral.min = parm$background.integral.min[[x]], ", "    background.integral.max = parm$background.integral.max[[x]], ", "    OSL.component = parm$OSL.component[[x]], dose.points = parm$dose.points[[x]], ", "    trim_channels = parm$trim_channels[[x]], mtext.outer = parm$mtext.outer[[x]], ", "    plot = parm$plot[[x]], rejection.criteria = parm$rejection.criteria[[x]], ", "    plot.single = parm$plot.single[[x]], plot_onePage = parm$plot_onePage[[x]], ", "    onlyLxTxTable = parm$onlyLxTxTable[[x]], main = main[[x]], ", "    ...)"]

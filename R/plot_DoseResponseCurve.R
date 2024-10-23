@@ -114,7 +114,7 @@ plot_DoseResponseCurve <- function(
   colnames(xy) <- c("x", "y")
   y.Error <- sample[first.idx:last.idx, 3]
 
-  De <- object@data$De$De
+  De <- object@data$De$De.plot
   x.natural <- object@data$De.MC
   De.MonteCarlo <- mean(na.exclude(x.natural))
   De.Error <- sd(na.exclude(x.natural))

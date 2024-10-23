@@ -1583,6 +1583,7 @@ fit_DoseResponseCurve <- function(
     Dc = Dc,
     n_N = n_N,
     De.MC = De.MonteCarlo,
+    De.plot = De, # no absolute value, used for plotting
     Fit = fit.method,
     HPDI68_L = HPDI[1,1],
     HPDI68_U = HPDI[1,2],
