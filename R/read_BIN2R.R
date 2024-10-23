@@ -694,13 +694,12 @@ read_BIN2R <- function(
         temp.SYSTEMID <- readBin(con, what="int", 1, size=2, endian="little")
 
         ##FNAME
-        FNAME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+        FNAME_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
+                                  endian = "little"), 0)
 
         ##correct for 0 file name length
-        if(length(FNAME_SIZE)>0){
+        if (FNAME_SIZE > 0) {
           temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
-        }else{
-          FNAME_SIZE <- 0
         }
 
         #step forward in con
@@ -709,14 +708,13 @@ read_BIN2R <- function(
         }
 
         ##USER
-        USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+        USER_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
+                                 endian = "little"), 0)
 
         ##correct for 0 user size length
-        if (length(USER_SIZE) > 0) {
+        if (USER_SIZE > 0) {
           temp.USER <-
             suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
-        }else{
-          USER_SIZE <- 0
         }
 
         #step forward in con
@@ -725,19 +723,17 @@ read_BIN2R <- function(
         }
 
         ##TIME
-        TIME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+        TIME_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
+                                 endian = "little"), 0)
 
         ##time size corrections for wrong time formats; set n to 6 for all values
         ##according to the handbook by Geoff Duller, 2007
-        if(length(TIME_SIZE)>0){
+        if (TIME_SIZE > 0) {
           temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
 
           ##correct the mess by others
           if(nchar(temp.TIME) == 5)
             temp.TIME <- paste0("0", temp.TIME)
-
-        }else{
-          TIME_SIZE <- 0
         }
 
         if (TIME_SIZE < 6) {
