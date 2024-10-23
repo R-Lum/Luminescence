@@ -306,7 +306,7 @@ read_BIN2R <- function(
     }
 
     #empty byte position
-    seek(con, 1, origin = "current")
+    seek.connection(con, 1, origin = "current")
 
     ## get record LENGTH
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
@@ -319,7 +319,7 @@ read_BIN2R <- function(
                             endian = "little")
     num.toread <- max(0, temp.LENGTH - length.size - 2)
     if (num.toread > 0) {
-      seek(con, num.toread, origin = "current")
+      seek.connection(con, num.toread, origin = "current")
     } else {
       if (verbose)
         message("\n[read_BIN2R()] Record #", temp.ID + 1,
@@ -586,7 +586,7 @@ read_BIN2R <- function(
     }
 
     #empty byte position
-    seek(con, 1, origin = "current")
+    seek.connection(con, 1, origin = "current")
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
@@ -604,7 +604,7 @@ read_BIN2R <- function(
       ## used or not.
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
         temp.ID <- temp.ID + 1
-        seek(con, temp.LENGTH - 14, origin = "current")
+        seek.connection(con, temp.LENGTH - 14, origin = "current")
         next()
       }
 
@@ -615,7 +615,7 @@ read_BIN2R <- function(
 
         ## we can check for a specific value for temp.RECTYPE
         if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
-          seek(con, temp.LENGTH - 15, origin = "current")
+          seek.connection(con, temp.LENGTH - 15, origin = "current")
             if(verbose)
               message("\n[read_BIN2R()] Record #", temp.ID + 1,
                       " skipped due to ignore.RECTYPE setting")
@@ -624,7 +624,7 @@ read_BIN2R <- function(
 
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
-          seek(con, temp.LENGTH - 15, origin = "current")
+          seek.connection(con, temp.LENGTH - 15, origin = "current")
             if(!ignore.RECTYPE){
               .throw_error("Byte RECTYPE = ", temp.RECTYPE,
                            " is not supported in record #", temp.ID + 1, ", ",
@@ -654,7 +654,7 @@ read_BIN2R <- function(
       ## the data
       ## This is a very ugly construction and the function should be refactored
       if (temp.RECTYPE == 128){
-        seek(con, 492, origin = "current")
+        seek.connection(con, 492, origin = "current")
 
       } else {
         ##(2) Sample characteristics
@@ -676,7 +676,7 @@ read_BIN2R <- function(
         #however it should be set to 20
         #step forward in con
         if (SAMPLE_SIZE < 20) {
-          seek(con, 20 - SAMPLE_SIZE, origin = "current")
+          seek.connection(con, 20 - SAMPLE_SIZE, origin = "current")
         }
 
         ##COMMENT
@@ -686,7 +686,7 @@ read_BIN2R <- function(
 
         #step forward in con
         if (COMMENT_SIZE < 80) {
-          seek(con, 80 - COMMENT_SIZE, origin = "current")
+          seek.connection(con, 80 - COMMENT_SIZE, origin = "current")
         }
 
         ##(3) Instrument and sequence characteristic
@@ -705,7 +705,7 @@ read_BIN2R <- function(
 
         #step forward in con
         if (FNAME_SIZE < 100) {
-          seek(con, 100 - FNAME_SIZE, origin = "current")
+          seek.connection(con, 100 - FNAME_SIZE, origin = "current")
         }
 
         ##USER
@@ -721,7 +721,7 @@ read_BIN2R <- function(
 
         #step forward in con
         if (USER_SIZE < 30) {
-          seek(con, 30 - USER_SIZE, origin = "current")
+          seek.connection(con, 30 - USER_SIZE, origin = "current")
         }
 
         ##TIME
@@ -741,7 +741,7 @@ read_BIN2R <- function(
         }
 
         if (TIME_SIZE < 6) {
-          seek(con, 6 - TIME_SIZE, origin = "current")
+          seek.connection(con, 6 - TIME_SIZE, origin = "current")
         }
 
         ##DATE
@@ -918,7 +918,7 @@ read_BIN2R <- function(
 
       ## set temp ID if within select
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
-        seek(con, temp.LENGTH - 8, origin = "current")
+        seek.connection(con, temp.LENGTH - 8, origin = "current")
         next()
       }
 
@@ -971,7 +971,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (SEQUENCE_SIZE < 8) {
-        seek(con, 8 - SEQUENCE_SIZE, origin = "current")
+        seek.connection(con, 8 - SEQUENCE_SIZE, origin = "current")
       }
 
       ##USER
@@ -980,7 +980,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (USER_SIZE < 8) {
-        seek(con, 8 - USER_SIZE, origin = "current")
+        seek.connection(con, 8 - USER_SIZE, origin = "current")
       }
 
       ##DTYPE
@@ -1019,7 +1019,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (SAMPLE_SIZE < 20) {
-        seek(con, 20 - SAMPLE_SIZE, origin = "current")
+        seek.connection(con, 20 - SAMPLE_SIZE, origin = "current")
       }
 
       ##COMMENT
@@ -1028,7 +1028,7 @@ read_BIN2R <- function(
 
       #step forward in con
       if (COMMENT_SIZE < 80) {
-        seek(con, 80 - COMMENT_SIZE, origin = "current")
+        seek.connection(con, 80 - COMMENT_SIZE, origin = "current")
       }
 
       ##LIGHTSOURCE, SET, TAG
@@ -1124,7 +1124,7 @@ read_BIN2R <- function(
 
      ##update progress bar
     if (txtProgressBar) {
-      setTxtProgressBar(pb, seek(con,origin="current"))
+      setTxtProgressBar(pb, seek.connection(con, origin = "current"))
     }
 
     ##set for equal values with different names
