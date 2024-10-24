@@ -158,6 +158,9 @@ test_that("test the import of various BIN-file versions", {
              show.raw.values = list(TRUE), zero_data.rm = list(FALSE),
              duplicated.rm = list(TRUE), show.record.number = list(TRUE),
              forced.VersionNumber = list(8), fastForward = TRUE)
-  })
   expect_length(res[[2]], 0)
+
+  res <- read_BIN2R(bin.v8, verbose = FALSE, n.records = 2, fastForward = TRUE)
+  expect_length(res, 1)
+  })
 })
