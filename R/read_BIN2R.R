@@ -914,6 +914,7 @@ read_BIN2R <- function(
 
       ## set temp ID if within select
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
+        temp.ID <- temp.ID + 1
         seek.connection(con, temp.LENGTH - 8, origin = "current")
         next()
       }

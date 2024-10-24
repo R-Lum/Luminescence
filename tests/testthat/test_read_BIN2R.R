@@ -162,5 +162,8 @@ test_that("test the import of various BIN-file versions", {
 
   res <- read_BIN2R(bin.v8, verbose = FALSE, n.records = 2, fastForward = TRUE)
   expect_length(res, 1)
+
+  res <- read_BIN2R(test_path("_data/BINfile_V3.bin"), n.records = 2)
+  expect_length(res, 1)
   })
 })
