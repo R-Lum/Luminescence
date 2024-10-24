@@ -151,14 +151,12 @@ test_that("test the import of various BIN-file versions", {
     expect_length(t@DATA, n = 0)
 
   SW({
-  ## this combination of position and n.records creates an empty object
-  ## at position 2
   res <- read_BIN2R(list(bin.v8, bin.v8), verbose = TRUE,
              position = list(1, 2), n.records = list(1, 2),
              show.raw.values = list(TRUE), zero_data.rm = list(FALSE),
              duplicated.rm = list(TRUE), show.record.number = list(TRUE),
              forced.VersionNumber = list(8), fastForward = TRUE)
-  expect_length(res[[2]], 0)
+  expect_length(res[[2]], 1)
 
   res <- read_BIN2R(bin.v8, verbose = FALSE, n.records = 2, fastForward = TRUE)
   expect_length(res, 1)
@@ -173,6 +171,15 @@ test_that("test hand-crafted files", {
 
   SW({
   zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
+
+  expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
+                 "Zero-data records detected and removed: 2")
+  expect_equal(nrow(res@METADATA), 1)
+
+  expect_silent(res <- read_BIN2R(list(zero.data.bin), verbose = FALSE,
+                                  zero_data.rm = FALSE))
+  expect_equal(nrow(res[[1]]@METADATA), 2)
+
   expect_silent(res <- read_BIN2R(zero.data.bin, verbose = FALSE,
                                   zero_data.rm = FALSE))
   })
