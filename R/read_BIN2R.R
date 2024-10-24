@@ -914,6 +914,7 @@ read_BIN2R <- function(
 
       ## set temp ID if within select
       if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
+        temp.ID <- temp.ID + 1
         seek.connection(con, temp.LENGTH - 8, origin = "current")
         next()
       }
@@ -1254,18 +1255,14 @@ read_BIN2R <- function(
   if(verbose)
     message("\t >> ", length(results.DATA), " records read successfully\n")
 
-  # Further limitation --------------------------------------------------------------------------
+  ## Record removals --------------------------------------------------------
+
+  ## check if only the specified positions should be returned
   if(!is.null(position)){
     ##check whether the position is valid at all
     if (all(position %in% results.METADATA[["POSITION"]])) {
       results.METADATA <- results.METADATA[which(results.METADATA[["POSITION"]] %in% position),]
       results.DATA <- results.DATA[results.METADATA[["ID"]]]
-
-        ##re-calculate ID ... otherwise it will not match
-        results.METADATA[["ID"]] <- 1:length(results.DATA )
-
-        ##show a message
-        message("[read_BIN2R()] The record index has been recalculated")
 
     }else{
       .throw_warning("At least one position number is not valid, ",
@@ -1274,6 +1271,12 @@ read_BIN2R <- function(
                                quote = FALSE))
     }
   }
+
+  ## recalculate ID as some records may not have been read if n.records was set
+  ## or were dropped by position in the previous block
+  results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
+  if (verbose)
+    message("[read_BIN2R()] The record index has been recalculated")
 
   ##check for position that have no data at all (error during the measurement)
   if(zero_data.rm){

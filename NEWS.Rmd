@@ -99,6 +99,11 @@ fixed in #263).
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 
+### `read_BIN2R()`
+* Argument `n.records` is now better supported for BIN files v3 and v4 and
+doesn't lead to a crash when used in conjuction with the `fastForward`
+option (#343, fixed in #344).
+
 ### `read_XSYG2R()`
 * Add a new argument `n_records` that enables to limit the number of imported records in case the file was faulty or only a limited number of records is wanted.  
 * The function sometimes struggled with the import if only a directory was provided; fixed. 
