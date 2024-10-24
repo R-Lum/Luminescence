@@ -27,12 +27,12 @@
 #' enables or disables terminal feedback.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`).
+#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0
+#' @section Function version: 1.0.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -102,7 +102,6 @@ plot_DoseResponseCurve <- function(
   .validate_positive_scalar(cex.global)
 
   ## Fitting arguments ------------------------------------------------------
-
   fit.args <- object$Fit.Args
   mode <- fit.args$mode
   sample <- fit.args$sample
@@ -120,60 +119,53 @@ plot_DoseResponseCurve <- function(
   De.Error <- sd(na.exclude(x.natural))
 
   ## Graphical arguments ----------------------------------------------------
-
-  extraArgs <- list(...)
-  main <- if ("main" %in% names(extraArgs)) extraArgs$main
-          else "Dose-response curve"
-
-  xlab <- if ("xlab" %in% names(extraArgs)) extraArgs$xlab
-          else "Dose [s]"
-
-  ylab <- if ("ylab" %in% names(extraArgs)) extraArgs$ylab
-          else { if (mode == "interpolation")
-                   expression(L[x]/T[x])
-                 else
-                   "Luminescence [a.u.]"
-          }
-
-  if ("cex" %in% names(extraArgs))
-    cex.global <- extraArgs$cex
-
-  ylim <- if ("ylim" %in% names(extraArgs)) {
-            extraArgs$ylim
+  ## set plot settings
+  plot_settings <- modifyList(
+    x = list(
+      main = "Dose-response curve",
+      xlab = "Dose [s]",
+      ylab = if (mode == "interpolation") expression(L[x]/T[x]) else "Luminescence [a.u.]",
+      ylim =  if (fit.args$fit.force_through_origin || mode == "extrapolation") {
+        c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+        
+      } else {
+        c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+      },
+      xlim =  if (mode != "extrapolation") {
+        c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+        
+      } else {
+        if (!is.na(De)) {
+          if (De > 0) {
+            c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+            
           } else {
-            if (fit.args$fit.force_through_origin || mode == "extrapolation") {
-              c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-
-            } else {
-              c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-            }
+            c(De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
           }
-
-  xlim <- if ("xlim" %in% names(extraArgs)) extraArgs$xlim
-          else {
-            if (mode != "extrapolation") {
-              c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-
-            } else {
-              if (!is.na(De)) {
-                if (De > 0) {
-                  c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-
-                } else {
-                  c(De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-                }
-
-              } else {
-                c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-              }
-            }
-          }
-
-  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
-
+          
+        } else {
+          c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+        }
+      },
+      cex = 1,
+      mtext = if (mode != "alternate") {
+          substitute(
+            D[e] == De,
+            list(De = paste(
+              round(
+                abs(De), digits = 2), "\u00B1", 
+              format(De.Error, scientific = TRUE, digits = 2), 
+              " | fit: ", fit.args$fit.method)))
+        } else {
+          ""
+        },
+      legend = TRUE,
+      reg_points_pch = c(19,2, 1)),
+    val = list(...), 
+    keep.null = TRUE 
+  )
 
   ## Main plots -------------------------------------------------------------
-
   ## set plot check
   plot_check <- NULL
 
@@ -181,28 +173,26 @@ plot_DoseResponseCurve <- function(
   x <- NULL; rm(x)
 
   ## open plot area
+  par(cex = cex.global)
   if (plot_extended && !plot_single) {
-
     ## set new parameter
     layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
-    par(cex = 0.8 * cex.global)
+    par(cex = 0.8 * plot_settings$cex)
 
-  } else {
-    par(cex = cex.global)
-  }
+  } 
 
   #PLOT		#Plot input values
   ##Make selection to support manual number of reg points input
   plot_check <- try(plot(
       xy[1:fit.args$fit.NumberRegPointsReal, ],
-      ylim = ylim,
-      xlim = xlim,
-      pch = 19,
-      xlab = xlab,
-      ylab = ylab
+      ylim = plot_settings$ylim,
+      xlim = plot_settings$xlim,
+      pch = plot_settings$reg_points_pch,
+      xlab = plot_settings$xlab,
+      ylab = plot_settings$ylab
   ),
   silent = TRUE)
-
+    
   if (!is(plot_check, "try-error")) {
     if (mode == "extrapolation") {
       abline(v = 0, lty = 1, col = "grey")
@@ -210,7 +200,7 @@ plot_DoseResponseCurve <- function(
     }
 
     ### add header
-    title(main = main, line = NA)
+    title(main = plot_settings$main, line = NA)
 
     ## add curve
     if (inherits(object$Formula, "expression")) {
@@ -220,25 +210,26 @@ plot_DoseResponseCurve <- function(
 
     ## natural value
     if (mode == "interpolation") {
-      points(sample[1, 1:2], col = "red")
+      points(sample[1, 1:2], col = "red", pch = plot_settings$reg_points_pch[1])
       segments(sample[1, 1], sample[1, 2] - sample[1, 3],
                sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
 
     } else if (mode == "extrapolation"){
-      points(x = De, y = 0, col = "red")
+      points(x = De, y = 0, col = "red", pch = plot_settings$reg_points_pch[1])
+
     }
 
     ## repeated Point
     points(
         x = xy[which(duplicated(xy[, 1])), 1],
         y = xy[which(duplicated(xy[, 1])), 2],
-        pch = 2)
+        pch = if(is.na(plot_settings$reg_points_pch[2])) plot_settings$reg_points_pch[1] else plot_settings$reg_points_pch[2])
 
     ## reg Point 0
     points(
         x = xy[which(xy == 0), 1],
         y = xy[which(xy == 0), 2],
-        pch = 1,
+        pch = if(is.na(plot_settings$reg_points_pch[3])) plot_settings$reg_points_pch[1] else plot_settings$reg_points_pch[3],
         cex = 1.5 * cex.global)
 
     ## ARROWS	#y-error Bar
@@ -269,7 +260,16 @@ plot_DoseResponseCurve <- function(
           col = "red",
           lty = 2,
           lwd = 1.25), silent = TRUE)
-      try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
+      try({ 
+        points(
+          x = De, 
+          y = sample[1, 2], 
+          col = "black", 
+          pch = 21, 
+          bg = "red", 
+          cex = 1.1 * cex.global)
+        }, 
+        silent = TRUE)
 
     } else if (mode == "extrapolation"){
       if (!is.na(De)) {
@@ -278,25 +278,12 @@ plot_DoseResponseCurve <- function(
       }
     }
 
-    ## check/set mtext
-    mtext <- if ("mtext" %in% names(list(...))) {
-               list(...)$mtext
-             } else {
-               if (mode != "alternate") {
-                 substitute(D[e] == De,
-                            list(De = paste(
-                                     round(abs(De), digits = 2), "\u00B1", format(De.Error, scientific = TRUE, digits = 2), " | fit: ", fit.args$fit.method
-                                 )))
-               } else {
-                 ""
-               }
-             }
-
     ## insert fit and result
     try(mtext(side = 3,
-              mtext,
+              plot_settings$mtext,
               line = 0,
-              cex = 0.8 * cex.global), silent = TRUE)
+              cex = 0.8 * cex.global), 
+        silent = TRUE)
 
     ## write error message in plot if De is NaN
     try(if (De == "NaN") {
@@ -311,30 +298,29 @@ plot_DoseResponseCurve <- function(
         }, silent = TRUE)
 
     ## plot legend
-    if (mode == "interpolation") {
-      legend(
-          "topleft",
-          c("REG point", "REG point repeated", "REG point 0"),
-          pch = c(19, 2, 1),
-          cex = 0.8 * cex.global,
-          bty = "n"
-      )
-    } else {
-      legend(
-          "bottomright",
-          c("Dose point", "Dose point rep.", "Dose point 0"),
-          pch = c(19, 2, 1),
-          cex = 0.8 * cex.global,
-          bty = "n"
-      )
+    if(plot_settings$legend) {
+      if (mode == "interpolation") {
+        legend(
+            "topleft",
+            c("REG point", "REG point repeated", "REG point 0"),
+            pch = plot_settings$reg_points_pch,
+            cex = 0.8 * cex.global,
+            bty = "n")
+      } else {
+        legend(
+            "bottomright",
+            c("Dose point", "Dose point rep.", "Dose point 0"),
+            pch = plot_settings$reg_points_pch,
+            cex = 0.8 * cex.global,
+            bty = "n")
+      }
+
     }
 
     if (plot_extended) {
-
       ## Histogram ----------------------------------------------------------
-      if (!plot_single) {
+      if (!plot_single)
         par(cex = 0.7 * cex.global)
-      }
 
       ## calculate histogram data
       try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
@@ -353,7 +339,7 @@ plot_DoseResponseCurve <- function(
         ## plot histogram
         histogram <- try(hist(
             x.natural,
-            xlab = xlab,
+            xlab = plot_settings$xlab,
             ylab = "Frequency",
             main = "MC runs",
             freq = FALSE,
@@ -380,7 +366,7 @@ plot_DoseResponseCurve <- function(
 
           ## add rug
           rug(x.natural)
-
+ 
           ## De + Error from MC simulation + quality of error estimation
           try(mtext(side = 3,
                     substitute(D[e[MC]] == De,
@@ -408,10 +394,9 @@ plot_DoseResponseCurve <- function(
       }
 
       ## Test dose response curve if available ------------------------------
-
-      ## plot Tx/Tn value for sensitvity change
+      ## plot Tx/Tn value for sensitivity change
       if (!is(plot_check, "try-error")) {
-        if ("TnTx" %in% colnames(sample) == TRUE) {
+        if ("TnTx" %in% colnames(sample)) {
           plot(
               1:length(sample[, "TnTx"]),
               sample[1:(length(sample[, "TnTx"])), "TnTx"] / sample[1, "TnTx"],
@@ -429,17 +414,16 @@ plot_DoseResponseCurve <- function(
         }
       }
 
-      ## FUN by R Luminescence Team
-      if (fun == TRUE) sTeve() # nocov
     }
   }
 
   ##reset graphic device if the plotting failed!
-  if (is(plot_check, "try-error")) {
+  if (inherits(plot_check, "try-error")) {
     message("[plot_DoseResponseCurve()] Error: Figure margins too large, ",
             "nothing plotted")
     dev.off()
   }
 
+  ## return
   invisible(object)
 }

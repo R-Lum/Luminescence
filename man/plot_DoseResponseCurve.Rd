@@ -38,7 +38,7 @@ global scaling factor.}
 enables or disables terminal feedback.}
 
 \item{...}{Further graphical parameters to be passed (supported:
-\code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}).}
+\code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{legend}, \code{reg_points_pch}).}
 }
 \value{
 A plot (or a series of plots) is produced.
@@ -48,7 +48,7 @@ A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
 }
 \section{Function version}{
- 1.0
+ 1.0.1
 }
 
 \examples{

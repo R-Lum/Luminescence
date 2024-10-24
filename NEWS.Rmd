@@ -20,7 +20,6 @@ fitting (#141, fixed in #318).
 used for instance in combination with `'ggplot2'`. Works only on `RLum.Data.Curve-class`
 and `RLum.Analysis-class` objects and lists of such objects.
 
-
 ## Breaking changes
 * We have dropped our dependency on the `readxl` package: functions
 `analyse_baSAR()` and `use_DRAC()` now do not accept XLS files anymore but
@@ -88,6 +87,8 @@ function would still return that single IRSL curve instead of an empty element. 
 * The function is now implemented as a wrapper around `fit_DoseResponseCurve()`
 and `plot_DoseResponseCurve()`. There should be no visible user-facing
 changes (#319, fixed in #322).
+* Support new `...` arguments for plotting (implementation in `plot_DoseResponseCurve()`) for
+`legend` (turn on/off legend) and `reg_points_pch` for fine grained control over the point shape.
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect
