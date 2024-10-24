@@ -1307,6 +1307,7 @@ read_BIN2R <- function(
       0, vapply(
         2:length(results.DATA),
         FUN = function(x) {
+          length(results.DATA[[x - 1]]) == length(results.DATA[[x]]) &&
           all(results.DATA[[x - 1]] == results.DATA[[x]])
         },
         FUN.VALUE = 1
@@ -1325,7 +1326,7 @@ read_BIN2R <- function(
         if(verbose) {
           message("[read_BIN2R()] duplicated records detected and removed: ",
                   .collapse(duplication.check, quote = FALSE),
-                  ", record index re-calculated")
+                  ", record index recalculated")
         }
 
       } else{

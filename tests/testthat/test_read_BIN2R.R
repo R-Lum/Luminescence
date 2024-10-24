@@ -167,3 +167,13 @@ test_that("test the import of various BIN-file versions", {
   expect_length(res, 1)
   })
 })
+
+test_that("test hand-crafted files", {
+  testthat::skip_on_cran()
+
+  SW({
+  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
+  expect_silent(res <- read_BIN2R(zero.data.bin, verbose = FALSE,
+                                  zero_data.rm = FALSE))
+  })
+})
