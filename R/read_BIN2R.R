@@ -1266,6 +1266,10 @@ read_BIN2R <- function(
       results.METADATA <- results.METADATA[keep.positions, ]
       results.DATA <- results.DATA[keep.positions]
 
+      if (verbose) {
+        message("[read_BIN2R()] Kept records matching 'position': ",
+                .collapse(position, quote = FALSE))
+      }
     }else{
       .throw_warning("At least one position number is not valid, ",
                      "valid position numbers are: ",
@@ -1288,8 +1292,7 @@ read_BIN2R <- function(
     if(length(zero_data.check) != 0){
       results.METADATA <- results.METADATA[-zero_data.check, ]
       results.DATA[zero_data.check] <- NULL
-
-      ## if nothing is left, remove empty record
+      ## if nothing is left, return an empty object
       if(nrow(results.METADATA) == 0)
         return(set_Risoe.BINfileData())
 
@@ -1298,7 +1301,7 @@ read_BIN2R <- function(
 
       .throw_warning("Zero-data records detected and removed: ",
                      .collapse(zero_data.check, quote = FALSE),
-                     ", record index recalculated.")
+                     ", record index recalculated")
     }
   }
 
@@ -1326,7 +1329,7 @@ read_BIN2R <- function(
 
         ##message
         if(verbose) {
-          message("[read_BIN2R()] duplicated records detected and removed: ",
+          message("[read_BIN2R()] Duplicated records detected and removed: ",
                   .collapse(duplication.check, quote = FALSE),
                   ", record index recalculated")
         }
@@ -1334,7 +1337,7 @@ read_BIN2R <- function(
       } else{
         .throw_warning("Duplicated records detected: ",
                        .collapse(duplication.check, quote = FALSE),
-                       "\n\n >> You should consider 'duplicated.rm = TRUE'.")
+                       "\n >> You should consider using 'duplicated.rm = TRUE'.")
       }
     }
   }

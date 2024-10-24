@@ -93,9 +93,10 @@ test_that("test the import of various BIN-file versions", {
                   class = "Risoe.BINfileData")
 
   ## V8 - as part of the package ... with arguments
-  expect_type(read_BIN2R(bin.v8, txtProgressBar = FALSE,
-                         position = 1, fastForward = TRUE),
-              "list")
+  expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
+                                   position = 1, fastForward = TRUE),
+                 "Kept records matching 'position': 1")
+  expect_type(res, "list")
 
     ## test n.records argument
     t_n.records_1 <- expect_s4_class(
@@ -169,7 +170,21 @@ test_that("test the import of various BIN-file versions", {
 test_that("test hand-crafted files", {
   testthat::skip_on_cran()
 
+  res <- read_BIN2R(test_path("_data/bin-tests/two-versions.binx"),
+                    verbose = FALSE)
+  expect_equal(nrow(res@METADATA), 4)
+
+  expect_warning(res <- read_BIN2R(test_path("_data/bin-tests/duplicated-records.binx"),
+                                   verbose = FALSE),
+                 "Duplicated records detected: 2")
+  expect_equal(nrow(res@METADATA), 3)
+
   SW({
+  expect_message(res <- read_BIN2R(test_path("_data/bin-tests/duplicated-records.binx"),
+                                   duplicated.rm = TRUE, verbose = TRUE),
+                 "Duplicated records detected and removed: 2")
+  expect_equal(nrow(res@METADATA), 2)
+
   zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
 
   expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
