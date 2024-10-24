@@ -105,6 +105,8 @@ doesn't lead to a crash when used in conjuction with the `fastForward`
 option (#343, fixed in #344).
 * Argument `zero_data.rm` was not correctly propagated if the input object
 was provided as a list (#342, fixed in #345).
+* The `.RESERVED` slot is now kept in sync with the rest of the object
+when records are dropped from the input BIN/BINX file (#337, fixed in #348).
 
 ### `read_XSYG2R()`
 * Add a new argument `n_records` that enables to limit the number of imported records in case the file was faulty or only a limited number of records is wanted.  
