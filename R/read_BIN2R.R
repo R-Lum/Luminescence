@@ -189,6 +189,7 @@ read_BIN2R <- function(
         position = position[[x]],
         n.records = n.records[[x]],
         duplicated.rm = duplicated.rm[[x]],
+        zero_data.rm = zero_data.rm[[x]],
         show.raw.values =  show.raw.values[[x]],
         show.record.number = show.record.number[[x]],
         txtProgressBar = txtProgressBar,
@@ -1261,8 +1262,9 @@ read_BIN2R <- function(
   if(!is.null(position)){
     ##check whether the position is valid at all
     if (all(position %in% results.METADATA[["POSITION"]])) {
-      results.METADATA <- results.METADATA[which(results.METADATA[["POSITION"]] %in% position),]
-      results.DATA <- results.DATA[results.METADATA[["ID"]]]
+      keep.positions <- results.METADATA[["POSITION"]] %in% position
+      results.METADATA <- results.METADATA[keep.positions, ]
+      results.DATA <- results.DATA[keep.positions]
 
     }else{
       .throw_warning("At least one position number is not valid, ",
@@ -1294,9 +1296,9 @@ read_BIN2R <- function(
       ##recalculate record index
       results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
 
-      .throw_warning("\n", length(zero_data.check),
-                     " zero data records detected and removed. ",
-                     "\n >> Record index re-calculated.")
+      .throw_warning("Zero-data records detected and removed: ",
+                     .collapse(zero_data.check, quote = FALSE),
+                     ", record index recalculated.")
     }
   }
 
@@ -1307,6 +1309,7 @@ read_BIN2R <- function(
       0, vapply(
         2:length(results.DATA),
         FUN = function(x) {
+          length(results.DATA[[x - 1]]) == length(results.DATA[[x]]) &&
           all(results.DATA[[x - 1]] == results.DATA[[x]])
         },
         FUN.VALUE = 1
@@ -1325,7 +1328,7 @@ read_BIN2R <- function(
         if(verbose) {
           message("[read_BIN2R()] duplicated records detected and removed: ",
                   .collapse(duplication.check, quote = FALSE),
-                  ", record index re-calculated")
+                  ", record index recalculated")
         }
 
       } else{
