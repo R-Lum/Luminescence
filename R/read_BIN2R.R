@@ -1265,6 +1265,7 @@ read_BIN2R <- function(
       keep.positions <- results.METADATA[["POSITION"]] %in% position
       results.METADATA <- results.METADATA[keep.positions, ]
       results.DATA <- results.DATA[keep.positions]
+      results.RESERVED <- results.RESERVED[keep.positions]
 
       if (verbose) {
         message("[read_BIN2R()] Kept records matching 'position': ",
@@ -1292,6 +1293,8 @@ read_BIN2R <- function(
     if(length(zero_data.check) != 0){
       results.METADATA <- results.METADATA[-zero_data.check, ]
       results.DATA[zero_data.check] <- NULL
+      results.RESERVED[zero_data.check] <- NULL
+
       ## if nothing is left, return an empty object
       if(nrow(results.METADATA) == 0)
         return(set_Risoe.BINfileData())
@@ -1323,6 +1326,7 @@ read_BIN2R <- function(
         ##remove records
         results.METADATA <- results.METADATA[-duplication.check, ]
         results.DATA[duplication.check] <- NULL
+        results.RESERVED[duplication.check] <- NULL
 
         ##recalculate record index
         results.METADATA[["ID"]] <- 1:nrow(results.METADATA)

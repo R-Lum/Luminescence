@@ -91,8 +91,10 @@ test_that("test the import of various BIN-file versions", {
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   expect_s4_class(read_BIN2R(bin.v8, txtProgressBar = FALSE),
                   class = "Risoe.BINfileData")
-
-  ## V8 - as part of the package ... with arguments
+  expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
+                                   position = 2),
+                 "Kept records matching 'position': 2")
+  expect_equal(length(res@.RESERVED), nrow(res@METADATA))
   expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
                                    position = 1, fastForward = TRUE),
                  "Kept records matching 'position': 1")
@@ -184,12 +186,14 @@ test_that("test hand-crafted files", {
                                    duplicated.rm = TRUE, verbose = TRUE),
                  "Duplicated records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 2)
+  expect_equal(length(res@.RESERVED), nrow(res@METADATA))
 
   zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
 
   expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
                  "Zero-data records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 1)
+  expect_equal(length(res@.RESERVED), nrow(res@METADATA))
 
   expect_silent(res <- read_BIN2R(list(zero.data.bin), verbose = FALSE,
                                   zero_data.rm = FALSE))
