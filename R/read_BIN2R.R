@@ -1410,12 +1410,18 @@ read_BIN2R <- function(
     object@METADATA[["FNAME"]] <- strsplit(x = basename(file), split = ".", fixed = TRUE)[[1]][1]
   }
 
-  # Fast Forward --------------------------------------------------------------------------------
-  ## set fastForward to TRUE if one of this arguments is used
-  if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
-     fastForward == FALSE) {
-    fastForward <- TRUE
-    .throw_warning("Automatically reset 'fastForward = TRUE'")
+  ## Fast Forward -----------------------------------------------------------
+
+  ## set fastForward to TRUE if arguments to Risoe.BINfileData2RLum.Analysis
+  ## were specified
+  if (!fastForward) {
+    dots <- names(list(...))
+    args <- dots[dots %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]]
+    if (length(args) > 0) {
+      fastForward <- TRUE
+      .throw_warning("Additional arguments specified: ", .collapse(args),
+                     ", setting 'fastForward = TRUE'")
+    }
   }
 
   ##return values

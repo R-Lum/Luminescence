@@ -123,10 +123,6 @@ test_that("test the import of various BIN-file versions", {
       expect_length(t_n.records_0, n = 1)
       expect_length(t_n.records_1_2, n = 2)
 
-  ## V8 - as part of the package ... with arguments
-  expect_type(read_BIN2R(bin.v8, txtProgressBar = FALSE, fastForward = TRUE),
-              "list")
-
   ## directory
   res <- read_BIN2R(test_path("_data"), show_record_number = TRUE)
   expect_type(res, "list")
@@ -140,9 +136,11 @@ test_that("test the import of various BIN-file versions", {
                          txtProgressBar = FALSE, n.records = 1,
                          fastForward = TRUE, verbose = FALSE),
               "list")
-  })
 
-  SW({
+  ## options to Risoe.BINfileData2RLum.Analysis
+  expect_warning(read_BIN2R(bin.v8, fastForward = FALSE, protocol = "test"),
+                 "Additional arguments specified: 'protocol'")
+
   ## check ignore RECTYPE settings
   expect_message(t <- expect_s4_class(read_BIN2R(bin.v8, verbose = TRUE,
                                                  ignore.RECTYPE = 1),
