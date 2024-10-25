@@ -962,7 +962,6 @@ read_BIN2R <- function(
       DATE_SIZE<-6
       temp.DATE<-readChar(con, DATE_SIZE, useBytes=TRUE)
 
-
       ##SEQUENCE
       SEQUENCE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
       temp.SEQUENCE<-readChar(con, SEQUENCE_SIZE, useBytes=TRUE)
@@ -1290,12 +1289,6 @@ read_BIN2R <- function(
     }
   }
 
-  ## recalculate ID as some records may not have been read if n.records was set
-  ## or were dropped by position in the previous block
-  results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
-  if (verbose)
-    message("[read_BIN2R()] The record index has been recalculated")
-
   ##check for position that have no data at all (error during the measurement)
   if(zero_data.rm){
     zero_data.check <- which(vapply(results.DATA, length, numeric(1)) == 0)
@@ -1306,18 +1299,24 @@ read_BIN2R <- function(
       results.DATA[zero_data.check] <- NULL
       results.RESERVED[zero_data.check] <- NULL
 
-      ## if nothing is left, return an empty object
-      if(nrow(results.METADATA) == 0)
-        return(set_Risoe.BINfileData())
-
-      ##recalculate record index
-      results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
-
       .throw_warning("Zero-data records detected and removed: ",
                      .collapse(zero_data.check, quote = FALSE),
                      ", record index recalculated")
+
+      ## if nothing is left, return an empty object
+      if (nrow(results.METADATA) == 0) {
+        if (verbose)
+          message("[read_BIN2R()] Empty object returned")
+        return(set_Risoe.BINfileData())
+      }
     }
   }
+
+  ## recalculate ID as some records may not have been read if n.records was set
+  ## or were dropped by position in the previous block
+  results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
+  if (verbose)
+    message("[read_BIN2R()] The record index has been recalculated")
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
   ##this check is skipped for results with a RECTYPE 128, which stems from camera measurements
@@ -1411,12 +1410,18 @@ read_BIN2R <- function(
     object@METADATA[["FNAME"]] <- strsplit(x = basename(file), split = ".", fixed = TRUE)[[1]][1]
   }
 
-  # Fast Forward --------------------------------------------------------------------------------
-  ## set fastForward to TRUE if one of this arguments is used
-  if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
-     fastForward == FALSE) {
-    fastForward <- TRUE
-    .throw_warning("Automatically reset 'fastForward = TRUE'")
+  ## Fast Forward -----------------------------------------------------------
+
+  ## set fastForward to TRUE if arguments to Risoe.BINfileData2RLum.Analysis
+  ## were specified
+  if (!fastForward) {
+    dots <- names(list(...))
+    args <- dots[dots %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]]
+    if (length(args) > 0) {
+      fastForward <- TRUE
+      .throw_warning("Additional arguments specified: ", .collapse(args),
+                     ", setting 'fastForward = TRUE'")
+    }
   }
 
   ##return values

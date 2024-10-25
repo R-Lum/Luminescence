@@ -123,16 +123,14 @@ test_that("test the import of various BIN-file versions", {
       expect_length(t_n.records_0, n = 1)
       expect_length(t_n.records_1_2, n = 2)
 
-  ## V8 - as part of the package ... with arguments
-  expect_type(read_BIN2R(bin.v8, txtProgressBar = FALSE, fastForward = TRUE),
-              "list")
-
   ## directory
   res <- read_BIN2R(test_path("_data"), show_record_number = TRUE)
   expect_type(res, "list")
   expect_length(res, 5)
 
-    ## test n.records
+  res <- read_BIN2R(test_path("_data"), pattern = "_V[34]")
+  expect_type(res, "list")
+  expect_length(res, 2)
 
   ## test further options
   ## n.records and fastForward
@@ -140,9 +138,11 @@ test_that("test the import of various BIN-file versions", {
                          txtProgressBar = FALSE, n.records = 1,
                          fastForward = TRUE, verbose = FALSE),
               "list")
-  })
 
-  SW({
+  ## options to Risoe.BINfileData2RLum.Analysis
+  expect_warning(read_BIN2R(bin.v8, fastForward = FALSE, protocol = "test"),
+                 "Additional arguments specified: 'protocol'")
+
   ## check ignore RECTYPE settings
   expect_message(t <- expect_s4_class(read_BIN2R(bin.v8, verbose = TRUE,
                                                  ignore.RECTYPE = 1),
@@ -172,10 +172,9 @@ test_that("test the import of various BIN-file versions", {
 test_that("test hand-crafted files", {
   testthat::skip_on_cran()
 
-  corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
-  duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
-  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
 
+  ## corrupted
+  corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
   expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE),
                  "BIN-file appears to be corrupt, import limited to the first")
   expect_equal(nrow(res@METADATA), 1)
@@ -184,10 +183,18 @@ test_that("test hand-crafted files", {
                  "BIN-file appears to be corrupt, 'n.records' reset to 1")
   expect_equal(nrow(res@METADATA), 1)
 
+  ## two versions
   res <- read_BIN2R(test_path("_data/bin-tests/two-versions.binx"),
                     verbose = FALSE)
   expect_equal(nrow(res@METADATA), 4)
 
+  ## rectype 128
+  rectype.128.bin <- test_path("_data/bin-tests/rectype-128.binx")
+  res <- read_BIN2R(rectype.128.bin, verbose = FALSE)
+  expect_equal(nrow(res@METADATA), 3)
+
+  ## duplicate
+  duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
   expect_warning(res <- read_BIN2R(duplicate.bin, verbose = FALSE),
                  "Duplicated records detected: 2")
   expect_equal(nrow(res@METADATA), 3)
@@ -199,6 +206,8 @@ test_that("test hand-crafted files", {
   expect_equal(nrow(res@METADATA), 2)
   expect_equal(length(res@.RESERVED), nrow(res@METADATA))
 
+  ## zero-data
+  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
   expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
                  "Zero-data records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 1)
@@ -210,5 +219,10 @@ test_that("test hand-crafted files", {
 
   expect_silent(res <- read_BIN2R(zero.data.bin, verbose = FALSE,
                                   zero_data.rm = FALSE))
+
+  zero.data.all <- test_path("_data/bin-tests/zero-data-all.binx")
+  expect_message(expect_warning(read_BIN2R(zero.data.all, txtProgressBar = FALSE),
+                                "Zero-data records detected and removed: 1, 2"),
+                 "Empty object returned")
   })
 })
