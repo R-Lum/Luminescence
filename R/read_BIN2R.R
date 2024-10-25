@@ -1268,12 +1268,16 @@ read_BIN2R <- function(
 
   ## Record removals --------------------------------------------------------
 
+  ## silence note from R CMD check
+  POSITION <- ID <- LIGHTSOURCE <- LTYPE <- DTYPE <- TIME <- FNAME <- NULL
+
   ## check if only the specified positions should be returned
   if(!is.null(position)){
+
     ##check whether the position is valid at all
-    if (all(position %in% results.METADATA[["POSITION"]])) {
-      keep.positions <- results.METADATA[["POSITION"]] %in% position
-      results.METADATA <- results.METADATA[keep.positions, ]
+    if (results.METADATA[, all(position %in% POSITION)]) {
+      keep.positions <- results.METADATA[, POSITION %in% position]
+      results.METADATA <- results.METADATA[keep.positions == TRUE, ]
       results.DATA <- results.DATA[keep.positions]
       results.RESERVED <- results.RESERVED[keep.positions]
 
@@ -1284,7 +1288,7 @@ read_BIN2R <- function(
     }else{
       .throw_warning("At least one position number is not valid, ",
                      "valid position numbers are: ",
-                     .collapse(unique(results.METADATA[["POSITION"]]),
+                     .collapse(results.METADATA[, unique(POSITION)],
                                quote = FALSE))
     }
   }
@@ -1294,7 +1298,7 @@ read_BIN2R <- function(
     zero_data.check <- which(vapply(results.DATA, length, numeric(1)) == 0)
 
     ##remove records if there is something to remove
-    if(length(zero_data.check) != 0){
+    if (length(zero_data.check) > 0) {
       results.METADATA <- results.METADATA[-zero_data.check, ]
       results.DATA[zero_data.check] <- NULL
       results.RESERVED[zero_data.check] <- NULL
@@ -1339,7 +1343,7 @@ read_BIN2R <- function(
         results.RESERVED[duplication.check] <- NULL
 
         ##recalculate record index
-        results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
+        results.METADATA[, ID := 1:.N]
 
         ##message
         if(verbose) {
@@ -1356,58 +1360,49 @@ read_BIN2R <- function(
     }
   }
 
-  ##produce S4 object for output
+
+  # Convert Translation Matrix Values ---------------------------------------
+
+  if (!show.raw.values) {
+    ##LIGHTSOURCE CONVERSION
+    results.METADATA[, LIGHTSOURCE := unname(LIGHTSOURCE.lookup[LIGHTSOURCE])]
+
+    ##LTYPE CONVERSION
+    results.METADATA[, LTYPE := unname(LTYPE.lookup[LTYPE])]
+
+    ##DTYPE CONVERSION
+    results.METADATA[, DTYPE := unname(DTYPE.lookup[DTYPE])]
+
+    ## check for oddly set LTYPES, this may happen in old BIN-file versions
+    if (results.METADATA$VERSION[1] == 3) {
+      results.METADATA[LTYPE == "OSL" & LIGHTSOURCE == "IR diodes/IR Laser",
+                       LTYPE := "IRSL"]
+    }
+
+    ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
+    if (TIME_SIZE == 6) {
+      results.METADATA[, TIME := format(as.POSIXct(TIME, format = "%H%M%S"),
+                                        "%H:%M:%S")]
+    }
+  }
+
+  ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
+  ## This can happen if the user uses different equipment
+  if (results.METADATA[, all(is.na(FNAME))]) {
+    results.METADATA[, FNAME := tools::file_path_sans_ext(basename(file))]
+  }
+
+  ## produce S4 object for output
   object <- set_Risoe.BINfileData(
     METADATA = results.METADATA,
     DATA = results.DATA,
-    .RESERVED =  results.RESERVED)
+    .RESERVED = results.RESERVED)
 
   if (length(object) == 0) {
     if (verbose) {
       message("[read_BIN2R()] Empty object returned")
     }
     return(object)
-  }
-
-  # Convert Translation Matrix Values ---------------------------------------
-  if (!show.raw.values) {
-    ##LIGHTSOURCE CONVERSION
-    object@METADATA[["LIGHTSOURCE"]] <-
-      unname(LIGHTSOURCE.lookup[object@METADATA[["LIGHTSOURCE"]]])
-
-    ##LTYPE CONVERSION
-    object@METADATA[["LTYPE"]] <-
-      unname(LTYPE.lookup[object@METADATA[["LTYPE"]]])
-
-    ##DTYPE CONVERSION
-    object@METADATA[["DTYPE"]] <-
-      unname(DTYPE.lookup[object@METADATA[["DTYPE"]]])
-
-        ##CHECK for oddly set LTYPES, this may happen in old BIN-file versions
-        if (object@METADATA[["VERSION"]][1] == 3) {
-          object@METADATA[["LTYPE"]] <-
-            sapply(1:length(object@METADATA[["LTYPE"]]), function(x) {
-              if (object@METADATA[["LTYPE"]][x] == "OSL" &
-                  object@METADATA[["LIGHTSOURCE"]][x] == "IR diodes/IR Laser") {
-                return("IRSL")
-
-              } else{
-                return(object@METADATA[["LTYPE"]][x])
-              }
-            })
-        }
-
-    ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
-    if (TIME_SIZE == 6) {
-      object@METADATA[["TIME"]] <-
-        format(strptime(as.character(object@METADATA[["TIME"]]), "%H%M%S"), "%H:%M:%S")
-    }
-  }
-
-  ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
-  ## This can happen if the user uses different equipment
-  if(all(is.na(object@METADATA[["FNAME"]]))){
-    object@METADATA[["FNAME"]] <- strsplit(x = basename(file), split = ".", fixed = TRUE)[[1]][1]
   }
 
   ## Fast Forward -----------------------------------------------------------
