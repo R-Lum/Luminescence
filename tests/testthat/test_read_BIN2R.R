@@ -128,7 +128,9 @@ test_that("test the import of various BIN-file versions", {
   expect_type(res, "list")
   expect_length(res, 5)
 
-    ## test n.records
+  res <- read_BIN2R(test_path("_data"), pattern = "_V[34]")
+  expect_type(res, "list")
+  expect_length(res, 2)
 
   ## test further options
   ## n.records and fastForward
