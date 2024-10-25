@@ -378,7 +378,7 @@ setMethod(f = "show",
               ## if id_128
               if(any(!id_128))
                 cat("\n\t + additional ROI data found in record(s):",
-                    .collapse(which(!id_128), quote = FALSE), "\n")
+                    .collapse(which(!id_128), quote = FALSE))
 
             }else{
               cat("\n[Risoe.BINfileData object]")
