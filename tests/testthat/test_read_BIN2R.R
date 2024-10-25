@@ -172,10 +172,9 @@ test_that("test the import of various BIN-file versions", {
 test_that("test hand-crafted files", {
   testthat::skip_on_cran()
 
-  corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
-  duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
-  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
 
+  ## corrupted
+  corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
   expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE),
                  "BIN-file appears to be corrupt, import limited to the first")
   expect_equal(nrow(res@METADATA), 1)
@@ -184,10 +183,13 @@ test_that("test hand-crafted files", {
                  "BIN-file appears to be corrupt, 'n.records' reset to 1")
   expect_equal(nrow(res@METADATA), 1)
 
+  ## two versions
   res <- read_BIN2R(test_path("_data/bin-tests/two-versions.binx"),
                     verbose = FALSE)
   expect_equal(nrow(res@METADATA), 4)
 
+  ## duplicate
+  duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
   expect_warning(res <- read_BIN2R(duplicate.bin, verbose = FALSE),
                  "Duplicated records detected: 2")
   expect_equal(nrow(res@METADATA), 3)
@@ -199,6 +201,8 @@ test_that("test hand-crafted files", {
   expect_equal(nrow(res@METADATA), 2)
   expect_equal(length(res@.RESERVED), nrow(res@METADATA))
 
+  ## zero-data
+  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
   expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
                  "Zero-data records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 1)
@@ -210,5 +214,10 @@ test_that("test hand-crafted files", {
 
   expect_silent(res <- read_BIN2R(zero.data.bin, verbose = FALSE,
                                   zero_data.rm = FALSE))
+
+  zero.data.all <- test_path("_data/bin-tests/zero-data-all.binx")
+  expect_message(expect_warning(read_BIN2R(zero.data.all, txtProgressBar = FALSE),
+                                "Zero-data records detected and removed: 1, 2"),
+                 "Empty object returned")
   })
 })
