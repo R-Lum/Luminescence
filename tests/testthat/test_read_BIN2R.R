@@ -188,6 +188,11 @@ test_that("test hand-crafted files", {
                     verbose = FALSE)
   expect_equal(nrow(res@METADATA), 4)
 
+  ## rectype 128
+  rectype.128.bin <- test_path("_data/bin-tests/rectype-128.binx")
+  res <- read_BIN2R(rectype.128.bin, verbose = FALSE)
+  expect_equal(nrow(res@METADATA), 3)
+
   ## duplicate
   duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
   expect_warning(res <- read_BIN2R(duplicate.bin, verbose = FALSE),
