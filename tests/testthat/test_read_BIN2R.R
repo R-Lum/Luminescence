@@ -172,23 +172,32 @@ test_that("test the import of various BIN-file versions", {
 test_that("test hand-crafted files", {
   testthat::skip_on_cran()
 
+  corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
+  duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
+  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
+
+  expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE),
+                 "BIN-file appears to be corrupt, import limited to the first")
+  expect_equal(nrow(res@METADATA), 1)
+  expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE,
+                                   n.records = 2),
+                 "BIN-file appears to be corrupt, 'n.records' reset to 1")
+  expect_equal(nrow(res@METADATA), 1)
+
   res <- read_BIN2R(test_path("_data/bin-tests/two-versions.binx"),
                     verbose = FALSE)
   expect_equal(nrow(res@METADATA), 4)
 
-  expect_warning(res <- read_BIN2R(test_path("_data/bin-tests/duplicated-records.binx"),
-                                   verbose = FALSE),
+  expect_warning(res <- read_BIN2R(duplicate.bin, verbose = FALSE),
                  "Duplicated records detected: 2")
   expect_equal(nrow(res@METADATA), 3)
 
   SW({
-  expect_message(res <- read_BIN2R(test_path("_data/bin-tests/duplicated-records.binx"),
+  expect_message(res <- read_BIN2R(duplicate.bin,
                                    duplicated.rm = TRUE, verbose = TRUE),
                  "Duplicated records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 2)
   expect_equal(length(res@.RESERVED), nrow(res@METADATA))
-
-  zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
 
   expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
                  "Zero-data records detected and removed: 2")
