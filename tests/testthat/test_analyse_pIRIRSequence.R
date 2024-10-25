@@ -67,7 +67,25 @@ test_that("check plot stuff", {
     verbose = FALSE),
     "[analyse_pIRIRSequence()] Argument 'plot' reset to 'FALSE'",
     fixed = TRUE)
-  
+
+  ## this should not throw any warning because we print to a large enough pdf
+  pdf.out <- tempfile(fileext = ".pdf")
+  pdf(pdf.out, width = 20, height = 20)
+  expect_silent(analyse_pIRIRSequence(
+    object,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    fit.method = "EXP",
+    sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+    main = "Pseudo pIRIR data set based on quartz OSL",
+    plot = TRUE,
+    plot.single = FALSE,
+    verbose = FALSE))
+  dev.off()
+  unlink(pdf.out)
+
   ## here it should not throw any warning because we used plot.single = TRUE
   expect_silent(analyse_pIRIRSequence(
     object,
