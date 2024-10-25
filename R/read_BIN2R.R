@@ -1096,6 +1096,17 @@ read_BIN2R <- function(
         temp.PTENABLED <- temp[1]
         temp.RESERVED2 <- temp[2:11]
       }
+    } else {
+      ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      ## Unrecognised version
+      ##
+      ## We should already have raised a warning that the file is corrupt
+      ## during the first scan of the BIN/BINX file: at that point we have
+      ## set `n.records` so that we would stop reading before encountering
+      ## again the record with unrecognised version number, so here we just
+      ## assert that that is the case and exit the loop
+      stopifnot(temp.ID + 1 > n.records)
+      break()
     }
 
      #DPOINTS
