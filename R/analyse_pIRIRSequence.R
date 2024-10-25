@@ -266,8 +266,8 @@ analyse_pIRIRSequence <- function(
       plot <- FALSE
       .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot ",
                      "size required is 18 x 18 in.\n",
-                     "Consider plotting via `pdf(..., height = 20, width = 20)` ",
-                     "or setting `plot.single = FALSE`")
+                     "Consider plotting via `pdf(..., height = 18, width = 18)` ",
+                     "or setting `plot.single = TRUE`")
     }
 
 # Deal with extra arguments -------------------------------------------------------------------
