@@ -21,7 +21,7 @@ header-includes:
 was caused by a regression while implementing the `n_N` calculation in `plot_GrowthCurve()`. Potentially
 affected was also `analyse_SAR.CWOSL()`.
 * The function now shows a warning and sets `plot = FALSE` when option
-`plot.single = TRUE` is set but the device size is too small. This should
+`plot.single = FALSE` is set but the device size is too small. This should
 prevent "Figure margins too large" errors.
 * The function will not crash anymore during the plotting in another edge case related to single grain data. 
 
