@@ -89,6 +89,8 @@ and `plot_DoseResponseCurve()`. There should be no visible user-facing
 changes (#319, fixed in #322).
 * Support new `...` arguments for plotting (implementation in `plot_DoseResponseCurve()`) for
 `legend` (turn on/off legend) and `reg_points_pch` for fine grained control over the point shape.
+* Add `density_polygon`, `density_pologyon_col` and `density_rug` as `...` arguments to plot and
+add respective plot options
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect
@@ -101,7 +103,7 @@ fixed in #263).
 
 ### `read_BIN2R()`
 * Argument `n.records` is now better supported for BIN files v3 and v4 and
-doesn't lead to a crash when used in conjuction with the `fastForward`
+doesn't lead to a crash when used in conjunction with the `fastForward`
 option (#343, fixed in #344).
 * Argument `zero_data.rm` was not correctly propagated if the input object
 was provided as a list (#342, fixed in #345).

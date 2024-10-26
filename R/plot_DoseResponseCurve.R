@@ -27,7 +27,8 @@
 #' enables or disables terminal feedback.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`).
+#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`, 
+#' `density_polygon` (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`)).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
@@ -160,7 +161,10 @@ plot_DoseResponseCurve <- function(
           ""
         },
       legend = TRUE,
-      reg_points_pch = c(19,2, 1)),
+      reg_points_pch = c(19,2, 1),
+      density_polygon = TRUE,
+      density_polygon_col = rgb(1,0,0,0.2),
+      density_rug = TRUE),
     val = list(...), 
     keep.null = TRUE 
   )
@@ -270,6 +274,32 @@ plot_DoseResponseCurve <- function(
           cex = 1.1 * cex.global)
         }, 
         silent = TRUE)
+      
+      
+      if(plot_settings$density_polygon[1] && length(x.natural) > 1) {
+          ##calculate density De.MC
+          density_De <- density(x.natural)
+    
+          ##calculate transformation function
+          x.1 <- max(density_De$y)
+          x.2 <- min(density_De$y)
+          y.1 <- c(sample[1, 2])/2
+          y.2 <- par("usr")[3]
+          
+          m <- (y.1 - y.2) / (x.1 + x.2)
+          n <- y.1 - m * x.1
+          density_De$y <- m * density_De$y + n
+    
+          polygon(
+            x = density_De$x,
+            y = density_De$y,
+            col = plot_settings$density_polygon_col)
+          
+          rm(x.1,x.2,y.1,y.2,m,n, density_De)
+      }
+      
+      if(plot_settings$density_rug[1])
+        rug(x = x.natural,side = 3)
 
     } else if (mode == "extrapolation"){
       if (!is.na(De)) {

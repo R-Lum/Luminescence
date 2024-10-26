@@ -32,5 +32,8 @@ test_that("plot output", {
   ## check plot settings
   expect_s4_class(plot_DoseResponseCurve(fit, legend = FALSE), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, reg_points_pch = 1), "RLum.Results")
+  expect_s4_class(plot_DoseResponseCurve(fit, density_polygon = FALSE), "RLum.Results")
+  expect_s4_class(plot_DoseResponseCurve(fit, density_rug = FALSE), "RLum.Results") 
+  expect_s4_class(plot_DoseResponseCurve(fit, density_polygon_col = "green"), "RLum.Results")
 
 })
