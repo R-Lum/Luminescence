@@ -382,48 +382,7 @@ read_BIN2R <- function(
   )
 
   ##PRESET VALUES
-  temp.CURVENO <- NA
-  temp.FNAME <- NA
-  temp.MEASTEMP <- NA
-  temp.IRR_UNIT <- NA
-  temp.IRR_DOSERATE <- NA
-  temp.IRR_DOSERATEERR <- NA
-  temp.TIMESINCEIRR <- NA
-  temp.TIMETICK <- NA
-  temp.ONTIME <- NA
-  temp.OFFTIME <- NA
-  temp.STIMPERIOD <- NA
-  temp.GATE_ENABLED <- raw(length = 1)
-  temp.ENABLE_FLAGS <- raw(length = 1)
-  temp.GATE_START <- NA
-  temp.GATE_STOP <- NA
-  temp.GATE_END <- NA
-  temp.PTENABLED <- raw(length = 1)
-  temp.DTENABLED <- raw(length = 1)
-  temp.DEADTIME <- NA
-  temp.MAXLPOWER <- NA
-  temp.XRF_ACQTIME <- NA
-  temp.XRF_HV <- NA
-  temp.XRF_CURR <- NA
-  temp.XRF_DEADTIMEF <- NA
-  temp.DETECTOR_ID <- NA
-  temp.LOWERFILTER_ID <- NA
-  temp.UPPERFILTER_ID <- NA
-  temp.ENOISEFACTOR <- NA
-  temp.SEQUENCE <- NA
-  temp.GRAIN <- NA
-  temp.GRAINNUMBER <- NA
-  temp.LIGHTPOWER <- NA
-  temp.LPOWER <- NA
   temp.RECTYPE <- 0
-  temp.MARKPOS_X1 <- NA
-  temp.MARKPOS_Y1 <- NA
-  temp.MARKPOS_X2 <- NA
-  temp.MARKPOS_Y2 <- NA
-  temp.MARKPOS_X3 <- NA
-  temp.MARKPOS_Y3 <- NA
-  temp.EXTR_START <- NA
-  temp.EXTR_END <- NA
 
   ## set TIME_SIZE
   TIME_SIZE <- 0
@@ -435,104 +394,96 @@ read_BIN2R <- function(
   ## set index for entry row in table
   id_row <- 1
 
-  ## initialise default empty list
-  results.METADATA.defaults <- list(
-    ##1 to 7
-    ID = 0,
-    SEL = FALSE,
-    VERSION = 0,
-    LENGTH = 0L,
-    PREVIOUS = 0L,
-    NPOINTS = 0L,
-    RECTYPE = 0L,
+  ## 1 to 7
+  ID       <- integer(length = n.length)
+  SEL      <- NULL # derived from TAG
+  VERSION  <- numeric(length = n.length)
+  LENGTH   <- integer(length = n.length)
+  PREVIOUS <- integer(length = n.length)
+  NPOINTS  <- integer(length = n.length)
+  RECTYPE  <- integer(length = n.length)
 
-    #8 to 17
-    RUN = 0L,
-    SET = 0L,
-    POSITION = 0L,
-    GRAIN = 0L,
-    GRAINNUMBER = 0L,
-    CURVENO = 0L,
-    XCOORD = 0L,
-    YCOORD = 0L,
-    SAMPLE = "",
-    COMMENT = "",
+  ## 8 to 17
+  RUN         <- rep_len(NA_integer_, n.length)
+  SET         <- rep_len(NA_integer_, n.length)
+  POSITION    <- integer(n.length) # default value 0
+  GRAIN       <- NULL # derived from GRAINNUMBER
+  GRAINNUMBER <- integer(n.length) # default value 0
+  CURVENO     <- rep_len(NA_integer_, n.length)
+  XCOORD      <- rep_len(NA_integer_, n.length)
+  YCOORD      <- rep_len(NA_integer_, n.length)
+  SAMPLE      <- character(length = n.length)
+  COMMENT     <- character(length = n.length)
 
-    #18 to 22
-    SYSTEMID = 0L,
-    FNAME = "",
-    USER = "",
-    TIME = "",
-    DATE = "",
+  ## 18 to 22
+  SYSTEMID <- rep_len(NA_integer_, n.length)
+  FNAME    <- character(length = n.length)
+  USER     <- character(length = n.length)
+  TIME     <- character(length = n.length)
+  DATE     <- character(length = n.length)
 
-    ##23 to 31
-    DTYPE = NA_character_,
-    BL_TIME = 0,
-    BL_UNIT = 0L,
-    NORM1 = 0,
-    NORM2 = 0,
-    NORM3 = 0,
-    BG = 0,
-    SHIFT = 0L,
-    TAG = 0L,
+  ## 23 to 31
+  DTYPE   <- character(length = n.length)
+  BL_TIME <- rep_len(NA_real_, n.length)
+  BL_UNIT <- rep_len(NA_integer_, n.length)
+  NORM1   <- rep_len(NA_real_, n.length)
+  NORM2   <- rep_len(NA_real_, n.length)
+  NORM3   <- rep_len(NA_real_, n.length)
+  BG      <- rep_len(NA_real_, n.length)
+  SHIFT   <- rep_len(NA_integer_, n.length)
+  TAG     <- rep_len(NA_integer_, n.length)
 
-    ##32 to 67
-    LTYPE = NA_character_,
-    LIGHTSOURCE = "",
-    LPOWER = 0,
-    LIGHTPOWER = 0,
-    LOW = 0,
-    HIGH = 0,
-    RATE = 0,
-    TEMPERATURE = 0,
-    MEASTEMP = 0,
-    AN_TEMP = 0,
-    AN_TIME = 0,
-    TOLDELAY = 0L,
-    TOLON = 0L,
-    TOLOFF = 0L,
-    IRR_TIME = 0,
-    IRR_TYPE = 0L,
-    IRR_UNIT = 0L,
-    IRR_DOSERATE = 0,
-    IRR_DOSERATEERR = 0,
-    TIMESINCEIRR = 0,
-    TIMETICK = 0,
-    ONTIME = 0,
-    OFFTIME = 0,
-    STIMPERIOD = 0L,
-    GATE_ENABLED = 0,
-    ENABLE_FLAGS = 0,
-    GATE_START  = 0,
-    GATE_STOP = 0,
-    PTENABLED = 0,
-    DTENABLED = 0,
-    DEADTIME = 0,
-    MAXLPOWER = 0,
-    XRF_ACQTIME = 0,
-    XRF_HV = 0,
-    XRF_CURR = 0,
-    XRF_DEADTIMEF = 0,
+  ## 32 to 67
+  LTYPE        <- character(length = n.length)
+  LIGHTSOURCE  <- character(length = n.length)
+  LPOWER       <- NULL # derived from LIGHTPOWER
+  LIGHTPOWER   <- rep_len(NA_real_, n.length)
+  LOW          <- rep_len(NA_real_, n.length)
+  HIGH         <- rep_len(NA_real_, n.length)
+  RATE         <- rep_len(NA_real_, n.length)
+  TEMPERATURE  <- rep_len(NA_real_, n.length)
+  MEASTEMP     <- rep_len(NA_real_, n.length)
+  AN_TEMP      <- rep_len(NA_real_, n.length)
+  AN_TIME      <- rep_len(NA_real_, n.length)
+  TOLDELAY     <- rep_len(NA_integer_, n.length)
+  TOLON        <- rep_len(NA_integer_, n.length)
+  TOLOFF       <- rep_len(NA_integer_, n.length)
+  IRR_TIME     <- rep_len(NA_real_, n.length)
+  IRR_TYPE     <- rep_len(NA_integer_, n.length)
+  IRR_UNIT     <- rep_len(NA_integer_, n.length)
+  IRR_DOSERATE <- rep_len(NA_real_, n.length)
+  IRR_DOSERATEERR <- rep_len(NA_real_, n.length)
+  TIMESINCEIRR  <- rep_len(NA_real_, n.length)
+  TIMETICK      <- rep_len(NA_real_, n.length)
+  ONTIME        <- rep_len(NA_real_, n.length)
+  OFFTIME       <- rep_len(NA_real_, n.length)
+  STIMPERIOD    <- rep_len(NA_integer_, n.length)
+  GATE_ENABLED  <- rep_len(NA_real_, n.length)
+  ENABLE_FLAGS  <- NULL # derived from GATE_ENABLED
+  GATE_START    <- rep_len(NA_real_, n.length)
+  GATE_STOP     <- rep_len(NA_real_, n.length)
+  PTENABLED     <- rep_len(NA_real_, n.length)
+  DTENABLED     <- rep_len(NA_real_, n.length)
+  DEADTIME      <- rep_len(NA_real_, n.length)
+  MAXLPOWER     <- rep_len(NA_real_, n.length)
+  XRF_ACQTIME   <- rep_len(NA_real_, n.length)
+  XRF_HV        <- rep_len(NA_real_, n.length)
+  XRF_CURR      <- rep_len(NA_real_, n.length)
+  XRF_DEADTIMEF <- rep_len(NA_real_, n.length)
 
-    #68 to 79
-    DETECTOR_ID = 0L,
-    LOWERFILTER_ID = 0L,
-    UPPERFILTER_ID = 0L,
-    ENOISEFACTOR = 0,
-    MARKPOS_X1 = 0,
-    MARKPOS_Y1 = 0,
-    MARKPOS_X2 = 0,
-    MARKPOS_Y2 = 0,
-    MARKPOS_X3 = 0,
-    MARKPOS_Y3 = 0,
-    EXTR_START = 0,
-    EXTR_END = 0,
+  ## 68 to 79
+  DETECTOR_ID    <- rep_len(NA_integer_, n.length)
+  LOWERFILTER_ID <- rep_len(NA_integer_, n.length)
+  UPPERFILTER_ID <- rep_len(NA_integer_, n.length)
+  ENOISEFACTOR   <- rep_len(NA_real_, n.length)
+  MARKPOS_X1 <- MARKPOS_Y1 <- rep_len(NA_real_, n.length)
+  MARKPOS_X2 <- MARKPOS_Y2 <- rep_len(NA_real_, n.length)
+  MARKPOS_X3 <- MARKPOS_Y3 <- rep_len(NA_real_, n.length)
+  EXTR_START <- rep_len(NA_real_, n.length)
+  EXTR_END   <- rep_len(NA_real_, n.length)
 
-    ##80
-    SEQUENCE = ""
-  )
-
-  results.METADATA.list <- list(results.METADATA.defaults)
+  ## 80
+  SEQUENCE <- character(length = n.length)
 
   #set variable for DPOINTS handling
   results.DATA <- list()
@@ -601,6 +552,12 @@ read_BIN2R <- function(
       next()
     }
 
+    ## these must be set only after the n.records check
+    VERSION[id_row]  <- as.numeric(temp.VERSION)
+    LENGTH[id_row]   <- temp.LENGTH
+    PREVIOUS[id_row] <- temp.PREVIOUS
+    NPOINTS[id_row]  <- temp.NPOINTS
+
     ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## BINX FORMAT SUPPORT
     if (temp.VERSION == 05 || temp.VERSION == 06 ||
@@ -610,6 +567,7 @@ read_BIN2R <- function(
       #RECTYPE
       if(temp.VERSION == 08){
         temp.RECTYPE <- readBin(con, what = "int", 1, size = 1, endian = "little", signed = FALSE)
+        RECTYPE[id_row] <- temp.RECTYPE
 
         ## we can check for a specific value for temp.RECTYPE
         if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
@@ -637,9 +595,6 @@ read_BIN2R <- function(
               ## we set the VERSION to NA and remove it later, otherwise we
               ## break expected functionality
               temp.ID <- temp.ID + 1
-              results.METADATA.list[[length(results.METADATA.list) + 1]] <-
-                modifyList(x = results.METADATA.defaults,
-                           val = list(ID = temp.ID, VERSION = NA))
               next()
             }
         }
@@ -658,18 +613,18 @@ read_BIN2R <- function(
         ##(2) Sample characteristics
         ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
         temp <- readBin(con, what = "int", 7, size = 2, endian = "little")
-        temp.RUN <- temp[1]
-        temp.SET <- temp[2]
-        temp.POSITION <- temp[3]
-        temp.GRAINNUMBER <- temp[4]
-        temp.CURVENO <- temp[5]
-        temp.XCOORD <- temp[6]
-        temp.YCOORD <- temp[7]
+        RUN[id_row] <- temp[1]
+        SET[id_row] <- temp[2]
+        POSITION[id_row] <- temp[3]
+        GRAINNUMBER[id_row] <- temp[4]
+        CURVENO[id_row] <- temp[5]
+        XCOORD[id_row] <- temp[6]
+        YCOORD[id_row] <- temp[7]
 
         ##SAMPLE, COMMENT
         ##SAMPLE
         SAMPLE_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-        temp.SAMPLE <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
+        SAMPLE[id_row] <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
 
         #however it should be set to 20
         #step forward in con
@@ -679,7 +634,7 @@ read_BIN2R <- function(
 
         ##COMMENT
         COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-        temp.COMMENT <- suppressWarnings(
+        COMMENT[id_row] <- suppressWarnings(
           readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
 
         #step forward in con
@@ -689,7 +644,7 @@ read_BIN2R <- function(
 
         ##(3) Instrument and sequence characteristic
         ##SYSTEMID
-        temp.SYSTEMID <- readBin(con, what="int", 1, size=2, endian="little")
+        SYSTEMID[id_row] <- readBin(con, what = "integer", 1, size = 2, endian = "little")
 
         ##FNAME
         FNAME_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
@@ -697,7 +652,7 @@ read_BIN2R <- function(
 
         ##correct for 0 file name length
         if (FNAME_SIZE > 0) {
-          temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
+          FNAME[id_row] <- readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
         }
 
         #step forward in con
@@ -711,7 +666,7 @@ read_BIN2R <- function(
 
         ##correct for 0 user size length
         if (USER_SIZE > 0) {
-          temp.USER <-
+          USER[id_row] <-
             suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
         }
 
@@ -732,6 +687,8 @@ read_BIN2R <- function(
           ##correct the mess by others
           if(nchar(temp.TIME) == 5)
             temp.TIME <- paste0("0", temp.TIME)
+
+          TIME[id_row] <- temp.TIME
         }
 
         if (TIME_SIZE < 6) {
@@ -744,30 +701,30 @@ read_BIN2R <- function(
         ##date size corrections for wrong date formats; set n to 6 for all values
         ##according to the handbook of Geoff Duller, 2007
         DATE_SIZE<-6
-        temp.DATE <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
+        DATE[id_row] <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
 
         ##(4) Analysis
         ##DTYPE
-        temp.DTYPE<-readBin(con, what="int", 1, size=1, endian="little")
+        DTYPE[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
         ##BL_TIME
-        temp.BL_TIME<-readBin(con, what="double", 1, size=4, endian="little")
+        BL_TIME[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##BL_UNIT
-        temp.BL_UNIT<-readBin(con, what="int", 1, size=1, endian="little")
+        BL_UNIT[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
         ##NORM1, NORM2, NORM3, BG
         temp <- readBin(con, what="double", 4, size=4, endian="little")
-        temp.NORM1 <- temp[1]
-        temp.NORM2 <- temp[2]
-        temp.NORM3 <- temp[3]
-        temp.BG <- temp[4]
+        NORM1[id_row] <- temp[1]
+        NORM2[id_row] <- temp[2]
+        NORM3[id_row] <- temp[3]
+        BG[id_row] <- temp[4]
 
         ##SHIFT
-        temp.SHIFT<- readBin(con, what="integer", 1, size=2, endian="little")
+        SHIFT[id_row] <- readBin(con, what = "int", 1, size = 2, endian = "little")
 
         ##TAG
-        temp.TAG <- readBin(con, what="int", 1, size=1, endian="little")
+        TAG[id_row] <- readBin(con, what = "int", 1, size = 1, endian = "little")
 
         ##RESERVED
         temp.RESERVED1 <-readBin(con, what="raw", 20, size=1, endian="little")
@@ -777,129 +734,128 @@ read_BIN2R <- function(
         ##LTYPE
         ##LTYPESOURCE
         temp <- readBin(con, what = "integer", 2, size = 1, endian = "little")
-        temp.LTYPE <- temp[1]
-        temp.LIGHTSOURCE <- temp[2]
+        LTYPE[id_row] <- temp[1]
+        LIGHTSOURCE[id_row] <- temp[2]
 
         ##LIGHTPOWER, LOW, HIGH, RATE
         temp <- readBin(con, what="double", 4, size=4, endian="little")
-        temp.LIGHTPOWER <- temp[1]
-        temp.LOW <- temp[2]
-        temp.HIGH <- temp[3]
-        temp.RATE <- temp[4]
+        LIGHTPOWER[id_row] <- temp[1]
+        LOW[id_row] <- temp[2]
+        HIGH[id_row] <- temp[3]
+        RATE[id_row] <- temp[4]
 
         ##TEMPERATURE
         ##MEASTEMP
         temp <- readBin(con, what = "integer", 2, size = 2, endian = "little")
-        temp.TEMPERATURE <- temp[1]
-        temp.MEASTEMP <- temp[2]
+        TEMPERATURE[id_row] <- temp[1]
+        MEASTEMP[id_row] <- temp[2]
 
         ##AN_TEMP
         ##AN_TIME
         temp <- readBin(con, what = "double", 2, size = 4, endian = "little")
-        temp.AN_TEMP <- temp[1]
-        temp.AN_TIME <- temp[2]
+        AN_TEMP[id_row] <- temp[1]
+        AN_TIME[id_row] <- temp[2]
 
         ##DELAY, ON, OFF
         temp <- readBin(con, what="int", 3, size=2, endian="little")
-        temp.TOLDELAY <- temp[1]
-        temp.TOLON <- temp[2]
-        temp.TOLOFF <- temp[3]
+        TOLDELAY[id_row] <- temp[1]
+        TOLON[id_row] <- temp[2]
+        TOLOFF[id_row] <- temp[3]
 
         ##IRR_TIME
-        temp.IRR_TIME <- readBin(con, what="double", 1, size=4, endian="little")
+        IRR_TIME[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##IRR_TYPE
-        temp.IRR_TYPE <- readBin(con, what="int", 1, size=1, endian="little")
+        IRR_TYPE[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
         ##IRR_DOSERATE
-        temp.IRR_DOSERATE <- readBin(con, what="double", 1, size=4, endian="little")
+        IRR_DOSERATE[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##IRR_DOSERATEERR
         if(temp.VERSION != 05)
-          temp.IRR_DOSERATEERR <- readBin(con, what="double", 1, size=4, endian="little")
+          IRR_DOSERATEERR[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##TIMESINCEIRR
-        temp.TIMESINCEIRR <- readBin(con, what="integer", 1, size=4, endian="little")
+        TIMESINCEIRR[id_row] <- readBin(con, what="integer", 1, size=4, endian="little")
 
         ##TIMETICK
-        temp.TIMETICK <- readBin(con, what="double", 1, size=4, endian="little")
+        TIMETICK[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##ONTIME
         ##STIMPERIOD
         temp <- readBin(con, what = "integer", 2, size = 4, endian = "little")
-        temp.ONTIME <- temp[1]
-        temp.STIMPERIOD <- temp[2]
+        ONTIME[id_row] <- temp[1]
+        STIMPERIOD[id_row] <- temp[2]
 
         ##GATE_ENABLED
-        temp.GATE_ENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+        GATE_ENABLED[id_row] <- as.numeric(readBin(con, what="raw", 1, size=1, endian="little"))
 
         ##GATE_START
         ##GATE_STOP
         temp <- readBin(con, what = "integer", 2, size = 4, endian = "little")
-        temp.GATE_START <- temp[1]
-        temp.GATE_STOP <- temp[2]
+        GATE_START[id_row] <- temp[1]
+        GATE_STOP[id_row] <- temp[2]
 
         ##PTENABLED
         ##DTENABLED
-        temp <- readBin(con, what = "raw", 2, size = 1, endian = "little")
-        temp.PTENABLED <- temp[1]
-        temp.DTENABLED <- temp[2]
+        temp <- as.numeric(readBin(con, what = "raw", 2, size = 1, endian = "little"))
+        PTENABLED[id_row] <- temp[1]
+        DTENABLED[id_row] <- temp[2]
 
         ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
         temp <- readBin(con, what="double", 4, size=4, endian="little")
-        temp.DEADTIME <- temp[1]
-        temp.MAXLPOWER <- temp[2]
-        temp.XRF_ACQTIME <- temp[3]
-        temp.XRF_HV <- temp[4]
+        DEADTIME[id_row] <- temp[1]
+        MAXLPOWER[id_row] <- temp[2]
+        XRF_ACQTIME[id_row] <- temp[3]
+        XRF_HV[id_row] <- temp[4]
 
         ##XRF_CURR
-        temp.XRF_CURR <- readBin(con, what="integer", 1, size=4, endian="little")
+        XRF_CURR[id_row] <- readBin(con, what="integer", 1, size=4, endian="little")
 
         ##XRF_DEADTIMEF
-        temp.XRF_DEADTIMEF <- readBin(con, what="double", 1, size=4, endian="little")
+        XRF_DEADTIMEF[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ###Account for differences between V5, V6 and V7
         if(temp.VERSION == 06){
-          ##RESERVED
-          temp.RESERVED2<-readBin(con, what="raw", 24, size=1, endian="little")
+          reserved2.len <- 24
 
         }else if(temp.VERSION == 05){
-          ##RESERVED
-          temp.RESERVED2<-readBin(con, what="raw", 4, size=1, endian="little")
+          reserved2.len <- 4
 
         }else{
 
           ##DETECTOR_ID
-          temp.DETECTOR_ID <- readBin(con, what="int", 1, size=1, endian="little")
+          DETECTOR_ID[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
           ##LOWERFILTER_ID, UPPERFILTER_ID
           temp <- readBin(con, what="int", 2, size=2, endian="little")
-          temp.LOWERFILTER_ID <- temp[1]
-          temp.UPPERFILTER_ID <- temp[2]
+          LOWERFILTER_ID[id_row] <- temp[1]
+          UPPERFILTER_ID[id_row] <- temp[2]
 
           ##ENOISEFACTOR
-          temp.ENOISEFACTOR <- readBin(con, what="double", 1, size=4, endian="little")
+          ENOISEFACTOR[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
           ##CHECK FOR VERSION 07
           if(temp.VERSION == 07){
-            temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
+            reserved2.len <- 15
 
           }else {
             ##MARKER_POSITION
             ###EXTR_START, EXTR_END
             temp <- readBin(con, what = "double", 8, size = 4, endian = "little")
-              temp.MARPOS_X1 <- temp[1]
-              temp.MARPOS_Y1 <- temp[2]
-              temp.MARPOS_X2 <- temp[3]
-              temp.MARPOS_Y2 <- temp[4]
-              temp.MARPOS_X3 <- temp[5]
-              temp.MARPOS_Y3 <- temp[6]
-              temp.EXTR_START <- temp[7]
-              temp.EXTR_END <- temp[8]
-
-            temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
+            MARKPOS_X1[id_row] <- temp[1]
+            MARKPOS_Y1[id_row] <- temp[2]
+            MARKPOS_X2[id_row] <- temp[3]
+            MARKPOS_Y2[id_row] <- temp[4]
+            MARKPOS_X3[id_row] <- temp[5]
+            MARKPOS_Y3[id_row] <- temp[6]
+            EXTR_START[id_row] <- temp[7]
+            EXTR_END[id_row]   <- temp[8]
+            reserved2.len <- 42
           }
         }# end RECTYPE 128
+        temp.RESERVED2 <- readBin(con, what = "raw", reserved2.len, size = 1,
+                                  endian = "little")
       }
     }
 
@@ -908,29 +864,29 @@ read_BIN2R <- function(
     else if (temp.VERSION == 03 || temp.VERSION == 04) {
 
       ##LTYPE
-      temp.LTYPE<-readBin(con, what="int", 1, size=1, endian="little")
+      LTYPE[id_row]<-readBin(con, what="int", 1, size=1, endian="little")
 
       ##LOW, HIGH, RATE
       temp <- readBin(con, what="double", 3, size=4, endian="little")
-      temp.LOW <- temp[1]
-      temp.HIGH <- temp[2]
-      temp.RATE <- temp[3]
+      LOW[id_row] <- temp[1]
+      HIGH[id_row] <- temp[2]
+      RATE[id_row] <- temp[3]
 
       ##XCOORD, YCOORD, TOLDELAY, TOLON, TOLOFF
       temp <- readBin(con, what = "integer", 6, size = 2, endian = "little")
-      temp.TEMPERATURE <- temp[1]
-      temp.XCOORD <- temp[2]
-      temp.YCOORD <- temp[3]
-      temp.TOLDELAY <- temp[4]
-      temp.TOLON <- temp[5]
-      temp.TOLOFF <- temp[6]
+      TEMPERATURE[id_row] <- temp[1]
+      XCOORD[id_row]      <- temp[2]
+      YCOORD[id_row]      <- temp[3]
+      TOLDELAY[id_row]    <- temp[4]
+      TOLON[id_row]       <- temp[5]
+      TOLOFF[id_row]      <- temp[6]
 
       ##POSITION
       ##RUN
       temp <- readBin(con, what = "integer", 2, size = 1, endian = "little",
                       signed = FALSE)
-      temp.POSITION <- temp[1]
-      temp.RUN <- temp[2]
+      POSITION[id_row] <- temp[1]
+      RUN[id_row] <- temp[2]
 
       ##TIME
       TIME_SIZE <- readBin(
@@ -939,7 +895,7 @@ read_BIN2R <- function(
       ##time size corrections for wrong time formats; set n to 6 for all values
       ##according to the handbook of Geoff Duller, 2007
       TIME_SIZE<-6
-      temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+      TIME[id_row] <- readChar(con, TIME_SIZE, useBytes=TRUE)
 
       ##DATE
       DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
@@ -947,11 +903,11 @@ read_BIN2R <- function(
       ##date size corrections for wrong date formats; set n to 6 for all values
       ##according to the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
-      temp.DATE<-readChar(con, DATE_SIZE, useBytes=TRUE)
+      DATE[id_row] <- readChar(con, DATE_SIZE, useBytes=TRUE)
 
       ##SEQUENCE
       SEQUENCE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.SEQUENCE<-readChar(con, SEQUENCE_SIZE, useBytes=TRUE)
+      SEQUENCE[id_row] <- readChar(con, SEQUENCE_SIZE, useBytes=TRUE)
 
       #step forward in con
       if (SEQUENCE_SIZE < 8) {
@@ -960,7 +916,7 @@ read_BIN2R <- function(
 
       ##USER
       USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.USER<-readChar(con, USER_SIZE, useBytes=FALSE)
+      USER[id_row] <- readChar(con, USER_SIZE, useBytes=FALSE)
 
       #step forward in con
       if (USER_SIZE < 8) {
@@ -968,38 +924,38 @@ read_BIN2R <- function(
       }
 
       ##DTYPE
-      temp.DTYPE <- readBin(con, what="int", 1, size=1, endian="little")
+      DTYPE[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
       ##IRR_TIME
-      temp.IRR_TIME <- readBin(con, what="double", 1, size=4, endian="little")
+      IRR_TIME[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
       ##IRR_TYPE
       ##IRR_UNIT
       temp <- readBin(con, what = "integer", 2, size = 1, endian = "little")
-      temp.IRR_TYPE <- temp[1]
-      temp.IRR_UNIT <- temp[2]
+      IRR_TYPE[id_row] <- temp[1]
+      IRR_UNIT[id_row] <- temp[2]
 
       ##BL_TIME
-      temp.BL_TIME<-readBin(con, what="double", 1, size=4, endian="little")
+      BL_TIME[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
       ##BL_UNIT
-      temp.BL_UNIT<-readBin(con, what="int", 1, size=1, endian="little")
+      BL_UNIT[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
       ##AN_TEMP, AN_TIME, NORM1, NORM2, NORM3, BG
       temp <- readBin(con, what="double", 6, size=4, endian="little")
-      temp.AN_TEMP <- temp[1]
-      temp.AN_TIME <- temp[2]
-      temp.NORM1 <- temp[3]
-      temp.NORM2 <- temp[4]
-      temp.NORM3 <- temp[5]
-      temp.BG <- temp[6]
+      AN_TEMP[id_row] <- temp[1]
+      AN_TIME[id_row] <- temp[2]
+      NORM1[id_row] <- temp[3]
+      NORM2[id_row] <- temp[4]
+      NORM3[id_row] <- temp[5]
+      BG[id_row] <- temp[6]
 
       ##SHIFT
-      temp.SHIFT<-readBin(con, what="integer", 1, size=2, endian="little")
+      SHIFT[id_row] <- readBin(con, what="integer", 1, size=2, endian="little")
 
       ##SAMPLE
       SAMPLE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.SAMPLE<-readChar(con, SAMPLE_SIZE, useBytes=TRUE) #however it should be set to 20
+      SAMPLE[id_row] <- readChar(con, SAMPLE_SIZE, useBytes=TRUE) #however it should be set to 20
 
       #step forward in con
       if (SAMPLE_SIZE < 20) {
@@ -1008,7 +964,7 @@ read_BIN2R <- function(
 
       ##COMMENT
       COMMENT_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-      temp.COMMENT <- readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
+      COMMENT[id_row] <- readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
 
       #step forward in con
       if (COMMENT_SIZE < 80) {
@@ -1017,37 +973,36 @@ read_BIN2R <- function(
 
       ##LIGHTSOURCE, SET, TAG
       temp <- readBin(con, what="int", 3, size=1, endian="little")
-      temp.LIGHTSOURCE <- temp[1]
-      temp.SET <- temp[2]
-      temp.TAG <- temp[3]
+      LIGHTSOURCE[id_row] <- temp[1]
+      SET[id_row] <- temp[2]
+      TAG[id_row] <- temp[3]
 
       ##GRAIN
-      temp.GRAIN<-readBin(con, what="integer", 1, size=2, endian="little")
+      GRAINNUMBER[id_row] <- readBin(con, what="int", 1, size=2, endian="little")
 
       ##LPOWER
-      temp.LPOWER<-readBin(con, what="double", 1, size=4, endian="little")
+      LIGHTPOWER[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
       ##SYSTEMID
-      temp.SYSTEMID<-readBin(con, what="integer", 1, size=2, endian="little")
+      SYSTEMID[id_row] <- readBin(con, what="integer", 1, size=2, endian="little")
 
       ##Unfortunately an inconsitent BIN-file structure forces a differenciation ...
       if(temp.VERSION == 03){
         ##RESERVED
-        temp.RESERVED1<-readBin(con, what="raw", 36, size=1, endian="little")
+        temp.RESERVED1 <- readBin(con, what="raw", 36, size=1, endian="little")
 
         ##ONTIME, OFFTIME
         temp <- readBin(con, what="double", 2, size=4, endian="little")
-        temp.ONTIME <- temp[1]
-        temp.OFFTIME <- temp[2]
+        ONTIME[id_row] <- temp[1]
+        OFFTIME[id_row] <- temp[2]
 
         ##Enable flags  #GateEnabled for v 06
-        temp.ENABLE_FLAGS <- readBin(con, what="raw", 1, size=1, endian="little")
-        temp.GATE_ENABLED <- temp.ENABLE_FLAGS
+        GATE_ENABLED[id_row] <- as.numeric(readBin(con, what="raw", 1, size=1, endian="little"))
 
         ##ONGATEDELAY, OFFGATEDELAY
         temp <- readBin(con, what="double", 2, size=4, endian="little")
-        temp.GATE_START <- temp[1]
-        temp.GATE_STOP <- temp[2]
+        GATE_START[id_row] <- temp[1]
+        GATE_STOP[id_row] <- temp[2]
 
         ##RESERVED
         temp.RESERVED2<-readBin(con, what="raw", 1, size=1, endian="little")
@@ -1057,29 +1012,28 @@ read_BIN2R <- function(
         temp.RESERVED1<-readBin(con, what="raw", 20, size=1, endian="little")
 
         ##CURVENO
-        temp.CURVENO <- readBin(con, what="integer", 1, size=2, endian="little")
+        CURVENO[id_row] <- readBin(con, what="integer", 1, size=2, endian="little")
 
         ##TIMETICK
-        temp.TIMETICK <- readBin(con, what="double", 1, size=4, endian="little")
+        TIMETICK[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ##ONTIME, STIMPERIOD
         temp <- readBin(con, what="integer", 2, size=4, endian="little")
-        temp.ONTIME <- temp[1]
-        temp.STIMPERIOD <- temp[2]
+        ONTIME[id_row] <- temp[1]
+        STIMPERIOD[id_row] <- temp[2]
 
         ##GATE_ENABLED
-        temp.GATE_ENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+        GATE_ENABLED[id_row] <- as.numeric(readBin(con, what="raw", 1, size=1, endian="little"))
 
         ##ONGATEDELAY, OFFGATEDELAY
         temp <- readBin(con, what="double", 2, size=4, endian="little")
-        temp.GATE_START <- temp[1]
-        temp.GATE_END <- temp[2]
-        temp.GATE_STOP <- temp.GATE_END
+        GATE_START[id_row] <- temp[1]
+        GATE_STOP[id_row] <- temp[2]
 
         ##PTENABLED
         ##RESERVED
         temp <- readBin(con, what = "raw", 11, size = 1, endian = "little")
-        temp.PTENABLED <- temp[1]
+        PTENABLED[id_row] <- as.numeric(temp[1])
         temp.RESERVED2 <- temp[2:11]
       }
     }
@@ -1117,119 +1071,16 @@ read_BIN2R <- function(
     ## ==========================================================================#
     #SET UNIQUE ID
     temp.ID <- temp.ID + 1
+    ID[id_row] <- temp.ID
 
      ##update progress bar
     if (txtProgressBar) {
       setTxtProgressBar(pb, seek.connection(con, origin = "current"))
     }
 
-    ##set for equal values with different names
-    if(!is.na(temp.GRAINNUMBER)){temp.GRAIN <- temp.GRAINNUMBER}
-    if(!is.na(temp.GRAIN)){temp.GRAINNUMBER <- temp.GRAIN}
-
-    if(!is.na(temp.LIGHTPOWER)){temp.LPOWER <- temp.LIGHTPOWER}
-    if(!is.na(temp.LPOWER)){temp.LIGHTPOWER <- temp.LPOWER}
-
-    temp.SEL <- if(temp.TAG == 1) TRUE else FALSE
-
-    ##replace values in the data.table with values
-    results.METADATA.list[[length(results.METADATA.list) + 1]] <- list(
-      ID = temp.ID,
-      SEL = temp.SEL,
-      VERSION = as.numeric(temp.VERSION),
-      LENGTH = temp.LENGTH,
-      PREVIOUS = temp.PREVIOUS,
-      NPOINTS = temp.NPOINTS,
-      RECTYPE = temp.RECTYPE,
-      RUN = temp.RUN,
-      SET = temp.SET,
-      POSITION = temp.POSITION,
-      GRAIN = temp.GRAIN,
-      GRAINNUMBER = temp.GRAINNUMBER,
-      CURVENO = temp.CURVENO,
-      XCOORD = temp.XCOORD,
-      YCOORD = temp.YCOORD,
-      SAMPLE = temp.SAMPLE,
-      COMMENT = temp.COMMENT,
-      SYSTEMID = temp.SYSTEMID,
-      FNAME = temp.FNAME,
-      USER = temp.USER,
-      TIME = temp.TIME,
-      DATE = temp.DATE,
-      DTYPE = as.character(temp.DTYPE),
-      BL_TIME = temp.BL_TIME,
-      BL_UNIT = temp.BL_UNIT,
-      NORM1 = temp.NORM1,
-      NORM2 = temp.NORM2,
-      NORM3 = temp.NORM3,
-      BG = temp.BG,
-      SHIFT = temp.SHIFT,
-      TAG = temp.TAG,
-      LTYPE = as.character(temp.LTYPE),
-      LIGHTSOURCE = as.character(temp.LIGHTSOURCE),
-      LPOWER = temp.LPOWER,
-      LIGHTPOWER = temp.LIGHTPOWER,
-      LOW = temp.LOW,
-      HIGH = temp.HIGH,
-      RATE = temp.RATE,
-      TEMPERATURE = temp.TEMPERATURE,
-      MEASTEMP = temp.MEASTEMP,
-      AN_TEMP = temp.AN_TEMP,
-      AN_TIME = temp.AN_TIME,
-      TOLDELAY = temp.TOLDELAY,
-      TOLON = temp.TOLON,
-      TOLOFF = temp.TOLOFF,
-      IRR_TIME = temp.IRR_TIME,
-      IRR_TYPE = temp.IRR_TYPE,
-      IRR_UNIT = temp.IRR_UNIT,
-      IRR_DOSERATE = temp.IRR_DOSERATE,
-      IRR_DOSERATEERR = temp.IRR_DOSERATEERR,
-      TIMESINCEIRR = temp.TIMESINCEIRR,
-      TIMETICK = temp.TIMETICK,
-      ONTIME = temp.ONTIME,
-      OFFTIME = temp.OFFTIME,
-      STIMPERIOD = temp.STIMPERIOD,
-      GATE_ENABLED = as.numeric(temp.GATE_ENABLED),
-      ENABLE_FLAGS = as.numeric(temp.ENABLE_FLAGS),
-      GATE_START = temp.GATE_START,
-      GATE_STOP = temp.GATE_STOP,
-      PTENABLED = as.numeric(temp.PTENABLED),
-      DTENABLED = as.numeric(temp.DTENABLED),
-      DEADTIME = temp.DEADTIME,
-      MAXLPOWER = temp.MAXLPOWER,
-      XRF_ACQTIME = temp.XRF_ACQTIME,
-      XRF_HV = temp.XRF_HV,
-      XRF_CURR = temp.XRF_CURR,
-      XRF_DEADTIMEF = temp.XRF_DEADTIMEF,
-      DETECTOR_ID = temp.DETECTOR_ID,
-      LOWERFILTER_ID = temp.LOWERFILTER_ID,
-      UPPERFILTER_ID = temp.UPPERFILTER_ID,
-      ENOISEFACTOR = temp.ENOISEFACTOR,
-      MARKPOS_X1 = temp.MARKPOS_X1,
-      MARKPOS_Y1 = temp.MARKPOS_Y1,
-      MARKPOS_X2 = temp.MARKPOS_X2,
-      MARKPOS_Y2 = temp.MARKPOS_Y2,
-      MARKPOS_X3 = temp.MARKPOS_X3,
-      MARKPOS_Y3 = temp.MARKPOS_Y3,
-
-      ## FIXME(mcol): these two fields were not present when we were building
-      ## up a data.table directly, so to reproduce exactly the objects as
-      ## the previous code, we set them to 0, but arguably this is not
-      ## correct
-      EXTR_START = 0, # temp.EXTR_START,
-      EXTR_END = 0, # temp.EXTR_END,
-
-      SEQUENCE = temp.SEQUENCE
-    )
-
     results.DATA[[id_row]] <- temp.DPOINTS
-
     results.RESERVED[[id_row]][[1]] <- temp.RESERVED1
     results.RESERVED[[id_row]][[2]] <- temp.RESERVED2
-
-    ##reset values
-    temp.GRAINNUMBER <- NA
-    temp.GRAIN <- NA
 
     ## update id row
     id_row <- id_row + 1
@@ -1241,14 +1092,89 @@ read_BIN2R <- function(
     close(pb)
   }
 
-  ## remove NA values created by skipping records
-  results.METADATA <- rbindlist(results.METADATA.list)
-  results.METADATA <- na.omit(results.METADATA, cols = "VERSION")
+  ## generate the final data.table
+  results.METADATA <- data.table(
+      ID,
+      SEL = as.logical(TAG),
+      VERSION,
+      LENGTH,
+      PREVIOUS,
+      NPOINTS,
+      RECTYPE,
+      RUN,
+      SET,
+      POSITION,
+      GRAIN = GRAINNUMBER,
+      GRAINNUMBER,
+      CURVENO,
+      XCOORD,
+      YCOORD,
+      SAMPLE,
+      COMMENT,
+      SYSTEMID,
+      FNAME,
+      USER,
+      TIME,
+      DATE,
+      DTYPE,
+      BL_TIME,
+      BL_UNIT,
+      NORM1,
+      NORM2,
+      NORM3,
+      BG,
+      SHIFT,
+      TAG,
+      LTYPE,
+      LIGHTSOURCE,
+      LPOWER = LIGHTPOWER,
+      LIGHTPOWER,
+      LOW,
+      HIGH,
+      RATE,
+      TEMPERATURE,
+      MEASTEMP,
+      AN_TEMP,
+      AN_TIME,
+      TOLDELAY,
+      TOLON,
+      TOLOFF,
+      IRR_TIME,
+      IRR_TYPE,
+      IRR_UNIT,
+      IRR_DOSERATE,
+      IRR_DOSERATEERR,
+      TIMESINCEIRR,
+      TIMETICK,
+      ONTIME,
+      OFFTIME,
+      STIMPERIOD,
+      GATE_ENABLED,
+      ENABLE_FLAGS = GATE_ENABLED,
+      GATE_START,
+      GATE_STOP,
+      PTENABLED,
+      DTENABLED,
+      DEADTIME,
+      MAXLPOWER,
+      XRF_ACQTIME,
+      XRF_HV,
+      XRF_CURR,
+      XRF_DEADTIMEF,
+      DETECTOR_ID,
+      LOWERFILTER_ID,
+      UPPERFILTER_ID,
+      ENOISEFACTOR,
+      MARKPOS_X1, MARKPOS_Y1,
+      MARKPOS_X2, MARKPOS_Y2,
+      MARKPOS_X3, MARKPOS_Y3,
+      EXTR_START,
+      EXTR_END,
+      SEQUENCE
+    )
 
-  ## remove the first row (default) unless it's the only one left
-  if (nrow(results.METADATA) > 1) {
-    results.METADATA <- results.METADATA[-1]
-  }
+  ## remove NA values created by skipping records
+  results.METADATA <- na.omit(results.METADATA, cols = "VERSION")
 
   ##output
   if(verbose)
