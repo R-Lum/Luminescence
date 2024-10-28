@@ -3,7 +3,7 @@ test_that("Complete test", {
 
   ##create suitable dataset
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-  temp <- read_RF2R(file)
+  temp <- read_RF2R(file, verbose = FALSE)
 
   ##crash function
   expect_error(plot_ROI(object = "stop"),

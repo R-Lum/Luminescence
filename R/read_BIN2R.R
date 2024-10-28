@@ -1215,8 +1215,7 @@ read_BIN2R <- function(
       results.RESERVED[zero_data.check] <- NULL
 
       .throw_warning("Zero-data records detected and removed: ",
-                     .collapse(zero_data.check, quote = FALSE),
-                     ", record index recalculated")
+                     .collapse(zero_data.check, quote = FALSE))
     }
   }
 
@@ -1226,12 +1225,6 @@ read_BIN2R <- function(
       message("[read_BIN2R()] Empty object returned")
     return(set_Risoe.BINfileData())
   }
-
-  ## recalculate ID as some records may not have been read if n.records was set
-  ## or were dropped by position in the previous block
-  results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
-  if (verbose)
-    message("[read_BIN2R()] The record index has been recalculated")
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
   ##this check is skipped for results with a RECTYPE 128, which stems from camera measurements
@@ -1253,14 +1246,10 @@ read_BIN2R <- function(
         results.DATA[duplication.check] <- NULL
         results.RESERVED[duplication.check] <- NULL
 
-        ##recalculate record index
-        results.METADATA[, ID := 1:.N]
-
         ##message
         if(verbose) {
           message("[read_BIN2R()] Duplicated records detected and removed: ",
-                  .collapse(duplication.check, quote = FALSE),
-                  ", record index recalculated")
+                  .collapse(duplication.check, quote = FALSE))
         }
 
       } else{
@@ -1271,6 +1260,13 @@ read_BIN2R <- function(
     }
   }
 
+  ## recalculate ID as some records may not have been read if n.records
+  ## was set or they were dropped in one of the previous blocks
+  if (results.METADATA[, .N != n.length || max(ID) > n.length]) {
+    results.METADATA[, ID := 1:.N]
+    if (verbose)
+      message("[read_BIN2R()] The record index has been recalculated")
+  }
 
   # Convert Translation Matrix Values ---------------------------------------
 
