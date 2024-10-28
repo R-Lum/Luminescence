@@ -397,7 +397,7 @@ read_BIN2R <- function(
   ## 1 to 7
   ID       <- integer(length = n.length)
   SEL      <- NULL # derived from TAG
-  VERSION  <- numeric(length = n.length)
+  VERSION  <- rep_len(NA_integer_, n.length)
   LENGTH   <- integer(length = n.length)
   PREVIOUS <- integer(length = n.length)
   NPOINTS  <- integer(length = n.length)
@@ -553,7 +553,8 @@ read_BIN2R <- function(
     }
 
     ## these must be set only after the n.records check
-    VERSION[id_row]  <- as.numeric(temp.VERSION)
+    ## we don't set VERSION now, as we must leave it set to NA in case we
+    ## decide to skip the current record
     LENGTH[id_row]   <- temp.LENGTH
     PREVIOUS[id_row] <- temp.PREVIOUS
     NPOINTS[id_row]  <- temp.NPOINTS
@@ -1059,14 +1060,17 @@ read_BIN2R <- function(
        })
      }
 
-    #endif:format support
-    ##END BIN FILE FORMAT SUPPORT
-    ## ==========================================================================#
-    #SET UNIQUE ID
+    ## ----------------------------------------------------------------------
+    ## close the current record
+
     temp.ID <- temp.ID + 1
     ID[id_row] <- temp.ID
 
-     ##update progress bar
+    ## we set VERSION only now to its real value: as we've got here, we have
+    ## read the entire record and decided to keep it
+    VERSION[id_row]  <- as.numeric(temp.VERSION)
+
+    ## update the progress bar
     if (txtProgressBar) {
       setTxtProgressBar(pb, seek.connection(con, origin = "current"))
     }
@@ -1213,14 +1217,14 @@ read_BIN2R <- function(
       .throw_warning("Zero-data records detected and removed: ",
                      .collapse(zero_data.check, quote = FALSE),
                      ", record index recalculated")
-
-      ## if nothing is left, return an empty object
-      if (nrow(results.METADATA) == 0) {
-        if (verbose)
-          message("[read_BIN2R()] Empty object returned")
-        return(set_Risoe.BINfileData())
-      }
     }
+  }
+
+  ## if nothing is left, return an empty object
+  if (nrow(results.METADATA) == 0) {
+    if (verbose)
+      message("[read_BIN2R()] Empty object returned")
+    return(set_Risoe.BINfileData())
   }
 
   ## recalculate ID as some records may not have been read if n.records was set
@@ -1304,13 +1308,6 @@ read_BIN2R <- function(
     METADATA = results.METADATA,
     DATA = results.DATA,
     .RESERVED = results.RESERVED)
-
-  if (length(object) == 0) {
-    if (verbose) {
-      message("[read_BIN2R()] Empty object returned")
-    }
-    return(object)
-  }
 
   ## Fast Forward -----------------------------------------------------------
 
