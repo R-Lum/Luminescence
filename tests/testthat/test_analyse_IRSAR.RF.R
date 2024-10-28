@@ -100,7 +100,7 @@ test_that("test support for IR-RF data", {
 
   ## get needed data
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-  temp <- read_RF2R(file)
+  temp <- read_RF2R(file, verbose = FALSE)
 
   SW({
   expect_warning(expect_s4_class(
