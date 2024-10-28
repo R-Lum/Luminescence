@@ -115,7 +115,7 @@ plot_DoseResponseCurve <- function(
   y.Error <- sample[first.idx:last.idx, 3]
 
   De <- object@data$De$De.plot
-  x.natural <- object@data$De.MC
+  x.natural <- na.exclude(object@data$De.MC)
   De.MonteCarlo <- mean(na.exclude(x.natural))
   De.Error <- sd(na.exclude(x.natural))
 
@@ -175,15 +175,14 @@ plot_DoseResponseCurve <- function(
 
   ## cheat the R check
   x <- NULL; rm(x)
-  
-  ## get graphic values
-  par_default <- par(no.readonly = TRUE)
-  on.exit(par(par_default), add = TRUE)
-
-  ## open plot area
+    ## open plot area
   par(cex = cex.global)
   
   if (plot_extended && !plot_single) {
+    ## get graphic values
+    par_default <- par(no.readonly = TRUE)
+    on.exit(par(par_default), add = TRUE)
+    
     ## set new parameter
     layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
     par(cex = 0.8 * plot_settings$cex)
@@ -287,7 +286,7 @@ plot_DoseResponseCurve <- function(
         silent = TRUE)
 
 
-      if (plot_settings$density_polygon[1] && length(x.natural) > 1 &&
+      if (plot_settings$density_polygon[1] & length(x.natural) > 1 &&
           !all(is.na(x.natural))) {
           ##calculate density De.MC
           density_De <- density(x.natural, na.rm = TRUE)
