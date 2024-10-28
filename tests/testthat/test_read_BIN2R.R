@@ -48,9 +48,10 @@ test_that("input validation", {
   expect_error(read_BIN2R(fake, verbose = FALSE),
                "Byte RECTYPE = 99 is not supported in record #1")
   SW({
-  expect_message(read_BIN2R(fake, verbose = TRUE, ignore.RECTYPE = TRUE),
+  expect_message(res <- read_BIN2R(fake, verbose = TRUE, ignore.RECTYPE = TRUE),
                  "Byte RECTYPE = 99 is not supported in record #1")
   })
+  expect_length(res, 0)
 })
 
 test_that("test the import of various BIN-file versions", {
@@ -106,22 +107,21 @@ test_that("test the import of various BIN-file versions", {
         file = bin.v8,
         txtProgressBar = FALSE,
         n.records = 1), class = "Risoe.BINfileData")
+    expect_length(t_n.records_1, n = 1)
+
     t_n.records_0 <- expect_s4_class(
       read_BIN2R(
         file = bin.v8,
         txtProgressBar = FALSE,
         n.records = 0), class = "Risoe.BINfileData")
+    expect_length(t_n.records_0, n = 0)
 
     t_n.records_1_2 <- expect_s4_class(
       read_BIN2R(
         file = bin.v8,
         txtProgressBar = FALSE,
         n.records = 1:2), class = "Risoe.BINfileData")
-
-      ## test length
-      expect_length(t_n.records_1, n = 1)
-      expect_length(t_n.records_0, n = 1)
-      expect_length(t_n.records_1_2, n = 2)
+    expect_length(t_n.records_1_2, n = 2)
 
   ## directory
   res <- read_BIN2R(test_path("_data"), show_record_number = TRUE)

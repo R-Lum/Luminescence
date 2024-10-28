@@ -397,7 +397,7 @@ read_BIN2R <- function(
   ## 1 to 7
   ID       <- integer(length = n.length)
   SEL      <- NULL # derived from TAG
-  VERSION  <- numeric(length = n.length)
+  VERSION  <- rep_len(NA_integer_, n.length)
   LENGTH   <- integer(length = n.length)
   PREVIOUS <- integer(length = n.length)
   NPOINTS  <- integer(length = n.length)
@@ -553,7 +553,8 @@ read_BIN2R <- function(
     }
 
     ## these must be set only after the n.records check
-    VERSION[id_row]  <- as.numeric(temp.VERSION)
+    ## we don't set VERSION now, as we must leave it set to NA in case we
+    ## decide to skip the current record
     LENGTH[id_row]   <- temp.LENGTH
     PREVIOUS[id_row] <- temp.PREVIOUS
     NPOINTS[id_row]  <- temp.NPOINTS
@@ -581,22 +582,17 @@ read_BIN2R <- function(
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
           seek.connection(con, temp.LENGTH - 15, origin = "current")
-            if(!ignore.RECTYPE){
-              .throw_error("Byte RECTYPE = ", temp.RECTYPE,
-                           " is not supported in record #", temp.ID + 1, ", ",
-                           "check your BIN/BINX file")
-            } else {
-              if(verbose)
-                message("\n[read_BIN2R()] Byte RECTYPE = ", temp.RECTYPE,
-                        " is not supported in record #", temp.ID + 1,
-                        ", record skipped")
+          msg <- paste0("Byte RECTYPE = ", temp.RECTYPE,
+                        " is not supported in record #", temp.ID + 1)
+          if (!ignore.RECTYPE) {
+            .throw_error(msg, ", set `ignore.RECTYPE = TRUE` to skip this record")
+          }
 
-              ## update and jump to next record, to avoid further trouble
-              ## we set the VERSION to NA and remove it later, otherwise we
-              ## break expected functionality
-              temp.ID <- temp.ID + 1
-              next()
-            }
+          ## skip to next record
+          if (verbose)
+            message("\n[read_BIN2R()] ", msg, ", record skipped")
+          temp.ID <- temp.ID + 1
+          next()
         }
       }
 
@@ -1040,15 +1036,13 @@ read_BIN2R <- function(
 
     ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Unrecognised version
-    else {
-      ## We should already have raised a warning that the file is corrupt
-      ## during the first scan of the BIN/BINX file: at that point we have
-      ## set `n.records` so that we would stop reading before encountering
-      ## again the record with unrecognised version number, so here we just
-      ## assert that that is the case and exit the loop
-      stopifnot(temp.ID + 1 > n.records)
-      break()
-    }
+    ##
+    ## We should already have raised a warning that the file is corrupt
+    ## during the first scan of the BIN/BINX file: at that point we have
+    ## set `n.records` so that we would stop reading before encountering
+    ## again the record with unrecognised version number, so here we just
+    ## assert that that is the case
+    stopifnot(temp.VERSION %in% VERSIONS.supported)
 
      #DPOINTS
      if(temp.RECTYPE != 128) {
@@ -1066,14 +1060,17 @@ read_BIN2R <- function(
        })
      }
 
-    #endif:format support
-    ##END BIN FILE FORMAT SUPPORT
-    ## ==========================================================================#
-    #SET UNIQUE ID
+    ## ----------------------------------------------------------------------
+    ## close the current record
+
     temp.ID <- temp.ID + 1
     ID[id_row] <- temp.ID
 
-     ##update progress bar
+    ## we set VERSION only now to its real value: as we've got here, we have
+    ## read the entire record and decided to keep it
+    VERSION[id_row]  <- as.numeric(temp.VERSION)
+
+    ## update the progress bar
     if (txtProgressBar) {
       setTxtProgressBar(pb, seek.connection(con, origin = "current"))
     }
@@ -1220,14 +1217,14 @@ read_BIN2R <- function(
       .throw_warning("Zero-data records detected and removed: ",
                      .collapse(zero_data.check, quote = FALSE),
                      ", record index recalculated")
-
-      ## if nothing is left, return an empty object
-      if (nrow(results.METADATA) == 0) {
-        if (verbose)
-          message("[read_BIN2R()] Empty object returned")
-        return(set_Risoe.BINfileData())
-      }
     }
+  }
+
+  ## if nothing is left, return an empty object
+  if (nrow(results.METADATA) == 0) {
+    if (verbose)
+      message("[read_BIN2R()] Empty object returned")
+    return(set_Risoe.BINfileData())
   }
 
   ## recalculate ID as some records may not have been read if n.records was set
@@ -1311,13 +1308,6 @@ read_BIN2R <- function(
     METADATA = results.METADATA,
     DATA = results.DATA,
     .RESERVED = results.RESERVED)
-
-  if (length(object) == 0) {
-    if (verbose) {
-      message("[read_BIN2R()] Empty object returned")
-    }
-    return(object)
-  }
 
   ## Fast Forward -----------------------------------------------------------
 
