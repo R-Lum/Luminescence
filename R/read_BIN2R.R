@@ -310,15 +310,11 @@ read_BIN2R <- function(
     seek.connection(con, 1, origin = "current")
 
     ## get record LENGTH
-    if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-      length.size <- 4
-    }else{
-      length.size <- 2
-    }
-
-    temp.LENGTH  <- readBin(con, what = "integer", 1, size = length.size,
+    int.size <- if (temp.VERSION >= 05) 4 else 2
+    temp.LENGTH  <- readBin(con, what = "integer", 1, size = int.size,
                             endian = "little")
-    num.toread <- max(0, temp.LENGTH - length.size - 2)
+
+    num.toread <- max(0, temp.LENGTH - int.size - 2)
     if (num.toread > 0) {
       seek.connection(con, num.toread, origin = "current")
     } else {
@@ -589,25 +585,26 @@ read_BIN2R <- function(
     #empty byte position
     seek.connection(con, 1, origin = "current")
 
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # BINX FORMAT SUPPORT -----------------------------------------------------
-    if(temp.VERSION == 05 | temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-      ##(1) Header size and structure
-      ##LENGTH, PREVIOUS, NPOINTS, LTYPE
-      temp <- readBin(con, what = "int", 3, size = 4, endian = "little")
-      temp.LENGTH <- temp[1]
-      temp.PREVIOUS <- temp[2]
-      temp.NPOINTS <- temp[3]
+    ## (1) Header size and structure
+    ## LENGTH, PREVIOUS, NPOINTS
+    int.size <- if (temp.VERSION >= 05) 4 else 2
+    temp <- readBin(con, what = "int", 3, size = int.size, endian = "little")
+    temp.LENGTH   <- temp[1]
+    temp.PREVIOUS <- temp[2]
+    temp.NPOINTS  <- temp[3]
 
-      ## skip record if not selected
-      ## the first condition boosts the speed of reading if n.records is not
-      ## used; otherwise for each record the condition is checked whether
-      ## used or not.
-      if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
-        temp.ID <- temp.ID + 1
-        seek.connection(con, temp.LENGTH - 14, origin = "current")
-        next()
-      }
+    ## skip record if not selected in n.records
+    ## the first condition boosts the speed of reading if n.records is not used
+    if (!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
+      temp.ID <- temp.ID + 1
+      seek.connection(con, temp.LENGTH - 3 * int.size - 2, origin = "current")
+      next()
+    }
+
+    ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ## BINX FORMAT SUPPORT
+    if (temp.VERSION == 05 || temp.VERSION == 06 ||
+        temp.VERSION == 07 || temp.VERSION == 08) {
 
       #for temp.VERSION == 08
       #RECTYPE
@@ -904,21 +901,11 @@ read_BIN2R <- function(
           }
         }# end RECTYPE 128
       }
-    }else if(temp.VERSION == 04 | temp.VERSION == 03){
-      ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      ##START BIN FILE FORMAT SUPPORT  (vers. 03 and 04)
-      ##LENGTH, PREVIOUS, NPOINTS, LTYPE
-      temp <- readBin(con, what="int", 3, size=2, endian="little")
-      temp.LENGTH <- temp[1]
-      temp.PREVIOUS <- temp[2]
-      temp.NPOINTS <- temp[3]
+    }
 
-      ## set temp ID if within select
-      if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
-        temp.ID <- temp.ID + 1
-        seek.connection(con, temp.LENGTH - 8, origin = "current")
-        next()
-      }
+    ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ## BIN FILE FORMAT SUPPORT
+    else if (temp.VERSION == 03 || temp.VERSION == 04) {
 
       ##LTYPE
       temp.LTYPE<-readBin(con, what="int", 1, size=1, endian="little")
@@ -1095,10 +1082,11 @@ read_BIN2R <- function(
         temp.PTENABLED <- temp[1]
         temp.RESERVED2 <- temp[2:11]
       }
-    } else {
-      ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      ## Unrecognised version
-      ##
+    }
+
+    ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ## Unrecognised version
+    else {
       ## We should already have raised a warning that the file is corrupt
       ## during the first scan of the BIN/BINX file: at that point we have
       ## set `n.records` so that we would stop reading before encountering
