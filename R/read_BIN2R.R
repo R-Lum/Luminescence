@@ -581,22 +581,17 @@ read_BIN2R <- function(
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
           seek.connection(con, temp.LENGTH - 15, origin = "current")
-            if(!ignore.RECTYPE){
-              .throw_error("Byte RECTYPE = ", temp.RECTYPE,
-                           " is not supported in record #", temp.ID + 1, ", ",
-                           "check your BIN/BINX file")
-            } else {
-              if(verbose)
-                message("\n[read_BIN2R()] Byte RECTYPE = ", temp.RECTYPE,
-                        " is not supported in record #", temp.ID + 1,
-                        ", record skipped")
+          msg <- paste0("Byte RECTYPE = ", temp.RECTYPE,
+                        " is not supported in record #", temp.ID + 1)
+          if (!ignore.RECTYPE) {
+            .throw_error(msg, ", set `ignore.RECTYPE = TRUE` to skip this record")
+          }
 
-              ## update and jump to next record, to avoid further trouble
-              ## we set the VERSION to NA and remove it later, otherwise we
-              ## break expected functionality
-              temp.ID <- temp.ID + 1
-              next()
-            }
+          ## skip to next record
+          if (verbose)
+            message("\n[read_BIN2R()] ", msg, ", record skipped")
+          temp.ID <- temp.ID + 1
+          next()
         }
       }
 
