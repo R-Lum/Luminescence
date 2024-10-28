@@ -214,7 +214,7 @@ analyse_pIRIRSequence <- function(
    }
 
    ## run analysis
-   temp <- lapply(1:length(object), function(x) {
+   temp <- .warningCatcher(lapply(1:length(object), function(x) {
       analyse_pIRIRSequence(object[[x]],
                         signal.integral.min = signal.integral.min[[x]],
                         signal.integral.max = signal.integral.max[[x]],
@@ -226,7 +226,7 @@ analyse_pIRIRSequence <- function(
                         plot.single = plot.single,
                         main = ifelse("main"%in% names(list(...)), main_list[[x]], paste0("ALQ #",x)),
                         ...)
-    })
+    }))
 
     ##combine everything to one RLum.Results object as this as what was written ... only
     ##one object
@@ -571,7 +571,6 @@ analyse_pIRIRSequence <- function(
         )
       )
 
-
       ##merge results
       if (exists("temp.results.final")) {
         temp.results.final <- merge_RLum(list(temp.results.final, temp.results))
@@ -824,3 +823,4 @@ if(plot){
 
   return(temp.results.final)
 }
+
