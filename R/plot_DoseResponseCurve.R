@@ -274,30 +274,31 @@ plot_DoseResponseCurve <- function(
           cex = 1.1 * cex.global)
         }, 
         silent = TRUE)
-      
-      
-      if(plot_settings$density_polygon[1] && length(x.natural) > 1) {
+
+
+      if (plot_settings$density_polygon[1] && length(x.natural) > 1 &&
+          !all(is.na(x.natural))) {
           ##calculate density De.MC
-          density_De <- density(x.natural)
-    
+          density_De <- density(x.natural, na.rm = TRUE)
+
           ##calculate transformation function
           x.1 <- max(density_De$y)
           x.2 <- min(density_De$y)
           y.1 <- c(sample[1, 2])/2
           y.2 <- par("usr")[3]
-          
+
           m <- (y.1 - y.2) / (x.1 + x.2)
           n <- y.1 - m * x.1
           density_De$y <- m * density_De$y + n
-    
+
           polygon(
             x = density_De$x,
             y = density_De$y,
             col = plot_settings$density_polygon_col)
-          
+
           rm(x.1,x.2,y.1,y.2,m,n, density_De)
       }
-      
+
       if(plot_settings$density_rug[1])
         rug(x = x.natural,side = 3)
 
@@ -396,7 +397,7 @@ plot_DoseResponseCurve <- function(
 
           ## add rug
           rug(x.natural)
- 
+
           ## De + Error from MC simulation + quality of error estimation
           try(mtext(side = 3,
                     substitute(D[e[MC]] == De,
