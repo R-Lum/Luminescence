@@ -175,9 +175,14 @@ plot_DoseResponseCurve <- function(
 
   ## cheat the R check
   x <- NULL; rm(x)
+  
+  ## get graphic values
+  par_default <- par(no.readonly = TRUE)
+  on.exit(par(par_default), add = TRUE)
 
   ## open plot area
   par(cex = cex.global)
+  
   if (plot_extended && !plot_single) {
     ## set new parameter
     layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
@@ -219,7 +224,13 @@ plot_DoseResponseCurve <- function(
                sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
 
     } else if (mode == "extrapolation"){
-      points(x = De, y = 0, col = "red", pch = plot_settings$reg_points_pch[1])
+      points(
+        x = De,
+        y = 0,
+        bg = "red",
+        pch = 21,
+        col = "black", 
+        cex = 1.1 * cex.global)
 
     }
 
