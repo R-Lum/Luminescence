@@ -172,7 +172,6 @@ test_that("test the import of various BIN-file versions", {
 test_that("test hand-crafted files", {
   testthat::skip_on_cran()
 
-
   ## corrupted
   corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
   expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE),
@@ -192,6 +191,12 @@ test_that("test hand-crafted files", {
   rectype.128.bin <- test_path("_data/bin-tests/rectype-128.binx")
   res <- read_BIN2R(rectype.128.bin, verbose = FALSE)
   expect_equal(nrow(res@METADATA), 3)
+
+  expect_output(res <- read_BIN2R(rectype.128.bin, verbose = FALSE,
+                                  fastForward = TRUE),
+                "BIN/BINX-file non-conform. TL curve may be wrong")
+  expect_type(res, "list")
+  expect_s4_class(res[[1]]@records[[1]], "RLum.Data.Curve")
 
   ## duplicate
   duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")

@@ -102,16 +102,24 @@ fixed in #263).
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 
 ### `read_BIN2R()`
+* The function is now much faster: we have recorded an overall improvement
+of over 60% on a 46M file, with potentially bigger time savings for larger
+files (#298, fixed in #333, #355 and #360).
 * Argument `n.records` is now better supported for BIN files v3 and v4 and
 doesn't lead to a crash when used in conjunction with the `fastForward`
 option (#343, fixed in #344).
 * Argument `zero_data.rm` was not correctly propagated if the input object
 was provided as a list (#342, fixed in #345).
+* The `METADATA` fields corresponding to a ROI record that are not actually
+read from the BINX file are now set to `NA` rather than being assigned the
+value from the previous record (#336, fixed in #360).
 * The `.RESERVED` slot is now kept in sync with the rest of the object
 when records are dropped from the input BIN/BINX file (#337, fixed in #348).
 * The function doesn't crash anymore when reading a file that contains a
 record with an unrecognised version after other valid records (#352, fixed
 in #353).
+* The function doesn't crash anymore when reading a file that contains a
+ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 
 ### `read_XSYG2R()`
 * Add a new argument `n_records` that enables to limit the number of imported records in case the file was faulty or only a limited number of records is wanted.  
