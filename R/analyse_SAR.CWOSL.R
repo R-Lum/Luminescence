@@ -1209,6 +1209,7 @@ error.list <- list()
         Dc = NA,
         n_N = NA,
         De.MC = NA,
+        De.plot = NA,
         Fit = NA,
         HPDI68_L = NA,
         HPDI68_U = NA,
