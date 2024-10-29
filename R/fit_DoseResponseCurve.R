@@ -451,6 +451,23 @@ fit_DoseResponseCurve <- function(
       message("[fit_DoseResponseCurve()] ", msg)
   }
 
+  ## helper to report the fit
+  .report_fit <- function(De, ...) {
+    if (verbose && mode != "alternate") {
+      writeLines(paste0("[fit_DoseResponseCurve()] Fit: ", fit.method,
+                        " (", mode,") ", "| De = ", round(abs(De), 2),
+                        ...))
+    }
+  }
+
+  ## helper to report a failure in the fit
+  .report_fit_failure <- function(method, mode, ...) {
+    if (verbose) {
+      writeLines(paste0("[fit_DoseResponseCurve()] Fit failed for ",
+                        fit.method, " (", mode, ")"))
+    }
+  }
+
   ##START PARAMETER ESTIMATION
   ##general setting of start parameters for fitting
 
@@ -458,12 +475,13 @@ fit_DoseResponseCurve <- function(
   a <- max(data[,2])
 
   ##b - get start parameters from a linear fit of the log(y) data
-  ##    (suppress the warning in case one parameter is negative)
-  fit.lm <- try(lm(suppressWarnings(log(data$y))~data$x))
-
+  ##    (don't even try fitting if no y value is positive)
   b <- 1
-  if (!inherits(fit.lm, "try-error"))
-    b <- as.numeric(1/fit.lm$coefficients[2])
+  if (any(data$y > 0)) {
+    fit.lm <- try(lm(suppressWarnings(log(data$y)) ~ data$x))
+    if (!inherits(fit.lm, "try-error"))
+      b <- as.numeric(1 / fit.lm$coefficients[2])
+  }
 
   ##c - get start parameters from a linear fit - offset on x-axis
   fit.lm<-lm(data$y~data$x)
@@ -477,15 +495,6 @@ fit_DoseResponseCurve <- function(
   D01.ERROR <- NA
   D02 <- NA
   D02.ERROR <- NA
-
-  ## helper to report the fit
-  .report_fit <- function(De, ...) {
-    if (verbose && mode != "alternate") {
-      writeLines(paste0("[fit_DoseResponseCurve()] Fit: ", fit.method,
-                        " (", mode,") ", "| De = ", round(abs(De), 2),
-                        ...))
-    }
-  }
 
   ## ------------------------------------------------------------------------
   ## to be a little bit more flexible, the start parameters varies within
@@ -547,14 +556,9 @@ fit_DoseResponseCurve <- function(
 
       if (!inherits(De.uniroot, "try-error")) {
         De <- De.uniroot$root
-      }
-
-      if (verbose) {
-        if (!inherits(De.uniroot, "try-error")) {
-          .report_fit(De)
-        } else{
-          writeLines("[fit_DoseResponseCurve()] No solution found for QDR fit")
-        }
+        .report_fit(De)
+      } else{
+        .report_fit_failure(fit.method, mode)
       }
     }
 
@@ -607,8 +611,8 @@ fit_DoseResponseCurve <- function(
     if(fit.method != "LIN"){
 
       if (anyNA(c(a, b, c))) {
-        message("[fit_DoseResponseCurve()] Error: Fit could not be applied ",
-                "for this data set, NULL returned")
+        message("[fit_DoseResponseCurve()] Error: Fit ", fit.method, " (", mode,
+                ") could not be applied to this data set, NULL returned")
         return(NULL)
       }
 
@@ -673,7 +677,7 @@ fit_DoseResponseCurve <- function(
       )
 
       if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
-        if(verbose) writeLines("[fit_DoseResponseCurve()] try-error for EXP fit")
+        .report_fit_failure(fit.method, mode)
 
       }else{
         ##this is to avoid the singular convergence failure due to a perfect fit at the beginning
@@ -1052,7 +1056,7 @@ fit_DoseResponseCurve <- function(
       rm(var.b, var.a, var.c, var.g)
 
     }else{
-      .report_fit(NA, " (fitting FAILED)")
+      .report_fit_failure(fit.method, mode)
 
     } #end if "try-error" Fit Method
 
@@ -1245,7 +1249,7 @@ fit_DoseResponseCurve <- function(
       rm(var.b1, var.b2, var.a1, var.a2)
 
     }else{
-      .report_fit(NA, " (fitting FAILED)")
+      .report_fit_failure(fit.method, mode)
 
     } #end if "try-error" Fit Method
 
@@ -1272,7 +1276,7 @@ fit_DoseResponseCurve <- function(
     ), silent = TRUE)
 
     if (inherits(fit, "try-error")){
-      if(verbose) writeLines("[fit_DoseResponseCurve()] try-error for GOK fit")
+      .report_fit_failure(fit.method, mode)
 
     }else{
       #get parameters out of it
@@ -1381,10 +1385,10 @@ fit_DoseResponseCurve <- function(
           control = minpack.lm::nls.lm.control(maxiter = 500)
         ), silent = TRUE)
 
-        if (inherits(fit, "try-error")){
-          if(verbose) writeLines("[fit_DoseResponseCurve()] try-error for LambertW fit")
+    if (inherits(fit, "try-error")) {
+      .report_fit_failure(fit.method, mode)
 
-        }else{
+    } else {
           #get parameters out of it
           parameters <- coef(fit)
           R <- as.vector((parameters["R"]))
