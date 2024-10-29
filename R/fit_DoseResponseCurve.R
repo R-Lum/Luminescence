@@ -475,12 +475,13 @@ fit_DoseResponseCurve <- function(
   a <- max(data[,2])
 
   ##b - get start parameters from a linear fit of the log(y) data
-  ##    (suppress the warning in case one parameter is negative)
-  fit.lm <- try(lm(suppressWarnings(log(data$y))~data$x))
-
+  ##    (don't even try fitting if no y value is positive)
   b <- 1
-  if (!inherits(fit.lm, "try-error"))
-    b <- as.numeric(1/fit.lm$coefficients[2])
+  if (any(data$y > 0)) {
+    fit.lm <- try(lm(suppressWarnings(log(data$y)) ~ data$x))
+    if (!inherits(fit.lm, "try-error"))
+      b <- as.numeric(1 / fit.lm$coefficients[2])
+  }
 
   ##c - get start parameters from a linear fit - offset on x-axis
   fit.lm<-lm(data$y~data$x)
