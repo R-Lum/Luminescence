@@ -157,6 +157,9 @@ verify_SingleGrainData <- function(
 
   # Self Call -----------------------------------------------------------------------------------
   if(is(object, "list")){
+    if (length(object) == 0)
+      return(set_RLum(class = if (cleanup) "RLum.Analysis"
+                              else "RLum.Results"))
     results <- .warningCatcher(lapply(1:length(object), function(x) {
       verify_SingleGrainData(
         object = object[[x]],

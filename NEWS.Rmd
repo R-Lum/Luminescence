@@ -130,6 +130,10 @@ ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
 CSV files according to the DRAC v1.2 CSV template.
 
+### `verify_SingleGrainData()`
+* The function doesn't crash anymore when applied to an empty list (#365,
+fixed in #366).
+
 ### `write_R2BIN()`
 * Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
 file export. To avoid this now all non-ASCII characters are replaced by `_` before writing them to the BIN/BINX files. 
