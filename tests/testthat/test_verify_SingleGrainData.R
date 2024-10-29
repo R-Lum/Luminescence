@@ -52,6 +52,17 @@ test_that("check functionality", {
   res <- expect_silent(verify_SingleGrainData(obj.risoe))
   expect_s4_class(res, "RLum.Results")
 
+  ## empty list
+  expect_s4_class(res <- verify_SingleGrainData(list()),
+                  "RLum.Results")
+  expect_length(res@data, 0)
+  expect_equal(res@originator, "verify_SingleGrainData")
+
+  expect_s4_class(res <- verify_SingleGrainData(list(), cleanup = TRUE),
+                  "RLum.Analysis")
+  expect_length(res@records, 0)
+  expect_equal(res@originator, "verify_SingleGrainData")
+
   ##check options
   expect_silent(suppressWarnings(verify_SingleGrainData(object, plot = TRUE)))
   expect_silent(suppressWarnings(verify_SingleGrainData(object, threshold = 100)))
