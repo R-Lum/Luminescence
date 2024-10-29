@@ -1,12 +1,13 @@
-#' Bayesian models (baSAR) applied on luminescence data
+#' @title Bayesian models (baSAR) applied on luminescence data
 #'
-#' This function allows the application of Bayesian models on luminescence data, measured
+#' @description This function allows the application of Bayesian models on luminescence data, measured
 #' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
 #' it follows the idea proposed by Combès et al., 2015 of using an hierarchical model for estimating
 #' a central equivalent dose from a set of luminescence measurements. This function is (I) the adoption
 #' of this approach for the R environment and (II) an extension and a technical refinement of the
 #' published code.
 #'
+#' @details 
 #' Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
 #' and applying the hierarchical model and (II) a data pre-processing part. The Bayesian core can be run
 #' independently, if the input data are sufficient (see below). The data pre-processing part was
@@ -153,6 +154,7 @@
 #' `NumberIterations.MC` \tab [plot_GrowthCurve] \tab `100` \tab number of MC runs for error calculation\cr
 #' `output.plot` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables dose response curve plot\cr
 #' `output.plotExtended` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables extended dose response curve plot\cr
+#' `recordType` \tab [get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
 #' }
 #'
 #'
@@ -316,10 +318,10 @@
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.33
+#' @section Function version: 0.1.34
 #'
 #' @author
-#' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
+#' Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
@@ -815,7 +817,10 @@ analyse_baSAR <- function(
     fit.bounds = TRUE,
     NumberIterations.MC = 100,
     output.plot = plot,
-    output.plotExtended = plot
+    output.plotExtended = plot,
+    
+    ## get_RLum
+    recordType = c("OSL (UVVIS)", "irradiation (NA)")
   )
 
   #modify this list on purpose
@@ -831,7 +836,6 @@ analyse_baSAR <- function(
   ##if the input is alreayd of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if(is(object, "RLum.Results")){
-
     if(object@originator == "analyse_baSAR"){
 
       ##We want to use previous function arguments and recycle them
@@ -995,8 +999,8 @@ analyse_baSAR <- function(
 
       ##extract wanted curves
       if(verbose)
-        cat("\t\t  .. extract 'OSL (UVVIS)' and 'irradiation (NA)'\n")
-      object <- get_RLum(object, recordType = c("OSL (UVVIS)", "irradiation (NA)"), drop = FALSE)
+        cat(paste0("\t\t  .. extract '", additional_arguments$recordType ,"'\n"))
+      object <- get_RLum(object, recordType = additional_arguments$recordType, drop = FALSE)
 
       ## check that we are not left with empty records
       if (length(object[[1]]@records) == 0) {
@@ -1403,6 +1407,7 @@ analyse_baSAR <- function(
 
     }else{
       irrad_time.vector <- rep(irradiation_times,n_objects)
+
     }
 
     ##if all irradiation times are 0 we should stop here

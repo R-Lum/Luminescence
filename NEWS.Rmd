@@ -39,6 +39,7 @@ from XLS files by Excel or similar applications, or by reading them with
 ### `analyse_baSAR()`
 * Argument `XLS_file` has been replaced by `CSV_file` and, as mentioned
 above, the function now only accepts CSV files as input (#237, fixed in #270).
+* Add support for `recordType` passed to `get_RLum` in the additional arguments. 
 
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the
