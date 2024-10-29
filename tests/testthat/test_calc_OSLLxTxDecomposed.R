@@ -30,7 +30,9 @@ test_that("input validation", {
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
-  res <- calc_OSLLxTxDecomposed(Lx.data, Tx.data, digits = 2)
-  expect_equal(is(res), c("RLum.Results", "RLum"))
-  expect_equal(length(res), 1)
+  expect_snapshot_RLum(calc_OSLLxTxDecomposed(Lx.data, Tx.data, digits = 2))
+  expect_snapshot_RLum(calc_OSLLxTxDecomposed(Lx.data, Tx.data, digits = 2,
+                                              OSL.component = 2))
+  expect_snapshot_RLum(calc_OSLLxTxDecomposed(Lx.data, Tx.data, digits = 2,
+                                              OSL.component = 3, sig0 = 1000))
 })
