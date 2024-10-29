@@ -287,7 +287,7 @@ if(is.list(object)){
     main <- as.list(paste0("ALQ #",1:length(object)))
   }
 
-  results <- merge_RLum(lapply(1:length(object), function(x){
+  results <- .warningCatcher(merge_RLum(lapply(1:length(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
       signal.integral.min = parm$signal.integral.min[[x]],
@@ -305,7 +305,7 @@ if(is.list(object)){
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
       main = main[[x]],
       ...)
-  }))
+  })))
 
   ## add aliquot number
   results@data$data$ALQ <- seq_along(object)
@@ -322,7 +322,6 @@ if(is.list(object)){
 error.list <- list()
 
 # General Integrity Checks ---------------------------------------------------
-
   .validate_class(object, "RLum.Analysis")
 
   ## trim OSL or IRSL channels
@@ -338,7 +337,7 @@ error.list <- list()
   }
 
   ##skip all those tests if signal integral is NA
-  if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
+  if(is.null(OSL.component) & any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
     .throw_warning("No signal or background integral applied ",
@@ -373,7 +372,6 @@ error.list <- list()
         ##Account for the case that the use did not provide everything ...
         if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
           signal.integral.Tx <- signal.integral
-
           .throw_warning("Background integral for Tx curves set, but not for ",
                          "the signal integral; signal integral for Tx automatically set")
         }
