@@ -448,7 +448,6 @@ plot_RLum.Data.Spectrum <- function(
 
       ##convert to energy scale if needed
       if(xaxis.energy){
-
         #conversion
         bg.xyz <- convert_Wavelength2Energy(cbind(as.numeric(rownames(bg.xyz)), bg.xyz), digits = 5)
         rownames(bg.xyz) <- bg.xyz[,1]
@@ -1128,20 +1127,3 @@ attr(temp.xyz, "pmat") <- pmat
 if(plot) invisible(temp.xyz) else return(temp.xyz)
 
 }
-
-# plot_RLum.Data.Spectrum(
-#   object = apply_EfficiencyCorrection(tmp_clean[[1]][[3]], spectral.efficiency = df_eff), 
-#   plot.type = "persp",
-#   #bg.spectrum = tmp_clean[[1]][[4]],
-#   bin.rows = 2, 
-#   ylim = c(0,450),
-#   bin.cols = 2,
-#   shade = 0.5,
-#   lphi = 50,
-#   ltheta = -20,
-#   # theta = 30,
-#   # phi = 20, 
-#   cex = 1,
-#   expand = 0.5,
-#   limit_counts = 1000,
-#   main = "TL (nat) - Th7")
