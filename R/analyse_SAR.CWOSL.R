@@ -337,9 +337,11 @@ error.list <- list()
   }
 
   ##skip all those tests if signal integral is NA
-  if(is.null(OSL.component) & any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
+  if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
+    
+    if(is.null(OSL.component))
     .throw_warning("No signal or background integral applied ",
                    "as they were set to NA")
 
