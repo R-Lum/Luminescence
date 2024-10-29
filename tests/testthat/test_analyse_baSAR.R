@@ -178,6 +178,28 @@ test_that("Full check of analyse_baSAR function", {
       )),
       tolerance = 1.5e-6)
     })
+    
+    ## source dose rate only scalar
+    SW({
+      expect_snapshot_RLum(results <- suppressWarnings(analyse_baSAR(
+        object = CWOSL.sub,
+        source_doserate = c(0.04),
+        signal.integral = c(1:2),
+        background.integral = c(80:100),
+        fit.method = "EXP",
+        method_control = list(inits = list(
+          list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+          list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+          list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
+        )),
+        plot = TRUE,
+        verbose = TRUE,
+        n.MCMC = 100,
+        txtProgressBar = TRUE
+      )),
+      tolerance = 1.5e-6)
+    })
+    
 
   ## rerun with previous results as input
   SW({

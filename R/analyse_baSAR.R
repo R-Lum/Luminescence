@@ -833,7 +833,7 @@ analyse_baSAR <- function(
 
   # Set input -----------------------------------------------------------------------------------
 
-  ##if the input is alreayd of type RLum.Results, use the input and do not run
+  ##if the input is already of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if(is(object, "RLum.Results")){
     if(object@originator == "analyse_baSAR"){
@@ -981,7 +981,7 @@ analyse_baSAR <- function(
     ##  (2) RisoeBINfileData object
     ##      .. list
     ##      .. S4
-    ##  (3) RLum.Analyis objects
+    ##  (3) RLum.Analysis objects
     ##      .. list
     ##      .. S4
 
@@ -1905,14 +1905,12 @@ analyse_baSAR <- function(
 
   ##check whether this became NULL
   if(!is(results, "try-error")){
-
     ##how do we add the systematic error?
     ##(1) source_doserate is a list, not a vector, but the user can
     ##provide many source dose rates and he can provide only a single vector (no error)
 
     systematic_error <- 0
     if(!is.null(unlist(source_doserate)) || !is.null(function_arguments$source_doserate)){
-
       ##if it comes from the previous call, it is, unfortunately not that simple
       if(!is.null(function_arguments$source_doserate)){
         source_doserate <- eval(function_arguments$source_doserate)
@@ -1924,12 +1922,8 @@ analyse_baSAR <- function(
       }
 
       systematic_error <- unlist(lapply(source_doserate, function(x){
-        if(length(x) == 2) {
-          x[2]
-        } else{
-          NULL
-        }
-        }))
+        if(length(x) == 2) x[2] else 0
+       }))
     }
 
     ##state are warning for very different errors
