@@ -25,6 +25,12 @@ affected was also `analyse_SAR.CWOSL()`.
 prevent "Figure margins too large" errors.
 * The function will not crash anymore during the plotting in another edge case related to single grain data. 
 
+### `analyse_SAR.CWOSL()`
+* The function crashed for mixed set of `RLum.Analysis-class` objects typically observed 
+for single grain data, e.g., one object contains only TL curves while all other contain the OSL/IRSL 
+data from the grain. Because the function filters those records automatically, it crashed because
+the aliquot number assignment internally relied on the length of the object (regression, #373, fixed)
+
 ### `analyse_SAR.TL()`
 * The function now produces a more correct `rejection.criteria` data frame
 (#245, fixed in #246).

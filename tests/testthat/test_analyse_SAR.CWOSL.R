@@ -174,6 +174,26 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+  ##no mix TL and OSL (the only TL will be sorted out automatically)
+  only_TL <- set_RLum("RLum.Analysis", records = rep(object_CH_TL[[1]]@records[[2]], length(object_NO_TL[[1]]@records)))
+  object_mixed <- c(object_NO_TL, only_TL)
+  
+  t <- expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object_mixed[2:3],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      log = "x",
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    class = "RLum.Results"
+  )
+  expect_equal(nrow(t@data$data), 1)
+  
   ##plot single
   expect_s4_class(
     analyse_SAR.CWOSL(
