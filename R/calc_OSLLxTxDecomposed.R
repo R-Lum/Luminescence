@@ -147,41 +147,15 @@ calc_OSLLxTxDecomposed <- function(
     TnTx.Error
   )
 
-  # THE FOLLOWING CODE IS MOSTLY IDENTICAL WITH (4) IN calc_OSLLxTxRatio()
-
   ##--------------------------------------------------------------------------##
   ##(4) Calculate LxTx error according Galbraith (2014)
 
   ## transform results to a data.frame
   LnLxTnTx <- as.data.frame(LnLxTnTx)
-
-  #add col names
   colnames(LnLxTnTx)<-c("Net_LnLx", "Net_LnLx.Error",
                         "Net_TnTx", "Net_TnTx.Error")
 
-  ##calculate Ln/Tx
-  LxTx <- LnLxTnTx$Net_LnLx/LnLxTnTx$Net_TnTx
-
-  ##set NaN
-  if(is.nan(LxTx)) LxTx <- 0
-
-  ##calculate Ln/Tx error
-  LxTx.relError <- sqrt((LnLx.Error / LnLx)^2 + (TnTx.Error / TnTx)^2)
-  LxTx.Error <- abs(LxTx * LxTx.relError)
-
-  ##set NaN
-  if(is.nan(LxTx.Error)) LxTx.Error <- 0
-
-  ##add an extra component of error
-  LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx)^2)
-
-  ##return combined values
-  temp <- cbind(LnLxTnTx, LxTx, LxTx.Error)
-
-  ##apply digits if wanted
-  if(!is.null(digits)){
-    temp[1,] <- round(temp[1,], digits = digits)
-  }
+  temp <- .calculate_LxTx_error(LnLxTnTx, sig0, digits)
 
   # ToDo: Add decomposition algorithm parameters here
   # calc.parameters <- list(...)
