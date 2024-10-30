@@ -381,11 +381,20 @@ read_BIN2R <- function(
     "7" = "IR laser (single grain)"
   )
 
+  ## helper to import string from pascal format
+  .read_string <- function(con, field.length, force.size = NULL) {
+    raw <- readBin(con, what = "raw", field.length, size = 1, endian = "little")
+    strlen <- max(as.integer(raw[1]), 0)
+    if (strlen > 0) {
+      if (!is.null(force.size))
+        strlen <- force.size
+      return(suppressWarnings(readChar(raw[-1], strlen, useBytes = TRUE)))
+    }
+    return("")
+  }
+
   ##PRESET VALUES
   temp.RECTYPE <- 0
-
-  ## set TIME_SIZE
-  TIME_SIZE <- 0
 
   ##overwrite length if required
   if(!is.null(n.records))
@@ -618,86 +627,18 @@ read_BIN2R <- function(
         YCOORD[id_row] <- temp[7]
 
         ##SAMPLE, COMMENT
-        ##SAMPLE
-        SAMPLE_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-        SAMPLE[id_row] <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
-
-        #however it should be set to 20
-        #step forward in con
-        if (SAMPLE_SIZE < 20) {
-          seek.connection(con, 20 - SAMPLE_SIZE, origin = "current")
-        }
-
-        ##COMMENT
-        COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-        COMMENT[id_row] <- suppressWarnings(
-          readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
-
-        #step forward in con
-        if (COMMENT_SIZE < 80) {
-          seek.connection(con, 80 - COMMENT_SIZE, origin = "current")
-        }
+        SAMPLE[id_row]  <- .read_string(con, 21)
+        COMMENT[id_row] <- .read_string(con, 81)
 
         ##(3) Instrument and sequence characteristic
         ##SYSTEMID
         SYSTEMID[id_row] <- readBin(con, what = "integer", 1, size = 2, endian = "little")
 
-        ##FNAME
-        FNAME_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
-                                  endian = "little"), 0)
-
-        ##correct for 0 file name length
-        if (FNAME_SIZE > 0) {
-          FNAME[id_row] <- readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
-        }
-
-        #step forward in con
-        if (FNAME_SIZE < 100) {
-          seek.connection(con, 100 - FNAME_SIZE, origin = "current")
-        }
-
-        ##USER
-        USER_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
-                                 endian = "little"), 0)
-
-        ##correct for 0 user size length
-        if (USER_SIZE > 0) {
-          USER[id_row] <-
-            suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
-        }
-
-        #step forward in con
-        if (USER_SIZE < 30) {
-          seek.connection(con, 30 - USER_SIZE, origin = "current")
-        }
-
-        ##TIME
-        TIME_SIZE <- max(readBin(con, what = "integer", 1, size = 1,
-                                 endian = "little"), 0)
-
-        ##time size corrections for wrong time formats; set n to 6 for all values
-        ##according to the handbook by Geoff Duller, 2007
-        if (TIME_SIZE > 0) {
-          temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
-
-          ##correct the mess by others
-          if(nchar(temp.TIME) == 5)
-            temp.TIME <- paste0("0", temp.TIME)
-
-          TIME[id_row] <- temp.TIME
-        }
-
-        if (TIME_SIZE < 6) {
-          seek.connection(con, 6 - TIME_SIZE, origin = "current")
-        }
-
-        ##DATE
-        DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-
-        ##date size corrections for wrong date formats; set n to 6 for all values
-        ##according to the handbook of Geoff Duller, 2007
-        DATE_SIZE<-6
-        DATE[id_row] <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
+        ## FNAME, USER, TIME, DATE
+        FNAME[id_row] <- .read_string(con, 101)
+        USER[id_row]  <- .read_string(con, 31)
+        TIME[id_row]  <- .read_string(con, 7)
+        DATE[id_row]  <- .read_string(con, 7, force.size = 6)
 
         ##(4) Analysis
         ##DTYPE
@@ -884,40 +825,11 @@ read_BIN2R <- function(
       POSITION[id_row] <- temp[1]
       RUN[id_row] <- temp[2]
 
-      ##TIME
-      TIME_SIZE <- readBin(
-        con, what="int", 1, size=1, endian="little")
-
-      ##time size corrections for wrong time formats; set n to 6 for all values
-      ##according to the handbook of Geoff Duller, 2007
-      TIME_SIZE<-6
-      TIME[id_row] <- readChar(con, TIME_SIZE, useBytes=TRUE)
-
-      ##DATE
-      DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-
-      ##date size corrections for wrong date formats; set n to 6 for all values
-      ##according to the handbook of Geoff Duller, 2007
-      DATE_SIZE<-6
-      DATE[id_row] <- readChar(con, DATE_SIZE, useBytes=TRUE)
-
-      ##SEQUENCE
-      SEQUENCE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      SEQUENCE[id_row] <- readChar(con, SEQUENCE_SIZE, useBytes=TRUE)
-
-      #step forward in con
-      if (SEQUENCE_SIZE < 8) {
-        seek.connection(con, 8 - SEQUENCE_SIZE, origin = "current")
-      }
-
-      ##USER
-      USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      USER[id_row] <- readChar(con, USER_SIZE, useBytes=FALSE)
-
-      #step forward in con
-      if (USER_SIZE < 8) {
-        seek.connection(con, 8 - USER_SIZE, origin = "current")
-      }
+      ## TIME, DATE, SEQUENCE, USER
+      TIME[id_row] <- .read_string(con, 7, force.size = 6)
+      DATE[id_row] <- .read_string(con, 7, force.size = 6)
+      SEQUENCE[id_row] <- .read_string(con, 9)
+      USER[id_row] <- .read_string(con, 9)
 
       ##DTYPE
       DTYPE[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
@@ -949,23 +861,9 @@ read_BIN2R <- function(
       ##SHIFT
       SHIFT[id_row] <- readBin(con, what="integer", 1, size=2, endian="little")
 
-      ##SAMPLE
-      SAMPLE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      SAMPLE[id_row] <- readChar(con, SAMPLE_SIZE, useBytes=TRUE) #however it should be set to 20
-
-      #step forward in con
-      if (SAMPLE_SIZE < 20) {
-        seek.connection(con, 20 - SAMPLE_SIZE, origin = "current")
-      }
-
-      ##COMMENT
-      COMMENT_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-      COMMENT[id_row] <- readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
-
-      #step forward in con
-      if (COMMENT_SIZE < 80) {
-        seek.connection(con, 80 - COMMENT_SIZE, origin = "current")
-      }
+      ## SAMPLE, COMMENT
+      SAMPLE[id_row]  <- .read_string(con, 21)
+      COMMENT[id_row] <- .read_string(con, 81)
 
       ##LIGHTSOURCE, SET, TAG
       temp <- readBin(con, what="int", 3, size=1, endian="little")
@@ -1179,9 +1077,6 @@ read_BIN2R <- function(
 
   ## Record removals --------------------------------------------------------
 
-  ## silence note from R CMD check
-  POSITION <- ID <- LIGHTSOURCE <- LTYPE <- DTYPE <- TIME <- FNAME <- NULL
-
   ## check if only the specified positions should be returned
   if(!is.null(position)){
 
@@ -1287,10 +1182,11 @@ read_BIN2R <- function(
     }
 
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
-    if (TIME_SIZE == 6) {
-      results.METADATA[, TIME := format(as.POSIXct(TIME, format = "%H%M%S"),
-                                        "%H:%M:%S")]
-    }
+    results.METADATA[nchar(TIME) == 5,
+                     TIME := paste0("0", TIME)]
+    results.METADATA[nchar(TIME) == 6,
+                     TIME := format(as.POSIXct(TIME, format = "%H%M%S"),
+                                    "%H:%M:%S")]
   }
 
   ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
