@@ -224,6 +224,52 @@
 }
 
 #++++++++++++++++++++++++++++++
+#+ LxTx error calculation     +
+#++++++++++++++++++++++++++++++
+
+#' Calculation of the `Lx/Tx` error
+#'
+#' Calculates the `Lx/Tx` error according Galbraith (2014).
+#'
+#' @param LnLxTnTx [data.frame] (**required**): containing columns
+#'        `Net_LnLx`, `Net_TnTx`, `Net_LnLx.Error`, `Net_TnTx.Error`.
+#' @param sig0 [numeric] (**required**): extra error component to be added
+#'        to the final `Lx/Tx` error value (e.g., instrumental error).
+#' @param digits [integer] (**required**): round numbers to the specified
+#'        digits. If set to `NULL`, no rounding occurs.
+#'
+#' @md
+#' @noRd
+.calculate_LxTx_error <- function(LnLxTnTx, sig0, digits) {
+
+  ## extract fields from the data.frame
+  LnLx <- LnLxTnTx$Net_LnLx
+  TnTx <- LnLxTnTx$Net_TnTx
+  LnLx.Error <- LnLxTnTx$Net_LnLx.Error
+  TnTx.Error <- LnLxTnTx$Net_TnTx.Error
+
+  ## calculate Ln/Tx
+  LxTx <- LnLx / TnTx
+  if (is.nan(LxTx)) LxTx <- 0
+
+  ## calculate Ln/Tx error
+  LxTx.relError <- sqrt((LnLx.Error / LnLx)^2 + (TnTx.Error / TnTx)^2)
+  LxTx.Error <- abs(LxTx * LxTx.relError)
+  if (is.nan(LxTx.Error)) LxTx.Error <- 0
+
+  ## add an extra component of error
+  LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx)^2)
+
+  ## combined values
+  res <- cbind(LnLxTnTx, LxTx, LxTx.Error)
+  if (!is.null(digits)) {
+    res[1, ] <- round(res[1, ], digits = digits)
+  }
+
+  return(res)
+}
+
+#++++++++++++++++++++++++++++++
 #+ Scientific axis annotation +
 #++++++++++++++++++++++++++++++
 
