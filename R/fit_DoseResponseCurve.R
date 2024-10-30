@@ -478,9 +478,12 @@ fit_DoseResponseCurve <- function(
   ##    (don't even try fitting if no y value is positive)
   b <- 1
   if (any(data$y > 0)) {
-    fit.lm <- try(lm(suppressWarnings(log(data$y)) ~ data$x))
-    if (!inherits(fit.lm, "try-error"))
+    ## this may cause NaN values so we have to handle those later
+    fit.lm <- try(lm(suppressWarnings(log(data$y)) ~ data$x), silent = TRUE)
+    
+    if (!inherits(fit.lm, "try-error") && !is.na(fit.lm$coefficients[2]))
       b <- as.numeric(1 / fit.lm$coefficients[2])
+
   }
 
   ##c - get start parameters from a linear fit - offset on x-axis

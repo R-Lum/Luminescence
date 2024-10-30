@@ -98,6 +98,9 @@ changes (#319, fixed in #322).
 `legend` (turn on/off legend) and `reg_points_pch` for fine grained control over the point shape.
 * Add `density_polygon`, `density_pologyon_col` and `density_rug` as `...` arguments to plot and
 add respective plot options
+* The function crashed contained for single grain data that sometimes cause a lot of `NaN` values
+during log conversions required for estimating the start parameters. The result was the error `object 'b.MC' not found`
+(#374; fixed)
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect

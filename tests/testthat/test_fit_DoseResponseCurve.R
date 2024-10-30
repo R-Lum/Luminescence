@@ -534,3 +534,20 @@ temp_LambertW <-
   expect_match(warnings, "Fitting a non-linear least-squares model requires",
                all = FALSE, fixed = TRUE)
 })
+
+## EDGE cases ------------
+test_that("edge cases", {
+  testthat::skip_on_cran()
+  
+  ## odd data that cause NaN but must not fail
+  df <- data.frame(DOSE = c(0,5,10,20,30), LxTx = c(10,5,-20,-30,-40), LxTx_X = c(1, 1,1,1,1))
+  expect_s4_class(
+    fit_DoseResponseCurve(df, fit.method = "EXP"), "RLum.Results")
+  expect_s4_class(
+    fit_DoseResponseCurve(df, fit.method = "EXP+LIN"), "RLum.Results")
+  expect_s4_class(
+    fit_DoseResponseCurve(df, fit.method = "EXP+EXP"), "RLum.Results")
+  expect_s4_class(
+    fit_DoseResponseCurve(df, fit.method = "LambertW"), "RLum.Results")
+  
+})
