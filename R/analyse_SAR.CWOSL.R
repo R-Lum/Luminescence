@@ -287,7 +287,7 @@ if(is.list(object)){
     main <- as.list(paste0("ALQ #",1:length(object)))
   }
 
-  results <- .warningCatcher(merge_RLum(lapply(1:length(object), function(x){
+  results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
       signal.integral.min = parm$signal.integral.min[[x]],
@@ -308,7 +308,7 @@ if(is.list(object)){
   })))
 
   ## add aliquot number
-  results@data$data$ALQ <- seq_along(object)
+  results@data$data$ALQ <- seq_along(object)[1:nrow(results@data$data)]
 
   ##return
   ##DO NOT use invisible here, this will prevent the function from stopping
