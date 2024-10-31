@@ -546,11 +546,11 @@ plot_RLum.Data.Spectrum <- function(
       .throw_warning(
         "Lowest count value is larger than the set count threshold. Set limit_counts = ", limit_counts, ".")  
     }
-    
+
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
 
   }
-  
+
   # Normalise if wanted -------------------------------------------------------------------------
   if(!is.null(norm)){
     if(norm == "min")
@@ -568,88 +568,60 @@ plot_RLum.Data.Spectrum <- function(
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
     if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
 
+      col.labels <- c(violet = "#EE82EE",
+                      blue   = "#0000FF",
+                      green  = "#00FF00",
+                      yellow = "#FFFF00",
+                      orange = "#FFA500",
+                      red    = "#FF0000",
+                      infra  = "#BEBEBE")
+
       ##make different colour palette for energy values
       if (xaxis.energy) {
-        col.violet <- c(2.76, ifelse(max(xlim) <= 4.13, max(xlim), 4.13))
-        col.blue <- c(2.52, 2.76)
-        col.green <- c(2.18, 2.52)
-        col.yellow <- c(2.10, 2.18)
-        col.orange <- c(2.00, 2.10)
-        col.red <- c(1.57, 2.00)
-        col.infrared <-
-          c(1.55, ifelse(min(xlim) >= 1.55, min(xlim), 1.57))
-
-        #set colour palette
-        col <- unlist(sapply(1:length(x), function(i){
-          if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
-          else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
-          else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
-          else if(x[i] >= col.yellow[1] & x[i] < col.yellow[2]){"#FFFF00"}
-          else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
-          else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
-          else if(x[i] <= col.infrared[2]){"#BEBEBE"}
-        }))
-
+        ## as thresholds are descending, we must reverse the labels, as cut()
+        ## will sort the cutpoints in increasing order
+        col.breaks <- c(min(max(xlim), 4.13), 2.76, 2.52, 2.18, 2.10, 2.00, 1.57, 0)
+        col.labels <- rev(col.labels)
       }else{
-        ##wavelength colours for wavelength axis
-        col.violet <- c(ifelse(min(xlim) <= 300, min(xlim), 300),450)
-        col.blue <- c(450,495)
-        col.green <- c(495,570)
-        col.yellow <- c(570,590)
-        col.orange <- c(590,620)
-        col.red <- c(620,790)
-        col.infrared <-
-          c(790, ifelse(max(xlim) >= 800, max(xlim), 800))
-
-        #set colour palette
-        col <- unlist(lapply(1:length(x), function(i){
-          if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
-          else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
-          else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
-          else if(x[i] >= col.yellow[1] & x[i] < col.yellow[2]){"#FFFF00"}
-          else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
-          else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
-          else if(x[i] >= col.infrared[1]){"#BEBEBE"}
-        }))
+        ## colour thresholds for wavelength axis
+        col.breaks <- c(min(xlim, 300), 450, 495, 570, 590, 620, 790, Inf)
       }
 
-      ##find unique colours
-      col.unique <- unique(col)
+      ## assign colours according to the defined thresholds
+      col <- cut(x, col.breaks, labels = col.labels, right = FALSE)
+
+      ## when using labels, cut generates a factor variable
+      col <- as.character(col)
 
       ##if only one colour value, then skip gradient calculation as it causes
       ##an error
+      col.unique <- unique(col)
       if(length(col.unique) > 1){
         ##set colour function for replacement
         colfunc <- colorRampPalette(col.unique)
 
-        ##get index for colour values to be cut from the current palette
-        col.unique.index <- vapply(col.unique, function(i) which.max(col == i), numeric(1))
+        ## index of the first occurrence of each colour besides the first,
+        ## as we are trying to find where transition between colours occur
+        col.first.idx <- match(col.unique, col)[-1]
 
-        ##remove last index (no colour gradient needed), for energy axis use the first value
-        col.unique.index <- col.unique.index[-length(col.unique.index)]
+        ## size of the colour transition band
+        band.size <- 50 / bin.rows
 
         ##set borders for colour gradient recalculation
-        col.unique.index.min <- floor(col.unique.index - (50/bin.rows))
-        col.unique.index.max <- ceiling(col.unique.index + (50/bin.rows))
-
-        ##set negative values to the lowest index
-        col.unique.index.min[col.unique.index.min<=0] <- 1
+        grad.min <- pmax(floor(col.first.idx - band.size), 1)
+        grad.max <- ceiling(col.first.idx + band.size)
 
         ##build up new index sequence (might be better)
-        col.gradient.index <- unlist(lapply(seq_along(col.unique.index.min), function(j){
-            seq(col.unique.index.min[j],col.unique.index.max[j], by = 1)
-
-          }))
+        gradient.idx <- unlist(lapply(seq_along(grad.min),
+                                      function(j) grad.min[j]:grad.max[j]))
 
         ##generate colour ramp and replace values
-        col[col.gradient.index] <- colfunc(length(col.gradient.index))
+        col[gradient.idx] <- colfunc(length(gradient.idx))
 
         ##correct for overcharged colour values (causes zebra colour pattern)
-        if (diff(c(length(col), nrow(temp.xyz))) < 0) {
-          col <- col[1:c(length(col) - diff(c(length(col), nrow(temp.xyz))))]
-
-        }else if(diff(c(length(col), nrow(temp.xyz))) > 0){
-          col <- col[1:c(length(col) + diff(c(length(col), nrow(temp.xyz))))]
+        size.diff <- length(col) - nrow(temp.xyz)
+        if (size.diff != 0) {
+          col <- col[1:(length(col) + size.diff)]
         }
       }
 
