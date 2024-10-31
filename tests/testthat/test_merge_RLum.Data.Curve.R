@@ -27,9 +27,10 @@ test_that("input validation", {
                "Only similar record types are supported")
 
   ## check warning for different curve lengths
-  expect_warning(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_short),
-                                       merge.method = "mean"),
+  expect_warning(res <- merge_RLum.Data.Curve(list(TL.curve.1,
+                                                   TL.curve.3_short)),
                  "The number of channels between the curves differs")
+  expect_equal(nrow(res@data), nrow(TL.curve.3_short@data))
 
   ##check error for different resolution
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_resol)),
@@ -81,8 +82,6 @@ test_that("snapshot tests", {
       expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_zeros),
                                                  merge.method = "/")),
       "3 'inf' values have been replaced by 0 in the matrix")
-  expect_warning(
-      expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
-                                                 merge.method = "append")),
-      "longer object length is not a multiple of shorter object length") # FIXME(mcol)
+  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+                                             merge.method = "append"))
 })

@@ -153,28 +153,28 @@ merge_RLum.Data.Curve<- function(
   ##problem ... how to handle data with different resolution or length?
 
   ##(1) build new data matrix
-    ##first find shortest object
-    check.length <- vapply(object, function(x) nrow(x@data), numeric(1))
+  ## first find the shortest object
+  check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
+  num.rows <- min(check.rows)
 
-    ## do something about it
-    temp.matrix  <- .warningCatcher(sapply(1:length(object), function(x){
-      ##check if the objects are of equal length
-      if (length(unique(check.length)) != 1) {
-        ##but we have to at least check the resolution (roughly)
-        if (round(diff(object[[x]]@data[,1]),1)[1] != round(diff(object[[1]]@data[,1]),1)[1])
-          .throw_error("The objects do not seem to have the same channel resolution")
+  ## channel resolution of the first object: we need to round as there may
+  ## otherwise be numerical artefacts that would make the step not unique
+  step <- round(diff(object[[1]]@data[, 1]), 1)[1]
 
-        ## either way, throw a warning
-        .throw_warning("The number of channels between the curves differs. ",
-                       "Resulting curve has the length of shortest curve.")
+  ## extract the curve values from each object
+  temp.matrix <- sapply(1:length(object), function(x) {
+    ## check the resolution (roughly)
+    if (round(diff(object[[x]]@data[, 1]), 1)[1] != step)
+      .throw_error("The objects do not seem to have the same channel resolution")
+    ## limit all objects to the shortest one
+    object[[x]]@data[1:num.rows, 2]
+  })
 
-      ##if this is OK, we can continue and shorten the rest of the objects
-      return(object[[x]]@data[1:min(check.length),2])
-
-    }else{
-      object[[x]]@data[,2]
-    }
-  }))
+  ## throw the warning only now to avoid printing it in case of error
+  if (length(unique(check.rows)) != 1) {
+    .throw_warning("The number of channels between the curves differs, the ",
+                   "merged curve will have the length of the shortest curve")
+  }
 
   ##(2) apply selected method for merging
   if(merge.method == "sum"){
@@ -238,14 +238,13 @@ merge_RLum.Data.Curve<- function(
   #the x-values (probably time/channel). The difference should always be the
   #same, so we just expand the sequence if this is true. If this is not true,
   #we revert to the default behaviour (i.e., append the x values)
-  if (merge.method[1] == "append" & length(unique(diff(object[[1]]@data[,1])))) {
-      step <- unique(diff(object[[1]]@data[,1]))
-      newx <- seq(from = min(object[[1]]@data[,1]), by = step, length.out = sum(check.length))
-      temp.matrix <- cbind(newx, temp.matrix)
+  if (merge.method == "append") {
+    newx <- seq(from = min(object[[1]]@data[, 1]), by = step,
+                length.out = sum(check.rows))
+    temp.matrix <- cbind(newx, temp.matrix)
   } else {
-    temp.matrix <- cbind(object[[1]]@data[1:min(check.length),1], temp.matrix)
+    temp.matrix <- cbind(object[[1]]@data[1:num.rows, 1], temp.matrix)
   }
-
 
 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
