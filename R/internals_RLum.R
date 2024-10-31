@@ -1313,7 +1313,7 @@ SW <- function(expr) {
 #'
 #' @md
 #' @noRd
-.shorten_filename <- function(filename, max.width = 50) {
+.shorten_filename <- function(filename, max.width = 70) {
   name.len <- nchar(filename)
 
   ## return the current file name if it already fits the available width
