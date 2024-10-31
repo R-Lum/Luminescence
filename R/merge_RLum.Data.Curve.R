@@ -157,10 +157,14 @@ merge_RLum.Data.Curve<- function(
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
   num.rows <- min(check.rows)
 
+  ## channel resolution of the first object: we need to round as there may
+  ## otherwise be numerical artefacts that would make the step not unique
+  step <- round(diff(object[[1]]@data[, 1]), 1)[1]
+
   ## extract the curve values from each object
   temp.matrix <- sapply(1:length(object), function(x) {
     ## check the resolution (roughly)
-    if (round(diff(object[[x]]@data[, 1]), 1)[1] != round(diff(object[[1]]@data[,1]),1)[1])
+    if (round(diff(object[[x]]@data[, 1]), 1)[1] != step)
       .throw_error("The objects do not seem to have the same channel resolution")
     ## limit all objects to the shortest one
     object[[x]]@data[1:num.rows, 2]
@@ -234,8 +238,7 @@ merge_RLum.Data.Curve<- function(
   #the x-values (probably time/channel). The difference should always be the
   #same, so we just expand the sequence if this is true. If this is not true,
   #we revert to the default behaviour (i.e., append the x values)
-  if (merge.method[1] == "append" & length(unique(diff(object[[1]]@data[,1])))) {
-      step <- unique(diff(object[[1]]@data[,1]))
+  if (merge.method == "append") {
     newx <- seq(from = min(object[[1]]@data[, 1]), by = step,
                 length.out = sum(check.rows))
     temp.matrix <- cbind(newx, temp.matrix)
