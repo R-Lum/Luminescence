@@ -110,6 +110,9 @@ fixed in #263).
 ### `plot_RLum.Data.Spectrum()`
 * Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
+* The gradient between colours when `plot.type = "persp"` is now more
+consistent and doesn't produce artefacts in the regions of transition
+between colours (#371, fixed in 380).
 
 ### `read_BIN2R()`
 * The function is now much faster: we have recorded an overall improvement
