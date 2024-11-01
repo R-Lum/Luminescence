@@ -159,5 +159,11 @@ test_that("test edge cases", {
     plot = TRUE,
     txtProgressBar = FALSE
   )), "RLum.Results")
+})
 
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 382
+  expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE))
 })
