@@ -1,8 +1,10 @@
-#' Verify single grain data sets and check for invalid grains, i.e.
+#' @title Verify single grain data sets and check for invalid grains, i.e.
 #' zero-light level grains
 #'
-#' This function tries to identify automatically zero-light level curves (grains)
+#' @description This function tries to identify automatically zero-light level curves (grains)
 #' from single grain data measurements.
+#'
+#' @details
 #'
 #' **How does the method work?**
 #'
@@ -32,7 +34,7 @@
 #' the `var` of the count values (see details)
 #'
 #' @param cleanup [logical] (*with default*):
-#' if set to `TRUE`, curves identified as zero light level curves are
+#' if set to `TRUE`, curves/aliquots identified as zero light level curves/aliquots are
 #' automatically removed. Output is an object as same type as the input, i.e.
 #' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
@@ -81,7 +83,7 @@
 #' For `cleanup = TRUE` the same object as the input is returned, but cleaned up
 #' (invalid curves were removed). This means: Either a [Risoe.BINfileData-class]
 #' or an [RLum.Analysis-class] object is returned in such cases.
-#' A [Risoe.BINfileData-class] object can be exported to a BIN-file by
+#' A [Risoe.BINfileData-class] object can be exported to a BINX-file by
 #' using the function [write_R2BIN].
 #'
 #' @note
@@ -93,9 +95,10 @@
 #'
 #' The function checking for invalid curves works rather robust and it is likely
 #' that Reg0 curves within a SAR cycle are removed as well. Therefore it is
-#' strongly recommended to use the argument `cleanup = TRUE` carefully.
+#' strongly recommended to use the argument `cleanup = TRUE` carefully if
+#' the cleanup works only on curves.
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.2.4
 #'
 #'
 #' @author
@@ -158,8 +161,8 @@ verify_SingleGrainData <- function(
   # Self Call -----------------------------------------------------------------------------------
   if(is(object, "list")){
     if (length(object) == 0)
-      return(set_RLum(class = if (cleanup) "RLum.Analysis"
-                              else "RLum.Results"))
+      return(set_RLum(class = if (cleanup) "RLum.Analysis" else "RLum.Results"))
+
     results <- .warningCatcher(lapply(1:length(object), function(x) {
       verify_SingleGrainData(
         object = object[[x]],
@@ -173,7 +176,11 @@ verify_SingleGrainData <- function(
     }))
 
     ##account for cleanup
-    if(cleanup){
+    if(cleanup[1]){
+      results <- .rm_nonRLum(results)
+      if(length(results) == 0)
+        return(NULL)
+      else
       return(results)
 
     }else{
@@ -190,7 +197,6 @@ verify_SingleGrainData <- function(
   ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##RisoeBINfileData
   if(is(object, "Risoe.BINfileData")){
-
     ##run test on DATA slot
     ##MEAN + SD
     temp.results_matrix <- lapply(X = object@DATA, FUN = function(x){
@@ -238,15 +244,20 @@ verify_SingleGrainData <- function(
     if(cleanup){
       ##selected wanted elements
       object@DATA <- object@DATA[selection_id]
-      object@METADATA <- object@METADATA[selection_id,]
-      object@METADATA$ID <- 1:length(object@DATA)
 
+      if(length(object@DATA) > 0) {
+        object@METADATA <- object@METADATA[selection_id,]
+        object@METADATA$ID <- 1:length(object@DATA)
 
-      ##print message
-      selection_id <- .collapse(selection_id, quote = FALSE)
-      if(verbose){
-        cat(paste0("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
-        cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
+        ##print message
+        selection_id <- .collapse(selection_id, quote = FALSE)
+        if(verbose){
+          cat(paste0("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
+          cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
+
+        }
+      } else {
+        object <- NULL
 
       }
 
@@ -270,7 +281,7 @@ verify_SingleGrainData <- function(
     ## ... and yes it make sense not to mix that up with the code above
   }else if(is(object,"RLum.Analysis")){
     ##first extract all count values from all curves
-    object_list <- lapply(get_RLum(object), function(x){
+    object_list <- lapply(object@records, function(x){
       ##yes, would work differently, but it is faster
       x@data[,2]
     })
@@ -329,7 +340,6 @@ verify_SingleGrainData <- function(
         selection[["POSITION"]][selection[["VALID"]]])
 
     } else{
-
       .throw_error("Object originator '", object@originator, "' not supported")
     }
 
@@ -370,15 +380,16 @@ verify_SingleGrainData <- function(
 
     }
 
-
     ##return value
     ##select output on the chosen input
-    if(cleanup && !any(is.na(selection_id))){
-
+    if(cleanup[1] && !any(is.na(selection_id))){
       ##print message
-      if(verbose){
+      if(verbose && cleanup_level == "curve"){
         selection_id_text <- .collapse(selection_id, quote = FALSE)
-        cat(paste0("\n[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
+        if(selection_id_text == "")
+          selection_id_text <- "<none>"
+
+        cat(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
                    selection_id_text), "\n")
       }
 
@@ -396,7 +407,6 @@ verify_SingleGrainData <- function(
         )
 
       } else{
-
         object <- set_RLum(
           class = "RLum.Analysis",
           records = get_RLum(object, record.id = selection_id, drop = FALSE),
@@ -412,7 +422,7 @@ verify_SingleGrainData <- function(
 
     }else{
       if(any(is.na(selection_id))){
-        .throw_warning("'selection_id' is NA, nothing removed, everything selected for removal")
+        .throw_warning("'selection_id' is NA, everything tagged for removal")
       }
 
       return_object <- set_RLum(
@@ -423,6 +433,10 @@ verify_SingleGrainData <- function(
           selection_full = selection),
         info = list(call = sys.call())
       )
+
+      ## cleanup means cleanup
+      if(cleanup[1])
+        return_object <- NULL
     }
   }
 
@@ -467,5 +481,9 @@ verify_SingleGrainData <- function(
   }
 
   # Return --------------------------------------------------------------------------------------
+  if(is.null(return_object))
+    .throw_warning("Verification and cleanup removed all records. NULL returned!")
+
   return(return_object)
 }
+

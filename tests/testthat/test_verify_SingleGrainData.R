@@ -16,7 +16,7 @@ test_that("check functionality", {
 
   ## RLum.Analysis object
   expect_warning(output <- verify_SingleGrainData(object),
-                 "'selection_id' is NA, nothing removed, everything selected")
+                 "'selection_id' is NA, everything tagged for removal")
   expect_s4_class(output, "RLum.Results")
   expect_s3_class(output$selection_full, "data.frame")
   expect_equal(sum(output@data$selection_full$VALID), 11)
@@ -39,8 +39,15 @@ test_that("check functionality", {
   expect_equal(res@originator, "read_XSYG2R")
   expect_length(res@records, 0)
 
-  ## Risoe.BINfileData
+  ## check for cleanup
   data(ExampleData.BINfileData, envir = environment())
+  t <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+  expect_warning(
+    object = verify_SingleGrainData(t, cleanup = TRUE, threshold = 20000),
+    regexp = "Verification and cleanup removed all records. NULL returned!")
+  expect_null(suppressWarnings(verify_SingleGrainData(t, cleanup = TRUE, threshold = 20000)))
+
+  ## Risoe.BINfileData
   res <- expect_silent(verify_SingleGrainData(CWOSL.SAR.Data))
   expect_s4_class(res, "RLum.Results")
 
@@ -51,6 +58,12 @@ test_that("check functionality", {
   obj.risoe <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
   res <- expect_silent(verify_SingleGrainData(obj.risoe))
   expect_s4_class(res, "RLum.Results")
+
+  ## remove all and cleanup
+  expect_warning(
+    object = verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE, threshold = 20000),
+    regexp = "Verification and cleanup removed all records. NULL returned!")
+  expect_null(suppressWarnings(verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE, threshold = 20000)))
 
   ## empty list
   expect_s4_class(res <- verify_SingleGrainData(list()),

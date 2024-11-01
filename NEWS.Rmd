@@ -144,8 +144,16 @@ ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 CSV files according to the DRAC v1.2 CSV template.
 
 ### `verify_SingleGrainData()`
+* **Potentially breaking old code!**: if `cleanup = TRUE` the result was not consistent 
+and produced a mixture of `RLum.Results-class` and `RLum.Analysis-class`/`Risoe.BINFileData-class` objects in 
+particular when run over a list, this was not expected from what is written in the manual. Now the function  
+indeed cleans up the object, hence if a list of `RLum.Analysis` objects is provided, the result is a cleaned list 
+of that object. If the clean-up means that the everything was removed, the result is `NULL`. 
+* Improve warning messages; it was indeed not very intelligible. 
 * The function doesn't crash anymore when applied to an empty list (#365,
 fixed in #366).
+* Silence the very talkative terminal even if nothing was removed from a record for `cleanup = TRUE`.
+* Provide better terminal feedback if the selection resulted in an empty record. 
 
 ### `write_R2BIN()`
 * Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
