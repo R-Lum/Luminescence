@@ -164,6 +164,10 @@ test_that("test edge cases", {
 test_that("regression tests", {
   testthat::skip_on_cran()
 
+  ## issue 372
+  expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE,
+                                 method.control = list(maxiter = 10)))
+
   ## issue 382
   expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE))
 })

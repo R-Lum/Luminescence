@@ -443,7 +443,6 @@ analyse_IRSAR.RF<- function(
     RF_nat.lim <- .listify(RF_nat.lim, rep.length)
     RF_reg.lim <- .listify(RF_reg.lim, rep.length)
     method <- .listify(method, rep.length)
-    method.control <- .listify(method.control, rep.length)
     n.MC <- .listify(n.MC, rep.length)
 
     ##test_parameters
@@ -476,7 +475,7 @@ analyse_IRSAR.RF<- function(
         RF_nat.lim = RF_nat.lim[[x]],
         RF_reg.lim = RF_reg.lim[[x]],
         method = method[[x]],
-        method.control = method.control[[x]],
+        method.control = method.control,
         test_parameters = test_parameters[[x]],
         n.MC = n.MC[[x]],
         txtProgressBar = txtProgressBar,
