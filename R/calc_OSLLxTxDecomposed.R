@@ -94,10 +94,7 @@ calc_OSLLxTxDecomposed <- function(
   #select only the first element; we do this silently because it is clearly
   #written in the documentation
   OSL.component <- OSL.component[1]
-
-  if (!(is.numeric(OSL.component) || is.character(OSL.component)) ||
-      is.na(OSL.component))
-    .throw_error("Invalid data type for OSL component")
+  .validate_class(OSL.component, c("integer", "numeric", "character"))
 
   # get component index from component name
   if (is.character(OSL.component)) {

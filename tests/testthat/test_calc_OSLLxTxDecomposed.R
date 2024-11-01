@@ -16,7 +16,7 @@ test_that("input validation", {
                "No valid component data.frame for Tx value")
   expect_error(calc_OSLLxTxDecomposed(Lx.data, Tx.data,
                                       OSL.component = NA),
-               "Invalid data type for OSL component")
+               "'OSL.component' should be of class 'integer', 'numeric' or")
   expect_error(calc_OSLLxTxDecomposed(Lx.data, Tx.data,
                                       OSL.component = "error"),
                "Invalid OSL component name, valid names are:")
