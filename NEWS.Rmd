@@ -146,6 +146,8 @@ ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 ### `use_DRAC()`
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
 CSV files according to the DRAC v1.2 CSV template.
+* The function gained support for three new `...` arguments: `version_ignore` to ignore the
+DRAC version check, `user` and `password` to access password protected subsites
 
 ### `verify_SingleGrainData()`
 * **Potentially breaking old code!**: if `cleanup = TRUE` the result was not consistent 

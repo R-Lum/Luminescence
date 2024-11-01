@@ -1,6 +1,6 @@
-#' Use DRAC to calculate dose rate data
+#' @title Use DRAC to calculate dose rate data
 #'
-#' The function provides an interface from R to DRAC. An R-object or a
+#' @description The function provides an interface from R to DRAC. An R-object or a
 #' CSV file is passed to the DRAC website and results are re-imported into R.
 #'
 #' @param file [character] (**required**):
@@ -22,6 +22,10 @@
 #' @param ... Further arguments.
 #'
 #' - `url` [character]: provide an alternative URL to DRAC
+#' - `ignore_version` [logical]: ignores the version check, this might come in handy
+#' if the version has changed, but not the column order
+#' - `user` [character]: option to provide username for secured site
+#' - `password` [character]: password for secured site, only works jointly with `user`
 #' - `verbose` [logical]: show or hide console output
 #'
 #' @return Returns an [RLum.Results-class] object containing the following elements:
@@ -124,6 +128,18 @@ use_DRAC <- function(
   ##
   ## (2)
   ## Leave it to the user where the calculations made in our package should be used
+  ##
+ # Settings ------------------------------------------------------------------------------------
+  settings <- modifyList(list(
+    name = ifelse(missing(name),
+                  paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, runif(1, 2, 4))), name),
+    verbose = TRUE,
+    url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator",
+    ignore_version = FALSE,
+    user = NULL,
+    password = NULL),
+    list(...),
+    keep.null = TRUE)
 
   # Integrity tests -----------------------------------------------------------------------------
   if (inherits(file, "character")) {
@@ -141,7 +157,8 @@ use_DRAC <- function(
     ## only meta data
 
     ## DRAC v1.2 - CSV sheet
-    if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs")
+    if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs" &
+        !settings$ignore_version)
       .throw_error("It looks like that you are not using the original ",
                    "DRAC v1.2 CSV template, this is currently not supported")
 
@@ -163,16 +180,6 @@ use_DRAC <- function(
   citation_style <- .validate_args(citation_style,
                                    c("text", "Bibtex", "citation", "html",
                                      "latex", "R"))
-
-  # Settings ------------------------------------------------------------------------------------
-  settings <- list(
-    name = ifelse(missing(name),
-                  paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, runif(1, 2, 4))), name),
-   verbose = TRUE,
-   url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
-
-  # override defaults with args in ...
-  settings <- modifyList(settings, list(...))
 
   # Set helper function -------------------------------------------------------------------------
   ## The real data are transferred without any encryption, so we have to mask the original
@@ -241,10 +248,19 @@ use_DRAC <- function(
   # Send data to DRAC ---------------------------------------------------------------------------
   if (settings$verbose) message(paste("\t Establishing connection to", settings$url))
 
+  ## create config list
+  conf_l <- list()
+  # nocov start
+  if(!is.null(settings$user) & !is.null(settings$password))
+    conf_l <- httr::authenticate(settings$user, settings$password, type = "basic")
+  # nocov end
+
   ## send data set to DRAC website and receive response
-  DRAC.response <- httr::POST(settings$url,
-                              body = list("drac_data[name]"  = settings$name,
-                                          "drac_data[table]" = DRAC_input))
+  DRAC.response <- httr::POST(
+    url = settings$url,
+    config = conf_l,
+    body = list("drac_data[name]"  = settings$name,
+                "drac_data[table]" = DRAC_input))
   ## check for correct response
   if (DRAC.response$status_code != 200) {
     .throw_error("Transmission failed with HTTP status code: ",
