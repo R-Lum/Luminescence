@@ -101,6 +101,10 @@ add respective plot options
 * The function crashed contained for single grain data that sometimes cause a lot of `NaN` values
 during log conversions required for estimating the start parameters. The result was the error `object 'b.MC' not found`
 (#374; fixed)
+* If `fit.method = "EXP+LIN"`, the function stuck sometimes in an endless loop in cases where the number of
+parameters was larger or equal the number of data points. To avoid this, we replaced `nls()` `minpack.lm::nlsLM()`. 
+Please keep in mind that it does not mean that the fit results make any sense, it just helps to avoid uncontained events 
+in the R session (addresses #381).
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect

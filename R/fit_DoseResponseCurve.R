@@ -455,8 +455,7 @@ fit_DoseResponseCurve <- function(
   .report_fit <- function(De, ...) {
     if (verbose && mode != "alternate") {
       writeLines(paste0("[fit_DoseResponseCurve()] Fit: ", fit.method,
-                        " (", mode,") ", "| De = ", round(abs(De), 2),
-                        ...))
+                        " (", mode,") ", "| De = ", round(abs(De), 2)))
     }
   }
 
@@ -480,7 +479,7 @@ fit_DoseResponseCurve <- function(
   if (any(data$y > 0)) {
     ## this may cause NaN values so we have to handle those later
     fit.lm <- try(lm(suppressWarnings(log(data$y)) ~ data$x), silent = TRUE)
-    
+
     if (!inherits(fit.lm, "try-error") && !is.na(fit.lm$coefficients[2]))
       b <- as.numeric(1 / fit.lm$coefficients[2])
 
@@ -848,57 +847,61 @@ fit_DoseResponseCurve <- function(
   else if (fit.method=="EXP+LIN") {
     ##try some start parameters from the input values to makes the fitting more stable
     for(i in 1:length(a.MC)){
-      a<-a.MC[i];b<-b.MC[i];c<-c.MC[i];g<-g.MC[i]
+      a <- a.MC[i]
+      b <- b.MC[i]
+      c <- c.MC[i]
+      g <- max(0, g.MC[i])
 
       ##---------------------------------------------------------##
       ##start: with EXP function
       fit.EXP <- try({
-        nls(
+        suppressWarnings(minpack.lm::nlsLM(
         formula = .toFormula(fit.functionEXP, env = currn_env),
         data = data,
         start = c(a=a,b=b,c=c),
         trace = FALSE,
-        algorithm = "port",
+        algorithm = "LM",
         lower = c(a=0, b>10, c = 0),
-        control = nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
-      )},
+        control = minpack.lm::nls.lm.control(
+          maxiter=100)
+      ))},
       silent=TRUE)
 
       if(!inherits(fit.EXP, "try-error")){
         #get parameters out of it
         parameters<-(coef(fit.EXP))
-        a<-as.vector((parameters["a"]))
-        b<-as.vector((parameters["b"]))
-        c<-as.vector((parameters["c"]))
+        a <- parameters[["a"]]
+        b <- parameters[["b"]]
+        c <- parameters[["c"]]
 
         ##end: with EXP function
         ##---------------------------------------------------------##
       }
 
-      fit<-try({
-        nls(
+      fit <- try({
+        suppressWarnings(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionEXPLIN, env = currn_env),
           data = data,
           start = c(a=a,b=b,c=c,g=g),
           trace = FALSE,
-          algorithm = "port",
+          algorithm = "LM",
           lower = if(fit.bounds){
-            c(a=0,b>10,c=0,g=0)}
-          else{c(a = -Inf,b = -Inf,c = -Inf,g = -Inf)
+            c(a = 0, b > 10, c = 0, g = 0)
+          } else {
+            c(a = -Inf, b = -Inf,c = -Inf,g = -Inf)
           },
-          control = nls.control(
-            maxiter = 500,
-            warnOnly = FALSE,
-            minFactor = 1/2048) #increase max. iterations
-      )}, silent=TRUE)
+          control = minpack.lm::nls.lm.control(
+            maxiter = 500) #increase max. iterations
+          ))
+        }, silent=TRUE)
 
       if(!inherits(fit, "try-error")){
         #get parameters out of it
         parameters<-(coef(fit))
-        a.start[i] <- as.vector((parameters["a"]))
-        b.start[i] <- as.vector((parameters["b"]))
-        c.start[i] <- as.vector((parameters["c"]))
-        g.start[i] <- as.vector((parameters["g"]))
+        a.start[i] <- parameters[["a"]]
+        b.start[i] <- parameters[["b"]]
+        c.start[i] <- parameters[["c"]]
+        g.start[i] <- parameters[["g"]]
       }
     }##end for loop
 
@@ -912,7 +915,7 @@ fit_DoseResponseCurve <- function(
     upper <- if (fit.force_through_origin) c(Inf, Inf, 0, Inf) else rep(Inf, 4)
 
     ##perform final fitting
-    fit <- try(minpack.lm::nlsLM(
+    fit <- try(suppressWarnings(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionEXPLIN, env = currn_env),
       data = data,
       start = list(a = a, b = b,c = c, g = g),
@@ -922,8 +925,7 @@ fit_DoseResponseCurve <- function(
       lower = lower,
       upper = upper,
       control = minpack.lm::nls.lm.control(maxiter = 500)
-    ), silent = TRUE
-    )
+    )), silent = TRUE)
 
     #if try error stop calculation
     if(!inherits(fit, "try-error")){
@@ -992,7 +994,7 @@ fit_DoseResponseCurve <- function(
         data <- data.frame(x=xy$x,y=data.MC[,i])
 
         ##perform MC fitting
-        fit.MC <- try(minpack.lm::nlsLM(
+        fit.MC <- try(suppressWarnings(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionEXPLIN, env = currn_env),
           data = data,
           start = list(a = a, b = b,c = c, g = g),
@@ -1005,8 +1007,7 @@ fit_DoseResponseCurve <- function(
             c(-Inf,-Inf,-Inf, -Inf)
           },
           control = minpack.lm::nls.lm.control(maxiter = 500)
-        ), silent = TRUE
-        )
+        )), silent = TRUE)
 
         #get parameters out of it including error handling
         if (inherits(fit.MC, "try-error")) {
@@ -1014,10 +1015,10 @@ fit_DoseResponseCurve <- function(
 
         }else {
           parameters <- coef(fit.MC)
-          var.a[i] <- as.vector((parameters["a"]))
-          var.b[i] <- as.vector((parameters["b"]))
-          var.c[i] <- as.vector((parameters["c"]))
-          var.g[i] <- as.vector((parameters["g"]))
+          var.a[i] <- parameters[["a"]]
+          var.b[i] <- parameters[["b"]]
+          var.c[i] <- parameters[["c"]]
+          var.g[i] <- parameters[["g"]]
 
           if (mode == "interpolation") {
             LnTn <- data.MC.De[i]
