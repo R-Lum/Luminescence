@@ -459,7 +459,8 @@ analyse_IRSAR.RF<- function(
       temp_main <- .listify(list(...)$main, rep.length)
 
     }else{
-      if(object[[1]]@originator == "read_RF2R"){
+      originator <- object[[1]]@originator
+      if (!is.na(originator) && originator == "read_RF2R") {
         temp_main <- lapply(object, function(x) x@info$ROI)
       } else {
         temp_main <- as.list(paste0("ALQ #",1:length(object)))
