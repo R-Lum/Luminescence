@@ -586,6 +586,28 @@ fancy_scientific <- function(l) {
 }
 
 #++++++++++++++++++++++++++++++
+#+ .rm_NULL                   +
+#++++++++++++++++++++++++++++++
+#' @title Removes all NULL elements from list
+#'
+#' @param x [list] (**required**): list
+#'
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#' @examples
+#' l <- list("a", NULL)
+#' .rm_NULL_elements(l)
+#'
+#' @return [list] without NULL elements, can be empty
+#'
+#' @md
+#' @noRd
+.rm_NULL_elements <- function(x){
+  x[vapply(x, is.null, logical(1))] <- NULL
+  x
+}
+
+#++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
 #' @title Efficient binning of matrices
