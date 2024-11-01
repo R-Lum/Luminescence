@@ -177,7 +177,7 @@ verify_SingleGrainData <- function(
 
     ##account for cleanup
     if(cleanup[1]){
-      results <- .rm_nonRLum(results)
+      results <- .rm_NULL_elements(.rm_nonRLum(results))
       if(length(results) == 0)
         return(NULL)
       else

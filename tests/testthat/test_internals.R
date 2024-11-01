@@ -125,7 +125,7 @@ test_that("Test internals", {
       c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2), class = "RLum.Analysis"),
     "list")
 
-  # .rm_NULLelements -----------------------------------------------------------
+  # .rm_NULL_elements() -----------------------------------------------------------
   expect_type(.rm_NULL_elements(list("a", NULL)),
     "list")
   t <- expect_type(.rm_NULL_elements(list(NULL, NULL)),
