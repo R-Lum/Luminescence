@@ -49,7 +49,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.14
+#' @section Function version: 0.15
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -246,7 +246,8 @@ use_DRAC <- function(
   DRAC_input <- paste(DRAC_submission.string, collapse = "")
 
   # Send data to DRAC ---------------------------------------------------------------------------
-  if (settings$verbose) message(paste("\t Establishing connection to", settings$url))
+  if (settings$verbose)
+    message(paste("\t Establishing connection to", settings$url))
 
   ## create config list
   conf_l <- list()
