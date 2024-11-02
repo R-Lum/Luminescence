@@ -1,6 +1,6 @@
-#' Create a DRAC input data template (v1.2)
+#' @title Create a DRAC input data template (v1.2)
 #'
-#' This function returns a DRAC input template (v1.2) to be used in conjunction
+#' @description This function returns a DRAC input template (v1.2) to be used in conjunction
 #' with the [use_DRAC] function
 #'
 #' @param nrow [integer] (*with default*):
@@ -26,10 +26,14 @@
 #' Note that the last three options can be used to produce a template
 #' with values directly taken from the official DRAC input `.csv` file.
 #'
+#' @param file_input [character] file connection to a DRAC `.csv` file, the file
+#' will be imported and translated to the template that can be used by [use_DRAC].
+#' Please note that there is not check on validity of the `.csv` file.
+#'
 #' @param notification [logical] (*with default*):
 #' show or hide the notification
 #'
-#' @return A list.
+#' @return A  list of class `DRAC.list`.
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -90,6 +94,7 @@
 template_DRAC <- function(
   nrow = 1L,
   preset = NULL,
+  file_input = NULL,
   notification = TRUE
 ) {
   .set_function_name("template_DRAC")
@@ -101,14 +106,33 @@ template_DRAC <- function(
 
   .validate_positive_scalar(nrow, int = TRUE)
 
-  ## throw warning
-  if (nrow > 5000)
-    .throw_warning("More than 5000 datasets might not be supported")
-
   ## PRESETS ----
   valid_presets <- c("quartz_coarse", "quartz_fine", "feldspar_coarse", "polymineral_fine",
                      "DRAC-example_quartz", "DRAC-example_feldspar", "DRAC-example_polymineral")
   preset <- .validate_args(preset, valid_presets, null.ok = TRUE)
+
+  ## FILE ----------
+  if(!is.null(file_input)) {
+    ## read csv file from DRAC
+    file_input <- read.csv(
+      file = file_input,
+      skip = 8,
+      check.names = FALSE,
+      header = TRUE,
+      stringsAsFactors = FALSE)[-1, ]
+
+    ## cut columns to current template
+    n_col <- length(template_DRAC(notification = FALSE))
+    file_input <- file_input[,1:n_col]
+
+    ## reset rows
+    nrow <- nrow(file_input)
+
+  }
+
+  ## throw warning
+  if (nrow > 5000)
+    .throw_warning("More than 5000 datasets might not be supported")
 
   ## LEGAL NOTICE ----
   messages <- list("\n",
@@ -137,7 +161,6 @@ template_DRAC <- function(
 
   # CREATE TEMPLATE ----
   template <- list(
-
     `Project ID` =
       structure(rep(NA_character_, nrow), required = TRUE, allowsX = FALSE, key = "TI:1",
                 description = "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."), #
@@ -354,15 +377,23 @@ template_DRAC <- function(
   ## RETURN VALUE ----
   # add an additional DRAC class so we can define our own S3 method for as.data.frame
   class(template) <- c("DRAC.list", "list")
+
   # set preset
-  if (!is.null(preset))
+  if (!is.null(preset) && is.null(file_input))
     template <- .preset_DRAC(template, preset)
 
+  ## just fill the template
+  if(!is.null(file_input)) {
+    for(i in seq_along(file_input))
+      template[[i]] <- file_input[[i]]
+
+  }
+
+  ## return
   invisible(template)
 }
 
 .preset_DRAC <- function(x, preset) {
-
   preset_list <- list(
     ## DRAC COLUMNS (TI:xx) ---       TI:1               2             3         4              5    6      7     8     9     10  11 12  13   14   15   16   17    18   19   20   21   22   23   24   25    26   27   28   29   30   31    32   33                 34                 35  36  37         38      39      40  41 42    43    44   45   46  47   48   49   50   51      52    53
     "quartz_coarse" = list("RLum_preset", "quartz_coarse", "Q", "Guerinetal2011", "X", "X", "X",
@@ -393,5 +424,7 @@ template_DRAC <- function(
   n <- length(x[[1]])
   for (i in 1:length(x))
     x[[i]] <- rep(preset_list[[preset]][[i]], n)
+
   return(x)
+
 }

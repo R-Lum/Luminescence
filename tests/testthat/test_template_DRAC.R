@@ -30,6 +30,12 @@ test_that("Check template creation ", {
   expect_equal(length(template_DRAC(notification = FALSE)), 53)
   expect_equal(length(template_DRAC(nrow = 10, notification = FALSE)[[1]]), 10)
 
+  ## use the file_input option
+  tmp_file <- tempfile(fileext = ".csv")
+  write.csv(x = as.data.frame(template_DRAC(nrow = 12, preset = 'quartz_coarse')), file = tmp_file, row.names = FALSE)
+  t <- expect_s3_class(template_DRAC(file_input = tmp_file, notification = FALSE), "DRAC.list")
+  expect_length(t[[1]], 3)
+
   ## expect failure
   expect_error(template_DRAC(nrow = -1),
                "'nrow' should be a positive integer scalar")

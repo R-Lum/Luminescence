@@ -143,6 +143,11 @@ ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 * The function sometimes struggled with the import if only a directory was provided; fixed. 
 * The function truncated the terminal output under certain circumstances; fixed.
 
+### `template_DRAC()`
+* The function gained a new argument `file_input` that enables the creating of a DRAC template 
+based on an existing DRAC CSV file. This way, already available DRAC files cannot only 
+be used by conveniently modified without a pass to `use_DRAC()` first.
+
 ### `use_DRAC()`
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
 CSV files according to the DRAC v1.2 CSV template.

@@ -4,7 +4,7 @@
 \alias{template_DRAC}
 \title{Create a DRAC input data template (v1.2)}
 \usage{
-template_DRAC(nrow = 1L, preset = NULL, notification = TRUE)
+template_DRAC(nrow = 1L, preset = NULL, file_input = NULL, notification = TRUE)
 }
 \arguments{
 \item{nrow}{\link{integer} (\emph{with default}):
@@ -32,11 +32,15 @@ a minimum of reasonable preset values.
 Note that the last three options can be used to produce a template
 with values directly taken from the official DRAC input \code{.csv} file.}
 
+\item{file_input}{\link{character} file connection to a DRAC \code{.csv} file, the file
+will be imported and translated to the template that can be used by \link{use_DRAC}.
+Please note that there is not check on validity of the \code{.csv} file.}
+
 \item{notification}{\link{logical} (\emph{with default}):
 show or hide the notification}
 }
 \value{
-A list.
+A  list of class \code{DRAC.list}.
 }
 \description{
 This function returns a DRAC input template (v1.2) to be used in conjunction
@@ -87,12 +91,7 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-} 
-
-\section{How to cite}{
-Burow, C., Kreutzer, S., 2024. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
@@ -102,4 +101,4 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+}
