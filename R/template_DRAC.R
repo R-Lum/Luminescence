@@ -170,11 +170,11 @@ template_DRAC <- function(
                 description = "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."), #
 
     `Mineral` =
-      structure(factor(rep(NA_character_, nrow), c("Q", "F", "PM")), required = TRUE,  default_class = "character", allowsX = FALSE, key = "TI:3",
+      structure(factor(rep(NA_character_, nrow), c("Q", "F", "PM")), required = TRUE,  default_class = "factor", allowsX = FALSE, key = "TI:3",
                 description = "The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q', 'F' or 'PM'."), #
 
     `Conversion factors` =
-      structure(factor(rep(NA_character_, nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "Cresswelletal2018", "X")), required = FALSE, allowsX = TRUE,  default_class = "character", key = "TI:4",
+      structure(factor(rep(NA_character_, nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "Cresswelletal2018", "X")), required = FALSE, allowsX = TRUE,  default_class = "factor", key = "TI:4",
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
 
     `External U (ppm)` =
@@ -210,7 +210,7 @@ template_DRAC <- function(
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
 
     `Calculate external Rb from K conc?` =
-      structure(factor(rep(NA_character_, nrow), c("Y", "N")), required = FALSE, default_class = "character", allowsX = FALSE, key = "TI:13",
+      structure(factor(rep(NA_character_, nrow), c("Y", "N")), required = FALSE, default_class = "factor", allowsX = FALSE, key = "TI:13",
                 description = "Option to calculate a Rubidium concentration from Potassium, using the 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'."), #
 
     `Internal U (ppm)` =
@@ -246,7 +246,7 @@ template_DRAC <- function(
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
 
     `Calculate internal Rb from K conc?` =
-      structure(factor(rep(NA_character_, nrow), c("Y", "N")), required = FALSE, allowsX = FALSE, default_class = "character", key = "TI:22",
+      structure(factor(rep(NA_character_, nrow), c("Y", "N")), required = FALSE, allowsX = FALSE, default_class = "factor", key = "TI:22",
                 description = "Option to calculate an internal Rubidium concentration from Potassium, using the 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'."), #
 
     `User external alphadoserate (Gy.ka-1)` =
@@ -282,7 +282,7 @@ template_DRAC <- function(
                 description = "Users may input an internal dose rate (either alpha, beta or the sum of the two; in Gy.ka-1). DRAC will assume that this value has already been corrected for attenuation. Inputs in this field will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and not left blank."), #
 
     `Scale gammadoserate at shallow depths?` =
-      structure(factor(rep(NA_character_, nrow), c("Y", "N")), required = FALSE, allowsX = FALSE, default_class = "character", key = "TI:31",
+      structure(factor(rep(NA_character_, nrow), c("Y", "N")), required = FALSE, allowsX = FALSE, default_class = "factor", key = "TI:31",
                 description = "Users may choose to scale gamma dose rates for samples taken within 0.3 m of the ground surface. The scaling factors of Aitken (1985) are used. Input should be yes 'Y' or no 'N'."), #
 
     `Grain size min (microns)` =
@@ -294,11 +294,11 @@ template_DRAC <- function(
                 description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left blank."), #
 
     `alpha-Grain size attenuation` =
-      structure(factor(rep(NA_character_, nrow), c("Bell1980", "Brennanetal1991")), required = TRUE, allowsX = FALSE,  default_class = "character", key = "TI:34",
+      structure(factor(rep(NA_character_, nrow), c("Bell1980", "Brennanetal1991")), required = TRUE, allowsX = FALSE,  default_class = "factor", key = "TI:34",
                 description = "The grain size attenuation factors for the alpha dose rate. Users have the option of datasets from Bell (1980) and Brennan et al. (1991). Input must be 'Bell1980' or 'Brennanetal1991'."), #
 
     `beta-Grain size attenuation ` =
-      structure(factor(rep(NA_character_, nrow), c("Mejdahl1979", "Brennan2003", "Guerinetal2012-Q", "Guerinetal2012-F")), required = TRUE, allowsX = FALSE,  default_class = "character", key = "TI:35",
+      structure(factor(rep(NA_character_, nrow), c("Mejdahl1979", "Brennan2003", "Guerinetal2012-Q", "Guerinetal2012-F")), required = TRUE, allowsX = FALSE,  default_class = "factor", key = "TI:35",
                 description = "The grain size attenuation factors for the beta dose rate. Users have the option of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for quartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q' or 'Guerinetal2012-F' ."), #
 
     `Etch depth min (microns)` =
@@ -310,7 +310,7 @@ template_DRAC <- function(
                 description = "The user defined etch depth range (microns). Inputs should range between 0 and 30 and not be left blank."), #
 
     `beta-Etch depth attenuation factor` =
-      structure(factor(rep(NA_character_, nrow), c("Bell1979", "Brennan2003", "X")), required = FALSE, allowsX = TRUE, default_class = "character", key = "TI:38",
+      structure(factor(rep(NA_character_, nrow), c("Bell1979", "Brennan2003", "X")), required = FALSE, allowsX = TRUE, default_class = "factor", key = "TI:38",
                 description = "The etch depth attenuation factors for the beta dose rate. Users have the option of datasets from Bell (1979) and Brennan (2003). Input must be 'Bell1979' or 'Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation of the alpha dose rate by etching."), #
 
     `a-value` =
@@ -403,18 +403,18 @@ template_DRAC <- function(
                            "Brennanetal1991", "Guerinetal2012-Q", 20L, 5L, "Bell1979",
                            0.035, 0.01, 0.0, 0.0, 0.0, 0.0, 1.8, 0.1, "X", "X", 0, "X", "X", "X", "X"),
     "quartz_fine" = list("RLum_preset", "quartz_fine", "Q", "Guerinetal2011", "X", "X", "X", "X",
-                         "X", "X", "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X",
+                         "X", "X", "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "N", "X",
                          "X", "X", "X", "X", "X", "X", "X", "Y", 4L, 11L, "Brennanetal1991",
                          "Guerinetal2012-Q", 0L, 0L, "Bell1979", 0.035, 0.01, 0, 0, 0, 0, 1.8, 0.1,
                          "X", "X", 0, "X", "X", "X", "X"),
     "feldspar_coarse" = list("RLum_preset", "feldspar_coarse", "F", "Guerinetal2011", "X", "X", "X",
                              "X", "X", "X", "X", "X", "Y", "X", "X", "X", "X", 12.5, 0.5, "X", "X",
-                             "X", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 100L, 200L,
+                             "N", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 100L, 200L,
                              "Brennanetal1991", "Guerinetal2012-F", 0L, 0L, "Bell1979", 0.08, 0.01,
                              0, 0, 0, 0, 1.8, 0.1, "X", "X", 0, "X", "X", "X", "X"),
     "polymineral_fine" = list("RLum_preset", "polymineral_fine", "PM", "Guerinetal2011", "X", "X",
                               "X", "X", "X", "X", "X", "X", "Y", "X", "X", "X", "X", 12.5, 0.5,
-                              "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 4L, 11L,
+                              "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 4L, 11L,
                               "Brennanetal1991", "Guerinetal2012-F", 0L, 0L, "Bell1979", 0.08, 0.01,
                               0, 0, 0, 0, 1.8, 0.1, "X", "X", 0, "X", "X", "X", "X"),
     "DRAC-example_quartz" = list("DRAC-example",	"Quartz",       "Q", "Guerinetal2011",	 3.4,	0.51,	14.47, 1.69,	1.2, 0.14, 0,	0, "N", "X", "X", "X", "X",  "X",	"X", "X", "X", "N", "X", "X", "X",  "X", "X", "X", "X", "X", "N",  90L, 125L, "Brennanetal1991", "Guerinetal2012-Q", 8L,	10L, "Bell1979",	    0,      0,  5, 2, 2.22, 0.05, 1.8, 0.1, 30,  70, 150, "X", "X",     20,  0.2),
