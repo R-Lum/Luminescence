@@ -1,8 +1,13 @@
 ## FUNCTIONS -------------------------------------------------------------------
 
-# subset the DRAC reference list
-# 'x' is the input table from use_DRAC()
-get_DRAC_references <- function(x) {
+#' @title Subset the DRAC reference
+#'
+#' @param x [data.frame] or [DRAC.list]
+#'
+#'
+#' @md
+#' @noRd
+.get_DRAC_references <- function(x) {
   refs <- DRAC_refs()
   refs_names <- names(refs)
 

@@ -31,10 +31,12 @@ test_that("Check template creation ", {
   expect_equal(length(template_DRAC(nrow = 10, notification = FALSE)[[1]]), 10)
 
   ## use the file_input option
-  tmp_file <- tempfile(fileext = ".csv")
-  write.csv(x = as.data.frame(template_DRAC(nrow = 12, preset = 'quartz_coarse')), file = tmp_file, row.names = FALSE)
-  t <- expect_s3_class(suppressWarnings(template_DRAC(file_input = tmp_file, notification = FALSE)), "DRAC.list")
-  expect_length(t[[1]], 3)
+  SW({
+    tmp_file <- tempfile(fileext = ".csv")
+    write.csv(x = as.data.frame(template_DRAC(nrow = 12, preset = 'quartz_coarse')), file = tmp_file, row.names = FALSE)
+    t <- expect_s3_class(suppressWarnings(template_DRAC(file_input = tmp_file, notification = FALSE)), "DRAC.list")
+    expect_length(t[[1]], 3)
+  })
 
   ## expect failure
   expect_error(template_DRAC(nrow = -1),
@@ -51,3 +53,4 @@ test_that("Check template creation ", {
   expect_error(template_DRAC(preset = 999),
                "'preset' should be one of 'quartz_coarse', 'quartz_fine'")
 })
+

@@ -385,7 +385,7 @@ use_DRAC <- function(
   if (settings$verbose) lapply(messages, message)
 
   ## Get and print used references
-  references <- get_DRAC_references(DRAC.content.input)
+  references <- .get_DRAC_references(DRAC.content.input)
 
   if (print_references && settings$verbose) {
     for (i in 1:length(references$refs)) {
