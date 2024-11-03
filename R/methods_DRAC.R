@@ -6,10 +6,10 @@
 ## DATA FRAME COERCION METHOD
 
 ## This is a method for the as.data.frame S3 generic. We need this to intercept the
-## DRAC list object after it hast passed the actual list-method. After it was 
-## coerced to a data.frame we assign new column names (DRAC ID keys) and 
+## DRAC list object after it hast passed the actual list-method. After it was
+## coerced to a data.frame we assign new column names (DRAC ID keys) and
 ## make sure that all columns are either of class 'character' or 'numeric'.
-## Finally, we attach a further class name to identify it as a valid DRAC object 
+## Finally, we attach a further class name to identify it as a valid DRAC object
 ## when passed to use_DRAC
 
 #' @export
@@ -17,7 +17,7 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
   DF <- as.data.frame.list(x)
   colnames(DF) <- paste0("TI:", 1:ncol(DF))
   for (i in 1:ncol(DF)) {
-    if (is.factor(DF[ ,i])) 
+    if (is.factor(DF[ ,i]))
       DF[ ,i] <- as.character(DF[, i])
   }
   class(DF) <- c("data.frame", "DRAC.data.frame")
@@ -32,7 +32,7 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
 print.DRAC.highlights <- function(x, ...) {
   x <- as.list(x)
   names <- names(x)
-  mapply(function(el, name) { 
+  mapply(function(el, name) {
     cat(paste0(attributes(el)$key, " = ", name,":\n  ", paste(el, collapse = ",\n  "), "\n"))
     }, x, names)
 }
@@ -132,23 +132,22 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   class.new <- class(value)
 
   ## CHECK INPUT FIELDS THAT ALLOW 'X' -----
-  # the following checks apply to fields that are normally numeric, but also 
+  # the following checks apply to fields that are normally numeric, but also
   # accept 'X' as input. this EXCLUDES factors!
   if (class.old != "factor") {
     # some input fields allow 'X' as input, so in terms of R can be of class
-    # "character" or "numeric/integer". hence, we check if input is "X" and 
+    # "character" or "numeric/integer". hence, we check if input is "X" and
     # if the filed allows it. If so, we change the old class to "character".
     if (any(value == "X") && attributes(x[[i]])$allowsX) {
-
       if (any(is.na(as.numeric(value[which(value != "X")])))) {
         .throw_warning("Cannot coerce '", value[which(value != "X")],
                        "' to a numeric value, Input must be numeric or 'X'")
         return(x)
       }
-      class.old <- "character" 
+      class.old <- "character"
     }
 
-    # where the input field is alreay "X" we have to check whether the new
+    # where the input field is already "X" we have to check whether the new
     # non-character input is allowed
     if (!all(is.na(x[[i]]))) {
       if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
@@ -167,7 +166,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
     # we need to make sure that the new input can be coerced to class numeric.
     # and if the new values are numeric, we coerce them to character
     if (attributes(x[[i]])$allowsX && class.old == "character") {
-      if (any(is.na(as.numeric(value[which(value != "X")])))) {
+      if (!attributes(x[[i]])$allowsX && any(is.na(as.numeric(value[which(value != "X")])))) {
         .throw_warning("Cannot coerce '", value[which(value != "X")],
                        "' to a numeric value, input must be numeric or 'X'\n")
         return(x)
@@ -177,13 +176,13 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
     }
   }
 
-
   # numeric input can be both of class 'integer' or 'numeric'. We will
   # allow any combination and reject only non-numeric/integer input
   if (class.old == "numeric" || class.old == "integer") {
     if (class.new != "numeric" && class.new != "integer") {
-      .throw_warning(names(x)[i], ": Input must be of class ", class.old)
-      return(x)
+      ## try coercion
+      value <- as(value, class.old)
+      .throw_warning(names(x)[i], ": Input must be of class ", class.old, " -> trying coercion!")
     }
   }
 
@@ -242,3 +241,4 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   x[[index]] <- value
   return(x)
 }
+

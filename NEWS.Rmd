@@ -147,6 +147,11 @@ ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 * The function gained a new argument `file_input` that enables the creating of a DRAC template 
 based on an existing DRAC CSV file. This way, already available DRAC files cannot only 
 be used by conveniently modified without a pass to `use_DRAC()` first.
+* The template contained a couple of minor mistakes that got fixed along with a 
+more strict enforcement of the class of each field, which is now set as an attribute; 
+the change should have no user-visible effect. 
+* The function gain knowledge about the conversion factors by Cressswell et al. (2018) `Cresswelletal2018`. 
+Please ensure that the server supports that option.
 
 ### `use_DRAC()`
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
@@ -178,3 +183,4 @@ file export. To avoid this now all non-ASCII characters are replaced by `_` befo
 terminal with messages if call (internally) in particular circumstances. Now we maintain a
 stack of function names, so that at any time we can report correctly the name of the
 function where an error or a warning is thrown (#254, fixed in #256).
+* `get_get_DRAC_references()` now works also on a `DRAC.list` got updated references.
