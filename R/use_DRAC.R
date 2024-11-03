@@ -201,7 +201,7 @@ use_DRAC <- function(
 
   ##(2) generate some meaningful random variables
   mask.df <- lapply(seq(1, nrow(input.raw), 3), function(x) {
-    if (mask.df[x,"TI:52"] != "X") {
+    if (!is.na(mask.df[x,"TI:52"]) && mask.df[x,"TI:52"] != "X") {
       ##replace some values - the De value
       mask.df[x:(x + 2), c("TI:52","TI:53")] <- .masking(
         mean = as.numeric(mask.df[x,"TI:52"]),
@@ -222,7 +222,7 @@ use_DRAC <- function(
         sample(if(runif(1,-10,10)>0) LETTERS else letters, runif(1, 2, 4))),
       ifelse(runif(1,-10,10)>0, "-", "")),
     gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE),
-      by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))
+      by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))[1:nrow(DRAC_submission.df)]
 
 
   ##(5) store the real IDs in a separate object
@@ -257,15 +257,22 @@ use_DRAC <- function(
   # nocov end
 
   ## send data set to DRAC website and receive response
-  DRAC.response <- httr::POST(
+  DRAC.response <- try(httr::POST(
     url = settings$url,
     config = conf_l,
     body = list("drac_data[name]"  = settings$name,
-                "drac_data[table]" = DRAC_input))
+                "drac_data[table]" = DRAC_input)),
+    silent = TRUE)
+
   ## check for correct response
-  if (DRAC.response$status_code != 200) {
+  if (inherits(DRAC.response, "try-error") || DRAC.response$status_code != 200) {
+    if(inherits(DRAC.response, "try-error"))
+       response <- "URL invalid"
+    else
+      response <- DRAC.response$status_code
+
     .throw_error("Transmission failed with HTTP status code: ",
-                 DRAC.response$status_code)
+                 response)
   } else {
     if (settings$verbose) message("\t The request was successful, processing the reply...")
   }

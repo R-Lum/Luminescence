@@ -95,5 +95,19 @@ test_that("Test DRAC", {
  file.create(fake.xls <- tempfile(fileext = ".xls"))
  expect_error(use_DRAC(fake.xls),
               "XLS/XLSX format no longer supported, use CSV instead")
+
+ ## communicate with non sufficient dataset
+ SW({
+ t <- template_DRAC(notification = FALSE)
+ expect_error(use_DRAC(t),
+              "We got a response from the server")
+ print("N")
+ })
+
+ SW({
+ ## communicate with fake url
+ expect_error(use_DRAC(t, url = "iamnotvali8793270942hd.valid"),
+              "Transmission failed with HTTP status code: URL invalid")
+ })
 })
 
