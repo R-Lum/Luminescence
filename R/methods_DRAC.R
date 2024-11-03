@@ -128,7 +128,8 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   }
 
   ## CHECK INPUT CLASS ----
-  class.old <- class(x[[i]])
+  class.old <- attr(x[[i]], "default_class")
+
   class.new <- class(value)
 
   ## CHECK INPUT FIELDS THAT ALLOW 'X' -----
@@ -179,10 +180,24 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   # numeric input can be both of class 'integer' or 'numeric'. We will
   # allow any combination and reject only non-numeric/integer input
   if (class.old == "numeric" || class.old == "integer") {
-    if (class.new != "numeric" && class.new != "integer") {
+    if (class.new != class.old) {
+      ## check if coercion is possible
+      if(any(is.na(suppressWarnings(as.numeric(value))))) {
+        .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> cannot coerce, set NAs")
+         if(class.old == "integer")
+           value <- NA_integer_
+         else
+           value <- NA_real_
+
+      } else {
       ## try coercion
-      value <- as(value, class.old)
-      .throw_warning(names(x)[i], ": Input must be of class ", class.old, " -> trying coercion!")
+      .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> coercing to ", class.old)
+        if(class.old == "integer")
+          value <- as.integer(value)
+        else
+          value <- as.numeric(value)
+
+      }
     }
   }
 
@@ -241,4 +256,3 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   x[[index]] <- value
   return(x)
 }
-

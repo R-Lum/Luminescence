@@ -58,8 +58,8 @@ test_that("Test DRAC", {
  input$`Calculate external Rb from K conc?` <- "Y"
  input$`Calculate internal Rb from K conc?` <- "Y"
  input$`Scale gammadoserate at shallow depths?` <- "Y"
- input$`Grain size min (microns)` <- 90
- input$`Grain size max (microns)` <- 125
+ input$`Grain size min (microns)` <- 90L
+ input$`Grain size max (microns)` <- 125L
  input$`Water content ((wet weight - dry weight)/dry weight) %` <- 5
  input$`errWater content %` <- 2
  input$`Depth (m)` <- 2.2
@@ -96,3 +96,4 @@ test_that("Test DRAC", {
  expect_error(use_DRAC(fake.xls),
               "XLS/XLSX format no longer supported, use CSV instead")
 })
+

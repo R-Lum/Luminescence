@@ -33,7 +33,7 @@ test_that("Check template creation ", {
   ## use the file_input option
   tmp_file <- tempfile(fileext = ".csv")
   write.csv(x = as.data.frame(template_DRAC(nrow = 12, preset = 'quartz_coarse')), file = tmp_file, row.names = FALSE)
-  t <- expect_s3_class(template_DRAC(file_input = tmp_file, notification = FALSE), "DRAC.list")
+  t <- expect_s3_class(suppressWarnings(template_DRAC(file_input = tmp_file, notification = FALSE)), "DRAC.list")
   expect_length(t[[1]], 3)
 
   ## expect failure
