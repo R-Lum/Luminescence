@@ -466,7 +466,6 @@ analyse_IRSAR.RF<- function(
       }
     }
 
-
     ##run analysis
     temp <- lapply(1:length(object), function(x){
       analyse_IRSAR.RF(
@@ -530,24 +529,22 @@ analyse_IRSAR.RF<- function(
 
   ##grep name of the sequence and the position this will be useful later on
   ##name
-  aliquot.sequence_name <- suppressWarnings(get_RLum(get_RLum(object,
-                                                              record.id = 1),
+  record1 <- get_RLum(object, record.id = 1)
+  aliquot.sequence_name <- suppressWarnings(get_RLum(record1,
                                                      info.object = "name"))
   if (is.null(aliquot.sequence_name)) {
     aliquot.sequence_name <- NA
   }
 
   ##position
-  aliquot.position <- suppressWarnings(get_RLum(get_RLum(object,
-                                                         record.id = 1),
+  aliquot.position <- suppressWarnings(get_RLum(record1,
                                                 info.object = "position"))
   if (is.null(aliquot.position)) {
     aliquot.position <- NA
   }
 
   ##date
-  aliquot.date <- suppressWarnings(get_RLum(get_RLum(object,
-                                                     record.id = 1),
+  aliquot.date <- suppressWarnings(get_RLum(record1,
                                             info.object = "startDate"))
   if (!is.null(aliquot.date)) {
     ##transform so far the format can be identified
@@ -689,7 +686,6 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
   ## SET PLOT PARAMETERS
   ##===============================================================================================#
-
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
   resolution.RF <- round(mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),digits=1)
 
@@ -755,7 +751,6 @@ analyse_IRSAR.RF<- function(
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     ## REGENERATED SIGNAL
     # set function for fitting ------------------------------------------------
-
     fit.function <-
       as.formula(y ~ phi.0 - (delta.phi * ((1 - exp(
         -lambda * x
@@ -977,7 +972,6 @@ analyse_IRSAR.RF<- function(
       } else{
         vslide_range <- vslide_range[1]:vslide_range[2]
         algorithm_error <- NULL
-
       }
 
       ##problem: the optimisation routine slightly depends on the chosen input sliding vector
@@ -988,7 +982,6 @@ analyse_IRSAR.RF<- function(
         ##even numbers makes it complicated, so let's make it odd if not already the case
         if(length(vslide_range) %% 2 == 0){
           vslide_range <- c(vslide_range[1], vslide_range, vslide_range)
-
         }
 
         ##construct list of vector ranges we want to check for, this should avoid that we
@@ -1012,7 +1005,6 @@ analyse_IRSAR.RF<- function(
             vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
             n_MC = 0, #we don't need MC runs here, so make it quick
             trace = trace)[c("sliding_vector_min_index","vslide_minimum", "vslide_index")]
-
         })
 
         ##get all horizontal index value for the local minimum (corresponding to the vslide)
@@ -1099,18 +1091,15 @@ analyse_IRSAR.RF<- function(
 
               }else{
                 t_n.MC <- (RF_nat[, 1] + temp.sliding.step.MC)[1]
-
               }
 
               return(t_n.MC)
-
             },
             FUN.VALUE = vector(mode = "numeric", length = 1)
           )
 
       } else{
         t_n.MC <- NA_integer_
-
       }
 
       ##(4) get residuals (needed to be plotted later)
@@ -1121,7 +1110,6 @@ analyse_IRSAR.RF<- function(
 
       }else{
         residuals <- (RF_nat.limited[,2] + I_n) - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
-
       }
 
       ##(4.1) calculate De from the first channel ... which is t_n here
@@ -1137,7 +1125,6 @@ analyse_IRSAR.RF<- function(
 
       }else{
         temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
-
       }
 
       ##return values and limited if they are not needed
@@ -1215,9 +1202,10 @@ analyse_IRSAR.RF<- function(
 
       } else {
         available.cores <- parallel::detectCores()
+        requested.cores <- method.control.settings$cores[1]
 
         ##case 'auto'
-        if(method.control.settings$cores == 'auto'){
+        if (requested.cores == "auto") {
           cores <- available.cores - 2
           if (cores <= 0) {
             # nocov start
@@ -1226,27 +1214,19 @@ analyse_IRSAR.RF<- function(
             # nocov end
           }
 
-        }else if(is.numeric(method.control.settings$cores[1])){
-          if (method.control.settings$cores > available.cores) {
-            .throw_warning("What do you want? Your machine has only ",
-                           available.cores, " cores")
-
+        } else if (is.numeric(requested.cores)) {
+          .validate_positive_scalar(requested.cores, int = TRUE,
+                                    name = "method.control.settings$cores")
+          if (requested.cores > available.cores) {
             ##assign all they have, it is not our problem
-            cores <- available.cores
-
-          } else if (method.control.settings$cores >= 1 &&
-                     method.control.settings$cores <= available.cores) {
-            cores <- method.control.settings$cores
-
-          } else { # Negative values
-            cores <- 1
-
+            .throw_warning("Number of cores limited to the maximum ",
+                           "available (", available.cores, ")")
           }
+          cores <- min(requested.cores, available.cores)
 
         }else{
           message("[analyse_IRSAR.RF()] Invalid value for control argument 'cores'. Value set to 1")
           cores <- 1
-
         }
 
         ##return message
@@ -1335,7 +1315,6 @@ analyse_IRSAR.RF<- function(
     ##set list with values we want to evaluate
     TP <- lapply(TP, function(x){
       data.frame(THRESHOLD = as.numeric(x), VALUE = NA, STATUS = "OK", stringsAsFactors = TRUE)
-
     })
 
 
@@ -1386,7 +1365,6 @@ analyse_IRSAR.RF<- function(
       }
 
       rm(IR_RF_nat.max, IR_RF_reg.corresponding_id)
-
       }
     }
 
@@ -1465,7 +1443,6 @@ analyse_IRSAR.RF<- function(
        if (!is.na( TP$delta.phi$THRESHOLD)){
          TP$delta.phi$STATUS <- ifelse(TP$delta.phi$VALUE <= TP$delta.phi$THRESHOLD, "FAILED", "OK")
        }
-
     }
   }
 
