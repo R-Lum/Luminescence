@@ -62,36 +62,31 @@ test_that("test the import of various BIN-file versions", {
                           "raw/dev_0.9.x/tests/testthat/_data")
   if (!httr::http_error(github.url)) {
     ## V3
-    expect_s4_class(read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
-                               verbose = FALSE),
-                    class = "Risoe.BINfileData")
+    expect_snapshot_plain(read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
+                                     verbose = FALSE))
   }
 
   ## V4
-  expect_s4_class(read_BIN2R(test_path("_data/BINfile_V4.bin"),
-                             verbose = FALSE),
-                  class = "Risoe.BINfileData")
+  expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V4.bin"),
+                                   verbose = FALSE))
 
   ## V5
-  expect_s4_class(read_BIN2R(test_path("_data/BINfile_V5.binx"),
-                             verbose = FALSE),
-                  class = "Risoe.BINfileData")
+  expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V5.binx"),
+                                   verbose = FALSE))
 
   ## V6
-  expect_s4_class(read_BIN2R(test_path("_data/BINfile_V6.binx"),
-                             verbose = FALSE),
-                  class = "Risoe.BINfileData")
+  expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V6.binx"),
+                                   verbose = FALSE))
 
   ## V7
-  expect_s4_class(read_BIN2R(test_path("_data/BINfile_V7.binx"),
-                             verbose = FALSE),
-                  class = "Risoe.BINfileData")
+  expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V7.binx"),
+                                   verbose = FALSE))
 
   SW({
   ## V8 - as part of the package
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-  expect_s4_class(read_BIN2R(bin.v8, txtProgressBar = FALSE),
-                  class = "Risoe.BINfileData")
+  expect_snapshot_plain(read_BIN2R(bin.v8, verbose = FALSE))
+
   expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
                                    position = 2),
                  "Kept records matching 'position': 2")
