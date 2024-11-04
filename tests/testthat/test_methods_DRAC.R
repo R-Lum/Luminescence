@@ -27,6 +27,10 @@ test_that("methods_DRAC", {
   }, regexp = "Input must be of length")
   expect_warning({
     input <- template_DRAC()
+    input[[4]] <- "error"
+  }, regexp = "Conversion factors: Invalid option, valid options are:")
+  expect_warning({
+    input <- template_DRAC()
     input[[5]] <- "1"
   }, regexp = "found character, expected numeric")
 
@@ -34,13 +38,19 @@ test_that("methods_DRAC", {
     input <- template_DRAC()
     input[[5]] <- "X"
     Luminescence:::.warningCatcher(input[[5]] <- "abc")
-  }, regexp = "Cannot coerce 'abc' to a numeric value")
+  }, regexp = "Cannot coerce 'abc' to a numeric value, input must be numeric or")
 
   expect_warning({
     input <- template_DRAC(nrow = 2)
     input[[5]] <- c("X", 1)
     Luminescence:::.warningCatcher(input[[5]] <- c("X", "abc"))
-  }, regexp = "Cannot coerce 'abc' to a numeric value")
+  }, regexp = "Cannot coerce 'abc' to a numeric value, input must be numeric or")
+
+  input <- template_DRAC(nrow = 2)
+  input[[5]] <- c("X", 1)
+  expect_silent({
+    input[[5]] <- c("X", 2)
+  })
 
   input <- template_DRAC(notification = FALSE)
   expect_warning({
@@ -52,6 +62,17 @@ test_that("methods_DRAC", {
   })
 
   expect_warning({
+    input <- template_DRAC()
+    input[[32]] <- 200L
+    Luminescence:::.warningCatcher(input[[32]] <- "abc")
+  }, regexp = "found character, expected integer -> cannot coerce, set NAs")
+  expect_warning({
+    input <- template_DRAC()
+    input[[32]] <- 200L
+    Luminescence:::.warningCatcher(input[[32]] <- "100")
+  }, regexp = "found character, expected integer -> coercing to integer")
+
+   expect_warning({
     input <- template_DRAC()
     input[[13]] <- 1
   }, regexp = "Input must be of class 'character'")

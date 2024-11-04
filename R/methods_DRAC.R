@@ -90,13 +90,10 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       else
         options <- ""
 
-      # determine if values need brackets (strings)
-      if (is.numeric(x[[i]]) | is.integer(x[[i]]))
-        values <- .collapse(x[[i]], quote = FALSE)
-      if (is.character(x[[i]]) | is.factor(x[[i]]))
-        values <- .collapse(paste0(x[[i]]))
-
-      cat(paste0(var, "$`", names[i], "` <- c(", values,") ", options ,"\n"))
+      ## decide if values should be quoted
+      use.quotes <- is.character(x[[i]]) || is.factor(x[[i]])
+      cat(paste0(var, "$`", names[i], "` <- c(",
+                 .collapse(x[[i]], quote = use.quotes), ") ", options , "\n"))
     }
     message("\n\t You can copy all lines above to your script and fill in the data.")
   }
@@ -138,11 +135,11 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   if (class.old != "factor") {
     # some input fields allow 'X' as input, so in terms of R can be of class
     # "character" or "numeric/integer". hence, we check if input is "X" and
-    # if the filed allows it. If so, we change the old class to "character".
+    # if the field allows it. If so, we change the old class to "character".
     if (any(value == "X") && attributes(x[[i]])$allowsX) {
       if (any(is.na(as.numeric(value[which(value != "X")])))) {
         .throw_warning("Cannot coerce '", value[which(value != "X")],
-                       "' to a numeric value, Input must be numeric or 'X'")
+                       "' to a numeric value, input must be numeric or 'X'")
         return(x)
       }
       class.old <- "character"
@@ -216,7 +213,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   if (class.old == "factor") {
     levels <- levels(x[[i]])
     if (any(`%in%`(value, levels) == FALSE)) {
-      .throw_warning(names(x)[i], ": Invalid option. Valid options are: ",
+      .throw_warning(names(x)[i], ": Invalid option, valid options are: ",
                      .collapse(levels))
       return(x)
     } else {
