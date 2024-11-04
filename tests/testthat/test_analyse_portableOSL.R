@@ -66,9 +66,10 @@ test_that("check class and length of output", {
         ylim = c(0.1, 0.6),
         zlim = c(0.1, 2),
         zlim_image = c(1, 2),
-        col_ramp = "red",
+        col_ramp = grDevices::topo.colors(20),
         surface_values = c("BSL", "IRSL"),
         normalise = TRUE,
+        contour = TRUE,
         plot = TRUE
       ), "RLum.Results")
 
@@ -183,5 +184,4 @@ test_that("check output", {
     )
 
   expect_equal(round(sum(results$summary[,c(-1, -2, -10,-11)]), digits = 2), 175.44)
-
 })
