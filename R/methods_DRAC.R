@@ -158,20 +158,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
         value <- as.character(value)
       }
     }
-
-    # when a numeric input field was inserted an "X" it was coerced to class
-    # character. since we are now allowed to insert any character (later tests)
-    # we need to make sure that the new input can be coerced to class numeric.
-    # and if the new values are numeric, we coerce them to character
-    if (attributes(x[[i]])$allowsX && class.old == "character") {
-      if (!attributes(x[[i]])$allowsX && any(is.na(as.numeric(value[which(value != "X")])))) {
-        .throw_warning("Cannot coerce '", value[which(value != "X")],
-                       "' to a numeric value, input must be numeric or 'X'\n")
-        return(x)
-      }
-      class.new <- "character"
-      value <- as.character(value)
-    }
   }
 
   # numeric input can be both of class 'integer' or 'numeric'. We will
