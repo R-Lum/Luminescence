@@ -29,38 +29,28 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
     stop("[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!");
   }
 
-
-  //pre-define variables
-  arma::vec residuals(values_natural_limited.size());
-  arma::vec results(values_regenerated_limited.size() - values_natural_limited.size());
-  arma::vec results_vector_min_MC(n_MC);
-
+  const size_t nat_size = values_natural_limited.size();
+  const size_t res_size = values_regenerated_limited.size() - nat_size;
+  const size_t two_size = 2;
 
   //variables for the algorithm
-  int v_length;
-  int v_index;
-  arma::vec v_leftright(2); //the virtual vector
-  arma::vec t_leftright(2); //the test points
-  arma::vec c_leftright(2); //the calculation
+  int v_length = vslide_range.size();
+  int v_index = 0;
+  arma::vec results(res_size);
+  arma::vec residuals(nat_size);
+  arma::vec v_leftright(two_size); // the virtual vector
+  arma::vec t_leftright(two_size); // the test points
+  arma::vec c_leftright(two_size); // the calculation
 
-  //(1) calculate sum of the squared residuals
-  // this will be used to find the best fit of the curves (which is the minimum)
-
-  //initialise values
-  v_length = vslide_range.size();
-  v_index = 0;
-
+  // initialise values: at the beginning, the virtual vector includes all
+  // points in vslide_range
   v_leftright[0] = 0;
   v_leftright[1] = vslide_range.size() - 1;
 
-  if(v_length == 1){
-    t_leftright[0] = 0;
-    t_leftright[1] = 0;
-
-  }else{
+  if (v_length > 1) {
+    // select the test region to be the central third of the virtual vector
     t_leftright[0] = v_length/3;
     t_leftright[1] = 2 * v_length/3;
-
   }
 
   //***TRACE****
@@ -73,13 +63,15 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
     Rcout << "\n ---------------------------------------------------------------------------------------------------------";
     Rcout << "\n v_length \t\t v_leftright \t\t  c_leftright  \t\t\t\t absolute offset";
     Rcout << "\n ---------------------------------------------------------------------------------------------------------";
-
   }
+
+  //(1) calculate sum of the squared residuals
+  // this will be used to find the best fit of the curves (which is the minimum)
 
   //start loop
   do {
 
-    for (int t=0;t<static_cast<int>(t_leftright.size()); t++){
+    for (size_t t = 0; t < two_size; ++t) {
 
       //HORIZONTAL SLIDING CORE -------------------------------------------------------------(start)
       //slide the curves against each other
@@ -88,42 +80,32 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
         //calculate squared residuals along one curve
         for (int j=0; j<static_cast<int>(values_natural_limited.size()); ++j){
           residuals[j] = pow((values_regenerated_limited[j+i] - (values_natural_limited[j] + vslide_range[t_leftright[t]])),2);
-
         }
 
         //sum results and fill the results vector
         results[i] = sum(residuals);
-
       }
 
       //HORIZONTAL SLIDING CORE ---------------------------------------------------------------(end)
       c_leftright[t] = min(results);
-
-
     }
-    //compare results and re-initialise variables
 
-    if(c_leftright[0] < c_leftright[1]){
-      v_index = v_leftright[0]; //set index to left test index
-
-      //update vector window (the left remains the same)
-      v_leftright[1] = t_leftright[1];
-
-      //update window length
-      v_length = v_leftright[1] - v_leftright[0];
-
-    }else if (c_leftright[0] > c_leftright[1]){
-      v_index = v_leftright[1]; //set index to right test index
-
-      //update vector window (the right remains the same this time)
-      v_leftright[0] = t_leftright[0];
-
-      //update window length
-      v_length = v_leftright[1] - v_leftright[0];
-
-    }else{
+    // compare results and update variables
+    auto diff = c_leftright[0] - c_leftright[1];
+    if (diff == 0) {
       v_length = 1;
+    } else {
+      // find on which side the minimum is, the maximum is on the other side
+      auto idx_min = diff < 0 ? 0 : 1, idx_max = 1 - idx_min;
 
+      // set index to where the minimum is
+      v_index = v_leftright[idx_min];
+
+      // update vector window
+      v_leftright[idx_max] = t_leftright[idx_max];
+
+      //update window length
+      v_length = v_leftright[1] - v_leftright[0];
     }
 
     //update test point index
@@ -133,7 +115,6 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
     //***TRACE****
     if(trace == true){
       Rcout << "\n " << v_length << " \t\t\t " << v_leftright << " \t\t " << c_leftright << " \t\t\t " << vslide_range[v_index];
-
     }
 
   } while (v_length > 1);
@@ -144,7 +125,6 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
     Rcout << "\n >> SRS minimum: \t\t " << c_leftright[0];
     Rcout << "\n >> Vertical offset index: \t " << v_index + 1;
     Rcout << "\n >> Vertical offset absolute: \t " << vslide_range[v_index] << "\n\n";
-
   }
 
   //(2) error calculation
@@ -157,7 +137,8 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 
 
   //this follows the way described in Frouin et al., 2017 ... still ...
-  for (int i=0; i<static_cast<int>(results_vector_min_MC.size()); ++i){
+  arma::vec results_vector_min_MC(n_MC);
+  for (int i = 0; i < n_MC; ++i) {
     results_vector_min_MC[i] = min(
       RcppArmadillo::sample(
         results,
