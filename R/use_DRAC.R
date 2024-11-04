@@ -267,12 +267,10 @@ use_DRAC <- function(
   ## check for correct response
   if (inherits(DRAC.response, "try-error") || DRAC.response$status_code != 200) {
     if(inherits(DRAC.response, "try-error"))
-       response <- "URL invalid"
-    else
-      response <- DRAC.response$status_code
+       DRAC.response$status_code <- "URL invalid"
 
     .throw_error("Transmission failed with HTTP status code: ",
-                 response)
+                 DRAC.response$status_code)
   } else {
     if (settings$verbose) message("\t The request was successful, processing the reply...")
   }
