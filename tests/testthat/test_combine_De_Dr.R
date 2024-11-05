@@ -1,14 +1,14 @@
 test_that("Test combine_De_Dr", {
   testthat::skip_on_cran()
 
+  ## set seed
+  set.seed(1276)
+
   ## simple test using the example
   ## set parameters
   Dr <- stats::rlnorm(1000, 0, 0.3)
   De <- 50*sample(Dr, 50, replace = TRUE)
   s <- stats::rnorm(50, 10, 2)
-
-  ## set seed
-  set.seed(1276)
 
   ## break function
   SW({
@@ -87,6 +87,22 @@ test_that("Test combine_De_Dr", {
     outlier_method = "RousseeuwCroux1993",
     method_control = list(n.iter = 100, n.chains = 1)),
     "RLum.Results")
+  })
+
+  ## meaningless data for coverage
+  Dr.short <- stats::rlnorm(10, 0, 0.3)
+  De.short <- 50 * sample(Dr, 2, replace = TRUE)
+  s.short <- stats::rnorm(2, 10, 2)
+
+  SW({
+  combine_De_Dr(
+    Dr = Dr.short,
+    int_OD = 0.1,
+    De.short,
+    s.short,
+    outlier_analysis_plot = TRUE,
+    Age_range = c(0, 100),
+    cdf_ADr_quantiles = FALSE)
   })
 
   ## reset the graphical parameters to the original values
