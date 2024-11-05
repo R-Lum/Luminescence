@@ -292,7 +292,7 @@
 #'  `I_n` \tab `numeric` \tab the vertical intensity offset if a vertical slide was applied \cr
 #'  `algorithm_error` \tab `numeric` \tab the vertical sliding suffers from a systematic effect induced by the used
 #'  algorithm. The returned value is the standard deviation of all obtained De values while expanding the
-#'  vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
+#'  vertical sliding range. It can be added as systematic error to the final De error; so far wanted.\cr
 #'  `vslide_range` \tab `numeric` \tab the range used for the vertical sliding \cr
 #'  `squared_residuals` \tab `numeric` \tab the squared residuals (horizontal sliding)
 #' }
@@ -599,7 +599,6 @@ analyse_IRSAR.RF<- function(
     ##this allows to provide only one boundary and the 2nd will be added automatically
     if (length(RF_nat.lim) == 1) {
       RF_nat.lim <- c(RF_nat.lim, RF_nat.lim.default[2])
-
     }
 
     if (min(RF_nat.lim) < RF_nat.lim.default[1] |
@@ -609,7 +608,6 @@ analyse_IRSAR.RF<- function(
       .throw_warning("RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
                      paste(range(RF_nat.lim), collapse = ":"),")")
     }
-
   }
 
   ##RF_reg.lim
@@ -621,7 +619,6 @@ analyse_IRSAR.RF<- function(
     ##this allows to provide only one boundary and the 2nd will be added automatically
     if (length(RF_reg.lim) == 1) {
       RF_reg.lim <- c(RF_reg.lim, RF_reg.lim.default[2])
-
     }
 
     if (min(RF_reg.lim) < RF_reg.lim.default[1] |
@@ -673,6 +670,13 @@ analyse_IRSAR.RF<- function(
                                  collapse = ", "),
                      "' not supported for 'method.control'. Supported arguments are: ",
                      .collapse(names(method.control.settings)))
+    }
+
+    ## check for odd user input
+    if (length(method.control$vslide_range) > 2) {
+      method.control$vslide_range <- method.control$vslide_range[1:2]
+      .throw_warning("'vslide_range' in 'method.control' has more ",
+                     "than 2 elements, only the first two were used")
     }
 
     ##modify list
@@ -942,13 +946,6 @@ analyse_IRSAR.RF<- function(
                         trace = method.control.settings$trace_vslide,
                         numerical.only = FALSE){
 
-      ##check for odd user input
-      if(length(vslide_range) > 2){
-        vslide_range <- vslide_range[1:2]
-        .throw_warning("'vslide_range' in 'method.control' has more ",
-                       "than 2 elements. Only the first two were used")
-      }
-
       ##(0) set objects ... nomenclature as used in Frouin et al., please note that here the index
       ##is used instead the real time values
       t_max.id <- nrow(RF_reg.limited)
@@ -1024,7 +1021,7 @@ analyse_IRSAR.RF<- function(
 
 
         ##get all possible t_n values for the range expansion ... this can be considered
-        ##as somehow systematic uncertainty, but it will be only calculated of the full range
+        ##as somehow systematic uncertainty, but it will be only calculated if the full range
         ##is considered, otherwise it is too biased by the user's choice
         ##ToDo: So far the algorithm error is not sufficiently documented
         if(!is.null(algorithm_error)){
@@ -1036,12 +1033,10 @@ analyse_IRSAR.RF<- function(
 
         }else{
          algorithm_error <- NA
-
         }
 
       }else{
         algorithm_error <- NA
-
       }
 
       ##now run the final sliding with the identified range that corresponds to the minimum value
