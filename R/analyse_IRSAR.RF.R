@@ -512,6 +512,10 @@ analyse_IRSAR.RF<- function(
     .throw_error("'sequence_structure' must contain one each of 'NATURAL' ",
                  "and 'REGENERATED'")
   }
+  if (!is.null(RF_nat.lim))
+    .validate_class(RF_nat.lim, c("numeric", "integer"))
+  if (!is.null(RF_reg.lim))
+    .validate_class(RF_reg.lim, c("numeric", "integer"))
   method <- .validate_args(method, c("FIT", "SLIDE", "VSLIDE"))
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
@@ -578,9 +582,10 @@ analyse_IRSAR.RF<- function(
   }
 
   ##check if the first curve is shorter than the first curve
-  if (temp.sequence_structure$n.channels[nat.idx] >
-      temp.sequence_structure$n.channels[reg.idx]) {
-     .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
+  num.channels.nat <- temp.sequence_structure$n.channels[nat.idx]
+  num.channels.reg <- temp.sequence_structure$n.channels[reg.idx]
+  if (num.channels.nat > num.channels.reg) {
+    .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
   }
 
   ##===============================================================================================#
@@ -589,22 +594,9 @@ analyse_IRSAR.RF<- function(
   ##the setting here will be valid for all subsequent operations
 
   ##01
-  ##first get allowed curve limits, this makes the subsequent checkings easier and the code
-  ##more easier to read
-  RF_nat.lim.default <- c(1,max(
-    subset(
-      temp.sequence_structure,
-      temp.sequence_structure$protocol.step == "NATURAL"
-    )$n.channels
-  ))
-
-  RF_reg.lim.default <- c(1,max(
-    subset(
-      temp.sequence_structure,
-      temp.sequence_structure$protocol.step == "REGENERATED"
-    )$n.channels
-  ))
-
+  ## get the allowed curve limits
+  RF_nat.lim.default <- c(1, max(num.channels.nat))
+  RF_reg.lim.default <- c(1, max(num.channels.reg))
 
   ## 02 - check boundaries
   ##RF_nat.lim
@@ -620,8 +612,7 @@ analyse_IRSAR.RF<- function(
     if (min(RF_nat.lim) < RF_nat.lim.default[1] |
         max(RF_nat.lim) > RF_nat.lim.default[2]) {
       RF_nat.lim <- RF_nat.lim.default
-
-      .throw_warning("RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
+      .throw_warning("'RF_nat.lim' out of bounds, reset to c(",
                      paste(range(RF_nat.lim), collapse = ":"),")")
     }
   }
@@ -640,17 +631,16 @@ analyse_IRSAR.RF<- function(
     if (min(RF_reg.lim) < RF_reg.lim.default[1] |
         max(RF_reg.lim) > RF_reg.lim.default[2]) {
       RF_reg.lim <- RF_reg.lim.default
-
-      .throw_warning("RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
+      .throw_warning("'RF_reg.lim' out of bounds, reset to c(",
                      paste(range(RF_reg.lim), collapse = ":"), ")")
     }
   }
 
   ## check if intervals make sense at all
-  if(length(RF_reg.lim[1]:RF_reg.lim[2]) < RF_nat.lim[2]){
-    RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
-
-    .throw_warning("Length interval RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
+  len.RF_reg.lim <- length(RF_reg.lim[1]:RF_reg.lim[2])
+  if (len.RF_reg.lim < RF_nat.lim[2]) {
+    RF_reg.lim[2] <- RF_reg.lim[2] + abs(len.RF_reg.lim - RF_nat.lim[2]) + 1
+    .throw_warning("'RF_reg.lim' defines too short an interval, reset to c(",
                    paste(range(RF_reg.lim), collapse=":"), ")")
   }
 
@@ -850,7 +840,6 @@ analyse_IRSAR.RF<- function(
           temp.fit.parameters.results.MC.results["delta.phi"]
         fit.parameters.results.MC.results[i,"beta"] <-
           temp.fit.parameters.results.MC.results["beta"]
-
       }
     }
 
@@ -1381,7 +1370,6 @@ analyse_IRSAR.RF<- function(
         if (!is.na(TP$residuals_slope$THRESHOLD)) {
           TP$residuals_slope$STATUS <- ifelse(
             TP$residuals_slope$VALUE > TP$residuals_slope$THRESHOLD, "FAILED", "OK")
-
         }
       }
     }
@@ -1514,7 +1502,6 @@ analyse_IRSAR.RF<- function(
           mar = c(0, 4, 3, 0),
           cex = plot.settings$cex
         )
-
       }
     }else{
       if(plot.settings[["cex"]] != 1){
@@ -1524,7 +1511,6 @@ analyse_IRSAR.RF<- function(
         par(cex = plot.settings[["cex"]])
 
       }
-
     }
 
     ##here control xlim and ylim behaviour
@@ -1540,7 +1526,6 @@ analyse_IRSAR.RF<- function(
         c(0,max(temp.sequence_structure$x.max))
 
       }
-
     }
 
     ##ylim
@@ -1558,7 +1543,6 @@ analyse_IRSAR.RF<- function(
       ylab = plot.settings$ylab,
       main = plot.settings$main,
       log = plot.settings$log,
-
     )
 
     if(De.status == "FAILED"){
@@ -1604,8 +1588,6 @@ analyse_IRSAR.RF<- function(
           cex = .9 * par()[["cex"]]
         )
       }
-
-
     }
 
 
@@ -1698,7 +1680,6 @@ analyse_IRSAR.RF<- function(
         lines(c(De,De), c(0, RF_nat.mean), lty=2, col="red")
         lines(c(De.upper, De.upper),
               c(0,RF_nat.error.upper), lty=2, col="grey")
-
       }
 
       ##Insert fit and result
@@ -1771,7 +1752,6 @@ analyse_IRSAR.RF<- function(
                y = 0,
                "Fitting Error!")
         }
-
       }
     }
 
@@ -1799,7 +1779,6 @@ analyse_IRSAR.RF<- function(
 
           }else{
             y.1 <- RF_nat.limited[1,2]
-
           }
 
           y.2 <- par("usr")[3]
@@ -1889,7 +1868,6 @@ analyse_IRSAR.RF<- function(
           bty = "n",
           cex = .9 * par()[["cex"]]
         )
-
       }
 
 
@@ -1905,7 +1883,6 @@ analyse_IRSAR.RF<- function(
                   line=0,
                   cex=0.7 * par()[["cex"]]),
             silent=TRUE)
-
       }
 
       if (!plot_reduced) {
@@ -1950,7 +1927,6 @@ analyse_IRSAR.RF<- function(
             wy = diff(range(residuals)),
             col = col.polygon
           )
-
         }
         ##add 0 line
         abline(h = 0, lty = 3)
@@ -1979,11 +1955,8 @@ analyse_IRSAR.RF<- function(
             arr.type = "triangle",
             arr.col = col[2]
           )
-
-
         } else{
           points(xlim[2], 0, pch = 3)
-
         }
 
 
@@ -2003,7 +1976,6 @@ analyse_IRSAR.RF<- function(
                  residuals,
                  pch = 20,
                  col = rgb(0, 0, 0, 0.4))
-
         }
 
         ##add vertical line to mark De (t_n)
@@ -2018,7 +1990,6 @@ analyse_IRSAR.RF<- function(
           col = "blue",
           padj = -1.55,
         )
-
 
         ##TODO- CONTROL PLOT! ... can be implemented in appropriate form in a later version
         if (method.control.settings$trace) {
@@ -2037,7 +2008,6 @@ analyse_IRSAR.RF<- function(
           )
         }
       }
-
     }
 
   }#endif::plot
@@ -2083,9 +2053,7 @@ analyse_IRSAR.RF<- function(
 
     if(!is.null(TP.data.frame)){
       TP.data.frame$UID <- UID
-
     }
-
 
   ##produce results object
     newRLumResults.analyse_IRSAR.RF <- set_RLum(
@@ -2101,5 +2069,4 @@ analyse_IRSAR.RF<- function(
     )
 
   invisible(newRLumResults.analyse_IRSAR.RF)
-
 }

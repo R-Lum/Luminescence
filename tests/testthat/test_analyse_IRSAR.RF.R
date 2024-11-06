@@ -32,6 +32,22 @@ test_that("input validation", {
                                 sequence_struct = c("REGENERATED", "NATURAL")),
                "Number of data channels in RF_nat > RF_reg")
 
+  ## RF_nat.lim
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_nat.lim = "error"),
+               "'RF_nat.lim' should be of class 'numeric' or 'integer'")
+  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_nat.lim = 6),
+                 "'RF_nat.lim' out of bounds, reset to")
+
+  ## RF_reg.lim
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = "error"),
+               "'RF_reg.lim' should be of class 'numeric' or 'integer'")
+  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 2000),
+                 "'RF_reg.lim' out of bounds, reset to")
+  suppressWarnings( # FIXME(mcol): lmdif: info = -1. Number of iterations has reached `maxiter' == 50.
+  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = c(3, 6)),
+                 "'RF_reg.lim' defines too short an interval, reset to")
+  )
+
   SW({
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data,
                                   method.control = list(unknown = "test")),
