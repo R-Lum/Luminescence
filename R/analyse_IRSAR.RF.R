@@ -1188,7 +1188,6 @@ analyse_IRSAR.RF<- function(
             )
           )
         }
-
       })
 
       ##set parallel calculation if wanted
@@ -1201,21 +1200,17 @@ analyse_IRSAR.RF<- function(
 
         ##case 'auto'
         if (requested.cores == "auto") {
-          cores <- available.cores - 2
-          if (cores <= 0) {
-            # nocov start
-            .throw_warning("Multicore 'auto' mode needs at least 4 cores")
-            cores <- 1
-            # nocov end
-          }
+          cores <- max(available.cores - 2, 1)
 
         } else if (is.numeric(requested.cores)) {
           .validate_positive_scalar(requested.cores, int = TRUE,
                                     name = "method.control.settings$cores")
           if (requested.cores > available.cores) {
             ##assign all they have, it is not our problem
+            # nocov start
             .throw_warning("Number of cores limited to the maximum ",
                            "available (", available.cores, ")")
+            # nocov end
           }
           cores <- min(requested.cores, available.cores)
 
@@ -1225,10 +1220,8 @@ analyse_IRSAR.RF<- function(
         }
 
         ##return message
-        if (cores[1] == 1)
-          message("[analyse_IRSAR.RF()] Singlecore mode")
-        else
-          message("[analyse_IRSAR.RF()] Multicore mode using ", cores, " cores...")
+        message("[analyse_IRSAR.RF()] Using ", cores,
+                ifelse(cores == 1, " core", " cores"), " ...")
       }
 
       ## SINGLE CORE -----
