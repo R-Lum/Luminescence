@@ -51,6 +51,8 @@ above, the function now only accepts CSV files as input (#237, fixed in #270).
 ### `analyse_IRSAR.RF()`
 * The function is more robust against `sequence_structure` misspecifications
 (#393, fixed in #394).
+* Some data preparation steps where not correctly applied for `method = VSLIDE`
+(#396, fixed in #397).
 
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
