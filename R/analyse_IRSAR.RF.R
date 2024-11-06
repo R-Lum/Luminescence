@@ -173,7 +173,8 @@
 #' `list` as well to gain full control.
 #'
 #' @param sequence_structure [vector] [character] (*with default*):
-#' specifies the general sequence structure. Allowed steps are `NATURAL`, `REGENERATED`.
+#' specifies the general sequence structure. Allowed steps are `NATURAL` and
+#' `REGENERATED`, and one of each must appear.
 #' In addition any other character is allowed in the sequence structure;
 #' such curves will be ignored during the analysis.
 #'
@@ -504,6 +505,13 @@ analyse_IRSAR.RF<- function(
 
   .validate_class(object, "RLum.Analysis")
   .validate_class(sequence_structure, "character")
+  if (length(sequence_structure) < 2) {
+    .throw_error("'sequence_structure' should contain at least two elements")
+  }
+  if (!all(c("NATURAL", "REGENERATED") %in% sequence_structure)) {
+    .throw_error("'sequence_structure' must contain one each of 'NATURAL' ",
+                 "and 'REGENERATED'")
+  }
   method <- .validate_args(method, c("FIT", "SLIDE", "VSLIDE"))
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
@@ -561,10 +569,18 @@ analyse_IRSAR.RF<- function(
   temp.sequence_structure$protocol.step <-
     rep(sequence_structure, length_RLum(object))[1:length_RLum(object)]
 
+  ## check that we both natural and regenerated are still there
+  nat.idx <- which(temp.sequence_structure$protocol.step == "NATURAL")
+  reg.idx <- which(temp.sequence_structure$protocol.step == "REGENERATED")
+  if (length(nat.idx) == 0 || length(reg.idx) == 0) {
+    .throw_error("'sequence_structure' is missing one of 'NATURAL' or ",
+                 "'REGENERATED'")
+  }
+
   ##check if the first curve is shorter than the first curve
-  if (temp.sequence_structure[which(temp.sequence_structure[["protocol.step"]] == "NATURAL"),"n.channels"] >
-        temp.sequence_structure[which(temp.sequence_structure[["protocol.step"]] == "REGENERATED"),"n.channels"]) {
-     .throw_error("Number of data channels in RF_nat > RF_reg, this is not supported")
+  if (temp.sequence_structure$n.channels[nat.idx] >
+      temp.sequence_structure$n.channels[reg.idx]) {
+     .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
   }
 
   ##===============================================================================================#

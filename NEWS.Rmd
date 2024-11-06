@@ -48,6 +48,10 @@ above, the function now only accepts CSV files as input (#237, fixed in #270).
 * The function doesn't crash anymore on some `RLum.Analysis` input files
 (#283, fixed in #288).
 
+### `analyse_IRSAR.RF()`
+* The function is more robust against `sequence_structure` misspecifications
+(#393, fixed in #394).
+
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
 was caused by a regression while implementing the `n_N` calculation in `plot_GrowthCurve()`. Potentially
