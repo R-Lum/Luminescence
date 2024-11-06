@@ -48,6 +48,13 @@ test_that("input validation", {
                  "'RF_reg.lim' defines too short an interval, reset to")
   )
 
+  ## curves of the same length
+  expect_error(analyse_IRSAR.RF(set_RLum("RLum.Analysis",
+                                         records = list(IRSAR.RF.Data[[1]],
+                                                        IRSAR.RF.Data[[1]])),
+                                method = "VSLIDE"),
+               "There is no further sliding space left")
+
   SW({
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data,
                                   method.control = list(unknown = "test")),
@@ -153,7 +160,7 @@ test_that("test edge cases", {
 
   SW({
   expect_warning(expect_s4_class(analyse_IRSAR.RF(
-    object,
+    list(object),
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE,
                           show_fit = TRUE, trace = TRUE, n.MC = 2,

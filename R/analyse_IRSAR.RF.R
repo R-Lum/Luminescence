@@ -533,7 +533,7 @@ analyse_IRSAR.RF<- function(
   ##check whether both curve have the same length, in this case we cannot proceed (sliding
   ##is not allowed)
   if(length(unique(temp.sequence_structure[["x.max"]])) == 1 &&
-     method == "SLIDE" &&
+     grepl("SLIDE", method) &&
      (is.null(RF_nat.lim) & is.null(RF_reg.lim))) {
     .throw_error("There is no further sliding space left. All curves have ",
                  "the same length and no limitation was set")
@@ -724,7 +724,7 @@ analyse_IRSAR.RF<- function(
     temp.sequence_structure[temp.sequence_structure$protocol.step=="REGENERATED","id"]]]@data)
 
     ##correct of the onset of detection by using the first time value
-    if (method == "SLIDE" &
+    if (grepl("SLIDE", method) &&
         method.control.settings$correct_onset == TRUE) {
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
     }
@@ -736,8 +736,8 @@ analyse_IRSAR.RF<- function(
   RF_nat <- as.data.frame(object@records[[
     temp.sequence_structure[temp.sequence_structure$protocol.step=="NATURAL","id"]]]@data)
 
-    ##correct of the onset of detection by using the first time value
-  if (method == "SLIDE" &
+  ## correct the onset of detection by using the first time value
+  if (grepl("SLIDE", method) &&
       method.control.settings$correct_onset == TRUE) {
     RF_nat[,1] <- RF_nat[,1] - RF_nat[1,1]
   }
