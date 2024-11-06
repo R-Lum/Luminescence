@@ -90,6 +90,7 @@ test_that("Test combine_De_Dr", {
   })
 
   ## meaningless data for coverage
+  set.seed(1)
   Dr.short <- stats::rlnorm(10, 0, 0.3)
   De.short <- 50 * sample(Dr, 2, replace = TRUE)
   s.short <- stats::rnorm(2, 10, 2)
