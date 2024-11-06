@@ -729,10 +729,8 @@ analyse_IRSAR.RF<- function(
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
     }
 
-
   RF_reg.x <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],1]
   RF_reg.y <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],2]
-
 
   ##grep values from natural signal
   RF_nat <- as.data.frame(object@records[[
@@ -743,7 +741,6 @@ analyse_IRSAR.RF<- function(
       method.control.settings$correct_onset == TRUE) {
     RF_nat[,1] <- RF_nat[,1] - RF_nat[1,1]
   }
-
 
   ##limit values to fit range (at least to the minimum)
   RF_nat.limited<- RF_nat[min(RF_nat.lim):max(RF_nat.lim),]
@@ -766,7 +763,7 @@ analyse_IRSAR.RF<- function(
         -lambda * x
       )) ^ beta)))
 
-    ##stretched expontial function according to Erfurt et al. (2003)
+    ## stretched exponential function according to Erfurt et al. (2003)
     ## + phi.0 >> initial IR-RF flux
     ## + delta.phi >> dose dependent change of the IR-RF flux
     ## + lambda >> exponential parameter
@@ -959,9 +956,6 @@ analyse_IRSAR.RF<- function(
       t_min <- RF_nat.limited[1,1]
 
       ##(1) calculate sum of residual squares using internal Rcpp function
-
-      #pre-allocate object
-      temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
       ##initialise slide range for specific conditions, namely NULL and "auto"
       if (is.null(vslide_range)) {
