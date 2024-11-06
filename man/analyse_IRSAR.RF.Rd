@@ -27,7 +27,8 @@ If a \code{list} is provided as input all other parameters can be provided as
 \code{list} as well to gain full control.}
 
 \item{sequence_structure}{\link{vector} \link{character} (\emph{with default}):
-specifies the general sequence structure. Allowed steps are \code{NATURAL}, \code{REGENERATED}.
+specifies the general sequence structure. Allowed steps are \code{NATURAL} and
+\code{REGENERATED}, and one of each must appear.
 In addition any other character is allowed in the sequence structure;
 such curves will be ignored during the analysis.}
 
@@ -145,7 +146,7 @@ reported with the summary object data. List elements are:
 \code{I_n} \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
 \code{algorithm_error} \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
 algorithm. The returned value is the standard deviation of all obtained De values while expanding the
-vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
+vertical sliding range. It can be added as systematic error to the final De error; so far wanted.\cr
 \code{vslide_range} \tab \code{numeric} \tab the range used for the vertical sliding \cr
 \code{squared_residuals} \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }

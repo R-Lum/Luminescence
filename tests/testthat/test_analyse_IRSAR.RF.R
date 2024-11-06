@@ -7,14 +7,27 @@ test_that("input validation", {
                "is missing, with no default")
   expect_error(analyse_IRSAR.RF("test"),
                "'object' should be of class 'RLum.Analysis'")
-  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),
-               "'sequence_structure' should be of class 'character'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
                "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
                "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
                "'method.control' should be of class 'list'")
+
+  ## sequence_structure
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),
+               "'sequence_structure' should be of class 'character'")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = ""),
+               "'sequence_structure' should contain at least two elements")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
+                                sequence_struct = c("NATURAL", "NATURAL")),
+               "'sequence_structure' must contain one each of 'NATURAL' and")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
+                                sequence_struct = c("REGENERATED", "REGENERATED")),
+               "'sequence_structure' must contain one each of 'NATURAL' and")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
+                                sequence_struct = c("NATURAL", "NATURAL", "REGENERATED")),
+               "'sequence_structure' is missing one of 'NATURAL' or")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
                                 sequence_struct = c("REGENERATED", "NATURAL")),
                "Number of data channels in RF_nat > RF_reg")
@@ -29,7 +42,7 @@ test_that("input validation", {
   if (FALSE) {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(cores = 10000)),
-                 "Your machine has only [0-9]* cores")
+                 "Number of cores limited to the maximum available")
   }
 
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
