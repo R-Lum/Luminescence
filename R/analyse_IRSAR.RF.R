@@ -679,7 +679,16 @@ analyse_IRSAR.RF<- function(
     }
 
     ## check for odd user input
-    if (length(method.control$vslide_range) > 2) {
+    temp.vslide_range <- method.control$vslide_range
+    if (length(temp.vslide_range) > 0) {
+      .validate_class(temp.vslide_range, c("character", "integer", "numeric"),
+                      name = "'vslide_range' in 'method.control'")
+    }
+    if (is.character(temp.vslide_range) && temp.vslide_range[1] != "auto") {
+      .throw_error("'vslide_range' in 'method.control' should be either ",
+                   "'auto' or a 2-element numeric vector")
+    }
+    if (length(temp.vslide_range) > 2) {
       method.control$vslide_range <- method.control$vslide_range[1:2]
       .throw_warning("'vslide_range' in 'method.control' has more ",
                      "than 2 elements, only the first two were used")

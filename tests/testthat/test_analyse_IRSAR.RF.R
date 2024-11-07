@@ -68,6 +68,14 @@ test_that("input validation", {
                  "Number of cores limited to the maximum available")
   }
 
+  ## vslide_range
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                method.control = list(vslide_range = FALSE)),
+                 "'vslide_range' in 'method.control' should be of class")
+
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                method.control = list(vslide_range = "error")),
+                 "'vslide_range' in 'method.control' should be either 'auto'")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(vslide_range = 1:4)),
                  "'vslide_range' in 'method.control' has more than 2 elements")
