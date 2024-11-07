@@ -69,9 +69,9 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
     Rcout << "\n >> v_leftright: " << fmt_vec(v_leftright);
     Rcout << "\n >> t_leftright: " << fmt_vec(t_leftright);
     Rcout << "\n\n --- Optimisation --- \n ";
-    Rcout << "\n ------------------------------------------------------------------------------------------";
-    Rcout << "\n  v_length\t\t\tv_leftright\t\t\tc_leftright\tabs.offset";
-    Rcout << "\n ------------------------------------------------------------------------------------------";
+    Rcout << "\n --------------------------------------------------------------------------------------------------------------------------";
+    Rcout << "\n  v_length\t\t\tv_leftright\t\t\tc_leftright\t\t\tt_leftright\tabs.offset";
+    Rcout << "\n --------------------------------------------------------------------------------------------------------------------------";
   }
 
   //(1) calculate sum of the squared residuals
@@ -131,6 +131,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
         "\n" << std::setw(10) << v_length <<
         "\t" << fmt_vec(v_leftright) <<
         "\t" << fmt_vec(c_leftright) <<
+        "\t" << fmt_vec(t_leftright) <<
         "\t" << std::setw(10) << vslide_range[v_index];
     }
 
