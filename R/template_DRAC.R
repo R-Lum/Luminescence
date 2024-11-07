@@ -175,7 +175,7 @@ template_DRAC <- function(
 
     `Conversion factors` =
       structure(factor(rep(NA_character_, nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "Cresswelletal2018", "X")), required = FALSE, allowsX = TRUE,  default_class = "factor", key = "TI:4",
-                description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
+                description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal2018', or 'X' if conversion factors are not required."), #
 
     `External U (ppm)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE,  default_class = "numeric", key = "TI:5",
