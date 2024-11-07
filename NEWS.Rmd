@@ -43,8 +43,8 @@ above, the function now only accepts CSV files as input (#237, fixed in #270).
 
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the
-`RLum.Analysis` given as input, and reports a message if a version older than
-5 was used (#281, fixed in #282).
+`RLum.Analysis` object given as input, and reports a message if a version
+older than 5 was used (#281, fixed in #282).
 * The function doesn't crash anymore on some `RLum.Analysis` input files
 (#283, fixed in #288).
 
@@ -83,9 +83,9 @@ profile log-likelihood as soon as `sigma < 1e-16`, as allowing `sigma` to
 become zero leads to infinities and buggy behaviour (also fixed in #304).
 
 ### `calc_Lamothe2003()`
-* We addressed a long-standing issue (#96) regarding the calculation of the
-calculation of the `Ln/Tn` error after fading correction, which led to smaller
-than expected errors (fixed in #296).
+* We addressed a long-standing issue regarding the calculation of the `Ln/Tn`
+error after fading correction, which led to smaller than expected errors
+(#96, fixed in #296).
 
 ### `get_RLum()`
 * When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would 
@@ -107,14 +107,15 @@ add respective plot options
 * The function crashed contained for single grain data that sometimes cause a lot of `NaN` values
 during log conversions required for estimating the start parameters. The result was the error `object 'b.MC' not found`
 (#374; fixed)
-* If `fit.method = "EXP+LIN"`, the function stuck sometimes in an endless loop in cases where the number of
-parameters was larger or equal the number of data points. To avoid this, we replaced `nls()` `minpack.lm::nlsLM()`. 
+* If `fit.method = "EXP+LIN"`, the function got sometimes stuck in an endless
+loop in cases where the number of parameters was larger or equal the number of
+data points. To avoid this, we replaced `nls()` `minpack.lm::nlsLM()`.
 Please keep in mind that it does not mean that the fit results make any sense, it just helps to avoid uncontained events 
 in the R session (addresses #381).
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect
-value returns an error instead of silently skip curve normalisation (#250,
+value returns an error instead of silently skipping curve normalisation (#250,
 fixed in #263).
 
 ### `plot_RLum.Data.Spectrum()`
@@ -122,7 +123,7 @@ fixed in #263).
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 * The gradient between colours when `plot.type = "persp"` is now more
 consistent and doesn't produce artefacts in the regions of transition
-between colours (#371, fixed in 380).
+between colours (#371, fixed in #380).
 
 ### `read_BIN2R()`
 * The function is now much faster: we have recorded an overall improvement
@@ -133,30 +134,32 @@ doesn't lead to a crash when used in conjunction with the `fastForward`
 option (#343, fixed in #344).
 * Argument `zero_data.rm` was not correctly propagated if the input object
 was provided as a list (#342, fixed in #345).
-* The `METADATA` fields corresponding to a ROI record that are not actually
-read from the BINX file are now set to `NA` rather than being assigned the
+* The `METADATA` fields that are not actually read from the BINX file in
+case of a ROI record are now set to `NA` rather than being assigned the
 value from the previous record (#336, fixed in #360).
 * The `.RESERVED` slot is now kept in sync with the rest of the object
 when records are dropped from the input BIN/BINX file (#337, fixed in #348).
 * The function doesn't crash anymore when reading a file that contains a
-record with an unrecognised version after other valid records (#352, fixed
-in #353).
+record with an unrecognised version after other records with a valid version
+have been read (#352, fixed in #353).
 * The function doesn't crash anymore when reading a file that contains a
 ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 
 ### `read_XSYG2R()`
-* Add a new argument `n_records` that enables to limit the number of imported records in case the file was faulty or only a limited number of records is wanted.  
+* The new `n_records` argument now enables to control the number of records
+to import, which can be useful in case the file is faulty.
 * The function sometimes struggled with the import if only a directory was provided; fixed. 
 * The function truncated the terminal output under certain circumstances; fixed.
 
 ### `template_DRAC()`
 * The function gained a new argument `file_input` that enables the creating of a DRAC template 
-based on an existing DRAC CSV file. This way, already available DRAC files cannot only 
-be used by conveniently modified without a pass to `use_DRAC()` first.
+based on an existing DRAC CSV file. This way, already available DRAC files
+can be conveniently modified without having to call `use_DRAC()` first.
 * The template contained a couple of minor mistakes that got fixed along with a 
 more strict enforcement of the class of each field, which is now set as an attribute; 
 the change should have no user-visible effect. 
-* The function gain knowledge about the conversion factors by Cressswell et al. (2018) `Cresswelletal2018`. 
+* The function now supports the conversion factors by Cresswell et al. (2018)
+(`Cresswelletal2018`).
 Please ensure that the server supports that option.
 
 ### `use_DRAC()`
@@ -174,19 +177,24 @@ of that object. If the clean-up means that the everything was removed, the resul
 * Improve warning messages; it was indeed not very intelligible. 
 * The function doesn't crash anymore when applied to an empty list (#365,
 fixed in #366).
-* Silence the very talkative terminal even if nothing was removed from a record for `cleanup = TRUE`.
-* Provide better terminal feedback if the selection resulted in an empty record. 
+* Silence the very talkative terminal output even if nothing was removed
+from a record for `cleanup = TRUE`.
+* The function now provides better terminal feedback if the selection results
+in an empty record.
 
 ### `write_R2BIN()`
-* Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
+* Recently, non-ASCII characters in comments or file names have become more
+common and that led to crashes during the
 file export. To avoid this now all non-ASCII characters are replaced by `_` before writing them to the BIN/BINX files. 
 * The function now returns the file path of the export. 
-* Fix a bug that left connections open if the function crashed. 
+* Any open connection is now correctly closed if the function crashes.
 
 ## Internals
 
-* Two new internal functions `.throw_warning()` and `.throw_error()` sometimes flushed the
-terminal with messages if call (internally) in particular circumstances. Now we maintain a
-stack of function names, so that at any time we can report correctly the name of the
+* Two new internal functions `.throw_warning()` and `.throw_error()`, added
+in v0.9.25, in particular circumstances flushed very long traceback messages
+to the terminal instead of reporting the name of the calling function. Now we
+maintain an internal stack of function names, so that at any time we can
+report correctly the name of the
 function where an error or a warning is thrown (#254, fixed in #256).
 * `get_DRAC_references()` now works also on a `DRAC.list` got updated references.
