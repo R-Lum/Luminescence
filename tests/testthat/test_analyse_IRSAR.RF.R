@@ -43,6 +43,10 @@ test_that("input validation", {
                "'RF_reg.lim' should be of class 'numeric' or 'integer'")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 2000),
                  "'RF_reg.lim' out of bounds, reset to")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 521),
+               "'RF_reg.lim' defines too short an interval and it's not")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 520),
+               "No sliding space left after limitations were applied")
   suppressWarnings( # FIXME(mcol): lmdif: info = -1. Number of iterations has reached `maxiter' == 50.
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = c(3, 6)),
                  "'RF_reg.lim' defines too short an interval, reset to")

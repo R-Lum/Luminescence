@@ -646,8 +646,20 @@ analyse_IRSAR.RF<- function(
   len.RF_reg.lim <- length(RF_reg.lim[1]:RF_reg.lim[2])
   if (len.RF_reg.lim < RF_nat.lim[2]) {
     RF_reg.lim[2] <- RF_reg.lim[2] + abs(len.RF_reg.lim - RF_nat.lim[2]) + 1
+
+    ## check that now we haven't gone beyond the size of RF_reg.lim
+    if (RF_reg.lim[2] > RF_reg.lim.default[2]) {
+      .throw_error("'RF_reg.lim' defines too short an interval and it's not ",
+                   "possible to extend it")
+    }
+
     .throw_warning("'RF_reg.lim' defines too short an interval, reset to c(",
                    paste(range(RF_reg.lim), collapse=":"), ")")
+  }
+
+  ## check again that we can actually slide the curve
+  if (diff(RF_nat.lim) == diff(RF_reg.lim)) {
+    .throw_error("No sliding space left after limitations were applied")
   }
 
   # Method Control Settings ---------------------------------------------------------------------
