@@ -990,7 +990,8 @@ analyse_IRSAR.RF<- function(
         vslide_range <- 0
 
       } else if (vslide_range[1] == "auto") {
-        vslide_range <- -(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])):(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2]))
+        range <- max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])
+        vslide_range <- -range:range
         algorithm_error <- NA
 
       } else{
@@ -1003,18 +1004,12 @@ analyse_IRSAR.RF<- function(
       ##therefore we run the algorithm by expanding the sliding vector
       if(!is.null(vslide_range) && any(vslide_range != 0)){
 
-        ##even numbers makes it complicated, so let's make it odd if not already the case
-        if(length(vslide_range) %% 2 == 0){
-          vslide_range <- c(vslide_range[1], vslide_range, vslide_range)
-        }
-
         ##construct list of vector ranges we want to check for, this should avoid that we
         ##got trapped in a local minimum
-        median_vslide_range.index <- median(1:length(vslide_range))
-        vslide_range.list <- lapply(seq(1, median_vslide_range.index,
-                                        length.out = num_slide_windows), function(x) {
-           c(median_vslide_range.index - as.integer(x), median_vslide_range.index + as.integer(x))
-        })
+        mid.idx <- floor((length(vslide_range) + 1) / 2)
+        steps <- as.integer(seq(min(t_max_nat.id / 2, mid.idx / 16), mid.idx,
+                                length.out = num_slide_windows))
+        vslide_range.list <- lapply(steps, function(x) mid.idx + c(-x, x))
 
         ##correct for out of bounds problem; it might occur
         vslide_range.list[[num_slide_windows]] <- c(0, length(vslide_range))
