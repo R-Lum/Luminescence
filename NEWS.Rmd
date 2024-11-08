@@ -49,9 +49,15 @@ older than 5 was used (#281, fixed in #282).
 (#283, fixed in #288).
 
 ### `analyse_IRSAR.RF()`
+* The performance of this function has been improved for the "SLIDE" and
+"VSLIDE" methods: the default number of sliding windows tested in the
+algorithm has been reduced from 10 to 3, and the new `num_slide_windows`
+option provides a way of tuning this parameter, thus allowing to find a
+balance between computation time and quality of fit (#372, fixed in #388
+and #398).
 * The function is more robust against `sequence_structure` misspecifications
 (#393, fixed in #394).
-* Some data preparation steps where not correctly applied for `method = VSLIDE`
+* Some data preparation steps where not correctly applied for `method = "VSLIDE"`
 (#396, fixed in #397).
 
 ### `analyse_pIRIRSequence()`

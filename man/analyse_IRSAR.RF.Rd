@@ -148,6 +148,7 @@ reported with the summary object data. List elements are:
 algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 vertical sliding range. It can be added as systematic error to the final De error; so far wanted.\cr
 \code{vslide_range} \tab \code{numeric} \tab the range used for the vertical sliding \cr
+\code{num_slide_windows} \tab \code{integer} \tab the number of windows used for the vertical sliding \cr
 \code{squared_residuals} \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }
 
@@ -256,6 +257,11 @@ sliding. The argument expects a vector with an absolute minimum and a maximum (e
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
 reasonable vertical sliding range (\strong{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
+\code{num_slide_windows} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
+This argument controls how many differently-sized windows are tested when
+sliding: the higher the value (up to a maximum of 10), the more time is
+spent in searching the global optimum. The default is 3, which attempts to
+strike a balance between quality of the fit and computation speed.\cr
 \code{cores} \tab \code{SLIDE} or \code{VSLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
 for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
 the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.

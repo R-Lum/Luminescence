@@ -354,7 +354,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.MC", "residuals", "trend.fit", "RF_nat.slid", "t_n.id", "I_n", "algorithm_error", "vslide_range", "squared_residuals"]
+                  "value": ["De", "De.MC", "residuals", "trend.fit", "RF_nat.slid", "t_n.id", "I_n", "algorithm_error", "vslide_range", "num_slide_windows", "squared_residuals"]
                 }
               },
               "value": [
@@ -420,6 +420,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0, 0]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3]
                 },
                 {
                   "type": "double",
@@ -636,7 +641,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.MC", "residuals", "trend.fit", "RF_nat.slid", "t_n.id", "I_n", "algorithm_error", "vslide_range", "squared_residuals"]
+                  "value": ["De", "De.MC", "residuals", "trend.fit", "RF_nat.slid", "t_n.id", "I_n", "algorithm_error", "vslide_range", "num_slide_windows", "squared_residuals"]
                 }
               },
               "value": [
@@ -702,6 +707,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-242.45252525, 241.54747475]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
                 },
                 {
                   "type": "double",
@@ -918,7 +928,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.MC", "residuals", "trend.fit", "RF_nat.slid", "t_n.id", "I_n", "algorithm_error", "vslide_range", "squared_residuals"]
+                  "value": ["De", "De.MC", "residuals", "trend.fit", "RF_nat.slid", "t_n.id", "I_n", "algorithm_error", "vslide_range", "num_slide_windows", "squared_residuals"]
                 }
               },
               "value": [
@@ -984,6 +994,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-242.45252525, 241.54747475]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
                 },
                 {
                   "type": "double",
