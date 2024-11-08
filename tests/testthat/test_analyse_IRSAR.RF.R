@@ -83,7 +83,7 @@ test_that("input validation", {
   ## num_slide_windows
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                 method.control = list(num_slide_windows = NA)),
-                 "should be a positive integer scalar")
+                 "'num_slide_windows' in 'method.control' should be a positive")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(num_slide_windows = 20)),
                  "should be between 1 and 10, reset to 10")

@@ -32,10 +32,10 @@ test_that("input validation", {
                "'Ch_L3[1]' should be a positive integer scalar",
                fixed = TRUE)
   expect_error(calc_FastRatio(obj, Ch_L3 = c(5, 2)),
-               "Ch_L3[2] must be greater than or equal to Ch_L3[1]",
+               "'Ch_L3[2]' must be greater than or equal to 'Ch_L3[1]'",
                fixed = TRUE)
   expect_error(calc_FastRatio(obj, Ch_L3 = c(5, 1001)),
-               "Value in Ch_L3 (5, 1001) exceeds number of available channels",
+               "Value in 'Ch_L3' (5, 1001) exceeds number of available channels",
                fixed = TRUE)
 
   expect_warning(expect_null(calc_FastRatio(ExampleData.CW_OSL_Curve,

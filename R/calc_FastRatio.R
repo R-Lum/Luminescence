@@ -135,10 +135,10 @@ calc_FastRatio <- function(object,
     if (!is.numeric(Ch_L3) || length(Ch_L3) != 2) {
       .throw_error("Input for 'Ch_L3' must be a vector of length 2")
     }
-    .validate_positive_scalar(Ch_L3[1], int = TRUE, name = "Ch_L3[1]")
-    .validate_positive_scalar(Ch_L3[2], int = TRUE, name = "Ch_L3[2]")
+    .validate_positive_scalar(Ch_L3[1], int = TRUE, name = "'Ch_L3[1]'")
+    .validate_positive_scalar(Ch_L3[2], int = TRUE, name = "'Ch_L3[2]'")
     if (Ch_L3[1] > Ch_L3[2]) {
-      .throw_error("Ch_L3[2] must be greater than or equal to Ch_L3[1]")
+      .throw_error("'Ch_L3[2]' must be greater than or equal to 'Ch_L3[1]'")
     }
   }
 
@@ -243,7 +243,7 @@ calc_FastRatio <- function(object,
       t_L3_end <- (log(x2 / 100)) / (-sigmaM * I0)
     } else {
       if (any(Ch_L3 > nrow(A))) {
-        .throw_error("Value in Ch_L3 (", .collapse(Ch_L3, quote = FALSE),
+        .throw_error("Value in 'Ch_L3' (", .collapse(Ch_L3, quote = FALSE),
                      ") exceeds number of available channels (", nrow(A), ")")
       }
       t_L3_start <- A[Ch_L3[1], 1]
@@ -379,7 +379,7 @@ calc_FastRatio <- function(object,
                                        call = sys.call(-2L)),
                            info = settings$info
     )
-    
+
     ## Console Output ----------------------------------------------------------
     if (settings$verbose) {
       

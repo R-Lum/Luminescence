@@ -1235,8 +1235,9 @@ SW <- function(expr) {
 #' @param null.ok [logical] (*with default*): whether a `NULL` value should be
 #'        considered valid (`FALSE` by default)
 #' @param name [character] (*with default*): variable name to report in case
-#'        of error; if not specified it's inferred from the name of the
-#'        variable tested.
+#'        of error: if specified, it's reported as is; if not specified it's
+#'        inferred from the name of the variable tested and reported with
+#'        quotes.
 #'
 #' @md
 #' @noRd
@@ -1247,8 +1248,8 @@ SW <- function(expr) {
   if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && val != as.integer(val))) {
     if (is.null(name))
-      name <- all.vars(match.call())[1]
-    .throw_error("'", name, "' should be a positive ", if (int) "integer ",
+      name <- sprintf("'%s'", all.vars(match.call())[1])
+    .throw_error(name, " should be a positive ", if (int) "integer ",
                  "scalar")
   }
 }
