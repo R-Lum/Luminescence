@@ -50,11 +50,13 @@ older than 5 was used (#281, fixed in #282).
 
 ### `analyse_IRSAR.RF()`
 * The performance of this function has been improved for the "SLIDE" and
-"VSLIDE" methods: the default number of sliding windows tested in the
-algorithm has been reduced from 10 to 3, and the new `num_slide_windows`
-option provides a way of tuning this parameter, thus allowing to find a
-balance between computation time and quality of fit (#372, fixed in #388
-and #398).
+"VSLIDE" methods, thanks both to tweaks in the C++ implementation of the
+sliding algorithm and in how that is managed on the R side. In particular,
+the default number of sliding windows tested in the algorithm has been
+reduced from 10 to 3: this value is no longer hardcoded, but can be tuned
+through the new `num_slide_windows` setting (part of the `method.control`
+option), thus allowing to find a balance between computation time and
+quality of fit (#372, fixed in #388, #398 and #399).
 * The function is more robust against `sequence_structure` misspecifications
 (#393, fixed in #394).
 * Some data preparation steps where not correctly applied for `method = "VSLIDE"`

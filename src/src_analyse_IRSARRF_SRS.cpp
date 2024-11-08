@@ -46,10 +46,9 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   int v_length = vslide_range.size();
   int v_index = 0;
   arma::vec results(res_size);
-  arma::vec residuals(nat_size);
-  arma::vec v_leftright(two_size); // the virtual vector
-  arma::vec t_leftright(two_size); // the test points
-  arma::vec c_leftright(two_size); // the calculation
+  arma::vec::fixed<two_size> v_leftright; // the virtual vector
+  arma::vec::fixed<two_size> t_leftright; // the test points
+  arma::vec::fixed<two_size> c_leftright; // the calculation
 
   // initialise values: at the beginning, the virtual vector includes all
   // points in vslide_range
@@ -84,19 +83,18 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 
       //HORIZONTAL SLIDING CORE -------------------------------------------------------------(start)
 
+      results.zeros();
       auto curr_vslide_range = vslide_range[t_leftright[t]];
 
       //slide the curves against each other
-      for (int i=0; i<static_cast<int>(results.size()); ++i){
+      for (unsigned int i = 0u; i < res_size; ++i) {
+        // calculate the sum of squared residuals along one curve
 
-        //calculate squared residuals along one curve
-        for (int j=0; j<static_cast<int>(values_natural_limited.size()); ++j){
-          residuals[j] = pow(values_regenerated_limited[j + i] -
-                             (values_natural_limited[j] + curr_vslide_range), 2);
+        for (unsigned int j = 0u; j < nat_size; ++j) {
+          double residual = values_regenerated_limited[j + i] -
+            (values_natural_limited[j] + curr_vslide_range);
+          results[i] += residual * residual;
         }
-
-        //sum results and fill the results vector
-        results[i] = sum(residuals);
       }
 
       //HORIZONTAL SLIDING CORE ---------------------------------------------------------------(end)

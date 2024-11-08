@@ -80,6 +80,14 @@ test_that("input validation", {
                                   method.control = list(vslide_range = 1:4)),
                  "'vslide_range' in 'method.control' has more than 2 elements")
 
+  ## num_slide_windows
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                method.control = list(num_slide_windows = NA)),
+                 "should be a positive integer scalar")
+  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                  method.control = list(num_slide_windows = 20)),
+                 "should be between 1 and 10, reset to 10")
+
   expect_message(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(cores = "4")),
                  "Invalid value for control argument 'cores'")
