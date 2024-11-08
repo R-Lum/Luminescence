@@ -209,15 +209,26 @@ test_that("test edge cases", {
     txtProgressBar = FALSE
   )), "RLum.Results")
 
-  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+  ## test parameters values only set for coverage
+  SW({
+  expect_warning(expect_s4_class(analyse_IRSAR.RF(
     object,
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE),
     #RF_nat.lim = c(10,100),
     RF_reg.lim = c(10,100),
     plot = TRUE,
+    test_parameters = list(curves_ratio = NULL,
+                           intersection_ratio = 5,
+                           residuals_slope = 1,
+                           dynamic_ratio = 1,
+                           lambda = 0,
+                           beta = 1e-4,
+                           delta.phi = 1e-4),
     txtProgressBar = FALSE
-  )), "RLum.Results")
+  ), "RLum.Results"),
+  "lmdif: info = -1. Number of iterations has reached `maxiter' == 50")
+  })
 })
 
 test_that("regression tests", {

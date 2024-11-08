@@ -18,8 +18,8 @@
 #' 6. Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
 #'
 #'
-#' Actually two methods are supported to obtain the \eqn{D_{e}}:
-#' `method = "FIT"` and `method = "SLIDE"`:
+#' Actually three methods are supported to obtain the \eqn{D_{e}}:
+#' `method = "FIT"`, `method = "SLIDE"` and `method = "VSLIDE"`:
 #'
 #' **`method = "FIT"`**
 #'
@@ -48,30 +48,31 @@
 #' **`method = "SLIDE"`**
 #'
 #' For this method, the natural curve is slid along the x-axis until
-#' congruence with the regenerated curve is reached. Instead of fitting this
+#' congruence with the regenerated curve is reached. As opposed to fitting, this
 #' allows working with the original data without the need for any physical
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
-#' Here the sliding is done by searching for the minimum of the squared residuals.
+#' Here the sliding is done by searching for the minimum of the sum of
+#' squared residuals.
 #' For the mathematical details of the implementation see Frouin et al., 2017
 #'
 #' **`method = "VSLIDE"`**
 #'
 #' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
 #' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
-#' range will is set to `"auto"` (see `method.control`). This setting can be still
-#' changed with `method.control`.
+#' range is set automatically, but can be set manually by changing the
+#' `vslide_range` parameter (see `method.control`).
 #'
 #' **`method.control`**
 #'
-#' To keep the generic argument list as clear as possible, arguments to control the methods
-#' for De estimation are all preset with meaningful default parameters and can be
-#' handled using the argument `method.control` only, e.g.,
-#' `method.control = list(trace = TRUE)`. Supported arguments are:
+#' To keep the generic argument list as clear as possible, parameters to control
+#' the methods for De estimation are preset with meaningful default values,
+#' which can however be modified using the `method.control` argument, e.g.,
+#' `method.control = list(trace = TRUE)`. Supported parameters are:
 #'
 #' \tabular{lll}{
-#' **ARGUMENT** \tab **METHOD** \tab **DESCRIPTION**\cr
+#' **PARAMETER** \tab **METHOD** \tab **DESCRIPTION**\cr
 #' `trace`   \tab `FIT`, `SLIDE` or `VSLIDE` \tab as in [nls]; shows sum of squared residuals\cr
 #' `trace_vslide` \tab `SLIDE` or `VSLIDE` \tab [logical] argument to enable or disable the tracing of the vertical sliding\cr
 #' `maxiter` \tab `FIT` \tab as in [nls]\cr
@@ -109,25 +110,28 @@
 #' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 % (lower) and
 #' the 97.5 % (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
 #'
-#' For **`method = "SLIDE"`** the error is obtained by bootstrapping the residuals of the slid
+#' For **`method = "SLIDE"`** and **`method = "VSLIDE"`** the error is obtained
+#' by bootstrapping the residuals of the slid
 #' curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-#' ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
+#' ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
+#' runs and (b) the confidence
 #' interval using the  2.5 % (lower) and the 97.5 % (upper) quantiles. The results of the MC runs
 #' are returned with the function output.
 #'
 #' **Test parameters**
 #'
 #' The argument `test_parameters` allows to pass some thresholds for several test parameters,
-#' which will be evaluated during the function run. If a threshold is set and it will be exceeded the
+#' which will be evaluated during the function run. If a threshold is set and
+#' it is exceeded, the
 #' test parameter status will be set to `"FAILED"`. Intentionally this parameter is not termed
 #' `'rejection criteria'` as not all test parameters are evaluated for both methods and some parameters
-#' are calculated by not evaluated by default. Common for all parameters are the allowed argument options
+#' are calculated but not evaluated by default. Common for all parameters are the allowed argument options
 #' `NA` and `NULL`. If the parameter is set to `NA` the value is calculated but the
-#' result will not be evaluated, means it has no effect on the status (`"OK"` or `"FAILED"`)
-#' of the parameter.
+#' result will not be evaluated, therefore it will have no effect on the
+#' status (`"OK"` or `"FAILED"`) of the parameter.
 #' Setting the parameter to `NULL` disables the parameter entirely and the parameter will be
 #' also removed from the function output. This might be useful in cases where a particular parameter
-#' asks for long computation times. Currently supported parameters are:
+#' requires a long computation time. Currently supported parameters are:
 #'
 #' `curves_ratio` [numeric] (default: `1.001`):
 #'
@@ -1030,7 +1034,7 @@ analyse_IRSAR.RF<- function(
         ##the algorithm finds sufficiently the global minimum.
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
-        temp_minium_list <- lapply(1:num_slide_windows, function(x) {
+        temp_minimum_list <- lapply(1:num_slide_windows, function(x) {
           src_analyse_IRSARRF_SRS(
             values_regenerated_limited =  RF_reg.limited[,2],
             values_natural_limited = RF_nat.limited[,2],
@@ -1040,20 +1044,20 @@ analyse_IRSAR.RF<- function(
         })
 
         ##get all horizontal index value for the local minimum (corresponding to the vslide)
-        temp_hslide_indices <- vapply(temp_minium_list, function(x){
+        temp_hslide_indices <- vapply(temp_minimum_list, function(x) {
           x$sliding_vector_min_index}, FUN.VALUE = numeric(length = 1))
 
         ##get also the vertical slide indices
-        temp_vslide_indices <- vapply(temp_minium_list, function(x){
+        temp_vslide_indices <- vapply(temp_minimum_list, function(x) {
           x$vslide_index}, FUN.VALUE = numeric(length = 1))
 
         ##get all the minimum values
-        temp_minium <- vapply(temp_minium_list, function(x){x$vslide_minimum}, FUN.VALUE = numeric(length = 1))
+        temp_minimum <- vapply(temp_minimum_list, function(x) {
+          x$vslide_minimum}, FUN.VALUE = numeric(length = 1))
 
         ##get minimum and set it to the final range
-        vslide_range <- vslide_range[
-          vslide_range.list[[which.min(temp_minium)]][1]:vslide_range.list[[which.min(temp_minium)]][2]]
-
+        opt.range <- vslide_range.list[[which.min(temp_minimum)]]
+        vslide_range <- vslide_range[opt.range[1]:opt.range[2]]
 
         ##get all possible t_n values for the range expansion ... this can be considered
         ##as somehow systematic uncertainty, but it will be only calculated if the full range
@@ -1062,8 +1066,8 @@ analyse_IRSAR.RF<- function(
         if(!is.null(algorithm_error)){
           algorithm_error <- sd(vapply(1:length(temp_vslide_indices), function(k){
             temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
-            matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + temp_vslide_indices[k]), ncol = 2)[1,1]
-
+            matrix(data = c(RF_nat[,1] + temp.sliding.step,
+                            RF_nat[,2] + temp_vslide_indices[k]), ncol = 2)[1,1]
           }, FUN.VALUE = numeric(length = 1)))
 
         }else{
@@ -1106,22 +1110,13 @@ analyse_IRSAR.RF<- function(
             X = 1:length(temp.sum.residuals$sliding_vector_min_MC),
             FUN = function(x) {
               ##get minimum for MC
-              t_n.id.MC <-
-                which(
-                  temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x]
-                )
+              t_n.id.MC <- which(temp.sum.residuals$sliding_vector ==
+                                 temp.sum.residuals$sliding_vector_min_MC[x])
 
-              ## there is low change to get two indices, in
-              ## such cases we should take the mean
-              temp.sliding.step.MC <-
-                RF_reg.limited[t_n.id.MC] - t_min
-
-              if(length(temp.sliding.step.MC)>1){
-                t_n.MC <- (RF_nat[, 1] + mean(temp.sliding.step.MC))[1]
-
-              }else{
-                t_n.MC <- (RF_nat[, 1] + temp.sliding.step.MC)[1]
-              }
+              ## there is a non-zero chance that we have got two indices for
+              ## the minimun, so we take the mean
+              temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
+              t_n.MC <- (RF_nat[, 1] + mean(temp.sliding.step.MC))[1]
 
               return(t_n.MC)
             },
@@ -1134,28 +1129,20 @@ analyse_IRSAR.RF<- function(
 
       ##(4) get residuals (needed to be plotted later)
       ## they cannot be longer than the RF_reg.limited curve
-      if((t_n.id+length(RF_nat.limited[,2])-1) >= nrow(RF_reg.limited)){
-        residuals <- (RF_nat.limited[1:length(t_n.id:nrow(RF_reg.limited)),2] + I_n)
-        - RF_reg.limited[t_n.id:nrow(RF_reg.limited), 2]
-
-      }else{
-        residuals <- (RF_nat.limited[,2] + I_n) - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
-      }
+      reg.limited.idx <- t_n.id:nrow(RF_reg.limited)
+      len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
+      residuals <- (RF_nat.limited[1:len.shorter, 2] + I_n) -
+        RF_reg.limited[reg.limited.idx[1:len.shorter], 2]
 
       ##(4.1) calculate De from the first channel ... which is t_n here
       De <- round(t_n, digits = 2)
       De.MC <- round(t_n.MC, digits = 2)
 
-      temp.trend.fit <- NA
-
       ##(5) calculate trend fit
-      if(length(RF_nat.limited[,1]) > length(residuals)){
-        temp.trend.fit <- coef(lm(y~x,
-                                  data.frame(x = RF_nat.limited[1:length(residuals),1], y = residuals)))
-
-      }else{
-        temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
-      }
+      max.rows <- min(nrow(RF_nat.limited), length(residuals))
+      temp.fit <- lm(y ~ x, data.frame(x = RF_nat.limited[1:max.rows, 1],
+                                       y = residuals))
+      temp.trend.fit <- coef(temp.fit)
 
       ##return values and limited if they are not needed
       if (numerical.only == FALSE) {
@@ -1204,26 +1191,11 @@ analyse_IRSAR.RF<- function(
     if(!is.null(n.MC)){
       slide.MC.list <- lapply(1:n.MC,function(x) {
 
-        ##also here we have to account for the case that user do not understand
-        ##what they are doing ...
-        if(slide$t_n.id + nrow(RF_nat.limited)-1 > nrow(RF_reg.limited)){
-          cbind(
-            RF_nat.limited[1:length(slide$t_n.id:nrow(RF_reg.limited)),1],
-            (RF_reg.limited[slide$t_n.id:nrow(RF_reg.limited) ,2]
-             + sample(residuals,
-                      size = length(slide$t_n.id:nrow(RF_reg.limited)),
-                      replace = TRUE)
-            )
-          )
-
-        }else{
-          cbind(
-            RF_nat.limited[,1],
-            (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
-             + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
-            )
-          )
-        }
+        reg.limited.idx <- slide$t_n.id:nrow(RF_reg.limited)
+        len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
+        cbind(RF_nat.limited[1:len.shorter, 1],
+              RF_reg.limited[reg.limited.idx[1:len.shorter], 2] +
+              sample(residuals, len.shorter, replace = TRUE))
       })
 
       ##set parallel calculation if wanted
