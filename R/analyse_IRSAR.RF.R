@@ -93,6 +93,11 @@
 #' Alternatively the values `NULL` and `'auto'` are allowed. The automatic mode detects the
 #' reasonable vertical sliding range (**recommended**). `NULL` applies no vertical sliding.
 #' The default is `NULL`.\cr
+#' `num_slide_windows` \tab `SLIDE` or `VSLIDE` \tab [integer] (*with default*):
+#' This argument controls how many differently-sized windows are tested when
+#' sliding: the higher the value (up to a maximum of 10), the more time is
+#' spent in searching the global optimum. The default is 3, which attempts to
+#' strike a balance between quality of the fit and computation speed.\cr
 #' `cores` \tab `SLIDE` or `VSLIDE` \tab `number` or `character` (*with default*): set number of cores to be allocated
 #' for a parallel processing of the Monte-Carlo runs. The default value is `NULL` (single thread),
 #' the recommended values is `'auto'`. An optional number (e.g., `cores` = 8) assigns a value manually.
@@ -295,6 +300,7 @@
 #'  algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 #'  vertical sliding range. It can be added as systematic error to the final De error; so far wanted.\cr
 #'  `vslide_range` \tab `numeric` \tab the range used for the vertical sliding \cr
+#'  `num_slide_windows` \tab `integer` \tab the number of windows used for the vertical sliding \cr
 #'  `squared_residuals` \tab `numeric` \tab the squared residuals (horizontal sliding)
 #' }
 #'
@@ -661,6 +667,7 @@ analyse_IRSAR.RF<- function(
     show_fit = FALSE,
     n.MC = if(is.null(n.MC)) NULL else 1000,
     vslide_range = if(method[1] == "VSLIDE") "auto" else NULL,
+    num_slide_windows = 3,
     cores = NULL
   )
 
@@ -692,6 +699,17 @@ analyse_IRSAR.RF<- function(
       method.control$vslide_range <- method.control$vslide_range[1:2]
       .throw_warning("'vslide_range' in 'method.control' has more ",
                      "than 2 elements, only the first two were used")
+    }
+
+    temp.num_slide_windows <- method.control$num_slide_windows
+    if (length(temp.num_slide_windows) > 0) {
+      .validate_positive_scalar(temp.num_slide_windows, int = TRUE,
+                                name = "'num_slide_windows' in 'method.control'")
+      if (temp.num_slide_windows > 10) {
+        method.control$num_slide_windows <- 10
+        .throw_warning("'num_slide_windows' in 'method.control' should be ",
+                       "between 1 and 10, reset to 10 ")
+      }
     }
 
     ##modify list
@@ -954,6 +972,7 @@ analyse_IRSAR.RF<- function(
                         RF_reg.limited,
                         n.MC = method.control.settings$n.MC,
                         vslide_range = method.control.settings$vslide_range,
+                        num_slide_windows = method.control.settings$num_slide_windows,
                         trace = method.control.settings$trace_vslide,
                         numerical.only = FALSE){
 
@@ -971,7 +990,8 @@ analyse_IRSAR.RF<- function(
         vslide_range <- 0
 
       } else if (vslide_range[1] == "auto") {
-        vslide_range <- -(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])):(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2]))
+        range <- max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])
+        vslide_range <- -range:range
         algorithm_error <- NA
 
       } else{
@@ -984,26 +1004,21 @@ analyse_IRSAR.RF<- function(
       ##therefore we run the algorithm by expanding the sliding vector
       if(!is.null(vslide_range) && any(vslide_range != 0)){
 
-        ##even numbers makes it complicated, so let's make it odd if not already the case
-        if(length(vslide_range) %% 2 == 0){
-          vslide_range <- c(vslide_range[1], vslide_range, vslide_range)
-        }
-
         ##construct list of vector ranges we want to check for, this should avoid that we
         ##got trapped in a local minimum
-        median_vslide_range.index <- median(1:length(vslide_range))
-        vslide_range.list <- lapply(seq(1, median_vslide_range.index, length.out = 10), function(x){
-           c(median_vslide_range.index - as.integer(x), median_vslide_range.index + as.integer(x))
-        })
+        mid.idx <- floor((length(vslide_range) + 1) / 2)
+        steps <- as.integer(seq(min(t_max_nat.id / 2, mid.idx / 16), mid.idx,
+                                length.out = num_slide_windows))
+        vslide_range.list <- lapply(steps, function(x) mid.idx + c(-x, x))
 
         ##correct for out of bounds problem; it might occur
-        vslide_range.list[[10]] <- c(0, length(vslide_range))
+        vslide_range.list[[num_slide_windows]] <- c(0, length(vslide_range))
 
         ##TODO ... this is not really optimal, but ok for the moment, better would be
         ##the algorithm finds sufficiently the global minimum.
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
-        temp_minium_list <- lapply(1:10, function(x){
+        temp_minium_list <- lapply(1:num_slide_windows, function(x) {
           src_analyse_IRSARRF_SRS(
             values_regenerated_limited =  RF_reg.limited[,2],
             values_natural_limited = RF_nat.limited[,2],
@@ -1143,6 +1158,7 @@ analyse_IRSAR.RF<- function(
             I_n = I_n,
             algorithm_error = algorithm_error,
             vslide_range = if(is.null(vslide_range)){NA}else{range(vslide_range)},
+            num_slide_windows = num_slide_windows,
             squared_residuals = temp.sum.residuals$sliding_vector
           )
         )

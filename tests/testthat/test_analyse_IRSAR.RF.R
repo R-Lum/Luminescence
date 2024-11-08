@@ -105,7 +105,8 @@ test_that("check class and length of output", {
       plot = FALSE,
       method = "SLIDE",
       n.MC = 10,
-      method.control = list(vslide_range = 'auto', trace_vslide = TRUE),
+      method.control = list(vslide_range = 'auto', trace_vslide = TRUE,
+                            num_slide_windows = 10),
       txtProgressBar = FALSE
     )
   )
@@ -117,7 +118,8 @@ test_that("check class and length of output", {
       plot = FALSE,
       method = "VSLIDE",
       n.MC = 10,
-      method.control = list(vslide_range = 'auto', trace_vslide = FALSE),
+      method.control = list(vslide_range = 'auto', trace_vslide = FALSE,
+                            num_slide_windows = 10),
       txtProgressBar = FALSE
     )
   )
