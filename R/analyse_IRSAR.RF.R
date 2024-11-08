@@ -657,6 +657,11 @@ analyse_IRSAR.RF<- function(
                    paste(range(RF_reg.lim), collapse=":"), ")")
   }
 
+  ## check again that we can actually slide the curve
+  if (diff(RF_nat.lim) == diff(RF_reg.lim)) {
+    .throw_error("No sliding space left after limitations were applied")
+  }
+
   # Method Control Settings ---------------------------------------------------------------------
   ##===============================================================================================#
   ## SET METHOD CONTROL PARAMETER - FOR BOTH METHODS
