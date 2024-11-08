@@ -183,8 +183,8 @@ signal.
 \item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
-Actually two methods are supported to obtain the \eqn{D_{e}}:
-\code{method = "FIT"} and \code{method = "SLIDE"}:
+Actually three methods are supported to obtain the \eqn{D_{e}}:
+\code{method = "FIT"}, \code{method = "SLIDE"} and \code{method = "VSLIDE"}:
 
 \strong{\code{method = "FIT"}}
 
@@ -212,30 +212,31 @@ The fitting is done using the \code{port} algorithm of the \link{nls} function.
 \strong{\code{method = "SLIDE"}}
 
 For this method, the natural curve is slid along the x-axis until
-congruence with the regenerated curve is reached. Instead of fitting this
+congruence with the regenerated curve is reached. As opposed to fitting, this
 allows working with the original data without the need for any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
-Here the sliding is done by searching for the minimum of the squared residuals.
+Here the sliding is done by searching for the minimum of the sum of
+squared residuals.
 For the mathematical details of the implementation see Frouin et al., 2017
 
 \strong{\code{method = "VSLIDE"}}
 
 Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
 See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
-range will is set to \code{"auto"} (see \code{method.control}). This setting can be still
-changed with \code{method.control}.
+range is set automatically, but can be set manually by changing the
+\code{vslide_range} parameter (see \code{method.control}).
 
 \strong{\code{method.control}}
 
-To keep the generic argument list as clear as possible, arguments to control the methods
-for De estimation are all preset with meaningful default parameters and can be
-handled using the argument \code{method.control} only, e.g.,
-\code{method.control = list(trace = TRUE)}. Supported arguments are:
+To keep the generic argument list as clear as possible, parameters to control
+the methods for De estimation are preset with meaningful default values,
+which can however be modified using the \code{method.control} argument, e.g.,
+\code{method.control = list(trace = TRUE)}. Supported parameters are:
 
 \tabular{lll}{
-\strong{ARGUMENT} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
+\strong{PARAMETER} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
 \code{trace}   \tab \code{FIT}, \code{SLIDE} or \code{VSLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
 \code{trace_vslide} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
 \code{maxiter} \tab \code{FIT} \tab as in \link{nls}\cr
@@ -272,25 +273,28 @@ the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} 
 For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
 the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
 
-For \strong{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slid
+For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}} the error is obtained
+by bootstrapping the residuals of the slid
 curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
+ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
+runs and (b) the confidence
 interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
 are returned with the function output.
 
 \strong{Test parameters}
 
 The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
-which will be evaluated during the function run. If a threshold is set and it will be exceeded the
+which will be evaluated during the function run. If a threshold is set and
+it is exceeded, the
 test parameter status will be set to \code{"FAILED"}. Intentionally this parameter is not termed
 \code{'rejection criteria'} as not all test parameters are evaluated for both methods and some parameters
-are calculated by not evaluated by default. Common for all parameters are the allowed argument options
+are calculated but not evaluated by default. Common for all parameters are the allowed argument options
 \code{NA} and \code{NULL}. If the parameter is set to \code{NA} the value is calculated but the
-result will not be evaluated, means it has no effect on the status (\code{"OK"} or \code{"FAILED"})
-of the parameter.
+result will not be evaluated, therefore it will have no effect on the
+status (\code{"OK"} or \code{"FAILED"}) of the parameter.
 Setting the parameter to \code{NULL} disables the parameter entirely and the parameter will be
 also removed from the function output. This might be useful in cases where a particular parameter
-asks for long computation times. Currently supported parameters are:
+requires a long computation time. Currently supported parameters are:
 
 \code{curves_ratio} \link{numeric} (default: \code{1.001}):
 
