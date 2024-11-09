@@ -93,7 +93,7 @@ analyse_Al2O3C_CrossTalk <- function(
   plot = TRUE,
   ...
 ) {
-  .set_function_name("analyse_Al203C_CrossTalk")
+  .set_function_name("analyse_Al2O3C_CrossTalk")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity tests --------------------------------------------------------
