@@ -46,4 +46,14 @@ test_that("Test the extraction of irradiation times", {
   temp <- expect_s4_class(extract_IrradiationTimes(temp)[[1]], "RLum.Results")
   })
   expect_type(temp$irr.times$START, "double")
+
+  ## write results to BINX-file
+  tmp_BINX <- tempfile(fileext = ".binx")
+  file.copy(
+    from = system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+    to = tmp_BINX, overwrite = TRUE)
+  expect_message(
+    extract_IrradiationTimes(xsyg, file.BINX = tmp_BINX, txtProgressBar = FALSE),
+    "XSYG-file and BINX-file do not contain similar entries, BINX-file update skipped")
+
 })
