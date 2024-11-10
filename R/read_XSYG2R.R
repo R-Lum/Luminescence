@@ -711,16 +711,17 @@ read_XSYG2R <- function(
     if(verbose && txtProgressBar ){close(pb)}
 
     ##show output information
-    if(length(.rm_NULL_elements(output)) == 0){
+    if(length(output[sapply(output, is.null)]) == 0){
       if(verbose)
         paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n")
 
     }else{
+
       if(verbose){
-        paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.", XML::xmlSize(temp)-length(.rm_NULL_elements(output)), "sequence(s) loaded successfully. \n")
+        paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.", XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n")
       }
 
-      .throw_warning(length(.rm_NULL_elements(output)),
+      .throw_warning(length(output[sapply(output, is.null)]),
                      " incomplete sequence(s) removed.")
     }
 
