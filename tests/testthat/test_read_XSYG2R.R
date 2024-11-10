@@ -10,11 +10,14 @@ test_that("input validation", {
   expect_error(read_XSYG2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_message(expect_null(read_XSYG2R("_error_file_")),
-                "XML file not readable, nothing imported")
+                "File does not exist, nothing imported!")
   expect_message(expect_null(read_XSYG2R("/Test", fastForward = TRUE)),
-                 "XML file not readable, nothing imported")
+                 "File does not exist, nothing imported!")
+  expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
+                 "XML file not readable, nothing imported!")
+
   SW({
-  expect_message(expect_null(read_XSYG2R(test_path("_data"))),
+  expect_message(expect_null(read_XSYG2R(test_path("_data/bin-tests/"))),
                  "No files matching the given pattern found in directory")
   })
 })
@@ -72,4 +75,15 @@ test_that("test import of XSYG files", {
                           verbose = TRUE),
               "list")
   })
+
+  ## more tests for different TL curve calculation cases
+  ## CASE2
+  expect_s4_class(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_file_TL_CASE2.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
+    "RLum.Analysis")
+  ## CASE3
+  expect_s4_class(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_file_TL_CASE3.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
+    "RLum.Analysis")
+
 })

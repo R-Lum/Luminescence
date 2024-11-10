@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sample state="finished" parentID="0" name="Luminescence" user="admin" startDate="20160224155037" sampleCarrier="" lexsygID="14-16-01-0008" lexStudioVersion="Lexstudio2 v1.4.9" firmwareVersion="unknown" os="Microsoft Windows NT 6.1.7601 Service Pack 1" comment="" savePath="">
+  <Sequence state="finished" parentID="1002241550370" name="Luminescence" position="1" comment="test irsl final - bleach optique" startDate="20160224155038" protocol="SAR" mineral="Q">
+    <Record state="finished" parentID="2002241550381" name="unknown" startDate="20160224155123" recordType="TL" sequenceStepNumber="2" comment="" metaIrrType="0" metaIrrDuration="0" sampleCondition="" filterCombination="unknown" detectionWindow="none" endDate="20160224155309">
+      <Curve state="finished" parentID="3002241551232" startDate="20160224155123" curveType="measured" detector="UVVIS" curveDescripter="t [s]; cts [1/ch]" offset="0" interval="0.1" duration="57">
+      0.1,6;
+      0.2,6;
+      0.3,5;
+      0.4,5
+      </Curve>
+      <Curve state="finished" parentID="3002241551232" startDate="20160224155123" curveType="simulated" stimulator="heating element" curveDescripter="t [s]; T [°C]">
+      0.1,1;
+      0.15,2;
+      0.2,3;
+      0.25,5;
+      0.3,6;
+      0.35,7
+      </Curve>
+      <Curve state="finished" parentID="3002241551232" startDate="20160224155123" curveType="measured" stimulator="heating element" curveDescripter="t [s]; T [°C]">
+      0.1,1;
+      0.15,2;
+      0.2,3;
+      0.25,5;
+      0.3,6;
+      0.35,7
+      </Curve>
+    </Record>
+  </Sequence>
+</Sample>

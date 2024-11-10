@@ -258,6 +258,14 @@ read_XSYG2R <- function(
   ## normalise path, just in case
   file <- suppressWarnings(normalizePath(file))
 
+  ## check whether file exist
+  if(!file.exists(file)) {
+    if(verbose)
+      message("[read_XSYG2R()] File does not exist, nothing imported!")
+    return(NULL)
+
+  }
+
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")
 
@@ -313,7 +321,6 @@ read_XSYG2R <- function(
   }
 
   # (1) Integrity tests -----------------------------------------------------
-
   ##set HUGE for larger nodes
   HUGE <- 524288
 
@@ -323,13 +330,13 @@ read_XSYG2R <- function(
     silent = TRUE)
 
   ##show error
-  if(is(temp, "try-error") == TRUE){
-    if(verbose) message("[read_XSYG2R()] XML file not readable, nothing imported!")
+  if(inherits(temp, "try-error")){
+    if(verbose)
+      message("[read_XSYG2R()] XML file not readable, nothing imported!")
     return(NULL)
   }
 
   # (2) Further file processing ---------------------------------------------
-
   ##==========================================================================##
   ##SHOW STRUCTURE
   if(!import){
@@ -367,7 +374,6 @@ read_XSYG2R <- function(
   } else {
     ##==========================================================================##
     ##IMPORT XSYG FILE
-
     if (verbose) {
       cat("\n[read_XSYG2R()] Importing ...")
       cat("\n path: ", dirname(file))
@@ -397,7 +403,6 @@ read_XSYG2R <- function(
       ##LOOP
       ##read records >> records are combined to one RLum.Analysis object
       temp.sequence.object <- unlist(lapply(1:XML::xmlSize(temp[[x]]), function(i){
-
         ##get recordType
         temp.sequence.object.recordType <- try(XML::xmlAttrs(temp[[x]][[i]])["recordType"],
                                                silent = TRUE)
@@ -448,14 +453,12 @@ read_XSYG2R <- function(
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
 
-
           ## TL curve recalculation ============================================
           if(recalculate.TL.curves){
             ##TL curve heating values is stored in the 3rd curve of every set
             if(temp.sequence.object.recordType == "TL" && j == 1){
-
               #grep values from PMT measurement or spectrometer
-              if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
+              if(!"Spectrometer" %in% temp.sequence.object.detector){
 
                 temp.sequence.object.curveValue.PMT <- src_get_XSYG_curve_values(XML::xmlValue(
                   temp[[x]][[i]][[j]]))
@@ -469,7 +472,6 @@ read_XSYG2R <- function(
                   temp[[x]][[i]][[3]]))
 
               }else{
-
                 temp.sequence.object.curveValue.spectrum <- get_XSYG.spectrum.values(
                   temp.sequence.object.curveValue)
 
@@ -486,7 +488,7 @@ read_XSYG2R <- function(
               temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
                 temp[[x]][[i]][[3]]))
 
-              if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
+              if(!"Spectrometer" %in% temp.sequence.object.detector){
                 #reduce matrix values to values of the detection
                 temp.sequence.object.curveValue.heating.element <-
                   temp.sequence.object.curveValue.heating.element[
@@ -527,7 +529,7 @@ read_XSYG2R <- function(
 
               ##PERFORM RECALCULATION
               ##check which object contains more data
-              if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
+              if(!"Spectrometer" %in% temp.sequence.object.detector){
                 ##CASE (1)
                 if(nrow(temp.sequence.object.curveValue.PMT) >
                    nrow(temp.sequence.object.curveValue.heating.element)){
@@ -546,7 +548,6 @@ read_XSYG2R <- function(
                   ##CASE (2)
                 }else if((nrow(temp.sequence.object.curveValue.PMT) <
                           nrow(temp.sequence.object.curveValue.heating.element))){
-
                   temp.sequence.object.curveValue.PMT.i <- approx(
                     x = temp.sequence.object.curveValue.PMT[,1],
                     y = temp.sequence.object.curveValue.PMT[,2],
@@ -560,7 +561,6 @@ read_XSYG2R <- function(
 
                   ##CASE (3)
                 }else{
-
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element[,2]
 
@@ -595,9 +595,8 @@ read_XSYG2R <- function(
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element.i$y
 
-                  ##check for duplicated values and if so, increase this values
+                  ##check for duplicated values and if so, increase this
                   if(anyDuplicated(temperature.values)>0){
-
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
                     .throw_warning("Temperature values are found to be ",
@@ -735,3 +734,5 @@ read_XSYG2R <- function(
   ##get rid of the NULL elements (as stated before ... invalid files)
   return(output[!sapply(output,is.null)])
 }
+
+

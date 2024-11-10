@@ -1,5 +1,5 @@
 ## --------------------------------------------------------------------------
-## helper functions for snapshotting
+## helper functions for snapshoting
 ##
 
 ## the ... can be used to set the tolerance
