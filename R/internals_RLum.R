@@ -513,7 +513,7 @@ fancy_scientific <- function(l) {
   })
 
   ##remove NULL entries
-  l <- l[!sapply(l, is.null)]
+  l <- .rm_NULL_elements(l)
 
   ##construct final call
   return(paste0(prefix, paste(unlist(l), collapse = sep), suffix))

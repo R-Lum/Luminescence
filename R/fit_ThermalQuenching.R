@@ -267,7 +267,7 @@ fit_ThermalQuenching <- function(
   }
 
   ## remove NULL (the fit was not successful)
-  fit_MC <- fit_MC[!sapply(X = fit_MC, is.null)]
+  fit_MC <- .rm_NULL_elements(fit_MC)
   n.MC <- length(fit_MC)
 
 # Extract values ------------------------------------------------------------------------------

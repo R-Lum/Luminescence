@@ -369,8 +369,7 @@ analyse_Al2O3C_Measurement <- function(
     test_parameters <- modifyList(test_parameters.default, test_parameters)
 
     ##remove NULL elements from list
-    test_parameters <- test_parameters[!sapply(test_parameters, is.null)]
-
+    test_parameters <- .rm_NULL_elements(test_parameters)
   }else{
     test_parameters <- test_parameters.default
   }
@@ -531,7 +530,7 @@ analyse_Al2O3C_Measurement <- function(
      })
 
      ##remove NULL
-     temp_curves_OSL <- temp_curves_OSL[!sapply(temp_curves_OSL, is.null)]
+     temp_curves_OSL <- .rm_NULL_elements(temp_curves_OSL)
 
      ##check whether something is left
      if(length(temp_curves_OSL) < 2){

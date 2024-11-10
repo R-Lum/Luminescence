@@ -167,7 +167,7 @@ read_PSL2R <- function(
         if (x@recordType != "USER")
           return(x)
       })
-      measurements_formatted <- measurements_formatted[!sapply(measurements_formatted, is.null)]
+      measurements_formatted <- .rm_NULL_elements(measurements_formatted)
     }
 
     # decay curve smoothing using Tukey's Running Median Smoothing (?smooth)

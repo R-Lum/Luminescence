@@ -339,7 +339,7 @@ fit_SurfaceExposure <- function(
                 mu = if (is.null(mu)) 1 else NULL,
                 age = if (is.null(age)) 2 else NULL)
 
-  start <- start[!sapply(start, is.null)]
+  start <- .rm_NULL_elements(start)
 
   ## fitting boundaries
   lower <- list(sigmaphi = if (is.null(sigmaphi)) -Inf else NULL,

@@ -1306,7 +1306,7 @@ analyse_IRSAR.RF<- function(
     if(!is.null(test_parameters)){TP <- modifyList(TP, test_parameters)}
 
     ##remove NULL elements from list
-    TP <- TP[!sapply(TP, is.null)]
+    TP <- .rm_NULL_elements(TP)
 
     ##set list with values we want to evaluate
     TP <- lapply(TP, function(x){

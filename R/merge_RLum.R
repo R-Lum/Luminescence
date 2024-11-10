@@ -66,7 +66,7 @@ merge_RLum<- function(
 
     ##we are friendly and remove all empty list elements, this helps a lot if we place things
     ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
-    objects <- objects[!sapply(objects, is.null)]
+    objects <- .rm_NULL_elements(objects)
 
   ##if list is empty afterwards we do nothing
   if(length(objects) >= 1) {
