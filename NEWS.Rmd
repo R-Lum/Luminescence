@@ -189,6 +189,8 @@ fixed in #366).
 from a record for `cleanup = TRUE`.
 * The function now provides better terminal feedback if the selection results
 in an empty record.
+* Add a new logical argument `use_fft` that will apply an additional Fast Discrete Fourier Transform (FFT)
+verification on the data if wanted. 
 
 ### `write_R2BIN()`
 * Recently, non-ASCII characters in comments or file names have become more

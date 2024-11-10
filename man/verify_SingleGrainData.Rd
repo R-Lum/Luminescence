@@ -8,6 +8,7 @@ zero-light level grains}
 verify_SingleGrainData(
   object,
   threshold = 10,
+  use_fft = FALSE,
   cleanup = FALSE,
   cleanup_level = "aliquot",
   verbose = TRUE,
@@ -22,6 +23,9 @@ input object. The function also accepts a list with objects of allowed type.}
 \item{threshold}{\link{numeric} (\emph{with default}):
 numeric threshold value for the allowed difference between the \code{mean} and
 the \code{var} of the count values (see details)}
+
+\item{use_fft}{\link{logical} (\emph{with default}): applies an additional approach based on \link[stats:fft]{stats::fft}.
+The threshold is fixed and cannot be changed.}
 
 \item{cleanup}{\link{logical} (\emph{with default}):
 if set to \code{TRUE}, curves/aliquots identified as zero light level curves/aliquots are

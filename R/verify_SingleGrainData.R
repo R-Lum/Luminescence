@@ -33,6 +33,9 @@
 #' numeric threshold value for the allowed difference between the `mean` and
 #' the `var` of the count values (see details)
 #'
+#' @param use_fft [logical] (*with default*): applies an additional approach based on [stats::fft].
+#' The threshold is fixed and cannot be changed.
+#'
 #' @param cleanup [logical] (*with default*):
 #' if set to `TRUE`, curves/aliquots identified as zero light level curves/aliquots are
 #' automatically removed. Output is an object as same type as the input, i.e.
@@ -144,6 +147,7 @@
 verify_SingleGrainData <- function(
     object,
     threshold = 10,
+    use_fft = FALSE,
     cleanup = FALSE,
     cleanup_level = 'aliquot',
     verbose = TRUE,
@@ -167,6 +171,7 @@ verify_SingleGrainData <- function(
       verify_SingleGrainData(
         object = object[[x]],
         threshold = threshold,
+        use_fft = use_fft[1],
         cleanup = cleanup,
         cleanup_level = cleanup_level,
         verbose = verbose,
@@ -190,26 +195,39 @@ verify_SingleGrainData <- function(
 
   ## ------------------------------------------------------------------------
   ## input validation
-
   .validate_class(object, c("Risoe.BINfileData", "RLum.Analysis"))
   cleanup_level <- .validate_args(cleanup_level, c("aliquot", "curve"))
 
+  ## implement Fourier Transform for Frequency Analysis
+  ## inspired by ChatGPT (OpenAI, 2024)
+  .calc_FFT_selection <- function(l, tmp_threshold = threshold/2) {
+    vapply(l, function(x){
+      x <- x[x>0]
+      tmp_power_spectrum <- Mod(stats::fft(x)^2)
+      tmp_mean_power <- mean(tmp_power_spectrum[-1])
+      tmp_dominant_power <- max(tmp_power_spectrum[2:(length(tmp_power_spectrum)/2)])
+      tmp_sel <- tmp_dominant_power > tmp_threshold * tmp_mean_power
+      tmp_sel
+    }, logical(1))
+  }
+
   ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##RisoeBINfileData
-  if(is(object, "Risoe.BINfileData")){
+  if(inherits(object, "Risoe.BINfileData")){
     ##run test on DATA slot
     ##MEAN + SD
-    temp.results_matrix <- lapply(X = object@DATA, FUN = function(x){
+    temp.results_matrix <- t(vapply(X = object@DATA, FUN = function(x){
       c(mean(x), var(x))
-    })
+    }, numeric(2)))
 
-    temp.results_matrix <- do.call(rbind,  temp.results_matrix)
 
     ##DIFF
     temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
 
     ##SEL
-    temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
+    temp.results_matrix_VALID <-
+      temp.results_matrix_RATIO > threshold &
+      if(use_fft[1]) .calc_FFT_selection(object@DATA) else TRUE
 
     ##combine everything to in a data.frame
     selection <- data.frame(
@@ -235,7 +253,6 @@ verify_SingleGrainData <- function(
       })))
 
     }else{
-
       ##reduce data to TRUE selection
       selection_id <- which(selection[["VALID"]])
     }
@@ -297,14 +314,14 @@ verify_SingleGrainData <- function(
     temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
 
     ##SEL
-    temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
+    temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold &
+      if(use_fft[1]) .calc_FFT_selection(object_list) else TRUE
 
     ##get structure for the RLum.Analysis object
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
 
     ##now we have two cases, depending on where measurement is coming from
     if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
-
       ##combine everything to in a data.frame
       selection <- data.frame(
         POSITION = temp_structure$info.POSITION,
@@ -367,7 +384,6 @@ verify_SingleGrainData <- function(
                 .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
             )
 
-
           })))
       }
 
@@ -417,13 +433,13 @@ verify_SingleGrainData <- function(
         )
       }
 
+
       ##return
       return_object <- object
 
     }else{
-      if(any(is.na(selection_id))){
+      if(any(is.na(selection_id)))
         .throw_warning("'selection_id' is NA, everything tagged for removal")
-      }
 
       return_object <- set_RLum(
         class = "RLum.Results",
@@ -486,4 +502,3 @@ verify_SingleGrainData <- function(
 
   return(return_object)
 }
-

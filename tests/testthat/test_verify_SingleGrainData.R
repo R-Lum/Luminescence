@@ -55,9 +55,13 @@ test_that("check functionality", {
                        "Risoe.BINfileData object reduced to records")
   expect_s4_class(res, "Risoe.BINfileData")
 
+  ## use_fft
+  expect_s4_class(verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE, use_fft = TRUE, verbose = FALSE),
+                "Risoe.BINfileData")
+
   obj.risoe <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
   res <- expect_silent(verify_SingleGrainData(obj.risoe))
-  expect_s4_class(res, "RLum.Results")
+  expect_s4_class(verify_SingleGrainData(obj.risoe, use_fft = TRUE), "RLum.Results")
 
   ## remove all and cleanup
   expect_warning(
@@ -84,4 +88,8 @@ test_that("check functionality", {
   expect_silent(verify_SingleGrainData(object, cleanup_level = "curve"))
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object), cleanup = TRUE)))
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object))))
+
+  ## use fft option
+  expect_silent(suppressWarnings(verify_SingleGrainData(list(object), use_fft = TRUE)))
+
 })
