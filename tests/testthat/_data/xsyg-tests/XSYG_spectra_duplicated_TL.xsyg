@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sample state="finished" parentID="0" name="Luminescence" user="admin" startDate="20160224155037" sampleCarrier="" lexsygID="14-16-01-0008" lexStudioVersion="Lexstudio2 v1.4.9" firmwareVersion="unknown" os="Microsoft Windows NT 6.1.7601 Service Pack 1" comment="" savePath="">
+  <Sequence state="finished" parentID="1002241550370" name="Luminescence" position="1" comment="test irsl final - bleach optique" startDate="20160224155038" protocol="SAR" mineral="Q">
+    <Record state="finished" parentID="2002241550381" recordType="TL" name="unknown" startDate="20240830154817" sequenceStepNumber="2" comment="" metaIrrType="0" metaIrrDuration="0" sampleCondition="" filterCombination="unknown" detectionWindow="none" endDate="20160224155309">
+          <Curve state="finished" parentID="2002241550381" startDate="20240830154817" curveType="measured" detector="Spectrometer" curveDescripter="t [s]; wavelength [nm]; cts [1/ch]" offset="0" duration="10000" calibration="wavelength(x) = -8.194918E-09*x³ + -7.191993E-06*x² + 0.5091443*x + 468.4" cameraType="DU920P_BX2DD" integrationTime="0.5" channelTime="1" CCD_temperature="-79" wavelengthTable="468;470;472;474;478;480">0.1,[523|523|523|515|507|499];0.2,[523|523|523|515|507|499]; 0.3,[523|523|523|515|507|499]; 0.6,[523|523|523|515|507|499]</Curve>
+      <Curve state="finished" parentID="2002241550381" startDate="20240830154817" curveType="simulated" stimulator="heating element" curveDescripter="t [s]; T [°C]">0.1,26.2;0.2,28.2;0.3,28.2;0.6,28.2;</Curve>
+      <Curve state="finished" parentID="2002241550381" startDate="20240830154817" curveType="measured" stimulator="heating element" curveDescripter="t [s]; T [°C]">0.1,26.2;0.2,28.2;0.3,28.2;0.4,28.2;0.5,30.2;0.6,30.2;</Curve>
+    </Record>
+  </Sequence>
+</Sample>

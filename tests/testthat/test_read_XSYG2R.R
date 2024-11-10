@@ -86,4 +86,29 @@ test_that("test import of XSYG files", {
     read_XSYG2R(test_path("_data/xsyg-tests/XSYG_file_TL_CASE3.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
     "RLum.Analysis")
 
+  ## check case for no record Type
+  t <- expect_s4_class(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_noRecordType.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
+    "RLum.Analysis")
+  expect_equal(t@records[[1]]@recordType, "not_set (UVVIS)")
+
+  ## check case for OSL record but IRSL stimulator
+  t <- expect_s4_class(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_corr_IRSL.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
+    "RLum.Analysis")
+  expect_equal(t@records[[1]]@recordType, "IRSL (NA)")
+
+  ## check case for spectrum
+  t <- expect_s4_class(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_spectra.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
+    "RLum.Analysis")
+  ## check case for spectrum ... equal heating element values
+  t <- expect_s4_class(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_spectra_equal_TL.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
+    "RLum.Analysis")
+  ## check case for spectrum ... duplicated values
+  expect_warning(
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_spectra_duplicated_TL.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE),
+    regexp = "Temperature values are found to be duplicated and increased by 1 K.")
+
 })

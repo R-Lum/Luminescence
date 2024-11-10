@@ -295,13 +295,15 @@ read_XSYG2R <- function(
     }, character(1))
 
     ##remove from pattern...
-    curve.node.count <- do.call("gsub", list(pattern="[[]|[]]", replacement=" ",
+    curve.node.count <- do.call(
+      what = "gsub", list(pattern="[[]|[]]", replacement="",
                                              x=curve.node.count))
+
 
     ##4th combine to spectrum matrix
     spectrum.matrix <- matrix(NA, nrow = length(wavelength), ncol = length(curve.node.time))
     for(i in 1:length(curve.node.time)) {
-      tmp <- as.numeric(unlist(strsplit(curve.node.count[i], "[|]")))
+      tmp <- as.numeric(unlist(strsplit(curve.node.count[i], "|", fixed = TRUE)))
       if(length(tmp) == length(wavelength))
         spectrum.matrix[,i] <- tmp
 
@@ -459,7 +461,6 @@ read_XSYG2R <- function(
             if(temp.sequence.object.recordType == "TL" && j == 1){
               #grep values from PMT measurement or spectrometer
               if(!"Spectrometer" %in% temp.sequence.object.detector){
-
                 temp.sequence.object.curveValue.PMT <- src_get_XSYG_curve_values(XML::xmlValue(
                   temp[[x]][[i]][[j]]))
 
@@ -482,6 +483,7 @@ read_XSYG2R <- function(
                 ##round values (1 digit is technical resolution of the heating element)
                 temp.sequence.object.curveValue.spectrum.time <- round(
                   temp.sequence.object.curveValue.spectrum.time, digits = 1)
+
               }
 
               #grep values from heating element
@@ -503,9 +505,8 @@ read_XSYG2R <- function(
                     temp.sequence.object.curveValue.heating.element[,1] >=
                       min(temp.sequence.object.curveValue.spectrum.time) &
                       temp.sequence.object.curveValue.heating.element[,1] <=
-                      max(temp.sequence.object.curveValue.spectrum.time),]
+                      max(temp.sequence.object.curveValue.spectrum.time), ,drop = FALSE]
               }
-
               ## calculate corresponding heating rate, this makes only sense
               ## for linear heating, therefore is has to be the maximum value
 
@@ -583,7 +584,6 @@ read_XSYG2R <- function(
 
                 if(length(temp.sequence.object.curveValue.spectrum.time) !=
                    nrow(temp.sequence.object.curveValue.heating.element)){
-
                   temp.sequence.object.curveValue.heating.element.i <- approx(
                     x = temp.sequence.object.curveValue.heating.element[,1],
                     y = temp.sequence.object.curveValue.heating.element[,2],
@@ -600,11 +600,11 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
                     .throw_warning("Temperature values are found to be ",
-                                   "duplicated and increased by 1 K")
+                                   "duplicated and increased by 1 K.")
                   }
-
                   ##CASE (2)  (equal)
                 }else{
+                  ##CASE (2)  (equal)
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element[,2]
                 }
@@ -712,7 +712,6 @@ read_XSYG2R <- function(
 
     ##show output information
     if(length(output[sapply(output, is.null)]) == 0){
-
       if(verbose)
         paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n")
 
@@ -732,7 +731,6 @@ read_XSYG2R <- function(
   }#end if
 
   ##get rid of the NULL elements (as stated before ... invalid files)
-  return(output[!sapply(output,is.null)])
+  return(.rm_NULL_elements(output))
 }
-
 
