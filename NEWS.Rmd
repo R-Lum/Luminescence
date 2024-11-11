@@ -49,6 +49,14 @@ above, the function now only accepts CSV files as input (#237, fixed in #270).
 * Add support for `recordType` passed to `get_RLum` in the additional arguments.
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
+* The function crashed if the number of MCMC iterations was set equal to the
+thinning interval; on the other hand, we saw errors reported from JAGS if the
+number of MCMC iterations was not at least double the thinning interval. To
+address this, we slightly retouched our automatic setting of the thinning
+interval (which was problematic only if the number of MCMC iterations was
+extremely low); on the other hand, if a user sets a thinning interval that
+is too high, we now reset it to a lower value and raise a warning  (#407,
+fixed in #409).
 
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the

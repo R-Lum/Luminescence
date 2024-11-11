@@ -484,11 +484,21 @@ analyse_baSAR <- function(
           thin <- n.MCMC/1e+05 * 250
 
         }else{
-          thin <- 10
-
+          thin <- min(10, n.MCMC / 2)
         }
       } else{
+        .validate_positive_scalar(method_control[["thin"]], int = TRUE,
+                                  name = "'thin' in 'method.control'")
         method_control[["thin"]]
+      }
+
+      ## jags reports ugly errors if thin exceeds n.MCMC / 2, as that
+      ## would correspond to producing just one posterior sample, see #407
+      if (!is.null(method_control[["thin"]]) && thin > n.MCMC / 2) {
+        thin <- n.MCMC / 2
+        .throw_warning("'thin = ", method_control[["thin"]],
+                       "' is too high for 'n.MCMC = ", n.MCMC,
+                       "', reset to ", thin)
       }
 
       ##variable.names
@@ -497,7 +507,6 @@ analyse_baSAR <- function(
       } else{
         method_control[["variable.names"]]
       }
-
 
       #check whether this makes sense at all, just a direty and quick test
       stopifnot(lower_centralD >= 0)
@@ -532,7 +541,6 @@ analyse_baSAR <- function(
 
         for (i in 1:Nb_aliquots) {
           Limited_cycles[i] <- length(data.Dose[, i]) - length(which(is.na(data.Dose[, i])))
-
         }
       }
 
@@ -668,8 +676,8 @@ analyse_baSAR <- function(
         cat("\n[analyse_baSAR()] ---- baSAR-model ---- \n")
         cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
         cat("[analyse_baSAR()] Bayesian analysis in progress ...\n")
-        message(".. >> bounds set to: lower_centralD =", lower_centralD,
-                "| upper_centralD =", upper_centralD)
+        message(".. >> bounds set to: lower_centralD = ", lower_centralD,
+                " | upper_centralD = ", upper_centralD)
       }
 
       Nb_Iterations <- n.MCMC
@@ -717,7 +725,6 @@ analyse_baSAR <- function(
         thin = thin
       )
 
-
       pt_zero <- 0
       nb_decal <-  2
       pt_zero <- Nb_aliquots
@@ -733,7 +740,6 @@ analyse_baSAR <- function(
           rm(temp.vector)
         }else{
           gm <- NULL
-
         }
 
       ##quantiles
@@ -774,12 +780,12 @@ analyse_baSAR <- function(
           )
         )
       )
-
     }
   ##END
   ##////////////////////////////////////////////////////////////////////////////////////////////////
 
-  # Integrity tests -----------------------------------------------------------------------------
+
+  ## Integrity checks -------------------------------------------------------
 
   .require_suggested_package("rjags")
   .require_suggested_package("coda")
@@ -1782,7 +1788,6 @@ analyse_baSAR <- function(
         ##LxTx SD values
          OUTPUT_results[comptage, (9 + 2*max_cycles):(8 + 2*max_cycles + llong)] <-
           as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
-
      }
     }
   }
@@ -1917,7 +1922,6 @@ analyse_baSAR <- function(
 
         if(!is(source_doserate, "list")){
           source_doserate <- list(source_doserate)
-
         }
       }
 
@@ -1979,7 +1983,6 @@ analyse_baSAR <- function(
 
     }else{
       cat("\t\t\t\tmean\tsd\tHPD\n")
-
     }
 
 
@@ -2002,7 +2005,6 @@ analyse_baSAR <- function(
      cat("* mean of the central dose is the geometric mean\n")
     }
     cat("** 68 % level | *** 95 % level\n")
-
   }
 
 
@@ -2036,7 +2038,6 @@ analyse_baSAR <- function(
 
     }else{
       try(plot(results[[2]]))
-
     }
 
 
@@ -2137,7 +2138,6 @@ analyse_baSAR <- function(
         pos = 3,
         col = col[2],
         cex = 0.9 * par()$cex)
-
       }
       ##update counter
       i <- i + 15
@@ -2194,7 +2194,6 @@ analyse_baSAR <- function(
 
         }else{
           legend_pos <- "topleft"
-
         }
 
         ##set plot area
@@ -2227,7 +2226,6 @@ analyse_baSAR <- function(
                 add = TRUE,
                 col = rgb(0, 0, 0, .1)
               )
-
             }
           }else{
             message("[analyse_baSAR()] Error: Wrong 'variable.names' ",
@@ -2291,7 +2289,6 @@ analyse_baSAR <- function(
             bg = "grey",
             legend = "measured dose points"
           )
-
         }
       ##remove object, it might be rather big
       rm(plot_matrix)
@@ -2367,7 +2364,6 @@ analyse_baSAR <- function(
 
           }else{
             legend_pos <- "topleft"
-
           }
 
           legend(
@@ -2377,13 +2373,9 @@ analyse_baSAR <- function(
             col = c("black", col[3], col[2]),
             bty = "n",
             cex = par()$cex * 0.8
-
           )
-
         }
-
       }
-
   }
 
   # Return --------------------------------------------------------------------------------------
@@ -2398,5 +2390,4 @@ analyse_baSAR <- function(
       ),
     info = list(call = sys.call())
   ))
-
 }
