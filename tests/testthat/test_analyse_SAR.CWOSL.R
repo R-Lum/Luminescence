@@ -167,7 +167,7 @@ test_that("simple run", {
   ##no mix TL and OSL (the only TL will be sorted out automatically)
   only_TL <- set_RLum("RLum.Analysis", records = rep(object_CH_TL[[1]]@records[[2]], length(object_NO_TL[[1]]@records)))
   object_mixed <- c(object_NO_TL, only_TL)
-  
+
   t <- expect_s4_class(
     analyse_SAR.CWOSL(
       object = object_mixed[2:3],
@@ -183,8 +183,8 @@ test_that("simple run", {
     class = "RLum.Results"
   )
   expect_equal(nrow(t@data$data), 1)
-  
-  ##plot single
+
+  ## plot_singlePanels
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
@@ -194,7 +194,7 @@ test_that("simple run", {
       background.integral.max = 1000,
       fit.method = "EXP",
       plot = TRUE,
-      plot.single = TRUE
+      plot_singlePanels = TRUE
     ),
     class = "RLum.Results"
   )
@@ -380,14 +380,14 @@ test_that("simple run", {
   expect_match(warnings, all = FALSE,
                "Background integral for Tx out of bounds")
 
-  ## plot.single
+  ## plot_singlePanels
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal.integral.min = 1,
                                  signal.integral.max = 2,
                                  background.integral.min = 900,
                                  background.integral.max = 1000,
-                                 plot.single = list()),
-               "Invalid data type for 'plot.single'")
+                                 plot_singlePanels = list()),
+               "'plot_singlePanels' should be of class 'logical', 'integer'")
 
   ## add one OSL curve
   expect_warning(expect_null(
@@ -473,6 +473,16 @@ test_that("advance tests run", {
                         log = "xy", verbose = FALSE),
       "Too many curves, only the first 21 curves are plotted"),
       "Multiple IRSL curves detected")
+
+  expect_warning(
+      analyse_SAR.CWOSL(object = object[[1]],
+                        signal.integral.min = 1,
+                        signal.integral.max = 2,
+                        background.integral.min = 900,
+                        background.integral.max = 1000,
+                        plot.single = TRUE,
+                        verbose = FALSE),
+      "'plot.single' is deprecated, use 'plot_singlePanels' instead")
   })
 
   ##this tests basically checks the parameter expansion and make

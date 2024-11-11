@@ -62,7 +62,7 @@
 #' @param output.plot [logical] (*with default*):
 #' plot output (`TRUE/FALSE`)
 #'
-#' @param output.plot.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `output.plot = TRUE`.
 #'
@@ -95,7 +95,7 @@
 #' **The development of this function will not be continued. We recommend to use the function [analyse_SAR.CWOSL] or instead.**
 #'
 #'
-#' @section Function version: 0.2.17
+#' @section Function version: 0.2.18
 #'
 #'
 #' @author
@@ -149,7 +149,7 @@ Analyse_SAR.OSLdata <- function(
   keep.SEL = FALSE,
   info.measurement = "unknown measurement",
   output.plot = FALSE,
-  output.plot.single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   ...
 ) {
@@ -398,19 +398,24 @@ Analyse_SAR.OSLdata <- function(
 
       if(output.plot){
 
+        ## deprecated argument
+        if ("output.plot.single" %in% names(list(...))) {
+          plot_singlePanels <- list(...)$output.plot.single
+          .throw_warning("'output.plot.single' is deprecated, use ",
+                         "'plot_singlePanels' instead")
+        }
+
         ##set plot settings
         plot.settings <- list(
           mtext = sample.data@METADATA[sample.data@METADATA[,"ID"]==LnLx.curveID[1],"SAMPLE"],
           log = ""
-
         )
 
         ##modify arguments
         plot.settings <- modifyList(plot.settings, list(...))
 
 
-
-        if(output.plot.single==FALSE){
+        if (!plot_singlePanels) {
           layout(matrix(c(1,2,1,2,3,4,3,5),4,2,byrow=TRUE))
         }
         ##warning if number of curves exceed colour values
@@ -607,7 +612,7 @@ Analyse_SAR.OSLdata <- function(
         }
         ##=========================================================================
         ##Plot header
-        if(output.plot.single==TRUE){
+        if (plot_singlePanels) {
           mtext(side=3,paste("ALQ Pos. ",i,sep=""))
         }else{
           mtext(side=3,paste("ALQ Pos. ",i,sep=""),outer=TRUE,line=-2.5)
@@ -621,7 +626,6 @@ Analyse_SAR.OSLdata <- function(
 
         ##reset mfrow
         par(mfrow=c(1,1))
-
 
 
       }#endif for output.plot

@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
@@ -150,6 +151,17 @@ test_that("plot_DetPlot", {
           fit.method = "LIN"),
       respect_RC.Status = TRUE,
       n.channels = 2)
+
+  expect_warning(plot_DetPlot(
+      tmp,
+      method = "expansion",
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      plot.single = TRUE,
+      n.channels = 2),
+      "'plot.single' is deprecated, use 'plot_singlePanels' instead")
 
   ## analyse_pIRIRSequence on an inconsistent object
   suppressWarnings( # ignore additional warnings from fit_DoseResponseCurve()

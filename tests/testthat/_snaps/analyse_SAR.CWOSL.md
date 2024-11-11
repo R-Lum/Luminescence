@@ -625,10 +625,10 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [291, 5, 307, 10, 5, 10, 291, 307]
+                  "value": [292, 5, 308, 10, 5, 10, 292, 308]
                 }
               },
-              "value": ["analyse_SAR.CWOSL(object = object[[x]], signal.integral.min = parm$signal.integral.min[[x]], ", "    signal.integral.max = parm$signal.integral.max[[x]], background.integral.min = parm$background.integral.min[[x]], ", "    background.integral.max = parm$background.integral.max[[x]], ", "    OSL.component = parm$OSL.component[[x]], dose.points = parm$dose.points[[x]], ", "    trim_channels = parm$trim_channels[[x]], mtext.outer = parm$mtext.outer[[x]], ", "    plot = parm$plot[[x]], rejection.criteria = parm$rejection.criteria[[x]], ", "    plot.single = parm$plot.single[[x]], plot_onePage = parm$plot_onePage[[x]], ", "    onlyLxTxTable = parm$onlyLxTxTable[[x]], main = main[[x]], ", "    ...)"]
+              "value": ["analyse_SAR.CWOSL(object = object[[x]], signal.integral.min = parm$signal.integral.min[[x]], ", "    signal.integral.max = parm$signal.integral.max[[x]], background.integral.min = parm$background.integral.min[[x]], ", "    background.integral.max = parm$background.integral.max[[x]], ", "    OSL.component = parm$OSL.component[[x]], dose.points = parm$dose.points[[x]], ", "    trim_channels = parm$trim_channels[[x]], mtext.outer = parm$mtext.outer[[x]], ", "    plot = parm$plot[[x]], rejection.criteria = parm$rejection.criteria[[x]], ", "    plot_singlePanels = parm$plot_singlePanels[[x]], plot_onePage = parm$plot_onePage[[x]], ", "    onlyLxTxTable = parm$onlyLxTxTable[[x]], main = main[[x]], ", "    ...)"]
             }
           ]
         },

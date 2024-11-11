@@ -10,7 +10,7 @@ plot_GrowthCurve(
   fit.method = "EXP",
   output.plot = TRUE,
   output.plotExtended = TRUE,
-  output.plotExtended.single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   verbose = TRUE,
   ...
@@ -62,7 +62,7 @@ If' \code{TRUE}, 3 plots on one plot area are provided:
 
 If \code{FALSE}, just the growth curve will be plotted.}
 
-\item{output.plotExtended.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 single plot windows. Requires \code{plotExtended = TRUE}.}
 
@@ -88,7 +88,7 @@ regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}
 and \link{plot_DoseResponseCurve}
 }
 \section{Function version}{
- 1.2
+ 1.2.1
 }
 
 \examples{
@@ -99,7 +99,7 @@ plot_GrowthCurve(LxTxData)
 
 ##(1b) horizontal plot arrangement
 layout(mat = matrix(c(1,1,2,3), ncol = 2))
-plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
+plot_GrowthCurve(LxTxData, plot_singlePanels = TRUE)
 
 ##(2) plot the growth curve with pdf output - uncomment to use
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
@@ -108,7 +108,7 @@ plot_GrowthCurve(LxTxData)
 
 ##(3) plot the growth curve with pdf output - uncomment to use, single output
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
-temp <- plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
+temp <- plot_GrowthCurve(LxTxData, plot_singlePanels = TRUE)
 ##dev.off()
 
 ##(4) plot resulting function for given interval x

@@ -59,7 +59,7 @@
 #' @param plot [logical] (*with default*):
 #' enables or disables plot output.
 #'
-#' @param plot.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot
 #' windows. Requires `plot = TRUE`.
 #'
@@ -90,7 +90,7 @@
 #'
 #' `pdf(file = "<YOUR FILENAME>", height = 15, width = 15)`
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -147,7 +147,7 @@
 #'      fit.method = "EXP",
 #'      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
 #'      main = "Pseudo pIRIR data set based on quartz OSL",
-#'      plot.single = TRUE)
+#'      plot_singlePanels = TRUE)
 #'
 #'
 #' ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
@@ -177,7 +177,7 @@ analyse_pIRIRSequence <- function(
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 ) {
   .set_function_name("analyse_pIRIRSequence")
@@ -223,7 +223,7 @@ analyse_pIRIRSequence <- function(
                         dose.points = dose.points[[x]],
                         sequence.structure = sequence.structure[[x]],
                         plot = plot,
-                        plot.single = plot.single,
+                        plot_singlePanels = plot_singlePanels,
                         main = ifelse("main"%in% names(list(...)), main_list[[x]], paste0("ALQ #",x)),
                         ...)
     }))
@@ -260,14 +260,21 @@ analyse_pIRIRSequence <- function(
                    "' not allowed in 'sequence.structure'")
     }
 
+  ## deprecated argument
+  if ("plot.single" %in% names(list(...))) {
+    plot_singlePanels <- list(...)$plot.single
+    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                   "instead")
+  }
+
   ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
   ## required size.
-    if (plot[1] && !plot.single && all(grDevices::dev.size("in") < 18)) {
+    if (plot[1] && !plot_singlePanels && all(grDevices::dev.size("in") < 18)) {
       plot <- FALSE
       .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot ",
                      "size required is 18 x 18 in.\n",
                      "Consider plotting via `pdf(..., height = 18, width = 18)` ",
-                     "or setting `plot.single = TRUE`")
+                     "or setting `plot_singlePanels = TRUE`")
     }
 
 # Deal with extra arguments -------------------------------------------------------------------
@@ -386,7 +393,7 @@ analyse_pIRIRSequence <- function(
   ## unfortunately a little bit more complicated then expected previously due
   ## the order of the produced plots by the previous functions
 
-  if(plot.single == FALSE & plot == TRUE){
+  if (plot && !plot_singlePanels) {
 
     ##first (Tx,Tn, Lx,Ln)
     temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
@@ -397,11 +404,9 @@ analyse_pIRIRSequence <- function(
       vapply(
         2:(n.loops - 1),
         FUN = function(x) {
-
           offset <- 5 * x - 1
           c((offset):(offset + 3),
             (offset):(offset + 2), offset + 4)
-
         },
         FUN.VALUE = vector(mode = "numeric", length = 8)
       )
@@ -525,8 +530,7 @@ analyse_pIRIRSequence <- function(
       background.integral.max = temp.background.integral.max,
       plot = plot,
       dose.points = dose.points,
-      plot.single = temp.plot.single,
-      output.plotExtended.single = TRUE,
+      plot_singlePanels = temp.plot.single,
       cex.global = cex,
       ...
     ) ##TODO should be replaced be useful explicit arguments
@@ -645,7 +649,6 @@ if(plot){
         temp.results.final, "Formula")[[pIRIR.curve.names[j]]]
 
      try(lines(x, eval(temp.curve.formula), col = j), silent = TRUE)
-
     }
 
     rm(x)
@@ -674,7 +677,6 @@ if(plot){
         , "TnTx"]
 
       temp.curve.TnTx.matrix[,j] <- temp.curve.TnTx.sel/temp.curve.TnTx.sel[1]
-
     }
 
     plot(NA, NA,
@@ -811,8 +813,10 @@ if(plot){
          pch = c(1:length(pIRIR.curve.names)))
 
 
-   ##reset graphic settings
-   if(plot.single == FALSE){par(def.par)}
+  ##reset graphic settings
+  if (!plot_singlePanels) {
+    par(def.par)
+  }
 
 }##end plot == TRUE
 
@@ -823,4 +827,3 @@ if(plot){
 
   return(temp.results.final)
 }
-

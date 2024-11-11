@@ -57,7 +57,7 @@
 #' `CW2pHMi` and `CW2pPMi`, see details. If set to `None` (default), no
 #' transformation is applied.
 #'
-#' @param plot.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' global par settings are considered, normally this should end in one plot per page
 #'
 #' @param ... further arguments and graphical parameters will be passed to
@@ -79,7 +79,7 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.15
+#' @section Function version: 0.3.16
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -127,7 +127,7 @@ plot_RLum.Analysis <- function(
   combine = FALSE,
   records_max = NULL,
   curve.transformation = "None",
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 ) {
   .set_function_name("plot_RLum.Analysis")
@@ -170,6 +170,13 @@ plot_RLum.Analysis <- function(
   )
 
   plot.settings <- modifyList(x = plot.settings, val = list(...), keep.null = TRUE)
+
+  ## deprecated argument
+  if ("plot.single" %in% names(list(...))) {
+    plot_singlePanels <- list(...)$plot.single
+    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                   "instead")
+  }
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
@@ -237,7 +244,7 @@ plot_RLum.Analysis <- function(
 
     ##set par
     par.default <- par("mfrow")
-    if(!plot.single) {
+    if (!plot_singlePanels) {
       par(mfrow = c(nrows, ncols))
       on.exit(par(mfrow = par.default), add = TRUE)
     }
@@ -417,7 +424,7 @@ plot_RLum.Analysis <- function(
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
 
     ##change graphic settings
-    if(!plot.single){
+    if (!plot_singlePanels) {
       par.default <- par()[c("cex", "mfrow")]
 
       if(!missing(ncols) & !missing(nrows)){

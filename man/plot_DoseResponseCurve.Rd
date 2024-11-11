@@ -7,7 +7,7 @@
 plot_DoseResponseCurve(
   object,
   plot_extended = TRUE,
-  plot_single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   verbose = TRUE,
   ...
@@ -27,7 +27,7 @@ If \code{TRUE}, 3 plots on one plot area are provided:
 
 If \code{FALSE}, just the growth curve will be plotted.}
 
-\item{plot_single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 single plot windows. Ignored if \code{plot_extended = FALSE}.}
 
@@ -49,7 +49,7 @@ A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
 }
 \section{Function version}{
- 1.0.1
+ 1.0.2
 }
 
 \examples{
@@ -61,7 +61,7 @@ plot_DoseResponseCurve(fit)
 
 ##(1b) horizontal plot arrangement
 layout(mat = matrix(c(1,1,2,3), ncol = 2))
-plot_DoseResponseCurve(fit, plot_single = TRUE)
+plot_DoseResponseCurve(fit, plot_singlePanels = TRUE)
 
 ##(2) plot the dose-response curve with pdf output - uncomment to use
 ##pdf(file = "~/Dose_Response_Curve_Dummy.pdf", paper = "special")
@@ -70,7 +70,7 @@ plot_DoseResponseCurve(fit)
 
 ##(3) plot the growth curve with pdf output - uncomment to use, single output
 ##pdf(file = "~/Dose_Response_Curve_Dummy.pdf", paper = "special")
-plot_DoseResponseCurve(fit, plot_single = TRUE)
+plot_DoseResponseCurve(fit, plot_singlePanels = TRUE)
 ##dev.off()
 
 ##(4) plot resulting function for given interval x

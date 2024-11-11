@@ -7,7 +7,7 @@
 #' of this approach for the R environment and (II) an extension and a technical refinement of the
 #' published code.
 #'
-#' @details 
+#' @details
 #' Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
 #' and applying the hierarchical model and (II) a data pre-processing part. The Bayesian core can be run
 #' independently, if the input data are sufficient (see below). The data pre-processing part was
@@ -263,7 +263,7 @@
 #' @param plot_reduced [logical] (*with default*):
 #' enables or disables the advanced plot output
 #'
-#' @param plot.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' enables or disables single plots or plots arranged by `analyse_baSAR`
 #'
 #' @param verbose [logical] (*with default*):
@@ -318,7 +318,7 @@
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.34
+#' @section Function version: 0.1.35
 #'
 #' @author
 #' Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
@@ -433,7 +433,7 @@ analyse_baSAR <- function(
   distribution_plot = "kde",
   plot = TRUE,
   plot_reduced = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   verbose = TRUE,
   ...
 ) {
@@ -818,7 +818,7 @@ analyse_baSAR <- function(
     NumberIterations.MC = 100,
     output.plot = plot,
     output.plotExtended = plot,
-    
+
     ## get_RLum
     recordType = c("OSL (UVVIS)", "irradiation (NA)")
   )
@@ -1513,7 +1513,7 @@ analyse_baSAR <- function(
                          matrix(unlist(fileBIN.list[[k]]@DATA[curve_index[2, ]]), ncol = ncol(curve_index)))
 
       ##open plot are
-      if(!plot.single){
+      if (!plot_singlePanels) {
         par.default <- par()$mfrow
         par(mfrow = c(1, 2))
       }
@@ -1563,7 +1563,7 @@ analyse_baSAR <- function(
 
 
       ##reset par
-      if(!plot.single){
+      if (!plot_singlePanels) {
         par(mfrow = par.default)
       }
 
@@ -2009,6 +2009,13 @@ analyse_baSAR <- function(
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
 
+    ## deprecated argument
+    if ("plot.single" %in% names(list(...))) {
+      plot_singlePanels <- list(...)$plot.single
+      .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                     "instead")
+    }
+
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
@@ -2033,11 +2040,10 @@ analyse_baSAR <- function(
     }
 
 
-
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##TRUE DOSE PLOT AND DECISION MAKER
     ####//////////////////////////////////////////////////////////////////////////////////////////
-    if (!plot.single) {
+    if (!plot_singlePanels) {
       par(mfrow = c(2, 2))
     }
 
@@ -2135,12 +2141,10 @@ analyse_baSAR <- function(
       }
       ##update counter
       i <- i + 15
-
-
     }
     rm(plot_matrix)
 
-    if(!plot.single){
+    if (!plot_singlePanels) {
       par(mfrow = c(1,2))
       on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE), add = TRUE)
     }
@@ -2154,7 +2158,6 @@ analyse_baSAR <- function(
       ##get list out of it
       list_selection <- lapply(X = selection, FUN = function(x){
         unlist(results[[2]][,grep(x = varnames, pattern = x, fixed = TRUE)])
-
       })
 
       ##create matrix

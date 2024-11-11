@@ -34,7 +34,12 @@ test_that("full example test", {
                                   sigmab = 0.1, output.plot = TRUE), "list")
   tmp <- subset(CWOSL.SAR.Data, LTYPE == "OSL" & POSITION == 1 & ID <= 457)
   expect_type(
-    Analyse_SAR.OSLdata(tmp, 1:3, 200:250, output.plot = TRUE, output.plot.single = TRUE),
+      Analyse_SAR.OSLdata(tmp, 1:3, 200:250, output.plot = TRUE,
+                          plot_singlePanels = TRUE),
     "list")
+  expect_warning(
+      Analyse_SAR.OSLdata(tmp, 1:3, 200:250, output.plot = TRUE,
+                          output.plot.single = TRUE),
+      "'output.plot.single' is deprecated, use 'plot_singlePanels' instead")
   })
 })

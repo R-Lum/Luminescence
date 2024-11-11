@@ -16,7 +16,7 @@
 #'
 #' If `FALSE`, just the growth curve will be plotted.
 #'
-#' @param plot_single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Ignored if `plot_extended = FALSE`.
 #'
@@ -27,13 +27,13 @@
 #' enables or disables terminal feedback.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`, 
+#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`,
 #' `density_polygon` (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`)).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.1
+#' @section Function version: 1.0.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -62,7 +62,7 @@
 #'
 #' ##(1b) horizontal plot arrangement
 #' layout(mat = matrix(c(1,1,2,3), ncol = 2))
-#' plot_DoseResponseCurve(fit, plot_single = TRUE)
+#' plot_DoseResponseCurve(fit, plot_singlePanels = TRUE)
 #'
 #' ##(2) plot the dose-response curve with pdf output - uncomment to use
 #' ##pdf(file = "~/Dose_Response_Curve_Dummy.pdf", paper = "special")
@@ -71,7 +71,7 @@
 #'
 #' ##(3) plot the growth curve with pdf output - uncomment to use, single output
 #' ##pdf(file = "~/Dose_Response_Curve_Dummy.pdf", paper = "special")
-#' plot_DoseResponseCurve(fit, plot_single = TRUE)
+#' plot_DoseResponseCurve(fit, plot_singlePanels = TRUE)
 #' ##dev.off()
 #'
 #' ##(4) plot resulting function for given interval x
@@ -87,7 +87,7 @@
 plot_DoseResponseCurve <- function(
   object,
   plot_extended = TRUE,
-  plot_single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   verbose = TRUE,
   ...
@@ -98,7 +98,7 @@ plot_DoseResponseCurve <- function(
   ## input validation
   .validate_class(object, "RLum.Results")
   .validate_class(plot_extended, "logical")
-  .validate_class(plot_single, "logical")
+  .validate_class(plot_singlePanels, "logical")
   .validate_class(verbose, "logical")
   .validate_positive_scalar(cex.global)
 
@@ -128,22 +128,22 @@ plot_DoseResponseCurve <- function(
       ylab = if (mode == "interpolation") expression(L[x]/T[x]) else "Luminescence [a.u.]",
       ylim =  if (fit.args$fit.force_through_origin || mode == "extrapolation") {
         c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-        
+
       } else {
         c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
       },
       xlim =  if (mode != "extrapolation") {
         c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-        
+
       } else {
         if (!is.na(De)) {
           if (De > 0) {
             c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-            
+
           } else {
             c(De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
           }
-          
+
         } else {
           c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
         }
@@ -154,8 +154,8 @@ plot_DoseResponseCurve <- function(
             D[e] == De,
             list(De = paste(
               round(
-                abs(De), digits = 2), "\u00B1", 
-              format(De.Error, scientific = TRUE, digits = 2), 
+                abs(De), digits = 2), "\u00B1",
+              format(De.Error, scientific = TRUE, digits = 2),
               " | fit: ", fit.args$fit.method)))
         } else {
           ""
@@ -165,8 +165,8 @@ plot_DoseResponseCurve <- function(
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
       density_rug = TRUE),
-    val = list(...), 
-    keep.null = TRUE 
+    val = list(...),
+    keep.null = TRUE
   )
 
   ## Main plots -------------------------------------------------------------
@@ -177,17 +177,17 @@ plot_DoseResponseCurve <- function(
   x <- NULL; rm(x)
     ## open plot area
   par(cex = cex.global)
-  
-  if (plot_extended && !plot_single) {
+
+  if (plot_extended && !plot_singlePanels) {
     ## get graphic values
     par_default <- par(no.readonly = TRUE)
     on.exit(par(par_default), add = TRUE)
-    
+
     ## set new parameter
     layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
     par(cex = 0.8 * plot_settings$cex)
 
-  } 
+  }
 
   #PLOT		#Plot input values
   ##Make selection to support manual number of reg points input
@@ -200,7 +200,7 @@ plot_DoseResponseCurve <- function(
       ylab = plot_settings$ylab
   ),
   silent = TRUE)
-    
+
   if (!is(plot_check, "try-error")) {
     if (mode == "extrapolation") {
       abline(v = 0, lty = 1, col = "grey")
@@ -228,7 +228,7 @@ plot_DoseResponseCurve <- function(
         y = 0,
         bg = "red",
         pch = 21,
-        col = "black", 
+        col = "black",
         cex = 1.1 * cex.global)
 
     }
@@ -274,15 +274,15 @@ plot_DoseResponseCurve <- function(
           col = "red",
           lty = 2,
           lwd = 1.25), silent = TRUE)
-      try({ 
+      try({
         points(
-          x = De, 
-          y = sample[1, 2], 
-          col = "black", 
-          pch = 21, 
-          bg = "red", 
+          x = De,
+          y = sample[1, 2],
+          col = "black",
+          pch = 21,
+          bg = "red",
           cex = 1.1 * cex.global)
-        }, 
+        },
         silent = TRUE)
 
 
@@ -323,7 +323,7 @@ plot_DoseResponseCurve <- function(
     try(mtext(side = 3,
               plot_settings$mtext,
               line = 0,
-              cex = 0.8 * cex.global), 
+              cex = 0.8 * cex.global),
         silent = TRUE)
 
     ## write error message in plot if De is NaN
@@ -360,7 +360,7 @@ plot_DoseResponseCurve <- function(
 
     if (plot_extended) {
       ## Histogram ----------------------------------------------------------
-      if (!plot_single)
+      if (!plot_singlePanels)
         par(cex = 0.7 * cex.global)
 
       ## calculate histogram data

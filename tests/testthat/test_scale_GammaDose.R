@@ -1,3 +1,4 @@
+## load data
 data("ExampleData.ScaleGammaDose", envir = environment())
 d <- ExampleData.ScaleGammaDose
 
@@ -68,13 +69,11 @@ test_that("check values from output example", {
 test_that("console & plot", {
   expect_output({
    scale_GammaDose(d, plot = TRUE, verbose = TRUE)
-   scale_GammaDose(d, plot = TRUE, plot_single = FALSE, verbose = TRUE)
+   scale_GammaDose(d, plot = TRUE, plot_singlePanels = FALSE, verbose = TRUE)
   })
 })
 
-
-## WARNINGS & FAILURES
-test_that("check input data", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(

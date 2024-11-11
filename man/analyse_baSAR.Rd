@@ -27,7 +27,7 @@ analyse_baSAR(
   distribution_plot = "kde",
   plot = TRUE,
   plot_reduced = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   verbose = TRUE,
   ...
 )
@@ -138,7 +138,7 @@ enables or disables plot output}
 \item{plot_reduced}{\link{logical} (\emph{with default}):
 enables or disables the advanced plot output}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 enables or disables single plots or plots arranged by \code{analyse_baSAR}}
 
 \item{verbose}{\link{logical} (\emph{with default}):
@@ -345,6 +345,7 @@ functions.
 \code{NumberIterations.MC} \tab \link{plot_GrowthCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
 \code{output.plot} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables dose response curve plot\cr
 \code{output.plotExtended} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables extended dose response curve plot\cr
+\code{recordType} \tab \link{get_RLum} \tab \verb{c(OSL (UVVIS), irradiation (NA)} \tab helps for the curve selection\cr
 }
 }
 \note{
@@ -359,7 +360,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.33
+ 0.1.35
 }
 
 \examples{
@@ -438,7 +439,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{
-Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
+Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team}

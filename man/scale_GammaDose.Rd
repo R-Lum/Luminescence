@@ -12,7 +12,7 @@ scale_GammaDose(
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
   plot = TRUE,
-  plot_single = TRUE,
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -59,8 +59,8 @@ Show or hide console output (defaults to \code{TRUE}).}
 \item{plot}{\link{logical} (\emph{optional}):
 Show or hide the plot (defaults to \code{TRUE}).}
 
-\item{plot_single}{\link{logical} (\emph{optional}):
-Show all plots in one panel (defaults to \code{TRUE}).}
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
+Enables/disables single plot mode, i.e. one plot window per plot.}
 
 \item{...}{Further parameters passed to \link{barplot}.}
 }
@@ -208,7 +208,7 @@ density and water content is not constant for the entire section.
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \section{Acknowledgements}{
