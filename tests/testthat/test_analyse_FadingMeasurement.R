@@ -53,6 +53,11 @@ test_that("general test", {
       verbose = FALSE,
       n.MC = 10))), "RLum.Results")
 
+  expect_warning(analyse_FadingMeasurement(fading_data,
+                                           plot = TRUE, plot.single = TRUE,
+                                           verbose = FALSE,
+                                           n.MC = 10),
+                 "'plot.single' is deprecated, use 'plot_singlePanels'")
 })
 
 test_that("test XSYG file fading data", {

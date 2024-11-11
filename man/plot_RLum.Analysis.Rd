@@ -13,7 +13,7 @@ plot_RLum.Analysis(
   combine = FALSE,
   records_max = NULL,
   curve.transformation = "None",
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -56,7 +56,7 @@ transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 \code{CW2pHMi} and \code{CW2pPMi}, see details. If set to \code{None} (default), no
 transformation is applied.}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 global par settings are considered, normally this should end in one plot per page}
 
 \item{...}{further arguments and graphical parameters will be passed to
@@ -100,7 +100,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.15
+ 0.3.16
 }
 
 \examples{

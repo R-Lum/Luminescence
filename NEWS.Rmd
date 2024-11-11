@@ -27,6 +27,13 @@ CSV files instead (#237, fixed in #270). CSV files can be easily generated
 from XLS files by Excel or similar applications, or by reading them with
 `readxl::read_excel()` and saving them with `write.csv()`.
 
+* The `plot.single` option, which was available for several functions,
+sometimes under a slightly different name, has now been renamed to
+`plot_singlePanels` for overall consistency and clarity. Function
+`scale_GammaDose()` used that option but gave it the opposite meaning: now
+also this function conforms to the rest of the package. The use of the
+older names is now deprecated and will produce a warning (#351, fixed in #408).
+
 ## Removed functions and deprecations
 * Function `Analyse_SAR.OSLdata()` is now officially deprecated,
 `analyse_SAR.CWOSL()` should be used instead (#216, fixed in #264).
@@ -39,7 +46,9 @@ from XLS files by Excel or similar applications, or by reading them with
 ### `analyse_baSAR()`
 * Argument `XLS_file` has been replaced by `CSV_file` and, as mentioned
 above, the function now only accepts CSV files as input (#237, fixed in #270).
-* Add support for `recordType` passed to `get_RLum` in the additional arguments. 
+* Add support for `recordType` passed to `get_RLum` in the additional arguments.
+* Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
+in #408).
 
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the
@@ -47,6 +56,8 @@ above, the function now only accepts CSV files as input (#237, fixed in #270).
 older than 5 was used (#281, fixed in #282).
 * The function doesn't crash anymore on some `RLum.Analysis` input files
 (#283, fixed in #288).
+* Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
+in #408).
 
 ### `analyse_IRSAR.RF()`
 * The performance of this function has been improved for the "SLIDE" and
@@ -66,16 +77,21 @@ quality of fit (#372, fixed in #388, #398 and #399).
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
 was caused by a regression while implementing the `n_N` calculation in `plot_GrowthCurve()`. Potentially
 affected was also `analyse_SAR.CWOSL()`.
+* Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
+in #408).
 * The function now shows a warning and sets `plot = FALSE` when option
-`plot.single = FALSE` is set but the device size is too small. This should
-prevent "Figure margins too large" errors.
-* The function will not crash anymore during the plotting in another edge case related to single grain data. 
+`plot_singlePanels = FALSE` is set but the device size is too small. This
+should prevent "Figure margins too large" errors.
+* The function will not crash anymore during the plotting in another edge
+case related to single grain data.
 
 ### `analyse_SAR.CWOSL()`
 * The function crashed for mixed set of `RLum.Analysis-class` objects typically observed 
 for single grain data, e.g., one object contains only TL curves while all other contain the OSL/IRSL 
 data from the grain. Because the function filters those records automatically, it crashed because
 the aliquot number assignment internally relied on the length of the object (regression, #373, fixed)
+* Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
+in #408).
 
 ### `analyse_SAR.TL()`
 * The function now produces a more correct `rejection.criteria` data frame
@@ -104,6 +120,10 @@ the function returned the `RLum.Data.Curve-class` object *regardless* of the sel
 If a user tried `recordType = "TL"` on an `RLum.Analysis-class` object that contained only a single IRSL curve, the
 function would still return that single IRSL curve instead of an empty element. The reason for this behaviour was a poor attempt to deal with `NA` in the `recordType` name that led to missing values and unexpected behaviour for a logical comparison. Now, before the subset happens, `NA` values in `recordType` are converted to `"NA"` (a character) and the wiggling around that was causing the lousy subsetting was removed. 
 
+### `plot_DetPlot()`
+* Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
+in #408).
+
 ### `plot_GrowthCurve()`
 * The function is now implemented as a wrapper around `fit_DoseResponseCurve()`
 and `plot_DoseResponseCurve()`. There should be no visible user-facing
@@ -112,14 +132,20 @@ changes (#319, fixed in #322).
 `legend` (turn on/off legend) and `reg_points_pch` for fine grained control over the point shape.
 * Add `density_polygon`, `density_pologyon_col` and `density_rug` as `...` arguments to plot and
 add respective plot options
-* The function crashed contained for single grain data that sometimes cause a lot of `NaN` values
-during log conversions required for estimating the start parameters. The result was the error `object 'b.MC' not found`
+* The function crashed for single grain data that sometimes cause a lot of
+`NaN` values during log conversions required for estimating the start
+parameters. The result was the error `object 'b.MC' not found`
 (#374; fixed)
-* If `fit.method = "EXP+LIN"`, the function got sometimes stuck in an endless
-loop in cases where the number of parameters was larger or equal the number of
-data points. To avoid this, we replaced `nls()` `minpack.lm::nlsLM()`.
-Please keep in mind that it does not mean that the fit results make any sense, it just helps to avoid uncontained events 
-in the R session (addresses #381).
+* If `fit.method = "EXP+LIN"`, the function could get stuck in an endless
+loop when the number of parameters was larger than or equal to the number of
+data points. To avoid this, we replaced `nls()` with `minpack.lm::nlsLM()`.
+Please keep in mind that it does not mean that the fit results make any sense,it just helps to avoid uncontained events in the R session (addresses #381).
+* Option `output.plotExtended.single` has been renamed to `plot_singlePanels`
+(#351, fixed in #408).
+
+### `plot_RLum.Analysis()`
+* Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
+in #408).
 
 ### `plot_RLum.Data.Curve()`
 * Argument `norm` is now better validated so that specifying an incorrect
@@ -158,6 +184,11 @@ ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 to import, which can be useful in case the file is faulty.
 * The function sometimes struggled with the import if only a directory was provided; fixed. 
 * The function truncated the terminal output under certain circumstances; fixed.
+
+### `scale_GammaDose()`
+* Option `plot_single` has been renamed to `plot_singlePanels` and was changed
+so that `plot_singlePanels = TRUE` will produce one plot per panel, as it
+would happen for other functions (#351, fixed in #408).
 
 ### `template_DRAC()`
 * The function gained a new argument `file_input` that enables the creating of a DRAC template 

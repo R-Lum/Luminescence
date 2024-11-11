@@ -19,8 +19,8 @@ test_that("input validation", {
       plot_GrowthCurve(LxTxData, output.plotExtended = "error"),
       "'output.plotExtended' should be of class 'logical'")
   expect_error(
-      plot_GrowthCurve(LxTxData, output.plotExtended.single = "error"),
-      "'output.plotExtended.single' should be of class 'logical'")
+      plot_GrowthCurve(LxTxData, plot_singlePanels = "error"),
+      "'plot_singlePanels' should be of class 'logical'")
   expect_error(
       plot_GrowthCurve(LxTxData, verbose = "error"),
       "'verbose' should be of class 'logical'")
@@ -76,6 +76,12 @@ test_that("input validation", {
       verbose = FALSE,
       fit.includingRepeatedRegPoints = FALSE),
     class = "RLum.Results")
+
+  ## deprecated option
+  expect_warning(
+      plot_GrowthCurve(LxTxData, verbose = FALSE,
+                       output.plotExtended.single = TRUE),
+      "'output.plotExtended.single' is deprecated, use 'plot_singlePanels'")
 })
 
 test_that("main tests", {

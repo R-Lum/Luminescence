@@ -15,7 +15,7 @@ Analyse_SAR.OSLdata(
   keep.SEL = FALSE,
   info.measurement = "unknown measurement",
   output.plot = FALSE,
-  output.plot.single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   ...
 )
@@ -61,7 +61,7 @@ output (e.g. name of the BIN or BINX file).}
 \item{output.plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE/FALSE})}
 
-\item{output.plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 single plot windows. Requires \code{output.plot = TRUE}.}
 
@@ -116,7 +116,7 @@ consider using the functions \link{analyse_SAR.CWOSL} or
 \strong{The development of this function will not be continued. We recommend to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.17
+ 0.2.18
 }
 
 \examples{

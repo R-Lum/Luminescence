@@ -45,7 +45,7 @@
 #'
 #' If `FALSE`, just the growth curve will be plotted.
 #'
-#' @param output.plotExtended.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `plotExtended = TRUE`.
 #'
@@ -65,7 +65,7 @@
 #' Along with a plot (if wanted) the `RLum.Results` object produced by
 #' [fit_DoseResponseCurve] is returned.
 #'
-#' @section Function version: 1.2
+#' @section Function version: 1.2.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -93,7 +93,7 @@
 #'
 #' ##(1b) horizontal plot arrangement
 #' layout(mat = matrix(c(1,1,2,3), ncol = 2))
-#' plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
+#' plot_GrowthCurve(LxTxData, plot_singlePanels = TRUE)
 #'
 #' ##(2) plot the growth curve with pdf output - uncomment to use
 #' ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
@@ -102,7 +102,7 @@
 #'
 #' ##(3) plot the growth curve with pdf output - uncomment to use, single output
 #' ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
-#' temp <- plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
+#' temp <- plot_GrowthCurve(LxTxData, plot_singlePanels = TRUE)
 #' ##dev.off()
 #'
 #' ##(4) plot resulting function for given interval x
@@ -129,7 +129,7 @@ plot_GrowthCurve <- function(
   fit.method = "EXP",
   output.plot = TRUE,
   output.plotExtended = TRUE,
-  output.plotExtended.single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   verbose = TRUE,
   ...
@@ -137,10 +137,17 @@ plot_GrowthCurve <- function(
   .set_function_name("plot_GrowthCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated argument
+  if ("output.plotExtended.single" %in% names(list(...))) {
+    plot_singlePanels <- list(...)$output.plotExtended.single
+    .throw_warning("'output.plotExtended.single' is deprecated, use ",
+                   "'plot_singlePanels' instead")
+  }
+
   ## input validation
   .validate_class(output.plot, "logical")
   .validate_class(output.plotExtended, "logical")
-  .validate_class(output.plotExtended.single, "logical")
+  .validate_class(plot_singlePanels, "logical")
   .validate_class(verbose, "logical")
   .validate_positive_scalar(cex.global)
 
@@ -155,7 +162,7 @@ plot_GrowthCurve <- function(
 
   if (output.plot) {
     plot_DoseResponseCurve(fit, plot_extended = output.plotExtended,
-                           plot_single = output.plotExtended.single,
+                           plot_singlePanels = plot_singlePanels,
                            cex.global = cex.global, verbose = verbose, ...)
   }
 

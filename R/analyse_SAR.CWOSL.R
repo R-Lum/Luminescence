@@ -154,10 +154,11 @@
 #'
 #' @param plot_onePage [logical] (*with default*): enables or disables on page plot output
 #'
-#' @param plot.single [logical] (*with default*) or [numeric] (*optional*):
+#' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.
 #' If a [numeric] vector is provided the plots can be selected individually, i.e.
-#' `plot.single = c(1,2,3,4)` will plot the TL and Lx, Tx curves but not the legend (5) or the
+#' `plot_singlePanels = c(1,2,3,4)` will plot the TL and Lx, Tx curves but
+#' not the legend (5) or the
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
@@ -192,7 +193,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.10.3
+#' @section Function version: 0.10.4
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -266,7 +267,7 @@ analyse_SAR.CWOSL<- function(
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   onlyLxTxTable = FALSE,
   ...
 ) {
@@ -300,7 +301,7 @@ if(is.list(object)){
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
       rejection.criteria = parm$rejection.criteria[[x]],
-      plot.single = parm$plot.single[[x]],
+      plot_singlePanels = parm$plot_singlePanels[[x]],
       plot_onePage = parm$plot_onePage[[x]],
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
       main = main[[x]],
@@ -321,8 +322,9 @@ if(is.list(object)){
 ##set error list, this allows to set error messages without breaking the function
 error.list <- list()
 
-# General Integrity Checks ---------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
+  .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
 
   ## trim OSL or IRSL channels
   if(trim_channels[1]) {
@@ -340,7 +342,7 @@ error.list <- list()
   if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
-    
+
     if(is.null(OSL.component))
     .throw_warning("No signal or background integral applied ",
                    "as they were set to NA")
@@ -440,6 +442,13 @@ error.list <- list()
 
   sigmab <- if("sigmab" %in% names(extraArgs)) extraArgs$sigmab else NULL
   sig0 <- if("sig0" %in% names(extraArgs)) extraArgs$sig0 else 0
+
+  ## deprecated argument
+  if ("plot.single" %in% names(list(...))) {
+    plot_singlePanels <- list(...)$plot.single
+    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                   "instead")
+  }
 
 # Protocol Integrity Checks --------------------------------------------------
   ##check overall structure of the object
@@ -852,7 +861,7 @@ error.list <- list()
       if(plot_onePage){
       on.exit(on_exit(), add = TRUE)
 
-      plot.single <- TRUE
+      plot_singlePanels <- TRUE
       layout(matrix(
         c(1, 1, 3, 3, 6, 6, 7,
           1, 1, 3, 3, 6, 6, 8,
@@ -867,11 +876,8 @@ error.list <- list()
 
 
       # Plotting - old way config -------------------------------------------------------
-      if (!is(plot.single, "logical") && !is(plot.single, "numeric")) {
-        .throw_error("Invalid data type for 'plot.single'.")
-      }
 
-      if (plot.single[1] == FALSE) {
+      if (plot_singlePanels[1] == FALSE) {
         on.exit(on_exit(), add = TRUE)
         layout(matrix(
           c(1, 1, 3, 3,
@@ -896,8 +902,8 @@ error.list <- list()
 
       }else{
         ##check for values in the single output of the function and convert
-        if (!is(plot.single, "logical")) {
-          plot.single.sel  <- plot.single
+        if (!is.logical(plot_singlePanels)) {
+          plot.single.sel  <- plot_singlePanels
 
         }else{
           plot.single.sel <- c(1,2,3,4,5,6,7,8)
@@ -1226,7 +1232,7 @@ error.list <- list()
           list(
             sample = temp.sample,
             output.plot = plot,
-            output.plotExtended.single = plot_onePage,
+            plot_singlePanels = plot_onePage,
             cex.global = if(plot_onePage) .6 else 1
             ),
           list(...)
@@ -1373,7 +1379,7 @@ error.list <- list()
 
     if (plot && 7 %in% plot.single.sel) {
       ##set graphical parameter
-      if (!plot.single[1]) par(mfrow = c(1,2))
+      if (!plot_singlePanels[1]) par(mfrow = c(1,2))
 
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(temp.results.final,

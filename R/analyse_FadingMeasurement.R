@@ -105,10 +105,10 @@
 #' @param plot [logical] (*with default*):
 #' enables/disables plot output
 #'
-#' @param plot.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
 #' enables/disables single plot mode, i.e. one plot window per plot.
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
-#' `plot.single = c(3,4)` draws only the last two plots
+#' `plot_singlePanels = c(3,4)` draws only the last two plots
 #'
 #' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
 #' `xlab`, `log`, `mtext`, `plot.trend` (enable/disable trend blue line), and `xlim` for the
@@ -137,7 +137,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.22
+#' @section Function version: 0.1.23
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -196,7 +196,7 @@ analyse_FadingMeasurement <- function(
   n.MC = 100,
   verbose = TRUE,
   plot = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 ) {
   .set_function_name("analyse_FadingMeasurement")
@@ -205,6 +205,7 @@ analyse_FadingMeasurement <- function(
   ## Integrity Tests --------------------------------------------------------
 
   .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
+  .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
 
   if (is(object, "list")) {
     wrong.class <- sapply(object, class) != "RLum.Analysis"
@@ -415,7 +416,6 @@ analyse_FadingMeasurement <- function(
         }
       )
     })))$LxTx.table
-
   }
 
   ##create unique identifier
@@ -489,7 +489,6 @@ analyse_FadingMeasurement <- function(
 
     }else{
       return(fit)
-
     }
 
   }, FUN.VALUE = vector("numeric", length = 2))
@@ -604,13 +603,20 @@ analyse_FadingMeasurement <- function(
   }
 
 
-  # Plotting ------------------------------------------------------------------------------------
+  ## Plotting ---------------------------------------------------------------
   if(plot) {
-    if (!plot.single[1]) {
+
+    ## deprecated argument
+    if ("plot.single" %in% names(list(...))) {
+      plot_singlePanels <- list(...)$plot.single
+      .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                     "instead")
+    }
+
+    if (!plot_singlePanels[1]) {
       par.default <- par()$mfrow
       on.exit(par(mfrow = par.default), add = TRUE)
       par(mfrow = c(2, 2))
-
     }
 
     ##get package
@@ -643,8 +649,8 @@ analyse_FadingMeasurement <- function(
     if (!is.null(object)) {
       if (length(structure) == 2) {
 
-        if (is(plot.single, "logical") ||
-            (is(plot.single, "numeric") & 1 %in% plot.single)) {
+        if (is.logical(plot_singlePanels) ||
+            (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
           records <- object_clean[seq(1, length(object_clean), by = 2)]
           plot_RLum(
             set_RLum(class = "RLum.Analysis",
@@ -654,7 +660,7 @@ analyse_FadingMeasurement <- function(
               rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             ))[1:length(records)],
             records_max = 10,
-            plot.single = TRUE,
+            plot_singlePanels = TRUE,
             legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
             xlab = plot_settings$xlab,
             xlim = plot_settings$xlim,
@@ -673,15 +679,15 @@ analyse_FadingMeasurement <- function(
         }
 
         # plot Tx-curves ----
-        if (is(plot.single, "logical") ||
-            (is(plot.single, "numeric") & 2 %in% plot.single)) {
+        if (is.logical(plot_singlePanels) ||
+            (is.numeric(plot_singlePanels) && 2 %in% plot_singlePanels)) {
           records <- object_clean[seq(2, length(object_clean), by = 2)]
           plot_RLum(
             set_RLum(class = "RLum.Analysis",
                      records = records),
             combine = length(records) > 1,
             records_max = 10,
-            plot.single = TRUE,
+            plot_singlePanels = TRUE,
             legend.text = paste(round(irradiation_times.unique, 1), "s"),
             xlab = plot_settings$xlab,
             log = plot_settings$log,
@@ -718,13 +724,13 @@ analyse_FadingMeasurement <- function(
         }
 
       } else{
-        if (is(plot.single, "logical") ||
-            (is(plot.single, "numeric") & 1 %in% plot.single)) {
+        if (is.logical(plot_singlePanels) ||
+            (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
           plot_RLum(
             set_RLum(class = "RLum.Analysis", records = object_clean),
             combine = TRUE,
             records_max = 10,
-            plot.single = TRUE,
+            plot_singlePanels = TRUE,
             legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
             legend.pos = "outside",
             xlab = plot_settings$xlab,
@@ -746,12 +752,11 @@ analyse_FadingMeasurement <- function(
             lty = 2,
             col = "red"
           )
-
         }
 
         ##empty Tx plot
-        if (is(plot.single, "logical") ||
-            (is(plot.single, "numeric") & 2 %in% plot.single)) {
+        if (is.logical(plot_singlePanels) ||
+            (is.numeric(plot_singlePanels) && 2 %in% plot_singlePanels)) {
           plot(
             NA,
             NA,
@@ -764,14 +769,12 @@ analyse_FadingMeasurement <- function(
           text(x = 0.5,
                y = 0.5,
                labels = expression(paste("No ", T[x], " curves detected")))
-
         }
-
       }
 
     }else{
-      if (is(plot.single, "logical") ||
-          (is(plot.single, "numeric") & 1 %in% plot.single)) {
+      if (is.logical(plot_singlePanels) ||
+          (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
         ##empty Lx plot
         plot(
           NA,
@@ -785,11 +788,10 @@ analyse_FadingMeasurement <- function(
         text(x = 0.5,
              y = 0.5,
              labels = expression(paste("No ", L[x], " curves detected")))
-
       }
 
-      if (is(plot.single, "logical") ||
-          (is(plot.single, "numeric") & 2 %in% plot.single)) {
+      if (is.logical(plot_singlePanels) ||
+          (is.numeric(plot_singlePanels) && 2 %in% plot_singlePanels)) {
         ##empty Tx plot
         plot(
           NA,
@@ -803,14 +805,12 @@ analyse_FadingMeasurement <- function(
         text(x = 0.5,
              y = 0.5,
              labels = expression(paste("No ", T[x], " curves detected")))
-
-
       }
     }
 
     ## plot fading ----
-    if (is(plot.single, "logical") ||
-        (is(plot.single, "numeric") & 3 %in% plot.single)) {
+    if (is.logical(plot_singlePanels) ||
+        (is.numeric(plot_singlePanels) && 3 %in% plot_singlePanels)) {
 
       if(all(is.na(LxTx_table[["LxTx_NORM"]]))){
           shape::emptyplot()
@@ -878,7 +878,6 @@ analyse_FadingMeasurement <- function(
             cex.axis = 0.7,
             tick = FALSE,
             line = 0.75)
-
         }
 
         mtext(
@@ -940,7 +939,6 @@ analyse_FadingMeasurement <- function(
           y0 = LxTx_table[["LxTx_NORM"]] + LxTx_table[["LxTx_NORM.ERROR"]],
           y1 = LxTx_table[["LxTx_NORM"]] - LxTx_table[["LxTx_NORM.ERROR"]],
           col = "grey"
-
         )
 
         ##add legend
@@ -955,8 +953,8 @@ analyse_FadingMeasurement <- function(
       }#end if a
     }#
 
-    if (is(plot.single, "logical") ||
-        (is(plot.single, "numeric") & 4 %in% plot.single)) {
+    if (is.logical(plot_singlePanels) ||
+        (is.numeric(plot_singlePanels) && 4 %in% plot_singlePanels)) {
 
       if(all(is.na(g_value.MC))){
         shape::emptyplot()
@@ -979,12 +977,8 @@ analyse_FadingMeasurement <- function(
           col = c("darkgreen", "red"),
           bty = "n"
         )
-
-
       }
-
     }
-
   }
 
   # Terminal ------------------------------------------------------------------------------------
@@ -1004,7 +998,6 @@ analyse_FadingMeasurement <- function(
     cat(paste0("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3), " \u00b1 ", format(rhoPrime$SD, digits = 3)))
     cat(paste0("\nlog10(rho'):\t\t", suppressWarnings(round(log10(rhoPrime$MEAN), 2)), " \u00b1 ", round(rhoPrime$SD /  (rhoPrime$MEAN * log(10, base = exp(1))), 2)))
     cat("\n---------------------------------------------------\n")
-
   }
 
   # Return --------------------------------------------------------------------------------------
@@ -1040,7 +1033,6 @@ analyse_FadingMeasurement <- function(
       UID = uid,
       stringsAsFactors = FALSE
     )
-
   }
 
   ##return
@@ -1055,5 +1047,4 @@ analyse_FadingMeasurement <- function(
     ),
     info = list(call = sys.call())
   ))
-
 }

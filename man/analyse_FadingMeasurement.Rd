@@ -13,7 +13,7 @@ analyse_FadingMeasurement(
   n.MC = 100,
   verbose = TRUE,
   plot = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -62,10 +62,10 @@ enables/disables verbose mode}
 \item{plot}{\link{logical} (\emph{with default}):
 enables/disables plot output}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 enables/disables single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
-\code{plot.single = c(3,4)} draws only the last two plots}
+\code{plot_singlePanels = c(3,4)} draws only the last two plots}
 
 \item{...}{(\emph{optional}) further arguments that can be passed to internally used functions. Supported arguments:
 \code{xlab}, \code{log}, \code{mtext}, \code{plot.trend} (enable/disable trend blue line), and \code{xlim} for the
@@ -156,7 +156,7 @@ not all pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.22
+ 0.1.23
 }
 
 \examples{

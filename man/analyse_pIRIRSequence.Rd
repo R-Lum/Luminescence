@@ -13,7 +13,7 @@ analyse_pIRIRSequence(
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -52,7 +52,7 @@ preheat as none TL, remove the TL step.)}
 \item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output.}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 windows. Requires \code{plot = TRUE}.}
 
@@ -111,7 +111,7 @@ with the following options:
 \code{pdf(file = "<YOUR FILENAME>", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.4
+ 0.2.5
 }
 
 \examples{
@@ -152,7 +152,7 @@ results <- analyse_pIRIRSequence(object,
      fit.method = "EXP",
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
-     plot.single = TRUE)
+     plot_singlePanels = TRUE)
 
 
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)

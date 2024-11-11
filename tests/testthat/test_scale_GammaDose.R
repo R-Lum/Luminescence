@@ -1,3 +1,4 @@
+## load data
 data("ExampleData.ScaleGammaDose", envir = environment())
 d <- ExampleData.ScaleGammaDose
 
@@ -7,16 +8,12 @@ results <- scale_GammaDose(data = d,
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("check values from output example", {
   testthat::skip_on_cran()
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9242")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2131")
@@ -28,16 +25,12 @@ results <- scale_GammaDose(data = d,
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("check values from output example", {
   testthat::skip_on_cran()
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9214")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2124")
@@ -49,16 +42,12 @@ results <- scale_GammaDose(data = d,
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("check values from output example", {
   testthat::skip_on_cran()
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9123")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2097")
@@ -68,13 +57,11 @@ test_that("check values from output example", {
 test_that("console & plot", {
   expect_output({
    scale_GammaDose(d, plot = TRUE, verbose = TRUE)
-   scale_GammaDose(d, plot = TRUE, plot_single = FALSE, verbose = TRUE)
+   scale_GammaDose(d, plot = TRUE, plot_singlePanels = TRUE, verbose = TRUE)
   })
 })
 
-
-## WARNINGS & FAILURES
-test_that("check input data", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(

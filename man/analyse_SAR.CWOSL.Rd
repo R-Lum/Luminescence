@@ -17,7 +17,7 @@ analyse_SAR.CWOSL(
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   onlyLxTxTable = FALSE,
   ...
 )
@@ -95,10 +95,11 @@ if \code{object} is of type \link{list}}
 
 \item{plot_onePage}{\link{logical} (\emph{with default}): enables or disables on page plot output}
 
-\item{plot.single}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot windows.
 If a \link{numeric} vector is provided the plots can be selected individually, i.e.
-\code{plot.single = c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
+\code{plot_singlePanels = c(1,2,3,4)} will plot the TL and Lx, Tx curves but
+not the legend (5) or the
 growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
 

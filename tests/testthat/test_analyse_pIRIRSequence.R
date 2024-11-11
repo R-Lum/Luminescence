@@ -29,11 +29,11 @@ results <- analyse_pIRIRSequence(
   sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
   main = "Pseudo pIRIR data set based on quartz OSL",
   plot = TRUE,
-  plot.single = TRUE,
+  plot_singlePanels = TRUE,
   verbose = FALSE
 )
 
-## plot.single = FALSE && plot == TRUE
+## plot_singlePanels = FALSE && plot == TRUE
 suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCurve
   analyse_pIRIRSequence(
     object,
@@ -45,7 +45,7 @@ suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCur
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
-    plot.single = FALSE,
+    plot_singlePanels = FALSE,
     verbose = FALSE
   )
 )
@@ -63,7 +63,7 @@ test_that("check plot stuff", {
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
-    plot.single = FALSE,
+    plot_singlePanels = FALSE,
     verbose = FALSE),
     "[analyse_pIRIRSequence()] Argument 'plot' reset to 'FALSE'",
     fixed = TRUE)
@@ -81,12 +81,12 @@ test_that("check plot stuff", {
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
-    plot.single = FALSE,
+    plot_singlePanels = FALSE,
     verbose = FALSE))
   dev.off()
   unlink(pdf.out)
 
-  ## here it should not throw any warning because we used plot.single = TRUE
+  ## this should not throw any warning with plot_singlePanels = TRUE
   expect_silent(analyse_pIRIRSequence(
     object,
     signal.integral.min = 1,
@@ -97,8 +97,22 @@ test_that("check plot stuff", {
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
-    plot.single = TRUE,
+    plot_singlePanels = TRUE,
     verbose = FALSE))
+
+  suppressWarnings( # duplicated plot.single warnings from sanalyse_SAR.CWOSL()
+  expect_warning(analyse_pIRIRSequence(
+    object,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    fit.method = "EXP",
+    plot = TRUE,
+    plot.single = TRUE,
+    verbose = FALSE),
+    "'plot.single' is deprecated, use 'plot_singlePanels' instead")
+  )
 })
 
 test_that("input validation", {

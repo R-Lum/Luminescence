@@ -49,6 +49,8 @@ test_that("input validation", {
 
   expect_warning(plot_RLum.Analysis(c1, combine = TRUE, main = "Curve"),
                   "Nothing to combine, object contains a single curve")
+  expect_warning(plot_RLum.Analysis(c1, plot.single = TRUE),
+                  "'plot.single' is deprecated, use 'plot_singlePanels'")
 })
 
 test_that("Test the basic plot functionality", {

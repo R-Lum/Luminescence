@@ -13,8 +13,8 @@ test_that("input validation", {
       plot_DoseResponseCurve(fit, plot_extended = "error"),
       "'plot_extended' should be of class 'logical'")
   expect_error(
-      plot_DoseResponseCurve(fit, plot_single = "error"),
-      "'plot_single' should be of class 'logical'")
+      plot_DoseResponseCurve(fit, plot_singlePanels = "error"),
+      "'plot_singlePanels' should be of class 'logical'")
   expect_error(
       plot_DoseResponseCurve(fit, verbose = "error"),
       "'verbose' should be of class 'logical'")
@@ -25,15 +25,14 @@ test_that("input validation", {
 
 test_that("plot output", {
   testthat::skip_on_cran()
-  
+
   ## standard return
   expect_s4_class(plot_DoseResponseCurve(fit), "RLum.Results")
-  
+
   ## check plot settings
   expect_s4_class(plot_DoseResponseCurve(fit, legend = FALSE), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, reg_points_pch = 1), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, density_polygon = FALSE), "RLum.Results")
-  expect_s4_class(plot_DoseResponseCurve(fit, density_rug = FALSE), "RLum.Results") 
+  expect_s4_class(plot_DoseResponseCurve(fit, density_rug = FALSE), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, density_polygon_col = "green"), "RLum.Results")
-
 })

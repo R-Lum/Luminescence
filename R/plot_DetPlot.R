@@ -19,8 +19,9 @@
 #'
 #' **analyse_function.control**
 #'
-#' The argument `analyse_function.control` currently supports the following arguments
-#' `sequence.structure`, `dose.points`, `mtext.outer`, `fit.method`, `fit.force_through_origin`, `plot`, `plot.single`
+#' The argument `analyse_function.control` currently supports the following arguments:
+#' `sequence.structure`, `dose.points`, `mtext.outer`, `fit.method`,
+#' `fit.force_through_origin`, `plot`, `plot_singlePanels`
 #'
 #' @param object [RLum.Analysis-class] (**required**): input object containing data for analysis
 #' Can be provided as a [list] of such objects.
@@ -110,7 +111,7 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.1.8
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
 #'
@@ -222,6 +223,13 @@ plot_DetPlot <- function(
   analyse_function <- .validate_args(analyse_function,
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
+  ## deprecated argument
+  if ("plot.single" %in% names(list(...))) {
+    plot_singlePanels <- list(...)$plot.single
+    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                   "instead")
+  }
+
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels
   if(is.null(n.channels)){
@@ -241,7 +249,7 @@ plot_DetPlot <- function(
      fit.force_through_origin = FALSE,
      trim_channels = FALSE,
      plot = FALSE,
-     plot.single = FALSE
+     plot_singlePanels = FALSE
   )
 
   analyse_function.settings <- modifyList(analyse_function.settings, analyse_function.control)
@@ -268,7 +276,7 @@ plot_DetPlot <- function(
         fit.method = analyse_function.settings$fit.method,
         trim_channels = analyse_function.settings$trim_channels,
         plot = analyse_function.settings$plot,
-        plot.single = analyse_function.settings$plot.single,
+        plot_singlePanels = analyse_function.settings$plot_singlePanels,
         verbose = verbose
       )
     }))
@@ -285,7 +293,7 @@ plot_DetPlot <- function(
         dose.points = analyse_function.settings$dose.points,
         mtext.outer = analyse_function.settings$mtext.outer,
         plot = analyse_function.settings$plot,
-        plot.single = analyse_function.settings$plot.single,
+        plot_singlePanels = analyse_function.settings$plot_singlePanels,
         sequence.structure = analyse_function.settings$sequence.structure,
         verbose = verbose
       )
@@ -313,7 +321,6 @@ plot_DetPlot <- function(
 
     }else{
       pIRIR_signals <- NA
-
     }
 
     ##run this in a loop to account for pIRIR data
@@ -423,9 +430,7 @@ plot_DetPlot <- function(
       } ## end plot
       ##set return
       return(df_final)
-
     })
-
 
 
 # Return ------------------------------------------------------------------
@@ -439,5 +444,4 @@ plot_DetPlot <- function(
     info = list(
       call = sys.call())
   ))
-
 }

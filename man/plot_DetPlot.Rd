@@ -125,8 +125,9 @@ of the function output.
 
 \strong{analyse_function.control}
 
-The argument \code{analyse_function.control} currently supports the following arguments
-\code{sequence.structure}, \code{dose.points}, \code{mtext.outer}, \code{fit.method}, \code{fit.force_through_origin}, \code{plot}, \code{plot.single}
+The argument \code{analyse_function.control} currently supports the following arguments:
+\code{sequence.structure}, \code{dose.points}, \code{mtext.outer}, \code{fit.method},
+\code{fit.force_through_origin}, \code{plot}, \code{plot_singlePanels}
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
@@ -136,7 +137,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.7
+ 0.1.8
 }
 
 \examples{

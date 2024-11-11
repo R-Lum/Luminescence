@@ -123,8 +123,8 @@
 #' @param plot [logical] (*optional*):
 #' Show or hide the plot (defaults to `TRUE`).
 #'
-#' @param plot_single [logical] (*optional*):
-#' Show all plots in one panel (defaults to `TRUE`).
+#' @param plot_singlePanels [logical] (*with default*):
+#' Enables/disables single plot mode, i.e. one plot window per plot.
 #'
 #' @param ... Further parameters passed to [barplot].
 #'
@@ -181,7 +181,7 @@
 #' - A barplot visualising the contribution of each layer to the total dose rate
 #' received by the sample in the target layer.
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @keywords datagen
 #'
@@ -244,7 +244,7 @@ scale_GammaDose <- function(
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
   plot = TRUE,
-  plot_single = TRUE,
+  plot_singlePanels = FALSE,
   ...
 ) {
   .set_function_name("scale_GammaDose")
@@ -424,8 +424,6 @@ scale_GammaDose <- function(
               x1 <- fit$x[x1_temp] + data$sample_offset[target]
               x2 <- fit$x[x2_temp] + data$sample_offset[target]
             }
-
-
           }
 
           C1_temp <- which.min(abs(fit$x - x1))
@@ -541,7 +539,7 @@ scale_GammaDose <- function(
     par.old <- par(no.readonly = TRUE)
     on.exit(par(par.old), add = TRUE)
 
-    if (plot_single)
+    if (plot_singlePanels)
       layout(matrix(c(1,1, 2, 3, 4, 5,
                       1,1, 2, 3, 4, 5,
                       1,1, 6, 6, 6, 6,
@@ -551,13 +549,13 @@ scale_GammaDose <- function(
     ## --------------------------------------------------------------
 
     ## Global plot settings
-    if (plot_single)
+    if (plot_singlePanels)
       par(mar = c(2, 5, 1, 4) + 0.1)
     else
       par(mar = c(2, 5, 4, 4) + 0.1)
 
     plot(NA, NA,
-         main = ifelse(plot_single, "", "Profile structure"),
+         main = ifelse(plot_singlePanels, "", "Profile structure"),
          xlim = c(0, 1),
          ylim = rev(range(pretty(c(sum(data$thickness), 0)))),
          xaxt = "n",
@@ -584,7 +582,7 @@ scale_GammaDose <- function(
     # right y-axis labels
     mtext(side = 4, at = c(0, cumsum(data$thickness) - data$thickness / 2, sum(data$thickness)),
           text = c("", paste(data$thickness, "cm"), ""), las = 1,
-          line = ifelse(plot_single, -4, 0.5),
+          line = ifelse(plot_singlePanels, -4, 0.5),
           cex = 0.8,
           col = "#b22222")
 
@@ -604,7 +602,7 @@ scale_GammaDose <- function(
     ## --------------------------------------------------------------
 
     # global plot settings
-    if (plot_single) {
+    if (plot_singlePanels) {
       par(
         mar = c(4, 2, 3, 0.5) + 0.1,
         cex = 0.6,
@@ -659,7 +657,6 @@ scale_GammaDose <- function(
       # y-axis label for the first plot
       if (i == 1)
         axis(2, at = nrow(data):1, labels = data$id, las = 1)
-
     }
 
 
@@ -668,7 +665,7 @@ scale_GammaDose <- function(
 
     ## Global plot settings
     # recover standard plot settings first
-    if (plot_single) {
+    if (plot_singlePanels) {
       par(mar = c(5, 5, 1, 6) + 0.1,
           cex = 0.7)
     } else {
@@ -684,16 +681,16 @@ scale_GammaDose <- function(
     ## Contributions of each layer
     bp <- barplot(height = op$contrib[(nrow(op)-1):1],
                   horiz = TRUE,
-                  main = ifelse(plot_single, "", settings$main),
+                  main = ifelse(plot_singlePanels, "", settings$main),
                   xlab = settings$xlab,
                   xlim = range(pretty(op$contrib[1:(nrow(op)-1)])),
                   col = cols[pos])
 
     # layer names
     mtext(side = 2, at = bp,
-          line = ifelse(plot_single, 3.5, 3),
+          line = ifelse(plot_singlePanels, 3.5, 3),
           las = 1,
-          cex = ifelse(plot_single, 0.7, 0.8),
+          cex = ifelse(plot_singlePanels, 0.7, 0.8),
           text = rev(data$id))
 
     # contribution percentage
@@ -713,8 +710,8 @@ scale_GammaDose <- function(
           at = min(bp) - diff(bp)[1] / 2,
           text = paste("=", f(op$sum[nrow(op)]), "Gy/ka"),
           col = "#b22222", las = 1,
-          line = ifelse(plot_single, -0.5, -1),
-          cex = ifelse(plot_single, 0.7, 0.8))
+          line = ifelse(plot_singlePanels, -0.5, -1),
+          cex = ifelse(plot_singlePanels, 0.7, 0.8))
 
     # recover old plot parameters
     par(par.old)

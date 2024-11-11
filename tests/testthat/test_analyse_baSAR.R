@@ -178,7 +178,7 @@ test_that("Full check of analyse_baSAR function", {
       )),
       tolerance = 1.5e-6)
     })
-    
+
     ## source dose rate only scalar
     SW({
       expect_snapshot_RLum(results <- suppressWarnings(analyse_baSAR(
@@ -199,7 +199,6 @@ test_that("Full check of analyse_baSAR function", {
       )),
       tolerance = 1.5e-6)
     })
-    
 
   ## rerun with previous results as input
   SW({
@@ -238,7 +237,8 @@ test_that("Full check of analyse_baSAR function", {
       "Your lower_centralD and/or upper_centralD values seem not to fit",
       fixed = TRUE))
 
-  analyse_baSAR(
+  expect_warning(
+    analyse_baSAR(
       object = results,
       plot = TRUE,
       verbose = TRUE,
@@ -250,7 +250,9 @@ test_that("Full check of analyse_baSAR function", {
       aliquot_range = 1:3,
       distribution_plot = "abanico",
       method_control = list(n.chains = 2, thin = 25),
-      n.MCMC = 100)
+      plot.single = TRUE,
+      n.MCMC = 100),
+    "'plot.single' is deprecated, use 'plot_singlePanels' instead")
 
   expect_message(
       analyse_baSAR(

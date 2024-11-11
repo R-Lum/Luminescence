@@ -607,7 +607,7 @@ analyse_Al2O3C_Measurement <- function(
 
      plot_RLum(
        object,
-       plot.single = TRUE,
+       plot_singlePanels = TRUE,
        combine = TRUE,
        mtext = list(paste0("DE: ", round(data$DE,2), " \u00b1 ", round(data$DE_ERROR,2)), ""),
        xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
