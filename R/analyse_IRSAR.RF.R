@@ -1066,8 +1066,8 @@ analyse_IRSAR.RF<- function(
         if(!is.null(algorithm_error)){
           algorithm_error <- sd(vapply(1:length(temp_vslide_indices), function(k){
             temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
-            matrix(data = c(RF_nat[,1] + temp.sliding.step,
-                            RF_nat[,2] + temp_vslide_indices[k]), ncol = 2)[1,1]
+            ## return the offset of the t_n values
+            RF_nat[1, 1] + temp.sliding.step
           }, FUN.VALUE = numeric(length = 1)))
 
         }else{
