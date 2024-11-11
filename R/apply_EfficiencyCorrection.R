@@ -63,7 +63,7 @@ apply_EfficiencyCorrection <- function(
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
-        .throw_warning("Skipping ", class(o), " object in input list")
+        .throw_warning("Skipping '", class(o), "' object in input list")
         return(o)
       }
     })
@@ -78,7 +78,7 @@ apply_EfficiencyCorrection <- function(
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
-        .throw_warning("Skipping ", class(o), " object in input list")
+        .throw_warning("Skipping '", class(o), "' object in input list")
         return(o)
       }
     })
