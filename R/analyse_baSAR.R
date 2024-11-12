@@ -488,7 +488,7 @@ analyse_baSAR <- function(
         }
       } else{
         .validate_positive_scalar(method_control[["thin"]], int = TRUE,
-                                  name = "'thin' in 'method.control'")
+                                  name = "'thin' in 'method_control'")
         method_control[["thin"]]
       }
 

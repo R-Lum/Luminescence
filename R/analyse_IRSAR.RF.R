@@ -62,14 +62,14 @@
 #' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
 #' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
 #' range is set automatically, but can be set manually by changing the
-#' `vslide_range` parameter (see `method.control`).
+#' `vslide_range` parameter (see `method_control`).
 #'
-#' **`method.control`**
+#' **`method_control`**
 #'
 #' To keep the generic argument list as clear as possible, parameters to control
 #' the methods for De estimation are preset with meaningful default values,
-#' which can however be modified using the `method.control` argument, e.g.,
-#' `method.control = list(trace = TRUE)`. Supported parameters are:
+#' which can however be modified using the `method_control` argument, e.g.,
+#' `method_control = list(trace = TRUE)`. Supported parameters are:
 #'
 #' \tabular{lll}{
 #' **PARAMETER** \tab **METHOD** \tab **DESCRIPTION**\cr
@@ -200,7 +200,7 @@
 #' @param method [character] (*with default*): select method applied for the data analysis.
 #' Possible options are `"FIT"`, `"SLIDE"`, `"VSLIDE"`.
 #'
-#' @param method.control [list] (*optional*):
+#' @param method_control [list] (*optional*):
 #' parameters to control the method, that can be passed to the chosen method.
 #' These are for (1) `method = "FIT"`: `'trace'`, `'maxiter'`, `'warnOnly'`, `'minFactor'` and for
 #' (2) `method = "SLIDE"`: `'correct_onset'`, `'show_density'`,  `'show_fit'`, `'trace'`.
@@ -417,7 +417,7 @@
 #' results <- analyse_IRSAR.RF(
 #'  object = IRSAR.RF.Data,
 #'  method = "SLIDE",
-#'  method.control = list(trace = TRUE))
+#'  method_control = list(trace = TRUE))
 #' }
 #'
 #' @md
@@ -428,7 +428,7 @@ analyse_IRSAR.RF<- function(
   RF_nat.lim = NULL,
   RF_reg.lim = NULL,
   method = "FIT",
-  method.control = NULL,
+  method_control = NULL,
   test_parameters = NULL,
   n.MC = 10,
   txtProgressBar = TRUE,
@@ -485,7 +485,7 @@ analyse_IRSAR.RF<- function(
         RF_nat.lim = RF_nat.lim[[x]],
         RF_reg.lim = RF_reg.lim[[x]],
         method = method[[x]],
-        method.control = method.control,
+        method_control = method_control,
         test_parameters = test_parameters[[x]],
         n.MC = n.MC[[x]],
         txtProgressBar = txtProgressBar,
@@ -672,7 +672,7 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
   ##
   ##set supported values with default
-  method.control.settings <- list(
+  method_control.settings <- list(
     trace = FALSE,
     trace_vslide = FALSE,
     maxiter = 500,
@@ -687,51 +687,58 @@ analyse_IRSAR.RF<- function(
     cores = NULL
   )
 
+  ## deprecated argument
+  if ("method.control" %in% names(list(...))) {
+    method_control <- list(...)$method.control
+    .throw_warning("'method.control' is deprecated, use ",
+                   "'method_control' instead")
+  }
+
   ##modify list if necessary
-  if(!is.null(method.control)){
-    .validate_class(method.control, "list")
+  if (!is.null(method_control)) {
+    .validate_class(method_control, "list")
 
     ##check whether this arguments are supported at all
-    unsupported.idx <- which(!names(method.control) %in%
-                             names(method.control.settings))
+    unsupported.idx <- which(!names(method_control) %in%
+                             names(method_control.settings))
     if (length(unsupported.idx) > 0) {
-      .throw_warning("'",  paste(names(method.control)[unsupported.idx],
+      .throw_warning("'",  paste(names(method_control)[unsupported.idx],
                                  collapse = ", "),
-                     "' not supported for 'method.control'. Supported arguments are: ",
-                     .collapse(names(method.control.settings)))
+                     "' not supported for 'method_control'. Supported arguments are: ",
+                     .collapse(names(method_control.settings)))
     }
 
     ## check for odd user input
-    temp.vslide_range <- method.control$vslide_range
+    temp.vslide_range <- method_control$vslide_range
     if (length(temp.vslide_range) > 0) {
       .validate_class(temp.vslide_range, c("character", "integer", "numeric"),
-                      name = "'vslide_range' in 'method.control'")
+                      name = "'vslide_range' in 'method_control'")
     }
     if (is.character(temp.vslide_range) && temp.vslide_range[1] != "auto") {
-      .throw_error("'vslide_range' in 'method.control' should be either ",
+      .throw_error("'vslide_range' in 'method_control' should be either ",
                    "'auto' or a 2-element numeric vector")
     }
     if (length(temp.vslide_range) > 2) {
-      method.control$vslide_range <- method.control$vslide_range[1:2]
-      .throw_warning("'vslide_range' in 'method.control' has more ",
+      method_control$vslide_range <- method_control$vslide_range[1:2]
+      .throw_warning("'vslide_range' in 'method_control' has more ",
                      "than 2 elements, only the first two were used")
     }
 
-    temp.num_slide_windows <- method.control$num_slide_windows
+    temp.num_slide_windows <- method_control$num_slide_windows
     if (length(temp.num_slide_windows) > 0) {
       .validate_positive_scalar(temp.num_slide_windows, int = TRUE,
-                                name = "'num_slide_windows' in 'method.control'")
+                                name = "'num_slide_windows' in 'method_control'")
       if (temp.num_slide_windows > 10) {
-        method.control$num_slide_windows <- 10
-        .throw_warning("'num_slide_windows' in 'method.control' should be ",
+        method_control$num_slide_windows <- 10
+        .throw_warning("'num_slide_windows' in 'method_control' should be ",
                        "between 1 and 10, reset to 10 ")
       }
     }
 
     ##modify list
-    method.control.settings <- modifyList(
-      x = method.control.settings,
-      val = method.control,
+    method_control.settings <- modifyList(
+      x = method_control.settings,
+      val = method_control,
       keep.null = TRUE)
   }
 
@@ -768,7 +775,7 @@ analyse_IRSAR.RF<- function(
 
     ##correct of the onset of detection by using the first time value
     if (grepl("SLIDE", method) &&
-        method.control.settings$correct_onset == TRUE) {
+        method_control.settings$correct_onset == TRUE) {
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
     }
 
@@ -781,7 +788,7 @@ analyse_IRSAR.RF<- function(
 
   ## correct the onset of detection by using the first time value
   if (grepl("SLIDE", method) &&
-      method.control.settings$correct_onset == TRUE) {
+      method_control.settings$correct_onset == TRUE) {
     RF_nat[,1] <- RF_nat[,1] - RF_nat[1,1]
   }
 
@@ -892,7 +899,7 @@ analyse_IRSAR.RF<- function(
       ##try final fitting
       fit <- try(nls(
         fit.function,
-        trace = method.control.settings$trace,
+        trace = method_control.settings$trace,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
         start = list(
@@ -902,9 +909,9 @@ analyse_IRSAR.RF<- function(
           beta = fit.parameters.results.MC.results["beta"]
         ),
         nls.control(
-          maxiter = method.control.settings$maxiter,
-          warnOnly = method.control.settings$warnOnly,
-          minFactor = method.control.settings$minFactor
+          maxiter = method_control.settings$maxiter,
+          warnOnly = method_control.settings$warnOnly,
+          minFactor = method_control.settings$minFactor
         ),
         lower = c(
           phi.0 = .Machine$double.xmin,
@@ -986,10 +993,10 @@ analyse_IRSAR.RF<- function(
     sliding <- function(RF_nat,
                         RF_nat.limited,
                         RF_reg.limited,
-                        n.MC = method.control.settings$n.MC,
-                        vslide_range = method.control.settings$vslide_range,
-                        num_slide_windows = method.control.settings$num_slide_windows,
-                        trace = method.control.settings$trace_vslide,
+                        n.MC = method_control.settings$n.MC,
+                        vslide_range = method_control.settings$vslide_range,
+                        num_slide_windows = method_control.settings$num_slide_windows,
+                        trace = method_control.settings$trace_vslide,
                         numerical.only = FALSE){
 
       ##(0) set objects ... nomenclature as used in Frouin et al., please note that here the index
@@ -1199,12 +1206,12 @@ analyse_IRSAR.RF<- function(
       })
 
       ##set parallel calculation if wanted
-      if(is.null(method.control.settings$cores)){
+      if (is.null(method_control.settings$cores)) {
         cores <- 1
 
       } else {
         available.cores <- parallel::detectCores()
-        requested.cores <- method.control.settings$cores[1]
+        requested.cores <- method_control.settings$cores[1]
 
         ##case 'auto'
         if (requested.cores == "auto") {
@@ -1212,7 +1219,7 @@ analyse_IRSAR.RF<- function(
 
         } else if (is.numeric(requested.cores)) {
           .validate_positive_scalar(requested.cores, int = TRUE,
-                                    name = "method.control.settings$cores")
+                                    name = "method_control.settings$cores")
           if (requested.cores > available.cores) {
             ##assign all they have, it is not our problem
             # nocov start
@@ -1596,7 +1603,7 @@ analyse_IRSAR.RF<- function(
 
     ##Add fitted curve, if possible. This is a graphical control that might be considered
     ##as useful before further analysis will be applied
-    if (method.control.settings$show_fit) {
+    if (method_control.settings$show_fit) {
 
       if(!is(fit.lambda, "try-error")){
         fit.lambda_coef <- coef(fit.lambda)
@@ -1763,7 +1770,7 @@ analyse_IRSAR.RF<- function(
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     else if(method == "SLIDE" || method == "VSLIDE"){
       ##(0) density plot
-      if (method.control.settings$show_density) {
+      if (method_control.settings$show_density) {
         ##showing the density makes only sense when we see at least 10 data points
         if (!any(is.na(De.MC)) && length(unique(De.MC)) >= 15) {
 
@@ -1995,7 +2002,7 @@ analyse_IRSAR.RF<- function(
         )
 
         ##TODO- CONTROL PLOT! ... can be implemented in appropriate form in a later version
-        if (method.control.settings$trace) {
+        if (method_control.settings$trace) {
           par(new = TRUE)
           plot(
             RF_reg.limited[1:length(slide$squared_residuals),1],

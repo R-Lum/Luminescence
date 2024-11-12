@@ -10,7 +10,7 @@ analyse_IRSAR.RF(
   RF_nat.lim = NULL,
   RF_reg.lim = NULL,
   method = "FIT",
-  method.control = NULL,
+  method_control = NULL,
   test_parameters = NULL,
   n.MC = 10,
   txtProgressBar = TRUE,
@@ -45,7 +45,7 @@ maximum limit will be added automatically.}
 \item{method}{\link{character} (\emph{with default}): select method applied for the data analysis.
 Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"}.}
 
-\item{method.control}{\link{list} (\emph{optional}):
+\item{method_control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
 These are for (1) \code{method = "FIT"}: \code{'trace'}, \code{'maxiter'}, \code{'warnOnly'}, \code{'minFactor'} and for
 (2) \code{method = "SLIDE"}: \code{'correct_onset'}, \code{'show_density'},  \code{'show_fit'}, \code{'trace'}.
@@ -226,14 +226,14 @@ For the mathematical details of the implementation see Frouin et al., 2017
 Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
 See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
 range is set automatically, but can be set manually by changing the
-\code{vslide_range} parameter (see \code{method.control}).
+\code{vslide_range} parameter (see \code{method_control}).
 
-\strong{\code{method.control}}
+\strong{\code{method_control}}
 
 To keep the generic argument list as clear as possible, parameters to control
 the methods for De estimation are preset with meaningful default values,
-which can however be modified using the \code{method.control} argument, e.g.,
-\code{method.control = list(trace = TRUE)}. Supported parameters are:
+which can however be modified using the \code{method_control} argument, e.g.,
+\code{method_control = list(trace = TRUE)}. Supported parameters are:
 
 \tabular{lll}{
 \strong{PARAMETER} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
@@ -367,7 +367,7 @@ results <- analyse_IRSAR.RF(object = IRSAR.RF.Data, method = "SLIDE", n.MC = 1)
 results <- analyse_IRSAR.RF(
  object = IRSAR.RF.Data,
  method = "SLIDE",
- method.control = list(trace = TRUE))
+ method_control = list(trace = TRUE))
 }
 
 } 

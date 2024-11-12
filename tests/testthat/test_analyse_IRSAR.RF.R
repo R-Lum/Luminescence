@@ -11,8 +11,8 @@ test_that("input validation", {
                "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
                "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
-  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
-               "'method.control' should be of class 'list'")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
+               "'method_control' should be of class 'list'")
 
   ## sequence_structure
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),
@@ -61,41 +61,46 @@ test_that("input validation", {
 
   SW({
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data,
-                                  method.control = list(unknown = "test")),
-                 "'unknown' not supported for 'method.control'")
+                                  method_control = list(unknown = "test")),
+                 "'unknown' not supported for 'method_control'")
 
   ## disable test that produces this error on CI:
   ## Error in `.check_ncores(length(names))`: 4 simultaneous processes spawned
   if (FALSE) {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method.control = list(cores = 10000)),
+                                  method_control = list(cores = 10000)),
                  "Number of cores limited to the maximum available")
   }
 
   ## vslide_range
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                method.control = list(vslide_range = FALSE)),
-                 "'vslide_range' in 'method.control' should be of class")
+                                method_control = list(vslide_range = FALSE)),
+                 "'vslide_range' in 'method_control' should be of class")
 
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                method.control = list(vslide_range = "error")),
-                 "'vslide_range' in 'method.control' should be either 'auto'")
+                                method_control = list(vslide_range = "error")),
+                 "'vslide_range' in 'method_control' should be either 'auto'")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method.control = list(vslide_range = 1:4)),
-                 "'vslide_range' in 'method.control' has more than 2 elements")
+                                  method_control = list(vslide_range = 1:4)),
+                 "'vslide_range' in 'method_control' has more than 2 elements")
 
   ## num_slide_windows
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                method.control = list(num_slide_windows = NA)),
-                 "'num_slide_windows' in 'method.control' should be a positive")
+                                method_control = list(num_slide_windows = NA)),
+                 "'num_slide_windows' in 'method_control' should be a positive")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method.control = list(num_slide_windows = 20)),
+                                  method_control = list(num_slide_windows = 20)),
                  "should be between 1 and 10, reset to 10")
 
   expect_message(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method.control = list(cores = "4")),
+                                  method_control = list(cores = "4")),
                  "Invalid value for control argument 'cores'")
   })
+
+  ## deprecated option
+  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, verbose = FALSE,
+                                  method.control = list(cores = 1)),
+                 "'method.control' is deprecated, use 'method_control'")
 })
 
 test_that("check class and length of output", {
@@ -117,7 +122,7 @@ test_that("check class and length of output", {
       plot = FALSE,
       method = "SLIDE",
       n.MC = 10,
-      method.control = list(vslide_range = 'auto', trace_vslide = TRUE,
+      method_control = list(vslide_range = 'auto', trace_vslide = TRUE,
                             num_slide_windows = 10),
       txtProgressBar = FALSE
     )
@@ -130,7 +135,7 @@ test_that("check class and length of output", {
       plot = FALSE,
       method = "VSLIDE",
       n.MC = 10,
-      method.control = list(vslide_range = 'auto', trace_vslide = FALSE,
+      method_control = list(vslide_range = 'auto', trace_vslide = FALSE,
                             num_slide_windows = 10),
       txtProgressBar = FALSE
     )
@@ -149,7 +154,7 @@ test_that("test controlled crash conditions", {
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       method = "SLIDE",
-      method.control = list(vslide_range = c(0,1e+07)),
+      method_control = list(vslide_range = c(0,1e+07)),
     ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
 })
 
@@ -184,7 +189,7 @@ test_that("test edge cases", {
   expect_warning(expect_s4_class(analyse_IRSAR.RF(
     list(object),
     method = "SLIDE",
-    method.control = list(vslide_range = 'auto', correct_onset = FALSE,
+    method_control = list(vslide_range = 'auto', correct_onset = FALSE,
                           show_fit = TRUE, trace = TRUE, n.MC = 2,
                           cores = 2),
     RF_nat.lim = 2,
@@ -202,7 +207,7 @@ test_that("test edge cases", {
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
     object,
     method = "SLIDE",
-    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    method_control = list(vslide_range = 'auto', correct_onset = FALSE),
     RF_nat.lim = c(10,100),
     #RF_reg.lim = c(),
     plot = TRUE,
@@ -217,7 +222,7 @@ test_that("test edge cases", {
   expect_warning(expect_s4_class(analyse_IRSAR.RF(
     object,
     method = "SLIDE",
-    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    method_control = list(vslide_range = 'auto', correct_onset = FALSE),
     #RF_nat.lim = c(10,100),
     RF_reg.lim = c(10,100),
     plot = TRUE,
@@ -239,7 +244,7 @@ test_that("regression tests", {
 
   ## issue 372
   expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE,
-                                 method.control = list(maxiter = 10)))
+                                 method_control = list(maxiter = 10)))
 
   ## issue 382
   expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE))
