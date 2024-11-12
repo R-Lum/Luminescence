@@ -238,9 +238,7 @@ plot_Histogram <- function(
 
   if("ylim" %in% names(extraArgs)) {
     ylim.plot <- extraArgs$ylim
-    if (length(ylim.plot) < 4) {
-      .throw_error("'ylim' must be a vector of length 4")
-    }
+    .validate_length(ylim.plot, 4, name = "'ylim'")
   } else {
     H.lim <- hist(data[,1],
                   breaks = breaks.plot,

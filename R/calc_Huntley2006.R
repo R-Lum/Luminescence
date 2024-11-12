@@ -309,8 +309,9 @@ calc_Huntley2006 <- function(
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
 
   ## Check length of lower.bounds
-  if (fit.method[1] == "GOK" && length(lower.bounds) != 4)
-    .throw_error("Argument 'lower.bounds' must be of length 4.")
+  if (fit.method[1] == "GOK") {
+    .validate_length(lower.bounds, 4)
+  }
 
   ## Check 'data'
   # must be a data frame
@@ -384,10 +385,7 @@ calc_Huntley2006 <- function(
 
   # check if numeric
   if (is.numeric(rhop)) {
-
-    ### TODO: can be of length 2 if error
-    if (length(rhop) != 2)
-      .throw_error("'rhop' must be a vector of length 2.")
+    .validate_length(rhop, 2)
 
     # alternatively, and RLum.Results object produced by analyse_FadingMeasurement()
     # can be provided
@@ -408,12 +406,10 @@ calc_Huntley2006 <- function(
   }
 
   ## Check ddot & readerDdot
-  # check if numeric
-  if (any(sapply(list(ddot, readerDdot), is.numeric) == FALSE))
-    .throw_error("'ddot' and 'readerDdot' must be numeric vectors.")
-  # check if length == 2
-  if (any(sapply(list(ddot, readerDdot), function(x) length(x) == 2) == FALSE))
-    .throw_error("'ddot' and 'readerDdot' must be of length 2.")
+  .validate_class(ddot, "numeric")
+  .validate_length(ddot, 2)
+  .validate_class(readerDdot, "numeric")
+  .validate_length(readerDdot, 2)
 
   ## Settings ------------------------------------------------------------------
   settings <- modifyList(

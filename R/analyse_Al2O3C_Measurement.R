@@ -315,8 +315,7 @@ analyse_Al2O3C_Measurement <- function(
                      "was created by an unsupported function")
       }
     } else if (is.numeric(irradiation_time_correction)) {
-      if (length(irradiation_time_correction) != 2)
-        .throw_error("'irradiation_time_correction' must have length 2")
+      .validate_length(irradiation_time_correction, 2)
     }
   }
 

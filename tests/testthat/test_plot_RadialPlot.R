@@ -17,7 +17,7 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(df[0, ]),
                "Input data 1 has 0 rows")
   expect_error(plot_RadialPlot(df, xlab = "x"),
-               "'xlab' must have length 2")
+               "'xlab' should have length 2")
   expect_error(plot_RadialPlot(df, centrality = "error"),
                "Measure of centrality not supported")
 

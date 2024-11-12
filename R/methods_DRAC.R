@@ -116,11 +116,8 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   }
 
   ## CHECK INPUT LENGTH ----
-  length.old <- length(x[[i]])
-  length.new <- length(value)
-
-  if (length.old != length.new) {
-    .throw_warning(names(x)[i], ": Input must be of length ", length.old)
+  if (!.validate_length(value, length(x[[i]]), throw.error = FALSE,
+                        name = names(x)[i])) {
     return(x)
   }
 

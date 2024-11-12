@@ -320,6 +320,16 @@ test_that("Test internals", {
   expect_warning(fun2(),
                  "'arg' should be of class 'data.frame'")
 
+  ## .validate_length() -----------------------------------------------------
+  expect_true(.validate_length(letters, 26))
+  expect_error(.validate_length(letters),
+               "'exp.length' must be provided")
+  expect_error(.validate_length(letters, 25),
+               "'letters' should have length 25")
+  expect_error(.validate_length(letters, 25, name = "'other_name'"),
+               "'other_name' should have length 25")
+  expect_warning(expect_false(.validate_length(letters, 25, throw.error = FALSE)),
+                 "'letters' should have length 25")
 
   ## .validate_positive_scalar() --------------------------------------------
   expect_silent(.validate_positive_scalar(int = TRUE))

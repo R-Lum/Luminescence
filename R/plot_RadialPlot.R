@@ -627,9 +627,8 @@ if(centrality[1] == "mean") {
   sub <- if("sub" %in% names(extraArgs)) {extraArgs$sub} else {""}
 
   if("xlab" %in% names(extraArgs)) {
-    if(length(extraArgs$xlab) != 2) {
-      .throw_error("'xlab' must have length 2")
-    } else {xlab <- extraArgs$xlab}
+    xlab <- extraArgs$xlab
+    .validate_length(xlab,  2)
   } else {
     xlab <- c(if(log.z == TRUE) {
       "Relative standard error (%)"

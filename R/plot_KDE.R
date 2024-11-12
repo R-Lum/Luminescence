@@ -600,9 +600,7 @@ plot_KDE <- function(
 
   if("ylim" %in% names(list(...))) {
     ylim.plot <- list(...)$ylim
-    if (length(ylim.plot) < 4) {
-      .throw_error("'ylim' must be a vector of length 4")
-    }
+    .validate_length(ylim.plot, 4, name = "'ylim'")
   } else {
     if(!is.na(De.density.range[1])){
       ylim.plot <- c(De.density.range[3],

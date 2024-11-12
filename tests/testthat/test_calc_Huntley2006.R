@@ -34,7 +34,7 @@ test_that("input validation", {
   expect_error(calc_Huntley2006(data, fit.method = "test"),
                "'fit.method' should be one of 'EXP' or 'GOK'")
   expect_error(calc_Huntley2006(data, fit.method = "GOK", lower.bounds = 0),
-               "Argument 'lower.bounds' must be of length 4")
+               "'lower.bounds' should have length 4")
 
   expect_error(calc_Huntley2006(data, LnTn = list()),
                "'LnTn' must be a data frame with 2 columns")
@@ -46,7 +46,7 @@ test_that("input validation", {
                "The number of columns in 'data' must be a multiple of 3")
 
   expect_error(calc_Huntley2006(data, rhop = 1),
-               "'rhop' must be a vector of length 2")
+               "'rhop' should have length 2")
   expect_error(calc_Huntley2006(data, rhop = "test"),
                "'rhop' should be of class 'numeric' or 'RLum.Results'")
   expect_error(calc_Huntley2006(data, rhop = rhop.test),
@@ -55,15 +55,21 @@ test_that("input validation", {
                "'rhop' must be a positive number")
 
   expect_error(calc_Huntley2006(data, rhop = rhop),
-               "\"ddot\" is missing, with no default")
+               "'ddot' should be of class 'numeric'")
   expect_error(calc_Huntley2006(data, rhop = rhop, ddot = ddot),
-               "\"readerDdot\" is missing, with no default")
+               "'readerDdot' should be of class 'numeric'")
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = "test", readerDdot = readerDdot),
-               "'ddot' and 'readerDdot' must be numeric vectors")
+               "'ddot' should be of class 'numeric'")
+  expect_error(calc_Huntley2006(data, rhop = rhop,
+                                ddot = 0.4, readerDdot = readerDdot),
+               "'ddot' should have length 2")
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = ddot, readerDdot = "test"),
-               "'ddot' and 'readerDdot' must be numeric vectors")
+               "'readerDdot' should be of class 'numeric'")
+  expect_error(calc_Huntley2006(data, rhop = rhop,
+                                ddot = ddot, readerDdot = 0.13),
+               "'readerDdot' should have length 2")
 
   SW({
   expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 2,
