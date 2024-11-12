@@ -1,10 +1,10 @@
-#' Convert portable OSL data to an Risoe.BINfileData object
+#' Convert portable OSL data to a Risoe.BINfileData object
 #'
 #' Converts an `RLum.Analysis` object produced by the function `read_PSL2R()` to
-#' an `Risoe.BINfileData` object **(BETA)**.
+#' a `Risoe.BINfileData` object **(BETA)**.
 #'
 #' This function converts an [RLum.Analysis-class] object that was produced
-#' by the [read_PSL2R] function to an [Risoe.BINfileData-class].
+#' by the [read_PSL2R] function to a [Risoe.BINfileData-class].
 #' The `Risoe.BINfileData` can be used to write a Risoe BIN file via
 #' [write_R2BIN].
 #'
@@ -13,14 +13,14 @@
 #'
 #' @param ... currently not used.
 #'
-#' @return 
-#' Returns an S4 [Risoe.BINfileData-class] object that can be used to write a 
+#' @return
+#' Returns an S4 [Risoe.BINfileData-class] object that can be used to write a
 #' BIN file using [write_R2BIN].
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], 
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
 #' [Risoe.BINfileData-class]
 #'
-#' @author 
+#' @author
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @section Function version: 0.0.1
@@ -49,14 +49,17 @@
 #' @md
 #' @export
 PSL2Risoe.BINfileData <- function(object, ...) {
+  .set_function_name("PSL2Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  ## INTEGRITY CHECKS ----
-  if (!inherits(object, "RLum.Analysis"))
-    stop("Only objects of class 'RLum.Analysis' are allowed.", call. = FALSE)
-  if (!all(sapply(object, class) == "RLum.Data.Curve"))
-    stop("The 'RLum.Analysis' object must only contain objects of class 'RLum.Data.Curve'.", call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(object, "RLum.Analysis")
+  sapply(object, function(x) {
+    .validate_class(x, "RLum.Data.Curve",
+                    name = "All elements of 'object'")
+  })
   if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
-    stop("Only objects originating from 'read_PSL2R()' are allowed.", call. = FALSE)
+    .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
 
   ## EXTRACT CURVE INFORMATION ----
   curves <- get_RLum(object)
@@ -184,6 +187,3 @@ PSL2Risoe.BINfileData <- function(object, ...) {
   ## RETURN VALUE ----
   return(bin)
 }
-
-
-

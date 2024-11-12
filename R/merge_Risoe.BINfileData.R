@@ -1,7 +1,8 @@
-  #' Merge Risoe.BINfileData objects or Risoe BIN-files
+#' @title  Merge Risoe.BINfileData objects or Risoe BIN-files
 #'
-#' Function allows merging Risoe BIN/BINX files or `Risoe.BINfileData` objects.
+#' @description Function allows merging Risoe BIN/BINX files or [Risoe.BINfileData-class] objects.
 #'
+#' @details
 #' The function allows merging different measurements to one file or one
 #' object. The record IDs are recalculated for the new object. Other values
 #' are kept for each object. The number of input objects is not limited.
@@ -37,37 +38,29 @@
 #' File output path and name. If no value is given, a [Risoe.BINfileData-class] is
 #' returned instead of a file.
 #'
-#'
 #' @param keep.position.number [logical] (*with default*):
 #' Allows keeping the original position numbers of the input objects.
 #' Otherwise the position numbers are recalculated.
-#'
 #'
 #' @param position.number.append.gap [integer] (*with default*):
 #' Set the position number gap between merged BIN-file sets, if the option
 #' `keep.position.number = FALSE` is used. See details for further
 #' information.
 #'
-#'
 #' @return Returns a `file` or a [Risoe.BINfileData-class] object.
-#'
 #'
 #' @note
 #' The validity of the output objects is not further checked.
 #'
-#'
-#' @section Function version: 0.2.7
-#'
+#' @section Function version: 0.2.9
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-#'
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]
 #'
-#'
 #' @references
-#' Duller, G., 2007. Analyst.
+#' Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, Aberystwyth.
 #'
 #'
 #' @keywords IO manip
@@ -90,50 +83,30 @@ merge_Risoe.BINfileData <- function(
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0
-){
-
+) {
+  .set_function_name("merge_Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Checks --------------------------------------------------------
 
+  .validate_class(input.objects, c("character", "list"))
   if(length(input.objects) < 2){
-
-    stop("[merge_Risoe.BINfileData()] At least two input objects are needed!")
-
+    message("[merge_Risoe.BINfileData()] Nothing done: at least two input objects are needed!")
+    return(input.objects)
   }
 
-  if(is(input.objects, "character") == TRUE){
-
+  if (is.character(input.objects)) {
     for(i in 1:length(input.objects)){
-
       if(file.exists(input.objects[i])==FALSE){
-
-        stop("[merge_Risoe.BINfileData()] File ",input.objects[i]," does not exist!", call. = FALSE)
-
+        .throw_error("File '", input.objects[i], "' does not exist")
       }
-
     }
 
   }else{
-
-    if(is(input.objects, "list") == TRUE){
-
-      for(i in 1:length(input.objects)){
-
-        if(is(input.objects[[i]], "Risoe.BINfileData") == FALSE){
-
-          stop("[merge_Risoe.BINfileData()] Input list does not contain Risoe.BINfileData objects!")
-
-        }
-
-      }
-
-    }else{
-
-      stop("[merge_Risoe.BINfileData()]
-                Input object is not a 'character' nor a 'list'!")
-
+    for (i in 1:length(input.objects)) {
+      .validate_class(input.objects[[i]], "Risoe.BINfileData",
+                      name = "All elements of 'input.objects'")
     }
-
   }
 
 
@@ -142,12 +115,11 @@ merge_Risoe.BINfileData <- function(
   ##loop over all files to store the results in a list
   ##or the input is already a list
 
-  if(is(input.objects, "character") == TRUE){
-    temp <- lapply(input.objects, read_BIN2R)
+  if (is.character(input.objects)) {
+    temp <- lapply(input.objects, read_BIN2R, txtProgressBar = FALSE)
 
   }else{
     temp <- input.objects
-
   }
 
   # Get POSITION values -------------------------------------------------------
@@ -166,22 +138,18 @@ merge_Risoe.BINfileData <- function(
     return(temp)
   }))
 
-
   temp.position.values <- c(temp[[1]]@METADATA[["POSITION"]], temp.position.values)
 
 
   # Get overall record length -----------------------------------------------
   temp.record.length <- sum(sapply(1:length(temp), function(x){
     length(temp[[x]]@METADATA[,"ID"])
-
   }))
 
 
   # Merge Files -------------------------------------------------------------
-
   ##loop for similar input objects
   for(i in 1:length(input.objects)){
-
     if(exists("temp.new.METADATA") == FALSE){
 
       temp.new.METADATA <- temp[[i]]@METADATA
@@ -195,7 +163,6 @@ merge_Risoe.BINfileData <- function(
       }else{
 
         temp.new.RESERVED <- temp[[i]]@.RESERVED
-
       }
 
     }else{
@@ -210,9 +177,7 @@ merge_Risoe.BINfileData <- function(
       }else{
 
         temp.new.RESERVED <- c(temp.new.RESERVED, temp[[i]]@.RESERVED)
-
       }
-
     }
   }
 
@@ -223,31 +188,21 @@ merge_Risoe.BINfileData <- function(
   ##SET POSITION VALUES
   if(keep.position.number == FALSE){
     temp.new.METADATA$POSITION <- temp.position.values
-
   }
 
   ##TODO version number?
   # Produce BIN file object -------------------------------------------------
-
   temp.new <- set_Risoe.BINfileData(
     METADATA = temp.new.METADATA,
     DATA = temp.new.DATA,
     .RESERVED = temp.new.RESERVED
-
   )
 
-
-
   # OUTPUT ------------------------------------------------------------------
-
   if(missing(output.file) == FALSE){
-
     write_R2BIN(temp.new, output.file)
 
   }else{
-
     return(temp.new)
-
   }
-
 }

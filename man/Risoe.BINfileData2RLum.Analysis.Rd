@@ -25,7 +25,7 @@ Risoe.BINfileData2RLum.Analysis(
 object for which the curves are stored in the \code{RLum.Analysis} object.
 If \code{length(position)>1} a list of \code{RLum.Analysis} objects is returned.
 If nothing is provided every position will be converted.
-If the position is not valid \code{NA} is returned.}
+If the position is not valid \code{NULL} is returned.}
 
 \item{grain}{\link{vector}, \link{numeric} (\emph{optional}):
 grain number from the measurement to limit the converted data set
@@ -79,7 +79,7 @@ The \code{protocol} argument of the \linkS4class{RLum.Analysis}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.3
 }
 
 \examples{
@@ -95,11 +95,11 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 \linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis}, \link{read_BIN2R}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{manip}

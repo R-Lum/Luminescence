@@ -37,8 +37,9 @@ imports only the selected position. Note: the import performance will not
 benefit by any selection made here.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{n.records}{\link{raw} (\emph{optional}):
-limits the number of imported records. Can be used in combination with
+\item{n.records}{\link{numeric} (\emph{optional}): limits the number of imported records
+to the provided record id (e.g., \code{n.records = 1:10} imports the first ten records,
+while \code{n.records = 3} imports only record number 3. Can be used in combination with
 \code{show.record.number} for debugging purposes, e.g. corrupt BIN-files.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
@@ -59,10 +60,11 @@ Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{show.record.number}{\link{logical} (\emph{with default}):
 shows record number of the imported record, for debugging usage only.
-Can be provided as \code{list} if \code{file} is a \code{list}.}
+Can be provided as \code{list} if \code{file} is a \code{list}.
+Ignored if \code{verbose = FALSE}.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}.}
+enables or disables \link{txtProgressBar}. Ignored if \code{verbose = FALSE}.}
 
 \item{forced.VersionNumber}{\link{integer} (\emph{optional}):
 allows to cheat the version number check in the function by own values for
@@ -71,9 +73,11 @@ Can be provided as \code{list} if \code{file} is a \code{list}.
 
 \strong{Note:} The usage is at own risk, only supported BIN-file versions have been tested.}
 
-\item{ignore.RECTYPE}{\link{logical} (\emph{with default}):
+\item{ignore.RECTYPE}{\link{logical} or \link{numeric} (\emph{with default}):
 this argument allows to ignore values in the byte 'RECTYPE' (BIN-file version 08),
-in case there are not documented or faulty set. In this case the corrupted records are skipped.}
+in case there are not documented or faulty set. In this case the corrupted records are skipped.
+If the setting is \link{numeric} (e.g., \code{ignore.RECTYPE = 128}), records of those type are ignored
+for import.}
 
 \item{pattern}{\link{character} (\emph{optional}):
 argument that is used if only a path is provided. The argument will than be
@@ -99,7 +103,7 @@ If \code{fastForward = TRUE} a list of \linkS4class{RLum.Analysis} object is ret
 internal coercing is done using the function \link{Risoe.BINfileData2RLum.Analysis}
 }
 \description{
-Import a *.bin or a *.binx file produced by a Risø DA15 and DA20 TL/OSL
+Import a \verb{*.bin} or a \verb{*.binx} file produced by a Risø DA15 and DA20 TL/OSL
 reader into R.
 }
 \details{
@@ -112,25 +116,21 @@ Risø website: \url{https://www.fysik.dtu.dk}
 \note{
 The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
-
-\strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.}
 }
 \section{Function version}{
- 0.16.2
+ 0.18
 }
 
 \examples{
 
-##(1) import Risoe BIN-file to R (uncomment for usage)
-
-#FILE <- file.choose()
-#temp <- read_BIN2R(FILE)
-#temp
+file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+temp <- read_BIN2R(file)
+temp
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2021. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2024. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.17.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -143,8 +143,9 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team}
 \keyword{IO}

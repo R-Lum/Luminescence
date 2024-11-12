@@ -33,7 +33,7 @@ NULL
 #' @section Class version: 0.5.2
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
 #'
@@ -83,15 +83,14 @@ setClass(
 #'
 #' for `[RLum.Data.Spectrum-class]`
 #'
-#'
 #' **[RLum.Data.Spectrum-class]**
 #'
-#' \tabular{ll}{
+#' \tabular{lll}{
 #'   **from** \tab **to**\cr
 #'   `data.frame` \tab `data.frame`\cr
 #'   `matrix` \tab `matrix`
+#'   `list` \tab `list`
 #' }
-#'
 #'
 #' @md
 #' @name as
@@ -108,9 +107,7 @@ setAs("data.frame", "RLum.Data.Spectrum",
 setAs("RLum.Data.Spectrum", "data.frame",
       function(from){
         as.data.frame(from@data)
-
       })
-
 
 ##MATRIX
 ##COERCE RLum.Data.Spectrum >> matrix AND matrix >> RLum.Data.Spectrum
@@ -126,7 +123,24 @@ setAs("matrix", "RLum.Data.Spectrum",
 setAs("RLum.Data.Spectrum", "matrix",
       function(from){
         from@data
+      })
 
+## LIST
+## COERCE RLum.Data.Spectrum >> list AND list >> RLum.Data.Spectrum
+setAs("list", "RLum.Data.Spectrum",
+      function(from, to){
+        if (length(from) == 0)
+          return(set_RLum("RLum.Data.Spectrum"))
+        new(to,
+            recordType = NA_character_,
+            curveType = NA_character_,
+            data = matrix(unlist(from)),
+            info = list())
+      })
+
+setAs("RLum.Data.Spectrum", "list",
+      function(from){
+        apply(from@data, 2, list)
       })
 
 # show() -------------------------------------------------------------------------------------
@@ -157,6 +171,7 @@ setMethod("show",
             cat("\n\t .. .. range count values:", z.range)
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
+            cat("\n")
           }
 )
 
@@ -297,30 +312,22 @@ setMethod(
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
           definition = function(object, info.object) {
-            ##if missing info.object just show the curve values
+              .set_function_name("get_RLum")
+              on.exit(.unset_function_name(), add = TRUE)
 
-            if (missing(info.object) == FALSE){
-              if(is(info.object, "character") == FALSE)
-                stop("[get_RLum] 'info.object' has to be a character!", call. = FALSE)
+              ##if missing info.object just show the curve values
+              if (!missing(info.object)) {
+                .validate_class(info.object, "character")
 
-
-              if (info.object %in% names(object@info) == TRUE){
+                if (!info.object %in% names(object@info)) {
+                  .throw_error("Invalid element name, valid names are: ",
+                               .collapse(names(object@info)))
+                }
                 unlist(object@info[info.object])
-
               } else {
-                stop(paste0(
-                  "[get_RLum] Invalid element name. Valid names are: ",
-                  paste(names(object@info), collapse = ", ")
-                ),
-                call. = FALSE)
-
+                object@data
               }
-            } else {
-              object@data
-
-            }
           })
-
 
 
 # names() -------------------------------------------------------------------------------------
@@ -339,9 +346,7 @@ setMethod("names_RLum",
           "RLum.Data.Spectrum",
           function(object){
             names(object@info)
-
           })
-
 
 
 # bin_RLum() ----------------------------------------------------------------------------------#
@@ -370,12 +375,12 @@ setMethod("names_RLum",
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Spectrum",
           function(object, bin_size.col = 1, bin_size.row = 1) {
+            .set_function_name("bin_RLum.Data.Spectrum")
+            on.exit(.unset_function_name(), add = TRUE)
 
-            ##makee sure that we have no input problems
-            if (class(bin_size.col) != "numeric" || class(bin_size.row) != "numeric"){
-              stop("[bin_RLum.Data()] 'bin_size.row' and 'bin_size.col' must be of class 'numeric'!",
-                   call. = FALSE)
-            }
+            ##make sure that we have no input problems
+            .validate_class(bin_size.row, c("numeric", "integer"))
+            .validate_class(bin_size.col, c("numeric", "integer"))
 
             ##make sure that we do not get in trouble with negative values
             bin_size.col <- abs(bin_size.col)
@@ -402,4 +407,3 @@ setMethod(f = "bin_RLum.Data",
             ##return object
             return(object)
           })
-

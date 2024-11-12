@@ -1,23 +1,25 @@
 test_that("basic checks", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## template
+  SW({
   template <- expect_s3_class(convert_Concentration2DoseRate(), "data.frame")
+  })
 
   ## break function
   expect_error(convert_Concentration2DoseRate(input = "fail"),
-               regexp = "input must be of type 'data.frame or 'matrix'")
+               "'input' should be of class 'data.frame' or 'matrix'")
 
   expect_error(convert_Concentration2DoseRate(input = data.frame(x = 1, y = 2)),
-               regexp = "number of rows/columns in input does not match the requirements. See manual!")
+               "Number of rows/columns in input does not match the requirements")
 
-  expect_error(
-    convert_Concentration2DoseRate(suppressMessages(convert_Concentration2DoseRate()), conversion = "fail"),
-    regexp = "You have not entered a valid conversion. Please check your spelling and consult the documentation!")
+  expect_error(convert_Concentration2DoseRate(
+      suppressMessages(convert_Concentration2DoseRate()), conversion = "error"),
+    "'conversion' should be one of 'Guerinetal2011', 'Cresswelletal2018'")
 
   template[[1]] <- "fail"
-  expect_error(convert_Concentration2DoseRate(template), regexp = "As mineral only 'FS' or 'Q' is supported!")
+  expect_error(convert_Concentration2DoseRate(template),
+               "As mineral only 'FS' or 'Q' is supported")
 
   ## run function
   ## for FS

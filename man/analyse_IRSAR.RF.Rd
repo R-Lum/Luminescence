@@ -27,7 +27,8 @@ If a \code{list} is provided as input all other parameters can be provided as
 \code{list} as well to gain full control.}
 
 \item{sequence_structure}{\link{vector} \link{character} (\emph{with default}):
-specifies the general sequence structure. Allowed steps are \code{NATURAL}, \code{REGENERATED}.
+specifies the general sequence structure. Allowed steps are \code{NATURAL} and
+\code{REGENERATED}, and one of each must appear.
 In addition any other character is allowed in the sequence structure;
 such curves will be ignored during the analysis.}
 
@@ -41,9 +42,8 @@ set minimum and maximum channel range for regenerated signal fitting and sliding
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{method}{\link{character} (\emph{with default}):
-setting method applied for the data analysis.
-Possible options are \code{"FIT"} or \code{"SLIDE"}.}
+\item{method}{\link{character} (\emph{with default}): select method applied for the data analysis.
+Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"}.}
 
 \item{method.control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
@@ -65,7 +65,7 @@ error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL}
 MC runs. Note: Large values will significantly increase the computation time}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progression bar during MC runs}
+enables \code{TRUE} or disables \code{FALSE} the progress bar during MC runs}
 
 \item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE} or \code{FALSE})}
@@ -146,8 +146,9 @@ reported with the summary object data. List elements are:
 \code{I_n} \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
 \code{algorithm_error} \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
 algorithm. The returned value is the standard deviation of all obtained De values while expanding the
-vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
+vertical sliding range. It can be added as systematic error to the final De error; so far wanted.\cr
 \code{vslide_range} \tab \code{numeric} \tab the range used for the vertical sliding \cr
+\code{num_slide_windows} \tab \code{integer} \tab the number of windows used for the vertical sliding \cr
 \code{squared_residuals} \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }
 
@@ -182,8 +183,8 @@ signal.
 \item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
-Actually two methods are supported to obtain the \eqn{D_{e}}:
-\code{method = "FIT"} and \code{method = "SLIDE"}:
+Actually three methods are supported to obtain the \eqn{D_{e}}:
+\code{method = "FIT"}, \code{method = "SLIDE"} and \code{method = "VSLIDE"}:
 
 \strong{\code{method = "FIT"}}
 
@@ -211,45 +212,58 @@ The fitting is done using the \code{port} algorithm of the \link{nls} function.
 \strong{\code{method = "SLIDE"}}
 
 For this method, the natural curve is slid along the x-axis until
-congruence with the regenerated curve is reached. Instead of fitting this
+congruence with the regenerated curve is reached. As opposed to fitting, this
 allows working with the original data without the need for any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
-Here the sliding is done by searching for the minimum of the squared residuals.
+Here the sliding is done by searching for the minimum of the sum of
+squared residuals.
 For the mathematical details of the implementation see Frouin et al., 2017
+
+\strong{\code{method = "VSLIDE"}}
+
+Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
+See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+range is set automatically, but can be set manually by changing the
+\code{vslide_range} parameter (see \code{method.control}).
 
 \strong{\code{method.control}}
 
-To keep the generic argument list as clear as possible, arguments to control the methods
-for De estimation are all pre set with meaningful default parameters and can be
-handled using the argument \code{method.control} only, e.g.,
-\code{method.control = list(trace = TRUE)}. Supported arguments are:
+To keep the generic argument list as clear as possible, parameters to control
+the methods for De estimation are preset with meaningful default values,
+which can however be modified using the \code{method.control} argument, e.g.,
+\code{method.control = list(trace = TRUE)}. Supported parameters are:
 
 \tabular{lll}{
-\strong{ARGUMENT} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
-\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
-\code{trace_vslide} \tab \code{SLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
+\strong{PARAMETER} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
+\code{trace}   \tab \code{FIT}, \code{SLIDE} or \code{VSLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
+\code{trace_vslide} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
 \code{maxiter} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{warnOnly} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{minFactor} \tab \code{FIT} \tab as in \link{nls}\cr
-\code{correct_onset} \tab \code{SLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
+\code{correct_onset} \tab \code{SLIDE} or \code{VSLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
+\code{show_density} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
+\code{show_fit} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
 enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC} \tab \code{SLIDE} \tab \link{integer} (\emph{with default}):
+\code{n.MC} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
+\code{vslide_range} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
 reasonable vertical sliding range (\strong{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
-\code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
+\code{num_slide_windows} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
+This argument controls how many differently-sized windows are tested when
+sliding: the higher the value (up to a maximum of 10), the more time is
+spent in searching the global optimum. The default is 3, which attempts to
+strike a balance between quality of the fit and computation speed.\cr
+\code{cores} \tab \code{SLIDE} or \code{VSLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
 for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
 the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
 }
@@ -259,25 +273,28 @@ the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} 
 For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
 the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
 
-For \strong{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slid
+For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}} the error is obtained
+by bootstrapping the residuals of the slid
 curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
+ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
+runs and (b) the confidence
 interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
 are returned with the function output.
 
 \strong{Test parameters}
 
 The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
-which will be evaluated during the function run. If a threshold is set and it will be exceeded the
+which will be evaluated during the function run. If a threshold is set and
+it is exceeded, the
 test parameter status will be set to \code{"FAILED"}. Intentionally this parameter is not termed
 \code{'rejection criteria'} as not all test parameters are evaluated for both methods and some parameters
-are calculated by not evaluated by default. Common for all parameters are the allowed argument options
+are calculated but not evaluated by default. Common for all parameters are the allowed argument options
 \code{NA} and \code{NULL}. If the parameter is set to \code{NA} the value is calculated but the
-result will not be evaluated, means it has no effect on the status (\code{"OK"} or \code{"FAILED"})
-of the parameter.
+result will not be evaluated, therefore it will have no effect on the
+status (\code{"OK"} or \code{"FAILED"}) of the parameter.
 Setting the parameter to \code{NULL} disables the parameter entirely and the parameter will be
 also removed from the function output. This might be useful in cases where a particular parameter
-asks for long computation times. Currently supported parameters are:
+requires a long computation time. Currently supported parameters are:
 
 \code{curves_ratio} \link{numeric} (default: \code{1.001}):
 
@@ -326,7 +343,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.8
+ 0.7.10
 }
 
 \examples{
@@ -351,13 +368,12 @@ results <- analyse_IRSAR.RF(
  object = IRSAR.RF.Data,
  method = "SLIDE",
  method.control = list(trace = TRUE))
-
 }
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -385,6 +401,14 @@ Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Merci
 An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
 Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
 
+Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
+Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
+Ancient TL 35, 20–30.
+
+Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
+Dose recovery and correction. Radiation Measurements 120, 110–119.
+doi: 10.1016/j.radmeas.2018.04.017
+
 Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
 Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
@@ -404,12 +428,19 @@ of Luminescence 85, 45-58.
 Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.
+
+** Further reading**
+
+Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
+Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
+Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
+101155. doi: 10.1016/j.quageo.2021.101155
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
 \link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \code{parallel::mclapply}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

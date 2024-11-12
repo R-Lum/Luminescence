@@ -48,7 +48,9 @@ tune_Data <- function(
   data,
   decrease.error = 0,
   increase.data = 0
-){
+) {
+  .set_function_name("tune_Data")
+  on.exit(.unset_function_name(), add = TRUE)
 
   if(missing(decrease.error) == FALSE) {
 
@@ -91,7 +93,7 @@ tune_Data <- function(
   user <- info[length(info)]
   os <- info[1]
 
-  warning(paste("Dear ",
+  .throw_warning("Dear ",
                 user,
                 ", these activities on your ",
                 os,
@@ -99,7 +101,7 @@ tune_Data <- function(
                 "the R.Lum data base. Cheating does not pay off! [",
                 Sys.time(),
                 "]",
-                sep = ""))
+                sep = "")
 
   return(data)
 }

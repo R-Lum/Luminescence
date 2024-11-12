@@ -7,6 +7,7 @@
 read_XSYG2R(
   file,
   recalculate.TL.curves = TRUE,
+  n_records = NULL,
   fastForward = FALSE,
   import = TRUE,
   pattern = ".xsyg",
@@ -27,8 +28,11 @@ if set to \code{TRUE}, TL curves are returned as temperature against count value
 count TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
 
+\item{n_records}{\link{numeric} (\emph{with default}): set the number of records to be imported; by default
+the function attempts to import all records}
+
 \item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} for a more efficient data processing only a list of \code{RLum.Analysis}
+if \code{TRUE} for a more efficient data processing only a list of \linkS4class{RLum.Analysis}
 objects is returned.}
 
 \item{import}{\link{logical} (\emph{with default}):
@@ -42,7 +46,7 @@ specific XSYG-files}
 the \code{txtProgressBar} is also switched off}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progression bar during import}
+enables \code{TRUE} or disables \code{FALSE} the progress bar during import}
 }
 \value{
 \strong{Using the option \code{import = FALSE}}
@@ -66,10 +70,12 @@ Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 \details{
 \strong{How does the import function work?}
 
-The function uses the \link{xml} package to parse the file structure. Each
+The function uses the \code{'XML'} package to parse the file structure. Each
 sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
 
-\strong{General structure XSYG format}\preformatted{<?xml?>
+\strong{General structure XSYG format}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{<?xml?>
 <Sample>
   <Sequence>
     <Record>
@@ -78,7 +84,7 @@ sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
     </Record>
   </Sequence>
 </Sample>
-}
+}\if{html}{\out{</div>}}
 
 So far, each
 XSYG file can only contain one \verb{<Sample></Sample>}, but multiple
@@ -136,13 +142,13 @@ is supported as this may lead to endless loops.
 \note{
 This function is a beta version as the XSYG file format is not yet
 fully specified. Thus, further file operations (merge, export, write) should
-be done using the functions provided with the package \link{xml}.
+be done using the functions provided with the package \code{'XML'}.
 
 \strong{So far, no image data import is provided!} \cr
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.8
+ 0.6.14
 }
 
 \examples{
@@ -171,12 +177,7 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2021. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany
@@ -186,9 +187,9 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\link{xml}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
+\code{'XML'}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-, RLum Developer Team}
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+}
 \keyword{IO}

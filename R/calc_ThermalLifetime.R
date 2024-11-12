@@ -95,7 +95,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [graphics::matplot], [stats::rnorm][stats::Normal], [get_RLum]
 #'
@@ -150,19 +150,14 @@ calc_ThermalLifetime <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
+) {
+  .set_function_name("calc_ThermalLifetime")
+  on.exit(.unset_function_name(), add = TRUE)
 
-){
+  ## Integrity tests --------------------------------------------------------
 
-
-
-
-# Integrity -----------------------------------------------------------------------------------
-
-    if(missing(E) | missing(s)){
-      stop("[calc_ThermalLifetime()] 'E' or 's' or both are missing, but required.", call. = FALSE)
-
-    }
-
+  .validate_class(E, "numeric")
+  .validate_class(s, "numeric")
 
 # Set variables -------------------------------------------------------------------------------
 
@@ -179,21 +174,18 @@ calc_ThermalLifetime <- function(
     n = 1000,
     E.distribution = "norm",
     s.distribution = "norm"
-
   )
 
   ##replace if set
   if(!is.null(profiling_config)){
     profiling_settings <- modifyList(profiling_settings, profiling_config)
-
   }
 
   ##check for odd input values
   if (profiling_settings$n < 1000){
     profiling_settings$n <- 1000
-
-    warning("[calc_ThermalLifetime()] minimum MC runs are 1000, parameter 'n' in profiling_config reset to 1000.")
-
+    .throw_warning("Minimum MC runs are 1000, parameter 'n' ",
+                   "in profiling_config reset to 1000.")
   }
 
 # Calculation ---------------------------------------------------------------------------------
@@ -217,8 +209,7 @@ calc_ThermalLifetime <- function(
         rnorm(profiling_settings$n, mean = E[1], sd = E[2])
 
       }else{
-        stop("[calc_ThermalLifetime()] unknown distribution setting for E profiling")
-
+        .throw_error("Unknown distribution setting for E profiling")
       }
 
 
@@ -228,8 +219,7 @@ calc_ThermalLifetime <- function(
         rnorm(profiling_settings$n, mean = s[1], sd = s[2])
 
       } else{
-        stop("[calc_ThermalLifetime()] unknown distribution setting for s profiling")
-
+        .throw_error("Unknown distribution setting for s profiling")
       }
 
     ##T
@@ -269,18 +259,14 @@ calc_ThermalLifetime <- function(
       FUN.VALUE = matrix(numeric(), ncol = length(E), nrow = length(s))
     )
 
-
-
     ##transform to an arry in either case to have the same output
     if (!is(lifetimes, "array")) {
       lifetimes <-
         array(lifetimes, dim = c(length(s), length(E), length(T)))
-
     }
 
     ##set dimnames to make reading more clear
     dimnames(lifetimes) <- list(s, E, paste0("T = ", T, " \u00B0C"))
-
   }
 
  ##re-calculate lifetimes accourding to the chosen output unit
@@ -298,13 +284,10 @@ calc_ThermalLifetime <- function(
   ##check for invalid values
   if(is.null(temp.lifetimes)){
     output_unit <- "s"
-    warning("[calc_ThermalLifetime()] 'output_unit' unknown, reset to 's'")
-
-
+    .throw_warning("'output_unit' unknown, reset to 's'")
   }else{
     lifetimes <- temp.lifetimes
     rm(temp.lifetimes)
-
   }
 
 
@@ -335,8 +318,6 @@ calc_ThermalLifetime <- function(
 
     cat("\n\t--------------------------")
     cat(paste0("\n\t(", length(lifetimes), " lifetimes calculated in total)"))
-
-
   }
 
 
@@ -354,7 +335,6 @@ calc_ThermalLifetime <- function(
       lwd = 1,
       lty = 1,
       col = rgb(0, 0, 0, 0.25)
-
     )
 
     ##modify on request
@@ -386,7 +366,6 @@ calc_ThermalLifetime <- function(
     lifetimes_density.y <- matrix(unlist(lapply(1:length(lifetimes_density), function(i){
       lifetimes_density[[i]]$y
 
-
     })), nrow = length(lifetimes_density[[1]]$y))
 
 
@@ -405,7 +384,6 @@ calc_ThermalLifetime <- function(
       ylim = plot.settings$ylim,
       log = plot.settings$log
     )
-
   }
 
   # Return values -------------------------------------------------------------------------------
@@ -415,5 +393,4 @@ calc_ThermalLifetime <- function(
                profiling_matrix = profiling_matrix),
    info = list(call = sys.call())
  ))
-
 }

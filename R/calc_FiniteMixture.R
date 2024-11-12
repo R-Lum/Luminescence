@@ -1,12 +1,12 @@
-#' Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
+#' @title Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
 #' distribution
 #'
-#' This function fits a k-component mixture to a De distribution with differing
+#' @description  This function fits a k-component mixture to a De distribution with differing
 #' known standard errors. Parameters (doses and mixing proportions) are
 #' estimated by maximum likelihood assuming that the log dose estimates are
 #' from a mixture of normal distributions.
 #'
-#' This model uses the maximum likelihood and Bayesian Information Criterion
+#' @details This model uses the maximum likelihood and Bayesian Information Criterion
 #' (BIC) approaches.
 #'
 #' Indications of overfitting are:
@@ -32,7 +32,7 @@
 #' determined by a common `sigmab` (see `pdf.sigma`). For
 #' `pdf.sigma = "se"` the standard error of each component is taken
 #' instead.\cr
-#' The stacked barplot shows the proportion of each component (in
+#' The stacked [graphics::barplot] shows the proportion of each component (in
 #' per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 #' and maximum log-likelihood estimates for each iteration of k.
 #'
@@ -75,10 +75,10 @@
 #' manually set the max density value for proper scaling of the x-axis of the first plot
 #'
 #' @param plot.proportions [logical] (*with default*):
-#' plot barplot showing the proportions of components
+#' plot [graphics::barplot] showing the proportions of components if
+#' `n.components` a vector with a length > 1 (e.g., `n.components = c(2:3)`)
 #'
-#' @param plot [logical] (*with default*):
-#' plot output
+#' @param plot [logical] (*with default*):  plot output
 #'
 #' @param ... further arguments to pass. See details for their usage.
 #'
@@ -104,7 +104,7 @@
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -194,68 +194,52 @@ calc_FiniteMixture <- function(
   plot.proportions = TRUE,
   plot=TRUE,
   ...
-){
+) {
+  .set_function_name("calc_FiniteMixture")
+  on.exit(.unset_function_name(), add = TRUE)
 
+  ## CONSISTENCY CHECK OF INPUT DATA --------
   ##============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##============================================================================##
-
-  if(missing(data)==FALSE){
-
-    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_FiniteMixture] Error: 'data' object has to be of type
-           'data.frame' or 'RLum.Results'!")
-    } else {
-      if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum(data, "data")
-      }
-    }
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (is(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
-  try(colnames(data)<- c("ED","ED_Error"),silent=TRUE)
-  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") {
-    cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
-    stop(domain=NA)
+  if (ncol(data) < 2) {
+    .throw_error("'data' object must have two columns")
   }
-  if(sigmab <0 | sigmab >1) {
-    cat(paste("sigmab needs to be given as a fraction between",
-              "0 and 1 (e.g. 0.2)"), fill = FALSE)
-    stop(domain=NA)
+  if (sigmab < 0 || sigmab > 1) {
+    .throw_error("'sigmab' must be a value between 0 and 1")
   }
   if(any(n.components<2) == TRUE) {
-    cat(paste("Atleast two components need to be fitted"), fill = FALSE)
-    stop(domain=NA)
+    .throw_error("At least two components need to be fitted")
   }
-  if(pdf.sigma!="se" ) {
-    if(pdf.sigma!="sigmab") {
-      cat(paste("Only 'se' or 'sigmab' allowed for the pdf.sigma argument"),
-          fill = FALSE)
-      stop(domain=NA)
-    }
-  }
+  pdf.sigma <- .validate_args(pdf.sigma, c("sigmab", "se"))
+  pdf.colors <- .validate_args(pdf.colors, c("gray", "colors", "none"))
 
-  ##============================================================================##
-  ## ... ARGUMENTS
+  ## set expected column names
+  colnames(data)[1:2] <- c("ED", "ED_Error")
+
+  ## ... ARGUMENTS ------------
   ##============================================================================##
 
   extraArgs <- list(...)
 
+  ## default values
+  verbose <- TRUE
+  trace <- FALSE
+  main <- "Finite Mixture Model"
+
   ## console output
   if("verbose" %in% names(extraArgs)) {
     verbose<- extraArgs$verbose
-  } else {
-    verbose<- TRUE
   }
   # trace calculations
   if("trace" %in% names(extraArgs)) {
     trace<- extraArgs$trace
-  } else {
-    trace<- FALSE
   }
   # plot title
   if("main" %in% names(extraArgs)) {
     main<- extraArgs$main
-  } else {
-    main<- "Finite Mixture Model"
   }
 
   ##============================================================================##
@@ -449,18 +433,14 @@ calc_FiniteMixture <- function(
     BIC.lowest<- n.components[which.min(BIC.n)]
   }
 
+  ## OUTPUT ---------
   ##============================================================================##
-  ## OUTPUT
-  ##============================================================================##
-
-  if(verbose==TRUE) {
+  if(verbose) {
 
     ## HEADER (always printed)
     cat("\n [calc_FiniteMixture]")
 
-    ##----------------------------------------------------------------------------
     ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
-
     if(length(n.components) == 1) {
 
       # covariance matrix
@@ -565,8 +545,7 @@ calc_FiniteMixture <- function(
     }#EndOf::Output for length(n.components) > 1
   }
 
-  ##============================================================================##
-  ## RETURN VALUES
+  ## RETURN VALUES --------
   ##============================================================================##
 
   # .@data$meta
@@ -610,11 +589,12 @@ calc_FiniteMixture <- function(
       single.comp=single.comp))
 
   if (anyNA(unlist(summary)) && verbose)
-    warning("\n[calc_FiniteMixture] The model produced NA values. Either the input data are inapplicable for the model",
-            " or the the model parameters need to be adjusted (e.g. 'sigmab')", call. = FALSE)
+    .throw_warning("The model produced NA values: either the input data are ",
+                   "inapplicable for the model, or the the model parameters ",
+                   "need to be adjusted (e.g. 'sigmab')")
 
   ##=========##
-  ## PLOTTING
+  ## PLOTTING -----------
   if(plot && !anyNA(unlist(summary)))
     try(do.call(plot_RLum.Results, c(list(newRLumResults.calc_FiniteMixture), as.list(sys.call())[-c(1,2)])))
 

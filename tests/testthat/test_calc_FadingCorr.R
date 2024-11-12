@@ -6,31 +6,33 @@ temp <- calc_FadingCorr(
   tc.g_value = 172800,
   n.MC = 100, verbose = FALSE)
 
-
-
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##trigger some errors
   expect_error(calc_FadingCorr(age.faded = "test", g_value = "test"),
-    "\\[calc_FadingCorr\\(\\)\\] 'tc' needs to be set!")
+               "[calc_FadingCorr()] 'tc' must be set",
+               fixed = TRUE)
 
   expect_error(
     calc_FadingCorr(age.faded = "test", g_value = "test", tc = 200),
-    "\\[calc\\_FadingCorr\\(\\)\\] 'age.faded', 'g_value' and 'tc' need be of type numeric\\!")
+    "[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' must be of type numeric",
+    fixed = TRUE)
 
   ##check message
   expect_message(calc_FadingCorr(
     age.faded = c(6.404856, 0.51),
     g_value = c(17.5,1.42),
     tc = 462,
-    n.MC = 100), "\\[calc_FadingCorr\\(\\)\\] No solution found, return NULL. This usually happens for very large, unrealistic g-values")
+    n.MC = 100),
+    "[calc_FadingCorr()] No solution found, NULL returned: this usually happens",
+    fixed = TRUE)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 2)
 
   ##check the verbose mode
+  SW({
   expect_s4_class(calc_FadingCorr(
     age.faded = c(0.1,0),
     g_value = c(5.0, 1.0),
@@ -38,11 +40,34 @@ test_that("check class and length of output", {
     tc.g_value = 172800,
     n.MC = 1, verbose = TRUE), class = "RLum.Results")
 
+  ## g_value provided as RLum.Results object
+  data("ExampleData.Fading", envir = environment())
+  fading <- analyse_FadingMeasurement(ExampleData.Fading$fading.data$IR50,
+                                      plot = FALSE)
+  expect_s4_class(calc_FadingCorr(age.faded = c(0.1,0),
+                                  g_value = fading, tc = 2592000),
+                  "RLum.Results")
+  })
+
+  fading@originator <- "unexpected"
+  expect_message(
+      expect_null(calc_FadingCorr(age.faded = c(0.1,0),
+                               g_value = fading, tc = 2592000)),
+               "Unknown originator for the provided RLum.Results object")
+
+  ## auto, seed (Note: this is slow!)
+  SW({
+  calc_FadingCorr(
+    age.faded = c(0.1,0),
+    g_value = c(5.0, 1.0),
+    tc = 2592000,
+    seed = 1,
+    n.MC = "auto")
+  })
 })
 
 test_that("check values from output example 1", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 
@@ -59,5 +84,4 @@ test_that("check values from output example 1", {
   expect_equal(results$n.MC, 100)
   expect_equal(results$OBSERVATIONS, 100)
   expect_equal(results$SEED, NA)
-
 })

@@ -13,7 +13,7 @@ analyse_pIRIRSequence(
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -52,12 +52,13 @@ preheat as none TL, remove the TL step.)}
 \item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output.}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 windows. Requires \code{plot = TRUE}.}
 
 \item{...}{further arguments that will be passed to the function
-\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}. Furthermore, the arguments \code{main} (headers), \code{log} (IRSL curves), \code{cex} (control
+\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}. Furthermore, the
+arguments \code{main} (headers), \code{log} (IRSL curves), \code{cex} (control
 the size) and \code{mtext.outer} (additional text on the plot area) can be passed to influence the plotting. If the input
 is list, \code{main} can be passed as \link{vector} or \link{list}.}
 }
@@ -88,7 +89,7 @@ this function has been written as extended wrapper function for the function
 one run. With this, its functionality is strictly limited by the
 functionality of the function \link{analyse_SAR.CWOSL}.
 
-**Defining the sequence structure **
+\strong{Defining the sequence structure}
 
 The argument \code{sequence.structure} expects a shortened pattern of your sequence structure and was
 mainly introduced to ease the use of the function. For example: If your measurement data contains
@@ -110,7 +111,7 @@ with the following options:
 \code{pdf(file = "<YOUR FILENAME>", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.4
+ 0.2.5
 }
 
 \examples{
@@ -151,7 +152,7 @@ results <- analyse_pIRIRSequence(object,
      fit.method = "EXP",
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
-     plot.single = TRUE)
+     plot_singlePanels = TRUE)
 
 
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
@@ -173,7 +174,7 @@ pdf(file = tempfile, height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -191,7 +192,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

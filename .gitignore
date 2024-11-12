@@ -9,6 +9,12 @@
 .Rprofile
 Rlum.Experiment/
 
+# emacs stuff
+*~
+.#*
+\#*#
+.*.swp
+
 # Package related local stuff
 packrat/
 packrat/lib*/
@@ -23,6 +29,7 @@ cran-comments.html
 NEWS.html
 README.html
 
+tests/testthat/_snaps/*.new.md
 vignettes/*_cache/
 vignettes/*_files/
 vignettes/*.xsyg

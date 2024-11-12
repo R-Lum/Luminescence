@@ -3,10 +3,17 @@ temp <- calc_SourceDoseRate(measurement.date = "2012-01-27",
                            calib.dose.rate = 0.0438,
                            calib.error = 0.0019)
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_SourceDoseRate(data.frame()),
+               "'measurement.date' should be of class 'Date' or 'character'")
+  expect_error(calc_SourceDoseRate("2024-10-01", data.frame()),
+               "'calib.date' should be of class 'Date' or 'character'")
+})
 
 test_that("General tests", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##simple run
   expect_silent(calc_SourceDoseRate(
@@ -46,16 +53,19 @@ test_that("General tests", {
     measurement.date = "2018-01-02",
     calib.date = "2014-12-19",
     calib.dose.rate = 0.0438,
-    calib.error = 0.0019, source.type = "SK"
-  ))
+    calib.error = 0.0019, source.type = "error"),
+    "'source.type' should be one of 'Sr-90', 'Am-214', 'Co-60' or 'Cs-137'")
 
-
-
+  expect_error(calc_SourceDoseRate(
+    measurement.date = "2018-01-02",
+    calib.date = "2014-12-19",
+    calib.dose.rate = 0.0438,
+    calib.error = 0.0019, dose.rate.unit = "error"),
+    "'dose.rate.unit' should be one of 'Gy/s' or 'Gy.min'")
 })
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 3)
@@ -64,7 +74,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example 1", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 

@@ -36,7 +36,7 @@
 #' @section Function version: 0.4.4
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot_RLum.Data.Curve], [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
 #' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image], [RLum.Data.Image-class],
@@ -61,12 +61,13 @@
 plot_RLum<- function(
   object,
   ...
-){
+) {
+  .set_function_name("plot_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
 
-# Define dispatcher function ----------------------------------------------------------
-##check if object is of class RLum
+  ## Define dispatcher function ---------------------------------------------
   RLum.dispatcher <- function(object, ...) {
-    if (inherits(object, "RLum")) {
+    .validate_class(object, "RLum")
 
       ##grep object class
       object.class <- is(object)[1]
@@ -74,7 +75,6 @@ plot_RLum<- function(
       ##select which plot function should be used and call it
       switch (
         object.class,
-
         RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
         RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
@@ -89,24 +89,12 @@ plot_RLum<- function(
 
         },
 
-        RLum.Results = plot_RLum.Results(object = object, ...)
-
-      )
-
-    }else{
-      stop(paste0(
-        "[plot_RLum()] Sorry, I don't know what to do for object of type '", is(object)[1], "'."
-      ), call. = FALSE)
-
-    }
-
+        RLum.Results = plot_RLum.Results(object = object, ...))
   }
-
 
   # Run dispatcher ------------------------------------------------------------------------------
   ##call for the list, if not just proceed as normal
-  if(class(object) == "list") {
-
+  if(inherits(object, "list")) {
     ##(0) we might have plenty of sublists before we have the list containing only
     ##RLum-objects
     object <- .unlist_RLum(object)
@@ -115,11 +103,9 @@ plot_RLum<- function(
     ##(2) check if empty, if empty do nothing ...
     if (length(object) != 0) {
       ## If we iterate over a list, this might be extremely useful to have different plot titles
+      main <- NULL
       if("main" %in% names(list(...))){
-        if(is(list(...)$main,"list")){
-          main.list <- rep(list(...)$main, length = length(object))
-
-        }
+        main <- .listify(list(...)$main, length = length(object))
       }
 
       ##set also mtext, but in a different way
@@ -135,28 +121,15 @@ plot_RLum<- function(
         mtext <- rep(list(...)$mtext, length.out = length(object))
 
       }
-
-      if(exists("main.list")){
-        ##dispatch objects
-        for (i in 1:length(object)) {
-          RLum.dispatcher(object = object[[i]],
-                          main = main.list[[i]],
-                          mtext = mtext[[i]],
-                          ...)
-        }
-      }else{
-        for (i in 1:length(object)) {
-          RLum.dispatcher(object = object[[i]],
-                          mtext = mtext[[i]],
-                          ...)
-        }
+      for (i in 1:length(object)) {
+        RLum.dispatcher(object = object[[i]],
+                        main = main[[i]],
+                        mtext = mtext[[i]],
+                        ...)
       }
     }
-
   }else{
     ##dispatch object
     RLum.dispatcher(object = object, ...)
-
   }
 }
-

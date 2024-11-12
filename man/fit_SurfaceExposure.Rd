@@ -21,7 +21,9 @@ fit_SurfaceExposure(
 }
 \arguments{
 \item{data}{\link{data.frame} or \link{list} (\strong{required}):
-Measured OSL surface exposure data with the following structure:\preformatted{                               (optional)
+Measured OSL surface exposure data with the following structure:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{                               (optional)
      | depth (a.u.)| intensity | error |
      |     [ ,1]   |    [ ,2]  | [ ,3] |
      |-------------|-----------|-------|
@@ -30,7 +32,7 @@ Measured OSL surface exposure data with the following structure:\preformatted{  
  ... |     ...     |     ...   |  ...  |
 [x, ]|    ~~~~     |    ~~~~   | ~~~~  |
 
-}
+}\if{html}{\out{</div>}}
 
 Alternatively, a \link{list} of \code{data.frames} can be provided, where each
 \code{data.frame} has the same structure as shown above, with the exception that
@@ -132,7 +134,6 @@ is a list of multiple \code{data.frame}s, i.e., it is not available for global
 fitting.
 
 \strong{Dose rate}
-
 If any of the arguments \code{Ddot} or \code{D0} is at its default value (\code{NULL}),
 this function will fit equation 1 in Sohbati et al. (2012a) to the data. If
 the effect of dose rate (i.e., signal saturation) needs to be considered,
@@ -146,7 +147,6 @@ rate \code{D} is an arbitrary function of \code{x} (term \code{D(x)}), but here 
 constant.
 
 \strong{Global fitting}
-
 If \code{data} is \link{list} of multiple \code{data.frame}s, each representing a separate
 sample, the function automatically performs a global fit to the data. This
 may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} and
@@ -170,7 +170,10 @@ data("ExampleData.SurfaceExposure")
 # Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10
 sample_1 <- ExampleData.SurfaceExposure$sample_1
 head(sample_1)
-results <- fit_SurfaceExposure(sample_1, mu = 0.9, sigmaphi = 5e-10)
+results <- fit_SurfaceExposure(
+ data = sample_1,
+ mu = 0.9,
+ sigmaphi = 5e-10)
 get_RLum(results)
 
 
@@ -179,17 +182,22 @@ get_RLum(results)
 # dose rate = 2.5 Gy/ka, D0 = 40 Gy
 sample_2 <- ExampleData.SurfaceExposure$sample_2
 head(sample_2)
-results <- fit_SurfaceExposure(sample_2, mu = 0.9, sigmaphi = 5e-10,
-                               Ddot = 2.5, D0 = 40)
+results <- fit_SurfaceExposure(
+ data = sample_2,
+ mu = 0.9,
+ sigmaphi = 5e-10,
+ Ddot = 2.5,
+ D0 = 40)
 get_RLum(results)
-
 
 ## Example 3 - Multiple samples (global fit) to better constrain 'mu'
 # Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10
 set_1 <- ExampleData.SurfaceExposure$set_1
 str(set_1, max.level = 2)
-results <- fit_SurfaceExposure(set_1, age = c(1e3, 1e4, 1e5, 1e6),
-                               sigmaphi = 5e-10)
+results <- fit_SurfaceExposure(
+  data = set_1,
+  age = c(1e3, 1e4, 1e5, 1e6),
+  sigmaphi = 5e-10)
 get_RLum(results)
 
 
@@ -198,20 +206,25 @@ get_RLum(results)
 # dose rate = 1.0 Ga/ka, D0 = 40 Gy
 set_2 <- ExampleData.SurfaceExposure$set_2
 str(set_2, max.level = 2)
-results <- fit_SurfaceExposure(set_2, age = c(1e2, 1e3, 1e4, 1e5, 1e6),
-                               sigmaphi = 5e-10, Ddot = 1, D0 = 40)
+results <- fit_SurfaceExposure(
+ data = set_2,
+ age = c(1e2, 1e3, 1e4, 1e5, 1e6),
+ sigmaphi = 5e-10,
+ Ddot = 1,
+ D0 = 40)
 get_RLum(results)
 
 } 
 
 \section{How to cite}{
-Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2024. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-dating. Journal of Geophysical Research 117, B09202. \doi{10.1029/2012JB009383}
+dating. Journal of Geophysical Research 117, B09202. doi:
+\doi{10.1029/2012JB009383}
 
 Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 non-terrestrial bodies using optically stimulated luminescence: A new method.

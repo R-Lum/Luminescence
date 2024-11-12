@@ -2,7 +2,7 @@
 #' variations in radioactivity into account (according to Aitken, 1985)
 #'
 #' This function calculates the gamma dose deposited in a luminescence sample
-#' taking into account layer-to-layer variations in sediment radioactivity .
+#' taking into account layer-to-layer variations in sediment radioactivity.
 #' The function scales user inputs of uranium, thorium and potassium based on
 #' input parameters for sediment density, water content and given layer
 #' thicknesses and distances to the sample.
@@ -27,7 +27,7 @@
 #' of the layer of interest. If the whole layer was sampled insert `0`. If the
 #' sample was taken from *within* the layer, insert a numerical value `>0`,
 #' which describes the distance from the middle of the sample to the bottom of
-#' the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations
+#' the layer in cm. Columns 4 to 9 should contain radionuclide concentrations
 #' and their standard errors for
 #' potassium (in %), thorium (in ppm) and uranium (in ppm). Columns 10 and 11
 #' give information on the water content and its uncertainty (standard error)
@@ -123,8 +123,8 @@
 #' @param plot [logical] (*optional*):
 #' Show or hide the plot (defaults to `TRUE`).
 #'
-#' @param plot_single [logical] (*optional*):
-#' Show all plots in one panel (defaults to `TRUE`).
+#' @param plot_singlePanels [logical] (*with default*):
+#' Enables/disables single plot mode, i.e. one plot window per plot.
 #'
 #' @param ... Further parameters passed to [barplot].
 #'
@@ -181,7 +181,7 @@
 #' - A barplot visualising the contribution of each layer to the total dose rate
 #' received by the sample in the target layer.
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @keywords datagen
 #'
@@ -244,8 +244,11 @@ scale_GammaDose <- function(
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
   plot = TRUE,
-  plot_single = TRUE,
-  ...) {
+  plot_singlePanels = FALSE,
+  ...
+) {
+  .set_function_name("scale_GammaDose")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## HELPER FUNCTION ----
   # Wrapper for formatC to enforce precise digit printing
@@ -284,47 +287,45 @@ scale_GammaDose <- function(
 
   ## Input data
   # basic class and length check
-  if (!is.data.frame(data))
-    stop("'data' must be a data frame.", call. = FALSE)
+  .validate_class(data, "data.frame")
   if (ncol(data) != 12)
-    stop("'data' must have 12 columns (currently ", ncol(data), ").", call. = FALSE)
+    .throw_error("'data' should have 12 columns (currently ", ncol(data), ")")
 
   # make sure that it has the correct column names
   colnames_expected <- c("id","thickness","sample_offset","K","K_se","Th","Th_se","U","U_se",
                          "water_content","water_content_se", "density")
   if (is.null(names(data)) || any(names(data) != colnames_expected)) {
     if (verbose)
-      warning("Unexpected column names for 'data'. New names were automatically assigned. ",
-              "Please make sure that columns are in proper order. See documentation.", call. = FALSE)
+      .throw_warning("Unexpected column names for 'data', new names were ",
+                     "automatically assigned. See documentation to ensure ",
+                     "that columns are in proper order")
     colnames(data) <- colnames_expected
   }
   # check if there is only one target layer
   if (sum(!is.na(data$sample_offset)) != 1)
-    stop("Only one layer must be contain a numeric value in column 'sample_offset', all other rows must be `NA`.", call. = FALSE)
+    .throw_error("Only one layer must be contain a numeric value in column ",
+                 "'sample_offset', all other rows must be NA")
   if (!is.numeric(data$sample_offset[which(!is.na(data$sample_offset))]))
-    stop("Non-numeric value in the the row of the target layer.", call. = FALSE)
+    .throw_error("Non-numeric value in the the row of the target layer")
   if (data$sample_offset[which(!is.na(data$sample_offset))] < 0)
-    stop("The numeric value in 'sample_offset' must be positive.", call. = FALSE)
+    .throw_error("The numeric value in 'sample_offset' must be positive")
   if (data$sample_offset[which(!is.na(data$sample_offset))] > data$thickness[which(!is.na(data$sample_offset))])
-    stop("Impossible! Sample offset larger than the target-layer's thickness!", call. = FALSE)
+    .throw_error("Sample offset larger than the target-layer's thickness")
 
-  # conversion factors
-  if (length(conversion_factors) != 1 || !is.character(conversion_factors))
-    stop("'conversion_factors' must be an object of length 1 and of class 'character'.",
-         call. = FALSE)
-  if (!conversion_factors %in% names(BaseDataSet.ConversionFactors))
-    stop("Invalid 'conversion_factors'. Valid options: ",
-         paste(names(BaseDataSet.ConversionFactors), collapse = ", "), ".",
-         call. = FALSE)
+  ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
+  ## as it is in alphabetical level, but we want to have 'Cresswelletal2018'
+  ## in first position, as that is our default value
+  valid_conversion_factors <- c("Cresswelletal2018", "Guerinetal2011",
+                                "AdamiecAitken1998", "Liritzisetal2013")
+  stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
+                valid_conversion_factors))
+  conversion_factors <- .validate_args(conversion_factors,
+                                       valid_conversion_factors)
 
-  # tables for gamma dose fractions
-  if (length(fractional_gamma_dose) != 1 || !is.character(fractional_gamma_dose))
-    stop("'fractional_gamma_dose' must be an object of length 1 and of class 'character'.",
-         call. = FALSE)
-  if (!fractional_gamma_dose %in% names(BaseDataSet.FractionalGammaDose))
-    stop("Invalid 'fractional_gamma_dose'. Valid options: ",
-         paste(names(BaseDataSet.FractionalGammaDose), collapse = ", "), ".",
-         call. = FALSE)
+  ## fractional gamma dose
+  fractional_gamma_dose <- .validate_args(fractional_gamma_dose,
+                                          names(BaseDataSet.FractionalGammaDose))
+
 
   ## ------------------------------------------------------------------------ ##
   ## Select tables
@@ -423,8 +424,6 @@ scale_GammaDose <- function(
               x1 <- fit$x[x1_temp] + data$sample_offset[target]
               x2 <- fit$x[x2_temp] + data$sample_offset[target]
             }
-
-
           }
 
           C1_temp <- which.min(abs(fit$x - x1))
@@ -538,9 +537,9 @@ scale_GammaDose <- function(
 
     # save and recover plot parameters
     par.old <- par(no.readonly = TRUE)
-    on.exit(par(par.old))
+    on.exit(par(par.old), add = TRUE)
 
-    if (plot_single)
+    if (plot_singlePanels)
       layout(matrix(c(1,1, 2, 3, 4, 5,
                       1,1, 2, 3, 4, 5,
                       1,1, 6, 6, 6, 6,
@@ -550,13 +549,13 @@ scale_GammaDose <- function(
     ## --------------------------------------------------------------
 
     ## Global plot settings
-    if (plot_single)
+    if (plot_singlePanels)
       par(mar = c(2, 5, 1, 4) + 0.1)
     else
       par(mar = c(2, 5, 4, 4) + 0.1)
 
     plot(NA, NA,
-         main = ifelse(plot_single, "", "Profile structure"),
+         main = ifelse(plot_singlePanels, "", "Profile structure"),
          xlim = c(0, 1),
          ylim = rev(range(pretty(c(sum(data$thickness), 0)))),
          xaxt = "n",
@@ -583,7 +582,7 @@ scale_GammaDose <- function(
     # right y-axis labels
     mtext(side = 4, at = c(0, cumsum(data$thickness) - data$thickness / 2, sum(data$thickness)),
           text = c("", paste(data$thickness, "cm"), ""), las = 1,
-          line = ifelse(plot_single, -4, 0.5),
+          line = ifelse(plot_singlePanels, -4, 0.5),
           cex = 0.8,
           col = "#b22222")
 
@@ -603,7 +602,7 @@ scale_GammaDose <- function(
     ## --------------------------------------------------------------
 
     # global plot settings
-    if (plot_single) {
+    if (plot_singlePanels) {
       par(
         mar = c(4, 2, 3, 0.5) + 0.1,
         cex = 0.6,
@@ -658,7 +657,6 @@ scale_GammaDose <- function(
       # y-axis label for the first plot
       if (i == 1)
         axis(2, at = nrow(data):1, labels = data$id, las = 1)
-
     }
 
 
@@ -667,7 +665,7 @@ scale_GammaDose <- function(
 
     ## Global plot settings
     # recover standard plot settings first
-    if (plot_single) {
+    if (plot_singlePanels) {
       par(mar = c(5, 5, 1, 6) + 0.1,
           cex = 0.7)
     } else {
@@ -683,16 +681,16 @@ scale_GammaDose <- function(
     ## Contributions of each layer
     bp <- barplot(height = op$contrib[(nrow(op)-1):1],
                   horiz = TRUE,
-                  main = ifelse(plot_single, "", settings$main),
+                  main = ifelse(plot_singlePanels, "", settings$main),
                   xlab = settings$xlab,
                   xlim = range(pretty(op$contrib[1:(nrow(op)-1)])),
                   col = cols[pos])
 
     # layer names
     mtext(side = 2, at = bp,
-          line = ifelse(plot_single, 3.5, 3),
+          line = ifelse(plot_singlePanels, 3.5, 3),
           las = 1,
-          cex = ifelse(plot_single, 0.7, 0.8),
+          cex = ifelse(plot_singlePanels, 0.7, 0.8),
           text = rev(data$id))
 
     # contribution percentage
@@ -712,8 +710,8 @@ scale_GammaDose <- function(
           at = min(bp) - diff(bp)[1] / 2,
           text = paste("=", f(op$sum[nrow(op)]), "Gy/ka"),
           col = "#b22222", las = 1,
-          line = ifelse(plot_single, -0.5, -1),
-          cex = ifelse(plot_single, 0.7, 0.8))
+          line = ifelse(plot_singlePanels, -0.5, -1),
+          cex = ifelse(plot_singlePanels, 0.7, 0.8))
 
     # recover old plot parameters
     par(par.old)

@@ -1,11 +1,9 @@
 # RLum.Analysis -----------------------------------------------------------
 test_that("subset RLum.Analysis", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  data("ExampleData.RLum.Analysis")
+  data(ExampleData.RLum.Analysis, envir = environment())
   temp <- IRSAR.RF.Data
-
 
   ## subset.RLum.Analysis() - S3 method
   ### empty call
@@ -14,8 +12,13 @@ test_that("subset RLum.Analysis", {
   expect_identical(subset(temp)[[1]], temp[[1]])
 
   ### errors
-  expect_error(subset(temp, LTYPE == "RF"), regexp = "Valid terms are")
-  expect_null(subset(temp, recordType == "xx"))
+  expect_error(subset(temp, LTYPE == "RF"),
+               "[get_RLum()] Invalid subset expression, valid terms are",
+               fixed = TRUE)
+  SW({
+  expect_message(expect_null(subset(temp, recordType == "xx")),
+                 "'subset' expression produced an empty selection, NULL returned")
+  })
 
   ### valid
   expect_s4_class(subset(temp, recordType == "RF"), class = "RLum.Analysis")

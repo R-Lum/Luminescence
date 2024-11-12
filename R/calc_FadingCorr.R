@@ -1,23 +1,40 @@
-#' Apply a fading correction according to Huntley & Lamothe (2001) for a given
-#' g-value and a given tc
+#'@title Fading Correction after Huntley & Lamothe (2001)
 #'
-#' This function solves the equation used for correcting the fading affected age
-#' including the error for a given g-value according to Huntley & Lamothe (2001).
+#'@description Apply a fading correction according to Huntley & Lamothe (2001) for a given
+#'\eqn{g}-value and a given \eqn{t_{c}}
 #'
-#' As the g-value slightly depends on the time between irradiation and the prompt measurement,
-#' this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
-#' time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-#' for the g-value needs to be provided (argument `tc.g_value` and then the g-value is recalculated
-#' to tc of the measurement used for estimating the age applying the following equation:
+#'@details
+#'This function solves the equation used for correcting the fading affected age
+#'including the error for a given \eqn{g}-value according to Huntley & Lamothe (2001):
 #'
-#' \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))}
+#'\deqn{
+#'\frac{A_{f}}{A} = 1 - \kappa * \Big[ln(\frac{A}{t_c}) - 1\Big]
+#'}
+#'
+#'with \eqn{\kappa} defined as
+#'
+#'\deqn{
+#'\kappa = \frac{\frac{\mathrm{g\_value}}{ln(10)}}{100}
+#'}
+#'
+#' \eqn{A} and \eqn{A_{f}} are given in ka. \eqn{t_c} is given in s, however, it
+#' is internally recalculated to ka.
+#'
+#' As the \eqn{g}-value slightly depends on the time between irradiation and the
+#' prompt measurement, this is \eqn{t_{c}}, always a \eqn{t_{c}} value needs to be provided.
+#' If the \eqn{g}-value was normalised to a distinct
+#' time or evaluated with a different tc value (e.g., external irradiation), also
+#' the \eqn{t_{c}} value for the \eqn{g}-value needs to be provided (argument `tc.g_value`
+#' and then the \eqn{g}-value is recalculated
+#' to \eqn{t_{c}} of the measurement used for estimating the age applying the
+#' following equation:
+#'
+#' \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * ln(tc/tc.g))}
 #'
 #' where
 #'
-#' \deqn{\kappa_{tc.g} = g / 100 / log(10)}
-#'
-#' with `log` the natural logarithm.
-#'
+#' \deqn{\kappa_{tc.g} = g / 100 / ln(10)}
+
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
 #' simulation approach. Solving of the equation is realised using
@@ -26,21 +43,24 @@
 #'
 #' **`n.MC = 'auto'`**
 #'
-#' The error estimation based on a stochastic process, i.e. for a small number of MC runs the calculated
-#' error varies considerably every time the function is called, even with the same input values.
+#' The error estimation based on a stochastic process, i.e. for a small number of
+#' MC runs the calculated error varies considerably every time the function is called,
+#' even with the same input values.
 #' The argument option `n.MC = 'auto'` tries to find a stable value for the standard error, i.e.
 #' the standard deviation of values calculated during the MC runs (`age.corr.MC`),
 #' within a given precision (2 digits) by increasing the number of MC runs stepwise and
 #' calculating the corresponding error.
 #'
 #' If the determined error does not differ from the 9 values calculated previously
-#' within a precision of (here) 3 digits the calculation is stopped as it is assumed that the error
-#' is stable. Please note that (a) the duration depends on the input values as well as on
-#' the provided computation resources and it may take a while, (b) the length (size) of the output
-#' vector `age.corr.MC`, where all the single values produced during the MC runs are stored,
-#' equals the number of MC runs (here termed observations).
+#' within a precision of (here) 3 digits the calculation is stopped as it is assumed
+#' that the error is stable. Please note that (a) the duration depends on the input
+#' values as well as on the provided computation resources and it may take a while,
+#' (b) the length (size) of the output
+#' vector `age.corr.MC`, where all the single values produced during the MC runs
+#' are stored, equals the number of MC runs (here termed observations).
 #'
-#' To avoid an endless loop the calculation is stopped if the number of observations exceeds 10^7.
+#' To avoid an endless loop the calculation is stopped if the number of observations
+#' exceeds 10^7.
 #' This limitation can be overwritten by setting the number of MC runs manually,
 #' e.g. `n.MC = 10000001`. Note: For this case the function is not checking whether the calculated
 #' error is stable.\cr
@@ -54,12 +74,21 @@
 #'
 #' **FAQ**\cr
 #'
-#' Q: Which tc value is expected?\cr
+#' **Q**: Which \eqn{t_{c}} value is expected?\cr
 #'
-#' A: tc is the time in seconds between irradiation and the prompt measurement applied during your
-#' De measurement. However, this tc might differ from the tc used for estimating the g-value. In the
-#' case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
-#' tc value (the one used for estimating the g-value) using the argument `tc.g_value`.\cr
+#' **A**: \eqn{t_{c}} is the time in seconds between irradiation and the prompt measurement
+#' applied during your \eqn{D_{e}} measurement. However, this \eqn{t_{c}} might
+#' differ from the \eqn{t_{c}} used for estimating the \eqn{g}-value. In the
+#' case of an SAR measurement \eqn{t_{c}} should be similar, however,
+#' if it differs, you have to provide this
+#' \eqn{t_{c}}  value (the one used for estimating the \eqn{g}-value) using
+#' the argument `tc.g_value`.\cr
+#'
+#' **Q**: The function could not find a solution, what should I do?\cr
+#'
+#' **A**: This usually happens for model parameters exceeding the boundaries of the
+#' fading correction model (e.g., very high \eqn{g}-value). Please check
+#' whether another fading correction model might be more appropriate.
 #'
 #' @param age.faded [numeric] [vector] (**required**):
 #' uncorrected age with error in ka (see example)
@@ -77,7 +106,7 @@
 #' the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
 #' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
 #' If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
-#' SAR method and g-values that had been not normalised to 2 days.
+#' SAR method and \eqn{g}-values that had been not normalised to 2 days.
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of Monte Carlo simulation runs for error estimation.
@@ -121,7 +150,7 @@
 #' @section Function version: 0.4.3
 #'
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
 #' @seealso [RLum.Results-class], [analyse_FadingMeasurement], [get_RLum], [uniroot]
@@ -180,33 +209,32 @@ calc_FadingCorr <- function(
   txtProgressBar = TRUE,
   verbose = TRUE
 ){
+  .set_function_name("calc_FadingCorr")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity checks ---------------------------------------------------------------------------
   stopifnot(!missing(age.faded), !missing(g_value))
 
   ##check input
-  if(class(g_value)[1] == "RLum.Results"){
+  if(inherits(g_value, "RLum.Results")){
     if(g_value@originator == "analyse_FadingMeasurement"){
       tc <- get_RLum(g_value)[["TC"]]
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
 
     }else{
-      try({
-        stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!",
-             call. = FALSE)
-
-      })
+      message("[calc_FadingCorr()] Error: Unknown originator for the ",
+              "provided RLum.Results object via 'g_value'!")
       return(NULL)
     }
   }
 
   ##check if tc is still NULL
   if(is.null(tc[1]))
-    stop("[calc_FadingCorr()] 'tc' needs to be set!", call. = FALSE)
+    .throw_error("'tc' must be set")
 
   ##check type
   if(!all(is(age.faded, "numeric") && is(g_value, "numeric") && is(tc, "numeric")))
-    stop("[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' need be of type numeric!", call. = FALSE)
+    .throw_error("'age.faded', 'g_value' and 'tc' must be of type numeric")
 
   ##============================================================================##
   ##DEFINE FUNCTION
@@ -249,9 +277,10 @@ calc_FadingCorr <- function(
     )), silent = TRUE)
 
   if(inherits(temp, "try-error")){
-    message("[calc_FadingCorr()] No solution found, return NULL. This usually happens for very large, unrealistic g-values.")
+    message("[calc_FadingCorr()] No solution found, NULL returned: ",
+            "this usually happens for very large, unrealistic g-values, ",
+            "please consider another model for the fading correction")
     return(NULL)
-
   }
 
   ##--------------------------------------------------------------------------##
@@ -260,7 +289,7 @@ calc_FadingCorr <- function(
   tempMC.sd.count <- 1:10
   counter <- 1
 
-  ##show some progression bar of the process
+  ## show a progress bar of the process
   if (n.MC == 'auto') {
     n.MC.i <- 10000
 
@@ -271,9 +300,7 @@ calc_FadingCorr <- function(
     }
   }else{
     n.MC.i <- n.MC
-
   }
-
 
 
   # Start loop  ---------------------------------------------------------------------------------
@@ -289,7 +316,6 @@ calc_FadingCorr <- function(
     ##set previous
     if(!is.na(tempMC.sd.recent)){
       tempMC.sd.count[counter] <- tempMC.sd.recent
-
     }
 
     ##set seed
@@ -304,8 +330,6 @@ calc_FadingCorr <- function(
     g_valueMC <- rnorm(n.MC.i,mean = g_value[1],sd = g_value[2])
     age.fadedMC <- rnorm(n.MC.i,mean = age.faded[1],sd = age.faded[2])
     kappaMC <- g_valueMC / log(10) / 100
-
-
 
     ##calculate for all values
     tempMC[i:j] <- suppressWarnings(vapply(X = 1:length(age.fadedMC), FUN = function(x) {
@@ -323,11 +347,11 @@ calc_FadingCorr <- function(
 
       ##otherwise the automatic error value finding
       ##will never work
+      res <- NA
       if(!is(temp,"try-error") && temp$root<1e8) {
-        return(temp$root)
-      } else{
-        return(NA)
+        res <- temp$root
       }
+      return(res)
 
     }, FUN.VALUE = 1))
 
@@ -358,8 +382,6 @@ calc_FadingCorr <- function(
       }else{
         text[1:length(unique(tempMC.sd.count))] <- " CAL "
       }
-
-
 
       cat(paste("\r ",paste(rev(text), collapse = " ")))
     }
@@ -397,7 +419,6 @@ calc_FadingCorr <- function(
 
     if (tc != tc.g_value) {
       cat("\n >> g-value re-calculated for the given tc")
-
     }
 
     cat(paste(
@@ -444,7 +465,6 @@ calc_FadingCorr <- function(
       " ka"
     ))
     cat("\n ---------------------------------------------- \n")
-
   }
 
   ##============================================================================##
@@ -456,6 +476,4 @@ calc_FadingCorr <- function(
                 age.corr.MC = tempMC),
     info = list(call = sys.call())
   ))
-
 }
-

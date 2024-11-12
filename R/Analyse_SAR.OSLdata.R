@@ -1,6 +1,6 @@
-#' Analyse SAR CW-OSL measurements.
+#' @title Analyse SAR CW-OSL measurements (deprecated)
 #'
-#' The function analyses SAR CW-OSL curve data and provides a summary of the
+#' @description The function analyses SAR CW-OSL curve data and provides a summary of the
 #' measured data for every position. The output of the function is optimised
 #' for SAR OSL measurements on quartz.
 #'
@@ -62,7 +62,7 @@
 #' @param output.plot [logical] (*with default*):
 #' plot output (`TRUE/FALSE`)
 #'
-#' @param output.plot.single [logical] (*with default*):
+#' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `output.plot = TRUE`.
 #'
@@ -95,14 +95,14 @@
 #' **The development of this function will not be continued. We recommend to use the function [analyse_SAR.CWOSL] or instead.**
 #'
 #'
-#' @section Function version: 0.2.17
+#' @section Function version: 0.2.18
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Margret C. Fuchs, HZDR, Freiberg (Germany)
 #'
-#' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [plot_GrowthCurve]
+#' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [fit_DoseResponseCurve]
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -122,11 +122,13 @@
 #' data(ExampleData.BINfileData, envir = environment())
 #'
 #' ##analyse data
+#' suppressWarnings( # silence the deprecation warning
 #' output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data,
 #'                               signal.integral = c(1:5),
 #'                               background.integral = c(900:1000),
 #'                               position = c(1:1),
 #'                               output.plot = TRUE)
+#' )
 #'
 #' ##combine results relevant for further analysis
 #' output.SAR <- data.frame(Dose = output$LnLxTnTx[[1]]$Dose,
@@ -145,12 +147,15 @@ Analyse_SAR.OSLdata <- function(
   set,
   dtype,
   keep.SEL = FALSE,
-  info.measurement = "unkown measurement",
+  info.measurement = "unknown measurement",
   output.plot = FALSE,
-  output.plot.single = FALSE,
+  plot_singlePanels = FALSE,
   cex.global = 1,
   ...
-){
+) {
+  .Deprecated("analyse_SAR.CWOSL")
+  .set_function_name("analyse_SAR.CWOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ##CONFIG
@@ -163,12 +168,15 @@ Analyse_SAR.OSLdata <- function(
   ##============================================================================##
   ##ERROR HANDLING
   ##============================================================================##
+  .validate_class(input.data, c("Risoe.BINfileData"))
+  sample.data <- input.data
 
-  if(missing(input.data)==TRUE){stop("[Analyse_SAR.OSLdata] No input data given!")
-  }else{sample.data<-input.data}
-
-  if(missing(signal.integral)==TRUE){stop("[Analyse_SAR.OSLdata] No signal integral is given!")}
-  if(missing(background.integral)==TRUE){stop("[Analyse_SAR.OSLdata] No background integral is given!")}
+  if (missing(signal.integral)) {
+    .throw_error("No signal integral is given")
+  }
+  if (missing(background.integral)) {
+    .throw_error("No background integral is given")
+  }
 
   ##set values for run and set if they are not defined by the user
   if(missing(position)==TRUE){position<-min(sample.data@METADATA[,"POSITION"]):max(sample.data@METADATA[,"POSITION"])}
@@ -216,9 +224,7 @@ Analyse_SAR.OSLdata <- function(
 
       ##check if OSL curves are part of the data set
       if(nrow(sample.data@METADATA[sample.data@METADATA[,"LTYPE"]=="OSL",]) == 0){
-
-        stop("[Analyse_SAR.OSLdata()] No 'OSL' curves found!")
-
+        .throw_error("No 'OSL' curves found")
       }
 
       if(!keep.SEL){
@@ -392,19 +398,24 @@ Analyse_SAR.OSLdata <- function(
 
       if(output.plot){
 
+        ## deprecated argument
+        if ("output.plot.single" %in% names(list(...))) {
+          plot_singlePanels <- list(...)$output.plot.single
+          .throw_warning("'output.plot.single' is deprecated, use ",
+                         "'plot_singlePanels' instead")
+        }
+
         ##set plot settings
         plot.settings <- list(
           mtext = sample.data@METADATA[sample.data@METADATA[,"ID"]==LnLx.curveID[1],"SAMPLE"],
           log = ""
-
         )
 
         ##modify arguments
         plot.settings <- modifyList(plot.settings, list(...))
 
 
-
-        if(output.plot.single==FALSE){
+        if (!plot_singlePanels) {
           layout(matrix(c(1,2,1,2,3,4,3,5),4,2,byrow=TRUE))
         }
         ##warning if number of curves exceed colour values
@@ -601,7 +612,7 @@ Analyse_SAR.OSLdata <- function(
         }
         ##=========================================================================
         ##Plot header
-        if(output.plot.single==TRUE){
+        if (plot_singlePanels) {
           mtext(side=3,paste("ALQ Pos. ",i,sep=""))
         }else{
           mtext(side=3,paste("ALQ Pos. ",i,sep=""),outer=TRUE,line=-2.5)
@@ -615,7 +626,6 @@ Analyse_SAR.OSLdata <- function(
 
         ##reset mfrow
         par(mfrow=c(1,1))
-
 
 
       }#endif for output.plot
@@ -652,6 +662,4 @@ Analyse_SAR.OSLdata <- function(
   return(list(LnLxTnTx=LnLxTnTx_List,
               RejectionCriteria=RejectionCriteria,
               SARParameters=SARParameters))
-
-
 }

@@ -95,7 +95,7 @@
 #' @section Function version: 0.2.2
 #' 
 #' @author 
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Based on comments and suggestions from:\cr 
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #' 
@@ -114,9 +114,9 @@
 #'
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 #' LM-OSL curves. Radiation Measurements, 32, 141-145.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #'
 #' ##(1) - simple transformation
@@ -197,34 +197,26 @@
 CW2pHMi<- function(
   values,
   delta
-){
-
+) {
+  .set_function_name("CW2pHMi")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-
-    stop("[CW2pHMi()] 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
-
-  }
+  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if(is(values, "RLum.Data.Curve") == TRUE){
-
+  if (inherits(values, "RLum.Data.Curve")) {
     if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
 
-      stop(paste("[CW2pHMi()] recordType ",values@recordType, " is not allowed for the transformation!",
-                 sep=""), call. = FALSE)
-
-    }else{
-
-      temp.values <- as(values, "data.frame")
-
+      .throw_error("recordType ", values@recordType,
+                   " is not allowed for the transformation")
     }
+
+    temp.values <- as(values, "data.frame")
 
   }else{
 
     temp.values <- values
-
   }
 
 
@@ -250,12 +242,10 @@ CW2pHMi<- function(
       delta<-i
       t.transformed<-t-(1/delta)*log(1+delta*t)
       i<-i+10
-
     }
   }else{
 
     t.transformed<-t-(1/delta)*log(1+delta*t)
-
   }
 
   # (2) Interpolation ---------------------------------------------------------
@@ -267,25 +257,22 @@ CW2pHMi<- function(
   ##combine t.transformed and CW_OSL.interpolated in a data.frame
   temp <- data.frame(x=t.transformed, y=unlist(CW_OSL.interpolated$y))
 
-  ##Problem: I some cases the interpolation algorithm is not working properely
+  ##Problem: In some cases the interpolation algorithm is not working properly
   ##and Inf or NaN values are returned
 
   ##fetch row number of the invalid values
   invalid_values.id <- c(which(is.infinite(temp[,2]) | is.nan(temp[,2])))
 
   if(length(invalid_values.id) > 0){
-
-    warning(paste(length(invalid_values.id)," values have been found and replaced the mean of the nearest values." ))
-
+    .throw_warning(length(invalid_values.id), " invalid values have been found ",
+                   "and replaced by the mean of the nearest values")
   }
 
   ##interpolate between the lower and the upper value
   invalid_values.interpolated<-sapply(1:length(invalid_values.id),
                                       function(x) {
-
                                         mean(c(temp[invalid_values.id[x]-1,2],
                                                temp[invalid_values.id[x]+1,2]))
-
                                       }
   )
 
@@ -313,7 +300,10 @@ CW2pHMi<- function(
   temp.method<-c(rep("extrapolation",length(y.i)),rep("interpolation",(length(temp[,2])-length(y.i))))
 
   ##print a warning message for more than two extrapolation points
-  if(length(y.i)>2){warning("t' is beyond the time resolution and more than two data points have been extrapolated!")}
+  if (length(y.i) > 2) {
+    .throw_warning("t' is beyond the time resolution and more than ",
+                   "two data points have been extrapolated")
+  }
 
   # (4) Convert, transform and combine values ---------------------------------
 
@@ -345,7 +335,6 @@ CW2pHMi<- function(
 
   }else{
 
-
     ##add old info elements to new info elements
     temp.info <- c(values@info,
                    CW2pHMi.x.t = list(temp.values$x.t),
@@ -357,7 +346,5 @@ CW2pHMi<- function(
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
     return(newRLumDataCurves.CW2pHMi)
-
   }
-
 }

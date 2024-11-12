@@ -13,24 +13,22 @@
 #' values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 #' [plot_AbanicoPlot] for details.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
-#' for [data.frame] two columns: De (`data[,1]`) and De error (`data[,2]`). 
-#' To plot several data sets in one plot the data sets must be provided 
-#' as `list`, e.g. `list(data.1, data.2)`.
+#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' for [data.frame] two columns: De (`data[, 1]`) and De error (`data[, 2]`).
 #'
-#' @param weight.calc [character]: 
-#' type of weight calculation. One out of `"reciprocal"` (weight is 1/error), 
+#' @param weight.calc [character]:
+#' type of weight calculation. One out of `"reciprocal"` (weight is 1/error),
 #' `"square"` (weight is 1/error^2). Default is `"square"`.
 #'
-#' @param digits [integer] (*with default*): 
-#' round numbers to the specified digits. 
-#' If digits is set to `NULL` nothing is rounded.
+#' @param digits [integer] (*with default*):
+#' number of decimal places to be used when rounding numbers. If set to `NULL`
+#' (default), no rounding occurs.
 #'
-#' @param n.MCM [numeric] (*with default*): 
-#' number of samples drawn for Monte Carlo-based statistics. 
+#' @param n.MCM [numeric] (*with default*):
+#' number of samples drawn for Monte Carlo-based statistics.
 #' `NULL` (the default) disables MC runs.
 #'
-#' @param na.rm [logical] (*with default*): 
+#' @param na.rm [logical] (*with default*):
 #' indicating whether `NA` values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
@@ -70,16 +68,13 @@ calc_Statistics <- function(
   n.MCM = NULL,
   na.rm = TRUE
 ) {
+  .set_function_name("calc_Statistics")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Check input data
-  if(is(data, "RLum.Results") == FALSE &
-       is(data, "data.frame") == FALSE) {
-    stop("[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'", call. = FALSE)
-
-  } else {
-    if(is(data, "RLum.Results")) {
-      data <- get_RLum(data, "data")[,1:2]
-    }
+  .validate_class(data, c("RLum.Results", "data.frame"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")[, 1:2]
   }
 
   ##strip na values
@@ -96,19 +91,21 @@ calc_Statistics <- function(
   data[is.na(data[,2]),2] <- 0
 
   if(sum(data[,2]) == 0) {
-    warning("[calc_Statistics()] All errors are NA or zero! Automatically set to 10^-9!", call. = FALSE)
+    .throw_warning("All errors are NA or zero! Automatically set to 10^-9")
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
+  weight.calc <- .validate_args(weight.calc, c("square", "reciprocal"))
   if(weight.calc == "reciprocal") {
     S.weights <- 1 / data[,2]
   } else if(weight.calc == "square") {
     S.weights <- 1 / data[,2]^2
-  } else {
-    stop ("[calc_Statistics()] Weight calculation type not supported!", call. = FALSE)
   }
 
   S.weights <- S.weights / sum(S.weights)
+
+  .validate_positive_scalar(digits, int = TRUE, null.ok = TRUE)
+  .validate_positive_scalar(n.MCM, int = TRUE, null.ok = TRUE)
 
   ## create MCM data
   if (is.null(n.MCM)) {
@@ -126,6 +123,7 @@ calc_Statistics <- function(
 
   ## calculate n
   S.n <- nrow(data)
+  S.m.n <- S.n * ncol(data.MCM)
 
   ## calculate mean
   S.mean <- mean(x = data[,1],
@@ -183,12 +181,12 @@ calc_Statistics <- function(
   ## calculate skewness
   S.skewness <- 1 / S.n * sum(((data[,1] - S.mean) / S.sd.abs)^3)
 
-  S.m.skewness <- 1 / S.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^3)
+  S.m.skewness <- 1 / S.m.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^3)
 
   ## calculate kurtosis
   S.kurtosis <- 1 / S.n * sum(((data[,1] - S.mean) / S.sd.abs)^4)
 
-  S.m.kurtosis <- 1 / S.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^4)
+  S.m.kurtosis <- 1 / S.m.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^4)
 
   ## create list objects of calculation output
   S.weighted <- list(n = S.n,

@@ -1,15 +1,12 @@
 test_that("test for errors", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  expect_error(convert_RLum2Risoe.BINfileData(object = NA))
-
+  expect_error(convert_RLum2Risoe.BINfileData(object = NA),
+               "'object' should be of class 'RLum.Analysis', 'RLum.Data.Curve' or")
 })
-
 
 test_that("functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load example data
   data(ExampleData.RLum.Analysis, envir = environment())
@@ -22,6 +19,16 @@ test_that("functionality", {
 
   ##provide list
   expect_s4_class(convert_RLum2Risoe.BINfileData(list(IRSAR.RF.Data,IRSAR.RF.Data)), "Risoe.BINfileData")
+  expect_s4_class(convert_RLum2Risoe.BINfileData(list(IRSAR.RF.Data)),
+                  "Risoe.BINfileData")
 
+  ## additional metadata
+  obj <- IRSAR.RF.Data@records[[1]]
+  obj@info <- list(version="12", name="test",
+                   startDate="20210101150845")
+  res <- convert_RLum2Risoe.BINfileData(obj)
+  expect_equal(res@METADATA$VERSION, "12")
+  expect_equal(res@METADATA$SAMPLE, "test")
+  expect_equal(res@METADATA$DATE, "20210101")
+  expect_equal(res@METADATA$TIME, "150845")
 })
-

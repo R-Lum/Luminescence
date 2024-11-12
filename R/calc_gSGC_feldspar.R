@@ -38,7 +38,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @author Harrison Gray, USGS (United States),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Results-class], [get_RLum], [uniroot], [calc_gSGC]
 #'
@@ -73,20 +73,18 @@ calc_gSGC_feldspar <- function (
   gSGC.parameters,
   n.MC = 100,
   plot = FALSE
-){
+) {
+  .set_function_name("calc_gSGC_feldspar")
+  on.exit(.unset_function_name(), add = TRUE)
 
-# Integrity checks --------------------------------------------------------
-  if (!is(data, "data.frame")) {
-    stop("[calc_gSGC_feldspar()] 'data' needs to be of type data.frame.", call. = FALSE)
-  }
-  if (!is(gSGC.type[1], "character")) {
-    stop("[calc_gSGC_feldspar()] 'gSGC.type' needs to be of type character.", call. = FALSE)
-  }
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(data, "data.frame")
   if (ncol(data) != 5) {
-    stop("[calc_gSGC_feldspar()] Structure of 'data' does not fit the expectations.", call. = FALSE)
+    .throw_error("Structure of 'data' does not fit the expectations")
   }
   colnames(data) <- c("LnTn", "LnTn.error", "Lr1Tr1", "Lr1Tr1.error",
                       "Dr1")
+  .validate_class(gSGC.type, "character")
 
 # Parametrize -------------------------------------------------------------
   params <- data.frame( # this is the data from Table 3 of Li et al., 2015
@@ -138,10 +136,8 @@ calc_gSGC_feldspar <- function (
 
     } else {
       # give error if input is wrong
-      stop(
-        paste0("[calc_gSGC_feldspar()] 'gSGC.type' needs to be one of the accepted values, such as: ",
-          paste(params$Type, collapse = ", ")),
-        call. = FALSE)
+      .throw_error("'gSGC.type' needs to be one of the accepted values: ",
+                   .collapse(params$Type))
     }
   }
 
@@ -186,9 +182,9 @@ calc_gSGC_feldspar <- function (
 
       ## in case the initial uniroot solve does not work
       if(inherits(temp, "try-error")) {
-        try(stop(paste0("[calc_gSGC_feldspar()] No solution was found for dataset: #", i,"! NA returned"), call. = FALSE))
+        message("[calc_gSGC_feldspar()] Error: No solution found for ",
+                "dataset #", i, ", NA returned")
         return(NA)
-
       }
 
       De <- temp$root
@@ -249,7 +245,7 @@ calc_gSGC_feldspar <- function (
 # Plotting ----------------------------------------------------------------
   if(plot){
     old.par <- par(no.readonly = TRUE)
-    on.exit(par(old.par))
+    on.exit(par(old.par), add = TRUE)
 
     par(mfrow = c(mfrow = c(3,3)))
     for (i in 1:length(l)) {

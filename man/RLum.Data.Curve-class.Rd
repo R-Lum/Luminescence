@@ -10,6 +10,7 @@
 \alias{names_RLum,RLum.Data.Curve-method}
 \alias{bin_RLum.Data,RLum.Data.Curve-method}
 \alias{smooth_RLum,RLum.Data.Curve-method}
+\alias{melt_RLum,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
@@ -34,6 +35,8 @@
 \S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
 
 \S4method{smooth_RLum}{RLum.Data.Curve}(object, k = NULL, fill = NA, align = "right", method = "mean")
+
+\S4method{melt_RLum}{RLum.Data.Curve}(object)
 }
 \arguments{
 \item{object}{\code{\link{get_RLum}}, \code{\link{length_RLum}}, \code{\link{names_RLum}} (\strong{required}):
@@ -103,9 +106,9 @@ Returns an \linkS4class{RLum.Data.Curve} object.
 
 Number of channels in the curve (row number of the matrix)
 
-**`names_RLum`**
+\strong{\code{names_RLum}}
 
-Names of the info elements (slot `info`)
+Names of the info elements (slot \code{info})
 
 \strong{\code{bin_RLum.Data}}
 
@@ -114,32 +117,39 @@ Same object as input, after applying the binning.
 \strong{\code{smooth_RLum}}
 
 Same object as input, after smoothing
+
+\strong{\code{melt_RLum}}
+
+Flat \link{data.frame} with \code{X}, \code{Y}, \code{TYPE}, \code{UID}
 }
 \description{
 Class for representing luminescence curve data.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of \code{RLum.Data.Curve} object
+\item \code{show(RLum.Data.Curve)}: Show structure of \code{RLum.Data.Curve} object
 
-\item \code{set_RLum}: Construction method for RLum.Data.Curve object. The slot info is optional
+\item \code{set_RLum(RLum.Data.Curve)}: Construction method for RLum.Data.Curve object. The slot info is optional
 and predefined as empty list by default.
 
-\item \code{get_RLum}: Accessor method for RLum.Data.Curve object. The argument info.object is
+\item \code{get_RLum(RLum.Data.Curve)}: Accessor method for RLum.Data.Curve object. The argument info.object is
 optional to directly access the info elements. If no info element name is
 provided, the raw curve data (matrix) will be returned.
 
-\item \code{length_RLum}: Returns the length of the curve object, which is the maximum of the
+\item \code{length_RLum(RLum.Data.Curve)}: Returns the length of the curve object, which is the maximum of the
 value time/temperature of the curve (corresponding to the stimulation length)
 
-\item \code{names_RLum}: Returns the names info elements coming along with this curve object
+\item \code{names_RLum(RLum.Data.Curve)}: Returns the names info elements coming along with this curve object
 
-\item \code{bin_RLum.Data}: Allows binning of specific objects
+\item \code{bin_RLum.Data(RLum.Data.Curve)}: Allows binning of specific objects
 
-\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmean]{zoo::rollmedian}.
+\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of RLum.Data.Curve objects using a rolling mean or median.
 In particular the internal function \code{.smoothing} is used.
-}}
 
+\item \code{melt_RLum(RLum.Data.Curve)}: Melts \linkS4class{RLum.Data.Curve} objects into a flat data.frame to be used
+in combination with other packages such as \code{ggplot2}.
+
+}}
 \section{Slots}{
 
 \describe{
@@ -149,10 +159,12 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
-deconstructing the object. For example:\preformatted{set_RLum(class = 'RLum.Data.Curve',
+de-constructing the object. For example:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{set_RLum(class = 'RLum.Data.Curve',
          data = Your.RLum.Data.Curve,
          recordType = 'never seen before')
-}
+}\if{html}{\out{</div>}}
 
 would just change the \code{recordType}. Missing arguments  the value is taken
 from the input object in 'data' (which is already an RLum.Data.Curve object
@@ -188,12 +200,7 @@ set_RLum(class = "RLum.Data.Curve")
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2021. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
-
 \keyword{classes}
 \keyword{internal}

@@ -1,33 +1,57 @@
 test_that("Test functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  ##TXT
-  ##basic import options
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence")
-  ), "list")
+  txt.file <- system.file("extdata/Daybreak_TestFile.txt",
+                          package = "Luminescence")
+  dat.file <- system.file("extdata/Daybreak_TestFile.DAT",
+                          package = "Luminescence")
 
-  ##verbose off
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence"),
-    verbose = FALSE
-  ), "list")
+  ## TXT
+  SW({
+  expect_type(read_Daybreak2R(txt.file), "list")
+  expect_type(read_Daybreak2R(txt.file, txtProgressBar = FALSE),
+              "list")
+  })
+  expect_silent(read_Daybreak2R(txt.file, verbose = FALSE))
 
-  ##txtProgressbar off
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence"),
-    txtProgressBar = FALSE
-  ), "list")
+  ## DAT
+  SW({
+  expect_type(read_Daybreak2R(dat.file), "list")
+  expect_s3_class(read_Daybreak2R(dat.file, raw = TRUE),
+                  "data.table")
+  })
+  expect_silent(read_Daybreak2R(dat.file, verbose = FALSE))
 
-  ##DAT
-  ##basic import options
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence")
-  ), "list")
+  ## list
+  SW({
+  expect_type(read_Daybreak2R(list(dat.file)), "list")
+  })
+})
 
-  ##test silence
-  expect_silent(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence"), verbose = FALSE))
+test_that("input validation", {
+  testthat::skip_on_cran()
 
+  expect_error(read_Daybreak2R(data.frame()),
+               "'file' should be of class 'character' or 'list'")
+
+  ## directory
+  expect_error(
+    expect_output(read_Daybreak2R(
+      file = system.file("extdata", package = "Luminescence")),
+      "Directory detected, trying to extract"),
+    "File does not exist")
+
+  ## test presence of non-ascii characters
+  expect_error(read_Daybreak2R(
+    file = system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+    verbose = FALSE),
+    "The provided file is not ASCII and cannot be imported")
+
+  file.nonascii <- tempfile()
+  writeLines(gsub("ScriptFile", "ScriptFile \uf6", # ö
+                  readLines(system.file("extdata/Daybreak_TestFile.txt",
+                                        package = "Luminescence"))),
+             file.nonascii)
+  expect_error(read_Daybreak2R(file = file.nonascii, verbose = FALSE),
+    "The provided file is not ASCII and cannot be imported")
 })

@@ -9,7 +9,8 @@ read_SPE2R(
   output.object = "RLum.Data.Image",
   frame.range,
   txtProgressBar = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -17,8 +18,8 @@ read_SPE2R(
 SPE-file name (including path), e.g.
 \itemize{
 \item \verb{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
-\item \verb{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}. Additionally internet connections
-are supported.
+\item \verb{[MAC/LINUX]}: \code{read_SPE2R("/User/test/Desktop/test.spe")}.
+Additionally, it can be a URL starting with http:// or https://.
 }}
 
 \item{output.object}{\link{character} (\emph{with default}):
@@ -32,6 +33,8 @@ limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}
 enables or disables \link{txtProgressBar}.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enables or disables verbose mode}
+
+\item{...}{not used, for compatibility reasons only}
 }
 \value{
 Depending on the chosen option the functions returns three different
@@ -49,7 +52,7 @@ sums are used to integrate all counts over one channel.
 An object of type \linkS4class{RLum.Data.Image} is returned.  Due to
 performance reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
-\code{frame.frange}.
+\code{frame.range}.
 
 \code{matrix}
 
@@ -59,12 +62,13 @@ meaning that the same results can be obtained by using the function
 \link{get_RLum} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
-Import Princeton Instruments (TM) SPE-file into R
+Function imports Princeton Instruments (TM) SPE-files into R environment and
+provides \linkS4class{RLum.Data.Image} objects as output.
 }
 \details{
 Function provides an R only import routine for the Princeton Instruments
 SPE format. Import functionality is based on the file format description provided by
-Princeton Instruments and a MatLab script written by Carl Hall (s.
+Princeton Instruments and a MatLab script written by Carl Hall (see
 references).
 }
 \note{
@@ -75,7 +79,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.3
+ 0.1.5
 }
 
 \examples{
@@ -106,7 +110,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -117,9 +121,9 @@ Hall, C., 2012: readSPE.m.
 \verb{https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe}
 }
 \seealso{
-\link{readBin}, \linkS4class{RLum.Data.Spectrum}, \link[raster:raster]{raster::raster}
+\link{readBin}, \linkS4class{RLum.Data.Spectrum}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{IO}

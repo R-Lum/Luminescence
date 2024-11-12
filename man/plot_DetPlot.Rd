@@ -17,19 +17,22 @@ plot_DetPlot(
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
+  multicore = TRUE,
   verbose = TRUE,
+  plot = TRUE,
   ...
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-input object containing data for analysis}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input object containing data for analysis
+Can be provided as a \link{list} of such objects.}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral.}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
-upper bound of the signal integral.}
+upper bound of the signal integral. Must be strictly greater than
+\code{signal.integral.min}.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral.}
@@ -49,11 +52,13 @@ argument to provide an own signal integral sequence for constructing the De(t) p
 
 \item{analyse_function}{\link{character} (\emph{with default}):
 name of the analyse function to be called. Supported functions are:
-\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
+\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}}
 
 \item{analyse_function.control}{\link{list} (\emph{optional}):
 selected arguments to be passed to the supported analyse functions
-(\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
+(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}). The arguments must be provided
+as named \link{list}, e.g., \verb{list(dose.points = c(0,10,20,30,0,10)} will set the
+regeneration dose points.}
 
 \item{n.channels}{\link{integer} (\emph{optional}):
 number of channels used for the De(t) plot. If nothing is provided all
@@ -67,8 +72,16 @@ enables or disables shine down curve in the plot output}
 remove De-values with 'FAILED' RC.Status from the plot
 (cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
 
+\item{multicore}{\link{logical} (\emph{with default}) : enables/disables multi core
+calculation if \code{object} is a \link{list} of \linkS4class{RLum.Analysis} objects. Can be an
+\link{integer} specifying the number of cores}
+
 \item{verbose}{\link{logical} (\emph{with default}):
 enables or disables terminal feedback}
+
+\item{plot}{\link{logical} (\emph{with default}): enables/disables plot output
+Disabling the plot is useful in cases where the output need to be processed
+differently.}
 
 \item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence} (see details for further information).
@@ -76,14 +89,14 @@ Plot control parameters are: \code{ylim}, \code{xlim}, \code{ylab}, \code{xlab},
 \code{legend.text}, \code{legend.pos}}
 }
 \value{
-A plot and an \linkS4class{RLum.Results} object with the produced De values
+A plot and an \linkS4class{RLum.Results} object with the produced \eqn{D_e} values
 
 \verb{@data}:
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
-De.values \tab \code{data.frame} \tab table with De values \cr
-signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
+\code{De.values} \tab \code{data.frame} \tab table with De values \cr
+\code{signal_integral.seq} \tab \code{numeric} \tab integral sequence used for the calculation
 }
 
 \verb{@info}:
@@ -94,7 +107,7 @@ call \tab \code{call} \tab the original function call
 }
 }
 \description{
-Plots the equivalent dose (De) in dependency of the chosen signal integral
+Plots the equivalent dose (\eqn{D_e}) in dependency of the chosen signal integral
 (cf. Bailey et al., 2003). The function is simply passing several arguments
 to the function \link{plot} and the used analysis functions and runs it in a loop.
 Example: \code{legend.pos} for legend position, \code{legend} for legend text.
@@ -112,8 +125,9 @@ of the function output.
 
 \strong{analyse_function.control}
 
-The argument \code{analyse_function.control} currently supports the following arguments
-\code{sequence.structure}, \code{dose.points}, \code{mtext.outer}, \code{fit.method}, \code{fit.force_through_origin}, \code{plot}, \code{plot.single}
+The argument \code{analyse_function.control} currently supports the following arguments:
+\code{sequence.structure}, \code{dose.points}, \code{mtext.outer}, \code{fit.method},
+\code{fit.force_through_origin}, \code{plot}, \code{plot_singlePanels}
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
@@ -123,7 +137,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.8
 }
 
 \examples{
@@ -137,19 +151,19 @@ data(ExampleData.BINfileData, envir = environment())
 ##transform the values from the first position in a RLum.Analysis object
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-plot_DetPlot(object,
-             signal.integral.min = 1,
-             signal.integral.max = 3,
-             background.integral.min = 900,
-             background.integral.max = 1000,
-             n.channels = 5,
-)
+plot_DetPlot(
+  object,
+  signal.integral.min = 1,
+  signal.integral.max = 3,
+  background.integral.min = 900,
+  background.integral.max = 1000,
+  n.channels = 5)
 }
 
 } 
 
 \section{How to cite}{
-NA, NA, , , 2021. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -161,5 +175,5 @@ doi:10.1016/S1350-4487(03)00063-5
 \link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
 , RLum Developer Team}

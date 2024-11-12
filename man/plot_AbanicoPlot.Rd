@@ -36,7 +36,6 @@ plot_AbanicoPlot(
   grid.col,
   frame = 1,
   bw = "SJ",
-  output = TRUE,
   interactive = FALSE,
   ...
 )
@@ -61,9 +60,10 @@ Default is \code{"mean.weighted"}.}
 \item{dispersion}{\link{character} (\emph{with default}):
 measure of dispersion, used for drawing the scatter polygon. One out of
 \itemize{
-\item \code{"qr"} (quartile range),
+\item \code{"qr"} (quartile range, default),
 \item \code{"pnn"} (symmetric percentile range with \code{nn} the lower percentile, e.g.
-\item \code{"p05"} depicting the range between 5 and 95 \%),
+\code{"p05"} indicating the range between 5 and 95 \%, or \code{"p10"} indicating
+the range between 10 and 90 \%), or
 \item \code{"sd"} (standard deviation) and
 \item \code{"2sd"} (2 standard deviations),
 }
@@ -188,14 +188,13 @@ Default is \code{1}.}
 \item{bw}{\link{character} (\emph{with default}):
 bin-width for KDE, choose a numeric value for manual setting.}
 
-\item{output}{\link{logical}:
-Optional output of numerical plot parameters. These can be useful to
-reproduce similar plots. Default is \code{TRUE}.}
-
 \item{interactive}{\link{logical} (\emph{with default}):
 create an interactive abanico plot (requires the \code{'plotly'} package)}
 
-\item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}). Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex}, \code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tck}, \code{tcl}, \code{at}, \code{breaks}. \code{xlab} must be a vector of length two, specifying the upper and lower x-axes labels.}
+\item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}).
+Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex},
+\code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tck}, \code{tcl}, \code{at}, \code{breaks}. \code{xlab} must be
+a vector of length two, specifying the upper and lower x-axis labels.}
 }
 \value{
 returns a plot object and, optionally, a list with plot calculus data.
@@ -213,16 +212,16 @@ error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
 Galbraith & Green (1990). The function authors are thankful for the
-thought provoking figure in this article.
+thought-provoking figure in this article.
 
 The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
-part of the plot with any other cartesian visualisation method
+part of the plot with any other Cartesian visualisation method
 (KDE, histogram, PDF and so on). Note that the plot allows displaying
 two measures of distribution. One is the 2-sigma
 bar, which illustrates the spread in value errors, and the other is the
 polygon, which stretches over both parts of the Abanico Plot (polar and
-cartesian) and illustrates the actual spread in the values themselves.
+Cartesian) and illustrates the actual spread in the values themselves.
 
 Since the 2-sigma-bar is a polygon, it can be (and is) filled with shaded
 lines. To change density (lines per inch, default is 15) and angle (default
@@ -270,8 +269,8 @@ measures in three different ways: \code{unweighted}, \code{weighted} and
 MCM-based version is used. If you wish to use another method, indicate this
 with the appropriate keyword using the argument \code{summary.method}.
 
-The optional parameter \code{layout} allows to modify the entire plot more
-sophisticated. Each element of the plot can be addressed and its properties
+The optional parameter \code{layout} allows more sophisticated ways to modify
+the entire plot. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
 cf. \code{get_Layout()} or type e.g., for the layout type \code{"journal"}
@@ -284,7 +283,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.12
+ 0.1.17
 }
 
 \examples{
@@ -433,13 +432,14 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
                  layout = "journal")
 
 ## now with predefined layout definition and further modifications
-plot_AbanicoPlot(data = data.3,
-                 z.0 = "median",
-                 layout = "journal",
-                 col = c("steelblue4", "orange4"),
-                 bar.col = adjustcolor(c("steelblue3", "orange3"),
-                                       alpha.f = 0.5),
-                 polygon.col = c("steelblue3", "orange3"))
+plot_AbanicoPlot(
+ data = data.3,
+ z.0 = "median",
+ layout = "journal",
+ col = c("steelblue4", "orange4"),
+ bar.col = adjustcolor(c("steelblue3", "orange3"),
+                         alpha.f = 0.5),
+ polygon.col = c("steelblue3", "orange3"))
 
 ## for further information on layout definitions see documentation
 ## of function get_Layout()
@@ -469,7 +469,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2024. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -487,6 +487,6 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)
 , RLum Developer Team}

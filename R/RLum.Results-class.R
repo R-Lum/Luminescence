@@ -23,7 +23,7 @@ NULL
 #' @section Class version: 0.5.2
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum-class], [plot_RLum], [merge_RLum]
 #'
@@ -90,13 +90,11 @@ setAs("list", "RLum.Results",
         new(to,
             originator = "coercion",
             data = from)
-
       })
 
 setAs("RLum.Results", "list",
       function(from){
         from@data
-
       })
 
 # show() --------------------------------------------------------------------------------------
@@ -120,16 +118,12 @@ setMethod("show",
                                           " : ",
                                           is(object@data[[x]])[1],
                                           sep = "")
-
-
                                   })
             } else{
               temp.type <- paste0("\t .. $", temp.names, " : ", is(object@data)[1])
-
             }
 
             temp.type <- paste(temp.type, collapse = "\n")
-
 
             ##print information
             cat("\n [RLum.Results-class]")
@@ -194,7 +188,6 @@ setMethod("set_RLum",
             newRLumReuslts@.pid <- .pid
 
             return(newRLumReuslts)
-
           })
 
 
@@ -238,6 +231,9 @@ setMethod(
   "get_RLum",
   signature = signature("RLum.Results"),
   definition = function(object, data.object, info.object = NULL, drop = TRUE) {
+    .set_function_name("get_RLum")
+    on.exit(.unset_function_name(), add = TRUE)
+
     ##if info.object is set, only the info objects are returned
     if (!is.null(info.object)) {
       if (info.object %in% names(object@info)) {
@@ -246,83 +242,64 @@ setMethod(
       } else {
         ##check for entries
         if (length(object@info) == 0) {
-          warning("[get_RLum] This RLum.Results object has no info objects! NULL returned!)", call. = FALSE)
-
+          .throw_warning("This 'RLum.Results' object has no info objects, ",
+                         "NULL returned")
         } else {
-          warning(paste0(
-            "[get_RLum] Invalid info.object name. Valid names are: ",
-            paste(names(object@info), collapse = ", ")
-          ),
-          call. = FALSE)
-
+          .throw_warning("Invalid 'info.object' name, valid names are: ",
+                         .collapse(names(object@info)))
         }
         return(NULL)
-
       }
 
     } else{
       if (!missing(data.object)) {
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        .validate_class(data.object, c("character", "numeric"))
+
         ##CASE1: data.object is of type 'character'
-        if (is(data.object, "character")) {
+        if (is.character(data.object)) {
           #check if the provided names are available
           if (all(data.object %in% names(object@data))) {
             ##account for multiple inputs
             if (length(data.object) > 1) {
               temp.return <- sapply(data.object, function(x) {
                 object@data[[x]]
-
               })
 
             } else{
               temp.return <- list(data.object = object@data[[data.object]])
 
             }
-
-
           } else {
-            stop(paste0("[get_RLum()] data.object(s) unknown, valid names are: ",
-              paste(names(object@data), collapse = ", ")), call. = FALSE)
-
+            .throw_error("Unknown 'data.object', valid names are: ",
+                         .collapse(names(object@data)))
           }
-
         }
 
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##CASE2: data.object is of type 'numeric'
-        else if (is(data.object, "numeric")) {
+        else if (is.numeric(data.object)) {
           ##check if index is valid
           if (max(data.object) > length(object@data)) {
-            stop("[get_RLum] 'data.object' index out of bounds!")
+            .throw_error("'data.object' index out of bounds")
 
           } else if (length(data.object) > 1) {
             temp.return <- lapply(data.object, function(x) {
               object@data[[x]]
-
             })
-
-
           } else {
             temp.return <- list(object@data[[data.object]])
-
           }
 
           ##restore names as that get los with this method
           names(temp.return) <-
             names(object@data)[data.object]
-
-        }
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ##CASE3: data.object is of an unsupported type
-        else{
-          stop("[get_RLum] 'data.object' has to be of type character or numeric!", call. = FALSE)
         }
 
         ##the CASE data.object is missing
       } else{
         ##return always the first object if nothing is specified
         temp.return <- object@data[1]
-
       }
 
       ##CHECK whether an RLum.Results object needs to be produced ...
@@ -338,10 +315,7 @@ setMethod(
           originator = object@originator,
           data = temp.return
         ))
-
-
       }
-
     }
   }
 )
@@ -365,7 +339,6 @@ setMethod("length_RLum",
           function(object){
 
             length(object@data)
-
           })
 
 # names_RLum() --------------------------------------------------------------------------------
@@ -384,5 +357,4 @@ setMethod("names_RLum",
           "RLum.Results",
           function(object){
              names(object@data)
-
           })

@@ -40,7 +40,7 @@
 #' @section Function version: 0.5.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis], [set_RLum],
@@ -74,15 +74,12 @@
   DATA <- object@DATA
 
   # grep id of record -------------------------------------------------------
-  ##if id is set, no input for pos and rund is nescessary
+  ##if id is set, no input for pos and run is necessary
   if (missing(id)) {
-    id <- METADATA[METADATA[["POSITION"]] == pos &
-                     METADATA[["SET"]] == set &
-                     METADATA[["RUN"]] == run,
-                   "ID"]
-
+    id <- METADATA$ID[METADATA[["POSITION"]] == pos &
+                      METADATA[["SET"]] == set &
+                      METADATA[["RUN"]] == run]
   }
-
 
   ##grep info elements
   info <- lapply(1:length(names(METADATA)), function(x){METADATA[[x]][id]})

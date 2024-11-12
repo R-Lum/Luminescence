@@ -1,6 +1,5 @@
 test_that("Test zzz functions ... they should still work", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##get right answer
   expect_equal(get_rightAnswer(), 46)
@@ -24,6 +23,8 @@ test_that("Test zzz functions ... they should still work", {
     Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
   ## create plot straightforward
-  expect_silent(plot_KDE(data = ExampleData.DeValues, fun = TRUE))
-
+  expect_silent(plot_KDE(data = ExampleData.DeValues))
+  expect_silent(sTeve(type = 1))
+  expect_silent(sTeve(type = 2, t_animation = 1))
+  expect_silent(sTeve(type = 3, t_animation = 1, n.tree = 2))
 })

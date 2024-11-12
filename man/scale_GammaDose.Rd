@@ -12,7 +12,7 @@ scale_GammaDose(
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
   plot = TRUE,
-  plot_single = TRUE,
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -59,8 +59,8 @@ Show or hide console output (defaults to \code{TRUE}).}
 \item{plot}{\link{logical} (\emph{optional}):
 Show or hide the plot (defaults to \code{TRUE}).}
 
-\item{plot_single}{\link{logical} (\emph{optional}):
-Show all plots in one panel (defaults to \code{TRUE}).}
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
+Enables/disables single plot mode, i.e. one plot window per plot.}
 
 \item{...}{Further parameters passed to \link{barplot}.}
 }
@@ -73,11 +73,13 @@ print in the console.
 and the contribution to total gamma dose rate.
 \item RLum Results. If the user wishes to save these results, writing a script
 to run the function and to save the results would look like this:
-}\preformatted{mydata <- read.table("c:/path/to/input/file.txt")
+}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mydata <- read.table("c:/path/to/input/file.txt")
 results <- scale_GammaDose(mydata)
 table <- get_RLum(results)
 write.csv(table, "c:/path/to/results.csv")
-}
+}\if{html}{\out{</div>}}
 
 -----------------------------------\cr
 \verb{[ NUMERICAL OUTPUT ]}\cr
@@ -118,7 +120,7 @@ received by the sample in the target layer.
 }
 \description{
 This function calculates the gamma dose deposited in a luminescence sample
-taking into account layer-to-layer variations in sediment radioactivity .
+taking into account layer-to-layer variations in sediment radioactivity.
 The function scales user inputs of uranium, thorium and potassium based on
 input parameters for sediment density, water content and given layer
 thicknesses and distances to the sample.
@@ -144,7 +146,7 @@ value must be provided, which is the distance (in cm) measured from \strong{bott
 of the layer of interest. If the whole layer was sampled insert \code{0}. If the
 sample was taken from \emph{within} the layer, insert a numerical value \verb{>0},
 which describes the distance from the middle of the sample to the bottom of
-the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations
+the layer in cm. Columns 4 to 9 should contain radionuclide concentrations
 and their standard errors for
 potassium (in \%), thorium (in ppm) and uranium (in ppm). Columns 10 and 11
 give information on the water content and its uncertainty (standard error)
@@ -206,7 +208,7 @@ density and water content is not constant for the entire section.
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \section{Acknowledgements}{
@@ -234,7 +236,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C., 2021. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C., 2024. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{

@@ -45,11 +45,12 @@ exclude NA values from the data set prior to any further operations.}
 \description{
 Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin
 is constructed using a mirrored density curve. This plot is especially designed for cases
-where the individual errors are zero or to small to be visualised. The idea for this plot is
+where the individual errors are zero or too small to be visualised. The idea for this plot is
 based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
-The general idea for the violin plot seems to be introduced by Hintze and Nelson (1998).
+The general idea for the violin plot seems to have been introduced by
+Hintze and Nelson (1998).
 
-The function is passing several arguments to the function \link{plot},
+The function is passing several arguments to the functions \link{plot},
 \link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
 
 Supported arguments are:
@@ -82,7 +83,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -100,5 +101,5 @@ Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New Yor
 \link[stats:density]{stats::density}, \link{plot}, \link{boxplot}, \link{rug}, \link{calc_Statistics}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}

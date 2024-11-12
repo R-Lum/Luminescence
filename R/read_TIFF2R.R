@@ -1,17 +1,21 @@
 #'@title Import TIFF Image Data into R
 #'
 #'@description Simple wrapper around [tiff::readTIFF] to import TIFF images
-#'and TIFF image stacks to be further processed within the package 'Luminescence'
+#'and TIFF image stacks to be further processed within the package `'Luminescence'`
 #'
 #'@param file [character] (**required**): file name
 #'
-#'@return [RLum.Image.Data-class] object
+#'@param verbose [logical] (*with default*): enable or disable verbose mode
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@param ... not in use, for compatibility reasons only
 #'
-#'@section Function version: 0.1.0
+#'@return [RLum.Data.Image-class] object
 #'
-#'@seealso [tiff::readTIFF], [RLum.Data.Image-class], [raster::raster]
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#'@section Function version: 0.1.2
+#'
+#'@seealso [tiff::readTIFF], [RLum.Data.Image-class]
 #'
 #'@keywords IO
 #'
@@ -23,32 +27,38 @@
 #'
 #'}
 #'
+#'@md
 #'@export
 read_TIFF2R <- function(
-  file
-){
-# Integrity ---------------------------------------------------------------
-  ## most of the users don't need this import, no need to bother them
-  ## with required libraries
-  if (!requireNamespace("tiff", quietly = TRUE))
-    stop("Importing TIFF files require the package tiff.\n",
-         "To install this package run 'install.packages('tiff')' in your R console.",
-         call. = FALSE)
+  file,
+  verbose = TRUE,
+  ...
+) {
+  .set_function_name("read_TIFF2R")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(file, "character")
+  .require_suggested_package("tiff", "Importing TIFF files")
 
   if(!file.exists(file))
-    stop("[read_TIFF2R()] File does not exist or is not readable!", call. = FALSE)
+    .throw_error("File does not exist or is not readable")
 
-# Import ------------------------------------------------------------------
+  ## Import -----------------------------------------------------------------
+
+  if (verbose) {
+    cat("\n[read_TIFF2R()] Importing ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n")
+  }
+
   ## import
   temp <- tiff::readTIFF(file, all = TRUE, as.is = TRUE)
 
-  ##transform to raster brick
-  raster_brick <- raster::brick(lapply(temp, function(x){
-    raster::raster(x, xmx = nrow(x), ymx = ncol(x))
-  }))
+  if(is(temp, "list"))
+    temp <- as(temp, "RLum.Data.Image")
 
 # Return ------------------------------------------------------------------
-  set_RLum(class = "RLum.Data.Image", data = raster_brick)
-
+  set_RLum(class = "RLum.Data.Image", data = temp@data)
 }
-

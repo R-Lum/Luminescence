@@ -6,7 +6,7 @@
 \usage{
 analyse_baSAR(
   object,
-  XLS_file = NULL,
+  CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
   signal.integral,
@@ -27,7 +27,7 @@ analyse_baSAR(
   distribution_plot = "kde",
   plot = TRUE,
   plot_reduced = TRUE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   verbose = TRUE,
   ...
 )
@@ -41,15 +41,15 @@ provided the list can only contain either \code{Risoe.BINfileData} objects or \c
 providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
-\item{XLS_file}{\link{character} (\emph{optional}):
-XLS_file with data for the analysis. This file must contain 3 columns:
+\item{CSV_file}{\link{character} (\emph{optional}):
+CSV_file with data for the analysis. This file must contain 3 columns:
 the name of the file, the disc position and the grain position
 (the last being 0 for multi-grain measurements).\cr
 Alternatively a \code{data.frame} of similar structure can be provided.}
 
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
-This argument has only an effect if the argument \code{XLS_file} is used or
+This argument has only an effect if the argument \code{CSV_file} is used or
 the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
 new selection will add the aliquots to the removed aliquots table.}
 
@@ -138,14 +138,14 @@ enables or disables plot output}
 \item{plot_reduced}{\link{logical} (\emph{with default}):
 enables or disables the advanced plot output}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 enables or disables single plots or plots arranged by \code{analyse_baSAR}}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio}
-(almost full support), \link[readxl:read_excel]{readxl::read_excel} (full support), \link{read_BIN2R} (\code{n.records},
+(almost full support), \link[data.table:fread]{data.table::fread} (\code{skip}), \link{read_BIN2R} (\code{n.records},
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \value{
@@ -209,7 +209,7 @@ by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 \code{LxTx}, the \code{LxTx} error and the dose values for all regeneration points.
 
-\strong{How the systematic error contribution is calculated?}
+\strong{How is the systematic error contribution calculated?}
 
 Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 and added to final central dose by:
@@ -233,13 +233,13 @@ Finally it does not matter how the information of the BIN/BINX file are provided
 supports \strong{(a)} either a path to a file or directory or a \code{list} of file names or paths or
 \strong{(b)} a \linkS4class{Risoe.BINfileData} object or a list of these objects. The latter one can
 be produced by using the function \link{read_BIN2R}, but this function is called automatically
-if only a filename and/or a path is provided. In both cases it will become the data that can be
+if only a file name and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.
 
-\verb{[XLS_file = NULL]}
+\verb{[CSV_file = NULL]}
 
-If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
-consists of the following steps:
+If no CSV file (or data frame with the same format) is provided, the
+function runs an automatic process that consists of the following steps:
 \enumerate{
 \item Select all valid aliquots using the function \link{verify_SingleGrainData}
 \item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
@@ -248,16 +248,16 @@ consists of the following steps:
 
 These proceeded data are subsequently used in for the Bayesian analysis
 
-\verb{[XLS_file != NULL]}
+\verb{[CSV_file != NULL]}
 
-If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
-steps consists of the following steps:
+If a CSV file is provided (or a \code{data.frame} containing similar information)
+the pre-processing phase consists of the following steps:
 \enumerate{
 \item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
 \item Calculate De values using the function \link{plot_GrowthCurve}
 }
 
-Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+The CSV file should contain a selection of the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by \link{verify_SingleGrainData} might be not totally sufficient.
 
@@ -265,7 +265,7 @@ by \link{verify_SingleGrainData} might be not totally sufficient.
 
 If an \linkS4class{RLum.Results} object is provided as input and(!) this object was
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
-is skipped and the function starts directly the Bayesian analysis. This option is very powerful
+is skipped and the function starts directly with the Bayesian analysis. This option is very powerful
 as it allows to change parameters for the Bayesian analysis without the need to repeat
 the data pre-processing. If furthermore the argument \code{aliquot_range} is set, aliquots
 can be manually excluded based on previous runs.
@@ -301,13 +301,15 @@ will break.
 Q: How can I set the seed for the random number generator (RNG)?
 
 A: Use the argument \code{method_control}, e.g., for three MCMC chains
-(as it is the default):\preformatted{method_control = list(
+(as it is the default):
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{method_control = list(
 inits = list(
  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
 ))
-}
+}\if{html}{\out{</div>}}
 
 This sets a reproducible set for every chain separately.\cr
 
@@ -332,10 +334,7 @@ functions.
 \tabular{llll}{
 \strong{Supported argument} \tab \strong{Corresponding function} \tab \strong{Default} \tab **Short description **\cr
 \code{threshold} \tab \link{verify_SingleGrainData} \tab \code{30} \tab change rejection threshold for curve selection \cr
-\code{sheet} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{1} \tab select XLS-sheet for import\cr
-\code{col_names} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{TRUE} \tab first row in XLS-file is header\cr
-\code{col_types} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{NULL} \tab limit import to specific columns\cr
-\code{skip} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{0} \tab number of rows to be skipped during import\cr
+\code{skip} \tab \link[data.table:fread]{data.table::fread} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit records during BIN-file import\cr
 \code{duplicated.rm} \tab \link{read_BIN2R} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
@@ -346,6 +345,7 @@ functions.
 \code{NumberIterations.MC} \tab \link{plot_GrowthCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
 \code{output.plot} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables dose response curve plot\cr
 \code{output.plotExtended} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables extended dose response curve plot\cr
+\code{recordType} \tab \link{get_RLum} \tab \verb{c(OSL (UVVIS), irradiation (NA)} \tab helps for the curve selection\cr
 }
 }
 \note{
@@ -360,7 +360,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.33
+ 0.1.35
 }
 
 \examples{
@@ -391,11 +391,11 @@ results <- analyse_baSAR(
 print(results)
 
 
-##XLS_file template
+##CSV_file template
 ##copy and paste this the code below in the terminal
 ##you can further use the function write.csv() to export the example
 
-XLS_file <-
+CSV_file <-
 structure(
 list(
  BIN_FILE = NA_character_,
@@ -411,7 +411,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2024. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -435,12 +435,12 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
-\link[readxl:read_excel]{readxl::read_excel}, \link{verify_SingleGrainData},
+\link[data.table:fread]{data.table::fread}, \link{verify_SingleGrainData},
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{
-Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team}
 \keyword{datagen}

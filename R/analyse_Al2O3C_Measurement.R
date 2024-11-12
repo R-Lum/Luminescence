@@ -1,7 +1,9 @@
-#' Al2O3:C Passive Dosimeter Measurement Analysis
+#' @title Al2O3:C Passive Dosimeter Measurement Analysis
 #'
-#' The function provides the analysis routines for measurements on a
+#' @description The function provides the analysis routines for measurements on a
 #' FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018
+#'
+#' @details
 #'
 #' **Working with a travel dosimeter**
 #'
@@ -10,13 +12,15 @@
 #' of this dosimeters are combined and automatically subtracted from the obtained dose values
 #' of the other dosimeters.
 #'
-#' **Calculate TL dose **
+#' **Calculate TL dose**
 #'
 #' The argument `calculate_TL_dose` provides the possibility to experimentally calculate a TL-dose,
 #' i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
 #' this value is only a fall back in case something went wrong during the measurement of the optical
 #' stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
 #' but not considered if a travel dosimeter is defined.
+#'
+#' Calculating the palaeodose is possible without **any TL** curve in the sequence!
 #'
 #' **Test parameters**
 #'
@@ -31,9 +35,7 @@
 #' the information from the first curves with all others. If the ratio differs more from
 #' unity than the defined by the threshold, a warning is returned.
 #'
-#'
-#' @param object [RLum.Analysis-class] **(required)**:
-#' measurement input
+#' @param object [RLum.Analysis-class] (**required**):  measurement input
 #'
 #' @param signal_integral [numeric] (*optional*): signal integral, used for the signal
 #' and the background. Example: `c(1:10)` for the first 10 channels.
@@ -49,7 +51,7 @@
 #'
 #' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obtained by another experiments.
-#' I a `numeric` is provided it has to be of length two: mean, standard error
+#' If a `numeric` is provided it has to be of length two: mean, standard error
 #'
 #' @param calculate_TL_dose [logical] (*with default*): Enables/disables experimental dose estimation
 #' based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.
@@ -60,7 +62,7 @@
 #' mean, 2.5 % quantile, 97.5 % quantile.
 #'
 #' @param travel_dosimeter [numeric] (*optional*): specify the position of the travel dosimeter
-#' (so far measured a the same time). The dose of travel dosimeter will be subtracted from all
+#' (so far measured at the same time). The dose of travel dosimeter will be subtracted from all
 #' other values.
 #'
 #' @param test_parameters [list] (*with default*):
@@ -109,9 +111,9 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
@@ -145,58 +147,28 @@ analyse_Al2O3C_Measurement <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("analyse_Al2O3C_Measurement")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self call -----------------------------------------------------------------------------------
   if(is(object, "list")){
-    if(!all(unlist(lapply(object, function(x){is(x, "RLum.Analysis")})))){
-        stop("[analyse_Al2O3C_Measurement()] The elements in 'object' are not all of type 'RLum.Analsyis'", call. = FALSE)
+    lapply(object,
+           function(x) .validate_class(x, "RLum.Analysis",
+                                       name = "All elements of 'object'"))
 
-    }
+    ## expand input arguments
+    rep.length <- length(object)
 
-    ##expand input arguments
     if(!is.null(signal_integral)){
-      signal_integral <- rep(list(signal_integral), length = length(object))
+      signal_integral <- .listify(list(signal_integral), rep.length)
     }
 
-    ##dose points
-    if(is(dose_points, "list")){
-      dose.points <- rep(dose_points, length = length(object))
-
-    }else{
-      dose_points <- rep(list(dose_points), length = length(object))
-
-    }
-
-    ##irradiation time correction
-    if(is(irradiation_time_correction, "list")){
-      irradiation_time_correction <- rep(irradiation_time_correction, length = length(object))
-
-    }else{
-      irradiation_time_correction <- rep(list(irradiation_time_correction), length = length(object))
-
-    }
-
-    ##cross talk correction
-    if(is( cross_talk_correction, "list")){
-      cross_talk_correction <- rep( cross_talk_correction, length = length(object))
-
-    }else{
-      cross_talk_correction <- rep(list( cross_talk_correction), length = length(object))
-
-    }
-
-    ##test_parameters
-    if(is(test_parameters[[1]], "list")){
-      test_parameters <- rep(test_parameters, length = length(object))
-
-    }else{
-      test_parameters <- rep(list(test_parameters), length = length(object))
-
-    }
-
-    ##verbose
+    dose_points <- .listify(dose_points, rep.length)
+    irradiation_time_correction <- .listify(irradiation_time_correction,
+                                            rep.length)
+    cross_talk_correction <- .listify(cross_talk_correction, rep.length)
+    test_parameters <- .listify(test_parameters, rep.length)
 
     ##plot
     if(is(plot, "logical")){
@@ -204,7 +176,6 @@ analyse_Al2O3C_Measurement <- function(
 
     }else{
       plot <- 1:length(object)%in%plot
-
     }
 
     ##run analyis
@@ -220,7 +191,6 @@ analyse_Al2O3C_Measurement <- function(
         verbose = verbose,
         plot = plot[x],
         ...
-
       )
 
      ##adjusting the terminal output, to avoid confusions
@@ -230,7 +200,6 @@ analyse_Al2O3C_Measurement <- function(
      ##add running number to the plot, but only of we had a plot here...
      if(plot[x]){
        title(main = paste0(list(...)$title[x], " ","#", x), adj = 1, line = 3)
-
      }
 
      return(temp)
@@ -247,20 +216,15 @@ analyse_Al2O3C_Measurement <- function(
     ##travel dosimeter
     ##check for travel dosimeter and subtract the values so far this is meaningful at all
     if(!is.null(travel_dosimeter)){
-      ##check data type
-      if(!is(travel_dosimeter, "numeric"))
-        stop("[analyse_Al2O3C_Measurement()] Input for `travel_dosimeter` is not numeric!",
-             call. = FALSE)
+      .validate_class(travel_dosimeter, c("numeric", "integer"))
 
       ##check whether everything is subtracted from everything ... you never know, users do weird stuff
       if(length(travel_dosimeter) == nrow(results$data))
-        try(stop("[analyse_Al2O3C_Measurement()] You specified every position as travel dosimeter, nothing corrected!",
-                 call. = FALSE))
+        message("[analyse_Al2O3C_Measurement()] Error: 'travel_dosimeter' specifies every position, nothing corrected")
 
       ##check if the position is valid
-      if(!any(travel_dosimeter%in%results$data$POSITION))
-        try(stop("[analyse_Al2O3C_Measurement()] Invalid position in 'travel_dosimeter', nothing corrected!",
-                 call. = FALSE))
+      if(any(!travel_dosimeter%in%results$data$POSITION))
+        message("[analyse_Al2O3C_Measurement()] Error: Invalid position in 'travel_dosimeter', nothing corrected")
 
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
       ##if only one value is given just take it
@@ -275,7 +239,6 @@ analyse_Al2O3C_Measurement <- function(
             w = if(all(temp.correction[[2]]==0)){rep(1, length(temp.correction[[2]]))} else {temp.correction[[2]]}),
           sd(temp.correction[,1]))
         rm(temp.correction)
-
       }
 
       ##subtract all the values, in a new data frame, we do not touch the original data
@@ -299,13 +262,15 @@ analyse_Al2O3C_Measurement <- function(
 
     ##return results
     return(results)
-
   }
 
-  # Integrity check  ---------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
   ##TODO ... do more, push harder
   ##Add sufficient unit tests
+
+  .validate_class(object, "RLum.Analysis",
+                  extra = "a 'list' of such objects")
 
   # Preparation ---------------------------------------------------------------------------------
 
@@ -318,25 +283,21 @@ analyse_Al2O3C_Measurement <- function(
 
   ##set signal integral
   if(is.null(signal_integral)){
-    signal_integral <- c(1:nrow(object[[1]][]))
+   signal_integral <- c(1:nrow(object[[1]][]))
 
   }else{
     ##check whether the input is valid, otherwise make it valid
     if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
       signal_integral <- c(1:nrow(object[[1]][]))
-      warning(
-        paste0(
-          "[analyse_Al2O3C_Measurement()] Input for 'signal_integral' corrected to 1:", nrow(object[[1]][])
-        ),
-        call. = FALSE
-      )
+      .throw_warning("Input for 'signal_integral' corrected to 1:",
+                     nrow(object[[1]][]))
     }
-
   }
-
 
   ## Set Irradiation Time Correction ---------------
   if (!is.null(irradiation_time_correction)) {
+    .validate_class(irradiation_time_correction, c("RLum.Results", "numeric"))
+
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -347,16 +308,15 @@ analyse_Al2O3C_Measurement <- function(
 
         }else{
           irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
-
         }
 
       } else{
-        stop(
-          "[analyse_Al2O3C_Measurement()] The object provided for the argument 'irradiation_time_correction' was created by an unsupported function!",
-          call. = FALSE
-        )
-
+        .throw_error("The object provided for 'irradiation_time_correction' ",
+                     "was created by an unsupported function")
       }
+    } else if (is.numeric(irradiation_time_correction)) {
+      if (length(irradiation_time_correction) != 2)
+        .throw_error("'irradiation_time_correction' must have length 2")
     }
   }
 
@@ -371,9 +331,7 @@ analyse_Al2O3C_Measurement <- function(
     message("[analyse_Al2O3_Measurement()] Aliquot position number was not found. No cross talk correction was applied!")
     cross_talk_correction <- c(0,0,0)
     POSITION <- NA
-
   }
-
 
   if(is.null(cross_talk_correction)){
     cross_talk_correction <- c(0,0,0)
@@ -384,7 +342,6 @@ analyse_Al2O3C_Measurement <- function(
     if (is(cross_talk_correction, "RLum.Results") &&
         cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
 
-
         ##grep cross talk correction and calculate values for
         ##this particular carousel position
         cross_talk_correction <-
@@ -392,15 +349,10 @@ analyse_Al2O3C_Measurement <- function(
                   newdata = data.frame(x = POSITION),
                   interval = "confidence"))
 
-
     }else{
-      stop(
-        "[analyse_Al2O3C_Measurement()] The object provided for the argument 'cross_talk_correction' was created by an unsupported function or has a wrong originator!",
-        call. = FALSE
-      )
-
+      .throw_error("The object provided for 'cross_talk_correction' was ",
+                   "created by an unsupported function or has a wrong originator")
     }
-
   }
 
   # Calculation ---------------------------------------------------------------------------------
@@ -417,20 +369,18 @@ analyse_Al2O3C_Measurement <- function(
     test_parameters <- modifyList(test_parameters.default, test_parameters)
 
     ##remove NULL elements from list
-    test_parameters <- test_parameters[!sapply(test_parameters, is.null)]
-
+    test_parameters <- .rm_NULL_elements(test_parameters)
   }else{
     test_parameters <- test_parameters.default
-
   }
 
   ##calculate integrated light values
-  NATURAL <- sum(object@records[[1]]@data[signal_integral, 2])
-  REGENERATED <- sum(object@records[[3]]@data[signal_integral, 2])
-  BACKGROUND <- sum(object@records[[5]]@data[signal_integral, 2])
+  NATURAL <- sum(get_RLum(object, recordType = "OSL")[[1]]@data[signal_integral, 2])
+  REGENERATED <- sum(get_RLum(object, recordType = "OSL")[[2]]@data[signal_integral, 2])
+  BACKGROUND <- sum(get_RLum(object, recordType = "OSL")[[3]]@data[signal_integral, 2])
 
   ##do the same for the TL
-  if(calculate_TL_dose){
+  if (calculate_TL_dose[1] && any(grepl("TL", names(object)))){
     NATURAL_TL <- try(sum(
       object@records[[2]]@data[
         (which.max(object@records[[2]]@data[,2])-5):(which.max(object@records[[2]]@data[,2])+5),2]), silent = TRUE)
@@ -439,22 +389,19 @@ analyse_Al2O3C_Measurement <- function(
         (which.max(object@records[[4]]@data[,2])-5):(which.max(object@records[[4]]@data[,2])+5),2]), silent = TRUE)
 
     ##catch errors if the integration fails
-    if(class(NATURAL_TL) == "try-error"){
+    if(inherits(NATURAL_TL, "try-error")){
       NATURAL_TL <- NA
-      warning("[analyse_Al2O3_Measurement()] Natural TL signal out of bounds, NA returned!", call. = FALSE, immediate. = TRUE)
-
+      .throw_warning("Natural TL signal out of bounds, NA returned")
     }
 
-    if(class(REGENERATED_TL) == "try-error"){
+    if(inherits(REGENERATED_TL, "try-error")){
       REGENERATED_TL <- NA
-      warning("[analyse_Al2O3_Measurement()] Regenerated TL signal out of bounds, NA returned!", call. = FALSE, immediate. = TRUE)
-
+      .throw_warning("Regenerated TL signal out of bounds, NA returned")
     }
 
   }else{
     NATURAL_TL <- NA
     REGENERATED_TL <- NA
-
   }
 
   ##combine into data.frame
@@ -519,11 +466,9 @@ analyse_Al2O3C_Measurement <- function(
        TL_DE <- mean(temp_TL_DE)
        TL_DE.ERROR <- sd(temp_TL_DE)
 
-
      }else{
        TL_DE <- NA
        TL_DE.ERROR <- NA
-
      }
 
    ##(6) create final data.frame
@@ -541,12 +486,11 @@ analyse_Al2O3C_Measurement <- function(
      row.names = NULL
    )
 
-
   ##calculate test parameters
   ##TL_peak_shift
-  ##check TL peak positions, if it differes more than the threshold, return a message
+  ##check TL peak positions, if it differers more than the threshold, return a message
   ##can be done better, but should be enough here.
-  if(any("TL_peak_shift"%in%names(test_parameters))){
+  if (any("TL_peak_shift"%in%names(test_parameters)) && any(grepl("TL", names(object)))){
     ##calculate value
     TP_TL_peak_shift.value <- abs((object[[2]][which.max(object[[2]][,2]),1] -
              object[[4]][which.max(object[[4]][,2]),1]))
@@ -557,7 +501,8 @@ analyse_Al2O3C_Measurement <- function(
 
     ##return warning
     if(TP_TL_peak_shift.status)
-      warning("TL peak shift detected for aliquot position ",POSITION, "! Check curves!", call. = FALSE)
+      .throw_warning("TL peak shift detected for aliquot position ", POSITION,
+                     ", check the curves")
 
     ##set data.frame
     TP_TL_peak_shift <- data.frame(
@@ -569,12 +514,10 @@ analyse_Al2O3C_Measurement <- function(
 
   }else{
     TP_TL_peak_shift <- data.frame(stringsAsFactors = FALSE)
-
   }
 
   ##stimulation_power
   if(any("stimulation_power"%in%names(test_parameters))){
-
      ##get curves ids holding the information on the stimulation power
      temp_curves_OSL <- get_RLum(object_raw, recordType = "OSL", curveType = "measured")
      temp_curves_OSL <- lapply(temp_curves_OSL, function(o){
@@ -587,7 +530,7 @@ analyse_Al2O3C_Measurement <- function(
      })
 
      ##remove NULL
-     temp_curves_OSL <- temp_curves_OSL[!sapply(temp_curves_OSL, is.null)]
+     temp_curves_OSL <- .rm_NULL_elements(temp_curves_OSL)
 
      ##check whether something is left
      if(length(temp_curves_OSL) < 2){
@@ -609,8 +552,8 @@ analyse_Al2O3C_Measurement <- function(
        TP_stimulation_power.status <- TP_stimulation_power.value > test_parameters$stimulation_power
 
        if(TP_stimulation_power.status)
-         warning("Stimulation power was not stable for ALQ ",POSITION, "! Results are likely to be wrong!", call. = FALSE)
-
+         .throw_warning("Stimulation power was not stable for ALQ ",
+                        POSITION, ", results are likely to be wrong")
      }
 
      ##remove object
@@ -626,7 +569,6 @@ analyse_Al2O3C_Measurement <- function(
 
    }else{
      TP_stimulation_power <- data.frame(stringsAsFactors = FALSE)
-
    }
 
    ##compile all test parameter df
@@ -639,18 +581,15 @@ analyse_Al2O3C_Measurement <- function(
   if(verbose){
     cat(" [analyse_Al2O3_Measurement()] #",POSITION, " ", "DE: ",
                round(data$DE, 2), " \u00B1 ", round(data$DE_ERROR,2), "\n", sep = "")
-
   }
-
 
   # Plotting ------------------------------------------------------------------------------------
     ##enable or disable plot ... we cannot put the condition higher, because we here
     ##calculate something we are going to need later
     if (plot) {
-
       ##get plot settings
       par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default))
+      on.exit(par(mfrow = par.default), add = TRUE)
 
       ##settings
       plot_settings <- list(
@@ -659,16 +598,16 @@ analyse_Al2O3C_Measurement <- function(
         mtext = ""
       )
 
-
      ##modify on request
      plot_settings <- modifyList(x = plot_settings, val = list(...),)
 
      ##plot curves
-     par(mfrow = c(1,2))
+     if(any(grepl("TL", names(object))))
+       par(mfrow = c(1,2))
 
      plot_RLum(
        object,
-       plot.single = TRUE,
+       plot_singlePanels = TRUE,
        combine = TRUE,
        mtext = list(paste0("DE: ", round(data$DE,2), " \u00b1 ", round(data$DE_ERROR,2)), ""),
        xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
@@ -677,9 +616,6 @@ analyse_Al2O3C_Measurement <- function(
        main = as.list(plot_settings$main),
        norm = plot_settings$norm
      )
-
-
-
     }
 
   # Output --------------------------------------------------------------------------------------
@@ -696,5 +632,4 @@ analyse_Al2O3C_Measurement <- function(
       call = sys.call()
     )
   )
-
 }

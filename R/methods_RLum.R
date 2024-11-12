@@ -63,13 +63,13 @@
 #' @param subset `[subset]` [expression] (**required**):
 #' logical expression indicating elements or rows to keep, this function works
 #' in [Risoe.BINfileData-class] objects like [subset.data.frame], but takes care
-#' of the object structure
+#' of the object structure. Works also on [RLum.Analysis-class] objects.
 #'
 #' @param row.names [logical] (*with default*):
 #' enables or disables row names (`as.data.frame`)
 #'
 #' @param recursive [logical] (*with default*):
-#' enables or disables further subsetting (`unlist`)
+#' enables or disables further sub-setting (`unlist`)
 #'
 #' @param optional [logical] (*with default*):
 #' logical. If TRUE, setting row names and converting column names
@@ -137,7 +137,7 @@ plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 #' @rdname methods_RLum
 #' @method plot Risoe.BINfileData
 #' @export
-plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(BINfileData = x, ...)
+plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(data = x, ...)
 
 ####################################################################################################
 # methods for generic: hist()
@@ -149,7 +149,7 @@ hist.RLum.Results <- function(x, ...) plot_Histogram(data = x, ...)
 
 #' @rdname methods_RLum
 #' @export
-hist.RLum.Data.Image <- function(x, ...) hist(x =get_RLum(x)@data@values, ...)
+hist.RLum.Data.Image <- function(x, ...) hist(x = get_RLum(x), ...)
 
 #' @rdname methods_RLum
 #' @export
@@ -177,7 +177,7 @@ summary.RLum.Analysis <- function(object, ...) lapply(object@records, function(x
 #' @rdname methods_RLum
 #' @method summary RLum.Data.Image
 #' @export
-summary.RLum.Data.Image <- function(object, ...) summary(object@data@data@values)
+summary.RLum.Data.Image <- function(object, ...) summary(object@data)
 
 # summary.RLum.Data.Spectrum <- function(object, ...)
 
@@ -198,10 +198,11 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 #' @md
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
+  .set_function_name("subset.Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   if(length(list(...)))
-    warning(paste("Argument not supported and skipped:", names(list(...))))
-
+    .throw_warning("Argument not supported and skipped:", names(list(...)))
 
   ##select relevant rows
   sel <- tryCatch(eval(
@@ -210,7 +211,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
     enclos = parent.frame()
   ),
   error = function(e) {
-    stop("\n\nInvalid subset options. \nValid terms are: ", paste(names(x@METADATA), collapse = ", "))
+    .throw_error("\nInvalid subset options, valid terms are: ",
+                 .collapse(names(x@METADATA)))
   })
 
   ##probably everything is FALSE now?
@@ -223,14 +225,11 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 
     } else{
       return(NULL)
-
     }
   }else{
     x@METADATA[["SEL"]] <- sel
     return(x)
-
   }
-
 }
 
 #' @rdname methods_RLum
@@ -243,6 +242,13 @@ subset.RLum.Analysis <- function(x, subset = NULL, ...) {
 ####################################################################################################
 # methods for generic: bin()
 # ##################################################################################################
+
+#' @rdname methods_RLum
+#' @export
+bin <- function(x, ...) {
+  UseMethod("bin")
+}
+
 #' @rdname methods_RLum
 #' @export
 bin.RLum.Data.Curve <- function(x, bin_size = 2, ...) bin_RLum.Data(x, bin_size = bin_size)
@@ -292,7 +298,7 @@ dim.RLum.Data.Spectrum <- function(x) dim(as(x, "matrix"))
 rep.RLum <- function(x, ...) replicate_RLum(x, ...)
 
 ####################################################################################################
-# methods for generic: name()
+# methods for generic: names()
 # ##################################################################################################
 #' @rdname methods_RLum
 #' @export
@@ -352,7 +358,6 @@ as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FAL
 
   ##convert to data.frame and bind
   cbind(x@METADATA, as.data.frame(m))
-
 }
 
 
@@ -448,9 +453,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 
   }else{
     return(temp)
-
   }
-
 }
 
 ####################################################################################################
@@ -515,7 +518,6 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 
   } else{
     get_RLum(x, record.id = i, drop = drop)
-
   }
 }
 

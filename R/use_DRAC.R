@@ -1,13 +1,12 @@
-#' Use DRAC to calculate dose rate data
+#' @title Use DRAC to calculate dose rate data
 #'
-#' The function provides an interface from R to DRAC. An R-object or a
-#' pre-formatted XLS/XLSX file is passed to the DRAC website and the
-#' results are re-imported into R.
-#'
+#' @description The function provides an interface from R to DRAC. An R-object or a
+#' CSV file is passed to the DRAC website and results are re-imported into R.
 #'
 #' @param file [character] (**required**):
-#' spreadsheet to be passed to the DRAC website for calculation. Can also be a
-#' DRAC template object obtained from `template_DRAC()`.
+#' name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
+#' be sent to the DRAC website for calculation. It can also be a DRAC template
+#' object obtained from [template_DRAC()].
 #'
 #' @param name [character] (*with default*):
 #' Optional user name submitted to DRAC. If omitted, a random name will be generated
@@ -23,6 +22,10 @@
 #' @param ... Further arguments.
 #'
 #' - `url` [character]: provide an alternative URL to DRAC
+#' - `ignore_version` [logical]: ignores the version check, this might come in handy
+#' if the version has changed, but not the column order
+#' - `user` [character]: option to provide username for secured site
+#' - `password` [character]: password for secured site, only works jointly with `user`
 #' - `verbose` [logical]: show or hide console output
 #'
 #' @return Returns an [RLum.Results-class] object containing the following elements:
@@ -46,10 +49,10 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.15
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
@@ -115,94 +118,90 @@ use_DRAC <- function(
   print_references = TRUE,
   citation_style = "text",
   ...
-){
+) {
+  .set_function_name("use_DRAC")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## TODO:
   ## (1) Keep the data set as unmodified as possible. Check structure and order of parameters
-  ## for meaningful cominbination.
+  ## for meaningful combination.
   ##
   ## (2)
   ## Leave it to the user where the calculations made in our package should be used
+  ##
+ # Settings ------------------------------------------------------------------------------------
+  settings <- modifyList(list(
+    name = ifelse(missing(name),
+                  paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, runif(1, 2, 4))), name),
+    verbose = TRUE,
+    url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator",
+    ignore_version = FALSE,
+    user = NULL,
+    password = NULL),
+    list(...),
+    keep.null = TRUE)
 
   # Integrity tests -----------------------------------------------------------------------------
   if (inherits(file, "character")) {
     if(!file.exists(file)){
-      stop("[use_DRAC()] It seems that the file doesn't exist!")
-
+      .throw_error("Input file does not exist")
     }
 
-    # Import data ---------------------------------------------------------------------------------
+    if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {
+      .throw_error("XLS/XLSX format no longer supported, use CSV instead")
+    }
+
+    ## Import data ----------------------------------------------------------
 
     ## Import and skip the first rows and remove NA lines and the 2 row, as this row contains
     ## only meta data
 
-    ## DRAC v1.1 - XLS sheet
-    ##check if is the original DRAC table
-    if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {
-      if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input")
-        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.1 XLSX template. This is currently not supported!")
-
-      warning("\n[use_DRAC()] The current DRAC version is 1.2, but you provided the v1.1 excel input template.",
-              "\nPlease transfer your data to the new CSV template introduced with DRAC v1.2.", call. = FALSE)
-      input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
-    }
-
     ## DRAC v1.2 - CSV sheet
-    if (tools::file_ext(file) == "csv") {
-      if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs")
-        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.2 CSV template. This is currently not supported!")
+    if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs" &
+        !settings$ignore_version)
+      .throw_error("It looks like that you are not using the original ",
+                   "DRAC v1.2 CSV template, this is currently not supported")
 
-      input.raw <- read.csv(file, skip = 8, check.names = FALSE, header = TRUE, stringsAsFactors = FALSE)[-1, ]
-    }
+    input.raw <- read.csv(file, skip = 8, check.names = FALSE, header = TRUE,
+                          stringsAsFactors = FALSE)[-1, ]
 
   } else if (inherits(file, "DRAC.list")) {
     input.raw <- as.data.frame(file)
 
   } else if (inherits(file, "DRAC.data.frame")) {
     input.raw <- file
-
   } else {
-    stop("The provided data object is not a valid DRAC template.", call. = FALSE)
+    .throw_error("The provided data object is not a valid DRAC template.")
   }
 
-  if (nrow(input.raw) > 50)
-    stop("DRAC can only handle 50 data sets at once. Please reduce the number of rows and re-run this function again.", call. = FALSE)
+  if (nrow(input.raw) > 5000)
+    .throw_error("The limit of allowed datasets is 5000!")
 
-  # Settings ------------------------------------------------------------------------------------
-  settings <- list(name = ifelse(missing(name),
-                                 paste(sample(if(runif(1,-10,10)>0){LETTERS}else{letters},
-                                              runif(1, 2, 4)), collapse = ""),
-                                 name),
-                   verbose = TRUE,
-                   url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
-
-  # override defaults with args in ...
-  settings <- modifyList(settings, list(...))
+  citation_style <- .validate_args(citation_style,
+                                   c("text", "Bibtex", "citation", "html",
+                                     "latex", "R"))
 
   # Set helper function -------------------------------------------------------------------------
   ## The real data are transferred without any encryption, so we have to mask the original
 
   ##(0) set masking function
   .masking <- function(mean, sd, n) {
-    temp <- rnorm(n = 30 * n, mean = mean,sd = sd)
-    temp.result <-
-      sapply(seq(1, length(temp), by = 30), function(x) {
+    temp <- rnorm(n = 30 * n, mean = mean, sd = sd)
+    t(vapply(seq(1, length(temp), 30), function(x) {
         c(format(mean(temp[x:(x + 29)]), digits = 2),
           format(sd(temp[x:(x + 29)]), digits = 2))
-      })
-    return(t(temp.result))
+      }, character(2)))
   }
 
 
   # Process data --------------------------------------------------------------------------------
   if (settings$verbose) message("\n\t Preparing data...")
-
   ##(1) expand the rows in the data.frame a little bit
   mask.df <-  input.raw[rep(1:nrow(input.raw), each = 3), ]
 
-  ##(2) generate some meaningful randome variables
-  mask.df <- lapply(seq(1, nrow(input.raw), by = 3), function(x) {
-
-    if (mask.df[x,"TI:52"] != "X") {
+  ##(2) generate some meaningful random variables
+  mask.df <- lapply(seq(1, nrow(input.raw), 3), function(x) {
+    if (!is.na(mask.df[x,"TI:52"]) && mask.df[x,"TI:52"] != "X") {
       ##replace some values - the De value
       mask.df[x:(x + 2), c("TI:52","TI:53")] <- .masking(
         mean = as.numeric(mask.df[x,"TI:52"]),
@@ -214,19 +213,19 @@ use_DRAC <- function(
   })
 
   ##(3) bin values
-  DRAC_submission.df <- rbind(input.raw,mask.df[[1]])
-
+  DRAC_submission.df <- rbind(input.raw, mask.df[[1]])
 
   ##(4) replace ID values
-  DRAC_submission.df$`TI:1` <-   paste0(paste0(paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters},
-                                                             runif(1, 2, 4)), collapse = ""),
-                                               ifelse(runif(1,-10,10)>0, "-", "")),
-                                        gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE),
-                                                                     by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))
+  DRAC_submission.df$`TI:1` <- paste0(
+    paste0(
+      paste0(
+        sample(if(runif(1,-10,10)>0) LETTERS else letters, runif(1, 2, 4))),
+      ifelse(runif(1,-10,10)>0, "-", "")),
+    gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE),
+      by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))[1:nrow(DRAC_submission.df)]
 
 
-
-  ##(5) store the real IDs in a sperate object
+  ##(5) store the real IDs in a separate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
 
   ##(6) create DRAC submission string
@@ -247,16 +246,31 @@ use_DRAC <- function(
   DRAC_input <- paste(DRAC_submission.string, collapse = "")
 
   # Send data to DRAC ---------------------------------------------------------------------------
-  if (settings$verbose) message(paste("\t Establishing connection to", settings$url))
+  if (settings$verbose)
+    message(paste("\t Establishing connection to", settings$url))
+
+  ## create config list
+  conf_l <- list()
+  # nocov start
+  if(!is.null(settings$user) & !is.null(settings$password))
+    conf_l <- httr::authenticate(settings$user, settings$password, type = "basic")
+  # nocov end
 
   ## send data set to DRAC website and receive response
-  DRAC.response <- httr::POST(settings$url,
-                              body = list("drac_data[name]"  = settings$name,
-                                          "drac_data[table]" = DRAC_input))
+  DRAC.response <- try(httr::POST(
+    url = settings$url,
+    config = conf_l,
+    body = list("drac_data[name]"  = settings$name,
+                "drac_data[table]" = DRAC_input)),
+    silent = TRUE)
+
   ## check for correct response
-  if (DRAC.response$status_code != 200) {
-    stop(paste0("[use_DRAC()] transmission failed with HTTP status code: ",
-                DRAC.response$status_code))
+  if (inherits(DRAC.response, "try-error") || DRAC.response$status_code != 200) {
+    if(inherits(DRAC.response, "try-error"))
+       DRAC.response$status_code <- "URL invalid"
+
+    .throw_error("Transmission failed with HTTP status code: ",
+                 DRAC.response$status_code)
   } else {
     if (settings$verbose) message("\t The request was successful, processing the reply...")
   }
@@ -272,16 +286,17 @@ use_DRAC <- function(
     error_end <- regexec('textarea name=', DRAC.content)[[1]]
     error_msg <- substr(DRAC.content, error_start, error_end)
 
+    # nocov start
     on.exit({
       reply <- readline("Do you want to see the DRAC error message (Y/N)?")
       if (reply == "Y" || reply == "y" || reply == 1)
         cat(error_msg)
-    })
+    }, add = TRUE)
+    # nocov end
 
-    stop(paste("\n\t We got a response from the server, but it\n",
-               "\t did not contain DRAC output. Please check\n",
-               "\t your data and verify its validity.\n"),
-         call. = FALSE)
+    .throw_error("\n\t We got a response from the server, but it\n",
+                 "\t did not contain DRAC output. Please check\n",
+                 "\t your data and verify its validity.\n")
   } else {
     if (settings$verbose) message("\t Finalising the results...")
   }
@@ -324,7 +339,7 @@ use_DRAC <- function(
   DRAC.content.input <- DRAC.content[ ,grep("TI:", names(DRAC.content))]
   DRAC.content.output <- DRAC.content[ ,grep("TO:", names(DRAC.content))]
 
-  ## The DRAC ouput also contains a hightlight table, which results in
+  ## The DRAC ouput also contains a highlight table, which results in
   ## duplicate columns. When creating the data.frame duplicate columns
   ## are automatically appended '.1' in their names, so we can identify
   ## and remove them easily
@@ -368,7 +383,7 @@ use_DRAC <- function(
   if (settings$verbose) lapply(messages, message)
 
   ## Get and print used references
-  references <- get_DRAC_references(DRAC.content.input)
+  references <- .get_DRAC_references(DRAC.content.input)
 
   if (print_references && settings$verbose) {
     for (i in 1:length(references$refs)) {
@@ -379,18 +394,19 @@ use_DRAC <- function(
 
 
   ## return output
-  DRAC.return <- set_RLum("RLum.Results",
-                          data = list(
-                            DRAC = list(highlights = DRAC.highlights,
-                                        header = DRAC.header,
-                                        labels = DRAC.labels,
-                                        content = DRAC.content,
-                                        input = DRAC.content.input,
-                                        output = DRAC.content.output,
-                                        references = references),
-                            data = file,
-                            call = sys.call(),
-                            args = as.list(sys.call()[-1])))
+  DRAC.return <- set_RLum(
+    "RLum.Results",
+    data = list(
+    DRAC = list(highlights = DRAC.highlights,
+          header = DRAC.header,
+          labels = DRAC.labels,
+          content = DRAC.content,
+          input = DRAC.content.input,
+          output = DRAC.content.output,
+          references = references),
+        data = file,
+        call = sys.call(),
+        args = as.list(sys.call()[-1])))
 
   invisible(DRAC.return)
 }

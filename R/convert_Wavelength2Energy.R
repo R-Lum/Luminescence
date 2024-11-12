@@ -1,4 +1,4 @@
-#'@title Emission Spectra Conversion from Wavelength to Energy Scales
+#'@title Emission Spectra Conversion from Wavelength to Energy Scales (Jacobian Conversion)
 #'
 #'@description The function provides a convenient and fast way to convert emission spectra wavelength
 #'to energy scales. The function works on [RLum.Data.Spectrum-class], [data.frame] and [matrix] and
@@ -42,7 +42,7 @@
 #' @section Function version: 0.1.1
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [plot_RLum]
 #'
@@ -126,13 +126,13 @@ convert_Wavelength2Energy <- function(
   object,
   digits = 3L,
   order = FALSE
-  ){
-
+) {
+  .set_function_name("convert_Wavelength2Energy")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object)[1] == "list"){
+  if(inherits(object, "list")){
     return(lapply(object, convert_Wavelength2Energy))
-
   }
 
   # Conversion function -------------------------------------------------------------------------
@@ -151,12 +151,14 @@ convert_Wavelength2Energy <- function(
 
       ##return results
       return(m)
-
   }
 
+  ## Integrity tests --------------------------------------------------------
 
-  # Treat input data ----------------------------------------------------------------------------
-  if(class(object)[1] == "RLum.Data.Spectrum"){
+  .validate_class(object, c("RLum.Data.Spectrum", "data.frame", "matrix"),
+                  extra = "a 'list' of such objects")
+
+  if(inherits(object, "RLum.Data.Spectrum")){
      ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){
@@ -164,7 +166,6 @@ convert_Wavelength2Energy <- function(
          message("[convert_Wavelength2Energy()] Your object has already an energy scale, nothing done!")
          return(object)
      }
-
     }
 
 
@@ -173,9 +174,9 @@ convert_Wavelength2Energy <- function(
 
     #sort values if needed
     if(order){
-      object@data <-  object@data[order(as.numeric(rownames(object@data))),]
+      object@data <- object@data[order(as.numeric(rownames(object@data))), ,
+                                 drop = FALSE]
       rownames(object@data) <- sort(as.numeric(rownames(object@data)))
-
     }
 
     ##correct $curveDescripter (we do not attach the table, otherwise the object gets too big)
@@ -188,7 +189,7 @@ convert_Wavelength2Energy <- function(
     ##return new object
     return(object)
 
-  }else if(class(object)[1] == "matrix" || class(object)[1] == "data.frame"){
+  }else if(inherits(object, "matrix") || inherits(object, "data.frame")){
     temp <- as.matrix(object[,2:ncol(object)])
 
     ##set rownames
@@ -206,20 +207,9 @@ convert_Wavelength2Energy <- function(
     if(order) temp <- temp[order(temp[,1]),]
 
     ##return
-    if(class(object)[1] == "data.frame")
+    if(inherits(object, "data.frame"))
       return(as.data.frame(temp))
 
     return(temp)
-  }else{
-    stop(
-      paste0(
-        "[convert_Wavelength2Energy()] Class '",
-        class(object)[1],
-        "' not supported as input!"
-      ),
-      call. = FALSE
-    )
-
   }
-
 }

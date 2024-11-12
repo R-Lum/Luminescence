@@ -10,7 +10,6 @@ temp_RLum <- set_RLum(class = "RLum.Results", data = list(data = ExampleData.DeV
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_type(temp, "list")
   expect_equal(length(temp), 3)
@@ -18,7 +17,11 @@ test_that("check class and length of output", {
 })
 
 test_that("Test certain input scenarios", {
-  expect_is(calc_Statistics(temp_RLum), "list")
+  expect_type(calc_Statistics(temp_RLum), "list")
+
+  df <- ExampleData.DeValues$BT998
+  df[, 2] <- NULL
+  expect_warning(calc_Statistics(df))
 
   df <- ExampleData.DeValues$BT998
   df[,2] <- 0
@@ -26,32 +29,32 @@ test_that("Test certain input scenarios", {
 
   df <- ExampleData.DeValues$BT998
   expect_silent(calc_Statistics(df, weight.calc = "reciprocal"))
-
-
 })
 
 
 test_that("check error messages", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   df <- ExampleData.DeValues$BT998
 
   expect_error(calc_Statistics(data = matrix(0,2)),
-               regexp = "[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'",
+               "[calc_Statistics()] 'data' should be of class 'RLum.Results' or 'data.frame'",
                fixed = TRUE)
-  expect_error(calc_Statistics(data = df, weight.calc = "test"))
-
+  expect_error(calc_Statistics(data = df, weight.calc = "error"),
+               "'weight.calc' should be one of 'square' or 'reciprocal'")
+  expect_error(calc_Statistics(df, digits = 2.4),
+               "'digits' should be a positive integer scalar")
+  expect_error(calc_Statistics(df, n.MCM = "error"),
+               "'n.MCM' should be a positive integer scalar")
 })
 
 
 test_that("check weighted values from output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(temp$weighted$n, 25)
-  expect_equal(sum(unlist(temp_alt1)),24535.72)
-  expect_equal(sum(unlist(temp_alt2)),24534.1)
+  expect_equal(sum(unlist(temp_alt1)),18558.37)
+  expect_equal(sum(unlist(temp_alt2)),18555.994)
   expect_equal(round(temp$weighted$mean, digits = 3), 2896.036)
   expect_equal(round(temp$weighted$median, digits = 2), 2884.46)
   expect_equal(round(temp$weighted$sd.abs, digits = 4), 240.2228)
@@ -89,8 +92,8 @@ test_that("check MCM values from output", {
   expect_equal(round(temp$MCM$sd.rel, digits = 6), 9.999137)
   expect_equal(round(temp$MCM$se.abs, digits = 5), 59.01474)
   expect_equal(round(temp$MCM$se.rel, digits = 6), 1.999827)
-  expect_equal(round(temp$MCM$skewness, digits = 3), 1286.082)
-  expect_equal(round(temp$MCM$kurtosis, digits = 3), 4757.097)
+  expect_equal(round(temp$MCM$skewness, digits = 3), 1.286)
+  expect_equal(round(temp$MCM$kurtosis, digits = 3), 4.757)
 
 
 })

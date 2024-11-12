@@ -84,11 +84,6 @@
 #' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (`mtext`).
 #'
-#' @param output.path [character] (*optional*):
-#' output path for table output containing the results of the fit. The file
-#' name is set automatically. If the file already exists in the directory,
-#' the values are appended.
-#'
 #' @param output.terminal [logical] (*with default*):
 #' terminal output with fitting results.
 #'
@@ -105,12 +100,6 @@
 #' **plot (*optional*)**
 #'
 #' the fitted CW-OSL curves are returned as plot.
-#'
-#' **table (*optional*)**
-#'
-#' an output table (`*.csv`) with parameters of the fitted components is
-#' provided if the `output.path` is set.
-#'
 #'
 #' **RLum.Results**
 #'
@@ -171,10 +160,10 @@
 #' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [fit_LMCurve], [plot],[nls], [RLum.Data.Curve-class],
 #' [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM]
@@ -215,22 +204,17 @@ fit_CWCurve<- function(
   LED.wavelength = 470,
   cex.global = 0.6,
   sample_code = "Default",
-  output.path,
   output.terminal = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
   ...
-){
-  ##TODO
-  ##remove output.path
+) {
+  .set_function_name("fit_CWCurve")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  # INTEGRITY CHECKS --------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
-  ##INPUT OBJECTS
-  if(is(values, "RLum.Data.Curve") == FALSE & is(values, "data.frame") == FALSE){
-    stop("[fit_CWCurve()] Input object is not of type 'RLum.Data.Curve' or 'data.frame'!", call. = FALSE)
-  }
-
+  .validate_class(values, c("RLum.Data.Curve", "data.frame"))
 
   if(is(values, "RLum.Data.Curve") == TRUE){
 
@@ -245,9 +229,9 @@ fit_CWCurve<- function(
     ##set x and y values
     x<-values[,1]
     y<-values[,2]
-
   }
 
+  fit.method <- .validate_args(fit.method, c("port", "LM"))
 
   # Deal with extra arguments -----------------------------------------------
 
@@ -266,6 +250,8 @@ fit_CWCurve<- function(
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
   {paste("OSL [cts/",round(max(x)/length(x), digits = 2)," s]",sep="")}
 
+  if ("output.path" %in% names(extraArgs))
+    .throw_warning("Argument 'output.path' no longer supported, ignored")
 
   ##============================================================================##
   ## FITTING
@@ -279,16 +265,6 @@ fit_CWCurve<- function(
     return(equation)
   }
   ##////equation used for fitting///(end)
-
-  ##////equation used for fitting////(start)
-  fit.equation.simple <- function(I0.i,lambda.i){
-    equation<-parse(
-      text=paste("I0[",I0.i,"]*exp(-lambda[",lambda.i,"]*x)",
-                 collapse="+",sep=""))
-    return(equation)
-  }
-  ##////equation used for fitting///(end)
-
 
   ##set formula elements for fitting functions
   ## the upper two funtions should be removed ... but chances are needed ... TODO
@@ -364,7 +340,6 @@ fit_CWCurve<- function(
                                             maxiter = 500
                                           )),
                                     silent = TRUE
-
       ))#end try
 
 
@@ -386,13 +361,7 @@ fit_CWCurve<- function(
                                         lower=rep(0,n.components * 2)# set lower boundaries for components
       ), silent=TRUE# nls
       ))#end try
-
-    }else{
-
-      stop("[fit_CWCurve()] fit.method unknown.", call. = FALSE)
-
     }
-
 
     ##(3) FIT WITH THE FULL FUNCTION
     if(inherits(fit.try,"try-error") == FALSE){
@@ -428,7 +397,6 @@ fit_CWCurve<- function(
 
       }else{
 
-
         ##try fit
         fit.try<-suppressWarnings(try(nls(fit.formula(n.components),
                                           trace=fit.trace,
@@ -460,7 +428,6 @@ fit_CWCurve<- function(
       fit.failure_counter <- fit.failure_counter+1
       if(n.components==fit.failure_counter & exists("fit")==FALSE){fit<-fit.try}}
 
-
     ##stop fitting after a given number of wrong attempts
     if(fit.failure_counter>=fit.failure_threshold){
 
@@ -470,7 +437,6 @@ fit_CWCurve<- function(
     }else if(n.components == n.components.max & exists("fit") == FALSE){
 
       fit <- fit.try
-
     }
 
   }##end while
@@ -533,7 +499,7 @@ fit_CWCurve<- function(
     pR<-round(1-RSS/TSS,digits=4)
 
     if(pR<0){
-      warning("pseudo-R^2 < 0!")
+      .throw_warning("pseudo-R^2 < 0!")
     }
 
     ## ---------------------------------------------
@@ -635,22 +601,6 @@ fit_CWCurve<- function(
       colnames(output.table)<-c("sample_code","n.components",
                                 output.tableColNames,"pseudo-R^2")
 
-      if(missing(output.path)==FALSE){
-
-        ##write file with just the header if the file not exists
-        if(file.exists(paste(output.path,"fit_CWCurve_Output_",sample_code,".csv",sep=""))==FALSE){
-          write.table(output.table,file=paste(output.path,"fit_CWCurve_Output_",
-                                              sample_code,".csv",sep=""), sep=";"
-                      ,row.names=FALSE)
-        }else{
-          write.table(output.table,file=paste(output.path,"fit_CWCurve_Output_",
-                                              sample_code,".csv",sep=""), sep=";"
-                      ,row.names=FALSE, append=TRUE, col.names=FALSE)
-
-        }#endif::for write option
-
-      }#endif::table output
-
       ##============================================================================##
       ## COMPONENT TO SUM CONTRIBUTION PLOT
       ##============================================================================##
@@ -733,7 +683,6 @@ fit_CWCurve<- function(
 
           matrixStats::rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
                          component.contribution.matrix[,x]))
-
         })
 
       ##append to existing matrix
@@ -865,7 +814,6 @@ fit_CWCurve<- function(
       }
       rm(stepping)
 
-
     }#end if try-error for fit
 
     par(par.default)
@@ -891,5 +839,4 @@ fit_CWCurve<- function(
   rm(component.contribution.matrix)
 
   invisible(newRLumResults.fit_CWCurve)
-
 }

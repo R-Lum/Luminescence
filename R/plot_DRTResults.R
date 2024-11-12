@@ -1,9 +1,9 @@
-#' Visualise dose recovery test results
+#' @title Visualise dose recovery test results
 #'
-#' The function provides a standardised plot output for dose recovery test
+#' @description The function provides a standardised plot output for dose recovery test
 #' measurements.
 #'
-#' Procedure to test the accuracy of a measurement protocol to reliably
+#' @details Procedure to test the accuracy of a measurement protocol to reliably
 #' determine the dose of a specific sample. Here, the natural signal is erased
 #' and a known laboratory dose administered which is treated as unknown. Then
 #' the De measurement is carried out and the degree of congruence between
@@ -84,10 +84,10 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.13
+#' @section Function version: 0.1.14
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]
@@ -106,61 +106,75 @@
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' ## plot values
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#' given.dose = 2800, mtext = "Example data")
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   mtext = "Example data")
 #'
 #' ## plot values with legend
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800,
-#'                 legend = "Test data set")
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   legend = "Test data set")
 #'
 #' ## create and plot two subsets with randomised values
 #' x.1 <- ExampleData.DeValues$BT998[7:11,]
 #' x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 #'
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800)
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800)
 #'
 #' ## some more user-defined plot parameters
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 pch = c(2, 5),
-#'                 col = c("orange", "blue"),
-#'                 xlim = c(0, 8),
-#'                 ylim = c(0.85, 1.15),
-#'                 xlab = "Sample aliquot")
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   pch = c(2, 5),
+#'   col = c("orange", "blue"),
+#'   xlim = c(0, 8),
+#'   ylim = c(0.85, 1.15),
+#'   xlab = "Sample aliquot")
 #'
 #' ## plot the data with user-defined statistical measures as legend
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 summary = c("n", "mean.weighted", "sd"))
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   summary = c("n", "weighted$mean", "sd.abs"))
 #'
 #' ## plot the data with user-defined statistical measures as sub-header
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 summary = c("n", "mean.weighted", "sd"),
-#'                 summary.pos = "sub")
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   summary = c("n", "weighted$mean", "sd.abs"),
+#'   summary.pos = "sub")
 #'
 #' ## plot the data grouped by preheat temperatures
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800,
-#'                 preheat = c(200, 200, 200, 240, 240))
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   preheat = c(200, 200, 200, 240, 240))
+#'
 #' ## read example data set and misapply them for this plot type
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' ## plot values
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800, mtext = "Example data")
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   mtext = "Example data")
+#'
 #' ## plot two data sets grouped by preheat temperatures
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 preheat = c(200, 200, 200, 240, 240))
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   preheat = c(200, 200, 200, 240, 240))
 #'
 #' ## plot the data grouped by preheat temperatures as boxplots
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800,
-#'                 preheat = c(200, 200, 200, 240, 240),
-#'                 boxplot = TRUE)
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   preheat = c(200, 200, 200, 240, 240),
+#'   boxplot = TRUE)
 #'
 #' @md
 #' @export
@@ -178,16 +192,17 @@ plot_DRTResults <- function(
   par.local = TRUE,
   na.rm  = FALSE,
   ...
-){
+) {
+  .set_function_name("plot_DRTResults")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Validity checks ----------------------------------------------------------
 
   ##avoid crash for wrongly set boxlot argument
   if(missing(preheat) & boxplot == TRUE){
-
-    warning("[plot_DRTResults()] Option 'boxplot' not valid without any value in 'preheat'. Reset to FALSE.")
-    boxplot  <- FALSE
-
+    boxplot <- FALSE
+    .throw_warning("Option 'boxplot' requires a value in 'preheat', ",
+                   "reset to FALSE")
   }
 
   if(missing(summary) == TRUE) {summary <- NULL}
@@ -199,14 +214,10 @@ plot_DRTResults <- function(
   if(is(values, "list") == FALSE) {values <- list(values)}
 
   for(i in 1:length(values)) {
-    if(is(values[[i]], "RLum.Results")==FALSE &
-         is(values[[i]], "data.frame")==FALSE){
-      stop(paste("[plot_DRTResults()] Wrong input data format",
-                 "(!= 'data.frame' or 'RLum.Results')"))
-    } else {
-      if(is(values[[i]], "RLum.Results")==TRUE){
-        values[[i]] <- get_RLum(values[[i]])[,1:2]
-      }
+    .validate_class(values[[i]], c("data.frame", "RLum.Results"),
+                    name = "'values'")
+    if (inherits(values[[i]], "RLum.Results")) {
+      values[[i]] <- get_RLum(values[[i]])[,1:2]
     }
   }
 
@@ -216,7 +227,7 @@ plot_DRTResults <- function(
     ##check for preheat temperature values
     if(missing(preheat) == FALSE) {
       if(length(preheat) != nrow(values[[i]])){
-        stop("[plot_DRTResults()] number of preheat temperatures != De values!")
+        .throw_error("Number of preheat temperatures != De values")
       }
     }
 
@@ -226,7 +237,7 @@ plot_DRTResults <- function(
       ##currently we assume that all input data sets comprise a similar of data
       if(!missing(preheat) & i == length(values)){
 
-        ##find and mark NA value indicies
+        ## find and mark NA value indices
         temp.NA.values <- unique(c(which(is.na(values[[i]][,1])), which(is.na(values[[i]][,2]))))
 
         ##remove preheat entries
@@ -235,7 +246,6 @@ plot_DRTResults <- function(
       }
 
       values[[i]] <- na.exclude(values[[i]])
-
     }
   }
 
@@ -277,7 +287,7 @@ plot_DRTResults <- function(
   ##axis labels
   las <- if("las" %in% names(extraArgs)) extraArgs$las else 0
 
-  fun <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   ## calculations and settings-------------------------------------------------
 
@@ -287,7 +297,7 @@ plot_DRTResults <- function(
     if(length(given.dose) > 1){
 
       if(length(values) < length(given.dose)){
-        stop("[plot_DRTResults()] 'given.dose' > number of input data sets!", call. = FALSE)
+        .throw_error("'given.dose' > number of input data sets")
 
       }
 
@@ -336,7 +346,11 @@ plot_DRTResults <- function(
     values.preheat[[1]] <- NULL
     values.boxplot[[1]] <- NULL
     modes.plot <- rep(modes, each = length(values))
-  } else {modes <- 1}
+
+  } else {
+    modes <- 1
+
+  }
 
   ## assign colour indices
   col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {
@@ -368,81 +382,15 @@ plot_DRTResults <- function(
         sep = " | "
       )
     })
-
-
   }
 
-  ## convert keywords into summary placement coordinates
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- c(xlim[1], ylim[2])
-    summary.adj <- c(0, 1)
-  } else if(length(summary.pos) == 2) {
-    summary.pos <- summary.pos
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "topleft") {
-    summary.pos <- c(xlim[1], ylim[2])
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "top") {
-    summary.pos <- c(mean(xlim), ylim[2])
-    summary.adj <- c(0.5, 1)
-  } else if(summary.pos[1] == "topright") {
-    summary.pos <- c(xlim[2], ylim[2])
-    summary.adj <- c(1, 1)
-  }  else if(summary.pos[1] == "left") {
-    summary.pos <- c(xlim[1], mean(ylim))
-    summary.adj <- c(0, 0.5)
-  } else if(summary.pos[1] == "center") {
-    summary.pos <- c(mean(xlim), mean(ylim))
-    summary.adj <- c(0.5, 0.5)
-  } else if(summary.pos[1] == "right") {
-    summary.pos <- c(xlim[2], mean(ylim))
-    summary.adj <- c(1, 0.5)
-  }else if(summary.pos[1] == "bottomleft") {
-    summary.pos <- c(xlim[1], ylim[1])
-    summary.adj <- c(0, 0)
-  } else if(summary.pos[1] == "bottom") {
-    summary.pos <- c(mean(xlim), ylim[1])
-    summary.adj <- c(0.5, 0)
-  } else if(summary.pos[1] == "bottomright") {
-    summary.pos <- c(xlim[2], ylim[1])
-    summary.adj <- c(1, 0)
-  }
-
-  ## convert keywords into legend placement coordinates
-  if(missing(legend.pos) == TRUE) {
-    legend.pos <- c(xlim[2], ylim[2])
-    legend.adj <- c(1, 1)
-  } else if(length(legend.pos) == 2) {
-    legend.pos <- legend.pos
-    legend.adj <- c(0, 1)
-  } else if(legend.pos[1] == "topleft") {
-    legend.pos <- c(xlim[1], ylim[2])
-    legend.adj <- c(0, 1)
-  } else if(legend.pos[1] == "top") {
-    legend.pos <- c(mean(xlim), ylim[2])
-    legend.adj <- c(0.5, 1)
-  } else if(legend.pos[1] == "topright") {
-    legend.pos <- c(xlim[2], ylim[2])
-    legend.adj <- c(1, 1)
-  } else if(legend.pos[1] == "left") {
-    legend.pos <- c(xlim[1], mean(ylim))
-    legend.adj <- c(0, 0.5)
-  } else if(legend.pos[1] == "center") {
-    legend.pos <- c(mean(xlim), mean(ylim))
-    legend.adj <- c(0.5, 0.5)
-  } else if(legend.pos[1] == "right") {
-    legend.pos <- c(xlim[2], mean(ylim))
-    legend.adj <- c(1, 0.5)
-  } else if(legend.pos[1] == "bottomleft") {
-    legend.pos <- c(xlim[1], ylim[1])
-    legend.adj <- c(0, 0)
-  } else if(legend.pos[1] == "bottom") {
-    legend.pos <- c(mean(xlim), ylim[1])
-    legend.adj <- c(0.5, 0)
-  } else if(legend.pos[1] == "bottomright") {
-    legend.pos <- c(xlim[2], ylim[1])
-    legend.adj <- c(1, 0)
-  }
+  ## convert keywords into summary and legend placement coordinates
+  coords <- .get_keyword_coordinates(summary.pos, xlim, ylim)
+  summary.pos <- coords$pos
+  summary.adj <- coords$adj
+  coords <- .get_keyword_coordinates(legend.pos, xlim, ylim)
+  legend.pos <- coords$pos
+  legend.adj <- coords$adj
 
   ## Plot output --------------------------------------------------------------
 
@@ -453,11 +401,10 @@ plot_DRTResults <- function(
 
   ## setup plot area
   if(par.local){
-
     if (shift.lines <= 0)
-      shift.lines <- 1
-    par.default <- par()[c("mfrow", "cex", "oma")]
-    par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
+    shift.lines <- 1
+    par.default <- par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
+    on.exit(par(par.default), add = TRUE)
   }
 
   ## optionally plot values and error bars
@@ -472,10 +419,9 @@ plot_DRTResults <- function(
            ylab = ylab,
            xaxt = "n",
            las = las,
-           main = ""
-           )
+           main = "")
 
-      ##add x-axis ... this avoids digits in the axis labeling
+      ##add x-axis ... this avoids digits in the axis labelling
       axis(side = 1, at = 1:(nrow(values[[1]])+1), labels = 1:(nrow(values[[1]])+1), las = las)
 
       ## add title
@@ -618,7 +564,7 @@ plot_DRTResults <- function(
   }
 
   ## optionally, plot boxplot
-  if(boxplot == TRUE) {
+  if(boxplot) {
     ## create empty plot
     boxplot(values.boxplot,
             names = modes.plot,
@@ -635,7 +581,6 @@ plot_DRTResults <- function(
       axis(side = 1, at = 1, labels = modes.plot, las = las)
 
     } else if (length(modes.plot) > length(unique(modes.plot))){
-
       ticks <- seq(from = 1 + ((length(values.boxplot)/length(unique(modes.plot)) - 1)/2),
                    to = length(values.boxplot),
                    by = length(values.boxplot)/length(unique(modes.plot)))
@@ -644,8 +589,7 @@ plot_DRTResults <- function(
         side = 1,
         at = ticks,
         las = las,
-        labels = unique(modes.plot)
-      )
+        labels = unique(modes.plot))
 
       ##polygon for a better graphical representation of the groups
       polygon.x <- seq(
@@ -665,9 +609,7 @@ plot_DRTResults <- function(
             par()$usr[3]
           ),
           col = "grey",
-          border = "grey"
-
-        )
+          border = "grey")
 
       }
 
@@ -738,14 +680,6 @@ plot_DRTResults <- function(
         text = mtext,
         cex = 0.8 * cex)
 
-  ##reset par()
-  if(par.local){
-    par(par.default)
-    rm(par.default)
-  }
-
   ##FUN by R Luminescence Team
-  if(fun == TRUE) {sTeve()}
-
+  if (fun == TRUE) sTeve() # nocov
 }
-

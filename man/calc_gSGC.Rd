@@ -17,7 +17,7 @@ calc_gSGC(
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
 input data of providing the following columns: \code{LnTn}, \code{LnTn.error}, \code{Lr1Tr1}, \code{Lr1Tr1.error}, \code{Dr1}
-\strong{Note:} column names are not required. The function expect the input data in the given order}
+\strong{Note:} column names are not required. The function expects the input data in the given order}
 
 \item{gSGC.type}{\link{character} (\emph{with default}):
 define the function parameters that
@@ -81,7 +81,7 @@ get_RLum(results, data.object = "De")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -93,6 +93,6 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 \linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

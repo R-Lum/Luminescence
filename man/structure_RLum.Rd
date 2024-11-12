@@ -31,9 +31,9 @@ corresponding \linkS4class{RLum} class.
 }
 \section{Functions}{
 \itemize{
-\item \code{structure_RLum,list-method}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{structure_RLum}
-}}
+\item \code{structure_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{structure_RLum}
 
+}}
 \section{Function version}{
  0.2.0
 }
@@ -52,11 +52,11 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. structure_RLum(): General structure function for RLum S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. structure_RLum(): General structure function for RLum S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{utilities}

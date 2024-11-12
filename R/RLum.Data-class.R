@@ -1,6 +1,6 @@
-#' Class `"RLum.Data"`
+#' @title Class `"RLum.Data"`
 #'
-#' Generalized virtual data class for luminescence data.
+#' @description Generalized virtual data class for luminescence data.
 #'
 #'
 #' @name RLum.Data-class
@@ -15,10 +15,10 @@
 #' @section Class version: 0.2.1
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum-class], [RLum.Data.Curve-class],
-#' [RLum.Data.Spectrum-class]
+#' [RLum.Data.Spectrum-class], [RLum.Data.Image-class]
 #'
 #' @keywords classes internal
 #'

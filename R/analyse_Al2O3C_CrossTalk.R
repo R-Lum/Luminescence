@@ -59,9 +59,9 @@
 #'
 #' - An overview of the obtained apparent dose values
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
@@ -92,15 +92,15 @@ analyse_Al2O3C_CrossTalk <- function(
   method_control = NULL,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("analyse_Al2O3C_CrossTalk")
+  on.exit(.unset_function_name(), add = TRUE)
 
-  # Integretiy check  ---------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
 
-  ##check input object
-  if(!all(unlist(lapply(object, function(x){is(x, "RLum.Analysis")})))){
-    stop("[analyse_Al2O3C_CrossTalk()] The elements in 'object' are not all of type 'RLum.Analsyis'", call. = FALSE)
-
-  }
+  lapply(object,
+         function(x) .validate_class(x, "RLum.Analysis",
+                                     name = "All elements of 'object'"))
 
   ##TODO ... do more, push harder
   ##Accept the entire sequence ... including TL and extract
@@ -110,42 +110,36 @@ analyse_Al2O3C_CrossTalk <- function(
   ##select curves based on the recordType selection; if not NULL
   if(!is.null(recordType)){
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
-
   }
 
   #set method control
   method_control_settings <- list(
     fit.method = "EXP"
-
   )
 
   ##modify on request
   if(!is.null(method_control)){
+    .validate_class(method_control, "list")
     method_control_settings <- modifyList(x = method_control_settings, val = method_control)
-
   }
 
-
   ##set signal integral
+  max.signal_integral <- nrow(object[[1]][[1]][])
   if(is.null(signal_integral)){
-    signal_integral <- c(1:nrow(object[[1]][[1]][]))
+    signal_integral <- 1:max.signal_integral
 
   }else{
     ##check whether the input is valid, otherwise make it valid
-    if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][[1]][])){
-      signal_integral <- c(1:nrow(object[[1]][[1]][]))
-      warning(
-        paste0(
-          "[analyse_Al2O3C_ITC()] Input for 'signal_integral' corrected to 1:", nrow(object[[1]][[1]][])
-        ),
-        call. = FALSE
-      )
+    if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
+      signal_integral <- 1:max.signal_integral
+      .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
     }
-
   }
 
   ##check irradiation time correction
   if (!is.null(irradiation_time_correction)) {
+    .validate_class(irradiation_time_correction, c("numeric", "RLum.Results"))
+
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -156,17 +150,11 @@ analyse_Al2O3C_CrossTalk <- function(
 
         }else{
           irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
-
         }
-
       } else{
-        stop(
-          "[analyse_Al2O3C_CrossTalk()] The object provided for the argument 'irradiation_time_correction' was created by an unsupported function!",
-          call. = FALSE
-        )
-
+        .throw_error("The object provided for 'irradiation_time_correction' ",
+                     "was created by an unsupported function")
       }
-
     }
   }
 
@@ -205,7 +193,6 @@ analyse_Al2O3C_CrossTalk <- function(
     temp_df$DOSE_ERROR[id_zero] <- 0
 
     return(temp_df)
-
   })
 
   APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(1:length(object), function(x){
@@ -216,9 +203,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
     }else{
       DOSE <- signal_table_list[[x]]$DOSE[2]
-
     }
-
 
     ##calculation
     temp <- (DOSE * signal_table_list[[x]]$NET_INTEGRAL[1])/signal_table_list[[x]]$NET_INTEGRAL[2]
@@ -227,23 +212,23 @@ analyse_Al2O3C_CrossTalk <- function(
       POSITION = signal_table_list[[x]]$POSITION[1],
       AD = mean(temp),
       AD_ERROR = sd(temp))
-
   })))
 
   ##add apparent dose to the information
   signal_table_list <- lapply(1:length(signal_table_list), function(x){
       cbind(signal_table_list[[x]], rep(APPARENT_DOSE[x,2:3], 2))
-
   })
 
   ##combine
   data_full <- as.data.frame(data.table::rbindlist(signal_table_list), stringsAsFactors = FALSE)
 
   # Plotting ------------------------------------------------------------------------------------
+    ## set colours
+    col_pal <- grDevices::hcl.colors(100, palette = "RdYlGn", rev = TRUE)
 
     ##get plot settings
     par.default <- par(no.readonly = TRUE)
-    on.exit(par(par.default))
+    on.exit(par(par.default), add = TRUE)
 
     ##settings
     plot_settings <- list(
@@ -268,9 +253,10 @@ analyse_Al2O3C_CrossTalk <- function(
     }, FUN.VALUE = vector(mode = "numeric", length = 3)))
 
     ##create colour ramp
-    col.seq <- data.frame(POSITION = AD_matrix[order(AD_matrix[,2]),1],
-                          COLOUR = plotrix::smoothColors("green", nrow(AD_matrix) - 2, "red"),
-                          stringsAsFactors = FALSE)
+    col.seq <- data.frame(
+      POSITION = AD_matrix[order(AD_matrix[,2]),1],
+      COLOUR = col_pal[seq(1,100, length.out = nrow(AD_matrix))],
+      stringsAsFactors = FALSE)
 
     col.seq <- col.seq[["COLOUR"]][order(col.seq[["POSITION"]])]
 
@@ -325,7 +311,6 @@ analyse_Al2O3C_CrossTalk <- function(
              y = sin(step) * .85,
              labels = i)
         step <- step + arc.step
-
       }
 
       ##add center plot with position
@@ -343,14 +328,14 @@ analyse_Al2O3C_CrossTalk <- function(
 
       ##add colour legend
       shape::emptyplot(c(-1.2, 1.2), frame.plot = FALSE)
-      plotrix::gradient.rect(
-        xleft = -0.6,
-        ybottom = -1.2,
-        xright = 0,
-        ytop = 1.2,
-        col = plotrix::smoothColors("green", 40, "red"),
-        gradient = "y",
-        border = NA
+      graphics::rect(
+        xleft = rep(-0.6, 100),
+        ybottom = seq(-1.2,1.1,length.out = 100),
+        xright = rep(0, 100),
+        ytop = seq(-1.1,1.2,length.out = 100),
+        col = col_pal,
+        lwd = 0,
+        border = FALSE
       )
 
       ##add scale text
@@ -375,7 +360,6 @@ analyse_Al2O3C_CrossTalk <- function(
         pos = 3,
         cex = 1.1
       )
-
     }
 
   # Output --------------------------------------------------------------------------------------
@@ -395,5 +379,4 @@ analyse_Al2O3C_CrossTalk <- function(
       call = sys.call()
     )
   )
-
 }

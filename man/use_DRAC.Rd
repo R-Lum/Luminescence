@@ -8,8 +8,9 @@ use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
-spreadsheet to be passed to the DRAC website for calculation. Can also be a
-DRAC template object obtained from \code{template_DRAC()}.}
+name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
+be sent to the DRAC website for calculation. It can also be a DRAC template
+object obtained from \code{\link[=template_DRAC]{template_DRAC()}}.}
 
 \item{name}{\link{character} (\emph{with default}):
 Optional user name submitted to DRAC. If omitted, a random name will be generated}
@@ -25,6 +26,10 @@ or \code{"R"}. Default is \code{"text"}.}
 \item{...}{Further arguments.
 \itemize{
 \item \code{url} \link{character}: provide an alternative URL to DRAC
+\item \code{ignore_version} \link{logical}: ignores the version check, this might come in handy
+if the version has changed, but not the column order
+\item \code{user} \link{character}: option to provide username for secured site
+\item \code{password} \link{character}: password for secured site, only works jointly with \code{user}
 \item \code{verbose} \link{logical}: show or hide console output
 }}
 }
@@ -52,11 +57,10 @@ The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function provides an interface from R to DRAC. An R-object or a
-pre-formatted XLS/XLSX file is passed to the DRAC website and the
-results are re-imported into R.
+CSV file is passed to the DRAC website and results are re-imported into R.
 }
 \section{Function version}{
- 0.1.3
+ 0.14
 }
 
 \examples{
@@ -109,18 +113,13 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C., 2021. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-, RLum Developer Team}
+}

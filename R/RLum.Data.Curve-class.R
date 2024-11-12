@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R melt_RLum.R
 NULL
 
 #' Class `"RLum.Data.Curve"`
@@ -18,7 +18,7 @@ NULL
 #' @slot data
 #' Object of class [matrix] containing curve x and y data.
 #' 'data' can also be of type `RLum.Data.Curve` to change object values without
-#' deconstructing the object. For example:
+#' de-constructing the object. For example:
 #' ```
 #' set_RLum(class = 'RLum.Data.Curve',
 #'          data = Your.RLum.Data.Curve,
@@ -42,7 +42,7 @@ NULL
 #'
 #' @section Class version: 0.5.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [merge_RLum]
 #'
@@ -80,7 +80,7 @@ setClass("RLum.Data.Curve",
 #'
 #' **[RLum.Data.Curve-class]**
 #'
-#' \tabular{ll}{
+#' \tabular{lll}{
 #'  **from** \tab **to**\cr
 #'   `list` \tab `list` \cr
 #'   `data.frame` \tab `data.frame`\cr
@@ -103,9 +103,10 @@ setClass("RLum.Data.Curve",
 #' @name as
 setAs("list", "RLum.Data.Curve",
       function(from,to){
-
+        if (length(from) == 0)
+          return(set_RLum("RLum.Data.Curve"))
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = NA_character_,
             data = matrix(unlist(from), ncol = 2),
             info = list())
@@ -115,7 +116,6 @@ setAs("list", "RLum.Data.Curve",
 setAs("RLum.Data.Curve", "list",
       function(from){
           list(x = from@data[,1], y = from@data[,2])
-
       })
 
 ##DATA.FRAME
@@ -124,7 +124,7 @@ setAs("data.frame", "RLum.Data.Curve",
       function(from,to){
 
               new(to,
-                  recordType = "unkown curve type",
+                  recordType = "unknown curve type",
                   curveType = NA_character_,
                   data = as.matrix(from),
                   info = list())
@@ -143,15 +143,13 @@ setAs("RLum.Data.Curve", "data.frame",
 ##COERCE RLum.Data.Curve >> matrix AND matrix >> RLum.Data.Curve
 setAs("matrix", "RLum.Data.Curve",
       function(from,to){
-
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = NA_character_,
             data = from,
             info = list())
 
       })
-
 
 setAs("RLum.Data.Curve", "matrix",
       function(from){
@@ -182,12 +180,10 @@ setMethod("show",
                 suppressWarnings(max(object@data[,2], na.rm = TRUE)),
                 if(anyNA(object@data[,2])){"(contains NA values)"}else{""}
                )
-            cat("\n\t additional info elements:", length(object@info))
+            cat("\n\t additional info elements:", length(object@info), "\n")
             #cat("\n\t\t >> names:", names(object@info))
           }
 )
-
-
 
 # set_RLum() ----------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Curve
@@ -380,6 +376,7 @@ setMethod("length_RLum",
 #'
 #' Names of the info elements (slot `info`)
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Curve",
@@ -449,7 +446,7 @@ setMethod(f = "bin_RLum.Data",
 
 # smooth_RLum() -------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Curve
-#' Smoothing of RLum.Data.Curve objects using the function [zoo::rollmean] or [zoo::rollmedian][zoo::rollmean].
+#' Smoothing of RLum.Data.Curve objects using a rolling mean or median.
 #' In particular the internal function `.smoothing` is used.
 #'
 #' @param k [`smooth_RLum`]; [integer] (*with default*):
@@ -495,3 +492,27 @@ setMethod(
     }
  )
 
+# melt_RLum() -------------------------------------------------------------------------------
+#' @describeIn RLum.Data.Curve
+#' Melts [RLum.Data.Curve-class] objects into a flat data.frame to be used
+#' in combination with other packages such as `ggplot2`.
+#'
+#' @return
+#'
+#' **`melt_RLum`**
+#'
+#' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
+#'
+#' @md
+#' @export
+setMethod(
+  f = "melt_RLum",
+  signature = "RLum.Data.Curve",
+  function(object) {
+    data.frame(
+      X = object@data[,1], 
+      Y = object@data[,2], 
+      TYPE = object@recordType, 
+      UID = object@.uid)
+  }
+)

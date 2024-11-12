@@ -20,7 +20,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @note
 #' Currently only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`

@@ -1,4 +1,5 @@
-citHeader("To cite the R package 'Luminescence' please use the first two entries, and apply the rest if applicable:")
+citHeader("The R package 'Luminescence' is the joint work of many over many years. To cite the R package 'Luminescence' we suggest using the first entry and applying the rest were justified. To credit all authors **and** contributors, please see https://doi.org/10.32614/CRAN.package.Luminescence and the archive on Zenodo https://doi.org/10.5281/zenodo.596252 and for an always-up-tp-date citation record with DOI.")
+
 citation(auto = meta)
 
 	 bibentry(bibtype = "Article",
@@ -82,3 +83,13 @@ citation(auto = meta)
 				volume = "119",
 				pages = "58-73",
 				doi = "10.1016/j.radmeas.2018.07.013")
+
+		bibentry(bibtype = "Article",
+			  title = "Luminescence age calculation through Bayesian convolution of equivalent dose and dose-rate distributions:the D_e D_r model",
+				author = "Norbert Mercier and Jean-Michel Galharret and Chantal Tribolo and Sebastian Kreutzer and Anne Philippe",
+				year = "2022",
+				journal = "Geochronology",
+				volume = "4",
+				issue = "1",
+				pages = "292-310",
+				doi = "10.5194/gchron-4-297-2022")

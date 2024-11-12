@@ -1,32 +1,10 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.14.9000-13
-Date: 2021-06-16
-Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
-    Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
-    Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
-    Margret C. Fuchs [aut] (<https://orcid.org/0000-0001-7210-1132>), 
-    Christoph Schmidt [aut] (<https://orcid.org/0000-0002-2309-3209>),
-    Manfred Fischer [aut, trl],
-    Johannes Friedrich [aut] (<https://orcid.org/0000-0002-0805-9547>),
-    Norbert Mercier [aut] (<https://orcid.org/0000-0002-6375-9108>),
-    Rachel K. Smedley [ctb] (<https://orcid.org/0000-0001-7773-5193>),
-    Claire Christophe [ctb],
-    Antoine Zink [ctb] (<https://orcid.org/0000-0001-7146-1101>),
-    Julie Durcan [ctb] (<https://orcid.org/0000-0001-8724-8022>),
-    Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
-    Anne Philippe [aut] (<https://orcid.org/0000-0002-5331-5087>),
-    Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
-    Svenja Riedesel [aut] (<https://orcid.org/0000-0003-2936-8776>),
-    Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
-    Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
-    Dirk Mittelstrass [aut] (<https://orcid.org/0000-0002-9567-8791>),
-    Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
-    Jean-Michel Galharret [aut] (<https://orcid.org/0000-0003-2219-8727>),
-    Markus Fuchs [ths]
+Version: 0.9.25.9000-90
+Date: 2024-11-10
 Authors@R: c(
-    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
+    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
     person("Michael", "Dietze", role = c("aut"), comment = c(ORCID = "0000-0001-6063-1726")),
     person("Margret C.", "Fuchs", role = c("aut"), comment = c(ORCID = "0000-0001-7210-1132")),
@@ -47,56 +25,52 @@ Authors@R: c(
     person("Dirk", "Mittelstrass", role = c("aut"), comment = c(ORCID = "0000-0002-9567-8791")),
     person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
     person("Jean-Michel", "Galharret", role = c("aut"), comment = c(ORCID = "0000-0003-2219-8727")),
-    person("Markus", "Fuchs", role = c("ths")))
-Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
+    person("Marco", "Colombo", role = c("aut"), comment = c(ORCID = "0000-0001-6672-0623")),
+    person("Markus", "Fuchs", role = c("ths"), comment = c(ORCID = "0000-0003-4669-6528")))
+Maintainer: Sebastian Kreutzer <maintainer_luminescence@r-luminescence.org>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
     plotting of equivalent dose distributions.
 Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
+URL: https://r-lum.github.io/Luminescence/
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 4.0),
-    utils,
-    magrittr (>= 2.0.1)
-LinkingTo: Rcpp (>= 1.0.6),
-    RcppArmadillo (>= 0.10.5.0.0)
+    R (>= 4.3),
+    utils
+LinkingTo: Rcpp (>= 1.0.12),
+    RcppArmadillo (>= 0.12.8.4.0)
 Imports:
-    interp (>= 1.0),
-    bbmle (>= 1.0.23),
-    data.table (>= 1.14.0),
-    DEoptim (>= 2.2-6),
-    httr (>= 1.4.2),
-    lamW (>= 2.1.0),
-    matrixStats (>= 0.59.0),
+    bbmle (>= 1.0.25.1),
+    data.table (>= 1.15.4),
+    DEoptim (>= 2.2-8),
+    httr (>= 1.4.7),
+    interp (>= 1.1-6),
+    lamW (>= 2.2.3),
+    matrixStats (>= 1.3.0),
     methods,
-    minpack.lm (>= 1.2-1),
-    plotrix (>= 3.8-1),
-    raster (>= 3.4-10),
-    readxl (>= 1.3.1),
+    minpack.lm (>= 1.2-4),
+    mclust (>= 6.1),
+    Rcpp (>= 1.0.12),
     shape (>= 1.4.6),
     parallel,
-    XML (>= 3.99),
-    zoo (>= 1.8)
+    XML (>= 3.99-0.16),
 Suggests:
-    spelling (>= 2.2),
-    RLumShiny (>= 0.2.2),
-    plotly (>= 4.9.3),
-    rmarkdown (>= 2.8),
-    rstudioapi (>= 0.13),
-    rjags (>= 4-10),
+    spelling (>= 2.3.0),
+    plotly (>= 4.10.4),
+    rmarkdown (>= 2.27),
+    rstudioapi (>= 0.16.0),
+    rjags (>= 4-15),
     coda (>= 0.19-4),
-    mclust (>= 5.4.7),
-    pander (>= 0.6.3),
-    testthat (>= 3.0.2),
-    tiff (>= 0.1-8),
-    devtools (>= 2.4.1),
-    R.rsp (>= 0.44.0)
+    pander (>= 0.6.5),
+    testthat (>= 3.2.1),
+    tiff (>= 0.1-12),
+    devtools (>= 2.4.5),
+    R.rsp (>= 0.46.0)
 VignetteBuilder: R.rsp
-URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
-Language: en-GB
+Language: en-US
 Collate: 
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
@@ -108,6 +82,7 @@ Collate:
     'RcppExports.R'
     'replicate_RLum.R'
     'RLum-class.R'
+    'melt_RLum.R'
     'smooth_RLum.R'
     'names_RLum.R'
     'structure_RLum.R'
@@ -138,7 +113,6 @@ Collate:
     'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
     'analyse_portableOSL.R'
-    'app_RLum.R'
     'apply_CosmicRayRemoval.R'
     'apply_EfficiencyCorrection.R'
     'calc_AliquotSize.R'
@@ -147,7 +121,7 @@ Collate:
     'calc_CobbleDoseRate.R'
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
-    'calc_EED_Model.R.R'
+    'calc_EED_Model.R'
     'calc_FadingCorr.R'
     'calc_FastRatio.R'
     'calc_FiniteMixture.R'
@@ -168,7 +142,7 @@ Collate:
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
     'calc_gSGC_feldspar.R'
-    'combine_Dr_De.R'
+    'combine_De_Dr.R'
     'convert_Activity2Concentration.R'
     'convert_BIN2CSV.R'
     'convert_Concentration2DoseRate.R'
@@ -179,7 +153,9 @@ Collate:
     'convert_Wavelength2Energy.R'
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
+    'extract_ROI.R'
     'fit_CWCurve.R'
+    'fit_DoseResponseCurve.R'
     'fit_EmissionSpectra.R'
     'fit_LMCurve.R'
     'fit_OSLLifeTimes.R'
@@ -189,9 +165,11 @@ Collate:
     'get_Quote.R'
     'get_rightAnswer.R'
     'github.R'
+    'import_Data.R'
     'install_DevelopmentVersion.R'
     'internal_as.latex.table.R'
     'internals_RLum.R'
+    'internals_Thermochronometry.R'
     'merge_RLum.Analysis.R'
     'merge_RLum.Data.Curve.R'
     'merge_RLum.R'
@@ -203,6 +181,7 @@ Collate:
     'plot_DRCSummary.R'
     'plot_DRTResults.R'
     'plot_DetPlot.R'
+    'plot_DoseResponseCurve.R'
     'plot_FilterCombinations.R'
     'plot_GrowthCurve.R'
     'plot_Histogram.R'
@@ -221,6 +200,7 @@ Collate:
     'plot_ViolinPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
+    'read_HeliosOSL2R.R'
     'read_PSL2R.R'
     'read_RF2R.R'
     'read_SPE2R.R'
@@ -228,12 +208,16 @@ Collate:
     'read_XSYG2R.R'
     'report_RLum.R'
     'scale_GammaDose.R'
+    'subset_SingleGrainData.R'
     'template_DRAC.R'
+    'trim_RLum.Data.R'
     'tune_Data.R'
     'use_DRAC.R'
     'utils_DRAC.R'
     'verify_SingleGrainData.R'
     'write_R2BIN.R'
+    'write_R2TIFF.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
+Config/testthat/edition: 3

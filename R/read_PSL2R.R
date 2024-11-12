@@ -1,11 +1,11 @@
-#' Import PSL files to R
+#' @title Import PSL files to R
 #'
-#' Imports PSL files produced by a SUERC portable OSL reader into R **(BETA)**.
+#' @description Imports PSL files produced by a SUERC portable OSL reader into R.
 #'
-#' This function provides an import routine for the SUERC portable OSL Reader PSL
-#' format. PSL files are just plain text and can be viewed with any text editor.
-#' Due to the formatting of PSL files this import function relies heavily on
-#' regular expression to find and extract all relevant information. See **note**.
+#' @details This function provides an import routine for the SUERC portable OSL Reader PSL
+#' format (measurement data and sequence). PSL files are just plain text and can be
+#' viewed with any text editor.  Due to the formatting of PSL files this import
+#' function relies heavily on regular expression to find and extract all relevant information. See **note**.
 #'
 #' @param file [character] (**required**):
 #' path and file name of the PSL file. If input is a `vector` it should comprise
@@ -29,6 +29,9 @@
 #' `TRUE` to merge all `RLum.Analysis` objects. Only applicable if multiple
 #' files are imported.
 #'
+#' @param verbose [logical] (*with default*):
+#' enables or disables verbose mode.
+#'
 #' @param ... currently not used.
 #'
 #' @return
@@ -37,9 +40,10 @@
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [RLum.Data.Curve-class]
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author Christoph Burow, University of Cologne (Germany),
+#'  Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.0.1
+#' @section Function version: 0.1.1
 #'
 #' @note
 #' Because this function relies heavily on regular expressions to parse
@@ -60,23 +64,43 @@
 #'
 #' @md
 #' @export
-read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
+read_PSL2R <- function(
+  file,
+  drop_bg = FALSE,
+  as_decay_curve = TRUE,
+  smooth = FALSE,
+  merge = FALSE,
+  verbose = TRUE,
+  ...
+) {
+  .set_function_name("read_PSL2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## INPUT VALIDATION ----
+  .validate_class(file, "character")
   if (length(file) == 1) {
     if (!grepl(".psl$", file, ignore.case = TRUE)) {
       file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)
-      message("The following files were found and imported: \n", paste(file, collapse = "\n"))
+      if (length(file) == 0)
+        .throw_error("No .psl files found")
+      message("[read_PSL2R()] The following files were found and imported:\n",
+              paste(" ..", file, collapse = "\n"))
     }
   }
   if (!all(file.exists(file)))
-    stop("The following files do not exist, please check: \n",
-         paste(file[!file.exists(file)], collapse = "\n"), call. = FALSE)
+    .throw_error("The following files do not exist, please check:\n",
+                 paste(file[!file.exists(file)], collapse = "\n"))
 
   ## MAIN ----
   results <- vector("list", length(file))
-
   for (i in 1:length(file)) {
+
+    if (verbose) {
+      cat("\n[read_PSL2R()] Importing ...")
+      cat("\n path: ", dirname(file[i]))
+      cat("\n file: ", .shorten_filename(basename(file[i])))
+      cat("\n")
+    }
 
     ## Read in file ----
     doc <- readLines(file[i])
@@ -92,7 +116,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
 
     ## OFFENDING LINE: this deletes the line with sample name and time and date
     sample_and_date <- lines_with_slashes[length(lines_with_slashes)]
-    sample <- gsub("[^0-9a-zA-Z\\-_]", "",strsplit(sample_and_date, "@")[[1]][1], perl = TRUE)
+    sample <- trimws(gsub("\\\\", "", strsplit(sample_and_date, "@")[[1]][1]))
     date_and_time <- strsplit(strsplit(sample_and_date, "@")[[1]][2], " ")[[1]]
     date_and_time_clean <- date_and_time[date_and_time != "" & date_and_time != "/" & date_and_time != "PM" & date_and_time != "AM"]
     date <- as.Date(date_and_time_clean[1], "%m/%d/%Y")
@@ -101,7 +125,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
                 "", fixed = TRUE, doc)
 
     # last delimiting line before measurements are only apostrophes and dashes
-    lines_with_apostrophes <- doc[grepl("'", doc, fixed = TRUE)]
+    lines_with_apostrophes <-doc[grepl("'", doc, fixed = TRUE)]
     doc <- gsub(lines_with_apostrophes[length(lines_with_apostrophes)],
                 "", fixed = TRUE, doc)
 
@@ -121,7 +145,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     header$Time <- time
     header$Sample <- sample
 
-    # Parse and format the easurement values
+    # Parse and format the measurement values
     measurements_split <- vector("list", number_of_measurements)
 
     # save lines of each measurement to individual list elements
@@ -143,7 +167,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
         if (x@recordType != "USER")
           return(x)
       })
-      measurements_formatted <- measurements_formatted[!sapply(measurements_formatted, is.null)]
+      measurements_formatted <- .rm_NULL_elements(measurements_formatted)
     }
 
     # decay curve smoothing using Tukey's Running Median Smoothing (?smooth)
@@ -155,11 +179,36 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
       })
     }
 
+    ## get measurement sequence
+    measurement_sequence <- data.table::rbindlist(
+      lapply(seq_along(measurements_split), function(x) {
+      ## remove measurement
+      tmp <- gsub(
+        pattern = "Measurement : ",
+        replacement = "",
+        x = measurements_split[[x]][1],
+        fixed = TRUE)
+
+    ## split entries
+     tmp <- strsplit(x = tmp, split = " | ", fixed = TRUE)[[1]]
+
+     ## data.frame
+     data.frame(
+       RUN = x,
+       NAME = trimws(tmp[1]),
+       STIM = strsplit(tmp[2], split = " ", fixed = TRUE)[[1]][2],
+       ON_OFF = strsplit(tmp[3], split = "(us)", fixed = TRUE)[[1]][2],
+       CYCLE = strsplit(tmp[4], split = "(ms),", fixed = TRUE)[[1]][2])
+    }))
+
     ## RETURN ----
-    results[[i]] <- set_RLum("RLum.Analysis",
-                             protocol = "portable OSL",
-                             info = header,
-                             records = measurements_formatted)
+    results[[i]] <- set_RLum(
+      "RLum.Analysis",
+       protocol = "portable OSL",
+       info = c(
+         header,
+         list(Sequence = measurement_sequence)),
+       records = measurements_formatted)
   }#Eof::Loop
 
   ## MERGE ----
@@ -180,8 +229,6 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
 
 ## ------------------------- FORMAT MEASUREMENT ----------------------------- ##
 format_Measurements <- function(x, convert, header) {
-
-
   ## measurement parameters are given in the first line
   settings <- x[1]
 
@@ -247,31 +294,29 @@ format_Measurements <- function(x, convert, header) {
     recordType <- "OSL"
   }
 
-  object <- set_RLum(class = "RLum.Data.Curve",
-                     originator = "read_PSL2R",
-                     recordType = recordType,
-                     curveType = "measured",
-                     data = data,
-                     info = list(settings = c(settings_list, header),
-                                 raw_data = df))
+  object <- set_RLum(
+    class = "RLum.Data.Curve",
+    originator = "read_PSL2R",
+    recordType = recordType,
+    curveType = "measured",
+    data = data,
+    info = list(settings = c(settings_list, header),
+    raw_data = df))
 
   return(object)
-
 }
 
 ## ---------------------------- FORMAT HEADER ------------------------------- ##
 format_Header <- function(x) {
-
   header_formatted <- list()
 
   # split by double blanks
   header_split <- strsplit(x, "  ", fixed = TRUE)
 
-  # check wether there are twice as many values
+  # check whether there are twice as many values
   # as colons; if there is an equal amount, the previous split was not sufficient
   # and we need to further split by a colon (that is followed by a blank)
   header_split_clean <- lapply(header_split, function(x) {
-
     x <- x[x != ""]
     n_elements <- length(x)
     n_properties <- length(grep(":", x, fixed = TRUE))
@@ -281,7 +326,6 @@ format_Header <- function(x) {
 
     return(x)
   })
-
 
   # format parameter/settings names and corresponding values
   values <- vector(mode = "character")

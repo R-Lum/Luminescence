@@ -11,8 +11,9 @@ plot_RLum.Analysis(
   ncols,
   abline = NULL,
   combine = FALSE,
-  curve.transformation,
-  plot.single = FALSE,
+  records_max = NULL,
+  curve.transformation = "None",
+  plot_singlePanels = FALSE,
   ...
 )
 }
@@ -43,12 +44,19 @@ the first and a vertical line at 100 to the 2nd plot.}
 \item{combine}{\link{logical} (\emph{with default}):
 allows to combine all \linkS4class{RLum.Data.Curve} objects in one single plot.}
 
-\item{curve.transformation}{\link{character} (\emph{optional}):
+\item{records_max}{\link{numeric} (\emph{optional}): limits number of records
+shown if \code{combine = TRUE}. Shown are always the first and the last curve,
+the other number of curves to be shown a distributed evenly, this may result
+in fewer curves plotted as specified. This parameter has only
+an effect for  n > 2.}
+
+\item{curve.transformation}{\link{character} (\emph{with default}):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
-\code{CW2pHMi} and \code{CW2pPMi}. See details.}
+\code{CW2pHMi} and \code{CW2pPMi}, see details. If set to \code{None} (default), no
+transformation is applied.}
 
-\item{plot.single}{\link{logical} (\emph{with default}):
+\item{plot_singlePanels}{\link{logical} (\emph{with default}):
 global par settings are considered, normally this should end in one plot per page}
 
 \item{...}{further arguments and graphical parameters will be passed to
@@ -57,7 +65,7 @@ the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 \code{norm} (see \link{plot_RLum.Data.Curve}), \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}, ...
 
-and for \code{combine = TRUE} also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos}
+and for \code{combine = TRUE} also: \code{sub_title}, \code{legend}, \code{legend.text}, \code{legend.pos}
 (typical plus 'outside'), \code{legend.col}, \code{smooth}.
 
 All arguments can be provided as \code{vector} or \code{list} to gain in full control
@@ -69,8 +77,7 @@ Returns multiple plots.
 \description{
 The function provides a standardised plot output for curve data of an
 RLum.Analysis S4 class object
-}
-\details{
+
 The function produces a multiple plot output. A file output is recommended
 (e.g., \link{pdf}).
 
@@ -93,7 +100,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.12
+ 0.3.16
 }
 
 \examples{
@@ -129,11 +136,11 @@ abline = list(v = c(110))
 \link{plot}, \link{plot_RLum}, \link{plot_RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{aplot}

@@ -1,9 +1,11 @@
-#' Nonlinear Least Squares Fit for OSL surface exposure data
+#' @title Nonlinear Least Squares Fit for OSL surface exposure data
 #'
+#' @description
 #' This function determines the (weighted) least-squares estimates of the
 #' parameters of either equation 1 in *Sohbati et al. (2012a)* or equation 12 in
 #' *Sohbati et al. (2012b)* for a given OSL surface exposure data set (**BETA**).
 #'
+#' @details
 #' **Weighted fitting**
 #'
 #' If `weights = TRUE` the function will use the inverse square of the error (\eqn{1/\sigma^2})
@@ -14,7 +16,6 @@
 #' fitting.
 #'
 #' **Dose rate**
-#'
 #' If any of the arguments `Ddot` or `D0` is at its default value (`NULL`),
 #' this function will fit equation 1 in Sohbati et al. (2012a) to the data. If
 #' the effect of dose rate (i.e., signal saturation) needs to be considered,
@@ -28,7 +29,6 @@
 #' constant.
 #'
 #' **Global fitting**
-#'
 #' If `data` is [list] of multiple `data.frame`s, each representing a separate
 #' sample, the function automatically performs a global fit to the data. This
 #' may be useful to better constrain the parameters `sigmaphi` or `mu` and
@@ -148,7 +148,8 @@
 #'
 #' Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 #' Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-#' dating. Journal of Geophysical Research 117, B09202. \doi{10.1029/2012JB009383}
+#' dating. Journal of Geophysical Research 117, B09202. doi:
+#' \doi{10.1029/2012JB009383}
 #'
 #' Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 #' non-terrestrial bodies using optically stimulated luminescence: A new method.
@@ -165,7 +166,10 @@
 #' # Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10
 #' sample_1 <- ExampleData.SurfaceExposure$sample_1
 #' head(sample_1)
-#' results <- fit_SurfaceExposure(sample_1, mu = 0.9, sigmaphi = 5e-10)
+#' results <- fit_SurfaceExposure(
+#'  data = sample_1,
+#'  mu = 0.9,
+#'  sigmaphi = 5e-10)
 #' get_RLum(results)
 #'
 #'
@@ -174,17 +178,22 @@
 #' # dose rate = 2.5 Gy/ka, D0 = 40 Gy
 #' sample_2 <- ExampleData.SurfaceExposure$sample_2
 #' head(sample_2)
-#' results <- fit_SurfaceExposure(sample_2, mu = 0.9, sigmaphi = 5e-10,
-#'                                Ddot = 2.5, D0 = 40)
+#' results <- fit_SurfaceExposure(
+#'  data = sample_2,
+#'  mu = 0.9,
+#'  sigmaphi = 5e-10,
+#'  Ddot = 2.5,
+#'  D0 = 40)
 #' get_RLum(results)
-#'
 #'
 #' ## Example 3 - Multiple samples (global fit) to better constrain 'mu'
 #' # Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10
 #' set_1 <- ExampleData.SurfaceExposure$set_1
 #' str(set_1, max.level = 2)
-#' results <- fit_SurfaceExposure(set_1, age = c(1e3, 1e4, 1e5, 1e6),
-#'                                sigmaphi = 5e-10)
+#' results <- fit_SurfaceExposure(
+#'   data = set_1,
+#'   age = c(1e3, 1e4, 1e5, 1e6),
+#'   sigmaphi = 5e-10)
 #' get_RLum(results)
 #'
 #'
@@ -193,23 +202,32 @@
 #' # dose rate = 1.0 Ga/ka, D0 = 40 Gy
 #' set_2 <- ExampleData.SurfaceExposure$set_2
 #' str(set_2, max.level = 2)
-#' results <- fit_SurfaceExposure(set_2, age = c(1e2, 1e3, 1e4, 1e5, 1e6),
-#'                                sigmaphi = 5e-10, Ddot = 1, D0 = 40)
-#' get_RLum(results)
+#' results <- fit_SurfaceExposure(
+#'  data = set_2,
+#'  age = c(1e2, 1e3, 1e4, 1e5, 1e6),
+#'  sigmaphi = 5e-10,
+#'  Ddot = 1,
+#'  D0 = 40)
+#'get_RLum(results)
 #'
 #' @md
 #' @export
-fit_SurfaceExposure <- function(data,
-                                sigmaphi = NULL,
-                                mu = NULL,
-                                age = NULL,
-                                Ddot = NULL,
-                                D0 = NULL,
-                                weights = FALSE,
-                                plot = TRUE,
-                                legend = TRUE,
-                                error_bars = TRUE,
-                                coord_flip = FALSE, ...) {
+fit_SurfaceExposure <- function(
+    data,
+    sigmaphi = NULL,
+    mu = NULL,
+    age = NULL,
+    Ddot = NULL,
+    D0 = NULL,
+    weights = FALSE,
+    plot = TRUE,
+    legend = TRUE,
+    error_bars = TRUE,
+    coord_flip = FALSE,
+    ...
+) {
+  .set_function_name("fit_SurfaceExposure")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## SETTINGS ----
   settings <- list(
@@ -222,7 +240,7 @@ fit_SurfaceExposure <- function(data,
 
   ## Data type validation
   if (inherits(data, "RLum.Results"))
-    object <- get_RLum(data, "data")
+    data <- get_RLum(data, "data")
 
   if (inherits(data, "matrix"))
     data <- as.data.frame(data)
@@ -235,12 +253,14 @@ fit_SurfaceExposure <- function(data,
 
     # Global fitting requires and equal amount of ages to be provided
     if (length(data) != length(age))
-      stop("If 'data' is a list of data sets for global fitting, 'age' must be of the same length.", call. = FALSE)
+      .throw_error("If 'data' is a list of data sets for global fitting, ",
+                   "'age' must be of the same length.")
 
     # TODO: Support weighted fitting for global fit
     if (weights) {
       if (settings$verbose)
-        warning("Argument 'weights' is not supported when multiple data sets are provided for global fitting.", call. = FALSE)
+        .throw_warning("'weights' is not supported when multiple data sets ",
+                       "are provided for global fitting")
       weights <- FALSE
     }
 
@@ -260,8 +280,7 @@ fit_SurfaceExposure <- function(data,
   }
 
   # Exit if data type is invalid
-  if (!inherits(data, "data.frame"))
-    stop("'data' must be of class data.frame.", call. = FALSE)
+  .validate_class(data, "data.frame")
 
   # Check which parameters have been provided
   if (!is.null(age) && any(is.na(age))) age <- NULL
@@ -274,7 +293,14 @@ fit_SurfaceExposure <- function(data,
   else
     wi <- rep(1, times = nrow(data))
 
-  # extract errors into seperate variable
+  ## remove rows with NA
+  if (any(is.na(data))) {
+    data <- data[complete.cases(data), ]
+    if (settings$verbose)
+      message("[fit_SurfaceExposure()] NA values in 'data' were removed")
+  }
+
+  ## extract errors into separate variable
   if (ncol(data) >= 3 && !global_fit)
     error <- data[ ,3]
   else
@@ -283,13 +309,6 @@ fit_SurfaceExposure <- function(data,
   ## Take only the first to columns (depth, signal)
   if (ncol(data) > 2 && !global_fit)
     data <- data[ ,1:2]
-
-  ## remove rows with NA
-  if (any(is.na(data))) {
-    data <- data[complete.cases(data), ]
-    if (settings$verbose)
-      warning("NA values in 'data' were removed.", call. = FALSE)
-  }
 
   ## Data preprocessing ----
 
@@ -320,7 +339,7 @@ fit_SurfaceExposure <- function(data,
                 mu = if (is.null(mu)) 1 else NULL,
                 age = if (is.null(age)) 2 else NULL)
 
-  start <- start[!sapply(start, is.null)]
+  start <- .rm_NULL_elements(start)
 
   ## fitting boundaries
   lower <- list(sigmaphi = if (is.null(sigmaphi)) -Inf else NULL,
@@ -361,7 +380,8 @@ fit_SurfaceExposure <- function(data,
     coef <- as.data.frame(coef(summary(fit)))
   } else {
     if (settings$verbose)
-      message("[fit_SurfaceExposure()] \n- Unable to fit the data. Original error from minpack::nlsLM():\n\n", fit$message)
+      message("[fit_SurfaceExposure()] Unable to fit the data. ",
+              "Original error from minpack.lm::nlsLM(): ", fit$message)
 
     # Fill with NA values
     coef <- data.frame(
@@ -430,7 +450,9 @@ fit_SurfaceExposure <- function(data,
 
     if (grepl("y", plot_settings$log)) {
       plot_settings$ylim[1] <- 0.01
-      plot_settings$x <- data[which(data[ ,2] > 0),]
+      pos.idx <- which(data[, 2] > 0)
+      error <- error[pos.idx]
+      plot_settings$x <- data[pos.idx, ]
     }
 
     ## create main plot
@@ -548,7 +570,7 @@ fit_SurfaceExposure <- function(data,
     cat(" Fixed parameters(s):\n",
         "--------------------\n")
     if (!is.null(age))
-      cat(paste0(" age (a):\t", paste(age, collapse = ", "), "\n"))
+      cat(paste0(" age (a):\t", .collapse(age, quote = FALSE), "\n"))
     if (!is.null(sigmaphi))
       cat(paste0(" sigmaphi:\t", sigmaphi, "\n"))
     if (!is.null(mu))

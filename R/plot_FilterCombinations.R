@@ -14,7 +14,7 @@
 #'
 #' **Optical density**
 #'
-#' \deqn{OD = -log(T)}
+#' \deqn{OD = -log10(T)}
 #'
 #' **Total optical density**
 #'
@@ -112,9 +112,9 @@
 #' `call` \tab [call] \tab the original function call
 #' }
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Results-class], [approx]
 #'
@@ -156,29 +156,20 @@ plot_FilterCombinations <- function(
   show_net_transmission = TRUE,
   interactive = FALSE,
   plot = TRUE,
-  ...) {
-  # Integrity tests -----------------------------------------------------------------------------
+  ...
+) {
+  .set_function_name("plot_FilterCombinations")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## Integrity tests --------------------------------------------------------
 
   #check filters
-  if (!is(filters, "list")) {
-    stop("[plot_FilterCombinations()] 'filters' should be of type 'list'")
-
-  }
+  .validate_class(filters, "list")
 
   #input should either data.frame or matrix
   lapply(filters, function(x) {
-    if (!is(x, "data.frame") & !is(x, "matrix") & !is(x, "list")) {
-      stop(
-        paste(
-          "[plot_FilterCombinations()] input for filter",
-          x,
-          "is not of type 'matrix', 'data.frame' or 'list'!"
-        )
-      )
-
-    }
-
-
+    .validate_class(x, c("data.frame", "matrix", "list"),
+                    name = "All elements of 'filters'")
   })
 
   #check for named list, if not set names
@@ -190,45 +181,39 @@ plot_FilterCombinations <- function(
 
   # Data Preparation ----------------------------------------------------------------------------
 
-  ##check if filters are provided with their tickness, if so correct
-  ##transmission for this ... relevant for glass filters
+  ## check if filters are provided with their thickness, if so correct
+  ## transmission for this ... relevant for glass filters
   filters <- lapply(filters, function(x) {
     if (is(x, "list")) {
 
-      ##correction for the transmission accounting for filter tickness, the
-      ##provided thickness is always assumed to be 1
+      ## correction for the transmission accounting for filter thickness,
+      ## the provided thickness is always assumed to be 1
       if(length(x) > 1){
         x[[1]][, 2] <- x[[1]][, 2] ^ (x[[2]])
 
       }else{
         return(x[[1]])
-
       }
 
-      ##account for potentially provided transmission relexion factor
+      ## account for potentially provided transmission reflection factor
       if(length(x) > 2){
        x[[1]][,2] <-  x[[1]][,2] * x[[3]]
        return(x[[1]])
 
       }else{
        return(x[[1]])
-
       }
 
     } else{
       return(x)
-
     }
-
   })
 
   #check if there are transmission values greater than one, this is not possible
   lapply(filters, function(x) {
     if (max(x[, 2], na.rm = TRUE) > 1.01) {
-      stop("[plot_FilterCombinations()] transmission values > 1 found. Check your data.")
-
+      .throw_error("Transmission values > 1 found, check your data")
     }
-
   })
 
   ##combine everything in a matrix using approx for interpolation
@@ -243,11 +228,10 @@ plot_FilterCombinations <- function(
     c(wavelength_range, matrixStats::rowProds(filter_matrix)),
     ncol = 2)
 
-
   ##add optical density to filter matrix
 
   ##calculate OD
-  OD <- -log(filter_matrix)
+  OD <- -log10(filter_matrix)
 
   ##calculate  total OD
   OD_total <- cbind(wavelength_range, matrixStats::rowSums2(OD))
@@ -285,19 +269,13 @@ plot_FilterCombinations <- function(
       net_transmission.col = rgb(0,0.7,0,.2),
       net_transmission.col_lines = "grey",
       net_transmission.density = 20
-
     )
 
     ##modify settings on request
     plot_settings <- modifyList(plot_settings, list(...))
 
     if(interactive){
-
-      ##check for plotly
-      if (!requireNamespace("plotly", quietly = TRUE)) {
-        stop("[plot_FilterCombinations()] Package 'plotly' needed interactive plot functionality. Please install it.",
-             call. = FALSE)
-      }
+      .require_suggested_package("plotly", "Producing interactive plots")
 
       ##create basic plot
       p <-
@@ -315,7 +293,6 @@ plot_FilterCombinations <- function(
                         name = colnames(filter_matrix_transmisison)[i],
                         mode = 'lines')
           }
-
         }
 
 
@@ -328,8 +305,6 @@ plot_FilterCombinations <- function(
                         y = c(net_transmission_window[, 2], rep(0, length(wavelength_range))),
                         name = "net transmission"
                         )
-
-
 
       ##change graphical parameters
       p <-  plotly::layout(
@@ -344,7 +319,7 @@ plot_FilterCombinations <- function(
       )
 
       print(p)
-      on.exit(return(p))
+      on.exit(return(p), add = TRUE)
 
 
     }else{
@@ -361,12 +336,10 @@ plot_FilterCombinations <- function(
         lty = plot_settings$lty,
         lwd = plot_settings$lwd,
         col = plot_settings$col
-
       )
 
       if (!is.null(plot_settings$grid)) {
         graphics::grid(eval(plot_settings$grid))
-
       }
 
       ##show effective transmission, which is the minimum for each row
@@ -403,14 +376,12 @@ plot_FilterCombinations <- function(
           bty = "n"
         )
       }
-
     }
-
   }
 
 
   # Produce output object -----------------------------------------------------------------------
-  return(set_RLum(
+  invisible(set_RLum(
     class = "RLum.Results",
     data = list(
       net_transmission_window = net_transmission_window,
@@ -420,7 +391,4 @@ plot_FilterCombinations <- function(
     ),
     info = list(call = sys.call())
   ))
-
-
-
 }

@@ -101,7 +101,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #'
@@ -132,17 +132,17 @@ fit_ThermalQuenching <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("fit_ThermalQuenching")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(data) == "list"){
+  if(inherits(data, "list")){
 
     ##get arguments
     args <- as.list(match.call())
     args[[1]] <- NULL
     args$data <- NULL
-
 
     ##run function
     results_list <- lapply(data, function(x){
@@ -151,30 +151,26 @@ fit_ThermalQuenching <- function(
 
     ##combine and return
     return(merge_RLum(results_list))
-
   }
 
 
-  # Integrity checks ----------------------------------------------------------------------------
-  if(class(data) != 'data.frame'){
-    stop("[fit_ThermalQuenching()] 'data' must by of type 'data.frame' or list of 'data.frames'!", call. = FALSE)
+  ## Integrity tests --------------------------------------------------------
 
-  }else{
-    if(nrow(data) < 1 || ncol(data) < 3)
-      stop("[fit_ThermalQuenching()] 'data' is empty or has less than three columns!", call. = FALSE)
+  .validate_class(data, "data.frame",
+                  extra = "a 'list' of such objects")
 
-    if(ncol(data) > 3)
-      warning("[fit_ThermalQuenching()] 'data' has more than 3 columns, taking only the first three!", call. = FALSE)
+  if(nrow(data) < 1 || ncol(data) < 3)
+    .throw_error("'data' is empty or has fewer than three columns")
 
-    if(any(is.na(data)))
-      warning("[fit_ThermalQuenching()] NA values in 'data' automatically removed!", call. = FALSE)
-
-
-    ##this we do anyway, you never know
-    data <- na.exclude(data[,1:3])
+  if (ncol(data) > 3) {
+    .throw_warning("'data' has more than 3 columns, taking only the first three")
+    data <- data[, 1:3]
   }
 
-
+  if (any(is.na(data))) {
+    .throw_warning("NA values in 'data' automatically removed")
+    data <- na.exclude(data)
+  }
 
   # Prepare data --------------------------------------------------------------------------------
   ##set formula for quenching accordingt to Wintle 1973
@@ -225,7 +221,7 @@ fit_ThermalQuenching <- function(
   ), silent = TRUE)
 
   ##only continue if the first fitting worked out
-  if(class(fit) != "try-error"){
+  if(!inherits(fit, "try-error")){
 
     ##reset n.MC
     if(is.null(n.MC) || n.MC < 1)
@@ -258,24 +254,20 @@ fit_ThermalQuenching <- function(
       ), silent = TRUE)
 
       ##return value
-      if(class(temp) == 'try-error') {
+      if(inherits(temp, 'try-error')) {
         return(NULL)
       } else{
         temp
-
       }
-
     })
 
   }else{
-    try(stop("[fit_ThermalQuenching()] Fitting failed, NULL returned!", call. = FALSE), silent = FALSE)
+    message("[fit_ThermalQuenching()] Error: Fitting failed, NULL returned!")
     return(NULL)
-
-
   }
 
-  ##remove NULL (the fit was not sucessfull)
-  fit_MC <- fit_MC[!sapply(X = fit_MC, is.null)]
+  ## remove NULL (the fit was not successful)
+  fit_MC <- .rm_NULL_elements(fit_MC)
   n.MC <- length(fit_MC)
 
 # Extract values ------------------------------------------------------------------------------
@@ -305,7 +297,6 @@ if(verbose){
     cat(" W = ", W, " \u00b1 ",W_MC_X, " eV\n")
     cat(" c = ", c, " \u00b1 ",c_MC_X, "\n")
     cat(" --------------------------------\n")
-
 }
 
 # Potting -------------------------------------------------------------------------------------
@@ -346,7 +337,6 @@ if(verbose){
     if(!is.null(plot_settings$xaxt) && plot_settings$xaxt == "n"){
       at <- pretty(round(axTicks(side = 1) - 273.15))
       axis(side = 1, at = at + 273.15, labels = at)
-
     }
 
     ##reset n.MC
@@ -359,7 +349,6 @@ if(verbose){
         c <- fit_coef_MC_full[4,i]
         x <- 0
         curve((A / (1 + C * (exp(-W / (k * x))))) + c, col = rgb(0,0,0,.1), add = TRUE)
-
       }
     }
 
@@ -373,7 +362,6 @@ if(verbose){
              y1 = data[[2]] - data[[3]],
              col = plot_settings$col_points
              )
-
 
     ##add central fit
       A <- fit_coef[["A"]]
@@ -393,7 +381,6 @@ if(verbose){
 
     ##add mtext
     mtext(side = 3, text = plot_settings$mtext)
-
   }
 
 
@@ -418,11 +405,8 @@ if(verbose){
     ),
     info = list(
       call = sys.call()
-
     )
   )
 
   return(output)
-
-
 }

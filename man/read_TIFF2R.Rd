@@ -4,20 +4,24 @@
 \alias{read_TIFF2R}
 \title{Import TIFF Image Data into R}
 \usage{
-read_TIFF2R(file)
+read_TIFF2R(file, verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{[character] (**required**): file name}
+\item{file}{\link{character} (\strong{required}): file name}
+
+\item{verbose}{\link{logical} (\emph{with default}): enable or disable verbose mode}
+
+\item{...}{not in use, for compatibility reasons only}
 }
 \value{
-[RLum.Image.Data-class] object
+\linkS4class{RLum.Data.Image} object
 }
 \description{
-Simple wrapper around [tiff::readTIFF] to import TIFF images
-and TIFF image stacks to be further processed within the package 'Luminescence'
+Simple wrapper around \link[tiff:readTIFF]{tiff::readTIFF} to import TIFF images
+and TIFF image stacks to be further processed within the package \code{'Luminescence'}
 }
 \section{Function version}{
- 0.1.0
+ 0.1.2
 }
 
 \examples{
@@ -30,14 +34,14 @@ image <- read_TIFF2R(file)
 
 }
 \seealso{
-[tiff::readTIFF], [RLum.Data.Image-class], [raster::raster]
+\link[tiff:readTIFF]{tiff::readTIFF}, \linkS4class{RLum.Data.Image}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. read_TIFF2R(): Import TIFF Image Data into R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. read_TIFF2R(): Import TIFF Image Data into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{IO}

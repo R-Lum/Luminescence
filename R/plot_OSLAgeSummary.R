@@ -2,10 +2,10 @@
 #'
 #'@description A graphical summary of the statistical inference of an OSL age
 #'
-#'@details The function is called automatically by [combine_Dr_De]
+#'@details The function is called automatically by [combine_De_Dr]
 #'
 #'@param object [RLum.Results-class], [numeric] (**required**): an object produced
-#' by [combine_Dr_De]. Alternatively, a [numeric] vector of a parameter from an MCMC process
+#' by [combine_De_Dr]. Alternatively, a [numeric] vector of a parameter from an MCMC process
 #'
 #'@param level [numeric] (*with default*): probability of shown credible interval
 #'
@@ -22,11 +22,11 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #' Jean-Michel Galharret, Université de Nantes (France),
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@section Function version: 0.1.0
 #'
-#'@seealso [combine_Dr_De], [plot.default], [rjags::rjags]
+#'@seealso [combine_De_Dr], [plot.default], [rjags::rjags]
 #'
 #'@keywords hplot dplot
 #'
@@ -44,34 +44,34 @@ plot_OSLAgeSummary <- function(
   digits = 1L,
   verbose = TRUE,
   ...
-){
-# Integrity tests ---------------------------------------------------------
+) {
+  .set_function_name("plot_OSLAgeSummary")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(object, c("RLum.Results", "numeric"))
+
   if(is(object, "RLum.Results") &&
      object@originator %in% c(".calc_BayesianCentralAgeModel", ".calc_IndividualAgeModel"))
     object <- get_RLum(object, data.object = "A")
 
-  if(is(object, "RLum.Results") && object@originator == "combine_Dr_De")
+  if(is(object, "RLum.Results") && object@originator == "combine_De_Dr")
     object <- get_RLum(object, data.object = "Ages")
-
-
-  if(!is(object, "numeric")) {
-    stop(paste0("[plot_OSLAgeSummary()] class ", class(object)[1],
-                " not supported as input for object!"),call. = FALSE)
-  }
 
   ## A should be a matrix
   A <- as.matrix(object, ncol = 1)
 
 # Run calculations --------------------------------------------------------
-  ## use our internal function instead of Archaephase to avoid the depency hell
+  ## use our internal function instead of Archaeophase to avoid the decency hell
   CI <- round(.calc_HPDI(A, prob = level[1]), digits[1])
-  Bayes_est <- round(mean(A), digits = digits)
+  Bayes_est_mean <- round(mean(A), digits = digits)
+  Bayes_est_sd <- round(sd(A), digits = digits)
 
 # Terminal output ---------------------------------------------------------
   if(verbose){
     cat("\n[plot_OSLAgeSummary()]\n")
     cat(paste0(" Credible Interval (", level * 100 ),"%): ",paste(CI[1,], collapse = " : "), "\n")
-    cat(paste0(" Bayes estimate (posterior mean): ", Bayes_est[1]),"\n")
+    cat(paste0(" Bayes estimate (posterior mean \u00b1 sd): ", Bayes_est_mean[1], " \u00b1 ", Bayes_est_sd[1]),"\n")
 
   }
 
@@ -89,7 +89,7 @@ plot_OSLAgeSummary <- function(
     col = "black",
     polygon_col = rgb(1,0,0,0.3),
     polygon_density = 20,
-    rug = TRUE
+    rug = FALSE
 
   ), val = list(...))
 
@@ -128,6 +128,7 @@ plot_OSLAgeSummary <- function(
     y = c(density_A$y[xy_id], rep(0, length(density_A$y[xy_id]))),
     col = "black",
     lwd = 0.5,
+    border = TRUE,
     density = plot_settings$polygon_density
   )
 
@@ -148,9 +149,9 @@ plot_OSLAgeSummary <- function(
 # Return ------------------------------------------------------------------
   return(set_RLum("RLum.Results",
     data = list(
-      Estimate = Bayes_est,
+      Estimate = Bayes_est_mean,
       Credible_Interval = CI,
-      Confidence_level = level),
+      level = level),
   info = list(call = sys.call())))
 
 }

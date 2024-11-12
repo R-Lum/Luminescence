@@ -43,8 +43,11 @@
 #' with the appropriate keyword using the argument `summary.method`.
 #'
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
-#' for `data.frame`: two columns: De (`values[,1]`) and De error (`values[,2]`).
+#' @param data [data.frame], [vector] or [RLum.Results-class] object (**required**):
+#' for `data.frame`: either two columns: De (`values[,1]`) and De error
+#' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
+#' single-column data frame is provided, De error is assumed to be 10^-9
+#' for all measurements and error bars are not drawn.
 #' For plotting multiple data sets, these must be provided as
 #' `list` (e.g. `list(dataset1, dataset2)`).
 #'
@@ -172,85 +175,68 @@ plot_KDE <- function(
   output = TRUE,
   ...
 ) {
+  .set_function_name("plot_KDE")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## check data and parameter consistency -------------------------------------
 
-  ## account for depreciated arguments
-  if("centrality" %in% names(list(...))) {
-    boxplot <- TRUE
-    warning(paste("[plot_KDE()] Argument 'centrality' no longer supported. ",
-                  "Replaced by 'boxplot = TRUE'."))
-  }
-
-  if("dispersion" %in% names(list(...))) {
-    boxplot <- TRUE
-    warning(paste("[plot_KDE()] Argument 'dispersion' no longer supported. ",
-                  "Replaced by 'boxplot = TRUE'."))
-  }
-
-  if("polygon.col" %in% names(list(...))) {
-    boxplot <- TRUE
-    warning(paste("[plot_KDE()] Argument 'polygon.col' no longer supported. ",
-                  "Replaced by 'boxplot = TRUE'."))
-  }
-
-  if("weights" %in% names(list(...))) {
-    warning(paste("[plot_KDE()] Argument 'weights' no longer supported. ",
-                  "Weights are omitted."))
+  if (is(data, "list") && length(data) == 0) {
+    .throw_error("'data' is an empty list")
   }
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {
     data <- list(data)
-
   }
 
   ## check/adjust input data structure
   for(i in 1:length(data)) {
-    if(is(data[[i]], "RLum.Results") == FALSE &
-         is(data[[i]], "data.frame") == FALSE &
-         is.numeric(data[[i]]) == FALSE) {
-      stop(paste("[plot_KDE()] Input data format is neither",
-                 "'data.frame', 'RLum.Results' nor 'numeric'"), call. = FALSE)
-    } else {
+    .validate_class(data[[i]], c("RLum.Results", "data.frame", "numeric"),
+                    name = "'data'")
 
-      ##extract RLum.Results
-      if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
-      }
-
-      ##make sure we only take the first two columns
-      data[[i]] <- data[[i]][,1:2]
-
-
-      ##account for very short datasets
-      if(length(data[[i]]) < 2) {
-        data[[i]] <- cbind(data[[i]], rep(NA, length(data[[i]])))
-      }
-
+    ## extract RLum.Results
+    if (inherits(data[[i]], "RLum.Results")) {
+      data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
     }
 
-    ##check for Inf values and remove them if need
-    if(any(is.infinite(unlist(data[[i]])))){
-      Inf_id <- which(is.infinite(unlist(data[[i]]))[1:nrow(data[[i]])/ncol(data[[i]])])
-      warning(paste("[plot_KDE()] Inf values removed in row(s):", paste(Inf_id, collapse = ", "), "in data.frame", i), call. = FALSE)
-      data[[i]] <- data[[i]][-Inf_id,]
-      rm(Inf_id)
+      ## ensure that the dataset it not degenerate
+      if (NROW(data[[i]]) == 0) {
+       .throw_error("Input data ", i, " has 0 rows")
+      }
+
+      ## if `data[[i]]` is a numeric vector or a single-column data frame,
+      ## append a second column with a small non-zero value (10^-9 for
+      ## consistency with what `calc_Statistics() does)
+      if (NCOL(data[[i]]) < 2) {
+        data[[i]] <- data.frame(data[[i]], 10^-9)
+        attr(data[[i]], "De.errors.available") <- FALSE
+      } else {
+        ## keep only the first two columns
+        data[[i]] <- data[[i]][, 1:2]
+        attr(data[[i]], "De.errors.available") <- TRUE
+      }
+
+
+    ## find the index Inf values in each of the two columns and remove the
+    ## corresponding rows if needed
+    inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+    if (length(inf.idx) > 0) {
+      inf.row <- sort(unique(inf.idx))
+      .throw_warning("Inf values removed in rows: ",
+                     .collapse(inf.row, quote = FALSE), " in data.frame ", i)
+      data[[i]] <- data[[i]][-inf.row, ]
+      rm(inf.idx, inf.row)
 
       ##check if empty
       if(nrow(data[[i]]) == 0){
         data[i] <- NULL
-
       }
-
     }
-
   }
 
   ##check if list is empty
   if(length(data) == 0)
-    stop("[plot_KDE()] Your input is empty, intentionally or maybe after Inf removal? Nothing plotted!", call. = FALSE)
-
+    .throw_error("Your input is empty due to Inf removal")
 
   ## check/set function parameters
   if(missing(summary) == TRUE) {
@@ -280,13 +266,16 @@ plot_KDE <- function(
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
     for(i in 1:length(data)) {
-      n.NA <- sum(is.na(data[[i]][,1]))
+      na.idx <- which(is.na(data[[i]][, 1]))
+      n.NA <- length(na.idx)
       if(n.NA == 1) {
         message(paste("1 NA value excluded from data set", i, "."))
       } else if(n.NA > 1) {
         message(paste(n.NA, "NA values excluded from data set", i, "."))
       }
-      data[[i]] <- na.exclude(data[[i]])
+      if (n.NA > 0) {
+        data[[i]] <- data[[i]][-na.idx, ]
+      }
     }
   }
 
@@ -336,10 +325,8 @@ plot_KDE <- function(
 
     }else{
       De.density[[length(De.density) + 1]] <- NA
-      warning("[plot_KDE()] Less than 2 points provided, no density plotted.", call. = FALSE)
-
+      .throw_warning("Single data point found, no density calculated")
     }
-
   }
 
   ## remove dummy list element
@@ -370,8 +357,6 @@ plot_KDE <- function(
       De.density.range[i,1:4] <- NA
       De.stats[i,4] <- NA
     }
-
-
   }
 
   ## Get global range of densities
@@ -615,6 +600,9 @@ plot_KDE <- function(
 
   if("ylim" %in% names(list(...))) {
     ylim.plot <- list(...)$ylim
+    if (length(ylim.plot) < 4) {
+      .throw_error("'ylim' must be a vector of length 4")
+    }
   } else {
     if(!is.na(De.density.range[1])){
       ylim.plot <- c(De.density.range[3],
@@ -807,46 +795,15 @@ plot_KDE <- function(
   }
 
   if("fun" %in% names(list(...))) {
-    fun <- list(...)$fun
+    fun <- list(...)$fun # nocov
   } else {
     fun <- FALSE
   }
 
   ## convert keywords into summary placement coordinates
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- c(xlim.plot[1], ylim.plot[2])
-    summary.adj <- c(0, 1)
-  } else if(length(summary.pos) == 2) {
-    summary.pos <- summary.pos
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "topleft") {
-    summary.pos <- c(xlim.plot[1], ylim.plot[2])
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "top") {
-    summary.pos <- c(mean(xlim.plot), ylim.plot[2])
-    summary.adj <- c(0.5, 1)
-  } else if(summary.pos[1] == "topright") {
-    summary.pos <- c(xlim.plot[2], ylim.plot[2])
-    summary.adj <- c(1, 1)
-  }  else if(summary.pos[1] == "left") {
-    summary.pos <- c(xlim.plot[1], mean(ylim.plot[1:2]))
-    summary.adj <- c(0, 0.5)
-  } else if(summary.pos[1] == "center") {
-    summary.pos <- c(mean(xlim.plot), mean(ylim.plot[1:2]))
-    summary.adj <- c(0.5, 0.5)
-  } else if(summary.pos[1] == "right") {
-    summary.pos <- c(xlim.plot[2], mean(ylim.plot[1:2]))
-    summary.adj <- c(1, 0.5)
-  }else if(summary.pos[1] == "bottomleft") {
-    summary.pos <- c(xlim.plot[1], ylim.plot[1])
-    summary.adj <- c(0, 0)
-  } else if(summary.pos[1] == "bottom") {
-    summary.pos <- c(mean(xlim.plot), ylim.plot[1])
-    summary.adj <- c(0.5, 0)
-  } else if(summary.pos[1] == "bottomright") {
-    summary.pos <- c(xlim.plot[2], ylim.plot[1])
-    summary.adj <- c(1, 0)
-  }
+  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot)
+  summary.pos <- coords$pos
+  summary.adj <- coords$adj
 
   ## plot data sets -----------------------------------------------------------
 
@@ -1209,15 +1166,16 @@ plot_KDE <- function(
 
     ## add De error bars
     for(i in 1:length(data)) {
-      arrows(data[[i]][,1] - data[[i]][,2],
-             1:length(data[[i]][,1]),
-             data[[i]][,1] + data[[i]][,2],
-             1:length(data[[i]][,1]),
-             code = 3,
-             angle = 90,
-             length = 0.05,
-             col = col.value.bar[i])
-
+      if (attr(data[[i]], "De.errors.available")) {
+        arrows(data[[i]][, 1] - data[[i]][, 2],
+               1:length(data[[i]][,1]),
+               data[[i]][, 1] + data[[i]][, 2],
+               1:length(data[[i]][, 1]),
+               code = 3,
+               angle = 90,
+               length = 0.05,
+               col = col.value.bar[i])
+      }
       ## add De measurements
       points(data[[i]][,1], 1:De.stats[i,1],
              col = col.value.dot[i],
@@ -1239,7 +1197,7 @@ plot_KDE <- function(
        cex.axis = cex)
 
   ## FUN by R Luminescence Team
-  if(fun==TRUE){sTeve()}
+  if (fun == TRUE) sTeve() # nocov
 
   if(output == TRUE) {
     return(invisible(list(De.stats = De.stats,
@@ -1248,4 +1206,3 @@ plot_KDE <- function(
   }
 
 }
-

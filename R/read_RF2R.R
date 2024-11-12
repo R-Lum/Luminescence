@@ -1,14 +1,19 @@
 #' @title Import RF-files to R
 #'
-#' @description Import files produced by the IR-RF 'ImageJ' macro (#TODO ADD REFERENCE) into R and create a list of [RLum.Analysis-class]
+#' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`; Mittelstraß and Kreutzer, 2021) into R and create a list of [RLum.Analysis-class]
 #' objects
 #'
-#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files (#TODO ADD REFERENCE).
+#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files ((Mittelstraß and Kreutzer, 2021).
 #' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
 #' The output of the function can be passed to the function [analyse_IRSAR.RF]
 #'
 #' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
 #' names can be provided.
+#'
+#' @param verbose [logical] (*with default*):
+#' enable or disable verbose mode.
+#'
+#' @param ... not used, only for compatible reasons
 #'
 #' @return Returns an S4 [RLum.Analysis-class] object containing
 #' [RLum.Data.Curve-class] objects for each curve.
@@ -17,11 +22,12 @@
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @keywords IO
 #'
-#' @references #TODO ADD REFERENCE
+#' @references Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluorescence:
+#' single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \doi{10.5194/gchron-3-299-2021}
 #'
 #' @examples
 #'
@@ -31,44 +37,48 @@
 #'
 #' @md
 #' @export
-read_RF2R <- function(file) {
+read_RF2R <- function(
+  file,
+  verbose = TRUE,
+  ...
+) {
+  .set_function_name("read_RF2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call -----------------------------------------------------------------------------------
-  if(class(file) == "list"){
+  if(inherits(file, "list")){
     results_list <- lapply(file, function(f){
-      temp <- try(read_RF2R(file = f), silent = TRUE)
+      temp <- try(read_RF2R(file = f, verbose = verbose), silent = TRUE)
 
       ##check whether it worked
       if(inherits(temp, "try-error")){
-        try(
-          stop("[read_RF2R()] Import for file ", f, " failed. NULL returned!", call. = FALSE))
+        message("[read_RF2R()] Error: Import for file '", f,
+                "' failed, NULL returned")
         return(NULL)
       }else{
         return(temp)
       }
-
     })
 
     return(unlist(results_list, recursive = FALSE))
-
   }
 
 
-# Integrity check -----------------------------------------------------------------------------
+  ## Integrity tests --------------------------------------------------------
+
+  .validate_class(file, "character", extra = "'list'")
+
   ##throw warning if we have a vector
   if(length(file) > 1){
-    warning("[read_RF2R()] 'file' has a length > 1. Only the first element was taken!
-            If you want to import multiple files, 'file' has to be of type 'list'.", call. = TRUE)
+    .throw_warning("'file' has length > 1, only the first element was taken. ",
+                   "If you want to import multiple files, 'file' has to be ",
+                   "of type 'list'")
     file <- file[1]
   }
 
-  ##check input
-  if(class(file) != "character")
-    stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)
-
   ##check whether file is available
   if(!file.exists(file))
-    stop("[read_RF2R()] File '", file, "' does not exist!", call. = FALSE)
+    .throw_error("File '", file, "' does not exist")
 
   ##read first line to ensure the format
   vers_str <-  readLines(file, 1)
@@ -77,9 +87,16 @@ read_RF2R <- function(file) {
                               regexpr("(?<=macro\\_version=)[0-9-.]+", vers_str, perl = TRUE))
 
   if (!any(version_found %in% version_supported))
-    stop("[read_RF2R()] File format not supported!", call. = FALSE)
+    .throw_error("File format not supported")
 
-# Import --------------------------------------------------------------------------------------
+  ## Import -----------------------------------------------------------------
+
+  if (verbose) {
+    cat("\n[read_RF2R()] Importing ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n")
+  }
 
   ##import the entire file
   temp <- readLines(file, warn = FALSE)
@@ -102,11 +119,11 @@ read_RF2R <- function(file) {
     header <- try(.extract_header(temp[1]), silent = TRUE)
 
     ##test the header
-    if(class(header) == 'try-error'){
-      try(stop("[read_RF2R()] Header extraction failed, try to continue without ... ", call. = FALSE))
+    if(inherits(header, 'try-error')){
+      message("[read_RF2R()] Error: Header extraction failed, ",
+              "trying to continue without ... ")
       header <- NA
     }
-
 
     ##extract tag boundaries framed by tags +++++++++++++++++++
     ##the 2nd line corrects the inner boundaries
@@ -198,7 +215,6 @@ read_RF2R <- function(file) {
 
         }else{
           temp_curve <- m_RF_reg[,c(2,2 + a)]
-
         }
 
         ##write curve
@@ -209,8 +225,6 @@ read_RF2R <- function(file) {
           recordType = "RF",
           data = temp_curve
         )
-
-
       })
 
       ##create RLum.Analysis object
@@ -221,11 +235,8 @@ read_RF2R <- function(file) {
                  as.list(df_statistics[a,]),
                  header
                  ))
-
     })
-
 
 # Return --------------------------------------------------------------------------------------
 return(object_list)
-
 }

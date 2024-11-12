@@ -16,21 +16,21 @@
 #'
 #' **Internal transformation steps**
 #'
-#' (1) 
+#' (1)
 #' log(CW-OSL) values
 #'
 #' (2)
-#' Calculate t' which is the transformed time: 
-#' \deqn{t' = (1/3)*(1/P^2)t^3} 
-#' 
+#' Calculate t' which is the transformed time:
+#' \deqn{t' = (1/3)*(1/P^2)t^3}
+#'
 #' (3)
 #' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values for
 #' the transformed time (t'). Values beyond `min(t)` and `max(t)`
 #' produce `NA` values.
 #'
-#' (4) 
-#' Select all values for t' < `min(t)`, i.e. values beyond the time resolution 
-#' of t. Select the first two values of the transformed data set which contain 
+#' (4)
+#' Select all values for t' < `min(t)`, i.e. values beyond the time resolution
+#' of t. Select the first two values of the transformed data set which contain
 #' no `NA` values and use these values for a linear fit using [lm].
 #'
 #' (5)
@@ -38,11 +38,11 @@
 #' fit parameters. The extrapolation is limited to two values. Other values at
 #' the beginning of the transformed curve are set to 0.
 #'
-#' (6) 
-#' Transform values using 
-#' \deqn{pLM(t) = t^2/P^2*CW(t')} 
-#' 
-#' (7) 
+#' (6)
+#' Transform values using
+#' \deqn{pLM(t) = t^2/P^2*CW(t')}
+#'
+#' (7)
 #' Combine all values and truncate all values for t' > `max(t)`
 #'
 #' **NOTE:**
@@ -53,50 +53,50 @@
 #' `P`.
 #'
 #' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' [RLum.Data.Curve-class] or `data.frame` with measured curve data of type 
+#' [RLum.Data.Curve-class] or `data.frame` with measured curve data of type
 #' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`)
-#' 
-#' @param P [vector] (*optional*): 
-#' stimulation period in seconds. If no value is given, the optimal value is 
-#' estimated automatically (see details). Greater values of P produce more 
+#'
+#' @param P [vector] (*optional*):
+#' stimulation period in seconds. If no value is given, the optimal value is
+#' estimated automatically (see details). Greater values of P produce more
 #' points in the rising tail of the curve.
-#' 
-#' @return 
+#'
+#' @return
 #' The function returns the same data type as the input data type with
 #' the transformed curve values.
-#' 
+#'
 #' `RLum.Data.Curve`
-#' 
-#' \tabular{rl}{ 
-#' `$CW2pPMi.x.t` \tab: transformed time values \cr 
-#' `$CW2pPMi.method` \tab: used method for the production of the new data points 
-#' }
-#' 
-#' `data.frame`
-#' 
+#'
 #' \tabular{rl}{
-#' `$x` \tab: time\cr 
-#' `$y.t` \tab: transformed count values\cr 
-#' `$x.t` \tab: transformed time values \cr 
+#' `$CW2pPMi.x.t` \tab: transformed time values \cr
+#' `$CW2pPMi.method` \tab: used method for the production of the new data points
+#' }
+#'
+#' `data.frame`
+#'
+#' \tabular{rl}{
+#' `$x` \tab: time\cr
+#' `$y.t` \tab: transformed count values\cr
+#' `$x.t` \tab: transformed time values \cr
 #' `$method` \tab: used method for the production of the new data points
 #' }
-#' 
-#' @note 
+#'
+#' @note
 #' According to Bos & Wallinga (2012), the number of extrapolated points
 #' should be limited to avoid artificial intensity data. If `P` is
 #' provided manually, not more than two points are extrapolated.
-#' 
-#' @section Function version: 0.2.1
-#' 
-#' @author 
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' Based on comments and suggestions from:\cr 
+#' @section Function version: 0.2.1
+#'
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#' Based on comments and suggestions from:\cr
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
-#' 
+#'
 #' @seealso [CW2pLM], [CW2pLMi], [CW2pHMi], [fit_LMCurve], [RLum.Data.Curve-class]
-#' 
-#' @references 
+#'
+#' @references
 #' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.
 #'
@@ -108,9 +108,9 @@
 #'
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 #' LM-OSL curves. Radiation Measurements, 32, 141-145.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #'
 #'
@@ -159,33 +159,27 @@
 CW2pPMi<- function(
   values,
   P
-){
+) {
+  .set_function_name("CW2pPMi")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # (0) Integrity checks ------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-    stop("[CW2pPMi()] 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
-
-  }
+  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if(is(values, "RLum.Data.Curve") == TRUE){
-
+  if (inherits(values, "RLum.Data.Curve")) {
     if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
-      stop(paste("[CW2pPMi()] recordType ",values@recordType, " is not allowed for the transformation!",
-                 sep=""), call. = FALSE)
-
-    }else{
-
-      temp.values <- as(values, "data.frame")
-
+      .throw_error("recordType ", values@recordType,
+                   " is not allowed for the transformation")
     }
+
+    temp.values <- as(values, "data.frame")
 
   }else{
 
     temp.values <- values
-
   }
 
 
@@ -249,7 +243,11 @@ CW2pPMi<- function(
 
 
   ##print a warning message for more than two extrapolation points
-  if(temp.sel.id>2){warning("t' is beyond the time resolution. Only two data points have been extrapolated, the first ",temp.sel.id-3, " points have been set to 0!")}
+  if (temp.sel.id > 2) {
+    .throw_warning("t' is beyond the time resolution: only two data points ",
+                   "have been extrapolated, the first ", temp.sel.id - 3,
+                   " points were set to 0")
+  }
 
   # (6) Convert, transform and combine values ---------------------------------
 

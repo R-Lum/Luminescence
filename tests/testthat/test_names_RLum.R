@@ -1,6 +1,5 @@
 test_that("Test whether function works", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.RLum.Analysis, envir = environment())
   expect_silent(names_RLum(IRSAR.RF.Data))

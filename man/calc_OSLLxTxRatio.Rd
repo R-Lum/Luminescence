@@ -70,13 +70,16 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 
 Slot \code{data} contains a \link{list} with the following structure:
 
-\strong{@data}\preformatted{$LxTx.table (data.frame)
+\strong{@data}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{$LxTx.table (data.frame)
 .. $ LnLx
 .. $ LnLx.BG
 .. $ TnTx
 .. $ TnTx.BG
 .. $ Net_LnLx
 .. $ Net_LnLx.Error
+.. $ Net_TnTx
 .. $ Net_TnTx.Error
 .. $ LxTx
 .. $ LxTx.Error
@@ -84,10 +87,12 @@ $ calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
 .. $ k
-}
+}\if{html}{\out{</div>}}
 
-\strong{@info}\preformatted{$ call (original function call)
-}
+\strong{@info}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{$ call (original function call)
+}\if{html}{\out{</div>}}
 }
 \description{
 Calculate \code{Lx/Tx} ratios from a given set of CW-OSL curves assuming late light
@@ -157,8 +162,11 @@ own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 data(ExampleData.LxTxOSLData, envir = environment())
 
 ##calculate Lx/Tx ratio
-results <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral = c(1:2),
-                             background.integral = c(85:100))
+results <- calc_OSLLxTxRatio(
+ Lx.data = Lx.data,
+ Tx.data = Tx.data,
+ signal.integral = c(1:2),
+ background.integral = c(85:100))
 
 ##get results object
 get_RLum(results)
@@ -166,12 +174,12 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
 Duller, G., 2018. Analyst v4.57 - User Manual.
-\url{https://users.aber.ac.uk/ggd/}\cr
+\verb{https://users.aber.ac.uk/ggd}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.
@@ -180,10 +188,10 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{Analyse_SAR.OSLdata}, \link{plot_GrowthCurve},
+\linkS4class{RLum.Data.Curve}, \link{Analyse_SAR.OSLdata}, \link{fit_DoseResponseCurve},
 \link{analyse_SAR.CWOSL}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

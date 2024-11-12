@@ -1,9 +1,9 @@
-#' Al2O3 Irradiation Time Correction Analysis
+#' @title Al2O3 Irradiation Time Correction Analysis
 #'
-#' The function provides a very particular analysis to correct the irradiation
+#' @description The function provides a very particular analysis to correct the irradiation
 #' time while irradiating Al2O3:C chips in a luminescence reader.
 #'
-#' Background: Due to their high dose sensitivity Al2O3:C chips are usually
+#' @details Background: Due to their high dose sensitivity Al2O3:C chips are usually
 #' irradiated for only a very short duration or under the closed beta-source
 #' within a luminescence reader. However, due to its high dose sensitivity, during
 #' the movement towards the beta-source, the pellet already receives and non-negligible
@@ -13,20 +13,20 @@
 #'
 #' **`method_control`**
 #'
-#' To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
-#' are all preset with meaningful default parameters and can be
+#' To keep the generic argument list as clear as possible, arguments to allow a
+#' deeper control of the method are all preset with meaningful default parameters and can be
 #' handled using the argument `method_control` only, e.g.,
 #' `method_control = list(fit.method = "LIN")`. Supported arguments are:
 #'
 #' \tabular{lll}{
 #' **ARGUMENT** \tab **FUNCTION** \tab **DESCRIPTION**\cr
-#' `mode` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the mode used for fitting\cr
-#' `fit.method` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
+#' `mode` \tab `fit_DoseResponseCurve` \tab as in [fit_DoseResponseCurve]; sets the mode used for fitting\cr
+#' `fit.method` \tab `fit_DoseResponseCurve` \tab as in [fit_DoseResponseCurve]; sets the function applied for fitting\cr
 #' }
 #'
 #' @param object [RLum.Analysis-class] or [list] **(required)**:
 #' results obtained from the measurement.
-#' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
+#' Alternatively a list of [RLum.Analysis-class] objects can be provided to allow an automatic analysis
 #'
 #' @param signal_integral [numeric] (*optional*):
 #' signal integral, used for the signal and the background.
@@ -68,7 +68,7 @@
 #'  `$data` \tab `data.frame` \tab correction value and error \cr
 #'  `$table` \tab `data.frame` \tab table used for plotting  \cr
 #'  `$table_mean` \tab `data.frame` \tab table used for fitting \cr
-#'  `$fit` \tab `lm` or `nls` \tab the fitting as returned by the function [plot_GrowthCurve]
+#'  `$fit` \tab `lm` or `nls` \tab the fitting as returned by the function [fit_DoseResponseCurve]
 #' }
 #'
 #'**slot:** **`@info`**
@@ -83,9 +83,9 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot_GrowthCurve]
+#' @seealso [fit_DoseResponseCurve]
 #'
 #' @references
 #'
@@ -114,42 +114,28 @@ analyse_Al2O3C_ITC <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("analyse_Al2O3C_ITC")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-
     ##check whether the list contains only RLum.Analysis objects
-    if(!all(unique(sapply(object, class)) == "RLum.Analysis")){
-      stop("[analyse_Al2O3C()] All objects in the list provided by 'objects' need to be of type 'RLum.Analysis'",
-           call. = FALSE)
+    lapply(object,
+           function(x) .validate_class(x, "RLum.Analysis",
+                                       name = "All elements of 'object'"))
 
-    }
-
-    ##expand input arguments
-    if(!is.null(signal_integral)){
-      signal_integral <- rep(list(signal_integral, length = length(object)))
-
-    }
-
-    ##dose points
-    if(is(dose_points, "list")){
-      dose.points <- rep(dose_points, length = length(object))
-
-    }else{
-      dose_points <- rep(list(dose_points), length = length(object))
-
-    }
+    ## expand input arguments
+    rep.length <- length(object)
+    signal_integral <- .listify(signal_integral, rep.length)
+    dose_points <- .listify(dose_points, rep.length)
 
     ##method_control
     ##verbose
     ##plot
 
-
     ##run analysis
     results_full <- lapply(1:length(object), function(x){
-
       ##run analysis
       results <- try(analyse_Al2O3C_ITC(
         object = object[[x]],
@@ -160,7 +146,7 @@ analyse_Al2O3C_ITC <- function(
         plot = plot,
         main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
         ...
-      ))
+      ), outFile = stdout()) # redirect error messages so they can be silenced
 
       ##catch error
       if(inherits(results, "try-error")){
@@ -168,56 +154,43 @@ analyse_Al2O3C_ITC <- function(
 
       }else{
         return(results)
-
       }
-
     })
 
     ##return
     return(merge_RLum(results_full))
-
-
   }
 
-  # Integretiy check  ---------------------------------------------------------------------------
+  ## Integrity tests  -------------------------------------------------------
 
-  ##check input object
-  if(class(object) != "RLum.Analysis"){
-    stop("[analyse_Al2O3C_ITC()] 'object' needs to be of type 'RLum.Analysis'", call. = FALSE)
-
-  }
+  .validate_class(object, "RLum.Analysis")
 
   ##TODO
   ##implement more checks ... if you find some time, somehow, somewhere
 
   # Preparation ---------------------------------------------------------------------------------
-
   ##select curves based on the recordType selection; if not NULL
-  if(!is.null(recordType)){
+  if(!is.null(recordType[1]))
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
-
-  }
 
   #set method control
   method_control_settings <- list(
     mode = "extrapolation",
     fit.method = "EXP"
-
   )
 
-    ##modify on request
-    if(!is.null(method_control)){
-      method_control_settings <- modifyList(x = method_control_settings, val = method_control)
-
-    }
-
+  ## modify on request
+  if (!is.null(method_control)) {
+    .validate_class(method_control, "list")
+    method_control_settings <- modifyList(x = method_control_settings,
+                                          val = method_control)
+  }
 
   ##dose points enhancement
   ##make sure that the dose_point is enhanced
   dose_points <- rep(dose_points, times = length(object)/2)
 
   # Calculation ---------------------------------------------------------------------------------
-
   ##set signal integral
   if(is.null(signal_integral)){
     signal_integral <- c(1:nrow(object[[1]][]))
@@ -226,17 +199,12 @@ analyse_Al2O3C_ITC <- function(
     ##check whether the input is valid, otherwise make it valid
     if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
       signal_integral <- c(1:nrow(object[[1]][]))
-      warning(
-        paste0(
-          "[analyse_Al2O3C_ITC()] Input for 'signal_integral' corrected to 1:", nrow(object[[1]][])
-        ),
-        call. = FALSE
-      )
-    }
-
+      .throw_warning("Input for 'signal_integral' corrected to 1:",
+                     max(signal_integral))
+   }
   }
 
-  ##calcuate curve sums, assuming the background
+  ##calculate curve sums, assuming the background
   net_SIGNAL <- vapply(1:length(object[seq(1,length(object), by = 2)]), function(x){
     temp_signal <- sum(object[seq(1,length(object), by = 2)][[x]][,2])
     temp_background <- sum(object[seq(2,length(object), by = 2)][[x]][,2])
@@ -245,7 +213,6 @@ analyse_Al2O3C_ITC <- function(
   }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
   ##create data.frames
-
     ##single points
     df <- data.frame(
       DOSE = dose_points,
@@ -269,30 +236,24 @@ analyse_Al2O3C_ITC <- function(
 
 
   ##calculate GC
-  GC <- plot_GrowthCurve(
+  GC <- fit_DoseResponseCurve(
     sample = df_mean,
     mode = method_control_settings$mode,
-    output.plotExtended = FALSE,
-    output.plot = FALSE,
     fit.method = method_control_settings$fit.method,
     verbose = FALSE
   )
-
 
   ##output
   if(verbose){
     cat("\n[analyse_Al2O3C_ITC()]\n")
     cat(paste0("\n Used fit:\t\t",method_control_settings$fit.method))
-    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", GC$De$De.Error))
+    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", round(GC$De$De.Error, 3)))
     cat("\n\n")
-
   }
 
 
   # Plotting ------------------------------------------------------------------------------------
-
   if(plot){
-
     ##set plot settings
     plot_settings <- list(
       xlab = "Dose [s]",
@@ -303,10 +264,9 @@ analyse_Al2O3C_ITC <- function(
       legend.pos = "right",
       legend.text = "dose points",
       mtext = ""
-
     )
 
-    ##modfiy list on request
+    ##modify list on request
     plot_settings <- modifyList(x = plot_settings, val = list(...))
 
     ##make plot area
@@ -315,8 +275,7 @@ analyse_Al2O3C_ITC <- function(
          ylim = plot_settings$ylim,
          xlab = plot_settings$xlab,
          ylab = plot_settings$ylab,
-         main = plot_settings$main
-    )
+         main = plot_settings$main)
 
     ##add zero lines
     abline(v = 0)
@@ -343,18 +302,16 @@ analyse_Al2O3C_ITC <- function(
       arr.type = "triangle",
       arr.adj = -0.5,
       col = 'red',
-      cex = par()$cex
-    )
+      cex = par()$cex)
 
     ##add text
     text(
       x = -GC$De[1] / 2,
       y = eval(GC$Formula),
       pos = 3,
-      labels = paste(round(GC$De[1],3), "\u00B1", GC$De[2]),
+      labels = paste(round(GC$De[1],3), "\u00B1", round(GC$De[2], 3)),
       col = 'red',
-      cex = 0.8
-    )
+      cex = 0.8)
 
     ##add 2nd x-axis
     axis(
@@ -378,7 +335,6 @@ analyse_Al2O3C_ITC <- function(
 
     ##add mtext
     mtext(side = 3, text = plot_settings$mtext)
-
   }
 
   # Output --------------------------------------------------------------------------------------
@@ -395,5 +351,4 @@ analyse_Al2O3C_ITC <- function(
     ),
     info = list(call = sys.call())
   ))
-
 }

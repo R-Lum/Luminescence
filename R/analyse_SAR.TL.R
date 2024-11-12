@@ -10,7 +10,7 @@
 #'
 #' **Provided rejection criteria**
 #'
-#' `[recyling.ratio]`: calculated for every repeated regeneration dose point.
+#' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by
 #' comparing the `Lx/Tx` values of the zero regeneration point with the `Ln/Tn`
@@ -40,7 +40,7 @@
 #' specifies the general sequence structure. Three steps are allowed
 #' (`"PREHEAT"`, `"SIGNAL"`, `"BACKGROUND"`), in addition a
 #' parameter `"EXCLUDE"`. This allows excluding TL curves which are not
-#' relevant for the protocol analysis.  (**Note:** None TL are removed by default)
+#' relevant for the protocol analysis.  (**Note:** No TL are removed by default)
 #'
 #' @param rejection.criteria [list] (*with default*):
 #' list containing rejection criteria in percentage for the calculation.
@@ -54,7 +54,7 @@
 #' are to be logarithmic. See
 #' [plot.default]).
 #'
-#' @param ... further arguments that will be passed to the function [plot_GrowthCurve]
+#' @param ... further arguments that will be passed to the function [fit_DoseResponseCurve]
 #'
 #' @return
 #' A plot (*optional*) and an [RLum.Results-class] object is
@@ -75,9 +75,9 @@
 #' @section Function version: 0.3.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
+#' @seealso [calc_TLLxTxRatio], [fit_DoseResponseCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
 #'
 #' @references
@@ -119,14 +119,15 @@ analyse_SAR.TL <- function(
   dose.points,
   log = "",
   ...
-){
-
+) {
+  .set_function_name("analyse_SAR.TL")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object) == "list"){
-   if(!all(sapply(object, class) == "RLum.Analysis"))
-     stop("[analyse_SAR.TL()] All elements in the input list need to be of class 'RLum.Analysis'!",
-          call. = FALSE)
+  if(inherits(object, "list")){
+    lapply(object,
+           function(x) .validate_class(x, "RLum.Analysis",
+                                       name = "All elements of 'object'"))
 
     ##run sequence
     results <- lapply(object, function(o){
@@ -160,26 +161,15 @@ analyse_SAR.TL <- function(
   ##=============================================================================#
   # General Integrity Checks ---------------------------------------------------
 
-  ##GENERAL
-
-  ##MISSING INPUT
-  if(missing("object")==TRUE){
-    stop("[analyse_SAR.TL()] No value set for 'object'!", call. = FALSE)
+  .validate_class(object, "RLum.Analysis")
+  if (missing("signal.integral.min")) {
+    .throw_error("No value set for 'signal.integral.min'")
+  }
+  if (missing("signal.integral.max")) {
+    .throw_error("No value set for 'signal.integral.max'")
   }
 
-  if(missing("signal.integral.min") == TRUE){
-    stop("[analyse_SAR.TL()] No value set for 'signal.integral.min'!", call. = FALSE)
-  }
-
-  if(missing("signal.integral.max") == TRUE){
-    stop("[analyse_SAR.TL()] No value set for 'signal.integral.max'!", call. = FALSE)
-  }
-
-  ##INPUT OBJECTS
-  if(is(object, "RLum.Analysis") == FALSE){
-    stop("[analyse_SAR.TL()] Input object is not of type 'RLum.Analyis'!", call. = FALSE)
-  }
-
+  integral_input <- .validate_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------
 
@@ -191,7 +181,7 @@ analyse_SAR.TL <- function(
   ##set vector for sequence structure
   temp.protocol.step <- rep(sequence.structure,length(object@records))[1:length(object@records)]
 
-  ##grep object strucute
+  ## grep object structure
   temp.sequence.structure <- structure_RLum(object)
 
   ##set values for step
@@ -206,21 +196,15 @@ analyse_SAR.TL <- function(
     unique(
       temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","n.channels"]))>1){
 
-    stop(paste(
-      "[analyse_SAR.TL()] Signal range differs. Check sequence structure.\n",
-      temp.sequence.structure
-    ))
+    .throw_error("Signal range differs, check sequence structure.\n",
+                 temp.sequence.structure)
   }
 
   ##check if the wanted curves are a multiple of the structure
-  if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0){
-    stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.")
-
-  }
-
+  if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0)
+    .throw_error("Input TL curves are not a multiple of the sequence structure")
 
   # # Calculate LnLxTnTx values  --------------------------------------------------
-
   ##grep IDs for signal and background curves
   TL.preheat.ID <- temp.sequence.structure[
     temp.sequence.structure[,"protocol.step"] == "PREHEAT","id"]
@@ -230,6 +214,18 @@ analyse_SAR.TL <- function(
 
   TL.background.ID <- temp.sequence.structure[
     temp.sequence.structure[,"protocol.step"] == "BACKGROUND","id"]
+
+  ## check that `dose.points` is compatible with our signals:
+  ## as we expect each signal to have an Lx and a Tx components (see calls
+  ## to calc_TLLxTxRatio()), `dose.points` must divide `length(TL.signal.ID)`
+  ## in order for vector recycling to work when further down we do
+  ## `LnLxTnTx$Dose <- dose.points`
+  if (!missing(dose.points)) {
+    if ((length(TL.signal.ID) / 2) %% length(dose.points) != 0) {
+      .throw_error("Length of 'dose.points' not compatible with number ",
+                   "of signals")
+    }
+  }
 
   ##comfort ... translate integral limits from temperature to channel
   if(integral_input == "temperature"){
@@ -244,153 +240,113 @@ analyse_SAR.TL <- function(
   }
 
   ##calculate LxTx values using external function
+  LnLxTnTx <- NULL
   for(i in seq(1,length(TL.signal.ID),by=2)){
-    temp.LnLxTnTx <- get_RLum(
-      calc_TLLxTxRatio(
+    Lx.data.background <- Tx.data.background <- NULL
+    if (length(TL.background.ID) > 0) {
+      Lx.data.background <- get_RLum(object, record.id = TL.background.ID[i])
+      Tx.data.background <- get_RLum(object, record.id = TL.background.ID[i + 1])
+    }
+    LxTxRatio <- calc_TLLxTxRatio(
         Lx.data.signal = get_RLum(object, record.id = TL.signal.ID[i]),
-        Lx.data.background = if (length(TL.background.ID) == 0) {
-          NULL
-        } else{
-          get_RLum(object, record.id = TL.background.ID[i])
-        },
         Tx.data.signal = get_RLum(object, record.id = TL.signal.ID[i + 1]),
-        Tx.data.background =  if (length(TL.background.ID) == 0){
-          NULL
-
-        }else{
-          get_RLum(object, record.id = TL.background.ID[i + 1])
-
-        },
+        Lx.data.background = Lx.data.background,
+        Tx.data.background = Tx.data.background,
         signal.integral.min,
         signal.integral.max
-      )
     )
+    temp.LnLxTnTx <- get_RLum(LxTxRatio)
+    rm(LxTxRatio)
 
     ##grep dose
     temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
-
-      ##take about NULL values
-      if(is.null(temp.Dose)){
-        temp.Dose <- NA
-
-      }
-
-    ##bind data.frame
-    temp.LnLxTnTx <- cbind(Dose=temp.Dose, temp.LnLxTnTx)
-
-    if(exists("LnLxTnTx")==FALSE){
-      LnLxTnTx <- data.frame(temp.LnLxTnTx)
-
-    }else{
-      LnLxTnTx <- rbind(LnLxTnTx,temp.LnLxTnTx)
-
+    if (is.null(temp.Dose)) {
+      temp.Dose <- NA
     }
+
+    ## append row to the data.frame
+    LnLxTnTx <- rbind(LnLxTnTx, cbind(Dose = temp.Dose, temp.LnLxTnTx))
   }
 
   ##set dose.points manually if argument was set
   if(!missing(dose.points)){
     temp.Dose <- dose.points
     LnLxTnTx$Dose <- dose.points
-
   }
 
   # Set regeneration points -------------------------------------------------
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseID <- c(0:(length(LnLxTnTx[["Dose"]]) - 1))
-  temp.DoseName <- paste0("R", temp.DoseID)
-  temp.DoseName <- cbind(Name = temp.DoseName, Dose = LnLxTnTx[["Dose"]])
+  temp.DoseName <- data.frame(Name = paste0("R", seq(nrow(LnLxTnTx)) - 1),
+                              Dose = LnLxTnTx[["Dose"]])
 
   ##set natural
   temp.DoseName[temp.DoseName[, "Name"] == "R0", "Name"] <- "Natural"
 
   ##set R0
-  temp.DoseName[temp.DoseName[,"Name"]!="Natural" & temp.DoseName[,"Dose"]==0,"Name"]<-"R0"
+  temp.DoseName[temp.DoseName[, "Name"] != "Natural" &
+                temp.DoseName[, "Dose"] == 0, "Name"] <- "R0"
 
   ##find duplicated doses (including 0 dose - which means the Natural)
-  temp.DoseDuplicated<-duplicated(temp.DoseName[,"Dose"])
-
-  ##combine temp.DoseName
-  temp.DoseName<-cbind(temp.DoseName,Repeated=temp.DoseDuplicated)
+  temp.DoseName <- cbind(temp.DoseName,
+                         Repeated = duplicated(temp.DoseName[, "Dose"]))
 
   ##correct value for R0 (it is not really repeated)
   temp.DoseName[temp.DoseName[,"Dose"]==0,"Repeated"]<-FALSE
 
   ##combine in the data frame
-  temp.LnLxTnTx <- data.frame(Name = temp.DoseName[, "Name"],
-                              Repeated = as.logical(temp.DoseName[, "Repeated"]))
+  LnLxTnTx <- cbind(temp.DoseName[, c("Name", "Repeated")],
+                    LnLxTnTx)
 
+  ## convert to data.table for more convenient column manipulation
+  temp <- data.table(LnLxTnTx[, c("Name", "Dose", "Repeated", "LxTx")])
 
-  LnLxTnTx<-cbind(temp.LnLxTnTx,LnLxTnTx)
-  LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
+  ## silence notes raised by R CMD check
+  prev.idx <- criterion <- value <- threshold <- status <- NULL
+  Name <- Dose <- LxTx <- Repeated <- NULL
 
   # Calculate Recycling Ratio -----------------------------------------------
+  ## we first create a dummy object to use in case there are no repeated doses,
+  ## but replace it in the `if` block if there are any
+  rej.thresh <- rejection.criteria$recycling.ratio / 100
+  rej.thresh.text <- paste("\u00b1", rej.thresh) # \u00b1 is ±
+  RecyclingRatio <- data.table(criterion = "recycling ratio",
+                               value = NA,
+                               threshold = rej.thresh.text,
+                               status = NA_character_)
+  if (any(temp$Repeated)) {
 
-  ##Calculate Recycling Ratio
+    ## find the index of the previous dose of each repeated dose
+    temp[, prev.idx := match(Dose, Dose)]
 
-  if(length(LnLxTnTx[LnLxTnTx[,"Repeated"]==TRUE,"Repeated"])>0){
+    ## calculate the recycling ratio
+    temp[, criterion := paste0(Name, "/", Name[prev.idx])]
+    temp[, value := LxTx / LxTx[prev.idx]]
 
-    ##identify repeated doses
-    temp.Repeated<-LnLxTnTx[LnLxTnTx[,"Repeated"]==TRUE,c("Name","Dose","LxTx")]
+    ## set status according to the given rejection threshold
+    temp[, threshold := rej.thresh.text]
+    temp[, status := fifelse(abs(1 - value) > rej.thresh, "FAILED", "OK")]
 
-    ##find concering previous dose for the repeated dose
-    temp.Previous<-t(sapply(1:length(temp.Repeated[,1]),function(x){
-      LnLxTnTx[LnLxTnTx[,"Dose"]==temp.Repeated[x,"Dose"] &
-                 LnLxTnTx[,"Repeated"]==FALSE,c("Name","Dose","LxTx")]
-    }))
-
-    ##convert to data.frame
-    temp.Previous<-as.data.frame(temp.Previous)
-
-    ##set column names
-    temp.ColNames<-sapply(1:length(temp.Repeated[,1]),function(x){
-      paste(temp.Repeated[x,"Name"],"/",
-            temp.Previous[temp.Previous[,"Dose"]==temp.Repeated[x,"Dose"],"Name"],
-            sep="")
-    })
-
-    ##Calculate Recycling Ratio
-    RecyclingRatio<-as.numeric(temp.Repeated[,"LxTx"])/as.numeric(temp.Previous[,"LxTx"])
-
-    ##Just transform the matrix and add column names
-    RecyclingRatio<-t(RecyclingRatio)
-    colnames(RecyclingRatio)<-temp.ColNames
-
-  }else{RecyclingRatio<-NA}
-
+    ## keep only the repeated doses
+    RecyclingRatio <- temp[Repeated == TRUE,
+                           list(criterion, value, threshold, status)]
+  }
 
   # Calculate Recuperation Rate ---------------------------------------------
+  ## we first create a dummy object to use in case there is no R0 dose,
+  ## but replace it in the `if` block if there is one
+  Recuperation <- data.table(criterion = "recuperation rate",
+                             value = NA_real_,
+                             threshold = rejection.criteria$recuperation.rate / 100,
+                             status = NA_character_)
+  if ("R0" %in% temp$Name) {
+    Recuperation[, value := round(temp[Name == "R0", LxTx] /
+                                  temp[Name == "Natural", LxTx], digits = 4)]
+    Recuperation[, status := fifelse(value > threshold, "FAILED", "OK")]
+  }
 
-
-  ##Recuperation Rate
-  if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
-    Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
-                          LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)
-  }else{Recuperation<-NA}
-
-
-  # Combine and Evaluate Rejection Criteria ---------------------------------
-
-  RejectionCriteria <- data.frame(
-    citeria = c(colnames(RecyclingRatio), "recuperation rate"),
-    value = c(RecyclingRatio,Recuperation),
-    threshold = c(
-      rep(paste("+/-", rejection.criteria$recycling.ratio/100)
-          ,length(RecyclingRatio)),
-      paste("", rejection.criteria$recuperation.rate/100)
-    ),
-    status = c(
-
-      if(is.na(RecyclingRatio)==FALSE){
-
-        sapply(1:length(RecyclingRatio), function(x){
-          if(abs(1-RecyclingRatio[x])>(rejection.criteria$recycling.ratio/100)){
-            "FAILED"
-          }else{"OK"}})}else{NA},
-
-      if(is.na(Recuperation)==FALSE &
-           Recuperation>rejection.criteria$recuperation.rate){"FAILED"}else{"OK"}
-
-    ))
+  ## join the two tables and convert back to data.frame
+  RejectionCriteria <- as.data.frame(rbind(RecyclingRatio, Recuperation))
+  rm(temp)
 
   ##============================================================================##
   ##PLOTTING
@@ -399,7 +355,7 @@ analyse_SAR.TL <- function(
   # Plotting - Config -------------------------------------------------------
   ##grep plot parameter
   par.default <- par(no.readonly = TRUE)
-  on.exit(par(par.default))
+  on.exit(par(par.default), add = TRUE)
 
   ##grep colours
   col <- get("col", pos = .LuminescenceEnv)
@@ -426,10 +382,10 @@ analyse_SAR.TL <- function(
                                      object@records[[TL.signal.ID[1]]]@data[signal.integral.max,1])
 
 
-  ##warning if number of curves exceed colour values
+  ## warning if number of curves exceeds colour values
   if(length(col)<length(TL.signal.ID/2)){
-    cat("\n[analyse_SAR.TL.R] Warning: To many curves! Only the first",
-        length(col),"curves are plotted!")
+    message("\n[analyse_SAR.TL.R()] Warning: Too many curves, ",
+            "only the first ", length(col), " curves are plotted")
   }
 
 
@@ -463,10 +419,9 @@ analyse_SAR.TL <- function(
   ##catch log-scale problem
   if(log != ""){
     if(min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0){
-      warning("[analyse_SAR.TL()] log-scale needs positive values; log-scale disabled!", call. = FALSE)
+      .throw_warning("Non-positive values detected, log-scale disabled")
     log <- ""
     }
-
   }
 
   #open plot area LnLx
@@ -546,19 +501,17 @@ analyse_SAR.TL <- function(
     lines(NTL.net.LnLx, col = col[1])
     lines(Reg1.net.LnLx, col = col[2])
 
-
     ##plot
+    TL.tmp <- TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max), 2]
+    ylim.max <- quantile(TL.tmp[!is.infinite(TL.tmp)],
+                         probs = 0.90, na.rm = TRUE)
     par(new = TRUE)
     plot(
       TL.Plateau.LnLx,
       axes = FALSE,
       xlab = "",
       ylab = "",
-      ylim = c(0,
-               quantile(
-                 TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max), 2],
-                 probs = c(0.90), na.rm = TRUE
-               ) + 3),
+      ylim = c(0, ylim.max + 3),
       col = "darkgreen"
     )
     axis(4)
@@ -647,8 +600,6 @@ analyse_SAR.TL <- function(
     ##set failed text and mark De as failed
     if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
       mtext("[FAILED]", col = "red")
-
-
     }
   }
 
@@ -668,22 +619,26 @@ analyse_SAR.TL <- function(
   temp.sample[is.na(temp.sample$LxTx.Error),"LxTx.Error"] <- 0
 
   ##run curve fitting
-  temp.GC <- try(plot_GrowthCurve(
+  temp.GC <- try(fit_DoseResponseCurve(
     sample = temp.sample,
     ...
   ))
 
-  ##check for error
+  ## fit_DoseResponseCurve() can fail in two ways:
+  ## 1. either with a hard error, in which case there's nothing much we
+  ##    can do and stop early by returning NULL
   if(inherits(temp.GC, "try-error")){
     return(NULL)
-
-  }else{
-    temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
-
   }
 
+  ## 2. or with a soft error by returning NULL, in which case we set
+  ##    temp.GC to NA and continue (this can be done after the call to
+  ##    get_RLum(), as it deals well with NULLs)
+  temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
+  if (is.null(temp.GC))
+    temp.GC <- NA
 
-  ##add recjection status
+  ##add rejection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
     temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
 
@@ -706,4 +661,3 @@ analyse_SAR.TL <- function(
   return(newRLumResults.analyse_SAR.TL)
 
 }
-

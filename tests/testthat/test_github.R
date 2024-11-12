@@ -7,12 +7,11 @@
 
 test_that("Check github_commits()", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   response <- tryCatch(github_commits(), error = function(e) return(e))
 
   if (inherits(response, "error")){
-    expect_output(print(response), regexp = "status code 403")
+    expect_output(print(response), regexp = "returned status code")
   } else {
     expect_s3_class(response, "data.frame")
   }
@@ -22,12 +21,11 @@ test_that("Check github_commits()", {
 
 test_that("Check github_branches()", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   response <- tryCatch(github_branches(), error = function(e) return(e))
 
   if (inherits(response, "error")) {
-    expect_output(print(response), regexp = "status code 403")
+    expect_output(print(response), regexp = "returned status code")
  }else {
     expect_s3_class(response, "data.frame")
  }
@@ -37,12 +35,13 @@ test_that("Check github_branches()", {
 
 test_that("Check github_issues()", {
   testthat::skip_on_cran()
-  local_edition(3)
 
+  SW({
   response <- tryCatch(github_issues(), error = function(e) return(e))
+  })
 
   if (inherits(response, "error")){
-    expect_output(print(response), regexp = "status code 403")
+    expect_output(print(response), regexp = "returned status code")
   }else{
     expect_type(response, "list")
   }

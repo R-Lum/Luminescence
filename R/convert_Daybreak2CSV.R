@@ -1,23 +1,23 @@
 #' Export measurement data produced by a Daybreak luminescence reader to CSV-files
 #'
 #' This function is a wrapper function around the functions [read_Daybreak2R] and
-#' [write_RLum2CSV] and it imports an Daybreak-file (TXT-file, DAT-file)
-#' and directly exports its content to CSV-files.  If nothing is set for the 
+#' [write_RLum2CSV] and it imports a Daybreak-file (TXT-file, DAT-file)
+#' and directly exports its content to CSV-files.  If nothing is set for the
 #' argument `path` ([write_RLum2CSV]) the input folder will become the output folder.
 #'
-#' @param file [character] (**required**): 
+#' @param file [character] (**required**):
 #' name of the Daybreak-file (TXT-file, DAT-file) to be converted to CSV-files
 #'
-#' @param ... further arguments that will be passed to the function 
+#' @param ... further arguments that will be passed to the function
 #' [read_Daybreak2R] and [write_RLum2CSV]
 #'
-#' @return 
+#' @return
 #' The function returns either a CSV-file (or many of them) or for the option `export = FALSE`
 #' a list comprising objects of type [data.frame] and [matrix]
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
 #' [utils::write.table], [write_RLum2CSV], [read_Daybreak2R]
@@ -40,17 +40,13 @@
 convert_Daybreak2CSV <- function(
   file,
   ...
+) {
+  .set_function_name("convert_Daybreak2CSV")
+  on.exit(.unset_function_name(), add = TRUE)
 
-){
+  ## Integrity tests --------------------------------------------------------
 
-  # General tests -------------------------------------------------------------------------------
-
-  ##file is missing?
-  if(missing(file)){
-    stop("[convert_Daybreak2R()] file is missing!", call. = FALSE)
-
-  }
-
+  .validate_class(file, c("character", "RLum"))
 
   ##set input arguments
   convert_Daybreak2R_settings.default <- list(
@@ -70,11 +66,9 @@ convert_Daybreak2CSV <- function(
       raw = convert_Daybreak2R_settings$raw,
       verbose = convert_Daybreak2R_settings$raw,
       txtProgressBar = convert_Daybreak2R_settings$raw
-
    )
   }else{
     object <- file
-
   }
 
   # Export to CSV -------------------------------------------------------------------------------
@@ -89,7 +83,5 @@ convert_Daybreak2CSV <- function(
 
   }else{
     do.call("write_RLum2CSV", arguments)
-
   }
-
 }

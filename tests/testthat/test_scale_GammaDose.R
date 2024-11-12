@@ -1,3 +1,4 @@
+## load data
 data("ExampleData.ScaleGammaDose", envir = environment())
 d <- ExampleData.ScaleGammaDose
 
@@ -7,18 +8,12 @@ results <- scale_GammaDose(data = d,
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9242")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2131")
@@ -30,18 +25,12 @@ results <- scale_GammaDose(data = d,
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9214")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2124")
@@ -53,18 +42,12 @@ results <- scale_GammaDose(data = d,
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9123")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2097")
@@ -74,31 +57,30 @@ test_that("check values from output example", {
 test_that("console & plot", {
   expect_output({
    scale_GammaDose(d, plot = TRUE, verbose = TRUE)
-   scale_GammaDose(d, plot = TRUE, plot_single = FALSE, verbose = TRUE)
+   scale_GammaDose(d, plot = TRUE, plot_singlePanels = TRUE, verbose = TRUE)
   })
 })
 
-
-## WARNINGS & FAILURES
-test_that("check input data", {
+test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(
     scale_GammaDose(NA, plot = FALSE, verbose = TRUE),
-    "must be a data frame"
+    "'data' should be of class 'data.frame'"
   )
   expect_error(
     scale_GammaDose(d[ ,1:10], plot = FALSE, verbose = TRUE),
-    "must have 12 columns"
+    "'data' should have 12 columns"
   )
+  SW({
   expect_warning({
     tmp <- d
     colnames(tmp) <- letters[1:ncol(tmp)]
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
     },
     "Unexpected column names"
-  )
+    )
+  })
   expect_error({
     tmp <- d
     tmp$sample_offset <- NA
@@ -111,51 +93,34 @@ test_that("check input data", {
     tmp$sample_offset[5] <- "target"
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
     },
-    "Non-numeric value in the the row of the target layer."
+    "Non-numeric value in the the row of the target layer"
   )
   expect_error({
     tmp <- d
     tmp$sample_offset[5] <- -1
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
   },
-  "The numeric value in 'sample_offset' must be positive."
+  "The numeric value in 'sample_offset' must be positive"
   )
   expect_error({
     tmp <- d
     tmp$sample_offset[5] <- 20
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
   },
-  "Impossible! Sample offset larger than the target-layer's thickness!"
+  "Sample offset larger than the target-layer's thickness"
   )
-  expect_error({
-    scale_GammaDose(d, conversion_factors = c("a", "b"), plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, conversion_factors = 1, plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, conversion_factors = "HansGuenter2020", plot = FALSE, verbose = TRUE)
-  },
-  "Invalid 'conversion_factors'. Valid options:"
-  )
-  expect_error({
-    scale_GammaDose(d, fractional_gamma_dose = c("a", "b"), plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, fractional_gamma_dose = 1, plot = FALSE, verbose = TRUE)
-  },
-  "must be an object of length 1 and of class 'character'."
-  )
-  expect_error({
-    scale_GammaDose(d, fractional_gamma_dose = "momgetthecameraiamontheinternet1995", plot = FALSE, verbose = TRUE)
-  },
-  "Invalid 'fractional_gamma_dose'. Valid options:"
-  )
-})
 
+  expect_error(scale_GammaDose(d, conversion_factors = c("a", "b")),
+               "'conversion_factors' contains multiple values but not all of")
+  expect_error(scale_GammaDose(d, conversion_factors = 1),
+               "'conversion_factors' should be one of 'Cresswelletal2018'")
+  expect_error(scale_GammaDose(d, conversion_factors = "HansGuenter2020"),
+               "'conversion_factors' should be one of 'Cresswelletal2018'")
+
+  expect_error(scale_GammaDose(d, fractional_gamma_dose = c("a", "b")),
+               "'fractional_gamma_dose' contains multiple values but not all")
+  expect_error(scale_GammaDose(d, fractional_gamma_dose = 1),
+               "'fractional_gamma_dose' should be one of 'Aitken1985'")
+  expect_error(scale_GammaDose(d, fractional_gamma_dose = "error"),
+               "'fractional_gamma_dose' should be one of 'Aitken1985'")
+})

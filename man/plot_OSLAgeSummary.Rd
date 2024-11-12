@@ -8,7 +8,7 @@ plot_OSLAgeSummary(object, level = 0.95, digits = 1L, verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results}, \link{numeric} (\strong{required}): an object produced
-by \link{combine_Dr_De}. Alternatively, a \link{numeric} vector of a parameter from an MCMC process}
+by \link{combine_De_Dr}. Alternatively, a \link{numeric} vector of a parameter from an MCMC process}
 
 \item{level}{\link{numeric} (\emph{with default}): probability of shown credible interval}
 
@@ -27,7 +27,7 @@ object with the credible interval.
 A graphical summary of the statistical inference of an OSL age
 }
 \details{
-The function is called automatically by \link{combine_Dr_De}
+The function is called automatically by \link{combine_De_Dr}
 }
 \section{Function version}{
  0.1.0
@@ -41,17 +41,17 @@ plot_OSLAgeSummary(object)
 
 }
 \seealso{
-\link{combine_Dr_De}, \link{plot.default}, \link[rjags:rjags-package]{rjags::rjags}
+\link{combine_De_Dr}, \link{plot.default}, \link[rjags:rjags-package]{rjags::rjags}
 }
 \author{
 Anne Philippe, Université de Nantes (France),
 Jean-Michel Galharret, Université de Nantes (France),
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. plot_OSLAgeSummary(): Plot Posterior OSL-Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2024. plot_OSLAgeSummary(): Plot Posterior OSL-Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{dplot}

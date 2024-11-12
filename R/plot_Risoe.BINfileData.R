@@ -22,7 +22,7 @@
 #' done by using the 'Run Info' option within the Sequence Editor or by editing
 #' in R.
 #'
-#' @param BINfileData [Risoe.BINfileData-class] (**required**):
+#' @param data [Risoe.BINfileData-class] (**required**):
 #' requires an S4 object returned by the [read_BIN2R] function.
 #'
 #' @param position [vector] (*optional*):
@@ -73,7 +73,7 @@
 #' @section Function version: 0.4.1
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [Risoe.BINfileData-class],[read_BIN2R], [CW2pLM], [CW2pLMi],
@@ -104,7 +104,7 @@
 #' @md
 #' @export
 plot_Risoe.BINfileData<- function(
-  BINfileData,
+  data,
   position,
   run,
   set,
@@ -115,12 +115,14 @@ plot_Risoe.BINfileData<- function(
   temp.lab,
   cex.global = 1,
   ...
-){
+) {
+  .set_function_name("plot_Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##check if the object is of type Risoe.BINfileData
-  if(class(BINfileData)!="Risoe.BINfileData"){stop("Wrong object! Object of type Risoe.BINfileData needed.")}
+  .validate_class(data, "Risoe.BINfileData")
 
-  temp<-BINfileData
+  temp <- data
 
   # Missing check ----------------------------------------------------------------
 
@@ -135,7 +137,7 @@ plot_Risoe.BINfileData<- function(
 
   ##fun
   extraArgs <- list(...) # read out additional arguments list
-  fun       <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+  fun       <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   # Ordering --------------------------------------------------------------------
 
@@ -203,11 +205,9 @@ plot_Risoe.BINfileData<- function(
           values.xy <- CW2pPMi(values.xy)[,1:2]
 
         }else{
-
-          warning("Function for curve.transformation is unknown. No transformation is performed.")
-
+          .throw_warning("Unknown 'curve.transformation', ",
+                         "no transformation performed")
         }
-
       }
 
       ##plot graph
@@ -256,6 +256,5 @@ plot_Risoe.BINfileData<- function(
 
   }#endforloop
 
-  if(fun==TRUE){sTeve()}
-
+  if (fun == TRUE) sTeve() # nocov
 }

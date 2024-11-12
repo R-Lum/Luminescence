@@ -1,10 +1,50 @@
+data(ExampleData.DeValues, envir = environment())
+ExampleData.DeValues <- ExampleData.DeValues$CA1
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(plot_AbanicoPlot(data = "error"),
+               "All elements of 'data' should be of class 'data.frame'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues[, 1, drop = FALSE]),
+               "Data set (1) has fewer than 2 columns: data without errors",
+               fixed = TRUE)
+
+  expect_message(expect_null(plot_AbanicoPlot(ExampleData.DeValues[0, ])),
+                 "Error: Nothing plotted, your data set is empty")
+
+  expect_warning(expect_message(
+      expect_null(plot_AbanicoPlot(ExampleData.DeValues[1, ])),
+      "Error: After removing invalid entries, nothing is plotted"),
+      "Data sets 1 are found to be empty or consisting of only 1 row")
+
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
+               "'plot.ratio' should be a positive scalar")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlab = "x"),
+               "'xlab' must have length 2")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = "error"),
+               "'z.0' should be one of 'mean', 'mean.weighted', 'median' or")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "error"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p5"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p5a"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p500"),
+               "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+
+  ## zero-error values
+  data.zeros <- ExampleData.DeValues
+  data.zeros[2, 2] <- 0
+  expect_warning(plot_AbanicoPlot(data.zeros, grid.col = c(1, 2)),
+                 "Values with zero errors cannot be displayed and were removed")
+  data.zeros[, 2] <- 0
+  expect_error(plot_AbanicoPlot(data.zeros),
+               "Data set contains only values with zero errors")
+})
+
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
-  local_edition(3)
-
-   ## load example data and recalculate to Gray
-  data(ExampleData.DeValues, envir = environment())
-  ExampleData.DeValues <- ExampleData.DeValues$CA1
 
   ## plot the example data straightforward
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues))
@@ -66,7 +106,7 @@ test_that("Test examples from the example page", {
 
   ## now with user-defined green line for minimum age model
   CAM <- calc_CentralDose(ExampleData.DeValues,
-                          plot = FALSE)
+                          plot = FALSE, verbose = FALSE)
 
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                    line = CAM,
@@ -160,17 +200,42 @@ test_that("Test examples from the example page", {
                          pch = NA,
                          output = TRUE), "list")
 
-
+  ## interactive mode
+  expect_silent(plot_AbanicoPlot(ExampleData.DeValues, interactive = TRUE))
 })
 
-test_that("Cause full function stop", {
+test_that("more coverage", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  ##wrong input data
-  expect_error(plot_AbanicoPlot(data = "Michael"),
-               regexp = "Input data format is neither 'data.frame' nor 'RLum.Results'")
+  ## weights
+  expect_silent(plot_AbanicoPlot(ExampleData.DeValues, weights = FALSE,
+                                 boxplot = TRUE, frame = 2))
+  suppressWarnings( # additional warning on weights not summing to 1
+  expect_warning(plot_AbanicoPlot(ExampleData.DeValues, weights = TRUE,
+                                  rotate = TRUE, line = 1,
+                                  grid.col = c(1, 2)),
+                 "Selecting bandwidth *not* using 'weights'",
+                 fixed = TRUE)
+  )
 
+  ## negative values
+  data.neg <- ExampleData.DeValues
+  data.neg[1, 1] <- -1
+  expect_silent(plot_AbanicoPlot(data.neg, z.0 = "mean", dispersion = "sd",
+                                 boxplot = TRUE, frame = 3,
+                                 main = "Title", sub = "Subtitle"))
 
+  ## missing values
+  data.na <- ExampleData.DeValues
+  data.na[1, 2] <- NA
+  expect_message(plot_AbanicoPlot(data.na, rotate = TRUE, boxplot = TRUE,
+                                  hist = TRUE, error.bars = TRUE, dots = TRUE,
+                                  rug = TRUE, y.axis = FALSE, stats = "min",
+                                  legend = "legend", legend.pos = "bottomleft",
+                                  summary.pos = "bottomright", log.z = FALSE,
+                                  xlab = c("x1", "x2", "x3"), lty = 2,
+                                  dispersion = "2sd",
+                                  at = seq(20, 120, nrow(data.na) - 1)),
+                 "Data set (1): 1 NA value excluded",
+                 fixed = TRUE)
 })
-

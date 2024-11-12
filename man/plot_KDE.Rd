@@ -20,8 +20,11 @@ plot_KDE(
 )
 }
 \arguments{
-\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
-for \code{data.frame}: two columns: De (\code{values[,1]}) and De error (\code{values[,2]}).
+\item{data}{\link{data.frame}, \link{vector} or \linkS4class{RLum.Results} object (\strong{required}):
+for \code{data.frame}: either two columns: De (\code{values[,1]}) and De error
+(\code{values[,2]}), or one: De (\code{values[,1]}). If a numeric vector or a
+single-column data frame is provided, De error is assumed to be 10^-9
+for all measurements and error bars are not drawn.
 For plotting multiple data sets, these must be provided as
 \code{list} (e.g. \code{list(dataset1, dataset2)}).}
 
@@ -183,6 +186,6 @@ Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., 2021. plot_KDE(): Plot kernel density estimate with statistics. Function version 3.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., 2024. plot_KDE(): Plot kernel density estimate with statistics. Function version 3.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 

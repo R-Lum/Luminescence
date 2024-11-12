@@ -34,7 +34,7 @@
 #' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**): input
 #' object to be treated. This can be also provided as [list]. If an [RLum.Analysis-class] object
 #' is provided, only the [RLum.Data.Spectrum-class] objects are treated. Please note: this mixing of
-#' objects do not work for a list of `RLum.Data` objects.
+#' objects does not work for a list of `RLum.Data` objects.
 #'
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
@@ -73,15 +73,15 @@
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [smooth], [smooth.spline],
 #' [apply_CosmicRayRemoval]
 #'
 #' @references
-#' Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
-#' Single Images. Astrophysics 116, 148-153.
-#' [https://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail]()
+#' Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from
+#' Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
+#' \doi{10.1086/381786}
 #'
 #' @keywords manip
 #'
@@ -104,13 +104,15 @@ apply_CosmicRayRemoval <- function(
   verbose = FALSE,
   plot = FALSE,
   ...
-){
+) {
+  .set_function_name("apply_CosmicRayRemoval")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self-call ----------------------------------------------------------------------------------
   ##Black magic: The function recalls itself until all RLum.Data.Spectrum objects have been treated
   ##If you want to test the basics of the function please only use a single RLum.Data.Spectrum-object
   ##if it comes in as an RLum.Analysis object ... make a list out of it
-  if(class(object) == "RLum.Analysis"){
+  if(inherits(object, "RLum.Analysis")){
     object <- list(object)
     class_original <- "RLum.Analysis"
 
@@ -120,17 +122,17 @@ apply_CosmicRayRemoval <- function(
   }
 
   ##handle the list and recall
-  if(class(object) == "list"){
+  if(inherits(object, "list")){
     results_list <- lapply(object, function(o){
 
       ##preset objects
       record_id.spectra <- NULL
 
       ##RLum.Analysis
-      if(class(o) == "RLum.Analysis"){
+      if(inherits(o, "RLum.Analysis")){
          ##get id of RLum.Data.Spectrum objects in this object
          record_id.spectra <- which(
-           vapply(o@records, function(x) class(x) == "RLum.Data.Spectrum", logical(1)))
+           vapply(o@records, function(x) inherits(x, "RLum.Data.Spectrum"), logical(1)))
 
          ##rewrite o
          temp_o <- o@records[record_id.spectra]
@@ -177,11 +179,8 @@ apply_CosmicRayRemoval <- function(
 
   # Integrity check -----------------------------------------------------------
 
-  ##check if object is of class RLum.Data.Spectrum
-  if(class(object) != "RLum.Data.Spectrum"){
-    stop(paste0("[apply_CosmicRayRemoval()] An object of class '",class(object)[1], "' is not supported as input; please read the manual!"), call. = FALSE)
-
-  }
+  .validate_class(object, "RLum.Data.Spectrum")
+  .validate_args(method, c("smooth", "smooth.spline", "Pych"))
 
   ##deal with addition arguments
   extraArgs <- list(...)
@@ -334,14 +333,7 @@ apply_CosmicRayRemoval <- function(
           mtext(side = 3, paste0("Frame: ", x, " (",
                                  colnames(object.data.temp)[x],
                                  ") - no threshold applied!"))
-
-
-
         }
-
-
-
-
       }
 
       ##(9) - return information on the amount of removed cosmic-rays
@@ -362,12 +354,6 @@ apply_CosmicRayRemoval <- function(
       return(object.data.temp[,x])
 
     })#end loop
-
-
-  }else{
-
-    stop("[apply_CosmicRayRemoval()] Unkown method for cosmic ray removal.")
-
   }
 
   # Correct row and column names --------------------------------------------

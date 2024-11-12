@@ -11,6 +11,17 @@
 #' `background.count.distribution` and `sigmab`, which will be passed to the function
 #' [calc_OSLLxTxRatio].
 #'
+#' **What is part of a SAR sequence?**
+#'
+#' The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
+#' A SAR sequence is basically a set of \eqn{L_{x}/T_{x}} curves. Hence, every 2nd curve
+#' is considered a shine-down curve related to the test dose. It also means that the number of
+#' curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves, and that
+#' hot-bleach curves **do not** belong into a SAR sequence; at least not for the analysis.
+#' Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
+#' irradiation curves. The later one indicates the duration of the irradiation, the
+#' dose and test dose points, e.g., as part of XSYG files.
+#'
 #' **Argument `object` is of type `list`**
 #'
 #' If the argument `object` is of type [list] containing **only**
@@ -46,19 +57,35 @@
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
-#' Lx/Tx values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx
+#' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
 #' ratio of the natural signal). For methodological background see Aitken and
-#' Smith (1988).
+#' Smith (1988). As a variant with the argument `recuperation_reference` another dose point can be
+#' selected as reference instead of `Ln/Tn`.
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which per
-#' default should not exceed 10\%. The test dose error is calculated as `Tx_net.error/Tx_net`.
+#' default should not exceed 10%. The test dose error is calculated as `Tx_net.error/Tx_net`.
+#' The calculation of the \eqn{T_{n}} error is detailed in [calc_OSLLxTxRatio].
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
-#' default should not exceed 10\%.
+#' default should not exceed 10%.
+#'
+#' **Irradiation times**
+#'
+#' The function makes two attempts to extra irradiation data (dose points)
+#' automatically from the input object, if the argument `dose.points` was not
+#' set (aka set to `NULL`).
+#'
+#' 1. It searches in every curve for an info object called `IRR_TIME`. If this was set, any value
+#' set here is taken as dose point.
+#'
+#' 2. If the object contains curves of type `irradiation`, the function tries to
+#' use this information to assign these values to the curves. However, the function
+#' does **not** overwrite values preset in `IRR_TIME`.
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
-#' [RLum.Analysis-class] objects can be provided.
+#' [RLum.Analysis-class] objects can be provided. The object should contain **only** curves
+#' considered part of the SAR protocol (see Details.)
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
@@ -72,13 +99,11 @@
 #' as the maximum signal integral for the `Tx` curve. Can be set to `NA`, in this
 #' case no integrals are taken into account.
 #'
-#'
 #' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the minimum background integral for the `Tx` curve. Can be set to `NA`, in this
 #' case no integrals are taken into account.
-#'
 #'
 #' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral. Can be a [list] of [integer]s, if `object` is
@@ -104,16 +129,22 @@
 #' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
-#' `palaeodose.error`, `testdose.error` and `exceed.max.regpoint = TRUE/FALSE`.
+#' `palaeodose.error`, `testdose.error`, `exceed.max.regpoint = TRUE/FALSE`,
+#' `recuperation_reference = "Natural"` (or any other dose point, e.g., `"R1"`).
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
 #' Per default all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
 #' Every criterion can be set to `NA`. In this value are calculated, but not considered, i.e.
 #' the RC.Status becomes always `'OK'`
 #'
 #' @param dose.points [numeric] (*optional*):
-#' a numeric vector containing the dose points values Using this argument
-#' overwrites dose point values in the signal curves. Can be a [list] of
+#' a numeric vector containing the dose points values. Using this argument
+#' overwrites dose point values extracted from other data. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
+#'
+#' @param trim_channels [logical] (*with default*): trim channels per record category
+#' to the lowest number of channels in the category by using [trim_RLum.Data].
+#' Applies only to `OSL` and `IRSL` curves. For a more granular control use [trim_RLum.Data]
+#' before passing the input object.
 #'
 #' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin `mtext`. Can be a [list] of [character]s,
@@ -123,10 +154,11 @@
 #'
 #' @param plot_onePage [logical] (*with default*): enables or disables on page plot output
 #'
-#' @param plot.single [logical] (*with default*) or [numeric] (*optional*):
+#' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.
 #' If a [numeric] vector is provided the plots can be selected individually, i.e.
-#' `plot.single = c(1,2,3,4)` will plot the TL and Lx, Tx curves but not the legend (5) or the
+#' `plot_singlePanels = c(1,2,3,4)` will plot the TL and Lx, Tx curves but
+#' not the legend (5) or the
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
@@ -150,7 +182,7 @@
 #' background counts and the dose points}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria.
 #' `NA` is produced if no R0 dose point exists.}
-#' \item{Formula}{[formula] formula that have been used for the growth curve fitting }
+#' \item{Formula}{[formula] formula that have been used for the growth curve fitting}
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
@@ -161,10 +193,9 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.11
+#' @section Function version: 0.10.4
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
-#' (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
@@ -211,6 +242,7 @@
 #'   recuperation.rate = 10,
 #'   testdose.error = 10,
 #'   palaeodose.error = 10,
+#'   recuperation_reference = "Natural",
 #'   exceed.max.regpoint = TRUE)
 #')
 #'
@@ -231,13 +263,16 @@ analyse_SAR.CWOSL<- function(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
-  plot.single = FALSE,
+  plot_singlePanels = FALSE,
   onlyLxTxTable = FALSE,
   ...
 ) {
+  .set_function_name("analyse_SAR.CWOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
@@ -247,19 +282,13 @@ if(is.list(object)){
 
   ##handle main separately
   if("main"%in% names(list(...))){
-    if(class(list(...)$main) == "list"){
-      main <- rep(list(...)$main,length = length(object))
-
-    }else{
-      main <- rep(as.list(list(...)$main),length = length(object))
-    }
+    main <- .listify(list(...)$main, length = length(object))
 
   }else{
     main <- as.list(paste0("ALQ #",1:length(object)))
-
   }
 
-  results <- merge_RLum(lapply(1:length(object), function(x){
+  results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
       signal.integral.min = parm$signal.integral.min[[x]],
@@ -268,15 +297,19 @@ if(is.list(object)){
       background.integral.max = parm$background.integral.max[[x]],
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
+      trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
       rejection.criteria = parm$rejection.criteria[[x]],
-      plot.single = parm$plot.single[[x]],
+      plot_singlePanels = parm$plot_singlePanels[[x]],
       plot_onePage = parm$plot_onePage[[x]],
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
       main = main[[x]],
       ...)
-  }))
+  })))
+
+  ## add aliquot number
+  results@data$data$ALQ <- seq_along(object)[1:nrow(results@data$data)]
 
   ##return
   ##DO NOT use invisible here, this will prevent the function from stopping
@@ -289,17 +322,30 @@ if(is.list(object)){
 ##set error list, this allows to set error messages without breaking the function
 error.list <- list()
 
-# General Integrity Checks ---------------------------------------------------
-  ##MISSING INPUT
-  if(class(object)[1] != "RLum.Analysis")
-    stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
-         call. = FALSE)
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(object, "RLum.Analysis")
+  .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
+
+  ## trim OSL or IRSL channels
+  if(trim_channels[1]) {
+    ## fetch names with OSL and IRSL
+    tmp_names <- unique(vapply(object@records, function(x) x@recordType, character(1)))
+
+    ## grep only the one with OSL and IRSL in it
+    tmp_names <- tmp_names[grepl(pattern = "(?:OSL|IRSL)", x = tmp_names, perl = TRUE)]
+
+    ## trim
+    object <- trim_RLum.Data(object, recordType = tmp_names)
+  }
 
   ##skip all those tests if signal integral is NA
   if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
-    warning("[analyse_SAR.CWOSL()] No signal or background integral applied, because they were set to NA!", call. = FALSE)
+
+    if(is.null(OSL.component))
+    .throw_warning("No signal or background integral applied ",
+                   "as they were set to NA")
 
   } else {
   ##build signal and background integrals
@@ -330,18 +376,19 @@ error.list <- list()
         ##Account for the case that the use did not provide everything ...
         if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
           signal.integral.Tx <- signal.integral
-
-          warning("[analyse_SAR.CWOSL()] background integral for Tx curves set, but not for the signal integral; signal integral for Tx automatically set.")
+          .throw_warning("Background integral for Tx curves set, but not for ",
+                         "the signal integral; signal integral for Tx automatically set")
         }
 
       if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
         background.integral.Tx <- background.integral
-        warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
+        .throw_warning("Signal integral for Tx curves set, but not for the ",
+                       "background integral; background integral for Tx automatically set")
       }
 
     ##INTEGRAL LIMITS
     if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
-      stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not of type integer!",  call. = FALSE)
+      .throw_error("'signal.integral' or 'background.integral' is not of type integer")
     }
   }
 
@@ -353,10 +400,9 @@ error.list <- list()
     m = regexpr("(OSL[a-zA-Z]*|IRSL[a-zA-Z]*|POSL[a-zA-Z]*)", names(object), perl = TRUE))
 
   if(length(CWcurve.type) == 0) {
-    try(stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
-             call. = FALSE))
-     return(NULL)
-
+    message("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' ",
+            "detected! NULL returned.")
+    return(NULL)
   }
 
   ## now get the type which is used most
@@ -372,10 +418,12 @@ error.list <- list()
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
-      exceed.max.regpoint = TRUE
+      exceed.max.regpoint = TRUE,
+      recuperation_reference = "Natural"
     ),
     val = rejection.criteria,
   keep.null = TRUE)
+
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
@@ -395,6 +443,13 @@ error.list <- list()
   sigmab <- if("sigmab" %in% names(extraArgs)) extraArgs$sigmab else NULL
   sig0 <- if("sig0" %in% names(extraArgs)) extraArgs$sig0 else 0
 
+  ## deprecated argument
+  if ("plot.single" %in% names(list(...))) {
+    plot_singlePanels <- list(...)$plot.single
+    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
+                   "instead")
+  }
+
 # Protocol Integrity Checks --------------------------------------------------
   ##check overall structure of the object
   ##every SAR protocol has to have equal number of curves
@@ -407,28 +462,25 @@ error.list <- list()
 
   })
 
-  ##problem: FI lexsyg devices provide irradiation information in a separate curve
-  if("irradiation"%in%temp.ltype){
-
+  ##FI lexsyg devices provide irradiation information in a separate curve
+  if(any("irradiation" %in% temp.ltype)){
     ##grep irradiation times
-    temp.irradiation <- structure_RLum(object)
-    temp.irradiation <- temp.irradiation[
-      temp.irradiation$recordType == "irradiation", "x.max"]
+    temp.irradiation <- extract_IrradiationTimes(object)@data$irr.times[["IRR_TIME"]]
 
-    ##remove every 2nd entry (test dose) and add "0" dose for natural signal
-    temp.Dose <- c(0,temp.irradiation)
+    ##write this into the records
+    for(i in 1:length(object@records)){
+      if(is.null(object@records[[i]]@info$IRR_TIME))
+        object@records[[i]]@info <- c(object@records[[i]]@info, IRR_TIME = temp.irradiation[i])
+    }
 
-    ##remove irradiation entries from file
-    object <- set_RLum(class = "RLum.Analysis",
-               records = get_RLum(object, recordType = c(CWcurve.type, "TL")),
-               protocol = "SAR")
-
+    ## remove irradiation curves
+    object <- get_RLum(object, record.id = c(!temp.ltype %in% "irradiation"), drop = FALSE)
   }
 
   ##check if the wanted curves are a multiple of two
   ##gsub removes unwanted information from the curves
   if(table(temp.ltype)[CWcurve.type]%%2!=0){
-    error.list[[1]] <- "[analyse_SAR.CWOSL()] Input OSL/IRSL curves are not a multiple of two."
+    error.list[[1]] <- "Input OSL/IRSL curves are not a multiple of two"
   }
 
   ##check if the curve lengths differ
@@ -439,8 +491,7 @@ error.list <- list()
   }))
 
   if(length(unique(temp.matrix.length))!=1){
-    error.list[[2]] <- "[analyse_SAR.CWOSL()] Input curves lengths differ."
-
+    error.list[[2]] <- "Input curves have different lengths"
   }
 
   ##just proceed if error list is empty
@@ -452,8 +503,7 @@ error.list <- list()
       signal.integral <-
         c(min(signal.integral) : (max(signal.integral) + 1))
 
-      warning("[analyse_SAR.CWOSL()] integral signal limits cannot be equal, reset automatically!")
-
+      .throw_warning("Integral signal limits cannot be equal, reset automatically")
     }
 
     ##background integral should not be longer than curve channel length
@@ -461,7 +511,6 @@ error.list <- list()
              max(background.integral) == min(background.integral)) {
       background.integral <-
         c((min(background.integral) - 1) : max(background.integral))
-
     }
 
     if (!all(is.na(background.integral)) &&
@@ -472,13 +521,11 @@ error.list <- list()
       ##prevent that the background integral becomes negative
       if(min(background.integral) < max(signal.integral)){
         background.integral <- c((max(signal.integral) + 1):max(background.integral))
-
       }
 
-      warning("[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
-        min(background.integral),":", max(background.integral),")", call. = FALSE
-      )
-
+      .throw_warning("Background integral out of bounds. Set to: c(",
+                     min(background.integral), ":", max(background.integral),
+                     ")")
     }
 
     ##Do the same for the Tx-if set
@@ -486,30 +533,25 @@ error.list <- list()
       if (max(background.integral.Tx) == min(background.integral.Tx)) {
         background.integral.Tx <-
           c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
-
       }
 
       if (max(background.integral.Tx) > temp.matrix.length[2]) {
         background.integral.Tx <-
           c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
 
-
         ##prevent that the background integral becomes negative
         if (min(background.integral.Tx) < max(signal.integral.Tx)) {
           background.integral.Tx <-
             c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
-
-
         }
 
-        warning(
+        .throw_warning(
           "Background integral for Tx out of bounds. Set to: c(",
           min(background.integral.Tx),
           ":",
           max(background.integral.Tx),
           ")"
         )
-
       }
     }
 
@@ -561,29 +603,20 @@ error.list <- list()
       }
 
         ##grep dose
-        if (exists("temp.irradiation") == FALSE) {
-          temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
+        temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
 
           ##for the case that no information on the dose can be found
-          if (is.null(temp.Dose)) {
-            temp.Dose <- NA
-          }
+          if (is.null(temp.Dose)) temp.Dose <- NA
 
-          temp.LnLxTnTx <-
-            cbind(Dose = temp.Dose, temp.LnLxTnTx)
+          temp.LnLxTnTx <- cbind(Dose = temp.Dose, temp.LnLxTnTx)
 
-        }else{
-          temp.LnLxTnTx <- cbind(Dose = temp.Dose[x], temp.LnLxTnTx)
-
-        }
       }), silent = TRUE)
 
     ##this is basically for the OSL.component case to avoid that everything
     ##fails if something goes wrong therein
     if(inherits(LnLxTnTx, "try-error")){
-      try(stop(
-        "[analyse_SAR.CWOSL()] Something went wrong while generating the LxTx-table. Return NULL.",
-         call. = FALSE))
+      message("[analyse_SAR.CWOSL()] Something went wrong while generating ",
+              "the LxTx table, NULL returned")
       return(NULL)
     }
 
@@ -594,8 +627,7 @@ error.list <- list()
     ##overwrite dose point manually
     if (!is.null(dose.points) & length(dose.points) > 0) {
       if (length(dose.points) != length(LnLxTnTx$Dose)) {
-        stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.",
-           call. = FALSE)
+        .throw_error("Length of 'dose.points' differs from number of curves")
       }
 
       LnLxTnTx$Dose <- dose.points
@@ -603,23 +635,22 @@ error.list <- list()
 
     ##check whether we have dose points at all
     if (is.null(dose.points) & anyNA(LnLxTnTx$Dose)) {
-      stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!",
-           call. = FALSE)
-
+      .throw_error("'dose.points' contains NA values or have not been set")
     }
 
     ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
     ##not, it is probably a Dose Recovery Test with the given dose that is treated as the
     ##unknown dose. We overwrite this value and warn the user.
     if (LnLxTnTx$Dose[1] != 0) {
-      warning("[analyse_SAR.CWOSL()] The natural signal has a dose of ", LnLxTnTx$Dose[1],
-              " s, which is indicative of a dose recovery test. The natural dose was set to 0.", call. = FALSE)
+      .throw_warning("The natural signal has a dose of ", LnLxTnTx$Dose[1],
+                     " s, which is indicative of a dose recovery test. ",
+                     "The natural dose was set to 0.")
       LnLxTnTx$Dose[1] <- 0
     }
 
     #generate unique dose id - this are also the # for the generated points
     temp.DoseID <- c(0:(length(LnLxTnTx$Dose) - 1))
-    temp.DoseName <- paste("R",temp.DoseID,sep = "")
+    temp.DoseName <- paste0("R",temp.DoseID)
     temp.DoseName <-
       cbind(Name = temp.DoseName,Dose = LnLxTnTx$Dose)
 
@@ -637,9 +668,10 @@ error.list <- list()
     ##how many dose points do we have with 0?
     non.temp.zero.dose.number <- nrow(temp.DoseName[temp.DoseName[, "Dose"] != 0,])
 
-    temp.DoseName[temp.DoseName[,"Name"] != "Natural" &
-                    temp.DoseName[,"Name"] != "R0","Name"] <- paste("R",c(1:non.temp.zero.dose.number),sep =
-                                                                      "")
+    if(length(non.temp.zero.dose.number) > 0){
+    temp.DoseName[temp.DoseName[,"Name"] != "Natural" & temp.DoseName[,"Name"] != "R0","Name"] <-
+      paste0("R",c(1:non.temp.zero.dose.number))
+    }
 
     ##find duplicated doses (including 0 dose - which means the Natural)
     temp.DoseDuplicated <- duplicated(temp.DoseName[,"Dose"])
@@ -652,14 +684,17 @@ error.list <- list()
     temp.DoseName[temp.DoseName[,"Dose"] == 0,"Repeated"] <- FALSE
 
     ##combine in the data frame
-    temp.LnLxTnTx <- data.frame(Name = temp.DoseName[,"Name"],
-                                Repeated = as.logical(temp.DoseName[,"Repeated"]))
+    temp.LnLxTnTx <- data.frame(
+        Name = factor(x = temp.DoseName[, "Name"],
+                      levels = unique(temp.DoseName[, "Name"])),
+        Repeated = as.logical(temp.DoseName[, "Repeated"]))
 
     LnLxTnTx <- cbind(temp.LnLxTnTx,LnLxTnTx)
     LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
 
     # Calculate Recycling Ratio -----------------------------------------------
     ##Calculate Recycling Ratio
+    RecyclingRatio <- NA
     if (length(LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,"Repeated"]) > 0) {
       ##identify repeated doses
       temp.Repeated <-
@@ -695,34 +730,33 @@ error.list <- list()
       ##Just transform the matrix and add column names
       RecyclingRatio <- t(RecyclingRatio)
       colnames(RecyclingRatio) <- temp.ColNames
-
-    }else{
-      RecyclingRatio <- NA
     }
 
-
     # Calculate Recuperation Rate ---------------------------------------------
-    ##Recuperation Rate (capable to handle multiple type of recuperation values)
+    ## check for incorrect key words
+    if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
+      .throw_error("Recuperation reference invalid, valid are: ",
+                   .collapse(LnLxTnTx[, "Name"], quote = FALSE))
+
+
+    ##Recuperation Rate (capable of handling multiple type of recuperation values)
+    Recuperation <- NA
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
       Recuperation <-
-        sapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
+        vapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
                function(x) {
                  round(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","LxTx"][x] /
-                         LnLxTnTx[LnLxTnTx[,"Name"] == "Natural","LxTx"],
+                         LnLxTnTx[LnLxTnTx[,"Name"] == rejection.criteria$recuperation_reference[1],"LxTx"],
                        digits = 4)
-               })
+               }, numeric(1))
       ##Just transform the matrix and add column names
       Recuperation  <-  t(Recuperation)
       colnames(Recuperation)  <-
         unlist(strsplit(paste(
-          "Recuperation rate",
+          paste0("Recuperation rate (", rejection.criteria$recuperation_reference[1], ")"),
           1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"
         ), ";"))
-
-    }else{
-      Recuperation <- NA
     }
-
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
     temp.criteria <- c(
@@ -748,23 +782,17 @@ error.list <- list()
       temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation
+    temp.status.Recuperation <- "OK"
     if (!is.na(Recuperation)[1] &
         !is.na(rejection.criteria$recuperation.rate)) {
       temp.status.Recuperation  <-
         sapply(1:length(Recuperation), function(x) {
           if (Recuperation[x] > rejection.criteria$recuperation.rate / 100) {
             "FAILED"
-
           } else{
             "OK"
-
           }
-
         })
-
-    } else{
-      temp.status.Recuperation <- "OK"
-
     }
 
 
@@ -778,17 +806,13 @@ error.list <- list()
       testdose.error.status <- "FAILED"
 
     }else{
+      testdose.error.status <- "OK"
       if(!is.na(testdose.error.threshold)){
         testdose.error.status <- ifelse(
           testdose.error.calculated <= testdose.error.threshold,
           "OK", "FAILED"
         )
-
-      }else{
-        testdose.error.status <- "OK"
-
       }
-
     }
 
     testdose.error.data.frame <- data.frame(
@@ -835,9 +859,9 @@ error.list <- list()
       # plot everyting on one page ... doing it here is much cleaner than
       # Plotting - one Page config -------------------------------------------------------
       if(plot_onePage){
-      on.exit(on_exit())
+      on.exit(on_exit(), add = TRUE)
 
-      plot.single <- TRUE
+      plot_singlePanels <- TRUE
       layout(matrix(
         c(1, 1, 3, 3, 6, 6, 7,
           1, 1, 3, 3, 6, 6, 8,
@@ -848,13 +872,13 @@ error.list <- list()
       par(oma = c(0, 0, 0, 0),
           mar = c(4, 4, 3, 1),
           cex = cex * 0.6)
-
       }
 
 
       # Plotting - old way config -------------------------------------------------------
-      if (plot.single[1] == FALSE) {
-        on.exit(on_exit())
+
+      if (plot_singlePanels[1] == FALSE) {
+        on.exit(on_exit(), add = TRUE)
         layout(matrix(
           c(1, 1, 3, 3,
             1, 1, 3, 3,
@@ -878,28 +902,18 @@ error.list <- list()
 
       }else{
         ##check for values in the single output of the function and convert
-        if (!is(plot.single, "logical")) {
-          if (!is(plot.single, "numeric")) {
-            stop("[analyse_SAR.CWOSL()] Invalid data type for 'plot.single'.")
-          }
-
-          plot.single.sel  <- plot.single
+        if (!is.logical(plot_singlePanels)) {
+          plot.single.sel  <- plot_singlePanels
 
         }else{
           plot.single.sel <- c(1,2,3,4,5,6,7,8)
-
         }
-
       }
 
       ##warning if number of curves exceed colour values
       if (length(col) < length(OSL.Curves.ID) / 2) {
-        temp.message  <-
-          paste(
-            "\n[analyse_SAR.CWOSL()] To many curves! Only the first",
-            length(col),"curves are plotted!"
-          )
-        warning(temp.message)
+        .throw_warning("Too many curves, only the first ",
+                       length(col), " curves are plotted")
       }
 
       ##legend text
@@ -955,10 +969,7 @@ error.list <- list()
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Lx) ,function(x) {
             lines(object@records[[TL.Curves.ID.Lx[[x]]]]@data,col = col[x])
-
           })
-
-
 
         }else{
           plot(
@@ -968,27 +979,32 @@ error.list <- list()
             xlab = ""
           )
           text(0.5,0.5, "No TL curve detected")
-
         }
       }#plot.single.sel
 
       # Plotting LnLx Curves ----------------------------------------------------
+
+      ## if we want to apply a log-transform on x and the first time point
+      ## is 0, we shift the curves by one channel
+      if (log == "x" || log == "xy") {
+        sapply(1:length(OSL.Curves.ID.Lx), function(x) {
+          x.vals <- object@records[[OSL.Curves.ID.Lx[[x]]]]@data[, 1]
+          if (x.vals[1] == 0) {
+            object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1, ] <-
+              object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1, ] + x.vals[2] - x.vals[1]
+            .throw_warning("Curves shifted by one channel for log-plot")
+          }
+        })
+      }
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
         ylim.range <- vapply(OSL.Curves.ID.Lx, function(x) {
           range(object@records[[x]]@data[,2])
         }, numeric(2))
 
-        if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[1]]]]@data[1,1] == 0){
-          xlim <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1],
-                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]) +
-                      object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1])
-
-        }else{
         xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
 
-        }
         #open plot area LnLx
         plot(
           NA,NA,
@@ -1007,15 +1023,7 @@ error.list <- list()
 
         ##plot curves
         sapply(1:length(OSL.Curves.ID.Lx), function(x) {
-          if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1] == 0){
-            object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] <-
-              object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] +
-              diff(c(object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1],
-                     object@records[[OSL.Curves.ID.Lx[[x]]]]@data[2,1]))
-            warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
-          }
           lines(object@records[[OSL.Curves.ID.Lx[[x]]]]@data,col = col[x])
-
         })
 
         ##mark integration limit Lx curves
@@ -1079,10 +1087,7 @@ error.list <- list()
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
             lines(object@records[[TL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-
           })
-
-
 
         }else{
           plot(
@@ -1092,7 +1097,6 @@ error.list <- list()
             xlab = ""
           )
           text(0.5,0.5, "No TL curve detected")
-
         }
 
       }#plot.single.sel
@@ -1104,16 +1108,8 @@ error.list <- list()
           range(object@records[[x]]@data[,2])
         }, numeric(2))
 
-        if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[1]]]]@data[1,1] == 0){
-          xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1],
-                    max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]) +
-                      object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1])
-
-
-        }else{
-          xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
-                    max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
-        }
+        xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
+                  max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
 
         #open plot area LnLx
         plot(
@@ -1133,20 +1129,7 @@ error.list <- list()
 
         ##plot curves and get legend values
         sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
-
-          ##account for log-scale and 0 values
-          if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1] == 0){
-            object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,] <-
-              object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,] +
-                 diff(c(object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1],
-                      object@records[[OSL.Curves.ID.Tx[[x]]]]@data[2,1]))
-
-            warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
-
-          }
-
           lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-
         })
 
         ##mark integration limit Tx curves
@@ -1201,7 +1184,6 @@ error.list <- list()
 
       }#plot.single.sel
 
-
     }##end plot
 
 
@@ -1215,23 +1197,42 @@ error.list <- list()
       TnTx = LnLxTnTx$Net_TnTx
     )
 
-
     ##overall plot option selection for plot.single.sel
     if (plot == TRUE && 6 %in% plot.single.sel) {
       plot  <-  TRUE
 
     }else {
       plot  <- FALSE
-
     }
 
+    temp.GC.all.na <- data.frame(
+        De = NA,
+        De.Error = NA,
+        D01 = NA,
+        D01.ERROR = NA,
+        D02 = NA,
+        D02.ERROR = NA,
+        Dc = NA,
+        n_N = NA,
+        De.MC = NA,
+        De.plot = NA,
+        Fit = NA,
+        HPDI68_L = NA,
+        HPDI68_U = NA,
+        HPDI95_L = NA,
+        HPDI95_U = NA,
+        RC.Status = NA,
+        stringsAsFactors = FALSE)
+
     ##Fit and plot growth curve
+    temp.GC <- temp.GC.all.na
+    temp.GC.fit.Formula <- NULL
     if(!onlyLxTxTable){
       temp.GC <- do.call(plot_GrowthCurve, args = modifyList(
           list(
             sample = temp.sample,
             output.plot = plot,
-            output.plotExtended.single = plot_onePage,
+            plot_singlePanels = plot_onePage,
             cex.global = if(plot_onePage) .6 else 1
             ),
           list(...)
@@ -1239,23 +1240,7 @@ error.list <- list()
 
         ##if null
         if(is.null(temp.GC)){
-          temp.GC <- data.frame(
-            De = NA,
-            De.Error = NA,
-            D01 = NA,
-            D01.ERROR = NA,
-            D02 = NA,
-            D02.ERROR = NA,
-            Dc = NA,
-            De.MC = NA,
-            Fit = NA,
-            HPDI68_L = NA,
-            HPDI68_U = NA,
-            HPDI95_L = NA,
-            HPDI95_U = NA,
-            RC.Status = NA,
-            stringsAsFactors = FALSE
-          )
+          temp.GC <- temp.GC.all.na
           temp.GC.fit.Formula <- NA
 
           ##create empty plots if needed, otherwise subsequent functions may crash
@@ -1267,13 +1252,10 @@ error.list <- list()
               shape::emptyplot()
               shape::emptyplot()
               shape::emptyplot()
-
             }
-
           }
 
         }else{
-
           ##grep information on the fit object
           temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
@@ -1286,7 +1268,6 @@ error.list <- list()
 
           }else{
             palaeodose.error.calculated <- round(temp.GC[,2] / temp.GC[,1], digits = 5)
-
           }
 
           palaeodose.error.threshold <-
@@ -1302,13 +1283,9 @@ error.list <- list()
                 "OK", "FAILED"
               )
 
-
             }else{
               palaeodose.error.status <- "OK"
-
-
             }
-
           }
 
           palaeodose.error.data.frame <- data.frame(
@@ -1319,7 +1296,6 @@ error.list <- list()
             stringsAsFactors = FALSE
           )
 
-
           ##add exceed.max.regpoint
           if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
             status.exceed.max.regpoint <-
@@ -1327,7 +1303,6 @@ error.list <- list()
 
           }else{
             status.exceed.max.regpoint <- "OK"
-
           }
 
           exceed.max.regpoint.data.frame <- data.frame(
@@ -1343,7 +1318,6 @@ error.list <- list()
             Status =  status.exceed.max.regpoint
           )
 
-
           ##add to RejectionCriteria data.frame
           RejectionCriteria <- rbind(RejectionCriteria,
                                      palaeodose.error.data.frame,
@@ -1356,29 +1330,9 @@ error.list <- list()
 
         }else{
           temp.GC <- data.frame(temp.GC, RC.Status = "OK", stringsAsFactors = FALSE)
-
         }
        }#endif for is.null
-
-     ##end onlyLxTxTable
-     }else{
-       temp.GC <- data.frame(
-         De = NA,
-         De.Error = NA,
-         D01 = NA,
-         D01.ERROR = NA,
-         D02 = NA,
-         D02.ERROR = NA,
-         Dc = NA,
-         De.MC = NA,
-         Fit = NA,
-         HPDI68_L = NA,
-         HPDI68_U = NA,
-         HPDI95_L = NA,
-         HPDI95_U = NA,
-         RC.Status = NA)
-       temp.GC.fit.Formula <- NULL
-     }
+    }
 
       ##add information on the integration limits
       temp.GC.extended <-
@@ -1399,10 +1353,21 @@ error.list <- list()
     ##generate unique identifier
     UID <- create_UID()
 
+    ## get position numbers
+    POSITION <- unique(unlist(lapply(object@records, function(x){
+      chk <- grepl(pattern = "position", tolower(names(x@info)), fixed = TRUE)
+      if (any(chk))
+        return(x@info[chk])
+      else
+        return(NA)
+    })))[1]
+
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
-        data = as.data.frame(c(temp.GC, temp.GC.extended, UID = UID), stringsAsFactors = FALSE),
+        data = as.data.frame(
+          c(temp.GC, temp.GC.extended, ALQ = 1, POS = POSITION, UID = UID),
+          stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
         Formula = temp.GC.fit.Formula
@@ -1414,7 +1379,7 @@ error.list <- list()
 
     if (plot && 7 %in% plot.single.sel) {
       ##set graphical parameter
-      if (!plot.single[1]) par(mfrow = c(1,2))
+      if (!plot_singlePanels[1]) par(mfrow = c(1,2))
 
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(temp.results.final,
@@ -1479,7 +1444,6 @@ error.list <- list()
               col = col.id,
               cex = 1.3 * cex
             )
-
           }
           col.id <- col.id + 1
         }
@@ -1525,7 +1489,6 @@ error.list <- list()
             col = i,
             cex = 1.3 * cex
           )
-
         }
       }
 
@@ -1610,32 +1573,24 @@ error.list <- list()
       }
     }
 
-
     if (plot == TRUE && 8 %in% plot.single.sel) {
       ##graphical representation of IR-curve
       temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
       if(length(temp.IRSL) != 0){
-        if(class(temp.IRSL) == "RLum.Data.Curve"){
+        if(inherits(temp.IRSL, "RLum.Data.Curve")){
           plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
-        }else if(class(temp.IRSL) == "list"){
+        }else if(inherits(temp.IRSL, "list")){
           plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
-          warning(
-            "[analyse_SAR.CWOSL()] Multiple IRSL curves detected (IRSL test), show only the last one.",
-            immediate. = TRUE,
-            call. = FALSE
-          )
+          .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
         }else{
           shape::emptyplot()
-
         }
 
       }else{
         plot(1, type="n", axes=F, xlab="", ylab="")
         text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
-
       }
-
     }
 
 
@@ -1643,12 +1598,8 @@ error.list <- list()
     invisible(temp.results.final)
 
   }else{
-    warning(paste0(
-      "\n",
-      paste(unlist(error.list), collapse = "\n"),"\n... >> nothing was done here!"
-    ), call. = FALSE)
+    .throw_warning(paste(unlist(error.list), collapse = "\n"),
+                   "\n... >> nothing was done here!")
     invisible(NULL)
-
   }
-
 }

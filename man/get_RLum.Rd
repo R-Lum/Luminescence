@@ -10,7 +10,7 @@ get_RLum(object, ...)
 
 \S4method{get_RLum}{list}(object, class = NULL, null.rm = FALSE, ...)
 
-\S4method{get_RLum}{`NULL`}(object, ...)
+\S4method{get_RLum}{NULL}(object, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum} (\strong{required}):
@@ -43,11 +43,11 @@ Allowed arguments can be found in the documentations of the corresponding
 }
 \section{Functions}{
 \itemize{
-\item \code{get_RLum,list-method}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{get_RLum}
+\item \code{get_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{get_RLum}
 
-\item \code{get_RLum,NULL-method}: Returns NULL
+\item \code{get_RLum(`NULL`)}: Returns NULL
+
 }}
-
 \section{Function version}{
  0.3.3
 }
@@ -71,11 +71,11 @@ temp.get <- get_RLum(object = temp1)
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. get_RLum(): General accessors function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. get_RLum(): General accessors function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{utilities}

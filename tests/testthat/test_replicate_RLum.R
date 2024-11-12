@@ -1,6 +1,5 @@
 test_that("Test replication of RLum-objects", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.RLum.Analysis, envir = environment())
   expect_silent(results <- rep(IRSAR.RF.Data[[1]], 5))

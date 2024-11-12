@@ -19,7 +19,8 @@ fit_OSLLifeTimes(
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}, \link{data.frame} or \link{matrix} \strong{(required)}:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
-processing. Please note: \code{NA} values are automatically removed and the dataset should comprise at least 5 data points.}
+processing. Please note: \code{NA} values are automatically removed and the dataset should comprise at least 5 data points (possibly more if \code{n.components} is
+set to a value greater than 1)}
 
 \item{tp}{\link{numeric} (\emph{with default}): option to account for the stimulation pulse width. For off-time measurements
 the default value is 0. \code{tp} has the same unit as the measurement data, e.g., µs. Please set this parameter
@@ -169,7 +170,7 @@ object = ExampleData.TR_OSL)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2021. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2024. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{

@@ -1,8 +1,10 @@
-#' Apply the model after Fuchs & Lang (2001) to a given De distribution.
+#' @title Apply the model after Fuchs & Lang (2001) to a given De distribution
 #'
-#' This function applies the method according to Fuchs & Lang (2001) for
+#' @description This function applies the method according to Fuchs & Lang (2001) for
 #' heterogeneously bleached samples with a given coefficient of variation
 #' threshold.
+#' 
+#' @details
 #'
 #' **Used values**
 #'
@@ -14,7 +16,7 @@
 #' **Basic steps of the approach**
 #'
 #' 1. Estimate natural relative variation of the sample using a dose recovery test
-#' 2. Sort the input values ascendantly
+#' 2. Sort the input values in ascending order
 #' 3. Calculate a running mean, starting with the lowermost two values and add values iteratively.
 #' 4. Stop if the calculated `c[v]` exceeds the specified `cvThreshold`
 #'
@@ -50,7 +52,7 @@
 #' @section Function version: 0.4.1
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @seealso [plot], [calc_MinDose], [calc_FiniteMixture], [calc_CentralDose],
@@ -83,17 +85,14 @@ calc_FuchsLang2001 <- function(
   startDeValue = 1,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("calc_FuchsLang2001")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Tests ---------------------------------------------------------
-  if(!missing(data)){
-    if(!is(data, "data.frame") & !is(data,"RLum.Results")){
-      stop("[calc_FuchsLang2001()] 'data' has to be of type 'data.frame' or 'RLum.Results'!", call. = FALSE)
-    } else {
-      if(is(data, "RLum.Results")){
-        data <- get_RLum(data, "data")
-      }
-    }
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
 
   # Deal with extra arguments -----------------------------------------------

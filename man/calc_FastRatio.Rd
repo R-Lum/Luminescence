@@ -47,12 +47,14 @@ An integer specifying the channel for L1.}
 An integer specifying the channel for L2.}
 
 \item{Ch_L3}{\link{numeric} (\emph{optional}):
-A vector of length 2 with integer values specifying the start and end channels for L3
-(e.g., \code{c(40, 50)}).}
+A vector of length 2 with integer values specifying the start and end
+channels for L3 (e.g., \code{c(40, 50)}), with the second component greater
+than or equal to the first.
 
-\item{x}{\link{numeric} (\emph{with default}):
 \\% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
+
+\item{x}{\link{numeric} (\emph{with default}):}
 
 \item{x2}{\link{numeric} (\emph{with default}):
 \\% of signal remaining from the medium component.
@@ -112,7 +114,7 @@ get_RLum(res)
 } 
 
 \section{How to cite}{
-King, G.E., Durcan, J., Burow, C., 2021. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Durcan, J., Burow, C., 2024. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{

@@ -10,7 +10,7 @@
 #'
 #'@param object [RLum.Results-class] object (**required**): input object created by the function [analyse_SAR.CWOSL]. The input object can be provided as [list].
 #'
-#'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.
+#'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.
 #'
 #'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occurring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
@@ -22,11 +22,11 @@
 #'@param n [integer] (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 #'down the plotting process and are usually not needed
 #'
-#'@param ... Further arguments and graphical parameters to be passed.
+#'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`
 #'
-#'@section Function version: 0.2.1
+#'@section Function version: 0.2.3
 #'
-#' @return An [RLum.Results-class] object is returned:
+#'@return An [RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**\cr
 #'
@@ -46,8 +46,8 @@
 #'
 #'*Note: If the input object is a [list] a list of [RLum.Results-class] objects is returned.*
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-#' Christoph Burow, University of Cologne
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #'@seealso [RLum.Results-class], [analyse_SAR.CWOSL]
 #'
@@ -82,31 +82,31 @@ plot_DRCSummary <- function(
   show_natural = FALSE,
   n = 51L,
   ...
-){
-
+) {
+  .set_function_name("plot_DRCSummary")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call -----------------------------------------------------------------------------------
-if(class(object) == "list"){
+if(inherits(object, "list")){
 
   ##catch ... arguments
   plot_settings <- list(...)
 
-  ##expand arguments
+  ## expand input arguments
   if("main" %in% names(list(...))){
-    main <- as.list(rep(list(...)[["main"]], length(object)))
+    main <- .listify(list(...)[["main"]], length(object))
 
     ##filter main from the ... argument list otherwise we will have a collusion
     plot_settings["main" %in% names(plot_settings)] <- NULL
 
   }else{
-    main <- as.list(rep("DRC", length(object)))
-
+    main <- .listify("DRC", length(object))
   }
-
 
   results <- lapply(1:length(object), function(o){
     plot_DRCSummary(
       object = object[[o]],
+      source_dose_rate = source_dose_rate,
       sel_curves = sel_curves,
       show_dose_points = show_dose_points,
       show_natural = show_natural,
@@ -114,21 +114,16 @@ if(class(object) == "list"){
       main = main[[o]],
       ... = plot_settings
       )
-
   })
 
   ##return merged object
   return(results)
-
 }
 
-# Check input ---------------------------------------------------------------------------------
-  if(class(object) != "RLum.Results")
-    stop("[plot_DRCSummary()] The input is not of class 'RLum.Results'!",call. = FALSE)
-
+  ## Integrity tests --------------------------------------------------------
+  .validate_class(object, "RLum.Results")
 
 # Extract data from object --------------------------------------------------------------------
-
   ##get data from RLum.Results object
   if(object@originator %in% c("analyse_SAR.CWOSL", "analyse_pIRIRSequence")){
     ##set limit
@@ -139,14 +134,23 @@ if(class(object) == "list"){
       if(min(sel_curves) < 1 ||
          max(sel_curves) > length(object@data$Formula) ||
          length(sel_curves) > length(object@data$Formula)){
-        warning("[plot_DRCSummary()] 'sel_curves' out of bounds, reset to full dataset.", call. = FALSE, immediate. = TRUE)
+        .throw_warning("'sel_curves' out of bounds, reset to full dataset")
         sel_curves <- 1:length(object@data$Formula)
       }
 
     }
 
+    ## check the whether the fitting was all the same
+    if(length(unique(object@data[["data"]][["Fit"]])) != 1)
+      .throw_error("I can only visualise dose-response curves based ",
+                   "on the same fitting equation")
+
     ##get DRC
     DRC <- object@data$Formula[sel_curves]
+
+    ## check for Lambert W function (we can only do all )
+    if(all(object@data$data[["Fit"]] == "LambertW"))
+      W <- lamW::lambertW0
 
     ##get limits for each set
     dataset_limits <- matrix(
@@ -161,17 +165,14 @@ if(class(object) == "list"){
    })[sel_curves]
 
   }else{
-    stop(
-      "[plot_DRCSummary()] 'object' was created by none supported function, cf. manual for allowed originators!",call. = FALSE)
-
-
+    .throw_error("'object' was not created by a supported function, ",
+                 "see the manual for allowed originators")
   }
 
 # Plotting ------------------------------------------------------------------------------------
-
   ##set default
-  plot_settings <- list(
-    xlab = if(is.null(source_dose_rate)){"Dose [s]"}else{"Dose [Gy]"},
+  plot_settings <-  modifyList(x = list(
+    xlab = if(is.null(source_dose_rate)) {"Dose [s]"} else {"Dose [Gy]"},
     ylab = expression(L[x]/T[x]),
     xlim = c(0,max(vapply(LxTx, function(x){max(x[["Dose"]])}, numeric(1)))),
     ylim = if(show_dose_points){
@@ -180,17 +181,23 @@ if(class(object) == "list"){
       c(0,max(vapply(1:length(LxTx), function(y){
         x <- max(LxTx[[y]][["Dose"]], na.rm = TRUE)
         eval(DRC[[y]])
+
        },numeric(1)), na.rm = TRUE))
     },
     main = "DRC Summary",
-    lty = rep(1,length(sel_curves)),
+    mtext = paste0("n_curves: ",length(sel_curves)),
+    lty = 1,
     lwd = 1,
-    pch = rep(20,length(sel_curves)),
-    col = rep(rgb(0,0,0,0.5), length(sel_curves))
-  )
+    pch = 20,
+    col.lty = rgb(0,0,0,0.5),
+    col.pch = rgb(0,0,0,0.5)
+  ), val = list(...), keep.null = TRUE)
 
-  ##modify on request
-  plot_settings <- modifyList(x = plot_settings, val = list(...))
+  ## expand parameters
+  plot_settings$col.lty <- rep(plot_settings$col.lty, length(sel_curves))
+  plot_settings$col.pch <- rep(plot_settings$col.pch, length(sel_curves))
+  plot_settings$pch <- rep(plot_settings$pch, length(sel_curves))
+  plot_settings$lty <- rep(plot_settings$lty, length(sel_curves))
 
   ##create empty plot window
   plot(
@@ -204,7 +211,10 @@ if(class(object) == "list"){
     xaxt = "n"
   )
 
-  #exchange xaxis if source dose rate is set
+  if(!is.null(plot_settings$mtext))
+    mtext(side = 3, text = plot_settings$mtext, cex = 0.8)
+
+  #exchange x-axis if source dose rate is set
   if(!is.null(source_dose_rate)){
     axis(side = 1, at = axTicks(side = 1), labels = round(axTicks(side = 1) * source_dose_rate[1],0))
 
@@ -213,21 +223,19 @@ if(class(object) == "list"){
 
   }
 
-
   for(i in 1:length(sel_curves)){
     ##plot natural
     if(show_natural){
       segments(x0 = LxTx[[i]]$Dose[1], x1 = LxTx[[i]]$Dose[1],
                y0 = LxTx[[i]]$LxTx[1] - LxTx[[i]]$LxTx.Error[1],
                y1 = LxTx[[i]]$LxTx[1] + LxTx[[i]]$LxTx.Error[1],
-               col = plot_settings$col[[i]])
+               col = plot_settings$col.pch[[i]])
       points(
         x = LxTx[[i]]$Dose[1],
         y = LxTx[[i]]$LxTx[1],
-        col = plot_settings$col[[i]],
+        col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
-
     }
 
     ##plot dose points
@@ -235,11 +243,11 @@ if(class(object) == "list"){
       segments(x0 = LxTx[[i]]$Dose[-1], x1 = LxTx[[i]]$Dose[-1],
                y0 = LxTx[[i]]$LxTx[-1] - LxTx[[i]]$LxTx.Error[-1],
                y1 = LxTx[[i]]$LxTx[-1] + LxTx[[i]]$LxTx.Error[-1],
-               col = plot_settings$col[[i]])
+               col = plot_settings$col.pch[[i]])
       points(
         x = LxTx[[i]]$Dose[-1],
         y = LxTx[[i]]$LxTx[-1],
-        col = plot_settings$col[[i]],
+        col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
 
@@ -250,19 +258,18 @@ if(class(object) == "list"){
     y <- eval(DRC[[i]])
 
     if (any(is.na(y)) || any(is.nan(y))) {
-      warning("[plot_DRCSummary()] Dose response curve ", i, " is NA/NaN and was removed before plotting.",
-              call. = FALSE)
+      .throw_warning("Dose response curve ", i,
+                     " is NA/NaN and was removed before plotting")
       next
     }
 
     lines(
       x = x,
       y = eval(DRC[[i]]),
-      col = plot_settings$col[[i]],
+      col = plot_settings$col.lty[[i]],
       lwd = plot_settings$lwd,
       lty = plot_settings$lty[[i]]
     )
-
   }
 
   ## Results -------------------------------------------------------------------
@@ -275,8 +282,9 @@ if(class(object) == "list"){
         ),
       data = object
     ),
-    info = list(call = sys.call(),
-                args = as.list(sys.call())[-1])
+    info = list(
+      call = sys.call(),
+      args = as.list(sys.call())[-1])
   )
 
   ## Return value --------------------------------------------------------------

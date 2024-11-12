@@ -11,11 +11,10 @@ temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##standard tests
   expect_s4_class(temp, class = "RLum.Data.Curve")
-  expect_s4_class(smooth_RLum(temp), class = "RLum.Data.Curve")
+  expect_snapshot_RLum(smooth_RLum(temp))
 
   ##test on a list
     ##RLum list
@@ -29,11 +28,12 @@ test_that("check class and length of output", {
 
 })
 
-test_that("check values from output example", {
+test_that("snapshot tests", {
  testthat::skip_on_cran()
-  local_edition(3)
 
- expect_equal(round(mean(smooth_RLum(temp, k = 5)[,2], na.rm = TRUE), 0), 100)
- expect_equal(round(mean(smooth_RLum(temp, k = 10)[,2], na.rm = TRUE), 0), 85)
-
+ small <-set_RLum(class = "RLum.Data.Curve", recordType = "OSL",
+                  data = as.matrix(ExampleData.CW_OSL_Curve[1:150, ]))
+ expect_snapshot_RLum(smooth_RLum(small, k = 5))
+ expect_snapshot_RLum(smooth_RLum(small, k = 10))
+ expect_snapshot_RLum(smooth_RLum(small, k = 11, method = "median"))
 })

@@ -17,7 +17,7 @@ plot_DRCSummary(
 \arguments{
 \item{object}{\linkS4class{RLum.Results} object (\strong{required}): input object created by the function \link{analyse_SAR.CWOSL}. The input object can be provided as \link{list}.}
 
-\item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.}
+\item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.}
 
 \item{sel_curves}{\link{numeric} (optional): id of the curves to be plotting in its occurring order. A sequence can
 be provided for selecting, e.g., only every 2nd curve from the input object}
@@ -29,7 +29,7 @@ be provided for selecting, e.g., only every 2nd curve from the input object}
 \item{n}{\link{integer} (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 down the plotting process and are usually not needed}
 
-\item{...}{Further arguments and graphical parameters to be passed.}
+\item{...}{Further arguments and graphical parameters to be passed. In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch}, \code{col.pch}, \code{col.lty}, \code{mtext}}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -63,7 +63,7 @@ If you want plot your DRC on an energy scale (dose in Gy), you can either use th
 below or your can SAR analysis with the dose points in Gy (better axis scaling).
 }
 \section{Function version}{
- 0.2.1
+ 0.2.3
 }
 
 \examples{
@@ -91,11 +91,11 @@ plot_DRCSummary(results)
 \linkS4class{RLum.Results}, \link{analyse_SAR.CWOSL}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-Christoph Burow, University of Cologne
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2024. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 

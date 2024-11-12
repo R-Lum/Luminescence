@@ -18,6 +18,7 @@ plot_RLum.Data.Spectrum(
   limit_counts = NULL,
   xaxis.energy = FALSE,
   legend.text,
+  plot = TRUE,
   ...
 )
 }
@@ -87,11 +88,17 @@ instead the spectrum in terms of intensity is recalculated, s. details.}
 possibility to provide own legend text. This argument is only considered for
 plot types providing a legend, e.g. \code{plot.type="transect"}}
 
+\item{plot}{\link{logical} (\emph{with default}): enables/disables plot output. If the plot
+output is disabled, the \link{matrix} used for the plotting and the calculated colour values
+(as attributes) are returned. This way, the (binned, transformed etc.) output can
+be used in other functions and packages, such as plotting with the package \code{'plot3D'}}
+
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function.}
 }
 \value{
-Returns a plot.
+Returns a plot and the transformed \code{matrix} used for plotting with some useful
+attributes such as the \code{colour} and \code{pmat} (the transpose matrix from \link[graphics:persp]{graphics::persp})
 }
 \description{
 The function provides a standardised plot output for spectrum data of an
@@ -128,7 +135,11 @@ Arguments that will be passed to \link[graphics:persp]{graphics::persp}:
 \item \code{shade}: default is \code{0.4}
 \item \code{phi}: default is \code{15}
 \item \code{theta}: default is \code{-30}
+\item \code{lphi}: default is \code{15}
+\item \code{ltheta}: default is \code{-30}
 \item \code{expand}: default is \code{1}
+\item \code{axes}: default is \code{TRUE}
+\item \code{box}: default is \code{TRUE}; accepts \code{"alternate"} for a custom plot design
 \item \code{ticktype}: default is \code{detailed}, \code{r}: default is \code{10}
 }
 
@@ -141,11 +152,17 @@ to set the background transparent and reduce the thickness of the lines use:
 Per frame a single curve is returned. Frames are time or temperature
 steps.
 
+-\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
+this setting before plotting.
+
 \strong{\code{plot.type = "multiple.lines"}}
 
 All frames plotted in one frame.
 
-'**\code{plot.type = "image"} or `plot.type = "contour" **
+-\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
+this setting before plotting.
+
+\strong{\code{plot.type = "image"} or \code{plot.type = "contour"}}
 
 These plot types use the R functions \link[graphics:image]{graphics::image} or \link[graphics:contour]{graphics::contour}.
 The advantage is that many plots can be arranged conveniently using standard
@@ -164,16 +181,16 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 
 \strong{Further arguments that will be passed (depending on the plot type)}
 
-\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
+\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{box},
 \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
-\code{col}, \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
+\code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
 \code{contour}, \code{contour.col} (\code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.3
+ 0.6.9
 }
 
 \examples{
@@ -245,11 +262,6 @@ plot_RLum.Data.Spectrum(
 \linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
-
 \keyword{aplot}

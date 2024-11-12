@@ -24,7 +24,7 @@ file name and path of the output file
 }}
 
 \item{version}{\link{character} (\emph{optional}):
-version number for the output file. If no value is provided the highest
+version number for the output file. If no value is provided, the highest
 version number from the \linkS4class{Risoe.BINfileData} is taken automatically.
 
 \strong{Note:}
@@ -35,16 +35,16 @@ this option recalculates the position values if necessary and set the max.
 value to 48. The old position number is appended as comment (e.g., 'OP: 70).
 This option accounts for potential compatibility problems with the Analyst software.
 It further limits the maximum number of points per curve to 9,999. If a curve contains more
-data the curve data got binned using the smallest possible bin width.}
+data the curve data get binned using the smallest possible bin width.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables or disables \link{txtProgressBar}.}
 }
 \value{
-Write a binary file.
+Write a binary file and returns the name and path of the file as \link{character}.
 }
 \description{
-Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be
+Exports a \code{Risoe.BINfileData} object in a \verb{*.bin} or \verb{*.binx} file that can be
 opened by the Analyst software or other Risø software.
 }
 \details{
@@ -65,41 +65,32 @@ chosen input and output data (e.g., conversion from version 08 to 07 to 06 to 05
 
 \strong{Warning}
 
-Although the coding was done carefully it seems that the BIN/BINX-files
+Although the coding was done carefully, it seems that the BIN/BINX-files
 produced by Risø DA 15/20 TL/OSL readers slightly differ on the byte level.
 No obvious differences are observed in the METADATA, however, the
-BIN/BINX-file may not fully compatible, at least not similar to the once
+BIN/BINX-file may not fully compatible, at least not similar to the ones
 directly produced by the Risø readers!
 
 ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.5.1
+ 0.5.3
 }
 
 \examples{
+##load example dataset
+file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+temp <- read_BIN2R(file)
 
-\dontrun{
-
-##load exampled dataset
-data(ExampleData.BINfileData, envir = environment())
-
-##create temporary filepath
+##create temporary file path
 ##(for usage replace by own path)
-temp_file <- temp_file <- tempfile(pattern = "output", fileext = ".bin")
+temp_file <- tempfile(pattern = "output", fileext = ".binx")
 
 ##export to temporary file path
-write_R2BIN(CWOSL.SAR.Data, file = temp_file)
+write_R2BIN(temp, file = temp_file)
 
 }
-
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2021. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
-}
-
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \url{https://www.fysik.dtu.dk}
@@ -108,6 +99,6 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-, RLum Developer Team}
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+}
 \keyword{IO}

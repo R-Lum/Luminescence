@@ -12,7 +12,7 @@
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom), Dirk Mittelstraß, TU Dresden (Germany)
+#' @author Quote credits: Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom), Dirk Mittelstraß, TU Dresden (Germany), Jakob Wallinga (Wageningen University, Netherlands)
 #'
 #' @examples
 #'
@@ -75,7 +75,8 @@ get_Quote <- function(
     c("Luminescence data to Bayesian process", "Don't you ever touch me again."),
     c("Quartz grain to heating plate", "Go ahead, I need a phase change."),
     c("Photon to electron", "I am in charge!"),
-    c("You cannot spell 'data analysis' without 'daily satan'")
+    c("You cannot spell 'data analysis' without 'daily satan'"),
+    c("Bright grain to dim grain", "Don't you get it?")
     )
 
   ## Check input data

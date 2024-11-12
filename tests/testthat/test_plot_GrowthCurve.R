@@ -1,205 +1,202 @@
-set.seed(1)
+## load data
 data(ExampleData.LxTxData, envir = environment())
-temp_EXP <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "EXP",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_LIN <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "LIN",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_EXPLIN <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "EXP+LIN",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_EXPEXP <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "EXP+EXP",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_QDR <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "QDR",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
 
-temp_GOK <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "GOK",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-
-temp_LambertW <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "LambertW",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-
-test_that("fail fast", {
+test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  ##fit.method
   expect_error(
-    plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
-    regexp = "[plot_GrowthCurve()] fit method not supported, supported methods are: LIN, QDR, EXP, EXP OR LIN, EXP+LIN, EXP+EXP, GOK, LambertW",
-    fixed = TRUE
-  )
+      plot_GrowthCurve("error"),
+      "[fit_DoseResponseCurve()] 'sample' should be of class 'data.frame'",
+      fixed = TRUE)
+  expect_error(
+      plot_GrowthCurve(LxTxData, mode = "error"),
+      "[fit_DoseResponseCurve()] 'mode' should be one of 'interpolation'",
+      fixed = TRUE)
+  expect_error(
+      plot_GrowthCurve(LxTxData, fit.method = "error"),
+      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'")
+  expect_error(
+      plot_GrowthCurve(LxTxData, output.plotExtended = "error"),
+      "'output.plotExtended' should be of class 'logical'")
+  expect_error(
+      plot_GrowthCurve(LxTxData, plot_singlePanels = "error"),
+      "'plot_singlePanels' should be of class 'logical'")
+  expect_error(
+      plot_GrowthCurve(LxTxData, verbose = "error"),
+      "'verbose' should be of class 'logical'")
+  expect_error(
+      plot_GrowthCurve(LxTxData, cex.global = 0),
+      "'cex.global' should be a positive scalar")
 
+  ## Weird LxTx values
+  LxTx <- structure(list(
+    Dose = c(0, 250, 500, 750, 1000, 1500, 0, 500, 500),
+    LxTx = c(1, Inf, 0, -Inf, Inf, 0, Inf, -0.25, 2),
+    LxTx.Error = c(1.5813365, Inf, 0, Inf, Inf, 0, Inf, 1.4114626, 3.1626729)),
+    class = "data.frame", row.names = c(NA, -9L))
+  SW({
+  expect_warning(
+      plot_GrowthCurve(LxTx),
+      "Inf values found, replaced by NA")
+  })
+
+  ## same dose for all points
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$Dose <- 10
+  SW({
+  expect_message(expect_null(
+      plot_GrowthCurve(tmp_LxTx)),
+      "All points have the same dose, NULL returned")
+  })
+
+  ## only two columns
+  expect_warning(
+      plot_GrowthCurve(LxTxData[, 1:2], verbose = FALSE),
+      "Error column invalid or 0, 'fit.weights' ignored")
+
+  ## test case with all NA
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$LxTx <- NA
+  expect_message(expect_warning(expect_null(
+      plot_GrowthCurve(tmp_LxTx, verbose = FALSE)),
+      "7 NA values removed"),
+      "Error: After NA removal, nothing is left from the data set")
+
+  ## test case without TnTx column
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$TnTx <- NULL
+  expect_s4_class(
+    plot_GrowthCurve(tmp_LxTx, verbose = FALSE),
+    "RLum.Results")
+
+  ## do not include reg point
+  expect_s4_class(
+    plot_GrowthCurve(
+      sample = LxTxData,
+      verbose = FALSE,
+      fit.includingRepeatedRegPoints = FALSE),
+    class = "RLum.Results")
+
+  ## deprecated option
+  expect_warning(
+      plot_GrowthCurve(LxTxData, verbose = FALSE,
+                       output.plotExtended.single = TRUE),
+      "'output.plotExtended.single' is deprecated, use 'plot_singlePanels'")
 })
 
-test_that("check class and length of output", {
+test_that("main tests", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  expect_s4_class(temp_EXP, class = "RLum.Results")
-    expect_s3_class(temp_EXP$Fit, class = "nls")
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "LIN",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP+LIN",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP+EXP",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "QDR",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "GOK",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "LambertW",
+                                 NumberIterations.MC = 10))
 
-  expect_s4_class(temp_LIN, class = "RLum.Results")
-    expect_s3_class(temp_LIN$Fit, class = "lm")
-
-  expect_s4_class(temp_EXPLIN, class = "RLum.Results")
-   expect_s3_class(temp_EXPLIN$Fit, class = "nls")
-
-  expect_s4_class(temp_EXPEXP, class = "RLum.Results")
-    expect_s3_class(temp_EXPEXP$Fit, class = "nls")
-
-  expect_s4_class(temp_QDR, class = "RLum.Results")
-    expect_s3_class(temp_QDR$Fit, class = "lm")
-
-  expect_s4_class(temp_GOK, class = "RLum.Results")
-    expect_s3_class(temp_GOK$Fit, class = "nls")
-
-  expect_s4_class(temp_LambertW, class = "RLum.Results")
-    expect_s3_class(temp_LambertW$Fit, class = "nls")
-
+  ## force through the origin
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP+LIN",
+                                 fit.bounds = FALSE,
+                                 fit.force_through_origin = TRUE,
+                                 NumberIterations.MC = 10))
+  temp_LxTx <- LxTxData
+  temp_LxTx$LxTx[[7]] <- 1
+  expect_output(plot_GrowthCurve(temp_LxTx,
+                                 fit.method = "GOK",
+                                 fit.force_through_origin = TRUE,
+                                 NumberIterations.MC = 10))
 })
 
-test_that("check values from output example", {
- testthat::skip_on_cran()
-  local_edition(3)
-
-   expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17441)
-
-   }else{
-     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
-
-   }
-
-   expect_equal(round(temp_LIN$De[[1]], digits = 2), 1811.33)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
-
-   }else{
-     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
-
-   }
-
-   expect_equal(round(temp_EXPLIN$De[[1]], digits = 2), 1791.53)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),17474)
-
-   }else{
-     expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),18045)
-
-   }
-
-   expect_equal(round(temp_EXPEXP$De[[1]], digits = 2), 1787.15)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
-
-   }else{
-     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303)
-
-   }
-
-   expect_equal(round(temp_QDR$De[[1]], digits = 2), 1666.2)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 14937)
-
-   }else{
-    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16476)
-
-   }
-
-   expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
-   ##fix for different R versions
-   if(R.version$major > "3"){
-     expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.0001)
-
-   }
-
-   expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
-   ##fix for different R versions
-   if(R.version$major > "3"){
-     expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17662)
-
-   }
-
-})
-
-test_that("check extrapolation", {
+test_that("additional tests", {
   testthat::skip_on_cran()
-  local_edition(3)
 
-  set.seed(1)
-  LxTxData[1,2:3] <- c(0.5, 0.001)
-  LIN <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"), "RLum.Results")
-  EXP <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"), "RLum.Results")
-  EXPLIN <- expect_s4_class(
-    suppressWarnings(
-      plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")), "RLum.Results")
+  LxTxData[1, 2:3] <- c(0.5, 0.001)
 
-  # GOK <- expect_s4_class(
-  #   plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
+  ## Check extrapolation ----------------------------------------------------
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "LIN",
+                                 mode = "extrapolation",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP",
+                                 mode = "extrapolation",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP+LIN",
+                                 mode = "extrapolation",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "GOK",
+                                 mode = "extrapolation",
+                                 NumberIterations.MC = 10))
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "LambertW",
+                                 mode = "extrapolation",
+                                 NumberIterations.MC = 10))
 
-  LambertW <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
+  ## force through the origin
+  expect_output(plot_GrowthCurve(LxTxData,
+                                 fit.method = "QDR",
+                                 mode = "extrapolation",
+                                 fit.force_through_origin = TRUE,
+                                 NumberIterations.MC = 10))
 
-  expect_equal(round(LIN$De$De,0), 165)
-  expect_equal(round(EXP$De$De,0),  110)
-  expect_equal(round(LambertW$De$De,0),  114)
+  ## Check alternate --------------------------------------------------------
+  expect_silent(plot_GrowthCurve(LxTxData,
+                                 fit.method = "QDR",
+                                 mode = "alternate",
+                                 verbose = FALSE,
+                                 NumberIterations.MC = 10))
+  expect_silent(plot_GrowthCurve(LxTxData,
+                                 fit.method = "LIN",
+                                 mode = "alternate",
+                                 NumberIterations.MC = 10))
+  expect_silent(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP",
+                                 mode = "alternate",
+                                 NumberIterations.MC = 10))
+  expect_silent(plot_GrowthCurve(LxTxData,
+                                 fit.method = "EXP+LIN",
+                                 mode = "alternate",
+                                 verbose = FALSE,
+                                 NumberIterations.MC = 10))
+  expect_silent(plot_GrowthCurve(LxTxData,
+                                 fit.method = "GOK",
+                                 mode = "alternate",
+                                 NumberIterations.MC = 10))
+  expect_silent(plot_GrowthCurve(LxTxData,
+                                 fit.method = "LambertW",
+                                 mode = "alternate",
+                                 NumberIterations.MC = 10))
 
-  #it fails on some unix platforms for unknown reason.
-  #expect_equivalent(round(EXPLIN$De$De,0), 110)
-
+  ## only two valid points provided
+  SW({
+  warnings <- capture_warnings(expect_message(plot_GrowthCurve(
+    data.frame(
+        dose = c(0, 1388.88888888889, NA),
+        LxTx = c(1.54252220145258, 4.43951568403849, NA),
+        LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
+    verbose = TRUE),
+    "'fit.method' set to 'LIN'"))
+  })
+  expect_match(warnings, "1 NA values removed",
+               all = FALSE, fixed = TRUE)
+  expect_match(warnings, "Fitting a non-linear least-squares model requires",
+               all = FALSE, fixed = TRUE)
 })
-

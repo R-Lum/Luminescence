@@ -154,10 +154,10 @@
 #' \item{.$data}{[data.frame] original input data}
 #' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
-#' \item{.$mle}{[mle2] object containing the maximum log likelihood functions for all parameters}
+#' \item{.$mle}{[bbmle::mle2] object containing the maximum log likelihood functions for all parameters}
 #' \item{BIC}{[numeric] BIC score}
 #' \item{.$confint}{[data.frame] confidence intervals for all parameters}
-#' \item{.$profile}{[profile.mle2] the log likelihood profiles}
+#' \item{.$profile}{[stats::profile] the log likelihood profiles}
 #' \item{.$bootstrap}{[list] bootstrap results}
 #'
 #' The output should be accessed using the function [get_RLum]
@@ -243,9 +243,10 @@
 #' \dontrun{
 #' # (2) Re-run the model, but save results to a variable and turn
 #' # plotting of the log-likelihood profiles off.
-#' mam <- calc_MinDose(data = ExampleData.DeValues$CA1,
-#'                     sigmab = 0.1,
-#'                     plot = FALSE)
+#' mam <- calc_MinDose(
+#'  data = ExampleData.DeValues$CA1,
+#'  sigmab = 0.1,
+#'  plot = FALSE)
 #'
 #' # Show structure of the RLum.Results object
 #' mam
@@ -336,32 +337,42 @@ calc_MinDose <- function(
   plot = TRUE,
   multicore = FALSE,
   ...
-){
+) {
+  .set_function_name("calc_MinDose")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ## ============================================================================##
-  if (!missing(data)) {
-    if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
-      stop("[calc_MinDose] Error: 'data' object has to be of type\n
-           'data.frame' or 'RLum.Results'!")
-    } else {
-      if (is(data, "RLum.Results")) {
-        data <- get_RLum(data, "data")
-      }
-    }
+
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (is(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
 
   if (any(!complete.cases(data))) {
-    message(paste("\n[calc_MinDose] Warning:\nInput data contained NA/NaN values,",
-                  "which were removed prior to calculations!"))
+    message("\n[calc_MinDose] Warning: Input data contained NA/NaN values, ",
+            "which were removed prior to calculations!")
     data <- data[complete.cases(data), ]
   }
 
-  if (!missing(init.values) && length(init.values) != 4) {
-    stop("[calc_MinDose] Error: Please provide initial values for all model parameters. ",
-         "Missing parameter(s): ", paste(setdiff(c("gamma", "sigma", "p0", "mu"), names(init.values)), collapse = ", "),
-         call. = FALSE)
+  if (!missing(init.values)) {
+    if (!is.list(init.values)) {
+      .throw_error("'init.values' is expected to be a named list")
+    }
+    exp.names <- c("gamma", "sigma", "p0", "mu")
+    mis.names <- setdiff(exp.names, names(init.values))
+    if (length(init.values) != length(exp.names) || length(mis.names) > 0) {
+      .throw_error("Please provide initial values for all model parameters. ",
+                   "\nMissing parameters: ",
+                   paste(mis.names, collapse = ", "))
+    }
+  }
+
+  ## par can only be 3 or 4
+  .validate_positive_scalar(par, int = TRUE)
+  if (!par %in% c(3, 4)) {
+    .throw_error("'par' can only be set to 3 or 4")
   }
 
   ##============================================================================##
@@ -567,8 +578,9 @@ calc_MinDose <- function(
                            control = list(iter.max = 1000L),
                            start = start)
       )
+
     }, error = function(e) {
-      stop(paste("Sorry, seems like I encountered an error...:", e), call. = FALSE)
+      .throw_error("Sorry, seems like I encountered an error: ", e)
     })
     return(mle)
   }
@@ -639,16 +651,15 @@ calc_MinDose <- function(
   maxsteps <- 100
   cnt <- 1
   while (!inherits(prof, "profile.mle2")) {
-    message(paste0("## Trying to find a better fit (", cnt, "/10) ##"))
     if (maxsteps == 0L)
-      stop(paste("Sorry, but I can't find a converging fit for the profile log-likelihood."),
-           call. = FALSE)
-
+      .throw_error("Couldn't find a converging fit for the profile log-likelihood")
+    if (verbose)
+      message("## Trying to find a better fit (", cnt, "/10) ##")
     prof <- suppressWarnings(
       bbmle::profile(ests,
                      which = which,
                      std.err = as.vector(coef_err),
-                     try_harder = TRUE,
+                     # try_harder = TRUE,
                      quietly = TRUE,
                      maxsteps = maxsteps,
                      tol.newmin = Inf,
@@ -838,7 +849,8 @@ calc_MinDose <- function(
                          "\n h = %.2f",
                          "\n\n Creating %d bootstrap replicates..."),
                    M, N, sigmab, sigmab.sd, h, N+M)
-    message(msg)
+    if (verbose)
+      message(msg)
 
     n <- length(data[ ,1])
     # Draw N+M samples of a normale distributed sigmab
@@ -852,29 +864,39 @@ calc_MinDose <- function(
     # Using multiple CPU cores can reduce the computation cost, but may
     # not work for all machines.
     if (multicore) {
-      message(paste("\n Spawning", cores, "instances of R for parallel computation. This may take a few seconds..."))
+      if (verbose) {
+        message("\n Spawning ", cores, " instances of R for ",
+                "parallel computation. This may take a few seconds...")
+      }
       cl <- parallel::makeCluster(cores)
-      message("\n Done! Applying the model to all replicates. This may take a while...")
+      if (verbose) {
+        message(" Done!\n Applying the model to all replicates. ",
+                "This may take a while...")
+      }
       mle <- parallel::parLapply(cl, replicates, Get_mle)
       parallel::stopCluster(cl)
     } else {
-      message("\n Applying the model to all replicates. This may take a while...")
+      if (verbose) {
+        message("\n Applying the model to all replicates. This may take a while...")
+      }
       mle <- lapply(replicates, Get_mle)
     }
 
     # Final bootstrap calculations
-    message("\n Calculating the likelihoods...")
+    if (verbose)
+      message("\n Calculating the likelihoods...")
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
     b2mamvec <- as.matrix(sapply(mle[1:N], save_Gamma, simplify = TRUE))
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
-    # Calculate the probality/pseudo-likelihood
+    # Calculate the probability/pseudo-likelihood
     Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
     prodterm <- lapply(Pmat, get_ProductTerm, b2Pmatrix)
     # Save the bootstrap results as dose-likelihood pairs
     pairs <- make_Pairs(theta, b2mamvec, prodterm)
 
     ## --------- FIT POLYNOMIALS -------------- ##
-    message("\n Fit curves to dose-likelihood pairs...")
+    if (verbose)
+      message("\n Fit curves to dose-likelihood pairs...")
     # polynomial fits of increasing degrees
 
     ## if the input values are too close to zero, we may get
@@ -882,9 +904,12 @@ calc_MinDose <- function(
     if(any(is.infinite(pairs))){
       inf_count <- length(which(is.infinite(pairs[,2])))/nrow(pairs)
       pairs <- pairs[!is.infinite(pairs[,2]),]
-      warning(
-      paste0("[calc_MinDose()] Inf values produced by bootstrapping removed for LOcal polynominal regrESSion fitting (loess)!\n The removed values represent  ",round(inf_count * 100,2)," % of the total dataset. This message usually indicates that your values are close to 0."), call. = FALSE)
-
+      .throw_warning("Inf values produced by bootstrapping removed ",
+                     "for LOcal polynominal regrESSion fitting (loess)!",
+                     "\n The removed values represent ",
+                     round(inf_count * 100,2), " % of the total dataset. ",
+                     "This message usually indicates that your values ",
+                     "are close to 0.")
     }
 
     poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 3, raw = TRUE))
@@ -970,7 +995,7 @@ calc_MinDose <- function(
                              error=gamma_err,
                              row.names=""), 2))
 
-    } else if (bootstrap) {
+    } else if (bootstrap && verbose) {
       message("\n Finished!")
     }
   }
@@ -1009,16 +1034,14 @@ calc_MinDose <- function(
   if (plot)
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
 
-
   # if (!debug)
   #   options(warn = 0)
 
   if (!is.na(summary$mu) && !is.na(summary$de)) {
     if (log(summary$de) > summary$mu)
-      warning("Gamma is larger than mu. Consider re-running the model",
-              " with new boundary values (see details '?calc_MinDose').", call. = FALSE)
+      .throw_warning("Gamma is larger than mu, consider running the model ",
+                     "with new boundary values (see details '?calc_MinDose')")
   }
 
   invisible(newRLumResults.calc_MinDose)
-
 }

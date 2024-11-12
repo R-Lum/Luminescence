@@ -15,7 +15,6 @@ fit_CWCurve(
   LED.wavelength = 470,
   cex.global = 0.6,
   sample_code = "Default",
-  output.path,
   output.terminal = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
@@ -60,11 +59,6 @@ global scaling factor.}
 \item{sample_code}{\link{character} (\emph{optional}):
 sample code used for the plot and the optional output table (\code{mtext}).}
 
-\item{output.path}{\link{character} (\emph{optional}):
-output path for table output containing the results of the fit. The file
-name is set automatically. If the file already exists in the directory,
-the values are appended.}
-
 \item{output.terminal}{\link{logical} (\emph{with default}):
 terminal output with fitting results.}
 
@@ -81,11 +75,6 @@ returns a plot of the fitted curves.}
 \strong{plot (\emph{optional})}
 
 the fitted CW-OSL curves are returned as plot.
-
-\strong{table (\emph{optional})}
-
-an output table (\verb{*.csv}) with parameters of the fitted components is
-provided if the \code{output.path} is set.
 
 \strong{RLum.Results}
 
@@ -192,7 +181,7 @@ The function \strong{does not} ensure that the fitting procedure has reached a
 global minimum rather than a local minimum!
 }
 \section{Function version}{
- 0.5.2
+ 0.5.3
 }
 
 \examples{
@@ -209,7 +198,7 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \references{
@@ -227,7 +216,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 \linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{dplot}
 \keyword{models}

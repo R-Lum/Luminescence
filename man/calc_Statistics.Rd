@@ -14,17 +14,15 @@ calc_Statistics(
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
-for \link{data.frame} two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
-To plot several data sets in one plot the data sets must be provided
-as \code{list}, e.g. \code{list(data.1, data.2)}.}
+for \link{data.frame} two columns: De (\code{data[, 1]}) and De error (\code{data[, 2]}).}
 
 \item{weight.calc}{\link{character}:
 type of weight calculation. One out of \code{"reciprocal"} (weight is 1/error),
 \code{"square"} (weight is 1/error^2). Default is \code{"square"}.}
 
 \item{digits}{\link{integer} (\emph{with default}):
-round numbers to the specified digits.
-If digits is set to \code{NULL} nothing is rounded.}
+number of decimal places to be used when rounding numbers. If set to \code{NULL}
+(default), no rounding occurs.}
 
 \item{n.MCM}{\link{numeric} (\emph{with default}):
 number of samples drawn for Monte Carlo-based statistics.
@@ -81,7 +79,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., 2021. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., 2024. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{datagen}

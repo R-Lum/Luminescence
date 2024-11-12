@@ -17,7 +17,7 @@
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @note Currently only `RLum.Data` objects of class [RLum.Data.Curve-class] and [RLum.Data.Spectrum-class] are supported!
 #'

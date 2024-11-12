@@ -77,19 +77,15 @@ calc_IEU <- function(
   plot = TRUE,
   ...
 ) {
+  .set_function_name("calc_IEU")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##==========================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##==========================================================================##
-  if(missing(data)==FALSE){
-    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_IEU()] 'data' object has to be of type
-           'data.frame' or 'RLum.Results'!", call = FALSE)
-    }else{
-      if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum(data)
-      }
-    }
+  .validate_class(data, c("data.frame", "RLum.Results"))
+  if (inherits(data, "RLum.Results")) {
+    data <- get_RLum(data)
   }
 
   ##==========================================================================##

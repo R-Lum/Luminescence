@@ -38,14 +38,16 @@ channel number for the upper signal integral bound
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
-Slot \code{data} contains a \link{list} with the following structure:\preformatted{$ LxTx.table
+Slot \code{data} contains a \link{list} with the following structure:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{$ LxTx.table
 .. $ LnLx
 .. $ LnLx.BG
 .. $ TnTx
 .. $ TnTx.BG
 .. $ Net_LnLx
 .. $ Net_LnLx.Error
-}
+}\if{html}{\out{</div>}}
 }
 \description{
 Calculate Lx/Tx ratio for a given set of TL curves.
@@ -55,7 +57,7 @@ Calculate Lx/Tx ratio for a given set of TL curves.
 
 The standard errors are calculated using the following generalised equation:
 
-\deqn{SE_{signal} <- abs(Signal_{net} * BG_f /BG_{signal}}
+\deqn{SE_{signal} = abs(Signal_{net} * BG_f /BG_{signal})}
 
 where \eqn{BG_f} is a term estimated by calculating the standard deviation of the sum of
 the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However,
@@ -85,10 +87,13 @@ Tx.data.background <- get_RLum(temp, record.id=4)
 signal.integral.min <- 210
 signal.integral.max <- 230
 
-output <- calc_TLLxTxRatio(Lx.data.signal,
-                           Lx.data.background,
-                           Tx.data.signal, Tx.data.background,
-                           signal.integral.min, signal.integral.max)
+output <- calc_TLLxTxRatio(
+ Lx.data.signal,
+ Lx.data.background,
+ Tx.data.signal,
+ Tx.data.background,
+ signal.integral.min,
+ signal.integral.max)
 get_RLum(output)
 
 }
@@ -96,12 +101,12 @@ get_RLum(output)
 \linkS4class{RLum.Results}, \link{analyse_SAR.TL}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 Christoph Schmidt, University of Bayreuth (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2021. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2024. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
 
 \keyword{datagen}

@@ -20,7 +20,7 @@ Reference: \tab - \cr
 }
 
 Image data is a measurement of fluorescent ceiling lights with a cooled
-Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
+Princeton Instruments (TM) camera fitted on Risø DA-20 TL/OSL reader.
 }
 \description{
 Measurement of Princton Instruments camera imported with the function

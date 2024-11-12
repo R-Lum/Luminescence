@@ -248,6 +248,8 @@ calc_CosmicDoseRate<- function(
   error = 10,
   ...
 ) {
+  .set_function_name("calc_CosmicDoseRate")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -260,26 +262,24 @@ calc_CosmicDoseRate<- function(
   ##============================================================================##
 
   if(any(depth < 0) || any(density < 0)) {
-    cat(paste("\nNo negative values allowed for depth and density"))
-    stop(domain=NA)
+    .throw_error("No negative values allowed for 'depth' and 'density'")
   }
 
   if(corr.fieldChanges == TRUE) {
     if(is.na(est.age) == TRUE) {
-      cat(paste("\nCorrection for geomagnetic field changes requires",
-                "an age estimate."), fill = FALSE)
-      stop(domain=NA)
+      .throw_error("Correction for geomagnetic field ",
+                   "changes requires an age estimate")
     }
     if(est.age > 80) {
-      cat(paste("\nCAUTION: No geomagnetic field change correction for samples",
-                "older >80 ka possible!"), fill = FALSE)
+      cat("\nCAUTION: No geomagnetic field change correction for samples",
+          "older than 80 ka possible, 'corr.fieldChanges' set to FALSE")
       corr.fieldChanges<- FALSE
     }
   }
 
   if(length(density) > length(depth)) {
-    stop("\nIf you provide more than one value for density please",
-         " provide an equal number of values for depth.", call. = FALSE)
+    .throw_error("If you provide more than one value for density, please ",
+                 "provide an equal number of values for depth")
   }
 
 
@@ -342,18 +342,12 @@ calc_CosmicDoseRate<- function(
 
   for(i in 1:length(hgcm)) {
 
-
     # calculate cosmic dose rate at sea-level for geomagnetic latitude 55 degrees
+    d0 <- (C / ((((hgcm[i] + d)^alpha) + a) * (hgcm[i] + H))) * exp(-B * hgcm[i])
 
-    if(hgcm[i]*100 >= 167) {
-
-      d0<- (C/((((hgcm[i]+d)^alpha)+a)*(hgcm[i]+H)))*exp(-B*hgcm[i])
-
-    }
     if(hgcm[i]*100 < 167) {
-
       temp.hgcm<- hgcm[i]*100
-      d0.ph<- (C/((((hgcm[i]+d)^alpha)+a)*(hgcm[i]+H)))*exp(-B*hgcm[i])
+      d0.ph <- d0
 
       if(hgcm[i]*100 < 40) {
         d0<- -6*10^-8*temp.hgcm^3+2*10^-5*temp.hgcm^2-0.0025*temp.hgcm+0.2969
@@ -361,9 +355,7 @@ calc_CosmicDoseRate<- function(
       else {
         d0<- 2*10^-6*temp.hgcm^2-0.0008*temp.hgcm+0.2535
       }
-      if(d0.ph > d0) {
-        d0<- d0.ph
-      }
+      d0 <- max(d0, d0.ph)
     }
     # Calculate geomagnetic latitude
     gml.temp<- 0.203*cos((pi/180)*latitude)*
@@ -383,7 +375,6 @@ calc_CosmicDoseRate<- function(
     else { # Linear fit
 
       F_ph<- -0.0001*gml + 0.2347
-
     }
 
     if(gml < 34) { # Polynomial fit
@@ -403,7 +394,6 @@ calc_CosmicDoseRate<- function(
     else { # Linear fit
 
       H_ph<- 0.0002*gml + 4.0914
-
     }
 
     # Apply correction for geomagnetic latitude and altitude according to
@@ -434,43 +424,12 @@ calc_CosmicDoseRate<- function(
         corr.matrix[6,]<- c(1.03, 1.03, 1.02, 1.01, 1.00, 1.00)
         corr.matrix[7,]<- c(1.02, 1.02, 1.02, 1.01, 1.00, 1.00)
 
-        # Find corresponding correction factor for given geomagnetic latitude
-
-        # determine column
-        if(gml <= 5) { corr.c<- 1 }
-        if(5 < gml) {
-          if(gml <= 15) { corr.c<- 2 }
-        }
-        if(15 < gml){
-          if(gml <= 25) { corr.c<- 3 }
-        }
-        if(25 < gml){
-          if(gml <= 32.5) { corr.c<- 4 }
-        }
-        if(32.5 < gml){
-          if(gml <= 35) { corr.c<- 5 }
-        }
-
-        # find row
-        if(est.age <= 5) { corr.fac<- corr.matrix[1,corr.c] }
-        if(5 < est.age) {
-          if(est.age <= 10) { corr.fac<- corr.matrix[2,corr.c] }
-        }
-        if(10 < est.age){
-          if(est.age <= 15) { corr.fac<- corr.matrix[3,corr.c] }
-        }
-        if(15 < est.age){
-          if(est.age <= 20) { corr.fac<- corr.matrix[4,corr.c] }
-        }
-        if(20 < est.age){
-          if(est.age <= 35) { corr.fac<- corr.matrix[5,corr.c] }
-        }
-        if(35 < est.age){
-          if(est.age <= 50) { corr.fac<- corr.matrix[6,corr.c] }
-        }
-        if(50 < est.age){
-          if(est.age <= 80) { corr.fac<- corr.matrix[7,corr.c] }
-        }
+        ## Find the correction factor for the given geomagnetic latitude
+        row.idx <- cut(est.age, c(0, 5, 10, 15, 20, 35, 50, 80),
+                       labels = FALSE)
+        col.idx <- cut(gml, c(0, 5, 15, 25, 32.5, 35, Inf),
+                       labels = FALSE)
+        corr.fac <- corr.matrix[row.idx, col.idx]
 
         # Find altitude factor via fitted function 2-degree polynomial
         # This factor is only available for positive altitudes
@@ -480,11 +439,8 @@ calc_CosmicDoseRate<- function(
 
           # Combine geomagnetic latitude correction with altitude
           # correction (figure caption of Fig. 1 in Precott and Hutton (1994))
-
-
           diff.one<- corr.fac - 1
           corr.fac<- corr.fac + diff.one * alt.fac
-
         }
 
         # Final correction of cosmic dose rate
@@ -496,7 +452,7 @@ calc_CosmicDoseRate<- function(
 
       } else {
         if (settings$verbose)
-          cat(paste("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!"))
+          cat("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!")
       }
     }
 
@@ -615,6 +571,5 @@ calc_CosmicDoseRate<- function(
 
     # Return values
     invisible(newRLumResults.calc_CosmicDoseRate)
-
   }
 }

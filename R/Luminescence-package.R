@@ -1,11 +1,11 @@
-#' Comprehensive Luminescence Dating Data Analysis
+#' @title Comprehensive Luminescence Dating Data Analysis\cr
+#'
 #'
 #' \if{html}{
-#' \figure{Luminescence_logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
-#' \emph{R Luminescence Developer Team}
+#' \figure{Luminescence_logo.png}{options: width="75" alt="r-luminescence.org"}
 #' }
 #'
-#' A collection of various R functions for the purpose of Luminescence dating
+#' @description A collection of various R functions for the purpose of luminescence dating
 #' data analysis. This includes, amongst others, data import, export,
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.
@@ -13,8 +13,6 @@
 #' @name Luminescence-package
 #'
 #' @aliases Luminescence-package Luminescence
-#'
-#' @docType package
 #'
 #' @details
 #'
@@ -24,48 +22,53 @@
 #'
 #' **Support contact**
 #'
-#' \email{developers@@r-luminescence.org}
-#'
-#' We may further encourage the usage of our support forum. For this please
-#' visit our project website (link below).
+#' * \email{developers@@r-luminescence.org}
+#' * [https://github.com/R-Lum/Luminescence/discussions]()
 #'
 #' **Bug reporting**
 #'
-#' - \email{developers@@r-luminescence.org} or
-#' - [https://github.com/R-Lum/Luminescence/issues]()
+#' * \email{developers@@r-luminescence.org} or
+#' * [https://github.com/R-Lum/Luminescence/issues]()
 #'
 #' **Project website**
 #'
-#' - [https://r-luminescence.org]()
+#' * [https://r-luminescence.org]()
 #'
 #' **Project source code repository**
 #'
-#' - [https://github.com/R-Lum/Luminescence]()
+#' * [https://github.com/R-Lum/Luminescence]()
 #'
 #' **Related package projects**
 #'
-#' - [https://cran.r-project.org/package=RLumShiny]()
-#' - [https://cran.r-project.org/package=RLumModel]()
-#' - [https://cran.r-project.org/package=RLumCarlo]()
-#'
-#' **Package maintainer**
-#'
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom),\cr
-#' \email{sebastian.kreutzer@@aber.ac.uk}
+#' * [https://cran.r-project.org/package=RLumShiny]()
+#' * [https://cran.r-project.org/package=RLumModel]()
+#' * [https://cran.r-project.org/package=RLumCarlo]()
+#' * [https://cran.r-project.org/package=RCarb]()
 #'
 #' **Funding**
 #'
-#' Cooperation and personal exchange between the developers is gratefully
+#' * 2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
+#' was funded through the DFG programme "Rekonstruktion der Umweltbedingungen
+#' des Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen"
+#' (DFG id: 46526743)
+#'
+#' * 2014-2018: Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 #'
-#' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
-#' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
+#' * 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
+#' by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 #'
-#' Between 2020--2021, the work of Sebastian Kreutzer as maintainer of the package has received funding
+#' * 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
 #' from the European Union’s Horizon 2020 research and innovation programme under
-#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit).
+#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
+#' maintaining the package.
+#'
+#' * since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
+#' DFG Heisenberg programme No 505822867.
+#'
+#' * All other authors gratefully received additional funding from various public funding bodies.
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -86,8 +89,13 @@
 #' 30 (1), 1-8.
 #'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
-#' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
+#' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its
 #' implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14-21.
+#'
+#' Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., 2022.
+#' Luminescence age calculation through Bayesian convolution of equivalent dose
+#' and dose-rate distributions: the De_Dr model.
+#' Geochronology 4, 297–310. https://doi.org/10.5194/gchron-4-297-2022
 #'
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL, 33 (1), 16-21.
@@ -98,9 +106,10 @@
 #'
 #' @keywords package
 #'
-#' @import utils methods data.table magrittr
+#' @import utils methods data.table
 #'
-#' @importFrom raster nlayers raster contour plot plotRGB brick
+#' @importFrom  Rcpp evalCpp
+#'
 #' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid close.screen screen split.screen
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors xy.coords dev.off
 #' @importFrom stats formula approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames coef confint predict update residuals fitted qf
@@ -110,7 +119,7 @@
 #' @useDynLib Luminescence, .registration = TRUE
 #'
 #' @md
-NULL
+"_PACKAGE"
 
 #' Base data set of dose-rate conversion factors
 #'
@@ -483,10 +492,10 @@ NULL
 #'
 #' @format Data frame with 1000 observations on the following 2 variables:
 #'
-#' \describe{
-#' \item{list("x")}{a numeric vector, time}
-#' \item{list("y")}{a numeric vector, counts}
-#' }
+#'
+#' - `list("x")`: a numeric vector, time
+#' - `list("y")`: a numeric vector, counts
+#'
 #'
 #' @references
 #' Baartman, J.E.M., Veldkamp, A., Schoorl, J.M., Wallinga, J.,
@@ -749,7 +758,7 @@ NULL
 #' }
 #'
 #' Image data is a measurement of fluorescent ceiling lights with a cooled
-#' Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
+#' Princeton Instruments (TM) camera fitted on Risø DA-20 TL/OSL reader.
 #'
 #' @keywords datasets
 #'
@@ -1021,7 +1030,7 @@ NULL
 #' IR50_De.LxTx <- ExampleData.Fading$equivalentDose.data$IR50
 #'
 #' ## Calculate the De of the IR50 signal
-#' IR50_De <- plot_GrowthCurve(IR50_De.LxTx,
+#' IR50_De <- fit_DoseResponseCurve(IR50_De.LxTx,
 #'                                 mode = "interpolation",
 #'                                 fit.method = "EXP")
 #'
@@ -1328,6 +1337,3 @@ NULL
 #' @name extdata
 #' @md
 NULL
-
-
-

@@ -9,8 +9,10 @@
 #' model is estimated based on all input equivalent doses smaller that of the
 #' modelled central value.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
-#' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`).
+#' @param data [data.frame] [vector], or [RLum.Results-class] object (**required**):
+#' for [data.frame]: either two columns: De (`values[,1]`) and De error
+#' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
+#' single-column data frame is provided, De error is set to `NA`.
 #' For plotting multiple data sets, these must be provided as `list`
 #' (e.g. `list(dataset1, dataset2)`).
 #'
@@ -26,7 +28,7 @@
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom),\cr
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [calc_FuchsLang2001], [calc_CentralDose]
@@ -53,6 +55,8 @@ calc_WodaFuchs2008 <- function(
   plot = TRUE,
   ...
 ) {
+  .set_function_name("calc_WodaFuchs2008")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO
   # - complete manual
@@ -61,89 +65,67 @@ calc_WodaFuchs2008 <- function(
 
   ## check data and parameter consistency -------------------------------------
 
-    if(is(data, "RLum.Results") == FALSE &
-         is(data, "data.frame") == FALSE &
-         is.numeric(data) == FALSE) {
+  if (!.validate_class(data, c("data.frame", "RLum.Results", "numeric"),
+                       throw.error = FALSE)) {
+    return(NULL)
+  }
 
-      warning(paste("[calc_WodaFuchs()] Input data format is neither",
-                    "'data.frame', 'RLum.Results' nor 'numeric'.",
-                    "No output generated!"))
+  if (inherits(data, "RLum.Results")) {
+        data <- tryCatch(get_RLum(data, "data"),
+                         error = function(e) get_RLum(data))
+  }
 
-      return(NULL)
-
-    } else {
-
-      if(is(data, "RLum.Results") == TRUE) {
-
-        data <- get_RLum(data, "data")
-
+      ## if data is a numeric vector or a single-column data frame,
+      ## append a second column of NAs
+      if (NCOL(data) < 2) {
+        data <- cbind(data, NA)
       }
 
-      if(length(data) < 2) {
-
-        data <- cbind(data,
-                      rep(x = NA,
-                          times = length(data)))
-
+      ## with just one data point, it's possible to cause nls() to hang
+      if (nrow(data) < 2) {
+        .throw_error("Insufficient number of data points")
       }
-    }
 
   ## read additional arguments
 
   if("trace" %in% names(list(...))) {
 
     trace <- list(...)$trace
-
   } else {
 
     trace <- FALSE
-
   }
 
   ## calculations -------------------------------------------------------------
 
   ## estimate bin width based on Woda and Fuchs (2008)
-  if(sum(is.na(data[,2]) == nrow(data))) {
-    message("[calc_WodFuchs2008()] No errors provided. Bin width set by 10 percent of input data!")
-
+  if (all(is.na(data[, 2]))) {
+    message("[calc_WodFuchs2008()] No errors provided. Bin width set ",
+            "by 10 percent of input data")
     bin_width <- median(data[,1] / 10,
                         na.rm = TRUE)
   } else {
 
     bin_width <- median(data[,2],
                         na.rm = TRUE)
-
   }
 
   ## optionally estimate class breaks based on bin width
   if(is.null(breaks)) {
-
-    n_breaks <- (max(data[,1],
-                     na.rm = TRUE) -
-                   min(data[,1],
-                       na.rm = TRUE) / bin_width)
-
+    n_breaks <- diff(range(data[, 1], na.rm = TRUE)) / bin_width
   } else {
-
     n_breaks <- breaks
+  }
+
+  if (n_breaks <= 3) {
+    .throw_warning("Fewer than 4 bins produced, 'breaks' set to 4")
+    n_breaks = 4
   }
 
   ## calculate histogram
   H <- hist(x = data[,1],
             breaks = n_breaks,
             plot = FALSE)
-
-  ## check/do log-normal model fit if needed
-  if(n_breaks <= 3) {
-
-    warning("[calc_WodaFuchs()] Less than four bins, now set to four!")
-
-    ## calculate histogram
-    H <- hist(x = data[,1],
-              breaks = 4,
-              plot = FALSE)
-
-  }
 
   ## extract values from histogram object
   H_c <- H$counts
@@ -161,8 +143,7 @@ calc_WodaFuchs2008 <- function(
 
   ## optionally print warning
   if(length(class_center) != 1) {
-    warning("[calc_WodaFuchs()] More than one maximum. Fit may be invalid!", call. = FALSE)
-
+    .throw_warning("More than one maximum, fit may be invalid")
     class_center <- class_center[1]
   }
 
@@ -203,7 +184,6 @@ calc_WodaFuchs2008 <- function(
       ylim = NULL,
       main = expression(paste(D[e]," applying Woda and Fuchs (2008)")),
       sub = NULL
-
     )
 
     plot_settings <- modifyList(x = plot_settings, val = list(...), keep.null = TRUE)
@@ -226,7 +206,6 @@ calc_WodaFuchs2008 <- function(
           to = class_center,
           col = "red"
           )
-
   }
 
   ## return output ------------------------------------------------------------
@@ -245,8 +224,5 @@ calc_WodaFuchs2008 <- function(
       breaks = H$breaks
     ),
     info = list(call = sys.call())
-
   ))
-
-
 }

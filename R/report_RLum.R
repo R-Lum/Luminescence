@@ -100,11 +100,11 @@
 #' @param ... further arguments passed to or from other methods and to control
 #' the document's structure (see details).
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #'
 #' @note
 #' This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
@@ -189,33 +189,30 @@ report_RLum <- function(
   css.file = NULL,
   quiet = TRUE,
   clean = TRUE,
-  ...) {
+  ...
+) {
+  .set_function_name("report_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## ------------------------------------------------------------------------ ##
   ## PRE-CHECKS ----
 
   # check if required namespace(s) are available
-  if (!requireNamespace("rmarkdown", quietly = TRUE))
-    stop("Creating object reports requires the 'rmarkdown' package.",
-         " To install this package run 'install.packages('rmarkdown')' in your R console.",
-         call. = FALSE)
-  if (!requireNamespace("pander", quietly = TRUE))
-    stop("Creating object reports requires the 'pander' package.",
-         " To install this package run 'install.packages('pander')' in your R console.",
-         call. = FALSE)
-  if (!requireNamespace("rstudioapi", quietly = TRUE)) {
-    warning("Creating object reports requires the 'rstudioapi' package.",
-            " To install this package run 'install.packages('rstudioapi')' in your R console.",
-            call. = FALSE)
+  .require_suggested_package("rmarkdown", "Creating object reports")
+  .require_suggested_package("pander", "Creating object reports")
+  # nocov start
+  if (.require_suggested_package("rstudioapi", "Creating object reports",
+                                 throw.error = FALSE)) {
     isRStudio <- FALSE
   } else {
-    isRStudio <- TRUE
+    isRStudio <- rstudioapi::isAvailable()
   }
+  # nocov end
 
   # check if files exist
   if (!is.null(css.file))
     if(!file.exists(css.file))
-      stop("Couldn't find the specified CSS file at '", css.file, "'", call. = FALSE)
+      .throw_error("Couldn't find the specified CSS file at '", css.file, "'")
 
   ## ------------------------------------------------------------------------ ##
   ## STRUCTURE ----
@@ -426,7 +423,7 @@ report_RLum <- function(
           table <- as.character(table)
 
         # exception: surround objects of class "call" with <pre> tags to prevent
-        # HTML autoformatting
+        # HTML auto formatting
         if (elements$class[i] == "call") {
           table <- capture.output(table)
           writeLines("<pre>", tmp)
@@ -451,7 +448,7 @@ report_RLum <- function(
         }
 
         # write table using pander and end each table with a horizontal line
-        writeLines(pander::pander_return(table), tmp)
+        writeLines(suppressWarnings(pander::pander_return(table)), tmp)
         writeLines("\n\n<hr>", tmp)
 
       }
@@ -475,14 +472,15 @@ report_RLum <- function(
     writeLines(paste("<hr># File \n\n"), tmp)
 
     writeLines(paste0("<code>",
-                      "<a href='", paste0("file:///", gsub("\\~\\/", "", file.rds)),"' download>",
+                      "<a href='", normalizePath(file.rds),"' download>",
                       "Click here to access the data file", "</a>",
                       "</code>"), tmp)
 
-    writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", file.rds, "</span>.",
+    writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", normalizePath(file.rds),
+                     "</span>.",
                      "To import the object into your R session with the following command:",
                      paste0("<pre>",
-                            "x <- readRDS('", file.rds, "')",
+                            "x <- readRDS('", normalizePath(file.rds), "')",
                             "</pre>"),
                      "**NOTE:** If you moved the file to another directory or",
                      "renamed the file you need to change the path/filename in the",
@@ -519,7 +517,7 @@ report_RLum <- function(
       writeLines(paste0(
         "```{r}\n",
         "library(Luminescence) \n",
-        "x <- readRDS('", file.rds,"') \n",
+        "x <- readRDS('", normalizePath(file.rds),"') \n",
         plotCommand,
         "```"),
         tmp)
@@ -559,6 +557,7 @@ report_RLum <- function(
   ## SHOW FILE -----
 
   # SHOW REPORT IN RSTUDIOS VIEWER PANE ----
+  # nocov start
   if (isRStudio && show_report) {
     if (isTemp) {
       try(rstudioapi::viewer(file.html))
@@ -579,7 +578,7 @@ report_RLum <- function(
     if (!is.null(opened))
       try(browseURL(file.html))
   }
-
+  # nocov end
 
   ## ------------------------------------------------------------------------ ##
   ## CLEANUP ----

@@ -50,6 +50,8 @@
 get_Layout <- function(
   layout
 ) {
+  .set_function_name("get_Layout")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## pre-defined layout selections
   if(is.character(layout) == TRUE & length(layout) == 1) {
@@ -57,7 +59,7 @@ get_Layout <- function(
     if(layout == "empty") {
 
       layout = list(
-        
+
         ## empty Abanico plot -------------------------------------------------
         abanico = list(
           font.type = list(
@@ -637,8 +639,8 @@ get_Layout <- function(
         )
       )
     } else {
-      warning("Layout definition not supported! Default layout is used.")
-      
+      .throw_warning("Layout definition not supported, ",
+                     "default layout is used.")
       layout <- get_Layout(layout = "default")
     }
   } else if(is.list(layout) == TRUE) {
@@ -650,4 +652,3 @@ get_Layout <- function(
   ## return layout parameters
   return(layout)
 }
-

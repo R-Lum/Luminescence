@@ -26,7 +26,7 @@
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot], [plot_RLum]
 #'
@@ -57,22 +57,21 @@ plot_RLum.Results<- function(
   object,
   single = TRUE,
   ...
-){
+) {
+  .set_function_name("plot_RLum.Results")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
 
-  ##check if object is of class RLum.Data.Curve
-  if(!is(object,"RLum.Results")){
-    stop("[plot_RLum.Results()] Input object is not of type 'RLum.Results'")
-  }
+  .validate_class(object, "RLum.Results")
 
   ##============================================================================##
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
   ##============================================================================##
   par.old <- par(no.readonly = TRUE)
-  on.exit(par(par.old))
+  on.exit(suppressWarnings(par(par.old)), add = TRUE)
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -111,11 +110,19 @@ plot_RLum.Results<- function(
   ##============================================================================##
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 1: Minimum Age Model / Maximum Age Model
+  ## CASE 0: General plot dispatcher ----------
+  switch(object@originator,
+      "analyse_SAR.CWOSL" = plot_AbanicoPlot(object),
+      "analyse_pIRIRSequence" = plot_AbanicoPlot(object),
+      "analyse_IRSARRF" = plot_AbanicoPlot(object),
+    NULL
+    )
+
+  ## CASE 1: Minimum Age Model / Maximum Age Model -------
   if(object@originator=="calc_MinDose" || object@originator=="calc_MaxDose") {
 
     ## single MAM estimate
-    # plot profile log likelhood
+    # plot profile log likelihood
 
     profiles <- object@data$profile
     if (object@data$args$log) {
@@ -139,10 +146,10 @@ plot_RLum.Results<- function(
 
         xvals <- as.data.frame(profiles@profile[[i]]$par.vals)[[i]]
         xlim <- range(xvals[xvals > 0])
-
         suppressWarnings(
           bbmle::plot(profiles, which = i, xlab = "", xaxt = "n", xlim = xlim)
         )
+
         axis(1, mgp = c(3, 0.5, 0))
         title(xlab = i, line = 1.2)
 
@@ -154,7 +161,8 @@ plot_RLum.Results<- function(
         }
 
       }, error = function(e)  {
-        message(paste("Unable to plot the Likelihood profile for:", i))
+        message("Unable to plot the likelihood profile for: ", i,
+                " (likelihood probably infinite)")
       })
     }
     par(mfrow=c(1,1))
@@ -354,7 +362,7 @@ plot_RLum.Results<- function(
       polygon(x, y, col = "grey80", border = NA)
 
       if (all(x > max(xlim)) || all(x < min(xlim)))
-        warning("Bootstrap estimates out of x-axis range.", call. = FALSE)
+        .throw_warning("Bootstrap estimates out of x-axis range")
 
 
       ### ----- PLOT MAM SINGLE ESTIMATE
@@ -365,8 +373,7 @@ plot_RLum.Results<- function(
 
 
       if (any(is.na(c(mean, sd)))) {
-
-        warning("Unable to plot the MAM single estimate (NA value).", call. = FALSE)
+        .throw_warning("Unable to plot the MAM single estimate (NA value)")
 
       } else {
 
@@ -453,7 +460,7 @@ plot_RLum.Results<- function(
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 2: Central Age Model
+  ## CASE 2: Central Age Model ---------
   if(object@originator=="calc_CentralDose") {
 
     # get profile log likelihood data
@@ -495,7 +502,7 @@ plot_RLum.Results<- function(
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 3: Fuchs & Lang 2001
+  ## CASE 3: Fuchs & Lang 2001 --------
   if(object@originator=="calc_FuchsLang2001") {
 
     ##deal with addition arguments
@@ -579,11 +586,9 @@ plot_RLum.Results<- function(
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 4: Finite Mixture Model
-
+  ## CASE 4: Finite Mixture Model --------
   if(object@originator == "calc_FiniteMixture") {
-    if(length(object@data$args$n.components) > 1L) {
-
+    if(length(object@data$args$n.components) > 1) {
       ##deal with addition arguments
       extraArgs <- list(...)
 
@@ -594,17 +599,17 @@ plot_RLum.Results<- function(
       pdf.sigma<- if("pdf.sigma" %in% names(extraArgs)) {extraArgs$pdf.sigma} else {"sigmab"}
 
       # extract relevant data from object
-      n.components<- object@data$args$n.components
-      comp.n<- object@data$components
-      sigmab<- object@data$args$sigmab
-      BIC.n<- object@data$BIC$BIC
-      LLIK.n<- object@data$llik$llik
+      n.components <- object@data$args$n.components
+      comp.n <- object@data$components
+      sigmab <- object@data$args$sigmab
+      BIC.n <- object@data$BIC$BIC
+      LLIK.n <- object@data$llik$llik
 
       # save previous plot parameter and set new ones
       .pardefault<- par(no.readonly = TRUE)
 
       ## DEVICE AND PLOT LAYOUT
-      n.plots<- length(n.components) #number of PDF plots in plotarea #1
+      n.plots<- length(n.components) #number of PDF plots in plot area #1
       seq.vertical.plots<- seq(from = 1, to = n.plots, by = 1) #indices
       ID.plot.two<- n.plots+if(plot.proportions==TRUE){1}else{0} #ID of second plot area
       ID.plot.three<- n.plots+if(plot.proportions==TRUE){2}else{1} #ID of third plot area
@@ -633,7 +638,7 @@ plot_RLum.Results<- function(
       # general plot parameters (global scaling, allow overplotting)
       par(cex = 0.8, xpd = NA)
 
-      # define color palette for prettier output
+      # define colour palette for prettier output
       if(pdf.colors == "colors") {
         col.n<- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
                   "burlywood4", "magenta4", "mediumpurple3", "brown4","grey",
@@ -654,7 +659,6 @@ plot_RLum.Results<- function(
 
       ## create empty plot without x-axis
       for(i in 1:n.plots) {
-
         pos.n<- seq(from = 1, to = n.components[i]*3, by = 3)
 
         # set margins (bottom, left, top, right)
@@ -683,17 +687,16 @@ plot_RLum.Results<- function(
         sapply.storage<- list()
 
         ## NORMAL DISTR. OF EACH COMPONENT
-        options(warn=-1) #supress warnings for NA values
 
         # LOOP - iterate over number of components
         for(j in 1:max(n.components)) {
-
           # draw random values of the ND to check for NA values
+          suppressWarnings(
           comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
                                  mean = comp.n[pos.n[j],i],
                                  sd = comp.n[pos.n[j]+1,i]))
-
-          # proceed if no NA values occured
+          )
+          # proceed if no NA values occurred
           if(length(comp.nd.n)!=0) {
 
             # weight - proportion of the component
@@ -722,18 +725,18 @@ plot_RLum.Results<- function(
               dens.max<-max(sapply(0:max.dose, fooY))
             }##EndOfIf::first cycle settings
 
-
             # override y-axis scaling if weights are used
             if(pdf.weight==TRUE){
               sapply.temp<- list()
               for(b in 1:max(n.components)){
 
                 # draw random values of the ND to check for NA values
+                suppressWarnings(
                 comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
                                        mean = comp.n[pos.n[b],i],
                                        sd = comp.n[pos.n[b]+1,i]))
-
-                # proceed if no NA values occured
+                )
+                # proceed if no NA values occurred
                 if(length(comp.nd.n)!=0) {
 
                   # weight - proportion of the component
@@ -780,7 +783,7 @@ plot_RLum.Results<- function(
                  xaxs="i", yaxs="i",
                  ann=FALSE, xpd = FALSE)
 
-            # draw colored polygons under curve
+            # draw coloured polygons under curve
             polygon(x=c(min(sapply), sapply,  min(sapply)),
                     y=c(0, 0:max.dose,  0),
                     col = adjustcolor(col.n[j], alpha.f = 0.66),
@@ -789,10 +792,7 @@ plot_RLum.Results<- function(
           }
         }##EndOf::Component loop
 
-        #turn warnings on again
-        options(warn=0)
-
-        # Add sum of gaussians curve
+        # Add sum of Gaussian curve
         par(new = TRUE)
 
         plot(Reduce('+', sapply.storage),1:length(sapply)-1,
@@ -891,7 +891,6 @@ plot_RLum.Results<- function(
         # add subtitle
         mtext("Proportion of components",
               side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-
       }
       ##--------------------------------------------------------------------------
       ## PLOT 3: BIC & LLIK
@@ -951,10 +950,11 @@ plot_RLum.Results<- function(
       ## restore previous plot parameters
       par(.pardefault)
     }
+
   }##EndOf::Case 4 - Finite Mixture Model
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 5: Aliquot Size
+  ## CASE 5: Aliquot Size ---------
   if(object@originator=="calc_AliquotSize") {
     if(!is.null(object@data$MC$estimates)) {
       extraArgs <- list(...)
@@ -1021,12 +1021,12 @@ plot_RLum.Results<- function(
       par(bty="n")
       boxplot(MC.n, horizontal = TRUE, add = TRUE, bty="n")
     } else {
-      on.exit(NULL)
+      on.exit(NULL, add = TRUE) # FIXME(mcol): seems unnecessary
     }
   }#EndOf::Case 5 - calc_AliqoutSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 6: calc_SourceDoseRate()
+  ## CASE 6: calc_SourceDoseRate() ----------
   if(object@originator=="calc_SourceDoseRate") {
 
     ##prepare data
@@ -1036,9 +1036,7 @@ plot_RLum.Results<- function(
     ##reduce the size for plotting, more than 100 points makes no sense
     if(nrow(df)>100) {
       df <- df[seq(1,nrow(df), length = 100),]
-
     }
-
 
     ##plot settings
     plot.settings <- list(
@@ -1096,13 +1094,12 @@ plot_RLum.Results<- function(
 
     if(!is.null(plot.settings$grid)){
       grid(eval(plot.settings$grid))
-
     }
 
   }#EndOf::Case 6 - calc_SourceDoseRate()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 7: Fast Ratio
+  ## CASE 7: Fast Ratio ----------
   if (object@originator=="calc_FastRatio") {
 
     # graphical settings

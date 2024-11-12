@@ -2,12 +2,11 @@ data(ExampleData.DeValues, envir = environment())
 temp <- calc_MaxDose(ExampleData.DeValues$CA1,
                      sigmab = 0.2,
                      par = 3,
-                     plot = FALSE,
+                     plot = TRUE,
                      verbose = FALSE)
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 9)
@@ -16,7 +15,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 

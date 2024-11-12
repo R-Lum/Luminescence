@@ -3,12 +3,12 @@
 ##################################################################################
 ##<<Prerequisite>>
 ##
-## - Add-ins should support more expierenced users. For all others we have the package 'RLumShiny'
+## - Add-ins should support more experienced users. For all others we have the package 'RLumShiny'
 ##
 ## - Add-ins should be provided as non-exported function only, having the a name with a leading dot, e.g., .addin.
 ##   This prevents further chaos in the manuel.
 ##
-## - Interative add-ins are not desired, except they are implemented in the package 'RLumShiny' or they
+## - Interactive add-ins are not desired, except they are implemented in the package 'RLumShiny' or they
 ##   are only available if the package 'RLumShiny' is available.
 ##
 ##
@@ -23,17 +23,15 @@
 ##    package 'rstudioapi', 'devtools' and get happy.
 
 
-
 #'Install package development version
 #'
 #'The function uses the GitHub APconnection provided by Christoph Burow
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@noRd
 .installDevelopmentVersion <- function(){
-  install_DevelopmentVersion(force_install = TRUE)
-
+  install_DevelopmentVersion(force_install = TRUE) # nocov
 }
 
 #'Search for TODOs in the source code and list them in the terminal
@@ -41,11 +39,11 @@
 #'This add-in is a tool developers may want to use to briefly list all open
 #'issues in the terminal, instead of using search and stepping through the results.
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@noRd
 .listTODO <- function(){
-
+  # nocov start
   ##check if package is installed
   if(!requireNamespace("rstudioapi", quietly = TRUE)){
     message("Package 'rstudioapi' is not installed but needed to search for TODOs, do you want to install it?\n\n",
@@ -58,7 +56,6 @@
     if(tolower(answer) == "y"){
       utils::install.packages("rstudioapi", dependencies = TRUE)
     }
-
   }else{
 
   ##parse code
@@ -71,9 +68,7 @@
   cat("\n", "[", length(id), " issue(s)]\n", sep = "")
    for(i in id){
     cat(" line ", i, ": ->", code[i], "\n", sep = "")
-
    }
-
- }
-
+  }
+  # nocov end
 }
