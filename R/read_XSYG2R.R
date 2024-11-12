@@ -306,7 +306,6 @@ read_XSYG2R <- function(
       tmp <- as.numeric(unlist(strsplit(curve.node.count[i], "|", fixed = TRUE)))
       if(length(tmp) == length(wavelength))
         spectrum.matrix[,i] <- tmp
-
     }
 
     ## remove NA values from matrix
@@ -348,15 +347,14 @@ read_XSYG2R <- function(
     ##grep sequences files
 
     ##set data.frame
-    temp.sequence.header <- data.frame(t(1:length(names(XML::xmlAttrs(temp[[1]])))),
+    names.sequence.header <- names(XML::xmlAttrs(temp[[1]]))
+    temp.sequence.header <- data.frame(t(1:length(names.sequence.header)),
                                        stringsAsFactors = FALSE)
-
-    colnames(temp.sequence.header) <- names(XML::xmlAttrs(temp[[1]]))
+    colnames(temp.sequence.header) <- names.sequence.header
 
     ##fill information in data.frame
     for(i in 1:XML::xmlSize(temp)){
       temp.sequence.header[i,] <- t(XML::xmlAttrs(temp[[i]]))
-
     }
 
       ##additional option for fastForward == TRUE
@@ -434,24 +432,19 @@ read_XSYG2R <- function(
         lapply(1:XML::xmlSize(temp[[x]][[i]]), function(j){
           ##get values
           temp.sequence.object.curveValue <- temp[[x]][[i]][[j]]
+          attrs <- XML::xmlAttrs(temp.sequence.object.curveValue)
 
           ##get curveType
-          temp.sequence.object.curveType <- as.character(
-            XML::xmlAttrs(temp[[x]][[i]][[j]])["curveType"])
+          temp.sequence.object.curveType <- as.character(attrs["curveType"])
 
           ##get detector
-          temp.sequence.object.detector <- as.character(
-            XML::xmlAttrs(temp[[x]][[i]][[j]])["detector"])
+          temp.sequence.object.detector <- as.character(attrs["detector"])
 
           ##get stimulator
-          temp.sequence.object.stimulator <- as.character(
-            XML::xmlAttrs(temp[[x]][[i]][[j]])["stimulator"])
+          temp.sequence.object.stimulator <- as.character(attrs["stimulator"])
 
           ##get additional information
-          temp.sequence.object.info <- as.list(XML::xmlAttrs(temp.sequence.object.curveValue))
-
-          ##add stimulator and detector and so on
-          temp.sequence.object.info <- c(temp.sequence.object.info,
+          temp.sequence.object.info <- c(as.list(attrs),
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
 
@@ -490,22 +483,21 @@ read_XSYG2R <- function(
               temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
                 temp[[x]][[i]][[3]]))
 
+              temp.element <- temp.sequence.object.curveValue.heating.element[, 1]
               if(!"Spectrometer" %in% temp.sequence.object.detector){
                 #reduce matrix values to values of the detection
                 temp.sequence.object.curveValue.heating.element <-
                   temp.sequence.object.curveValue.heating.element[
-                    temp.sequence.object.curveValue.heating.element[,1] >=
-                      min(temp.sequence.object.curveValue.PMT[,1]) &
-                      temp.sequence.object.curveValue.heating.element[,1] <=
-                      max(temp.sequence.object.curveValue.PMT[,1]), ,drop = FALSE]
+                      temp.element >= min(temp.sequence.object.curveValue.PMT[, 1]) &
+                      temp.element <= max(temp.sequence.object.curveValue.PMT[, 1]), ,
+                      drop = FALSE]
               }else{
                 #reduce matrix values to values of the detection
                 temp.sequence.object.curveValue.heating.element <-
                   temp.sequence.object.curveValue.heating.element[
-                    temp.sequence.object.curveValue.heating.element[,1] >=
-                      min(temp.sequence.object.curveValue.spectrum.time) &
-                      temp.sequence.object.curveValue.heating.element[,1] <=
-                      max(temp.sequence.object.curveValue.spectrum.time), ,drop = FALSE]
+                      temp.element >= min(temp.sequence.object.curveValue.spectrum.time) &
+                      temp.element <= max(temp.sequence.object.curveValue.spectrum.time), ,
+                      drop = FALSE]
               }
               ## calculate corresponding heating rate, this makes only sense
               ## for linear heating, therefore is has to be the maximum value
@@ -596,9 +588,9 @@ read_XSYG2R <- function(
                     temp.sequence.object.curveValue.heating.element.i$y
 
                   ##check for duplicated values and if so, increase this
-                  if(anyDuplicated(temperature.values)>0){
-                    temperature.values[which(duplicated(temperature.values))] <-
-                      temperature.values[which(duplicated(temperature.values))]+1
+                  idx.dup <- which(duplicated(temperature.values))
+                  if (length(idx.dup) > 0) {
+                    temperature.values[idx.dup] <- temperature.values[idx.dup] + 1
                     .throw_warning("Temperature values are found to be ",
                                    "duplicated and increased by 1 K.")
                   }
@@ -733,4 +725,3 @@ read_XSYG2R <- function(
   ##get rid of the NULL elements (as stated before ... invalid files)
   return(.rm_NULL_elements(output))
 }
-
