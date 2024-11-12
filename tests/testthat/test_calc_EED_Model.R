@@ -15,6 +15,14 @@ test_that("input validation", {
                "'expected_dose' should be of class 'numeric'")
   expect_error(calc_EED_Model(MortarData, expected_dose = "error"),
                "'expected_dose' should be of class 'numeric'")
+
+  ## IndivDose
+  expect_error(calc_EED_Model(MortarData, expected_dose = 0.17,
+                              MinIndivDose = "error"),
+               "'MinIndivDose' should be of class 'numeric")
+  expect_error(calc_EED_Model(MortarData, expected_dose = 0.17,
+                              MaxIndivDose = "error"),
+               "'MaxIndivDose' should be of class 'numeric")
 })
 
 test_that("check functionality", {
@@ -46,4 +54,14 @@ test_that("check functionality", {
     verbose = FALSE,
     plot = FALSE,
     expected_dose = 11.7), "RLum.Results")
+
+  ## more coverage
+  SW({
+  expect_s4_class(calc_EED_Model(
+    data = MortarData,
+    sigma_distr = 0.37,
+    verbose = TRUE,
+    method_control = list(trace = TRUE, trace_plot = TRUE),
+    expected_dose = 11.7), "RLum.Results")
+  })
 })

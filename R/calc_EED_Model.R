@@ -91,7 +91,6 @@
 #'  kappa = NULL,
 #'  sigma_distr = NULL,
 #'  expected_dose = 11.7)
-#'
 #' }
 #'
 #' @md
@@ -129,6 +128,10 @@ calc_EED_Model <- function(
 
   .validate_class(data, "data.frame")
   .validate_class(expected_dose, "numeric")
+  if (!is.null(MinIndivDose))
+    .validate_class(MinIndivDose, "numeric")
+  if (!is.null(MaxIndivDose))
+    .validate_class(MaxIndivDose, "numeric")
 
   ##store and restore par settings
   par_default <- par(no.readonly = TRUE)
@@ -141,11 +144,13 @@ calc_EED_Model <- function(
 
   # Calcul de la variance du plateau sur la base des doses arch?o
   # corrig?es de la dose r?siduelle uniquement (modif 31.5.2018)
+  # nocov start
   .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index){
     var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 3]) # doses nettes corrig?es r?siduel uniquement
     mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 3])
     return(var_ratio / (mean_ratio ^ 2))
   }
+  # nocov end
 
   # Calcul de la variance du plateau      modifi? le 31.5.2018
   # sur la base des rapport observ?/simul? des doses totales brutes
@@ -159,11 +164,13 @@ calc_EED_Model <- function(
   # Calcul de la variance du plateau      ajout le 20.8.2018
   # sur la base des doses archeologiques
   # ##TODO not yet included
+  # nocov start
   .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
       var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 6])
       mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 6])
       return (var_ratio / (mean_ratio ^ 2))
     }
+  # nocov end
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
 
@@ -234,16 +241,6 @@ calc_EED_Model <- function(
     return(M_Data)
   }
 
-  .Initial_State_of_OSL <- function(Dosedata, D0, method){
-    SaturationState <-  (1 - exp(-max(Dosedata[, 1]) / D0))
-    if (method == "max") {return(SaturationState)}
-    if( !is.numeric(method)) {return(1)}
-    if (method >1 | method<0)  {return(1)}
-    if (method < SaturationState) {return(SaturationState)}
-    if (method > SaturationState) {return(method)}
-  }
-
-
   # Calcul des incertitudes statistiques liees au tirage des Ndata grains              #
   # calcul incertitude statistique li?e au nombre limit? de grains
   #
@@ -270,18 +267,12 @@ calc_EED_Model <- function(
     if (method == "max") {
       return  (SaturationState)
     }
-    if (!is.numeric(method)) {
+    # nocov start
+    if (!is.numeric(method) || method > 1 || method < 0) {
       return(1)
     }
-    if (method > 1 | method < 0)  {
-      return(1)
-    }
-    if (method < SaturationState) {
-      return (SaturationState)
-    }
-    if (method > SaturationState) {
-      return(method)
-    }
+    return(max(method, SaturationState))
+    # nocov end
   }
 
   # fonction permettant de retourner l'indice de la valeur minimale de la  dose individuelle
@@ -290,10 +281,7 @@ calc_EED_Model <- function(
   .Get_Plateau_MinDoseIndex <- function(M_Data, Ndata, MinIndivDose) {
       if (is.null(MinIndivDose))
         return(1)
-
-      if (!is.numeric(MinIndivDose))
-        .throw_error("MinIndivDose must by of type numeric or NULL")
-
+    # nocov start
       current_index <- 1
       while ((MinIndivDose > M_Data[current_index, 9]) &
              (current_index < Ndata)) {
@@ -301,18 +289,15 @@ calc_EED_Model <- function(
       }
 
       return(current_index)
-    }
-
+    # nocov end
+  }
 
   # fonction permettant de retourner l'indice de la valeur maximale de la  dose individuelle
   # prise en compte pour le calcul du plateau
   .Get_Plateau_MaxDoseIndex <- function(M_Data, Ndata, MaxIndivDose) {
     if (is.null(MaxIndivDose))
       return(Ndata)
-
-    if (!is.numeric(MaxIndivDose))
-      .throw_error("MaxIndivDose must by of type numeric or NULL")
-
+    # nocov start
         current_index <- 1
         while ((MaxIndivDose > M_Data[current_index, 9]) &
                (current_index < Ndata)) {
@@ -320,6 +305,7 @@ calc_EED_Model <- function(
         }
 
       return(current_index)
+    # nocov end
   }
 
   ## allow automated kapp and sigma_distr parameter estimation
@@ -737,9 +723,7 @@ if(plot) {
     # tracer les valeurs de la liste classee des doses archeologiques de la matrice de simulation
     # contrainte : ne tracer qu'une partie des points sinon on va passer un temps fou
     # par exemple on veut tracer un nb de points egal a :
-    NbSimPtsDisplayed <- 1000
-    if (NbSimPtsDisplayed > Nsimul)
-      NbSimPtsDisplayed <- Nsimul
+    NbSimPtsDisplayed <- min(Nsimul, 1000)
     XY_psimul <- matrix(nrow = NbSimPtsDisplayed, ncol = 2)
     delta_index <- as.integer(Nsimul / NbSimPtsDisplayed)
     plot_index <- 1
