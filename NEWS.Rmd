@@ -80,6 +80,8 @@ quality of fit (#372, fixed in #388, #398 and #399).
 (#393, fixed in #394).
 * Some data preparation steps where not correctly applied for `method = "VSLIDE"`
 (#396, fixed in #397).
+* Option `method.control` has been renamed to `method_control` for consistency
+with all other functions in the package (#411, fixed in #412).
 
 ### `analyse_pIRIRSequence()`
 * The function crashed with a object merge error if run in a loop because of a `merge_RLum()` error. This
