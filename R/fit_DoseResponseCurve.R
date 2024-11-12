@@ -455,7 +455,8 @@ fit_DoseResponseCurve <- function(
   .report_fit <- function(De, ...) {
     if (verbose && mode != "alternate") {
       writeLines(paste0("[fit_DoseResponseCurve()] Fit: ", fit.method,
-                        " (", mode,") ", "| De = ", round(abs(De), 2)))
+                        " (", mode,") ", "| De = ", round(abs(De), 2),
+                        ...))
     }
   }
 

@@ -247,13 +247,13 @@ test_that("additional tests", {
 
   set.seed(1)
   SW({
-  temp_EXP <-
+  expect_output(temp_EXP <-
     fit_DoseResponseCurve(
       LxTxData,
       fit.method = "EXP",
-      verbose = FALSE,
+      verbose = TRUE,
       NumberIterations.MC = 10
-    )
+    ), " | D01 = ", fixed = TRUE)
   temp_LIN <-
     fit_DoseResponseCurve(
       LxTxData,
