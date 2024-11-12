@@ -24,7 +24,7 @@ test_that("methods_DRAC", {
   expect_warning({
     input <- template_DRAC()
     input[[1]] <- c(1, 2)
-  }, regexp = "Input must be of length")
+  }, regexp = "Project ID should have length 1")
   expect_warning({
     input <- template_DRAC()
     input[[4]] <- "error"

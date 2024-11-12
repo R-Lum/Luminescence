@@ -14,7 +14,7 @@ test_that("input validation", {
                               "Inf values removed in rows: 1 in data.frame 1"),
                "Your input is empty due to Inf removal")
   expect_error(plot_KDE(df, ylim = c(0, 1)),
-               "'ylim' must be a vector of length 4")
+               "'ylim' should have length 4")
 
   expect_warning(plot_KDE(df[1, ]),
                  "Single data point found, no density calculated")

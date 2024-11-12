@@ -7,7 +7,7 @@ test_that("input validation", {
   expect_error(plot_Histogram("error"),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_Histogram(df, ylim = c(0, 1)),
-               "'ylim' must be a vector of length 4")
+               "'ylim' should have length 4")
 })
 
 test_that("check functionality", {

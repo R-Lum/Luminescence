@@ -18,7 +18,7 @@ test_that("input validation", {
   )
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = 7),
-               "must have length 2")
+               "'irradiation_time_correction' should have length 2")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation = set_RLum("RLum.Results")),
                "was created by an unsupported function")

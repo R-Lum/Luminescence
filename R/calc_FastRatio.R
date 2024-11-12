@@ -132,9 +132,8 @@ calc_FastRatio <- function(object,
   .validate_positive_scalar(Ch_L1, int = TRUE)
   .validate_positive_scalar(Ch_L2, int = TRUE, null.ok = TRUE)
   if (!is.null(Ch_L3)) {
-    if (!is.numeric(Ch_L3) || length(Ch_L3) != 2) {
-      .throw_error("Input for 'Ch_L3' must be a vector of length 2")
-    }
+    .validate_class(Ch_L3, c("integer", "numeric"))
+    .validate_length(Ch_L3, 2)
     .validate_positive_scalar(Ch_L3[1], int = TRUE, name = "'Ch_L3[1]'")
     .validate_positive_scalar(Ch_L3[2], int = TRUE, name = "'Ch_L3[2]'")
     if (Ch_L3[1] > Ch_L3[2]) {
