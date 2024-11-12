@@ -192,7 +192,7 @@
   endless loop when the number of parameters was larger than or equal to
   the number of data points. To avoid this, we replaced `nls()` with
   `minpack.lm::nlsLM()`. Please keep in mind that it does not mean that
-  the fit results make any sense,it just helps to avoid uncontained
+  the fit results make any sense, it just helps to avoid uncontained
   events in the R session (addresses \#381).
 - Option `output.plotExtended.single` has been renamed to
   `plot_singlePanels` (#351, fixed in \#408).
