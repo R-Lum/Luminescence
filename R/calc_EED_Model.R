@@ -49,11 +49,11 @@
 #' @param sample_name [character] (*with default*): name of the sample
 #'
 #' @param method_control [list] (*with default*): additional deep control parameters, parameters
-#' need to be provided as names list, see details
+#' need to be provided as named list, see details
 #'
-#' @param verbose [logical] (with default): enable/disable verbose mode
+#' @param verbose [logical] (*with default*): enable/disable verbose mode
 #'
-#' @param plot [logical] (with default): enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable plot output
 #'
 #' @param ... further parameters that can be passed to better control the plot output. Support arguments
 #' are `xlab`, `xlim`.
@@ -91,7 +91,6 @@
 #'  kappa = NULL,
 #'  sigma_distr = NULL,
 #'  expected_dose = 11.7)
-#'
 #' }
 #'
 #' @md
@@ -111,9 +110,9 @@ calc_EED_Model <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-
-){
-
+) {
+  .set_function_name("calc_EED_Model")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO
   ## add docu examples
@@ -125,31 +124,33 @@ calc_EED_Model <- function(
   ##  - so far the parameter uncertainty estimation does not work nicely.x
   ##  happens to data where this is not observed? I cannot work?
 
-# Integrity tests  ----------------------------------------------------------------------------
-  ##check input data and make it a hard stop
-  if(missing(data) || class(data) != 'data.frame')
-    stop("[calc_EED_Model()] 'data' needs to be a two-column data.frame, see manual!", call. = FALSE)
+  ## Integrity checks -------------------------------------------------------
 
-  if(missing(expected_dose) || !is.numeric(expected_dose))
-    stop("[calc_EED_Model()] 'expected_dose' is either missing or not of type numeric!", call. = FALSE)
-
+  .validate_class(data, "data.frame")
+  .validate_class(expected_dose, "numeric")
+  if (!is.null(MinIndivDose))
+    .validate_class(MinIndivDose, "numeric")
+  if (!is.null(MaxIndivDose))
+    .validate_class(MaxIndivDose, "numeric")
 
   ##store and restore par settings
   par_default <- par(no.readonly = TRUE)
-  on.exit(par(mfrow = par_default$mfrow))
+  on.exit(par(mfrow = par_default$mfrow), add = TRUE)
 
 # Helper functions ----------------------------------------------------------------------------
 
   ##the helper functions base on ode by Pierre, each helper was only a little bit
-  ##optimised and then tested separatly
+  ## optimised and then tested separately
 
   # Calcul de la variance du plateau sur la base des doses arch?o
   # corrig?es de la dose r?siduelle uniquement (modif 31.5.2018)
+  # nocov start
   .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index){
     var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 3]) # doses nettes corrig?es r?siduel uniquement
     mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 3])
     return(var_ratio / (mean_ratio ^ 2))
   }
+  # nocov end
 
   # Calcul de la variance du plateau      modifi? le 31.5.2018
   # sur la base des rapport observ?/simul? des doses totales brutes
@@ -163,11 +164,13 @@ calc_EED_Model <- function(
   # Calcul de la variance du plateau      ajout le 20.8.2018
   # sur la base des doses archeologiques
   # ##TODO not yet included
+  # nocov start
   .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
       var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 6])
       mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 6])
       return (var_ratio / (mean_ratio ^ 2))
     }
+  # nocov end
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
 
@@ -238,16 +241,6 @@ calc_EED_Model <- function(
     return(M_Data)
   }
 
-  .Initial_State_of_OSL <- function(Dosedata, D0, method){
-    SaturationState <-  (1 - exp(-max(Dosedata[, 1]) / D0))
-    if (method == "max") {return(SaturationState)}
-    if( !is.numeric(method)) {return(1)}
-    if (method >1 | method<0)  {return(1)}
-    if (method < SaturationState) {return(SaturationState)}
-    if (method > SaturationState) {return(method)}
-  }
-
-
   # Calcul des incertitudes statistiques liees au tirage des Ndata grains              #
   # calcul incertitude statistique li?e au nombre limit? de grains
   #
@@ -274,18 +267,12 @@ calc_EED_Model <- function(
     if (method == "max") {
       return  (SaturationState)
     }
-    if (!is.numeric(method)) {
+    # nocov start
+    if (!is.numeric(method) || method > 1 || method < 0) {
       return(1)
     }
-    if (method > 1 | method < 0)  {
-      return(1)
-    }
-    if (method < SaturationState) {
-      return (SaturationState)
-    }
-    if (method > SaturationState) {
-      return(method)
-    }
+    return(max(method, SaturationState))
+    # nocov end
   }
 
   # fonction permettant de retourner l'indice de la valeur minimale de la  dose individuelle
@@ -294,10 +281,7 @@ calc_EED_Model <- function(
   .Get_Plateau_MinDoseIndex <- function(M_Data, Ndata, MinIndivDose) {
       if (is.null(MinIndivDose))
         return(1)
-
-      if (!is.numeric(MinIndivDose))
-        stop("[calc_EED_Model()] MinIndivDose must by of type numeric or NULL!", call. = FALSE)
-
+    # nocov start
       current_index <- 1
       while ((MinIndivDose > M_Data[current_index, 9]) &
              (current_index < Ndata)) {
@@ -305,18 +289,15 @@ calc_EED_Model <- function(
       }
 
       return(current_index)
-    }
-
+    # nocov end
+  }
 
   # fonction permettant de retourner l'indice de la valeur maximale de la  dose individuelle
   # prise en compte pour le calcul du plateau
   .Get_Plateau_MaxDoseIndex <- function(M_Data, Ndata, MaxIndivDose) {
     if (is.null(MaxIndivDose))
       return(Ndata)
-
-    if (!is.numeric(MaxIndivDose))
-      stop("[calc_EED_Model()] MaxIndivDose must by of type numeric or NULL!", call. = FALSE)
-
+    # nocov start
         current_index <- 1
         while ((MaxIndivDose > M_Data[current_index, 9]) &
                (current_index < Ndata)) {
@@ -324,6 +305,7 @@ calc_EED_Model <- function(
         }
 
       return(current_index)
+    # nocov end
   }
 
   ## allow automated kapp and sigma_distr parameter estimation
@@ -367,7 +349,6 @@ calc_EED_Model <- function(
                                             MaxDose_Index = set_MaxDose_Index),
         RESIDUAL = sum((M_Data[,6] - rep(set_expected_dose, nrow(M_Data)))^2)
         ))
-
       }
 
     par(mfrow = c(3,3))
@@ -403,7 +384,6 @@ calc_EED_Model <- function(
             M_Data,
             Ndata
           )
-
       }
 
       ##surface interpolation
@@ -417,8 +397,9 @@ calc_EED_Model <- function(
           duplicate = "strip" #does not seem to work
         ), silent = FALSE)
 
-      if(inherits(s, "try-error"))
-        stop("[calc_EED_Model()] Surface interpolation failed, you may want to try it again!", call. = FALSE)
+      if (inherits(s, "try-error")) {
+        .throw_error("Surface interpolation failed, you may want to try it again")
+      }
 
       ##graphical output
       if(plot & method_control$trace_plot){
@@ -446,7 +427,6 @@ calc_EED_Model <- function(
         cat("\n\n variance threshold: ", min(s$z, na.rm = TRUE))
         cat("\n >> kappa: ",   optim_kappa[1], "\u00b1", optim_kappa[2])
         cat("\n >> sigma_distr: ", optim_sigm_distr[1] , "\u00b1", optim_sigm_distr[2])
-
       }
 
         ##reset parameters
@@ -456,7 +436,6 @@ calc_EED_Model <- function(
       if(verbose && method_control$trace){
         cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ", "))
         cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ", "))
-
       }
 
       ##update threshold
@@ -466,7 +445,6 @@ calc_EED_Model <- function(
       ##implement differential break if the search area is already smaller than the area
       if(diff(c(method_control$lower[1], method_control$upper[1])) < 0.1)
          break()
-
     }
 
     return(list(
@@ -475,7 +453,6 @@ calc_EED_Model <- function(
        min_var = test_var,
        expected_dose = m[1,3]
        ))
-
   }
 
 # Input data ----------------------------------------------------------------------------------
@@ -580,7 +557,6 @@ if(is.null(kappa) || is.null(sigma_distr)){
     cat(">> min. variance:", min_var)
     cat("\n>> kappa: ", kappa, " | sigma: ",sigma_distr)
   }
-
 }
 
 # Calculation ---------------------------------------------------------------------------------
@@ -601,8 +577,6 @@ cat("\n------------------------------------ \n")
 cat("\n Maximal Individual Equivalent Dose integrated: ", round(M_Data[index_min_uncert[1],9],2), "Gy")
 cat("\n Averaged Corrected Equivalent Dose: ",
     round(M_Data[index_min_uncert[1],6],2), "\u00b1", round(M_Data[index_min_uncert[1],7],2), "Gy")
-
-
 }
 
 #### THE ONE SHOT : calcule les valeurs de dose moyenne
@@ -749,9 +723,7 @@ if(plot) {
     # tracer les valeurs de la liste classee des doses archeologiques de la matrice de simulation
     # contrainte : ne tracer qu'une partie des points sinon on va passer un temps fou
     # par exemple on veut tracer un nb de points egal a :
-    NbSimPtsDisplayed <- 1000
-    if (NbSimPtsDisplayed > Nsimul)
-      NbSimPtsDisplayed <- Nsimul
+    NbSimPtsDisplayed <- min(Nsimul, 1000)
     XY_psimul <- matrix(nrow = NbSimPtsDisplayed, ncol = 2)
     delta_index <- as.integer(Nsimul / NbSimPtsDisplayed)
     plot_index <- 1
@@ -786,7 +758,6 @@ if(plot) {
      col = "green"
    )
 
-
    ##add legend
    legend(
      "topright",
@@ -799,7 +770,6 @@ if(plot) {
      bty = "n",
      pch = 20,
      col = c("black", "grey", "red", "green"))
-
 
    ##add standard deviation plot
    plot(
@@ -825,5 +795,4 @@ set_RLum(
   info = list(
     call = sys.call()
   ))
-
 }

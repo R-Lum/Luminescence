@@ -51,11 +51,11 @@ contribution from the sampling}
 \item{sample_name}{\link{character} (\emph{with default}): name of the sample}
 
 \item{method_control}{\link{list} (\emph{with default}): additional deep control parameters, parameters
-need to be provided as names list, see details}
+need to be provided as named list, see details}
 
-\item{verbose}{\link{logical} (with default): enable/disable verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable verbose mode}
 
-\item{plot}{\link{logical} (with default): enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
 
 \item{...}{further parameters that can be passed to better control the plot output. Support arguments
 are \code{xlab}, \code{xlim}.}
