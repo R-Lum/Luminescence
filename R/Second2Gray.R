@@ -111,7 +111,7 @@ Second2Gray <- function(
     }
   } else if (inherits(dose.rate, "RLum.Results")) {
 
-    ## check for right orginator
+    ## check for right originator
     if(dose.rate@originator != "calc_SourceDoseRate"){
       .throw_error("Wrong originator for dose.rate 'RLum.Results' object")
     }

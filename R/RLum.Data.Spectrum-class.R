@@ -203,8 +203,8 @@ setMethod("show",
 #'
 #' @param data [`set_RLum`]; [matrix]:
 #' raw curve data. If data is of type `RLum.Data.Spectrum`, this can be used
-#' to re-construct the object. If the object is reconstructed, `.uid`, `.pid` and `orginator`
-#' are always taken from the input object
+#' to re-construct the object. If the object is reconstructed, `.uid`, `.pid`
+#' and `originator` are always taken from the input object
 #'
 #' @param info [`set_RLum`] [list]:
 #' info elements

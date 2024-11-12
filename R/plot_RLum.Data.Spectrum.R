@@ -41,7 +41,7 @@
 #'
 #' **Note:** Further parameters can be adjusted via `par`. For example
 #' to set the background transparent and reduce the thickness of the lines use:
-#' `par(bg = NA, lwd = 0.7)` previous the function call.
+#' `par(bg = NA, lwd = 0.7)` before the function call.
 #'
 #'**`plot.type = "single"`**
 #'
@@ -92,10 +92,10 @@
 #' use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If `par.local = FALSE` global parameters are inherited.
 #'
-#' @param plot.type [character] (*with default*): plot type, for
-#' 3D-plot use `persp`, or `interactive`, for a 2D-plot `image`, `contour`,
+#' @param plot.type [character] (*with default*): for a 3D-plot use `persp`
+#' or `interactive`; for a 2D-plot you can use `image`, `contour`,
 #' `single` or `multiple.lines` (along the time or temperature axis)
-#' or `transect` (along the wavelength axis) \cr
+#' or `transect` (along the wavelength axis)
 #'
 #' @param optical.wavelength.colours [logical] (*with default*):
 #' use optical wavelength colour palette. Note: For this, the spectrum range is
@@ -140,8 +140,8 @@
 #' @param xaxis.energy [logical] (*with default*): enables or disables energy instead of
 #' wavelength axis. For the conversion the function [convert_Wavelength2Energy] is used.
 #'
-#' **Note:** This option means not only simply redrawing the axis,
-#' instead the spectrum in terms of intensity is recalculated, s. details.
+#' **Note:** Besides being used in setting the axis, with this option the
+#' the spectrum is recalculated in terms of intensity, see details.
 #'
 #' @param legend.text [character] (*with default*):
 #' possibility to provide own legend text. This argument is only considered for

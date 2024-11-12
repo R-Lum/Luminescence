@@ -54,8 +54,8 @@ curve type (e.g. "predefined" or "measured")}
 
 \item{data}{\code{\link{set_RLum}}; \link{matrix}:
 raw curve data. If data is of type \code{RLum.Data.Spectrum}, this can be used
-to re-construct the object. If the object is reconstructed, \code{.uid}, \code{.pid} and \code{orginator}
-are always taken from the input object}
+to re-construct the object. If the object is reconstructed, \code{.uid}, \code{.pid}
+and \code{originator} are always taken from the input object}
 
 \item{info}{\code{\link{set_RLum}} \link{list}:
 info elements}

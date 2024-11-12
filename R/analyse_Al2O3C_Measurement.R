@@ -337,7 +337,7 @@ analyse_Al2O3C_Measurement <- function(
 
   }else{
 
-    ##check whether the input is of type RLum.Results and check orignator
+    ## check whether the input is of type RLum.Results and check originator
     if (is(cross_talk_correction, "RLum.Results") &&
         cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
 
