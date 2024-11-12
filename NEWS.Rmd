@@ -10,6 +10,10 @@ header-includes:
 
 ## New functions
 
+* `calc_EED_Model()` models incomplete and heterogeneous bleaching of
+mobile grains after Guibert et al. (2017). Along with the function, the
+new `ExampleData.MortarData` data set was added.
+
 * `fit_DoseResponseCurve()` and `plot_DoseResponseCurve()` are two new
 functions derived from `plot_GrowthCurve()`: the first only performs the
 fitting of a dose-response curve, while the second plots it. This brings

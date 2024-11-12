@@ -5,6 +5,10 @@ create_UID <- function() {
     .Call(`_Luminescence_create_UID`)
 }
 
+src_EED_Calc_Overall_StatUncertainty <- function(M_Simul, Ndata, Nsimul, MinNbSimExp) {
+    .Call(`_Luminescence_src_EED_Calc_Overall_StatUncertainty`, M_Simul, Ndata, Nsimul, MinNbSimExp)
+}
+
 src_analyse_IRSARRF_SRS <- function(values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace = FALSE) {
     .Call(`_Luminescence_analyse_IRSARRF_SRS`, values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace)
 }

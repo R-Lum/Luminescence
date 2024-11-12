@@ -121,6 +121,7 @@ Collate:
     'calc_CobbleDoseRate.R'
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
+    'calc_EED_Model.R'
     'calc_FadingCorr.R'
     'calc_FastRatio.R'
     'calc_FiniteMixture.R'
