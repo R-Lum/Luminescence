@@ -209,7 +209,16 @@ read_BIN2R <- function(
     }
   }
 
-  # Config --------------------------------------------------------------------------------------
+  ## Config -----------------------------------------------------------------
+
+  .validate_class(show.raw.values, "logical")
+  .validate_class(zero_data.rm, "logical")
+  .validate_class(duplicated.rm, "logical")
+  .validate_class(fastForward, "logical")
+  .validate_class(show.record.number, "logical")
+  .validate_class(txtProgressBar, "logical")
+  .validate_class(ignore.RECTYPE, c("logical", "numeric"))
+
   ##set file_link for internet downloads
   url_file <- NULL
   on_exit <- function(){

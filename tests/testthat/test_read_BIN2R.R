@@ -1,6 +1,8 @@
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  bin.v3 <- test_path("_data/BINfile_V3.bin")
+
   expect_error(read_BIN2R(file = "error"),
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_message(expect_null(read_BIN2R(test_path("test_read_BIN2R.R"))),
@@ -10,12 +12,25 @@ test_that("input validation", {
                "BIN/BINX format version (01) is not supported or file is broken",
                fixed = TRUE)
   SW({
-  expect_warning(read_BIN2R(test_path("_data/BINfile_V3.bin"), position = 99),
+  expect_warning(read_BIN2R(bin.v3, position = 99),
                  "At least one position number is not valid")
-  expect_message(read_BIN2R(test_path("_data/BINfile_V3.bin"),
-                            forced.VersionNumber = 3),
+  expect_message(read_BIN2R(bin.v3, forced.VersionNumber = 3),
                  "'forced.VersionNumber' set to 03, but this version")
   })
+
+  ## arguments
+  expect_error(read_BIN2R(bin.v3, show.raw.values = "error"),
+               "'show.raw.values' should be of class 'logical'")
+  expect_error(read_BIN2R(bin.v3, zero_data.rm = list(FALSE)),
+               "'zero_data.rm' should be of class 'logical'")
+  expect_error(read_BIN2R(bin.v3, duplicated.rm = "error"),
+               "'duplicated.rm' should be of class 'logical'")
+  expect_error(read_BIN2R(bin.v3, fastForward = "error"),
+               "'fastForward' should be of class 'logical'")
+  expect_error(read_BIN2R(bin.v3, show.record.number = NULL),
+               "'show.record.number' should be of class 'logical'")
+  expect_error(read_BIN2R(bin.v3, ignore.RECTYPE = "error"),
+               "'ignore.RECTYPE' should be of class 'logical' or 'numeric'")
 
   ## check for broken files
   zero <- tempfile(pattern = "zero", fileext = ".binx")
