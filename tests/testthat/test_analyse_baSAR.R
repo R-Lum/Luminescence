@@ -324,3 +324,20 @@ test_that("Full check of analyse_baSAR function", {
   expect_message(expect_null(analyse_baSAR(object = results2)),
                  "Error: Number of aliquots < 3, NULL returned")
 })
+
+test_that("regression tests", {
+  skip_on_cran()
+
+  ## issue 407
+  SW({
+  expect_warning(expect_s4_class(
+      analyse_baSAR(CWOSL.sub, verbose = FALSE, plot = FALSE,
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = c(1:2),
+                    background.integral = c(80:100),
+                    method_control = list(n.chains = 1, thin = 60),
+                    n.MCMC = 60),
+      "RLum.Results"),
+      "'thin = 60' is too high for 'n.MCMC = 60', reset to 30")
+  })
+})
