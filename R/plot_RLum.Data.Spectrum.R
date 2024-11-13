@@ -272,6 +272,12 @@ plot_RLum.Data.Spectrum <- function(
             "'RLum.Data.Spectrum' object using set_RLum()")
   }
 
+  .validate_args(norm, c("min", "max"), null.ok = TRUE)
+  .validate_args(plot.type, c("contour", "persp", "single", "multiple.lines",
+                              "image", "transect", "interactive"))
+  .validate_positive_scalar(bin.rows, int = TRUE)
+  .validate_positive_scalar(bin.cols, int = TRUE)
+
   ##XSYG
   ##check for curveDescripter
   if("curveDescripter" %in% names(object@info) == TRUE){
@@ -435,7 +441,8 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
-    if(inherits(bg.spectrum, "RLum.Data.Spectrum") || inherits(bg.spectrum, "matrix")){
+    .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"))
+
       ##case RLum
       if(inherits(bg.spectrum, "RLum.Data.Spectrum")) bg.xyz <- bg.spectrum@data
 
@@ -465,10 +472,6 @@ plot_RLum.Data.Spectrum <- function(
       ##reduce for xlim
       bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
                              as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
-
-    }else{
-      .throw_error("Input for 'bg.spectrum' not supported")
-    }
   }
 
   # Background subtraction ---------------------------------------------------
@@ -504,14 +507,7 @@ plot_RLum.Data.Spectrum <- function(
     }
   }
 
-  # Channel binning ---------------------------------------------------------
-  ##rewrite arguments; makes things easier
-  bin.cols <- bin.cols[1]
-  bin.rows <- bin.rows[1]
-
-  ##fatal check (not needed anymore, but never change running code)
-  if(bin.cols < 1 | bin.rows < 1)
-    .throw_error("'bin.cols' and 'bin.rows' have to be > 1!")
+  ## Channel binning --------------------------------------------------------
 
   if(bin.rows > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.rows, bin_col = FALSE, names = "mean")
@@ -531,6 +527,7 @@ plot_RLum.Data.Spectrum <- function(
   if(bin.cols > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.cols, bin_col = TRUE, names = "groups")
     y <- as.numeric(colnames(temp.xyz))
+
     ##remove last channel (this is the channel that included less data)
     if (length(y) %% bin.cols != 0 && length(y) > bin.cols) {
       .throw_warning(length(y) %% bin.cols,
@@ -659,12 +656,6 @@ if(plot){
     plot.type <- "single"
     .throw_warning("Single column matrix: plot.type has been automatically ",
                    "reset to 'single'")
-  }
-
-  ##do not let old code break down ...
-  if(plot.type == "persp3d"){
-    plot.type <- "interactive"
-    .throw_warning("'plot.type' has been automatically reset to interactive")
   }
 
   if (plot.type == "persp" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
@@ -825,13 +816,11 @@ if(plot){
          scene = list(
            xaxis = list(
              title = ylab
-
            ),
            yaxis = list(
              title = xlab
            ),
            zaxis = list(title = zlab)
-
          ),
          title = main
        )
@@ -861,13 +850,13 @@ if(plot){
             xlab = xlab,
             ylab = ylab,
             main = main,
-            col = if(is.null(list(...)$col)) grDevices::hcl.colors(50, palette = "Inferno") else
-              list(...)$col
+            col = if(is.null(extraArgs$col)) grDevices::hcl.colors(50, palette = "Inferno") else
+              extraArgs$col
     )
 
-    if(is.null(list(...)$contour) || list(...)$contour != FALSE) {
+    if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
       contour(x, y, temp.xyz,
-              col = if(is.null(list(...)$contour.col)) rgb(1,1,1,0.8) else list(...)$contour.col,
+              col = if(is.null(extraArgs$contour.col)) rgb(1,1,1,0.8) else extraArgs$contour.col,
               labcex = 0.6 * cex,
               add = TRUE)
     }
@@ -947,7 +936,6 @@ if(plot){
 
       ## add box if needed
       if(box) graphics::box()
-
     }
 
     ##plot additional mtext
@@ -1099,5 +1087,4 @@ attr(temp.xyz, "pmat") <- pmat
 
 ## return visible or not
 if(plot) invisible(temp.xyz) else return(temp.xyz)
-
 }
