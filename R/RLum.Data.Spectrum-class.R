@@ -13,7 +13,8 @@ NULL
 #' Object of class [character] containing the type of the curve (e.g. "TL" or "OSL")
 #'
 #' @slot curveType
-#' Object of class [character] containing curve type, allowed values are measured or predefined
+#' Object of class [character] containing curve type, allowed values are
+#' "measured" or "predefined"
 #'
 #' @slot data
 #' Object of class [matrix] containing spectrum (count) values.
@@ -75,8 +76,7 @@ setClass(
 )
 
 
-
-# as() -----------------------------------------------------------------------------------------
+## as() ---------------------------------------------------------------------
 ##data.frame
 ##COERCE RLum.Data.Spectrum >> data.frame AND data.frame >> RLum.Data.Spectrum
 #' as()
@@ -143,7 +143,7 @@ setAs("RLum.Data.Spectrum", "list",
         apply(from@data, 2, list)
       })
 
-# show() -------------------------------------------------------------------------------------
+## show() -------------------------------------------------------------------
 #' @describeIn RLum.Data.Spectrum
 #' Show structure of `RLum.Data.Spectrum` object
 #'
@@ -176,11 +176,10 @@ setMethod("show",
 )
 
 
-
-# set_RLum() ----------------------------------------------------------------------------------
+## set_RLum() ---------------------------------------------------------------
 #' @describeIn RLum.Data.Spectrum
-#' Construction method for RLum.Data.Spectrum object. The slot info is optional
-#' and predefined as empty list by default
+#' Construction method for RLum.Data.Spectrum object. The `info` slot is
+#' optional and by default it is set to an empty list
 #'
 #' @param class [`set_RLum`]; [character] (*automatic*):
 #' name of the `RLum` class to create.
@@ -249,7 +248,6 @@ setMethod(
       if (missing(info))
         info <- data@info
 
-
       ##check for missing .uid and .pid >> this are always taken from the
       ##original dataset
 
@@ -265,7 +263,6 @@ setMethod(
       newRLumDataSpectrum@.uid = data@.uid
       newRLumDataSpectrum@.pid = data@.pid
 
-
     } else {
       ##set empty class from object
       newRLumDataSpectrum <- new("RLum.Data.Spectrum")
@@ -278,7 +275,6 @@ setMethod(
       newRLumDataSpectrum@info = info
       newRLumDataSpectrum@.uid = .uid
       newRLumDataSpectrum@.pid = .pid
-
     }
 
     return(newRLumDataSpectrum)
@@ -287,18 +283,16 @@ setMethod(
 )
 
 
-
-# get_RLum() ----------------------------------------------------------------------------------
+## get_RLum() ---------------------------------------------------------------
 #' @describeIn RLum.Data.Spectrum
-#' Accessor method for RLum.Data.Spectrum object. The argument info.object
-#' is optional to directly access the info elements. If no info element name
-#' is provided, the raw curve data (matrix) will be returned
+#' Accessor method for `RLum.Data.Spectrum` object.
 #'
 #' @param object [`get_RLum`], [`names_RLum`] (**required**):
 #' an object of class [RLum.Data.Spectrum-class]
 #'
 #' @param info.object [`get_RLum`]; [character] (*optional*):
-#' the name of the info object to be called
+#' the name of the info object to be called. If no info element name
+#' is provided, the raw curve data (matrix) will be returned
 #'
 #' @return
 #'
@@ -330,7 +324,7 @@ setMethod("get_RLum",
           })
 
 
-# names() -------------------------------------------------------------------------------------
+## names() ------------------------------------------------------------------
 #' @describeIn RLum.Data.Spectrum
 #' Returns the names info elements coming along with this curve object
 #'
@@ -349,7 +343,7 @@ setMethod("names_RLum",
           })
 
 
-# bin_RLum() ----------------------------------------------------------------------------------#
+## bin_RLum() ---------------------------------------------------------------
 #' @describeIn RLum.Data.Spectrum
 #' Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
 #' for wavelength/energy values the mean is calculated.

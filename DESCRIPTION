@@ -172,6 +172,7 @@ Collate:
     'internals_Thermochronometry.R'
     'merge_RLum.Analysis.R'
     'merge_RLum.Data.Curve.R'
+    'merge_RLum.Data.Spectrum.R'
     'merge_RLum.R'
     'merge_RLum.Results.R'
     'merge_Risoe.BINfileData.R'

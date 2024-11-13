@@ -132,8 +132,7 @@ test_that("Test various S3 methods", {
   expect_s3_class(as.data.frame(spectrum), "data.frame")
   expect_vector(as.matrix(spectrum))
   expect_equal(is(spectrum), c("RLum.Data.Spectrum", "RLum.Data", "RLum"))
-  expect_error(merge(spectrum, spectrum),
-               "Merging of 'RLum.Data.Spectrum' objects is currently not supported")
+  expect_s4_class(merge(spectrum, spectrum), "RLum.Data.Spectrum")
   expect_vector(spectrum[1])
   expect_true(is.RLum(spectrum))
   expect_true(is.RLum.Data(spectrum))

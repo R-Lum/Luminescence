@@ -155,7 +155,8 @@ in combination with other packages such as \code{ggplot2}.
 \describe{
 \item{\code{recordType}}{Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")}
 
-\item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
+\item{\code{curveType}}{Object of class "character" containing curve type, allowed values are
+"measured" or "predefined"}
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
@@ -167,8 +168,8 @@ de-constructing the object. For example:
 }\if{html}{\out{</div>}}
 
 would just change the \code{recordType}. Missing arguments  the value is taken
-from the input object in 'data' (which is already an RLum.Data.Curve object
-in this example)}
+from the input object in 'data' (which is already an \code{RLum.Data.Curve}
+object in this example)}
 }}
 
 \note{

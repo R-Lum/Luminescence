@@ -13,7 +13,8 @@ NULL
 #' Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")
 #'
 #' @slot curveType
-#' Object of class "character" containing curve type, allowed values are measured or predefined
+#' Object of class "character" containing curve type, allowed values are
+#' "measured" or "predefined"
 #'
 #' @slot data
 #' Object of class [matrix] containing curve x and y data.
@@ -25,8 +26,8 @@ NULL
 #'          recordType = 'never seen before')
 #' ```
 #' would just change the `recordType`. Missing arguments  the value is taken
-#' from the input object in 'data' (which is already an RLum.Data.Curve object
-#' in this example)
+#' from the input object in 'data' (which is already an `RLum.Data.Curve`
+#' object in this example)
 #'
 #'
 #' @note

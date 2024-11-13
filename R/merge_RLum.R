@@ -94,7 +94,7 @@ merge_RLum<- function(
       switch (
         objects.class,
         RLum.Data.Image = .throw_error("Merging of 'RLum.Data.Image' objects is currently not supported"),
-        RLum.Data.Spectrum = .throw_error("Merging of 'RLum.Data.Spectrum' objects is currently not supported"),
+        RLum.Data.Spectrum = merge_RLum.Data.Spectrum(objects, ...),
         RLum.Data.Curve = merge_RLum.Data.Curve(objects, ...),
         RLum.Analysis = merge_RLum.Analysis(objects, ...),
         RLum.Results = merge_RLum.Results(objects, ...)

@@ -56,9 +56,13 @@
 \alias{merge.RLum}
 \alias{unlist.RLum.Analysis}
 \alias{+.RLum.Data.Curve}
+\alias{+.RLum.Data.Spectrum}
 \alias{-.RLum.Data.Curve}
+\alias{-.RLum.Data.Spectrum}
 \alias{*.RLum.Data.Curve}
+\alias{*.RLum.Data.Spectrum}
 \alias{/.RLum.Data.Curve}
+\alias{/.RLum.Data.Spectrum}
 \alias{[.RLum.Data.Curve}
 \alias{[.RLum.Data.Spectrum}
 \alias{[.RLum.Data.Image}
@@ -180,11 +184,19 @@ is.RLum.Results(x, ...)
 
 \method{+}{RLum.Data.Curve}(x, y)
 
+\method{+}{RLum.Data.Spectrum}(x, y)
+
 \method{-}{RLum.Data.Curve}(x, y)
+
+\method{-}{RLum.Data.Spectrum}(x, y)
 
 \method{*}{RLum.Data.Curve}(x, y)
 
+\method{*}{RLum.Data.Spectrum}(x, y)
+
 \method{/}{RLum.Data.Curve}(x, y)
+
+\method{/}{RLum.Data.Spectrum}(x, y)
 
 \method{[}{RLum.Data.Curve}(x, y, z, drop = TRUE)
 

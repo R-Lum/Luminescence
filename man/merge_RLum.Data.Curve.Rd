@@ -8,7 +8,7 @@ merge_RLum.Data.Curve(object, merge.method = "mean", method.info)
 }
 \arguments{
 \item{object}{\link{list} of \linkS4class{RLum.Data.Curve} (\strong{required}):
-list of S4 objects of class \code{RLum.Curve}.}
+list of objects to be merged.}
 
 \item{merge.method}{\link{character} (\strong{required}):
 method for combining of the objects, e.g. \code{'mean'} (default), \code{'median'},
@@ -26,14 +26,12 @@ If nothing is provided all elements are combined.}
 Returns an \linkS4class{RLum.Data.Curve} object.
 }
 \description{
-Function allows merging of RLum.Data.Curve objects in different ways
+This function allows to merge \linkS4class{RLum.Data.Curve} objects in different
+ways without modifying the original objects. Merging is always applied on
+the 2nd column of the object's data matrix.
 }
 \details{
-This function simply allowing to merge \linkS4class{RLum.Data.Curve}
-objects without touching the objects itself. Merging is always applied on
-the 2nd column of the data matrix of the object.
-
-\strong{Supported merge operations are \linkS4class{RLum.Data.Curve}}
+\strong{Supported merge operations are:}
 
 \code{"mean"} (default)
 
@@ -89,7 +87,7 @@ Values of the first object are divided by row sums of the last objects.
 }
 \note{
 The information from the slot \code{recordType} is taken from the first
-\linkS4class{RLum.Data.Curve} object in the input list. The slot
+object in the input list. The slot
 'curveType' is filled with the name \code{merged}.
 }
 \section{S3-generic support}{
@@ -104,7 +102,6 @@ This function is fully operational via S3-generics:
 }
 
 \examples{
-
 
 ##load example data
 data(ExampleData.XSYG, envir = environment())
