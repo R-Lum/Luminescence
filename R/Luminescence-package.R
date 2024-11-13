@@ -1,6 +1,4 @@
 #' @title Comprehensive Luminescence Dating Data Analysis\cr
-#'
-#'
 #' \if{html}{
 #' \figure{Luminescence_logo.png}{options: width="75" alt="r-luminescence.org"}
 #' }
