@@ -6,11 +6,15 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Spectrum("error"),
                "'object' should be of class 'RLum.Data.Spectrum' or 'matrix'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "error"),
-               "Unknown plot type")
+               "'plot.type' should be one of 'contour', 'persp', 'single'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, norm = "error"),
+               "'norm' should be one of 'min', 'max' or NULL")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
-               "Input for 'bg.spectrum' not supported")
+               "'bg.spectrum' should be of class 'RLum.Data.Spectrum' or 'matrix'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.rows = 1.7),
+               "'bin.rows' should be a positive integer scalar")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
-               "'bin.cols' and 'bin.rows' have to be > 1")
+               "'bin.cols' should be a positive integer scalar")
 
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, xlim = c(0, 100)),
       "No data left after applying 'xlim' and 'ylim'")
@@ -27,7 +31,6 @@ test_that("check functionality", {
     ##RLum.Data.Spectrum -------
     m <- TL.Spectrum@data
     bg.spectrum <- set_RLum(class = "RLum.Data.Spectrum", data = TL.Spectrum@data[,15:16, drop = FALSE])
-
 
     ##try a matrix as input
     expect_message(plot_RLum.Data.Spectrum(object = m),
@@ -302,8 +305,8 @@ test_that("regression tests", {
   expect_silent(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       bin.rows = 600))
-  expect_error(plot_RLum.Data.Spectrum(
+  expect_message(expect_null(plot_RLum.Data.Spectrum(
       TL.Spectrum,
-      bin.rows = 2000),
-      "Unknown plot type") # FIXME(mcol): it should do nothing instead
+      bin.rows = 2000)),
+      "Insufficient data for plotting, NULL returned")
 })
