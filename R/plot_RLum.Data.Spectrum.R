@@ -658,7 +658,13 @@ if(plot){
                    "reset to 'single'")
   }
 
-  if (plot.type == "persp" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
+  if (nrow(temp.xyz) == 1 && plot.type != "single") {
+    message("[plot_RLum.Data.Spectrum()] Insufficient data for plotting, ",
+            "NULL returned")
+    return(NULL)
+  }
+
+  if (plot.type == "persp") {
 
     ## Plot: perspective plot ----
     ## ==========================================================================#
@@ -791,7 +797,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex * 0.8)
 
-  } else if (plot.type == "interactive" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "interactive") {
     ## ==========================================================================#
     ##interactive plot and former persp3d
     ## ==========================================================================#
@@ -829,7 +835,7 @@ if(plot){
        on.exit(return(p), add = TRUE)
 
 
-  } else if (plot.type == "contour" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "contour") {
     ## Plot: contour plot ----
     ## ==========================================================================#
     contour(x,y,temp.xyz,
@@ -843,7 +849,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-  } else if (plot.type == "image" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "image") {
     ## Plot: image plot ----
     ## ==========================================================================#
     graphics::image(x,y,temp.xyz,
@@ -941,7 +947,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-  } else if (plot.type == "multiple.lines" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "multiple.lines") {
     ## Plot: multiple.lines ----
     ## ========================================================================#
     col.rug <- col
@@ -1043,7 +1049,7 @@ if(plot){
     par(par.default)
     rm(par.default)
 
-  } else if (plot.type == "transect" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "transect") {
     ## Plot: transect plot ----
     ## ========================================================================#
 
@@ -1072,12 +1078,7 @@ if(plot){
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
-
-  }else{
-    .throw_error("Unknown plot type")
- }
-
-## option for plotting nothing
+  }
 }
 
 # Return ------------------------------------------------------------------
