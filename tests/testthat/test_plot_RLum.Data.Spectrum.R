@@ -302,4 +302,8 @@ test_that("regression tests", {
   expect_silent(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       bin.rows = 600))
+  expect_error(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      bin.rows = 2000),
+      "Unknown plot type") # FIXME(mcol): it should do nothing instead
 })

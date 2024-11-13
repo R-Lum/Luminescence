@@ -667,7 +667,7 @@ if(plot){
     .throw_warning("'plot.type' has been automatically reset to interactive")
   }
 
-  if(plot.type == "persp" && ncol(temp.xyz) > 1){
+  if (plot.type == "persp" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
 
     ## Plot: perspective plot ----
     ## ==========================================================================#
@@ -800,7 +800,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex * 0.8)
 
-  }else if(plot.type == "interactive" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "interactive" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## ==========================================================================#
     ##interactive plot and former persp3d
     ## ==========================================================================#
@@ -840,7 +840,7 @@ if(plot){
        on.exit(return(p), add = TRUE)
 
 
-  }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "contour" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: contour plot ----
     ## ==========================================================================#
     contour(x,y,temp.xyz,
@@ -854,7 +854,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-  }else if(plot.type == "image" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "image" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: image plot ----
     ## ==========================================================================#
     graphics::image(x,y,temp.xyz,
@@ -953,7 +953,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-  }else if(plot.type == "multiple.lines" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "multiple.lines" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: multiple.lines ----
     ## ========================================================================#
     col.rug <- col
@@ -1055,7 +1055,7 @@ if(plot){
     par(par.default)
     rm(par.default)
 
-  }else if(plot.type == "transect" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "transect" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: transect plot ----
     ## ========================================================================#
 
