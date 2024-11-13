@@ -1,8 +1,9 @@
 ## load example data
 data(ExampleData.XSYG, envir = environment())
 
-TL.curves <- get_RLum(OSL.SARMeasurement$Sequence.Object,
-                      recordType = "TL (UVVIS)")
+## RLum.Data.Curve
+TL.curves  <- get_RLum(OSL.SARMeasurement$Sequence.Object,
+                       recordType = "TL (UVVIS)")
 TL.curve.1 <- TL.curves[[1]]
 TL.curve.3 <- TL.curves[[3]]
 TL.curve.3_short <- TL.curves[[3]]
@@ -17,7 +18,6 @@ TL.curve.3_zeros@data[10:12, 2] <- 0
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##check for error
   expect_error(merge_RLum.Data.Curve("", merge.method = "/"),
                "All elements of 'object' should be of class 'RLum.Data.Curve'")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
@@ -26,13 +26,13 @@ test_that("input validation", {
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_types)),
                "Only similar record types are supported")
 
-  ## check warning for different curve lengths
+  ## different curve lengths
   expect_warning(res <- merge_RLum.Data.Curve(list(TL.curve.1,
                                                    TL.curve.3_short)),
-                 "The number of channels between the curves differs")
+                 "The number of channels differs between the curves")
   expect_equal(nrow(res@data), nrow(TL.curve.3_short@data))
 
-  ##check error for different resolution
+  ## different resolution
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_resol)),
                "The objects do not seem to have the same channel resolution")
 })
@@ -42,8 +42,10 @@ test_that("check functionality", {
 
   expect_s4_class(TL.curve.1 + TL.curve.3, "RLum.Data.Curve")
   expect_s4_class(TL.curve.1 - TL.curve.3, "RLum.Data.Curve")
-  expect_s4_class(suppressWarnings(TL.curve.3 / TL.curve.1), "RLum.Data.Curve")
-  expect_warning(TL.curve.3 / TL.curve.1)
+  suppressWarnings( # silence repeated warning
+  expect_warning(expect_s4_class(TL.curve.3 / TL.curve.1,
+                                 "RLum.Data.Curve"),
+                 "8 'inf' values have been replaced by 0 in the matrix"))
   expect_s4_class(TL.curve.1 * TL.curve.3, "RLum.Data.Curve")
 })
 

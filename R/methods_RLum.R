@@ -91,9 +91,9 @@
 #' @name methods_RLum
 NULL
 
-####################################################################################################
+#############################################################################
 # methods for generic: plot()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @method plot list
 #' @export
@@ -107,7 +107,6 @@ plot.list <- function(x, y, ...) {
     plot.default(x, y, ...)
   }
 }
-
 
 #' @rdname methods_RLum
 #' @method plot RLum.Results
@@ -139,9 +138,8 @@ plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 #' @export
 plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(data = x, ...)
 
-####################################################################################################
+#############################################################################
 # methods for generic: hist()
-# ##################################################################################################
 
 #' @rdname methods_RLum
 #' @export
@@ -160,10 +158,9 @@ hist.RLum.Data.Curve <- function(x, ...) hist(as(get_RLum(x),"matrix")[,2])
 hist.RLum.Analysis <- function(x, ...) lapply(1:length_RLum(x), function(z){
   hist(as(get_RLum(x, record.id = z, ...),"matrix")[,2])})
 
-####################################################################################################
+#############################################################################
 # methods for generic: summary()
-# ##################################################################################################
-# methods for generic: summary()
+
 #' @rdname methods_RLum
 #' @method summary RLum.Results
 #' @export
@@ -186,9 +183,9 @@ summary.RLum.Data.Image <- function(object, ...) summary(object@data)
 #' @export
 summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 
-####################################################################################################
+#############################################################################
 # methods for generic: subset()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @method subset Risoe.BINfileData
 #'
@@ -238,10 +235,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 subset.RLum.Analysis <- function(x, subset = NULL, ...) {
   do.call(get_RLum, list(object = x, drop = FALSE, subset = substitute(subset), env = parent.frame())) }
 
-
-####################################################################################################
+#############################################################################
 # methods for generic: bin()
-# ##################################################################################################
 
 #' @rdname methods_RLum
 #' @export
@@ -259,9 +254,9 @@ bin.RLum.Data.Spectrum <- function(x, bin_size.row = 1, bin_size.col = 1, ...){
   bin_RLum.Data(x, bin_size.row = bin_size.row, bin_size.col = bin_size.col)
 }
 
-####################################################################################################
+#############################################################################
 # methods for generic: length()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 length.RLum.Results <- function(x, ...) length_RLum(x)
@@ -278,10 +273,9 @@ length.RLum.Data.Curve <- function(x, ...) length_RLum(x)
 #' @export
 length.Risoe.BINfileData <- function(x, ...) length(x@METADATA$ID)
 
-####################################################################################################
+#############################################################################
 # methods for generic: dim()
-# ##################################################################################################
-# methods for generic: dim()
+
 #' @rdname methods_RLum
 #' @export
 dim.RLum.Data.Curve <- function(x) dim(as(x, "matrix"))
@@ -290,16 +284,16 @@ dim.RLum.Data.Curve <- function(x) dim(as(x, "matrix"))
 #' @export
 dim.RLum.Data.Spectrum <- function(x) dim(as(x, "matrix"))
 
-####################################################################################################
+#############################################################################
 # methods for generic: rep()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 rep.RLum <- function(x, ...) replicate_RLum(x, ...)
 
-####################################################################################################
+#############################################################################
 # methods for generic: names()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 names.RLum.Data.Curve <- function(x, ...) names_RLum(x)
@@ -324,16 +318,16 @@ names.RLum.Results <- function(x, ...) names_RLum(x)
 #' @export
 names.Risoe.BINfileData <- function(x)  as.character(x@METADATA$LTYPE)
 
-####################################################################################################
+#############################################################################
 # methods for generic: row.name()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 row.names.RLum.Data.Spectrum <- function(x, ...) rownames(as(x, "matrix"))
 
-####################################################################################################
+#############################################################################
 # methods for generic: as.data.frame()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 as.data.frame.RLum.Data.Curve <- function(x, row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
@@ -360,10 +354,9 @@ as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FAL
   cbind(x@METADATA, as.data.frame(m))
 }
 
-
-####################################################################################################
+#############################################################################
 # methods for generic: as.list()
-# ##################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 as.list.RLum.Results <- function(x, ...) as(x, "list")
@@ -380,9 +373,8 @@ as.list.RLum.Data.Image <- function(x, ...) as(x, "list")
 #' @export
 as.list.RLum.Analysis <- function(x, ...) as(x, "list")
 
-####################################################################################################
+#############################################################################
 # methods for generic: as.matrix()
-# ##################################################################################################
 #' @rdname methods_RLum
 #' @export
 as.matrix.RLum.Data.Curve <- function(x, ...) as(x, "matrix")
@@ -396,9 +388,9 @@ as.matrix.RLum.Data.Spectrum <- function(x, ...) as(x, "matrix")
 as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
 # for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
-####################################################################################################
+#############################################################################
 # methods for generic: is()
-####################################################################################################
+
 #For this function no S4 method was written, as this would come at the cost of performance and
 #is totally unnecessary
 
@@ -430,16 +422,16 @@ is.RLum.Analysis <- function(x, ...) is(x, "RLum.Analysis")
 #' @export
 is.RLum.Results <- function(x, ...) is(x, "RLum.Results")
 
-####################################################################################################
+#############################################################################
 # methods for generic: merge()
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y)))
 
-####################################################################################################
+#############################################################################
 # methods for generic: unlist()
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @method unlist RLum.Analysis
 #' @export
@@ -456,9 +448,9 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
   }
 }
 
-####################################################################################################
+#############################################################################
 # methods for generic: `+`
-####################################################################################################
+
 #' @rdname methods_RLum
 #'
 #' @examples
@@ -474,30 +466,46 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 #' @export
 `+.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
 
-####################################################################################################
+#' @rdname methods_RLum
+#' @export
+`+.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
+
+#############################################################################
 # methods for generic: `-`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `-.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
 
-####################################################################################################
+#' @rdname methods_RLum
+#' @export
+`-.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
+
+#############################################################################
 # methods for generic: `*`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `*.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
 
-####################################################################################################
+#' @rdname methods_RLum
+#' @export
+`*.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
+
+#############################################################################
 # methods for generic: `/`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `/.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
 
-####################################################################################################
+#' @rdname methods_RLum
+#' @export
+`/.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
+
+#############################################################################
 # methods for generic: `[`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `[.RLum.Data.Curve` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
@@ -526,9 +534,9 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `[.RLum.Results` <- function(x, i, drop = TRUE) {get_RLum(x, data.object = i, drop = drop)}
 
 
-####################################################################################################
+#############################################################################
 # methods for generic: `[<-`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `[<-.RLum.Data.Curve` <- function(x, i, j, value){
@@ -536,9 +544,9 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
   return(x)
 }
 
-####################################################################################################
+#############################################################################
 # methods for generic: `[[`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `[[.RLum.Analysis` <- function(x, i) {
@@ -555,9 +563,9 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 #' @export
 `[[.RLum.Results` <- function(x, i) {get_RLum(x, data.object = i)}
 
-####################################################################################################
+#############################################################################
 # methods for generic: `$`
-####################################################################################################
+
 #' @rdname methods_RLum
 #' @export
 `$.RLum.Data.Curve` <- function(x, i) {get_RLum(x, info.object = i)}

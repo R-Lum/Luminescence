@@ -61,7 +61,8 @@ and \code{originator} are always taken from the input object}
 info elements}
 
 \item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
-the name of the info object to be called}
+the name of the info object to be called. If no info element name
+is provided, the raw curve data (matrix) will be returned}
 
 \item{bin_size.col}{\link{integer} (\emph{with default}):
 set number of channels used for each bin, e.g. \code{bin_size.col = 2} means that
@@ -99,12 +100,10 @@ Class for representing luminescence spectra data (TL/OSL/RF).
 \itemize{
 \item \code{show(RLum.Data.Spectrum)}: Show structure of \code{RLum.Data.Spectrum} object
 
-\item \code{set_RLum(RLum.Data.Spectrum)}: Construction method for RLum.Data.Spectrum object. The slot info is optional
-and predefined as empty list by default
+\item \code{set_RLum(RLum.Data.Spectrum)}: Construction method for RLum.Data.Spectrum object. The \code{info} slot is
+optional and by default it is set to an empty list
 
-\item \code{get_RLum(RLum.Data.Spectrum)}: Accessor method for RLum.Data.Spectrum object. The argument info.object
-is optional to directly access the info elements. If no info element name
-is provided, the raw curve data (matrix) will be returned
+\item \code{get_RLum(RLum.Data.Spectrum)}: Accessor method for \code{RLum.Data.Spectrum} object.
 
 \item \code{names_RLum(RLum.Data.Spectrum)}: Returns the names info elements coming along with this curve object
 
@@ -117,7 +116,8 @@ for wavelength/energy values the mean is calculated.
 \describe{
 \item{\code{recordType}}{Object of class \link{character} containing the type of the curve (e.g. "TL" or "OSL")}
 
-\item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values are measured or predefined}
+\item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values are
+"measured" or "predefined"}
 
 \item{\code{data}}{Object of class \link{matrix} containing spectrum (count) values.
 Row labels indicate wavelength/pixel values, column labels are temperature or time values.}

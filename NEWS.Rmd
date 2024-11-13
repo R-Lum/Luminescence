@@ -24,6 +24,9 @@ fitting (#141, fixed in #318).
 used for instance in combination with `'ggplot2'`. Works only on `RLum.Data.Curve-class`
 and `RLum.Analysis-class` objects and lists of such objects.
 
+* `merge_RLum.Data.Spectrum()`: This new function allows to merge two or
+more `RLum.Data.Spectrum` objects in different ways (#368, fixed in #419).
+
 ## Breaking changes
 * We have dropped our dependency on the `readxl` package: functions
 `analyse_baSAR()` and `use_DRAC()` now do not accept XLS files anymore but
