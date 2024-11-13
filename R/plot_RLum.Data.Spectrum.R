@@ -414,13 +414,17 @@ plot_RLum.Data.Spectrum <- function(
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
-    ##reduce for xlim
-    temp.xyz <- temp.xyz[as.numeric(rownames(temp.xyz)) >= xlim[1] &
-                           as.numeric(rownames(temp.xyz)) <= xlim[2],]
 
-    ##reduce for ylim
-    temp.xyz <- temp.xyz[, as.numeric(colnames(temp.xyz)) >= ylim[1] &
-                           as.numeric(colnames(temp.xyz)) <= ylim[2]]
+    x.vals <- as.numeric(rownames(temp.xyz))
+    y.vals <- as.numeric(colnames(temp.xyz))
+
+    ## limit the data according to xlim and ylim
+    temp.xyz <- temp.xyz[x.vals >= xlim[1] & x.vals <= xlim[2],
+                         y.vals >= ylim[1] & y.vals <= ylim[2],
+                         drop = FALSE]
+    if (nrow(temp.xyz) == 0 || ncol(temp.xyz) == 0) {
+      .throw_error("No data left after applying 'xlim' and 'ylim'")
+    }
   }
 
   ## wavelength

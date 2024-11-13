@@ -12,6 +12,11 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
                "'bin.cols' and 'bin.rows' have to be > 1")
 
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, xlim = c(0, 100)),
+      "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = c(5, 10)),
+      "No data left after applying 'xlim' and 'ylim'")
+
   expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = -2),
                  "'bg.channels' out of range")
 })
