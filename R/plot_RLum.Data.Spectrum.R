@@ -414,13 +414,17 @@ plot_RLum.Data.Spectrum <- function(
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
-    ##reduce for xlim
-    temp.xyz <- temp.xyz[as.numeric(rownames(temp.xyz)) >= xlim[1] &
-                           as.numeric(rownames(temp.xyz)) <= xlim[2],]
 
-    ##reduce for ylim
-    temp.xyz <- temp.xyz[, as.numeric(colnames(temp.xyz)) >= ylim[1] &
-                           as.numeric(colnames(temp.xyz)) <= ylim[2]]
+    x.vals <- as.numeric(rownames(temp.xyz))
+    y.vals <- as.numeric(colnames(temp.xyz))
+
+    ## limit the data according to xlim and ylim
+    temp.xyz <- temp.xyz[x.vals >= xlim[1] & x.vals <= xlim[2],
+                         y.vals >= ylim[1] & y.vals <= ylim[2],
+                         drop = FALSE]
+    if (nrow(temp.xyz) == 0 || ncol(temp.xyz) == 0) {
+      .throw_error("No data left after applying 'xlim' and 'ylim'")
+    }
   }
 
   ## wavelength
@@ -514,7 +518,7 @@ plot_RLum.Data.Spectrum <- function(
     x <- as.numeric(rownames(temp.xyz))
 
     ##remove last channel (this is the channel that included less data)
-    if(length(x)%%bin.rows != 0){
+    if (length(x) %% bin.rows != 0 && length(x) > bin.rows) {
       .throw_warning(length(x) %% bin.rows,
                      " channels removed due to row (wavelength) binning")
 
@@ -527,9 +531,8 @@ plot_RLum.Data.Spectrum <- function(
   if(bin.cols > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.cols, bin_col = TRUE, names = "groups")
     y <- as.numeric(colnames(temp.xyz))
-
     ##remove last channel (this is the channel that included less data)
-    if(length(y)%%bin.cols != 0){
+    if (length(y) %% bin.cols != 0 && length(y) > bin.cols) {
       .throw_warning(length(y) %% bin.cols,
                      " channels removed due to column (frame) binning")
 
@@ -548,7 +551,6 @@ plot_RLum.Data.Spectrum <- function(
     }
 
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
-
   }
 
   # Normalise if wanted -------------------------------------------------------------------------
@@ -665,7 +667,7 @@ if(plot){
     .throw_warning("'plot.type' has been automatically reset to interactive")
   }
 
-  if(plot.type == "persp" && ncol(temp.xyz) > 1){
+  if (plot.type == "persp" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
 
     ## Plot: perspective plot ----
     ## ==========================================================================#
@@ -798,7 +800,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex * 0.8)
 
-  }else if(plot.type == "interactive" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "interactive" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## ==========================================================================#
     ##interactive plot and former persp3d
     ## ==========================================================================#
@@ -838,7 +840,7 @@ if(plot){
        on.exit(return(p), add = TRUE)
 
 
-  }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "contour" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: contour plot ----
     ## ==========================================================================#
     contour(x,y,temp.xyz,
@@ -852,7 +854,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-  }else if(plot.type == "image" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "image" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: image plot ----
     ## ==========================================================================#
     graphics::image(x,y,temp.xyz,
@@ -951,7 +953,7 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-  }else if(plot.type == "multiple.lines" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "multiple.lines" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: multiple.lines ----
     ## ========================================================================#
     col.rug <- col
@@ -1053,7 +1055,7 @@ if(plot){
     par(par.default)
     rm(par.default)
 
-  }else if(plot.type == "transect" && ncol(temp.xyz) > 1) {
+  } else if (plot.type == "transect" && nrow(temp.xyz) > 1 && ncol(temp.xyz) > 1) {
     ## Plot: transect plot ----
     ## ========================================================================#
 
