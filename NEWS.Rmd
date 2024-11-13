@@ -173,6 +173,8 @@ fixed in #263).
 * The gradient between colours when `plot.type = "persp"` is now more
 consistent and doesn't produce artefacts in the regions of transition
 between colours (#371, fixed in #380).
+* The function would crash if the `bin.rows` or `bin.cols` value was set
+too high (#415, fixed in #416).
 
 ### `read_BIN2R()`
 * The function is now much faster: we have recorded an overall improvement

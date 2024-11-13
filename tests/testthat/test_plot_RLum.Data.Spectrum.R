@@ -103,7 +103,7 @@ test_that("check functionality", {
       bin.rows = 10,
       bin.cols = 1
     )), "double")
-    
+
     expect_warning(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       plot.type = "persp",
@@ -279,4 +279,22 @@ test_that("check functionality", {
                           phi = 15, theta = -30, r = 10, log = "xyz",
                           shade = 0.4, expand = 0.5, border = 1,
                           axes = FALSE, norm = "min", col = 2)
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 415
+  expect_silent(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      ylim = c(0, 100),
+      bin.cols = 3))
+  expect_warning(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      ylim = c(0, 100),
+      bin.cols = 8),
+      "Single column matrix: plot.type has been automatically reset to")
+  expect_silent(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      bin.rows = 600))
 })

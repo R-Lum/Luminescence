@@ -514,7 +514,7 @@ plot_RLum.Data.Spectrum <- function(
     x <- as.numeric(rownames(temp.xyz))
 
     ##remove last channel (this is the channel that included less data)
-    if(length(x)%%bin.rows != 0){
+    if (length(x) %% bin.rows != 0 && length(x) > bin.rows) {
       .throw_warning(length(x) %% bin.rows,
                      " channels removed due to row (wavelength) binning")
 
@@ -527,9 +527,8 @@ plot_RLum.Data.Spectrum <- function(
   if(bin.cols > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.cols, bin_col = TRUE, names = "groups")
     y <- as.numeric(colnames(temp.xyz))
-
     ##remove last channel (this is the channel that included less data)
-    if(length(y)%%bin.cols != 0){
+    if (length(y) %% bin.cols != 0 && length(y) > bin.cols) {
       .throw_warning(length(y) %% bin.cols,
                      " channels removed due to column (frame) binning")
 
@@ -548,7 +547,6 @@ plot_RLum.Data.Spectrum <- function(
     }
 
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
-
   }
 
   # Normalise if wanted -------------------------------------------------------------------------
