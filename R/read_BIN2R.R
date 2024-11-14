@@ -257,15 +257,14 @@ read_BIN2R <- function(
 
   ## skip if zero-byte
   if (info$size == 0) {
-    message("[read_BIN2R()] File '", file, "' is a zero-byte file, ",
-            "NULL returned")
+    .throw_message("File '", file, "' is a zero-byte file, NULL returned")
     return(NULL)
   }
 
   ## check if file is a BIN or BINX file
   if(!any(tolower(tools::file_ext(file)) %in%  c("bin", "binx"))) {
-    message("[read_BIN2R()] File '", file, "' is not a file of type ",
-            "'BIN' or 'BINX', NULL returned")
+    .throw_message("File '", file, "' is not a file of type ",
+                   "'BIN' or 'BINX', NULL returned")
     con <- NULL
     return(NULL)
   }

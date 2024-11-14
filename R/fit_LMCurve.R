@@ -875,8 +875,7 @@ fit_LMCurve<- function(
   }else{
     output.table <- NA
     component.contribution.matrix <- NA
-    message("[fit_LMCurve] Fitting Error: Plot without fit produced!")
-
+    .throw_message("Fitting failed, plot without fit produced")
   }
 
   # Calculate component curves ----------------------------------------------

@@ -327,7 +327,7 @@ analyse_FadingMeasurement <- function(
 
       ##not support
     }else{
-      message("[analyse_FadingMeasurement()] Error: Unknown or unsupported originator")
+      .throw_message("Unknown or unsupported originator, NULL returned")
       return(NULL)
     }
 
@@ -380,7 +380,7 @@ analyse_FadingMeasurement <- function(
       Tx_data <- NULL
 
     }else{
-      message("[analyse_FadingMeasurement()] Error: I have no idea what your structure means")
+      .throw_message("I have no idea what your structure means, NULL returned")
       return(NULL)
     }
 

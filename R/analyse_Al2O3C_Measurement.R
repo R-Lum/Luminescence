@@ -220,11 +220,11 @@ analyse_Al2O3C_Measurement <- function(
 
       ##check whether everything is subtracted from everything ... you never know, users do weird stuff
       if(length(travel_dosimeter) == nrow(results$data))
-        message("[analyse_Al2O3C_Measurement()] Error: 'travel_dosimeter' specifies every position, nothing corrected")
+        .throw_message("'travel_dosimeter' specifies every position, nothing corrected")
 
       ##check if the position is valid
       if(any(!travel_dosimeter%in%results$data$POSITION))
-        message("[analyse_Al2O3C_Measurement()] Error: Invalid position in 'travel_dosimeter', nothing corrected")
+        .throw_message("Invalid position in 'travel_dosimeter', nothing corrected")
 
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
       ##if only one value is given just take it
@@ -327,7 +327,8 @@ analyse_Al2O3C_Measurement <- function(
     POSITION <- get_RLum(object = object[[1]], info.object = "position")
 
   }else{
-    message("[analyse_Al2O3_Measurement()] Aliquot position number was not found. No cross talk correction was applied!")
+    message("[analyse_Al2O3_Measurement()] Aliquot position number was not ",
+            "found, no cross talk correction applied")
     cross_talk_correction <- c(0,0,0)
     POSITION <- NA
   }

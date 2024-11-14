@@ -303,8 +303,7 @@ fit_DoseResponseCurve <- function(
 
   ##2.3 check whether the dose value is equal all the time
   if(sum(abs(diff(sample[[1]])), na.rm = TRUE) == 0){
-    message("[fit_DoseResponseCurve()] Error: All points have the same dose, ",
-            "NULL returned")
+    .throw_message("All points have the same dose, NULL returned")
     return(NULL)
   }
 
@@ -318,8 +317,8 @@ fit_DoseResponseCurve <- function(
 
   ## Check if anything is left after removal
   if (nrow(sample) == 0) {
-    message("[fit_DoseResponseCurve()] Error: After NA removal, nothing is left ",
-            "from the data set, NULL returned")
+    .throw_message("After NA removal, nothing is left from the data set, ",
+                   "NULL returned")
     return(NULL)
   }
 
@@ -614,8 +613,8 @@ fit_DoseResponseCurve <- function(
     if(fit.method != "LIN"){
 
       if (anyNA(c(a, b, c))) {
-        message("[fit_DoseResponseCurve()] Error: Fit ", fit.method, " (", mode,
-                ") could not be applied to this data set, NULL returned")
+        .throw_message("Fit ", fit.method, " (", mode,
+                       ") could not be applied to this data set, NULL returned")
         return(NULL)
       }
 

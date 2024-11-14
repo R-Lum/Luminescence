@@ -380,7 +380,7 @@ fit_SurfaceExposure <- function(
     coef <- as.data.frame(coef(summary(fit)))
   } else {
     if (settings$verbose)
-      message("[fit_SurfaceExposure()] Unable to fit the data. ",
+      .throw_message("Unable to fit the data. ",
               "Original error from minpack.lm::nlsLM(): ", fit$message)
 
     # Fill with NA values

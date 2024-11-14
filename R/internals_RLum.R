@@ -1065,6 +1065,17 @@ fancy_scientific <- function(l) {
   warning("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] ", ..., call. = FALSE)
 }
 
+#'@title Throws a Custom Tailored Message
+#'
+#'@param ... the message to throw, preceded by "Error:"
+#'
+#'@md
+#'@noRd
+.throw_message <- function(...) {
+  top.idx <- length(.LuminescenceEnv$fn_stack)
+  message("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] Error: ", ...)
+}
+
 #' @title Silence Output and Warnings during Tests
 #'
 #' @description

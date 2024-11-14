@@ -386,8 +386,8 @@ extract_IrradiationTimes <- function(
         message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
       }
     } else {
-      message("[extract_IrradiationTimes()] XSYG-file and BINX-file ",
-              "do not contain similar entries, BINX-file update skipped")
+      .throw_message("XSYG-file and BINX-file do not contain similar entries, ",
+                     "BINX-file update skipped")
     }
   }
 

@@ -337,8 +337,8 @@ analyse_pIRIRSequence <- function(
       sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))
 
   }else{
-    message("[analyse_pIRIRSequence()] Error: The number of records is not a ",
-            "multiple of the defined sequence structure, NULL returned")
+    .throw_message("The number of records is not a multiple of the defined ",
+                   "sequence structure, NULL returned")
     return(NULL)
   }
 
@@ -537,7 +537,7 @@ analyse_pIRIRSequence <- function(
 
       ##check whether NULL was return
       if (is.null(temp.results)) {
-        message("[plot_pIRIRSequence()] An error occurred, analysis skipped. Check your sequence!")
+        .throw_message("Analysis skipped: check your sequence, NULL returned")
         return(NULL)
       }
 

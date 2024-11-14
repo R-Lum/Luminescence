@@ -245,8 +245,7 @@ calc_AverageDose <- function(
 
   ##check for number of columns
   if(ncol(data)<2){
-    message("[calc_AverageDose()] Error: 'data' contains < 2 columns, ",
-            "NULL returned")
+    .throw_message("'data' contains < 2 columns, NULL returned")
     return(NULL)
   }
 
@@ -265,8 +264,7 @@ calc_AverageDose <- function(
 
   ##check data set
   if(nrow(data) == 0){
-    message("[calc_AverageDose()] Error: data set contains 0 rows! ",
-            "NULL returned!")
+    .throw_message("Data set contains 0 rows, NULL returned")
     return(NULL)
   }
 

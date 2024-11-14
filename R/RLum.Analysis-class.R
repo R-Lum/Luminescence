@@ -397,8 +397,8 @@ setMethod("get_RLum",
                 tmp <- mapply(function(name, op) {
                   message("  ", name, ": ", .collapse(unique(op), quote = FALSE))
                 }, names(envir), envir)
-                message("\n [get_RLum()] 'subset' expression produced an ",
-                        "empty selection, NULL returned")
+                .throw_message("'subset' expression produced an ",
+                               "empty selection, NULL returned")
                 return(NULL)
               }
 
@@ -449,8 +449,8 @@ setMethod("get_RLum",
 
               ##check if record.id exists
               if (FALSE %in% (abs(record.id) %in% (1:length(object@records)))) {
-                message("[get_RLum()] Error: At least one 'record.id' ",
-                        "is invalid, NULL returned")
+                .throw_message("At least one 'record.id' is invalid, ",
+                               "NULL returned")
                 return(NULL)
               }
 
@@ -794,10 +794,10 @@ setMethod(
 #' Melts [RLum.Analysis-class] objects into a flat data.frame to be used
 #' in combination with other packages such as `ggplot2`.
 #'
-#' @return 
-#' 
+#' @return
+#'
 #' **`melt_RLum`**
-#' 
+#'
 #' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
 #'
 #' @md

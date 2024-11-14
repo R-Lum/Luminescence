@@ -1230,7 +1230,8 @@ analyse_IRSAR.RF<- function(
           cores <- min(requested.cores, available.cores)
 
         }else{
-          message("[analyse_IRSAR.RF()] Invalid value for control argument 'cores'. Value set to 1")
+          .throw_message("Invalid value for control argument 'cores', ",
+                         "value set to 1")
           cores <- 1
         }
 
