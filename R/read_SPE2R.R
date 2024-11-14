@@ -22,7 +22,7 @@
 #' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar].
+#' enables or disables [txtProgressBar]. Ignored if `verbose = FALSE`.
 #'
 #' @param verbose [logical] (*with default*): enables or disables verbose mode
 #'
@@ -122,6 +122,7 @@ read_SPE2R <- function(
 
   ##check if file exists
   if(!file.exists(file)){
+    failed <- TRUE
 
     ## check if the file is an URL ... you never know
     if (grepl(pattern = "^https?://", x = file)) {
@@ -137,18 +138,16 @@ read_SPE2R <- function(
         file_link <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
         download.file(file, destfile = file_link, quiet = !verbose, mode = "wb")
         file <- file_link
-
+        failed <- FALSE
       }else{
         if (verbose) cat("FAILED\n")
-        message("[read_SPE2R()] Error: File does not exist, NULL returned")
-        return(NULL)
       }
+    }
 
-    }else{
+    if (failed) {
       message("[read_SPE2R()] Error: File does not exist, NULL returned")
       return(NULL)
     }
-
   }
 
   ##check file extension
@@ -158,6 +157,9 @@ read_SPE2R <- function(
                    strsplit(file, split = "\\.")[[1]][2], sep = "")
   }}
 
+
+  if (!verbose)
+    txtProgressBar <- FALSE
 
   # Open Connection ---------------------------------------------------------
 
@@ -311,39 +313,17 @@ read_SPE2R <- function(
   # read count value data ---------------------------------------------------
   ##set functions
 
-  if(datatype  == 0){
-    read.data <- function(n.counts){
-      readBin(con, what="double", n.counts, size=4, endian="little")
-    }
-
-  }else if(datatype == 1){
-
-    read.data <- function(n.counts){
-      readBin(con, what="integer", n.counts, size=4, endian="little", signed = TRUE)
-    }
-
-  }else if(datatype == 2){
-
-    read.data <- function(n.counts){
-      readBin(con, what="integer", n.counts, size=2, endian="little", signed = TRUE)
-    }
-
-  }else if(datatype == 3){
-    read.data <- function(n.counts){
-      readBin(con, what="int", n.counts, size=2, endian="little", signed = FALSE)
-
-    }
-
-  }else if(datatype == 8){
-
-    read.data <- function(n.counts){
-      readBin(con, what="integer", n.counts, size=4, endian="little", signed = FALSE)
-    }
-
-  }else{
+  ## define the reading function according to the datatype
+  if (!datatype %in% c(0, 1, 2, 3, 8)) {
     .throw_error("Unknown 'datatype'")
   }
-
+  what <- if (datatype == 0) "double" else "integer"
+  size <- if (datatype %in% 2:3) 2 else 4
+  sign <- if (datatype %in% 0:2) TRUE else FALSE
+  read.data <- function(n.counts){
+    readBin(con, what = what, n = n.counts, size = size, signed = sign,
+            endian = "little")
+  }
 
   ##loop over all frames
   ##output
@@ -351,7 +331,7 @@ read_SPE2R <- function(
     cat("\n[read_SPE2R()]\n\t >>", file)
 
   ##set progressbar
-  if(txtProgressBar & verbose){
+  if (txtProgressBar) {
     pb<-txtProgressBar(min=0,max=diff(frame.range)+1, char="=", style=3)
   }
 
@@ -370,18 +350,16 @@ read_SPE2R <- function(
     }else{
 
       data.list <- c(data.list, list(temp.data))
-
     }
 
     ##update progress bar
-    if(txtProgressBar & verbose){
+    if (txtProgressBar) {
       setTxtProgressBar(pb, i)
     }
-
   }
 
   ##close
-  if(txtProgressBar & verbose){
+  if (txtProgressBar) {
     close(pb)
     cat("\t >>", i,"records have been read successfully!\n\n")
   }
@@ -394,7 +372,6 @@ read_SPE2R <- function(
 
     data.spectrum.vector <- sapply(1:length(data.list), function(x){
       rowSums(data.list[[x]])
-
     })
 
     ##split vector to matrix
@@ -428,7 +405,6 @@ read_SPE2R <- function(
     object@recordType = "Image"
     object@curveType <- "measured"
     object@info <- temp.info
-
   }
 
   ##close con
@@ -436,5 +412,4 @@ read_SPE2R <- function(
 
   ##return values
   return(object)
-
 }

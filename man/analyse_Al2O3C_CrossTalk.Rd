@@ -32,7 +32,8 @@ made by Kreutzer et al., 2018}
 function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
-information on the used irradiation time correction obtained by another experiments.}
+information on the used irradiation time correction obtained by another
+experiment.}
 
 \item{method_control}{\link{list} (\emph{optional}):
 optional parameters to control the calculation.
