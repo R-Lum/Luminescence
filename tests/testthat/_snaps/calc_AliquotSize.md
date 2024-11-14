@@ -138,7 +138,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["x", "y", "bw", "n", "old.coords", "call", "data.name", "has.na"]
+                      "value": ["x", "y", "bw", "n", "call", "data.name", "has.na"]
                     },
                     "class": {
                       "type": "character",
@@ -166,11 +166,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [20]
-                    },
-                    {
-                      "type": "logical",
-                      "attributes": {},
-                      "value": [false]
                     },
                     {
                       "type": "language",
