@@ -407,7 +407,6 @@ plot_RadialPlot <- function(
       data[[i]][,1] <- data[[i]][,1] + De.add
 
     De.global <- De.global + De.add
-
   }
 
   ## calculate major preliminary tick values and tick difference
@@ -436,11 +435,7 @@ plot_RadialPlot <- function(
   ## calculate se-values based on log-option
   se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-      if(De.add != 0) {
-        data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
-      } else {
-        data[[x]][,2] / data[[x]][,1]
-      }
+      data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
     } else {
       data[[x]][,2]
     }}, De.add = De.add)
@@ -1546,5 +1541,4 @@ if(centrality[1] == "mean") {
                 polygons = polygons,
                 ellipse.lims = ellipse.lims))
   }
-
 }
