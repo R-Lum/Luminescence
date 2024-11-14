@@ -36,7 +36,7 @@ test_that("input validation", {
                "Unsupported file format")
 })
 
-test_that("Test general functionality", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## default values
@@ -46,14 +46,19 @@ test_that("Test general functionality", {
                       "RLum.Data.Image"),
       "URL detected, checking connection")
   )
+})
 
-  ## test output.object
-  expect_s4_class(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
-                             output.object = "RLum.Data.Spectrum",
-                             verbose = FALSE),
-                  "RLum.Data.Spectrum")
-  ret <- read_SPE2R(file.path(github.url, "SPEfile.SPE"),
-                    output.object = "matrix",
-                    verbose = FALSE)
-  expect_true(is.matrix(ret))
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
+                                  output.object = "RLum.Data.Spectrum",
+                                  verbose = FALSE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_plain(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
+                                   output.object = "matrix",
+                                   verbose = FALSE),
+                        tolerance = snapshot.tolerance)
 })
