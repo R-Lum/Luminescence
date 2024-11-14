@@ -932,10 +932,8 @@ if(centrality[1] == "mean") {
                               to = limits.z[2]),
                       silent = TRUE)
 
+    De.stats[i,6] <- NA
     if(!inherits(De.density, "try-error")) {
-      De.stats[i,6] <- NA
-
-    } else {
       De.stats[i,6] <- De.density$x[which.max(De.density$y)]
     }
   }
