@@ -315,7 +315,7 @@ read_SPE2R <- function(
 
   ## define the reading function according to the datatype
   if (!datatype %in% c(0, 1, 2, 3, 8)) {
-    .throw_error("Unknown 'datatype'")
+    .throw_error("Unknown 'datatype'") # nocov
   }
   what <- if (datatype == 0) "double" else "integer"
   size <- if (datatype %in% 2:3) 2 else 4
