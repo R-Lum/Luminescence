@@ -1,9 +1,5 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
-SW({
-temp <- calc_CommonDose(ExampleData.DeValues$CA1, plot = FALSE, verbose = TRUE)
-temp.nolog <- calc_CommonDose(ExampleData.DeValues$CA1, log = FALSE,
-                              plot = FALSE, verbose = TRUE)
-})
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -20,16 +16,17 @@ test_that("input validation", {
                "'sigmab' must be a value between 0 and 1")
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
+  SW({
+    temp <- calc_CommonDose(ExampleData.DeValues$CA1, plot = FALSE,
+                            verbose = TRUE)
+    temp.nolog <- calc_CommonDose(ExampleData.DeValues$CA1, log = FALSE,
+                                  plot = FALSE, verbose = TRUE)
+  })
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 4)
-
-})
-
-test_that("check values from output", {
-  testthat::skip_on_cran()
 
   all.equal(calc_CommonDose(temp, verbose = FALSE),
             temp)
@@ -42,4 +39,19 @@ test_that("check values from output", {
 
   results <- get_RLum(temp.nolog)
   expect_false(temp.nolog@data$args$log)
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(calc_CommonDose(
+      ExampleData.DeValues$CA1, sigmab = 0.75,
+      plot = FALSE, verbose = FALSE),
+      tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(calc_CommonDose(
+      ExampleData.DeValues$CA1, sigmab = 0.25, log = FALSE,
+      plot = FALSE, verbose = FALSE),
+      tolerance = snapshot.tolerance)
 })

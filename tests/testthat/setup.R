@@ -29,6 +29,14 @@ expect_snapshot_RLum <- function(object, ...) {
       object@data$De$HPDI95_L <- NULL
       object@data$De$HPDI95_U <- NULL
     }
+
+    ## This should be removed once we do not run coverage
+    ## anymore on R 4.3 (pull #420)
+    if ("MC" %in% names(object@data) && "kde" %in% names(object@data$MC)) {
+      if (!is.null(object@data$MC$kde$old.coords))
+        object@data$MC$kde$old.coords <- NULL
+    }
+
   }
   if ("records" %in% slotNames(object)) {
     for (idx in seq_along(object@records)) {
