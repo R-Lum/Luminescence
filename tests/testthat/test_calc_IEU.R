@@ -1,8 +1,5 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
-temp <- calc_IEU(ExampleData.DeValues$CA1,
-                 a = 0.2,
-                 b = 1.9,
-                 interval = 1, verbose = FALSE, plot = FALSE)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -11,10 +8,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame' or 'RLum.Results'")
 })
 
-test_that("Test general behaviour", {
+test_that("check functionality", {
   testthat::skip_on_cran()
-
-  data(ExampleData.DeValues, envir = environment())
 
   ##standard
   expect_silent(calc_IEU(
@@ -36,36 +31,29 @@ test_that("Test general behaviour", {
     verbose = TRUE, plot = TRUE
   ))
   })
-
-  ##verbose without setting
-  expect_message(calc_IEU(
-    ExampleData.DeValues$CA1,
-    a = 0.2,
-    b = 1.9,
-    interval = 1,
-    plot = FALSE
-  ))
-
-  ##provide RLum.Results
-  expect_silent(calc_IEU(
-    set_RLum(class = "RLum.Results", data = list(test = ExampleData.DeValues$CA1)),
-    a = 0.2,
-    b = 1.9,
-    interval = 1,
-    verbose = FALSE, plot = FALSE
-  ))
 })
 
-test_that("check class and length of output", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  expect_s4_class(temp, "RLum.Results")
-  expect_equal(length(temp), 5)
+  snapshot.tolerance <- 1.5e-6
 
-  results <- get_RLum(temp)
+  expect_snapshot_RLum(calc_IEU(
+      ExampleData.DeValues$CA1,
+      a = 0.25,
+      b = 1.29,
+      interval = 1,
+      verbose = FALSE,
+      plot = FALSE),
+      tolerance = snapshot.tolerance)
 
-  expect_equal(results$de, 46.67)
-  expect_equal(results$de_err, 2.55)
-  expect_equal(results$n, 24)
-
+  ##provide RLum.Results
+  expect_snapshot_RLum(calc_IEU(
+      set_RLum(class = "RLum.Results",
+               data = list(test = ExampleData.DeValues$CA1)),
+      a = 0.12,
+      b = 2.14,
+      interval = 0.9,
+      verbose = FALSE, plot = FALSE),
+      tolerance = snapshot.tolerance)
 })
