@@ -34,15 +34,17 @@ test_that("input validation", {
   })
 })
 
-test_that("analyse_Al2O3C_Measurements", {
+test_that("check functionality", {
   skip_on_cran()
 
   ## run analysis
-  SW({
-   expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(data_CrossTalk)), "RLum.Results")
-   expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(data_CrossTalk, calculate_TL_dose = TRUE)),
-                                    "RLum.Results")
-   })
+  SW({ # warning: TL peak shift detected for aliquot position 1
+  expect_s4_class(analyse_Al2O3C_Measurement(data_CrossTalk),
+                  "RLum.Results")
+  expect_s4_class(analyse_Al2O3C_Measurement(data_CrossTalk,
+                                             calculate_TL_dose = TRUE),
+                  "RLum.Results")
+  })
   expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
                         test_parameter = list(stimulation_power = 0.01)))
   expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
@@ -68,8 +70,30 @@ test_that("analyse_Al2O3C_Measurements", {
 
   ## cross_talk_correction
   ct.corr <- analyse_Al2O3C_CrossTalk(data_CrossTalk)
-  suppressWarnings( # FIXME(mcol): warnings come from a poorly fitted ct.corr
   analyse_Al2O3C_Measurement(temp, cross_talk_correction = list(ct.corr),
                              plot = FALSE, verbose = FALSE)
-  )
+})
+
+test_that("more coverage", {
+  skip_on_cran()
+
+  ## failed integration
+  CT.mod <- data_CrossTalk
+  CT.mod[[1]]@records[[2]]@data <- CT.mod[[1]]@records[[2]]@data[1:5, ]
+  CT.mod[[1]]@records[[4]]@data <- CT.mod[[1]]@records[[4]]@data[1:5, ]
+  warnings <- capture_warnings(
+      analyse_Al2O3C_Measurement(CT.mod, verbose = FALSE,
+                                 calculate_TL_dose = TRUE))
+  expect_match(warnings, all = FALSE,
+               "Natural TL signal out of bounds, NA returned")
+  expect_match(warnings, all = FALSE,
+               "Regenerated TL signal out of bounds, NA returned")
+
+  ## missing position
+  CT.mod <- data_CrossTalk
+  CT.mod[[1]]@records[[1]]@info["position"] <- list(NULL)
+  expect_message(expect_warning(
+      analyse_Al2O3C_Measurement(CT.mod, verbose = FALSE),
+      "TL peak shift detected for aliquot position NA"),
+      "Error: Aliquot position not found, no cross-talk correction applied")
 })

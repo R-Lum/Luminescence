@@ -319,17 +319,12 @@ analyse_Al2O3C_Measurement <- function(
     }
   }
 
-
-  ## Set Cross Talk Correction ---------------
-  ##check wehther the information on the position was stored in the input
-  ##object
-  if(!is.null(get_RLum(object = object[[1]], info.object = "position"))){
-    POSITION <- get_RLum(object = object[[1]], info.object = "position")
-
-  }else{
-    message("[analyse_Al2O3_Measurement()] Aliquot position number was not ",
-            "found, no cross talk correction applied")
-    cross_talk_correction <- c(0,0,0)
+  ## Set Cross-Talk Correction ----------------------------------------------
+  ## check whether information on the position was stored in the input object
+  POSITION <- get_RLum(object = object[[1]], info.object = "position")
+  if (is.null(POSITION)) {
+    .throw_message("Aliquot position not found, no cross-talk correction applied")
+    cross_talk_correction <- NULL
     POSITION <- NA
   }
 
@@ -342,12 +337,20 @@ analyse_Al2O3C_Measurement <- function(
     if (is(cross_talk_correction, "RLum.Results") &&
         cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
 
-        ##grep cross talk correction and calculate values for
-        ##this particular carousel position
-        cross_talk_correction <-
-          as.numeric(predict(cross_talk_correction$fit,
-                  newdata = data.frame(x = POSITION),
-                  interval = "confidence"))
+      ## calculate the cross-talk correction values for this particular
+      ## carousel position
+      interval <- ifelse(length(POSITION) > 1, "confidence", "none")
+      cross_talk_correction <-
+        as.numeric(predict(cross_talk_correction$fit,
+                           newdata = data.frame(x = POSITION),
+                           interval = interval))
+
+      ## we could not compute a confidence interval, so we create it manually
+      if (length(POSITION) == 1) {
+        cross_talk_correction <- matrix(cross_talk_correction, 1, 3,
+                                        dimnames = list("position",
+                                                        c("fit", "lwr", "upr")))
+      }
 
     }else{
       .throw_error("The object provided for 'cross_talk_correction' was ",
@@ -355,7 +358,7 @@ analyse_Al2O3C_Measurement <- function(
     }
   }
 
-  # Calculation ---------------------------------------------------------------------------------
+  # Calculation -------------------------------------------------------------
   ##we have two dose points, and one background curve, we do know only the 2nd dose
 
   ##set test parameters
@@ -381,24 +384,20 @@ analyse_Al2O3C_Measurement <- function(
 
   ##do the same for the TL
   if (calculate_TL_dose[1] && any(grepl("TL", names(object)))){
-    NATURAL_TL <- try(sum(
-      object@records[[2]]@data[
-        (which.max(object@records[[2]]@data[,2])-5):(which.max(object@records[[2]]@data[,2])+5),2]), silent = TRUE)
-    REGENERATED_TL <- try(sum(
-      object@records[[4]]@data[
-        (which.max(object@records[[4]]@data[,2])-5):(which.max(object@records[[4]]@data[,2])+5),2]), silent = TRUE)
-
-    ##catch errors if the integration fails
-    if(inherits(NATURAL_TL, "try-error")){
-      NATURAL_TL <- NA
-      .throw_warning("Natural TL signal out of bounds, NA returned")
-    }
-
-    if(inherits(REGENERATED_TL, "try-error")){
-      REGENERATED_TL <- NA
-      .throw_warning("Regenerated TL signal out of bounds, NA returned")
-    }
-
+    nat_integr.idx <- which.max(object@records[[2]]@data[, 2]) + c(-5, 5)
+    NATURAL_TL <- tryCatch(
+        sum(object@records[[2]]@data[nat_integr.idx, 2]),
+        error = function(e) {
+          .throw_warning("Natural TL signal out of bounds, NA returned")
+          NA
+        })
+    reg_integr.idx <- which.max(object@records[[4]]@data[, 2]) + c(-5, 5)
+    REGENERATED_TL <- tryCatch(
+        sum(object@records[[4]]@data[reg_integr.idx, 2]),
+        error = function(e) {
+          .throw_warning("Regenerated TL signal out of bounds, NA returned")
+          NA
+        })
   }else{
     NATURAL_TL <- NA
     REGENERATED_TL <- NA
