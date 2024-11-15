@@ -41,6 +41,9 @@ import_Data <- function (
   fastForward = TRUE,
   verbose = FALSE
 ) {
+  .set_function_name("import_Data")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## supported functions
   fun <- c(
     "read_BIN2R",
@@ -63,6 +66,5 @@ import_Data <- function (
       return(t)
 
   }
-  message("[import_Data()] Unknown file format, nothing imported!")
-
+  .throw_message("Unknown file format, nothing imported")
 }

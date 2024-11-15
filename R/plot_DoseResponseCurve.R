@@ -454,14 +454,12 @@ plot_DoseResponseCurve <- function(
           text(5, 5, "not available\n no TnTx column")
         }
       }
-
     }
   }
 
   ##reset graphic device if the plotting failed!
   if (inherits(plot_check, "try-error")) {
-    message("[plot_DoseResponseCurve()] Error: Figure margins too large, ",
-            "nothing plotted")
+    .throw_message("Figure margins too large, nothing plotted")
     dev.off()
   }
 

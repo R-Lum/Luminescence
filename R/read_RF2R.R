@@ -52,8 +52,7 @@ read_RF2R <- function(
 
       ##check whether it worked
       if(inherits(temp, "try-error")){
-        message("[read_RF2R()] Error: Import for file '", f,
-                "' failed, NULL returned")
+        .throw_message("Import for file '", f, "' failed, NULL returned")
         return(NULL)
       }else{
         return(temp)
@@ -120,8 +119,7 @@ read_RF2R <- function(
 
     ##test the header
     if(inherits(header, 'try-error')){
-      message("[read_RF2R()] Error: Header extraction failed, ",
-              "trying to continue without ... ")
+      .throw_message("Header extraction failed, trying to continue without ...")
       header <- NA
     }
 

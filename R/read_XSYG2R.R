@@ -214,8 +214,8 @@ read_XSYG2R <- function(
       file <- as.list(dir(file, recursive = TRUE, pattern = pattern, full.names = TRUE))
       if (length(file) == 0) {
         if (verbose)
-          message("[read_XSYG2R()] No files matching the given pattern ",
-                  "found in directory, NULL returned")
+          .throw_message("No files matching the given pattern ",
+                         "found in directory, NULL returned")
         return(NULL)
       }
     }
@@ -261,7 +261,7 @@ read_XSYG2R <- function(
   ## check whether file exist
   if(!file.exists(file)) {
     if(verbose)
-      message("[read_XSYG2R()] File does not exist, nothing imported!")
+      .throw_message("File does not exist, nothing imported, NULL returned")
     return(NULL)
 
   }
@@ -333,7 +333,7 @@ read_XSYG2R <- function(
   ##show error
   if(inherits(temp, "try-error")){
     if(verbose)
-      message("[read_XSYG2R()] XML file not readable, nothing imported!")
+      .throw_message("XML file not readable, nothing imported, NULL returned")
     return(NULL)
   }
 

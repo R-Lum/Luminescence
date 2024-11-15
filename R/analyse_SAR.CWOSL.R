@@ -400,8 +400,8 @@ error.list <- list()
     m = regexpr("(OSL[a-zA-Z]*|IRSL[a-zA-Z]*|POSL[a-zA-Z]*)", names(object), perl = TRUE))
 
   if(length(CWcurve.type) == 0) {
-    message("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' ",
-            "detected! NULL returned.")
+    .throw_message("No record of type 'OSL', 'IRSL', 'POSL' detected, ",
+                   "NULL returned")
     return(NULL)
   }
 
@@ -615,8 +615,8 @@ error.list <- list()
     ##this is basically for the OSL.component case to avoid that everything
     ##fails if something goes wrong therein
     if(inherits(LnLxTnTx, "try-error")){
-      message("[analyse_SAR.CWOSL()] Something went wrong while generating ",
-              "the LxTx table, NULL returned")
+      .throw_message("Something went wrong while generating the LxTx table, ",
+                     "NULL returned")
       return(NULL)
     }
 

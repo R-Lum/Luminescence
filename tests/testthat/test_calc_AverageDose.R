@@ -19,7 +19,7 @@ test_that("input validation", {
       "Error: 'data' contains < 2 columns")
   expect_message(expect_null(
       calc_AverageDose(data[0, ], sigma_m = 0.1)),
-      "Error: data set contains 0 rows")
+      "Error: Data set contains 0 rows")
 
   SW({
   expect_warning(calc_AverageDose(cbind(data, data), sigma_m = 0.1),

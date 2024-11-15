@@ -502,7 +502,8 @@ plot_RLum.Data.Spectrum <- function(
 
     ##check worst case
     if(sum(temp.xyz) == 0){
-      message("[plot_RLum.Data.Spectrum()] After background subtraction all counts < 0. Nothing plotted, NULL returned!")
+      .throw_message("After background subtraction all counts < 0: ",
+                     "nothing plotted, NULL returned")
       return(NULL)
     }
   }
@@ -540,11 +541,11 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ##limit z-values if requested, this idea was taken from the Diss. by Thomas Schilles, 2002
-  if(!is.null(limit_counts[1])) { 
+  if(!is.null(limit_counts[1])) {
     if(min(temp.xyz) > limit_counts[1]) {
       limit_counts <- floor(limit_counts[1] + min(temp.xyz))
       .throw_warning(
-        "Lowest count value is larger than the set count threshold. Set limit_counts = ", limit_counts, ".")  
+        "Lowest count value is larger than the set count threshold. Set limit_counts = ", limit_counts, ".")
     }
 
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
@@ -659,8 +660,7 @@ if(plot){
   }
 
   if (nrow(temp.xyz) == 1 && plot.type != "single") {
-    message("[plot_RLum.Data.Spectrum()] Insufficient data for plotting, ",
-            "NULL returned")
+    .throw_message("Insufficient data for plotting, NULL returned")
     return(NULL)
   }
 

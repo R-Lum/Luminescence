@@ -511,7 +511,7 @@ plot_AbanicoPlot <- function(
   ##(1)
   ##check if there is still data left in the entire set
   if(all(sapply(data, nrow) == 0)){
-    message("[plot_AbanicoPlot()] Error: Nothing plotted, your data set is empty")
+    .throw_message("Nothing plotted, your data set is empty")
     return(NULL)
   }
   ##(2)
@@ -529,8 +529,7 @@ plot_AbanicoPlot <- function(
 
     ##unfortunately, the data set might become now empty at all
     if(length(data) == 0){
-      message("[plot_AbanicoPlot()] Error: After removing invalid entries, ",
-              "nothing is plotted")
+      .throw_message("After removing invalid entries, nothing is plotted")
       return(NULL)
     }
   }

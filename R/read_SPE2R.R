@@ -145,7 +145,7 @@ read_SPE2R <- function(
     }
 
     if (failed) {
-      message("[read_SPE2R()] Error: File does not exist, NULL returned")
+      .throw_message("File does not exist, NULL returned")
       return(NULL)
     }
   }

@@ -321,7 +321,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
     ##set range
     df <- df[signal_range[1]:signal_range[2],]
-
   }
 
   ## number of components requested
@@ -337,9 +336,8 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   ## positive (see `qf()` in the `while` loop further down at (B))
   min.num.signals <- 2 * m + 2 + 1
   if (nrow(df) < min.num.signals) {
-    message("[fit_OSLLifeTimes()] Error: For ", m, " components ",
-            "the dataset must have at least ", min.num.signals,
-            " signal points, NULL returned")
+    .throw_message("For ", m, " components the dataset must have at least ",
+                   min.num.signals, " signal points, NULL returned")
     return(NULL)
   }
 
@@ -356,7 +354,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     nlsLM.trace = FALSE,
     nlsLM.upper = TRUE,
     nlsLM.lower = TRUE
-
   )
 
   ##udpate list if the user did something
@@ -614,8 +611,7 @@ if(verbose){
     cat("-------------------------------------------------------------------------\n")
 
   }else{
-    message("[fit_OSLLifeTimes()] Error: The fitting was not successful, ",
-            "consider trying again")
+    .throw_message("The fitting was not successful, consider trying again")
   }
 
   cat("\n(3) Further information\n")

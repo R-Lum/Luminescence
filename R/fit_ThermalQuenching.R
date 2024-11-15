@@ -262,7 +262,7 @@ fit_ThermalQuenching <- function(
     })
 
   }else{
-    message("[fit_ThermalQuenching()] Error: Fitting failed, NULL returned!")
+    .throw_message("Fitting failed, NULL returned")
     return(NULL)
   }
 

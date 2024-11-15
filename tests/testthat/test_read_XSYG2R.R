@@ -10,11 +10,11 @@ test_that("input validation", {
   expect_error(read_XSYG2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_message(expect_null(read_XSYG2R("_error_file_")),
-                "File does not exist, nothing imported!")
+                "Error: File does not exist, nothing imported")
   expect_message(expect_null(read_XSYG2R("/Test", fastForward = TRUE)),
-                 "File does not exist, nothing imported!")
+                 "Error: File does not exist, nothing imported")
   expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
-                 "XML file not readable, nothing imported!")
+                 "Error: XML file not readable, nothing imported")
 
   SW({
   expect_message(expect_null(read_XSYG2R(test_path("_data/bin-tests/"))),

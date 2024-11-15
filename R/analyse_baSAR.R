@@ -862,7 +862,7 @@ analyse_baSAR <- function(
 
      ## return NULL if not at least three aliquots are used for the calculation
      if (Nb_aliquots < 3) {
-       message("[analyse_baSAR()] Error: Number of aliquots < 3, NULL returned")
+       .throw_message("Number of aliquots < 3, NULL returned")
        return(NULL)
      }
 
@@ -941,8 +941,7 @@ analyse_baSAR <- function(
          Nb_aliquots <- nrow(input_object)
 
        } else{
-         message("[analyse_basAR()] Error: 'aliquot_range' out of bounds, ",
-                 "input ignored")
+         .throw_message("'aliquot_range' out of bounds, input ignored")
 
          ##reset aliquot range
          aliquot_range <- NULL
@@ -1027,8 +1026,7 @@ analyse_baSAR <- function(
 
       ##create fallback
        if(inherits(object, "try-error")){
-         message("[analyse_baSAR()] Error: Object conversion failed, ",
-                 "NULL returned")
+         .throw_message("Object conversion failed, NULL returned")
          return(NULL)
        }
 
@@ -1227,8 +1225,8 @@ analyse_baSAR <- function(
           aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0,]
 
         if(nrow(datalu) == 0){
-          message("[analyse_baSAR()] Error: nothing was left after ",
-                  "the automatic grain selection, NULL returned")
+          .throw_message("Nothing left after the automatic grain selection, ",
+                         "NULL returned")
           return(NULL)
         }
 
@@ -1418,8 +1416,7 @@ analyse_baSAR <- function(
 
     ##if all irradiation times are 0 we should stop here
     if (length(unique(irrad_time.vector)) == 1) {
-      message("[analyse_baSAR()] Error: all irradiation times are identical, ",
-              "NULL returned")
+      .throw_message("All irradiation times are identical, NULL returned")
       return(NULL)
     }
 
@@ -1438,7 +1435,7 @@ analyse_baSAR <- function(
          ##disc (position)
          disc_logic <- (disc_selected == measured_discs.vector)
          if (!any(disc_logic)) {
-            message("[analyse_baSAR()] In BIN-file '",
+            .throw_message("In BIN-file '",
                     unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
                     "' position number ", disc_selected,
                     " does not exist, NULL returned")
@@ -1449,7 +1446,7 @@ analyse_baSAR <- function(
           grain_logic <- (grain_selected == measured_grains.vector)
 
           if (!any(grain_logic)) {
-            message("[analyse_baSAR()] In BIN-file '",
+            .throw_message("In BIN-file '",
                     unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
                     "' grain number ", grain_selected,
                     " does not exist, NULL returned")
@@ -2228,8 +2225,8 @@ analyse_baSAR <- function(
               )
             }
           }else{
-            message("[analyse_baSAR()] Error: Wrong 'variable.names' ",
-                    "monitored, dose responses curves could not be plotted")
+            .throw_message("Wrong 'variable.names' monitored, ",
+                           "dose responses curves could not be plotted")
           }
 
           ##add dose points

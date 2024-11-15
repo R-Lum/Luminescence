@@ -76,7 +76,7 @@ test_that("check class and length of output", {
   expect_message(fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
                                     start_values = data.frame(Im = c(70,25,400),
                                                               xm = c(56,200,10))),
-                 "Fitting Error: Plot without fit produced")
+                 "Error: Fitting failed, plot without fit produced")
   expect_equal(fit@data$component_matrix, NA)
 
   fit_LMCurve(values.curve, values.bg = values.curveBG, plot.BG = TRUE,

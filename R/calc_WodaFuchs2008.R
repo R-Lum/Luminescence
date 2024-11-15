@@ -100,7 +100,7 @@ calc_WodaFuchs2008 <- function(
 
   ## estimate bin width based on Woda and Fuchs (2008)
   if (all(is.na(data[, 2]))) {
-    message("[calc_WodFuchs2008()] No errors provided. Bin width set ",
+    message("[calc_WodaFuchs2008()] No errors provided, bin width set ",
             "by 10 percent of input data")
     bin_width <- median(data[,1] / 10,
                         na.rm = TRUE)
