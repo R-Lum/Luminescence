@@ -8,8 +8,6 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-## New functions
-
 ## Removed functions
 * Function `calc_Kars2008()` (deprecated since version 0.8.1) is now officially defunct,
 `calc_Huntley2006()` should be used instead (#252, fixed in #257).
@@ -23,13 +21,16 @@ affected was also `analyse_SAR.CWOSL()`.
 * The function now shows a warning and sets `plot = FALSE` when option
 `plot.single = FALSE` is set but the device size is too small. This should
 prevent "Figure margins too large" errors.
-* The function will not crash anymore during the plotting in another edge case related to single grain data. 
+* The function will not crash anymore during the plotting in another edge
+case related to single grain data.
 
 ### `analyse_SAR.CWOSL()`
-* The function crashed for mixed set of `RLum.Analysis-class` objects typically observed 
-for single grain data, e.g., one object contains only TL curves while all other contain the OSL/IRSL 
-data from the grain. Because the function filters those records automatically, it crashed because
-the aliquot number assignment internally relied on the length of the object (regression, #373, fixed)
+* The function crashed for mixed set of `RLum.Analysis-class` objects
+typically observed for single grain data, e.g., one object contains only
+TL curves while all others contain the OSL/IRSL data from the grain. As the
+function filters those records automatically, it crashed because the aliquot
+number assignment internally relied on the length of the object (regression,
+#373, fixed)
 
 ### `analyse_SAR.TL()`
 * The function now produces a more correct `rejection.criteria` data frame
@@ -37,28 +38,37 @@ the aliquot number assignment internally relied on the length of the object (reg
 * Several edge cases that led to crashes have been fixed (#147, fixed in #247).
 
 ### `get_RLum()`
-* When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would 
+* When the function was used on a list of `RLum.Analysis-class` objects with the argument `null.rm = TRUE` it would
 remove all `NULL` objects, but not elements that became `list()` (empty list) during the selection; fixed.
-* Fix an edge case that caused a rather non-expected, more visible output problem. When curves were selected via
-`recordType` on `RLum.Analysis-class` objects (or a list of them) and the object contained only a single `RLum.Data-class` object, 
-the function returned the `RLum.Data.Curve-class` object *regardless* of the selection in `recordType`. In other words: 
-If a user tried `recordType = "TL"` on an `RLum.Analysis-class` object that contained only a single IRSL curve, the
-function would still return that single IRSL curve instead of an empty element. The reason for this behaviour was a poor attempt to deal with `NA` in the `recordType` name that led to missing values and unexpected behaviour for a logical comparison. Now, before the subset happens, `NA` values in `recordType` are converted to `"NA"` (a character) and the wiggling around that was causing the lousy subsetting was removed. 
+* Fix an edge case that caused a rather non-expected, more visible output
+problem. When curves were selected via `recordType` on `RLum.Analysis-class`
+objects (or a list of them) containing only a single `RLum.Data-class`
+object, the function returned the `RLum.Data.Curve-class` object *regardless*
+of the selection in `recordType`. In other words: if a user tried
+`recordType = "TL"` on an `RLum.Analysis-class` object that contained only a
+single IRSL curve, the function would still return that single IRSL curve
+instead of an empty element. The reason for this behaviour was a poor attempt
+to deal with `NA` in the `recordType` name that led to missing values and
+unexpected behaviour for a logical comparison. Now, before the subset happens,
+`NA` values in `recordType` are converted to `"NA"` (a character), allowing us
+to fix the incorrect subsetting.
 
 ### `plot_RLum.Data.Spectrum()`
-* Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`. 
+* Add support for `lphi` and `ltheta` light direction arguments for `plot.type = "persp"`.
 * Fix the reason for the unclear warning `In col.unique == col :  longer object length is not a multiple of shorter object length`
 
 ### `write_R2BIN()`
-* Recently, non-ASCII characters in comments or file names became more common and that led to crashes during the 
-file export. To avoid this now all non-ASCII characters are replaced by `_` before writing them to the BIN/BINX files. 
-* The function now returns the file path of the export. 
-* Fix a bug that left connections open if the function crashed. 
+* Recently, non-ASCII characters in comments or file names have become more
+common and that led to crashes during the file export. To avoid this, now all
+non-ASCII characters are replaced by `_` before writing them to the BIN/BINX
+files.
+* The function now returns the file path of the export.
+* Fix a bug that left connections open if the function crashed.
 
 ## Internals
 
 * Two new internal functions `.throw_warning()` and `.throw_error()` sometimes flushed the
-terminal with messages if call (internally) in particular circumstances. Now we maintain a
+terminal with messages if called (internally) in particular circumstances. Now we maintain a
 stack of function names, so that at any time we can report correctly the name of the
 function where an error or a warning is thrown (#254, fixed in #256).
 
