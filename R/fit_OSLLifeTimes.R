@@ -178,8 +178,9 @@ fit_OSLLifeTimes <- function(
   plot_simple = FALSE,
   verbose = TRUE,
   ...
-  ){
-
+) {
+  .set_function_name("fit_OSLLifeTimes")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call -----------------------------------------------------------------------------------
 if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
@@ -686,7 +687,7 @@ if(plot) {
 
     if(!plot_simple){
       ##make sure that the screen closes if something is wrong
-      on.exit(close.screen(all.screens = TRUE))
+      on.exit(close.screen(all.screens = TRUE), add = TRUE)
 
       split.screen(rbind(
         c(0.1,1,0.32, 0.98),

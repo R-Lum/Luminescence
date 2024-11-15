@@ -90,7 +90,8 @@ plot_ViolinPlot <- function(
   na.rm = TRUE,
   ...
 ) {
-
+  .set_function_name("plot_ViolinPlot")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity tests and conversion --------------------------------------------------------------
 

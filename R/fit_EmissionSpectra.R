@@ -177,8 +177,9 @@ fit_EmissionSpectra <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
-
+) {
+  .set_function_name("fit_EmissionSpectra")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO: Find a way to get a significant number of components
   ## This function works only on a list of matrices, so what ever we do here, we have to
@@ -206,7 +207,7 @@ fit_EmissionSpectra <- function(
       }else{
         if(max(frame) > ncol(o@data)|| min(frame) < 1){
           .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
-                       ncol(o@data), nframe = 3) # we are inside an lapply closure
+                       ncol(o@data))
         }
       }
 
@@ -238,7 +239,7 @@ fit_EmissionSpectra <- function(
     }else{
       if(max(frame) > (ncol(object)-1) || min(frame) < 1){
         .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
-                     ncol(object) - 1, nframe = 3) # we are inside an lapply closure
+                     ncol(object) - 1)
       }
     }
 
@@ -371,7 +372,7 @@ fit_EmissionSpectra <- function(
   ## check graining parameter
   if (method_control$graining >= nrow(m))
     .throw_error("method_control$graining cannot exceed the ",
-                 "available channels (", nrow(m) ,")", nframe = 5)
+                 "available channels (", nrow(m) ,")")
 
   ##initialise objects
   success_counter <- 0
@@ -529,7 +530,7 @@ fit_EmissionSpectra <- function(
 
     if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
-    on.exit(close.screen(n = c(1,2)))
+    on.exit(close.screen(n = c(1,2)), add = TRUE)
 
     ##set split screen settings
     split.screen(rbind(

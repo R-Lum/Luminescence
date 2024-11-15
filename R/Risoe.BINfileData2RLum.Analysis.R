@@ -87,8 +87,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
   protocol = "unknown",
   keep.empty = TRUE,
   txtProgressBar = FALSE
-){
-
+) {
+  .set_function_name("Risoe.BINfileData2RLum.Analysis")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Check ---------------------------------------------------------
 

@@ -111,59 +111,6 @@ test_that("check values from calc_Huntley2008()", {
   expect_equal(round(sum(residuals(huntley$fits$unfaded)),2),  0)
 })
 
-## COMPARE calc_Kars2008 (deprecated) vs. re-named calc_Huntley2006
-test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
-  testthat::skip_on_cran()
-
-  expect_identical({
-    set.seed(1)
-    calc_Huntley2006(
-      data = data,
-      rhop = rhop,
-      ddot = ddot,
-      readerDdot = readerDdot,
-      n.MC = 50,
-      fit.method = "EXP",
-      plot = FALSE, verbose = FALSE)$results
-  }, {
-    set.seed(1)
-    suppressWarnings(
-    calc_Kars2008(
-      data = data,
-      rhop = rhop,
-      ddot = ddot,
-      readerDdot = readerDdot,
-      n.MC = 50,
-      fit.method = "EXP",
-      plot = FALSE, verbose = FALSE)$results
-    )
-  })#EndOf::expect_identical
-
-  expect_identical({
-    set.seed(1)
-    calc_Huntley2006(
-      data = data,
-      rhop = rhop,
-      ddot = ddot,
-      readerDdot = readerDdot,
-      n.MC = 500,
-      fit.method = "GOK",
-      plot = FALSE, verbose = FALSE)$results
-  }, {
-    set.seed(1)
-    suppressWarnings(
-      calc_Kars2008(
-        data = data,
-        rhop = rhop,
-        ddot = ddot,
-        readerDdot = readerDdot,
-        n.MC = 500,
-        fit.method = "GOK",
-        plot = FALSE, verbose = FALSE)$results
-    )
-  })#EndOf::expect_identical
-})
-
 test_that("Further tests calc_Huntley2006", {
   testthat::skip_on_cran()
 

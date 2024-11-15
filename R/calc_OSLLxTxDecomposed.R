@@ -64,7 +64,9 @@ calc_OSLLxTxDecomposed <- function(
   OSL.component = 1L,
   sig0 = 0,
   digits = NULL
-){
+) {
+  .set_function_name("calc_OSLLxTxDecomposed")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # ToDo:
   # - Integrity checks for the component table

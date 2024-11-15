@@ -42,16 +42,18 @@
 #' **Density of recombination centres**
 #'
 #' The density of recombination centres, expressed by the dimensionless variable rho', is estimated
-#' by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
+#' by fitting equation 5 in Kars et al. (2008) to the data. For the fitting the function
 #' [stats::nls] is used without applying weights. For the error estimation the same
 #' procedure as for the g-value is applied (see above).
 #'
 #' **Multiple aliquots & Lx/Tx normalisation**
 #'
-#' Be aware that this function will always normalise all `Lx/Tx` values by the `Lx/Tx` value of the
+#' Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}} values
+#' by the \eqn{\frac{L_x}{T_x}} value of the
 #' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-#' inter-aliquot variations in the `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
-#' of each aliquot by its individual prompt measurement please do so **before** running
+#' inter-aliquot variations in the \eqn{\frac{L_x}{T_x}} values.
+#' If deemed necessary to normalise the \eqn{\frac{L_x}{T_x}} values  of each
+#' aliquot by its individual prompt measurement please do so **before** running
 #' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
 #'
 #' **Shine-down curve plots**
@@ -71,7 +73,7 @@
 #'
 #' If data from multiple aliquots are provided please **see the details below** with regard to
 #' Lx/Tx normalisation. **The function assumes that all your measurements are related to
-#' one (comparable) sample. If you to treat independent samples, you have use this function
+#' one (comparable) sample. If you have to treat independent samples, you have use this function
 #' in a loop.**
 #'
 #' @param structure [character] (*with default*):
@@ -196,7 +198,9 @@ analyse_FadingMeasurement <- function(
   plot = TRUE,
   plot.single = FALSE,
   ...
-){
+) {
+  .set_function_name("analyse_FadingMeasurement")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Integrity Tests -----------------------------------------------------------------------------
   if (is(object, "list")) {
@@ -610,7 +614,7 @@ analyse_FadingMeasurement <- function(
   if(plot) {
     if (!plot.single[1]) {
       par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default))
+      on.exit(par(mfrow = par.default), add = TRUE)
       par(mfrow = c(2, 2))
 
     }

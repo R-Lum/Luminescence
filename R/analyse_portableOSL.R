@@ -114,8 +114,10 @@ analyse_portableOSL <- function(
   mode = "profile",
   coord = NULL,
   plot = TRUE,
-  ...)
-  {
+  ...
+) {
+  .set_function_name("analyse_portableOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## TODO
   ## - add tests for background image option
@@ -305,7 +307,7 @@ analyse_portableOSL <- function(
      ## set par -------
      if(length(plot_settings$surface_value) > 1) {
        par.default <- par(mfrow = c(2,2))
-       on.exit(par(par.default))
+       on.exit(par(par.default), add = TRUE)
      }
 
      ## loop over surface values -------
@@ -342,7 +344,7 @@ analyse_portableOSL <- function(
          par.default <- c(
            if(exists("par.default")) par.default else NULL,
            par(mar = c(4.5,4.5,4,2), xpd = FALSE))
-         on.exit(par(par.default))
+         on.exit(par(par.default), add = TRUE)
 
          ## open empty plot
          plot(
@@ -391,7 +393,7 @@ analyse_portableOSL <- function(
          ## add legend
          if(plot_settings$legend) {
            par.default <- c(par.default, par(xpd = TRUE))
-           on.exit(par(par.default))
+           on.exit(par(par.default), add = TRUE)
 
            col_grad <- plot_settings$col_ramp[
              seq(1, length(plot_settings$col_ramp), length.out = 14)]
@@ -449,7 +451,7 @@ analyse_portableOSL <- function(
    ## mode == "profile" ---------
    if (!is.null(mode[1]) && mode == "profile") {
     par.old.full <- par(no.readonly = TRUE)
-    on.exit(par(par.old.full))
+    on.exit(par(par.old.full), add = TRUE)
 
     # default: par(mar = c(5, 4, 4, 2) + 0.1) // bottom, left, top, right
     par(mfrow = c(1, 7))

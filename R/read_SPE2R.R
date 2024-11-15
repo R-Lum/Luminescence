@@ -110,7 +110,9 @@ read_SPE2R <- function(
   txtProgressBar = TRUE,
   verbose = TRUE,
   ...
-){
+) {
+  .set_function_name("read_SPE2R")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Consistency check -------------------------------------------------------
 

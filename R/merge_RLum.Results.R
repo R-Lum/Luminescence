@@ -22,7 +22,10 @@
 #' @md
 #' @export
 merge_RLum.Results <- function(
-    objects){
+  objects
+) {
+  .set_function_name("merge_RLum.Results")
+  on.exit(.unset_function_name(), add = TRUE)
 
             ##-------------------------------------------------------------
             ##Some integrity checks

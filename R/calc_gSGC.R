@@ -82,7 +82,9 @@ calc_gSGC<- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("calc_gSGC")
+  on.exit(.unset_function_name(), add = TRUE)
 
 ##============================================================================##
 ##CHECK INPUT DATA

@@ -467,6 +467,9 @@ plot_AbanicoPlot <- function(
   interactive = FALSE,
   ...
 ) {
+  .set_function_name("plot_AbanicoPlot")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## check data and parameter consistency--------------------------------------
 
   ## Homogenise input data format
@@ -558,7 +561,7 @@ plot_AbanicoPlot <- function(
 
   ## this ensures par() is respected for several plots on one page
   if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
-    on.exit(par(par.old.full))
+    on.exit(par(par.old.full), add = TRUE)
   }
 
   ## check/set layout definitions

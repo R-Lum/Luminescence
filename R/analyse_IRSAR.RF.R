@@ -424,7 +424,9 @@ analyse_IRSAR.RF<- function(
   plot = TRUE,
   plot_reduced = FALSE,
   ...
-){
+) {
+  .set_function_name("analyse_IRSAR.RF")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO
   ## - if a file path is given, the function should try to find out whether an XSYG-file or
@@ -1560,7 +1562,7 @@ analyse_IRSAR.RF<- function(
 
       ##grep par default and define reset
       def.par <- par(no.readonly = TRUE)
-      on.exit(par(def.par))
+      on.exit(par(def.par), add = TRUE)
 
       ##set plot frame, if a method was chosen
       if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
@@ -1575,7 +1577,7 @@ analyse_IRSAR.RF<- function(
     }else{
       if(plot.settings[["cex"]] != 1){
         def.par <- par()[["cex"]]
-        on.exit(par(def.par))
+        on.exit(par(def.par), add = TRUE)
 
         par(cex = plot.settings[["cex"]])
 

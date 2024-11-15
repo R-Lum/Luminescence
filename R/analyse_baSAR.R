@@ -437,7 +437,9 @@ analyse_baSAR <- function(
   plot.single = FALSE,
   verbose = TRUE,
   ...
-){
+) {
+  .set_function_name("analyse_baSAR")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##////////////////////////////////////////////////////////////////////////////////////////////////
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model
@@ -641,14 +643,12 @@ analyse_baSAR <- function(
         .throw_error("No pre-defined model for the requested distribution. ",
                      "Please select one of '",
                      paste(rev(names(baSAR_models))[-1], collapse = "', '"),
-                     "', or define an own model using argument 'baSAR_model'",
-                     nframe = 7)
+                     "', or define an own model using argument 'baSAR_model'")
       }
 
       if (distribution == "user_defined" && is.null(baSAR_model)) {
         .throw_error("You specified a 'user_defined' distribution, ",
-                     "but did not provide a model via 'baSAR_model'",
-                     nframe = 7)
+                     "but did not provide a model via 'baSAR_model'")
       }
 
       ### Bayesian inputs
@@ -2250,7 +2250,7 @@ analyse_baSAR <- function(
 
     if(!plot.single){
       par(mfrow = c(1,2))
-      on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE))
+      on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE), add = TRUE)
     }
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##DOSE RESPONSE CURVES AND Lx/Tx VALUES

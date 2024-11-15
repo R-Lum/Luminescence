@@ -171,7 +171,7 @@
 #' @param ...
 #' Further parameters:
 #' - `verbose` [logical]: Show or hide console output
-#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `100000`).
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `10000`).
 #' **Note** that it is generally advised to have a large number of Monte Carlo
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
@@ -285,8 +285,7 @@
 #' }
 #' @md
 #' @export
-calc_Huntley2006 <-
-  function(
+calc_Huntley2006 <- function(
     data,
     LnTn = NULL,
     rhop,
@@ -298,7 +297,10 @@ calc_Huntley2006 <-
     summary = TRUE,
     plot = TRUE,
     ...
-){
+) {
+  .set_function_name("calc_Huntley2006")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate Input ------------------------------------------------------------
 
   ## Check fit method
@@ -420,7 +422,7 @@ calc_Huntley2006 <-
   settings <- modifyList(
     list(
       verbose = TRUE,
-      n.MC = 100000),
+      n.MC = 10000),
     list(...))
 
   ## Define Constants ----------------------------------------------------------
@@ -965,7 +967,7 @@ calc_Huntley2006 <-
     }
 
     # recover plot parameters
-    on.exit(par(par.old.full))
+    on.exit(par(par.old.full), add = TRUE)
 
   }
 
@@ -1070,4 +1072,4 @@ calc_Huntley2006 <-
 
   ## Return value --------------------------------------------------------------
   return(results)
-  }
+}

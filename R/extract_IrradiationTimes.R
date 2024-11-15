@@ -139,7 +139,9 @@ extract_IrradiationTimes <- function(
   recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"),
   compatibility.mode = TRUE,
   txtProgressBar = TRUE
-){
+) {
+  .set_function_name("extract_IrradiationTimes")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){

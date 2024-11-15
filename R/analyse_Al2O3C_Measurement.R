@@ -147,7 +147,9 @@ analyse_Al2O3C_Measurement <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-){
+) {
+  .set_function_name("analyse_Al2O3C_Measurement")
+  on.exit(.unset_function_name(), add = TRUE)
 
   # Self call -----------------------------------------------------------------------------------
   if(is(object, "list")){
@@ -617,7 +619,7 @@ analyse_Al2O3C_Measurement <- function(
     if (plot) {
       ##get plot settings
       par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default))
+      on.exit(par(mfrow = par.default), add = TRUE)
 
       ##settings
       plot_settings <- list(

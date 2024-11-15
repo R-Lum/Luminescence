@@ -123,6 +123,8 @@
 #' @export
 plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
                      legend = TRUE, legend.pos = "topright", ...) {
+  .set_function_name("plot_NRt")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## DATA INPUT EVALUATION -----
   if (inherits(data, "list")) {

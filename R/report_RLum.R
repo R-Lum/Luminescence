@@ -189,7 +189,10 @@ report_RLum <- function(
   css.file = NULL,
   quiet = TRUE,
   clean = TRUE,
-  ...) {
+  ...
+) {
+  .set_function_name("report_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## ------------------------------------------------------------------------ ##
   ## PRE-CHECKS ----

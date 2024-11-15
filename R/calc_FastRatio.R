@@ -123,6 +123,8 @@ calc_FastRatio <- function(object,
                            fitCW.curve = FALSE,
                            plot = TRUE,
                            ...) {
+  .set_function_name("calc_FastRatio")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Input verification --------------------------------------------------------
   .validate_positive_scalar(Ch_L1, int = TRUE)
@@ -240,8 +242,7 @@ calc_FastRatio <- function(object,
     } else {
       if (any(Ch_L3 > nrow(A))) {
         .throw_error("Value in Ch_L3 (", paste(Ch_L3, collapse = ", "),
-                     ") exceeds number of available channels (", nrow(A), ")",
-                     nframe = 3) # we are inside an lapply closure
+                     ") exceeds number of available channels (", nrow(A), ")")
       }
       t_L3_start <- A[Ch_L3[1], 1]
       t_L3_end <- A[Ch_L3[2], 1]

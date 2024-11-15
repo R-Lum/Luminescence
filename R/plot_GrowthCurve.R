@@ -319,6 +319,8 @@ plot_GrowthCurve <- function(
   verbose = TRUE,
   ...
 ) {
+  .set_function_name("plot_GrowthCurve")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##1. Check input variable
   switch(
@@ -1915,7 +1917,7 @@ plot_GrowthCurve <- function(
 
       ## safe par settings
       par.old.full <- par(no.readonly = TRUE)
-      on.exit(par(par.old.full))
+      on.exit(par(par.old.full), add = TRUE)
 
       ##set new parameter
       layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)

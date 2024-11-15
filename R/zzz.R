@@ -19,6 +19,13 @@ assign("col",
        pos = ".LuminescenceEnv",
        envir = .LuminescenceEnv)
 
+## `fn_stack` is used to keep a stack of function names, managed by
+## `.[set|unset]_function_name()`, that reflects the call stack for correct
+## error/warning reporting from `.throw_error()` and `.throw_warning()`
+assign("fn_stack", list(),
+       pos = ".LuminescenceEnv",
+       envir = .LuminescenceEnv)
+
 
 ##==============================================================================
 ##on Attach

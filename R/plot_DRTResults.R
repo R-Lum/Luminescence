@@ -192,7 +192,9 @@ plot_DRTResults <- function(
   par.local = TRUE,
   na.rm  = FALSE,
   ...
-){
+) {
+  .set_function_name("plot_DRTResults")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## Validity checks ----------------------------------------------------------
 
@@ -470,7 +472,7 @@ plot_DRTResults <- function(
     if (shift.lines <= 0)
     shift.lines <- 1
     par.default <- par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
-    on.exit(par(par.default))
+    on.exit(par(par.default), add = TRUE)
   }
 
   ## optionally plot values and error bars

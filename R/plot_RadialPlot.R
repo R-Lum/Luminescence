@@ -291,6 +291,9 @@ plot_RadialPlot <- function(
   output = FALSE,
   ...
 ) {
+  .set_function_name("plot_RadialPlot")
+  on.exit(.unset_function_name(), add = TRUE)
+
   if (is(data, "list") && length(data) == 0) {
     .throw_error("'data' is an empty list")
   }
@@ -1341,7 +1344,7 @@ label.text[[1]] <- NULL
         cex = cex)
 
     ## reset on exit
-    on.exit(par(default))
+    on.exit(par(default), add = TRUE)
 
     ## create empty plot
     plot(NA,

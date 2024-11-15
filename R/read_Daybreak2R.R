@@ -114,7 +114,7 @@ read_Daybreak2R <- function(
   if(substr(file, start = nchar(file) - 3, stop = nchar(file)) == ".DAT"){
 
      # Read DAT-file ------------------------------------------------------------------------------
-      on.exit(close(con))
+      on.exit(close(con), add = TRUE)
 
       ##screen file to get information on the number of stored records
       con<-file(file,"rb")

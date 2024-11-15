@@ -115,7 +115,9 @@ plot_Risoe.BINfileData<- function(
   temp.lab,
   cex.global = 1,
   ...
-){
+) {
+  .set_function_name("plot_Risoe.BINfileData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##check if the object is of type Risoe.BINfileData
   if(!inherits(BINfileData, "Risoe.BINfileData"))

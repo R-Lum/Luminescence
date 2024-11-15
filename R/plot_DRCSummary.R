@@ -82,8 +82,9 @@ plot_DRCSummary <- function(
   show_natural = FALSE,
   n = 51L,
   ...
-){
-
+) {
+  .set_function_name("plot_DRCSummary")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Self-call -----------------------------------------------------------------------------------
 if(inherits(object, "list")){

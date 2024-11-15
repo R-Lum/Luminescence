@@ -147,7 +147,10 @@ calc_AliquotSize <- function(
   grains.counted,
   plot=TRUE,
   ...
-){
+) {
+  .set_function_name("calc_AliquotSize")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ##==========================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##==========================================================================##

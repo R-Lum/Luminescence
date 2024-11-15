@@ -538,7 +538,7 @@ scale_GammaDose <- function(
 
     # save and recover plot parameters
     par.old <- par(no.readonly = TRUE)
-    on.exit(par(par.old))
+    on.exit(par(par.old), add = TRUE)
 
     if (plot_single)
       layout(matrix(c(1,1, 2, 3, 4, 5,

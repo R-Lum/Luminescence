@@ -270,6 +270,8 @@ analyse_SAR.CWOSL<- function(
   onlyLxTxTable = FALSE,
   ...
 ) {
+  .set_function_name("analyse_SAR.CWOSL")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
@@ -867,7 +869,7 @@ error.list <- list()
       # plot everyting on one page ... doing it here is much cleaner than
       # Plotting - one Page config -------------------------------------------------------
       if(plot_onePage){
-      on.exit(on_exit())
+      on.exit(on_exit(), add = TRUE)
 
       plot.single <- TRUE
       layout(matrix(
@@ -890,7 +892,7 @@ error.list <- list()
       }
 
       if (plot.single[1] == FALSE) {
-        on.exit(on_exit())
+        on.exit(on_exit(), add = TRUE)
         layout(matrix(
           c(1, 1, 3, 3,
             1, 1, 3, 3,

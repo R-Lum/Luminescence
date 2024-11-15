@@ -150,8 +150,9 @@ calc_ThermalLifetime <- function(
   verbose = TRUE,
   plot = TRUE,
   ...
-
-){
+) {
+  .set_function_name("calc_ThermalLifetime")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Integrity -----------------------------------------------------------------------------------
 
