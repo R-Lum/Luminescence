@@ -342,12 +342,20 @@ analyse_Al2O3C_Measurement <- function(
     if (is(cross_talk_correction, "RLum.Results") &&
         cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
 
-        ##grep cross talk correction and calculate values for
-        ##this particular carousel position
-        cross_talk_correction <-
-          as.numeric(predict(cross_talk_correction$fit,
-                  newdata = data.frame(x = POSITION),
-                  interval = "confidence"))
+      ## calculate the cross-talk correction values for this particular
+      ## carousel position
+      interval <- ifelse(length(POSITION) > 1, "confidence", "none")
+      cross_talk_correction <-
+        as.numeric(predict(cross_talk_correction$fit,
+                           newdata = data.frame(x = POSITION),
+                           interval = interval))
+
+      ## we could not compute a confidence interval, so we create it manually
+      if (length(POSITION) == 1) {
+        cross_talk_correction <- matrix(cross_talk_correction, 1, 3,
+                                        dimnames = list("position",
+                                                        c("fit", "lwr", "upr")))
+      }
 
     }else{
       .throw_error("The object provided for 'cross_talk_correction' was ",
@@ -355,7 +363,7 @@ analyse_Al2O3C_Measurement <- function(
     }
   }
 
-  # Calculation ---------------------------------------------------------------------------------
+  # Calculation -------------------------------------------------------------
   ##we have two dose points, and one background curve, we do know only the 2nd dose
 
   ##set test parameters

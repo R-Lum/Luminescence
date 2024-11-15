@@ -68,8 +68,6 @@ test_that("analyse_Al2O3C_Measurements", {
 
   ## cross_talk_correction
   ct.corr <- analyse_Al2O3C_CrossTalk(data_CrossTalk)
-  suppressWarnings( # FIXME(mcol): warnings come from a poorly fitted ct.corr
   analyse_Al2O3C_Measurement(temp, cross_talk_correction = list(ct.corr),
                              plot = FALSE, verbose = FALSE)
-  )
 })
