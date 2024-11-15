@@ -10,9 +10,11 @@ test_that("input validation", {
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(convert_PSL2CSV(file = "error"),
                "No .psl files found")
+  SW({
   expect_error(expect_message(convert_XSYG2CSV(file = "", export = FALSE),
                               "XML file not readable, nothing imported"),
                "'object' should be of class 'RLum.Analysis', 'RLum.Data.Curve'")
+  })
 })
 
 test_that("test convert functions", {
