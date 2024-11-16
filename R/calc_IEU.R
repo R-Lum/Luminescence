@@ -224,7 +224,7 @@ calc_IEU <- function(
     Intercept <- Above.R - (Slope * Above.Z)
     Zbar <- round(((1 - Intercept)/Slope), decimal.point)
     Zbar.Error <- max(sqrt(Above.Error), sqrt(Below.Error))
-    Zbar.Error <- round(IEU.Error, decimal.point)
+    Zbar.Error <- round(Zbar.Error, decimal.point)
     n <- Max + 1
     Dbar.Fixed <- Dbar - interval
     Table.Fixed.Iteration <- rbind(Table.Fixed.Iteration,
