@@ -142,7 +142,8 @@ calc_IEU <- function(
     INT <- 1 / Z.bot
     R <- sqrt(INT / EXT)
     R.Error <- (2 * (1:N - 1))^(-0.5)
-    Table.IEU <- data.table(Rank.number = 1:N,
+    Rank.number <- 1:N
+    Table.IEU <- data.table(Rank.number = Rank.number,
                             De = De, De.Error = De.Total.Error,
                             Z, EXT.top, EXT, INT, R, R.Error)
 
