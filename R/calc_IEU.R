@@ -181,8 +181,8 @@ calc_IEU <- function(
                       ylab = expression(paste("R = [", alpha["in"], "/", alpha["ex"],"]")),
                       abline.vals = c(1, 0),
                       asp = NA) {
-    ymin <- min((y.vals - y.errs)[-1])
-    ymax <- max((y.vals + y.errs)[-1])
+    ymin <- min((y.vals - y.errs)[-1], na.rm = TRUE)
+    ymax <- max((y.vals + y.errs)[-1], na.rm = TRUE)
 
     plot(x.vals, y.vals, type = "b", xlab = xlab, ylab = ylab,
          ylim = c(min(ymin, 0), ymax),

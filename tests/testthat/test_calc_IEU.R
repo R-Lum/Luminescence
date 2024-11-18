@@ -82,7 +82,7 @@ test_that("regression tests", {
       ExampleData.DeValues$CA1,
       a = 0.12,
       b = 1.29,
-      interval = 1,
+      interval = 10,
       verbose = FALSE,
       plot = FALSE),
       "Numerical error, try changing your 'a' and 'b' values")
