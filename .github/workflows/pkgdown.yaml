@@ -52,4 +52,5 @@ jobs:
           folder: docs
 
       - name: Delete website tag
+        if: ${{ github.ref }} == 'refs/tags/website'
         uses: prompt/actions-delete-tag@v1
