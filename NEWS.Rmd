@@ -137,6 +137,9 @@ Please keep in mind that it does not mean that the fit results make any sense,
 it just helps to avoid uncontained events in the R session (addresses #381).
 * Option `output.plotExtended.single` has been renamed to `plot_singlePanels`
 (#351, fixed in #408).
+* The function now supports a list of data frames as input, in which case it
+calls itself on each element of the list and produces a list of `RLum.Results`
+as output (#405, fixed in #434).
 
 ### `plot_RLum.Analysis()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
