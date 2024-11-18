@@ -6,7 +6,6 @@
 on:
   push:
     tags: website
-  pull_request:
   release:
     types: [published]
   workflow_dispatch:
