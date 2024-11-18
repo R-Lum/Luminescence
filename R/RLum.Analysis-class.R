@@ -560,6 +560,10 @@ setMethod("get_RLum",
                 }
 
               } else{
+                ## FIXME(mcol): this block seems unreachable : as before the
+                ## `if` block we set `record.id <- 1:length(object@records)`,
+                ## it can never happen that `length(record.id) < 1`
+                # nocov start
                 if (!get.index[1]) {
                   if (drop == FALSE) {
                     ##needed to keep the argument drop == TRUE
@@ -578,8 +582,8 @@ setMethod("get_RLum",
 
                 } else{
                   return(record.id)
-
                 }
+                # nocov end
               }
             }
           })
