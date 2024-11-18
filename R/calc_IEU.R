@@ -133,12 +133,11 @@ calc_IEU <- function(
 
   temp <- NULL
   for (j in 1:N) {
-    for (i in j) {
       Z <- Table.Calculations$Z[j]
-      x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+      x <- ((Table.Calculations$De[1:j] - Z)^2) /
+           ((Table.Calculations$De.Total.Error[1:j])^2)
       y <- (sum(x))
       temp <- rbind(temp, data.frame(y))
-    }
   }
 
   EXT.top <- temp
@@ -190,12 +189,11 @@ calc_IEU <- function(
 
     temp <- NULL
     for (j in 1:N) {
-      for (i in j) {
         Z <- Table.Calculations$Z[j]
-        x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+        x <- ((Table.Calculations$De[1:j] - Z)^2) /
+             ((Table.Calculations$De.Total.Error[1:j])^2)
         y <- (sum(x))
         temp <- rbind(temp, data.frame(y))
-      }
     }
 
     EXT.top <- temp
@@ -267,12 +265,11 @@ calc_IEU <- function(
 
   temp <- NULL
   for (j in 1:N) {
-    for (i in j) {
       Z <- Table.Calculations$Z[j]
-      x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+      x <- ((Table.Calculations$De[1:j] - Z)^2) /
+           ((Table.Calculations$De.Total.Error[1:j])^2)
       y <- (sum(x))
       temp <- rbind(temp, data.frame(y))
-    }
   }
 
   EXT.top <- temp
@@ -321,12 +318,11 @@ calc_IEU <- function(
 
     temp <- NULL
     for (j in 1:N) {
-      for (i in j) {
         Z <- Table.Calculations$Z[j]
-        x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+        x <- ((Table.Calculations$De[1:j] - Z)^2) /
+             ((Table.Calculations$De.Total.Error[1:j])^2)
         y <- (sum(x))
         temp <- rbind(temp, data.frame(y))
-      }
     }
 
     EXT.top <- temp
