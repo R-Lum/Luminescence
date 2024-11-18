@@ -92,17 +92,17 @@ calc_IEU <- function(
   ## ... ARGUMENTS
   ##==========================================================================##
   extraArgs <- list(...)
+
   ## console output
+  verbose <- TRUE
   if ("verbose" %in% names(extraArgs)) {
     verbose <- extraArgs$verbose
-  } else {
-    verbose <- TRUE
   }
-  # trace calculations
+
+  ## trace calculations
+  trace <- FALSE
   if ("trace" %in% names(extraArgs)) {
     trace <- extraArgs$trace
-  } else {
-    trace <- FALSE
   }
   # TODO: main, xlab, ylab, xlim, ylim, pch, col
 

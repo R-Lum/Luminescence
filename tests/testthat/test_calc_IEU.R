@@ -20,15 +20,14 @@ test_that("check functionality", {
     verbose = FALSE, plot =FALSE
   ))
 
-  ##enable plot
+  ## enable plot and verbose (using default values for coverage)
   SW({
   expect_message(calc_IEU(
     ExampleData.DeValues$CA1,
     a = 0.2,
     b = 1.9,
     interval = 1,
-    trace = TRUE,
-    verbose = TRUE, plot = TRUE
+    trace = TRUE
   ))
   })
 })
