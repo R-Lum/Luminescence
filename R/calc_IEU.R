@@ -80,13 +80,21 @@ calc_IEU <- function(
   .set_function_name("calc_IEU")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##==========================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##==========================================================================##
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data)
   }
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have at least two columns")
+  }
+  data <- data[, 1:2]
+  colnames(data) <- c("De", "De.Error")
+
+  .validate_class(a, "numeric")
+  .validate_class(b, "numeric")
+  .validate_class(interval, "numeric")
 
   ##==========================================================================##
   ## ... ARGUMENTS
@@ -110,9 +118,8 @@ calc_IEU <- function(
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
-  empty <- NULL
+
   Table.Fixed.Iteration <- data.frame(matrix(nrow = 0, ncol = 9))
-  colnames(data) <- c("De", "De.Error")
   data <- data[order(data$De), ]
   Mean <- mean(data$De)
   Dbar <- round(Mean, decimal.point)
