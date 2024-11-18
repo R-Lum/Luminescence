@@ -45,7 +45,8 @@
 #'
 #' @author
 #' Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-#' Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen.
+#' Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen. \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot], [calc_CommonDose], [calc_CentralDose], [calc_FiniteMixture],
 #' [calc_FuchsLang2001], [calc_MinDose]
@@ -119,296 +120,137 @@ calc_IEU <- function(
   ## CALCULATIONS
   ##============================================================================##
 
-  Table.Fixed.Iteration <- data.frame(matrix(nrow = 0, ncol = 9))
-  data <- data[order(data$De), ]
-  Mean <- mean(data$De)
-  Dbar <- round(Mean, decimal.point)
-  Lowest.De <- round(data$De[1], decimal.point)
+  main.calculation <- function(data, Dbar, round.z = FALSE,
+                               plot = FALSE, trace = FALSE) {
+    N <- nrow(data)
+    De <- data$De
+    De.Total.Error <- sqrt(data$De.Error^2 + (a * Dbar + b)^2)
+    Inv.De.Total.Error.Sq <- 1 / De.Total.Error^2
+    Z.top <- cumsum(Inv.De.Total.Error.Sq * De)
+    Z.bot <- cumsum(Inv.De.Total.Error.Sq)
+    Z <- Z.top / Z.bot
+    if (round.z)
+      Z <- round(Z, decimal.point)
 
-  # (a) Calculate IEU at fixed intervals of Dbar starting from the Mean and
-  # subtracting the interval until Dbar is < Lowest.De; this creates a plot
-  N <- nrow(data)
-  Rank.number <- t(c(1:N))
-  De.Total.Error <- sqrt((data$De.Error^2) + (((a * Dbar) + b)^2))
-  Table.Calculations <- data.frame(Rank.number = c(Rank.number),
-                                   De = c(data$De),
-                                   De.Total.Error = c(De.Total.Error))
-  Z.top <- cumsum(Table.Calculations$De/(Table.Calculations$De.Total.Error^2))
-  Z.bottom <- cumsum(1/(Table.Calculations$De.Total.Error^2))
-  Z <- Z.top/Z.bottom
-  Table.Calculations["Z"] <- Z
-
-  temp <- NULL
-  for (j in 1:N) {
-      Z <- Table.Calculations$Z[j]
-      x <- ((Table.Calculations$De[1:j] - Z)^2) /
-           ((Table.Calculations$De.Total.Error[1:j])^2)
-      y <- (sum(x))
-      temp <- rbind(temp, data.frame(y))
-  }
-
-  EXT.top <- temp
-  EXT.bottom <- (Table.Calculations$Rank.number - 1) * Z.bottom
-  EXT <- EXT.top/EXT.bottom
-  INT <- 1/Z.bottom
-  R <- sqrt(INT/EXT)
-  R.Error <- (2 * (Table.Calculations$Rank.number - 1))^(-0.5)
-
-  Table.IEU <- data.frame(Table.Calculations$Rank.number, Table.Calculations$De,
-                          Table.Calculations$De.Total.Error, Table.Calculations$Z,
-                          EXT.top, EXT, INT, R, R.Error)
-
-  colnames(Table.IEU) <- c("Rank.number", "De", "De.Error", "Z", "EXT.top",
-                           "EXT", "INT", "R", "R.Uncertainty")
-
-  Unity <- Table.IEU[R >= 1, ]
-  Max <- max(Unity$Rank.number, na.rm = TRUE)
-  Above.Z <- Table.IEU[Max, 4]
-  Above.Error <- Table.IEU[Max, 6]
-  Below.Z <- Table.IEU[Max + 1, 4]
-  Below.Error <- Table.IEU[Max + 1, 6]
-  Above.R <- Table.IEU[Max, 8]
-  Below.R <- Table.IEU[Max + 1, 8]
-  Slope <- (Above.R - Below.R)/(Above.Z - Below.Z)
-  Intercept <- Above.R - (Slope * Above.Z)
-  IEU.De <- round(((1 - Intercept)/Slope), decimal.point)
-  IEU.Error <- max(sqrt(Above.Error), sqrt(Below.Error))
-  IEU.Error <- round(IEU.Error, decimal.point)
-  n <- Max + 1
-
-  Dbar.Fixed <- Dbar - interval
-  Dbar.Mean <- c(1, Dbar, Dbar.Fixed, IEU.De, IEU.Error, n, Below.R, a, b)
-
-  repeat {
-    if (Dbar.Fixed < Lowest.De) {
-      break
-    } else {
-      Dbar <- Dbar.Fixed
-    }
-    De.Total.Error <- sqrt((data$De.Error^2) + (((a * Dbar) + b)^2))
-    Table.Calculations <- data.frame(Rank.number = c(Rank.number),
-                                     De = c(data$De),
-                                     De.Total.Error = c(De.Total.Error))
-    Z.top <- cumsum(Table.Calculations$De/(Table.Calculations$De.Total.Error^2))
-    Z.bottom <- cumsum(1/(Table.Calculations$De.Total.Error^2))
-    Z <- Z.top/Z.bottom
-    Table.Calculations["Z"] <- Z
-
-    temp <- NULL
+    EXT.top <- NULL
     for (j in 1:N) {
-        Z <- Table.Calculations$Z[j]
-        x <- ((Table.Calculations$De[1:j] - Z)^2) /
-             ((Table.Calculations$De.Total.Error[1:j])^2)
-        y <- (sum(x))
-        temp <- rbind(temp, data.frame(y))
+      x <- (De[1:j] - Z[j])^2 * Inv.De.Total.Error.Sq[1:j]
+      EXT.top <- c(EXT.top, sum(x))
     }
+    EXT.bot <- (1:N - 1) * Z.bot
+    EXT <- EXT.top / EXT.bot
+    INT <- 1 / Z.bot
+    R <- sqrt(INT / EXT)
+    R.Error <- (2 * (1:N - 1))^(-0.5)
 
-    EXT.top <- temp
-    EXT.bottom <- (Table.Calculations$Rank.number - 1) * Z.bottom
-    EXT <- EXT.top/EXT.bottom
-    INT <- 1/Z.bottom
-    R <- sqrt(INT/EXT)
-    R.Error <- (2 * (Table.Calculations$Rank.number - 1))^(-0.5)
+    Table.IEU <- data.table(Rank.number = 1:N,
+                            De = De, De.Error = De.Total.Error,
+                            Z, EXT.top, EXT, INT, R, R.Error)
 
-    Table.IEU <- data.frame(Table.Calculations$Rank.number, Table.Calculations$De,
-                            Table.Calculations$De.Total.Error, Table.Calculations$Z,
-                            EXT.top, EXT, INT, R, R.Error)
-
-    colnames(Table.IEU) <- c("Rank.number", "De", "De.Error", "Z", "EXT.top",
-                             "EXT", "INT", "R", "R.Uncertainty")
-
-    Unity <- Table.IEU[R >= 1, ]
-    Max <- max(Unity$Rank.number, na.rm = TRUE)
-    Above.Z <- Table.IEU[Max, 4]
-    Above.Error <- Table.IEU[Max, 6]
-    Below.Z <- Table.IEU[Max + 1, 4]
-    Below.Error <- Table.IEU[Max + 1, 6]
-    Above.R <- Table.IEU[Max, 8]
-    Below.R <- Table.IEU[Max + 1, 8]
-    Slope <- (Above.R - Below.R)/(Above.Z - Below.Z)
-    Intercept <- Above.R - (Slope * Above.Z)
-    Zbar <- round(((1 - Intercept)/Slope), decimal.point)
-    Zbar.Error <- max(sqrt(Above.Error), sqrt(Below.Error))
-    Zbar.Error <- round(Zbar.Error, decimal.point)
-    n <- Max + 1
-    Dbar.Fixed <- Dbar - interval
-    Table.Fixed.Iteration <- rbind(Table.Fixed.Iteration,
-                                   cbind(1, Dbar, Dbar.Fixed, Zbar, Zbar.Error,
-                                         n, Below.R, a, b))
-  }
-
-  Table.Fixed.Iteration <- rbind(Dbar.Mean, Table.Fixed.Iteration)
-  colnames(Table.Fixed.Iteration) <- c(FALSE, "Dbar", "Dbar.Fixed", "Zbar",
-                                       "Zbar.Error", "n", "Below.R", "a", "b")
-
-  if (plot) {
-    plot(Table.Fixed.Iteration$Dbar,
-         Table.Fixed.Iteration$Zbar,
-         type = "b",
-         ylab = "Zbar, weighted mean  (Gy)",
-         xlab = "Dbar (Gy)",
-         asp = 1/1)
-
-    arrows(Table.Fixed.Iteration$Dbar, Table.Fixed.Iteration$Zbar + Table.Fixed.Iteration$Zbar.Error,
-           Table.Fixed.Iteration$Dbar, Table.Fixed.Iteration$Zbar - Table.Fixed.Iteration$Zbar.Error,
-           col = 1, angle = 90, length = 0.05, code = 3)
-
-    abline(0, 1, untf = FALSE, lty = 3)
-  }
-
-  # (b) Calculate Dbar by iteration from [Dbar = Lowest.De] until [IEU.De = Dbar];
-  # this calculates the IEU De
-  Dbar <- Lowest.De
-  N <- nrow(data)
-  Rank.number <- t(c(1:N))
-  De.Total.Error <- sqrt((data$De.Error^2) + (((a * Dbar) + b)^2))
-  Table.Calculations <- data.frame(Rank.number = c(Rank.number),
-                                   De = c(data$De),
-                                   De.Total.Error = c(De.Total.Error))
-  Z.top <- cumsum(Table.Calculations$De/(Table.Calculations$De.Total.Error^2))
-  Z.bottom <- cumsum(1/(Table.Calculations$De.Total.Error^2))
-  Z <- Z.top/Z.bottom
-  Table.Calculations["Z"] <- Z
-
-  temp <- NULL
-  for (j in 1:N) {
-      Z <- Table.Calculations$Z[j]
-      x <- ((Table.Calculations$De[1:j] - Z)^2) /
-           ((Table.Calculations$De.Total.Error[1:j])^2)
-      y <- (sum(x))
-      temp <- rbind(temp, data.frame(y))
-  }
-
-  EXT.top <- temp
-  EXT.bottom <- (Table.Calculations$Rank.number - 1) * Z.bottom
-  EXT <- EXT.top/EXT.bottom
-  INT <- 1/Z.bottom
-  R <- sqrt(INT/EXT)
-  R.Error <- (2 * (Table.Calculations$Rank.number - 1))^(-0.5)
-
-  Table.IEU <- data.frame(Table.Calculations$Rank.number, Table.Calculations$De,
-                          Table.Calculations$De.Total.Error, Table.Calculations$Z,
-                          EXT.top, EXT, INT, R, R.Error)
-
-  colnames(Table.IEU) <- c("Rank.number", "De", "De.Error", "Z",
-                           "EXT.top", "EXT", "INT", "R", "R.Uncertainty")
-
-  Unity <- Table.IEU[R >= 1, ]
-  Max <- max(Unity$Rank.number, na.rm = TRUE)
-  Above.Z <- Table.IEU[Max, 4]
-  Above.Error <- Table.IEU[Max, 6]
-  Below.Z <- Table.IEU[Max + 1, 4]
-  Below.Error <- Table.IEU[Max + 1, 6]
-  Above.R <- Table.IEU[Max, 8]
-  Below.R <- Table.IEU[Max + 1, 8]
-  Slope <- (Above.R - Below.R)/(Above.Z - Below.Z)
-  Intercept <- Above.R - (Slope * Above.Z)
-  IEU.De <- round(((1 - Intercept)/Slope), decimal.point)
-  IEU.Error <- max(sqrt(Above.Error), sqrt(Below.Error))
-  IEU.Error <- round(IEU.Error, decimal.point)
-  n <- Max + 1
-
-  repeat {
-    if (IEU.De <= Dbar) {
-      break
-    } else {
-      Dbar <- IEU.De
-    }
-    De.Total.Error <- sqrt((data$De.Error^2) + (((a * Dbar) + b)^2))
-    Table.Calculations <- data.frame(Rank.number = c(Rank.number),
-                                     De = c(data$De),
-                                     De.Total.Error = c(De.Total.Error))
-    Z.top <- cumsum(Table.Calculations$De/(Table.Calculations$De.Total.Error^2))
-    Z.bottom <- cumsum(1/(Table.Calculations$De.Total.Error^2))
-    Z <- round((Z.top/Z.bottom), decimal.point)
-    Table.Calculations["Z"] <- Z
-
-    temp <- NULL
-    for (j in 1:N) {
-        Z <- Table.Calculations$Z[j]
-        x <- ((Table.Calculations$De[1:j] - Z)^2) /
-             ((Table.Calculations$De.Total.Error[1:j])^2)
-        y <- (sum(x))
-        temp <- rbind(temp, data.frame(y))
-    }
-
-    EXT.top <- temp
-    EXT.bottom <- (Table.Calculations$Rank.number - 1) * Z.bottom
-    EXT <- EXT.top/EXT.bottom
-    INT <- 1/Z.bottom
-    R <- sqrt(INT/EXT)
-    R.Error <- (2 * (Table.Calculations$Rank.number - 1))^(-0.5)
-
-    Table.IEU <- data.frame(Table.Calculations$Rank.number, Table.Calculations$De,
-                            Table.Calculations$De.Total.Error, Table.Calculations$Z,
-                            EXT.top, EXT, INT, R, R.Error)
-
-    colnames(Table.IEU) <- c("Rank.number", "De", "De.Error", "Z", "EXT.top",
-                             "EXT", "INT", "R", "R.Error")
-
-    # to reduce the number of plots and increase perfomance
-    # intermediate calculations are only plotted when trace = TRUE
+    ## to reduce the number of plots and increase performance,
+    ## intermediate calculations are plotted only when `trace = TRUE`
     if (plot && trace) {
-      ymin <- min(Table.IEU$R[2:nrow(Table.IEU)] - Table.IEU$R.Error[2:nrow(Table.IEU)])
-      ymax <- max(Table.IEU$R[2:nrow(Table.IEU)] + Table.IEU$R.Error[2:nrow(Table.IEU)])
-      ylim <- c(ifelse(ymin > 0, 0, ymin), ymax)
-
-      plot(Table.IEU$Z, Table.IEU$R,
-           type = "b",
-           ylab = expression(paste("R = [", alpha["in"], "/", alpha["ex"],"]")),
-           xlab = "Z [Gy]",
-           ylim = ylim)
-
-      arrows(Table.IEU$Z, Table.IEU$R + Table.IEU$R.Error,
-             Table.IEU$Z, Table.IEU$R - Table.IEU$R.Error,
-             col = 1, angle = 90,
-             length = 0.05, code = 3)
-
-      abline(1, 0, untf = FALSE, lty = 3)
+      do.plot(Table.IEU$Z, Table.IEU$R, Table.IEU$R.Error)
     }
 
-    Unity <- Table.IEU[R >= 1, ]
-    Max <- max(Unity$Rank.number, na.rm = TRUE)
-    Above.Z <- Table.IEU[Max, 4]
-    Above.Error <- Table.IEU[Max, 6]
-    Below.Z <- Table.IEU[Max + 1, 4]
-    Below.Error <- Table.IEU[Max + 1, 6]
-    Above.R <- Table.IEU[Max, 8]
-    Below.R <- Table.IEU[Max + 1, 8]
-    Slope <- (Above.R - Below.R)/(Above.Z - Below.Z)
-    Intercept <- Above.R - (Slope * Above.Z)
-    IEU.De <- round(((1 - Intercept)/Slope), decimal.point)
-    IEU.Error <- max(sqrt(Above.Error), sqrt(Below.Error))
+    Max <- Table.IEU[R >= 1, max(Rank.number, na.rm = TRUE)]
+    Above <- Table.IEU[Max]
+    Below <- Table.IEU[Max + 1]
+    Slope <- (Above$R - Below$R) / (Above$Z - Below$Z)
+    Intercept <- Above$R - (Slope * Above$Z)
+    IEU.De <- round((1 - Intercept) / Slope, decimal.point)
+    IEU.Error <- max(sqrt(Above$EXT), sqrt(Below$EXT))
     IEU.Error <- round(IEU.Error, decimal.point)
     n <- Max + 1
 
     if (trace) {
       message(sprintf("[Iteration of Dbar] \n Dbar: %.4f \n IEU.De: %.4f \n IEU.Error: %.4f \n n: %i \n R: %.4f \n",
-                      Dbar, IEU.De, IEU.Error, n, Below.R))
+                      Dbar, IEU.De, IEU.Error, n, Below$R))
     }
 
+    Dbar.Fixed <- Dbar - interval
+    return(list(Dbar.Mean = c(1, Dbar, Dbar.Fixed, IEU.De, IEU.Error,
+                              n, Below$R, a, b),
+                Table.IEU = Table.IEU))
   }
+
+  do.plot <- function(x.vals, y.vals, y.errs,
+                      xlab = "Z [Gy]",
+                      ylab = expression(paste("R = [", alpha["in"], "/", alpha["ex"],"]")),
+                      abline.vals = c(1, 0),
+                      asp = NA) {
+    ymin <- min((y.vals - y.errs)[-1])
+    ymax <- max((y.vals + y.errs)[-1])
+
+    plot(x.vals, y.vals, type = "b", xlab = xlab, ylab = ylab,
+         ylim = c(min(ymin, 0), ymax),
+         asp = asp)
+
+    arrows(x.vals, y.vals + y.errs, x.vals, y.vals - y.errs,
+           col = 1, angle = 90, length = 0.05, code = 3)
+
+    abline(abline.vals[1], abline.vals[2], untf = FALSE, lty = 3)
+  }
+
+  ## ------------------------------------------------------------------------
+  ## Start of the algorithm
+
+  # (a) Calculate IEU at fixed intervals of Dbar starting from the Mean and
+  # subtracting the interval until Dbar is < Lowest.De; this creates a plot
+  data <- data[order(data$De), ]
+  Lowest.De <- round(data$De[1], decimal.point)
+  Dbar <- round(mean(data$De), decimal.point)
+
+  Dbar.Mean <- main.calculation(data, Dbar)$Dbar.Mean
+  Fixed.Iterations <- rbind(data.frame(matrix(nrow = 0, ncol = 9)),
+                            Dbar.Mean)
+  repeat {
+    Dbar.Fixed <- Dbar.Mean[3]
+    if (Dbar.Fixed < Lowest.De) {
+      break
+    }
+    Dbar <- Dbar.Fixed
+    Dbar.Mean <- main.calculation(data, Dbar)$Dbar.Mean
+    Fixed.Iterations <- rbind(Fixed.Iterations, Dbar.Mean)
+  }
+
+  colnames(Fixed.Iterations) <- c(FALSE, "Dbar", "Dbar.Fixed", "Zbar",
+                                  "Zbar.Error", "n", "Below.R", "a", "b")
+
+  if (plot) {
+    do.plot(Fixed.Iterations$Dbar,
+            Fixed.Iterations$Zbar,
+            Fixed.Iterations$Zbar.Error,
+            xlab = "Dbar (Gy)", ylab = "Zbar, weighted mean (Gy)",
+            abline.vals = c(0, 1), asp = 1)
+  }
+
+  # (b) Calculate Dbar by iteration from [Dbar = Lowest.De] until [IEU.De = Dbar];
+  # this calculates the IEU De
+  Dbar <- Lowest.De
+  res <- main.calculation(data, Dbar)
+  Dbar.Mean <- res$Dbar.Mean
+
+  repeat {
+    IEU.De <- Dbar.Mean[4]
+    if (IEU.De <= Dbar) {
+      break
+    }
+    Dbar <- IEU.De
+    res <- main.calculation(data, Dbar, round.z = TRUE, plot, trace)
+    Dbar.Mean <- res$Dbar.Mean
+  }
+
+  Dbar <- Dbar.Mean[2]
+  IEU.De <- Dbar.Mean[4]
+  IEU.Error <- Dbar.Mean[5]
+  n <- Dbar.Mean[6]
+  Table.IEU <- res$Table.IEU
 
   # final plot
   if (plot) {
-    ymin <- min(Table.IEU$R[2:nrow(Table.IEU)] - Table.IEU$R.Error[2:nrow(Table.IEU)])
-    ymax <- max(Table.IEU$R[2:nrow(Table.IEU)] + Table.IEU$R.Error[2:nrow(Table.IEU)])
-    ylim <- c(ifelse(ymin > 0, 0, ymin), ymax)
-
-    plot(Table.IEU$Z, Table.IEU$R,
-         type = "b",
-         ylab = expression(paste("R = [", alpha["in"], "/", alpha["ex"],"]")),
-         xlab = "Z [Gy]",
-         ylim = ylim)
-
-    arrows(Table.IEU$Z, Table.IEU$R + Table.IEU$R.Error,
-           Table.IEU$Z, Table.IEU$R - Table.IEU$R.Error,
-           col = 1, angle = 90,
-           length = 0.05, code = 3)
-
-    abline(1, 0, untf = FALSE, lty = 3)
+    do.plot(Table.IEU$Z, Table.IEU$R, Table.IEU$R.Error)
   }
-
 
   Table.Results <- data.frame(Dbar, IEU.De, IEU.Error, n, a, b)
   colnames(Table.Results) <- c("Dbar", "IEU.De (Gy)", "IEU.Error (Gy)",
@@ -441,11 +283,10 @@ calc_IEU <- function(
                 args = args,
                 call = call,
                 tables = list(
-                  Table.IEUCalculations = Table.IEU,
-                  Table.Fixed.Iteration = Table.Fixed.Iteration,
+                  Table.IEUCalculations = as.data.frame(Table.IEU),
+                  Table.Fixed.Iteration = Fixed.Iterations,
                   Table.IEUResults = Table.Results
                 )))
 
   invisible(newRLumResults.calc_IEU)
-
 }
