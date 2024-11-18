@@ -25,8 +25,8 @@ fit_DoseResponseCurve(
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If provided as a list,
-the function is called on each element of the list.}
+(including the natural) should be provided. If \code{sample} is a list,
+the function is called on each its elements.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.

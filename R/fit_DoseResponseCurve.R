@@ -91,8 +91,8 @@
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
-#' (including the natural) should be provided. If provided as a list,
-#' the function is called on each element of the list.
+#' (including the natural) should be provided. If `sample` is a list,
+#' the function is called on each its elements.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
