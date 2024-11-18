@@ -152,7 +152,10 @@ calc_IEU <- function(
       do.plot(Table.IEU$Z, Table.IEU$R, Table.IEU$R.Error)
     }
 
-    Max <- Table.IEU[R >= 1, max(Rank.number, na.rm = TRUE)]
+    Max <- Table.IEU[R >= 1, suppressWarnings(max(Rank.number, na.rm = TRUE))]
+    if (is.infinite(Max)) {
+      Max <- 1
+    }
     Above <- Table.IEU[Max]
     Below <- Table.IEU[Max + 1]
     Slope <- (Above$R - Below$R) / (Above$Z - Below$Z)
