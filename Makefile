@@ -2,7 +2,7 @@
 RSCRIPT = "$(R_HOME)/bin/Rscript"
 
 ## set to 1 when on a development version, or to 0 when preparing a release
-DEVEL := 1
+DEVEL := 0
 
 ## modules to exclude: it should not be necessary to touch these, they are
 ## controlled by the DEVEL variable set before
