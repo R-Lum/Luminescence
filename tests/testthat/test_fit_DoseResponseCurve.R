@@ -9,6 +9,8 @@ test_that("input validation", {
       fit_DoseResponseCurve("error"),
       "[fit_DoseResponseCurve()] 'sample' should be of class 'data.frame'",
       fixed = TRUE)
+  expect_error(fit_DoseResponseCurve(as.list(LxTxData)),
+               "All elements of 'sample' should be of class 'data.frame'")
 
   ## mode
   expect_error(
@@ -53,10 +55,11 @@ test_that("input validation", {
                      mode = "extrapolation"),
     "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
+})
 
-# Weird LxTx values --------------------------------------------------------
+test_that("weird LxTx values", {
+  testthat::skip_on_cran()
 
-  ##set LxTx
   LxTx <- structure(list(
     Dose = c(0, 250, 500, 750, 1000, 1500, 0, 500, 500),
     LxTx = c(1, Inf, 0, -Inf, Inf, 0, Inf, -0.25, 2),
@@ -86,11 +89,6 @@ test_that("input validation", {
     fit_DoseResponseCurve(as.matrix(LxTxData)),
     class = "RLum.Results")
   })
-
-  ## check input objects ... list
-  expect_s4_class(
-    fit_DoseResponseCurve(as.list(LxTxData), verbose = FALSE),
-    class = "RLum.Results")
 
   ## test case for only two columns
   expect_s4_class(
@@ -242,8 +240,14 @@ test_that("snapshot tests", {
 test_that("additional tests", {
   testthat::skip_on_cran()
 
-# Check more output -------------------------------------------------------
-  data(ExampleData.LxTxData, envir = environment())
+  ## self-call
+  res <- fit_DoseResponseCurve(
+      list(LxTxData, LxTxData),
+      fit.method = "LIN",
+      verbose = FALSE,
+      NumberIterations.MC = 10)
+  expect_type(res, "list")
+  expect_length(res, 2)
 
   set.seed(1)
   SW({
@@ -288,6 +292,7 @@ test_that("additional tests", {
       fit.method = "GOK",
       verbose = FALSE,
       NumberIterations.MC = 10)
+
   ## force through the origin
   temp_LxTx <-LxTxData
   temp_LxTx$LxTx[[7]] <- 1

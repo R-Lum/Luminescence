@@ -87,11 +87,12 @@
 #' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
 #' Each error estimation is done with the function of the chosen fitting method.
 #'
-#' @param sample [data.frame] (**required**):
+#' @param sample [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
-#' (including the natural) should be provided.
+#' (including the natural) should be provided. If `sample` is a list,
+#' the function is called on each its elements.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
@@ -167,7 +168,10 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.2
+#' If `sample` is a list, then the function returns a list of `RLum.Results`
+#' objects as defined above.
+#'
+#' @section Function version: 1.2.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -267,6 +271,34 @@ fit_DoseResponseCurve <- function(
   .set_function_name("fit_DoseResponseCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## Self-call --------------------------------------------------------------
+  if (inherits(sample, "list")) {
+    lapply(sample,
+           function(x) .validate_class(x, c("data.frame", "matrix"),
+                                       name = "All elements of 'sample'"))
+
+    results <- lapply(sample, function(x) {
+      fit_DoseResponseCurve(
+          sample = x,
+          mode = mode,
+          fit.method = fit.method,
+          fit.force_through_origin = fit.force_through_origin,
+          fit.weights = fit.weights,
+          fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
+          fit.NumberRegPoints = fit.NumberRegPoints,
+          fit.NumberRegPointsReal = fit.NumberRegPointsReal,
+          fit.bounds = fit.bounds,
+          NumberIterations.MC = NumberIterations.MC,
+          txtProgressBar = txtProgressBar,
+          verbose = verbose,
+          ...
+      )
+    })
+
+    return(results)
+  }
+  ## Self-call end ----------------------------------------------------------
+
   .validate_class(sample, c("data.frame", "matrix", "list"))
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN",
@@ -285,7 +317,6 @@ fit_DoseResponseCurve <- function(
     class(sample)[1],
     data.frame = sample,
     matrix = sample <- as.data.frame(sample),
-    list = sample <- as.data.frame(sample),
   )
 
   ##2.1 check column numbers; we assume that in this particular case no error value

@@ -21,11 +21,12 @@ fit_DoseResponseCurve(
 )
 }
 \arguments{
-\item{sample}{\link{data.frame} (\strong{required}):
+\item{sample}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
-(including the natural) should be provided.}
+(including the natural) should be provided. If \code{sample} is a list,
+the function is called on each its elements.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
@@ -104,6 +105,9 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 \code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
 \code{..$call} : \tab \code{call} \tab The original function call\cr
 }
+
+If \code{sample} is a list, then the function returns a list of \code{RLum.Results}
+objects as defined above.
 }
 \description{
 A dose-response curve is produced for luminescence measurements using a
@@ -190,7 +194,7 @@ especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
 Each error estimation is done with the function of the chosen fitting method.
 }
 \section{Function version}{
- 1.2
+ 1.2.1
 }
 
 \examples{
