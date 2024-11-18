@@ -80,29 +80,37 @@ calc_IEU <- function(
   .set_function_name("calc_IEU")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##==========================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##==========================================================================##
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data)
   }
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have at least two columns")
+  }
+  data <- data[, 1:2]
+  colnames(data) <- c("De", "De.Error")
+
+  .validate_class(a, "numeric")
+  .validate_class(b, "numeric")
+  .validate_class(interval, "numeric")
 
   ##==========================================================================##
   ## ... ARGUMENTS
   ##==========================================================================##
   extraArgs <- list(...)
+
   ## console output
+  verbose <- TRUE
   if ("verbose" %in% names(extraArgs)) {
     verbose <- extraArgs$verbose
-  } else {
-    verbose <- TRUE
   }
-  # trace calculations
+
+  ## trace calculations
+  trace <- FALSE
   if ("trace" %in% names(extraArgs)) {
     trace <- extraArgs$trace
-  } else {
-    trace <- FALSE
   }
   # TODO: main, xlab, ylab, xlim, ylim, pch, col
 
@@ -110,9 +118,8 @@ calc_IEU <- function(
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
-  empty <- NULL
+
   Table.Fixed.Iteration <- data.frame(matrix(nrow = 0, ncol = 9))
-  colnames(data) <- c("De", "De.Error")
   data <- data[order(data$De), ]
   Mean <- mean(data$De)
   Dbar <- round(Mean, decimal.point)
@@ -133,12 +140,11 @@ calc_IEU <- function(
 
   temp <- NULL
   for (j in 1:N) {
-    for (i in j) {
       Z <- Table.Calculations$Z[j]
-      x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+      x <- ((Table.Calculations$De[1:j] - Z)^2) /
+           ((Table.Calculations$De.Total.Error[1:j])^2)
       y <- (sum(x))
       temp <- rbind(temp, data.frame(y))
-    }
   }
 
   EXT.top <- temp
@@ -190,12 +196,11 @@ calc_IEU <- function(
 
     temp <- NULL
     for (j in 1:N) {
-      for (i in j) {
         Z <- Table.Calculations$Z[j]
-        x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+        x <- ((Table.Calculations$De[1:j] - Z)^2) /
+             ((Table.Calculations$De.Total.Error[1:j])^2)
         y <- (sum(x))
         temp <- rbind(temp, data.frame(y))
-      }
     }
 
     EXT.top <- temp
@@ -267,12 +272,11 @@ calc_IEU <- function(
 
   temp <- NULL
   for (j in 1:N) {
-    for (i in j) {
       Z <- Table.Calculations$Z[j]
-      x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+      x <- ((Table.Calculations$De[1:j] - Z)^2) /
+           ((Table.Calculations$De.Total.Error[1:j])^2)
       y <- (sum(x))
       temp <- rbind(temp, data.frame(y))
-    }
   }
 
   EXT.top <- temp
@@ -321,12 +325,11 @@ calc_IEU <- function(
 
     temp <- NULL
     for (j in 1:N) {
-      for (i in j) {
         Z <- Table.Calculations$Z[j]
-        x <- ((Table.Calculations$De[1:i] - Z)^2)/((Table.Calculations$De.Total.Error[1:i])^2)
+        x <- ((Table.Calculations$De[1:j] - Z)^2) /
+             ((Table.Calculations$De.Total.Error[1:j])^2)
         y <- (sum(x))
         temp <- rbind(temp, data.frame(y))
-      }
     }
 
     EXT.top <- temp

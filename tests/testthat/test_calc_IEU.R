@@ -4,8 +4,17 @@ data(ExampleData.DeValues, envir = environment())
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  df <- ExampleData.DeValues$CA1
   expect_error(calc_IEU("error", a = 0.2, b = 1.9, interval = 1),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
+  expect_error(calc_IEU(df[, 1, drop = FALSE], a = 0.2, b = 1.9, interval = 1),
+               "'data' should have at least two columns")
+  expect_error(calc_IEU(df, a = "error", b = 1.9, interval = 1),
+               "'a' should be of class 'numeric'")
+  expect_error(calc_IEU(df, a = 0.2, b = "error", interval = 1),
+               "'b' should be of class 'numeric'")
+  expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = "error"),
+               "'interval' should be of class 'numeric'")
 })
 
 test_that("check functionality", {
@@ -20,15 +29,14 @@ test_that("check functionality", {
     verbose = FALSE, plot =FALSE
   ))
 
-  ##enable plot
+  ## enable plot and verbose (using default values for coverage)
   SW({
   expect_message(calc_IEU(
     ExampleData.DeValues$CA1,
     a = 0.2,
     b = 1.9,
     interval = 1,
-    trace = TRUE,
-    verbose = TRUE, plot = TRUE
+    trace = TRUE
   ))
   })
 })
