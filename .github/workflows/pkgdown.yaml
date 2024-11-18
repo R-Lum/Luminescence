@@ -1,5 +1,8 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+##
+## This workflow is triggered when the `website` tag is pushed: this tag is
+## then automatically deleted at the end of the workflow.
 on:
   push:
     tags: website
