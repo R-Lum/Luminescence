@@ -1,7 +1,8 @@
+## load data
 data(ExampleData.RLum.Analysis, envir = environment())
 obj <- IRSAR.RF.Data
 
-##construct empty object
+## construct test object
 tmp <- set_RLum(
     "RLum.Analysis",
     protocol = "testthat",
@@ -15,6 +16,10 @@ tmp <- set_RLum(
     }),
     info = list(el = "test")
 )
+
+## missing info slot to test very old objects (before commit 5226b88, Jan 2016)
+old <- tmp
+attr(old, "info") <- NULL
 
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
@@ -47,6 +52,7 @@ test_that("Check the example and the numerical values", {
 
   ## show()
   expect_output(print(tmp))
+  expect_output(print(old))
 
   ## names()
   expect_type(names(tmp), "character")
@@ -63,15 +69,15 @@ test_that("get_RLum", {
                "[get_RLum()] Invalid subset expression, valid terms are:",
                fixed = TRUE)
   expect_error(get_RLum(tmp, record.id = "character"),
-               "'record.id' has to be of type 'numeric' or 'logical'")
+               "'record.id' should be of class 'integer', 'numeric' or 'logical'")
   expect_error(get_RLum(tmp, recordType = 1L),
-               "'recordType' has to be of type 'character'")
+               "'recordType' should be of class 'character'")
   expect_error(get_RLum(tmp, curveType = 1L),
-               "'curveType' has to be of type 'character'")
+               "'curveType' should be of class 'character'")
   expect_error(get_RLum(tmp, RLum.type = 1L),
-               "'RLum.type' has to be of type 'character'")
+               "'RLum.type' should be of class 'character'")
   expect_error(get_RLum(tmp, get.index = "a"),
-               "'get.index' has to be of type 'logical'")
+               "'get.index' should be of class 'logical'")
 
   ## check functionality
   expect_length(get_RLum(obj, subset = (recordType == "RF")), 2)
@@ -108,6 +114,8 @@ test_that("get_RLum", {
                  fixed = TRUE)
   SW({
   expect_message(expect_null(get_RLum(obj, subset = (recordType == "error"))),
+                 "'subset' expression produced an empty selection, NULL returned")
+  expect_message(expect_null(get_RLum(obj, subset = (recordType == NA))),
                  "'subset' expression produced an empty selection, NULL returned")
   })
 })
@@ -181,8 +189,8 @@ test_that("structure_RLum", {
   expect_equal(ncol(res2), 13)
   expect_equal(names(res2), names(res))
   expect_equal(res2$info, NA)
-  
-  ## melt 
+
+  ## melt
   t <- melt_RLum(tmp)
   expect_type(t, "list")
 })

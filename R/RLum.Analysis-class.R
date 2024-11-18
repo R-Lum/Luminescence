@@ -98,7 +98,6 @@ setAs("RLum.Analysis", "list",
       function(from){
         lapply(1:length(from@records), function(x){
           from@records[[x]]
-
         })
       })
 
@@ -116,8 +115,7 @@ setMethod("show",
             ##print
             cat("\n [RLum.Analysis-class]")
 
-            ##show slot originator, for compatibly reasons with old example data, here
-            ##a check
+            ## show originator, for compatibility reasons with old example data
             if(.hasSlot(object, "originator")){cat("\n\t originator:", paste0(object@originator,"()"))}
 
             cat("\n\t protocol:", object@protocol)
@@ -267,11 +265,9 @@ setMethod(
       newRLumAnalysis@info <- info
       newRLumAnalysis@.uid <- .uid
       newRLumAnalysis@.pid <- .pid
-
     }
 
     return(newRLumAnalysis)
-
   }
 )
 
@@ -363,7 +359,6 @@ setMethod("get_RLum",
                                                if (any(!info_el %in% names(val))) {
                                                  val_new <- setNames(rep(NA, length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
                                                  val <- c(val, val_new)
-
                                                }
 
                                                # order the named char vector by its names so we don't mix up the columns
@@ -401,7 +396,6 @@ setMethod("get_RLum",
                                "empty selection, NULL returned")
                 return(NULL)
               }
-
             }
 
             ##if info.object is set, only the info objects are returned
@@ -434,21 +428,18 @@ setMethod("get_RLum",
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
 
-              } else if (!is.numeric(record.id) &
-                         !is.logical(record.id)) {
-                .throw_error("'record.id' has to be of type 'numeric' or ",
-                             "'logical'")
+              } else {
+                .validate_class(record.id, c("integer", "numeric", "logical"))
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
               ##values instead of numerical indices
               if (is.logical(record.id)) {
                 record.id <- c(1:length(object@records))[record.id]
-
               }
 
               ##check if record.id exists
-              if (FALSE %in% (abs(record.id) %in% (1:length(object@records)))) {
+              if (!all(abs(record.id) %in% (1:length(object@records)))) {
                 .throw_message("At least one 'record.id' is invalid, ",
                                "NULL returned")
                 return(NULL)
@@ -460,8 +451,8 @@ setMethod("get_RLum",
                   unique(vapply(object@records, function(x)
                     x@recordType, character(1)))
 
-              } else if (!inherits(recordType, "character")){
-                .throw_error("'recordType' has to be of type 'character'")
+              } else {
+                .validate_class(recordType, "character")
               }
 
               ##curveType
@@ -471,32 +462,29 @@ setMethod("get_RLum",
                                                     object@records[[x]]@curveType
                                                   })))
 
-              } else if (!is(curveType, "character")) {
-                .throw_error("'curveType' has to be of type 'character'")
+              } else {
+                .validate_class(curveType, "character")
               }
 
               ##RLum.type
               if (is.null(RLum.type)) {
                 RLum.type <- c("RLum.Data.Curve", "RLum.Data.Spectrum", "RLum.Data.Image")
-
-              } else if (!is(RLum.type, "character")) {
-                .throw_error("'RLum.type' has to be of type 'character'")
+              } else {
+                .validate_class(RLum.type, "character")
               }
 
               ##get.index
               if (is.null(get.index)) {
                 get.index <- FALSE
 
-              } else if (!is(get.index, "logical")) {
-                .throw_error("'get.index' has to be of type 'logical'")
+              } else {
+                .validate_class(get.index, "logical")
               }
 
               ##get originator
+              originator <- NA_character_
               if (.hasSlot(object, "originator")) {
                 originator <- object@originator
-
-              } else{
-                originator <- NA_character_
               }
 
               ##-----------------------------------------------------------------##
@@ -524,9 +512,7 @@ setMethod("get_RLum",
                       if (grepl(recordType[k], recordType_comp) &
                           object@records[[x]]@curveType %in% curveType) {
                         if (!get.index) object@records[[x]] else x
-
                       }
-
                     })
 
                     ##remove empty entries and select just one to unlist
@@ -569,7 +555,6 @@ setMethod("get_RLum",
 
                     } else{
                       return(temp)
-
                     }
                   }
                 }
@@ -597,7 +582,6 @@ setMethod("get_RLum",
                 }
               }
             }
-
           })
 
 # structure_RLum() ----------------------------------------------------------------------------
@@ -692,9 +676,7 @@ setMethod("structure_RLum",
                   } else{
                     NA
                   }
-
                 }))
-
             }
 
             ##combine output to a data.frame
@@ -716,7 +698,6 @@ setMethod("structure_RLum",
                 stringsAsFactors = FALSE
               )
             )
-
           })
 
 
@@ -736,7 +717,6 @@ setMethod("length_RLum",
           "RLum.Analysis",
           function(object){
             length(object@records)
-
           })
 
 # names_RLum() --------------------------------------------------------------------------------
@@ -756,7 +736,6 @@ setMethod("names_RLum",
           function(object){
             sapply(1:length(object@records), function(x){
               object@records[[x]]@recordType})
-
           })
 
 
@@ -782,7 +761,6 @@ setMethod(
   function(object, ...) {
         object@records <- lapply(object@records, function(x){
           smooth_RLum(x, ...)
-
         })
 
     return(object)
