@@ -113,7 +113,7 @@ enables/disables plot output.}
 \item{...}{Further parameters:
 \itemize{
 \item \code{verbose} \link{logical}: Show or hide console output
-\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{100000}).
+\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{10000}).
 \strong{Note} that it is generally advised to have a large number of Monte Carlo
 iterations for the results to converge. Decreasing the number of iterations
 will often result in unstable estimates.
@@ -282,7 +282,7 @@ kars <- calc_Huntley2006(
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
+King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/
 }
 
 \references{
