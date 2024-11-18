@@ -65,3 +65,25 @@ test_that("snapshot tests", {
       verbose = FALSE, plot = FALSE),
       tolerance = snapshot.tolerance)
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 424
+  expect_warning(calc_IEU(
+      ExampleData.DeValues$CA1,
+      a = 0.45,
+      b = 1.29,
+      interval = 1,
+      verbose = FALSE,
+      plot = FALSE),
+      "Numerical error, try changing your 'a' and 'b' values")
+  expect_warning(calc_IEU(
+      ExampleData.DeValues$CA1,
+      a = 0.12,
+      b = 1.29,
+      interval = 10,
+      verbose = FALSE,
+      plot = FALSE),
+      "Numerical error, try changing your 'a' and 'b' values")
+})

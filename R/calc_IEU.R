@@ -142,7 +142,6 @@ calc_IEU <- function(
     INT <- 1 / Z.bot
     R <- sqrt(INT / EXT)
     R.Error <- (2 * (1:N - 1))^(-0.5)
-
     Table.IEU <- data.table(Rank.number = 1:N,
                             De = De, De.Error = De.Total.Error,
                             Z, EXT.top, EXT, INT, R, R.Error)
@@ -153,7 +152,10 @@ calc_IEU <- function(
       do.plot(Table.IEU$Z, Table.IEU$R, Table.IEU$R.Error)
     }
 
-    Max <- Table.IEU[R >= 1, max(Rank.number, na.rm = TRUE)]
+    Max <- Table.IEU[R >= 1, suppressWarnings(max(Rank.number, na.rm = TRUE))]
+    if (is.infinite(Max)) {
+      Max <- 1
+    }
     Above <- Table.IEU[Max]
     Below <- Table.IEU[Max + 1]
     Slope <- (Above$R - Below$R) / (Above$Z - Below$Z)
@@ -179,8 +181,8 @@ calc_IEU <- function(
                       ylab = expression(paste("R = [", alpha["in"], "/", alpha["ex"],"]")),
                       abline.vals = c(1, 0),
                       asp = NA) {
-    ymin <- min((y.vals - y.errs)[-1])
-    ymax <- max((y.vals + y.errs)[-1])
+    ymin <- min((y.vals - y.errs)[-1], na.rm = TRUE)
+    ymax <- max((y.vals + y.errs)[-1], na.rm = TRUE)
 
     plot(x.vals, y.vals, type = "b", xlab = xlab, ylab = ylab,
          ylim = c(min(ymin, 0), ymax),
@@ -233,6 +235,10 @@ calc_IEU <- function(
 
   repeat {
     IEU.De <- Dbar.Mean[4]
+    if (is.na(IEU.De)) {
+      .throw_warning("Numerical error, try changing your 'a' and 'b' values")
+      break
+    }
     if (IEU.De <= Dbar) {
       break
     }
