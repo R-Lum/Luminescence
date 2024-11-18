@@ -142,7 +142,6 @@ calc_IEU <- function(
     INT <- 1 / Z.bot
     R <- sqrt(INT / EXT)
     R.Error <- (2 * (1:N - 1))^(-0.5)
-
     Table.IEU <- data.table(Rank.number = 1:N,
                             De = De, De.Error = De.Total.Error,
                             Z, EXT.top, EXT, INT, R, R.Error)
@@ -233,6 +232,10 @@ calc_IEU <- function(
 
   repeat {
     IEU.De <- Dbar.Mean[4]
+    if (is.na(IEU.De)) {
+      .throw_warning("Numerical error, try changing your 'a' and 'b' values")
+      break
+    }
     if (IEU.De <= Dbar) {
       break
     }
