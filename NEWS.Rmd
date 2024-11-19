@@ -206,6 +206,8 @@ CSV files according to the DRAC v1.2 CSV template.
 * The function gained support for three new `...` arguments: `version_ignore`
 to ignore the DRAC version check, `user` and `password` to access password
 protected websites.
+* The identifiers submitted to the DRAC server are now better randomized to
+to guarantee more confidentiality of the data transmitted (#435, fixed in #438).
 
 ### `verify_SingleGrainData()`
 * **Potentially breaking old code!**: if `cleanup = TRUE` the result was not
