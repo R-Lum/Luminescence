@@ -46,9 +46,9 @@ information on the used irradiation time correction obtained by another experime
 If a \code{numeric} vector is provided it has to be of length three:
 mean, 2.5 \% quantile, 97.5 \% quantile.}
 
-\item{travel_dosimeter}{\link{numeric} (\emph{optional}): specify the position of the travel dosimeter
-(so far measured at the same time). The dose of travel dosimeter will be subtracted from all
-other values.}
+\item{travel_dosimeter}{\link{numeric} (\emph{optional}): specify the position of
+the travel dosimeter (so far measured at the same time). The dose of
+travel dosimeter will be subtracted from all other values.}
 
 \item{test_parameters}{\link{list} (\emph{with default}):
 set test parameters. Supported parameters are: \code{TL_peak_shift} All input: \link{numeric}
@@ -104,9 +104,10 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018
 \details{
 \strong{Working with a travel dosimeter}
 
-The function allows to define particular aliquots as travel dosimeters. For example:
-\code{travel_dosimeter = c(1,3,5)} sets aliquots 1, 3 and 5 as travel dosimeters. These dose values
-of this dosimeters are combined and automatically subtracted from the obtained dose values
+The function allows to define particular position numbers as travel
+dosimeters. For example: \code{travel_dosimeter = c(1,3,5)} sets positions 1,
+3 and 5 as travel dosimeters. These dose values #' of this dosimeters
+are combined and automatically subtracted from the obtained dose values
 of the other dosimeters.
 
 \strong{Calculate TL dose}

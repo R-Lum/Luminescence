@@ -7,9 +7,10 @@
 #'
 #' **Working with a travel dosimeter**
 #'
-#' The function allows to define particular aliquots as travel dosimeters. For example:
-#' `travel_dosimeter = c(1,3,5)` sets aliquots 1, 3 and 5 as travel dosimeters. These dose values
-#' of this dosimeters are combined and automatically subtracted from the obtained dose values
+#' The function allows to define particular position numbers as travel
+#' dosimeters. For example: `travel_dosimeter = c(1,3,5)` sets positions 1,
+#' 3 and 5 as travel dosimeters. These dose values #' of this dosimeters
+#' are combined and automatically subtracted from the obtained dose values
 #' of the other dosimeters.
 #'
 #' **Calculate TL dose**
@@ -61,9 +62,9 @@
 #' If a `numeric` vector is provided it has to be of length three:
 #' mean, 2.5 % quantile, 97.5 % quantile.
 #'
-#' @param travel_dosimeter [numeric] (*optional*): specify the position of the travel dosimeter
-#' (so far measured at the same time). The dose of travel dosimeter will be subtracted from all
-#' other values.
+#' @param travel_dosimeter [numeric] (*optional*): specify the position of
+#' the travel dosimeter (so far measured at the same time). The dose of
+#' travel dosimeter will be subtracted from all other values.
 #'
 #' @param test_parameters [list] (*with default*):
 #' set test parameters. Supported parameters are: `TL_peak_shift` All input: [numeric]
