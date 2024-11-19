@@ -132,7 +132,8 @@ use_DRAC <- function(
  # Settings ------------------------------------------------------------------------------------
   settings <- modifyList(list(
     name = ifelse(missing(name),
-                  paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, runif(1, 2, 4))), name),
+                  paste0(sample(c(LETTERS, letters), runif(1, 2, 4)), collapse = ""),
+                  name),
     verbose = TRUE,
     url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator",
     ignore_version = FALSE,
@@ -209,41 +210,35 @@ use_DRAC <- function(
         n = 3)
       return(mask.df)
     }
-
   })
 
-  ##(3) bin values
+  ##(3) bind actual and masked values
   DRAC_submission.df <- rbind(input.raw, mask.df[[1]])
+  num.rows.df <- nrow(DRAC_submission.df)
 
   ##(4) replace ID values
   DRAC_submission.df$`TI:1` <- paste0(
-    paste0(
-      paste0(
-        sample(if(runif(1,-10,10)>0) LETTERS else letters, runif(1, 2, 4))),
-      ifelse(runif(1,-10,10)>0, "-", "")),
-    gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE),
-      by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))[1:nrow(DRAC_submission.df)]
-
+      sample(c(LETTERS, letters), runif(1, 2, 4)),
+      sample(c("", "-", "_"), 1),
+      sprintf("%02d", seq(sample(1:50, 1), by = 1,
+                         length.out = num.rows.df)))[1:num.rows.df]
 
   ##(5) store the real IDs in a separate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
 
   ##(6) create DRAC submission string
-  DRAC_submission.df <- DRAC_submission.df[sample(x = 1:nrow(DRAC_submission.df), nrow(DRAC_submission.df),
-                                                  replace = FALSE), ]
-
-  ##convert all columns of the data.frame to class 'character'
-  for (i in 1:ncol(DRAC_submission.df))
-    DRAC_submission.df[ ,i] <- as.character(DRAC_submission.df[, i])
-
   if (settings$verbose) message("\t Creating submission string...")
-  ##get line by line and remove unwanted characters
-  DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {
-    paste0(gsub(",", "", toString(DRAC_submission.df[x, ])), "\n")
-  })
+
+  ## shuffle the rows of the submission
+  DRAC_submission.df <- DRAC_submission.df[sample(num.rows.df), ]
+
+  ## convert all columns of the data.frame to character
+  DRAC_submission.df[] <- lapply(DRAC_submission.df, as.character)
 
   ##paste everything together to get the format we want
-  DRAC_input <- paste(DRAC_submission.string, collapse = "")
+  DRAC_input <- paste0(apply(DRAC_submission.df, 1,
+                             function(x) paste(x, collapse = " ")),
+                       "\n", collapse = "")
 
   # Send data to DRAC ---------------------------------------------------------------------------
   if (settings$verbose)
