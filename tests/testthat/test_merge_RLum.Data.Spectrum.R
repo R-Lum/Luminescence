@@ -21,20 +21,24 @@ test_that("input validation", {
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_types)),
                "Only similar record types are supported")
 
-  expect_error( merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_short)),
+  expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_short)),
                "'RLum.Data.Spectrum' objects of different size cannot be merged")
   TL.Spectrum_other <- TL.Spectrum
   rownames(TL.Spectrum_other@data) <- 1:nrow(TL.Spectrum_other@data)
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_other)),
                "'RLum.Data.Spectrum' objects with different channels cannot")
   TL.Spectrum_other <- TL.Spectrum
-  colnames(TL.Spectrum_other@data) <- 1:ncol(TL.Spectrum_other@data)
-  expect_warning(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_other)),
-                 "The time/temperatures recorded are too different")
-  TL.Spectrum_other <- TL.Spectrum
   TL.Spectrum_other@info$cameraType <- "other"
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_other)),
                "'RLum.Data.Spectrum' objects from different camera types")
+
+  ## time/temperature differences
+  TL.Spectrum_other <- TL.Spectrum
+  colnames(TL.Spectrum_other@data) <- as.numeric(colnames(TL.Spectrum@data)) + 1
+  expect_warning(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_other)),
+                 "The time/temperatures recorded are too different")
+  expect_silent(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_other),
+                                         max.temp.diff = 1))
 })
 
 test_that("snapshot tests", {

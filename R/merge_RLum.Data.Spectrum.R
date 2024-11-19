@@ -72,6 +72,11 @@
 #' `2` keeps only the info elements from the 2 object etc.
 #' If nothing is provided all elements are combined.
 #'
+#' @param max.temp.diff [numeric] (**with default**):
+#' maximum difference in the time/temperature values between the spectra to
+#' be merged: when differences exceed this threshold value, the merging
+#' occurs but a warning is raised.
+#'
 #' @return Returns an [RLum.Data.Spectrum-class] object.
 #'
 #' @note
@@ -84,7 +89,7 @@
 #' This function is fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
@@ -112,7 +117,8 @@
 merge_RLum.Data.Spectrum <- function(
   object,
   merge.method = "mean",
-  method.info
+  method.info,
+  max.temp.diff = 0.1
 ) {
   .set_function_name("merge_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)
@@ -140,6 +146,7 @@ merge_RLum.Data.Spectrum <- function(
   merge.method <- .validate_args(merge.method,
                                  c("mean", "median", "sum", "sd", "var",
                                    "min", "max", "append", "-", "*", "/"))
+  .validate_positive_scalar(max.temp.diff)
 
   ## Merge objects ----------------------------------------------------------
 
@@ -168,7 +175,7 @@ merge_RLum.Data.Spectrum <- function(
 
     ## for time/temperature data we allow some small differences: we report
     ## a warning if they are too high, but continue anyway
-    if (max(abs(as.numeric(colnames(object[[x]]@data)) - y.vals)) > 0.1) {
+    if (max(abs(as.numeric(colnames(object[[x]]@data)) - y.vals)) > max.temp.diff) {
       .throw_warning("The time/temperatures recorded are too different, ",
                      "proceed with caution")
     }
