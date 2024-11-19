@@ -175,6 +175,9 @@ use_DRAC <- function(
     .throw_error("The provided data object is not a valid DRAC template.")
   }
 
+  ## NOTE: if this limit is ever raised above 9999, the generation of
+  ## random identifiers below at (4) must be adjusted accordingly to
+  ## guarantee uniqueness of identifiers
   if (nrow(input.raw) > 5000)
     .throw_error("The limit of allowed datasets is 5000!")
 
@@ -218,10 +221,9 @@ use_DRAC <- function(
 
   ##(4) replace ID values
   DRAC_submission.df$`TI:1` <- paste0(
-      sample(c(LETTERS, letters), runif(1, 2, 4)),
-      sample(c("", "-", "_"), 1),
-      sprintf("%02d", seq(sample(1:50, 1), by = 1,
-                         length.out = num.rows.df)))[1:num.rows.df]
+      sample(c(LETTERS, letters), max(4, num.rows.df), replace = TRUE),
+      sample(c("", "-", "_"), num.rows.df, replace = TRUE),
+      sprintf("%04d", sample(0:9999, num.rows.df)))[1:num.rows.df]
 
   ##(5) store the real IDs in a separate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
