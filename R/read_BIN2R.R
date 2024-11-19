@@ -148,6 +148,8 @@ read_BIN2R <- function(
   # with that many file can be read in at the same time
   # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
   # directory and import them, if this is detected, we proceed as list
+  .validate_class(file, c("character", "list"))
+
   if (is.character(file)) {
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here

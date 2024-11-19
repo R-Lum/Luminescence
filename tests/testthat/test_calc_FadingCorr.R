@@ -1,14 +1,13 @@
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(calc_FadingCorr(age.faded = "test", g_value = "test"),
-               "[calc_FadingCorr()] 'tc' must be set",
+  expect_error(calc_FadingCorr("error"),
+               "'age.faded' should be of class 'numeric'")
+  expect_error(calc_FadingCorr(c(0.1, 0), "error"),
+               "'g_value' should be of class 'numeric' or 'RLum.Results'")
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0)),
+               "[calc_FadingCorr()] 'tc' should be of class 'numeric'",
                fixed = TRUE)
-
-  expect_error(
-    calc_FadingCorr(age.faded = "test", g_value = "test", tc = 200),
-    "[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' must be of type numeric",
-    fixed = TRUE)
 })
 
 test_that("check class and length of output", {

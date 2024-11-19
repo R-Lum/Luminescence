@@ -7,7 +7,6 @@ NULL
 #' of the function [read_BIN2R].
 #'
 #'
-#'
 #' @name Risoe.BINfileData-class
 #'
 #' @docType class
@@ -408,20 +407,21 @@ setMethod(f = "show",
 setMethod(f = "set_Risoe.BINfileData",
           signature = signature("ANY"),
           definition = function(METADATA, DATA, .RESERVED) {
+            .set_function_name("set_Risoe.BINfileData")
+            on.exit(.unset_function_name(), add = TRUE)
 
             if(length(METADATA) == 0){
               new("Risoe.BINfileData")
 
             }else{
+              .validate_class(METADATA, "data.frame")
               new(
                 "Risoe.BINfileData",
                 METADATA = METADATA,
                 DATA = DATA,
                 .RESERVED = .RESERVED
               )
-
             }
-
           })
 
 

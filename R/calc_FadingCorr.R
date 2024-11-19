@@ -201,7 +201,7 @@
 calc_FadingCorr <- function(
   age.faded,
   g_value,
-  tc = NULL,
+  tc,
   tc.g_value = tc,
   n.MC = 10000,
   seed = NULL,
@@ -212,15 +212,16 @@ calc_FadingCorr <- function(
   .set_function_name("calc_FadingCorr")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity checks ---------------------------------------------------------------------------
-  stopifnot(!missing(age.faded), !missing(g_value))
+  ## Integrity checks -------------------------------------------------------
+
+  .validate_class(age.faded, "numeric")
+  .validate_class(g_value, c("numeric", "RLum.Results"))
 
   ##check input
   if(inherits(g_value, "RLum.Results")){
     if(g_value@originator == "analyse_FadingMeasurement"){
       tc <- get_RLum(g_value)[["TC"]]
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
-
     }else{
       message("[calc_FadingCorr()] Error: Unknown originator for the ",
               "provided RLum.Results object via 'g_value'!")
@@ -228,13 +229,9 @@ calc_FadingCorr <- function(
     }
   }
 
-  ##check if tc is still NULL
-  if(is.null(tc[1]))
-    .throw_error("'tc' must be set")
+  ## tc is validated only now, as it may be set in the previous block
+  .validate_class(tc, "numeric")
 
-  ##check type
-  if(!all(is(age.faded, "numeric") && is(g_value, "numeric") && is(tc, "numeric")))
-    .throw_error("'age.faded', 'g_value' and 'tc' must be of type numeric")
 
   ##============================================================================##
   ##DEFINE FUNCTION

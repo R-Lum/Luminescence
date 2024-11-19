@@ -1,6 +1,9 @@
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
 
+  expect_error(set_Risoe.BINfileData(METADATA = NA),
+               "'METADATA' should be of class 'data.frame'")
+
   ##construct empty object
   temp <-
     set_Risoe.BINfileData(METADATA = data.frame(), DATA = list(), .RESERVED = list())
@@ -11,6 +14,12 @@ test_that("Check the example and the numerical values", {
     "No direct access is provided for this object type.")
 
   ##check object
+  expect_s4_class(temp, class = "Risoe.BINfileData")
+  expect_output(show(temp),
+                "This object is empty!")
+
+  ## also empty object
+  temp <- set_Risoe.BINfileData(METADATA = NULL)
   expect_s4_class(temp, class = "Risoe.BINfileData")
   expect_output(show(temp),
                 "This object is empty!")
