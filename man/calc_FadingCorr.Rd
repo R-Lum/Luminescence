@@ -7,7 +7,7 @@
 calc_FadingCorr(
   age.faded,
   g_value,
-  tc = NULL,
+  tc,
   tc.g_value = tc,
   n.MC = 10000,
   seed = NULL,
