@@ -24,6 +24,14 @@ test_that("check class", {
                c("summary", "data", "args", "usedDeValues"))
 })
 
+test_that("set_RLum", {
+  testthat::skip_on_cran()
+
+  ## input validation
+  expect_error(set_RLum(obj, TRUE),
+               "'class' should be of class 'character'")
+})
+
 test_that("get_RLum", {
   testthat::skip_on_cran()
 

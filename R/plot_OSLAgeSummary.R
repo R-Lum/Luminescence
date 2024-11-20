@@ -51,12 +51,17 @@ plot_OSLAgeSummary <- function(
   ## Integrity tests --------------------------------------------------------
   .validate_class(object, c("RLum.Results", "numeric"))
 
-  if(is(object, "RLum.Results") &&
-     object@originator %in% c(".calc_BayesianCentralAgeModel", ".calc_IndividualAgeModel"))
-    object <- get_RLum(object, data.object = "A")
-
-  if(is(object, "RLum.Results") && object@originator == "combine_De_Dr")
-    object <- get_RLum(object, data.object = "Ages")
+  if (inherits(object, "RLum.Results")) {
+    if (object@originator %in% c(".calc_BayesianCentralAgeModel",
+                                 ".calc_IndividualAgeModel")) {
+      data.object <- "A"
+    } else if (object@originator %in% "combine_De_Dr") {
+      data.object <- "Ages"
+    } else {
+      .throw_error("Object originator '", object@originator, "' not supported")
+    }
+    object <- get_RLum(object, data.object = data.object)
+  }
 
   ## A should be a matrix
   A <- as.matrix(object, ncol = 1)

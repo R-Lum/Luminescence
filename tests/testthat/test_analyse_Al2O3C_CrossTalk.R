@@ -4,7 +4,9 @@ data(ExampleData.Al2O3C, envir = environment())
 test_that("input validation", {
   skip_on_cran()
 
-  expect_error(analyse_Al2O3C_CrossTalk("test"),
+  expect_error(analyse_Al2O3C_CrossTalk("error"),
+               "'object' should be of class 'RLum.Analysis' or 'list")
+  expect_error(analyse_Al2O3C_CrossTalk(list("error")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         method_control = "EXP"),

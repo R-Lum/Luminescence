@@ -66,6 +66,9 @@ plot_RLum.Results<- function(
   ##============================================================================##
 
   .validate_class(object, "RLum.Results")
+  if (is.null(object@originator) || is.na(object@originator)) {
+    .throw_error("Object originator not supported")
+  }
 
   ##============================================================================##
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
@@ -119,7 +122,7 @@ plot_RLum.Results<- function(
     )
 
   ## CASE 1: Minimum Age Model / Maximum Age Model -------
-  if(object@originator=="calc_MinDose" || object@originator=="calc_MaxDose") {
+  if (object@originator %in% c("calc_MinDose", "calc_MaxDose")) {
 
     ## single MAM estimate
     # plot profile log likelihood
@@ -410,7 +413,6 @@ plot_RLum.Results<- function(
 
         # add vertical lines of the mean values
         #points(x = 80, y = 100,type = "l")
-
       }
 
       #### ------ PLOT DE

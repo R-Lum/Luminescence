@@ -87,6 +87,11 @@ calc_IEU <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data)
   }
+
+  ## check that we actually have data
+  if (length(data) == 0 || nrow(data) == 0) {
+    .throw_error("'data' contains no data")
+  }
   if (ncol(data) < 2) {
     .throw_error("'data' should have at least two columns")
   }

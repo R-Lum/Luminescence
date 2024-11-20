@@ -7,8 +7,9 @@
 set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
 }
 \arguments{
-\item{class}{\linkS4class{RLum} (\strong{required}):
-name of the S4 class to create}
+\item{class}{\link{character} (\strong{required}):
+name of the S4 class to create, must correspond to one of the \linkS4class{RLum}
+classes.}
 
 \item{originator}{\link{character} (\emph{automatic}):
 contains the name of the calling function (the function that produces this object);

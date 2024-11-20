@@ -1,10 +1,20 @@
-test_that("Basic test", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##cause error
   expect_error(plot_OSLAgeSummary("error"),
                "[plot_OSLAgeSummary()] 'object' should be of class 'RLum.Results'",
                fixed = TRUE)
+  expect_error(plot_OSLAgeSummary(set_RLum("RLum.Results", data = list(),
+                                           originator = "error")),
+               "Object originator 'error' not supported")
+
+  empty <- set_RLum("RLum.Results", originator = NA_character_)
+  expect_error(plot_OSLAgeSummary(empty),
+               "Object originator 'NA' not supported")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ##simple run with example data
   set.seed(1234)

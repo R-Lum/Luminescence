@@ -74,9 +74,13 @@ plot_ROI <- function(
 
   ##helper function to extract content
   .spatial_data <- function(x) {
+    .validate_class(x, c("RLum.Analysis", "RLum.Results"),
+                    extra = "a 'list' of such objects",
+                    name = "'object'")
+
     ##ignore all none RLum.Analysis
     if (!inherits(x, "RLum.Analysis") || x@originator != "read_RF2R")
-      .throw_error("Input for 'object' not supported, please check documentation")
+      .throw_error("Object originator '", x@originator, "' not supported")
 
     ##extract some of the elements
     info <- x@info
@@ -93,7 +97,9 @@ plot_ROI <- function(
       grain_d = info$grain_d)
   }
 
-  if(is(object, "RLum.Results") && object@originator == "extract_ROI") {
+  if (inherits(object, "RLum.Results") &&
+      ## use %in% instead of == to support the case when originator is NULL
+      object@originator %in% "extract_ROI") {
     m <- object@data$roi_coord
 
   } else {

@@ -78,6 +78,12 @@ assign("fn_stack", list(),
 #' @md
 #' @export
 sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
+  .set_function_name("sTeve")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  .validate_class(n_frames, c("integer", "numeric"))
+  .validate_class(t_animation, c("integer", "numeric"))
+  .validate_class(n.tree, c("integer", "numeric"))
 
   ## allow new overlay plot
   par(new = TRUE)
@@ -97,7 +103,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
     }
     # nocov end
   }
-
+  .validate_class(type, c("integer", "numeric"))
 
 
   if(type == 1) {

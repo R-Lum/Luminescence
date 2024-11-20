@@ -16,6 +16,12 @@ test_that("input validation", {
                "'given.dose' > number of input data sets")
   expect_warning(plot_DRTResults(df, boxplot = TRUE),
                  "Option 'boxplot' requires a value in 'preheat'")
+
+  empty <- set_RLum("RLum.Results")
+  expect_error(plot_DRTResults(empty),
+                     "No valid records in 'values'")
+  expect_error(plot_DRTResults(list(empty, empty)),
+                     "No valid records in 'values'")
 })
 
 test_that("check functionality", {

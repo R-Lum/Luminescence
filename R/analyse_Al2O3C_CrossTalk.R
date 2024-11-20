@@ -3,7 +3,7 @@
 #' @description The function provides the analysis of cross-talk measurements on a
 #' FI lexsyg SMART reader using Al2O3:C chips
 #'
-#' @param object [RLum.Analysis-class] **(required)**:
+#' @param object [RLum.Analysis-class] or [list] **(required)**:
 #' measurement input
 #'
 #' @param signal_integral [numeric] (*optional*):
@@ -99,6 +99,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ## Integrity tests --------------------------------------------------------
 
+  .validate_class(object, c("RLum.Analysis", "list"))
   lapply(object,
          function(x) .validate_class(x, "RLum.Analysis",
                                      name = "All elements of 'object'"))

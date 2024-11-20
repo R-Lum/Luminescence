@@ -190,11 +190,14 @@ write_RLum2CSV <- function(
       ##remove unwanted objects
       object_list <- object_list[object_list_rm]
 
-
       ##set warning
       if(any(!object_list_rm))
         .throw_warning(length(which(!object_list_rm)),
                        " elements could not be converted to CSV")
+
+      if (length(object_list) == 0) {
+        .throw_error("No valid records in 'object'")
+      }
 
       ##adjust the names
       names(object_list) <- paste0(1:length(object_list),"_",names(object_list))
