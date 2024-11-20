@@ -34,8 +34,11 @@
 #' It further limits the maximum number of points per curve to 9,999. If a curve contains more
 #' data the curve data get binned using the smallest possible bin width.
 #'
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
+#'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar].
+#' enables or disables [txtProgressBar]. Ignored if `verbose = FALSE`.
 #'
 #' @return Write a binary file and returns the name and path of the file as [character].
 #'
@@ -55,7 +58,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the ones
 #' directly produced by the Risø readers!
 #'
-#' @section Function version: 0.5.3
+#' @section Function version: 0.5.4
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -91,6 +94,7 @@ write_R2BIN <- function(
   file,
   version,
   compatibility.mode = FALSE,
+  verbose = TRUE,
   txtProgressBar = TRUE
 ) {
   .set_function_name("write_R2BIN")
@@ -104,6 +108,8 @@ write_R2BIN <- function(
 
   .validate_class(object, "Risoe.BINfileData")
   .validate_class(file, "character")
+  .validate_class(verbose, "logical")
+  .validate_class(txtProgressBar, "logical")
 
   ## check if it fulfills the latest definition ...
   if(ncol(object@METADATA) != ncol(set_Risoe.BINfileData()@METADATA)){
@@ -139,7 +145,6 @@ write_R2BIN <- function(
         ##it should be symmetric, thus, remove values
         if((length(x)/bin_width)%%2 != 0){
           x <- x[-length(x)]
-
         }
 
         ##create matrix and return
@@ -167,7 +172,6 @@ write_R2BIN <- function(
 
     ##write comment
     object@METADATA[["COMMENT"]] <- paste(object@METADATA[["COMMENT"]], " - binned")
-
   }
 
   if(any(temp_check))
@@ -377,8 +381,17 @@ write_R2BIN <- function(
   ##get records
   n.records <- length(object@METADATA[,"ID"])
 
-  ##output
-  message(paste0("[write_R2BIN()]\n\t >> ",file))
+  ## don't show the progress bar if not verbose
+  if (!verbose)
+    txtProgressBar <- FALSE
+
+  if (verbose) {
+    cat("\n[write_R2BIN()] Exporting ...")
+    cat("\n path: ", dirname(file))
+    cat("\n file: ", .shorten_filename(basename(file)))
+    cat("\n n_rec:", n.records)
+    cat("\n")
+  }
 
   ##set progressbar
   if(txtProgressBar)
@@ -1301,7 +1314,6 @@ write_R2BIN <- function(
 
       ##update progress bar
       if(txtProgressBar)  setTxtProgressBar(pb, ID)
-
     }
   }
 
@@ -1310,7 +1322,8 @@ write_R2BIN <- function(
   if(txtProgressBar) close(pb)
 
   ##output
-  message("\t >> ", ID - 1, " records have been written successfully!\n\n")
+  if (verbose)
+    message("\t >> ", ID - 1, " records written successfully\n")
 
   ## return path
   invisible(file)

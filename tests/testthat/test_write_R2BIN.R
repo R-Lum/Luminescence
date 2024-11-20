@@ -38,9 +38,10 @@ test_that("check functionality", {
   temp@METADATA[1, "SAMPLE"] <- ""
   temp@METADATA[1, "COMMENT"] <- ""
   temp@.RESERVED <- list(val1 = c("a", "b"), val2 = c("c", "d"))
-  SW({
+  expect_silent(
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V3.bin"),
-              version = "03")
+              version = "03", verbose = FALSE))
+  SW({
   temp@METADATA[, "VERSION"] <- 4
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V4.bin"),
               version = "04")
@@ -69,8 +70,8 @@ test_that("check functionality", {
   ## check UTF-8 characters
   new_utf8 <- new
   new_utf8@METADATA$FNAME <- c("I do not belong in here \xb5m")
-  t <- expect_silent(suppressMessages(write_R2BIN(new_utf8, file = paste0(path, "BINfile_V8.bin"),
-                     version = "08", txtProgressBar = FALSE)))
+  t <- expect_silent(write_R2BIN(new_utf8, file = paste0(path, "BINfile_V8.bin"),
+                     version = "08", verbose = FALSE))
   expect_type(object = t, type = "character")
 })
 
