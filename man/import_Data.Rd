@@ -22,7 +22,7 @@ Convenience wrapper function to provide a quicker and more standardised way of
 reading data into R by looping through all in the package available data import functions starting with \code{read_}.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -37,8 +37,7 @@ temp <- import_Data(file)
 
 }
 \seealso{
-\link{read_BIN2R}, \link{read_XSYG2R}, \link{read_PSL2R}, \link{read_SPE2R}, \link{read_TIFF2R}, \link{read_RF2R},
-\link{read_Daybreak2R}
+\link{read_HeliosOSL2R}, \link{read_PSL2R}, \link{read_XSYG2R}, \link{read_BIN2R}, \link{read_Daybreak2R}, \link{read_SPE2R}, \link{read_TIFF2R}, \link{read_RF2R}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
