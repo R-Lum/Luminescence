@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 df <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
@@ -41,6 +42,12 @@ test_that("check functionality", {
   expect_silent(plot_KDE(data = df, summary.pos = "bottomleft"))
   expect_silent(plot_KDE(data = df, summary.pos = "bottom"))
   expect_silent(plot_KDE(data = df, summary.pos = "bottomright"))
+
+  ## specify layout
+  layout <- get_Layout("default")
+  layout$kde$dimension$figure.width <- 100
+  layout$kde$dimension$figure.height <- 100
+  plot_KDE(data = df, layout = layout)
 
   ## numeric vector
   expect_silent(plot_KDE(df[, 1]))

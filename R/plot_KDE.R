@@ -216,7 +216,6 @@ plot_KDE <- function(
         attr(data[[i]], "De.errors.available") <- TRUE
       }
 
-
     ## find the index Inf values in each of the two columns and remove the
     ## corresponding rows if needed
     inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
@@ -322,7 +321,6 @@ plot_KDE <- function(
       De.density[[length(De.density) + 1]] <- density(data[[i]][,1],
                                                       kernel = "gaussian",
                                                       bw = bw)
-
     }else{
       De.density[[length(De.density) + 1]] <- NA
       .throw_warning("Single data point found, no density calculated")
@@ -613,9 +611,7 @@ plot_KDE <- function(
                      max(De.stats[,1]),
                      0,
                      max(De.stats[,1]))
-
     }
-
   }
 
   if("log" %in% names(list(...))) {
@@ -651,127 +647,32 @@ plot_KDE <- function(
     col.background <- NA
   } else {
 
-    if(length(layout$kde$colour$main) == 1) {
-      col.main <- c(layout$kde$colour$main, 2:length(data))
-    } else {
-      col.main <- layout$kde$colour$main
+    .set_colour_value <- function(layout_value) {
+      if (length(layout_value) == 1)
+        c(layout_value, 2:length(data))
+      else
+        layout_value
     }
-
-    if(length(layout$kde$colour$xlab) == 1) {
-      col.xlab <- c(layout$kde$colour$xlab, 2:length(data))
-    } else {
-      col.xlab <- layout$kde$colour$xlab
-    }
-
-    if(length(layout$kde$colour$ylab1) == 1) {
-      col.ylab1 <- c(layout$kde$colour$ylab1, 2:length(data))
-    } else {
-      col.ylab1 <- layout$kde$colour$ylab1
-    }
-
-    if(length(layout$kde$colour$ylab2) == 1) {
-      col.ylab2 <- c(layout$kde$colour$ylab2, 2:length(data))
-    } else {
-      col.ylab2 <- layout$kde$colour$ylab2
-    }
-
-    if(length(layout$kde$colour$xtck) == 1) {
-      col.xtck <- c(layout$kde$colour$xtck, 2:length(data))
-    } else {
-      col.xtck <- layout$kde$colour$xtck
-    }
-
-    if(length(layout$kde$colour$ytck1) == 1) {
-      col.ytck1 <- c(layout$kde$colour$ytck1, 2:length(data))
-    } else {
-      col.ytck1 <- layout$kde$colour$ytck1
-    }
-
-    if(length(layout$kde$colour$ytck2) == 1) {
-      col.ytck2 <- c(layout$kde$colour$ytck2, 2:length(data))
-    } else {
-      col.ytck2 <- layout$kde$colour$ytck2
-    }
-
-    if(length(layout$kde$colour$box) == 1) {
-      col.box <- c(layout$kde$colour$box, 2:length(data))
-    } else {
-      col.box <- layout$kde$colour$box
-    }
-
-    if(length(layout$kde$colour$mtext) == 1) {
-      col.mtext <- c(layout$kde$colour$mtext, 2:length(data))
-    } else {
-      col.mtext <- layout$kde$colour$mtext
-    }
-
-    if(length(layout$kde$colour$stats) == 1) {
-      col.stats <- c(layout$kde$colour$stats, 2:length(data))
-    } else {
-      col.stats <- layout$kde$colour$stats
-    }
-
-    if(length(layout$kde$colour$kde.line) == 1) {
-      col.kde.line <- c(layout$kde$colour$kde.line, 2:length(data))
-    } else {
-      col.kde.line <- layout$kde$colour$kde.line
-    }
-
-    if(length(layout$kde$colour$kde.fill) == 1) {
-      col.kde.fill <- c(layout$kde$colour$kde.fill, 2:length(data))
-    } else {
-      col.kde.fill <- layout$kde$colour$kde.fill
-    }
-
-    if(length(layout$kde$colour$value.dot) == 1) {
-      col.value.dot <- c(layout$kde$colour$value.dot, 2:length(data))
-    } else {
-      col.value.dot <- layout$kde$colour$value.dot
-    }
-
-    if(length(layout$kde$colour$value.bar) == 1) {
-      col.value.bar <- c(layout$kde$colour$value.bar, 2:length(data))
-    } else {
-      col.value.bar <- layout$kde$colour$value.bar
-    }
-
-    if(length(layout$kde$colour$value.rug) == 1) {
-      col.value.rug <- c(layout$kde$colour$value.rug, 2:length(data))
-    } else {
-      col.value.rug <- layout$kde$colour$value.rug
-    }
-
-    if(length(layout$kde$colour$boxplot.line) == 1) {
-      col.boxplot.line <- c(layout$kde$colour$boxplot.line, 2:length(data))
-    } else {
-      col.boxplot.line <- layout$kde$colour$boxplot.line
-    }
-
-    if(length(layout$kde$colour$boxplot.fill) == 1) {
-      col.boxplot.fill <- c(layout$kde$colour$boxplot.fill, 2:length(data))
-    } else {
-      col.boxplot.fill <- layout$kde$colour$boxplot.fill
-    }
-
-    if(length(layout$kde$colour$mean.line) == 1) {
-      col.mean.line <- adjustcolor(col = 1:length(data),
-                                   alpha.f = 0.4)
-    } else {
-      col.mean.line <- layout$kde$colour$mean.point
-    }
-
-    if(length(layout$kde$colour$sd.bar) == 1) {
-      col.sd.bar <- c(layout$kde$colour$sd.bar, 2:length(data))
-    } else {
-      col.sd.bar <- layout$kde$colour$sd.line
-    }
-
-    if(length(layout$kde$colour$background) == 1) {
-      col.background <- c(layout$kde$colour$background, 2:length(data))
-    } else {
-      col.background <- layout$kde$colour$background
-    }
-
+    col.main <- .set_colour_value(layout$kde$colour$main)
+    col.xlab <- .set_colour_value(layout$kde$colour$xlab)
+    col.ylab1 <- .set_colour_value(layout$kde$colour$ylab1)
+    col.ylab2 <- .set_colour_value(layout$kde$colour$ylab2)
+    col.xtck <- .set_colour_value(layout$kde$colour$xtck)
+    col.ytck1 <- .set_colour_value(layout$kde$colour$ytck1)
+    col.ytck2 <- .set_colour_value(layout$kde$colour$ytck2)
+    col.box <- .set_colour_value(layout$kde$colour$box)
+    col.mtext <- .set_colour_value(layout$kde$colour$mtext)
+    col.stats <- .set_colour_value(layout$kde$colour$stats)
+    col.kde.line <- .set_colour_value(layout$kde$colour$kde.line)
+    col.kde.fill <- .set_colour_value(layout$kde$colour$kde.fill)
+    col.value.dot <- .set_colour_value(layout$kde$colour$value.dot)
+    col.value.bar <- .set_colour_value(layout$kde$colour$value.bar)
+    col.value.rug <- .set_colour_value(layout$kde$colour$value.rug)
+    col.boxplot.line <- .set_colour_value(layout$kde$colour$boxplot.line)
+    col.boxplot.fill <- .set_colour_value(layout$kde$colour$boxplot.fill)
+    col.mean.line <- .set_colour_value(layout$kde$colour$mean.point)
+    col.sd.bar <- .set_colour_value(layout$kde$colour$sd.line)
+    col.background <- .set_colour_value(layout$kde$colour$background)
   }
 
   if("lty" %in% names(list(...))) {
@@ -929,9 +830,7 @@ plot_KDE <- function(
               col = col.kde.fill[i],
               lty = lty[i],
               lwd = lwd[i])
-
     }
-
   }
 
   ## add plot title
@@ -1108,7 +1007,6 @@ plot_KDE <- function(
                col = col.boxplot.line[i],
                cex = cex * 0.8)
       }
-
     }
 
     ## optionally add rug
@@ -1202,5 +1100,4 @@ plot_KDE <- function(
                           summary.pos = summary.pos,
                           De.density = De.density)))
   }
-
 }
