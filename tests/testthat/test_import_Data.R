@@ -1,3 +1,10 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_message(import_Data(system.file("extdata/QNL84_2_bleached.txt")),
+                 "Unknown file format, nothing imported")
+})
+
 test_that("Test general import", {
   testthat::skip_on_cran()
 
