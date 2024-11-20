@@ -217,8 +217,17 @@ plot_DRTResults <- function(
     .validate_class(values[[i]], c("data.frame", "RLum.Results"),
                     name = "'values'")
     if (inherits(values[[i]], "RLum.Results")) {
-      values[[i]] <- get_RLum(values[[i]])[,1:2]
+      val <- get_RLum(values[[i]])[, 1:2]
+      if (is.null(val))
+        val <- NA
+      values[[i]] <- val
     }
+  }
+
+  ## remove invalid records
+  values[is.na(values)] <- NULL
+  if (length(values) == 0) {
+    .throw_error("No valid records in 'values'")
   }
 
   ## Check input arguments ----------------------------------------------------

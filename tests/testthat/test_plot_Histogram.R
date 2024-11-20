@@ -6,6 +6,12 @@ test_that("input validation", {
 
   expect_error(plot_Histogram("error"),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
+  expect_error(plot_Histogram(iris[0, ]),
+               "'data' contains no data")
+  expect_error(plot_Histogram(data.frame()),
+               "'data' contains no data")
+  expect_error(plot_Histogram(set_RLum("RLum.Results")),
+               "'data' contains no data")
   expect_error(plot_Histogram(df, ylim = c(0, 1)),
                "'ylim' should have length 4")
 })

@@ -1,19 +1,23 @@
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(calc_CosmicDoseRate(depth = -2),
+  expect_error(calc_CosmicDoseRate(depth = "error"),
+               "'depth' should be of class 'numeric'")
+  expect_error(calc_CosmicDoseRate(depth = -2, density = 1.7, altitude = 364,
+                                   latitude = 38.1, longitude = 1.4),
                "No negative values allowed for 'depth' and 'density'")
-  expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+  expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7, altitude = 364,
+                                   latitude = 38.1, longitude = 1.4,
                                    corr.fieldChanges = TRUE),
                "requires an age estimate")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    corr.fieldChanges = TRUE, est.age = 20,
                                    latitude = 38.06451),
-               "is missing, with no default")
+               "'longitude' should be of class 'numeric'")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    corr.fieldChanges = TRUE, est.age = 20,
                                    latitude = 38.06451, longitude = 1.49646),
-               "is missing, with no default")
+               "'altitude' should be of class 'numeric'")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = c(1.7, 2.9),
                                    corr.fieldChanges = TRUE, est.age = 20,
                                    latitude = 38.06451, longitude = 1.49646,

@@ -36,7 +36,7 @@ format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100
 \note{
 \strong{\verb{[BETA VERSION]}}
 This function still needs to be tested properly. In particular
-the function has underwent only very rough rests using a few files.
+the function has underwent only very rough tests using a few files.
 }
 \section{Function version}{
  0.3.2

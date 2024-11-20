@@ -5,6 +5,9 @@ test_that("input validation", {
 
   expect_error(plot_RLum.Results("error"),
                "'object' should be of class 'RLum.Results'")
+  expect_error(plot_RLum.Results(set_RLum("RLum.Results",
+                                          originator = NA_character_)),
+               "Object originator not supported")
 })
 
 test_that("check functionality", {
@@ -55,4 +58,8 @@ test_that("check functionality", {
   data(ExampleData.CW_OSL_Curve, envir = environment())
   d7 <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
   expect_silent(plot_RLum.Results(d7))
+
+  ## no valid originator
+  expect_silent(plot_RLum.Results(set_RLum("RLum.Results",
+                                           originator = "error")))
 })

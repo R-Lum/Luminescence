@@ -1,14 +1,21 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(plot_ROI(object = "stop"),
+               "[plot_ROI()] 'object' should be of class 'RLum.Analysis'",
+               fixed = TRUE)
+
+  empty <- set_RLum("RLum.Results", originator = NA_character_)
+  expect_error(plot_ROI(empty),
+               "Object originator 'NA' not supported")
+})
+
 test_that("Complete test", {
   testthat::skip_on_cran()
 
   ##create suitable dataset
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
   temp <- read_RF2R(file, verbose = FALSE)
-
-  ##crash function
-  expect_error(plot_ROI(object = "stop"),
-               "[plot_ROI()] Input for 'object' not supported, please check",
-               fixed = TRUE)
 
   ##test standard cases
   expect_silent(plot_ROI(temp))

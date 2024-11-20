@@ -1,16 +1,21 @@
-test_that("test errors and general export function", {
+## load data
+data(ExampleData.portableOSL, envir = environment())
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##test error
   expect_error(write_RLum2CSV(object = "", export = FALSE),
                "[write_RLum2CSV()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
-
-  ##test export
-  data("ExampleData.portableOSL", envir = environment())
   expect_error(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE,
                               path = "non-existing"),
                "Directory provided via the argument 'path' does not exist")
+  expect_error(write_RLum2CSV(set_RLum("RLum.Results")),
+               "No valid records in 'object'")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ## move temporarily to avoid polluting the working directory
   cwd <- setwd(tempdir())

@@ -22,6 +22,11 @@ test_that("Check github_commits()", {
 test_that("Check github_branches()", {
   testthat::skip_on_cran()
 
+  expect_error(github_branches(user = NA),
+               "'user' should be of class 'character'")
+  expect_error(github_branches(repo = NA),
+               "'repo' should be of class 'character'")
+
   response <- tryCatch(github_branches(), error = function(e) return(e))
 
   if (inherits(response, "error")) {
@@ -35,6 +40,11 @@ test_that("Check github_branches()", {
 
 test_that("Check github_issues()", {
   testthat::skip_on_cran()
+
+  expect_error(github_issues(user = NA),
+               "'user' should be of class 'character'")
+  expect_error(github_issues(repo = NA),
+               "'repo' should be of class 'character'")
 
   SW({
   response <- tryCatch(github_issues(), error = function(e) return(e))

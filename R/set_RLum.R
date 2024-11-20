@@ -13,8 +13,9 @@
 #' - [RLum.Analysis-class], 
 #' - [RLum.Results-class]
 #'
-#' @param class [RLum-class] (**required**): 
-#' name of the S4 class to create
+#' @param class [character] (**required**):
+#' name of the S4 class to create, must correspond to one of the [RLum-class]
+#' classes.
 #'
 #' @param originator [character] (*automatic*): 
 #' contains the name of the calling function (the function that produces this object); 
@@ -59,10 +60,14 @@
 #'
 #' ##plot this curve object
 #' plot_RLum(object)
-#' 
+#'
 #' @md
 #' @export
 setGeneric("set_RLum", function (class, originator, .uid = create_UID(), .pid = NA_character_, ... ) {
+  .set_function_name("set_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  .validate_class(class, "character")
   class(class) <- as.character(class)
 
   if(missing(originator)) {
@@ -82,4 +87,3 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(), .pid = 
 
   standardGeneric("set_RLum")
 })
-

@@ -239,6 +239,12 @@ calc_AverageDose <- function(
     data <- get_RLum(data)
   }
 
+  ## check that we actually have data
+  if (length(data) == 0 || nrow(data) == 0) {
+    message("[calc_AverageDose()] Error: 'data' contains no data, NULL returned")
+    return(NULL)
+  }
+
   ##problem: the entire code refers to column names the user may not provide...
   ##  >> to avoid changing the entire code, the data will shape to a format that
   ##  >> fits to the code
@@ -264,7 +270,8 @@ calc_AverageDose <- function(
 
   ##check data set
   if(nrow(data) == 0){
-    .throw_message("Data set contains 0 rows, NULL returned")
+    .throw_message("After NA removal, nothing is left from the data set, ",
+                   "NULL returned")
     return(NULL)
   }
 

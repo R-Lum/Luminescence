@@ -15,6 +15,10 @@ test_that("input validation", {
                "'b' should be of class 'numeric'")
   expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = "error"),
                "'interval' should be of class 'numeric'")
+  expect_error(calc_IEU(data.frame(), a = 0.2, b = 1.9, interval = 1),
+               "'data' contains no data")
+  expect_error(calc_IEU(iris[0, ], a = 0.2, b = 1.9, interval = 1),
+               "'data' contains no data")
 })
 
 test_that("check functionality", {

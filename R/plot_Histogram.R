@@ -138,6 +138,11 @@ plot_Histogram <- function(
     data <- get_RLum(data)[,1:2]
   }
 
+  ## check that we actually have data
+  if (length(data) == 0 || nrow(data) == 0) {
+    .throw_error("'data' contains no data")
+  }
+
   ## handle error-free data sets
   if(length(data) < 2) {
     data <- cbind(data, rep(NA, length(data)))
