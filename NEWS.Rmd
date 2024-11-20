@@ -114,6 +114,11 @@ led to some speed up (#429, fixed in #430, #431 and #432).
 error after fading correction, which led to smaller than expected errors
 (#96, fixed in #296).
 
+### `extract_IrradiationTimes()`
+* In some circumstances the function failed to update an existing BIN/BINX
+file due to an incorrect way of subsetting an intermediate data frame of
+results (#445, fixed in #446).
+
 ### `plot_DetPlot()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
