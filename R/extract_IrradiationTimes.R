@@ -361,7 +361,7 @@ extract_IrradiationTimes <- function(
   # Write BINX-file if wanted -------------------------------------------------------------------
   if(!missing(file.BINX)){
     ##(1) remove all irradiation steps as there is no record in the BINX file and update information
-    results.BINX <- results[-which(results[,"STEP"] == "irradiation (NA)"),]
+    results.BINX <- results[results[, "STEP"] != "irradiation (NA)", ]
 
     ## (2) compare entries in the BINX-file with the entries in the table
     ## to make sure that both have the same length
@@ -379,6 +379,7 @@ extract_IrradiationTimes <- function(
       try <- write_R2BIN(temp.BINX, version = "06",
                          file = paste0(file.BINX,"_extract_IrradiationTimes.BINX"),
                          compatibility.mode = compatibility.mode,
+                         verbose = txtProgressBar,
                          txtProgressBar = txtProgressBar)
 
       ##set message on the format definition

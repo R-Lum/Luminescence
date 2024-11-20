@@ -56,4 +56,11 @@ test_that("Test the extraction of irradiation times", {
     extract_IrradiationTimes(xsyg, file.BINX = tmp_BINX, txtProgressBar = FALSE),
     "XSYG-file and BINX-file do not contain similar entries, BINX-file update skipped")
 
+  tmp_XSYG <- test_path("_data/xsyg-tests/XSYG_file_TL_CASE3.xsyg")
+  tmp_BINX <- tempfile(fileext = ".binx")
+  write_R2BIN(read_BIN2R(binx, position = 2, verbose = FALSE),
+              tmp_BINX, verbose = FALSE)
+  expect_message(extract_IrradiationTimes(tmp_XSYG, file.BINX = tmp_BINX,
+                                          txtProgressBar = FALSE),
+                 "'Time Since Irradiation' was redefined in the exported BINX-file")
 })
