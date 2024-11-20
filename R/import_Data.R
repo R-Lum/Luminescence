@@ -14,12 +14,11 @@
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
-#'@section Function version: 0.1.1
+#'@section Function version: 0.1.2
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [read_BIN2R], [read_XSYG2R], [read_PSL2R], [read_SPE2R], [read_TIFF2R], [read_RF2R],
-#'[read_Daybreak2R]
+#'@seealso `r paste0("[", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]", collapse = ", ")`
 #'
 #'@keywords datagen
 #'
@@ -44,16 +43,9 @@ import_Data <- function (
   .set_function_name("import_Data")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## supported functions
-  fun <- c(
-    "read_BIN2R",
-    "read_XSYG2R",
-    "read_PSL2R",
-    "read_Daybreak2R",
-    "read_RF2R",
-    "read_SPE2R",
-    "read_TIFF2R",
-    "read_HeliosOSL2R")
+  ## supported functions are extracted automatically from the package
+  ## namespace so that we don't have to maintain this list manually
+  fun <- grep("^read_", getNamespaceExports("Luminescence"), value = TRUE)
 
   ## get arguments of functions
   args <- c(list(file = file, fastForward = fastForward, verbose = verbose), list(...))
