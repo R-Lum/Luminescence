@@ -9,6 +9,7 @@ write_R2BIN(
   file,
   version,
   compatibility.mode = FALSE,
+  verbose = TRUE,
   txtProgressBar = TRUE
 )
 }
@@ -37,8 +38,11 @@ This option accounts for potential compatibility problems with the Analyst softw
 It further limits the maximum number of points per curve to 9,999. If a curve contains more
 data the curve data get binned using the smallest possible bin width.}
 
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
+
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}.}
+enables or disables \link{txtProgressBar}. Ignored if \code{verbose = FALSE}.}
 }
 \value{
 Write a binary file and returns the name and path of the file as \link{character}.
@@ -75,7 +79,7 @@ ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.5.3
+ 0.5.4
 }
 
 \examples{

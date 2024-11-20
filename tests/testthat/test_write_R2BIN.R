@@ -1,40 +1,25 @@
-test_that("write to empty connection", {
-  testthat::skip_on_cran()
-
-#Unit test for write_BIN2R() function
-
-#create data file
+## load data
 data(ExampleData.BINfileData, envir = environment())
 
-  ##empty RisoeBINfileData object
-  empty <- set_Risoe.BINfileData()
+## replace the with numeric and factors with characters
+CWOSL.SAR.Data@METADATA$VERSION <- as.numeric(CWOSL.SAR.Data@METADATA$VERSION)
+CWOSL.SAR.Data@METADATA[] <- lapply(CWOSL.SAR.Data@METADATA,
+                                    function(x) {
+                                      if (is.factor(x)) as.character(x) else x
+                                    })
 
-  ##replace the raw by numeric
-  CWOSL.SAR.Data@METADATA$VERSION <- as.numeric(CWOSL.SAR.Data@METADATA$VERSION)
-  CWOSL.SAR.Data@METADATA[] <- lapply(CWOSL.SAR.Data@METADATA, function(x){
-    if(is.factor(x)){
-      as.character(x)
-    }else{
-      x
-    }
-  })
+## combine with existing BIN-file object
+empty <- set_Risoe.BINfileData()
+new <- data.table::rbindlist(list(empty@METADATA, CWOSL.SAR.Data@METADATA),
+                             fill = TRUE)
+new <- set_Risoe.BINfileData(METADATA = as.data.frame(new, stringsAsFactors = FALSE),
+                             DATA = CWOSL.SAR.Data@DATA)
+new@METADATA[is.na(new@METADATA)] <- 0
+new@METADATA$RECTYPE <- 1
+new <- subset(new, ID == 1:2)
 
-  ##combing with existing BIN-file object
-  new <- as.data.frame(
-    data.table::rbindlist(l = list(empty@METADATA,CWOSL.SAR.Data@METADATA),fill = TRUE),
-    stringsAsFactors = FALSE)
-
-  ##new object
-  new <- set_Risoe.BINfileData(METADATA = new, DATA = CWOSL.SAR.Data@DATA)
-
-  ##replace NA values
-  new@METADATA[is.na(new@METADATA)] <- 0
-
-  ##replace RECTYPE
-  new@METADATA$RECTYPE <- 1
-
-  ##reduce files size considerably down to two records
-  new <- subset(new, ID == 1:2)
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ##create files
   path <- tempfile()
@@ -53,9 +38,10 @@ data(ExampleData.BINfileData, envir = environment())
   temp@METADATA[1, "SAMPLE"] <- ""
   temp@METADATA[1, "COMMENT"] <- ""
   temp@.RESERVED <- list(val1 = c("a", "b"), val2 = c("c", "d"))
-  SW({
+  expect_silent(
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V3.bin"),
-              version = "03")
+              version = "03", verbose = FALSE))
+  SW({
   temp@METADATA[, "VERSION"] <- 4
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V4.bin"),
               version = "04")
@@ -74,7 +60,24 @@ data(ExampleData.BINfileData, envir = environment())
               version = "08")
   })
 
-  ##catch errors
+  ## silent correction of the file extension
+  SW({
+  skip_on_os("windows") # FIXME(mcol): see commit 26889a6
+  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"),
+              version = "08")
+  })
+
+  ## check UTF-8 characters
+  new_utf8 <- new
+  new_utf8@METADATA$FNAME <- c("I do not belong in here \xb5m")
+  t <- expect_silent(write_R2BIN(new_utf8, file = paste0(path, "BINfile_V8.bin"),
+                     version = "08", verbose = FALSE))
+  expect_type(object = t, type = "character")
+})
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
   expect_error(write_R2BIN(object = new, file = FALSE),
                "'file' should be of class 'character'")
   expect_error(write_R2BIN(object = "a", file = ""),
@@ -108,21 +111,7 @@ data(ExampleData.BINfileData, envir = environment())
                "records contain more than 9,999 data points")
   expect_warning(
     expect_error(write_R2BIN(object = temp, compatibility.mode = TRUE,
-                             file = paste0(path, "BINfile_V8.binx")),
+                             file = paste0(tempfile(), "BINfile_V8.binx")),
                  "'COMMENT' exceeds storage limit"),
     "some data sets have more than 9,999 points")
-
-  ## silent correction of the file extension
-  SW({
-  skip_on_os("windows") # FIXME(mcol)
-  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"),
-              version = "08")
-  })
-
-  ## check UTF-8 characters
-  new_utf8 <- new
-  new_utf8@METADATA$FNAME <- c("I do not belong in here \xb5m")
-  t <- expect_silent(suppressMessages(write_R2BIN(object = new_utf8, file = paste0(path, "BINfile_V8.bin"),
-              version = "08", txtProgressBar = FALSE)))
-  expect_type(object = t, type = "character")
 })

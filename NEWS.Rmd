@@ -227,9 +227,17 @@ in an empty record.
 * Add a new logical argument `use_fft` that will apply an additional Fast
 Discrete Fourier Transform (FFT) verification on the data if wanted.
 
+### `write_R2BIN()`
+* The function now supports the `verbose` argument, which can be used to
+suppress output to the terminal (#442, fixed in #444).
+
 ## Internals
 
 * `get_DRAC_references()` now works also on a `DRAC.list` got updated references.
+
+
+***
+
 
 # Changes in version 0.9.26 (2024-11-18)
 
@@ -302,6 +310,9 @@ flushed the terminal with messages if called (internally) in particular
 circumstances. Now we maintain a stack of function names, so that at any time
 we can report correctly the name of the function where an error or a warning
 is thrown (#254, fixed in #256).
+
+
+***
 
 
 # Changes in version 0.9.25 (2024-09-12)
