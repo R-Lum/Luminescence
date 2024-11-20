@@ -379,6 +379,7 @@ extract_IrradiationTimes <- function(
       try <- write_R2BIN(temp.BINX, version = "06",
                          file = paste0(file.BINX,"_extract_IrradiationTimes.BINX"),
                          compatibility.mode = compatibility.mode,
+                         verbose = txtProgressBar,
                          txtProgressBar = txtProgressBar)
 
       ##set message on the format definition
