@@ -1,6 +1,6 @@
-#' Merge function for RLum.Data.Curve S4 class objects
+#' @title Merge function for RLum.Data.Curve S4 class objects
 #'
-#' This function allows to merge [RLum.Data.Curve-class] objects in different
+#' @description This function allows to merge [RLum.Data.Curve-class] objects in different
 #' ways without modifying the original objects. Merging is always applied on
 #' the 2nd column of the object's data matrix.
 #'
