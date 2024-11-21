@@ -93,7 +93,8 @@ read_Daybreak2R <- function(
     temp.return <- lapply(1:length(file), function(x) {
       read_Daybreak2R(
         file = file[[x]],
-        txtProgressBar = txtProgressBar
+        txtProgressBar = txtProgressBar,
+        verbose = verbose[1]
       )
     })
 
