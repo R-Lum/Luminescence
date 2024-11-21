@@ -392,7 +392,7 @@ fit_DoseResponseCurve <- function(
   if(fit.weights){
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
-    if(any(is.na(fit.weights))){ # FIXME(mcol): infinities?
+    if (anyNA(fit.weights)) { # FIXME(mcol): infinities?
       fit.weights <- rep(1, length(y.Error))
       .throw_warning("Error column invalid or 0, 'fit.weights' ignored")
     }
@@ -1586,7 +1586,7 @@ fit_DoseResponseCurve <- function(
 # Output ------------------------------------------------------------------
   ##calculate HPDI
   HPDI <- matrix(c(NA,NA,NA,NA), ncol = 4)
-  if(!any(is.na(x.natural))){
+  if (!anyNA(x.natural)) {
     HPDI <- cbind(
       .calc_HPDI(x.natural, prob = 0.68)[1, ,drop = FALSE],
       .calc_HPDI(x.natural, prob = 0.95)[1, ,drop = FALSE])

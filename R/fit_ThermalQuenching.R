@@ -167,7 +167,7 @@ fit_ThermalQuenching <- function(
     data <- data[, 1:3]
   }
 
-  if (any(is.na(data))) {
+  if (anyNA(data)) {
     .throw_warning("NA values in 'data' automatically removed")
     data <- na.exclude(data)
   }

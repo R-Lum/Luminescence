@@ -237,7 +237,7 @@ analyse_portableOSL <- function(
   )
 
     ## if coordinates exist, sort by depth
-    if(!any(is.na(coord[,2])))
+    if (!anyNA(coord[, 2]))
       summary <- summary[order(coord[,2]),]
 
    ### INVERT ----------
@@ -284,7 +284,7 @@ analyse_portableOSL <- function(
        xlim = attr(m_list, "xlim"),
        ylim = attr(m_list, "ylim"),
        zlim = if(mode == "surface") NA else attr(m_list, "zlim"),
-       ylab = if(!any(is.na(summary$COORD_Y))) "Depth [m]" else "Index",
+       ylab = if (!anyNA(summary$COORD_Y)) "Depth [m]" else "Index",
        xlab = "x [m]",
        grid = TRUE,
        contour = FALSE,
@@ -713,8 +713,8 @@ analyse_portableOSL <- function(
     numeric(2)) |> t()
 
   ## if NA, assign index
-  if(any(is.na(coord[,1]))) coord[,1] <- 0
-  if(any(is.na(coord[,2]))) coord[,2] <- 1:nrow(coord)
+  if (anyNA(coord[, 1])) coord[, 1] <- 0
+  if (anyNA(coord[, 2])) coord[, 2] <- 1:nrow(coord)
 
   return(coord)
 }

@@ -134,7 +134,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
     # "character" or "numeric/integer". hence, we check if input is "X" and
     # if the field allows it. If so, we change the old class to "character".
     if (any(value == "X") && attributes(x[[i]])$allowsX) {
-      if (any(is.na(as.numeric(value[which(value != "X")])))) {
+      if (anyNA(as.numeric(value[which(value != "X")]))) {
         .throw_warning("Cannot coerce '", value[which(value != "X")],
                        "' to a numeric value, input must be numeric or 'X'")
         return(x)
@@ -146,7 +146,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
     # non-character input is allowed
     if (!all(is.na(x[[i]]))) {
       if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
-        if (any(is.na(as.numeric(value[which(value != "X")])))) {
+        if (anyNA(as.numeric(value[which(value != "X")]))) {
           .throw_warning("Cannot coerce '", value[which(value != "X")],
                          "' to a numeric value, input must be numeric or 'X'\n")
           return(x)
@@ -162,7 +162,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   if (class.old == "numeric" || class.old == "integer") {
     if (class.new != class.old) {
       ## check if coercion is possible
-      if(any(is.na(suppressWarnings(as.numeric(value))))) {
+      if (anyNA(suppressWarnings(as.numeric(value)))) {
         .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> cannot coerce, set NAs")
          if(class.old == "integer")
            value <- NA_integer_
@@ -176,7 +176,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
           value <- as.integer(value)
         else
           value <- as.numeric(value)
-
       }
     }
   }

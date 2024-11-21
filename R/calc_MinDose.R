@@ -620,7 +620,7 @@ calc_MinDose <- function(
 
   if (any(is.nan(coef_err)))
     coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))[which(is.nan(coef_err))] / 100
-  if (any(is.na(coef_err)))
+  if (anyNA(coef_err))
     coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))[which(is.na(coef_err))] / 100
 
   if (par == 3)

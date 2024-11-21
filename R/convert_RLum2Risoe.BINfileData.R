@@ -124,7 +124,7 @@ convert_RLum2Risoe.BINfileData <- function(
   .replace("RECTYPE", 0)
 
   ## >> NPOINTS << ##
-  if(any(is.na(prototype@METADATA[["NPOINTS"]]))){
+  if (anyNA(prototype@METADATA[["NPOINTS"]])) {
     prototype@METADATA[["NPOINTS"]] <- vapply(records, function(x){
       length(x@data)/2
 
@@ -132,7 +132,7 @@ convert_RLum2Risoe.BINfileData <- function(
   }
 
   ## >> LENGTH <<  + PREVIOUS
-  if(any(is.na(prototype@METADATA[["LENGTH"]]))){
+  if (anyNA(prototype@METADATA[["LENGTH"]])) {
     ##even we have values here before, it will make no difference
     prototype@METADATA[["LENGTH"]] <- (prototype@METADATA[["NPOINTS"]] * 4) + 507
     prototype@METADATA[["PREVIOUS"]] <- c(0,prototype@METADATA[["LENGTH"]][1:length(records) - 1])
@@ -140,7 +140,7 @@ convert_RLum2Risoe.BINfileData <- function(
 
   ## >> RUN << ##
   ##if there is only one NA, we should overwrite it, to be consistent
-  if(any(is.na(prototype@METADATA[["RUN"]])))
+  if (anyNA(prototype@METADATA[["RUN"]]))
     prototype@METADATA[["RUN"]] <- 1:length(records)
 
   ## >> SET << ##
@@ -162,7 +162,7 @@ convert_RLum2Risoe.BINfileData <- function(
   .replace("LIGHTSOURCE", "None")
 
   ## >> SAMPLE << ##
-  if(any(is.na(prototype@METADATA[["SAMPLE"]]))){
+  if (anyNA(prototype@METADATA[["SAMPLE"]])) {
     ##get only the id's to change
     temp_id <- which(is.na(prototype@METADATA[["SAMPLE"]]))
 
@@ -185,7 +185,7 @@ convert_RLum2Risoe.BINfileData <- function(
   .replace("FNAME", " ")
 
   ## >> DATE << ## + TIME
-  if(any(is.na(prototype@METADATA[["DATE"]]))){
+  if (anyNA(prototype@METADATA[["DATE"]])) {
     ##get only the id's to change
     temp_id <- which(is.na(prototype@METADATA[["DATE"]]))
 
@@ -215,7 +215,7 @@ convert_RLum2Risoe.BINfileData <- function(
   }
 
   ## >> LOW << ##
-  if(any(is.na(prototype@METADATA[["LOW"]]))){
+  if (anyNA(prototype@METADATA[["LOW"]])) {
     ##get only the id's to change
     temp_id <- which(is.na(prototype@METADATA[["LOW"]]))
 
@@ -227,7 +227,7 @@ convert_RLum2Risoe.BINfileData <- function(
   }
 
   ## >> HIGH << ##
-  if(any(is.na(prototype@METADATA[["HIGH"]]))){
+  if (anyNA(prototype@METADATA[["HIGH"]])) {
     ##get only the id's to change
     temp_id <- which(is.na(prototype@METADATA[["HIGH"]]))
 

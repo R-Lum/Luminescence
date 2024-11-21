@@ -262,7 +262,7 @@ extract_IrradiationTimes <- function(
     ##a little bit reformatting.
     START <- strptime(temp.START, format = "%y%m%d%H%M%S", tz = "GMT")
       ## make another try in case it does not make sense
-      if(any(is.na(START)))
+      if (anyNA(START))
         START <- strptime(temp.START, format = "%y%m%d%H:%M:%S", tz = "GMT")
 
   } else {
