@@ -50,4 +50,24 @@ test_that("Test general import", {
     object = import_Data(system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")),
     class = "RLum.Analysis")
 
+  ## use character and list as input
+  files <- c(
+    system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence"),
+    system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")
+  )
+  expect_type(
+    object = import_Data(files, verbose = FALSE),
+    type = "list")
+  expect_type(
+    object = import_Data(as.list(files), verbose = FALSE),
+    type = "list")
+
+  ## mix input
+  files <- c(
+    system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence"),
+    system.file("extdata/RF_file.rf", package = "Luminescence"))
+  expect_type(
+    object = import_Data(files, verbose = FALSE),
+    type = "list")
+
 })

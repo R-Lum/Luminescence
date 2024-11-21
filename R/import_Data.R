@@ -2,9 +2,10 @@
 #'
 #'@description
 #'Convenience wrapper function to provide a quicker and more standardised way of
-#'reading data into R by looping through all in the package available data import functions starting with `read_`.
+#'reading data into R by looping through all in the package available data import
+#'functions starting with `read_`. Import data types can be mixed.
 #'
-#'@param file [character] (**required**): file to be imported, can be a [list]
+#'@param file [character] (**required**): file to be imported, can be a [list] or a [character] vector
 #'
 #'@param ... arguments to be further passed down to supported functions (please check the functions
 #'to determine the correct arguments)
@@ -14,7 +15,7 @@
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
-#'@section Function version: 0.1.2
+#'@section Function version: 0.1.3
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -46,6 +47,10 @@ import_Data <- function (
   ## supported functions are extracted automatically from the package
   ## namespace so that we don't have to maintain this list manually
   fun <- grep("^read_", getNamespaceExports("Luminescence"), value = TRUE)
+
+  ## make the file handling just a little bit easier
+  if(length(file) > 1)
+    file <- as.list(file)
 
   ## get arguments of functions
   args <- c(list(file = file, fastForward = fastForward, verbose = verbose), list(...))
