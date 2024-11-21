@@ -43,11 +43,12 @@ used by default.}
 apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
 
 \item{init.values}{\link{numeric} (\emph{optional}):
-a named list with starting values for gamma, sigma, p0 and mu
-(e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
-are tried to be estimated from the data. \strong{NOTE} that the initial values must always be given
-in the absolute units. The the logged model is applied (\code{log = TRUE}), the provided \code{init.values}
-are automatically log transformed.}
+a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}
+(e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are
+provided, reasonable values will be estimated from the data.
+\strong{NOTE}: the initial values must always be given in the absolute units.
+If a logged model is applied (\code{log = TRUE}), the provided \code{init.values}
+are automatically log-transformed.}
 
 \item{level}{\link{logical} (\emph{with default}):
 the confidence level required (defaults to 0.95).}
@@ -133,13 +134,13 @@ samples containing negative, zero or near-zero De estimates (Arnold et al.
 The log likelihood calculations use the \link{nlminb} function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via \code{init.values}. If no values are
-provided for \code{init.values} reasonable starting values are estimated
+provided for \code{init.values}, reasonable starting values are estimated
 from the input data.  If the final estimates of \emph{gamma}, \emph{mu},
 \emph{sigma} and \emph{p0} are totally off target, consider providing custom
 starting values via \code{init.values}.
-In contrast to previous versions of this function the boundaries for the
+In contrast to previous versions of this function, the boundaries for the
 individual model parameters are no longer required to be explicitly specified.
-If you want to override the default boundary values use the arguments
+If you want to override the default boundary values use arguments
 \code{gamma.lower}, \code{gamma.upper}, \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
 \code{mu.lower} and \code{mu.upper}.
 
@@ -166,11 +167,11 @@ automatically, but can be changed with \code{cores}. The multicore support
 is only available when \code{bootstrap=TRUE} and spawns \code{n} R instances
 for each core to get MAM estimates for each of the N and M bootstrap
 replicates. Note that this option is highly experimental and may or may not
-work for your machine. Also the performance gain increases for larger number
-of bootstrap replicates. Also note that with each additional core and hence
-R instance and depending on the number of bootstrap replicates the memory
-usage can significantly increase. Make sure that memory is always available,
-otherwise there will be a massive performance hit.
+work for your machine. The performance gain increases for larger number
+of bootstrap replicates. However, note that with each additional core (and
+hence R instance) the memory usage can significantly increaseand depending
+on the number of bootstrap replicates. When insufficient memory is available,
+there will be a massive performance hit.
 
 \strong{Likelihood profiles}
 

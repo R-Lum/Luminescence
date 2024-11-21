@@ -41,13 +41,13 @@
 #' The log likelihood calculations use the [nlminb] function for box-constrained
 #' optimisation using PORT routines.  Accordingly, initial values for the four
 #' parameters can be specified via `init.values`. If no values are
-#' provided for `init.values` reasonable starting values are estimated
+#' provided for `init.values`, reasonable starting values are estimated
 #' from the input data.  If the final estimates of *gamma*, *mu*,
 #' *sigma* and *p0* are totally off target, consider providing custom
 #' starting values via `init.values`.
-#' In contrast to previous versions of this function the boundaries for the
+#' In contrast to previous versions of this function, the boundaries for the
 #' individual model parameters are no longer required to be explicitly specified.
-#' If you want to override the default boundary values use the arguments
+#' If you want to override the default boundary values use arguments
 #' `gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`, `p0.lower`, `p0.upper`,
 #' `mu.lower` and `mu.upper`.
 #'
@@ -74,11 +74,11 @@
 #' is only available when `bootstrap=TRUE` and spawns `n` R instances
 #' for each core to get MAM estimates for each of the N and M bootstrap
 #' replicates. Note that this option is highly experimental and may or may not
-#' work for your machine. Also the performance gain increases for larger number
-#' of bootstrap replicates. Also note that with each additional core and hence
-#' R instance and depending on the number of bootstrap replicates the memory
-#' usage can significantly increase. Make sure that memory is always available,
-#' otherwise there will be a massive performance hit.
+#' work for your machine. The performance gain increases for larger number
+#' of bootstrap replicates. However, note that with each additional core (and
+#' hence R instance) the memory usage can significantly increaseand depending
+#' on the number of bootstrap replicates. When insufficient memory is available,
+#' there will be a massive performance hit.
 #'
 #' **Likelihood profiles**
 #'
@@ -117,11 +117,12 @@
 #' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
 #'
 #' @param init.values [numeric] (*optional*):
-#' a named list with starting values for gamma, sigma, p0 and mu
-#' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are provided reasonable values
-#' are tried to be estimated from the data. **NOTE** that the initial values must always be given
-#' in the absolute units. The the logged model is applied (`log = TRUE`), the provided `init.values`
-#' are automatically log transformed.
+#' a named list with starting values for `gamma`, `sigma`, `p0` and `mu`
+#' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
+#' provided, reasonable values will be estimated from the data.
+#' **NOTE**: the initial values must always be given in the absolute units.
+#' If a logged model is applied (`log = TRUE`), the provided `init.values`
+#' are automatically log-transformed.
 #'
 #' @param level [logical] (*with default*):
 #' the confidence level required (defaults to 0.95).
@@ -440,7 +441,7 @@ calc_MinDose <- function(
   } else {
     cores <- parallel::detectCores()
     if (multicore)
-      message(paste("Logical CPU cores detected:", cores))
+      message(paste("Logical CPU cores detected:", cores)) # nocov
   }
 
   ## WARNINGS ----
@@ -795,14 +796,9 @@ calc_MinDose <- function(
     # Function to extract the estimate of gamma from mle2 objects and converting
     # it back to the 'normal' scale
     save_Gamma <- function(d) {
-      if (log) {
-        if (invert) {
-          m <- exp((bbmle::coef(d)[["gamma"]]-x.offset)*-1)
-        } else {
-          m <- exp(bbmle::coef(d)[["gamma"]])
-        }
-      } else {
-        m <- bbmle::coef(d)[["gamma"]]
+      m <- bbmle::coef(d)[["gamma"]]
+      if (log && invert) {
+        m <- exp(-(m - x.offset))
       }
       return(m)
     }
@@ -901,15 +897,13 @@ calc_MinDose <- function(
 
     ## if the input values are too close to zero, we may get
     ## Inf values >>> we remove them here with a warning
-    if(any(is.infinite(pairs))){
-      inf_count <- length(which(is.infinite(pairs[,2])))/nrow(pairs)
-      pairs <- pairs[!is.infinite(pairs[,2]),]
-      .throw_warning("Inf values produced by bootstrapping removed ",
-                     "for LOcal polynominal regrESSion fitting (loess)!",
-                     "\n The removed values represent ",
-                     round(inf_count * 100,2), " % of the total dataset. ",
-                     "This message usually indicates that your values ",
-                     "are close to 0.")
+    is.inf <- is.infinite(pairs[, 2])
+    if (any(is.inf)) {
+      .throw_warning("Inf values produced by bootstrapping removed for loess ",
+                     "fitting (", round(sum(is.inf) / nrow(pairs) * 100, 2),
+                     "% of the total dataset). This message usually indicates ",
+                     "that your values are close to 0.")
+      pairs <- pairs[!is.inf, ]
     }
 
     poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 3, raw = TRUE))
@@ -1038,7 +1032,8 @@ calc_MinDose <- function(
   #   options(warn = 0)
 
   if (!is.na(summary$mu) && !is.na(summary$de)) {
-    if (log(summary$de) > summary$mu)
+    ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
+    if (summary$de > exp(summary$mu))
       .throw_warning("Gamma is larger than mu, consider running the model ",
                      "with new boundary values (see details '?calc_MinDose')")
   }

@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 temp <- calc_MinDose(data = ExampleData.DeValues$CA1,
                      sigmab = 0.1,
@@ -70,6 +71,14 @@ test_that("check class and length of output", {
   SW({
   expect_error(calc_MinDose(data.nofit, sigmab = 0.9, par=4),
                "Couldn't find a converging fit for the profile log-likelihood")
+  })
+
+  ## more coverage
+  SW({
+  expect_warning(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
+                              par = 4, gamma.lower = 2, log.output = TRUE,
+                              bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h=100),
+                 "Gamma is larger than mu, consider running the model with new")
   })
 })
 
