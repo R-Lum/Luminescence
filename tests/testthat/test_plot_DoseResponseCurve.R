@@ -35,4 +35,5 @@ test_that("plot output", {
   expect_s4_class(plot_DoseResponseCurve(fit, density_polygon = FALSE), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, density_rug = FALSE), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, density_polygon_col = "green"), "RLum.Results")
+  expect_s4_class(plot_DoseResponseCurve(fit, box = FALSE), "RLum.Results")
 })

@@ -131,7 +131,7 @@ and `plot_DoseResponseCurve()`. There should be no visible user-facing
 changes (#319, fixed in #322).
 * Support new `...` arguments for plotting (implementation in `plot_DoseResponseCurve()`) for
 `legend` (turn on/off legend) and `reg_points_pch` for fine grained control over the point shape.
-* Add `density_polygon`, `density_pologyon_col` and `density_rug` as `...` arguments to plot and
+* Add `density_polygon`, `density_pologyon_col`, `density_rug`, `box` as `...` arguments to plot and
 add respective plot options
 * The function crashed for single grain data that sometimes cause a lot of
 `NaN` values during log conversions required for estimating the start

@@ -28,7 +28,8 @@
 #'
 #' @param ... Further graphical parameters to be passed (supported:
 #' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`,
-#' `density_polygon` (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`)).
+#' `density_polygon` (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`)),
+#'  `box` (`TRUE`/`FALSE`)
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
@@ -164,7 +165,8 @@ plot_DoseResponseCurve <- function(
       reg_points_pch = c(19,2, 1),
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
-      density_rug = TRUE),
+      density_rug = TRUE,
+      box = TRUE),
     val = list(...),
     keep.null = TRUE
   )
@@ -197,7 +199,8 @@ plot_DoseResponseCurve <- function(
       xlim = plot_settings$xlim,
       pch = plot_settings$reg_points_pch,
       xlab = plot_settings$xlab,
-      ylab = plot_settings$ylab
+      ylab = plot_settings$ylab,
+      frame.plot = plot_settings$box[1]
   ),
   silent = TRUE)
 
@@ -237,13 +240,19 @@ plot_DoseResponseCurve <- function(
     points(
         x = xy[which(duplicated(xy[, 1])), 1],
         y = xy[which(duplicated(xy[, 1])), 2],
-        pch = if(is.na(plot_settings$reg_points_pch[2])) plot_settings$reg_points_pch[1] else plot_settings$reg_points_pch[2])
+        pch = if(is.na(plot_settings$reg_points_pch[2]))
+                plot_settings$reg_points_pch[1]
+              else
+                plot_settings$reg_points_pch[2])
 
     ## reg Point 0
     points(
         x = xy[which(xy == 0), 1],
         y = xy[which(xy == 0), 2],
-        pch = if(is.na(plot_settings$reg_points_pch[3])) plot_settings$reg_points_pch[1] else plot_settings$reg_points_pch[3],
+        pch = if(is.na(plot_settings$reg_points_pch[3]))
+               plot_settings$reg_points_pch[1]
+              else
+               plot_settings$reg_points_pch[3],
         cex = 1.5 * cex.global)
 
     ## ARROWS	#y-error Bar
