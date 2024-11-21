@@ -310,7 +310,7 @@ plot_DoseResponseCurve <- function(
       }
 
       if(plot_settings$density_rug[1])
-        rug(x = x.natural,side = 3)
+        suppressWarnings(rug(x = x.natural,side = 3))
 
     } else if (mode == "extrapolation"){
       if (!is.na(De)) {
@@ -406,7 +406,7 @@ plot_DoseResponseCurve <- function(
           lines(norm.curve.x, norm.curve.y, col = "red")
 
           ## add rug
-          rug(x.natural)
+          suppressWarnings(rug(x.natural))
 
           ## De + Error from MC simulation + quality of error estimation
           try(mtext(side = 3,
