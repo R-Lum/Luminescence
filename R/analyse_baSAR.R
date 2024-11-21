@@ -529,7 +529,6 @@ analyse_baSAR <- function(
         for (i in 1:Nb_aliquots) {
 
           temp.logic <- !duplicated(data.Dose[,i], incomparables=c(0))  # logical excluding 0
-
           m <- length(which(!temp.logic))
 
           data.Dose[,i] <-  c(data.Dose[,i][temp.logic], rep(NA, m))
@@ -789,12 +788,9 @@ analyse_baSAR <- function(
 
   .require_suggested_package("rjags")
   .require_suggested_package("coda")
-
-  ## fit.method
-  fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
-
+  .validate_class(object, c("Risoe.BINfileData", "RLum.Results", "character", "list"))
   .validate_positive_scalar(n.MCMC, int = TRUE)
-
+  fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
   distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
                                       null.ok = TRUE)
   if (is.null(distribution_plot))
@@ -1052,20 +1048,20 @@ analyse_baSAR <- function(
       }
     }
 
-    if (is(object, "Risoe.BINfileData")) {
+    if (inherits(object, "Risoe.BINfileData")) {
       fileBIN.list <- list(object)
 
     } else if (is(object, "list")) {
       ##check what the list containes ...
-      object_type <-
-        unique(unlist(lapply(
-          1:length(object),
-          FUN = function(x) {
-            is(object[[x]])[1]
-          }
-        )))
+      object_type <- unique(sapply(object, function(x) {
+        .validate_class(x, c("Risoe.BINfileData", "character"),
+                        name = "Each element of 'object'")
+        class(x)[1]
+      }))
 
-      if (length(object_type)  == 1) {
+      if (length(object_type) > 1) {
+        .throw_error("'object' only accepts a list of objects of the same type")
+      }
         if (object_type == "Risoe.BINfileData") {
           fileBIN.list <- object
 
@@ -1078,14 +1074,7 @@ analyse_baSAR <- function(
             pattern = additional_arguments$pattern,
             verbose = verbose
           )
-        } else{
-          .throw_error("Unsupported data type in the input list ",
-                       "provided for 'object'")
         }
-
-      } else{
-        .throw_error("'object' only accepts a list with objects of similar type")
-      }
 
     } else if (is(object, "character")) {
       fileBIN.list <- list(
@@ -1094,13 +1083,10 @@ analyse_baSAR <- function(
           position = additional_arguments$position,
           duplicated.rm = additional_arguments$duplicated.rm,
           n.records = additional_arguments$n.records,
+          pattern = additional_arguments$pattern,
           verbose = verbose
         )
       )
-
-    } else{
-      .throw_error("'", is(object)[1], "' as input is not supported. ",
-                   "Check manual for allowed input objects.")
     }
 
     ##Problem ... the user might have made a pre-selection in the Analyst software, if this the
@@ -1411,7 +1397,6 @@ analyse_baSAR <- function(
 
     }else{
       irrad_time.vector <- rep(irradiation_times,n_objects)
-
     }
 
     ##if all irradiation times are 0 we should stop here
@@ -1462,12 +1447,9 @@ analyse_baSAR <- function(
 
               t <- index_liste[kn]
 
-              ##check if the source_doserate is NULL or not
+              dose.value <- irrad_time.vector[t]
               if(!is.null(unlist(source_doserate))){
-                dose.value <-  irrad_time.vector[t] * unlist(source_doserate[[k]][1])
-
-              }else{
-                dose.value <-  irrad_time.vector[t]
+                dose.value <- dose.value * unlist(source_doserate[[k]][1])
               }
 
               s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
@@ -1845,7 +1827,6 @@ analyse_baSAR <- function(
   }else{
     removed_aliquots <- NULL
   }
-
 }
 
   # Call baSAR-function -------------------------------------------------------------------------
