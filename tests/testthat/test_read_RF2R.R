@@ -1,14 +1,19 @@
-test_that("Test functionality", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##load file path
-  file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-
-  ##crash function
   expect_error(read_RF2R("error"),
                "File 'error' does not exist")
   expect_error(read_RF2R(2),
                "'file' should be of class 'character' or 'list'")
+  expect_message(expect_null(read_RF2R(list("error"))),
+                 "Import for file 'error' failed, NULL returned")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  ##load file path
+  file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 
   ##simple import
   SW({

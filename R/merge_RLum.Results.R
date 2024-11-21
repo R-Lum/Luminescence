@@ -27,13 +27,10 @@ merge_RLum.Results <- function(
   .set_function_name("merge_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)
 
-            ##-------------------------------------------------------------
-            ##Some integrity checks
+  ## Integrity checks -------------------------------------------------------
 
-            ##check if input object is a list
-            if(!is(objects, "list")){
-              .throw_error("'objects' has to be of type 'list'")
-            }else{
+  .validate_class(objects, "list")
+
               ##check if objects in the list are of type RLum.Results
               temp.originator <- sapply(1:length(objects), function(x){
                 .validate_class(objects[[x]], "RLum.Results",
@@ -41,7 +38,6 @@ merge_RLum.Results <- function(
 
                 objects[[x]]@originator
               })
-              }
 
             ##check if originator is different
             if(length(unique(temp.originator))>1){
@@ -50,7 +46,8 @@ merge_RLum.Results <- function(
 
             ##-------------------------------------------------------------
             ##merge objects depending on the data structure
-            for(i in 1:length(objects[[1]]@data)){
+            for (i in seq_along(objects[[1]]@data)) {
+
               ## shelf list of attributes
               attr_list <- unlist(
                 lapply(1:length(objects), function(x) attributes(objects[[x]]@data[[i]])),
