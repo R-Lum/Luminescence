@@ -155,11 +155,20 @@ test_that("test BIN file while fading data", {
   expect_error(analyse_FadingMeasurement(d1),
                "BIN-file has version 03, but only versions from 05 on are supported")
 
-  v5 <- read_BIN2R(test_path("_data/BINfile_V5.binx"), verbose = FALSE)
   SW({
-  d2 <- Risoe.BINfileData2RLum.Analysis(v5)
+  d2 <- read_BIN2R(test_path("_data/BINfile_V5.binx"), verbose = FALSE,
+                   fastForward = TRUE)
   })
   expect_output(analyse_FadingMeasurement(d2, signal.integral = 1:2,
                                           background.integral = 10:30,
                                           plot = TRUE))
+
+  ## more coverage
+  analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                            background.integral = 10:30,
+                            signal.integral.Tx = 2,
+                            background.integral.Tx = 5:30,
+                            plot_singlePanels = 2,
+                            background.count.distribution = "poisson",
+                            sig0 = 2, verbose = FALSE, plot = TRUE)
 })
