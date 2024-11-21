@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE,
                               path = "non-existing"),
                "Directory provided via the argument 'path' does not exist")
-  expect_error(write_RLum2CSV(set_RLum("RLum.Results")),
+  expect_error(write_RLum2CSV(set_RLum("RLum.Results"), verbose = FALSE),
                "No valid records in 'object'")
 })
 
