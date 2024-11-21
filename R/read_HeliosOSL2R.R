@@ -39,7 +39,7 @@ read_HeliosOSL2R <- function(
 # Self-call ---------------------------------------------------------------
   if(inherits(file, "list")) {
     out <- lapply(file, function(x) {
-      read_HeliosOSL2R(x)
+      read_HeliosOSL2R(x, verbose = verbose)
     })
 
     return(out)
