@@ -70,6 +70,8 @@ older than 5 was used (#281, fixed in #282).
 (#283, fixed in #288).
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
+* The function doesn't crash anymore if no record is left after removal of
+records with negative time since irradiation (#454, fixed in #456).
 
 ### `analyse_IRSAR.RF()`
 * The performance of this function has been improved for the "SLIDE" and

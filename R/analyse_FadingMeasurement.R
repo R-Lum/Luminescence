@@ -292,11 +292,10 @@ analyse_FadingMeasurement <- function(
 
       }, numeric(1))
 
-
       ##check whether we have negative irradiation times, sort out such values
       if(any(TIMESINCEIRR < 0)){
         #count affected records
-        rm_records <- length(which(TIMESINCEIRR < 0))
+        rm_records <- sum(TIMESINCEIRR < 0)
 
         ##now we have a problem and we first have to make sure that we understand
         ##the data structure and remove also the corresponding values
@@ -314,8 +313,15 @@ analyse_FadingMeasurement <- function(
           TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
         }
 
-        ##return warning
-        .throw_warning(rm_records, " records 'time since irradiation' value removed from the dataset")
+        .throw_warning("removed ", rm_records, " records with negative ",
+                       "'time since irradiation'")
+
+        ## check if we have removed everything
+        if (length(object_clean) == 0) {
+          .throw_message("After record removal nothing is left from ",
+                         "the data set, NULL returned")
+          return(NULL)
+        }
         rm(rm_records)
       }
 
@@ -354,7 +360,6 @@ analyse_FadingMeasurement <- function(
         t_star <- t0 * 10^((t2 * log10(t2/t0) - t1 * log10(t1/t0) - (t2 - t1) * log10(exp(1))) /
                      (t2 - t1))
 
-
       }else if (t_star == "end"){
         ##set t_start as t_1 (so after the end of irradiation)
         t_star <- t1
@@ -373,7 +378,6 @@ analyse_FadingMeasurement <- function(
 
       ##we need only every 2nd irradiation time, the one from the Tx should be the same ... all the time
       TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by = 2)]
-
 
     }else if(length(structure) == 1){
       Lx_data <- object_clean
