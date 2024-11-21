@@ -171,4 +171,11 @@ test_that("test BIN file while fading data", {
                             plot_singlePanels = 2,
                             background.count.distribution = "poisson",
                             sig0 = 2, verbose = FALSE, plot = TRUE)
+  d2[[2]]@records[[1]]@info$TIMESINCEIRR <- -1
+  expect_message(expect_warning(expect_null(
+      analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                                background.integral = 10:30,
+                                verbose = TRUE)),
+      "removed 2 records with negative 'time since irradiation'"),
+      "After record removal nothing is left from the data set, NULL returned")
 })
