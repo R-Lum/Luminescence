@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.FittingLM, envir = environment())
 
 test_that("input validation", {
@@ -14,7 +15,7 @@ test_that("input validation", {
                "Lengths of 'values' and 'values.bg' differ")
   expect_error(fit_LMCurve(values.curve, values.bg = values.curveBG,
                            bg.subtraction = "error"),
-               "Invalid method for background subtraction")
+               "'bg.subtraction' should be one of 'polynomial', 'linear' or")
   expect_error(fit_LMCurve(values.curve, n.components = "error"),
                "'n.components' should be a positive integer scalar")
   expect_error(fit_LMCurve(values.curve, input.dataType = "error"),
@@ -47,7 +48,6 @@ test_that("check class and length of output", {
   expect_equal(round(fit$data$xm1, digits = 0), 49)
   expect_equal(round(fit$data$b1, digits = 0), 2)
   expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
-
 })
 
 ## Test 2 with LM
@@ -84,13 +84,22 @@ test_that("check class and length of output", {
   fit_LMCurve(values.curve, values.bg = values.curveBG, plot.BG = TRUE,
               bg.subtraction = "linear")
   fit_LMCurve(values.curve, values.bg = values.curveBG, plot.BG = TRUE,
-              bg.subtraction = "channel")
+              input.dataType = "pLM", bg.subtraction = "channel")
   fit_LMCurve(values.curve, values.bg = values.curveBG,
+              xlim = c(0, 4000), ylim = c(0, 600), cex = 0.9,
               fit.calcError = TRUE)
   suppressWarnings(
       expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG,
                                  fit.advanced = TRUE, fit.calcError = TRUE),
                  "The computation of the parameter confidence intervals failed")
   )
+
+  ## more coverage
+  curveBG <- set_RLum("RLum.Data.Curve", data = as.matrix(values.curveBG))
+  expect_warning(fit_LMCurve(values.curve, curveBG, xlab = "s", ylab = "a.u.",
+                             xlim = c(0, 4000), log = "xy"),
+                 "'xlim' changed to avoid 0 values for log-scale")
   })
+  expect_message(fit_LMCurve(values.curve[1:15, ], main = ""),
+                 "Fitting failed, plot without fit produced")
 })

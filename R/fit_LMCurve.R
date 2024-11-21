@@ -264,16 +264,16 @@ fit_LMCurve<- function(
   .set_function_name("fit_LMCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # (0) Integrity checks -------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
 
-  if (is(values, "RLum.Data.Curve")) {
+  if (inherits(values, "RLum.Data.Curve")) {
     if (values@recordType != "RBR" && values@recordType != "LM-OSL") {
       .throw_error("recordType should be 'RBR' or 'LM-OSL'. ",
-                   "Consider using as(object,'data.frame') if you had used ",
-                   "a pseudo transformation function.")
+                   "Consider using `as(object, 'data.frame')` if you ",
+                   "have used a pseudo transformation function")
     }
 
     values <- as(values,"data.frame")
@@ -283,16 +283,18 @@ fit_LMCurve<- function(
   if (!missing(values.bg)) {
     .validate_class(values.bg, c("data.frame", "RLum.Data.Curve"))
 
-    if (is(values, "RLum.Data.Curve") && values@recordType != "RBR") {
+    if (inherits(values, "RLum.Data.Curve") && values@recordType != "RBR") {
       .throw_error("'recordType' should be 'RBR'!")
-
-      }else if(is(values.bg, "RLum.Data.Curve")){
-        values.bg <- as(values.bg,"data.frame")
-      }
+    }
+    if (inherits(values.bg, "RLum.Data.Curve")) {
+      values.bg <- as(values.bg, "data.frame")
+    }
   }
 
   input.dataType <- .validate_args(input.dataType, c("LM", "pLM"))
   fit.method <- .validate_args(fit.method, c("port", "LM"))
+  bg.subtraction <- .validate_args(bg.subtraction,
+                                   c("polynomial", "linear", "channel"))
 
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
@@ -305,37 +307,30 @@ fit_LMCurve<- function(
 
   ylim      <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim}
   else {
-
     if(input.dataType=="pLM"){
       c(0,max(values[,2]*1.1))
     }else{
       c(min(values[,2]),max(values[,2]*1.1))
     }
-
   }
 
   xlab      <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab}
   else {
-
     if(input.dataType=="LM"){"Time [s]"}else{"u [s]"}
-
   }
 
   ylab     <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab}
   else {
-
     if(input.dataType=="LM"){
       paste("LM-OSL [cts/",round(max(values[,1])/length(values[,1]),digits=2)," s]",sep="")
     }else{"pLM-OSL [a.u.]"}
   }
-
 
   main      <- if("main" %in% names(extraArgs)) {extraArgs$main}
   else {"Default"}
 
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex}
   else {0.8}
-
 
   fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
@@ -415,9 +410,6 @@ fit_LMCurve<- function(
         plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
         mtext(side=3,sample_code,cex=.8*cex)
       }
-
-    } else {
-      .throw_error("Invalid method for background subtraction")
     }
   }
 
@@ -449,7 +441,6 @@ fit_LMCurve<- function(
     xm <- paste0("xm.",1:n.components)
 
     as.formula(paste0("y ~ ", paste("(exp(0.5) * ", Im, "* x/", xm, ") * exp(-x^2/(2 *",xm,"^2))", collapse=" + ")))
-
   }
   ##////equation used for fitting///(end)
 
@@ -481,7 +472,6 @@ fit_LMCurve<- function(
 
     while(fit.trigger==FALSE){
 
-
       xm <- xm.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
       Im <- Im.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
 
@@ -495,10 +485,8 @@ fit_LMCurve<- function(
           xm.MC<-sample(rnorm(30,mean=xm[x],sd=xm[x]/10), replace=TRUE)
         })
 
-
         Im.MC<-sapply(1:length(xm),function(x){
           Im.MC<-sample(rnorm(30,mean=Im[x],sd=Im[x]/10), replace=TRUE)
-
         })
         ##---------------------------------------------------------------##
 
@@ -528,7 +516,6 @@ fit_LMCurve<- function(
         cat("\n")
 
       }else{
-
 
         if(fit.method == "port") {
           fit <- try(nls(
@@ -563,7 +550,6 @@ fit_LMCurve<- function(
             control = minpack.lm::nls.lm.control(maxiter = 500)
           ), silent = TRUE)
         }
-
       }#endifelse::fit.advanced
 
 
@@ -765,7 +751,6 @@ fit_LMCurve<- function(
       function(x){
         matrixStats::rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
                        component.contribution.matrix[,x]))
-
       })
 
     ##append to existing matrix
@@ -891,7 +876,6 @@ fit_LMCurve<- function(
       component_matrix[, 2 + i] <-
         exp(0.5) * Im[i] * values[, 1] /
         xm[i] * exp(-values[, 1] ^ 2 / (2 * xm[i] ^ 2))
-
     }
   }
 
@@ -956,7 +940,6 @@ fit_LMCurve<- function(
 
       ##additional legend
       legend("topright",c("pseudo sum function"),lty=2,lwd=2,col="red",bty="n")
-
     }
     ##==pseudo curve==##------------------------------------------------------##
 
@@ -974,11 +957,13 @@ fit_LMCurve<- function(
         legend.caption<-c(legend.caption,paste("component ",i,sep=""))
         curve.col<-c(curve.col,i+1)
       }
-      ##plot legend
-      legend(if(log=="x"| log=="xy"){
-        if(input.dataType=="pLM"){"topright"}else{"topleft"}}else{"topright"},
-        legend.caption,lty=1,lwd=2,col=col[curve.col], bty="n")
 
+      ## plot legend
+      legend.pos <- "topright"
+      if ((log == "x" || log == "xy") && input.dataType != "pLM")
+        legend.pos <- "topleft"
+      legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
+             col = col[curve.col])
 
       ##==lower plot==##
       ##plot residuals
@@ -1047,5 +1032,4 @@ fit_LMCurve<- function(
   )
 
   invisible(newRLumResults.fit_LMCurve)
-
 }
