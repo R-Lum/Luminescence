@@ -183,11 +183,13 @@ analyse_pIRIRSequence <- function(
   .set_function_name("analyse_pIRIRSequence")
   on.exit(.unset_function_name(), add = TRUE)
 
-  if (missing("object"))
-    .throw_error("No value set for 'object'")
-
 # SELF CALL -----------------------------------------------------------------------------------
  if(is.list(object)){
+
+   lapply(object, function(x) {
+     .validate_class(x, "RLum.Analysis", name = "All elements of 'object'")
+   })
+
     ##make live easy
     if(missing("signal.integral.min")){
       signal.integral.min <- 1
@@ -241,11 +243,9 @@ analyse_pIRIRSequence <- function(
       return(results)
   }
 
-# General Integrity Checks ---------------------------------------------------
-  ##GENERAL
+  ## Integrity checks -------------------------------------------------------
 
-    ##INPUT OBJECTS
-    .validate_class(object, "RLum.Analysis")
+  .validate_class(object, "RLum.Analysis", extra = "'list'")
 
     ##CHECK ALLOWED VALUES IN SEQUENCE STRUCTURE
     temp.collect.invalid.terms <- paste(sequence.structure[

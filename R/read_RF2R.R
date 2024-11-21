@@ -48,6 +48,9 @@ read_RF2R <- function(
 # Self-call -----------------------------------------------------------------------------------
   if(inherits(file, "list")){
     results_list <- lapply(file, function(f){
+      if (!.validate_class(f, "character", throw.error = FALSE)) {
+        return(NULL)
+      }
       temp <- try(read_RF2R(file = f, verbose = verbose), silent = TRUE)
 
       ##check whether it worked
@@ -63,7 +66,7 @@ read_RF2R <- function(
   }
 
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(file, "character", extra = "'list'")
 

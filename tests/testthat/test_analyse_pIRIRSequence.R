@@ -116,10 +116,10 @@ test_that("check plot stuff", {
 })
 
 test_that("input validation", {
-  expect_error(analyse_pIRIRSequence(),
-               "No value set for 'object'")
   expect_error(analyse_pIRIRSequence("test"),
-               "'object' should be of class 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis' or 'list'")
+  expect_error(analyse_pIRIRSequence(list(data.frame())),
+               "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(list("test"),
                                      signal.integral.min = 1,
                                      signal.integral.max = 2,
