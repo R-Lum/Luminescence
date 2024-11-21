@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.portableOSL, envir = environment())
 
 ## generate test data set for profile
@@ -90,6 +91,14 @@ test_that("check class and length of output", {
       sample = "test"
     ),
     "RLum.Results")
+
+    ## more coverage
+    expect_s4_class(analyse_portableOSL(
+        surface,
+        signal.integral = 1:5,
+        mode = "surface",
+        bg_img = as.raster(matrix(0:1, ncol = 4, nrow = 3))
+    ), "RLum.Results")
 })
 
 test_that("input validation", {

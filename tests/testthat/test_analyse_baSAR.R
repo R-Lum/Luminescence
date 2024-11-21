@@ -1,7 +1,5 @@
-##(1) load package test data set
+## load data
 data(ExampleData.BINfileData, envir = environment())
-
-##(2) selecting relevant curves, and limit dataset
 CWOSL.sub <- subset(CWOSL.SAR.Data,
                     subset = POSITION %in% c(1:3) & LTYPE == "OSL")
 
@@ -13,11 +11,11 @@ test_that("input validation", {
   expect_error(analyse_baSAR(list("error"), verbose = FALSE),
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(analyse_baSAR(data.frame(), verbose = FALSE),
-               "'data.frame' as input is not supported")
+               "'object' should be of class 'Risoe.BINfileData', 'RLum.Results'")
   expect_error(analyse_baSAR(list(data.frame()), verbose = FALSE),
-               "Unsupported data type in the input list provided for 'object'")
-  expect_error(analyse_baSAR(list(data.frame(), matrix()), verbose = FALSE),
-               "'object' only accepts a list with objects of similar type")
+               "Each element of 'object' should be of class 'Risoe.BINfileData'")
+  expect_error(analyse_baSAR(list(CWOSL.sub, "error"), verbose = FALSE),
+               "'object' only accepts a list of objects of the same type")
   expect_error(analyse_baSAR(CWOSL.sub, n.MCMC = NULL),
                "'n.MCMC' should be a positive integer scalar")
 
@@ -89,10 +87,13 @@ test_that("input validation", {
                "Number of discs/grains = 0")
 
   SW({
+  obj <- Risoe.BINfileData2RLum.Analysis(CWOSL.sub)
   expect_error(suppressWarnings(
-      analyse_baSAR(Risoe.BINfileData2RLum.Analysis(CWOSL.sub),
-                    verbose = TRUE)),
+      analyse_baSAR(obj, verbose = TRUE)),
       "No records of the appropriate type were found")
+  expect_message(expect_null(
+      analyse_baSAR(obj, recordType = "OSL", verbose = TRUE)),
+      "Object conversion failed, NULL returned")
   })
 
   expect_warning(expect_output(
