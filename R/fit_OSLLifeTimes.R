@@ -235,11 +235,10 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
          ),
          arg_list[[x]])
 
-     ), silent = FALSE)
+     ), outFile = stdout()) # redirect error messages so they can be silenced
 
      if(inherits(temp, "try-error")){
        return(NULL)
-
      }else{
        return(temp)
      }
@@ -266,8 +265,8 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   if(inherits(object, "RLum.Data.Curve")){
    if(!grepl(pattern = "POSL", x = object@recordType, fixed = TRUE))
-     .throw_error("recordType ", object@recordType,
-                  " not supported for input object")
+     .throw_error("recordType '", object@recordType,
+                  "' not supported for input object")
 
     df <- as.data.frame(object@data)
 
@@ -325,9 +324,8 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   ## number of components requested
   .validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE)
-  if (is.null(n.components)){
-    m <- 1
-  } else{
+  m <- 1
+  if (!is.null(n.components)){
     m <- n.components
   }
 
@@ -387,11 +385,9 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     term <- paste(term, collapse = " + ")
 
     ##set weight (should be given as character)
+    w <- "1"
     if(method_control_setting$weights){
       w <- "c^2/n"
-
-    }else{
-      w <- "1"
     }
 
     ##combine
@@ -483,7 +479,6 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
         }else{
           cat(" >> [stop]\n")
           cat("---------------------(end adaption)--------------------------------------\n\n")
-
         }
       }
 
@@ -510,11 +505,10 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     ##  - the last component violated the F statistic, so was obviously not the best call
     ##  - the loop adds every time another component
     if(is.null(n.components)){
-      ##this covers the extrem case that the process stops after the first run
+      ## this covers the extreme case that the process stops after the first run
       if(m == 2){
         m <- 1
         start_parameters <- start$optim$bestmem
-
       }else{
         m <- m - 2
       }
@@ -560,7 +554,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       },
       trace = method_control_setting$nlsLM.trace,
       control = minpack.lm::nls.lm.control(maxiter = 500)
-    ), silent = FALSE)
+    ), outFile = stdout()) # redirect error messages so they can be silenced
 
 # Post-processing -----------------------------------------------------------------------------
 

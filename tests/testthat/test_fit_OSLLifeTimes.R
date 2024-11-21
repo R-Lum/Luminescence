@@ -1,9 +1,10 @@
-##load example data
+## load data
 data(ExampleData.TR_OSL, envir = environment())
 temp_mat <- get_RLum(ExampleData.TR_OSL)[1:200, ]
 
 test_that("input validation", {
   testthat::skip_on_cran()
+
 
   expect_warning(expect_null(fit_OSLLifeTimes("error")),
                  "'object' should be of class 'RLum.Data.Curve', 'data.frame'")
@@ -11,8 +12,13 @@ test_that("input validation", {
                "'n.components' should be a positive integer scalar")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
                "'signal_range' should be of class 'numeric'")
-  expect_error(fit_OSLLifeTimes(set_RLum(class = "RLum.Data.Curve")),
-               "recordType NA not supported for input object")
+
+  empty <- set_RLum(class = "RLum.Data.Curve")
+  expect_error(fit_OSLLifeTimes(empty),
+               "recordType 'NA' not supported for input object")
+  expect_warning(expect_output(fit_OSLLifeTimes(list(empty)),
+                               "recordType 'NA' not supported for input object"),
+                 "Nothing was merged as the object list was found to be empty")
 
   expect_message(expect_null(fit_OSLLifeTimes(temp_mat[1:3, ])),
                  "For 1 components the dataset must have at least 5 signal points")
@@ -51,10 +57,9 @@ test_that("input validation", {
                                   verbose = FALSE,
                                   n.components = 1),
                  "At least one parameter is negative")
-
 })
 
-test_that("standard check", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## Test different inputs
@@ -71,16 +76,20 @@ test_that("standard check", {
   temp_list <- list(ExampleData.TR_OSL, ExampleData.TR_OSL)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = temp_list,
-    plot = FALSE,
     log = "x",
     method_control = list(DEoptim.itermax = 25),
     n.components = 1), class = "RLum.Results")
   })
 
-  ##simple RLum.Analysis
+  ## RLum.Analysis
   temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = temp_analysis,
+    verbose = FALSE,
+    plot = FALSE,
+    n.components = 1), class = "RLum.Results")
+  expect_s4_class(fit_OSLLifeTimes(
+    object = list(temp_analysis),
     verbose = FALSE,
     plot = FALSE,
     n.components = 1), class = "RLum.Results")
@@ -115,8 +124,14 @@ test_that("standard check", {
           plot_simple = TRUE,
           log = list("xy"),
           lty = 1,
+          col = 1,
           n.components = 1),
       "log-scale requires x-values > 0, set min xlim to 0.01"),
       "log-scale requires y-values > 0, set min ylim to 1.69e+10",
       fixed = TRUE)
+
+  SW({
+  expect_message(fit_OSLLifeTimes(temp_mat[1:10, ]),
+                 "The fitting was not successful, consider trying again")
+  })
 })
