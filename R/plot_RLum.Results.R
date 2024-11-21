@@ -375,7 +375,7 @@ plot_RLum.Results<- function(
       sd<- object@data$summary$de_err
 
 
-      if (any(is.na(c(mean, sd)))) {
+      if (anyNA(c(mean, sd))) {
         .throw_warning("Unable to plot the MAM single estimate (NA value)")
 
       } else {

@@ -275,7 +275,6 @@ verify_SingleGrainData <- function(
         }
       } else {
         object <- NULL
-
       }
 
       ##return
@@ -393,12 +392,11 @@ verify_SingleGrainData <- function(
     } else{
       ##reduce data to TRUE selection
       selection_id <- which(selection[["VALID"]])
-
     }
 
     ##return value
     ##select output on the chosen input
-    if(cleanup[1] && !any(is.na(selection_id))){
+    if (cleanup[1] && !anyNA(selection_id)) {
       ##print message
       if(verbose && cleanup_level == "curve"){
         selection_id_text <- .collapse(selection_id, quote = FALSE)
@@ -438,7 +436,7 @@ verify_SingleGrainData <- function(
       return_object <- object
 
     }else{
-      if(any(is.na(selection_id)))
+      if (anyNA(selection_id))
         .throw_warning("'selection_id' is NA, everything tagged for removal")
 
       return_object <- set_RLum(
@@ -493,7 +491,6 @@ verify_SingleGrainData <- function(
         " | valid: ", length(which(selection[["VALID"]])),
         " | invalid: ", length(which(!selection[["VALID"]])), ")"),
       cex = 0.9 * par()$cex)
-
   }
 
   # Return --------------------------------------------------------------------------------------

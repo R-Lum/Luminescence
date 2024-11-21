@@ -250,14 +250,13 @@ if(inherits(object, "list")){
         col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
-
     }
 
     ##plot lines
     x <- seq(min(plot_settings$xlim),max(plot_settings$xlim), length.out = n)
     y <- eval(DRC[[i]])
 
-    if (any(is.na(y)) || any(is.nan(y))) {
+    if (anyNA(y) || any(is.nan(y))) {
       .throw_warning("Dose response curve ", i,
                      " is NA/NaN and was removed before plotting")
       next

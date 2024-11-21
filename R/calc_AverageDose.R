@@ -263,7 +263,7 @@ calc_AverageDose <- function(
   }
 
   ##exclude NA values
-  if(any(is.na(data))){
+  if (anyNA(data)) {
     data <- na.exclude(data)
     .throw_warning("NA values in 'data' detected, rows with NA values removed")
   }

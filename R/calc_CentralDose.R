@@ -112,7 +112,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   }
 
   ##remove NA values
-  if (any(is.na(data))) {
+  if (anyNA(data)) {
     message("[calc_CentralDose()] ", length(which(is.na(data))),
             " NA values removed from dataset")
     data <- na.exclude(data)

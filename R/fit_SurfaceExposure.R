@@ -283,9 +283,9 @@ fit_SurfaceExposure <- function(
   .validate_class(data, "data.frame")
 
   # Check which parameters have been provided
-  if (!is.null(age) && any(is.na(age))) age <- NULL
-  if (!is.null(sigmaphi) && any(is.na(sigmaphi))) sigmaphi <- NULL
-  if (!is.null(mu) && any(is.na(mu))) mu <- NULL
+  if (!is.null(age) && anyNA(age)) age <- NULL
+  if (!is.null(sigmaphi) && anyNA(sigmaphi)) sigmaphi <- NULL
+  if (!is.null(mu) && anyNA(mu)) mu <- NULL
 
   ## Weighting options (only available for global fitting)
   if (ncol(data) >= 3 && weights && !global_fit)
@@ -294,7 +294,7 @@ fit_SurfaceExposure <- function(
     wi <- rep(1, times = nrow(data))
 
   ## remove rows with NA
-  if (any(is.na(data))) {
+  if (anyNA(data)) {
     data <- data[complete.cases(data), ]
     if (settings$verbose)
       message("[fit_SurfaceExposure()] NA values in 'data' were removed")

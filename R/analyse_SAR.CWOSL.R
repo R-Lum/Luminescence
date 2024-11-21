@@ -339,7 +339,8 @@ error.list <- list()
   }
 
   ##skip all those tests if signal integral is NA
-  if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
+  if (anyNA(c(signal.integral.min, signal.integral.max,
+              background.integral.min, background.integral.max))) {
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
 
@@ -778,7 +779,7 @@ error.list <- list()
 
     ##RecyclingRatio
     temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
-    if (!any(is.na(RecyclingRatio)) & !is.na(rejection.criteria$recycling.ratio))
+    if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio))
       temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation

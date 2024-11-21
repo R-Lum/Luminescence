@@ -682,7 +682,7 @@ if(plot){
     plot(NA, NA,
        xlim = c(0,nrow(LnLxTnTx.table)/
                      n.loops),
-       ylim = if(any(is.na(range(temp.curve.TnTx.matrix)))) c(0,1) else range(temp.curve.TnTx.matrix),
+       ylim = if (anyNA(range(temp.curve.TnTx.matrix))) c(0,1) else range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
        ylab = expression(T[x]/T[n]),
        main = "Sensitivity change")

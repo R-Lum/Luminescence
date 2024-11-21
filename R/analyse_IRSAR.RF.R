@@ -610,7 +610,7 @@ analyse_IRSAR.RF<- function(
 
   ## 02 - check boundaries
   ##RF_nat.lim
-  if (is.null(RF_nat.lim) || any(is.na(RF_nat.lim))) {
+  if (is.null(RF_nat.lim) || anyNA(RF_nat.lim)) {
     RF_nat.lim <- RF_nat.lim.default
 
   }else {
@@ -1773,7 +1773,7 @@ analyse_IRSAR.RF<- function(
       ##(0) density plot
       if (method_control.settings$show_density) {
         ##showing the density makes only sense when we see at least 10 data points
-        if (!any(is.na(De.MC)) && length(unique(De.MC)) >= 15) {
+        if (!anyNA(De.MC) && length(unique(De.MC)) >= 15) {
 
           ##calculate density De.MC
           density.De.MC <- density(De.MC)

@@ -279,7 +279,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   }
 
   ##remove NA values, whatever it is worth for
-  if(any(is.na(df))){
+  if (anyNA(df)) {
     df <- na.exclude(df)
     .throw_warning("NA values detected and removed from dataset")
   }
