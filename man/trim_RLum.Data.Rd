@@ -15,9 +15,11 @@ only isolated on each element of the \link{list}.}
 should be applied. If not set, the types are determined automatically and applied
 for each record type classes. Can be provided as \link{list}.}
 
-\item{trim_range}{\link{numeric} (\emph{optional}): sets the trim range (everything
-within the range + 1 is kept). If nothing is set all curves are trimmed to a similar
-maximum length. Can be provided as \link{list}.}
+\item{trim_range}{\link{numeric} (\emph{optional}): sets the range of indices to
+keep. If only one value is given, this is taken to be the minimum; if two
+values are given, then the range is defined between the two values
+(inclusive). Any value beyond the second is silently ignored. If nothing
+is set (default), then all curves are trimmed to the same maximum length.}
 }
 \value{
 A trimmed object or \link{list} of such objects similar to the input objects
@@ -30,19 +32,20 @@ measurement time) but should be analysed jointly by other functions.
 \details{
 The function has two modes of operation:
 \enumerate{
-\item Single \linkS4class{RLum.Data} objects or a \link{list} of such objects
-The function is applied separately over each object.
-\item Multiple curves via \linkS4class{RLum.Analysis} or a \link{list} of such objects
-In this mode, the function first determines the minimum number of channels for
-each category of records and then jointly processes them.
-For instance, the object contains one TL curve with 100 channels and two
-OSL curves with 100 and 99 channels, respectively. Than the minimum for TL would be set
-to 100 channels and 99 for the OSL curves. If no further parameters are applied, the
-function will shorten all OSL curves to 99 channels, but leave the TL curve untouched.
+\item Single \linkS4class{RLum.Data} objects or a \link{list} of such objects:
+the function is applied separately over each object.
+\item Multiple curves via \linkS4class{RLum.Analysis} or a \link{list} of such objects:
+in this mode, the function first determines the minimum number of channels
+for each category of records and then jointly processes them. For instance,
+if the object contains one TL curve with 100 channels and two OSL curves
+with 100 and 99 channels, respectively, then the minimum would be set to
+100 channels for the TL curve and to 99 for the OSL curves. If no further
+parameters are applied, the function will shorten all OSL curves to 99
+channels, but leave the TL curve untouched.
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.2
 }
 
 \examples{

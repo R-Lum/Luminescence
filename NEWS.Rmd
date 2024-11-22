@@ -215,6 +215,10 @@ the change should have no user-visible effect.
 (`Cresswelletal2018`).
 Please ensure that the server supports that option.
 
+### `trim_RLum.Data()`
+* The function has been made more robust against misspecifications of its
+`trim_range` argument that could lead to crashes (#460, fixed in #461).
+
 ### `use_DRAC()`
 * Support for DRAC v1.1 XLS/XLSX files has been dropped, users should use
 CSV files according to the DRAC v1.2 CSV template.
