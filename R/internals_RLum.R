@@ -1238,6 +1238,47 @@ SW <- function(expr) {
   return(TRUE)
 }
 
+#' @title Validate that a variable is not empty
+#'
+#' @param arg [character] (**required**): variable to validate.
+#' @param what [character] (**required**): the type of the variable, used
+#'        only in the message reported.
+#' @param throw.error [logical] (*with default*): whether an error should be
+#'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
+#'        the function raises a warning and proceeds.
+#' @param name [character] (*with default*): variable name to report in case
+#'        of error: if specified, it's reported as is; if not specified it's
+#'        inferred from the name of the variable tested and reported with
+#'        quotes.
+#'
+#' @return
+#' If `throw.error = TRUE`, the function throws an error and doesn't return
+#' anything. Otherwise, it will return a boolean to indicate whether validation
+#' was successful or not.
+#'
+#' @md
+#' @noRd
+.validate_not_empty <- function(arg, what, throw.error = TRUE,
+                                name = NULL) {
+
+  if (missing(what)) {
+    .throw_error("'what' must be provided")
+  }
+
+  ## name of the argument to report if not specified
+  if (is.null(name))
+    name <- sprintf("'%s'", all.vars(match.call())[1])
+
+  if (length(arg) == 0) {
+    msg <- paste0(name, " cannot be an empty ", what)
+    if (throw.error)
+      .throw_error(msg)
+    .throw_warning(msg)
+    return(FALSE)
+  }
+  return(TRUE)
+}
+
 #' @title Validate the length of a variable
 #'
 #' @param arg [character] (**required**): variable to validate.
@@ -1269,7 +1310,6 @@ SW <- function(expr) {
     name <- sprintf("'%s'", all.vars(match.call())[1])
 
   if (length(arg) != exp.length) {
-
     msg <- paste0(name, " should have length ", exp.length)
     if (throw.error)
       .throw_error(msg)
