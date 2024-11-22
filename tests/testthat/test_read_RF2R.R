@@ -5,6 +5,8 @@ test_that("input validation", {
                "File 'error' does not exist")
   expect_error(read_RF2R(2),
                "'file' should be of class 'character' or 'list'")
+  expect_warning(expect_null(read_RF2R(list(data.frame()))),
+                 "All elements of 'file' should be of class 'character'")
   expect_message(expect_null(read_RF2R(list("error"))),
                  "Import for file 'error' failed, NULL returned")
 })

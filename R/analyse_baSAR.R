@@ -1055,7 +1055,7 @@ analyse_baSAR <- function(
       ##check what the list containes ...
       object_type <- unique(sapply(object, function(x) {
         .validate_class(x, c("Risoe.BINfileData", "character"),
-                        name = "Each element of 'object'")
+                        name = "All elements of 'object'")
         class(x)[1]
       }))
 

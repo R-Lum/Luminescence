@@ -13,7 +13,7 @@ test_that("input validation", {
   expect_error(analyse_baSAR(data.frame(), verbose = FALSE),
                "'object' should be of class 'Risoe.BINfileData', 'RLum.Results'")
   expect_error(analyse_baSAR(list(data.frame()), verbose = FALSE),
-               "Each element of 'object' should be of class 'Risoe.BINfileData'")
+               "All elements of 'object' should be of class 'Risoe.BINfileData'")
   expect_error(analyse_baSAR(list(CWOSL.sub, "error"), verbose = FALSE),
                "'object' only accepts a list of objects of the same type")
   expect_error(analyse_baSAR(CWOSL.sub, n.MCMC = NULL),
