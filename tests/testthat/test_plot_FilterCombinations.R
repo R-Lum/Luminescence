@@ -3,6 +3,8 @@ test_that("input validation", {
 
   expect_error(plot_FilterCombinations("error"),
                "'filters' should be of class 'list'")
+  expect_error(plot_FilterCombinations(list()),
+               "'filters' cannot be an empty list")
   expect_error(plot_FilterCombinations(list("error")),
                "All elements of 'filters' should be of class 'data.frame'")
   expect_error(plot_FilterCombinations(list(data.frame(a = c(100, 200),

@@ -22,4 +22,5 @@ test_that("Test general functionality", {
 
   ## a list
   expect_null(write_R2TIFF(list(ExampleData.RLum.Data.Image, TL.Spectrum), file = tempfile(fileext = "tiff")))
+  expect_null(write_R2TIFF(list()))
 })

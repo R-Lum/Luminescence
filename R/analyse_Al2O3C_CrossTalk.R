@@ -97,9 +97,10 @@ analyse_Al2O3C_CrossTalk <- function(
   .set_function_name("analyse_Al2O3C_CrossTalk")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Analysis", "list"))
+  .validate_not_empty(object, class(object)[1])
   lapply(object,
          function(x) .validate_class(x, "RLum.Analysis",
                                      name = "All elements of 'object'"))

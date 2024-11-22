@@ -179,6 +179,10 @@ test_that("test the import of various BIN-file versions", {
   res <- read_BIN2R(test_path("_data/BINfile_V3.bin"), n.records = 2)
   expect_length(res, 1)
   })
+
+  res <- expect_silent(read_BIN2R(list()))
+  expect_type(res, "list")
+  expect_length(res, 0)
 })
 
 test_that("test hand-crafted files", {

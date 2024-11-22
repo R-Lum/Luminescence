@@ -99,11 +99,11 @@ write_RLum2CSV <- function(
       prefix <- as.list(paste0(prefix[1], "[[",1:length(object),"]]_"))
 
       ## write list name to object
-      for (i in 1:length(object))
+      for (i in seq_along(object))
         attr(object[[i]], "list_name") <- names(object)[i]
 
     ##execute the self-call function
-      temp <- lapply(1:length(object), function(x){
+      temp <- lapply(seq_along(object), function(x) {
         write_RLum2CSV(
           object = object[[x]],
           path = path[[x]],
@@ -111,7 +111,6 @@ write_RLum2CSV <- function(
           export = export[[x]],
           ...
         )
-
       })
 
       ##this prevents that we get a list of NULL
@@ -120,11 +119,10 @@ write_RLum2CSV <- function(
 
       }else{
         return(temp)
-
       }
   }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve",
                             "RLum.Data.Image", "RLum.Data.Spectrum",
@@ -175,7 +173,6 @@ write_RLum2CSV <- function(
 
         ##now we return whatever we have
         return(e)
-
       })
 
       ##now unlist again one level
@@ -223,7 +220,6 @@ write_RLum2CSV <- function(
       col.names = FALSE,
       qmethod = c("escape", "double"),
       fileEncoding = ""
-
     )
 
     ##modify on demand
@@ -248,6 +244,5 @@ write_RLum2CSV <- function(
 
   }else{
     return(object_list)
-
   }
 }

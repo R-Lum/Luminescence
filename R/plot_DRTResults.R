@@ -213,7 +213,7 @@ plot_DRTResults <- function(
   ## Homogenise and check input data
   if(is(values, "list") == FALSE) {values <- list(values)}
 
-  for(i in 1:length(values)) {
+  for (i in seq_along(values)) {
     .validate_class(values[[i]], c("data.frame", "RLum.Results"),
                     name = "'values'")
     if (inherits(values[[i]], "RLum.Results")) {
@@ -231,7 +231,7 @@ plot_DRTResults <- function(
   }
 
   ## Check input arguments ----------------------------------------------------
-  for(i in 1:length(values)) {
+  for (i in seq_along(values)) {
 
     ##check for preheat temperature values
     if(missing(preheat) == FALSE) {
@@ -261,7 +261,7 @@ plot_DRTResults <- function(
   ## create global data set
   values.global <- NULL
   n.values <- NULL
-  for(i in 1:length(values)) {
+  for (i in seq_along(values)) {
     values.global <- rbind(values.global, values[[i]])
     n.values <- c(n.values, nrow(values[[i]]))
   }

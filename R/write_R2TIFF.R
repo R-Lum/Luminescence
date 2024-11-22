@@ -79,7 +79,7 @@ write_R2TIFF <- function(
   ), args)
 
 
-  for(i in 1:length(object)){
+  for (i in seq_along(object)) {
     object[[i]]@data[] <- as.numeric(object[[i]]@data)
     object[[i]]@data[] <- object[[i]]@data / norm[1]
     do.call(what = tiff::writeTIFF, args = c(list(object[[i]]@data, where = file[i]), args))

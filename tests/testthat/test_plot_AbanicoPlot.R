@@ -10,8 +10,10 @@ test_that("input validation", {
                "Data set (1) has fewer than 2 columns: data without errors",
                fixed = TRUE)
 
+  expect_message(expect_null(plot_AbanicoPlot(list())),
+                 "Error: 'data' is empty, nothing plotted")
   expect_message(expect_null(plot_AbanicoPlot(ExampleData.DeValues[0, ])),
-                 "Error: Nothing plotted, your data set is empty")
+                 "Error: 'data' is empty, nothing plotted")
 
   expect_warning(expect_message(
       expect_null(plot_AbanicoPlot(ExampleData.DeValues[1, ])),

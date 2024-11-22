@@ -66,6 +66,7 @@ test_that("test import of XSYG files", {
   expect_type(read_XSYG2R(list(xsyg.file), fastForward = FALSE,
                           verbose = FALSE),
               "list")
+  expect_length(read_XSYG2R(list()), 0)
 
   ## check also internal files
   SW({

@@ -222,7 +222,7 @@ read_XSYG2R <- function(
   }
 
   if (is(file, "list")) {
-    temp.return <- lapply(1:length(file), function(x) {
+    temp.return <- lapply(seq_along(file), function(x) {
       read_XSYG2R(
         file = file[[x]],
         recalculate.TL.curves = recalculate.TL.curves,

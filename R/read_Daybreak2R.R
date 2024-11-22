@@ -90,7 +90,7 @@ read_Daybreak2R <- function(
 
   ##if the input is already a list
   if (is(file, "list")) {
-    temp.return <- lapply(1:length(file), function(x) {
+    temp.return <- lapply(seq_along(file), function(x) {
       read_Daybreak2R(
         file = file[[x]],
         txtProgressBar = txtProgressBar,

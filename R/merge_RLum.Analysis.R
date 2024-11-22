@@ -55,15 +55,13 @@ merge_RLum.Analysis<- function(
   .set_function_name("merge_RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Ingegrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ##check if object is of class RLum
-  temp.class.test <- sapply(1:length(objects), function(x){
-    .validate_class(objects[[x]], "RLum",
+  temp.class.test <- sapply(objects, function(x) {
+    .validate_class(x, "RLum",
                     name = "All elements of 'object'")
-
-    ##provide class of objects
-    is(objects[[x]])[1]
+    class(x)[1]
   })
 
   ##check if at least one object of RLum.Analysis is provided

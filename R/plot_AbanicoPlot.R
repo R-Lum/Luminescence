@@ -471,7 +471,7 @@ plot_AbanicoPlot <- function(
   .set_function_name("plot_AbanicoPlot")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## check data and parameter consistency--------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {
@@ -479,7 +479,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## Check input data
-  for(i in 1:length(data)) {
+  for (i in seq_along(data)) {
     .validate_class(data[[i]], c("data.frame", "RLum.Results"),
                     name = "All elements of 'data'")
     if (inherits(data[[i]], "RLum.Results"))
@@ -495,7 +495,7 @@ plot_AbanicoPlot <- function(
 
   ## optionally, remove NA-values
   if(na.rm == TRUE) {
-    for(i in 1:length(data)) {
+    for(i in seq_along(data)) {
 
       n.NA <- sum(!complete.cases(data[[i]]))
 
@@ -511,7 +511,7 @@ plot_AbanicoPlot <- function(
   ##(1)
   ##check if there is still data left in the entire set
   if(all(sapply(data, nrow) == 0)){
-    .throw_message("Nothing plotted, your data set is empty")
+    .throw_message("'data' is empty, nothing plotted")
     return(NULL)
   }
   ##(2)

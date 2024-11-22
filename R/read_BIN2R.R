@@ -184,7 +184,7 @@ read_BIN2R <- function(
     show.record.number <- .listify(show.record.number, rep.length)
     forced.VersionNumber <- .listify(forced.VersionNumber, rep.length)
 
-    temp.return <- lapply(1:length(file), function(x) {
+    temp.return <- lapply(seq_along(file), function(x) {
       temp <- read_BIN2R(
         file = file[[x]],
         fastForward = fastForward,

@@ -13,6 +13,8 @@ test_that("input validation", {
                "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
                "'method_control' should be of class 'list'")
+  expect_warning(expect_null(analyse_IRSAR.RF(list())),
+                 "Nothing was merged as the object list was found to be empty")
 
   ## sequence_structure
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, sequence_structure = FALSE),

@@ -161,10 +161,10 @@ plot_FilterCombinations <- function(
   .set_function_name("plot_FilterCombinations")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
-  #check filters
   .validate_class(filters, "list")
+  .validate_not_empty(filters, "list")
 
   #input should either data.frame or matrix
   lapply(filters, function(x) {
@@ -174,12 +174,11 @@ plot_FilterCombinations <- function(
 
   #check for named list, if not set names
   if (is.null(names(filters))) {
-    names(filters) <- paste("Filter ", 1:length(filters))
-
+    names(filters) <- paste("Filter ", seq_along(filters))
   }
 
 
-  # Data Preparation ----------------------------------------------------------------------------
+  ## Data preparation -------------------------------------------------------
 
   ## check if filters are provided with their thickness, if so correct
   ## transmission for this ... relevant for glass filters

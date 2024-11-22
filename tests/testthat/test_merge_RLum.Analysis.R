@@ -10,6 +10,8 @@ test_that("input validation", {
                "is missing, with no default")
   expect_error(merge_RLum.Analysis(o1),
                "At least one input object in the list has to be of class")
+  expect_error(merge_RLum.Analysis(list()),
+               "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(c1)),
                "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(o1, "test")),

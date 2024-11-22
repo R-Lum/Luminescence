@@ -154,6 +154,8 @@ analyse_Al2O3C_Measurement <- function(
 
   # Self call -----------------------------------------------------------------------------------
   if(is(object, "list")){
+
+    .validate_not_empty(object, "list")
     lapply(object,
            function(x) .validate_class(x, "RLum.Analysis",
                                        name = "All elements of 'object'"))
@@ -179,8 +181,8 @@ analyse_Al2O3C_Measurement <- function(
       plot <- 1:length(object)%in%plot
     }
 
-    ##run analyis
-    results <- lapply(1:length(object), function(x) {
+    ## run analysis
+    results <- lapply(seq_along(object), function(x) {
       temp <- analyse_Al2O3C_Measurement(
         object = object[[x]],
         signal_integral = signal_integral[[x]],
@@ -279,7 +281,6 @@ analyse_Al2O3C_Measurement <- function(
   if(!is.null(recordType)){
     object_raw <- object
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
-
   }
 
   ##set signal integral

@@ -31,13 +31,15 @@ merge_RLum.Results <- function(
 
   .validate_class(objects, "list")
 
-              ##check if objects in the list are of type RLum.Results
-              temp.originator <- sapply(1:length(objects), function(x){
-                .validate_class(objects[[x]], "RLum.Results",
-                                name = "All elements of 'object'")
-
-                objects[[x]]@originator
-              })
+  ## check if objects in the list are of type RLum.Results
+  temp.originator <- sapply(objects, function(x) {
+    .validate_class(x, "RLum.Results", name = "All elements of 'object'")
+    x@originator
+  })
+  if (length(objects) == 0) {
+    .throw_message("'objects' contains no data, NULL returned")
+    return(NULL)
+  }
 
             ##check if originator is different
             if(length(unique(temp.originator))>1){

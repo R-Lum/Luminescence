@@ -8,6 +8,8 @@ test_that("input validation", {
   empty <- set_RLum("RLum.Results", originator = NA_character_)
   expect_error(plot_ROI(empty),
                "Object originator 'NA' not supported")
+  expect_error(plot_ROI(list()),
+               "'object' cannot be an empty list")
 })
 
 test_that("Complete test", {
