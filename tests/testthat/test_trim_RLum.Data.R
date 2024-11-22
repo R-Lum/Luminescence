@@ -66,9 +66,15 @@ test_that("RLum.Data.Curve", {
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(-1)),
     class = "RLum.Data.Curve")
+  ## c(0, 1)
+  t <- trim_RLum.Data(temp@records[[1]], trim_range = c(0, 1))
+  expect_equal(nrow(t@data), 1)
   ## c(-10, -20)
   t <- trim_RLum.Data(temp@records[[1]], trim_range = c(-10, -20))
   expect_equal(nrow(t@data), 11)
+  ## c(1025, 2)
+  t <- trim_RLum.Data(temp@records[[1]], trim_range = c(1025, 2))
+  expect_equal(nrow(t@data), 249)
   ## c(1,2,3)
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(1:3)),

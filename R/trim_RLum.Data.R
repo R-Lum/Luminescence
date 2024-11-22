@@ -95,27 +95,30 @@ trim_RLum.Data <- function(
   ## RLum.Data.Curve
   .trim_RLum.Data.Curve <- function(object, type, range){
     ## only if type is matched
-    if(any(object@recordType[1] %in% type))
-      object@data <- object@data[max(c(1,range[1])):min(c(nrow(object@data),range[2])),, drop = FALSE]
-
+    if  (any(object@recordType[1] %in% type)) {
+      range[2] <- min(nrow(object@data), range[2])
+      object@data <- object@data[range[1]:range[2], , drop = FALSE]
+    }
     object
   }
 
   ## RLum.Data.Spectrum
   .trim_RLum.Data.Spectrum <- function(object, type, range){
     ## only if type is matched
-    if(any(object@recordType[1] %in% type))
-      object@data <- object@data[,max(c(1,range[1])):min(c(ncol(object@data),range[2])), drop = FALSE]
-
+    if (any(object@recordType[1] %in% type)) {
+      range[2] <- min(ncol(object@data), range[2])
+      object@data <- object@data[, range[1]:range[2], drop = FALSE]
+    }
     object
   }
 
   ## RLum.Data.Image
   .trim_RLum.Data.Image <- function(object, type, range){
     ## only if type is matched
-    if(any(object@recordType[1] %in% type))
-      object@data <- object@data[,,max(c(1,range[1])):min(c(ncol(object@data),range[2])), drop = FALSE]
-
+    if (any(object@recordType[1] %in% type)) {
+      range[2] <- min(ncol(object@data), range[2])
+      object@data <- object@data[, , range[1]:range[2], drop = FALSE]
+    }
     object
   }
 
@@ -171,11 +174,11 @@ trim_RLum.Data <- function(
     trim_range <- c(1,Inf)
   .validate_class(trim_range, c("integer", "numeric"))
 
-  ## silently sanitize trim_range input to ensure that it has length 2 and
-  ## contains no negative elements
+  ## silently sanitize `trim_range` to ensure that it has length 2,
+  ## it contains no elements smaller than 1, and is sorted
   if (length(trim_range) == 1)
     trim_range <- c(1, trim_range)
-  trim_range <- abs(trim_range[1:2])
+  trim_range <- sort(pmax(abs(trim_range[1:2]), 1))
 
 # Dispatch and return -----------------------------------------------------
  switch(
