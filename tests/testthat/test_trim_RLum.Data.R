@@ -73,9 +73,13 @@ test_that("RLum.Data.Spectrum", {
   t <- testthat::expect_s4_class(
     object = trim_RLum.Data(TL.Spectrum, trim_range = c(2, 4)),
     class = "RLum.Data.Spectrum")
-
   testthat::expect_length(object = t@data[1,], n = 3)
 
+  ## RLum.Analysis object with RLum.Data.Spectrum data
+  obj <- set_RLum("RLum.Analysis", records = list(TL.Spectrum))
+  t <- expect_s4_class(trim_RLum.Data(obj, trim_range = 10),
+                       "RLum.Analysis")
+  expect_equal(ncol(t@records[[1]]@data), 10)
 })
 
 test_that("RLum.Data.Image", {

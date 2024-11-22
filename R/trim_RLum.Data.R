@@ -126,12 +126,11 @@ trim_RLum.Data <- function(
       ln <- switch(
         class(x)[1],
         "RLum.Data.Curve" = dim(x@data)[1],
-        "RLum.Data.Spectrum" = dim(x@dsta)[2],
+        "RLum.Data.Spectrum" = dim(x@data)[2],
         "RLum.Data.Image" = dim(x@data)[3]
       )
       names(ln) <- x@recordType
       ln
-
     }))
 
     ## run over single objects
