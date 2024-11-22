@@ -103,7 +103,7 @@ if(inherits(object, "list")){
     main <- .listify("DRC", length(object))
   }
 
-  results <- lapply(1:length(object), function(o){
+  results <- lapply(seq_along(object), function(o) {
     plot_DRCSummary(
       object = object[[o]],
       source_dose_rate = source_dose_rate,
@@ -120,7 +120,7 @@ if(inherits(object, "list")){
   return(results)
 }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Results")
 
 # Extract data from object --------------------------------------------------------------------

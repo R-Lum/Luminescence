@@ -6,6 +6,7 @@ test_that("input validation", {
 
   expect_error(extract_IrradiationTimes("fail"),
                "Wrong XSYG file name or file does not exist!")
+  expect_null(extract_IrradiationTimes(list()))
   expect_error(extract_IrradiationTimes(tempdir()),
                "File is expected to have 'xsyg' or 'XSYG' extension")
   expect_error(extract_IrradiationTimes(FALSE),

@@ -251,6 +251,8 @@ fit_SurfaceExposure <- function(
   ## For global fitting of multiple data sets 'data' must be a list
   if (inherits(data, "list")) {
 
+    .validate_not_empty(data, "list")
+
     # Global fitting requires and equal amount of ages to be provided
     if (length(data) != length(age))
       .throw_error("If 'data' is a list of data sets for global fitting, ",
@@ -268,7 +270,7 @@ fit_SurfaceExposure <- function(
     # between individual samples
     data_list <- data
 
-    for (i in 1:length(data))
+    for (i in seq_along(data))
       data[[i]]$group <- LETTERS[[i]]
 
     data <- do.call(rbind, data)

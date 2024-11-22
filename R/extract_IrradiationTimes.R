@@ -154,7 +154,7 @@ extract_IrradiationTimes <- function(
     recordType <- .listify(recordType, length(object))
 
     ## run function
-    results <- lapply(1:length(object), function(x) {
+    results <- lapply(seq_along(object), function(x) {
         extract_IrradiationTimes(
           object = object[[x]],
           recordType = recordType[[x]],

@@ -26,6 +26,9 @@ test_that("Test functionality", {
   SW({
   expect_type(read_Daybreak2R(list(dat.file)), "list")
   })
+  expect_silent(res <- read_Daybreak2R(list()))
+  expect_type(res, "list")
+  expect_length(res, 0)
 })
 
 test_that("input validation", {

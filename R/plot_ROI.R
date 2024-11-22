@@ -105,6 +105,7 @@ plot_ROI <- function(
   } else {
     ## make sure the object is a list
     if(!is.list(object)) object <- list(object)
+    .validate_not_empty(object, "list")
 
     ##extract values and convert to numeric matrix
     m <- t(vapply(object, .spatial_data, character(length = 9)))

@@ -125,7 +125,7 @@ analyse_portableOSL <- function(
 
 # Self-call ---------------------------------------------------------------
   if (inherits(object, "list")) {
-      temp <- .warningCatcher(lapply(1:length(object), function(x) {
+      temp <- .warningCatcher(lapply(seq_along(object), function(x) {
         analyse_portableOSL(
           object = object[[x]],
           signal.integral = signal.integral,

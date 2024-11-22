@@ -9,6 +9,8 @@ test_that("input validation", {
                "'objects' should be of class 'list'")
   expect_error(merge_RLum.Results(list(res, "error")),
                "All elements of 'object' should be of class 'RLum.Results'")
+  expect_message(expect_null(merge_RLum.Results(list())),
+                 "'objects' contains no data, NULL returned")
 
   res2 <- res
   res2@originator <- "unknown"

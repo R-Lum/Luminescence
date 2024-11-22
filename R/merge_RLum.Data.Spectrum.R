@@ -127,14 +127,11 @@ merge_RLum.Data.Spectrum <- function(
 
   ## check if object is of a supported RLum.Data class
   num.objects <- length(object)
-  temp.recordType.test <- sapply(1:num.objects, function(x) {
-    .validate_class(object[[x]], "RLum.Data.Spectrum",
+  temp.recordType.test <- sapply(object, function(x) {
+    .validate_class(x, "RLum.Data.Spectrum",
                     name = "All elements of 'object'")
-    return(object[[x]]@recordType)
+    return(x@recordType)
   })
-
-  ## store the class name without attributes
-  class.type <- as.character(class(object[[1]]))
 
   ## check for similar record types
   record.types <- unique(temp.recordType.test)
@@ -153,6 +150,9 @@ merge_RLum.Data.Spectrum <- function(
   ## perform additional checks
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
   check.cols <- vapply(object, function(x) ncol(x@data), numeric(1))
+  if (length(check.rows) == 0 || length(check.cols) == 0) {
+    .throw_error("'object' contains no data")
+  }
   if (length(unique(check.rows)) > 1 || length(unique(check.cols)) > 1) {
     .throw_error("'RLum.Data.Spectrum' objects of different size ",
                  "cannot be merged")
@@ -257,7 +257,7 @@ merge_RLum.Data.Spectrum <- function(
 
   ## Build new RLum.Data.Spectrum object ------------------------------------
   new.Data.Spectrum <- set_RLum(
-    class = class.type,
+    class = as.character(class(object[[1]])),
     originator = "merge_RLum.Data.Spectrum",
     recordType = object[[1]]@recordType,
     curveType =  "merged",

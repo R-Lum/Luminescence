@@ -9,6 +9,8 @@ test_that("input validation", {
                "is missing, with no default")
   expect_error(analyse_Al2O3C_Measurement("error"),
                "'object' should be of class 'RLum.Analysis' or a 'list' of such objects")
+  expect_error(analyse_Al2O3C_Measurement(list()),
+               "'object' cannot be an empty list")
   expect_error(analyse_Al2O3C_Measurement(list(data_CrossTalk, "error")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   suppressWarnings(

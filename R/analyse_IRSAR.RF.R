@@ -469,7 +469,7 @@ analyse_IRSAR.RF<- function(
       temp_main <- .listify(list(...)$main, rep.length)
 
     }else{
-      originator <- object[[1]]@originator
+      originator <- if (length(object) > 0) object[[1]]@originator else NA
       if (!is.na(originator) && originator == "read_RF2R") {
         temp_main <- lapply(object, function(x) x@info$ROI)
       } else {
@@ -478,7 +478,7 @@ analyse_IRSAR.RF<- function(
     }
 
     ##run analysis
-    temp <- lapply(1:length(object), function(x){
+    temp <- lapply(seq_along(object), function(x) {
       analyse_IRSAR.RF(
         object = object[[x]],
         sequence_structure = sequence_structure[[x]],

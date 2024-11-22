@@ -55,6 +55,8 @@ test_that("Test plotting", {
                                 main = "Title"))
   expect_silent(plot_DRCSummary(list(results, results_LamW),
                                 source_dose_rate = 1))
+  l <- expect_silent(plot_DRCSummary(list()))
+  expect_length(l, 0)
 
   ##plus points
   expect_silent(plot_DRCSummary(results, show_dose_points = TRUE, show_natural = TRUE))

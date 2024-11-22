@@ -78,6 +78,8 @@ test_that("check class and length of output", {
     expect_s4_class(
       suppressWarnings(analyse_portableOSL(ExampleData.portableOSL)),
       "RLum.Results")
+    expect_warning(expect_null(analyse_portableOSL(list())),
+                   "Nothing was merged as the object list was found to be empty")
 
     ## check additional argument sample
     expect_s4_class(analyse_portableOSL(

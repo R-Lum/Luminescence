@@ -320,6 +320,21 @@ test_that("Test internals", {
   expect_warning(fun2(),
                  "'arg' should be of class 'data.frame'")
 
+  ## .validate_not_empty() --------------------------------------------------
+  expect_true(.validate_not_empty(letters, "vector"))
+
+  expect_error(.validate_not_empty(letters),
+               "'what' must be provided")
+  expect_error(.validate_not_empty(test <- c(), "vector"),
+               "'test' cannot be an empty vector")
+  expect_error(.validate_not_empty(test <- list(), "list"),
+               "'test' cannot be an empty list")
+  expect_error(.validate_not_empty(list(), "list", name = "'other_name'"),
+               "'other_name' cannot be an empty list")
+  expect_warning(expect_false(.validate_not_empty(test <- list(), "list",
+                                                  throw.error = FALSE)),
+                 "'test' cannot be an empty list")
+
   ## .validate_length() -----------------------------------------------------
   expect_true(.validate_length(letters, 26))
   expect_error(.validate_length(letters),

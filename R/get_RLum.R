@@ -71,7 +71,7 @@ setMethod("get_RLum",
             }
 
             ##make remove all non-RLum objects
-            selection <- lapply(1:length(object), function(x){
+            selection <- lapply(seq_along(object), function(x) {
               ##get rid of all objects that are not of type RLum, this is better than leaving that
               ##to the user
               if(inherits(object[[x]], what = "RLum")){
@@ -86,9 +86,7 @@ setMethod("get_RLum",
                 warning(paste0("[get_RLum()] object #",x," in the list was not of type 'RLum' and has been removed!"),
                         call. = FALSE)
                 return(NULL)
-
               }
-
             })
 
             ##remove empty or NULL objects after the selection ... if wanted
@@ -108,7 +106,6 @@ setMethod("get_RLum",
 
             }
             return(selection)
-
           })
 
 #' Method to handle NULL if the user calls get_RLum

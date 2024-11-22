@@ -9,6 +9,8 @@ test_that("input validation", {
 
   expect_error(fit_SurfaceExposure("test"),
                "'data' should be of class 'data.frame'")
+  expect_error(fit_SurfaceExposure(list()),
+               "'data' cannot be an empty list")
   expect_error(fit_SurfaceExposure(list(d1)),
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = 1e4),
@@ -38,7 +40,6 @@ test_that("check values from output example", {
 # Sub-test - weighted fitting
 fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE,
                            plot = FALSE, verbose = FALSE)
-
 
 test_that("check values from output example", {
   testthat::skip_on_cran()

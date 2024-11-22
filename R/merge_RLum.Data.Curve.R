@@ -127,12 +127,10 @@ merge_RLum.Data.Curve<- function(
 
   ##(1) check if object is of class RLum.Data.Curve
   num.objects <- length(object)
-  temp.recordType.test <- sapply(1:num.objects, function(x) {
-    .validate_class(object[[x]], "RLum.Data.Curve",
+  temp.recordType.test <- sapply(object, function(x) {
+    .validate_class(x, "RLum.Data.Curve",
                     name = "All elements of 'object'")
-
-    ##provide class of objects
-    return(object[[x]]@recordType)
+    return(x@recordType)
   })
 
   ##(2) Check for similar record types
@@ -153,6 +151,9 @@ merge_RLum.Data.Curve<- function(
   ##(1) build new data matrix
   ## first find the shortest object
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
+  if (length(check.rows) == 0) {
+    .throw_error("'object' contains no data")
+  }
   num.rows <- min(check.rows)
 
   ## channel resolution of the first object: we need to round as there may

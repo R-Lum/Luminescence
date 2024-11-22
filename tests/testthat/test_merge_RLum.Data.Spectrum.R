@@ -14,6 +14,8 @@ test_that("input validation", {
 
   expect_error(merge_RLum.Data.Spectrum("error", merge.method = "/"),
                "All elements of 'object' should be of class 'RLum.Data.Spectrum'")
+  expect_error(merge_RLum.Data.Spectrum(list(), merge.method = "-"),
+               "'object' contains no data")
 
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                merge.method = "error"),
