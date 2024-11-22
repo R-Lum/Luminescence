@@ -1,8 +1,17 @@
-test_that("RLum.Data.Curve", {
+## load data
+data(ExampleData.BINfileData, envir = environment())
+temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  data(ExampleData.BINfileData, envir = environment())
-  temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
+  expect_error(trim_RLum.Data("error"),
+               "[trim_RLum.Data()] 'object' should be of class 'RLum.Data' or",
+               fixed = TRUE)
+})
+
+test_that("RLum.Data.Curve", {
+  testthat::skip_on_cran()
 
   ## trim with range
   t <- testthat::expect_type(
@@ -92,15 +101,10 @@ test_that("RLum.Data.Image", {
   testthat::expect_s4_class(
     object = trim_RLum.Data(ExampleData.RLum.Data.Image, recordType = c(10,100)),
     class = "RLum.Data.Image")
-
 })
 
 test_that("RLum.Analysis", {
   testthat::skip_on_cran()
-
-  ##load example data
-  data(ExampleData.BINfileData, envir = environment())
-  temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
   ## generate case where one OSL curve has one channel less
   temp@records[[2]]@data <- temp@records[[2]]@data[-nrow(temp[[2]]@data),]
@@ -136,12 +140,4 @@ test_that("RLum.Analysis", {
    object = t@records[[4]]@data[,1], n = 11)
  testthat::expect_length(
    object = t@records[[1]]@data[,1], n = 250)
-})
-
-test_that("input validation", {
-  testthat::skip_on_cran()
-
-  expect_error(trim_RLum.Data("error"),
-               "[trim_RLum.Data()] 'object' should be of class 'RLum.Data' or",
-               fixed = TRUE)
 })
