@@ -116,12 +116,7 @@ Second2Gray <- function(
       .throw_error("Wrong originator for dose.rate 'RLum.Results' object")
     }
 
-    ## extract dose.rate and convert it to data.frame if necessary
     dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
-    if (!is.data.frame(dose.rate)) {
-      dose.rate <- data.frame(dose.rate = as.numeric(dose.rate[1]),
-                              dose.rate.error = as.numeric(dose.rate[2]))
-    }
   }
 
   error.propagation <- .validate_args(error.propagation,
