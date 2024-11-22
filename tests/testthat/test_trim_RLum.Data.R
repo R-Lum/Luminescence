@@ -8,6 +8,8 @@ test_that("input validation", {
   expect_error(trim_RLum.Data("error"),
                "[trim_RLum.Data()] 'object' should be of class 'RLum.Data' or",
                fixed = TRUE)
+  expect_error(trim_RLum.Data(temp, recordType = c(1, 20)),
+               "'recordType' should be of class 'character'")
   expect_error(trim_RLum.Data(temp, trim_range = "error"),
                "'trim_range' should be of class 'integer' or 'numeric'")
 })

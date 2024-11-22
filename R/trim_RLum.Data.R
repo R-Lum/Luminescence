@@ -7,16 +7,17 @@
 #'@details
 #'The function has two modes of operation:
 #'
-#'1. Single [RLum.Data-class] objects or a [list] of such objects
-#'The function is applied separately over each object.
+#' 1. Single [RLum.Data-class] objects or a [list] of such objects:
+#' the function is applied separately over each object.
 #'
-#'2. Multiple curves via [RLum.Analysis-class] or a [list] of such objects
-#'In this mode, the function first determines the minimum number of channels for
-#'each category of records and then jointly processes them.
-#'For instance, the object contains one TL curve with 100 channels and two
-#'OSL curves with 100 and 99 channels, respectively. Than the minimum for TL would be set
-#'to 100 channels and 99 for the OSL curves. If no further parameters are applied, the
-#'function will shorten all OSL curves to 99 channels, but leave the TL curve untouched.
+#' 2. Multiple curves via [RLum.Analysis-class] or a [list] of such objects:
+#' in this mode, the function first determines the minimum number of channels
+#' for each category of records and then jointly processes them. For instance,
+#' if the object contains one TL curve with 100 channels and two OSL curves
+#' with 100 and 99 channels, respectively, then the minimum would be set to
+#' 100 channels for the TL curve and to 99 for the OSL curves. If no further
+#' parameters are applied, the function will shorten all OSL curves to 99
+#' channels, but leave the TL curve untouched.
 #'
 #'@param object [RLum.Data-class] [RLum.Analysis-class] (**required**): input object,
 #'can be a [list] of objects. Please note that in the latter case the function works
@@ -26,13 +27,15 @@
 #'should be applied. If not set, the types are determined automatically and applied
 #'for each record type classes. Can be provided as [list].
 #'
-#'@param trim_range [numeric] (*optional*): sets the trim range (everything
-#'within the range + 1 is kept). If nothing is set all curves are trimmed to a similar
-#'maximum length. Can be provided as [list].
+#' @param trim_range [numeric] (*optional*): sets the range of indices to
+#' keep. If only one value is given, this is taken to be the minimum; if two
+#' values are given, then the range is defined between the two values
+#' (inclusive). Any value beyond the second is silently ignored. If nothing
+#' is set (default), then all curves are trimmed to the same maximum length.
 #'
 #'@returns A trimmed object or [list] of such objects similar to the input objects
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.2
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -84,11 +87,9 @@ trim_RLum.Data <- function(
         object = object[[x]],
         recordType = parm$recordType[[x]],
         trim_range = parm$trim_range[[x]])
-
     })
 
     return(l)
-
   }
 
 # Work horse functions ----------------------------------------------------
@@ -143,19 +144,24 @@ trim_RLum.Data <- function(
       tmp_min <- range[1] ## cannot be smaller than 1
 
       ## call sub-function to process and return
-      switch(
-        class(x)[1],
-        "RLum.Data.Curve" = .trim_RLum.Data.Curve(object = x, type = recordType, range = c(tmp_min, tmp_max)),
-        "RLum.Data.Spectrum" = .trim_RLum.Data.Spectrum(object = x, type = recordType, range = c(tmp_min, tmp_max)),
-        "RLum.Data.Image" = .trim_RLum.Data.Image(object = x, type = recordType, range = c(tmp_min, tmp_max)),
-        x
-      )
+      .trim_object(x, recordType, c(tmp_min, tmp_max))
     })
 
     return(object)
   }
 
-  ## Dispatcher -------------------------------------------------------------
+  ## function dispatcher
+  .trim_object <- function(obj, type, range) {
+    trim.fun <- switch(class(obj)[1],
+                       "RLum.Analysis"      = .trim_RLum.Analysis,
+                       "RLum.Data.Curve"    = .trim_RLum.Data.Curve,
+                       "RLum.Data.Image"    = .trim_RLum.Data.Image,
+                       "RLum.Data.Spectrum" = .trim_RLum.Data.Spectrum)
+    trim.fun(obj, type, range)
+  }
+
+
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Data", "RLum.Analysis"))
 
@@ -166,8 +172,8 @@ trim_RLum.Data <- function(
       "RLum.Analysis" = unique(vapply(object@records, function(x) x@recordType, character(1))),
       object@recordType
     )
-
   }
+  .validate_class(recordType, "character")
 
   ## set trim_range if not provided
   if (is.null(trim_range))
@@ -180,12 +186,6 @@ trim_RLum.Data <- function(
     trim_range <- c(1, trim_range)
   trim_range <- sort(pmax(abs(trim_range[1:2]), 1))
 
-# Dispatch and return -----------------------------------------------------
- switch(
-   class(object)[1],
-   "RLum.Data.Curve" = .trim_RLum.Data.Curve(object, type = recordType, range = trim_range),
-   "RLum.Data.Spectrum" = .trim_RLum.Data.Spectrum(object, type = recordType, range = trim_range),
-   "RLum.Data.Image" = .trim_RLum.Data.Image(object, type = recordType, range = trim_range),
-   "RLum.Analysis" = .trim_RLum.Analysis(object, type = recordType, range = trim_range)
- )
+  ## Dispatch and return ----------------------------------------------------
+  .trim_object(object, type = recordType, range = trim_range)
 }
