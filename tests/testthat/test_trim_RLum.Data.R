@@ -108,7 +108,7 @@ test_that("RLum.Data.Image", {
   data(ExampleData.RLum.Data.Image, envir = environment())
 
   testthat::expect_s4_class(
-    object = trim_RLum.Data(ExampleData.RLum.Data.Image, recordType = c(10,100)),
+    trim_RLum.Data(ExampleData.RLum.Data.Image, trim_range = c(10, 100)),
     class = "RLum.Data.Image")
 })
 

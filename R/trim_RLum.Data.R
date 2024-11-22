@@ -116,7 +116,7 @@ trim_RLum.Data <- function(
   .trim_RLum.Data.Image <- function(object, type, range){
     ## only if type is matched
     if (any(object@recordType[1] %in% type)) {
-      range[2] <- min(ncol(object@data), range[2])
+      range <- pmin(range, dim(object@data)[3])
       object@data <- object@data[, , range[1]:range[2], drop = FALSE]
     }
     object
