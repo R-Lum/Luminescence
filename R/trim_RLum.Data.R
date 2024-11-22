@@ -166,13 +166,16 @@ trim_RLum.Data <- function(
 
   }
 
-  ## silently sanitize trim_range input
-  if(all(is.null(trim_range)))
+  ## set trim_range if not provided
+  if (is.null(trim_range))
     trim_range <- c(1,Inf)
-  else if(length(trim_range) == 1)
-    trim_range <- c(1, abs(trim_range))
-  else if(length(trim_range) > 2)
-    trim_range <- abs(trim_range[1:2])
+  .validate_class(trim_range, c("integer", "numeric"))
+
+  ## silently sanitize trim_range input to ensure that it has length 2 and
+  ## contains no negative elements
+  if (length(trim_range) == 1)
+    trim_range <- c(1, trim_range)
+  trim_range <- abs(trim_range[1:2])
 
 # Dispatch and return -----------------------------------------------------
  switch(

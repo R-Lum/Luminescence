@@ -8,6 +8,8 @@ test_that("input validation", {
   expect_error(trim_RLum.Data("error"),
                "[trim_RLum.Data()] 'object' should be of class 'RLum.Data' or",
                fixed = TRUE)
+  expect_error(trim_RLum.Data(temp, trim_range = "error"),
+               "'trim_range' should be of class 'integer' or 'numeric'")
 })
 
 test_that("RLum.Data.Curve", {
@@ -64,12 +66,13 @@ test_that("RLum.Data.Curve", {
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(-1)),
     class = "RLum.Data.Curve")
+  ## c(-10, -20)
+  t <- trim_RLum.Data(temp@records[[1]], trim_range = c(-10, -20))
+  expect_equal(nrow(t@data), 11)
   ## c(1,2,3)
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(1:3)),
     class = "RLum.Data.Curve")
-
-
 })
 
 test_that("RLum.Data.Spectrum", {
