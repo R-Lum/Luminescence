@@ -121,6 +121,10 @@ error after fading correction, which led to smaller than expected errors
 file due to an incorrect way of subsetting an intermediate data frame of
 results (#445, fixed in #446).
 
+### `get_RLum()`
+* If `get_RLum()` with `subset` was used on info objects of an `RLum.Analysis-class` object it
+would return wrong results if the info element was not present in all records; fixed. 
+
 ### `import_Data()`
 * The function automatically determines the available import functions and ensures
 that formats supported by the package are tested and used.

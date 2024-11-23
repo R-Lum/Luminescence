@@ -85,6 +85,11 @@ test_that("get_RLum", {
   expect_s4_class(get_RLum(tmp, subset = (el == "2")), "RLum.Analysis")
   expect_type(get_RLum(tmp, info.object = "el"), "character")
 
+  ## check subset for info elements
+  t_subset <- IRSAR.RF.Data
+  t_subset@records[[1]]@info <- list(TEST = "SUBSET")
+  expect_length(get_RLum(t_subset, subset = c(TEST == "SUBSET")), 1)
+
   expect_type(get_RLum(obj, get.index = FALSE), "list")
   expect_type(get_RLum(obj, get.index = NULL), "list")
   expect_type(get_RLum(obj, get.index = TRUE), "integer")
