@@ -26,6 +26,7 @@ test_that("Check the example and the numerical values", {
 
   ## set_RLum()
   expect_s4_class(tmp, "RLum.Analysis")
+  expect_s4_class(set_RLum("RLum.Analysis", records = tmp, .pid = "test"), "RLum.Analysis")
 
   ##overwrite object
   expect_s4_class(set_RLum("RLum.Analysis", records = tmp), "RLum.Analysis")
