@@ -315,30 +315,27 @@ calc_Huntley2006 <- function(
   }
 
   ## Check 'data'
-  # must be a data frame
-  if (is.data.frame(data)) {
-
-    if (ncol(data) == 2) {
+  if (ncol(data) == 2) {
       .throw_warning("'data' only had two columns. We assumed that the ",
                      "errors on LxTx were missing and automatically added ",
                      "a 5% error.\n",
                      "Please provide a data frame with three columns ",
                      "if you wish to use actually measured LxTx errors.")
       data[ ,3] <- data[ ,2] * 0.05
-    }
+  }
 
-    # Check if 'LnTn' is used and overwrite 'data'
-    if (!is.null(LnTn)) {
-      if (!is.data.frame(LnTn) || ncol(LnTn) != 2)
-        .throw_error("'LnTn' must be a data frame with 2 columns")
-      if (ncol(data) > 3)
-        .throw_error("When 'LnTn' is specified, the 'data' data frame ",
-                     "must have only 2 or 3 columns")
+  ## Check if 'LnTn' is used and overwrite 'data'
+  if (!is.null(LnTn)) {
+    .validate_class(LnTn, "data.frame")
+    if (ncol(LnTn) != 2)
+      .throw_error("'LnTn' should be a data frame with 2 columns")
+    if (ncol(data) > 3)
+      .throw_error("When 'LnTn' is specified, 'data' should have only ",
+                   "2 or 3 columns")
 
       # case 1: only one LnTn value
       if (nrow(LnTn) == 1) {
         LnTn <- setNames(cbind(0, LnTn), names(data))
-        data <- rbind(LnTn, data)
 
         # case 2: >1 LnTn value
       } else {
@@ -346,9 +343,9 @@ calc_Huntley2006 <- function(
         LnTn_sd <- sd(LnTn[ ,1])
         LnTn_error <- max(LnTn_sd, LnTn[ ,2])
         LnTn <- setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
-        data <- rbind(LnTn, data)
       }
-    }
+    data <- rbind(LnTn, data)
+  }
 
     # check number of columns
     if (ncol(data) %% 3 != 0) {
@@ -377,7 +374,6 @@ calc_Huntley2006 <- function(
       data <- rbind(LnTn_tmp, data_tmp)
       data[1, 3] <- LnTn_error_tmp
       data <- data[complete.cases(data), ]
-    }
   }
 
   ## Check 'rhop'
@@ -529,10 +525,10 @@ calc_Huntley2006 <- function(
         silent = TRUE)
     }
 
+    coefs <- c(a = NA, D0 = NA, c = NA, d = NA)
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
-    else
-      coefs <- c(a = NA, D0 = NA, c = NA, d = NA)
+
     return(coefs)
   }, simplify = FALSE))
 
@@ -632,6 +628,9 @@ calc_Huntley2006 <- function(
     GC.simulated <- try(do.call(fit_DoseResponseCurve, GC.settings))
   )
 
+  fit_simulated <- NA
+  De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA
+  Age.sim <- Age.sim.error <- Age.sim.2D0 <- Age.sim.2D0.error <- NA
   if (!inherits(GC.simulated, "try-error")) {
     GC.simulated.results <- get_RLum(GC.simulated)
     fit_simulated <- get_RLum(GC.simulated, "Fit")
@@ -652,11 +651,6 @@ calc_Huntley2006 <- function(
     Age.sim.2D0.error <- Age.sim.2D0 * sqrt( ( D0.sim.Gy.error / D0.sim.Gy)^2 +
                                                (readerDdot.error / readerDdot)^2 +
                                                (ddot.error / ddot)^2)
-
-  } else {
-    De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- fit_simulated <- D0.sim.Gy <- D0.sim.Gy.error <-  NA
-    Age.sim.2D0 <- Age.sim.2D0.error <- NA
-
   }
 
   if (Ln > max(LxTx.sim) * 1.1)
@@ -786,11 +780,10 @@ calc_Huntley2006 <- function(
     par.old.full <- par(no.readonly = TRUE)
 
     # set graphical parameters
-    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8)
+    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8,
+        oma = c(0, 9, 0, 9))
     if (summary)
       par(oma = c(0, 3, 0, 9))
-    else
-      par(oma = c(0, 9, 0, 9))
 
     # Find a good estimate of the x-axis limits
     if(GC.settings$mode == "extrapolation" & !force_through_origin) {
@@ -903,8 +896,7 @@ calc_Huntley2006 <- function(
              col = "red" , pch = 16)
     } else {
       lines(x = c(De.measured, xlim[2]),
-            y = c(Ln, Ln),
-            col = "black", lty = 3)
+            y = c(Ln, Ln), col = "black", lty = 3)
     }
 
     # add unfaded DRC --------
@@ -957,7 +949,6 @@ calc_Huntley2006 <- function(
 
     # recover plot parameters
     on.exit(par(par.old.full), add = TRUE)
-
   }
 
   ## Results -------------------------------------------------------------------
@@ -1056,7 +1047,6 @@ calc_Huntley2006 <- function(
         round(results@data$results$Sim_Age_2D0, 2), "\u00b1",
         round(results@data$results$Sim_Age_2D0.error, 2))
     cat("\n -------------------------------\n\n")
-
   }
 
   ## Return value --------------------------------------------------------------
