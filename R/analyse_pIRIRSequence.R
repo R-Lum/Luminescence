@@ -401,13 +401,8 @@ analyse_pIRIRSequence <- function(
   ##middle (any other Lx,Ln)
   if(n.loops > 2){
     temp.IRSL.layout.vector.middle <-
-      vapply(
-        2:(n.loops - 1),
-        FUN = function(x) {
-          offset <- 5 * x - 1
-          c((offset):(offset + 3),
-            (offset):(offset + 2), offset + 4)
-        },
+      vapply(2:(n.loops - 1),
+        FUN = function(x) 5 * x - 1 + c(0:3, 0:2, 4),
         FUN.VALUE = vector(mode = "numeric", length = 8)
       )
   }
@@ -599,16 +594,12 @@ if(plot){
       LnLxTnTx.table[["LxTx.Error"]][is.infinite(LnLxTnTx.table[["LxTx.Error"]])] <- NA
 
   ##plot growth curves
+  min.LxTx <- min(LnLxTnTx.table$LxTx, na.rm = TRUE)
+  max.LxTx <- max(LnLxTnTx.table$LxTx, na.rm = TRUE)
+  max.LxTx.Error <- max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE)
   plot(NA, NA,
        xlim = range(get_RLum(temp.results.final, "LnLxTnTx.table")$Dose),
-       ylim = c(
-         if(min(LnLxTnTx.table$LxTx, na.rm = TRUE) -
-            max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE) < 0){
-            min(LnLxTnTx.table$LxTx, na.rm = TRUE)-
-            max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE)
-         }else{0},
-           max(LnLxTnTx.table$LxTx, na.rm = TRUE)+
-           max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE)),
+       ylim = c(min(min.LxTx - max.LxTx.Error, 0), max.LxTx + max.LxTx.Error),
        xlab = "Dose [s]",
        ylab = expression(L[x]/T[x]),
        main = "Summarised Dose Response Curves")
