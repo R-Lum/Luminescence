@@ -7,10 +7,10 @@
 # Assign variables to Namespace -------------------------------------------
 ##variable col to define colours in the functions for output
 assign("col",
-       c("#000000", "#FF3000", "#6495ED"  "#458B00", "#FFB90F", "#8B6914",
+       c("#000000", "#FF3000", "#6495ED", "#458B00", "#FFB90F", "#8B6914",
          "#FF00FF", "#00FA9A", "#EEEE00", "#9ACD32", "#8B0000", "#EEE8AA",
          "#8B7D6B", "#00EE76", "#1E90FF", "#0000FF", "#551A8B", "#7CFC00",
-         "#A9A9A9", "#FFFF00", "#CD0000")
+         "#A9A9A9", "#FFFF00", "#CD0000"),
        pos = ".LuminescenceEnv",
        envir = .LuminescenceEnv)
 
