@@ -90,9 +90,9 @@ test_that("input validation", {
   expect_error(suppressWarnings(
       analyse_baSAR(obj, verbose = TRUE)),
       "No records of the appropriate type were found")
-  expect_message(expect_null(
-      analyse_baSAR(obj, recordType = "OSL", verbose = TRUE)),
-      "Object conversion failed, NULL returned")
+  expect_error(suppressWarnings(
+    analyse_baSAR(obj, recordType = "NONE", verbose = TRUE)),
+    "No records of the appropriate type were found")
   })
 
   expect_warning(expect_output(
@@ -354,4 +354,25 @@ test_that("regression tests", {
                 background.integral = c(80:100),
                 n.MCMC = 10)), "RLum.Results")
   })
+
+  ## test removal of unwanted curves
+  ## check irradiation times assignment and non-OSL curve removal
+  tmp_object <- Risoe.BINfileData2RLum.Analysis(CWOSL.sub)
+  tmp_curves <- tmp_object[[3]]@records[[1]]
+  tmp_curves@recordType <- "NONE"
+  tmp_object[[3]]@records <- c(tmp_object[[3]]@records, rep(tmp_curves,2))
+
+  SW({
+  expect_s4_class(
+    suppressWarnings(
+      analyse_baSAR(tmp_object,
+                verbose = TRUE,
+                plot = FALSE,
+                recordType = c("OSL", "NONE"),
+                source_doserate = c(0.04, 0.001),
+                signal.integral = c(1:2),
+                background.integral = c(80:100),
+                n.MCMC = 10)), "RLum.Results")
+  })
+
 })

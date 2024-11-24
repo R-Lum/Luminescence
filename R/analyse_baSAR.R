@@ -1018,7 +1018,7 @@ analyse_baSAR <- function(
       ##run conversion
       if(verbose)
         cat("\t\t  .. run conversion\n")
-      object <- try(convert_RLum2Risoe.BINfileData(object), silent = TRUE)
+      object <- try(convert_RLum2Risoe.BINfileData(object), silent = FALSE)
 
       ##create fallback
        if(inherits(object, "try-error")){
@@ -1034,8 +1034,9 @@ analyse_baSAR <- function(
       }
 
       ##remove none-OSL curves
-      if(verbose && !all("OSL" %in% object@METADATA[["LTYPE"]])){
-        cat("\t\t  .. remove non-OSL curves\n")
+      if(!all(object@METADATA[["LTYPE"]] %in% "OSL")){
+        if(verbose)
+          cat("\t\t  .. remove non-OSL curves\n")
         rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
         object@METADATA <- object@METADATA[-rm_id,]
         object@DATA[rm_id] <- NULL
