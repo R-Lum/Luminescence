@@ -1,8 +1,9 @@
-#' Calculate De value based on the gSGC by Li et al., 2015
+#' @title Calculate De value based on the gSGC by Li et al., 2015
 #'
-#' Function returns De value and De value error using the global standardised growth
+#' @description Function returns De value and De value error using the global standardised growth
 #' curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz
 #'
+#' @details
 #' The error of the De value is determined using a Monte Carlo simulation approach.
 #' Solving of the equation is realised using [uniroot].
 #' Large values for `n.MC` will significantly increase the computation time.
@@ -89,7 +90,6 @@ calc_gSGC<- function(
 ##============================================================================##
 ##CHECK INPUT DATA
 ##============================================================================##
-
   .validate_class(data, "data.frame")
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")

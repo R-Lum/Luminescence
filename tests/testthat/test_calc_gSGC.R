@@ -18,6 +18,7 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  ## standard test
   SW({
   expect_s4_class(calc_gSGC(data = df,
     gSGC.type = "0-450",
@@ -29,6 +30,14 @@ test_that("check functionality", {
                c = 0, c.error = 0, Y0 = 0, Y0.error = 0)
   expect_s4_class(calc_gSGC(data = df, gSGC.parameters = pars),
                   "RLum.Results")
+  })
+
+  ## break plot (no solution)
+  df_break <- data.frame(LnTn = 0, LnTn.error = 0.087,
+                   Lr1Tr1 = 0, Lr1Tr1.error = 0.091,
+                   Dr1 = 34.4)
+  SW({
+    expect_warning(calc_gSGC(data = df_break), regexp = "No solution was found")
   })
 
   set.seed(seed = 1)
