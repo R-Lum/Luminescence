@@ -355,6 +355,18 @@ test_that("regression tests", {
                 n.MCMC = 10)), "RLum.Results")
   })
 
+  ## have all irradiation times identical
+  expect_message(
+    suppressWarnings(analyse_baSAR(CWOSL.sub,
+                verbose = FALSE,
+                plot = FALSE,
+                source_doserate = c(0.04, 0.001),
+                signal.integral = c(1:2),
+                irradiation_times = c(0),
+                background.integral = c(80:100),
+                n.MCMC = 10)),
+     regexp = "Error: All irradiation times are identical, NULL returned")
+
   ## test removal of unwanted curves
   ## check irradiation times assignment and non-OSL curve removal
   tmp_object <- Risoe.BINfileData2RLum.Analysis(CWOSL.sub)
