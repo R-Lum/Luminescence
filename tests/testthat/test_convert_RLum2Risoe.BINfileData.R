@@ -38,4 +38,13 @@ test_that("functionality", {
     convert_RLum2Risoe.BINfileData(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)),
     class = "Risoe.BINfileData")
 
+  ## regression for combination of data where we mixed datasets that should not be mixed
+  tmp_object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+  tmp_curves <- tmp_object[[3]]@records[[1]]
+  tmp_curves@recordType <- "NONE"
+  tmp_object[[3]]@records <- c(tmp_object[[3]]@records, rep(tmp_curves,2))
+  expect_s4_class(
+    convert_RLum2Risoe.BINfileData(tmp_object),
+    class = "Risoe.BINfileData")
+
 })

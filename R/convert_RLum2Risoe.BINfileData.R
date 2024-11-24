@@ -99,9 +99,13 @@ convert_RLum2Risoe.BINfileData <- function(
   ##make data.frame out of it
   METADATA_df <- as.data.frame(data.table::rbindlist(METADATA_list, fill = TRUE))
 
+  ## sanitize version for change if it comes in wrongly because this
+  ## cannot be handled by merge
+  if(!is.null(METADATA_df$VERSION))
+    METADATA_df$VERSION <- as.character(METADATA_df$VERSION)
+
   ##write METADATA
   prototype@METADATA <- merge(prototype@METADATA, METADATA_df, all = TRUE)
-
 
   ## +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##fill various missing values
