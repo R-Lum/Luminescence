@@ -154,7 +154,7 @@ Analyse_SAR.OSLdata <- function(
   ...
 ) {
   .Deprecated("analyse_SAR.CWOSL")
-  .set_function_name("analyse_SAR.CWOSL")
+  .set_function_name("Analyse_SAR.OSLdata")
   on.exit(.unset_function_name(), add = TRUE)
 
   ##============================================================================##
@@ -371,6 +371,7 @@ Analyse_SAR.OSLdata <- function(
       IRSL.curveID<-sample.data@METADATA[sample.data@METADATA["SEL"]==TRUE & sample.data@METADATA["POSITION"]==i,"ID"]
 
       ##if no IRSL curve the length of the object is 0
+      IRSL_BOSL <- NA
       if(length(IRSL.curveID)>0){
 
         ##chose an IRSL curve with a dose of the first regeneration point
@@ -381,16 +382,15 @@ Analyse_SAR.OSLdata <- function(
           ##BOSL/IRSL
           IRSL_BOSL<-round(sum(unlist(sample.data@DATA[IRSL.curveID])[signal.integral])
                            /sum(unlist(sample.data@DATA[Reg1again.curveID])[signal.integral]),digits=4)
-        }else{IRSL_BOSL<-NA}
-      }else{IRSL_BOSL<-NA}
+        }
+      }
 
       ##Combine the two values
       if(exists("RejectionCriteria")==FALSE){
-        RejectionCriteria<-cbind(RecyclingRatio,Recuperation,IRSL_BOSL)
-      }else{
-        RejectionCriteria.temp<-cbind(RecyclingRatio,Recuperation,IRSL_BOSL)
-        RejectionCriteria<-rbind(RejectionCriteria,RejectionCriteria.temp)
+        RejectionCriteria <- NULL
       }
+      RejectionCriteria <- rbind(RejectionCriteria,
+                                 cbind(RecyclingRatio, Recuperation,IRSL_BOSL))
 
       ##============================================================================##
       ##PLOTTING
