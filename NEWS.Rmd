@@ -118,6 +118,10 @@ led to some speed up (#429, fixed in #430, #431 and #432).
 error after fading correction, which led to smaller than expected errors
 (#96, fixed in #296).
 
+### `convert_RLum2Risoe.BINFileData()`
+* The function could crash with a `incompatible types (from raw to character)` error
+under particular circumstances; fixed. 
+
 ### `extract_IrradiationTimes()`
 * In some circumstances the function failed to update an existing BIN/BINX
 file due to an incorrect way of subsetting an intermediate data frame of

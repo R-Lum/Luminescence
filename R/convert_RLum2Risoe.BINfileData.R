@@ -1,6 +1,6 @@
-#'Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects
+#'@title Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects
 #'
-#'The functions converts [RLum.Analysis-class] and [RLum.Data.Curve-class] objects and a [list] of those
+#'@description The functions converts [RLum.Analysis-class] and [RLum.Data.Curve-class] objects and a [list] of those
 #'to [Risoe.BINfileData-class] objects. The function intends to provide a minimum of compatibility
 #'between both formats. The created [RLum.Analysis-class] object can be later exported to a
 #'BIN-file using the function [write_R2BIN].
@@ -11,7 +11,7 @@
 #'@param keep.position.number [logical] (with default): keeps the original position number or re-calculate
 #'the numbers to avoid doubling
 #'
-#'@section Function version: 0.1.3
+#'@section Function version: 0.1.4
 #'
 #'@author  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -108,7 +108,17 @@ convert_RLum2Risoe.BINfileData <- function(
 
   ##helper function ...otherwise the code gets too nasty ... only used for NA values!
   .replace <- function(field, value){
-    prototype@METADATA[[field]][which(sapply(prototype@METADATA[[field]], is.na))] <<- value
+    ## get class
+    tmp_class <- class(prototype@METADATA[[field]])[1]
+
+    ## convert
+    value <- switch(
+      tmp_class,
+      "factor" = as.factor(prototype@METADATA[[field]]),
+      as(prototype@METADATA[[field]], tmp_class)
+    )
+
+    prototype@METADATA[[field]][is.na(prototype@METADATA[[field]])] <<- value
   }
 
   ## >> ID << ##
