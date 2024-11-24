@@ -18,7 +18,6 @@ test_that("input validation", {
                "'object' only accepts a list of objects of the same type")
   expect_error(analyse_baSAR(CWOSL.sub, n.MCMC = NULL),
                "'n.MCMC' should be a positive integer scalar")
-
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE),
                "'source_doserate' is missing, but the current implementation")
   expect_error(analyse_baSAR(CWOSL.sub, fit.method = "error"),
@@ -156,7 +155,6 @@ test_that("Full check of analyse_baSAR function", {
   skip_on_cran()
 
     set.seed(1)
-
     ##(3) run analysis
     ##please not that the here selected parameters are
     ##chosen for performance, not for reliability
@@ -340,5 +338,20 @@ test_that("regression tests", {
                     n.MCMC = 60),
       "RLum.Results"),
       "'thin = 60' is too high for 'n.MCMC = 60', reset to 30")
+  })
+
+  ## check parameters irradiation times
+  SW({
+  expect_s4_class(suppressWarnings(analyse_baSAR(CWOSL.sub,
+                verbose = FALSE,
+                plot = FALSE,
+                source_doserate = c(0.04, 0.001),
+                signal.integral = c(1:2),
+                irradiation_times = c(0, 0, 0, 0, 0, 0, 450, 450, 450, 0, 0, 0,
+                                      1050, 1050, 1050, 0, 0, 0, 2000, 2000, 2000, 0, 0, 0,
+                                      2550, 2550, 2550, 0, 0, 0, 450, 450,
+                                      450, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                background.integral = c(80:100),
+                n.MCMC = 10)), "RLum.Results")
   })
 })

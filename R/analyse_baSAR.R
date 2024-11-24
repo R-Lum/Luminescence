@@ -318,7 +318,7 @@
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.35
+#' @section Function version: 0.1.36
 #'
 #' @author
 #' Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
@@ -1091,8 +1091,10 @@ analyse_baSAR <- function(
 
     ##Problem ... the user might have made a pre-selection in the Analyst software, if this the
     ##we respect this selection
-    record.selected <- unlist(lapply(fileBIN.list,
-                                     FUN = function(x) x@METADATA[["SEL"]] ))
+    record.selected <- unlist(
+      lapply(fileBIN.list,
+      FUN = function(x) x@METADATA[["SEL"]] ))
+
     if (!all(record.selected)) {
       if (verbose) {
         message("[analyse_baSAR()] Record pre-selection in BIN-file detected,",
@@ -1158,7 +1160,6 @@ analyse_baSAR <- function(
     }
 
   ## Expand input arguments -------------------------------------------------
-
   rep.length <- length(fileBIN.list)
 
   if (is.null(source_doserate)) {
@@ -1392,12 +1393,12 @@ analyse_baSAR <- function(
     measured_discs.vector <-  fileBIN.list[[k]]@METADATA[["POSITION"]][1:length_BIN] # measured discs vector
     measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]][1:length_BIN]    # measured grains vector
 
-    if(is.null(irradiation_times)){
-      irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+    ## always get irradiation times
+    irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
 
-    }else{
-      irrad_time.vector <- rep(irradiation_times,n_objects)
-    }
+    ## now we override, keep in mind that we do not care about the pattern
+    if(!is.null(irradiation_times))
+      irrad_time.vector <- rep(irradiation_times, length.out = length(irrad_time.vector))
 
     ##if all irradiation times are 0 we should stop here
     if (length(unique(irrad_time.vector)) == 1) {
@@ -1410,11 +1411,9 @@ analyse_baSAR <- function(
 
     ### Automatic Filling - Disc_Grain.list
     for (i in 1: length(Disc[[k]])) {
-
       disc_selected <-  as.integer(Disc[[k]][i])
 
       if (Mono_grain == TRUE) {grain_selected <- as.integer(Grain[[k]][i])} else { grain_selected <-0}
-
          ##hard break if the disc number or grain number does not fit
 
          ##disc (position)
@@ -2369,3 +2368,5 @@ analyse_baSAR <- function(
     info = list(call = sys.call())
   ))
 }
+
+
