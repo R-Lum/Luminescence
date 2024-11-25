@@ -60,7 +60,7 @@ test_that("check functionality", {
               version = "08")
 
   ## trigger edge case
-  temp@METADATA[, "FNAME"] <- ""
+  temp@METADATA[, "FNAME"] <- numeric()
   expect_silent(write_R2BIN(object = temp, file = paste0(path, "BINfile_V8.binx"),
               version = "08", verbose = FALSE))
   })
@@ -122,3 +122,4 @@ test_that("input validation", {
     "some data sets have more than 9,999 points")
 
 })
+

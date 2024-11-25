@@ -924,7 +924,7 @@ write_R2BIN <- function(
       FNAME_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"FNAME"]), type="bytes"))
 
         ##correct for case that this is of 0 length
-        if(length(FNAME_SIZE) == 0){FNAME_SIZE <- as.integer(0)}
+        if(is.na(FNAME_SIZE) || length(FNAME_SIZE) == 0){FNAME_SIZE <- as.integer(0)}
 
       writeBin(FNAME_SIZE,
                con,
