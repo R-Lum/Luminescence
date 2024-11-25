@@ -16,7 +16,8 @@ test_that("Check github_commits()", {
     expect_s3_class(response, "data.frame")
   }
 
-  rm(response)
+  tryCatch(expect_error(github_commits(branch = "error"),
+                        "Branch 'error' does not exist"))
 })
 
 test_that("Check github_branches()", {

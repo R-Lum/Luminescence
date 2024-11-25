@@ -74,7 +74,7 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
   # fetch available branches and check if provided branch exists
   branches <- github_branches(user, repo)
   if (!any(grepl(branch, branches$BRANCH)))
-    .throw_error("Branch ", branch, " does not exist")
+    .throw_error("Branch '", branch, "' does not exist")
 
   # build URL and retrieve content
   sha <- branches$SHA[grep(paste0("^", branch, "$"), branches$BRANCH)]
@@ -225,9 +225,11 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 # the content.
 .github_getContent <- function(url) {
   response <- GET(url, accept_json())
+  # nocov start
   if (status_code(response) != 200)
     .throw_error("Contacting ", url, " returned status code ",
                  status_code(response))
+  # nocov end
   content <- content(response)
   return(content)
 }
