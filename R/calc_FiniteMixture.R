@@ -588,7 +588,7 @@ calc_FiniteMixture <- function(
 
   if (anyNA(unlist(summary)) && verbose)
     .throw_warning("The model produced NA values: either the input data are ",
-                   "inapplicable for the model, or the the model parameters ",
+                   "inapplicable for the model, or the model parameters ",
                    "need to be adjusted (e.g. 'sigmab')")
 
   ##=========##
