@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 df <- ExampleData.DeValues$CA1
 
@@ -21,6 +22,14 @@ test_that("input validation", {
                  "Only keywords for weighted statistical measures are supported")
   expect_warning(plot_ViolinPlot(df, summary.pos = "error"),
                  "Value provided for 'summary.pos' is not a valid keyword")
+
+  ## missing values
+  df.na <- df
+  df.na[, 1] <- NA
+  expect_warning(expect_warning(
+      plot_ViolinPlot(df.na),
+      "62 NA values removed"),
+      "After NA removal, nothing is left from the data set")
 })
 
 test_that("check functionality", {
@@ -35,10 +44,4 @@ test_that("check functionality", {
   ## RLum.Results object
   expect_silent(plot_ViolinPlot(calc_CommonDose(df, plot = FALSE,
                                                 verbose = FALSE)))
-
-  ## missing values
-  df.na <- df
-  df.na[10:11, 1] <- NA
-  expect_warning(plot_ViolinPlot(df.na),
-                 "2 NA values removed")
 })

@@ -117,7 +117,7 @@ plot_ViolinPlot <- function(
 
   ##stop if only one or 0 values are left in data
   if(length(data) == 0){
-    .throw_warning("Actually it is rather hard to plot 0 values, returning")
+    .throw_warning("After NA removal, nothing is left from the data set")
     return()
   }
 
