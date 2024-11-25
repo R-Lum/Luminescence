@@ -340,7 +340,6 @@ calc_FiniteMixture <- function(
 
     invvmat<- rbind(cbind(Au,Bu),cbind(t(Bu),Cu))
     vmat<- solve(invvmat, tol=.Machine$double.xmin)
-    rek<- sqrt(sum(vmat[1:(k-1),1:(k-1)]))
 
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
@@ -356,6 +355,7 @@ calc_FiniteMixture <- function(
 
     # this calculates the proportional standard error of the proportion of grains
     # in the fitted components. However, the calculation is most likely erroneous.
+    # rek<- sqrt(sum(vmat[1:(k-1),1:(k-1)]))
     # sep<-  c(sqrt(diag(vmat))[c(1:(k-1))],rek)
 
     # rename proportion
