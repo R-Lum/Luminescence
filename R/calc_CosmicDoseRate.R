@@ -251,15 +251,7 @@ calc_CosmicDoseRate<- function(
   .set_function_name("calc_CosmicDoseRate")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##============================================================================##
-  ## ... ARGUMENTS
-  ##============================================================================##
-  settings <- list(verbose = TRUE)
-  settings <- modifyList(settings, list(...))
-
-  ##============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##============================================================================##
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(depth, "numeric")
   .validate_class(density, "numeric")
@@ -288,6 +280,8 @@ calc_CosmicDoseRate<- function(
                  "provide an equal number of values for depth")
   }
 
+  settings <- list(verbose = TRUE)
+  settings <- modifyList(settings, list(...))
 
   ##============================================================================##
   ## CALCULATIONS
@@ -351,11 +345,11 @@ calc_CosmicDoseRate<- function(
     # calculate cosmic dose rate at sea-level for geomagnetic latitude 55 degrees
     d0 <- (C / ((((hgcm[i] + d)^alpha) + a) * (hgcm[i] + H))) * exp(-B * hgcm[i])
 
-    if(hgcm[i]*100 < 167) {
-      temp.hgcm<- hgcm[i]*100
+    temp.hgcm <- hgcm[i] * 100
+    if (temp.hgcm < 167) {
       d0.ph <- d0
 
-      if(hgcm[i]*100 < 40) {
+      if (temp.hgcm < 40) {
         d0<- -6*10^-8*temp.hgcm^3+2*10^-5*temp.hgcm^2-0.0025*temp.hgcm+0.2969
       }
       else {
@@ -386,7 +380,6 @@ calc_CosmicDoseRate<- function(
     if(gml < 34) { # Polynomial fit
 
       J_ph<- 5*10^-6*gml^3-5*10^-5*gml^2+0.0026*gml+0.5177
-
     }
     else { # Linear fit
       J_ph<- 0.0005*gml + 0.7388
@@ -395,7 +388,6 @@ calc_CosmicDoseRate<- function(
     if(gml < 36) { # Polynomial fit
 
       H_ph<- -3*10^-6*gml^3-5*10^-5*gml^2-0.0031*gml+4.398
-
     }
     else { # Linear fit
 
@@ -541,15 +533,6 @@ calc_CosmicDoseRate<- function(
 
     summary<- data.frame(cbind(temp1,temp2))
 
-    newRLumResults.calc_CosmicDoseRate <- set_RLum(
-      class = "RLum.Results",
-      data = list(summary=summary,
-                  args=args,
-                  call=call))
-
-    # Return values
-    invisible(newRLumResults.calc_CosmicDoseRate)
-
   } else {
 
     #terminal output
@@ -568,14 +551,12 @@ calc_CosmicDoseRate<- function(
     colnames(profile.results)<- c("depth","d0","dc","dc_err")
 
     summary<- data.frame(cbind(profile.results,add.info))
+  }
 
-    newRLumResults.calc_CosmicDoseRate <- set_RLum(
+  newRLumResults.calc_CosmicDoseRate <- set_RLum(
       class = "RLum.Results",
       data = list(summary=summary,
                   args=args,
                   call=call))
-
-    # Return values
-    invisible(newRLumResults.calc_CosmicDoseRate)
-  }
+  invisible(newRLumResults.calc_CosmicDoseRate)
 }

@@ -218,9 +218,9 @@ report_RLum <- function(
   ## STRUCTURE ----
   structure <- list(header = TRUE,
                     main = TRUE,
-                    structure = ifelse(compact, FALSE, TRUE),
+                    structure = !compact,
                     rds = TRUE,
-                    session = ifelse(compact, FALSE, TRUE),
+                    session = !compact,
                     plot = TRUE)
 
   # specifying report components has higher precedence than the 'compact' arg
@@ -228,7 +228,7 @@ report_RLum <- function(
 
 
   ## OPTIONS ----
-  options <- list(short_table = ifelse(compact, TRUE, FALSE),
+  options <- list(short_table = compact,
                   theme = "cerulean",
                   highlight = "haddock",
                   css = TRUE)

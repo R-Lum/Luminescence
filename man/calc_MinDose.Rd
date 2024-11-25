@@ -169,7 +169,7 @@ for each core to get MAM estimates for each of the N and M bootstrap
 replicates. Note that this option is highly experimental and may or may not
 work for your machine. The performance gain increases for larger number
 of bootstrap replicates. However, note that with each additional core (and
-hence R instance) the memory usage can significantly increaseand depending
+hence R instance) the memory usage can significantly increase and depending
 on the number of bootstrap replicates. When insufficient memory is available,
 there will be a massive performance hit.
 
