@@ -1,10 +1,9 @@
-test_that("check class and length of output", {
+## load data
+data(ExampleData.DeValues, envir = environment())
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## load example data
-  data(ExampleData.DeValues, envir = environment())
-
-  ## input validation
   expect_error(calc_FiniteMixture(),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_FiniteMixture("test"),
@@ -26,6 +25,10 @@ test_that("check class and length of output", {
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                                   n.components = 2, pdf.colors = "error"),
                "'pdf.colors' should be one of 'gray', 'colors' or 'none'")
+})
+
+test_that("check class and length of output", {
+  testthat::skip_on_cran()
 
   ## simple run
   SW({
@@ -59,5 +62,13 @@ test_that("check class and length of output", {
     trace = TRUE,
     main = "Plot title",
     verbose = TRUE), "RLum.Results")
+
+  ## more coverage
+  expect_warning(calc_FiniteMixture(
+    ExampleData.DeValues$CA1[2:9, ],
+    sigmab = 0.1,
+    n.components = 3,
+    verbose = TRUE),
+    "The model produced NA values: either the input data are inapplicable")
   })
 })
