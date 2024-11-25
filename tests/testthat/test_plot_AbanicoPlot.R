@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- ExampleData.DeValues$CA1
 
@@ -238,6 +239,11 @@ test_that("more coverage", {
                                   xlab = c("x1", "x2", "x3"), lty = 2,
                                   dispersion = "2sd",
                                   at = seq(20, 120, nrow(data.na) - 1)),
+                 "Data set (1): 1 NA value excluded",
+                 fixed = TRUE)
+  expect_message(plot_AbanicoPlot(data.na, y.axis = TRUE,
+                                  yaxt = "y", ylim = c(2, 3),
+                                  dispersion = "2sd"),
                  "Data set (1): 1 NA value excluded",
                  fixed = TRUE)
 })
