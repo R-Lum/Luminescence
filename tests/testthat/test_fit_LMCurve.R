@@ -22,10 +22,17 @@ test_that("input validation", {
                "'input.dataType' should be one of 'LM' or 'pLM'")
   expect_error(fit_LMCurve(values.curve, fit.method = "error"),
                "'fit.method' should be one of 'port' or 'LM'")
+  expect_error(fit_LMCurve(
+    values = values.curve,
+    values.bg = set_RLum("RLum.Data.Curve", data = as.matrix(values.curve), recordType = "OSL"),
+    verbose = FALSE),
+               "'recordType' for values.bg should be 'RBR'!")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
+  SW({
   if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
     expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE))
+  })
 })
 
 test_that("check class and length of output", {
@@ -95,7 +102,7 @@ test_that("check class and length of output", {
   )
 
   ## more coverage
-  curveBG <- set_RLum("RLum.Data.Curve", data = as.matrix(values.curveBG))
+  curveBG <- set_RLum("RLum.Data.Curve", data = as.matrix(values.curveBG), recordType = "RBR")
   expect_warning(fit_LMCurve(values.curve, curveBG, xlab = "s", ylab = "a.u.",
                              xlim = c(0, 4000), log = "xy"),
                  "'xlim' changed to avoid 0 values for log-scale")

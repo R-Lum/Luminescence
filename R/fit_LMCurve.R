@@ -1,6 +1,6 @@
-#' @title Nonlinear Least Squares Fit for LM-OSL curves
+#' @title Non-linear Least Squares Fit for LM-OSL curves
 #'
-#' @description The function determines weighted nonlinear least-squares estimates of the
+#' @description The function determines weighted nonl-inear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
 #' uses the function [nls] with the `port` algorithm.
@@ -283,12 +283,12 @@ fit_LMCurve<- function(
   if (!missing(values.bg)) {
     .validate_class(values.bg, c("data.frame", "RLum.Data.Curve"))
 
-    if (inherits(values, "RLum.Data.Curve") && values@recordType != "RBR") {
-      .throw_error("'recordType' should be 'RBR'!")
-    }
-    if (inherits(values.bg, "RLum.Data.Curve")) {
+    if (inherits(values.bg, "RLum.Data.Curve") && (is.na(values.bg@recordType) || values.bg@recordType != "RBR"))
+      .throw_error("'recordType' for values.bg should be 'RBR'!")
+
+    if (inherits(values.bg, "RLum.Data.Curve"))
       values.bg <- as(values.bg, "data.frame")
-    }
+
   }
 
   input.dataType <- .validate_args(input.dataType, c("LM", "pLM"))
