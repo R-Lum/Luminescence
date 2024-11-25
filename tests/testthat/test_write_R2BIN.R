@@ -58,6 +58,11 @@ test_that("check functionality", {
   temp@METADATA[, "VERSION"] <- 8
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V8.binx"),
               version = "08")
+
+  ## trigger edge case
+  temp@METADATA[, "FNAME"] <- ""
+  expect_silent(write_R2BIN(object = temp, file = paste0(path, "BINfile_V8.binx"),
+              version = "08", verbose = FALSE))
   })
 
   ## silent correction of the file extension
@@ -73,6 +78,7 @@ test_that("check functionality", {
   t <- expect_silent(write_R2BIN(new_utf8, file = paste0(path, "BINfile_V8.bin"),
                      version = "08", verbose = FALSE))
   expect_type(object = t, type = "character")
+
 })
 
 test_that("input validation", {
@@ -114,4 +120,5 @@ test_that("input validation", {
                              file = paste0(tempfile(), "BINfile_V8.binx")),
                  "'COMMENT' exceeds storage limit"),
     "some data sets have more than 9,999 points")
+
 })
