@@ -1,3 +1,6 @@
+## load data
+data(ExampleData.DeValues, envir = environment())
+
 test_that("Test Simple RLum Report", {
   testthat::skip_on_cran()
 

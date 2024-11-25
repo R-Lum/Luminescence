@@ -311,10 +311,7 @@ report_RLum <- function(
   # INFO ----
   # check if Luminescence package is installed and get details
   pkg <- as.data.frame(installed.packages(), row.names = FALSE)
-  if ("Luminescence" %in% pkg$Package)
-    pkg <- pkg[which(pkg$Package == "Luminescence"), ]
-  else
-    pkg <- data.frame(LibPath = "-", Version = "not installed", Built = "-")
+  pkg <- pkg[which(pkg$Package == "Luminescence"), ]
 
   # Title
   writeLines(paste("<div align='center'><h1>", title, "</h1></div>\n\n<hr>"), tmp)
