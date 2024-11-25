@@ -1694,15 +1694,15 @@ analyse_IRSAR.RF<- function(
       }
 
       ##Insert fit and result
+      mtext.txt <-  substitute(D[e] == De,
+                               list(De = paste0(De, " [", De.lower,
+                                                " ; ", De.upper,"]")))
       if(is.na(De) != TRUE & (is.nan(De) == TRUE |
                               De > max(RF_reg.x) |
                               De.upper > max(RF_reg.x))){
 
-        try(mtext(side=3, substitute(D[e] == De,
-                                     list(De=paste0(
-                                       De," (", De.lower," ", De.upper,")"))),
+        try(mtext(side=3, mtext.txt,
                   line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
-
         De.status <- "VALUE OUT OF BOUNDS"
 
       } else{
@@ -1710,21 +1710,12 @@ analyse_IRSAR.RF<- function(
         if ("mtext" %in% names(list(...))) {
           mtext(side = 3, list(...)$mtext)
         }else{
-          try(mtext(
-            side = 3,
-            substitute(D[e] == De,
-                       list(
-                         De = paste0(De," [",De.lower," ; ", De.upper,"]")
-                       )),
-            line = 0,
-            cex = 0.7 * par()[["cex"]]
-          ),
-          silent = TRUE)
+          try(mtext(side = 3, mtext.txt,
+                    line = 0, cex = 0.7 * par()[["cex"]]), silent = TRUE)
         }
 
         De.status <- "OK"
       }
-
 
       if (!plot_reduced) {
 
@@ -1750,9 +1741,7 @@ analyse_IRSAR.RF<- function(
           ##add 0 line
           abline(h = 0)
         } else{
-          plot(
-            NA,
-            NA,
+          plot(NA, NA,
             xlim = c(0, max(temp.sequence_structure$x.max)),
             ylab = "E",
             xlab = plot.settings$xlab,
@@ -1760,8 +1749,7 @@ analyse_IRSAR.RF<- function(
             ylim = c(-1, 1)
           )
           text(x = max(temp.sequence_structure$x.max) / 2,
-               y = 0,
-               "Fitting Error!")
+               y = 0, "Fitting Error!")
         }
       }
     }
@@ -1972,22 +1960,16 @@ analyse_IRSAR.RF<- function(
 
 
         ##add residual points
+        temp.points.diff <- 0
         if (length(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) > length(residuals)) {
           temp.points.diff <-
             length(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) -
             length(residuals)
-
-          points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
-                 residuals,
-                 pch = 20,
-                 col = rgb(0, 0, 0, 0.4))
-
-        } else{
-          points(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1],
-                 residuals,
-                 pch = 20,
-                 col = rgb(0, 0, 0, 0.4))
         }
+        points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
+                 residuals,
+                 pch = 20,
+                 col = rgb(0, 0, 0, 0.4))
 
         ##add vertical line to mark De (t_n)
         abline(v = De, lty = 2, col = col[2])
