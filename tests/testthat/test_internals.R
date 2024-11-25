@@ -323,12 +323,24 @@ test_that("Test internals", {
   ## .validate_not_empty() --------------------------------------------------
   expect_true(.validate_not_empty(letters, "vector"))
 
-  expect_error(.validate_not_empty(letters),
-               "'what' must be provided")
   expect_error(.validate_not_empty(test <- c(), "vector"),
                "'test' cannot be an empty vector")
-  expect_error(.validate_not_empty(test <- list(), "list"),
+  expect_error(.validate_not_empty(test <- list()),
                "'test' cannot be an empty list")
+  expect_error(.validate_not_empty(test <- numeric(0)),
+               "'test' cannot be an empty numeric")
+  expect_error(.validate_not_empty(test <- data.frame()),
+               "'test' cannot be an empty data.frame")
+  expect_error(.validate_not_empty(iris[0, ]),
+               "'iris' cannot be an empty data.frame")
+  expect_error(.validate_not_empty(iris[, 0]),
+               "'iris' cannot be an empty data.frame")
+  expect_error(.validate_not_empty(test <- matrix(NA, 0, 5)),
+               "'test' cannot be an empty matrix")
+  expect_error(.validate_not_empty(test <- matrix(NA, 5, 0)),
+               "'test' cannot be an empty matrix")
+  expect_error(.validate_not_empty(test <- set_RLum("RLum.Analysis")),
+               "'test' cannot be an empty RLum.Analysis")
   expect_error(.validate_not_empty(list(), "list", name = "'other_name'"),
                "'other_name' cannot be an empty list")
   expect_warning(expect_false(.validate_not_empty(test <- list(), "list",
