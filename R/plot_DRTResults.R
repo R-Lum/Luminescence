@@ -196,7 +196,9 @@ plot_DRTResults <- function(
   .set_function_name("plot_DRTResults")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Validity checks ----------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
+  .validate_not_empty(values)
 
   ##avoid crash for wrongly set boxlot argument
   if(missing(preheat) & boxplot == TRUE){
@@ -251,7 +253,6 @@ plot_DRTResults <- function(
 
         ##remove preheat entries
         preheat <- preheat[-temp.NA.values]
-
       }
 
       values[[i]] <- na.exclude(values[[i]])
@@ -307,7 +308,6 @@ plot_DRTResults <- function(
 
       if(length(values) < length(given.dose)){
         .throw_error("'given.dose' > number of input data sets")
-
       }
 
       for(i in 1:length(values)) {
@@ -319,7 +319,6 @@ plot_DRTResults <- function(
       for(i in 1:length(values)) {
         values[[i]] <- values[[i]]/given.dose
       }
-
     }
   }
 
@@ -333,7 +332,6 @@ plot_DRTResults <- function(
         min(values[[x]][,1], na.rm = TRUE) - max(values[[x]][,2], na.rm = TRUE)})),
       max(sapply(1:length(values), function(x){
         max(values[[x]][,1], na.rm = TRUE) + max(values[[x]][,2], na.rm = TRUE)})))
-
   }
 
 

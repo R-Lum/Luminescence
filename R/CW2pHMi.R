@@ -201,8 +201,11 @@ CW2pHMi<- function(
   .set_function_name("CW2pHMi")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## Integrity checks -------------------------------------------------------
+
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(values)
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
   if (inherits(values, "RLum.Data.Curve")) {
@@ -218,7 +221,6 @@ CW2pHMi<- function(
 
     temp.values <- values
   }
-
 
   # (1) Transform values ------------------------------------------------------
 

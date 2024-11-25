@@ -254,7 +254,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   return(results)
 }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   is.valid <- .validate_class(object,
                               c("RLum.Data.Curve", "data.frame", "matrix"),
@@ -263,6 +263,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   if (!is.valid)
     return(NULL)
 
+  .validate_not_empty(object)
   if(inherits(object, "RLum.Data.Curve")){
    if(!grepl(pattern = "POSL", x = object@recordType, fixed = TRUE))
      .throw_error("recordType '", object@recordType,

@@ -129,6 +129,7 @@ calc_FastRatio <- function(object,
   ## Input verification -----------------------------------------------------
   .validate_class(object, c("RLum.Analysis", "RLum.Results", "RLum.Data.Curve",
                             "data.frame", "matrix"))
+  .validate_not_empty(object)
   .validate_positive_scalar(Ch_L1, int = TRUE)
   .validate_positive_scalar(Ch_L2, int = TRUE, null.ok = TRUE)
   if (!is.null(Ch_L3)) {

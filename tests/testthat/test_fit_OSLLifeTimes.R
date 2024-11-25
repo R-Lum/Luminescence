@@ -5,9 +5,12 @@ temp_mat <- get_RLum(ExampleData.TR_OSL)[1:200, ]
 test_that("input validation", {
   testthat::skip_on_cran()
 
-
   expect_warning(expect_null(fit_OSLLifeTimes("error")),
                  "'object' should be of class 'RLum.Data.Curve', 'data.frame'")
+  expect_error(fit_OSLLifeTimes(data.frame()),
+               "'object' cannot be an empty data.frame")
+  expect_error(fit_OSLLifeTimes(matrix(NA, 0, 3)),
+               "'object' cannot be an empty matrix")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
                "'n.components' should be a positive integer scalar")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),

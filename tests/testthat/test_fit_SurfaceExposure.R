@@ -11,6 +11,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame'")
   expect_error(fit_SurfaceExposure(list()),
                "'data' cannot be an empty list")
+  expect_error(fit_SurfaceExposure(data.frame()),
+               "'data' cannot be an empty data.frame")
   expect_error(fit_SurfaceExposure(list(d1)),
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = 1e4),

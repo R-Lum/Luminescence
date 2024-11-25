@@ -8,6 +8,8 @@ test_that("input validation", {
   df$Distance[[14]] <- 50000
   expect_error(calc_CobbleDoseRate("error"),
                "'input' should be of class 'data.frame'")
+  expect_error(calc_CobbleDoseRate(data.frame()),
+               "'input' cannot be an empty data.frame")
   expect_error(calc_CobbleDoseRate(df),
                "Slices outside of cobble: please ensure your distances are in mm")
 

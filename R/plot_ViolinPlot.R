@@ -93,9 +93,10 @@ plot_ViolinPlot <- function(
   .set_function_name("plot_ViolinPlot")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("RLum.Results", "data.frame", "matrix"))
+  .validate_not_empty(data)
   .validate_class(summary.pos, "character")
 
   if (inherits(data, "RLum.Results")) {

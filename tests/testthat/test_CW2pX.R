@@ -1,6 +1,10 @@
-##load data
+## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 values <- CW_Curve.BosWallinga2012
+object <- set_RLum(class = "RLum.Data.Curve",
+                   data = as.matrix(ExampleData.CW_OSL_Curve),
+                   curveType = "measured",
+                   recordType = "OSL")
 
 test_that("check functionality", {
   testthat::skip_on_cran()
@@ -35,34 +39,35 @@ test_that("check functionality", {
 test_that("Test RLum.Types", {
   testthat::skip_on_cran()
 
-  ##load CW-OSL curve data
-  data(ExampleData.CW_OSL_Curve, envir = environment())
-  object <-
-    set_RLum(
-      class = "RLum.Data.Curve",
-      data = as.matrix(ExampleData.CW_OSL_Curve),
-      curveType = "measured",
-      recordType = "OSL"
-    )
-
-  ##transform values
   expect_s4_class(CW2pLM(object), class = "RLum.Data.Curve")
   expect_s4_class(CW2pLMi(object), class = "RLum.Data.Curve")
   expect_s4_class(CW2pHMi(object), class = "RLum.Data.Curve")
   expect_s4_class(suppressWarnings(CW2pPMi(object)), class = "RLum.Data.Curve")
+})
 
-  ##test error handling
+test_that("input validation", {
+  testthat::skip_on_cran()
+
   expect_error(CW2pLMi(values, P = 0),
                "[CW2pLMi()] P has to be > 0", fixed = TRUE)
-  expect_warning(CW2pLMi(values, P = 10))
+  expect_warning(CW2pLMi(values, P = 10),
+                 "t' is beyond the time resolution and more than two data points")
   expect_error(CW2pHMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pHMi(values = data.frame()),
+               "'values' cannot be an empty data.frame")
   expect_error(CW2pLMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pLMi(values = data.frame()),
+               "'values' cannot be an empty data.frame")
   expect_error(CW2pLM(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pLM(values = data.frame()),
+               "'values' cannot be an empty data.frame")
   expect_error(CW2pPMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(CW2pPMi(values = data.frame()),
+               "'values' cannot be an empty data.frame")
 
   object@recordType <- "RF"
   expect_error(CW2pLM(values = object),

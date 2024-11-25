@@ -1,3 +1,4 @@
+## load data
 set.seed(1)
 data(ExampleData.DeValues, envir = environment())
 df <- ExampleData.DeValues$BT998[7:11,]
@@ -19,9 +20,11 @@ test_that("input validation", {
 
   empty <- set_RLum("RLum.Results")
   expect_error(plot_DRTResults(empty),
-                     "No valid records in 'values'")
+               "'values' cannot be an empty RLum.Results")
   expect_error(plot_DRTResults(list()),
-               "No valid records in 'values'")
+               "'values' cannot be an empty list")
+  expect_error(plot_DRTResults(data.frame()),
+               "'values' cannot be an empty data.frame")
   expect_error(plot_DRTResults(list(empty, empty)),
                      "No valid records in 'values'")
 })
@@ -68,11 +71,8 @@ test_that("check functionality", {
   expect_silent(plot_DRTResults(df, summary.pos = "bottomright",
                                 legend.pos = "bottomleft"))
 
-
   ## plot_DRTResults(df.list, preheat = c(200, 200, 200, 240, 240),
   ##                 given.dose = 2800, boxplot = TRUE)
-
-
 
   ## RLum.Results object
   expect_silent(plot_DRTResults(calc_CommonDose(df, plot = FALSE,

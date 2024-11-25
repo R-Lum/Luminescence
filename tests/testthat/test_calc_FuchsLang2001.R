@@ -1,17 +1,18 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_FuchsLang2001("error"),
+               "[calc_FuchsLang2001()] 'data' should be of class 'data.frame'",
+               fixed = TRUE)
+  expect_error(calc_FuchsLang2001(data.frame()),
+               "'data' cannot be an empty data.frame")
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   ##load example data
   data(ExampleData.DeValues, envir = environment())
-
-  ##break function
-  expect_error(calc_FuchsLang2001(
-    data = "ExampleData.DeValues$BT998",
-    cvThreshold = 5,
-    plot = FALSE,
-    verbose = FALSE),
-    "[calc_FuchsLang2001()] 'data' should be of class 'data.frame' or 'RLum.Results'",
-    fixed = TRUE)
 
   ##the simple and silent run
   temp <- expect_s4_class(

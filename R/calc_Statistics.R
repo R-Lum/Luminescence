@@ -71,8 +71,10 @@ calc_Statistics <- function(
   .set_function_name("calc_Statistics")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Check input data
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, c("RLum.Results", "data.frame"))
+  .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")[, 1:2]
   }

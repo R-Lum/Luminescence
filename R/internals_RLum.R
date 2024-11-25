@@ -1242,7 +1242,8 @@ SW <- function(expr) {
 #'
 #' @param arg [character] (**required**): variable to validate.
 #' @param what [character] (**required**): the type of the variable, used
-#'        only in the message reported.
+#'        only in the message reported; if not specified it's inferred from
+#'        they type of the variable tested.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
@@ -1258,18 +1259,18 @@ SW <- function(expr) {
 #'
 #' @md
 #' @noRd
-.validate_not_empty <- function(arg, what, throw.error = TRUE,
+.validate_not_empty <- function(arg, what = NULL, throw.error = TRUE,
                                 name = NULL) {
 
-  if (missing(what)) {
-    .throw_error("'what' must be provided")
-  }
+  ## type of the argument to report if not specified
+  if (is.null(what))
+    what <- class(arg)[1]
 
   ## name of the argument to report if not specified
   if (is.null(name))
     name <- sprintf("'%s'", all.vars(match.call())[1])
 
-  if (length(arg) == 0) {
+  if (NROW(arg) == 0 || NCOL(arg) == 0) {
     msg <- paste0(name, " cannot be an empty ", what)
     if (throw.error)
       .throw_error(msg)

@@ -268,6 +268,7 @@ fit_LMCurve<- function(
 
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(values)
 
   if (inherits(values, "RLum.Data.Curve")) {
     if (values@recordType != "RBR" && values@recordType != "LM-OSL") {

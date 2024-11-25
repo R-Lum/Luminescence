@@ -8,6 +8,11 @@ test_that("input validation", {
   obj <- ExampleData.CW_OSL_Curve
   expect_error(calc_FastRatio("error"),
                "'object' should be of class 'RLum.Analysis', 'RLum.Results'")
+  expect_error(calc_FastRatio(iris[0, ]),
+               "'object' cannot be an empty data.frame")
+  expect_error(calc_FastRatio(matrix(nrow = 1, ncol = 0)),
+               "'object' cannot be an empty matrix")
+
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
                "'Ch_L1' should be a positive integer scalar")
   expect_error(calc_FastRatio(obj, Ch_L1 = 0),
