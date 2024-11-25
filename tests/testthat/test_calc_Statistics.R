@@ -30,6 +30,8 @@ test_that("input validation", {
   expect_error(calc_Statistics(data = matrix(0,2)),
                "[calc_Statistics()] 'data' should be of class 'RLum.Results' or 'data.frame'",
                fixed = TRUE)
+  expect_error(calc_Statistics(data.frame()),
+               "'data' cannot be an empty data.frame")
   expect_error(calc_Statistics(data = df, weight.calc = "error"),
                "'weight.calc' should be one of 'square' or 'reciprocal'")
   expect_error(calc_Statistics(df, digits = 2.4),

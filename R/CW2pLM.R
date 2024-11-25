@@ -78,10 +78,11 @@ CW2pLM <- function(
   .set_function_name("CW2pLM")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity Checks --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(values)
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
   if (inherits(values, "RLum.Data.Curve")) {
@@ -89,11 +90,9 @@ CW2pLM <- function(
       .throw_error("recordType ", values@recordType,
                    " is not allowed for the transformation")
     }
-
     temp.values <- as(values, "data.frame")
 
   }else{
-
     temp.values <- values
   }
 

@@ -212,9 +212,10 @@ fit_CWCurve<- function(
   .set_function_name("fit_CWCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(values, c("RLum.Data.Curve", "data.frame"))
+  .validate_not_empty(values)
 
   if(is(values, "RLum.Data.Curve") == TRUE){
 

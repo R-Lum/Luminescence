@@ -300,6 +300,7 @@ fit_DoseResponseCurve <- function(
   ## Self-call end ----------------------------------------------------------
 
   .validate_class(sample, c("data.frame", "matrix", "list"))
+  .validate_not_empty(sample)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN",
                             "EXP+LIN", "EXP+EXP", "GOK", "LambertW")

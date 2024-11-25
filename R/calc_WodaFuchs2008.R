@@ -63,12 +63,13 @@ calc_WodaFuchs2008 <- function(
   # - add statistics to the plot
   # - check whether this makes sense at all ...
 
-  ## check data and parameter consistency -------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   if (!.validate_class(data, c("data.frame", "RLum.Results", "numeric"),
                        throw.error = FALSE)) {
     return(NULL)
   }
+  .validate_not_empty(data)
 
   if (inherits(data, "RLum.Results")) {
         data <- tryCatch(get_RLum(data, "data"),

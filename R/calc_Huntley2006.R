@@ -301,9 +301,10 @@ calc_Huntley2006 <- function(
   .set_function_name("calc_Huntley2006")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Validate Input ---------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
+  .validate_not_empty(data)
 
   ## Check fit method
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
@@ -347,7 +348,6 @@ calc_Huntley2006 <- function(
         LnTn <- setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
         data <- rbind(LnTn, data)
       }
-
     }
 
     # check number of columns

@@ -6,12 +6,17 @@ df <-
 
 temp <- calc_HomogeneityTest(df, verbose = FALSE)
 
-
-test_that("check class and length of output", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_HomogeneityTest(TRUE),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
+  expect_error(calc_HomogeneityTest(data.frame()),
+               "'data' cannot be an empty data.frame")
+})
+
+test_that("check values from output example", {
+  testthat::skip_on_cran()
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 3)
@@ -21,10 +26,6 @@ test_that("check class and length of output", {
   expect_s4_class(calc_HomogeneityTest(temp),
                   "RLum.Results")
   })
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
 
   results <- get_RLum(temp)
 

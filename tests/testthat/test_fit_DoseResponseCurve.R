@@ -9,6 +9,8 @@ test_that("input validation", {
       fit_DoseResponseCurve("error"),
       "[fit_DoseResponseCurve()] 'sample' should be of class 'data.frame'",
       fixed = TRUE)
+  expect_error(fit_DoseResponseCurve(data.frame()),
+               "'sample' cannot be an empty data.frame")
   expect_error(fit_DoseResponseCurve(as.list(LxTxData)),
                "All elements of 'sample' should be of class 'data.frame'")
 

@@ -11,8 +11,10 @@ test_that("input validation", {
   expect_error(plot_ViolinPlot(df, summary.pos = 5),
                "'summary.pos' should be of class 'character'")
 
-  expect_warning(plot_ViolinPlot(df[0, ]),
-                 "it is rather hard to plot 0 values, returning")
+  expect_error(plot_ViolinPlot(data.frame()),
+               "'data' cannot be an empty data.frame")
+  expect_error(plot_ViolinPlot(df[0, ]),
+               "'data' cannot be an empty data.frame")
   expect_warning(plot_ViolinPlot(df[1, ]),
                  "Single data point found, no density calculated")
   expect_warning(plot_ViolinPlot(df, summary = "error"),

@@ -155,10 +155,11 @@ CW2pLMi<- function(
   .set_function_name("CW2pLMi")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # (0) Integrity checks -------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(values)
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
   if (inherits(values, "RLum.Data.Curve")) {

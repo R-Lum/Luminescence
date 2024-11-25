@@ -30,6 +30,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame'")
   expect_error(calc_Huntley2006("test"),
                "'data' should be of class 'data.frame'")
+  expect_error(calc_Huntley2006(data.frame()),
+               "'data' cannot be an empty data.frame")
 
   expect_error(calc_Huntley2006(data, fit.method = "test"),
                "'fit.method' should be one of 'EXP' or 'GOK'")

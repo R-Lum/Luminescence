@@ -63,11 +63,10 @@ calc_HomogeneityTest <- function(
   .set_function_name("calc_HomogeneityTest")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##============================================================================##
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("data.frame", "RLum.Results"))
+  .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }

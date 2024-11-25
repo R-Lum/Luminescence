@@ -7,6 +7,10 @@ test_that("input validation", {
 
   expect_error(analyse_FadingMeasurement(object = "test"),
                "'object' should be of class 'RLum.Analysis', 'data.frame' or")
+  expect_error(analyse_FadingMeasurement(object = iris[0, ]),
+               "'object' cannot be an empty data.frame")
+  expect_error(analyse_FadingMeasurement(object = iris[, 0]),
+               "'object' cannot be an empty data.frame")
   expect_warning(expect_error(
       analyse_FadingMeasurement(list(fading_data, "test")),
       "No valid records in 'object' left"),

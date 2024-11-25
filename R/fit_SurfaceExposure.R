@@ -236,7 +236,9 @@ fit_SurfaceExposure <- function(
   )
   settings <- modifyList(settings, list(...))
 
-  ## Input object handling -----------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
+  .validate_not_empty(data)
 
   ## Data type validation
   if (inherits(data, "RLum.Results"))
@@ -250,8 +252,6 @@ fit_SurfaceExposure <- function(
 
   ## For global fitting of multiple data sets 'data' must be a list
   if (inherits(data, "list")) {
-
-    .validate_not_empty(data, "list")
 
     # Global fitting requires and equal amount of ages to be provided
     if (length(data) != length(age))

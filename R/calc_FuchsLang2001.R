@@ -3,7 +3,7 @@
 #' @description This function applies the method according to Fuchs & Lang (2001) for
 #' heterogeneously bleached samples with a given coefficient of variation
 #' threshold.
-#' 
+#'
 #' @details
 #'
 #' **Used values**
@@ -89,8 +89,10 @@ calc_FuchsLang2001 <- function(
   .set_function_name("calc_FuchsLang2001")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity Tests ---------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, c("data.frame", "RLum.Results"))
+  .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }

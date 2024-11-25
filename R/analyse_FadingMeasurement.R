@@ -222,6 +222,7 @@ analyse_FadingMeasurement <- function(
     object <- list(object)
 
   } else if(inherits(object,"data.frame")){
+    .validate_not_empty(object)
     if (ncol(object) %% 3 != 0) {
       .throw_error("'object': if you provide a data.frame as input, ",
                    "the number of columns must be a multiple of 3.")

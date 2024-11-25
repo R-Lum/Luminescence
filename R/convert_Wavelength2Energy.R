@@ -153,10 +153,11 @@ convert_Wavelength2Energy <- function(
       return(m)
   }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Data.Spectrum", "data.frame", "matrix"),
                   extra = "a 'list' of such objects")
+  .validate_not_empty(object)
 
   if(inherits(object, "RLum.Data.Spectrum")){
      ##check whether the object might have this scale already
