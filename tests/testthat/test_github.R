@@ -17,7 +17,10 @@ test_that("Check github_commits()", {
   }
 
   tryCatch(expect_error(github_commits(branch = "error"),
-                        "Branch 'error' does not exist"))
+                        "Branch 'error' does not exist"),
+           error = function(e) {
+             expect_output(print(e), "returned status code")
+           })
 })
 
 test_that("Check github_branches()", {
