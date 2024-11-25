@@ -469,13 +469,17 @@ fit_DoseResponseCurve <- function(
   }
   data <- xy
 
-  ## for unknown reasons with only two points the nls() function is trapped in
-  ## an endless mode, therefore the minimum length for data is 3
-  ## (2016-05-17)
-  if (!fit.method %in% c("LIN", "QDR") && nrow(data) < 3) {
+  ## number of parameters in the non-linear models
+  num.params <- 4
+  if (fit.method %in% c("EXP", "EXP OR LIN"))
+    num.params <- 3
+
+  ## if the number of data points is smaller than the number of parameters
+  ## to fit, the nls() function gets trapped in an infinite loop
+  if (!fit.method %in% c("LIN", "QDR") && nrow(data) < num.params) {
     fit.method <- "LIN"
-    msg <- paste("Fitting a non-linear least-squares model requires",
-                 "at least 3 dose points, 'fit.method' set to 'LIN'")
+    msg <- paste("Fitting a non-linear least-squares model requires at least",
+                 num.params, "dose points, 'fit.method' changed to 'LIN'")
     .throw_warning(msg)
     if (verbose)
       message("[fit_DoseResponseCurve()] ", msg)

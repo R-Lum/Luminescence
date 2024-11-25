@@ -193,7 +193,7 @@ test_that("additional tests", {
         LxTx = c(1.54252220145258, 4.43951568403849, NA),
         LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
     verbose = TRUE),
-    "'fit.method' set to 'LIN'"))
+    "'fit.method' changed to 'LIN'"))
   })
   expect_match(warnings, "1 NA values removed",
                all = FALSE, fixed = TRUE)
