@@ -181,8 +181,14 @@ plot_RLum.Analysis <- function(
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
   .validate_class(combine, "logical")
-  if(combine)
+  if (combine) {
+    sapply(object@records, function(x) {
+      if (!inherits(x, "RLum.Data.Curve")) {
+        .throw_error("'combine' is valid only for 'RLum.Data.Curve' objects")
+      }
+    })
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
+  }
   else
     n.plots <- length_RLum(object)
 
@@ -411,34 +417,21 @@ plot_RLum.Analysis <- function(
     ##(2) NORMAL (combine == TRUE)
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##(1) check RLum objects in the set
-    object.list <- object@records
-
-    sapply(object.list, function(o){
-      if(!inherits(o, "RLum.Data.Curve")){
-        .throw_error("Using 'combine' is limited to 'RLum.Data.Curve' objects")
-      }
-    })
 
     ##account for different curve types, combine similar
     temp.object.structure  <- structure_RLum(object)
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
 
     ##change graphic settings
+    par.default <- par()[c("cex", "mfrow")]
     if (!plot_singlePanels) {
-      par.default <- par()[c("cex", "mfrow")]
-
       if(!missing(ncols) & !missing(nrows)){
         par(mfrow = c(nrows, ncols))
       }
-
-      ##this 2nd par request is needed as setting mfrow resets the par settings ... this might
-      ##not be wanted
-      par(cex = plot.settings$cex[1])
-
-    }else{
-      par.default <- par()[c("cex")]
-      par(cex = plot.settings$cex)
     }
+    ## this 2nd par request is needed as setting mfrow resets the par
+    ## settings ... this might not be wanted
+    par(cex = plot.settings$cex)
 
     ##expand plot settings list
     ##expand list

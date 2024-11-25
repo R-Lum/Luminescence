@@ -311,11 +311,7 @@ fit_CWCurve<- function(
     ##lambda
     ##ensure that no values <=0 are included remove them for start parameter
     ##estimation and fit an linear function a first guess
-    if(min(y)<=0){
-      temp.values<-data.frame(x[-which(y<=0)], log(y[-which(y<=0)]))
-    }else{
-      temp.values<-data.frame(x, log(y))
-    }
+    temp.values <- data.frame(x[y > 0], log(y[y > 0]))
 
     temp<-lm(temp.values)
     lambda<-abs(temp$coefficient[2])/nrow(values)
@@ -447,6 +443,7 @@ fit_CWCurve<- function(
   ##============================================================================##
 
   ##grep parameters
+  output.table <- component.contribution.matrix <- NA
   if(inherits(fit,"try-error")==FALSE){
 
     parameters <- coef(fit)
@@ -698,16 +695,11 @@ fit_CWCurve<- function(
         paste(c("cont.c"),rep(1:n.components,each=1), sep=""),
         "cont.sum")
 
-
     }#endif :: (exists("fit"))
 
   }else{
-
     if (output.terminal==TRUE)
       writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
-
-    output.table<-NA
-    component.contribution.matrix <- NA
   }
 
   ##============================================================================##
@@ -722,22 +714,20 @@ fit_CWCurve<- function(
     col <- get("col", pos = .LuminescenceEnv)
 
     ##set plot frame
+    par(cex = cex.global)
     if(!inherits(fit, "try-error")){
       layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
-      par(oma=c(1,1,1,1),mar=c(0,4,3,0),cex=cex.global)
-    }else{
-      par(cex=cex.global)
+      par(oma = c(1, 1, 1, 1), mar = c(0, 4, 3, 0))
     }
-
 
     ##==uppper plot==##
     ##open plot area
 
     plot(NA,NA,
          xlim=c(min(x),max(x)),
-         ylim=if(log=="xy"){c(1,max(y))}else{c(0,max(y))},
-         xlab=if(!inherits(fit, "try-error")){""}else{xlab},
-         xaxt=if(!inherits(fit, "try-error")){"n"}else{"s"},
+         ylim = c(ifelse(log == "xy", 1, 0), max(y)),
+         xlab = ifelse(inherits(fit, "try-error"), xlab, ""),
+         xaxt = ifelse(inherits(fit, "try-error"), "s", "n"),
          ylab=ylab,
          main=main,
          log=log)

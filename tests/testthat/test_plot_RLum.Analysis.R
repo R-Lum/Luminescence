@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.BINfileData, envir = environment())
 data(ExampleData.XSYG, envir = environment())
 
@@ -25,7 +26,7 @@ test_that("input validation", {
       set_RLum("RLum.Analysis", records = list(c1@records[[1]],
                                                set_RLum("RLum.Data.Image"))),
       combine = TRUE),
-      "Only 'RLum.Data.Curve' objects are allowed")
+      "'combine' is valid only for 'RLum.Data.Curve' objects")
 
   ## this generates multiple warnings
   warnings <- capture_warnings(plot_RLum.Analysis(c1, col = 2,

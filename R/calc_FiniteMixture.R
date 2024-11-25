@@ -198,8 +198,8 @@ calc_FiniteMixture <- function(
   .set_function_name("calc_FiniteMixture")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## CONSISTENCY CHECK OF INPUT DATA --------
-  ##============================================================================##
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (is(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
@@ -266,7 +266,6 @@ calc_FiniteMixture <- function(
     # grain probabilities
     vmat.n<- vector(mode = "list", length = length(n.components))
     grain.probability.n<- vector(mode = "list", length = length(n.components))
-
   }
 
   ## start actual calculation (loop) for each provided maximum components to
@@ -345,8 +344,7 @@ calc_FiniteMixture <- function(
 
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
-    re<- sqrt(diag(vmat))[-c(1:(k-1))]
-
+    re <- suppressWarnings(sqrt(diag(vmat)))[-c(1:(k-1))]
     if (any(is.nan(re)))
       re[is.nan(re)] <- NA
 
@@ -600,5 +598,4 @@ calc_FiniteMixture <- function(
 
   # Return values
   invisible(newRLumResults.calc_FiniteMixture)
-
 }

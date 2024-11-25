@@ -552,6 +552,7 @@ plot_AbanicoPlot <- function(
   .validate_positive_scalar(plot.ratio)
 
   if (!is.numeric(z.0)) {
+    .validate_class(z.0, "character")
     z.0 <- .validate_args(z.0, c("mean", "mean.weighted", "median"),
                           extra = "a numerical value")
   }
@@ -576,7 +577,6 @@ plot_AbanicoPlot <- function(
     layout = get_Layout(layout = list(...)$layout)
   } else {
     layout <- get_Layout(layout = "default")
-
   }
 
   if(missing(stats) == TRUE) {
@@ -724,9 +724,6 @@ plot_AbanicoPlot <- function(
     }
   })
 
-  if(is(z, "list") == FALSE) {
-    z <- list(z)
-  }
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], z[[x]])
   })
@@ -744,10 +741,6 @@ plot_AbanicoPlot <- function(
     } else {
       data[[x]][,2]
     }}, De.add = De.add)
-
-  if(is(se, "list") == FALSE) {
-    se <- list(se)
-  }
 
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])
@@ -775,23 +768,20 @@ plot_AbanicoPlot <- function(
       rep(stats.init[[x]]$unweighted$median,
           length(data[[x]][,3]))})
 
-  } else  if(z.0 == "mean.weighted") {
+  } else if(z.0 == "mean.weighted") {
 
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$weighted$mean,
           length(data[[x]][,3]))})
 
-  } else if(is.numeric(z.0) == TRUE) {
+  } else {
 
+    ## z.0 is numeric
     z.central <- lapply(1:length(data), function(x){
       rep(ifelse(log.z == TRUE,
                  log(z.0),
                  z.0),
           length(data[[x]][,3]))})
-
-  } else {
-
-    .throw_error("Value for 'z.0' not supported")
   }
 
   data <- lapply(1:length(data), function(x) {
@@ -801,7 +791,6 @@ plot_AbanicoPlot <- function(
   ## calculate precision
   precision <- lapply(1:length(data), function(x){
     1 / data[[x]][,4]})
-  if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], precision[[x]])})
   rm(precision)
@@ -809,7 +798,6 @@ plot_AbanicoPlot <- function(
   ## calculate standardised estimate
   std.estimate <- lapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
-  if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], std.estimate[[x]])})
 
@@ -819,50 +807,20 @@ plot_AbanicoPlot <- function(
   rm(std.estimate)
 
   ## append optional weights for KDE curve
-  if("weights" %in% names(extraArgs)) {
-    if(extraArgs$weights == TRUE) {
-      wgt <- lapply(1:length(data), function(x){
-        (1 / data[[x]][,2]) / sum(1 / data[[x]][,2]^2)
-      })
-
-      if(is(wgt, "list") == FALSE) {
-        wgt <- list(wgt)
-      }
-
-      data <- lapply(1:length(data), function(x) {
-        cbind(data[[x]], wgt[[x]])})
-
-      rm(wgt)
-    } else {
-      wgt <- lapply(1:length(data), function(x){
-        rep(x = 1, times = nrow(data[[x]])) /
-          sum(rep(x = 1, times = nrow(data[[x]])))
-      })
-
-      if(is(wgt, "list") == FALSE) {
-        wgt <- list(wgt)
-      }
-
-      data <- lapply(1:length(data), function(x) {
-        cbind(data[[x]], wgt[[x]])})
-
-      rm(wgt)
-    }
-  } else {
-    wgt <- lapply(1:length(data), function(x){
-      rep(x = 1, times = nrow(data[[x]])) /
-        sum(rep(x = 1, times = nrow(data[[x]])))
+  if ("weights" %in% names(extraArgs) && extraArgs$weights == TRUE) {
+    wgt <- lapply(1:length(data), function(x) {
+      (1 / data[[x]][,2]) / sum(1 / data[[x]][,2]^2)
     })
-
-    if(is(wgt, "list") == FALSE) {
-      wgt <- list(wgt)
-    }
-
-    data <- lapply(1:length(data), function(x) {
-      cbind(data[[x]], wgt[[x]])})
-
-    rm(wgt)
+  } else {
+    wgt <- lapply(1:length(data), function(x) {
+      rep(1, times = nrow(data[[x]])) / nrow(data[[x]])
+    })
   }
+
+  data <- lapply(1:length(data), function(x) {
+    cbind(data[[x]], wgt[[x]])
+  })
+  rm(wgt)
 
   ## generate global data set
   data.global <- cbind(data[[1]],
@@ -1047,46 +1005,39 @@ plot_AbanicoPlot <- function(
     summary.col <- extraArgs$col
     centrality.col <- extraArgs$col
   } else {
+    bar.col <- layout$abanico$colour$bar.col
     if(length(layout$abanico$colour$bar) == 1) {
       bar.col <- 1:length(data)
-    } else {
-      bar.col <- layout$abanico$colour$bar.col
     }
 
+    kde.line <- layout$abanico$colour$kde.line
     if(length(layout$abanico$colour$kde.line) == 1) {
       kde.line <- 1:length(data)
-    } else {
-      kde.line <- layout$abanico$colour$kde.line
     }
 
+    kde.fill <- layout$abanico$colour$kde.fill
     if(length(layout$abanico$colour$kde.fill) == 1) {
       kde.fill <- rep(layout$abanico$colour$kde.fill, length(data))
-    } else {
-      kde.fill <- layout$abanico$colour$kde.fill
     }
 
+    value.dot <- layout$abanico$colour$value.dot
     if(length(layout$abanico$colour$value.dot) == 1) {
       value.dot <- 1:length(data)
-    } else {
-      value.dot <- layout$abanico$colour$value.dot
     }
 
+    value.bar <- layout$abanico$colour$value.bar
     if(length(layout$abanico$colour$value.bar) == 1) {
       value.bar <- 1:length(data)
-    } else {
-      value.bar <- layout$abanico$colour$value.bar
     }
 
+    value.rug <- layout$abanico$colour$value.rug
     if(length(layout$abanico$colour$value.rug) == 1) {
       value.rug <- 1:length(data)
-    } else {
-      value.rug <- layout$abanico$colour$value.rug
     }
 
+    summary.col <- layout$abanico$colour$summary
     if(length(layout$abanico$colour$summary) == 1) {
       summary.col <- 1:length(data)
-    } else {
-      summary.col <- layout$abanico$colour$summary
     }
 
     if(length(layout$abanico$colour$centrality) == 1) {
@@ -1324,7 +1275,6 @@ plot_AbanicoPlot <- function(
 
     } else {
     De.stats[i,4] <- De.density$x[which.max(De.density$y)]
-
     }
   }
 
@@ -1685,7 +1635,6 @@ plot_AbanicoPlot <- function(
                          bars[i,3] + 2,
                        (data[[i]][1,5] - z.central.global) *
                          bars[i,3] - 2)
-
     }
   } else {
     bars <- matrix(nrow = length(bar), ncol = 8)
@@ -1930,15 +1879,11 @@ plot_AbanicoPlot <- function(
         xpd = TRUE,
         cex = cex)
 
-    if(layout$abanico$dimension$figure.width != "auto" |
-       layout$abanico$dimension$figure.height != "auto") {
-      par(mai = layout$abanico$dimension$margin / 25.4,
-          pin = c(layout$abanico$dimension$figure.width / 25.4 -
-                    layout$abanico$dimension$margin[2] / 25.4 -
-                    layout$abanico$dimension$margin[4] / 25.4,
-                  layout$abanico$dimension$figure.height / 25.4 -
-                    layout$abanico$dimension$margin[1] / 25.4 -
-                    layout$abanico$dimension$margin[3]/25.4))
+    dim <- layout$abanico$dimension
+    if (dim$figure.width != "auto" || dim$figure.height != "auto") {
+      par(mai = dim$margin / 25.4,
+          pin = c(dim$figure.width - dim$margin[2] - dim$margin[4],
+                  dim$figure.height - dim$margin[1] - dim$margin[3]) / 25.4)
     }
 
     ## create empty plot
@@ -2206,6 +2151,12 @@ plot_AbanicoPlot <- function(
 
     ## plot y-axis
     if(is.null(extraArgs$yaxt) || extraArgs$yaxt != "n"){
+      line <- 2 * layout$abanico$dimension$ytck.line / 100 - 2
+      family <- layout$abanico$font.type$ytck
+      font <- which(c("normal", "bold", "italic", "bold italic") ==
+                    layout$abanico$font.deco$ytck)[1]
+      col.axis <- layout$abanico$colour$ytck
+      cex.axis <- layout$abanico$font.size$ylab/12
       if(y.axis) {
         char.height <- par()$cxy[2]
         tick.space <- axisTicks(usr = limits.y, log = FALSE)
@@ -2219,18 +2170,13 @@ plot_AbanicoPlot <- function(
                labels = c("", ""),
                las = 1,
                col = layout$abanico$colour$ytck)
-
           axis(side = 2,
                at = 0,
                tcl = 0,
-               line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
                labels = paste("\u00B1", "2"),
-               las = 1,
-               family = layout$abanico$font.type$ytck,
-               font = which(c("normal", "bold", "italic", "bold italic") ==
-                              layout$abanico$font.deco$ytck)[1],
-               col.axis = layout$abanico$colour$ytck,
-               cex.axis = layout$abanico$font.size$ylab/12)
+               line = line, las = 1,
+               family = family, font = font,
+               col.axis = col.axis, cex.axis = cex.axis)
         } else {
           axis(side = 2,
                at = seq(-2, 2, by = 2),
@@ -2242,15 +2188,10 @@ plot_AbanicoPlot <- function(
                cex = cex)
           axis(side = 2,
                at = seq(-2, 2, by = 2),
-               line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-               lwd = 0,
-               las = 1,
                col = layout$abanico$colour$ytck,
-               family = layout$abanico$font.type$ytck,
-               font = which(c("normal", "bold", "italic", "bold italic") ==
-                              layout$abanico$font.deco$ytck)[1],
-               col.axis = layout$abanico$colour$ytck,
-               cex.axis = layout$abanico$font.size$ylab/12)
+               line = line, lwd = 0, las = 1,
+               family = family, font = font,
+               col.axis = col.axis, cex.axis = cex.axis)
         }
       } else {
         axis(side = 2,
@@ -2263,15 +2204,10 @@ plot_AbanicoPlot <- function(
              cex = cex)
         axis(side = 2,
              at = 0,
-             line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-             lwd = 0,
-             las = 1,
              col = layout$abanico$colour$ytck,
-             family = layout$abanico$font.type$ytck,
-             font = which(c("normal", "bold", "italic", "bold italic") ==
-                            layout$abanico$font.deco$ytck)[1],
-             col.axis = layout$abanico$colour$ytck,
-             cex.axis = layout$abanico$font.size$ylab/12)
+             line = line, lwd = 0, las = 1,
+             family = family, font = font,
+             col.axis = col.axis, cex.axis = cex.axis)
       }
     }
 
@@ -2286,7 +2222,6 @@ plot_AbanicoPlot <- function(
                     min(ellipse[,1])),
             col = layout$abanico$colour$ztck)
     }
-
 
     ## plot major z-ticks
     for(i in 1:length(tick.values.major)) {
@@ -2363,7 +2298,6 @@ plot_AbanicoPlot <- function(
       KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]),
                         yes = max(KDE[[i]][,2]),
                         no = KDE.max)
-
     }
 
     ## optionally adjust KDE width for boxplot option
@@ -2533,7 +2467,6 @@ plot_AbanicoPlot <- function(
                  pch = "|",
                  cex = 0.7 * cex,
                  col = kde.line[i])
-
         }
       }
     }
@@ -2722,15 +2655,11 @@ plot_AbanicoPlot <- function(
         xpd = TRUE,
         cex = cex)
 
-    if(layout$abanico$dimension$figure.width != "auto" |
-       layout$abanico$dimension$figure.height != "auto") {
-      par(mai = layout$abanico$dimension$margin / 25.4,
-          pin = c(layout$abanico$dimension$figure.width / 25.4 -
-                    layout$abanico$dimension$margin[2] / 25.4 -
-                    layout$abanico$dimension$margin[4] / 25.4,
-                  layout$abanico$dimension$figure.height / 25.4 -
-                    layout$abanico$dimension$margin[1] / 25.4 -
-                    layout$abanico$dimension$margin[3]/25.4))
+    dim <- layout$abanico$dimension
+    if (dim$figure.width != "auto" || dim$figure.height != "auto") {
+      par(mai = dim$margin / 25.4,
+          pin = c(dim$figure.width - dim$margin[2] - dim$margin[4],
+                  dim$figure.height - dim$margin[1] - dim$margin[3]) / 25.4)
     }
 
     ## create empty plot
