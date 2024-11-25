@@ -50,6 +50,9 @@ test_that("input validation", {
   ## shorten dataframe
   expect_warning(fit_DoseResponseCurve(LxTxData[1:2, ], verbose = FALSE),
                  "Fitting a non-linear least-squares model requires at least 3")
+  expect_warning(fit_DoseResponseCurve(LxTxData[1:3, ], fit.method = "GOK",
+                                       verbose = FALSE),
+                 "Fitting a non-linear least-squares model requires at least 4")
 
   ## wrong combination of fit.method and mode
   expect_error(
@@ -534,7 +537,7 @@ temp_LambertW <-
         LxTx = c(1.54252220145258, 4.43951568403849, NA),
         LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
     verbose = TRUE),
-    "'fit.method' set to 'LIN'"))
+    "'fit.method' changed to 'LIN'"))
   })
   expect_match(warnings, "1 NA values removed",
                all = FALSE, fixed = TRUE)
@@ -542,9 +545,10 @@ temp_LambertW <-
                all = FALSE, fixed = TRUE)
 })
 
-## EDGE cases ------------
-test_that("edge cases", {
+test_that("regression tests", {
   testthat::skip_on_cran()
+
+  ## issue 374 --------------------------------------------------------------
 
   ## odd data that cause NaN but must not fail
   df <- data.frame(DOSE = c(0,5,10,20,30), LxTx = c(10,5,-20,-30,-40), LxTx_X = c(1, 1,1,1,1))
