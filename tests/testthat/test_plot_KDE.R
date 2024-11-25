@@ -42,6 +42,7 @@ test_that("check functionality", {
   expect_silent(plot_KDE(data = df, summary.pos = "bottomleft"))
   expect_silent(plot_KDE(data = df, summary.pos = "bottom"))
   expect_silent(plot_KDE(data = df, summary.pos = "bottomright"))
+  expect_silent(plot_KDE(data = df, sub = "test"))
 
   ## specify layout
   layout <- get_Layout("default")
