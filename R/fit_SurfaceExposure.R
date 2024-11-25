@@ -366,12 +366,12 @@ fit_SurfaceExposure <- function(
 
   # (un)constrained fitting
   fit <- tryCatch({
-    minpack.lm::nlsLM(formula = use_fun,
+    suppressWarnings(minpack.lm::nlsLM(formula = use_fun,
                       data = data,
                       start = start,
                       lower = unlist(lower),
                       upper = unlist(upper),
-                      weights = wi)
+                      weights = wi))
   },
   error = function(e) { e }
   )
@@ -518,7 +518,7 @@ fit_SurfaceExposure <- function(
 
     # add formula
     if (legend && !inherits(fit, "simpleError")) {
-      formula_text <- paste0("y = ", as.character(fit$m$formula())[3], "\t\t")
+      formula_text <- paste0("y = ", as.character(fit$m$formula())[3])
 
       if (!is.null(age)) {
         if (!global_fit) {
@@ -591,3 +591,5 @@ fit_SurfaceExposure <- function(
   ## EXIT ----
   return(results)
 }
+
+

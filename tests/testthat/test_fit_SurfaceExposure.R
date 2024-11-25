@@ -24,12 +24,17 @@ test_that("input validation", {
   })
 })
 
-## Example data 1
-fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
-                           plot = TRUE, verbose = FALSE)
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
+                             plot = TRUE, verbose = FALSE)
+
+  ## Example data 1
+  expect_s4_class(
+    fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, age = 12000,
+    plot = FALSE, verbose = FALSE), "RLum.Results")
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
