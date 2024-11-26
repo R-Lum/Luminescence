@@ -49,12 +49,12 @@ test_that("input validation", {
       "12 y values <= 0 omitted from logarithmic plot")
 
   expect_warning(plot_RLum.Analysis(c1, combine = TRUE, main = "Curve"),
-                  "Nothing to combine, object contains a single curve")
+                 "'combine' can't be used with fewer than two curves")
   expect_warning(plot_RLum.Analysis(c1, plot.single = TRUE),
                   "'plot.single' is deprecated, use 'plot_singlePanels'")
 })
 
-test_that("Test the basic plot functionality", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## trigger warning
@@ -155,4 +155,9 @@ test_that("Test the basic plot functionality", {
                      subset = list(recordType = "TL"),
                      combine = TRUE,
                      curve.transformation = "CW2pPMi")
+
+  ## empty object
+  expect_silent(plot_RLum.Analysis(set_RLum("RLum.Analysis")))
+  expect_warning(plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
+                 "'combine' can't be used with fewer than two curves")
 })

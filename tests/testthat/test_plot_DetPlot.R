@@ -7,6 +7,8 @@ test_that("input validation", {
 
   expect_error(plot_DetPlot("error"),
                "'object' should be of class 'RLum.Analysis'")
+  expect_error(plot_DetPlot(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
                "'signal.integral.min' should be a positive integer scalar")
   expect_error(plot_DetPlot(object, signal.integral.min = 1,

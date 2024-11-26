@@ -511,10 +511,11 @@ analyse_IRSAR.RF<- function(
   }
 
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
   .validate_class(sequence_structure, "character")
+  .validate_not_empty(object)
   if (length(sequence_structure) < 2) {
     .throw_error("'sequence_structure' should contain at least two elements")
   }

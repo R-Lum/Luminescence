@@ -127,6 +127,7 @@ write_RLum2CSV <- function(
   .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve",
                             "RLum.Data.Image", "RLum.Data.Spectrum",
                             "RLum.Results", "data.frame"))
+  .validate_not_empty(object)
 
   ## check export path
   if (export == TRUE) {

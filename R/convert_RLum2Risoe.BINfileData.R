@@ -60,6 +60,8 @@ convert_RLum2Risoe.BINfileData <- function(
 
   .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve"),
                   extra = "a 'list' of such objects")
+  .validate_not_empty(object)
+
   ##RLum.Data.Curve
   if(inherits(object, "RLum.Data.Curve"))
     object <- set_RLum(class = "RLum.Analysis", records = list(object))
@@ -126,7 +128,7 @@ convert_RLum2Risoe.BINfileData <- function(
   }
 
   ## >> ID << ##
-  prototype@METADATA[["ID"]] <- 1:length(records)
+  prototype@METADATA[["ID"]] <- seq_along(records)
 
   ## >> SEL << ##
   prototype@METADATA[["SEL"]] <- TRUE

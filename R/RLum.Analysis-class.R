@@ -96,9 +96,7 @@ setAs("list", "RLum.Analysis",
 
 setAs("RLum.Analysis", "list",
       function(from){
-        lapply(1:length(from@records), function(x){
-          from@records[[x]]
-        })
+        lapply(from@records, function(x) x)
       })
 
 
@@ -620,7 +618,7 @@ setMethod("structure_RLum",
             temp.object.length <- length(object@records)
 
             ##ID
-            temp.id <- 1:temp.object.length
+            temp.id <- seq_along(object@records)
 
             ##recordType
             temp.recordType <-
@@ -651,8 +649,9 @@ setMethod("structure_RLum",
             temp.uid <- unlist(lapply(object@records, function(x){x@.uid}))
 
             ##.pid
-            temp.pid <- paste(
-              unlist(lapply(object@records, function(x){x@.pid})), collapse = ", ")
+            temp.pid <- unlist(lapply(object@records, function(x){x@.pid}))
+            if (length(temp.pid) > 1)
+              temp.pid <- paste(temp.pid, collapse = ", ")
 
             ##originator
             temp.originator <- unlist(lapply(object@records, function(x){x@originator}))
@@ -674,9 +673,9 @@ setMethod("structure_RLum",
               }
             } else{
               temp.info.elements <-
-                unlist(sapply(1:temp.object.length, function(x) {
-                  if (length(object@records[[x]]@info) != 0) {
-                    paste(names(object@records[[x]]@info), collapse = " ")
+                unlist(sapply(object@records, function(x) {
+                  if (length(x@info) != 0) {
+                    paste(names(x@info), collapse = " ")
                   } else{
                     NA
                   }
@@ -738,8 +737,7 @@ setMethod("length_RLum",
 setMethod("names_RLum",
           "RLum.Analysis",
           function(object){
-            sapply(1:length(object@records), function(x){
-              object@records[[x]]@recordType})
+            sapply(object@records, function(x) x@recordType)
           })
 
 

@@ -1,4 +1,4 @@
-test_that("test_plot_RLum", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## create dataset to test
@@ -23,6 +23,9 @@ test_that("test_plot_RLum", {
 
   expect_silent(plot_RLum(l, main = list("test", "test2"), mtext = "test"))
 
+  ## empty object
+  expect_silent(plot_RLum(set_RLum("RLum.Analysis")))
+
   ## plot results objects
   data(ExampleData.BINfileData, envir = environment())
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1:3)
@@ -36,6 +39,4 @@ test_that("test_plot_RLum", {
     background.integral.max = 1000,
     fit.method = "LIN")
   expect_null(plot_RLum.Results(results))
-
-
 })

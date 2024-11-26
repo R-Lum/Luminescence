@@ -142,6 +142,7 @@ analyse_portableOSL <- function(
 
   ## only RLum.Analysis objects
   .validate_class(object, "RLum.Analysis")
+  .validate_not_empty(object)
 
   ## only curve objects
   if (!all(sapply(object, class) == "RLum.Data.Curve"))

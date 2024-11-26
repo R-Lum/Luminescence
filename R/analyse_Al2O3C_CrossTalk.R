@@ -101,9 +101,11 @@ analyse_Al2O3C_CrossTalk <- function(
 
   .validate_class(object, c("RLum.Analysis", "list"))
   .validate_not_empty(object, class(object)[1])
-  lapply(object,
-         function(x) .validate_class(x, "RLum.Analysis",
-                                     name = "All elements of 'object'"))
+  if (is.list(object)) {
+    lapply(object,
+           function(x) .validate_class(x, "RLum.Analysis",
+                                       name = "All elements of 'object'"))
+  }
 
   ##TODO ... do more, push harder
   ##Accept the entire sequence ... including TL and extract
@@ -113,6 +115,9 @@ analyse_Al2O3C_CrossTalk <- function(
   ##select curves based on the recordType selection; if not NULL
   if(!is.null(recordType)){
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
+  }
+  if (is.null(object)) {
+    .throw_error("No records with recordType = '", recordType, "' in 'object'")
   }
 
   #set method control

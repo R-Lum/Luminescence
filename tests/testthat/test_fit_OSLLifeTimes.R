@@ -9,6 +9,8 @@ test_that("input validation", {
                  "'object' should be of class 'RLum.Data.Curve', 'data.frame'")
   expect_error(fit_OSLLifeTimes(data.frame()),
                "'object' cannot be an empty data.frame")
+  expect_error(fit_OSLLifeTimes(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
   expect_error(fit_OSLLifeTimes(matrix(NA, 0, 3)),
                "'object' cannot be an empty matrix")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),

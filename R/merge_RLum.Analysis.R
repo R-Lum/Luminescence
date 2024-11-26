@@ -57,6 +57,8 @@ merge_RLum.Analysis<- function(
 
   ## Integrity checks -------------------------------------------------------
 
+  .validate_not_empty(objects)
+
   ##check if object is of class RLum
   temp.class.test <- sapply(objects, function(x) {
     .validate_class(x, "RLum",
