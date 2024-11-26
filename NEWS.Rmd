@@ -152,6 +152,10 @@ will try to import them all in one go.
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
 
+### `plot_DRTResults()`
+* The function crashed if option `na.rm` was used alongside the `preheat`
+option but the data set contained no missing values (#474, fixed in #475).
+
 ### `plot_GrowthCurve()`
 * The function is now implemented as a wrapper around `fit_DoseResponseCurve()`
 and `plot_DoseResponseCurve()`. There should be no visible user-facing
