@@ -233,6 +233,7 @@ fit_CWCurve<- function(
   }
 
   fit.method <- .validate_args(fit.method, c("port", "LM"))
+  .validate_positive_scalar(n.components.max, int = TRUE)
 
   # Deal with extra arguments -----------------------------------------------
 
