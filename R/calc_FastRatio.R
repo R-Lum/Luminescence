@@ -179,12 +179,12 @@ calc_FastRatio <- function(object,
     # lambdaLED = wavelength of stimulation source in nm
     P <- stimulation.power 
     lamdaLED <- wavelength
-    
+
     ## Constants
-    # h = speed of light, h = Planck's constant
+    ## c = speed of light, h = Planck's constant
     h <- 6.62607004E-34
     c <- 299792458
-    
+
     I0 <- (P / 1000) / (h * c / (lamdaLED * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
     
@@ -298,7 +298,7 @@ calc_FastRatio <- function(object,
                            "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
       settings$info <- modifyList(settings$info, list(L3 = msg))
       .throw_warning(msg)
-      Ch_L3st <- nrow(A) - 5
+      Ch_L3st <- max(nrow(A) - 5, 1)
       Ch_L3end <- nrow(A)
       t_L3_start <- A[Ch_L3st,1]
       t_L3_end <- A[Ch_L3end,1]

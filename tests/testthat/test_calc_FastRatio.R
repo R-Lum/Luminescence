@@ -1,6 +1,5 @@
+## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
-temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
-
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -59,9 +58,11 @@ test_that("input validation", {
   })
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
+  temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
+                         verbose = FALSE)
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 5)
 
@@ -78,13 +79,8 @@ test_that("check class and length of output", {
                  "L3 contains more counts (566) than L2 (562)",
                  fixed = TRUE)
   })
-})
-
-test_that("check values from output", {
-  testthat::skip_on_cran()
 
   results <- get_RLum(temp)
-
   expect_equal(round(results$fast.ratio, digits = 3), 405.122)
   expect_equal(round(results$fast.ratio.se, digits = 4), 119.7442)
   expect_equal(round(results$fast.ratio.rse, digits = 5), 29.55756)
@@ -107,5 +103,17 @@ test_that("check values from output", {
   expect_equal(results$Cts_L1, 11111)
   expect_equal(results$Cts_L2, 65)
   expect_equal(round(results$Cts_L3, digits = 5), 37.66667)
+})
 
+test_that("regression tests", {
+
+  ## issue 471 --------------------------------------------------------------
+
+  expect_s4_class(suppressWarnings(
+      calc_FastRatio(ExampleData.CW_OSL_Curve[1:3, ], verbose = FALSE)),
+      "RLum.Results")
+
+  expect_s4_class(suppressWarnings(
+      calc_FastRatio(ExampleData.CW_OSL_Curve[1:5, ], verbose = FALSE)),
+      "RLum.Results")
 })
