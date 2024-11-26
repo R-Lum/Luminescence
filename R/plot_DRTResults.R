@@ -247,12 +247,9 @@ plot_DRTResults <- function(
 
       ##currently we assume that all input data sets comprise a similar of data
       if(!missing(preheat) & i == length(values)){
-
-        ## find and mark NA value indices
-        temp.NA.values <- unique(c(which(is.na(values[[i]][,1])), which(is.na(values[[i]][,2]))))
-
-        ##remove preheat entries
-        preheat <- preheat[-temp.NA.values]
+        ## remove preheat entries corresponding to NA values
+        preheat <- preheat[!is.na(values[[i]][, 1]) &
+                           !is.na(values[[i]][, 2])]
       }
 
       values[[i]] <- na.exclude(values[[i]])
@@ -334,7 +331,6 @@ plot_DRTResults <- function(
         max(values[[x]][,1], na.rm = TRUE) + max(values[[x]][,2], na.rm = TRUE)})))
   }
 
-
   ## optionally group data by preheat temperature
   if(missing(preheat) == FALSE) {
     modes <- as.numeric(rownames(as.matrix(table(preheat))))
@@ -353,10 +349,8 @@ plot_DRTResults <- function(
     values.preheat[[1]] <- NULL
     values.boxplot[[1]] <- NULL
     modes.plot <- rep(modes, each = length(values))
-
   } else {
     modes <- 1
-
   }
 
   ## assign colour indices
@@ -399,7 +393,7 @@ plot_DRTResults <- function(
   legend.pos <- coords$pos
   legend.adj <- coords$adj
 
-  ## Plot output --------------------------------------------------------------
+  ## Plot output ------------------------------------------------------------
 
   ## determine number of subheader lines to shif the plot
   shift.lines <- if(summary.pos[1] == "sub" & mtext == "") {

@@ -70,6 +70,7 @@ test_that("check functionality", {
                                 legend.pos = "top"))
   expect_silent(plot_DRTResults(df, summary.pos = "bottomright",
                                 legend.pos = "bottomleft"))
+  expect_silent(plot_DRTResults(df, preheat = 1:5, na.rm = TRUE))
 
   ## plot_DRTResults(df.list, preheat = c(200, 200, 200, 240, 240),
   ##                 given.dose = 2800, boxplot = TRUE)
