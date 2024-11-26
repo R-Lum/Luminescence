@@ -1,6 +1,5 @@
+## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
-temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
-
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -43,6 +42,23 @@ test_that("input validation", {
                "Value in 'Ch_L3' (5, 1001) exceeds number of available channels",
                fixed = TRUE)
 
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, wavelength=0),
+               "'wavelength' should be a positive scalar")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, sigmaF= 0),
+               "'sigmaF' should be a positive scalar")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, sigmaM= 0),
+               "'sigmaM' should be a positive scalar")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, x = -12),
+               "'x' should be a positive scalar")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, x2 = -12),
+               "'x2' should be a positive scalar")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = TRUE),
+               "'dead.channels' should be of class 'integer' or 'numeric'")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = 1),
+               "'dead.channels' should have length 2")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = c(-1, 1)),
+               "All elements of 'dead.channels' should be non-negative")
+
   expect_warning(expect_null(calc_FastRatio(ExampleData.CW_OSL_Curve,
                                             Ch_L2 = 1)),
                  "Calculated time/channel for L2 is too small (0, 1)",
@@ -59,9 +75,11 @@ test_that("input validation", {
   })
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
+  temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
+                         verbose = FALSE)
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 5)
 
@@ -78,13 +96,8 @@ test_that("check class and length of output", {
                  "L3 contains more counts (566) than L2 (562)",
                  fixed = TRUE)
   })
-})
-
-test_that("check values from output", {
-  testthat::skip_on_cran()
 
   results <- get_RLum(temp)
-
   expect_equal(round(results$fast.ratio, digits = 3), 405.122)
   expect_equal(round(results$fast.ratio.se, digits = 4), 119.7442)
   expect_equal(round(results$fast.ratio.rse, digits = 5), 29.55756)
@@ -107,5 +120,34 @@ test_that("check values from output", {
   expect_equal(results$Cts_L1, 11111)
   expect_equal(results$Cts_L2, 65)
   expect_equal(round(results$Cts_L3, digits = 5), 37.66667)
+})
 
+test_that("regression tests", {
+
+  ## issue 471 --------------------------------------------------------------
+
+  expect_s4_class(suppressWarnings(
+      calc_FastRatio(ExampleData.CW_OSL_Curve[1:3, ], verbose = FALSE)),
+      "RLum.Results")
+
+  expect_s4_class(suppressWarnings(
+      calc_FastRatio(ExampleData.CW_OSL_Curve[1:5, ], verbose = FALSE)),
+      "RLum.Results")
+
+  SW({
+  expect_message(expect_s4_class(
+      calc_FastRatio(ExampleData.CW_OSL_Curve, fitCW.sigma=TRUE,
+                     n.components.max = 0),
+      "RLum.Results"),
+      "Error: Fitting failed, please call 'fit_CWCurve()' manually",
+      fixed = TRUE)
+
+  set.seed(1)
+  expect_message(expect_s4_class(
+      calc_FastRatio(ExampleData.CW_OSL_Curve[sample(50), ],
+                     fitCW.sigma = TRUE),
+      "RLum.Results"),
+      "Error: Fitting failed, please call 'fit_CWCurve()' manually",
+      fixed = TRUE)
+  })
 })

@@ -30,17 +30,17 @@
 #' 
 #' @param Ch_L2 [numeric] (*optional*): 
 #' An integer specifying the channel for L2.
-#' @param x [numeric] (*with default*): 
 #'
 #' @param Ch_L3 [numeric] (*optional*):
 #' A vector of length 2 with integer values specifying the start and end
 #' channels for L3 (e.g., `c(40, 50)`), with the second component greater
 #' than or equal to the first.
 #'
+#' @param x [numeric] (*with default*):
 #' \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
-#' 
-#' @param x2 [numeric] (*with default*): 
+#'
+#' @param x2 [numeric] (*with default*):
 #' \% of signal remaining from the medium component.
 #' Used to define the location of L3 (end). 
 #' 
@@ -141,6 +141,16 @@ calc_FastRatio <- function(object,
       .throw_error("'Ch_L3[2]' must be greater than or equal to 'Ch_L3[1]'")
     }
   }
+  .validate_positive_scalar(wavelength)
+  .validate_positive_scalar(sigmaF)
+  .validate_positive_scalar(sigmaM)
+  .validate_positive_scalar(x)
+  .validate_positive_scalar(x2)
+  .validate_class(dead.channels, c("integer", "numeric"))
+  .validate_length(dead.channels, 2)
+  if (any(dead.channels < 0)) {
+    .throw_error("All elements of 'dead.channels' should be non-negative")
+  }
 
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))
@@ -160,11 +170,11 @@ calc_FastRatio <- function(object,
                    output.terminal = FALSE,
                    info = list(),
                    fit = NULL)
-  
+
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
-  
-  
+
+
   ## Calculations --------------------------------------------------------------
   # iterate over all user provided objects and calculate the FR
   fast.ratios <- lapply(object, function(obj) {
@@ -179,32 +189,32 @@ calc_FastRatio <- function(object,
     # lambdaLED = wavelength of stimulation source in nm
     P <- stimulation.power 
     lamdaLED <- wavelength
-    
+
     ## Constants
-    # h = speed of light, h = Planck's constant
+    ## c = speed of light, h = Planck's constant
     h <- 6.62607004E-34
     c <- 299792458
-    
+
     I0 <- (P / 1000) / (h * c / (lamdaLED * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
-    
+
     # remove dead channels
     A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
     A[ ,1] <- A[ ,1] - A[1,1]
-    
+
     # estimate the photo-ionisation crossections of the fast and medium
     # component using the fit_CWCurve function
     if (fitCW.sigma | fitCW.curve) {
-      fitCW.res <- try(fit_CWCurve(A, n.components.max = settings$n.components.max, 
-                                   fit.method = settings$fit.method, 
-                                   LED.power = stimulation.power, 
-                                   LED.wavelength = wavelength, 
-                                   output.terminal = settings$output.terminal, 
-                                   plot = plot))
-      settings$fit <- fitCW.res
-      
-      if (fitCW.sigma) {
-        if (!inherits(fitCW.res, "try-error")) {
+      fitCW.res <- try(fit_CWCurve(A, n.components.max = settings$n.components.max,
+                                   fit.method = settings$fit.method,
+                                   LED.power = stimulation.power,
+                                   LED.wavelength = wavelength,
+                                   output.terminal = settings$output.terminal,
+                                   plot = plot), outFile = stdout())
+
+      if (!inherits(fitCW.res, "try-error")) {
+        settings$fit <- fitCW.res
+        if (fitCW.sigma) {
           sigmaF <- get_RLum(fitCW.res)$cs1
           sigmaM <- get_RLum(fitCW.res)$cs2
           if (settings$verbose) {
@@ -212,23 +222,20 @@ calc_FastRatio <- function(object,
             message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
             message("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2))
           }
-        } else {
-          if (settings$verbose)
-            message("Fitting failed! Please call 'fit_CWCurve()' manually before ",
-                    "calculating the fast ratio.")
         }
-      }
-      
-      if (fitCW.curve) {
-        if (!inherits(fitCW.res, "try-error")) {
+
+        if (fitCW.curve) {
           nls <- get_RLum(fitCW.res, "fit")
           A[ ,2] <- predict(nls)
         }
+      } else {
+        settings["fit"] <- list(NULL)
+        if (settings$verbose)
+          .throw_message("Fitting failed, please call 'fit_CWCurve()' ",
+                         "manually before calculating the fast ratio")
       }
-
     }
-    
-    
+
     ## The equivalent time in s of L1, L2, L3
     # Use these values to look up the channel
     t_L1 <- 0
@@ -298,7 +305,7 @@ calc_FastRatio <- function(object,
                            "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
       settings$info <- modifyList(settings$info, list(L3 = msg))
       .throw_warning(msg)
-      Ch_L3st <- nrow(A) - 5
+      Ch_L3st <- max(nrow(A) - 5, 1)
       Ch_L3end <- nrow(A)
       t_L3_start <- A[Ch_L3st,1]
       t_L3_end <- A[Ch_L3end,1]
@@ -398,18 +405,18 @@ calc_FastRatio <- function(object,
                    format(summary[1, i], digits = 2, nsmall = 2)))
       }
       cat("\n -------------------------------\n\n")
-      
     }
-    ## Plotting ----------------------------------------------------------------
-    if (plot) 
+
+    ## Plotting -------------------------------------------------------------
+    if (plot)
       try(plot_RLum.Results(fast.ratio, ...))
 
     # return
     return(fast.ratio)
   }) # End of lapply
-  
+
   if (length(fast.ratios) == 1)
     fast.ratios <- fast.ratios[[1]]
-  
+
   invisible(fast.ratios)
 }
