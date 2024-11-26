@@ -133,4 +133,21 @@ test_that("regression tests", {
   expect_s4_class(suppressWarnings(
       calc_FastRatio(ExampleData.CW_OSL_Curve[1:5, ], verbose = FALSE)),
       "RLum.Results")
+
+  SW({
+  expect_message(expect_s4_class(
+      calc_FastRatio(ExampleData.CW_OSL_Curve, fitCW.sigma=TRUE,
+                     n.components.max = 0),
+      "RLum.Results"),
+      "Error: Fitting failed, please call 'fit_CWCurve()' manually",
+      fixed = TRUE)
+
+  set.seed(1)
+  expect_message(expect_s4_class(
+      calc_FastRatio(ExampleData.CW_OSL_Curve[sample(50), ],
+                     fitCW.sigma = TRUE),
+      "RLum.Results"),
+      "Error: Fitting failed, please call 'fit_CWCurve()' manually",
+      fixed = TRUE)
+  })
 })
