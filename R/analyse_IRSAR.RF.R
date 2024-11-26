@@ -1215,7 +1215,7 @@ analyse_IRSAR.RF<- function(
 
         ##case 'auto'
         if (requested.cores == "auto") {
-          cores <- max(available.cores - 2, 1)
+          cores <- max(available.cores - 2, 1) # nocov
 
         } else if (is.numeric(requested.cores)) {
           .validate_positive_scalar(requested.cores, int = TRUE,
@@ -1934,38 +1934,30 @@ analyse_IRSAR.RF<- function(
         ##red colouring here only if the 0 point is not visible to avoid too much colouring
         if (max(residuals) < 0 &
             min(residuals) < 0) {
-          shape::Arrowhead(
-            x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-            y0 = max(residuals),
-            angle = 270,
-            lcol = col[2],
-            arr.length = 0.4,
-            arr.type = "triangle",
-            arr.col = col[2]
-          )
-
+          angle <- 270
+          y0 <- max(residuals)
         } else if (max(residuals) > 0 & min(residuals) > 0) {
-          shape::Arrowhead(
-            x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-            y0 = min(residuals),
-            angle = 90,
-            lcol = col[2],
-            arr.length = 0.4,
-            arr.type = "triangle",
-            arr.col = col[2]
-          )
-        } else{
+          angle <- 90
+          y0 <- min(residuals)
+        } else {
+          angle <- NA
           points(xlim[2], 0, pch = 3)
         }
-
+        if (!is.na(angle)) {
+          shape::Arrowhead(
+            x0 = xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+            y0 = y0,
+            angle = angle,
+            lcol = col[2],
+            arr.length = 0.4,
+            arr.type = "triangle",
+            arr.col = col[2]
+          )
+        }
 
         ##add residual points
-        temp.points.diff <- 0
-        if (length(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) > length(residuals)) {
-          temp.points.diff <-
-            length(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) -
-            length(residuals)
-        }
+        temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
+                                length(residuals), 0)
         points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
                  residuals,
                  pch = 20,
