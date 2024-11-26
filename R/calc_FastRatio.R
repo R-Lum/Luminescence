@@ -30,17 +30,17 @@
 #' 
 #' @param Ch_L2 [numeric] (*optional*): 
 #' An integer specifying the channel for L2.
-#' @param x [numeric] (*with default*): 
 #'
 #' @param Ch_L3 [numeric] (*optional*):
 #' A vector of length 2 with integer values specifying the start and end
 #' channels for L3 (e.g., `c(40, 50)`), with the second component greater
 #' than or equal to the first.
 #'
+#' @param x [numeric] (*with default*):
 #' \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
-#' 
-#' @param x2 [numeric] (*with default*): 
+#'
+#' @param x2 [numeric] (*with default*):
 #' \% of signal remaining from the medium component.
 #' Used to define the location of L3 (end). 
 #' 
@@ -141,6 +141,16 @@ calc_FastRatio <- function(object,
       .throw_error("'Ch_L3[2]' must be greater than or equal to 'Ch_L3[1]'")
     }
   }
+  .validate_positive_scalar(wavelength)
+  .validate_positive_scalar(sigmaF)
+  .validate_positive_scalar(sigmaM)
+  .validate_positive_scalar(x)
+  .validate_positive_scalar(x2)
+  .validate_class(dead.channels, c("integer", "numeric"))
+  .validate_length(dead.channels, 2)
+  if (any(dead.channels < 0)) {
+    .throw_error("All elements of 'dead.channels' should be non-negative")
+  }
 
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))
@@ -160,11 +170,11 @@ calc_FastRatio <- function(object,
                    output.terminal = FALSE,
                    info = list(),
                    fit = NULL)
-  
+
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
-  
-  
+
+
   ## Calculations --------------------------------------------------------------
   # iterate over all user provided objects and calculate the FR
   fast.ratios <- lapply(object, function(obj) {
