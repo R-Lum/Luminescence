@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 
 set.seed(12310)
@@ -11,15 +12,20 @@ test_that("input validation", {
   expect_error(plot_RadialPlot("error"),
                "All elements of 'data' should be of class 'data.frame' or")
   expect_error(plot_RadialPlot(list()),
-               "'data' is an empty list")
+               "'data' cannot be an empty list")
   expect_error(plot_RadialPlot(df[, 1]),
                "All elements of 'data' should be of class 'data.frame' or")
   expect_error(plot_RadialPlot(df[0, ]),
-               "Input data 1 has 0 rows")
+               "'data' cannot be an empty data.frame")
+  expect_error(plot_RadialPlot(list(df[0, ])),
+               "Input 'data[[1]]' cannot be an empty data.frame",
+               fixed = TRUE)
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' should have length 2")
+  expect_error(plot_RadialPlot(df, centrality = list("error")),
+               "'centrality' should be of class 'character' or 'numeric'")
   expect_error(plot_RadialPlot(df, centrality = "error"),
-               "Measure of centrality not supported")
+               "'centrality' should be one of 'mean', 'mean.weighted', 'median'")
 
   expect_warning(plot_RadialPlot(df, xlim = c(-1, 100), show = FALSE),
                  "Lower x-axis limit not set to zero, corrected")

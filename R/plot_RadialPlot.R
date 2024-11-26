@@ -294,8 +294,13 @@ plot_RadialPlot <- function(
   .set_function_name("plot_RadialPlot")
   on.exit(.unset_function_name(), add = TRUE)
 
-  if (is(data, "list") && length(data) == 0) {
-    .throw_error("'data' is an empty list")
+  ## Integrity checks -------------------------------------------------------
+
+  .validate_not_empty(data)
+  .validate_class(centrality, c("character", "numeric"))
+  if (is.character(centrality)) {
+    centrality <- .validate_args(centrality, c("mean", "mean.weighted",
+                                               "median", "median.weighted"))
   }
 
   ## Homogenise input data format
@@ -308,12 +313,11 @@ plot_RadialPlot <- function(
 
     if (inherits(data[[i]], "RLum.Results")) {
         data[[i]] <- get_RLum(data[[i]], "data")
-      }
+    }
 
-      ## ensure that the dataset it not degenerate
-      if (nrow(data[[i]]) == 0) {
-       .throw_error("Input data ", i, " has 0 rows")
-      }
+    ## ensure that the dataset it not degenerate
+    .validate_not_empty(data[[i]],
+                        name = paste0("Input 'data[[", i, "]]'"))
 
       ## if `data[[i]]` is a single-column data frame, append a second
       ## column with a small non-zero value (10^-9 for consistency with
@@ -444,6 +448,24 @@ plot_RadialPlot <- function(
     cbind(data[[x]], se[[x]])})
   rm(se)
 
+  ## define function after isotone::weighted.mean
+  median.w <- function (y, w) {
+    ox <- order(y)
+    y <- y[ox]
+    w <- w[ox]
+    k <- 1
+    low <- cumsum(c(0, w))
+    up <- sum(w) - low
+    df <- low - up
+    repeat {
+      if (df[k] < 0)
+        k <- k + 1
+      else if (df[k] == 0)
+        return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
+      else return(y[k - 1])
+    }
+  }
+
   ## calculate central values
   if(centrality[1] == "mean") {
     z.central <- lapply(1:length(data), function(x){
@@ -456,24 +478,6 @@ plot_RadialPlot <- function(
       sum(data[[x]][,3] / data[[x]][,4]^2) /
         sum(1 / data[[x]][,4]^2)})
   } else if(centrality[1] == "median.weighted") {
-    ## define function after isotone::weighted.median
-    median.w <- function (y, w)
-    {
-      ox <- order(y)
-      y <- y[ox]
-      w <- w[ox]
-      k <- 1
-      low <- cumsum(c(0, w))
-      up <- sum(w) - low
-      df <- low - up
-      repeat {
-        if (df[k] < 0)
-          k <- k + 1
-        else if (df[k] == 0)
-          return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
-        else return(y[k - 1])
-      }
-    }
     z.central <- lapply(1:length(data), function(x){
       rep(median.w(y = data[[x]][,3],
                    w = data[[x]][,4]), length(data[[x]][,3]))})
@@ -489,8 +493,6 @@ plot_RadialPlot <- function(
               length(centrality) > length(data)) {
     z.central <- lapply(1:length(data), function(x){
       rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else {
-    .throw_error("Measure of centrality not supported")
   }
 
   data <- lapply(1:length(data), function(x) {
@@ -546,25 +548,6 @@ if(centrality[1] == "mean") {
   z.central.global <- sum(data.global[,3] / data.global[,4]^2) /
     sum(1 / data.global[,4]^2)
 } else if(centrality[1] == "median.weighted") {
-  ## define function after isotone::weighted.mean
-  median.w <- function (y, w)
-  {
-    ox <- order(y)
-    y <- y[ox]
-    w <- w[ox]
-    k <- 1
-    low <- cumsum(c(0, w))
-    up <- sum(w) - low
-    df <- low - up
-    repeat {
-      if (df[k] < 0)
-        k <- k + 1
-      else if (df[k] == 0)
-        return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + w[k - 1]))
-
-      else return(y[k - 1])
-    }
-  }
   z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
 } else if(is.numeric(centrality) == TRUE &
             length(centrality == length(data))) {
@@ -652,7 +635,6 @@ if(centrality[1] == "mean") {
     z.span <- ifelse(z.span > 1, 0.9, z.span)
     limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
                   (1.1 + z.span) * max(data.global[[1]]))
-
   }
 
   if("xlim" %in% names(extraArgs)) {
@@ -778,7 +760,6 @@ if(centrality[1] == "mean") {
   ticks.major <- cbind(0,
     tick.x1.major, tick.x2.major, tick.y1.major, tick.y2.major)
 
-
   ## calculate minor z-tick coordinates
   tick.x1.minor <- r / sqrt(1 + f^2 * (
     tick.values.minor - z.central.global)^2)
@@ -802,7 +783,6 @@ if(centrality[1] == "mean") {
 
   } else {
     label.z.text <- signif(tick.values.major, 3)
-
   }
 
   ## subtract De.add from label values
