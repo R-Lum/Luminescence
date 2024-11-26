@@ -1,4 +1,13 @@
-test_that("simple test", {
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(PSL2Risoe.BINfileData("error"),
+               "'object' should be of class 'RLum.Analysis'")
+  expect_error(PSL2Risoe.BINfileData(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
+})
+
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   data("ExampleData.portableOSL", envir = environment())
@@ -8,10 +17,6 @@ test_that("simple test", {
   ##checks
   expect_s4_class(bin, "Risoe.BINfileData")
   expect_equal(length(bin), 70)
-
-  ## input validation
-  expect_error(PSL2Risoe.BINfileData("wrong-class"),
-               "'object' should be of class 'RLum.Analysis'")
 
   ## manipulate the object to trigger other errors
   fake <- merged

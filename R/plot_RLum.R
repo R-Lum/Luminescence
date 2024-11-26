@@ -86,7 +86,6 @@ plot_RLum<- function(
 
         }else{
           plot_RLum.Analysis(object = object, ...)
-
         },
 
         RLum.Results = plot_RLum.Results(object = object, ...))
@@ -115,11 +114,9 @@ plot_RLum<- function(
 
         }else{
           mtext <- NULL
-
         }
       }else{
         mtext <- rep(list(...)$mtext, length.out = length(object))
-
       }
       for (i in 1:length(object)) {
         RLum.dispatcher(object = object[[i]],

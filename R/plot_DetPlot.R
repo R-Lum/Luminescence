@@ -201,9 +201,10 @@ plot_DetPlot <- function(
    return(merge_RLum(return_list))
   }
 
-  ## Integrity Tests --------------------------------------------------------
-  ##check input
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(object, "RLum.Analysis")
+  .validate_not_empty(object)
 
   ##get structure
   object.structure <- structure_RLum(object)

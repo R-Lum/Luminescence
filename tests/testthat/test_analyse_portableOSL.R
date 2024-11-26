@@ -109,6 +109,8 @@ test_that("input validation", {
     expect_error(analyse_portableOSL("error"),
                  "[analyse_portableOSL()] 'object' should be of class 'RLum.Analysis'",
                  fixed = TRUE)
+    expect_error(analyse_portableOSL(set_RLum("RLum.Analysis")),
+                 "'object' cannot be an empty RLum.Analysis")
 
     ## Only RLum.Data.Curves
     tmp <- merged

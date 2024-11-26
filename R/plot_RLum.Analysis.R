@@ -133,8 +133,8 @@ plot_RLum.Analysis <- function(
   .set_function_name("plot_RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests  -------------------------------------------------------
-  ## check if object is of class RLum.Analysis (lists are handled via plot_RLum())
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(object, "RLum.Analysis")
 
   if(!is.null(subset)){
@@ -181,6 +181,11 @@ plot_RLum.Analysis <- function(
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
   .validate_class(combine, "logical")
+  if (combine && length(object@records) <= 1) {
+    combine <- FALSE
+    .throw_warning("'combine' can't be used with fewer than two curves, ",
+                   "reset to FALSE")
+  }
   if (combine) {
     sapply(object@records, function(x) {
       if (!inherits(x, "RLum.Data.Curve")) {
@@ -190,7 +195,7 @@ plot_RLum.Analysis <- function(
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
   }
   else
-    n.plots <- length_RLum(object)
+    n.plots <- max(length_RLum(object), 1)
 
   .validate_positive_scalar(nrows)
   .validate_positive_scalar(ncols)
@@ -221,11 +226,6 @@ plot_RLum.Analysis <- function(
                                          c("CW2pLM", "CW2pLMi",
                                            "CW2pHMi", "CW2pPMi", "None"))
 
-  if (combine && length(object@records) == 1) {
-    combine <- FALSE
-    .throw_warning("Nothing to combine, object contains a single curve")
-  }
-
   # Plotting ------------------------------------------------------------------
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(1) NORMAL (combine == FALSE)
@@ -234,14 +234,14 @@ plot_RLum.Analysis <- function(
   if (!combine) {
 
     ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
-    temp <- lapply(1:length(object@records), function(x){
-      if (inherits(object@records[[x]], "RLum.Data.Curve") ||
-          inherits(object@records[[x]], "RLum.Data.Spectrum")) {
-        object@records[[x]]
+    temp <- lapply(object@records, function(x) {
+      if (inherits(x, "RLum.Data.Curve") ||
+          inherits(x, "RLum.Data.Spectrum")) {
+        x
       }})
 
     ##calculate number of pages for mtext
-    if (length(temp) %% (nrows * ncols) > 0) {
+    if (length(temp) == 0 || length(temp) %% (nrows * ncols) > 0) {
       n.pages <- round(length(temp) / (nrows * ncols), digits = 0) + 1
 
     } else{
@@ -284,7 +284,7 @@ plot_RLum.Analysis <- function(
     }
 
     ##apply curve transformation
-    for(i in 1:length(temp)){
+    for (i in seq_along(temp)) {
 
       if (inherits(temp[[i]], "RLum.Data.Curve")) {
 

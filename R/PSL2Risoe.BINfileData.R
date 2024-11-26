@@ -52,8 +52,10 @@ PSL2Risoe.BINfileData <- function(object, ...) {
   .set_function_name("PSL2Risoe.BINfileData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(object, "RLum.Analysis")
+  .validate_not_empty(object)
   sapply(object, function(x) {
     .validate_class(x, "RLum.Data.Curve",
                     name = "All elements of 'object'")

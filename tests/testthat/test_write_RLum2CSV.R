@@ -10,10 +10,8 @@ test_that("input validation", {
   expect_error(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE,
                               path = "non-existing"),
                "Directory provided via the argument 'path' does not exist")
-  SW({
   expect_error(write_RLum2CSV(set_RLum("RLum.Results"), verbose = FALSE),
-               "No valid records in 'object'")
-  })
+               "'object' cannot be an empty RLum.Results")
 })
 
 test_that("check functionality", {
@@ -46,6 +44,13 @@ test_that("check functionality", {
                                 compact = FALSE),
                  "elements could not be converted to CSV")
   expect_warning(write_RLum2CSV(object = results,export = FALSE, compact = TRUE),
+                 "elements could not be converted to CSV")
+
+  ## no valid records
+  res.invalid <- results
+  res.invalid@data$summary <- res.invalid@data$data <- NULL
+  res.invalid@data$args$sigmab <- NULL
+  expect_warning(expect_error(write_RLum2CSV(res.invalid, export = FALSE)),
                  "elements could not be converted to CSV")
 
   ##real export

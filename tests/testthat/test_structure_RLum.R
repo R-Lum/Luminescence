@@ -1,4 +1,4 @@
-test_that("Test whether the function works", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   data(ExampleData.RLum.Analysis, envir = environment())
@@ -8,4 +8,8 @@ test_that("Test whether the function works", {
   ##test a list of such elements
   expect_type(structure_RLum(list(IRSAR.RF.Data,IRSAR.RF.Data, "a")), "list")
 
+  ## empty object
+  res <- structure_RLum(set_RLum("RLum.Analysis"))
+  expect_s3_class(res, "data.frame")
+  expect_equal(nrow(res), 0)
 })

@@ -3,6 +3,8 @@ test_that("test for errors", {
 
   expect_error(convert_RLum2Risoe.BINfileData(object = NA),
                "'object' should be of class 'RLum.Analysis', 'RLum.Data.Curve' or")
+  expect_error(convert_RLum2Risoe.BINfileData(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
 })
 
 test_that("functionality", {

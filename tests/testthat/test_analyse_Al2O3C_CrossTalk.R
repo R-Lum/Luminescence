@@ -10,6 +10,8 @@ test_that("input validation", {
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_Al2O3C_CrossTalk(list()),
                "'object' cannot be an empty list")
+  expect_error(analyse_Al2O3C_CrossTalk(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         method_control = "EXP"),
                "'method_control' should be of class 'list'")
