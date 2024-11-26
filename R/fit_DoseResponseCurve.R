@@ -669,7 +669,7 @@ fit_DoseResponseCurve <- function(
           start = c(a = a, b = b, c = c),
           trace = FALSE,
           algorithm = "port",
-          lower = c(a = 0, b > 0, c = 0),
+          lower = c(a = 0, b = 1e-6, c = 0),
           nls.control(
             maxiter = 100,
             warnOnly = TRUE,
@@ -897,7 +897,7 @@ fit_DoseResponseCurve <- function(
         start = c(a=a,b=b,c=c),
         trace = FALSE,
         algorithm = "LM",
-        lower = c(a=0, b>10, c = 0),
+        lower = c(a = 0, b = 10, c = 0),
         control = minpack.lm::nls.lm.control(
           maxiter=100)
       ))},
@@ -922,7 +922,7 @@ fit_DoseResponseCurve <- function(
           trace = FALSE,
           algorithm = "LM",
           lower = if(fit.bounds){
-            c(a = 0, b > 10, c = 0, g = 0)
+            c(a = 0, b = 10, c = 0, g = 0)
           } else {
             c(a = -Inf, b = -Inf,c = -Inf,g = -Inf)
           },
@@ -1122,7 +1122,7 @@ fit_DoseResponseCurve <- function(
         ),
         trace = FALSE,
         algorithm = "port",
-        lower = c(a1 > 0,a2 > 0,b1 > 0,b2 > 0),
+        lower = c(a1 = 1e-6, a2 = 1e-6, b1 = 1e-6, b2 = 1e-6),
         nls.control(
           maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
         ) #increase max. iterations
