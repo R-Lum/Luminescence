@@ -13,6 +13,12 @@ test_that("input validation", {
   expect_error(analyse_Al2O3C_CrossTalk(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
+                                        recordType = list(NA)),
+               "'recordType' should be of class 'character'")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
+                                        recordType = "error"),
+               "'object' contains no records with recordType = 'error'")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         method_control = "EXP"),
                "'method_control' should be of class 'list'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,

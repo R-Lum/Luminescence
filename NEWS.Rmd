@@ -47,6 +47,10 @@ older names is now deprecated and will produce a warning (#351, fixed in #408).
 
 ## Bugfixes
 
+### `analyse_al2O3C_CrossTalk()`
+* The function doesn't crash anymore if option `recordType` is specified and
+none of the records in the data set is of that type (#487, fixed in #488).
+
 ### `analyse_baSAR()`
 * Argument `XLS_file` has been replaced by `CSV_file` and, as mentioned
 above, the function now only accepts CSV files as input (#237, fixed in #270).

@@ -106,18 +106,21 @@ analyse_Al2O3C_CrossTalk <- function(
            function(x) .validate_class(x, "RLum.Analysis",
                                        name = "All elements of 'object'"))
   }
+  .validate_class(recordType, "character")
 
   ##TODO ... do more, push harder
   ##Accept the entire sequence ... including TL and extract
   ##Add sufficient unit tests
 
-  # Preparation ---------------------------------------------------------------------------------
+  ## Preparation ------------------------------------------------------------
+
   ##select curves based on the recordType selection; if not NULL
   if(!is.null(recordType)){
-    object <- get_RLum(object, recordType = recordType, drop = FALSE)
+    object <- suppressWarnings(get_RLum(object, recordType = recordType,
+                                        drop = FALSE))
   }
-  if (is.null(object)) {
-    .throw_error("No records with recordType = '", recordType, "' in 'object'")
+  if (is.null(object) || all(sapply(object, length) == 0)) {
+    .throw_error("'object' contains no records with recordType = '", recordType, "'")
   }
 
   #set method control
