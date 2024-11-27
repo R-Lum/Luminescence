@@ -102,3 +102,4 @@ Climatic Cycle. Boreas, 42, 664--677.
 \link{plot_RLum}, \link{plot_RLum.Analysis}, \link{plot_RLum.Data.Spectrum}
 }
 \keyword{datasets}
+\keyword{internal}

@@ -51,3 +51,4 @@ Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal
 components. Radiation Measurements, 47, 752-758.
 }
 \keyword{datasets}
+\keyword{internal}

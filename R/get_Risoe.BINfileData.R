@@ -5,25 +5,25 @@
 #' The function provides a generalised access point for specific
 #' [Risoe.BINfileData-class] objects. \cr
 #' Depending on the input object, the corresponding get function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding 
+#' Allowed arguments can be found in the documentations of the corresponding
 #' [Risoe.BINfileData-class] class.
 #'
-#' @param object [Risoe.BINfileData-class] (**required**): 
+#' @param object [Risoe.BINfileData-class] (**required**):
 #' S4 object of class `RLum`
-#' 
+#'
 #' @param ... further arguments that one might want to pass to the specific
 #' get function
-#' 
+#'
 #' @return Return is the same as input objects as provided in the list
-#' 
+#'
 #' @section Function version: 0.1.0
-#' 
-#' @author 
+#'
+#' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-#' 
+#'
 #' @seealso [Risoe.BINfileData-class]
-#' 
-#' @keywords utilities
+#'
+#' @keywords utilities internal
 #'
 #' @md
 #' @export
