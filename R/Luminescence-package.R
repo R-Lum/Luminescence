@@ -398,19 +398,19 @@ NULL
 #'
 #' \deqn{y = 0.0002*x + 4.0914}
 #'
-#' @keywords datasets
+#' @keywords datasets internal
 #'
 #' @examples
 #'
 #' ##load data
 #' data(BaseDataSet.CosmicDoseRate)
 #'
+#' @docType data
 #' @name BaseDataSet.CosmicDoseRate
 #' @aliases values.cosmic.Softcomp values.factor.Altitude values.par.FJH
 #'
 #' @md
 NULL
-
 
 #' @title Example data from a SAR OSL and SAR TL measurement for the package
 #' Luminescence
@@ -465,7 +465,7 @@ NULL
 #'
 #' @docType data
 #'
-#' @keywords datasets
+#' @keywords datasets internal
 #'
 #' @examples
 #'
@@ -523,7 +523,7 @@ NULL
 #' Reference: \tab Bos & Wallinga (2012) and Baartman et al. (2011)
 #' }
 #'
-#' @keywords datasets
+#' @keywords datasets internal
 #'
 #' @examples
 #'
@@ -592,7 +592,8 @@ NULL
 #' Material: \tab Beach deposit, coarse grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader\cr
 #' }
 #'
-#' @examples
+#'
+#' @keywords datasets internal
 #'
 #' ##show LM data
 #' data(ExampleData.FittingLM, envir = environment())
@@ -621,6 +622,8 @@ NULL
 #' Material: \tab Middle grain (38-63 \eqn{\mu}m) quartz measured on a Risoe TL/OSL DA-15 reader.
 #' }
 #'
+#' @keywords datasets internal
+#'
 #' @examples
 #'
 #' ## plot Lx/Tx data vs dose [s]
@@ -643,6 +646,8 @@ NULL
 #'
 #' @source
 #' Arbitrary OSL measurement.
+#'
+#' @keywords datasets internal
 #'
 #' @examples
 #'
@@ -668,6 +673,8 @@ NULL
 #'
 #' @source
 #' Arbitrary measurements.
+#'
+#' @keywords datasets internal
 #'
 #' @examples
 #'
@@ -715,7 +722,7 @@ NULL
 #' Reference: \tab Kreutzer et al. (2014)
 #' }
 #'
-#' @keywords datasets
+#' @keywords datasets internal
 #'
 #' @examples
 #'
@@ -834,7 +841,7 @@ NULL
 #' Heating: \tab 1 K/s, up to 500 deg. C
 #' }
 #'
-#' @keywords datasets
+#' @keywords datasets internal
 #'
 #' @examples
 #' ##show data
@@ -1228,7 +1235,7 @@ NULL
 #' Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 #' Geochronometria 45, 56–67.
 #'
-#' @keywords datasets
+#' @keywords datasets internal
 #'
 #' @examples
 #'
