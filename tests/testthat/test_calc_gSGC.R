@@ -61,4 +61,9 @@ test_that("check functionality", {
                     Lr1Tr1 = 0.044, Lr1Tr1.error = 0.091,
                     Dr1 = 0.04)
   expect_silent(calc_gSGC(df2, plot = TRUE, verbose = FALSE))
+
+  df3 <- data.frame(LnTn = 521440.0361, LnTn.error = 0.087,
+                    Lr1Tr1 = 10.044, Lr1Tr1.error = -2.091,
+                    Dr1 = 10.04)
+  expect_silent(calc_gSGC(df3, plot = TRUE, verbose = FALSE))
 })

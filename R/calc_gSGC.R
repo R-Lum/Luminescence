@@ -87,9 +87,8 @@ calc_gSGC<- function(
   .set_function_name("calc_gSGC")
   on.exit(.unset_function_name(), add = TRUE)
 
-##============================================================================##
-##CHECK INPUT DATA
-##============================================================================##
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, "data.frame")
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")
@@ -97,6 +96,10 @@ calc_gSGC<- function(
 
   ##rename columns for consistency reasons
   colnames(data) <- c('LnTn', 'LnTn.error', 'Lr1Tr1', 'Lr1Tr1.error', 'Dr1')
+
+  ## ensure errors are not negative
+  data$LnTn.error <- abs(data$LnTn.error)
+  data$Lr1Tr1.error <- abs(data$Lr1Tr1.error)
 
 
 ##============================================================================##
