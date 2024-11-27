@@ -40,8 +40,10 @@ convert_SG2MG <- function(
   .set_function_name("convert_SG2MG")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests  -------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(object, c("character", "Risoe.BINfileData"))
+  .validate_not_empty(object)
 
   if(!is(object, "Risoe.BINfileData")) {
     file_name <- object

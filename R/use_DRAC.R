@@ -142,7 +142,11 @@ use_DRAC <- function(
     list(...),
     keep.null = TRUE)
 
-  # Integrity tests -----------------------------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
+  .validate_class(file, c("character", "DRAC.list", "DRAC.data.frame"))
+  .validate_not_empty(file)
+
   if (inherits(file, "character")) {
     if(!file.exists(file)){
       .throw_error("Input file does not exist")
@@ -171,8 +175,6 @@ use_DRAC <- function(
 
   } else if (inherits(file, "DRAC.data.frame")) {
     input.raw <- file
-  } else {
-    .throw_error("The provided data object is not a valid DRAC template.")
   }
 
   ## NOTE: if this limit is ever raised above 9999, the generation of

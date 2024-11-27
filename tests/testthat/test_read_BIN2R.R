@@ -5,6 +5,8 @@ test_that("input validation", {
 
   expect_error(read_BIN2R(TRUE),
                "'file' should be of class 'character' or 'list'")
+  expect_error(read_BIN2R(character(0)),
+               "'file' cannot be an empty character")
   expect_error(read_BIN2R(file = "error"),
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_message(expect_null(read_BIN2R(test_path("test_read_BIN2R.R"))),

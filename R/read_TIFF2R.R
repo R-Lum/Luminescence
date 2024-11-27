@@ -37,8 +37,10 @@ read_TIFF2R <- function(
   .set_function_name("read_TIFF2R")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(file, "character")
+  .validate_not_empty(file)
   .require_suggested_package("tiff", "Importing TIFF files")
 
   if(!file.exists(file))

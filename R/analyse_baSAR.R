@@ -789,6 +789,7 @@ analyse_baSAR <- function(
   .require_suggested_package("rjags")
   .require_suggested_package("coda")
   .validate_class(object, c("Risoe.BINfileData", "RLum.Results", "character", "list"))
+  .validate_not_empty(object)
   .validate_positive_scalar(n.MCMC, int = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
   distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
@@ -2369,5 +2370,3 @@ analyse_baSAR <- function(
     info = list(call = sys.call())
   ))
 }
-
-

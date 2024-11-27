@@ -75,6 +75,7 @@ read_Daybreak2R <- function(
   .validate_class(file, c("character", "list"))
 
   if(is(file, "character")) {
+    .validate_not_empty(file)
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
       if(verbose){
@@ -103,7 +104,7 @@ read_Daybreak2R <- function(
   }
 
 
-  # Integrity checks ----------------------------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ##check if file exists
   if(!file.exists(file)){

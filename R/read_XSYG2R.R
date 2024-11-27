@@ -206,6 +206,8 @@ read_XSYG2R <- function(
   # Option (b): The input is just a path, the function tries to grep ALL xsyg/XSYG files in the
   # directory and import them, if this is detected, we proceed as list
   if(is(file, "character")) {
+    .validate_not_empty(file)
+
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
       if (verbose)

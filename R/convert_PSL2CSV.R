@@ -61,9 +61,10 @@ convert_PSL2CSV <- function(
   .set_function_name("convert_PSL2CSV")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(file, c("character", "RLum"))
+  .validate_not_empty(file)
 
   ##set input arguments
   convert_PSL2R_settings.default <- list(

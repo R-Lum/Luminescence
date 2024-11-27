@@ -12,6 +12,8 @@ test_that("input validation", {
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(analyse_baSAR(data.frame(), verbose = FALSE),
                "'object' should be of class 'Risoe.BINfileData', 'RLum.Results'")
+  expect_error(analyse_baSAR(character(0), verbose = FALSE),
+               "'object' cannot be an empty character")
   expect_error(analyse_baSAR(list(data.frame()), verbose = FALSE),
                "All elements of 'object' should be of class 'Risoe.BINfileData'")
   expect_error(analyse_baSAR(list(CWOSL.sub, "error"), verbose = FALSE),

@@ -6,7 +6,9 @@ test_that("input validation", {
                "[use_DRAC()] Input file does not exist",
                fixed = TRUE)
   expect_error(use_DRAC(NA),
-               "The provided data object is not a valid DRAC template")
+               "'file' should be of class 'character', 'DRAC.list' or")
+  expect_error(use_DRAC(character(0)),
+               "'file' cannot be an empty character")
 
   ## CSV file with the wrong header
   fake <- data.table::fread(test_path("_data/DRAC_Input_Template.csv"))
@@ -110,4 +112,3 @@ test_that("Test DRAC", {
               "Transmission failed with HTTP status code: URL invalid")
  })
 })
-
