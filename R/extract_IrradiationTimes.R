@@ -175,6 +175,7 @@ extract_IrradiationTimes <- function(
 
   .validate_class(object, c("character", "RLum.Analysis"),
                   extra = "a 'list' of such objects")
+  .validate_not_empty(object)
 
   if (is.character(object[1])) {
 

@@ -1,14 +1,17 @@
-test_that("General test", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##get file
-  file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
-
-  ##stop
-  SW({
   expect_error(convert_PSL2CSV(),
                "'file' should be of class 'character' or 'RLum'")
-  })
+  expect_error(convert_PSL2CSV(character(0)),
+               "'file' cannot be an empty character")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  ## get file
+  file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
 
   ##the case where we have an object of type RLum
   expect_type(convert_PSL2CSV(read_PSL2R(file, verbose = FALSE), export = FALSE),
@@ -58,5 +61,4 @@ test_that("General test", {
                                 col.names = FALSE, verbose = FALSE))
   df <- read.table(file = list.files(path = tmp_path, pattern = ".csv", full.names = TRUE)[1], sep = ";", header = TRUE)
   expect_false(grepl(pattern = "USER", colnames(df)[1]))
-
 })

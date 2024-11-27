@@ -70,6 +70,7 @@ read_RF2R <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(file, "character", extra = "'list'")
+  .validate_not_empty(file)
 
   ##throw warning if we have a vector
   if(length(file) > 1){

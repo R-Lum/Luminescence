@@ -76,8 +76,11 @@ read_PSL2R <- function(
   .set_function_name("read_PSL2R")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## INPUT VALIDATION ----
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(file, "character")
+  .validate_not_empty(file)
+
   if (length(file) == 1) {
     if (!grepl(".psl$", file, ignore.case = TRUE)) {
       file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)

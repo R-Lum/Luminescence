@@ -151,6 +151,8 @@ read_BIN2R <- function(
   .validate_class(file, c("character", "list"))
 
   if (is.character(file)) {
+    .validate_not_empty(file)
+
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here
       if (all(dir.exists(file)) & length(dir(file)) > 0) {

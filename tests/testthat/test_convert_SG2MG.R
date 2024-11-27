@@ -3,6 +3,8 @@ test_that("input validation", {
 
   expect_error(convert_SG2MG(data.frame()),
                "'object' should be of class 'character' or 'Risoe.BINfileData'")
+  expect_error(convert_SG2MG(character(0)),
+               "'object' cannot be an empty character")
   expect_error(convert_SG2MG("error"),
                "File '.*error' does not exist") # windows CI needs the regexp
 })

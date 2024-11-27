@@ -23,6 +23,8 @@ test_that("input validation", {
 
   expect_error(read_PSL2R(data.frame()),
                "'file' should be of class 'character'")
+  expect_error(read_PSL2R(character(0)),
+               "'file' cannot be an empty character")
 
   ## directory given (assumes that we have a .psl file under inst/extdata)
   expect_message(

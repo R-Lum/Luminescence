@@ -6,7 +6,8 @@ test_that("input validation", {
 
   expect_error(extract_IrradiationTimes("fail"),
                "Wrong XSYG file name or file does not exist!")
-  expect_null(extract_IrradiationTimes(list()))
+  expect_error(extract_IrradiationTimes(character(0)),
+               "'object' cannot be an empty character")
   expect_error(extract_IrradiationTimes(tempdir()),
                "File is expected to have 'xsyg' or 'XSYG' extension")
   expect_error(extract_IrradiationTimes(FALSE),
@@ -64,4 +65,7 @@ test_that("Test the extraction of irradiation times", {
   expect_message(extract_IrradiationTimes(tmp_XSYG, file.BINX = tmp_BINX,
                                           txtProgressBar = FALSE),
                  "'Time Since Irradiation' was redefined in the exported BINX-file")
+
+  ## empty list
+  expect_null(extract_IrradiationTimes(list()))
 })
