@@ -96,7 +96,8 @@ plot_DoseResponseCurve <- function(
   .set_function_name("plot_DoseResponseCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## input validation
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(object, "RLum.Results")
   .validate_class(plot_extended, "logical")
   .validate_class(plot_singlePanels, "logical")
@@ -121,34 +122,30 @@ plot_DoseResponseCurve <- function(
   De.Error <- sd(na.exclude(x.natural))
 
   ## Graphical arguments ----------------------------------------------------
+
+  ymax <- max(xy$y) + if (max(xy$y) * 0.1 > 1.5) 1.5 else max(xy$y) * 0.2
+  ylim <- if (mode == "extrapolation" || fit.args$fit.force_through_origin) {
+            c(0 - max(y.Error), ymax)
+          } else {
+            c(0, ymax)
+          }
+
+  xmin <- if (!is.na(De)) min(De * 2, 0) else -min(xy$x) * 2
+  xmax <- max(xy$x) + if (max(xy$x) * 0.4 > 50) 50 else max(xy$x) * 0.4
+  xlim <- if (mode == "extrapolation") {
+            c(xmin, xmax)
+          } else {
+            c(0, xmax)
+          }
+
   ## set plot settings
   plot_settings <- modifyList(
     x = list(
       main = "Dose-response curve",
       xlab = "Dose [s]",
       ylab = if (mode == "interpolation") expression(L[x]/T[x]) else "Luminescence [a.u.]",
-      ylim =  if (fit.args$fit.force_through_origin || mode == "extrapolation") {
-        c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-
-      } else {
-        c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-      },
-      xlim =  if (mode != "extrapolation") {
-        c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-
-      } else {
-        if (!is.na(De)) {
-          if (De > 0) {
-            c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-
-          } else {
-            c(De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-          }
-
-        } else {
-          c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
-        }
-      },
+      ylim = ylim,
+      xlim = xlim,
       cex = 1,
       mtext = if (mode != "alternate") {
           substitute(
@@ -172,12 +169,11 @@ plot_DoseResponseCurve <- function(
   )
 
   ## Main plots -------------------------------------------------------------
+
   ## set plot check
   plot_check <- NULL
 
-  ## cheat the R check
-  x <- NULL; rm(x)
-    ## open plot area
+  ## open plot area
   par(cex = cex.global)
 
   if (plot_extended && !plot_singlePanels) {
@@ -188,7 +184,6 @@ plot_DoseResponseCurve <- function(
     ## set new parameter
     layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
     par(cex = 0.8 * plot_settings$cex)
-
   }
 
   #PLOT		#Plot input values
@@ -233,7 +228,6 @@ plot_DoseResponseCurve <- function(
         pch = 21,
         col = "black",
         cex = 1.1 * cex.global)
-
     }
 
     ## repeated Point
@@ -260,23 +254,14 @@ plot_DoseResponseCurve <- function(
 
     ## LINES	#Insert Ln/Tn
     if (mode == "interpolation") {
-      if (is.na(De)) {
-        lines(
-            c(par()$usr[1], max(sample[, 1]) * 2),
-            c(sample[1, 2], sample[1, 2]),
-            col = "red",
-            lty = 2,
-            lwd = 1.25)
-
-      } else {
-        try(lines(
-            c(par()$usr[1], De),
-            c(sample[1, 2], sample[1, 2]),
-            col = "red",
-            lty = 2,
-            lwd = 1.25
-        ), silent = TRUE)
-      }
+      xmax <- if (is.na(De)) max(sample[, 1]) * 2 else De
+      try(lines(
+          c(par()$usr[1], xmax),
+          c(sample[1, 2], sample[1, 2]),
+          col = "red",
+          lty = 2,
+          lwd = 1.25
+      ), silent = TRUE)
       try(lines(
           c(De, De),
           c(par()$usr[3], sample[1, 2]),
@@ -336,9 +321,8 @@ plot_DoseResponseCurve <- function(
         silent = TRUE)
 
     ## write error message in plot if De is NaN
-    try(if (De == "NaN") {
-          text(
-              sample[2, 1],
+    try(if (is.nan(De)) {
+          text(sample[2, 1],
               0,
               "Error: De could not be calculated!",
               adj = c(0, 0),
@@ -364,7 +348,6 @@ plot_DoseResponseCurve <- function(
             cex = 0.8 * cex.global,
             bty = "n")
       }
-
     }
 
     if (plot_extended) {
@@ -449,7 +432,7 @@ plot_DoseResponseCurve <- function(
         if ("TnTx" %in% colnames(sample)) {
           plot(
               1:length(sample[, "TnTx"]),
-              sample[1:(length(sample[, "TnTx"])), "TnTx"] / sample[1, "TnTx"],
+              sample[, "TnTx"] / sample[1, "TnTx"],
               xlab = "SAR cycle",
               ylab = expression(paste(T[x] / T[n])),
               main = "Test-dose response",
