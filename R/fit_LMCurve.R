@@ -1,6 +1,6 @@
 #' @title Non-linear Least Squares Fit for LM-OSL curves
 #'
-#' @description The function determines weighted nonl-inear least-squares estimates of the
+#' @description The function determines weighted non-linear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
 #' uses the function [nls] with the `port` algorithm.

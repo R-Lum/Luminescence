@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_LMCurve.R
 \name{fit_LMCurve}
 \alias{fit_LMCurve}
-\title{Nonlinear Least Squares Fit for LM-OSL curves}
+\title{Non-linear Least Squares Fit for LM-OSL curves}
 \usage{
 fit_LMCurve(
   values,
@@ -117,7 +117,7 @@ the relative component contribution for each time interval including the row
 sum for this values.
 }
 \description{
-The function determines weighted nonlinear least-squares estimates of the
+The function determines weighted non-linear least-squares estimates of the
 component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
 uses the function \link{nls} with the \code{port} algorithm.
