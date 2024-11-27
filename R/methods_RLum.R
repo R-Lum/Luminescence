@@ -1,6 +1,6 @@
-##################################################################################
+##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
 ##                      METHODS FOR S3 GENERICS                                 ##
-##################################################################################
+##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
 
 ##CAUTION NOTE:
 ##(1) Please DO NOT access to the S4 objects by using the slots this causes inconsistent
@@ -18,8 +18,7 @@
 ##
 
 
-## -------------------- INTRODUCED WITH 0.5.0 ----------------------- ##
-
+##  INTRODUCED WITH 0.5.0 ##
 
 #' methods_RLum
 #'
@@ -91,8 +90,7 @@
 #' @name methods_RLum
 NULL
 
-#############################################################################
-# methods for generic: plot()
+# plot()------------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @method plot list
@@ -139,7 +137,7 @@ plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(data = x, ...)
 
 #############################################################################
-# methods for generic: hist()
+# hist() ---------------
 
 #' @rdname methods_RLum
 #' @export
@@ -237,7 +235,6 @@ subset.RLum.Analysis <- function(x, subset = NULL, ...) {
 
 #############################################################################
 # methods for generic: bin()
-
 #' @rdname methods_RLum
 #' @export
 bin <- function(x, ...) {
