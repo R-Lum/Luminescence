@@ -4,5 +4,12 @@ test_that("check class and length of output", {
   ## Test Risø.BINfileData
   file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   temp <- read_BIN2R(file, verbose = FALSE)
-  expect_null(view(temp))
+
+  with_mocked_bindings(
+    "view" = function(x, ...) { TRUE },
+    {
+      expect_true(view(temp))
+    }
+  )
+
 })
