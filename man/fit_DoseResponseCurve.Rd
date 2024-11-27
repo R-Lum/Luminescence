@@ -5,7 +5,7 @@
 \title{Fit a dose-response curve for luminescence data (Lx/Tx against dose)}
 \usage{
 fit_DoseResponseCurve(
-  sample,
+  object,
   mode = "interpolation",
   fit.method = "EXP",
   fit.force_through_origin = FALSE,
@@ -21,12 +21,12 @@ fit_DoseResponseCurve(
 )
 }
 \arguments{
-\item{sample}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
+\item{object}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If \code{sample} is a list,
-the function is called on each its elements.}
+(including the natural) should be provided. If \code{object} is a list,
+the function is called on each of its elements.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
@@ -106,7 +106,7 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 \code{..$call} : \tab \code{call} \tab The original function call\cr
 }
 
-If \code{sample} is a list, then the function returns a list of \code{RLum.Results}
+If \code{object} is a list, then the function returns a list of \code{RLum.Results}
 objects as defined above.
 }
 \description{

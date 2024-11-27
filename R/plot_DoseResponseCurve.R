@@ -106,7 +106,7 @@ plot_DoseResponseCurve <- function(
   ## Fitting arguments ------------------------------------------------------
   fit.args <- object$Fit.Args
   mode <- fit.args$mode
-  sample <- fit.args$sample
+  sample <- fit.args$object
 
   ## for interpolation the first point is considered as natural dose
   first.idx <- ifelse(mode == "interpolation", 2, 1)

@@ -4,15 +4,15 @@ data(ExampleData.LxTxData, envir = environment())
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## sample
+  ## object
   expect_error(
       fit_DoseResponseCurve("error"),
-      "[fit_DoseResponseCurve()] 'sample' should be of class 'data.frame'",
+      "[fit_DoseResponseCurve()] 'object' should be of class 'data.frame'",
       fixed = TRUE)
   expect_error(fit_DoseResponseCurve(data.frame()),
-               "'sample' cannot be an empty data.frame")
+               "'object' cannot be an empty data.frame")
   expect_error(fit_DoseResponseCurve(as.list(LxTxData)),
-               "All elements of 'sample' should be of class 'data.frame'")
+               "All elements of 'object' should be of class 'data.frame'")
 
   ## mode
   expect_error(
@@ -74,8 +74,7 @@ test_that("weird LxTx values", {
   ##fit
   SW({
   expect_warning(
-    fit_DoseResponseCurve(
-      sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")]),
+    fit_DoseResponseCurve(LxTx[, c("Dose", "LxTx", "LxTx.Error")]),
     "Inf values found, replaced by NA")
   })
 
@@ -119,7 +118,7 @@ test_that("weird LxTx values", {
   ## do not include reg point
   expect_s4_class(
     fit_DoseResponseCurve(
-      sample = LxTxData,
+      LxTxData,
       verbose = FALSE,
       fit.includingRepeatedRegPoints = FALSE),
     class = "RLum.Results")
@@ -145,7 +144,7 @@ test_that("weird LxTx values", {
   ## do not include reg point
   t <- expect_s4_class(
     fit_DoseResponseCurve(
-      sample = df_odd,
+      df_odd,
       verbose = FALSE),
     class = "RLum.Results")
 

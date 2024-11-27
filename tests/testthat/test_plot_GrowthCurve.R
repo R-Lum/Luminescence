@@ -6,7 +6,7 @@ test_that("input validation", {
 
   expect_error(
       plot_GrowthCurve("error"),
-      "[fit_DoseResponseCurve()] 'sample' should be of class 'data.frame'",
+      "[fit_DoseResponseCurve()] 'object' should be of class 'data.frame'",
       fixed = TRUE)
   expect_error(
       plot_GrowthCurve(LxTxData, mode = "error"),
