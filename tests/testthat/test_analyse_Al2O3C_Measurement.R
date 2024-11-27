@@ -46,6 +46,11 @@ test_that("check functionality", {
   expect_s4_class(analyse_Al2O3C_Measurement(data_CrossTalk,
                                              calculate_TL_dose = TRUE),
                   "RLum.Results")
+  expect_output(analyse_Al2O3C_Measurement(data_CrossTalk,
+                        test_parameter = list(stimulation_power = 0.03)))
+  expect_output(analyse_Al2O3C_Measurement(data_CrossTalk,
+                        test_parameter = list(list(stimulation_power = 0.1),
+                                              list(stimulation_power = 0.2))))
   })
   expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
                         test_parameter = list(stimulation_power = 0.01)))
