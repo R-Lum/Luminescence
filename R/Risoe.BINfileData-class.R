@@ -1,4 +1,4 @@
-#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R
+#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R view.R
 NULL
 
 #' Class `"Risoe.BINfileData"`
@@ -17,7 +17,7 @@ NULL
 #'
 #' @slot .RESERVED Object of class "list" containing list of undocumented raw values for internal use only.
 #'
-#' @keywords internal
+#' @keywords class
 #'
 #' @note
 #'
@@ -425,8 +425,7 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
-# get method for object class -----------------------------------
-
+# get () -----------------------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' Formal get-method for Risoe.BINfileData object. It does not allow accessing
 #' the object directly, it is just showing a terminal message.
@@ -443,7 +442,32 @@ setMethod("get_Risoe.BINfileData",
 
             cat("[get_Risoe.BINfileData()] No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
 
-          })##end setMethod
+          }
+)
 
-##-------------------------------------------------------------------------------------------------##
-##=================================================================================================##
+# view () -----------------------------------------------------------------------
+#'@describeIn Risoe.BINfileData
+#'View method for [Risoe.BINfileData-class] objects
+#'
+#'@param object an object of class [Risoe.BINfileData-class]
+#'
+#'@param ... other arguments that might be passed
+#'
+#'@keywords internal
+#'
+#'@md
+#'@export
+setMethod("view",
+          signature= "Risoe.BINfileData",
+          definition = function(object, ...) {
+
+    ## set title
+    name <- list(...)$title
+    if(is.null(list(...)$title))
+      name <- deparse(substitute(object))
+
+    ## run view
+    .view(x = object@METADATA, title = name)
+
+})
+

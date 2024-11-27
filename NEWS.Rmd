@@ -27,6 +27,9 @@ and `RLum.Analysis-class` objects and lists of such objects.
 * `merge_RLum.Data.Spectrum()`: This new function allows to merge two or
 more `RLum.Data.Spectrum` objects in different ways (#368, fixed in #419).
 
+* `view()`: A short cut to the `utils::View()` spreadsheet-like data viewer tailored to the 
+objects in the package.
+
 ## Breaking changes
 * We have dropped our dependency on the `readxl` package: functions
 `analyse_baSAR()` and `use_DRAC()` now do not accept XLS files anymore but

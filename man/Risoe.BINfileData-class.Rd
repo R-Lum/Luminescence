@@ -6,6 +6,7 @@
 \alias{show,Risoe.BINfileData-method}
 \alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
+\alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{show}{Risoe.BINfileData}(object)
@@ -17,6 +18,8 @@
 )
 
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
+
+\S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
 \item{object}{an object of class \linkS4class{Risoe.BINfileData}}
@@ -44,6 +47,8 @@ This construction method is intended for internal usage only.
 
 \item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.
+
+\item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects
 
 }}
 \section{Slots}{
@@ -241,12 +246,7 @@ The representation in R is a nested \link{list}.
 
 showClass("Risoe.BINfileData")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Risø DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risø DTU, 2016.
 
@@ -261,6 +261,7 @@ The Sequence Editor User Manual - February 2016
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
-, RLum Developer Team}
+}
+\keyword{class}
 \keyword{classes}
 \keyword{internal}

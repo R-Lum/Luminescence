@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.26.9000-22
-Date: 2024-11-25
+Version: 0.9.26.9000-72
+Date: 2024-11-27
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
@@ -96,6 +96,7 @@ Collate:
     'RLum.Data.Image-class.R'
     'RLum.Data.Spectrum-class.R'
     'RLum.Results-class.R'
+    'view.R'
     'set_Risoe.BINfileData.R'
     'get_Risoe.BINfileData.R'
     'Risoe.BINfileData-class.R'
@@ -216,6 +217,7 @@ Collate:
     'use_DRAC.R'
     'utils_DRAC.R'
     'verify_SingleGrainData.R'
+    'view_Risoe.BINfileData.R'
     'write_R2BIN.R'
     'write_R2TIFF.R'
     'write_RLum2CSV.R'
