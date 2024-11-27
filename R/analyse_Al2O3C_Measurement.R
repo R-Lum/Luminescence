@@ -152,7 +152,7 @@ analyse_Al2O3C_Measurement <- function(
   .set_function_name("analyse_Al2O3C_Measurement")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Self call -----------------------------------------------------------------------------------
+  ## Self call --------------------------------------------------------------
   if(is(object, "list")){
 
     .validate_not_empty(object, "list")
@@ -171,7 +171,10 @@ analyse_Al2O3C_Measurement <- function(
     irradiation_time_correction <- .listify(irradiation_time_correction,
                                             rep.length)
     cross_talk_correction <- .listify(cross_talk_correction, rep.length)
-    test_parameters <- .listify(test_parameters, rep.length)
+
+    ## since `test_parameters` is always expected to be a list, we can't
+    ## use .listify() as it will not generate sublists
+    test_parameters <- rep(list(test_parameters), rep.length)
 
     ##plot
     if(is(plot, "logical")){
@@ -267,7 +270,7 @@ analyse_Al2O3C_Measurement <- function(
     return(results)
   }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   ##TODO ... do more, push harder
   ##Add sufficient unit tests
@@ -275,7 +278,7 @@ analyse_Al2O3C_Measurement <- function(
   .validate_class(object, "RLum.Analysis",
                   extra = "a 'list' of such objects")
 
-  # Preparation ---------------------------------------------------------------------------------
+  ## Preparation ------------------------------------------------------------
 
   ##select curves based on the recordType selection; if not NULL
   if(!is.null(recordType)){
