@@ -87,12 +87,12 @@
 #' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
 #' Each error estimation is done with the function of the chosen fitting method.
 #'
-#' @param sample [data.frame] or a [list] of such objects (**required**):
+#' @param object [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
-#' (including the natural) should be provided. If `sample` is a list,
-#' the function is called on each its elements.
+#' (including the natural) should be provided. If `object` is a list,
+#' the function is called on each of its elements.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
@@ -168,7 +168,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' If `sample` is a list, then the function returns a list of `RLum.Results`
+#' If `object` is a list, then the function returns a list of `RLum.Results`
 #' objects as defined above.
 #'
 #' @section Function version: 1.2.1
@@ -254,7 +254,7 @@
 #' @md
 #' @export
 fit_DoseResponseCurve <- function(
-  sample,
+  object,
   mode = "interpolation",
   fit.method = "EXP",
   fit.force_through_origin = FALSE,
@@ -272,14 +272,14 @@ fit_DoseResponseCurve <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Self-call --------------------------------------------------------------
-  if (inherits(sample, "list")) {
-    lapply(sample,
+  if (inherits(object, "list")) {
+    lapply(object,
            function(x) .validate_class(x, c("data.frame", "matrix"),
-                                       name = "All elements of 'sample'"))
+                                       name = "All elements of 'object'"))
 
-    results <- lapply(sample, function(x) {
+    results <- lapply(object, function(x) {
       fit_DoseResponseCurve(
-          sample = x,
+          object = x,
           mode = mode,
           fit.method = fit.method,
           fit.force_through_origin = fit.force_through_origin,
@@ -299,8 +299,8 @@ fit_DoseResponseCurve <- function(
   }
   ## Self-call end ----------------------------------------------------------
 
-  .validate_class(sample, c("data.frame", "matrix", "list"))
-  .validate_not_empty(sample)
+  .validate_class(object, c("data.frame", "matrix", "list"))
+  .validate_not_empty(object)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN",
                             "EXP+LIN", "EXP+EXP", "GOK", "LambertW")
@@ -315,40 +315,41 @@ fit_DoseResponseCurve <- function(
 
   ## convert input to data.frame
   switch(
-    class(sample)[1],
-    data.frame = sample,
-    matrix = sample <- as.data.frame(sample),
+    class(object)[1],
+    data.frame = object,
+    matrix = object <- as.data.frame(object),
   )
 
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
-  if(ncol(sample) == 2)
-    sample <- cbind(sample, 0)
+  if (ncol(object) == 2)
+    object <- cbind(object, 0)
 
   ##2.2 check for inf data in the data.frame
-  if(any(is.infinite(unlist(sample)))){
-      #https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
-      #This is slow, but it does not break with previous code
-      sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
+  if (any(is.infinite(unlist(object)))) {
+    ## https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
+    ## This is slow, but it does not break with previous code
+    object <- do.call(data.frame,
+                      lapply(object, function(x) replace(x, is.infinite(x), NA)))
       .throw_warning("Inf values found, replaced by NA")
   }
 
   ##2.3 check whether the dose value is equal all the time
-  if(sum(abs(diff(sample[[1]])), na.rm = TRUE) == 0){
+  if (sum(abs(diff(object[[1]])), na.rm = TRUE) == 0) {
     .throw_message("All points have the same dose, NULL returned")
     return(NULL)
   }
 
   ## count and exclude NA values and print result
-  if (sum(!complete.cases(sample)) > 0)
-    .throw_warning(sum(!complete.cases(sample)),
+  if (sum(!complete.cases(object)) > 0)
+    .throw_warning(sum(!complete.cases(object)),
                    " NA values removed")
 
   ## exclude NA
-  sample <- na.exclude(sample)
+  object <- na.exclude(object)
 
   ## Check if anything is left after removal
-  if (nrow(sample) == 0) {
+  if (nrow(object) == 0) {
     .throw_message("After NA removal, nothing is left from the data set, ",
                    "NULL returned")
     return(NULL)
@@ -359,23 +360,23 @@ fit_DoseResponseCurve <- function(
     txtProgressBar <- FALSE
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
-  rownames(sample) <- NULL
+  rownames(object) <- NULL
 
   ## zero values in the data.frame are not allowed for the y-column
-  y.zero <- sample[, 2] == 0
+  y.zero <- object[, 2] == 0
   if (sum(y.zero) > 0) {
     .throw_warning(sum(y.zero), " values with 0 for Lx/Tx detected, ",
                    "replaced by ", .Machine$double.eps)
-    sample[y.zero, 2] <- .Machine$double.eps
+    object[y.zero, 2] <- .Machine$double.eps
   }
 
   ##1. INPUT
   #1.0.1 calculate number of reg points if not set
   if(is.null(fit.NumberRegPoints))
-    fit.NumberRegPoints <- length(sample[-1,1])
+    fit.NumberRegPoints <- length(object[-1,1])
 
   if(is.null(fit.NumberRegPointsReal)){
-    fit.RegPointsReal <- which(!duplicated(sample[,1]) | sample[,1] != 0)
+    fit.RegPointsReal <- which(!duplicated(object[,1]) | object[,1] != 0)
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
   }
 
@@ -385,9 +386,9 @@ fit_DoseResponseCurve <- function(
   first.idx <- ifelse(mode == "interpolation", 2, 1)
   last.idx <- fit.NumberRegPoints + 1
 
-  xy <- sample[first.idx:last.idx, 1:2]
+  xy <- object[first.idx:last.idx, 1:2]
   colnames(xy) <- c("x", "y")
-  y.Error <- sample[first.idx:last.idx, 3]
+  y.Error <- object[first.idx:last.idx, 3]
 
   ##1.1.1 produce weights for weighted fitting
   if(fit.weights){
@@ -412,8 +413,8 @@ fit_DoseResponseCurve <- function(
       FUN = function(x) {
         sample(rnorm(
           n = 10000,
-          mean = sample[x, 2],
-          sd = abs(sample[x, 3])
+          mean = object[x, 2],
+          sd = abs(object[x, 3])
         ),
         size = NumberIterations.MC,
         replace = TRUE)
@@ -424,7 +425,7 @@ fit_DoseResponseCurve <- function(
   if (mode == "interpolation") {
     #1.3 Do the same for the natural signal
     data.MC.De <-
-      sample(rnorm(10000, mean = sample[1, 2], sd = abs(sample[1, 3])),
+      sample(rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
              NumberIterations.MC,
              replace = TRUE)
   }
@@ -573,7 +574,7 @@ fit_DoseResponseCurve <- function(
     }
 
     if (mode == "interpolation") {
-      y <- sample[1, 2]
+      y <- object[1, 2]
       lower <- 0
     } else if (mode == "extrapolation") {
       y <- 0
@@ -590,7 +591,7 @@ fit_DoseResponseCurve <- function(
                                 fit = fit,
                                 y = y,
                                 lower = lower,
-                                upper = max(sample[, 1]) * 1.5), silent = TRUE)
+                                upper = max(object[, 1]) * 1.5), silent = TRUE)
 
       if (!inherits(De.uniroot, "try-error")) {
         De <- De.uniroot$root
@@ -624,7 +625,7 @@ fit_DoseResponseCurve <- function(
                                      fit = fit.MC,
                                      y = y,
                                      lower = lower,
-                                     upper = max(sample[, 1]) * 1.5),
+                                     upper = max(object[, 1]) * 1.5),
                              silent = TRUE)
 
         if (!inherits(De.uniroot.MC, "try-error")) {
@@ -734,7 +735,7 @@ fit_DoseResponseCurve <- function(
         #calculate De
         De <- NA
         if(mode == "interpolation"){
-          De <- suppressWarnings(-c-b*log(1-sample[1,2]/a))
+          De <- suppressWarnings(-c - b * log(1 - object[1, 2] / a))
 
           ## account for the fact that we can still calculate a De that is negative
           ## even it does not make sense
@@ -837,7 +838,7 @@ fit_DoseResponseCurve <- function(
       }
 
       if (mode == "interpolation") {
-        y <- sample[1, 2]
+        y <- object[1, 2]
       } else if (mode == "extrapolation") {
         y <- 0
       }
@@ -979,7 +980,7 @@ fit_DoseResponseCurve <- function(
       }
 
       if (mode == "interpolation") {
-        LnTn <- sample[1, 2]
+        LnTn <- object[1, 2]
         min.val <- 0
       } else if (mode == "extrapolation") {
         LnTn <- 0
@@ -1189,7 +1190,7 @@ fit_DoseResponseCurve <- function(
           a2 = a2,
           b1 = b1,
           b2 = b2,
-          LnTn = sample[1, 2],
+          LnTn = object[1, 2],
           extendInt = "yes",
           maxiter = 3000
         ),
@@ -1327,7 +1328,7 @@ fit_DoseResponseCurve <- function(
       d <- as.vector((parameters["d"]))
 
       #calculate De
-      y <- sample[1,2]
+      y <- object[1, 2]
       De <- switch(
         mode,
         "interpolation" = suppressWarnings(-(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
@@ -1442,18 +1443,18 @@ fit_DoseResponseCurve <- function(
              De <- try(suppressWarnings(stats::uniroot(
                f = function(x, R, Dc, N, Dint, LnTn) {
                  fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
-               interval = c(0, max(sample[[1]]) * 1.2),
+               interval = c(0, max(object[[1]]) * 1.2),
                R = R,
                Dc = Dc,
                N = N,
                Dint = Dint,
-               LnTn = sample[1,2])$root), silent = TRUE)
+               LnTn = object[1, 2])$root), silent = TRUE)
 
           }else if (mode == "extrapolation"){
             De <- try(suppressWarnings(stats::uniroot(
               f = function(x, R, Dc, N, Dint) {
                 fit.functionLambertW(R, Dc, N, Dint, x)},
-              interval = c(-max(sample[[1]]),0),
+              interval = c(-max(object[[1]]), 0),
               R = R,
               Dc = Dc,
               N = N,
@@ -1470,7 +1471,7 @@ fit_DoseResponseCurve <- function(
               De <- try(suppressWarnings(stats::optimize(
                 f = function(x, R, Dc, N, Dint) {
                   fit.functionLambertW(R, Dc, N, Dint, x)},
-                interval = c(-max(sample[[1]]),0),
+                interval = c(-max(object[[1]]), 0),
                 R = R,
                 Dc = Dc,
                 N = N,
@@ -1522,7 +1523,7 @@ fit_DoseResponseCurve <- function(
                 {suppressWarnings(stats::uniroot(
                   f = function(x, R, Dc, N, Dint, LnTn) {
                     fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
-                  interval = c(0, max(sample[[1]]) * 1.2),
+                  interval = c(0, max(object[[1]]) * 1.2),
                   R = var.R[i],
                   Dc = var.Dc[i],
                   N = var.N[i],
@@ -1535,7 +1536,7 @@ fit_DoseResponseCurve <- function(
                   suppressWarnings(stats::uniroot(
                     f = function(x, R, Dc, N, Dint) {
                       fit.functionLambertW(R, Dc, N, Dint, x)},
-                    interval = c(-max(sample[[1]]), 0),
+                    interval = c(-max(object[[1]]), 0),
                     R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N[i],
@@ -1546,7 +1547,7 @@ fit_DoseResponseCurve <- function(
                   try <- try(suppressWarnings(stats::optimize(
                     f = function(x, R, Dc, N, Dint) {
                       fit.functionLambertW(R, Dc, N, Dint, x)},
-                    interval = c(-max(sample[[1]]),0),
+                    interval = c(-max(object[[1]]), 0),
                     R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N[i],
@@ -1646,7 +1647,7 @@ fit_DoseResponseCurve <- function(
       De.MC = x.natural,
       Fit = fit,
       Fit.Args = list(
-          sample = sample,
+          object = object,
           fit.method = fit.method,
           mode = mode,
           fit.force_through_origin = fit.force_through_origin,

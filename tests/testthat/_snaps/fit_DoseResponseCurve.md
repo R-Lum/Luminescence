@@ -111,7 +111,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -352,7 +352,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -593,7 +593,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -759,12 +759,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1792.84642796]
+                  "value": [1792.84643199]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [86.47327657]
+                  "value": [86.47320469]
                 },
                 {
                   "type": "logical",
@@ -799,12 +799,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1803.21631787]
+                  "value": [1803.21636269]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1792.84642796]
+                  "value": [1792.84643199]
                 },
                 {
                   "type": "character",
@@ -814,19 +814,19 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1710.77610672]
+                  "value": [1710.77644211]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1914.52462249]
+                  "value": [1914.52469575]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1914.24507169, 1828.69651434, 1745.45958838, 1778.69356335, 1893.51533194, 1672.19640451, 1796.04639439, 1911.58346151, 1688.02254728, 1803.70430134]
+              "value": [1914.24507824, 1828.69651439, 1745.45958689, 1778.69354572, 1893.51534248, 1672.1968566, 1796.04640723, 1911.58346408, 1688.02253938, 1803.70429191]
             },
             {
               "type": "list",
@@ -834,7 +834,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -1075,7 +1075,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -1316,7 +1316,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -1557,7 +1557,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -1798,7 +1798,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -2039,7 +2039,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [
@@ -2280,7 +2280,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
                 }
               },
               "value": [

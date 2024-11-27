@@ -452,7 +452,7 @@ calc_Huntley2006 <- function(
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
 
   GC.settings <- list(
-    sample = data.tmp,
+    object = data.tmp,
     mode = "interpolation",
     fit.method = fit.method[1],
     fit.bounds = TRUE,
@@ -608,7 +608,7 @@ calc_Huntley2006 <- function(
   data.unfaded$LxTx.error[2] <- 0.0001
 
   GC.settings <- list(
-    sample = data.unfaded,
+    object = data.unfaded,
     mode = "interpolation",
     fit.method = fit.method[1],
     fit.bounds = TRUE,

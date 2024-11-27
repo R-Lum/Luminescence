@@ -237,7 +237,7 @@ analyse_Al2O3C_ITC <- function(
 
   ##calculate GC
   GC <- fit_DoseResponseCurve(
-    sample = df_mean,
+    object = df_mean,
     mode = method_control_settings$mode,
     fit.method = method_control_settings$fit.method,
     verbose = FALSE

@@ -620,7 +620,7 @@ analyse_SAR.TL <- function(
 
   ##run curve fitting
   temp.GC <- try(fit_DoseResponseCurve(
-    sample = temp.sample,
+    object = temp.sample,
     ...
   ))
 
