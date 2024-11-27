@@ -113,6 +113,10 @@ become zero leads to infinities and buggy behaviour (also fixed in #304).
 * A number of crashes related to input validation have been fixed (#471,
 fixed in #472).
 
+### `calc_gSGC()`
+* The function crashed if the data contained negative errors: to avoid this,
+we now take the absolute values of errors (#479, fixed in #481).
+
 ### `calc_IEU()`
 * The code of this function has been consolidated to avoid duplication and
 make its debugging easier: this has uncovered a small coding error and also
