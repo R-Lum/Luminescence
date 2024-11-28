@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R view.R
 NULL
 
 #' Class `"RLum.Analysis"`
@@ -789,3 +789,34 @@ setMethod(
     melt_RLum(object@records)
   }
 )
+
+## view() -------------------------------------------------------------------
+#' @describeIn RLum.Analysis
+#'
+#' View method for [RLum.Analysis-class] objects
+#'
+#' @param object an object of class [RLum.Analysis-class]
+#'
+#' @param ... other arguments that might be passed
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("view",
+          signature = "RLum.Analysis",
+          definition = function(object, ...) {
+
+    ## set title
+    name <- list(...)$title
+    if (is.null(name))
+      name <- deparse(substitute(object))
+
+    ## collect info lists from all records
+    info <- lapply(seq_along(object@records),
+                   function(x) c(aliquot = x, object@records[[x]]@info))
+    info <- rbindlist(info, fill = TRUE)
+
+    ## run view
+    .view(x = info, title = name)
+})
