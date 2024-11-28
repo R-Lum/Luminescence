@@ -115,8 +115,8 @@ trim_RLum.Data <- function(
 
   ## RLum.Data.Image
   .trim_RLum.Data.Image <- function(object, type, range){
-    ## only if type is matched
-    if (any(object@recordType[1] %in% type)) {
+    ## only if type is matched and data is not empty
+    if (any(object@recordType[1] %in% type && length(dim(object@data)) == 3)) {
       range <- pmin(range, dim(object@data)[3])
       object@data <- object@data[, , range[1]:range[2], drop = FALSE]
     }

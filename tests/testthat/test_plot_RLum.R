@@ -25,6 +25,7 @@ test_that("check functionality", {
 
   ## empty object
   expect_silent(plot_RLum(set_RLum("RLum.Analysis")))
+  expect_silent(plot_RLum(set_RLum("RLum.Data.Image")))
 
   ## plot results objects
   data(ExampleData.BINfileData, envir = environment())

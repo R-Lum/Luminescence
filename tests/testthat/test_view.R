@@ -3,6 +3,13 @@ data(ExampleData.RLum.Analysis)
 data(ExampleData.RLum.Data.Image, envir = environment())
 data(ExampleData.XSYG, envir = environment())
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(view(set_RLum("RLum.Data.Image")),
+               "'info' slot cannot be an empty list")
+})
+
 test_that("check functionality", {
   testthat::skip_on_cran()
 

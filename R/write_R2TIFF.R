@@ -40,12 +40,12 @@ write_R2TIFF <- function(
   .set_function_name("write_R2TIFF")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   ## most of the users don't need this import, no need to bother them
   ## with required libraries
   .require_suggested_package("tiff", "Exporting objects to TIFF files")
 
-# Transform  --------------------------------------------------------------
   ## make a list ... it is just easier
   if(!is(object, "list"))
     object <- list(object)
@@ -53,8 +53,13 @@ write_R2TIFF <- function(
   ## check list input
   sapply(object, function(x) {
     .validate_class(x, c("RLum.Data.Image", "RLum.Data.Spectrum"),
+                    extra = "a 'list' of such objects",
                     name = "'object'")
+    if (inherits(x, "RLum.Data.Image") && length(dim(x@data)) != 3)
+      .throw_error("Empty RLum.Data.Image object detected")
   })
+
+  ## Prepare filenames ------------------------------------------------------
 
   ## check path
   if(!dir.exists(dirname(file)))
@@ -69,7 +74,8 @@ write_R2TIFF <- function(
   if(length(object) > 1)
     file <- normalizePath(paste0(file_dir,"/",file_base,"_",1:length(object),".tiff"), mustWork = FALSE)
 
-# Export to TIFF ----------------------------------------------------------
+  ## Export to TIFF ---------------------------------------------------------
+
   ## remove arguments we already use
   args <- list(...)[!list(...) %in% c("what", "where")]
 
@@ -77,7 +83,6 @@ write_R2TIFF <- function(
   args <- modifyList(x = list(
     bits.per.sample = 16L
   ), args)
-
 
   for (i in seq_along(object)) {
     object[[i]]@data[] <- as.numeric(object[[i]]@data)

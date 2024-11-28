@@ -14,6 +14,8 @@ test_that("input validation", {
                "'objects' cannot be an empty list")
   expect_error(merge_RLum.Analysis(set_RLum("RLum.Analysis")),
                "'objects' cannot be an empty RLum.Analysis")
+  expect_error(merge_RLum.Analysis(set_RLum("RLum.Data.Image")),
+               "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(c1)),
                "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(o1, "test")),

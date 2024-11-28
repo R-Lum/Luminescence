@@ -31,4 +31,7 @@ test_that("Test image plotting", {
     ## contour ---
     expect_silent(plot_RLum.Data.Image(image, plot.type = "contour",
                                        stretch = NULL))
+
+  ## empty image
+  expect_null(plot_RLum.Data.Image(set_RLum("RLum.Data.Image")))
 })

@@ -112,6 +112,9 @@ test_that("RLum.Data.Image", {
   testthat::expect_s4_class(
     trim_RLum.Data(ExampleData.RLum.Data.Image, trim_range = c(10, 100)),
     class = "RLum.Data.Image")
+
+  empty <- set_RLum("RLum.Data.Image")
+  expect_equal(empty, trim_RLum.Data(empty))
 })
 
 test_that("RLum.Analysis", {

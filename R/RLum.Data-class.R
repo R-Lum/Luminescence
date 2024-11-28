@@ -51,6 +51,10 @@ setClass("RLum.Data",
 setMethod("view",
           signature = "RLum.Data",
           definition = function(object, ...) {
+  .set_function_name("view")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  .validate_not_empty(object@info, name = "'info' slot")
 
     ## set title
     name <- list(...)$title

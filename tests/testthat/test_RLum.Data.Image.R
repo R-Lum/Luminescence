@@ -44,9 +44,11 @@ test_that("check class ", {
   expect_s4_class(as(list(), "RLum.Data.Image"),
                   "RLum.Data.Image")
   expect_type(as(ExampleData.RLum.Data.Image, "list"), "list")
+  res <- as(set_RLum("RLum.Data.Image"), "list")
+  expect_type(res, "list")
+  expect_length(res, 0)
 
   ## check edge cases
   expect_error(as(from_array, "matrix"), "No viable coercion to matrix, object contains multiple frames. Please convert to array instead.")
   expect_error(as(from_array, "data.frame"), "No viable coercion to data.frame, object contains multiple frames.")
-
 })

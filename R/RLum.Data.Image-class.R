@@ -158,8 +158,11 @@ setAs("list", "RLum.Data.Image",
 ## to list ----
 setAs("RLum.Data.Image", "list",
       function(from){
-       lapply(1:dim(from@data)[3], function(x) from@data[,,x])
-    })
+        num.images <- dim(from@data)[3]
+        if (is.na(num.images))
+          return(list())
+        lapply(1:num.images, function(x) from@data[,,x])
+      })
 
 # show() --------------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Image
