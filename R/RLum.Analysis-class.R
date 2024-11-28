@@ -592,7 +592,7 @@ setMethod("get_RLum",
 #' Method to show the structure of an [RLum.Analysis-class] object.
 #'
 #' @param fullExtent [structure_RLum]; [logical] (*with default*):
-#' extents the returned `data.frame` to its full extent, i.e. all info elements
+#' extends the returned `data.frame` to its full extent, i.e. all info elements
 #' are part of the return as well. The default value is `FALSE` as the data
 #' frame might become rather big.
 #'
