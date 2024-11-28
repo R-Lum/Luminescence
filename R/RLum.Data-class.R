@@ -1,3 +1,6 @@
+#' @include view.R
+NULL
+
 #' @title Class `"RLum.Data"`
 #'
 #' @description Generalized virtual data class for luminescence data.
@@ -32,3 +35,28 @@ setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
 )
 
+## view() -------------------------------------------------------------------
+#' @describeIn RLum.Data
+#'
+#' View method for [RLum.Data-class] objects
+#'
+#' @param object an object of class [RLum.Data-class]
+#'
+#' @param ... other arguments that might be passed
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("view",
+          signature = "RLum.Data",
+          definition = function(object, ...) {
+
+    ## set title
+    name <- list(...)$title
+    if (is.null(name))
+      name <- deparse(substitute(object))
+
+    ## run view
+    .view(x = object@info, title = name)
+})

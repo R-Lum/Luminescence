@@ -3,10 +3,24 @@
 \docType{class}
 \name{RLum.Data-class}
 \alias{RLum.Data-class}
+\alias{view,RLum.Data-method}
 \title{Class \code{"RLum.Data"}}
+\usage{
+\S4method{view}{RLum.Data}(object, ...)
+}
+\arguments{
+\item{object}{an object of class \linkS4class{RLum.Data}}
+
+\item{...}{other arguments that might be passed}
+}
 \description{
 Generalized virtual data class for luminescence data.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{view(RLum.Data)}: View method for \linkS4class{RLum.Data} objects
+
+}}
 \note{
 Just a virtual class.
 }
