@@ -122,7 +122,7 @@ An environment passed to \link{eval} as the enclosure. This argument is only
 relevant when subsetting the object and should not be used manually.}
 
 \item{fullExtent}{\link{structure_RLum}; \link{logical} (\emph{with default}):
-extents the returned \code{data.frame} to its full extent, i.e. all info elements
+extends the returned \code{data.frame} to its full extent, i.e. all info elements
 are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 
