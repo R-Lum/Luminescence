@@ -25,5 +25,5 @@ setGeneric("view", function (object, ... ) standardGeneric("view"))
 #' @md
 #' @noRd
 .view <- function(x, title) {
-  get("View", envir = as.environment("package:utils"))(x, title)
+  get("View", envir = as.environment("package:utils"))(x, title) # nocov
 }
