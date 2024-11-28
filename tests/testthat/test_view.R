@@ -20,6 +20,9 @@ test_that("check functionality", {
   ## RLum.Data.Spectrum
   spect <- TL.Spectrum
 
+  ## RLum.Results
+  results <- calc_FastRatio(curve, verbose = FALSE, plot = FALSE)
+
   ## RLum.Analysis
   analysis <- OSL.SARMeasurement[[2]]
 
@@ -32,6 +35,7 @@ test_that("check functionality", {
     expect_null(view(curve))
     expect_null(view(image))
     expect_null(view(spect))
+    expect_null(view(results))
     expect_null(view(analysis))
   })
 })

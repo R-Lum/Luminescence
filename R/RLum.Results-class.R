@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R names_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R names_RLum.R view.R
 NULL
 
 #' Class `"RLum.Results"`
@@ -358,3 +358,32 @@ setMethod("names_RLum",
           function(object){
              names(object@data)
           })
+
+## view() -------------------------------------------------------------------
+#' @describeIn RLum.Results
+#'
+#' View method for [RLum.Results-class] objects
+#'
+#' @param object an object of class [RLum.Results-class]
+#'
+#' @param element [integer] (*with default*): index of the element to display
+#'
+#' @param ... other arguments that might be passed
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("view",
+          signature = "RLum.Results",
+          definition = function(object, element = 1, ...) {
+
+    ## set title
+    name <- list(...)$title
+    if (is.null(name))
+      name <- deparse(substitute(object))
+
+    ## run view
+    data <- get_RLum(object, data.object = element)
+    .view(x = data, title = name)
+})
