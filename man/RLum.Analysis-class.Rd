@@ -11,6 +11,7 @@
 \alias{names_RLum,RLum.Analysis-method}
 \alias{smooth_RLum,RLum.Analysis-method}
 \alias{melt_RLum,RLum.Analysis-method}
+\alias{view,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
 \usage{
 \S4method{show}{RLum.Analysis}(object)
@@ -49,10 +50,11 @@
 \S4method{smooth_RLum}{RLum.Analysis}(object, ...)
 
 \S4method{melt_RLum}{RLum.Analysis}(object)
+
+\S4method{view}{RLum.Analysis}(object, ...)
 }
 \arguments{
-\item{object}{\code{\link{get_RLum}}: \code{\link{names_RLum}}, \code{\link{length_RLum}}, \code{\link{structure_RLum}} (\strong{required}):
-an object of class \linkS4class{RLum.Analysis}}
+\item{object}{an object of class \linkS4class{RLum.Analysis}}
 
 \item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}):
 name of the \code{RLum} class to be created}
@@ -124,7 +126,7 @@ extents the returned \code{data.frame} to its full extent, i.e. all info element
 are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 
-\item{...}{further arguments passed to underlying methods}
+\item{...}{other arguments that might be passed}
 }
 \value{
 \strong{\code{get_RLum}}:
@@ -189,6 +191,8 @@ using the internal function \code{.smoothing}.
 
 \item \code{melt_RLum(RLum.Analysis)}: Melts \linkS4class{RLum.Analysis} objects into a flat data.frame to be used
 in combination with other packages such as \code{ggplot2}.
+
+\item \code{view(RLum.Analysis)}: View method for \linkS4class{RLum.Analysis} objects
 
 }}
 \section{Slots}{

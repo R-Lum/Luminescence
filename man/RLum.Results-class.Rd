@@ -8,6 +8,7 @@
 \alias{get_RLum,RLum.Results-method}
 \alias{length_RLum,RLum.Results-method}
 \alias{names_RLum,RLum.Results-method}
+\alias{view,RLum.Results-method}
 \title{Class \code{"RLum.Results"}}
 \usage{
 \S4method{show}{RLum.Results}(object)
@@ -19,10 +20,11 @@
 \S4method{length_RLum}{RLum.Results}(object)
 
 \S4method{names_RLum}{RLum.Results}(object)
+
+\S4method{view}{RLum.Results}(object, element = 1, ...)
 }
 \arguments{
-\item{object}{\code{\link{get_RLum}}; \linkS4class{RLum.Results} (\strong{required}):
-an object of class \linkS4class{RLum.Results} to be evaluated}
+\item{object}{an object of class \linkS4class{RLum.Results}}
 
 \item{class}{\code{\link{set_RLum}}; \link{character} \strong{(required)}:
 name of the \code{RLum} class to create}
@@ -53,6 +55,10 @@ name of the wanted info element}
 \item{drop}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
 coerce to the next possible layer (which are data objects, \code{drop = FALSE}
 keeps the original \code{RLum.Results}}
+
+\item{element}{\link{integer} (\emph{with default}): index of the element to display}
+
+\item{...}{other arguments that might be passed}
 }
 \value{
 \strong{\code{set_RLum}}:
@@ -96,6 +102,8 @@ receiving function if results are pipped.
 \item \code{length_RLum(RLum.Results)}: Returns the length of the object, i.e., number of stored data.objects
 
 \item \code{names_RLum(RLum.Results)}: Returns the names data.objects
+
+\item \code{view(RLum.Results)}: View method for \linkS4class{RLum.Results} objects
 
 }}
 \section{Slots}{

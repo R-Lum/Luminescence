@@ -463,11 +463,9 @@ setMethod("view",
 
     ## set title
     name <- list(...)$title
-    if(is.null(list(...)$title))
-      name <- paste0("METADATA for", deparse(substitute(object)))
+    if (is.null(name))
+      name <- paste("METADATA for", deparse(substitute(object)))
 
     ## run view
     .view(x = object@METADATA, title = name)
-
 })
-
