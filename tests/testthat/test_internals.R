@@ -432,4 +432,17 @@ test_that("Test internals", {
       TOLOFF = 0
     )
   )
+  ## cover NA case
+  expect_type(
+    Luminescence:::src_create_RLumDataCurve_matrix(
+      DATA = 1:100,
+      VERSION = 4,
+      NPOINTS = 0,
+      LTYPE = "OSL",
+      LOW = 0,
+      HIGH = 500,
+      AN_TEMP = 0,
+      TOLDELAY = 0,
+      TOLON = 0,
+      TOLOFF = 0), type = "double")
 })
