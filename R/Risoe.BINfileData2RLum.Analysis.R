@@ -203,11 +203,6 @@ Risoe.BINfileData2RLum.Analysis<- function(
         setTxtProgressBar(pb, value = pos)
       }
 
-      ##if no grain information is given, we select all grains in the particular position
-      if(is.null(grain)){
-        grain <- unique(object@METADATA[object@METADATA[["POSITION"]] == pos, "GRAIN"])
-      }
-
       ##loop over the grains and produce RLum.Analysis objects
       object <- lapply(grain, function(grain){
 
