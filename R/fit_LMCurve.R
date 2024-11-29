@@ -271,7 +271,7 @@ fit_LMCurve<- function(
   .validate_not_empty(values)
 
   if (inherits(values, "RLum.Data.Curve")) {
-    if (values@recordType != "RBR" && values@recordType != "LM-OSL") {
+    if (!values@recordType %in% c("RBR", "LM-OSL")) {
       .throw_error("recordType should be 'RBR' or 'LM-OSL'. ",
                    "Consider using `as(object, 'data.frame')` if you ",
                    "have used a pseudo transformation function")

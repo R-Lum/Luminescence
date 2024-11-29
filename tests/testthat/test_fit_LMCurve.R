@@ -8,6 +8,8 @@ test_that("input validation", {
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
   expect_error(fit_LMCurve(data.frame()),
                "'values' cannot be an empty data.frame")
+  expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve")),
+               "recordType should be 'RBR' or 'LM-OSL'")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "OSL")),
                "recordType should be 'RBR' or 'LM-OSL'")
   expect_error(fit_LMCurve(values.curve, values.bg = "error"),

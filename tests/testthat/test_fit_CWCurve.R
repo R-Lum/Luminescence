@@ -7,6 +7,8 @@ test_that("input validation", {
                "'values' should be of class 'RLum.Data.Curve' or 'data.frame'")
   expect_error(fit_CWCurve(data.frame()),
                "'values' cannot be an empty data.frame")
+  expect_error(fit_CWCurve(set_RLum("RLum.Data.Curve")),
+               "'values' contains no positive counts")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
                "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, n.components.max = 0),
