@@ -361,7 +361,6 @@ error.list <- list()
 
         }else{
           signal.integral.Tx <- NULL
-
         }
 
         if (length(background.integral.min) == 2 &
@@ -371,7 +370,6 @@ error.list <- list()
 
         }else{
           background.integral.Tx <- NULL
-
         }
 
         ##Account for the case that the use did not provide everything ...
@@ -460,7 +458,6 @@ error.list <- list()
      ##export as global variable
      object@records[[x]]@recordType <<- gsub(" .*", "", object@records[[x]]@recordType)
      object@records[[x]]@recordType
-
   })
 
   ##FI lexsyg devices provide irradiation information in a separate curve

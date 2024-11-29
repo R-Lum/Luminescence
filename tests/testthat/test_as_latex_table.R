@@ -35,5 +35,6 @@ test_that("Check .as.latex.table.data.frame()", {
                "Length of 'pos' does not match the number of columns")
 
   expect_output(.as.latex.table.data.frame(df, tabular_only = TRUE))
-  expect_output(.as.latex.table.data.frame(df[, 1, drop = FALSE]))
+  expect_output(.as.latex.table.data.frame(df[, 1, drop = FALSE],
+                                           pos = "error"))
 })
