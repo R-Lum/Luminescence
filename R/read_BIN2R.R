@@ -14,8 +14,9 @@
 #' @param file [character] or [list] (**required**): path and file name of the
 #' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
 #' only `character`s representing each valid path and BIN/BINX-file names.
-#' Alternatively the input character can be just a directory (path), in this case the
-#' the function tries to detect and import all BIN/BINX files found in the directory.
+#' Alternatively, the input character can be just a directory (path), in which
+#' case the function tries to detect and import all BIN/BINX files found in
+#' the directory.
 #'
 #' @param show.raw.values [logical] (*with default*):
 #' shows raw values from BIN-file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without

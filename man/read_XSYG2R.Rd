@@ -19,8 +19,9 @@ read_XSYG2R(
 \item{file}{\link{character} or \link{list} (\strong{required}):
 path and file name of the XSYG file. If input is a \code{list} it should comprise
 only \code{character}s representing each valid path and XSYG-file names.
-Alternatively the input character can be just a directory (path), in this case the
-the function tries to detect and import all XSYG-files found in the directory.}
+Alternatively, the input character can be just a directory (path), in which
+case the function tries to detect and import all XSYG-files found in the
+directory.}
 
 \item{recalculate.TL.curves}{\link{logical} (\emph{with default}):
 if set to \code{TRUE}, TL curves are returned as temperature against count values

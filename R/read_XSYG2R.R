@@ -77,8 +77,9 @@
 #' @param file [character] or [list] (**required**):
 #' path and file name of the XSYG file. If input is a `list` it should comprise
 #' only `character`s representing each valid path and XSYG-file names.
-#' Alternatively the input character can be just a directory (path), in this case the
-#' the function tries to detect and import all XSYG-files found in the directory.
+#' Alternatively, the input character can be just a directory (path), in which
+#' case the function tries to detect and import all XSYG-files found in the
+#' directory.
 #'
 #' @param recalculate.TL.curves [logical] (*with default*):
 #' if set to `TRUE`, TL curves are returned as temperature against count values
@@ -249,7 +250,8 @@ read_XSYG2R <- function(
     }
   }
 
-# Consistency check -----------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   ## check for URL and attempt download
   url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"),
                              verbose = verbose)
