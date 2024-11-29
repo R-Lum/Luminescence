@@ -32,6 +32,13 @@ test_that("input validation", {
                               integral_input = "error"),
                "[analyse_SAR.TL()] 'integral_input' should be one of ",
                fixed = TRUE)
+
+  obj.rm <- object
+  obj.rm@records[[1]]@data <- obj.rm@records[[1]]@data[1:225, ]
+  expect_error(analyse_SAR.TL(obj.rm, signal.integral.min = 210,
+                              signal.integral.max = 220,
+                              sequence.structure = c("SIGNAL", "BACKGROUND")),
+               "Signal range differs, check sequence structure")
 })
 
 test_that("Test examples", {
