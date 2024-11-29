@@ -1,4 +1,4 @@
-##prepare test file for regression test
+## load data
 set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
@@ -380,6 +380,17 @@ test_that("simple run", {
   expect_match(warnings, all = FALSE,
                "Background integral for Tx out of bounds")
 
+  expect_message(expect_null(suppressWarnings(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 999,
+      signal.integral.max = 1000,
+      background.integral.min = c(900, 1975),
+      background.integral.max = c(900, 1975),
+      plot = FALSE,
+      verbose = FALSE)
+  )), "Error: Something went wrong while generating the LxTx table")
+
   ## plot_singlePanels
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal.integral.min = 1,
@@ -575,4 +586,17 @@ test_that("advance tests run", {
     ),
     class = "RLum.Results"
   )
+
+  ## more coverage
+  SW({
+  analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = c(900, 975),
+      background.integral.max = c(900, 975),
+      dose.points = rep(2, 7),
+      plot = FALSE,
+      verbose = FALSE)
+  })
 })
