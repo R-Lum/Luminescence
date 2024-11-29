@@ -740,7 +740,7 @@ analyse_FadingMeasurement <- function(
             legend.pos = "outside",
             xlab = plot_settings$xlab,
             log = plot_settings$log,
-            main = expression(paste(L[x], " - curves")),
+            main = bquote(L[x] ~ " - curves"),
             mtext = plot_settings$mtext
           )
 
