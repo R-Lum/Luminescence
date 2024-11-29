@@ -218,20 +218,16 @@ fit_CWCurve<- function(
   .validate_not_empty(values)
 
   if(is(values, "RLum.Data.Curve") == TRUE){
-
-    x <- values@data[,1]
-    y <- values@data[,2]
-
-    ##needed due to inconsistencies in the R code below
-    values <- data.frame(x,y)
-
-  }else{
-
-    ##set x and y values
-    x<-values[,1]
-    y<-values[,2]
+    values <- as.data.frame(values@data[, 1:2, drop = FALSE])
   }
 
+  ## set x and y values
+  x <- values[, 1]
+  y <- values[, 2]
+
+  if (sum(y > 0) == 0) {
+    .throw_error("'values' contains no positive counts")
+  }
   if (any(order(x) != seq_along(x))) {
     .throw_error("Time values are not ordered")
   }
@@ -279,7 +275,6 @@ fit_CWCurve<- function(
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
     as.formula(paste0("y ~ ", paste(I0," * ", lambda, "* exp(-",lambda," * x)", collapse=" + ")))
-
   }
   ##////equation used for fitting///(end)
 
@@ -289,7 +284,6 @@ fit_CWCurve<- function(
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
     as.formula(paste0("y ~ ", paste(I0," * exp(-",lambda," * x)", collapse=" + ")))
-
   }
   ##////equation used for fitting///(end)
 
@@ -470,7 +464,6 @@ fit_CWCurve<- function(
     ##============================================================================##
     ## Additional Calculation
     ##============================================================================##
-
 
     ## ---------------------------------------------
     ##calculate stimulation intensity Schmidt (2008)
