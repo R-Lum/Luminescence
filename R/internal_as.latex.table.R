@@ -247,10 +247,11 @@
     tex.table.rows <- gsub("_", "\\_", tex.table.rows, fixed = TRUE)
 
     ## Tex table ----
-    if (nchar(pos) != 1 && nchar(pos) != ncol(x))
+    pos.chars <- unlist(strsplit(pos, split = ""))
+    if (!all(pos.chars %in% c("l", "c", "r")) ||
+        (length(pos.chars) != 1 && length(pos.chars) != ncol(x))) {
       pos <- "c"
-    if (!any(strsplit(pos, split = "")[[1]] %in% c("l", "c", "r")))
-      pos <- "c"
+    }
     if (nchar(pos) == 1)
       pos <- paste0(rep(pos, ncol(x)), collapse = "")
 
