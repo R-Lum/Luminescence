@@ -150,16 +150,11 @@ analyse_SAR.TL <- function(
 
     ##return
     return(results)
-
   }
 
   # CONFIG  -----------------------------------------------------------------
 
-  ##set allowed curve types
-  type.curves <- c("TL")
-
-  ##=============================================================================#
-  # General Integrity Checks ---------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
   if (missing("signal.integral.min")) {
@@ -172,6 +167,9 @@ analyse_SAR.TL <- function(
   integral_input <- .validate_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------
+
+  ##set allowed curve types
+  type.curves <- c("TL")
 
   ##Remove non TL-curves from object by selecting TL curves
   object@records <- get_RLum(object, recordType = type.curves)
