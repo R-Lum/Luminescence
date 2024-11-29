@@ -733,7 +733,7 @@ analyse_FadingMeasurement <- function(
             (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
           plot_RLum(
             set_RLum(class = "RLum.Analysis", records = object_clean),
-            combine = TRUE,
+            combine = length(object_clean) > 1,
             records_max = 10,
             plot_singlePanels = TRUE,
             legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
