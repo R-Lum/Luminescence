@@ -22,6 +22,13 @@ test_that("input validation", {
   ## stop t_star
   expect_error(analyse_FadingMeasurement(fading_data, t_star = "error"),
                "'t_star' should be one of 'half', 'half_complex', 'end' or a function")
+
+  ## wrong originator
+  psl.file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
+  SW({
+  expect_message(expect_null(analyse_FadingMeasurement(read_PSL2R(psl.file))),
+                 "Error: Unknown or unsupported originator, NULL returned")
+  })
 })
 
 test_that("general test", {
@@ -62,6 +69,15 @@ test_that("general test", {
                                            verbose = FALSE,
                                            n.MC = 10),
                  "'plot.single' is deprecated, use 'plot_singlePanels'")
+
+  ## more coverage
+  data.inf <- fading_data
+  data.inf$LxTx[24] <- Inf
+  expect_s4_class(analyse_FadingMeasurement(
+    data.inf,
+    plot = FALSE,
+    verbose = FALSE,
+    n.MC = 10), class = "RLum.Results")
 })
 
 test_that("test XSYG file fading data", {
@@ -166,15 +182,31 @@ test_that("test BIN file while fading data", {
   expect_output(analyse_FadingMeasurement(d2, signal.integral = 1:2,
                                           background.integral = 10:30,
                                           plot = TRUE))
+  expect_message(expect_null(
+      analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                                background.integral = 10:30,
+                                structure = "error")),
+      "Error: 'structure' can only be 'Lx' or c('Lx', 'Tx'), NULL returned",
+      fixed = TRUE)
+  expect_message(expect_null(
+      analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                                background.integral = 10:30,
+                                structure = c("Lx", "Tx", "Lx"))),
+      "Error: 'structure' can only be 'Lx' or c('Lx', 'Tx'), NULL returned",
+      fixed = TRUE)
 
   ## more coverage
   analyse_FadingMeasurement(d2, signal.integral = 1:2,
                             background.integral = 10:30,
                             signal.integral.Tx = 2,
                             background.integral.Tx = 5:30,
-                            plot_singlePanels = 2,
+                            plot_singlePanels = 2:3, ylim = c(0.1, 1.1),
                             background.count.distribution = "poisson",
                             sig0 = 2, verbose = FALSE, plot = TRUE)
+  analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                            background.integral = 10:40,
+                            t_star = identity, verbose = FALSE, plot = FALSE)
+
   d2[[2]]@records[[1]]@info$TIMESINCEIRR <- -1
   expect_message(expect_warning(expect_null(
       analyse_FadingMeasurement(d2, signal.integral = 1:2,
@@ -182,4 +214,12 @@ test_that("test BIN file while fading data", {
                                 verbose = TRUE)),
       "removed 2 records with negative 'time since irradiation'"),
       "After record removal nothing is left from the data set, NULL returned")
+  suppressWarnings( # repeated warning about negative time since irradiation
+  expect_warning(expect_s4_class(
+      analyse_FadingMeasurement(d2, signal.integral = 1:2,
+                                background.integral = 10:40,
+                                structure = "Lx", verbose = FALSE),
+      "RLum.Results"),
+      "removed 1 records with negative 'time since irradiation'")
+  )
 })

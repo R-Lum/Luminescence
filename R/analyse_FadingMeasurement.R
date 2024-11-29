@@ -251,6 +251,13 @@ analyse_FadingMeasurement <- function(
   if(!is.null(object)){
     originators <- unique(unlist(lapply(object, slot, name = "originator")))
 
+    if (!(length(structure) == 1 && structure == "Lx" ||
+          length(structure) == 2 && all(structure == c("Lx", "Tx")))) {
+      .throw_message("'structure' can only be 'Lx' or c('Lx', 'Tx'), ",
+                     "NULL returned")
+      return(NULL)
+    }
+
     ## support read_XSYG2R()
     if (length(originators) == 1 && originators == "read_XSYG2R") {
 
@@ -290,7 +297,6 @@ analyse_FadingMeasurement <- function(
       ##set TIMESINCEIRR vector
       TIMESINCEIRR <- vapply(object_clean, function(o){
         o@info$TIMESINCEIRR
-
       }, numeric(1))
 
       ##check whether we have negative irradiation times, sort out such values
@@ -323,7 +329,6 @@ analyse_FadingMeasurement <- function(
                          "the data set, NULL returned")
           return(NULL)
         }
-        rm(rm_records)
       }
 
       ##set irradiation times
@@ -383,10 +388,6 @@ analyse_FadingMeasurement <- function(
     }else if(length(structure) == 1){
       Lx_data <- object_clean
       Tx_data <- NULL
-
-    }else{
-      .throw_message("I have no idea what your structure means, NULL returned")
-      return(NULL)
     }
 
     ##calculate Lx/Tx table
@@ -429,7 +430,7 @@ analyse_FadingMeasurement <- function(
   ##normalise data to prompt measurement
   tc <- min(TIMESINCEIRR)[1]
 
-  ##remove NA values in LxTx table
+  ## remove Inf values in LxTx table
   if(any(is.infinite(LxTx_table[["LxTx"]]))){
     rm_id <- which(is.infinite(LxTx_table[["LxTx"]]))
     LxTx_table <- LxTx_table[-rm_id,]
@@ -837,7 +838,6 @@ analyse_FadingMeasurement <- function(
             }
           } else {
             plot_settings$ylim
-
           },
           xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
           main = "Signal Fading"
