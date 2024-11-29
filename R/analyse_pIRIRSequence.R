@@ -372,9 +372,8 @@ analyse_pIRIRSequence <- function(
 
   ##(1) find out how many runs are needed for the analysis by checking for "IR"
   ##    now should by every signal except the TL curves
-  n.TL<- table(grepl("TL", sequence.structure))["TRUE"]
-  if(is.na(n.TL)) {n.TL<- 0}
-  n.loops <- as.numeric(length(grepl("TL", sequence.structure)) - n.TL)
+  n.TL <- sum(grepl("TL", sequence.structure))
+  n.loops <- as.numeric(length(sequence.structure) - n.TL)
 
   ##grep ids of TL curves (we need them later on)
   TL.curves.id <- temp.sequence.structure[
@@ -398,14 +397,15 @@ analyse_pIRIRSequence <- function(
     ##first (Tx,Tn, Lx,Ln)
     temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
 
-  ##middle (any other Lx,Ln)
-  if(n.loops > 2){
+    ## middle (any other Lx,Ln)
+    if (n.loops > 2) {
+
     temp.IRSL.layout.vector.middle <-
       vapply(2:(n.loops - 1),
         FUN = function(x) 5 * x - 1 + c(0:3, 0:2, 4),
         FUN.VALUE = vector(mode = "numeric", length = 8)
       )
-  }
+    }
 
   ##last (Lx,Ln and legend)
   temp.IRSL.layout.vector.last <- c(
@@ -586,12 +586,9 @@ if(plot){
   ##extract LnLnxTnTx.table
   LnLxTnTx.table <- get_RLum(temp.results.final, "LnLxTnTx.table")
 
-    ##remove Inf
-    if(any(is.infinite(LnLxTnTx.table[["LxTx"]])))
-      LnLxTnTx.table[["LxTx"]][is.infinite(LnLxTnTx.table[["LxTx"]])] <- NA
-
-    if(any(is.infinite(LnLxTnTx.table[["LxTx.Error"]])))
-      LnLxTnTx.table[["LxTx.Error"]][is.infinite(LnLxTnTx.table[["LxTx.Error"]])] <- NA
+  ## remove Inf
+  LnLxTnTx.table$LxTx[is.infinite(LnLxTnTx.table$LxTx)] <- NA
+  LnLxTnTx.table$LxTx.Error[is.infinite(LnLxTnTx.table$LxTx.Error)] <- NA
 
   ##plot growth curves
   min.LxTx <- min(LnLxTnTx.table$LxTx, na.rm = TRUE)
