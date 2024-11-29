@@ -127,19 +127,18 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   .set_function_name("plot_NRt")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, c("list", "data.frame", "matrix", "RLum.Analysis"))
   if (inherits(data, "list")) {
     if (length(data) < 2)
-      .throw_error("The provided list only contains curve data ",
-                   "of the natural signal")
+      .throw_error("'data' contains only curve data for the natural signal")
     if (all(sapply(data, class) == "RLum.Data.Curve"))
       curves <- lapply(data, get_RLum)
   }
   else if (inherits(data, "data.frame") || inherits(data, "matrix")) {
     if (ncol(data) < 3)
-      .throw_error("The provided ", class(data)[1],
-                   " only contains curve data of the natural signal")
+      .throw_error("'data' contains only curve data for the natural signal")
     if (is.matrix(data))
       data <- as.data.frame(data)
     curves <- apply(data[2:ncol(data)], MARGIN = 2, function(curve) {
@@ -147,14 +146,13 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     })
   }
   else if (inherits(data, "RLum.Analysis")) {
-    RLum.objects <- get_RLum(data)
+    RLum.objects <- get_RLum(data, drop = FALSE)
     if (any(sapply(RLum.objects, class) != "RLum.Data.Curve"))
       .throw_error("The provided 'RLum.Analysis' object ",
                    "must exclusively contain 'RLum.Data.Curve' objects")
     curves <- lapply(RLum.objects, get_RLum)
     if (length(curves) < 2)
-      .throw_error("The provided 'RLum.Analysis' object ",
-                   "only contains curve data of the natural signal")
+      .throw_error("'data' contains only curve data for the natural signal")
   }
 
   smooth <- .validate_args(smooth, c("none", "spline", "rmean"))

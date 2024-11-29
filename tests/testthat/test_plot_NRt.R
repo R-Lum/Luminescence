@@ -1,3 +1,4 @@
+## load data
 data("ExampleData.BINfileData", envir = environment())
 obj <- Risoe.BINfileData2RLum.Analysis(object = CWOSL.SAR.Data,
                                        pos = 8, ltype = "OSL")
@@ -11,9 +12,9 @@ test_that("input validation", {
   expect_error(plot_NRt(obj[[2]]),
                "'data' should be of class 'list', 'data.frame', 'matrix' or")
   expect_error(plot_NRt(curves[1]),
-                "The provided list only contains curve data of the natural signal")
+                "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),
-               "The provided matrix only contains curve data of the natural signal")
+                "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(curves, smooth = "error"),
                "'smooth' should be one of 'none', 'spline' or 'rmean'")
 
@@ -21,6 +22,9 @@ test_that("input validation", {
   obj.mixed <- merge_RLum.Analysis(list(obj, TL.Spectrum))
   expect_error(plot_NRt(obj.mixed),
                "The provided 'RLum.Analysis' object must exclusively contain")
+  expect_error(plot_NRt(set_RLum("RLum.Analysis",
+                                 records = list(curves[[1]]))),
+               "'data' contains only curve data for the natural signal")
 
   data("ExampleData.RLum.Analysis", envir = environment())
   expect_error(plot_NRt(IRSAR.RF.Data),
@@ -30,7 +34,7 @@ test_that("input validation", {
 
   data(ExampleData.CW_OSL_Curve, envir = environment())
   expect_error(plot_NRt(ExampleData.CW_OSL_Curve),
-               "The provided data.frame only contains curve data of the natural signal")
+               "'data' contains only curve data for the natural signal")
 })
 
 test_that("full functionality", {
