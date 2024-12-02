@@ -368,6 +368,10 @@ as.list.RLum.Data.Image <- function(x, ...) as(x, "list")
 
 #' @rdname methods_RLum
 #' @export
+as.list.RLum.Data.Spectrum <- function(x, ...) as(x, "list")
+
+#' @rdname methods_RLum
+#' @export
 as.list.RLum.Analysis <- function(x, ...) as(x, "list")
 
 #############################################################################
