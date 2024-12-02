@@ -595,6 +595,8 @@ NULL
 #'
 #' @keywords datasets internal
 #'
+#' @examples
+#'
 #' ##show LM data
 #' data(ExampleData.FittingLM, envir = environment())
 #' plot(values.curve,log="x")
