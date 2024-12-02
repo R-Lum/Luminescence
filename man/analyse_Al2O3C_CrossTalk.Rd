@@ -16,7 +16,7 @@ analyse_Al2O3C_CrossTalk(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
 measurement input}
 
 \item{signal_integral}{\link{numeric} (\emph{optional}):

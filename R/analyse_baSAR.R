@@ -178,7 +178,7 @@
 #' the input is the previous output (i.e. is [RLum.Results-class]). In this case the
 #' new selection will add the aliquots to the removed aliquots table.
 #'
-#' @param source_doserate [numeric] **(required)**:
+#' @param source_doserate [numeric] (**required**):
 #' source dose rate of beta-source used for the measurement and its uncertainty
 #' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Parameter can be provided
 #' as `list`, for the case that more than one BIN-file is provided, e.g.,

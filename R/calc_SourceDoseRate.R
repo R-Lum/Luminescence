@@ -25,7 +25,7 @@
 #'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[4` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 #'
-#' @param measurement.date [character] or [Date] (with default): Date of measurement in `"YYYY-MM-DD"`.
+#' @param measurement.date [character] or [Date] (*with default*): Date of measurement in `"YYYY-MM-DD"`.
 #' If no value is provided, the date will be set to today. The argument can be provided as vector.
 #'
 #' @param calib.date [character] or [Date] (**required**):

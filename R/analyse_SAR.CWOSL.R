@@ -162,7 +162,7 @@
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
-#' @param onlyLxTxTable [logical] (with default): If `TRUE` the dose response
+#' @param onlyLxTxTable [logical] (*with default*): If `TRUE` the dose response
 #' curve fitting and plotting is skipped.
 #' This allows to get hands on the `Lx/Tx` table for large datasets
 #' without the need for a curve fitting.

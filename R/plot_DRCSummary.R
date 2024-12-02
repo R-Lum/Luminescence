@@ -12,14 +12,18 @@
 #'
 #'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.
 #'
-#'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occurring order. A sequence can
+#'@param sel_curves [numeric] (*optional*): id of the curves to be plotted in
+#' its occurring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
 #'
-#'@param show_dose_points [logical] (with default): enable or disable plot of dose points in the graph
+#'@param show_dose_points [logical] (*with default*): enable or disable plot
+#' of dose points in the graph
 #'
-#'@param show_natural [logical] (with default): enable or disable the plot of the natural `Lx/Tx` values
+#'@param show_natural [logical] (*with default*): enable or disable the plot
+#' of the natural `Lx/Tx` values
 #'
-#'@param n [integer] (with default): the number of x-values used to evaluate one curve object. Large numbers slow
+#'@param n [integer] (*with default*): number of x-values used to evaluate
+#' one curve object. Large numbers slow
 #'down the plotting process and are usually not needed
 #'
 #'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`

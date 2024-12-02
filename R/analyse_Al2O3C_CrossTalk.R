@@ -3,7 +3,7 @@
 #' @description The function provides the analysis of cross-talk measurements on a
 #' FI lexsyg SMART reader using Al2O3:C chips
 #'
-#' @param object [RLum.Analysis-class] or [list] **(required)**:
+#' @param object [RLum.Analysis-class] or [list] (**required**):
 #' measurement input
 #'
 #' @param signal_integral [numeric] (*optional*):

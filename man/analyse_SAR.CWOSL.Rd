@@ -103,7 +103,7 @@ not the legend (5) or the
 growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
 
-\item{onlyLxTxTable}{\link{logical} (with default): If \code{TRUE} the dose response
+\item{onlyLxTxTable}{\link{logical} (\emph{with default}): If \code{TRUE} the dose response
 curve fitting and plotting is skipped.
 This allows to get hands on the \code{Lx/Tx} table for large datasets
 without the need for a curve fitting.}
@@ -218,7 +218,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.10.3
+ 0.10.4
 }
 
 \examples{

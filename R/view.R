@@ -3,7 +3,7 @@
 #' @description Invokes the [utils::View] function tailored to objects
 #' in the package. If started from RStudio, it uses the RStudio view.
 #'
-#' @param object (*required*) object to view
+#' @param object (**required**) object to view
 #'
 #' @param ... further arguments passed to the function
 #'

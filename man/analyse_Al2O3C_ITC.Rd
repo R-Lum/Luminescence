@@ -16,7 +16,7 @@ analyse_Al2O3C_ITC(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}:
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
 results obtained from the measurement.
 Alternatively a list of \linkS4class{RLum.Analysis} objects can be provided to allow an automatic analysis}
 

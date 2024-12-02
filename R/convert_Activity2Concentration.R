@@ -46,7 +46,7 @@
 #'
 #' \deqn{f.U = A_{U} / 10^6}
 #'
-#' @param data [data.frame] **(required)**:
+#' @param data [data.frame] (**required**):
 #' provide dose rate data (activity or concentration) in three columns.
 #' The first column indicates the nuclide, the 2nd column measured value and
 #' in the 3rd column its error value. Allowed nuclide data are

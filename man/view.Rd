@@ -7,7 +7,7 @@
 view(object, ...)
 }
 \arguments{
-\item{object}{(\emph{required}) object to view}
+\item{object}{(\strong{required}) object to view}
 
 \item{...}{further arguments passed to the function}
 }

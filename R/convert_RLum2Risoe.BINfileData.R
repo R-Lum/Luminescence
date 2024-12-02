@@ -8,8 +8,8 @@
 #'@param object [RLum.Analysis-class] or [RLum.Data.Curve-class] (**required**): input object to
 #'be converted
 #'
-#'@param keep.position.number [logical] (with default): keeps the original position number or re-calculate
-#'the numbers to avoid doubling
+#'@param keep.position.number [logical] (*with default*): keeps the original
+#' position number or re-calculate the numbers to avoid doubling
 #'
 #'@section Function version: 0.1.4
 #'

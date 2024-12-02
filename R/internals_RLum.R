@@ -431,18 +431,22 @@ fancy_scientific <- function(l) {
 #' the package. This should unify the approach how such things are created and support, theoretically
 #' all keywords for all plot functions in a similar way.
 #'
-#'@param x [data.frame] (optional): output from the function `calc_Statistics()`. If nothing is
-#'provided a list of prefix keyword combinations supported by the function `calc_Statistics()` is returned.
+#' @param x [data.frame] (*optional*): output from function `calc_Statistics()`.
+#' If nothing is provided, a list of prefix keyword combinations supported by
+#' `calc_Statistics()` is returned.
 #'
-#'@param keywords[character] (with default): keywords supported by the function `calc_Statistics()`
+#' @param keywords[character] (*with default*): keywords supported by function
+#' `calc_Statistics()`.
 #'
-#'@param digits [numeric] (with default): modifiy the digits independently for the plot output
+#' @param digits [numeric] (*with default*): modifiy the digits independently
+#' for the plot output.
 #'
-#'@param sep [character] (with default): a separator used for the creation of the output of the plot
+#' @param sep [character] (*with default*): separator used for the creation of
+#' the output of the plot.
 #'
-#'@param prefix [character] (with default): allows to add a leading prefix to the string
+#'@param prefix [character] (*with default*): prefix to add to the string
 #'
-#'@param suffix [character] (with default): allows to add a suffix to the entire string
+#'@param suffix [character] (*with default*): suffix to add to the string
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'

@@ -10,8 +10,8 @@ convert_RLum2Risoe.BINfileData(object, keep.position.number = FALSE)
 \item{object}{\linkS4class{RLum.Analysis} or \linkS4class{RLum.Data.Curve} (\strong{required}): input object to
 be converted}
 
-\item{keep.position.number}{\link{logical} (with default): keeps the original position number or re-calculate
-the numbers to avoid doubling}
+\item{keep.position.number}{\link{logical} (\emph{with default}): keeps the original
+position number or re-calculate the numbers to avoid doubling}
 }
 \value{
 The function returns a \linkS4class{Risoe.BINfileData} object.
@@ -27,7 +27,7 @@ The conversion can be never perfect. The \code{RLum} objects may contain informa
 not part of the \linkS4class{Risoe.BINfileData} definition.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.4
 }
 
 \examples{

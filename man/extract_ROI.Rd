@@ -13,8 +13,9 @@ extract_ROI(object, roi, roi_summary = "mean", plot = FALSE)
 of the ROI (first two columns) and the diameter of the circular ROI. All numbers must by of type \link{integer}
 and will forcefully coerced into such numbers using \code{as.integer()} regardless.}
 
-\item{roi_summary}{(\strong{with default}): if \code{"mean"} (the default) defines what is returned
-in the element \code{roi_summary}; alternatively \code{"mean"}, \code{"median"}, \code{"sd"} or \code{"sum"} can be chosen.
+\item{roi_summary}{(\emph{with default}): defines what is returned in the
+\code{roi_summary} element; it can be \code{"mean"} (default), \code{"median"}, \code{"sd"} or
+\code{"sum"}.
 Pixel values are conveniently summarised using the above defined keyword.}
 
 \item{plot}{\link{logical} (\emph{optional}): enables/disables control plot. Only the first

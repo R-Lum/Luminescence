@@ -19,8 +19,9 @@
 #'of the ROI (first two columns) and the diameter of the circular ROI. All numbers must by of type [integer]
 #'and will forcefully coerced into such numbers using `as.integer()` regardless.
 #'
-#'@param roi_summary (**with default**): if `"mean"` (the default) defines what is returned
-#'in the element `roi_summary`; alternatively `"mean"`, `"median"`, `"sd"` or `"sum"` can be chosen.
+#'@param roi_summary (*with default*): defines what is returned in the
+#'`roi_summary` element; it can be `"mean"` (default), `"median"`, `"sd"` or
+#'`"sum"`.
 #'Pixel values are conveniently summarised using the above defined keyword.
 #'
 #'@param plot [logical] (*optional*): enables/disables control plot. Only the first

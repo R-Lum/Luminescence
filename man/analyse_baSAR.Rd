@@ -53,7 +53,7 @@ This argument has only an effect if the argument \code{CSV_file} is used or
 the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
 new selection will add the aliquots to the removed aliquots table.}
 
-\item{source_doserate}{\link{numeric} \strong{(required)}:
+\item{source_doserate}{\link{numeric} (\strong{required}):
 source dose rate of beta-source used for the measurement and its uncertainty
 in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}. Parameter can be provided
 as \code{list}, for the case that more than one BIN-file is provided, e.g.,
@@ -360,7 +360,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.35
+ 0.1.36
 }
 
 \examples{

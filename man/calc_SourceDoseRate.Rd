@@ -15,7 +15,7 @@ calc_SourceDoseRate(
 )
 }
 \arguments{
-\item{measurement.date}{\link{character} or \link{Date} (with default): Date of measurement in \code{"YYYY-MM-DD"}.
+\item{measurement.date}{\link{character} or \link{Date} (\emph{with default}): Date of measurement in \code{"YYYY-MM-DD"}.
 If no value is provided, the date will be set to today. The argument can be provided as vector.}
 
 \item{calib.date}{\link{character} or \link{Date} (\strong{required}):

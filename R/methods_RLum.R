@@ -53,7 +53,7 @@
 #' @param j [integer] (*optional*):
 #' column of the data matrix in the `RLum.Data.Curve` object
 #'
-#' @param value [numeric] **(required)**:
+#' @param value [numeric] (**required**):
 #' numeric value which replace the value in the `RLum.Data.Curve` object
 #'
 #' @param drop [logical] (*with default*):

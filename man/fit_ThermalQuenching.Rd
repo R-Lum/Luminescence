@@ -18,10 +18,11 @@ fit_ThermalQuenching(
 \item{data}{\link{data.frame} (\strong{required}): input data with three columns, the first column contains
 temperature values in deg. C, columns 2 and 3 the dependent values with its error}
 
-\item{start_param}{\link{list} (optional): option to provide own start parameters for the fitting, see
-details}
+\item{start_param}{\link{list} (\emph{optional}): option to provide the start
+parameters for the fitting, see details}
 
-\item{method_control}{\link{list} (optional): further options to fine tune the fitting, see details for
+\item{method_control}{\link{list} (\emph{optional}): further options to fine tune
+the fitting, see details for
 further information}
 
 \item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation. If \code{n.MC} is

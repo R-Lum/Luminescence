@@ -19,14 +19,18 @@ plot_DRCSummary(
 
 \item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.}
 
-\item{sel_curves}{\link{numeric} (optional): id of the curves to be plotting in its occurring order. A sequence can
+\item{sel_curves}{\link{numeric} (\emph{optional}): id of the curves to be plotted in
+its occurring order. A sequence can
 be provided for selecting, e.g., only every 2nd curve from the input object}
 
-\item{show_dose_points}{\link{logical} (with default): enable or disable plot of dose points in the graph}
+\item{show_dose_points}{\link{logical} (\emph{with default}): enable or disable plot
+of dose points in the graph}
 
-\item{show_natural}{\link{logical} (with default): enable or disable the plot of the natural \code{Lx/Tx} values}
+\item{show_natural}{\link{logical} (\emph{with default}): enable or disable the plot
+of the natural \code{Lx/Tx} values}
 
-\item{n}{\link{integer} (with default): the number of x-values used to evaluate one curve object. Large numbers slow
+\item{n}{\link{integer} (\emph{with default}): number of x-values used to evaluate
+one curve object. Large numbers slow
 down the plotting process and are usually not needed}
 
 \item{...}{Further arguments and graphical parameters to be passed. In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch}, \code{col.pch}, \code{col.lty}, \code{mtext}}

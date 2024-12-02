@@ -31,21 +31,22 @@ the equivalent dose was calculated, i.e. \code{tc} is either similar for the \em
 needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
 lead to wrong results}
 
-\item{tc}{\link{numeric} (optional): time in seconds between the \strong{end} of the irradiation and
-the prompt measurement used in the equivalent dose estimation (cf. Huntley & Lamothe 2001).
+\item{tc}{\link{numeric} (\emph{optional}): time in seconds between the \strong{end} of
+the irradiation and the prompt measurement used in the equivalent dose
+estimation (cf. Huntley & Lamothe 2001).
 If set to \code{NULL} it is assumed that \code{tc} is similar for the equivalent dose
 estimation and the \emph{g}-value estimation}
 
-\item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation and the
+\item{tc.g_value}{\link{numeric} (\emph{with default}): the time in seconds between irradiation and the
 prompt measurement estimating the \emph{g}-value. If the \emph{g}-value was normalised to, e.g., 2 days,
 this time in seconds (i.e., \code{172800}) should be entered here along with the time used for the
 equivalent dose estimation. If nothing is provided the time is set to \code{tc}, which is the
 usual case for \emph{g}-values obtained using the SAR method and \emph{g}-values that had been not normalised to 2 days.
 Note: If this value is not \code{NULL} the functions expects a \link{numeric} value for \code{tc}.}
 
-\item{verbose}{\link{logical} (with default): Enables/disables terminal verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): Enables/disables terminal verbose mode}
 
-\item{plot}{\link{logical} (with default): Enables/disables plot output}
+\item{plot}{\link{logical} (\emph{with default}): Enables/disables plot output}
 
 \item{...}{further arguments passed to the function \link{plot_GrowthCurve}}
 }

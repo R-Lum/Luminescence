@@ -7,7 +7,7 @@
 convert_Activity2Concentration(data, input_unit = "activity", verbose = TRUE)
 }
 \arguments{
-\item{data}{\link{data.frame} \strong{(required)}:
+\item{data}{\link{data.frame} (\strong{required}):
 provide dose rate data (activity or concentration) in three columns.
 The first column indicates the nuclide, the 2nd column measured value and
 in the 3rd column its error value. Allowed nuclide data are

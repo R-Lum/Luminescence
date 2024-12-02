@@ -46,10 +46,11 @@
 #' @param data [data.frame] (**required**): input data with three columns, the first column contains
 #' temperature values in deg. C, columns 2 and 3 the dependent values with its error
 #'
-#' @param start_param [list] (optional): option to provide own start parameters for the fitting, see
-#' details
+#' @param start_param [list] (*optional*): option to provide the start
+#' parameters for the fitting, see details
 #'
-#' @param method_control [list] (optional): further options to fine tune the fitting, see details for
+#' @param method_control [list] (*optional*): further options to fine tune
+#' the fitting, see details for
 #' further information
 #'
 #' @param n.MC [numeric] (*with default*): number of Monte Carlo runs for the error estimation. If `n.MC` is

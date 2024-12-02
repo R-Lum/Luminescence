@@ -39,7 +39,8 @@ enables or disables terminal feedback.}
 
 \item{...}{Further graphical parameters to be passed (supported:
 \code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{legend}, \code{reg_points_pch},
-\code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col}, \code{density_rug} (\code{TRUE}/\code{FALSE})).}
+\code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col}, \code{density_rug} (\code{TRUE}/\code{FALSE})),
+\code{box} (\code{TRUE}/\code{FALSE})}
 }
 \value{
 A plot (or a series of plots) is produced.

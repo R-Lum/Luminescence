@@ -24,7 +24,7 @@
 #' `fit.method` \tab `fit_DoseResponseCurve` \tab as in [fit_DoseResponseCurve]; sets the function applied for fitting\cr
 #' }
 #'
-#' @param object [RLum.Analysis-class] or [list] **(required)**:
+#' @param object [RLum.Analysis-class] or [list] (**required**):
 #' results obtained from the measurement.
 #' Alternatively a list of [RLum.Analysis-class] objects can be provided to allow an automatic analysis
 #'

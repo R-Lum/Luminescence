@@ -139,7 +139,7 @@ setMethod("show",
 #' @describeIn RLum.Results
 #' Construction method for an RLum.Results object.
 #'
-#' @param class [`set_RLum`]; [character] **(required)**:
+#' @param class [`set_RLum`]; [character] (**required**):
 #' name of the `RLum` class to create
 #'
 #' @param originator [`set_RLum`]; [character] (*automatic*):

@@ -49,21 +49,22 @@
 #' needs be to recalculated (cf. [calc_FadingCorr]). Inserting a normalised g-value, e.g., normalised to 2-days , will
 #' lead to wrong results
 #'
-#' @param tc [numeric] (optional): time in seconds between the **end** of the irradiation and
-#' the prompt measurement used in the equivalent dose estimation (cf. Huntley & Lamothe 2001).
+#' @param tc [numeric] (*optional*): time in seconds between the **end** of
+#' the irradiation and the prompt measurement used in the equivalent dose
+#' estimation (cf. Huntley & Lamothe 2001).
 #' If set to `NULL` it is assumed that `tc` is similar for the equivalent dose
 #' estimation and the *g*-value estimation
 #'
-#' @param tc.g_value [numeric] (with default): the time in seconds between irradiation and the
+#' @param tc.g_value [numeric] (*with default*): the time in seconds between irradiation and the
 #' prompt measurement estimating the *g*-value. If the *g*-value was normalised to, e.g., 2 days,
 #' this time in seconds (i.e., `172800`) should be entered here along with the time used for the
 #' equivalent dose estimation. If nothing is provided the time is set to `tc`, which is the
 #' usual case for *g*-values obtained using the SAR method and *g*-values that had been not normalised to 2 days.
 #' Note: If this value is not `NULL` the functions expects a [numeric] value for `tc`.
 #'
-#' @param plot [logical] (with default): Enables/disables plot output
+#' @param plot [logical] (*with default*): Enables/disables plot output
 #'
-#' @param verbose [logical] (with default): Enables/disables terminal verbose mode
+#' @param verbose [logical] (*with default*): Enables/disables terminal verbose mode
 #'
 #' @param ... further arguments passed to the function [plot_GrowthCurve]
 #'

@@ -26,7 +26,7 @@
 \arguments{
 \item{object}{an object of class \linkS4class{RLum.Results}}
 
-\item{class}{\code{\link{set_RLum}}; \link{character} \strong{(required)}:
+\item{class}{\code{\link{set_RLum}}; \link{character} (\strong{required}):
 name of the \code{RLum} class to create}
 
 \item{originator}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):

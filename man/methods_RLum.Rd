@@ -262,7 +262,7 @@ name of the wanted record type or data object or row in the \code{RLum.Data.Curv
 \item{j}{\link{integer} (\emph{optional}):
 column of the data matrix in the \code{RLum.Data.Curve} object}
 
-\item{value}{\link{numeric} \strong{(required)}:
+\item{value}{\link{numeric} (\strong{required}):
 numeric value which replace the value in the \code{RLum.Data.Curve} object}
 }
 \description{
