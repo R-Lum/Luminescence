@@ -49,8 +49,9 @@
 #'
 #' @param curve.transformation [character] (*optional*):
 #' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
-#' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`, `CW2pHMi` and
-#' `CW2pPMi`. See details.
+#' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`,
+#' `CW2pHMi` and `CW2pPMi`, see details. If set to `None` (default), no
+#' transformation is applied.
 #'
 #' @param dose_rate [numeric] (*optional*):
 #' dose rate of the irradiation source at the measurement date.
@@ -110,7 +111,7 @@ plot_Risoe.BINfileData<- function(
   set,
   sorter = "POSITION",
   ltype = c("IRSL","OSL","TL","RIR","RBR","RL"),
-  curve.transformation,
+  curve.transformation = "None",
   dose_rate,
   temp.lab,
   cex.global = 1,
@@ -119,12 +120,13 @@ plot_Risoe.BINfileData<- function(
   .set_function_name("plot_Risoe.BINfileData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##check if the object is of type Risoe.BINfileData
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(data, "Risoe.BINfileData")
-
+  curve.transformation <- .validate_args(curve.transformation,
+                                         c("CW2pLM", "CW2pLMi",
+                                           "CW2pHMi", "CW2pPMi", "None"))
   temp <- data
-
-  # Missing check ----------------------------------------------------------------
 
   ##set plot position if missing
   if(missing(position)==TRUE){position<-c(min(temp@METADATA[,"POSITION"]):max(temp@METADATA[,"POSITION"]))}
@@ -149,8 +151,6 @@ plot_Risoe.BINfileData<- function(
   }else {
     temp@METADATA<-temp@METADATA[order(temp@METADATA[,"POSITION"]),]
   }
-
-
 
   # Select values for plotting ------------------------------------------------------------------
 
@@ -185,29 +185,11 @@ plot_Risoe.BINfileData<- function(
       values.xy <- data.frame(values.x, values.y)
 
       ##set curve transformation if wanted
-      if((temp@METADATA[i,"LTYPE"] == "OSL" | temp@METADATA[i,"LTYPE"] == "IRSL") &
-           missing(curve.transformation) == FALSE){
+      if (grepl("IRSL|OSL", temp@METADATA[i, "LTYPE"]) &&
+          curve.transformation != "None") {
 
-        if(curve.transformation=="CW2pLM"){
-
-          values.xy <- CW2pLM(values.xy)
-
-        }else if(curve.transformation=="CW2pLMi"){
-
-          values.xy <- CW2pLMi(values.xy)[,1:2]
-
-        }else if(curve.transformation=="CW2pHMi"){
-
-          values.xy <- CW2pHMi(values.xy)[,1:2]
-
-        }else if(curve.transformation=="CW2pPMi"){
-
-          values.xy <- CW2pPMi(values.xy)[,1:2]
-
-        }else{
-          .throw_warning("Unknown 'curve.transformation', ",
-                         "no transformation performed")
-        }
+        ## get the actual function from the parameter value and apply it
+        values.xy <- get(curve.transformation)(values.xy)[, 1:2]
       }
 
       ##plot graph
