@@ -355,11 +355,8 @@ plot_RLum.Results<- function(
       y<- c(0, y, 0)
 
       # cutoff negative y values
-      neg<- which(y<0)
-      if (length(neg) != 0) {
-        y<- y[-neg]
-        x<- x[-neg]
-      }
+      x <- x[y >= 0]
+      y <- y[y >= 0]
 
       # add bootstrap likelihood polygon to plot
       polygon(x, y, col = "grey80", border = NA)
