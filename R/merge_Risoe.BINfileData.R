@@ -150,18 +150,12 @@ merge_Risoe.BINfileData <- function(
   # Merge Files -------------------------------------------------------------
   ##loop for similar input objects
   for(i in 1:length(input.objects)){
-    if(exists("temp.new.METADATA") == FALSE){
+    if (!exists("temp.new.METADATA")) {
 
       temp.new.METADATA <- temp[[i]]@METADATA
       temp.new.DATA <- temp[[i]]@DATA
-
-
-      if(inherits(try(temp[[i]]@.RESERVED, silent = TRUE), "try-error")){
-
-        temp.new.RESERVED <- list()
-
-      }else{
-
+      temp.new.RESERVED <- list()
+      if (".RESERVED" %in% slotNames(temp[[i]])) {
         temp.new.RESERVED <- temp[[i]]@.RESERVED
       }
 
@@ -170,17 +164,13 @@ merge_Risoe.BINfileData <- function(
       temp.new.METADATA <- rbind(temp.new.METADATA, temp[[i]]@METADATA)
       temp.new.DATA <- c(temp.new.DATA, temp[[i]]@DATA)
 
-      if(inherits(try(temp[[i]]@.RESERVED, silent = TRUE), "try-error")){
-
-        temp.new.RESERVED <- c(temp.new.RESERVED, list())
-
-      }else{
-
-        temp.new.RESERVED <- c(temp.new.RESERVED, temp[[i]]@.RESERVED)
+      new.reserved <- list()
+      if (".RESERVED" %in% slotNames(temp[[i]])) {
+        new.reserved <- temp[[i]]@.RESERVED
       }
+      temp.new.RESERVED <- c(temp.new.RESERVED, new.reserved)
     }
   }
-
 
   ##SET RECORD ID in METADATA
   temp.new.METADATA$ID <- 1:temp.record.length
