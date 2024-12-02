@@ -42,7 +42,7 @@ an automatic start value estimation is attempted (see details).}
 
 \item{input.dataType}{\link{character} (\emph{with default}):
 alter the plot output depending on the input data: \code{"LM"} or \code{"pLM"} (pseudo-LM).
-See: \link{CW2pLM}}
+See: \link{convert_CW2pLM}}
 
 \item{fit.method}{\link{character} (\emph{with default}):
 select fit method, allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'

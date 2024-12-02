@@ -48,6 +48,11 @@ older names is now deprecated and will produce a warning (#351, fixed in #408).
 * Function `Analyse_SAR.OSLdata()` is now officially deprecated,
 `analyse_SAR.CWOSL()` should be used instead (#216, fixed in #264).
 
+* Functions `CW2pHMi()`, `CW2pLM()`, `CW2pLMi()` and `CW2pPMi()` have been
+renamed to `convert_CW2pHMi()`, `convert_CW2pLM()`, `convert_CW2pLMi()`
+and `convert_CW2pPMi()`, respectively. The use of the older names is now
+deprecated and will produce a warning (#499, fixed in #503).
+
 * Function `Second2Gray()` has been renamed to `convert_Second2Gray()`
 (#498, fixed in #500).
 

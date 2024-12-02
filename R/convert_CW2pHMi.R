@@ -14,13 +14,13 @@
 #'
 #' (1) log(CW-OSL) values
 #'
-#' (2) 
-#' Calculate t' which is the transformed time: 
-#' \deqn{t' = t-(1/\delta)*log(1+\delta*t)} 
-#' 
-#' (3) 
-#' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values 
-#' for the transformed time (t'). Values beyond `min(t)` and `max(t)` 
+#' (2)
+#' Calculate t' which is the transformed time:
+#' \deqn{t' = t-(1/\delta)*log(1+\delta*t)}
+#'
+#' (3)
+#' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
+#' for the transformed time (t'). Values beyond `min(t)` and `max(t)`
 #' produce `NA` values.
 #'
 #' (4)
@@ -29,19 +29,19 @@
 #' which contain no `NA` values and use these values for a linear fit
 #' using [lm].
 #'
-#' (5) 
-#' Extrapolate values for t' < `min(t)` based on the previously 
+#' (5)
+#' Extrapolate values for t' < `min(t)` based on the previously
 #' obtained fit parameters.
 #'
-#' (6) 
+#' (6)
 #' Transform values using
-#' \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} 
-#' \deqn{c = (1+\delta*P)/\delta*P} 
-#' \deqn{P = length(stimulation~period)} 
-#' 
-#' (7) Combine all values and truncate all values for t' > `max(t)` 
+#' \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')}
+#' \deqn{c = (1+\delta*P)/\delta*P}
+#' \deqn{P = length(stimulation~period)}
 #'
-#' 
+#' (7) Combine all values and truncate all values for t' > `max(t)`
+#'
+#'
 #' **NOTE:**
 #' The number of values for t' < `min(t)` depends on the stimulation rate
 #' parameter `delta`. To avoid the production of too many artificial data
@@ -50,59 +50,59 @@
 #' `delta`.
 #'
 #' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' [RLum.Data.Curve-class] or [data.frame] with measured curve data of type 
+#' [RLum.Data.Curve-class] or [data.frame] with measured curve data of type
 #' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`).
-#' 
-#' @param delta [vector] (*optional*): 
-#' stimulation rate parameter, if no value is given, the optimal value is 
-#' estimated automatically (see details). Smaller values of delta produce more 
+#'
+#' @param delta [vector] (*optional*):
+#' stimulation rate parameter, if no value is given, the optimal value is
+#' estimated automatically (see details). Smaller values of delta produce more
 #' points in the rising tail of
 #' the curve.
-#' 
-#' @return 
+#'
+#' @return
 #' The function returns the same data type as the input data type with
-#' the transformed curve values. 
-#' 
-#' 
+#' the transformed curve values.
+#'
+#'
 #' **`RLum.Data.Curve`**
-#' 
-#' \tabular{ll}{ 
-#' `$CW2pHMi.x.t` \tab: transformed time values \cr 
-#' `$CW2pHMi.method` \tab: used method for the production of the new data points 
+#'
+#' \tabular{ll}{
+#' `$CW2pHMi.x.t` \tab: transformed time values \cr
+#' `$CW2pHMi.method` \tab: used method for the production of the new data points
 #' }
-#' 
+#'
 #' **`data.frame`**
-#' 
-#' \tabular{ll}{ 
-#' `$x` \tab: time\cr 
-#' `$y.t` \tab: transformed count values\cr 
-#' `$x.t` \tab: transformed time values \cr 
+#'
+#' \tabular{ll}{
+#' `$x` \tab: time\cr
+#' `$y.t` \tab: transformed count values\cr
+#' `$x.t` \tab: transformed time values \cr
 #' `$method` \tab: used method for the production of the new data points
 #' }
-#' 
-#' @note 
+#'
+#' @note
 #' According to Bos & Wallinga (2012), the number of extrapolated points
 #' should be limited to avoid artificial intensity data. If `delta` is
 #' provided manually and more than two points are extrapolated, a warning
-#' message is returned. 
+#' message is returned.
 #'
-#' The function [approx] may produce some `Inf` and `NaN` data. 
-#' The function tries to manually interpolate these values by calculating 
-#' the `mean` using the adjacent channels. If two invalid values are succeeding, 
-#' the values are removed and no further interpolation is attempted. 
+#' The function [approx] may produce some `Inf` and `NaN` data.
+#' The function tries to manually interpolate these values by calculating
+#' the `mean` using the adjacent channels. If two invalid values are succeeding,
+#' the values are removed and no further interpolation is attempted.
 #' In every case a warning message is shown.
-#' 
-#' @section Function version: 0.2.2
-#' 
-#' @author 
+#'
+#' @section Function version: 0.2.3
+#'
+#' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
-#' Based on comments and suggestions from:\cr 
+#' Based on comments and suggestions from:\cr
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
-#' 
-#' @seealso [CW2pLM], [CW2pLMi], [CW2pPMi], [fit_LMCurve], [lm], 
-#' [RLum.Data.Curve-class]
-#' 
-#' @references 
+#'
+#' @seealso [convert_CW2pLM], [convert_CW2pLMi], [convert_CW2pPMi],
+#' [fit_LMCurve], [lm], [RLum.Data.Curve-class]
+#'
+#' @references
 #' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'
@@ -125,7 +125,7 @@
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #'
 #' ##transform values
-#' values.transformed<-CW2pHMi(ExampleData.CW_OSL_Curve)
+#' values.transformed <- convert_CW2pHMi(ExampleData.CW_OSL_Curve)
 #'
 #' ##plot
 #' plot(values.transformed$x, values.transformed$y.t, log = "x")
@@ -156,7 +156,7 @@
 #'
 #' ##transform values
 #'
-#' curve.transformed <- CW2pHMi(curve)
+#' curve.transformed <- convert_CW2pHMi(curve)
 #'
 #' ##plot curve
 #' plot(curve.transformed$x, curve.transformed$y.t, log = "x")
@@ -177,28 +177,28 @@
 #'      log="x",
 #'      main="Fig. 4 - Bos & Wallinga (2012)")
 #'
-#' values.t<-CW2pLMi(values, P=1/20)
-#' lines(values[1:length(values.t[,1]),1],CW2pLMi(values, P=1/20)[,2],
+#' values.t <- convert_CW2pLMi(values, P = 1/20)
+#' lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
 #'       col="red" ,lwd=1.3)
 #' text(0.03,4500,"LM", col="red" ,cex=.8)
 #'
-#' values.t<-CW2pHMi(values, delta=40)
-#' lines(values[1:length(values.t[,1]),1],CW2pHMi(values, delta=40)[,2],
+#' values.t <- convert_CW2pHMi(values, delta = 40)
+#' lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
 #'       col="black", lwd=1.3)
 #' text(0.005,3000,"HM", cex=.8)
 #'
-#' values.t<-CW2pPMi(values, P=1/10)
-#' lines(values[1:length(values.t[,1]),1],CW2pPMi(values, P=1/10)[,2],
+#' values.t <- convert_CW2pPMi(values, P = 1/10)
+#' lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
 #'       col="blue", lwd=1.3)
 #' text(0.5,6500,"PM", col="blue" ,cex=.8)
 #'
 #' @md
 #' @export
-CW2pHMi<- function(
+convert_CW2pHMi<- function(
   values,
   delta
 ) {
-  .set_function_name("CW2pHMi")
+  .set_function_name("convert_CW2pHMi")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
@@ -349,4 +349,11 @@ CW2pHMi<- function(
       info = temp.info)
     return(newRLumDataCurves.CW2pHMi)
   }
+}
+
+#' @rdname convert_CW2pHMi
+#' @export
+CW2pHMi <- function(values, delta) {
+  .Deprecated("convert_CW2pHMi")
+  convert_CW2pHMi(values, delta)
 }

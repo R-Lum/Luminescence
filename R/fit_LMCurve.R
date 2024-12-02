@@ -105,7 +105,7 @@
 #'
 #' @param input.dataType [character] (*with default*):
 #' alter the plot output depending on the input data: `"LM"` or `"pLM"` (pseudo-LM).
-#' See: [CW2pLM]
+#' See: [convert_CW2pLM]
 #'
 #' @param fit.method [character] (*with default*):
 #' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'

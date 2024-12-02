@@ -77,8 +77,8 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
-#' @seealso [Risoe.BINfileData-class],[read_BIN2R], [CW2pLM], [CW2pLMi],
-#' [CW2pPMi], [CW2pHMi]
+#' @seealso [Risoe.BINfileData-class], [read_BIN2R], [convert_CW2pLM],
+#' [convert_CW2pLMi], [convert_CW2pPMi], [convert_CW2pHMi]
 #'
 #' @references
 #' Duller, G., 2007. Analyst. pp. 1-45.
@@ -126,6 +126,11 @@ plot_Risoe.BINfileData<- function(
   curve.transformation <- .validate_args(curve.transformation,
                                          c("CW2pLM", "CW2pLMi",
                                            "CW2pHMi", "CW2pPMi", "None"))
+  ## complete the function name
+  if (curve.transformation != "None") {
+    curve.transformation <- paste0("convert_", curve.transformation)
+  }
+
   temp <- data
 
   ##set plot position if missing

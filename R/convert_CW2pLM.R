@@ -29,7 +29,7 @@
 #' The transformation is recommended for curves recorded with a channel
 #' resolution of at least 0.05 s/channel.
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -65,17 +65,17 @@
 #' values <- data.frame(x,y)
 #'
 #' ##transform values
-#' values.transformed <- CW2pLM(values)
+#' values.transformed <- convert_CW2pLM(values)
 #'
 #' ##plot
 #' plot(values.transformed)
 #'
 #' @md
 #' @export
-CW2pLM <- function(
+convert_CW2pLM <- function(
   values
 ) {
-  .set_function_name("CW2pLM")
+  .set_function_name("convert_CW2pLM")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
@@ -124,6 +124,12 @@ CW2pLM <- function(
                                                     data = as.matrix(temp.values),
                                                     info = values@info)
     return(newRLumDataCurves.CW2pLM)
-
   }
+}
+
+#' @rdname convert_CW2pLM
+#' @export
+CW2pLM <- function(values) {
+  .Deprecated("convert_CW2pLM")
+  convert_CW2pLM(values)
 }
