@@ -1,6 +1,6 @@
 ## load data
 data(ExampleData.DeValues, envir = environment())
-df <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+df <- convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
 test_that("input validation", {
   testthat::skip_on_cran()

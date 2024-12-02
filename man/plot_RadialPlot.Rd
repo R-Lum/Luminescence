@@ -173,7 +173,7 @@ one or more of the following keywords:
 
 ## load example data
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <- Second2Gray(
+ExampleData.DeValues <- convert_Second2Gray(
   ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
 ## plot the example data straightforward
