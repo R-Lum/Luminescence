@@ -389,4 +389,16 @@ test_that("regression tests", {
                 n.MCMC = 10)), "RLum.Results")
   })
 
+  tmp_object[[3]] <- set_RLum("RLum.Analysis")
+  SW({
+  expect_message(expect_null(
+      analyse_baSAR(tmp_object,
+                    verbose = FALSE,
+                    recordType = c("OSL", "NONE"),
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = c(1:2),
+                    background.integral = c(80:100),
+                    n.MCMC = 10)),
+      "Object conversion failed, NULL returned")
+  })
 })

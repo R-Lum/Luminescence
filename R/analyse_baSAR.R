@@ -1019,7 +1019,8 @@ analyse_baSAR <- function(
       ##run conversion
       if(verbose)
         cat("\t\t  .. run conversion\n")
-      object <- try(convert_RLum2Risoe.BINfileData(object), silent = FALSE)
+      object <- try(convert_RLum2Risoe.BINfileData(object),
+                    outFile = stdout()) # redirect error messages so they can be silenced
 
       ##create fallback
        if(inherits(object, "try-error")){
