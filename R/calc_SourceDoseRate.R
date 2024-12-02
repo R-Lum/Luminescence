@@ -3,7 +3,7 @@
 #' Calculating the dose rate of the irradiation source via the date of
 #' measurement based on: source calibration date, source dose rate, dose rate
 #' error. The function returns a data.frame that provides the input argument
-#' dose_rate for the function [Second2Gray].
+#' dose_rate for the function [convert_Second2Gray].
 #'
 #' Calculation of the source dose rate based on the time elapsed since the last
 #' calibration of the irradiation source. Decay parameters assume a Sr-90 beta
@@ -43,7 +43,7 @@
 #'
 #' @param dose.rate.unit [character] (*with default*):
 #' specify dose rate unit for input (`Gy/min` or `Gy/s`), the output is given in
-#' Gy/s as valid for the function [Second2Gray]
+#' Gy/s as valid for the function [convert_Second2Gray]
 #'
 #' @param predict [integer] (*with default*):
 #' option allowing to predict the dose rate of the source over time in days
@@ -87,7 +87,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
-#' @seealso [Second2Gray], [get_RLum], [plot_RLum]
+#' @seealso [convert_Second2Gray], [get_RLum], [plot_RLum]
 #'
 #' @references
 #' NNDC, Brookhaven National Laboratory `http://www.nndc.bnl.gov/`
@@ -107,13 +107,13 @@
 #' ##show results
 #' get_RLum(dose.rate)
 #'
-#' ##(2) Usage in combination with another function (e.g., Second2Gray() )
+#' ##(2) Usage in combination with another function (e.g., convert_Second2Gray() )
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' ## use the calculated variable dose.rate as input argument
 #' ## to convert De(s) to De(Gy)
-#' Second2Gray(ExampleData.DeValues$BT998, dose.rate)
+#' convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
 #' ##(3) source rate prediction and plotting
 #' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",

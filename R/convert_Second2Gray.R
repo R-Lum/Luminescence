@@ -75,7 +75,7 @@
 #' ## - load De data from the example data help file
 #' data(ExampleData.DeValues, envir = environment())
 #' ## - convert De(s) to De(Gy)
-#' Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#' convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
 #'
 #' ##(B) for source dose rate calibration data
@@ -88,16 +88,16 @@
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' # apply dose.rate to convert De(s) to De(Gy)
-#' Second2Gray(ExampleData.DeValues$BT998, dose.rate)
+#' convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
 #' @md
 #' @export
-Second2Gray <- function(
+convert_Second2Gray <- function(
   data,
   dose.rate,
   error.propagation = "omit"
 ) {
-  .set_function_name("Second2Gray")
+  .set_function_name("convert_Second2Gray")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity tests --------------------------------------------------------
@@ -148,4 +148,17 @@ Second2Gray <- function(
   data <- data.frame(De=De.gray, De.error=De.error.gray)
 
   return(data)
+}
+
+#' Converting equivalent dose values from seconds (s) to Gray (Gy)
+#'
+#' @description
+#' This function is defunct, use [convert_Second2Gray] instead.
+#'
+#' @param ... Unused.
+#'
+#' @md
+#' @export
+Second2Gray <- function(...) {
+  .Defunct("convert_Second2Gray")
 }
