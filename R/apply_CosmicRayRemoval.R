@@ -118,7 +118,6 @@ apply_CosmicRayRemoval <- function(
 
   }else{
     class_original <- NULL
-
   }
 
   ##handle the list and recall
@@ -139,7 +138,6 @@ apply_CosmicRayRemoval <- function(
 
       }else{
         temp_o <- o
-
       }
 
       ##call function
@@ -161,9 +159,7 @@ apply_CosmicRayRemoval <- function(
 
       }else{
         return(results)
-
       }
-
     })
 
     ##final return, make sure that we return what we had as input
@@ -172,14 +168,15 @@ apply_CosmicRayRemoval <- function(
 
     }else{
       return(results_list)
-
     }
-
   }
 
-  # Integrity check -----------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Data.Spectrum")
+  if (length(object@data) < 2) {
+    .throw_error("'object' contains no data")
+  }
   .validate_args(method, c("smooth", "smooth.spline", "Pych"))
 
   ##deal with addition arguments
@@ -211,7 +208,6 @@ apply_CosmicRayRemoval <- function(
     ##rotate output matrix if necessary
     if(MARGIN == 1){
       object.data.temp.smooth <- t(object.data.temp.smooth)
-
     }
 
     ## +++++++++++++++++++++++++++++++++++ (smooth.spline) +++++++++++++++++++++##
@@ -234,7 +230,6 @@ apply_CosmicRayRemoval <- function(
     ##rotate output matrix if necessary
     if(MARGIN == 1){
       object.data.temp.smooth <- t(object.data.temp.smooth)
-
     }
 
     ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
@@ -306,11 +301,8 @@ apply_CosmicRayRemoval <- function(
           }else{
 
             object.data.temp[n,x]
-
           }
-
         })
-
       }
 
       ##(8) - return histogram used for the removal as plot
@@ -361,8 +353,6 @@ apply_CosmicRayRemoval <- function(
   colnames(object.data.temp.smooth) <- colnames(object@data)
   rownames(object.data.temp.smooth) <- rownames(object@data)
 
-
-
   # Return Output------------------------------------------------------------
 
   temp.output <- set_RLum(
@@ -373,5 +363,4 @@ apply_CosmicRayRemoval <- function(
     info = object@info)
 
   invisible(temp.output)
-
 }

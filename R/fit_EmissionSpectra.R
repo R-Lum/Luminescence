@@ -198,6 +198,10 @@ fit_EmissionSpectra <- function(
   ##deal with RLum.Data.Spectrum lists
   if(inherits(object, "list") && all(sapply(object, class) == "RLum.Data.Spectrum")){
     temp <- lapply(object, function(o){
+      if (length(o@data) < 2) {
+        .throw_error("'object' contains no data")
+      }
+
       ##get x-axis
       x <- as.numeric(rownames(o@data))
       rownames(o@data) <- NULL

@@ -1,14 +1,14 @@
-test_that("standard check", {
+## load data
+data(ExampleData.XSYG, envir = environment())
+
+## subtract background
+TL.Spectrum@data <- TL.Spectrum@data[] - TL.Spectrum@data[, 15]
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##load example data
-  data(ExampleData.XSYG, envir = environment())
-
-  ##subtract background
-  TL.Spectrum@data <- TL.Spectrum@data[] - TL.Spectrum@data[,15]
-
-  # break function -----------
-  ## unwanted list element in list ---------
+  expect_error(fit_EmissionSpectra("fail"),
+               "'object' should be of class 'RLum.Data.Spectrum', 'matrix' or")
   expect_error(fit_EmissionSpectra(list(TL.Spectrum, "fail")),
                "[fit_EmissionSpectra()] List elements of different class detected",
                fixed = TRUE)
@@ -21,7 +21,6 @@ test_that("standard check", {
   expect_error(fit_EmissionSpectra(TL.Spectrum, frame = 1000),
                "\\[fit\\_EmissionSpectra\\(\\)\\] 'frame' invalid. Allowed range min: 1 and max: 24")
 
-
   ## wrong graining argument -------
   SW({
   expect_error(fit_EmissionSpectra(TL.Spectrum, frame = 5,
@@ -31,13 +30,22 @@ test_that("standard check", {
   })
 
   ## for matrix input -------
-  expect_error(fit_EmissionSpectra("fail"),
-               "'object' should be of class 'RLum.Data.Spectrum', 'matrix' or")
-
   mat <- get_RLum(TL.Spectrum)[, 1:4]
   expect_error(fit_EmissionSpectra(object = mat, frame = 1000),
                "'frame' invalid. Allowed range min: 1 and max: 3")
-  SW({
+
+  ## empty object
+  expect_error(fit_EmissionSpectra(set_RLum("RLum.Data.Spectrum")),
+               "'object' contains no data")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+SW({
+
+  ## for matrix input -------
+  mat <- get_RLum(TL.Spectrum)[, 1:4]
   expect_s4_class(
       fit_EmissionSpectra(object = mat, plot = FALSE, verbose = FALSE,
                           method_control = list(max.runs = 5)),

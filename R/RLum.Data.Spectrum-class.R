@@ -372,7 +372,11 @@ setMethod(f = "bin_RLum.Data",
             .set_function_name("bin_RLum.Data.Spectrum")
             on.exit(.unset_function_name(), add = TRUE)
 
-            ##make sure that we have no input problems
+            ## Integrity checks ---------------------------------------------
+
+            if (length(object@data) < 2) {
+              .throw_error("'object' contains no data")
+            }
             .validate_class(bin_size.row, c("numeric", "integer"))
             .validate_class(bin_size.col, c("numeric", "integer"))
 
