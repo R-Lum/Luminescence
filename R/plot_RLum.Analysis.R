@@ -225,6 +225,10 @@ plot_RLum.Analysis <- function(
   curve.transformation <- .validate_args(curve.transformation,
                                          c("CW2pLM", "CW2pLMi",
                                            "CW2pHMi", "CW2pPMi", "None"))
+  ## complete the function name
+  if (curve.transformation != "None") {
+    curve.transformation <- paste0("convert_", curve.transformation)
+  }
 
   # Plotting ------------------------------------------------------------------
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

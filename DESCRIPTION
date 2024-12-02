@@ -73,10 +73,6 @@ Encoding: UTF-8
 Language: en-US
 Collate: 
     'Analyse_SAR.OSLdata.R'
-    'CW2pHMi.R'
-    'CW2pLM.R'
-    'CW2pLMi.R'
-    'CW2pPMi.R'
     'Luminescence-package.R'
     'PSL2Risoe.BINfileData.R'
     'RcppExports.R'
@@ -145,6 +141,10 @@ Collate:
     'combine_De_Dr.R'
     'convert_Activity2Concentration.R'
     'convert_BIN2CSV.R'
+    'convert_CW2pHMi.R'
+    'convert_CW2pLM.R'
+    'convert_CW2pLMi.R'
+    'convert_CW2pPMi.R'
     'convert_Concentration2DoseRate.R'
     'convert_Daybreak2CSV.R'
     'convert_PSL2CSV.R'

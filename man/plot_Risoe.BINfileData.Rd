@@ -11,7 +11,7 @@ plot_Risoe.BINfileData(
   set,
   sorter = "POSITION",
   ltype = c("IRSL", "OSL", "TL", "RIR", "RBR", "RL"),
-  curve.transformation,
+  curve.transformation = "None",
   dose_rate,
   temp.lab,
   cex.global = 1,
@@ -46,8 +46,9 @@ default.}
 
 \item{curve.transformation}{\link{character} (\emph{optional}):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
-transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
-\code{CW2pPMi}. See details.}
+transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
+\code{CW2pHMi} and \code{CW2pPMi}, see details. If set to \code{None} (default), no
+transformation is applied.}
 
 \item{dose_rate}{\link{numeric} (\emph{optional}):
 dose rate of the irradiation source at the measurement date.
@@ -123,8 +124,8 @@ Kreutzer, S., Dietze, M., 2024. plot_Risoe.BINfileData(): Plot single luminescen
 Duller, G., 2007. Analyst. pp. 1-45.
 }
 \seealso{
-\linkS4class{Risoe.BINfileData},\link{read_BIN2R}, \link{CW2pLM}, \link{CW2pLMi},
-\link{CW2pPMi}, \link{CW2pHMi}
+\linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{convert_CW2pLM},
+\link{convert_CW2pLMi}, \link{convert_CW2pPMi}, \link{convert_CW2pHMi}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
