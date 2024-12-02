@@ -194,8 +194,7 @@ report_RLum <- function(
   .set_function_name("report_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## ------------------------------------------------------------------------ ##
-  ## PRE-CHECKS ----
+  ## Integrity checks -------------------------------------------------------
 
   # check if required namespace(s) are available
   .require_suggested_package("rmarkdown", "Creating object reports")
@@ -358,7 +357,6 @@ report_RLum <- function(
       if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
         next();
 
-
       # HEADER
       short.name <- elements$bud[i]
       links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
@@ -447,7 +445,6 @@ report_RLum <- function(
         # write table using pander and end each table with a horizontal line
         writeLines(suppressWarnings(pander::pander_return(table)), tmp)
         writeLines("\n\n<hr>", tmp)
-
       }
     }
   }#EndOf::Main
@@ -541,7 +538,6 @@ report_RLum <- function(
             tmp)
         }
       }
-
     }
   }#EndOf::Plot
 
@@ -599,9 +595,6 @@ report_RLum <- function(
 # all slots/elements along with their class, length, depth.
 # ---------------------------------------------------------------------------- #
 .tree_RLum <- function(x, root) {
-
-  if (missing(root))
-    root <- deparse(substitute(x))
 
   ## S4 object -----
   if (isS4(x)) {
@@ -713,8 +706,6 @@ report_RLum <- function(
 # the structure of the object as a data.frame
 # ---------------------------------------------------------------------------- #
 .struct_RLum <- function(x, root) {
-  if (missing(root))
-    root <- deparse(substitute(x))
   s <- capture.output(.tree_RLum(x, root = root))
   df <- as.data.frame(do.call(rbind, strsplit(s, "|", fixed = TRUE)), stringsAsFactors = FALSE)
   names(df) <- c("branch", "class", "length", "depth", "endpoint", "row", "col")

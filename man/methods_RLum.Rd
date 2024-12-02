@@ -42,6 +42,7 @@
 \alias{as.list.RLum.Results}
 \alias{as.list.RLum.Data.Curve}
 \alias{as.list.RLum.Data.Image}
+\alias{as.list.RLum.Data.Spectrum}
 \alias{as.list.RLum.Analysis}
 \alias{as.matrix.RLum.Data.Curve}
 \alias{as.matrix.RLum.Data.Spectrum}
@@ -155,6 +156,8 @@ bin(x, ...)
 \method{as.list}{RLum.Data.Curve}(x, ...)
 
 \method{as.list}{RLum.Data.Image}(x, ...)
+
+\method{as.list}{RLum.Data.Spectrum}(x, ...)
 
 \method{as.list}{RLum.Analysis}(x, ...)
 

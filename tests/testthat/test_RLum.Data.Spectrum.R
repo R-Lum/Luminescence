@@ -20,13 +20,15 @@ test_that("check class", {
   expect_type(names(object), "character")
 
   ##test bin_RLum()
+  expect_error(bin_RLum.Data(object),
+               "'object' contains no data")
+  object@data <- matrix(data = rep(1:20, each = 10), ncol = 20)
+  rownames(object@data) <- 1:10
+  colnames(object@data) <- 1:20
   expect_error(bin_RLum.Data(object, bin_size.row = "test"),
                "'bin_size.row' should be of class 'numeric'")
   expect_error(bin_RLum.Data(object, bin_size.row = 12, bin_size.col = "test"),
                "'bin_size.col' should be of class 'numeric'")
-  object@data <- matrix(data = rep(1:20, each = 10), ncol = 20)
-  rownames(object@data) <- 1:10
-  colnames(object@data) <- 1:20
   expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 2), "RLum.Data.Spectrum")
 
   expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 1, bin_size.col = 2), "RLum.Data.Spectrum")

@@ -160,6 +160,11 @@ convert_Wavelength2Energy <- function(
   .validate_not_empty(object)
 
   if(inherits(object, "RLum.Data.Spectrum")){
+
+    if (length(object@data) < 2) {
+      .throw_error("'object' contains no data")
+    }
+
      ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){
@@ -168,7 +173,6 @@ convert_Wavelength2Energy <- function(
          return(object)
      }
     }
-
 
     ##convert data
     object@data <- .conv_intensity(object@data)

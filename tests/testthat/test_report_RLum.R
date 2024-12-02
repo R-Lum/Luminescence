@@ -29,4 +29,15 @@ test_that("Test Simple RLum Report", {
 
   ## data.frame
   expect_null(report_RLum(ExampleData.DeValues$CA1))
+
+  ## names with spaces or missing
+  ll <- as.list(ExampleData.DeValues$CA1)
+  names(ll) <- c("", "ED Error")
+  expect_null(report_RLum(ll))
+
+  ## more coverage: data frame with a column containing a matrix
+  m <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
+  df <- data.frame(id = 1, mat = rep(0, nrow(m)))
+  df$mat <- m
+  expect_null(report_RLum(df))
 })

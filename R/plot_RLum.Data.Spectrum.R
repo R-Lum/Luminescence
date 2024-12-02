@@ -272,6 +272,9 @@ plot_RLum.Data.Spectrum <- function(
             "'RLum.Data.Spectrum' object using set_RLum()")
   }
 
+  if (length(object@data) < 2) {
+    .throw_error("'object' contains no data")
+  }
   .validate_args(norm, c("min", "max"), null.ok = TRUE)
   .validate_args(plot.type, c("contour", "persp", "single", "multiple.lines",
                               "image", "transect", "interactive"))

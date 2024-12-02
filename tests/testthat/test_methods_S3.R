@@ -130,6 +130,8 @@ test_that("Test various S3 methods", {
   expect_equal(names(spectrum)[1:3], c("state", "parentID", "startDate"))
   expect_type(row.names(spectrum), "character")
   expect_s3_class(as.data.frame(spectrum), "data.frame")
+  expect_type(as.list(spectrum), "list")
+  expect_length(as.list(spectrum), 24)
   expect_vector(as.matrix(spectrum))
   expect_equal(is(spectrum), c("RLum.Data.Spectrum", "RLum.Data", "RLum"))
   expect_s4_class(merge(spectrum, spectrum), "RLum.Data.Spectrum")
