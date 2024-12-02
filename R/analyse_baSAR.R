@@ -1027,13 +1027,6 @@ analyse_baSAR <- function(
          return(NULL)
        }
 
-      ##assign irradiation times
-      if(is.null(irradiation_times)){
-        if(verbose)
-          cat("\t\t  .. set irradiation times\n")
-        object@METADATA[["IRR_TIME"]] <- rep(irradiation_times,n_objects)
-      }
-
       ##remove none-OSL curves
       if(!all(object@METADATA[["LTYPE"]] %in% "OSL")){
         if(verbose)
