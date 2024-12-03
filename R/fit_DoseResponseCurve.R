@@ -756,7 +756,7 @@ fit_DoseResponseCurve <- function(
           )
 
           #get parameters out of it including error handling
-          if (inherits(fit.MC, "try-error")) {
+          if (inherits(fit.MC, "try-error") || mode == "alternate") {
             x.natural[i] <- NA
 
           }else {
@@ -767,17 +767,9 @@ fit_DoseResponseCurve <- function(
             var.c[i]<-as.vector((parameters["c"]))
 
             #calculate x.natural for error calculation
-            if(mode == "interpolation"){
-              x.natural[i]<-suppressWarnings(
-                -var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]))
-
-            }else if(mode == "extrapolation"){
-              x.natural[i]<-suppressWarnings(
-                abs(-var.c[i]-var.b[i]*log(1-0/var.a[i])))
-
-            }else{
-              x.natural[i] <- NA
-            }
+            x.natural[i] <- suppressWarnings(
+                abs(-var.c[i] - var.b[i] * log(1 - data.MC.De[i] / var.a[i]))
+            )
           }
 
         }#end for loop
