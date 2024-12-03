@@ -151,7 +151,7 @@ merge_RLum.Data.Curve<- function(
   ##(1) build new data matrix
   ## first find the shortest object
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
-  if (length(check.rows) == 0) {
+  if (length(check.rows) < 2) {
     .throw_error("'object' contains no data")
   }
   num.rows <- min(check.rows)

@@ -22,6 +22,8 @@ test_that("input validation", {
                "All elements of 'object' should be of class 'RLum.Data.Curve'")
   expect_error(merge_RLum.Data.Curve(list(), merge.method = "/"),
                "'object' contains no data")
+  expect_error(merge_RLum.Data.Curve(list(set_RLum("RLum.Data.Curve"))),
+               "'object' contains no data")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                      merge.method = "error"),
                "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")
