@@ -793,15 +793,16 @@ fit_DoseResponseCurve <- function(
     }
 
     if ((fit.method=="EXP OR LIN" & inherits(fit, "try-error")) |
-        fit.method=="LIN" | length(data[,1])<2) {
+        fit.method == "LIN") {
 
       ## establish models without and with intercept term
+      model.lin <- update(y ~ x,
+                          stats::reformulate(".", intercept = !fit.force_through_origin))
+
       if (fit.force_through_origin) {
-        model.lin <- y ~ 0 + x
-        De.fs <- function(fit, x, y) y / coef(fit)[1]
+        De.fs <- function(fit, y) y / coef(fit)[1]
       } else {
-        model.lin <- y ~ x
-        De.fs <- function(fit, x, y) (y - coef(fit)[1]) / coef(fit)[2]
+        De.fs <- function(fit, y) (y - coef(fit)[1]) / coef(fit)[2]
       }
 
       if (mode == "interpolation") {
@@ -810,33 +811,28 @@ fit_DoseResponseCurve <- function(
         y <- 0
       }
 
-      ## linear fitting
-      fit.lm <- lm(model.lin, data = data, weights = fit.weights)
+      .fit_lin_model <- function(model, data, y) {
+        fit <- lm(model, data = data, weights = fit.weights)
 
-      if (mode != "alternate") {
-        De <- De.fs(fit.lm, NA, y)
+        ## solve and get De
+        De <- NA
+        if (mode != "alternate") {
+          De <- De.fs(fit, y)
+        }
+        return(list(fit = fit, De = unname(De)))
       }
 
-      ##remove vector labels
-      .report_fit(as.numeric(as.character(De)))
+      res <- .fit_lin_model(model.lin, data, y)
+      fit.lm <- res$fit
+      De <- res$De
+      .report_fit(De)
 
-      #start loop for Monte Carlo Error estimation
-      #LIN MC ---------
-      for (i in 1:NumberIterations.MC) {
-        data <- data.frame(x = xy$x, y = data.MC[, i])
-
-        if (mode == "interpolation") {
-          y <- data.MC.De[i]
-        }
-
-        ## do fitting
-        fit.lmMC <- lm(model.lin, data = data, weights=fit.weights)
-
-        if (mode != "alternate") {
-          x.natural[i] <- abs(De.fs(fit.lmMC, NA, y))
-        }
-
-      }#endfor::loop for MC
+      ## Monte Carlo Error estimation
+      x.natural <- sapply(1:NumberIterations.MC, function(i) {
+        abs(.fit_lin_model(model.lin,
+                           data.frame(x = xy$x, y = data.MC[, i]),
+                           y = data.MC.De[i])$De)
+      })
 
       #correct for fit.method
       fit.method <- "LIN"
@@ -1025,10 +1021,8 @@ fit_DoseResponseCurve <- function(
           var.g[i] <- parameters[["g"]]
 
           if (mode == "interpolation") {
-            LnTn <- data.MC.De[i]
             min.val <- 0
           } else if (mode == "extrapolation") {
-            LnTn <- 0
             min.val <- -1e6
           }
 
@@ -1042,7 +1036,7 @@ fit_DoseResponseCurve <- function(
               b = var.b[i],
               c = var.c[i],
               g = var.g[i],
-              LnTn = LnTn
+              LnTn = data.MC.De[i]
             ),
             silent = TRUE)
 
