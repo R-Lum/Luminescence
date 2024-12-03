@@ -2210,7 +2210,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00001567]
+                  "value": [0.00001106]
                 },
                 {
                   "type": "logical",
@@ -2245,7 +2245,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-5.49687638e-06]
+                  "value": [0.00001188]
                 },
                 {
                   "type": "double",
@@ -2260,19 +2260,19 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00001917]
+                  "value": [-3.75017962e-06]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4.45632678e-06]
+                  "value": [0.00001895]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [-6.38893784e-06, -0.00001699, 0.00003051, -2.77700759e-06, -0.00002978, -8.59208378e-06, -6.50030518e-06, 1.40328309e-06, -0.0000155, -3.59310991e-07]
+              "value": [6.38893784e-06, 0.00001699, 0.00003051, 2.77700759e-06, 0.00002978, 8.59208378e-06, 6.50030518e-06, 1.40328309e-06, 0.0000155, 3.59310991e-07]
             },
             {
               "type": "list",
@@ -2340,6 +2340,247 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [true]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.02108303, 0.05525209, 0.02967242, 0.01978161, 0.01780345, 0.05525209, 0.8011553]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["fit_DoseResponseCurve"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["De", "De.MC", "Fit.Args"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [79.45855177]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.09105621]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00091616]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-79.52740453]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-79.45855177]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LIN"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-80.84925179]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-78.68727921]
+                }
+              ]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [-79.81261428, -79.80856481, -80.50743904, -81.13335449, -79.56704355, -77.3350591, -80.16124123, -78.78651318, -78.42661789, -79.73559768]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LIN"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["extrapolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
                 },
                 {
                   "type": "logical",
