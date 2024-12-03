@@ -866,7 +866,7 @@ fit_DoseResponseCurve <- function(
         fit.lmMC <- lm(model.lin, data = data, weights=fit.weights)
 
         if (mode != "alternate") {
-          x.natural[i] <- De.fs(fit.lmMC, NA, y)
+          x.natural[i] <- abs(De.fs(fit.lmMC, NA, y))
         }
 
       }#endfor::loop for MC
