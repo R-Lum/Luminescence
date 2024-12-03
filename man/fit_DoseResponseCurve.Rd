@@ -95,6 +95,7 @@ enables or disables terminal feedback.}
 An \code{RLum.Results} object is returned containing the slot \code{data} with the
 following elements:
 
+\strong{Overview elements}
 \tabular{lll}{
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
@@ -108,6 +109,27 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 
 If \code{object} is a list, then the function returns a list of \code{RLum.Results}
 objects as defined above.
+
+\strong{Details - \code{DATA.OBJECT$De}}
+This object is a \link{data.frame} with the following columns
+\tabular{lll}{
+\code{De} \tab \link{numeric} \tab equivalent dose \cr
+\code{De.Error} \tab \link{numeric} \tab standard error the equivalent dose \cr
+\code{D01} \tab \link{numeric} \tab D-naught value, curvature parameter of the exponential \cr
+\code{D01.ERROR} \tab \link{numeric} \tab standard error of the D-naught value\cr
+\code{D02} \tab \link{numeric} \tab 2nd D-naught value, only for \code{EXP+EXP}\cr
+\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-naught; only for \code{EXP+EXP}\cr
+\code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{LambertW} \cr
+\code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n})\cr
+\code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
+\code{De.plot} \tab \link{numeric} \tab equivalent dose use for plotting \cr
+\code{Fig} \tab \link{character} \tab applied fit function \cr
+\code{HPDI68_L} \tab \link{numeric} \tab highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68\% probability \cr
+\code{HPDI68_U} \tab \link{numeric} \tab same as \code{HPDI68_L} for the upper bound \cr
+\code{HPDI95_L} \tab \link{numeric} \tab same as \code{HPDI68_L} but for 95\% probability \cr
+\code{HPDI95_U} \tab \link{numeric} \tab same as \code{HPDI95_L} but for the upper bound \cr
+
+}
 }
 \description{
 A dose-response curve is produced for luminescence measurements using a

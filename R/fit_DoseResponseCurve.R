@@ -157,6 +157,7 @@
 #' An `RLum.Results` object is returned containing the slot `data` with the
 #' following elements:
 #'
+#' **Overview elements**
 #' \tabular{lll}{
 #' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
 #' `..$De` : \tab  `data.frame` \tab Table with De values \cr
@@ -170,6 +171,27 @@
 #'
 #' If `object` is a list, then the function returns a list of `RLum.Results`
 #' objects as defined above.
+#'
+#' **Details - `DATA.OBJECT$De`**
+#' This object is a [data.frame] with the following columns
+#' \tabular{lll}{
+#' `De` \tab [numeric] \tab equivalent dose \cr
+#' `De.Error` \tab [numeric] \tab standard error the equivalent dose \cr
+#' `D01` \tab [numeric] \tab D-naught value, curvature parameter of the exponential \cr
+#' `D01.ERROR` \tab [numeric] \tab standard error of the D-naught value\cr
+#' `D02` \tab [numeric] \tab 2nd D-naught value, only for `EXP+EXP`\cr
+#' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-naught; only for `EXP+EXP`\cr
+#' `Dc` \tab [numeric] \tab value indicating saturation level; only for `LambertW` \cr
+#' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`)\cr
+#' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
+#' `De.plot` \tab [numeric] \tab equivalent dose use for plotting \cr
+#' `Fig` \tab [character] \tab applied fit function \cr
+#' `HPDI68_L` \tab [numeric] \tab highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68% probability \cr
+#' `HPDI68_U` \tab [numeric] \tab same as `HPDI68_L` for the upper bound \cr
+#' `HPDI95_L` \tab [numeric] \tab same as `HPDI68_L` but for 95% probability \cr
+#' `HPDI95_U` \tab [numeric] \tab same as `HPDI95_L` but for the upper bound \cr
+#'
+#' }
 #'
 #' @section Function version: 1.2.1
 #'
