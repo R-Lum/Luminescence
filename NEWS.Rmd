@@ -202,6 +202,8 @@ it just helps to avoid uncontained events in the R session (addresses #381).
 * The function now supports a list of data frames as input, in which case it
 calls itself on each element of the list and produces a list of `RLum.Results`
 as output (#405, fixed in #434).
+* The function reported negative dose values in the MC runs plot when using
+`fit.method = "QDR"` and `mode = "extrapolation"` (#504, fixed in #505).
 
 ### `plot_RLum.Analysis()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed

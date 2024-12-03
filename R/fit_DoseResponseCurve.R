@@ -629,7 +629,7 @@ fit_DoseResponseCurve <- function(
                              silent = TRUE)
 
         if (!inherits(De.uniroot.MC, "try-error")) {
-          De.MC <- De.uniroot.MC$root
+          De.MC <- abs(De.uniroot.MC$root)
         }
       }
 
