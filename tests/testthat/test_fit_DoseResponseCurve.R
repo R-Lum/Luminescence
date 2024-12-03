@@ -239,6 +239,14 @@ test_that("snapshot tests", {
       NumberIterations.MC = 10
   ), tolerance = 5.0e-5)
   })
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      LxTxData,
+      fit.method = "LIN",
+      mode = "extrapolation",
+      verbose = FALSE,
+      NumberIterations.MC = 10
+  ), tolerance = 5.0e-5)
 })
 
 test_that("additional tests", {

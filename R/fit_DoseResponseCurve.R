@@ -629,7 +629,7 @@ fit_DoseResponseCurve <- function(
                              silent = TRUE)
 
         if (!inherits(De.uniroot.MC, "try-error")) {
-          De.MC <- De.uniroot.MC$root
+          De.MC <- abs(De.uniroot.MC$root)
         }
       }
 
@@ -866,7 +866,7 @@ fit_DoseResponseCurve <- function(
         fit.lmMC <- lm(model.lin, data = data, weights=fit.weights)
 
         if (mode != "alternate") {
-          x.natural[i] <- De.fs(fit.lmMC, NA, y)
+          x.natural[i] <- abs(De.fs(fit.lmMC, NA, y))
         }
 
       }#endfor::loop for MC
