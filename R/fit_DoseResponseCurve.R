@@ -182,7 +182,7 @@
 #' `D02` \tab [numeric] \tab 2nd D-naught value, only for `EXP+EXP`\cr
 #' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-naught; only for `EXP+EXP`\cr
 #' `Dc` \tab [numeric] \tab value indicating saturation level; only for `LambertW` \cr
-#' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`)\cr
+#' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
 #' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
 #' `De.plot` \tab [numeric] \tab equivalent dose use for plotting \cr
 #' `Fig` \tab [character] \tab applied fit function \cr
