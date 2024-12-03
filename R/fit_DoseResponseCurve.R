@@ -428,6 +428,8 @@ fit_DoseResponseCurve <- function(
       sample(rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
              NumberIterations.MC,
              replace = TRUE)
+  } else if (mode == "extrapolation") {
+    data.MC.De <- rep(0, NumberIterations.MC)
   }
 
   #1.3 set x.natural
@@ -561,17 +563,8 @@ fit_DoseResponseCurve <- function(
   if (fit.method == "QDR") {
 
     ## establish models without and with intercept term
-    if (fit.force_through_origin) {
-      model.qdr <- y ~ 0 + I(x) + I(x^2)
-      De.fs <- function(fit, x, y) {
-        0 + coef(fit)[1] * x + coef(fit)[2] * x ^ 2 - y
-      }
-    } else {
-      model.qdr <- y ~ I(x) + I(x^2)
-      De.fs <- function(fit, x, y) {
-        coef(fit)[1] + coef(fit)[2] * x + coef(fit)[3] * x ^ 2 - y
-      }
-    }
+    model.qdr <- update(y ~ I(x) + I(x^2),
+                        stats::reformulate(".", intercept = !fit.force_through_origin))
 
     if (mode == "interpolation") {
       y <- object[1, 2]
@@ -580,26 +573,35 @@ fit_DoseResponseCurve <- function(
       y <- 0
       lower <- -1e06
     }
+    upper <- max(object[, 1]) * 1.5
 
-    ## linear fitting
-    fit <- lm(model.qdr, data = data, weights = fit.weights)
+    .fit_qdr_model <- function(model, data, y) {
+      fit <- lm(model, data = data, weights = fit.weights)
 
-    ## solve and get De
-    De <- NA
-    if (mode != "alternate") {
-      De.uniroot <- try(uniroot(De.fs,
-                                fit = fit,
-                                y = y,
-                                lower = lower,
-                                upper = max(object[, 1]) * 1.5), silent = TRUE)
+      ## solve and get De
+      De <- NA
+      if (mode != "alternate") {
+        De.fs <- function(fit, x, y) {
+          predict(fit, newdata = data.frame(x)) - y
+        }
+        De.uniroot <- try(uniroot(De.fs, fit = fit, y = y,
+                                  lower = lower, upper = upper),
+                          silent = TRUE)
 
-      if (!inherits(De.uniroot, "try-error")) {
-        De <- De.uniroot$root
-        .report_fit(De)
-      } else{
-        .report_fit_failure(fit.method, mode)
+        if (!inherits(De.uniroot, "try-error")) {
+          De <- De.uniroot$root
+        }
       }
+      return(list(fit = fit, De = De))
     }
+
+    res <- .fit_qdr_model(model.qdr, data, y)
+    fit <- res$fit
+    De <- res$De
+    if (!inherits(fit, "try-error"))
+      .report_fit(De)
+    else
+      .report_fit_failure(fit.method, mode)
 
     ##set progressbar
     if(txtProgressBar){
@@ -608,42 +610,15 @@ fit_DoseResponseCurve <- function(
     }
 
     ## Monte Carlo Error estimation
-    fit.MC <- sapply(1:NumberIterations.MC, function(i){
-      data <- data.frame(x = xy$x, y = data.MC[,i])
-
-      if (mode == "interpolation") {
-        y <- data.MC.De[i]
-      }
-
-      ## linear fitting
-      fit.MC <- lm(model.qdr, data = data, weights = fit.weights)
-
-      ## solve and get De
-      De.MC <- NA
-      if (mode != "alternate") {
-        De.uniroot.MC <- try(uniroot(De.fs,
-                                     fit = fit.MC,
-                                     y = y,
-                                     lower = lower,
-                                     upper = max(object[, 1]) * 1.5),
-                             silent = TRUE)
-
-        if (!inherits(De.uniroot.MC, "try-error")) {
-          De.MC <- abs(De.uniroot.MC$root)
-        }
-      }
-
-      ##update progress bar
-      if(txtProgressBar) setTxtProgressBar(pb, i)
-
-      return(De.MC)
+    x.natural <- sapply(1:NumberIterations.MC, function(i) {
+      if (txtProgressBar) setTxtProgressBar(pb, i)
+      abs(.fit_qdr_model(model.qdr,
+                         data.frame(x = xy$x, y = data.MC[, i]),
+                         y = data.MC.De[i])$De)
     })
 
     if(txtProgressBar) close(pb)
-
-    x.natural<- fit.MC
   }
-
   ## EXP --------------------------------------------------------------------
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
