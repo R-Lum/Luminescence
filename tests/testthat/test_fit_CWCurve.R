@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
 test_that("input validation", {
@@ -13,11 +14,13 @@ test_that("input validation", {
                "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, n.components.max = 0),
                "'n.components.max' should be a positive integer scalar")
+  expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.failure_threshold = -1),
+               "'fit.failure_threshold' should be a positive integer scalar")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve[5:1, ]),
                "Time values are not ordered")
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## data.frame

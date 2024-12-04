@@ -29,7 +29,7 @@ x, y data of measured values (time and counts). See examples.}
 maximum number of components that are to be used for fitting.
 The upper limit is 7.}
 
-\item{fit.failure_threshold}{\link{vector} (\emph{with default}):
+\item{fit.failure_threshold}{\link{integer} (\emph{with default}):
 limits the failed fitting attempts.}
 
 \item{fit.method}{\link{character} (\emph{with default}):
