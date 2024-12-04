@@ -65,3 +65,14 @@ test_that("check functionality", {
                  "Argument 'output.path' no longer supported")
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 509
+  SW({
+  expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1:20, ],
+                             fit.method = "LM", fit.calcError = TRUE),
+                 "Error: Computation of confidence interval failed")
+  })
+})

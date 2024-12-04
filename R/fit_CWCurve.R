@@ -500,16 +500,22 @@ fit_CWCurve<- function(
     lambda.error<-rep(NA, n.components)
     I0.error<-rep(NA, n.components)
 
-    if(fit.calcError==TRUE){
-      ##option for confidence interval
-      values.confint<-confint(fit, level=0.68)
-      I0.confint<-values.confint[1:(length(values.confint[,1])/2),]
-      lambda.confint<-values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
+    ## option for confidence interval
+    if (fit.calcError) {
+      tryCatch({
+        values.confint <- confint(fit, level = 0.68)
+        half <- nrow(values.confint) / 2
+        I0.confint <- values.confint[1:half, ]
+        lambda.confint <- values.confint[half + 1:half, ]
 
-      ##error calculation
-      I0.error<-as.vector(abs(I0.confint[,1]-I0.confint[,2]))
-      lambda.error<-as.vector(abs(lambda.confint[,1]-lambda.confint[,2]))
-
+        ## error calculation
+        I0.error <- abs(I0.confint[, 1] - I0.confint[, 2])
+        lambda.error <- abs(lambda.confint[, 1] - lambda.confint[, 2])
+      }, error = function(e) {
+        ## report the error from confint()
+        .throw_message("Computation of confidence interval failed: ",
+                       e$message)
+      })
     }#endif::fit.calcError
 
     ##============================================================================##
