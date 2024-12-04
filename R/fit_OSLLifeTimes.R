@@ -272,14 +272,16 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
      .throw_error("recordType '", object@recordType,
                   "' not supported for input object")
 
-    df <- as.data.frame(object@data)
-
-  }else if(inherits(object, "data.frame")){
-    df <- object[,1:2]
+    object <- as.data.frame(object@data)
 
   } else if(inherits(object, "matrix")){
-    df <- as.data.frame(object[,1:2])
+    object <- as.data.frame(object)
   }
+
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have at least two columns")
+  }
+  df <- object[, 1:2]
 
   ##remove NA values, whatever it is worth for
   if (anyNA(df)) {

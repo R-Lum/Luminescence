@@ -294,6 +294,9 @@ fit_EmissionSpectra <- function(
 
   # Start main core -----------------------------------------------------------------------------
 
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have at least two columns")
+  }
   input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
                                 null.ok = TRUE)
 

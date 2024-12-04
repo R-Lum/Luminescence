@@ -11,6 +11,8 @@ test_that("input validation", {
                "'object' cannot be an empty data.frame")
   expect_error(calc_FastRatio(matrix(nrow = 1, ncol = 0)),
                "'object' cannot be an empty matrix")
+  expect_error(calc_FastRatio(matrix()),
+               "'object' contains no data")
 
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
                "'Ch_L1' should be a positive integer scalar")

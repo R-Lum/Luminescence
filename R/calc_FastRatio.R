@@ -126,7 +126,8 @@ calc_FastRatio <- function(object,
   .set_function_name("calc_FastRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Input verification -----------------------------------------------------
+  ## Integrity checks - -----------------------------------------------------
+
   .validate_class(object, c("RLum.Analysis", "RLum.Results", "RLum.Data.Curve",
                             "data.frame", "matrix"))
   .validate_not_empty(object)
@@ -158,6 +159,10 @@ calc_FastRatio <- function(object,
 
   if (inherits(object, "RLum.Results"))
     object <- get_RLum(object, "data")
+
+  if (all(is.na(object))) {
+    .throw_error("'object' contains no data")
+  }
 
   if (!inherits(object, "list"))
     object <-list(object)

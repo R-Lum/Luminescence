@@ -13,6 +13,8 @@ test_that("input validation", {
                "'object' cannot be an empty RLum.Analysis")
   expect_error(fit_OSLLifeTimes(matrix(NA, 0, 3)),
                "'object' cannot be an empty matrix")
+  expect_error(fit_OSLLifeTimes(matrix()),
+               "'object' should have at least two columns")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
                "'n.components' should be a positive integer scalar")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
