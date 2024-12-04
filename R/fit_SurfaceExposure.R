@@ -283,6 +283,9 @@ fit_SurfaceExposure <- function(
 
   # Exit if data type is invalid
   .validate_class(data, "data.frame")
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have at least two columns")
+  }
 
   # Check which parameters have been provided
   if (!is.null(age) && anyNA(age)) age <- NULL
@@ -591,5 +594,3 @@ fit_SurfaceExposure <- function(
   ## EXIT ----
   return(results)
 }
-
-

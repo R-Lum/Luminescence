@@ -12,6 +12,8 @@ test_that("input validation", {
   expect_error(fit_EmissionSpectra(list(TL.Spectrum, "fail")),
                "[fit_EmissionSpectra()] List elements of different class detected",
                fixed = TRUE)
+  expect_error(fit_EmissionSpectra(matrix()),
+               "'object' should have at least two columns")
 
   ## input scale
   expect_error(fit_EmissionSpectra(TL.Spectrum, input_scale = "error"),
