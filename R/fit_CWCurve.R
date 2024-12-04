@@ -288,17 +288,16 @@ fit_CWCurve<- function(
   ##////equation used for fitting///(end)
 
   ##set variables
-  fit.trigger <- TRUE #triggers if the fitting should stopped
+  keep.fitting <- TRUE # set to FALSE if the fitting should be stopped early
   n.components <- 1 #number of components used for fitting - start with 1
   fit.failure_counter <- 0 #counts the failed fitting attempts
 
   ##if n.components_max is missing, then it is Inf
   if(missing(n.components.max)==TRUE){n.components.max<-Inf}
 
-
   ##
   ##++++Fitting loop++++(start)
-  while(fit.trigger==TRUE & n.components <= n.components.max){
+  while(keep.fitting && n.components <= n.components.max) {
 
     ##(0) START PARAMETER ESTIMATION
     ##rough automatic start parameter estimation
@@ -413,22 +412,19 @@ fit_CWCurve<- function(
     n.components <- n.components + 1
 
     ##count failed attempts for fitting
-    if(inherits(fit.try,"try-error")==FALSE){
+    if (!inherits(fit.try, "try-error")) {
       fit <- fit.try
 
     }else{
       fit.failure_counter <- fit.failure_counter+1
-      if(n.components==fit.failure_counter & exists("fit")==FALSE){fit<-fit.try}}
+      if (!exists("fit")) {
+        fit <- fit.try
+      }
+    }
 
     ##stop fitting after a given number of wrong attempts
     if(fit.failure_counter>=fit.failure_threshold){
-
-      fit.trigger <- FALSE
-      if(!exists("fit")){fit <- fit.try}
-
-    }else if(n.components == n.components.max & exists("fit") == FALSE){
-
-      fit <- fit.try
+      keep.fitting <- FALSE
     }
 
   }##end while
