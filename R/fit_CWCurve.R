@@ -35,7 +35,6 @@
 #' and \eqn{TSS = Total~Sum~of~Squares}
 #'
 #'
-#'
 #' **Error of fitted component parameters**
 #'
 #' The 1-sigma error for the
@@ -54,7 +53,7 @@
 #' maximum number of components that are to be used for fitting.
 #' The upper limit is 7.
 #'
-#' @param fit.failure_threshold [vector] (*with default*):
+#' @param fit.failure_threshold [integer] (*with default*):
 #' limits the failed fitting attempts.
 #'
 #' @param fit.method [character] (*with default*):
@@ -233,6 +232,7 @@ fit_CWCurve<- function(
   }
   fit.method <- .validate_args(fit.method, c("port", "LM"))
   .validate_positive_scalar(n.components.max, int = TRUE)
+  .validate_positive_scalar(fit.failure_threshold, int = TRUE)
 
   # Deal with extra arguments -----------------------------------------------
 
@@ -410,16 +410,13 @@ fit_CWCurve<- function(
 
       }#fit.method
     }
+    n.components <- n.components + 1
 
     ##count failed attempts for fitting
     if(inherits(fit.try,"try-error")==FALSE){
-
       fit <- fit.try
-      n.components <- n.components + 1
 
     }else{
-
-      n.components<-n.components+1
       fit.failure_counter <- fit.failure_counter+1
       if(n.components==fit.failure_counter & exists("fit")==FALSE){fit<-fit.try}}
 
@@ -503,16 +500,22 @@ fit_CWCurve<- function(
     lambda.error<-rep(NA, n.components)
     I0.error<-rep(NA, n.components)
 
-    if(fit.calcError==TRUE){
-      ##option for confidence interval
-      values.confint<-confint(fit, level=0.68)
-      I0.confint<-values.confint[1:(length(values.confint[,1])/2),]
-      lambda.confint<-values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
+    ## option for confidence interval
+    if (fit.calcError) {
+      tryCatch({
+        values.confint <- confint(fit, level = 0.68)
+        half <- nrow(values.confint) / 2
+        I0.confint <- values.confint[1:half, ]
+        lambda.confint <- values.confint[half + 1:half, ]
 
-      ##error calculation
-      I0.error<-as.vector(abs(I0.confint[,1]-I0.confint[,2]))
-      lambda.error<-as.vector(abs(lambda.confint[,1]-lambda.confint[,2]))
-
+        ## error calculation
+        I0.error <- abs(I0.confint[, 1] - I0.confint[, 2])
+        lambda.error <- abs(lambda.confint[, 1] - lambda.confint[, 2])
+      }, error = function(e) {
+        ## report the error from confint()
+        .throw_message("Computation of confidence interval failed: ",
+                       e$message)
+      })
     }#endif::fit.calcError
 
     ##============================================================================##

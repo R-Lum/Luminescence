@@ -156,6 +156,11 @@ format; fixed
 file due to an incorrect way of subsetting an intermediate data frame of
 results (#445, fixed in #446).
 
+### `fit_CWCurve()`
+* The function crashed if the computation of the confidence intervals done
+in `confint()` failed. This has now been fixed, and in cases of failures we
+report the error message received from `confint()` (#509, fixed in #510).
+
 ### `get_RLum()`
 * If `get_RLum()` with `subset` was used on info objects of an `RLum.Analysis-class` object it
 would return wrong results if the info element was not present in all records; fixed. 
