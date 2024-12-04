@@ -100,14 +100,16 @@ test_that("check functionality", {
     n.components = 1), class = "RLum.Results")
 
   ## simple data.frame
+  SW({
   expect_s4_class(fit_OSLLifeTimes(
     object = as.data.frame(temp_mat),
     method_control = list(seed = 1, weights = FALSE,
                           DEoptim.itermax = 50),
     signal.range = 3,
-    verbose = FALSE,
+    verbose = TRUE,
     plot = FALSE,
     n.components = NULL), class = "RLum.Results")
+  })
 
   ##test arguments
   ##simple run

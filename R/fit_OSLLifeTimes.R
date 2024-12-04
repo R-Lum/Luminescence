@@ -511,11 +511,9 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     if(is.null(n.components)){
       ## this covers the extreme case that the process stops after the first run
       if(m == 2){
-        m <- 1
         start_parameters <- start$optim$bestmem
-      }else{
-        m <- m - 2
       }
+      m <- max(m - 2, 1)
     }
 
     A <- start_parameters[seq(1,length(start_parameters), by = 2)]
