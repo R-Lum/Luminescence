@@ -700,7 +700,7 @@ fit_CWCurve<- function(
 
   }else{
     if (output.terminal==TRUE)
-      writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
+      .throw_message("Fitting failed, plot without fit produced")
   }
 
   ##============================================================================##

@@ -61,9 +61,13 @@ test_that("check functionality", {
   SW({
   expect_warning(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "LM",
                              fit.calcError = TRUE, xlab = "x", ylab = "y",
-                             output.path = tempdir()),
+                             log = "x", output.path = tempdir()),
                  "Argument 'output.path' no longer supported")
   })
+
+  ## more coverage
+  expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1, ]),
+                 "Error: Fitting failed, plot without fit produced")
 })
 
 test_that("regression tests", {
