@@ -521,6 +521,7 @@ analyse_Al2O3C_Measurement <- function(
   }
 
   ##stimulation_power
+  TP_stimulation_power <- data.frame(stringsAsFactors = FALSE)
   if(any("stimulation_power"%in%names(test_parameters))){
      ##get curves ids holding the information on the stimulation power
      temp_curves_OSL <- get_RLum(object_raw, recordType = "OSL", curveType = "measured")
@@ -570,10 +571,7 @@ analyse_Al2O3C_Measurement <- function(
        VALUE = TP_stimulation_power.value,
        STATUS = TP_stimulation_power.status,
        stringsAsFactors = FALSE)
-
-   }else{
-     TP_stimulation_power <- data.frame(stringsAsFactors = FALSE)
-   }
+  }
 
    ##compile all test parameter df
    df_test_parameters <- rbind(

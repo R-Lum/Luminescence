@@ -103,4 +103,14 @@ test_that("more coverage", {
       analyse_Al2O3C_Measurement(CT.mod, verbose = FALSE),
       "TL peak shift detected for aliquot position NA"),
       "Error: Aliquot position not found, no cross-talk correction applied")
+
+  CT.mod <- data_CrossTalk
+  for (i in seq_along(CT.mod[[1]]@records)) {
+    CT.mod[[1]]@records[[i]]@info$stimulator <- "LED"
+  }
+  suppressWarnings( # TL peak shift detected for aliquot position 1
+  expect_warning(
+      analyse_Al2O3C_Measurement(CT.mod, verbose = FALSE,
+                                 test_parameter = list(stimulation_power = 0.03)),
+      "Stimulation power was not stable for ALQ 1, results are likely to be wrong"))
 })
