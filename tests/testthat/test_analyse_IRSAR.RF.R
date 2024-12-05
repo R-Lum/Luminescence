@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
 test_that("input validation", {
@@ -211,6 +212,7 @@ test_that("test edge cases", {
     plot = TRUE,
     main = "Title",
     mtext = "Subtitle",
+    log = "x",
     txtProgressBar = FALSE),
     "RLum.Results"),
     "Threshold exceeded for: 'curves_ratio'")
@@ -224,6 +226,14 @@ test_that("test edge cases", {
     method_control = list(vslide_range = 'auto', correct_onset = FALSE),
     RF_nat.lim = c(10,100),
     #RF_reg.lim = c(),
+    plot = TRUE,
+    txtProgressBar = FALSE
+  )), "RLum.Results")
+
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+    object,
+    method = "FIT",
+    mtext = "FIT method",
     plot = TRUE,
     txtProgressBar = FALSE
   )), "RLum.Results")
