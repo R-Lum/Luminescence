@@ -382,7 +382,6 @@ verify_SingleGrainData <- function(
               .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &
                 .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
             )
-
           })))
       }
 

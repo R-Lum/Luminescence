@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.XSYG, envir = environment())
 object <- get_RLum(OSL.SARMeasurement$Sequence.Object,
                    recordType = "OSL (UVVIS)", drop = FALSE)
@@ -9,6 +10,10 @@ test_that("input validation", {
                "'object' should be of class 'Risoe.BINfileData' or 'RLum.Analysis'")
   expect_error(verify_SingleGrainData(object, cleanup_level = "error"),
                "'cleanup_level' should be one of 'aliquot' or 'curve'")
+
+  object@originator <- "error"
+  expect_error(verify_SingleGrainData(object),
+               "Object originator 'error' not supported")
 })
 
 test_that("check functionality", {
@@ -51,7 +56,8 @@ test_that("check functionality", {
   res <- expect_silent(verify_SingleGrainData(CWOSL.SAR.Data))
   expect_s4_class(res, "RLum.Results")
 
-  res <- expect_output(verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE),
+  res <- expect_output(verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
+                                              cleanup_level = "curve"),
                        "Risoe.BINfileData object reduced to records")
   expect_s4_class(res, "Risoe.BINfileData")
 
@@ -91,5 +97,4 @@ test_that("check functionality", {
 
   ## use fft option
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object), use_fft = TRUE)))
-
 })
