@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
 test_that("input validation", {
@@ -12,7 +13,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
                "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
-               "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
+               "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE' or 'NONE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
                "'method_control' should be of class 'list'")
   expect_warning(expect_null(analyse_IRSAR.RF(list())),
@@ -146,6 +147,15 @@ test_that("check class and length of output", {
   )
   })
 
+  expect_snapshot_RLum(
+    analyse_IRSAR.RF(
+      object = IRSAR.RF.Data,
+      method = "None",
+      n.MC = 10,
+      txtProgressBar = FALSE
+    )
+  )
+
   expect_s3_class(results_fit$fit, class = "nls")
   expect_s3_class(results_slide$fit, class = "nls")
 })
@@ -202,6 +212,7 @@ test_that("test edge cases", {
     plot = TRUE,
     main = "Title",
     mtext = "Subtitle",
+    log = "x",
     txtProgressBar = FALSE),
     "RLum.Results"),
     "Threshold exceeded for: 'curves_ratio'")
@@ -219,12 +230,17 @@ test_that("test edge cases", {
     txtProgressBar = FALSE
   )), "RLum.Results")
 
-  ## the next test fails on macos-13 CI as it doesn't throw the warning
-  skip_on_os("mac")
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+    object,
+    method = "FIT",
+    mtext = "FIT method",
+    plot = TRUE,
+    txtProgressBar = FALSE
+  )), "RLum.Results")
 
   ## test parameters values only set for coverage
   SW({
-  expect_warning(expect_s4_class(analyse_IRSAR.RF(
+  expect_s4_class(analyse_IRSAR.RF(
     object,
     method = "SLIDE",
     method_control = list(vslide_range = 'auto', correct_onset = FALSE),
@@ -239,8 +255,7 @@ test_that("test edge cases", {
                            beta = 1e-4,
                            delta.phi = 1e-4),
     txtProgressBar = FALSE
-  ), "RLum.Results"),
-  "lmdif: info = -1. Number of iterations has reached `maxiter' == 50")
+  ), "RLum.Results")
   })
 })
 

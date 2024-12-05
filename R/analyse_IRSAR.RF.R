@@ -197,8 +197,10 @@
 #' If only one value is provided this will be treated as minimum value and the
 #' maximum limit will be added automatically.
 #'
-#' @param method [character] (*with default*): select method applied for the data analysis.
-#' Possible options are `"FIT"`, `"SLIDE"`, `"VSLIDE"`.
+#' @param method [character] (*with default*): select method applied for the
+#' data analysis. Possible options are `"FIT"`, `"SLIDE"`, `"VSLIDE"`;
+#' `"NONE"` can be used to disable the analysis and plot the natural points
+#' at their original position.
 #'
 #' @param method_control [list] (*optional*):
 #' parameters to control the method, that can be passed to the chosen method.
@@ -527,7 +529,7 @@ analyse_IRSAR.RF<- function(
     .validate_class(RF_nat.lim, c("numeric", "integer"))
   if (!is.null(RF_reg.lim))
     .validate_class(RF_reg.lim, c("numeric", "integer"))
-  method <- .validate_args(method, c("FIT", "SLIDE", "VSLIDE"))
+  method <- .validate_args(toupper(method), c("FIT", "SLIDE", "VSLIDE", "NONE"))
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   ##SELECT ONLY MEASURED CURVES
