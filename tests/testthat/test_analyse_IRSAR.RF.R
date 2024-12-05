@@ -12,7 +12,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
                "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
-               "'method' should be one of 'FIT', 'SLIDE' or 'VSLIDE'")
+               "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE' or 'None'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
                "'method_control' should be of class 'list'")
   expect_warning(expect_null(analyse_IRSAR.RF(list())),
@@ -145,6 +145,15 @@ test_that("check class and length of output", {
     )
   )
   })
+
+  expect_snapshot_RLum(
+    analyse_IRSAR.RF(
+      object = IRSAR.RF.Data,
+      method = "None",
+      n.MC = 10,
+      txtProgressBar = FALSE
+    )
+  )
 
   expect_s3_class(results_fit$fit, class = "nls")
   expect_s3_class(results_slide$fit, class = "nls")

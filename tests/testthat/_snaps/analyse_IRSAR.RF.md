@@ -1048,3 +1048,198 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["data", "De.MC", "test_parameters", "slide"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DE", "DE.ERROR", "DE.LOWER", "DE.UPPER", "DE.STATUS", "RF_NAT.LIM", "RF_REG.LIM", "POSITION", "DATE", "SEQUENCE_NAME"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["OK"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["1:5"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["1:524"]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                }
+              ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["POSITION", "PARAMETER", "THRESHOLD", "VALUE", "STATUS", "SEQUENCE_NAME"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2, 3, 4, 5, 6, 7, 8]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": ["NA", "NA", "NA", "NA", "NA", "NA", "NA", "NA"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["curves_ratio", "intersection_ratio", "residuals_slope", "curves_bounds", "dynamic_ratio", "lambda", "beta", "delta.phi"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.001, "NA", "NA", 716, "NA", "NA", "NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.68456846, 0.00554174, "NA", "NA", 1.52426091, 0.00021822, 0.54187185, 2103.4]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {
+                    "levels": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["OK"]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["factor"]
+                    }
+                  },
+                  "value": [1, 1, 1, 1, 1, 1, 1, 1]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null, null, null, null, null, null, null, null]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {},
+              "value": []
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["analyse_IRSAR.RF"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+

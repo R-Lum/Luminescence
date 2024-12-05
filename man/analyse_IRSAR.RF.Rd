@@ -42,8 +42,10 @@ set minimum and maximum channel range for regenerated signal fitting and sliding
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{method}{\link{character} (\emph{with default}): select method applied for the data analysis.
-Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"}.}
+\item{method}{\link{character} (\emph{with default}): select method applied for the
+data analysis. Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"};
+\code{"None"} can be used to disable the analysis and plot the natural points
+at their original position.}
 
 \item{method_control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
