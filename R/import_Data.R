@@ -44,6 +44,8 @@ import_Data <- function (
   .set_function_name("import_Data")
   on.exit(.unset_function_name(), add = TRUE)
 
+  .validate_class(file, c("character", "list"))
+
   ## supported functions are extracted automatically from the package
   ## namespace so that we don't have to maintain this list manually
   fun <- grep("^read_", getNamespaceExports("Luminescence"), value = TRUE)

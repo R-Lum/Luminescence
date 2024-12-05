@@ -19,6 +19,8 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(merge_RLum.Data.Curve("", merge.method = "/"),
+               "'object' should be of class 'list'")
+  expect_error(merge_RLum.Data.Curve(list("")),
                "All elements of 'object' should be of class 'RLum.Data.Curve'")
   expect_error(merge_RLum.Data.Curve(list(), merge.method = "/"),
                "'object' contains no data")

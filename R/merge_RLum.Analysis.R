@@ -57,6 +57,7 @@ merge_RLum.Analysis<- function(
 
   ## Integrity checks -------------------------------------------------------
 
+  .validate_class(objects, "list")
   .validate_not_empty(objects)
 
   ##check if object is of class RLum
