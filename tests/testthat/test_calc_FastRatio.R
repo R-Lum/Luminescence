@@ -12,7 +12,7 @@ test_that("input validation", {
   expect_error(calc_FastRatio(matrix(nrow = 1, ncol = 0)),
                "'object' cannot be an empty matrix")
   expect_error(calc_FastRatio(matrix()),
-               "'object' contains no data")
+               "'object' should have at least two columns")
 
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
                "'Ch_L1' should be a positive integer scalar")
@@ -98,6 +98,11 @@ test_that("check functionality", {
                  "L3 contains more counts (566) than L2 (562)",
                  fixed = TRUE)
   })
+
+  ## RLum.Data.Curve object
+  curve <- set_RLum("RLum.Data.Curve", data = as.matrix(ExampleData.CW_OSL_Curve))
+  expect_s4_class(calc_FastRatio(curve, plot = FALSE, verbose = FALSE),
+                  "RLum.Results")
 
   results <- get_RLum(temp)
   expect_equal(round(results$fast.ratio, digits = 3), 405.122)

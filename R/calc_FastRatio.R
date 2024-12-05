@@ -160,8 +160,8 @@ calc_FastRatio <- function(object,
   if (inherits(object, "RLum.Results"))
     object <- get_RLum(object, "data")
 
-  if (all(is.na(object))) {
-    .throw_error("'object' contains no data")
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have at least two columns")
   }
 
   if (!inherits(object, "list"))
