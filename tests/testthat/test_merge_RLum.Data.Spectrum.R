@@ -13,6 +13,8 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(merge_RLum.Data.Spectrum("error", merge.method = "/"),
+               "'object' should be of class 'list'")
+  expect_error(merge_RLum.Data.Spectrum(list("error")),
                "All elements of 'object' should be of class 'RLum.Data.Spectrum'")
   expect_error(merge_RLum.Data.Spectrum(list(), merge.method = "-"),
                "'object' contains no data")

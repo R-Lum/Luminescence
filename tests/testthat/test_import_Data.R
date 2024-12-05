@@ -1,6 +1,8 @@
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  expect_error(import_Data(data.frame()),
+               "'file' should be of class 'character' or 'list'")
   expect_message(import_Data(system.file("extdata/QNL84_2_bleached.txt")),
                  "Unknown file format, nothing imported")
 })

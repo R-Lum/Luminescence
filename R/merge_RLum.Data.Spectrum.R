@@ -125,6 +125,8 @@ merge_RLum.Data.Spectrum <- function(
 
   ## Integrity checks -------------------------------------------------------
 
+  .validate_class(object, "list")
+
   ## check if object is of a supported RLum.Data class
   num.objects <- length(object)
   temp.recordType.test <- sapply(object, function(x) {
