@@ -1349,14 +1349,8 @@ analyse_baSAR <- function(
 
     for (d in 1:n_aliquots_k) {
       dd <-  as.integer(unlist(Disc[[k]][d]))
+      gg <- if (Mono_grain) as.integer(unlist(Grain[[k]][d])) else 1
       Disc_Grain.list[[k]][[dd]] <- list()  # data.file number ,  disc_number
-
-      if (Mono_grain == FALSE) {
-        gg <- 1
-      }
-      if (Mono_grain == TRUE)  {
-        gg <- as.integer(unlist(Grain[[k]][d]))
-      }
 
         Disc_Grain.list[[k]][[dd]][[gg]] <- list()  # data.file number ,  disc_number, grain_number
         for (z in 1:6) {
@@ -1372,15 +1366,6 @@ analyse_baSAR <- function(
   }
 
   for (k in 1:length(fileBIN.list)) {
-    n_index.vector <- vector("numeric")
-
-    measured_discs.vector <- vector("numeric")
-    measured_grains.vector <- vector("numeric")
-    measured_grains.vector_list <- vector("numeric")
-    irrad_time.vector <- vector("numeric")
-
-    disc_pos <- vector("numeric")
-    grain_pos <- vector("numeric")
 
     ### METADATA
     length_BIN <-  length(fileBIN.list[[k]])
@@ -1408,9 +1393,9 @@ analyse_baSAR <- function(
     ### Automatic Filling - Disc_Grain.list
     for (i in 1: length(Disc[[k]])) {
       disc_selected <-  as.integer(Disc[[k]][i])
+      grain_selected <- if (Mono_grain) as.integer(Grain[[k]][i]) else 0
 
-      if (Mono_grain == TRUE) {grain_selected <- as.integer(Grain[[k]][i])} else { grain_selected <-0}
-         ##hard break if the disc number or grain number does not fit
+      ## hard break if the disc number or grain number does not fit
 
          ##disc (position)
          disc_logic <- (disc_selected == measured_discs.vector)
@@ -1424,7 +1409,6 @@ analyse_baSAR <- function(
 
           ##grain
           grain_logic <- (grain_selected == measured_grains.vector)
-
           if (!any(grain_logic)) {
             .throw_message("In BIN-file '",
                     unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
@@ -1462,35 +1446,23 @@ analyse_baSAR <- function(
 
   for (k in 1:length(fileBIN.list)) {
 
-    if (Mono_grain == TRUE) (max.grains <- 100) else (max.grains <- 1)
-
     ##plot Ln and Tn curves if wanted
     ##we want to plot the Ln and Tn curves to get a better feeling
     ##The approach here is rather rough coded, but it works
     if (plot) {
       curve_index <- vapply(1:length(Disc[[k]]), function(i) {
-        disc_selected <-  as.integer(Disc[[k]][i])
-        if (Mono_grain == TRUE) {
-          grain_selected <- as.integer(Grain[[k]][i])
-        } else {
-          grain_selected <- 1
-        }
+        dd <- as.integer(Disc[[k]][i])
+        gg <- if (Mono_grain) as.integer(Grain[[k]][i]) else 1
 
-        Ln_index <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][1])
-        Tn_index <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][2])
-
+        Ln_index <- as.numeric(Disc_Grain.list[[k]][[dd]][[gg]][[1]][1])
+        Tn_index <- as.numeric(Disc_Grain.list[[k]][[dd]][[gg]][[1]][2])
         return(c(Ln_index, Tn_index))
       }, FUN.VALUE = vector(mode = "numeric", length = 2))
 
 
-      ##set matrix for Ln values
-      Ln_matrix <- cbind(1:length(fileBIN.list[[k]]@DATA[[curve_index[1, 1]]]),
-                         matrix(unlist(fileBIN.list[[k]]@DATA[curve_index[1, ]]), ncol = ncol(curve_index)))
-
-      Tn_matrix <- cbind(1:length(fileBIN.list[[k]]@DATA[[curve_index[2, 1]]]),
-                         matrix(unlist(fileBIN.list[[k]]@DATA[curve_index[2, ]]), ncol = ncol(curve_index)))
+      ## data.tables for Ln and Tn values
+      Ln_dt <- rbindlist(list(fileBIN.list[[k]]@DATA[curve_index[1, ]]))
+      Tn_dt <- rbindlist(list(fileBIN.list[[k]]@DATA[curve_index[2, ]]))
 
       ##open plot are
       if (!plot_singlePanels) {
@@ -1500,8 +1472,8 @@ analyse_baSAR <- function(
 
       ##get natural curve and combine them in matrix
       graphics::matplot(
-        x = Ln_matrix[, 1],
-        y = Ln_matrix[, -1],
+        x = 1:nrow(Ln_dt),
+        y = Ln_dt,
         col = rgb(0, 0, 0, 0.3),
         ylab = "Luminescence [a.u.]",
         xlab = "Channel",
@@ -1515,8 +1487,8 @@ analyse_baSAR <- function(
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
 
       graphics::matplot(
-        x = Tn_matrix[, 1],
-        y = Tn_matrix[, -1],
+        x = 1:nrow(Tn_dt),
+        y = Tn_dt,
         col = rgb(0, 0, 0, 0.3),
         ylab = "Luminescence [a.u.]",
         xlab = "Channel",
@@ -1541,31 +1513,26 @@ analyse_baSAR <- function(
 
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
 
-
       ##reset par
       if (!plot_singlePanels) {
         par(mfrow = par.default)
       }
 
       ##remove some variables
-      rm(curve_index, Ln_matrix, Tn_matrix)
+      rm(curve_index, Ln_dt, Tn_dt)
     }
 
 
     for (i in 1:length(Disc[[k]])) {
-
-      disc_selected <-  as.integer(Disc[[k]][i])
-      if (Mono_grain == TRUE) {
-        grain_selected <- as.integer(Grain[[k]][i])
-      } else {
-        grain_selected <- 1
-      }
+      dd <- as.integer(Disc[[k]][i])
+      gg <- if (Mono_grain) as.integer(Grain[[k]][i]) else 1
+      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
 
       # Data for the selected Disc-Grain
-      for (nb_index in 1:((length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]]))/2 )) {
+      for (nb_index in 1:(length(sel.disc.grain[[1]]) / 2)) {
 
-        index1 <- as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][2*nb_index-1])
-        index2 <- as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][2*nb_index])
+        index1 <- as.numeric(sel.disc.grain[[1]][2 * nb_index - 1])
+        index2 <- as.numeric(sel.disc.grain[[1]][2 * nb_index])
         Lx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index1]])), fileBIN.list[[k]]@DATA[[index1]])
         Tx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index2]])), fileBIN.list[[k]]@DATA[[index2]])
 
@@ -1592,21 +1559,23 @@ analyse_baSAR <- function(
         ##get LxTx table
         LxTx.table <- temp_LxTx$LxTx.table
 
-        Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]][nb_index] <- LxTx.table[[9]]
-        Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]][nb_index] <- LxTx.table[[10]]
-        Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]][nb_index] <- LxTx.table[[7]]
+        Disc_Grain.list[[k]][[dd]][[gg]][[3]][nb_index] <- LxTx.table[[9]]
+        Disc_Grain.list[[k]][[dd]][[gg]][[4]][nb_index] <- LxTx.table[[10]]
+        Disc_Grain.list[[k]][[dd]][[gg]][[5]][nb_index] <- LxTx.table[[7]]
 
         ##free memory
         rm(LxTx.table)
         rm(temp_LxTx)
       }
 
-      # Fitting Growth curve and Plot
-      sample_dose <-  unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
-      sample_LxTx <-  unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]])
-      sample_sLxTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
+      ## reset `sel.disc.grain` because the data it pointed to has changed
+      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
 
-      TnTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]])
+      # Fitting Growth curve and Plot
+      sample_dose <- unlist(sel.disc.grain[[2]])
+      sample_LxTx <- unlist(sel.disc.grain[[3]])
+      sample_sLxTx <- unlist(sel.disc.grain[[4]])
+      TnTx <- unlist(sel.disc.grain[[5]])
 
       ##create needed data.frame (this way to make sure that rows are doubled if something is missing)
       selected_sample <- as.data.frame(cbind(sample_dose, sample_LxTx, sample_sLxTx, TnTx))
@@ -1629,32 +1598,25 @@ analyse_baSAR <- function(
           main = paste0("ALQ: ", count," | POS: ", Disc[[k]][i], " | GRAIN: ", Grain[[k]][i])
         ))
 
-
         ##get data.frame with De values
         if(!is.null(fitcurve)){
           fitcurve_De <- get_RLum(fitcurve, data.object = "De")
 
-          Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][1] <-
-            fitcurve_De[["De"]]
-          Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][2] <-
-            fitcurve_De[["De.Error"]]
-          Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][3] <-
-            fitcurve_De[["D01"]]
-          Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][4] <-
-            fitcurve_De[["D01.ERROR"]]
-
+          Disc_Grain.list[[k]][[dd]][[gg]][[6]][1] <- fitcurve_De[["De"]]
+          Disc_Grain.list[[k]][[dd]][[gg]][[6]][2] <- fitcurve_De[["De.Error"]]
+          Disc_Grain.list[[k]][[dd]][[gg]][[6]][3] <- fitcurve_De[["D01"]]
+          Disc_Grain.list[[k]][[dd]][[gg]][[6]][4] <- fitcurve_De[["D01.ERROR"]]
         }else{
           ##we have to do this, otherwise the grains will be sorted out
-          Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][1:4] <- NA
+          Disc_Grain.list[[k]][[dd]][[gg]][[6]][1:4] <- NA
         }
 
-        Limited_cycles[previous.Nb_aliquots + i] <-
-          length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
+      ## reset `sel.disc.grain` because the data it pointed to has changed
+      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
 
-        if (length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]]) > max_cycles) {
-          max_cycles <-
-            length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
-        }
+      Limited_cycles[previous.Nb_aliquots + i] <- length(sel.disc.grain[[2]])
+
+      max_cycles <- max(length(sel.disc.grain[[2]]), max_cycles)
 
         previous.Nb_aliquots <-
             length(stats::na.exclude(Limited_cycles)) # Total count of aliquots
@@ -1705,64 +1667,45 @@ analyse_baSAR <- function(
   for (k in 1:length(fileBIN.list)) {
 
     for (i in 1:length(Disc[[k]])) {
+      dd <- as.numeric(Disc[[k]][i])
+      gg <- if (Mono_grain) as.numeric(Grain[[k]][i]) else 1
 
-      disc_selected <-  as.numeric(Disc[[k]][i])
-
-      if (Mono_grain == TRUE) {
-        grain_selected <- as.numeric(Grain[[k]][i])
-      } else {
-        grain_selected <- 1
-      }
       comptage <- comptage + 1
-
       OUTPUT_results[comptage, 1] <- k
+      OUTPUT_results[comptage, 2] <- as.numeric(dd)
+      OUTPUT_results[comptage, 3] <- if (Mono_grain) gg else 0
 
-      OUTPUT_results[comptage, 2] <- as.numeric(disc_selected)
-      if (Mono_grain == TRUE) {
-        OUTPUT_results[comptage, 3] <- grain_selected
-      }
-      else {
-        OUTPUT_results[comptage, 3] <- 0
-      }
-
-     if (length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]]) != 0) {
-
+      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
+      if (length(sel.disc.grain[[6]]) != 0) {
         ##DE
-        OUTPUT_results[comptage, 4] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][1])
+        OUTPUT_results[comptage, 4] <- as.numeric(sel.disc.grain[[6]][1])
 
         ##DE.SD
-        OUTPUT_results[comptage, 5] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][2])
+        OUTPUT_results[comptage, 5] <- as.numeric(sel.disc.grain[[6]][2])
 
         ##D0
-        OUTPUT_results[comptage, 6] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][3])
+        OUTPUT_results[comptage, 6] <- as.numeric(sel.disc.grain[[6]][3])
 
         ##D0.SD
-        OUTPUT_results[comptage, 7] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[6]][4])
+        OUTPUT_results[comptage, 7] <- as.numeric(sel.disc.grain[[6]][4])
 
         ##CYCLES_NB
-        OUTPUT_results[comptage, 8] <-
-          length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
+        OUTPUT_results[comptage, 8] <- length(sel.disc.grain[[2]])
 
-          ##auxillary variable
-          llong <-
-            length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
+        ## auxiliary variable
+        llong <- length(sel.disc.grain[[2]])
 
         ##Dose
-        OUTPUT_results[comptage, 9:(8 + llong)] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
+        OUTPUT_results[comptage, 9:(8 + llong)] <- as.numeric(sel.disc.grain[[2]])
 
         ##LxTx values
         OUTPUT_results[comptage, (9 + max_cycles):(8 + max_cycles + llong)] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]])
+          as.numeric(sel.disc.grain[[3]])
 
         ##LxTx SD values
          OUTPUT_results[comptage, (9 + 2*max_cycles):(8 + 2*max_cycles + llong)] <-
-          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
-     }
+           as.numeric(sel.disc.grain[[4]])
+      }
     }
   }
 
@@ -1942,14 +1885,11 @@ analyse_baSAR <- function(
       cat("\n")
     }
 
-    if(!is.null(baSAR_model)){
-      cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]]," (user defined)\n"))
-    }else{
-      cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],"\n"))
-    }
-    cat(paste0("Number of independent chains:\t", results[[1]][["N.CHAINS"]],"\n"))
-    cat(paste0("Number MCMC iterations/chain:\t", results[[1]][["N.MCMC"]],"\n"))
-
+    extra <- if (!is.null(baSAR_model)) " (user defined)" else ""
+    cat("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],
+        extra, "\n")
+    cat("Number of independent chains:\t", results[[1]][["N.CHAINS"]], "\n")
+    cat("Number MCMC iterations/chain:\t", results[[1]][["N.MCMC"]], "\n")
     cat("------------------------------------------------------------------\n")
     if(distribution == "log_normal"){
       cat("\t\t\t\tmean*\tsd\tHPD\n")
@@ -2147,11 +2087,9 @@ analyse_baSAR <- function(
       if (fit.force_through_origin) {GC_Origin <- 0} else {GC_Origin <- 1}
 
       ##add choise for own provided model
+      fit.method_plot <- fit.method
       if(!is.null(baSAR_model)){
-        fit.method_plot <- paste(fit.method, "(user defined)")
-
-      }else{
-        fit.method_plot <- fit.method
+        fit.method_plot <- paste(fit.method_plot, "(user defined)")
       }
 
        ##open plot area
