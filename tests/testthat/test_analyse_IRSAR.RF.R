@@ -13,7 +13,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
                "'n.MC' should be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
-               "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE' or 'None'")
+               "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE' or 'NONE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
                "'method_control' should be of class 'list'")
   expect_warning(expect_null(analyse_IRSAR.RF(list())),

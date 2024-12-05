@@ -199,7 +199,7 @@
 #'
 #' @param method [character] (*with default*): select method applied for the
 #' data analysis. Possible options are `"FIT"`, `"SLIDE"`, `"VSLIDE"`;
-#' `"None"` can be used to disable the analysis and plot the natural points
+#' `"NONE"` can be used to disable the analysis and plot the natural points
 #' at their original position.
 #'
 #' @param method_control [list] (*optional*):
@@ -529,7 +529,7 @@ analyse_IRSAR.RF<- function(
     .validate_class(RF_nat.lim, c("numeric", "integer"))
   if (!is.null(RF_reg.lim))
     .validate_class(RF_reg.lim, c("numeric", "integer"))
-  method <- .validate_args(method, c("FIT", "SLIDE", "VSLIDE", "None"))
+  method <- .validate_args(toupper(method), c("FIT", "SLIDE", "VSLIDE", "NONE"))
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   ##SELECT ONLY MEASURED CURVES

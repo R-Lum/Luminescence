@@ -44,7 +44,7 @@ maximum limit will be added automatically.}
 
 \item{method}{\link{character} (\emph{with default}): select method applied for the
 data analysis. Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"};
-\code{"None"} can be used to disable the analysis and plot the natural points
+\code{"NONE"} can be used to disable the analysis and plot the natural points
 at their original position.}
 
 \item{method_control}{\link{list} (\emph{optional}):
