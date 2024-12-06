@@ -352,6 +352,16 @@ test_that("Full check of analyse_baSAR function", {
                 method_control = list(n.chains = 1),
                 aliquot_range = 1:2,
                 n.MCMC = 10)
+
+  vnames <- c('central_D', 'sigma_D', 'D')
+  expect_message(analyse_baSAR(CWOSL.sub,
+                               source_doserate = c(0.04, 0.001),
+                               signal.integral = 1:2,
+                               background.integral = 60:100,
+                               method_control = list(n.chains = 1,
+                                                     variable.names = vnames),
+                               n.MCMC = 10, verbose = FALSE),
+                 "Dose-response curves could not be plotted as 'variable.names'")
   })
 })
 
