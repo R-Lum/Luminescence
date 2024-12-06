@@ -93,6 +93,7 @@ Collate:
     'RLum.Data.Image-class.R'
     'RLum.Data.Spectrum-class.R'
     'RLum.Results-class.R'
+    'metadata.R'
     'set_Risoe.BINfileData.R'
     'get_Risoe.BINfileData.R'
     'Risoe.BINfileData-class.R'

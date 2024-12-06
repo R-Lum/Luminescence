@@ -6,6 +6,7 @@
 \alias{show,Risoe.BINfileData-method}
 \alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
+\alias{replace_metadata<-,Risoe.BINfileData-method}
 \alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
@@ -18,6 +19,8 @@
 )
 
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
+
+\S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
 
 \S4method{view}{Risoe.BINfileData}(object, ...)
 }
@@ -33,6 +36,15 @@ for each curve.}
 values for internal use only.}
 
 \item{...}{other arguments that might be passed}
+
+\item{info_element}{\link{character} (\strong{required}) name of the metadata field
+to replace}
+
+\item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
+substitution only to the selected subset of elements}
+
+\item{value}{(\strong{required}) The value assigned to the selected elements
+of the metadata field.}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -47,6 +59,8 @@ This construction method is intended for internal usage only.
 
 \item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.
+
+\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces metadata of \linkS4class{Risoe.BINfileData} objects
 
 \item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects
 

@@ -1,4 +1,4 @@
-#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R view.R
+#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R metadata.R view.R
 NULL
 
 #' Class `"Risoe.BINfileData"`
@@ -444,6 +444,68 @@ setMethod("get_Risoe.BINfileData",
 
           }
 )
+
+# replace_metadata() --------------------------------------------------------
+#' @describeIn Risoe.BINfileData
+#' Replaces metadata of [Risoe.BINfileData-class] objects
+#'
+#' @param object an object of class [Risoe.BINfileData-class]
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to replace
+#'
+#' @param subset [expression] (*optional*) logical expression to limit the
+#' substitution only to the selected subset of elements
+#'
+#' @param value (**required**) The value assigned to the selected elements
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("replace_metadata<-",
+          signature= "Risoe.BINfileData",
+          definition = function(object, info_element, subset = NULL, value) {
+            .set_function_name("replace_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## Integrity checks ---------------------------------------------
+
+            .validate_class(info_element, "character")
+            valid.names <- colnames(object@METADATA)
+            if (!info_element %in% valid.names) {
+              .throw_error("'info_element' not recognised")
+            }
+
+            ## select relevant rows
+            sel <- TRUE
+            if (!is.null(substitute(subset))) {
+              sel <- tryCatch(eval(
+                  expr = substitute(subset),
+                  envir = object@METADATA,
+                  enclos = parent.frame()
+              ), error = function(e) {
+                .throw_error("Invalid 'subset' expression, valid terms are: ",
+                             .collapse(valid.names, quote = FALSE))
+              })
+              if (!is.logical(sel)) {
+                .throw_error("'subset' should contain a logical expression")
+              }
+              if (all(is.na(sel))) {
+                sel <- FALSE
+              }
+              if (!any(sel)) {
+                .throw_message("'subset' expression produced an ",
+                               "empty selection, nothing done")
+                return(object)
+              }
+            }
+
+            object@METADATA[sel, info_element] <- value
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 
 # view () -----------------------------------------------------------------------
 #'@describeIn Risoe.BINfileData
