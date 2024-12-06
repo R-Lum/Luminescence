@@ -97,6 +97,10 @@
   well it almost never did; fixed.
 - The function is more robust against input that may have been subset
   inconsistently (#517, fixed in \#518).
+- The function doesn’t crash but reports more helpful messages in case
+  the user overrides the default set of monitored variables using
+  `variable.names` within the `method_control` argument (#521, fixed in
+  \#522).
 
 ### `analyse_FadingMeasurement()`
 

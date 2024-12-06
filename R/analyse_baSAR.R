@@ -501,13 +501,6 @@ analyse_baSAR <- function(
                        "', reset to ", thin)
       }
 
-      ##variable.names
-      variable.names <-  if (is.null(method_control[["variable.names"]])) {
-        c('central_D', 'sigma_D', 'D', 'Q', 'a', 'b', 'c', 'g')
-      } else{
-        method_control[["variable.names"]]
-      }
-
       #check whether this makes sense at all, just a direty and quick test
       stopifnot(lower_centralD >= 0)
 
@@ -832,6 +825,17 @@ analyse_baSAR <- function(
 
   ##set function arguments
   function_arguments <- NULL
+
+  ## variable names to monitor
+  variable.names <- c('central_D', 'sigma_D', 'D', 'Q', 'a', 'b', 'c', 'g')
+  if (!is.null(method_control[["variable.names"]])) {
+    ## take variable from the user but remove nonsense values
+    variable.names <- setdiff(method_control[["variable.names"]],
+                              c("", NA))
+  }
+
+  ## always monitor the D variable
+  variable.names <- unique(c(variable.names, "D"))
 
 
   # Set input -----------------------------------------------------------------------------------
@@ -1949,14 +1953,15 @@ analyse_baSAR <- function(
     ##TRACE AND DENSITY PLOT
     ####//////////////////////////////////////////////////////////////////////////////////////////
     if(plot_reduced){
-      plot_check <- try(plot(results[[2]][,c("central_D","sigma_D"),drop = FALSE]), silent = TRUE)
-
-      ##show error
-      if(is(plot_check, "try-error")){
-        .throw_error("Plots for 'central_D' and 'sigma_D' could not be ",
-                     "produced. You are probably monitoring the wrong variables")
+      if (!all(c("central_D", "sigma_D") %in% variable.names)) {
+        var.missing <- setdiff(c("central_D", "sigma_D"), variable.names)
+        .throw_message("Plots for 'central_D' and 'sigma_D' could not be ",
+                       "produced as 'variable.names' does not include ",
+                       .collapse(var.missing))
+      } else {
+        try(plot(results[[2]][, c("central_D", "sigma_D"), drop = FALSE]),
+            silent = TRUE)
       }
-
     }else{
       try(plot(results[[2]]))
     }
@@ -1972,7 +1977,6 @@ analyse_baSAR <- function(
     ##get list with D values
     ##get list out of it
     plot_matrix <- as.matrix(results[[2]][,grep(x = varnames, pattern = "D[", fixed = TRUE)])
-
     aliquot_quantiles <- t(matrixStats::colQuantiles(x = plot_matrix, probs = c(0.25,0.75)))
 
     ##define boxplot colours ... we have red and orange
@@ -1983,21 +1987,17 @@ analyse_baSAR <- function(
         col[2]
       }else if(aliquot_quantiles[2,x] < results[[1]][,c("CENTRAL_Q_.16")] |
                aliquot_quantiles[1,x] > results[[1]][,c("CENTRAL_Q_.84")]){
-
         "orange"
       }else{
         "white"
       }
-
     }, FUN.VALUE = vector(mode = "character", length = 1))
 
     ## to assure a minimum of quality not more then 15 boxes are plotted in each plot
     i <- 1
 
     while(i < ncol(plot_matrix)){
-
-      step <- if((i + 14) > ncol(plot_matrix)){ncol(plot_matrix)}else{i + 14}
-
+      step <- min(ncol(plot_matrix), i + 14)
       plot_check <- try(boxplot(
         x = plot_matrix[,i:step],
         use.cols = TRUE,
@@ -2081,8 +2081,11 @@ analyse_baSAR <- function(
         unlist(results[[2]][,grep(x = varnames, pattern = x, fixed = TRUE)])
       })
 
+      ## assign only the first letter to avoid `[` in the names
+      names(list_selection) <- strtrim(selection, 1)
+
       ##create matrix
-      plot_matrix <- t(do.call(what = "cbind", args = list_selection))
+      plot_matrix <- do.call(what = "cbind", args = list_selection)
 
       ##free memory
       rm(list_selection)
@@ -2133,22 +2136,25 @@ analyse_baSAR <- function(
 
           ##check whether we have all data we need (might be not the case of the user
           ##selects own variables)
-          if (ncol(plot_matrix) != 0) {
+          var.required <- c("a", "b", "c", "g")
+          if (nrow(plot_matrix) != 0 && all(var.required %in% variable.names)) {
             ##plot individual dose response curves
             x <- NA
-            for (i in seq(1, ncol(plot_matrix), length.out = 1000)) {
+            for (i in seq(1, nrow(plot_matrix), length.out = 1000)) {
               curve(
-                GC_Origin * plot_matrix[4, i] + LinGC * (plot_matrix[3, i] * x) +
-                  ExpoGC * (plot_matrix[1, i] * (1 - exp (
-                    -x / plot_matrix[2, i]
-                  ))),
-                add = TRUE,
-                col = rgb(0, 0, 0, .1)
+                  GC_Origin * plot_matrix[i, "g"] +
+                  LinGC * (plot_matrix[i, "c"] * x) +
+                  ExpoGC * (plot_matrix[i, "a"] *
+                            (1 - exp (-x / plot_matrix[i, "b"]))),
+                  add = TRUE,
+                  col = rgb(0, 0, 0, .1)
               )
             }
           }else{
-            .throw_message("Wrong 'variable.names' monitored, ",
-                           "dose responses curves could not be plotted")
+            var.missing <- setdiff(var.required, variable.names)
+            .throw_message("Dose-response curves could not be plotted as ",
+                           "'variable.names' does not include ",
+                           .collapse(var.missing))
           }
 
           ##add dose points
