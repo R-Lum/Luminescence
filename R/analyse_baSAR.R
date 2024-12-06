@@ -1367,6 +1367,16 @@ analyse_baSAR <- function(
 
     stopifnot(length(fileBIN.list[[k]]) == nrow(fileBIN.list[[k]]@METADATA))
 
+    ## check that the data available is consistent
+    length.data <- nrow(fileBIN.list[[k]]@METADATA)
+    length.disc <- length(Disc[[k]])
+    if (length.data %% length.disc != 0) {
+      ## this can happen if the input data was subset incorrectly (#517)
+      .throw_error("In input ", k, " the number of data points (",
+                   length.data, ") is not a multiple of the number of ",
+                   "positions (", length.disc, ")")
+    }
+
     ### METADATA
     n_index.vector <- fileBIN.list[[k]]@METADATA[["ID"]]
     measured_discs.vector <- fileBIN.list[[k]]@METADATA[["POSITION"]]
