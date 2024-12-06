@@ -172,7 +172,8 @@ analyse_SAR.TL <- function(
   type.curves <- c("TL")
 
   ##Remove non TL-curves from object by selecting TL curves
-  object@records <- get_RLum(object, recordType = type.curves)
+  object@records <- get_RLum(object, recordType = type.curves,
+                             recursive = FALSE)
 
   ##ANALYSE SEQUENCE OBJECT STRUCTURE
 

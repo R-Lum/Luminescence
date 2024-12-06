@@ -129,4 +129,10 @@ test_that("regression tests", {
   ),
   "[fit_DoseResponseCurve()] Error: All points have the same dose, NULL returned",
   fixed = TRUE)
+
+  ## issue 519
+  bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+  expect_error(
+      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
+      "Input TL curves are not a multiple of the sequence structure")
 })

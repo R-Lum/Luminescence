@@ -37,7 +37,7 @@ test_that("input validation", {
                "'data' contains only curve data for the natural signal")
 })
 
-test_that("full functionality", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## list
@@ -54,4 +54,9 @@ test_that("full functionality", {
 
   ## RLum.Analysis
   expect_silent(plot_NRt(obj))
+
+  ## list of RLum.Analysis
+  bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+  expect_output(plot_NRt(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
+                "BIN/BINX-file non-conform. TL curve may be wrong")
 })

@@ -104,10 +104,10 @@ coerce to the next possible layer (which are \code{RLum.Data}-objects),
 \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
 
 \item{recursive}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
-if \code{TRUE} (the default) and the result of the \code{get_RLum()} request is a single
-object this object will be unlisted, means only the object itself and no
-list containing exactly one object is returned. Mostly this makes things
-easier, however, if this method is used within a loop this might be undesired.}
+if \code{TRUE} (default) when the result of the \code{get_RLum()} request is a single
+object, the object itself will be returned directly, rather than being
+wrapped in a list. Mostly this makes things easier, but this might be
+undesired if this method is used within a loop.}
 
 \item{info.object}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
 name of the wanted info element}

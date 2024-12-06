@@ -1,4 +1,4 @@
-# full functionality
+# check functionality
 
     {
       "type": "S4",
