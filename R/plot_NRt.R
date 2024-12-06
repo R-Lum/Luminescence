@@ -133,7 +133,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   if (inherits(data, "list")) {
     if (length(data) < 2)
       .throw_error("'data' contains only curve data for the natural signal")
-    if (all(sapply(data, class) == "RLum.Data.Curve"))
+    if (all(sapply(data, class) == "RLum.Data.Curve") ||
+        all(sapply(data, class) == "RLum.Analysis"))
       curves <- lapply(data, get_RLum)
   }
   else if (inherits(data, "data.frame") || inherits(data, "matrix")) {
@@ -170,7 +171,14 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   ## DATA TRANSFORMATION -----
 
   # calculate ratios
-  NR <- lapply(regCurves, FUN = function(reg, nat) { nat[ ,2] / reg[ ,2] }, natural)
+  NR <- lapply(regCurves, natural, FUN = function(reg, nat) {
+    ratio <- nat[, 2] / reg[, 2]
+
+    ## avoid infinities and NaNs
+    ratio[is.infinite(ratio)] <- NA
+    ratio[nat[, 2] == 0] <- 0
+    ratio
+  })
 
   # smooth spline
   if (smooth[1] == "spline") {
@@ -194,7 +202,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   # default values
   settings <- list(
     xlim = if (log == "x" || log ==  "xy") c(0.1, max(time)) else c(0, max(time)),
-    ylim = range(pretty(c(min(sapply(NRnorm, min)), max(sapply(NRnorm, max))))),
+    ylim = range(pretty(c(min(sapply(NRnorm, min, na.rm = TRUE)),
+                          max(sapply(NRnorm, max, na.rm = TRUE))))),
     xlab = "Time [s]",
     ylab = "Natural signal / Regenerated signal",
     cex = 1L,
@@ -202,7 +211,6 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
 
   # override defaults with user settings
   settings <- modifyList(settings, list(...))
-
 
 
   ## PLOTTING ----------

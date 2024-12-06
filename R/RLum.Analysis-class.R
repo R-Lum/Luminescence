@@ -303,10 +303,10 @@ setMethod(
 #' return a numeric vector with the index of each element in the RLum.Analysis object.
 #'
 #' @param recursive [`get_RLum`]: [logical] (*with default*):
-#' if `TRUE` (the default) and the result of the `get_RLum()` request is a single
-#' object this object will be unlisted, means only the object itself and no
-#' list containing exactly one object is returned. Mostly this makes things
-#' easier, however, if this method is used within a loop this might be undesired.
+#' if `TRUE` (default) when the result of the `get_RLum()` request is a single
+#' object, the object itself will be returned directly, rather than being
+#' wrapped in a list. Mostly this makes things easier, but this might be
+#' undesired if this method is used within a loop.
 #'
 #' @param drop [`get_RLum`]: [logical] (*with default*):
 #' coerce to the next possible layer (which are `RLum.Data`-objects),
