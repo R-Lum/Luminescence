@@ -829,7 +829,9 @@ analyse_baSAR <- function(
   ## variable names to monitor
   variable.names <- c('central_D', 'sigma_D', 'D', 'Q', 'a', 'b', 'c', 'g')
   if (!is.null(method_control[["variable.names"]])) {
-    variable.names <- method_control[["variable.names"]]
+    ## take variable from the user but remove nonsense values
+    variable.names <- setdiff(method_control[["variable.names"]],
+                              c("", NA))
   }
 
   ## always monitor the D variable
