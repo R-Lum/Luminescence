@@ -1951,14 +1951,15 @@ analyse_baSAR <- function(
     ##TRACE AND DENSITY PLOT
     ####//////////////////////////////////////////////////////////////////////////////////////////
     if(plot_reduced){
-      plot_check <- try(plot(results[[2]][,c("central_D","sigma_D"),drop = FALSE]), silent = TRUE)
-
-      ##show error
-      if(is(plot_check, "try-error")){
-        .throw_error("Plots for 'central_D' and 'sigma_D' could not be ",
-                     "produced. You are probably monitoring the wrong variables")
+      if (!all(c("central_D", "sigma_D") %in% variable.names)) {
+        var.missing <- setdiff(c("central_D", "sigma_D"), variable.names)
+        .throw_message("Plots for 'central_D' and 'sigma_D' could not be ",
+                       "produced as 'variable.names' does not include ",
+                       .collapse(var.missing))
+      } else {
+        try(plot(results[[2]][, c("central_D", "sigma_D"), drop = FALSE]),
+            silent = TRUE)
       }
-
     }else{
       try(plot(results[[2]]))
     }

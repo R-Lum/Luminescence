@@ -281,7 +281,7 @@ test_that("Full check of analyse_baSAR function", {
           n.MCMC = 100),
       "Error: 'aliquot_range' out of bounds, input ignored")
 
-  expect_warning(expect_error(
+  expect_warning(expect_message(
       analyse_baSAR(
           object = results,
           plot = TRUE,
@@ -362,6 +362,16 @@ test_that("Full check of analyse_baSAR function", {
                                                      variable.names = vnames),
                                n.MCMC = 10, verbose = FALSE),
                  "Dose-response curves could not be plotted as 'variable.names'")
+
+  vnames <- c("D", "Q", "a", "b", "c", "g")
+  expect_message(analyse_baSAR(CWOSL.sub,
+                               source_doserate = c(0.04, 0.001),
+                               signal.integral = 1:2,
+                               background.integral = 60:100,
+                               method_control = list(n.chains = 1,
+                                                     variable.names = vnames),
+                               n.MCMC = 10, verbose = FALSE),
+                 "Plots for 'central_D' and 'sigma_D' could not be produced")
   })
 })
 
