@@ -1987,21 +1987,17 @@ analyse_baSAR <- function(
         col[2]
       }else if(aliquot_quantiles[2,x] < results[[1]][,c("CENTRAL_Q_.16")] |
                aliquot_quantiles[1,x] > results[[1]][,c("CENTRAL_Q_.84")]){
-
         "orange"
       }else{
         "white"
       }
-
     }, FUN.VALUE = vector(mode = "character", length = 1))
 
     ## to assure a minimum of quality not more then 15 boxes are plotted in each plot
     i <- 1
 
     while(i < ncol(plot_matrix)){
-
-      step <- if((i + 14) > ncol(plot_matrix)){ncol(plot_matrix)}else{i + 14}
-
+      step <- min(ncol(plot_matrix), i + 14)
       plot_check <- try(boxplot(
         x = plot_matrix[,i:step],
         use.cols = TRUE,

@@ -360,6 +360,7 @@ test_that("Full check of analyse_baSAR function", {
                                background.integral = 60:100,
                                method_control = list(n.chains = 1,
                                                      variable.names = vnames),
+                               plot_reduced = FALSE,
                                n.MCMC = 10, verbose = FALSE),
                  "Dose-response curves could not be plotted as 'variable.names'")
 
