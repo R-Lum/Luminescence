@@ -1641,13 +1641,10 @@ analyse_baSAR <- function(
   ##evaluate warnings from calc_OSLLxTxRatio()
   if(length(calc_OSLLxTxRatio_warning)>0){
     w_table <- table(unlist(calc_OSLLxTxRatio_warning))
-    w_table_names <- names(w_table)
-
     for(w in 1:length(w_table)){
-      .throw_warning(w_table_names[w], " This warning occurred ",
+      .throw_warning(names(w_table)[w], " This warning occurred ",
                      w_table[w], " times")
     }
-    rm(w_table, w_table_names)
   }
   rm(calc_OSLLxTxRatio_warning)
 
@@ -2220,11 +2217,7 @@ analyse_baSAR <- function(
         plot_check <- plot_AbanicoPlot(
           data = input_object[, c("DE", "DE.SD")],
           zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
-          log.z = if (distribution != "log_normal") {
-            FALSE
-          } else{
-            TRUE
-          },
+          log.z = distribution == "log_normal",
           z.0 = results[[1]]$CENTRAL,
           y.axis = FALSE,
           polygon.col = FALSE,

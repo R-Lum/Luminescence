@@ -335,6 +335,24 @@ test_that("Full check of analyse_baSAR function", {
   results2@data$input_object <- results2$input_object[1:2, ]
   expect_message(expect_null(analyse_baSAR(object = results2)),
                  "Error: Number of aliquots < 3, NULL returned")
+
+  SW({
+  expect_warning(analyse_baSAR(CWOSL.sub, source_doserate = c(0.04, 0.001),
+                               signal.integral = c(1:2),
+                               background.integral = c(8:10),
+                               method_control = list(n.chains = 1),
+                               n.MCMC = 10),
+                 "Number of background channels for Tx < 25")
+
+  analyse_baSAR(CWOSL.sub,
+                CSV_file = CWOSL.sub@METADATA[, c("FNAME", "POSITION", "GRAIN")],
+                source_doserate = c(0.04, 0.001),
+                signal.integral = c(1:2),
+                background.integral = c(8:10),
+                method_control = list(n.chains = 1),
+                aliquot_range = 1:2,
+                n.MCMC = 10)
+  })
 })
 
 test_that("regression tests", {
