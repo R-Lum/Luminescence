@@ -40,7 +40,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = list()),
-               "Input type for 'CSV_file' not supported")
+               "'CSV_file' should be of class 'data.frame', 'character' or NULL")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
@@ -53,7 +53,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = csv.file),
-               "'CSV_file' requires at least 3 columns for 'BIN_file', 'DISC'")
+               "'CSV_file' should have at least 3 columns for the name of the")
   data.table::fwrite(data.frame(a = "error", b = 1, c = 2), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
@@ -66,7 +66,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = data.frame(a = NA, b = NA)),
-               "The data.frame provided via 'CSV_file' must have at least 3")
+               "'CSV_file' should have at least 3 columns for the name of the")
   expect_warning(expect_error(
                  analyse_baSAR(CWOSL.sub, verbose = FALSE,
                                sigmab = list(0.23), sig0 = list(0.02),
@@ -150,6 +150,17 @@ test_that("input validation", {
                     distribution = "normal",
                     n.MCMC = 75)),
       "'1' is a duplicate and therefore removed from the input")
+
+  CWOSL.min <- subset(CWOSL.sub, subset = ID < 20)
+  expect_warning(expect_error(
+      analyse_baSAR(CWOSL.min, source_doserate = c(0.04, 0.001),
+                    signal.integral = c(1:2),
+                    background.integral = c(5:15),
+                    method_control = list(n.chains = 1),
+                    n.MCMC = 10),
+      "In input 1 the number of data points (19) is not a multiple of the",
+      fixed = TRUE),
+      "Only multiple grain data provided, automatic selection skipped")
   })
 })
 
@@ -324,6 +335,24 @@ test_that("Full check of analyse_baSAR function", {
   results2@data$input_object <- results2$input_object[1:2, ]
   expect_message(expect_null(analyse_baSAR(object = results2)),
                  "Error: Number of aliquots < 3, NULL returned")
+
+  SW({
+  expect_warning(analyse_baSAR(CWOSL.sub, source_doserate = c(0.04, 0.001),
+                               signal.integral = c(1:2),
+                               background.integral = c(8:10),
+                               method_control = list(n.chains = 1),
+                               n.MCMC = 10),
+                 "Number of background channels for Tx < 25")
+
+  analyse_baSAR(CWOSL.sub,
+                CSV_file = CWOSL.sub@METADATA[, c("FNAME", "POSITION", "GRAIN")],
+                source_doserate = c(0.04, 0.001),
+                signal.integral = c(1:2),
+                background.integral = c(8:10),
+                method_control = list(n.chains = 1),
+                aliquot_range = 1:2,
+                n.MCMC = 10)
+  })
 })
 
 test_that("regression tests", {
