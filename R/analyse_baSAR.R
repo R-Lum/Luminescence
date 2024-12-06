@@ -832,6 +832,9 @@ analyse_baSAR <- function(
     variable.names <- method_control[["variable.names"]]
   }
 
+  ## always monitor the D variable
+  variable.names <- unique(c(variable.names, "D"))
+
 
   # Set input -----------------------------------------------------------------------------------
 

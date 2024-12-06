@@ -353,7 +353,7 @@ test_that("Full check of analyse_baSAR function", {
                 aliquot_range = 1:2,
                 n.MCMC = 10)
 
-  vnames <- c('central_D', 'sigma_D', 'D')
+  vnames <- c("central_D", "sigma_D")
   expect_message(analyse_baSAR(CWOSL.sub,
                                source_doserate = c(0.04, 0.001),
                                signal.integral = 1:2,
