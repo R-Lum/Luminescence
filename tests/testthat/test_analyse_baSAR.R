@@ -40,7 +40,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = list()),
-               "Input type for 'CSV_file' not supported")
+               "'CSV_file' should be of class 'data.frame', 'character' or NULL")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal.integral = c(1:2),
@@ -53,7 +53,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = csv.file),
-               "'CSV_file' requires at least 3 columns for 'BIN_file', 'DISC'")
+               "'CSV_file' should have at least 3 columns for the name of the")
   data.table::fwrite(data.frame(a = "error", b = 1, c = 2), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
@@ -66,7 +66,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = data.frame(a = NA, b = NA)),
-               "The data.frame provided via 'CSV_file' must have at least 3")
+               "'CSV_file' should have at least 3 columns for the name of the")
   expect_warning(expect_error(
                  analyse_baSAR(CWOSL.sub, verbose = FALSE,
                                sigmab = list(0.23), sig0 = list(0.02),

@@ -62,7 +62,7 @@
 #'  1. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
 #'  2. Calculate De values using the function [plot_GrowthCurve]
 #'
-#' The CSV file should contain a selection of the BIN-file names and the aliquots selected
+#' The CSV file should contain the BIN-file names and the aliquots selected
 #' for the further analysis. This allows a manual selection of input data, as the automatic selection
 #' by [verify_SingleGrainData] might be not totally sufficient.
 #'
@@ -166,11 +166,11 @@
 #' providing a file connection. Mixing of both types is not allowed. If an [RLum.Results-class]
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
-#' @param CSV_file [character] (*optional*):
-#' CSV_file with data for the analysis. This file must contain 3 columns:
+#' @param CSV_file [character] or [data.frame] (*optional*):
+#' if a `character`, it must be the path to a CSV file with data for the
+#' analysis. Either way, data should contain 3 columns:
 #' the name of the file, the disc position and the grain position
 #' (the last being 0 for multi-grain measurements).\cr
-#' Alternatively a `data.frame` of similar structure can be provided.
 #'
 #' @param aliquot_range [numeric] (*optional*):
 #' allows to limit the range of the aliquots used for the analysis.
@@ -1113,9 +1113,6 @@ analyse_baSAR <- function(
     }
 
     # Declare variables ---------------------------------------------------------------------------
-    Dose <-  list()
-    LxTx <-  list()
-    sLxTx <-  list()
 
     Disc <-  list()
     Grain <- list()
@@ -1235,7 +1232,14 @@ analyse_baSAR <- function(
     }
     rm(k)
 
-  } else if (is.data.frame(CSV_file) || is.character(CSV_file)) {
+  } else {
+
+    .validate_class(CSV_file, c("data.frame", "character"), extra = "NULL")
+
+    ## error message used multiple times
+    err.msg <- paste("'CSV_file' should have at least 3 columns for the name",
+                     "of the file, the disc position and the grain position")
+
     ##load file if we have a filename
     if (is.character(CSV_file)) {
       ##test for valid file
@@ -1249,13 +1253,11 @@ analyse_baSAR <- function(
 
       ###check whether data format is somehow odd, check only the first three columns
       if (ncol(datalu) < 3) {
-        .throw_error("'CSV_file' requires at least 3 columns for ",
-                     "'BIN_file', 'DISC' and 'GRAIN'")
+        .throw_error(err.msg)
       }
       if(!all(grepl(colnames(datalu), pattern = " ")[1:3])){
         .throw_error("One of the first 3 columns in 'CSV_file' has no ",
-                     "header. Your CSV file requires at least 3 columns for ",
-                     "'BIN_file', 'DISC' and 'GRAIN'")
+                     "header. ", err.msg)
       }
 
       ##get rid of empty rows if the BIN_FILE name column is empty
@@ -1267,8 +1269,7 @@ analyse_baSAR <- function(
 
       ##check number of number of columns in data.frame
       if(ncol(datalu) < 3){
-        .throw_error("The data.frame provided via 'CSV_file' must have ",
-                     "at least 3 columns (see manual)")
+        .throw_error(err.msg)
       }
 
       ##problem: the first column should be of type character, the others are
@@ -1326,9 +1327,6 @@ analyse_baSAR <- function(
       .throw_error("The BIN-file names provided via 'CSV_file' do not match ",
                    "the loaded BIN-files")
     }
-
-  } else{
-    .throw_error("Input type for 'CSV_file' not supported")
   }
 
   ###################################### loops on files_number
@@ -1367,15 +1365,15 @@ analyse_baSAR <- function(
 
   for (k in 1:length(fileBIN.list)) {
 
-    ### METADATA
-    length_BIN <-  length(fileBIN.list[[k]])
-    n_index.vector <- fileBIN.list[[k]]@METADATA[["ID"]][1:length_BIN]              #  curves indexes vector
+    stopifnot(length(fileBIN.list[[k]]) == nrow(fileBIN.list[[k]]@METADATA))
 
-    measured_discs.vector <-  fileBIN.list[[k]]@METADATA[["POSITION"]][1:length_BIN] # measured discs vector
-    measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]][1:length_BIN]    # measured grains vector
+    ### METADATA
+    n_index.vector <- fileBIN.list[[k]]@METADATA[["ID"]]
+    measured_discs.vector <- fileBIN.list[[k]]@METADATA[["POSITION"]]
+    measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]]
 
     ## always get irradiation times
-    irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+    irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]]
 
     ## now we override, keep in mind that we do not care about the pattern
     if(!is.null(irradiation_times))
@@ -1533,8 +1531,11 @@ analyse_baSAR <- function(
 
         index1 <- as.numeric(sel.disc.grain[[1]][2 * nb_index - 1])
         index2 <- as.numeric(sel.disc.grain[[1]][2 * nb_index])
-        Lx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index1]])), fileBIN.list[[k]]@DATA[[index1]])
-        Tx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index2]])), fileBIN.list[[k]]@DATA[[index2]])
+        this.data <- fileBIN.list[[k]]@DATA
+        Lx.data <- data.frame(seq_along(this.data[[index1]]),
+                              this.data[[index1]])
+        Tx.data <- data.frame(seq_along(this.data[[index2]]),
+                              this.data[[index2]])
 
         ## call calc_OSLLxTxRatio()
         ## we run this function with a warnings catcher to reduce the load of warnings for the user

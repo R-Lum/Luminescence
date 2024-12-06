@@ -41,11 +41,11 @@ provided the list can only contain either \code{Risoe.BINfileData} objects or \c
 providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
-\item{CSV_file}{\link{character} (\emph{optional}):
-CSV_file with data for the analysis. This file must contain 3 columns:
+\item{CSV_file}{\link{character} or \link{data.frame} (\emph{optional}):
+if a \code{character}, it must be the path to a CSV file with data for the
+analysis. Either way, data should contain 3 columns:
 the name of the file, the disc position and the grain position
-(the last being 0 for multi-grain measurements).\cr
-Alternatively a \code{data.frame} of similar structure can be provided.}
+(the last being 0 for multi-grain measurements).\cr}
 
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
@@ -257,7 +257,7 @@ the pre-processing phase consists of the following steps:
 \item Calculate De values using the function \link{plot_GrowthCurve}
 }
 
-The CSV file should contain a selection of the BIN-file names and the aliquots selected
+The CSV file should contain the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by \link{verify_SingleGrainData} might be not totally sufficient.
 
