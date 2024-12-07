@@ -14,7 +14,29 @@ replace_metadata(object, ...) <- value
 \item{value}{the value assigned}
 }
 \description{
-Generic function for replacement of object metadata.
+Generic function for replacement of object metadata in \linkS4class{Risoe.BINfileData}
+and \linkS4class{RLum} objects
+}
+\examples{
+
+## (1) Replace for Risoe.BINfileData
+## load example data
+data(ExampleData.BINfileData, envir = environment())
+
+## show data
+CWOSL.SAR.Data
+
+## replace all LTYPE to RSL
+## but only for the first position
+replace_metadata(
+object = CWOSL.SAR.Data,
+info_element = "LTYPE",
+subset = (POSITION == 1)) <- "RSL"
+CWOSL.SAR.Data
+
+}
+\seealso{
+\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis}, \linkS4class{Risoe.BINfileData}
 }
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
