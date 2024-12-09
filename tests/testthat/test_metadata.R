@@ -5,8 +5,10 @@ risoe <- read_BIN2R(bin.v8, verbose = FALSE)
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  expect_error(replace_metadata(risoe, list()) <- 1,
+               "'info_element' should be of class 'character'")
   expect_error(replace_metadata(risoe, "error") <- 1,
-               "'info_element' not recognised")
+               "'info_element' not recognised, valid terms are")
   expect_error(replace_metadata(risoe, "SEL", subset = error == 99) <- 0,
                "Invalid 'subset' expression, valid terms are")
   expect_error(replace_metadata(risoe, "SEL", subset = ID + 99) <- 0,
@@ -17,10 +19,9 @@ test_that("input validation", {
                  "'subset' expression produced an empty selection, nothing done")
 })
 
-test_that("check functionality", {
+test_that("check functionality for Risoe.BINfileData", {
   testthat::skip_on_cran()
 
-  ## Risoe.BINfileData
   res <- risoe
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@METADATA$SEL,
