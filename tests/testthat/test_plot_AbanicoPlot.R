@@ -44,6 +44,9 @@ test_that("input validation", {
   data.zeros[, 2] <- 0
   expect_error(plot_AbanicoPlot(data.zeros),
                "Data set contains only values with zero errors")
+
+  expect_warning(plot_AbanicoPlot(ExampleData.DeValues, xlim = c(2, 12)),
+                 "Lower x-axis limit was 2, reset to zero")
 })
 
 test_that("Test examples from the example page", {

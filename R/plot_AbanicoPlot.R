@@ -958,8 +958,8 @@ plot_AbanicoPlot <- function(
   }
 
   if(limits.x[1] != 0) {
+    .throw_warning("Lower x-axis limit was ", limits.x[1], ", reset to zero")
     limits.x[1] <- 0
-    .throw_warning("Lower x-axis limit not set to zero, issue corrected!")
   }
 
   if("ylim" %in% names(extraArgs)) {
