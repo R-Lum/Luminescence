@@ -475,7 +475,8 @@ setMethod("replace_metadata<-",
             .validate_class(info_element, "character")
             valid.names <- colnames(object@METADATA)
             if (!info_element %in% valid.names) {
-              .throw_error("'info_element' not recognised")
+              .throw_error("'info_element' not recognised, valid terms are: ",
+                           .collapse(valid.names, quote = FALSE))
             }
 
             ## select relevant rows
@@ -502,6 +503,7 @@ setMethod("replace_metadata<-",
               }
             }
 
+            ## replace the metadata element
             object@METADATA[sel, info_element] <- value
             assign(x = deparse(substitute(object))[1], object)
           })
