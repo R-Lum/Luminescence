@@ -7,7 +7,7 @@
 \alias{view,RLum.Data-method}
 \title{Class \code{"RLum.Data"}}
 \usage{
-\S4method{replace_metadata}{RLum.Data}(object, info_element, subset = NULL) <- value
+\S4method{replace_metadata}{RLum.Data}(object, info_element, subset = NULL, verbose = TRUE) <- value
 
 \S4method{view}{RLum.Data}(object, ...)
 }
@@ -19,6 +19,9 @@ to replace}
 
 \item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
 substitution only to the selected subset of elements}
+
+\item{verbose}{\link{logical} (\emph{with default}) enable/disable output to the
+terminal}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
 of the metadata field.}

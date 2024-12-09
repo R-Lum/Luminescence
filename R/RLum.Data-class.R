@@ -47,6 +47,9 @@ setClass("RLum.Data",
 #' @param subset [expression] (*optional*) logical expression to limit the
 #' substitution only to the selected subset of elements
 #'
+#' @param verbose [logical] (*with default*) enable/disable output to the
+#' terminal
+#'
 #' @param value (**required**) The value assigned to the selected elements
 #' of the metadata field.
 #'
@@ -56,7 +59,8 @@ setClass("RLum.Data",
 #' @export
 setMethod("replace_metadata<-",
           signature = "RLum.Data",
-          definition = function(object, info_element, subset = NULL, value) {
+          definition = function(object, info_element, subset = NULL,
+                                verbose = TRUE, value) {
             .set_function_name("replace_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 
@@ -87,8 +91,9 @@ setMethod("replace_metadata<-",
                 sel <- FALSE
               }
               if (!any(sel)) {
-                .throw_message("'subset' expression produced an ",
-                               "empty selection, nothing done")
+                if (verbose)
+                  .throw_message("'subset' expression produced an ",
+                                 "empty selection, nothing done")
                 return(object)
               }
             }

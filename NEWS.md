@@ -29,8 +29,8 @@
   \#419).
 
 - `replace_metadata()`: This function allows to manipulate the metadata
-  of `Risoe.BINfileData` and `RLum.Data` objects (#480, fixed in \#514
-  and \#524).
+  of `Risoe.BINfileData`, `RLum.Analysis` and `RLum.Data` objects (#480,
+  fixed in \#514, \#524 and \#525).
 
 - `view()`: Provides a shortcut to the `utils::View()` spreadsheet-like
   data viewer tailored to the objects in the package (#489, fixed in
