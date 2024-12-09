@@ -769,7 +769,7 @@ setMethod("replace_metadata<-",
             records <- lapply(object@records, function(x) {
               do.call(`replace_metadata<-`,
                       list(x, info_element = info_element,
-                           subset = subset.expr,
+                           subset = subset.expr,  verbose = FALSE,
                            value = value))
             })
 
