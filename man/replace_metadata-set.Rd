@@ -29,9 +29,9 @@ CWOSL.SAR.Data
 ## replace all LTYPE to RSL
 ## but only for the first position
 replace_metadata(
-object = CWOSL.SAR.Data,
-info_element = "LTYPE",
-subset = (POSITION == 1)) <- "RSL"
+ object = CWOSL.SAR.Data,
+ info_element = "LTYPE",
+ subset = (POSITION == 1)) <- "RSL"
 CWOSL.SAR.Data
 
 }

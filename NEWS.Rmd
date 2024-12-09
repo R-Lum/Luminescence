@@ -28,7 +28,7 @@ and `RLum.Analysis-class` objects and lists of such objects.
 more `RLum.Data.Spectrum` objects in different ways (#368, fixed in #419).
 
 * `replace_metadata()`: This function allows to manipulate the metadata of
-a `Risoe.BINfileData` object (#480, fixed in #514).
+`Risoe.BINfileData` and `RLum.Data` objects (#480, fixed in #514 and #524).
 
 * `view()`: Provides a shortcut to the `utils::View()` spreadsheet-like data
 viewer tailored to the objects in the package (#489, fixed in #490).

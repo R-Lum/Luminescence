@@ -1,4 +1,4 @@
-#' @include view.R
+#' @include metadata.R view.R
 NULL
 
 #' @title Class `"RLum.Data"`
@@ -35,12 +35,73 @@ setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
 )
 
+# replace_metadata() --------------------------------------------------------
+#' @describeIn RLum.Data
+#' Replaces metadata of [RLum.Data-class] objects
+#'
+#' @param object an object of class [RLum.Data-class]
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to replace
+#'
+#' @param subset [expression] (*optional*) logical expression to limit the
+#' substitution only to the selected subset of elements
+#'
+#' @param value (**required**) The value assigned to the selected elements
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("replace_metadata<-",
+          signature = "RLum.Data",
+          definition = function(object, info_element, subset = NULL, value) {
+            .set_function_name("replace_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## Integrity checks ---------------------------------------------
+
+            .validate_class(info_element, "character")
+            valid.names <- names(object@info)
+            if (!info_element %in% valid.names) {
+              .throw_error("'info_element' not recognised, valid terms are: ",
+                           .collapse(valid.names, quote = FALSE))
+            }
+
+            ## select relevant rows
+            sel <- TRUE
+            if (!is.null(substitute(subset))) {
+              sel <- tryCatch(eval(
+                  expr = substitute(subset),
+                  envir = object@info,
+                  enclos = parent.frame()
+              ), error = function(e) {
+                .throw_error("Invalid 'subset' expression, valid terms are: ",
+                             .collapse(valid.names, quote = FALSE))
+              })
+              if (!is.logical(sel)) {
+                .throw_error("'subset' should contain a logical expression")
+              }
+              if (all(is.na(sel))) {
+                sel <- FALSE
+              }
+              if (!any(sel)) {
+                .throw_message("'subset' expression produced an ",
+                               "empty selection, nothing done")
+                return(object)
+              }
+            }
+
+            ## replace the metadata element
+            object@info[[info_element]][sel] <- value
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 ## view() -------------------------------------------------------------------
 #' @describeIn RLum.Data
 #'
 #' View method for [RLum.Data-class] objects
-#'
-#' @param object an object of class [RLum.Data-class]
 #'
 #' @param ... other arguments that might be passed
 #'
