@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R view.R
+#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R metadata.R view.R
 NULL
 
 #' Class `"RLum.Analysis"`
@@ -282,7 +282,7 @@ setMethod(
 #' The selection of a specific RLum.type object superimposes the default selection.
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 #'
-#' @param object [`get_RLum`]: [`names_RLum`], [`length_RLum`], [`structure_RLum`] (**required**):
+#' @param object (**required**):
 #' an object of class [RLum.Analysis-class]
 #'
 #' @param record.id [`get_RLum`]: [numeric] or [logical] (*optional*):
@@ -741,6 +741,43 @@ setMethod("names_RLum",
           })
 
 
+# replace_metadata() --------------------------------------------------------
+#' @describeIn RLum.Analysis
+#' Replaces metadata of [RLum.Analysis-class] objects
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to replace
+#'
+#' @param value (**required**) The value assigned to the selected elements
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("replace_metadata<-",
+          signature= "RLum.Analysis",
+          definition = function(object, info_element, subset = NULL, value) {
+            .set_function_name("replace_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## this must be evaluated now, as inside the lapply() inner
+            ## function it would be evaluated differently
+            subset.expr <- substitute(subset)
+
+            ## replace the metadata in all records
+            records <- lapply(object@records, function(x) {
+              do.call(`replace_metadata<-`,
+                      list(x, info_element = info_element,
+                           subset = subset.expr,
+                           value = value))
+            })
+
+            object@records <- records
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
+
 # smooth_RLum() -------------------------------------------------------------------------------
 #' @describeIn RLum.Analysis
 #'
@@ -794,8 +831,6 @@ setMethod(
 #' @describeIn RLum.Analysis
 #'
 #' View method for [RLum.Analysis-class] objects
-#'
-#' @param object an object of class [RLum.Analysis-class]
 #'
 #' @param ... other arguments that might be passed
 #'

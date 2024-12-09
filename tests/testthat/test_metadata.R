@@ -2,7 +2,7 @@
 bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 risoe <- read_BIN2R(bin.v8, verbose = FALSE)
 SW({
-analysis <- Risoe.BINfileData2RLum.Analysis(risoe)[[1]]
+analysis <- merge_RLum(Risoe.BINfileData2RLum.Analysis(risoe))
 })
 curve <- analysis@records[[1]]
 
@@ -45,6 +45,24 @@ test_that("check functionality for Risoe.BINfileData", {
                rep(TRUE, nrow(res@METADATA)))
   expect_equal(risoe@METADATA$LTYPE,
                rep("TL", nrow(res@METADATA)))
+})
+
+test_that("check functionality for RLum.Analysis", {
+  testthat::skip_on_cran()
+
+  res <- analysis
+  replace_metadata(res, "SEL") <- FALSE
+  expect_equal(sapply(res@records, function(x) x@info[["SEL"]]),
+               c(FALSE, FALSE))
+  replace_metadata(res, "LTYPE", subset = SET == 2 & POSITION == 1) <- "OSL"
+  expect_equal(sapply(res@records, function(x) x@info[["LTYPE"]]),
+               c("OSL", "TL"))
+
+  ## the original object is unchanged
+  expect_equal(sapply(analysis@records, function(x) x@info[["SEL"]]),
+               rep(TRUE, length(res@records)))
+  expect_equal(sapply(analysis@records, function(x) x@info[["LTYPE"]]),
+               rep("TL", length(analysis@records)))
 })
 
 test_that("check functionality for RLum.Data", {

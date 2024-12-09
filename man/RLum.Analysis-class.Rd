@@ -9,6 +9,7 @@
 \alias{structure_RLum,RLum.Analysis-method}
 \alias{length_RLum,RLum.Analysis-method}
 \alias{names_RLum,RLum.Analysis-method}
+\alias{replace_metadata<-,RLum.Analysis-method}
 \alias{smooth_RLum,RLum.Analysis-method}
 \alias{melt_RLum,RLum.Analysis-method}
 \alias{view,RLum.Analysis-method}
@@ -47,6 +48,8 @@
 
 \S4method{names_RLum}{RLum.Analysis}(object)
 
+\S4method{replace_metadata}{RLum.Analysis}(object, info_element, subset = NULL) <- value
+
 \S4method{smooth_RLum}{RLum.Analysis}(object, ...)
 
 \S4method{melt_RLum}{RLum.Analysis}(object)
@@ -54,7 +57,8 @@
 \S4method{view}{RLum.Analysis}(object, ...)
 }
 \arguments{
-\item{object}{an object of class \linkS4class{RLum.Analysis}}
+\item{object}{(\strong{required}):
+an object of class \linkS4class{RLum.Analysis}}
 
 \item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}):
 name of the \code{RLum} class to be created}
@@ -126,6 +130,12 @@ extends the returned \code{data.frame} to its full extent, i.e. all info element
 are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 
+\item{info_element}{\link{character} (\strong{required}) name of the metadata field
+to replace}
+
+\item{value}{(\strong{required}) The value assigned to the selected elements
+of the metadata field.}
+
 \item{...}{other arguments that might be passed}
 }
 \value{
@@ -185,6 +195,8 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{length_RLum(RLum.Analysis)}: Returns the length of the object, i.e., number of stored records.
 
 \item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
+
+\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces metadata of \linkS4class{RLum.Analysis} objects
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
 using the internal function \code{.smoothing}.
