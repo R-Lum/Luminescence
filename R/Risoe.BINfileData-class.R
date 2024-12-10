@@ -445,7 +445,7 @@ setMethod("get_Risoe.BINfileData",
           }
 )
 
-# replace_metadata() --------------------------------------------------------
+## replace_metadata() -------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' Replaces metadata of [Risoe.BINfileData-class] objects
 #'
@@ -473,6 +473,7 @@ setMethod("replace_metadata<-",
             ## Integrity checks ---------------------------------------------
 
             .validate_class(info_element, "character")
+            .validate_length(info_element, 1)
             valid.names <- colnames(object@METADATA)
             if (!info_element %in% valid.names) {
               .throw_error("'info_element' not recognised, valid terms are: ",

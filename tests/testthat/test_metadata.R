@@ -9,10 +9,15 @@ curve <- analysis@records[[1]]
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  ## replace_metadata
   expect_error(replace_metadata(risoe, list()) <- 1,
                "'info_element' should be of class 'character'")
   expect_error(replace_metadata(curve, list()) <- 1,
                "'info_element' should be of class 'character'")
+  expect_error(replace_metadata(risoe, c("VAL1", "VAL2")) <- 1,
+               "'info_element' should have length 1")
+  expect_error(replace_metadata(curve, c("VAL1", "VAL2")) <- 1,
+               "'info_element' should have length 1")
   expect_error(replace_metadata(risoe, "error") <- 1,
                "'info_element' not recognised, valid terms are")
   expect_error(replace_metadata(curve, "error") <- 1,
@@ -39,6 +44,7 @@ test_that("check functionality for Risoe.BINfileData", {
   testthat::skip_on_cran()
 
   res <- risoe
+  ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@METADATA$SEL,
                rep(FALSE, nrow(res@METADATA)))
@@ -57,6 +63,8 @@ test_that("check functionality for RLum.Analysis", {
   testthat::skip_on_cran()
 
   res <- analysis
+  num.records <- length(analysis@records)
+  ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(sapply(res@records, function(x) x@info[["SEL"]]),
                c(FALSE, FALSE))
@@ -66,15 +74,16 @@ test_that("check functionality for RLum.Analysis", {
 
   ## the original object is unchanged
   expect_equal(sapply(analysis@records, function(x) x@info[["SEL"]]),
-               rep(TRUE, length(res@records)))
+               rep(TRUE, num.records))
   expect_equal(sapply(analysis@records, function(x) x@info[["LTYPE"]]),
-               rep("TL", length(analysis@records)))
+               rep("TL", num.records))
 })
 
 test_that("check functionality for RLum.Data", {
   testthat::skip_on_cran()
 
   res <- curve
+  ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@info$SEL, FALSE)
   replace_metadata(res, "LTYPE", subset = SET == 2) <- "OSL"

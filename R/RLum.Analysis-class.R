@@ -741,7 +741,7 @@ setMethod("names_RLum",
           })
 
 
-# replace_metadata() --------------------------------------------------------
+## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Analysis
 #' Replaces metadata of [RLum.Analysis-class] objects
 #'
