@@ -443,8 +443,8 @@ error.list <- list()
   sig0 <- if("sig0" %in% names(extraArgs)) extraArgs$sig0 else 0
 
   ## deprecated argument
-  if ("plot.single" %in% names(list(...))) {
-    plot_singlePanels <- list(...)$plot.single
+  if ("plot.single" %in% names(extraArgs)) {
+    plot_singlePanels <- extraArgs$plot.single
     .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
                    "instead")
   }
@@ -1242,11 +1242,9 @@ error.list <- list()
 
           ##create empty plots if needed, otherwise subsequent functions may crash
           if(plot){
-            if("output.plotExtended" %in% list(...) && list(...)$output.plotExtended == FALSE){
-              shape::emptyplot()
-
-            }else{
-              shape::emptyplot()
+            shape::emptyplot()
+            if (!"output.plotExtended" %in% extraArgs ||
+                extraArgs$output.plotExtended) {
               shape::emptyplot()
               shape::emptyplot()
             }
@@ -1270,19 +1268,11 @@ error.list <- list()
           palaeodose.error.threshold <-
             rejection.criteria$palaeodose.error / 100
 
-          if (is.na(palaeodose.error.calculated)) {
+          if (is.na(palaeodose.error.calculated) ||
+              palaeodose.error.calculated > palaeodose.error.threshold) {
             palaeodose.error.status <- "FAILED"
-
-          }else{
-            if(!is.na(palaeodose.error.threshold)){
-              palaeodose.error.status <- ifelse(
-                palaeodose.error.calculated <= palaeodose.error.threshold,
-                "OK", "FAILED"
-              )
-
-            }else{
-              palaeodose.error.status <- "OK"
-            }
+          } else {
+            palaeodose.error.status <- "OK"
           }
 
           palaeodose.error.data.frame <- data.frame(
@@ -1574,14 +1564,13 @@ error.list <- list()
       ##graphical representation of IR-curve
       temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
       if(length(temp.IRSL) != 0){
+        .validate_class(temp.IRSL, c("RLum.Data.Curve", "list"))
         if(inherits(temp.IRSL, "RLum.Data.Curve")){
           plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
         }else if(inherits(temp.IRSL, "list")){
           plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
           .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
-        }else{
-          shape::emptyplot()
         }
 
       }else{
