@@ -1,6 +1,3 @@
-#' @include replicate_RLum.R RcppExports.R
-NULL
-
 #' Class `"RLum"`
 #'
 #' Abstract class for data in the package Luminescence

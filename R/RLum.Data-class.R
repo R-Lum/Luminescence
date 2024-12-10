@@ -1,6 +1,3 @@
-#' @include metadata.R view.R
-NULL
-
 #' @title Class `"RLum.Data"`
 #'
 #' @description Generalized virtual data class for luminescence data.

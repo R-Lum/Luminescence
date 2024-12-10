@@ -1,6 +1,3 @@
-#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R metadata.R view.R
-NULL
-
 #' Class `"Risoe.BINfileData"`
 #'
 #' S4 class object for luminescence data in R. The object is produced as output

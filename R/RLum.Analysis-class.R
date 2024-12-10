@@ -1,6 +1,3 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R metadata.R view.R
-NULL
-
 #' Class `"RLum.Analysis"`
 #'
 #' Object class to represent analysis data for protocol analysis, i.e. all curves,

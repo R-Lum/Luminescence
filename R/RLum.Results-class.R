@@ -1,6 +1,3 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R names_RLum.R view.R
-NULL
-
 #' Class `"RLum.Results"`
 #'
 #' Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).

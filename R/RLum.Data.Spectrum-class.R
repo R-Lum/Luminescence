@@ -1,6 +1,3 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R bin_RLum.Data.R
-NULL
-
 #' Class `"RLum.Data.Spectrum"`
 #'
 #' Class for representing luminescence spectra data (TL/OSL/RF).
