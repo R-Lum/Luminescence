@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' @title Class `"RLum.Data"`
 #'
 #' @description Generalized virtual data class for luminescence data.

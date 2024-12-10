@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' Class `"RLum.Data.Image"`
 #'
 #' Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced

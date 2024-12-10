@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' Class `"RLum.Analysis"`
 #'
 #' Object class to represent analysis data for protocol analysis, i.e. all curves,

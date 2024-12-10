@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' Class `"Risoe.BINfileData"`
 #'
 #' S4 class object for luminescence data in R. The object is produced as output

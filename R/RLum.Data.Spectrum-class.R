@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' Class `"RLum.Data.Spectrum"`
 #'
 #' Class for representing luminescence spectra data (TL/OSL/RF).

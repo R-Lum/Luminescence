@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' Class `"RLum.Results"`
 #'
 #' Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).

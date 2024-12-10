@@ -1,6 +1,3 @@
-#' @include Luminescence-generics.R
-NULL
-
 #' Class `"RLum.Data.Curve"`
 #'
 #' Class for representing luminescence curve data.
