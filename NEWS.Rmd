@@ -126,6 +126,9 @@ in #408).
 ### `analyse_SAR.CWOSL()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
+* The function shifted the curves correctly in cases where the first channel
+is zero and a log-transformation on the x-axis is requested (#580, fixed in
+#531).
 
 ### `calc_CentralDose()`
 * Argument `na.rm` is now deprecated: the function will now always remove
