@@ -9,6 +9,7 @@
 \alias{structure_RLum,RLum.Analysis-method}
 \alias{length_RLum,RLum.Analysis-method}
 \alias{names_RLum,RLum.Analysis-method}
+\alias{add_metadata<-,RLum.Analysis-method}
 \alias{replace_metadata<-,RLum.Analysis-method}
 \alias{smooth_RLum,RLum.Analysis-method}
 \alias{melt_RLum,RLum.Analysis-method}
@@ -47,6 +48,8 @@
 \S4method{length_RLum}{RLum.Analysis}(object)
 
 \S4method{names_RLum}{RLum.Analysis}(object)
+
+\S4method{add_metadata}{RLum.Analysis}(object, info_element) <- value
 
 \S4method{replace_metadata}{RLum.Analysis}(object, info_element, subset = NULL) <- value
 
@@ -195,6 +198,8 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{length_RLum(RLum.Analysis)}: Returns the length of the object, i.e., number of stored records.
 
 \item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
+
+\item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects
 
 \item \code{replace_metadata(RLum.Analysis) <- value}: Replaces metadata of \linkS4class{RLum.Analysis} objects
 

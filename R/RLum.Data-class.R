@@ -35,7 +35,44 @@ setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
 )
 
-# replace_metadata() --------------------------------------------------------
+## add_metadata() -----------------------------------------------------------
+#' @describeIn RLum.Data
+#' Add metadata entries to [RLum.Data-class] objects
+#'
+#' @param object an object of class [RLum.Data-class]
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to add
+#'
+#' @param value (**required**) The value assigned to the selected elements
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("add_metadata<-",
+          signature = "RLum.Data",
+          definition = function(object, info_element, value) {
+            .set_function_name("add_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## Integrity checks ---------------------------------------------
+
+            .validate_class(info_element, "character")
+            .validate_length(info_element, 1)
+            valid.names <- names(object@info)
+            if (info_element %in% valid.names) {
+              .throw_error("'info_element' already present, to modify it ",
+                           "you should use `replace_metadata()`")
+            }
+
+            ## add the metadata element
+            object@info[[info_element]] <- value
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
+## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Data
 #' Replaces metadata of [RLum.Data-class] objects
 #'
@@ -67,6 +104,7 @@ setMethod("replace_metadata<-",
             ## Integrity checks ---------------------------------------------
 
             .validate_class(info_element, "character")
+            .validate_length(info_element, 1)
             valid.names <- names(object@info)
             if (!info_element %in% valid.names) {
               .throw_error("'info_element' not recognised, valid terms are: ",
