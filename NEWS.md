@@ -144,6 +144,9 @@
 
 - Option `plot.single` has been renamed to `plot_singlePanels` (#351,
   fixed in \#408).
+- The function shifted the curves correctly in cases where the first
+  channel is zero and a log-transformation on the x-axis is requested
+  (#580, fixed in \#531).
 
 ### `calc_CentralDose()`
 

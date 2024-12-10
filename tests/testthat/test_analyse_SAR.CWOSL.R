@@ -598,5 +598,16 @@ test_that("advance tests run", {
       dose.points = rep(2, 7),
       plot = FALSE,
       verbose = FALSE)
+
+  object[[1]]@records[[2]][1, 1] <- 0
+  expect_warning(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 975,
+      log = "x",
+      verbose = FALSE),
+      "Curves shifted by one channel for log-plot")
   })
 })

@@ -985,11 +985,10 @@ error.list <- list()
       ## if we want to apply a log-transform on x and the first time point
       ## is 0, we shift the curves by one channel
       if (log == "x" || log == "xy") {
-        sapply(1:length(OSL.Curves.ID.Lx), function(x) {
-          x.vals <- object@records[[OSL.Curves.ID.Lx[[x]]]]@data[, 1]
+        sapply(OSL.Curves.ID.Lx, function(x) {
+          x.vals <- object@records[[x]]@data[, 1]
           if (x.vals[1] == 0) {
-            object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1, ] <-
-              object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1, ] + x.vals[2] - x.vals[1]
+            object@records[[x]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
             .throw_warning("Curves shifted by one channel for log-plot")
           }
         })
