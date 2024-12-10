@@ -19,13 +19,19 @@ test_that("input validation", {
                "'info_element' not recognised, valid terms are")
   expect_error(replace_metadata(risoe, "SEL", subset = error == 99) <- 0,
                "Invalid 'subset' expression, valid terms are")
+  expect_error(replace_metadata(curve, "SEL", subset = error == 99) <- 0,
+               "Invalid 'subset' expression, valid terms are")
   expect_error(replace_metadata(risoe, "SEL", subset = ID + 99) <- 0,
+               "'subset' should contain a logical expression")
+  expect_error(replace_metadata(curve, "SEL", subset = ID + 99) <- 0,
                "'subset' should contain a logical expression")
   expect_message(replace_metadata(risoe, "SEL", subset = ID == 99) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
   expect_message(replace_metadata(risoe, "SEL", subset = ID == NA) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
   expect_message(replace_metadata(curve, "SEL", subset = SET == 99) <- 0,
+                 "'subset' expression produced an empty selection, nothing done")
+  expect_message(replace_metadata(curve, "SEL", subset = ID == NA) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
 })
 
