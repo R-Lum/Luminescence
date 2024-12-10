@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R melt_RLum.R metadata.R view.R
+#' @include Luminescence-generics.R
 NULL
 
 #' Class `"RLum.Analysis"`

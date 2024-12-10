@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R names_RLum.R view.R
+#' @include Luminescence-generics.R
 NULL
 
 #' Class `"RLum.Results"`

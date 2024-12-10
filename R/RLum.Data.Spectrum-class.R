@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R bin_RLum.Data.R
+#' @include Luminescence-generics.R
 NULL
 
 #' Class `"RLum.Data.Spectrum"`

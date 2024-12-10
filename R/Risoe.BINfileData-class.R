@@ -1,4 +1,4 @@
-#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R metadata.R view.R
+#' @include Luminescence-generics.R
 NULL
 
 #' Class `"Risoe.BINfileData"`

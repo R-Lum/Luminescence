@@ -1,4 +1,4 @@
-#' @include replicate_RLum.R RcppExports.R
+#' @include Luminescence-generics.R RcppExports.R
 NULL
 
 #' Class `"RLum"`

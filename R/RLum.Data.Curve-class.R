@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R melt_RLum.R
+#' @include Luminescence-generics.R
 NULL
 
 #' Class `"RLum.Data.Curve"`
@@ -511,9 +511,9 @@ setMethod(
   signature = "RLum.Data.Curve",
   function(object) {
     data.frame(
-      X = object@data[,1], 
-      Y = object@data[,2], 
-      TYPE = object@recordType, 
+      X = object@data[,1],
+      Y = object@data[,2],
+      TYPE = object@recordType,
       UID = object@.uid)
   }
 )

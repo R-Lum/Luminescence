@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R
+#' @include Luminescence-generics.R
 NULL
 
 #' Class `"RLum.Data.Image"`

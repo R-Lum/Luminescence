@@ -1,4 +1,4 @@
-#' @include metadata.R view.R
+#' @include Luminescence-generics.R
 NULL
 
 #' @title Class `"RLum.Data"`
