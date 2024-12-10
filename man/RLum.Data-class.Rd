@@ -3,10 +3,13 @@
 \docType{class}
 \name{RLum.Data-class}
 \alias{RLum.Data-class}
+\alias{add_metadata<-,RLum.Data-method}
 \alias{replace_metadata<-,RLum.Data-method}
 \alias{view,RLum.Data-method}
 \title{Class \code{"RLum.Data"}}
 \usage{
+\S4method{add_metadata}{RLum.Data}(object, info_element) <- value
+
 \S4method{replace_metadata}{RLum.Data}(object, info_element, subset = NULL, verbose = TRUE) <- value
 
 \S4method{view}{RLum.Data}(object, ...)
@@ -17,14 +20,14 @@
 \item{info_element}{\link{character} (\strong{required}) name of the metadata field
 to replace}
 
+\item{value}{(\strong{required}) The value assigned to the selected elements
+of the metadata field.}
+
 \item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
 substitution only to the selected subset of elements}
 
 \item{verbose}{\link{logical} (\emph{with default}) enable/disable output to the
 terminal}
-
-\item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field.}
 
 \item{...}{other arguments that might be passed}
 }
@@ -33,6 +36,8 @@ Generalized virtual data class for luminescence data.
 }
 \section{Methods (by generic)}{
 \itemize{
+\item \code{add_metadata(RLum.Data) <- value}: Add metadata entries to \linkS4class{RLum.Data} objects
+
 \item \code{replace_metadata(RLum.Data) <- value}: Replaces metadata of \linkS4class{RLum.Data} objects
 
 \item \code{view(RLum.Data)}: View method for \linkS4class{RLum.Data} objects

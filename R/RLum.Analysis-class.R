@@ -741,6 +741,36 @@ setMethod("names_RLum",
           })
 
 
+## add_metadata() -----------------------------------------------------------
+#' @describeIn RLum.Analysis
+#' Adds metadata to [RLum.Analysis-class] objects
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to add
+#'
+#' @param value (**required**) The value assigned to the selected element
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("add_metadata<-",
+          signature= "RLum.Analysis",
+          definition = function(object, info_element, value) {
+            .set_function_name("add_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## add the metadata to all records
+            records <- lapply(object@records, function(x) {
+              do.call(`add_metadata<-`,
+                      list(x, info_element = info_element, value = value))
+            })
+
+            object@records <- records
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Analysis
 #' Replaces metadata of [RLum.Analysis-class] objects

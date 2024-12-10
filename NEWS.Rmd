@@ -27,9 +27,10 @@ and `RLum.Analysis-class` objects and lists of such objects.
 * `merge_RLum.Data.Spectrum()`: This new function allows to merge two or
 more `RLum.Data.Spectrum` objects in different ways (#368, fixed in #419).
 
-* `replace_metadata()`: This function allows to manipulate the metadata of
+* `add_metadata()`, `replace_metadata()`:
+These function allow to manipulate the metadata of
 `Risoe.BINfileData`, `RLum.Analysis` and `RLum.Data` objects (#480, fixed
-in #514, #524 and #525).
+in #514, #524, #525, #527).
 
 * `view()`: Provides a shortcut to the `utils::View()` spreadsheet-like data
 viewer tailored to the objects in the package (#489, fixed in #490).

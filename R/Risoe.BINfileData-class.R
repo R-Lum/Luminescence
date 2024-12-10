@@ -445,6 +445,43 @@ setMethod("get_Risoe.BINfileData",
           }
 )
 
+## add_metadata() -----------------------------------------------------------
+#' @describeIn Risoe.BINfileData
+#' Adds metadata to [Risoe.BINfileData-class] objects
+#'
+#' @param object an object of class [Risoe.BINfileData-class]
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to add
+#'
+#' @param value (**required**) The value assigned to the selected elements
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("add_metadata<-",
+          signature= "Risoe.BINfileData",
+          definition = function(object, info_element, value) {
+            .set_function_name("add_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## Integrity checks ---------------------------------------------
+
+            .validate_class(info_element, "character")
+            .validate_length(info_element, 1)
+            valid.names <- colnames(object@METADATA)
+            if (info_element %in% valid.names) {
+              .throw_error("'info_element' already present, to modify it ",
+                           "you should use `replace_metadata()`")
+            }
+
+            ## add the metadata element
+            object@METADATA[[info_element]] <- value
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' Replaces metadata of [Risoe.BINfileData-class] objects

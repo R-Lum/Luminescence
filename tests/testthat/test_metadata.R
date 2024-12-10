@@ -9,6 +9,20 @@ curve <- analysis@records[[1]]
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  ## add_metadata
+  expect_error(add_metadata(risoe, list()) <- 1,
+               "'info_element' should be of class 'character'")
+  expect_error(add_metadata(curve, list()) <- 1,
+               "'info_element' should be of class 'character'")
+  expect_error(add_metadata(risoe, c("VAL1", "VAL2")) <- 1,
+               "'info_element' should have length 1")
+  expect_error(add_metadata(curve, c("VAL1", "VAL2")) <- 1,
+               "'info_element' should have length 1")
+  expect_error(add_metadata(risoe, "POSITION") <- 1,
+               "'info_element' already present, to modify it you should use")
+  expect_error(add_metadata(curve, "POSITION") <- 1,
+               "'info_element' already present, to modify it you should use")
+
   ## replace_metadata
   expect_error(replace_metadata(risoe, list()) <- 1,
                "'info_element' should be of class 'character'")
@@ -44,6 +58,12 @@ test_that("check functionality for Risoe.BINfileData", {
   testthat::skip_on_cran()
 
   res <- risoe
+
+  ## add_metadata
+  add_metadata(res, "NEW") <- 123
+  expect_equal(res@METADATA$NEW,
+               rep(123, nrow(res@METADATA)))
+
   ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@METADATA$SEL,
@@ -53,6 +73,7 @@ test_that("check functionality for Risoe.BINfileData", {
                c("OSL", "TL"))
 
   ## the original object is unchanged
+  expect_null(risoe@METADATA$NEW)
   expect_equal(risoe@METADATA$SEL,
                rep(TRUE, nrow(res@METADATA)))
   expect_equal(risoe@METADATA$LTYPE,
@@ -64,6 +85,12 @@ test_that("check functionality for RLum.Analysis", {
 
   res <- analysis
   num.records <- length(analysis@records)
+
+  ## add_metadata
+  add_metadata(res, "NEW") <- 123
+  expect_equal(sapply(res@records, function(x) x@info[["NEW"]]),
+               c(123, 123))
+
   ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(sapply(res@records, function(x) x@info[["SEL"]]),
@@ -73,6 +100,7 @@ test_that("check functionality for RLum.Analysis", {
                c("OSL", "TL"))
 
   ## the original object is unchanged
+  expect_null(unlist(sapply(analysis@records, function(x) x@info[["NEW"]])))
   expect_equal(sapply(analysis@records, function(x) x@info[["SEL"]]),
                rep(TRUE, num.records))
   expect_equal(sapply(analysis@records, function(x) x@info[["LTYPE"]]),
@@ -83,6 +111,11 @@ test_that("check functionality for RLum.Data", {
   testthat::skip_on_cran()
 
   res <- curve
+
+  ## add_metadata
+  add_metadata(res, "NEW") <- 123
+  expect_equal(res@info$NEW, 123)
+
   ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@info$SEL, FALSE)
@@ -90,6 +123,7 @@ test_that("check functionality for RLum.Data", {
   expect_equal(res@info$LTYPE, "OSL")
 
   ## the original object is unchanged
+  expect_null(curve@info$NEW)
   expect_equal(curve@info$SEL, TRUE)
   expect_equal(curve@info$LTYPE, "TL")
 })
