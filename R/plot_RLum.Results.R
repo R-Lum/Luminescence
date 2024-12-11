@@ -117,7 +117,7 @@ plot_RLum.Results<- function(
   switch(object@originator,
       "analyse_SAR.CWOSL" = plot_AbanicoPlot(object),
       "analyse_pIRIRSequence" = plot_AbanicoPlot(object),
-      "analyse_IRSARRF" = plot_AbanicoPlot(object),
+      "analyse_IRSAR.RF" = plot_AbanicoPlot(object),
     NULL
     )
 
@@ -833,13 +833,8 @@ plot_RLum.Results<- function(
           # create legend labels
           dose.lab.legend<- paste("c", 1:n.components[length(n.components)], sep="")
 
-          if(max(n.components)>8) {
-            ncol.temp<- 8
-            yadj<- 1.025
-          } else {
-            ncol.temp<- max(n.components)
-            yadj<- 0.93
-          }
+          ncol.temp <- min(max(n.components), 8)
+          yadj <- if (max(n.components) > 8) 1.025 else 0.93
 
           # add legend
           if(i==n.plots) {
