@@ -23,6 +23,6 @@ endif
 all:
 	${RSCRIPT} -e "RLumBuild::build_package(\
 		exclude = c(\
-		$(EXCLUDE_MODULES),\
+		$(EXCLUDE_MODULES) ),\
 		as_cran = TRUE,\
-		write_Rbuildignore = TRUE))";
+		write_Rbuildignore = TRUE)";
