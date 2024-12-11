@@ -130,6 +130,10 @@ in #408).
 is zero and a log-transformation on the x-axis is requested (#580, fixed in
 #531).
 
+### `calc_AverageDose()`
+* The function crashed if the data contained non-positive values: now these
+are removed before proceeding (#532, fixed in #533).
+
 ### `calc_CentralDose()`
 * Argument `na.rm` is now deprecated: the function will now always remove
 missing values, as otherwise the presence of any `NA` would propagate and

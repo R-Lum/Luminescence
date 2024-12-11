@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 
 test_that("input validation", {
@@ -61,4 +62,10 @@ test_that("check class and length of output", {
   ## RLum.Results
   expect_warning(calc_AverageDose(temp, sigma_m = 0.1, verbose = FALSE, col = 1),
                  "'data' contains > 2 columns, only the first 2 columns were used")
+
+  ## non-positive values
+  data.zero <- ExampleData.DeValues$CA1
+  data.zero[1, 1] <- 0
+  expect_warning(calc_AverageDose(data.zero, sigma_m = 0.1, verbose = FALSE),
+                 "Non-positive values in 'data' detected, rows removed")
 })

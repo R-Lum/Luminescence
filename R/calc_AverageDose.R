@@ -268,6 +268,11 @@ calc_AverageDose <- function(
     .throw_warning("NA values in 'data' detected, rows with NA values removed")
   }
 
+  if (any(data[, 1] <= 0)) {
+    data <- data[data[, 1] > 0, ]
+    .throw_warning("Non-positive values in 'data' detected, rows removed")
+  }
+
   ##check data set
   if(nrow(data) == 0){
     .throw_message("After NA removal, nothing is left from the data set, ",
