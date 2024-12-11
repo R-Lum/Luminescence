@@ -165,7 +165,8 @@ calc_AverageDose <- function(
 
       ##break loop if convergence is reached ... if not update values
       if(is.infinite(delta.temp) | is.infinite(sigma_d.temp)){
-        break()
+        .throw_warning("Inf/NaN values produced by .mle(), NA returned")
+        return(c(NA,NA))
 
       }else if (
         ##compare values ... if they are equal we have convergence
@@ -188,10 +189,6 @@ calc_AverageDose <- function(
     if(j == iteration_limit){
       .throw_warning("No convergence reached by .mle() after ",
                      iteration_limit, " iterations, NA returned")
-      return(c(NA,NA))
-
-    }else if(is.infinite(delta.temp) | is.infinite(sigma_d.temp)){
-      .throw_warning("Inf values produced by .mle(), NA returned")
       return(c(NA,NA))
     }else{
       return(c(round(c(delta, sigma_d),4)))
@@ -332,7 +329,6 @@ calc_AverageDose <- function(
     cat(paste("\n\n>> Calculation <<\n"))
     cat(paste("log likelihood:\t", round(llik, 4)))
   }
-
 
   # standard errors obtained by bootstrap, we refer to Efron B. and Tibshirani R. (1986)
   # est ce qu'il faut citer l'article ici ou tout simplement dans la publi ?
