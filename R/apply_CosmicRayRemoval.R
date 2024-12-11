@@ -233,16 +233,35 @@ apply_CosmicRayRemoval <- function(
 
   ## +++++++++++++++++++++++++++++++++++ (smooth_RLum) +++++++++++++++++++++##
   }else if(method == "smooth_RLum"){
-
     object.data.temp.smooth <-
       apply(
         X = object@data,
         MARGIN = MARGIN,
         FUN = .smoothing,
         method = extraArgs$method[1],
-        k = extraArgs$k[1],
+        k = max(c(1, min(c(if(MARGIN == 1) ncol(object@data) else abs(nrow(object@data)-8), extraArgs$k[1])))),
         fill = extraArgs$fill[1],
         align = extraArgs$align[1])
+
+    ## remove BA
+    if(MARGIN == 1 & is.na(extraArgs$fill[1])) {
+      id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
+
+      if(length(id_NA) > 0) {
+        object.data.temp.smooth <- object.data.temp.smooth[-id_NA, ,drop = FALSE]
+        object@data <- object@data[,-id_NA, drop = FALSE]
+      }
+
+
+    } else if (MARGIN == 2 & is.na(extraArgs$fill[1])){
+      id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
+
+      if(length(id_NA) > 0) {
+        object.data.temp.smooth <- object.data.temp.smooth[-id_NA, , drop = FALSE]
+        object@data <- object@data[-id_NA,,drop = FALSE]
+      }
+
+    }
 
 
   ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
@@ -298,7 +317,6 @@ apply_CosmicRayRemoval <- function(
       ##(7) - use counts above the threshold and recalculate values
       ## on all further values
       if(!is.na(temp.hist.thres)){
-
         object.data.temp[,x] <- sapply(1:nrow(object.data.temp), function(n){
 
           if(c(n + method.Pych.smoothing) <= nrow(object.data.temp) &
