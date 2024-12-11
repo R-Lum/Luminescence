@@ -7,7 +7,8 @@
 analyse_ThermochronometryData(object, plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{object}{\link{character} or \link{RLum.Results} (\strong{required}): file path to XLSX file with ... ##TODO}
+\item{object}{\link{character} (\strong{required}): path to a CSV file with;
+alternatively a \link{vector} of paths}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
 
@@ -34,7 +35,7 @@ by XXX and XXX and XXX
 
 }
 \seealso{
-##TODO
+\link{analyse_FadingMeasurement}, ## TODO
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Svenja Riedesel, DTU Risø (Denmark)

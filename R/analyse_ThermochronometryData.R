@@ -5,7 +5,8 @@
 #'
 #' @details ##TODO
 #'
-#' @param object [character] or [RLum.Results] (**required**): file path to XLSX file with ... ##TODO
+#' @param object [character] (**required**): path to a CSV file with;
+#' alternatively a [vector] of paths
 #'
 #' @param plot [logical] (*with default*): enable/disable plot output
 #'
@@ -22,12 +23,10 @@
 #' @return
 #' An [RLum.Results-class] object is returned: ##TODO
 #'
-#' @seealso ##TODO
+#' @seealso [analyse_FadingMeasurement], ## TODO
 #'
 #' @examples
 #' # example code ##TOD
-#'
-#' @md
 #'
 #' @md
 #' @export
@@ -36,8 +35,9 @@ analyse_ThermochronometryData <- function(
   plot = TRUE,
   verbose = TRUE,
   ...
-
-){
+) {
+  .set_function_name("analyse_ThermochronometryData")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ##TODO --- general
   ## - output of this function follows the suggestions from the MatLab code by Benny Gurlanik; however
@@ -48,23 +48,18 @@ analyse_ThermochronometryData <- function(
   ## - later we have to think about two different modes of analysis
   ## - we want to pass certain parameters over to functions
 
-  # Import and prepare data -------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   ## for a start with only allow data coming in in the format proposed by the MatLab script
-  if(inherits(object, "character")) {
-    object <- Luminescence:::.import_ThermochronometryData(object, output_type = "RLum.Results")
-    sample_names <- object@info$sample_names
+  .validate_class(object, "character")
 
-  } else {
-    stop("[analyse_ThermochronometryData] Input for 'object' not supported!", call. = FALSE)
-
-  }
+  object <- .import_ThermochronometryData(object, output_type = "RLum.Results")
+  sample_names <- object@info$sample_names
 
   ## prepare plot and reset to default on exit
   if(plot) {
     par_default <- par(no.readonly = TRUE)
     par(mfrow = c(1,3))
-    on.exit(par(par_default))
-
+    on.exit(par(par_default), add = TRUE)
   }
 
   ## Reminder: We have n samples in one Excel sheet ... each set will be analysed
@@ -84,7 +79,7 @@ analyse_ThermochronometryData <- function(
       object = df_FAD,
       verbose = FALSE,
       plot = plot,
-      plot.single = 3,
+      plot_singlePanels = 3,
       plot.trend = FALSE)
 
     # (2) ITL Data ------------------------------------------------------------
@@ -108,7 +103,6 @@ analyse_ThermochronometryData <- function(
       ## we have to do this aliquot wise
       for (d in unique(df_DRC[["ALQ"]])) {
         df_DRC[df_DRC[["ALQ"]] == d,"TIME"] <- df_DRC[df_DRC[["ALQ"]] == d, "TIME"] * Ddot_DRC[d]
-
       }
 
       ## adjust column names
@@ -128,37 +122,31 @@ analyse_ThermochronometryData <- function(
 
     ## return single lists
     return(list(results_FAD, results_ITL, results_DRC))
-
   })
 
   ## merge results for each
     ## flatten list
     results_combined <- unlist(results_combined, recursive = TRUE)
 
-    ## get originator (we will merge accordingly)
-    org <- vapply(results_combined, function(x) x@originator, character(1))
+  ## get originators (we will merge accordingly)
+  originator <- vapply(results_combined, function(x) x@originator, character(1))
 
-    ## get list with merged results
-    results_combined <- lapply(unique(org), function(x) {
-      merge_RLum(
-        results_combined[org == x]
-
-      )
-
-    })
+  ## get list with merged results
+  results_combined <- lapply(unique(originator), function(x) {
+    merge_RLum(results_combined[originator == x])
+  })
+  names(results_combined) <- unique(originator)
 
 # Results -----------------------------------------------------------------
   results <- set_RLum(
     class = "RLum.Results",
     data = list(
-      FAD = results_combined[[1]],
-      ITL = results_combined[[2]],
-      DRC = results_combined[[3]]),
+      FAD = results_combined[["analyse_FadingMeasurement"]],
+      ITL = results_combined[["fit_IsoThermalHolding"]],
+      DRC = results_combined[["fit_DoseResponseCurve"]]),
     info = list(
       call = sys.call()
     ))
 
   return(results)
-
-
-}#EOF
+}
