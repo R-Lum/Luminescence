@@ -4,11 +4,20 @@
 \alias{analyse_ThermochronometryData}
 \title{Analyse Thermochronometry Data}
 \usage{
-analyse_ThermochronometryData(object, plot = TRUE, verbose = TRUE, ...)
+analyse_ThermochronometryData(
+  object,
+  ITL_model = c("GOK", "BTS"),
+  plot = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\link{character} (\strong{required}): path to a CSV file with;
 alternatively a \link{vector} of paths}
+
+\item{ITL_model}{\link{character} (\emph{with default}): type of model to fit,
+either \code{"GOK"} or \code{"BTS"}}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
 

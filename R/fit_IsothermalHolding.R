@@ -52,6 +52,7 @@ fit_IsoThermalHolding <- function(
   ## - the rhop value has uncertainties, which are not yet considered
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
+  .validate_args(ITL_model, c("GOK", "BTS"))
 
   if (inherits(data[1], "character")) {
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
