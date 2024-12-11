@@ -153,16 +153,17 @@ apply_CosmicRayRemoval <- function(
       }
 
       ##call function
-      results <- apply_CosmicRayRemoval(
-        object = temp_o,
-        method = method,
-        method.Pych.smoothing = method.Pych.smoothing,
-        method.Pych.threshold_factor = method.Pych.threshold_factor,
-        MARGIN = MARGIN,
-        verbose = verbose,
-        plot = plot,
-        ... = list(...)
-        )
+      results <- do.call(
+        what = apply_CosmicRayRemoval,
+        args = c(list(
+          object = temp_o,
+          method = method,
+          method.Pych.smoothing = method.Pych.smoothing,
+          method.Pych.threshold_factor = method.Pych.threshold_factor,
+          MARGIN = MARGIN,
+          verbose = verbose,
+          plot = plot),
+          list(...)))
 
       ##combine in RLum.Analysis object if needed
       if(!is.null(record_id.spectra)){
@@ -232,7 +233,7 @@ apply_CosmicRayRemoval <- function(
 
   ## +++++++++++++++++++++++++++++++++++ (smooth_RLum) +++++++++++++++++++++##
   }else if(method == "smooth_RLum"){
-    ##apply smooth.spline
+
     object.data.temp.smooth <-
       apply(
         X = object@data,
