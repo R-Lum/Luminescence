@@ -23,8 +23,8 @@ objects does not work for a list of \code{RLum.Data} objects.}
 
 \item{method}{\link{character} (\emph{with default}):
 Defines method that is applied for cosmic ray removal. Allowed methods are
-\code{smooth}, the default, (\link{smooth}), \code{smooth.spline} (\link{smooth.spline})
-and \code{Pych}. See details for further information.}
+\code{smooth}, the default, (\link[stats:smooth]{stats::smooth}), \code{smooth.spline} (\link[stats:smooth.spline]{stats::smooth.spline}),
+\code{smooth_RLum} \link{smooth_RLum} and \code{Pych}. See details for further information.}
 
 \item{method.Pych.smoothing}{\link{integer} (\emph{with default}):
 Smoothing parameter for cosmic ray removal according to Pych (2003).
@@ -53,7 +53,8 @@ including the used threshold. Note: A separate plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
 \item{...}{further arguments and graphical parameters that will be passed
-to the \link{smooth} function.}
+to the \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline} or \link{smooth_RLum}. See details for more
+information.}
 }
 \value{
 Returns same object as input.
@@ -75,17 +76,27 @@ This method applies the cosmic-ray removal algorithm described by Pych
 
 For further details see references below.
 
-\strong{\code{method = "smooth"}}
+\strong{Other methods}
+Arguments supported through \code{...}
+\tabular{llll}{
+METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
+\code{"smooth"} \tab \code{kind} \tab  \link{character} \tab see \link[stats:smooth]{stats::smooth} \cr
+\tab \code{twiceit} \tab  \link{logical} \tab see \link[stats:smooth]{stats::smooth} \cr
+\code{"smooth.spline"} \tab \code{spar} \tab  \link{numeric} \tab see \link[stats:smooth.spline]{stats::smooth.spline} \cr
+\code{"smooth_RLum"} \tab \code{k} \tab \link{numeric} \tab see \link{smooth_RLum}\cr
+\tab \code{fill} \tab \link{numeric} \tab see \link{smooth_RLum}\cr
+\tab \code{align} \tab \link{character} \tab see \link{smooth_RLum}\cr
+\tab \code{method} \tab \link{character} \tab see \link{smooth_RLum}\cr
+}
 
-Method uses the function \link{smooth} to remove cosmic rays.
+\strong{Best practice}
 
-Arguments that can be passed are: \code{kind}, \code{twiceit}
-
-\strong{\code{method = "smooth.spline"}}
-
-Method uses the function \link{smooth.spline} to remove cosmic rays.
-
-Arguments that can be passed are: \code{spar}
+There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+on the characteristic of the detector and the chosen settings. For instance,
+high values for pixel binning will improve the light output, but also causes
+multiple pixels being affected a single cosmic-ray. The same is valid for
+longer integration times. The best strategy is to combine methods and ensure
+that the spectrum is not distorted on a case-to-case basis.
 
 \strong{How to combine methods?}
 
@@ -93,7 +104,7 @@ Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
 \section{Function version}{
- 0.3.0
+ 0.4.0
 }
 
 \examples{
@@ -104,22 +115,17 @@ dataset (see example).
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "Pych")
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "smooth")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from
 Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
 \doi{10.1086/381786}
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link{smooth}, \link{smooth.spline},
-\link{apply_CosmicRayRemoval}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline},
+\link{smooth_RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+}
 \keyword{manip}

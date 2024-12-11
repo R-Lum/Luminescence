@@ -7,7 +7,7 @@ test_that("input validation", {
   expect_error(apply_CosmicRayRemoval("error"),
                "'object' should be of class 'RLum.Data.Spectrum'")
   expect_error(apply_CosmicRayRemoval(TL.Spectrum, method = "error"),
-               "'method' should be one of 'smooth', 'smooth.spline' or 'Pych'",
+               "'method' should be one of 'smooth', 'smooth.spline', 'smooth_RLum' or 'Pych'",
                fixed = TRUE)
 
   expect_error(apply_CosmicRayRemoval(set_RLum("RLum.Data.Spectrum"),
@@ -20,6 +20,8 @@ test_that("check function", {
   ##run basic tests
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych"))
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth"))
+  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum"))
+  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", k = 10))
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth", MARGIN = 1))
   expect_output(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych", MARGIN = 2, verbose = TRUE, plot = TRUE))
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",

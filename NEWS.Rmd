@@ -130,6 +130,10 @@ in #408).
 is zero and a log-transformation on the x-axis is requested (#580, fixed in
 #531).
 
+### `apply_CosmicRayRamoval()`
+* Support has been added for the internal function `smooth_RLum` that can 
+be passed as new argument for `method`. 
+
 ### `calc_AverageDose()`
 * The function crashed if the data contained non-positive values: now these
 are removed before proceeding (#532, fixed in #533).

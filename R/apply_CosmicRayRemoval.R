@@ -23,7 +23,11 @@
 #' METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
 #' `"smooth"` \tab `kind` \tab  [character] \tab see [stats::smooth] \cr
 #'   \tab `twiceit` \tab  [logical] \tab see [stats::smooth] \cr
-#' `"smooth.spline"` \tab `spar` \tab  [numerical] \tab see [stats::smooth.spline] \cr
+#' `"smooth.spline"` \tab `spar` \tab  [numeric] \tab see [stats::smooth.spline] \cr
+#' `"smooth_RLum"` \tab `k` \tab [numeric] \tab see [smooth_RLum]\cr
+#'  \tab `fill` \tab [numeric] \tab see [smooth_RLum]\cr
+#'  \tab `align` \tab [character] \tab see [smooth_RLum]\cr
+#'  \tab `method` \tab [character] \tab see [smooth_RLum]\cr
 #'}
 #'
 #'
@@ -48,8 +52,8 @@
 #'
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
-#' `smooth`, the default, ([stats::smooth]), `smooth.spline` ([stats::smooth.spline])
-#' and `Pych`. See details for further information.
+#' `smooth`, the default, ([stats::smooth]), `smooth.spline` ([stats::smooth.spline]),
+#' `smooth_RLum` [smooth_RLum] and `Pych`. See details for further information.
 #'
 #' @param method.Pych.smoothing [integer] (*with default*):
 #' Smoothing parameter for cosmic ray removal according to Pych (2003).
@@ -77,15 +81,17 @@
 #' Currently only for `method = "Pych"` a graphical output is provided.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the [smooth] function.
+#' to the [stats::smooth], [stats::smooth.spline] or [smooth_RLum]. See details for more
+#' information.
 #'
 #' @return Returns same object as input.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [stats::smooth], [stats::smooth.spline]
+#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [stats::smooth], [stats::smooth.spline],
+#' [smooth_RLum]
 #'
 #' @references
 #' Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from
@@ -121,18 +127,15 @@ apply_CosmicRayRemoval <- function(
   ##Black magic: The function recalls itself until all RLum.Data.Spectrum objects have been treated
   ##If you want to test the basics of the function please only use a single RLum.Data.Spectrum-object
   ##if it comes in as an RLum.Analysis object ... make a list out of it
+  class_original <- NULL
   if(inherits(object, "RLum.Analysis")){
     object <- list(object)
     class_original <- "RLum.Analysis"
-
-  }else{
-    class_original <- NULL
   }
 
   ##handle the list and recall
   if(inherits(object, "list")){
     results_list <- lapply(object, function(o){
-
       ##preset objects
       record_id.spectra <- NULL
 
@@ -181,47 +184,39 @@ apply_CosmicRayRemoval <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Data.Spectrum")
-  if (length(object@data) < 2) {
+  if (length(object@data) < 2)
     .throw_error("'object' contains no data")
-  }
-  .validate_args(method, c("smooth", "smooth.spline", "Pych"))
 
-  ##deal with addition arguments
-  extraArgs <- list(...)
+  .validate_args(method, c("smooth", "smooth.spline", "smooth_RLum", "Pych"))
 
-  kind <- if("kind" %in% names(extraArgs)) {extraArgs$kind} else
-  {"3RS3R"}
+  ##deal with additional arguments
+  extraArgs <- modifyList(
+    x = list(
+      kind = "3RS3R",
+      twiceit = TRUE,
+      spar = NULL,
+      method = "median",
+      k = NULL,
+      fill = NA,
+      align = "right"),
+    val = list(...),
+    keep.null = TRUE)
 
-  twiceit <- if("twiceit" %in% names(extraArgs)) {extraArgs$twiceit} else
-  {TRUE}
-
-  spar <- if("spar" %in% names(extraArgs)) {extraArgs$spar} else
-  {NULL}
-
-  # Apply method ------------------------------------------------------------
-
+  # Apply methods -0------------------------------------------------------------
   ## +++++++++++++++++++++++++++++++++++ (smooth) ++++++++++++++++++++++++++++##
   if(method == "smooth"){
-
     ##apply smooth
     object.data.temp.smooth <- apply(
       X = object@data,
       MARGIN = MARGIN,
       FUN = stats::smooth,
-      kind = kind,
-      twiceit = twiceit
+      kind = extraArgs$kind[1],
+      twiceit = extraArgs$twiceit[1]
     )
 
-    ##rotate output matrix if necessary
-    if(MARGIN == 1){
-      object.data.temp.smooth <- t(object.data.temp.smooth)
-    }
-
-    ## +++++++++++++++++++++++++++++++++++ (smooth.spline) +++++++++++++++++++++##
+  ## +++++++++++++++++++++++++++++++++++ (smooth.spline) +++++++++++++++++++++##
   }else if(method == "smooth.spline"){
-
     ##write the function in a new function to acess the data more easily
     temp_smooth.spline <- function(x, spar){
       stats::smooth.spline(x, spar = spar)$y
@@ -233,17 +228,24 @@ apply_CosmicRayRemoval <- function(
         X = object@data,
         MARGIN = MARGIN,
         FUN = temp_smooth.spline,
-        spar = spar
-      )
+        spar = extraArgs$spar[1])
 
-    ##rotate output matrix if necessary
-    if(MARGIN == 1){
-      object.data.temp.smooth <- t(object.data.temp.smooth)
-    }
+  ## +++++++++++++++++++++++++++++++++++ (smooth_RLum) +++++++++++++++++++++##
+  }else if(method == "smooth_RLum"){
+    ##apply smooth.spline
+    object.data.temp.smooth <-
+      apply(
+        X = object@data,
+        MARGIN = MARGIN,
+        FUN = .smoothing,
+        method = extraArgs$method[1],
+        k = extraArgs$k[1],
+        fill = extraArgs$fill[1],
+        align = extraArgs$align[1])
 
-    ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
+
+  ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
   }else if(method == "Pych"){
-
     ## grep data matrix
     object.data.temp <- object@data
 
@@ -357,13 +359,16 @@ apply_CosmicRayRemoval <- function(
     })#end loop
   }
 
-  # Correct row and column names --------------------------------------------
 
+  ## Rotate matrix if required
+  if(MARGIN[1] == 1)
+    object.data.temp.smooth <- t(object.data.temp.smooth)
+
+  # Correct row and column names --------------------------------------------
   colnames(object.data.temp.smooth) <- colnames(object@data)
   rownames(object.data.temp.smooth) <- rownames(object@data)
 
   # Return Output------------------------------------------------------------
-
   temp.output <- set_RLum(
     class = "RLum.Data.Spectrum",
     recordType = object@recordType,
