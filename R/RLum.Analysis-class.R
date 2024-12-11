@@ -770,13 +770,14 @@ setMethod("add_metadata<-",
 
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Analysis
-#' Replaces metadata of [RLum.Analysis-class] objects
+#' Replaces or removes metadata of [RLum.Analysis-class] objects
 #'
 #' @param info_element [character] (**required**) name of the metadata field
-#' to replace
+#' to replace or remove
 #'
 #' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
+#' of the metadata field. If `NULL` the elements named in `info_element`
+#' will be removed.
 #'
 #' @keywords internal
 #'

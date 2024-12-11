@@ -134,10 +134,11 @@ are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 
 \item{info_element}{\link{character} (\strong{required}) name of the metadata field
-to replace}
+to replace or remove}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field.}
+of the metadata field. If \code{NULL} the elements named in \code{info_element}
+will be removed.}
 
 \item{...}{other arguments that might be passed}
 }
@@ -201,7 +202,7 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
 \item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects
 
-\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces metadata of \linkS4class{RLum.Analysis} objects
+\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces or removes metadata of \linkS4class{RLum.Analysis} objects
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
 using the internal function \code{.smoothing}.

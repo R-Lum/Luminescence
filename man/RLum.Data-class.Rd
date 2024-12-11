@@ -18,10 +18,11 @@
 \item{object}{an object of class \linkS4class{RLum.Data}}
 
 \item{info_element}{\link{character} (\strong{required}) name of the metadata field
-to replace}
+to replace or remove}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field.}
+of the metadata field. If \code{NULL} the elements named in \code{info_element}
+will be removed.}
 
 \item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
 substitution only to the selected subset of elements}
@@ -38,17 +39,14 @@ Generalized virtual data class for luminescence data.
 \itemize{
 \item \code{add_metadata(RLum.Data) <- value}: Add metadata entries to \linkS4class{RLum.Data} objects
 
-\item \code{replace_metadata(RLum.Data) <- value}: Replaces metadata of \linkS4class{RLum.Data} objects
+\item \code{replace_metadata(RLum.Data) <- value}: Replaces or removes metadata of \linkS4class{RLum.Data} objects
 
 \item \code{view(RLum.Data)}: View method for \linkS4class{RLum.Data} objects
 
 }}
-\note{
-Just a virtual class.
-}
 \section{Objects from the Class}{
 
-A virtual Class: No objects can be created from it.
+A virtual class: no objects can be created from it.
 }
 
 \section{Class version}{
@@ -66,6 +64,6 @@ showClass("RLum.Data")
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+}
 \keyword{classes}
 \keyword{internal}

@@ -41,10 +41,11 @@ values for internal use only.}
 \item{...}{other arguments that might be passed}
 
 \item{info_element}{\link{character} (\strong{required}) name of the metadata field
-to replace}
+to replace or remove}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field.}
+of the metadata field. If \code{NULL} the elements named in \code{info_element}
+will be removed.}
 
 \item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
 substitution only to the selected subset of elements}
@@ -65,7 +66,7 @@ the object directly, it is just showing a terminal message.
 
 \item \code{add_metadata(Risoe.BINfileData) <- value}: Adds metadata to \linkS4class{Risoe.BINfileData} objects
 
-\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces metadata of \linkS4class{Risoe.BINfileData} objects
+\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects
 
 \item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects
 

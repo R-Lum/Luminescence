@@ -28,14 +28,16 @@ test_that("input validation", {
                "'info_element' should be of class 'character'")
   expect_error(replace_metadata(curve, list()) <- 1,
                "'info_element' should be of class 'character'")
-  expect_error(replace_metadata(risoe, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
-  expect_error(replace_metadata(curve, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
   expect_error(replace_metadata(risoe, "error") <- 1,
-               "'info_element' not recognised, valid terms are")
+               "'info_element' not recognised ('error'), valid terms are",
+               fixed = TRUE)
   expect_error(replace_metadata(curve, "error") <- 1,
-               "'info_element' not recognised, valid terms are")
+               "'info_element' not recognised ('error'), valid terms are",
+               fixed = TRUE)
+  expect_error(replace_metadata(risoe, "SEL", subset = POSITION == 2) <- NULL,
+               "'subset' is incompatible with assigning NULL")
+  expect_error(replace_metadata(curve, "SEL", subset = POSITION == 2) <- NULL,
+               "'subset' is incompatible with assigning NULL")
   expect_error(replace_metadata(risoe, "SEL", subset = error == 99) <- 0,
                "Invalid 'subset' expression, valid terms are")
   expect_error(replace_metadata(curve, "SEL", subset = error == 99) <- 0,
@@ -71,6 +73,9 @@ test_that("check functionality for Risoe.BINfileData", {
   replace_metadata(res, "LTYPE", subset = SET == 2 & POSITION == 1) <- "OSL"
   expect_equal(res@METADATA$LTYPE,
                c("OSL", "TL"))
+  replace_metadata(res, c("PTENABLED", "DTENABLED")) <- NULL
+  expect_null(res@METADATA$PTENABLED)
+  expect_null(res@METADATA$DTENABLED)
 
   ## the original object is unchanged
   expect_null(risoe@METADATA$NEW)
@@ -78,6 +83,10 @@ test_that("check functionality for Risoe.BINfileData", {
                rep(TRUE, nrow(res@METADATA)))
   expect_equal(risoe@METADATA$LTYPE,
                rep("TL", nrow(res@METADATA)))
+  expect_equal(risoe@METADATA$PTENABLED,
+               c(0, 0))
+  expect_equal(risoe@METADATA$DTENABLED,
+               c(0, 0))
 })
 
 test_that("check functionality for RLum.Analysis", {
@@ -98,6 +107,8 @@ test_that("check functionality for RLum.Analysis", {
   replace_metadata(res, "LTYPE", subset = SET == 2 & POSITION == 1) <- "OSL"
   expect_equal(sapply(res@records, function(x) x@info[["LTYPE"]]),
                c("OSL", "TL"))
+  replace_metadata(res, "SEQUENCE") <- NULL
+  expect_null(unlist(sapply(res@records, function(x) x@info[["SEQUENCE"]])))
 
   ## the original object is unchanged
   expect_null(unlist(sapply(analysis@records, function(x) x@info[["NEW"]])))
@@ -105,6 +116,8 @@ test_that("check functionality for RLum.Analysis", {
                rep(TRUE, num.records))
   expect_equal(sapply(analysis@records, function(x) x@info[["LTYPE"]]),
                rep("TL", num.records))
+  expect_equal(sapply(analysis@records, function(x) x@info[["SEQUENCE"]]),
+               rep("", num.records))
 })
 
 test_that("check functionality for RLum.Data", {
@@ -121,9 +134,14 @@ test_that("check functionality for RLum.Data", {
   expect_equal(res@info$SEL, FALSE)
   replace_metadata(res, "LTYPE", subset = SET == 2) <- "OSL"
   expect_equal(res@info$LTYPE, "OSL")
+  replace_metadata(res, c("AN_TEMP", "AN_TIME")) <- NULL
+  expect_null(res@info$AN_TEMP)
+  expect_null(res@info$AN_TIME)
 
   ## the original object is unchanged
   expect_null(curve@info$NEW)
   expect_equal(curve@info$SEL, TRUE)
   expect_equal(curve@info$LTYPE, "TL")
+  expect_equal(curve@info$AN_TEMP, 220)
+  expect_equal(curve@info$AN_TIME, 10)
 })
