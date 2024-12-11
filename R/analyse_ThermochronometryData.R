@@ -8,6 +8,9 @@
 #' @param object [character] (**required**): path to a CSV file with;
 #' alternatively a [vector] of paths
 #'
+#' @param ITL_model [character] (*with default*): type of model to fit,
+#' either `"GOK"` or `"BTS"`
+#'
 #' @param plot [logical] (*with default*): enable/disable plot output
 #'
 #' @param verbose [logical] (*with default*): enable/disable terminal output
@@ -32,6 +35,7 @@
 #' @export
 analyse_ThermochronometryData <- function(
   object,
+  ITL_model = c("GOK", "BTS"),
   plot = TRUE,
   verbose = TRUE,
   ...
@@ -51,6 +55,7 @@ analyse_ThermochronometryData <- function(
   ## Integrity checks -------------------------------------------------------
   ## for a start with only allow data coming in in the format proposed by the MatLab script
   .validate_class(object, "character")
+  .validate_args(ITL_model, c("GOK", "BTS"))
 
   object <- .import_ThermochronometryData(object, output_type = "RLum.Results")
   sample_names <- object@info$sample_names
@@ -86,6 +91,7 @@ analyse_ThermochronometryData <- function(
     df_ITL <- object@data$ITL[object@data$ITL$SAMPLE == sample_names[i],]
     results_ITL <- fit_IsoThermalHolding(
       data = df_ITL,
+      ITL_model = ITL_model,
       rhop = results_FAD,
       plot = plot)
 
