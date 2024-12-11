@@ -481,18 +481,19 @@ setMethod("add_metadata<-",
 
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn Risoe.BINfileData
-#' Replaces metadata of [Risoe.BINfileData-class] objects
+#' Replaces or removes metadata of [Risoe.BINfileData-class] objects
 #'
 #' @param object an object of class [Risoe.BINfileData-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
-#' to replace
+#' to replace or remove
 #'
 #' @param subset [expression] (*optional*) logical expression to limit the
 #' substitution only to the selected subset of elements
 #'
 #' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
+#' of the metadata field. If `NULL` the elements named in `info_element`
+#' will be removed.
 #'
 #' @keywords internal
 #'
@@ -507,16 +508,25 @@ setMethod("replace_metadata<-",
             ## Integrity checks ---------------------------------------------
 
             .validate_class(info_element, "character")
-            .validate_length(info_element, 1)
             valid.names <- colnames(object@METADATA)
-            if (!info_element %in% valid.names) {
-              .throw_error("'info_element' not recognised, valid terms are: ",
+            not.found <- setdiff(info_element, valid.names)
+            if (length(not.found) > 0) {
+              .throw_error("'info_element' not recognised (",
+                           .collapse(not.found), "), valid terms are: ",
                            .collapse(valid.names, quote = FALSE))
             }
 
             ## select relevant rows
             sel <- TRUE
             if (!is.null(substitute(subset))) {
+
+              if (is.null(value)) {
+                ## assigning `NULL` indicates that we want to remove a field,
+                ## but that is incompatible with choosing a subset of rows
+                .throw_error("'subset' is incompatible with assigning NULL")
+              }
+
+              ## evaluate the subset expression to produce a selection
               sel <- tryCatch(eval(
                   expr = substitute(subset),
                   envir = object@METADATA,
@@ -538,8 +548,14 @@ setMethod("replace_metadata<-",
               }
             }
 
-            ## replace the metadata element
-            object@METADATA[sel, info_element] <- value
+            if (!is.null(substitute(subset))) {
+              ## replace the metadata elements
+              for (field in info_element)
+                object@METADATA[[field]][sel] <- value
+            } else {
+              ## remove the metadata elements
+              object@METADATA[info_element] <- value
+            }
             assign(x = deparse(substitute(object))[1], object)
           })
 

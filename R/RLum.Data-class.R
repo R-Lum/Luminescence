@@ -7,10 +7,8 @@
 #'
 #' @docType class
 #'
-#' @note Just a virtual class.
-#'
 #' @section Objects from the Class:
-#' A virtual Class: No objects can be created from it.
+#' A virtual class: no objects can be created from it.
 #'
 #' @section Class version: 0.2.1
 #'
@@ -71,12 +69,12 @@ setMethod("add_metadata<-",
 
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Data
-#' Replaces metadata of [RLum.Data-class] objects
+#' Replaces or removes metadata of [RLum.Data-class] objects
 #'
 #' @param object an object of class [RLum.Data-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
-#' to replace
+#' to replace or remove
 #'
 #' @param subset [expression] (*optional*) logical expression to limit the
 #' substitution only to the selected subset of elements
@@ -85,7 +83,8 @@ setMethod("add_metadata<-",
 #' terminal
 #'
 #' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
+#' of the metadata field. If `NULL` the elements named in `info_element`
+#' will be removed.
 #'
 #' @keywords internal
 #'
@@ -101,16 +100,25 @@ setMethod("replace_metadata<-",
             ## Integrity checks ---------------------------------------------
 
             .validate_class(info_element, "character")
-            .validate_length(info_element, 1)
             valid.names <- names(object@info)
-            if (!info_element %in% valid.names) {
-              .throw_error("'info_element' not recognised, valid terms are: ",
+            not.found <- setdiff(info_element, valid.names)
+            if (length(not.found) > 0) {
+              .throw_error("'info_element' not recognised (",
+                           .collapse(not.found), "), valid terms are: ",
                            .collapse(valid.names, quote = FALSE))
             }
 
             ## select relevant rows
             sel <- TRUE
             if (!is.null(substitute(subset))) {
+
+              ## assigning `NULL` indicates that we want to remove a field,
+              ## but that is incompatible with choosing a subset of rows
+              if (is.null(value)) {
+                .throw_error("'subset' is incompatible with assigning NULL")
+              }
+
+              ## evaluate the expression to produce a selection
               sel <- tryCatch(eval(
                   expr = substitute(subset),
                   envir = object@info,
@@ -133,8 +141,14 @@ setMethod("replace_metadata<-",
               }
             }
 
-            ## replace the metadata element
-            object@info[[info_element]][sel] <- value
+            if (!is.null(substitute(subset))) {
+              ## replace the metadata elements
+              for (field in info_element)
+                object@info[[field]][sel] <- value
+            } else {
+              ## remove the metadata elements
+              object@info[info_element] <- value
+            }
             assign(x = deparse(substitute(object))[1], object)
           })
 
