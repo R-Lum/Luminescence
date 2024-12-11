@@ -39,6 +39,9 @@ fit_IsoThermalHolding <- function(
     plot = TRUE,
     ...
 ) {
+  .set_function_name("fit_IsoThermalHolding")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## TODOs
   ## - other functions for fitting need to be implemented
   ## - fitting is not really stable, eventually better start parameter estimation required
@@ -48,25 +51,27 @@ fit_IsoThermalHolding <- function(
   ## - so far non confidence intervals on the fit ... discussion needed
   ## - the rhop value has uncertainties, which are not yet considered
 
-  ###### --- Convert excel sheet data to RLum.Results --- #####
-  ## we assume that a character leads to an Excel file with the wanted structure
-  if (inherits(data[1], "character")) {
-    records_ITL <- Luminescence:::.import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
+  .validate_class(data, c("character", "RLum.Results", "data.frame"))
 
-  } else if (inherits(data, "RLum.Results") && data@originator == ".import_ThermochronometryData") {
+  if (inherits(data[1], "character")) {
+    records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
+
+  } else if (inherits(data, "RLum.Results")) {
+    if (data@originator != ".import_ThermochronometryData") {
+      .throw_error("'data' has unsupported originator (expected: ",
+                   "'.import_ThermochronometryData', found: '",
+                   data@originator, "')")
+    }
     records_ITL <- data@data$ITL
 
   } else if (inherits(data, "data.frame")) {
     records_ITL <- data
-
-  } else {
-    stop("[fit_IsoThermalHolding()] The input data do not convert to a data frame, please check the manual!",
-         call. = FALSE)
   }
 
-  if (!all(colnames(records_ITL) %in% c("SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR")))
-    stop("[fit_IsoThermalHolding()] The input data has the wrong column headers, please check the manual!",
-         call. = FALSE)
+  if (!all(colnames(records_ITL) %in%
+           c("SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR"))) {
+    .throw_error("'data' has the wrong column headers, please check the manual")
+  }
 
   ###### --- Extract data from RLum.Results for ITL fitting --- #####
   ## get unique sample names; we will use this to filter the data
@@ -87,6 +92,9 @@ fit_IsoThermalHolding <- function(
     rhop <- rep(rhop, length.out = length(sample_id))
 
   # Define formulas to fit --------------------------------------------------
+  ## silence note from R CMD check
+  A <- Eu <- Et <- s <- NULL
+
   f_GOK <- 'y ~ A * exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) * (1 - (1 - b) * s * exp(-E / (kB * (isoT + 273.15))) * x)^(1 / (1 - b))'
   f_BTSPre <- function(Eb) A*exp(-Eb/Eu)*exp(-s*t*exp(-(Et-Eb)/(kB*(isoT+273.15))))
   f_BTS <- 'y ~ exp(-rhop * log(1.8 * 3e15 * (250 + x))^3)*integrate(F_BTSPre,0,DeltaE)'
@@ -218,7 +226,6 @@ fit_IsoThermalHolding <- function(
             x = x,
             y = y,
             col = rep(plot_settings$col[c], length.out = length(isoT)))
-
         }
       }
 
@@ -241,7 +248,6 @@ fit_IsoThermalHolding <- function(
           y0 = df_pts[["LxTx"]] - df_pts[["LxTx_ERROR"]],
           y1 = df_pts[["LxTx"]] + df_pts[["LxTx_ERROR"]],
           col = plot_settings$col[p])
-
       }
 
       ## add legend
@@ -254,7 +260,6 @@ fit_IsoThermalHolding <- function(
          lty = 1,
          col = plot_settings$col,
          cex = plot_settings$legend.cex)
-
       }
 
     }## plot loop
@@ -272,4 +277,4 @@ fit_IsoThermalHolding <- function(
     )
 
   return(output)
-}#EOF
+}
