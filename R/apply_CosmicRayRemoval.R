@@ -1,8 +1,10 @@
-#' Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object
+#' @title Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object
 #'
-#' The function provides several methods for cosmic-ray removal and spectrum
+#' @description The function provides several methods for cosmic-ray removal and spectrum
 #' smoothing [RLum.Data.Spectrum-class] objects and such objects embedded in [list] or
 #' [RLum.Analysis-class] objects.
+#'
+#' @details
 #'
 #' **`method = "Pych"`**
 #'
@@ -14,17 +16,25 @@
 #'
 #' For further details see references below.
 #'
-#'**`method = "smooth"`**
 #'
-#' Method uses the function [smooth] to remove cosmic rays.
+#' **Other methods**
+#' Arguments supported through `...`
+#' \tabular{llll}{
+#' METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
+#' `"smooth"` \tab `kind` \tab  [character] \tab see [stats::smooth] \cr
+#'   \tab `twiceit` \tab  [logical] \tab see [stats::smooth] \cr
+#' `"smooth.spline"` \tab `spar` \tab  [numerical] \tab see [stats::smooth.spline] \cr
+#'}
 #'
-#' Arguments that can be passed are: `kind`, `twiceit`
 #'
-#' **`method = "smooth.spline"`**
+#'**Best practice**
 #'
-#' Method uses the function [smooth.spline] to remove cosmic rays.
-#'
-#' Arguments that can be passed are: `spar`
+#' There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+#' on the characteristic of the detector and the chosen settings. For instance,
+#' high values for pixel binning will improve the light output, but also causes
+#' multiple pixels being affected a single cosmic-ray. The same is valid for
+#' longer integration times. The best strategy is to combine methods and ensure
+#' that the spectrum is not distorted on a case-to-case basis.
 #'
 #' **How to combine methods?**
 #'
@@ -38,7 +48,7 @@
 #'
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
-#' `smooth`, the default, ([smooth]), `smooth.spline` ([smooth.spline])
+#' `smooth`, the default, ([stats::smooth]), `smooth.spline` ([stats::smooth.spline])
 #' and `Pych`. See details for further information.
 #'
 #' @param method.Pych.smoothing [integer] (*with default*):
@@ -75,8 +85,7 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [smooth], [smooth.spline],
-#' [apply_CosmicRayRemoval]
+#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [stats::smooth], [stats::smooth.spline]
 #'
 #' @references
 #' Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from
