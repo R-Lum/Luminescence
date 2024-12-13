@@ -102,6 +102,9 @@ test_that("check class and length of output", {
   expect_s3_class(rhop$fading_results, "data.frame")
   expect_s3_class(rhop$fit, "lm")
   expect_s3_class(rhop$rho_prime, "data.frame")
+  expect_equal(round(sum(rhop$fading_results[,1:9]),0),415)
+  expect_equal(round(sum(rhop$rho_prime),5),2e-05)
+  expect_equal(round(sum(rhop$irr.times)), 2673108)
 
   ##kars
   expect_s4_class(huntley, class = "RLum.Results")
@@ -109,16 +112,6 @@ test_that("check class and length of output", {
   expect_s3_class(huntley$data, class = "data.frame")
   expect_type(huntley$Ln, "double")
   expect_type(huntley$fits, "list")
-})
-
-test_that("check values from analyse_FadingMeasurement()", {
-    expect_equal(round(sum(rhop$fading_results[,1:9]),0),415)
-    expect_equal(round(sum(rhop$rho_prime),5),2e-05)
-    expect_equal(round(sum(rhop$irr.times)), 2673108)
-})
-
-test_that("check values from calc_Huntley2006()", {
-  testthat::skip_on_cran()
 
   expect_equal(round(huntley$results$Sim_Age, 1), 34)
   expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
