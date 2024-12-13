@@ -54,6 +54,11 @@ expect_snapshot_RLum <- function(object, ...) {
     }
 
   }
+  if ("info" %in% slotNames(object)) {
+    if ("call" %in% names(object@info)) {
+      object@info$call <- NULL
+    }
+  }
   if ("records" %in% slotNames(object)) {
     for (idx in seq_along(object@records)) {
       object@records[[idx]]@info$args <- NULL
