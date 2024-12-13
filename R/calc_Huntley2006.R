@@ -525,9 +525,11 @@ calc_Huntley2006 <- function(
         silent = TRUE)
     }
 
-    coefs <- c(a = NA, D0 = NA, c = NA, d = NA)
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
+    else
+      .throw_error("Could not fit simulated curve, check suitability of ",
+                   "model and parameters")
 
     return(coefs)
   }, simplify = FALSE))
@@ -604,7 +606,6 @@ calc_Huntley2006 <- function(
     dose = c(0, natdosetimeGray[positive]),
     LxTx = c(Ln, LxTx.sim[positive]),
     LxTx.error = c(Ln.error, LxTx.sim[positive] * A.error/A))
-
   data.unfaded$LxTx.error[2] <- 0.0001
 
   GC.settings <- list(
