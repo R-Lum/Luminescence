@@ -132,7 +132,7 @@ test_that("Further tests calc_Huntley2006", {
         n.MC = 100,
         fit.method = "GOK",
         mode = "extrapolation",
-        plot = FALSE, verbose = FALSE),
+        plot = TRUE, verbose = FALSE),
   class = "RLum.Results")
 
   ## check force through origin EXP with wrong mode settings
@@ -147,7 +147,7 @@ test_that("Further tests calc_Huntley2006", {
         fit.method = "EXP",
         fit.force_through_origin = TRUE,
         mode = "extrapolation",
-        plot = FALSE,
+        plot = TRUE,
         verbose = FALSE),
     class = "RLum.Results")
 
@@ -203,7 +203,7 @@ test_that("Further tests calc_Huntley2006", {
     normalise = FALSE,
     fit.method = "EXP",
     summary = TRUE,
-    plot = FALSE,
+    plot = TRUE,
     n.MC = 100),
     regexp = "\\[calc\\_Huntley2006\\(\\)\\] Ln\\/Tn is smaller than the minimum computed LxTx value.")
   })
@@ -214,7 +214,7 @@ test_that("Further tests calc_Huntley2006", {
       data = data[1:10, ],
       LnTn = data[1:10, c(2, 3)],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
-      n.MC = 2, plot = FALSE, verbose = FALSE),
+      n.MC = 2, plot = TRUE, verbose = FALSE),
     class = "RLum.Results")
   expect_s4_class(
     calc_Huntley2006(
