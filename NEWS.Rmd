@@ -154,6 +154,10 @@ fixed in #472).
 * The function crashed if the data contained negative errors: to avoid this,
 we now take the absolute values of errors (#479, fixed in #481).
 
+### `calc_Huntley2006()`
+* Some crashes in case of model misspecification have been solved (#538,
+fixed in #539).
+
 ### `calc_IEU()`
 * The code of this function has been consolidated to avoid duplication and
 make its debugging easier: this has uncovered a small coding error and also

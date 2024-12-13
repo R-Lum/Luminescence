@@ -659,10 +659,15 @@ calc_Huntley2006 <- function(
                    " The De and age should be regarded as infinite estimates.")
 
   if (Ln < min(LxTx.sim) * 0.95)
-    .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value.",
+    .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value",
                    "If, in consequence, your age result is NA, either your ",
                    "input values are unsuitable, or you should consider using ",
                    "a different model for your dataset")
+
+  if (is.na(D0.sim.Gy)) {
+    .throw_error("Simulated D0 is NA: either your input values are unsuitable, ",
+                 "or you should consider using a different model for your data")
+  }
 
   # Estimate nN_(steady state) by Monte Carlo Simulation
   ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
