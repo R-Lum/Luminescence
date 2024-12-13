@@ -69,23 +69,27 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  snapshot.tolerance <- 1.5e-6
+
   ## Test different inputs
   ##simple run
   set.seed(1)
   SW({
-  expect_s4_class(object = fit_OSLLifeTimes(
+  expect_snapshot_RLum(fit_OSLLifeTimes(
     object = ExampleData.TR_OSL,
     plot = FALSE,
     method_control = list(DEoptim.itermax = 15),
-    n.components = 1), class = "RLum.Results")
+    n.components = 1),
+    tolerance = snapshot.tolerance)
 
   ##simple list
   temp_list <- list(ExampleData.TR_OSL, ExampleData.TR_OSL)
-  expect_s4_class(object = fit_OSLLifeTimes(
+  expect_snapshot_RLum(fit_OSLLifeTimes(
     object = temp_list,
     log = "x",
     method_control = list(DEoptim.itermax = 25),
-    n.components = 1), class = "RLum.Results")
+    n.components = 1),
+    tolerance = snapshot.tolerance)
   })
 
   ## RLum.Analysis
@@ -103,14 +107,15 @@ test_that("check functionality", {
 
   ## simple data.frame
   SW({
-  expect_s4_class(fit_OSLLifeTimes(
+  expect_snapshot_RLum(fit_OSLLifeTimes(
     object = as.data.frame(temp_mat),
     method_control = list(seed = 1, weights = FALSE,
                           DEoptim.itermax = 50),
     signal.range = 3,
     verbose = TRUE,
     plot = FALSE,
-    n.components = NULL), class = "RLum.Results")
+    n.components = NULL),
+    tolerance = snapshot.tolerance)
   })
 
   ##test arguments

@@ -10,6 +10,22 @@ expect_snapshot_RLum <- function(object, ...) {
   if ("data" %in% slotNames(object)) {
     if ("fit" %in% names(object@data))
       object@data$fit <- NULL
+    if ("fits" %in% names(object@data)) { # calc_Huntley2006()
+      if ("simulated" %in% names(object@data$fits)) {
+        object@data$fits$simulated$m <- NULL
+        object@data$fits$simulated$call <- NULL
+        object@data$fits$simulated$weights <- NULL # for macos/windows CI
+      }
+      if ("measured" %in% names(object@data$fits)) {
+        object@data$fits$measured$m <- NULL
+        object@data$fits$measured$call <- NULL
+      }
+      if ("unfaded" %in% names(object@data$fits)) {
+        object@data$fits$unfaded$m <- NULL
+        object@data$fits$unfaded$call <- NULL
+        object@data$fits$unfaded$convInfo$finIter <- NULL # for macos
+      }
+    }
     if ("data" %in% names(object@data))
       object@data$data$UID <- NULL
     if ("Fit" %in% names(object@data))
@@ -37,6 +53,11 @@ expect_snapshot_RLum <- function(object, ...) {
         object@data$MC$kde$old.coords <- NULL
     }
 
+  }
+  if ("info" %in% slotNames(object)) {
+    if ("call" %in% names(object@info)) {
+      object@info$call <- NULL
+    }
   }
   if ("records" %in% slotNames(object)) {
     for (idx in seq_along(object@records)) {

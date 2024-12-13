@@ -39,49 +39,29 @@ test_that("input validation", {
   })
 })
 
-test_that("check class and length of output", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  snapshot.tolerance <- 1.5e-4
+
   SW({
+  set.seed(1)
   fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
                      n.components = 3, log = "x",
                      start_values = data.frame(Im = c(170,25,400),
                                                xm = c(56,200,1500)))
   })
+  expect_snapshot_RLum(fit, tolerance = snapshot.tolerance)
 
-  expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 4)
-  expect_type(fit$component_matrix, "double")
-  expect_equal(nrow(fit$component_matrix), 4000)
-
-  expect_equal(fit$data$n.components, 3)
-  expect_equal(round(fit$data$Im1, digits = 0), 169)
-  expect_equal(round(fit$data$xm1, digits = 0), 49)
-  expect_equal(round(fit$data$b1, digits = 0), 2)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
-})
-
-## Test 2 with LM
-SW({
-fit <- fit_LMCurve(values = values.curve,
-                   values.bg = values.curveBG,
-                   n.components = 3,
-                   log = "x",
-                   fit.method = "LM",
-                   plot = FALSE)
-})
-
-test_that("check class and length of output", {
-  testthat::skip_on_cran()
-
-  expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 4)
-
-  expect_equal(fit$data$n.components, 3)
-  expect_equal(round(fit$data$Im1, digits = 0), 169)
-  expect_equal(round(fit$data$xm1, digits = 0), 49)
-  expect_equal(round(fit$data$b1, digits = 0), 2)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
+  SW({
+  fit2 <- fit_LMCurve(values = values.curve,
+                      values.bg = values.curveBG,
+                      n.components = 3,
+                      log = "x",
+                      fit.method = "LM",
+                      plot = FALSE)
+  })
+  expect_snapshot_RLum(fit2, tolerance = snapshot.tolerance)
 
   SW({
   expect_message(fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
@@ -90,15 +70,11 @@ test_that("check class and length of output", {
                  "Error: Fitting failed, plot without fit produced")
   expect_equal(fit@data$component_matrix, NA)
 
-  fit_LMCurve(values.curve, values.bg = values.curveBG, plot.BG = TRUE,
-              fit.advanced = TRUE)
-  fit_LMCurve(values.curve, values.bg = values.curveBG, plot.BG = TRUE,
-              bg.subtraction = "linear")
-  fit_LMCurve(values.curve, values.bg = values.curveBG, plot.BG = TRUE,
-              input.dataType = "pLM", bg.subtraction = "channel")
-  fit_LMCurve(values.curve, values.bg = values.curveBG,
-              xlim = c(0, 4000), ylim = c(0, 600), cex = 0.9,
-              fit.calcError = TRUE)
+  set.seed(1)
+  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+                                   plot.BG = TRUE, bg.subtraction = "linear"),
+                       tolerance = snapshot.tolerance)
+
   suppressWarnings(
       expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG,
                                  fit.advanced = TRUE, fit.calcError = TRUE),
@@ -113,4 +89,21 @@ test_that("check class and length of output", {
   })
   expect_message(fit_LMCurve(values.curve[1:15, ], main = ""),
                  "Fitting failed, plot without fit produced")
+
+  SW({
+  skip_on_os("mac")
+  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+                                   xlim = c(0, 4000), ylim = c(0, 600), cex = 0.9,
+                                   fit.calcError = TRUE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+                                   plot.BG = TRUE, input.dataType = "pLM",
+                                   bg.subtraction = "channel"),
+                       tolerance = snapshot.tolerance)
+  skip_on_os("windows")
+  set.seed(1)
+  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+                                   plot.BG = TRUE, fit.advanced = TRUE),
+                       tolerance = snapshot.tolerance)
+  })
 })
