@@ -1340,12 +1340,8 @@ analyse_baSAR <- function(
 
       if(n_aliquots_k == 0){
         fileBIN.list[[k]] <- NULL
-        msg <- paste("No data has been selected from BIN-file", k,
-                     " >> BIN-file removed from input")
-        if(verbose){
-          message("[analyse_baSAR()] ", msg)
-        }
-        .throw_warning(msg)
+        .throw_warning("No data selected from BIN-file ", k,
+                       ", BIN-file removed from input")
         next()
       }
 
@@ -1385,6 +1381,7 @@ analyse_baSAR <- function(
     n_index.vector <- fileBIN.list[[k]]@METADATA[["ID"]]
     measured_discs.vector <- fileBIN.list[[k]]@METADATA[["POSITION"]]
     measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]]
+    fname <- fileBIN.list[[k]]@METADATA[["FNAME"]]
 
     ## always get irradiation times
     irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]]
@@ -1412,20 +1409,16 @@ analyse_baSAR <- function(
          ##disc (position)
          disc_logic <- (disc_selected == measured_discs.vector)
          if (!any(disc_logic)) {
-            .throw_message("In BIN-file '",
-                    unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
-                    "' position number ", disc_selected,
-                    " does not exist, NULL returned")
+           .throw_message("In BIN-file '", unique(fname), "' position number ",
+                          disc_selected, " does not exist, NULL returned")
             return(NULL)
           }
 
           ##grain
           grain_logic <- (grain_selected == measured_grains.vector)
           if (!any(grain_logic)) {
-            .throw_message("In BIN-file '",
-                    unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
-                    "' grain number ", grain_selected,
-                    " does not exist, NULL returned")
+            .throw_message("In BIN-file '", unique(fname), "' grain number ",
+                           grain_selected, " does not exist, NULL returned")
             return(NULL)
           }
 
