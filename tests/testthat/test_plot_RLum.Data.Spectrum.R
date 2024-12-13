@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.XSYG, envir = environment())
 
 test_that("input validation", {
@@ -119,6 +120,9 @@ test_that("check functionality", {
       plot.type = "persp",
       xlim = c(310, 750),
       limit_counts = 2,
+      lphi = 20,
+      ltheta = -15,
+      ticktype = "simple",
       bin.rows = 1,
       bin.cols = 1
     ), "Lowest count value is larger than the set count threshold")
@@ -207,6 +211,18 @@ test_that("check functionality", {
         bin.cols = 1,
         contour = FALSE)))
 
+  expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "transect",
+        xlim = c(310, 750),
+        ylim = c(0, 350),
+#        bin.rows = 50,
+        ## bin.cols = 1,
+        zlim = c(0, 1e6),
+        ylab = "Counts [1 / summed channels]",
+        contour = TRUE)))
+
     ## plot: single ------------
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
@@ -228,6 +244,7 @@ test_that("check functionality", {
         ylim = c(0, 300),
         bin.rows = 10,
         bin.cols = 6,
+        col = 1,
         contour = FALSE)))
 
     ### plot_image: colour changes -------
@@ -280,6 +297,7 @@ test_that("check functionality", {
         bin.rows = 10,
         bin.cols = 1,
         type = "contour",
+        norm = "max",
         showscale = TRUE
       )
     ))
@@ -288,7 +306,7 @@ test_that("check functionality", {
   plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "multiple.lines",
                           phi = 15, theta = -30, r = 10, log = "xyz",
                           shade = 0.4, expand = 0.5, border = 1,
-                          axes = FALSE, norm = "min", col = 2)
+                          axes = FALSE, norm = "min", col = 2, zlim = c(0, 2))
 })
 
 test_that("regression tests", {
