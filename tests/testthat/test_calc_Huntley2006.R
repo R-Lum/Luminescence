@@ -126,9 +126,15 @@ test_that("check class and length of output", {
 test_that("Further tests calc_Huntley2006", {
   testthat::skip_on_cran()
 
+  os <- tolower(Sys.info()[["sysname"]])
+  snapshot.tolerance <- switch(os,
+                               "linux" = 1.5e-5,
+                               "darwin" = 8.0e-2,
+                               "windows" = 8.0e-2)
+
   ## check extrapolation
   set.seed(1)
-  expect_s4_class(
+  expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
         rhop = rhop,
@@ -138,11 +144,11 @@ test_that("Further tests calc_Huntley2006", {
         fit.method = "GOK",
         mode = "extrapolation",
         plot = TRUE, verbose = FALSE),
-  class = "RLum.Results")
+      tolerance = snapshot.tolerance)
 
   ## check force through origin EXP with wrong mode settings
   set.seed(1)
-  expect_s4_class(
+  expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
         rhop = rhop,
@@ -154,11 +160,11 @@ test_that("Further tests calc_Huntley2006", {
         mode = "extrapolation",
         plot = TRUE,
         verbose = FALSE),
-    class = "RLum.Results")
+      tolerance = snapshot.tolerance)
 
   ## EXP ... normal
   set.seed(1)
-  expect_s4_class(
+  expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
         rhop = rhop,
@@ -170,11 +176,11 @@ test_that("Further tests calc_Huntley2006", {
         mode = "interpolation",
         plot = FALSE,
         verbose = FALSE),
-    class = "RLum.Results")
+      tolerance = snapshot.tolerance)
 
   ## GOK normal
   set.seed(1)
-  expect_s4_class(
+  expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
         rhop = rhop,
@@ -186,7 +192,7 @@ test_that("Further tests calc_Huntley2006", {
         mode = "interpolation",
         plot = FALSE,
         verbose = FALSE),
-    class = "RLum.Results")
+      tolerance = if (os == "darwin") 1.7e-1 else max(snapshot.tolerance, 1.5e-3))
 
   ## check warning for failed fits
   ## dataset provided by Christine Neudorf
