@@ -926,6 +926,11 @@ fancy_scientific <- function(l) {
     ## extract URL from string only
     url <- regmatches(x = url, m = regexec(pattern = "https?\\:\\/\\/.+", text = url, perl = TRUE))[[1]]
 
+    fail.msg <- function(w) {
+      if (verbose)
+        message("FAILED")
+      NULL
+    }
     ## use internal download
     t <- tryCatch(
       expr = download.file(
@@ -935,16 +940,8 @@ fancy_scientific <- function(l) {
         mode = "wb", ## this is needed for Windows otherwise the download does not work
         cacheOK = FALSE,
         method = "auto"),
-      warning = function(w) {
-        if (verbose)
-          message("FAILED ")
-        return(NULL)
-      },
-      error = function(e) {
-        if (verbose)
-          message("FAILED ")
-        return(NULL)
-      })
+      warning = fail.msg,
+      error = fail.msg)
 
     if(!is.null(t) && t == 0) {
       if (verbose)
