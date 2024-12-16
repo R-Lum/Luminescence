@@ -446,7 +446,6 @@ calc_Huntley2006 <- function(
   Ln.error <- data[["LxTx.Error"]][1]
 
   ## (1) MEASURED ----------------------------------------------------
-  if (settings$verbose) cat("\n")
 
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
@@ -492,38 +491,39 @@ calc_Huntley2006 <- function(
   # create MC samples
   rhop_MC <- rnorm(n = settings$n.MC, mean = rhop[1], sd = rhop[2])
 
+  if (fit.method == "EXP") {
+    model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
+      (1 - exp(-(dosetime + c) / D0))
+    start <- list(a = coef(fit_measured)[["a"]],
+                  D0 = D0.measured / readerDdot,
+                  c = coef(fit_measured)[["c"]])
+    lower.bounds <- lower.bounds[1:3]
+
+    ## c = 0 if force_through_origin
+    upper.bounds <- c(rep(Inf, 2), if (force_through_origin) 0 else Inf)
+  }
+  if (fit.method == "GOK") {
+    model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
+      (d - (1 + (1 / D0) * dosetime * c)^(-1 / c))
+    start <- list(a = coef(fit_measured)[["a"]],
+                  D0 = D0.measured / readerDdot,
+                  c = coef(fit_measured)[["c"]] * ddot,
+                  d = coef(fit_measured)[["d"]])
+
+    ## d = 1 if force_through_origin
+    upper.bounds <- c(rep(Inf, 3), if (force_through_origin) 1 else Inf)
+  }
+
   ## do the fitting
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
-    if (fit.method[1] == "EXP") {
-      fit_sim <- try({
-        minpack.lm::nlsLM(
-          LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-(dosetime + c)/ D0)),
-          start = list(
-            a = coef(fit_measured)[["a"]],
-            c = coef(fit_measured)[["c"]],
-            D0 = D0.measured / readerDdot),
-          lower = lower.bounds[1:3],
-          upper = if(force_through_origin) c(a = Inf, c = 0, D0 = Inf) else rep(Inf,3),
-          control = list(maxiter = settings$maxiter))
-        }, silent = TRUE)
-
-    } else if (fit.method[1] == "GOK") {
-      fit_sim <- try({
-        minpack.lm::nlsLM(
-          LxTx.measured ~ a * theta(dosetime, rhop_i) * (d-(1+(1/D0)*dosetime*c)^(-1/c)),
-          start = list(
-            a = coef(fit_measured)[["a"]],
-            D0 = D0.measured / readerDdot,
-            c = coef(fit_measured)[["c"]] * ddot,
-            d = coef(fit_measured)[["d"]]),
-          upper = if(force_through_origin) {
-             c(a = Inf, D0 = Inf, c = Inf, d = 1)
-            } else {
-            rep(Inf, 4)},
-          lower = lower.bounds,
-          control = list(maxiter = settings$maxiter))},
-        silent = TRUE)
-    }
+    fit_sim <- try({
+      minpack.lm::nlsLM(
+       formula = model,
+       start = start,
+       lower = lower.bounds,
+       upper = upper.bounds,
+       control = list(maxiter = settings$maxiter))
+    }, silent = TRUE)
 
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
@@ -1021,7 +1021,7 @@ calc_Huntley2006 <- function(
 
   ## Console output ------------------------------------------------------------
   if (settings$verbose) {
-    cat("\n[calc_Huntley2006()]\n")
+    cat("\n\n[calc_Huntley2006()]\n")
     cat("\n -------------------------------")
     cat("\n (n/N) [-]:\t",
         round(results@data$results$nN, 2), "\u00b1",
