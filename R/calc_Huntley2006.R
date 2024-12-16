@@ -149,14 +149,14 @@
 #' with great care.
 #'
 #' @param lower.bounds [numeric] (*with default*):
-#' Only applicable for `fit.method = 'GOK'`. A vector of length 3 that
-#' contains the lower bound values for fitting the general-order kinetics
-#' function using [minpack.lm::nlsLM]. In most cases, the default values
-#' (c(`-Inf, -Inf, -Inf`)) are appropriate for finding a best fit, but
-#' sometimes it may be useful to restrict the lower bounds to e.g.
-#' c(`0, 0, 0`). The values of the vector are for parameters
-#' `a`, `D0` and `c` in that particular order (see details in
-#' [Luminescence::fit_DoseResponseCurve]).
+#' A vector of length 4 that contains the lower bound values to be applied
+#' when fitting the models with [minpack.lm::nlsLM]. In most cases, the
+#' default values (`c(-Inf, -Inf, -Inf, -Inf)`) are appropriate for finding
+#' a best fit, but sometimes it may be useful to restrict the lower bounds to
+#' e.g. `c(0, 0, 0, 0)`. The values of the vectors are, respectively, for
+#' parameters `a`, `D0`, `c` and `d` in that order (parameter `d` is ignored
+#' when `fit.method = "EXP"`). More details can be found in
+#' [fit_DoseResponseCurve].
 #'
 #' @param normalise [logical] (*with default*): If `TRUE` (the default) all measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the pre-exponential factor `A` (see details).
 #'
@@ -305,14 +305,8 @@ calc_Huntley2006 <- function(
 
   .validate_class(data, "data.frame")
   .validate_not_empty(data)
-
-  ## Check fit method
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
-
-  ## Check length of lower.bounds
-  if (fit.method[1] == "GOK") {
-    .validate_length(lower.bounds, 4)
-  }
+  .validate_length(lower.bounds, 4)
 
   ## Check 'data'
   if (ncol(data) == 2) {

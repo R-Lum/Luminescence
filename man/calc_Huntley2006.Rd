@@ -93,14 +93,14 @@ is an experimental adaptation of the model and should be used
 with great care.}
 
 \item{lower.bounds}{\link{numeric} (\emph{with default}):
-Only applicable for \code{fit.method = 'GOK'}. A vector of length 3 that
-contains the lower bound values for fitting the general-order kinetics
-function using \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the default values
-(c(\verb{-Inf, -Inf, -Inf})) are appropriate for finding a best fit, but
-sometimes it may be useful to restrict the lower bounds to e.g.
-c(\verb{0, 0, 0}). The values of the vector are for parameters
-\code{a}, \code{D0} and \code{c} in that particular order (see details in
-\link{fit_DoseResponseCurve}).}
+A vector of length 4 that contains the lower bound values to be applied
+when fitting the models with \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the
+default values (\code{c(-Inf, -Inf, -Inf, -Inf)}) are appropriate for finding
+a best fit, but sometimes it may be useful to restrict the lower bounds to
+e.g. \code{c(0, 0, 0, 0)}. The values of the vectors are, respectively, for
+parameters \code{a}, \code{D0}, \code{c} and \code{d} in that order (parameter \code{d} is ignored
+when \code{fit.method = "EXP"}). More details can be found in
+\link{fit_DoseResponseCurve}.}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user
