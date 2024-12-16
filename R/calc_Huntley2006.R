@@ -566,29 +566,25 @@ calc_Huntley2006 <- function(
   TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
   UFD0 <- mean(fitcoef[ ,"D0"], na.rm = TRUE) * readerDdot
 
-  if(fit.method[1] == "EXP")
-    c_exp <- mean(fitcoef[ ,"c"], na.rm = TRUE)
-
+  c_val <- mean(fitcoef[, "c"], na.rm = TRUE)
   if (fit.method[1] == "GOK") {
-    c_gok <- mean(fitcoef[ ,"c"], na.rm = TRUE)
-
-    ## prevent negative c_gok values, which will cause NaN values
-    if(c_gok < 0) c_gok <- 1
+    ## prevent negative c values, which will cause NaN values
+    if (c_val < 0) c_val <- 1
 
     d_gok <- mean(fitcoef[ ,"d"], na.rm = TRUE)
   }
 
-  for (j in 1:length(natdosetime)) {
-    for (k in 1:length(rprime)) {
-      if (fit.method[1] == "EXP") {
-        TermA[k,j] <- A * pr[k] *
-          ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
-             (1 - exp(-(natdosetime[j] + c_exp) * (1 / UFD0 + K[k]/ddots))))
-      } else if (fit.method[1] == "GOK") {
-        TermA[k,j] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) *
-          (d_gok-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
-      }
-    }}
+  for (k in 1:length(rprime)) {
+    if (fit.method[1] == "EXP") {
+      TermA[k, ] <- A * pr[k] *
+        ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
+         (1 - exp(-(natdosetime + c_val) * (1 / UFD0 + K[k] / ddots))))
+    } else if (fit.method[1] == "GOK") {
+      TermA[k, ] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) *
+        (d_gok-(1+(1 / UFD0 + K[k] / ddots) * natdosetime * c_val)^(-1 / c_val))
+    }
+  }
+
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
