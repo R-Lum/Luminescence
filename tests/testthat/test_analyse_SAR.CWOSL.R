@@ -211,7 +211,7 @@ test_that("simple run", {
       rejection.criteria= list(
         recycling.ratio = NA,
         recuperation.rate = 1,
-        palaeodose.error = 1,
+        palaeodose.error =  NA,
         testdose.error = 1,
         test = "new",
         exceed.max.regpoint = FALSE),

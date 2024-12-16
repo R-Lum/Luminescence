@@ -1268,8 +1268,8 @@ error.list <- list()
           palaeodose.error.threshold <-
             rejection.criteria$palaeodose.error / 100
 
-          if (is.na(palaeodose.error.calculated) ||
-              palaeodose.error.calculated > palaeodose.error.threshold) {
+          if (!is.na(palaeodose.error.threshold) && (is.na(palaeodose.error.calculated) ||
+              palaeodose.error.calculated > palaeodose.error.threshold)) {
             palaeodose.error.status <- "FAILED"
           } else {
             palaeodose.error.status <- "OK"
