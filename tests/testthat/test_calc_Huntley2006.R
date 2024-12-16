@@ -73,6 +73,10 @@ test_that("input validation", {
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = ddot, readerDdot = 0.13),
                "'readerDdot' should have length 2")
+  expect_error(calc_Huntley2006(data, rhop = rhop,
+                                ddot = ddot, readerDdot = readerDdot,
+                                rprime = list()),
+               "'rprime' should be of class 'numeric'")
 
   SW({
   expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 2,
@@ -160,7 +164,7 @@ test_that("Further tests calc_Huntley2006", {
         mode = "extrapolation",
         plot = TRUE,
         verbose = FALSE),
-      tolerance = snapshot.tolerance)
+      tolerance = max(snapshot.tolerance, 8.0e-3))
 
   ## EXP ... normal
   set.seed(1)
@@ -232,6 +236,7 @@ test_that("Further tests calc_Huntley2006", {
       data = data[1:10, ],
       LnTn = data[1, c(2, 3)],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
+      rprime = c(0.01, 2.2, length.out = 500),
       n.MC = 2, plot = FALSE, verbose = FALSE),
     class = "RLum.Results")
 

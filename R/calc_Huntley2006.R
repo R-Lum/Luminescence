@@ -61,6 +61,10 @@
 #' the sample under investigation using the sample specific \eqn{\rho}',
 #' unfaded \eqn{D_0} and \eqn{\dot{D}} values, following the approach of Kars et al. (2008).
 #'
+#' The computation is done using 1000 equally-spaced points in the interval
+#' \[0.01, 3\]. This can be controlled by setting option `rprime`, such as
+#' in `rprime = seq(0.01, 3, length.out = 1000)` (the default).
+#'
 #' **Uncertainties**
 #'
 #' Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
@@ -439,6 +443,15 @@ calc_Huntley2006 <- function(
   Ln <- data[["LxTx"]][1]
   Ln.error <- data[["LxTx.Error"]][1]
 
+  ## set a sensible default for rprime: in most papers the upper boundary is
+  ## around 2.2, so setting it to 3 should be enough in general, and 1000
+  ## points seem also enough; in any case, we let the user override it
+  rprime <- seq(0.01, 3, length.out = 1000)
+  if ("rprime" %in% names(list(...))) {
+    rprime <- list(...)$rprime
+    .validate_class(rprime, "numeric")
+  }
+
   ## (1) MEASURED ----------------------------------------------------
 
   data.tmp <- data
@@ -560,7 +573,6 @@ calc_Huntley2006 <- function(
   ddots <- ddot / ka
   natdosetimeGray <- c(0, exp(seq(1, log(max(data[ ,1]) * 2), length.out = 999)))
   natdosetime <- natdosetimeGray
-  rprime <- seq(0.01, 5, length.out = 500)
   pr <- 3 * rprime^2 * exp(-rprime^3) # Huntley 2006, eq. 3
   K <- Hs * exp(-rhop[1]^-(1/3) * rprime)
   TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
@@ -683,8 +695,6 @@ calc_Huntley2006 <- function(
   ##  rho_i <- rhop_MC[i]^(1 / 3)
   ##  tau <- ((1 / Hs) * exp(1)^(rprime / rho_i)) / ka
 
-  rprime <- seq(0.01, 5, length.out = settings$n.MC)
-  pr <- 3 * rprime^2 * exp(-rprime^3)
   rho_MC <- rhop_MC^(1 / 3)
   nN_SS_MC <- mapply(function(rho_i, ddot_i, UFD0_i) {
     tau <- ((1 / Hs) * exp(1)^(rprime / rho_i)) / ka

@@ -186,8 +186,14 @@
 - Some crashes in case of model misspecification have been solved (#538,
   fixed in \#539).
 - Some details in the implementation of the function have been
-  optimized, and now it is much faster than before (#258, fixed in
-  \#541).
+  optimized, and now it is much faster than before. As part of this, we
+  have changed the default setting of the `rprime` vector that is used
+  in the calculation of the natural dose response and the field
+  saturation, so that more points are concentrated in the bulk of the
+  distribution: this previously depended incorrectly on the number of
+  Monte Carlo iterations requested, so this change brings an additional
+  speed boost. The default setting can be overridden via the `rprime`
+  argument (#258, fixed in \#541 and \#542).
 
 ### `calc_IEU()`
 
