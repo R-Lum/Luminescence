@@ -721,12 +721,12 @@ calc_Huntley2006 <- function(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
         a = coef(fit_simulated)[["a"]],
-        c = coef(fit_simulated)[["c"]],
-        D0 = D0.measured / readerDdot),
+        D0 = D0.measured / readerDdot,
+        c = coef(fit_simulated)[["c"]]),
         upper = if(force_through_origin) {
-           c(a = Inf, c = 0, D0 = max(dosetimeGray))
+           c(a = Inf, D0 = max(dosetimeGray), c = 0)
           } else {
-           c(Inf, Inf, max(dosetimeGray))
+           c(Inf, max(dosetimeGray), Inf)
           },
         lower = lower.bounds[1:3],
       control = list(maxiter = settings$maxiter)) }
