@@ -445,17 +445,14 @@ calc_Huntley2006 <- function(
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
 
   GC.settings <- list(
-    object = data.tmp,
     mode = "interpolation",
     fit.method = fit.method[1],
     fit.bounds = TRUE,
-    output.plot = plot,
-    main = "Measured dose response curve",
-    xlab = "Dose (Gy)",
     fit.force_through_origin = FALSE,
     verbose = FALSE)
 
   GC.settings <- modifyList(GC.settings, list(...))
+  GC.settings$object <- data.tmp
   GC.settings$verbose <- FALSE
 
   ## take of force_through origin settings
@@ -467,6 +464,10 @@ calc_Huntley2006 <- function(
   if (inherits(GC.measured$Fit, "try-error"))
     .throw_error("Unable to fit growth curve to measured data, try setting ",
                  "'fit.bounds = FALSE'")
+  if (plot) {
+    plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
+                           xlab = "Dose (Gy)", verbose = FALSE)
+  }
 
   # extract results and calculate age
   GC.results <- get_RLum(GC.measured)
@@ -598,21 +599,8 @@ calc_Huntley2006 <- function(
     LxTx.error = c(Ln.error, LxTx.sim[positive] * A.error/A))
   data.unfaded$LxTx.error[2] <- 0.0001
 
-  GC.settings <- list(
-    object = data.unfaded,
-    mode = "interpolation",
-    fit.method = fit.method[1],
-    fit.bounds = TRUE,
-    output.plot = plot,
-    fit.force_through_origin = FALSE,
-    verbose = FALSE,
-    main = "Simulated dose response curve",
-    xlab = "Dose (Gy)"
-    )
-
-  GC.settings <- modifyList(GC.settings, list(...))
-
-  GC.settings$verbose <- FALSE
+  ## update the parameter list for fit_DoseResponseCurve()
+  GC.settings$object <- data.unfaded
 
   ## calculate simulated DE
   suppressWarnings(
@@ -623,6 +611,10 @@ calc_Huntley2006 <- function(
   De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA
   Age.sim <- Age.sim.error <- Age.sim.2D0 <- Age.sim.2D0.error <- NA
   if (!inherits(GC.simulated, "try-error")) {
+    if (plot) {
+      plot_DoseResponseCurve(GC.simulated, main = "Simulated dose response curve",
+                             xlab = "Dose (Gy)", verbose = FALSE)
+    }
     GC.simulated.results <- get_RLum(GC.simulated)
     fit_simulated <- get_RLum(GC.simulated, "Fit")
     De.sim <- GC.simulated.results$De
