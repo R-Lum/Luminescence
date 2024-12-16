@@ -448,14 +448,11 @@ calc_Huntley2006 <- function(
     mode = "interpolation",
     fit.method = fit.method[1],
     fit.bounds = TRUE,
-    output.plot = plot,
-    xlab = "Dose (Gy)",
     fit.force_through_origin = FALSE,
     verbose = FALSE)
 
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$object <- data.tmp
-  GC.settings$main <- "Measured dose response curve"
   GC.settings$verbose <- FALSE
 
   ## take of force_through origin settings
@@ -467,6 +464,10 @@ calc_Huntley2006 <- function(
   if (inherits(GC.measured$Fit, "try-error"))
     .throw_error("Unable to fit growth curve to measured data, try setting ",
                  "'fit.bounds = FALSE'")
+  if (plot) {
+    plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
+                           xlab = "Dose (Gy)", verbose = FALSE)
+  }
 
   # extract results and calculate age
   GC.results <- get_RLum(GC.measured)
@@ -599,10 +600,7 @@ calc_Huntley2006 <- function(
   data.unfaded$LxTx.error[2] <- 0.0001
 
   ## update the parameter list for fit_DoseResponseCurve()
-  GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$object <- data.unfaded
-  GC.settings$main <- "Simulated dose response curve"
-  GC.settings$verbose <- FALSE
 
   ## calculate simulated DE
   suppressWarnings(
@@ -613,6 +611,10 @@ calc_Huntley2006 <- function(
   De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA
   Age.sim <- Age.sim.error <- Age.sim.2D0 <- Age.sim.2D0.error <- NA
   if (!inherits(GC.simulated, "try-error")) {
+    if (plot) {
+      plot_DoseResponseCurve(GC.simulated, main = "Simulated dose response curve",
+                             xlab = "Dose (Gy)", verbose = FALSE)
+    }
     GC.simulated.results <- get_RLum(GC.simulated)
     fit_simulated <- get_RLum(GC.simulated, "Fit")
     De.sim <- GC.simulated.results$De
