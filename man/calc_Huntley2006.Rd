@@ -206,6 +206,10 @@ and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 the sample under investigation using the sample specific \eqn{\rho}',
 unfaded \eqn{D_0} and \eqn{\dot{D}} values, following the approach of Kars et al. (2008).
 
+The computation is done using 1000 equally-spaced points in the interval
+[0.01, 3]. This can be controlled by setting option \code{rprime}, such as
+in \code{rprime = seq(0.01, 3, length.out = 1000)} (the default).
+
 \strong{Uncertainties}
 
 Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
