@@ -445,17 +445,17 @@ calc_Huntley2006 <- function(
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
 
   GC.settings <- list(
-    object = data.tmp,
     mode = "interpolation",
     fit.method = fit.method[1],
     fit.bounds = TRUE,
     output.plot = plot,
-    main = "Measured dose response curve",
     xlab = "Dose (Gy)",
     fit.force_through_origin = FALSE,
     verbose = FALSE)
 
   GC.settings <- modifyList(GC.settings, list(...))
+  GC.settings$object <- data.tmp
+  GC.settings$main <- "Measured dose response curve"
   GC.settings$verbose <- FALSE
 
   ## take of force_through origin settings
@@ -598,20 +598,10 @@ calc_Huntley2006 <- function(
     LxTx.error = c(Ln.error, LxTx.sim[positive] * A.error/A))
   data.unfaded$LxTx.error[2] <- 0.0001
 
-  GC.settings <- list(
-    object = data.unfaded,
-    mode = "interpolation",
-    fit.method = fit.method[1],
-    fit.bounds = TRUE,
-    output.plot = plot,
-    fit.force_through_origin = FALSE,
-    verbose = FALSE,
-    main = "Simulated dose response curve",
-    xlab = "Dose (Gy)"
-    )
-
+  ## update the parameter list for fit_DoseResponseCurve()
   GC.settings <- modifyList(GC.settings, list(...))
-
+  GC.settings$object <- data.unfaded
+  GC.settings$main <- "Simulated dose response curve"
   GC.settings$verbose <- FALSE
 
   ## calculate simulated DE
