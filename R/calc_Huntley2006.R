@@ -673,11 +673,11 @@ calc_Huntley2006 <- function(
   ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
   UFD0_MC <- rnorm(n = settings$n.MC, mean = D0.sim.Gy, sd = D0.sim.Gy.error)
 
-  nN_SS_MC <- mapply(function(rhop_i, ddot_i, UFD0_i) {
-    rprime <- seq(0.01, 5, length.out = settings$n.MC)
-    rho <- 3 * alpha^3 * rhop_i / (4 * pi)
-    r <- rprime / (4 * pi * rho / 3)^(1 / 3)
-    pr <- 3 * rprime^2 * exp(-rprime^3)
+  rprime <- seq(0.01, 5, length.out = settings$n.MC)
+  pr <- 3 * rprime^2 * exp(-rprime^3)
+  rho_MC <- 3 * alpha^3 * rhop_MC / (4 * pi)
+  nN_SS_MC <- mapply(function(rho_i, ddot_i, UFD0_i) {
+    r <- rprime / (4 * pi * rho_i / 3)^(1 / 3)
     tau <- ((1 / Hs) * exp(1)^(alpha * r)) / ka
     Ls <- 1 / (1 + UFD0_i / (ddot_i * tau))
     Lstrap <- (pr * Ls) / sum(pr)
@@ -686,7 +686,7 @@ calc_Huntley2006 <- function(
     nN_SS_i <- sum(Lstrap)
     return(nN_SS_i)
 
-  }, rhop_MC, ddot_MC, UFD0_MC, SIMPLIFY = TRUE)
+  }, rho_MC, ddot_MC, UFD0_MC, SIMPLIFY = TRUE)
 
   nN_SS <- suppressWarnings(exp(mean(log(nN_SS_MC), na.rm = TRUE)))
   nN_SS.error <- suppressWarnings(nN_SS * abs(sd(log(nN_SS_MC), na.rm = TRUE) / mean(log(nN_SS_MC), na.rm = TRUE)))

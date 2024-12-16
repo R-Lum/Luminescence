@@ -157,6 +157,8 @@ we now take the absolute values of errors (#479, fixed in #481).
 ### `calc_Huntley2006()`
 * Some crashes in case of model misspecification have been solved (#538,
 fixed in #539).
+* Some details in the implementation of the function have been optimized, and
+now it is much faster than before (#258, fixed in #541).
 
 ### `calc_IEU()`
 * The code of this function has been consolidated to avoid duplication and
