@@ -652,7 +652,7 @@ calc_Huntley2006 <- function(
     .throw_warning("Ln is >10 % larger than the maximum computed LxTx value.",
                    " The De and age should be regarded as infinite estimates.")
 
-  if (Ln < min(LxTx.sim) * 0.95)
+  if (Ln < min(LxTx.sim) * 0.95 && GC.settings$mode != "extrapolation")
     .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value",
                    "If, in consequence, your age result is NA, either your ",
                    "input values are unsuitable, or you should consider using ",
