@@ -745,7 +745,7 @@ calc_Huntley2006 <- function(
       control = list(maxiter = settings$maxiter)), silent = TRUE)
 
     if(inherits(fit_unfaded, "try-error"))
-      .throw_error("Could not fit simulated curve, check suitability of ",
+      .throw_error("Could not fit unfaded curve, check suitability of ",
                    "model and parameters")
   }
 
