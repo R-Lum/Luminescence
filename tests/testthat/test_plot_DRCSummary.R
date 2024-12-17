@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 results <- analyse_SAR.CWOSL(
@@ -36,7 +37,7 @@ test_that("Test plotting", {
     signal.integral.max = 2,
     background.integral.min = 900,
     background.integral.max = 1000,
-    NumberIterations.MC = 2,
+    n.MC = 2,
     plot = FALSE,
     verbose = FALSE
   )

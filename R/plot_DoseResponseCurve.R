@@ -380,7 +380,7 @@ plot_DoseResponseCurve <- function(
             axes = FALSE,
             ylim = c(0, max(norm.curve.y)),
             sub = paste0("valid fits = ", length(na.exclude(x.natural)),
-                         "/", fit.args$NumberIterations.MC),
+                         "/", fit.args$n.MC),
             col = "grey"
         ), silent = TRUE)
 

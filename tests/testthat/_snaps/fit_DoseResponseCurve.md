@@ -111,7 +111,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -352,7 +352,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -593,7 +593,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -834,7 +834,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1075,7 +1075,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1316,7 +1316,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1557,7 +1557,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1798,7 +1798,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -2039,7 +2039,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -2280,7 +2280,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -2521,7 +2521,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "NumberIterations.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [

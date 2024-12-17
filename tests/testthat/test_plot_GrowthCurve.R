@@ -89,38 +89,38 @@ test_that("main tests", {
 
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "LIN",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP+LIN",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP+EXP",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "QDR",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "GOK",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "LambertW",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
 
   ## force through the origin
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP+LIN",
                                  fit.bounds = FALSE,
                                  fit.force_through_origin = TRUE,
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   temp_LxTx <- LxTxData
   temp_LxTx$LxTx[[7]] <- 1
   expect_output(plot_GrowthCurve(temp_LxTx,
                                  fit.method = "GOK",
                                  fit.force_through_origin = TRUE,
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
 })
 
 test_that("additional tests", {
@@ -132,58 +132,58 @@ test_that("additional tests", {
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "LIN",
                                  mode = "extrapolation",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP",
                                  mode = "extrapolation",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP+LIN",
                                  mode = "extrapolation",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "GOK",
                                  mode = "extrapolation",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "LambertW",
                                  mode = "extrapolation",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
 
   ## force through the origin
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "QDR",
                                  mode = "extrapolation",
                                  fit.force_through_origin = TRUE,
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
 
   ## Check alternate --------------------------------------------------------
   expect_silent(plot_GrowthCurve(LxTxData,
                                  fit.method = "QDR",
                                  mode = "alternate",
                                  verbose = FALSE,
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
                                  fit.method = "LIN",
                                  mode = "alternate",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP",
                                  mode = "alternate",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP+LIN",
                                  mode = "alternate",
                                  verbose = FALSE,
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
                                  fit.method = "GOK",
                                  mode = "alternate",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
                                  fit.method = "LambertW",
                                  mode = "alternate",
-                                 NumberIterations.MC = 10))
+                                 n.MC = 10))
 
   ## only two valid points provided
   SW({
@@ -192,11 +192,13 @@ test_that("additional tests", {
         dose = c(0, 1388.88888888889, NA),
         LxTx = c(1.54252220145258, 4.43951568403849, NA),
         LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
-    verbose = TRUE),
+    verbose = TRUE, NumberIterations.MC = 10),
     "'fit.method' changed to 'LIN'"))
   })
   expect_match(warnings, "1 NA values removed",
                all = FALSE, fixed = TRUE)
   expect_match(warnings, "Fitting a non-linear least-squares model requires",
+               all = FALSE, fixed = TRUE)
+  expect_match(warnings, "'NumberIterations.MC' is deprecated, use 'n.MC' instead",
                all = FALSE, fixed = TRUE)
 })

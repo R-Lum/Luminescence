@@ -342,7 +342,7 @@ functions.
 \code{background.count.distribution} \tab \link{calc_OSLLxTxRatio} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
 \code{fit.weights} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables fit weights\cr
 \code{fit.bounds} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables fit bounds\cr
-\code{NumberIterations.MC} \tab \link{plot_GrowthCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
+\code{n.MC} \tab \link{plot_GrowthCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
 \code{output.plot} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables dose response curve plot\cr
 \code{output.plotExtended} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables extended dose response curve plot\cr
 \code{recordType} \tab \link{get_RLum} \tab \verb{c(OSL (UVVIS), irradiation (NA)} \tab helps for the curve selection\cr
