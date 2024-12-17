@@ -80,11 +80,20 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                              merge.method = "-"))
 
+  expect_s4_class(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3, TL.curve.3),
+                                             merge.method = "-"), "RLum.Data.Curve")
+
   expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                              merge.method = "*"))
 
+  expect_s4_class(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3, TL.curve.3),
+                                        merge.method = "*"), "RLum.Data.Curve")
+
   expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                              merge.method = "/"))
+
+  expect_s4_class(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3, TL.curve.3),
+                                        merge.method = "/"), "RLum.Data.Curve")
 
   expect_warning(
       expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_zeros),
