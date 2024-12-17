@@ -249,4 +249,18 @@ test_that("more coverage", {
                                   dispersion = "2sd"),
                  "Data set (1): 1 NA value excluded",
                  fixed = TRUE)
+
+  ## further edge tests ... check for wrong bw parameter
+  expect_warning(
+    object = plot_AbanicoPlot(data = ExampleData.DeValues, bw = "tests"),
+    regexp = "Option for bw not possible. Set to nrd0!")
+
+  ## negative values
+  df <-  ExampleData.DeValues
+  df[,1] <- -df[,1]
+  expect_message(
+    object = plot_AbanicoPlot(data = df),
+    regexp = "Attention, small standardised estimate scatter. Toggle off y.axis?")
+
+
 })
