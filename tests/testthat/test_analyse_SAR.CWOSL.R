@@ -354,6 +354,7 @@ test_that("simple run", {
       verbose = FALSE
   ), "Background integral for Tx curves set, but not for the signal integral")
 
+
   expect_warning(expect_message(
       analyse_SAR.CWOSL(
           object = object[[1]],
@@ -496,36 +497,7 @@ test_that("advance tests run", {
       "'plot.single' is deprecated, use 'plot_singlePanels' instead")
   })
 
-  ##this tests basically checks the parameter expansion and make
-  ##sure everything is evaluated properly
-  # signal.integral.min <- 1
-  # signal.integral.max <- 2
-
-  ##test with variables for signal integral
-  # expect_s4_class(
-  #   analyse_SAR.CWOSL(
-  #     object = object[1:2],
-  #     signal.integral.min = signal.integral.min,
-  #     signal.integral.max = signal.integral.max,
-  #     background.integral.min = 900,
-  #     background.integral.max = 1000,
-  #     fit.method = "LIN",
-  #     rejection.criteria = list(
-  #       recycling.ratio = NA,
-  #       recuperation.rate = 1,
-  #       palaeodose.error = 1,
-  #       testdose.error = 1,
-  #       test = "new",
-  #       exceed.max.regpoint = FALSE),
-  #     plot = FALSE,
-  #     verbose = FALSE
-  #   ),
-  #   class = "RLum.Results"
-  # )
-
-
-  ##test rejection criteria is a list without(!) names,
-  ##this should basically lead to no fail
+  ##test failed recycling ratio
   test_failed <-
     analyse_SAR.CWOSL(
       object = object[1],
@@ -538,6 +510,40 @@ test_that("advance tests run", {
       plot = FALSE,
       verbose = FALSE)
   expect_equal(object = test_failed$data$RC.Status, "FAILED")
+
+  ##test no irradiation times available
+  no_irr_object <- object[1]
+  replace_metadata(no_irr_object[[1]], info_element = "IRR_TIME") <- NULL
+   expect_error(
+     analyse_SAR.CWOSL(
+      object = no_irr_object,
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 200,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE),
+     regexp = "\\[analyse\\_SAR\\.CWOSL\\(\\)\\] 'dose.points' contains NA values or have not been set")
+
+  ##set all rejection criteria to NA
+  test_failed <-
+    analyse_SAR.CWOSL(
+      object = object[1],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 200,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+        recycling.ratio = NA,
+        recuperation.rate = NA,
+        palaeodose.error = NA,
+        testdose.error = NA,
+        exceed.max.regpoint = NA),
+      plot = FALSE,
+      verbose = FALSE)
+  expect_equal(object = test_failed$data$RC.Status, "OK")
 
   ##the same test but without a named list >>> OK
   test_ok <-
