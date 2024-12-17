@@ -64,7 +64,7 @@ deprecated and will produce a warning (#499, fixed in #503).
 
 ## Bugfixes
 
-### `analyse_al2O3C_CrossTalk()`
+### `analyse_Al2O3C_CrossTalk()`
 * The function doesn't crash anymore if option `recordType` is specified and
 none of the records in the data set is of that type (#487, fixed in #488).
 
