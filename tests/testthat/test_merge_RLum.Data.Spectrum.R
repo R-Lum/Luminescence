@@ -70,14 +70,23 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                                 merge.method = "-"))
 
+  expect_s4_class(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum, TL.Spectrum),
+                                           merge.method = "/"), "RLum.Data.Spectrum")
+
   expect_snapshot_RLum(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                                 merge.method = "append"))
 
   expect_snapshot_RLum(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                                 merge.method = "*"))
 
+  expect_s4_class(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum, TL.Spectrum),
+                                                merge.method = "*"), "RLum.Data.Spectrum")
+
   expect_snapshot_RLum(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                                 merge.method = "/"))
+
+  expect_s4_class(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum, TL.Spectrum),
+                                           merge.method = "/"), "RLum.Data.Spectrum")
 
   expect_warning(
       expect_snapshot_RLum(merge_RLum.Data.Spectrum(list(TL.Spectrum,
