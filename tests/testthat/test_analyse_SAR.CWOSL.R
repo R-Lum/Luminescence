@@ -446,19 +446,22 @@ test_that("advance tests run", {
   testthat::skip_on_cran()
 
   ## irradiation information in a separate curve
-  obj_irr<- set_RLum(
+  no_irr_object <- object
+  replace_metadata(no_irr_object[[1]], info_element = "IRR_TIME") <- NULL
+  replace_metadata(no_irr_object[[2]], info_element = "IRR_TIME") <- NULL
+  obj_irr <- set_RLum(
       "RLum.Analysis",
       protocol = "testthat",
       records = list(
-          object[[1]][[1]], object[[1]][[2]],
-          object[[2]][[1]], object[[2]][[2]],
+          no_irr_object[[1]][[1]], no_irr_object[[1]][[2]],
           set_RLum(
           "RLum.Data.Curve",
           recordType = "irradiation",
-          data = object[[1]]@records[[1]]@data,
-          info = object[[1]]@records[[1]]@info,
-          )),
-      originator = "Risoe.BINfileData2RLum.Analysis"
+          data = no_irr_object[[1]]@records[[1]]@data,
+          info = no_irr_object[[1]]@records[[1]]@info,
+          ),
+          no_irr_object[[2]][[1]], no_irr_object[[2]][[2]]),
+      originator = "read_XSYG2R"
   )
   SW({ # repeated message
   expect_message(
