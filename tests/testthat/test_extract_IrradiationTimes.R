@@ -68,4 +68,14 @@ test_that("Test the extraction of irradiation times", {
 
   ## empty list
   expect_null(extract_IrradiationTimes(list()))
+
+  ## special case extraction with startDate missing
+  tmp <- read_XSYG2R(xsyg, verbose = FALSE, fastForward = TRUE)
+    ## remove startDate
+    tmp[[1]]@records[[9]]@info$startDate <- NULL
+    ## test
+    expect_s4_class(
+      object = extract_IrradiationTimes(tmp[[1]]), class = "RLum.Results")
+
+
 })

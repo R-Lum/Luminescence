@@ -202,6 +202,8 @@ format; fixed
 * In some circumstances the function failed to update an existing BIN/BINX
 file due to an incorrect way of subsetting an intermediate data frame of
 results (#445, fixed in #446).
+* If the info element `startDate` was missing an in the irradiation curve the function 
+crashed unexpectedly; fixed. 
 
 ### `fit_CWCurve()`
 * The function crashed if the computation of the confidence intervals done

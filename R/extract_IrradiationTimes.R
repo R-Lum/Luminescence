@@ -100,7 +100,7 @@
 #' ([read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -125,7 +125,7 @@
 #' #     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
 #' #     get_RLum(output)
 #' #
-#' ## export results additionally to a CSV.file in the same directory as the XSYG-file
+#' ## export results additionally to a CSV-file in the same directory as the XSYG-file
 #' #       write.table(x = get_RLum(output),
 #' #                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
 #' #                   sep = ";",
@@ -268,8 +268,11 @@ extract_IrradiationTimes <- function(
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {
-      get_RLum(x, info.object = c("startDate"))
+      tmp <- suppressWarnings(get_RLum(x, info.object = c("startDate")))
+      if(is.null(tmp))
+        tmp <- as.character(Sys.Date())
 
+      tmp
     }, character(1))
 
     ##a little bit reformatting.
@@ -396,3 +399,4 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
+
