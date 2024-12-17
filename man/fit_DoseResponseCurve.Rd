@@ -14,7 +14,7 @@ fit_DoseResponseCurve(
   fit.NumberRegPoints = NULL,
   fit.NumberRegPointsReal = NULL,
   fit.bounds = TRUE,
-  NumberIterations.MC = 100,
+  n.MC = 100,
   txtProgressBar = TRUE,
   verbose = TRUE,
   ...
@@ -79,8 +79,8 @@ set lower fit bounds for all fitting parameters to 0. Limited for the use
 with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{LambertW}
 Argument to be inserted for experimental application only!}
 
-\item{NumberIterations.MC}{\link{integer} (\emph{with default}):
-number of Monte Carlo simulations for error estimation. See details.}
+\item{n.MC}{\link{integer} (\emph{with default}):  number of Monte Carlo simulations
+for error estimation, see details.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables or disables \code{txtProgressBar}. If \code{verbose = FALSE} also no
@@ -120,7 +120,7 @@ This object is a \link{data.frame} with the following columns
 \code{D02} \tab \link{numeric} \tab 2nd D-naught value, only for \code{EXP+EXP}\cr
 \code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-naught; only for \code{EXP+EXP}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{LambertW} \cr
-\code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n})\cr
+\code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
 \code{De.plot} \tab \link{numeric} \tab equivalent dose use for plotting \cr
 \code{Fig} \tab \link{character} \tab applied fit function \cr
@@ -144,7 +144,7 @@ the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the \code{LM} (Leve
 algorithm is used. Note: For historical reasons for the Monte Carlo
 simulations partly the function \link{nls} using the \code{port} algorithm.
 
-The solution is found by transforming the function or using \link{uniroot}.
+The solution is found by transforming the function or using \link[stats:uniroot]{stats::uniroot}.
 
 \code{LIN}: fits a linear function to the data using
 \link{lm}: \deqn{y = mx + n}

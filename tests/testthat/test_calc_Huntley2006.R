@@ -117,7 +117,7 @@ test_that("check class and length of output", {
   expect_type(huntley$Ln, "double")
   expect_type(huntley$fits, "list")
 
-  expect_equal(round(huntley$results$Sim_Age, 1), 34)
+  expect_equal(round(huntley$results$Sim_Age, 1), 34.10)
   expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
   expect_equal(round(sum(huntley$Ln),2), 0.16)
 

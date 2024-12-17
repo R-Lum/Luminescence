@@ -13,6 +13,7 @@ plot_GrowthCurve(
   plot_singlePanels = FALSE,
   cex.global = 1,
   verbose = TRUE,
+  n.MC = 100,
   ...
 )
 }
@@ -72,9 +73,12 @@ global scaling factor.}
 \item{verbose}{\link{logical} (\emph{with default}):
 enables or disables terminal feedback.}
 
+\item{n.MC}{\link{integer} (\emph{with default}):
+number of MC runs for error calculation.}
+
 \item{...}{Further arguments to \link{fit_DoseResponseCurve} (\code{fit_weights},
 \code{fit_bounds}, \code{fit.force_through_origin}, \code{fit.includingRepeatedRegPoints},
-\code{fit.NumberRegPoints}, \code{fit.NumberRegPointsReal}, \code{NumberIterations.MC},
+\code{fit.NumberRegPoints}, \code{fit.NumberRegPointsReal}, \code{n.MC},
 \code{txtProgressBar}) and graphical parameters to be passed (supported:
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}).}
 }

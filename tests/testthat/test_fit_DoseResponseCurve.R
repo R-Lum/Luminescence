@@ -44,8 +44,8 @@ test_that("input validation", {
                                      fit.bounds = "error"),
                "'fit.bounds' should be of class 'logical'")
   expect_error(fit_DoseResponseCurve(LxTxData,
-                                     NumberIterations.MC = "error"),
-               "'NumberIterations.MC' should be a positive integer scalar")
+                                     n.MC = "error"),
+               "'n.MC' should be a positive integer scalar")
 
   ## shorten dataframe
   expect_warning(fit_DoseResponseCurve(LxTxData[1:2, ], verbose = FALSE),
@@ -166,13 +166,6 @@ test_that("snapshot tests", {
       LxTxData,
       fit.method = "EXP",
       verbose = FALSE,
-      NumberIterations.MC = 10
-  ), tolerance = snapshot.tolerance)
-
-  expect_snapshot_RLum(fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "EXP",
-      verbose = FALSE,
       n.MC = 10
     ), tolerance = snapshot.tolerance)
 
@@ -180,7 +173,7 @@ test_that("snapshot tests", {
       LxTxData,
       fit.method = "LIN",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
@@ -189,7 +182,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       fit.force_through_origin = TRUE,
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
@@ -198,35 +191,35 @@ test_that("snapshot tests", {
       fit.bounds = FALSE,
       fit.force_through_origin = TRUE,
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
       fit.method = "EXP+EXP",
       verbose = TRUE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
       fit.method = "QDR",
       verbose = TRUE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
       fit.method = "GOK",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
       fit.method = "LambertW",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
@@ -234,7 +227,7 @@ test_that("snapshot tests", {
       fit.method = "QDR",
       mode = "extrapolation",
       verbose = TRUE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = 2.0e-5)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
@@ -243,7 +236,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       fit.force_through_origin = TRUE,
       verbose = TRUE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = 5.0e-5)
   })
 
@@ -252,7 +245,7 @@ test_that("snapshot tests", {
       fit.method = "LIN",
       mode = "extrapolation",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
   ), tolerance = 5.0e-5)
 })
 
@@ -264,7 +257,7 @@ test_that("additional tests", {
       list(LxTxData, LxTxData),
       fit.method = "LIN",
       verbose = FALSE,
-      NumberIterations.MC = 10)
+      n.MC = 10)
   expect_type(res, "list")
   expect_length(res, 2)
 
@@ -275,42 +268,42 @@ test_that("additional tests", {
       LxTxData,
       fit.method = "EXP",
       verbose = TRUE,
-      NumberIterations.MC = 10
+      n.MC = 10
     ), " | D01 = ", fixed = TRUE)
   temp_LIN <-
     fit_DoseResponseCurve(
       LxTxData,
       fit.method = "LIN",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
     )
   temp_EXPLIN <-
     fit_DoseResponseCurve(
       LxTxData,
       fit.method = "EXP+LIN",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
     )
   temp_EXPEXP <-
     fit_DoseResponseCurve(
       LxTxData,
       fit.method = "EXP+EXP",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
     )
   temp_QDR <-
     fit_DoseResponseCurve(
       LxTxData,
       fit.method = "QDR",
       verbose = FALSE,
-      NumberIterations.MC = 10
+      n.MC = 10
     )
   temp_GOK <-
     fit_DoseResponseCurve(
       LxTxData,
       fit.method = "GOK",
       verbose = FALSE,
-      NumberIterations.MC = 10)
+      n.MC = 10)
 
   ## force through the origin
   temp_LxTx <-LxTxData
@@ -319,7 +312,7 @@ test_that("additional tests", {
     temp_LxTx,
     fit.method = "GOK",
     verbose = FALSE,
-    NumberIterations.MC = 10,
+    n.MC = 10,
     fit.force_through_origin = TRUE
   ), "RLum.Results")
 temp_LambertW <-
@@ -327,7 +320,7 @@ temp_LambertW <-
     LxTxData,
     fit.method = "LambertW",
     verbose = FALSE,
-    NumberIterations.MC = 10
+    n.MC = 10
   )
 
   ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
@@ -338,7 +331,7 @@ temp_LambertW <-
       mode = "extrapolation",
       fit.force_through_origin = TRUE,
       verbose = TRUE,
-      NumberIterations.MC = 10
+      n.MC = 10
   )
   })
 

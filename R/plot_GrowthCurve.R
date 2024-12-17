@@ -55,9 +55,12 @@
 #' @param verbose [logical] (*with default*):
 #' enables or disables terminal feedback.
 #'
+#' @param n.MC [integer] (*with default*):
+#' number of MC runs for error calculation.
+#'
 #' @param ... Further arguments to [fit_DoseResponseCurve] (`fit_weights`,
 #' `fit_bounds`, `fit.force_through_origin`, `fit.includingRepeatedRegPoints`,
-#' `fit.NumberRegPoints`, `fit.NumberRegPointsReal`, `NumberIterations.MC`,
+#' `fit.NumberRegPoints`, `fit.NumberRegPointsReal`, `n.MC`,
 #' `txtProgressBar`) and graphical parameters to be passed (supported:
 #' `xlim`, `ylim`, `main`, `xlab`, `ylab`).
 #'
@@ -132,16 +135,23 @@ plot_GrowthCurve <- function(
   plot_singlePanels = FALSE,
   cex.global = 1,
   verbose = TRUE,
+  n.MC = 100,
   ...
 ) {
   .set_function_name("plot_GrowthCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## deprecated argument
-  if ("output.plotExtended.single" %in% names(list(...))) {
-    plot_singlePanels <- list(...)$output.plotExtended.single
+  extraArgs <- list(...)
+  if ("output.plotExtended.single" %in% names(extraArgs)) {
+    plot_singlePanels <- extraArgs$output.plotExtended.single
     .throw_warning("'output.plotExtended.single' is deprecated, use ",
                    "'plot_singlePanels' instead")
+  }
+  if ("NumberIterations.MC" %in% names(extraArgs)) {
+    n.MC <- extraArgs$NumberIterations.MC
+    .throw_warning("'NumberIterations.MC' is deprecated, use ",
+                   "'n.MC' instead")
   }
 
   ## input validation
@@ -153,7 +163,8 @@ plot_GrowthCurve <- function(
 
   ## remaining input validation occurs inside the fitting function
   fit <- fit_DoseResponseCurve(sample, mode, fit.method,
-                               verbose = verbose, ...)
+                               verbose = verbose, n.MC = n.MC, ...)
+
   if (is.null(fit)) {
     if (verbose)
       message("[plot_GrowthCurve()] Fitting failed, no plot possible")

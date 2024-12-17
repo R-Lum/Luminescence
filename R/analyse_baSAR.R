@@ -151,7 +151,7 @@
 #' `background.count.distribution` \tab [calc_OSLLxTxRatio] \tab `"non-poisson"` \tab set assumed count distribution\cr
 #' `fit.weights` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables fit weights\cr
 #' `fit.bounds` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables fit bounds\cr
-#' `NumberIterations.MC` \tab [plot_GrowthCurve] \tab `100` \tab number of MC runs for error calculation\cr
+#' `n.MC` \tab [plot_GrowthCurve] \tab `100` \tab number of MC runs for error calculation\cr
 #' `output.plot` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables dose response curve plot\cr
 #' `output.plotExtended` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables extended dose response curve plot\cr
 #' `recordType` \tab [get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
@@ -811,7 +811,7 @@ analyse_baSAR <- function(
     ## plot_GrowthCurve()
     fit.weights = TRUE,
     fit.bounds = TRUE,
-    NumberIterations.MC = 100,
+    n.MC = 100,
     output.plot = plot,
     output.plotExtended = plot,
 
@@ -1598,7 +1598,7 @@ analyse_baSAR <- function(
           fit.weights = additional_arguments$fit.weights,
           fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
           fit.bounds = additional_arguments$fit.bounds,
-          NumberIterations.MC = additional_arguments$NumberIterations.MC,
+          n.MC = additional_arguments$n.MC,
           output.plot = additional_arguments$output.plot,
           output.plotExtended = additional_arguments$output.plotExtended,
           txtProgressBar = FALSE,

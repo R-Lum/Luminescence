@@ -542,7 +542,7 @@ test_that("advance tests run", {
        background.integral.min = 200,
        background.integral.max = 1000,
        fit.method = "LambertW",
-       NumberIterations.MC = 10,
+       n.MC = 10,
        plot = FALSE,
        verbose = FALSE)))
 

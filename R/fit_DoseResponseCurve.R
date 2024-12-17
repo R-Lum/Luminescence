@@ -141,12 +141,8 @@
 #' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `LambertW`
 #' Argument to be inserted for experimental application only!
 #'
-#' @param NumberIterations.MC [integer] (*with default*):
-#' number of Monte Carlo simulations for error estimation. See details.
-#'
 #' @param n.MC [integer] (*with default*):  number of Monte Carlo simulations
-#' for error estimation. Similar to `NumberIterations.MC`, which will be become deprecated
-#' at some point.
+#' for error estimation, see details.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enables or disables `txtProgressBar`. If `verbose = FALSE` also no
@@ -289,8 +285,7 @@ fit_DoseResponseCurve <- function(
   fit.NumberRegPoints = NULL,
   fit.NumberRegPointsReal = NULL,
   fit.bounds = TRUE,
-  NumberIterations.MC = 100,
-  n.MC = NumberIterations.MC,
+  n.MC = 100,
   txtProgressBar = TRUE,
   verbose = TRUE,
   ...
@@ -338,7 +333,6 @@ fit_DoseResponseCurve <- function(
   .validate_class(fit.bounds, "logical")
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(fit.NumberRegPointsReal, int = TRUE, null.ok = TRUE)
-  .validate_positive_scalar(NumberIterations.MC, int = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE)
 
   ## convert input to data.frame
