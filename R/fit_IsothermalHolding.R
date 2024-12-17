@@ -1,4 +1,4 @@
-#' @title Fit ISO-Thermal Holding Data
+#' @title Fit Isothermal Holding Data
 #'
 #' @description ##TODO
 #'
@@ -17,14 +17,16 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Svenja Riedesel, DTU Risø (Denmark),  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Svenja Riedesel, DTU Risø (Denmark)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords datagen
 #'
 #' @return
 #' An [RLum.Results-class] object is returned: ##TODO
 #'
-#' @seealso ##TODO
+#' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
 #'
 #' @examples
 #' # example code ##TOD
@@ -32,14 +34,14 @@
 #'
 #' @md
 #' @export
-fit_IsoThermalHolding <- function(
+fit_IsothermalHolding <- function(
     data,
     ITL_model = 'GOK',
     rhop,
     plot = TRUE,
     ...
 ) {
-  .set_function_name("fit_IsoThermalHolding")
+  .set_function_name("fit_IsothermalHolding")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## TODOs

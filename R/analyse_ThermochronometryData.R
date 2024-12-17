@@ -5,31 +5,33 @@
 #'
 #' @details ##TODO
 #'
-#' @param object [character] (**required**): path to a CSV file with;
+#' @param object [character] (**required**): path to a CSV file ##TODO;
 #' alternatively a [vector] of paths
 #'
 #' @param ITL_model [character] (*with default*): type of model to fit,
-#' either `"GOK"` or `"BTS"`
+#' either `"GOK"` (default) or `"BTS"`
 #'
 #' @param plot [logical] (*with default*): enable/disable plot output
 #'
 #' @param verbose [logical] (*with default*): enable/disable terminal output
 #'
-#' @param ... further arguments passed to ...
+#' @param ... currently unused
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Svenja Riedesel, DTU Risø (Denmark)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),
+#' Svenja Riedesel, DTU Risø (Denmark)
 #'
 #' @keywords datagen
 #'
 #' @return
 #' An [RLum.Results-class] object is returned: ##TODO
 #'
-#' @seealso [analyse_FadingMeasurement], ## TODO
+#' @seealso [analyse_FadingMeasurement], [fit_IsothermalHolding]
 #'
 #' @examples
-#' # example code ##TOD
+#' # example code ##TODO
 #'
 #' @md
 #' @export
@@ -89,7 +91,7 @@ analyse_ThermochronometryData <- function(
 
     # (2) ITL Data ------------------------------------------------------------
     df_ITL <- object@data$ITL[object@data$ITL$SAMPLE == sample_names[i],]
-    results_ITL <- fit_IsoThermalHolding(
+    results_ITL <- fit_IsothermalHolding(
       data = df_ITL,
       ITL_model = ITL_model,
       rhop = results_FAD,
@@ -148,7 +150,7 @@ analyse_ThermochronometryData <- function(
     class = "RLum.Results",
     data = list(
       FAD = results_combined[["analyse_FadingMeasurement"]],
-      ITL = results_combined[["fit_IsoThermalHolding"]],
+      ITL = results_combined[["fit_IsothermalHolding"]],
       DRC = results_combined[["fit_DoseResponseCurve"]]),
     info = list(
       call = sys.call()

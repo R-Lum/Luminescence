@@ -13,17 +13,17 @@ analyse_ThermochronometryData(
 )
 }
 \arguments{
-\item{object}{\link{character} (\strong{required}): path to a CSV file with;
+\item{object}{\link{character} (\strong{required}): path to a CSV file ##TODO;
 alternatively a \link{vector} of paths}
 
 \item{ITL_model}{\link{character} (\emph{with default}): type of model to fit,
-either \code{"GOK"} or \code{"BTS"}}
+either \code{"GOK"} (default) or \code{"BTS"}}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal output}
 
-\item{...}{further arguments passed to ...}
+\item{...}{currently unused}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned: ##TODO
@@ -40,13 +40,14 @@ by XXX and XXX and XXX
 }
 
 \examples{
-# example code ##TOD
+# example code ##TODO
 
 }
 \seealso{
-\link{analyse_FadingMeasurement}, ## TODO
+\link{analyse_FadingMeasurement}, \link{fit_IsothermalHolding}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Svenja Riedesel, DTU Risø (Denmark)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),
+Svenja Riedesel, DTU Risø (Denmark)
 }
 \keyword{datagen}
