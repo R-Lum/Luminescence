@@ -171,6 +171,13 @@ test_that("snapshot tests", {
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
+      fit.method = "EXP",
+      verbose = FALSE,
+      n.MC = 10
+    ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      LxTxData,
       fit.method = "LIN",
       verbose = FALSE,
       NumberIterations.MC = 10

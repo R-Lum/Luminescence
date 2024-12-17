@@ -247,6 +247,8 @@ calls itself on each element of the list and produces a list of `RLum.Results`
 as output (#405, fixed in #434).
 * The function reported negative dose values in the MC runs plot when using
 `fit.method = "QDR"` and `mode = "extrapolation"` (#504, fixed in #505).
+* New argument added `n.MC`, this is identical to `NumberIterations.MC`. The latter
+will be deprecated in v1.1.0 and later defunct.
 
 ### `plot_RLum.Analysis()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed

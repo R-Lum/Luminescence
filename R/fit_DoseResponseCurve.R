@@ -15,7 +15,7 @@
 #' algorithm is used. Note: For historical reasons for the Monte Carlo
 #' simulations partly the function [nls] using the `port` algorithm.
 #'
-#' The solution is found by transforming the function or using [uniroot].
+#' The solution is found by transforming the function or using [stats::uniroot].
 #'
 #' `LIN`: fits a linear function to the data using
 #' [lm]: \deqn{y = mx + n}
@@ -143,6 +143,10 @@
 #'
 #' @param NumberIterations.MC [integer] (*with default*):
 #' number of Monte Carlo simulations for error estimation. See details.
+#'
+#' @param n.MC [integer] (*with default*):  number of Monte Carlo simulations
+#' for error estimation. Similar to `NumberIterations.MC`, which will be become deprecated
+#' at some point.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enables or disables `txtProgressBar`. If `verbose = FALSE` also no
@@ -286,6 +290,7 @@ fit_DoseResponseCurve <- function(
   fit.NumberRegPointsReal = NULL,
   fit.bounds = TRUE,
   NumberIterations.MC = 100,
+  n.MC = NumberIterations.MC,
   txtProgressBar = TRUE,
   verbose = TRUE,
   ...
@@ -310,7 +315,7 @@ fit_DoseResponseCurve <- function(
           fit.NumberRegPoints = fit.NumberRegPoints,
           fit.NumberRegPointsReal = fit.NumberRegPointsReal,
           fit.bounds = fit.bounds,
-          NumberIterations.MC = NumberIterations.MC,
+          n.MC = n.MC,
           txtProgressBar = txtProgressBar,
           verbose = verbose,
           ...
@@ -334,6 +339,7 @@ fit_DoseResponseCurve <- function(
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(fit.NumberRegPointsReal, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(NumberIterations.MC, int = TRUE)
+  .validate_positive_scalar(n.MC, int = TRUE)
 
   ## convert input to data.frame
   switch(
@@ -438,20 +444,20 @@ fit_DoseResponseCurve <- function(
           mean = object[x, 2],
           sd = abs(object[x, 3])
         ),
-        size = NumberIterations.MC,
+        size = n.MC,
         replace = TRUE)
       },
-      FUN.VALUE = vector("numeric", length = NumberIterations.MC)
+      FUN.VALUE = vector("numeric", length = n.MC)
     ))
 
   if (mode == "interpolation") {
     #1.3 Do the same for the natural signal
     data.MC.De <-
       sample(rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
-             NumberIterations.MC,
+             n.MC,
              replace = TRUE)
   } else if (mode == "extrapolation") {
-    data.MC.De <- rep(0, NumberIterations.MC)
+    data.MC.De <- rep(0, n.MC)
   }
 
   #1.3 set x.natural
@@ -628,11 +634,11 @@ fit_DoseResponseCurve <- function(
     ##set progressbar
     if(txtProgressBar){
       cat("\n\t Run Monte Carlo loops for error estimation of the QDR fit\n")
-      pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
+      pb<-txtProgressBar(min=0,max=n.MC, char="=", style=3)
     }
 
     ## Monte Carlo Error estimation
-    x.natural <- sapply(1:NumberIterations.MC, function(i) {
+    x.natural <- sapply(1:n.MC, function(i) {
       if (txtProgressBar) setTxtProgressBar(pb, i)
       abs(.fit_qdr_model(model.qdr,
                          data.frame(x = xy$x, y = data.MC[, i]),
@@ -755,12 +761,12 @@ fit_DoseResponseCurve <- function(
         #	--take De_Error
 
         #set variables
-        var.a<-vector(mode="numeric", length=NumberIterations.MC)
-        var.b<-vector(mode="numeric", length=NumberIterations.MC)
-        var.c<-vector(mode="numeric", length=NumberIterations.MC)
+        var.a<-vector(mode="numeric", length=n.MC)
+        var.b<-vector(mode="numeric", length=n.MC)
+        var.c<-vector(mode="numeric", length=n.MC)
 
         #start loop
-        for (i in 1:NumberIterations.MC) {
+        for (i in 1:n.MC) {
           ##set data set
           data <- data.frame(x = xy$x,y = data.MC[,i])
 
@@ -850,7 +856,7 @@ fit_DoseResponseCurve <- function(
       .report_fit(De)
 
       ## Monte Carlo Error estimation
-      x.natural <- sapply(1:NumberIterations.MC, function(i) {
+      x.natural <- sapply(1:n.MC, function(i) {
         abs(.fit_lin_model(model.lin,
                            data.frame(x = xy$x, y = data.MC[, i]),
                            y = data.MC.De[i])$De)
@@ -1000,19 +1006,19 @@ fit_DoseResponseCurve <- function(
       #	--take De_Error
 
       #set variables
-      var.a <- vector(mode="numeric", length=NumberIterations.MC)
-      var.b <- vector(mode="numeric", length=NumberIterations.MC)
-      var.c <- vector(mode="numeric", length=NumberIterations.MC)
-      var.g <- vector(mode="numeric", length=NumberIterations.MC)
+      var.a <- vector(mode="numeric", length=n.MC)
+      var.b <- vector(mode="numeric", length=n.MC)
+      var.c <- vector(mode="numeric", length=n.MC)
+      var.g <- vector(mode="numeric", length=n.MC)
 
       ##set progressbar
       if(txtProgressBar){
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
-        pb <- txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
+        pb <- txtProgressBar(min=0,max=n.MC, char="=", style=3)
       }
 
       ## start Monte Carlo loops
-      for(i in  1:NumberIterations.MC){
+      for(i in  1:n.MC){
         data <- data.frame(x=xy$x,y=data.MC[,i])
 
         ##perform MC fitting
@@ -1200,19 +1206,19 @@ fit_DoseResponseCurve <- function(
       # --comparison of De from the MC and original fitted De gives a value for quality
 
       #set variables
-      var.b1 <- vector(mode="numeric", length=NumberIterations.MC)
-      var.b2 <- vector(mode="numeric", length=NumberIterations.MC)
-      var.a1 <- vector(mode="numeric", length=NumberIterations.MC)
-      var.a2 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.b1 <- vector(mode="numeric", length=n.MC)
+      var.b2 <- vector(mode="numeric", length=n.MC)
+      var.a1 <- vector(mode="numeric", length=n.MC)
+      var.a2 <- vector(mode="numeric", length=n.MC)
 
       ##progress bar
       if(txtProgressBar){
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
-        pb<-txtProgressBar(min=0,max=NumberIterations.MC, initial=0, char="=", style=3)
+        pb<-txtProgressBar(min=0,max=n.MC, initial=0, char="=", style=3)
       }
 
       ## start Monte Carlo loops
-      for (i in 1:NumberIterations.MC) {
+      for (i in 1:n.MC) {
         #update progress bar
         if(txtProgressBar) setTxtProgressBar(pb,i)
 
@@ -1329,13 +1335,13 @@ fit_DoseResponseCurve <- function(
       #	--take De_Error
 
       #set variables
-      var.a <- vector(mode = "numeric", length = NumberIterations.MC)
-      var.b <- vector(mode = "numeric", length = NumberIterations.MC)
-      var.c <- vector(mode = "numeric", length = NumberIterations.MC)
-      var.d <- vector(mode = "numeric", length = NumberIterations.MC)
+      var.a <- vector(mode = "numeric", length = n.MC)
+      var.b <- vector(mode = "numeric", length = n.MC)
+      var.c <- vector(mode = "numeric", length = n.MC)
+      var.d <- vector(mode = "numeric", length = n.MC)
 
       #start loop
-      for (i in 1:NumberIterations.MC) {
+      for (i in 1:n.MC) {
         ##set data set
         data <- data.frame(x = xy$x,y = data.MC[,i])
 
@@ -1472,10 +1478,10 @@ fit_DoseResponseCurve <- function(
           #	--take De_Error
           #set variables
           var.R <-  var.Dc <- var.N <- var.Dint <- vector(
-            mode = "numeric", length = NumberIterations.MC)
+            mode = "numeric", length = n.MC)
 
           #start loop
-          for (i in 1:NumberIterations.MC) {
+          for (i in 1:n.MC) {
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
@@ -1639,7 +1645,7 @@ fit_DoseResponseCurve <- function(
           fit.NumberRegPointsReal = fit.NumberRegPointsReal,
           fit.weights = fit.weights,
           fit.bounds = fit.bounds,
-          NumberIterations.MC = NumberIterations.MC
+          n.MC = n.MC
       ),
       Formula = fit_formula
     ),
