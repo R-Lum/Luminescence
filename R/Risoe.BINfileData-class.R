@@ -438,7 +438,6 @@ setMethod("get_Risoe.BINfileData",
           definition = function(object, ...) {
 
             cat("[get_Risoe.BINfileData()] No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
-
           }
 )
 
@@ -446,7 +445,7 @@ setMethod("get_Risoe.BINfileData",
 #' @describeIn Risoe.BINfileData
 #' Adds metadata to [Risoe.BINfileData-class] objects
 #'
-#' @param object an object of class [Risoe.BINfileData-class]
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to add
@@ -479,11 +478,50 @@ setMethod("add_metadata<-",
             assign(x = deparse(substitute(object))[1], object)
           })
 
+## rename_metadata() --------------------------------------------------------
+#' @describeIn Risoe.BINfileData
+#' Renames a metadata entry of [Risoe.BINfileData-class] objects
+#'
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to rename.
+#'
+#' @param value (**required**) The value assigned to the selected element
+#' of the metadata field.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("rename_metadata<-",
+          signature= "Risoe.BINfileData",
+          definition = function(object, info_element, value) {
+            .set_function_name("rename_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## Integrity checks ---------------------------------------------
+
+            .validate_class(info_element, "character")
+            .validate_length(info_element, 1)
+            valid.names <- colnames(object@METADATA)
+            if (!info_element %in% valid.names) {
+              .throw_error("'info_element' not recognised (",
+                           .collapse(info_element), "), valid terms are: ",
+                           .collapse(valid.names, quote = FALSE))
+            }
+
+            ## rename the metadata element
+            name.idx <- grep(info_element, valid.names)
+            colnames(object@METADATA)[name.idx] <- value
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' Replaces or removes metadata of [Risoe.BINfileData-class] objects
 #'
-#' @param object an object of class [Risoe.BINfileData-class]
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to replace or remove
@@ -564,7 +602,7 @@ setMethod("replace_metadata<-",
 #'@describeIn Risoe.BINfileData
 #'View method for [Risoe.BINfileData-class] objects
 #'
-#'@param object an object of class [Risoe.BINfileData-class]
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
 #'
 #'@param ... other arguments that might be passed
 #'

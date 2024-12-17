@@ -2,7 +2,6 @@
 #'
 #' @description Generalized virtual data class for luminescence data.
 #'
-#'
 #' @name RLum.Data-class
 #'
 #' @docType class
@@ -34,7 +33,7 @@ setClass("RLum.Data",
 #' @describeIn RLum.Data
 #' Add metadata entries to [RLum.Data-class] objects
 #'
-#' @param object an object of class [RLum.Data-class]
+#' @param object (**required**) an object of class [RLum.Data-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to add
@@ -67,11 +66,50 @@ setMethod("add_metadata<-",
             assign(x = deparse(substitute(object))[1], object)
           })
 
+## rename_metadata() --------------------------------------------------------
+#' @describeIn RLum.Data
+#' Rename a metadata entry of [RLum.Data-class] objects
+#'
+#' @param object (**required**) an object of class [RLum.Data-class]
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to rename.
+#'
+#' @param value (**required**) The value assigned to the selected elements
+#' of the `info` slot.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("rename_metadata<-",
+          signature = "RLum.Data",
+          definition = function(object, info_element, value) {
+            .set_function_name("rename_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## Integrity checks ---------------------------------------------
+
+            .validate_class(info_element, "character")
+            .validate_length(info_element, 1)
+            valid.names <- names(object@info)
+            if (!info_element %in% valid.names) {
+              .throw_error("'info_element' not recognised (",
+                           .collapse(info_element), "), valid terms are: ",
+                           .collapse(valid.names, quote = FALSE))
+            }
+
+            ## rename the metadata element
+            name.idx <- grep(info_element, valid.names)
+            names(object@info)[name.idx] <- value
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Data
 #' Replaces or removes metadata of [RLum.Data-class] objects
 #'
-#' @param object an object of class [RLum.Data-class]
+#' @param object (**required**) an object of class [RLum.Data-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to replace or remove

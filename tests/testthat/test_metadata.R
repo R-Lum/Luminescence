@@ -23,6 +23,22 @@ test_that("input validation", {
   expect_error(add_metadata(curve, "POSITION") <- 1,
                "'info_element' already present, to modify it you should use")
 
+  ## rename_metadata
+  expect_error(rename_metadata(risoe, list()) <- 1,
+               "'info_element' should be of class 'character'")
+  expect_error(rename_metadata(curve, list()) <- 1,
+               "'info_element' should be of class 'character'")
+  expect_error(rename_metadata(risoe, c("VAL1", "VAL2")) <- 1,
+               "'info_element' should have length 1")
+  expect_error(rename_metadata(curve, c("VAL1", "VAL2")) <- 1,
+               "'info_element' should have length 1")
+  expect_error(rename_metadata(risoe, "error") <- 1,
+               "'info_element' not recognised ('error'), valid terms are",
+               fixed = TRUE)
+  expect_error(rename_metadata(curve, "error") <- 1,
+               "'info_element' not recognised ('error'), valid terms are",
+               fixed = TRUE)
+
   ## replace_metadata
   expect_error(replace_metadata(risoe, list()) <- 1,
                "'info_element' should be of class 'character'")
@@ -66,6 +82,11 @@ test_that("check functionality for Risoe.BINfileData", {
   expect_equal(res@METADATA$NEW,
                rep(123, nrow(res@METADATA)))
 
+  ## rename_metadata
+  rename_metadata(res, "NEW") <- "NEWER"
+  expect_equal(res@METADATA$NEWER,
+               rep(123, nrow(res@METADATA)))
+
   ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@METADATA$SEL,
@@ -79,6 +100,7 @@ test_that("check functionality for Risoe.BINfileData", {
 
   ## the original object is unchanged
   expect_null(risoe@METADATA$NEW)
+  expect_null(risoe@METADATA$NEWER)
   expect_equal(risoe@METADATA$SEL,
                rep(TRUE, nrow(res@METADATA)))
   expect_equal(risoe@METADATA$LTYPE,
@@ -100,6 +122,11 @@ test_that("check functionality for RLum.Analysis", {
   expect_equal(sapply(res@records, function(x) x@info[["NEW"]]),
                c(123, 123))
 
+  ## rename_metadata
+  rename_metadata(res, "NEW") <- "NEWER"
+  expect_equal(sapply(res@records, function(x) x@info[["NEWER"]]),
+               c(123, 123))
+
   ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(sapply(res@records, function(x) x@info[["SEL"]]),
@@ -112,6 +139,7 @@ test_that("check functionality for RLum.Analysis", {
 
   ## the original object is unchanged
   expect_null(unlist(sapply(analysis@records, function(x) x@info[["NEW"]])))
+  expect_null(unlist(sapply(analysis@records, function(x) x@info[["NEWER"]])))
   expect_equal(sapply(analysis@records, function(x) x@info[["SEL"]]),
                rep(TRUE, num.records))
   expect_equal(sapply(analysis@records, function(x) x@info[["LTYPE"]]),
@@ -129,6 +157,10 @@ test_that("check functionality for RLum.Data", {
   add_metadata(res, "NEW") <- 123
   expect_equal(res@info$NEW, 123)
 
+  ## rename_metadata
+  rename_metadata(res, "NEW") <- "NEWER"
+  expect_equal(res@info$NEWER, 123)
+
   ## replace_metadata
   replace_metadata(res, "SEL") <- FALSE
   expect_equal(res@info$SEL, FALSE)
@@ -140,6 +172,7 @@ test_that("check functionality for RLum.Data", {
 
   ## the original object is unchanged
   expect_null(curve@info$NEW)
+  expect_null(curve@info$NEWER)
   expect_equal(curve@info$SEL, TRUE)
   expect_equal(curve@info$LTYPE, "TL")
   expect_equal(curve@info$AN_TEMP, 220)

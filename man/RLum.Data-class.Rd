@@ -4,18 +4,21 @@
 \name{RLum.Data-class}
 \alias{RLum.Data-class}
 \alias{add_metadata<-,RLum.Data-method}
+\alias{rename_metadata<-,RLum.Data-method}
 \alias{replace_metadata<-,RLum.Data-method}
 \alias{view,RLum.Data-method}
 \title{Class \code{"RLum.Data"}}
 \usage{
 \S4method{add_metadata}{RLum.Data}(object, info_element) <- value
 
+\S4method{rename_metadata}{RLum.Data}(object, info_element) <- value
+
 \S4method{replace_metadata}{RLum.Data}(object, info_element, subset = NULL, verbose = TRUE) <- value
 
 \S4method{view}{RLum.Data}(object, ...)
 }
 \arguments{
-\item{object}{an object of class \linkS4class{RLum.Data}}
+\item{object}{(\strong{required}) an object of class \linkS4class{RLum.Data}}
 
 \item{info_element}{\link{character} (\strong{required}) name of the metadata field
 to replace or remove}
@@ -38,6 +41,8 @@ Generalized virtual data class for luminescence data.
 \section{Methods (by generic)}{
 \itemize{
 \item \code{add_metadata(RLum.Data) <- value}: Add metadata entries to \linkS4class{RLum.Data} objects
+
+\item \code{rename_metadata(RLum.Data) <- value}: Rename a metadata entry of \linkS4class{RLum.Data} objects
 
 \item \code{replace_metadata(RLum.Data) <- value}: Replaces or removes metadata of \linkS4class{RLum.Data} objects
 

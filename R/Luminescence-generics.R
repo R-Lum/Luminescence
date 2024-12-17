@@ -319,7 +319,7 @@ setMethod("melt_RLum", signature = "list",
 #'
 #' @param ... further arguments passed to the specific class method
 #'
-#' @param value the value assigned
+#' @param value the value to be assigned
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
@@ -340,12 +340,20 @@ setMethod("melt_RLum", signature = "list",
 #' add_metadata(CWOSL.SAR.Data,
 #'              info_element = "INSTITUTE") <- "Heidelberg University"
 #'
+#' ## rename a field
+#' rename_metadata(CWOSL.SAR.Data,
+#'                 info_element = "INSTITUTE") <- "INSTITUTION"
+#'
 #' ## replace all LTYPE to RSL
 #' ## but only for the first position
 #' replace_metadata(
 #'  object = CWOSL.SAR.Data,
 #'  info_element = "LTYPE",
 #'  subset = (POSITION == 1)) <- "RSL"
+#'
+#' ## replacing a field with NULL allows to remove that field
+#' replace_metadata(CWOSL.SAR.Data,
+#'                  info_element = "PREVIOUS") <- NULL
 #'
 #' ## show the modified data
 #' CWOSL.SAR.Data
@@ -355,6 +363,12 @@ setMethod("melt_RLum", signature = "list",
 #' @export
 setGeneric("add_metadata<-", function (object, ..., value) {
   standardGeneric("add_metadata<-")
+})
+
+#' @rdname metadata
+#' @export
+setGeneric("rename_metadata<-", function (object, ..., value) {
+  standardGeneric("rename_metadata<-")
 })
 
 #' @rdname metadata

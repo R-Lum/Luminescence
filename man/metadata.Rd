@@ -2,10 +2,13 @@
 % Please edit documentation in R/Luminescence-generics.R
 \name{add_metadata<-}
 \alias{add_metadata<-}
+\alias{rename_metadata<-}
 \alias{replace_metadata<-}
 \title{Safe manipulation of object metadata}
 \usage{
 add_metadata(object, ...) <- value
+
+rename_metadata(object, ...) <- value
 
 replace_metadata(object, ...) <- value
 }
@@ -14,7 +17,7 @@ replace_metadata(object, ...) <- value
 
 \item{...}{further arguments passed to the specific class method}
 
-\item{value}{the value assigned}
+\item{value}{the value to be assigned}
 }
 \description{
 Generic functions for manipulation of metadata in \linkS4class{Risoe.BINfileData},
@@ -32,12 +35,20 @@ CWOSL.SAR.Data
 add_metadata(CWOSL.SAR.Data,
              info_element = "INSTITUTE") <- "Heidelberg University"
 
+## rename a field
+rename_metadata(CWOSL.SAR.Data,
+                info_element = "INSTITUTE") <- "INSTITUTION"
+
 ## replace all LTYPE to RSL
 ## but only for the first position
 replace_metadata(
  object = CWOSL.SAR.Data,
  info_element = "LTYPE",
  subset = (POSITION == 1)) <- "RSL"
+
+## replacing a field with NULL allows to remove that field
+replace_metadata(CWOSL.SAR.Data,
+                 info_element = "PREVIOUS") <- NULL
 
 ## show the modified data
 CWOSL.SAR.Data
