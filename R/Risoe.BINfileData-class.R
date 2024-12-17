@@ -445,7 +445,7 @@ setMethod("get_Risoe.BINfileData",
 #' @describeIn Risoe.BINfileData
 #' Adds metadata to [Risoe.BINfileData-class] objects
 #'
-#' @param object an object of class [Risoe.BINfileData-class]
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to add
@@ -521,7 +521,7 @@ setMethod("rename_metadata<-",
 #' @describeIn Risoe.BINfileData
 #' Replaces or removes metadata of [Risoe.BINfileData-class] objects
 #'
-#' @param object an object of class [Risoe.BINfileData-class]
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to replace or remove
@@ -602,7 +602,7 @@ setMethod("replace_metadata<-",
 #'@describeIn Risoe.BINfileData
 #'View method for [Risoe.BINfileData-class] objects
 #'
-#'@param object an object of class [Risoe.BINfileData-class]
+#' @param object (**required**) an object of class [Risoe.BINfileData-class]
 #'
 #'@param ... other arguments that might be passed
 #'

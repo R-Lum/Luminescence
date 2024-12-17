@@ -31,7 +31,7 @@
 \S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{an object of class \linkS4class{Risoe.BINfileData}}
+\item{object}{(\strong{required}) an object of class \linkS4class{Risoe.BINfileData}}
 
 \item{METADATA}{Object of class "data.frame" containing the meta information
 for each curve.}

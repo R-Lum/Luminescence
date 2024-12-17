@@ -319,7 +319,7 @@ setMethod("melt_RLum", signature = "list",
 #'
 #' @param ... further arguments passed to the specific class method
 #'
-#' @param value the value assigned
+#' @param value the value to be assigned
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
@@ -350,6 +350,10 @@ setMethod("melt_RLum", signature = "list",
 #'  object = CWOSL.SAR.Data,
 #'  info_element = "LTYPE",
 #'  subset = (POSITION == 1)) <- "RSL"
+#'
+#' ## replacing a field with NULL allows to remove that field
+#' replace_metadata(CWOSL.SAR.Data,
+#'                  info_element = "PREVIOUS") <- NULL
 #'
 #' ## show the modified data
 #' CWOSL.SAR.Data

@@ -18,7 +18,7 @@
 \S4method{view}{RLum.Data}(object, ...)
 }
 \arguments{
-\item{object}{an object of class \linkS4class{RLum.Data}}
+\item{object}{(\strong{required}) an object of class \linkS4class{RLum.Data}}
 
 \item{info_element}{\link{character} (\strong{required}) name of the metadata field
 to replace or remove}

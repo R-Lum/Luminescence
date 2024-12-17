@@ -17,7 +17,7 @@ replace_metadata(object, ...) <- value
 
 \item{...}{further arguments passed to the specific class method}
 
-\item{value}{the value assigned}
+\item{value}{the value to be assigned}
 }
 \description{
 Generic functions for manipulation of metadata in \linkS4class{Risoe.BINfileData},
@@ -45,6 +45,10 @@ replace_metadata(
  object = CWOSL.SAR.Data,
  info_element = "LTYPE",
  subset = (POSITION == 1)) <- "RSL"
+
+## replacing a field with NULL allows to remove that field
+replace_metadata(CWOSL.SAR.Data,
+                 info_element = "PREVIOUS") <- NULL
 
 ## show the modified data
 CWOSL.SAR.Data

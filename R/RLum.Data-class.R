@@ -33,7 +33,7 @@ setClass("RLum.Data",
 #' @describeIn RLum.Data
 #' Add metadata entries to [RLum.Data-class] objects
 #'
-#' @param object an object of class [RLum.Data-class]
+#' @param object (**required**) an object of class [RLum.Data-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to add
@@ -109,7 +109,7 @@ setMethod("rename_metadata<-",
 #' @describeIn RLum.Data
 #' Replaces or removes metadata of [RLum.Data-class] objects
 #'
-#' @param object an object of class [RLum.Data-class]
+#' @param object (**required**) an object of class [RLum.Data-class]
 #'
 #' @param info_element [character] (**required**) name of the metadata field
 #' to replace or remove
