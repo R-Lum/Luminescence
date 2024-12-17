@@ -768,6 +768,36 @@ setMethod("add_metadata<-",
             assign(x = deparse(substitute(object))[1], object)
           })
 
+## rename_metadata() --------------------------------------------------------
+#' @describeIn RLum.Analysis
+#' Renames a metadata entry of [RLum.Analysis-class] objects
+#'
+#' @param info_element [character] (**required**) name of the metadata field
+#' to rename
+#'
+#' @param value (**required**) The value assigned to the selected element
+#' of the `info` slot.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod("rename_metadata<-",
+          signature= "RLum.Analysis",
+          definition = function(object, info_element, value) {
+            .set_function_name("rename_metadata")
+            on.exit(.unset_function_name(), add = TRUE)
+
+            ## rename the metadata field in all records
+            records <- lapply(object@records, function(x) {
+              do.call(`rename_metadata<-`,
+                      list(x, info_element = info_element, value = value))
+            })
+
+            object@records <- records
+            assign(x = deparse(substitute(object))[1], object)
+          })
+
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn RLum.Analysis
 #' Replaces or removes metadata of [RLum.Analysis-class] objects

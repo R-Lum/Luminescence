@@ -340,6 +340,10 @@ setMethod("melt_RLum", signature = "list",
 #' add_metadata(CWOSL.SAR.Data,
 #'              info_element = "INSTITUTE") <- "Heidelberg University"
 #'
+#' ## rename a field
+#' rename_metadata(CWOSL.SAR.Data,
+#'                 info_element = "INSTITUTE") <- "INSTITUTION"
+#'
 #' ## replace all LTYPE to RSL
 #' ## but only for the first position
 #' replace_metadata(
@@ -355,6 +359,12 @@ setMethod("melt_RLum", signature = "list",
 #' @export
 setGeneric("add_metadata<-", function (object, ..., value) {
   standardGeneric("add_metadata<-")
+})
+
+#' @rdname metadata
+#' @export
+setGeneric("rename_metadata<-", function (object, ..., value) {
+  standardGeneric("rename_metadata<-")
 })
 
 #' @rdname metadata

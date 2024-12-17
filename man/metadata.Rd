@@ -2,10 +2,13 @@
 % Please edit documentation in R/Luminescence-generics.R
 \name{add_metadata<-}
 \alias{add_metadata<-}
+\alias{rename_metadata<-}
 \alias{replace_metadata<-}
 \title{Safe manipulation of object metadata}
 \usage{
 add_metadata(object, ...) <- value
+
+rename_metadata(object, ...) <- value
 
 replace_metadata(object, ...) <- value
 }
@@ -31,6 +34,10 @@ CWOSL.SAR.Data
 ## add a new field
 add_metadata(CWOSL.SAR.Data,
              info_element = "INSTITUTE") <- "Heidelberg University"
+
+## rename a field
+rename_metadata(CWOSL.SAR.Data,
+                info_element = "INSTITUTE") <- "INSTITUTION"
 
 ## replace all LTYPE to RSL
 ## but only for the first position

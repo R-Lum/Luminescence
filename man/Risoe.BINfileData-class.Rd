@@ -7,6 +7,7 @@
 \alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
 \alias{add_metadata<-,Risoe.BINfileData-method}
+\alias{rename_metadata<-,Risoe.BINfileData-method}
 \alias{replace_metadata<-,Risoe.BINfileData-method}
 \alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
@@ -22,6 +23,8 @@
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
 
 \S4method{add_metadata}{Risoe.BINfileData}(object, info_element) <- value
+
+\S4method{rename_metadata}{Risoe.BINfileData}(object, info_element) <- value
 
 \S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
 
@@ -65,6 +68,8 @@ This construction method is intended for internal usage only.
 the object directly, it is just showing a terminal message.
 
 \item \code{add_metadata(Risoe.BINfileData) <- value}: Adds metadata to \linkS4class{Risoe.BINfileData} objects
+
+\item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \linkS4class{Risoe.BINfileData} objects
 
 \item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects
 
