@@ -193,7 +193,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.10.4
+#' @section Function version: 0.10.5
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -308,12 +308,13 @@ if(is.list(object)){
       ...)
   })))
 
-  ## add aliquot number
-  results@data$data$ALQ <- seq_along(object)[1:nrow(results@data$data)]
 
   ##return
   ##DO NOT use invisible here, this will prevent the function from stopping
   if(length(results) == 0) return(NULL)
+
+  ## add aliquot number
+  results@data$data$ALQ <- seq_along(object)[1:nrow(results@data$data)]
 
   return(results)
 }

@@ -526,6 +526,26 @@ test_that("advance tests run", {
       verbose = FALSE),
      regexp = "\\[analyse\\_SAR\\.CWOSL\\(\\)\\] 'dose.points' contains NA values or have not been set")
 
+   ##get null for single list element
+   unsuitable_type <- object[1]
+   unsuitable_type[[1]]@records <- lapply(
+     unsuitable_type[[1]]@records, function(x) {
+      x@recordType = "Error"
+      x
+     })
+
+   expect_null(
+     suppressWarnings(analyse_SAR.CWOSL(
+       object = unsuitable_type,
+       signal.integral.min = 1,
+       signal.integral.max = 2,
+       background.integral.min = 200,
+       background.integral.max = 1000,
+       fit.method = "LambertW",
+       NumberIterations.MC = 10,
+       plot = FALSE,
+       verbose = FALSE)))
+
   ##set all rejection criteria to NA
   test_failed <-
     analyse_SAR.CWOSL(

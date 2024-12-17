@@ -92,6 +92,11 @@ inconsistently (#517, fixed in #518).
 user overrides the default set of monitored variables using `variable.names`
 within the `method_control` argument (#521, fixed in #522).
 
+### `analyse_SAR.CWOSL()`
+* The function crashed for a list input that led to `NULL` for various
+reasons (e.g., unsuitable set of curves). Here the self-call attempted to extract information 
+from the results that did not exist in the first place instead of returning `NULL`; fixed.
+
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the
 `RLum.Analysis` object given as input, and reports a message if a version
