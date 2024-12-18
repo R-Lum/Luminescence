@@ -35,4 +35,13 @@ test_that("Test functionality", {
     object = read_HeliosOSL2R(files),
     type = "list")
   })
+
+  ## list input
+  files <- list(file, file, "wrong.xs")
+  SW({
+    t <- expect_type(
+      object = read_HeliosOSL2R(files, verbose = FALSE),
+      type = "list")
+  })
+  expect_length(t,2)
 })

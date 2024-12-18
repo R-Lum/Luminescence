@@ -302,6 +302,10 @@ have been read (#352, fixed in #353).
 * The function doesn't crash anymore when reading a file that contains a
 ROI record while using `fastForward = TRUE` (#356, fixed in #360).
 
+### `read_HeliosOSL2R()`
+* If the function encounters problems in the provided list of files, it shows
+a more relaxed handling; throws an error but continues reading. 
+
 ### `read_XSYG2R()`
 * The new `n_records` argument now enables to control the number of records
 to import, which can be useful in case the file is faulty.

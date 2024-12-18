@@ -39,8 +39,20 @@ read_HeliosOSL2R <- function(
 # Self-call ---------------------------------------------------------------
   if(inherits(file, "list")) {
     out <- lapply(file, function(x) {
-      read_HeliosOSL2R(x, verbose = verbose)
+      tmp <- try(read_HeliosOSL2R(x, verbose = verbose), silent = TRUE)
+      if(inherits(tmp, "try-error")) {
+        .throw_message(strsplit(tmp, ":", fixed = TRUE)[[1]][2], "->... record skipped!")
+        return(NULL)
+      }
+      tmp
+
     })
+
+    ## remove NULL
+    out <- .rm_NULL_elements(out)
+
+    if(length(out) == 0)
+      out <- NULL
 
     return(out)
   }
@@ -140,3 +152,4 @@ read_HeliosOSL2R <- function(
 
   return(object)
 }
+
