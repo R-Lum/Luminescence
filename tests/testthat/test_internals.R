@@ -472,4 +472,16 @@ test_that("Test internals", {
       TOLDELAY = 0,
       TOLON = 0,
       TOLOFF = 0), type = "double")
+  ## generate strange curve and more tests
+  expect_type(Luminescence:::src_create_RLumDataCurve_matrix(
+    DATA = 1:100,
+    VERSION = 4,
+    NPOINTS = 100,
+    LTYPE = "TL",
+    LOW = 0,
+    HIGH = 500,
+    AN_TEMP = 200,
+    TOLDELAY = 10,
+    TOLON = 10,
+    TOLOFF = 400),  type = "double")
 })
