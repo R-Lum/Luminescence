@@ -193,7 +193,7 @@ create an interactive abanico plot (requires the \code{'plotly'} package)}
 
 \item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}).
 Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex},
-\code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tck}, \code{tcl}, \code{at}, \code{breaks}. \code{xlab} must be
+\code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{at}, \code{breaks}. \code{xlab} must be
 a vector of length two, specifying the upper and lower x-axis labels.}
 }
 \value{
@@ -283,7 +283,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.17
+ 0.1.18
 }
 
 \examples{
@@ -466,12 +466,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
        pch = 1)
 
-} 
-
-\section{How to cite}{
-Dietze, M., Kreutzer, S., 2024. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Galbraith, R. & Green, P., 1990. Estimating the component ages
 in a finite mixture. International Journal of Radiation Applications and
@@ -489,4 +484,4 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)
-, RLum Developer Team}
+}

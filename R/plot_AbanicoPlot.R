@@ -1,9 +1,10 @@
-#' Function to create an Abanico Plot.
+#' @title Function to create an Abanico Plot.
 #'
-#' A plot is produced which allows comprehensive presentation of data precision
+#' @description A plot is produced which allows comprehensive presentation of data precision
 #' and its dispersion around a central value as well as illustration of a
 #' kernel density estimate, histogram and/or dot plot of the dose values.
 #'
+#' @details
 #' The Abanico Plot is a combination of the classic Radial Plot
 #' (`plot_RadialPlot`) and a kernel density estimate plot (e.g
 #' `plot_KDE`). It allows straightforward visualisation of data precision,
@@ -225,13 +226,13 @@
 #'
 #' @param ... Further plot arguments to pass (see [graphics::plot.default]).
 #' Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`,
-#' `lty`, `lwd`, `pch`, `col`, `tck`, `tcl`, `at`, `breaks`. `xlab` must be
+#' `lty`, `lwd`, `pch`, `col`, `at`, `breaks`. `xlab` must be
 #' a vector of length two, specifying the upper and lower x-axis labels.
 #'
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.17
+#' @section Function version: 0.1.18
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -517,7 +518,6 @@ plot_AbanicoPlot <- function(
   ##(2)
   ##check for sets with only 1 row or 0 rows at all
   else if(any(sapply(data, nrow) <= 1)){
-
     ##select problematic sets and remove the entries from the list
     NArm.id <- which(sapply(data, nrow) <= 1)
     data[NArm.id] <- NULL
@@ -536,7 +536,6 @@ plot_AbanicoPlot <- function(
 
   ## check for zero-error values
   for(i in 1:length(data)) {
-
     if(sum(data[[i]][,2] == 0) > 0) {
       data[[i]] <- data[[i]][data[[i]][,2] > 0,]
 
@@ -545,6 +544,16 @@ plot_AbanicoPlot <- function(
       }
 
       .throw_warning("Values with zero errors cannot be displayed and were removed")
+    }
+  }
+
+  ## check for 0 values in dataset for log
+  if (log.z[1]) {
+    for(i in 1:length(data)) {
+      if(any(data[[i]][[1]] == 0)) {
+        .throw_warning("Found zero values in x-column of dataset ", i, ": set log.z = FALSE")
+        log.z <- FALSE
+      }
     }
   }
 
@@ -682,42 +691,34 @@ plot_AbanicoPlot <- function(
   }
 
   ## check for negative values, stop function, but do not stop
+  De.add <- 0
   if(min(De.global) < 0) {
-
     if("zlim" %in% names(extraArgs)) {
-
       De.add <- abs(extraArgs$zlim[1])
     } else {
-
       ## estimate delta De to add to all data
       De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
 
       ## optionally readjust delta De for extreme values
       if(De.add <= abs(min(De.global))) {
-
         De.add <- De.add * 10
       }
     }
-  } else {
-    De.add <- 0
   }
 
   ## optionally add correction dose to data set and adjust error
-  if(log.z == TRUE) {
-
-    for(i in 1:length(data)) {
+  if(log.z[1]) {
+    for(i in 1:length(data))
       data[[i]][,1] <- data[[i]][,1] + De.add
-    }
 
     De.global <- De.global + De.add
 
   }
 
   ## calculate and append statistical measures --------------------------------
-
   ## z-values based on log-option
   z <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {
+    if(log.z[1]) {
       log(data[[x]][,1])
     } else {
       data[[x]][,1]
@@ -732,7 +733,6 @@ plot_AbanicoPlot <- function(
   ## calculate dispersion based on log-option
   se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-
       if(De.add != 0) {
         data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
       } else {
@@ -757,25 +757,21 @@ plot_AbanicoPlot <- function(
 
   ## calculate central values
   if(z.0 == "mean") {
-
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$unweighted$mean,
           length(data[[x]][,3]))})
 
   } else if(z.0 == "median") {
-
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$unweighted$median,
           length(data[[x]][,3]))})
 
   } else if(z.0 == "mean.weighted") {
-
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$weighted$mean,
           length(data[[x]][,3]))})
 
   } else {
-
     ## z.0 is numeric
     z.central <- lapply(1:length(data), function(x){
       rep(ifelse(log.z == TRUE,
@@ -1051,25 +1047,9 @@ plot_AbanicoPlot <- function(
   ## update central line colour
   centrality.col <- rep(centrality.col, length(bar))
 
-  ## FIXME(mcol): tck seems completely unused
-  tck <- if("tck" %in% names(extraArgs)) {
-    extraArgs$tck
-  } else {
-    NA
-  }
-
-  ## FIXME(mcol): tcl seems completely unused
-  tcl <- if("tcl" %in% names(extraArgs)) {
-    extraArgs$tcl
-  } else {
-    -0.5
-  }
-
   ## define auxiliary plot parameters -----------------------------------------
-
   ## set space between z-axis and baseline of cartesian part
   if(boxplot == TRUE) {
-
     lostintranslation <- 1.03
   } else {
 
@@ -1144,8 +1124,8 @@ plot_AbanicoPlot <- function(
 
 
   ## create z-axes labels
-  if(log.z == TRUE) {
-    label.z.text <- signif(exp(tick.values.major), 3)
+  if(log.z[1]) {
+    label.z.text <- signif(exp(tick.values.major) - De.add, 3)
   } else {
     label.z.text <- signif(tick.values.major, 3)
   }
@@ -1258,8 +1238,8 @@ plot_AbanicoPlot <- function(
     De.stats[i,12] <- statistics$kurtosis
 
     ## account for log.z-option
-    if(log.z == TRUE) {
-      De.stats[i,2:4] <- exp(De.stats[i,2:4])
+    if(log.z[1]) {
+      De.stats[i,2:4] <- exp(De.stats[i,2:4]) - De.add
     }
 
     ## kdemax - here a little doubled as it appears below again
@@ -1372,7 +1352,6 @@ plot_AbanicoPlot <- function(
     }
   } else {
     for(i in 1:length(data)) {
-
       summary.text <- character(0)
 
       for(j in 1:length(summary)) {
@@ -3570,3 +3549,5 @@ plot_AbanicoPlot <- function(
   ## create and return numeric output
   invisible(plot.output)
 }
+
+

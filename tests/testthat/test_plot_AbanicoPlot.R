@@ -262,5 +262,17 @@ test_that("more coverage", {
     object = plot_AbanicoPlot(data = df),
     regexp = "Attention, small standardised estimate scatter. Toggle off y.axis?")
 
+  ## test boundaries
+  expect_warning(
+    object = plot_AbanicoPlot(
+    data = data.frame(x = c(0,1), y = c(0.1,01))),
+    regexp = "Found zero values in x-column of dataset 1: set log.z = FALSE")
+
+  ## handling of negative values; before it produced wrong plots
+ expect_silent(plot_AbanicoPlot(data = data.frame(
+    x = c(-1,10),
+    y = c(0.1,3)
+
+  ), log.z = TRUE, summary = c("mean", "sd.abs")))
 
 })

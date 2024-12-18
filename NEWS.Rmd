@@ -222,6 +222,12 @@ as input (e.g., different file names). Further, the function got tested against 
 of input formats. Means, you can provide many different files formats and they function 
 will try to import them all in one go. 
 
+### `plot_AbanicoPlot()`
+* If negative values were provided, the function sometimes produced wrong plots
+for `z.log = TRUE` (the default); fixed.
+* Remove support for `tcl` and `tck` arguments via `...`, they were never used
+internally.
+
 ### `plot_DetPlot()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
