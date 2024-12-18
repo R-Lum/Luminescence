@@ -445,4 +445,31 @@ test_that("Test internals", {
       TOLDELAY = 0,
       TOLON = 0,
       TOLOFF = 0), type = "double")
+
+  ## case for a delayed hit ramp start
+  expect_type(
+    Luminescence:::src_create_RLumDataCurve_matrix(
+      DATA = 1:100,
+      VERSION = 4,
+      NPOINTS = 0,
+      LTYPE = "OSL",
+      LOW = 0,
+      HIGH = 500,
+      AN_TEMP = 0,
+      TOLDELAY = 10,
+      TOLON = 0,
+      TOLOFF = 0), type = "double")
+  ## case for a delayed hit ramp start
+  expect_type(
+    Luminescence:::src_create_RLumDataCurve_matrix(
+      DATA = 1:100,
+      VERSION = 4,
+      NPOINTS = 0,
+      LTYPE = "OSL",
+      LOW = 0,
+      HIGH = 500,
+      AN_TEMP = 100,
+      TOLDELAY = 0,
+      TOLON = 0,
+      TOLOFF = 0), type = "double")
 })
