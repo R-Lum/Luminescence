@@ -15,9 +15,11 @@
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
-#'@section Function version: 0.1.3
+#'@section Function version: 0.1.4
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#'@returns Always returns a [list]; empty or filled with [RLum.Analysis-class] objects
 #'
 #'@seealso `r paste0("[", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]", collapse = ", ")`
 #'
@@ -55,15 +57,26 @@ import_Data <- function (
     file <- as.list(file)
 
   ## get arguments of functions
-  args <- c(list(file = file, fastForward = fastForward, verbose = verbose), list(...))
+  args <- c(list(fastForward = fastForward, verbose = verbose), list(...))
 
-  ## just try all functions
+  ## set empty output list
+  out <- list()
+
+  ## just try all functions and all files
   for (i in fun) {
+    for (j in 1:length(file)) {
     ## get arguments and remove non-supported arguments
-    t <- suppressWarnings(suppressMessages(try(do.call(what = i, args = args), silent = TRUE)))
-    if (!is.null(t) && !inherits(t, "try-error"))
-      return(t)
+    t <- suppressWarnings(suppressMessages(try(do.call(what = i, args = c(list(file = file[[j]]), args)), silent = TRUE)))
 
+    if (!is.null(t) && !inherits(t, "try-error"))
+      out <- c(out, t)
+    }
   }
-  .throw_message("Unknown file format, nothing imported")
+
+  ## return if output is not empty
+  if (length(out) == 0)
+   .throw_message("Unknown file format, nothing imported")
+
+  return(out)
+
 }
