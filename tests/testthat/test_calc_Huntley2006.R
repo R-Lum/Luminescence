@@ -53,7 +53,7 @@ test_that("input validation", {
   expect_error(calc_Huntley2006(data, rhop = "test"),
                "'rhop' should be of class 'numeric' or 'RLum.Results'")
   expect_error(calc_Huntley2006(data, rhop = rhop.test),
-               "'rhop' accepts RLum.Results objects only if produced by")
+               "'rhop' accepts only RLum.Results objects produced by")
   expect_error(calc_Huntley2006(data, rhop = c(-1, 4.9e-7)),
                "'rhop' must be a positive number")
 
@@ -82,7 +82,7 @@ test_that("input validation", {
   expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 2,
                                   ddot = ddot, readerDdot = readerDdot,
                                   fit.method = "GOK"),
-                 "'data' only had two columns")
+                 "'data' has only two columns: we assume that the errors")
   })
 
   expect_warning(expect_error(

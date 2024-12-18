@@ -314,9 +314,8 @@ calc_Huntley2006 <- function(
 
   ## Check 'data'
   if (ncol(data) == 2) {
-      .throw_warning("'data' only had two columns. We assumed that the ",
-                     "errors on LxTx were missing and automatically added ",
-                     "a 5% error.\n",
+      .throw_warning("'data' has only two columns: we assume that the errors ",
+                     "on LxTx are missing and automatically add a 5% error.\n",
                      "Please provide a data frame with three columns ",
                      "if you wish to use actually measured LxTx errors.")
       data[ ,3] <- data[ ,2] * 0.05
@@ -381,7 +380,7 @@ calc_Huntley2006 <- function(
   if (is.numeric(rhop)) {
     .validate_length(rhop, 2)
 
-    # alternatively, and RLum.Results object produced by analyse_FadingMeasurement()
+    # alternatively, an RLum.Results object produced by analyse_FadingMeasurement()
     # can be provided
   } else if (inherits(rhop, "RLum.Results")) {
 
@@ -389,7 +388,7 @@ calc_Huntley2006 <- function(
       rhop <- c(rhop@data$rho_prime$MEAN,
                 rhop@data$rho_prime$SD)
     else
-      .throw_error("'rhop' accepts RLum.Results objects only if produced ",
+      .throw_error("'rhop' accepts only RLum.Results objects produced ",
                    "by 'analyse_FadingMeasurement()'")
   }
 
@@ -653,10 +652,10 @@ calc_Huntley2006 <- function(
                    " The De and age should be regarded as infinite estimates.")
 
   if (Ln < min(LxTx.sim) * 0.95 && GC.settings$mode != "extrapolation")
-    .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value",
-                   "If, in consequence, your age result is NA, either your ",
+    .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value: ",
+                   "if, in consequence, your age result is NA, either your ",
                    "input values are unsuitable, or you should consider using ",
-                   "a different model for your dataset")
+                   "a different model for your data")
 
   if (is.na(D0.sim.Gy)) {
     .throw_error("Simulated D0 is NA: either your input values are unsuitable, ",
