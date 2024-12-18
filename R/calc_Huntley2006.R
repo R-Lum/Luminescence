@@ -957,7 +957,7 @@ calc_Huntley2006 <- function(
 
       # add labels iteratively
       mapply(function(label, pos) {
-        text(x = max(axTicks(1)) * 1.05,
+        text(x = par("usr")[2] * 1.05,
              y = pos,
              labels = label,
              pos = 4)
