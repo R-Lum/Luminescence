@@ -66,11 +66,17 @@ test_that("Test general import", {
 
   ## mix input
   files <- c(
+    system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
     system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence"),
-    system.file("extdata/RF_file.rf", package = "Luminescence"))
+    system.file("extdata/RF_file.rf", package = "Luminescence"),
+    system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence"),
+    system.file("extdata/TIFFfile.tif", package = "Luminescence"),
+    system.file("extdata/XSYG_file.xsyg", package = "Luminescence"))
+  SW({
   t <- expect_type(
     object = import_Data(files, verbose = FALSE),
     type = "list")
-  expect_equal(length(t), 12)
+  })
+  expect_equal(length(t), 16)
 
 })

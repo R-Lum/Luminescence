@@ -15,7 +15,7 @@
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
-#'@section Function version: 0.1.4
+#'@section Function version: 0.1.5
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -57,20 +57,19 @@ import_Data <- function (
     file <- as.list(file)
 
   ## get arguments of functions
-  args <- c(list(fastForward = fastForward, verbose = verbose), list(...))
+  args <- c(list(file = file, fastForward = fastForward, verbose = verbose), list(...))
 
   ## set empty output list
   out <- list()
 
   ## just try all functions and all files
   for (i in fun) {
-    for (j in 1:length(file)) {
-    ## get arguments and remove non-supported arguments
-    t <- suppressWarnings(suppressMessages(try(do.call(what = i, args = c(list(file = file[[j]]), args)), silent = TRUE)))
+      ## get arguments and remove non-supported arguments
+      t <- suppressWarnings(suppressMessages(try(do.call(what = i, args = args), silent = TRUE)))
 
-    if (!is.null(t) && !inherits(t, "try-error"))
-      out <- c(out, t)
-    }
+      if (!is.null(t) && !inherits(t, "try-error"))
+        out <- c(out, t)
+
   }
 
   ## return if output is not empty
