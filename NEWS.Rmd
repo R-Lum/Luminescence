@@ -179,6 +179,10 @@ in the bulk of the distribution: this previously depended incorrectly on the
 number of Monte Carlo iterations requested, so this change brings an additional
 speed boost. The default setting can be overridden via the `rprime` argument
 (#258, fixed in #541 and #542).
+* Fitting the "GOK" model on the unfaded data failed when the "EXP" model we
+use to find a good starting point failed: in such cases, we try again using
+the simulated fit (#549, fixed in #500; thanks to @SalOehl for reporting and
+providing data to reproduce the error).
 
 ### `calc_IEU()`
 * The code of this function has been consolidated to avoid duplication and

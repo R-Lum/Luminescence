@@ -223,6 +223,24 @@ test_that("Further tests calc_Huntley2006", {
     regexp = "\\[calc\\_Huntley2006\\(\\)\\] Ln\\/Tn is smaller than the minimum computed LxTx value.")
   })
 
+  ## failing to fit unfaded EXP model
+  ## test derived from data provided by Salome Oehler
+  input <- data.frame(dose = c(0, 1550, 9300, 37200, 71500,
+                               0, 1550, 9300, 37200, 71500),
+                      LxTx = c(0.79, 4.67, 14.41, 26.59, 24.88,
+                               0.95, 4.87, 14.17, 21.98, 25.12),
+                      LxTx_error = c(0.002, 0.006, 0.01, 0.04, 0.02,
+                                     0.002, 0.011, 0.02, 0.03, 0.03))
+  set.seed(1)
+  expect_error(calc_Huntley2006(input,
+                                rhop = c(6.5e-06, 2.0e-08),
+                                ddot = c(8.5, 1.5),
+                                fit.method = "EXP",
+                                mode = "extrapolation",
+                                readerDdot = c(0.154, 0.1),
+                                n.MC = 2),
+               "Could not fit unfaded curve, check suitability of model and")
+
   ## more coverage
   expect_s4_class(
     calc_Huntley2006(

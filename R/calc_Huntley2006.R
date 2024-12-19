@@ -469,6 +469,7 @@ calc_Huntley2006 <- function(
 
   ## take of force_through origin settings
   force_through_origin <- GC.settings$fit.force_through_origin
+  mode_is_extrapolation <- GC.settings$mode == "extrapolation"
 
   ## call the fitting
   GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings))
@@ -651,7 +652,7 @@ calc_Huntley2006 <- function(
     .throw_warning("Ln is >10 % larger than the maximum computed LxTx value.",
                    " The De and age should be regarded as infinite estimates.")
 
-  if (Ln < min(LxTx.sim) * 0.95 && GC.settings$mode != "extrapolation")
+  if (Ln < min(LxTx.sim) * 0.95 && !mode_is_extrapolation)
     .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value: ",
                    "if, in consequence, your age result is NA, either your ",
                    "input values are unsuitable, or you should consider using ",
@@ -712,9 +713,11 @@ calc_Huntley2006 <- function(
   LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
+
+  ## run this first model also for GOK as in general it provides more
+  ## stable estimates that can be used as starting point for GOK
   if (fit.method[1] == "EXP" || fit.method[1] == "GOK") {
-    ## we let it run regardless of the selection
-    fit_unfaded <- minpack.lm::nlsLM(
+    fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
         a = coef(fit_simulated)[["a"]],
@@ -726,15 +729,27 @@ calc_Huntley2006 <- function(
            c(Inf, max(dosetimeGray), Inf)
           },
         lower = lower.bounds[1:3],
-      control = list(maxiter = settings$maxiter)) }
+      control = list(maxiter = settings$maxiter)), silent = TRUE)
+  }
 
-  if (fit.method[1] == "GOK") {
+  ## if this fit has failed, what we do depends on fit.method:
+  ## - for EXP, this error is irrecoverable
+  if (inherits(fit_unfaded, "try-error") && fit.method == "EXP") {
+    .throw_error("Could not fit unfaded curve, check suitability of ",
+                 "model and parameters")
+  }
+
+  ## - for GOK, we use the simulated fit to set the starting point
+  if (fit.method == "GOK") {
+    fit_start <- if (inherits(fit_unfaded, "try-error"))
+                   fit_simulated else fit_unfaded
+
     fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (d-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
       start = list(
-        a = coef(fit_unfaded)[["a"]],
-        D0 = coef(fit_unfaded)[["D0"]],
-        c = coef(fit_unfaded)[["c"]],
+        a = coef(fit_start)[["a"]],
+        D0 = coef(fit_start)[["D0"]],
+        c = coef(fit_start)[["c"]],
         d = coef(fit_simulated)[["d"]]),
       upper = if(force_through_origin) {
         c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
@@ -802,7 +817,7 @@ calc_Huntley2006 <- function(
       par(oma = c(0, 3, 0, 9))
 
     # Find a good estimate of the x-axis limits
-    if(GC.settings$mode == "extrapolation" & !force_through_origin) {
+    if (mode_is_extrapolation && !force_through_origin) {
       dosetimeGray <- c(-De.measured - De.measured.error, dosetimeGray)
       De.measured <- -De.measured
     }
@@ -825,7 +840,7 @@ calc_Huntley2006 <- function(
     )
 
     ##add ablines for extrapolation
-    if(GC.settings$mode == "extrapolation")
+    if (mode_is_extrapolation)
       abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
@@ -858,11 +873,11 @@ calc_Huntley2006 <- function(
       lty = 3)
 
     # Ln and DE as points
-    points(x = if(GC.settings$mode == "extrapolation")
+    points(x = if (mode_is_extrapolation)
                 rep(De.measured, 2)
                else
                  c(0, De.measured),
-           y = if(GC.settings$mode == "extrapolation")
+           y = if (mode_is_extrapolation)
                 c(0,0)
                else
                 c(Ln, Ln),
@@ -875,7 +890,7 @@ calc_Huntley2006 <- function(
              col = "red")
 
     # Ln as a horizontal line
-    lines(x = if(GC.settings$mode == "extrapolation")
+    lines(x = if (mode_is_extrapolation)
                 c(0, min(c(De.measured, De.sim), na.rm = TRUE))
               else
                 c(par()$usr[1], max(c(De.measured, De.sim), na.rm = TRUE)),
@@ -900,15 +915,15 @@ calc_Huntley2006 <- function(
 
     # add vertical line of simulated De
     if (!is.na(De.sim)) {
-      lines(x = if(GC.settings$mode == "extrapolation")
+      lines(x = if (mode_is_extrapolation)
                   c(-De.sim, -De.sim)
                 else
                   c(De.sim, De.sim),
             y = c(par()$usr[3], Ln),
             col = "red", lty = 3)
 
-      points(x = if(GC.settings$mode == "extrapolation") -De.sim else De.sim,
-             y = if(GC.settings$mode == "extrapolation") 0 else Ln,
+      points(x = if (mode_is_extrapolation) -De.sim else De.sim,
+             y = if (mode_is_extrapolation) 0 else Ln,
              col = "red" , pch = 16)
     } else {
       lines(x = c(De.measured, xlim[2]),
