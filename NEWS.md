@@ -214,6 +214,10 @@
   model we use to find a good starting point failed: in such cases, we
   try again using the simulated fit (#549, fixed in \#500; thanks to
   @SalOehl for reporting and providing data to reproduce the error).
+- The natural/simulated curve was not plotted in the negative quadrant
+  for `mode = "extrapolation"`, which made it harder to see where it
+  extrapolated to (#551, fixed in \#552; thanks to @SalOehl for
+  reporting).
 
 ### `calc_IEU()`
 
