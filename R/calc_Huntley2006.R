@@ -469,6 +469,7 @@ calc_Huntley2006 <- function(
 
   ## take of force_through origin settings
   force_through_origin <- GC.settings$fit.force_through_origin
+  mode_is_extrapolation <- GC.settings$mode == "extrapolation"
 
   ## call the fitting
   GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings))
@@ -651,7 +652,7 @@ calc_Huntley2006 <- function(
     .throw_warning("Ln is >10 % larger than the maximum computed LxTx value.",
                    " The De and age should be regarded as infinite estimates.")
 
-  if (Ln < min(LxTx.sim) * 0.95 && GC.settings$mode != "extrapolation")
+  if (Ln < min(LxTx.sim) * 0.95 && !mode_is_extrapolation)
     .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value: ",
                    "if, in consequence, your age result is NA, either your ",
                    "input values are unsuitable, or you should consider using ",
@@ -802,7 +803,7 @@ calc_Huntley2006 <- function(
       par(oma = c(0, 3, 0, 9))
 
     # Find a good estimate of the x-axis limits
-    if(GC.settings$mode == "extrapolation" & !force_through_origin) {
+    if (mode_is_extrapolation && !force_through_origin) {
       dosetimeGray <- c(-De.measured - De.measured.error, dosetimeGray)
       De.measured <- -De.measured
     }
@@ -825,7 +826,7 @@ calc_Huntley2006 <- function(
     )
 
     ##add ablines for extrapolation
-    if(GC.settings$mode == "extrapolation")
+    if (mode_is_extrapolation)
       abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
@@ -858,11 +859,11 @@ calc_Huntley2006 <- function(
       lty = 3)
 
     # Ln and DE as points
-    points(x = if(GC.settings$mode == "extrapolation")
+    points(x = if (mode_is_extrapolation)
                 rep(De.measured, 2)
                else
                  c(0, De.measured),
-           y = if(GC.settings$mode == "extrapolation")
+           y = if (mode_is_extrapolation)
                 c(0,0)
                else
                 c(Ln, Ln),
@@ -875,7 +876,7 @@ calc_Huntley2006 <- function(
              col = "red")
 
     # Ln as a horizontal line
-    lines(x = if(GC.settings$mode == "extrapolation")
+    lines(x = if (mode_is_extrapolation)
                 c(0, min(c(De.measured, De.sim), na.rm = TRUE))
               else
                 c(par()$usr[1], max(c(De.measured, De.sim), na.rm = TRUE)),
@@ -900,15 +901,15 @@ calc_Huntley2006 <- function(
 
     # add vertical line of simulated De
     if (!is.na(De.sim)) {
-      lines(x = if(GC.settings$mode == "extrapolation")
+      lines(x = if (mode_is_extrapolation)
                   c(-De.sim, -De.sim)
                 else
                   c(De.sim, De.sim),
             y = c(par()$usr[3], Ln),
             col = "red", lty = 3)
 
-      points(x = if(GC.settings$mode == "extrapolation") -De.sim else De.sim,
-             y = if(GC.settings$mode == "extrapolation") 0 else Ln,
+      points(x = if (mode_is_extrapolation) -De.sim else De.sim,
+             y = if (mode_is_extrapolation) 0 else Ln,
              col = "red" , pch = 16)
     } else {
       lines(x = c(De.measured, xlim[2]),
