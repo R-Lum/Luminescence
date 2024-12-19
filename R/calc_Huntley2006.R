@@ -713,9 +713,11 @@ calc_Huntley2006 <- function(
   LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
+
+  ## run this first model also for GOK as in general it provides more
+  ## stable estimates that can be used as starting point for GOK
   if (fit.method[1] == "EXP" || fit.method[1] == "GOK") {
-    ## we let it run regardless of the selection
-    fit_unfaded <- minpack.lm::nlsLM(
+    fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
         a = coef(fit_simulated)[["a"]],
@@ -727,15 +729,27 @@ calc_Huntley2006 <- function(
            c(Inf, max(dosetimeGray), Inf)
           },
         lower = lower.bounds[1:3],
-      control = list(maxiter = settings$maxiter)) }
+      control = list(maxiter = settings$maxiter)), silent = TRUE)
+  }
 
-  if (fit.method[1] == "GOK") {
+  ## if this fit has failed, what we do depends on fit.method:
+  ## - for EXP, this error is irrecoverable
+  if (inherits(fit_unfaded, "try-error") && fit.method == "EXP") {
+    .throw_error("Could not fit unfaded curve, check suitability of ",
+                 "model and parameters")
+  }
+
+  ## - for GOK, we use the simulated fit to set the starting point
+  if (fit.method == "GOK") {
+    fit_start <- if (inherits(fit_unfaded, "try-error"))
+                   fit_simulated else fit_unfaded
+
     fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (d-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
       start = list(
-        a = coef(fit_unfaded)[["a"]],
-        D0 = coef(fit_unfaded)[["D0"]],
-        c = coef(fit_unfaded)[["c"]],
+        a = coef(fit_start)[["a"]],
+        D0 = coef(fit_start)[["D0"]],
+        c = coef(fit_start)[["c"]],
         d = coef(fit_simulated)[["d"]]),
       upper = if(force_through_origin) {
         c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
