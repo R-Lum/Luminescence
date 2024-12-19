@@ -866,9 +866,14 @@ calc_Huntley2006 <- function(
             col = adjustcolor("grey", alpha.f = 0.5), border = NA)
 
     ## add simulated curve -------
+    xNew <- seq(if (mode_is_extrapolation) par()$usr[1] else 0,
+                par()$usr[2], length.out = 200)
+    yNew <- predict(GC.simulated@data$Fit, list(x = xNew))
+    if (normalise)
+      yNew <- yNew / A
     points(
-      x = natdosetimeGray,
-      y = LxTx_simulated$LxTx,
+      x = xNew,
+      y = yNew,
       type = "l",
       lty = 3)
 
