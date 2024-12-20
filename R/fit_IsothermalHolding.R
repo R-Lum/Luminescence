@@ -28,6 +28,12 @@
 #'
 #' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
 #'
+#' @references
+#' Li, B., Li, S.H., The effect of band-tail states on the
+#' thermal stability of the infrared stimulated luminescence
+#' from K-feldspar, Journal of Luminescence 136 (2013) 5–10.
+#' doi: 10.1016/j.jlumin.2012.08.043
+#'
 #' @examples
 #' # example code ##TOD
 #'
