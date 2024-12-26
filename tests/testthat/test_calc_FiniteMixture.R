@@ -70,5 +70,19 @@ test_that("check class and length of output", {
     n.components = 3,
     verbose = TRUE),
     "The model produced NA values: either the input data are inapplicable")
+
   })
+
+  ## plot with plot_RLum.Results
+  t <- expect_s4_class(calc_FiniteMixture(
+    ExampleData.DeValues$CA1,
+    sigmab = 0.2,
+    n.components = 2:3,
+    grain.probability = FALSE,
+    trace = FALSE,
+    plot = FALSE,
+    main = "Plot title",
+    verbose = FALSE), "RLum.Results")
+  plot_RLum.Results(t, pdf.colors = "none")
+
 })

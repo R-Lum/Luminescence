@@ -39,6 +39,16 @@ test_that("General tests", {
     predict = 10
   ))
 
+  ## produce more than 100 rows
+  t <- expect_silent(calc_SourceDoseRate(
+    measurement.date = "2018-01-02",
+    calib.date = "2014-12-19",
+    calib.dose.rate = 0.0438,
+    calib.error = 0.0019,
+    predict = 150
+  ))
+  expect_silent(plot_RLum.Results(t))
+
   ##Gy/min as unit
   expect_silent(calc_SourceDoseRate(
     measurement.date = "2018-01-02",

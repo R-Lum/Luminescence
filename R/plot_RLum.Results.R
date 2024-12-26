@@ -650,7 +650,7 @@ plot_RLum.Results<- function(
         poly.border<- FALSE
       }
       if(pdf.colors == "none") {
-        col.n<- NULL
+        col.n <- rgb(0,0,0,0)
         poly.border<- TRUE
       }
 
@@ -1028,10 +1028,9 @@ plot_RLum.Results<- function(
     ##get data
     df <- get_RLum(object = object, data.object = "dose.rate")
 
-    ##reduce the size for plotting, more than 100 points makes no sense
-    if(nrow(df)>100) {
+    ##reduce the size for plotting, more than 100 points make no sense
+    if(nrow(df)>100)
       df <- df[seq(1,nrow(df), length = 100),]
-    }
 
     ##plot settings
     plot.settings <- list(
