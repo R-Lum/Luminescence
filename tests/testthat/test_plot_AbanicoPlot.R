@@ -186,8 +186,13 @@ test_that("Test examples from the example page", {
                    summary = c("n", "in.2s", "median")))
 
   ## create Abanico plot with predefined layout definition
-  expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
+  layout <- expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                    layout = "journal"))
+
+  ## trigger a few test cases related to layout
+  layout$abanico$colour$centrality <- 1:20
+  expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
+                                 layout = "journal"))
 
   ## now with predefined layout definition and further modifications
   expect_silent(plot_AbanicoPlot(data = data.3,

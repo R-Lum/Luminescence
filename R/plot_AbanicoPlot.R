@@ -582,21 +582,18 @@ plot_AbanicoPlot <- function(
   }
 
   ## check/set layout definitions
-  if("layout" %in% names(list(...))) {
-    layout = get_Layout(layout = list(...)$layout)
-  } else {
+  if(!is.null(list(...)$layout))
+    layout <- get_Layout(layout = list(...)$layout)
+  else
     layout <- get_Layout(layout = "default")
-  }
 
-  if(missing(stats) == TRUE) {
+  if(missing(stats))
     stats <- numeric(0)
-  }
 
-  if(missing(bar) == TRUE) {
+  if(missing(bar))
     bar <- rep(TRUE, length(data))
-  }
 
-  if(missing(bar.col) == TRUE) {
+  if(missing(bar.col)) {
     bar.fill <- rep(x = rep(x = layout$abanico$colour$bar.fill,
                             length.out = length(data)), length(bar))
     bar.line <- rep(rep(layout$abanico$colour$bar.line,
@@ -606,7 +603,7 @@ plot_AbanicoPlot <- function(
     bar.line <- NA
   }
 
-  if(missing(polygon.col) == TRUE) {
+  if(missing(polygon.col)) {
     polygon.fill <- rep(layout$abanico$colour$poly.fill,
                         length.out = length(data))
     polygon.line <- rep(layout$abanico$colour$poly.line,
@@ -616,7 +613,7 @@ plot_AbanicoPlot <- function(
     polygon.line <- NA
   }
 
-  if(missing(grid.col) == TRUE) {
+  if(missing(grid.col)) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
   } else {
@@ -629,17 +626,14 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  if(missing(summary) == TRUE) {
+  if(missing(summary))
     summary <- c("n", "in.2s")
-  }
 
-  if(missing(summary.pos) == TRUE) {
+  if(missing(summary.pos))
     summary.pos <- "sub"
-  }
 
-  if(missing(mtext) == TRUE) {
+  if(missing(mtext))
     mtext <- ""
-  }
 
   ## create preliminary global data set
   De.global <- data[[1]][,1]
@@ -1001,8 +995,8 @@ plot_AbanicoPlot <- function(
     summary.col <- extraArgs$col
     centrality.col <- extraArgs$col
   } else {
-    bar.col <- layout$abanico$colour$bar.col
-    if(length(layout$abanico$colour$bar) == 1) {
+    bar.col <- layout$abanico$colour$bar.fill
+    if(length(layout$abanico$colour$bar.fill) == 1) {
       bar.col <- 1:length(data)
     }
 
