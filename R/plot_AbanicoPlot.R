@@ -2009,7 +2009,7 @@ plot_AbanicoPlot <- function(
     }
 
     ## optionally add further lines
-    if(missing(line) == FALSE) {
+    if(!missing(line)) {
       for(i in 1:length(line)) {
         lines(x = line.coords[[i]][1,1:3],
               y = line.coords[[i]][2,1:3],
@@ -2880,7 +2880,7 @@ plot_AbanicoPlot <- function(
          cex.axis = layout$abanico$font.size$xlab2/12)
 
     ## plot y-axis
-    if(y.axis == TRUE) {
+    if(y.axis[1]) {
       char.height <- par()$cxy[2]
       tick.space <- axisTicks(usr = limits.y, log = FALSE)
       tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
@@ -3551,4 +3551,3 @@ plot_AbanicoPlot <- function(
   ## create and return numeric output
   invisible(plot.output)
 }
-
