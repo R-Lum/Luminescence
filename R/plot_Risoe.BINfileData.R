@@ -1,8 +1,9 @@
-#' Plot single luminescence curves from a BIN file object
+#' @title Plot Single Luminescence Curves from a Risoe.BINfileData-class object
 #'
-#' Plots single luminescence curves from an object returned by the
-#' [read_BIN2R] function.
+#' @description Plots single luminescence curves from an object returned by the
+#' [read_BIN2R] function [Risoe.BINfileData-class]
 #'
+#' @details
 #' **Nomenclature**
 #'
 #' See [Risoe.BINfileData-class]
@@ -71,7 +72,7 @@
 #' The function has been successfully tested for the Sequence Editor file
 #' output version 3 and 4.
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -175,7 +176,6 @@ plot_Risoe.BINfileData<- function(
   ##------------------------------------------------------------------------##
   ##(3) plot curves
   for(i in 1:length(temp@METADATA[,"ID"])){
-
     ##print only if SEL == TRUE
     if(temp@METADATA[i,"SEL"]==TRUE)
     {
@@ -218,8 +218,11 @@ plot_Risoe.BINfileData<- function(
 
       ##grep temperature (different for different verions)
 
-      temperature<-if(temp@METADATA[i,"VERSION"]=="03"){temp@METADATA[i,"AN_TEMP"]}
-      else{temp@METADATA[i,"TEMPERATURE"]}
+      temperature <- if(temp@METADATA[i,"VERSION"]=="03") {
+        temp@METADATA[i,"AN_TEMP"]
+        } else {
+          temp@METADATA[i,"TEMPERATURE"]
+        }
 
       ##mtext
       mtext(side=3,

@@ -36,4 +36,7 @@ test_that("general test", {
 
   expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                        dose_rate = 3))
+  ## simulate v4
+  CWOSL.SAR.Data@METADATA$VERSION <- 04
+  expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1))
 })
