@@ -34,6 +34,9 @@ results <- analyse_pIRIRSequence(
   verbose = FALSE
 )
 
+## check plot_RLum.Results
+expect_silent(plot_RLum.Results(results))
+
 ## plot_singlePanels = FALSE && plot == TRUE
 suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCurve
   analyse_pIRIRSequence(
