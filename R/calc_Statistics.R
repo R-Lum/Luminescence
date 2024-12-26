@@ -1,9 +1,9 @@
-#' Function to calculate statistic measures
+#' @title Function to calculate statistic measures
 #'
-#' This function calculates a number of descriptive statistics for estimates
+#' @description This function calculates a number of descriptive statistics for estimates
 #' with a given standard error (SE), most fundamentally using error-weighted approaches.
 #'
-#' The option to use Monte Carlo Methods (`n.MCM`) allows calculating
+#' @details The option to use Monte Carlo Methods (`n.MCM`) allows calculating
 #' all descriptive statistics based on random values. The distribution of these
 #' random values is based on the Normal distribution with `De` values as
 #' means and `De_error` values as one standard deviation. Increasing the
