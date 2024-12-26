@@ -91,3 +91,15 @@ test_that("regression tests", {
       plot = FALSE),
       "Numerical error, try changing your 'a' and 'b' values")
 })
+
+test_that("test additional C++ functionality", {
+  testthat::skip_on_cran()
+
+  SW({
+  expect_type(Luminescence:::src_EED_Calc_Overall_StatUncertainty(
+    M_Simul = matrix(1:100, ncol = 20),
+    Ndata = 20,
+    Nsimul = 2,
+    MinNbSimExp = 20), "double")
+  })
+})
