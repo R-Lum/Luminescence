@@ -69,6 +69,7 @@ test_that("check functionality", {
   d7_fit <- calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = c(1, 1),
                        plot = FALSE, fitCW.curve = TRUE, verbose = FALSE)
   expect_s4_class(d7_fit@data$fit, "RLum.Results")
+  expect_silent(plot_RLum.Results(d7_fit))
 
   ## analyse_IRSAR.RF
   data(ExampleData.RLum.Analysis, envir = environment())
