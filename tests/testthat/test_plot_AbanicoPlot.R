@@ -49,6 +49,7 @@ test_that("input validation", {
                  "Lower x-axis limit was 2, reset to zero")
 })
 
+
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
 
@@ -300,5 +301,17 @@ test_that("more coverage", {
 
  ), log.z = TRUE, rotate = TRUE))
  par(mfrow = c(1,1))
+
+})
+
+test_that("Test graphical snapshot", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+    vdiffr::expect_doppelganger(
+      title = "Abanico expected",
+      fig = plot_AbanicoPlot(data = ExampleData.DeValues))
+  })
 
 })

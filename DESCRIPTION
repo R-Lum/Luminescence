@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.26.9000-102
-Date: 2024-12-18
+Version: 0.9.26.9000-107
+Date: 2024-12-26
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
@@ -65,6 +65,7 @@ Suggests:
     coda (>= 0.19-4),
     pander (>= 0.6.5),
     testthat (>= 3.2.1),
+    vdiffr (>= 1.0.0),
     tiff (>= 0.1-12),
     devtools (>= 2.4.5),
     R.rsp (>= 0.46.0)
