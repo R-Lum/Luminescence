@@ -2140,6 +2140,8 @@ plot_AbanicoPlot <- function(
         char.height <- par()$cxy[2]
         tick.space <- axisTicks(usr = limits.y, log = FALSE)
         tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
+
+        ## this comes into play for panel plots, e.g., par(mfrow = c(4,4))
         if(tick.space < char.height * 1.7) {
           axis(side = 2,
                tcl = -layout$abanico$dimension$ytcl / 200,
@@ -3549,5 +3551,4 @@ plot_AbanicoPlot <- function(
   ## create and return numeric output
   invisible(plot.output)
 }
-
 
