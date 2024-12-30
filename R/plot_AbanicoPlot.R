@@ -1043,16 +1043,16 @@ plot_AbanicoPlot <- function(
 
   ## define auxiliary plot parameters -----------------------------------------
   ## set space between z-axis and baseline of cartesian part
-  if(boxplot == TRUE) {
+  if(boxplot[1]) {
     lostintranslation <- 1.03
-  } else {
 
+  } else {
     lostintranslation <- 1.03
     plot.ratio <- plot.ratio * 1.05
   }
 
   ## create empty plot to update plot parameters
-  if(rotate == FALSE) {
+  if(!rotate[1]) {
     plot(NA,
          xlim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)),
          ylim = limits.y,
@@ -1103,9 +1103,7 @@ plot_AbanicoPlot <- function(
   tick.values.minor <- tick.values.minor[tick.values.minor <=
                                            limits.z[2]]
 
-
-  if(log.z == TRUE) {
-
+  if(log.z[1]) {
     tick.values.major[which(tick.values.major==0)] <- 1
     tick.values.minor[which(tick.values.minor==0)] <- 1
 
@@ -1115,7 +1113,6 @@ plot_AbanicoPlot <- function(
 
   ## calculate z-axis radius
   r <- max(sqrt((limits.x[2])^2 + (data.global[,7] * f)^2))
-
 
   ## create z-axes labels
   if(log.z[1]) {
@@ -1439,8 +1436,7 @@ plot_AbanicoPlot <- function(
 
   ## remove dummy list element
   label.text[[1]] <- NULL
-
-  if(rotate == FALSE) {
+  if(!rotate[1]) {
     ## convert keywords into summary placement coordinates
     coords <- .get_keyword_coordinates(summary.pos, limits.x, limits.y)
 
@@ -1496,7 +1492,6 @@ plot_AbanicoPlot <- function(
 
   polygons <- matrix(nrow = length(data), ncol = 14)
   for(i in 1:length(data)) {
-
     if(dispersion == "qr") {
       ci.lower <- quantile(data[[i]][,1], 0.25)
       ci.upper <- quantile(data[[i]][,1], 0.75)
@@ -1744,7 +1739,6 @@ plot_AbanicoPlot <- function(
 
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
-
     ## check if line parameters are R.Lum-objects
     for(i in 1:length(line)) {
       if(is.list(line) == TRUE) {
@@ -1834,19 +1828,20 @@ plot_AbanicoPlot <- function(
   }
 
   ## Generate plot ------------------------------------------------------------
-
+  ##
   ## determine number of subheader lines to shift the plot
   if(length(summary) > 0 & summary.pos[1] == "sub") {
     shift.lines <- (length(data) + 1) * layout$abanico$dimension$summary.line/100
-  } else {shift.lines <- 1}
+  } else {
+    shift.lines <- 1
+  }
 
   ## extract original plot parameters
   bg.original <- par()$bg
   on.exit(par(bg = bg.original), add = TRUE)
   par(bg = layout$abanico$colour$background)
 
-
-  if(rotate == FALSE) {
+  if(!rotate[1]) {
     ## setup plot area
     par(mar = c(4.5, 4.5, shift.lines + 1.5, 7),
         xpd = TRUE,
@@ -3545,3 +3540,5 @@ plot_AbanicoPlot <- function(
   ## create and return numeric output
   invisible(plot.output)
 }
+
+
