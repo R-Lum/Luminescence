@@ -190,7 +190,7 @@ test_that("Test examples from the example page", {
                    layout = "journal"))
 
   ## trigger a few test cases related to layout
-  layout$abanico$colour$centrality <- 1:20
+  layout$abanico$colour$centrality <- 1:2
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                                  layout = "journal"))
 
@@ -307,6 +307,15 @@ test_that("more coverage", {
  ), log.z = TRUE, rotate = TRUE))
  par(mfrow = c(1,1))
 
+ ## test centrality from layout
+ layout <- get_Layout("default")
+
+ ## trigger a few test cases related to layout
+ layout$abanico$colour$centrality <- 1:2
+ expect_silent(
+   plot_AbanicoPlot(data = list(ExampleData.DeValues, ExampleData.DeValues),
+                  layout = layout))
+
 })
 
 test_that("Test graphical snapshot", {
@@ -321,3 +330,4 @@ test_that("Test graphical snapshot", {
   })
 
 })
+
