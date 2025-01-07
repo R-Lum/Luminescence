@@ -1004,10 +1004,9 @@ fancy_scientific <- function(l) {
 #' @title Set/unset the function name for error/warning reporting
 #'
 #' @description
-#' These utilities allow for more precise error reporting from `.throw_error()`
-#' and `.throw_warning()`. They must be called just once per function
-#' (`.set_function_name() at the start and `.unset_function_name() at the
-#' end) if the function calls either `.throw_error()` or `.throw_warning()`.
+#' These utilities allow more precise error reporting from `.throw_error()`,
+#' `.throw_warning()` and `.throw_message()`. They must be called exactly once
+#' if the function calls one of the `.throw_*()` or `.validate_*()` functions.
 #'
 #' @param name [character] (**required**): the name of the function
 #'
@@ -1026,7 +1025,7 @@ fancy_scientific <- function(l) {
 #' `.unset_function_name()` must be delegated to `on.exit(..., add = TRUE)`.
 #'
 #' Therefore, it is suggested to put these two lines at the very beginning
-#' of each function (if one of the throwing functions is used by it):
+#' of each function (if any of the throwing/validating functions is used):
 #'
 #'   .set_function_name("name_of_the_function")
 #'   on.exit(.unset_function_name(), add = TRUE)
