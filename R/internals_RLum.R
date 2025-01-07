@@ -1139,10 +1139,6 @@ SW <- function(expr) {
   if (is.null(arg) && null.ok)
     return(NULL)
 
-  if (missing(choices)) {
-    .throw_error("'choices' must be provided")
-  }
-
   ## name of the argument to report if not specified
   if (is.null(name))
     name <- all.vars(match.call())[1]
@@ -1207,10 +1203,6 @@ SW <- function(expr) {
 #' @noRd
 .validate_class <- function(arg, classes, throw.error = TRUE,
                             name = NULL, extra = NULL) {
-
-  if (missing(classes)) {
-    .throw_error("'classes' must be provided")
-  }
 
   ## name of the argument to report if not specified
   if (is.null(name))
@@ -1302,10 +1294,6 @@ SW <- function(expr) {
 #' @noRd
 .validate_length <- function(arg, exp.length, throw.error = TRUE,
                             name = NULL) {
-
-  if (missing(exp.length)) {
-    .throw_error("'exp.length' must be provided")
-  }
 
   ## name of the argument to report if not specified
   if (is.null(name))

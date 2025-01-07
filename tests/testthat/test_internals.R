@@ -282,8 +282,7 @@ test_that("Test internals", {
     .validate_args(arg)
   }
   expect_error(fun.err("val1"),
-               "[test()] 'choices' must be provided",
-               fixed = TRUE)
+               "is missing, with no default")
 
   ## .validate_class() ------------------------------------------------------
   fun1 <- function(arg) {
@@ -304,7 +303,7 @@ test_that("Test internals", {
   expect_error(fun1(NULL),
                "'arg' should be of class 'data.frame'")
   expect_error(.validate_class(test <- 1:5),
-               "'classes' must be provided")
+               "is missing, with no default")
   expect_error(.validate_class(test <- 1:5, "data.frame"),
                "'test' should be of class 'data.frame'")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame", "numeric")),
@@ -350,7 +349,7 @@ test_that("Test internals", {
   ## .validate_length() -----------------------------------------------------
   expect_true(.validate_length(letters, 26))
   expect_error(.validate_length(letters),
-               "'exp.length' must be provided")
+               "is missing, with no default")
   expect_error(.validate_length(letters, 25),
                "'letters' should have length 25")
   expect_error(.validate_length(letters, 25, name = "'other_name'"),
