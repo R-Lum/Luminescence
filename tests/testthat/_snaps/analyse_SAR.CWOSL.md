@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -142,6 +142,11 @@
                   "type": "integer",
                   "attributes": {},
                   "value": [1]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [0]
                 }
               ]
             },
@@ -330,7 +335,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -453,6 +458,11 @@
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [0, 0]
                 }
               ]
             },

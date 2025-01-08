@@ -537,8 +537,9 @@ test_that("advance tests run", {
       x
      })
 
-   expect_null(
-     suppressWarnings(analyse_SAR.CWOSL(
+  SW({
+  expect_null(
+    analyse_SAR.CWOSL(
        object = unsuitable_type,
        signal.integral.min = 1,
        signal.integral.max = 2,
@@ -547,7 +548,8 @@ test_that("advance tests run", {
        fit.method = "LambertW",
        n.MC = 10,
        plot = FALSE,
-       verbose = FALSE)))
+       verbose = FALSE))
+  })
 
   ##set all rejection criteria to NA
   test_failed <-
@@ -580,7 +582,6 @@ test_that("advance tests run", {
       rejection.criteria = list(1),
       plot = FALSE,
       verbose = FALSE)
-
   expect_equal(object = test_ok$data$RC.Status, "OK")
 
   ##test multi parameter settings

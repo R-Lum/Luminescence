@@ -1350,11 +1350,21 @@ error.list <- list()
         return(NA)
     })))[1]
 
+    ## get grain numbers
+    GRAIN <- unique(unlist(lapply(object@records, function(x) {
+      chk <- grepl(pattern = "grain", tolower(names(x@info)), fixed = TRUE)
+      if (any(chk))
+        return(x@info[chk])
+      else
+        return(NA)
+    })))[1]
+
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
         data = as.data.frame(
-          c(temp.GC, temp.GC.extended, ALQ = 1, POS = POSITION, UID = UID),
+          c(temp.GC, temp.GC.extended, ALQ = 1,
+            POS = POSITION, GRAIN = GRAIN, UID = UID),
           stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),

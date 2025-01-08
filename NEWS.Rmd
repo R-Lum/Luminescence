@@ -112,6 +112,8 @@ within the `method_control` argument (#521, fixed in #522).
 reasons (e.g., unsuitable set of curves). Here the self-call attempted to
 extract information from the results that did not exist in the first place
 instead of returning `NULL`; fixed.
+* The produced `RLum.Results` object now also contains a column for the
+grain (#553, fixed in #554).
 
 ### `analyse_FadingMeasurement()`
 * The function now checks for the version of the BIN-file that originated the
@@ -143,6 +145,8 @@ with all other functions in the package (#411, fixed in #412).
 ### `analyse_pIRIRSequence()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
 in #408).
+* The produced `RLum.Results` object now also contains a column for the
+grain (#553, fixed in #554).
 
 ### `analyse_SAR.CWOSL()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
