@@ -132,7 +132,9 @@ test_that("regression tests", {
 
   ## issue 519
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+  SW({
   expect_error(
       analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
       "Input TL curves are not a multiple of the sequence structure")
+  })
 })
