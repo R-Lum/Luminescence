@@ -1,4 +1,4 @@
-citHeader("The R package 'Luminescence' is the joint work of many over many years. To cite the R package 'Luminescence' we suggest using the first entry and applying the rest were justified. To credit all authors **and** contributors, please see https://doi.org/10.32614/CRAN.package.Luminescence and the archive on Zenodo https://doi.org/10.5281/zenodo.596252 and for an always-up-tp-date citation record with DOI.")
+citHeader("The R package 'Luminescence' is the joint work of many over many years. To cite the R package 'Luminescence' we suggest using the first entry and applying the rest where justified. To credit all authors **and** contributors, please see https://doi.org/10.32614/CRAN.package.Luminescence and the archive on Zenodo https://doi.org/10.5281/zenodo.596252 and for an always-up-to-date citation record with DOI.")
 
 citation(auto = meta)
 
