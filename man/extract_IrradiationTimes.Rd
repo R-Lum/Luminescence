@@ -115,7 +115,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.3.3
+ 0.3.4
 }
 
 \examples{
@@ -129,7 +129,7 @@ towards a correct time order.
 #     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
 #     get_RLum(output)
 #
-## export results additionally to a CSV.file in the same directory as the XSYG-file
+## export results additionally to a CSV-file in the same directory as the XSYG-file
 #       write.table(x = get_RLum(output),
 #                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
 #                   sep = ";",

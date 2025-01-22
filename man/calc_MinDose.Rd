@@ -29,7 +29,7 @@ This value represents the expected overdispersion in the data should the sample 
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
-sigmab must be provided in the same absolute units of the De values (seconds or Gray).
+\code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
 See details.}
 
 \item{log}{\link{logical} (\emph{with default}):
@@ -67,7 +67,7 @@ the computation time. Note that this option is highly experimental and may not
 work on all machines. (\code{TRUE}/\code{FALSE})}
 
 \item{...}{(\emph{optional}) further arguments for bootstrapping
-(\verb{bs.M, bs.N, bs.h, sigmab.sd}). See details for their usage.
+(\code{bs.M}, \code{bs.N}, \code{bs.h}, \code{sigmab.sd}). See details for their usage.
 Further arguments are
 \itemize{
 \item \code{verbose} to de-/activate console output (logical),
@@ -151,9 +151,9 @@ described in Wallinga & Cunningham (2012). By default, the minimum age model
 produces 1000 first level and 3000 second level bootstrap replicates
 (actually, the number of second level bootstrap replicates is three times
 the number of first level replicates unless specified otherwise).  The
-uncertainty on sigmab is 0.04 by default. These values can be changed by
+uncertainty on \code{sigmab} is 0.04 by default. These values can be changed by
 using the arguments \code{bs.M} (first level replicates), \code{bs.N}
-(second level replicates) and \code{sigmab.sd} (error on sigmab). With
+(second level replicates) and \code{sigmab.sd} (error on \code{sigmab}). With
 \code{bs.h} the bandwidth of the kernel density estimate can be specified.
 By default, \code{h} is calculated as
 

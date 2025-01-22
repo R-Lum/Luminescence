@@ -17,13 +17,16 @@ during import or a \link{list} of such objects}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable verbose mode}
 }
+\value{
+Always returns a \link{list}; empty or filled with \linkS4class{RLum.Analysis} objects
+}
 \description{
 Convenience wrapper function to provide a quicker and more standardised way of
 reading data into R by looping through all in the package available data import
 functions starting with \code{read_}. Import data types can be mixed.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.5
 }
 
 \examples{
@@ -38,7 +41,7 @@ temp <- import_Data(file)
 
 }
 \seealso{
-\link{read_HeliosOSL2R}, \link{read_PSL2R}, \link{read_XSYG2R}, \link{read_BIN2R}, \link{read_Daybreak2R}, \link{read_SPE2R}, \link{read_TIFF2R}, \link{read_RF2R}
+\link{read_HeliosOSL2R}, \link{read_BIN2R}, \link{read_Daybreak2R}, \link{read_RF2R}, \link{read_SPE2R}, \link{read_PSL2R}, \link{read_XSYG2R}, \link{read_TIFF2R}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

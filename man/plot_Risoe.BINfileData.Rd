@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_Risoe.BINfileData.R
 \name{plot_Risoe.BINfileData}
 \alias{plot_Risoe.BINfileData}
-\title{Plot single luminescence curves from a BIN file object}
+\title{Plot Single Luminescence Curves from a Risoe.BINfileData-class object}
 \usage{
 plot_Risoe.BINfileData(
   data,
@@ -67,7 +67,7 @@ Returns a plot.
 }
 \description{
 Plots single luminescence curves from an object returned by the
-\link{read_BIN2R} function.
+\link{read_BIN2R} function \linkS4class{Risoe.BINfileData}
 }
 \details{
 \strong{Nomenclature}
@@ -94,7 +94,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1
+ 0.4.2
 }
 
 \examples{

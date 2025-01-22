@@ -58,9 +58,9 @@
 #' produces 1000 first level and 3000 second level bootstrap replicates
 #' (actually, the number of second level bootstrap replicates is three times
 #' the number of first level replicates unless specified otherwise).  The
-#' uncertainty on sigmab is 0.04 by default. These values can be changed by
+#' uncertainty on `sigmab` is 0.04 by default. These values can be changed by
 #' using the arguments `bs.M` (first level replicates), `bs.N`
-#' (second level replicates) and `sigmab.sd` (error on sigmab). With
+#' (second level replicates) and `sigmab.sd` (error on `sigmab`). With
 #' `bs.h` the bandwidth of the kernel density estimate can be specified.
 #' By default, `h` is calculated as
 #'
@@ -103,7 +103,7 @@
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
-#' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
+#' `sigmab` must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details.
 #'
 #' @param log [logical] (*with default*):
@@ -141,7 +141,7 @@
 #' work on all machines. (`TRUE`/`FALSE`)
 #'
 #' @param ... (*optional*) further arguments for bootstrapping
-#' (`bs.M, bs.N, bs.h, sigmab.sd`). See details for their usage.
+#' (`bs.M`, `bs.N`, `bs.h`, `sigmab.sd`). See details for their usage.
 #' Further arguments are
 #' - `verbose` to de-/activate console output (logical),
 #' - `debug` for extended console output (logical) and
