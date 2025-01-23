@@ -93,8 +93,8 @@ fit_IsothermalHolding <- function(
   # Define variables --------------------------------------------------------
   kB <- 8.6173303e-05  # Boltzmann's constant
 
-  ## get the rhop value from the fading measurement analysis if available
-  ## other than that take the input and recycle it for the number of samples
+  ## get the rhop value from the fading measurement analysis if available,
+  ## otherwise take the input and recycle it for the number of samples
   if (inherits(rhop, "RLum.Results") && rhop@originator == "analyse_FadingMeasurement")
     rhop <- rhop@data$rho_prime[[1]]
   else
@@ -130,18 +130,19 @@ fit_IsothermalHolding <- function(
     'BTS' = c(Inf,Inf,3,1e+20,Inf))
 
 
-# Fitting -----------------------------------------------------------------
-  ## reminder: we have a double loop situation, we have a list with n samples +
-  ## each sample as n temperature steps
+  ## Fitting ----------------------------------------------------------------
+
+  ## add the correct rhop value to the formula
+  FUN <- gsub(pattern = "rhop", replacement = rhop, x = FUN, fixed = TRUE)
+
+  ## we have a double loop situation: we have a list with n samples, and
+  ## each sample has n temperature steps
   fit_list <- lapply(df_raw_list, function(s){
     ## extract temperatures
     isoT <- unique(s$TEMP)
 
     ## run the fitting
     tmp <- lapply(isoT, function(isoT){
-      ## add the correct rhop value to the formula
-      FUN <- gsub(pattern = "rhop", replacement = rhop, x = FUN, fixed = TRUE)
-
       ## add the correct isoT to the formula based on the settings
       FUN <- gsub(pattern = "isoT", replacement = isoT, x = FUN, fixed = TRUE)
 
