@@ -193,6 +193,7 @@ fit_IsothermalHolding <- function(
         col =  grDevices::palette("Okabe-Ito"),
         col.border = "black",
         main = sample_id,
+        mtext = paste("Fitted with the", ITL_model, "model"),
         cex = 1.0,
         mfrow = if (length(unique(sample_id)) > 1) c(min(c(2, ceiling(length(sample_id)/2))),2) else NULL,
         legend = TRUE,
@@ -273,6 +274,9 @@ fit_IsothermalHolding <- function(
       }
 
     }## plot loop
+
+    ## add plot subtitle
+    mtext(side = 3, plot_settings$mtext, cex = 0.7 * plot_settings$cex)
 
   }## plot condition
 
