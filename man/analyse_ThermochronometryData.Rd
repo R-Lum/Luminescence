@@ -23,7 +23,7 @@ either \code{"GOK"} (default) or \code{"BTS"}}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal output}
 
-\item{...}{currently unused}
+\item{...}{further parameters passed to \link{fit_IsothermalHolding}}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned: ##TODO

@@ -15,7 +15,7 @@
 #'
 #' @param verbose [logical] (*with default*): enable/disable terminal output
 #'
-#' @param ... currently unused
+#' @param ... further parameters passed to [fit_IsothermalHolding]
 #'
 #' @section Function version: 0.1.0
 #'
@@ -95,7 +95,8 @@ analyse_ThermochronometryData <- function(
       data = df_ITL,
       ITL_model = ITL_model,
       rhop = results_FAD,
-      plot = plot)
+      plot = plot,
+      ...)
 
     # (3) DRC Data ------------------------------------------------------------
     ## get DRC data
