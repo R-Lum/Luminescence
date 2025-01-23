@@ -60,7 +60,7 @@ fit_IsothermalHolding <- function(
   ## - the rhop value has uncertainties, which are not yet considered
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
-  .validate_args(ITL_model, c("GOK", "BTS"))
+  ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
 
   if (inherits(data[1], "character")) {
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
@@ -110,22 +110,22 @@ fit_IsothermalHolding <- function(
 
   ## switch the models
   FUN <- switch(
-    ITL_model[1],
+    ITL_model,
     'GOK' = f_GOK,
     'BTS' = f_BTS)
 
   start <- switch(
-    ITL_model[1],
+    ITL_model,
     'GOK' = list(A = 1, b = 1, E = 1, s = 1e+5),
     'BTS' = list(A = 1, Eb = 1, Eu = 1, s = 1e+5, t = 1))
 
   lower <- switch(
-    ITL_model[1],
+    ITL_model,
     'GOK' = c(0,0,0,0),
     'BTS' = c(0,0,0,0))
 
   upper <- switch(
-    ITL_model[1],
+    ITL_model,
     'GOK' = c(Inf,Inf,3,1e+20),
     'BTS' = c(Inf,Inf,3,1e+20,Inf))
 
