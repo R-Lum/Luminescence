@@ -128,6 +128,8 @@ older than 5 was used (#281, fixed in #282).
 in #408).
 * The function doesn't crash anymore if no record is left after removal of
 records with negative time since irradiation (#454, fixed in #456).
+* The function has been made more robust in the calculation of rho' (#558,
+fixed in #559).
 
 ### `analyse_IRSAR.RF()`
 * The performance of this function has been improved for the "SLIDE" and

@@ -223,3 +223,14 @@ test_that("test BIN file while fading data", {
       "removed 1 records with negative 'time since irradiation'")
   )
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 558
+  df <- data.frame(LxTx = c(1, 0.9879, 0.9865, 0.9872, 0.9759, 0.9978, 0.9879, 0.98372),
+                   LxTxError = rep(0, 8),
+                   timeSinceIrr = c(2516, 41353, 50357, 140342, 1040044, 2516, 41360, 50360))
+  res <- analyse_FadingMeasurement(df, n.MC = 10, plot = FALSE, verbose = FALSE)
+  expect_false(is.nan(res$rho_prime$MEAN))
+})
