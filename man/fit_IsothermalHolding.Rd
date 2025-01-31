@@ -4,7 +4,14 @@
 \alias{fit_IsothermalHolding}
 \title{Fit Isothermal Holding Data}
 \usage{
-fit_IsothermalHolding(data, ITL_model = "GOK", rhop, plot = TRUE, ...)
+fit_IsothermalHolding(
+  data,
+  ITL_model = "GOK",
+  rhop,
+  plot = TRUE,
+  trace = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{character} or \link{list} (\strong{required}): input data with a table or file path}
@@ -15,6 +22,9 @@ fit_IsothermalHolding(data, ITL_model = "GOK", rhop, plot = TRUE, ...)
 \linkS4class{RLum.Results} object produced by \link{analyse_FadingMeasurement}}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot}
+
+\item{trace}{\link{logical} (\emph{with default}): enables/disables trace mode for
+the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM})}
 
 \item{...}{further parameters to be passed to the plot output}
 }

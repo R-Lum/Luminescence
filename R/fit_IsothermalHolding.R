@@ -13,6 +13,9 @@
 #'
 #' @param plot [logical] (*with default*): enable/disable plot
 #'
+#' @param trace [logical] (*with default*): enables/disables trace mode for
+#' the nls fitting ([minpack.lm::nlsLM])
+#'
 #' @param ... further parameters to be passed to the plot output
 #'
 #' @section Function version: 0.1.0
@@ -45,6 +48,7 @@ fit_IsothermalHolding <- function(
     ITL_model = 'GOK',
     rhop,
     plot = TRUE,
+    trace = FALSE,
     ...
 ) {
   .set_function_name("fit_IsothermalHolding")
@@ -160,7 +164,7 @@ fit_IsothermalHolding <- function(
           control = list(
           maxiter = 500
           ),
-          trace = FALSE)
+          trace = trace)
       }, silent = TRUE)
 
       if (inherits(fit, "try-error"))
