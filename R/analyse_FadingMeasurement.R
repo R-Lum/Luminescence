@@ -518,8 +518,9 @@ analyse_FadingMeasurement <- function(
   ## calculate rho prime for all MC samples
   fit_vector_rhop <- suppressWarnings(apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
     tryCatch({
-      coef(minpack.lm::nlsLM(x ~ c * exp(-rhop * (log(1.8 * Hs * LxTx_table$TIMESINCEIRR))^3),
-                             start = list(c = x[1], rhop = 10^-5.5)))[["rhop"]]
+      coef(minpack.lm::nlsLM(x ~ c * exp(-rhop * (log(1.8 * Hs * TIMESINCEIRR))^3),
+                             start = list(c = x[1], rhop = 10^-5.5),
+                             data = LxTx_table))[["rhop"]]
     },
     error = function(e) {
       return(NA)
