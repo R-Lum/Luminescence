@@ -21,8 +21,9 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Svenja Riedesel, DTU Risø (Denmark)
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Svenja Riedesel, DTU Risø (Denmark)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords datagen
 #'
@@ -96,6 +97,7 @@ fit_IsothermalHolding <- function(
   ###### --- Perform ITL fitting --- #####
   # Define variables --------------------------------------------------------
   kB <- 8.6173303e-05  # Boltzmann's constant
+  DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
   ## get the rhop value from the fading measurement analysis if available,
   ## otherwise take the input and recycle it for the number of samples
@@ -104,24 +106,33 @@ fit_IsothermalHolding <- function(
   else
     rhop <- rep(rhop, length.out = length(sample_id))
 
-  # Define formulas to fit --------------------------------------------------
-  ## silence note from R CMD check
-  A <- Eu <- Et <- s <- NULL
+  ## Define formulas to fit -------------------------------------------------
+  ##
+  ## We define each model as a function that describes the right-hand side
+  ## of the formula. This allows us to use the `$value` term in the BTS model
+  ## to extract the solution of the integral, which would otherwise be
+  ## incorrectly interpreted by nlsLM().
 
-  f_GOK <- 'y ~ A * exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) * (1 - (1 - b) * s * exp(-E / (kB * (isoT + 273.15))) * x)^(1 / (1 - b))'
-  f_BTSPre <- function(Eb) A*exp(-Eb/Eu)*exp(-s*t*exp(-(Et-Eb)/(kB*(isoT+273.15))))
-  f_BTS <- 'y ~ exp(-rhop * log(1.8 * 3e15 * (250 + x))^3)*integrate(F_BTSPre,0,DeltaE)'
+  f_GOK <- function(A, b, Et, s, isoT, x) {
+    T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
+    A * exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
+      (1 - (1 - b) * s * exp(-Et / (kB * T_K)) * x)^(1 / (1 - b))
+  }
+  f_BTS <- function(A, Eu, Et, s, isoT, x) {
+    T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
+    exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
+      sapply(x, function(t) {
+        integrate(function(Eb) A * exp(-Eb / Eu) *
+                               exp(-s * t * exp(-(Et - Eb) / (kB * T_K))),
+                  0, DeltaE)$value
+      })
+  }
 
   ## switch the models
-  FUN <- switch(
-    ITL_model,
-    'GOK' = f_GOK,
-    'BTS' = f_BTS)
-
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b = 1, E = 1, s = 1e+5),
-    'BTS' = list(A = 1, Eb = 1, Eu = 1, s = 1e+5, t = 1))
+    'GOK' = list(A = 1, b = 1, Et = 1, s = 1e+5),
+    'BTS' = list(A = 1, Eu = 1, Et = 1, s = 1e+5))
 
   lower <- switch(
     ITL_model,
@@ -131,24 +142,19 @@ fit_IsothermalHolding <- function(
   upper <- switch(
     ITL_model,
     'GOK' = c(Inf,Inf,3,1e+20),
-    'BTS' = c(Inf,Inf,3,1e+20,Inf))
+    'BTS' = c(Inf,Inf,Inf,1e+20))
 
 
   ## Fitting ----------------------------------------------------------------
-
-  ## add the correct rhop value to the formula
-  FUN <- gsub(pattern = "rhop", replacement = rhop, x = FUN, fixed = TRUE)
-
   ## we have a double loop situation: we have a list with n samples, and
   ## each sample has n temperature steps
   fit_list <- lapply(df_raw_list, function(s){
+
     ## extract temperatures
     isoT <- unique(s$TEMP)
 
-    ## run the fitting
-    tmp <- lapply(isoT, function(isoT){
-      ## add the correct isoT to the formula based on the settings
-      FUN <- gsub(pattern = "isoT", replacement = isoT, x = FUN, fixed = TRUE)
+    ## run the fitting at each temperature
+    tmp <- lapply(isoT, function(isoT) {
 
       ## extract data to fit
       tmp_fitdata <- s[s$TEMP == isoT,]
@@ -156,13 +162,16 @@ fit_IsothermalHolding <- function(
       ## run fitting with different start parameters
       fit <- try({
         minpack.lm::nlsLM(
-          formula = as.formula(FUN),
-          data =  data.frame(x = tmp_fitdata$TIME, y = tmp_fitdata$LxTx),
+          formula = if (ITL_model == "GOK") y ~ f_GOK(A, b, Et, s, isoT, x)
+                    else                    y ~ f_BTS(A, Eu, Et, s, isoT, x),
+          data = data.frame(x = tmp_fitdata$TIME,
+                            y = tmp_fitdata$LxTx,
+                            isoT = isoT), # isoT gets recycled into a vector
           start = start,
           lower = lower,
           upper = upper,
           control = list(
-          maxiter = 500
+              maxiter = 500
           ),
           trace = trace)
       }, silent = TRUE)
