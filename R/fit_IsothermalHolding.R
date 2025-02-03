@@ -113,17 +113,17 @@ fit_IsothermalHolding <- function(
   ## to extract the solution of the integral, which would otherwise be
   ## incorrectly interpreted by nlsLM().
 
-  f_GOK <- function(A, b, Et, s, isoT, x) {
+  f_GOK <- function(A, b, Et, s10, isoT, x) {
     T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
     A * exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
-      (1 - (1 - b) * s * exp(-Et / (kB * T_K)) * x)^(1 / (1 - b))
+      (1 - (1 - b) * 10^s10 * exp(-Et / (kB * T_K)) * x)^(1 / (1 - b))
   }
-  f_BTS <- function(A, Eu, Et, s, isoT, x) {
+  f_BTS <- function(A, Eu, Et, s10, isoT, x) {
     T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
     exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
       sapply(x, function(t) {
         integrate(function(Eb) A * exp(-Eb / Eu) *
-                               exp(-s * t * exp(-(Et - Eb) / (kB * T_K))),
+                               exp(-10^s10 * t * exp(-(Et - Eb) / (kB * T_K))),
                   0, DeltaE)$value
       })
   }
@@ -131,19 +131,18 @@ fit_IsothermalHolding <- function(
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b = 1, Et = 1, s = 1e+5),
-    'BTS' = list(A = 1, Eu = 1, Et = 1, s = 1e+5))
+    'GOK' = list(A = 1, b  = 1, Et = 1, s10 = 5),
+    'BTS' = list(A = 1, Eu = 1, Et = 1, s10 = 5))
 
   lower <- switch(
     ITL_model,
-    'GOK' = c(0,0,0,0),
-    'BTS' = c(0,0,0,0))
+    'GOK' = c(0, 0, 0, 0),
+    'BTS' = c(0, 0, 0, 0))
 
   upper <- switch(
     ITL_model,
-    'GOK' = c(Inf,Inf,3,1e+20),
-    'BTS' = c(Inf,Inf,Inf,1e+20))
-
+    'GOK' = c(Inf, Inf, 3, 20),
+    'BTS' = c(Inf, 3, 3, 20))
 
   ## Fitting ----------------------------------------------------------------
   ## we have a double loop situation: we have a list with n samples, and
@@ -162,8 +161,8 @@ fit_IsothermalHolding <- function(
       ## run fitting with different start parameters
       fit <- try({
         minpack.lm::nlsLM(
-          formula = if (ITL_model == "GOK") y ~ f_GOK(A, b, Et, s, isoT, x)
-                    else                    y ~ f_BTS(A, Eu, Et, s, isoT, x),
+          formula = if (ITL_model == "GOK") y ~ f_GOK(A, b,  Et, s10, isoT, x)
+                    else                    y ~ f_BTS(A, Eu, Et, s10, isoT, x),
           data = data.frame(x = tmp_fitdata$TIME,
                             y = tmp_fitdata$LxTx,
                             isoT = isoT), # isoT gets recycled into a vector
