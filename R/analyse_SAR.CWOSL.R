@@ -490,7 +490,9 @@ error.list <- list()
   }))
 
   if(length(unique(temp.matrix.length))!=1){
-    error.list[[2]] <- "Input curves have different lengths"
+    error.list[[2]] <- paste0("Input curves have different lengths (",
+                              .collapse(unique(temp.matrix.length),
+                                        quote = FALSE), ")")
   }
 
   ##just proceed if error list is empty
