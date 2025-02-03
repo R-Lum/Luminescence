@@ -22,10 +22,10 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  expect_s4_class(fit_IsothermalHolding(input.csv[1], rhop = -7),
+  expect_s4_class(fit_IsothermalHolding(input.csv[1], rhop = 1e-7),
                   "RLum.Results")
 
   data <- .import_ThermochronometryData(input.csv[1])
-  expect_s4_class(fit_IsothermalHolding(data, rhop = -7, mfrow = c(2, 2)),
+  expect_s4_class(fit_IsothermalHolding(data, rhop = 1e-7, mfrow = c(2, 2)),
                   "RLum.Results")
 })
