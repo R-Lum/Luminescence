@@ -11,22 +11,24 @@ calc_MoransI(
 )
 }
 \arguments{
-\item{object}{\link{RLum-result} or \link{numeric} (\strong{required}) containing
-the values of the grains of one. Should have length 100;
-can contain NA's.}
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}) containing
+the values of the grains of one. Should have length 100; can contain \code{NA}
+values.}
 
-\item{df_neighbour}{\link{dataframe} (\emph{with default}), indicating which neighbours to consider, and
-their respective weights. Defaults to get_Neighbour(object)}
+\item{df_neighbour}{\link{data.frame} (\emph{with default}), indicating which
+neighbours to consider, and their respective weights. Defaults to
+\code{get_Neighbour(object)}.}
 
-\item{bo_return_inbetween_numbers}{\link{logical} (\emph{with default}). Defaults to FALSE. If TRUE, the function
-returns a list with several intermediate calculation results.}
+\item{bo_return_inbetween_numbers}{\link{logical} (\emph{with default}). Defaults
+to \code{FALSE}. If \code{TRUE}, the function returns a list with several
+intermediate calculation results.}
 }
 \value{
 By default one numerical value, roughly between -1 and 1, where
 close to zero means no spatial correlation, and value close to 1 a positive
 spatial correlation given the pattern we interested in (by default all rook neighbours).
 A value closer to -1 has no meaning within the context of luminescence crosstalk.
-If \code{bo_return_inbetween_numbers} is set to TRUE, a list with several numbers
+If \code{bo_return_inbetween_numbers} is set to \code{TRUE}, a list with several numbers
 used for calculation is returned instead of the single outcome.
 }
 \description{

@@ -22,30 +22,42 @@ plot_Disc(
 \arguments{
 \item{object}{The values to show, a numerical vector of size 100. ## NOG AANPASSEN}
 
-\item{bo_show_coordinates}{\link{logical} (\emph{with default}): Single Boolean, show coordinates (1..10) in x and in y direction. Defaults to FALSE}
+\item{bo_show_coordinates}{\link{logical} (\emph{with default}): Show coordinates (1..10)
+in x and in y direction. Defaults to \code{FALSE}.}
 
-\item{bo_show_location_ids}{\link{logical} (\emph{with default}): Single Boolean, show id with every grain location  (1..100). Defaults to FALSE}
+\item{bo_show_location_ids}{\link{logical} (\emph{with default}): Show id with every
+grain location (1..100). Defaults to \code{FALSE}.}
 
-\item{bo_show_legend}{\link{logical} (\emph{with default}): Single Boolean, defaults to FALSE. Show rudimentary legend.}
+\item{bo_show_legend}{\link{logical} (\emph{with default}): Defaults to \code{FALSE}.
+Show a rudimentary legend.}
 
-\item{bo_show_neighbours}{\link{logical}  (\emph{with default}): Single Boolean. Show which neighbour connections are taken into account if
-calculating Moran's I. This makes sense when there are NA observations, or when a non-standard neighbour setting is defined.}
+\item{bo_show_neighbours}{\link{logical}  (\emph{with default}): Show which
+neighbour connections are taken into account if calculating Moran's I.
+This makes sense when there are \code{NA} observations, or when a non-standard
+neighbour setting is defined.}
 
-\item{df_neighbour}{\link{dataframe} (\emph{with default}): Dataframe as returned by \code{get_Neighbour()}. Is only relevant if
-\code{bo_show_neighbours} is TRUE. Defaults to \code{get_Neighbour(object)}.}
+\item{df_neighbour}{\link{data.frame} (\emph{with default}): Dataframe as returned
+by \code{get_Neighbour()}. Is only relevant if \code{bo_show_neighbours} is \code{TRUE}.
+Defaults to \code{get_Neighbour(object)}.}
 
-\item{str_transform}{\link{string} (\emph{with default}): The observed value of each individual grain is
+\item{bo_show_positioning_holes}{\link{logical} (\emph{with default}): Show the 3
+positioning holes for orientation. Defaults to \code{TRUE}.}
+
+\item{str_transform}{\link{character} (\emph{with default}): The observed value of each individual grain is
 reflected in the size of a triangle (or other dot-like element). To account for large value differences,
-the transformation from value to triangle size can be "lin" (linear), "log" (logarithmic) and "sqrt"
-(square root). Defaults to "sqrt", so that the surface is linear to the value. Note that
+the transformation from value to triangle size can be \code{"lin"} (linear), \code{"log"} (logarithmic) and \code{"sqrt"}
+(square root). Defaults to \code{"sqrt"}, so that the surface is linear to the value. Note that
 the log and sqrt transformations can come with an addition to avoid negative values. When the legend
 is shown, the actual lower, middle and upper values are printed.}
 
+\item{main}{FIXME(mcol)}
+
+\item{col}{FIXME(mcol)}
+
+\item{pch}{FIXME(mcol)}
+
 \item{...}{other arguments to be given to the base R plot function, such as "main", "col" and "pch" (with
 default values "", "darkolivegreen" and 17, respectively). Many other base plot arguments are ignored.}
-
-\item{bo_show_locationing_holes}{\link{logical} (\emph{with default}): Single Boolean, show the 3 positioning holes for orientation.
-defaults to TRUE}
 }
 \value{
 none

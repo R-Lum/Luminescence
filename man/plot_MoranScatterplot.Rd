@@ -19,26 +19,36 @@ plot_MoranScatterplot(
 )
 }
 \arguments{
-\item{object}{\link{RLum-result} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
 representing one or more measurement discs ("positions") in a reader.
 Each element in the vector represents one grain hole location on a disc.}
 
-\item{df_neighbour}{\link{dataframe} (\emph{with default}) Dataframe, indicating which borders to consider, and their respective weights.
-Defaults to get_Neighbour(object = vn_values)}
+\item{df_neighbour}{\link{data.frame} (\emph{with default}) Dataframe, indicating
+which borders to consider, and their respective weights.
+Defaults to \code{get_Neighbour(object = vn_values)}.}
 
-\item{bo_show_legend}{\link{logical} (\emph{with default}) Single Boolean. If TRUE (default), a small legend explaining the different lines is plotted}
+\item{bo_show_legend}{\link{logical} (\emph{with default}) Single Boolean. If \code{TRUE}
+(default), a small legend explaining the different lines is plotted.}
 
-\item{str_y_def}{\link{character} (\emph{with default}) Calculation of y position. Defaults to "mean_neighbours"
-which is the plain mean of all neighbour values and the most illustrative. The other option is "weighted_sum",
+\item{str_y_def}{\link{character} (\emph{with default}) Calculation of y position. Defaults to \code{"mean_neighbours"}
+which is the plain mean of all neighbour values and the most illustrative. The other option is \code{"weighted_sum"},
 which means the sum of the border weights times the neighbour values, which is actually closer
 to the way Moran's I is by default calculated in this package.}
 
-\item{pch}{\link{character, integer} (\emph{with default}).  Has as options "show_location_ids" (plots
-grain location id's), "show_n_neighbours" (indicates numbers of neighbours)
-and the normal base plot pch options.}
+\item{pch}{\link{character}, \link{integer} (\emph{with default}): Accepts options
+\code{"show_location_ids"} (plots grain location id's), \code{"show_n_neighbours"}
+(indicates numbers of neighbours) and the normal base plot \code{pch} options.}
+
+\item{cex}{FIXME(mcol)}
+
+\item{xlab}{FIXME(mcol)}
+
+\item{ylab}{FIXME(mcol)}
+
+\item{log}{FIXME(mcol)}
 
 \item{...}{Other parameters to be forwarded to the base R plot functions. Note that \code{xlab} (x axis label),
-\code{ylab} (y axis label) and \code{pch} (plot symbol) are given default values. Because of sometimes large value
+\code{ylab} (y axis label) and \code{cex} (scaling value) are given default values. Because of sometimes large value
 differences, \code{log = "x"}, \code{log = "y"} and \code{log = "xy"}are supported. In case of negative values and logarithmic
 plotting, values are increased so the smallest value to plot is 1. Summary elements such as means, least
 square line etc. will still be based on the linear case.}

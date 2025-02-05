@@ -8,13 +8,13 @@
 #' added crosstalk value of as example 0.2 means that 0.2 of the value of 
 #' the central grain is added to each grain in the rook directions. This is an additive
 #' action: the central grain itself is not affected by this operation (but will on its 
-#' turn increase because of crosstalk from its neigbours).
+#' turn increase because of crosstalk from its neighbours).
 #' This function is used for simulations: can this added crosstalk be detected? 
 #' 
-#' @details If an element in `object` is NA, it is internally set to 0, so it will not
-#' add 
+#' @details If an element in `object` is `NA`, it is internally set to 0, so it will not
+#' be added.
 #'
-#' @param object [RLum-result] or [numeric] (**required**): containing a numerical vector of length 100, 
+#' @param object [RLum.Results-class] or [numeric] (**required**): containing a numerical vector of length 100,
 #' representing one or more measurement discs ("positions") in a reader. 
 #' Each element in the vector represents one grain hole location on a disc. 
 #' 
@@ -38,8 +38,8 @@
 #' 
 #' ## Add crosstalk (with default set to 0.2), and visualize the difference 
 #' ## in the resulting histogram.
-#' observations_with_simulated_crosstalk <- apply_CrossTalk(observations)
-#' hist(get_RLum(observations_with_simulated_crosstalk))
+#' observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
+#' hist(observations_with_simulated_crosstalk)
 #'
 #'
 #' @md
@@ -102,23 +102,24 @@ apply_Crosstalk <- function(object,
 }
 
 #' @title Calculate Moran's I
-#' 
 #'
-#' @param object [RLum-result] or [numeric] (**required**) containing 
-#' the values of the grains of one. Should have length 100; 
-#' can contain NA's. 
+#' @param object [RLum.Results-class] or [numeric] (**required**) containing
+#' the values of the grains of one. Should have length 100; can contain `NA`
+#'  values.
 #' 
-#' @param df_neighbour [dataframe] (*with default*), indicating which neighbours to consider, and 
-#' their respective weights. Defaults to get_Neighbour(object)
+#' @param df_neighbour [data.frame] (*with default*), indicating which
+#' neighbours to consider, and their respective weights. Defaults to
+#' `get_Neighbour(object)`.
 #' 
-#' @param bo_return_inbetween_numbers [logical] (*with default*). Defaults to FALSE. If TRUE, the function 
-#' returns a list with several intermediate calculation results.
+#' @param bo_return_inbetween_numbers [logical] (*with default*). Defaults
+#' to `FALSE`. If `TRUE`, the function returns a list with several
+#' intermediate calculation results.
 #'
 #' @return By default one numerical value, roughly between -1 and 1, where
 #' close to zero means no spatial correlation, and value close to 1 a positive 
 #' spatial correlation given the pattern we interested in (by default all rook neighbours).
 #' A value closer to -1 has no meaning within the context of luminescence crosstalk. 
-#' If `bo_return_inbetween_numbers` is set to TRUE, a list with several numbers
+#' If `bo_return_inbetween_numbers` is set to `TRUE`, a list with several numbers
 #' used for calculation is returned instead of the single outcome.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
@@ -212,15 +213,15 @@ calc_MoransI <- function(object,
 #' @description Perhaps a bit counter-intuitive, the expected value of Moran's I under
 #' the null hypothesis of no spatial correlation is a value slightly smaller than zero. This function
 #' calculates the expected value based on the number of observations or the length of the 
-#' observation vector (while taking out NA's). This can be useful for plotting.
+#' observation vector (while taking out `NA` values). This can be useful for plotting.
 #' Defaults, when no arguments are provided, to the expected value of one observation disc with
 #' 100 valid observations.
 #' 
 #' @details Note that the expected value only depends on the number of observed separate grain values.
 #'
-#' @param object [RLum-result] or [numeric] (*with default*) containing 
+#' @param object [RLum.Results-class] or [numeric] (*with default*) containing
 #' the values of the grains of one or more discs. Should have length 100; 
-#' can contain NA's. 
+#' can contain `NA` values.
 #' 
 #' @param n [integer] (*with default*) The number of grain observations as one integer. 
 #' Defaults to NULL. If provided, overrules parameter `object`. One full disc means "n = 100". 
@@ -281,20 +282,21 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
 
 #' @title Calculate Moran's I pseudo p
 #' 
-#' @param object [RLum-result] or [numeric] (**required**): containing a numerical vector of length 100, 
+#' @param object [RLum.Results-class] or [numeric] (**required**): containing a numerical vector of length 100,
 #' representing one discs ("position") in a reader. 
 #'  
-#' @param n_moransI [numeric] (*with default*) The value of Moran's I to be tested against. 
-#' Defaults to calc_MoransI(object). 
+#' @param n_moransI [numeric] (*with default*) The value of Moran's I to be tested against.
+#' Defaults to `calc_MoransI(object)`.
 #' 
 #' @param n_perm [integer] (*with default*) Number of random permutations tested to calculate the fraction 
 #' which is the pseudo p. Defaults to 999. Influences the calculation speed, which will have impact in case
 #' of large scale simulation loops.
 #' 
-#' @param df_neighbour [dataframe] (*with default*) Defaults to get_Neighbour(object)
+#' @param df_neighbour [data.frame] (*with default*) Defaults to
+#' `get_Neighbour(object)`.
 #' 
 #' @param bo_suppress_warnings [logical] (*with default*) Should warnings be printed or suppressed? 
-#' Defaults to FALSE: warnings will be printed
+#' Defaults to `FALSE`: warnings will be printed.
 #' 
 #' 
 #' @return Pseudo p value
@@ -303,8 +305,6 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
-#' @examples
-#' 
 #' @md
 #' @export
 calc_MoransI_pseudo_p <- function(object, 
@@ -382,20 +382,22 @@ calc_MoransI_pseudo_p <- function(object,
 #' order to calculate Moran's I.
 #' For the general case, we assume symmetry, and all adjacency get 
 #' an equal relative weight of one.
-#' In case there are holes in the image, indicated by "NA" (=no value observed),
+#' In case there are holes in the image, indicated by `NA` (no value observed),
 #' the related border or borders are removed.
 #' 
 #' @details Will mostly be used as an helper function. If called without any arguments,
 #'  will return the neighbouring positions dataframe for one disc (POS) with on every
 #'  grain location an observation. 
 #' 
-#' @param object [RLum-result] or [numeric] (*with default*) numerical vector containing 
-#' the values of one or more discs, or a RLum-result object containing such values. Can contain NA's. 
-#' If NULL (default), a complete 10x10 disc is assumed.
+#' @param object [RLum.Results-class] or [numeric] (*with default*): numerical
+#' vector containing the values of one or more discs, or an `RLum.Results`
+#' object containing such values. Can contain `NA` values.
+#' If `NULL` (default), a complete 10x10 disc is assumed.
 #' 
-#' @param bo_restrict_to_8x8 [logical] (*with default*) Single Boolean, defaults to FALSE. If TRUE, only on-disc borders to grain 
-#' locations who do not border the disc are considered; thus only the inner 8x8 grain locations rather than the full 
-#' 10x10.
+#' @param bo_restrict_to_8x8 [logical] (*with default*) Defaults to `FALSE`.
+#' If `TRUE`, only on-disc borders to grain locations who do not border the
+#' disc are considered; thus only the inner 8x8 grain locations rather than
+#' the full 10x10.
 #'
 #' @return Dataframe with columns `location`, `neighbour` and `weight`, respectively.
 #' The integers in the first two columns indicate the index of the vector with observations; the

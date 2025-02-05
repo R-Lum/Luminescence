@@ -13,20 +13,21 @@ calc_MoransI_pseudo_p(
 )
 }
 \arguments{
-\item{object}{\link{RLum-result} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
 representing one discs ("position") in a reader.}
 
 \item{n_moransI}{\link{numeric} (\emph{with default}) The value of Moran's I to be tested against.
-Defaults to calc_MoransI(object).}
+Defaults to \code{calc_MoransI(object)}.}
 
 \item{n_perm}{\link{integer} (\emph{with default}) Number of random permutations tested to calculate the fraction
 which is the pseudo p. Defaults to 999. Influences the calculation speed, which will have impact in case
 of large scale simulation loops.}
 
-\item{df_neighbour}{\link{dataframe} (\emph{with default}) Defaults to get_Neighbour(object)}
+\item{df_neighbour}{\link{data.frame} (\emph{with default}) Defaults to
+\code{get_Neighbour(object)}.}
 
 \item{bo_suppress_warnings}{\link{logical} (\emph{with default}) Should warnings be printed or suppressed?
-Defaults to FALSE: warnings will be printed}
+Defaults to \code{FALSE}: warnings will be printed.}
 }
 \value{
 Pseudo p value

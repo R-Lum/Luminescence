@@ -7,13 +7,15 @@
 get_Neighbour(object = NULL, bo_restrict_to_8x8 = FALSE)
 }
 \arguments{
-\item{object}{\link{RLum-result} or \link{numeric} (\emph{with default}) numerical vector containing
-the values of one or more discs, or a RLum-result object containing such values. Can contain NA's.
-If NULL (default), a complete 10x10 disc is assumed.}
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\emph{with default}): numerical
+vector containing the values of one or more discs, or an \code{RLum.Results}
+object containing such values. Can contain \code{NA} values.
+If \code{NULL} (default), a complete 10x10 disc is assumed.}
 
-\item{bo_restrict_to_8x8}{\link{logical} (\emph{with default}) Single Boolean, defaults to FALSE. If TRUE, only on-disc borders to grain
-locations who do not border the disc are considered; thus only the inner 8x8 grain locations rather than the full
-10x10.}
+\item{bo_restrict_to_8x8}{\link{logical} (\emph{with default}) Defaults to \code{FALSE}.
+If \code{TRUE}, only on-disc borders to grain locations who do not border the
+disc are considered; thus only the inner 8x8 grain locations rather than
+the full 10x10.}
 }
 \value{
 Dataframe with columns \code{location}, \code{neighbour} and \code{weight}, respectively.
@@ -27,7 +29,7 @@ Determines which locations on one or more
 order to calculate Moran's I.
 For the general case, we assume symmetry, and all adjacency get
 an equal relative weight of one.
-In case there are holes in the image, indicated by "NA" (=no value observed),
+In case there are holes in the image, indicated by \code{NA} (no value observed),
 the related border or borders are removed.
 }
 \details{

@@ -9,28 +9,38 @@
 #'
 #' @param object The values to show, a numerical vector of size 100. ## NOG AANPASSEN
 #'
-#' @param bo_show_coordinates [logical] (*with default*): Single Boolean, show coordinates (1..10) in x and in y direction. Defaults to FALSE
+#' @param bo_show_coordinates [logical] (*with default*): Show coordinates (1..10)
+#' in x and in y direction. Defaults to `FALSE`.
 #'
-#' @param bo_show_location_ids [logical] (*with default*): Single Boolean, show id with every grain location  (1..100). Defaults to FALSE
+#' @param bo_show_location_ids [logical] (*with default*): Show id with every
+#' grain location (1..100). Defaults to `FALSE`.
 #'
-#' @param bo_show_legend [logical] (*with default*): Single Boolean, defaults to FALSE. Show rudimentary legend.
+#' @param bo_show_legend [logical] (*with default*): Defaults to `FALSE`.
+#' Show a rudimentary legend.
 #' 
-#' @param bo_show_neighbours [logical]  (*with default*): Single Boolean. Show which neighbour connections are taken into account if  
-#' calculating Moran's I. This makes sense when there are NA observations, or when a non-standard neighbour setting is defined.
+#' @param bo_show_neighbours [logical]  (*with default*): Show which
+#' neighbour connections are taken into account if calculating Moran's I.
+#' This makes sense when there are `NA` observations, or when a non-standard
+#' neighbour setting is defined.
 #'
-#' @param df_neighbour [dataframe] (*with default*): Dataframe as returned by `get_Neighbour()`. Is only relevant if 
-#' `bo_show_neighbours` is TRUE. Defaults to `get_Neighbour(object)`.
+#' @param df_neighbour [data.frame] (*with default*): Dataframe as returned
+#' by `get_Neighbour()`. Is only relevant if `bo_show_neighbours` is `TRUE`.
+#' Defaults to `get_Neighbour(object)`.
 #'
-#' @param bo_show_locationing_holes [logical] (*with default*): Single Boolean, show the 3 positioning holes for orientation.
-#' defaults to TRUE
+#' @param bo_show_positioning_holes [logical] (*with default*): Show the 3
+#' positioning holes for orientation. Defaults to `TRUE`.
 #' 
-#' @param str_transform [string] (*with default*): The observed value of each individual grain is 
+#' @param str_transform [character] (*with default*): The observed value of each individual grain is
 #' reflected in the size of a triangle (or other dot-like element). To account for large value differences,
-#' the transformation from value to triangle size can be "lin" (linear), "log" (logarithmic) and "sqrt"
-#' (square root). Defaults to "sqrt", so that the surface is linear to the value. Note that 
+#' the transformation from value to triangle size can be `"lin"` (linear), `"log"` (logarithmic) and `"sqrt"`
+#' (square root). Defaults to `"sqrt"`, so that the surface is linear to the value. Note that
 #' the log and sqrt transformations can come with an addition to avoid negative values. When the legend
 #' is shown, the actual lower, middle and upper values are printed.
 #' 
+#' @param main FIXME(mcol)
+#' @param col FIXME(mcol)
+#' @param pch FIXME(mcol)
+#'
 #' @param ... other arguments to be given to the base R plot function, such as "main", "col" and "pch" (with
 #' default values "", "darkolivegreen" and 17, respectively). Many other base plot arguments are ignored.
 #'
@@ -333,26 +343,33 @@ plot_Disc <- function(object,
 #' and also a least square line (which slopes indicates, but not exactly represents, Moran's I) and 
 #' an 1:1 line (which indicates a Moran's I of around 1).
 #'  
-#' @param object [RLum-result] or [numeric] (**required**): containing a numerical vector of length 100, 
+#' @param object [RLum.Results-class] or [numeric] (**required**): containing a numerical vector of length 100,
 #' representing one or more measurement discs ("positions") in a reader. 
 #' Each element in the vector represents one grain hole location on a disc. 
 #' 
-#' @param df_neighbour [dataframe] (*with default*) Dataframe, indicating which borders to consider, and their respective weights.
-#' Defaults to get_Neighbour(object = vn_values)
+#' @param df_neighbour [data.frame] (*with default*) Dataframe, indicating
+#' which borders to consider, and their respective weights.
+#' Defaults to `get_Neighbour(object = vn_values)`.
 #' 
-#' @param bo_show_legend [logical] (*with default*) Single Boolean. If TRUE (default), a small legend explaining the different lines is plotted
+#' @param bo_show_legend [logical] (*with default*) Single Boolean. If `TRUE`
+#' (default), a small legend explaining the different lines is plotted.
 #' 
-#' @param str_y_def [character] (*with default*) Calculation of y position. Defaults to "mean_neighbours"
-#' which is the plain mean of all neighbour values and the most illustrative. The other option is "weighted_sum", 
+#' @param str_y_def [character] (*with default*) Calculation of y position. Defaults to `"mean_neighbours"`
+#' which is the plain mean of all neighbour values and the most illustrative. The other option is `"weighted_sum"`,
 #' which means the sum of the border weights times the neighbour values, which is actually closer 
 #' to the way Moran's I is by default calculated in this package.
 #' 
-#' @param pch [character, integer] (*with default*).  Has as options "show_location_ids" (plots 
-#' grain location id's), "show_n_neighbours" (indicates numbers of neighbours)
-#' and the normal base plot pch options.
+#' @param pch [character], [integer] (*with default*): Accepts options
+#' `"show_location_ids"` (plots grain location id's), `"show_n_neighbours"`
+#' (indicates numbers of neighbours) and the normal base plot `pch` options.
 #' 
+#' @param cex FIXME(mcol)
+#' @param xlab FIXME(mcol)
+#' @param ylab FIXME(mcol)
+#' @param log FIXME(mcol)
+#'
 #' @param ... Other parameters to be forwarded to the base R plot functions. Note that `xlab` (x axis label), 
-#' `ylab` (y axis label) and `pch` (plot symbol) are given default values. Because of sometimes large value 
+#' `ylab` (y axis label) and `cex` (scaling value) are given default values. Because of sometimes large value
 #' differences, `log = "x"`, `log = "y"` and `log = "xy"`are supported. In case of negative values and logarithmic 
 #' plotting, values are increased so the smallest value to plot is 1. Summary elements such as means, least 
 #' square line etc. will still be based on the linear case.
@@ -370,10 +387,6 @@ plot_Disc <- function(object,
 #' plots. Invisible.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
-#'
-#' @examples
-#' 
-#' 
 #'
 #' @md
 #' @export
@@ -627,4 +640,3 @@ plot_MoranScatterplot <- function(object,
   invisible(df_moran_plot)
   
 }
-

@@ -7,7 +7,7 @@
 apply_Crosstalk(object, n_crosstalk = 0.2)
 }
 \arguments{
-\item{object}{\link{RLum-result} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
 representing one or more measurement discs ("positions") in a reader.
 Each element in the vector represents one grain hole location on a disc.}
 
@@ -24,12 +24,12 @@ grain whole locations on one measurement discs (=on position on a measurement wh
 added crosstalk value of as example 0.2 means that 0.2 of the value of
 the central grain is added to each grain in the rook directions. This is an additive
 action: the central grain itself is not affected by this operation (but will on its
-turn increase because of crosstalk from its neigbours).
+turn increase because of crosstalk from its neighbours).
 This function is used for simulations: can this added crosstalk be detected?
 }
 \details{
-If an element in \code{object} is NA, it is internally set to 0, so it will not
-add
+If an element in \code{object} is \code{NA}, it is internally set to 0, so it will not
+be added.
 }
 \examples{
 ## Create artificial disc observation
@@ -40,8 +40,8 @@ hist(get_RLum(object = observations))
 
 ## Add crosstalk (with default set to 0.2), and visualize the difference 
 ## in the resulting histogram.
-observations_with_simulated_crosstalk <- apply_CrossTalk(observations)
-hist(get_RLum(observations_with_simulated_crosstalk))
+observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
+hist(observations_with_simulated_crosstalk)
 
 
 }

@@ -7,9 +7,9 @@
 calc_MoransI_expt_no_cor(object = rep(1, times = 100), n = NULL)
 }
 \arguments{
-\item{object}{\link{RLum-result} or \link{numeric} (\emph{with default}) containing
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\emph{with default}) containing
 the values of the grains of one or more discs. Should have length 100;
-can contain NA's.}
+can contain \code{NA} values.}
 
 \item{n}{\link{integer} (\emph{with default}) The number of grain observations as one integer.
 Defaults to NULL. If provided, overrules parameter \code{object}. One full disc means "n = 100".}
@@ -22,7 +22,7 @@ Numerical value, a bit smaller than 0: the expected Moran's I for the null hypot
 Perhaps a bit counter-intuitive, the expected value of Moran's I under
 the null hypothesis of no spatial correlation is a value slightly smaller than zero. This function
 calculates the expected value based on the number of observations or the length of the
-observation vector (while taking out NA's). This can be useful for plotting.
+observation vector (while taking out \code{NA} values). This can be useful for plotting.
 Defaults, when no arguments are provided, to the expected value of one observation disc with
 100 valid observations.
 }
