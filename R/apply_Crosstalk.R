@@ -46,9 +46,10 @@
 #' @export
 apply_Crosstalk <- function(object,
                             n_crosstalk = 0.2
-)
-{
-  
+) {
+  .set_function_name("apply_Crosstalk")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate input arguments -----------------------    
   
   .validate_class(object, c("RLum.Results", "numeric", "integer"))    
@@ -105,7 +106,7 @@ apply_Crosstalk <- function(object,
 #'
 #' @param object [RLum.Results-class] or [numeric] (**required**) containing
 #' the values of the grains of one. Should have length 100; can contain `NA`
-#'  values.
+#' values.
 #' 
 #' @param df_neighbour [data.frame] (*with default*), indicating which
 #' neighbours to consider, and their respective weights. Defaults to
@@ -140,9 +141,10 @@ apply_Crosstalk <- function(object,
 calc_MoransI <- function(object, 
                          df_neighbour  =  get_Neighbour(object = object),
                          bo_return_inbetween_numbers = FALSE
-)
-{
-  
+) {
+  .set_function_name("calc_MoransI")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate input arguments; set variables  -----------------------
   
   .validate_class(object, c("RLum.Results", "numeric", "integer"))    
@@ -165,11 +167,10 @@ calc_MoransI <- function(object,
   #  - should be a single value  
   
   
-  
   if(nrow(df_neighbour)==0)
   {
-    warning("There seems to be no bordering grain locations. calc_MoransI will return NaN")
-    
+    .throw_warning("There seems to be no bordering grain locations, returning NaN")
+    return(NaN)
   }
   
   ## Core calculation  -----------------------
@@ -240,18 +241,19 @@ calc_MoransI <- function(object,
 #' @export
 calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
                                      n = NULL
-)
-{
+) {
+  .set_function_name("calc_MoransI")
+  on.exit(.unset_function_name(), add = TRUE)
   
   ## Validate input arguments; set variables  -----------------------  
   
   if (!is.null(n))
   {
+    .validate_positive_scalar(n, int = TRUE)
     n <- as.integer(n)
     
   } else
   {
-    
     .validate_class(object, c("RLum.Results", "numeric", "integer"))    
     ## To add: 
     #  - should contain a numerical vector of length 100
@@ -265,7 +267,6 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
       vn_values <- get_RLum(object)
     }
     
-    
     n <- sum(!is.na(vn_values))
   }
   
@@ -276,7 +277,6 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
   n_MoransI_expt_no_cor <- -1/(n-1)
   
   return(n_MoransI_expt_no_cor)
-  
 }
 
 
@@ -312,13 +312,13 @@ calc_MoransI_pseudo_p <- function(object,
                                   n_perm = 999,
                                   df_neighbour = get_Neighbour(object = vn_values),
                                   bo_suppress_warnings = FALSE
-)
-{
-  
+) {
+  .set_function_name("calc_MoransI")
+  on.exit(.unset_function_name(), add = TRUE)
+
   .validate_class(object, c("RLum.Results", "numeric", "integer"))    
   ## To add: validation on `object` 
   #  - should contain a numerical vector of length 100
-  
   
   if(is.numeric(object))
   {
@@ -328,17 +328,14 @@ calc_MoransI_pseudo_p <- function(object,
     vn_values <- get_RLum(object)
   }
   
-  
-  
-  
   vb_contains_observation <-  !is.na(vn_values)
   
+  .validate_positive_scalar(n_perm, int = TRUE)
+  .validate_class(df_neighbour, "data.frame")
   
   if(nrow(df_neighbour) == 0)
   {
-    
-    warning("There seems to be no bordering grain locations. calc_MoransI_pseudo_p will return NaN")
-    
+    .throw_warning("There seems to be no bordering grain locations, returning NaN")
     return(NaN)
     
   } else
@@ -364,15 +361,12 @@ calc_MoransI_pseudo_p <- function(object,
     
     n_pseudo_p <- (n_test_pos+1-1)/(n_perm+1)
     
-    if(n_test_pos == 0 & !bo_suppress_warnings & n_pseudo_p > 0 )
-      warning("Pseudo-p might be overestimation; real p-value closer to zero. Perhaps increase n_perm")
-    
+    if (n_test_pos == 0 && !bo_suppress_warnings && n_pseudo_p > 0)
+      .throw_warning("Pseudo-p might be overestimation; real p-value closer to zero. Perhaps increase n_perm")
     
     return(n_pseudo_p)
   } ## END nrow(df_neighbour) > 0
-  
 }
-
 
 
 #' @title Get neighbour positions 
@@ -416,14 +410,14 @@ calc_MoransI_pseudo_p <- function(object,
 #' @export
 get_Neighbour <- function(object = NULL,
                           bo_restrict_to_8x8 = FALSE
-)
-{
-  
-  
-  
+) {
+  .set_function_name("calc_MoransI")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate input arguments -----------------------
   
-  .validate_class(object, c("RLum.Results", "numeric", "integer", "NULL"))
+  if (!is.null(object))
+    .validate_class(object, c("RLum.Results", "numeric", "integer"))
   ## To add
   
   if(!is.null(object))
@@ -439,7 +433,6 @@ get_Neighbour <- function(object = NULL,
     
   } else
     vb_contains_observation <- rep(TRUE, times = 100)
-  
   
   
   .validate_class(bo_restrict_to_8x8, "logical") 
@@ -492,8 +485,6 @@ get_Neighbour <- function(object = NULL,
     
     
     df_neighbour <- df_neighbour[!bo_contains_discborders, ]
-    
-    
   }
   
   
@@ -512,9 +503,7 @@ get_Neighbour <- function(object = NULL,
       )
     )
     df_neighbour <- df_neighbour[-vi_observation_missing,]
-    
   }
   
   return(df_neighbour)
-  
 }

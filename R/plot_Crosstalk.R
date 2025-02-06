@@ -66,11 +66,10 @@ plot_Disc <- function(object,
                       col =  "darkolivegreen",
                       pch  = 17,
                       ...
-                      
-                      
-) 
-{
-  
+) {
+  .set_function_name("plot_Disc")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate input arguments -----------------------    
   
   .validate_class(object, c("RLum.Results", "numeric", "integer"))    
@@ -98,14 +97,13 @@ plot_Disc <- function(object,
   # - should be a single element
   
   .validate_class(df_neighbour, "data.frame")      
-  # - should be valid neighbour  defining dataframe
+  if (ncol(df_neighbour) != 3)
+    .throw_error("'df_neighbour' should be a data frame with 3 columns")
   
   .validate_class(bo_show_positioning_holes, "logical")      
   # - should be a single element
   
-  .validate_class(str_transform, "character")      
-  # - should be a single element, one of "lin", "log" or "sqrt"
-  
+  .validate_args(str_transform, c("sqrt", "lin", "log"))
   
   
   ## Settings  -----------------------   
@@ -126,7 +124,6 @@ plot_Disc <- function(object,
     vn_values_to_show[101] <- n_mean_value  ## Temporarily add mean value to vector for scaling
     vn_values_to_show <- (vn_values_to_show-vn_range_values[1]) / diff(vn_range_values)   
     
-    
   } else
   {
     vn_range_values <- range(vn_values_to_show, na.rm = TRUE) 
@@ -143,9 +140,7 @@ plot_Disc <- function(object,
         n_lb_cex      
       
     }
-    if(str_transform == "log")
-    {
-      
+    else if (str_transform == "log") {
       ## Scale to from 1 to inf, also to avoid problems with non-positive values
       vn_values_to_show <- vn_values_to_show - min(vn_values_to_show , na.rm = TRUE) + 1
       
@@ -157,9 +152,7 @@ plot_Disc <- function(object,
         (max(vn_values_to_show , na.rm = TRUE) / (n_ub_cex - n_lb_cex) ) +
         n_lb_cex
     }
-    if(str_transform == "sqrt")
-    {
-      
+    else if (str_transform == "sqrt") {
       ## Scale to from 0 to inf
       vn_values_to_show <- vn_values_to_show - min(vn_values_to_show , na.rm = TRUE) 
       
@@ -171,8 +164,6 @@ plot_Disc <- function(object,
         (max(vn_values_to_show , na.rm = TRUE) / (n_ub_cex - n_lb_cex) ) +
         n_lb_cex
     }
-    
-    
   }
   
   
@@ -201,8 +192,8 @@ plot_Disc <- function(object,
   )
   
   ## Show title (if any)
-  if (bo_show_positioning_holes | bo_show_coordinates)  # move title up
-  {
+  if (bo_show_positioning_holes || bo_show_coordinates) {
+    ## move title up
     mtext(str_title, side = 3, line = 2.5, adj = 0.5, cex=1.3)
   } else
   {
@@ -219,12 +210,12 @@ plot_Disc <- function(object,
            col = "orange"
     )
   }
+
   ## Show coordinates along axes
   if(bo_show_coordinates)
   {
     axis(1, pos=-0.4, at=1:10, lwd=1, lwd.ticks=1)
     axis(4, pos=-0.3, at=1:10, las=2, lwd=1, lwd.ticks=1)
-    
   }  
   
   ## Show all grain location id's
@@ -250,21 +241,16 @@ plot_Disc <- function(object,
   }  
   
   
-  ## Indicate neighbouring postions used for Moran's I calculations
+  ## Indicate neighbouring positions used for Moran's I calculations
   if(bo_show_neighbours)  
   {
-    
-    if(is.null(df_neighbour))
-      warning("In plot_disc, bo_show_neighbours = TRUE but df_neighbour is NULL")
-    
     if(nrow(df_neighbour) == 0)
-      warning("In plot_disc, bo_show_neighbours = TRUE but df_neighbour is empty")
+      .throw_error("'bo_show_neighbours' is TRUE but 'df_neighbour' is empty")
     
     
     n_lines <- nrow(df_neighbour)
     
     ## From location ID to x y coordinates; put into lists for use with mapply    
-    
     list_x <- split((df_neighbour[,1:2] - 1) %% 10 + 1, 
                     1:n_lines )
     list_y <- split((df_neighbour[,1:2] - 1) %/% 10 + 1, 
@@ -275,10 +261,7 @@ plot_Disc <- function(object,
                         1:n_lines)
     
     mapply(lines, x = list_x, y = list_y, col = c("purple"), lwd = li_weight, lty = 'dotted')   
-    
-    
   }
-  
   
   
   if(bo_show_legend)
@@ -286,9 +269,6 @@ plot_Disc <- function(object,
     n_low <-  prettyNum(x = vn_range_values[1], digits = 2, format = "fg")
     n_mean <- prettyNum(x = n_mean_value, digits = 2, format = "fg")
     n_high <- prettyNum(x = vn_range_values[2], digits = 2, format = "fg")
-    
-    
-    
     
     vs_legend <- c( n_low,    n_mean,    n_high )
     vn_pch    <- c( pch,      pch,       pch)
@@ -305,7 +285,6 @@ plot_Disc <- function(object,
       vs_lty    <- c(vs_lty,    NA)
       vs_cols   <- c(vs_cols,   "orange")
       vn_pt_cex <- c(vn_pt_cex, 0.5)      
-      
     }
     
     if(bo_show_neighbours)
@@ -332,7 +311,6 @@ plot_Disc <- function(object,
            y.intersp=1.4,
            xpd=TRUE
     )
-    
   }
 }
 
@@ -402,16 +380,21 @@ plot_MoranScatterplot <- function(object,
                                                 no = "Plain mean neighbour grains"),
                                   log = "",
                                   ...
-)
-{
-  
+) {
+  .set_function_name("plot_MoranScatterplot")
+  on.exit(.unset_function_name(), add = TRUE)
+
   ## Validate input arguments; set variables  -----------------------
-  
   
   .validate_class(object, c("RLum.Results", "numeric", "integer"))    
   ## To add: 
   #  - should contain a numerical vector of length 100
   
+  .validate_class(df_neighbour, "data.frame")
+  if (ncol(df_neighbour) != 3)
+    .throw_error("'df_neighbour' should be a data frame with 3 columns")
+  .validate_class(bo_show_legend, "logical")
+  .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))
   
   if(is.numeric(object))
   {
@@ -425,32 +408,24 @@ plot_MoranScatterplot <- function(object,
   vs_points_appearance <- pch
   
   bo_show_location_ids <- FALSE
-  
+  bo_show_n_neighbours <- FALSE
   if(pch == "show_location_ids")
   {
     bo_show_location_ids <- TRUE
   }
-  
-  bo_show_n_neighbours <- FALSE
-  
-  if(pch == "show_n_neighbours")
-  {
+  else if (pch == "show_n_neighbours") {
     bo_show_n_neighbours <- TRUE
   }
   
   
-  
   vs_log <- log  # because we need the function "log" later
   
-  df_moran_plot <- data.frame(x = vn_values)
-  df_moran_plot$y <- NA
-  df_moran_plot$grain_id <- NA
-  df_moran_plot$n_neighbours <- NA
+  df_moran_plot <- data.frame(x = vn_values,
+                              y = NA,
+                              grain_id = NA,
+                              n_neighbours = NA)
   
   vn_locations <- unique(c(df_neighbour$location, df_neighbour$neighbour))
-  
-  
-  
   for(i in 1:length(vn_locations) )
   {
     n_location <- vn_locations[i]
@@ -478,7 +453,6 @@ plot_MoranScatterplot <- function(object,
     )
     
     
-    
     if(str_y_def == "mean_neighbours")
     {
       n_mean_of_neighbours <- mean(
@@ -487,15 +461,12 @@ plot_MoranScatterplot <- function(object,
       
       df_moran_plot$y[n_location]  <- n_mean_of_neighbours
     }    
-    if(str_y_def == "weighted_sum")
-    {
+    else if(str_y_def == "weighted_sum") {
       n_weighted_sum_neighbours <- sum(
         df_moran_plot$x[df_neighbour_and_weights$adj_pos]*
           df_neighbour_and_weights$weight, na.rm = TRUE) ## NOG AANPASSEN
       
       df_moran_plot$y[n_location]  <- n_weighted_sum_neighbours
-      
-      
     }    
     
     ## For plotting: how many neighbours were involved?
@@ -503,27 +474,18 @@ plot_MoranScatterplot <- function(object,
       length(vi_neighbour_mirror_row) + length(vi_neighbour_row)  
     
     df_moran_plot$grain_id[n_location] <- n_location
-    
   }
-  
-  
   
   n_grains_without_neighbour <- nrow(df_moran_plot) - 
     sum(complete.cases(df_moran_plot$y))
   
   if(n_grains_without_neighbour>0)
-    warning("Grain observations removed from plot because no neighbours")
+    .throw_warning("Grain observations removed from plot because no neighbours")
   
   df_moran_plot <- df_moran_plot[complete.cases(df_moran_plot), ]
   
-  
-  
-  
-  
   ## If we want a log plot, make sure that all relevant values are 1 or more (per axis)
-  if (grepl(pattern = "x", x = vs_log, fixed = TRUE) & min(df_moran_plot$x) < 1)
-  {
-    
+  if (grepl("x", vs_log, fixed = TRUE) && min(df_moran_plot$x) < 1) {
     if (min(df_moran_plot$x) < 0)
     {
       df_moran_plot$x <- df_moran_plot$x - min(df_moran_plot$x) + 1
@@ -531,12 +493,11 @@ plot_MoranScatterplot <- function(object,
     {
       df_moran_plot$x <- df_moran_plot$x + (1 - min(df_moran_plot$x))
     }
-    warning("x axis values rescaled because of log plot (also in return df)")
+    .throw_warning("x-axis values rescaled because of log transform ",
+                   "(also in return df)")
   }
   
-  if (grepl(pattern = "y", x = vs_log, fixed = TRUE) & min(df_moran_plot$y) < 1)
-  {
-    
+  if (grepl("y", vs_log, fixed = TRUE) && min(df_moran_plot$y) < 1) {
     if (min(df_moran_plot$y) < 0)
     {
       df_moran_plot$y <- df_moran_plot$y - min(df_moran_plot$y) + 1
@@ -544,19 +505,17 @@ plot_MoranScatterplot <- function(object,
     {
       df_moran_plot$y <- df_moran_plot$y + (1 - min(df_moran_plot$y))
     }
-    warning("y axis values rescaled because of log plot (also in return df)")
+    .throw_warning("y-axis values rescaled because of log transform ",
+                   "(also in return df)")
   }
   
   ## Set point appearance
-  if(vs_points_appearance == "show_location_ids" | vs_points_appearance == "show_n_neighbours")
-  {
-    vs_pch <- NA # Numbers will be added later
-  } else
-  {
-    vs_pch <- pch 
-    
+  vs_pch <- if (vs_points_appearance == "show_location_ids" ||
+                vs_points_appearance == "show_n_neighbours") {
+    NA # Numbers will be added later
+  } else {
+    pch 
   }
-  
   
   plot(df_moran_plot[,1:2],
        pch = vs_pch,
@@ -566,7 +525,6 @@ plot_MoranScatterplot <- function(object,
        cex = cex,
        ...
   )
-  
   
   if(vs_points_appearance == "show_location_ids")
   {
@@ -594,7 +552,6 @@ plot_MoranScatterplot <- function(object,
   ## Calculate least square line
   lm_moransI <- lm(y ~  x, data = df_moran_plot)
   abline(a = coef(lm_moransI)[1], b = coef(lm_moransI)[2], col = "orange", untf=TRUE)
-  #browser()
   
   if(bo_show_legend){
     vs_legend <- c("means",  "least square")
@@ -632,11 +589,7 @@ plot_MoranScatterplot <- function(object,
            lty    = vs_lty, 
            pch = vs_pch,
            cex    = 0.8)
-    
-    
   }
   
-  
   invisible(df_moran_plot)
-  
 }
