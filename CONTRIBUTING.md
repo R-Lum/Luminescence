@@ -5,7 +5,9 @@ Contributing to 'Luminescence' is simple and straightforward.
 * Create your own branch with a name like `feature_<your feature>`,
 `fix_<your fix>` or `new_<your new function>`
 * Implement your changes
-* [Push the branch][push] with your changes to your fork
+* [Push the branch][push] with your changes to your fork: please make
+sure that your commits have a [valid signature][sign] (they should have
+the `verified` tag on github)
 * Create a [pull request][pull] against the master branch of the
 'Luminescence' repository
 * A series of tests will start automatically: they should all turn green
@@ -27,5 +29,6 @@ In case you have questions, please contact the package maintainers before creati
 [coco]: CODE_OF_CONDUCT.md
 [fork]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks
 [push]: https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository
+[sign]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification
 [pull]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork
 [CRAN]: https://cran.r-project.org/web/packages/policies.html
