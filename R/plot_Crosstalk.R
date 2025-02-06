@@ -48,6 +48,11 @@
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
+#'
 #' @examples
 #'
 #'  plot_Disc(1:100)
@@ -366,6 +371,11 @@ plot_Disc <- function(object,
 #' grain location id's, for creating user-defined plots.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
 #'
 #' @md
 #' @export

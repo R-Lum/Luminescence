@@ -35,6 +35,11 @@ Pseudo p-value
 \description{
 Calculate Moran's I pseudo p
 }
+\references{
+de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+A novel tool to assess crosstalk in single-grain luminescence detection.
+Submitted.
+}
 \seealso{
 https://geodacenter.github.io/workbook/5a_global_auto/lab5a.html#permutation-inference
 }

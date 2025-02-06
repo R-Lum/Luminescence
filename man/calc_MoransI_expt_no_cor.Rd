@@ -36,6 +36,11 @@ calc_MoransI_expt_no_cor()
 calc_MoransI_expt_no_cor(n = 20)
 
 }
+\references{
+de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+A novel tool to assess crosstalk in single-grain luminescence detection.
+Submitted.
+}
 \author{
 Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 }

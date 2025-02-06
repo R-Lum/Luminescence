@@ -47,6 +47,11 @@ hist(observations_with_simulated_crosstalk)
 
 
 }
+\references{
+de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+A novel tool to assess crosstalk in single-grain luminescence detection.
+Submitted.
+}
 \author{
 Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 }

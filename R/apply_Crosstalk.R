@@ -1,6 +1,3 @@
-## Based on research paper "A novel tool to assess crosstalk in single-grain luminescence detection",
-##  de Boer et al., 2025
-
 #' @title Apply crosstalk
 #'
 #' @description Add crosstalk, evenly spread in rook (top-right-bottom-left)
@@ -30,6 +27,11 @@
 #'
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
 #'
 #' @examples
 #' ## Create artificial disc observation
@@ -126,6 +128,11 @@ apply_Crosstalk <- function(object,
 #' used for calculation is returned instead of the single outcome.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
 #'
 #' @examples
 #'
@@ -236,6 +243,11 @@ calc_MoransI <- function(object,
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
+#'
 #' @examples
 #' calc_MoransI_expt_no_cor()
 #' calc_MoransI_expt_no_cor(n = 20)
@@ -307,6 +319,11 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
 #' @seealso https://geodacenter.github.io/workbook/5a_global_auto/lab5a.html#permutation-inference
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
 #'
 #' @md
 #' @export
@@ -403,11 +420,15 @@ calc_MoransI_pseudo_p <- function(object,
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
+#' @references
+#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+#' A novel tool to assess crosstalk in single-grain luminescence detection.
+#' Submitted.
+#'
 #' @keywords crosstalk
 #'
 #' @examples
 #' head(get_Neighbour())
-#'
 #'
 #' @md
 #' @export

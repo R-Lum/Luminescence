@@ -73,6 +73,11 @@ from scaling, this explains a part of the differences of Moran's scatter plots b
 Also note that island' grain locations (=those not bordering other grains) are left out of these plots but
 might still influence Moran's I calculations.
 }
+\references{
+de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
+A novel tool to assess crosstalk in single-grain luminescence detection.
+Submitted.
+}
 \author{
 Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 }
