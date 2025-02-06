@@ -11,12 +11,14 @@ calc_MoransI_expt_no_cor(object = rep(1, times = 100), n = NULL)
 the values of the grains of one or more discs. Should have length 100;
 can contain \code{NA} values.}
 
-\item{n}{\link{integer} (\emph{with default}) The number of grain observations as one integer.
-Defaults to NULL. If provided, overrules parameter \code{object}. One full disc means "n = 100".}
+\item{n}{\link{integer} (\emph{with default}) The number of grain observations as
+one integer. Defaults to \code{NULL}. If provided, overrules parameter \code{object}.
+One full disc corresponds to \code{n = 100}.}
 }
 \value{
-Numerical value, a bit smaller than 0: the expected Moran's I for the null hypothesis
-(= no spatial correlation), according to -1/(n-1) with n the number of used observations.
+Numerical value, a bit smaller than 0: the expected Moran's I for
+the null hypothesis (= no spatial correlation), according to \code{-1/(n-1)}
+with \code{n} being the number of used observations.
 }
 \description{
 Perhaps a bit counter-intuitive, the expected value of Moran's I under

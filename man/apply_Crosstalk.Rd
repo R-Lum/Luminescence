@@ -7,8 +7,9 @@
 apply_Crosstalk(object, n_crosstalk = 0.2)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
-representing one or more measurement discs ("positions") in a reader.
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): containing
+a numerical vector of length 100, representing one or more measurement
+discs ("positions") in a reader.
 Each element in the vector represents one grain hole location on a disc.}
 
 \item{n_crosstalk}{\link{numeric} (\emph{with default}): A single number quantifying the added
@@ -19,8 +20,9 @@ but for realistic simulations we suggest something between 0 and 0.25.}
 A vector of size 100, with the value at each grain hole location including simulated crosstalk.
 }
 \description{
-Add crosstalk, evenly spread in rook (top-right-bottom-left) directions, to all
-grain whole locations on one measurement discs (=on position on a measurement wheel in a reader). An
+Add crosstalk, evenly spread in rook (top-right-bottom-left)
+directions, to all grain whole locations on one measurement discs
+(=on position on a measurement wheel in a reader). An
 added crosstalk value of as example 0.2 means that 0.2 of the value of
 the central grain is added to each grain in the rook directions. This is an additive
 action: the central grain itself is not affected by this operation (but will on its
@@ -38,7 +40,7 @@ observations <- set_RLum(class = "RLum.Results",
                        )
 hist(get_RLum(object = observations))
 
-## Add crosstalk (with default set to 0.2), and visualize the difference 
+## Add crosstalk (with default set to 0.2), and visualize the difference
 ## in the resulting histogram.
 observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
 hist(observations_with_simulated_crosstalk)

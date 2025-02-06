@@ -30,13 +30,13 @@ of large scale simulation loops.}
 Defaults to \code{FALSE}: warnings will be printed.}
 }
 \value{
-Pseudo p value
+Pseudo p-value
 }
 \description{
 Calculate Moran's I pseudo p
 }
-\details{
-See also https://geodacenter.github.io/workbook/5a_global_auto/lab5a.html#permutation-inference
+\seealso{
+https://geodacenter.github.io/workbook/5a_global_auto/lab5a.html#permutation-inference
 }
 \author{
 Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025

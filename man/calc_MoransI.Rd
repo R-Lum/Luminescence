@@ -42,7 +42,7 @@ calc_MoransI(object = c(1:100))
 ## Test some fictional samples without spatial correlation;
 ## note the randomness with each repetition
 calc_MoransI(object = rnorm(n = 100))
-calc_MoransI(object = rnorm(n = 100)) 
+calc_MoransI(object = rnorm(n = 100))
 calc_MoransI(object = rnorm(n = 100))
 
 }

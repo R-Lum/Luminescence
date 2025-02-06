@@ -47,15 +47,17 @@ to the way Moran's I is by default calculated in this package.}
 
 \item{log}{FIXME(mcol)}
 
-\item{...}{Other parameters to be forwarded to the base R plot functions. Note that \code{xlab} (x axis label),
-\code{ylab} (y axis label) and \code{cex} (scaling value) are given default values. Because of sometimes large value
-differences, \code{log = "x"}, \code{log = "y"} and \code{log = "xy"}are supported. In case of negative values and logarithmic
-plotting, values are increased so the smallest value to plot is 1. Summary elements such as means, least
+\item{...}{Other parameters to be forwarded to the base R plot functions.
+Note that \code{xlab} (x axis label), \code{ylab} (y axis label) and \code{cex} (scaling
+value) are given default values. Because of sometimes large value
+differences, \code{log = "x"}, \code{log = "y"} and \code{log = "xy"}are supported.
+In case of negative values and logarithmic plotting, values are increased
+so the smallest value to plot is 1. Summary elements such as means, least
 square line etc. will still be based on the linear case.}
 }
 \value{
-Dataframe with plotting coordinates and grain location id's, for creating user-defined
-plots. Invisible.
+Returns (invisibly) a data frame with plotting coordinates and
+grain location id's, for creating user-defined plots.
 }
 \description{
 Scatter plot, with on the x axis the original grain signal and on the y axis
