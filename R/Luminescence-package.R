@@ -110,7 +110,7 @@
 #'
 #' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid close.screen screen split.screen
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors xy.coords dev.off
-#' @importFrom stats formula approx as.formula complete.cases density dnorm glm integrate lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames coef confint predict update residuals fitted qf
+#' @importFrom stats formula approx as.formula complete.cases density dist dnorm glm integrate lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames coef confint predict update residuals fitted qf
 #' @importFrom parallel parLapply makeCluster stopCluster
 #' @importFrom httr GET accept_json status_code content
 #'
