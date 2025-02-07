@@ -125,26 +125,24 @@ for (i in 1:nrow(df_MoransI))
   df_MoransI$pseudo_p[i] <- 
     calc_MoransI_pseudo_p(object = vn_simulated_with_crosstalk, 
                           suppress_warnings = TRUE)
-
-
 }
-  
 
-n_expected_I_if_no_spatial_autocorrelation <- calc_MoransI_expt_no_cor()
+n_expected_I_no_spatial_autocorr <- calc_MoransI(1:100,
+                                                 spatial_autocorrelation = FALSE)
 
 ## 
 
 plot(x = df_MoransI$crosstalk, 
      y = df_MoransI$MoransI,
      ylim = range(
-          pretty(x = c(df_MoransI$MoransI, n_expected_I_if_no_spatial_autocorrelation))
+          pretty(x = c(df_MoransI$MoransI, n_expected_I_no_spatial_autocorr))
           ),
      ## Set ylim manually to make sure the value for I for no crosstalk is visible
      xlab = "Amount of added crosstalk",
      ylab = "Calculated Moran's I"
      )
 grid()
-abline(h = n_expected_I_if_no_spatial_autocorrelation, 
+abline(h = n_expected_I_no_spatial_autocorr,
        col = "purple")
 
 legend(x = "topleft",

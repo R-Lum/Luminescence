@@ -4,7 +4,12 @@
 \alias{calc_MoransI}
 \title{Calculate Moran's I}
 \usage{
-calc_MoransI(object, df_neighbours = NULL, return_intermediate_values = FALSE)
+calc_MoransI(
+  object,
+  df_neighbours = NULL,
+  autocorrelation = TRUE,
+  return_intermediate_values = FALSE
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}) containing
@@ -21,7 +26,13 @@ automatically by the internal function \code{.get_Neighbours}.}
 
 \item{return_intermediate_values}{\link{logical} (\emph{with default}): whether the
 function should return a list with several intermediate calculation results
-(defaults to \code{FALSE}).}
+(defaults to \code{FALSE}). Ignored if \code{spatial_autocorrelation} is \code{FALSE}.}
+
+\item{spatial_autocorrelation}{\link{logical} (\emph{with default}): whether spatial
+autocorrelation should be considered in the computation of Moran's I
+(\code{TRUE} by default). If \code{FALSE}, the function computes Moran's I expected
+value in case of no autocorrelation (H_0). See details for further
+information.}
 }
 \value{
 By default one numerical value, roughly between -1 and 1, where
@@ -33,6 +44,21 @@ values used for calculation is returned instead of the single outcome.
 }
 \description{
 Calculate Moran's I
+}
+\details{
+\strong{Case of no spatial autocorrelation}
+
+Perhaps a bit counter-intuitive, the expected value of Moran's I under the
+null hypothesis of no spatial correlation is a value slightly smaller than
+zero. When setting \code{autocorrelation = FALSE}, this function calculates the
+expected value based on the number of observations or the length of the
+observation vector (while taking out \code{NA} values). Note that the expected
+value only depends on the number of observed separate grain values. This
+can be useful for plotting.
+
+The expected Moran's I for the null hypothesis of no spatial correlation
+corresponds to \code{-1 / (n - 1)}, with \code{n} being the number of non-missing
+observations.
 }
 \examples{
 

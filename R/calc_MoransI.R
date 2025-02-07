@@ -1,5 +1,21 @@
 #' @title Calculate Moran's I
 #'
+#' @details
+#'
+#' **Case of no spatial autocorrelation**
+#'
+#' Perhaps a bit counter-intuitive, the expected value of Moran's I under the
+#' null hypothesis of no spatial correlation is a value slightly smaller than
+#' zero. When setting `spatial_autocorrelation = FALSE`, this function
+#' calculates the expected value based on the number of observations or the
+#' length of the observation vector (while taking out `NA` values). Note that
+#' the expected value only depends on the number of observed separate grain
+#' values. This can be useful for plotting.
+#'
+#' The expected Moran's I for the null hypothesis of no spatial correlation
+#' corresponds to `-1 / (n - 1)`, with `n` being the number of non-missing
+#' observations.
+#'
 #' @param object [RLum.Results-class] or [numeric] (**required**) containing
 #' the values of the grains of one. Should have length 100; can contain `NA`
 #' values.
@@ -12,9 +28,15 @@
 #' weight (generally set to 1). If `NULL` (default), this is constructed
 #' automatically by the internal function `.get_Neighbours`.
 #'
+#' @param spatial_autocorrelation [logical] (*with default*): whether spatial
+#' autocorrelation should be considered in the computation of Moran's I
+#' (`TRUE` by default). If `FALSE`, the function computes Moran's I expected
+#' value in case of no autocorrelation (H_0). See details for further
+#' information.
+#'
 #' @param return_intermediate_values [logical] (*with default*): whether the
 #' function should return a list with several intermediate calculation results
-#' (defaults to `FALSE`).
+#' (defaults to `FALSE`). Ignored if `spatial_autocorrelation` is `FALSE`.
 #'
 #' @return By default one numerical value, roughly between -1 and 1, where
 #' close to zero means no spatial correlation, and value close to 1 a positive
@@ -45,6 +67,7 @@
 #' @export
 calc_MoransI <- function(object,
                          df_neighbours = NULL,
+                         spatial_autocorrelation = TRUE,
                          return_intermediate_values = FALSE
 ) {
   .set_function_name("calc_MoransI")
@@ -55,6 +78,8 @@ calc_MoransI <- function(object,
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
   ## To add
   #  - should contain a numerical vector of length 100
+  .validate_class(spatial_autocorrelation, "logical")
+
   if(is.numeric(object))
   {
     vn_values <- object
@@ -75,13 +100,25 @@ calc_MoransI <- function(object,
   #  - should be a single value
 
 
+  ## No spatial autocorrelation ---------------------------------------------
+
+  if (!spatial_autocorrelation) {
+    n.valid <- sum(!is.na(vn_values))
+    if (n.valid < 2) {
+      .throw_error("There should be at least 2 non-missing values")
+    }
+    n_MoransI_expt_no_cor <- -1 / (n.valid - 1)
+    return(n_MoransI_expt_no_cor)
+  }
+
+  ## Core calculation -------------------------------------------------------
+
   if (nrow(df_neighbours) == 0) {
     .throw_warning("No bordering grain locations given in 'df_neighbours', ",
                    "returning NaN")
     return(NaN)
   }
 
-  ## Core calculation  -----------------------
   n <- sum(!is.na(vn_values))
   n_mean <- mean(vn_values, na.rm = TRUE)
   n_spatial_auto_correlation <- sum((vn_values-n_mean)^2, na.rm = TRUE)/n # Population variance
@@ -111,83 +148,6 @@ calc_MoransI <- function(object,
   }
 
   return(n_moransI)
-}
-
-
-#' @title Calculate Moran's I expected value in case of no auto correlation (H_0)
-#'
-#' @description Perhaps a bit counter-intuitive, the expected value of Moran's I under
-#' the null hypothesis of no spatial correlation is a value slightly smaller than zero. This function
-#' calculates the expected value based on the number of observations or the length of the
-#' observation vector (while taking out `NA` values). This can be useful for plotting.
-#' Defaults, when no arguments are provided, to the expected value of one observation disc with
-#' 100 valid observations.
-#'
-#' @details Note that the expected value only depends on the number of observed separate grain values.
-#'
-#' @param object [RLum.Results-class] or [numeric] (*with default*) containing
-#' the values of the grains of one or more discs. Should have length 100;
-#' can contain `NA` values.
-#'
-#' @param n [integer] (*with default*) The number of grain observations as
-#' one integer. Defaults to `NULL`. If provided, overrules parameter `object`.
-#' One full disc corresponds to `n = 100`.
-#'
-#' @return Numerical value, a bit smaller than 0: the expected Moran's I for
-#' the null hypothesis (= no spatial correlation), according to `-1/(n-1)`
-#' with `n` being the number of used observations.
-#'
-#' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
-#'
-#' @references
-#' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-#' A novel tool to assess crosstalk in single-grain luminescence detection.
-#' Submitted.
-#'
-#' @examples
-#' calc_MoransI_expt_no_cor()
-#' calc_MoransI_expt_no_cor(n = 20)
-#'
-#' @md
-#' @export
-calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
-                                     n = NULL
-) {
-  .set_function_name("calc_MoransI")
-  on.exit(.unset_function_name(), add = TRUE)
-
-  ## Validate input arguments; set variables  -----------------------
-
-  if (!is.null(n))
-  {
-    .validate_positive_scalar(n, int = TRUE)
-    n <- as.integer(n)
-
-  } else
-  {
-    .validate_class(object, c("RLum.Results", "numeric", "integer"))
-    ## To add:
-    #  - should contain a numerical vector of length 100
-
-
-    if(is.numeric(object))
-    {
-      vn_values <- object
-    } else
-    {
-      vn_values <- get_RLum(object)
-    }
-
-    n <- sum(!is.na(vn_values))
-  }
-
-  ## Check if valid input
-  stopifnot(n > 1)
-
-
-  n_MoransI_expt_no_cor <- -1/(n-1)
-
-  return(n_MoransI_expt_no_cor)
 }
 
 
