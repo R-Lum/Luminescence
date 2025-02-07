@@ -13,8 +13,8 @@
 #' which borders to consider, and their respective weights.
 #' Defaults to `get_Neighbour(object = vn_values)`.
 #'
-#' @param bo_show_legend [logical] (*with default*) Single Boolean. If `TRUE`
-#' (default), a small legend explaining the different lines is plotted.
+#' @param show_legend [logical] (*with default*): whether a legend explaining
+#' the different lines should be plotted (defaults to `TRUE`).
 #'
 #' @param str_y_def [character] (*with default*) Calculation of y position. Defaults to `"mean_neighbours"`
 #' which is the plain mean of all neighbour values and the most illustrative. The other option is `"weighted_sum"`,
@@ -60,7 +60,7 @@
 #' @export
 plot_MoranScatterplot <- function(object,
                                   df_neighbour= get_Neighbour(object = object),
-                                  bo_show_legend = TRUE,
+                                  show_legend = TRUE,
                                   str_y_def = "mean_neighbours", # , mean_neighbours, weighted_sum
                                   pch  = 20, #"show_location_ids", "show_n_neighbours", pch-value
                                   cex  = 0.8,
@@ -83,7 +83,7 @@ plot_MoranScatterplot <- function(object,
   .validate_class(df_neighbour, "data.frame")
   if (ncol(df_neighbour) != 3)
     .throw_error("'df_neighbour' should be a data frame with 3 columns")
-  .validate_class(bo_show_legend, "logical")
+  .validate_class(show_legend, "logical")
   .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))
 
   if(is.numeric(object))
@@ -97,16 +97,15 @@ plot_MoranScatterplot <- function(object,
 
   vs_points_appearance <- pch
 
-  bo_show_location_ids <- FALSE
-  bo_show_n_neighbours <- FALSE
+  show_location_ids <- FALSE
+  show_n_neighbours <- FALSE
   if(pch == "show_location_ids")
   {
-    bo_show_location_ids <- TRUE
+    show_location_ids <- TRUE
   }
   else if (pch == "show_n_neighbours") {
-    bo_show_n_neighbours <- TRUE
+    show_n_neighbours <- TRUE
   }
-
 
   vs_log <- log  # because we need the function "log" later
 
@@ -243,7 +242,7 @@ plot_MoranScatterplot <- function(object,
   lm_moransI <- lm(y ~  x, data = df_moran_plot)
   abline(a = coef(lm_moransI)[1], b = coef(lm_moransI)[2], col = "orange", untf=TRUE)
 
-  if(bo_show_legend){
+  if (show_legend) {
     vs_legend <- c("means",  "least square")
     vs_cols   <- c("black",  "orange")
     vs_lty    <- c("dotted", "solid")

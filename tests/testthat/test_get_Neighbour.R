@@ -7,15 +7,15 @@ test_that("input validation", {
 
   expect_error(get_Neighbour("error"),
                "'object' should be of class 'RLum.Results', 'numeric' or 'integer'")
-  expect_error(get_Neighbour(obj, bo_restrict_to_8x8 = "error"),
-               "'bo_restrict_to_8x8' should be of class 'logical'")
+  expect_error(get_Neighbour(obj, restrict_to_8x8 = "error"),
+               "'restrict_to_8x8' should be of class 'logical'")
 })
 
 test_that("check functionality", {
   testthat::skip_on_cran()
 
   expect_snapshot_plain(get_Neighbour(obj))
-  expect_snapshot_plain(get_Neighbour(obj, bo_restrict_to_8x8 = TRUE))
+  expect_snapshot_plain(get_Neighbour(obj, restrict_to_8x8 = TRUE))
   expect_snapshot_plain(get_Neighbour(NULL))
   expect_snapshot_plain(get_Neighbour(c(1:99, NA)))
 })

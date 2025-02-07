@@ -7,7 +7,7 @@
 plot_MoranScatterplot(
   object,
   df_neighbour = get_Neighbour(object = object),
-  bo_show_legend = TRUE,
+  show_legend = TRUE,
   str_y_def = "mean_neighbours",
   pch = 20,
   cex = 0.8,
@@ -27,8 +27,8 @@ Each element in the vector represents one grain hole location on a disc.}
 which borders to consider, and their respective weights.
 Defaults to \code{get_Neighbour(object = vn_values)}.}
 
-\item{bo_show_legend}{\link{logical} (\emph{with default}) Single Boolean. If \code{TRUE}
-(default), a small legend explaining the different lines is plotted.}
+\item{show_legend}{\link{logical} (\emph{with default}): whether a legend explaining
+the different lines should be plotted (defaults to \code{TRUE}).}
 
 \item{str_y_def}{\link{character} (\emph{with default}) Calculation of y position. Defaults to \code{"mean_neighbours"}
 which is the plain mean of all neighbour values and the most illustrative. The other option is \code{"weighted_sum"},

@@ -6,12 +6,12 @@
 \usage{
 plot_SingleGrainDisc(
   object,
-  bo_show_coordinates = FALSE,
-  bo_show_location_ids = FALSE,
-  bo_show_legend = FALSE,
-  bo_show_neighbours = FALSE,
+  show_coordinates = FALSE,
+  show_location_ids = FALSE,
+  show_legend = FALSE,
+  show_neighbours = FALSE,
+  show_positioning_holes = TRUE,
   df_neighbour = get_Neighbour(object = object),
-  bo_show_positioning_holes = TRUE,
   str_transform = "sqrt",
   main = "",
   col = "darkolivegreen",
@@ -22,26 +22,26 @@ plot_SingleGrainDisc(
 \arguments{
 \item{object}{The values to show, a numerical vector of size 100. ## NOG AANPASSEN}
 
-\item{bo_show_coordinates}{\link{logical} (\emph{with default}): Show coordinates (1..10)
+\item{show_coordinates}{\link{logical} (\emph{with default}): Show coordinates (1..10)
 in x and in y direction. Defaults to \code{FALSE}.}
 
-\item{bo_show_location_ids}{\link{logical} (\emph{with default}): Show id with every
+\item{show_location_ids}{\link{logical} (\emph{with default}): Show id with every
 grain location (1..100). Defaults to \code{FALSE}.}
 
-\item{bo_show_legend}{\link{logical} (\emph{with default}): Defaults to \code{FALSE}.
+\item{show_legend}{\link{logical} (\emph{with default}): Defaults to \code{FALSE}.
 Show a rudimentary legend.}
 
-\item{bo_show_neighbours}{\link{logical}  (\emph{with default}): Show which
+\item{show_neighbours}{\link{logical}  (\emph{with default}): Show which
 neighbour connections are taken into account if calculating Moran's I.
 This makes sense when there are \code{NA} observations, or when a non-standard
 neighbour setting is defined.}
 
-\item{df_neighbour}{\link{data.frame} (\emph{with default}): Dataframe as returned
-by \code{get_Neighbour()}. Is only relevant if \code{bo_show_neighbours} is \code{TRUE}.
-Defaults to \code{get_Neighbour(object)}.}
-
-\item{bo_show_positioning_holes}{\link{logical} (\emph{with default}): Show the 3
+\item{show_positioning_holes}{\link{logical} (\emph{with default}): Show the 3
 positioning holes for orientation. Defaults to \code{TRUE}.}
+
+\item{df_neighbour}{\link{data.frame} (\emph{with default}): Dataframe as returned
+by \code{get_Neighbour()}. Is only relevant if \code{show_neighbours} is \code{TRUE}.
+Defaults to \code{get_Neighbour(object)}.}
 
 \item{str_transform}{\link{character} (\emph{with default}): The observed value of each individual grain is
 reflected in the size of a triangle (or other dot-like element). To account for large value differences,

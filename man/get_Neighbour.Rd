@@ -4,7 +4,7 @@
 \alias{get_Neighbour}
 \title{Get neighbour positions}
 \usage{
-get_Neighbour(object = NULL, bo_restrict_to_8x8 = FALSE)
+get_Neighbour(object = NULL, restrict_to_8x8 = FALSE)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} or \link{numeric} (\emph{with default}): numerical
@@ -12,7 +12,7 @@ vector containing the values of one or more discs, or an \code{RLum.Results}
 object containing such values. Can contain \code{NA} values.
 If \code{NULL} (default), a complete 10x10 disc is assumed.}
 
-\item{bo_restrict_to_8x8}{\link{logical} (\emph{with default}) Defaults to \code{FALSE}.
+\item{restrict_to_8x8}{\link{logical} (\emph{with default}) Defaults to \code{FALSE}.
 If \code{TRUE}, only on-disc borders to grain locations who do not border the
 disc are considered; thus only the inner 8x8 grain locations rather than
 the full 10x10.}

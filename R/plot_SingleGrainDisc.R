@@ -9,26 +9,26 @@
 #'
 #' @param object The values to show, a numerical vector of size 100. ## NOG AANPASSEN
 #'
-#' @param bo_show_coordinates [logical] (*with default*): Show coordinates (1..10)
+#' @param show_coordinates [logical] (*with default*): Show coordinates (1..10)
 #' in x and in y direction. Defaults to `FALSE`.
 #'
-#' @param bo_show_location_ids [logical] (*with default*): Show id with every
+#' @param show_location_ids [logical] (*with default*): Show id with every
 #' grain location (1..100). Defaults to `FALSE`.
 #'
-#' @param bo_show_legend [logical] (*with default*): Defaults to `FALSE`.
+#' @param show_legend [logical] (*with default*): Defaults to `FALSE`.
 #' Show a rudimentary legend.
 #'
-#' @param bo_show_neighbours [logical]  (*with default*): Show which
+#' @param show_neighbours [logical]  (*with default*): Show which
 #' neighbour connections are taken into account if calculating Moran's I.
 #' This makes sense when there are `NA` observations, or when a non-standard
 #' neighbour setting is defined.
 #'
-#' @param df_neighbour [data.frame] (*with default*): Dataframe as returned
-#' by `get_Neighbour()`. Is only relevant if `bo_show_neighbours` is `TRUE`.
-#' Defaults to `get_Neighbour(object)`.
-#'
-#' @param bo_show_positioning_holes [logical] (*with default*): Show the 3
+#' @param show_positioning_holes [logical] (*with default*): Show the 3
 #' positioning holes for orientation. Defaults to `TRUE`.
+#'
+#' @param df_neighbour [data.frame] (*with default*): Dataframe as returned
+#' by `get_Neighbour()`. Is only relevant if `show_neighbours` is `TRUE`.
+#' Defaults to `get_Neighbour(object)`.
 #'
 #' @param str_transform [character] (*with default*): The observed value of each individual grain is
 #' reflected in the size of a triangle (or other dot-like element). To account for large value differences,
@@ -58,12 +58,12 @@
 #' @md
 #' @export
 plot_SingleGrainDisc <- function(object,
-                                 bo_show_coordinates = FALSE,
-                                 bo_show_location_ids = FALSE,
-                                 bo_show_legend = FALSE,
-                                 bo_show_neighbours = FALSE,
+                                 show_coordinates = FALSE,
+                                 show_location_ids = FALSE,
+                                 show_legend = FALSE,
+                                 show_neighbours = FALSE,
+                                 show_positioning_holes = TRUE,
                                  df_neighbour = get_Neighbour(object = object),
-                                 bo_show_positioning_holes = TRUE,
                                  str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
                                  main = "",
                                  col =  "darkolivegreen",
@@ -87,24 +87,24 @@ plot_SingleGrainDisc <- function(object,
     vn_values_to_show <- get_RLum(object)
   }
 
-  .validate_class(bo_show_coordinates, "logical")
+  .validate_class(show_coordinates, "logical")
   # - should be a single element
 
-  .validate_class(bo_show_location_ids, "logical")
+  .validate_class(show_location_ids, "logical")
   # - should be a single element
 
-  .validate_class(bo_show_legend, "logical")
+  .validate_class(show_legend, "logical")
   # - should be a single element
 
-  .validate_class(bo_show_neighbours, "logical")
+  .validate_class(show_neighbours, "logical")
+  # - should be a single element
+
+  .validate_class(show_positioning_holes, "logical")
   # - should be a single element
 
   .validate_class(df_neighbour, "data.frame")
   if (ncol(df_neighbour) != 3)
     .throw_error("'df_neighbour' should be a data frame with 3 columns")
-
-  .validate_class(bo_show_positioning_holes, "logical")
-  # - should be a single element
 
   .validate_args(str_transform, c("sqrt", "lin", "log"))
 
@@ -193,7 +193,7 @@ plot_SingleGrainDisc <- function(object,
   )
 
   ## Show title (if any)
-  if (bo_show_positioning_holes || bo_show_coordinates) {
+  if (show_positioning_holes || show_coordinates) {
     ## move title up
     mtext(str_title, side = 3, line = 2.5, adj = 0.5, cex=1.3)
   } else
@@ -213,15 +213,13 @@ plot_SingleGrainDisc <- function(object,
   }
 
   ## Show coordinates along axes
-  if(bo_show_coordinates)
-  {
+  if (show_coordinates) {
     axis(1, pos=-0.4, at=1:10, lwd=1, lwd.ticks=1)
     axis(4, pos=-0.3, at=1:10, las=2, lwd=1, lwd.ticks=1)
   }
 
   ## Show all grain location id's
-  if(bo_show_location_ids)
-  {
+  if (show_location_ids) {
     text(x = df_disc$x-0.2,
          y = df_disc$y-0.2,
          labels = 1:100,
@@ -231,8 +229,8 @@ plot_SingleGrainDisc <- function(object,
   }
 
   ## Show the 3 big positioning holes
-  if(bo_show_positioning_holes)
-  {           ##  left  middle right
+  if (show_positioning_holes) {
+    ##            left middle  right
     points(x = c(-0.25,  5.5,   11.2),
            y = c(5.5,     0,    5.5),
            pch = 1,
@@ -242,10 +240,9 @@ plot_SingleGrainDisc <- function(object,
   }
 
   ## Indicate neighbouring positions used for Moran's I calculations
-  if(bo_show_neighbours)
-  {
+  if (show_neighbours) {
     if(nrow(df_neighbour) == 0)
-      .throw_error("'bo_show_neighbours' is TRUE but 'df_neighbour' is empty")
+      .throw_error("'show_neighbours' is TRUE but 'df_neighbour' is empty")
 
     n_lines <- nrow(df_neighbour)
 
@@ -262,8 +259,7 @@ plot_SingleGrainDisc <- function(object,
     mapply(lines, x = list_x, y = list_y, col = c("purple"), lwd = li_weight, lty = 'dotted')
   }
 
-  if(bo_show_legend)
-  {
+  if (show_legend) {
     n_low <-  prettyNum(x = vn_range_values[1], digits = 2, format = "fg")
     n_mean <- prettyNum(x = n_mean_value, digits = 2, format = "fg")
     n_high <- prettyNum(x = vn_range_values[2], digits = 2, format = "fg")
@@ -285,8 +281,7 @@ plot_SingleGrainDisc <- function(object,
       vn_pt_cex <- c(vn_pt_cex, 0.5)
     }
 
-    if(bo_show_neighbours)
-    {
+    if (show_neighbours) {
       vs_legend <- c(vs_legend, "Neighb.")
       vn_pch    <- c(vn_pch,     NA )
       vs_lty    <- c(vs_lty,    'dotted')

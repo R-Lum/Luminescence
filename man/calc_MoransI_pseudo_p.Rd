@@ -9,7 +9,7 @@ calc_MoransI_pseudo_p(
   n_moransI = calc_MoransI(object),
   n_perm = 999,
   df_neighbour = get_Neighbour(object = vn_values),
-  bo_suppress_warnings = FALSE
+  suppress_warnings = FALSE
 )
 }
 \arguments{
@@ -26,8 +26,8 @@ of large scale simulation loops.}
 \item{df_neighbour}{\link{data.frame} (\emph{with default}) Defaults to
 \code{get_Neighbour(object)}.}
 
-\item{bo_suppress_warnings}{\link{logical} (\emph{with default}) Should warnings be printed or suppressed?
-Defaults to \code{FALSE}: warnings will be printed.}
+\item{suppress_warnings}{\link{logical} (\emph{with default}): whether warnings should
+be suppressed (defaults to \code{FALSE}).}
 }
 \value{
 Pseudo p-value

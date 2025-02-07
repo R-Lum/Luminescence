@@ -8,16 +8,16 @@
 #' neighbours to consider, and their respective weights. Defaults to
 #' `get_Neighbour(object)`.
 #'
-#' @param bo_return_inbetween_numbers [logical] (*with default*). Defaults
-#' to `FALSE`. If `TRUE`, the function returns a list with several
-#' intermediate calculation results.
+#' @param return_intermediate_values [logical] (*with default*): whether the
+#' function should return a list with several intermediate calculation results
+#' (defaults to `FALSE`).
 #'
 #' @return By default one numerical value, roughly between -1 and 1, where
 #' close to zero means no spatial correlation, and value close to 1 a positive
 #' spatial correlation given the pattern we interested in (by default all rook neighbours).
 #' A value closer to -1 has no meaning within the context of luminescence crosstalk.
-#' If `bo_return_inbetween_numbers` is set to `TRUE`, a list with several numbers
-#' used for calculation is returned instead of the single outcome.
+#' If `return_intermediate_values` is set to `TRUE`, a list with several
+#' values used for calculation is returned instead of the single outcome.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
@@ -41,7 +41,7 @@
 #' @export
 calc_MoransI <- function(object,
                          df_neighbour  =  get_Neighbour(object = object),
-                         bo_return_inbetween_numbers = FALSE
+                         return_intermediate_values = FALSE
 ) {
   .set_function_name("calc_MoransI")
   on.exit(.unset_function_name(), add = TRUE)
@@ -63,7 +63,7 @@ calc_MoransI <- function(object,
   ## To add
   #  - should be a valid df_neighbour dataframe
 
-  .validate_class(bo_return_inbetween_numbers, "logical")
+  .validate_class(return_intermediate_values, "logical")
   ## To add
   #  - should be a single value
 
@@ -90,8 +90,7 @@ calc_MoransI <- function(object,
 
   n_moransI <- n_average_auto_correlation / n_spatial_auto_correlation
 
-  if(bo_return_inbetween_numbers)
-  {
+  if (return_intermediate_values) {
     li_return <- list(n = n,
                       n_mean = n_mean,
                       n_population_variance = n_spatial_auto_correlation,
@@ -102,11 +101,9 @@ calc_MoransI <- function(object,
     )
 
     return(li_return)
-
-  } else
-  {
-    return(n_moransI)
   }
+
+  return(n_moransI)
 }
 
 
@@ -202,9 +199,8 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
 #' @param df_neighbour [data.frame] (*with default*) Defaults to
 #' `get_Neighbour(object)`.
 #'
-#' @param bo_suppress_warnings [logical] (*with default*) Should warnings be printed or suppressed?
-#' Defaults to `FALSE`: warnings will be printed.
-#'
+#' @param suppress_warnings [logical] (*with default*): whether warnings should
+#' be suppressed (defaults to `FALSE`).
 #'
 #' @return Pseudo p-value
 #'
@@ -223,7 +219,7 @@ calc_MoransI_pseudo_p <- function(object,
                                   n_moransI = calc_MoransI(object),
                                   n_perm = 999,
                                   df_neighbour = get_Neighbour(object = vn_values),
-                                  bo_suppress_warnings = FALSE
+                                  suppress_warnings = FALSE
 ) {
   .set_function_name("calc_MoransI")
   on.exit(.unset_function_name(), add = TRUE)
@@ -273,7 +269,7 @@ calc_MoransI_pseudo_p <- function(object,
 
     n_pseudo_p <- (n_test_pos+1-1)/(n_perm+1)
 
-    if (n_test_pos == 0 && !bo_suppress_warnings && n_pseudo_p > 0)
+    if (n_test_pos == 0 && !suppress_warnings && n_pseudo_p > 0)
       .throw_warning("Pseudo-p might be overestimation; real p-value closer to zero. Perhaps increase n_perm")
 
     return(n_pseudo_p)
@@ -300,7 +296,7 @@ calc_MoransI_pseudo_p <- function(object,
 #' object containing such values. Can contain `NA` values.
 #' If `NULL` (default), a complete 10x10 disc is assumed.
 #'
-#' @param bo_restrict_to_8x8 [logical] (*with default*) Defaults to `FALSE`.
+#' @param restrict_to_8x8 [logical] (*with default*) Defaults to `FALSE`.
 #' If `TRUE`, only on-disc borders to grain locations who do not border the
 #' disc are considered; thus only the inner 8x8 grain locations rather than
 #' the full 10x10.
@@ -325,7 +321,7 @@ calc_MoransI_pseudo_p <- function(object,
 #' @md
 #' @export
 get_Neighbour <- function(object = NULL,
-                          bo_restrict_to_8x8 = FALSE
+                          restrict_to_8x8 = FALSE
 ) {
   .set_function_name("calc_MoransI")
   on.exit(.unset_function_name(), add = TRUE)
@@ -351,7 +347,7 @@ get_Neighbour <- function(object = NULL,
     vb_contains_observation <- rep(TRUE, times = 100)
 
 
-  .validate_class(bo_restrict_to_8x8, "logical")
+  .validate_class(restrict_to_8x8, "logical")
   ## To add:
   ## - contains one element
 
@@ -387,26 +383,22 @@ get_Neighbour <- function(object = NULL,
 
   df_neighbour <- na.omit(df_neighbour)
 
-  if(bo_restrict_to_8x8) ## Remove the disc borders
-  {
-
+  if (restrict_to_8x8) {
+    ## Remove the disc borders
     vn_disc_border_locations <- c(1:10,
                                   91:100,
                                   seq(from = 11, to = 81, by = 10),
                                   seq(from = 20, to = 90, by = 10)
     )
 
-    bo_contains_discborders <- df_neighbour$location %in% vn_disc_border_locations |
+    contains_discborders <- df_neighbour$location %in% vn_disc_border_locations ||
       df_neighbour$neighbour %in% vn_disc_border_locations
 
-
-    df_neighbour <- df_neighbour[!bo_contains_discborders, ]
+    df_neighbour <- df_neighbour[!contains_discborders, ]
   }
-
 
   ## Define relative weight factor ---------------------------------
   df_neighbour$weight <- 1
-
 
   ## If there are missing observations (NA's), we need to take those out ------------------
   if(any(!vb_contains_observation))

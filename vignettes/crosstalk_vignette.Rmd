@@ -124,7 +124,7 @@ for (i in 1:nrow(df_MoransI))
   df_MoransI$MoransI[i]  <- calc_MoransI(object = vn_simulated_with_crosstalk)
   df_MoransI$pseudo_p[i] <- 
     calc_MoransI_pseudo_p(object = vn_simulated_with_crosstalk, 
-                          bo_suppress_warnings = TRUE) 
+                          suppress_warnings = TRUE)
 
 
 }
@@ -212,8 +212,8 @@ And we can plot the first disc, while indicating which borders are taken into ac
 
 
     plot_SingleGrainDisc(object = vn_simulated_with_holes,
-              bo_show_neighbours = TRUE,
-              bo_show_location_ids = TRUE)
+              show_neighbours = TRUE,
+              show_location_ids = TRUE)
   
 
 ```
@@ -242,8 +242,8 @@ tail(df_Neighbours_with_diag)
 
 plot_SingleGrainDisc(object = vn_simulated,
           df_neighbour = df_Neighbours_with_diag,
-          bo_show_neighbours = TRUE,
-          bo_show_location_ids = TRUE)
+          show_neighbours = TRUE,
+          show_location_ids = TRUE)
 
 
 
@@ -272,10 +272,10 @@ vn_values_to_show <- apply_Crosstalk(object = vn_values_to_show,
 
 calc_MoransI(object = vn_values_to_show)
 
-df_neighbour <- get_Neighbour(bo_restrict_to_8x8 = TRUE)
+df_neighbour <- get_Neighbour(restrict_to_8x8 = TRUE)
 
 plot_SingleGrainDisc(object = vn_values_to_show,
-          bo_show_neighbours = TRUE,
+          show_neighbours = TRUE,
           df_neighbour = df_neighbour)
 
 
@@ -293,10 +293,10 @@ calc_MoransI(object = vn_values_to_show,
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "", 
-          bo_show_coordinates = TRUE,
-          bo_show_location_ids = TRUE,
-          bo_show_legend = TRUE,
-          bo_show_positioning_holes = FALSE)
+          show_coordinates = TRUE,
+          show_location_ids = TRUE,
+          show_legend = TRUE,
+          show_positioning_holes = FALSE)
 
 ```
 
@@ -308,19 +308,19 @@ When there is a wide range in values, it can be helpful to apply a logarithmic s
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "Linear scale", 
-          bo_show_coordinates = FALSE,
-          bo_show_location_ids = FALSE,
-          bo_show_legend = TRUE,
-          bo_show_positioning_holes = TRUE,
+          show_coordinates = FALSE,
+          show_location_ids = FALSE,
+          show_legend = TRUE,
+          show_positioning_holes = TRUE,
           str_transform = "lin")
 
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "Logarithmic scale", 
-          bo_show_coordinates = FALSE,
-          bo_show_location_ids = FALSE,
-          bo_show_legend = TRUE,
-          bo_show_positioning_holes = TRUE,
+          show_coordinates = FALSE,
+          show_location_ids = FALSE,
+          show_legend = TRUE,
+          show_positioning_holes = TRUE,
           str_transform = "log")
 
 ```
@@ -348,14 +348,14 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
 ## Layout options
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
            pch = "show_location_ids", 
-           bo_show_legend = FALSE,
+           show_legend = FALSE,
            log = "xy",
            main = "With location ID's; and with log scales"
            )
 
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
            pch = "show_n_neighbours",
-           bo_show_legend = FALSE,
+           show_legend = FALSE,
            str_y_def = "weighted_sum",
            main = "With number of neighbours, and other y calculation"
            )
@@ -373,9 +373,7 @@ The function `calc_MoransI()` can return many intermediate calculation numbers:
 
 
 calc_MoransI(object = 1:100,
-      bo_return_inbetween_numbers = TRUE
-      )
-
+             return_intermediate_values = TRUE)
 
 
 ```
@@ -401,14 +399,14 @@ df_compare <-
                           ),
              PopulationVar = 
                c(calc_MoransI(object = vn_simulated,
-                 bo_return_inbetween_numbers = TRUE)$n_population_variance,
+                 return_intermediate_values = TRUE)$n_population_variance,
                  calc_MoransI(object = vn_simulated_with_crosstalk,
-                 bo_return_inbetween_numbers = TRUE)$n_population_variance),
+                 return_intermediate_values = TRUE)$n_population_variance),
              SpatialAutoCor = 
                c(calc_MoransI(object = vn_simulated,
-                 bo_return_inbetween_numbers = TRUE)$n_average_auto_correlation,
+                 return_intermediate_values = TRUE)$n_average_auto_correlation,
                  calc_MoransI(object = vn_simulated_with_crosstalk,
-                 bo_return_inbetween_numbers = TRUE)$n_average_auto_correlation)
+                 return_intermediate_values = TRUE)$n_average_auto_correlation)
       )
 
 df_compare[,2] <-  round(df_compare[,2],2)

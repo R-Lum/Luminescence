@@ -7,7 +7,7 @@
 calc_MoransI(
   object,
   df_neighbour = get_Neighbour(object = object),
-  bo_return_inbetween_numbers = FALSE
+  return_intermediate_values = FALSE
 )
 }
 \arguments{
@@ -19,17 +19,17 @@ values.}
 neighbours to consider, and their respective weights. Defaults to
 \code{get_Neighbour(object)}.}
 
-\item{bo_return_inbetween_numbers}{\link{logical} (\emph{with default}). Defaults
-to \code{FALSE}. If \code{TRUE}, the function returns a list with several
-intermediate calculation results.}
+\item{return_intermediate_values}{\link{logical} (\emph{with default}): whether the
+function should return a list with several intermediate calculation results
+(defaults to \code{FALSE}).}
 }
 \value{
 By default one numerical value, roughly between -1 and 1, where
 close to zero means no spatial correlation, and value close to 1 a positive
 spatial correlation given the pattern we interested in (by default all rook neighbours).
 A value closer to -1 has no meaning within the context of luminescence crosstalk.
-If \code{bo_return_inbetween_numbers} is set to \code{TRUE}, a list with several numbers
-used for calculation is returned instead of the single outcome.
+If \code{return_intermediate_values} is set to \code{TRUE}, a list with several
+values used for calculation is returned instead of the single outcome.
 }
 \description{
 Calculate Moran's I
