@@ -45,7 +45,6 @@ hist(get_RLum(object = observations))
 observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
 hist(observations_with_simulated_crosstalk)
 
-
 }
 \references{
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.

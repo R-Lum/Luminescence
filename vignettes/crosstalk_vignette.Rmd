@@ -51,7 +51,7 @@ hist(vn_simulated,
      )
 ```
 
-## plot_disc
+## plot_SingleGrainDisc
 
 Let's visualize the disc/position:
 
@@ -59,7 +59,7 @@ Let's visualize the disc/position:
 
 par(mar = c(1, 4, 6, 4))
 
-plot_Disc(object = vn_simulated, 
+plot_SingleGrainDisc(object = vn_simulated,
           main = "Simulated signal (measurement disc)"
           )
 
@@ -92,7 +92,7 @@ hist(vn_simulated_with_crosstalk,
      breaks = 30
      )
 
-plot_Disc(object = vn_simulated_with_crosstalk, 
+plot_SingleGrainDisc(object = vn_simulated_with_crosstalk,
           main = "Simulated signal with crosstalk (measurement disc)")
 
 calc_MoransI(object = vn_simulated_with_crosstalk)
@@ -211,7 +211,7 @@ And we can plot the first disc, while indicating which borders are taken into ac
 ```{r adjacent_grain_locations_show_disc, fig.dim = c(8, 5), out.width="800px"}
 
 
-    plot_Disc(object = vn_simulated_with_holes,
+    plot_SingleGrainDisc(object = vn_simulated_with_holes,
               bo_show_neighbours = TRUE,
               bo_show_location_ids = TRUE)
   
@@ -240,7 +240,7 @@ for (i in c(1:9, 11:19, 21:29) )
 tail(df_Neighbours_with_diag)
 
 
-plot_Disc(object = vn_simulated,
+plot_SingleGrainDisc(object = vn_simulated,
           df_neighbour = df_Neighbours_with_diag,
           bo_show_neighbours = TRUE,
           bo_show_location_ids = TRUE)
@@ -274,7 +274,7 @@ calc_MoransI(object = vn_values_to_show)
 
 df_neighbour <- get_Neighbour(bo_restrict_to_8x8 = TRUE)
 
-plot_Disc(object = vn_values_to_show,
+plot_SingleGrainDisc(object = vn_values_to_show,
           bo_show_neighbours = TRUE,
           df_neighbour = df_neighbour)
 
@@ -291,7 +291,7 @@ calc_MoransI(object = vn_values_to_show,
 
 ```{r show_disc_extended, fig.dim = c(8, 5), out.width="800px"}
 
-plot_Disc(object = vn_simulated, 
+plot_SingleGrainDisc(object = vn_simulated,
           main = "", 
           bo_show_coordinates = TRUE,
           bo_show_location_ids = TRUE,
@@ -306,7 +306,7 @@ When there is a wide range in values, it can be helpful to apply a logarithmic s
 
 
 
-plot_Disc(object = vn_simulated, 
+plot_SingleGrainDisc(object = vn_simulated,
           main = "Linear scale", 
           bo_show_coordinates = FALSE,
           bo_show_location_ids = FALSE,
@@ -315,7 +315,7 @@ plot_Disc(object = vn_simulated,
           str_transform = "lin")
 
 
-plot_Disc(object = vn_simulated, 
+plot_SingleGrainDisc(object = vn_simulated,
           main = "Logarithmic scale", 
           bo_show_coordinates = FALSE,
           bo_show_location_ids = FALSE,
