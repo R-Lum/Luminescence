@@ -21,7 +21,7 @@
 #' crosstalk. Defaults for testing purposes to 0.2. Can be any number, even negative,
 #' but for realistic simulations we suggest something between 0 and 0.25.
 #'
-#' @keywords crosstalk, simulation
+#' @keywords manip
 #'
 #' @return A vector of size 100, with the value at each grain hole location including simulated crosstalk.
 #'
