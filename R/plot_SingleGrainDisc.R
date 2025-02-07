@@ -26,9 +26,11 @@
 #' @param show_positioning_holes [logical] (*with default*): Show the 3
 #' positioning holes for orientation. Defaults to `TRUE`.
 #'
-#' @param df_neighbour [data.frame] (*with default*): Dataframe as returned
-#' by `get_Neighbour()`. Is only relevant if `show_neighbours` is `TRUE`.
-#' Defaults to `get_Neighbour(object)`.
+#' @param df_neighbours [data.frame] (*with default*): only relevant if
+#' `show_neighbours` is `TRUE`. Data frame indicating which borders to
+#' consider, and their respective weights (see the description provided for
+#' [calc_MoransI]). If `NULL` (default), this is constructed automatically by
+#' the internal function `.get_Neighbours`.
 #'
 #' @param str_transform [character] (*with default*): The observed value of each individual grain is
 #' reflected in the size of a triangle (or other dot-like element). To account for large value differences,
@@ -63,7 +65,7 @@ plot_SingleGrainDisc <- function(object,
                                  show_legend = FALSE,
                                  show_neighbours = FALSE,
                                  show_positioning_holes = TRUE,
-                                 df_neighbour = get_Neighbour(object = object),
+                                 df_neighbours = NULL,
                                  str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
                                  main = "",
                                  col =  "darkolivegreen",
@@ -102,9 +104,13 @@ plot_SingleGrainDisc <- function(object,
   .validate_class(show_positioning_holes, "logical")
   # - should be a single element
 
-  .validate_class(df_neighbour, "data.frame")
-  if (ncol(df_neighbour) != 3)
-    .throw_error("'df_neighbour' should be a data frame with 3 columns")
+  if (is.null(df_neighbours)) {
+    df_neighbours <- .get_Neighbours(object)
+  } else {
+    .validate_class(df_neighbours, "data.frame")
+    if (ncol(df_neighbours) != 3)
+      .throw_error("'df_neighbours' should be a data frame with 3 columns")
+  }
 
   .validate_args(str_transform, c("sqrt", "lin", "log"))
 
@@ -241,20 +247,20 @@ plot_SingleGrainDisc <- function(object,
 
   ## Indicate neighbouring positions used for Moran's I calculations
   if (show_neighbours) {
-    if(nrow(df_neighbour) == 0)
-      .throw_error("'show_neighbours' is TRUE but 'df_neighbour' is empty")
+    n_lines <- nrow(df_neighbours)
+    if (n_lines == 0)
+      .throw_error("'show_neighbours' is TRUE but 'df_neighbours' is empty")
 
-    n_lines <- nrow(df_neighbour)
 
     ## From location ID to x y coordinates; put into lists for use with mapply
-    list_x <- split((df_neighbour[,1:2] - 1) %% 10 + 1,
+    list_x <- split((df_neighbours[,1:2] - 1) %% 10 + 1,
                     1:n_lines )
-    list_y <- split((df_neighbour[,1:2] - 1) %/% 10 + 1,
+    list_y <- split((df_neighbours[,1:2] - 1) %/% 10 + 1,
                     1:n_lines )
 
     ## Scale weights for nice plotting
-    li_weight <- split( (2*df_neighbour$weight/max(df_neighbour$weight)),
-                        1:n_lines)
+    li_weight <- split((2 * df_neighbours$weight / max(df_neighbours$weight)),
+                       1:n_lines)
 
     mapply(lines, x = list_x, y = list_y, col = c("purple"), lwd = li_weight, lty = 'dotted')
   }

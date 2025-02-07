@@ -7,10 +7,10 @@ test_that("input validation", {
 
   expect_error(plot_MoranScatterplot("error"),
                "'object' should be of class 'RLum.Results', 'numeric' or")
-  expect_error(plot_MoranScatterplot(obj, df_neighbour = "error"),
-               "'df_neighbour' should be of class 'data.frame'")
-  expect_error(plot_MoranScatterplot(obj, df_neighbour = data.frame()),
-               "'df_neighbour' should be a data frame with 3 columns")
+  expect_error(plot_MoranScatterplot(obj, df_neighbours = "error"),
+               "'df_neighbours' should be of class 'data.frame'")
+  expect_error(plot_MoranScatterplot(obj, df_neighbours = data.frame()),
+               "'df_neighbours' should be a data frame with 3 columns")
   expect_error(plot_MoranScatterplot(obj, show_legend = "error"),
                "'show_legend' should be of class 'logical'")
   expect_error(plot_MoranScatterplot(obj, str_y_def = "error"),

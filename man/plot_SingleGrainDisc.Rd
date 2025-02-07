@@ -11,7 +11,7 @@ plot_SingleGrainDisc(
   show_legend = FALSE,
   show_neighbours = FALSE,
   show_positioning_holes = TRUE,
-  df_neighbour = get_Neighbour(object = object),
+  df_neighbours = NULL,
   str_transform = "sqrt",
   main = "",
   col = "darkolivegreen",
@@ -39,9 +39,11 @@ neighbour setting is defined.}
 \item{show_positioning_holes}{\link{logical} (\emph{with default}): Show the 3
 positioning holes for orientation. Defaults to \code{TRUE}.}
 
-\item{df_neighbour}{\link{data.frame} (\emph{with default}): Dataframe as returned
-by \code{get_Neighbour()}. Is only relevant if \code{show_neighbours} is \code{TRUE}.
-Defaults to \code{get_Neighbour(object)}.}
+\item{df_neighbours}{\link{data.frame} (\emph{with default}): only relevant if
+\code{show_neighbours} is \code{TRUE}. Data frame indicating which borders to
+consider, and their respective weights (see the description provided for
+\link{calc_MoransI}). If \code{NULL} (default), this is constructed automatically by
+the internal function \code{.get_Neighbours}.}
 
 \item{str_transform}{\link{character} (\emph{with default}): The observed value of each individual grain is
 reflected in the size of a triangle (or other dot-like element). To account for large value differences,

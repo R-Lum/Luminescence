@@ -10,9 +10,9 @@
 ## New functions
 
 - `apply_Crosstalk()`, `calc_MoransI()`, `calc_MoransI_expt_no_cor()`
-  `calc_MoransI_pseudo_p()`, `get_Neighbours()`,
-  `plot_SingleGrainDisc()` and `plot_MoranScatterplot()` were contribute
-  by Anna-Maartje de Boer and Luc Steinbuch (#560).
+  `calc_MoransI_pseudo_p()`, `plot_SingleGrainDisc()` and
+  `plot_MoranScatterplot()` were contribute by Anna-Maartje de Boer and
+  Luc Steinbuch (#560).
 
 - `calc_EED_Model()` models incomplete and heterogeneous bleaching of
   mobile grains after Guibert et al. (2017). Along with the function,

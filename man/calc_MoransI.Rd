@@ -4,20 +4,20 @@
 \alias{calc_MoransI}
 \title{Calculate Moran's I}
 \usage{
-calc_MoransI(
-  object,
-  df_neighbour = get_Neighbour(object = object),
-  return_intermediate_values = FALSE
-)
+calc_MoransI(object, df_neighbours = NULL, return_intermediate_values = FALSE)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}) containing
 the values of the grains of one. Should have length 100; can contain \code{NA}
 values.}
 
-\item{df_neighbour}{\link{data.frame} (\emph{with default}), indicating which
-neighbours to consider, and their respective weights. Defaults to
-\code{get_Neighbour(object)}.}
+\item{df_neighbours}{\link{data.frame} (\emph{with default}): a data frame with 3
+columns (\code{location}, \code{neighbour} and \code{weight}, respectively), with each row
+indicating the index of one location and one of its neighbours (note that
+the concept of "location" versus "neighbour" is symmetric, so each
+neighbouring pair needs to be specified only once), alongside their relative
+weight (generally set to 1). If \code{NULL} (default), this is constructed
+automatically by the internal function \code{.get_Neighbours}.}
 
 \item{return_intermediate_values}{\link{logical} (\emph{with default}): whether the
 function should return a list with several intermediate calculation results

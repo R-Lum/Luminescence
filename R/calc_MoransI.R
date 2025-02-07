@@ -4,9 +4,13 @@
 #' the values of the grains of one. Should have length 100; can contain `NA`
 #' values.
 #'
-#' @param df_neighbour [data.frame] (*with default*), indicating which
-#' neighbours to consider, and their respective weights. Defaults to
-#' `get_Neighbour(object)`.
+#' @param df_neighbours [data.frame] (*with default*): a data frame with 3
+#' columns (`location`, `neighbour` and `weight`, respectively), with each row
+#' indicating the index of one location and one of its neighbours (note that
+#' the concept of "location" versus "neighbour" is symmetric, so each
+#' neighbouring pair needs to be specified only once), alongside their relative
+#' weight (generally set to 1). If `NULL` (default), this is constructed
+#' automatically by the internal function `.get_Neighbours`.
 #'
 #' @param return_intermediate_values [logical] (*with default*): whether the
 #' function should return a list with several intermediate calculation results
@@ -40,7 +44,7 @@
 #' @md
 #' @export
 calc_MoransI <- function(object,
-                         df_neighbour  =  get_Neighbour(object = object),
+                         df_neighbours = NULL,
                          return_intermediate_values = FALSE
 ) {
   .set_function_name("calc_MoransI")
@@ -59,18 +63,21 @@ calc_MoransI <- function(object,
     vn_values <- get_RLum(object)
   }
 
-  .validate_class(df_neighbour, "data.frame")
+  if (is.null(df_neighbours)) {
+    df_neighbours <- .get_Neighbours(object)
+  } else {
+    .validate_class(df_neighbours, "data.frame")
   ## To add
   #  - should be a valid df_neighbour dataframe
-
+  }
   .validate_class(return_intermediate_values, "logical")
   ## To add
   #  - should be a single value
 
 
-  if(nrow(df_neighbour)==0)
-  {
-    .throw_warning("There seems to be no bordering grain locations, returning NaN")
+  if (nrow(df_neighbours) == 0) {
+    .throw_warning("No bordering grain locations given in 'df_neighbours', ",
+                   "returning NaN")
     return(NaN)
   }
 
@@ -79,12 +86,12 @@ calc_MoransI <- function(object,
   n_mean <- mean(vn_values, na.rm = TRUE)
   n_spatial_auto_correlation <- sum((vn_values-n_mean)^2, na.rm = TRUE)/n # Population variance
   n_sum_similarities <-
-    sum( (vn_values[df_neighbour$location] - n_mean) *
-           (vn_values[df_neighbour$neighbour] - n_mean) *
-           df_neighbour$weight,
+    sum((vn_values[df_neighbours$location] - n_mean) *
+        (vn_values[df_neighbours$neighbour] - n_mean) *
+         df_neighbours$weight,
          na.rm = TRUE
     )
-  n_sum_weights <- sum(df_neighbour$weight)
+  n_sum_weights <- sum(df_neighbours$weight)
 
   n_average_auto_correlation <- n_sum_similarities/n_sum_weights
 
@@ -196,7 +203,7 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
 #' which is the pseudo p. Defaults to 999. Influences the calculation speed, which will have impact in case
 #' of large scale simulation loops.
 #'
-#' @param df_neighbour [data.frame] (*with default*) Defaults to
+#' @param df_neighbours [data.frame] (*with default*) Defaults to
 #' `get_Neighbour(object)`.
 #'
 #' @param suppress_warnings [logical] (*with default*): whether warnings should
@@ -218,7 +225,7 @@ calc_MoransI_expt_no_cor <- function(object = rep(1, times = 100),
 calc_MoransI_pseudo_p <- function(object,
                                   n_moransI = calc_MoransI(object),
                                   n_perm = 999,
-                                  df_neighbour = get_Neighbour(object = vn_values),
+                                  df_neighbours = NULL,
                                   suppress_warnings = FALSE
 ) {
   .set_function_name("calc_MoransI")
@@ -239,23 +246,26 @@ calc_MoransI_pseudo_p <- function(object,
   vb_contains_observation <-  !is.na(vn_values)
 
   .validate_positive_scalar(n_perm, int = TRUE)
-  .validate_class(df_neighbour, "data.frame")
 
-  if(nrow(df_neighbour) == 0)
-  {
-    .throw_warning("There seems to be no bordering grain locations, returning NaN")
+  if (is.null(df_neighbours)) {
+    df_neighbours <- .get_Neighbours(vn_values)
+  } else {
+    .validate_class(df_neighbours, "data.frame")
+  }
+  if (nrow(df_neighbours) == 0) {
+    .throw_warning("No bordering grain locations given in 'df_neighbours', ",
+                   "returning NaN")
     return(NaN)
-
   } else
   {
 
     ## Local helper function: reshuffle (=permutate) observations, an test if Moran's I
     ## from reshuffled observations if equal or above the calculated Moran's I
-    reshuffle_and_test <- function(vn_values, n_moransI, df_neighbour){
+    reshuffle_and_test <- function(vn_values, n_moransI, df_neighbours) {
       vn_values_reshuffled <- rep(NA, length.out = length(vn_values))
       vn_values_reshuffled[vb_contains_observation] <- sample(vn_values[vb_contains_observation])
       (calc_MoransI(object = vn_values_reshuffled,
-                    df_neighbour = df_neighbour) >= n_moransI)
+                    df_neighbours = df_neighbours) >= n_moransI)
     }
 
     ## How many different Moran's Is from reshuffled observations are equal or
@@ -263,7 +273,7 @@ calc_MoransI_pseudo_p <- function(object,
     n_test_pos <- sum( replicate(n = n_perm,
                                  expr = reshuffle_and_test(vn_values,
                                                            n_moransI,
-                                                           df_neighbour),
+                                                           df_neighbours),
                                  simplify = TRUE)
     )
 
@@ -287,9 +297,9 @@ calc_MoransI_pseudo_p <- function(object,
 #' In case there are holes in the image, indicated by `NA` (no value observed),
 #' the related border or borders are removed.
 #'
-#' @details Will mostly be used as an helper function. If called without any arguments,
-#'  will return the neighbouring positions dataframe for one disc (POS) with on every
-#'  grain location an observation.
+#' @details Will mostly be used as an helper function. If called without any
+#' arguments, it will return the neighbouring positions data frame for one
+#' disc (POS) with on every grain location an observation.
 #'
 #' @param object [RLum.Results-class] or [numeric] (*with default*): numerical
 #' vector containing the values of one or more discs, or an `RLum.Results`
@@ -301,10 +311,10 @@ calc_MoransI_pseudo_p <- function(object,
 #' disc are considered; thus only the inner 8x8 grain locations rather than
 #' the full 10x10.
 #'
-#' @return Dataframe with columns `location`, `neighbour` and `weight`, respectively.
-#' The integers in the first two columns indicate the index of the vector with observations; the
-#' relative weight is standard set to one. Note that the concept of "location" versus
-#' "neighbour" is symmetric.
+#' @return Data frame with columns `location`, `neighbour` and `weight`,
+#' respectively. The integers in the first two columns indicate the index
+#' of the vector with observations; the relative weight is standard set to one.
+#' Note that the concept of "location" versus "neighbour" is symmetric.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
@@ -313,17 +323,13 @@ calc_MoransI_pseudo_p <- function(object,
 #' A novel tool to assess crosstalk in single-grain luminescence detection.
 #' Submitted.
 #'
-#' @keywords crosstalk
+#' @keywords internal
 #'
-#' @examples
-#' head(get_Neighbour())
-#'
-#' @md
-#' @export
-get_Neighbour <- function(object = NULL,
-                          restrict_to_8x8 = FALSE
+#' @noRd
+.get_Neighbours <- function(object = NULL,
+                            restrict_to_8x8 = FALSE
 ) {
-  .set_function_name("calc_MoransI")
+  .set_function_name(".get_Neighbours")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Validate input arguments -----------------------
@@ -391,7 +397,7 @@ get_Neighbour <- function(object = NULL,
                                   seq(from = 20, to = 90, by = 10)
     )
 
-    contains_discborders <- df_neighbour$location %in% vn_disc_border_locations ||
+    contains_discborders <- df_neighbour$location %in% vn_disc_border_locations |
       df_neighbour$neighbour %in% vn_disc_border_locations
 
     df_neighbour <- df_neighbour[!contains_discborders, ]

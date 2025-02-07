@@ -9,9 +9,10 @@
 #' representing one or more measurement discs ("positions") in a reader.
 #' Each element in the vector represents one grain hole location on a disc.
 #'
-#' @param df_neighbour [data.frame] (*with default*) Dataframe, indicating
-#' which borders to consider, and their respective weights.
-#' Defaults to `get_Neighbour(object = vn_values)`.
+#' @param df_neighbours [data.frame] (*with default*) Data frame indicating
+#' which borders to consider, and their respective weights (see the description
+#' provided for [calc_MoransI]). If `NULL` (default), this is constructed
+#' automatically by the internal function `.get_Neighbours`.
 #'
 #' @param show_legend [logical] (*with default*): whether a legend explaining
 #' the different lines should be plotted (defaults to `TRUE`).
@@ -59,7 +60,7 @@
 #' @md
 #' @export
 plot_MoranScatterplot <- function(object,
-                                  df_neighbour= get_Neighbour(object = object),
+                                  df_neighbours = NULL,
                                   show_legend = TRUE,
                                   str_y_def = "mean_neighbours", # , mean_neighbours, weighted_sum
                                   pch  = 20, #"show_location_ids", "show_n_neighbours", pch-value
@@ -80,9 +81,14 @@ plot_MoranScatterplot <- function(object,
   ## To add:
   #  - should contain a numerical vector of length 100
 
-  .validate_class(df_neighbour, "data.frame")
-  if (ncol(df_neighbour) != 3)
-    .throw_error("'df_neighbour' should be a data frame with 3 columns")
+  if (is.null(df_neighbours)) {
+    df_neighbours <- .get_Neighbours(object)
+  } else {
+    .validate_class(df_neighbours, "data.frame")
+    if (ncol(df_neighbours) != 3)
+      .throw_error("'df_neighbours' should be a data frame with 3 columns")
+  }
+
   .validate_class(show_legend, "logical")
   .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))
 
@@ -114,27 +120,27 @@ plot_MoranScatterplot <- function(object,
                               grain_id = NA,
                               n_neighbours = NA)
 
-  vn_locations <- unique(c(df_neighbour$location, df_neighbour$neighbour))
+  vn_locations <- unique(c(df_neighbours$location, df_neighbours$neighbour))
   for(i in 1:length(vn_locations) )
   {
     n_location <- vn_locations[i]
     ## Find the neighbouring locations according to df_neighbour
     ## For a given n_location, in which row of df_neighbour are neighbouring locations provided?
-    vi_neighbour_row <- which(df_neighbour$location == n_location)
+    vi_neighbour_row <- which(df_neighbours$location == n_location)
     ## And thus, which locations are provided in these rows?
-    vn_neighbour <- df_neighbour$neighbour[vi_neighbour_row]
+    vn_neighbour <- df_neighbours$neighbour[vi_neighbour_row]
     ## And add weights
-    vn_weights <- df_neighbour$weight[vi_neighbour_row]
+    vn_weights <- df_neighbours$weight[vi_neighbour_row]
     df_neighbour_and_weights <- data.frame(adj_pos = vn_neighbour,
                                            weight = vn_weights)
 
     ## Find the mirror neighbouring locations ("locations") according to df_neighbour
     ## For a given n_location, in which row of df_neighbour are locations provided?
-    vi_neighbour_mirror_row <- which(df_neighbour$neighbour == n_location)
+    vi_neighbour_mirror_row <- which(df_neighbours$neighbour == n_location)
     ## And thus, which locations are provided in these rows?
-    vn_neighbour_mirror <- df_neighbour$location[vi_neighbour_mirror_row]
+    vn_neighbour_mirror <- df_neighbours$location[vi_neighbour_mirror_row]
     ## And add weights
-    vn_weights <- df_neighbour$weight[vi_neighbour_mirror_row]
+    vn_weights <- df_neighbours$weight[vi_neighbour_mirror_row]
 
     df_neighbour_and_weights <- rbind(df_neighbour_and_weights,
                                       data.frame(adj_pos = vn_neighbour_mirror,

@@ -9,11 +9,11 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Results', 'numeric' or 'integer'")
   expect_error(calc_MoransI_pseudo_p(obj, n_perm = "error"),
                "'n_perm' should be a positive integer scalar")
-  expect_error(calc_MoransI_pseudo_p(obj, df_neighbour = "error"),
-               "'df_neighbour' should be of class 'data.frame'")
+  expect_error(calc_MoransI_pseudo_p(obj, df_neighbours = "error"),
+               "'df_neighbours' should be of class 'data.frame'")
 
-  expect_warning(res <- calc_MoransI_pseudo_p(obj, df_neighbour = data.frame()),
-                 "There seems to be no bordering grain locations, returning NaN")
+  expect_warning(res <- calc_MoransI_pseudo_p(obj, df_neighbours = data.frame()),
+                 "No bordering grain locations given in 'df_neighbours'")
   expect_equal(res, NaN)
 })
 

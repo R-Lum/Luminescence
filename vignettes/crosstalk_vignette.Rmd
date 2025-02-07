@@ -189,7 +189,10 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
 
 The plot area is divided into four quadrants using the mean in each dimension; the South-west and North-east quadrant represent a contribution to a positive spatial autocorrelation, while the North-west and South-east quadrants indicate a negative spatial correlation. Between the point, a least square line (which slopes indicates, but not exactly represents, Moran's I) is added, as well as an 1:1 line (which indicates a Moran's I of around 1, suggesting a perfect positive spatial correlation).
 
-The function `get_Neighbour` was until now used on the background, but we can explicitly call it to generate a dataframe with all positions which are rook connected to each other:
+The internal function `.get_Neighbours()` was until now used on the
+background, but we can explicitly call it to generate a dataframe with all
+positions which are rook connected to each other (note that we need to use
+the `Luminescence:::` prefix as this function is not exported by the package):
 
 ```{r adjacent_grain_locations, fig.dim = c(8, 5), out.width="800px"}
 
@@ -198,12 +201,9 @@ The function `get_Neighbour` was until now used on the background, but we can ex
                               rep(NA, times = 40)
                               ) 
 
-df_Neighbours <- get_Neighbour(object =  vn_simulated_with_holes)
+df_Neighbours <- Luminescence:::.get_Neighbours(object = vn_simulated_with_holes)
 
 head(df_Neighbours)
-
-
-
 ```
 
 And we can plot the first disc, while indicating which borders are taken into account. The corresponding `adjacent_grain_locations` is calculated in the background:
@@ -226,7 +226,7 @@ One can manually change `df_Neighbours`, for example add the diagonal borders an
 
 ```{r adjacent_grain_locations_add, fig.dim = c(8, 5), out.width="800px"}
 
-df_Neighbours_with_diag <- get_Neighbour(object =  vn_simulated)
+df_Neighbours_with_diag <- Luminescence::.get_Neighbours(object =  vn_simulated)
 
 
 for (i in c(1:9, 11:19, 21:29) ) 
@@ -241,7 +241,7 @@ tail(df_Neighbours_with_diag)
 
 
 plot_SingleGrainDisc(object = vn_simulated,
-          df_neighbour = df_Neighbours_with_diag,
+          df_neighbours = df_Neighbours_with_diag,
           show_neighbours = TRUE,
           show_location_ids = TRUE)
 
@@ -272,15 +272,15 @@ vn_values_to_show <- apply_Crosstalk(object = vn_values_to_show,
 
 calc_MoransI(object = vn_values_to_show)
 
-df_neighbour <- get_Neighbour(restrict_to_8x8 = TRUE)
+df_neighbours <- Luminescence:::.get_Neighbours(restrict_to_8x8 = TRUE)
 
 plot_SingleGrainDisc(object = vn_values_to_show,
           show_neighbours = TRUE,
-          df_neighbour = df_neighbour)
+          df_neighbours = df_neighbours)
 
 
 calc_MoransI(object = vn_values_to_show, 
-             df_neighbour = df_neighbour)
+             df_neighbours = df_neighbours)
 
 ```
 

@@ -6,7 +6,7 @@
 \usage{
 plot_MoranScatterplot(
   object,
-  df_neighbour = get_Neighbour(object = object),
+  df_neighbours = NULL,
   show_legend = TRUE,
   str_y_def = "mean_neighbours",
   pch = 20,
@@ -23,9 +23,10 @@ plot_MoranScatterplot(
 representing one or more measurement discs ("positions") in a reader.
 Each element in the vector represents one grain hole location on a disc.}
 
-\item{df_neighbour}{\link{data.frame} (\emph{with default}) Dataframe, indicating
-which borders to consider, and their respective weights.
-Defaults to \code{get_Neighbour(object = vn_values)}.}
+\item{df_neighbours}{\link{data.frame} (\emph{with default}) Data frame indicating
+which borders to consider, and their respective weights (see the description
+provided for \link{calc_MoransI}). If \code{NULL} (default), this is constructed
+automatically by the internal function \code{.get_Neighbours}.}
 
 \item{show_legend}{\link{logical} (\emph{with default}): whether a legend explaining
 the different lines should be plotted (defaults to \code{TRUE}).}

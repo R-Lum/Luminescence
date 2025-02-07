@@ -15,18 +15,18 @@ test_that("input validation", {
                "'show_legend' should be of class 'logical'")
   expect_error(plot_SingleGrainDisc(obj, show_neighbours = "error"),
                "'show_neighbours' should be of class 'logical'")
-  expect_error(plot_SingleGrainDisc(obj, df_neighbour = "error"),
-               "'df_neighbour' should be of class 'data.frame'")
-  expect_error(plot_SingleGrainDisc(obj, df_neighbour = data.frame()),
-               "'df_neighbour' should be a data frame with 3 columns")
+  expect_error(plot_SingleGrainDisc(obj, df_neighbours = "error"),
+               "'df_neighbours' should be of class 'data.frame'")
+  expect_error(plot_SingleGrainDisc(obj, df_neighbours = data.frame()),
+               "'df_neighbours' should be a data frame with 3 columns")
   expect_error(plot_SingleGrainDisc(obj, show_positioning_holes = "error"),
                "'show_positioning_holes' should be of class 'logical'")
   expect_error(plot_SingleGrainDisc(obj, str_transform = "error"),
                "'str_transform' should be one of 'sqrt', 'lin' or 'log'")
 
-  expect_error(plot_SingleGrainDisc(obj, df_neighbour = iris[0, 1:3],
+  expect_error(plot_SingleGrainDisc(obj, df_neighbours = iris[0, 1:3],
                          show_neighbour = TRUE),
-               "'show_neighbours' is TRUE but 'df_neighbour' is empty")
+               "'show_neighbours' is TRUE but 'df_neighbours' is empty")
 })
 
 test_that("check functionality", {

@@ -8,7 +8,7 @@ calc_MoransI_pseudo_p(
   object,
   n_moransI = calc_MoransI(object),
   n_perm = 999,
-  df_neighbour = get_Neighbour(object = vn_values),
+  df_neighbours = NULL,
   suppress_warnings = FALSE
 )
 }
@@ -23,7 +23,7 @@ Defaults to \code{calc_MoransI(object)}.}
 which is the pseudo p. Defaults to 999. Influences the calculation speed, which will have impact in case
 of large scale simulation loops.}
 
-\item{df_neighbour}{\link{data.frame} (\emph{with default}) Defaults to
+\item{df_neighbours}{\link{data.frame} (\emph{with default}) Defaults to
 \code{get_Neighbour(object)}.}
 
 \item{suppress_warnings}{\link{logical} (\emph{with default}): whether warnings should
