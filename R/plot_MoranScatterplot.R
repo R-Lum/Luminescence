@@ -1,7 +1,7 @@
-#' @title Moran scatter plot: visualizing spatial dependency
+#' @title Moran Scatter Plot: Visualizing Spatial Dependency
 #'
 #' @description Scatter plot, with on the x axis the original grain signal and on the y axis
-#' the weighted mean of the neighbor grain signals. The plot area is divided into four quadrants,
+#' the weighted mean of the neighbour grain signals. The plot area is divided into four quadrants,
 #' and also a least square line (which slopes indicates, but not exactly represents, Moran's I) and
 #' an 1:1 line (which indicates a Moran's I of around 1).
 #'
@@ -20,7 +20,7 @@
 #' to the way Moran's I is by default calculated in this package.
 #'
 #' @param ... Other parameters to be forwarded to the base R plot functions.
-#' `legend` (`TRUE/FALSE`) to entable/disable the legend.
+#' `legend` (`TRUE/FALSE`) to enable/disable the legend.
 #' Note that `xlab` (x axis label), `ylab` (y axis label) and `cex` (scaling
 #' value) are given default values. Because of sometimes large value
 #' differences, `log = "x"`, `log = "y"` and `log = "xy"`are supported.
@@ -37,9 +37,11 @@
 #' Also note that island' grain locations (=those not bordering other grains) are left out of these plots but
 #' might still influence Moran's I calculations.
 #'
-#'
 #' @return Returns (invisibly) a data frame with plotting coordinates and
 #' grain location id's, for creating user-defined plots.
+#'
+#' @examples
+#' plot_MoranScatterplot(1:100)
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_MoranScatterplot.R
 \name{plot_MoranScatterplot}
 \alias{plot_MoranScatterplot}
-\title{Moran scatter plot: visualizing spatial dependency}
+\title{Moran Scatter Plot: Visualizing Spatial Dependency}
 \usage{
 plot_MoranScatterplot(
   object,
@@ -27,7 +27,7 @@ which means the sum of the border weights times the neighbour values, which is a
 to the way Moran's I is by default calculated in this package.}
 
 \item{...}{Other parameters to be forwarded to the base R plot functions.
-\code{legend} (\code{TRUE/FALSE}) to entable/disable the legend.
+\code{legend} (\code{TRUE/FALSE}) to enable/disable the legend.
 Note that \code{xlab} (x axis label), \code{ylab} (y axis label) and \code{cex} (scaling
 value) are given default values. Because of sometimes large value
 differences, \code{log = "x"}, \code{log = "y"} and \code{log = "xy"}are supported.
@@ -42,7 +42,7 @@ grain location id's, for creating user-defined plots.
 }
 \description{
 Scatter plot, with on the x axis the original grain signal and on the y axis
-the weighted mean of the neighbor grain signals. The plot area is divided into four quadrants,
+the weighted mean of the neighbour grain signals. The plot area is divided into four quadrants,
 and also a least square line (which slopes indicates, but not exactly represents, Moran's I) and
 an 1:1 line (which indicates a Moran's I of around 1).
 }
@@ -53,6 +53,10 @@ with 1, 2 or 3 neighbours will appear higher on the y-axis than their influence 
 from scaling, this explains a part of the differences of Moran's scatter plots between different packages.
 Also note that island' grain locations (=those not bordering other grains) are left out of these plots but
 might still influence Moran's I calculations.
+}
+\examples{
+plot_MoranScatterplot(1:100)
+
 }
 \references{
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
