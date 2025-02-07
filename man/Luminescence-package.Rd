@@ -131,6 +131,8 @@ Authors:
   \item Harrison J. Gray (\href{https://orcid.org/0000-0002-4555-7473}{ORCID})
   \item Jean-Michel Galharret (\href{https://orcid.org/0000-0003-2219-8727}{ORCID})
   \item Marco Colombo (\href{https://orcid.org/0000-0001-6672-0623}{ORCID})
+  \item Luc Steinbuch (\href{https://orcid.org/0000-0001-6484-0920}{ORCID})
+  \item Anna-Maartje de Boer (\href{https://orcid.org/0000-0002-7359-6939}{ORCID})
 }
 
 Other contributors:

@@ -54,5 +54,4 @@ Submitted.
 \author{
 Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 }
-\keyword{crosstalk,}
-\keyword{simulation}
+\keyword{manip}

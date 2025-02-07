@@ -7,14 +7,7 @@
 plot_MoranScatterplot(
   object,
   df_neighbours = NULL,
-  show_legend = TRUE,
   str_y_def = "mean_neighbours",
-  pch = 20,
-  cex = 0.8,
-  xlab = "Value central grain",
-  ylab = ifelse(str_y_def == "weighted_sum", yes = "Weighted sum neighbouring grains", no
-    = "Plain mean neighbour grains"),
-  log = "",
   ...
 )
 }
@@ -28,33 +21,20 @@ which borders to consider, and their respective weights (see the description
 provided for \link{calc_MoransI}). If \code{NULL} (default), this is constructed
 automatically by the internal function \code{.get_Neighbours}.}
 
-\item{show_legend}{\link{logical} (\emph{with default}): whether a legend explaining
-the different lines should be plotted (defaults to \code{TRUE}).}
-
 \item{str_y_def}{\link{character} (\emph{with default}) Calculation of y position. Defaults to \code{"mean_neighbours"}
 which is the plain mean of all neighbour values and the most illustrative. The other option is \code{"weighted_sum"},
 which means the sum of the border weights times the neighbour values, which is actually closer
 to the way Moran's I is by default calculated in this package.}
 
-\item{pch}{\link{character}, \link{integer} (\emph{with default}): Accepts options
-\code{"show_location_ids"} (plots grain location id's), \code{"show_n_neighbours"}
-(indicates numbers of neighbours) and the normal base plot \code{pch} options.}
-
-\item{cex}{FIXME(mcol)}
-
-\item{xlab}{FIXME(mcol)}
-
-\item{ylab}{FIXME(mcol)}
-
-\item{log}{FIXME(mcol)}
-
 \item{...}{Other parameters to be forwarded to the base R plot functions.
+\code{legend} (\code{TRUE/FALSE}) to entable/disable the legend.
 Note that \code{xlab} (x axis label), \code{ylab} (y axis label) and \code{cex} (scaling
 value) are given default values. Because of sometimes large value
 differences, \code{log = "x"}, \code{log = "y"} and \code{log = "xy"}are supported.
 In case of negative values and logarithmic plotting, values are increased
 so the smallest value to plot is 1. Summary elements such as means, least
-square line etc. will still be based on the linear case.}
+square line etc. will still be based on the linear case.
+\code{pch} accepts options "show_location_ids"\verb{(plots grain location id's),}"show_n_neighbours"\verb{(indicates numbers of neighbours) and the normal base plot}pch` options.}
 }
 \value{
 Returns (invisibly) a data frame with plotting coordinates and
@@ -68,7 +48,7 @@ an 1:1 line (which indicates a Moran's I of around 1).
 }
 \details{
 Note that this function plots on the y-axis the mean of the neighbours, while the function
-\code{calc_MoransI()} by default will for its global calculation weight every border the same. So, grain locations
+\link{calc_MoransI} by default will for its global calculation weight every border the same. So, grain locations
 with 1, 2 or 3 neighbours will appear higher on the y-axis than their influence on Moran's I justify -- apart
 from scaling, this explains a part of the differences of Moran's scatter plots between different packages.
 Also note that island' grain locations (=those not bordering other grains) are left out of these plots but

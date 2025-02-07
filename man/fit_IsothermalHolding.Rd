@@ -56,7 +56,8 @@ doi: 10.1016/j.jlumin.2012.08.043
 \link{analyse_ThermochronometryData}, \link{analyse_FadingMeasurement}
 }
 \author{
-Svenja Riedesel, DTU Risø (Denmark)
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Svenja Riedesel, DTU Risø (Denmark)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

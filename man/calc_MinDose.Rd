@@ -293,12 +293,7 @@ plot(bs$poly.fits$poly.three, ask = FALSE)
 summary(bs$poly.fits$poly.three$fitted.values)
 }
 
-} 
-
-\section{How to cite}{
-Burow, C., 2024. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25. https://r-lum.github.io/Luminescence/
 }
-
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young
@@ -355,4 +350,4 @@ Christoph Burow, University of Cologne (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010 \cr
 The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
 Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
-, RLum Developer Team}
+}

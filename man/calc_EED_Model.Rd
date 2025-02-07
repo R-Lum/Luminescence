@@ -104,15 +104,9 @@ calc_EED_Model(
  kappa = NULL,
  sigma_distr = NULL,
  expected_dose = 11.7)
-
 }
 
-} 
-
-\section{How to cite}{
-Guibert, P., Kreutzer, S., 2021. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-13. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Guibert, P., Christophe, C., Urbanova, P., Guérin, G., Blain, S., 2017.
 Modelling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
@@ -126,5 +120,5 @@ Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 \author{
 Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France),
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-, RLum Developer Team}
+}
 \keyword{datagen}
