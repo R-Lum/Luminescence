@@ -25,6 +25,10 @@
 #' @param pch [character], [integer] (*with default*): Accepts options
 #' `"show_location_ids"` (plots grain location id's), `"show_n_neighbours"`
 #' (indicates numbers of neighbours) and the normal base plot `pch` options.
+#' @param cex FIXME(mcol)
+#' @param xlab FIXME(mcol)
+#' @param ylab FIXME(mcol)
+#' @param log FIXME(mcol)
 #'
 #' @param ... Other parameters to be forwarded to the base R plot functions.
 #' Note that `xlab` (x axis label), `ylab` (y axis label) and `cex` (scaling
