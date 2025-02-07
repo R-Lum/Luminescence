@@ -7,7 +7,10 @@
 calc_MoransI(
   object,
   df_neighbours = NULL,
-  autocorrelation = TRUE,
+  spatial_autocorrelation = TRUE,
+  compute_pseudo_p = FALSE,
+  tested_moransI = NULL,
+  n_permutations = 999,
   return_intermediate_values = FALSE
 )
 }
@@ -24,23 +27,39 @@ neighbouring pair needs to be specified only once), alongside their relative
 weight (generally set to 1). If \code{NULL} (default), this is constructed
 automatically by the internal function \code{.get_Neighbours}.}
 
-\item{return_intermediate_values}{\link{logical} (\emph{with default}): whether the
-function should return a list with several intermediate calculation results
-(defaults to \code{FALSE}). Ignored if \code{spatial_autocorrelation} is \code{FALSE}.}
-
 \item{spatial_autocorrelation}{\link{logical} (\emph{with default}): whether spatial
 autocorrelation should be considered in the computation of Moran's I
 (\code{TRUE} by default). If \code{FALSE}, the function computes Moran's I expected
 value in case of no autocorrelation (H_0). See details for further
 information.}
+
+\item{compute_pseudo_p}{\link{logical} (\emph{with default}): whether a pseudo p-value
+should be computed (\code{FALSE} by default).}
+
+\item{tested_moransI}{\link{numeric} (\emph{with default}): The value of Moran's I to
+be tested against when computing the pseudo p-value. If \code{NULL} (default), the
+value calculated by the function will be used. Ignored if \code{compute_pseudo_p}
+is \code{FALSE}.}
+
+\item{n_permutations}{\link{integer} (\emph{with default}): number of random
+permutations tested to calculate the fraction which is the pseudo p
+(defaults to 999). Influences the calculation speed, which will have
+impact in case of large scale simulation loops. Ignored if \code{compute_pseudo_p}
+is \code{FALSE}.}
+
+\item{return_intermediate_values}{\link{logical} (\emph{with default}): whether the
+function should return a list with several intermediate calculation results
+(defaults to \code{FALSE}). Ignored if \code{spatial_autocorrelation} is \code{FALSE}.}
 }
 \value{
 By default one numerical value, roughly between -1 and 1, where
 close to zero means no spatial correlation, and value close to 1 a positive
-spatial correlation given the pattern we interested in (by default all rook neighbours).
-A value closer to -1 has no meaning within the context of luminescence crosstalk.
-If \code{return_intermediate_values} is set to \code{TRUE}, a list with several
-values used for calculation is returned instead of the single outcome.
+spatial correlation given the pattern we interested in (by default all rook
+neighbours). A value closer to -1 has no meaning within the context of
+luminescence crosstalk. If \code{compute_pseudo_p = TRUE}, then the computed
+pseudo p-value is returned. If \code{return_intermediate_values} is set to \code{TRUE},
+a list with several values used for calculation is returned instead of a
+single outcome.
 }
 \description{
 Calculate Moran's I
@@ -50,11 +69,11 @@ Calculate Moran's I
 
 Perhaps a bit counter-intuitive, the expected value of Moran's I under the
 null hypothesis of no spatial correlation is a value slightly smaller than
-zero. When setting \code{autocorrelation = FALSE}, this function calculates the
-expected value based on the number of observations or the length of the
-observation vector (while taking out \code{NA} values). Note that the expected
-value only depends on the number of observed separate grain values. This
-can be useful for plotting.
+zero. When setting \code{spatial_autocorrelation = FALSE}, this function
+calculates the expected value based on the number of observations or the
+length of the observation vector (while taking out \code{NA} values). Note that
+the expected value only depends on the number of observed separate grain
+values. This can be useful for plotting.
 
 The expected Moran's I for the null hypothesis of no spatial correlation
 corresponds to \code{-1 / (n - 1)}, with \code{n} being the number of non-missing

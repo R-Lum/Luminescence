@@ -72,7 +72,7 @@ Let's calculate Moran's I, and the associated pseudo-p, of our randomly ordered 
 
 calc_MoransI(object = vn_simulated)
 
-calc_MoransI_pseudo_p(object = vn_simulated) 
+calc_MoransI(object = vn_simulated, compute_pseudo_p = TRUE)
 
 
 ```
@@ -97,7 +97,7 @@ plot_SingleGrainDisc(object = vn_simulated_with_crosstalk,
 
 calc_MoransI(object = vn_simulated_with_crosstalk)
 
-calc_MoransI_pseudo_p(object = vn_simulated_with_crosstalk) 
+calc_MoransI(object = vn_simulated_with_crosstalk, compute_pseudo_p = TRUE)
 
 
 ```
@@ -115,6 +115,7 @@ df_MoransI <- data.frame(crosstalk = seq(from = 0,
 df_MoransI$MoransI <- NA
 df_MoransI$pseudo_p <- NA
 
+old.opts <- options(warn = -1) # silence warnings from compute_pseudo_p
 for (i in 1:nrow(df_MoransI))
 {
   
@@ -123,9 +124,9 @@ for (i in 1:nrow(df_MoransI))
   
   df_MoransI$MoransI[i]  <- calc_MoransI(object = vn_simulated_with_crosstalk)
   df_MoransI$pseudo_p[i] <- 
-    calc_MoransI_pseudo_p(object = vn_simulated_with_crosstalk, 
-                          suppress_warnings = TRUE)
+    calc_MoransI(object = vn_simulated_with_crosstalk, compute_pseudo_p = TRUE)
 }
+options(old.opts) # restore the default options
 
 n_expected_I_no_spatial_autocorr <- calc_MoransI(1:100,
                                                  spatial_autocorrelation = FALSE)

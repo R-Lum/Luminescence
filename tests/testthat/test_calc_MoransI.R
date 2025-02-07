@@ -11,6 +11,10 @@ test_that("input validation", {
                "'df_neighbours' should be of class 'data.frame'")
   expect_error(calc_MoransI(obj, spatial_autocorrelation = "error"),
                "'spatial_autocorrelation' should be of class 'logical'")
+  expect_error(calc_MoransI(obj, compute_pseudo_p = "error"),
+               "'compute_pseudo_p' should be of class 'logical'")
+  expect_error(calc_MoransI(obj, n_permutations = "error"),
+               "'n_permutations' should be a positive integer scalar")
   expect_error(calc_MoransI(obj, return_intermediate_values = "error"),
                "'return_intermediate_values' should be of class 'logical'")
 
@@ -28,9 +32,15 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  set.seed(1)
+
   expect_snapshot_plain(calc_MoransI(obj))
   expect_snapshot_plain(calc_MoransI(1:100))
   expect_snapshot_plain(calc_MoransI(obj, return_intermediate_values = TRUE))
+  expect_snapshot_plain(calc_MoransI(obj,
+                                     compute_pseudo_p = TRUE,
+                                     tested_moransI = 0.125,
+                                     return_intermediate_values = TRUE))
 
   expect_equal(calc_MoransI(obj, spatial_autocorrelation = FALSE),
                -0.010101010)
@@ -38,6 +48,13 @@ test_that("check functionality", {
                -0.010101010)
   expect_equal(calc_MoransI(1:20, spatial_autocorrelation = FALSE),
                -0.052631579)
+
+  expect_warning(res <- calc_MoransI(obj, compute_pseudo_p = TRUE),
+                 "Pseudo-p might be overestimated: the real p-value is closer")
+  expect_equal(res, 0.0010)
+  expect_equal(calc_MoransI(1:100, compute_pseudo_p = TRUE,
+                            tested_moransI = 0.05),
+               0.188)
 })
 
 test_that("check .get_Neighbours", {

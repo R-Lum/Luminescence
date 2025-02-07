@@ -10,8 +10,7 @@ header-includes:
 
 ## New functions
 
-* `apply_Crosstalk()`, `calc_MoransI()`,
-`calc_MoransI_pseudo_p()`, `plot_SingleGrainDisc()` and
+* `apply_Crosstalk()`, `calc_MoransI()`, `plot_SingleGrainDisc()` and
 `plot_MoranScatterplot()` were contributed by Anna-Maartje de Boer and Luc
 Steinbuch (#560).
 

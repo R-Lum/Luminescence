@@ -34,16 +34,32 @@
 #' value in case of no autocorrelation (H_0). See details for further
 #' information.
 #'
+#' @param compute_pseudo_p [logical] (*with default*): whether a pseudo p-value
+#' should be computed (`FALSE` by default).
+#'
+#' @param tested_moransI [numeric] (*with default*): The value of Moran's I to
+#' be tested against when computing the pseudo p-value. If `NULL` (default), the
+#' value calculated by the function will be used. Ignored if `compute_pseudo_p`
+#' is `FALSE`.
+#'
+#' @param n_permutations [integer] (*with default*): number of random
+#' permutations tested to calculate the fraction which is the pseudo p
+#' (defaults to 999). Influences the calculation speed, which will have
+#' impact in case of large scale simulation loops. Ignored if `compute_pseudo_p`
+#' is `FALSE`.
+#'
 #' @param return_intermediate_values [logical] (*with default*): whether the
 #' function should return a list with several intermediate calculation results
 #' (defaults to `FALSE`). Ignored if `spatial_autocorrelation` is `FALSE`.
 #'
 #' @return By default one numerical value, roughly between -1 and 1, where
 #' close to zero means no spatial correlation, and value close to 1 a positive
-#' spatial correlation given the pattern we interested in (by default all rook neighbours).
-#' A value closer to -1 has no meaning within the context of luminescence crosstalk.
-#' If `return_intermediate_values` is set to `TRUE`, a list with several
-#' values used for calculation is returned instead of the single outcome.
+#' spatial correlation given the pattern we interested in (by default all rook
+#' neighbours). A value closer to -1 has no meaning within the context of
+#' luminescence crosstalk. If `compute_pseudo_p = TRUE`, then the computed
+#' pseudo p-value is returned. If `return_intermediate_values` is set to `TRUE`,
+#' a list with several values used for calculation is returned instead of a
+#' single outcome.
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
@@ -68,6 +84,9 @@
 calc_MoransI <- function(object,
                          df_neighbours = NULL,
                          spatial_autocorrelation = TRUE,
+                         compute_pseudo_p = FALSE,
+                         tested_moransI = NULL,
+                         n_permutations = 999,
                          return_intermediate_values = FALSE
 ) {
   .set_function_name("calc_MoransI")
@@ -95,6 +114,13 @@ calc_MoransI <- function(object,
   ## To add
   #  - should be a valid df_neighbour dataframe
   }
+
+  .validate_class(compute_pseudo_p, "logical")
+  if (!is.null(tested_moransI)) {
+    .validate_class(tested_moransI, "numeric")
+    .validate_length(tested_moransI, 1)
+  }
+  .validate_positive_scalar(n_permutations, int = TRUE)
   .validate_class(return_intermediate_values, "logical")
   ## To add
   #  - should be a single value
@@ -134,6 +160,13 @@ calc_MoransI <- function(object,
 
   n_moransI <- n_average_auto_correlation / n_spatial_auto_correlation
 
+  if (compute_pseudo_p) {
+    if (is.null(tested_moransI))
+      tested_moransI <- n_moransI
+    pseudo_p <- .compute_pseudo_p(vn_values, tested_moransI,
+                                  n_permutations, df_neighbours)
+  }
+
   if (return_intermediate_values) {
     li_return <- list(n = n,
                       n_mean = n_mean,
@@ -141,33 +174,34 @@ calc_MoransI <- function(object,
                       n_sum_similarities = n_sum_similarities,
                       n_sum_weights = n_sum_weights,
                       n_average_auto_correlation = n_average_auto_correlation,
-                      n_moransI = n_moransI
-    )
+                      n_moransI = n_moransI)
+    if (compute_pseudo_p) {
+      li_return$pseudo_p <- pseudo_p
+    }
 
     return(li_return)
   }
 
+  if (compute_pseudo_p) {
+    return(pseudo_p$pseudo_p)
+  }
   return(n_moransI)
 }
 
 
 #' @title Calculate Moran's I pseudo p
 #'
-#' @param object [RLum.Results-class] or [numeric] (**required**): containing a numerical vector of length 100,
+#' @param values [numeric] (**required**): numerical vector of length 100
 #' representing one discs ("position") in a reader.
 #'
-#' @param n_moransI [numeric] (*with default*) The value of Moran's I to be tested against.
-#' Defaults to `calc_MoransI(object)`.
+#' @param moransI [numeric] (**required**): The value of Moran's I to be
+#' tested against.
 #'
-#' @param n_perm [integer] (*with default*) Number of random permutations tested to calculate the fraction
-#' which is the pseudo p. Defaults to 999. Influences the calculation speed, which will have impact in case
-#' of large scale simulation loops.
+#' @param n_permutations [integer] (*with default*) Number of random
+#' permutations tested to calculate the fraction which is the pseudo p.
 #'
-#' @param df_neighbours [data.frame] (*with default*) Defaults to
-#' `get_Neighbour(object)`.
-#'
-#' @param suppress_warnings [logical] (*with default*): whether warnings should
-#' be suppressed (defaults to `FALSE`).
+#' @param df_neighbours [data.frame] (**required**): Data frame indicating
+#' which borders to consider, and their respective weights.
 #'
 #' @return Pseudo p-value
 #'
@@ -180,44 +214,10 @@ calc_MoransI <- function(object,
 #' A novel tool to assess crosstalk in single-grain luminescence detection.
 #' Submitted.
 #'
+#' @keywords internal
 #' @md
-#' @export
-calc_MoransI_pseudo_p <- function(object,
-                                  n_moransI = calc_MoransI(object),
-                                  n_perm = 999,
-                                  df_neighbours = NULL,
-                                  suppress_warnings = FALSE
-) {
-  .set_function_name("calc_MoransI")
-  on.exit(.unset_function_name(), add = TRUE)
-
-  .validate_class(object, c("RLum.Results", "numeric", "integer"))
-  ## To add: validation on `object`
-  #  - should contain a numerical vector of length 100
-
-  if(is.numeric(object))
-  {
-    vn_values <- object
-  } else
-  {
-    vn_values <- get_RLum(object)
-  }
-
-  vb_contains_observation <-  !is.na(vn_values)
-
-  .validate_positive_scalar(n_perm, int = TRUE)
-
-  if (is.null(df_neighbours)) {
-    df_neighbours <- .get_Neighbours(vn_values)
-  } else {
-    .validate_class(df_neighbours, "data.frame")
-  }
-  if (nrow(df_neighbours) == 0) {
-    .throw_warning("No bordering grain locations given in 'df_neighbours', ",
-                   "returning NaN")
-    return(NaN)
-  } else
-  {
+#' @noRd
+.compute_pseudo_p <- function(values, moransI, n_permutations, df_neighbours) {
 
     ## Local helper function: reshuffle (=permutate) observations, an test if Moran's I
     ## from reshuffled observations if equal or above the calculated Moran's I
@@ -227,23 +227,26 @@ calc_MoransI_pseudo_p <- function(object,
       (calc_MoransI(object = vn_values_reshuffled,
                     df_neighbours = df_neighbours) >= n_moransI)
     }
+    vb_contains_observation <- !is.na(values)
 
     ## How many different Moran's Is from reshuffled observations are equal or
     ## above the provided Moran's I?
-    n_test_pos <- sum( replicate(n = n_perm,
-                                 expr = reshuffle_and_test(vn_values,
-                                                           n_moransI,
-                                                           df_neighbours),
+    n_test_pos <- sum(replicate(n = n_permutations,
+                                expr = reshuffle_and_test(values,
+                                                          moransI,
+                                                          df_neighbours),
                                  simplify = TRUE)
     )
 
-    n_pseudo_p <- (n_test_pos+1-1)/(n_perm+1)
+  n_pseudo_p <- (n_test_pos + 1) / (n_permutations + 1)
 
-    if (n_test_pos == 0 && !suppress_warnings && n_pseudo_p > 0)
-      .throw_warning("Pseudo-p might be overestimation; real p-value closer to zero. Perhaps increase n_perm")
+  if (n_test_pos == 0 && n_pseudo_p > 0)
+    .throw_warning("Pseudo-p might be overestimated: the real p-value ",
+                   "is closer to zero, try increasing 'n_permutations'")
 
-    return(n_pseudo_p)
-  } ## END nrow(df_neighbour) > 0
+  return(list(pseudo_p = n_pseudo_p,
+              tested_moransI = moransI,
+              n_permutations = n_permutations))
 }
 
 
