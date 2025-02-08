@@ -60,11 +60,11 @@ jobs:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
 
-      - name: Get coverage from main branch
+      - name: Get coverage from master branch
         run: |
-          git fetch origin main
-          git checkout main -- tests/coverage.rds || true
-          echo "Fetching main branch coverage data"
+          git fetch origin master
+          git checkout master -- tests/coverage.rds || true
+          echo "Fetching master branch coverage data"
 
       - name: Compare coverage and fail on decrease
         run: |
@@ -74,15 +74,15 @@ jobs:
          saveRDS(pr_coverage, "tests/coverage.rds")
 
          if (file.exists("tests/coverage.rds")) {
-           main_coverage <- readRDS("tests/coverage.rds")
+           master_coverage <- readRDS("tests/coverage.rds")
            pr_cov <- percent_coverage(pr_coverage)
-           main_cov <- percent_coverage(main_coverage)
+           master_cov <- percent_coverage(master_coverage)
 
-           message("Coverage on main: ", main_cov, "%")
+           message("Coverage on master: ", master_cov, "%")
            message("Coverage on PR: ", pr_cov, "%")
 
-           if (pr_cov < main_cov) {
-             stop("❌ Test coverage decreased! PR coverage: ", pr_cov, "% vs. Main: ", main_cov, "%")
+           if (pr_cov < master_cov) {
+             stop("❌ Test coverage decreased! PR coverage: ", pr_cov, "% vs.  Master: ", master_cov, "%")
            } else {
               message("✅ Coverage is maintained or improved.")
            }
