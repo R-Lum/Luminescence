@@ -60,33 +60,33 @@ jobs:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
 
-       - name: Get coverage from main branch
+      - name: Get coverage from main branch
         run: |
           git fetch origin main
           git checkout main -- tests/coverage.rds || true
           echo "Fetching main branch coverage data"
 
-       - name: Compare coverage and fail on decrease
-         run: |
-          Rscript -e '
-          library(covr)
-          pr_coverage <- package_coverage()
-          saveRDS(pr_coverage, "tests/coverage.rds")
+      - name: Compare coverage and fail on decrease
+        run: |
+         Rscript -e '
+         library(covr)
+         pr_coverage <- package_coverage()
+         saveRDS(pr_coverage, "tests/coverage.rds")
 
-          if (file.exists("tests/coverage.rds")) {
-            main_coverage <- readRDS("tests/coverage.rds")
-            pr_cov <- percent_coverage(pr_coverage)
-            main_cov <- percent_coverage(main_coverage)
+         if (file.exists("tests/coverage.rds")) {
+           main_coverage <- readRDS("tests/coverage.rds")
+           pr_cov <- percent_coverage(pr_coverage)
+           main_cov <- percent_coverage(main_coverage)
 
-            message("Coverage on main: ", main_cov, "%")
-            message("Coverage on PR: ", pr_cov, "%")
+           message("Coverage on main: ", main_cov, "%")
+           message("Coverage on PR: ", pr_cov, "%")
 
-            if (pr_cov < main_cov) {
-              stop("❌ Test coverage decreased! PR coverage: ", pr_cov, "% vs. Main: ", main_cov, "%")
-            } else {
+           if (pr_cov < main_cov) {
+             stop("❌ Test coverage decreased! PR coverage: ", pr_cov, "% vs. Main: ", main_cov, "%")
+           } else {
               message("✅ Coverage is maintained or improved.")
-            }
+           }
            } else {
              message("⚠️ No previous coverage data found. Skipping comparison.")
-           }
+          }
 
