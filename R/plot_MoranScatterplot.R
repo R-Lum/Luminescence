@@ -63,8 +63,9 @@ plot_MoranScatterplot <- function(
 
   ## Validate input arguments; set variables  -----------------------
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
-  ## To add:
-  #  - should contain a numerical vector of length 100
+
+  if(inherits(object, "numeric") || inherits(object, "integer") )
+    .validate_length(object, 100)
 
   ## get ... arguments
   plot_settings <- modifyList(
@@ -96,10 +97,13 @@ plot_MoranScatterplot <- function(
 
   show_location_ids <- FALSE
   show_n_neighbours <- FALSE
-  if(plot_settings$pch == "show_location_ids")
+  if(plot_settings$pch == "show_location_ids") {
     show_location_ids <- TRUE
-  else if (plot_settings$pch == "show_n_neighbours")
+
+  } else if (plot_settings$pch == "show_n_neighbours") {
     show_n_neighbours <- TRUE
+
+ }
 
   vs_log <- plot_settings$log  # because we need the function "log" later
 
@@ -196,14 +200,22 @@ plot_MoranScatterplot <- function(
     plot_settings$pch
   }
 
-  plot(df_moran_plot[,1:2],
-       pch = vs_pch,
-       log = vs_log,
-       xlab = plot_settings$xlab,
-       ylab = plot_settings$ylab,
-       cex = plot_settings$cex,
-       ...
-  )
+  ## plot
+  ## remove used arguments to avoid collusion
+  args <- list(...)
+  args <- args[!...names() %in% c("pch", "log", "xlab", "ylab", "cex", "legend")]
+
+  do.call(
+    what = plot,
+    args = c(
+     args,
+     list(
+      df_moran_plot[,1:2],
+      pch = vs_pch,
+      log = vs_log,
+      xlab = plot_settings$xlab,
+      ylab = plot_settings$ylab,
+      cex = plot_settings$cex)))
 
   if(vs_points_appearance == "show_location_ids") {
     text(x = df_moran_plot[,1:2],
@@ -268,3 +280,4 @@ plot_MoranScatterplot <- function(
 
   invisible(df_moran_plot)
 }
+

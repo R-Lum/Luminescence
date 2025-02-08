@@ -11,10 +11,10 @@ test_that("input validation", {
                "'df_neighbours' should be of class 'data.frame'")
   expect_error(plot_MoranScatterplot(obj, df_neighbours = data.frame()),
                "'df_neighbours' should be a data frame with 3 columns")
-  expect_error(plot_MoranScatterplot(obj, show_legend = "error"),
-               "'show_legend' should be of class 'logical'")
   expect_error(plot_MoranScatterplot(obj, str_y_def = "error"),
                "'str_y_def' should be one of 'mean_neighbours' or")
+  expect_error(plot_MoranScatterplot(1:10),
+               "'object' should have length 100")
 })
 
 test_that("check functionality", {
@@ -30,14 +30,14 @@ test_that("check functionality", {
 
   ## problematic values for the log transform
   expect_warning(plot_MoranScatterplot(1:100 - 1, log = "xy",
-                                       show_legend = FALSE),
+                                       legend = FALSE),
                  "x-axis values rescaled because of log transform")
   expect_warning(plot_MoranScatterplot(1:100 - 2, log = "xy",
-                                       show_legend = FALSE),
+                                       legend = FALSE),
                  "x-axis values rescaled because of log transform")
 
   obj.na <- obj
   obj.na@data$vn_values[c(24, 73)] <- NA
-  expect_warning(plot_MoranScatterplot(obj.na, show_legend = TRUE),
+  expect_warning(plot_MoranScatterplot(obj.na, legend = TRUE),
                  "Grain observations removed from plot because no neighbours")
 })
