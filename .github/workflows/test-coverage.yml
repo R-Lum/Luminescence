@@ -88,5 +88,6 @@ jobs:
            }
            } else {
              message("⚠️ No previous coverage data found. Skipping comparison.")
-          }
+           }
+           '
 
