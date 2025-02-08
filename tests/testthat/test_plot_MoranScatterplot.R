@@ -35,6 +35,12 @@ test_that("check functionality", {
   expect_warning(plot_MoranScatterplot(1:100 - 2, log = "xy",
                                        legend = FALSE),
                  "x-axis values rescaled because of log transform")
+  expect_warning(plot_MoranScatterplot((1:100) - 20, log = "y",
+                                       legend = FALSE),
+                 "y-axis values rescaled because of log transform \\(also in return df\\)")
+
+  expect_silent(plot_MoranScatterplot((1:100) - 2, log = "y",
+                                       legend = FALSE))
 
   obj.na <- obj
   obj.na@data$vn_values[c(24, 73)] <- NA
