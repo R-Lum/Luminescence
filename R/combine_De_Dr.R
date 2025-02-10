@@ -518,7 +518,7 @@ combine_De_Dr <- function(
   ## Integrity checks -------------------------------------------------------
 
   if (length(De) != length(s))
-    .throw_error("'De' and 's' are not of similar length")
+    .throw_error("'De' and 's' should have the same length")
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
 

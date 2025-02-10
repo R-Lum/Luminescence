@@ -16,7 +16,7 @@ test_that("Test combine_De_Dr", {
     Dr = Dr,
     int_OD = 0.1,
     De,
-    s[-1]), "\\[combine_De_Dr\\(\\)\\] \\'De\\' and \\'s\\' are not of similar length!")
+    s[-1]), "'De' and 's' should have the same length")
 
   ## simple run with standard settings
   results <- expect_s4_class(combine_De_Dr(
