@@ -65,13 +65,14 @@ Suggests:
     rstudioapi (>= 0.16.0),
     rjags (>= 4-15),
     coda (>= 0.19-4),
+    knitr,
     pander (>= 0.6.5),
     testthat (>= 3.2.1),
     vdiffr (>= 1.0.0),
     tiff (>= 0.1-12),
     devtools (>= 2.4.5),
     R.rsp (>= 0.46.0)
-VignetteBuilder: R.rsp
+VignetteBuilder: R.rsp, knitr
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.3.2

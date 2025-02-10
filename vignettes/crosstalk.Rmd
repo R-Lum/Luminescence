@@ -1,10 +1,10 @@
 ---
-title: "crosstalk_vignette"
+title: "Assessing crosstalk in single-grain luminescence detection"
 output: 
     rmarkdown::html_vignette:
      toc: true
-author: "Luc Steinbuch, Anna-Maartje de Boer, Wageningen University & Research, 2025"
-date: "`r Sys.Date()`"
+author: "Luc Steinbuch, Anna-Maartje de Boer, Wageningen University & Research"
+date: "February 2025"
 vignette: >
   %\VignetteIndexEntry{crosstalk_vignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,7 +20,10 @@ knitr::opts_chunk$set(
 
 # Crosstalk
 
-This vignette explores the crosstalk related functions in the "luminescence" package, related to  research paper "A novel tool to assess crosstalk in single-grain luminescence detection", by Anna-Maartje de Boer, Luc Steinbuch, Gerard Heuvelink and Jakob Wallinga.
+This vignette explores the crosstalk-related functions in the "Luminescence"
+package, related to  research paper "A novel tool to assess crosstalk in
+single-grain luminescence detection", by Anna-Maartje de Boer, Luc Steinbuch,
+Gerard Heuvelink and Jakob Wallinga.
 Crosstalk in single-grain luminescence imaging (EMCCD) is the overlapping of luminescence signals from adjacent grains on a single-grain disc. The actual signal on one grain location influences the observed signal on a neighboring grain location which happens to be on the same measurement disc (one "position" in the reader). In this research and the shown functions, we define "neighboring" as rook-wise (horizontally and vertically) only, and we assume that all measurement discs have a regular grid of 10x10 grain locations. 
 
 
