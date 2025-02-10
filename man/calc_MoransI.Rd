@@ -11,6 +11,7 @@ calc_MoransI(
   compute_pseudo_p = FALSE,
   tested_moransI = NULL,
   n_permutations = 999,
+  ignore_borders = FALSE,
   return_intermediate_values = FALSE
 )
 }
@@ -46,6 +47,12 @@ permutations tested to calculate the fraction which is the pseudo p
 (defaults to 999). Influences the calculation speed, which will have
 impact in case of large scale simulation loops. Ignored if \code{compute_pseudo_p}
 is \code{FALSE}.}
+
+\item{ignore_borders}{\link{logical} (\emph{with default}): whether only grain
+locations that do not lie on the border of the disc should be considered
+(\code{FALSE} by default). Thus if \code{TRUE}, only the inner 8x8 grain locations
+rather than the full 10x10 are considered. Ignored if \code{df_neighbours} is
+not \code{NULL} or if \code{spatial_autocorrelation = FALSE}.}
 
 \item{return_intermediate_values}{\link{logical} (\emph{with default}): whether the
 function should return a list with several intermediate calculation results

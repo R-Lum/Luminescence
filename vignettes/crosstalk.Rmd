@@ -244,7 +244,10 @@ plot_SingleGrainDisc(object = vn_simulated,
           show_location_ids = TRUE)
 ```
 
-To exclude all border effects, we can take out all border rows
+To exclude all border effects, we can use the `ignore_borders` option
+available in `calc_MoransI()` and `plot_SingleGrainDisc()`, which can
+take out all border rows and columns when computing the data frame of
+neighbours:
 
 
 ``` {r restrict_to_inner_8x8, fig.dim = c(8, 5), out.width="800px"}
@@ -267,19 +270,14 @@ vn_values_to_show <- apply_Crosstalk(object = vn_values_to_show,
 
 calc_MoransI(object = vn_values_to_show)
 
-df_neighbours <- Luminescence:::.get_Neighbours(1:100, restrict_to_8x8 = TRUE)
-
 plot_SingleGrainDisc(object = vn_values_to_show,
-          show_neighbours = TRUE,
-          df_neighbours = df_neighbours)
+                     show_neighbours = TRUE,
+                     ignore_borders = TRUE)
 
-
-calc_MoransI(object = vn_values_to_show, 
-             df_neighbours = df_neighbours)
+calc_MoransI(object = vn_values_to_show,
+             ignore_borders = TRUE)
 
 ```
-
-
 
 
 # Plot disc options
@@ -298,8 +296,6 @@ plot_SingleGrainDisc(object = vn_simulated,
 When there is a wide range in values, it can be helpful to apply a logarithmic scale in plotting (note that the default is "square root"):
 
 ```{r show_disc_scales, fig.dim = c(8, 5), out.width="800px"}
-
-
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "Linear scale", 
@@ -371,7 +367,6 @@ calc_MoransI(object = 1:100,
 If the weights (and thus the spatial pattern under investigation) and the number of observations remain the same, this can be useful to understand what is happening. For example, if we add crosstalk, we can see that the population variance slightly decreases (the values are spatially smoothed) but the spatial autocorrelation strongly increases:
 
 ```{r moransI_intermediate_numbers_extended}
-
 
 vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500), 
                              rnorm(n = 70, mean = 20, sd = 1)),  

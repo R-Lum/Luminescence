@@ -22,6 +22,8 @@ test_that("input validation", {
                "'df_neighbours' should be of class 'data.frame'")
   expect_error(plot_SingleGrainDisc(obj, df_neighbours = data.frame()),
                "'df_neighbours' should be a data frame with 3 columns")
+  expect_error(plot_SingleGrainDisc(obj, ignore_borders = "error"),
+               "'ignore_borders' should be a single logical value")
   expect_error(plot_SingleGrainDisc(obj, show_positioning_holes = "error"),
                "'show_positioning_holes' should be a single logical value")
   expect_error(plot_SingleGrainDisc(obj, str_transform = "error"),
@@ -41,6 +43,9 @@ test_that("check functionality", {
                                      show_neighbours = TRUE,
                                      show_positioning_holes = FALSE,
                                      legend = TRUE))
+  expect_silent(plot_SingleGrainDisc(1:100,
+                                     show_neighbours = TRUE,
+                                     ignore_borders = TRUE))
   expect_silent(plot_SingleGrainDisc(c(rep(NA, 99), 100),
                                      show_coordinates = TRUE))
 

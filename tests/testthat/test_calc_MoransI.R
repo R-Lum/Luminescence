@@ -19,6 +19,8 @@ test_that("input validation", {
                "'compute_pseudo_p' should be a single logical value")
   expect_error(calc_MoransI(obj, n_permutations = "error"),
                "'n_permutations' should be a positive integer scalar")
+  expect_error(calc_MoransI(obj, ignore_borders = "error"),
+               "'ignore_borders' should be a single logical value")
   expect_error(calc_MoransI(obj, return_intermediate_values = "error"),
                "'return_intermediate_values' should be a single logical value")
 
@@ -39,7 +41,7 @@ test_that("check functionality", {
   set.seed(1)
 
   expect_snapshot_plain(calc_MoransI(obj))
-  expect_snapshot_plain(calc_MoransI(1:100))
+  expect_snapshot_plain(calc_MoransI(1:100, ignore_borders = TRUE))
   expect_snapshot_plain(calc_MoransI(obj, return_intermediate_values = TRUE))
   expect_snapshot_plain(calc_MoransI(obj,
                                      compute_pseudo_p = TRUE,
@@ -67,6 +69,6 @@ test_that("check .get_Neighbours", {
   expect_error(.get_Neighbours(NULL),
                "'object' should be of class 'RLum.Results', 'numeric' or")
   expect_snapshot_plain(.get_Neighbours(obj))
-  expect_snapshot_plain(.get_Neighbours(obj, restrict_to_8x8 = TRUE))
+  expect_snapshot_plain(.get_Neighbours(obj, ignore_borders = TRUE))
   expect_snapshot_plain(.get_Neighbours(c(1:99, NA)))
 })

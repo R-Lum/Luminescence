@@ -7,7 +7,8 @@
 #' to be displayed. As this function is wrapped around the base plot function, one can also choose to add elements
 #' manually.
 #'
-#' @param object The values to show, a numerical vector of size 100. ## NOG AANPASSEN
+#' @param object [RLum.Results-class] or [numeric] (**required**): the values
+#' to show, should have length 100.
 #'
 #' @param show_coordinates [logical] (*with default*): Show coordinates (1..10)
 #' in x and in y direction. Defaults to `FALSE`.
@@ -28,6 +29,12 @@
 #' consider, and their respective weights (see the description provided for
 #' [calc_MoransI]). If `NULL` (default), this is constructed automatically by
 #' the internal function `.get_Neighbours`.
+#'
+#' @param ignore_borders [logical] (*with default*): whether only grain
+#' locations that do not lie on the border of the disc should be considered
+#' (`FALSE` by default). Thus if `TRUE`, only the inner 8x8 grain locations
+#' rather than the full 10x10 are considered. Ignored if `df_neighbours` is
+#' not `NULL` or if `show_neighbours = FALSE`.
 #'
 #' @param str_transform [character] (*with default*): The observed value of each individual grain is
 #' reflected in the size of a triangle (or other dot-like element). To account for large value differences,
@@ -59,6 +66,7 @@ plot_SingleGrainDisc <- function(object,
                                  show_neighbours = FALSE,
                                  show_positioning_holes = TRUE,
                                  df_neighbours = NULL,
+                                 ignore_borders = FALSE,
                                  str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
                                  ...
 ) {
@@ -84,7 +92,8 @@ plot_SingleGrainDisc <- function(object,
   .validate_logical_scalar(show_positioning_holes)
 
   if (is.null(df_neighbours)) {
-    df_neighbours <- .get_Neighbours(object)
+    .validate_logical_scalar(ignore_borders)
+    df_neighbours <- .get_Neighbours(object, ignore_borders)
   } else {
     .validate_class(df_neighbours, "data.frame")
     if (ncol(df_neighbours) != 3)

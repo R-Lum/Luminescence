@@ -11,12 +11,14 @@ plot_SingleGrainDisc(
   show_neighbours = FALSE,
   show_positioning_holes = TRUE,
   df_neighbours = NULL,
+  ignore_borders = FALSE,
   str_transform = "sqrt",
   ...
 )
 }
 \arguments{
-\item{object}{The values to show, a numerical vector of size 100. ## NOG AANPASSEN}
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): the values
+to show, should have length 100.}
 
 \item{show_coordinates}{\link{logical} (\emph{with default}): Show coordinates (1..10)
 in x and in y direction. Defaults to \code{FALSE}.}
@@ -37,6 +39,12 @@ positioning holes for orientation. Defaults to \code{TRUE}.}
 consider, and their respective weights (see the description provided for
 \link{calc_MoransI}). If \code{NULL} (default), this is constructed automatically by
 the internal function \code{.get_Neighbours}.}
+
+\item{ignore_borders}{\link{logical} (\emph{with default}): whether only grain
+locations that do not lie on the border of the disc should be considered
+(\code{FALSE} by default). Thus if \code{TRUE}, only the inner 8x8 grain locations
+rather than the full 10x10 are considered. Ignored if \code{df_neighbours} is
+not \code{NULL} or if \code{show_neighbours = FALSE}.}
 
 \item{str_transform}{\link{character} (\emph{with default}): The observed value of each individual grain is
 reflected in the size of a triangle (or other dot-like element). To account for large value differences,

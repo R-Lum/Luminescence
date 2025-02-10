@@ -11,7 +11,7 @@
     {
       "type": "double",
       "attributes": {},
-      "value": [0.88888889]
+      "value": [0.54545455]
     }
 
 ---

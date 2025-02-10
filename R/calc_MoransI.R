@@ -48,6 +48,12 @@
 #' impact in case of large scale simulation loops. Ignored if `compute_pseudo_p`
 #' is `FALSE`.
 #'
+#' @param ignore_borders [logical] (*with default*): whether only grain
+#' locations that do not lie on the border of the disc should be considered
+#' (`FALSE` by default). Thus if `TRUE`, only the inner 8x8 grain locations
+#' rather than the full 10x10 are considered. Ignored if `df_neighbours` is
+#' not `NULL` or if `spatial_autocorrelation = FALSE`.
+#'
 #' @param return_intermediate_values [logical] (*with default*): whether the
 #' function should return a list with several intermediate calculation results
 #' (defaults to `FALSE`). Ignored if `spatial_autocorrelation` is `FALSE`.
@@ -87,6 +93,7 @@ calc_MoransI <- function(object,
                          compute_pseudo_p = FALSE,
                          tested_moransI = NULL,
                          n_permutations = 999,
+                         ignore_borders = FALSE,
                          return_intermediate_values = FALSE
 ) {
   .set_function_name("calc_MoransI")
@@ -103,7 +110,8 @@ calc_MoransI <- function(object,
   .validate_length(vn_values, 100, name = "'object'")
 
   if (is.null(df_neighbours)) {
-    df_neighbours <- .get_Neighbours(object)
+    .validate_logical_scalar(ignore_borders)
+    df_neighbours <- .get_Neighbours(object, ignore_borders)
   } else {
     .validate_class(df_neighbours, "data.frame")
     if (ncol(df_neighbours) != 3)
@@ -261,7 +269,7 @@ calc_MoransI <- function(object,
 #' vector containing the values of one or more discs, or an `RLum.Results`
 #' object containing such values. Can contain `NA` values.
 #'
-#' @param restrict_to_8x8 [logical] (*with default*) Defaults to `FALSE`.
+#' @param ignore_borders [logical] (*with default*) Defaults to `FALSE`.
 #' If `TRUE`, only on-disc borders to grain locations who do not border the
 #' disc are considered; thus only the inner 8x8 grain locations rather than
 #' the full 10x10.
@@ -282,7 +290,7 @@ calc_MoransI <- function(object,
 #'
 #' @noRd
 .get_Neighbours <- function(object,
-                            restrict_to_8x8 = FALSE
+                            ignore_borders = FALSE
 ) {
   .set_function_name(".get_Neighbours")
   on.exit(.unset_function_name(), add = TRUE)
@@ -296,8 +304,6 @@ calc_MoransI <- function(object,
       vn_values <- get_RLum(object)
   }
   vb_contains_observation <- !is.na(vn_values)
-
-  .validate_logical_scalar(restrict_to_8x8)
 
   ## Construct the dataframe with borders and weights ---------------------------------
 
@@ -330,7 +336,7 @@ calc_MoransI <- function(object,
 
   df_neighbour <- na.omit(df_neighbour)
 
-  if (restrict_to_8x8) {
+  if (ignore_borders) {
     ## Remove the disc borders
     vn_disc_border_locations <- c(1:10,
                                   91:100,
@@ -348,16 +354,12 @@ calc_MoransI <- function(object,
   df_neighbour$weight <- 1
 
   ## If there are missing observations (NA's), we need to take those out ------------------
-  if(any(!vb_contains_observation))
-  {
-
+  missing.idx <- which(!vb_contains_observation)
+  if (length(missing.idx) > 0) {
     ## Create vector of indices of rows to throw away
-    vi_observation_missing <- unique(
-      c(which(df_neighbour$location %in%  which(!vb_contains_observation)),
-        which(df_neighbour$neighbour %in% which(!vb_contains_observation))
-      )
-    )
-    df_neighbour <- df_neighbour[-vi_observation_missing,]
+    vi_observation_missing <- (df_neighbour$location  %in% missing.idx |
+                               df_neighbour$neighbour %in% missing.idx)
+    df_neighbour <- df_neighbour[!vi_observation_missing, ]
   }
 
   return(df_neighbour)
