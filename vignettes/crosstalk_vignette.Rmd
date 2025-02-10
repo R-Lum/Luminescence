@@ -285,9 +285,9 @@ calc_MoransI(object = vn_values_to_show,
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "", 
+          legend = TRUE,
           show_coordinates = TRUE,
           show_location_ids = TRUE,
-          show_legend = TRUE,
           show_positioning_holes = FALSE)
 
 ```
@@ -300,18 +300,18 @@ When there is a wide range in values, it can be helpful to apply a logarithmic s
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "Linear scale", 
+          legend = TRUE,
           show_coordinates = FALSE,
           show_location_ids = FALSE,
-          show_legend = TRUE,
           show_positioning_holes = TRUE,
           str_transform = "lin")
 
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "Logarithmic scale", 
+          legend = TRUE,
           show_coordinates = FALSE,
           show_location_ids = FALSE,
-          show_legend = TRUE,
           show_positioning_holes = TRUE,
           str_transform = "log")
 

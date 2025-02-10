@@ -15,9 +15,6 @@
 #' @param show_location_ids [logical] (*with default*): Show id with every
 #' grain location (1..100). Defaults to `FALSE`.
 #'
-#' @param show_legend [logical] (*with default*): Defaults to `FALSE`.
-#' Show a rudimentary legend.
-#'
 #' @param show_neighbours [logical]  (*with default*): Show which
 #' neighbour connections are taken into account if calculating Moran's I.
 #' This makes sense when there are `NA` observations, or when a non-standard
@@ -39,12 +36,9 @@
 #' the log and sqrt transformations can come with an addition to avoid negative values. When the legend
 #' is shown, the actual lower, middle and upper values are printed.
 #'
-#' @param main FIXME(mcol)
-#' @param col FIXME(mcol)
-#' @param pch FIXME(mcol)
-#'
-#' @param ... other arguments to be given to the base R plot function, such as "main", "col" and "pch" (with
-#' default values "", "darkolivegreen" and 17, respectively). Many other base plot arguments are ignored.
+#' @param ... other arguments to be given to the base R plot function, such
+#' as `main`, `col` and `pch`. `legend` can be used to enable/disable the
+#' legend (`FALSE` by default).
 #'
 #' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
 #'
@@ -62,14 +56,10 @@
 plot_SingleGrainDisc <- function(object,
                                  show_coordinates = FALSE,
                                  show_location_ids = FALSE,
-                                 show_legend = FALSE,
                                  show_neighbours = FALSE,
                                  show_positioning_holes = TRUE,
                                  df_neighbours = NULL,
                                  str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
-                                 main = "",
-                                 col =  "darkolivegreen",
-                                 pch  = 17,
                                  ...
 ) {
   .set_function_name("plot_SingleGrainDisc")
@@ -90,7 +80,6 @@ plot_SingleGrainDisc <- function(object,
 
   .validate_logical_scalar(show_coordinates)
   .validate_logical_scalar(show_location_ids)
-  .validate_logical_scalar(show_legend)
   .validate_logical_scalar(show_neighbours)
   .validate_logical_scalar(show_positioning_holes)
 
@@ -104,13 +93,21 @@ plot_SingleGrainDisc <- function(object,
 
   .validate_args(str_transform, c("sqrt", "lin", "log"))
 
+  ## get ... arguments
+  plot_settings <- modifyList(
+      x = list(
+          main = "",
+          legend = FALSE,
+          col =  "darkolivegreen",
+          pch = 17),
+      val = list(...))
 
   ## Settings  -----------------------
 
   n_lb_cex <- 0.8  # lower bound of plotted grain value size
   n_ub_cex <- 3.2  # upper bound of plotted grain value size
 
-  str_title <- main
+  str_title <- plot_settings$main
 
   ## Scaling from value to point size -----------------------
 
@@ -172,21 +169,26 @@ plot_SingleGrainDisc <- function(object,
                         y = rep(1:10, each=10)
   )
 
-  plot(x = df_disc$x,
-       y = df_disc$y,
-       cex = vn_values_to_show,
-       asp = 1,
-       col = col,
-       main = "",
-       xlab = "",
-       ylab = "",
-       xlim = c(1,10),
-       ylim = c(10,1),
-       pch = pch,
-       axes=F,
-       mar=c(4, 4, 6, 0.5),
-       ...
-  )
+  ## remove used arguments to avoid collisions
+  args <- list(...)
+  args <- args[!...names() %in% c("main", "legend", "col", "pch")]
+
+  do.call(
+      what = plot,
+      args = c(list(
+          x = df_disc$x,
+          y = df_disc$y,
+          cex = vn_values_to_show,
+          asp = 1,
+          col = plot_settings$col,
+          pch = plot_settings$pch,
+          xlab = "",
+          ylab = "",
+          xlim = c(1,10),
+          ylim = c(10,1),
+          axes = FALSE,
+          mar = c(4, 4, 6, 0.5)),
+          args))
 
   ## Show title (if any)
   if (show_positioning_holes || show_coordinates) {
@@ -255,7 +257,9 @@ plot_SingleGrainDisc <- function(object,
     mapply(lines, x = list_x, y = list_y, col = c("purple"), lwd = li_weight, lty = 'dotted')
   }
 
-  if (show_legend) {
+  if (plot_settings$legend) {
+    pch <- plot_settings$pch
+    col <- plot_settings$col
     n_low <-  prettyNum(x = vn_range_values[1], digits = 2, format = "fg")
     n_mean <- prettyNum(x = n_mean_value, digits = 2, format = "fg")
     n_high <- prettyNum(x = vn_range_values[2], digits = 2, format = "fg")
@@ -265,7 +269,6 @@ plot_SingleGrainDisc <- function(object,
     vs_lty    <- c( NA,       NA,        NA)
     vs_cols   <- c( col,      col,       col)
     vn_pt_cex <- c( n_lb_cex, n_mv_cex,  n_ub_cex)
-
 
     ## if also NA values
     if(any(is.na(vn_values_to_show)))

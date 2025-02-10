@@ -16,8 +16,6 @@ test_that("input validation", {
                "'show_coordinates' should be a single logical value")
   expect_error(plot_SingleGrainDisc(obj, show_location_ids = "error"),
                "'show_location_ids' should be a single logical value")
-  expect_error(plot_SingleGrainDisc(obj, show_legend = "error"),
-               "'show_legend' should be a single logical value")
   expect_error(plot_SingleGrainDisc(obj, show_neighbours = "error"),
                "'show_neighbours' should be a single logical value")
   expect_error(plot_SingleGrainDisc(obj, df_neighbours = "error"),
@@ -42,7 +40,7 @@ test_that("check functionality", {
                                      show_location_ids = TRUE,
                                      show_neighbours = TRUE,
                                      show_positioning_holes = FALSE,
-                                     show_legend = TRUE))
+                                     legend = TRUE))
   expect_silent(plot_SingleGrainDisc(c(rep(NA, 99), 100),
                                      show_coordinates = TRUE))
 
@@ -52,5 +50,5 @@ test_that("check functionality", {
 
   obj.na <- obj
   obj.na@data$vn_values[c(24, 73)] <- NA
-  expect_silent(plot_SingleGrainDisc(obj.na, show_legend = TRUE))
+  expect_silent(plot_SingleGrainDisc(obj.na, legend = TRUE))
 })

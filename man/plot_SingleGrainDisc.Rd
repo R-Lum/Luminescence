@@ -8,14 +8,10 @@ plot_SingleGrainDisc(
   object,
   show_coordinates = FALSE,
   show_location_ids = FALSE,
-  show_legend = FALSE,
   show_neighbours = FALSE,
   show_positioning_holes = TRUE,
   df_neighbours = NULL,
   str_transform = "sqrt",
-  main = "",
-  col = "darkolivegreen",
-  pch = 17,
   ...
 )
 }
@@ -27,9 +23,6 @@ in x and in y direction. Defaults to \code{FALSE}.}
 
 \item{show_location_ids}{\link{logical} (\emph{with default}): Show id with every
 grain location (1..100). Defaults to \code{FALSE}.}
-
-\item{show_legend}{\link{logical} (\emph{with default}): Defaults to \code{FALSE}.
-Show a rudimentary legend.}
 
 \item{show_neighbours}{\link{logical}  (\emph{with default}): Show which
 neighbour connections are taken into account if calculating Moran's I.
@@ -52,14 +45,9 @@ the transformation from value to triangle size can be \code{"lin"} (linear), \co
 the log and sqrt transformations can come with an addition to avoid negative values. When the legend
 is shown, the actual lower, middle and upper values are printed.}
 
-\item{main}{FIXME(mcol)}
-
-\item{col}{FIXME(mcol)}
-
-\item{pch}{FIXME(mcol)}
-
-\item{...}{other arguments to be given to the base R plot function, such as "main", "col" and "pch" (with
-default values "", "darkolivegreen" and 17, respectively). Many other base plot arguments are ignored.}
+\item{...}{other arguments to be given to the base R plot function, such
+as \code{main}, \code{col} and \code{pch}. \code{legend} can be used to enable/disable the
+legend (\code{FALSE} by default).}
 }
 \description{
 Shows a schematic representation of the physical appearance of one disc (on position in the reader)
