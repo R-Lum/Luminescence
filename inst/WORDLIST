@@ -67,6 +67,7 @@ CobbleDoseRate
 Colour
 Combès
 Cresswell
+Crosstalk
 Croux
 Cueva
 Cunha
@@ -137,6 +138,7 @@ Hase
 Hatte
 Heer
 Helmer
+Heuvelink
 Hilgers
 Hintze
 Hoehne
@@ -199,6 +201,7 @@ MAAD
 MASSAKT
 MCM
 MERCHANTABILITY
+Maartje
 Madsen
 Majeed
 Marquardt
@@ -363,6 +366,7 @@ XRF
 XSXG
 XSYG
 Xcode
+YAML
 Yoshida
 ZENODO
 ZEU
@@ -400,6 +404,7 @@ chronometric
 colour
 coloured
 colours
+crosstalk
 cts
 curveType
 customise
@@ -465,7 +470,9 @@ mtext
 muon
 muons
 nd
+neighbour
 neighbouring
+neighbours
 nls
 nm
 normalisation
@@ -508,6 +515,7 @@ readSPE
 realised
 recognised
 reorganisation
+reproducibility
 retrapping
 rhop
 rmarkdown
@@ -538,6 +546,7 @@ violinmplot
 violplot
 vioplot
 visualisation
+visualise
 visualised
 visualising
 von
