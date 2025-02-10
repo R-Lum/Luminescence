@@ -1335,6 +1335,28 @@ SW <- function(expr) {
   }
 }
 
+#' @title Validate logical scalar variables
+#'
+#' @param val [numeric] (**required**): value to validate
+#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
+#'        considered valid (`FALSE` by default)
+#' @param name [character] (*with default*): variable name to report in case
+#'        of error: if specified, it's reported as is; if not specified it's
+#'        inferred from the name of the variable tested and reported with
+#'        quotes.
+#'
+#' @md
+#' @noRd
+.validate_logical_scalar <- function(val, null.ok = FALSE, name = NULL) {
+  if (missing(val) || is.null(val) && null.ok)
+    return()
+  if (!is.logical(val) || length(val) != 1 || is.na(val)) {
+    if (is.null(name))
+      name <- sprintf("'%s'", all.vars(match.call())[1])
+    .throw_error(name, " should be a single logical value")
+  }
+}
+
 #' Check that a suggested package is installed
 #'
 #' Report a message with installation instructions if a suggested package

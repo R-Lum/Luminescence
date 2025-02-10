@@ -380,6 +380,25 @@ test_that("Test internals", {
   expect_error(.validate_positive_scalar(NA, int = TRUE, name = "The variable"),
                "The variable should be a positive integer")
 
+  ## .validate_logical_scalar() ---------------------------------------------
+  expect_silent(.validate_logical_scalar())
+  expect_silent(.validate_logical_scalar(TRUE))
+  expect_silent(.validate_logical_scalar(FALSE))
+  expect_silent(.validate_logical_scalar(NULL, null.ok = TRUE))
+
+  expect_error(.validate_logical_scalar(test <- "a"),
+               "'test' should be a single logical value")
+  expect_error(.validate_logical_scalar(test <- NULL),
+               "'test' should be a single logical value")
+  expect_error(.validate_logical_scalar(iris),
+               "'iris' should be a single logical value")
+  expect_error(.validate_logical_scalar(c(TRUE, FALSE), name = "'var'"),
+               "'var' should be a single logical value")
+  expect_error(.validate_logical_scalar(0, name = "'var'"),
+               "'var' should be a single logical value")
+  expect_error(.validate_logical_scalar(NA, name = "The variable"),
+               "The variable should be a single logical value")
+
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),
