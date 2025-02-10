@@ -7,8 +7,12 @@ test_that("input validation", {
 
   expect_error(calc_MoransI("error"),
                "'object' should be of class 'RLum.Results', 'numeric' or 'integer'")
+  expect_error(calc_MoransI(1:50),
+               "'object' should have length 100")
   expect_error(calc_MoransI(obj, df_neighbours = "error"),
                "'df_neighbours' should be of class 'data.frame'")
+  expect_error(calc_MoransI(obj, df_neighbours = iris),
+               "'df_neighbours' should be a data frame with 3 columns")
   expect_error(calc_MoransI(obj, spatial_autocorrelation = "error"),
                "'spatial_autocorrelation' should be a single logical value")
   expect_error(calc_MoransI(obj, compute_pseudo_p = "error"),
@@ -24,7 +28,7 @@ test_that("input validation", {
   expect_warning(calc_MoransI(c(1, rep(NA, 99)),
                               spatial_autocorrelation = TRUE),
                  "No bordering grain locations given in 'df_neighbours'") # FIXME(mcol)
-  expect_warning(res <- calc_MoransI(obj, df_neighbours = data.frame()),
+  expect_warning(res <- calc_MoransI(obj, df_neighbours = iris[0, 1:3]),
                  "No bordering grain locations given in 'df_neighbours'")
   expect_equal(res, NaN)
 })
@@ -46,7 +50,7 @@ test_that("check functionality", {
                -0.010101010)
   expect_equal(calc_MoransI(1:100, spatial_autocorrelation = FALSE),
                -0.010101010)
-  expect_equal(calc_MoransI(1:20, spatial_autocorrelation = FALSE),
+  expect_equal(calc_MoransI(c(1:20, rep(NA, 80)), spatial_autocorrelation = FALSE),
                -0.052631579)
 
   expect_warning(res <- calc_MoransI(obj, compute_pseudo_p = TRUE),
@@ -60,8 +64,9 @@ test_that("check functionality", {
 test_that("check .get_Neighbours", {
   testthat::skip_on_cran()
 
+  expect_error(.get_Neighbours(NULL),
+               "'object' should be of class 'RLum.Results', 'numeric' or")
   expect_snapshot_plain(.get_Neighbours(obj))
   expect_snapshot_plain(.get_Neighbours(obj, restrict_to_8x8 = TRUE))
-  expect_snapshot_plain(.get_Neighbours(NULL))
   expect_snapshot_plain(.get_Neighbours(c(1:99, NA)))
 })

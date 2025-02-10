@@ -7,6 +7,11 @@ test_that("input validation", {
 
   expect_error(plot_SingleGrainDisc("error"),
                "'object' should be of class 'RLum.Results', 'numeric' or")
+  expect_error(plot_SingleGrainDisc(1:50),
+               "'object' should have length 100")
+  expect_error(plot_SingleGrainDisc(set_RLum(class = "RLum.Results",
+                                             data = list(vn_values = rep(NA, 100)))),
+               "'object' should contain at least one non-NA value")
   expect_error(plot_SingleGrainDisc(obj, show_coordinates = "error"),
                "'show_coordinates' should be a single logical value")
   expect_error(plot_SingleGrainDisc(obj, show_location_ids = "error"),

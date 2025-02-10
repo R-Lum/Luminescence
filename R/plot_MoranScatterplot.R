@@ -61,22 +61,15 @@ plot_MoranScatterplot <- function(
   .set_function_name("plot_MoranScatterplot")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Validate input arguments; set variables  -----------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
-
-  if(inherits(object, "numeric") || inherits(object, "integer") )
-    .validate_length(object, 100)
-
-  ## get ... arguments
-  plot_settings <- modifyList(
-    x = list(
-      legend = TRUE,
-      pch = 20,
-      cex = 0.8,
-      xlab = "Value central grain",
-      ylab = ifelse(str_y_def == "weighted_sum", "Weighted sum neighbouring grains", "Plain mean neighbour grains"),
-      log = ""),
-    val = list(...))
+  if (is.numeric(object)) {
+    vn_values <- object
+  } else {
+    vn_values <- get_RLum(object)
+  }
+  .validate_length(vn_values, 100, name = "'object'")
 
   if (is.null(df_neighbours)) {
     df_neighbours <- .get_Neighbours(object)
@@ -88,10 +81,18 @@ plot_MoranScatterplot <- function(
 
   .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))
 
-  if(is.numeric(object))
-    vn_values <- object
-  else
-    vn_values <- get_RLum(object)
+  ## get ... arguments
+  plot_settings <- modifyList(
+      x = list(
+          legend = TRUE,
+          pch = 20,
+          cex = 0.8,
+          xlab = "Value central grain",
+          ylab = ifelse(str_y_def == "weighted_sum",
+                        "Weighted sum neighbouring grains",
+                        "Plain mean neighbour grains"),
+          log = ""),
+      val = list(...))
 
   vs_points_appearance <- plot_settings$pch
 
@@ -102,7 +103,6 @@ plot_MoranScatterplot <- function(
 
   } else if (plot_settings$pch == "show_n_neighbours") {
     show_n_neighbours <- TRUE
-
  }
 
   vs_log <- plot_settings$log  # because we need the function "log" later
@@ -280,4 +280,3 @@ plot_MoranScatterplot <- function(
 
   invisible(df_moran_plot)
 }
-

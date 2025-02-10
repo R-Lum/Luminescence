@@ -95,23 +95,19 @@ calc_MoransI <- function(object,
   ## Validate input arguments; set variables  -----------------------
 
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
-  ## To add
-  #  - should contain a numerical vector of length 100
-
-  if(is.numeric(object))
-  {
+  if (is.numeric(object)) {
     vn_values <- object
-  } else
-  {
+  } else {
     vn_values <- get_RLum(object)
   }
+  .validate_length(vn_values, 100, name = "'object'")
 
   if (is.null(df_neighbours)) {
     df_neighbours <- .get_Neighbours(object)
   } else {
     .validate_class(df_neighbours, "data.frame")
-  ## To add
-  #  - should be a valid df_neighbour dataframe
+    if (ncol(df_neighbours) != 3)
+      .throw_error("'df_neighbours' should be a data frame with 3 columns")
   }
 
   .validate_logical_scalar(spatial_autocorrelation)
@@ -261,10 +257,9 @@ calc_MoransI <- function(object,
 #' arguments, it will return the neighbouring positions data frame for one
 #' disc (POS) with on every grain location an observation.
 #'
-#' @param object [RLum.Results-class] or [numeric] (*with default*): numerical
+#' @param object [RLum.Results-class] or [numeric] (**required**): numerical
 #' vector containing the values of one or more discs, or an `RLum.Results`
 #' object containing such values. Can contain `NA` values.
-#' If `NULL` (default), a complete 10x10 disc is assumed.
 #'
 #' @param restrict_to_8x8 [logical] (*with default*) Defaults to `FALSE`.
 #' If `TRUE`, only on-disc borders to grain locations who do not border the
@@ -286,7 +281,7 @@ calc_MoransI <- function(object,
 #' @keywords internal
 #'
 #' @noRd
-.get_Neighbours <- function(object = NULL,
+.get_Neighbours <- function(object,
                             restrict_to_8x8 = FALSE
 ) {
   .set_function_name(".get_Neighbours")
@@ -294,24 +289,13 @@ calc_MoransI <- function(object,
 
   ## Validate input arguments -----------------------
 
-  if (!is.null(object))
-    .validate_class(object, c("RLum.Results", "numeric", "integer"))
-  ## To add
-
-  if(!is.null(object))
-  {
-    if(is.numeric(object))
-    {
+  .validate_class(object, c("RLum.Results", "numeric", "integer"))
+  if (is.numeric(object)) {
       vn_values <- object
-    } else
-    {
+  } else{
       vn_values <- get_RLum(object)
-    }
-    vb_contains_observation <-  !is.na(vn_values)
-
-  } else
-    vb_contains_observation <- rep(TRUE, times = 100)
-
+  }
+  vb_contains_observation <- !is.na(vn_values)
 
   .validate_logical_scalar(restrict_to_8x8)
 

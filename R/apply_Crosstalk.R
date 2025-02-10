@@ -52,28 +52,20 @@ apply_Crosstalk <- function(object,
   .set_function_name("apply_Crosstalk")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Validate input arguments -----------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
-  ## To add: validation on `object`
-  #  - should contain a numerical vector of length 100
-
-  .validate_class(n_crosstalk, c("numeric"))
-  ## To add: validate on `n_crosstalk`
-  #  - should be a single numerical value
-
-  ## Set variables  -----------------------
-  if(is.numeric(object))
-  {
+  if (is.numeric(object)){
     vn_values <- object
-  } else
-  {
+  } else {
     vn_values <- get_RLum(object)
   }
+  .validate_length(vn_values, 100, name = "'object'")
 
+  .validate_class(n_crosstalk, c("numeric"))
+  .validate_length(n_crosstalk, 1)
 
   vb_na_s <- is.na(vn_values)
-
   vn_values[vb_na_s] <- 0
 
   ## Prepare multiplication matrix -----------------------
@@ -99,7 +91,5 @@ apply_Crosstalk <- function(object,
   ## Assign original NA's to output
   vn_sig_with_crosstalk[vb_na_s] <- NA
 
-
   return(vn_sig_with_crosstalk)
-
 }

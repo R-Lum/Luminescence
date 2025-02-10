@@ -78,15 +78,14 @@ plot_SingleGrainDisc <- function(object,
   ## Validate input arguments -----------------------
 
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
-  #  - should contain a numerical vector of length 100
-  #  - should contain at least one non-NA value
-
-  if(is.numeric(object))
-  {
+  if (is.numeric(object)) {
     vn_values_to_show <- object
-  } else
-  {
+  } else {
     vn_values_to_show <- get_RLum(object)
+  }
+  .validate_length(vn_values_to_show, 100, name = "'object'")
+  if (all(is.na(vn_values_to_show))) {
+    .throw_error("'object' should contain at least one non-NA value")
   }
 
   .validate_logical_scalar(show_coordinates)

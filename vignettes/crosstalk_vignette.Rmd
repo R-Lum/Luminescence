@@ -209,12 +209,9 @@ And we can plot the first disc, while indicating which borders are taken into ac
 
 ```{r adjacent_grain_locations_show_disc, fig.dim = c(8, 5), out.width="800px"}
 
-
     plot_SingleGrainDisc(object = vn_simulated_with_holes,
               show_neighbours = TRUE,
               show_location_ids = TRUE)
-  
-
 ```
 Also other functions, such as `calc_MoransI()`, work as long as the remaining grid does not become too sparse. Note that in this context all observations, even "islands" who do not border any other grains, are used for the calculation of Moran's I. 
 
@@ -225,7 +222,7 @@ One can manually change `df_Neighbours`, for example add the diagonal borders an
 
 ```{r adjacent_grain_locations_add, fig.dim = c(8, 5), out.width="800px"}
 
-df_Neighbours_with_diag <- Luminescence::.get_Neighbours(object =  vn_simulated)
+df_Neighbours_with_diag <- Luminescence:::.get_Neighbours(object = vn_simulated)
 
 
 for (i in c(1:9, 11:19, 21:29) ) 
@@ -233,7 +230,6 @@ for (i in c(1:9, 11:19, 21:29) )
   df_Neighbours_with_diag <- rbind(df_Neighbours_with_diag,
                                             c(i, i+11, 1/sqrt(2))
                                           )
-  
 }
 
 tail(df_Neighbours_with_diag)
@@ -243,9 +239,6 @@ plot_SingleGrainDisc(object = vn_simulated,
           df_neighbours = df_Neighbours_with_diag,
           show_neighbours = TRUE,
           show_location_ids = TRUE)
-
-
-
 ```
 
 To exclude all border effects, we can take out all border rows
@@ -271,7 +264,7 @@ vn_values_to_show <- apply_Crosstalk(object = vn_values_to_show,
 
 calc_MoransI(object = vn_values_to_show)
 
-df_neighbours <- Luminescence:::.get_Neighbours(restrict_to_8x8 = TRUE)
+df_neighbours <- Luminescence:::.get_Neighbours(1:100, restrict_to_8x8 = TRUE)
 
 plot_SingleGrainDisc(object = vn_values_to_show,
           show_neighbours = TRUE,
@@ -347,21 +340,17 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
 ## Layout options
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
            pch = "show_location_ids", 
-           show_legend = FALSE,
+           legend = FALSE,
            log = "xy",
            main = "With location ID's; and with log scales"
            )
 
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
            pch = "show_n_neighbours",
-           show_legend = FALSE,
+           legend = FALSE,
            str_y_def = "weighted_sum",
            main = "With number of neighbours, and other y calculation"
            )
-
-
-
-
 ```
 
 # Morans I function options
@@ -374,8 +363,8 @@ The function `calc_MoransI()` can return many intermediate calculation numbers:
 calc_MoransI(object = 1:100,
              return_intermediate_values = TRUE)
 
-
 ```
+
 If the weights (and thus the spatial pattern under investigation) and the number of observations remain the same, this can be useful to understand what is happening. For example, if we add crosstalk, we can see that the population variance slightly decreases (the values are spatially smoothed) but the spatial autocorrelation strongly increases:
 
 ```{r moransI_intermediate_numbers_extended}
@@ -413,5 +402,3 @@ df_compare[,2] <-  round(df_compare[,2],2)
 (df_compare)
 
 ```
-
-
