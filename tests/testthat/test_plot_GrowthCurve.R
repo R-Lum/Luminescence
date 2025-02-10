@@ -17,13 +17,13 @@ test_that("input validation", {
       "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'")
   expect_error(
       plot_GrowthCurve(LxTxData, output.plotExtended = "error"),
-      "'output.plotExtended' should be of class 'logical'")
+      "'output.plotExtended' should be a single logical value")
   expect_error(
       plot_GrowthCurve(LxTxData, plot_singlePanels = "error"),
-      "'plot_singlePanels' should be of class 'logical'")
+      "'plot_singlePanels' should be a single logical value")
   expect_error(
       plot_GrowthCurve(LxTxData, verbose = "error"),
-      "'verbose' should be of class 'logical'")
+      "'verbose' should be a single logical value")
   expect_error(
       plot_GrowthCurve(LxTxData, cex.global = 0),
       "'cex.global' should be a positive scalar")

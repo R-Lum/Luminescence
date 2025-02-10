@@ -155,10 +155,10 @@ plot_GrowthCurve <- function(
   }
 
   ## input validation
-  .validate_class(output.plot, "logical")
-  .validate_class(output.plotExtended, "logical")
-  .validate_class(plot_singlePanels, "logical")
-  .validate_class(verbose, "logical")
+  .validate_logical_scalar(output.plot)
+  .validate_logical_scalar(output.plotExtended)
+  .validate_logical_scalar(plot_singlePanels)
+  .validate_logical_scalar(verbose)
   .validate_positive_scalar(cex.global)
 
   ## remaining input validation occurs inside the fitting function

@@ -180,7 +180,7 @@ plot_RLum.Analysis <- function(
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
-  .validate_class(combine, "logical")
+  .validate_logical_scalar(combine)
   if (combine && length(object@records) <= 1) {
     combine <- FALSE
     .throw_warning("'combine' can't be used with fewer than two curves, ",

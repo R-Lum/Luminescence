@@ -78,7 +78,7 @@ test_that("get_RLum", {
   expect_error(get_RLum(tmp, RLum.type = 1L),
                "'RLum.type' should be of class 'character'")
   expect_error(get_RLum(tmp, get.index = "a"),
-               "'get.index' should be of class 'logical'")
+               "'get.index' should be a single logical value")
 
   ## check functionality
   expect_length(get_RLum(obj, subset = (recordType == "RF")), 2)

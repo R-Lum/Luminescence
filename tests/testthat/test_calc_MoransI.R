@@ -10,13 +10,13 @@ test_that("input validation", {
   expect_error(calc_MoransI(obj, df_neighbours = "error"),
                "'df_neighbours' should be of class 'data.frame'")
   expect_error(calc_MoransI(obj, spatial_autocorrelation = "error"),
-               "'spatial_autocorrelation' should be of class 'logical'")
+               "'spatial_autocorrelation' should be a single logical value")
   expect_error(calc_MoransI(obj, compute_pseudo_p = "error"),
-               "'compute_pseudo_p' should be of class 'logical'")
+               "'compute_pseudo_p' should be a single logical value")
   expect_error(calc_MoransI(obj, n_permutations = "error"),
                "'n_permutations' should be a positive integer scalar")
   expect_error(calc_MoransI(obj, return_intermediate_values = "error"),
-               "'return_intermediate_values' should be of class 'logical'")
+               "'return_intermediate_values' should be a single logical value")
 
   expect_error(calc_MoransI(c(1, rep(NA, 99)),
                             spatial_autocorrelation = FALSE),

@@ -515,9 +515,12 @@ combine_De_Dr <- function(
   .require_suggested_package("coda")
   .require_suggested_package("mclust")
 
-# Integrity checks --------------------------------------------------------
- if(length(De) != length(s))
-   .throw_error("'De' and 's' are not of similar length!")
+  ## Integrity checks -------------------------------------------------------
+
+  if (length(De) != length(s))
+    .throw_error("'De' and 's' are not of similar length")
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
 # Prepare data ------------------------------------------------------------
   ## we have to fetch the function otherwise

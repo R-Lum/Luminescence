@@ -99,9 +99,9 @@ plot_DoseResponseCurve <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Results")
-  .validate_class(plot_extended, "logical")
-  .validate_class(plot_singlePanels, "logical")
-  .validate_class(verbose, "logical")
+  .validate_logical_scalar(plot_extended)
+  .validate_logical_scalar(plot_singlePanels)
+  .validate_logical_scalar(verbose)
   .validate_positive_scalar(cex.global)
 
   ## Fitting arguments ------------------------------------------------------

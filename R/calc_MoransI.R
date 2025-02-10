@@ -97,7 +97,6 @@ calc_MoransI <- function(object,
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
   ## To add
   #  - should contain a numerical vector of length 100
-  .validate_class(spatial_autocorrelation, "logical")
 
   if(is.numeric(object))
   {
@@ -115,16 +114,14 @@ calc_MoransI <- function(object,
   #  - should be a valid df_neighbour dataframe
   }
 
-  .validate_class(compute_pseudo_p, "logical")
+  .validate_logical_scalar(spatial_autocorrelation)
+  .validate_logical_scalar(compute_pseudo_p)
   if (!is.null(tested_moransI)) {
     .validate_class(tested_moransI, "numeric")
     .validate_length(tested_moransI, 1)
   }
   .validate_positive_scalar(n_permutations, int = TRUE)
-  .validate_class(return_intermediate_values, "logical")
-  ## To add
-  #  - should be a single value
-
+  .validate_logical_scalar(return_intermediate_values)
 
   ## No spatial autocorrelation ---------------------------------------------
 
@@ -316,10 +313,7 @@ calc_MoransI <- function(object,
     vb_contains_observation <- rep(TRUE, times = 100)
 
 
-  .validate_class(restrict_to_8x8, "logical")
-  ## To add:
-  ## - contains one element
-
+  .validate_logical_scalar(restrict_to_8x8)
 
   ## Construct the dataframe with borders and weights ---------------------------------
 

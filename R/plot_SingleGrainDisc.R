@@ -89,20 +89,11 @@ plot_SingleGrainDisc <- function(object,
     vn_values_to_show <- get_RLum(object)
   }
 
-  .validate_class(show_coordinates, "logical")
-  # - should be a single element
-
-  .validate_class(show_location_ids, "logical")
-  # - should be a single element
-
-  .validate_class(show_legend, "logical")
-  # - should be a single element
-
-  .validate_class(show_neighbours, "logical")
-  # - should be a single element
-
-  .validate_class(show_positioning_holes, "logical")
-  # - should be a single element
+  .validate_logical_scalar(show_coordinates)
+  .validate_logical_scalar(show_location_ids)
+  .validate_logical_scalar(show_legend)
+  .validate_logical_scalar(show_neighbours)
+  .validate_logical_scalar(show_positioning_holes)
 
   if (is.null(df_neighbours)) {
     df_neighbours <- .get_Neighbours(object)

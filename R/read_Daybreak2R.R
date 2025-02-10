@@ -73,6 +73,7 @@ read_Daybreak2R <- function(
   # directory and import them, if this is detected, we proceed as list
 
   .validate_class(file, c("character", "list"))
+  .validate_logical_scalar(verbose)
 
   if(is(file, "character")) {
     .validate_not_empty(file)
@@ -95,7 +96,7 @@ read_Daybreak2R <- function(
       read_Daybreak2R(
         file = file[[x]],
         txtProgressBar = txtProgressBar,
-        verbose = verbose[1]
+        verbose = verbose
       )
     })
 

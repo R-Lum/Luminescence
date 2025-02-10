@@ -108,8 +108,8 @@ write_R2BIN <- function(
 
   .validate_class(object, "Risoe.BINfileData")
   .validate_class(file, "character")
-  .validate_class(verbose, "logical")
-  .validate_class(txtProgressBar, "logical")
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(txtProgressBar)
 
   ## check if it fulfills the latest definition ...
   if(ncol(object@METADATA) != ncol(set_Risoe.BINfileData()@METADATA)){

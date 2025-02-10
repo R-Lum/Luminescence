@@ -473,7 +473,7 @@ setMethod("get_RLum",
                 get.index <- FALSE
 
               } else {
-                .validate_class(get.index, "logical")
+                .validate_logical_scalar(get.index)
               }
 
               ##get originator

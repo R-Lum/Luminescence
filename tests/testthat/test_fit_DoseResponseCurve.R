@@ -29,12 +29,12 @@ test_that("input validation", {
   ## other arguments
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.force_through_origin = "error"),
-               "'fit.force_through_origin' should be of class 'logical'")
+               "'fit.force_through_origin' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
-               "'fit.weights' should be of class 'logical'")
+               "'fit.weights' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.includingRepeatedRegPoints = "error"),
-               "'fit.includingRepeatedRegPoints' should be of class 'logical'")
+               "'fit.includingRepeatedRegPoints' should be a single logical")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.NumberRegPoints = "error"),
                "'fit.NumberRegPoints' should be a positive integer scalar")
@@ -42,7 +42,7 @@ test_that("input validation", {
                "'fit.NumberRegPointsReal' should be a positive integer scalar")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.bounds = "error"),
-               "'fit.bounds' should be of class 'logical'")
+               "'fit.bounds' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      n.MC = "error"),
                "'n.MC' should be a positive integer scalar")

@@ -24,15 +24,15 @@ test_that("input validation", {
 
   ## arguments
   expect_error(read_BIN2R(bin.v3, show.raw.values = "error"),
-               "'show.raw.values' should be of class 'logical'")
+               "'show.raw.values' should be a single logical value")
   expect_error(read_BIN2R(bin.v3, zero_data.rm = list(FALSE)),
-               "'zero_data.rm' should be of class 'logical'")
+               "'zero_data.rm' should be a single logical value")
   expect_error(read_BIN2R(bin.v3, duplicated.rm = "error"),
-               "'duplicated.rm' should be of class 'logical'")
+               "'duplicated.rm' should be a single logical value")
   expect_error(read_BIN2R(bin.v3, fastForward = "error"),
-               "'fastForward' should be of class 'logical'")
+               "'fastForward' should be a single logical value")
   expect_error(read_BIN2R(bin.v3, show.record.number = NULL),
-               "'show.record.number' should be of class 'logical'")
+               "'show.record.number' should be a single logical value")
   expect_error(read_BIN2R(bin.v3, ignore.RECTYPE = "error"),
                "'ignore.RECTYPE' should be of class 'logical' or 'numeric'")
 

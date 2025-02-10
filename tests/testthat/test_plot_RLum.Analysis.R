@@ -20,7 +20,7 @@ test_that("input validation", {
   expect_error(plot_RLum.Analysis(temp, ncols = -1),
                "'ncols' should be a positive scalar")
   expect_error(plot_RLum.Analysis(temp, combine = -1),
-               "'combine' should be of class 'logical'")
+               "'combine' should be a single logical value")
 
   expect_error(plot_RLum.Analysis(
       set_RLum("RLum.Analysis", records = list(c1@records[[1]],
