@@ -364,7 +364,12 @@ calc_MoransI(object = 1:100,
 
 ```
 
-If the weights (and thus the spatial pattern under investigation) and the number of observations remain the same, this can be useful to understand what is happening. For example, if we add crosstalk, we can see that the population variance slightly decreases (the values are spatially smoothed) but the spatial autocorrelation strongly increases:
+If the weights (and thus the spatial pattern under investigation) and the
+number of observations remain the same, this can be useful to understand what
+is happening. For example, if we add crosstalk, we can see that the population
+variance in most cases slightly increases (the values are indeed spatially
+smoothed, but the average increases) but the spatial autocorrelation strongly
+increases:
 
 ```{r moransI_intermediate_numbers_extended}
 

@@ -1,6 +1,7 @@
 #' @title Plot a disc with its values
 #'
-#' @description Shows a schematic representation of the physical appearance of one disc (on position in the reader)
+#' @description Shows a schematic representation of the physical appearance
+#' of one disc (one position in the reader)
 #' and illustrates the measured or calculated values per grain location.
 #'
 #' @details Depending of the available plotting space, some optional elements might have not enough room

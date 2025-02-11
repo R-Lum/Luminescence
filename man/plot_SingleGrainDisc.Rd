@@ -58,7 +58,8 @@ as \code{main}, \code{col} and \code{pch}. \code{legend} can be used to enable/d
 legend (\code{FALSE} by default).}
 }
 \description{
-Shows a schematic representation of the physical appearance of one disc (on position in the reader)
+Shows a schematic representation of the physical appearance
+of one disc (one position in the reader)
 and illustrates the measured or calculated values per grain location.
 }
 \details{
