@@ -8,10 +8,13 @@
 #'
 #' @param ITL_model [character] (*with default*): ITL data to be fitted
 #'
-#' @param rhop [numeric] or [RLum.Results-class] (*with default*): rhop prime values (one for each sample) or
-#' [RLum.Results-class] object produced by [analyse_FadingMeasurement]
+#' @param rhop [numeric] or [RLum.Results-class] (*with default*): a vector
+#' of rho prime values (one for each sample) or an [RLum.Results-class] object
+#' produced by [analyse_FadingMeasurement]
 #'
 #' @param plot [logical] (*with default*): enable/disable plot
+#'
+#' @param verbose [logical] (*with default*): enable/disable terminal feedback
 #'
 #' @param trace [logical] (*with default*): enables/disables trace mode for
 #' the nls fitting ([minpack.lm::nlsLM])
@@ -39,8 +42,7 @@
 #' doi: 10.1016/j.jlumin.2012.08.043
 #'
 #' @examples
-#' # example code ##TOD
-#'
+#' # example code ##TODO
 #'
 #' @md
 #' @export
@@ -49,6 +51,7 @@ fit_IsothermalHolding <- function(
     ITL_model = 'GOK',
     rhop,
     plot = TRUE,
+    verbose = TRUE,
     trace = FALSE,
     ...
 ) {
@@ -66,6 +69,8 @@ fit_IsothermalHolding <- function(
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
   ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(verbose)
 
   if (inherits(data[1], "character")) {
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
@@ -149,11 +154,17 @@ fit_IsothermalHolding <- function(
   ## each sample has n temperature steps
   fit_list <- lapply(df_raw_list, function(s){
 
+    if (verbose)
+      message("Processing sample: ", s$SAMPLE[1])
+
     ## extract temperatures
     isoT <- unique(s$TEMP)
 
     ## run the fitting at each temperature
     tmp <- lapply(isoT, function(isoT) {
+
+      if (verbose)
+        message(" - fitting temperature: ", isoT)
 
       ## extract data to fit
       tmp_fitdata <- s[s$TEMP == isoT,]
@@ -181,11 +192,12 @@ fit_IsothermalHolding <- function(
       ## return fit
       return(fit)
     })
+
     ## add temperature as name to list
     names(tmp) <- isoT
     return(tmp)
-
   })
+
   ## add sample names
   names(fit_list) <- sample_id
 

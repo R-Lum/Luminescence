@@ -9,6 +9,10 @@ test_that("input validation", {
                "'object' should be of class 'character'")
   expect_error(analyse_ThermochronometryData("error"),
                "File does not exist")
+  expect_error(analyse_ThermochronometryData(input.csv[1], verbose = "error"),
+               "'verbose' should be a single logical value")
+  expect_error(analyse_ThermochronometryData(test_path("_data/CLBR.xlsx")),
+               "XLS/XLSX format is not supported, use CSV instead")
   expect_error(analyse_ThermochronometryData(test_path("_data/CLBR.xlsx")),
                "XLS/XLSX format is not supported, use CSV instead")
   expect_error(analyse_ThermochronometryData(input.csv[1], ITL_model = "error"),
@@ -18,8 +22,10 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  expect_s4_class(analyse_ThermochronometryData(input.csv[1]),
+  expect_s4_class(analyse_ThermochronometryData(input.csv[1],
+                                                verbose = FALSE),
                   "RLum.Results")
-  expect_s4_class(analyse_ThermochronometryData(input.csv[1], ITL_model = "BTS"),
+  expect_s4_class(analyse_ThermochronometryData(input.csv[1], ITL_model = "BTS",
+                                                verbose = FALSE),
                   "RLum.Results")
 })

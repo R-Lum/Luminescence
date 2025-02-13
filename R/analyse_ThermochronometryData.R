@@ -58,6 +58,8 @@ analyse_ThermochronometryData <- function(
   ## for a start with only allow data coming in in the format proposed by the MatLab script
   .validate_class(object, "character")
   .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(verbose)
 
   object <- .import_ThermochronometryData(object, output_type = "RLum.Results")
   sample_names <- object@info$sample_names
@@ -96,6 +98,7 @@ analyse_ThermochronometryData <- function(
       ITL_model = ITL_model,
       rhop = results_FAD,
       plot = plot,
+      verbose = verbose,
       ...)
 
     # (3) DRC Data ------------------------------------------------------------

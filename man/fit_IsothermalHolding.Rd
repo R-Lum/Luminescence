@@ -9,6 +9,7 @@ fit_IsothermalHolding(
   ITL_model = "GOK",
   rhop,
   plot = TRUE,
+  verbose = TRUE,
   trace = FALSE,
   ...
 )
@@ -18,10 +19,13 @@ fit_IsothermalHolding(
 
 \item{ITL_model}{\link{character} (\emph{with default}): ITL data to be fitted}
 
-\item{rhop}{\link{numeric} or \linkS4class{RLum.Results} (\emph{with default}): rhop prime values (one for each sample) or
-\linkS4class{RLum.Results} object produced by \link{analyse_FadingMeasurement}}
+\item{rhop}{\link{numeric} or \linkS4class{RLum.Results} (\emph{with default}): a vector
+of rho prime values (one for each sample) or an \linkS4class{RLum.Results} object
+produced by \link{analyse_FadingMeasurement}}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot}
+
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal feedback}
 
 \item{trace}{\link{logical} (\emph{with default}): enables/disables trace mode for
 the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM})}
@@ -42,8 +46,7 @@ An \linkS4class{RLum.Results} object is returned: ##TODO
 }
 
 \examples{
-# example code ##TOD
-
+# example code ##TODO
 
 }
 \references{
