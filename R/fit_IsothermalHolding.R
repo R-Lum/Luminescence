@@ -126,11 +126,11 @@ fit_IsothermalHolding <- function(
   f_BTS <- function(A, Eu, Et, s10, isoT, x) {
     T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
     exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
-      sapply(x, function(t) {
+      vapply(x, function(t) {
         integrate(function(Eb) A * exp(-Eb / Eu) *
                                exp(-10^s10 * t * exp(-(Et - Eb) / (kB * T_K))),
                   0, DeltaE)$value
-      })
+      }, numeric(1))
   }
 
   ## switch the models
