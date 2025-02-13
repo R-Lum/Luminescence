@@ -8,10 +8,13 @@
 #'
 #' @param ITL_model [character] (*with default*): ITL data to be fitted
 #'
-#' @param rhop [numeric] or [RLum.Results-class] (*with default*): rhop prime values (one for each sample) or
-#' [RLum.Results-class] object produced by [analyse_FadingMeasurement]
+#' @param rhop [numeric] or [RLum.Results-class] (*with default*): a vector
+#' of rho prime values (one for each sample) or an [RLum.Results-class] object
+#' produced by [analyse_FadingMeasurement]
 #'
 #' @param plot [logical] (*with default*): enable/disable plot
+#'
+#' @param verbose [logical] (*with default*): enable/disable terminal feedback
 #'
 #' @param trace [logical] (*with default*): enables/disables trace mode for
 #' the nls fitting ([minpack.lm::nlsLM])
@@ -39,8 +42,7 @@
 #' doi: 10.1016/j.jlumin.2012.08.043
 #'
 #' @examples
-#' # example code ##TOD
-#'
+#' # example code ##TODO
 #'
 #' @md
 #' @export
@@ -49,6 +51,7 @@ fit_IsothermalHolding <- function(
     ITL_model = 'GOK',
     rhop,
     plot = TRUE,
+    verbose = TRUE,
     trace = FALSE,
     ...
 ) {
@@ -57,7 +60,6 @@ fit_IsothermalHolding <- function(
 
   ## TODOs
   ## - other functions for fitting need to be implemented
-  ## - fitting is not really stable, eventually better start parameter estimation required
   ## - uncertainties are not yet considered for the fitting, because they are not
   ##   part of the input data.
   ## - documentation needs to be completed
@@ -66,6 +68,8 @@ fit_IsothermalHolding <- function(
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
   ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(verbose)
 
   if (inherits(data[1], "character")) {
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
@@ -106,6 +110,15 @@ fit_IsothermalHolding <- function(
   else
     rhop <- rep(rhop, length.out = length(sample_id))
 
+  ## allow to control how many random values for the s parameter should be
+  ## generated when fitting the BTS model
+  num_s_values_bts <- list(...)$num_s_values_bts
+  if (!is.null(num_s_values_bts)) {
+    .validate_positive_scalar(num_s_values_bts, int = TRUE)
+  } else {
+    num_s_values_bts <- 1000
+  }
+
   ## Define formulas to fit -------------------------------------------------
   ##
   ## We define each model as a function that describes the right-hand side
@@ -121,33 +134,36 @@ fit_IsothermalHolding <- function(
   f_BTS <- function(A, Eu, Et, s10, isoT, x) {
     T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
     exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
-      sapply(x, function(t) {
+      vapply(x, function(t) {
         integrate(function(Eb) A * exp(-Eb / Eu) *
                                exp(-10^s10 * t * exp(-(Et - Eb) / (kB * T_K))),
                   0, DeltaE)$value
-      })
+      }, numeric(1))
   }
 
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b  = 1, Et = 1, s10 = 5),
-    'BTS' = list(A = 1, Eu = 1, Et = 1, s10 = 5))
+    'GOK' = list(A = 1, b  = 1,   Et = 1, s10 = 5),
+    'BTS' = list(A = 1, Eu = 0.1, Et = 2))
 
   lower <- switch(
     ITL_model,
-    'GOK' = c(0, 0, 0, 0),
-    'BTS' = c(0, 0, 0, 0))
+    'GOK' = c(0, 0,   0, 0),
+    'BTS' = c(1, 0.3, 1))
 
   upper <- switch(
     ITL_model,
-    'GOK' = c(Inf, Inf, 3, 20),
-    'BTS' = c(Inf, 3, 3, 20))
+    'GOK' = c(20, Inf, 3, 20),
+    'BTS' = c(20, 0.5, 3))
 
   ## Fitting ----------------------------------------------------------------
   ## we have a double loop situation: we have a list with n samples, and
   ## each sample has n temperature steps
   fit_list <- lapply(df_raw_list, function(s){
+
+    if (verbose)
+      message("Processing sample: ", s$SAMPLE[1])
 
     ## extract temperatures
     isoT <- unique(s$TEMP)
@@ -155,25 +171,52 @@ fit_IsothermalHolding <- function(
     ## run the fitting at each temperature
     tmp <- lapply(isoT, function(isoT) {
 
+      if (verbose)
+        message(" - fitting temperature: ", isoT)
+
       ## extract data to fit
       tmp_fitdata <- s[s$TEMP == isoT,]
+      df <- data.frame(x = tmp_fitdata$TIME,
+                       y = tmp_fitdata$LxTx,
+                       isoT = isoT) # isoT gets recycled into a vector
 
-      ## run fitting with different start parameters
-      fit <- try({
-        minpack.lm::nlsLM(
-          formula = if (ITL_model == "GOK") y ~ f_GOK(A, b,  Et, s10, isoT, x)
-                    else                    y ~ f_BTS(A, Eu, Et, s10, isoT, x),
-          data = data.frame(x = tmp_fitdata$TIME,
-                            y = tmp_fitdata$LxTx,
-                            isoT = isoT), # isoT gets recycled into a vector
-          start = start,
-          lower = lower,
-          upper = upper,
-          control = list(
-              maxiter = 500
-          ),
-          trace = trace)
-      }, silent = TRUE)
+      if (ITL_model == "GOK") {
+        fit <- try({
+          minpack.lm::nlsLM(
+              formula = y ~ f_GOK(A, b,  Et, s10, isoT, x),
+              data = df,
+              start = start,
+              lower = lower,
+              upper = upper,
+              control = list(
+                  maxiter = 500
+              ),
+              trace = trace)
+        }, silent = TRUE)
+      } else if (ITL_model == "BTS") {
+        ## run fitting with different start parameters for s10
+        fit <- lapply(1:num_s_values_bts, function(y) {
+          s10 <- rnorm(1, mean = 10, sd = 1.5)
+          t <- try(minpack.lm::nlsLM(
+                       formula = y ~ f_BTS(A, Eu, Et, s10, isoT, x),
+                       data = df,
+                       start = start,
+                       lower = lower,
+                       upper = upper,
+                       control = list(
+                           maxiter = 500
+                       ), trace = FALSE),
+                   silent = TRUE)
+
+          if (inherits(t, "try-error"))
+            return(NULL)
+          return(t)
+        })
+
+        ## pick the one with the best fit after removing those that didn't fit
+        fit <- .rm_NULL_elements(fit)
+        fit <- fit[[which.min(vapply(fit, stats::deviance, numeric(1)))]]
+      }
 
       if (inherits(fit, "try-error"))
         fit <- NA
@@ -181,11 +224,12 @@ fit_IsothermalHolding <- function(
       ## return fit
       return(fit)
     })
+
     ## add temperature as name to list
     names(tmp) <- isoT
     return(tmp)
-
   })
+
   ## add sample names
   names(fit_list) <- sample_id
 
