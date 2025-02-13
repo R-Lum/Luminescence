@@ -25,6 +25,7 @@ test_that("check functionality", {
   expect_s4_class(analyse_ThermochronometryData(input.csv[1],
                                                 verbose = FALSE),
                   "RLum.Results")
+  ## FIXME(mcol): this is too slow!
   expect_s4_class(analyse_ThermochronometryData(input.csv[1], ITL_model = "BTS",
                                                 verbose = FALSE),
                   "RLum.Results")

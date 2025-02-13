@@ -60,7 +60,6 @@ fit_IsothermalHolding <- function(
 
   ## TODOs
   ## - other functions for fitting need to be implemented
-  ## - fitting is not really stable, eventually better start parameter estimation required
   ## - uncertainties are not yet considered for the fitting, because they are not
   ##   part of the input data.
   ## - documentation needs to be completed
@@ -136,18 +135,18 @@ fit_IsothermalHolding <- function(
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b  = 1, Et = 1, s10 = 5),
-    'BTS' = list(A = 1, Eu = 1, Et = 1, s10 = 5))
+    'GOK' = list(A = 1, b  = 1,   Et = 1, s10 = 5),
+    'BTS' = list(A = 1, Eu = 0.1, Et = 2))
 
   lower <- switch(
     ITL_model,
-    'GOK' = c(0, 0, 0, 0),
-    'BTS' = c(0, 0, 0, 0))
+    'GOK' = c(0, 0,   0, 0),
+    'BTS' = c(1, 0.3, 1))
 
   upper <- switch(
     ITL_model,
-    'GOK' = c(Inf, Inf, 3, 20),
-    'BTS' = c(Inf, 3, 3, 20))
+    'GOK' = c(20, Inf, 3, 20),
+    'BTS' = c(20, 0.5, 3))
 
   ## Fitting ----------------------------------------------------------------
   ## we have a double loop situation: we have a list with n samples, and
@@ -168,23 +167,47 @@ fit_IsothermalHolding <- function(
 
       ## extract data to fit
       tmp_fitdata <- s[s$TEMP == isoT,]
+      df <- data.frame(x = tmp_fitdata$TIME,
+                       y = tmp_fitdata$LxTx,
+                       isoT = isoT) # isoT gets recycled into a vector
 
-      ## run fitting with different start parameters
-      fit <- try({
-        minpack.lm::nlsLM(
-          formula = if (ITL_model == "GOK") y ~ f_GOK(A, b,  Et, s10, isoT, x)
-                    else                    y ~ f_BTS(A, Eu, Et, s10, isoT, x),
-          data = data.frame(x = tmp_fitdata$TIME,
-                            y = tmp_fitdata$LxTx,
-                            isoT = isoT), # isoT gets recycled into a vector
-          start = start,
-          lower = lower,
-          upper = upper,
-          control = list(
-              maxiter = 500
-          ),
-          trace = trace)
-      }, silent = TRUE)
+      if (ITL_model == "GOK") {
+        fit <- try({
+          minpack.lm::nlsLM(
+              formula = y ~ f_GOK(A, b,  Et, s10, isoT, x),
+              data = df,
+              start = start,
+              lower = lower,
+              upper = upper,
+              control = list(
+                  maxiter = 500
+              ),
+              trace = trace)
+        }, silent = TRUE)
+      } else if (ITL_model == "BTS") {
+        ## run fitting with different start parameters for s10
+        fit <- lapply(1:100, function(y) {
+          s10 <- rnorm(1, mean = 10, sd = 1.5)
+          t <- try(minpack.lm::nlsLM(
+                       formula = y ~ f_BTS(A, Eu, Et, s10, isoT, x),
+                       data = df,
+                       start = start,
+                       lower = lower,
+                       upper = upper,
+                       control = list(
+                           maxiter = 500
+                       ), trace = FALSE),
+                   silent = TRUE)
+
+          if (inherits(t, "try-error"))
+            return(NULL)
+          return(t)
+        })
+
+        ## pick the one with the best fit after removing those that didn't fit
+        fit <- .rm_NULL_elements(fit)
+        fit <- fit[[which.min(vapply(fit, stats::deviance, numeric(1)))]]
+      }
 
       if (inherits(fit, "try-error"))
         fit <- NA
