@@ -110,6 +110,15 @@ fit_IsothermalHolding <- function(
   else
     rhop <- rep(rhop, length.out = length(sample_id))
 
+  ## allow to control how many random values for the s parameter should be
+  ## generated when fitting the BTS model
+  num_s_values_bts <- list(...)$num_s_values_bts
+  if (!is.null(num_s_values_bts)) {
+    .validate_positive_scalar(num_s_values_bts, int = TRUE)
+  } else {
+    num_s_values_bts <- 1000
+  }
+
   ## Define formulas to fit -------------------------------------------------
   ##
   ## We define each model as a function that describes the right-hand side
@@ -186,7 +195,7 @@ fit_IsothermalHolding <- function(
         }, silent = TRUE)
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        fit <- lapply(1:100, function(y) {
+        fit <- lapply(1:num_s_values_bts, function(y) {
           s10 <- rnorm(1, mean = 10, sd = 1.5)
           t <- try(minpack.lm::nlsLM(
                        formula = y ~ f_BTS(A, Eu, Et, s10, isoT, x),
