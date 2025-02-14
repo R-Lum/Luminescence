@@ -194,8 +194,9 @@ fit_IsothermalHolding <- function(
         }, silent = TRUE)
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        fit <- lapply(1:num_s_values_bts, function(y) {
-          s10 <- rnorm(1, mean = 10, sd = 1.5)
+        all.s10 <- rnorm(num_s_values_bts, mean = 10, sd = 1.5)
+        fit <- lapply(1:length(all.s10), function(idx) {
+          s10 <- all.s10[idx]
           t <- try(minpack.lm::nlsLM(
                        formula = y ~ f_BTS(A, Eu, Et, s10, isoT, x),
                        data = df,
