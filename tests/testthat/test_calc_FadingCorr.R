@@ -8,6 +8,21 @@ test_that("input validation", {
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0)),
                "[calc_FadingCorr()] 'tc' should be of class 'numeric'",
                fixed = TRUE)
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
+                               tc = 2592000, n.MC = "error"),
+               "'n.MC' should be a positive integer scalar")
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
+                               tc = 2592000, interval = "error"),
+               "'interval' should be of class 'numeric'")
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
+                               tc = 2592000, interval = 1),
+               "'interval' should have length 2")
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
+                               tc = 2592000, txtProgressBar = "error"),
+               "'txtProgressBar' should be a single logical value")
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
+                               tc = 2592000, verbose = "error"),
+               "'verbose' should be a single logical value")
 })
 
 test_that("check class and length of output", {
@@ -19,7 +34,7 @@ test_that("check class and length of output", {
     g_value = c(17.5,1.42),
     tc = 462,
     n.MC = 100),
-    "[calc_FadingCorr()] No solution found, NULL returned: this usually happens",
+    "[calc_FadingCorr()] Error: No solution found, NULL returned: this usually",
     fixed = TRUE)
 
   ##check the verbose mode
@@ -44,7 +59,7 @@ test_that("check class and length of output", {
   expect_message(
       expect_null(calc_FadingCorr(age.faded = c(0.1,0),
                                g_value = fading, tc = 2592000)),
-               "Unknown originator for the provided RLum.Results object")
+               "Unknown originator for the provided 'g_value' object")
 
   ## auto, seed (Note: this is slow!)
   SW({

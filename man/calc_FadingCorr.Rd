@@ -20,14 +20,14 @@ calc_FadingCorr(
 \item{age.faded}{\link{numeric} \link{vector} (\strong{required}):
 uncorrected age with error in ka (see example)}
 
-\item{g_value}{\link{vector} (\strong{required}):
+\item{g_value}{\link{vector} or \linkS4class{RLum.Results} (\strong{required}):
 g-value and error obtained from separate fading measurements (see example).
-Alternatively an \linkS4class{RLum.Results} object can be provided produced by the function
-\link{analyse_FadingMeasurement}, in this case \code{tc} is set automatically}
+It can be an \linkS4class{RLum.Results} object produced by
+\link{analyse_FadingMeasurement}, in which case \code{tc} is set automatically}
 
 \item{tc}{\link{numeric} (\strong{required}):
 time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-Argument will be ignored if \code{g_value} was an \linkS4class{RLum.Results} object}
+The argument is ignored when \code{g_value} is an \linkS4class{RLum.Results} object}
 
 \item{tc.g_value}{\link{numeric} (\emph{with default}):
 the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
@@ -37,7 +37,8 @@ SAR method and \eqn{g}-values that had been not normalised to 2 days.}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
 number of Monte Carlo simulation runs for error estimation.
-If \code{n.MC = 'auto'} is used the function tries to find a 'stable' error for the age.
+If \code{n.MC = 'auto'} is used the function tries to find a 'stable' error for
+the age. See details for further information.
 \strong{Note:} This may take a while!}
 
 \item{seed}{\link{integer} (\emph{optional}):
@@ -91,8 +92,9 @@ with \eqn{\kappa} defined as
 \eqn{A} and \eqn{A_{f}} are given in ka. \eqn{t_c} is given in s, however, it
 is internally recalculated to ka.
 
-As the \eqn{g}-value slightly depends on the time between irradiation and the
-prompt measurement, this is \eqn{t_{c}}, always a \eqn{t_{c}} value needs to be provided.
+As the \eqn{g}-value slightly depends on the time \eqn{t_{c}} between
+irradiation and the prompt measurement, a value for \code{tc} must always be
+provided.
 If the \eqn{g}-value was normalised to a distinct
 time or evaluated with a different tc value (e.g., external irradiation), also
 the \eqn{t_{c}} value for the \eqn{g}-value needs to be provided (argument \code{tc.g_value}
@@ -107,8 +109,8 @@ where
 \deqn{\kappa_{tc.g} = g / 100 / ln(10)}
 
 The error of the fading-corrected age is determined using a Monte Carlo
-simulation approach. Solving of the equation is realised using
-\link{uniroot}. Large values for \code{n.MC} will significantly
+simulation approach. Solving of the equation is performed using
+#' \link{uniroot}. Large values for \code{n.MC} will significantly
 increase the computation time.\cr
 
 \strong{\code{n.MC = 'auto'}}

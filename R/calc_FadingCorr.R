@@ -20,8 +20,9 @@
 #' \eqn{A} and \eqn{A_{f}} are given in ka. \eqn{t_c} is given in s, however, it
 #' is internally recalculated to ka.
 #'
-#' As the \eqn{g}-value slightly depends on the time between irradiation and the
-#' prompt measurement, this is \eqn{t_{c}}, always a \eqn{t_{c}} value needs to be provided.
+#' As the \eqn{g}-value slightly depends on the time \eqn{t_{c}} between
+#' irradiation and the prompt measurement, a value for `tc` must always be
+#' provided.
 #' If the \eqn{g}-value was normalised to a distinct
 #' time or evaluated with a different tc value (e.g., external irradiation), also
 #' the \eqn{t_{c}} value for the \eqn{g}-value needs to be provided (argument `tc.g_value`
@@ -34,11 +35,10 @@
 #' where
 #'
 #' \deqn{\kappa_{tc.g} = g / 100 / ln(10)}
-
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
-#' simulation approach. Solving of the equation is realised using
-#' [uniroot]. Large values for `n.MC` will significantly
+#' simulation approach. Solving of the equation is performed using
+#' #' [uniroot]. Large values for `n.MC` will significantly
 #' increase the computation time.\cr
 #'
 #' **`n.MC = 'auto'`**
@@ -93,14 +93,14 @@
 #' @param age.faded [numeric] [vector] (**required**):
 #' uncorrected age with error in ka (see example)
 #'
-#' @param g_value [vector] (**required**):
+#' @param g_value [vector] or [RLum.Results-class] (**required**):
 #' g-value and error obtained from separate fading measurements (see example).
-#' Alternatively an [RLum.Results-class] object can be provided produced by the function
-#' [analyse_FadingMeasurement], in this case `tc` is set automatically
+#' It can be an [RLum.Results-class] object produced by
+#' [analyse_FadingMeasurement], in which case `tc` is set automatically
 #'
 #' @param tc [numeric] (**required**):
 #' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-#' Argument will be ignored if `g_value` was an [RLum.Results-class] object
+#' The argument is ignored when `g_value` is an [RLum.Results-class] object
 #'
 #' @param tc.g_value [numeric] (*with default*):
 #' the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
@@ -110,7 +110,8 @@
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of Monte Carlo simulation runs for error estimation.
-#' If `n.MC = 'auto'` is used the function tries to find a 'stable' error for the age.
+#' If `n.MC = 'auto'` is used the function tries to find a 'stable' error for
+#' the age. See details for further information.
 #' **Note:** This may take a while!
 #'
 #' @param seed [integer] (*optional*):
@@ -149,21 +150,16 @@
 #'
 #' @section Function version: 0.4.3
 #'
-#'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'
 #' @seealso [RLum.Results-class], [analyse_FadingMeasurement], [get_RLum], [uniroot]
-#'
 #'
 #' @references
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
 #' in K-feldspars and the measurement and correction for it in optical dating.
 #' Canadian Journal of Earth Sciences, 38, 1093-1106.
 #'
-#'
 #' @keywords datagen
-#'
 #'
 #' @examples
 #'
@@ -216,21 +212,22 @@ calc_FadingCorr <- function(
 
   .validate_class(age.faded, "numeric")
   .validate_class(g_value, c("numeric", "RLum.Results"))
-
-  ##check input
   if(inherits(g_value, "RLum.Results")){
     if(g_value@originator == "analyse_FadingMeasurement"){
       tc <- get_RLum(g_value)[["TC"]]
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
     }else{
-      message("[calc_FadingCorr()] Error: Unknown originator for the ",
-              "provided RLum.Results object via 'g_value'!")
+      .throw_message("Unknown originator for the provided 'g_value' object")
       return(NULL)
     }
   }
 
   ## tc is validated only now, as it may be set in the previous block
   .validate_class(tc, "numeric")
+  .validate_class(interval, "numeric")
+  .validate_length(interval, 2)
+  .validate_logical_scalar(txtProgressBar)
+  .validate_logical_scalar(verbose)
 
 
   ##============================================================================##
@@ -246,7 +243,7 @@ calc_FadingCorr <- function(
 
   ##recalculate the g-value to the given tc ... should be similar
   ##of tc = tc.g_value
-  ##re-calculation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
+  ##re-calculation thanks to the help by Sébastien Huot, e-mail: 2016-07-19
   ##Please note that we take the vector for the g_value here
   k0 <- g_value / 100 / log(10)
   k1 <- k0 / (1 - k0 * log(tc[1]/tc.g_value[1]))
@@ -274,9 +271,9 @@ calc_FadingCorr <- function(
     )), silent = TRUE)
 
   if(inherits(temp, "try-error")){
-    message("[calc_FadingCorr()] No solution found, NULL returned: ",
-            "this usually happens for very large, unrealistic g-values, ",
-            "please consider another model for the fading correction")
+    .throw_message("No solution found, NULL returned: this usually happens ",
+                   "for very large, unrealistic g-values, please consider ",
+                   "another model for the fading correction")
     return(NULL)
   }
 
@@ -296,6 +293,7 @@ calc_FadingCorr <- function(
       cat(paste0("   ",paste0("(",0:9,")", collapse = "   "), "\n"))
     }
   }else{
+    .validate_positive_scalar(n.MC, int = TRUE)
     n.MC.i <- n.MC
   }
 
@@ -368,7 +366,6 @@ calc_FadingCorr <- function(
 
     }else{
       counter <- counter + 1
-
     }
 
     ##show progress in terminal
@@ -382,7 +379,6 @@ calc_FadingCorr <- function(
 
       cat(paste("\r ",paste(rev(text), collapse = " ")))
     }
-
   }
 
   ##--------------------------------------------------------------------------##
