@@ -316,11 +316,6 @@ calc_FadingCorr <- function(
     ##set seed
     if (!is.null(seed)) set.seed(seed)
 
-    ##pre-allocate memory
-    g_valueMC <- vector("numeric", length = n.MC.i)
-    age.fadeMC <- vector("numeric", length = n.MC.i)
-    kappaMC <- vector("numeric", length = n.MC.i)
-
     ##set-values
     g_valueMC <- rnorm(n.MC.i,mean = g_value[1],sd = g_value[2])
     age.fadedMC <- rnorm(n.MC.i,mean = age.faded[1],sd = age.faded[2])
