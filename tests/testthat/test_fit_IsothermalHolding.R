@@ -15,6 +15,10 @@ test_that("input validation", {
                "'data' has the wrong column headers")
   expect_error(fit_IsothermalHolding(input.csv[1], ITL_model = "error"),
                "'ITL_model' should be one of 'GOK' or 'BTS'")
+  expect_error(fit_IsothermalHolding(input.csv[1], plot = "error"),
+               "'plot' should be a single logical value")
+  expect_error(fit_IsothermalHolding(input.csv[1], verbose = "error"),
+               "'verbose' should be a single logical value")
   expect_error(fit_IsothermalHolding(test_path("_data/CLBR.xlsx")),
                "XLS/XLSX format is not supported, use CSV instead")
 })
@@ -22,10 +26,12 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  SW({
   expect_s4_class(fit_IsothermalHolding(input.csv[1], rhop = 1e-7),
                   "RLum.Results")
 
   data <- .import_ThermochronometryData(input.csv[1])
   expect_s4_class(fit_IsothermalHolding(data, rhop = 1e-7, mfrow = c(2, 2)),
                   "RLum.Results")
+  })
 })
