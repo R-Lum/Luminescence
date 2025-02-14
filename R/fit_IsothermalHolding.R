@@ -127,12 +127,12 @@ fit_IsothermalHolding <- function(
   ## incorrectly interpreted by nlsLM().
 
   f_GOK <- function(A, b, Et, s10, isoT, x) {
-    T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
+    T_K <- isoT + 273.15
     A * exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
       (1 - (1 - b) * 10^s10 * exp(-Et / (kB * T_K)) * x)^(1 / (1 - b))
   }
   f_BTS <- function(A, Eu, Et, s10, isoT, x) {
-    T_K <- isoT[1] + 273.15 # isoT[1] because it comes from data as a vector
+    T_K <- isoT + 273.15
     exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
       vapply(x, function(t) {
         integrate(function(Eb) A * exp(-Eb / Eu) *
@@ -177,8 +177,7 @@ fit_IsothermalHolding <- function(
       ## extract data to fit
       tmp_fitdata <- s[s$TEMP == isoT,]
       df <- data.frame(x = tmp_fitdata$TIME,
-                       y = tmp_fitdata$LxTx,
-                       isoT = isoT) # isoT gets recycled into a vector
+                       y = tmp_fitdata$LxTx)
 
       if (ITL_model == "GOK") {
         fit <- try({
