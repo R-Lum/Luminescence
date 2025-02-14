@@ -238,7 +238,7 @@ calc_AverageDose <- function(
 
   ## check that we actually have data
   if (length(data) == 0 || nrow(data) == 0) {
-    message("[calc_AverageDose()] Error: 'data' contains no data, NULL returned")
+    .throw_message("'data' contains no data, NULL returned")
     return(NULL)
   }
 
