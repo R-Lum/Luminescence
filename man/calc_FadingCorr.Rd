@@ -110,7 +110,7 @@ where
 
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is performed using
-#' \link{uniroot}. Large values for \code{n.MC} will significantly
+\link{uniroot}. Large values for \code{n.MC} will significantly
 increase the computation time.\cr
 
 \strong{\code{n.MC = 'auto'}}

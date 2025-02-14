@@ -38,7 +38,7 @@
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
 #' simulation approach. Solving of the equation is performed using
-#' #' [uniroot]. Large values for `n.MC` will significantly
+#' [uniroot]. Large values for `n.MC` will significantly
 #' increase the computation time.\cr
 #'
 #' **`n.MC = 'auto'`**
