@@ -10,6 +10,7 @@ fit_IsothermalHolding(
   rhop,
   plot = TRUE,
   verbose = TRUE,
+  txtProgressBar = TRUE,
   trace = FALSE,
   ...
 )
@@ -26,6 +27,9 @@ produced by \link{analyse_FadingMeasurement}}
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal feedback}
+
+\item{txtProgressBar}{\link{logical}: enable/disable the progress bar. Ignored
+if \code{verbose = FALSE}.}
 
 \item{trace}{\link{logical} (\emph{with default}): enables/disables trace mode for
 the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM})}

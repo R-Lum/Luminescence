@@ -16,6 +16,9 @@
 #'
 #' @param verbose [logical] (*with default*): enable/disable terminal feedback
 #'
+#' @param txtProgressBar [logical]: enable/disable the progress bar. Ignored
+#' if `verbose = FALSE`.
+#'
 #' @param trace [logical] (*with default*): enables/disables trace mode for
 #' the nls fitting ([minpack.lm::nlsLM])
 #'
@@ -52,6 +55,7 @@ fit_IsothermalHolding <- function(
     rhop,
     plot = TRUE,
     verbose = TRUE,
+    txtProgressBar = TRUE,
     trace = FALSE,
     ...
 ) {
@@ -70,6 +74,7 @@ fit_IsothermalHolding <- function(
   ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
+  .validate_logical_scalar(txtProgressBar)
 
   if (inherits(data[1], "character")) {
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
@@ -91,12 +96,23 @@ fit_IsothermalHolding <- function(
     .throw_error("'data' has the wrong column headers, please check the manual")
   }
 
+  ## never show the progress bar if not verbose
+  if (!verbose) {
+    txtProgressBar <- FALSE
+  }
+
   ###### --- Extract data from RLum.Results for ITL fitting --- #####
   ## get unique sample names; we will use this to filter the data
   sample_id <- unique(records_ITL[["SAMPLE"]])
 
   ## extract data.frames for each sample with all information
   df_raw_list <- lapply(sample_id, function(x) records_ITL[records_ITL$SAMPLE == x, ])
+
+  ## initialise the progress bar
+  if (txtProgressBar) {
+    num.models <- sum(sapply(df_raw_list, function(x) length(unique(x$TEMP))))
+    pb <- txtProgressBar(min = 0, max = num.models, char = "=", style = 3)
+  }
 
   ###### --- Perform ITL fitting --- #####
   # Define variables --------------------------------------------------------
@@ -160,19 +176,14 @@ fit_IsothermalHolding <- function(
   ## Fitting ----------------------------------------------------------------
   ## we have a double loop situation: we have a list with n samples, and
   ## each sample has n temperature steps
+  num.fits <- 0
   fit_list <- lapply(df_raw_list, function(s){
-
-    if (verbose)
-      message("Processing sample: ", s$SAMPLE[1])
 
     ## extract temperatures
     isoT <- unique(s$TEMP)
 
     ## run the fitting at each temperature
     tmp <- lapply(isoT, function(isoT) {
-
-      if (verbose)
-        message(" - fitting temperature: ", isoT)
 
       ## extract data to fit
       tmp_fitdata <- s[s$TEMP == isoT,]
@@ -218,6 +229,12 @@ fit_IsothermalHolding <- function(
         fit <- fit[[which.min(vapply(fit, stats::deviance, numeric(1)))]]
       }
 
+      ## update the progress bar
+      num.fits <<- num.fits + 1  # <<- required because we are in a nested lapply()
+      if (txtProgressBar) {
+        setTxtProgressBar(pb, num.fits)
+      }
+
       if (inherits(fit, "try-error"))
         fit <- NA
 
@@ -232,6 +249,10 @@ fit_IsothermalHolding <- function(
 
   ## add sample names
   names(fit_list) <- sample_id
+
+  if (txtProgressBar) {
+    close(pb)
+  }
 
 # Plotting ----------------------------------------------------------------
   if (plot) {
