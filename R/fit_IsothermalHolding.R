@@ -322,6 +322,9 @@ fit_IsothermalHolding <- function(
         ylab = plot_settings$ylab,
         main = rep(plot_settings$main, length.out = length(sample_id))[i])
 
+      ## add plot subtitle
+      mtext(side = 3, plot_settings$mtext, cex = 0.7 * plot_settings$cex)
+
       ## add fitted curves
       for (c in seq_along(isoT)) {
         ## only plot the fitted lines if the fit had worked
@@ -366,11 +369,7 @@ fit_IsothermalHolding <- function(
          col = plot_settings$col,
          cex = plot_settings$legend.cex)
       }
-
     }## plot loop
-
-    ## add plot subtitle
-    mtext(side = 3, plot_settings$mtext, cex = 0.7 * plot_settings$cex)
 
   }## plot condition
 
