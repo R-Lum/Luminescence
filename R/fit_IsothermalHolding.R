@@ -213,7 +213,9 @@ fit_IsothermalHolding <- function(
               trace = trace)
         }, silent = TRUE)
         fitted.coefs <<- rbind(fitted.coefs,
-                               data.frame(isoT, t(coef(fit))))
+                               data.frame(SAMPLE = unique(s$SAMPLE),
+                                          TEMP = isoT,
+                                          t(coef(fit))))
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
@@ -241,7 +243,9 @@ fit_IsothermalHolding <- function(
         fit <- fit[[which.min(vapply(fit, stats::deviance, numeric(1)))]]
         s10 <- environment(fit$m$predict)$env$s10
         fitted.coefs <<- rbind(fitted.coefs,
-                               data.frame(isoT, t(coef(fit)), s10))
+                               data.frame(SAMPLE = unique(s$SAMPLE),
+                                          TEMP = isoT,
+                                          t(coef(fit)), s10))
       }
 
       ## update the progress bar
