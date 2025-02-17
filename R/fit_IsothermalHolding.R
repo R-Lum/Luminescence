@@ -80,6 +80,7 @@ fit_IsothermalHolding <- function(
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
   ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_class(rhop, c("numeric", "RLum.Results"))
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
@@ -127,12 +128,9 @@ fit_IsothermalHolding <- function(
   kB <- 8.6173303e-05  # Boltzmann's constant
   DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
-  ## get the rhop value from the fading measurement analysis if available,
-  ## otherwise take the input and recycle it for the number of samples
+  ## get the rhop value from the fading measurement analysis if available
   if (inherits(rhop, "RLum.Results") && rhop@originator == "analyse_FadingMeasurement")
     rhop <- rhop@data$rho_prime[[1]]
-  else
-    rhop <- rep(rhop, length.out = length(sample_id))
 
   ## allow to control how many random values for the s parameter should be
   ## generated when fitting the BTS model
