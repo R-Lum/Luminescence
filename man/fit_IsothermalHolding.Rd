@@ -16,9 +16,11 @@ fit_IsothermalHolding(
 )
 }
 \arguments{
-\item{data}{\link{character} or \link{list} (\strong{required}): input data with a table or file path}
+\item{data}{\link{character} or \link{data.frame} (\strong{required}): file path or data
+frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".}
 
-\item{ITL_model}{\link{character} (\emph{with default}): ITL data to be fitted}
+\item{ITL_model}{\link{character} (\emph{with default}): model to be fitted, either
+\code{"GOK"} or \code{"BTS"}.}
 
 \item{rhop}{\link{numeric} or \linkS4class{RLum.Results} (\emph{with default}): a vector
 of rho prime values (one for each sample) or an \linkS4class{RLum.Results} object
@@ -34,10 +36,16 @@ if \code{verbose = FALSE}.}
 \item{trace}{\link{logical} (\emph{with default}): enables/disables trace mode for
 the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM})}
 
-\item{...}{further parameters to be passed to the plot output}
+\item{...}{further arguments and graphical parameters that will be passed
+to the \code{plot} function.}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned: ##TODO
+The function returns an \linkS4class{RLum.Results} object and an \emph{optional} plot.
+The object returned contains the following elements:
+
+\item{fit}{\link{list} with the fitted models}
+\item{coefs}{\link{data.frame} containing the fitted coefficients for the models}
+\item{data}{\link{data.frame} containing the data used in the fitting process}
 }
 \description{
 ##TODO
