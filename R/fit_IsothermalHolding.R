@@ -326,6 +326,7 @@ fit_IsothermalHolding <- function(
       mtext(side = 3, plot_settings$mtext, cex = 0.7 * plot_settings$cex)
 
       ## add fitted curves
+      isoT <- unique(df_raw_list[[i]][["TEMP"]])
       for (c in seq_along(isoT)) {
         ## only plot the fitted lines if the fit had worked
         if (inherits(fit_list[[i]][[c]], "nls")) {
@@ -335,18 +336,15 @@ fit_IsothermalHolding <- function(
             y = y,
             col = rep(plot_settings$col[c], length.out = length(isoT)))
         }
-      }
 
-      ## plot the points (don't use matplot because this would assume the same length
-      ## for the time vector
-      for (p in seq_along(isoT)) {
-        df_pts <- df_raw_list[[i]][df_raw_list[[i]][["TEMP"]] == isoT[p],]
-        ## data points
+        ## plot the points (don't use matplot because this would assume
+        ## the same length for the time vector)
+        df_pts <- df_raw_list[[i]][df_raw_list[[i]][["TEMP"]] == isoT[c], ]
         points(
           x = df_pts[["TIME"]],
           y = df_pts[["LxTx"]],
           pch = plot_settings$pch,
-          bg = plot_settings$col[p],
+          bg = plot_settings$col[c],
           col = plot_settings$col.border)
 
         ## add error bars (if NA nothing is plotted by R default)
@@ -355,7 +353,7 @@ fit_IsothermalHolding <- function(
           x1 = df_pts[["TIME"]],
           y0 = df_pts[["LxTx"]] - df_pts[["LxTx_ERROR"]],
           y1 = df_pts[["LxTx"]] + df_pts[["LxTx_ERROR"]],
-          col = plot_settings$col[p])
+          col = plot_settings$col[c])
       }
 
       ## add legend
