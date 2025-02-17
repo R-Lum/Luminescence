@@ -80,6 +80,7 @@ fit_IsothermalHolding <- function(
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
   ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_class(rhop, c("numeric", "RLum.Results"))
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
