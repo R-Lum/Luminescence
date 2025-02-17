@@ -4,9 +4,11 @@
 #'
 #' @details ##TODO
 #'
-#' @param data [character] or [list] (**required**): input data with a table or file path
+#' @param data [character] or [data.frame] (**required**): file path or data
+#' frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".
 #'
-#' @param ITL_model [character] (*with default*): ITL data to be fitted
+#' @param ITL_model [character] (*with default*): model to be fitted, either
+#' `"GOK"` or `"BTS"`.
 #'
 #' @param rhop [numeric] or [RLum.Results-class] (*with default*): a vector
 #' of rho prime values (one for each sample) or an [RLum.Results-class] object
@@ -22,7 +24,8 @@
 #' @param trace [logical] (*with default*): enables/disables trace mode for
 #' the nls fitting ([minpack.lm::nlsLM])
 #'
-#' @param ... further parameters to be passed to the plot output
+#' @param ... further arguments and graphical parameters that will be passed
+#' to the `plot` function.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -34,7 +37,11 @@
 #' @keywords datagen
 #'
 #' @return
-#' An [RLum.Results-class] object is returned: ##TODO
+#' The function returns an [RLum.Results-class] object and an *optional* plot.
+#' The object returned contains the following elements:
+#'
+#' \item{fit}{[list] with the fitted models}
+#' \item{data}{[data.frame] containing the data used in the fitting process}
 #'
 #' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
 #'
