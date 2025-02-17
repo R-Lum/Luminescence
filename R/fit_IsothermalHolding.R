@@ -41,6 +41,7 @@
 #' The object returned contains the following elements:
 #'
 #' \item{fit}{[list] with the fitted models}
+#' \item{coefs}{[data.frame] containing the fitted coefficients for the models}
 #' \item{data}{[data.frame] containing the data used in the fitting process}
 #'
 #' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
@@ -184,6 +185,7 @@ fit_IsothermalHolding <- function(
   ## we have a double loop situation: we have a list with n samples, and
   ## each sample has n temperature steps
   num.fits <- 0
+  fitted.coefs <- NULL
   fit_list <- lapply(df_raw_list, function(s){
 
     ## extract temperatures
@@ -210,6 +212,9 @@ fit_IsothermalHolding <- function(
               ),
               trace = trace)
         }, silent = TRUE)
+        fitted.coefs <<- rbind(fitted.coefs,
+                               data.frame(isoT, t(coef(fit))))
+
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
         all.s10 <- rnorm(num_s_values_bts, mean = 10, sd = 1.5)
@@ -234,6 +239,9 @@ fit_IsothermalHolding <- function(
         ## pick the one with the best fit after removing those that didn't fit
         fit <- .rm_NULL_elements(fit)
         fit <- fit[[which.min(vapply(fit, stats::deviance, numeric(1)))]]
+        s10 <- environment(fit$m$predict)$env$s10
+        fitted.coefs <<- rbind(fitted.coefs,
+                               data.frame(isoT, t(coef(fit)), s10))
       }
 
       ## update the progress bar
@@ -369,6 +377,7 @@ fit_IsothermalHolding <- function(
     class = "RLum.Results",
     data = list(
      fit = fit_list,
+     coefs = fitted.coefs,
      data = records_ITL),
     info = list(
       call = sys.call())

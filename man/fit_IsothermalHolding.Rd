@@ -44,6 +44,7 @@ The function returns an \linkS4class{RLum.Results} object and an \emph{optional}
 The object returned contains the following elements:
 
 \item{fit}{\link{list} with the fitted models}
+\item{coefs}{\link{data.frame} containing the fitted coefficients for the models}
 \item{data}{\link{data.frame} containing the data used in the fitting process}
 }
 \description{
