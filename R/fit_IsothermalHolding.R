@@ -311,9 +311,6 @@ fit_IsothermalHolding <- function(
 
     ## now we have to loop over the samples
     for (i in seq_along(sample_id)) {
-      ## get unique times
-      isoT <- unique(df_raw_list[[i]][["TEMP"]])
-
       ## open plot area
       plot(NA,NA,
         xlim = plot_settings$xlim,
