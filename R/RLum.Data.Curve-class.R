@@ -130,10 +130,8 @@ setAs("data.frame", "RLum.Data.Curve",
 
 setAs("RLum.Data.Curve", "data.frame",
       function(from){
-
         data.frame(x = from@data[,1],
                    y = from@data[,2])
-
       })
 
 
@@ -146,13 +144,11 @@ setAs("matrix", "RLum.Data.Curve",
             curveType = NA_character_,
             data = from,
             info = list())
-
       })
 
 setAs("RLum.Data.Curve", "matrix",
       function(from){
         from@data
-
       })
 
 # show() --------------------------------------------------------------------------------------
@@ -281,7 +277,6 @@ setMethod(
       newRLumDataCurve@info <- info
       newRLumDataCurve@.uid <- .uid
       newRLumDataCurve@.pid <- .pid
-
     }
     return(newRLumDataCurve)
   }
@@ -311,8 +306,9 @@ setMethod(
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
           definition = function(object, info.object = NULL) {
+          .set_function_name("get_RLum")
+          on.exit(.unset_function_name(), add = TRUE)
 
-           ##if info.object == NULL just show the curve values
            if(!is.null(info.object)) {
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
@@ -320,26 +316,19 @@ setMethod("get_RLum",
               }else{
                 ##check for entries
                 if(length(object@info) == 0){
-                  warning("[get_RLum()] This RLum.Data.Curve object has no info objects! NULL returned!)")
+                  .throw_warning("This RLum.Data.Curve object has no ",
+                                 "info objects, NULL returned")
                   return(NULL)
-
-                }else{
-                  ##grep names
-                  temp.element.names <- paste(names(object@info), collapse = ", ")
-
-                  warning.text <- paste("[get_RLum()] Invalid info.object name. Valid names are:", temp.element.names)
-
-                   warning(warning.text, call. = FALSE)
-                  return(NULL)
-
                 }
-
+                .throw_warning("Invalid 'info.object' name, valid names are: ",
+                               .collapse(names(object@info)))
+                return(NULL)
               }
 
-             }else{
-                object@data
-
-             }
+           } else {
+             ## if info.object == NULL just show the curve values
+             object@data
+           }
           })
 
 
@@ -360,7 +349,6 @@ setMethod("length_RLum",
           "RLum.Data.Curve",
           function(object){
             max(object@data[,1])
-
           })
 
 
@@ -380,7 +368,6 @@ setMethod("names_RLum",
           "RLum.Data.Curve",
           function(object){
             names(object@info)
-
           })
 
 
@@ -436,9 +423,7 @@ setMethod(f = "bin_RLum.Data",
 
               ##just return the object
               return(object)
-
             }
-
           })
 
 
@@ -486,7 +471,6 @@ setMethod(
         set_RLum(class = "RLum.Data.Curve",
                  originator = "smooth_RLum",
                  data = object)
-
     }
  )
 

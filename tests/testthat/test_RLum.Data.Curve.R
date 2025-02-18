@@ -10,7 +10,8 @@ test_that("check class", {
 
   ##check get_RLum
   object <- set_RLum(class = "RLum.Data.Curve", data = object, info = list(a = "test"))
-  expect_warning(get_RLum(object, info.object = "est"), regexp = "Invalid info.object name")
+  expect_warning(get_RLum(object, info.object = "error"),
+                 "Invalid 'info.object' name, valid names are:")
 
   ##test names
   expect_type(names(object), "character")
