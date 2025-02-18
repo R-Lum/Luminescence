@@ -10,11 +10,9 @@ calc_FiniteMixture(
   sigmab,
   n.components,
   grain.probability = FALSE,
-  dose.scale,
   pdf.weight = TRUE,
   pdf.sigma = "sigmab",
   pdf.colors = "gray",
-  pdf.scale,
   plot.proportions = TRUE,
   plot = TRUE,
   ...
@@ -38,10 +36,6 @@ log-likelihood) is provided.}
 \item{grain.probability}{\link{logical} (\emph{with default}):
 prints the estimated probabilities of which component each grain is in}
 
-\item{dose.scale}{\link{numeric}:
-manually set the scaling of the y-axis of the first plot with a vector
-in the form of \code{c(min, max)}}
-
 \item{pdf.weight}{\link{logical} (\emph{with default}):
 weight the probability density functions by the components proportion (applies only
 when a vector is provided for \code{n.components})}
@@ -55,9 +49,6 @@ parameter of the normal distribution}
 \item{pdf.colors}{\link{character} (\emph{with default}):
 colour coding of the components in the the plot.
 Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}}
-
-\item{pdf.scale}{\link{numeric}:
-manually set the max density value for proper scaling of the x-axis of the first plot}
 
 \item{plot.proportions}{\link{logical} (\emph{with default}):
 plot \link[graphics:barplot]{graphics::barplot} showing the proportions of components if
@@ -149,7 +140,7 @@ calc_FiniteMixture(ExampleData.DeValues$CA1,
 ## the following lines to make the example work.
 FMM<- calc_FiniteMixture(ExampleData.DeValues$CA1,
                          sigmab = 0.2, n.components = c(2:4),
-                         pdf.weight = TRUE, dose.scale = c(0, 100))
+                         pdf.weight = TRUE)
 
 ## show structure of the results
 FMM
