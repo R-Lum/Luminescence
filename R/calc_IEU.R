@@ -194,8 +194,8 @@ calc_IEU <- function(
          ylim = c(min(ymin, 0), ymax),
          asp = asp)
 
-    arrows(x.vals, y.vals + y.errs, x.vals, y.vals - y.errs,
-           col = 1, angle = 90, length = 0.05, code = 3)
+    graphics::arrows(x.vals, y.vals + y.errs, x.vals, y.vals - y.errs,
+                    col = 1, angle = 90, length = 0.05, code = 3)
 
     abline(abline.vals[1], abline.vals[2], untf = FALSE, lty = 3)
   }

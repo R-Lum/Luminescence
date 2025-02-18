@@ -29,7 +29,7 @@
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
-#' @seealso [pchisq]
+#' @seealso [stats::pchisq]
 #'
 #' @references
 #' Galbraith, R.F., 2003. A simple homogeneity test for estimates
@@ -104,7 +104,7 @@ calc_HomogeneityTest <- function(
   df <- length(wi) - 1
   n <- length(wi)
 
-  P <- pchisq(G, df, lower.tail = FALSE)
+  P <- stats::pchisq(G, df, lower.tail = FALSE)
 
 
   ##============================================================================##

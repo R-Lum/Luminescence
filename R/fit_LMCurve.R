@@ -353,7 +353,9 @@ fit_LMCurve<- function(
     if(bg.subtraction=="polynomial"){
 
       #fit polynomial function to background
-      glm.fit<-glm(values.bg[,2] ~ values.bg[,1]+I(values.bg[,1]^2)+I(values.bg[,1]^3))
+      glm.fit <- stats::glm(values.bg[, 2] ~ values.bg[, 1]
+                                         + I(values.bg[, 1]^2)
+                                         + I(values.bg[, 1]^3))
       glm.coef<-coef(glm.fit)
 
       #subtract background with fitted function
@@ -380,7 +382,7 @@ fit_LMCurve<- function(
     }else if(bg.subtraction=="linear"){
 
       #fit linear function to background
-      glm.fit<-glm(values.bg[,2] ~ values.bg[,1])
+      glm.fit <- stats::glm(values.bg[, 2] ~ values.bg[, 1])
       glm.coef<-coef(glm.fit)
 
       ##substract bg
@@ -441,7 +443,9 @@ fit_LMCurve<- function(
     Im <- paste0("Im.",1:n.components)
     xm <- paste0("xm.",1:n.components)
 
-    as.formula(paste0("y ~ ", paste("(exp(0.5) * ", Im, "* x/", xm, ") * exp(-x^2/(2 *",xm,"^2))", collapse=" + ")))
+    stats::as.formula(paste0("y ~ ", paste("(exp(0.5) * ", Im, "* x /", xm,
+                                           ") * exp(-x^2 / (2 *", xm, "^2))",
+                                           collapse = " + ")))
   }
   ##////equation used for fitting///(end)
 
@@ -499,7 +503,7 @@ fit_LMCurve<- function(
                        data=data.frame(x=values[,1],y=values[,2]),
                        algorithm="port",
                        start=list(Im=Im.MC[i,],xm=xm.MC[i,]),#end start values input
-                       nls.control(
+                       stats::nls.control(
                          maxiter=500
                        ),#end nls control
                        lower=c(xm=min(values[,1]),Im=0),
@@ -525,7 +529,7 @@ fit_LMCurve<- function(
             data = data.frame(x = values[,1],y = values[,2]),
             algorithm = "port",
             start = list(Im = Im,xm = xm),#end start values input
-            nls.control(maxiter = 500),#end nls control
+            stats::nls.control(maxiter = 500),
             lower = c(xm = 0,Im = 0)
           ),# nls
           silent = TRUE)
@@ -570,7 +574,7 @@ fit_LMCurve<- function(
     fit<-try(nls(y~eval(fit.function),
                  trace=fit.trace, data.frame(x=values[,1],y=values[,2]),
                  algorithm="port", start=list(Im=start_values[,1],xm=start_values[,2]),#end start values input
-                 nls.control(maxiter=500),
+                 stats::nls.control(maxiter = 500),
                  lower=c(xm=0,Im=0),
                  #upper=c(xm=max(x),Im=max(y)*1.1)# set lower boundaries for components
                  ), outFile = stdout() # redirect error messages so they can be silenced
@@ -638,7 +642,7 @@ fit_LMCurve<- function(
 
     if(fit.calcError){
       ##option for confidence interval
-      values.confint <- try(confint(fit, level = 0.68), silent = TRUE)
+      values.confint <- try(stats::confint(fit, level = 0.68), silent = TRUE)
 
       if(!inherits(values.confint, "try-error")) {
         Im.confint <- values.confint[1:(length(values.confint[, 1]) / 2), ]

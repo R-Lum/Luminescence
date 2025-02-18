@@ -184,7 +184,8 @@ calc_FuchsLang2001 <- function(
 
   # additional calculate weighted mean
   w <- 1 / (data_ordered[startDeValue:endDeValue, 2]) ^ 2 #weights for weighted mean
-  weighted_mean <- round(weighted.mean(data_ordered[startDeValue:endDeValue,1], w), digits=2)
+  weighted_mean <- round(stats::weighted.mean(data_ordered[startDeValue:endDeValue, 1], w),
+                         digits = 2)
   weighted_sd <- round(sqrt(1 / sum(w)), digits = 2)
   n.usedDeValues <- endDeValue - startDeValue + 1
 

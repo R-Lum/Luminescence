@@ -679,7 +679,7 @@ scale_GammaDose <- function(
     pos <- rev(as.numeric(!is.na(data$sample_offset)) + 1)
 
     ## Contributions of each layer
-    bp <- barplot(height = op$contrib[(nrow(op)-1):1],
+    bp <- graphics::barplot(height = op$contrib[(nrow(op)-1):1],
                   horiz = TRUE,
                   main = ifelse(plot_singlePanels, "", settings$main),
                   xlab = settings$xlab,

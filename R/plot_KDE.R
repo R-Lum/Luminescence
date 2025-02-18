@@ -763,8 +763,8 @@ plot_KDE <- function(
        ann = FALSE)
 
   ## add box
-  box(which = "plot",
-      col = layout$kde$colour$box)
+  graphics::box(which = "plot",
+                col = layout$kde$colour$box)
 
   ## add x-axis
   axis(side = 1,
@@ -925,8 +925,8 @@ plot_KDE <- function(
       boxplot.data <- list(NA)
 
       for(i in 1:length(data)) {
-        boxplot.i <- boxplot(x = data[[i]][,1],
-                             plot = FALSE)
+        boxplot.i <- graphics::boxplot(x = data[[i]][,1],
+                                       plot = FALSE)
         boxplot.i$group <- mean(x = data[[i]][,1],
                                                    na.rm = TRUE)
         boxplot.i$names <- sd(x = data[[i]][,1],
@@ -1063,7 +1063,7 @@ plot_KDE <- function(
     ## add De error bars
     for(i in 1:length(data)) {
       if (attr(data[[i]], "De.errors.available")) {
-        arrows(data[[i]][, 1] - data[[i]][, 2],
+        graphics::arrows(data[[i]][, 1] - data[[i]][, 2],
                1:length(data[[i]][,1]),
                data[[i]][, 1] + data[[i]][, 2],
                1:length(data[[i]][, 1]),

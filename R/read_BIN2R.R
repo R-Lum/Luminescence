@@ -1082,7 +1082,7 @@ read_BIN2R <- function(
     )
 
   ## remove NA values created by skipping records
-  results.METADATA <- na.omit(results.METADATA, cols = "VERSION")
+  results.METADATA <- stats::na.omit(results.METADATA, cols = "VERSION")
 
   ##output
   if(verbose)

@@ -145,7 +145,7 @@ plot(x = df_MoransI$crosstalk,
      xlab = "Amount of added crosstalk",
      ylab = "Calculated Moran's I"
      )
-grid()
+graphics::grid()
 abline(h = n_expected_I_no_spatial_autocorr,
        col = "purple")
 
@@ -159,10 +159,7 @@ plot(x = df_MoransI$crosstalk,
      y = df_MoransI$pseudo_p,
      xlab = "Amount of added crosstalk",
      ylab = "Generated pseudo-p of related Moran's I")
-     
-grid()
-
-
+graphics::grid()
 ```
 
 Please note that above two plots are subject to randomness; for a good assessment many simulations have to be performed. 

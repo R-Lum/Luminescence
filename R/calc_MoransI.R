@@ -334,7 +334,7 @@ calc_MoransI <- function(object,
 
   names(df_neighbour) <- c("location", "neighbour")
 
-  df_neighbour <- na.omit(df_neighbour)
+  df_neighbour <- stats::na.omit(df_neighbour)
 
   if (ignore_borders) {
     ## Remove the disc borders

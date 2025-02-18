@@ -182,15 +182,15 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
 
   # smooth spline
   if (smooth[1] == "spline") {
-    NR <- lapply(NR, function(nr) { smooth.spline(nr)$y })
+    NR <- lapply(NR, function(nr) { stats::smooth.spline(nr)$y })
   }
   if (smooth[1] == "rmean") {
     ## here we'd like to use the smoothed values with no fill: as .smoothing()
     ## relies on data.table::frollmean(), the only way to remove the fill
     ## is by setting `fill = NA` (which is already the default) and then
     ## omitting the NA values
-    NR <- lapply(NR, function(nr) na.omit(.smoothing(nr, k)))
-    time <- na.omit(.smoothing(time, k))
+    NR <- lapply(NR, function(nr) stats::na.omit(.smoothing(nr, k)))
+    time <- stats::na.omit(.smoothing(time, k))
   }
 
   # normalise data

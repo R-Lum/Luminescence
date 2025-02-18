@@ -131,9 +131,9 @@ calc_Statistics <- function(
   S.mean <- mean(x = data[,1],
                  na.rm = na.rm)
 
-  S.wg.mean <- weighted.mean(x = data[,1],
-                             w = S.weights,
-                             n.rm = na.rm)
+  S.wg.mean <- stats::weighted.mean(x = data[,1],
+                                    w = S.weights,
+                                    n.rm = na.rm)
 
   S.m.mean <- mean(x = data.MCM,
                    na.rm = na.rm)

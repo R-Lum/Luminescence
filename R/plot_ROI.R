@@ -161,9 +161,10 @@ plot_ROI <- function(
 
     ## set plot area
     do.call(
-      what = plot.default,
+      what = graphics::plot.default,
       args = c(x = NA, y = NA,
-               plot_settings[names(plot_settings) %in% methods::formalArgs(plot.default)])
+               plot_settings[names(plot_settings) %in%
+                             methods::formalArgs(graphics::plot.default)])
     )
 
     ## add background image if available
@@ -186,7 +187,8 @@ plot_ROI <- function(
       }
    }
 
-    if (plot_settings$grid) grid(nx = max(m[,"img_width"]), ny = max(m[,"img_height"]))
+    if (plot_settings$grid) graphics::grid(nx = max(m[, "img_width"]),
+                                           ny = max(m[, "img_height"]))
 
     ## plot metric scale
     if (!is.null(dim.CCD)) {

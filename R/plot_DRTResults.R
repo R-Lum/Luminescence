@@ -466,7 +466,7 @@ plot_DRTResults <- function(
                col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] },
                cex = 1.2 * cex)
 
-        arrows(c(1:nrow(values[[i]])),
+        graphics::arrows(c(1:nrow(values[[i]])),
                values[[i]][,1] + values[[i]][,2],
                c(1:nrow(values[[i]])),
                values[[i]][,1] - values[[i]][,2],
@@ -552,7 +552,7 @@ plot_DRTResults <- function(
                col = col[i],
                cex = 1.2 * cex)
 
-        arrows(values.preheat[[i]][,3],
+        graphics::arrows(values.preheat[[i]][,3],
                values.preheat[[i]][,1] + values.preheat[[i]][,2],
                values.preheat[[i]][,3],
                values.preheat[[i]][,1] - values.preheat[[i]][,2],
@@ -567,7 +567,7 @@ plot_DRTResults <- function(
   ## optionally, plot boxplot
   if(boxplot) {
     ## create empty plot
-    boxplot(values.boxplot,
+    graphics::boxplot(values.boxplot,
             names = modes.plot,
             ylim = ylim,
             xlab = xlab,

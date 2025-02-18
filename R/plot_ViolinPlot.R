@@ -206,7 +206,7 @@ plot_ViolinPlot <- function(
 
   ##add the boxplot
   if(boxplot){
-    boxplot(
+    graphics::boxplot(
       data,
       outline = TRUE,
       boxwex = 0.4,
@@ -219,7 +219,7 @@ plot_ViolinPlot <- function(
 
   ##add rug
   if(rug){
-    rug(x = data)
+    graphics::rug(x = data)
   }
 
   ##add mtext

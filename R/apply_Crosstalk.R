@@ -76,7 +76,7 @@ apply_Crosstalk <- function(object,
                                   y = rep(1:10, each = 10))
 
   # Calculate matrix with euclidean distances
-  mn_dist <- as.matrix(dist(df_disc_locations[,c("x", "y")]))
+  mn_dist <- as.matrix(stats::dist(df_disc_locations[, c("x", "y")]))
 
   ## All distances equal to one are subject to crosstalk
   mn_crosstalk <- ifelse(mn_dist == 1, yes = n_crosstalk, no = 0)

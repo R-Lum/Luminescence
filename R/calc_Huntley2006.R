@@ -370,7 +370,7 @@ calc_Huntley2006 <- function(
       # re-bind the data frame
       data <- rbind(LnTn_tmp, data_tmp)
       data[1, 3] <- LnTn_error_tmp
-      data <- data[complete.cases(data), ]
+      data <- data[stats::complete.cases(data), ]
   }
 
   ## Check 'rhop'

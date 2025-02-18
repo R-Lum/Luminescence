@@ -811,10 +811,9 @@ analyse_IRSAR.RF<- function(
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     ## REGENERATED SIGNAL
     # set function for fitting ------------------------------------------------
-    fit.function <-
-      as.formula(y ~ phi.0 - (delta.phi * ((1 - exp(
+    fit.function <- y ~ phi.0 - (delta.phi * ((1 - exp(
         -lambda * x
-      )) ^ beta)))
+      )) ^ beta))
 
     ## stretched exponential function according to Erfurt et al. (2003)
     ## + phi.0 >> initial IR-RF flux
@@ -858,7 +857,7 @@ analyse_IRSAR.RF<- function(
           lambda = lambda.MC[i],
           beta = beta.MC[i]
         ),
-        nls.control(
+        stats::nls.control(
           maxiter = 100,
           warnOnly = FALSE,
           minFactor = 1 / 1024
@@ -894,10 +893,10 @@ analyse_IRSAR.RF<- function(
     }
 
     ##FINAL fitting after successful MC
-    if(length(na.omit(fit.parameters.results.MC.results)) != 0){
+    if (length(stats::na.omit(fit.parameters.results.MC.results)) != 0) {
 
       ##choose median as final fit version
-      fit.parameters.results.MC.results <- sapply(na.omit(fit.parameters.results.MC.results), median)
+      fit.parameters.results.MC.results <- sapply(stats::na.omit(fit.parameters.results.MC.results), median)
 
       ##try final fitting
       fit <- try(nls(
@@ -911,7 +910,7 @@ analyse_IRSAR.RF<- function(
           lambda = fit.parameters.results.MC.results["lambda"],
           beta = fit.parameters.results.MC.results["beta"]
         ),
-        nls.control(
+        stats::nls.control(
           maxiter = method_control.settings$maxiter,
           warnOnly = method_control.settings$warnOnly,
           minFactor = method_control.settings$minFactor
@@ -1150,8 +1149,8 @@ analyse_IRSAR.RF<- function(
 
       ##(5) calculate trend fit
       max.rows <- min(nrow(RF_nat.limited), length(residuals))
-      temp.fit <- lm(y ~ x, data.frame(x = RF_nat.limited[1:max.rows, 1],
-                                       y = residuals))
+      temp.fit <- stats::lm(y ~ x, data.frame(x = RF_nat.limited[1:max.rows, 1],
+                                              y = residuals))
       temp.trend.fit <- coef(temp.fit)
 
       ##return values and limited if they are not needed
@@ -1918,7 +1917,7 @@ analyse_IRSAR.RF<- function(
              labels = 0)
 
         ##add residual indicator (should circle around 0)
-        col.ramp <- colorRampPalette(c(col[19], "white", col[19]))
+        col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
         col.polygon <- col.ramp(100)
 
         if (plot.settings$log != "x") {

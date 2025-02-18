@@ -284,7 +284,7 @@ calc_AliquotSize <- function(
       MC.n.kde<- density(MC.n, n = 10000)
 
       # apply student's t-test
-      MC.t.test<- t.test(MC.n)
+      MC.t.test<- stats::t.test(MC.n)
       MC.t.lower<- MC.t.test["conf.int"]$conf.int[1]
       MC.t.upper<- MC.t.test["conf.int"]$conf.int[2]
       MC.t.se<- (MC.t.upper-MC.t.lower)/3.92

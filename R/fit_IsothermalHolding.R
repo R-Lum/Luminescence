@@ -158,9 +158,9 @@ fit_IsothermalHolding <- function(
     T_K <- isoT + 273.15
     exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
       vapply(x, function(t) {
-        integrate(function(Eb) A * exp(-Eb / Eu) *
+        stats::integrate(function(Eb) A * exp(-Eb / Eu) *
                                exp(-10^s10 * t * exp(-(Et - Eb) / (kB * T_K))),
-                  0, DeltaE)$value
+                         0, DeltaE)$value
       }, numeric(1))
   }
 

@@ -349,7 +349,7 @@ fit_EmissionSpectra <- function(
     sigma <- paste0("sigma.",1:n.components)
     mu <- paste0("mu.",1:n.components)
     C <- paste0("C.",1:n.components)
-    as.formula(
+    stats::as.formula(
       paste0("y ~ ",
              paste(C," * 1/(",sigma," * sqrt(2 * pi)) * exp(-0.5 * ((x - ",mu,")/",sigma,")^2)",
                    collapse = " + ")))
@@ -529,15 +529,15 @@ fit_EmissionSpectra <- function(
 
     if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
-    on.exit(close.screen(n = c(1,2)), add = TRUE)
+    on.exit(graphics::close.screen(n = c(1,2)), add = TRUE)
 
     ##set split screen settings
-    split.screen(rbind(
+    graphics::split.screen(rbind(
       c(0.1,1,0.32, 0.98),
       c(0.1,1,0.1, 0.315)))
 
     ##SCREEN 1 ----------
-    screen(1)
+    graphics::screen(1)
     par(mar = c(0, 4, 3, 4))
     plot(
       df,
@@ -602,7 +602,7 @@ fit_EmissionSpectra <- function(
     }
 
     ## SCREEN 2 -----
-    screen(2)
+    graphics::screen(2)
     par(mar = c(4, 4, 0, 4))
     plot(NA, NA,
       ylim = range(residuals(fit)),

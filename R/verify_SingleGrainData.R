@@ -217,7 +217,7 @@ verify_SingleGrainData <- function(
     ##run test on DATA slot
     ##MEAN + SD
     temp.results_matrix <- t(vapply(X = object@DATA, FUN = function(x){
-      c(mean(x), var(x))
+      c(mean(x), stats::var(x))
     }, numeric(2)))
 
 
@@ -304,7 +304,7 @@ verify_SingleGrainData <- function(
 
     ##MEAN + SD
     temp.results_matrix <- lapply(X = object_list, FUN = function(x){
-      c(mean(x), var(x))
+      c(mean(x), stats::var(x))
     })
 
     temp.results_matrix <- do.call(rbind,  temp.results_matrix)

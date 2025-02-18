@@ -119,7 +119,7 @@
 #'   T = T,
 #'   output_unit = "Ma"
 #' )
-#' contour(x = E, y = T, z = temp$lifetimes[1,,],
+#' graphics::contour(x = E, y = T, z = temp$lifetimes[1,,],
 #'         ylab = "Temperature [\u00B0C]",
 #'         xlab = "Trap depth [eV]",
 #'         main = "Thermal Lifetime Contour Plot"

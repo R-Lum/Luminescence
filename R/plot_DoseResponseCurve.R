@@ -304,7 +304,7 @@ plot_DoseResponseCurve <- function(
       }
 
       if(plot_settings$density_rug[1])
-        suppressWarnings(rug(x = x.natural,side = 3))
+        suppressWarnings(graphics::rug(x = x.natural, side = 3))
 
     } else if (mode == "extrapolation"){
       if (!is.na(De)) {
@@ -398,7 +398,7 @@ plot_DoseResponseCurve <- function(
           lines(norm.curve.x, norm.curve.y, col = "red")
 
           ## add rug
-          suppressWarnings(rug(x.natural))
+          suppressWarnings(graphics::rug(x.natural))
 
           ## De + Error from MC simulation + quality of error estimation
           try(mtext(side = 3,
@@ -452,7 +452,7 @@ plot_DoseResponseCurve <- function(
   ##reset graphic device if the plotting failed!
   if (inherits(plot_check, "try-error")) {
     .throw_message("Figure margins too large, nothing plotted")
-    dev.off()
+    grDevices::dev.off()
   }
 
   ## return

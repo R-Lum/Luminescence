@@ -274,7 +274,9 @@ fit_CWCurve<- function(
 
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
-    as.formula(paste0("y ~ ", paste(I0," * ", lambda, "* exp(-",lambda," * x)", collapse=" + ")))
+    stats::as.formula(paste0("y ~ ", paste(I0," * ", lambda,
+                                           "* exp(-",lambda," * x)",
+                                           collapse = " + ")))
   }
   ##////equation used for fitting///(end)
 
@@ -283,7 +285,8 @@ fit_CWCurve<- function(
 
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
-    as.formula(paste0("y ~ ", paste(I0," * exp(-",lambda," * x)", collapse=" + ")))
+    stats::as.formula(paste0("y ~ ", paste(I0," * exp(-",lambda," * x)",
+                             collapse = " + ")))
   }
   ##////equation used for fitting///(end)
 
@@ -311,7 +314,7 @@ fit_CWCurve<- function(
     ##estimation and fit an linear function a first guess
     temp.values <- data.frame(x[y > 0], log(y[y > 0]))
 
-    temp<-lm(temp.values)
+    temp <- stats::lm(temp.values)
     lambda<-abs(temp$coefficient[2])/nrow(values)
 
     k<-2
@@ -346,7 +349,7 @@ fit_CWCurve<- function(
                                         algorithm="port",
                                         na.action = "na.exclude",
                                         start=c(I0,lambda),
-                                        nls.control(
+                                        stats::nls.control(
                                           tol = 1,
                                           maxiter=100,
                                           warnOnly=FALSE,
@@ -398,7 +401,7 @@ fit_CWCurve<- function(
                                           algorithm="port",
                                           na.action = "na.exclude",
                                           start=c(I0,lambda),
-                                          nls.control(
+                                          stats::nls.control(
                                             maxiter = 500,
                                             warnOnly = FALSE,
                                             minFactor = 1/4096
@@ -499,7 +502,7 @@ fit_CWCurve<- function(
     ## option for confidence interval
     if (fit.calcError) {
       tryCatch({
-        values.confint <- confint(fit, level = 0.68)
+        values.confint <- stats::confint(fit, level = 0.68)
         half <- nrow(values.confint) / 2
         I0.confint <- values.confint[1:half, ]
         lambda.confint <- values.confint[half + 1:half, ]

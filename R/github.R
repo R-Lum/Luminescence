@@ -224,12 +224,12 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 # This function queries the URL, checks the server response and returns
 # the content.
 .github_getContent <- function(url) {
-  response <- GET(url, accept_json())
+  response <- httr::GET(url, httr::accept_json())
   # nocov start
-  if (status_code(response) != 200)
+  if (httr::status_code(response) != 200)
     .throw_error("Contacting ", url, " returned status code ",
-                 status_code(response))
+                 httr::status_code(response))
   # nocov end
-  content <- content(response)
+  content <- httr::content(response)
   return(content)
 }

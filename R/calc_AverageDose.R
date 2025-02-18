@@ -487,7 +487,7 @@ calc_AverageDose <- function(
     if (plot) {
       ##add rug
       if (plot_settings$rug[[x]]) {
-        rug(data_list[[x]])
+        graphics::rug(data_list[[x]])
       }
 
       ##plot mtext

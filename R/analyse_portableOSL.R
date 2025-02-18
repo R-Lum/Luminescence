@@ -454,7 +454,7 @@ analyse_portableOSL <- function(
 
     par(mar = c(5, 4, 4, 1) + 0.1)
 
-    frame()
+    graphics::frame()
 
     mtext(side= 3, plot_settings$main, cex = 0.7, line = 2)
 
@@ -477,7 +477,7 @@ analyse_portableOSL <- function(
       bty = "n",
       yaxt = "n"
     )
-      if(plot_settings$grid) grid()
+      if (plot_settings$grid) graphics::grid()
       lines(
         x = m_list[["BSL"]][,"value"],
         y = m_list[["BSL"]][,"y"],
@@ -509,7 +509,7 @@ analyse_portableOSL <- function(
         bty = "n",
         yaxt = "n"
     )
-      if(plot_settings$grid) grid()
+      if (plot_settings$grid) graphics::grid()
 
       lines(
         x = m_list[["IRSL"]][,"value"],
@@ -538,7 +538,7 @@ analyse_portableOSL <- function(
       yaxt = "n"
     )
 
-      if(plot_settings$grid) grid()
+      if (plot_settings$grid) graphics::grid()
       lines(
         x = m_list[["BSL_depletion"]][,"value"],
         y = m_list[["BSL_depletion"]][,"y"],
@@ -560,7 +560,7 @@ analyse_portableOSL <- function(
       yaxt = "n"
     )
 
-      if(plot_settings$grid) grid()
+      if (plot_settings$grid) graphics::grid()
 
       lines(
         x = m_list[["IRSL_depletion"]][,"value"],
@@ -583,7 +583,7 @@ analyse_portableOSL <- function(
       yaxt = "n"
     )
 
-      if(plot_settings$grid) grid()
+      if (plot_settings$grid) graphics::grid()
 
       lines(
         x = m_list[["IRSL_BSL_RATIO"]][,"value"],
