@@ -374,7 +374,8 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   fit_formula <- function(n.components, tp) {
     A <- paste0("A.",1:n.components)
     tau <- paste0("tau.",1:n.components)
-    as.formula(paste0("y ~ ", paste(A," * exp(- x/(",tau," + ", tp, "))", collapse = " + ")))
+    stats::as.formula(paste0("y ~ ", paste(A," * exp(- x/(",tau," + ", tp, "))",
+                             collapse = " + ")))
   }
   ##
   ##
@@ -426,8 +427,8 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       cat("\n---------------------(start adaption)------------------------------------")
     }
 
-    while(!is.na(suppressWarnings(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2))) && (
-          F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2])){
+    while(!is.na(suppressWarnings(stats::qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2))) && (
+          F[2] > stats::qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2])){
 
       ##set F
       F[1] <- F[2]
@@ -479,9 +480,9 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       ##terminal feedback
       if(verbose){
         cat("\n>> + adaption for",m, "comp.", ": ", round(F[2],2), "(calc.) <> ",
-            round(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2), 2), "(ref.)")
+            round(stats::qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2), 2), "(ref.)")
 
-        if(F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
+        if(F[2] > stats::qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
           cat(" >> [add comp.]")
 
         }else{
@@ -671,13 +672,13 @@ if(plot) {
 
     if(!plot_simple){
       ##make sure that the screen closes if something is wrong
-      on.exit(close.screen(all.screens = TRUE), add = TRUE)
+      on.exit(graphics::close.screen(all.screens = TRUE), add = TRUE)
 
-      split.screen(rbind(
+      graphics::split.screen(rbind(
         c(0.1,1,0.32, 0.98),
         c(0.1,1,0.1, 0.32)))
 
-      screen(1)
+      graphics::screen(1)
       par(mar = c(0, 4, 3, 4))
     }
 
@@ -701,7 +702,7 @@ if(plot) {
     ##+ add some curve
     lines(
       df$x,
-      fitted(fit),
+      stats::fitted(fit),
       col = plot_settings$col[1],
       lwd = 1.3,
       lty = plot_settings$lty[1]
@@ -734,7 +735,7 @@ if(plot) {
 
 
     if(!plot_simple){
-      screen(2)
+      graphics::screen(2)
       par(mar = c(4, 4, 0, 4))
       plot(
         x = df[[1]],

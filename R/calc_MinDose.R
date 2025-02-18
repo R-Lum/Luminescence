@@ -350,10 +350,10 @@ calc_MinDose <- function(
     data <- get_RLum(data, "data")
   }
 
-  if (any(!complete.cases(data))) {
+  if (any(!stats::complete.cases(data))) {
     message("\n[calc_MinDose] Warning: Input data contained NA/NaN values, ",
             "which were removed prior to calculations!")
-    data <- data[complete.cases(data), ]
+    data <- data[stats::complete.cases(data), ]
   }
 
   if (!missing(init.values)) {
@@ -552,7 +552,7 @@ calc_MinDose <- function(
     res1 <- (gamma - mu)/sigma
     lf1i <- log(p0) - log(si) - 0.5*((zi-gamma)/si)^2   - logsqrt2pi
     lf2i <- log(1-p0) - 0.5*log(s2) - 0.5*(zi-mu)^2/s2  - logsqrt2pi
-    lf2i <- lf2i + log(1-pnorm(res0)) - log(1-pnorm(res1))
+    lf2i <- lf2i + log(1 - stats::pnorm(res0)) - log(1 - stats::pnorm(res1))
     llik <- log( exp(lf1i) + exp(lf2i) )
     negll <- -sum(llik)
 
@@ -905,10 +905,10 @@ calc_MinDose <- function(
       pairs <- pairs[!is.inf, ]
     }
 
-    poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 3, raw = TRUE))
-    poly.four <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 4, raw = TRUE))
-    poly.five <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 5, raw = TRUE))
-    poly.six <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 6, raw = TRUE))
+    poly.three <- stats::lm(pairs[, 2] ~ poly(pairs[, 1], degree = 3, raw = TRUE))
+    poly.four <- stats::lm(pairs[, 2] ~ poly(pairs[, 1], degree = 4, raw = TRUE))
+    poly.five <- stats::lm(pairs[, 2] ~ poly(pairs[, 1], degree = 5, raw = TRUE))
+    poly.six <- stats::lm(pairs[, 2] ~ poly(pairs[, 1], degree = 6, raw = TRUE))
 
     ## --------- FIT LOESS -------------- ##
     # Polynomials are probably not reasonable and often suffer badly from

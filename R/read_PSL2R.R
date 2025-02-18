@@ -177,7 +177,7 @@ read_PSL2R <- function(
     if (smooth) {
       measurements_formatted <- lapply(measurements_formatted, function(x) {
         if (x@recordType != "USER")
-          x@data[,2] <- smooth(x@data[ ,2])
+          x@data[, 2] <- stats::smooth(x@data[, 2])
         return(x)
       })
     }
@@ -242,8 +242,9 @@ format_Measurements <- function(x, convert, header) {
   settings_stimulation_unit <- gsub("[^0-9]", "", settings_split[which(grepl("Stim", settings_split))])
   settings_on_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("Off", settings_split))]), ","))[1])
   settings_off_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("Off", settings_split))]), ","))[2])
-  settings_cycle <- na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("No", settings_split))]), ","))))[1]
-  settings_stimulation_time <- na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("No", settings_split))]), ","))))[2]
+  vals <- stats::na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("No", settings_split))]), ","))))
+  settings_cycle <- vals[1]
+  settings_stimulation_time <- vals[2]
 
   settings_list <- list("measurement" = settings_measurement,
                         "stimulation_unit" = switch(settings_stimulation_unit, "0" = "USER", "1" = "IRSL", "2" = "OSL"),

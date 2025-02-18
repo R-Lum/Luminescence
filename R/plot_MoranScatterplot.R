@@ -163,12 +163,12 @@ plot_MoranScatterplot <- function(
   }
 
   n_grains_without_neighbour <- nrow(df_moran_plot) -
-    sum(complete.cases(df_moran_plot$y))
+    sum(stats::complete.cases(df_moran_plot$y))
 
   if(n_grains_without_neighbour>0)
     .throw_warning("Grain observations removed from plot because no neighbours")
 
-  df_moran_plot <- df_moran_plot[complete.cases(df_moran_plot), ]
+  df_moran_plot <- df_moran_plot[stats::complete.cases(df_moran_plot), ]
 
   ## If we want a log plot, make sure that all relevant values are 1 or more (per axis)
   if (grepl("x", vs_log, fixed = TRUE) && min(df_moran_plot$x) < 1) {
@@ -240,7 +240,7 @@ plot_MoranScatterplot <- function(
   }
 
   ## Calculate least square line
-  lm_moransI <- lm(y ~  x, data = df_moran_plot)
+  lm_moransI <- stats::lm(y ~ x, data = df_moran_plot)
   abline(a = coef(lm_moransI)[1], b = coef(lm_moransI)[2], col = "orange", untf=TRUE)
 
   if (plot_settings$legend[1]) {

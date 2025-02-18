@@ -289,7 +289,7 @@ convert_CW2pHMi<- function(
   temp.sel.id<-min(which(is.na(temp[,2])==FALSE))
 
   ##(b) - fit linear function
-  fit.lm<-lm(y ~ x,data.frame(x=t[1:2],y=CW_OSL.log[1:2]))
+  fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))
 
   ##select values to extrapolate and predict (extrapolate) values based on the fitted function
   x.i<-data.frame(x=temp[1:(min(temp.sel.id)-1),1])

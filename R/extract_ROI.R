@@ -146,7 +146,7 @@ extract_ROI <- function(
       xlab = "x-dim [px]",
       useRaster = TRUE,
       main = "extract_ROIs() - control plot")
-    box()
+    graphics::box()
 
     ## visualise ROIs
     overlay <- a[,,1]

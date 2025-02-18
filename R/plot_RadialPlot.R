@@ -1463,7 +1463,7 @@ if(centrality[1] == "mean") {
     ## plot y-axis
     if(y.ticks == TRUE) {
       char.height <- par()$cxy[2]
-      tick.space <- axisTicks(usr = limits.y, log = FALSE)
+      tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
       tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
       if(tick.space < char.height * 1.5) {
         axis(side = 2, at = c(-2, 2), labels = c("", ""), las = 1)

@@ -363,8 +363,8 @@ fit_DoseResponseCurve <- function(
   }
 
   ## count and exclude NA values and print result
-  if (sum(!complete.cases(object)) > 0)
-    .throw_warning(sum(!complete.cases(object)),
+  if (sum(!stats::complete.cases(object)) > 0)
+    .throw_warning(sum(!stats::complete.cases(object)),
                    " NA values removed")
 
   ## exclude NA
@@ -539,15 +539,15 @@ fit_DoseResponseCurve <- function(
   b <- 1
   if (any(data$y > 0)) {
     ## this may cause NaN values so we have to handle those later
-    fit.lm <- try(lm(suppressWarnings(log(data$y)) ~ data$x), silent = TRUE)
+    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x),
+                  silent = TRUE)
 
     if (!inherits(fit.lm, "try-error") && !is.na(fit.lm$coefficients[2]))
       b <- as.numeric(1 / fit.lm$coefficients[2])
-
   }
 
   ##c - get start parameters from a linear fit - offset on x-axis
-  fit.lm<-lm(data$y~data$x)
+  fit.lm <- stats::lm(data$y ~ data$x)
   c <- as.numeric(abs(fit.lm$coefficients[1]/fit.lm$coefficients[2]))
 
   #take slope from x - y scaling
@@ -585,7 +585,7 @@ fit_DoseResponseCurve <- function(
   if (fit.method == "QDR") {
 
     ## establish models without and with intercept term
-    model.qdr <- update(y ~ I(x) + I(x^2),
+    model.qdr <- stats::update(y ~ I(x) + I(x^2),
                         stats::reformulate(".", intercept = !fit.force_through_origin))
 
     if (mode == "interpolation") {
@@ -598,7 +598,7 @@ fit_DoseResponseCurve <- function(
     upper <- max(object[, 1]) * 1.5
 
     .fit_qdr_model <- function(model, data, y) {
-      fit <- lm(model, data = data, weights = fit.weights)
+      fit <- stats::lm(model, data = data, weights = fit.weights)
 
       ## solve and get De
       De <- NA
@@ -668,7 +668,7 @@ fit_DoseResponseCurve <- function(
           trace = FALSE,
           algorithm = "port",
           lower = c(a = 0, b = 1e-6, c = 0),
-          nls.control(
+          stats::nls.control(
             maxiter = 100,
             warnOnly = TRUE,
             minFactor = 1 / 2048
@@ -818,7 +818,7 @@ fit_DoseResponseCurve <- function(
         fit.method == "LIN") {
 
       ## establish models without and with intercept term
-      model.lin <- update(y ~ x,
+      model.lin <- stats::update(y ~ x,
                           stats::reformulate(".", intercept = !fit.force_through_origin))
 
       if (fit.force_through_origin) {
@@ -834,7 +834,7 @@ fit_DoseResponseCurve <- function(
       }
 
       .fit_lin_model <- function(model, data, y) {
-        fit <- lm(model, data = data, weights = fit.weights)
+        fit <- stats::lm(model, data = data, weights = fit.weights)
 
         ## solve and get De
         De <- NA
@@ -1107,7 +1107,7 @@ fit_DoseResponseCurve <- function(
         trace = FALSE,
         algorithm = "port",
         lower = c(a1 = 1e-6, a2 = 1e-6, b1 = 1e-6, b2 = 1e-6),
-        nls.control(
+        stats::nls.control(
           maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
         ) #increase max. iterations
       )},
@@ -1713,7 +1713,7 @@ fit_DoseResponseCurve <- function(
   ## this is very fragile and works only if the functions are constructed
   ## without {} brackets, otherwise it will not work in combination
   ## of covr and testthat
-  tmp_formula <- as.formula(paste0("y ~ ", paste(tmp[-1], collapse = "")), env = env)
-
+  tmp_formula <- stats::as.formula(paste0("y ~ ", paste(tmp[-1], collapse = "")),
+                                   env = env)
   return(tmp_formula)
 }

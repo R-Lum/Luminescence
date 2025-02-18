@@ -693,7 +693,7 @@ analyse_baSAR <- function(
        )
 
       ##update jags model (it is a S3-method)
-      update(
+      stats::update(
         object = jagsfit,
         n.iter = Nb_Iterations,
         progress.bar = if(verbose){"text"}else{NULL}
@@ -1991,7 +1991,7 @@ analyse_baSAR <- function(
 
     while(i < ncol(plot_matrix)){
       step <- min(ncol(plot_matrix), i + 14)
-      plot_check <- try(boxplot(
+      plot_check <- try(graphics::boxplot(
         x = plot_matrix[,i:step],
         use.cols = TRUE,
         horizontal = TRUE,
@@ -2155,7 +2155,7 @@ analyse_baSAR <- function(
             length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])
 
           ##add rug with natural Lx/Tx
-          rug(side = 2, x = input_object[[9 + n.col]])
+          graphics::rug(side = 2, x = input_object[[9 + n.col]])
 
           ##plot Lx/Tx values .. without errors ... this is enough here
           for (i in 2:length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])) {

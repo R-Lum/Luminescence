@@ -387,7 +387,7 @@ calc_OSLLxTxRatio <- function(
     }, FUN.VALUE = vector(mode = "numeric", length = 1L))
 
     Y.i <- na.exclude(Y.i)
-    sigmab.LnLx <- abs(var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean
+    sigmab.LnLx <- abs(stats::var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean
     ##therefore here absolute values are given
 
   }else{
@@ -398,7 +398,7 @@ calc_OSLLxTxRatio <- function(
                      "error estimation might not be reliable")
     }
 
-    sigmab.LnLx <- abs((var(Lx.curve[background.integral]) -
+    sigmab.LnLx <- abs((stats::var(Lx.curve[background.integral]) -
                           mean(Lx.curve[background.integral])) * n)
   }
 
@@ -418,7 +418,7 @@ calc_OSLLxTxRatio <- function(
     }, FUN.VALUE = vector(mode = "numeric", length = 1L))
 
     Y.i_TnTx <- na.exclude(Y.i_TnTx)
-    sigmab.TnTx <- abs(var(Y.i_TnTx) - mean(Y.i_TnTx))
+    sigmab.TnTx <- abs(stats::var(Y.i_TnTx) - mean(Y.i_TnTx))
 
   } else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
@@ -428,7 +428,7 @@ calc_OSLLxTxRatio <- function(
                      "error estimation might not be reliable")
     }
 
-    sigmab.TnTx <- abs((var(Tx.curve[background.integral.Tx]) -
+    sigmab.TnTx <- abs((stats::var(Tx.curve[background.integral.Tx]) -
                           mean(Tx.curve[background.integral.Tx])) * n.Tx)
   }
 

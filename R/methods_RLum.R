@@ -102,7 +102,7 @@ plot.list <- function(x, y, ...) {
   else {
     if (missing(y))
       y <- NULL
-    plot.default(x, y, ...)
+    graphics::plot.default(x, y, ...)
   }
 }
 

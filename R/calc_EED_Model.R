@@ -147,7 +147,7 @@ calc_EED_Model <- function(
   # corrig?es de la dose r?siduelle uniquement (modif 31.5.2018)
   # nocov start
   .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index){
-    var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 3]) # doses nettes corrig?es r?siduel uniquement
+    var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, 3]) # doses nettes corrigées résiduel uniquement
     mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 3])
     return(var_ratio / (mean_ratio ^ 2))
   }
@@ -157,7 +157,7 @@ calc_EED_Model <- function(
   # sur la base des rapport observ?/simul? des doses totales brutes
   .calc_Plateau_Variance_uncorr <- function (M_Data, MinDose_Index, MaxDose_Index){
     var_ratio <-
-      var (M_Data[MinDose_Index:MaxDose_Index, 4]) # ratio observ?/simul? brut
+      stats::var(M_Data[MinDose_Index:MaxDose_Index, 4]) # ratio observé/simulé brut
     mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 4])
     return (var_ratio / (mean_ratio ^ 2))
   }
@@ -167,7 +167,7 @@ calc_EED_Model <- function(
   # ##TODO not yet included
   # nocov start
   .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
-      var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 6])
+      var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, 6])
       mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 6])
       return (var_ratio / (mean_ratio ^ 2))
     }

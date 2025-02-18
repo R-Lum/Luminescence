@@ -232,7 +232,7 @@ analyse_FadingMeasurement <- function(
                           setNames(object[ , col:c(col+2)], c("LxTx", "LxTxError", "timeSinceIrr"))
                           })
                         )
-      object <- object[complete.cases(object), ]
+      object <- object[stats::complete.cases(object), ]
     }
 
     ##set table and object
@@ -486,7 +486,7 @@ analyse_FadingMeasurement <- function(
   ##apply the fit
   fit_matrix <- vapply(X = 2:(n.MC+1), FUN = function(x){
     ##fit
-    fit <- try(stats::lm(y~x, data = data.frame(
+    fit <- try(stats::lm(y ~ x, data = data.frame(
       x = MC_matrix[,1],
       y = MC_matrix[,x]))$coefficients, silent = TRUE)
 
@@ -969,7 +969,7 @@ analyse_FadingMeasurement <- function(
       }else{
         plot(density(g_value.MC),
              main = "Density: g-values (%/decade)")
-        rug(x = g_value.MC)
+        graphics::rug(x = g_value.MC)
         abline(v = c(g_value[["Q_0.16"]], g_value[["Q_0.84"]]),
                lty = 2,
                col = "darkgreen")

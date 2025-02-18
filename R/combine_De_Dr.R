@@ -722,7 +722,7 @@ if(plot){
     N <- length(De)
 
     ##plot with outliers
-    boxplot(fit_IAM$sig_a, outline = FALSE,
+    graphics::boxplot(fit_IAM$sig_a, outline = FALSE,
             col = (abs(as.numeric(
               1:length(De) %in% out
             ) - 1) + 2),
@@ -741,7 +741,7 @@ if(plot){
 
     ##plot sd of outliers
     if(length(out) > 0){
-      boxplot(fit_IAM$sig_a[, out],
+      graphics::boxplot(fit_IAM$sig_a[, out],
               outline = FALSE,
               names = out,
               ylab = "Individual sd [a.u.]",

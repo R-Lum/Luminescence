@@ -139,7 +139,7 @@ plot_OSLAgeSummary <- function(
   )
 
   ##add rug
-  if(plot_settings$rug) rug(A)
+  if (plot_settings$rug) graphics::rug(A)
 
   ## add text
   text(x = density_A$x[xy_id][1], y = density_A$y[xy_id][2], CI[1,1], pos = 2, cex = 0.6)

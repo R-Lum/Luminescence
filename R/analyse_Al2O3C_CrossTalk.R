@@ -272,7 +272,7 @@ analyse_Al2O3C_CrossTalk <- function(
     col.seq <- col.seq[["COLOUR"]][order(col.seq[["POSITION"]])]
 
     ##calculate model
-    fit <- lm(
+    fit <- stats::lm(
       formula = y ~ poly(x, 2, raw=TRUE),
       data = data.frame(y = APPARENT_DOSE$AD[order(APPARENT_DOSE$POSITION)], x = sort(APPARENT_DOSE$POSITION)))
 

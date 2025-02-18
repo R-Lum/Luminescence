@@ -499,7 +499,7 @@ plot_AbanicoPlot <- function(
   if(na.rm == TRUE) {
     for(i in seq_along(data)) {
 
-      n.NA <- sum(!complete.cases(data[[i]]))
+      n.NA <- sum(!stats::complete.cases(data[[i]]))
 
       if (n.NA > 0) {
         message("[plot_AbanicoPlot()] Data set (", i, "): ", n.NA,
@@ -1730,8 +1730,8 @@ plot_AbanicoPlot <- function(
   boxplot.data <- list(NA)
 
   for(i in 1:length(data)) {
-    boxplot.i <- boxplot(x = data[[i]][,3],
-                   plot = FALSE)
+    boxplot.i <- graphics::boxplot(x = data[[i]][, 3],
+                                   plot = FALSE)
     boxplot.data[[length(boxplot.data) + 1]] <- boxplot.i
   }
 
@@ -2128,7 +2128,7 @@ plot_AbanicoPlot <- function(
       cex.axis <- layout$abanico$font.size$ylab/12
       if(y.axis) {
         char.height <- par()$cxy[2]
-        tick.space <- axisTicks(usr = limits.y, log = FALSE)
+        tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
         tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
 
         ## this comes into play for panel plots, e.g., par(mfrow = c(4,4))
@@ -2243,7 +2243,7 @@ plot_AbanicoPlot <- function(
     ## plot values and optionally error bars
     if(error.bars == TRUE) {
       for(i in 1:length(data)) {
-        arrows(x0 = arrow.coords[[i]][,1],
+        graphics::arrows(x0 = arrow.coords[[i]][,1],
                x1 = arrow.coords[[i]][,2],
                y0 = arrow.coords[[i]][,3],
                y1 = arrow.coords[[i]][,4],
@@ -2872,7 +2872,7 @@ plot_AbanicoPlot <- function(
     ## plot y-axis
     if(y.axis[1]) {
       char.height <- par()$cxy[2]
-      tick.space <- axisTicks(usr = limits.y, log = FALSE)
+      tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
       tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
       if(tick.space < char.height * 1.7) {
         axis(side = 1,
@@ -2995,7 +2995,7 @@ plot_AbanicoPlot <- function(
     ## plot values and optionally error bars
     if(error.bars == TRUE) {
       for(i in 1:length(data)) {
-        arrows(y0 = arrow.coords[[i]][,1],
+        graphics::arrows(y0 = arrow.coords[[i]][,1],
                y1 = arrow.coords[[i]][,2],
                x0 = arrow.coords[[i]][,3],
                x1 = arrow.coords[[i]][,4],

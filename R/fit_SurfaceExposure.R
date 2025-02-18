@@ -300,7 +300,7 @@ fit_SurfaceExposure <- function(
 
   ## remove rows with NA
   if (anyNA(data)) {
-    data <- data[complete.cases(data), ]
+    data <- data[stats::complete.cases(data), ]
     if (settings$verbose)
       message("[fit_SurfaceExposure()] NA values in 'data' were removed")
   }
@@ -327,17 +327,17 @@ fit_SurfaceExposure <- function(
 
   ## Functions
   # w/o dose rate
-  fun <- formula(y ~ exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x)))
-  fun_global <- formula(y ~ exp(-sigmaphi * age[group] * 365.25*24*3600 * exp(-mu * x)))
+  fun <- y ~ exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x))
+  fun_global <- y ~ exp(-sigmaphi * age[group] * 365.25*24*3600 * exp(-mu * x))
 
   # w/ dose rate (Sohbati et al. 2012, eq 12)
   if (!is.null(Ddot))
     Ddot <- Ddot / 1000 / 365.25 / 24 / 60 / 60
 
-  fun_w_dr <- formula( y ~ (sigmaphi * exp(-mu * x) * exp(-(age * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
-                         (sigmaphi * exp(-mu * x) + Ddot/D0) )
-  fun_global_w_dr <- formula( y ~ (sigmaphi * exp(-mu * x) * exp(-(age[group] * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
-                                (sigmaphi * exp(-mu * x) + Ddot/D0) )
+  fun_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
+                         (sigmaphi * exp(-mu * x) + Ddot/D0)
+  fun_global_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age[group] * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
+                                (sigmaphi * exp(-mu * x) + Ddot/D0)
 
   ## start parameter
   start <- list(sigmaphi = if (is.null(sigmaphi)) 5.890e-09 else NULL,

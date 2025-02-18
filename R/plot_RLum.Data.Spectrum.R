@@ -602,7 +602,7 @@ plot_RLum.Data.Spectrum <- function(
       col.unique <- unique(col)
       if(length(col.unique) > 1){
         ##set colour function for replacement
-        colfunc <- colorRampPalette(col.unique)
+        colfunc <- grDevices::colorRampPalette(col.unique)
 
         ## index of the first occurrence of each colour besides the first,
         ## as we are trying to find where transition between colours occur
@@ -672,7 +672,7 @@ if(plot){
 
     ## Plot: perspective plot ----
     ## ==========================================================================#
-    pmat <- persp(
+    pmat <- graphics::persp(
       x, y, temp.xyz,
       shade = shade,
       axes = if(box[1] == "alternate") FALSE else axes,
@@ -842,7 +842,7 @@ if(plot){
   } else if (plot.type == "contour") {
     ## Plot: contour plot ----
     ## ==========================================================================#
-    contour(x,y,temp.xyz,
+    graphics::contour(x,y,temp.xyz,
             xlab = xlab,
             ylab = ylab,
             main = main,
@@ -865,7 +865,7 @@ if(plot){
     )
 
     if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
-      contour(x, y, temp.xyz,
+      graphics::contour(x, y, temp.xyz,
               col = if(is.null(extraArgs$contour.col)) rgb(1,1,1,0.8) else extraArgs$contour.col,
               labcex = 0.6 * cex,
               add = TRUE)
