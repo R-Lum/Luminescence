@@ -28,7 +28,7 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
+a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 \code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
 See details.}
 
@@ -58,7 +58,7 @@ If \code{TRUE} the console output will also show the logged values of the final 
 and confidence intervals (only applicable if \code{log = TRUE}).}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output (\code{TRUE}/\code{FALSE})}
+enable/disable the plot output.}
 
 \item{multicore}{\link{logical} (\emph{with default}):
 enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
@@ -80,17 +80,17 @@ Returns a plot (\emph{optional}) and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following elements:
 
-\item{.$summary}{\link{data.frame} summary of all relevant model results.}
-\item{.$data}{\link{data.frame} original input data}
-\item{args}{\link{list} used arguments}
-\item{call}{\link{call} the function call}
-\item{.$mle}{\link[bbmle:mle2]{bbmle::mle2} object containing the maximum log likelihood functions for all parameters}
-\item{BIC}{\link{numeric} BIC score}
-\item{.$confint}{\link{data.frame} confidence intervals for all parameters}
-\item{.$profile}{\link[stats:profile]{stats::profile} the log likelihood profiles}
-\item{.$bootstrap}{\link{list} bootstrap results}
+\item{$summary}{\link{data.frame} summary of all relevant model results.}
+\item{$data}{\link{data.frame} original input data}
+\item{$args}{\link{list} used arguments}
+\item{$call}{\link{call} the function call}
+\item{$mle}{\link[bbmle:mle2]{bbmle::mle2} object containing the maximum log likelihood functions for all parameters}
+\item{$BIC}{\link{numeric} BIC score}
+\item{$confint}{\link{data.frame} confidence intervals for all parameters}
+\item{$profile}{\link[stats:profile]{stats::profile} the log likelihood profiles}
+\item{$bootstrap}{\link{list} bootstrap results}
 
-The output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 Function to fit the (un-)logged three or four parameter minimum dose model
@@ -114,7 +114,7 @@ where \code{gamma=mu}. For \code{par=4} the 4-parameter model is applied instead
 In the original version of the minimum dose model, the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for \code{sigmab} must be provided as a ratio
-(e.g, 0.2 for 20 \\%). This model will be applied if \code{log = TRUE}.
+(e.g, 0.2 for 20 \%). This model will be applied if \code{log = TRUE}.
 
 If \code{log=FALSE}, the modified un-logged model will be applied instead. This
 has essentially the same form as the original version.  \code{gamma} and

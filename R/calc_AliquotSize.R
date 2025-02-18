@@ -34,7 +34,7 @@
 #'
 #' For the mean grain size random samples are taken first from
 #' \eqn{N(\mu_y, \sigma_y)}, where \eqn{\mu_y = mean.grain.size} and
-#' \eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95\% of all
+#' \eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95% of all
 #' grains are within the provided the grain size range. This effectively takes
 #' into account that after sieving the sample there is still a small chance of
 #' having grains smaller or larger than the used mesh sizes. For each random

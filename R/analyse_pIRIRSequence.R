@@ -57,7 +57,7 @@
 #' preheat as none TL, remove the TL step.)
 #'
 #' @param plot [logical] (*with default*):
-#' enables or disables plot output.
+#' enable/disable the plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot

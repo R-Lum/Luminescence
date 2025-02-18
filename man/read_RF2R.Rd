@@ -11,7 +11,7 @@ read_RF2R(file, verbose = TRUE, ...)
 names can be provided.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enable or disable verbose mode.}
+enable/disable output to the terminal.}
 
 \item{...}{not used, only for compatible reasons}
 }

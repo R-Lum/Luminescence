@@ -14,7 +14,8 @@ by \link{combine_De_Dr}. Alternatively, a \link{numeric} vector of a parameter f
 
 \item{digits}{\link{integer} (\emph{with default}): number of digits considered for the calculation}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable additional terminal output}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
 \item{...}{further arguments to modify the plot, supported: \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab},
 \code{main}, \code{lwd}, \code{lty}, \code{col}, \code{polygon_col}, \code{polygon_density}, \code{rug}}

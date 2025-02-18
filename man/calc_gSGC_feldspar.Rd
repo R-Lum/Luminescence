@@ -29,7 +29,7 @@ gSGC with the following columns \code{y1}, \code{y1_err}, \code{D1}
 \item{n.MC}{\link{numeric} (\emph{with default}): number of Monte-Carlo runs for the
 error calculation}
 
-\item{plot}{\link{logical} (\emph{with default}): enables/disables the control plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.

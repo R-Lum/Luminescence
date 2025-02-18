@@ -65,7 +65,7 @@ Can be provided as \code{list} if \code{file} is a \code{list}.
 Ignored if \code{verbose = FALSE}.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}. Ignored if \code{verbose = FALSE}.}
+enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
 
 \item{forced.VersionNumber}{\link{integer} (\emph{optional}):
 allows to cheat the version number check in the function by own values for
@@ -86,7 +86,7 @@ passed to the function \link{list.files} used internally to construct a \code{li
 of wanted files}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables verbose mode}
+enable/disable output to the terminal.}
 
 \item{...}{further arguments that will be passed to the function
 \link{Risoe.BINfileData2RLum.Analysis}. Please note that any matching argument

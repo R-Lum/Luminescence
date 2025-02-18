@@ -54,7 +54,7 @@
 #' Ignored if `verbose = FALSE`.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar]. Ignored if `verbose = FALSE`.
+#' enable/disable the progress bar. Ignored if `verbose = FALSE`.
 #'
 #' @param forced.VersionNumber [integer] (*optional*):
 #' allows to cheat the version number check in the function by own values for
@@ -75,7 +75,7 @@
 #' of wanted files
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables verbose mode
+#' enable/disable output to the terminal.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument

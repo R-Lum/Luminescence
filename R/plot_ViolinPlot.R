@@ -25,10 +25,10 @@
 #' function
 #'
 #' @param boxplot [logical] (*with default*):
-#' enable or disable boxplot
+#' enable/disable boxplot
 #'
 #' @param rug [logical] (*with default*):
-#' enable or disable rug
+#' enable/disable rug
 #'
 #' @param summary [character] (*optional*):
 #' add statistic measures of centrality and dispersion to the plot.
@@ -44,7 +44,8 @@
 #' exclude NA values from the data set prior to any further operations.
 #'
 #' @param ... further arguments and graphical parameters passed to
-#' [plot.default], [stats::density] and [boxplot]. See details for further information
+#' [plot.default], [stats::density] and [boxplot]. See details for further
+#' information.
 #'
 #' @note
 #' Although the code for this function was developed independently and just the idea for the plot

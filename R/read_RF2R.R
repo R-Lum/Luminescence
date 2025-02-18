@@ -11,7 +11,7 @@
 #' names can be provided.
 #'
 #' @param verbose [logical] (*with default*):
-#' enable or disable verbose mode.
+#' enable/disable output to the terminal.
 #'
 #' @param ... not used, only for compatible reasons
 #'

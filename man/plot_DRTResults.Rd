@@ -44,8 +44,8 @@ Set \code{error.range} to 0 to void plotting of error ranges.}
 optional vector of preheat temperatures to be used for grouping the De values.
 If specified, the temperatures are assigned to the x-axis.}
 
-\item{boxplot}{\link{logical}:
-optionally plot values, that are grouped by preheat temperature as boxplots.
+\item{boxplot}{\link{logical} (\emph{with default}):
+plot values that are grouped by preheat temperature as boxplots.
 Only possible when \code{preheat} vector is specified.}
 
 \item{mtext}{\link{character}:
@@ -84,7 +84,7 @@ use local graphical parameters for plotting, e.g. the plot is shown in one
 column and one row. If \code{par.local = FALSE}, global parameters are inherited,
 i.e. parameters provided via \code{par()} work}
 
-\item{na.rm}{\link{logical}: indicating whether \code{NA} values are
+\item{na.rm}{\link{logical} (\emph{with default}): indicating whether \code{NA} values are
 removed before plotting from the input data set}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}, supported are:

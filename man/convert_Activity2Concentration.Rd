@@ -19,7 +19,7 @@ specify unit of input data given in the dose rate data frame, choose between
 The default value is \code{"activity"}}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enable or disable verbose mode}
+enable/disable output to the terminal.}
 }
 \value{
 Returns an \linkS4class{RLum.Results} object with a \link{data.frame} containing

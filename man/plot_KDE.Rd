@@ -34,7 +34,7 @@ exclude NA values from the data set prior to any further operation.}
 \item{values.cumulative}{\link{logical} (\emph{with default}):
 show cumulative individual data.}
 
-\item{order}{\link{logical}:
+\item{order}{\link{logical} (\emph{with default}):
 Order data in ascending order.}
 
 \item{boxplot}{\link{logical} (\emph{with default}):
@@ -49,7 +49,7 @@ optionally add rug.}
 add statistic measures of centrality and dispersion to the plot. Can be one
 or more of several keywords. See details for available keywords.}
 
-\item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
+\item{summary.pos}{\link{numeric} or \link{character} (\emph{optional}):
 optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
@@ -64,7 +64,7 @@ See \link{calc_Statistics} for details.}
 \item{bw}{\link{character} (\emph{with default}):
 bin-width, chose a numeric value for manual setting.}
 
-\item{output}{\link{logical}:
+\item{output}{\link{logical} (\emph{with default}):
 Optional output of numerical plot parameters. These can be useful to
 reproduce similar plots. Default is \code{TRUE}.}
 

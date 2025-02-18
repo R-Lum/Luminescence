@@ -53,11 +53,11 @@ Factors to scale gamma dose rate values. Valid options are:
 \item \code{"Aitken1985"} (default): Table H1 in the appendix
 }}
 
-\item{verbose}{\link{logical} (\emph{optional}):
+\item{verbose}{\link{logical} (\emph{with default}):
 Show or hide console output (defaults to \code{TRUE}).}
 
-\item{plot}{\link{logical} (\emph{optional}):
-Show or hide the plot (defaults to \code{TRUE}).}
+\item{plot}{\link{logical} (\emph{with default}):
+Enable/disable the plot output (defaults to \code{TRUE}).}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
 Enables/disables single plot mode, i.e. one plot window per plot.}

@@ -83,11 +83,11 @@ Argument to be inserted for experimental application only!}
 for error estimation, see details.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \code{txtProgressBar}. If \code{verbose = FALSE} also no
+enable/disable the progress bar. If \code{verbose = FALSE} also no
 \code{txtProgressBar} is shown.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables terminal feedback.}
+enable/disable output to the terminal.}
 
 \item{...}{Further arguments to be passed (currently ignored).}
 }

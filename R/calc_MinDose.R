@@ -21,7 +21,7 @@
 #' In the original version of the minimum dose model, the basic data are the natural
 #' logarithms of the De estimates and relative standard errors of the De
 #' estimates. The value for `sigmab` must be provided as a ratio
-#' (e.g, 0.2 for 20 \%). This model will be applied if `log = TRUE`.
+#' (e.g, 0.2 for 20 %). This model will be applied if `log = TRUE`.
 #'
 #' If `log=FALSE`, the modified un-logged model will be applied instead. This
 #' has essentially the same form as the original version.  `gamma` and
@@ -102,7 +102,7 @@
 #' This value represents the expected overdispersion in the data should the sample be
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
-#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
+#' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' `sigmab` must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details.
 #'
@@ -132,7 +132,7 @@
 #' and confidence intervals (only applicable if `log = TRUE`).
 #'
 #' @param plot [logical] (*with default*):
-#' plot output (`TRUE`/`FALSE`)
+#' enable/disable the plot output.
 #'
 #' @param multicore [logical] (*with default*):
 #' enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
@@ -151,17 +151,17 @@
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
-#' \item{.$summary}{[data.frame] summary of all relevant model results.}
-#' \item{.$data}{[data.frame] original input data}
-#' \item{args}{[list] used arguments}
-#' \item{call}{[call] the function call}
-#' \item{.$mle}{[bbmle::mle2] object containing the maximum log likelihood functions for all parameters}
-#' \item{BIC}{[numeric] BIC score}
-#' \item{.$confint}{[data.frame] confidence intervals for all parameters}
-#' \item{.$profile}{[stats::profile] the log likelihood profiles}
-#' \item{.$bootstrap}{[list] bootstrap results}
+#' \item{$summary}{[data.frame] summary of all relevant model results.}
+#' \item{$data}{[data.frame] original input data}
+#' \item{$args}{[list] used arguments}
+#' \item{$call}{[call] the function call}
+#' \item{$mle}{[bbmle::mle2] object containing the maximum log likelihood functions for all parameters}
+#' \item{$BIC}{[numeric] BIC score}
+#' \item{$confint}{[data.frame] confidence intervals for all parameters}
+#' \item{$profile}{[stats::profile] the log likelihood profiles}
+#' \item{$bootstrap}{[list] bootstrap results}
 #'
-#' The output should be accessed using the function [get_RLum]
+#' The output should be accessed using the function [get_RLum].
 #'
 #' @note
 #' The default starting values for *gamma*, *mu*, *sigma*

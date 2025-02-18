@@ -49,7 +49,7 @@
 #' not contain any records. Set to `FALSE` to discard all empty objects.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar].
+#' enable/disable the progress bar.
 #'
 #' @return Returns an [RLum.Analysis-class] object.
 #'

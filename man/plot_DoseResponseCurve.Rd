@@ -35,7 +35,7 @@ single plot windows. Ignored if \code{plot_extended = FALSE}.}
 global scaling factor.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables terminal feedback.}
+enable/disable output to the terminal.}
 
 \item{...}{Further graphical parameters to be passed (supported:
 \code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{legend}, \code{reg_points_pch},

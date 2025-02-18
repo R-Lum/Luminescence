@@ -602,7 +602,7 @@ fancy_scientific <- function(l) {
 #' l <- list("a", NULL)
 #' .rm_NULL_elements(l)
 #'
-#' @return [list] without NULL elements, can be empty
+#' @return [list] without `NULL` elements, can be empty
 #'
 #' @md
 #' @noRd
@@ -815,7 +815,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param prob [numeric] (*with default*): sets aimed probability interval
 #'
-#' @param plot [logical] (*with default*): enables/disables additional control
+#' @param plot [logical] (*with default*): enable/disable additional control
 #' plot
 #'
 #' @param ... further arguments passed to [stats::density]

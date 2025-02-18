@@ -19,9 +19,10 @@ alternatively a \link{vector} of paths}
 \item{ITL_model}{\link{character} (\emph{with default}): type of model to fit,
 either \code{"GOK"} (default) or \code{"BTS"}}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal output}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
 \item{...}{further parameters passed to \link{fit_IsothermalHolding}}
 }

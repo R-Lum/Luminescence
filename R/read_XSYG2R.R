@@ -101,11 +101,11 @@
 #' optional regular expression if `file` is a link to a folder, to select just
 #' specific XSYG-files
 #'
-#' @param verbose [logical] (*with default*): enable or disable verbose mode. If verbose is `FALSE`
-#' the `txtProgressBar` is also switched off
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal. If verbose is `FALSE` the `txtProgressBar` is also switched off
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables `TRUE` or disables `FALSE` the progress bar during import
+#' enable/disable the progress bar during import. Ignored if `verbose = FALSE`.
 #'
 #' @return
 #' **Using the option `import = FALSE`**

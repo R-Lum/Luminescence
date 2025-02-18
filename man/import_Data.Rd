@@ -15,7 +15,8 @@ to determine the correct arguments)}
 \item{fastForward}{\link{logical} (\emph{with default}): option to create \linkS4class{RLum} objects
 during import or a \link{list} of such objects}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 }
 \value{
 Always returns a \link{list}; empty or filled with \linkS4class{RLum.Analysis} objects

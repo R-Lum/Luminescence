@@ -15,10 +15,10 @@
 #' the [RLum.Analysis-class] object can be returned for debugging purposes.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables terminal feedback
+#' enable/disable output to the terminal.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar].
+#' enable/disable [txtProgressBar].
 #'
 #' @param ... not in use, for compatibility reasons only
 #'

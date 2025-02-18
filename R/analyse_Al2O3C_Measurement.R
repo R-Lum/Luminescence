@@ -71,10 +71,11 @@
 #' values, `NA` and `NULL` (s. Details)
 #'
 #' @param verbose [logical] (*with default*):
-#' enable/disable verbose mode
+#' enable/disable output to the terminal.
 #'
-#' @param plot [logical] (*with default*): enable/disable plot output, if `object` is of type [list],
-#' a [numeric] vector can be provided to limit the plot output to certain aliquots
+#' @param plot [logical] (*with default*): enable/disable the plot output.
+#' If `object` is of type [list], a numeric vector can be provided to limit
+#' the plot output to certain aliquots.
 #'
 #' @param ... further arguments that can be passed to the plot output, supported are `norm`, `main`, `mtext`,
 #' `title` (for self-call mode to specify, e.g., sample names)

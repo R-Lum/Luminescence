@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert_RLum2Risoe.BINfileData.R
 \name{convert_RLum2Risoe.BINfileData}
 \alias{convert_RLum2Risoe.BINfileData}
-\title{Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects}
+\title{Converts RLum.Analysis and RLum.Data.Curve objects to RLum2Risoe.BINfileData objects}
 \usage{
 convert_RLum2Risoe.BINfileData(object, keep.position.number = FALSE)
 }
@@ -17,10 +17,12 @@ position number or re-calculate the numbers to avoid doubling}
 The function returns a \linkS4class{Risoe.BINfileData} object.
 }
 \description{
-The functions converts \linkS4class{RLum.Analysis} and \linkS4class{RLum.Data.Curve} objects and a \link{list} of those
-to \linkS4class{Risoe.BINfileData} objects. The function intends to provide a minimum of compatibility
-between both formats. The created \linkS4class{RLum.Analysis} object can be later exported to a
-BIN-file using the function \link{write_R2BIN}.
+The functions converts \linkS4class{RLum.Analysis} and
+\linkS4class{RLum.Data.Curve} objects (or a \link{list} of such objects) to
+\linkS4class{Risoe.BINfileData} objects. The function intends to provide a
+minimum of compatibility between both formats. The created
+\linkS4class{RLum.Analysis} object can be later exported to a BIN-file using
+function \link{write_R2BIN}.
 }
 \note{
 The conversion can be never perfect. The \code{RLum} objects may contain information which are

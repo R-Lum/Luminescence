@@ -26,10 +26,10 @@
 #' exclude NA values from the data set prior to any further operation.
 #'
 #' @param plot [logical] (*with default*):
-#' enables/disables plot output
+#' enable/disable the plot output.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables/disables terminal output
+#' enable/disable output to the terminal.
 #'
 #' @param ... further arguments that can be passed to [graphics::hist]. As three plots
 #' are returned all arguments need to be provided as [list],

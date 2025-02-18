@@ -30,9 +30,10 @@ set \code{RLum} output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}. Ignored if \code{verbose = FALSE}.}
+enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enables or disables verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
 \item{...}{not used, for compatibility reasons only}
 }

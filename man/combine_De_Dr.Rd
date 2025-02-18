@@ -42,7 +42,9 @@ Please see details for further information.}
 \item{outlier_method}{\link{character} (\emph{with default}): select the outlier detection
 method, either \code{"default"} or \code{"RousseeuwCroux1993"}. See details for further information.}
 
-\item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output}
+\item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enable/disable the
+outlier analysis plot. Note: the outlier analysis will happen independently
+of the plot output.}
 
 \item{method_control}{\link{list} (\emph{with default}): named \link{list} of further parameters passed down
 to the \link[rjags:rjags-package]{rjags::rjags} modelling}
@@ -50,9 +52,10 @@ to the \link[rjags:rjags-package]{rjags::rjags} modelling}
 \item{par_local}{\link{logical} (\emph{with default}): if set to \code{TRUE} the function uses its
 own \link[graphics:par]{graphics::par} settings (which will end in two plots next to each other)}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
 \item{...}{a few further arguments to fine-tune the plot output such as
 \code{cdf_ADr_quantiles} (\code{TRUE}/\code{FALSE}), \code{legend.pos}, \code{legend} (\code{TRUE}/\code{FALSE})}

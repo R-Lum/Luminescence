@@ -37,10 +37,10 @@ optional parameters to control the calculation.
 See details for further explanations}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enable/disable verbose mode}
+enable/disable output to the terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enable/disable plot output}
+enable/disable the plot output.}
 
 \item{...}{further arguments that can be passed to the plot output}
 }

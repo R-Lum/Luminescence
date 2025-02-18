@@ -16,8 +16,9 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
-sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
+a fraction, e.g. 0.2 (= 20\%). If the un-logged model is used (\code{log = FALSE}),
+\code{sigmab} must be provided in the same absolute units of the De values
+(seconds or Gray).}
 
 \item{log}{\link{logical} (\emph{with default}):
 fit the (un-)logged central age model to De data}
@@ -29,12 +30,12 @@ Returns a terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following element:
 
-\item{.$summary}{\link{data.frame} summary of all relevant model results.}
-\item{.$data}{\link{data.frame} original input data}
-\item{.$args}{\link{list} used arguments}
-\item{.$call}{\link{call} the function call}
+\item{$summary}{\link{data.frame} summary of all relevant model results.}
+\item{$data}{\link{data.frame} original input data}
+\item{$args}{\link{list} used arguments}
+\item{$call}{\link{call} the function call}
 
-The output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 Function to calculate the common dose of a De distribution.

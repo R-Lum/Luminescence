@@ -129,7 +129,7 @@
 #' minimum (`norm = "min"`) count values. The normalisation is applied after the binning.
 #'
 #' @param rug [logical] (*with default*):
-#' enables or disables colour rug. Currently only implemented for plot
+#' enable/disable colour rug. Currently only implemented for plot
 #' type `multiple.lines` and `single`
 #'
 #' @param limit_counts [numeric] (*optional*):
@@ -137,7 +137,7 @@
 #' this threshold will be replaced by this threshold. This is helpful
 #' especially in case of TL-spectra.
 #'
-#' @param xaxis.energy [logical] (*with default*): enables or disables energy instead of
+#' @param xaxis.energy [logical] (*with default*): enable/disable energy instead of
 #' wavelength axis. For the conversion the function [convert_Wavelength2Energy] is used.
 #'
 #' **Note:** Besides being used in setting the axis, with this option the
@@ -147,10 +147,11 @@
 #' possibility to provide own legend text. This argument is only considered for
 #' plot types providing a legend, e.g. `plot.type="transect"`
 #'
-#' @param plot [logical] (*with default*): enables/disables plot output. If the plot
-#' output is disabled, the [matrix] used for the plotting and the calculated colour values
-#' (as attributes) are returned. This way, the (binned, transformed etc.) output can
-#' be used in other functions and packages, such as plotting with the package `'plot3D'`
+#' @param plot [logical] (*with default*): enable/disable the plot output. If
+#' the plot output is disabled, the [matrix] used for the plotting and the
+#' calculated colour values (as attributes) are returned. This way, the
+#' (binned, transformed etc.) output can be used in other functions and
+#' packages, such as plotting with the package `'plot3D'`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.

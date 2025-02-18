@@ -63,20 +63,20 @@
 #' integral.
 #'
 #' @param show_ShineDownCurve [logical] (*with default*):
-#' enables or disables shine down curve in the plot output
+#' enable/disable shine down curve in the plot output.
 #'
 #' @param respect_RC.Status [logical] (*with default*):
-#'  remove De-values with 'FAILED' RC.Status from the plot
-#'  (cf. [analyse_SAR.CWOSL] and [analyse_pIRIRSequence])
+#' remove De values with 'FAILED' RC.Status from the plot (cf. [analyse_SAR.CWOSL]
+#' and [analyse_pIRIRSequence]).
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables terminal feedback
+#' enable/disable output to the terminal.
 #'
-#' @param multicore [logical] (*with default*) : enables/disables multi core
+#' @param multicore [logical] (*with default*) : enable/disable multi core
 #' calculation if `object` is a [list] of [RLum.Analysis-class] objects. Can be an
 #' [integer] specifying the number of cores
 #'
-#' @param plot [logical] (*with default*): enables/disables plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #' Disabling the plot is useful in cases where the output need to be processed
 #' differently.
 #'

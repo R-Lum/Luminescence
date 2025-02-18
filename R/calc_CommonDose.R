@@ -25,8 +25,9 @@
 #' This value represents the expected overdispersion in the data should the sample be
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
-#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
-#' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
+#' a fraction, e.g. 0.2 (= 20%). If the un-logged model is used (`log = FALSE`),
+#' `sigmab` must be provided in the same absolute units of the De values
+#' (seconds or Gray).
 #'
 #' @param log [logical] (*with default*):
 #' fit the (un-)logged central age model to De data
@@ -38,12 +39,12 @@
 #' [RLum.Results-class] object is returned containing the
 #' following element:
 #'
-#' \item{.$summary}{[data.frame] summary of all relevant model results.}
-#' \item{.$data}{[data.frame] original input data}
-#' \item{.$args}{[list] used arguments}
-#' \item{.$call}{[call] the function call}
+#' \item{$summary}{[data.frame] summary of all relevant model results.}
+#' \item{$data}{[data.frame] original input data}
+#' \item{$args}{[list] used arguments}
+#' \item{$call}{[call] the function call}
 #'
-#' The output should be accessed using the function [get_RLum]
+#' The output should be accessed using the function [get_RLum].
 #'
 #' @section Function version: 0.1.1
 #'

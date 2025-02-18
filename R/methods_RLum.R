@@ -65,10 +65,10 @@
 #' of the object structure. Works also on [RLum.Analysis-class] objects.
 #'
 #' @param row.names [logical] (*with default*):
-#' enables or disables row names (`as.data.frame`)
+#' enable/disable row names (`as.data.frame`).
 #'
 #' @param recursive [logical] (*with default*):
-#' enables or disables further sub-setting (`unlist`)
+#' enable/disable further sub-setting (`unlist`).
 #'
 #' @param optional [logical] (*with default*):
 #' logical. If TRUE, setting row names and converting column names

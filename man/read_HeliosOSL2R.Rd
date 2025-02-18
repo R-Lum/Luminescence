@@ -10,7 +10,8 @@ read_HeliosOSL2R(file, verbose = TRUE, ...)
 \item{file}{\link{character} (\strong{required}): path to file to be imported. Can be a \link{list}
 for further processing}
 
-\item{verbose}{\link{logical}: enable/disable terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
 \item{...}{not in use, for compatibility reasons only}
 }

@@ -18,10 +18,10 @@ if the input is a DAT-file (binary) a \link[data.table:data.table]{data.table::d
 the \linkS4class{RLum.Analysis} object can be returned for debugging purposes.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables terminal feedback}
+enable/disable output to the terminal.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}.}
+enable/disable \link{txtProgressBar}.}
 
 \item{...}{not in use, for compatibility reasons only}
 }

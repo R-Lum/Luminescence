@@ -33,13 +33,13 @@
 #' **Parameter** \tab **Type** \tab **Description**\cr
 #' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::FDist])\cr
 #' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
-#' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
-#' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control]) \cr
-#' `weights` \tab [logical] \tab enables/disables the weighting for the start parameter estimation and fitting (see equations above).
+#' `DEoptim.trace` \tab [logical] \tab enable/disable the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
+#' `DEoptim.itermax` \tab [logical] \tab control the number of the allowed generations (cf. [DEoptim::DEoptim.control]) \cr
+#' `weights` \tab [logical] \tab enable/disable the weighting for the start parameter estimation and fitting (see equations above).
 #' The default values is `TRUE` \cr
-#' `nlsLM.trace` \tab [logical] \tab enables/disables trace mode for the nls fitting ([minpack.lm::nlsLM]), can be used to identify convergence problems, default is `FALSE` \cr
-#' `nlsLM.upper` \tab [logical] \tab enables/disables upper parameter boundary, default is `TRUE` \cr
-#' `nlsLM.lower` \tab [logical] \tab enables/disables lower parameter boundary, default is `TRUE`
+#' `nlsLM.trace` \tab [logical] \tab enable/disable trace mode for the nls fitting ([minpack.lm::nlsLM]), can be used to identify convergence problems, default is `FALSE` \cr
+#' `nlsLM.upper` \tab [logical] \tab enable/disable upper parameter boundary, default is `TRUE` \cr
+#' `nlsLM.lower` \tab [logical] \tab enable/disable lower parameter boundary, default is `TRUE`
 #' }
 #'
 #' @param object [RLum.Data.Curve-class], [RLum.Analysis-class], [data.frame] or [matrix] (**required**):
@@ -62,13 +62,15 @@
 #' @param method_control [list] (*optional*): Named to allow a more fine control of the fitting process. See details
 #' for allowed options.
 #'
-#' @param plot [logical] (*with default*): Enable/disable plot output
+#' @param plot [logical] (*with default*): Enable/disable the plot output.
 #'
-#' @param plot_simple [logical] (*with default*): Enable/disable reduced plot output. If `TRUE`, no
+#' @param plot_simple [logical] (*with default*): Enable/disable the reduced
+#' plot output. If `TRUE`, no
 #' residual plot is shown, however, plot output can be combined using the standard R layout options,
 #' such as `par(mfrow = c(2,2))`.
 #'
-#' @param verbose [logical] (*with default*): Enable/disable terminal feedback
+#' @param verbose [logical] (*with default*): Enable/disable output to the
+#' terminal.
 #'
 #' @param ... parameters passed to [plot.default] to control the plot output, supported are:
 #' `main`, `xlab`, `ylab`, `log`, `xlim`, `ylim`, `col`, `lty`, `legend.pos`, `legend.text`. If the input

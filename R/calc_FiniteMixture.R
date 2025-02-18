@@ -33,7 +33,7 @@
 #' `pdf.sigma = "se"` the standard error of each component is taken
 #' instead.\cr
 #' The stacked [graphics::barplot] shows the proportion of each component (in
-#' per cent) calculated by the FFM. The last plot shows the achieved BIC scores
+#' per cent) calculated by the FMM. The last plot shows the achieved BIC scores
 #' and maximum log-likelihood estimates for each iteration of k.
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
@@ -102,7 +102,7 @@
 #' `mle` and `grain.probability` are lists containing matrices of the
 #' results for each iteration of the model.
 #'
-#' The output should be accessed using the function [get_RLum]
+#' The output should be accessed using the function [get_RLum].
 #'
 #' @section Function version: 0.4.2
 #'

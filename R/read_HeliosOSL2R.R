@@ -6,7 +6,8 @@
 #'@param file [character] (**required**): path to file to be imported. Can be a [list]
 #'for further processing
 #'
-#'@param verbose [logical]: enable/disable terminal feedback
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #'@param ... not in use, for compatibility reasons only
 #'
@@ -152,4 +153,3 @@ read_HeliosOSL2R <- function(
 
   return(object)
 }
-

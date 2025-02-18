@@ -35,7 +35,7 @@
 #' See details in [fit_DoseResponseCurve].
 #'
 #' @param output.plot [logical] (*with default*):
-#' plot output (`TRUE/FALSE`).
+#' enable/disable the plot output.
 #'
 #' @param output.plotExtended [logical] (*with default*):
 #' If' `TRUE`, 3 plots on one plot area are provided:
@@ -53,7 +53,7 @@
 #' global scaling factor.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables terminal feedback.
+#' enable/disable output to the terminal.
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of MC runs for error calculation.

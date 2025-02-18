@@ -30,7 +30,7 @@
 #' files are imported.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables verbose mode.
+#' enable/disable output to the terminal.
 #'
 #' @param ... currently not used.
 #'

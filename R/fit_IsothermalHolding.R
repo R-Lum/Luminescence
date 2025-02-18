@@ -14,15 +14,16 @@
 #' of rho prime values (one for each sample) or an [RLum.Results-class] object
 #' produced by [analyse_FadingMeasurement]
 #'
-#' @param plot [logical] (*with default*): enable/disable plot
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#' @param verbose [logical] (*with default*): enable/disable terminal feedback
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
-#' @param txtProgressBar [logical]: enable/disable the progress bar. Ignored
-#' if `verbose = FALSE`.
+#' @param txtProgressBar [logical] (*with default*): enable/disable the
+#' progress bar. Ignored if `verbose = FALSE`.
 #'
-#' @param trace [logical] (*with default*): enables/disables trace mode for
-#' the nls fitting ([minpack.lm::nlsLM])
+#' @param trace [logical] (*with default*): enable/disable tracing during
+#' the nls fitting ([minpack.lm::nlsLM]).
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.

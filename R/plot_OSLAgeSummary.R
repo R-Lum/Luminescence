@@ -11,7 +11,8 @@
 #'
 #'@param digits [integer] (*with default*): number of digits considered for the calculation
 #'
-#'@param verbose [logical] (*with default*): enable/disable additional terminal output
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #'@param ... further arguments to modify the plot, supported: `xlim`, `ylim`, `xlab`, `ylab`,
 #' `main`, `lwd`, `lty`, `col`, `polygon_col`, `polygon_density`, `rug`

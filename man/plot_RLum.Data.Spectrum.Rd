@@ -70,7 +70,7 @@ Binning is applied after the background subtraction.}
 minimum (\code{norm = "min"}) count values. The normalisation is applied after the binning.}
 
 \item{rug}{\link{logical} (\emph{with default}):
-enables or disables colour rug. Currently only implemented for plot
+enable/disable colour rug. Currently only implemented for plot
 type \code{multiple.lines} and \code{single}}
 
 \item{limit_counts}{\link{numeric} (\emph{optional}):
@@ -78,7 +78,7 @@ value to limit all count values to this value, i.e. all count values above
 this threshold will be replaced by this threshold. This is helpful
 especially in case of TL-spectra.}
 
-\item{xaxis.energy}{\link{logical} (\emph{with default}): enables or disables energy instead of
+\item{xaxis.energy}{\link{logical} (\emph{with default}): enable/disable energy instead of
 wavelength axis. For the conversion the function \link{convert_Wavelength2Energy} is used.
 
 \strong{Note:} Besides being used in setting the axis, with this option the
@@ -88,10 +88,11 @@ the spectrum is recalculated in terms of intensity, see details.}
 possibility to provide own legend text. This argument is only considered for
 plot types providing a legend, e.g. \code{plot.type="transect"}}
 
-\item{plot}{\link{logical} (\emph{with default}): enables/disables plot output. If the plot
-output is disabled, the \link{matrix} used for the plotting and the calculated colour values
-(as attributes) are returned. This way, the (binned, transformed etc.) output can
-be used in other functions and packages, such as plotting with the package \code{'plot3D'}}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output. If
+the plot output is disabled, the \link{matrix} used for the plotting and the
+calculated colour values (as attributes) are returned. This way, the
+(binned, transformed etc.) output can be used in other functions and
+packages, such as plotting with the package \code{'plot3D'}}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function.}

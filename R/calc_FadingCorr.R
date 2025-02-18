@@ -122,11 +122,10 @@
 #' This argument is passed to the function [stats::uniroot] used for solving the equation.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar]
+#' enable/disable the progress bar.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables terminal output
-#'
+#' enable/disable output to the terminal.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].\cr
 #'

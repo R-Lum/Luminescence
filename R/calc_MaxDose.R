@@ -1,3 +1,4 @@
+
 #' Apply the maximum age model to a given De distribution
 #'
 #' Function to fit the maximum age model to De data. This is a wrapper function
@@ -34,7 +35,7 @@
 #' This value represents the expected overdispersion in the data should the sample be
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
-#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
+#' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details ([calc_MinDose].
 #'
@@ -52,7 +53,7 @@
 #' length three in the form of `c(gamma, sigma, p0)`.
 #'
 #' @param plot [logical] (*with default*):
-#' plot output (`TRUE`/`FALSE`)
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments for bootstrapping (`bs.M, bs.N, bs.h, sigmab.sd`).
 #' See details for their usage.

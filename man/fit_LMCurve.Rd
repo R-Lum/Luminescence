@@ -56,7 +56,7 @@ sample code used for the plot and the optional output table (mtext).}
 additional identifier used as column header for the table output.}
 
 \item{LED.power}{\link{numeric} (\emph{with default}):
-LED power (max.) used for intensity ramping in mW/cm^2.
+LED power (max.) used for intensity ramping in mW/cm².
 \strong{Note:} This value is used for the calculation of the absolute
 photoionisation cross section.}
 
@@ -186,7 +186,7 @@ process may be time consuming.
 
 \strong{Goodness of fit}
 
-The goodness of the fit is given by a pseudo-R^2 value (pseudo coefficient of
+The goodness of the fit is given by a pseudo-R² value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 
 \deqn{pseudoR^2 = 1 - RSS/TSS}
@@ -205,8 +205,8 @@ can be estimated by using internal R functions like \link{summary}. See the
 \emph{For more details on the nonlinear regression in R, see Ritz & Streibig (2008).}
 }
 \note{
-The pseudo-R^2 may not be the best parameter to describe the goodness
-of the fit. The trade off between the \code{n.components} and the pseudo-R^2
+The pseudo-R² may not be the best parameter to describe the goodness
+of the fit. The trade off between the \code{n.components} and the pseudo-R²
 value currently remains unconsidered.
 
 The function \strong{does not} ensure that the fitting procedure has reached a

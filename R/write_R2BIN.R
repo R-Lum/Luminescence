@@ -38,7 +38,7 @@
 #' enable/disable output to the terminal.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar]. Ignored if `verbose = FALSE`.
+#' enable/disable the progress bar. Ignored if `verbose = FALSE`.
 #'
 #' @return Write a binary file and returns the name and path of the file as [character].
 #'

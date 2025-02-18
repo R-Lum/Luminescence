@@ -13,9 +13,10 @@ column. The function supports a list of allowed input objects.}
 
 \item{digits}{\link{integer} (\emph{with default}): set the number of digits on the returned energy axis}
 
-\item{order}{\link{logical} (\emph{with default}): enables/disables sorting of the values in ascending energy
-order. After the conversion the longest wavelength has the lowest energy value and the shortest
-wavelength the highest. While this is correct, some R functions expect increasing x-values.}
+\item{order}{\link{logical} (\emph{with default}): enable/disable sorting of the
+values in ascending energy order. After the conversion, the longest
+wavelength has the lowest energy value and the shortest wavelength the
+highest. While this is correct, some R functions expect increasing x-values.}
 }
 \value{
 The same object class as provided as input is returned.

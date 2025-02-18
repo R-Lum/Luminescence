@@ -18,8 +18,8 @@ and will forcefully coerced into such numbers using \code{as.integer()} regardle
 \code{"sum"}.
 Pixel values are conveniently summarised using the above defined keyword.}
 
-\item{plot}{\link{logical} (\emph{optional}): enables/disables control plot. Only the first
-image frame is shown}
+\item{plot}{\link{logical} (\emph{optional}): enable/disable the plot output. Only
+the first image frame is shown.}
 }
 \value{
 \linkS4class{RLum.Results} object with the following elements:

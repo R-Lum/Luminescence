@@ -22,7 +22,7 @@
 #' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
 #'
-#' The output should be accessed using the function [get_RLum]
+#' The output should be accessed using the function [get_RLum].
 #'
 #' @section Function version: 0.3.0
 #'

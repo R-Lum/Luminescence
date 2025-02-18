@@ -44,7 +44,7 @@ traces the fitting process on the terminal.}
 calculate 1-sigma error range of components using \link[stats:confint]{stats::confint}}
 
 \item{LED.power}{\link{numeric} (\emph{with default}):
-LED power (max.) used for intensity ramping in mW/cm^2.
+LED power (max.) used for intensity ramping in mW/cm².
 \strong{Note:} The value is used for the calculation of the absolute
 photoionisation cross section.}
 
@@ -150,7 +150,7 @@ provide start parameters.
 
 \strong{Goodness of fit}
 
-The goodness of the fit is given as pseudoR^2 value (pseudo coefficient of
+The goodness of the fit is given as pseudoR² value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 
 \deqn{pseudoR^2 = 1 - RSS/TSS}
@@ -173,8 +173,8 @@ for more information.
 \strong{Beta version - This function has not been properly tested yet and}
 \strong{should therefore not be used for publication purposes!}
 
-The pseudo-R^2 may not be the best parameter to describe the goodness of the
-fit. The trade off between the \code{n.components} and the pseudo-R^2 value
+The pseudo-R² may not be the best parameter to describe the goodness of the
+fit. The trade off between the \code{n.components} and the pseudo-R² value
 is currently not considered.
 
 The function \strong{does not} ensure that the fitting procedure has reached a

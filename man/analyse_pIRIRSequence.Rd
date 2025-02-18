@@ -50,7 +50,7 @@ the analysis (Note: If a preheat without PMT measurement is used, i.e.
 preheat as none TL, remove the TL step.)}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables or disables plot output.}
+enable/disable the plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot

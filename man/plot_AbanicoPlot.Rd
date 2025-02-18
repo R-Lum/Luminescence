@@ -52,7 +52,7 @@ exclude NA values from the data set prior to any further operations.}
 \item{log.z}{\link{logical} (\emph{with default}):
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
 
-\item{z.0}{\link{character} or \link{numeric}:
+\item{z.0}{\link{character} or \link{numeric} (\emph{with default}):
 User-defined central value, used for centring of data. One out of \code{"mean"},
 \code{"mean.weighted"} and \code{"median"} or a numeric value (not its logarithm).
 Default is \code{"mean.weighted"}.}
@@ -72,14 +72,14 @@ The default is \code{"qr"}. Note that \code{"sd"} and \code{"2sd"} are only mean
 combination with \code{"z.0 = 'mean'"} because the unweighted mean is used to
 centre the polygon.}
 
-\item{plot.ratio}{\link{numeric}:
+\item{plot.ratio}{\link{numeric} (\emph{with default}):
 Relative space, given to the radial versus the cartesian plot part,
 default is \code{0.75}.}
 
-\item{rotate}{\link{logical}:
+\item{rotate}{\link{logical} (\emph{with default}):
 Option to turn the plot by 90 degrees.}
 
-\item{mtext}{\link{character}:
+\item{mtext}{\link{character} (\emph{optional}):
 additional text below the plot title.}
 
 \item{summary}{\link{character} (\emph{optional}):
@@ -120,28 +120,29 @@ One or more out of the following:
 \item \code{"median"}.
 }}
 
-\item{rug}{\link{logical}:
+\item{rug}{\link{logical} (\emph{with default}):
 Option to add a rug to the KDE part, to indicate the location of individual values.}
 
-\item{kde}{\link{logical}:
+\item{kde}{\link{logical} (\emph{with default}):
 Option to add a KDE plot to the dispersion part, default is \code{TRUE}.}
 
-\item{hist}{\link{logical}:
+\item{hist}{\link{logical} (\emph{with default}):
 Option to add a histogram to the dispersion part. Only meaningful when not
 more than one data set is plotted.}
 
-\item{dots}{\link{logical}:
+\item{dots}{\link{logical} (\emph{with default}):
 Option to add a dot plot to the dispersion part. If number of dots exceeds
 space in the dispersion part, a square indicates this.}
 
-\item{boxplot}{\link{logical}:
+\item{boxplot}{\link{logical} (\emph{with default}):
 Option to add a boxplot to the dispersion part, default is \code{FALSE}.}
 
-\item{y.axis}{\link{logical}: Option to hide standard y-axis labels and show 0 only.
+\item{y.axis}{\link{logical} (\emph{with default}): Option to hide standard y-axis
+labels and show 0 only.
 Useful for data with small scatter. If you want to suppress the y-axis entirely
 please use \code{yaxt == 'n'} (the standard \link[graphics:par]{graphics::par} setting) instead.}
 
-\item{error.bars}{\link{logical}:
+\item{error.bars}{\link{logical} (\emph{with default}):
 Option to show De-errors as error bars on De-points. Useful in combination
 with \verb{y.axis = FALSE, bar.col = "none"}.}
 
@@ -197,7 +198,7 @@ Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \
 a vector of length two, specifying the upper and lower x-axis labels.}
 }
 \value{
-returns a plot object and, optionally, a list with plot calculus data.
+Returns a plot object and, optionally, a list with plot calculus data.
 }
 \description{
 A plot is produced which allows comprehensive presentation of data precision
@@ -239,7 +240,7 @@ this appears appropriate.
 
 The proportion of the polar part and the cartesian part of the Abanico Plot
 can be modified for display reasons (\code{plot.ratio = 0.75}). By default,
-the polar part spreads over 75 \\% and leaves 25 \\% for the part that
+the polar part spreads over 75 \% and leaves 25 \% for the part that
 shows the KDE graph.
 
 A statistic summary, i.e. a collection of statistic measures of

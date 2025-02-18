@@ -51,7 +51,7 @@ function used for fitting. Possible options are:
 See details in \link{fit_DoseResponseCurve}.}
 
 \item{output.plot}{\link{logical} (\emph{with default}):
-plot output (\code{TRUE/FALSE}).}
+enable/disable the plot output.}
 
 \item{output.plotExtended}{\link{logical} (\emph{with default}):
 If' \code{TRUE}, 3 plots on one plot area are provided:
@@ -71,7 +71,7 @@ single plot windows. Requires \code{plotExtended = TRUE}.}
 global scaling factor.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables terminal feedback.}
+enable/disable output to the terminal.}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
 number of MC runs for error calculation.}

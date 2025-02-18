@@ -55,10 +55,11 @@ set test parameters. Supported parameters are: \code{TL_peak_shift} All input: \
 values, \code{NA} and \code{NULL} (s. Details)}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enable/disable verbose mode}
+enable/disable output to the terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output, if \code{object} is of type \link{list},
-a \link{numeric} vector can be provided to limit the plot output to certain aliquots}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.
+If \code{object} is of type \link{list}, a numeric vector can be provided to limit
+the plot output to certain aliquots.}
 
 \item{...}{further arguments that can be passed to the plot output, supported are \code{norm}, \code{main}, \code{mtext},
 \code{title} (for self-call mode to specify, e.g., sample names)}

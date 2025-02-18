@@ -65,7 +65,7 @@ returned containing the following elements:
 \item{LnLxTnTx.values}{\link{data.frame} of all calculated \code{Lx/Tx} values including signal, background counts and the dose points.}
 \item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
 
-\strong{note:} the output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function performs a SAR TL analysis on a

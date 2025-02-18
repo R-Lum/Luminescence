@@ -81,9 +81,9 @@
 #' `correct_onset` \tab `SLIDE` or `VSLIDE` \tab The logical argument shifts the curves along the x-axis by the first channel,
 #' as light is expected in the first channel. The default value is `TRUE`.\cr
 #' `show_density` \tab `SLIDE` or `VSLIDE` \tab [logical] (*with default*)
-#' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+#' enable/disable KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
 #' `show_fit` \tab `SLIDE` or `VSLIDE` \tab [logical] (*with default*)
-#' enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
+#' enable/disable the plot of the fitted curve routinely obtained during the evaluation.\cr
 #' `n.MC` \tab `SLIDE` or `VSLIDE` \tab [integer] (*with default*):
 #' This controls the number of MC runs within the sliding (assessing the possible minimum values).
 #' The default `n.MC = 1000`. Note: This parameter is not the same as controlled by the
@@ -222,10 +222,10 @@
 #' MC runs. Note: Large values will significantly increase the computation time
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables `TRUE` or disables `FALSE` the progress bar during MC runs
+#' enables/disable the progress bar during MC runs.
 #'
 #' @param plot [logical] (*with default*):
-#' plot output (`TRUE` or `FALSE`)
+#' enable/disable the plot output.
 #'
 #' @param plot_reduced [logical] (*optional*):
 #' provides a reduced plot output if enabled to allow common R plot combinations,
@@ -315,7 +315,7 @@
 #'
 #' The original function call ([methods::language-class]-object)
 #'
-#' The output (`data`) should be accessed using the function [get_RLum]
+#' The output (`data`) should be accessed using the function [get_RLum].
 #'
 #' ------------------------\cr
 #' `[ PLOT OUTPUT ]`\cr

@@ -91,9 +91,10 @@ before passing the input object.}
 option to provide an outer margin \code{mtext}. Can be a \link{list} of \link{character}s,
 if \code{object} is of type \link{list}}
 
-\item{plot}{\link{logical} (\emph{with default}): enables or disables plot output.}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{plot_onePage}{\link{logical} (\emph{with default}): enables or disables on page plot output}
+\item{plot_onePage}{\link{logical} (\emph{with default}): enable/disable one page
+plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot windows.

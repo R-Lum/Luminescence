@@ -149,11 +149,11 @@
 #' `pattern` \tab [read_BIN2R] \tab `TRUE` \tab select BIN-file by name pattern\cr
 #' `position` \tab [read_BIN2R] \tab `NULL` \tab limit import to a specific position\cr
 #' `background.count.distribution` \tab [calc_OSLLxTxRatio] \tab `"non-poisson"` \tab set assumed count distribution\cr
-#' `fit.weights` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables fit weights\cr
-#' `fit.bounds` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables fit bounds\cr
+#' `fit.weights` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable fit weights\cr
+#' `fit.bounds` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable fit bounds\cr
 #' `n.MC` \tab [plot_GrowthCurve] \tab `100` \tab number of MC runs for error calculation\cr
-#' `output.plot` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables dose response curve plot\cr
-#' `output.plotExtended` \tab [plot_GrowthCurve] \tab `TRUE` \tab enables / disables extended dose response curve plot\cr
+#' `output.plot` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable dose response curve plot\cr
+#' `output.plotExtended` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable extended dose response curve plot\cr
 #' `recordType` \tab [get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
 #' }
 #'
@@ -258,16 +258,16 @@
 #' as comparison obtained using baSAR. Allowed input is `'abanico'` or `'kde'`. If set to `NULL` nothing is plotted.
 #'
 #' @param plot [logical] (*with default*):
-#' enables or disables plot output
+#' enable/disable the plot output.
 #'
 #' @param plot_reduced [logical] (*with default*):
-#' enables or disables the advanced plot output
+#' enable/disable the advanced plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
-#' enables or disables single plots or plots arranged by `analyse_baSAR`
+#' enable/disable single plots or plots arranged by `analyse_baSAR`.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables verbose mode
+#' enable/disable output to the terminal.
 #'
 #' @param ... parameters that can be passed to the function [calc_OSLLxTxRatio]
 #' (almost full support), [data.table::fread] (`skip`), [read_BIN2R] (`n.records`,

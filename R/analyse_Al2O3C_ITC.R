@@ -45,10 +45,10 @@
 #' See details for further explanations
 #'
 #' @param verbose [logical] (*with default*):
-#' enable/disable verbose mode
+#' enable/disable output to the terminal.
 #'
 #' @param plot [logical] (*with default*):
-#' enable/disable plot output
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments that can be passed to the plot output
 #'

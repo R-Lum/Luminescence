@@ -97,16 +97,16 @@
 #' without irradiation times.*
 #'
 #' @param n.MC [integer] (*with default*):
-#' number for Monte Carlo runs for the error estimation
+#' number for Monte Carlo runs for the error estimation.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables/disables verbose mode
+#' enable/disable output to the terminal.
 #'
 #' @param plot [logical] (*with default*):
-#' enables/disables plot output
+#' enable/disable the plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
-#' enables/disables single plot mode, i.e. one plot window per plot.
+#' enable/disable single plot mode, i.e. one plot window per plot.
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot_singlePanels = c(3,4)` draws only the last two plots
 #'

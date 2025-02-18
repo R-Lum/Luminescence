@@ -39,7 +39,7 @@
 #'
 #' The proportion of the polar part and the cartesian part of the Abanico Plot
 #' can be modified for display reasons (`plot.ratio = 0.75`). By default,
-#' the polar part spreads over 75 \% and leaves 25 \% for the part that
+#' the polar part spreads over 75 % and leaves 25 % for the part that
 #' shows the KDE graph.
 #'
 #'
@@ -93,7 +93,7 @@
 #' @param log.z [logical] (*with default*):
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
 #'
-#' @param z.0 [character] or [numeric]:
+#' @param z.0 [character] or [numeric] (*with default*):
 #' User-defined central value, used for centring of data. One out of `"mean"`,
 #' `"mean.weighted"` and `"median"` or a numeric value (not its logarithm).
 #' Default is `"mean.weighted"`.
@@ -111,14 +111,14 @@
 #' combination with `"z.0 = 'mean'"` because the unweighted mean is used to
 #' centre the polygon.
 #'
-#' @param plot.ratio [numeric]:
+#' @param plot.ratio [numeric] (*with default*):
 #' Relative space, given to the radial versus the cartesian plot part,
 #' default is `0.75`.
 #'
-#' @param rotate [logical]:
+#' @param rotate [logical] (*with default*):
 #' Option to turn the plot by 90 degrees.
 #'
-#' @param mtext [character]:
+#' @param mtext [character] (*optional*):
 #' additional text below the plot title.
 #'
 #' @param summary [character] (*optional*):
@@ -155,28 +155,29 @@
 #' - `"max"`,
 #' - `"median"`.
 #'
-#' @param rug [logical]:
+#' @param rug [logical] (*with default*):
 #' Option to add a rug to the KDE part, to indicate the location of individual values.
 #'
-#' @param kde [logical]:
+#' @param kde [logical] (*with default*):
 #' Option to add a KDE plot to the dispersion part, default is `TRUE`.
 #'
-#' @param hist [logical]:
+#' @param hist [logical] (*with default*):
 #' Option to add a histogram to the dispersion part. Only meaningful when not
 #' more than one data set is plotted.
 #'
-#' @param dots [logical]:
+#' @param dots [logical] (*with default*):
 #' Option to add a dot plot to the dispersion part. If number of dots exceeds
 #' space in the dispersion part, a square indicates this.
 #'
-#' @param boxplot [logical]:
+#' @param boxplot [logical] (*with default*):
 #' Option to add a boxplot to the dispersion part, default is `FALSE`.
 #'
-#' @param y.axis [logical]: Option to hide standard y-axis labels and show 0 only.
+#' @param y.axis [logical] (*with default*): Option to hide standard y-axis
+#' labels and show 0 only.
 #' Useful for data with small scatter. If you want to suppress the y-axis entirely
 #' please use `yaxt == 'n'` (the standard [graphics::par] setting) instead.
 #'
-#' @param error.bars [logical]:
+#' @param error.bars [logical] (*with default*):
 #' Option to show De-errors as error bars on De-points. Useful in combination
 #' with `y.axis = FALSE, bar.col = "none"`.
 #'
@@ -230,7 +231,7 @@
 #' a vector of length two, specifying the upper and lower x-axis labels.
 #'
 #' @return
-#' returns a plot object and, optionally, a list with plot calculus data.
+#' Returns a plot object and, optionally, a list with plot calculus data.
 #'
 #' @section Function version: 0.1.18
 #'
@@ -3540,5 +3541,3 @@ plot_AbanicoPlot <- function(
   ## create and return numeric output
   invisible(plot.output)
 }
-
-

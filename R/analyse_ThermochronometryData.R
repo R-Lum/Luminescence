@@ -11,9 +11,10 @@
 #' @param ITL_model [character] (*with default*): type of model to fit,
 #' either `"GOK"` (default) or `"BTS"`
 #'
-#' @param plot [logical] (*with default*): enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#' @param verbose [logical] (*with default*): enable/disable terminal output
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #' @param ... further parameters passed to [fit_IsothermalHolding]
 #'

@@ -51,10 +51,10 @@
 #' if all curves of this aliquot are marked as invalid.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables the terminal feedback
+#' enable/disables output to the terminal.
 #'
 #' @param plot [logical] (*with default*):
-#' enables or disables the graphical feedback
+#' enable/disable the plot output.
 #'
 #' @param ... further parameters to control the plot output; if selected.
 #' Supported arguments `main`, `ylim`

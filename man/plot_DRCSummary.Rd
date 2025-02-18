@@ -23,10 +23,10 @@ plot_DRCSummary(
 its occurring order. A sequence can
 be provided for selecting, e.g., only every 2nd curve from the input object}
 
-\item{show_dose_points}{\link{logical} (\emph{with default}): enable or disable plot
+\item{show_dose_points}{\link{logical} (\emph{with default}): enable/disable plotting
 of dose points in the graph}
 
-\item{show_natural}{\link{logical} (\emph{with default}): enable or disable the plot
+\item{show_natural}{\link{logical} (\emph{with default}): enable/disable the plot
 of the natural \code{Lx/Tx} values}
 
 \item{n}{\link{integer} (\emph{with default}): number of x-values used to evaluate

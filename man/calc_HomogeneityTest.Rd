@@ -25,7 +25,7 @@ following elements:
 \item{args}{\link{list} used arguments}
 \item{call}{\link{call} the function call}
 
-The output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 A simple homogeneity test for De estimates

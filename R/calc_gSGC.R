@@ -20,19 +20,20 @@
 #'
 #' @param gSGC.parameters [list] (*optional*):
 #' option to provide own function parameters used for fitting as named list.
-#' Nomenclature follows Li et al., 2015, i.e. `list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)`,
-#' range requires a vector for the range the function is considered as valid, e.g. `range = c(0,250)`\cr
+#' Nomenclature follows Li et al., 2015, i.e. `list(A, A.error, D0, D0.error,
+#' c, c.error, Y0, Y0.error, range)`, where `range` is defines the interval
+#' where the function is considered as valid, e.g. `range = c(0,250)`.\cr
 #' Using this option overwrites the default parameter list of the gSGC, meaning the argument
 #' `gSGC.type` will be without effect
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of Monte Carlo simulation runs for error estimation, see details.
 #'
-#' @param verbose [logical]:
-#' enable or disable terminal output
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
-#' @param plot [logical]:
-#' enable or disable graphical feedback as plot
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output.
 #'
 #' @param ... parameters will be passed to the plot output
 #'

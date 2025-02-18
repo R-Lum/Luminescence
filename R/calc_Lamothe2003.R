@@ -28,7 +28,7 @@
 #'  measurement. Usually there is no reason for having a `tc` value different for the equivalent dose measurement
 #'  and the *g*-value measurement, except if different equipment was used.
 #'  However, if, for instance, the *g*-value measurement sequence was analysed
-#'  with the *Analyst* (Duller 2015) and the `'Luminescence` is used to correct for fading,
+#'  with the *Analyst* (Duller 2015) and `Luminescence` is used to correct for fading,
 #'  there is a high chance that the value returned by the *Analyst* comes normalised to 2-days;
 #'  even the `tc` values of the measurement were identical.
 #'  In such cases, the fading correction cannot be correct until the `tc.g_value` was manually
@@ -44,10 +44,12 @@
 #' @param dose_rate.source [numeric] vector of length 2 (**required**): Irradiation source dose rate in Gy/s,
 #' which is, according to Lamothe et al. (2003) De/t*.
 #'
-#' @param g_value [numeric] vector of length 2 (**required**): g_value in \%/decade *recalculated at the moment*
-#' the equivalent dose was calculated, i.e. `tc` is either similar for the *g*-value measurement **and** the De measurement or
-#' needs be to recalculated (cf. [calc_FadingCorr]). Inserting a normalised g-value, e.g., normalised to 2-days , will
-#' lead to wrong results
+#' @param g_value [numeric] vector of length 2 (**required**): g_value in
+#' %/decade *recalculated at the moment* the equivalent dose was calculated,
+#' i.e. `tc` is either similar for the *g*-value measurement **and** the
+#' De measurement or needs be to recalculated (cf. [calc_FadingCorr]).
+#' Inserting a normalised g-value, e.g., normalised to 2-days , will
+#' lead to wrong results.
 #'
 #' @param tc [numeric] (*optional*): time in seconds between the **end** of
 #' the irradiation and the prompt measurement used in the equivalent dose
@@ -62,11 +64,12 @@
 #' usual case for *g*-values obtained using the SAR method and *g*-values that had been not normalised to 2 days.
 #' Note: If this value is not `NULL` the functions expects a [numeric] value for `tc`.
 #'
-#' @param plot [logical] (*with default*): Enables/disables plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#' @param verbose [logical] (*with default*): Enables/disables terminal verbose mode
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
-#' @param ... further arguments passed to the function [plot_GrowthCurve]
+#' @param ... further arguments passed to function [plot_GrowthCurve].
 #'
 #' @return The function returns are graphical output produced by the function [plot_GrowthCurve] and
 #' an [RLum.Results-class].

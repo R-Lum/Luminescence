@@ -24,7 +24,7 @@
 #' global scaling factor.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables terminal feedback.
+#' enable/disable output to the terminal.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
 #' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`,

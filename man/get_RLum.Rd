@@ -21,11 +21,10 @@ of type \linkS4class{RLum}}
 
 \item{class}{\link{character} (\emph{optional}): allows to define the class that gets
 selected if applied to a list, e.g., if a list consists of different type
-of RLum-class objects, this arguments allows to make selection. If nothing
+of \linkS4class{RLum} objects, this arguments allows to make selection. If nothing
 is provided, all RLum-objects are treated.}
 
-\item{null.rm}{\link{logical} (\emph{with default}): option to get rid of empty and
-NULL objects}
+\item{null.rm}{\link{logical} (\emph{with default}): remove empty and \code{NULL} objects.}
 }
 \value{
 An object of the same type as the input object provided.

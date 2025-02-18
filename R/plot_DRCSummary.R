@@ -16,10 +16,10 @@
 #' its occurring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
 #'
-#'@param show_dose_points [logical] (*with default*): enable or disable plot
+#' @param show_dose_points [logical] (*with default*): enable/disable plotting
 #' of dose points in the graph
 #'
-#'@param show_natural [logical] (*with default*): enable or disable the plot
+#' @param show_natural [logical] (*with default*): enable/disable the plot
 #' of the natural `Lx/Tx` values
 #'
 #'@param n [integer] (*with default*): number of x-values used to evaluate

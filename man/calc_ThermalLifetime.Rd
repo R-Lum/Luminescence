@@ -50,11 +50,12 @@ allows to set configuration parameters used for the profiling
 Currently only the normal distribution is supported
 (e.g., \code{profiling_config = list(E.distribution = "norm")}}
 
-\item{verbose}{\link{logical}:
-enables/disables verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
-\item{plot}{\link{logical}:
-enables/disables output plot, currently only in combination with \code{profiling = TRUE}.}
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable the plot output, currently only in combination with
+\code{profiling = TRUE}.}
 
 \item{...}{further arguments that can be passed in combination with the plot output.
 Standard plot parameters are supported (\link{plot.default})}

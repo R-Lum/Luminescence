@@ -51,9 +51,10 @@
 #' @param method_control [list] (*with default*): additional deep control parameters, parameters
 #' need to be provided as named list, see details
 #'
-#' @param verbose [logical] (*with default*): enable/disable verbose mode
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
-#' @param plot [logical] (*with default*): enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param ... further parameters that can be passed to better control the plot output. Support arguments
 #' are `xlab`, `xlim`.

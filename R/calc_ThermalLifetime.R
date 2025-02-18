@@ -60,11 +60,12 @@
 #' Currently only the normal distribution is supported
 #' (e.g., `profiling_config = list(E.distribution = "norm")`
 #'
-#' @param verbose [logical]:
-#' enables/disables verbose mode
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
-#' @param plot [logical]:
-#' enables/disables output plot, currently only in combination with `profiling = TRUE`.
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output, currently only in combination with
+#' `profiling = TRUE`.
 #'
 #' @param ... further arguments that can be passed in combination with the plot output.
 #' Standard plot parameters are supported ([plot.default])

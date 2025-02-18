@@ -150,9 +150,10 @@
 #' option to provide an outer margin `mtext`. Can be a [list] of [character]s,
 #' if `object` is of type [list]
 #'
-#' @param plot [logical] (*with default*): enables or disables plot output.
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#' @param plot_onePage [logical] (*with default*): enables or disables on page plot output
+#' @param plot_onePage [logical] (*with default*): enable/disable one page
+#' plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.

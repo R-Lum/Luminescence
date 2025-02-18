@@ -67,10 +67,10 @@ error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL}
 MC runs. Note: Large values will significantly increase the computation time}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progress bar during MC runs}
+enables/disable the progress bar during MC runs.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output (\code{TRUE} or \code{FALSE})}
+enable/disable the plot output.}
 
 \item{plot_reduced}{\link{logical} (\emph{optional}):
 provides a reduced plot output if enabled to allow common R plot combinations,
@@ -158,7 +158,7 @@ vertical sliding range. It can be added as systematic error to the final De erro
 
 The original function call (\link[methods:LanguageClasses]{methods::language}-object)
 
-The output (\code{data}) should be accessed using the function \link{get_RLum}
+The output (\code{data}) should be accessed using the function \link{get_RLum}.
 
 ------------------------\cr
 \verb{[ PLOT OUTPUT ]}\cr
@@ -247,9 +247,9 @@ which can however be modified using the \code{method_control} argument, e.g.,
 \code{correct_onset} \tab \code{SLIDE} or \code{VSLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
 \code{show_density} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
-enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+enable/disable KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
 \code{show_fit} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
-enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
+enable/disable the plot of the fitted curve routinely obtained during the evaluation.\cr
 \code{n.MC} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the

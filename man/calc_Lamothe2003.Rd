@@ -26,10 +26,12 @@ fading correction. Allow are (1) \link{data.frame} with three columns (\code{dos
 \item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}): Irradiation source dose rate in Gy/s,
 which is, according to Lamothe et al. (2003) De/t*.}
 
-\item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \\%/decade \emph{recalculated at the moment}
-the equivalent dose was calculated, i.e. \code{tc} is either similar for the \emph{g}-value measurement \strong{and} the De measurement or
-needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
-lead to wrong results}
+\item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in
+\%/decade \emph{recalculated at the moment} the equivalent dose was calculated,
+i.e. \code{tc} is either similar for the \emph{g}-value measurement \strong{and} the
+De measurement or needs be to recalculated (cf. \link{calc_FadingCorr}).
+Inserting a normalised g-value, e.g., normalised to 2-days , will
+lead to wrong results.}
 
 \item{tc}{\link{numeric} (\emph{optional}): time in seconds between the \strong{end} of
 the irradiation and the prompt measurement used in the equivalent dose
@@ -44,11 +46,12 @@ equivalent dose estimation. If nothing is provided the time is set to \code{tc},
 usual case for \emph{g}-values obtained using the SAR method and \emph{g}-values that had been not normalised to 2 days.
 Note: If this value is not \code{NULL} the functions expects a \link{numeric} value for \code{tc}.}
 
-\item{verbose}{\link{logical} (\emph{with default}): Enables/disables terminal verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): Enables/disables plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{...}{further arguments passed to the function \link{plot_GrowthCurve}}
+\item{...}{further arguments passed to function \link{plot_GrowthCurve}.}
 }
 \value{
 The function returns are graphical output produced by the function \link{plot_GrowthCurve} and
@@ -99,7 +102,7 @@ is, by convention (Huntley & Lamothe 2001), the time elapsed between the end of 
 measurement. Usually there is no reason for having a \code{tc} value different for the equivalent dose measurement
 and the \emph{g}-value measurement, except if different equipment was used.
 However, if, for instance, the \emph{g}-value measurement sequence was analysed
-with the \emph{Analyst} (Duller 2015) and the \verb{'Luminescence} is used to correct for fading,
+with the \emph{Analyst} (Duller 2015) and \code{Luminescence} is used to correct for fading,
 there is a high chance that the value returned by the \emph{Analyst} comes normalised to 2-days;
 even the \code{tc} values of the measurement were identical.
 In such cases, the fading correction cannot be correct until the \code{tc.g_value} was manually

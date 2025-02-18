@@ -21,7 +21,8 @@
 #'@param method_control [list] (*with default*): parameters passed down
 #' to the jags process
 #'
-#'@param verbose [logical] (*with default*): enable/disable terminal feedback
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #'@return An [RLum.Results-class] object to be used in [combine_De_Dr]
 #'
@@ -204,7 +205,8 @@
 #'
 #'@param method_control [list] (*with default*): parameters passed down to the jags process
 #'
-#'@param verbose [logical] (*with default*): enable/disable terminal feedback
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #'@return An [RLum.Results-class] object
 #'
@@ -403,7 +405,9 @@
 #'@param outlier_method [character] (*with default*): select the outlier detection
 #'method, either `"default"` or `"RousseeuwCroux1993"`. See details for further information.
 #'
-#'@param outlier_analysis_plot [logical] (*with default*): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output
+#' @param outlier_analysis_plot [logical] (*with default*): enable/disable the
+#' outlier analysis plot. Note: the outlier analysis will happen independently
+#' of the plot output.
 #'
 #'@param method_control [list] (*with default*): named [list] of further parameters passed down
 #' to the [rjags::rjags] modelling
@@ -411,9 +415,10 @@
 #'@param par_local [logical] (*with default*): if set to `TRUE` the function uses its
 #'own [graphics::par] settings (which will end in two plots next to each other)
 #'
-#'@param verbose [logical] (*with default*): enable/disable terminal feedback
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
-#'@param plot [logical] (*with default*): enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #'@param ... a few further arguments to fine-tune the plot output such as
 #'`cdf_ADr_quantiles` (`TRUE`/`FALSE`), `legend.pos`, `legend` (`TRUE`/`FALSE`)

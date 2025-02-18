@@ -36,8 +36,8 @@
 #' **ARGUMENT** \tab **TYPE** \tab **DESCRIPTION**\cr
 #' `upper` \tab named [vector] \tab sets upper fitting boundaries, if provided boundaries for all arguments
 #' are required, e.g., `c(A = 0, C = 0, W = 0, c = 0)` \cr
-#' `lower` \tab names [vector] \tab sets lower fitting boundaries (see `upper` for details) \cr
-#' `trace`   \tab [logical] \tab enables/disables progression trace for [minpack.lm::nlsLM]\cr
+#' `lower` \tab names [vector] \tab set lower fitting boundaries (see `upper` for details) \cr
+#' `trace`   \tab [logical] \tab enable/disable progression trace for [minpack.lm::nlsLM]\cr
 #'  `weights` \tab [numeric] \tab option to provide own weights for the fitting, the length of this
 #'  vector needs to be equal to the number for rows of the input `data.frame`. If set to `NULL` no weights
 #'  are applied. The weights are defined by the third column of the input `data.frame`.
@@ -56,9 +56,10 @@
 #' @param n.MC [numeric] (*with default*): number of Monte Carlo runs for the error estimation. If `n.MC` is
 #' `NULL` or `<=1`, the error estimation is skipped
 #'
-#' @param verbose [logical] (*with default*): enables/disables terminal output
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
-#' @param plot [logical] (*with default*): enables/disables plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param ... further arguments that can be passed to control the plotting, support are `main`, `pch`,
 #' `col_fit`, `col_points`, `lty`, `lwd`, `xlab`, `ylab`, `xlim`, `ylim`, `xaxt`

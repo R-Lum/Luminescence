@@ -20,7 +20,7 @@
 #'@param n.MC [numeric] (*with default*): number of Monte-Carlo runs for the
 #'error calculation
 #'
-#'@param plot [logical] (*with default*): enables/disables the control plot output
+#'@param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #'@return Returns an S4 object of type [RLum.Results-class].
 #'

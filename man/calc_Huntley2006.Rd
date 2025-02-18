@@ -26,7 +26,7 @@ A \code{data.frame} with one of the following structures:
 c) \code{LxTx} error.
 \item If a \strong{two column} data frame is provided it is automatically
 assumed that errors on \code{LxTx} are missing. A third column will be attached
-with an arbitrary 5 \\% error on the provided \code{LxTx} values.
+with an arbitrary 5 \% error on the provided \code{LxTx} values.
 \item Can also be a \strong{wide table}, i.e. a \link{data.frame} with a number of columns divisible by 3
 and where each triplet has the aforementioned column structure.
 }
@@ -46,7 +46,7 @@ and where each triplet has the aforementioned column structure.
 \code{Ln/Tn}-value. If you want to provide more than one \code{Ln/Tn}-value consider
 using the argument \code{LnTn}.}
 
-\item{LnTn}{\link{data.frame} (\strong{optional}):
+\item{LnTn}{\link{data.frame} (\emph{optional}):
 This argument should \strong{only} be used to provide more than one \code{Ln/Tn}-value.
 It assumes a two column data frame with the following structure:
 
@@ -108,7 +108,7 @@ and calculated by the model are added as text on the right-hand side of the
 plot.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables/disables plot output.}
+enable/disable the plot output.}
 
 \item{...}{Further parameters:
 \itemize{

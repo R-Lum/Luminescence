@@ -56,8 +56,8 @@ $ parameters (list)
 $ call (the original function call)
 }\if{html}{\out{</div>}}
 
-The output should be accessed using the function \link{get_RLum}.\cr
-A plot method of the output is provided via \link{plot_RLum}
+The output should be accessed using the function \link{get_RLum}.
+A plot method of the output is provided via \link{plot_RLum}.
 }
 \description{
 Calculating the dose rate of the irradiation source via the date of

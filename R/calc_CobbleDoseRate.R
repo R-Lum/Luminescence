@@ -44,12 +44,13 @@
 #'**Water content**
 #'The water content provided by the user should be calculated according to:
 #'
-#'\deqn{(Wet_weight - Dry_weight) / Dry_weight * 100}
+#'\deqn{(Wet\_weight - Dry\_weight) / Dry\_weight * 100}
 #'
 #'@param input [data.frame] (**required**): A table containing all relevant information
 #'for each individual layer. For the table layout see details.
 #'
-#'@param conversion Which dose rate conversion factors to use. For accepted values see [BaseDataSet.ConversionFactors]
+#' @param conversion [character] (*with default*): dose rate conversion factors
+#' to use, see [BaseDataSet.ConversionFactors] for the accepted values.
 #'
 #'@references
 #'Riedesel, S., Autzen, M., 2020. Beta and gamma dose rate attenuation in rocks and sediment.

@@ -9,7 +9,8 @@ read_TIFF2R(file, verbose = TRUE, ...)
 \arguments{
 \item{file}{\link{character} (\strong{required}): file name}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable or disable verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
 \item{...}{not in use, for compatibility reasons only}
 }

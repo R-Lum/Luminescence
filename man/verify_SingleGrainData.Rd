@@ -43,10 +43,10 @@ if all curves of this aliquot are marked as invalid.
 }}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables the terminal feedback}
+enable/disables output to the terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables or disables the graphical feedback}
+enable/disable the plot output.}
 
 \item{...}{further parameters to control the plot output; if selected.
 Supported arguments \code{main}, \code{ylim}}

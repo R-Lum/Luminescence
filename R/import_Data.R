@@ -13,7 +13,8 @@
 #'@param fastForward [logical] (*with default*): option to create [RLum-class] objects
 #'during import or a [list] of such objects
 #'
-#'@param verbose [logical] (*with default*): enable/disable verbose mode
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #'@section Function version: 0.1.5
 #'

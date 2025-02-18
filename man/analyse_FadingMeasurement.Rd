@@ -54,16 +54,16 @@ For more information see details. \cr
 without irradiation times.}}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
-number for Monte Carlo runs for the error estimation}
+number for Monte Carlo runs for the error estimation.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables/disables verbose mode}
+enable/disable output to the terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables/disables plot output}
+enable/disable the plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
-enables/disables single plot mode, i.e. one plot window per plot.
+enable/disable single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot_singlePanels = c(3,4)} draws only the last two plots}
 

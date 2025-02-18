@@ -87,7 +87,7 @@ If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
 \code{mle} and \code{grain.probability} are lists containing matrices of the
 results for each iteration of the model.
 
-The output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 This function fits a k-component mixture to a De distribution with differing
@@ -124,7 +124,7 @@ determined by a common \code{sigmab} (see \code{pdf.sigma}). For
 \code{pdf.sigma = "se"} the standard error of each component is taken
 instead.\cr
 The stacked \link[graphics:barplot]{graphics::barplot} shows the proportion of each component (in
-per cent) calculated by the FFM. The last plot shows the achieved BIC scores
+per cent) calculated by the FMM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{

@@ -1,9 +1,11 @@
-#'@title Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects
+#'@title Converts RLum.Analysis and RLum.Data.Curve objects to RLum2Risoe.BINfileData objects
 #'
-#'@description The functions converts [RLum.Analysis-class] and [RLum.Data.Curve-class] objects and a [list] of those
-#'to [Risoe.BINfileData-class] objects. The function intends to provide a minimum of compatibility
-#'between both formats. The created [RLum.Analysis-class] object can be later exported to a
-#'BIN-file using the function [write_R2BIN].
+#' @description The functions converts [RLum.Analysis-class] and
+#' [RLum.Data.Curve-class] objects (or a [list] of such objects) to
+#' [Risoe.BINfileData-class] objects. The function intends to provide a
+#' minimum of compatibility between both formats. The created
+#' [RLum.Analysis-class] object can be later exported to a BIN-file using
+#' function [write_R2BIN].
 #'
 #'@param object [RLum.Analysis-class] or [RLum.Data.Curve-class] (**required**): input object to
 #'be converted

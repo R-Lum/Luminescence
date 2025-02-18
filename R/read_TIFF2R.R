@@ -5,7 +5,8 @@
 #'
 #'@param file [character] (**required**): file name
 #'
-#'@param verbose [logical] (*with default*): enable or disable verbose mode
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #'@param ... not in use, for compatibility reasons only
 #'

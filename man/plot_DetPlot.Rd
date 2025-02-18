@@ -66,20 +66,20 @@ De-values are calculated and plotted until the start of the background
 integral.}
 
 \item{show_ShineDownCurve}{\link{logical} (\emph{with default}):
-enables or disables shine down curve in the plot output}
+enable/disable shine down curve in the plot output.}
 
 \item{respect_RC.Status}{\link{logical} (\emph{with default}):
-remove De-values with 'FAILED' RC.Status from the plot
-(cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
+remove De values with 'FAILED' RC.Status from the plot (cf. \link{analyse_SAR.CWOSL}
+and \link{analyse_pIRIRSequence}).}
 
-\item{multicore}{\link{logical} (\emph{with default}) : enables/disables multi core
+\item{multicore}{\link{logical} (\emph{with default}) : enable/disable multi core
 calculation if \code{object} is a \link{list} of \linkS4class{RLum.Analysis} objects. Can be an
 \link{integer} specifying the number of cores}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables terminal feedback}
+enable/disable output to the terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): enables/disables plot output
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.
 Disabling the plot is useful in cases where the output need to be processed
 differently.}
 

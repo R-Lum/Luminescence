@@ -26,19 +26,19 @@ presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-2
 
 \item{gSGC.parameters}{\link{list} (\emph{optional}):
 option to provide own function parameters used for fitting as named list.
-Nomenclature follows Li et al., 2015, i.e. \code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)},
-range requires a vector for the range the function is considered as valid, e.g. \code{range = c(0,250)}\cr
+Nomenclature follows Li et al., 2015, i.e. \code{list(A, A.error, D0, D0.error, c, c.error, Y0, Y0.error, range)}, where \code{range} is defines the interval
+where the function is considered as valid, e.g. \code{range = c(0,250)}.\cr
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 \code{gSGC.type} will be without effect}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
 number of Monte Carlo simulation runs for error estimation, see details.}
 
-\item{verbose}{\link{logical}:
-enable or disable terminal output}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
-\item{plot}{\link{logical}:
-enable or disable graphical feedback as plot}
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable the plot output.}
 
 \item{...}{parameters will be passed to the plot output}
 }

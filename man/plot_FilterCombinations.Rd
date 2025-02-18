@@ -26,10 +26,10 @@ wavelength range used for the interpolation}
 show net transmission window as polygon.}
 
 \item{interactive}{\link{logical} (\emph{with default}):
-enable/disable interactive plot}
+enable/disable interactive plots.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables or disables the plot output}
+enable/disable the plot output.}
 
 \item{...}{further arguments that can be passed to control the plot output.
 Supported are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.

@@ -21,10 +21,10 @@ be provided, but only the first column will be considered by the
 function}
 
 \item{boxplot}{\link{logical} (\emph{with default}):
-enable or disable boxplot}
+enable/disable boxplot}
 
 \item{rug}{\link{logical} (\emph{with default}):
-enable or disable rug}
+enable/disable rug}
 
 \item{summary}{\link{character} (\emph{optional}):
 add statistic measures of centrality and dispersion to the plot.
@@ -40,7 +40,8 @@ below the plot header. However, this latter option in only possible if
 exclude NA values from the data set prior to any further operations.}
 
 \item{...}{further arguments and graphical parameters passed to
-\link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for further information}
+\link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for further
+information.}
 }
 \description{
 Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin

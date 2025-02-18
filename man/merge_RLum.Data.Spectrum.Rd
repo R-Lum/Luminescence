@@ -27,7 +27,7 @@ e.g. \code{1} means that just the elements from the first object are kept,
 \code{2} keeps only the info elements from the 2 object etc.
 If nothing is provided all elements are combined.}
 
-\item{max.temp.diff}{\link{numeric} (\strong{with default}):
+\item{max.temp.diff}{\link{numeric} (\emph{with default}):
 maximum difference in the time/temperature values between the spectra to
 be merged: when differences exceed this threshold value, the merging
 occurs but a warning is raised.}

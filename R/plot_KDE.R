@@ -57,7 +57,7 @@
 #' @param values.cumulative [logical] (*with default*):
 #' show cumulative individual data.
 #'
-#' @param order [logical]:
+#' @param order [logical] (*with default*):
 #' Order data in ascending order.
 #'
 #' @param boxplot [logical] (*with default*):
@@ -72,7 +72,7 @@
 #' add statistic measures of centrality and dispersion to the plot. Can be one
 #' or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos [numeric] or [character] (*with default*):
+#' @param summary.pos [numeric] or [character] (*optional*):
 #' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
@@ -87,7 +87,7 @@
 #' @param bw [character] (*with default*):
 #' bin-width, chose a numeric value for manual setting.
 #'
-#' @param output [logical]:
+#' @param output [logical] (*with default*):
 #' Optional output of numerical plot parameters. These can be useful to
 #' reproduce similar plots. Default is `TRUE`.
 #'

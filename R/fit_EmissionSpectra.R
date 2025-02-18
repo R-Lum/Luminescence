@@ -52,9 +52,9 @@
 #' **Parameter** \tab **Type** \tab **Default** \tab **Description**\cr
 #' `max.runs` \tab [integer] \tab `10000` \tab maximum allowed search iterations, if exceed
 #' the searching stops \cr
-#' `graining` \tab [numeric] \tab `15` \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
-#' `norm` \tab [logical] \tab `TRUE` \tab normalises data to the highest count value before fitting \cr
-#' `trace` \tab [logical] \tab `FALSE` \tab enables/disables the tracing of the minimisation routine
+#' `graining` \tab [numeric] \tab `15` \tab control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
+#' `norm` \tab [logical] \tab `TRUE` \tab normalise data to the highest count value before fitting \cr
+#' `trace` \tab [logical] \tab `FALSE` \tab enable/disable the tracing of the minimisation routine
 #'}
 #'
 #'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
@@ -80,9 +80,10 @@
 #'
 #'@param method_control [list] (*optional*): options to control the fit method, see details
 #'
-#'@param verbose [logical] (*with default*): enable/disable verbose mode
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
-#'@param plot [logical] (*with default*): enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #'@param ... further arguments to be passed to control the plot output
 #'(supported: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `log`, `mtext`, `legend` (`TRUE` or `FALSE`),

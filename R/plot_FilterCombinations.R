@@ -85,10 +85,10 @@
 #' show net transmission window as polygon.
 #'
 #' @param interactive [logical] (*with default*):
-#' enable/disable interactive plot
+#' enable/disable interactive plots.
 #'
 #' @param plot [logical] (*with default*):
-#' enables or disables the plot output
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments that can be passed to control the plot output.
 #' Supported are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.

@@ -41,9 +41,10 @@ automatically.}
 
 \item{method_control}{\link{list} (\emph{optional}): options to control the fit method, see details}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
 \item{...}{further arguments to be passed to control the plot output
 (supported: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{log}, \code{mtext}, \code{legend} (\code{TRUE} or \code{FALSE}),
@@ -140,9 +141,9 @@ run  at least 10,000 iterations (parameter \code{method_control = list(max.runs 
 \strong{Parameter} \tab \strong{Type} \tab \strong{Default} \tab \strong{Description}\cr
 \code{max.runs} \tab \link{integer} \tab \code{10000} \tab maximum allowed search iterations, if exceed
 the searching stops \cr
-\code{graining} \tab \link{numeric} \tab \code{15} \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
-\code{norm} \tab \link{logical} \tab \code{TRUE} \tab normalises data to the highest count value before fitting \cr
-\code{trace} \tab \link{logical} \tab \code{FALSE} \tab enables/disables the tracing of the minimisation routine
+\code{graining} \tab \link{numeric} \tab \code{15} \tab control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
+\code{norm} \tab \link{logical} \tab \code{TRUE} \tab normalise data to the highest count value before fitting \cr
+\code{trace} \tab \link{logical} \tab \code{FALSE} \tab enable/disable the tracing of the minimisation routine
 }
 }
 \section{Function version}{

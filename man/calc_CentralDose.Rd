@@ -17,7 +17,7 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
+a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
 \item{log}{\link{logical} (\emph{with default}):
@@ -39,7 +39,7 @@ Returns a plot (\emph{optional}) and terminal output. In addition an
 \item{.$call}{\link{call} the function call}
 \item{.$profile}{\link{data.frame} the log likelihood profile for sigma}
 
-The output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 This function calculates the central dose and dispersion of the De

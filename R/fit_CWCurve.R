@@ -26,7 +26,7 @@
 #'
 #' **Goodness of fit**
 #'
-#' The goodness of the fit is given as pseudoR^2 value (pseudo coefficient of
+#' The goodness of the fit is given as pseudoR² value (pseudo coefficient of
 #' determination). According to Lave (1970), the value is calculated as:
 #'
 #' \deqn{pseudoR^2 = 1 - RSS/TSS}
@@ -68,7 +68,7 @@
 #' calculate 1-sigma error range of components using [stats::confint]
 #'
 #' @param LED.power [numeric] (*with default*):
-#' LED power (max.) used for intensity ramping in mW/cm^2.
+#' LED power (max.) used for intensity ramping in mW/cm².
 #' **Note:** The value is used for the calculation of the absolute
 #' photoionisation cross section.
 #'
@@ -152,8 +152,8 @@
 #' **Beta version - This function has not been properly tested yet and**
 #' **should therefore not be used for publication purposes!**
 #'
-#' The pseudo-R^2 may not be the best parameter to describe the goodness of the
-#' fit. The trade off between the `n.components` and the pseudo-R^2 value
+#' The pseudo-R² may not be the best parameter to describe the goodness of the
+#' fit. The trade off between the `n.components` and the pseudo-R² value
 #' is currently not considered.
 #'
 #' The function **does not** ensure that the fitting procedure has reached a
@@ -466,7 +466,7 @@ fit_CWCurve<- function(
     ny<-299792458/(LED.wavelength/10^9) #frequency of light
     E<-h*ny
 
-    ##transform LED.power in W/cm^2
+    ## transform LED.power in W/cm²
     LED.power<-LED.power/1000
 
     ##gets stimulation intensity

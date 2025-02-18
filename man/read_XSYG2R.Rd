@@ -43,11 +43,11 @@ if set to \code{FALSE}, only the XSYG file structure is shown.}
 optional regular expression if \code{file} is a link to a folder, to select just
 specific XSYG-files}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable or disable verbose mode. If verbose is \code{FALSE}
-the \code{txtProgressBar} is also switched off}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal. If verbose is \code{FALSE} the \code{txtProgressBar} is also switched off}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables \code{TRUE} or disables \code{FALSE} the progress bar during import}
+enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
 }
 \value{
 \strong{Using the option \code{import = FALSE}}

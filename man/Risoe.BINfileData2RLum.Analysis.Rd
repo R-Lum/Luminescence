@@ -59,7 +59,7 @@ If \code{TRUE} (default) an \code{RLum.Analysis} object is returned even if it d
 not contain any records. Set to \code{FALSE} to discard all empty objects.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}.}
+enable/disable the progress bar.}
 }
 \value{
 Returns an \linkS4class{RLum.Analysis} object.

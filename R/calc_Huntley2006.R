@@ -88,7 +88,7 @@
 #' c) `LxTx` error.
 #' - If a **two column** data frame is provided it is automatically
 #' assumed that errors on `LxTx` are missing. A third column will be attached
-#' with an arbitrary 5 \% error on the provided `LxTx` values.
+#' with an arbitrary 5 % error on the provided `LxTx` values.
 #' - Can also be a **wide table**, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the aforementioned column structure.
 #'
@@ -107,7 +107,7 @@
 #' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-value consider
 #' using the argument `LnTn`.
 #'
-#' @param LnTn [data.frame] (**optional**):
+#' @param LnTn [data.frame] (*optional*):
 #' This argument should **only** be used to provide more than one `Ln/Tn`-value.
 #' It assumes a two column data frame with the following structure:
 #'
@@ -170,7 +170,7 @@
 #' plot.
 #'
 #' @param plot [logical] (*with default*):
-#' enables/disables plot output.
+#' enable/disable the plot output.
 #'
 #' @param ...
 #' Further parameters:

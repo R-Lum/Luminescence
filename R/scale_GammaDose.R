@@ -117,11 +117,11 @@
 #'
 #' - `"Aitken1985"` (default): Table H1 in the appendix
 #'
-#' @param verbose [logical] (*optional*):
+#' @param verbose [logical] (*with default*):
 #' Show or hide console output (defaults to `TRUE`).
 #'
-#' @param plot [logical] (*optional*):
-#' Show or hide the plot (defaults to `TRUE`).
+#' @param plot [logical] (*with default*):
+#' Enable/disable the plot output (defaults to `TRUE`).
 #'
 #' @param plot_singlePanels [logical] (*with default*):
 #' Enables/disables single plot mode, i.e. one plot window per plot.

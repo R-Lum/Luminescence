@@ -244,14 +244,14 @@ of the object structure. Works also on \linkS4class{RLum.Analysis} objects.}
 remove records from data set, can be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
 
 \item{row.names}{\link{logical} (\emph{with default}):
-enables or disables row names (\code{as.data.frame})}
+enable/disable row names (\code{as.data.frame}).}
 
 \item{optional}{\link{logical} (\emph{with default}):
 logical. If TRUE, setting row names and converting column names
 (to syntactic names: see make.names) is optional (see \link[base:as.data.frame]{base::as.data.frame})}
 
 \item{recursive}{\link{logical} (\emph{with default}):
-enables or disables further sub-setting (\code{unlist})}
+enable/disable further sub-setting (\code{unlist}).}
 
 \item{z}{\link{integer} (\emph{optional}):
 the column index of the matrix, data.frame}

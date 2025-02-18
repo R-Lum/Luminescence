@@ -24,7 +24,7 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
+a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details (\link{calc_MinDose}.}
 
@@ -42,7 +42,7 @@ starting values for gamma, sigma, p0 and mu. Custom values need to be provided i
 length three in the form of \code{c(gamma, sigma, p0)}.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output (\code{TRUE}/\code{FALSE})}
+enable/disable the plot output.}
 
 \item{...}{further arguments for bootstrapping (\verb{bs.M, bs.N, bs.h, sigmab.sd}).
 See details for their usage.}

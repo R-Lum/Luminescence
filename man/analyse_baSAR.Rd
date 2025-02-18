@@ -133,16 +133,16 @@ shows equivalent doses obtained using the frequentist approach and sets in the c
 as comparison obtained using baSAR. Allowed input is \code{'abanico'} or \code{'kde'}. If set to \code{NULL} nothing is plotted.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables or disables plot output}
+enable/disable the plot output.}
 
 \item{plot_reduced}{\link{logical} (\emph{with default}):
-enables or disables the advanced plot output}
+enable/disable the advanced plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
-enables or disables single plots or plots arranged by \code{analyse_baSAR}}
+enable/disable single plots or plots arranged by \code{analyse_baSAR}.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables verbose mode}
+enable/disable output to the terminal.}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio}
 (almost full support), \link[data.table:fread]{data.table::fread} (\code{skip}), \link{read_BIN2R} (\code{n.records},
@@ -340,11 +340,11 @@ functions.
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 \code{position} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit import to a specific position\cr
 \code{background.count.distribution} \tab \link{calc_OSLLxTxRatio} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
-\code{fit.weights} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables fit weights\cr
-\code{fit.bounds} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables fit bounds\cr
+\code{fit.weights} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable fit weights\cr
+\code{fit.bounds} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable fit bounds\cr
 \code{n.MC} \tab \link{plot_GrowthCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
-\code{output.plot} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables dose response curve plot\cr
-\code{output.plotExtended} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enables / disables extended dose response curve plot\cr
+\code{output.plot} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr
+\code{output.plotExtended} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable extended dose response curve plot\cr
 \code{recordType} \tab \link{get_RLum} \tab \verb{c(OSL (UVVIS), irradiation (NA)} \tab helps for the curve selection\cr
 }
 }

@@ -24,8 +24,8 @@
 #'`"sum"`.
 #'Pixel values are conveniently summarised using the above defined keyword.
 #'
-#'@param plot [logical] (*optional*): enables/disables control plot. Only the first
-#'image frame is shown
+#' @param plot [logical] (*optional*): enable/disable the plot output. Only
+#' the first image frame is shown.
 #'
 #'@return [RLum.Results-class] object with the following elements:
 #'`..$roi_signals`: a named [list] with all ROI values and their coordinates

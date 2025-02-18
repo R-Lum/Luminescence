@@ -22,9 +22,10 @@
 #' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables [txtProgressBar]. Ignored if `verbose = FALSE`.
+#' enable/disable the progress bar. Ignored if `verbose = FALSE`.
 #'
-#' @param verbose [logical] (*with default*): enables or disables verbose mode
+#' @param verbose [logical] (*with default*): enable/disable output to the
+#' terminal.
 #'
 #' @param ... not used, for compatibility reasons only
 #'

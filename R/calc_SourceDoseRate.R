@@ -67,8 +67,8 @@
 #' $ call (the original function call)
 #' ```
 #'
-#' The output should be accessed using the function [get_RLum].\cr
-#' A plot method of the output is provided via [plot_RLum]
+#' The output should be accessed using the function [get_RLum].
+#' A plot method of the output is provided via [plot_RLum].
 #'
 #' @note
 #' Please be careful when using the option `predict`, especially when a multiple set

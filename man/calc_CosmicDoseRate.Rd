@@ -23,7 +23,7 @@ depth of overburden (m). For more than one absorber use \cr
 \code{c(depth_1, depth_2, ..., depth_n)}}
 
 \item{density}{\link{numeric} (\strong{required}):
-average overburden density (g/cm^3). For more than one absorber use \cr
+average overburden density (g/cm³). For more than one absorber use \cr
 \code{c(density_1, density_2, ..., density_n)}}
 
 \item{latitude}{\link{numeric} (\strong{required}):
@@ -54,14 +54,14 @@ general error (percentage) to be implemented on corrected cosmic dose rate estim
 }
 \value{
 Returns a terminal output. In addition an
-\linkS4class{RLum.Results}-object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following element:
 
 \item{summary}{\link{data.frame} summary of all relevant calculation results.}
 \item{args}{\link{list} used arguments}
 \item{call}{\link{call} the function call}
 
-The output should be accessed using the function \link{get_RLum}
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 This function calculates the cosmic dose rate taking into account the soft-
@@ -76,7 +76,7 @@ soft- and hard-component of the cosmic ray flux.
 \strong{Internal calculation steps}
 
 (1)
-Calculate total depth of all absorber in hg/cm^2 (1 hg/cm^2 = 100 g/cm^2)
+Calculate total depth of all absorber in hg/cm² (1 hg/cm² = 100 g/cm²)
 
 \deqn{absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*density_n}
 
@@ -88,13 +88,13 @@ If \code{half.depth = TRUE}
 (3)
 Calculate cosmic dose rate at sea-level and 55 deg. latitude
 
-a) If absorber is > 167 g/cm^2 (only hard-component; Allkofer et al.  1975):
+a) If absorber is > 167 g/cm² (only hard-component; Allkofer et al.  1975):
 apply equation given by Prescott & Hutton (1994) (c.f. Barbouti & Rastin
 1983)
 
 \deqn{D0 = C/(((absorber+d)^\alpha+a)*(absober+H))*exp(-B*absorber)}
 
-b) If absorber is < 167 g/cm^2 (soft- and hard-component): derive D0 from
+b) If absorber is < 167 g/cm² (soft- and hard-component): derive D0 from
 Fig. 1 in Prescott & Hutton (1988).
 
 (4)
@@ -137,17 +137,17 @@ This can be calculated by providing a matching number of values for
 one sample of the same profile. This is done by providing more than one
 values for \code{depth} and only one for \code{density}. For example,
 \code{depth = c(1, 2, 3)} and \code{density = 1.7} will calculate the cosmic dose rate
-for three samples in 1, 2 and 3 m depth in a sediment of density 1.7 g/cm^3.
+for three samples in 1, 2 and 3 m depth in a sediment of density 1.7 g/cm³.
 }
 \note{
-Despite its universal use the equation to calculate the cosmic dose
+Despite its universal use, the equation to calculate the cosmic dose
 rate provided by Prescott & Hutton (1994) is falsely stated to be valid from
-the surface to 10^4 hg/cm^2 of standard rock. The original expression by
+the surface to 10^4 hg/cm² of standard rock. The original expression by
 Barbouti & Rastin (1983) only considers the muon flux (i.e. hard-component)
-and is by their own definition only valid for depths between 10-10^4
-hg/cm^2.
+and is, by their own definition, only valid for depths between 10-10^4
+hg/cm².
 
-Thus, for near-surface samples (i.e. for depths < 167 g/cm^2) the equation
+Thus, for near-surface samples (i.e. for depths < 167 g/cm²) the equation
 of Prescott & Hutton (1994) underestimates the total cosmic dose rate, as it
 neglects the influence of the soft-component of the cosmic ray flux. For
 samples at zero depth and at sea-level the underestimation can be as large
@@ -156,16 +156,16 @@ approximation of Barbouti & Rastin's equation in the form of
 
 \deqn{D = 0.21*exp(-0.070*absorber+0.0005*absorber^2)}
 
-which is valid for depths between 150-5000 g/cm^2. For shallower depths (<
-150 g/cm^2) they provided a graph (Fig. 1) from which the dose rate can be
+which is valid for depths between 150-5000 g/cm². For shallower depths (<
+150 g/cm²) they provided a graph (Fig. 1) from which the dose rate can be
 read.
 
 As a result, this function employs the equation of Prescott & Hutton (1994)
-only for depths > 167 g/cm^2, i.e. only for the hard-component of the cosmic
-ray flux. Cosmic dose rate values for depths < 167 g/cm^2 were obtained from
+only for depths > 167 g/cm², i.e. only for the hard-component of the cosmic
+ray flux. Cosmic dose rate values for depths < 167 g/cm² were obtained from
 the "AGE" program (Gruen 2009) and fitted with a 6-degree polynomial curve
 (and hence reproduces the graph shown in Prescott & Hutton 1988). However,
-these values assume an average overburden density of 2 g/cm^3.
+these values assume an average overburden density of 2 g/cm³.
 
 It is currently not possible to obtain more precise cosmic dose rate values
 for near-surface samples as there is no equation known to the author of this

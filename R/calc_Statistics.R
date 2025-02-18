@@ -16,7 +16,7 @@
 #' @param data [data.frame] or [RLum.Results-class] object (**required**):
 #' for [data.frame] two columns: De (`data[, 1]`) and De error (`data[, 2]`).
 #'
-#' @param weight.calc [character]:
+#' @param weight.calc [character] (*with default*):
 #' type of weight calculation. One out of `"reciprocal"` (weight is 1/error),
 #' `"square"` (weight is 1/error^2). Default is `"square"`.
 #'

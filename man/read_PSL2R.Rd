@@ -38,7 +38,7 @@ to hardware errors.}
 files are imported.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables verbose mode.}
+enable/disable output to the terminal.}
 
 \item{...}{currently not used.}
 }

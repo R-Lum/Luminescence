@@ -42,7 +42,7 @@ data the curve data get binned using the smallest possible bin width.}
 enable/disable output to the terminal.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}. Ignored if \code{verbose = FALSE}.}
+enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
 }
 \value{
 Write a binary file and returns the name and path of the file as \link{character}.

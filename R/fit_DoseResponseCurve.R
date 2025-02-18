@@ -145,11 +145,11 @@
 #' for error estimation, see details.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables `txtProgressBar`. If `verbose = FALSE` also no
+#' enable/disable the progress bar. If `verbose = FALSE` also no
 #' `txtProgressBar` is shown.
 #'
 #' @param verbose [logical] (*with default*):
-#' enables or disables terminal feedback.
+#' enable/disable output to the terminal.
 #'
 #' @param ... Further arguments to be passed (currently ignored).
 #'

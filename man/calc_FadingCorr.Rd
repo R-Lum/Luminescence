@@ -49,10 +49,10 @@ a vector containing the end-points (age interval) of the interval to be searched
 This argument is passed to the function \link[stats:uniroot]{stats::uniroot} used for solving the equation.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables \link{txtProgressBar}}
+enable/disable the progress bar.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables or disables terminal output}
+enable/disable output to the terminal.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.\cr

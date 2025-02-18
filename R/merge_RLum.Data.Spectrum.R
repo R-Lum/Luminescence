@@ -72,7 +72,7 @@
 #' `2` keeps only the info elements from the 2 object etc.
 #' If nothing is provided all elements are combined.
 #'
-#' @param max.temp.diff [numeric] (**with default**):
+#' @param max.temp.diff [numeric] (*with default*):
 #' maximum difference in the time/temperature values between the spectra to
 #' be merged: when differences exceed this threshold value, the merging
 #' occurs but a warning is raised.

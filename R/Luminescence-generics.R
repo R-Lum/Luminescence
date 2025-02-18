@@ -140,11 +140,10 @@ setGeneric("get_RLum", function (object, ...) {
 #'
 #' @param class [character] (*optional*): allows to define the class that gets
 #' selected if applied to a list, e.g., if a list consists of different type
-#' of RLum-class objects, this arguments allows to make selection. If nothing
+#' of [RLum-class] objects, this arguments allows to make selection. If nothing
 #' is provided, all RLum-objects are treated.
 #'
-#' @param null.rm [logical] (*with default*): option to get rid of empty and
-#' NULL objects
+#' @param null.rm [logical] (*with default*): remove empty and `NULL` objects.
 #'
 #' @md
 #' @export

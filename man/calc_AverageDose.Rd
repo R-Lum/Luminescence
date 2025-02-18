@@ -31,10 +31,10 @@ sample size used for the bootstrapping}
 exclude NA values from the data set prior to any further operation.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enables/disables plot output}
+enable/disable the plot output.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-enables/disables terminal output}
+enable/disable output to the terminal.}
 
 \item{...}{further arguments that can be passed to \link[graphics:hist]{graphics::hist}. As three plots
 are returned all arguments need to be provided as \link{list},

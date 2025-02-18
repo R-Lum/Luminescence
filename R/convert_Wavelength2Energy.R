@@ -30,9 +30,10 @@
 #'
 #' @param digits [integer] (*with default*): set the number of digits on the returned energy axis
 #'
-#' @param order [logical] (*with default*): enables/disables sorting of the values in ascending energy
-#' order. After the conversion the longest wavelength has the lowest energy value and the shortest
-#' wavelength the highest. While this is correct, some R functions expect increasing x-values.
+#' @param order [logical] (*with default*): enable/disable sorting of the
+#' values in ascending energy order. After the conversion, the longest
+#' wavelength has the lowest energy value and the shortest wavelength the
+#' highest. While this is correct, some R functions expect increasing x-values.
 #'
 #' @return The same object class as provided as input is returned.
 #'

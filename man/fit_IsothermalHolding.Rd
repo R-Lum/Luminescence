@@ -26,15 +26,16 @@ frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".}
 of rho prime values (one for each sample) or an \linkS4class{RLum.Results} object
 produced by \link{analyse_FadingMeasurement}}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable plot}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
+terminal.}
 
-\item{txtProgressBar}{\link{logical}: enable/disable the progress bar. Ignored
-if \code{verbose = FALSE}.}
+\item{txtProgressBar}{\link{logical} (\emph{with default}): enable/disable the
+progress bar. Ignored if \code{verbose = FALSE}.}
 
-\item{trace}{\link{logical} (\emph{with default}): enables/disables trace mode for
-the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM})}
+\item{trace}{\link{logical} (\emph{with default}): enable/disable tracing during
+the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}).}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function.}

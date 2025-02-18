@@ -58,7 +58,7 @@
 #' The default value is `"activity"`
 #'
 #' @param verbose [logical] (*with default*):
-#' enable or disable verbose mode
+#' enable/disable output to the terminal.
 #'
 #' @section Function version: 0.1.2
 #'

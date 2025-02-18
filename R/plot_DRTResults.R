@@ -34,9 +34,9 @@
 #' optional vector of preheat temperatures to be used for grouping the De values.
 #' If specified, the temperatures are assigned to the x-axis.
 #'
-#' @param boxplot [logical]:
-#' optionally plot values, that are grouped by preheat temperature as boxplots.
-#'  Only possible when `preheat` vector is specified.
+#' @param boxplot [logical] (*with default*):
+#' plot values that are grouped by preheat temperature as boxplots.
+#' Only possible when `preheat` vector is specified.
 #'
 #' @param mtext [character]:
 #' additional text below the plot title.
@@ -72,7 +72,7 @@
 #' column and one row. If `par.local = FALSE`, global parameters are inherited,
 #' i.e. parameters provided via `par()` work
 #'
-#' @param na.rm [logical]: indicating whether `NA` values are
+#' @param na.rm [logical] (*with default*): indicating whether `NA` values are
 #' removed before plotting from the input data set
 #'
 #' @param ... further arguments and graphical parameters passed to [plot], supported are:
