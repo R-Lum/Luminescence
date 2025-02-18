@@ -53,10 +53,6 @@
 #' @param grain.probability [logical] (*with default*):
 #' prints the estimated probabilities of which component each grain is in
 #'
-#' @param dose.scale [numeric]:
-#' manually set the scaling of the y-axis of the first plot with a vector
-#' in the form of `c(min, max)`
-#'
 #' @param pdf.weight [logical] (*with default*):
 #' weight the probability density functions by the components proportion (applies only
 #' when a vector is provided for `n.components`)
@@ -70,9 +66,6 @@
 #' @param pdf.colors [character] (*with default*):
 #' colour coding of the components in the the plot.
 #' Possible options are `"gray"`, `"colors"` and `"none"`
-#'
-#' @param pdf.scale [numeric]:
-#' manually set the max density value for proper scaling of the x-axis of the first plot
 #'
 #' @param plot.proportions [logical] (*with default*):
 #' plot [graphics::barplot] showing the proportions of components if
@@ -170,7 +163,7 @@
 #' ## the following lines to make the example work.
 #' FMM<- calc_FiniteMixture(ExampleData.DeValues$CA1,
 #'                          sigmab = 0.2, n.components = c(2:4),
-#'                          pdf.weight = TRUE, dose.scale = c(0, 100))
+#'                          pdf.weight = TRUE)
 #'
 #' ## show structure of the results
 #' FMM
@@ -186,11 +179,9 @@ calc_FiniteMixture <- function(
   sigmab,
   n.components,
   grain.probability = FALSE,
-  dose.scale,
   pdf.weight = TRUE,
   pdf.sigma = "sigmab",
   pdf.colors = "gray",
-  pdf.scale,
   plot.proportions = TRUE,
   plot=TRUE,
   ...
@@ -311,7 +302,7 @@ calc_FiniteMixture <- function(
     bic<- -2*llik + (2*k - 1)*log(n)
 
     # calculate the covariance matrix and standard errors of the estimates
-    # i.e., the dose estimtes in Gy and relative standard errors, and
+    # i.e., the dose estimates in Gy and relative standard errors, and
     # the mixing proportions and standard errors.
     aui<- matrix(0,n,k)
     bui<- matrix(0,n,k)
