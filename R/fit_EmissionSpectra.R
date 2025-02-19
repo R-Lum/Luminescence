@@ -104,8 +104,10 @@
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `matrix` \tab the final fit matrix \cr
 #'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm] \cr
-#'  `$fit_info` \tab `list` \tab a few additional parameters that can be used to asses the quality
-#'  of the fit
+#'  `$fit_info` \tab `list` \tab a few additional parameters that can be used
+#'   to assess the quality of the fit \cr
+#'  `$df_plot` \tab `list` \tab values of all curves in the plot for each
+#'   frame analysed
 #' }
 #'
 #'
@@ -131,9 +133,11 @@
 #' parameter estimation. The grey band in the residual plot indicates the
 #' 10% deviation from 0 (means no residual).
 #'
-#'@section Function version: 0.1.1
+#'@section Function version: 0.1.2
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
 #'[convert_Wavelength2Energy], [minpack.lm::nls.lm]
@@ -458,12 +462,19 @@ fit_EmissionSpectra <- function(
         if (length(fit) > 0) "[OK]" else "[FAILED]")
   }
 
+  ## store the values that will be used when plotting
+  h <- 4.135667662e-15 # eV * s
+  c <- 299792458e+09 # nm/s
+  df_plot <- data.frame(ENERGY = m[, 1],
+                        WAVELENGTH = h * c / m[, 1])
+
   ##Extract best fit values
   ##TODO ... should be improved, its works, but maybe there are better solutions
   if (length(fit) != 0) {
     ##obtain the fit with the best fit
     best_fit <- vapply(fit, function(x) sum(residuals(x) ^ 2), numeric(1))
     fit <- fit[[which.min(best_fit)]]
+    df_plot$SUM <- predict(fit)
 
     ## more parameters
     SSR <- min(best_fit)
@@ -500,6 +511,11 @@ fit_EmissionSpectra <- function(
     mu <- m_coef[,"mu"]
     sigma <- m_coef[,"sigma"]
     C <- m_coef[,"C"]
+
+    ## evaluate the components at the given points
+    for (i in 1:length(mu)) {
+      df_plot[[paste0("COMP_", i)]] <- C[i] * dnorm(df_plot$ENERGY, mu[i], sigma[i])
+    }
   }
 
   # Terminal output -----------------------------------------------------------------------------
@@ -581,19 +597,15 @@ fit_EmissionSpectra <- function(
     }
 
     ##plot sum curve
-    lines(x = df[[1]], y = predict(fit), col = col[1], lwd = 1.5)
+    lines(x = df_plot$ENERGY, y = df_plot$SUM, col = col[1], lwd = 1.5)
 
     ##add mtext
     mtext(side = 3, text = plot_settings$mtext)
 
     ##add components
+    first.comp.idx <- grep("COMP_", colnames(df_plot))[1] - 1
     for(i in 1:length(mu)){
-      curve(
-         (C[i] * 1 / (sigma[i] * sqrt(2 * pi)) * exp(-0.5 * ((x - mu[i])/sigma[i])^2)),
-         add = TRUE,
-         col = col[i + 1]
-       )
-
+      lines(df_plot$ENERGY, df_plot[[first.comp.idx + i]], col = col[i + 1])
     }
 
     ##add legend
@@ -679,7 +691,8 @@ fit_EmissionSpectra <- function(
                   SSR = SSR,
                   SST = SST,
                   R2 = R2,
-                  R2adj = R2adj)
+                  R2adj = R2adj),
+                df_plot = list(df_plot)
                 ),
     info = list(call = sys.call())
   )

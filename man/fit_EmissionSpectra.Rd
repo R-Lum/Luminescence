@@ -65,8 +65,10 @@ terminal.}
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \verb{$data} \tab \code{matrix} \tab the final fit matrix \cr
 \verb{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm} \cr
-\verb{$fit_info} \tab \code{list} \tab a few additional parameters that can be used to asses the quality
-of the fit
+\verb{$fit_info} \tab \code{list} \tab a few additional parameters that can be used
+to assess the quality of the fit \cr
+\verb{$df_plot} \tab \code{list} \tab values of all curves in the plot for each
+frame analysed
 }
 
 \strong{slot:} \strong{\verb{@info}}
@@ -149,7 +151,7 @@ the searching stops \cr
 }
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -185,6 +187,7 @@ results <- fit_EmissionSpectra(
 \link{convert_Wavelength2Energy}, \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

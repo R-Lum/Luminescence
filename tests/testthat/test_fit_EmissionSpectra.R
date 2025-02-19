@@ -75,6 +75,12 @@ SW({
     start_parameters = c(2.17),
     method_control = list(max.runs = 100)), "RLum.Results")
   })
+  expect_length(results, 4)
+  expect_s3_class(results$fit[[1]], "nls")
+  expect_type(results$data, "double")
+  expect_length(results@data$df_plot, 1)
+  expect_named(results@data$df_plot[[1]],
+               c("ENERGY", "WAVELENGTH", "SUM", "COMP_1", "COMP_2", "COMP_3"))
 
   # silent mode -------
   expect_silent(fit_EmissionSpectra(
@@ -84,11 +90,6 @@ SW({
     plot = FALSE,
     verbose = FALSE,
     method_control = list(max.runs = 10)))
-
- # regression test ----
- expect_length(results, 3)
- expect_s3_class(results$fit[[1]], "nls")
- expect_type(results$data, "double")
 
   ## input_scale
   SW({
