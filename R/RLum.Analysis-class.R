@@ -864,6 +864,86 @@ setMethod(
   }
 )
 
+
+## sort_RLum() --------------------------------------------------------------
+#' @describeIn RLum.Analysis
+#'
+#' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
+#' At least one of `slot` and `info_element` must be provided. If both are
+#' given, ordering by `slot` always supersedes ordering by `info_element`.
+#'
+#' @param slot [character] (*optional*): slot name to use in sorting.
+#'
+#' @param info_element [character] (*optional*): name of the `info` field
+#' to use in sorting.
+#'
+#' @param decreasing [logical] (*with default*): whether the sort order should
+#' be decreasing (`FALSE` by default).
+#'
+#' @param ... further arguments passed to underlying methods
+#'
+#' @return
+#'
+#' **`sort_RLum`**
+#'
+#' Same object as input, but sorted according to the specified parameters.
+#'
+#' @md
+#' @export
+setMethod(
+  f = "sort_RLum",
+  signature = "RLum.Analysis",
+  function(object, slot = NULL, info_element = NULL,
+           decreasing = FALSE, ...) {
+    .set_function_name("sort_RLum")
+    on.exit(.unset_function_name(), add = TRUE)
+
+    ## input validation
+    sort.by.slot <- FALSE
+    if (!is.null(slot)) {
+      .validate_class(slot, "character", extra = "NULL")
+      valid.names <- slotNames(object@records[[1]])
+      if (!slot %in% valid.names) {
+        .throw_error("Invalid 'slot' name, valid names are: ",
+                     .collapse(valid.names))
+      }
+      sort.by.slot <- TRUE
+    }
+    if (!is.null(info_element)) {
+      .validate_class(info_element, "character", extra = "NULL")
+      valid.names <- names(object@records[[1]]@info)
+      if (!info_element%in% valid.names) {
+        .throw_error("Invalid 'info_element' name, valid names are: ",
+                     .collapse(valid.names))
+      }
+    }
+    if (is.null(slot) && is.null(info_element)) {
+      .throw_error("At least one of 'slot' and 'info_element' should not be NULL")
+    }
+    .validate_logical_scalar(decreasing)
+
+    ## extract the values from the records according to which the sorting is
+    ## done: ordering by slot always supersedes ordering by info_element
+    vals <- if (sort.by.slot) {
+              sapply(object@records, function(x) slot(x, slot))
+            } else {
+              sapply(object@records, function(x) slot(x, "info")[[info_element]])
+            }
+
+    ## determine the new ordering if possible
+    tryCatch(ord <- order(vals, decreasing = decreasing),
+             error = function(e) {
+               .throw_error("Records could not be sorted according to ",
+                            ifelse(sort.by.slot,
+                                   paste0("slot = '", slot, "'"),
+                                   paste0("info_element = '", info_element, "'")))
+             })
+
+    ## return reordered object
+    return(object[ord])
+  }
+)
+
 # melt_RLum() -------------------------------------------------------------------------------
 #' @describeIn RLum.Analysis
 #' Melts [RLum.Analysis-class] objects into a flat data.frame to be used
