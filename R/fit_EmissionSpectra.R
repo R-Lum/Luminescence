@@ -60,25 +60,27 @@
 #'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
 #'object. Please note that an energy spectrum is expected
 #'
-#'@param frame [numeric] (*optional*): defines the frame to be analysed
+#' @param frame [integer] (*optional*): number of the frame to be analysed. If
+#' `NULL`, all available frames are analysed.
 #'
 #'@param start_parameters [numeric] (*optional*): allows to provide own start parameters for a
 #'semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
 #'value from the automated peak finding algorithm (in ascending order).
 #'
-#'@param n_components [numeric] (*optional*): allows a number of the aimed number of
-#'components. However, it defines rather a maximum than than a minimum. Can be combined with
-#'other parameters.
+#' @param n_components [integer] (*optional*): maximum number of components
+#' desired: the number of component actually fitted may be smaller than this.
+#' Can be combined with other parameters.
 #'
-#'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
-#'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
-#'`'energy'`. If nothing (`NULL`) is defined, the function tries to understand the input
-#'automatically.
+#' @param input_scale [character] (*optional*): defines whether your x-values
+#' are expressed as wavelength or energy values. Allowed values are `"wavelength"`,
+#' `"energy"` or `NULL`, in which case the function tries to guess the input
+#' automatically.
 #'
 #'@param sub_negative [numeric] (*with default*): substitute negative values in the input object
 #'by the number provided here (default: `0`). Can be set to `NULL`, i.e. negative values are kept.
 #'
-#'@param method_control [list] (*optional*): options to control the fit method, see details
+#' @param method_control [list] (*optional*): options to control the fit method,
+#' see details.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
@@ -117,7 +119,7 @@
 #'
 #' The terminal output provides brief information on the
 #' deconvolution process and the obtained results.
-#' Terminal output is only shown of the argument `verbose = TRUE`.
+#' Terminal output is only shown when `verbose = TRUE`.
 #'
 #' ---------------------------\cr
 #' `[ PLOT OUTPUT ]`      \cr
@@ -187,6 +189,14 @@ fit_EmissionSpectra <- function(
   ## create a list of data treat, frame controls the number of frames analysed
 
   .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
+  if (!is.null(n_components)) {
+    .validate_positive_scalar(n_components, int = TRUE)
+  }
+  input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
+                                null.ok = TRUE)
+  .validate_class(method_control, "list")
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ##input RLum.Data.Spectrum ... make list either way
   if(inherits(object, "RLum.Data.Spectrum"))
@@ -212,8 +222,9 @@ fit_EmissionSpectra <- function(
         frame <- 1:ncol(o@data)
 
       }else{
+        .validate_class(frame, c("integer", "numeric"), extra = "NULL")
         if(max(frame) > ncol(o@data)|| min(frame) < 1){
-          .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
+          .throw_error("Invalid 'frame', allowed values range from 1 to ",
                        ncol(o@data))
         }
       }
@@ -242,8 +253,9 @@ fit_EmissionSpectra <- function(
       frame <- 1:(ncol(object) - 1)
 
     }else{
+      .validate_class(frame, c("integer", "numeric"), extra = "NULL")
       if(max(frame) > (ncol(object)-1) || min(frame) < 1){
-        .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
+        .throw_error("Invalid 'frame', allowed values range from 1 to ",
                      ncol(object) - 1)
       }
     }
@@ -298,8 +310,6 @@ fit_EmissionSpectra <- function(
   if (ncol(object) < 2) {
     .throw_error("'object' should have at least two columns")
   }
-  input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
-                                null.ok = TRUE)
 
   ##extract matrix for everything below
   m <- object[,1:2]
@@ -462,14 +472,11 @@ fit_EmissionSpectra <- function(
     R2adj <- ((1 - R2) * (nrow(df) - 1)) /
       (nrow(df) - length(coef(fit)) - 1)
 
-
   }else{
     fit <- NA
-
   }
 
-  # Extract values ------------------------------------------------------------------------------
-  ##extract components
+  ## Extract values of components -------------------------------------------
   m_coef <- NA
   if(!is.na(fit[1]) && is(fit, "nls")){
     ##extract values we need only
@@ -504,10 +511,9 @@ fit_EmissionSpectra <- function(
     cat(paste0("\nSE: standard error | SSR: ", format(min(best_fit), scientific=TRUE, digits = 4),
                "| R^2: ", round(R2,3), " | R^2_adj: ", round(R2adj,4)))
     cat("\n(use the output in $fit for a more detailed analysis)\n\n")
-
   }
 
-  # Plotting ------------------------------------------------------------------------------------
+  ## Plotting ---------------------------------------------------------------
   if(plot){
     ##get colour values
     col <- get("col", pos = .LuminescenceEnv)[-1]
@@ -527,7 +533,7 @@ fit_EmissionSpectra <- function(
 
     ), val = list(...))
 
-    if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
+    if (!is.na(fit[1]) && !inherits(fit, "try-error")) {
     ##make sure that the screen closes if something is wrong
     on.exit(graphics::close.screen(n = c(1,2)), add = TRUE)
 
@@ -642,7 +648,7 @@ fit_EmissionSpectra <- function(
       tick = FALSE
     )
 
-  }else{
+   } else { # the fit failed
 
     ##provide control plot
     plot(df, main = "fit_EmissionSpectra() - control plot")
@@ -661,7 +667,6 @@ fit_EmissionSpectra <- function(
         col = i
       )
     }
-
    }
   }##if plot
 

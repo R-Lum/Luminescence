@@ -88,7 +88,7 @@ that if you access the \code{nls} fitting object, the values are not sorted.
 \emph{(3) Further information}\cr
 \itemize{
 \item The photon count sum
-\item Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
+\item Durbin-Watson residual statistic to assess whether the residuals are correlated, ideally
 the residuals should be not correlated at all. Rough measures are: \cr
 D = 0: the residuals are systematically correlated \cr
 D = 2: the residuals are randomly distributed \cr
