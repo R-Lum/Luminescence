@@ -114,7 +114,7 @@
 #'
 #' *(3) Further information*\cr
 #' - The photon count sum
-#' - Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
+#' - Durbin-Watson residual statistic to assess whether the residuals are correlated, ideally
 #' the residuals should be not correlated at all. Rough measures are: \cr
 #' D = 0: the residuals are systematically correlated \cr
 #' D = 2: the residuals are randomly distributed \cr

@@ -14,14 +14,22 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(fit_EmissionSpectra(matrix()),
                "'object' should have at least two columns")
-
-  ## input scale
+  expect_error(fit_EmissionSpectra(TL.Spectrum, n_components = 1.4),
+               "'n_components' should be a positive integer scalar")
   expect_error(fit_EmissionSpectra(TL.Spectrum, input_scale = "error"),
                "'input_scale' should be one of 'wavelength', 'energy' or NULL")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, method_control = "error"),
+               "'method_control' should be of class 'list'")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, verbose = "error"),
+               "'verbose' should be a single logical value")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, plot = "error"),
+               "'plot' should be a single logical value")
 
   ## wrong frame range -------
+  expect_error(fit_EmissionSpectra(TL.Spectrum, frame = "error"),
+               "'frame' should be of class 'integer', 'numeric' or NULL")
   expect_error(fit_EmissionSpectra(TL.Spectrum, frame = 1000),
-               "\\[fit\\_EmissionSpectra\\(\\)\\] 'frame' invalid. Allowed range min: 1 and max: 24")
+               "Invalid 'frame', allowed values range from 1 to 24")
 
   ## wrong graining argument -------
   SW({
@@ -33,8 +41,10 @@ test_that("input validation", {
 
   ## for matrix input -------
   mat <- get_RLum(TL.Spectrum)[, 1:4]
+  expect_error(fit_EmissionSpectra(object = mat, frame = "error"),
+               "'frame' should be of class 'integer', 'numeric' or NULL")
   expect_error(fit_EmissionSpectra(object = mat, frame = 1000),
-               "'frame' invalid. Allowed range min: 1 and max: 3")
+               "Invalid 'frame', allowed values range from 1 to 3")
 
   ## empty object
   expect_error(fit_EmissionSpectra(set_RLum("RLum.Data.Spectrum")),
@@ -65,6 +75,12 @@ SW({
     start_parameters = c(2.17),
     method_control = list(max.runs = 100)), "RLum.Results")
   })
+  expect_length(results, 4)
+  expect_s3_class(results$fit[[1]], "nls")
+  expect_type(results$data, "double")
+  expect_length(results@data$df_plot, 1)
+  expect_named(results@data$df_plot[[1]],
+               c("ENERGY", "WAVELENGTH", "SUM", "COMP_1", "COMP_2", "COMP_3"))
 
   # silent mode -------
   expect_silent(fit_EmissionSpectra(
@@ -74,11 +90,6 @@ SW({
     plot = FALSE,
     verbose = FALSE,
     method_control = list(max.runs = 10)))
-
- # regression test ----
- expect_length(results, 3)
- expect_s3_class(results$fit[[1]], "nls")
- expect_type(results$data, "double")
 
   ## input_scale
   SW({

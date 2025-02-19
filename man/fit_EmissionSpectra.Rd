@@ -21,11 +21,12 @@ fit_EmissionSpectra(
 \item{object}{\linkS4class{RLum.Data.Spectrum}, \link{matrix} (\strong{required}): input
 object. Please note that an energy spectrum is expected}
 
-\item{frame}{\link{numeric} (\emph{optional}): defines the frame to be analysed}
+\item{frame}{\link{integer} (\emph{optional}): number of the frame to be analysed. If
+\code{NULL}, all available frames are analysed.}
 
-\item{n_components}{\link{numeric} (\emph{optional}): allows a number of the aimed number of
-components. However, it defines rather a maximum than than a minimum. Can be combined with
-other parameters.}
+\item{n_components}{\link{integer} (\emph{optional}): maximum number of components
+desired: the number of component actually fitted may be smaller than this.
+Can be combined with other parameters.}
 
 \item{start_parameters}{\link{numeric} (\emph{optional}): allows to provide own start parameters for a
 semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
@@ -34,12 +35,13 @@ value from the automated peak finding algorithm (in ascending order).}
 \item{sub_negative}{\link{numeric} (\emph{with default}): substitute negative values in the input object
 by the number provided here (default: \code{0}). Can be set to \code{NULL}, i.e. negative values are kept.}
 
-\item{input_scale}{\link{character} (\emph{optional}): defines whether your x-values define wavelength or
-energy values. For the analysis an energy scale is expected, allowed values are \code{'wavelength'} and
-\code{'energy'}. If nothing (\code{NULL}) is defined, the function tries to understand the input
+\item{input_scale}{\link{character} (\emph{optional}): defines whether your x-values
+are expressed as wavelength or energy values. Allowed values are \code{"wavelength"},
+\code{"energy"} or \code{NULL}, in which case the function tries to guess the input
 automatically.}
 
-\item{method_control}{\link{list} (\emph{optional}): options to control the fit method, see details}
+\item{method_control}{\link{list} (\emph{optional}): options to control the fit method,
+see details.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
@@ -63,8 +65,10 @@ terminal.}
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \verb{$data} \tab \code{matrix} \tab the final fit matrix \cr
 \verb{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm} \cr
-\verb{$fit_info} \tab \code{list} \tab a few additional parameters that can be used to asses the quality
-of the fit
+\verb{$fit_info} \tab \code{list} \tab a few additional parameters that can be used
+to assess the quality of the fit \cr
+\verb{$df_plot} \tab \code{list} \tab values of all curves in the plot for each
+frame analysed
 }
 
 \strong{slot:} \strong{\verb{@info}}
@@ -77,7 +81,7 @@ The original function call
 
 The terminal output provides brief information on the
 deconvolution process and the obtained results.
-Terminal output is only shown of the argument \code{verbose = TRUE}.
+Terminal output is only shown when \code{verbose = TRUE}.
 
 ---------------------------\cr
 \verb{[ PLOT OUTPUT ]}      \cr
@@ -147,7 +151,7 @@ the searching stops \cr
 }
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -183,6 +187,7 @@ results <- fit_EmissionSpectra(
 \link{convert_Wavelength2Energy}, \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

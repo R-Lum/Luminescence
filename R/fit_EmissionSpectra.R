@@ -60,25 +60,27 @@
 #'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
 #'object. Please note that an energy spectrum is expected
 #'
-#'@param frame [numeric] (*optional*): defines the frame to be analysed
+#' @param frame [integer] (*optional*): number of the frame to be analysed. If
+#' `NULL`, all available frames are analysed.
 #'
 #'@param start_parameters [numeric] (*optional*): allows to provide own start parameters for a
 #'semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
 #'value from the automated peak finding algorithm (in ascending order).
 #'
-#'@param n_components [numeric] (*optional*): allows a number of the aimed number of
-#'components. However, it defines rather a maximum than than a minimum. Can be combined with
-#'other parameters.
+#' @param n_components [integer] (*optional*): maximum number of components
+#' desired: the number of component actually fitted may be smaller than this.
+#' Can be combined with other parameters.
 #'
-#'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
-#'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
-#'`'energy'`. If nothing (`NULL`) is defined, the function tries to understand the input
-#'automatically.
+#' @param input_scale [character] (*optional*): defines whether your x-values
+#' are expressed as wavelength or energy values. Allowed values are `"wavelength"`,
+#' `"energy"` or `NULL`, in which case the function tries to guess the input
+#' automatically.
 #'
 #'@param sub_negative [numeric] (*with default*): substitute negative values in the input object
 #'by the number provided here (default: `0`). Can be set to `NULL`, i.e. negative values are kept.
 #'
-#'@param method_control [list] (*optional*): options to control the fit method, see details
+#' @param method_control [list] (*optional*): options to control the fit method,
+#' see details.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
@@ -102,8 +104,10 @@
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `matrix` \tab the final fit matrix \cr
 #'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm] \cr
-#'  `$fit_info` \tab `list` \tab a few additional parameters that can be used to asses the quality
-#'  of the fit
+#'  `$fit_info` \tab `list` \tab a few additional parameters that can be used
+#'   to assess the quality of the fit \cr
+#'  `$df_plot` \tab `list` \tab values of all curves in the plot for each
+#'   frame analysed
 #' }
 #'
 #'
@@ -117,7 +121,7 @@
 #'
 #' The terminal output provides brief information on the
 #' deconvolution process and the obtained results.
-#' Terminal output is only shown of the argument `verbose = TRUE`.
+#' Terminal output is only shown when `verbose = TRUE`.
 #'
 #' ---------------------------\cr
 #' `[ PLOT OUTPUT ]`      \cr
@@ -129,9 +133,11 @@
 #' parameter estimation. The grey band in the residual plot indicates the
 #' 10% deviation from 0 (means no residual).
 #'
-#'@section Function version: 0.1.1
+#'@section Function version: 0.1.2
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
 #'[convert_Wavelength2Energy], [minpack.lm::nls.lm]
@@ -187,6 +193,14 @@ fit_EmissionSpectra <- function(
   ## create a list of data treat, frame controls the number of frames analysed
 
   .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
+  if (!is.null(n_components)) {
+    .validate_positive_scalar(n_components, int = TRUE)
+  }
+  input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
+                                null.ok = TRUE)
+  .validate_class(method_control, "list")
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ##input RLum.Data.Spectrum ... make list either way
   if(inherits(object, "RLum.Data.Spectrum"))
@@ -212,8 +226,9 @@ fit_EmissionSpectra <- function(
         frame <- 1:ncol(o@data)
 
       }else{
+        .validate_class(frame, c("integer", "numeric"), extra = "NULL")
         if(max(frame) > ncol(o@data)|| min(frame) < 1){
-          .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
+          .throw_error("Invalid 'frame', allowed values range from 1 to ",
                        ncol(o@data))
         }
       }
@@ -242,8 +257,9 @@ fit_EmissionSpectra <- function(
       frame <- 1:(ncol(object) - 1)
 
     }else{
+      .validate_class(frame, c("integer", "numeric"), extra = "NULL")
       if(max(frame) > (ncol(object)-1) || min(frame) < 1){
-        .throw_error("'frame' invalid. Allowed range min: 1 and max: ",
+        .throw_error("Invalid 'frame', allowed values range from 1 to ",
                      ncol(object) - 1)
       }
     }
@@ -298,8 +314,6 @@ fit_EmissionSpectra <- function(
   if (ncol(object) < 2) {
     .throw_error("'object' should have at least two columns")
   }
-  input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
-                                null.ok = TRUE)
 
   ##extract matrix for everything below
   m <- object[,1:2]
@@ -448,12 +462,19 @@ fit_EmissionSpectra <- function(
         if (length(fit) > 0) "[OK]" else "[FAILED]")
   }
 
+  ## store the values that will be used when plotting
+  h <- 4.135667662e-15 # eV * s
+  c <- 299792458e+09 # nm/s
+  df_plot <- data.frame(ENERGY = m[, 1],
+                        WAVELENGTH = h * c / m[, 1])
+
   ##Extract best fit values
   ##TODO ... should be improved, its works, but maybe there are better solutions
   if (length(fit) != 0) {
     ##obtain the fit with the best fit
     best_fit <- vapply(fit, function(x) sum(residuals(x) ^ 2), numeric(1))
     fit <- fit[[which.min(best_fit)]]
+    df_plot$SUM <- predict(fit)
 
     ## more parameters
     SSR <- min(best_fit)
@@ -462,14 +483,11 @@ fit_EmissionSpectra <- function(
     R2adj <- ((1 - R2) * (nrow(df) - 1)) /
       (nrow(df) - length(coef(fit)) - 1)
 
-
   }else{
     fit <- NA
-
   }
 
-  # Extract values ------------------------------------------------------------------------------
-  ##extract components
+  ## Extract values of components -------------------------------------------
   m_coef <- NA
   if(!is.na(fit[1]) && is(fit, "nls")){
     ##extract values we need only
@@ -493,6 +511,11 @@ fit_EmissionSpectra <- function(
     mu <- m_coef[,"mu"]
     sigma <- m_coef[,"sigma"]
     C <- m_coef[,"C"]
+
+    ## evaluate the components at the given points
+    for (i in 1:length(mu)) {
+      df_plot[[paste0("COMP_", i)]] <- C[i] * dnorm(df_plot$ENERGY, mu[i], sigma[i])
+    }
   }
 
   # Terminal output -----------------------------------------------------------------------------
@@ -504,10 +527,9 @@ fit_EmissionSpectra <- function(
     cat(paste0("\nSE: standard error | SSR: ", format(min(best_fit), scientific=TRUE, digits = 4),
                "| R^2: ", round(R2,3), " | R^2_adj: ", round(R2adj,4)))
     cat("\n(use the output in $fit for a more detailed analysis)\n\n")
-
   }
 
-  # Plotting ------------------------------------------------------------------------------------
+  ## Plotting ---------------------------------------------------------------
   if(plot){
     ##get colour values
     col <- get("col", pos = .LuminescenceEnv)[-1]
@@ -527,7 +549,7 @@ fit_EmissionSpectra <- function(
 
     ), val = list(...))
 
-    if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
+    if (!is.na(fit[1]) && !inherits(fit, "try-error")) {
     ##make sure that the screen closes if something is wrong
     on.exit(graphics::close.screen(n = c(1,2)), add = TRUE)
 
@@ -575,19 +597,15 @@ fit_EmissionSpectra <- function(
     }
 
     ##plot sum curve
-    lines(x = df[[1]], y = predict(fit), col = col[1], lwd = 1.5)
+    lines(x = df_plot$ENERGY, y = df_plot$SUM, col = col[1], lwd = 1.5)
 
     ##add mtext
     mtext(side = 3, text = plot_settings$mtext)
 
     ##add components
+    first.comp.idx <- grep("COMP_", colnames(df_plot))[1] - 1
     for(i in 1:length(mu)){
-      curve(
-         (C[i] * 1 / (sigma[i] * sqrt(2 * pi)) * exp(-0.5 * ((x - mu[i])/sigma[i])^2)),
-         add = TRUE,
-         col = col[i + 1]
-       )
-
+      lines(df_plot$ENERGY, df_plot[[first.comp.idx + i]], col = col[i + 1])
     }
 
     ##add legend
@@ -642,7 +660,7 @@ fit_EmissionSpectra <- function(
       tick = FALSE
     )
 
-  }else{
+   } else { # the fit failed
 
     ##provide control plot
     plot(df, main = "fit_EmissionSpectra() - control plot")
@@ -661,7 +679,6 @@ fit_EmissionSpectra <- function(
         col = i
       )
     }
-
    }
   }##if plot
 
@@ -674,7 +691,8 @@ fit_EmissionSpectra <- function(
                   SSR = SSR,
                   SST = SST,
                   R2 = R2,
-                  R2adj = R2adj)
+                  R2adj = R2adj),
+                df_plot = list(df_plot)
                 ),
     info = list(call = sys.call())
   )

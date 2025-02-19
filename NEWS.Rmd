@@ -243,6 +243,11 @@ crashed unexpectedly; fixed.
 in `confint()` failed. This has now been fixed, and in cases of failures we
 report the error message received from `confint()` (#509, fixed in #510).
 
+### `fit_EmissionSpectra()`
+* The function now also returns a data frame with the values of all curves
+plotted, so that it's much easier to produce alternative plots (#569, fixed
+in #570).
+
 ### `get_RLum()`
 * If `get_RLum()` with `subset` was used on info objects of an `RLum.Analysis-class` object it
 would return wrong results if the info element was not present in all records; fixed. 
