@@ -297,6 +297,8 @@
   to restore the previous behaviour, add
   `method_control = list(export.comp.contrib.matrix = TRUE)` to the
   function call (fixed in \#573).
+- In case of plot failure the function now is able to recover gracefully
+  and produce an output object (#574, fixed in \#578).
 
 ### `fit_EmissionSpectra()`
 
@@ -313,6 +315,9 @@
   to restore the previous behaviour, add
   `method_control = list(export.comp.contrib.matrix = TRUE)` to the
   function call (fixed in \#573).
+- In case of plot failure the function now is able to recover gracefully
+  and produce an output object (#574, fixed in \#578; thanks to @LumTKO
+  for reporting).
 
 ### `get_RLum()`
 

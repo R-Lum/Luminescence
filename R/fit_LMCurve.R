@@ -918,7 +918,7 @@ fit_LMCurve<- function(
 
     ##==upper plot==##
     ##open plot area
-    plot(
+    plot_check <- try(plot(
       NA,
       NA,
       xlim = xlim,
@@ -928,7 +928,14 @@ fit_LMCurve<- function(
       main = main,
       log = log,
       ylab = ylab
-    )#endplot
+    ), silent = TRUE)
+
+    if (is(plot_check, "try-error")) {
+      ## reset the graphic device if plotting failed
+      .throw_message("Figure margins too large or plot area too small, ",
+                     "nothing plotted")
+      grDevices::dev.off()
+    } else {
 
     mtext(side=3,sample_code,cex=0.8*cex)
 
@@ -1031,6 +1038,8 @@ fit_LMCurve<- function(
     }#end if try-error for fit
 
     if (fun == TRUE) sTeve() # nocov
+
+    } # end if (plot_check)
   }
   ##-----------------------------------------------------------------------------
   ##remove objects

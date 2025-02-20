@@ -253,6 +253,8 @@ to control the saving of the component contribution matrix in the RLum.Results
 object it returns. This is now disabled by default: to restore the previous
 behaviour, add `method_control = list(export.comp.contrib.matrix = TRUE)` to
 the function call (fixed in #573).
+* In case of plot failure the function now is able to recover gracefully and
+produce an output object (#574, fixed in #578).
 
 ### `fit_EmissionSpectra()`
 * The function can now return a data frame with the values of all curves
@@ -266,6 +268,9 @@ to control the saving of the component contribution matrix in the RLum.Results
 object it returns. This is now disabled by default: to restore the previous
 behaviour, add `method_control = list(export.comp.contrib.matrix = TRUE)` to
 the function call (fixed in #573).
+* In case of plot failure the function now is able to recover gracefully and
+produce an output object (#574, fixed in #578; thanks to @LumTKO for
+reporting).
 
 ### `get_RLum()`
 * If `get_RLum()` with `subset` was used on info objects of an `RLum.Analysis-class` object it
