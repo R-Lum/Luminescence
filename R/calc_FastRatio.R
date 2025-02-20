@@ -214,7 +214,7 @@ calc_FastRatio <- function(object,
                                    fit.method = settings$fit.method,
                                    LED.power = stimulation.power,
                                    LED.wavelength = wavelength,
-                                   output.terminal = settings$output.terminal,
+                                   verbose = settings$output.terminal,
                                    plot = plot), outFile = stdout())
 
       if (!inherits(fitCW.res, "try-error")) {

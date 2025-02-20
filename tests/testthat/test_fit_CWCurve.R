@@ -16,6 +16,12 @@ test_that("input validation", {
                "'n.components.max' should be a positive integer scalar")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.failure_threshold = -1),
                "'fit.failure_threshold' should be a positive integer scalar")
+  expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, verbose = "error"),
+               "'verbose' should be a single logical value")
+  expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, output.terminalAdvanced = "error"),
+               "'output.terminalAdvanced' should be a single logical value")
+  expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, plot = "error"),
+               "'plot' should be a single logical value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve[5:1, ]),
                "Time values are not ordered")
 })
@@ -44,13 +50,12 @@ test_that("check functionality", {
                     curveType = "measured",
                     recordType = "OSL")
 
-  SW({
   fit <- fit_CWCurve(values = curve,
                      main = "CW Curve Fit",
                      n.components.max = 4,
                      log = "x",
+                     verbose = FALSE,
                      plot = FALSE)
-  })
   expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 3)
   expect_equal(fit$data$n.components, 3, tolerance = 1)

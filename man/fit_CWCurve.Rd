@@ -15,7 +15,7 @@ fit_CWCurve(
   LED.wavelength = 470,
   cex.global = 0.6,
   sample_code = "Default",
-  output.terminal = TRUE,
+  verbose = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
   ...
@@ -59,15 +59,14 @@ global scaling factor.}
 \item{sample_code}{\link{character} (\emph{optional}):
 sample code used for the plot and the optional output table (\code{mtext}).}
 
-\item{output.terminal}{\link{logical} (\emph{with default}):
-terminal output with fitting results.}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{output.terminalAdvanced}{\link{logical} (\emph{with default}):
-enhanced terminal output. Requires \code{output.terminal = TRUE}.
-If \code{output.terminal = FALSE} no advanced output is possible.}
+enhanced terminal output. Only valid if \code{verbose = TRUE}.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-returns a plot of the fitted curves.}
+enable/disable the plot output.}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}.}
 }

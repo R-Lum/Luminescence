@@ -83,15 +83,14 @@
 #' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (`mtext`).
 #'
-#' @param output.terminal [logical] (*with default*):
-#' terminal output with fitting results.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #' @param output.terminalAdvanced [logical] (*with default*):
-#' enhanced terminal output. Requires `output.terminal = TRUE`.
-#' If `output.terminal = FALSE` no advanced output is possible.
+#' enhanced terminal output. Only valid if `verbose = TRUE`.
 #'
 #' @param plot [logical] (*with default*):
-#' returns a plot of the fitted curves.
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments and graphical parameters passed to [plot].
 #'
@@ -180,7 +179,7 @@ fit_CWCurve<- function(
   LED.wavelength = 470,
   cex.global = 0.6,
   sample_code = "Default",
-  output.terminal = TRUE,
+  verbose = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
   ...
@@ -210,6 +209,9 @@ fit_CWCurve<- function(
   fit.method <- .validate_args(fit.method, c("port", "LM"))
   .validate_positive_scalar(n.components.max, int = TRUE)
   .validate_positive_scalar(fit.failure_threshold, int = TRUE)
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(output.terminalAdvanced)
+  .validate_logical_scalar(plot)
 
   # Deal with extra arguments -----------------------------------------------
 
@@ -498,7 +500,7 @@ fit_CWCurve<- function(
     ## Terminal Output
     ##============================================================================##
 
-    if (output.terminal==TRUE){
+    if (verbose) {
 
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_CWCurve()]")
@@ -522,7 +524,7 @@ fit_CWCurve<- function(
     ##============================================================================##
     ## Terminal Output (advanced)
     ##============================================================================##
-    if (output.terminalAdvanced==TRUE && output.terminal==TRUE){
+    if (verbose && output.terminalAdvanced) {
 
       ##sum of squares
       writeLines(paste("pseudo-R^2 = ",pR,sep=""))
@@ -675,7 +677,7 @@ fit_CWCurve<- function(
     }#endif :: (exists("fit"))
 
   }else{
-    if (output.terminal==TRUE)
+    if (verbose)
       .throw_message("Fitting failed, plot without fit produced")
   }
 
