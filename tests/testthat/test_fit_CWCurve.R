@@ -43,6 +43,8 @@ test_that("check functionality", {
   expect_equal(round(fit$data$I01, digits = 0), 2388, tolerance = 1)
   expect_equal(round(fit$data$lambda1, digits = 1), 4.6, tolerance = 1)
   expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
+  expect_type(fit@data$component.contribution.matrix, "list")
+  expect_equal(fit@data$component.contribution.matrix[[1]], NA)
 
   ## RLum.Data.Curve object
   curve <- set_RLum("RLum.Data.Curve",
@@ -54,6 +56,7 @@ test_that("check functionality", {
                      main = "CW Curve Fit",
                      n.components.max = 4,
                      log = "x",
+                     method_control = list(export.comp.contrib.matrix = TRUE),
                      verbose = FALSE,
                      plot = FALSE)
   expect_s4_class(fit, "RLum.Results")
@@ -62,6 +65,7 @@ test_that("check functionality", {
   expect_equal(round(fit$data$I01, digits = 0), 2388, tolerance = 1)
   expect_equal(round(fit$data$lambda1, digits = 1), 4.6, tolerance = 1)
   expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
+  expect_gte(length(fit@data$component.contribution.matrix[[1]]), 9000)
 
   SW({
   expect_warning(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "LM",

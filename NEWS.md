@@ -290,13 +290,28 @@
   fixed in \#510).
 - Argument `output.terminal` has been renamed to `verbose` for
   consistency with other functions.
+- The function has gained the new `method_control` argument, which can
+  be used to control the saving of the component contribution matrix in
+  the RLum.Results object it returns. This is now disabled by default:
+  to restore the previous behaviour, add
+  `method_control = list(export.comp.contrib.matrix = TRUE)` to the
+  function call (fixed in \#573).
 
 ### `fit_EmissionSpectra()`
 
 - The function can now return a data frame with the values of all curves
   plotted, so that it’s much easier to produce alternative plots, by
   setting option `export.plot.data = TRUE` within the `method_control`
-  argument (#569, fixed in \#570).
+  argument (#569, fixed in \#570 and \#573).
+
+### `fit_LMCurve()`
+
+- The function has gained the new `method_control` argument, which can
+  be used to control the saving of the component contribution matrix in
+  the RLum.Results object it returns. This is now disabled by default:
+  to restore the previous behaviour, add
+  `method_control = list(export.comp.contrib.matrix = TRUE)` to the
+  function call (fixed in \#573).
 
 ### `get_RLum()`
 

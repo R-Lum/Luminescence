@@ -92,6 +92,11 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
+#' @param method_control [list] (*optional*): options to control the output
+#' produced. Currently only the 'export.comp.contrib.matrix' (logical) option
+#' is supported, to enable/disable export of the component contribution
+#' matrix.
+#'
 #' @param ... further arguments and graphical parameters passed to [plot].
 #'
 #' @return
@@ -115,6 +120,7 @@
 #' `component.contribution.matrix`:
 #' [matrix] containing the values for the component to sum contribution plot
 #' (`$component.contribution.matrix`).
+#' Produced only if `method_control$export.comp.contrib.matrix = TRUE`).
 #'
 #' Matrix structure:\cr
 #' Column 1 and 2: time and `rev(time)` values \cr
@@ -135,7 +141,7 @@
 #' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
-#' @section Function version: 0.5.3
+#' @section Function version: 0.5.4
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -182,6 +188,7 @@ fit_CWCurve<- function(
   verbose = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
+  method_control = list(),
   ...
 ) {
   .set_function_name("fit_CWCurve")
@@ -212,6 +219,7 @@ fit_CWCurve<- function(
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(output.terminalAdvanced)
   .validate_logical_scalar(plot)
+  .validate_class(method_control, "list")
 
   # Deal with extra arguments -----------------------------------------------
 
@@ -229,6 +237,9 @@ fit_CWCurve<- function(
 
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
   {paste("OSL [cts/",round(max(x)/length(x), digits = 2)," s]",sep="")}
+
+  method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
+                               val = method_control)
 
   if ("output.path" %in% names(extraArgs))
     .throw_warning("Argument 'output.path' no longer supported, ignored")
@@ -793,6 +804,9 @@ fit_CWCurve<- function(
   ## Return Values
   ##============================================================================##
 
+  if (!method_control$export.comp.contrib.matrix) {
+    component.contribution.matrix <- NA
+  }
   newRLumResults.fit_CWCurve <- set_RLum(
     class = "RLum.Results",
     data = list(
