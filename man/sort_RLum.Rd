@@ -27,18 +27,13 @@ Allowed arguments can be found in the documentations of the corresponding
 }
 
 \examples{
-## FIXME(mcol)
 
 ## load example data
-data(ExampleData.CW_OSL_Curve, envir = environment())
+data(ExampleData.XSYG, envir = environment())
+obj <- OSL.SARMeasurement$Sequence.Object[1:9]
 
-## create RLum.Data.Curve object from this example
-curve <-
-  set_RLum(
-      class = "RLum.Data.Curve",
-      recordType = "OSL",
-      data = as.matrix(ExampleData.CW_OSL_Curve)
-  )
+sort_RLum(obj, slot = "recordType")
+sort_RLum(obj, info_element = "curveDescripter")
 
 }
 \seealso{
