@@ -386,7 +386,6 @@ setMethod(f = "show",
 
 
 # set method for object class -----------------------------------
-
 #' @describeIn Risoe.BINfileData
 #' The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
 #' This construction method is intended for internal usage only.
@@ -596,6 +595,54 @@ setMethod("replace_metadata<-",
             }
             assign(x = deparse(substitute(object))[1], object)
           })
+
+
+## sort_RLum () -------------------------------------------------------------
+#' @describeIn Risoe.BINfileData
+#'
+#' Sort method for [Risoe.BINfileData-class] objects
+#'
+#' @param object (**required**): an object of class [Risoe.BINfileData-class].
+#'
+#' @param info_element [character] (**required**): name of the metadata field
+#' to use in sorting.
+#'
+#' @param decreasing [logical] (*with default*): whether the sort order should
+#' be decreasing (`FALSE` by default).
+#'
+#' @param ... further arguments that might be passed to underlying methods.
+#'
+#' @keywords internal
+#'
+#' @md
+#' @export
+setMethod(
+  f = "sort_RLum",
+  signature = "Risoe.BINfileData",
+  function(object, info_element,
+           decreasing = FALSE, ...) {
+    .set_function_name("sort_RLum")
+    on.exit(.unset_function_name(), add = TRUE)
+
+    ## input validation
+    .validate_class(info_element, "character")
+    valid.names <- colnames(object@METADATA)
+    if (!info_element %in% valid.names) {
+      .throw_error("Invalid 'info_element' name, valid names are: ",
+                   .collapse(valid.names))
+    }
+    .validate_logical_scalar(decreasing)
+
+    ## determine the new ordering
+    ord <- order(object@METADATA[[info_element]], decreasing = decreasing)
+
+    ## reorder the object
+    object@METADATA <- object@METADATA[ord, ]
+    object@DATA <- object@DATA[ord]
+
+    return(object)
+  }
+)
 
 
 # view () -----------------------------------------------------------------------
