@@ -213,7 +213,8 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
 \item \code{length_RLum(RLum.Analysis)}: Returns the length of the object, i.e., number of stored records.
 
-\item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
+\item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects (same as shown with the
+\code{show} method)
 
 \item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects
 

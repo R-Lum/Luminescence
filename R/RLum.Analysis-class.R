@@ -721,7 +721,8 @@ setMethod("length_RLum",
 
 # names_RLum() --------------------------------------------------------------------------------
 #' @describeIn RLum.Analysis
-#' Returns the names of the [RLum.Data-class] objects objects (same as shown with the show method)
+#' Returns the names of the [RLum.Data-class] objects (same as shown with the
+#' `show` method)
 #'
 #' @return
 #'
