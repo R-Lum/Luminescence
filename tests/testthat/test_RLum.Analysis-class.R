@@ -1,6 +1,8 @@
 ## load data
 data(ExampleData.RLum.Analysis, envir = environment())
 obj <- IRSAR.RF.Data
+data(ExampleData.XSYG, envir = environment())
+sar <- OSL.SARMeasurement$Sequence.Object[1:9]
 
 ## construct test object
 tmp <- set_RLum(
@@ -124,6 +126,32 @@ test_that("get_RLum", {
   expect_message(expect_null(get_RLum(obj, subset = (recordType == NA))),
                  "'subset' expression produced an empty selection, NULL returned")
   })
+})
+
+test_that("sort_RLum", {
+  testthat::skip_on_cran()
+
+  ## input validation
+  expect_error(sort_RLum(sar, slot = NA),
+               "'slot' should be of class 'character' or NULL")
+  expect_error(sort_RLum(sar, slot = "error"),
+               "Invalid 'slot' name, valid names are:")
+  expect_error(sort_RLum(sar, info_element = NA),
+               "'info_element' should be of class 'character' or NULL")
+  expect_error(sort_RLum(sar, info_element = "error"),
+               "Invalid 'info_element' name, valid names are:")
+  expect_error(sort_RLum(sar, slot = NULL, info_element = NULL),
+               "At least one of 'slot' and 'info_element' should not be NULL")
+  expect_error(sort_RLum(sar, slot = "recordType", decreasing = "error"),
+               "'decreasing' should be a single logical value")
+  expect_error(sort_RLum(sar, slot = "data"),
+               "Records could not be sorted according to slot = 'data'")
+  expect_error(sort_RLum(sar, info_element = "offset"),
+               "Records could not be sorted according to info_element = 'offset'")
+
+  ## check functionality
+  expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
+  expect_snapshot_RLum(sort_RLum(sar, info_element = "curveDescripter"))
 })
 
 test_that("structure_RLum", {

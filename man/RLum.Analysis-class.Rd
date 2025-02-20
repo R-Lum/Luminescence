@@ -13,6 +13,7 @@
 \alias{rename_metadata<-,RLum.Analysis-method}
 \alias{replace_metadata<-,RLum.Analysis-method}
 \alias{smooth_RLum,RLum.Analysis-method}
+\alias{sort_RLum,RLum.Analysis-method}
 \alias{melt_RLum,RLum.Analysis-method}
 \alias{view,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
@@ -57,6 +58,8 @@
 \S4method{replace_metadata}{RLum.Analysis}(object, info_element, subset = NULL) <- value
 
 \S4method{smooth_RLum}{RLum.Analysis}(object, ...)
+
+\S4method{sort_RLum}{RLum.Analysis}(object, slot = NULL, info_element = NULL, decreasing = FALSE, ...)
 
 \S4method{melt_RLum}{RLum.Analysis}(object)
 
@@ -136,14 +139,19 @@ extends the returned \code{data.frame} to its full extent, i.e. all info element
 are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 
-\item{info_element}{\link{character} (\strong{required}) name of the metadata field
-to replace or remove}
+\item{info_element}{\link{character} (\emph{optional}): name of the \code{info} field
+to use in sorting.}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
 of the metadata field. If \code{NULL} the elements named in \code{info_element}
 will be removed.}
 
 \item{...}{other arguments that might be passed}
+
+\item{slot}{\link{character} (\emph{optional}): slot name to use in sorting.}
+
+\item{decreasing}{\link{logical} (\emph{with default}): whether the sort order should
+be decreasing (\code{FALSE} by default).}
 }
 \value{
 \strong{\code{get_RLum}}:
@@ -170,6 +178,10 @@ Returns the names of the record types (\code{recordType}) in this object.
 \strong{\code{smooth_RLum}}
 
 Same object as input, after smoothing
+
+\strong{\code{sort_RLum}}
+
+Same object as input, but sorted according to the specified parameters.
 
 \strong{\code{melt_RLum}}
 
@@ -211,6 +223,10 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
 using the internal function \code{.smoothing}.
+
+\item \code{sort_RLum(RLum.Analysis)}: Sorting of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object.
+At least one of \code{slot} and \code{info_element} must be provided. If both are
+given, ordering by \code{slot} always supersedes ordering by \code{info_element}.
 
 \item \code{melt_RLum(RLum.Analysis)}: Melts \linkS4class{RLum.Analysis} objects into a flat data.frame to be used
 in combination with other packages such as \code{ggplot2}.

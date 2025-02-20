@@ -8,7 +8,7 @@ get_Risoe.BINfileData(object, ...)
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
-S4 object of class \code{RLum}}
+S4 object of class \code{Risoe.BINfileData}}
 
 \item{...}{further arguments passed to the specific class method}
 }
