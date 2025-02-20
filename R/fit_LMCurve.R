@@ -144,14 +144,19 @@
 #' see Details). **Note:** requires input for `values.bg`.
 #'
 #' @param verbose [logical] (*with default*):
-#'  terminal output with fitting results.
+#' enable/disable output to the terminal.
 #'
 #' @param plot [logical] (*with default*):
-#' returns a plot of the fitted curves.
+#' enable/disable the plot output.
 #'
 #' @param plot.BG [logical] (*with default*):
 #' returns a plot of the background values with the fit used for the
 #' background subtraction.
+#'
+#' @param method_control [list] (*optional*): options to control the output
+#' produced. Currently only the 'export.comp.contrib.matrix' (logical) option
+#' is supported, to enable/disable export of the component contribution
+#' matrix.
 #'
 #' @param ... Further arguments that may be passed to the plot output, e.g.
 #' `xlab`, `xlab`, `main`, `log`.
@@ -166,6 +171,7 @@
 #' `.. $fit` : nls ([nls] object)\cr
 #' `.. $component_matrix` : [matrix] with numerical xy-values of the single fitted components with the resolution of the input data
 #' `.. $component.contribution.matrix` : [list] component distribution matrix
+#'  (produced only if `method_control$export.comp.contrib.matrix = TRUE`)
 #'
 #' **`info:`**
 #'
@@ -188,7 +194,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -259,6 +265,7 @@ fit_LMCurve<- function(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  method_control = list(),
   ...
 ) {
   .set_function_name("fit_LMCurve")
@@ -296,6 +303,10 @@ fit_LMCurve<- function(
   fit.method <- .validate_args(fit.method, c("port", "LM"))
   bg.subtraction <- .validate_args(bg.subtraction,
                                    c("polynomial", "linear", "channel"))
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(plot.BG)
+  .validate_class(method_control, "list")
 
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
@@ -334,6 +345,9 @@ fit_LMCurve<- function(
   else {0.8}
 
   fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
+
+  method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
+                               val = method_control)
 
   # layout safety settings
   par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
@@ -1025,6 +1039,10 @@ fit_LMCurve<- function(
   ##============================================================================#
   ## Return Values
   ##============================================================================#
+
+  if (!method_control$export.comp.contrib.matrix) {
+    component.contribution.matrix <- NA
+  }
   newRLumResults.fit_LMCurve <- set_RLum(
     class = "RLum.Results",
     data = list(

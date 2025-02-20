@@ -48,6 +48,8 @@ test_that("snapshot tests", {
   set.seed(1)
   fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
                      n.components = 3, log = "x",
+                     method_control = list(
+                         export.comp.contrib.matrix = TRUE),
                      start_values = data.frame(Im = c(170,25,400),
                                                xm = c(56,200,1500)))
   })
@@ -59,6 +61,8 @@ test_that("snapshot tests", {
                       n.components = 3,
                       log = "x",
                       fit.method = "LM",
+                      method_control = list(
+                          export.comp.contrib.matrix = TRUE),
                       plot = FALSE)
   })
   expect_snapshot_RLum(fit2, tolerance = snapshot.tolerance)
@@ -72,6 +76,8 @@ test_that("snapshot tests", {
 
   set.seed(1)
   expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+                                   method_control = list(
+                                       export.comp.contrib.matrix = TRUE),
                                    plot.BG = TRUE, bg.subtraction = "linear"),
                        tolerance = snapshot.tolerance)
 
@@ -94,10 +100,14 @@ test_that("snapshot tests", {
   skip_on_os("mac")
   expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
                                    xlim = c(0, 4000), ylim = c(0, 600), cex = 0.9,
+                                   method_control = list(
+                                       export.comp.contrib.matrix = TRUE),
                                    fit.calcError = TRUE),
                        tolerance = snapshot.tolerance)
   expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
                                    plot.BG = TRUE, input.dataType = "pLM",
+                                   method_control = list(
+                                       export.comp.contrib.matrix = TRUE),
                                    bg.subtraction = "channel"),
                        tolerance = snapshot.tolerance)
   skip_on_os("windows")

@@ -22,6 +22,7 @@ fit_LMCurve(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  method_control = list(),
   ...
 )
 }
@@ -81,14 +82,19 @@ specifies method for background subtraction (\code{polynomial}, \code{linear}, \
 see Details). \strong{Note:} requires input for \code{values.bg}.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-terminal output with fitting results.}
+enable/disable output to the terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-returns a plot of the fitted curves.}
+enable/disable the plot output.}
 
 \item{plot.BG}{\link{logical} (\emph{with default}):
 returns a plot of the background values with the fit used for the
 background subtraction.}
+
+\item{method_control}{\link{list} (\emph{optional}): options to control the output
+produced. Currently only the 'export.comp.contrib.matrix' (logical) option
+is supported, to enable/disable export of the component contribution
+matrix.}
 
 \item{...}{Further arguments that may be passed to the plot output, e.g.
 \code{xlab}, \code{xlab}, \code{main}, \code{log}.}
@@ -103,6 +109,7 @@ Various types of plots are returned. For details see above. Furthermore an
 \code{.. $fit} : nls (\link{nls} object)\cr
 \code{.. $component_matrix} : \link{matrix} with numerical xy-values of the single fitted components with the resolution of the input data
 \code{.. $component.contribution.matrix} : \link{list} component distribution matrix
+(produced only if \code{method_control$export.comp.contrib.matrix = TRUE})
 
 \strong{\verb{info:}}
 
@@ -214,7 +221,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.4
+ 0.3.5
 }
 
 \examples{

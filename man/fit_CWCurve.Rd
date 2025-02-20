@@ -18,6 +18,7 @@ fit_CWCurve(
   verbose = TRUE,
   output.terminalAdvanced = TRUE,
   plot = TRUE,
+  method_control = list(),
   ...
 )
 }
@@ -68,6 +69,11 @@ enhanced terminal output. Only valid if \code{verbose = TRUE}.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
+\item{method_control}{\link{list} (\emph{optional}): options to control the output
+produced. Currently only the 'export.comp.contrib.matrix' (logical) option
+is supported, to enable/disable export of the component contribution
+matrix.}
+
 \item{...}{further arguments and graphical parameters passed to \link{plot}.}
 }
 \value{
@@ -91,6 +97,7 @@ a \link{data.frame} containing the summarised parameters including the error
 \code{component.contribution.matrix}:
 \link{matrix} containing the values for the component to sum contribution plot
 (\verb{$component.contribution.matrix}).
+Produced only if \code{method_control$export.comp.contrib.matrix = TRUE}).
 
 Matrix structure:\cr
 Column 1 and 2: time and \code{rev(time)} values \cr
@@ -158,7 +165,7 @@ The function \strong{does not} ensure that the fitting procedure has reached a
 global minimum rather than a local minimum!
 }
 \section{Function version}{
- 0.5.3
+ 0.5.4
 }
 
 \examples{
