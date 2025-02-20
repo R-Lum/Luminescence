@@ -1,5 +1,6 @@
 ## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
+data(ExampleData.FittingLM, envir = environment())
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -77,6 +78,14 @@ test_that("check functionality", {
   ## more coverage
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1, ]),
                  "Error: Fitting failed, plot without fit produced")
+
+  pdf(tempfile(), width = 1, height = 1)
+  expect_message(fit_CWCurve(values.curve, n.components.max = 3,
+                             verbose = FALSE),
+                 "Figure margins too large or plot area too small")
+  pdf(tempfile(), width = 1, height = 1)
+  expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve, verbose = FALSE),
+                 "Figure margins too large or plot area too small")
 })
 
 test_that("regression tests", {

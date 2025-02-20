@@ -686,10 +686,6 @@ fit_CWCurve<- function(
         "cont.sum")
 
     }#endif :: (exists("fit"))
-
-  }else{
-    if (verbose)
-      .throw_message("Fitting failed, plot without fit produced")
   }
 
   ##============================================================================##
@@ -698,7 +694,8 @@ fit_CWCurve<- function(
   if(plot==TRUE){
 
     ##grep par parameters
-    par.default <- par(no.readonly = TRUE)
+    par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
+    on.exit(par(par.default), add = TRUE)
 
     ##set colors gallery to provide more colors
     col <- get("col", pos = .LuminescenceEnv)
@@ -709,18 +706,23 @@ fit_CWCurve<- function(
       layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
       par(oma = c(1, 1, 1, 1), mar = c(0, 4, 3, 0))
     }
-
-    ##==uppper plot==##
+    ##== upper plot ==##
     ##open plot area
-
-    plot(NA,NA,
+    plot_check <- try(plot(NA, NA,
          xlim=c(min(x),max(x)),
          ylim = c(ifelse(log == "xy", 1, 0), max(y)),
          xlab = ifelse(inherits(fit, "try-error"), xlab, ""),
          xaxt = ifelse(inherits(fit, "try-error"), "s", "n"),
          ylab=ylab,
          main=main,
-         log=log)
+         log = log), silent = TRUE)
+
+    if (is(plot_check, "try-error")) {
+      ## reset the graphic device if plotting failed
+      .throw_message("Figure margins too large or plot area too small, ",
+                     "nothing plotted")
+      grDevices::dev.off()
+    } else {
 
     ##plotting measured signal
     points(x,y,pch=20, col="grey")
@@ -754,7 +756,7 @@ fit_CWCurve<- function(
       ##==lower plot==##
       ##plot residuals
       par(mar=c(4.2,4,0,0))
-      plot(x,residuals(fit),
+      plot_check2 <- try(plot(x,residuals(fit),
            xlim=c(min(x),max(x)),
            xlab=xlab,
            type="l",
@@ -762,7 +764,14 @@ fit_CWCurve<- function(
            ylab="Residual [a.u.]",
            lwd=2,
            log=if(log=="x" | log=="xy"){log="x"}else{""}
-      )
+      ), silent = TRUE)
+
+      if (is(plot_check2, "try-error")) {
+        ## reset the graphic device if plotting failed
+        .throw_message("Figure margins too large or plot area too small, ",
+                       "nothing plotted")
+        grDevices::dev.off()
+      } else {
 
       ##add 0 line
       abline(h=0)
@@ -793,11 +802,14 @@ fit_CWCurve<- function(
                 col = col[i+1])
       }
       rm(stepping)
+      } # end if (plot_check2)
 
+    } else {
+      if (verbose)
+        .throw_message("Fitting failed, plot without fit produced")
     }#end if try-error for fit
 
-    par(par.default)
-    rm(par.default)
+    } # end if (plot_check)
   }
 
   ##============================================================================##

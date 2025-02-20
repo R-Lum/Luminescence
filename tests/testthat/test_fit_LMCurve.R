@@ -95,6 +95,9 @@ test_that("snapshot tests", {
   })
   expect_message(fit_LMCurve(values.curve[1:15, ], main = ""),
                  "Fitting failed, plot without fit produced")
+  pdf(tempfile(), width = 1, height = 1)
+  expect_message(fit_LMCurve(values.curve, verbose = FALSE),
+                 "Figure margins too large or plot area too small")
 
   SW({
   skip_on_os("mac")
