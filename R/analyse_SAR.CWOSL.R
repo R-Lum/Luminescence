@@ -1233,7 +1233,7 @@ error.list <- list()
           list(
             sample = temp.sample,
             output.plot = plot,
-            plot_singlePanels = plot_onePage,
+            plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
             cex.global = if(plot_onePage) .6 else 1
             ),
           list(...)
