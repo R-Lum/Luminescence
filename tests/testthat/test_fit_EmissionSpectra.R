@@ -73,7 +73,8 @@ SW({
     n_components = 3,
     plot = TRUE,
     start_parameters = c(2.17),
-    method_control = list(max.runs = 100)), "RLum.Results")
+    method_control = list(max.runs = 100,
+                          export.plot.data = TRUE)), "RLum.Results")
   })
   expect_length(results, 4)
   expect_s3_class(results$fit[[1]], "nls")
@@ -83,13 +84,14 @@ SW({
                c("ENERGY", "WAVELENGTH", "SUM", "COMP_1", "COMP_2", "COMP_3"))
 
   # silent mode -------
-  expect_silent(fit_EmissionSpectra(
+  expect_silent(results <- fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5,
     main = "TL spectrum",
     plot = FALSE,
     verbose = FALSE,
     method_control = list(max.runs = 10)))
+  expect_equal(results@data$df_plot[[1]], NA)
 
   ## input_scale
   SW({

@@ -54,6 +54,8 @@
 #' the searching stops \cr
 #' `graining` \tab [numeric] \tab `15` \tab control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
 #' `norm` \tab [logical] \tab `TRUE` \tab normalise data to the highest count value before fitting \cr
+#' `export.plot.data` \tab [logical] \tab `FALSE` \tab enable/disable export
+#'  of the values of all curves in the plot for each frame analysed \cr
 #' `trace` \tab [logical] \tab `FALSE` \tab enable/disable the tracing of the minimisation routine
 #'}
 #'
@@ -79,8 +81,8 @@
 #'@param sub_negative [numeric] (*with default*): substitute negative values in the input object
 #'by the number provided here (default: `0`). Can be set to `NULL`, i.e. negative values are kept.
 #'
-#' @param method_control [list] (*optional*): options to control the fit method,
-#' see details.
+#' @param method_control [list] (*optional*): options to control the fit method
+#' and the output produced, see details.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
@@ -107,7 +109,7 @@
 #'  `$fit_info` \tab `list` \tab a few additional parameters that can be used
 #'   to assess the quality of the fit \cr
 #'  `$df_plot` \tab `list` \tab values of all curves in the plot for each
-#'   frame analysed
+#'   frame analysed (only if `method_control$export.plot.data = TRUE`)
 #' }
 #'
 #'
@@ -375,6 +377,7 @@ fit_EmissionSpectra <- function(
     max.runs = 10000,
     graining = 15,
     norm = TRUE,
+    export.plot.data = FALSE,
     trace = FALSE
   ), val = method_control)
 
@@ -682,7 +685,10 @@ fit_EmissionSpectra <- function(
    }
   }##if plot
 
-  # Output --------------------------------------------------------------------------------------
+  ## Output -----------------------------------------------------------------
+  if (!method_control$export.plot.data) {
+    df_plot <- NA
+  }
   results <- set_RLum(
     class = "RLum.Results",
     data = list(data = m_coef,

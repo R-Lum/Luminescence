@@ -40,8 +40,8 @@ are expressed as wavelength or energy values. Allowed values are \code{"waveleng
 \code{"energy"} or \code{NULL}, in which case the function tries to guess the input
 automatically.}
 
-\item{method_control}{\link{list} (\emph{optional}): options to control the fit method,
-see details.}
+\item{method_control}{\link{list} (\emph{optional}): options to control the fit method
+and the output produced, see details.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
@@ -68,7 +68,7 @@ terminal.}
 \verb{$fit_info} \tab \code{list} \tab a few additional parameters that can be used
 to assess the quality of the fit \cr
 \verb{$df_plot} \tab \code{list} \tab values of all curves in the plot for each
-frame analysed
+frame analysed (only if \code{method_control$export.plot.data = TRUE})
 }
 
 \strong{slot:} \strong{\verb{@info}}
@@ -147,6 +147,8 @@ run  at least 10,000 iterations (parameter \code{method_control = list(max.runs 
 the searching stops \cr
 \code{graining} \tab \link{numeric} \tab \code{15} \tab control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
 \code{norm} \tab \link{logical} \tab \code{TRUE} \tab normalise data to the highest count value before fitting \cr
+\code{export.plot.data} \tab \link{logical} \tab \code{FALSE} \tab enable/disable export
+of the values of all curves in the plot for each frame analysed \cr
 \code{trace} \tab \link{logical} \tab \code{FALSE} \tab enable/disable the tracing of the minimisation routine
 }
 }

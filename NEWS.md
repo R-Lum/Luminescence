@@ -293,9 +293,10 @@
 
 ### `fit_EmissionSpectra()`
 
-- The function now also returns a data frame with the values of all
-  curves plotted, so that it’s much easier to produce alternative plots
-  (#569, fixed in \#570).
+- The function can now return a data frame with the values of all curves
+  plotted, so that it’s much easier to produce alternative plots, by
+  setting option `export.plot.data = TRUE` within the `method_control`
+  argument (#569, fixed in \#570).
 
 ### `get_RLum()`
 
