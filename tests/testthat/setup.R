@@ -1,5 +1,5 @@
 ## --------------------------------------------------------------------------
-## helper functions for snapshoting
+## helper functions for snapshotting
 ##
 
 ## the ... can be used to set the tolerance
@@ -67,6 +67,12 @@ expect_snapshot_RLum <- function(object, ...) {
       object@records[[idx]]@.pid <- NA_character_
     }
   }
+  expect_snapshot_value(object, style = "json2", ...)
+}
+
+## wrapper for Risoe.BINfileData objects
+expect_snapshot_Risoe <- function(object, ...) {
+  attr(object, ".S3Class") <- NULL
   expect_snapshot_value(object, style = "json2", ...)
 }
 

@@ -37,8 +37,9 @@ These function allow to manipulate the metadata of
 `Risoe.BINfileData`, `RLum.Analysis` and `RLum.Data` objects (#480, fixed
 in #514, #524, #525, #527, #534, #545).
 
-* `sort_RLum()`: Allows to sort the records of an `RLum.Analysis` object
-according to a given slot or info element (#528, fixed in #571).
+* `sort_RLum()`: Allows to sort the records of `RLum.Analysis` and
+`Risoe.BINfileData` objects according to a given slot or info element
+(#528, fixed in #571 and #576).
 
 * `view()`: Provides a shortcut to the `utils::View()` spreadsheet-like data
 viewer tailored to the objects in the package (#489, fixed in #490).

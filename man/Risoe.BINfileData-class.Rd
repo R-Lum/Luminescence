@@ -9,6 +9,7 @@
 \alias{add_metadata<-,Risoe.BINfileData-method}
 \alias{rename_metadata<-,Risoe.BINfileData-method}
 \alias{replace_metadata<-,Risoe.BINfileData-method}
+\alias{sort_RLum,Risoe.BINfileData-method}
 \alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
@@ -28,6 +29,8 @@
 
 \S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
 
+\S4method{sort_RLum}{Risoe.BINfileData}(object, info_element, decreasing = FALSE, ...)
+
 \S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
@@ -43,8 +46,8 @@ values for internal use only.}
 
 \item{...}{other arguments that might be passed}
 
-\item{info_element}{\link{character} (\strong{required}) name of the metadata field
-to replace or remove}
+\item{info_element}{\link{character} (\strong{required}): name of the metadata field
+to use in sorting.}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
 of the metadata field. If \code{NULL} the elements named in \code{info_element}
@@ -52,6 +55,9 @@ will be removed.}
 
 \item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
 substitution only to the selected subset of elements}
+
+\item{decreasing}{\link{logical} (\emph{with default}): whether the sort order should
+be decreasing (\code{FALSE} by default).}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -72,6 +78,8 @@ the object directly, it is just showing a terminal message.
 \item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \linkS4class{Risoe.BINfileData} objects
 
 \item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects
+
+\item \code{sort_RLum(Risoe.BINfileData)}: Sort method for \linkS4class{Risoe.BINfileData} objects
 
 \item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects
 
