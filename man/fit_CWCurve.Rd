@@ -76,7 +76,7 @@ returns a plot of the fitted curves.}
 
 the fitted CW-OSL curves are returned as plot.
 
-\strong{RLum.Results}
+\strong{RLum.Results object}
 
 Beside the plot and table output options, an \linkS4class{RLum.Results} object is
 returned.
@@ -95,28 +95,6 @@ a \link{data.frame} containing the summarised parameters including the error
 
 Matrix structure:\cr
 Column 1 and 2: time and \code{rev(time)} values \cr
-Additional columns are used for the components, two for each component,
-containing I0 and n0. The last columns \code{cont.} provide information on
-the relative component contribution for each time interval including the row
-sum for this values.
-
-\strong{object}
-
-beside the plot and table output options, an \linkS4class{RLum.Results} object
-is returned.
-
-\code{fit}:
-an \code{nls} object (\verb{$fit}) for which generic R functions
-are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
-details, see \link{nls}.
-
-\code{output.table}:
-a \link{data.frame} containing the summarised parameters including the error\cr
-\code{component.contribution.matrix}: \link{matrix} containing the values
-for the component to sum contribution plot (\verb{$component.contribution.matrix}).\cr
-
-Matrix structure:\cr
-Column 1 and 2: time and \code{rev(time)} values\cr
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns \code{cont.} provide information on
 the relative component contribution for each time interval including the row
