@@ -11,7 +11,7 @@ curve using the function plot_GrowthCurve."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ curve using the function plot_GrowthCurve."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Apply fading correction after Lamothe et al., 2003</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/calc_Lamothe2003.R" class="external-link"><code>R/calc_Lamothe2003.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/calc_Lamothe2003.R" class="external-link"><code>R/calc_Lamothe2003.R</code></a></small>
       <div class="d-none name"><code>calc_Lamothe2003.Rd</code></div>
     </div>
 
@@ -77,21 +77,24 @@ which is, according to Lamothe et al. (2003) De/t*.</p></dd>
 
 
 <dt id="arg-g-value">g_value<a class="anchor" aria-label="anchor" href="#arg-g-value"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vector of length 2 (<strong>required</strong>): g_value in \<!-- %/decade \emph{recalculated at the moment} -->
-the equivalent dose was calculated, i.e. <code>tc</code> is either similar for the <em>g</em>-value measurement <strong>and</strong> the De measurement or
-needs be to recalculated (cf. <a href="calc_FadingCorr.html">calc_FadingCorr</a>). Inserting a normalised g-value, e.g., normalised to 2-days , will
-lead to wrong results</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vector of length 2 (<strong>required</strong>): g_value in
+%/decade <em>recalculated at the moment</em> the equivalent dose was calculated,
+i.e. <code>tc</code> is either similar for the <em>g</em>-value measurement <strong>and</strong> the
+De measurement or needs be to recalculated (cf. <a href="calc_FadingCorr.html">calc_FadingCorr</a>).
+Inserting a normalised g-value, e.g., normalised to 2-days , will
+lead to wrong results.</p></dd>
 
 
 <dt id="arg-tc">tc<a class="anchor" aria-label="anchor" href="#arg-tc"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (optional): time in seconds between the <strong>end</strong> of the irradiation and
-the prompt measurement used in the equivalent dose estimation (cf. Huntley &amp; Lamothe 2001).
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): time in seconds between the <strong>end</strong> of
+the irradiation and the prompt measurement used in the equivalent dose
+estimation (cf. Huntley &amp; Lamothe 2001).
 If set to <code>NULL</code> it is assumed that <code>tc</code> is similar for the equivalent dose
 estimation and the <em>g</em>-value estimation</p></dd>
 
 
 <dt id="arg-tc-g-value">tc.g_value<a class="anchor" aria-label="anchor" href="#arg-tc-g-value"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (with default): the time in seconds between irradiation and the
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): the time in seconds between irradiation and the
 prompt measurement estimating the <em>g</em>-value. If the <em>g</em>-value was normalised to, e.g., 2 days,
 this time in seconds (i.e., <code>172800</code>) should be entered here along with the time used for the
 equivalent dose estimation. If nothing is provided the time is set to <code>tc</code>, which is the
@@ -100,15 +103,16 @@ Note: If this value is not <code>NULL</code> the functions expects a <a href="ht
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (with default): Enables/disables terminal verbose mode</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable output to the
+terminal.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (with default): Enables/disables plot output</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the plot output.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments passed to the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></dd>
+<dd><p>further arguments passed to function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -140,7 +144,7 @@ is, by convention (Huntley &amp; Lamothe 2001), the time elapsed between the end
 measurement. Usually there is no reason for having a <code>tc</code> value different for the equivalent dose measurement
 and the <em>g</em>-value measurement, except if different equipment was used.
 However, if, for instance, the <em>g</em>-value measurement sequence was analysed
-with the <em>Analyst</em> (Duller 2015) and the <code>'Luminescence</code> is used to correct for fading,
+with the <em>Analyst</em> (Duller 2015) and <code>Luminescence</code> is used to correct for fading,
 there is a high chance that the value returned by the <em>Analyst</em> comes normalised to 2-days;
 even the <code>tc</code> values of the measurement were identical.
 In such cases, the fading correction cannot be correct until the <code>tc.g_value</code> was manually
@@ -153,7 +157,7 @@ to an identical <code>tc</code> value.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Mercier, N., 2024. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Mercier, N., 2025. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -214,10 +218,10 @@ IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Used g_value:		 2.36  ±  0.6 %/decade </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Fading_C:		 0.785  ±  0.055 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Corrected Ln/Tn:	 5.513  ±  0.127 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Corrected De:		 471.3  ±  25.64  Gy </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Corrected Ln/Tn:	 5.513  ±  0.39 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Corrected De:		 471.3  ±  69.8  Gy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Corrected Age:		 281.2  ±  33.86  ka </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Corrected Age:		 281.2  ±  51.44  ka </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -228,7 +232,7 @@ IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/calc_MinDose.R" class="external-link"><code>R/calc_MinDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/calc_MinDose.R" class="external-link"><code>R/calc_MinDose.R</code></a></small>
       <div class="d-none name"><code>calc_MinDose.Rd</code></div>
     </div>
 
@@ -71,8 +71,8 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham &amp; Walling 2012, p. 100).
 <strong>NOTE</strong>: For the logged model (<code>log = TRUE</code>) this value must be
-a fraction, e.g. 0.2 (= 20 \<!-- %). If the un-logged model is used (\code{log = FALSE}), -->
-sigmab must be provided in the same absolute units of the De values (seconds or Gray).
+a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (<code>log = FALSE</code>),
+<code>sigmab</code> must be provided in the same absolute units of the De values (seconds or Gray).
 See details.</p></dd>
 
 
@@ -94,11 +94,12 @@ apply the recycled bootstrap approach of Cunningham &amp; Wallinga (2012).</p></
 
 <dt id="arg-init-values">init.values<a class="anchor" aria-label="anchor" href="#arg-init-values"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
-a named list with starting values for gamma, sigma, p0 and mu
-(e.g. <code>list(gamma=100, sigma=1.5, p0=0.1, mu=100)</code>). If no values are provided reasonable values
-are tried to be estimated from the data. <strong>NOTE</strong> that the initial values must always be given
-in the absolute units. The the logged model is applied (<code>log = TRUE</code>), the provided <code>init.values</code>
-are automatically log transformed.</p></dd>
+a named list with starting values for <code>gamma</code>, <code>sigma</code>, <code>p0</code> and <code>mu</code>
+(e.g. <code>list(gamma=100, sigma=1.5, p0=0.1, mu=100)</code>). If no values are
+provided, reasonable values will be estimated from the data.
+<strong>NOTE</strong>: the initial values must always be given in the absolute units.
+If a logged model is applied (<code>log = TRUE</code>), the provided <code>init.values</code>
+are automatically log-transformed.</p></dd>
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
@@ -114,7 +115,7 @@ and confidence intervals (only applicable if <code>log = TRUE</code>).</p></dd>
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-plot output (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
+enable/disable the plot output.</p></dd>
 
 
 <dt id="arg-multicore">multicore<a class="anchor" aria-label="anchor" href="#arg-multicore"></a></dt>
@@ -127,7 +128,7 @@ work on all machines. (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>(<em>optional</em>) further arguments for bootstrapping
-(<code>bs.M, bs.N, bs.h, sigmab.sd</code>). See details for their usage.
+(<code>bs.M</code>, <code>bs.N</code>, <code>bs.h</code>, <code>sigmab.sd</code>). See details for their usage.
 Further arguments are</p><ul><li><p><code>verbose</code> to de-/activate console output (logical),</p></li>
 <li><p><code>debug</code> for extended console output (logical) and</p></li>
 <li><p><code>cores</code> (integer) to manually specify the number of cores to be used when <code>multicore=TRUE</code>.</p></li>
@@ -139,35 +140,35 @@ Further arguments are</p><ul><li><p><code>verbose</code> to de-/activate console
     <p>Returns a plot (<em>optional</em>) and terminal output. In addition an
 <a href="RLum.Results-class.html">RLum.Results</a> object is returned containing the
 following elements:</p>
-<dl><dt>.$summary</dt>
+<dl><dt>$summary</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> summary of all relevant model results.</p></dd>
 
-<dt>.$data</dt>
+<dt>$data</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> original input data</p></dd>
 
-<dt>args</dt>
+<dt>$args</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
 
-<dt>call</dt>
+<dt>$call</dt>
 <dd><p><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a> the function call</p></dd>
 
-<dt>.$mle</dt>
+<dt>$mle</dt>
 <dd><p><a href="https://rdrr.io/pkg/bbmle/man/mle2.html" class="external-link">bbmle::mle2</a> object containing the maximum log likelihood functions for all parameters</p></dd>
 
-<dt>BIC</dt>
+<dt>$BIC</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> BIC score</p></dd>
 
-<dt>.$confint</dt>
+<dt>$confint</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> confidence intervals for all parameters</p></dd>
 
-<dt>.$profile</dt>
+<dt>$profile</dt>
 <dd><p><a href="https://rdrr.io/r/stats/profile.html" class="external-link">stats::profile</a> the log likelihood profiles</p></dd>
 
-<dt>.$bootstrap</dt>
+<dt>$bootstrap</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> bootstrap results</p></dd>
 
 
-</dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+</dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -178,7 +179,7 @@ where <code>gamma=mu</code>. For <code>par=4</code> the 4-parameter model is app
 <p>In the original version of the minimum dose model, the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for <code>sigmab</code> must be provided as a ratio
-(e.g, 0.2 for 20 \<!-- %). This model will be applied if \code{log = TRUE}. --></p>
+(e.g, 0.2 for 20 %). This model will be applied if <code>log = TRUE</code>.</p>
 <p>If <code>log=FALSE</code>, the modified un-logged model will be applied instead. This
 has essentially the same form as the original version.  <code>gamma</code> and
 <code>sigma</code> are in Gy and <code>gamma</code> becomes the minimum true dose in the
@@ -194,13 +195,13 @@ samples containing negative, zero or near-zero De estimates (Arnold et al.
 <p>The log likelihood calculations use the <a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a> function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via <code>init.values</code>. If no values are
-provided for <code>init.values</code> reasonable starting values are estimated
+provided for <code>init.values</code>, reasonable starting values are estimated
 from the input data.  If the final estimates of <em>gamma</em>, <em>mu</em>,
 <em>sigma</em> and <em>p0</em> are totally off target, consider providing custom
 starting values via <code>init.values</code>.
-In contrast to previous versions of this function the boundaries for the
+In contrast to previous versions of this function, the boundaries for the
 individual model parameters are no longer required to be explicitly specified.
-If you want to override the default boundary values use the arguments
+If you want to override the default boundary values use arguments
 <code>gamma.lower</code>, <code>gamma.upper</code>, <code>sigma.lower</code>, <code>sigma.upper</code>, <code>p0.lower</code>, <code>p0.upper</code>,
 <code>mu.lower</code> and <code>mu.upper</code>.</p>
 <p><strong>Bootstrap</strong></p>
@@ -209,9 +210,9 @@ described in Wallinga &amp; Cunningham (2012). By default, the minimum age model
 produces 1000 first level and 3000 second level bootstrap replicates
 (actually, the number of second level bootstrap replicates is three times
 the number of first level replicates unless specified otherwise).  The
-uncertainty on sigmab is 0.04 by default. These values can be changed by
+uncertainty on <code>sigmab</code> is 0.04 by default. These values can be changed by
 using the arguments <code>bs.M</code> (first level replicates), <code>bs.N</code>
-(second level replicates) and <code>sigmab.sd</code> (error on sigmab). With
+(second level replicates) and <code>sigmab.sd</code> (error on <code>sigmab</code>). With
 <code>bs.h</code> the bandwidth of the kernel density estimate can be specified.
 By default, <code>h</code> is calculated as</p>
 <p>$$h = (2*\sigma_{DE})/\sqrt{n}$$</p>
@@ -222,16 +223,16 @@ automatically, but can be changed with <code>cores</code>. The multicore support
 is only available when <code>bootstrap=TRUE</code> and spawns <code>n</code> R instances
 for each core to get MAM estimates for each of the N and M bootstrap
 replicates. Note that this option is highly experimental and may or may not
-work for your machine. Also the performance gain increases for larger number
-of bootstrap replicates. Also note that with each additional core and hence
-R instance and depending on the number of bootstrap replicates the memory
-usage can significantly increase. Make sure that memory is always available,
-otherwise there will be a massive performance hit.</p>
+work for your machine. The performance gain increases for larger number
+of bootstrap replicates. However, note that with each additional core (and
+hence R instance) the memory usage can significantly increase and depending
+on the number of bootstrap replicates. When insufficient memory is available,
+there will be a massive performance hit.</p>
 <p><strong>Likelihood profiles</strong></p>
 <p>The likelihood profiles are generated and plotted by the <code>bbmle</code> package.
 The profile likelihood plots look different to ordinary profile likelihood as</p>
 <p>"<code>[...]</code> the plot method for likelihood profiles displays the square root of
-the the deviance difference (twice the difference in negative log-likelihood from
+the deviance difference (twice the difference in negative log-likelihood from
 the best fit), so it will be V-shaped for cases where the quadratic approximation
 works well <code>[...]</code>." (Bolker 2016).</p>
 <p>For more details on the profile likelihood
@@ -255,7 +256,7 @@ forwards all internal warning messages.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2024. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., 2025. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -430,7 +431,7 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

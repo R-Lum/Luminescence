@@ -15,7 +15,7 @@ and apply, e.g., a signal deconvolution."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ and apply, e.g., a signal deconvolution."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Emission Spectra Conversion from Wavelength to Energy Scales (Jacobian Conversion)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/convert_Wavelength2Energy.R" class="external-link"><code>R/convert_Wavelength2Energy.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/convert_Wavelength2Energy.R" class="external-link"><code>R/convert_Wavelength2Energy.R</code></a></small>
       <div class="d-none name"><code>convert_Wavelength2Energy.Rd</code></div>
     </div>
 
@@ -68,9 +68,10 @@ column. The function supports a list of allowed input objects.</p></dd>
 
 
 <dt id="arg-order">order<a class="anchor" aria-label="anchor" href="#arg-order"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables/disables sorting of the values in ascending energy
-order. After the conversion the longest wavelength has the lowest energy value and the shortest
-wavelength the highest. While this is correct, some R functions expect increasing x-values.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable sorting of the
+values in ascending energy order. After the conversion, the longest
+wavelength has the lowest energy value and the shortest wavelength the
+highest. While this is correct, some R functions expect increasing x-values.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -81,7 +82,7 @@ wavelength the highest. While this is correct, some R functions expect increasin
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The intensity of the spectrum is re-calculated using the following approach to recalculate
 wavelength and corresponding intensity values
-(e.g., Appendix 4 in Blasse and Grabmeier, 1994; Mooney and Kambhampati, 2013):</p>
+(e.g., Appendix 4 in Blasse and Grabmaier, 1994; Mooney and Kambhampati, 2013):</p>
 <p>$$\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)$$</p>
 <p>with
 \(\phi_{E}\) the intensity per interval of energy \(E\) (1/eV),
@@ -102,7 +103,7 @@ the x-axis has to be converted.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales (Jacobian Conversion). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales (Jacobian Conversion). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -191,7 +192,7 @@ luminescence signals. Journal of Luminescence 142, 202–211. <a href="https://d
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

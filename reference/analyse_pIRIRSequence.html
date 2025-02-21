@@ -11,7 +11,7 @@ fitting on RLum.Analysis objects."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ fitting on RLum.Analysis objects."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse post-IR IRSL measurement sequences</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/analyse_pIRIRSequence.R" class="external-link"><code>R/analyse_pIRIRSequence.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_pIRIRSequence.R" class="external-link"><code>R/analyse_pIRIRSequence.R</code></a></small>
       <div class="d-none name"><code>analyse_pIRIRSequence.Rd</code></div>
     </div>
 
@@ -53,7 +53,7 @@ fitting on <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p>
 <span>  dose.points <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TL"</span>, <span class="st">"IR50"</span>, <span class="st">"pIRIR225"</span><span class="op">)</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plot_singlePanels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -65,7 +65,8 @@ fitting on <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p>
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects (<strong>required</strong>):
 input object containing data for analysis.
-If a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> is provided the functions tries to iterate over the list.</p></dd>
+If a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> is provided the functions tries to iterate over each element
+in the list.</p></dd>
 
 
 <dt id="arg-signal-integral-min">signal.integral.min<a class="anchor" aria-label="anchor" href="#arg-signal-integral-min"></a></dt>
@@ -109,20 +110,21 @@ preheat as none TL, remove the TL step.)</p></dd>
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables plot output.</p></dd>
+enable/disable the plot output.</p></dd>
 
 
-<dt id="arg-plot-single">plot.single<a class="anchor" aria-label="anchor" href="#arg-plot-single"></a></dt>
+<dt id="arg-plot-singlepanels">plot_singlePanels<a class="anchor" aria-label="anchor" href="#arg-plot-singlepanels"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in single plot
-windows. Requires <code>plot = TRUE</code>.</p></dd>
+enable/disable plotting of the results in a single windows for each plot.
+Ignored if <code>plot = FALSE</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments that will be passed to the function
-<a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a> and <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>. Furthermore, the arguments <code>main</code> (headers), <code>log</code> (IRSL curves), <code>cex</code> (control
+<dd><p>further arguments that will be passed to
+<a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a> and <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>. Furthermore, the
+arguments <code>main</code> (headers), <code>log</code> (IRSL curves), <code>cex</code> (control
 the size) and <code>mtext.outer</code> (additional text on the plot area) can be passed to influence the plotting. If the input
-is list, <code>main</code> can be passed as <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></dd>
+is a list, <code>main</code> can be passed as <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -133,11 +135,11 @@ returned containing the following elements:</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
-this function has been written as extended wrapper function for the function
-<a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>, facilitating an entire sequence analysis in
+    <p>To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
+analyses, this function has been written as extended wrapper for function
+<a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>, thus facilitating an entire sequence analysis in
 one run. With this, its functionality is strictly limited by the
-functionality of the function <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>.</p>
+functionality provided by  <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>.</p>
 <p><strong>Defining the sequence structure</strong></p>
 <p>The argument <code>sequence.structure</code> expects a shortened pattern of your sequence structure and was
 mainly introduced to ease the use of the function. For example: If your measurement data contains
@@ -146,7 +148,8 @@ becomes <code>c('TL', 'IRSL', 'IRSL')</code>. The second part of your sequence f
 similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
 have to be removed before using the function.</p>
 <p><strong>If the input is a <code>list</code></strong></p>
-<p>If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
+<p>If the input is a list of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects, every argument
+can be provided as list to allow
 for different sets of parameters for every single input element.
 For further information see <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>.</p>
     </div>
@@ -154,15 +157,15 @@ For further information see <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>Best graphical output can be achieved by using the function <code>pdf</code>
 with the following options:</p>
-<p><code>pdf(file = "&lt;YOUR FILENAME&gt;", height = 15, width = 15)</code></p>
+<p><code>pdf(file = "&lt;YOUR FILENAME&gt;", height = 20, width = 20)</code></p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.4</p>
+    <p>0.2.5</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -207,9 +210,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 <span class="r-in"><span>                                       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="va">sequence.structure</span> <span class="op">+</span> <span class="va">x</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sequence.structure</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="va">object</span><span class="op">[[</span><span class="va">sequence.structure</span><span class="op">[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Analysis"</span>, records <span class="op">=</span> <span class="va">object</span>, protocol <span class="op">=</span> <span class="st">"pIRIR"</span><span class="op">)</span></span></span>
@@ -224,20 +225,20 @@ extracts. Radiation Measurements 43, 1474-1486.
 <span class="r-in"><span>     fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span></span>
 <span class="r-in"><span>     sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TL"</span>, <span class="st">"pseudoIRSL1"</span>, <span class="st">"pseudoIRSL2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Pseudo pIRIR data set based on quartz OSL"</span>,</span></span>
-<span class="r-in"><span>     plot.single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>     plot_singlePanels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-3.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-4.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-5.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-6.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-7.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-8.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-9.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-10.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-11.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-12.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-13.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-14.png" alt="" width="700" height="433"></span>
@@ -269,7 +270,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

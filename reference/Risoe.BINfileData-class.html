@@ -9,7 +9,7 @@ of the function read_BIN2R."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ of the function read_BIN2R."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Class <code>"Risoe.BINfileData"</code></h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/Risoe.BINfileData-class.R" class="external-link"><code>R/Risoe.BINfileData-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/Risoe.BINfileData-class.R" class="external-link"><code>R/Risoe.BINfileData-class.R</code></a></small>
       <div class="d-none name"><code>Risoe.BINfileData-class.Rd</code></div>
     </div>
 
@@ -52,7 +52,22 @@ of the function <a href="read_BIN2R.html">read_BIN2R</a>.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
-<span><span class="fu"><a href="get_Risoe.BINfileData.html">get_Risoe.BINfileData</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="get_Risoe.BINfileData.html">get_Risoe.BINfileData</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">add_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, subset <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu"><a href="sort_RLum.html">sort_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu"><a href="view.html">view</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,7 +75,7 @@ of the function <a href="read_BIN2R.html">read_BIN2R</a>.</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>an object of class Risoe.BINfileData</p></dd>
+<dd><p>(<strong>required</strong>) an object of class Risoe.BINfileData</p></dd>
 
 
 <dt id="arg-metadata">METADATA<a class="anchor" aria-label="anchor" href="#arg-metadata"></a></dt>
@@ -80,6 +95,27 @@ values for internal use only.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other arguments that might be passed</p></dd>
 
+
+<dt id="arg-info-element">info_element<a class="anchor" aria-label="anchor" href="#arg-info-element"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>): name of the metadata field
+to use in sorting.</p></dd>
+
+
+<dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
+<dd><p>(<strong>required</strong>) The value assigned to the selected elements
+of the metadata field. If <code>NULL</code> the elements named in <code>info_element</code>
+will be removed.</p></dd>
+
+
+<dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a> (<em>optional</em>) logical expression to limit the
+substitution only to the selected subset of elements</p></dd>
+
+
+<dt id="arg-decreasing">decreasing<a class="anchor" aria-label="anchor" href="#arg-decreasing"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): whether the sort order should
+be decreasing (<code>FALSE</code> by default).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="methods-by-generic-">Methods (by generic)<a class="anchor" aria-label="anchor" href="#methods-by-generic-"></a></h2>
@@ -89,6 +125,11 @@ values for internal use only.</p></dd>
 This construction method is intended for internal usage only.</p></li>
 <li><p><code>get_Risoe.BINfileData(Risoe.BINfileData)</code>: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.</p></li>
+<li><p><code>add_metadata(Risoe.BINfileData) &lt;- value</code>: Adds metadata to Risoe.BINfileData objects</p></li>
+<li><p><code>rename_metadata(Risoe.BINfileData) &lt;- value</code>: Renames a metadata entry of Risoe.BINfileData objects</p></li>
+<li><p><code>replace_metadata(Risoe.BINfileData) &lt;- value</code>: Replaces or removes metadata of Risoe.BINfileData objects</p></li>
+<li><p><code>sort_RLum(Risoe.BINfileData)</code>: Sort method for Risoe.BINfileData objects</p></li>
+<li><p><code>view(Risoe.BINfileData)</code>: View method for Risoe.BINfileData objects</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a></h2>
@@ -145,7 +186,7 @@ The representation in R is a nested <a href="https://rdrr.io/r/base/list.html" c
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -183,7 +224,7 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

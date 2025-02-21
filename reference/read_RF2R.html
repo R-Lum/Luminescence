@@ -9,7 +9,7 @@ objects"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ objects"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import RF-files to R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/read_RF2R.R" class="external-link"><code>R/read_RF2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/read_RF2R.R" class="external-link"><code>R/read_RF2R.R</code></a></small>
       <div class="d-none name"><code>read_RF2R.Rd</code></div>
     </div>
 
@@ -41,7 +41,7 @@ objects</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_RF2R</span><span class="op">(</span><span class="va">file</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_RF2R</span><span class="op">(</span><span class="va">file</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -51,6 +51,11 @@ objects</p>
 <dl><dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>): path and file name of the RF file. Alternatively a list of file
 names can be provided.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -64,9 +69,10 @@ names can be provided.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The results of spatially resolved IR-RF data are summarised in so-called RF-files ((Mittelstraß and Kreutzer, 2021).
+    <p>The results of spatially resolved IR-RF data are summarised in
+so-called RF-files (Mittelstraß and Kreutzer, 2021).
 This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
-The output of the function can be passed to the function <a href="analyse_IRSAR.RF.html">analyse_IRSAR.RF</a></p>
+The output of the function can be passed to function <a href="analyse_IRSAR.RF.html">analyse_IRSAR.RF</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
@@ -74,7 +80,7 @@ The output of the function can be passed to the function <a href="analyse_IRSAR.
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. read_RF2R(): Import RF-files to R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. read_RF2R(): Import RF-files to R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -97,6 +103,10 @@ single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. <a
 <span class="r-in"><span><span class="co">##Import</span></span></span>
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RF_file.rf"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">read_RF2R</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [read_RF2R()] Importing ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /home/runner/work/_temp/Library/Luminescence/extdata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  RF_file.rf</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -105,7 +115,7 @@ single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. <a
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

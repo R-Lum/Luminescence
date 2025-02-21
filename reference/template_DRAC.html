@@ -9,7 +9,7 @@ with the use_DRAC function"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ with the use_DRAC function"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create a DRAC input data template (v1.2)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/template_DRAC.R" class="external-link"><code>R/template_DRAC.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/template_DRAC.R" class="external-link"><code>R/template_DRAC.R</code></a></small>
       <div class="d-none name"><code>template_DRAC.Rd</code></div>
     </div>
 
@@ -41,7 +41,7 @@ with the <a href="use_DRAC.html">use_DRAC</a> function</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">template_DRAC</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1L</span>, preset <span class="op">=</span> <span class="cn">NULL</span>, notification <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">template_DRAC</span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1L</span>, preset <span class="op">=</span> <span class="cn">NULL</span>, file_input <span class="op">=</span> <span class="cn">NULL</span>, notification <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,6 +72,12 @@ a minimum of reasonable preset values.</p>
 with values directly taken from the official DRAC input <code>.csv</code> file.</p></dd>
 
 
+<dt id="arg-file-input">file_input<a class="anchor" aria-label="anchor" href="#arg-file-input"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> file connection to a DRAC <code>.csv</code> file, the file
+will be imported and translated to the template that can be used by <a href="use_DRAC.html">use_DRAC</a>.
+Please note that there is not check on validity of the <code>.csv</code> file.</p></dd>
+
+
 <dt id="arg-notification">notification<a class="anchor" aria-label="anchor" href="#arg-notification"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 show or hide the notification</p></dd>
@@ -79,11 +85,11 @@ show or hide the notification</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list.</p>
+    <p>A  list of class <code>DRAC.list</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., 2024. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., 2025. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -160,11 +166,11 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 REQUIRED = FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 DESCRIPTION =  The conversion factors required to calculate dose rates from radionuclide conce </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 			ntrations. Users have the option of datasets from Adamiec and Aitken (1998), Gue </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 			rin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998',  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 			'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not requir </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 			ed. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 			rin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 			be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal201 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 			8', or 'X' if conversion factors are not required. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 			 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  	 OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, X </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  	 OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, Cresswelletal2018, X </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TI:5 =&gt; External U (ppm) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 VALUES = 3.4 </span>
@@ -320,13 +326,13 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 			 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TI:22 =&gt; Calculate internal Rb from K conc? </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  	 VALUES = X </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  	 VALUES = N </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 REQUIRED = FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 DESCRIPTION =  Option to calculate an internal Rubidium concentration from Potassium, using th </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 			e 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 			 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  	 OPTIONS =  Y, N, X </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  	 OPTIONS =  Y, N </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TI:23 =&gt; User external alphadoserate (Gy.ka-1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 VALUES = X </span>
@@ -618,6 +624,8 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"allowsX")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"default_class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"key")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "TI:1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"description")</span>
@@ -628,11 +636,13 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"allowsX")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"default_class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] factor</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"key")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TI:4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"description")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: AdamiecAitken1998 Guerinetal2011 Liritzisetal2013 X</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal2018', or 'X' if conversion factors are not required.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Levels: AdamiecAitken1998 Guerinetal2011 ... X</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example: DRAC Quartz example</span></span></span>
@@ -651,7 +661,9 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Calculate internal Rb from K conc?`</span> <span class="op">&lt;-</span> <span class="st">"N"</span></span></span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Scale gammadoserate at shallow depths?`</span> <span class="op">&lt;-</span> <span class="st">"N"</span></span></span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Grain size min (microns)`</span> <span class="op">&lt;-</span> <span class="fl">90</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[[[&lt;-.DRAC.list]]()] Grain size min (microns): found numeric, expected integer -&gt; coercing to integer</span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Grain size max (microns)`</span> <span class="op">&lt;-</span> <span class="fl">125</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[[[&lt;-.DRAC.list]]()] Grain size max (microns): found numeric, expected integer -&gt; coercing to integer</span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Water content ((wet weight - dry weight)/dry weight) %`</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`errWater content %`</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Depth (m)`</span> <span class="op">&lt;-</span> <span class="fl">2.2</span></span></span>
@@ -676,7 +688,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

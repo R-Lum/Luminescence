@@ -9,7 +9,7 @@ reader into R."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ reader into R."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import Risø BIN/BINX-files into R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/read_BIN2R.R" class="external-link"><code>R/read_BIN2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/read_BIN2R.R" class="external-link"><code>R/read_BIN2R.R</code></a></small>
       <div class="d-none name"><code>read_BIN2R.Rd</code></div>
     </div>
 
@@ -67,8 +67,9 @@ reader into R.</p>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<strong>required</strong>): path and file name of the
 BIN/BINX file (URLs are supported). If input is a <code>list</code> it should comprise
 only <code>character</code>s representing each valid path and BIN/BINX-file names.
-Alternatively the input character can be just a directory (path), in this case the
-the function tries to detect and import all BIN/BINX files found in the directory.</p></dd>
+Alternatively, the input character can be just a directory (path), in which
+case the function tries to detect and import all BIN/BINX files found in
+the directory.</p></dd>
 
 
 <dt id="arg-show-raw-values">show.raw.values<a class="anchor" aria-label="anchor" href="#arg-show-raw-values"></a></dt>
@@ -116,12 +117,13 @@ Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>
 <dt id="arg-show-record-number">show.record.number<a class="anchor" aria-label="anchor" href="#arg-show-record-number"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 shows record number of the imported record, for debugging usage only.
-Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.
+Ignored if <code>verbose = FALSE</code>.</p></dd>
 
 
 <dt id="arg-txtprogressbar">txtProgressBar<a class="anchor" aria-label="anchor" href="#arg-txtprogressbar"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a>.</p></dd>
+enable/disable the progress bar. Ignored if <code>verbose = FALSE</code>.</p></dd>
 
 
 <dt id="arg-forced-versionnumber">forced.VersionNumber<a class="anchor" aria-label="anchor" href="#arg-forced-versionnumber"></a></dt>
@@ -149,7 +151,7 @@ of wanted files</p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables verbose mode</p></dd>
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -187,11 +189,11 @@ version number depends on the used Sequence Editor.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.17.3</p>
+    <p>0.18</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Fuchs, M.C., 2024. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.17.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Fuchs, M.C., Colombo, M., 2025. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.18. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -208,6 +210,7 @@ version number depends on the used Sequence Editor.</p>
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
 Margret C. Fuchs, HZDR Freiberg, (Germany) <br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)<br>
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team</p>
     </div>
@@ -218,9 +221,9 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/BINfile_V8.binx"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">read_BIN2R</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [read_BIN2R()]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [read_BIN2R()] Importing ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /home/runner/work/_temp/Library/Luminescence/extdata</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  /home/runner/work/_temp/Library/Luminescence/extdata/BINfile_V8.binx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  BINfile_V8.binx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  n_rec: 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 records read successfully</span>
@@ -245,7 +248,7 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

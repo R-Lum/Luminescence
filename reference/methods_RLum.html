@@ -15,7 +15,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>methods_RLum</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/methods_RLum.R" class="external-link"><code>R/methods_RLum.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/methods_RLum.R" class="external-link"><code>R/methods_RLum.R</code></a></small>
       <div class="d-none name"><code>methods_RLum.Rd</code></div>
     </div>
 
@@ -169,6 +169,9 @@ by <code>plot(object, ...)</code>, where <code>object</code> is the <code>RLum.D
 <span><span class="co"># S3 method for class 'RLum.Data.Image'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for class 'RLum.Data.Spectrum'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'RLum.Analysis'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -204,13 +207,25 @@ by <code>plot(object, ...)</code>, where <code>object</code> is the <code>RLum.D
 <span><span class="co"># S3 method for class 'RLum.Data.Curve'</span></span>
 <span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
 <span></span>
+<span><span class="co"># S3 method for class 'RLum.Data.Spectrum'</span></span>
+<span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'RLum.Data.Curve'</span></span>
+<span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'RLum.Data.Spectrum'</span></span>
 <span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'RLum.Data.Curve'</span></span>
 <span><span class="va">x</span> <span class="op">*</span> <span class="va">y</span></span>
 <span></span>
+<span><span class="co"># S3 method for class 'RLum.Data.Spectrum'</span></span>
+<span><span class="va">x</span> <span class="op">*</span> <span class="va">y</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'RLum.Data.Curve'</span></span>
+<span><span class="va">x</span><span class="op">/</span><span class="va">y</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'RLum.Data.Spectrum'</span></span>
 <span><span class="va">x</span><span class="op">/</span><span class="va">y</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'RLum.Data.Curve'</span></span>
@@ -284,7 +299,7 @@ remove records from data set, can be disabled, to just set the column <code>SET<
 
 <dt id="arg-row-names">row.names<a class="anchor" aria-label="anchor" href="#arg-row-names"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables row names (<code>as.data.frame</code>)</p></dd>
+enable/disable row names (<code>as.data.frame</code>).</p></dd>
 
 
 <dt id="arg-optional">optional<a class="anchor" aria-label="anchor" href="#arg-optional"></a></dt>
@@ -295,7 +310,7 @@ logical. If TRUE, setting row names and converting column names
 
 <dt id="arg-recursive">recursive<a class="anchor" aria-label="anchor" href="#arg-recursive"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables further sub-setting (<code>unlist</code>)</p></dd>
+enable/disable further sub-setting (<code>unlist</code>).</p></dd>
 
 
 <dt id="arg-z">z<a class="anchor" aria-label="anchor" href="#arg-z"></a></dt>
@@ -319,7 +334,7 @@ column of the data matrix in the <code>RLum.Data.Curve</code> object</p></dd>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <strong>(required)</strong>:
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 numeric value which replace the value in the <code>RLum.Data.Curve</code> object</p></dd>
 
 </dl></div>
@@ -416,7 +431,7 @@ surrogates for existing functions in the package.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

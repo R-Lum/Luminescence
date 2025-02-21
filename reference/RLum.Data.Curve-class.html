@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Class <code>"RLum.Data.Curve"</code></h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/RLum.Data.Curve-class.R" class="external-link"><code>R/RLum.Data.Curve-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/RLum.Data.Curve-class.R" class="external-link"><code>R/RLum.Data.Curve-class.R</code></a></small>
       <div class="d-none name"><code>RLum.Data.Curve-class.Rd</code></div>
     </div>
 
@@ -66,7 +66,10 @@
 <span><span class="fu"><a href="bin_RLum.Data.html">bin_RLum.Data</a></span><span class="op">(</span><span class="va">object</span>, bin_size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'RLum.Data.Curve'</span></span>
-<span><span class="fu"><a href="smooth_RLum.html">smooth_RLum</a></span><span class="op">(</span><span class="va">object</span>, k <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NA</span>, align <span class="op">=</span> <span class="st">"right"</span>, method <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="smooth_RLum.html">smooth_RLum</a></span><span class="op">(</span><span class="va">object</span>, k <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NA</span>, align <span class="op">=</span> <span class="st">"right"</span>, method <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Data.Curve'</span></span>
+<span><span class="fu"><a href="melt_RLum.html">melt_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -112,7 +115,7 @@ curve type (e.g., "predefined" or "measured")</p></dd>
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<strong>required</strong>):
 raw curve data. If <code>data</code> itself is a <code>RLum.Data.Curve</code>-object this can be
-used to re-construct the object (s. details), i.e. modified parameters except
+used to re-construct the object (see details), i.e. modified parameters except
 <code>.uid</code>, <code>.pid</code> and <code>originator</code>. The rest will be subject to copy and paste unless provided.</p></dd>
 
 
@@ -169,6 +172,8 @@ defines which method should be applied for the smoothing: <code>"mean"</code> or
 <p>Same object as input, after applying the binning.</p>
 <p><strong><code>smooth_RLum</code></strong></p>
 <p>Same object as input, after smoothing</p>
+<p><strong><code>melt_RLum</code></strong></p>
+<p>Flat <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with <code>X</code>, <code>Y</code>, <code>TYPE</code>, <code>UID</code></p>
     </div>
     <div class="section level2">
     <h2 id="methods-by-generic-">Methods (by generic)<a class="anchor" aria-label="anchor" href="#methods-by-generic-"></a></h2>
@@ -183,8 +188,10 @@ provided, the raw curve data (matrix) will be returned.</p></li>
 value time/temperature of the curve (corresponding to the stimulation length)</p></li>
 <li><p><code>names_RLum(RLum.Data.Curve)</code>: Returns the names info elements coming along with this curve object</p></li>
 <li><p><code>bin_RLum.Data(RLum.Data.Curve)</code>: Allows binning of specific objects</p></li>
-<li><p><code>smooth_RLum(RLum.Data.Curve)</code>: Smoothing of RLum.Data.Curve objects using the function <a href="https://rdrr.io/pkg/zoo/man/rollmean.html" class="external-link">zoo::rollmean</a> or <a href="https://rdrr.io/pkg/zoo/man/rollmean.html" class="external-link">zoo::rollmedian</a>.
+<li><p><code>smooth_RLum(RLum.Data.Curve)</code>: Smoothing of RLum.Data.Curve objects using a rolling mean or median.
 In particular the internal function <code>.smoothing</code> is used.</p></li>
+<li><p><code>melt_RLum(RLum.Data.Curve)</code>: Melts RLum.Data.Curve objects into a flat data.frame to be used
+in combination with other packages such as <code>ggplot2</code>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a></h2>
@@ -195,7 +202,8 @@ In particular the internal function <code>.smoothing</code> is used.</p></li>
 
 
 <dt><code>curveType</code></dt>
-<dd><p>Object of class "character" containing curve type, allowed values are measured or predefined</p></dd>
+<dd><p>Object of class "character" containing curve type, allowed values are
+"measured" or "predefined"</p></dd>
 
 
 <dt><code>data</code></dt>
@@ -206,8 +214,8 @@ de-constructing the object. For example:</p>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>         <span class="at">data =</span> Your.RLum.Data.Curve,</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>         <span class="at">recordType =</span> <span class="st">'never seen before'</span>)</span></code></pre><p></p></div>
 <p>would just change the <code>recordType</code>. Missing arguments  the value is taken
-from the input object in 'data' (which is already an RLum.Data.Curve object
-in this example)</p></dd>
+from the input object in 'data' (which is already an <code>RLum.Data.Curve</code>
+object in this example)</p></dd>
 
 
 </dl></div>
@@ -241,7 +249,7 @@ namely: <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.An
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -280,7 +288,7 @@ namely: <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.An
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

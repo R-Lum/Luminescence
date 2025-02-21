@@ -13,7 +13,7 @@ The plot dimensions mimic the original image dimensions"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ The plot dimensions mimic the original image dimensions"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create Regions of Interest (ROI) Graphic</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/plot_ROI.R" class="external-link"><code>R/plot_ROI.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/plot_ROI.R" class="external-link"><code>R/plot_ROI.R</code></a></small>
       <div class="d-none name"><code>plot_ROI.Rd</code></div>
     </div>
 
@@ -89,12 +89,11 @@ surface in µm. For instance <code>c(8192,8192)</code>, if set additional x and 
 
 <dt id="arg-bg-image">bg_image<a class="anchor" aria-label="anchor" href="#arg-bg-image"></a></dt>
 <dd><p><a href="RLum.Data.Image-class.html">RLum.Data.Image</a> (<em>optional</em>): background image object
-please note that the dimensions are not checked.</p></dd>
+(please note that dimensions are not checked).</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable or disable plot output to use
-the function only to extract the ROI data</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the plot output.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -125,7 +124,7 @@ the euclidean distance between the ROIs.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -134,6 +133,10 @@ the euclidean distance between the ROIs.</p>
 <span class="r-in"><span><span class="co">## simple example</span></span></span>
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RF_file.rf"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_RF2R.html">read_RF2R</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [read_RF2R()] Importing ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /home/runner/work/_temp/Library/Luminescence/extdata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  RF_file.rf</span>
 <span class="r-in"><span><span class="fu">plot_ROI</span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_ROI-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -151,7 +154,7 @@ the euclidean distance between the ROIs.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

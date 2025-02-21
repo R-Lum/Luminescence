@@ -9,7 +9,7 @@ from single grain data measurements."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ from single grain data measurements."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Verify single grain data sets and check for invalid grains, i.e. zero-light level grains</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/verify_SingleGrainData.R" class="external-link"><code>R/verify_SingleGrainData.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/verify_SingleGrainData.R" class="external-link"><code>R/verify_SingleGrainData.R</code></a></small>
       <div class="d-none name"><code>verify_SingleGrainData.Rd</code></div>
     </div>
 
@@ -44,6 +44,7 @@ from single grain data measurements.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">verify_SingleGrainData</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  use_fft <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  cleanup <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  cleanup_level <span class="op">=</span> <span class="st">"aliquot"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -67,9 +68,14 @@ numeric threshold value for the allowed difference between the <code>mean</code>
 the <code>var</code> of the count values (see details)</p></dd>
 
 
+<dt id="arg-use-fft">use_fft<a class="anchor" aria-label="anchor" href="#arg-use-fft"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): applies an additional approach based on <a href="https://rdrr.io/r/stats/fft.html" class="external-link">stats::fft</a>.
+The threshold is fixed and cannot be changed.</p></dd>
+
+
 <dt id="arg-cleanup">cleanup<a class="anchor" aria-label="anchor" href="#arg-cleanup"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-if set to <code>TRUE</code>, curves identified as zero light level curves are
+if set to <code>TRUE</code>, curves/aliquots identified as zero light level curves/aliquots are
 automatically removed. Output is an object as same type as the input, i.e.
 either <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> or <a href="RLum.Analysis-class.html">RLum.Analysis</a></p></dd>
 
@@ -86,12 +92,12 @@ if all curves of this aliquot are marked as invalid.</p></li>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables the terminal feedback</p></dd>
+enable/disables output to the terminal.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables the graphical feedback</p></dd>
+enable/disable the plot output.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -112,7 +118,7 @@ Supported arguments <code>main</code>, <code>ylim</code></p></dd>
 <p>For <code>cleanup = TRUE</code> the same object as the input is returned, but cleaned up
 (invalid curves were removed). This means: Either a <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a>
 or an <a href="RLum.Analysis-class.html">RLum.Analysis</a> object is returned in such cases.
-A <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> object can be exported to a BIN-file by
+A <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> object can be exported to a BINX-file by
 using the function <a href="write_R2BIN.html">write_R2BIN</a>.</p>
     </div>
     <div class="section level2">
@@ -140,11 +146,12 @@ remove identify invalid grains before the conversion to an
 <a href="RLum.Analysis-class.html">RLum.Analysis</a> object.</p>
 <p>The function checking for invalid curves works rather robust and it is likely
 that Reg0 curves within a SAR cycle are removed as well. Therefore it is
-strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.</p>
+strongly recommended to use the argument <code>cleanup = TRUE</code> carefully if
+the cleanup works only on curves.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.3</p>
+    <p>0.2.5</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -158,7 +165,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -170,7 +177,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##verify and get data.frame out of it</span></span></span>
 <span class="r-in"><span><span class="fu">verify_SingleGrainData</span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span><span class="op">$</span><span class="va">selection_full</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[verify_SingleGrainData()] 'selection_id' is NA, everything tagged for removal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA    NA  23.66271 2.572619e+02   10.872037        10  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
@@ -324,7 +331,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

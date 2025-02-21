@@ -11,7 +11,7 @@ measurement time) but should be analysed jointly by other functions."></head><bo
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ measurement time) but should be analysed jointly by other functions."></head><bo
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Trim Channels of RLum.Data-class Objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/trim_RLum.Data.R" class="external-link"><code>R/trim_RLum.Data.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/trim_RLum.Data.R" class="external-link"><code>R/trim_RLum.Data.R</code></a></small>
       <div class="d-none name"><code>trim_RLum.Data.Rd</code></div>
     </div>
 
@@ -64,9 +64,11 @@ for each record type classes. Can be provided as <a href="https://rdrr.io/r/base
 
 
 <dt id="arg-trim-range">trim_range<a class="anchor" aria-label="anchor" href="#arg-trim-range"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): sets the trim range (everything
-within the range + 1 is kept). If nothing is set all curves are trimmed to a similar
-maximum length. Can be provided as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): sets the range of indices to
+keep. If only one value is given, this is taken to be the minimum; if two
+values are given, then the range is defined between the two values
+(inclusive). Any value beyond the second is silently ignored. If nothing
+is set (default), then all curves are trimmed to the same maximum length.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -75,19 +77,20 @@ maximum length. Can be provided as <a href="https://rdrr.io/r/base/list.html" cl
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function has two modes of operation:</p><ol><li><p>Single <a href="RLum.Data-class.html">RLum.Data</a> objects or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects
-The function is applied separately over each object.</p></li>
-<li><p>Multiple curves via <a href="RLum.Analysis-class.html">RLum.Analysis</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects
-In this mode, the function first determines the minimum number of channels for
-each category of records and then jointly processes them.
-For instance, the object contains one TL curve with 100 channels and two
-OSL curves with 100 and 99 channels, respectively. Than the minimum for TL would be set
-to 100 channels and 99 for the OSL curves. If no further parameters are applied, the
-function will shorten all OSL curves to 99 channels, but leave the TL curve untouched.</p></li>
+    <p>The function has two modes of operation:</p><ol><li><p>Single <a href="RLum.Data-class.html">RLum.Data</a> objects or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects:
+the function is applied separately over each object.</p></li>
+<li><p>Multiple curves via <a href="RLum.Analysis-class.html">RLum.Analysis</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects:
+in this mode, the function first determines the minimum number of channels
+for each category of records and then jointly processes them. For instance,
+if the object contains one TL curve with 100 channels and two OSL curves
+with 100 and 99 channels, respectively, then the minimum would be set to
+100 channels for the TL curve and to 99 for the OSL curves. If no further
+parameters are applied, the function will shorten all OSL curves to 99
+channels, but leave the TL curve untouched.</p></li>
 </ol></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.0</p>
+    <p>0.2</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -100,7 +103,7 @@ function will shorten all OSL curves to 99 channels, but leave the TL curve unto
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. trim_RLum.Data(): Trim Channels of RLum.Data-class Objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. trim_RLum.Data(): Trim Channels of RLum.Data-class Objects. Function version 0.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -137,7 +140,7 @@ function will shorten all OSL curves to 99 channels, but leave the TL curve unto
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

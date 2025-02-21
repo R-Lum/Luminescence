@@ -13,7 +13,7 @@ Example: legend.pos for legend position, legend for legend text."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ Example: legend.pos for legend position, legend for legend text."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create De(t) plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/plot_DetPlot.R" class="external-link"><code>R/plot_DetPlot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/plot_DetPlot.R" class="external-link"><code>R/plot_DetPlot.R</code></a></small>
       <div class="d-none name"><code>plot_DetPlot.Rd</code></div>
     </div>
 
@@ -132,28 +132,28 @@ integral.</p></dd>
 
 <dt id="arg-show-shinedowncurve">show_ShineDownCurve<a class="anchor" aria-label="anchor" href="#arg-show-shinedowncurve"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables shine down curve in the plot output</p></dd>
+enable/disable shine down curve in the plot output.</p></dd>
 
 
 <dt id="arg-respect-rc-status">respect_RC.Status<a class="anchor" aria-label="anchor" href="#arg-respect-rc-status"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-remove De-values with 'FAILED' RC.Status from the plot
-(cf. <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a> and <a href="analyse_pIRIRSequence.html">analyse_pIRIRSequence</a>)</p></dd>
+remove De values with 'FAILED' RC.Status from the plot (cf. <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>
+and <a href="analyse_pIRIRSequence.html">analyse_pIRIRSequence</a>).</p></dd>
 
 
 <dt id="arg-multicore">multicore<a class="anchor" aria-label="anchor" href="#arg-multicore"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>) : enables/disables multi core
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>) : enable/disable multi core
 calculation if <code>object</code> is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects. Can be an
 <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> specifying the number of cores</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables terminal feedback</p></dd>
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables/disables plot output
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the plot output.
 Disabling the plot is useful in cases where the output need to be processed
 differently.</p></dd>
 
@@ -181,8 +181,9 @@ consecutively expanding the integral by its chosen length. Example: <code>c(1:3,
 <p>Note that in both cases the integral limits are overlap. The finally applied limits are part
 of the function output.</p>
 <p><strong>analyse_function.control</strong></p>
-<p>The argument <code>analyse_function.control</code> currently supports the following arguments
-<code>sequence.structure</code>, <code>dose.points</code>, <code>mtext.outer</code>, <code>fit.method</code>, <code>fit.force_through_origin</code>, <code>plot</code>, <code>plot.single</code></p>
+<p>The argument <code>analyse_function.control</code> currently supports the following arguments:
+<code>sequence.structure</code>, <code>dose.points</code>, <code>mtext.outer</code>, <code>fit.method</code>,
+<code>fit.force_through_origin</code>, <code>plot</code>, <code>plot_singlePanels</code></p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -194,11 +195,11 @@ calculations using several hundreds of channels.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.7</p>
+    <p>0.1.8</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. plot_DetPlot(): Create De(t) plot. Function version 0.1.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -244,7 +245,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

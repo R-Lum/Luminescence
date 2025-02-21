@@ -9,7 +9,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR CW-OSL measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
@@ -54,7 +54,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
 <span>  mtext.outer <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_onePage <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  plot.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plot_singlePanels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  onlyLxTxTable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -68,7 +68,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
 input object containing data for analysis, alternatively a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of
 <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects can be provided. The object should contain <strong>only</strong> curves
-considered part of the SAR protocol (see Details.)</p></dd>
+considered part of the SAR protocol (see Details).</p></dd>
 
 
 <dt id="arg-signal-integral-min">signal.integral.min<a class="anchor" aria-label="anchor" href="#arg-signal-integral-min"></a></dt>
@@ -106,9 +106,9 @@ case no integrals are taken into account.</p></dd>
 <dt id="arg-osl-component">OSL.component<a class="anchor" aria-label="anchor" href="#arg-osl-component"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>): s single index
 or a <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> defining the signal component to be evaluated.
-It requires that the object was processed by <code>[OSLdecomposition::RLum.OSL_decomposition]</code>.
+It requires that the object was processed by <code>OSLdecomposition::RLum.OSL_decomposition</code>.
 This argument can either be the name of the OSL component assigned by
-<code>[OSLdecomposition::RLum.OSL_global_fitting]</code> or the index in the descending
+<code>OSLdecomposition::RLum.OSL_global_fitting</code> or the index in the descending
 order of decay rates. Then <code>"1"</code> selects the fastest decaying component, <code>"2"</code>
 the second fastest and so on. Can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>s or strings (or mixed)
 If object is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> and this parameter is provided as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> it alternates over
@@ -152,24 +152,26 @@ if <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" cla
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables or disables plot output.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the plot output.</p></dd>
 
 
 <dt id="arg-plot-onepage">plot_onePage<a class="anchor" aria-label="anchor" href="#arg-plot-onepage"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables or disables on page plot output</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable one page
+plot output.</p></dd>
 
 
-<dt id="arg-plot-single">plot.single<a class="anchor" aria-label="anchor" href="#arg-plot-single"></a></dt>
+<dt id="arg-plot-singlepanels">plot_singlePanels<a class="anchor" aria-label="anchor" href="#arg-plot-singlepanels"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>) or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in single plot windows.
 If a <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vector is provided the plots can be selected individually, i.e.
-<code>plot.single = c(1,2,3,4)</code> will plot the TL and Lx, Tx curves but not the legend (5) or the
+<code>plot_singlePanels = c(1,2,3,4)</code> will plot the TL and Lx, Tx curves but
+not the legend (5) or the
 growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 <code>plot = TRUE</code>.</p></dd>
 
 
 <dt id="arg-onlylxtxtable">onlyLxTxTable<a class="anchor" aria-label="anchor" href="#arg-onlylxtxtable"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (with default): If <code>TRUE</code> the dose response
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): If <code>TRUE</code> the dose response
 curve fitting and plotting is skipped.
 This allows to get hands on the <code>Lx/Tx</code> table for large datasets
 without the need for a curve fitting.</p></dd>
@@ -275,11 +277,11 @@ does <strong>not</strong> overwrite values preset in <code>IRR_TIME</code>.</p><
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.10.3</p>
+    <p>0.10.5</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -335,20 +337,20 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-in"><span>  exceed.max.regpoint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_SAR.CWOSL-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
 <span class="r-plt img"><img src="analyse_SAR.CWOSL-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_SAR.CWOSL-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show De results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR Dc       n_N De.MC Fit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 48.06899 1982.757  100.0438  NA        NA NA 0.4854696  1663 EXP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   HPDI68_L HPDI68_U HPDI95_L HPDI95_U RC.Status signal.range background.range</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1602.275 1709.013 1569.894 1761.183        OK        1 : 2       900 : 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   signal.range.Tx background.range.Tx ALQ POS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA : NA             NA : NA   1   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR Dc       n_N De.MC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 48.06899 1982.757  100.0438  NA        NA NA 0.4854696  1663</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    De.plot Fit HPDI68_L HPDI68_U HPDI95_L HPDI95_U RC.Status signal.range</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 EXP 1602.275 1709.013 1569.894 1761.183        OK        1 : 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   background.range signal.range.Tx background.range.Tx ALQ POS GRAIN</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       900 : 1000         NA : NA             NA : NA   1   1     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-11-18-01:33.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-02-21-03:23.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -369,13 +371,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976 1.61426805 0.027647946</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190 0.01629624 0.002491179</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-11-18-01:33.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-11-18-01:33.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-11-18-01:33.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-11-18-01:33.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-11-18-01:33.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-11-18-01:33.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-11-18-01:33.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-02-21-03:23.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-02-21-03:23.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-02-21-03:23.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-02-21-03:23.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-02-21-03:23.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-02-21-03:23.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2025-02-21-03:23.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -384,7 +386,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

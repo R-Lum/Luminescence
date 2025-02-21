@@ -9,7 +9,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018"><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018"><
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Al2O3:C Passive Dosimeter Measurement Analysis</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/analyse_Al2O3C_Measurement.R" class="external-link"><code>R/analyse_Al2O3C_Measurement.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_Al2O3C_Measurement.R" class="external-link"><code>R/analyse_Al2O3C_Measurement.R</code></a></small>
       <div class="d-none name"><code>analyse_Al2O3C_Measurement.Rd</code></div>
     </div>
 
@@ -84,8 +84,9 @@ function <a href="get_RLum.html">get_RLum</a>. To deactivate the automatic selec
 
 
 <dt id="arg-calculate-tl-dose">calculate_TL_dose<a class="anchor" aria-label="anchor" href="#arg-calculate-tl-dose"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enables/disables experimental dose estimation
-based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables/disable experimental dose estimation based on the TL curves.
+It is computed as the ratio of the peak sums of each curves +/- 5 channels.</p></dd>
 
 
 <dt id="arg-irradiation-time-correction">irradiation_time_correction<a class="anchor" aria-label="anchor" href="#arg-irradiation-time-correction"></a></dt>
@@ -102,25 +103,26 @@ mean, 2.5 % quantile, 97.5 % quantile.</p></dd>
 
 
 <dt id="arg-travel-dosimeter">travel_dosimeter<a class="anchor" aria-label="anchor" href="#arg-travel-dosimeter"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): specify the position of the travel dosimeter
-(so far measured at the same time). The dose of travel dosimeter will be subtracted from all
-other values.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): specify the position of
+the travel dosimeter (so far measured at the same time). The dose of
+travel dosimeter will be subtracted from all other values.</p></dd>
 
 
 <dt id="arg-test-parameters">test_parameters<a class="anchor" aria-label="anchor" href="#arg-test-parameters"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>with default</em>):
 set test parameters. Supported parameters are: <code>TL_peak_shift</code> All input: <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>
-values, <code>NA</code> and <code>NULL</code> (s. Details)</p></dd>
+values, <code>NA</code> and <code>NULL</code> (see details).</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enable/disable verbose mode</p></dd>
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable plot output, if <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>,
-a <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vector can be provided to limit the plot output to certain aliquots</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the plot output.
+If <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>, a numeric vector can be provided to limit
+the plot output to certain aliquots.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -146,9 +148,10 @@ you can use the column <code>CT_CORRECTION</code> remove the correction</em></p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><strong>Working with a travel dosimeter</strong></p>
-<p>The function allows to define particular aliquots as travel dosimeters. For example:
-<code>travel_dosimeter = c(1,3,5)</code> sets aliquots 1, 3 and 5 as travel dosimeters. These dose values
-of this dosimeters are combined and automatically subtracted from the obtained dose values
+<p>The function allows to define particular position numbers as travel
+dosimeters. For example: <code>travel_dosimeter = c(1,3,5)</code> sets positions 1,
+3 and 5 as travel dosimeters. These dose values #' of this dosimeters
+are combined and automatically subtracted from the obtained dose values
 of the other dosimeters.</p>
 <p><strong>Calculate TL dose</strong></p>
 <p>The argument <code>calculate_TL_dose</code> provides the possibility to experimentally calculate a TL-dose,
@@ -172,7 +175,7 @@ unity than the defined by the threshold, a warning is returned.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -220,7 +223,7 @@ Geochronometria 45, 56-67.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

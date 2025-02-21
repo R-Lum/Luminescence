@@ -11,7 +11,7 @@ kernel density estimate, histogram and/or dot plot of the dose values."></head><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ kernel density estimate, histogram and/or dot plot of the dose values."></head><
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to create an Abanico Plot.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/plot_AbanicoPlot.R" class="external-link"><code>R/plot_AbanicoPlot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/plot_AbanicoPlot.R" class="external-link"><code>R/plot_AbanicoPlot.R</code></a></small>
       <div class="d-none name"><code>plot_AbanicoPlot.Rd</code></div>
     </div>
 
@@ -103,7 +103,7 @@ Option to display the z-axis in logarithmic scale. Default is <code>TRUE</code>.
 
 
 <dt id="arg-z-">z.0<a class="anchor" aria-label="anchor" href="#arg-z-"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>:
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 User-defined central value, used for centring of data. One out of <code>"mean"</code>,
 <code>"mean.weighted"</code> and <code>"median"</code> or a numeric value (not its logarithm).
 Default is <code>"mean.weighted"</code>.</p></dd>
@@ -111,9 +111,10 @@ Default is <code>"mean.weighted"</code>.</p></dd>
 
 <dt id="arg-dispersion">dispersion<a class="anchor" aria-label="anchor" href="#arg-dispersion"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-measure of dispersion, used for drawing the scatter polygon. One out of</p><ul><li><p><code>"qr"</code> (quartile range),</p></li>
-<li><p><code>"pnn"</code> (symmetric percentile range with <code>nn</code> the lower percentile, e.g.</p></li>
-<li><p><code>"p05"</code> depicting the range between 5 and 95 %),</p></li>
+measure of dispersion, used for drawing the scatter polygon. One out of</p><ul><li><p><code>"qr"</code> (quartile range, default),</p></li>
+<li><p><code>"pnn"</code> (symmetric percentile range with <code>nn</code> the lower percentile, e.g.
+<code>"p05"</code> indicating the range between 5 and 95 %, or <code>"p10"</code> indicating
+the range between 10 and 90 %), or</p></li>
 <li><p><code>"sd"</code> (standard deviation) and</p></li>
 <li><p><code>"2sd"</code> (2 standard deviations),</p></li>
 </ul><p>The default is <code>"qr"</code>. Note that <code>"sd"</code> and <code>"2sd"</code> are only meaningful in
@@ -122,18 +123,18 @@ centre the polygon.</p></dd>
 
 
 <dt id="arg-plot-ratio">plot.ratio<a class="anchor" aria-label="anchor" href="#arg-plot-ratio"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>:
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 Relative space, given to the radial versus the cartesian plot part,
 default is <code>0.75</code>.</p></dd>
 
 
 <dt id="arg-rotate">rotate<a class="anchor" aria-label="anchor" href="#arg-rotate"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to turn the plot by 90 degrees.</p></dd>
 
 
 <dt id="arg-mtext">mtext<a class="anchor" aria-label="anchor" href="#arg-mtext"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 additional text below the plot title.</p></dd>
 
 
@@ -182,40 +183,41 @@ One or more out of the following:</p><ul><li><p><code>"min"</code>,</p></li>
 
 
 <dt id="arg-rug">rug<a class="anchor" aria-label="anchor" href="#arg-rug"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to add a rug to the KDE part, to indicate the location of individual values.</p></dd>
 
 
 <dt id="arg-kde">kde<a class="anchor" aria-label="anchor" href="#arg-kde"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to add a KDE plot to the dispersion part, default is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-hist">hist<a class="anchor" aria-label="anchor" href="#arg-hist"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to add a histogram to the dispersion part. Only meaningful when not
 more than one data set is plotted.</p></dd>
 
 
 <dt id="arg-dots">dots<a class="anchor" aria-label="anchor" href="#arg-dots"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to add a dot plot to the dispersion part. If number of dots exceeds
 space in the dispersion part, a square indicates this.</p></dd>
 
 
 <dt id="arg-boxplot">boxplot<a class="anchor" aria-label="anchor" href="#arg-boxplot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to add a boxplot to the dispersion part, default is <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-y-axis">y.axis<a class="anchor" aria-label="anchor" href="#arg-y-axis"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>: Option to hide standard y-axis labels and show 0 only.
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Option to hide standard y-axis
+labels and show 0 only.
 Useful for data with small scatter. If you want to suppress the y-axis entirely
 please use <code>yaxt == 'n'</code> (the standard <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphics::par</a> setting) instead.</p></dd>
 
 
 <dt id="arg-error-bars">error.bars<a class="anchor" aria-label="anchor" href="#arg-error-bars"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 Option to show De-errors as error bars on De-points. Useful in combination
 with <code>y.axis = FALSE, bar.col = "none"</code>.</p></dd>
 
@@ -287,13 +289,13 @@ create an interactive abanico plot (requires the <code>'plotly'</code> package)<
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further plot arguments to pass (see <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot.default</a>).
 Supported are: <code>main</code>, <code>sub</code>, <code>ylab</code>, <code>xlab</code>, <code>zlab</code>, <code>zlim</code>, <code>ylim</code>, <code>cex</code>,
-<code>lty</code>, <code>lwd</code>, <code>pch</code>, <code>col</code>, <code>tck</code>, <code>tcl</code>, <code>at</code>, <code>breaks</code>. <code>xlab</code> must be
+<code>lty</code>, <code>lwd</code>, <code>pch</code>, <code>col</code>, <code>at</code>, <code>breaks</code>. <code>xlab</code> must be
 a vector of length two, specifying the upper and lower x-axis labels.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>returns a plot object and, optionally, a list with plot calculus data.</p>
+    <p>Returns a plot object and, optionally, a list with plot calculus data.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -327,7 +329,7 @@ user-defined numeric values (e.g. from the central age model) can be used if
 this appears appropriate.</p>
 <p>The proportion of the polar part and the cartesian part of the Abanico Plot
 can be modified for display reasons (<code>plot.ratio = 0.75</code>). By default,
-the polar part spreads over 75 \<!-- % and leaves 25 \\% for the part that -->
+the polar part spreads over 75 % and leaves 25 % for the part that
 shows the KDE graph.</p>
 <p>A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
@@ -364,11 +366,11 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.17</p>
+    <p>0.1.18</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Dietze, M., Kreutzer, S., 2024. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Dietze, M., Kreutzer, S., 2025. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.18. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -725,7 +727,7 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

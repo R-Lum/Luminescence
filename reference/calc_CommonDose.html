@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/calc_CommonDose.R" class="external-link"><code>R/calc_CommonDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/calc_CommonDose.R" class="external-link"><code>R/calc_CommonDose.R</code></a></small>
       <div class="d-none name"><code>calc_CommonDose.Rd</code></div>
     </div>
 
@@ -56,8 +56,9 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham &amp; Walling 2012, p. 100).
 <strong>NOTE</strong>: For the logged model (<code>log = TRUE</code>) this value must be
-a fraction, e.g. 0.2 (= 20 \<!-- %). If the un-logged model is used (\code{log = FALSE}), -->
-sigmab must be provided in the same absolute units of the De values (seconds or Gray).</p></dd>
+a fraction, e.g. 0.2 (= 20%). If the un-logged model is used (<code>log = FALSE</code>),
+<code>sigmab</code> must be provided in the same absolute units of the De values
+(seconds or Gray).</p></dd>
 
 
 <dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
@@ -74,20 +75,20 @@ fit the (un-)logged central age model to De data</p></dd>
     <p>Returns a terminal output. In addition an
 <a href="RLum.Results-class.html">RLum.Results</a> object is returned containing the
 following element:</p>
-<dl><dt>.$summary</dt>
+<dl><dt>$summary</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> summary of all relevant model results.</p></dd>
 
-<dt>.$data</dt>
+<dt>$data</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> original input data</p></dd>
 
-<dt>.$args</dt>
+<dt>$args</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
 
-<dt>.$call</dt>
+<dt>$call</dt>
 <dd><p><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a> the function call</p></dd>
 
 
-</dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+</dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -109,7 +110,7 @@ error (Galbraith &amp; Roberts 2012, p. 14).</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2024. calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., 2025. calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -175,7 +176,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

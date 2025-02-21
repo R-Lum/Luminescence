@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import PSL files to R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/read_PSL2R.R" class="external-link"><code>R/read_PSL2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/read_PSL2R.R" class="external-link"><code>R/read_PSL2R.R</code></a></small>
       <div class="d-none name"><code>read_PSL2R.Rd</code></div>
     </div>
 
@@ -44,6 +44,7 @@
 <span>  as_decay_curve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  smooth <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  merge <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -82,6 +83,11 @@ to hardware errors.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 <code>TRUE</code> to merge all <code>RLum.Analysis</code> objects. Only applicable if multiple
 files are imported.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -123,7 +129,7 @@ Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., 2024. read_PSL2R(): Import PSL files to R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., 2025. read_PSL2R(): Import PSL files to R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -133,6 +139,10 @@ Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"DorNie_0016.psl"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">psl</span> <span class="op">&lt;-</span> <span class="fu">read_PSL2R</span><span class="op">(</span><span class="va">file</span>, drop_bg <span class="op">=</span> <span class="cn">FALSE</span>, as_decay_curve <span class="op">=</span> <span class="cn">TRUE</span>, smooth <span class="op">=</span> <span class="cn">TRUE</span>, merge <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [read_PSL2R()] Importing ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /home/runner/work/_temp/Library/Luminescence/extdata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  file:  DorNie_0016.psl</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">psl</span>, max.level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formal class 'RLum.Analysis' [package "Luminescence"] with 6 slots</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ protocol  : chr "portable OSL"</span>
@@ -160,7 +170,7 @@ Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Sample               : chr "L11"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Sequence             :Classes ‘data.table’ and 'data.frame':	5 obs. of  5 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ .uid      : chr "2024-11-18-01:34.0.245435066055506"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ .uid      : chr "2025-02-21-03:24.0.245435066055506"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ .pid      : chr NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">psl</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -173,7 +183,7 @@ Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

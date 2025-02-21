@@ -11,7 +11,7 @@ by e.g. read_XSYG2R, read_Daybreak2R"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ by e.g. read_XSYG2R, read_Daybreak2R"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Class <code>"RLum.Analysis"</code></h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a></small>
       <div class="d-none name"><code>RLum.Analysis-class.Rd</code></div>
     </div>
 
@@ -84,7 +84,25 @@ by e.g. <a href="read_XSYG2R.html">read_XSYG2R</a>, <a href="read_Daybreak2R.htm
 <span><span class="fu"><a href="names_RLum.html">names_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
-<span><span class="fu"><a href="smooth_RLum.html">smooth_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">add_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, subset <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu"><a href="smooth_RLum.html">smooth_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu"><a href="sort_RLum.html">sort_RLum</a></span><span class="op">(</span><span class="va">object</span>, slot <span class="op">=</span> <span class="cn">NULL</span>, info_element <span class="op">=</span> <span class="cn">NULL</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu"><a href="melt_RLum.html">melt_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu"><a href="view.html">view</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -92,7 +110,7 @@ by e.g. <a href="read_XSYG2R.html">read_XSYG2R</a>, <a href="read_Daybreak2R.htm
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <code><a href="names_RLum.html">names_RLum</a></code>, <code><a href="length_RLum.html">length_RLum</a></code>, <code><a href="structure_RLum.html">structure_RLum</a></code> (<strong>required</strong>):
+<dd><p>(<strong>required</strong>):
 an object of class RLum.Analysis</p></dd>
 
 
@@ -169,10 +187,10 @@ coerce to the next possible layer (which are <code>RLum.Data</code>-objects),
 
 <dt id="arg-recursive">recursive<a class="anchor" aria-label="anchor" href="#arg-recursive"></a></dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-if <code>TRUE</code> (the default) and the result of the <code><a href="get_RLum.html">get_RLum()</a></code> request is a single
-object this object will be unlisted, means only the object itself and no
-list containing exactly one object is returned. Mostly this makes things
-easier, however, if this method is used within a loop this might be undesired.</p></dd>
+if <code>TRUE</code> (default) when the result of the <code><a href="get_RLum.html">get_RLum()</a></code> request is a single
+object, the object itself will be returned directly, rather than being
+wrapped in a list. Mostly this makes things easier, but this might be
+undesired if this method is used within a loop.</p></dd>
 
 
 <dt id="arg-info-object">info.object<a class="anchor" aria-label="anchor" href="#arg-info-object"></a></dt>
@@ -195,13 +213,33 @@ relevant when subsetting the object and should not be used manually.</p></dd>
 
 <dt id="arg-fullextent">fullExtent<a class="anchor" aria-label="anchor" href="#arg-fullextent"></a></dt>
 <dd><p><a href="structure_RLum.html">structure_RLum</a>; <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-extents the returned <code>data.frame</code> to its full extent, i.e. all info elements
+extends the returned <code>data.frame</code> to its full extent, i.e. all info elements
 are part of the return as well. The default value is <code>FALSE</code> as the data
 frame might become rather big.</p></dd>
 
 
+<dt id="arg-info-element">info_element<a class="anchor" aria-label="anchor" href="#arg-info-element"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>): name of the <code>info</code> field
+to use in sorting.</p></dd>
+
+
+<dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
+<dd><p>(<strong>required</strong>) The value assigned to the selected elements
+of the metadata field. If <code>NULL</code> the elements named in <code>info_element</code>
+will be removed.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments passed to underlying methods</p></dd>
+<dd><p>other arguments that might be passed</p></dd>
+
+
+<dt id="arg-slot">slot<a class="anchor" aria-label="anchor" href="#arg-slot"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>): slot name to use in sorting.</p></dd>
+
+
+<dt id="arg-decreasing">decreasing<a class="anchor" aria-label="anchor" href="#arg-decreasing"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): whether the sort order should
+be decreasing (<code>FALSE</code> by default).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -218,6 +256,10 @@ frame might become rather big.</p></dd>
 <p>Returns the names of the record types (<code>recordType</code>) in this object.</p>
 <p><strong><code>smooth_RLum</code></strong></p>
 <p>Same object as input, after smoothing</p>
+<p><strong><code>sort_RLum</code></strong></p>
+<p>Same object as input, but sorted according to the specified parameters.</p>
+<p><strong><code>melt_RLum</code></strong></p>
+<p>Flat <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with <code>X</code>, <code>Y</code>, <code>TYPE</code>, <code>UID</code></p>
     </div>
     <div class="section level2">
     <h2 id="methods-by-generic-">Methods (by generic)<a class="anchor" aria-label="anchor" href="#methods-by-generic-"></a></h2>
@@ -233,10 +275,19 @@ or object type.</p>
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum</p></li>
 <li><p><code>structure_RLum(RLum.Analysis)</code>: Method to show the structure of an RLum.Analysis object.</p></li>
 <li><p><code>length_RLum(RLum.Analysis)</code>: Returns the length of the object, i.e., number of stored records.</p></li>
-<li><p><code>names_RLum(RLum.Analysis)</code>: Returns the names of the <a href="RLum.Data-class.html">RLum.Data</a> objects objects (same as shown with the show method)</p></li>
+<li><p><code>names_RLum(RLum.Analysis)</code>: Returns the names of the <a href="RLum.Data-class.html">RLum.Data</a> objects (same as shown with the
+<code>show</code> method)</p></li>
+<li><p><code>add_metadata(RLum.Analysis) &lt;- value</code>: Adds metadata to RLum.Analysis objects</p></li>
+<li><p><code>rename_metadata(RLum.Analysis) &lt;- value</code>: Renames a metadata entry of RLum.Analysis objects</p></li>
+<li><p><code>replace_metadata(RLum.Analysis) &lt;- value</code>: Replaces or removes metadata of RLum.Analysis objects</p></li>
 <li><p><code>smooth_RLum(RLum.Analysis)</code>: Smoothing of <code>RLum.Data</code> objects contained in this <code>RLum.Analysis</code> object
-<a href="https://rdrr.io/pkg/zoo/man/rollmean.html" class="external-link">zoo::rollmean</a> or <a href="https://rdrr.io/pkg/zoo/man/rollmean.html" class="external-link">zoo::rollmedian</a>. In particular the internal
-function <code>.smoothing</code> is used.</p></li>
+using the internal function <code>.smoothing</code>.</p></li>
+<li><p><code>sort_RLum(RLum.Analysis)</code>: Sorting of <code>RLum.Data</code> objects contained in this <code>RLum.Analysis</code> object.
+At least one of <code>slot</code> and <code>info_element</code> must be provided. If both are
+given, ordering by <code>slot</code> always supersedes ordering by <code>info_element</code>.</p></li>
+<li><p><code>melt_RLum(RLum.Analysis)</code>: Melts RLum.Analysis objects into a flat data.frame to be used
+in combination with other packages such as <code>ggplot2</code>.</p></li>
+<li><p><code>view(RLum.Analysis)</code>: View method for RLum.Analysis objects</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a></h2>
@@ -264,7 +315,7 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="class-version">Class version<a class="anchor" aria-label="anchor" href="#class-version"></a></h2>
-    <p>0.4.17</p>
+    <p>0.4.18</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -278,7 +329,7 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -349,7 +400,7 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import XSYG files to R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/read_XSYG2R.R" class="external-link"><code>R/read_XSYG2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/read_XSYG2R.R" class="external-link"><code>R/read_XSYG2R.R</code></a></small>
       <div class="d-none name"><code>read_XSYG2R.Rd</code></div>
     </div>
 
@@ -41,6 +41,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_XSYG2R</span><span class="op">(</span></span>
 <span>  <span class="va">file</span>,</span>
 <span>  recalculate.TL.curves <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  n_records <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fastForward <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  import <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">".xsyg"</span>,</span>
@@ -57,8 +58,9 @@
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<strong>required</strong>):
 path and file name of the XSYG file. If input is a <code>list</code> it should comprise
 only <code>character</code>s representing each valid path and XSYG-file names.
-Alternatively the input character can be just a directory (path), in this case the
-the function tries to detect and import all XSYG-files found in the directory.</p></dd>
+Alternatively, the input character can be just a directory (path), in which
+case the function tries to detect and import all XSYG-files found in the
+directory.</p></dd>
 
 
 <dt id="arg-recalculate-tl-curves">recalculate.TL.curves<a class="anchor" aria-label="anchor" href="#arg-recalculate-tl-curves"></a></dt>
@@ -67,6 +69,11 @@ if set to <code>TRUE</code>, TL curves are returned as temperature against count
 (see details for more information) Note: The option overwrites the time vs.
 count TL curve. Select <code>FALSE</code> to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.</p></dd>
+
+
+<dt id="arg-n-records">n_records<a class="anchor" aria-label="anchor" href="#arg-n-records"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): set the number of records to be imported; by default
+the function attempts to import all records</p></dd>
 
 
 <dt id="arg-fastforward">fastForward<a class="anchor" aria-label="anchor" href="#arg-fastforward"></a></dt>
@@ -87,13 +94,13 @@ specific XSYG-files</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable or disable verbose mode. If verbose is <code>FALSE</code>
-the <code>txtProgressBar</code> is also switched off</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable output to the
+terminal. If verbose is <code>FALSE</code> the <code>txtProgressBar</code> is also switched off</p></dd>
 
 
 <dt id="arg-txtprogressbar">txtProgressBar<a class="anchor" aria-label="anchor" href="#arg-txtprogressbar"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables <code>TRUE</code> or disables <code>FALSE</code> the progress bar during import</p></dd>
+enable/disable the progress bar during import. Ignored if <code>verbose = FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -174,11 +181,11 @@ Corresponding values in the XSXG file are skipped.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.6.12</p>
+    <p>0.6.14</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. read_XSYG2R(): Import XSYG files to R. Function version 0.6.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. read_XSYG2R(): Import XSYG files to R. Function version 0.6.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -731,7 +738,7 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

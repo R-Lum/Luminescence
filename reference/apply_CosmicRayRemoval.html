@@ -11,7 +11,7 @@ RLum.Analysis objects."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ RLum.Analysis objects."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/apply_CosmicRayRemoval.R" class="external-link"><code>R/apply_CosmicRayRemoval.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/apply_CosmicRayRemoval.R" class="external-link"><code>R/apply_CosmicRayRemoval.R</code></a></small>
       <div class="d-none name"><code>apply_CosmicRayRemoval.Rd</code></div>
     </div>
 
@@ -70,8 +70,8 @@ objects does not work for a list of <code>RLum.Data</code> objects.</p></dd>
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 Defines method that is applied for cosmic ray removal. Allowed methods are
-<code>smooth</code>, the default, (<a href="https://rdrr.io/r/stats/smooth.html" class="external-link">smooth</a>), <code>smooth.spline</code> (<a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">smooth.spline</a>)
-and <code>Pych</code>. See details for further information.</p></dd>
+<code>smooth</code>, the default, (<a href="https://rdrr.io/r/stats/smooth.html" class="external-link">stats::smooth</a>), <code>smooth.spline</code> (<a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">stats::smooth.spline</a>),
+<code>smooth_RLum</code> (<a href="smooth_RLum.html">smooth_RLum</a>) and <code>Pych</code>. See details for further information.</p></dd>
 
 
 <dt id="arg-method-pych-smoothing">method.Pych.smoothing<a class="anchor" aria-label="anchor" href="#arg-method-pych-smoothing"></a></dt>
@@ -96,7 +96,7 @@ on which part the function cosmic ray removal should be applied on:</p><ul><li><
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-Option to suppress terminal output.,</p></dd>
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
@@ -108,7 +108,8 @@ Currently only for <code>method = "Pych"</code> a graphical output is provided.<
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>further arguments and graphical parameters that will be passed
-to the <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">smooth</a> function.</p></dd>
+to the <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">stats::smooth</a>, <a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">stats::smooth.spline</a> or <a href="smooth_RLum.html">smooth_RLum</a>. See details for more
+information.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -122,23 +123,25 @@ to the <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">smoot
 (2003). Some aspects that are different to the publication:</p><ul><li><p>For interpolation between neighbouring values the median and not the mean is used.</p></li>
 <li><p>The number of breaks to construct the histogram is set to: <code>length(number.of.input.values)/2</code></p></li>
 </ul><p>For further details see references below.</p>
-<p><strong><code>method = "smooth"</code></strong></p>
-<p>Method uses the function <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">smooth</a> to remove cosmic rays.</p>
-<p>Arguments that can be passed are: <code>kind</code>, <code>twiceit</code></p>
-<p><strong><code>method = "smooth.spline"</code></strong></p>
-<p>Method uses the function <a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">smooth.spline</a> to remove cosmic rays.</p>
-<p>Arguments that can be passed are: <code>spar</code></p>
+<p><strong>Other methods</strong>
+Arguments supported through <code>...</code></p><table class="table table"><tr><td>METHOD</td><td>ARGUMENT</td><td>TYPE</td><td>REMARKS</td></tr><tr><td><code>"smooth"</code></td><td><code>kind</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>see <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">stats::smooth</a></td></tr><tr><td></td><td><code>twiceit</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>see <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">stats::smooth</a></td></tr><tr><td><code>"smooth.spline"</code></td><td><code>spar</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>see <a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">stats::smooth.spline</a></td></tr><tr><td><code>"smooth_RLum"</code></td><td><code>k</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>see <a href="smooth_RLum.html">smooth_RLum</a></td></tr><tr><td></td><td><code>fill</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>see <a href="smooth_RLum.html">smooth_RLum</a></td></tr><tr><td></td><td><code>align</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>see <a href="smooth_RLum.html">smooth_RLum</a></td></tr><tr><td></td><td><code>method</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>see <a href="smooth_RLum.html">smooth_RLum</a></td></tr></table><p><strong>Best practice</strong></p>
+<p>There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+on the characteristic of the detector and the chosen settings. For instance,
+high values for pixel binning will improve the light output, but also causes
+multiple pixels being affected a single cosmic-ray. The same is valid for
+longer integration times. The best strategy is to combine methods and ensure
+that the spectrum is not distorted on a case-to-case basis.</p>
 <p><strong>How to combine methods?</strong></p>
 <p>Different methods can be combined by applying the method repeatedly to the
 dataset (see example).</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.3.0</p>
+    <p>0.4.0</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -148,8 +151,8 @@ Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">smooth</a>, <a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">smooth.spline</a>,
-apply_CosmicRayRemoval</p></div>
+    <div class="dont-index"><p><a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/stats/smooth.html" class="external-link">stats::smooth</a>, <a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">stats::smooth.spline</a>,
+<a href="smooth_RLum.html">smooth_RLum</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -173,7 +176,7 @@ apply_CosmicRayRemoval</p></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

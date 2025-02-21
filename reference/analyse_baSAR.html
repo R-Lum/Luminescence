@@ -17,7 +17,7 @@ published code."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ published code."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Bayesian models (baSAR) applied on luminescence data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/analyse_baSAR.R" class="external-link"><code>R/analyse_baSAR.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_baSAR.R" class="external-link"><code>R/analyse_baSAR.R</code></a></small>
       <div class="d-none name"><code>analyse_baSAR.Rd</code></div>
     </div>
 
@@ -55,7 +55,7 @@ published code.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_baSAR</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
-<span>  XLS_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  CSV_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aliquot_range <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  source_doserate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">signal.integral</span>,</span>
@@ -76,7 +76,7 @@ published code.</p>
 <span>  distribution_plot <span class="op">=</span> <span class="st">"kde"</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_reduced <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plot_singlePanels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -96,24 +96,24 @@ providing a file connection. Mixing of both types is not allowed. If an <a href=
 is provided the function directly starts with the Bayesian Analysis (see details)</p></dd>
 
 
-<dt id="arg-xls-file">XLS_file<a class="anchor" aria-label="anchor" href="#arg-xls-file"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-XLS_file with data for the analysis. This file must contain 3 columns:
+<dt id="arg-csv-file">CSV_file<a class="anchor" aria-label="anchor" href="#arg-csv-file"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<em>optional</em>):
+if a <code>character</code>, it must be the path to a CSV file with data for the
+analysis. Either way, data should contain 3 columns:
 the name of the file, the disc position and the grain position
-(the last being 0 for multi-grain measurements).<br>
-Alternatively a <code>data.frame</code> of similar structure can be provided.</p></dd>
+(the last being 0 for multi-grain measurements).<br></p></dd>
 
 
 <dt id="arg-aliquot-range">aliquot_range<a class="anchor" aria-label="anchor" href="#arg-aliquot-range"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 allows to limit the range of the aliquots used for the analysis.
-This argument has only an effect if the argument <code>XLS_file</code> is used or
+This argument has only an effect if the argument <code>CSV_file</code> is used or
 the input is the previous output (i.e. is <a href="RLum.Results-class.html">RLum.Results</a>). In this case the
 new selection will add the aliquots to the removed aliquots table.</p></dd>
 
 
 <dt id="arg-source-doserate">source_doserate<a class="anchor" aria-label="anchor" href="#arg-source-doserate"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <strong>(required)</strong>:
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 source dose rate of beta-source used for the measurement and its uncertainty
 in Gy/s, e.g., <code>source_doserate = c(0.12, 0.04)</code>. Parameter can be provided
 as <code>list</code>, for the case that more than one BIN-file is provided, e.g.,
@@ -227,27 +227,27 @@ as comparison obtained using baSAR. Allowed input is <code>'abanico'</code> or <
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables plot output</p></dd>
+enable/disable the plot output.</p></dd>
 
 
 <dt id="arg-plot-reduced">plot_reduced<a class="anchor" aria-label="anchor" href="#arg-plot-reduced"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables the advanced plot output</p></dd>
+enable/disable the advanced plot output.</p></dd>
 
 
-<dt id="arg-plot-single">plot.single<a class="anchor" aria-label="anchor" href="#arg-plot-single"></a></dt>
+<dt id="arg-plot-singlepanels">plot_singlePanels<a class="anchor" aria-label="anchor" href="#arg-plot-singlepanels"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables single plots or plots arranged by <code>analyse_baSAR</code></p></dd>
+enable/disable single plots or plots arranged by <code>analyse_baSAR</code>.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables verbose mode</p></dd>
+enable/disable output to the terminal.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>parameters that can be passed to the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>
-(almost full support), <a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a> (full support), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
+(almost full support), <a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a> (<code>skip</code>), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
 <code>position</code>, <code>duplicated.rm</code>), see details.</p></dd>
 
 </dl></div>
@@ -302,17 +302,17 @@ supports <strong>(a)</strong> either a path to a file or directory or a <code>li
 be produced by using the function <a href="read_BIN2R.html">read_BIN2R</a>, but this function is called automatically
 if only a file name and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.</p>
-<p><code>[XLS_file = NULL]</code></p>
-<p>If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
-consists of the following steps:</p><ol><li><p>Select all valid aliquots using the function <a href="verify_SingleGrainData.html">verify_SingleGrainData</a></p></li>
+<p><code>[CSV_file = NULL]</code></p>
+<p>If no CSV file (or data frame with the same format) is provided, the
+function runs an automatic process that consists of the following steps:</p><ol><li><p>Select all valid aliquots using the function <a href="verify_SingleGrainData.html">verify_SingleGrainData</a></p></li>
 <li><p>Calculate <code>Lx/Tx</code> values using the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></p></li>
 <li><p>Calculate De values using the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></li>
 </ol><p>These proceeded data are subsequently used in for the Bayesian analysis</p>
-<p><code>[XLS_file != NULL]</code></p>
-<p>If an XLS-file is provided or a <code>data.frame</code> providing similar information the pre-processing
-steps consists of the following steps:</p><ol><li><p>Calculate <code>Lx/Tx</code> values using the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></p></li>
+<p><code>[CSV_file != NULL]</code></p>
+<p>If a CSV file is provided (or a <code>data.frame</code> containing similar information)
+the pre-processing phase consists of the following steps:</p><ol><li><p>Calculate <code>Lx/Tx</code> values using the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></p></li>
 <li><p>Calculate De values using the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></li>
-</ol><p>Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+</ol><p>The CSV file should contain the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by <a href="verify_SingleGrainData.html">verify_SingleGrainData</a> might be not totally sufficient.</p>
 <p><strong>(2) - <code>object</code> <code>RLum.Results object</code></strong></p>
@@ -355,7 +355,7 @@ Example: <code>method_control = list(lower_centralD = 10))</code></p>
 <p><strong>Additional arguments support via the <code>...</code> argument</strong></p>
 <p>This list summarizes the additional arguments that can be passed to the internally used
 functions.</p>
-<table class="table table"><tr><td><strong>Supported argument</strong></td><td><strong>Corresponding function</strong></td><td><strong>Default</strong></td><td>**Short description **</td></tr><tr><td><code>threshold</code></td><td><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></td><td><code>30</code></td><td>change rejection threshold for curve selection</td></tr><tr><td><code>sheet</code></td><td><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a></td><td><code>1</code></td><td>select XLS-sheet for import</td></tr><tr><td><code>col_names</code></td><td><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a></td><td><code>TRUE</code></td><td>first row in XLS-file is header</td></tr><tr><td><code>col_types</code></td><td><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a></td><td><code>NULL</code></td><td>limit import to specific columns</td></tr><tr><td><code>skip</code></td><td><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a></td><td><code>0</code></td><td>number of rows to be skipped during import</td></tr><tr><td><code>n.records</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit records during BIN-file import</td></tr><tr><td><code>duplicated.rm</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>remove duplicated records in the BIN-file</td></tr><tr><td><code>pattern</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>select BIN-file by name pattern</td></tr><tr><td><code>position</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit import to a specific position</td></tr><tr><td><code>background.count.distribution</code></td><td><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></td><td><code>"non-poisson"</code></td><td>set assumed count distribution</td></tr><tr><td><code>fit.weights</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enables / disables fit weights</td></tr><tr><td><code>fit.bounds</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enables / disables fit bounds</td></tr><tr><td><code>NumberIterations.MC</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>100</code></td><td>number of MC runs for error calculation</td></tr><tr><td><code>output.plot</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enables / disables dose response curve plot</td></tr><tr><td><code>output.plotExtended</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enables / disables extended dose response curve plot</td></tr></table></div>
+<table class="table table"><tr><td><strong>Supported argument</strong></td><td><strong>Corresponding function</strong></td><td><strong>Default</strong></td><td>**Short description **</td></tr><tr><td><code>threshold</code></td><td><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></td><td><code>30</code></td><td>change rejection threshold for curve selection</td></tr><tr><td><code>skip</code></td><td><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a></td><td><code>0</code></td><td>number of rows to be skipped during import</td></tr><tr><td><code>n.records</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit records during BIN-file import</td></tr><tr><td><code>duplicated.rm</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>remove duplicated records in the BIN-file</td></tr><tr><td><code>pattern</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>select BIN-file by name pattern</td></tr><tr><td><code>position</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit import to a specific position</td></tr><tr><td><code>background.count.distribution</code></td><td><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></td><td><code>"non-poisson"</code></td><td>set assumed count distribution</td></tr><tr><td><code>fit.weights</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit weights</td></tr><tr><td><code>fit.bounds</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit bounds</td></tr><tr><td><code>n.MC</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>100</code></td><td>number of MC runs for error calculation</td></tr><tr><td><code>output.plot</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable dose response curve plot</td></tr><tr><td><code>output.plotExtended</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable extended dose response curve plot</td></tr><tr><td><code>recordType</code></td><td><a href="get_RLum.html">get_RLum</a></td><td><code>c(OSL (UVVIS), irradiation (NA)</code></td><td>helps for the curve selection</td></tr></table></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p><strong>If you provide more than one BIN-file</strong>, it is <strong>strongly</strong> recommended to provide
@@ -367,11 +367,11 @@ a <code>list</code> with the same number of elements for the following parameter
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.33</p>
+    <p>0.1.36</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Mercier, N., Kreutzer, S., 2024. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Mercier, N., Kreutzer, S., 2025. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.36. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -391,12 +391,12 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="read_BIN2R.html">read_BIN2R</a>, <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>, <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>,
-<a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a>, <a href="verify_SingleGrainData.html">verify_SingleGrainData</a>,
+<a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a>, <a href="verify_SingleGrainData.html">verify_SingleGrainData</a>,
 <a href="https://rdrr.io/pkg/rjags/man/jags.model.html" class="external-link">rjags::jags.model</a>, <a href="https://rdrr.io/pkg/rjags/man/coda.samples.html" class="external-link">rjags::coda.samples</a>, <a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot.default</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) <br>
+    <p>Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) <br>
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team</p>
@@ -431,11 +431,11 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##XLS_file template</span></span></span>
+<span class="r-in"><span><span class="co">##CSV_file template</span></span></span>
 <span class="r-in"><span><span class="co">##copy and paste this the code below in the terminal</span></span></span>
 <span class="r-in"><span><span class="co">##you can further use the function write.csv() to export the example</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">XLS_file</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span><span class="va">CSV_file</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span> BIN_FILE <span class="op">=</span> <span class="cn">NA_character_</span>,</span></span>
@@ -455,7 +455,7 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

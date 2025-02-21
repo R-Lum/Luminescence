@@ -17,7 +17,7 @@ the package 'tgcd'."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ the package 'tgcd'."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Luminescence Emission Spectra Deconvolution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/fit_EmissionSpectra.R" class="external-link"><code>R/fit_EmissionSpectra.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/fit_EmissionSpectra.R" class="external-link"><code>R/fit_EmissionSpectra.R</code></a></small>
       <div class="d-none name"><code>fit_EmissionSpectra.Rd</code></div>
     </div>
 
@@ -77,13 +77,14 @@ object. Please note that an energy spectrum is expected</p></dd>
 
 
 <dt id="arg-frame">frame<a class="anchor" aria-label="anchor" href="#arg-frame"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): defines the frame to be analysed</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>): number of the frame to be analysed. If
+<code>NULL</code>, all available frames are analysed.</p></dd>
 
 
 <dt id="arg-n-components">n_components<a class="anchor" aria-label="anchor" href="#arg-n-components"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): allows a number of the aimed number of
-components. However, it defines rather a maximum than than a minimum. Can be combined with
-other parameters.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>): maximum number of components
+desired: the number of component actually fitted may be smaller than this.
+Can be combined with other parameters.</p></dd>
 
 
 <dt id="arg-start-parameters">start_parameters<a class="anchor" aria-label="anchor" href="#arg-start-parameters"></a></dt>
@@ -98,22 +99,24 @@ by the number provided here (default: <code>0</code>). Can be set to <code>NULL<
 
 
 <dt id="arg-input-scale">input_scale<a class="anchor" aria-label="anchor" href="#arg-input-scale"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>): defines whether your x-values define wavelength or
-energy values. For the analysis an energy scale is expected, allowed values are <code>'wavelength'</code> and
-<code>'energy'</code>. If nothing (<code>NULL</code>) is defined, the function tries to understand the input
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>): defines whether your x-values
+are expressed as wavelength or energy values. Allowed values are <code>"wavelength"</code>,
+<code>"energy"</code> or <code>NULL</code>, in which case the function tries to guess the input
 automatically.</p></dd>
 
 
 <dt id="arg-method-control">method_control<a class="anchor" aria-label="anchor" href="#arg-method-control"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>): options to control the fit method, see details</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>): options to control the fit method
+and the output produced, see details.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable verbose mode</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable output to the
+terminal.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable plot output</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the plot output.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -128,14 +131,15 @@ automatically.</p></dd>
 ———————————–<br></p>
 <p><strong><code>RLum.Results</code></strong>-object</p>
 <p><strong>slot:</strong> <strong><code>@data</code></strong></p>
-<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>matrix</code></td><td>the final fit matrix</td></tr><tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fit object returned by <a href="https://rdrr.io/pkg/minpack.lm/man/nls.lm.html" class="external-link">minpack.lm::nls.lm</a></td></tr><tr><td><code>$fit_info</code></td><td><code>list</code></td><td>a few additional parameters that can be used to asses the quality
-of the fit</td></tr></table><p><strong>slot:</strong> <strong><code>@info</code></strong></p>
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>matrix</code></td><td>the final fit matrix</td></tr><tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fit object returned by <a href="https://rdrr.io/pkg/minpack.lm/man/nls.lm.html" class="external-link">minpack.lm::nls.lm</a></td></tr><tr><td><code>$fit_info</code></td><td><code>list</code></td><td>a few additional parameters that can be used
+to assess the quality of the fit</td></tr><tr><td><code>$df_plot</code></td><td><code>list</code></td><td>values of all curves in the plot for each
+frame analysed (only if <code>method_control$export.plot.data = TRUE</code>)</td></tr></table><p><strong>slot:</strong> <strong><code>@info</code></strong></p>
 <p>The original function call</p>
 <p>———————————<br><code>[ TERMINAL OUTPUT ]</code>   <br>
 ———————————<br></p>
 <p>The terminal output provides brief information on the
 deconvolution process and the obtained results.
-Terminal output is only shown of the argument <code>verbose = TRUE</code>.</p>
+Terminal output is only shown when <code>verbose = TRUE</code>.</p>
 <p>—————————<br><code>[ PLOT OUTPUT ]</code>      <br>
 —————————<br></p>
 <p>The function returns a plot showing the raw signal with the
@@ -173,10 +177,11 @@ it is recommended to make few trial runs, then fix the number of components and
 run  at least 10,000 iterations (parameter <code>method_control = list(max.runs = 10000)</code>).</p>
 <p><strong>Supported <code>method_control</code> settings</strong></p>
 <table class="table table"><tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Default</strong></td><td><strong>Description</strong></td></tr><tr><td><code>max.runs</code></td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></td><td><code>10000</code></td><td>maximum allowed search iterations, if exceed
-the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td><code>15</code></td><td>gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm</td></tr><tr><td><code>norm</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td><code>TRUE</code></td><td>normalises data to the highest count value before fitting</td></tr><tr><td><code>trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td><code>FALSE</code></td><td>enables/disables the tracing of the minimisation routine</td></tr></table></div>
+the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td><code>15</code></td><td>control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm</td></tr><tr><td><code>norm</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td><code>TRUE</code></td><td>normalise data to the highest count value before fitting</td></tr><tr><td><code>export.plot.data</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td><code>FALSE</code></td><td>enable/disable export
+of the values of all curves in the plot for each frame analysed</td></tr><tr><td><code>trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td><code>FALSE</code></td><td>enable/disable the tracing of the minimisation routine</td></tr></table></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.1</p>
+    <p>0.1.2</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -185,12 +190,13 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2025. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -213,12 +219,12 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Treating dataset &gt;&gt; 5 &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Wavelength scale detected ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Wavelength to energy scale conversion ... 	[OK]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[\]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[\]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			 [OK]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			 [OK]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Fitting results (1 component model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            mu      SE(mu)     sigma   SE(sigma)         C      SE(C)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 2.578405 0.006164132 0.3748424 0.005834911 0.7750855 0.01085102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            mu   SE(mu)     sigma   SE(sigma)         C      SE(C)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 2.578404 0.006164 0.3748349 0.005834793 0.7750778 0.01085089</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SE: standard error | SSR: 2.164e+01| R^2: 0.807 | R^2_adj: 0.1938</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (use the output in $fit for a more detailed analysis)</span>
@@ -245,7 +251,7 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Class <code>"RLum.Data.Spectrum"</code></h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/RLum.Data.Spectrum-class.R" class="external-link"><code>R/RLum.Data.Spectrum-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/RLum.Data.Spectrum-class.R" class="external-link"><code>R/RLum.Data.Spectrum-class.R</code></a></small>
       <div class="d-none name"><code>RLum.Data.Spectrum-class.Rd</code></div>
     </div>
 
@@ -106,8 +106,8 @@ curve type (e.g. "predefined" or "measured")</p></dd>
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a>:
 raw curve data. If data is of type <code>RLum.Data.Spectrum</code>, this can be used
-to re-construct the object. If the object is reconstructed, <code>.uid</code>, <code>.pid</code> and <code>orginator</code>
-are always taken from the input object</p></dd>
+to re-construct the object. If the object is reconstructed, <code>.uid</code>, <code>.pid</code>
+and <code>originator</code> are always taken from the input object</p></dd>
 
 
 <dt id="arg-info">info<a class="anchor" aria-label="anchor" href="#arg-info"></a></dt>
@@ -117,7 +117,8 @@ info elements</p></dd>
 
 <dt id="arg-info-object">info.object<a class="anchor" aria-label="anchor" href="#arg-info-object"></a></dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-the name of the info object to be called</p></dd>
+the name of the info object to be called. If no info element name
+is provided, the raw curve data (matrix) will be returned</p></dd>
 
 
 <dt id="arg-bin-size-col">bin_size.col<a class="anchor" aria-label="anchor" href="#arg-bin-size-col"></a></dt>
@@ -149,11 +150,9 @@ mean a full row binning (a single sum)</p></dd>
     <h2 id="methods-by-generic-">Methods (by generic)<a class="anchor" aria-label="anchor" href="#methods-by-generic-"></a></h2>
 
 <ul><li><p><code>show(RLum.Data.Spectrum)</code>: Show structure of <code>RLum.Data.Spectrum</code> object</p></li>
-<li><p><code>set_RLum(RLum.Data.Spectrum)</code>: Construction method for RLum.Data.Spectrum object. The slot info is optional
-and predefined as empty list by default</p></li>
-<li><p><code>get_RLum(RLum.Data.Spectrum)</code>: Accessor method for RLum.Data.Spectrum object. The argument info.object
-is optional to directly access the info elements. If no info element name
-is provided, the raw curve data (matrix) will be returned</p></li>
+<li><p><code>set_RLum(RLum.Data.Spectrum)</code>: Construction method for RLum.Data.Spectrum object. The <code>info</code> slot is
+optional and by default it is set to an empty list</p></li>
+<li><p><code>get_RLum(RLum.Data.Spectrum)</code>: Accessor method for <code>RLum.Data.Spectrum</code> object.</p></li>
 <li><p><code>names_RLum(RLum.Data.Spectrum)</code>: Returns the names info elements coming along with this curve object</p></li>
 <li><p><code>bin_RLum.Data(RLum.Data.Spectrum)</code>: Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
 for wavelength/energy values the mean is calculated.</p></li>
@@ -167,7 +166,8 @@ for wavelength/energy values the mean is calculated.</p></li>
 
 
 <dt><code>curveType</code></dt>
-<dd><p>Object of class <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> containing curve type, allowed values are measured or predefined</p></dd>
+<dd><p>Object of class <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> containing curve type, allowed values are
+"measured" or "predefined"</p></dd>
 
 
 <dt><code>data</code></dt>
@@ -207,7 +207,7 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2024. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -3332,7 +3332,7 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fitting and Deconvolution of OSL Lifetime Components</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/fit_OSLLifeTimes.R" class="external-link"><code>R/fit_OSLLifeTimes.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/fit_OSLLifeTimes.R" class="external-link"><code>R/fit_OSLLifeTimes.R</code></a></small>
       <div class="d-none name"><code>fit_OSLLifeTimes.Rd</code></div>
     </div>
 
@@ -56,7 +56,7 @@
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> <strong>(required)</strong>:
+<dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<strong>required</strong>):
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
 processing. Please note: <code>NA</code> values are automatically removed and the dataset should comprise at least 5 data points (possibly more if <code>n.components</code> is
 set to a value greater than 1)</p></dd>
@@ -86,17 +86,19 @@ for allowed options.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable plot output</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable the plot output.</p></dd>
 
 
 <dt id="arg-plot-simple">plot_simple<a class="anchor" aria-label="anchor" href="#arg-plot-simple"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable reduced plot output. If <code>TRUE</code>, no
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable the reduced
+plot output. If <code>TRUE</code>, no
 residual plot is shown, however, plot output can be combined using the standard R layout options,
 such as <code>par(mfrow = c(2,2))</code>.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable terminal feedback</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable output to the
+terminal.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -122,7 +124,7 @@ Trave of the parameter adaptation process</p>
 The fitting results sorted by ascending tau value. Please note
 that if you access the <code>nls</code> fitting object, the values are not sorted.</p>
 <p><em>(3) Further information</em><br></p><ul><li><p>The photon count sum</p></li>
-<li><p>Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
+<li><p>Durbin-Watson residual statistic to assess whether the residuals are correlated, ideally
 the residuals should be not correlated at all. Rough measures are: <br>
 D = 0: the residuals are systematically correlated <br>
 D = 2: the residuals are randomly distributed <br>
@@ -152,15 +154,15 @@ contrast to their work, for the optimisation by differential evolution here the 
 <p>$$F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))$$</p>
 <p>(2) Final fitting</p>
 <p><strong><code>method_control</code></strong></p>
-<table class="table table"><tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>p</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 &gt; p &gt; 0 (cf. stats::FDist)</td></tr><tr><td><code>seed</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>set the seed for the random number generator, provide a value here to get reproducible results</td></tr><tr><td><code>DEoptim.trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enables/disables the tracing of the differential evolution (cf. <a href="https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html" class="external-link">DEoptim::DEoptim.control</a>)</td></tr><tr><td><code>DEoptim.itermax</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>controls the number of the allowed generations (cf. <a href="https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html" class="external-link">DEoptim::DEoptim.control</a>)</td></tr><tr><td><code>weights</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enables/disables the weighting for the start parameter estimation and fitting (see equations above).
-The default values is <code>TRUE</code></td></tr><tr><td><code>nlsLM.trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enables/disables trace mode for the nls fitting (<a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a>), can be used to identify convergence problems, default is <code>FALSE</code></td></tr><tr><td><code>nlsLM.upper</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enables/disables upper parameter boundary, default is <code>TRUE</code></td></tr><tr><td><code>nlsLM.lower</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enables/disables lower parameter boundary, default is <code>TRUE</code></td></tr></table></div>
+<table class="table table"><tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>p</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 &gt; p &gt; 0 (cf. stats::FDist)</td></tr><tr><td><code>seed</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>set the seed for the random number generator, provide a value here to get reproducible results</td></tr><tr><td><code>DEoptim.trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable the tracing of the differential evolution (cf. <a href="https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html" class="external-link">DEoptim::DEoptim.control</a>)</td></tr><tr><td><code>DEoptim.itermax</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>control the number of the allowed generations (cf. <a href="https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html" class="external-link">DEoptim::DEoptim.control</a>)</td></tr><tr><td><code>weights</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable the weighting for the start parameter estimation and fitting (see equations above).
+The default values is <code>TRUE</code></td></tr><tr><td><code>nlsLM.trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable trace mode for the nls fitting (<a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a>), can be used to identify convergence problems, default is <code>FALSE</code></td></tr><tr><td><code>nlsLM.upper</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable upper parameter boundary, default is <code>TRUE</code></td></tr><tr><td><code>nlsLM.lower</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable lower parameter boundary, default is <code>TRUE</code></td></tr></table></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
     <p>0.1.5</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Schmidt, C., 2024. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Schmidt, C., 2025. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -212,9 +214,9 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (2) Fitting results (sorted by ascending tau)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate   Std. Error   t value      Pr(&gt;|t|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A.1   2.118737e+10 9.710554e+07 218.18915  0.000000e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tau.1 8.791461e+01 3.167935e+00  27.75139 1.196536e-143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate   Std. Error   t value     Pr(&gt;|t|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A.1   2.118737e+10 9.710554e+07 218.18915  0.00000e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tau.1 8.791461e+01 3.167935e+00  27.75139 1.19654e-143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (3) Further information</span>
@@ -246,7 +248,7 @@ Christoph Schmidt, University of Bayreuth (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">

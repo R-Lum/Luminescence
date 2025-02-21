@@ -15,7 +15,7 @@ functions such as use_DRAC."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ functions such as use_DRAC."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Convert Nuclide Activities to Abundance and Vice Versa</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v0.9.26/R/convert_Activity2Concentration.R" class="external-link"><code>R/convert_Activity2Concentration.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/convert_Activity2Concentration.R" class="external-link"><code>R/convert_Activity2Concentration.R</code></a></small>
       <div class="d-none name"><code>convert_Activity2Concentration.Rd</code></div>
     </div>
 
@@ -58,7 +58,7 @@ functions such as <a href="use_DRAC.html">use_DRAC</a>.</p>
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> <strong>(required)</strong>:
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 provide dose rate data (activity or concentration) in three columns.
 The first column indicates the nuclide, the 2nd column measured value and
 in the 3rd column its error value. Allowed nuclide data are
@@ -74,7 +74,7 @@ The default value is <code>"activity"</code></p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enable or disable verbose mode</p></dd>
+enable/disable output to the terminal.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -127,7 +127,7 @@ In other words, 1 µg/g of U means that this is the composition of 0.992 parts o
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Fuchs, M.C., 2024. convert_Activity2Concentration(): Convert Nuclide Activities to Abundance and Vice Versa. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.26. https://r-lum.github.io/Luminescence/</p>
+    <p>Fuchs, M.C., 2025. convert_Activity2Concentration(): Convert Nuclide Activities to Abundance and Vice Versa. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -171,7 +171,7 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
 </div>
 
 <div class="pkgdown-footer-right">
