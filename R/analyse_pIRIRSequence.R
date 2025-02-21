@@ -247,6 +247,11 @@ analyse_pIRIRSequence <- function(
 
   .validate_class(object, "RLum.Analysis", extra = "'list'")
 
+  ## there must be at least an IR step
+  if (!any(grepl("IR", sequence.structure))) {
+    .throw_error("'sequence.structure' should contain at least one IR step")
+  }
+
     ##CHECK ALLOWED VALUES IN SEQUENCE STRUCTURE
     temp.collect.invalid.terms <- paste(sequence.structure[
       (!grepl("TL",sequence.structure)) &
