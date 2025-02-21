@@ -96,6 +96,7 @@ EED
 Efron
 Ein
 Elsevier
+EMCCD
 Engelen
 Eq
 Erfurt
@@ -121,7 +122,6 @@ Geophys
 Giessen
 Gorin
 Grabmaier
-Grabmeier
 Grampp
 Grehl
 Gruen
@@ -213,6 +213,8 @@ Mittelsachsen
 Mittelstraß
 Modelling
 Moine
+Morans
+MoranScatterplot
 Morthekai
 Moska
 Mungo
@@ -298,6 +300,7 @@ Semrock
 Simmank
 Singarayer
 Singhvi
+SingleGrainDisc
 Sippewissett
 Skłodowska
 Soerensen
@@ -314,6 +317,7 @@ Stolz
 Storn
 Straessner
 Streibig
+Subclasses
 Svoboda
 Sébastien
 TLAPLLIC
@@ -404,6 +408,7 @@ chronometric
 colour
 coloured
 colours
+contrib
 crosstalk
 cts
 curveType
@@ -447,6 +452,7 @@ initialisation
 irradiations
 isochrons
 isothermal
+iteratively
 jlumin
 ka
 labelling
@@ -466,6 +472,7 @@ modelled
 modelling
 mol
 monochromator
+moran
 mtext
 muon
 muons
@@ -504,6 +511,7 @@ preprint
 programme
 pseudoR
 psl
+px
 quageo
 radioelement
 radioelements
@@ -517,6 +525,7 @@ recognised
 reorganisation
 reproducibility
 retrapping
+rho'
 rhop
 rmarkdown
 rstudioapi
@@ -549,6 +558,7 @@ visualisation
 visualise
 visualised
 visualising
+vn
 von
 xsyg
 xy
