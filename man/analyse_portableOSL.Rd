@@ -37,7 +37,7 @@ are expected to be provided in meter (unit: m).
 Expected are x and y coordinates, e.g.,
 \verb{coord = list(samp1 = c(0.1, 0.2)}. If you have not measured x coordinates, please x should be 0.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
 \item{...}{other parameters to be passed to modify the plot output.
 Supported are \code{run} to provide the run name ,

@@ -22,11 +22,10 @@
 #'@param dim.CCD [numeric] (*optional*): metric x and y for the recorded (chip)
 #'surface in µm. For instance `c(8192,8192)`, if set additional x and y-axes are shown
 #'
-#'@param bg_image [RLum.Data.Image-class] (*optional*): background image object
-#'please note that the dimensions are not checked.
+#' @param bg_image [RLum.Data.Image-class] (*optional*): background image object
+#' (please note that dimensions are not checked).
 #'
-#'@param plot [logical] (*with default*): enable or disable plot output to use
-#'the function only to extract the ROI data
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #'@param ... further parameters to manipulate the plot. On top of all arguments of
 #'[graphics::plot.default] the following arguments are supported: `lwd.ROI`, `lty.ROI`,

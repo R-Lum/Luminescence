@@ -19,7 +19,7 @@ e.g. \code{cvThreshold = 3}. See details
 number of the first aliquot that is used for the calculations}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output \code{TRUE}/\code{FALSE}}
+enable/disable the plot output.}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}}
 }

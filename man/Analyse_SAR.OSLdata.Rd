@@ -59,7 +59,7 @@ option to provide information about the measurement on the plot
 output (e.g. name of the BIN or BINX file).}
 
 \item{output.plot}{\link{logical} (\emph{with default}):
-plot output (\code{TRUE/FALSE})}
+enable/disable the plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in

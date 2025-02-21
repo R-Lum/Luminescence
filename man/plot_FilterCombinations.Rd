@@ -16,8 +16,8 @@ plot_FilterCombinations(
 \arguments{
 \item{filters}{\link{list} (\strong{required}):
 a named list of filter data for each filter to be shown.
-The filter data itself should be either provided as \link{data.frame} or \link{matrix}.
-(for more options s. Details)}
+The filter data itself should be either provided as \link{data.frame} or \link{matrix}
+(see details for more options).}
 
 \item{wavelength_range}{\link{numeric} (\emph{with default}):
 wavelength range used for the interpolation}
@@ -58,8 +58,7 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 The function allows to plot transmission windows for different filters. Missing data for specific
 wavelengths are automatically interpolated for the given filter data using the function \link{approx}.
 With that a standardised output is reached and a net transmission window can be shown.
-}
-\details{
+
 \strong{Calculations}
 
 \strong{Net transmission window}

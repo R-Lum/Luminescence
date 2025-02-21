@@ -39,6 +39,7 @@ convert_SG2MG(CWOSL.SAR.Data)
 \linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France);
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 }
 \keyword{IO}

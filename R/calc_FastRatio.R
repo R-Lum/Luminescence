@@ -1,5 +1,6 @@
-#' Calculate the Fast Ratio for CW-OSL curves
+#' @title Calculate the Fast Ratio for CW-OSL curves
 #'
+#' @description
 #' Function to calculate the fast ratio of quartz CW-OSL single grain or single
 #' aliquot curves after Durcan & Duller (2011).
 #'

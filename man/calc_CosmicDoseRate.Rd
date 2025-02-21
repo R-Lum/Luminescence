@@ -68,8 +68,7 @@ This function calculates the cosmic dose rate taking into account the soft-
 and hard-component of the cosmic ray flux and allows corrections for
 geomagnetic latitude, altitude above sea-level and geomagnetic field
 changes.
-}
-\details{
+
 This function calculates the total cosmic dose rate considering both the
 soft- and hard-component of the cosmic ray flux.
 

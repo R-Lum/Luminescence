@@ -245,9 +245,9 @@ merge_RLum.Data.Curve<- function(
 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##merge info objects as simple as possible ... just keep them all ... other possibility
-  ##would be to chose on the the input objects
+  ##would be to choose on the input objects
 
-  ##unlist is needed here, as otherwise i would cause unexpected behaviour further using
+  ##unlist is needed here, as otherwise it would cause unexpected behaviour further using
   ##the RLum.object
   if(missing(method.info)){
     temp.info <- unlist(lapply(1:num.objects, function(x) {

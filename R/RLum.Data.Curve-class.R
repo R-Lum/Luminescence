@@ -205,7 +205,7 @@ setMethod("show",
 #'
 #' @param data [`set_RLum`]; [matrix] (**required**):
 #' raw curve data. If `data` itself is a `RLum.Data.Curve`-object this can be
-#' used to re-construct the object (s. details), i.e. modified parameters except
+#' used to re-construct the object (see details), i.e. modified parameters except
 #' `.uid`, `.pid` and `originator`. The rest will be subject to copy and paste unless provided.
 #'
 #' @param info [`set_RLum`]; [list] (*optional*):

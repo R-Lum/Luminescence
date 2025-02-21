@@ -23,8 +23,8 @@
 #' @param data [data.frame] (**required**): input data consisting of two columns, the De and the
 #' SE(De). Values are expected in Gy
 #'
-#' @param D0 [integer] (*with default*): D0 value, defining the characterisation behaviour
-#' of the the quartz. Value are expected in Gy
+#' @param D0 [integer] (*with default*): D0 value (in Gy), defining the
+#' characterisation behaviour of the quartz.
 #'
 #' @param expected_dose [numeric] (**required**): expected equivalent dose
 #'

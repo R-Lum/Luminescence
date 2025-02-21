@@ -31,7 +31,7 @@ will be removed.}
 substitution only to the selected subset of elements}
 
 \item{verbose}{\link{logical} (\emph{with default}) enable/disable output to the
-terminal}
+terminal.}
 
 \item{...}{other arguments that might be passed}
 }

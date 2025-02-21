@@ -63,7 +63,7 @@ curve type (e.g., "predefined" or "measured")}
 
 \item{data}{\code{\link{set_RLum}}; \link{matrix} (\strong{required}):
 raw curve data. If \code{data} itself is a \code{RLum.Data.Curve}-object this can be
-used to re-construct the object (s. details), i.e. modified parameters except
+used to re-construct the object (see details), i.e. modified parameters except
 \code{.uid}, \code{.pid} and \code{originator}. The rest will be subject to copy and paste unless provided.}
 
 \item{info}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):

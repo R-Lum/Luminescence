@@ -64,8 +64,7 @@ Calculating the dose rate of the irradiation source via the date of
 measurement based on: source calibration date, source dose rate, dose rate
 error. The function returns a data.frame that provides the input argument
 dose_rate for the function \link{convert_Second2Gray}.
-}
-\details{
+
 Calculation of the source dose rate based on the time elapsed since the last
 calibration of the irradiation source. Decay parameters assume a Sr-90 beta
 source. \deqn{dose.rate = D0 * exp(-log(2) / T.1/2 * t)} \cr with: D0 <-
@@ -87,21 +86,20 @@ original .BIN file (using e.g., \code{BINfile <- readBIN2R()} and the slot
 \verb{[4} \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 }
 \note{
-Please be careful when using the option \code{predict}, especially when a multiple set
-for \code{measurement.date} and \code{calib.date} is provided. For the source dose rate prediction
-the function takes the last value \code{measurement.date} and predicts from that the the source
-source dose rate for the number of days requested,
-means: the (multiple) original input will be replaced. However, the function
-do not change entries for the calibration dates, but mix them up. Therefore,
-it is not recommended to use this option when multiple calibration dates (\code{calib.date})
-are provided.
+Please be careful when using the option \code{predict}, especially when a
+multiple set for \code{measurement.date} and \code{calib.date} is provided. For the
+source dose rate prediction, the function takes the last \code{measurement.date}
+value and predicts from that the source dose rate for the number of days
+requested, that is: the (multiple) original input will be replaced.
+However, the function does not change entries for the calibration dates,
+but mixes them up. Therefore, it is not recommended to use this option
+when multiple calibration dates (\code{calib.date}) are provided.
 }
 \section{Function version}{
  0.3.2
 }
 
 \examples{
-
 
 ##(1) Simple function usage
 ##Basic calculation of the dose rate for a specific date

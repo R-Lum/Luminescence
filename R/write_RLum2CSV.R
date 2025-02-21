@@ -21,30 +21,29 @@
 #' @param path [character] (*optional*):
 #' character string naming folder for the output to be written. If nothing
 #' is provided `path` will be set to the working directory.
-#' **Note:** this argument is ignored if the the argument `export` is set to `FALSE`.
+#' **Note:** this argument is ignored when `export = FALSE`.
 #'
 #' @param prefix [character] (*with default*):
 #' optional prefix to name the files. This prefix is valid for all written files
 #'
 #' @param export [logical] (*with default*):
-#' enable or disable the file export. If set to `FALSE` nothing is written to
+#' enable/disable the file export. If set to `FALSE` nothing is written to
 #' the file connection, but a list comprising objects of type [data.frame] and [matrix]
-#' is returned instead
+#' is returned instead.
 #'
-#' @param compact [logical] (*with default*): if `TRUE` (the default) the output will be more
-#' simple but less comprehensive, means not all elements in the objects will be fully broken down.
-#' This is in particular useful for writing `RLum.Results` objects to CSV-files, such objects
-#' can be rather complex and not all information are needed in a CSV-file or can be meaningful translated
-#' to it.
+#' @param compact [logical] (*with default*): if `TRUE` (default) the output
+#' will be simpler but less comprehensive, that is not all elements in the
+#' objects will be fully broken down. This is in particular useful for writing
+#' `RLum.Results` objects to CSV files, as such objects can be rather complex
+#' and not all information are needed in a CSV file or can be meaningfully
+#' translated to CSV format.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [utils::write.table]. All arguments except the argument `file` are supported
 #'
-#'
 #' @return
 #' The function returns either a CSV-file (or many of them) or for the
 #' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
-#'
 #'
 #' @section Function version: 0.2.2
 #'

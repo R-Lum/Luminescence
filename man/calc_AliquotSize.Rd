@@ -40,7 +40,7 @@ provided the mean packing density and its standard deviation is calculated.
 Note that this overrides \code{packing.density}.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output (\code{TRUE}/\code{FALSE})}
+enable/disable the plot output.}
 
 \item{...}{further arguments to pass (\verb{main, xlab, MC.iter}).}
 }
@@ -59,10 +59,9 @@ The output should be accessed using the function \link{get_RLum}.
 \description{
 Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed.
-}
-\details{
+
 This function can be used to either estimate the number of grains on an
-aliquot or to compute the packing density depending on the the arguments
+aliquot or to compute the packing density depending on the arguments
 provided.
 
 The following function is used to estimate the number of grains \code{n}:

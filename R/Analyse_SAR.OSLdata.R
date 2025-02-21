@@ -60,7 +60,7 @@
 #' output (e.g. name of the BIN or BINX file).
 #'
 #' @param output.plot [logical] (*with default*):
-#' plot output (`TRUE/FALSE`)
+#' enable/disable the plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in

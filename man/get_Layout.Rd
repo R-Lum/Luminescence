@@ -22,8 +22,7 @@ A list object with layout definitions for plot functions.
 \description{
 This helper function returns a list with layout definitions for homogeneous
 plotting.
-}
-\details{
+
 The easiest way to create a user-specific layout definition is perhaps to
 create either an empty or a default layout object and fill/modify the
 definitions (\code{user.layout <- get_Layout(data = "empty")}).

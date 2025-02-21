@@ -4,11 +4,11 @@
 #' including curve
 #' fitting on [RLum.Analysis-class] objects.
 #'
-#' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
-#' this function has been written as extended wrapper function for the function
-#' [analyse_SAR.CWOSL], facilitating an entire sequence analysis in
+#' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
+#' analyses, this function has been written as extended wrapper for function
+#' [analyse_SAR.CWOSL], thus facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
-#' functionality of the function [analyse_SAR.CWOSL].
+#' functionality provided by  [analyse_SAR.CWOSL].
 #'
 #' **Defining the sequence structure**
 #'
@@ -21,13 +21,15 @@
 #'
 #' **If the input is a `list`**
 #'
-#' If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
+#' If the input is a list of [RLum.Analysis-class] objects, every argument
+#' can be provided as list to allow
 #' for different sets of parameters for every single input element.
 #' For further information see [analyse_SAR.CWOSL].
 #'
 #' @param object [RLum.Analysis-class] or [list] of [RLum.Analysis-class] objects (**required**):
 #' input object containing data for analysis.
-#' If a [list] is provided the functions tries to iterate over the list.
+#' If a [list] is provided the functions tries to iterate over each element
+#' in the list.
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Provide this value as vector for different
@@ -60,14 +62,14 @@
 #' enable/disable the plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
-#' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot
-#' windows. Requires `plot = TRUE`.
+#' enable/disable plotting of the results in a single windows for each plot.
+#' Ignored if `plot = FALSE`.
 #'
-#' @param ... further arguments that will be passed to the function
+#' @param ... further arguments that will be passed to
 #' [analyse_SAR.CWOSL] and [plot_GrowthCurve]. Furthermore, the
 #' arguments `main` (headers), `log` (IRSL curves), `cex` (control
 #' the size) and `mtext.outer` (additional text on the plot area) can be passed to influence the plotting. If the input
-#' is list, `main` can be passed as [vector] or [list].
+#' is a list, `main` can be passed as [vector] or [list].
 #'
 #' @return
 #' Plots (*optional*) and an [RLum.Results-class] object is
@@ -88,7 +90,7 @@
 #' Best graphical output can be achieved by using the function `pdf`
 #' with the following options:
 #'
-#' `pdf(file = "<YOUR FILENAME>", height = 15, width = 15)`
+#' `pdf(file = "<YOUR FILENAME>", height = 20, width = 20)`
 #'
 #' @section Function version: 0.2.5
 #'
@@ -130,9 +132,7 @@
 #'                                        function(x){sequence.structure + x}))
 #'
 #' object <-  sapply(1:length(sequence.structure), function(x){
-#'
 #'   object[[sequence.structure[x]]]
-#'
 #' })
 #'
 #' object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR")
@@ -190,7 +190,7 @@ analyse_pIRIRSequence <- function(
      .validate_class(x, "RLum.Analysis", name = "All elements of 'object'")
    })
 
-    ##make live easy
+    ## make life easy
     if(missing("signal.integral.min")){
       signal.integral.min <- 1
       .throw_warning("'signal.integral.min' missing, set to 1")

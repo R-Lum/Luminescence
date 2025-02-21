@@ -64,8 +64,8 @@
 #' Can be set to `NA` than now integrals are considered and all other integrals are set to `NA` as well.
 #'
 #' @param signal.integral.Tx [numeric] (*optional*):
-#' vector with the limits for the signal integral for the `Tx`-curve. If nothing is provided the
-#' value from `signal.integral` is used.
+#' vector with the limits for the signal integral for the `Tx`-curve. If
+#' missing, the value from `signal.integral` is used.
 #'
 #' @param background.integral [numeric] (**required**):
 #' vector with the bounds for the background integral.
@@ -73,11 +73,12 @@
 #'
 #' @param background.integral.Tx [numeric] (*optional*):
 #' vector with the limits for the background integral for the `Tx` curve.
-#' If nothing is provided the value from `background.integral` is used.
+#' If missing, the value from `background.integral` is used.
 #'
 #' @param background.count.distribution [character] (*with default*):
 #' sets the count distribution assumed for the error calculation.
-#' Possible arguments `poisson` or `non-poisson`. See details for further information
+#' Possible arguments are `"poisson"` or `"non-poisson"` (default). See
+#' details for further information.
 #'
 #' @param use_previousBG [logical] (*with default*):
 #' If set to `TRUE` the background of the `Lx`-signal is subtracted also
@@ -95,8 +96,7 @@
 #' (e.g., instrumental error, see details).
 #'
 #' @param digits [integer] (*with default*):
-#' round numbers to the specified digits.
-#' If digits is set to `NULL` nothing is rounded.
+#' round numbers to the specified digits. If set to `NULL` no rounding occurs.
 #'
 #' @return
 #' Returns an S4 object of type [RLum.Results-class].

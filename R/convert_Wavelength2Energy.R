@@ -10,7 +10,7 @@
 #'
 #' The intensity of the spectrum is re-calculated using the following approach to recalculate
 #' wavelength and corresponding intensity values
-#' (e.g., Appendix 4 in Blasse and Grabmeier, 1994; Mooney and Kambhampati, 2013):
+#' (e.g., Appendix 4 in Blasse and Grabmaier, 1994; Mooney and Kambhampati, 2013):
 #'
 #' \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
 #'

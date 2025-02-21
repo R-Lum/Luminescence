@@ -1,10 +1,11 @@
-#' Estimate the amount of grains on an aliquot
+#' @title Estimate the amount of grains on an aliquot
 #'
+#' @description
 #' Estimate the number of grains on an aliquot. Alternatively, the packing
 #' density of an aliquot is computed.
 #'
 #' This function can be used to either estimate the number of grains on an
-#' aliquot or to compute the packing density depending on the the arguments
+#' aliquot or to compute the packing density depending on the arguments
 #' provided.
 #'
 #' The following function is used to estimate the number of grains `n`:
@@ -86,7 +87,7 @@
 #' Note that this overrides `packing.density`.
 #'
 #' @param plot [logical] (*with default*):
-#' plot output (`TRUE`/`FALSE`)
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments to pass (`main, xlab, MC.iter`).
 #'

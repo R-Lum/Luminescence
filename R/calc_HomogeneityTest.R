@@ -1,7 +1,7 @@
-#' Apply a simple homogeneity test after Galbraith (2003)
+#' @title Apply a simple homogeneity test after Galbraith (2003)
 #'
+#' @description
 #' A simple homogeneity test for De estimates
-#'
 #' For details see Galbraith (2003).
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):

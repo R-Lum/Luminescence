@@ -25,8 +25,8 @@ calc_EED_Model(
 \item{data}{\link{data.frame} (\strong{required}): input data consisting of two columns, the De and the
 SE(De). Values are expected in Gy}
 
-\item{D0}{\link{integer} (\emph{with default}): D0 value, defining the characterisation behaviour
-of the the quartz. Value are expected in Gy}
+\item{D0}{\link{integer} (\emph{with default}): D0 value (in Gy), defining the
+characterisation behaviour of the quartz.}
 
 \item{expected_dose}{\link{numeric} (\strong{required}): expected equivalent dose}
 

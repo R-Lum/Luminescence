@@ -15,7 +15,7 @@
 #' 3. Waiting for at least one hour
 #' 4. Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
 #' 5. Fitting data with a stretched exponential function
-#' 6. Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
+#' 6. Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 #'
 #'
 #' Actually three methods are supported to obtain the \eqn{D_{e}}:
@@ -212,7 +212,7 @@
 #' set test parameters. Supported parameters are: `curves_ratio`, `residuals_slope` (only for
 #' `method = "SLIDE"`), `curves_bounds`, `dynamic_ratio`,
 #' `lambda`, `beta` and `delta.phi`. All input: [numeric]
-#' values, `NA` and `NULL` (s. Details)
+#' values, `NA` and `NULL` (see Details).
 #'
 #' (see Details for further information)
 #'
@@ -222,7 +222,7 @@
 #' MC runs. Note: Large values will significantly increase the computation time
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables/disable the progress bar during MC runs.
+#' enable/disable the progress bar during MC runs.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.

@@ -1,5 +1,6 @@
-#' Convert Risoe.BINfileData object to an RLum.Analysis object
+#' @title Convert Risoe.BINfileData object to an RLum.Analysis object
 #'
+#' @description
 #' Converts values from one specific position of a Risoe.BINfileData S4-class
 #' object to an RLum.Analysis object.
 #'

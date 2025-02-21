@@ -53,7 +53,7 @@
 #' Expected are x and y coordinates, e.g.,
 #' `coord = list(samp1 = c(0.1, 0.2)`. If you have not measured x coordinates, please x should be 0.
 #'
-#' @param plot [logical] (*with default*): enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param ... other parameters to be passed to modify the plot output.
 #' Supported are `run` to provide the run name ,

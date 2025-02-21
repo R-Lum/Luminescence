@@ -84,7 +84,7 @@
 #' Requires `data` to be a [data.frame] with three columns.
 #'
 #' @param plot [logical] (*optional*):
-#' Show or hide the plot.
+#' enable/disable the plot output.
 #'
 #' @param legend [logical] (*optional*):
 #' Show or hide the equation inside the plot.

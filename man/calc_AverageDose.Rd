@@ -91,10 +91,10 @@ The function returns two different plot panels.
 dose and the sigma values.
 }
 \description{
-This functions calculates the Average Dose and their extrinsic dispersion and estimates
-the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2017
-}
-\details{
+This functions calculates the Average Dose and its extrinsic dispersion,
+estimating the standard errors by bootstrapping based on the Average
+Dose Model by Guerin et al., 2017.
+
 \strong{\code{sigma_m}}\cr
 
 The program requires the input of a known value of \code{sigma_m},

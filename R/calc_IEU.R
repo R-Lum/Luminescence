@@ -24,7 +24,7 @@
 #' number of decimal points for rounding calculations (e.g. 2)
 #'
 #' @param plot [logical] (*with default*):
-#' plot output
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments (`trace, verbose`).
 #'

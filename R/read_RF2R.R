@@ -3,9 +3,10 @@
 #' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`; Mittelstraß and Kreutzer, 2021) into R and create a list of [RLum.Analysis-class]
 #' objects
 #'
-#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files ((Mittelstraß and Kreutzer, 2021).
+#' @details The results of spatially resolved IR-RF data are summarised in
+#' so-called RF-files (Mittelstraß and Kreutzer, 2021).
 #' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
-#' The output of the function can be passed to the function [analyse_IRSAR.RF]
+#' The output of the function can be passed to function [analyse_IRSAR.RF].
 #'
 #' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
 #' names can be provided.

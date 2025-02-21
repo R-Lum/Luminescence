@@ -67,8 +67,7 @@ Returns an \linkS4class{RLum.Analysis} object.
 \description{
 Converts values from one specific position of a Risoe.BINfileData S4-class
 object to an RLum.Analysis object.
-}
-\details{
+
 The \linkS4class{RLum.Analysis} object requires a set of curves for
 specific further protocol analyses. However, the \linkS4class{Risoe.BINfileData}
 usually contains a set of curves for different aliquots and different

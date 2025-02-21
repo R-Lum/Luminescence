@@ -26,7 +26,7 @@
 #' number of commits returned (defaults to 5).
 #'
 #' @param verbose [logical] (*with default*):
-#' print the output to the console (defaults to `TRUE`).
+#' enable/disable output to the terminal.
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
@@ -189,7 +189,7 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
       MILESTONE = x$milestone$title)
   })
 
-  # custom printing of the the issues-list as print.list produces unreadable
+  # custom printing of the issues list, as print.list produces unreadable
   # console output
   if (verbose) {
     tmp <- lapply(issues, function(x) {

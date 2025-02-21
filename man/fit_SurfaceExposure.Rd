@@ -67,7 +67,7 @@ If \code{TRUE} the fit will be weighted by the inverse square of the error.
 Requires \code{data} to be a \link{data.frame} with three columns.}
 
 \item{plot}{\link{logical} (\emph{optional}):
-Show or hide the plot.}
+enable/disable the plot output.}
 
 \item{legend}{\link{logical} (\emph{optional}):
 Show or hide the equation inside the plot.}

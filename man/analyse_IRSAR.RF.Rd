@@ -57,7 +57,7 @@ See details.}
 set test parameters. Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
 \code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
-values, \code{NA} and \code{NULL} (s. Details)
+values, \code{NA} and \code{NULL} (see Details).
 
 (see Details for further information)}
 
@@ -67,7 +67,7 @@ error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL}
 MC runs. Note: Large values will significantly increase the computation time}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables/disable the progress bar during MC runs.}
+enable/disable the progress bar during MC runs.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
@@ -182,7 +182,7 @@ signal.
 \item Waiting for at least one hour
 \item Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
 \item Fitting data with a stretched exponential function
-\item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
+\item Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
 Actually three methods are supported to obtain the \eqn{D_{e}}:

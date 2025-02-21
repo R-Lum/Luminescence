@@ -85,7 +85,7 @@
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
 #' [RLum.Analysis-class] objects can be provided. The object should contain **only** curves
-#' considered part of the SAR protocol (see Details.)
+#' considered part of the SAR protocol (see Details).
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
@@ -113,9 +113,9 @@
 #'
 #' @param OSL.component [character] or [integer] (*optional*): s single index
 #' or a [character] defining the signal component to be evaluated.
-#' It requires that the object was processed by `[OSLdecomposition::RLum.OSL_decomposition]`.
+#' It requires that the object was processed by `OSLdecomposition::RLum.OSL_decomposition`.
 #' This argument can either be the name of the OSL component assigned by
-#' `[OSLdecomposition::RLum.OSL_global_fitting]` or the index in the descending
+#' `OSLdecomposition::RLum.OSL_global_fitting` or the index in the descending
 #' order of decay rates. Then `"1"` selects the fastest decaying component, `"2"`
 #' the second fastest and so on. Can be a [list] of [integer]s or strings (or mixed)
 #' If object is a [list] and this parameter is provided as [list] it alternates over

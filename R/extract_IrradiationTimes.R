@@ -49,7 +49,7 @@
 #' values to a max. value of 48, cf.[write_R2BIN]
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables `TRUE` or disables `FALSE` the progress bars during import and export
+#' enable/disable the progress bar during import and export.
 #'
 #' @note The function can be also used to extract irradiation times from [RLum.Analysis-class] objects
 #' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with [Risoe.BINfileData2RLum.Analysis].
@@ -399,4 +399,3 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
-

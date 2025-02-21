@@ -1,5 +1,6 @@
-#' Convert portable OSL data to a Risoe.BINfileData object
+#' @title Convert portable OSL data to a Risoe.BINfileData object
 #'
+#' @description
 #' Converts an `RLum.Analysis` object produced by the function `read_PSL2R()` to
 #' a `Risoe.BINfileData` object **(BETA)**.
 #'

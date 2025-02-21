@@ -47,14 +47,14 @@ deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
 parameter of the normal distribution}
 
 \item{pdf.colors}{\link{character} (\emph{with default}):
-colour coding of the components in the the plot.
+colour coding of the components in the plot.
 Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}}
 
 \item{plot.proportions}{\link{logical} (\emph{with default}):
 plot \link[graphics:barplot]{graphics::barplot} showing the proportions of components if
 \code{n.components} a vector with a length > 1 (e.g., \code{n.components = c(2:3)})}
 
-\item{plot}{\link{logical} (\emph{with default}):  plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the  plot output.}
 
 \item{...}{further arguments to pass. See details for their usage.}
 }
@@ -102,7 +102,7 @@ Indications of overfitting are:
 \strong{Plot}
 
 If a vector (\code{c(k.min:k.max)}) is provided
-for \code{n.components} a plot is generated showing the the k components
+for \code{n.components} a plot is generated showing the k components
 equivalent doses as normal distributions. By default \code{pdf.weight} is
 set to \code{FALSE}, so that the area under each normal distribution is
 always 1. If \code{TRUE}, the probability density functions are weighted by

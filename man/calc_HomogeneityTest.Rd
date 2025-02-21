@@ -29,8 +29,6 @@ The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 A simple homogeneity test for De estimates
-}
-\details{
 For details see Galbraith (2003).
 }
 \section{Function version}{

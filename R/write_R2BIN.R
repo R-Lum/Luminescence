@@ -267,7 +267,7 @@ write_R2BIN <- function(
     .throw_error("'SAMPLE' exceeds storage limit")
   }
 
-  ##enables compatibility to the Analyst as the the max value for POSITION becomes 48
+  ## enables compatibility to the Analyst as the max value for POSITION becomes 48
   if(compatibility.mode){
     ##just do if position values > 48
     if(max(object@METADATA[,"POSITION"])>48){

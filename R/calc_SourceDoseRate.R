@@ -1,5 +1,6 @@
-#' Calculation of the source dose rate via the date of measurement
+#' @title Calculation of the source dose rate via the date of measurement
 #'
+#' @description
 #' Calculating the dose rate of the irradiation source via the date of
 #' measurement based on: source calibration date, source dose rate, dose rate
 #' error. The function returns a data.frame that provides the input argument
@@ -71,14 +72,14 @@
 #' A plot method of the output is provided via [plot_RLum].
 #'
 #' @note
-#' Please be careful when using the option `predict`, especially when a multiple set
-#' for `measurement.date` and `calib.date` is provided. For the source dose rate prediction
-#' the function takes the last value `measurement.date` and predicts from that the the source
-#' source dose rate for the number of days requested,
-#' means: the (multiple) original input will be replaced. However, the function
-#' do not change entries for the calibration dates, but mix them up. Therefore,
-#' it is not recommended to use this option when multiple calibration dates (`calib.date`)
-#' are provided.
+#' Please be careful when using the option `predict`, especially when a
+#' multiple set for `measurement.date` and `calib.date` is provided. For the
+#' source dose rate prediction, the function takes the last `measurement.date`
+#' value and predicts from that the source dose rate for the number of days
+#' requested, that is: the (multiple) original input will be replaced.
+#' However, the function does not change entries for the calibration dates,
+#' but mixes them up. Therefore, it is not recommended to use this option
+#' when multiple calibration dates (`calib.date`) are provided.
 #'
 #' @section Function version: 0.3.2
 #'
@@ -95,7 +96,6 @@
 #' @keywords manip
 #'
 #' @examples
-#'
 #'
 #' ##(1) Simple function usage
 #' ##Basic calculation of the dose rate for a specific date

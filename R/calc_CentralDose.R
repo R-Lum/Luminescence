@@ -1,6 +1,7 @@
 #' Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 #' De distribution
 #'
+#' @description
 #' This function calculates the central dose and dispersion of the De
 #' distribution, their standard errors and the profile log likelihood function
 #' for `sigma`.
@@ -32,7 +33,7 @@
 #' allowed only if the De values are positive.
 #'
 #' @param plot [logical] (*with default*):
-#' plot output
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments (`trace`, `verbose`).
 #'

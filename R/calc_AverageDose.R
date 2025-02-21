@@ -1,7 +1,9 @@
-#'Calculate the Average Dose and the dose rate dispersion
+#' @title Calculate the Average Dose and the dose rate dispersion
 #'
-#'This functions calculates the Average Dose and their extrinsic dispersion and estimates
-#'the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2017
+#' @description
+#' This functions calculates the Average Dose and its extrinsic dispersion,
+#' estimating the standard errors by bootstrapping based on the Average
+#' Dose Model by Guerin et al., 2017.
 #'
 #' **`sigma_m`**\cr
 #'

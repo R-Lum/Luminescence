@@ -1,5 +1,6 @@
-#' Nonlinear Least Squares Fit for CW-OSL curves -beta version-
+#' @title Nonlinear Least Squares Fit for CW-OSL curves -beta version-
 #'
+#' @description
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
 #' components and returns various component parameters. The fitting procedure

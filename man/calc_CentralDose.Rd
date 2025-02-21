@@ -25,7 +25,7 @@ fit the (un-)logged central age model to De data. Log transformation is
 allowed only if the De values are positive.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output}
+enable/disable the plot output.}
 
 \item{...}{further arguments (\code{trace}, \code{verbose}).}
 }
@@ -45,8 +45,7 @@ The output should be accessed using the function \link{get_RLum}.
 This function calculates the central dose and dispersion of the De
 distribution, their standard errors and the profile log likelihood function
 for \code{sigma}.
-}
-\details{
+
 This function uses the equations of Galbraith & Roberts (2012). The
 parameters \code{delta} and \code{sigma} are estimated by numerically solving
 eq. 15 and 16. Their standard errors are approximated using eq. 17.

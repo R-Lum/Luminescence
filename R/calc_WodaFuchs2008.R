@@ -22,7 +22,7 @@
 #' (as function of median error).
 #'
 #' @param plot [logical] (*with default*):
-#' enable plot output.
+#' enable/disable the plot output.
 #'
 #' @param ... Further plot arguments passed to the function.
 #'

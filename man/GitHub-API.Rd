@@ -27,7 +27,7 @@ branch of a GitHub repository (defaults to \code{'master'}).}
 number of commits returned (defaults to 5).}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-print the output to the console (defaults to \code{TRUE}).}
+enable/disable output to the terminal.}
 }
 \value{
 \code{github_commits}: \link{data.frame} with columns:

@@ -1,5 +1,6 @@
-#' Converting equivalent dose values from seconds (s) to Gray (Gy)
+#' @title Converting equivalent dose values from seconds (s) to Gray (Gy)
 #'
+#' @description
 #' Conversion of absorbed radiation dose in seconds (s) to the SI unit Gray
 #' (Gy) including error propagation. Normally used for equivalent dose data.
 #'

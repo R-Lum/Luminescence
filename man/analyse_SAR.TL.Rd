@@ -32,9 +32,9 @@ requires the channel number for the upper signal integral bound
 (e.g. \code{signal.integral.max = 200})}
 
 \item{integral_input}{\link{character} (\emph{with default}):
-defines the input for the the arguments \code{signal.integral.min} and
+defines the input for the arguments \code{signal.integral.min} and
 \code{signal.integral.max}. These limits can be either provided \code{'channel'}
-number (the default) or \code{'temperature'}. If \code{'temperature'} is chosen the
+number (the default) or \code{'temperature'}. If \code{'temperature'} is chosen, the
 best matching channel is selected.}
 
 \item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):

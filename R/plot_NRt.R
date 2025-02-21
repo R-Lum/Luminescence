@@ -1,7 +1,8 @@
-#' Visualise natural/regenerated signal ratios
+#' @title Visualise natural/regenerated signal ratios
 #'
+#' @description
 #' This function creates a Natural/Regenerated signal vs. time (NR(t)) plot
-#' as shown in Steffen et al. 2009
+#' as shown in Steffen et al. 2009.
 #'
 #' This function accepts the individual curve data in many different formats. If
 #' `data` is a `list`, each element of the list must contain a two
@@ -29,7 +30,7 @@
 #' integer width of the rolling window.
 #'
 #' @param legend [logical] (*with default*):
-#' show or hide the plot legend.
+#' enable/disable the plot legend.
 #'
 #' @param legend.pos [character] (*with default*):
 #' keyword specifying the position of the legend (see [legend]).

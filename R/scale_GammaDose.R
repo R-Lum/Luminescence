@@ -118,13 +118,13 @@
 #' - `"Aitken1985"` (default): Table H1 in the appendix
 #'
 #' @param verbose [logical] (*with default*):
-#' Show or hide console output (defaults to `TRUE`).
+#' enable/disable output to the terminal.
 #'
 #' @param plot [logical] (*with default*):
-#' Enable/disable the plot output (defaults to `TRUE`).
+#' enable/disable the plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
-#' Enables/disables single plot mode, i.e. one plot window per plot.
+#' enable/disable single plot mode, i.e. one plot window per plot.
 #'
 #' @param ... Further parameters passed to [barplot].
 #'
@@ -306,7 +306,7 @@ scale_GammaDose <- function(
     .throw_error("Only one layer must be contain a numeric value in column ",
                  "'sample_offset', all other rows must be NA")
   if (!is.numeric(data$sample_offset[which(!is.na(data$sample_offset))]))
-    .throw_error("Non-numeric value in the the row of the target layer")
+    .throw_error("Non-numeric value in the row of the target layer")
   if (data$sample_offset[which(!is.na(data$sample_offset))] < 0)
     .throw_error("The numeric value in 'sample_offset' must be positive")
   if (data$sample_offset[which(!is.na(data$sample_offset))] > data$thickness[which(!is.na(data$sample_offset))])

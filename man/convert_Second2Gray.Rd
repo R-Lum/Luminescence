@@ -25,8 +25,7 @@ Returns a \link{data.frame} with converted values.
 \description{
 Conversion of absorbed radiation dose in seconds (s) to the SI unit Gray
 (Gy) including error propagation. Normally used for equivalent dose data.
-}
-\details{
+
 Calculation of De values from seconds (s) to Gray (Gy)
 
 \deqn{De [Gy] = De [s] * Dose Rate [Gy/s])}

@@ -815,8 +815,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param prob [numeric] (*with default*): sets aimed probability interval
 #'
-#' @param plot [logical] (*with default*): enable/disable additional control
-#' plot
+#' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param ... further arguments passed to [stats::density]
 #'
@@ -885,7 +884,8 @@ fancy_scientific <- function(l) {
 #'
 #'@param dest [character] (*with default*)
 #'
-#'@param verbose [logical] (*with default*)
+#' @param verbose [logical] (*with default*)
+#' enable/disable output to the terminal.
 #'
 #'@returns Returns either nothing (no URL) or the file path of the downloaded file
 #'

@@ -24,7 +24,7 @@ objects does not work for a list of \code{RLum.Data} objects.}
 \item{method}{\link{character} (\emph{with default}):
 Defines method that is applied for cosmic ray removal. Allowed methods are
 \code{smooth}, the default, (\link[stats:smooth]{stats::smooth}), \code{smooth.spline} (\link[stats:smooth.spline]{stats::smooth.spline}),
-\code{smooth_RLum} \link{smooth_RLum} and \code{Pych}. See details for further information.}
+\code{smooth_RLum} (\link{smooth_RLum}) and \code{Pych}. See details for further information.}
 
 \item{method.Pych.smoothing}{\link{integer} (\emph{with default}):
 Smoothing parameter for cosmic ray removal according to Pych (2003).
@@ -45,7 +45,7 @@ on which part the function cosmic ray removal should be applied on:
 \strong{Note:} This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-Option to suppress terminal output.,}
+enable/disable output to the terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 If \code{TRUE} the histograms used for the cosmic-ray removal are returned as plot

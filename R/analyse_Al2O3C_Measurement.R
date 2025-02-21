@@ -54,8 +54,9 @@
 #' information on the used irradiation time correction obtained by another experiments.
 #' If a `numeric` is provided it has to be of length two: mean, standard error
 #'
-#' @param calculate_TL_dose [logical] (*with default*): Enables/disables experimental dose estimation
-#' based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.
+#' @param calculate_TL_dose [logical] (*with default*):
+#' enables/disable experimental dose estimation based on the TL curves.
+#' It is computed as the ratio of the peak sums of each curves +/- 5 channels.
 #'
 #' @param cross_talk_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obtained by another experiments.
@@ -68,7 +69,7 @@
 #'
 #' @param test_parameters [list] (*with default*):
 #' set test parameters. Supported parameters are: `TL_peak_shift` All input: [numeric]
-#' values, `NA` and `NULL` (s. Details)
+#' values, `NA` and `NULL` (see details).
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.

@@ -179,7 +179,7 @@ The likelihood profiles are generated and plotted by the \code{bbmle} package.
 The profile likelihood plots look different to ordinary profile likelihood as
 
 "\verb{[...]} the plot method for likelihood profiles displays the square root of
-the the deviance difference (twice the difference in negative log-likelihood from
+the deviance difference (twice the difference in negative log-likelihood from
 the best fit), so it will be V-shaped for cases where the quadratic approximation
 works well \verb{[...]}." (Bolker 2016).
 

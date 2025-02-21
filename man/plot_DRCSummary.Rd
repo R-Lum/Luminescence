@@ -15,23 +15,26 @@ plot_DRCSummary(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} object (\strong{required}): input object created by the function \link{analyse_SAR.CWOSL}. The input object can be provided as \link{list}.}
+\item{object}{\linkS4class{RLum.Results} (\strong{required}): input object created by
+\link{analyse_SAR.CWOSL}. The input object can be provided as \link{list}.}
 
-\item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.}
+\item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis
+and show values in Gy, instead seconds. Only a single numerical value is
+allowed.}
 
 \item{sel_curves}{\link{numeric} (\emph{optional}): id of the curves to be plotted in
-its occurring order. A sequence can
-be provided for selecting, e.g., only every 2nd curve from the input object}
+its occurring order. A sequence can be provided for selecting, e.g., only
+every 2nd curve from the input object.}
 
 \item{show_dose_points}{\link{logical} (\emph{with default}): enable/disable plotting
-of dose points in the graph}
+of dose points in the graph.}
 
 \item{show_natural}{\link{logical} (\emph{with default}): enable/disable the plot
-of the natural \code{Lx/Tx} values}
+of the natural \code{Lx/Tx} values.}
 
 \item{n}{\link{integer} (\emph{with default}): number of x-values used to evaluate
-one curve object. Large numbers slow
-down the plotting process and are usually not needed}
+one curve object. Large numbers slow down the plotting process and are
+usually not needed.}
 
 \item{...}{Further arguments and graphical parameters to be passed. In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch}, \code{col.pch}, \code{col.lty}, \code{mtext}}
 }
@@ -57,14 +60,15 @@ Slot: \strong{@info}\cr
 \emph{Note: If the input object is a \link{list} a list of \linkS4class{RLum.Results} objects is returned.}
 }
 \description{
-While analysing OSL SAR or pIRIR-data the view on the data is limited usually to one
-dose-response curve (DRC) at the time for one aliquot. This function overcomes this limitation
-by plotting all DRC from an \linkS4class{RLum.Results} object created by the function \link{analyse_SAR.CWOSL}
-in one single plot.
-}
-\details{
-If you want plot your DRC on an energy scale (dose in Gy), you can either use the option \code{source_dose_rate} provided
-below or your can SAR analysis with the dose points in Gy (better axis scaling).
+While analysing OSL SAR or pIRIR-data the view on the data is usually
+limited to one dose-response curve (DRC) at the time for one aliquot. This
+function overcomes this limitation by plotting all DRCs from an
+\linkS4class{RLum.Results} object created by \link{analyse_SAR.CWOSL} in one single
+plot.
+
+If you want plot your DRC on an energy scale (dose in Gy), you can either
+use option \code{source_dose_rate} or perform your SAR analysis with the dose
+points in Gy (better axis scaling).
 }
 \section{Function version}{
  0.2.3

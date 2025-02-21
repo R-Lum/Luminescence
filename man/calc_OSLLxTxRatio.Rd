@@ -31,8 +31,8 @@ is calculated.}
 Can be set to \code{NA} than now integrals are considered and all other integrals are set to \code{NA} as well.}
 
 \item{signal.integral.Tx}{\link{numeric} (\emph{optional}):
-vector with the limits for the signal integral for the \code{Tx}-curve. If nothing is provided the
-value from \code{signal.integral} is used.}
+vector with the limits for the signal integral for the \code{Tx}-curve. If
+missing, the value from \code{signal.integral} is used.}
 
 \item{background.integral}{\link{numeric} (\strong{required}):
 vector with the bounds for the background integral.
@@ -40,11 +40,12 @@ Can be set to \code{NA} than now integrals are considered and all other integral
 
 \item{background.integral.Tx}{\link{numeric} (\emph{optional}):
 vector with the limits for the background integral for the \code{Tx} curve.
-If nothing is provided the value from \code{background.integral} is used.}
+If missing, the value from \code{background.integral} is used.}
 
 \item{background.count.distribution}{\link{character} (\emph{with default}):
 sets the count distribution assumed for the error calculation.
-Possible arguments \code{poisson} or \code{non-poisson}. See details for further information}
+Possible arguments are \code{"poisson"} or \code{"non-poisson"} (default). See
+details for further information.}
 
 \item{use_previousBG}{\link{logical} (\emph{with default}):
 If set to \code{TRUE} the background of the \code{Lx}-signal is subtracted also
@@ -62,8 +63,7 @@ allow adding an extra component of error to the final \code{Lx/Tx} error value
 (e.g., instrumental error, see details).}
 
 \item{digits}{\link{integer} (\emph{with default}):
-round numbers to the specified digits.
-If digits is set to \code{NULL} nothing is rounded.}
+round numbers to the specified digits. If set to \code{NULL} no rounding occurs.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.

@@ -89,8 +89,7 @@ The slot \code{data} contains a \link{list} with the following elements:
 \description{
 Function to calculate the fast ratio of quartz CW-OSL single grain or single
 aliquot curves after Durcan & Duller (2011).
-}
-\details{
+
 This function follows the equations of Durcan & Duller (2011). The energy
 required to reduce the fast and medium quartz OSL components to \code{x} and
 \code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start

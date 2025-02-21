@@ -1,9 +1,10 @@
 #' @title Analyse fading measurements and returns the fading rate per decade (g-value)
 #'
 #' @description
-#' The function analysis fading measurements and returns a fading rate including an error estimation.
-#' The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
-#' Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
+#' The function analyses fading measurements and returns a fading rate
+#' including an error estimation. The function is not limited to standard
+#' fading measurements, as can be seen, e.g., Huntley and Lamothe (2001).
+#' Additionally, the density of recombination centres (rho') is estimated after
 #' Kars et al. (2008).
 #'
 #' @details

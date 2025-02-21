@@ -26,7 +26,7 @@ Lowest.De used to create Graph.IEU \verb{[Dbar.Fixed vs Z]}}
 number of decimal points for rounding calculations (e.g. 2)}
 
 \item{plot}{\link{logical} (\emph{with default}):
-plot output}
+enable/disable the plot output.}
 
 \item{...}{further arguments (\verb{trace, verbose}).}
 }

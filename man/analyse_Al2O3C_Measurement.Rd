@@ -34,8 +34,9 @@ made by Kreutzer et al., 2018}
 \item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
 function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
 
-\item{calculate_TL_dose}{\link{logical} (\emph{with default}): Enables/disables experimental dose estimation
-based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.}
+\item{calculate_TL_dose}{\link{logical} (\emph{with default}):
+enables/disable experimental dose estimation based on the TL curves.
+It is computed as the ratio of the peak sums of each curves +/- 5 channels.}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obtained by another experiments.
@@ -52,7 +53,7 @@ travel dosimeter will be subtracted from all other values.}
 
 \item{test_parameters}{\link{list} (\emph{with default}):
 set test parameters. Supported parameters are: \code{TL_peak_shift} All input: \link{numeric}
-values, \code{NA} and \code{NULL} (s. Details)}
+values, \code{NA} and \code{NULL} (see details).}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}

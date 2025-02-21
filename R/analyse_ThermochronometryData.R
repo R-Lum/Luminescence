@@ -56,7 +56,7 @@ analyse_ThermochronometryData <- function(
   ## - we want to pass certain parameters over to functions
 
   ## Integrity checks -------------------------------------------------------
-  ## for a start with only allow data coming in in the format proposed by the MatLab script
+  ## for a start we only allow data in the format proposed by the MatLab script
   .validate_class(object, "character")
   .validate_args(ITL_model, c("GOK", "BTS"))
   .validate_logical_scalar(plot)

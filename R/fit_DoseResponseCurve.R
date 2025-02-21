@@ -531,7 +531,7 @@ fit_DoseResponseCurve <- function(
   ##START PARAMETER ESTIMATION
   ##general setting of start parameters for fitting
 
-  ##a - estimation for a a the maximum of the y-values (Lx/Tx)
+  ## a - estimation for the maximum of the y-values (Lx/Tx)
   a <- max(data[,2])
 
   ##b - get start parameters from a linear fit of the log(y) data

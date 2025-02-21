@@ -31,7 +31,7 @@
 #' number of the first aliquot that is used for the calculations
 #'
 #' @param plot [logical] (*with default*):
-#' plot output `TRUE`/`FALSE`
+#' enable/disable the plot output.
 #'
 #' @param ... further arguments and graphical parameters passed to [plot]
 #'

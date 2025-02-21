@@ -20,21 +20,22 @@ objects to be written. Can be a \link{data.frame} if needed internally.}
 \item{path}{\link{character} (\emph{optional}):
 character string naming folder for the output to be written. If nothing
 is provided \code{path} will be set to the working directory.
-\strong{Note:} this argument is ignored if the the argument \code{export} is set to \code{FALSE}.}
+\strong{Note:} this argument is ignored when \code{export = FALSE}.}
 
 \item{prefix}{\link{character} (\emph{with default}):
 optional prefix to name the files. This prefix is valid for all written files}
 
 \item{export}{\link{logical} (\emph{with default}):
-enable or disable the file export. If set to \code{FALSE} nothing is written to
+enable/disable the file export. If set to \code{FALSE} nothing is written to
 the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
-is returned instead}
+is returned instead.}
 
-\item{compact}{\link{logical} (\emph{with default}): if \code{TRUE} (the default) the output will be more
-simple but less comprehensive, means not all elements in the objects will be fully broken down.
-This is in particular useful for writing \code{RLum.Results} objects to CSV-files, such objects
-can be rather complex and not all information are needed in a CSV-file or can be meaningful translated
-to it.}
+\item{compact}{\link{logical} (\emph{with default}): if \code{TRUE} (default) the output
+will be simpler but less comprehensive, that is not all elements in the
+objects will be fully broken down. This is in particular useful for writing
+\code{RLum.Results} objects to CSV files, as such objects can be rather complex
+and not all information are needed in a CSV file or can be meaningfully
+translated to CSV format.}
 
 \item{...}{further arguments that will be passed to the function
 \link[utils:write.table]{utils::write.table}. All arguments except the argument \code{file} are supported}

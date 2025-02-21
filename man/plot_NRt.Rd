@@ -31,7 +31,7 @@ applies a smoothing spline to each curve (see \link[stats:smooth.spline]{stats::
 integer width of the rolling window.}
 
 \item{legend}{\link{logical} (\emph{with default}):
-show or hide the plot legend.}
+enable/disable the plot legend.}
 
 \item{legend.pos}{\link{character} (\emph{with default}):
 keyword specifying the position of the legend (see \link{legend}).}
@@ -43,9 +43,8 @@ Returns a plot and \linkS4class{RLum.Analysis} object.
 }
 \description{
 This function creates a Natural/Regenerated signal vs. time (NR(t)) plot
-as shown in Steffen et al. 2009
-}
-\details{
+as shown in Steffen et al. 2009.
+
 This function accepts the individual curve data in many different formats. If
 \code{data} is a \code{list}, each element of the list must contain a two
 column \code{data.frame} or \code{matrix} containing the \code{XY} data of the curves

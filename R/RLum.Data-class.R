@@ -118,7 +118,7 @@ setMethod("rename_metadata<-",
 #' substitution only to the selected subset of elements
 #'
 #' @param verbose [logical] (*with default*) enable/disable output to the
-#' terminal
+#' terminal.
 #'
 #' @param value (**required**) The value assigned to the selected elements
 #' of the metadata field. If `NULL` the elements named in `info_element`

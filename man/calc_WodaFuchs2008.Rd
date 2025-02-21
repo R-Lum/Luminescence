@@ -20,7 +20,7 @@ If missing, the number of breaks will be estimated based on the bin width
 (as function of median error).}
 
 \item{plot}{\link{logical} (\emph{with default}):
-enable plot output.}
+enable/disable the plot output.}
 
 \item{...}{Further plot arguments passed to the function.}
 }

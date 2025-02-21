@@ -26,7 +26,7 @@ analyse_SAR.CWOSL(
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 input object containing data for analysis, alternatively a \link{list} of
 \linkS4class{RLum.Analysis} objects can be provided. The object should contain \strong{only} curves
-considered part of the SAR protocol (see Details.)}
+considered part of the SAR protocol (see Details).}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
@@ -54,9 +54,9 @@ case no integrals are taken into account.}
 
 \item{OSL.component}{\link{character} or \link{integer} (\emph{optional}): s single index
 or a \link{character} defining the signal component to be evaluated.
-It requires that the object was processed by \verb{[OSLdecomposition::RLum.OSL_decomposition]}.
+It requires that the object was processed by \code{OSLdecomposition::RLum.OSL_decomposition}.
 This argument can either be the name of the OSL component assigned by
-\verb{[OSLdecomposition::RLum.OSL_global_fitting]} or the index in the descending
+\code{OSLdecomposition::RLum.OSL_global_fitting} or the index in the descending
 order of decay rates. Then \code{"1"} selects the fastest decaying component, \code{"2"}
 the second fastest and so on. Can be a \link{list} of \link{integer}s or strings (or mixed)
 If object is a \link{list} and this parameter is provided as \link{list} it alternates over

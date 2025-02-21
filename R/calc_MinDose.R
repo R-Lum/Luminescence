@@ -86,7 +86,7 @@
 #' The profile likelihood plots look different to ordinary profile likelihood as
 #'
 #' "`[...]` the plot method for likelihood profiles displays the square root of
-#' the the deviance difference (twice the difference in negative log-likelihood from
+#' the deviance difference (twice the difference in negative log-likelihood from
 #' the best fit), so it will be V-shaped for cases where the quadratic approximation
 #' works well `[...]`." (Bolker 2016).
 #'

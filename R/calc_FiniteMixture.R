@@ -20,7 +20,7 @@
 #' **Plot**
 #'
 #' If a vector (`c(k.min:k.max)`) is provided
-#' for `n.components` a plot is generated showing the the k components
+#' for `n.components` a plot is generated showing the k components
 #' equivalent doses as normal distributions. By default `pdf.weight` is
 #' set to `FALSE`, so that the area under each normal distribution is
 #' always 1. If `TRUE`, the probability density functions are weighted by
@@ -64,14 +64,14 @@
 #' parameter of the normal distribution
 #'
 #' @param pdf.colors [character] (*with default*):
-#' colour coding of the components in the the plot.
+#' colour coding of the components in the plot.
 #' Possible options are `"gray"`, `"colors"` and `"none"`
 #'
 #' @param plot.proportions [logical] (*with default*):
 #' plot [graphics::barplot] showing the proportions of components if
 #' `n.components` a vector with a length > 1 (e.g., `n.components = c(2:3)`)
 #'
-#' @param plot [logical] (*with default*):  plot output
+#' @param plot [logical] (*with default*): enable/disable the  plot output.
 #'
 #' @param ... further arguments to pass. See details for their usage.
 #'

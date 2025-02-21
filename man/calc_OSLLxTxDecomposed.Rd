@@ -14,19 +14,19 @@ calc_OSLLxTxDecomposed(
 }
 \arguments{
 \item{Lx.data}{\link{data.frame} (\strong{required}): Component table created by
-\link[OSLdecomposition:RLum.OSL_decomposition]{OSLdecomposition::RLum.OSL_decomposition} and per default located
+\code{OSLdecomposition::RLum.OSL_decomposition} and per default located
 at \code{object@records[[...]]@info$COMPONENTS}.The value of \verb{$n[OSL.component]}
 is set as \code{LnLx}. The value of \verb{$n.error[OSL.component]} is set as \code{LnLx.error}}
 
 \item{Tx.data}{\link{data.frame} (\emph{optional}): Component table created by
-\link[OSLdecomposition:RLum.OSL_decomposition]{OSLdecomposition::RLum.OSL_decomposition} and per default located at
+\code{OSLdecomposition::RLum.OSL_decomposition} and per default located at
 \code{object@records[[...]]@info$COMPONENTS}. The value of \verb{$n[OSL.component]}
 is set as \code{TnTx}. The value of \verb{$n.error[OSL.component]} is set as \code{TnTx.error}}
 
 \item{OSL.component}{\link{integer} or \link{character} (\emph{optional}):
 a single index or a name describing which OSL signal component shall be evaluated.
 This argument can either be the name of the OSL component assigned by
-\link[OSLdecomposition:RLum.OSL_global_fitting]{OSLdecomposition::RLum.OSL_global_fitting} or the index of component.
+\code{OSLdecomposition::RLum.OSL_global_fitting} or the index of component.
 Then \code{'1'} selects the fastest decaying component, \code{'2'} the
 second fastest and so on. If not defined, the fastest decaying component is selected.}
 
@@ -57,7 +57,7 @@ Slot \code{data} contains a \link{list} with the following structure:
 }
 \description{
 Calculate \code{Lx/Tx} ratios from a given set of decomposed
-CW-OSL curves decomposed by \link[OSLdecomposition:RLum.OSL_decomposition]{OSLdecomposition::RLum.OSL_decomposition}.
+CW-OSL curves decomposed by \code{OSLdecomposition::RLum.OSL_decomposition}.
 }
 \section{Function version}{
  0.1.0

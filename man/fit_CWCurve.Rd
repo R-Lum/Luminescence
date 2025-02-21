@@ -111,8 +111,7 @@ The function determines the weighted least-squares estimates of the
 component parameters of a CW-OSL signal for a given maximum number of
 components and returns various component parameters. The fitting procedure
 uses the \link{nls} function with the \code{port} algorithm.
-}
-\details{
+
 \strong{Fitting function}
 
 The function for the CW-OSL fitting has the general form:

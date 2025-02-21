@@ -53,7 +53,7 @@
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
 #' `smooth`, the default, ([stats::smooth]), `smooth.spline` ([stats::smooth.spline]),
-#' `smooth_RLum` [smooth_RLum] and `Pych`. See details for further information.
+#' `smooth_RLum` ([smooth_RLum]) and `Pych`. See details for further information.
 #'
 #' @param method.Pych.smoothing [integer] (*with default*):
 #' Smoothing parameter for cosmic ray removal according to Pych (2003).
@@ -73,7 +73,7 @@
 #' **Note:** This argument currently only affects the methods `smooth` and `smooth.spline`
 #'
 #' @param verbose [logical] (*with default*):
-#' Option to suppress terminal output.,
+#' enable/disable output to the terminal.
 #'
 #' @param plot [logical] (*with default*):
 #' If `TRUE` the histograms used for the cosmic-ray removal are returned as plot
@@ -309,7 +309,7 @@ apply_CosmicRayRemoval <- function(
         temp.hist$breaks[temp.hist.nonzerobin])
 
 
-      ## select the first value where the thershold is reached
+      ## select the first value where the threshold is reached
       ## factor 3 is defined by Pych (2003)
       temp.hist.thres <- which(
         temp.hist.nonzerobin.diff >= method.Pych.threshold_factor * temp.sd.corr)[1]

@@ -54,13 +54,13 @@ Factors to scale gamma dose rate values. Valid options are:
 }}
 
 \item{verbose}{\link{logical} (\emph{with default}):
-Show or hide console output (defaults to \code{TRUE}).}
+enable/disable output to the terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}):
-Enable/disable the plot output (defaults to \code{TRUE}).}
+enable/disable the plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
-Enables/disables single plot mode, i.e. one plot window per plot.}
+enable/disable single plot mode, i.e. one plot window per plot.}
 
 \item{...}{Further parameters passed to \link{barplot}.}
 }

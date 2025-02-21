@@ -619,7 +619,7 @@ read_BIN2R <- function(
       }
 
       ## RECTYPE == 128
-      ## If the RECTYPE is 128, only the the header bytes until here make any sense,
+      ## If the RECTYPE is 128, only the header bytes until here make any sense,
       ## the rest are just random bytes (e-mail K.B., 2024-07-04)
       ## the header length is 507, hence we have to jump 507 - 15 to get
       ## the data

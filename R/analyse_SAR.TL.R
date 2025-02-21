@@ -31,9 +31,9 @@
 #' (e.g. `signal.integral.max = 200`)
 #'
 #' @param integral_input [character] (*with default*):
-#' defines the input for the the arguments `signal.integral.min` and
+#' defines the input for the arguments `signal.integral.min` and
 #' `signal.integral.max`. These limits can be either provided `'channel'`
-#' number (the default) or `'temperature'`. If `'temperature'` is chosen the
+#' number (the default) or `'temperature'`. If `'temperature'` is chosen, the
 #' best matching channel is selected.
 #'
 #' @param sequence.structure [vector] [character] (*with default*):

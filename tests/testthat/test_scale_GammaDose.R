@@ -93,7 +93,7 @@ test_that("input validation", {
     tmp$sample_offset[5] <- "target"
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
     },
-    "Non-numeric value in the the row of the target layer"
+    "Non-numeric value in the row of the target layer"
   )
   expect_error({
     tmp <- d

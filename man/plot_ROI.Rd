@@ -33,10 +33,9 @@ should include consider the ROIs or grain radius.}
 surface in µm. For instance \code{c(8192,8192)}, if set additional x and y-axes are shown}
 
 \item{bg_image}{\linkS4class{RLum.Data.Image} (\emph{optional}): background image object
-please note that the dimensions are not checked.}
+(please note that dimensions are not checked).}
 
-\item{plot}{\link{logical} (\emph{with default}): enable or disable plot output to use
-the function only to extract the ROI data}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
 \item{...}{further parameters to manipulate the plot. On top of all arguments of
 \link[graphics:plot.default]{graphics::plot.default} the following arguments are supported: \code{lwd.ROI}, \code{lty.ROI},

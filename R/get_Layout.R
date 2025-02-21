@@ -1,5 +1,6 @@
-#' Collection of layout definitions
+#' @title Collection of layout definitions
 #'
+#' @description
 #' This helper function returns a list with layout definitions for homogeneous
 #' plotting.
 #'
@@ -7,21 +8,21 @@
 #' create either an empty or a default layout object and fill/modify the
 #' definitions (`user.layout <- get_Layout(data = "empty")`).
 #'
-#' @param layout [character] or [list] object (**required**): 
-#' name of the layout definition to be returned. If name is provided the 
+#' @param layout [character] or [list] object (**required**):
+#' name of the layout definition to be returned. If name is provided the
 #' respective definition is returned. One of the following
 #' supported layout definitions is possible: `"default"`,
-#' `"journal.1"`, `"small"`, `"empty"`. 
-#' 
+#' `"journal.1"`, `"small"`, `"empty"`.
+#'
 #' User-specific layout definitions must be provided as a list object of
 #' predefined structure, see details.
-#' 
+#'
 #' @return A list object with layout definitions for plot functions.
-#' 
+#'
 #' @section Function version: 0.1
-#' 
+#'
 #' @author Michael Dietze, GFZ Potsdam (Germany)
-#' 
+#'
 #' @examples
 #'
 #' ## read example data set
@@ -78,7 +79,7 @@ get_Layout <- function(
             stats   = character(1), # optionally vector
             legend  = character(1) # optionally vector
           ),
-          
+
           font.size = list(
             main    = numeric(1),
             xlab1   = numeric(1),
@@ -96,7 +97,7 @@ get_Layout <- function(
             stats   = numeric(1), # optionally vector
             legend  = numeric(1)  # optionally vector
           ),
-          
+
           font.deco = list(
             main    = character(1),
             xlab1   = character(1),
@@ -114,7 +115,7 @@ get_Layout <- function(
             stats   = character(1), # optionally vector
             legend  = character(1) # optionally vector
           ),
-          
+
           colour = list(
             main    = numeric(1), # plot title colour
             xlab1   = numeric(1), # left x-axis label colour
@@ -145,7 +146,7 @@ get_Layout <- function(
             grid.minor = numeric(1),
             border     = numeric(1),
             background = numeric(1)),
-          
+
           dimension = list(
             figure.width    = numeric(1), # figure width in mm
             figure.height   = numeric(1), # figure height in mm
@@ -170,7 +171,7 @@ get_Layout <- function(
             mtext           = numeric(1), # line height in %
             summary.line    = numeric(1) # line height in %
           )),
-        
+
         ## empty KDE plot -----------------------------------------------------
         kde = list(
           font.type = list(
@@ -184,7 +185,7 @@ get_Layout <- function(
             stats  = character(1), # optionally vector
             legend = character(1) # optionally vector
           ),
-          
+
           font.size = list(
             main   = numeric(1),
             xlab   = numeric(1),
@@ -196,7 +197,7 @@ get_Layout <- function(
             stats  = numeric(1), # optionally vector
             legend = numeric(1) # optionally vector
           ),
-          
+
           font.deco = list(
             main   = character(1),
             xlab   = character(1),
@@ -208,7 +209,7 @@ get_Layout <- function(
             stats  = character(1), # optionally vector
             legend = character(1) # optionally vector
           ),
-          
+
           colour = list(
             main   = numeric(1), # plot title colour
             xlab   = numeric(1), # x-axis label colour
@@ -230,7 +231,7 @@ get_Layout <- function(
             mean.line       = numeric(1),  # mean line colour
             sd.bar          = numeric(1),  # sd-line colour
             background      = numeric(1)), # background colour
-          
+
           dimension = list(
             figure.width    = numeric(1), # figure width in mm
             figure.height   = numeric(1), # figure height in mm
@@ -252,7 +253,7 @@ get_Layout <- function(
     } else if(layout == "default") {
 
       layout = list(
-        
+
         ## default Abanico plot -----------------------------------------------
         abanico = list(
           font.type = list(
@@ -271,7 +272,7 @@ get_Layout <- function(
             stats   = "", # optionally vector
             legend  = "" # optionally vector
           ),
-          
+
           font.size = list(
             main    = 12,
             xlab1   = 12,
@@ -289,7 +290,7 @@ get_Layout <- function(
             stats   = 10, # optionally vector
             legend  = 10 # optionally vector
           ),
-          
+
           font.deco = list(
             main    = "bold",
             xlab1   = "normal",
@@ -307,7 +308,7 @@ get_Layout <- function(
             stats   = "normal", # optionally vector
             legend  = "normal" # optionally vector
           ),
-          
+
           colour = list(
             main    = 1, # plot title colour
             xlab1   = 1, # left x-axis label colour
@@ -338,7 +339,7 @@ get_Layout <- function(
             grid.minor = "none",
             border     = 1,
             background = NA),
-          
+
           dimension = list(
             figure.width    = "auto", # figure width in mm
             figure.height   = "auto", # figure height in mm
@@ -363,7 +364,7 @@ get_Layout <- function(
             mtext           = 100, # line height in %
             summary.line    = 100 # line height in %
           )),
-        
+
         ## default KDE plot ---------------------------------------------------
         kde = list(
           font.type = list(
@@ -377,7 +378,7 @@ get_Layout <- function(
             stats  = "", # optionally vector
             legend = "" # optionally vector
           ),
-          
+
           font.size = list(
             main   = 14,
             xlab   = 12,
@@ -389,7 +390,7 @@ get_Layout <- function(
             stats  = 12, # optionally vector
             legend = 12 # optionally vector
           ),
-          
+
           font.deco = list(
             main   = "bold",
             xlab   = "normal",
@@ -401,7 +402,7 @@ get_Layout <- function(
             stats  = "normal", # optionally vector
             legend = "normal" # optionally vector
           ),
-          
+
           colour = list(
             main   = 1, # plot title colour
             xlab   = 1, # x-axis label colour
@@ -423,7 +424,7 @@ get_Layout <- function(
             mean.point       = 1, # mean line colour
             sd.line          = 1, # sd bar colour
             background      = NULL), # background colour
-          
+
           dimension = list(
             figure.width    = "auto", # figure width in mm
             figure.height   = "auto", # figure height in mm
@@ -445,7 +446,7 @@ get_Layout <- function(
     } else if(layout == "journal") {
 
       layout = list(
-        
+
         ## journal Abanico plot -----------------------------------------------
         abanico = list(
           font.type = list(
@@ -464,7 +465,7 @@ get_Layout <- function(
             stats   = "", # optionally vector
             legend  = "" # optionally vector
           ),
-          
+
           font.size = list(
             main    = 8,
             xlab1   = 7,
@@ -482,7 +483,7 @@ get_Layout <- function(
             stats   = 6, # optionally vector
             legend  = 6 # optionally vector
           ),
-          
+
           font.deco = list(
             main    = "bold",
             xlab1   = "normal",
@@ -500,7 +501,7 @@ get_Layout <- function(
             stats   = "normal", # optionally vector
             legend  = "normal" # optionally vector
           ),
-          
+
           colour = list(
             main    = 1, # plot title colour
             xlab1   = 1, # left x-axis label colour
@@ -531,7 +532,7 @@ get_Layout <- function(
             grid.minor = "none",
             border     = 1,
             background = NA),
-          
+
           dimension = list(
             figure.width    = 100, # figure width in mm
             figure.height   = 100, # figure height in mm
@@ -557,7 +558,7 @@ get_Layout <- function(
             summary.line    = 70, # line height in %
             pch             = 50  # point size in %
           )),
-        
+
         ## journal KDE plot ---------------------------------------------------
         kde = list(
           font.type = list(
@@ -571,7 +572,7 @@ get_Layout <- function(
             stats  = "", # optionally vector
             legend = "" # optionally vector
           ),
-          
+
           font.size = list(
             main   = 8,
             xlab   = 7,
@@ -583,7 +584,7 @@ get_Layout <- function(
             stats  = 7,
             legend = 7
           ),
-          
+
           font.deco = list(
             main   = "bold",
             xlab   = "normal",
@@ -595,7 +596,7 @@ get_Layout <- function(
             stats  = "normal", # optionally vector
             legend = "normal" # optionally vector
           ),
-          
+
           colour = list(
             main   = 1, # plot title colour
             xlab   = 1, # x-axis label colour
@@ -614,12 +615,12 @@ get_Layout <- function(
             value.rug       = 1, # De value rug colour
             boxplot.line    = 1, # boxplot line colour
             boxplot.fill    = NULL, # boxplot fill colour
-            mean.line       = adjustcolor(col = 1, 
+            mean.line       = adjustcolor(col = 1,
                                           alpha.f = 0.4), # mean line colour
-            sd.bar          = adjustcolor(col = 1, 
+            sd.bar          = adjustcolor(col = 1,
                                           alpha.f = 0.4), # sd bar colour
             background      = NULL),
-          
+
           dimension = list(
             figure.width    = 80, # figure width in mm
             figure.height   = 80, # figure height in mm

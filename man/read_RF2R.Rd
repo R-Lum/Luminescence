@@ -24,9 +24,10 @@ Import files produced by the IR-RF 'ImageJ' macro (\code{SR-RF.ijm}; Mittelstra�
 objects
 }
 \details{
-The results of spatially resolved IR-RF data are summarised in so-called RF-files ((Mittelstraß and Kreutzer, 2021).
+The results of spatially resolved IR-RF data are summarised in
+so-called RF-files (Mittelstraß and Kreutzer, 2021).
 This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
-The output of the function can be passed to the function \link{analyse_IRSAR.RF}
+The output of the function can be passed to function \link{analyse_IRSAR.RF}.
 }
 \section{Function version}{
  0.1.1

@@ -1,5 +1,6 @@
-#' Export XSYG-file(s) to CSV-files
+#' @title Export XSYG-file(s) to CSV-files
 #'
+#' @description
 #' This function is a wrapper function around the functions [read_XSYG2R] and
 #' [write_RLum2CSV] and it imports an XSYG-file and directly exports its content
 #' to CSV-files. If nothing is set for the argument `path` ([write_RLum2CSV])

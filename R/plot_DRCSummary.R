@@ -1,30 +1,36 @@
-#'Create a Dose-Response Curve Summary Plot
+#' @title Create a Dose-Response Curve Summary Plot
 #'
-#'While analysing OSL SAR or pIRIR-data the view on the data is limited usually to one
-#'dose-response curve (DRC) at the time for one aliquot. This function overcomes this limitation
-#'by plotting all DRC from an [RLum.Results-class] object created by the function [analyse_SAR.CWOSL]
-#'in one single plot.
+#' @description
+#' While analysing OSL SAR or pIRIR-data the view on the data is usually
+#' limited to one dose-response curve (DRC) at the time for one aliquot. This
+#' function overcomes this limitation by plotting all DRCs from an
+#' [RLum.Results-class] object created by [analyse_SAR.CWOSL] in one single
+#' plot.
 #'
-#'If you want plot your DRC on an energy scale (dose in Gy), you can either use the option `source_dose_rate` provided
-#'below or your can SAR analysis with the dose points in Gy (better axis scaling).
+#' If you want plot your DRC on an energy scale (dose in Gy), you can either
+#' use option `source_dose_rate` or perform your SAR analysis with the dose
+#' points in Gy (better axis scaling).
 #'
-#'@param object [RLum.Results-class] object (**required**): input object created by the function [analyse_SAR.CWOSL]. The input object can be provided as [list].
+#' @param object [RLum.Results-class] (**required**): input object created by
+#' [analyse_SAR.CWOSL]. The input object can be provided as [list].
 #'
-#'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical value is allowed.
+#' @param source_dose_rate [numeric] (*optional*): allows to modify the axis
+#' and show values in Gy, instead seconds. Only a single numerical value is
+#' allowed.
 #'
-#'@param sel_curves [numeric] (*optional*): id of the curves to be plotted in
-#' its occurring order. A sequence can
-#'be provided for selecting, e.g., only every 2nd curve from the input object
+#' @param sel_curves [numeric] (*optional*): id of the curves to be plotted in
+#' its occurring order. A sequence can be provided for selecting, e.g., only
+#' every 2nd curve from the input object.
 #'
 #' @param show_dose_points [logical] (*with default*): enable/disable plotting
-#' of dose points in the graph
+#' of dose points in the graph.
 #'
 #' @param show_natural [logical] (*with default*): enable/disable the plot
-#' of the natural `Lx/Tx` values
+#' of the natural `Lx/Tx` values.
 #'
-#'@param n [integer] (*with default*): number of x-values used to evaluate
-#' one curve object. Large numbers slow
-#'down the plotting process and are usually not needed
+#' @param n [integer] (*with default*): number of x-values used to evaluate
+#' one curve object. Large numbers slow down the plotting process and are
+#' usually not needed.
 #'
 #'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`
 #'

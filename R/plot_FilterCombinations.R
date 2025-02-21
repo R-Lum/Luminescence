@@ -1,5 +1,6 @@
-#' Plot filter combinations along with the (optional) net transmission window
+#' @title Plot filter combinations along with the (optional) net transmission window
 #'
+#' @description
 #' The function allows to plot transmission windows for different filters. Missing data for specific
 #' wavelengths are automatically interpolated for the given filter data using the function [approx].
 #' With that a standardised output is reached and a net transmission window can be shown.
@@ -75,8 +76,8 @@
 #'
 #' @param filters [list] (**required**):
 #' a named list of filter data for each filter to be shown.
-#' The filter data itself should be either provided as [data.frame] or [matrix].
-#' (for more options s. Details)
+#' The filter data itself should be either provided as [data.frame] or [matrix]
+#' (see details for more options).
 #'
 #' @param wavelength_range [numeric] (*with default*):
 #' wavelength range used for the interpolation
