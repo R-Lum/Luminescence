@@ -247,18 +247,22 @@ analyse_pIRIRSequence <- function(
 
   .validate_class(object, "RLum.Analysis", extra = "'list'")
 
-    ##CHECK ALLOWED VALUES IN SEQUENCE STRUCTURE
-    temp.collect.invalid.terms <- paste(sequence.structure[
-      (!grepl("TL",sequence.structure)) &
-      (!grepl("IR",sequence.structure)) &
-      (!grepl("OSL",sequence.structure)) &
-      (!grepl("EXCLUDE",sequence.structure))],
-      collapse = ", ")
+  ## there must be at least an IR step
+  if (!any(grepl("IR", sequence.structure))) {
+    .throw_error("'sequence.structure' should contain at least one IR step")
+  }
 
-    if(temp.collect.invalid.terms != ""){
-      .throw_error("'", temp.collect.invalid.terms,
-                   "' not allowed in 'sequence.structure'")
-    }
+  ## check allowed values in sequence structure
+  temp.collect.invalid.terms <- .collapse(
+      sequence.structure[!grepl("TL",  sequence.structure) &
+                         !grepl("IR",  sequence.structure) &
+                         !grepl("OSL", sequence.structure) &
+                         !grepl("EXCLUDE", sequence.structure)])
+
+  if (temp.collect.invalid.terms != "") {
+    .throw_error(temp.collect.invalid.terms,
+                 " not allowed in 'sequence.structure'")
+  }
 
   ## deprecated argument
   if ("plot.single" %in% names(list(...))) {
@@ -398,8 +402,8 @@ analyse_pIRIRSequence <- function(
     temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
 
     ## middle (any other Lx,Ln)
+    temp.IRSL.layout.vector.middle <- NULL
     if (n.loops > 2) {
-
     temp.IRSL.layout.vector.middle <-
       vapply(2:(n.loops - 1),
         FUN = function(x) 5 * x - 1 + c(0:3, 0:2, 4),
@@ -407,36 +411,14 @@ analyse_pIRIRSequence <- function(
       )
     }
 
-  ##last (Lx,Ln and legend)
-  temp.IRSL.layout.vector.last <- c(
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 1,
-           max(temp.IRSL.layout.vector.first) + 1),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 2,
-           max(temp.IRSL.layout.vector.first) + 2),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 4,
-           max(temp.IRSL.layout.vector.first) + 4),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 5,
-           max(temp.IRSL.layout.vector.first) + 5),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 1,
-           max(temp.IRSL.layout.vector.first) + 1),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 2,
-           max(temp.IRSL.layout.vector.first) + 2),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 4,
-           max(temp.IRSL.layout.vector.first) + 4),
-    ifelse(n.loops > 2,max(temp.IRSL.layout.vector.middle) + 6,
-           max(temp.IRSL.layout.vector.first) + 6))
-
-  ##options for different sets of curves
-  if(n.loops > 2){
+    ## last (Lx, Ln and legend)
+    temp.IRSL.layout.vector.last <- c(1, 2, 4, 5, 1, 2, 4, 6) +
+      (if (n.loops > 2) max(temp.IRSL.layout.vector.middle)
+       else max(temp.IRSL.layout.vector.first))
 
     temp.IRSL.layout.vector <- c(temp.IRSL.layout.vector.first,
                                  temp.IRSL.layout.vector.middle,
                                  temp.IRSL.layout.vector.last)
-  }else{
-
-    temp.IRSL.layout.vector <- c(temp.IRSL.layout.vector.first,
-                                 temp.IRSL.layout.vector.last)
-  }
 
   ##get layout information
   def.par <- par(no.readonly = TRUE)

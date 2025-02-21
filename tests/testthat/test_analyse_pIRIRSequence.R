@@ -150,7 +150,14 @@ test_that("input validation", {
                                      signal.integral.max = 2,
                                      background.integral.min = 900,
                                      background.integral.max = 1000,
-                                     sequence.structure = "error"),
+                                     sequence.structure = "TL"),
+               "'sequence.structure' should contain at least one IR step")
+  expect_error(analyse_pIRIRSequence(object,
+                                     signal.integral.min = 1,
+                                     signal.integral.max = 2,
+                                     background.integral.min = 900,
+                                     background.integral.max = 1000,
+                                     sequence.structure = c("IR50", "error")),
                "'error' not allowed in 'sequence.structure'")
 
   SW({

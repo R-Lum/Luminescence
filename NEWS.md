@@ -185,6 +185,8 @@
   fixed in \#408).
 - The produced `RLum.Results` object now also contains a column for the
   grain (#553, fixed in \#554).
+- The function now checks that the `sequence.structure` argument
+  contains at least one IR step (#579, fixed in \#580).
 
 ### `analyse_SAR.CWOSL()`
 

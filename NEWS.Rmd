@@ -162,6 +162,8 @@ with all other functions in the package (#411, fixed in #412).
 in #408).
 * The produced `RLum.Results` object now also contains a column for the
 grain (#553, fixed in #554).
+* The function now checks that the `sequence.structure` argument contains
+at least one IR step (#579, fixed in #580).
 
 ### `analyse_SAR.CWOSL()`
 * Option `plot.single` has been renamed to `plot_singlePanels` (#351, fixed
