@@ -1,6 +1,6 @@
 ---
 title: "Assessing crosstalk in single-grain luminescence detection"
-output: 
+output:
     rmarkdown::html_vignette:
      toc: true
 author: "Luc Steinbuch, Anna-Maartje de Boer, Wageningen University & Research"
@@ -24,7 +24,7 @@ This vignette explores the crosstalk-related functions in the "Luminescence"
 package, related to  research paper "A novel tool to assess crosstalk in
 single-grain luminescence detection", by Anna-Maartje de Boer, Luc Steinbuch,
 Gerard Heuvelink and Jakob Wallinga.
-Crosstalk in single-grain luminescence imaging (EMCCD) is the overlapping of luminescence signals from adjacent grains on a single-grain disc. The actual signal on one grain location influences the observed signal on a neighboring grain location which happens to be on the same measurement disc (one "position" in the reader). In this research and the shown functions, we define "neighboring" as rook-wise (horizontally and vertically) only, and we assume that all measurement discs have a regular grid of 10x10 grain locations. 
+Crosstalk in single-grain luminescence imaging (EMCCD) is the overlapping of luminescence signals from adjacent grains on a single-grain disc. The actual signal on one grain location influences the observed signal on a neighboring grain location which happens to be on the same measurement disc (one "position" in the reader). In this research and the shown functions, we define "neighboring" as rook-wise (horizontally and vertically) only, and we assume that all measurement discs have a regular grid of 10x10 grain locations.
 
 
 ```{r init}
@@ -38,16 +38,16 @@ All grain location observations on one single-grain measurement disc are represe
 
 ```{r simulate_signal, fig.dim = c(8, 6), out.width="800px"}
 
-vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500), 
-                             rnorm(n = 70, mean = 20, sd = 1)),  
+vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500),
+                             rnorm(n = 70, mean = 20, sd = 1)),
                        size = 100)
 
 vn_simulated <- round(vn_simulated) # Because photons are discrete
 
 head(vn_simulated, n = 25)
 
-hist(vn_simulated, 
-     main = "Simulated signal (histogram)", 
+hist(vn_simulated,
+     main = "Simulated signal (histogram)",
      xlab = "Photon counts",
      ylab = "Frequency",
      breaks = 30
@@ -83,13 +83,13 @@ what changes if we add a serious amount, say 10%, of crosstalk?
 
 ```{r add_crosstalk, fig.dim = c(8, 6), out.width="800px"}
 
-vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated, 
+vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
                                               n_crosstalk = 0.10)
 
 vn_simulated_with_crosstalk <- round(vn_simulated_with_crosstalk)
 
-hist(vn_simulated_with_crosstalk, 
-     main = "Simulated signal with crosstalk (histogram)", 
+hist(vn_simulated_with_crosstalk,
+     main = "Simulated signal with crosstalk (histogram)",
      xlab = "Photon counts",
      ylab = "Frequency",
      breaks = 30
@@ -121,12 +121,12 @@ df_MoransI$pseudo_p <- NA
 old.opts <- options(warn = -1) # silence warnings from compute_pseudo_p
 for (i in 1:nrow(df_MoransI))
 {
-  
-  vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated, 
-                                              n_crosstalk = df_MoransI$crosstalk[i])  
-  
+
+  vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
+                                              n_crosstalk = df_MoransI$crosstalk[i])
+
   df_MoransI$MoransI[i]  <- calc_MoransI(object = vn_simulated_with_crosstalk)
-  df_MoransI$pseudo_p[i] <- 
+  df_MoransI$pseudo_p[i] <-
     calc_MoransI(object = vn_simulated_with_crosstalk, compute_pseudo_p = TRUE)
 }
 options(old.opts) # restore the default options
@@ -134,9 +134,9 @@ options(old.opts) # restore the default options
 n_expected_I_no_spatial_autocorr <- calc_MoransI(1:100,
                                                  spatial_autocorrelation = FALSE)
 
-## 
+##
 
-plot(x = df_MoransI$crosstalk, 
+plot(x = df_MoransI$crosstalk,
      y = df_MoransI$MoransI,
      ylim = range(
           pretty(x = c(df_MoransI$MoransI, n_expected_I_no_spatial_autocorr))
@@ -154,15 +154,15 @@ legend(x = "topleft",
        lty = "solid",
        col = "purple",
        cex = 0.8)
-  
-plot(x = df_MoransI$crosstalk, 
+
+plot(x = df_MoransI$crosstalk,
      y = df_MoransI$pseudo_p,
      xlab = "Amount of added crosstalk",
      ylab = "Generated pseudo-p of related Moran's I")
 graphics::grid()
 ```
 
-Please note that above two plots are subject to randomness; for a good assessment many simulations have to be performed. 
+Please note that above two plots are subject to randomness; for a good assessment many simulations have to be performed.
 
 
 # Moran scatterplot
@@ -173,18 +173,15 @@ A way to visualise spatial auto-correlation is the Moran scatterplot:
 
 
 plot_MoranScatterplot(object = vn_simulated,
-           main = "Moran scatterplot, simulated signal without crosstalk") 
+           main = "Moran scatterplot, simulated signal without crosstalk")
 
-vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated, 
+vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
                                               n_crosstalk = 0.25)
 vn_simulated_with_crosstalk <- round(vn_simulated_with_crosstalk)
 
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
-           main = "Moran scatterplot, simulated signal with added crosstalk") 
-
-
+           main = "Moran scatterplot, simulated signal with added crosstalk")
 ```
-
 
 The plot area is divided into four quadrants using the mean in each dimension; the South-west and North-east quadrant represent a contribution to a positive spatial autocorrelation, while the North-west and South-east quadrants indicate a negative spatial correlation. Between the point, a least square line (which slopes indicates, but not exactly represents, Moran's I) is added, as well as an 1:1 line (which indicates a Moran's I of around 1, suggesting a perfect positive spatial correlation).
 
@@ -195,10 +192,10 @@ the `Luminescence:::` prefix as this function is not exported by the package):
 
 ```{r adjacent_grain_locations, fig.dim = c(8, 5), out.width="800px"}
 
-    vn_simulated_with_holes <- c(rnorm(30, mean = 10, sd = 5),   
+    vn_simulated_with_holes <- c(rnorm(30, mean = 10, sd = 5),
                               rnorm(30, mean = 500, sd = 50),
                               rep(NA, times = 40)
-                              ) 
+                              )
 
 df_Neighbours <- Luminescence:::.get_Neighbours(object = vn_simulated_with_holes)
 
@@ -213,7 +210,7 @@ And we can plot the first disc, while indicating which borders are taken into ac
               show_neighbours = TRUE,
               show_location_ids = TRUE)
 ```
-Also other functions, such as `calc_MoransI()`, work as long as the remaining grid does not become too sparse. Note that in this context all observations, even "islands" who do not border any other grains, are used for the calculation of Moran's I. 
+Also other functions, such as `calc_MoransI()`, work as long as the remaining grid does not become too sparse. Note that in this context all observations, even "islands" who do not border any other grains, are used for the calculation of Moran's I.
 
 # Add borders with certain weight
 
@@ -225,7 +222,7 @@ One can manually change `df_Neighbours`, for example add the diagonal borders an
 df_Neighbours_with_diag <- Luminescence:::.get_Neighbours(object = vn_simulated)
 
 
-for (i in c(1:9, 11:19, 21:29) ) 
+for (i in c(1:9, 11:19, 21:29) )
 {
   df_Neighbours_with_diag <- rbind(df_Neighbours_with_diag,
                                             c(i, i+11, 1/sqrt(2))
@@ -249,20 +246,20 @@ neighbours:
 
 ``` {r restrict_to_inner_8x8, fig.dim = c(8, 5), out.width="800px"}
 
-vn_values_to_show <- 
-      sample(x = c(rnorm(n = 30, mean = 2000, sd = 500), 
-                   rnorm(n = 70, mean = 20, sd = 1)),  
+vn_values_to_show <-
+      sample(x = c(rnorm(n = 30, mean = 2000, sd = 500),
+                   rnorm(n = 70, mean = 20, sd = 1)),
              size = 100)
 
 ## Set the outer rows to NA before adding crosstalk
-vn_disc_border_locations <- c(1:10, 
-                              91:100, 
+vn_disc_border_locations <- c(1:10,
+                              91:100,
                               seq(from = 11, to = 81, by = 10),
                               seq(from = 20, to = 90, by = 10)
                              )
 vn_values_to_show[vn_disc_border_locations] <- NA
 
-vn_values_to_show <- apply_Crosstalk(object = vn_values_to_show, 
+vn_values_to_show <- apply_Crosstalk(object = vn_values_to_show,
                                      n_crosstalk = 0.15)
 
 calc_MoransI(object = vn_values_to_show)
@@ -282,7 +279,7 @@ calc_MoransI(object = vn_values_to_show,
 ```{r show_disc_extended, fig.dim = c(8, 5), out.width="800px"}
 
 plot_SingleGrainDisc(object = vn_simulated,
-          main = "", 
+          main = "",
           legend = TRUE,
           show_coordinates = TRUE,
           show_location_ids = TRUE,
@@ -295,7 +292,7 @@ When there is a wide range in values, it can be helpful to apply a logarithmic s
 ```{r show_disc_scales, fig.dim = c(8, 5), out.width="800px"}
 
 plot_SingleGrainDisc(object = vn_simulated,
-          main = "Linear scale", 
+          main = "Linear scale",
           legend = TRUE,
           show_coordinates = FALSE,
           show_location_ids = FALSE,
@@ -304,7 +301,7 @@ plot_SingleGrainDisc(object = vn_simulated,
 
 
 plot_SingleGrainDisc(object = vn_simulated,
-          main = "Logarithmic scale", 
+          main = "Logarithmic scale",
           legend = TRUE,
           show_coordinates = FALSE,
           show_location_ids = FALSE,
@@ -317,11 +314,11 @@ plot_SingleGrainDisc(object = vn_simulated,
 ```{r show_scatterplot_options, fig.dim = c(8, 5), out.width="800px"}
 
 
-vn_simulated <- c(rnorm(75, mean = 10, sd = 5),   
-                  rnorm(25, mean = 500, sd = 50)  ) 
+vn_simulated <- c(rnorm(75, mean = 10, sd = 5),
+                  rnorm(25, mean = 500, sd = 50)  )
 vn_simulated <- sample(size = 100, vn_simulated)
-  
-vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated, 
+
+vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
                                                n_crosstalk = 0.15)
 
 ## Base use
@@ -335,7 +332,7 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
 
 ## Layout options
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
-           pch = "show_location_ids", 
+           pch = "show_location_ids",
            legend = FALSE,
            log = "xy",
            main = "With location ID's; and with log scales"
@@ -349,7 +346,7 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
            )
 ```
 
-# Morans I function options
+# Moran's I function options
 
 The function `calc_MoransI()` can return many intermediate calculation numbers:
 
@@ -370,27 +367,27 @@ increases:
 
 ```{r moransI_intermediate_numbers_extended}
 
-vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500), 
-                             rnorm(n = 70, mean = 20, sd = 1)),  
+vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500),
+                             rnorm(n = 70, mean = 20, sd = 1)),
                        size = 100)
-vn_simulated <- round(vn_simulated) 
+vn_simulated <- round(vn_simulated)
 
-vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated, 
+vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
                                                n_crosstalk = 0.20)
 vn_simulated_with_crosstalk <- round(vn_simulated_with_crosstalk)
 
 
-df_compare <- 
+df_compare <-
   data.frame(Case = c("Without crosstalk", "With crosstalk"),
              MoransI =  c(calc_MoransI(object = vn_simulated),
                           calc_MoransI(object = vn_simulated_with_crosstalk)
                           ),
-             PopulationVar = 
+             PopulationVar =
                c(calc_MoransI(object = vn_simulated,
                  return_intermediate_values = TRUE)$n_population_variance,
                  calc_MoransI(object = vn_simulated_with_crosstalk,
                  return_intermediate_values = TRUE)$n_population_variance),
-             SpatialAutoCor = 
+             SpatialAutoCor =
                c(calc_MoransI(object = vn_simulated,
                  return_intermediate_values = TRUE)$n_average_auto_correlation,
                  calc_MoransI(object = vn_simulated_with_crosstalk,
