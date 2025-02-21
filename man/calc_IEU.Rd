@@ -62,7 +62,12 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the IEU model
 ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 
+} 
+
+\section{How to cite}{
+Smedley, R.K., Colombo, M., 2025. calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL 33, 16-21.
@@ -79,4 +84,4 @@ using single grains of quartz. Radiation Measurements 42, 370-379.
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen. \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}

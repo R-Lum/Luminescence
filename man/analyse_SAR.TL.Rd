@@ -112,7 +112,12 @@ analyse_SAR.TL(
  fit.method = "EXP OR LIN",
  sequence.structure = c("SIGNAL", "BACKGROUND"))
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching.  Quaternary Science Reviews 7, 387-393.
@@ -127,6 +132,6 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

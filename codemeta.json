@@ -4,16 +4,16 @@
   "identifier": "Luminescence",
   "description": "A collection of various R functions for the purpose of Luminescence dating data analysis. This includes, amongst others, data import, export, application of age models, curve deconvolution, sequence analysis and plotting of equivalent dose distributions.",
   "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
-  "codeRepository": "https://github.com/R-Lum/Luminescence",
+  "codeRepository": "https://github.com/mcol/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.25",
+  "version": "1.0.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 Patched (2024-08-21 r87049)",
+  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -110,6 +110,18 @@
       "givenName": "Marco",
       "familyName": "Colombo",
       "@id": "https://orcid.org/0000-0001-6672-0623"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Luc",
+      "familyName": "Steinbuch",
+      "@id": "https://orcid.org/0000-0001-6484-0920"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Anna-Maartje",
+      "familyName": "de Boer",
+      "@id": "https://orcid.org/0000-0002-7359-6939"
     }
   ],
   "contributor": [
@@ -288,6 +300,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "pander",
       "name": "pander",
       "version": ">= 0.6.5",
@@ -311,6 +335,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "vdiffr",
+      "name": "vdiffr",
+      "version": ">= 1.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vdiffr"
     },
     {
       "@type": "SoftwareApplication",
@@ -488,19 +525,6 @@
     },
     "13": {
       "@type": "SoftwareApplication",
-      "identifier": "readxl",
-      "name": "readxl",
-      "version": ">= 1.4.3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=readxl"
-    },
-    "14": {
-      "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
       "version": ">= 1.0.12",
@@ -512,7 +536,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=Rcpp"
     },
-    "15": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "shape",
       "name": "shape",
@@ -525,12 +549,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=shape"
     },
-    "16": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "parallel",
       "name": "parallel"
     },
-    "17": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "XML",
       "name": "XML",
@@ -543,26 +567,13 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=XML"
     },
-    "18": {
-      "@type": "SoftwareApplication",
-      "identifier": "zoo",
-      "name": "zoo",
-      "version": ">= 1.8-12",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=zoo"
-    },
     "SystemRequirements": null
   },
-  "fileSize": "4784.457KB",
+  "fileSize": "12340.218KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
-      "datePublished": "2024",
+      "datePublished": "2025",
       "author": [
         {
           "@type": "Person",
@@ -653,11 +664,23 @@
           "givenName": "Marco",
           "familyName": "Colombo",
           "@id": "https://orcid.org/0000-0001-6672-0623"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Luc",
+          "familyName": "Steinbuch",
+          "@id": "https://orcid.org/0000-0001-6484-0920"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Anna-Maartje",
+          "familyName": "de Boer",
+          "@id": "https://orcid.org/0000-0002-7359-6939"
         }
       ],
       "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
       "url": "https://r-lum.github.io/Luminescence/",
-      "description": "R package version 0.9.25"
+      "description": "R package version 1.0.0"
     },
     {
       "@type": "ScholarlyArticle",
@@ -1128,7 +1151,7 @@
     }
   ],
   "relatedLink": ["https://r-lum.github.io/Luminescence/", "https://CRAN.R-project.org/package=Luminescence"],
-  "releaseNotes": "https://github.com/R-Lum/Luminescence/blob/master/NEWS.md",
-  "contIntegration": "https://app.codecov.io/github/R-Lum/Luminescence?branch=master",
+  "releaseNotes": "https://github.com/mcol/Luminescence/blob/master/NEWS.md",
+  "contIntegration": ["https://github.com/R-Lum/Luminescence/actions", "https://app.codecov.io/github/R-Lum/Luminescence?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active"
 }

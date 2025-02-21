@@ -71,7 +71,12 @@ manually.
 
 plot_SingleGrainDisc(1:100)
 
+} 
+
+\section{How to cite}{
+Boer, A.d., Steinbuch, L., 2025. plot_SingleGrainDisc(): Plot a disc with its values. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
 A novel tool to assess crosstalk in single-grain luminescence detection.
@@ -79,4 +84,4 @@ Submitted.
 }
 \author{
 Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
-}
+, RLum Developer Team}

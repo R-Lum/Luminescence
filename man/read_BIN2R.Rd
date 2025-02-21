@@ -128,7 +128,12 @@ file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 temp <- read_BIN2R(file)
 temp
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C., Colombo, M., 2025. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.18. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \url{https://www.fysik.dtu.dk}
@@ -143,5 +148,5 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
-}
+, RLum Developer Team}
 \keyword{IO}
