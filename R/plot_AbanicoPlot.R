@@ -673,9 +673,9 @@ plot_AbanicoPlot <- function(
     bw.test <- try(density(x = data[[i]][,1],
                            bw = bw),
                    silent = TRUE)
-    if(grepl(pattern = "Error", x = bw.test[1]) == TRUE) {
+    if (inherits(bw.test, "try-error")) {
       bw <- "nrd0"
-      .throw_warning("Option for bw not possible. Set to nrd0!")
+      .throw_warning("Option for 'bw' not valid, reset to 'nrd0'")
     }
   }
 

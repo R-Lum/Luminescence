@@ -259,7 +259,7 @@ test_that("more coverage", {
   ## further edge tests ... check for wrong bw parameter
   expect_warning(
     object = plot_AbanicoPlot(data = ExampleData.DeValues, bw = "tests"),
-    regexp = "Option for bw not possible. Set to nrd0!")
+    regexp = "Option for 'bw' not valid, reset to 'nrd0'")
 
   ## negative values
   df <-  ExampleData.DeValues
