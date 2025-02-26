@@ -509,7 +509,7 @@ fit_SurfaceExposure <- function(
       }
 
     } else {
-      legend("center", legend = "Unable to fit the data!\t\t")
+      legend("center", legend = "Unable to fit the data", adj = 0.05)
     }
 
     # add error bars (if weighted fit)
