@@ -36,6 +36,13 @@ test_that("input validation", {
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p500"),
                "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
 
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlim = NA),
+               "'xlim' should be of class 'numeric'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, ylim = NA),
+               "'ylim' should be of class 'numeric'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, zlim = NA),
+               "'zlim' should be of class 'numeric'")
+
   ## zero-error values
   data.zeros <- ExampleData.DeValues
   data.zeros[2, 2] <- 0
@@ -58,7 +65,8 @@ test_that("Test examples from the example page", {
 
   ## now with linear z-scale
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   log.z = FALSE))
+                                 xlim = NULL, ylim = NULL, zlim = NULL,
+                                 log.z = FALSE))
 
   ## now with output of the plot parameters
   expect_type(plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -315,7 +323,6 @@ test_that("more coverage", {
  expect_silent(
    plot_AbanicoPlot(data = list(ExampleData.DeValues, ExampleData.DeValues),
                   layout = layout))
-
 })
 
 test_that("Test graphical snapshot", {
@@ -328,6 +335,4 @@ test_that("Test graphical snapshot", {
       title = "Abanico expected",
       fig = plot_AbanicoPlot(data = ExampleData.DeValues))
   })
-
 })
-
