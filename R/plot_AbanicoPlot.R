@@ -646,8 +646,9 @@ plot_AbanicoPlot <- function(
 
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
-  if("zlim" %in% names(extraArgs)) {
+  if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
     limits.z <- extraArgs$zlim
+    .validate_class(limits.z, "numeric", name = "'zlim'")
   } else {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
@@ -933,7 +934,7 @@ plot_AbanicoPlot <- function(
     expression(paste(D[e], " [Gy]"))
   }
 
-  if("zlim" %in% names(extraArgs)) {
+  if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
     limits.z <- extraArgs$zlim
   } else {
     z.span <- (mean(data.global[,1]) * 0.5) / (sd(data.global[,1]) * 100)
@@ -942,8 +943,9 @@ plot_AbanicoPlot <- function(
                   (1.1 + z.span) * max(data.global[[1]]))
   }
 
-  if("xlim" %in% names(extraArgs)) {
+  if ("xlim" %in% names(extraArgs) && !is.null(extraArgs$xlim)) {
     limits.x <- extraArgs$xlim
+    .validate_class(limits.x, "numeric", name = "'xlim'")
   } else {
     limits.x <- c(0, max(data.global[,6]) * 1.05)
   }
@@ -953,8 +955,9 @@ plot_AbanicoPlot <- function(
     limits.x[1] <- 0
   }
 
-  if("ylim" %in% names(extraArgs)) {
+  if ("ylim" %in% names(extraArgs) && !is.null(extraArgs$ylim)) {
     limits.y <- extraArgs$ylim
+    .validate_class(limits.y, "numeric", name = "'ylim'")
   } else {
     y.span <- (mean(data.global[,1]) * 10) / (sd(data.global[,1]) * 100)
     y.span <- ifelse(y.span > 1, 0.98, y.span)

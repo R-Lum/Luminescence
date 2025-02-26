@@ -17,3 +17,7 @@ header-includes:
 
 ## Bugfixes
 
+### `plot_AbanicoPlot()`
+
+* The `xlim`, `ylim` and `zlim` parameters are now better validated to avoid
+possible crashes if misspecified (#581).
