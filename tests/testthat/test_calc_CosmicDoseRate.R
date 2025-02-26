@@ -35,7 +35,7 @@ test_that("input validation", {
                 "No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees")
 })
 
-test_that("check values from output example 1", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   snapshot.tolerance <- 1.5e-6
@@ -53,6 +53,16 @@ test_that("check values from output example 1", {
                           corr.fieldChanges = TRUE, est.age = 20,
                           latitude = 28.06451, longitude = 1.49646,
                           altitude = 364, half.depth = TRUE),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(
+      calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.7, 0.2),
+                          latitude = 120, longitude = 30, altitude = 1200),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(
+      calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.2, 0.2),
+                          latitude = 30, longitude = 120, altitude = 120),
       tolerance = snapshot.tolerance)
   })
 })
