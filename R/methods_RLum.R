@@ -339,7 +339,7 @@ as.data.frame.RLum.Data.Spectrum <- function(x,  row.names = NULL, optional = FA
 as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FALSE, ...) {
 
   ## set matrix
-  m <- matrix(NA, ncol = max(sapply(x@DATA, length)), nrow = length(x@DATA))
+  m <- matrix(NA, ncol = max(lengths(x@DATA)), nrow = length(x@DATA))
 
   ## rename columns
   colnames(m) <- paste0("C",1:ncol(m))

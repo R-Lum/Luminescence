@@ -159,7 +159,7 @@ write_R2BIN <- function(
     temp_check <- FALSE
 
     ##get new number of points
-    temp_NPOINTS <- vapply(object@DATA, length, numeric(1))
+    temp_NPOINTS <- lengths(object@DATA)
 
     ##correct LENGTH
     object@METADATA[["LENGTH"]] <- object@METADATA[["LENGTH"]] - (4 * object@METADATA[["NPOINTS"]]) + (temp_NPOINTS * 4)
@@ -221,7 +221,6 @@ write_R2BIN <- function(
         if(x == 1) 0 else header.stepping + 4 * object@METADATA[x-1,"NPOINTS"]
 
       }, numeric(1))
-
     }
   }
 
@@ -290,11 +289,8 @@ write_R2BIN <- function(
 
         object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"POSITION"] <-
           temp.POSITION48.new[i]
-
       }
-
     }
-
   }
 
   ##COMMENT
@@ -332,7 +328,6 @@ write_R2BIN <- function(
 
     object@METADATA[,"LTYPE"]<- sapply(1:length(object@METADATA[,"LTYPE"]),function(x){
       as.integer(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"]==LTYPE.TranslationMatrix[,2],1])
-
     })
   }
 
@@ -354,7 +349,6 @@ write_R2BIN <- function(
 
       as.integer(LIGHTSOURCE.TranslationMatrix[
         object@METADATA[x,"LIGHTSOURCE"]==LIGHTSOURCE.TranslationMatrix[,2],1])
-
     })}
 
   ##TIME
@@ -364,7 +358,6 @@ write_R2BIN <- function(
 
     }else{
       as.character(gsub(":","",object@METADATA[["TIME"]][x]))
-
     }
 
   }, character(1))
@@ -475,7 +468,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##DATE
@@ -594,7 +586,6 @@ write_R2BIN <- function(
 
         SAMPLE_SIZE <- as.integer(2)
         object@METADATA[ID,"SAMPLE"] <- "  "
-
       }
 
       writeBin(SAMPLE_SIZE,
@@ -642,7 +633,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##LIGHTSOURCE, SET, TAG
@@ -684,7 +674,6 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-
         }
 
         ##ONTIME, OFFTIME
@@ -721,7 +710,6 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-
         }
 
       } else {
@@ -737,7 +725,6 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-
         }
 
         ##CURVENO
@@ -793,7 +780,6 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-
         }
       }
       ##DPOINTS
@@ -806,7 +792,6 @@ write_R2BIN <- function(
       ID <- ID + 1
       ##update progress bar
       if(txtProgressBar) setTxtProgressBar(pb, ID)
-
     }
   }
   ## ====================================================
@@ -861,7 +846,6 @@ write_R2BIN <- function(
 
         SAMPLE_SIZE <- as.integer(2)
         object@METADATA[ID,"SAMPLE"] <- "  "
-
       }
 
       writeBin(SAMPLE_SIZE,
@@ -891,7 +875,6 @@ write_R2BIN <- function(
 
         COMMENT_SIZE <- as.integer(2)
         object@METADATA[ID,"COMMENT"] <- "  "
-
       }
 
       writeBin(COMMENT_SIZE,
@@ -910,7 +893,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##Instrument and sequence characteristics
@@ -946,7 +928,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##USER
@@ -969,7 +950,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##TIME
@@ -991,7 +971,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##DATE
@@ -1060,7 +1039,6 @@ write_R2BIN <- function(
                  con,
                  size = 1,
                  endian="little")
-
       }
 
       ##Measurement characteristics

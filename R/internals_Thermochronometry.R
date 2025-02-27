@@ -1,4 +1,4 @@
-#'@title Import Thermochronometry Data
+#' @title Import Thermochronometry Data
 #'
 #' @description
 #' Import data from thermochronometry experiments into R.
@@ -127,8 +127,8 @@
       TIME <- .get_named_list_element(records[[x]], "t")[id_l[[x]]$DRC]
       LxTx <- .get_named_list_element(records[[x]], "L")[id_l[[x]]$DRC]
 
-        ## get length of each record
-        n_length <- vapply(TIME, length, numeric(1))
+      ## get length of each record
+      n_length <- lengths(TIME)
 
       ## the number of rows are determined automatically
       data.frame(
@@ -147,8 +147,8 @@
       TIME <- .get_named_list_element(records[[x]], "t")[id_l[[x]]$ITL]
       LxTx <- .get_named_list_element(records[[x]], "L")[id_l[[x]]$ITL]
 
-        ## get length of each record
-        n_length <- vapply(TIME, length, numeric(1))
+      ## get length of each record
+      n_length <- lengths(TIME)
 
       ## the number of rows are determined automatically
       data.frame(
@@ -168,7 +168,7 @@
       LxTx <- .get_named_list_element(records[[x]], "L")[id_l[[x]]$FAD]
 
       ## get length of each record
-      n_length <- vapply(TIME, length, numeric(1))
+      n_length <- lengths(TIME)
 
       ## the number of rows are determined automatically
       data.frame(
