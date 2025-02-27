@@ -92,7 +92,7 @@ test_that("check functionality", {
 
   ## RLum.Analysis object
   data(ExampleData.XSYG, envir = environment())
-  calc_FastRatio(get_RLum(OSL.SARMeasurement$Sequence.Object)[[1]])
+  calc_FastRatio(OSL.SARMeasurement$Sequence.Object)
 
   expect_warning(calc_FastRatio(get_RLum(TL.Spectrum)),
                  "L3 contains more counts (566) than L2 (562)",
