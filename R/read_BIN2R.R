@@ -1114,7 +1114,7 @@ read_BIN2R <- function(
 
   ##check for position that have no data at all (error during the measurement)
   if(zero_data.rm){
-    zero_data.check <- which(vapply(results.DATA, length, numeric(1)) == 0)
+    zero_data.check <- which(lengths(results.DATA) == 0)
 
     ##remove records if there is something to remove
     if (length(zero_data.check) > 0) {
