@@ -97,6 +97,9 @@ test_that("check functionality", {
   expect_warning(calc_FastRatio(get_RLum(TL.Spectrum)),
                  "L3 contains more counts (566) than L2 (562)",
                  fixed = TRUE)
+
+  ## RLum.Results object
+  calc_FastRatio(temp)
   })
 
   ## RLum.Data.Curve object
