@@ -46,6 +46,11 @@ test_that("check functionality", {
                                 boxplot = TRUE))
 
   ## more coverage
+  expect_silent(plot_DRTResults(df[1, ], preheat = 200, boxplot = TRUE))
+  expect_silent(plot_DRTResults(df[1, ], preheat = 200, boxplot = TRUE,
+                                summary.pos = "sub", col = 3))
+  expect_silent(plot_DRTResults(df[1, ], boxplot = FALSE,
+                                summary.pos = "sub", pch = 12, col = 1))
   expect_silent(plot_DRTResults(df, given.dose = 2800,
                                 main = "Title", mtext = "Example data",
                                 xlim = c(0, 6), ylim = c(0.8, 1.2),
