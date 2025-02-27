@@ -17,6 +17,10 @@ header-includes:
 
 ## Bugfixes
 
+### `calc_FastRatio()`
+
+* The function crashed if the input was an RLum.Analysis object (#586).
+
 ### `plot_AbanicoPlot()`
 
 * The `xlim`, `ylim` and `zlim` parameters are now better validated to avoid
