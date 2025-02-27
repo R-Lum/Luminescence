@@ -63,5 +63,9 @@ test_that("Test plotting", {
   expect_silent(plot_DRCSummary(results, show_dose_points = TRUE, show_natural = TRUE))
 
   ##expect warning
-  expect_warning(plot_DRCSummary(results, show_dose_points = TRUE, show_natural = TRUE, sel_curves = 1000))
+  expect_warning(plot_DRCSummary(results, show_dose_points = TRUE,
+                                 show_natural = TRUE, sel_curves = 1000),
+                 "'sel_curves' out of bounds, reset to full dataset")
+  expect_warning(plot_DRCSummary(results_LamW, xlim = c(-1e12, 1e12)),
+                 "Dose response curve 1 contains NA/NaN values, curve removed")
 })

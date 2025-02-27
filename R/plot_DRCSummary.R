@@ -267,8 +267,8 @@ if(inherits(object, "list")){
     y <- eval(DRC[[i]])
 
     if (anyNA(y) || any(is.nan(y))) {
-      .throw_warning("Dose response curve ", i,
-                     " is NA/NaN and was removed before plotting")
+      .throw_warning("Dose response curve ", i, " contains NA/NaN values, ",
+                     "curve removed before plotting")
       next
     }
 
