@@ -50,9 +50,10 @@ measured with the same setting as the signal spectrum. If a spectrum is provided
 argument \code{bg.channels} works only on the provided background spectrum.}
 
 \item{bg.channels}{\link{vector} (\emph{optional}):
-defines channel for background subtraction If a vector is provided the mean
-of the channels is used for subtraction. If a spectrum is provided via \code{bg.spectrum}, this
-argument only works on the \code{bg.spectrum}.
+defines the channels used for background subtraction. If a vector is
+provided, the mean of the channels is used for subtraction. If a spectrum
+is provided via \code{bg.spectrum}, this argument only works on the background
+spectrum.
 
 \strong{Note:} Background subtraction is applied prior to channel binning}
 
@@ -78,8 +79,9 @@ value to limit all count values to this value, i.e. all count values above
 this threshold will be replaced by this threshold. This is helpful
 especially in case of TL-spectra.}
 
-\item{xaxis.energy}{\link{logical} (\emph{with default}): enable/disable energy instead of
-wavelength axis. For the conversion the function \link{convert_Wavelength2Energy} is used.
+\item{xaxis.energy}{\link{logical} (\emph{with default}): enable/disable using energy
+instead of wavelength on the x-axis. Function \link{convert_Wavelength2Energy}
+is used to perform the conversion.
 
 \strong{Note:} Besides being used in setting the axis, with this option the
 the spectrum is recalculated in terms of intensity, see details.}

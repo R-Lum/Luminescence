@@ -36,7 +36,7 @@ test_that("check functionality", {
     bg.spectrum <- set_RLum(class = "RLum.Data.Spectrum", data = TL.Spectrum@data[,15:16, drop = FALSE])
 
     ##try a matrix as input
-    expect_message(plot_RLum.Data.Spectrum(object = m),
+    expect_message(plot_RLum.Data.Spectrum(object = m, xaxis.energy = TRUE),
                    "Input has been converted to a 'RLum.Data.Spectrum' object")
 
     ##remove rownames and column names
@@ -307,6 +307,14 @@ test_that("check functionality", {
                           phi = 15, theta = -30, r = 10, log = "xyz",
                           shade = 0.4, expand = 0.5, border = 1,
                           axes = FALSE, norm = "min", col = 2, zlim = c(0, 2))
+
+  expect_message(expect_null(
+      plot_RLum.Data.Spectrum(TL.Spectrum,
+                              plot.type = "multiple.lines",
+                              xlim = c(1.4, 4), ylim = c(0, 300),
+                              bg.spectrum = bg.spectrum@data * 2,
+                              xaxis.energy = TRUE)),
+      "Error: After background subtraction all counts are negative")
 })
 
 test_that("regression tests", {

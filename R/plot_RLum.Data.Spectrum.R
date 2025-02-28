@@ -109,9 +109,10 @@
 #' argument `bg.channels` works only on the provided background spectrum.
 #'
 #' @param bg.channels [vector] (*optional*):
-#' defines channel for background subtraction If a vector is provided the mean
-#' of the channels is used for subtraction. If a spectrum is provided via `bg.spectrum`, this
-#' argument only works on the `bg.spectrum`.
+#' defines the channels used for background subtraction. If a vector is
+#' provided, the mean of the channels is used for subtraction. If a spectrum
+#' is provided via `bg.spectrum`, this argument only works on the background
+#' spectrum.
 #'
 #' **Note:** Background subtraction is applied prior to channel binning
 #'
@@ -137,8 +138,9 @@
 #' this threshold will be replaced by this threshold. This is helpful
 #' especially in case of TL-spectra.
 #'
-#' @param xaxis.energy [logical] (*with default*): enable/disable energy instead of
-#' wavelength axis. For the conversion the function [convert_Wavelength2Energy] is used.
+#' @param xaxis.energy [logical] (*with default*): enable/disable using energy
+#' instead of wavelength on the x-axis. Function [convert_Wavelength2Energy]
+#' is used to perform the conversion.
 #'
 #' **Note:** Besides being used in setting the axis, with this option the
 #' the spectrum is recalculated in terms of intensity, see details.
@@ -506,7 +508,7 @@ plot_RLum.Data.Spectrum <- function(
 
     ##check worst case
     if(sum(temp.xyz) == 0){
-      .throw_message("After background subtraction all counts < 0: ",
+      .throw_message("After background subtraction all counts are negative: ",
                      "nothing plotted, NULL returned")
       return(NULL)
     }
