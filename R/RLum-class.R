@@ -86,16 +86,11 @@ setMethod(
   "replicate_RLum",
   "RLum",
   definition = function(object, times = NULL) {
-
     ##The case this is NULL
-    if (is.null(times)) {
+    if (is.null(times))
       times <- 1
-    }
 
-    lapply(1:times, function(x) {
-      object
-
-    })
-
+    ## replicate
+    lapply(1:times, function(x) object)
   }
 )
