@@ -69,8 +69,10 @@
 #' Can also be a wide table, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #'
-#' **Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
-#' only IRSL curves representing Lx (and Tx)**
+#' **Please note: The input object should solely consists of the curve needed
+#' for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
+#' the object originated from an XSYG file, also the irradiation steps must
+#' be preserved in the input object.**
 #'
 #' If data from multiple aliquots are provided please **see the details below** with regard to
 #' Lx/Tx normalisation. **The function assumes that all your measurements are related to
@@ -271,6 +273,10 @@ analyse_FadingMeasurement <- function(
                                              x = x@data$irr.times[["STEP"]],
                                              fixed = TRUE)]
       }))
+      if (all(TIMESINCEIRR < 0)) {
+        .throw_error("No irradiation times could be retrieved, check that ",
+                     "'object' contains irradiation steps")
+      }
 
       ## get irradiation times
       irradiation_times <- unlist(lapply(irradiation_times, function(x) {
@@ -278,7 +284,6 @@ analyse_FadingMeasurement <- function(
                                            x = x@data$irr.times[["STEP"]],
                                            fixed = TRUE)]
       }))
-
 
       ##clean object by removing the irradiation step ... and yes, we drop!
       object_clean <- unlist(get_RLum(object, curveType = "measured"))

@@ -29,6 +29,13 @@ test_that("input validation", {
   expect_message(expect_null(analyse_FadingMeasurement(read_PSL2R(psl.file))),
                  "Error: Unknown or unsupported originator, NULL returned")
   })
+
+  ## no irradiation steps
+  xsyg.file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
+  SW({
+  expect_error(analyse_FadingMeasurement(read_XSYG2R(xsyg.file, fastForward = TRUE)),
+               "No irradiation times could be retrieved, check that 'object'")
+  })
 })
 
 test_that("general test", {
