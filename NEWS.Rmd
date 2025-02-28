@@ -17,6 +17,12 @@ header-includes:
 
 ## Bugfixes
 
+### `analyse_FadingMeasurement()`
+
+* The function checks that an input object generated from an XSYG file
+contains irradiation steps and returns an error if none are available,
+instead of producing an unhelpful output (#588).
+
 ### `calc_FastRatio()`
 
 * The function crashed if the input was an RLum.Analysis object (#586).
