@@ -28,6 +28,30 @@ test_that("input validation", {
                "'par' should be a positive integer scalar")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = 2),
                "'par' can only be set to 3 or 4")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            invert = "error"),
+               "'invert' should be a single logical value")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            verbose = "error"),
+               "'verbose' should be a single logical value")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            debug = "error"),
+               "'debug' should be a single logical value")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            sigmab.sd = c(0.01, 0.02)),
+               "'sigmab.sd' should be a positive scalar")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            bootstrap = TRUE, bs.M = -1),
+               "'bs.M' should be a positive integer scalar")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            bootstrap = TRUE, bs.N = -1),
+               "'bs.N' should be a positive integer scalar")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            bootstrap = TRUE, bs.h = -1),
+               "'bs.h' should be a positive scalar")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            cores = -1),
+               "'cores' should be a positive integer scalar")
 })
 
 test_that("check class and length of output", {
@@ -81,6 +105,11 @@ test_that("check class and length of output", {
                               par = 4, gamma.lower = 2, log.output = TRUE,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h=100),
                  "Gamma is larger than mu, consider running the model with new")
+  expect_output(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
+                             verbose = TRUE, log.output = TRUE, par = 4))
+  expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                             verbose = FALSE, invert = TRUE,
+                             bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 10))
   })
 })
 

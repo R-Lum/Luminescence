@@ -384,6 +384,7 @@ calc_MinDose <- function(
   ## check if this function is called by calc_MaxDose()
   if ("invert" %in% names(extraArgs)) {
     invert <- extraArgs$invert
+    .validate_logical_scalar(invert)
     if (!log) {
       log <- TRUE # overwrite user choice as max dose model currently only supports the logged version
       cat(paste("\n[WARNING] The maximum dose model only supports the logged version.",
@@ -396,6 +397,7 @@ calc_MinDose <- function(
   ## console output
   if ("verbose" %in% names(extraArgs)) {
     verbose <- extraArgs$verbose
+    .validate_logical_scalar(verbose)
   } else {
     verbose <- TRUE
   }
@@ -404,6 +406,7 @@ calc_MinDose <- function(
   # first level bootstrap
   if ("bs.M" %in% names(extraArgs)) {
     M <- as.integer(extraArgs$bs.M)
+    .validate_positive_scalar(M, int = TRUE, name = "'bs.M'")
   } else {
     M <- 1000
   }
@@ -411,6 +414,7 @@ calc_MinDose <- function(
   # second level bootstrap
   if ("bs.N" %in% names(extraArgs)) {
     N <- as.integer(extraArgs$bs.N)
+    .validate_positive_scalar(N, int = TRUE, name= "'bs.N'")
   } else {
     N <- 3*M
   }
@@ -418,6 +422,7 @@ calc_MinDose <- function(
   # KDE bandwith
   if ("bs.h" %in% names(extraArgs)) {
     h <- extraArgs$bs.h
+    .validate_positive_scalar(h, name = "'bs.h'")
   } else {
     h <- (sd(data[ ,1])/sqrt(length(data[ ,1])))*2
   }
@@ -425,18 +430,21 @@ calc_MinDose <- function(
   # standard deviation of sigmab
   if ("sigmab.sd" %in% names(extraArgs)) {
     sigmab.sd <- extraArgs$sigmab.sd
+    .validate_positive_scalar(sigmab.sd)
   } else {
     sigmab.sd <- 0.04
   }
 
   if ("debug" %in% names(extraArgs)) {
     debug <- extraArgs$debug
+    .validate_logical_scalar(debug)
   } else {
     debug <- FALSE
   }
 
   if ("cores" %in% names(extraArgs)) {
     cores <- extraArgs$cores
+    .validate_positive_scalar(cores, int = TRUE)
   } else {
     cores <- parallel::detectCores()
     if (multicore)
