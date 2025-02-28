@@ -427,11 +427,13 @@ plot_RLum.Analysis <- function(
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
 
     ##change graphic settings
-    par.default <- par()[c("cex", "mfrow")]
     if (!plot_singlePanels) {
+      par.default <- par()[c("cex", "mfrow")]
       if(!missing(ncols) & !missing(nrows)){
         par(mfrow = c(nrows, ncols))
       }
+    } else {
+      par.default <- par()["cex"]
     }
     ## this 2nd par request is needed as setting mfrow resets the par
     ## settings ... this might not be wanted

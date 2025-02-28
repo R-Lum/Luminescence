@@ -21,6 +21,11 @@
   contains irradiation steps and returns an error if none are available,
   instead of producing an unhelpful output (#588).
 
+### `analyse_FadingMeasurement()`
+
+- A regression in `plot_RLum.Analysis()` caused part of the plot of the
+  luminescence curves to be messed up (#589).
+
 ### `calc_FastRatio()`
 
 - The function crashed if the input was an RLum.Analysis object (#586).
@@ -29,3 +34,9 @@
 
 - The `xlim`, `ylim` and `zlim` parameters are now better validated to
   avoid possible crashes if misspecified (#581).
+
+### `plot_RLum.Analysis()`
+
+- The function reset incorrectly the graphical parameters for the case
+  `plot_singlePanels = TRUE`. This caused a regression in the plot
+  output from `analyse_FadingMeasurement()` (#589).
