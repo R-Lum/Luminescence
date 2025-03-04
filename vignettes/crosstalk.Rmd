@@ -6,7 +6,7 @@ output:
 author: "Luc Steinbuch, Anna-Maartje de Boer, Wageningen University & Research"
 date: "February 2025"
 vignette: >
-  %\VignetteIndexEntry{crosstalk_vignette}
+  %\VignetteIndexEntry{Assessing crosstalk in single-grain luminescence detection}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
