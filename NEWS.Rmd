@@ -17,13 +17,16 @@ header-includes:
 
 ## Bugfixes
 
+### `analyse_baSAR()`
+
+* The number of aliquots used was only partially reported if no aliquots were
+removed.
+
 ### `analyse_FadingMeasurement()`
 
 * The function checks that an input object generated from an XSYG file
 contains irradiation steps and returns an error if none are available,
 instead of producing an unhelpful output (#588).
-
-### `analyse_FadingMeasurement()`
 
 * A regression in `plot_RLum.Analysis()` caused part of the plot of the
 luminescence curves to be messed up (#589).

@@ -214,12 +214,13 @@ test_that("Full check of analyse_baSAR function", {
 
   ## rerun with previous results as input
   SW({
-  results2 <- analyse_baSAR(
-      object = results,
+  expect_output(results2 <- analyse_baSAR(
+     object = results,
       plot = FALSE,
-      verbose = FALSE,
+      verbose = TRUE,
       txtProgressBar = FALSE,
-      n.MCMC = 100)
+      n.MCMC = 100),
+     "Number of aliquots used:.+3/3")
 
   expect_warning(analyse_baSAR(
       object = results,

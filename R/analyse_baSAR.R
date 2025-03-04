@@ -1882,7 +1882,9 @@ analyse_baSAR <- function(
     cat("------------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
     num.aliquots <- results[[1]][["NB_ALIQUOTS"]]
-    tot.aliquots <- num.aliquots + nrow(removed_aliquots)
+    tot.aliquots <- num.aliquots
+    if (!is.null(removed_aliquots))
+      tot.aliquots <- tot.aliquots + nrow(removed_aliquots)
     cat(paste0("Number of aliquots used:\t", num.aliquots, "/", tot.aliquots))
     if (!is.null(aliquot_range)) {
       cat(" (manually removed: ", length(aliquot_range), ")\n")
