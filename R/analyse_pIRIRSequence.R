@@ -90,7 +90,7 @@
 #' Best graphical output can be achieved by using the function `pdf`
 #' with the following options:
 #'
-#' `pdf(file = "<YOUR FILENAME>", height = 20, width = 20)`
+#' `pdf(file = "<YOUR FILENAME>", height = 18, width = 18)`
 #'
 #' @section Function version: 0.2.5
 #'
@@ -154,7 +154,7 @@
 #' ## Alternative for PDF output, uncomment and complete for usage
 #' \dontrun{
 #' tempfile <- tempfile(fileext = ".pdf")
-#' pdf(file = tempfile, height = 15, width = 15)
+#' pdf(file = tempfile, height = 18, width = 18)
 #'   results <- analyse_pIRIRSequence(object,
 #'          signal.integral.min = 1,
 #'          signal.integral.max = 2,
@@ -246,6 +246,8 @@ analyse_pIRIRSequence <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis", extra = "'list'")
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(plot_singlePanels)
 
   ## there must be at least an IR step
   if (!any(grepl("IR", sequence.structure))) {
@@ -271,15 +273,21 @@ analyse_pIRIRSequence <- function(
                    "instead")
   }
 
-  ## CHECK FOR PLOT ...we safe users the pain by checking whether plot device has the
-  ## required size.
-    if (plot[1] && !plot_singlePanels && all(grDevices::dev.size("in") < 18)) {
-      plot <- FALSE
-      .throw_warning("Argument 'plot' reset to 'FALSE'. The smallest plot ",
-                     "size required is 18 x 18 in.\n",
-                     "Consider plotting via `pdf(..., height = 18, width = 18)` ",
-                     "or setting `plot_singlePanels = TRUE`")
-    }
+  ## Enforce a minimum plot device size: this is necessary as otherwise users
+  ## may experience "figure margins too large" errors when trying to draw all
+  ## plots on a single page. We need to round the device size values because
+  ## often they are values such as 15.99999999999 which would incorrectly
+  ## trigger our check
+  min.size <- 16
+  dev.size <- round(grDevices::dev.size("in"), 5)
+  if (plot && !plot_singlePanels && any(dev.size < min.size)) {
+    plot <- FALSE
+    msg <- paste0("Argument 'plot' reset to 'FALSE'. The smallest plot ",
+                  "size required is IN x IN in.\nConsider plotting via ",
+                  "`pdf(..., width = IN, height = IN)` ",
+                  "or setting `plot_singlePanels = TRUE`")
+    .throw_warning(gsub(x = msg, "IN", min.size))
+  }
 
 # Deal with extra arguments -------------------------------------------------------------------
   ## default values

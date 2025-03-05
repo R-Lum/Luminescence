@@ -31,6 +31,14 @@ instead of producing an unhelpful output (#588).
 * A regression in `plot_RLum.Analysis()` caused part of the plot of the
 luminescence curves to be messed up (#589).
 
+### `analyse_pIRIRSequence()`
+
+* The check on the minimum device plot size used to fail if only one
+dimension was below our minimum threshold, and when it was incorrectly
+triggered by the floating point values computed by `grDevices::dev.size()`,
+which sometimes could be spuriously just below threshold. We also changed
+the minimum device size from 18 to 16 inches (#593).
+
 ### `calc_FastRatio()`
 
 * The function crashed if the input was an RLum.Analysis object (#586).

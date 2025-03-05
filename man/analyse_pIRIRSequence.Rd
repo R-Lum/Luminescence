@@ -110,7 +110,7 @@ For further information see \link{analyse_SAR.CWOSL}.
 Best graphical output can be achieved by using the function \code{pdf}
 with the following options:
 
-\code{pdf(file = "<YOUR FILENAME>", height = 20, width = 20)}
+\code{pdf(file = "<YOUR FILENAME>", height = 18, width = 18)}
 }
 \section{Function version}{
  0.2.5
@@ -159,7 +159,7 @@ results <- analyse_pIRIRSequence(object,
 ## Alternative for PDF output, uncomment and complete for usage
 \dontrun{
 tempfile <- tempfile(fileext = ".pdf")
-pdf(file = tempfile, height = 15, width = 15)
+pdf(file = tempfile, height = 18, width = 18)
   results <- analyse_pIRIRSequence(object,
          signal.integral.min = 1,
          signal.integral.max = 2,
