@@ -276,9 +276,9 @@ calc_CosmicDoseRate<- function(
     }
   }
 
-  if(length(density) > length(depth)) {
-    .throw_error("If you provide more than one value for density, please ",
-                 "provide an equal number of values for depth")
+  if (length(depth) < length(density)) {
+    .throw_error("The number of values for 'density' should either be 1 ",
+                 "or correspond to the number of values for 'depth'")
   }
 
   settings <- list(verbose = TRUE)
