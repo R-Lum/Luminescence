@@ -255,10 +255,15 @@ calc_CosmicDoseRate<- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(depth, "numeric")
+  .validate_not_empty(depth)
   .validate_class(density, "numeric")
+  .validate_not_empty(density)
   .validate_class(latitude, "numeric")
+  .validate_not_empty(latitude)
   .validate_class(longitude, "numeric")
+  .validate_not_empty(longitude)
   .validate_class(altitude, "numeric")
+  .validate_not_empty(altitude)
 
   if(any(depth < 0) || any(density < 0)) {
     .throw_error("No negative values allowed for 'depth' and 'density'")
