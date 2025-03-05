@@ -38,6 +38,11 @@
   below threshold. We also changed the minimum device size from 18 to 16
   inches (#593).
 
+### `calc_CosmicDoseRate()`
+
+- The function crashed if the number of depths provided exceeded that of
+  the densities and the latter contained more than one value (#595).
+
 ### `calc_FastRatio()`
 
 - The function crashed if the input was an RLum.Analysis object (#586).

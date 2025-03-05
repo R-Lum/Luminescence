@@ -159,7 +159,7 @@
 #' function at the time of writing.
 #'
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany)
@@ -255,10 +255,15 @@ calc_CosmicDoseRate<- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(depth, "numeric")
+  .validate_not_empty(depth)
   .validate_class(density, "numeric")
+  .validate_not_empty(density)
   .validate_class(latitude, "numeric")
+  .validate_not_empty(latitude)
   .validate_class(longitude, "numeric")
+  .validate_not_empty(longitude)
   .validate_class(altitude, "numeric")
+  .validate_not_empty(altitude)
 
   if(any(depth < 0) || any(density < 0)) {
     .throw_error("No negative values allowed for 'depth' and 'density'")
@@ -276,9 +281,10 @@ calc_CosmicDoseRate<- function(
     }
   }
 
-  if(length(density) > length(depth)) {
-    .throw_error("If you provide more than one value for density, please ",
-                 "provide an equal number of values for depth")
+  if (length(depth) < length(density) ||
+      (length(depth) > length(density) && length(density) > 1)) {
+    .throw_error("The number of values for 'density' should either be 1 ",
+                 "or correspond to the number of values for 'depth'")
   }
 
   settings <- list(verbose = TRUE)
@@ -303,19 +309,10 @@ calc_CosmicDoseRate<- function(
 
   profile.mode<- FALSE
 
-  #calculate absorber (hgcm) of one depth and one absorber [single sample]
-  if(length(depth)==1) {
-    hgcm<- depth*density
-    if(half.depth == TRUE) {
-      hgcm<- hgcm/2
-    }
-  }
-
-  #calculate total absorber of n depths and n densities [single sample]
+  ## calculate total absorber of n depths and n densities [single sample]
+  ## the calculation is still valid if there is only one depth and one density
   if(length(depth)==length(density)){
-
     hgcm<- 0
-
     for(i in 1:length(depth)) {
       hgcm<- hgcm + depth[i]*density[i]
     }
