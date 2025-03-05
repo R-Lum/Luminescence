@@ -57,6 +57,8 @@ suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCur
 
 test_that("check plot stuff", {
   ## it should throw a warning about the plot size
+  pdf.out <- tempfile(fileext = ".pdf")
+  pdf(pdf.out, width = 12, height = 16)
   expect_warning(analyse_pIRIRSequence(
     object,
     signal.integral.min = 1,
@@ -71,10 +73,10 @@ test_that("check plot stuff", {
     verbose = FALSE),
     "[analyse_pIRIRSequence()] Argument 'plot' reset to 'FALSE'",
     fixed = TRUE)
+  dev.off()
 
   ## this should not throw any warning because we print to a large enough pdf
-  pdf.out <- tempfile(fileext = ".pdf")
-  pdf(pdf.out, width = 20, height = 20)
+  pdf(pdf.out, width = 16, height = 16)
   expect_silent(analyse_pIRIRSequence(
     object,
     signal.integral.min = 1,
