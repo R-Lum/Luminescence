@@ -337,7 +337,7 @@ calc_FadingCorr <- function(
       ##otherwise the automatic error value finding
       ##will never work
       res <- NA
-      if(!is(temp,"try-error") && temp$root<1e8) {
+      if (!is(temp,"try-error") && temp$root < 1e8) {
         res <- temp$root
       }
       return(res)
@@ -379,6 +379,9 @@ calc_FadingCorr <- function(
 
   ##remove all NA values from tempMC
   tempMC <- tempMC[!is.na(tempMC)]
+
+  ## discard wild outliers, as they will bias the error if present
+  tempMC <- tempMC[tempMC < 100 * IQR(tempMC)]
 
   ##obtain corrected age
   age.corr <- data.frame(

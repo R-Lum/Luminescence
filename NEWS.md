@@ -43,6 +43,12 @@
 - The function crashed if the number of depths provided exceeded that of
   the densities and the latter contained more than one value (#595).
 
+### `calc_FadingCorr()`
+
+- The function sporadically returned an unplausibly large error estimate
+  if any of the Monte Carlo simulations produced an outlier solution
+  (#597).
+
 ### `calc_FastRatio()`
 
 - The function crashed if the input was an RLum.Analysis object (#586).

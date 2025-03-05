@@ -123,4 +123,11 @@ test_that("snapshot tests", {
       tc.g_value = 172800,
       n.MC = 20, verbose = FALSE),
       tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_FadingCorr(
+      age.faded = c(1, 6),
+      g_value = c(5.37778156709913, 0.70382588155986),
+      tc = 378000, tc.g_value = 172800,
+      n.MC = 1000, seed = 11, verbose = FALSE),
+      tolerance = snapshot.tolerance)
 })
