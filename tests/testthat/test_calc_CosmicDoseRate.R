@@ -23,6 +23,11 @@ test_that("input validation", {
                                    latitude = 38.06451, longitude = 1.49646,
                                    altitude = 364),
                "The number of values for 'density' should either be 1 or")
+  expect_error(calc_CosmicDoseRate(depth = rep(2.78, 3), density = c(1.7, 2.9),
+                                   latitude = 38.06451, longitude = 1.49646,
+                                   altitude = 364),
+               "The number of values for 'density' should either be 1 or")
+
   expect_output(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                     corr.fieldChanges = TRUE, est.age = 100,
                                     latitude = 38.0645, longitude = 1.4964,

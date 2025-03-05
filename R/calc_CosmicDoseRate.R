@@ -159,7 +159,7 @@
 #' function at the time of writing.
 #'
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany)
@@ -276,7 +276,8 @@ calc_CosmicDoseRate<- function(
     }
   }
 
-  if (length(depth) < length(density)) {
+  if (length(depth) < length(density) ||
+      (length(depth) > length(density) && length(density) > 1)) {
     .throw_error("The number of values for 'density' should either be 1 ",
                  "or correspond to the number of values for 'depth'")
   }
