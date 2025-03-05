@@ -49,6 +49,10 @@
   if any of the Monte Carlo simulations produced an outlier solution
   (#597).
 
+- The function now allocates only as much memory as required if the user
+  specifies a value for `n.MC` other than `"auto"`, which brings a small
+  speed-up if fewer than 10 million samples are requested.
+
 ### `calc_FastRatio()`
 
 - The function crashed if the input was an RLum.Analysis object (#586).

@@ -300,12 +300,12 @@ calc_FadingCorr <- function(
   # Start loop  ---------------------------------------------------------------------------------
 
   ##set object and preallocate memory
-  tempMC <- vector("numeric", length = 1e+07)
+  tempMC <- vector("numeric", length = if (n.MC == "auto") 1e+07 else n.MC)
   tempMC[] <- NA
   i <- 1
   j <- n.MC.i
 
-  while(length(unique(tempMC.sd.count))>1 | j > 1e+07){
+  while (length(unique(tempMC.sd.count)) > 1 || j > length(tempMC)) {
 
     ##set previous
     if(!is.na(tempMC.sd.recent)){
