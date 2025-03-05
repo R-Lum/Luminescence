@@ -309,19 +309,10 @@ calc_CosmicDoseRate<- function(
 
   profile.mode<- FALSE
 
-  #calculate absorber (hgcm) of one depth and one absorber [single sample]
-  if(length(depth)==1) {
-    hgcm<- depth*density
-    if(half.depth == TRUE) {
-      hgcm<- hgcm/2
-    }
-  }
-
-  #calculate total absorber of n depths and n densities [single sample]
+  ## calculate total absorber of n depths and n densities [single sample]
+  ## the calculation is still valid if there is only one depth and one density
   if(length(depth)==length(density)){
-
     hgcm<- 0
-
     for(i in 1:length(depth)) {
       hgcm<- hgcm + depth[i]*density[i]
     }
