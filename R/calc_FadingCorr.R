@@ -390,7 +390,7 @@ calc_FadingCorr <- function(
   tempMC <- tempMC[!is.na(tempMC)]
 
   ## discard wild outliers, as they will bias the error if present
-  tempMC <- tempMC[tempMC < 100 * IQR(tempMC)]
+  tempMC <- tempMC[tempMC < 100 * stats::IQR(tempMC)]
 
   ##obtain corrected age
   age.corr <- data.frame(
