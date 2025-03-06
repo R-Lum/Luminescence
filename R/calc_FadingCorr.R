@@ -300,12 +300,12 @@ calc_FadingCorr <- function(
   # Start loop  ---------------------------------------------------------------------------------
 
   ##set object and preallocate memory
-  tempMC <- vector("numeric", length = 1e+07)
+  tempMC <- vector("numeric", length = if (n.MC == "auto") 1e+07 else n.MC)
   tempMC[] <- NA
   i <- 1
   j <- n.MC.i
 
-  while(length(unique(tempMC.sd.count))>1 | j > 1e+07){
+  while (length(unique(tempMC.sd.count)) > 1 || j > length(tempMC)) {
 
     ##set previous
     if(!is.na(tempMC.sd.recent)){
@@ -337,7 +337,7 @@ calc_FadingCorr <- function(
       ##otherwise the automatic error value finding
       ##will never work
       res <- NA
-      if(!is(temp,"try-error") && temp$root<1e8) {
+      if (!is(temp,"try-error") && temp$root < 1e8) {
         res <- temp$root
       }
       return(res)
@@ -379,6 +379,9 @@ calc_FadingCorr <- function(
 
   ##remove all NA values from tempMC
   tempMC <- tempMC[!is.na(tempMC)]
+
+  ## discard wild outliers, as they will bias the error if present
+  tempMC <- tempMC[tempMC < 100 * IQR(tempMC)]
 
   ##obtain corrected age
   age.corr <- data.frame(
