@@ -118,7 +118,7 @@ read_SPE2R <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(file, "character")
-  .validate_not_empty(file)
+  .validate_length(file, 1)
   valid.output.object <- c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix")
   .validate_args(output.object, valid.output.object)
 

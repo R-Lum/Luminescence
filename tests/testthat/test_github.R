@@ -28,8 +28,12 @@ test_that("Check github_branches()", {
 
   expect_error(github_branches(user = NA),
                "'user' should be of class 'character'")
+  expect_error(github_branches(user = letters),
+               "'user' should have length 1")
   expect_error(github_branches(repo = NA),
                "'repo' should be of class 'character'")
+  expect_error(github_branches(repo = letters),
+               "'repo' should have length 1")
 
   response <- tryCatch(github_branches(), error = function(e) return(e))
 

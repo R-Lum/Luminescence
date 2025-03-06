@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(read_XSYG2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_error(read_XSYG2R(character(0)),
-               "'file' cannot be an empty character")
+               "'file' should have length 1")
   expect_message(expect_null(read_XSYG2R("_error_file_")),
                 "Error: File does not exist, nothing imported")
   expect_message(expect_null(read_XSYG2R("/Test", fastForward = TRUE)),

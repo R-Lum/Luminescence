@@ -119,7 +119,9 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
   on.exit(.unset_function_name(), add = TRUE)
 
   .validate_class(user, "character")
+  .validate_length(user, 1)
   .validate_class(repo, "character")
+  .validate_length(repo, 1)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user, "/", repo, "/branches")
@@ -169,7 +171,9 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
   on.exit(.unset_function_name(), add = TRUE)
 
   .validate_class(user, "character")
+  .validate_length(user, 1)
   .validate_class(repo, "character")
+  .validate_length(repo, 1)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user,"/", repo, "/issues")

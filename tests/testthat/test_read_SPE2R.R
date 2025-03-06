@@ -22,7 +22,7 @@ test_that("input validation", {
   expect_error(read_SPE2R(data.frame()),
                "'file' should be of class 'character'")
   expect_error(read_SPE2R(character(0)),
-               "'file' cannot be an empty character")
+               "'file' should have length 1")
   expect_message(expect_null(read_SPE2R("error")),
                  "Error: File does not exist, NULL returned")
   expect_error(read_SPE2R(file.path(github.url, "SPEfile.SPE"),

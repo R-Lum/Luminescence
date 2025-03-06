@@ -8,6 +8,8 @@ test_that("input validation", {
                "Wrong XSYG file name or file does not exist!")
   expect_error(extract_IrradiationTimes(character(0)),
                "'object' cannot be an empty character")
+  expect_error(extract_IrradiationTimes(letters),
+               "'object' should have length 1")
   expect_error(extract_IrradiationTimes(tempdir()),
                "File is expected to have 'xsyg' or 'XSYG' extension")
   expect_error(extract_IrradiationTimes(FALSE),

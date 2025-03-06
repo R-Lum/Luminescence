@@ -216,6 +216,7 @@ read_BIN2R <- function(
 
   ## Config -----------------------------------------------------------------
 
+  .validate_length(file, 1)
   .validate_logical_scalar(show.raw.values)
   .validate_logical_scalar(zero_data.rm)
   .validate_logical_scalar(duplicated.rm)

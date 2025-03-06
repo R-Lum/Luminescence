@@ -148,6 +148,7 @@ use_DRAC <- function(
   .validate_not_empty(file)
 
   if (inherits(file, "character")) {
+    .validate_length(file, 1)
     if(!file.exists(file)){
       .throw_error("Input file does not exist")
     }
