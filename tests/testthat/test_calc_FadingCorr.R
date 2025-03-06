@@ -2,11 +2,19 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_FadingCorr("error"),
-               "'age.faded' should be of class 'numeric'")
+               "'age.faded' should be of class 'numeric' or 'integer'")
+  expect_error(calc_FadingCorr(1),
+               "'age.faded' should have length 2")
   expect_error(calc_FadingCorr(c(0.1, 0), "error"),
-               "'g_value' should be of class 'numeric' or 'RLum.Results'")
+               "'g_value' should be of class 'numeric', 'integer' or 'RLum.Results'")
+  expect_error(calc_FadingCorr(c(0.1, 0), 1),
+               "'g_value' should have length 2")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0)),
-               "[calc_FadingCorr()] 'tc' should be of class 'numeric'",
+               "[calc_FadingCorr()] 'tc' should be of class 'numeric' or",
+               fixed = TRUE)
+  expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
+                               tc = c(1000, 2000)),
+               "[calc_FadingCorr()] 'tc' should be a positive scalar",
                fixed = TRUE)
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = 2592000, n.MC = "error"),
@@ -59,7 +67,7 @@ test_that("check class and length of output", {
   expect_message(
       expect_null(calc_FadingCorr(age.faded = c(0.1,0),
                                g_value = fading, tc = 2592000)),
-               "Unknown originator for the provided 'g_value' object")
+               "Unknown originator for the 'g_value' object provided")
 
   ## auto, seed (Note: this is slow!)
   SW({

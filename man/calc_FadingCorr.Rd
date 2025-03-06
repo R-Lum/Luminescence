@@ -18,22 +18,26 @@ calc_FadingCorr(
 }
 \arguments{
 \item{age.faded}{\link{numeric} \link{vector} (\strong{required}):
-uncorrected age with error in ka (see example)}
+vector of length 2 containing the uncorrected age and the error in ka
+(see example).}
 
 \item{g_value}{\link{vector} or \linkS4class{RLum.Results} (\strong{required}):
-g-value and error obtained from separate fading measurements (see example).
-It can be an \linkS4class{RLum.Results} object produced by
-\link{analyse_FadingMeasurement}, in which case \code{tc} is set automatically}
+either a vector of length 2 containing the g-value and error obtained from
+separate fading measurements (see example), or an \linkS4class{RLum.Results}
+object produced by \link{analyse_FadingMeasurement}. If the latter, the \code{tc}
+argument is set automatically.}
 
 \item{tc}{\link{numeric} (\strong{required}):
 time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-The argument is ignored when \code{g_value} is an \linkS4class{RLum.Results} object}
+The argument is ignored when \code{g_value} is an \linkS4class{RLum.Results} object.}
 
 \item{tc.g_value}{\link{numeric} (\emph{with default}):
-the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
-If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
-If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
-SAR method and \eqn{g}-values that had been not normalised to 2 days.}
+time in seconds between irradiation and the prompt measurement used in the
+estimation of the g-value. If the g-value was normalised, the normalisation
+time (in seconds) should be given, e.g., for a g-value normalised to 2 days,
+the value 172800 should be used. If nothing is provided the time is set to
+\code{tc}, which is usual case for g-values obtained using the
+SAR method and \eqn{g}-values that have been not normalised to 2 days.}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
 number of Monte Carlo simulation runs for error estimation.
@@ -166,7 +170,7 @@ whether another fading correction model might be more appropriate.
 Special thanks to Sébastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.3
+ 0.4.4
 }
 
 \examples{
