@@ -76,7 +76,8 @@ read_Daybreak2R <- function(
   .validate_logical_scalar(verbose)
 
   if(is(file, "character")) {
-    .validate_not_empty(file)
+    .validate_length(file, 1)
+
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
       if(verbose){

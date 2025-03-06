@@ -37,7 +37,7 @@ test_that("input validation", {
   expect_error(read_Daybreak2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_error(read_Daybreak2R(character(0)),
-               "'file' cannot be an empty character")
+               "'file' should have length 1")
 
   ## directory
   expect_error(

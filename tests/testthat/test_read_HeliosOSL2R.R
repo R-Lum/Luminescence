@@ -4,7 +4,7 @@ test_that("input validation", {
   expect_error(read_HeliosOSL2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_error(read_HeliosOSL2R(character(0)),
-               "'file' cannot be an empty character")
+               "'file' should have length 1")
   expect_error(read_HeliosOSL2R("error"),
                "[read_HeliosOSL2R()] File extension '' not supported",
                fixed = TRUE)

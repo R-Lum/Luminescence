@@ -62,7 +62,7 @@ read_HeliosOSL2R <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(file, c("character", "list"))
-  .validate_not_empty(file)
+  .validate_length(file, 1)
 
   ## check file format
   if (tolower(ext <- tools::file_ext(file)) != "osl")

@@ -9,6 +9,8 @@ test_that("input validation", {
                "'file' should be of class 'character', 'DRAC.list' or")
   expect_error(use_DRAC(character(0)),
                "'file' cannot be an empty character")
+  expect_error(use_DRAC(letters),
+               "'file' should have length 1")
 
   ## CSV file with the wrong header
   fake <- data.table::fread(test_path("_data/DRAC_Input_Template.csv"))

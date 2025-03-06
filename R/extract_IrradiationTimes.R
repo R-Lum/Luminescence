@@ -179,6 +179,8 @@ extract_IrradiationTimes <- function(
 
   if (is.character(object[1])) {
 
+    .validate_length(object, 1)
+
     ##set object to file.XSYG
     file.XSYG <- object
 

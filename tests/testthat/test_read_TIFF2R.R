@@ -4,7 +4,7 @@ test_that("input validation", {
   expect_error(read_TIFF2R(data.frame()),
                "'file' should be of class 'character'")
   expect_error(read_TIFF2R(character(0)),
-               "'file' cannot be an empty character")
+               "'file' should have length 1")
   expect_error(object = read_TIFF2R(file = "text"),
                "[read_TIFF2R()] File does not exist or is not readable",
                fixed = TRUE)
