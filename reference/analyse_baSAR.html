@@ -17,7 +17,7 @@ published code."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ published code."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Bayesian models (baSAR) applied on luminescence data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_baSAR.R" class="external-link"><code>R/analyse_baSAR.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/master/R/analyse_baSAR.R" class="external-link"><code>R/analyse_baSAR.R</code></a></small>
       <div class="d-none name"><code>analyse_baSAR.Rd</code></div>
     </div>
 
@@ -247,7 +247,7 @@ enable/disable output to the terminal.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>parameters that can be passed to the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>
-(almost full support), <a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a> (<code>skip</code>), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
+(almost full support), <a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a> (<code>skip</code>), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
 <code>position</code>, <code>duplicated.rm</code>), see details.</p></dd>
 
 </dl></div>
@@ -355,7 +355,7 @@ Example: <code>method_control = list(lower_centralD = 10))</code></p>
 <p><strong>Additional arguments support via the <code>...</code> argument</strong></p>
 <p>This list summarizes the additional arguments that can be passed to the internally used
 functions.</p>
-<table class="table table"><tr><td><strong>Supported argument</strong></td><td><strong>Corresponding function</strong></td><td><strong>Default</strong></td><td>**Short description **</td></tr><tr><td><code>threshold</code></td><td><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></td><td><code>30</code></td><td>change rejection threshold for curve selection</td></tr><tr><td><code>skip</code></td><td><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a></td><td><code>0</code></td><td>number of rows to be skipped during import</td></tr><tr><td><code>n.records</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit records during BIN-file import</td></tr><tr><td><code>duplicated.rm</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>remove duplicated records in the BIN-file</td></tr><tr><td><code>pattern</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>select BIN-file by name pattern</td></tr><tr><td><code>position</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit import to a specific position</td></tr><tr><td><code>background.count.distribution</code></td><td><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></td><td><code>"non-poisson"</code></td><td>set assumed count distribution</td></tr><tr><td><code>fit.weights</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit weights</td></tr><tr><td><code>fit.bounds</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit bounds</td></tr><tr><td><code>n.MC</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>100</code></td><td>number of MC runs for error calculation</td></tr><tr><td><code>output.plot</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable dose response curve plot</td></tr><tr><td><code>output.plotExtended</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable extended dose response curve plot</td></tr><tr><td><code>recordType</code></td><td><a href="get_RLum.html">get_RLum</a></td><td><code>c(OSL (UVVIS), irradiation (NA)</code></td><td>helps for the curve selection</td></tr></table></div>
+<table class="table table"><tr><td><strong>Supported argument</strong></td><td><strong>Corresponding function</strong></td><td><strong>Default</strong></td><td>**Short description **</td></tr><tr><td><code>threshold</code></td><td><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></td><td><code>30</code></td><td>change rejection threshold for curve selection</td></tr><tr><td><code>skip</code></td><td><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a></td><td><code>0</code></td><td>number of rows to be skipped during import</td></tr><tr><td><code>n.records</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit records during BIN-file import</td></tr><tr><td><code>duplicated.rm</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>remove duplicated records in the BIN-file</td></tr><tr><td><code>pattern</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>select BIN-file by name pattern</td></tr><tr><td><code>position</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit import to a specific position</td></tr><tr><td><code>background.count.distribution</code></td><td><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></td><td><code>"non-poisson"</code></td><td>set assumed count distribution</td></tr><tr><td><code>fit.weights</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit weights</td></tr><tr><td><code>fit.bounds</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit bounds</td></tr><tr><td><code>n.MC</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>100</code></td><td>number of MC runs for error calculation</td></tr><tr><td><code>output.plot</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable dose response curve plot</td></tr><tr><td><code>output.plotExtended</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable extended dose response curve plot</td></tr><tr><td><code>recordType</code></td><td><a href="get_RLum.html">get_RLum</a></td><td><code>c(OSL (UVVIS), irradiation (NA)</code></td><td>helps for the curve selection</td></tr></table></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p><strong>If you provide more than one BIN-file</strong>, it is <strong>strongly</strong> recommended to provide
@@ -368,10 +368,6 @@ a <code>list</code> with the same number of elements for the following parameter
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
     <p>0.1.36</p>
-    </div>
-    <div class="section level2">
-    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Mercier, N., Kreutzer, S., 2025. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.36. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -391,15 +387,14 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="read_BIN2R.html">read_BIN2R</a>, <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>, <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>,
-<a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a>, <a href="verify_SingleGrainData.html">verify_SingleGrainData</a>,
+<a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a>, <a href="verify_SingleGrainData.html">verify_SingleGrainData</a>,
 <a href="https://rdrr.io/pkg/rjags/man/jags.model.html" class="external-link">rjags::jags.model</a>, <a href="https://rdrr.io/pkg/rjags/man/coda.samples.html" class="external-link">rjags::coda.samples</a>, <a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot.default</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) <br>
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
-The underlying Bayesian model based on a contribution by Combès et al., 2015.
-, RLum Developer Team</p>
+The underlying Bayesian model based on a contribution by Combès et al., 2015.</p>
     </div>
 
     <div class="section level2">

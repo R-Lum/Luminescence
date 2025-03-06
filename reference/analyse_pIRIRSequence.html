@@ -11,7 +11,7 @@ fitting on RLum.Analysis objects."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ fitting on RLum.Analysis objects."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse post-IR IRSL measurement sequences</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_pIRIRSequence.R" class="external-link"><code>R/analyse_pIRIRSequence.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/master/R/analyse_pIRIRSequence.R" class="external-link"><code>R/analyse_pIRIRSequence.R</code></a></small>
       <div class="d-none name"><code>analyse_pIRIRSequence.Rd</code></div>
     </div>
 
@@ -157,15 +157,11 @@ For further information see <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>Best graphical output can be achieved by using the function <code>pdf</code>
 with the following options:</p>
-<p><code>pdf(file = "&lt;YOUR FILENAME&gt;", height = 20, width = 20)</code></p>
+<p><code>pdf(file = "&lt;YOUR FILENAME&gt;", height = 18, width = 18)</code></p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
     <p>0.2.5</p>
-    </div>
-    <div class="section level2">
-    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -184,8 +180,7 @@ extracts. Radiation Measurements 43, 1474-1486.
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
     </div>
 
     <div class="section level2">
@@ -251,7 +246,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 <span class="r-in"><span><span class="co">## Alternative for PDF output, uncomment and complete for usage</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">tempfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pdf"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tempfile</span>, height <span class="op">=</span> <span class="fl">15</span>, width <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tempfile</span>, height <span class="op">=</span> <span class="fl">18</span>, width <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_pIRIRSequence</span><span class="op">(</span><span class="va">object</span>,</span></span>
 <span class="r-in"><span>         signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>         signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span></span>

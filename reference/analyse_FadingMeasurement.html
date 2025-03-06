@@ -15,7 +15,7 @@ Kars et al. (2008)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ Kars et al. (2008)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse fading measurements and returns the fading rate per decade (g-value)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.0/R/analyse_FadingMeasurement.R" class="external-link"><code>R/analyse_FadingMeasurement.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/master/R/analyse_FadingMeasurement.R" class="external-link"><code>R/analyse_FadingMeasurement.R</code></a></small>
       <div class="d-none name"><code>analyse_FadingMeasurement.Rd</code></div>
     </div>
 
@@ -75,8 +75,10 @@ objects or a <a href="https://rdrr.io/r/base/data.frame.html" class="external-li
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with a number of columns divisible by 3
 and where each triplet has the before mentioned column structure.</p>
-<p><strong>Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
-only IRSL curves representing Lx (and Tx)</strong></p>
+<p><strong>Please note: The input object should solely consists of the curve needed
+for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
+the object originated from an XSYG file, also the irradiation steps must
+be preserved in the input object.</strong></p>
 <p>If data from multiple aliquots are provided please <strong>see the details below</strong> with regard to
 Lx/Tx normalisation. <strong>The function assumes that all your measurements are related to
 one (comparable) sample. If you have to treat independent samples, you have use this function
@@ -196,10 +198,6 @@ However, <em>all</em> pause times are taken into consideration for the analysis.
     <p>0.1.23</p>
     </div>
     <div class="section level2">
-    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Burow, C., 2025. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.23. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.0. https://r-lum.github.io/Luminescence/</p>
-    </div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
 Academic Press, London, Orlando.</p>
@@ -220,8 +218,7 @@ Radiation Measurements 43, 786-790. <a href="https://doi.org/10.1016/j.radmeas.2
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
-Christoph Burow, University of Cologne (Germany)
-, RLum Developer Team</p>
+Christoph Burow, University of Cologne (Germany)</p>
     </div>
 
     <div class="section level2">

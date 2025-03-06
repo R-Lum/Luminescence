@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   crosstalk: crosstalk.html
-last_built: 2025-02-21T15:23Z
+last_built: 2025-03-06T10:00Z
 urls:
   reference: https://r-lum.github.io/Luminescence/reference
   article: https://r-lum.github.io/Luminescence/articles
