@@ -288,6 +288,13 @@ analyse_FadingMeasurement <- function(
       ##clean object by removing the irradiation step ... and yes, we drop!
       object_clean <- unlist(get_RLum(object, curveType = "measured"))
 
+      ## if we are left with fewer curves than expected we cannot proceed
+      if (length(object_clean) < length(structure)) {
+        .throw_message("After irradiation step removal not enough curves ",
+                       "are left from the data set, NULL returned")
+        return(NULL)
+      }
+
       ##support read_BIN2R()
     } else if (length(originators) == 1 &&
                originators %in% c("read_BIN2R", "Risoe.BINfileData2RLum.Analysis")) {
