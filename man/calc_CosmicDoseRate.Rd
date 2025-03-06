@@ -171,7 +171,7 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2
+ 0.5.3
 }
 
 \examples{

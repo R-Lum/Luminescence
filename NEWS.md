@@ -48,6 +48,9 @@
   specifies a value for `n.MC` other than `"auto"`, which brings a small
   speed-up if fewer than 10 million samples are requested.
 
+- Input arguments are now more thoroughly checked to avoid warnings or
+  unhelpful messages (#599).
+
 ### `calc_FastRatio()`
 
 - The function crashed if the input was an RLum.Analysis object (#586).

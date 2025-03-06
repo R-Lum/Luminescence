@@ -91,22 +91,26 @@
 #' whether another fading correction model might be more appropriate.
 #'
 #' @param age.faded [numeric] [vector] (**required**):
-#' uncorrected age with error in ka (see example)
+#' vector of length 2 containing the uncorrected age and the error in ka
+#' (see example).
 #'
 #' @param g_value [vector] or [RLum.Results-class] (**required**):
-#' g-value and error obtained from separate fading measurements (see example).
-#' It can be an [RLum.Results-class] object produced by
-#' [analyse_FadingMeasurement], in which case `tc` is set automatically
+#' either a vector of length 2 containing the g-value and error obtained from
+#' separate fading measurements (see example), or an [RLum.Results-class]
+#' object produced by [analyse_FadingMeasurement]. If the latter, the `tc`
+#' argument is set automatically.
 #'
 #' @param tc [numeric] (**required**):
 #' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-#' The argument is ignored when `g_value` is an [RLum.Results-class] object
+#' The argument is ignored when `g_value` is an [RLum.Results-class] object.
 #'
 #' @param tc.g_value [numeric] (*with default*):
-#' the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
-#' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
-#' If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
-#' SAR method and \eqn{g}-values that had been not normalised to 2 days.
+#' time in seconds between irradiation and the prompt measurement used in the
+#' estimation of the g-value. If the g-value was normalised, the normalisation
+#' time (in seconds) should be given, e.g., for a g-value normalised to 2 days,
+#' the value 172800 should be used. If nothing is provided the time is set to
+#' `tc`, which is usual case for g-values obtained using the
+#' SAR method and \eqn{g}-values that have been not normalised to 2 days.
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of Monte Carlo simulation runs for error estimation.
@@ -147,7 +151,7 @@
 #' @note Special thanks to Sébastien Huot for his support and clarification via e-mail.
 #'
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.4
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -209,20 +213,25 @@ calc_FadingCorr <- function(
 
   ## Integrity checks -------------------------------------------------------
 
-  .validate_class(age.faded, "numeric")
-  .validate_class(g_value, c("numeric", "RLum.Results"))
+  .validate_class(age.faded, c("numeric", "integer"))
+  .validate_length(age.faded, 2)
+  .validate_class(g_value, c("numeric", "integer", "RLum.Results"))
   if(inherits(g_value, "RLum.Results")){
     if(g_value@originator == "analyse_FadingMeasurement"){
       tc <- get_RLum(g_value)[["TC"]]
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
     }else{
-      .throw_message("Unknown originator for the provided 'g_value' object")
+      .throw_message("Unknown originator for the 'g_value' object provided")
       return(NULL)
     }
+  } else {
+    .validate_length(g_value, 2)
   }
 
   ## tc is validated only now, as it may be set in the previous block
-  .validate_class(tc, "numeric")
+  .validate_class(tc, c("numeric", "integer"))
+  .validate_positive_scalar(tc)
+  .validate_positive_scalar(tc.g_value)
   .validate_class(interval, "numeric")
   .validate_length(interval, 2)
   .validate_logical_scalar(txtProgressBar)
