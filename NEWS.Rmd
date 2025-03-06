@@ -1,5 +1,7 @@
 ---
-output: github_document
+output:
+  md_document:
+    variant: gfm # github flavored markdown
 header-includes:
    - \usepackage{amsmath}
    - \usepackage{amssymb}
