@@ -9,7 +9,7 @@ using the protocol according to Erfurt et al. (2003) and beyond."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ using the protocol according to Erfurt et al. (2003) and beyond."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse IRSAR RF measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/master/R/analyse_IRSAR.RF.R" class="external-link"><code>R/analyse_IRSAR.RF.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.1/R/analyse_IRSAR.RF.R" class="external-link"><code>R/analyse_IRSAR.RF.R</code></a></small>
       <div class="d-none name"><code>analyse_IRSAR.RF.Rd</code></div>
     </div>
 
@@ -300,6 +300,10 @@ findings by Buylaert et al. (2012).</p>
     <p>0.7.10</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2025. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
@@ -353,7 +357,8 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
@@ -371,7 +376,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 <span class="r-out co"><span class="r-pr">#&gt;</span>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DATE SEQUENCE_NAME                               UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2025-03-06-10:00.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2025-03-07-04:59.0.18945696670562</span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"test_parameters"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA</span>
@@ -383,14 +388,14 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       NA               beta        NA 5.418718e-01     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8       NA          delta.phi        NA 2.103400e+03     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2025-03-06-10:00.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2025-03-06-10:00.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2025-03-07-04:59.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2025-03-07-04:59.0.18945696670562</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(2) perform analysis using the method 'SLIDE'</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>, method <span class="op">=</span> <span class="st">"SLIDE"</span>, n.MC <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>

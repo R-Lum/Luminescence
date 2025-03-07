@@ -9,7 +9,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR CW-OSL measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/master/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.1/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
@@ -280,6 +280,10 @@ does <strong>not</strong> overwrite values preset in <code>IRR_TIME</code>.</p><
     <p>0.10.5</p>
     </div>
     <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2025. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.</p>
@@ -300,7 +304,8 @@ doi:10.1016/j.radmeas.2008.06.002</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
@@ -345,7 +350,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background.range signal.range.Tx background.range.Tx ALQ POS GRAIN</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       900 : 1000         NA : NA             NA : NA   1   1     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-06-10:00.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-07-04:59.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -366,13 +371,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976 1.61426805 0.027647946</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190 0.01629624 0.002491179</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-06-10:00.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-03-06-10:00.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-03-06-10:00.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-03-06-10:00.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-03-06-10:00.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-03-06-10:00.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2025-03-06-10:00.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2025-03-07-04:59.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2025-03-07-04:59.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2025-03-07-04:59.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2025-03-07-04:59.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2025-03-07-04:59.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2025-03-07-04:59.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2025-03-07-04:59.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fading Correction after Huntley &amp; Lamothe (2001)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/master/R/calc_FadingCorr.R" class="external-link"><code>R/calc_FadingCorr.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.0.1/R/calc_FadingCorr.R" class="external-link"><code>R/calc_FadingCorr.R</code></a></small>
       <div class="d-none name"><code>calc_FadingCorr.Rd</code></div>
     </div>
 
@@ -60,28 +60,32 @@
 
 <dl><dt id="arg-age-faded">age.faded<a class="anchor" aria-label="anchor" href="#arg-age-faded"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
-uncorrected age with error in ka (see example)</p></dd>
+vector of length 2 containing the uncorrected age and the error in ka
+(see example).</p></dd>
 
 
 <dt id="arg-g-value">g_value<a class="anchor" aria-label="anchor" href="#arg-g-value"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> or <a href="RLum.Results-class.html">RLum.Results</a> (<strong>required</strong>):
-g-value and error obtained from separate fading measurements (see example).
-It can be an <a href="RLum.Results-class.html">RLum.Results</a> object produced by
-<a href="analyse_FadingMeasurement.html">analyse_FadingMeasurement</a>, in which case <code>tc</code> is set automatically</p></dd>
+either a vector of length 2 containing the g-value and error obtained from
+separate fading measurements (see example), or an <a href="RLum.Results-class.html">RLum.Results</a>
+object produced by <a href="analyse_FadingMeasurement.html">analyse_FadingMeasurement</a>. If the latter, the <code>tc</code>
+argument is set automatically.</p></dd>
 
 
 <dt id="arg-tc">tc<a class="anchor" aria-label="anchor" href="#arg-tc"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 time in seconds between irradiation and the prompt measurement (cf. Huntley &amp; Lamothe 2001).
-The argument is ignored when <code>g_value</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object</p></dd>
+The argument is ignored when <code>g_value</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.</p></dd>
 
 
 <dt id="arg-tc-g-value">tc.g_value<a class="anchor" aria-label="anchor" href="#arg-tc-g-value"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
-the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
-If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
-If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
-SAR method and \(g\)-values that had been not normalised to 2 days.</p></dd>
+time in seconds between irradiation and the prompt measurement used in the
+estimation of the g-value. If the g-value was normalised, the normalisation
+time (in seconds) should be given, e.g., for a g-value normalised to 2 days,
+the value 172800 should be used. If nothing is provided the time is set to
+<code>tc</code>, which is usual case for g-values obtained using the
+SAR method and \(g\)-values that have been not normalised to 2 days.</p></dd>
 
 
 <dt id="arg-n-mc">n.MC<a class="anchor" aria-label="anchor" href="#arg-n-mc"></a></dt>
@@ -192,7 +196,11 @@ whether another fading correction model might be more appropriate.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.4.3</p>
+    <p>0.4.4</p>
+    </div>
+    <div class="section level2">
+    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
+    <p>Kreutzer, S., 2025. calc_FadingCorr(): Fading Correction after Huntley &amp; Lamothe (2001). Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -206,7 +214,8 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team</p>
     </div>
 
     <div class="section level2">
