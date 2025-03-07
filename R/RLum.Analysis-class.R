@@ -895,6 +895,10 @@ setMethod(
     .set_function_name("sort_RLum")
     on.exit(.unset_function_name(), add = TRUE)
 
+    ## an empty object has nothing to sort
+    if (length(object) == 0)
+      return(object)
+
     ## input validation
     sort.by.slot <- FALSE
     if (!is.null(slot)) {

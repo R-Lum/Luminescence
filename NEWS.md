@@ -75,3 +75,6 @@
 - The function doesn’t crash when multiple fields are specified,
   although the actual sort at the moment occurs only on the first field
   (#606).
+
+- Attempting to sort an empty object returns the object itself instead
+  of crashing (#608).
