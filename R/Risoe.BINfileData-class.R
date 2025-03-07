@@ -627,9 +627,13 @@ setMethod(
     ## input validation
     .validate_class(info_element, "character")
     valid.names <- colnames(object@METADATA)
-    if (!info_element %in% valid.names) {
+    if (any(!info_element %in% valid.names)) {
       .throw_error("Invalid 'info_element' name, valid names are: ",
                    .collapse(valid.names))
+    }
+    if (length(info_element) > 1) {
+      message("[sort_RLum()]: Only the first field will be used in sorting")
+      info_element <- info_element[1]
     }
     .validate_logical_scalar(decreasing)
 

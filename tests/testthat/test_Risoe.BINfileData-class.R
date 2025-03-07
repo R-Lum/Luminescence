@@ -54,10 +54,14 @@ test_that("sort_RLum", {
   ## input validation
   expect_error(sort_RLum(obj),
                "'info_element' should be of class 'character'")
-  expect_error(sort_RLum(obj, info_element = "error"),
+  expect_error(sort_RLum(obj, info_element = c("ID", "error")),
                "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(obj, info_element = "ID", decreasing = "error"),
                "'decreasing' should be a single logical value")
+
+  ## sort only using the first field until we get #605 done
+  expect_message(sort_RLum(obj, info_element = c("ID", "POSITION")),
+                 "Only the first field will be used in sorting")
 
   ## check functionality
   expect_snapshot_Risoe(sort_RLum(obj, info_element = "POSITION"))
