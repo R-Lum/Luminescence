@@ -900,18 +900,26 @@ setMethod(
     if (!is.null(slot)) {
       .validate_class(slot, "character", extra = "NULL")
       valid.names <- slotNames(object@records[[1]])
-      if (!slot %in% valid.names) {
+      if (any(!slot %in% valid.names)) {
         .throw_error("Invalid 'slot' name, valid names are: ",
                      .collapse(valid.names))
+      }
+      if (length(slot) > 1) {
+        message("[sort_RLum()]: Only the first field will be used in sorting")
+        slot <- slot[1]
       }
       sort.by.slot <- TRUE
     }
     if (!is.null(info_element)) {
       .validate_class(info_element, "character", extra = "NULL")
       valid.names <- names(object@records[[1]]@info)
-      if (!info_element%in% valid.names) {
+      if (any(!info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
+      }
+      if (length(info_element) > 1) {
+        message("[sort_RLum()]: Only the first field will be used in sorting")
+        info_element <- info_element[1]
       }
     }
     if (is.null(slot) && is.null(info_element)) {

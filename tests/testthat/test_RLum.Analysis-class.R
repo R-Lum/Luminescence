@@ -134,11 +134,11 @@ test_that("sort_RLum", {
   ## input validation
   expect_error(sort_RLum(sar, slot = NA),
                "'slot' should be of class 'character' or NULL")
-  expect_error(sort_RLum(sar, slot = "error"),
+  expect_error(sort_RLum(sar, slot = c("curveType", "error")),
                "Invalid 'slot' name, valid names are:")
   expect_error(sort_RLum(sar, info_element = NA),
                "'info_element' should be of class 'character' or NULL")
-  expect_error(sort_RLum(sar, info_element = "error"),
+  expect_error(sort_RLum(sar, info_element = c("position", "error")),
                "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(sar, slot = NULL, info_element = NULL),
                "At least one of 'slot' and 'info_element' should not be NULL")
@@ -148,6 +148,12 @@ test_that("sort_RLum", {
                "Records could not be sorted according to slot = 'data'")
   expect_error(sort_RLum(sar, info_element = "offset"),
                "Records could not be sorted according to info_element = 'offset'")
+
+  ## sort only using the first field until #605 is done
+  expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
+                 "Only the first field will be used in sorting")
+  expect_message(sort_RLum(sar, info_element = c("state", "offset")),
+                 "Only the first field will be used in sorting")
 
   ## check functionality
   expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))

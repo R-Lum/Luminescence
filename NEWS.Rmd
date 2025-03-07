@@ -76,3 +76,8 @@ possible crashes if misspecified (#581).
 * The function reset incorrectly the graphical parameters for the case
 `plot_singlePanels = TRUE`. This caused a regression in the plot output
 from `analyse_FadingMeasurement()` (#589).
+
+### `sort_RLum()`
+
+* The function doesn't crash when multiple fields are specified, although
+the actual sort at the moment occurs only on the first field (#606).
