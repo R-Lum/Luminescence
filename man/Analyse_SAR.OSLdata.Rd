@@ -138,7 +138,12 @@ output.SAR <- data.frame(Dose = output$LnLxTnTx[[1]]$Dose,
                          LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error)
 output.SAR
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C., 2025. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements (deprecated). Function version 0.2.18. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.
@@ -156,6 +161,6 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Margret C. Fuchs, HZDR, Freiberg (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
 \keyword{dplot}

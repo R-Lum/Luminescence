@@ -94,7 +94,12 @@ temp_file <- tempfile(pattern = "output", fileext = ".binx")
 ##export to temporary file path
 write_R2BIN(temp, file = temp_file)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \url{https://www.fysik.dtu.dk}
@@ -104,5 +109,5 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{IO}

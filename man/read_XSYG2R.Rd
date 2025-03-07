@@ -178,7 +178,12 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. read_XSYG2R(): Import XSYG files to R. Function version 0.6.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany
@@ -192,5 +197,5 @@ XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{IO}

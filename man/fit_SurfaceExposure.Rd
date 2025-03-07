@@ -214,7 +214,12 @@ results <- fit_SurfaceExposure(
  D0 = 40)
 get_RLum(results)
 
+} 
+
+\section{How to cite}{
+Burow, C., 2025. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
@@ -230,5 +235,5 @@ Icarus 221, 160-166.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}

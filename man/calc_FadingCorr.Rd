@@ -204,7 +204,12 @@ results <- calc_FadingCorr(
 ##access the last output
 get_RLum(results)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. calc_FadingCorr(): Fading Correction after Huntley & Lamothe (2001). Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.0.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
 in K-feldspars and the measurement and correction for it in optical dating.
@@ -215,5 +220,5 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
