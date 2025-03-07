@@ -627,20 +627,16 @@ setMethod("structure_RLum",
             temp.protocol.step <- c(NA)
             length(temp.protocol.step) <- temp.object.length
 
-            ##n.channels
-            temp.n.channels <- vapply(object@records, function(x){length(x@data[,1])}, numeric(1))
+            ## GET LIMITS
+            temp.limits <- t(vapply(object@records, function(x) {
+              c(nrow(x@data), min(x@data[, 1]), max(x@data[, 1]), min(x@data[, 2]), max(x@data[, 2]))
+            }, numeric(5)))
 
-            ##X.MIN
-            temp.x.min <- vapply(object@records, function(x){min(x@data[,1])}, numeric(1))
-
-            ##X.MAX
-            temp.x.max <- vapply(object@records, function(x){max(x@data[,1])}, numeric(1))
-
-            ##y.MIN
-            temp.y.min <- vapply(object@records, function(x){min(x@data[,2])}, numeric(1))
-
-            ##X.MAX
-            temp.y.max <- vapply(object@records, function(x){max(x@data[,2])}, numeric(1))
+            temp.n.channels <- temp.limits[, 1]
+            temp.x.min <- temp.limits[, 2]
+            temp.x.max <- temp.limits[, 3]
+            temp.y.min <- temp.limits[, 4]
+            temp.y.max <- temp.limits[, 5]
 
             ##.uid
             temp.uid <- unlist(lapply(object@records, function(x){x@.uid}))
@@ -670,7 +666,7 @@ setMethod("structure_RLum",
               }
             } else{
               temp.info.elements <-
-                unlist(sapply(object@records, function(x) {
+                unlist(lapply(object@records, function(x) {
                   if (length(x@info) != 0) {
                     paste(names(x@info), collapse = " ")
                   } else{
