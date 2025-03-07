@@ -158,6 +158,10 @@ test_that("sort_RLum", {
   ## check functionality
   expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
   expect_snapshot_RLum(sort_RLum(sar, info_element = "curveDescripter"))
+
+  empty <- as(list(), "RLum.Analysis")
+  expect_equal(sort_RLum(empty, slot = "curveType"),
+               empty)
 })
 
 test_that("structure_RLum", {
