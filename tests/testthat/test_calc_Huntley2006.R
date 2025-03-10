@@ -132,7 +132,7 @@ test_that("Further tests calc_Huntley2006", {
 
   os <- tolower(Sys.info()[["sysname"]])
   snapshot.tolerance <- switch(os,
-                               "linux" = 1.5e-2,
+                               "linux" = 1.5e-5,
                                "darwin" = 8.0e-2,
                                "windows" = 8.0e-2)
 
