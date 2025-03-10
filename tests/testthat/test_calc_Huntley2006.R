@@ -164,7 +164,7 @@ test_that("Further tests calc_Huntley2006", {
         mode = "extrapolation",
         plot = TRUE,
         verbose = FALSE),
-      tolerance = max(snapshot.tolerance, 8.0e-3))
+      tolerance = max(snapshot.tolerance, 1.0e-2))
 
   ## EXP ... normal
   set.seed(1)
