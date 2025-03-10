@@ -687,9 +687,9 @@ fit_DoseResponseCurve <- function(
       }
 
       ##used median as start parameters for the final fitting
-      a <- median(na.exclude(a.start))
-      b <- median(na.exclude(b.start))
-      c <- median(na.exclude(c.start))
+      a <- median(a.start, na.rm = TRUE)
+      b <- median(b.start, na.rm = TRUE)
+      c <- median(c.start, na.rm = TRUE)
 
       ## exception: if b is 1 it is likely to be wrong and should be reset
       if(!is.na(b) && b == 1)
@@ -926,10 +926,10 @@ fit_DoseResponseCurve <- function(
     }##end for loop
 
     ## used mean as start parameters for the final fitting
-    a <- median(na.exclude(a.start))
-    b <- median(na.exclude(b.start))
-    c <- median(na.exclude(c.start))
-    g <- median(na.exclude(g.start))
+    a <- median(a.start, na.rm = TRUE)
+    b <- median(b.start, na.rm = TRUE)
+    c <- median(c.start, na.rm = TRUE)
+    g <- median(g.start, na.rm = TRUE)
 
     lower <- if (fit.bounds) c(0, 10, 0, 0) else rep(-Inf, 4)
     upper <- if (fit.force_through_origin) c(Inf, Inf, 0, Inf) else rep(Inf, 4)
@@ -1540,10 +1540,10 @@ fit_DoseResponseCurve <- function(
   #Get De values from Monte Carlo simulation
 
   #calculate mean and sd (ignore NaN values)
-  De.MonteCarlo <- mean(na.exclude(x.natural))
+  De.MonteCarlo <- mean(x.natural, na.rm = TRUE)
 
   #De.Error is Error of the whole De (ignore NaN values)
-  De.Error <- sd(na.exclude(x.natural))
+  De.Error <- sd(x.natural, na.rm = TRUE)
 
   # Formula creation --------------------------------------------------------
 
