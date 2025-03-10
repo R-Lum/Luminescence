@@ -1353,7 +1353,7 @@ fit_DoseResponseCurve <- function(
         )}, silent = TRUE)
 
         # get parameters out of it including error handling
-        if (inherits(fit.MC, "try-error")) {
+        if (inherits(fit.MC, "try-error") || mode == "alternate") {
           x.natural[i] <- NA
 
         } else {
@@ -1365,13 +1365,11 @@ fit_DoseResponseCurve <- function(
           var.d[i] <- as.vector((parameters["d"])) #origin
 
           # calculate x.natural for error calculation
-          x.natural[i] <- switch(
-            mode,
-            "interpolation" = suppressWarnings(-(var.b[i] * (( (var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) *
-                                                   (((var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i]),
-           "extrapolation" = suppressWarnings(abs(-(var.b[i] * (( (var.a[i] * var.d[i] - 0)/var.a[i])^var.c[i] - 1) *
-                                                      ( ((var.a[i] * var.d[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])),
-           NA)
+          ## note that data.MC.De contains only 0s for extrapolation
+          temp <- (var.a[i] * var.d[i] - data.MC.De[i]) / var.a[i]
+          x.natural[i] <- suppressWarnings(
+              abs(-(var.b[i] * (temp^var.c[i] - 1) * (temp^-var.c[i])) / var.c[i])
+          )
         }
 
       }#end for loop
