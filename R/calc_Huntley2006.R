@@ -175,7 +175,9 @@
 #' @param ...
 #' Further parameters:
 #' - `verbose` [logical]: Show or hide console output
-#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `10000`).
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `10000`),
+#' - `maxiter` [numeric]: Number of iteration limits for nls fitting
+#' - `trace` [logical]: Enable/disable value tracing the terminal during fitting
 #' **Note** that it is generally advised to have a large number of Monte Carlo
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
@@ -408,7 +410,9 @@ calc_Huntley2006 <- function(
   settings <- modifyList(
     list(
       verbose = TRUE,
-      n.MC = 10000),
+      n.MC = 10000,
+      maxiter = 500,
+      trace = FALSE),
     list(...))
 
   ## Define Constants ----------------------------------------------------------
@@ -452,7 +456,6 @@ calc_Huntley2006 <- function(
   }
 
   ## (1) MEASURED ----------------------------------------------------
-
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
 
@@ -530,6 +533,7 @@ calc_Huntley2006 <- function(
        start = start,
        lower = lower.bounds,
        upper = upper.bounds,
+       trace = settings$trace,
        control = list(maxiter = settings$maxiter))
     }, silent = TRUE)
 
@@ -729,6 +733,7 @@ calc_Huntley2006 <- function(
            c(Inf, max(dosetimeGray), Inf)
           },
         lower = lower.bounds[1:3],
+        trace = settings$trace,
       control = list(maxiter = settings$maxiter)), silent = TRUE)
   }
 
@@ -1088,3 +1093,4 @@ calc_Huntley2006 <- function(
   ## Return value --------------------------------------------------------------
   return(results)
 }
+

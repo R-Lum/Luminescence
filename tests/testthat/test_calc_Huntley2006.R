@@ -257,6 +257,13 @@ test_that("Further tests calc_Huntley2006", {
       rprime = c(0.01, 2.2, length.out = 500),
       n.MC = 2, plot = FALSE, verbose = FALSE),
     class = "RLum.Results")
+  ## set maxiter and trace
+  expect_output(
+    calc_Huntley2006(
+      data = data[1:10, ],
+      LnTn = data[1:10, c(2, 3)],
+      rhop = rhop, ddot = ddot, readerDdot = readerDdot,
+      n.MC = 2, plot = FALSE, verbose = FALSE, maxiter = 50, trace = TRUE))
 
   expect_error(
     calc_Huntley2006(
