@@ -19,5 +19,10 @@ header-includes:
 ## Bugfixes
 
 ### `calc_Huntely2006()`
+
 * Add support for nls-fitting control arguments `maxiter` and `trace`.
 
+### `fit_DoseResponseCurve()`
+
+* The function now allocates less memory for storing intermediate values
+(#610).

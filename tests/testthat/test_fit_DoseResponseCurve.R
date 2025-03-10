@@ -247,6 +247,14 @@ test_that("snapshot tests", {
       verbose = FALSE,
       n.MC = 10
   ), tolerance = 5.0e-5)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      LxTxData,
+      fit.method = "GOK",
+      mode = "extrapolation",
+      verbose = FALSE,
+      n.MC = 10
+  ), tolerance = 5e-5)
 })
 
 test_that("additional tests", {

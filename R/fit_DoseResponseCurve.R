@@ -754,10 +754,8 @@ fit_DoseResponseCurve <- function(
         #	--Fit many curves and calculate a new De +/- De_Error
         #	--take De_Error
 
-        #set variables
-        var.a<-vector(mode="numeric", length=n.MC)
+        ## preallocate variable
         var.b<-vector(mode="numeric", length=n.MC)
-        var.c<-vector(mode="numeric", length=n.MC)
 
         #start loop
         for (i in 1:n.MC) {
@@ -784,13 +782,13 @@ fit_DoseResponseCurve <- function(
           }else {
             #get parameters out
             parameters<-coef(fit.MC)
-            var.a[i]<-as.vector((parameters["a"])) #Imax
-            var.b[i]<-as.vector((parameters["b"])) #D0
-            var.c[i]<-as.vector((parameters["c"]))
+            var.a <- as.numeric(parameters["a"]) # Imax
+            var.b[i] <- as.numeric(parameters["b"]) # D0
+            var.c <- as.numeric(parameters["c"])
 
             #calculate x.natural for error calculation
             x.natural[i] <- suppressWarnings(
-                abs(-var.c[i] - var.b[i] * log(1 - data.MC.De[i] / var.a[i]))
+                abs(-var.c - var.b[i] * log(1 - data.MC.De[i] / var.a))
             )
           }
 
@@ -800,7 +798,7 @@ fit_DoseResponseCurve <- function(
         D01.ERROR <- sd(var.b, na.rm = TRUE)
 
         ##remove values
-        rm(var.b, var.a, var.c)
+        rm(var.b)
 
       }#endif::try-error fit
 
@@ -999,12 +997,6 @@ fit_DoseResponseCurve <- function(
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
 
-      #set variables
-      var.a <- vector(mode="numeric", length=n.MC)
-      var.b <- vector(mode="numeric", length=n.MC)
-      var.c <- vector(mode="numeric", length=n.MC)
-      var.g <- vector(mode="numeric", length=n.MC)
-
       ##set progressbar
       if(txtProgressBar){
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
@@ -1037,10 +1029,10 @@ fit_DoseResponseCurve <- function(
 
         }else {
           parameters <- coef(fit.MC)
-          var.a[i] <- parameters[["a"]]
-          var.b[i] <- parameters[["b"]]
-          var.c[i] <- parameters[["c"]]
-          var.g[i] <- parameters[["g"]]
+          var.a <- parameters[["a"]]
+          var.b <- parameters[["b"]]
+          var.c <- parameters[["c"]]
+          var.g <- parameters[["g"]]
 
           if (mode == "interpolation") {
             min.val <- 0
@@ -1054,10 +1046,10 @@ fit_DoseResponseCurve <- function(
               f = f.unirootEXPLIN,
               interval = c(min.val, max(xy$x) * 1.5),
               tol = 0.001,
-              a = var.a[i],
-              b = var.b[i],
-              c = var.c[i],
-              g = var.g[i],
+              a = var.a,
+              b = var.b,
+              c = var.c,
+              g = var.g,
               LnTn = data.MC.De[i]
             ),
             silent = TRUE)
@@ -1075,9 +1067,6 @@ fit_DoseResponseCurve <- function(
 
       ##close
       if(txtProgressBar) close(pb)
-
-      ##remove objects
-      rm(var.b, var.a, var.c, var.g)
 
     }else{
       .report_fit_failure(fit.method, mode)
@@ -1202,8 +1191,6 @@ fit_DoseResponseCurve <- function(
       #set variables
       var.b1 <- vector(mode="numeric", length=n.MC)
       var.b2 <- vector(mode="numeric", length=n.MC)
-      var.a1 <- vector(mode="numeric", length=n.MC)
-      var.a2 <- vector(mode="numeric", length=n.MC)
 
       ##progress bar
       if(txtProgressBar){
@@ -1237,10 +1224,10 @@ fit_DoseResponseCurve <- function(
 
         }else {
           parameters <- (coef(fit.MC))
+          var.a1 <- as.numeric(parameters["a1"])
+          var.a2 <- as.numeric(parameters["a2"])
           var.b1[i] <- as.vector((parameters["b1"]))
           var.b2[i] <- as.vector((parameters["b2"]))
-          var.a1[i] <- as.vector((parameters["a1"]))
-          var.a2[i] <- as.vector((parameters["a2"]))
 
           #problem: analytically it is not easy to calculate x, here an simple approximation is made
 
@@ -1248,8 +1235,8 @@ fit_DoseResponseCurve <- function(
             f = f.unirootEXPEXP,
             interval = c(0,max(xy$x) * 1.5),
             tol = 0.001,
-            a1 = var.a1[i],
-            a2 = var.a2[i],
+            a1 = var.a1,
+            a2 = var.a2,
             b1 = var.b1[i],
             b2 = var.b2[i],
             LnTn = data.MC.De[i]
@@ -1270,7 +1257,7 @@ fit_DoseResponseCurve <- function(
       D02.ERROR <- sd(var.b2, na.rm = TRUE)
 
       ##remove values
-      rm(var.b1, var.b2, var.a1, var.a2)
+      rm(var.b1, var.b2)
 
     }else{
       .report_fit_failure(fit.method, mode)
@@ -1328,11 +1315,8 @@ fit_DoseResponseCurve <- function(
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
 
-      #set variables
-      var.a <- vector(mode = "numeric", length = n.MC)
+      ## preallocate variable
       var.b <- vector(mode = "numeric", length = n.MC)
-      var.c <- vector(mode = "numeric", length = n.MC)
-      var.d <- vector(mode = "numeric", length = n.MC)
 
       #start loop
       for (i in 1:n.MC) {
@@ -1353,25 +1337,23 @@ fit_DoseResponseCurve <- function(
         )}, silent = TRUE)
 
         # get parameters out of it including error handling
-        if (inherits(fit.MC, "try-error")) {
+        if (inherits(fit.MC, "try-error") || mode == "alternate") {
           x.natural[i] <- NA
 
         } else {
           # get parameters out
           parameters<-coef(fit.MC)
-          var.a[i] <- as.vector((parameters["a"])) #Imax
-          var.b[i] <- as.vector((parameters["b"])) #D0
-          var.c[i] <- as.vector((parameters["c"])) #kinetic order modifier
-          var.d[i] <- as.vector((parameters["d"])) #origin
+          var.a <- as.numeric(parameters["a"]) #Imax
+          var.b[i] <- as.numeric(parameters["b"]) #D0
+          var.c <- as.numeric(parameters["c"]) #kinetic order modifier
+          var.d <- as.numeric(parameters["d"]) #origin
 
           # calculate x.natural for error calculation
-          x.natural[i] <- switch(
-            mode,
-            "interpolation" = suppressWarnings(-(var.b[i] * (( (var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) *
-                                                   (((var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i]),
-           "extrapolation" = suppressWarnings(abs(-(var.b[i] * (( (var.a[i] * var.d[i] - 0)/var.a[i])^var.c[i] - 1) *
-                                                      ( ((var.a[i] * var.d[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])),
-           NA)
+          ## note that data.MC.De contains only 0s for extrapolation
+          temp <- (var.a * var.d - data.MC.De[i]) / var.a
+          x.natural[i] <- suppressWarnings(
+              abs(-(var.b[i] * (temp^var.c - 1) * (temp^-var.c)) / var.c)
+          )
         }
 
       }#end for loop
@@ -1380,7 +1362,7 @@ fit_DoseResponseCurve <- function(
       D01.ERROR <- sd(var.b, na.rm = TRUE)
 
       ##remove values
-      rm(var.b, var.a, var.c)
+      rm(var.b)
     }
   }
 
@@ -1471,8 +1453,7 @@ fit_DoseResponseCurve <- function(
           #	--Fit many curves and calculate a new De +/- De_Error
           #	--take De_Error
           #set variables
-          var.R <-  var.Dc <- var.N <- var.Dint <- vector(
-            mode = "numeric", length = n.MC)
+          var.Dc <- vector(mode = "numeric", length = n.MC)
 
           #start loop
           for (i in 1:n.MC) {
@@ -1495,10 +1476,10 @@ fit_DoseResponseCurve <- function(
             if (!inherits(fit.MC, "try-error")) {
               # get parameters out
               parameters<-coef(fit.MC)
-              var.R[i] <- as.vector((parameters["R"]))
-              var.Dc[i] <- as.vector((parameters["Dc"]))
-              var.N[i] <- as.vector((parameters["N"]))
-              var.Dint[i] <- as.vector((parameters["Dint"]))
+              var.R <- as.numeric(parameters["R"])
+              var.Dc[i] <- as.numeric(parameters["Dc"])
+              var.N <- as.numeric(parameters["N"])
+              var.Dint <- as.numeric(parameters["Dint"])
 
               # calculate x.natural for error calculation
               if(mode == "interpolation"){
@@ -1507,10 +1488,10 @@ fit_DoseResponseCurve <- function(
                   f = function(x, R, Dc, N, Dint, LnTn) {
                     fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
                   interval = c(0, max(object[[1]]) * 1.2),
-                  R = var.R[i],
+                  R = var.R,
                   Dc = var.Dc[i],
-                  N = var.N[i],
-                  Dint = var.Dint[i],
+                  N = var.N,
+                  Dint = var.Dint,
                   LnTn = data.MC.De[i])$root)
                 }, silent = TRUE)
 
@@ -1520,10 +1501,10 @@ fit_DoseResponseCurve <- function(
                     f = function(x, R, Dc, N, Dint) {
                       fit.functionLambertW(R, Dc, N, Dint, x)},
                     interval = c(-max(object[[1]]), 0),
-                    R = var.R[i],
+                    R = var.R,
                     Dc = var.Dc[i],
-                    N = var.N[i],
-                    Dint = var.Dint[i])$root),
+                    N = var.N,
+                    Dint = var.Dint)$root),
                   silent = TRUE)
 
                 if(inherits(try, "try-error")){
@@ -1531,10 +1512,10 @@ fit_DoseResponseCurve <- function(
                     f = function(x, R, Dc, N, Dint) {
                       fit.functionLambertW(R, Dc, N, Dint, x)},
                     interval = c(-max(object[[1]]), 0),
-                    R = var.R[i],
+                    R = var.R,
                     Dc = var.Dc[i],
-                    N = var.N[i],
-                    Dint = var.Dint[i])$minimum),
+                    N = var.N,
+                    Dint = var.Dint)$minimum),
                     silent = TRUE)
                 }
               }##endif extrapolation
@@ -1551,7 +1532,7 @@ fit_DoseResponseCurve <- function(
           Dc.ERROR <- sd(var.Dc, na.rm = TRUE)
 
           ##remove values
-          rm(var.R, var.Dc, var.N, var.Dint)
+          rm(var.Dc)
 
     }#endif::try-error fit
   }#End if Fit Method

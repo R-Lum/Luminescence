@@ -2649,3 +2649,244 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["De", "De.MC", "Fit.Args"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [33.96923575]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.48685611]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3439.82499266]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [39715.09780338]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00026595]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [34.20508997]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-33.96923575]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["GOK"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [32.21954836]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [33.2631363]
+                }
+              ]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [34.12812929, 34.56805222, 34.91680033, 36.27216668, 34.64006169, 35.75217689, 34.99117577, 32.30160689, 31.77371643, 32.70701351]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["GOK"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["extrapolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.02108303, 0.05525209, 0.02967242, 0.01978161, 0.01780345, 0.05525209, 0.8011553]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["fit_DoseResponseCurve"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
