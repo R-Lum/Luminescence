@@ -22,8 +22,8 @@ calc_Huntley2006(
 \item{data}{\link{data.frame} (\strong{required}):
 A \code{data.frame} with one of the following structures:
 \itemize{
-\item A \strong{three column} data frame with numeric values on a) dose (s), b) \code{LxTx} and
-c) \code{LxTx} error.
+\item A \strong{three column} data frame with numeric values on for dose (s), \code{LxTx}
+and \code{LxTx} error.
 \item If a \strong{two column} data frame is provided it is automatically
 assumed that errors on \code{LxTx} are missing. A third column will be attached
 with an arbitrary 5 \% error on the provided \code{LxTx} values.
@@ -113,7 +113,9 @@ enable/disable the plot output.}
 \item{...}{Further parameters:
 \itemize{
 \item \code{verbose} \link{logical}: Show or hide console output
-\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{10000}).
+\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = 10000)
+\item \code{maxiter} \link{numeric}: Number of iteration limits for nls fitting
+\item \code{trace} \link{logical}: Enable/disable value tracing the terminal during fitting
 \strong{Note} that it is generally advised to have a large number of Monte Carlo
 iterations for the results to converge. Decreasing the number of iterations
 will often result in unstable estimates.
@@ -147,8 +149,8 @@ Slot: \strong{@info}\cr
 }
 }
 \description{
-A function to calculate the expected sample specific fraction of saturation
-based on the model of Huntley (2006) using the approach as implemented
+The function calculates the expected sample specific fraction of saturation
+based on the model of Huntley (2006), using the approach as implemented
 in Kars et al. (2008) or Guralnik et al. (2015).
 }
 \details{
@@ -160,23 +162,24 @@ centres, is a crucial parameter of this model and must be determined
 separately from a fading measurement. The function \link{analyse_FadingMeasurement}
 can be used to calculate the sample specific \eqn{\rho}' value.
 
-\strong{Kars et al. (2008) - Single saturating exponential}
+\strong{Kars et al. (2008) -- Single saturating exponential}
 
-To apply the approach after Kars et al. (2008) use \code{fit.method = "EXP"}.
+To apply the approach after Kars et al. (2008), use \code{fit.method = "EXP"}.
 
 Firstly, the unfaded \eqn{D_0} value is determined through applying equation 5 of
 Kars et al. (2008) to the measured \eqn{\frac{L_x}{T_x}} data as a function of irradiation
 time, and fitting the data with a single saturating exponential of the form:
 
-\deqn{\frac{L_x}{T_x}(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
+\deqn{\frac{L_x}{T_x}(t^*) = A  \phi(t^*) \{1 - \exp(-\frac{t^*}{D_0}))\}}
 
 where
 
-\deqn{\phi(t^*) = exp(-\rho' ln(1.8  \tilde{s} t^*)^3)}
+\deqn{\phi(t^*) = \exp(-\rho' \ln(1.8  \tilde{s} t^*)^3)}
 
 after King et al. (2016) where \eqn{A} is a pre-exponential factor,
 \eqn{t^*} (s) is the irradiation time, starting at the mid-point of
-irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}}) is the athermal frequency factor after Huntley (2006). \cr
+irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}})
+is the athermal frequency factor after Huntley (2006).
 
 Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
 response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
@@ -185,12 +188,12 @@ response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equat
 be interpolated onto this curve to determine the fading corrected
 \eqn{D_e} value, from which the fading corrected age is calculated.
 
-\strong{Guralnik et al. (2015) - General-order kinetics}
+\strong{Guralnik et al. (2015) -- General-order kinetics}
 
 To apply the approach after Guralnik et al. (2015) use \code{fit.method = "GOK"}.
 
 The approach of Guralnik et al. (2015) is very similar to that of
-Kars et al. (2008), but instead of using a single saturating exponential
+Kars et al. (2008) but, instead of using a single saturating exponential,
 the model fits a general-order kinetics function of the form:
 
 \deqn{\frac{L_x}{T_x}(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
@@ -213,7 +216,7 @@ in \code{rprime = seq(0.01, 3, length.out = 1000)} (the default).
 \strong{Uncertainties}
 
 Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
-distributed and are estimated using Monte-Carlo re-sampling (\code{n.MC = 1000})
+distributed and are estimated using Monte-Carlo re-sampling (\code{n.MC = 10000})
 of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response curve fitting, and of \eqn{\rho}'
 in the derivation of (\eqn{n/N}) and (n/N)_SS.
 
@@ -306,6 +309,6 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina E. King, University of Lausanne (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-Sebastian Kreutzer, Ruprecht-Karl University of Heidelberg (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

@@ -1,8 +1,8 @@
 #' @title Apply the Huntley (2006) model
 #'
 #' @description
-#' A function to calculate the expected sample specific fraction of saturation
-#' based on the model of Huntley (2006) using the approach as implemented
+#' The function calculates the expected sample specific fraction of saturation
+#' based on the model of Huntley (2006), using the approach as implemented
 #' in Kars et al. (2008) or Guralnik et al. (2015).
 #'
 #' @details
@@ -15,23 +15,24 @@
 #' separately from a fading measurement. The function [analyse_FadingMeasurement]
 #' can be used to calculate the sample specific \eqn{\rho}' value.
 #'
-#' **Kars et al. (2008) - Single saturating exponential**
+#' **Kars et al. (2008) -- Single saturating exponential**
 #'
-#' To apply the approach after Kars et al. (2008) use `fit.method = "EXP"`.
+#' To apply the approach after Kars et al. (2008), use `fit.method = "EXP"`.
 #'
 #' Firstly, the unfaded \eqn{D_0} value is determined through applying equation 5 of
 #' Kars et al. (2008) to the measured \eqn{\frac{L_x}{T_x}} data as a function of irradiation
 #' time, and fitting the data with a single saturating exponential of the form:
 #'
-#' \deqn{\frac{L_x}{T_x}(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
+#' \deqn{\frac{L_x}{T_x}(t^*) = A  \phi(t^*) \{1 - \exp(-\frac{t^*}{D_0}))\}}
 #'
 #' where
 #'
-#' \deqn{\phi(t^*) = exp(-\rho' ln(1.8  \tilde{s} t^*)^3)}
+#' \deqn{\phi(t^*) = \exp(-\rho' \ln(1.8  \tilde{s} t^*)^3)}
 #'
 #' after King et al. (2016) where \eqn{A} is a pre-exponential factor,
 #' \eqn{t^*} (s) is the irradiation time, starting at the mid-point of
-#' irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}}) is the athermal frequency factor after Huntley (2006). \cr
+#' irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}})
+#' is the athermal frequency factor after Huntley (2006).
 #'
 #' Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
 #' response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
@@ -40,12 +41,12 @@
 #' be interpolated onto this curve to determine the fading corrected
 #' \eqn{D_e} value, from which the fading corrected age is calculated.
 #'
-#' **Guralnik et al. (2015) - General-order kinetics**
+#' **Guralnik et al. (2015) -- General-order kinetics**
 #'
 #' To apply the approach after Guralnik et al. (2015) use `fit.method = "GOK"`.
 #'
 #' The approach of Guralnik et al. (2015) is very similar to that of
-#' Kars et al. (2008), but instead of using a single saturating exponential
+#' Kars et al. (2008) but, instead of using a single saturating exponential,
 #' the model fits a general-order kinetics function of the form:
 #'
 #' \deqn{\frac{L_x}{T_x}(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
@@ -68,7 +69,7 @@
 #' **Uncertainties**
 #'
 #' Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
-#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 1000`)
+#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 10000`)
 #' of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response curve fitting, and of \eqn{\rho}'
 #' in the derivation of (\eqn{n/N}) and (n/N)_SS.
 #'
@@ -84,8 +85,8 @@
 #'
 #' @param data [data.frame] (**required**):
 #' A `data.frame` with one of the following structures:
-#' - A **three column** data frame with numeric values on a) dose (s), b) `LxTx` and
-#' c) `LxTx` error.
+#' - A **three column** data frame with numeric values on for dose (s), `LxTx`
+#' and `LxTx` error.
 #' - If a **two column** data frame is provided it is automatically
 #' assumed that errors on `LxTx` are missing. A third column will be attached
 #' with an arbitrary 5 % error on the provided `LxTx` values.
@@ -175,7 +176,7 @@
 #' @param ...
 #' Further parameters:
 #' - `verbose` [logical]: Show or hide console output
-#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `10000`),
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = 10000)
 #' - `maxiter` [numeric]: Number of iteration limits for nls fitting
 #' - `trace` [logical]: Enable/disable value tracing the terminal during fitting
 #' **Note** that it is generally advised to have a large number of Monte Carlo
@@ -213,7 +214,7 @@
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
 #' Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Ruprecht-Karl University of Heidelberg (Germany)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords datagen
 #'
@@ -1093,4 +1094,3 @@ calc_Huntley2006 <- function(
   ## Return value --------------------------------------------------------------
   return(results)
 }
-
