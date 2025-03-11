@@ -50,8 +50,7 @@
 #' **`@info`**\cr
 #' `$ call`` ([call]) the original function call
 #'
-#'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -179,7 +178,7 @@ for(i in 1:nrow(data)){
     LnTn.error <- data[i,"LnTn.error"]
 
   ##calculate mean value
-    temp <- try(uniroot(
+  temp <- try(uniroot(
       f,
       interval = c(0.1,450),
       tol = 0.001,
@@ -195,6 +194,17 @@ for(i in 1:nrow(data)){
       maxiter = 1000
     ), silent = TRUE)
 
+  ## allocate matrix
+  temp.MC.matrix <- matrix(nrow = n.MC, ncol = 8)
+  colnames(temp.MC.matrix) <- c("LnTn", "Lr1Tr1", "A", "D0", "c", "Y0", "De", "Eta")
+
+  ## fill the first 6 columns of the matrix
+  temp.MC.matrix[, 1:6] <- matrix(rnorm(
+      n.MC * 6,
+      mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
+      sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
+  ), ncol = 6, byrow = TRUE)
+
   if(!inherits(temp, "try-error")){
 
     ##get De
@@ -205,17 +215,6 @@ for(i in 1:nrow(data)){
 
     ##--------------------------------------------------------------------------##
     ##Monte Carlo simulation for error estimation
-
-    ##set matrix
-    temp.MC.matrix <- matrix(nrow = n.MC, ncol = 8)
-
-    ##fill matrix
-    temp.MC.matrix[,1:6] <- matrix(rnorm(
-      n.MC * 6,
-      mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
-      sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
-    ), ncol = 6, byrow = TRUE)
-
 
       ##run uniroot to get the De
       temp.MC.matrix[,7] <- vapply(X = 1:n.MC, FUN = function(x){
@@ -241,10 +240,6 @@ for(i in 1:nrow(data)){
       temp.MC.matrix[,8] <- (temp.MC.matrix[,3] * (1 - exp( - Dr1 / temp.MC.matrix[,4])) +
         temp.MC.matrix[,5] * Dr1 + temp.MC.matrix[,6])/temp.MC.matrix[,2]
 
-
-      ##re-name matrix
-      colnames(temp.MC.matrix) <- c("LnTn","Lr1Tr1","A","D0","c","Y0","De","Eta")
-
       ##get De error as SD
       De.error <- sd(temp.MC.matrix[,7])
 
@@ -253,16 +248,6 @@ for(i in 1:nrow(data)){
     De <- NA
     Eta <- NA
     De.error <- NA
-
-    ##set matrix
-    temp.MC.matrix <- matrix(nrow = n.MC, ncol = 8)
-
-    ##fill matrix
-    temp.MC.matrix[,1:6] <- matrix(rnorm(
-      n.MC * 6,
-      mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
-      sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
-    ), ncol = 6, byrow = TRUE)
   }
 
 
@@ -325,25 +310,20 @@ for(i in 1:nrow(data)){
       }else{
 
         if(temp$root < 450){
-          shape::Arrows(
-            x0 = 450,
+          x0 <- 450
+          x1 <- 500
+        } else {
+          x0 <- 50
+          x1 <- 0
+        }
+        shape::Arrows(
+            x0 = x0,
             y0 = par()$usr[4] - 0.2,
-            x1 = 500,
+            x1 = x1,
             y1 = par()$usr[4] - 0.2,
             arr.type = "triangle",
             col = "red"
-          )
-        }else{
-
-            shape::Arrows(
-              x0 = 50,
-              y0 = par()$usr[4] - 0.2,
-              x1 = 0,
-              y1 = par()$usr[4] - 0.2,
-              arr.type = "triangle",
-              col = "red"
-            )
-        }
+        )
 
         mtext(side = 1, text = "Out of bounds!", col = "red")
       }
@@ -374,17 +354,10 @@ for(i in 1:nrow(data)){
 ##CREATE OUTPUT OBJECTS
 ##============================================================================##
 
-    ##needed for data.table
-    temp.De <- De
-    temp.De.error <- De.error
-    temp.Eta <- Eta
-
     ##replace values in the data.table with values
-    output.data[i, `:=` (DE = temp.De,
-                         DE.ERROR = temp.De.error,
-                         ETA = temp.Eta)]
-
-    rm(list = c('temp.De', 'temp.De.error', 'temp.Eta'))
+    output.data[i, `:=` (DE = De,
+                         DE.ERROR = De.error,
+                         ETA = Eta)]
 
     ##matrix - to prevent memory overload limit output
     if(n.MC * nrow(data) > 1e6){
