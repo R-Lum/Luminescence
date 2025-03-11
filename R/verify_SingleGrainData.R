@@ -1,7 +1,8 @@
 #' @title Verify single grain data sets and check for invalid grains, i.e.
 #' zero-light level grains
 #'
-#' @description This function tries to identify automatically zero-light level curves (grains)
+#' @description
+#' This function tries to identify automatically zero-light level curves (grains)
 #' from single grain data measurements.
 #'
 #' @details
@@ -171,7 +172,7 @@ verify_SingleGrainData <- function(
       verify_SingleGrainData(
         object = object[[x]],
         threshold = threshold,
-        use_fft = use_fft[1],
+        use_fft = use_fft,
         cleanup = cleanup,
         cleanup_level = cleanup_level,
         verbose = verbose,
@@ -181,7 +182,7 @@ verify_SingleGrainData <- function(
     }))
 
     ##account for cleanup
-    if(cleanup[1]){
+    if (cleanup) {
       results <- .rm_NULL_elements(.rm_nonRLum(results))
       if(length(results) == 0)
         return(NULL)
@@ -195,7 +196,12 @@ verify_SingleGrainData <- function(
 
   ## ------------------------------------------------------------------------
   ## input validation
-  .validate_class(object, c("Risoe.BINfileData", "RLum.Analysis"))
+
+  .validate_class(object, c("Risoe.BINfileData", "RLum.Analysis"),
+                  extra = "a 'list' of such objects")
+  .validate_class(threshold, c("numeric", "integer"))
+  .validate_logical_scalar(use_fft)
+  .validate_logical_scalar(cleanup)
   cleanup_level <- .validate_args(cleanup_level, c("aliquot", "curve"))
 
   ## implement Fourier Transform for Frequency Analysis
@@ -227,7 +233,7 @@ verify_SingleGrainData <- function(
     ##SEL
     temp.results_matrix_VALID <-
       temp.results_matrix_RATIO > threshold &
-      if(use_fft[1]) .calc_FFT_selection(object@DATA) else TRUE
+      if (use_fft) .calc_FFT_selection(object@DATA) else TRUE
 
     ##combine everything to in a data.frame
     selection <- data.frame(
@@ -314,7 +320,7 @@ verify_SingleGrainData <- function(
 
     ##SEL
     temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold &
-      if(use_fft[1]) .calc_FFT_selection(object_list) else TRUE
+      if (use_fft) .calc_FFT_selection(object_list) else TRUE
 
     ##get structure for the RLum.Analysis object
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
@@ -395,15 +401,15 @@ verify_SingleGrainData <- function(
 
     ##return value
     ##select output on the chosen input
-    if (cleanup[1] && !anyNA(selection_id)) {
+    if (cleanup && !anyNA(selection_id)) {
       ##print message
       if(verbose && cleanup_level == "curve"){
         selection_id_text <- .collapse(selection_id, quote = FALSE)
         if(selection_id_text == "")
           selection_id_text <- "<none>"
 
-        cat(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
-                   selection_id_text), "\n")
+        message("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
+                selection_id_text)
       }
 
       ##selected wanted elements
@@ -448,7 +454,7 @@ verify_SingleGrainData <- function(
       )
 
       ## cleanup means cleanup
-      if(cleanup[1])
+      if (cleanup)
         return_object <- NULL
     }
   }
@@ -494,7 +500,7 @@ verify_SingleGrainData <- function(
 
   # Return --------------------------------------------------------------------------------------
   if(is.null(return_object))
-    .throw_warning("Verification and cleanup removed all records. NULL returned!")
+    .throw_warning("Verification and cleanup removed all records, NULL returned")
 
   return(return_object)
 }
