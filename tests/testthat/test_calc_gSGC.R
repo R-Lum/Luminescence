@@ -39,31 +39,46 @@ test_that("check functionality", {
   SW({
     expect_warning(calc_gSGC(data = df_break), regexp = "No solution was found")
   })
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
 
   set.seed(seed = 1)
-  temp <- calc_gSGC(df, plot = FALSE, verbose = FALSE)
+  snapshot.tolerance <- 1.5e-6
 
-  expect_s4_class(temp, "RLum.Results")
-  expect_s3_class(temp$De, "data.frame")
-  expect_type(temp$De.MC, "list")
-  expect_equal(length(temp), 3)
-
-  expect_equal(round(sum(temp$De), digits = 2), 30.39)
-  expect_equal(round(sum(temp$De.MC[[1]]), 0), 10848)
+  expect_snapshot_RLum(calc_gSGC(df, plot = FALSE, verbose = FALSE),
+                       tolerance = snapshot.tolerance)
 
   ## apply some random values for more coverage
   df1 <- data.frame(LnTn = 0.361, LnTn.error = 2.087,
                     Lr1Tr1 = 0.744, Lr1Tr1.error = 10.091,
                     Dr1 = 0.4)
-  expect_silent(calc_gSGC(df1, plot = TRUE, verbose = FALSE))
+  expect_snapshot_RLum(calc_gSGC(df1, plot = TRUE, verbose = FALSE),
+                       tolerance = snapshot.tolerance)
 
   df2 <- data.frame(LnTn = 10.361, LnTn.error = 0.087,
                     Lr1Tr1 = 0.044, Lr1Tr1.error = 0.091,
                     Dr1 = 0.04)
-  expect_silent(calc_gSGC(df2, plot = TRUE, verbose = FALSE))
+  expect_snapshot_RLum(calc_gSGC(df2, plot = TRUE, verbose = FALSE),
+                       tolerance = snapshot.tolerance)
 
   df3 <- data.frame(LnTn = 521440.0361, LnTn.error = 0.087,
                     Lr1Tr1 = 10.044, Lr1Tr1.error = -2.091,
                     Dr1 = 10.04)
-  expect_silent(calc_gSGC(df3, plot = TRUE, verbose = FALSE))
+  expect_snapshot_RLum(calc_gSGC(df3, plot = TRUE, verbose = FALSE),
+                       tolerance = snapshot.tolerance)
+
+  ## graphical snapshot tests
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("calc_gSGC expected",
+                              fig = calc_gSGC(df))
+  vdiffr::expect_doppelganger("calc_gSGC expected df1",
+                              fig = calc_gSGC(df1))
+  vdiffr::expect_doppelganger("calc_gSGC expected df2",
+                              fig = calc_gSGC(df2))
+  })
 })
