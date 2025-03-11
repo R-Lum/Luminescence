@@ -1,7 +1,8 @@
 #' @title Calculate De value based on the gSGC by Li et al., 2015
 #'
-#' @description Function returns De value and De value error using the global standardised growth
-#' curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz
+#' @description The function computes De value and De value error using the
+#' global standardised growth curve (gSGC) assumption proposed by Li et al.,
+#' 2015 for OSL dating of sedimentary quartz.
 #'
 #' @details
 #' The error of the De value is determined using a Monte Carlo simulation approach.
@@ -10,21 +11,21 @@
 #'
 #'
 #' @param data [data.frame] (**required**):
-#' input data of providing the following columns: `LnTn`, `LnTn.error`, `Lr1Tr1`, `Lr1Tr1.error`, `Dr1`
-#' **Note:** column names are not required. The function expects the input data in the given order
+#' input data  the following columns five columns in the given order:
+#' `LnTn`, `LnTn.error`, `Lr1Tr1`, `Lr1Tr1.error`, `Dr1`. Column names are
+#' not required.
 #'
 #' @param gSGC.type [character] (*with default*):
-#' define the function parameters that
-#' should be used for the iteration procedure: Li et al., 2015 (Table 2)
-#' presented function parameters for two dose ranges: `"0-450"` and `"0-250"`
+#' function parameters to use for the iteration procedure, either `"0-450"` or
+#' `"0-250"`, as presented in Li et al., 2015 (Table 2). This is ignored if
+#' `gSGC.parameters` is set.
 #'
 #' @param gSGC.parameters [list] (*optional*):
 #' option to provide own function parameters used for fitting as named list.
 #' Nomenclature follows Li et al., 2015, i.e. `list(A, A.error, D0, D0.error,
 #' c, c.error, Y0, Y0.error, range)`, where `range` is defines the interval
 #' where the function is considered as valid, e.g. `range = c(0,250)`.\cr
-#' Using this option overwrites the default parameter list of the gSGC, meaning the argument
-#' `gSGC.type` will be without effect
+#' If set, option `gSGC.type` will be ignored.
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of Monte Carlo simulation runs for error estimation, see details.

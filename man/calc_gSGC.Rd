@@ -16,20 +16,20 @@ calc_gSGC(
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
-input data of providing the following columns: \code{LnTn}, \code{LnTn.error}, \code{Lr1Tr1}, \code{Lr1Tr1.error}, \code{Dr1}
-\strong{Note:} column names are not required. The function expects the input data in the given order}
+input data  the following columns five columns in the given order:
+\code{LnTn}, \code{LnTn.error}, \code{Lr1Tr1}, \code{Lr1Tr1.error}, \code{Dr1}. Column names are
+not required.}
 
 \item{gSGC.type}{\link{character} (\emph{with default}):
-define the function parameters that
-should be used for the iteration procedure: Li et al., 2015 (Table 2)
-presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-250"}}
+function parameters to use for the iteration procedure, either \code{"0-450"} or
+\code{"0-250"}, as presented in Li et al., 2015 (Table 2). This is ignored if
+\code{gSGC.parameters} is set.}
 
 \item{gSGC.parameters}{\link{list} (\emph{optional}):
 option to provide own function parameters used for fitting as named list.
 Nomenclature follows Li et al., 2015, i.e. \code{list(A, A.error, D0, D0.error, c, c.error, Y0, Y0.error, range)}, where \code{range} is defines the interval
 where the function is considered as valid, e.g. \code{range = c(0,250)}.\cr
-Using this option overwrites the default parameter list of the gSGC, meaning the argument
-\code{gSGC.type} will be without effect}
+If set, option \code{gSGC.type} will be ignored.}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
 number of Monte Carlo simulation runs for error estimation, see details.}
@@ -57,8 +57,9 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 `$ call`` (\link{call}) the original function call
 }
 \description{
-Function returns De value and De value error using the global standardised growth
-curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz
+The function computes De value and De value error using the
+global standardised growth curve (gSGC) assumption proposed by Li et al.,
+2015 for OSL dating of sedimentary quartz.
 }
 \details{
 The error of the De value is determined using a Monte Carlo simulation approach.
@@ -66,7 +67,7 @@ Solving of the equation is realised using \link{uniroot}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
