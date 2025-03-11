@@ -1,3 +1,9 @@
+df <- data.frame(Mineral = "FS",
+                 K = 2.13, K_SE = 0.07,
+                 Th = 9.76, Th_SE = 0.32,
+                 U = 2.24, U_SE = 0.12,
+                 GrainSize = 200, WaterContent = 30, WaterContent_SE = 5)
+
 test_that("basic checks", {
   testthat::skip_on_cran()
 
@@ -20,27 +26,14 @@ test_that("basic checks", {
   template[[1]] <- "fail"
   expect_error(convert_Concentration2DoseRate(template),
                "As mineral only 'FS' or 'Q' is supported")
+})
 
-  ## run function
-  ## for FS
-  df <-
-    data.frame(
-      Mineral = "FS",
-      K = 2.13,
-      K_SE = 0.07,
-      Th = 9.76,
-      Th_SE = 0.32,
-      U = 2.24,
-      U_SE = 0.12,
-      GrainSize = 200,
-      WaterContent = 30,
-      WaterContent_SE = 5
-    )
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
 
-   expect_s4_class(object = convert_Concentration2DoseRate(df), class = "RLum.Results")
+  df$Mineral <- "FS"
+  expect_snapshot_RLum(convert_Concentration2DoseRate(df))
 
-   ## for Q
-   df$Mineral <- "Q"
-   expect_s4_class(object = convert_Concentration2DoseRate(df), class = "RLum.Results")
-
+  df$Mineral <- "Q"
+  expect_snapshot_RLum(convert_Concentration2DoseRate(df))
 })
