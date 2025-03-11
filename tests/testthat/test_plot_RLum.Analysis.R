@@ -161,3 +161,24 @@ test_that("check functionality", {
   expect_warning(plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
                  "'combine' can't be used with fewer than two curves")
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("plot_RLum.Analysis",
+                              plot_RLum.Analysis(
+                                  temp,
+                                  subset = list(recordType = "TL"),
+                                  combine = TRUE,
+                                  norm = TRUE,
+                                  abline = list(v = 110)))
+  vdiffr::expect_doppelganger("plot_RLum.Analysis persp",
+                              plot_RLum.Analysis(
+                                  set_RLum(class = "RLum.Analysis",
+                                           records = list(TL.Spectrum, temp[[1]])),
+                                  plot.type = "persp"))
+  })
+})
