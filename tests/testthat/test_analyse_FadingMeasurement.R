@@ -38,7 +38,7 @@ test_that("input validation", {
   })
 })
 
-test_that("general test", {
+test_that("test functionality", {
   testthat::skip_on_cran()
 
   ## run routine analysis
@@ -49,13 +49,6 @@ test_that("general test", {
     verbose = TRUE,
     n.MC = 10), class = "RLum.Results")
   })
-
-  ##no plot not verbose
-  expect_s4_class(analyse_FadingMeasurement(
-    fading_data,
-    plot = FALSE,
-    verbose = FALSE,
-    n.MC = 10), class = "RLum.Results")
 
   ## test merging of objects if combined in a list
   ## this crashed before and was fixed
@@ -243,4 +236,16 @@ test_that("regression tests", {
                    timeSinceIrr = c(2516, 41353, 50357, 140342, 1040044, 2516, 41360, 50360))
   res <- analyse_FadingMeasurement(df, n.MC = 10, plot = FALSE, verbose = FALSE)
   expect_false(is.nan(res$rho_prime$MEAN))
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("analyse_FadingMeasurement expected",
+                              analyse_FadingMeasurement(fading_data,
+                                                        n.MC = 10))
+  })
 })
