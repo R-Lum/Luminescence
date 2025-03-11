@@ -125,12 +125,11 @@ convert_Concentration2DoseRate <- function(
     return(df)
   }
 
+  ## Load datasets ----------------------------------------------------------
 
-# Load datasets -----------------------------------------------------------
-  ## fulfil CRAN checks
+  ## silence notes raised by R CMD check
   BaseDataSet.ConversionFactors <- BaseDataSet.GrainSizeAttenuation <- NA
 
-  ## load datasets
   load(system.file("data", "BaseDataSet.ConversionFactors.rda",
                    package = "Luminescence"))
   load(system.file("data", "BaseDataSet.GrainSizeAttenuation.rda",
@@ -139,7 +138,8 @@ convert_Concentration2DoseRate <- function(
   ## we do this to be consistent with the code written by Svenja and Martin
   GSA <- BaseDataSet.GrainSizeAttenuation
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(input, c("data.frame", "matrix"))
 
   if(ncol(input) != ncol(suppressMessages(convert_Concentration2DoseRate())) || nrow(input) > 1)
@@ -157,7 +157,8 @@ convert_Concentration2DoseRate <- function(
   if(!any(input[,1] %in% c("FS","Q")))
     .throw_error("As mineral only 'FS' or 'Q' is supported")
 
-# Convert -----------------------------------------------------------------
+  ## Convert ----------------------------------------------------------------
+
     InfDR <- matrix(data = NA, nrow = 2, ncol = 6)
     colnames(InfDR) <- c("K","SE","Th","SE","U","SE")
     rownames(InfDR) <- c("Beta","Gamma")
@@ -179,17 +180,17 @@ convert_Concentration2DoseRate <- function(
           Temp = "gamma"
         }
 
+        ConvFactor <- BaseDataSet.ConversionFactors[[conversion]][[Temp]][[Col]]
         Nuclide <- i * 2
         N <- 2 * i - 1
         Error <- Nuclide + 1
-        InfDR[j, N] <-
-          input[1, Nuclide] * BaseDataSet.ConversionFactors[[conversion]][[Temp]][[Col]][1]  # Calculate Dose Rate
-        InfDR[j, Nuclide] <-
-          sqrt((input[1, Error] / input[1, Nuclide]) ^ 2 + (
-            BaseDataSet.ConversionFactors[[conversion]][[Temp]][[Col]][2] /
-              BaseDataSet.ConversionFactors[[conversion]][[Temp]][[Col]][1]
-          ) ^ 2
-          ) # Calculate Error
+
+        ## calculate dose rate
+        InfDR[j, N] <- input[1, Nuclide] * ConvFactor[1]
+
+        # calculate error
+        InfDR[j, Nuclide] <- sqrt((input[1, Error] / input[1, Nuclide])^2 +
+                                  (ConvFactor[2] / ConvFactor[1])^2)
       }
     }
 
@@ -200,22 +201,16 @@ convert_Concentration2DoseRate <- function(
       ThFit <- approx(GSA$GrainSize, GSA$FS_Th,n = 981, method = "linear")
       UFit <- approx(GSA$GrainSize, GSA$FS_U, n = 981, method = "linear")
 
-      Temp <- which(KFit$x == input[1, 8])
-
-      InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y[Temp])                     # K
-      InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y[Temp])                    # Th
-      InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y[Temp])                     # U
-
     } else if (input[1,1] == "Q")  {                                # QUARTZ
       KFit <- approx(GSA$GrainSize, GSA$Q_K, n = 981, method = "linear")
       ThFit <- approx(GSA$GrainSize, GSA$Q_Th, n = 981, method = "linear")
       UFit <- approx(GSA$GrainSize, GSA$Q_U, n = 981, method = "linear")
-
-      Temp <- which(KFit$x == input[1, 8])
-      InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y[Temp])                     # K
-      InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y[Temp])                    # Th
-      InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y[Temp])                     # U
     }
+
+    Temp <- which(KFit$x == input[1, 8])
+    InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y[Temp])   # K
+    InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y[Temp])  # Th
+    InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y[Temp])   # U
 
     ##### --- Correct beta sediment dose rate for water content --- #####
     InfDRG <- matrix(data = NA, nrow = 2, ncol = 6)
