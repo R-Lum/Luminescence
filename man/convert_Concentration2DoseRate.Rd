@@ -7,12 +7,14 @@
 convert_Concentration2DoseRate(input, conversion = "Guerinetal2011")
 }
 \arguments{
-\item{input}{\link{data.frame} (\emph{optional}): a table containing all relevant information
-for each individual layer if nothing is provided, the function returns a template \link{data.frame}
-Please note that until one dataset per input is supported!}
+\item{input}{\link{data.frame} (\emph{optional}): a table containing all relevant
+information for each individual layer. If nothing is provided, the function
+returns a template data frame, the values of which need to be filled in by
+the user. Please note that only one dataset per input is supported.}
 
-\item{conversion}{\link{character} (\emph{with default}): which dose rate conversion factors to use,
-defaults uses Guérin et al. (2011). For accepted values see \link{BaseDataSet.ConversionFactors}}
+\item{conversion}{\link{character} (\emph{with default}):
+dose rate conversion factors to use, by default those by Guérin et al. (2011).
+For accepted values see \link{BaseDataSet.ConversionFactors}.}
 }
 \value{
 The function returns an \linkS4class{RLum.Results} object for which the first

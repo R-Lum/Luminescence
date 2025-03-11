@@ -42,12 +42,14 @@
 #'
 #'The unit for the weight is gram (g).
 #'
-#'@param input [data.frame] (*optional*): a table containing all relevant information
-#' for each individual layer if nothing is provided, the function returns a template [data.frame]
-#' Please note that until one dataset per input is supported!
+#' @param input [data.frame] (*optional*): a table containing all relevant
+#' information for each individual layer. If nothing is provided, the function
+#' returns a template data frame, the values of which need to be filled in by
+#' the user. Please note that only one dataset per input is supported.
 #'
-#'@param conversion [character] (*with default*): which dose rate conversion factors to use,
-#' defaults uses Guérin et al. (2011). For accepted values see [BaseDataSet.ConversionFactors]
+#' @param conversion [character] (*with default*):
+#' dose rate conversion factors to use, by default those by Guérin et al. (2011).
+#' For accepted values see [BaseDataSet.ConversionFactors].
 #'
 #'@return The function returns an [RLum.Results-class] object for which the first
 #'element is [matrix] with the converted values. If no input is provided, the
@@ -106,11 +108,7 @@ convert_Concentration2DoseRate <- function(
   .set_function_name("convert_Concentration2DoseRate")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Alternate mode ----------------------------------------------------------
-  if(missing(input)){
-    message("[convert_Concentration2DoseRate()] Input template returned. Please fill this data.frame and use it as input to the function!")
-
-    df <- data.frame(
+  template <- data.frame(
       Mineral = NA_character_,
       K = NA_integer_,
       K_SE = NA_integer_,
@@ -122,7 +120,11 @@ convert_Concentration2DoseRate <- function(
       WaterContent = NA_integer_,
       WaterContent_SE = NA_integer_)
 
-    return(df)
+  ## return a template if no input is given
+  if (missing(input)) {
+    message("[convert_Concentration2DoseRate()] Input template returned: ",
+            "please fill this data frame and use it as input to the function")
+    return(template)
   }
 
   ## Load datasets ----------------------------------------------------------
@@ -142,8 +144,16 @@ convert_Concentration2DoseRate <- function(
 
   .validate_class(input, c("data.frame", "matrix"))
 
-  if(ncol(input) != ncol(suppressMessages(convert_Concentration2DoseRate())) || nrow(input) > 1)
-    .throw_error("Number of rows/columns in input does not match the requirements")
+  if (ncol(input) != ncol(template))
+    .throw_error("'input' should have ", ncol(template), " columns")
+  if (nrow(input) > 1)
+    .throw_error("'input' should have only one row")
+  if (anyNA(input))
+    .throw_error("'input' should not contain NA values")
+  for (idx in 2:ncol(input)) {
+    .validate_class(input[, idx], c("numeric", "integer"),
+                    name = "Each element of 'input' other than the first")
+  }
 
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
   ## as it is in alphabetical level, but we want to have 'Guerinetal2011'
@@ -208,6 +218,11 @@ convert_Concentration2DoseRate <- function(
     }
 
     Temp <- which(KFit$x == input[1, 8])
+    if (length(Temp) == 0) {
+      .throw_error("No attenuation data available for the grain size provided (",
+                   input[1, 8], ")")
+    }
+
     InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y[Temp])   # K
     InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y[Temp])  # Th
     InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y[Temp])   # U

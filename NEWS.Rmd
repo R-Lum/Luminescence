@@ -22,6 +22,10 @@ header-includes:
 
 * Add support for nls-fitting control arguments `maxiter` and `trace`.
 
+### `convert_Concentration2DoseRate()`
+
+* The function validates its input values more thoroughly (#613).
+
 ### `fit_DoseResponseCurve()`
 
 * The function now allocates less memory for storing intermediate values
