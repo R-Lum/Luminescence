@@ -47,3 +47,20 @@ test_that("check functionality", {
   expect_warning(plot_MoranScatterplot(obj.na, legend = TRUE),
                  "Grain observations removed from plot because no neighbours")
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("MoranScatterplot defaults",
+                              plot_MoranScatterplot(obj))
+  vdiffr::expect_doppelganger("MoranScatterplot show_location_ids",
+                              plot_MoranScatterplot(1:100,
+                                                    pch = "show_location_ids"))
+  vdiffr::expect_doppelganger("MoranScatterplot show_n_neighbours",
+                              plot_MoranScatterplot(1:100,
+                                                    pch = "show_n_neighbours"))
+  })
+})
