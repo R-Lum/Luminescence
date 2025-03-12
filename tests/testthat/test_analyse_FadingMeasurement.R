@@ -244,6 +244,7 @@ test_that("graphical snapshot tests", {
   testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
+  set.seed(1)
   vdiffr::expect_doppelganger("analyse_FadingMeasurement expected",
                               analyse_FadingMeasurement(fading_data,
                                                         n.MC = 10))
