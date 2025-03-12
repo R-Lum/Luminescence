@@ -57,3 +57,21 @@ test_that("check functionality", {
   obj.na@data$vn_values[c(24, 73)] <- NA
   expect_silent(plot_SingleGrainDisc(obj.na, legend = TRUE))
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("SingleGrainDisc defaults",
+                              plot_SingleGrainDisc(obj))
+  vdiffr::expect_doppelganger("SingleGrainDisc options",
+                              plot_SingleGrainDisc(1:100,
+                                                   show_location_ids = TRUE,
+                                                   show_neighbours = TRUE,
+                                                   show_positioning_holes = FALSE,
+                                                   ignore_borders = TRUE,
+                                                   show_coordinates = TRUE))
+  })
+})

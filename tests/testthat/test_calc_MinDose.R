@@ -54,21 +54,10 @@ test_that("input validation", {
                "'cores' should be a positive integer scalar")
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
-  expect_s4_class(temp, "RLum.Results")
-  expect_equal(length(temp), 9)
-
-  ## invert
-  expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                             invert = TRUE, verbose = FALSE, plot = FALSE))
   SW({
-  expect_output(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                             invert = TRUE, log = FALSE, log.output = TRUE,
-                             verbose = TRUE, plot = FALSE),
-                "'log' was automatically changed to TRUE")
-
   ## bootstrap
   expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5),
@@ -116,8 +105,10 @@ test_that("check class and length of output", {
 test_that("check values from output example", {
   testthat::skip_on_cran()
 
-  results <- get_RLum(temp)
+  expect_s4_class(temp, "RLum.Results")
+  expect_equal(length(temp), 9)
 
+  results <- get_RLum(temp)
   expect_equal(round(results$de, digits = 5), 34.31834)
   expect_equal(round(results$de_err, digits = 6), 2.550964)
   expect_equal(results$ci_level, 0.95)
@@ -129,4 +120,15 @@ test_that("check values from output example", {
   expect_equal(results$mu, NA)
   expect_equal(round(results$Lmax, digits = 5), -43.57969)
   expect_equal(round(results$BIC, digits = 4), 106.4405)
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("calc_MinDose expected",
+                              fig = calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1))
+  })
 })
