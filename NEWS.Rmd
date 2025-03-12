@@ -23,9 +23,8 @@ header-includes:
 setting `structure = c("Lx", "Tx")` (which is the default) (fixed; #616)
 
 ### `calc_OSLLxTxRatio()`
-* The function returned a warning for wrong integral settings for the `Tx` curves even no `Tx` curves were provided; fixed. 
-* The function does not check any more of different object types for `Lx.data` and `Tx.data` but for valid objects (this 
-should have no visible effect to the user)
+* The function returned a warning for wrong integral settings for the `Tx` curve even if no `Tx` curve was provided; fixed. 
+* The function does not check any more of different object types for `Lx.data` and `Tx.data` but validate objects for allowed types (this should have no user-visible effects)
 
 ### `calc_Huntely2006()`
 
