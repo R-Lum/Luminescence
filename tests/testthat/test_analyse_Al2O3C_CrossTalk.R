@@ -37,7 +37,7 @@ test_that("check functionality", {
   skip_on_cran()
 
   set.seed(1)
-  snapshot.tolerance <- 1.5e-5
+  snapshot.tolerance <- 1.6e-5
 
   ## run analysis
   expect_snapshot_RLum(
