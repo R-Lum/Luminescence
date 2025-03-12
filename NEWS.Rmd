@@ -18,6 +18,11 @@ header-includes:
 
 ## Bugfixes
 
+### `calc_OSLLxTxRatio()`
+* The function returned a warning for wrong integral settings for the Tx curves even no Tx curves were provided; fixed. 
+* The function does not check anymore of different object types for `Lx.data` and `Tx.data` but for valid objects (this 
+should have no visible effect to the user)
+
 ### `calc_Huntely2006()`
 
 * Add support for nls-fitting control arguments `maxiter` and `trace`.

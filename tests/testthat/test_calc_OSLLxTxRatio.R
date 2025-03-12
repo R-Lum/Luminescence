@@ -92,7 +92,7 @@ test_that("input validation", {
   ), "Channel numbers of Lx and Tx data differ")
 
   expect_error(calc_OSLLxTxRatio(Lx.data, "error"),
-               "'Lx.data' and 'Tx.data' have different types")
+               "'Tx.data' should be of class 'RLum.Data.Curve', 'data.frame', 'numeric' or 'matrix'")
   expect_error(calc_OSLLxTxRatio("error", "error"),
                "'Lx.data' should be of class 'RLum.Data.Curve', 'data.frame'")
 

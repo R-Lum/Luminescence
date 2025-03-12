@@ -134,7 +134,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.8.0
+#' @section Function version: 0.8.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -187,51 +187,37 @@ calc_OSLLxTxRatio <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity tests --------------------------------------------------------
-
   .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
 
+  ## Lx - coerce if required
+  Lx.data <- switch(
+    class(Lx.data)[1],
+    "RLum.Data.Curve" = as(Lx.data, "data.frame"),
+    "matrix" = as.data.frame(Lx.data),
+    "data.frame" = Lx.data,
+    data.frame(x = 1:length(Lx.data),y = Lx.data)
+  )
+
+  ## Tx - coerce if required
   if(!is.null(Tx.data)){
-    ##(a) - check data type
-    if(is(Lx.data)[1]!=is(Tx.data)[1]){
-      .throw_error("'Lx.data' and 'Tx.data' have different types")
-    }
+    .validate_class(Tx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
 
-    ##(b) - test if data.type is valid in general
-    if(inherits(Lx.data, "RLum.Data.Curve")){
-      Lx.data <- as(Lx.data, "data.frame")
-      Tx.data <- as(Tx.data, "data.frame")
-    }
+    Tx.data <- switch(
+      class(Tx.data)[1],
+      "RLum.Data.Curve" = as(Tx.data, "data.frame"),
+      "matrix" = as.data.frame(Tx.data),
+      "data.frame" = Tx.data,
+      data.frame(x = 1:length(Tx.data),y = Tx.data)
+    )
 
-    ##(c) - convert vector to data.frame if necessary
-    if(is(Lx.data)[1] != "data.frame" &
-       is(Lx.data)[1] != "matrix"){
-      Lx.data <- data.frame(x = 1:length(Lx.data), y = Lx.data)
-      Tx.data <- data.frame(x = 1:length(Tx.data), y = Tx.data)
-    }
-
-    ##(d) - check if Lx and Tx curves have the same channel length
+    ## check channel number
     if(length(Lx.data[,2]) != length(Tx.data[,2]))
       .throw_error("Channel numbers of Lx and Tx data differ")
 
-  }else{
+  } else {
     Tx.data <- data.frame(x = NA,y = NA)
 
-    ##support RLum.objects
-    if(inherits(Lx.data, "RLum.Data.Curve")){
-      Lx.data <- as(Lx.data, "data.frame")
-    }
-
-    ##check for matrix
-    if(is(Lx.data)[1] == "matrix"){
-      Lx.data <- as.data.frame(Lx.data)
-    }
-
-    ##no it should be a data.frame, if not, try to produce one
-    if(is(Lx.data)[1]!="data.frame") {
-      Lx.data <- data.frame(x = 1:length(Lx.data),y = Lx.data)
-    }
-
-  }#endif::missing Tx.data
+  }
 
   # Alternate mode ----------------------------------------------------------
   if (anyNA(c(signal.integral, background.integral))) {
@@ -278,8 +264,7 @@ calc_OSLLxTxRatio <- function(
   }
 
   ##(h) - similar procedure for the Tx limits
-  if(all(c(!is.null(signal.integral.Tx),!is.null(background.integral.Tx)))){
-
+  if(!anyNA(Tx.data) && all(c(!is.null(signal.integral.Tx),!is.null(background.integral.Tx)))){
     if(use_previousBG){
       .throw_warning("With 'use_previousBG = TRUE' independent Lx and Tx ",
                      "integral limits are not allowed. Integral limits ",
@@ -300,7 +285,7 @@ calc_OSLLxTxRatio <- function(
       .throw_error("'signal.integral.Tx' and 'background.integral.Tx' overlap")
     }
 
-  }else if(!all(c(is.null(signal.integral.Tx),is.null(background.integral.Tx)))){
+  }else if(!anyNA(Tx.data) && !all(c(is.null(signal.integral.Tx),is.null(background.integral.Tx)))){
     .throw_error("You have to provide both 'signal.integral.Tx' and ",
                  "'background.integral.Tx'")
   }else{
@@ -320,7 +305,7 @@ calc_OSLLxTxRatio <- function(
   ##--------------------------------------------------------------------------##
   ##(2) - read data and produce background subtracted values
 
-  ## calculate k value - express the background as mutiple value from the number
+  ## calculate k value - express the background as multiple value from the number
   ## of signal integral channels, however, it can be < 1 also
   n <- length(signal.integral)
   m <- length(background.integral)
@@ -349,12 +334,10 @@ calc_OSLLxTxRatio <- function(
   Tx.signal <- sum(Tx.curve[signal.integral.Tx])
 
   ##use previous BG
-  if(use_previousBG){
+  if(use_previousBG)
     Tx.background <- Lx.background
-
-  }else{
-    Tx.background <- sum(Tx.curve[background.integral.Tx])*1/k.Tx
-  }
+  else
+    Tx.background <- sum(Tx.curve[background.integral.Tx]) * 1 / k.Tx
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -423,7 +406,7 @@ calc_OSLLxTxRatio <- function(
   } else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
-    if (m.Tx < 25 && use_previousBG == FALSE) {
+    if (!anyNA(Tx.data) && m.Tx < 25 && use_previousBG == FALSE) {
       .throw_warning("Number of background channels for Tx < 25, ",
                      "error estimation might not be reliable")
     }
