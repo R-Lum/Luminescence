@@ -60,15 +60,7 @@ test_that("check class and length of output", {
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 9)
 
-  ## invert
-  expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                             invert = TRUE, verbose = FALSE, plot = FALSE))
   SW({
-  expect_output(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                             invert = TRUE, log = FALSE, log.output = TRUE,
-                             verbose = TRUE, plot = FALSE),
-                "'log' was automatically changed to TRUE")
-
   ## bootstrap
   expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5),

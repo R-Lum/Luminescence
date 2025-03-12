@@ -1,20 +1,28 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
-temp <- calc_MaxDose(ExampleData.DeValues$CA1,
-                     sigmab = 0.2,
-                     par = 3,
-                     plot = TRUE,
-                     verbose = FALSE)
 
-test_that("check class and length of output", {
+test_that("input validation", {
   testthat::skip_on_cran()
+
+  SW({
+  expect_warning(calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              log = FALSE, log.output = TRUE,
+                              verbose = TRUE, plot = FALSE),
+                 "'log' reset to TRUE")
+  })
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  temp <- calc_MaxDose(ExampleData.DeValues$CA1,
+                       sigmab = 0.2,
+                       par = 3,
+                       plot = TRUE,
+                       verbose = FALSE)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 9)
-
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
 
   results <- get_RLum(temp)
 
@@ -29,5 +37,4 @@ test_that("check values from output example", {
   expect_equal(results$mu, NA)
   expect_equal(round(results$Lmax, digits = 2), -19.79)
   expect_equal(round(results$BIC, digits = 2), 58.87)
-
 })

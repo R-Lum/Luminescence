@@ -387,8 +387,8 @@ calc_MinDose <- function(
     .validate_logical_scalar(invert)
     if (!log) {
       log <- TRUE # overwrite user choice as max dose model currently only supports the logged version
-      cat(paste("\n[WARNING] The maximum dose model only supports the logged version.",
-                "'log' was automatically changed to TRUE.\n\n"))
+      .throw_warning("The maximum dose model only supports the logged version, ",
+                     "'log' reset to TRUE\n")
     }
   } else {
     invert <- FALSE
