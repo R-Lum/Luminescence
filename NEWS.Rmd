@@ -19,12 +19,12 @@ header-includes:
 ## Bugfixes
 
 ### `analyse_FadingMeasurement()` 
-* The function crashed of the number of `Lx` and `Tx` curves was not equal for the 
+* The function crashed if the number of `Lx` and `Tx` curves was not equal for the 
 setting `structure = c("Lx", "Tx")` (which is the default) (fixed; #616)
 
 ### `calc_OSLLxTxRatio()`
-* The function returned a warning for wrong integral settings for the Tx curves even no Tx curves were provided; fixed. 
-* The function does not check anymore of different object types for `Lx.data` and `Tx.data` but for valid objects (this 
+* The function returned a warning for wrong integral settings for the `Tx` curves even no `Tx` curves were provided; fixed. 
+* The function does not check any more of different object types for `Lx.data` and `Tx.data` but for valid objects (this 
 should have no visible effect to the user)
 
 ### `calc_Huntely2006()`
