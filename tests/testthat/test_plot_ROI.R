@@ -1,3 +1,7 @@
+## load dataset
+temp <- read_RF2R(system.file("extdata", "RF_file.rf", package = "Luminescence"),
+                  verbose = FALSE)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -12,12 +16,8 @@ test_that("input validation", {
                "'object' cannot be an empty list")
 })
 
-test_that("Complete test", {
+test_that("check functionality", {
   testthat::skip_on_cran()
-
-  ##create suitable dataset
-  file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-  temp <- read_RF2R(file, verbose = FALSE)
 
   ##test standard cases
   expect_silent(plot_ROI(temp))
@@ -43,4 +43,17 @@ test_that("Complete test", {
   expect_warning(plot_ROI(t, bg_image = "stop", exclude_ROI = NULL),
                  "[plot_ROI()] 'bg_image' is not of class 'RLum.Data.Image'",
                  fixed = TRUE)
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("ROI defaults",
+                              plot_ROI(temp))
+  vdiffr::expect_doppelganger("ROI grid",
+                              plot_ROI(temp, grid = TRUE))
+  })
 })
