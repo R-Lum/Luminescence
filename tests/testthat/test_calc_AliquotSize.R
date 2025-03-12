@@ -5,8 +5,11 @@ test_that("input validation", {
                "Please provide the mean grain size or a range of grain sizes")
   expect_error(calc_AliquotSize(grain.size = 1:3),
                "Please provide the mean grain size or a range of grain sizes")
+  expect_error(calc_AliquotSize(grain.size = 100, packing.density = "inf"),
+               "'packing.density' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2),
-               "'packing.density' expects values between 0 and 1")
+               "'packing.density' should be a value between 0 and 1")
+
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1),
                "'sample.diameter' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,
@@ -22,7 +25,7 @@ test_that("check functionality", {
   SW({
   expect_s4_class(
     calc_AliquotSize(
-      grain.size = 100, packing.density = "inf", sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+      grain.size = 100, packing.density = Inf, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
   expect_s4_class(
     calc_AliquotSize(
       grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
