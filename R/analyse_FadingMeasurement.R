@@ -263,7 +263,6 @@ analyse_FadingMeasurement <- function(
 
     ## support read_XSYG2R()
     if (length(originators) == 1 && originators == "read_XSYG2R") {
-
       ## extract irradiation times
       irradiation_times <- extract_IrradiationTimes(object)
 
@@ -388,12 +387,15 @@ analyse_FadingMeasurement <- function(
     ##overwrite TIMESINCEIRR
     TIMESINCEIRR <- pmax(t_star, 1e-6)
     rm(t_star)
-
     # Calculation ---------------------------------------------------------------------------------
     ##calculate Lx/Tx or ... just Lx, it depends on the pattern ... set IRR_TIME
     if(length(structure) == 2){
       Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
       Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
+
+      ## check whether the length of Lx is the length of Tx
+      if(length(Lx_data) != length(Tx_data))
+        .throw_error("The number of Lx curves differs from the number of Tx curves! Check your data or consider setting structure = 'Lx'!")
 
       ##we need only every 2nd irradiation time, the one from the Tx should be the same ... all the time
       TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by = 2)]
@@ -408,7 +410,7 @@ analyse_FadingMeasurement <- function(
     LxTx_table <- merge_RLum(.warningCatcher(lapply(1:length(Lx_data), function(x) {
       ## we operate only up to the shortest common length to avoid indexing
       ## into Tx_data with an invalid index
-      if (len.Tx > 0 && x > len.Tx) {
+      if (len.Tx > 0 && x != len.Tx) {
         .throw_warning("Lx and Tx have different sizes: skipped sample ", x,
                        ", NULL returned")
         return(NULL)
@@ -1067,3 +1069,4 @@ analyse_FadingMeasurement <- function(
     info = list(call = sys.call())
   ))
 }
+

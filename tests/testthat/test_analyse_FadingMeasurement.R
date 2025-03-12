@@ -115,7 +115,7 @@ test_that("test XSYG file fading data", {
       )
 
     time <- time + x + 60
-    l <- c(l, irr, lum)
+    l <- c(l, irr, lum, lum)
   }
 
   ## generate object
@@ -159,14 +159,23 @@ test_that("test XSYG file fading data", {
                  "After irradiation step removal not enough curves are left")
 
   SW({
-  expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
+  expect_warning(analyse_FadingMeasurement(object[-c(3,6,9)], signal.integral = 1:2,
                                            background.integral = 3,
                                            structure = "Lx"),
                  "Number of background channels for Lx < 25")
 
+   expect_error(analyse_FadingMeasurement(object[-c(3)], signal.integral = 1:2,
+                                             background.integral = 3,
+                                             plot = FALSE,
+                                             structure = c("Lx", "Tx")),
+                   "The number of Lx curves differs from the number of Tx curves! Check your data or consider setting structure = 'Lx'!")
+
+  object@records[[3]]@data <-   object@records[[3]]@data[1:10,]
   expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
                                            background.integral = 3),
                  "Lx and Tx have different sizes: skipped sample 2")
+
+
   })
 })
 
