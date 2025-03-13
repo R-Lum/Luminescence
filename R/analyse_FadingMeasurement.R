@@ -405,6 +405,28 @@ analyse_FadingMeasurement <- function(
       ##we need only every 2nd irradiation time, the one from the Tx should be the same ... all the time
       TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by = 2)]
 
+      ## check that all Lx/Tx pairs have the same size
+      size.mismatch <- vapply(1:len.Lx, function(i) {
+        length(Lx_data[[i]]) != length(Tx_data[[i]])
+      }, logical(1))
+
+      ## skip samples with mismatching sizes
+      if (any(size.mismatch)) {
+
+        ## terminate if all pairs have mismatching sizes
+        if (all(size.mismatch)) {
+          .throw_error("No curves left after removing those with different ",
+                       "Lx and Tx sizes")
+        }
+
+        rm.idx <- which(size.mismatch)
+        .throw_warning("Skipped the following samples because Lx and Tx have ",
+                       "different sizes: ", .collapse(rm.idx, quote = FALSE))
+        Lx_data <- Lx_data[-rm.idx]
+        Tx_data <- Tx_data[-rm.idx]
+        TIMESINCEIRR <- TIMESINCEIRR[-rm.idx]
+      }
+
     }else if(length(structure) == 1){
       Lx_data <- object_clean
       Tx_data <- NULL
@@ -413,13 +435,6 @@ analyse_FadingMeasurement <- function(
     ##calculate Lx/Tx table
     len.Tx <- length(Tx_data)
     LxTx_table <- merge_RLum(.warningCatcher(lapply(1:length(Lx_data), function(x) {
-      ## we operate only up to the shortest common length to avoid indexing
-      ## into Tx_data with an invalid index
-      if (len.Tx > 0 && x != len.Tx) {
-        .throw_warning("Lx and Tx have different sizes: skipped sample ", x,
-                       ", NULL returned")
-        return(NULL)
-      }
       calc_OSLLxTxRatio(
         Lx.data = Lx_data[[x]],
         Tx.data = Tx_data[[x]],

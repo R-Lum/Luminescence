@@ -170,13 +170,17 @@ test_that("test XSYG file fading data", {
                "The number of Lx curves (3) differs from the number of Tx curves (2)",
                fixed = TRUE)
 
-  object@records[[3]]@data <-   object@records[[3]]@data[1:10,]
+  object@records[[3]]@data <- object@records[[3]]@data[1:10, ]
   expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
-                                           background.integral = 3),
-                 "Lx and Tx have different sizes: skipped sample 2")
-
-
+                                           background.integral = 3:40),
+                 "Skipped the following samples because Lx and Tx have different sizes: 1")
   })
+
+  object@records[[6]]@data <- object@records[[6]]@data[1:10, ]
+  object@records[[9]]@data <- object@records[[9]]@data[1:10, ]
+  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
+                                         background.integral = 3:40),
+                 "No curves left after removing those with different Lx and Tx sizes")
 })
 
 test_that("test BIN file while fading data", {
