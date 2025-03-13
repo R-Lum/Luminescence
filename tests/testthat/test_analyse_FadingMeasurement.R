@@ -264,5 +264,13 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("analyse_FadingMeasurement expected",
                               analyse_FadingMeasurement(fading_data,
                                                         n.MC = 10))
+  vdiffr::expect_doppelganger("analyse_FadingMeasurement singlePanels 3",
+                              analyse_FadingMeasurement(fading_data,
+                                                        plot_singlePanels = 3,
+                                                        n.MC = 10))
+  vdiffr::expect_doppelganger("analyse_FadingMeasurement singlePanels 4",
+                              analyse_FadingMeasurement(fading_data,
+                                                        plot_singlePanels = 4,
+                                                        n.MC = 10))
   })
 })
