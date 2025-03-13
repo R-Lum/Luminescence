@@ -394,8 +394,13 @@ analyse_FadingMeasurement <- function(
       Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
 
       ## check whether the length of Lx is the length of Tx
-      if(length(Lx_data) != length(Tx_data))
-        .throw_error("The number of Lx curves differs from the number of Tx curves! Check your data or consider setting structure = 'Lx'!")
+      len.Lx <- length(Lx_data)
+      len.Tx <- length(Tx_data)
+      if (len.Lx != len.Tx) {
+        .throw_error("The number of Lx curves (", len.Lx, ") differs from ",
+                     "the number of Tx curves (", len.Tx, "), ",
+                     "check your data or consider setting `structure = 'Lx'`")
+      }
 
       ##we need only every 2nd irradiation time, the one from the Tx should be the same ... all the time
       TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by = 2)]
@@ -1069,4 +1074,3 @@ analyse_FadingMeasurement <- function(
     info = list(call = sys.call())
   ))
 }
-
