@@ -19,8 +19,10 @@ header-includes:
 ## Bugfixes
 
 ### `analyse_FadingMeasurement()` 
-* The function crashed if the number of `Lx` and `Tx` curves was not equal for the 
-setting `structure = c("Lx", "Tx")` (which is the default) (fixed; #616)
+* The function crashed if the number of `Lx` and `Tx` curves was not equal
+when `structure = c("Lx", "Tx")`, which is the default. The check that the
+number of points within each pair of curves has also been improved, and the
+function now produces more helpful error messages (#616).
 
 ### `calc_OSLLxTxRatio()`
 * The function returned a warning for wrong integral settings for the `Tx` curve even if no `Tx` curve was provided; fixed. 

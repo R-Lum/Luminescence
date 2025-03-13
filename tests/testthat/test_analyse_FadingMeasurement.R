@@ -164,19 +164,23 @@ test_that("test XSYG file fading data", {
                                            structure = "Lx"),
                  "Number of background channels for Lx < 25")
 
-   expect_error(analyse_FadingMeasurement(object[-c(3)], signal.integral = 1:2,
-                                             background.integral = 3,
-                                             plot = FALSE,
-                                             structure = c("Lx", "Tx")),
-                   "The number of Lx curves differs from the number of Tx curves! Check your data or consider setting structure = 'Lx'!")
+  expect_error(analyse_FadingMeasurement(object[-3], signal.integral = 1:2,
+                                         background.integral = 3:40,
+                                         structure = c("Lx", "Tx")),
+               "The number of Lx curves (3) differs from the number of Tx curves (2)",
+               fixed = TRUE)
 
-  object@records[[3]]@data <-   object@records[[3]]@data[1:10,]
+  object@records[[3]]@data <- object@records[[3]]@data[1:10, ]
   expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
-                                           background.integral = 3),
-                 "Lx and Tx have different sizes: skipped sample 2")
-
-
+                                           background.integral = 3:40),
+                 "Skipped the following samples because Lx and Tx have different sizes: 1")
   })
+
+  object@records[[6]]@data <- object@records[[6]]@data[1:10, ]
+  object@records[[9]]@data <- object@records[[9]]@data[1:10, ]
+  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
+                                         background.integral = 3:40),
+                 "No curves left after removing those with different Lx and Tx sizes")
 })
 
 test_that("test BIN file while fading data", {
@@ -245,6 +249,9 @@ test_that("regression tests", {
                    timeSinceIrr = c(2516, 41353, 50357, 140342, 1040044, 2516, 41360, 50360))
   res <- analyse_FadingMeasurement(df, n.MC = 10, plot = FALSE, verbose = FALSE)
   expect_false(is.nan(res$rho_prime$MEAN))
+
+  ## issue 616
+  expect_output(analyse_FadingMeasurement(df[1:2, ]))
 })
 
 test_that("graphical snapshot tests", {
