@@ -1,4 +1,4 @@
-##preloads
+## load data
 data(ExampleData.LxTxOSLData, envir = environment())
 
 test_that("test arguments", {
@@ -57,7 +57,6 @@ test_that("test input", {
     signal.integral = c(1:2),
     background.integral = c(70:100)))
 
-
   ##RLum.Curve
   expect_silent(calc_OSLLxTxRatio(
     set_RLum(class = "RLum.Data.Curve", data = as.matrix(Lx.data)),
@@ -78,30 +77,25 @@ test_that("test input", {
     Tx.data = NULL,
     signal.integral = c(1:2),
     background.integral = c(70:100)))
-
 })
 
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(calc_OSLLxTxRatio(
-    Lx.data[1:10,],
-    Tx.data,
-    signal.integral = c(1:2),
-    background.integral = c(85:100)
-  ), "Channel numbers of Lx and Tx data differ")
-
   expect_error(calc_OSLLxTxRatio(Lx.data, "error"),
                "'Tx.data' should be of class 'RLum.Data.Curve', 'data.frame', 'numeric' or 'matrix'")
   expect_error(calc_OSLLxTxRatio("error", "error"),
                "'Lx.data' should be of class 'RLum.Data.Curve', 'data.frame'")
+  expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], Tx.data),
+               "Different number of channels for Lx (10) and Tx (100)",
+               fixed = TRUE)
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal.integral = c(1:2000),
     background.integral = c(85:100)
-  ), "'signal.integral' is not valid")
+  ), "'signal.integral' is not valid, max: 100")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -142,7 +136,7 @@ test_that("input validation", {
     signal.integral.Tx = c(1:1000),
     background.integral = c(85:100),
     background.integral.Tx = c(85:100)
-  ), "'signal.integral.Tx' is not valid")
+  ), "'signal.integral.Tx' is not valid, max: 100")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,

@@ -186,7 +186,8 @@ calc_OSLLxTxRatio <- function(
   .set_function_name("calc_OSLLxTxRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
+
   .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
 
   ## Lx - coerce if required
@@ -197,6 +198,7 @@ calc_OSLLxTxRatio <- function(
     "data.frame" = Lx.data,
     data.frame(x = 1:length(Lx.data),y = Lx.data)
   )
+  len.Lx <- nrow(Lx.data)
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
@@ -209,14 +211,15 @@ calc_OSLLxTxRatio <- function(
       "data.frame" = Tx.data,
       data.frame(x = 1:length(Tx.data),y = Tx.data)
     )
+    len.Tx <- nrow(Tx.data)
 
     ## check channel number
-    if(length(Lx.data[,2]) != length(Tx.data[,2]))
-      .throw_error("Channel numbers of Lx and Tx data differ")
-
+    if (len.Lx != len.Tx) {
+      .throw_error("Different number of channels for Lx (", len.Lx, ") ",
+                   "and Tx (", len.Tx, ")")
+    }
   } else {
     Tx.data <- data.frame(x = NA,y = NA)
-
   }
 
   # Alternate mode ----------------------------------------------------------
@@ -248,14 +251,13 @@ calc_OSLLxTxRatio <- function(
 
   # Continue checks ---------------------------------------------------------
   ##(e) - check if signal integral is valid
-  if(min(signal.integral) < 1 | max(signal.integral>length(Lx.data[,2]))){
-    .throw_error("'signal.integral' is not valid")
+  if (min(signal.integral) < 1 || max(signal.integral) > len.Lx) {
+    .throw_error("'signal.integral' is not valid, max: ", len.Lx)
   }
 
   ##(f) - check if background integral is valid
-  if(min(background.integral)<1 | max(background.integral>length(Lx.data[,2]))){
-    .throw_error("'background.integral' is not valid, max: ",
-                 length(Lx.data[, 2]))
+  if (min(background.integral) < 1 || max(background.integral) > len.Lx) {
+    .throw_error("'background.integral' is not valid, max: ", len.Lx)
   }
 
   ##(g) - check if signal and background integral overlapping
@@ -273,12 +275,11 @@ calc_OSLLxTxRatio <- function(
       background.integral.Tx <- background.integral
     }
 
-    if(min(signal.integral.Tx) < 1 | max(signal.integral.Tx>length(Tx.data[,2]))){
-      .throw_error("'signal.integral.Tx' is not valid")
+    if (min(signal.integral.Tx) < 1 || max(signal.integral.Tx) > len.Tx) {
+      .throw_error("'signal.integral.Tx' is not valid, max: ", len.Tx)
     }
-    if(min(background.integral.Tx)<1 | max(background.integral.Tx>length(Tx.data[,2]))){
-      .throw_error("'background.integral.Tx' is not valid, max: ",
-                   length(Tx.data[, 2]))
+    if (min(background.integral.Tx) < 1 || max(background.integral.Tx) > len.Tx) {
+      .throw_error("'background.integral.Tx' is not valid, max: ", len.Tx)
     }
 
     if(min(background.integral.Tx)<=max(signal.integral.Tx)){
