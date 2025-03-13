@@ -40,3 +40,7 @@ function now produces more helpful error messages (#616).
 
 * The function now allocates less memory for storing intermediate values
 (#610).
+
+### `sort_RLum()`
+* The sorting method for `RLum.Analysis-class` objects become more powerful. The method
+now supports sorting after multiple paramters such as sort and all available info elements. 

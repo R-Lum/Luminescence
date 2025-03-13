@@ -867,15 +867,19 @@ setMethod(
 #'
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
 #' At least one of `slot` and `info_element` must be provided. If both are
-#' given, ordering by `slot` always supersedes ordering by `info_element`.
+#' given, ordering by `slot` always takes priority over `info_element`.
 #'
 #' @param slot [character] (*optional*): slot name to use in sorting.
 #'
-#' @param info_element [character] (*optional*): name of the `info` field
-#' to use in sorting.
+#' @param info_element [character] (*optional*): names of the `info` field
+#' to use in sorting. The order of the names sets the sorting priority.
+#' Regardless of available info elements, the following
+#' elements always exist because they are calculated from the record `XY_LENGTH`, `X_MIN`,
+#' `X_MAX`, `Y_MIN`, `Y_MAX`
 #'
-#' @param decreasing [logical] (*with default*): whether the sort order should
-#' be decreasing (`FALSE` by default).
+#' @param descending [logical] (*with default*): whether the sort order should
+#' be descending (`FALSE` by default). It can be provided as a vector to control
+#' the ordering sequence for each sorting element.
 #'
 #' @param ... further arguments passed to underlying methods
 #'
@@ -891,7 +895,7 @@ setMethod(
   f = "sort_RLum",
   signature = "RLum.Analysis",
   function(object, slot = NULL, info_element = NULL,
-           decreasing = FALSE, ...) {
+           descending = FALSE, ...) {
     .set_function_name("sort_RLum")
     on.exit(.unset_function_name(), add = TRUE)
 
@@ -900,7 +904,6 @@ setMethod(
       return(object)
 
     ## input validation
-    sort.by.slot <- FALSE
     if (!is.null(slot)) {
       .validate_class(slot, "character", extra = "NULL")
       valid.names <- slotNames(object@records[[1]])
@@ -912,40 +915,78 @@ setMethod(
         message("[sort_RLum()]: Only the first field will be used in sorting")
         slot <- slot[1]
       }
-      sort.by.slot <- TRUE
     }
+
     if (!is.null(info_element)) {
       .validate_class(info_element, "character", extra = "NULL")
-      valid.names <- names(object@records[[1]]@info)
+      valid.names <- c("XY_LENGHT", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX", names(object@records[[1]]@info))
       if (any(!info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
       }
-      if (length(info_element) > 1) {
-        message("[sort_RLum()]: Only the first field will be used in sorting")
-        info_element <- info_element[1]
-      }
     }
-    if (is.null(slot) && is.null(info_element)) {
+
+    if (is.null(slot) && all(is.null(info_element))) {
       .throw_error("At least one of 'slot' and 'info_element' should not be NULL")
     }
-    .validate_logical_scalar(decreasing)
 
-    ## extract the values from the records according to which the sorting is
-    ## done: ordering by slot always supersedes ordering by info_element
-    vals <- if (sort.by.slot) {
-              sapply(object@records, function(x) slot(x, slot))
-            } else {
-              sapply(object@records, function(x) slot(x, "info")[[info_element]])
-            }
+    .validate_class(descending, classes = c("logical"))
+
+    ## recycle decreasing to match selection
+    descending <- rep(descending, length.out = sum(c(1, length(info_element))))
+
+    ## translate to -1 and 1 to match data.table requirements
+    descending[descending] <- -1
+    descending[!descending] <- 1
+
+    ## extract the values from the records
+    ## (1) extract slot values (should be a character; take only the first)
+    ## TODO: May break if length > 1
+      SLOT <- if(!is.null(slot)) {
+       data.table::as.data.table(
+         unlist(lapply(object@records, function(x) slot(x, slot))))
+      } else {
+        data.table::data.table(V1 = NA)
+      }
+
+      ## (2) extract info elements; ensure to take only the first element
+      ## of the info element is a vector
+      INFO <- if(any(!is.null(info_element))){
+        data.table::rbindlist(
+          lapply(object@records, function(x) {
+            data.table::as.data.table(lapply(x@info, function(l) l[[1]]))
+          }),
+          fill = TRUE)
+
+      }
+
+      ## (3) calculate general data parameters we always want to have
+      EXTRA <- t(vapply(object@records, function(x) {
+        c(nrow(x@data), min(x@data[,1]), max(x@data[,1]), min(x@data[,2]), max(x@data[,2]))
+
+      }, numeric(5)))
+
+    ## add UDI and combine information
+    vals <- cbind(
+      UID = seq_len(max(c(nrow(SLOT), nrow(INFO)))),
+      SLOT = SLOT,
+      XY_LENGTH = EXTRA[,1],
+      X_MIN = EXTRA[,2],
+      X_MAX = EXTRA[,3],
+      Y_MIN = EXTRA[,4],
+      Y_MAX = EXTRA[,5],
+      INFO)
 
     ## determine the new ordering if possible
-    tryCatch(ord <- order(vals, decreasing = decreasing),
+    ## TODO: What would be the case for an error?
+    tryCatch(ord <- data.table::setorderv(
+      x = vals,
+      cols = c("SLOT.V1", info_element),
+      order = descending)[["UID"]],
              error = function(e) {
                .throw_error("Records could not be sorted according to ",
-                            ifelse(sort.by.slot,
-                                   paste0("slot = '", slot, "'"),
-                                   paste0("info_element = '", info_element, "'")))
+                           paste0("slot = '", slot, "'"),
+                           paste0("info_element = '", paste(info_element, collapse = ",")))
              })
 
     ## return reordered object

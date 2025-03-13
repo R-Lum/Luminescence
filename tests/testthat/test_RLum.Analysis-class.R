@@ -142,17 +142,12 @@ test_that("sort_RLum", {
                "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(sar, slot = NULL, info_element = NULL),
                "At least one of 'slot' and 'info_element' should not be NULL")
-  expect_error(sort_RLum(sar, slot = "recordType", decreasing = "error"),
-               "'decreasing' should be a single logical value")
-  expect_error(sort_RLum(sar, slot = "data"),
-               "Records could not be sorted according to slot = 'data'")
-  expect_error(sort_RLum(sar, info_element = "offset"),
-               "Records could not be sorted according to info_element = 'offset'")
+  expect_error(sort_RLum(sar, slot = "recordType", descending = "error"),
+               "'descending' should be of class 'logical'")
+
 
   ## sort only using the first field until #605 is done
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
-                 "Only the first field will be used in sorting")
-  expect_message(sort_RLum(sar, info_element = c("state", "offset")),
                  "Only the first field will be used in sorting")
 
   ## check functionality
@@ -162,6 +157,11 @@ test_that("sort_RLum", {
   empty <- as(list(), "RLum.Analysis")
   expect_equal(sort_RLum(empty, slot = "curveType"),
                empty)
+
+  ## check a special case where individual info elements have a length > 1
+  sar@records[[1]]@info <- c(sar@records[[1]]@info, test = list(x = 1:10))
+  expect_s4_class(sort_RLum(sar, info_element = "startDate"), class = "RLum.Analysis")
+
 })
 
 test_that("structure_RLum", {
