@@ -359,14 +359,16 @@ calc_OSLLxTxRatio <- function(
   ## Galbraith (2002), Galbraith (2014)
   ## If else condition for the case that k < 2
 
-  if(round(k,digits = 1) >= 2 & ((min(background.integral) + length(signal.integral)*(2+1)) <= length(Lx.curve))){
+  len.sig.integral <- length(signal.integral)
+  min.bg.integral <- min(background.integral)
+  if (round(k, digits = 1) >= 2 &&
+      min.bg.integral + len.sig.integral * (2 + 1) <= len.Lx) {
 
     ##(b)(1)(1)
     ## note that m = n*k = multiple of background.integral from signal.integral
     Y.i <- vapply(0:round(k,digits=0), function(i){
-      sum(Lx.curve[
-        (min(background.integral)+length(signal.integral)*i):
-          (min(background.integral)+length(signal.integral)+length(signal.integral)*i)])
+      sum(Lx.curve[min.bg.integral +
+                   (len.sig.integral * i):(len.sig.integral * (i + 1))])
     }, FUN.VALUE = vector(mode = "numeric", length = 1L))
 
     Y.i <- na.exclude(Y.i)
@@ -385,19 +387,16 @@ calc_OSLLxTxRatio <- function(
                           mean(Lx.curve[background.integral])) * n)
   }
 
-  if (round(k.Tx, digits = 1) >= 2 &
-      ((
-        min(background.integral.Tx) + length(signal.integral.Tx) * (2 + 1)
-      ) <= length(Tx.curve))) {
+  len.sig.integral.Tx <- length(signal.integral.Tx)
+  min.bg.integral.Tx <- min(background.integral.Tx)
+  if (round(k.Tx, digits = 1) >= 2 &&
+      min.bg.integral.Tx + len.sig.integral.Tx * (2 + 1) <= length(Tx.curve)) {
     ##(b)(1)(1)
     ## note that m.Tx = n.Tx*k.Tx = multiple of background.integral.Tx from signal.integral.Tx
     ## also for the TnTx signal
     Y.i_TnTx <- vapply(0:round(k.Tx, digits = 0), function(i) {
-      sum(Tx.curve[(min(background.integral.Tx) + length(signal.integral.Tx) *
-                      i):(
-                        min(background.integral.Tx) + length(signal.integral.Tx) + length(signal.integral.Tx) *
-                          i
-                      )])
+      sum(Tx.curve[min.bg.integral.Tx +
+                   (len.sig.integral.Tx * i):(len.sig.integral.Tx * (i + 1))])
     }, FUN.VALUE = vector(mode = "numeric", length = 1L))
 
     Y.i_TnTx <- na.exclude(Y.i_TnTx)
@@ -417,14 +416,8 @@ calc_OSLLxTxRatio <- function(
 
   ##account for a manually set sigmab value
   if (!is.null(sigmab)) {
-      if (length(sigmab) == 2) {
-        sigmab.LnLx <- sigmab[1]
-        sigmab.TnTx <- sigmab[2]
-
-      }else{
-        sigmab.LnLx <- sigmab[1]
-        sigmab.TnTx <- sigmab[1]
-      }
+    sigmab.LnLx <- sigmab[1]
+    sigmab.TnTx <- sigmab[length(sigmab)]
   }
 
   ##(c)
@@ -463,26 +456,19 @@ calc_OSLLxTxRatio <- function(
     if(is.nan(TnTx.Error)) TnTx.Error <- 0
 
   ##combine results
-  LnLxTnTx <- cbind(
-    Lx.signal,
-    Lx.background,
-    Tx.signal,
-    Tx.background,
-    LnLx,
-    LnLx.Error,
-    TnTx,
-    TnTx.Error
+  LnLxTnTx <- data.frame(
+    LnLx = Lx.signal,
+    LnLx.BG = Lx.background,
+    TnTx = Tx.signal,
+    TnTx.BG = Tx.background,
+    Net_LnLx = LnLx,
+    Net_LnLx.Error = LnLx.Error,
+    Net_TnTx = TnTx,
+    Net_TnTx.Error = TnTx.Error
   )
 
-  ##--------------------------------------------------------------------------##
-  ##(4) Calculate LxTx error according Galbraith (2014)
-
-  #transform results in a data.frame
-  LnLxTnTx <- as.data.frame((LnLxTnTx))
-  colnames(LnLxTnTx)<-c("LnLx", "LnLx.BG",
-                        "TnTx", "TnTx.BG",
-                        "Net_LnLx", "Net_LnLx.Error",
-                        "Net_TnTx", "Net_TnTx.Error")
+  ## ------------------------------------------------------------------------
+  ## (4) Calculate LxTx error according Galbraith (2014)
 
   temp <- .calculate_LxTx_error(LnLxTnTx, sig0, digits)
 
