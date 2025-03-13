@@ -67,7 +67,8 @@ enable/disable the plot output.}
 \item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 enable/disable single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
-\code{plot_singlePanels = c(3,4)} draws only the last two plots}
+\code{plot_singlePanels = c(3,4)} draws only the last two plots in separate
+windows.}
 
 \item{...}{(\emph{optional}) further arguments that can be passed to internally used functions. Supported arguments:
 \code{xlab}, \code{log}, \code{mtext}, \code{plot.trend} (enable/disable trend blue line), and \code{xlim} for the

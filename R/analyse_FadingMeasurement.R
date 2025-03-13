@@ -111,7 +111,8 @@
 #' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
 #' enable/disable single plot mode, i.e. one plot window per plot.
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
-#' `plot_singlePanels = c(3,4)` draws only the last two plots
+#' `plot_singlePanels = c(3,4)` draws only the last two plots in separate
+#' windows.
 #'
 #' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
 #' `xlab`, `log`, `mtext`, `plot.trend` (enable/disable trend blue line), and `xlim` for the
@@ -661,7 +662,8 @@ analyse_FadingMeasurement <- function(
                      "instead")
     }
 
-    if (!plot_singlePanels[1]) {
+    ## split the plot area into 4 regions if plot_singlePanels = FALSE (default)
+    if (is.logical(plot_singlePanels) && !plot_singlePanels[1]) {
       par.default <- par()$mfrow
       on.exit(par(mfrow = par.default), add = TRUE)
       par(mfrow = c(2, 2))
@@ -693,12 +695,16 @@ analyse_FadingMeasurement <- function(
                                      length.out = 5)]
     }
 
+    ## convert plot_singlePanels to numeric if it was given as logical: this
+    ## helps simplifying the checks below
+    if (is.logical(plot_singlePanels))
+      plot_singlePanels <- 1:4
+
     ## plot Lx-curves -----
     if (!is.null(object)) {
       if (length(structure) == 2) {
 
-        if (is.logical(plot_singlePanels) ||
-            (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
+        if (1 %in% plot_singlePanels) {
           records <- object_clean[seq(1, length(object_clean), by = 2)]
           plot_RLum(
             set_RLum(class = "RLum.Analysis",
@@ -727,8 +733,7 @@ analyse_FadingMeasurement <- function(
         }
 
         # plot Tx-curves ----
-        if (is.logical(plot_singlePanels) ||
-            (is.numeric(plot_singlePanels) && 2 %in% plot_singlePanels)) {
+        if (2 %in% plot_singlePanels) {
           records <- object_clean[seq(2, length(object_clean), by = 2)]
           plot_RLum(
             set_RLum(class = "RLum.Analysis",
@@ -772,8 +777,7 @@ analyse_FadingMeasurement <- function(
         }
 
       } else{
-        if (is.logical(plot_singlePanels) ||
-            (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
+        if (1 %in% plot_singlePanels) {
           plot_RLum(
             set_RLum(class = "RLum.Analysis", records = object_clean),
             combine = length(object_clean) > 1,
@@ -803,8 +807,7 @@ analyse_FadingMeasurement <- function(
         }
 
         ##empty Tx plot
-        if (is.logical(plot_singlePanels) ||
-            (is.numeric(plot_singlePanels) && 2 %in% plot_singlePanels)) {
+        if (2 %in% plot_singlePanels) {
           plot(
             NA,
             NA,
@@ -821,8 +824,7 @@ analyse_FadingMeasurement <- function(
       }
 
     }else{
-      if (is.logical(plot_singlePanels) ||
-          (is.numeric(plot_singlePanels) && 1 %in% plot_singlePanels)) {
+      if (1 %in% plot_singlePanels) {
         ##empty Lx plot
         plot(
           NA,
@@ -838,8 +840,7 @@ analyse_FadingMeasurement <- function(
              labels = expression(paste("No ", L[x], " curves detected")))
       }
 
-      if (is.logical(plot_singlePanels) ||
-          (is.numeric(plot_singlePanels) && 2 %in% plot_singlePanels)) {
+      if (2 %in% plot_singlePanels) {
         ##empty Tx plot
         plot(
           NA,
@@ -857,8 +858,7 @@ analyse_FadingMeasurement <- function(
     }
 
     ## plot fading ----
-    if (is.logical(plot_singlePanels) ||
-        (is.numeric(plot_singlePanels) && 3 %in% plot_singlePanels)) {
+    if (3 %in% plot_singlePanels) {
 
       if(all(is.na(LxTx_table[["LxTx_NORM"]]))){
           shape::emptyplot()
@@ -1000,8 +1000,7 @@ analyse_FadingMeasurement <- function(
       }#end if a
     }#
 
-    if (is.logical(plot_singlePanels) ||
-        (is.numeric(plot_singlePanels) && 4 %in% plot_singlePanels)) {
+    if (4 %in% plot_singlePanels) {
 
       if(all(is.na(g_value.MC))){
         shape::emptyplot()
