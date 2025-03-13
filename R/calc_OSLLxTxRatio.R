@@ -146,10 +146,10 @@
 #' `https://users.aber.ac.uk/ggd`\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
-#' count. Ancient TL, 20 (2), 49-51.
+#' count. Ancient TL, 20 (2), 49-51. \doi{10.26034/la.atl.2002.348}
 #'
 #' Galbraith, R.F., 2014. A further note on the variance of a
-#' background-corrected OSL count. Ancient TL, 31 (2), 1-3.
+#' background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
 #'
 #' @keywords datagen
 #'
@@ -187,7 +187,6 @@ calc_OSLLxTxRatio <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
 
   ## Lx - coerce if required
@@ -436,13 +435,11 @@ calc_OSLLxTxRatio <- function(
   ## Equation 6 is appropriate to be implemented as standard
 
   if(background.count.distribution == "poisson"){
-
     ##(c.1) estimate relative standard error for assuming a poisson distribution
     LnLx.relError <- sqrt((Y.0 + Y.1/k^2))/(Y.0-Y.1/k)        ##  rse(mu.s)
     TnTx.relError <- sqrt((Y.0_TnTx + Y.1_TnTx/k^2))/(Y.0_TnTx-Y.1_TnTx/k)
 
   }else{
-
     ##(c.2) estimate relative standard error for a non-poisson distribution
     if(background.count.distribution != "non-poisson"){
       .throw_warning("Unknown method for 'background.count.distribution', ",

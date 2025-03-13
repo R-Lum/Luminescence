@@ -177,10 +177,10 @@ Duller, G., 2018. Analyst v4.57 - User Manual.
 \verb{https://users.aber.ac.uk/ggd}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
-count. Ancient TL, 20 (2), 49-51.
+count. Ancient TL, 20 (2), 49-51. \doi{10.26034/la.atl.2002.348}
 
 Galbraith, R.F., 2014. A further note on the variance of a
-background-corrected OSL count. Ancient TL, 31 (2), 1-3.
+background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
 }
 \seealso{
 \linkS4class{RLum.Data.Curve}, \link{Analyse_SAR.OSLdata}, \link{fit_DoseResponseCurve},
