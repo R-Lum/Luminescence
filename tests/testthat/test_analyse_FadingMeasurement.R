@@ -249,6 +249,9 @@ test_that("regression tests", {
                    timeSinceIrr = c(2516, 41353, 50357, 140342, 1040044, 2516, 41360, 50360))
   res <- analyse_FadingMeasurement(df, n.MC = 10, plot = FALSE, verbose = FALSE)
   expect_false(is.nan(res$rho_prime$MEAN))
+
+  ## issue 616
+  expect_output(analyse_FadingMeasurement(df[1:2, ]))
 })
 
 test_that("graphical snapshot tests", {

@@ -634,8 +634,14 @@ analyse_FadingMeasurement <- function(
         T_0.5_PREDICTED.UPPER = NA
     )
   }else{
-    T_0.5.predict <- stats::predict.lm(fit_predict,newdata = data.frame(x = 0.5),
-                                       interval = "predict")
+    ## if the number of observations is less than 3, the number of residual
+    ## degrees of freedom is 0, and we would get this warning when computing
+    ## the prediction interval:
+    ##   In qt((1 - level)/2, df) : NaNs produced
+    ## hence, we suppress the warning (#616)
+    T_0.5.predict <- suppressWarnings(
+        stats::predict.lm(fit_predict, newdata = data.frame(x = 0.5),
+                          interval = "predict"))
     T_0.5 <- data.frame(
         T_0.5_INTERPOLATED = T_0.5.interpolated$y,
         T_0.5_PREDICTED = (10 ^ T_0.5.predict[, 1]) * tc,
