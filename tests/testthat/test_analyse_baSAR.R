@@ -134,7 +134,8 @@ test_that("input validation", {
                     signal.integral = c(1:2),
                     background.integral = c(80:100),
                     distribution = "user_defined")),
-      "Channel numbers of Lx and Tx data differ")
+      "Different number of channels for Lx (250) and Tx (1000)",
+      fixed = TRUE)
 
   SW({
   data(ExampleData.RLum.Analysis, envir = environment())
