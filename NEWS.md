@@ -23,6 +23,13 @@
   been improved, and the function now produces more helpful error
   messages (#616).
 
+### `calc_AliquotSize()`
+
+- The function computed incorrectly the area of the container when
+  computing the packing density in the case when argument
+  `grains.counted` was provided, which resulted in smaller packing
+  density (#621).
+
 ### `calc_OSLLxTxRatio()`
 
 - The function returned a warning for wrong integral settings for the

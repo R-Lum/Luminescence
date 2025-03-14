@@ -5,7 +5,7 @@
 #' density of an aliquot is computed.
 #'
 #' This function can be used to either estimate the number of grains on an
-#' aliquot or to compute the packing density depending on the arguments
+#' aliquot or to compute the packing density, depending on the arguments
 #' provided.
 #'
 #' The following function is used to estimate the number of grains `n`:
@@ -13,29 +13,29 @@
 #' \deqn{n = (\pi*x^2)/(\pi*y^2)*d}
 #'
 #' where `x` is the radius of the aliquot size (microns), `y` is the mean
-#' radius of the mineral grains (mm) and `d` is the packing density
+#' radius of the mineral grains (mm), and `d` is the packing density
 #' (value between 0 and 1).
 #'
 #' **Packing density**
 #'
 #' The default value for `packing.density` is 0.65, which is the mean of
 #' empirical values determined by Heer et al. (2012) and unpublished data from
-#' the Cologne luminescence laboratory. If `packing.density = "Inf"` a maximum
-#' density of  \eqn{\pi/\sqrt12 = 0.9068\ldots} is used. However, note that
+#' the Cologne luminescence laboratory. If `packing.density = Inf`, a maximum
+#' density of \eqn{\pi / \sqrt{12} \approx 0.9069} is used. However, note that
 #' this value is not appropriate as the standard preparation procedure of
-#' aliquots resembles a  PECC (*"Packing Equal Circles in a Circle"*) problem
+#' aliquots resembles a PECC (*Packing Equal Circles in a Circle*) problem,
 #' where the maximum packing density is asymptotic to about 0.87.
 #'
 #' **Monte Carlo simulation**
 #'
 #' The number of grains on an aliquot can be estimated by Monte Carlo simulation
-#' when setting `MC = TRUE`. Each of the parameters necessary to calculate
+#' when setting `MC = TRUE`. All parameters necessary to calculate
 #' `n` (`x`, `y`, `d`) are assumed to be normally distributed with means
 #' \eqn{\mu_x, \mu_y, \mu_d} and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}.
 #'
-#' For the mean grain size random samples are taken first from
+#' For the mean grain size, random samples are taken first from
 #' \eqn{N(\mu_y, \sigma_y)}, where \eqn{\mu_y = mean.grain.size} and
-#' \eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95% of all
+#' \eqn{\sigma_y = (max.grain.size-min.grain.size)/4}, so that 95% of all
 #' grains are within the provided the grain size range. This effectively takes
 #' into account that after sieving the sample there is still a small chance of
 #' having grains smaller or larger than the used mesh sizes. For each random
@@ -46,20 +46,20 @@
 #' to be normally distributed with an empirically determined \eqn{\mu = 0.65}
 #' (or provided value) and \eqn{\sigma = 0.18}. The normal distribution is
 #' truncated at `d = 0.87` as this is approximately the maximum packing
-#' density that can be achieved in PECC problem.
+#' density that can be achieved in a PECC problem.
 #'
 #' The sample diameter has
 #' \eqn{\mu = sample.diameter} and \eqn{\sigma = 0.2} to take into account
 #' variations in sample disc preparation (i.e. applying silicon spray to the
 #' disc). A lower truncation point at `x = 0.5` is used, which assumes
-#' that aliquots with smaller sample diameters of 0.5 mm are discarded.
+#' that aliquots with sample diameter smaller than 0.5 mm are discarded.
 #' Likewise, the normal distribution is truncated at 9.8 mm, which is the
 #' diameter of the sample disc.
 #'
 #' For each random sample drawn from the
-#' normal distributions the amount of grains on the aliquot is calculated. By
-#' default, `10^5` iterations are used, but can be reduced/increased with
-#' `MC.iter` (see `...`). The results are visualised in a bar- and
+#' normal distribution, the amount of grains on the aliquot is calculated. By
+#' default, `10^4` iterations are used, but the can be controlled with
+#' option `MC.iter` (see `...`). Results are visualised in a bar- and
 #' boxplot together with a statistical summary.
 #'
 #' @param grain.size [numeric] (**required**):
@@ -71,8 +71,9 @@
 #'
 #' @param packing.density [numeric] (*with default*):
 #' empirical value for mean packing density. \cr
-#' If `packing.density = "Inf"` a hexagonal structure on an infinite plane with
-#' a packing density of \eqn{0.906\ldots} is assumed.
+#' If `packing.density = Inf`, a hexagonal structure on an infinite
+#' plane with a packing density of \eqn{\pi / \sqrt{12} \approx 0.9069}
+#' is assumed.
 #'
 #' @param MC [logical] (*optional*):
 #' if `TRUE` the function performs a Monte Carlo simulation for estimating the
@@ -81,15 +82,16 @@
 #' grain size for `grain.size`. For more information see details.
 #'
 #' @param grains.counted [numeric] (*optional*):
-#' grains counted on a sample carrier. If a non-zero positive integer is provided this function
-#' will calculate the packing density of the aliquot. If more than one value is
-#' provided the mean packing density and its standard deviation is calculated.
+#' grains counted on a sample carrier. If a non-zero positive integer is
+#' provided, this function will calculate the packing density of the aliquot.
+#' If more than one value is provided, the mean packing density and its
+#' standard deviation are calculated.
 #' Note that this overrides `packing.density`.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param ... further arguments to pass (`main, xlab, MC.iter`).
+#' @param ... further arguments to pass (`main`, `xlab`, `MC.iter`).
 #'
 #' @return
 #' Returns a terminal output. In addition an
@@ -146,15 +148,13 @@ calc_AliquotSize <- function(
   packing.density = 0.65,
   MC = TRUE,
   grains.counted,
-  plot=TRUE,
+  plot = TRUE,
   ...
 ) {
   .set_function_name("calc_AliquotSize")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##==========================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##==========================================================================##
+  ## Integrity checks -------------------------------------------------------
 
   if (missing(grain.size) ||
       length(grain.size) == 0 || length(grain.size) > 2) {
@@ -162,18 +162,19 @@ calc_AliquotSize <- function(
                  "of grain sizes (in microns)")
   }
 
-  if(packing.density < 0 | packing.density > 1) {
-    if(packing.density == "inf") {
-    } else {
-      .throw_error("'packing.density' expects values between 0 and 1")
-    }
+  .validate_positive_scalar(packing.density)
+  if (is.infinite(packing.density)) {
+    # use ~0.907... from Thue's Theorem as packing density
+    packing.density <- pi / sqrt(12)
+  }
+  if (packing.density > 1) {
+    .throw_error("'packing.density' should be a value between 0 and 1")
   }
 
   .validate_positive_scalar(sample.diameter)
-
   if (sample.diameter > 9.8)
     .throw_warning("A sample diameter of ", sample.diameter,  " mm was ",
-                  "specified, but common sample discs are 9.8 mm in diameter")
+                   "specified, but common sample discs are 9.8 mm in diameter")
 
   if(missing(grains.counted) == FALSE) {
     if(MC == TRUE) {
@@ -201,6 +202,7 @@ calc_AliquotSize <- function(
   # override settings with user arguments
   settings <- modifyList(settings, list(...))
 
+  MC.n <- MC.stats <- MC.n.kde <- MC.t.test <- MC.q <- NULL
 
   ##==========================================================================##
   ## CALCULATIONS
@@ -212,11 +214,6 @@ calc_AliquotSize <- function(
     gs.range<- grain.size
     grain.size<- mean(grain.size)
     range.flag<- TRUE
-  }
-
-  # use ~0.907... from Thue's Theorem as packing density
-  if(packing.density == "inf") {
-    packing.density = pi/sqrt(12)
   }
 
   # function to calculate the amount of grains
@@ -239,9 +236,9 @@ calc_AliquotSize <- function(
       # 0.18.
       d.mc<- rnorm(settings$MC.iter, packing.density, 0.18)
 
-      # in a PECC the packing density can not be larger than ~0.87
-      d.mc[which(d.mc > 0.87)]<- 0.87
-      d.mc[which(d.mc < 0.25)]<- 0.25
+      # in a PECC the packing density cannot be larger than ~0.87
+      d.mc <- pmin(d.mc, 0.87)
+      d.mc <- pmax(d.mc, 0.25)
 
       # create a random set of sample diameters assuming a normal
       # distribution with an assumed standard deviation of
@@ -253,9 +250,8 @@ calc_AliquotSize <- function(
       # diameter is capped at 0.5.
       # Also, the sample diameter can not be larger than the sample
       # disc, i.e. 9.8 mm.
-      sd.mc[which(sd.mc <0.5)]<- 0.5
-      if (sample.diameter <= 9.8)
-        sd.mc[which(sd.mc >9.8)]<- 9.8
+      sd.mc <- pmax(sd.mc, 0.5)
+      sd.mc <- pmin(sd.mc, 9.8)
 
       # create random samples assuming a normal distribution
       # with the mean grain size as mean and half the range (min:max)
@@ -299,22 +295,14 @@ calc_AliquotSize <- function(
   ##========================================================================##
   ## CALCULATE PACKING DENSITY
 
-  if(missing(grains.counted) == FALSE) {
-
-    area.container<- pi*sample.diameter^2
-
-    if(length(grains.counted) == 1) {
-      area.grains<- (pi*(grain.size/1000)^2)*grains.counted
-      packing.density<- area.grains/area.container
+  if (!missing(grains.counted)) {
+    area.container <- pi * (sample.diameter / 2)^2
+    packing.density <- vector("numeric", length = length(grains.counted))
+    for (i in 1:length(grains.counted)) {
+      area.grains <- pi * (grain.size / 1000)^2 * grains.counted[i]
+      packing.density[i] <- area.grains / area.container
     }
-    else {
-      packing.densities<- length(grains.counted)
-      for(i in 1:length(grains.counted)) {
-        area.grains<- (pi*(grain.size/1000)^2)*grains.counted[i]
-        packing.densities[i]<- area.grains/area.container
-      }
-      std.d<- sd(packing.densities)
-    }
+    std.d <- sd(packing.density)
   }
 
   ##==========================================================================##
@@ -340,7 +328,7 @@ calc_AliquotSize <- function(
       if(length(grains.counted) == 1) {
         cat(paste("\n packing density            :", round(packing.density,3)))
       } else {
-        cat(paste("\n mean packing density       :", round(mean(packing.densities),3)))
+        cat(paste("\n mean packing density       :", round(mean(packing.density),3)))
         cat(paste("\n standard deviation         :", round(std.d,3)))
       }
     }
@@ -370,42 +358,21 @@ calc_AliquotSize <- function(
   ##==========================================================================##
 
   # prepare return values for mode: estimate grains
-  if(missing(grains.counted) == TRUE) {
+  if (missing(grains.counted)) {
     summary<- data.frame(grain.size = grain.size,
                          sample.diameter = sample.diameter,
                          packing.density = packing.density,
                          n.grains = round(n.grains,0),
                          grains.counted = NA)
-  }
-
-  # prepare return values for mode: estimate packing density/densities
-  if(missing(grains.counted) == FALSE) {
-
-    # return values if only one value for counted.grains is provided
-    if(length(grains.counted) == 1) {
-      summary<- data.frame(grain.size = grain.size,
-                           sample.diameter = sample.diameter,
-                           packing.density = packing.density,
-                           n.grains = NA,
-                           grains.counted = grains.counted)
-    } else {
-      # return values if more than one value for counted.grains is provided
-      summary<- data.frame(rbind(1:5))
-      colnames(summary)<- c("grain.size", "sample.diameter", "packing.density",
-                            "n.grains","grains.counted")
-      for(i in 1:length(grains.counted)) {
-        summary[i,]<- c(grain.size, sample.diameter, packing.densities[i],
+  } else {
+    ## prepare return values for mode: estimate packing density
+    summary<- data.frame(rbind(1:5))
+    colnames(summary) <- c("grain.size", "sample.diameter", "packing.density",
+                           "n.grains", "grains.counted")
+    for (i in 1:length(grains.counted)) {
+      summary[i, ] <- c(grain.size, sample.diameter, packing.density[i],
                         n.grains = NA, grains.counted[i])
-      }
     }
-  }
-
-  if(!MC) {
-    MC.n<- NULL
-    MC.stats<- NULL
-    MC.n.kde<- NULL
-    MC.t.test<- NULL
-    MC.q<- NULL
   }
 
   if(missing(grains.counted)) grains.counted<- NA

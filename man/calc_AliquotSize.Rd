@@ -24,8 +24,9 @@ diameter (mm) of the targeted area on the sample carrier.}
 
 \item{packing.density}{\link{numeric} (\emph{with default}):
 empirical value for mean packing density. \cr
-If \code{packing.density = "Inf"} a hexagonal structure on an infinite plane with
-a packing density of \eqn{0.906\ldots} is assumed.}
+If \code{packing.density = Inf}, a hexagonal structure on an infinite
+plane with a packing density of \eqn{\pi / \sqrt{12} \approx 0.9069}
+is assumed.}
 
 \item{MC}{\link{logical} (\emph{optional}):
 if \code{TRUE} the function performs a Monte Carlo simulation for estimating the
@@ -34,15 +35,16 @@ size distribution and packing density. Requires a vector with min and max
 grain size for \code{grain.size}. For more information see details.}
 
 \item{grains.counted}{\link{numeric} (\emph{optional}):
-grains counted on a sample carrier. If a non-zero positive integer is provided this function
-will calculate the packing density of the aliquot. If more than one value is
-provided the mean packing density and its standard deviation is calculated.
+grains counted on a sample carrier. If a non-zero positive integer is
+provided, this function will calculate the packing density of the aliquot.
+If more than one value is provided, the mean packing density and its
+standard deviation are calculated.
 Note that this overrides \code{packing.density}.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{...}{further arguments to pass (\verb{main, xlab, MC.iter}).}
+\item{...}{further arguments to pass (\code{main}, \code{xlab}, \code{MC.iter}).}
 }
 \value{
 Returns a terminal output. In addition an
@@ -61,7 +63,7 @@ Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed.
 
 This function can be used to either estimate the number of grains on an
-aliquot or to compute the packing density depending on the arguments
+aliquot or to compute the packing density, depending on the arguments
 provided.
 
 The following function is used to estimate the number of grains \code{n}:
@@ -69,29 +71,29 @@ The following function is used to estimate the number of grains \code{n}:
 \deqn{n = (\pi*x^2)/(\pi*y^2)*d}
 
 where \code{x} is the radius of the aliquot size (microns), \code{y} is the mean
-radius of the mineral grains (mm) and \code{d} is the packing density
+radius of the mineral grains (mm), and \code{d} is the packing density
 (value between 0 and 1).
 
 \strong{Packing density}
 
 The default value for \code{packing.density} is 0.65, which is the mean of
 empirical values determined by Heer et al. (2012) and unpublished data from
-the Cologne luminescence laboratory. If \code{packing.density = "Inf"} a maximum
-density of  \eqn{\pi/\sqrt12 = 0.9068\ldots} is used. However, note that
+the Cologne luminescence laboratory. If \code{packing.density = Inf}, a maximum
+density of \eqn{\pi / \sqrt{12} \approx 0.9069} is used. However, note that
 this value is not appropriate as the standard preparation procedure of
-aliquots resembles a  PECC (\emph{"Packing Equal Circles in a Circle"}) problem
+aliquots resembles a PECC (\emph{Packing Equal Circles in a Circle}) problem,
 where the maximum packing density is asymptotic to about 0.87.
 
 \strong{Monte Carlo simulation}
 
 The number of grains on an aliquot can be estimated by Monte Carlo simulation
-when setting \code{MC = TRUE}. Each of the parameters necessary to calculate
+when setting \code{MC = TRUE}. All parameters necessary to calculate
 \code{n} (\code{x}, \code{y}, \code{d}) are assumed to be normally distributed with means
 \eqn{\mu_x, \mu_y, \mu_d} and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}.
 
-For the mean grain size random samples are taken first from
+For the mean grain size, random samples are taken first from
 \eqn{N(\mu_y, \sigma_y)}, where \eqn{\mu_y = mean.grain.size} and
-\eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95\% of all
+\eqn{\sigma_y = (max.grain.size-min.grain.size)/4}, so that 95\% of all
 grains are within the provided the grain size range. This effectively takes
 into account that after sieving the sample there is still a small chance of
 having grains smaller or larger than the used mesh sizes. For each random
@@ -102,20 +104,20 @@ The packing density is assumed
 to be normally distributed with an empirically determined \eqn{\mu = 0.65}
 (or provided value) and \eqn{\sigma = 0.18}. The normal distribution is
 truncated at \code{d = 0.87} as this is approximately the maximum packing
-density that can be achieved in PECC problem.
+density that can be achieved in a PECC problem.
 
 The sample diameter has
 \eqn{\mu = sample.diameter} and \eqn{\sigma = 0.2} to take into account
 variations in sample disc preparation (i.e. applying silicon spray to the
 disc). A lower truncation point at \code{x = 0.5} is used, which assumes
-that aliquots with smaller sample diameters of 0.5 mm are discarded.
+that aliquots with sample diameter smaller than 0.5 mm are discarded.
 Likewise, the normal distribution is truncated at 9.8 mm, which is the
 diameter of the sample disc.
 
 For each random sample drawn from the
-normal distributions the amount of grains on the aliquot is calculated. By
-default, \code{10^5} iterations are used, but can be reduced/increased with
-\code{MC.iter} (see \code{...}). The results are visualised in a bar- and
+normal distribution, the amount of grains on the aliquot is calculated. By
+default, \code{10^4} iterations are used, but the can be controlled with
+option \code{MC.iter} (see \code{...}). Results are visualised in a bar- and
 boxplot together with a statistical summary.
 }
 \section{Function version}{
