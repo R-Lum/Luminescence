@@ -2,9 +2,12 @@
 % Please edit documentation in R/Luminescence-generics.R
 \name{sort_RLum}
 \alias{sort_RLum}
+\alias{sort_RLum,list-method}
 \title{Sort data for RLum S4-class objects}
 \usage{
 sort_RLum(object, ...)
+
+\S4method{sort_RLum}{list}(object, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\strong{required}):
@@ -22,6 +25,11 @@ function will be selected.
 Allowed arguments can be found in the documentations of the corresponding
 \linkS4class{RLum} class.
 }
+\section{Functions}{
+\itemize{
+\item \code{sort_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{sort_RLum}
+
+}}
 \section{Function version}{
  0.1.0
 }

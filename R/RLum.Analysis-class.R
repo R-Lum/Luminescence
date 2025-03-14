@@ -861,21 +861,30 @@ setMethod(
   }
 )
 
-
-## sort_RLum() --------------------------------------------------------------
+# sort_RLum() -------------------------------------------------------------------
 #' @describeIn RLum.Analysis
 #'
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
 #' At least one of `slot` and `info_element` must be provided. If both are
-#' given, ordering by `slot` always supersedes ordering by `info_element`.
+#' given, ordering by `slot` always takes priority over `info_element`.
+#' Only the first element in each `slot` and each `info_element` is used
+#' for sorting. Example: `.pid` can contain multiple values, however, only the
+#' first is taken.
+#'
+#' Please note that the `show()` method does some structuring, which may
+#' lead to the impression that the sorting did not work.
 #'
 #' @param slot [character] (*optional*): slot name to use in sorting.
 #'
-#' @param info_element [character] (*optional*): name of the `info` field
-#' to use in sorting.
+#' @param info_element [character] (*optional*): names of the `info` field
+#' to use in sorting. The order of the names sets the sorting priority.
+#' Regardless of available info elements, the following
+#' elements always exist because they are calculated from the record
+#' `XY_LENGTH`, `NCOL`, `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`
 #'
 #' @param decreasing [logical] (*with default*): whether the sort order should
-#' be decreasing (`FALSE` by default).
+#' be decreasing (`FALSE` by default). It can be provided as a vector to control
+#' the ordering sequence for each sorting element.
 #'
 #' @param ... further arguments passed to underlying methods
 #'
@@ -884,6 +893,12 @@ setMethod(
 #' **`sort_RLum`**
 #'
 #' Same object as input, but sorted according to the specified parameters.
+#'
+#' @examples
+#' ## **sort_RLum()** ##
+#' data(ExampleData.XSYG, envir = environment())
+#' sar <- OSL.SARMeasurement$Sequence.Object[1:5]
+#' sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 #'
 #' @md
 #' @export
@@ -896,11 +911,10 @@ setMethod(
     on.exit(.unset_function_name(), add = TRUE)
 
     ## an empty object has nothing to sort
-    if (length(object) == 0)
+    if (length(object@records) == 0)
       return(object)
 
     ## input validation
-    sort.by.slot <- FALSE
     if (!is.null(slot)) {
       .validate_class(slot, "character", extra = "NULL")
       valid.names <- slotNames(object@records[[1]])
@@ -912,40 +926,89 @@ setMethod(
         message("[sort_RLum()]: Only the first field will be used in sorting")
         slot <- slot[1]
       }
-      sort.by.slot <- TRUE
     }
+
     if (!is.null(info_element)) {
       .validate_class(info_element, "character", extra = "NULL")
-      valid.names <- names(object@records[[1]]@info)
+      valid.names <- c(
+        "XY_LENGTH", "NCOL", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX",
+        names(object@records[[1]]@info))
       if (any(!info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
       }
-      if (length(info_element) > 1) {
-        message("[sort_RLum()]: Only the first field will be used in sorting")
-        info_element <- info_element[1]
-      }
     }
+
     if (is.null(slot) && is.null(info_element)) {
       .throw_error("At least one of 'slot' and 'info_element' should not be NULL")
     }
-    .validate_logical_scalar(decreasing)
 
-    ## extract the values from the records according to which the sorting is
-    ## done: ordering by slot always supersedes ordering by info_element
-    vals <- if (sort.by.slot) {
-              sapply(object@records, function(x) slot(x, slot))
-            } else {
-              sapply(object@records, function(x) slot(x, "info")[[info_element]])
-            }
+    .validate_class(decreasing, classes = "logical")
+
+    ## recycle decreasing to match selection
+    decreasing <- rep(decreasing, length.out = length(info_element) + 1)
+
+    ## translate to -1 and 1 to match data.table requirements
+    decreasing[decreasing] <- -1
+    decreasing[!decreasing] <- 1
+
+    ## extract the values from the records
+    ## (1) extract slot values (should be a character; take only the first)
+    SLOT <- if(!is.null(slot)) {
+      data.table::as.data.table(
+       unlist(lapply(object@records, function(x) slot(x, slot)[[1]])))
+
+    } else {
+      data.table::data.table(V1 = NA)
+
+    }
+
+    ## (2) extract info elements; ensure to take only the first element
+    ## of the info element is a vector
+    INFO <- if(any(!is.null(info_element))){
+      data.table::rbindlist(
+        lapply(object@records, function(x) {
+          data.table::as.data.table(lapply(x@info, function(l) l[[1]]))
+        }),
+        fill = TRUE)
+      }
+
+    ## (3) calculate general data parameters we always want to have
+    EXTRA <- t(vapply(object@records, function(x) {
+      ## ncol > 2 happens for RLum.Data.Spectrum and RLum.Data.Image
+      n_col <- ncol(x@data)
+
+      ## NA happens for RLum.Data.Image
+      if(is.na(n_col))
+        c(rep(NA_real_, 6))
+      else
+       c(nrow(x@data), n_col, min(x@data[,1]), max(x@data[,1]), min(x@data[,n_col]), max(x@data[,n_col]))
+
+    }, numeric(6)))
+
+    ## add UID and combine information
+    ## the UID is required for the ordering index
+    vals <- suppressWarnings(cbind(
+      UID = seq_len(max(c(nrow(SLOT), nrow(INFO), nrow(EXTRA)))),
+      SLOT = SLOT,
+      XY_LENGTH = EXTRA[,1],
+      NCOL = EXTRA[,2],
+      X_MIN = EXTRA[,3],
+      X_MAX = EXTRA[,4],
+      Y_MIN = EXTRA[,5],
+      Y_MAX = EXTRA[,6],
+      INFO))
 
     ## determine the new ordering if possible
-    tryCatch(ord <- order(vals, decreasing = decreasing),
+    ## TODO: What would be the case for an error? ... we keep it; just in case
+    tryCatch(ord <- data.table::setorderv(
+      x = vals,
+      cols = c("SLOT.V1", info_element),
+      order = decreasing)[["UID"]],
              error = function(e) {
                .throw_error("Records could not be sorted according to ",
-                            ifelse(sort.by.slot,
-                                   paste0("slot = '", slot, "'"),
-                                   paste0("info_element = '", info_element, "'")))
+                           paste0("slot = '", slot, "'"),
+                           paste0("info_element = '", paste(info_element, collapse = ", ")))
              })
 
     ## return reordered object

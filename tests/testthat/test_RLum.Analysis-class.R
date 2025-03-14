@@ -143,25 +143,53 @@ test_that("sort_RLum", {
   expect_error(sort_RLum(sar, slot = NULL, info_element = NULL),
                "At least one of 'slot' and 'info_element' should not be NULL")
   expect_error(sort_RLum(sar, slot = "recordType", decreasing = "error"),
-               "'decreasing' should be a single logical value")
-  expect_error(sort_RLum(sar, slot = "data"),
-               "Records could not be sorted according to slot = 'data'")
-  expect_error(sort_RLum(sar, info_element = "offset"),
-               "Records could not be sorted according to info_element = 'offset'")
+               "'decreasing' should be of class 'logical'")
+
+  ## check empty object
+  expect_s4_class(sort_RLum(set_RLum("RLum.Analysis")), class = "RLum.Analysis")
+
+  ## check one curve object
+  expect_s4_class(
+    sort_RLum(set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))),
+              slot = "recordType"),
+                  class = "RLum.Analysis")
 
   ## sort only using the first field until #605 is done
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
-                 "Only the first field will be used in sorting")
-  expect_message(sort_RLum(sar, info_element = c("state", "offset")),
                  "Only the first field will be used in sorting")
 
   ## check functionality
   expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
   expect_snapshot_RLum(sort_RLum(sar, info_element = "curveDescripter"))
 
+  ## present a list of those objects
+  expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
+  expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
+
+  ## now add spectra
+  sar_a <- sar
+  sar_a@records <- c(sar_a@records, set_RLum("RLum.Data.Spectrum"))
+  expect_s4_class(sort_RLum(sar_a, info_element = "X_MIN"), "RLum.Analysis")
+
+  ## try with image
+  sar_a <- sar
+  sar_a@records <- c(sar_a@records, set_RLum("RLum.Data.Image"))
+  expect_s4_class(sort_RLum(sar_a, info_element = "X_MIN"), "RLum.Analysis")
+
+  ## use slot sorting with more than one element in the slot
+  ## it should not break
+  sar_a <- sar
+  sar_a@records[[1]]@.pid <- c("a", "b")
+  sort_RLum(sar_a, slot = ".pid")
+
   empty <- as(list(), "RLum.Analysis")
   expect_equal(sort_RLum(empty, slot = "curveType"),
                empty)
+
+  ## check a special case where individual info elements have a length > 1
+  sar@records[[1]]@info <- c(sar@records[[1]]@info, test = list(x = 1:10))
+  expect_s4_class(sort_RLum(sar, info_element = "startDate"), class = "RLum.Analysis")
+
 })
 
 test_that("structure_RLum", {

@@ -139,8 +139,11 @@ extends the returned \code{data.frame} to its full extent, i.e. all info element
 are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 
-\item{info_element}{\link{character} (\emph{optional}): name of the \code{info} field
-to use in sorting.}
+\item{info_element}{\link{character} (\emph{optional}): names of the \code{info} field
+to use in sorting. The order of the names sets the sorting priority.
+Regardless of available info elements, the following
+elements always exist because they are calculated from the record
+\code{XY_LENGTH}, \code{NCOL}, \code{X_MIN}, \code{X_MAX}, \code{Y_MIN}, \code{Y_MAX}}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
 of the metadata field. If \code{NULL} the elements named in \code{info_element}
@@ -151,7 +154,8 @@ will be removed.}
 \item{slot}{\link{character} (\emph{optional}): slot name to use in sorting.}
 
 \item{decreasing}{\link{logical} (\emph{with default}): whether the sort order should
-be decreasing (\code{FALSE} by default).}
+be decreasing (\code{FALSE} by default). It can be provided as a vector to control
+the ordering sequence for each sorting element.}
 }
 \value{
 \strong{\code{get_RLum}}:
@@ -227,7 +231,13 @@ using the internal function \code{.smoothing}.
 
 \item \code{sort_RLum(RLum.Analysis)}: Sorting of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object.
 At least one of \code{slot} and \code{info_element} must be provided. If both are
-given, ordering by \code{slot} always supersedes ordering by \code{info_element}.
+given, ordering by \code{slot} always takes priority over \code{info_element}.
+Only the first element in each \code{slot} and each \code{info_element} is used
+for sorting. Example: \code{.pid} can contain multiple values, however, only the
+first is taken.
+
+Please note that the \code{show()} method does some structuring, which may
+lead to the impression that the sorting did not work.
 
 \item \code{melt_RLum(RLum.Analysis)}: Melts \linkS4class{RLum.Analysis} objects into a flat data.frame to be used
 in combination with other packages such as \code{ggplot2}.
@@ -272,6 +282,11 @@ get_RLum(IRSAR.RF.Data)
 
 ##show only the first object, but by keeping the object
 get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
+
+## **sort_RLum()** ##
+data(ExampleData.XSYG, envir = environment())
+sar <- OSL.SARMeasurement$Sequence.Object[1:5]
+sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 
 }
 \seealso{
