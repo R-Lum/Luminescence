@@ -867,6 +867,8 @@ setMethod(
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
 #' At least one of `slot` and `info_element` must be provided. If both are
 #' given, ordering by `slot` always takes priority over `info_element`.
+#' Please note that the `show()` method does some structuring, which may
+#' lead to the impression that the sorting did not work.
 #'
 #' @param slot [character] (*optional*): slot name to use in sorting.
 #'
