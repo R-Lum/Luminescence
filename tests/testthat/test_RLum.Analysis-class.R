@@ -142,8 +142,8 @@ test_that("sort_RLum", {
                "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(sar, slot = NULL, info_element = NULL),
                "At least one of 'slot' and 'info_element' should not be NULL")
-  expect_error(sort_RLum(sar, slot = "recordType", descending = "error"),
-               "'descending' should be of class 'logical'")
+  expect_error(sort_RLum(sar, slot = "recordType", decreasing = "error"),
+               "'decreasing' should be of class 'logical'")
 
 
   ## sort only using the first field until #605 is done
