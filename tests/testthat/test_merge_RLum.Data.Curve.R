@@ -39,8 +39,9 @@ test_that("input validation", {
   expect_equal(nrow(res@data), nrow(TL.curve.3_short@data))
 
   ## different resolution
-  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_resol)),
-               "The objects do not seem to have the same channel resolution")
+  expect_warning(expect_warning(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_resol)),
+               "The objects do not seem to have the same channel resolution"))
+
 })
 
 test_that("check functionality", {

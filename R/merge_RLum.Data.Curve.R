@@ -166,7 +166,7 @@ merge_RLum.Data.Curve<- function(
   temp.matrix <- sapply(1:num.objects, function(x) {
     ## check the resolution (roughly)
     if (round(diff(object[[x]]@data[, 1]), 1)[1] != step)
-      .throw_error("The objects do not seem to have the same channel resolution")
+      .throw_warning("The objects do not seem to have the same channel resolution!")
     ## limit all objects to the shortest one
     object[[x]]@data[1:num.rows, 2]
   })
