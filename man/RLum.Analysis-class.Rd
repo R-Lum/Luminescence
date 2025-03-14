@@ -232,6 +232,10 @@ using the internal function \code{.smoothing}.
 \item \code{sort_RLum(RLum.Analysis)}: Sorting of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object.
 At least one of \code{slot} and \code{info_element} must be provided. If both are
 given, ordering by \code{slot} always takes priority over \code{info_element}.
+Only the first element in each \code{slot} and each \code{info_element} is used
+for sorting. Example: \code{.pid} can contain multiple values, however, only the
+first is taken.
+
 Please note that the \code{show()} method does some structuring, which may
 lead to the impression that the sorting did not work.
 

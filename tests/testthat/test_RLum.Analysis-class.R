@@ -168,6 +168,12 @@ test_that("sort_RLum", {
   sar_a@records <- c(sar_a@records, set_RLum("RLum.Data.Image"))
   expect_s4_class(sort_RLum(sar_a, info_element = "X_MIN"), "RLum.Analysis")
 
+  ## use slot sorting with more than one element in the slot
+  ## it should not break
+  sar_a <- sar
+  sar_a@records[[1]]@.pid <- c("a", "b")
+  sort_RLum(sar_a, slot = ".pid")
+
   empty <- as(list(), "RLum.Analysis")
   expect_equal(sort_RLum(empty, slot = "curveType"),
                empty)

@@ -867,6 +867,10 @@ setMethod(
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
 #' At least one of `slot` and `info_element` must be provided. If both are
 #' given, ordering by `slot` always takes priority over `info_element`.
+#' Only the first element in each `slot` and each `info_element` is used
+#' for sorting. Example: `.pid` can contain multiple values, however, only the
+#' first is taken.
+#'
 #' Please note that the `show()` method does some structuring, which may
 #' lead to the impression that the sorting did not work.
 #'
@@ -950,10 +954,9 @@ setMethod(
 
     ## extract the values from the records
     ## (1) extract slot values (should be a character; take only the first)
-    ## TODO: May break if length > 1
     SLOT <- if(!is.null(slot)) {
       data.table::as.data.table(
-       unlist(lapply(object@records, function(x) slot(x, slot))))
+       unlist(lapply(object@records, function(x) slot(x, slot)[[1]])))
 
     } else {
       data.table::data.table(V1 = NA)
