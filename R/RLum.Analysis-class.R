@@ -933,7 +933,7 @@ setMethod(
     .validate_class(decreasing, classes = "logical")
 
     ## recycle decreasing to match selection
-    decreasing <- rep(decreasing, length.out = sum(c(1, length(info_element))))
+    decreasing <- rep(decreasing, length.out = length(info_element) + 1)
 
     ## translate to -1 and 1 to match data.table requirements
     decreasing[decreasing] <- -1
