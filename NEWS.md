@@ -30,6 +30,10 @@
   `grains.counted` was provided, which resulted in smaller packing
   density (#621).
 
+- The new argument `sample_carrier.diameter` allows to specify a value
+  for the diameter of the sample carrier, which up to now was hardcoded
+  to the very common 9.8 mm size (#623).
+
 ### `calc_OSLLxTxRatio()`
 
 - The function returned a warning for wrong integral settings for the

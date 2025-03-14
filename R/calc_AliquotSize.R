@@ -53,8 +53,9 @@
 #' variations in sample disc preparation (i.e. applying silicon spray to the
 #' disc). A lower truncation point at `x = 0.5` is used, which assumes
 #' that aliquots with sample diameter smaller than 0.5 mm are discarded.
-#' Likewise, the normal distribution is truncated at 9.8 mm, which is the
-#' diameter of the sample disc.
+#' Likewise, the normal distribution is truncated at the diameter of the
+#' sample carrier (9.8 mm by default, but controllable via the
+#' `sample_carrier.diameter` argument).
 #'
 #' For each random sample drawn from the
 #' normal distribution, the amount of grains on the aliquot is calculated. By
@@ -88,6 +89,9 @@
 #' standard deviation are calculated.
 #' Note that this overrides `packing.density`.
 #'
+#' @param sample_carrier.diameter [numeric] (*with default*):
+#' diameter (mm) of the sample carrier.
+#'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
@@ -105,7 +109,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.31
+#' @section Function version: 0.32
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
@@ -148,6 +152,7 @@ calc_AliquotSize <- function(
   packing.density = 0.65,
   MC = TRUE,
   grains.counted,
+  sample_carrier.diameter = 9.8,
   plot = TRUE,
   ...
 ) {
@@ -172,9 +177,11 @@ calc_AliquotSize <- function(
   }
 
   .validate_positive_scalar(sample.diameter)
-  if (sample.diameter > 9.8)
+  .validate_positive_scalar(sample_carrier.diameter)
+  if (sample.diameter > sample_carrier.diameter)
     .throw_warning("A sample diameter of ", sample.diameter,  " mm was ",
-                   "specified, but common sample discs are 9.8 mm in diameter")
+                   "specified for a sample carrier of ", sample_carrier.diameter,
+                   " mm, values will be capped to the sample carrier size")
 
   if(missing(grains.counted) == FALSE) {
     if(MC == TRUE) {
@@ -249,9 +256,9 @@ calc_AliquotSize <- function(
       # occur, or are discarded. Either way, any smaller sample
       # diameter is capped at 0.5.
       # Also, the sample diameter can not be larger than the sample
-      # disc, i.e. 9.8 mm.
+      # disc.
       sd.mc <- pmax(sd.mc, 0.5)
-      sd.mc <- pmin(sd.mc, 9.8)
+      sd.mc <- pmin(sd.mc, sample_carrier.diameter)
 
       # create random samples assuming a normal distribution
       # with the mean grain size as mean and half the range (min:max)

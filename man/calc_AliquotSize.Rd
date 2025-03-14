@@ -10,6 +10,7 @@ calc_AliquotSize(
   packing.density = 0.65,
   MC = TRUE,
   grains.counted,
+  sample_carrier.diameter = 9.8,
   plot = TRUE,
   ...
 )
@@ -40,6 +41,9 @@ provided, this function will calculate the packing density of the aliquot.
 If more than one value is provided, the mean packing density and its
 standard deviation are calculated.
 Note that this overrides \code{packing.density}.}
+
+\item{sample_carrier.diameter}{\link{numeric} (\emph{with default}):
+diameter (mm) of the sample carrier.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
@@ -111,8 +115,9 @@ The sample diameter has
 variations in sample disc preparation (i.e. applying silicon spray to the
 disc). A lower truncation point at \code{x = 0.5} is used, which assumes
 that aliquots with sample diameter smaller than 0.5 mm are discarded.
-Likewise, the normal distribution is truncated at 9.8 mm, which is the
-diameter of the sample disc.
+Likewise, the normal distribution is truncated at the diameter of the
+sample carrier (9.8 mm by default, but controllable via the
+\code{sample_carrier.diameter} argument).
 
 For each random sample drawn from the
 normal distribution, the amount of grains on the aliquot is calculated. By
@@ -121,7 +126,7 @@ option \code{MC.iter} (see \code{...}). Results are visualised in a bar- and
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.31
+ 0.32
 }
 
 \examples{
