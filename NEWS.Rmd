@@ -24,6 +24,12 @@ when `structure = c("Lx", "Tx")`, which is the default. The check that the
 number of points within each pair of curves has also been improved, and the
 function now produces more helpful error messages (#616).
 
+### `calc_AliquotSize()`
+
+* The function computed incorrectly the area of the container when computing
+the packing density in the case when argument `grains.counted` was provided,
+which resulted in smaller packing density (#621).
+
 ### `calc_OSLLxTxRatio()`
 * The function returned a warning for wrong integral settings for the `Tx` curve even if no `Tx` curve was provided; fixed. 
 * The function does not check any more of different object types for `Lx.data` and `Tx.data` but validate objects for allowed types (this should have no user-visible effects)

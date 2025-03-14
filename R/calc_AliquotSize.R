@@ -297,7 +297,7 @@ calc_AliquotSize <- function(
 
   if(missing(grains.counted) == FALSE) {
 
-    area.container<- pi*sample.diameter^2
+    area.container <- pi * (sample.diameter / 2)^2
 
     if(length(grains.counted) == 1) {
       area.grains<- (pi*(grain.size/1000)^2)*grains.counted
