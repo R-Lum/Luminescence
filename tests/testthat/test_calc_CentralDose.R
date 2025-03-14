@@ -59,5 +59,10 @@ test_that("check functionality", {
   res1@info$call <- res2@info$call <- NULL
   res1@.uid <- res2@.uid <- NA_character_
   expect_equal(res1, res2)
+
+  ## more coverage
+  df <- data.frame(De = c(1e-160, 1e-156, 1e-120, 4e-22),
+                   De.err = c(1e5, 1e40, 1e12, 1e28))
+  expect_snapshot_RLum(calc_CentralDose(df))
   })
 })
