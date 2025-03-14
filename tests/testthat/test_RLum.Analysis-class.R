@@ -154,6 +154,10 @@ test_that("sort_RLum", {
   expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
   expect_snapshot_RLum(sort_RLum(sar, info_element = "curveDescripter"))
 
+  ## present a list of those objects
+  expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
+  expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
+
   empty <- as(list(), "RLum.Analysis")
   expect_equal(sort_RLum(empty, slot = "curveType"),
                empty)

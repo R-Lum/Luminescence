@@ -1760,3 +1760,37 @@
       }
     }
 
+---
+
+    Code
+      sort_RLum(list(sar, sar), info_element = "X_MIN")
+    Output
+      [[1]]
+      
+       [RLum.Analysis-class]
+      	 originator: read_XSYG2R()
+      	 protocol: SAR
+      	 additional info elements:  0
+      	 number of records: 9
+      	 .. : RLum.Data.Curve : 9
+      	 .. .. : #1 TL (NA) <> #2 TL (NA) 
+      	 .. .. : #3 OSL (NA) <> #4 OSL (NA) <> #5 OSL (NA) 
+      	 .. .. : #6 irradiation (NA) 
+      	 .. .. : #7 TL (UVVIS)
+      	 .. .. : #8 OSL (UVVIS) <> #9 OSL (NA)
+      
+      [[2]]
+      
+       [RLum.Analysis-class]
+      	 originator: read_XSYG2R()
+      	 protocol: SAR
+      	 additional info elements:  0
+      	 number of records: 9
+      	 .. : RLum.Data.Curve : 9
+      	 .. .. : #1 TL (NA) <> #2 TL (NA) 
+      	 .. .. : #3 OSL (NA) <> #4 OSL (NA) <> #5 OSL (NA) 
+      	 .. .. : #6 irradiation (NA) 
+      	 .. .. : #7 TL (UVVIS)
+      	 .. .. : #8 OSL (UVVIS) <> #9 OSL (NA)
+      
+
