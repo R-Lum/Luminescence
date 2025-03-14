@@ -156,7 +156,7 @@ test_that("sort_RLum", {
 
   ## sort only using the first field until #605 is done
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
-                 "Only the first field will be used in sorting")
+                 "Only the first 'slot' field will be used in sorting")
 
   ## check functionality
   expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
