@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 
 temp <- calc_CentralDose(
@@ -9,13 +10,15 @@ set.seed(1)
 temp_NA <- data.frame(rnorm(10)+5, rnorm(10)+5)
 temp_NA[1,1] <- NA
 
-test_that("errors and warnings function", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_CentralDose(data = "error"),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
+  expect_error(calc_CentralDose(temp, sigmab = -10),
+               "'sigmab' should be a non-negative value")
   expect_error(calc_CentralDose(temp, sigmab = 10),
-               "'sigmab' should be a fraction between 0 and 1")
+               "'sigmab' should be a value between 0 and 1 if log = TRUE")
   expect_error(calc_CentralDose(data.frame()),
                "should have at least two columns and two rows")
 
@@ -56,5 +59,10 @@ test_that("check functionality", {
   res1@info$call <- res2@info$call <- NULL
   res1@.uid <- res2@.uid <- NA_character_
   expect_equal(res1, res2)
+
+  ## more coverage
+  df <- data.frame(De = c(1e-160, 1e-156, 1e-120, 4e-22),
+                   De.err = c(1e5, 1e40, 1e12, 1e28))
+  expect_snapshot_RLum(calc_CentralDose(df))
   })
 })

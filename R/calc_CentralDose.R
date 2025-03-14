@@ -99,13 +99,17 @@
 #'
 #' @md
 #' @export
-calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
+calc_CentralDose <- function(
+  data,
+  sigmab = 0,
+  log = TRUE,
+  plot = TRUE,
+  ...
+) {
   .set_function_name("calc_CentralDose")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## ============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ## ============================================================================##
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (inherits(data, "RLum.Results")) {
@@ -119,7 +123,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     data <- na.exclude(data)
   }
 
-  ##make sure we consider onlyt take the first two columns
+  ## check that we have enough data available
   if(ncol(data) < 2 || nrow(data) < 2)
     .throw_error("'data' should have at least two columns and two rows")
 
@@ -138,9 +142,11 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     data[, 2] <- abs(data[, 2])
   }
 
-  if (!missing(sigmab)) {
-    if (sigmab < 0 | sigmab > 1 & log)
-      .throw_error("'sigmab' should be a fraction between 0 and 1 (e.g., 0.2)")
+  if (sigmab < 0) {
+    .throw_error("'sigmab' should be a non-negative value")
+  }
+  if (log && sigmab > 1) {
+    .throw_error("'sigmab' should be a value between 0 and 1 if log = TRUE")
   }
 
 
@@ -164,10 +170,6 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   ## CALCULATIONS
   ## ============================================================================##
 
-  # set default value of sigmab
-  if (missing(sigmab))
-    sigmab <- 0
-
   # calculate yu = log(ED) and su = se(logED)
   if (log) {
     yu <- log(data$ED)
@@ -177,14 +179,13 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     su <- sqrt((data$ED_Error)^2 + sigmab^2)
   }
 
-
   # What does the code do?
   # >> email conversation with Rex Galbraith 2019-06-29
   # >> "fixed point iteration" method to estimate sigma
   # >> starting with a fixed value
   # >> once sqrt(sum((wu^2) * (yu - delta)^2 / sum(wu))) gets equal to 1
   # >> the iteration is complete
-  # >> if everything has converged agains those fixed values
+  # >> if everything has converged against those fixed values
   # >> this is the maximum likelihood estimate for
   # >> sigma and delta
 
@@ -209,16 +210,8 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
       break()
   }
 
-  # save parameters for terminal output
-  out.delta <- ifelse(log, exp(delta), delta)
-  out.sigma <- ifelse(log, sigma * 100, sigma / out.delta * 100)
-
   # log likelihood
   llik <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - delta)^2)
-
-  # save parameter for terminal output
-  out.llik <- round(llik, 4)
-  Lmax <- llik
 
   # standard errors
   sedelta <- 1 / sqrt(sum(wu))
@@ -226,19 +219,26 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
 
   # save parameters for terminal output
   if (log) {
+    out.delta <- exp(delta)
+    out.sigma <- sigma * 100
     out.sedelta <- sedelta * 100
     out.sesigma <- sesigma
   } else {
+    out.delta <- delta
+    out.sigma <- sigma / out.delta * 100
     out.sedelta <- sedelta / out.delta * 100
     out.sesigma <- sqrt((sedelta / delta)^2 +
                           (sesigma / out.delta * 100 / out.sigma)^2) * out.sigma / 100
   }
+  if (is.infinite(out.sesigma))
+    out.sesigma <- NA
+  out.llik <- round(llik, 4)
 
   # profile log likelihood
-  sigmax <- sigma
+  Lmax <- llik
   llik <- 0
-  sig0 <- max(0, sigmax - 8 * sesigma)
-  sig1 <- sigmax + 9.5 * sesigma
+  sig0 <- max(0, sigma - 8 * sesigma)
+  sig1 <- sigma + 9.5 * sesigma
   sig <- try(seq(sig0, sig1, sig1 / 1000), silent = TRUE)
 
   if (!inherits(sig, "try-error")) {
@@ -271,7 +271,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     cat(paste("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
     cat(paste("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
     cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
-    cat(paste("\n SE [%]:                 ", if (!inherits(sig, "try-error")) {
+    cat(paste("\n SE [%]:                 ", if (!is.na(out.sesigma)) {
       format(out.sesigma * 100, digits = 2, nsmall = 2)
     } else {
       "-"
@@ -282,11 +282,6 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   ## ============================================================================##
   ## RETURN VALUES
   ## ============================================================================##
-
-  if (inherits(sig, "try-error")) {
-    out.sigma <- 0
-    out.sesigma <- NA
-  }
 
   if(!log)  sig <- sig / delta
 
