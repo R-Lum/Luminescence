@@ -99,13 +99,17 @@
 #'
 #' @md
 #' @export
-calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
+calc_CentralDose <- function(
+  data,
+  sigmab = 0,
+  log = TRUE,
+  plot = TRUE,
+  ...
+) {
   .set_function_name("calc_CentralDose")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## ============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ## ============================================================================##
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (inherits(data, "RLum.Results")) {
@@ -138,9 +142,11 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     data[, 2] <- abs(data[, 2])
   }
 
-  if (!missing(sigmab)) {
-    if (sigmab < 0 | sigmab > 1 & log)
-      .throw_error("'sigmab' should be a fraction between 0 and 1 (e.g., 0.2)")
+  if (sigmab < 0) {
+    .throw_error("'sigmab' should be a non-negative value")
+  }
+  if (log && sigmab > 1) {
+    .throw_error("'sigmab' should be a value between 0 and 1 if log = TRUE")
   }
 
 
@@ -163,10 +169,6 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   ## ============================================================================##
   ## CALCULATIONS
   ## ============================================================================##
-
-  # set default value of sigmab
-  if (missing(sigmab))
-    sigmab <- 0
 
   # calculate yu = log(ED) and su = se(logED)
   if (log) {
