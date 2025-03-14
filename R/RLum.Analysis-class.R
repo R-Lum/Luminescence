@@ -861,8 +861,7 @@ setMethod(
   }
 )
 
-
-## sort_RLum() --------------------------------------------------------------
+# sort_RLum() -------------------------------------------------------------------
 #' @describeIn RLum.Analysis
 #'
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
@@ -874,8 +873,8 @@ setMethod(
 #' @param info_element [character] (*optional*): names of the `info` field
 #' to use in sorting. The order of the names sets the sorting priority.
 #' Regardless of available info elements, the following
-#' elements always exist because they are calculated from the record `XY_LENGTH`, `X_MIN`,
-#' `X_MAX`, `Y_MIN`, `Y_MAX`
+#' elements always exist because they are calculated from the record `XY_LENGTH`, `NCOL`,
+#' `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`
 #'
 #' @param decreasing [logical] (*with default*): whether the sort order should
 #' be decreasing (`FALSE` by default). It can be provided as a vector to control
@@ -919,7 +918,9 @@ setMethod(
 
     if (!is.null(info_element)) {
       .validate_class(info_element, "character", extra = "NULL")
-      valid.names <- c("XY_LENGTH", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX", names(object@records[[1]]@info))
+      valid.names <- c(
+        "XY_LENGTH", "NCOL", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX",
+        names(object@records[[1]]@info))
       if (any(!info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
@@ -943,10 +944,12 @@ setMethod(
     ## (1) extract slot values (should be a character; take only the first)
     ## TODO: May break if length > 1
     SLOT <- if(!is.null(slot)) {
-     data.table::as.data.table(
+      data.table::as.data.table(
        unlist(lapply(object@records, function(x) slot(x, slot))))
+
     } else {
-        data.table::data.table(V1 = NA)
+      data.table::data.table(V1 = NA)
+
     }
 
     ## (2) extract info elements; ensure to take only the first element
@@ -961,21 +964,29 @@ setMethod(
 
     ## (3) calculate general data parameters we always want to have
     EXTRA <- t(vapply(object@records, function(x) {
-      c(nrow(x@data), min(x@data[,1]), max(x@data[,1]), min(x@data[,2]), max(x@data[,2]))
+      ## ncol > 2 happens for RLum.Data.Spectrum and RLum.Data.Image
+      n_col <- ncol(x@data)
 
-    }, numeric(5)))
+      ## NA happens for RLum.Data.Image
+      if(is.na(n_col))
+        c(rep(NA_real_, 6))
+      else
+       c(nrow(x@data), n_col, min(x@data[,1]), max(x@data[,1]), min(x@data[,n_col]), max(x@data[,n_col]))
+
+    }, numeric(6)))
 
     ## add UID and combine information
     ## the UID is required for the ordering index
-    vals <- cbind(
-      UID = seq_len(max(c(nrow(SLOT), nrow(INFO)))),
+    vals <- suppressWarnings(cbind(
+      UID = seq_len(max(c(nrow(SLOT), nrow(INFO), nrow(EXTRA)))),
       SLOT = SLOT,
       XY_LENGTH = EXTRA[,1],
-      X_MIN = EXTRA[,2],
-      X_MAX = EXTRA[,3],
-      Y_MIN = EXTRA[,4],
-      Y_MAX = EXTRA[,5],
-      INFO)
+      NCOL = EXTRA[,2],
+      X_MIN = EXTRA[,3],
+      X_MAX = EXTRA[,4],
+      Y_MIN = EXTRA[,5],
+      Y_MAX = EXTRA[,6],
+      INFO))
 
     ## determine the new ordering if possible
     ## TODO: What would be the case for an error?

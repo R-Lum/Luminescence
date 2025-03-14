@@ -158,6 +158,16 @@ test_that("sort_RLum", {
   expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
   expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 
+  ## now add spectra
+  sar_a <- sar
+  sar_a@records <- c(sar_a@records, set_RLum("RLum.Data.Spectrum"))
+  expect_s4_class(sort_RLum(sar_a, info_element = "X_MIN"), "RLum.Analysis")
+
+  ## try with image
+  sar_a <- sar
+  sar_a@records <- c(sar_a@records, set_RLum("RLum.Data.Image"))
+  expect_s4_class(sort_RLum(sar_a, info_element = "X_MIN"), "RLum.Analysis")
+
   empty <- as(list(), "RLum.Analysis")
   expect_equal(sort_RLum(empty, slot = "curveType"),
                empty)
