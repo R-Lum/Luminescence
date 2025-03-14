@@ -888,6 +888,12 @@ setMethod(
 #'
 #' Same object as input, but sorted according to the specified parameters.
 #'
+#' @examples
+#' ## **`sort_RLum`** ##
+#' data(ExampleData.XSYG, envir = environment())
+#' sar <- OSL.SARMeasurement$Sequence.Object[1:5]
+#' sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
+#'
 #' @md
 #' @export
 setMethod(
