@@ -144,6 +144,8 @@ test_that("sort_RLum", {
                "At least one of 'slot' and 'info_element' should not be NULL")
   expect_error(sort_RLum(sar, slot = "recordType", decreasing = "error"),
                "'decreasing' should be of class 'logical'")
+  expect_error(sort_RLum(sar, slot = "recordType", decreasing = NA),
+               "'decreasing' should be of class 'logical'")
 
   ## check empty object
   expect_s4_class(sort_RLum(set_RLum("RLum.Analysis")), class = "RLum.Analysis")
@@ -156,7 +158,7 @@ test_that("sort_RLum", {
 
   ## sort only using the first field until #605 is done
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
-                 "Only the first field will be used in sorting")
+                 "Only the first 'slot' field will be used in sorting")
 
   ## check functionality
   expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))

@@ -923,7 +923,7 @@ setMethod(
                      .collapse(valid.names))
       }
       if (length(slot) > 1) {
-        message("[sort_RLum()]: Only the first field will be used in sorting")
+        message("[sort_RLum()]: Only the first 'slot' field will be used in sorting")
         slot <- slot[1]
       }
     }
@@ -944,6 +944,8 @@ setMethod(
     }
 
     .validate_class(decreasing, classes = "logical")
+    if (anyNA(decreasing))
+      .throw_error("'decreasing' should be of class 'logical'")
 
     ## recycle decreasing to match selection
     decreasing <- rep(decreasing, length.out = length(info_element) + 1)
@@ -960,12 +962,11 @@ setMethod(
 
     } else {
       data.table::data.table(V1 = NA)
-
     }
 
     ## (2) extract info elements; ensure to take only the first element
     ## of the info element is a vector
-    INFO <- if(any(!is.null(info_element))){
+    INFO <- if (!is.null(info_element)) {
       data.table::rbindlist(
         lapply(object@records, function(x) {
           data.table::as.data.table(lapply(x@info, function(l) l[[1]]))
@@ -1000,16 +1001,10 @@ setMethod(
       INFO))
 
     ## determine the new ordering if possible
-    ## TODO: What would be the case for an error? ... we keep it; just in case
-    tryCatch(ord <- data.table::setorderv(
+    ord <- data.table::setorderv(
       x = vals,
       cols = c("SLOT.V1", info_element),
-      order = decreasing)[["UID"]],
-             error = function(e) {
-               .throw_error("Records could not be sorted according to ",
-                           paste0("slot = '", slot, "'"),
-                           paste0("info_element = '", paste(info_element, collapse = ", ")))
-             })
+      order = decreasing)[["UID"]]
 
     ## return reordered object
     return(object[ord])
