@@ -930,7 +930,7 @@ setMethod(
       .throw_error("At least one of 'slot' and 'info_element' should not be NULL")
     }
 
-    .validate_class(decreasing, classes = c("logical"))
+    .validate_class(decreasing, classes = "logical")
 
     ## recycle decreasing to match selection
     decreasing <- rep(decreasing, length.out = sum(c(1, length(info_element))))
