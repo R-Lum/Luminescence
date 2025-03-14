@@ -148,6 +148,12 @@ test_that("sort_RLum", {
   ## check empty object
   expect_s4_class(sort_RLum(set_RLum("RLum.Analysis")), class = "RLum.Analysis")
 
+  ## check one curve object
+  expect_s4_class(
+    sort_RLum(set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))),
+              slot = "recordType"),
+                  class = "RLum.Analysis")
+
   ## sort only using the first field until #605 is done
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
                  "Only the first field will be used in sorting")
