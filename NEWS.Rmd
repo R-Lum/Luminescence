@@ -44,4 +44,6 @@ function now produces more helpful error messages (#616).
 ### `sort_RLum()`
 * The sorting mechanism for `RLum.Analysis-class` objects has been enhanced. 
 It now enables sorting based on multiple parameters, including sorting all 
-available `info_elements` in a prioritised manner.
+available `info_elements` in a prioritised manner (#606, #620).
+* Sorting now works on a list of `RLum.Analysis-class` objects. If the list contains other elements, 
+they are passed through. The output is again a list (#620) 

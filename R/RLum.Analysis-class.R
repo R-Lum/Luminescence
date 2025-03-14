@@ -875,8 +875,8 @@ setMethod(
 #' @param info_element [character] (*optional*): names of the `info` field
 #' to use in sorting. The order of the names sets the sorting priority.
 #' Regardless of available info elements, the following
-#' elements always exist because they are calculated from the record `XY_LENGTH`, `NCOL`,
-#' `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`
+#' elements always exist because they are calculated from the record
+#' `XY_LENGTH`, `NCOL`, `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`
 #'
 #' @param decreasing [logical] (*with default*): whether the sort order should
 #' be decreasing (`FALSE` by default). It can be provided as a vector to control
@@ -891,7 +891,7 @@ setMethod(
 #' Same object as input, but sorted according to the specified parameters.
 #'
 #' @examples
-#' ## **`sort_RLum`** ##
+#' ## **sort_RLum()** ##
 #' data(ExampleData.XSYG, envir = environment())
 #' sar <- OSL.SARMeasurement$Sequence.Object[1:5]
 #' sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
