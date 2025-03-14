@@ -202,6 +202,7 @@ calc_AliquotSize <- function(
   # override settings with user arguments
   settings <- modifyList(settings, list(...))
 
+  MC.n <- MC.stats <- MC.n.kde <- MC.t.test <- MC.q <- NULL
 
   ##==========================================================================##
   ## CALCULATIONS
@@ -235,9 +236,9 @@ calc_AliquotSize <- function(
       # 0.18.
       d.mc<- rnorm(settings$MC.iter, packing.density, 0.18)
 
-      # in a PECC the packing density can not be larger than ~0.87
-      d.mc[which(d.mc > 0.87)]<- 0.87
-      d.mc[which(d.mc < 0.25)]<- 0.25
+      # in a PECC the packing density cannot be larger than ~0.87
+      d.mc <- pmin(d.mc, 0.87)
+      d.mc <- pmax(d.mc, 0.25)
 
       # create a random set of sample diameters assuming a normal
       # distribution with an assumed standard deviation of
@@ -249,9 +250,8 @@ calc_AliquotSize <- function(
       # diameter is capped at 0.5.
       # Also, the sample diameter can not be larger than the sample
       # disc, i.e. 9.8 mm.
-      sd.mc[which(sd.mc <0.5)]<- 0.5
-      if (sample.diameter <= 9.8)
-        sd.mc[which(sd.mc >9.8)]<- 9.8
+      sd.mc <- pmax(sd.mc, 0.5)
+      sd.mc <- pmin(sd.mc, 9.8)
 
       # create random samples assuming a normal distribution
       # with the mean grain size as mean and half the range (min:max)
@@ -295,22 +295,14 @@ calc_AliquotSize <- function(
   ##========================================================================##
   ## CALCULATE PACKING DENSITY
 
-  if(missing(grains.counted) == FALSE) {
-
+  if (!missing(grains.counted)) {
     area.container <- pi * (sample.diameter / 2)^2
-
-    if(length(grains.counted) == 1) {
-      area.grains<- (pi*(grain.size/1000)^2)*grains.counted
-      packing.density<- area.grains/area.container
+    packing.density <- vector("numeric", length = length(grains.counted))
+    for (i in 1:length(grains.counted)) {
+      area.grains <- pi * (grain.size / 1000)^2 * grains.counted[i]
+      packing.density[i] <- area.grains / area.container
     }
-    else {
-      packing.densities<- length(grains.counted)
-      for(i in 1:length(grains.counted)) {
-        area.grains<- (pi*(grain.size/1000)^2)*grains.counted[i]
-        packing.densities[i]<- area.grains/area.container
-      }
-      std.d<- sd(packing.densities)
-    }
+    std.d <- sd(packing.density)
   }
 
   ##==========================================================================##
@@ -336,7 +328,7 @@ calc_AliquotSize <- function(
       if(length(grains.counted) == 1) {
         cat(paste("\n packing density            :", round(packing.density,3)))
       } else {
-        cat(paste("\n mean packing density       :", round(mean(packing.densities),3)))
+        cat(paste("\n mean packing density       :", round(mean(packing.density),3)))
         cat(paste("\n standard deviation         :", round(std.d,3)))
       }
     }
@@ -366,42 +358,21 @@ calc_AliquotSize <- function(
   ##==========================================================================##
 
   # prepare return values for mode: estimate grains
-  if(missing(grains.counted) == TRUE) {
+  if (missing(grains.counted)) {
     summary<- data.frame(grain.size = grain.size,
                          sample.diameter = sample.diameter,
                          packing.density = packing.density,
                          n.grains = round(n.grains,0),
                          grains.counted = NA)
-  }
-
-  # prepare return values for mode: estimate packing density/densities
-  if(missing(grains.counted) == FALSE) {
-
-    # return values if only one value for counted.grains is provided
-    if(length(grains.counted) == 1) {
-      summary<- data.frame(grain.size = grain.size,
-                           sample.diameter = sample.diameter,
-                           packing.density = packing.density,
-                           n.grains = NA,
-                           grains.counted = grains.counted)
-    } else {
-      # return values if more than one value for counted.grains is provided
-      summary<- data.frame(rbind(1:5))
-      colnames(summary)<- c("grain.size", "sample.diameter", "packing.density",
-                            "n.grains","grains.counted")
-      for(i in 1:length(grains.counted)) {
-        summary[i,]<- c(grain.size, sample.diameter, packing.densities[i],
+  } else {
+    ## prepare return values for mode: estimate packing density
+    summary<- data.frame(rbind(1:5))
+    colnames(summary) <- c("grain.size", "sample.diameter", "packing.density",
+                           "n.grains", "grains.counted")
+    for (i in 1:length(grains.counted)) {
+      summary[i, ] <- c(grain.size, sample.diameter, packing.density[i],
                         n.grains = NA, grains.counted[i])
-      }
     }
-  }
-
-  if(!MC) {
-    MC.n<- NULL
-    MC.stats<- NULL
-    MC.n.kde<- NULL
-    MC.t.test<- NULL
-    MC.q<- NULL
   }
 
   if(missing(grains.counted)) grains.counted<- NA
