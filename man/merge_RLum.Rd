@@ -17,8 +17,7 @@ Return is the same as input objects as provided in the list.
 }
 \description{
 Function calls object-specific merge functions for RLum S4 class objects.
-}
-\details{
+
 The function provides a generalised access point for merging specific
 \linkS4class{RLum} objects. Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
@@ -27,9 +26,10 @@ Empty list elements (\code{NULL}) are automatically removed from the input \code
 
 \tabular{lll}{
 \strong{object} \tab \tab \strong{corresponding merge function} \cr
-\linkS4class{RLum.Data.Curve} \tab : \tab \code{merge_RLum.Data.Curve} \cr
-\linkS4class{RLum.Analysis} \tab : \tab \code{merge_RLum.Analysis} \cr
-\linkS4class{RLum.Results} \tab : \tab \code{merge_RLum.Results}
+\linkS4class{RLum.Data.Curve} \tab -> \tab \link{merge_RLum.Data.Curve} \cr
+\linkS4class{RLum.Data.Spectrum} \tab -> \tab \link{merge_RLum.Data.Spectrum} \cr
+\linkS4class{RLum.Analysis} \tab -> \tab \link{merge_RLum.Analysis} \cr
+\linkS4class{RLum.Results} \tab -> \tab \link{merge_RLum.Results}
 }
 }
 \note{

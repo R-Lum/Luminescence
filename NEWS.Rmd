@@ -41,6 +41,11 @@ function now produces more helpful error messages (#616).
 * The function now allocates less memory for storing intermediate values
 (#610).
 
+### `merge_RLum.Data.Curve()`
+
+* The function does no longer stops for differing channel resolutions, 
+but it does issue a warning. The user is responsible for the consequences.
+
 ### `sort_RLum()`
 * The sorting mechanism for `RLum.Analysis-class` objects has been enhanced. 
 It now enables sorting based on multiple parameters, including sorting all 

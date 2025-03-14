@@ -1,5 +1,6 @@
-#' General merge function for RLum S4 class objects
+#' @title General merge function for RLum S4 class objects
 #'
+#' @description
 #' Function calls object-specific merge functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for merging specific
@@ -10,9 +11,10 @@
 #'
 #' \tabular{lll}{
 #' **object** \tab \tab **corresponding merge function** \cr
-#' [RLum.Data.Curve-class] \tab : \tab `merge_RLum.Data.Curve` \cr
-#' [RLum.Analysis-class] \tab : \tab `merge_RLum.Analysis` \cr
-#' [RLum.Results-class] \tab : \tab `merge_RLum.Results`
+#' [RLum.Data.Curve-class] \tab -> \tab [merge_RLum.Data.Curve] \cr
+#' [RLum.Data.Spectrum-class] \tab -> \tab [merge_RLum.Data.Spectrum] \cr
+#' [RLum.Analysis-class] \tab -> \tab [merge_RLum.Analysis] \cr
+#' [RLum.Results-class] \tab -> \tab [merge_RLum.Results]
 #' }
 #'
 #' @param objects [list] of [RLum-class] (**required**):

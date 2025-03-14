@@ -1,7 +1,10 @@
-#' Merge function for RLum.Data.Spectrum S4 class objects
+#' @title Merge function for RLum.Data.Spectrum S4 class objects
 #'
+#' @description
 #' This function allows to merge [RLum.Data.Spectrum-class] objects in
 #' different ways without modifying the original objects.
+#'
+#' @details
 #'
 #' **Supported merge operations are:**
 #'
