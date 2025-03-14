@@ -942,31 +942,31 @@ setMethod(
     ## extract the values from the records
     ## (1) extract slot values (should be a character; take only the first)
     ## TODO: May break if length > 1
-      SLOT <- if(!is.null(slot)) {
-       data.table::as.data.table(
-         unlist(lapply(object@records, function(x) slot(x, slot))))
-      } else {
+    SLOT <- if(!is.null(slot)) {
+     data.table::as.data.table(
+       unlist(lapply(object@records, function(x) slot(x, slot))))
+    } else {
         data.table::data.table(V1 = NA)
+    }
+
+    ## (2) extract info elements; ensure to take only the first element
+    ## of the info element is a vector
+    INFO <- if(any(!is.null(info_element))){
+      data.table::rbindlist(
+        lapply(object@records, function(x) {
+          data.table::as.data.table(lapply(x@info, function(l) l[[1]]))
+        }),
+        fill = TRUE)
       }
 
-      ## (2) extract info elements; ensure to take only the first element
-      ## of the info element is a vector
-      INFO <- if(any(!is.null(info_element))){
-        data.table::rbindlist(
-          lapply(object@records, function(x) {
-            data.table::as.data.table(lapply(x@info, function(l) l[[1]]))
-          }),
-          fill = TRUE)
+    ## (3) calculate general data parameters we always want to have
+    EXTRA <- t(vapply(object@records, function(x) {
+      c(nrow(x@data), min(x@data[,1]), max(x@data[,1]), min(x@data[,2]), max(x@data[,2]))
 
-      }
+    }, numeric(5)))
 
-      ## (3) calculate general data parameters we always want to have
-      EXTRA <- t(vapply(object@records, function(x) {
-        c(nrow(x@data), min(x@data[,1]), max(x@data[,1]), min(x@data[,2]), max(x@data[,2]))
-
-      }, numeric(5)))
-
-    ## add UDI and combine information
+    ## add UID and combine information
+    ## the UID is required for the ordering index
     vals <- cbind(
       UID = seq_len(max(c(nrow(SLOT), nrow(INFO)))),
       SLOT = SLOT,
