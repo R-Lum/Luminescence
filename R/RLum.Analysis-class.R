@@ -877,8 +877,8 @@ setMethod(
 #' elements always exist because they are calculated from the record `XY_LENGTH`, `X_MIN`,
 #' `X_MAX`, `Y_MIN`, `Y_MAX`
 #'
-#' @param descending [logical] (*with default*): whether the sort order should
-#' be descending (`FALSE` by default). It can be provided as a vector to control
+#' @param decreasing [logical] (*with default*): whether the sort order should
+#' be decreasing (`FALSE` by default). It can be provided as a vector to control
 #' the ordering sequence for each sorting element.
 #'
 #' @param ... further arguments passed to underlying methods
@@ -895,7 +895,7 @@ setMethod(
   f = "sort_RLum",
   signature = "RLum.Analysis",
   function(object, slot = NULL, info_element = NULL,
-           descending = FALSE, ...) {
+           decreasing = FALSE, ...) {
     .set_function_name("sort_RLum")
     on.exit(.unset_function_name(), add = TRUE)
 
@@ -930,14 +930,14 @@ setMethod(
       .throw_error("At least one of 'slot' and 'info_element' should not be NULL")
     }
 
-    .validate_class(descending, classes = c("logical"))
+    .validate_class(decreasing, classes = c("logical"))
 
     ## recycle decreasing to match selection
-    descending <- rep(descending, length.out = sum(c(1, length(info_element))))
+    decreasing <- rep(decreasing, length.out = sum(c(1, length(info_element))))
 
     ## translate to -1 and 1 to match data.table requirements
-    descending[descending] <- -1
-    descending[!descending] <- 1
+    decreasing[decreasing] <- -1
+    decreasing[!decreasing] <- 1
 
     ## extract the values from the records
     ## (1) extract slot values (should be a character; take only the first)
@@ -982,7 +982,7 @@ setMethod(
     tryCatch(ord <- data.table::setorderv(
       x = vals,
       cols = c("SLOT.V1", info_element),
-      order = descending)[["UID"]],
+      order = decreasing)[["UID"]],
              error = function(e) {
                .throw_error("Records could not be sorted according to ",
                            paste0("slot = '", slot, "'"),
