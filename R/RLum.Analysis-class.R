@@ -926,7 +926,7 @@ setMethod(
       }
     }
 
-    if (is.null(slot) && all(is.null(info_element))) {
+    if (is.null(slot) && is.null(info_element)) {
       .throw_error("At least one of 'slot' and 'info_element' should not be NULL")
     }
 
