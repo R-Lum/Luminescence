@@ -1001,16 +1001,10 @@ setMethod(
       INFO))
 
     ## determine the new ordering if possible
-    ## TODO: What would be the case for an error? ... we keep it; just in case
-    tryCatch(ord <- data.table::setorderv(
+    ord <- data.table::setorderv(
       x = vals,
       cols = c("SLOT.V1", info_element),
-      order = decreasing)[["UID"]],
-             error = function(e) {
-               .throw_error("Records could not be sorted according to ",
-                           paste0("slot = '", slot, "'"),
-                           paste0("info_element = '", paste(info_element, collapse = ", ")))
-             })
+      order = decreasing)[["UID"]]
 
     ## return reordered object
     return(object[ord])
