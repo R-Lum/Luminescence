@@ -12,6 +12,9 @@ test_that("input validation", {
 
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1),
                "'sample.diameter' should be a positive scalar")
+  expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1,
+                                sample_carrier.diameter = -1),
+               "'sample_carrier.diameter' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,
                                 MC = TRUE),
                "'grain.size' must be a vector containing the min and max")
@@ -32,7 +35,7 @@ test_that("check functionality", {
   expect_warning(calc_AliquotSize(
       grain.size = c(100, 150), grains.counted = c(1000, 1100, 900),
       sample.diameter = 10, MC = FALSE),
-      "A sample diameter of 10 mm was specified, but common sample discs are")
+      "A sample diameter of 10 mm was specified for a sample carrier of 9.8 mm")
   })
 
   set.seed(1)
@@ -82,7 +85,6 @@ test_that("snapshot tests", {
       plot = FALSE,
       verbose = TRUE),
       tolerance = snapshot.tolerance)
-  })
 
   expect_output(
   expect_snapshot_RLum(calc_AliquotSize(
@@ -94,4 +96,14 @@ test_that("snapshot tests", {
       verbose = FALSE),
       tolerance = snapshot.tolerance),
   "Monte Carlo simulation is only available for estimating the amount of")
+
+  expect_snapshot_RLum(calc_AliquotSize(
+      grain.size = c(80, 150),
+      sample.diameter = 7,
+      sample_carrier.diameter = 7.2,
+      MC.iter = 20,
+      plot = FALSE,
+      verbose = TRUE),
+      tolerance = snapshot.tolerance)
+  })
 })
