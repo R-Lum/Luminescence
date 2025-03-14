@@ -911,7 +911,7 @@ setMethod(
     on.exit(.unset_function_name(), add = TRUE)
 
     ## an empty object has nothing to sort
-    if (length(object) == 0)
+    if (length(object@records) == 0)
       return(object)
 
     ## input validation

@@ -145,6 +145,8 @@ test_that("sort_RLum", {
   expect_error(sort_RLum(sar, slot = "recordType", decreasing = "error"),
                "'decreasing' should be of class 'logical'")
 
+  ## check empty object
+  expect_s4_class(sort_RLum(set_RLum("RLum.Analysis")), class = "RLum.Analysis")
 
   ## sort only using the first field until #605 is done
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
