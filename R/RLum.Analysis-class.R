@@ -919,7 +919,7 @@ setMethod(
 
     if (!is.null(info_element)) {
       .validate_class(info_element, "character", extra = "NULL")
-      valid.names <- c("XY_LENGHT", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX", names(object@records[[1]]@info))
+      valid.names <- c("XY_LENGTH", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX", names(object@records[[1]]@info))
       if (any(!info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
