@@ -615,17 +615,14 @@ setMethod("structure_RLum",
             temp.object.length <- length(object@records)
 
             ##ID
-            temp.id <- seq_along(object@records)
+            temp.id <- seq_len(temp.object.length)
 
             ##recordType
             temp.recordType <-
-              vapply(object@records, function(x) {
-                x@recordType
-              }, character(1))
+              vapply(object@records, function(x) x@recordType, character(1))
 
             ##PROTOCOL STEP
-            temp.protocol.step <- c(NA)
-            length(temp.protocol.step) <- temp.object.length
+            temp.protocol.step <-rep(NA_character_, temp.object.length)
 
             ## GET LIMITS
             temp.limits <- t(vapply(object@records, function(x) {
@@ -639,22 +636,21 @@ setMethod("structure_RLum",
             temp.y.max <- temp.limits[, 5]
 
             ##.uid
-            temp.uid <- unlist(lapply(object@records, function(x){x@.uid}))
+            temp.uid <- unlist(lapply(object@records, function(x) x@.uid ))
 
             ##.pid
-            temp.pid <- unlist(lapply(object@records, function(x){x@.pid}))
-            if (length(temp.pid) > 1)
-              temp.pid <- paste(temp.pid, collapse = ", ")
+            temp.pid <- unlist(lapply(object@records, function(x) x@.pid ))
 
             ##originator
-            temp.originator <- unlist(lapply(object@records, function(x){x@originator}))
+            temp.originator <- unlist(lapply(object@records, function(x) x@originator ))
 
             ##curveType
-            temp.curveType <- unlist(lapply(object@records, function(x){x@curveType}))
+            temp.curveType <- unlist(lapply(object@records, function(x) x@curveType ))
 
             ##info elements as character value
             if (fullExtent) {
-              temp.info.elements <- as.data.frame(data.table::rbindlist(lapply(object@records, function(x) {
+              temp.info.elements <- as.data.frame(
+                data.table::rbindlist(lapply(object@records, function(x) {
                 x@info
               }), fill = TRUE))
 
@@ -664,15 +660,13 @@ setMethod("structure_RLum",
                 ## we create a data frame with the expected number of rows
                 temp.info.elements <- data.frame(info = rep(NA, temp.object.length))
               }
-            } else{
-              temp.info.elements <-
-                unlist(lapply(object@records, function(x) {
-                  if (length(x@info) != 0) {
-                    paste(names(x@info), collapse = " ")
-                  } else{
-                    NA
-                  }
-                }))
+            } else {
+               temp.info.elements <- lapply(object@records, function(x) {
+                 if(is.null(names(x@info)))
+                    return(NA)
+
+                  names(x@info)
+                 })
             }
 
             ##combine output to a data.frame
@@ -689,13 +683,12 @@ setMethod("structure_RLum",
                 y.max = temp.y.max,
                 originator = temp.originator,
                 .uid = temp.uid,
-                .pid = temp.pid,
-                info = temp.info.elements,
+                .pid = I(as.list(temp.pid)),
+                info = if(fullExtent) temp.info.elements else I(temp.info.elements),
                 stringsAsFactors = FALSE
               )
             )
           })
-
 
 # length_RLum() -------------------------------------------------------------------------------
 #' @describeIn RLum.Analysis
