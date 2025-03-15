@@ -168,6 +168,9 @@ test_that("sort_RLum", {
   expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
   expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 
+  ## sort after three columns
+  expect_s4_class(sort_RLum(sar, info_element = c("XY_LENGTH", "NCOL", "X_MIN")), "RLum.Analysis")
+
   ## now add spectra
   sar_a <- sar
   sar_a@records <- c(sar_a@records, set_RLum("RLum.Data.Spectrum"))
@@ -212,7 +215,7 @@ test_that("structure_RLum", {
   expect_equal(ncol(res), 13)
   expect_equal(res$n.channels, c(5, 524))
   expect_equal(res$recordType, c("RF", "RF"))
-  expect_equal(res$info, c(NA, NA))
+  expect_equal(unlist(res$info), c(NA, NA))
 
   expect_s3_class(res2 <- structure_RLum(obj, fullExtent = TRUE),
                   "data.frame")
@@ -256,7 +259,7 @@ test_that("structure_RLum", {
   expect_equal(nrow(res), length(empty@records))
   expect_equal(ncol(res), 13)
   expect_equal(res$n.channels, 1)
-  expect_equal(res$info, NA)
+  expect_equal(unlist(res$info), NA)
 
   res2 <- structure_RLum(empty, fullExtent = TRUE)
   expect_equal(nrow(res2), length(empty@records))
