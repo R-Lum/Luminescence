@@ -11,7 +11,7 @@ plot_KDE(
   order = TRUE,
   boxplot = TRUE,
   rug = TRUE,
-  summary,
+  summary = "",
   summary.pos,
   summary.method = "MCM",
   bw = "nrd0",
@@ -45,7 +45,7 @@ interquartile ranges and dots further outliers).}
 \item{rug}{\link{logical} (\emph{with default}):
 optionally add rug.}
 
-\item{summary}{\link{character} (\emph{optional}):
+\item{summary}{\link{character} (\emph{with default}):
 add statistic measures of centrality and dispersion to the plot. Can be one
 or more of several keywords. See details for available keywords.}
 
@@ -58,7 +58,7 @@ specification, y-coordinate refers to the right y-axis.}
 
 \item{summary.method}{\link{character} (\emph{with default}):
 keyword indicating the method used to calculate the statistic summary.
-One out of \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}.
+One out of \code{"MCM"} (default), \code{"weighted"} or \code{"unweighted"}.
 See \link{calc_Statistics} for details.}
 
 \item{bw}{\link{character} (\emph{with default}):
@@ -77,8 +77,7 @@ boxplot will show the usual distribution parameters (median as
 bold line, box delimited by the first and third quartile, whiskers defined
 by the extremes and outliers shown as points) and also the mean and
 standard deviation as pale bold line and pale polygon, respectively.
-}
-\details{
+
 The function allows passing several plot arguments, such as \code{main},
 \code{xlab}, \code{cex}. However, as the figure is an overlay of two
 separate plots, \code{ylim} must be specified in the order: c(ymin_axis1,
@@ -103,16 +102,16 @@ one or more of the following keywords:
 \item \code{"skewness"} (skewness)
 }
 
-\strong{Note} that the input data for the statistic summary is sent to the function
-\code{calc_Statistics()} depending on the log-option for the z-scale. If
+\strong{Note} that the input data for the statistic summary is sent to function
+\link{calc_Statistics} depending on the log-option for the z-scale. If
 \code{"log.z = TRUE"}, the summary is based on the logarithms of the input
-data. If \code{"log.z = FALSE"} the linearly scaled data is used.
+data. If \code{"log.z = FALSE"} the linearly-scaled data is used.
 
 \strong{Note} as well, that \code{"calc_Statistics()"} calculates these statistic
 measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
-MCM-based version is used. If you wish to use another method, indicate this
-with the appropriate keyword using the argument \code{summary.method}.
+MCM-based version is used. This can be controlled via the \code{summary.method}
+argument.
 }
 \note{
 The plot output is no 'probability density' plot (cf. the discussion
@@ -182,5 +181,5 @@ output = TRUE)
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
