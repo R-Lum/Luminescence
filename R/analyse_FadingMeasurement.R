@@ -861,9 +861,11 @@ analyse_FadingMeasurement <- function(
     if (3 %in% plot_singlePanels) {
 
       if(all(is.na(LxTx_table[["LxTx_NORM"]]))){
+        ## FIXME(mcol): this block seems unreachable since 5f63c1f1
+        # nocov start
           shape::emptyplot()
           text(x = .5, y = .5, labels = "All NA values!")
-
+        # nocov end
       }else{
         plot(
           NA,
