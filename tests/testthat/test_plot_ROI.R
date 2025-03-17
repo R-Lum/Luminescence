@@ -55,5 +55,12 @@ test_that("graphical snapshot tests", {
                               plot_ROI(temp))
   vdiffr::expect_doppelganger("ROI grid",
                               plot_ROI(temp, grid = TRUE))
+
+  set.seed(1)
+  m <- matrix(runif(100, 0, 255), ncol = 10, nrow = 10)
+  roi <- matrix(c(2, 4, 2, 5, 6, 7, 3, 1, 1), ncol = 3)
+  t <- extract_ROI(object = m, roi = roi)
+  vdiffr::expect_doppelganger("ROI bg_image",
+                              plot_ROI(t, bg_image = m, exclude_ROI = NULL))
   })
 })
