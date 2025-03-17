@@ -1,13 +1,12 @@
-#'@title Create Regions of Interest (ROI) Graphic
+#' @title Create Regions of Interest (ROI) Graphic
 #'
-#'@description Create ROI graphic with data extracted from the data imported
-#'via [read_RF2R]. This function is used internally by [analyse_IRSAR.RF] but
-#'might be of use to work with reduced data from spatially resolved measurements.
-#'The plot dimensions mimic the original image dimensions
+#' @description The function creates ROI graphic with data extracted from the
+#' data imported via [read_RF2R]. This function might be of use to work with
+#' reduced data from spatially resolved measurements.
+#' The plot dimensions mimic the original image dimensions.
 #'
-#'@param object [RLum.Analysis-class], [RLum.Results-class] or a [list] of such objects (**required**):
-#'data input. Please note that to avoid function errors, only input created
-#'by the functions [read_RF2R] or [extract_ROI] is accepted
+#' @param object [RLum.Analysis-class], [RLum.Results-class] or a [list] of such objects (**required**):
+#' input data created either by [read_RF2R] or [extract_ROI].
 #'
 #'@param exclude_ROI [numeric] (*with default*): option to remove particular ROIs from the
 #'analysis. Those ROIs are plotted but not coloured and not taken into account
@@ -40,7 +39,7 @@
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [read_RF2R], [analyse_IRSAR.RF]
+#' @seealso [read_RF2R], [extract_ROI]
 #'
 #'@keywords datagen plot
 #'
@@ -84,16 +83,10 @@ plot_ROI <- function(
     ##extract some of the elements
     info <- x@info
     info$ROI <- strsplit(split = " ", info$ROI, fixed = TRUE)[[1]][2]
-
-    c(ROI = info$ROI,
-      x = info$x,
-      y = info$y,
-      area = info$area,
-      width = info$width,
-      height = info$height,
-      img_width = info$image_width,
-      img_height = info$image_height,
-      grain_d = info$grain_d)
+    info <- info[c("ROI", "x", "y", "area", "width", "height",
+                    "image_width", "image_height", "grain_d")]
+    names(info) <- gsub("image_", "img_", names(info))
+    unlist(lapply(info, as.numeric))
   }
 
   if (inherits(object, "RLum.Results") &&
@@ -107,26 +100,25 @@ plot_ROI <- function(
     .validate_not_empty(object, "list")
 
     ##extract values and convert to numeric matrix
-    m <- t(vapply(object, .spatial_data, character(length = 9)))
-
-    ##make numeric
-    storage.mode(m) <- "numeric"
+    m <- t(vapply(object, .spatial_data, numeric(length = 9)))
 
     ## correct coordinates (they come in odd from the file)
     m[,"x"] <- m[,"x"] + m[,"width"] / 2
     m[,"y"] <- m[,"y"] + m[,"height"] / 2
   }
 
+  .validate_positive_scalar(exclude_ROI, int = TRUE, null.ok = TRUE)
+
   ##make sure the ROI selection works
-  if(is.null(exclude_ROI[1]) || exclude_ROI[1] <= 0)
+  if (is.null(exclude_ROI))
     exclude_ROI <- nrow(m) + 1
 
-  ## add mid_x and mid_y
-  m <- cbind(m, mid_x = c(m[,"x"] + m[,"width"] / 2), mid_y =  c(m[,"y"] + m[,"height"] / 2))
-  rownames(m) <- m[,"ROI"]
-
   ## distance calculation
-  euc_dist <- sel_euc_dist <- stats::dist(m[-exclude_ROI,c("mid_x","mid_y")])
+  euc_dist <- sel_euc_dist <- stats::dist(m[-exclude_ROI])
+
+  ## add half_width and half_height
+  m <- cbind(m, half_width = m[, "width"] / 2, half_height = m[, "height"] / 2)
+  rownames(m) <- m[, "ROI"]
 
   ## distance threshold selector
   sel_euc_dist[sel_euc_dist < dist_thre[1]] <- NA
@@ -156,7 +148,6 @@ plot_ROI <- function(
       legend.text = c("ROI", "sel. pixel", "> dist_thre"),
       legend.pos = "topright"
     ), val = list(...))
-
 
     ## set plot area
     do.call(
@@ -215,17 +206,21 @@ plot_ROI <- function(
     for (i in 1:nrow(m)) {
       if (!i%in%exclude_ROI) {
         ## mark selected pixels
+        x0 <- m[i, "x"] - m[i, "half_width"]
+        x1 <- m[i, "x"] + m[i, "half_width"]
+        y0 <- m[i, "y"] - m[i, "half_height"]
+        y1 <- m[i, "y"] + m[i, "half_height"]
         polygon(
-          x = c(m[i, "x"] - m[i, "width"]/ 2, m[i, "x"] - m[i, "width"]/ 2, m[i, "x"] + m[i, "width"]/2, m[i, "x"] + m[i, "width"]/2),
-          y = c(m[i, "y"] - m[i, "height"]/ 2, m[i, "y"] + m[i, "height"]/ 2, m[i, "y"] + m[i, "height"]/ 2, m[i, "y"] - m[i, "height"]/ 2),
+          x = c(x0, x0, x1, x1),
+          y = c(y0, y1, y1, y0),
           col = plot_settings$col.pixel
         )
       }
 
       ## add ROIs
       shape::plotellipse(
-        rx = m[i, "width"] / 2,
-        ry = m[i, "width"] / 2,
+        rx = m[i, "half_width"],
+        ry = m[i, "half_width"],
         mid = c(m[i, "x"], m[i, "y"]),
         lcol = plot_settings$col.ROI,
         lty = plot_settings$lty.ROI,

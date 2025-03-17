@@ -16,8 +16,7 @@ plot_ROI(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} or a \link{list} of such objects (\strong{required}):
-data input. Please note that to avoid function errors, only input created
-by the functions \link{read_RF2R} or \link{extract_ROI} is accepted}
+input data created either by \link{read_RF2R} or \link{extract_ROI}.}
 
 \item{exclude_ROI}{\link{numeric} (\emph{with default}): option to remove particular ROIs from the
 analysis. Those ROIs are plotted but not coloured and not taken into account
@@ -48,10 +47,10 @@ the extracted ROI data and a object produced by \link[stats:dist]{stats::dist} c
 the euclidean distance between the ROIs.
 }
 \description{
-Create ROI graphic with data extracted from the data imported
-via \link{read_RF2R}. This function is used internally by \link{analyse_IRSAR.RF} but
-might be of use to work with reduced data from spatially resolved measurements.
-The plot dimensions mimic the original image dimensions
+The function creates ROI graphic with data extracted from the
+data imported via \link{read_RF2R}. This function might be of use to work with
+reduced data from spatially resolved measurements.
+The plot dimensions mimic the original image dimensions.
 }
 \section{Function version}{
  0.2.0
@@ -72,7 +71,7 @@ plot_ROI(t, bg_image = m)
 
 }
 \seealso{
-\link{read_RF2R}, \link{analyse_IRSAR.RF}
+\link{read_RF2R}, \link{extract_ROI}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
