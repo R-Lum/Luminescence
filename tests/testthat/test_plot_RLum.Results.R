@@ -45,6 +45,7 @@ test_that("check functionality", {
   expect_silent(plot_RLum.Results(d4, main = "Title", plot.proportions = FALSE,
                                   pdf.weight = FALSE, pdf.sigma = "sigmab"))
   expect_silent(plot_RLum.Results(d4, main = "Title", plot.proportions = FALSE,
+                                  dose.scale = c(0, 100),
                                   pdf.weight = TRUE, pdf.sigma = "se",
                                   pdf.scale = 1))
 

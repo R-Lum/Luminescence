@@ -21,7 +21,8 @@ test_that("check functionality", {
       set_RLum("RLum.Data.Curve", data = matrix(1:10, ncol = 2)),
       set_RLum("RLum.Data.Curve", data = matrix(1:20, ncol = 2)))))
 
-  expect_silent(plot_RLum(l, main = list("test", "test2"), mtext = "test"))
+  expect_silent(plot_RLum(l, main = list("test", "test2"), mtext = "test",
+                          subset = NA))
 
   ## empty object
   expect_silent(plot_RLum(set_RLum("RLum.Analysis")))
@@ -39,5 +40,5 @@ test_that("check functionality", {
     background.integral.min = 900,
     background.integral.max = 1000,
     fit.method = "LIN")
-  expect_null(plot_RLum.Results(results))
+  expect_null(plot_RLum(results))
 })
