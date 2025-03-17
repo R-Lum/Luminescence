@@ -1,5 +1,6 @@
-#' Plot kernel density estimate with statistics
+#' @title Plot kernel density estimate with statistics
 #'
+#' @description
 #' Plot a kernel density estimate of measurement values in combination with the
 #' actual values and associated error bars in ascending order. If enabled, the
 #' boxplot will show the usual distribution parameters (median as
@@ -31,17 +32,16 @@
 #' - `"skewness"` (skewness)
 #'
 #'
-#' **Note** that the input data for the statistic summary is sent to the function
-#' `calc_Statistics()` depending on the log-option for the z-scale. If
+#' **Note** that the input data for the statistic summary is sent to function
+#' [calc_Statistics] depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
-#' data. If `"log.z = FALSE"` the linearly scaled data is used.
+#' data. If `"log.z = FALSE"` the linearly-scaled data is used.
 #'
 #' **Note** as well, that `"calc_Statistics()"` calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
-#' MCM-based version is used. If you wish to use another method, indicate this
-#' with the appropriate keyword using the argument `summary.method`.
-#'
+#' MCM-based version is used. This can be controlled via the `summary.method`
+#' argument.
 #'
 #' @param data [data.frame], [vector] or [RLum.Results-class] object (**required**):
 #' for `data.frame`: either two columns: De (`values[,1]`) and De error
@@ -68,7 +68,7 @@
 #' @param rug [logical] (*with default*):
 #' optionally add rug.
 #'
-#' @param summary [character] (*optional*):
+#' @param summary [character] (*with default*):
 #' add statistic measures of centrality and dispersion to the plot. Can be one
 #' or more of several keywords. See details for available keywords.
 #'
@@ -81,7 +81,7 @@
 #'
 #' @param summary.method [character] (*with default*):
 #' keyword indicating the method used to calculate the statistic summary.
-#' One out of `"unweighted"`, `"weighted"` and `"MCM"`.
+#' One out of `"MCM"` (default), `"weighted"` or `"unweighted"`.
 #' See [calc_Statistics] for details.
 #'
 #' @param bw [character] (*with default*):
@@ -101,7 +101,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [density], [plot]
 #'
@@ -168,7 +168,7 @@ plot_KDE <- function(
   order = TRUE,
   boxplot = TRUE,
   rug = TRUE,
-  summary,
+  summary = "",
   summary.pos,
   summary.method = "MCM",
   bw = "nrd0",
@@ -178,7 +178,7 @@ plot_KDE <- function(
   .set_function_name("plot_KDE")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## check data and parameter consistency -------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   if (is(data, "list") && length(data) == 0) {
     .throw_error("'data' is an empty list")
@@ -237,13 +237,21 @@ plot_KDE <- function(
   if(length(data) == 0)
     .throw_error("Your input is empty due to Inf removal")
 
-  ## check/set function parameters
-  if(missing(summary) == TRUE) {
-    summary <- ""
-  }
+  .validate_logical_scalar(values.cumulative)
+  .validate_logical_scalar(order)
+  .validate_logical_scalar(boxplot)
+  .validate_logical_scalar(rug)
+  .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
+  .validate_class(summary, "character")
 
   if(missing(summary.pos) == TRUE) {
     summary.pos <- "sub"
+  }
+  .validate_class(summary.pos, c("numeric", "character"))
+  if (is.character(summary.pos)) {
+    .validate_args(summary.pos, c("sub", "left", "center", "right",
+                                  "topleft", "top", "topright",
+                                  "bottomleft", "bottom", "bottomright"))
   }
 
   ## set mtext output

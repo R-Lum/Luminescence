@@ -66,6 +66,10 @@
   but it does issue a warning. The user is responsible for the
   consequences.
 
+### `plot_KDE()`
+
+- The function validates its input values more thoroughly (#635).
+
 ### `sort_RLum()`
 
 - The sorting mechanism for `RLum.Analysis-class` objects has been
