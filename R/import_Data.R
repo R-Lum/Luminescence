@@ -53,6 +53,9 @@ import_Data <- function (
   ## namespace so that we don't have to maintain this list manually
   fun <- grep("^read_", getNamespaceExports("Luminescence"), value = TRUE)
 
+  ## put the most common formats first, the rest alphabetically
+  fun <- unique(c("read_BIN2R", "read_XSYG2R", sort(fun)))
+
   ## make the file handling just a little bit easier
   if(length(file) > 1)
     file <- as.list(file)

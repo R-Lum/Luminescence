@@ -51,6 +51,11 @@ common 9.8 mm size (#623).
 * The function now allocates less memory for storing intermediate values
 (#610).
 
+### `import_Data()`
+
+* The function uses the most common formats (BINX and XSYG) before trying
+all others.
+
 ### `merge_RLum.Data.Curve()`
 
 * The function does no longer stops for differing channel resolutions, 
