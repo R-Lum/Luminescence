@@ -45,3 +45,14 @@ test_that("check functionality", {
   expect_silent(plot_ViolinPlot(calc_CommonDose(df, plot = FALSE,
                                                 verbose = FALSE)))
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("ViolinPlot defaults",
+                              plot_ViolinPlot(df))
+  })
+})

@@ -132,6 +132,17 @@ test_that("check functionality", {
   expect_equal(round(results$Cts_L3, digits = 5), 37.66667)
 })
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("FastRatio defaults",
+                              calc_FastRatio(ExampleData.CW_OSL_Curve))
+  })
+})
+
 test_that("regression tests", {
 
   ## issue 471 --------------------------------------------------------------

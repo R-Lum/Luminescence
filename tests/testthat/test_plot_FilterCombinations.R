@@ -1,3 +1,9 @@
+## load data
+set.seed(1)
+density <- density(rnorm(100, mean = 450, sd = 20))
+filter1 <- matrix(c(density$x, density$y / max(density$y)), ncol = 2)
+filter2 <- matrix(c(200:799, rep(c(0, 0.8, 0), each = 200)), ncol = 2)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -15,10 +21,6 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  filter1 <- density(rnorm(100, mean = 450, sd = 20))
-  filter1 <- matrix(c(filter1$x, filter1$y / max(filter1$y)), ncol = 2)
-  filter2 <- matrix(c(200:799, rep(c(0, 0.8, 0), each = 200)), ncol = 2)
-
   expect_silent(plot_FilterCombinations(filters = list(filter1, filter2)))
   expect_silent(plot_FilterCombinations(filters = list(filter1, filter2),
                                         interactive = TRUE))
@@ -27,5 +29,19 @@ test_that("check functionality", {
   ## filter thickness and reflection factor provided
   expect_silent(plot_FilterCombinations(list(list(filter1, d = 2),
                                              list(filter2, d = 2, P = 0.9))))
+})
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("FilterCombinations defaults",
+                              plot_FilterCombinations(list(filter1, filter2)))
+  vdiffr::expect_doppelganger("FilterCombinations values",
+                              plot_FilterCombinations(list(
+                                  list(filter1, d = 2, P = 0.8),
+                                  Rectangle = list(filter2, d = 2, P = 0.6))))
+  })
 })
