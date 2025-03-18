@@ -35,20 +35,16 @@ test_that("input validation", {
                  "Option 'log.z' is not set to 'TRUE' altough more than one")
 })
 
-test_that("dedicated test for the radialplot", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ##distribution plots
-
   ## standard data
-  ## simple test
   expect_silent(
   plot_RadialPlot(
     data = df,
     centrality = 5))
 
   ## standard data with two datasets
-  ## simple test
   expect_silent(
     plot_RadialPlot(
       data = list(df, df),
@@ -146,4 +142,20 @@ test_that("dedicated test for the radialplot", {
       log.z = FALSE),
       "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
     )
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("RadialPlot defaults",
+                              plot_RadialPlot(df, centrality = 6))
+  df2 <- data.frame(x = df$x - 1, y = df$y * 0.75)
+  vdiffr::expect_doppelganger("RadialPlot list",
+                              plot_RadialPlot(list(df, df2),
+                                              centrality = c(5, 4),
+                                              rug = TRUE, col = c(2, 3)))
+  })
 })

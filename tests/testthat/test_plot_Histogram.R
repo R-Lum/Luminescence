@@ -53,3 +53,14 @@ test_that("check functionality", {
   expect_output(plot_Histogram(df.na),
                 "2 NA values excluded")
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("Histogram normal",
+                              plot_Histogram(df, normal_curve = TRUE))
+  })
+})
