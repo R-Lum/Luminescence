@@ -99,6 +99,17 @@ test_that("check functionality", {
     abline = list(v = c(110))
   ))
 
+  ## test norm = "autoscale"
+  expect_silent(plot_RLum.Analysis(
+    temp[1:4],
+    subset = list(recordType = "OSL"),
+    combine = TRUE,
+    auto_scale = TRUE,
+    xlim = c(10, 20),
+    norm = "last",
+    abline = list(v = c(110))
+  ))
+
   ## test norm = "huot
   expect_silent(plot_RLum.Analysis(
     temp,
