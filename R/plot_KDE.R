@@ -454,7 +454,7 @@ plot_KDE <- function(
                                                      (De.stats[i,2] + 2 *
                                                         De.stats[i,5])) /
                                                  nrow(data[[i]]) * 100 , 1),
-                                         " %",
+                                         " %", "\n",
                                          sep = ""),
                                    ""),
                             sep = ""))
