@@ -27,6 +27,9 @@ test_that("check functionality", {
   expect_silent(plot_RLum.Data.Curve(temp, norm = "max"))
   expect_silent(plot_RLum.Data.Curve(temp, norm = "last"))
   expect_silent(plot_RLum.Data.Curve(temp, norm = "huot"))
+  expect_silent(plot_RLum.Data.Curve(temp, main = "title", col = "red"))
+  expect_silent(plot_RLum.Data.Curve(temp, auto_scale = TRUE, xlim = c(10,20)))
+  expect_silent(plot_RLum.Data.Curve(temp, auto_scale = TRUE, ylim = c(1,200)))
   expect_silent(plot_RLum.Data.Curve(temp, smooth = TRUE))
   expect_silent(plot_RLum.Data.Curve(temp, par.local = FALSE))
 

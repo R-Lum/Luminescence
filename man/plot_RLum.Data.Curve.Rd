@@ -9,6 +9,7 @@ plot_RLum.Data.Curve(
   par.local = TRUE,
   norm = FALSE,
   smooth = FALSE,
+  auto_scale = FALSE,
   ...
 )
 }
@@ -27,8 +28,11 @@ offers modes \code{"max"} (used with \code{TRUE}), \code{"last"} and \code{"huot
 \item{smooth}{\link{logical} (\emph{with default}):
 provides automatic curve smoothing based on the internal function \code{.smoothing}}
 
+\item{auto_scale}{\link{logical} (\emph{with default}): if activated, auto scales \code{xlim} or \code{ylim}
+to the extent of the other. If both are set, the auto-scaling is skipped.}
+
 \item{...}{further arguments and graphical parameters that will be passed
-to the \code{plot} function}
+to \link[graphics:plot.default]{graphics::plot.default} and \link[graphics:par]{graphics::par}}
 }
 \value{
 Returns a plot.
@@ -65,7 +69,7 @@ of a curve.
 Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
- 0.2.6
+ 0.3.0
 }
 
 \examples{
@@ -80,7 +84,6 @@ temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
 
 #plot RLum.Data.Curve object
 plot_RLum.Data.Curve(temp)
-
 
 }
 \seealso{

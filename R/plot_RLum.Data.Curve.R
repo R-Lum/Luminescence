@@ -40,14 +40,17 @@
 #' @param smooth [logical] (*with default*):
 #' provides automatic curve smoothing based on the internal function `.smoothing`
 #'
+#' @param auto_scale [logical] (*with default*): if activated, auto scales `xlim` or `ylim`
+#' to the extent of the other. If both are set, the auto-scaling is skipped.
+#'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the `plot` function
+#' to [graphics::plot.default] and [graphics::par]
 #'
 #' @return Returns a plot.
 #'
 #' @note Not all arguments of [plot] will be passed!
 #'
-#' @section Function version: 0.2.6
+#' @section Function version: 0.3.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -69,7 +72,6 @@
 #' #plot RLum.Data.Curve object
 #' plot_RLum.Data.Curve(temp)
 #'
-#'
 #' @md
 #' @export
 plot_RLum.Data.Curve<- function(
@@ -77,13 +79,13 @@ plot_RLum.Data.Curve<- function(
   par.local = TRUE,
   norm = FALSE,
   smooth = FALSE,
+  auto_scale = FALSE,
   ...
 ) {
   .set_function_name("plot_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity tests  -------------------------------------------------------
-
   .validate_class(object, "RLum.Data.Curve")
 
   ## check for NA values
@@ -129,7 +131,7 @@ plot_RLum.Data.Curve<- function(
     }
 
     ## curve normalisation
-    if (norm == TRUE || norm %in% c("max", "last", "huot")) {
+    if (norm[1] == TRUE || norm %in% c("max", "last", "huot")) {
       object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
     }
 
@@ -139,23 +141,45 @@ plot_RLum.Data.Curve<- function(
       "Dependent [unknown]"
 
     } else {
-      paste(
+      paste0(
         object@recordType,
-        " [cts/", round(max(object@data[,1]) / length(object@data[,1]),digits =
-                          2)
-        , " ", lab.unit,"]", sep = ""
-      )
+        " [cts/", round(
+          max(object@data[,1]) / length(object@data[,1]),digits = 2)
+        , " ", lab.unit,"]")
     }
 
-    sub <-  if ((grepl("TL", object@recordType) == TRUE) &
+    sub <-  if ((grepl("TL", object@recordType)) &
           "RATE" %in% names(object@info)) {
-        paste("(",object@info$RATE," K/s)", sep = "")
+        paste0("(",object@info$RATE," K/s)")
       } else if ((grepl("OSL", object@recordType) |
            grepl("IRSL", object@recordType)) &
           "interval" %in% names(object@info)) {
-        paste("(resolution: ",object@info$interval," s)", sep = "")
+        paste0("(resolution: ",object@info$interval," s)")
       }
 
+    ## set auto scale if required
+    if(auto_scale[1] && !all(is.null(c(list(...)$xlim, list(...)$ylim)))) {
+      ## because of the if condition, we can only have xlim or ylim set
+      ## if both is set, auto_scale is not required
+
+      if(!is.null(list(...)$xlim))  {
+        x_range <- range(object@data[,1])
+        x_min <- max(c(x_range[1], min(c(list(...)$xlim[1], x_range[2]))), na.rm = TRUE)
+        x_max <- min(c(x_range[2], max(c(list(...)$xlim[2], x_range[1]))), na.rm = TRUE)
+
+        object@data <- object[object@data[,1] >= x_min & object@data[,1] <= x_max, ,drop = FALSE]
+
+      }
+
+      if(!is.null(list(...)$ylim)) {
+        y_range <- range(object@data[,2])
+        y_min <- max(c(y_range[1], min(c(list(...)$ylim[1], y_range[2]))), na.rm = TRUE)
+        y_max <- min(c(y_range[2], max(c(list(...)$ylim[2], y_range[1]))), na.rm = TRUE)
+
+        object@data <- object[object@data[,2] >= y_min & object@data[,2] <= y_max, ,drop = FALSE]
+      }
+
+    }
 
     ##deal with additional arguments
     plot_settings <- modifyList(x = list(
@@ -171,13 +195,10 @@ plot_RLum.Data.Curve<- function(
       pch = 1,
       col = 1,
       axes = TRUE,
-      xlim = range(object@data[,1], na.rm = TRUE),
-      ylim = range(object@data[,2], na.rm = TRUE),
       log = "",
       mtext = ""
 
     ), val = list(...), keep.null = TRUE)
-
 
     ##par setting for possible combination with plot method for RLum.Analysis objects
     if (par.local)
@@ -190,23 +211,22 @@ plot_RLum.Data.Curve<- function(
     }
 
     ##plot curve
-    plot(
-      object@data[,1], object@data[,2],
-      main = plot_settings$main,
-      xlim = plot_settings$xlim,
-      ylim = plot_settings$ylim,
-      xlab = plot_settings$xlab,
-      ylab = plot_settings$ylab,
-      sub = plot_settings$sub,
-      type = plot_settings$type,
-      log = plot_settings$log,
-      col = plot_settings$col,
-      lwd = plot_settings$lwd,
-      pch = plot_settings$pch,
-      lty = plot_settings$lty,
-      axes = plot_settings$axes,
-      las = plot_settings$las)
+      ## get list of allowed parameters
+      args <- list(...)
+
+      ## remove parameters already set in plot_settings
+      args[names(args) %in% names(plot_settings)] <- NULL
+
+      ## combine
+      args <- c(args, plot_settings)
+
+      ## remove parameters not supported by plot.default and par
+      args[!names(args) %in% c(names(formals(graphics::plot.default)), names(par()))] <- NULL
+
+      ## call the plot
+      do.call(graphics::plot.default, args = c(list(x = object@data[,1], y = object@data[,2]), args))
 
     ##plot additional mtext
     mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)
 }
+
