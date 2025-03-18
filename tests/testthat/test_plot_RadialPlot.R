@@ -26,6 +26,8 @@ test_that("input validation", {
                "'centrality' should be of class 'character' or 'numeric'")
   expect_error(plot_RadialPlot(df, centrality = "error"),
                "'centrality' should be one of 'mean', 'mean.weighted', 'median'")
+  expect_error(plot_RadialPlot(list(df, df), lty = 1),
+               "'lty' should have length 2")
 
   expect_warning(plot_RadialPlot(df, xlim = c(-1, 100), show = FALSE),
                  "Lower x-axis limit not set to zero, corrected")

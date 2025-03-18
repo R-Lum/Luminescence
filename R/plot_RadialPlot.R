@@ -658,36 +658,42 @@ if(centrality[1] == "mean") {
   }
 
   cex <- if("cex" %in% names(extraArgs)) {
+    .validate_length(extraArgs$cex, 1, name = "'cex'")
     extraArgs$cex
   } else {
     1
   }
 
   lty <- if("lty" %in% names(extraArgs)) {
+    .validate_length(extraArgs$lty, length(data), name = "'lty'")
     extraArgs$lty
     } else {
       rep(2, length(data))
     }
 
   lwd <- if("lwd" %in% names(extraArgs)) {
+    .validate_length(extraArgs$lwd, length(data), name = "'lwd'")
     extraArgs$lwd
     } else {
       rep(1, length(data))
     }
 
   pch <- if("pch" %in% names(extraArgs)) {
+    .validate_length(extraArgs$pch, length(data), name = "'pch'")
     extraArgs$pch
     } else {
       rep(1, length(data))
     }
 
   col <- if("col" %in% names(extraArgs)) {
+    .validate_length(extraArgs$col, length(data), name = "'col'")
     extraArgs$col
     } else {
       1:length(data)
     }
 
   tck <- if("tck" %in% names(extraArgs)) {
+    .validate_length(extraArgs$tck, length(data), name = "'tck'")
     extraArgs$tck
   } else {
     NA
