@@ -454,7 +454,7 @@ plot_KDE <- function(
                                                      (De.stats[i,2] + 2 *
                                                         De.stats[i,5])) /
                                                  nrow(data[[i]]) * 100 , 1),
-                                         " %",
+                                         " %", "\n",
                                          sep = ""),
                                    ""),
                             sep = ""))
@@ -708,7 +708,7 @@ plot_KDE <- function(
   }
 
   ## convert keywords into summary placement coordinates
-  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot)
+  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot[1:2])
   summary.pos <- coords$pos
   summary.adj <- coords$adj
 

@@ -70,6 +70,9 @@
 
 - The function validates its input values more thoroughly (#635).
 
+- Setting `summary.pos` to one of “left”, “center” or “right” resulted
+  in the summary table not being visible (#642).
+
 ### `plot_RadialPlot()`
 
 - The function validates its input values more thoroughly (#639).
