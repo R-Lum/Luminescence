@@ -11,6 +11,11 @@
 
 ## Breaking changes
 
+- Function `get_Quote()` is no longer exported, but remains available as
+  an internal function. This is unlikely to affect any user of the
+  package, as the function was only meant to report a random quote at
+  startup (#644).
+
 ## Renamed functions and deprecations
 
 ## Bugfixes
@@ -92,7 +97,7 @@
 - The function now returns a less messy data frame because it
   encapsulates `.pid` and `info` as lists within the data frame. The
   function is primarily used internally to facilitate a rapid
-  exploration of `RLum.Analysis-class` object sructures. However, the
+  exploration of `RLum.Analysis-class` object structures. However, the
   change may potentially break existing code in extremely rare
   circumstances.
 
