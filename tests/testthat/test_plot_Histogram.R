@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 df <- ExampleData.DeValues$CA1
 
@@ -62,5 +63,11 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("Histogram normal",
                               plot_Histogram(df, normal_curve = TRUE))
+  vdiffr::expect_doppelganger("Histogram summary sub",
+                              plot_Histogram(df, summary.pos = "sub",
+                                             summary = c("n", "serel", "kurtosis")))
+  vdiffr::expect_doppelganger("Histogram summary left",
+                              plot_Histogram(df, summary.pos = "left",
+                                             summary = c("mean", "skewness")))
   })
 })
