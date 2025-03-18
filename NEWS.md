@@ -86,7 +86,7 @@
 
 - We added comprehensive support for base R plotting arguments utilised
   by `plot.default()` and `par()`. This enhancement ensures that all
-  available arguments are fully supported.
+  available arguments are fully supported (#646).
 
 - The function gained a new logical argument named `auto_scale`. When
   set in conjunction with either `xlim` or `ylim`, this argument
@@ -97,7 +97,7 @@
   large, resulting in limited visibility. With the introduction of the
   `auto_scale` option, the `ylim` values are automatically adjusted to
   compensate for this scenario. The `auto_scale` argument is also
-  accessible through `plot_RLum.Analysis()` and `plot_RLum()`.
+  accessible through `plot_RLum.Analysis()` and `plot_RLum()` (#646).
 
 ### `sort_RLum()`
 
