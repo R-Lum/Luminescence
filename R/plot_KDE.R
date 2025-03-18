@@ -708,7 +708,7 @@ plot_KDE <- function(
   }
 
   ## convert keywords into summary placement coordinates
-  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot)
+  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot[1:2])
   summary.pos <- coords$pos
   summary.adj <- coords$adj
 

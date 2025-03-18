@@ -89,6 +89,12 @@ test_that("graphical snapshot tests", {
 
   SW({
   vdiffr::expect_doppelganger("KDE expected",
-                              fig = plot_KDE(data = df))
+                              plot_KDE(data = df))
+  vdiffr::expect_doppelganger("KDE summary sub",
+                              plot_KDE(data = df, summary.pos = "sub",
+                                       summary = c("n", "se.rel", "kurtosis")))
+  vdiffr::expect_doppelganger("KDE summary left",
+                              plot_KDE(data = df, summary.pos = "left",
+                                       summary = c("mean", "in.2s", "skewness")))
   })
 })
