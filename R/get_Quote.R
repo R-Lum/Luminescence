@@ -20,7 +20,7 @@
 #' get_Quote()
 #'
 #' @md
-#' @export
+#' @noRd
 get_Quote <- function(
   ID,
   separated = FALSE
