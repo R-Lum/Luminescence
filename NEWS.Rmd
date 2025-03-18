@@ -65,6 +65,10 @@ but it does issue a warning. The user is responsible for the consequences.
 
 * The function validates its input values more thoroughly (#635).
 
+### `plot_RadialPlot()`
+
+* The function validates its input values more thoroughly (#639).
+
 ### `sort_RLum()`
 * The sorting mechanism for `RLum.Analysis-class` objects has been enhanced. 
 It now enables sorting based on multiple parameters, including sorting all 
