@@ -89,3 +89,20 @@ test_that("check functionality", {
   df.na[2, 1] <- NA
   expect_silent(plot_DRTResults(df, preheat = c(200, 200, 200, 240, 240)))
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("defaults",
+                              plot_DRTResults(df))
+  vdiffr::expect_doppelganger("summary sub",
+                              plot_DRTResults(df, summary.pos = "sub",
+                                              summary = c("n", "se.rel")))
+  vdiffr::expect_doppelganger("summary left",
+                              plot_DRTResults(df, summary.pos = "left",
+                                              summary = c("mean", "sd.abs")))
+  })
+})

@@ -154,6 +154,12 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("RadialPlot defaults",
                               plot_RadialPlot(df, centrality = 6))
+  vdiffr::expect_doppelganger("RadialPlot summary sub",
+                              plot_RadialPlot(df, summary.pos = "sub",
+                                              summary = c("n", "se.rel", "kurtosis")))
+  vdiffr::expect_doppelganger("RadialPlot summary left",
+                              plot_RadialPlot(df, summary.pos = "left",
+                                              summary = c("mean", "in.2s", "skewness")))
   df2 <- data.frame(x = df$x - 1, y = df$y * 0.75)
   vdiffr::expect_doppelganger("RadialPlot list",
                               plot_RadialPlot(list(df, df2),

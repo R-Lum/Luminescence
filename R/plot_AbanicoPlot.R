@@ -1332,7 +1332,7 @@ plot_AbanicoPlot <- function(
                                          round(sum(data[[i]][,7] > -2 &
                                                      data[[i]][,7] < 2) /
                                                  nrow(data[[i]]) * 100 , 1),
-                                         " %",
+                                         " %\n",
                                          sep = ""),
                                    ""),
                             sep = ""))

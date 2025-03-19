@@ -334,5 +334,13 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger(
       title = "Abanico expected",
       fig = plot_AbanicoPlot(data = ExampleData.DeValues))
+    vdiffr::expect_doppelganger("summary sub",
+                                plot_AbanicoPlot(ExampleData.DeValues,
+                                                 summary.pos = "sub",
+                                                 summary = c("n", "se.rel", "kurtosis")))
+    vdiffr::expect_doppelganger("summary left",
+                                plot_AbanicoPlot(ExampleData.DeValues,
+                                                 summary.pos = "left",
+                                                 summary = c("mean", "in.2s", "skewness")))
   })
 })
