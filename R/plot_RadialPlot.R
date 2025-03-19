@@ -1015,7 +1015,7 @@ if(centrality[1] == "mean") {
                                          round(sum(data[[i]][,7] > -2 &
                                                      data[[i]][,7] < 2) /
                                                  nrow(data[[i]]) * 100 , 1),
-                                         " %",
+                                         " %\n",
                                          sep = ""),
                                    ""),
                             ifelse("sdabs.weighted" %in% summary[j] == TRUE,

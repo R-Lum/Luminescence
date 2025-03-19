@@ -116,8 +116,9 @@
 <text x='43.20' y='276.57' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='43.20' y='231.83' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='43.20' y='187.09' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='57.60' y='259.08' style='font-size: 9.60px; font-family: sans;' textLength='53.65px' lengthAdjust='spacingAndGlyphs'>mean = 5.08</text>
-<text x='57.60' y='270.60' style='font-size: 9.60px; font-family: sans;' textLength='159.59px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 76.7 %skewness = -0.16</text>
-<text x='57.60' y='282.12' style='font-size: 9.60px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='253.32' style='font-size: 9.60px; font-family: sans;' textLength='53.65px' lengthAdjust='spacingAndGlyphs'>mean = 5.08</text>
+<text x='57.60' y='264.84' style='font-size: 9.60px; font-family: sans;' textLength='84.59px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 76.7 %</text>
+<text x='57.60' y='276.36' style='font-size: 9.60px; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.16</text>
+<text x='57.60' y='287.88' style='font-size: 9.60px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 </g>
 </svg>

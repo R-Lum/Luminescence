@@ -177,8 +177,9 @@
 <text x='566.84' y='555.12' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='93.38px' lengthAdjust='spacingAndGlyphs'>Density (bw 0.15)</text>
 <polyline points='514.49,363.63 514.49,69.04 ' style='stroke-width: 0.75;' />
 <polygon points='64.80,179.17 501.39,69.04 619.20,69.04 619.20,363.63 501.39,363.63 ' style='stroke-width: 0.60; fill: none;' />
-<text x='64.80' y='265.04' style='font-size: 10.00px; font-family: sans;' textLength='61.45px' lengthAdjust='spacingAndGlyphs'>mean = 66.01</text>
-<text x='64.80' y='277.04' style='font-size: 10.00px; font-family: sans;' textLength='166.24px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 41.9 %skewness = -0.04</text>
-<text x='64.80' y='289.04' style='font-size: 10.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='64.80' y='259.04' style='font-size: 10.00px; font-family: sans;' textLength='61.45px' lengthAdjust='spacingAndGlyphs'>mean = 66.01</text>
+<text x='64.80' y='271.04' style='font-size: 10.00px; font-family: sans;' textLength='88.12px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 41.9 %</text>
+<text x='64.80' y='283.04' style='font-size: 10.00px; font-family: sans;' textLength='78.12px' lengthAdjust='spacingAndGlyphs'>skewness = -0.04</text>
+<text x='64.80' y='295.04' style='font-size: 10.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 </g>
 </svg>
