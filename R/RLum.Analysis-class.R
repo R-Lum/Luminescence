@@ -639,7 +639,7 @@ setMethod("structure_RLum",
             temp.uid <- unlist(lapply(object@records, function(x) x@.uid ))
 
             ##.pid
-            temp.pid <- unlist(lapply(object@records, function(x) x@.pid ))
+            temp.pid <- lapply(object@records, function(x) x@.pid )
 
             ##originator
             temp.originator <- unlist(lapply(object@records, function(x) x@originator ))
