@@ -30,7 +30,7 @@
 #' @param rug [logical] (*with default*):
 #' enable/disable rug
 #'
-#' @param summary [character] (*optional*):
+#' @param summary [character] (*with default*):
 #' add statistic measures of centrality and dispersion to the plot.
 #' Can be one or more of several keywords. See details for available keywords.
 #'
@@ -87,7 +87,7 @@ plot_ViolinPlot <- function(
   data,
   boxplot = TRUE,
   rug = TRUE,
-  summary = NULL,
+  summary = c("n", "median"),
   summary.pos = "sub",
   na.rm = TRUE,
   ...
@@ -99,7 +99,16 @@ plot_ViolinPlot <- function(
 
   .validate_class(data, c("RLum.Results", "data.frame", "matrix"))
   .validate_not_empty(data)
-  .validate_class(summary.pos, "character")
+  .validate_class(summary, "character")
+  .validate_class(summary.pos, c("numeric", "character"))
+  if (is.numeric(summary.pos)) {
+    .validate_length(summary.pos, 2)
+  }
+  else {
+    .validate_args(summary.pos, c("sub", "left", "center", "right",
+                                  "topleft", "top", "topright",
+                                  "bottomleft", "bottom", "bottomright"))
+  }
 
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
@@ -123,6 +132,7 @@ plot_ViolinPlot <- function(
     return()
   }
 
+
   # Pre-calculations ----------------------------------------------------------------------------
 
   ##density for the violin
@@ -140,12 +150,6 @@ plot_ViolinPlot <- function(
   ##some statistical parameter, get rid of the weighted statistics
   stat.summary <- list(suppressWarnings(calc_Statistics(as.data.frame(data), digits = 2)[["unweighted"]]))
   names(stat.summary) <- "unweighted"
-
-    ##make valid summary string
-    if(is.null(summary)){
-      summary <- c("n","median")
-
-    }
 
     ##at least show a warning for invalid keywords
     if(!all(summary %in% names(stat.summary[[1]]))){
@@ -229,21 +233,6 @@ plot_ViolinPlot <- function(
 
   ##add stat.text
   if (summary.pos != "sub") {
-
-    valid_keywords <-
-      c(
-        "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright", "right", "center"
-      )
-
-    if (any(
-      summary.pos %in% valid_keywords
-    )) {
       legend(summary.pos, legend = stat.text, bty = "n")
-
-    }else{
-      .throw_warning("Value provided for 'summary.pos' is not ",
-                     "a valid keyword, valid keywords are:",
-                     .collapse(valid_keywords))
-    }
   }
 }

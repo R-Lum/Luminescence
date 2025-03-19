@@ -11,8 +11,8 @@ plot_RadialPlot(
   central.value,
   centrality = "mean.weighted",
   mtext,
-  summary,
-  summary.pos,
+  summary = c("n", "in.2s"),
+  summary.pos = "sub",
   legend,
   legend.pos,
   stats,
@@ -60,7 +60,7 @@ the central line. Can either be one out of
 \item{mtext}{\link{character}:
 additional text below the plot title.}
 
-\item{summary}{\link{character} (\emph{optional}):
+\item{summary}{\link{character} (\emph{with default}):
 add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.}
 

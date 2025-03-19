@@ -118,10 +118,10 @@
 #' @param rotate [logical] (*with default*):
 #' Option to turn the plot by 90 degrees.
 #'
-#' @param mtext [character] (*optional*):
+#' @param mtext [character] (*with default*):
 #' additional text below the plot title.
 #'
-#' @param summary [character] (*optional*):
+#' @param summary [character] (*with default*):
 #' add statistic measures of centrality and dispersion to the plot.
 #' Can be one or more of several keywords. See details for available keywords.
 #' Results differ depending on the log-option for the z-scale (see details).
@@ -443,9 +443,9 @@ plot_AbanicoPlot <- function(
   dispersion = "qr",
   plot.ratio = 0.75,
   rotate = FALSE,
-  mtext,
-  summary,
-  summary.pos,
+  mtext = "",
+  summary = c("n", "in.2s"),
+  summary.pos = "sub",
   summary.method = "MCM",
   legend,
   legend.pos,
@@ -573,6 +573,17 @@ plot_AbanicoPlot <- function(
   if (!dispersion %in% main.choices && !grepl("^p[0-9][0-9]$", dispersion))
     dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
 
+  .validate_class(summary, "character")
+  .validate_class(summary.pos, c("numeric", "character"))
+  if (is.numeric(summary.pos)) {
+    .validate_length(summary.pos, 2)
+  }
+  else {
+    .validate_args(summary.pos, c("sub", "left", "center", "right",
+                                  "topleft", "top", "topright",
+                                  "bottomleft", "bottom", "bottomright"))
+  }
+
   ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)
   cex_old <- par()$cex
@@ -626,15 +637,6 @@ plot_AbanicoPlot <- function(
       grid.minor <- grid.col[2]
     }
   }
-
-  if(missing(summary))
-    summary <- c("n", "in.2s")
-
-  if(missing(summary.pos))
-    summary.pos <- "sub"
-
-  if(missing(mtext))
-    mtext <- ""
 
   ## create preliminary global data set
   De.global <- data[[1]][,1]

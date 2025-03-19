@@ -26,11 +26,11 @@
 #' **Note:** Unit has to be the same as from the input values (e.g., Seconds or
 #' Gray).
 #'
-#' @param error.range [numeric]:
+#' @param error.range [numeric] (*with default*):
 #' symmetric error range in percent will be shown as dashed lines in the plot.
 #' Set `error.range` to 0 to void plotting of error ranges.
 #'
-#' @param preheat [numeric]:
+#' @param preheat [numeric] (*optional*):
 #' optional vector of preheat temperatures to be used for grouping the De values.
 #' If specified, the temperatures are assigned to the x-axis.
 #'
@@ -38,7 +38,7 @@
 #' plot values that are grouped by preheat temperature as boxplots.
 #' Only possible when `preheat` vector is specified.
 #'
-#' @param mtext [character]:
+#' @param mtext [character] (*with default*):
 #' additional text below the plot title.
 #'
 #' @param summary [character] (*optional*):
@@ -184,9 +184,9 @@ plot_DRTResults <- function(
   error.range = 10,
   preheat,
   boxplot = FALSE,
-  mtext,
-  summary,
-  summary.pos,
+  mtext = "",
+  summary = "",
+  summary.pos = "topleft",
   legend,
   legend.pos,
   par.local = TRUE,
@@ -207,10 +207,17 @@ plot_DRTResults <- function(
                    "reset to FALSE")
   }
 
-  if(missing(summary) == TRUE) {summary <- NULL}
-  if(missing(summary.pos) == TRUE) {summary.pos <- "topleft"}
+  .validate_class(summary, "character")
+  .validate_class(summary.pos, c("numeric", "character"))
+  if (is.numeric(summary.pos)) {
+    .validate_length(summary.pos, 2)
+  }
+  else {
+    .validate_args(summary.pos, c("sub", "left", "center", "right",
+                                  "topleft", "top", "topright",
+                                  "bottomleft", "bottom", "bottomright"))
+  }
   if(missing(legend.pos) == TRUE) {legend.pos <- "topright"}
-  if(missing(mtext) == TRUE) {mtext <- ""}
 
   ## Homogenise and check input data
   if(is(values, "list") == FALSE) {values <- list(values)}
