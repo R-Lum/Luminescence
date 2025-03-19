@@ -1,7 +1,7 @@
-#' @title Plot function for an RLum.Analysis S4 class object
+#' @title Plot function for an `RLum.Analysis` S4 class object
 #'
 #' @description The function provides a standardised plot output for curve data of an
-#' RLum.Analysis S4 class object
+#' [RLum.Analysis-class] object
 #'
 #' The function produces a multiple plot output. A file output is recommended
 #' (e.g., [pdf]).

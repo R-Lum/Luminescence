@@ -79,5 +79,7 @@ test_that("Test the extraction of irradiation times", {
     expect_s4_class(
       object = extract_IrradiationTimes(tmp[[1]]), class = "RLum.Results")
 
-
+   ## use TL curves with NA
+   tmp <- read_XSYG2R(xsyg, verbose = FALSE, fastForward = TRUE)
+   expect_s4_class(extract_IrradiationTimes(tmp[[1]]), class = "RLum.Results")
 })

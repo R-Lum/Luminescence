@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_IrradiationTimes.R
 \name{extract_IrradiationTimes}
 \alias{extract_IrradiationTimes}
-\title{Extract Irradiation Times from an XSYG-file}
+\title{Extract Irradiation Times from an XSYG-file or \code{RLum.Analysis} object}
 \usage{
 extract_IrradiationTimes(
   object,
@@ -73,13 +73,22 @@ The function was written to compensate missing information in the BINX-file
 output of Freiberg Instruments lexsyg readers. As all information are
 available within the XSYG-file anyway, these information can be extracted
 and used for further analysis or/and to stored in a new BINX-file, which can
-be further used by other software, e.g., Analyst (Geoff Duller).
+be further used by other software, e.g., \emph{Analyst} (Geoff Duller).
 
-Typical application example: g-value estimation from fading measurements
+Typical application example: \emph{g}-value estimation from fading measurements
 using the Analyst or any other self-written script.
 
 Beside some simple data transformation steps, the function applies
 functions \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN} for data import and export.
+
+\strong{Calculation details}
+\itemize{
+\item The value \code{DURATION.STEP} is calculated as \code{START} + the end of the time axis for all curves
+except for \code{TL}, where the function tries to extract meta information about the duration.
+\item The value \code{END} is calculated as \code{START} + \code{DURACTION.STEP}
+\item All curves for which no prior irradiation was detected receive an \code{-1} (\emph{Analyst} convention)
+\item Irradiation steps have always \code{IRR_TIME = 0}
+}
 }
 \note{
 The function can be also used to extract irradiation times from \linkS4class{RLum.Analysis} objects
@@ -101,7 +110,7 @@ end of the irradiation and the next step.
 
 \strong{Negative values for \code{TIMESINCELAST.STEP}?}
 
-Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
+Yes, this is possible and not a bug, as in the XSYG-file multiple curves are stored for one step.
 Example: TL step may comprise three curves:
 \itemize{
 \item (a) counts vs. time,
@@ -113,32 +122,49 @@ Three curves, but they are all belonging to one TL measurement step, but with re
 the time stamps this could produce negative values as the important function
 (\link{read_XSYG2R}) do not change the order of entries for one step
 towards a correct time order.
+
+\strong{\code{TIMESINCELAST.STEP} is odd if TL curves are involved?}
+
+Yes, this is possible! The end time is calculated as start + duration,
+and the duration is deduced from the time values of each step.
+A typical TL curve, however, does not have a time but a temperature axis.
+Hence, the function tries to extract the information from metadata.
+If that information is missing, the x-values are presumed time values,
+which might still be wrong.
 }
 \section{Function version}{
- 0.3.4
+ 0.3.5
 }
 
 \examples{
-## (1) - example for your own data
-##
-## set files and run function
-#
-#   file.XSYG <- file.choose()
-#   file.BINX <- file.choose()
-#
-#     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
-#     get_RLum(output)
-#
-## export results additionally to a CSV-file in the same directory as the XSYG-file
-#       write.table(x = get_RLum(output),
-#                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
-#                   sep = ";",
-#                   row.names = FALSE)
+## take system file
+xsyg <- system.file("extdata/XSYG_file.xsyg", package="Luminescence")
+
+## the import is automatically
+## but you can import it before
+irr_times <- extract_IrradiationTimes(xsyg)
+irr_times$irr.times
+
+\dontrun{
+# (1) - example for your own data
+
+# set files and run function
+file.XSYG <- file.choose()
+file.BINX <- file.choose()
+
+extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
+
+# export results additionally to a CSV-file in the same directory as the XSYG-file
+write.table(x = get_RLum(output),
+ file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
+ sep = ";",
+ row.names = FALSE)
+}
 
 }
 \references{
 Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
-recent improvements. Ancient TL 33, 35-42.
+recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \linkS4class{Risoe.BINfileData},
