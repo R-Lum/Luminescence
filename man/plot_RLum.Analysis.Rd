@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_RLum.Analysis.R
 \name{plot_RLum.Analysis}
 \alias{plot_RLum.Analysis}
-\title{Plot function for an RLum.Analysis S4 class object}
+\title{Plot function for an \code{RLum.Analysis} S4 class object}
 \usage{
 plot_RLum.Analysis(
   object,
@@ -76,7 +76,7 @@ Returns multiple plots.
 }
 \description{
 The function provides a standardised plot output for curve data of an
-RLum.Analysis S4 class object
+\linkS4class{RLum.Analysis} object
 
 The function produces a multiple plot output. A file output is recommended
 (e.g., \link{pdf}).
