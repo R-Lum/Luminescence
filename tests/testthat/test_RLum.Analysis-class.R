@@ -222,6 +222,11 @@ test_that("structure_RLum", {
   expect_equal(names(res2), names(res))
   expect_equal(res2$info, c(NA, NA))
 
+  ## special case with longer .pid
+  obj_a <- obj
+  obj_a@records[[1]]@.pid <- c(obj_a@records[[1]]@.pid, obj_a@records[[1]]@.pid)
+  expect_s3_class(structure_RLum(obj_a), "data.frame")
+
   ## object with some info
   data(ExampleData.BINfileData, envir = environment())
   d1 <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
