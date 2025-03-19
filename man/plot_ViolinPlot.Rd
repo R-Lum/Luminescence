@@ -8,7 +8,7 @@ plot_ViolinPlot(
   data,
   boxplot = TRUE,
   rug = TRUE,
-  summary = NULL,
+  summary = c("n", "median"),
   summary.pos = "sub",
   na.rm = TRUE,
   ...
@@ -26,7 +26,7 @@ enable/disable boxplot}
 \item{rug}{\link{logical} (\emph{with default}):
 enable/disable rug}
 
-\item{summary}{\link{character} (\emph{optional}):
+\item{summary}{\link{character} (\emph{with default}):
 add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.}
 

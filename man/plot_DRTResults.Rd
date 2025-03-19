@@ -10,9 +10,9 @@ plot_DRTResults(
   error.range = 10,
   preheat,
   boxplot = FALSE,
-  mtext,
-  summary,
-  summary.pos,
+  mtext = "",
+  summary = "",
+  summary.pos = "topleft",
   legend,
   legend.pos,
   par.local = TRUE,
@@ -36,11 +36,11 @@ If \code{given.dose} in \code{NULL} the values are plotted without normalisation
 \strong{Note:} Unit has to be the same as from the input values (e.g., Seconds or
 Gray).}
 
-\item{error.range}{\link{numeric}:
+\item{error.range}{\link{numeric} (\emph{with default}):
 symmetric error range in percent will be shown as dashed lines in the plot.
 Set \code{error.range} to 0 to void plotting of error ranges.}
 
-\item{preheat}{\link{numeric}:
+\item{preheat}{\link{numeric} (\emph{optional}):
 optional vector of preheat temperatures to be used for grouping the De values.
 If specified, the temperatures are assigned to the x-axis.}
 
@@ -48,7 +48,7 @@ If specified, the temperatures are assigned to the x-axis.}
 plot values that are grouped by preheat temperature as boxplots.
 Only possible when \code{preheat} vector is specified.}
 
-\item{mtext}{\link{character}:
+\item{mtext}{\link{character} (\emph{with default}):
 additional text below the plot title.}
 
 \item{summary}{\link{character} (\emph{optional}):

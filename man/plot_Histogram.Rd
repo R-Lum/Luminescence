@@ -7,13 +7,13 @@
 plot_Histogram(
   data,
   na.rm = TRUE,
-  mtext,
+  mtext = "",
   cex.global,
-  se,
-  rug,
-  normal_curve,
-  summary,
-  summary.pos,
+  se = TRUE,
+  rug = TRUE,
+  normal_curve = FALSE,
+  summary = "",
+  summary.pos = "sub",
   colour,
   interactive = FALSE,
   ...
@@ -32,17 +32,18 @@ further sample information (\link{mtext}).}
 \item{cex.global}{\link{numeric} (\emph{with default}):
 global scaling factor.}
 
-\item{se}{\link{logical} (\emph{optional}):
-plots standard error points over the histogram, default is \code{FALSE}.}
+\item{se}{\link{logical} (\emph{with default}):
+plots standard error points over the histogram, default is \code{TRUE}.}
 
-\item{rug}{\link{logical} (\emph{optional}):
+\item{rug}{\link{logical} (\emph{with default}):
 adds rugs to the histogram, default is \code{TRUE}.}
 
 \item{normal_curve}{\link{logical} (\emph{with default}):
-adds a normal curve to the histogram. Mean and standard deviation are calculated from the
-input data. More see details section.}
+adds a normal curve to the histogram. Mean and standard deviation are
+calculated from the input data. If \code{TRUE}, the y-axis in the histogram
+will show the probability density.}
 
-\item{summary}{\link{character} (\emph{optional}):
+\item{summary}{\link{character} (\emph{with default}):
 add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.}
 
@@ -73,8 +74,7 @@ the right axis limits.}
 \description{
 Function plots a predefined histogram with an accompanying error plot as
 suggested by Rex Galbraith at the UK LED in Oxford 2010.
-}
-\details{
+
 If the normal curve is added, the y-axis in the histogram will show the
 probability density.
 

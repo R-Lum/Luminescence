@@ -12,9 +12,9 @@ plot_AbanicoPlot(
   dispersion = "qr",
   plot.ratio = 0.75,
   rotate = FALSE,
-  mtext,
-  summary,
-  summary.pos,
+  mtext = "",
+  summary = c("n", "in.2s"),
+  summary.pos = "sub",
   summary.method = "MCM",
   legend,
   legend.pos,
@@ -79,10 +79,10 @@ default is \code{0.75}.}
 \item{rotate}{\link{logical} (\emph{with default}):
 Option to turn the plot by 90 degrees.}
 
-\item{mtext}{\link{character} (\emph{optional}):
+\item{mtext}{\link{character} (\emph{with default}):
 additional text below the plot title.}
 
-\item{summary}{\link{character} (\emph{optional}):
+\item{summary}{\link{character} (\emph{with default}):
 add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.
 Results differ depending on the log-option for the z-scale (see details).}

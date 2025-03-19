@@ -72,7 +72,7 @@
 #' add statistic measures of centrality and dispersion to the plot. Can be one
 #' or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos [numeric] or [character] (*optional*):
+#' @param summary.pos [numeric] or [character] (*with default*):
 #' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
@@ -169,7 +169,7 @@ plot_KDE <- function(
   boxplot = TRUE,
   rug = TRUE,
   summary = "",
-  summary.pos,
+  summary.pos = "sub",
   summary.method = "MCM",
   bw = "nrd0",
   output = TRUE,
@@ -243,12 +243,11 @@ plot_KDE <- function(
   .validate_logical_scalar(rug)
   .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
   .validate_class(summary, "character")
-
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- "sub"
-  }
   .validate_class(summary.pos, c("numeric", "character"))
-  if (is.character(summary.pos)) {
+  if (is.numeric(summary.pos)) {
+    .validate_length(summary.pos, 2)
+  }
+  else {
     .validate_args(summary.pos, c("sub", "left", "center", "right",
                                   "topleft", "top", "topright",
                                   "bottomleft", "bottom", "bottomright"))

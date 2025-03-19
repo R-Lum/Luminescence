@@ -1,11 +1,11 @@
-#' Plot a histogram with separate error plot
+#' @title Plot a histogram with separate error plot
 #'
+#' @description
 #' Function plots a predefined histogram with an accompanying error plot as
 #' suggested by Rex Galbraith at the UK LED in Oxford 2010.
 #'
 #' If the normal curve is added, the y-axis in the histogram will show the
 #' probability density.
-#'
 #'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
@@ -37,17 +37,18 @@
 #' @param cex.global [numeric] (*with default*):
 #' global scaling factor.
 #'
-#' @param se [logical] (*optional*):
-#' plots standard error points over the histogram, default is `FALSE`.
+#' @param se [logical] (*with default*):
+#' plots standard error points over the histogram, default is `TRUE`.
 #'
-#' @param rug [logical] (*optional*):
+#' @param rug [logical] (*with default*):
 #' adds rugs to the histogram, default is `TRUE`.
 #'
 #' @param normal_curve [logical] (*with default*):
-#' adds a normal curve to the histogram. Mean and standard deviation are calculated from the
-#' input data. More see details section.
+#' adds a normal curve to the histogram. Mean and standard deviation are
+#' calculated from the input data. If `TRUE`, the y-axis in the histogram
+#' will show the probability density.
 #'
-#' @param summary [character] (*optional*):
+#' @param summary [character] (*with default*):
 #' add statistic measures of centrality and dispersion to the plot.
 #' Can be one or more of several keywords. See details for available keywords.
 #'
@@ -117,13 +118,13 @@
 plot_Histogram <- function(
   data,
   na.rm = TRUE,
-  mtext,
+  mtext = "",
   cex.global,
-  se,
-  rug,
-  normal_curve,
-  summary,
-  summary.pos,
+  se = TRUE,
+  rug = TRUE,
+  normal_curve = FALSE,
+  summary = "",
+  summary.pos = "sub",
   colour,
   interactive = FALSE,
   ...
@@ -148,38 +149,25 @@ plot_Histogram <- function(
     data <- cbind(data, rep(NA, length(data)))
   }
 
+  .validate_class(summary, "character")
+  .validate_class(summary.pos, c("numeric", "character"))
+  if (is.numeric(summary.pos)) {
+    .validate_length(summary.pos, 2)
+  }
+  else {
+    .validate_args(summary.pos, c("sub", "left", "center", "right",
+                                  "topleft", "top", "topright",
+                                  "bottomleft", "bottom", "bottomright"))
+  }
+
   ## Set general parameters ---------------------------------------------------
   ## Check/set default parameters
   if(missing(cex.global) == TRUE) {
     cex.global <- 1
   }
 
-  if(missing(mtext) == TRUE) {
-    mtext <- ""
-  }
-
-  if(missing(se) == TRUE) {
-    se = TRUE
-  }
-
-  if(missing(rug) == TRUE) {
-    rug = TRUE
-  }
-
   if(missing(colour) == TRUE) {
     colour = c("white", "black", "red", "black")
-  }
-
-  if(missing(summary) == TRUE) {
-    summary <- ""
-  }
-
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- "sub"
-  }
-
-  if(missing(normal_curve) == TRUE) {
-    normal_curve = FALSE
   }
 
   ## read out additional arguments list

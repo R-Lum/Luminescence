@@ -9,8 +9,14 @@ test_that("input validation", {
                "'data' should be of class 'RLum.Results', 'data.frame' or 'matrix'")
   expect_error(plot_ViolinPlot("error"),
                "'data' should be of class 'RLum.Results', 'data.frame' or 'matrix'")
+  expect_error(plot_ViolinPlot(df, summary = 5),
+               "'summary' should be of class 'character'")
+  expect_error(plot_ViolinPlot(df, summary.pos = list()),
+               "'summary.pos' should be of class 'numeric' or 'character'")
   expect_error(plot_ViolinPlot(df, summary.pos = 5),
-               "'summary.pos' should be of class 'character'")
+               "'summary.pos' should have length 2")
+  expect_error(plot_ViolinPlot(df, summary.pos = "error"),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
 
   expect_error(plot_ViolinPlot(data.frame()),
                "'data' cannot be an empty data.frame")
@@ -20,8 +26,6 @@ test_that("input validation", {
                  "Single data point found, no density calculated")
   expect_warning(plot_ViolinPlot(df, summary = "error"),
                  "Only keywords for weighted statistical measures are supported")
-  expect_warning(plot_ViolinPlot(df, summary.pos = "error"),
-                 "Value provided for 'summary.pos' is not a valid keyword")
 
   ## missing values
   df.na <- df

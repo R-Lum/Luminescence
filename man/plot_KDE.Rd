@@ -12,7 +12,7 @@ plot_KDE(
   boxplot = TRUE,
   rug = TRUE,
   summary = "",
-  summary.pos,
+  summary.pos = "sub",
   summary.method = "MCM",
   bw = "nrd0",
   output = TRUE,
@@ -49,7 +49,7 @@ optionally add rug.}
 add statistic measures of centrality and dispersion to the plot. Can be one
 or more of several keywords. See details for available keywords.}
 
-\item{summary.pos}{\link{numeric} or \link{character} (\emph{optional}):
+\item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
 optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter

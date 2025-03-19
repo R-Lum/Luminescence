@@ -13,6 +13,14 @@ test_that("input validation", {
                "'data' contains no data")
   expect_error(plot_Histogram(set_RLum("RLum.Results")),
                "'data' contains no data")
+  expect_error(plot_Histogram(df, summary = 5),
+               "'summary' should be of class 'character'")
+  expect_error(plot_Histogram(df, summary.pos = list()),
+               "'summary.pos' should be of class 'numeric' or 'character'")
+  expect_error(plot_Histogram(df, summary.pos = 5),
+               "'summary.pos' should have length 2")
+  expect_error(plot_Histogram(df, summary.pos = "error"),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_Histogram(df, ylim = c(0, 1)),
                "'ylim' should have length 4")
 })

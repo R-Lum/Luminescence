@@ -66,7 +66,7 @@
 #' @param mtext [character]:
 #' additional text below the plot title.
 #'
-#' @param summary [character] (*optional*):
+#' @param summary [character] (*with default*):
 #' add statistic measures of centrality and dispersion to the plot.
 #' Can be one or more of several keywords. See details for available keywords.
 #'
@@ -275,8 +275,8 @@ plot_RadialPlot <- function(
   central.value,
   centrality = "mean.weighted",
   mtext,
-  summary,
-  summary.pos,
+  summary = c("n", "in.2s"),
+  summary.pos = "sub",
   legend,
   legend.pos,
   stats,
@@ -330,15 +330,19 @@ plot_RadialPlot <- function(
       }
   }
 
-  ## check data and parameter consistency--------------------------------------
-  if(missing(stats) == TRUE) {stats <- numeric(0)}
-  if(missing(summary) == TRUE) {
-    summary <- c("n", "in.2s")
+  .validate_class(summary, "character")
+  .validate_class(summary.pos, c("numeric", "character"))
+  if (is.numeric(summary.pos)) {
+    .validate_length(summary.pos, 2)
+  }
+  else {
+    .validate_args(summary.pos, c("sub", "left", "center", "right",
+                                  "topleft", "top", "topright",
+                                  "bottomleft", "bottom", "bottomright"))
   }
 
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- "sub"
-  }
+  if(missing(stats) == TRUE) {stats <- numeric(0)}
+
   if(missing(bar.col) == TRUE) {
     bar.col <- rep("grey80", length(data))
   }
