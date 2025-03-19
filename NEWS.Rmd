@@ -50,6 +50,11 @@ common 9.8 mm size (#623).
 
 * The function validates its input values more thoroughly (#613).
 
+### `extract_IrradiationTimes()`
+
+* The function tries a little bit harder to extract the correct duration of 
+TL steps, rendering the data output hopefully a little bit more intelligible. 
+
 ### `fit_DoseResponseCurve()`
 
 * The function now allocates less memory for storing intermediate values

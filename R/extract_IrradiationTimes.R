@@ -1,4 +1,4 @@
-#' @title Extract Irradiation Times from an XSYG-file
+#' @title Extract Irradiation Times from an XSYG-file or `RLum.Analysis` object
 #'
 #' @description Extracts irradiation times, dose and times since last irradiation, from a
 #' Freiberg Instruments XSYG-file. These information can be further used to
@@ -9,13 +9,24 @@
 #' output of Freiberg Instruments lexsyg readers. As all information are
 #' available within the XSYG-file anyway, these information can be extracted
 #' and used for further analysis or/and to stored in a new BINX-file, which can
-#' be further used by other software, e.g., Analyst (Geoff Duller).
+#' be further used by other software, e.g., *Analyst* (Geoff Duller).
 #'
-#' Typical application example: g-value estimation from fading measurements
+#' Typical application example: *g*-value estimation from fading measurements
 #' using the Analyst or any other self-written script.
 #'
 #' Beside some simple data transformation steps, the function applies
 #' functions [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
+#'
+#' **Calculation details**
+#'
+#' - The value `DURATION.STEP` is calculated as `START` + the end of the time axis for all curves
+#' except for `TL`, where the function tries to extract meta information about the duration.
+#'
+#' - The value `END` is calculated as `START` + `DURACTION.STEP`
+#'
+#' - All curves for which no prior irradiation was detected receive an `-1` (*Analyst* convention)
+#'
+#' - Irradiation steps have always `IRR_TIME = 0`
 #'
 #' @param object [character], [RLum.Analysis-class] or [list] (**required**):
 #' path and file name of the XSYG file or an [RLum.Analysis-class]
@@ -88,7 +99,7 @@
 #'
 #' **Negative values for `TIMESINCELAST.STEP`?**
 #'
-#' Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
+#' Yes, this is possible and not a bug, as in the XSYG-file multiple curves are stored for one step.
 #' Example: TL step may comprise three curves:
 #'
 #' - (a) counts vs. time,
@@ -100,7 +111,16 @@
 #' ([read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
-#' @section Function version: 0.3.4
+#' **`TIMESINCELAST.STEP` is odd if TL curves are involved?**
+#'
+#' Yes, this is possible! The end time is calculated as start + duration,
+#' and the duration is deduced from the time values of each step.
+#' A typical TL curve, however, does not have a time but a temperature axis.
+#' Hence, the function tries to extract the information from metadata.
+#' If that information is missing, the x-values are presumed time values,
+#' which might still be wrong.
+#'
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -110,26 +130,34 @@
 #'
 #' @references
 #' Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
-#' recent improvements. Ancient TL 33, 35-42.
+#' recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
 #'
 #' @keywords IO manip
 #'
 #' @examples
-#' ## (1) - example for your own data
-#' ##
-#' ## set files and run function
-#' #
-#' #   file.XSYG <- file.choose()
-#' #   file.BINX <- file.choose()
-#' #
-#' #     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
-#' #     get_RLum(output)
-#' #
-#' ## export results additionally to a CSV-file in the same directory as the XSYG-file
-#' #       write.table(x = get_RLum(output),
-#' #                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
-#' #                   sep = ";",
-#' #                   row.names = FALSE)
+#' ## take system file
+#' xsyg <- system.file("extdata/XSYG_file.xsyg", package="Luminescence")
+#'
+#' ## the import is automatically
+#' ## but you can import it before
+#' irr_times <- extract_IrradiationTimes(xsyg)
+#' irr_times$irr.times
+#'
+#' \dontrun{
+#' # (1) - example for your own data
+#'
+#' # set files and run function
+#' file.XSYG <- file.choose()
+#' file.BINX <- file.choose()
+#'
+#' extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
+#'
+#' # export results additionally to a CSV-file in the same directory as the XSYG-file
+#' write.table(x = get_RLum(output),
+#'  file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
+#'  sep = ";",
+#'  row.names = FALSE)
+#' }
 #'
 #' @md
 #' @export
@@ -282,10 +310,19 @@ extract_IrradiationTimes <- function(
   }
 
   ##DURATION of each STEP
-  DURATION.STEP <- vapply(temp.sequence, function(x){
-    max(get_RLum(x)[,1])
-  }, numeric(1))
+  DURATION.STEP <- vapply(temp.sequence, function(x) {
+    ## we treat TL curves differently **if** they have temperature axis
+    ## in such case we search for 'duration' that should be there
+    if(grepl(pattern = "TL", x@recordType, fixed = TRUE)) {
+      t <- as.numeric(x@info$duration)
+      if(length(t) != 0)
+        return(t)
+    }
 
+    ## general fall back
+    max(x@data[,1])
+
+  }, numeric(1))
 
   ##Calculate END time of each STEP
   END <- START + DURATION.STEP
@@ -351,14 +388,12 @@ extract_IrradiationTimes <- function(
   }))
 
   # Calculate time since last step --------------------------------------------------------------
-  TIMESINCELAST.STEP <- unlist(sapply(1:nrow(temp.results), function(x){
-    if(x == 1){
+  TIMESINCELAST.STEP <- vapply(1:nrow(temp.results), function(x){
+    if(x == 1)
       return(0)
-    }else{
-      return(difftime(temp.results[x,"START"],temp.results[x-1, "END"], units = "secs"))
-    }
 
-  }))
+    difftime(temp.results[x,"START"],temp.results[x-1, "END"], units = "secs")
+  }, numeric(1))
 
   # Combine final results -----------------------------------------------------------------------
   ##results table, export as CSV
@@ -401,3 +436,4 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
+
