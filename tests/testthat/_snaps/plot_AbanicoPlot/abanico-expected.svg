@@ -177,6 +177,6 @@
 <text x='566.84' y='555.12' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='93.38px' lengthAdjust='spacingAndGlyphs'>Density (bw 0.15)</text>
 <polyline points='514.49,368.10 514.49,82.44 ' style='stroke-width: 0.75;' />
 <polygon points='64.80,189.23 501.39,82.44 619.20,82.44 619.20,368.10 501.39,368.10 ' style='stroke-width: 0.60; fill: none;' />
-<text x='342.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='127.13px' lengthAdjust='spacingAndGlyphs'>n = 62 | in 2 sigma = 41.9 % </text>
+<text x='342.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='124.36px' lengthAdjust='spacingAndGlyphs'>n = 62 | in 2 sigma = 41.9 %</text>
 </g>
 </svg>
