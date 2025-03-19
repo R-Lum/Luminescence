@@ -59,7 +59,7 @@
 
 - The function tries a little bit harder to extract the correct duration
   of TL steps, rendering the data output hopefully a little bit more
-  intelligible.
+  intelligible (#651).
 
 ### `fit_DoseResponseCurve()`
 
