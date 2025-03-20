@@ -47,7 +47,7 @@ test_that("regression tests", {
                    LxTx = c(5.323892, 5.235491, 5.186621, 4.893767, 4.272581, 3.064905),
                    LxTx_ERROR = rep(0.05, 6))
 
-  res <- fit_IsothermalHolding(d1, rhop = 1e-7, verbose = FALSE)
+  res <- fit_IsothermalHolding(df, rhop = 1e-7, verbose = FALSE)
   expect_equal(res@data$coefs,
                data.frame(SAMPLE = "S1", TEMP = 150, A = NA_real_,
                           b = NA_real_, Et = NA_real_, s10 = NA_real_))
