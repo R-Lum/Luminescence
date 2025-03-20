@@ -118,10 +118,23 @@ fit_IsothermalHolding <- function(
   ## extract data.frames for each sample with all information
   df_raw_list <- lapply(sample_id, function(x) records_ITL[records_ITL$SAMPLE == x, ])
 
+  ## allow to control how many random values for the s parameter should be
+  ## generated when fitting the BTS model
+  num_s_values_bts <- list(...)$num_s_values_bts
+  if (!is.null(num_s_values_bts)) {
+    .validate_positive_scalar(num_s_values_bts, int = TRUE)
+  } else {
+    num_s_values_bts <- 1000
+  }
+
+  if (ITL_model == "GOK")
+    num_s_values_bts <- 1
+
   ## initialise the progress bar
   if (txtProgressBar) {
     num.models <- sum(sapply(df_raw_list, function(x) length(unique(x$TEMP))))
-    pb <- txtProgressBar(min = 0, max = num.models, char = "=", style = 3)
+    pb <- txtProgressBar(min = 0, max = num.models * num_s_values_bts,
+                         char = "=", style = 3)
   }
 
   ###### --- Perform ITL fitting --- #####
@@ -132,15 +145,6 @@ fit_IsothermalHolding <- function(
   ## get the rhop value from the fading measurement analysis if available
   if (inherits(rhop, "RLum.Results") && rhop@originator == "analyse_FadingMeasurement")
     rhop <- rhop@data$rho_prime[[1]]
-
-  ## allow to control how many random values for the s parameter should be
-  ## generated when fitting the BTS model
-  num_s_values_bts <- list(...)$num_s_values_bts
-  if (!is.null(num_s_values_bts)) {
-    .validate_positive_scalar(num_s_values_bts, int = TRUE)
-  } else {
-    num_s_values_bts <- 1000
-  }
 
   ## Define formulas to fit -------------------------------------------------
   ##
@@ -211,10 +215,22 @@ fit_IsothermalHolding <- function(
               ),
               trace = trace)
         }, silent = TRUE)
+
+        coefs <- if (!inherits(fit, "try-error")) {
+                   coef(fit)
+                 } else {
+                   stats::setNames(rep(NA_real_, length(start)), names(start))
+                 }
         fitted.coefs <<- rbind(fitted.coefs,
                                data.frame(SAMPLE = unique(s$SAMPLE),
                                           TEMP = isoT,
-                                          t(coef(fit))))
+                                          t(coefs)))
+
+        ## update the progress bar
+        num.fits <<- num.fits + 1  # uses <<- as we are in a nested lapply()
+        if (txtProgressBar) {
+          setTxtProgressBar(pb, num.fits)
+        }
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
@@ -232,6 +248,12 @@ fit_IsothermalHolding <- function(
                        ), trace = FALSE),
                    silent = TRUE)
 
+          ## update the progress bar
+          num.fits <<- num.fits + 1  # uses <<- as we are in a nested lapply()
+          if (txtProgressBar) {
+            setTxtProgressBar(pb, num.fits)
+          }
+
           if (inherits(t, "try-error"))
             return(NULL)
           return(t)
@@ -245,12 +267,6 @@ fit_IsothermalHolding <- function(
                                data.frame(SAMPLE = unique(s$SAMPLE),
                                           TEMP = isoT,
                                           t(coef(fit)), s10))
-      }
-
-      ## update the progress bar
-      num.fits <<- num.fits + 1  # <<- required because we are in a nested lapply()
-      if (txtProgressBar) {
-        setTxtProgressBar(pb, num.fits)
       }
 
       if (inherits(fit, "try-error"))
