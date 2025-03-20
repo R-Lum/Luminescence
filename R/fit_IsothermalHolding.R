@@ -211,10 +211,16 @@ fit_IsothermalHolding <- function(
               ),
               trace = trace)
         }, silent = TRUE)
+
+        coefs <- if (!inherits(fit, "try-error")) {
+                   coef(fit)
+                 } else {
+                   stats::setNames(rep(NA_real_, length(start)), names(start))
+                 }
         fitted.coefs <<- rbind(fitted.coefs,
                                data.frame(SAMPLE = unique(s$SAMPLE),
                                           TEMP = isoT,
-                                          t(coef(fit))))
+                                          t(coefs)))
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
