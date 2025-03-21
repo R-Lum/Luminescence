@@ -32,6 +32,10 @@ test_that("check functionality", {
   SW({
   expect_s4_class(fit_IsothermalHolding(input.csv, rhop = 1e-7),
                   "RLum.Results")
+  expect_s4_class(fit_IsothermalHolding(input.csv[2], rhop = 1e-5,
+                                        ITL_model = "BTS",
+                                        num_s_values_bts = 2),
+                  "RLum.Results")
 
   data <- .import_ThermochronometryData(input.csv[1])
   expect_s4_class(fit_IsothermalHolding(data, rhop = 1e-7, mfrow = c(2, 2)),
