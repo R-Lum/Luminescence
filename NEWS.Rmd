@@ -12,6 +12,13 @@ header-includes:
 
 ## New functions
 
+* `remove_SignalBackground()`: A user-friendly method to subtract background signals 
+from various curves in `RLum.Analysis-class` objects without resorting to `lapply()` 
+loops. Depending on the record type, the function identifies pairs of curves; 
+for instance, if in a sequence, a `TL` curve is followed immediately by another 
+`TL` curve. The subsequent curve is recognised as the background signal, 
+subtracted using `merge_RLum()` and subsequently removed from the object (if desired). 
+Alternatively, a set of potential background curves can be specified. 
 ## Breaking changes
 
 * Function `get_Quote()` is no longer exported, but remains available as an
@@ -53,7 +60,7 @@ common 9.8 mm size (#623).
 ### `extract_IrradiationTimes()`
 
 * The function tries a little bit harder to extract the correct duration of 
-TL steps, rendering the data output hopefully a little bit more intelligible (#651).
+TL steps, rendering the data output hopefully a little bit more intelligible (#651).  
 
 ### `fit_DoseResponseCurve()`
 
