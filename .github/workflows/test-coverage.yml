@@ -66,28 +66,3 @@ jobs:
           git checkout master -- tests/coverage.rds || true
           echo "Fetching master branch coverage data"
 
-      - name: Compare coverage and fail on decrease
-        run: |
-         Rscript -e '
-         library(covr)
-         pr_coverage <- package_coverage()
-         saveRDS(pr_coverage, "tests/coverage.rds")
-
-         if (file.exists("tests/coverage.rds")) {
-           master_coverage <- readRDS("tests/coverage.rds")
-           pr_cov <- percent_coverage(pr_coverage)
-           master_cov <- percent_coverage(master_coverage)
-
-           message("Coverage on master: ", master_cov, "%")
-           message("Coverage on PR: ", pr_cov, "%")
-
-           if (pr_cov < master_cov) {
-             stop("❌ Test coverage decreased! PR coverage: ", pr_cov, "% vs.  Master: ", master_cov, "%")
-           } else {
-              message("✅ Coverage is maintained or improved.")
-           }
-           } else {
-             message("⚠️ No previous coverage data found. Skipping comparison.")
-           }
-           '
-
