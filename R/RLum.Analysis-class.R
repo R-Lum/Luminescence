@@ -583,6 +583,58 @@ setMethod("get_RLum",
             }
           })
 
+
+# remove_RLum() ----------------------------------------------------------------------------
+#' @describeIn RLum.Analysis
+#' Method to remove records from an [RLum.Analysis-class] object.
+#'
+#' @param object [RLum.Analysis-class] (**required**): object with records
+#' to be removed
+#'
+#' @param ... parameters to be passed to [get_RLum]. The arguments `get.index` and
+#' `drop` are preset and have no effect when provided
+#'
+#' @return
+#'
+#' [RLum.Analysis-class]; can be empty.
+#'
+#' @md
+#' @export
+setMethod("remove_RLum",
+      signature= "RLum.Analysis",
+      definition = function(object, ...) {
+
+# DO NOT TOUCH ------------------------------------------------------------
+.set_function_name("remove_RLum")
+on.exit(.unset_function_name(), add = TRUE)
+
+# Treatment of ... --------------------------------------------------------
+  ## make settings with preset
+  args_set <- list(
+    get.index = TRUE,
+    drop = FALSE
+
+  )
+  ## we do not support all arguments; therefore we make a positive list
+  args <- list(...)
+  args[!names(args) %in% c(
+    "record.id",
+    "recordType",
+    "curveType",
+    "RLum.type",
+    "protocol",
+    "info.object",
+    "subset",
+    "recursive"
+  )] <- NULL
+
+  ## construct call
+  rm_id <- suppressWarnings(do.call(get_RLum, args = c(object, args_set, args)))
+  object@records[rm_id] <- NULL
+  return(object)
+
+})
+
 # structure_RLum() ----------------------------------------------------------------------------
 ###
 #' @describeIn RLum.Analysis
