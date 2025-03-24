@@ -208,6 +208,61 @@ setMethod("get_RLum", signature = "NULL",
     })
 
 
+# remove_RLum() -------------------------------------------------------------
+#' @title Strips records from RLum-class objects
+#'
+#' @description
+#' Remove records from an RLum-class object in a convenient way using
+#' [get_RLum] for the selection.
+#'
+#' @param object [RLum-class] (**required**):  S4 object of class `RLum`
+#'
+#' @param ... further arguments passed to the specific class method
+#'
+#' @return
+#' Same as input, can be empty
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#' @seealso [RLum.Analysis-class]
+#'
+#' @examples
+#' ## load example data
+#' data(ExampleData.XSYG, envir = environment())
+#' sar <- OSL.SARMeasurement$Sequence.Object[1:9]
+#'
+#' ## strop only OSL curves
+#' sar <- remove_RLum(sar, recordType = "OSL")
+#' sar
+#'
+#' @keywords utilities
+#'
+#' @md
+#' @export
+setGeneric("remove_RLum", function(object, ...) {
+  standardGeneric("remove_RLum")
+})
+
+#' @describeIn remove_RLum
+#' Returns a list of [RLum-class] objects where the selected records are stripped
+#'
+#' @md
+#' @export
+setMethod("remove_RLum", signature = "list",
+          function(object, ...) {
+            ## apply method in the objects and return the same
+            lapply(object, function(x) {
+              if (inherits(x, "RLum.Analysis")) {
+                return(remove_RLum(x,...))
+              } else {
+                return(x)
+              }
+            })
+})
+
 # length_RLum() -----------------------------------------------------------
 #' @title Length retrieval function for RLum S4 class objects
 #'

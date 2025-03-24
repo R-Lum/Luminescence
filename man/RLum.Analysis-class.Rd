@@ -6,6 +6,7 @@
 \alias{show,RLum.Analysis-method}
 \alias{set_RLum,RLum.Analysis-method}
 \alias{get_RLum,RLum.Analysis-method}
+\alias{remove_RLum,RLum.Analysis-method}
 \alias{structure_RLum,RLum.Analysis-method}
 \alias{length_RLum,RLum.Analysis-method}
 \alias{names_RLum,RLum.Analysis-method}
@@ -45,6 +46,8 @@
   env = parent.frame(2)
 )
 
+\S4method{remove_RLum}{RLum.Analysis}(object, ...)
+
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
@@ -66,8 +69,8 @@
 \S4method{view}{RLum.Analysis}(object, ...)
 }
 \arguments{
-\item{object}{(\strong{required}):
-an object of class \linkS4class{RLum.Analysis}}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): object with records
+to be removed}
 
 \item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}):
 name of the \code{RLum} class to be created}
@@ -134,6 +137,8 @@ meaning they are not considered when subsetting the object.}
 An environment passed to \link{eval} as the enclosure. This argument is only
 relevant when subsetting the object and should not be used manually.}
 
+\item{...}{other arguments that might be passed}
+
 \item{fullExtent}{\link{structure_RLum}; \link{logical} (\emph{with default}):
 extends the returned \code{data.frame} to its full extent, i.e. all info elements
 are part of the return as well. The default value is \code{FALSE} as the data
@@ -148,8 +153,6 @@ elements always exist because they are calculated from the record
 \item{value}{(\strong{required}) The value assigned to the selected elements
 of the metadata field. If \code{NULL} the elements named in \code{info_element}
 will be removed.}
-
-\item{...}{other arguments that might be passed}
 
 \item{slot}{\link{character} (\emph{optional}): slot name to use in sorting.}
 
@@ -166,6 +169,8 @@ Returns:
 \item Single \linkS4class{RLum.Data} object, if only one object is contained and \code{recursive = FALSE} or
 \item \linkS4class{RLum.Analysis} objects for \code{drop = FALSE}
 }
+
+\linkS4class{RLum.Analysis}; can be empty.
 
 \strong{\code{structure_RLum}}:
 
@@ -212,6 +217,8 @@ Example: curve type (e.g. \code{curveType = "predefined"} or \code{curveType ="m
 
 The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
+
+\item \code{remove_RLum(RLum.Analysis)}: Method to remove records from an \linkS4class{RLum.Analysis} object.
 
 \item \code{structure_RLum(RLum.Analysis)}: Method to show the structure of an \linkS4class{RLum.Analysis} object.
 

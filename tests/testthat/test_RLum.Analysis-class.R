@@ -276,3 +276,25 @@ test_that("structure_RLum", {
   t <- melt_RLum(tmp)
   expect_type(t, "list")
 })
+
+test_that("remove_RLum", {
+  testthat::skip_on_cran()
+
+  ## remove all OSL curves
+  t <- expect_s4_class(remove_RLum(sar, recordType = "OSL"), "RLum.Analysis")
+  expect_length(t@records, n = 4)
+
+  ## provide arguments that are overwritten
+  t <- expect_s4_class(remove_RLum(sar, recordType = "OSL", drop = TRUE), "RLum.Analysis")
+  expect_length(t@records, n = 4)
+
+  ## provide as list
+  t <- expect_type(remove_RLum(list(sar, sar), recordType = "OSL"), "list")
+  expect_length(t, n = 2)
+
+  ## odd wrong element
+  t <- expect_type(remove_RLum(list(sar, "error"), recordType = "OSL"), "list")
+  expect_length(t, n = 2)
+
+
+})
