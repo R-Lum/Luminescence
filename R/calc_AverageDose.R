@@ -41,7 +41,7 @@
 #'
 #' Further supported arguments: `mtext` ([character]), `rug` (`TRUE/FALSE`).
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
 #' Anne Philippe, Université de Nantes, (France),
@@ -310,10 +310,10 @@ calc_AverageDose <- function(
   if (verbose) {
     cat("\n[calc_AverageDose()]")
     cat("\n\n>> Initialisation <<")
-    cat(paste("\nn:\t\t", n))
-    cat(paste("\ndelta:\t\t", delta))
-    cat(paste("\nsigma_m:\t", sigma_m))
-    cat(paste("\nsigma_d:\t", sigma_d))
+    cat("\nn:\t\t", n)
+    cat("\ndelta:\t\t", delta)
+    cat("\nsigma_m:\t", sigma_m)
+    cat("\nsigma_d:\t", sigma_d)
   }
 
 
@@ -337,7 +337,6 @@ calc_AverageDose <- function(
   }
 
   # standard errors obtained by bootstrap, we refer to Efron B. and Tibshirani R. (1986)
-  # est ce qu'il faut citer l'article ici ou tout simplement dans la publi ?
   n <- length(yu)
 
   ##calculate dstar
@@ -357,7 +356,6 @@ calc_AverageDose <- function(
   ##exclude NA values
   dstar <- na.exclude(dstar)
 
-
   ## calculate confidence intervals
   IC_delta <- .CredibleInterval(dstar[,1],0.95)
   IC_sigma_d <- .CredibleInterval(dstar[,2],0.95)
@@ -367,7 +365,6 @@ calc_AverageDose <- function(
   sedelta <- sqrt ((1/(Nb_BE-1))*sum((dstar[,1]-mean(dstar[,1]))^2))
   sesigma_d <- sqrt ((1/(Nb_BE-1))*sum((dstar[,2]-mean(dstar[,2]))^2))
 
-
   ##Terminal output
   if (verbose) {
     cat("\nconfidence intervals\n")
@@ -375,30 +372,20 @@ calc_AverageDose <- function(
     print(t(IC), print.gap = 6, digits = 4)
     cat("--------------------------------------------------\n")
 
-    cat(paste("\n>> Results <<\n"))
+    cat("\n>> Results <<\n")
     cat("----------------------------------------------------------\n")
-    cat(paste(
+    cat(
       "Average dose:\t ",
       round(delta, 4),
       "\tse(Aver. dose):\t",
       round(sedelta, 4)
-    ))
-    if(sigma_d == 0){
-      cat(paste(
-        "\nsigma_d:\t ",
+    )
+    cat("\nsigma_d:\t ",
         round(sigma_d, 4),
-        "\t\tse(sigma_d):\t",
-        round(sesigma_d, 4)
-      ))
-
-    }else{
-      cat(paste(
-        "\nsigma_d:\t ",
-        round(sigma_d, 4),
+        if (sigma_d == 0) "\t",
         "\tse(sigma_d):\t",
         round(sesigma_d, 4)
-      ))
-    }
+        )
     cat("\n----------------------------------------------------------\n")
   }
 
@@ -459,8 +446,7 @@ calc_AverageDose <- function(
   })
 
   ##modify
-  plot_settings <- modifyList(x =  plot_settings.user, val = plot_settings)
-
+  plot_settings <- modifyList(plot_settings, plot_settings.user)
 
   ##get change par setting and reset on exit
   if(plot) {

@@ -19,7 +19,6 @@ for instance, if in a sequence, a `TL` curve is followed immediately by another
 `TL` curve. The subsequent curve is recognised as the background signal, 
 subtracted using `merge_RLum()` and subsequently removed from the object (if desired). 
 Alternatively, a set of potential background curves can be specified. 
-## Breaking changes
 
 * `remove_RLum()`: This function further completes the set of methods that can handle 
 and modify `RLum-class` objects. It operates on `RLum.Analysis-class` objects or a `list` 
@@ -48,6 +47,12 @@ function now produces more helpful error messages (#616).
 * The new argument `sample_carrier.diameter` allows to specify a value for
 the diameter of the sample carrier, which up to now was hardcoded to the very
 common 9.8 mm size (#623).
+
+### `calc_AverageDose()`
+
+* A bug in the implementation prevented the default plot settings from
+being modified via `...` as advertised. Now custom settings are respected
+(#658).
 
 ### `calc_OSLLxTxRatio()`
 * The function returned a warning for wrong integral settings for the `Tx` curve even if no `Tx` curve was provided; fixed. 
