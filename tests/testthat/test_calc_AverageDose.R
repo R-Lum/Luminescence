@@ -30,6 +30,10 @@ test_that("input validation", {
   expect_message(expect_null(
       calc_AverageDose(data.frame(NA, NA), sigma_m = 0.1)),
       "Error: After NA removal, nothing is left from the data set")
+  expect_warning(expect_error(
+      calc_AverageDose(data * c(1e-12, 1e12), sigma_m = 0.9),
+      "Maximum likelihood estimation failed"),
+      "Inf/NaN values produced by .mle(), NA returned", fixed = TRUE)
   })
 })
 
@@ -68,4 +72,13 @@ test_that("check class and length of output", {
   data.zero[1, 1] <- 0
   expect_warning(calc_AverageDose(data.zero, sigma_m = 0.1, verbose = FALSE),
                  "Non-positive values in 'data' detected, rows removed")
+
+  ## iteration limit reached
+  SW({
+  set.seed(1)
+  expect_warning(calc_AverageDose(ExampleData.DeValues$CA1 * c(1e-2, 1e2),
+                                  sigma_m = 0.9),
+                 "No convergence reached by .mle() after 10000 iterations",
+                 fixed = TRUE)
+  })
 })

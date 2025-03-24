@@ -328,8 +328,12 @@ calc_AverageDose <- function(
 
   ##terminal output
   if(verbose){
-    cat(paste("\n\n>> Calculation <<\n"))
-    cat(paste("log likelihood:\t", round(llik, 4)))
+    cat("\n\n>> Calculation <<\n")
+    cat("log likelihood:\t", round(llik, 4), "\n")
+  }
+
+  if (is.na(llik)) {
+    .throw_error("Maximum likelihood estimation failed")
   }
 
   # standard errors obtained by bootstrap, we refer to Efron B. and Tibshirani R. (1986)
