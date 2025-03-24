@@ -45,10 +45,6 @@ function now produces more helpful error messages (#616).
 
 ### `calc_AliquotSize()`
 
-* The function computed incorrectly the area of the container when computing
-the packing density in the case when argument `grains.counted` was provided,
-which resulted in smaller packing density (#621).
-
 * The new argument `sample_carrier.diameter` allows to specify a value for
 the diameter of the sample carrier, which up to now was hardcoded to the very
 common 9.8 mm size (#623).

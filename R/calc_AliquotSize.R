@@ -1,20 +1,17 @@
 #' @title Estimate the amount of grains on an aliquot
 #'
 #' @description
-#' Estimate the number of grains on an aliquot. Alternatively, the packing
-#' density of an aliquot is computed.
-#'
 #' This function can be used to either estimate the number of grains on an
 #' aliquot or to compute the packing density, depending on the arguments
 #' provided.
 #'
-#' The following function is used to estimate the number of grains `n`:
+#' The following formula is used to estimate the number of grains `n`:
 #'
 #' \deqn{n = (\pi*x^2)/(\pi*y^2)*d}
 #'
 #' where `x` is the radius of the aliquot size (microns), `y` is the mean
 #' radius of the mineral grains (mm), and `d` is the packing density
-#' (value between 0 and 1).
+#' (a value between 0 and 1).
 #'
 #' **Packing density**
 #'
@@ -79,8 +76,9 @@
 #' @param MC [logical] (*optional*):
 #' if `TRUE` the function performs a Monte Carlo simulation for estimating the
 #' amount of grains on the sample carrier and assumes random errors in grain
-#' size distribution and packing density. Requires a vector with min and max
-#' grain size for `grain.size`. For more information see details.
+#' size distribution and packing density. Requires `grain.size` to be specified
+#' as a 2-element vector with the range (min and max) of grain sizes.
+#' For more information see details.
 #'
 #' @param grains.counted [numeric] (*optional*):
 #' grains counted on a sample carrier. If a non-zero positive integer is
@@ -163,7 +161,7 @@ calc_AliquotSize <- function(
 
   if (missing(grain.size) ||
       length(grain.size) == 0 || length(grain.size) > 2) {
-    .throw_error("Please provide the mean grain size or a range ",
+    .throw_error("Please provide the mean grain size or the range ",
                  "of grain sizes (in microns)")
   }
 
@@ -183,13 +181,10 @@ calc_AliquotSize <- function(
                    "specified for a sample carrier of ", sample_carrier.diameter,
                    " mm, values will be capped to the sample carrier size")
 
-  if(missing(grains.counted) == FALSE) {
-    if(MC == TRUE) {
-      MC = FALSE
-      cat(paste("\nMonte Carlo simulation is only available for estimating the",
-                "amount of grains on the sample disc. Automatically set to",
-                "FALSE.\n"))
-    }
+  if (!missing(grains.counted) && MC == TRUE) {
+    MC = FALSE
+    message("\nMonte Carlo simulation is only available for estimating the ",
+            "amount of grains on the sample disc, 'MC' reset to FALSE\n")
   }
 
   if(MC == TRUE && length(grain.size) != 2) {
@@ -304,11 +299,8 @@ calc_AliquotSize <- function(
 
   if (!missing(grains.counted)) {
     area.container <- pi * (sample.diameter / 2)^2
-    packing.density <- vector("numeric", length = length(grains.counted))
-    for (i in 1:length(grains.counted)) {
-      area.grains <- pi * (grain.size / 1000)^2 * grains.counted[i]
-      packing.density[i] <- area.grains / area.container
-    }
+    area.grains <- pi * (grain.size / 1000 / 2)^2 * grains.counted
+    packing.density <- area.grains / area.container
     std.d <- sd(packing.density)
   }
 
@@ -318,71 +310,57 @@ calc_AliquotSize <- function(
   if (settings$verbose) {
 
     cat("\n [calc_AliquotSize]")
-    cat(paste("\n\n ---------------------------------------------------------"))
-    cat(paste("\n mean grain size (microns)  :", grain.size))
-    cat(paste("\n sample diameter (mm)       :", sample.diameter))
+    cat("\n\n ---------------------------------------------------------")
+    cat("\n mean grain size (microns)  :", grain.size)
+    cat("\n sample diameter (mm)       :", sample.diameter)
     if(missing(grains.counted) == FALSE) {
       if(length(grains.counted) == 1) {
-        cat(paste("\n counted grains             :", grains.counted))
+        cat("\n counted grains             :", grains.counted)
       } else {
-        cat(paste("\n mean counted grains        :", round(mean(grains.counted))))
+        cat("\n mean counted grains        :", round(mean(grains.counted)))
       }
     }
     if(missing(grains.counted) == TRUE) {
-      cat(paste("\n packing density            :", round(packing.density,3)))
+      cat("\n packing density            :", round(packing.density, 3))
     }
     if(missing(grains.counted) == FALSE) {
       if(length(grains.counted) == 1) {
-        cat(paste("\n packing density            :", round(packing.density,3)))
+        cat("\n packing density            :", round(packing.density, 3))
       } else {
-        cat(paste("\n mean packing density       :", round(mean(packing.density),3)))
-        cat(paste("\n standard deviation         :", round(std.d,3)))
+        cat("\n mean packing density       :", round(mean(packing.density), 3))
+        cat("\n standard deviation         :", round(std.d, 3))
       }
     }
     if(missing(grains.counted) == TRUE) {
-      cat(paste("\n number of grains           :", round(n.grains,0)))
+      cat("\n number of grains           :", round(n.grains, 0))
     }
-
 
     if(MC == TRUE && range.flag == TRUE) {
-      cat(paste(cat(paste("\n\n --------------- Monte Carlo Estimates -------------------"))))
-      cat(paste("\n number of iterations (n)     :", settings$MC.iter))
-      cat(paste("\n median                       :", round(MC.stats$median)))
-      cat(paste("\n mean                         :", round(MC.stats$mean)))
-      cat(paste("\n standard deviation (mean)    :", round(MC.stats$sd.abs)))
-      cat(paste("\n standard error (mean)        :", round(MC.stats$se.abs, 1)))
-      cat(paste("\n 95% CI from t-test (mean)    :", round(MC.t.lower), "-", round(MC.t.upper)))
-      cat(paste("\n standard error from CI (mean):", round(MC.t.se, 1)))
-      cat(paste("\n ---------------------------------------------------------\n"))
-
-    } else {
-      cat(paste("\n ---------------------------------------------------------\n"))
+      cat("\n\n --------------- Monte Carlo Estimates -------------------")
+      cat("\n number of iterations (n)     :", settings$MC.iter)
+      cat("\n median                       :", round(MC.stats$median))
+      cat("\n mean                         :", round(MC.stats$mean))
+      cat("\n standard deviation (mean)    :", round(MC.stats$sd.abs))
+      cat("\n standard error (mean)        :", round(MC.stats$se.abs, 1))
+      cat("\n 95% CI from t-test (mean)    :", round(MC.t.lower), "-", round(MC.t.upper))
+      cat("\n standard error from CI (mean):", round(MC.t.se, 1))
     }
+    cat("\n ---------------------------------------------------------\n")
   }
 
   ##==========================================================================##
   ##RETURN VALUES
   ##==========================================================================##
 
-  # prepare return values for mode: estimate grains
-  if (missing(grains.counted)) {
-    summary<- data.frame(grain.size = grain.size,
-                         sample.diameter = sample.diameter,
-                         packing.density = packing.density,
-                         n.grains = round(n.grains,0),
-                         grains.counted = NA)
-  } else {
-    ## prepare return values for mode: estimate packing density
-    summary<- data.frame(rbind(1:5))
-    colnames(summary) <- c("grain.size", "sample.diameter", "packing.density",
-                           "n.grains", "grains.counted")
-    for (i in 1:length(grains.counted)) {
-      summary[i, ] <- c(grain.size, sample.diameter, packing.density[i],
-                        n.grains = NA, grains.counted[i])
-    }
-  }
-
-  if(missing(grains.counted)) grains.counted<- NA
+  if (missing(grains.counted))
+    grains.counted <- NA
+  else
+    n.grains <- NA
+  summary <- data.frame(grain.size = grain.size,
+                        sample.diameter = sample.diameter,
+                        packing.density = packing.density,
+                        n.grains = round(n.grains, 0),
+                        grains.counted = grains.counted)
 
   call<- sys.call()
   args<- as.list(sys.call())[-1]
