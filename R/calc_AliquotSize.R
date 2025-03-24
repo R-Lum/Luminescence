@@ -352,25 +352,15 @@ calc_AliquotSize <- function(
   ##RETURN VALUES
   ##==========================================================================##
 
-  # prepare return values for mode: estimate grains
-  if (missing(grains.counted)) {
-    summary<- data.frame(grain.size = grain.size,
-                         sample.diameter = sample.diameter,
-                         packing.density = packing.density,
-                         n.grains = round(n.grains,0),
-                         grains.counted = NA)
-  } else {
-    ## prepare return values for mode: estimate packing density
-    summary<- data.frame(rbind(1:5))
-    colnames(summary) <- c("grain.size", "sample.diameter", "packing.density",
-                           "n.grains", "grains.counted")
-    for (i in 1:length(grains.counted)) {
-      summary[i, ] <- c(grain.size, sample.diameter, packing.density[i],
-                        n.grains = NA, grains.counted[i])
-    }
-  }
-
-  if(missing(grains.counted)) grains.counted<- NA
+  if (missing(grains.counted))
+    grains.counted <- NA
+  else
+    n.grains <- NA
+  summary <- data.frame(grain.size = grain.size,
+                        sample.diameter = sample.diameter,
+                        packing.density = packing.density,
+                        n.grains = round(n.grains, 0),
+                        grains.counted = grains.counted)
 
   call<- sys.call()
   args<- as.list(sys.call())[-1]
