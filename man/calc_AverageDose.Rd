@@ -106,7 +106,7 @@ will be that over and above \code{sigma_m} (and individual uncertainties \code{s
 This function has beta status!
 }
 \section{Function version}{
- 0.1.5
+ 0.1.6
 }
 
 \examples{

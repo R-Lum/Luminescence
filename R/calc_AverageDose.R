@@ -41,7 +41,7 @@
 #'
 #' Further supported arguments: `mtext` ([character]), `rug` (`TRUE/FALSE`).
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
 #' Anne Philippe, Université de Nantes, (France),
@@ -446,8 +446,7 @@ calc_AverageDose <- function(
   })
 
   ##modify
-  plot_settings <- modifyList(x =  plot_settings.user, val = plot_settings)
-
+  plot_settings <- modifyList(plot_settings, plot_settings.user)
 
   ##get change par setting and reset on exit
   if(plot) {
