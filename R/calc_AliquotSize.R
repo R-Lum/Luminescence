@@ -306,7 +306,7 @@ calc_AliquotSize <- function(
     area.container <- pi * (sample.diameter / 2)^2
     packing.density <- vector("numeric", length = length(grains.counted))
     for (i in 1:length(grains.counted)) {
-      area.grains <- pi * (grain.size / 1000)^2 * grains.counted[i]
+      area.grains <- pi * (grain.size / 1000 / 2)^2 * grains.counted[i]
       packing.density[i] <- area.grains / area.container
     }
     std.d <- sd(packing.density)
