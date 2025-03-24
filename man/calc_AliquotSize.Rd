@@ -32,8 +32,9 @@ is assumed.}
 \item{MC}{\link{logical} (\emph{optional}):
 if \code{TRUE} the function performs a Monte Carlo simulation for estimating the
 amount of grains on the sample carrier and assumes random errors in grain
-size distribution and packing density. Requires a vector with min and max
-grain size for \code{grain.size}. For more information see details.}
+size distribution and packing density. Requires \code{grain.size} to be specified
+as a 2-element vector with the range (min and max) of grain sizes.
+For more information see details.}
 
 \item{grains.counted}{\link{numeric} (\emph{optional}):
 grains counted on a sample carrier. If a non-zero positive integer is
@@ -63,20 +64,17 @@ following element:
 The output should be accessed using the function \link{get_RLum}.
 }
 \description{
-Estimate the number of grains on an aliquot. Alternatively, the packing
-density of an aliquot is computed.
-
 This function can be used to either estimate the number of grains on an
 aliquot or to compute the packing density, depending on the arguments
 provided.
 
-The following function is used to estimate the number of grains \code{n}:
+The following formula is used to estimate the number of grains \code{n}:
 
 \deqn{n = (\pi*x^2)/(\pi*y^2)*d}
 
 where \code{x} is the radius of the aliquot size (microns), \code{y} is the mean
 radius of the mineral grains (mm), and \code{d} is the packing density
-(value between 0 and 1).
+(a value between 0 and 1).
 
 \strong{Packing density}
 

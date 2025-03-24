@@ -2,9 +2,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_AliquotSize(),
-               "Please provide the mean grain size or a range of grain sizes")
+               "Please provide the mean grain size or the range of grain sizes")
   expect_error(calc_AliquotSize(grain.size = 1:3),
-               "Please provide the mean grain size or a range of grain sizes")
+               "Please provide the mean grain size or the range of grain sizes")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = "inf"),
                "'packing.density' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2),
@@ -18,8 +18,12 @@ test_that("input validation", {
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,
                                 MC = TRUE),
                "'grain.size' must be a vector containing the min and max")
-  expect_output(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = 9.8, grains.counted = 30, MC = TRUE),
-                regexp = "Monte Carlo simulation is only available for estimating the amount of grains on the sample disc.")
+  SW({
+  expect_message(calc_AliquotSize(grain.size = 100, packing.density = 1,
+                                  sample.diameter = 9.8, grains.counted = 30,
+                                  MC = TRUE),
+                 "Monte Carlo simulation is only available for estimating the")
+  })
 })
 
 test_that("check functionality", {
@@ -86,7 +90,7 @@ test_that("snapshot tests", {
       verbose = TRUE),
       tolerance = snapshot.tolerance)
 
-  expect_output(
+  expect_message(
   expect_snapshot_RLum(calc_AliquotSize(
       grain.size = c(100, 200),
       sample.diameter = 8,
