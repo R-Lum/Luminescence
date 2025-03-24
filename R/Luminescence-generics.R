@@ -209,14 +209,13 @@ setMethod("get_RLum", signature = "NULL",
 
 
 # remove_RLum() -------------------------------------------------------------
-#' @title Strip records from RLum-class objects
+#' @title Strips records from RLum-class objects
 #'
 #' @description
-#' Remove records from an RLum-class object in a convient way using
+#' Remove records from an RLum-class object in a convenient way using
 #' [get_RLum] for the selection.
 #'
-#' @param object [RLum-class] (**required**):
-#' S4 object of class `RLum`
+#' @param object [RLum-class] (**required**):  S4 object of class `RLum`
 #'
 #' @param ... further arguments passed to the specific class method
 #'
@@ -248,7 +247,7 @@ setGeneric("remove_RLum", function(object, ...) {
 })
 
 #' @describeIn remove_RLum
-#' Returns a list of [RLum-class] where objects where stripped
+#' Returns a list of [RLum-class] objects where the selected records are stripped
 #'
 #' @md
 #' @export

@@ -3,15 +3,14 @@
 \name{remove_RLum}
 \alias{remove_RLum}
 \alias{remove_RLum,list-method}
-\title{Strip records from RLum-class objects}
+\title{Strips records from RLum-class objects}
 \usage{
 remove_RLum(object, ...)
 
 \S4method{remove_RLum}{list}(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
-S4 object of class \code{RLum}}
+\item{object}{\linkS4class{RLum} (\strong{required}):  S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specific class method}
 }
@@ -19,12 +18,12 @@ S4 object of class \code{RLum}}
 Same as input, can be empty
 }
 \description{
-Remove records from an RLum-class object in a convient way using
+Remove records from an RLum-class object in a convenient way using
 \link{get_RLum} for the selection.
 }
 \section{Functions}{
 \itemize{
-\item \code{remove_RLum(list)}: Returns a list of \linkS4class{RLum} where objects where stripped
+\item \code{remove_RLum(list)}: Returns a list of \linkS4class{RLum} objects where the selected records are stripped
 
 }}
 \section{Function version}{
