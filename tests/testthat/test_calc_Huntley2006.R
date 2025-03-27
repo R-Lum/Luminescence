@@ -278,3 +278,23 @@ test_that("Further tests calc_Huntley2006", {
       n.MC = 2, plot = FALSE, verbose = FALSE),
     "Ln is >10 % larger than the maximum computed LxTx value")
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 660
+  DRC <- data.frame(
+      Dose = c(rep(0, 7), rep(500, 12), rep(1000, 6), rep(2000, 6)),
+      Lx.Tx = c(1.79, rep(0.06, 6), rep(0.97, 12), rep(1.80, 6), rep(3.20, 6)),
+      Lx.Tx.Err = c(0.038, rep(0.001, 6), rep(0.021, 12), rep(0.038, 6), rep(0.068, 6))
+  )
+  expect_s4_class(
+      calc_Huntley2006(
+          data = DRC,
+          rhop = c(7.67e-7, 2.84e-7),
+          fit.method = "GOK",
+          readerDdot = c(0.0868, 0.005),
+          ddot = c(2.372, 0.199),
+      n.MC = 2, plot = FALSE, verbose = FALSE),
+      "RLum.Results")
+})

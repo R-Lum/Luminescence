@@ -209,12 +209,13 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.4.6
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
 #' Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords datagen
 #'
@@ -540,9 +541,42 @@ calc_Huntley2006 <- function(
 
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
-    else
-      .throw_error("Could not fit simulated curve, check suitability of ",
-                   "model and parameters")
+    else {
+      ## As the fit from the given starting values failed, try again by fixing
+      ## D0 at different values to make the fitting a bit easier. Values are
+      ## spaced logarithmically so that the ratio between consecutive values
+      ## is constant.
+      all.D0 <- c(start$D0, exp(seq(log(start$D0 / 10), log(start$D0 * 10),
+                                    length.out = 99)))
+      fit.D0 <- lapply(1:length(all.D0), function(idx) {
+        D0 <- all.D0[idx]
+        t <- try(minpack.lm::nlsLM(
+                  formula = model,
+                  start = start[-2],
+                  lower = lower.bounds[-2],
+                  upper = upper.bounds[-2],
+                  control = list(maxiter = settings$maxiter)),
+                 silent = TRUE)
+
+        if (inherits(t, "try-error"))
+          return(NULL)
+        return(t)
+      })
+
+      ## pick the one with the best fit after removing those that didn't fit
+      fit.D0 <- .rm_NULL_elements(fit.D0)
+      if (length(fit.D0) == 0)
+        .throw_error("Could not fit simulated curve, check suitability of ",
+                     "model and parameters")
+
+      ## extract the coefficients from the one with the best fit
+      fit.D0 <- fit.D0[[which.min(vapply(fit.D0, stats::deviance, numeric(1)))]]
+      coefs <- coef(fit.D0)
+
+      ## add back the coefficient for D0
+      D0 <- environment(fit.D0$m$predict)$env$D0
+      coefs <- c(coefs[1], D0 = D0, coefs[2:3])
+    }
 
     return(coefs)
   }, simplify = FALSE))
@@ -602,7 +636,6 @@ calc_Huntley2006 <- function(
         (d_gok-(1+(1 / UFD0 + K[k] / ddots) * natdosetime * c_val)^(-1 / c_val))
     }
   }
-
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
@@ -755,7 +788,7 @@ calc_Huntley2006 <- function(
       start = list(
         a = coef(fit_start)[["a"]],
         D0 = coef(fit_start)[["D0"]],
-        c = coef(fit_start)[["c"]],
+        c = max(coef(fit_start)[["c"]], 1),
         d = coef(fit_simulated)[["d"]]),
       upper = if(force_through_origin) {
         c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
