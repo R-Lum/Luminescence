@@ -69,9 +69,10 @@
 #' **Uncertainties**
 #'
 #' Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
-#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 10000`)
-#' of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response curve fitting, and of \eqn{\rho}'
-#' in the derivation of (\eqn{n/N}) and (n/N)_SS.
+#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 10000`
+#' by default) of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response
+#' curve fitting, and of \eqn{\rho}' #' in the derivation of (\eqn{n/N}) and
+#' (n/N)_SS.
 #'
 #' **Age calculated from 2D0 of the simulated natural DRC**
 #'
@@ -85,12 +86,13 @@
 #'
 #' @param data [data.frame] (**required**):
 #' A `data.frame` with one of the following structures:
-#' - A **three column** data frame with numeric values on for dose (s), `LxTx`
-#' and `LxTx` error.
-#' - If a **two column** data frame is provided it is automatically
-#' assumed that errors on `LxTx` are missing. A third column will be attached
-#' with an arbitrary 5 % error on the provided `LxTx` values.
-#' - Can also be a **wide table**, i.e. a [data.frame] with a number of columns divisible by 3
+#' - **three columns** with numeric values for dose (s), `LxTx` and `LxTx`
+#' error, in this order.
+#' - **two columns** with numeric values for dose (s) and `LxTx`, in this order.
+#' This assumes that errors on `LxTx` are missing, and a third column will be
+#' automatically attached with an arbitrary 5 % error on the provided `LxTx`
+#' values.
+#' - **wide table**, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the aforementioned column structure.
 #'
 #' ```
@@ -104,13 +106,12 @@
 #' [x, ]|  Rx     | LxTx | LxTx error |
 #'
 #' ```
-#' **NOTE:** The function assumes the first row of the function to be the
-#' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-value consider
-#' using the argument `LnTn`.
+#' **NOTE:** The function assumes the first row of the data to be the
+#' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-values, consider
+#' using argument `LnTn`.
 #'
 #' @param LnTn [data.frame] (*optional*):
-#' This argument should **only** be used to provide more than one `Ln/Tn`-value.
-#' It assumes a two column data frame with the following structure:
+#' A two column data frame with the following structure:
 #'
 #' ```
 #'      |  LnTn  |  LnTn error  |
@@ -128,33 +129,38 @@
 #' this value must be calculated beforehand and used in the first row in the
 #' data frame for argument `data`.
 #'
-#' **NOTE:** If you provide `LnTn`-values with this argument the data frame
-#' for the `data`-argument **must not** contain any `LnTn`-values!
+#' **NOTE:** This argument should **only** be used to provide more than one
+#' `Ln/Tn`-value. If you provide `LnTn`-values with this argument, the data
+#' frame for the `data`-argument **must not** contain any `LnTn`-values.
 #'
 #' @param rhop [numeric] (**required**):
-#' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
-#' given as numeric vector of length two. Note that \eqn{\rho}' must **not** be
+#' A vector of length 2 for the density of recombination centres (\eqn{\rho}')
+#' and its error (see Huntley 2006). Note that \eqn{\rho}' must **not** be
 #' provided as the common logarithm. Example: `rhop = c(2.92e-06, 4.93e-07)`.
 #'
 #' @param ddot [numeric] (**required**):
-#' Environmental dose rate and its error, given as a numeric vector of length two.
+#' A vector of length 2 for the environmental dose rate and its error.
 #' Expected unit: Gy/ka. Example: `ddot = c(3.7, 0.4)`.
 #'
 #' @param readerDdot [numeric] (**required**):
-#' Dose rate of the irradiation source of the OSL reader and its error,
-#' given as a numeric vector of length two.
+#' A vector of length 2 for the dose rate of the irradiation source of the OSL
+#' reader and its error.
 #' Expected unit: Gy/s. Example: `readerDdot = c(0.08, 0.01)`.
 #'
+#' @param normalise [logical] (*with default*): If `TRUE` (the default) all
+#' measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the
+#' pre-exponential factor `A` (see details).
+#'
 #' @param fit.method [character] (*with default*):
-#' Fit function of the dose response curve. Can either be `EXP` (the default)
-#' or `GOK`. Note that `EXP` (single saturating exponential) is the original
+#' Fit function of the dose response curve. Can either be `"EXP"` (default) or
+#' `"GOK"`. Note that `"EXP"` (single saturating exponential) is the original
 #' function the model after Huntley (2006) and Kars et al. (2008) was
-#' designed to use. The use of a general-order kinetics function (`GOK`)
+#' designed to use. The use of a general-order kinetics function (`"GOK"`)
 #' is an experimental adaptation of the model and should be used
 #' with great care.
 #'
 #' @param lower.bounds [numeric] (*with default*):
-#' A vector of length 4 that contains the lower bound values to be applied
+#' A vector of length 4 for the values of the lower bounds to be applied
 #' when fitting the models with [minpack.lm::nlsLM]. In most cases, the
 #' default values (`c(-Inf, -Inf, -Inf, -Inf)`) are appropriate for finding
 #' a best fit, but sometimes it may be useful to restrict the lower bounds to
@@ -162,8 +168,6 @@
 #' parameters `a`, `D0`, `c` and `d` in that order (parameter `d` is ignored
 #' when `fit.method = "EXP"`). More details can be found in
 #' [fit_DoseResponseCurve].
-#'
-#' @param normalise [logical] (*with default*): If `TRUE` (the default) all measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the pre-exponential factor `A` (see details).
 #'
 #' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
@@ -183,8 +187,9 @@
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
 #'
-#' All other arguments are passed to [plot] and [fit_DoseResponseCurve] (in particular
-#' `mode` for the fit mode and `fit.force_through_origin`)
+#' All other arguments are passed to [plot] and [fit_DoseResponseCurve] (in
+#' particular `mode` for the De calculation mode, `fit.force_through_origin`,
+#' and `fit.bounds`).
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -197,7 +202,7 @@
 #' `Ln` \tab [numeric] \tab Ln and its error \cr
 #' `LxTx_tables` \tab `list` \tab A `list` of `data.frames` containing data on dose,
 #'  LxTx and LxTx error for each of the dose response curves.
-#'  Note that these **do not** contain the natural Ln signal, which is provided separately. \cr
+#'  Note that these **do not** contain the natural `Ln` signal, which is provided separately. \cr
 #' `fits` \tab `list` \tab A `list` of `nls` objects produced by [minpack.lm::nlsLM] when fitting the dose response curves \cr
 #' }
 #'
@@ -220,7 +225,7 @@
 #' @keywords datagen
 #'
 #' @note This function has BETA status, in particular for the GOK implementation. Please verify
-#' your results carefully
+#' your results carefully.
 #'
 #' @references
 #'
@@ -580,11 +585,9 @@ calc_Huntley2006 <- function(
 
     return(coefs)
   }, simplify = FALSE))
-
   # final fit for export
   # fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
   #                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
-
   # scaling factor
   A <- mean(fitcoef[, "a"], na.rm = TRUE)
   A.error <- sd(fitcoef[ ,"a"], na.rm = TRUE)
