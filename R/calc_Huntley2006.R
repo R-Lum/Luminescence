@@ -69,9 +69,10 @@
 #' **Uncertainties**
 #'
 #' Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
-#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 10000`)
-#' of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response curve fitting, and of \eqn{\rho}'
-#' in the derivation of (\eqn{n/N}) and (n/N)_SS.
+#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 10000`
+#' by default) of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response
+#' curve fitting, and of \eqn{\rho}' #' in the derivation of (\eqn{n/N}) and
+#' (n/N)_SS.
 #'
 #' **Age calculated from 2D0 of the simulated natural DRC**
 #'
@@ -85,12 +86,13 @@
 #'
 #' @param data [data.frame] (**required**):
 #' A `data.frame` with one of the following structures:
-#' - A **three column** data frame with numeric values on for dose (s), `LxTx`
-#' and `LxTx` error.
-#' - If a **two column** data frame is provided it is automatically
-#' assumed that errors on `LxTx` are missing. A third column will be attached
-#' with an arbitrary 5 % error on the provided `LxTx` values.
-#' - Can also be a **wide table**, i.e. a [data.frame] with a number of columns divisible by 3
+#' - **three columns** with numeric values for dose (s), `LxTx` and `LxTx`
+#' error, in this order.
+#' - **two columns** with numeric values for dose (s) and `LxTx`, in this order.
+#' This assumes that errors on `LxTx` are missing, and a third column will be
+#' automatically attached with an arbitrary 5 % error on the provided `LxTx`
+#' values.
+#' - **wide table**, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the aforementioned column structure.
 #'
 #' ```
@@ -104,13 +106,12 @@
 #' [x, ]|  Rx     | LxTx | LxTx error |
 #'
 #' ```
-#' **NOTE:** The function assumes the first row of the function to be the
-#' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-value consider
-#' using the argument `LnTn`.
+#' **NOTE:** The function assumes the first row of the data to be the
+#' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-values, consider
+#' using argument `LnTn`.
 #'
 #' @param LnTn [data.frame] (*optional*):
-#' This argument should **only** be used to provide more than one `Ln/Tn`-value.
-#' It assumes a two column data frame with the following structure:
+#' A two column data frame with the following structure:
 #'
 #' ```
 #'      |  LnTn  |  LnTn error  |
@@ -128,33 +129,38 @@
 #' this value must be calculated beforehand and used in the first row in the
 #' data frame for argument `data`.
 #'
-#' **NOTE:** If you provide `LnTn`-values with this argument the data frame
-#' for the `data`-argument **must not** contain any `LnTn`-values!
+#' **NOTE:** This argument should **only** be used to provide more than one
+#' `Ln/Tn`-value. If you provide `LnTn`-values with this argument, the data
+#' frame for the `data`-argument **must not** contain any `LnTn`-values.
 #'
 #' @param rhop [numeric] (**required**):
-#' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
-#' given as numeric vector of length two. Note that \eqn{\rho}' must **not** be
+#' A vector of length 2 for the density of recombination centres (\eqn{\rho}')
+#' and its error (see Huntley 2006). Note that \eqn{\rho}' must **not** be
 #' provided as the common logarithm. Example: `rhop = c(2.92e-06, 4.93e-07)`.
 #'
 #' @param ddot [numeric] (**required**):
-#' Environmental dose rate and its error, given as a numeric vector of length two.
+#' A vector of length 2 for the environmental dose rate and its error.
 #' Expected unit: Gy/ka. Example: `ddot = c(3.7, 0.4)`.
 #'
 #' @param readerDdot [numeric] (**required**):
-#' Dose rate of the irradiation source of the OSL reader and its error,
-#' given as a numeric vector of length two.
+#' A vector of length 2 for the dose rate of the irradiation source of the OSL
+#' reader and its error.
 #' Expected unit: Gy/s. Example: `readerDdot = c(0.08, 0.01)`.
 #'
+#' @param normalise [logical] (*with default*): If `TRUE` (the default) all
+#' measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the
+#' pre-exponential factor `A` (see details).
+#'
 #' @param fit.method [character] (*with default*):
-#' Fit function of the dose response curve. Can either be `EXP` (the default)
-#' or `GOK`. Note that `EXP` (single saturating exponential) is the original
+#' Fit function of the dose response curve. Can either be `"EXP"` (default) or
+#' `"GOK"`. Note that `"EXP"` (single saturating exponential) is the original
 #' function the model after Huntley (2006) and Kars et al. (2008) was
-#' designed to use. The use of a general-order kinetics function (`GOK`)
+#' designed to use. The use of a general-order kinetics function (`"GOK"`)
 #' is an experimental adaptation of the model and should be used
 #' with great care.
 #'
 #' @param lower.bounds [numeric] (*with default*):
-#' A vector of length 4 that contains the lower bound values to be applied
+#' A vector of length 4 for the values of the lower bounds to be applied
 #' when fitting the models with [minpack.lm::nlsLM]. In most cases, the
 #' default values (`c(-Inf, -Inf, -Inf, -Inf)`) are appropriate for finding
 #' a best fit, but sometimes it may be useful to restrict the lower bounds to
@@ -163,7 +169,9 @@
 #' when `fit.method = "EXP"`). More details can be found in
 #' [fit_DoseResponseCurve].
 #'
-#' @param normalise [logical] (*with default*): If `TRUE` (the default) all measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the pre-exponential factor `A` (see details).
+#' @param cores [integer] (*with default*):
+#' The number of cores to use. This will be capped to the number of available
+#' cores if set to too high.
 #'
 #' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
@@ -183,8 +191,9 @@
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
 #'
-#' All other arguments are passed to [plot] and [fit_DoseResponseCurve] (in particular
-#' `mode` for the fit mode and `fit.force_through_origin`)
+#' All other arguments are passed to [plot] and [fit_DoseResponseCurve] (in
+#' particular `mode` for the De calculation mode, `fit.force_through_origin`,
+#' and `fit.bounds`).
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -197,7 +206,7 @@
 #' `Ln` \tab [numeric] \tab Ln and its error \cr
 #' `LxTx_tables` \tab `list` \tab A `list` of `data.frames` containing data on dose,
 #'  LxTx and LxTx error for each of the dose response curves.
-#'  Note that these **do not** contain the natural Ln signal, which is provided separately. \cr
+#'  Note that these **do not** contain the natural `Ln` signal, which is provided separately. \cr
 #' `fits` \tab `list` \tab A `list` of `nls` objects produced by [minpack.lm::nlsLM] when fitting the dose response curves \cr
 #' }
 #'
@@ -209,17 +218,18 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.4.6
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
 #' Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords datagen
 #'
 #' @note This function has BETA status, in particular for the GOK implementation. Please verify
-#' your results carefully
+#' your results carefully.
 #'
 #' @references
 #'
@@ -301,6 +311,7 @@ calc_Huntley2006 <- function(
     normalise = TRUE,
     fit.method = c("EXP", "GOK"),
     lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
+    cores = 1,
     summary = TRUE,
     plot = TRUE,
     ...
@@ -314,6 +325,8 @@ calc_Huntley2006 <- function(
   .validate_not_empty(data)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
   .validate_length(lower.bounds, 4)
+  .validate_logical_scalar(summary)
+  .validate_logical_scalar(plot)
 
   ## Check 'data'
   if (ncol(data) == 2) {
@@ -406,6 +419,13 @@ calc_Huntley2006 <- function(
   .validate_length(ddot, 2)
   .validate_class(readerDdot, "numeric")
   .validate_length(readerDdot, 2)
+
+  ## set up the parallel cluster
+  .validate_positive_scalar(cores, int = TRUE)
+  available.cores <- parallel::detectCores()
+  cores <- min(cores, available.cores)
+  cl <- parallel::makeCluster(cores)
+  on.exit(parallel::stopCluster(cl), add = TRUE)
 
   ## Settings ------------------------------------------------------------------
   settings <- modifyList(
@@ -527,7 +547,7 @@ calc_Huntley2006 <- function(
   }
 
   ## do the fitting
-  fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
+  fitcoef <- do.call(rbind, parallel::parLapply(cl, rhop_MC, function(rhop_i) {
     fit_sim <- try({
       minpack.lm::nlsLM(
        formula = model,
@@ -540,17 +560,58 @@ calc_Huntley2006 <- function(
 
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
-    else
-      .throw_error("Could not fit simulated curve, check suitability of ",
-                   "model and parameters")
+    else {
+      ## As the fit from the given starting values failed, try again by fixing
+      ## D0 at different values to make the fitting a bit easier. Values are
+      ## spaced logarithmically so that the ratio between consecutive values
+      ## is constant.
+      all.D0 <- c(start$D0, exp(seq(log(start$D0 / 10), log(start$D0 * 10),
+                                    length.out = 99)))
+      fit.D0 <- lapply(1:length(all.D0), function(idx) {
+        D0 <- all.D0[idx]
+        t <- try(minpack.lm::nlsLM(
+                  formula = model,
+                  start = start[-2],
+                  lower = lower.bounds[-2],
+                  upper = upper.bounds[-2],
+                  control = list(maxiter = settings$maxiter)),
+                 silent = TRUE)
+
+        if (inherits(t, "try-error"))
+          return(NULL)
+        return(t)
+      })
+
+      ## pick the one with the best fit after removing those that didn't fit
+      fit.D0 <- .rm_NULL_elements(fit.D0)
+
+      ## if also this fails, we should throw an error, but as we are inside
+      ## a parallel region, we cannot do that cleanly, so we return NA and
+      ## only afterwards we'll throw the error
+      if (length(fit.D0) == 0)
+        return(NA)
+
+      ## extract the coefficients from the one with the best fit
+      fit.D0 <- fit.D0[[which.min(vapply(fit.D0, stats::deviance, numeric(1)))]]
+      coefs <- coef(fit.D0)
+
+      ## add back the coefficient for D0
+      D0 <- environment(fit.D0$m$predict)$env$D0
+      coefs <- c(coefs[1], D0 = D0, coefs[2:3])
+    }
 
     return(coefs)
-  }, simplify = FALSE))
+  }))
+
+  ## check if errors had occurred during model fitting
+  if (anyNA(fitcoef)) {
+    .throw_error("Could not fit simulated curve, check suitability of ",
+                 "model and parameters")
+  }
 
   # final fit for export
   # fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
   #                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
-
   # scaling factor
   A <- mean(fitcoef[, "a"], na.rm = TRUE)
   A.error <- sd(fitcoef[ ,"a"], na.rm = TRUE)
@@ -602,7 +663,6 @@ calc_Huntley2006 <- function(
         (d_gok-(1+(1 / UFD0 + K[k] / ddots) * natdosetime * c_val)^(-1 / c_val))
     }
   }
-
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
@@ -755,7 +815,7 @@ calc_Huntley2006 <- function(
       start = list(
         a = coef(fit_start)[["a"]],
         D0 = coef(fit_start)[["D0"]],
-        c = coef(fit_start)[["c"]],
+        c = max(coef(fit_start)[["c"]], 1),
         d = coef(fit_simulated)[["d"]]),
       upper = if(force_through_origin) {
         c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
