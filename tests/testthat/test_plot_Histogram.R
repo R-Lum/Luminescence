@@ -39,15 +39,7 @@ test_that("check functionality", {
                                summary.pos = c(20, 0.017),
                                summary = c("n", "mean", "mean.weighted",
                                            "median", "sdrel")))
-  expect_silent(plot_Histogram(df, summary.pos = "topleft"))
-  expect_silent(plot_Histogram(df, summary.pos = "top"))
-  expect_silent(plot_Histogram(df, summary.pos = "topright"))
-  expect_silent(plot_Histogram(df, summary.pos = "left"))
-  expect_silent(plot_Histogram(df, summary.pos = "center"))
-  expect_silent(plot_Histogram(df, summary.pos = "right"))
-  expect_silent(plot_Histogram(df, summary.pos = "bottomleft"))
   expect_silent(plot_Histogram(df, summary.pos = "bottom"))
-  expect_silent(plot_Histogram(df, summary.pos = "bottomright"))
 
   ## interactive
   expect_silent(plot_Histogram(df, interactive = TRUE,

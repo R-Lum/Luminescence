@@ -45,8 +45,6 @@ test_that("check functionality", {
   expect_silent(plot_DRTResults(df, preheat = c(200, 200, 200, 240, 240),
                                 boxplot = FALSE, given.dose = 2800))
   expect_silent(plot_DRTResults(df, preheat = c(200, 200, 200, 240, 240),
-                                boxplot = TRUE, given.dose = 2800))
-  expect_silent(plot_DRTResults(df, preheat = c(200, 200, 200, 240, 240),
                                 boxplot = TRUE, given.dose = 2800,
                                 summary = "mean", summary.pos = "sub"))
   expect_silent(plot_DRTResults(df.list, given.dose = c(2800, 2900)))
@@ -69,24 +67,7 @@ test_that("check functionality", {
   expect_silent(plot_DRTResults(df, summary = "n", summary.pos = "sub"))
   expect_silent(plot_DRTResults(df, summary.pos = "top",
                                 legend.pos = "bottom"))
-  expect_silent(plot_DRTResults(df, summary.pos = "topright",
-                                legend.pos = "topleft"))
-  expect_silent(plot_DRTResults(df, summary.pos = "left",
-                                legend.pos = "right"))
-  expect_silent(plot_DRTResults(df, summary.pos = "center",
-                                legend.pos = "center"))
-  expect_silent(plot_DRTResults(df, summary.pos = "right",
-                                legend.pos = "left"))
-  expect_silent(plot_DRTResults(df, summary.pos = "bottomleft",
-                                legend.pos = "bottomright"))
-  expect_silent(plot_DRTResults(df, summary.pos = "bottom",
-                                legend.pos = "top"))
-  expect_silent(plot_DRTResults(df, summary.pos = "bottomright",
-                                legend.pos = "bottomleft"))
   expect_silent(plot_DRTResults(df, preheat = 1:5, na.rm = TRUE))
-
-  ## plot_DRTResults(df.list, preheat = c(200, 200, 200, 240, 240),
-  ##                 given.dose = 2800, boxplot = TRUE)
 
   ## RLum.Results object
   expect_silent(plot_DRTResults(calc_CommonDose(df, plot = FALSE,

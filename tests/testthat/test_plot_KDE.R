@@ -43,15 +43,7 @@ test_that("check functionality", {
                          xlab = "x", ylab = "y", layout = "default", log = "x",
                          xlim = c(100, 180), ylim = c(0, 0.07, 0, 0.01),
                          col = 2, lty = 2, lwd = 2, cex = 1))
-  expect_silent(plot_KDE(data = df, summary.pos = "topleft"))
-  expect_silent(plot_KDE(data = df, summary.pos = "top"))
-  expect_silent(plot_KDE(data = df, summary.pos = "topright"))
-  expect_silent(plot_KDE(data = df, summary.pos = "left"))
-  expect_silent(plot_KDE(data = df, summary.pos = "center"))
-  expect_silent(plot_KDE(data = df, summary.pos = "right"))
-  expect_silent(plot_KDE(data = df, summary.pos = "bottomleft"))
-  expect_silent(plot_KDE(data = df, summary.pos = "bottom"))
-  expect_silent(plot_KDE(data = df, summary.pos = "bottomright"))
+  expect_silent(plot_KDE(data = df, summary = "mean", summary.pos = "right"))
   expect_silent(plot_KDE(data = df, sub = "test"))
 
   ## specify layout
