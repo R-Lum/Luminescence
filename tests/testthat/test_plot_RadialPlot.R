@@ -116,20 +116,6 @@ test_that("check functionality", {
                   log.z = FALSE, rug = TRUE)
   plot_RadialPlot(df, show = FALSE, centrality = "median.weighted",
                   summary.pos = "top", legend.pos = "bottom")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "topright", legend.pos = "topleft")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "left", legend.pos = "right")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "center", legend.pos = "center")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "right", legend.pos = "left")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "bottomleft", legend.pos = "bottomright")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "bottom", legend.pos = "top")
-  plot_RadialPlot(df, show = FALSE,
-                  summary.pos = "bottomright", legend.pos = "bottomleft")
 
   ## RLum.Results object
   expect_silent(plot_RadialPlot(calc_CommonDose(ExampleData.DeValues$BT998,

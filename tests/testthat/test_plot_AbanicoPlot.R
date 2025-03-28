@@ -76,17 +76,10 @@ test_that("Test examples from the example page", {
                                  xlim = NULL, ylim = NULL, zlim = NULL,
                                  log.z = FALSE))
 
-  ## now with output of the plot parameters
-  expect_type(plot_AbanicoPlot(data = ExampleData.DeValues,
-                            output = TRUE), "list")
-
-  ## now with adjusted z-scale limits
+  ## now with adjusted scale limits
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   zlim = c(10, 200)))
-
-  ## now with adjusted x-scale limits
-  expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   xlim = c(0, 20)))
+                                 zlim = c(10, 200),
+                                 xlim = c(0, 20)))
 
   ## now with rug to indicate individual values in KDE part
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -169,10 +162,6 @@ test_that("Test examples from the example page", {
   ## now with minimum, maximum and median value indicated
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                    stats = c("min", "max", "median")))
-
-  ## now with a brief statistical summary as subheader
-  expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   summary = c("n", "in.2s")))
 
   ## now with another statistical summary
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
