@@ -850,8 +850,9 @@ calc_MinDose <- function(
                          "\n N = %d",
                          "\n sigmab = %.2f \U00B1 %.2f",
                          "\n h = %.2f",
-                         "\n\n Creating %d bootstrap replicates..."),
-                   M, N, sigmab, sigmab.sd, h, N+M)
+                         "\n\nCreating %d bootstrap replicates%s..."),
+                   M, N, sigmab, sigmab.sd, h, N+M,
+                   if (multicore) paste(" using", cores, "cores") else "")
     if (verbose)
       message(msg)
 
@@ -866,28 +867,19 @@ calc_MinDose <- function(
     # MULTICORE: The call to 'Get_mle' is the bottleneck of the function.
     # Using multiple CPU cores can reduce the computation cost, but may
     # not work for all machines.
+    if (verbose)
+      message("Applying the model to all replicates, this may take a while...")
     if (multicore) {
-      if (verbose) {
-        message("\n Spawning ", cores, " instances of R for ",
-                "parallel computation. This may take a few seconds...")
-      }
       cl <- parallel::makeCluster(cores)
-      if (verbose) {
-        message(" Done!\n Applying the model to all replicates. ",
-                "This may take a while...")
-      }
       mle <- parallel::parLapply(cl, replicates, Get_mle)
       parallel::stopCluster(cl)
     } else {
-      if (verbose) {
-        message("\n Applying the model to all replicates. This may take a while...")
-      }
       mle <- lapply(replicates, Get_mle)
     }
 
     # Final bootstrap calculations
     if (verbose)
-      message("\n Calculating the likelihoods...")
+      message("Calculating likelihoods...")
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
     b2mamvec <- as.matrix(sapply(mle[1:N], save_Gamma, simplify = TRUE))
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
@@ -899,7 +891,7 @@ calc_MinDose <- function(
 
     ## --------- FIT POLYNOMIALS -------------- ##
     if (verbose)
-      message("\n Fit curves to dose-likelihood pairs...")
+      message("Fitting curves to dose-likelihood pairs...")
     # polynomial fits of increasing degrees
 
     ## if the input values are too close to zero, we may get
@@ -995,9 +987,6 @@ calc_MinDose <- function(
       print(round(data.frame(De=pal,
                              error=gamma_err,
                              row.names=""), 2))
-
-    } else if (bootstrap && verbose) {
-      message("\n Finished!")
     }
   }
 

@@ -66,7 +66,7 @@ test_that("check functionality", {
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 5,
                               sigmab.sd = 0.04, debug = TRUE,
                               multicore = TRUE, cores = 2),
-                 "Spawning 2 instances of R for parallel computation")
+                 "bootstrap replicates using 2 cores")
   })
 
   ## RLum.Results object
