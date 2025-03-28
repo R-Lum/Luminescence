@@ -13,6 +13,7 @@ calc_Huntley2006(
   normalise = TRUE,
   fit.method = c("EXP", "GOK"),
   lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
+  cores = 1,
   summary = TRUE,
   plot = TRUE,
   ...
@@ -104,6 +105,10 @@ e.g. \code{c(0, 0, 0, 0)}. The values of the vectors are, respectively, for
 parameters \code{a}, \code{D0}, \code{c} and \code{d} in that order (parameter \code{d} is ignored
 when \code{fit.method = "EXP"}). More details can be found in
 \link{fit_DoseResponseCurve}.}
+
+\item{cores}{\link{integer} (\emph{with default}):
+The number of cores to use. This will be capped to the number of available
+cores if set to too high.}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user

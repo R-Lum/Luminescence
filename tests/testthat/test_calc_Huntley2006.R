@@ -94,7 +94,8 @@ test_that("input validation", {
 
   expect_error(calc_Huntley2006(data = data[1:20, ], LnTn = data[1, c(2, 3)],
                                 rhop = c(2, 2), ddot = c(7.00, 0.004),
-                                readerDdot = c(0.01, 0.02), verbose = FALSE),
+                                readerDdot = c(0.01, 0.02), n.MC = 2,
+                                verbose = FALSE),
                "Could not fit simulated curve, check suitability of model")
 })
 

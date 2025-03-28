@@ -169,6 +169,10 @@
 #' when `fit.method = "EXP"`). More details can be found in
 #' [fit_DoseResponseCurve].
 #'
+#' @param cores [integer] (*with default*):
+#' The number of cores to use. This will be capped to the number of available
+#' cores if set to too high.
+#'
 #' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
 #' and calculated by the model are added as text on the right-hand side of the
@@ -307,6 +311,7 @@ calc_Huntley2006 <- function(
     normalise = TRUE,
     fit.method = c("EXP", "GOK"),
     lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
+    cores = 1,
     summary = TRUE,
     plot = TRUE,
     ...
@@ -320,6 +325,8 @@ calc_Huntley2006 <- function(
   .validate_not_empty(data)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
   .validate_length(lower.bounds, 4)
+  .validate_logical_scalar(summary)
+  .validate_logical_scalar(plot)
 
   ## Check 'data'
   if (ncol(data) == 2) {
@@ -412,6 +419,13 @@ calc_Huntley2006 <- function(
   .validate_length(ddot, 2)
   .validate_class(readerDdot, "numeric")
   .validate_length(readerDdot, 2)
+
+  ## set up the parallel cluster
+  .validate_positive_scalar(cores, int = TRUE)
+  available.cores <- parallel::detectCores()
+  cores <- min(cores, available.cores)
+  cl <- parallel::makeCluster(cores)
+  on.exit(parallel::stopCluster(cl), add = TRUE)
 
   ## Settings ------------------------------------------------------------------
   settings <- modifyList(
@@ -533,7 +547,7 @@ calc_Huntley2006 <- function(
   }
 
   ## do the fitting
-  fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
+  fitcoef <- do.call(rbind, parallel::parLapply(cl, rhop_MC, function(rhop_i) {
     fit_sim <- try({
       minpack.lm::nlsLM(
        formula = model,
@@ -570,9 +584,12 @@ calc_Huntley2006 <- function(
 
       ## pick the one with the best fit after removing those that didn't fit
       fit.D0 <- .rm_NULL_elements(fit.D0)
+
+      ## if also this fails, we should throw an error, but as we are inside
+      ## a parallel region, we cannot do that cleanly, so we return NA and
+      ## only afterwards we'll throw the error
       if (length(fit.D0) == 0)
-        .throw_error("Could not fit simulated curve, check suitability of ",
-                     "model and parameters")
+        return(NA)
 
       ## extract the coefficients from the one with the best fit
       fit.D0 <- fit.D0[[which.min(vapply(fit.D0, stats::deviance, numeric(1)))]]
@@ -584,7 +601,14 @@ calc_Huntley2006 <- function(
     }
 
     return(coefs)
-  }, simplify = FALSE))
+  }))
+
+  ## check if errors had occurred during model fitting
+  if (anyNA(fitcoef)) {
+    .throw_error("Could not fit simulated curve, check suitability of ",
+                 "model and parameters")
+  }
+
   # final fit for export
   # fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
   #                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
