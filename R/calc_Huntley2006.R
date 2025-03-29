@@ -503,7 +503,7 @@ calc_Huntley2006 <- function(
                  "'fit.bounds = FALSE'")
   if (plot) {
     plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
-                           xlab = "Dose (Gy)", verbose = FALSE)
+                           xlab = "Dose [Gy]", verbose = FALSE)
   }
 
   # extract results and calculate age
@@ -565,8 +565,11 @@ calc_Huntley2006 <- function(
       ## D0 at different values to make the fitting a bit easier. Values are
       ## spaced logarithmically so that the ratio between consecutive values
       ## is constant.
-      all.D0 <- c(start$D0, exp(seq(log(start$D0 / 10), log(start$D0 * 10),
-                                    length.out = 99)))
+      # all.D0 <- c(start$D0, exp(seq(log(start$D0 / 10), log(start$D0 * 10),
+      #                               length.out = 99)))
+      ## ALTERNATIVE: sample from a gamma distribution; with only 10, this should
+      ## be enough based on tests RLumSK (2025-03-29)
+      all.D0 <- rgamma(10, shape = start$D0)
       fit.D0 <- lapply(1:length(all.D0), function(idx) {
         D0 <- all.D0[idx]
         t <- try(minpack.lm::nlsLM(
@@ -1154,3 +1157,4 @@ calc_Huntley2006 <- function(
   ## Return value --------------------------------------------------------------
   return(results)
 }
+
