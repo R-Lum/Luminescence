@@ -544,42 +544,32 @@ fit_SurfaceExposure <- function(
   if (settings$verbose) {
     cat("\n [fit_SurfaceExposure()] \n\n")
 
-    if (!global_fit) {
-      ## STANDARD OUTPUT
-      cat(" Estimated paramater(s):\n",
-          "-----------------------\n")
-      if (is.null(age))
-        cat(paste0(" age (a):\t", signif(results$summary$age, 3), " \u00B1 ",
-                   signif(results$summary$age_error, 3), "\n"))
-      if (is.null(sigmaphi))
-        cat(paste0(" sigmaphi:\t", signif(results$summary$sigmaphi, 3), " \u00B1 ",
-                   signif(results$summary$sigmaphi_error, 3), "\n"))
-      if (is.null(mu))
-        cat(paste0(" mu:\t\t", signif(results$summary$mu, 3), " \u00B1 ",
-                   signif(results$summary$mu_error, 3), "\n"))
-      cat("\n")
+    if (global_fit) {
+      cat(" Shared estimated parameter(s):\n")
     } else {
-      ## GLOBAL FIT OUTPUT
-      cat(" Shared estimated paramater(s):\n",
-          "-----------------------\n")
-      if (is.null(sigmaphi))
-        cat(paste0(" sigmaphi:\t", signif(unique(results$summary$sigmaphi), 3), " \u00B1 ",
-                   signif(unique(results$summary$sigmaphi_error), 3), "\n"))
-      if (is.null(mu))
-        cat(paste0(" mu:\t\t", signif(unique(results$summary$mu), 3), " \u00B1 ",
-                   signif(unique(results$summary$mu_error), 3), "\n"))
-      cat("\n")
+      cat(" Estimated parameter(s):\n")
     }
+    cat(" ---------------------\n")
+    if (is.null(age))
+      cat(" age (a):\t", signif(results$summary$age, 3), "\u00B1",
+          signif(results$summary$age_error, 3), "\n")
+    if (is.null(sigmaphi))
+      cat(" sigmaphi:\t", signif(unique(results$summary$sigmaphi), 3), "\u00B1",
+          signif(unique(results$summary$sigmaphi_error), 3), "\n")
+    if (is.null(mu))
+      cat(" mu:\t\t", signif(unique(results$summary$mu), 3), "\u00B1",
+          signif(unique(results$summary$mu_error), 3), "\n")
+    cat("\n")
 
     ## STANDARD OUTPUT
-    cat(" Fixed parameters(s):\n",
-        "--------------------\n")
+    cat(" Fixed parameter(s):\n",
+        "-------------------\n")
     if (!is.null(age))
-      cat(paste0(" age (a):\t", .collapse(age, quote = FALSE), "\n"))
+      cat(" age (a):\t", .collapse(age, quote = FALSE), "\n")
     if (!is.null(sigmaphi))
-      cat(paste0(" sigmaphi:\t", sigmaphi, "\n"))
+      cat(" sigmaphi:\t", sigmaphi, "\n")
     if (!is.null(mu))
-      cat(paste0(" mu:\t\t", mu, "\n"))
+      cat(" mu:\t\t", mu, "\n")
     cat("\n")
 
     if (!is.null(age)) {
