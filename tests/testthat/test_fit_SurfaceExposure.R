@@ -44,6 +44,10 @@ test_that("check values from output example", {
 
   expect_equal(round(fit$summary$age), 9893)
   expect_equal(round(fit$summary$age_error), 369)
+
+  expect_s4_class(fit_SurfaceExposure(d1, sigmaphi = 5e-10, age = 12000,
+                                      verbose = FALSE),
+                  "RLum.Results")
 })
 
 # Sub-test - weighted fitting
