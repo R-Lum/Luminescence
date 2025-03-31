@@ -90,6 +90,12 @@
 - The function now allocates less memory for storing intermediate values
   (#610).
 
+### `fit_SurfaceExposure()`
+
+- It is now possible to specify different values for the light
+  attenuation coefficient `mu` when a list of input data is provided
+  (#667).
+
 ### `import_Data()`
 
 - The function uses the most common formats (BINX and XSYG) before

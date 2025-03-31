@@ -19,6 +19,8 @@ test_that("input validation", {
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = 1e4),
                "'age' must be of the same length")
+  expect_error(fit_SurfaceExposure(d4, age = rep(1e4, 5), mu = c(0.8, 0.9)),
+               "'mu' must either be of the same length or of length 1")
 
   SW({
   expect_message(fit_SurfaceExposure(rbind(d1, NA), mu = 0.9),
@@ -93,6 +95,18 @@ test_that("check values from output example", {
 
   expect_equal(round(unique(fit$summary$mu), 3), 0.901)
   expect_equal(round(unique(fit$summary$mu_error), 3), 0.002)
+
+  ## multiple mus given
+  expect_s4_class(fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6),
+                                      mu = 0.1 * 7:10, verbose = FALSE),
+                  "RLum.Results")
+
+  SW({
+  ## all paramers specified, nothing to fit
+  expect_message(fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6),
+                                     mu = 0.1 * 7:10, sigmaphi = 5e-10),
+                 "Error: Unable to fit the data")
+  })
 })
 
 
