@@ -44,12 +44,13 @@ A numeric value for \code{sigmaphi}, i.e. the charge detrapping rate.
 Example: \code{sigmaphi = 5e-10}}
 
 \item{mu}{\link{numeric} (\emph{optional}):
-A numeric value for mu, i.e. the light attenuation coefficient.
-Example: \code{mu = 0.9}}
+A numeric value for \code{mu}, i.e. the light attenuation coefficient. If \code{data}
+is a list of \emph{n} samples, then \code{mu} must be a vector of length 1 or \emph{n}.
+Example: \code{mu = 0.9}, or \code{mu = c(0.9, 0.8, 0.9)}.}
 
 \item{age}{\link{numeric} (\emph{optional}):
-The age (a) of the sample, if known. If \code{data} is a \link{list} of \emph{x} samples,
-then \code{age} must be a numeric vector of length \emph{x}.
+The age (a) of the sample, if known. If \code{data} is a \link{list} of \emph{n} samples,
+then \code{age} must be a numeric vector of length \emph{n}.
 Example: \code{age = 10000}, or \code{age = c(1e4, 1e5, 1e6)}.}
 
 \item{Ddot}{\link{numeric} (\emph{optional}):
@@ -62,20 +63,20 @@ A numeric value for the characteristic saturation dose (Gy). For this argument
 to be considered a value for \code{Ddot} must also be provided; otherwise it will be
 ignored.}
 
-\item{weights}{\link{logical} (\emph{optional}):
+\item{weights}{\link{logical} (\emph{with default}):
 If \code{TRUE} the fit will be weighted by the inverse square of the error.
 Requires \code{data} to be a \link{data.frame} with three columns.}
 
-\item{plot}{\link{logical} (\emph{optional}):
+\item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{legend}{\link{logical} (\emph{optional}):
+\item{legend}{\link{logical} (\emph{with default}):
 Show or hide the equation inside the plot.}
 
-\item{error_bars}{\link{logical} (\emph{optional}):
+\item{error_bars}{\link{logical} (\emph{with default}):
 Show or hide error bars (only applies if errors were provided).}
 
-\item{coord_flip}{\link{logical} (\emph{optional}):
+\item{coord_flip}{\link{logical} (\emph{with default}):
 Flip the coordinate system.}
 
 \item{...}{Further parameters passed to \link{plot}.

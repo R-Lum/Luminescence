@@ -61,12 +61,13 @@
 #' Example: `sigmaphi = 5e-10`
 #'
 #' @param mu [numeric] (*optional*):
-#' A numeric value for mu, i.e. the light attenuation coefficient.
-#' Example: `mu = 0.9`
+#' A numeric value for `mu`, i.e. the light attenuation coefficient. If `data`
+#' is a list of *n* samples, then `mu` must be a vector of length 1 or *n*.
+#' Example: `mu = 0.9`, or `mu = c(0.9, 0.8, 0.9)`.
 #'
 #' @param age [numeric] (*optional*):
-#' The age (a) of the sample, if known. If `data` is a [list] of *x* samples,
-#' then `age` must be a numeric vector of length *x*.
+#' The age (a) of the sample, if known. If `data` is a [list] of *n* samples,
+#' then `age` must be a numeric vector of length *n*.
 #' Example: `age = 10000`, or `age = c(1e4, 1e5, 1e6)`.
 #'
 #' @param Ddot [numeric] (*optional*):
@@ -79,20 +80,20 @@
 #' to be considered a value for `Ddot` must also be provided; otherwise it will be
 #' ignored.
 #'
-#' @param weights [logical] (*optional*):
+#' @param weights [logical] (*with default*):
 #' If `TRUE` the fit will be weighted by the inverse square of the error.
 #' Requires `data` to be a [data.frame] with three columns.
 #'
-#' @param plot [logical] (*optional*):
+#' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param legend [logical] (*optional*):
+#' @param legend [logical] (*with default*):
 #' Show or hide the equation inside the plot.
 #'
-#' @param error_bars [logical] (*optional*):
+#' @param error_bars [logical] (*with default*):
 #' Show or hide error bars (only applies if errors were provided).
 #'
-#' @param coord_flip [logical] (*optional*):
+#' @param coord_flip [logical] (*with default*):
 #' Flip the coordinate system.
 #'
 #' @param ... Further parameters passed to [plot].
@@ -257,6 +258,11 @@ fit_SurfaceExposure <- function(
     if (length(data) != length(age))
       .throw_error("If 'data' is a list of data sets for global fitting, ",
                    "'age' must be of the same length.")
+
+    ## if mu is specified, it must have length 1 or match the number of data sets
+    if (!is.null(mu) && length(mu) != 1 && length(data) != length(mu))
+      .throw_error("If 'data' is a list of data sets for global fitting, ",
+                   "'mu' must either be of the same length or of length 1.")
 
     # TODO: Support weighted fitting for global fit
     if (weights) {
@@ -519,7 +525,7 @@ fit_SurfaceExposure <- function(
 
     }
 
-    # add formula
+    ## show the formula in the legend
     if (legend && !inherits(fit, "simpleError")) {
       formula_text <- paste0("y = ", as.character(fit$m$formula())[3])
 
@@ -533,8 +539,13 @@ fit_SurfaceExposure <- function(
       }
       if (!is.null(sigmaphi))
         formula_text <- gsub("sigmaphi", sigmaphi, formula_text)
-      if (!is.null(mu))
-        formula_text <- gsub("mu", mu, formula_text)
+      if (!is.null(mu)) {
+        if (!global_fit) {
+          formula_text <- gsub("mu", mu, formula_text)
+        } else {
+          formula_text <- gsub("mu", paste0("[", paste(mu, collapse = "|"), "]"), formula_text)
+        }
+      }
 
       legend(ifelse(coord_flip, "bottomleft", "bottomright"), legend = formula_text, cex = 0.8, bty = "n")
     }
@@ -544,50 +555,40 @@ fit_SurfaceExposure <- function(
   if (settings$verbose) {
     cat("\n [fit_SurfaceExposure()] \n\n")
 
-    if (!global_fit) {
-      ## STANDARD OUTPUT
-      cat(" Estimated paramater(s):\n",
-          "-----------------------\n")
-      if (is.null(age))
-        cat(paste0(" age (a):\t", signif(results$summary$age, 3), " \u00B1 ",
-                   signif(results$summary$age_error, 3), "\n"))
-      if (is.null(sigmaphi))
-        cat(paste0(" sigmaphi:\t", signif(results$summary$sigmaphi, 3), " \u00B1 ",
-                   signif(results$summary$sigmaphi_error, 3), "\n"))
-      if (is.null(mu))
-        cat(paste0(" mu:\t\t", signif(results$summary$mu, 3), " \u00B1 ",
-                   signif(results$summary$mu_error, 3), "\n"))
-      cat("\n")
+    if (global_fit) {
+      cat(" Shared estimated parameter(s):\n")
     } else {
-      ## GLOBAL FIT OUTPUT
-      cat(" Shared estimated paramater(s):\n",
-          "-----------------------\n")
-      if (is.null(sigmaphi))
-        cat(paste0(" sigmaphi:\t", signif(unique(results$summary$sigmaphi), 3), " \u00B1 ",
-                   signif(unique(results$summary$sigmaphi_error), 3), "\n"))
-      if (is.null(mu))
-        cat(paste0(" mu:\t\t", signif(unique(results$summary$mu), 3), " \u00B1 ",
-                   signif(unique(results$summary$mu_error), 3), "\n"))
-      cat("\n")
+      cat(" Estimated parameter(s):\n")
     }
+    cat(" ---------------------\n")
+    if (is.null(age))
+      cat(" age (a):\t", signif(results$summary$age, 3), "\u00B1",
+          signif(results$summary$age_error, 3), "\n")
+    if (is.null(sigmaphi))
+      cat(" sigmaphi:\t", signif(unique(results$summary$sigmaphi), 3), "\u00B1",
+          signif(unique(results$summary$sigmaphi_error), 3), "\n")
+    if (is.null(mu))
+      cat(" mu:\t\t", signif(unique(results$summary$mu), 3), "\u00B1",
+          signif(unique(results$summary$mu_error), 3), "\n")
+    cat("\n")
 
     ## STANDARD OUTPUT
-    cat(" Fixed parameters(s):\n",
-        "--------------------\n")
+    cat(" Fixed parameter(s):\n",
+        "-------------------\n")
     if (!is.null(age))
-      cat(paste0(" age (a):\t", .collapse(age, quote = FALSE), "\n"))
+      cat(" age (a):\t", .collapse(age, quote = FALSE), "\n")
     if (!is.null(sigmaphi))
-      cat(paste0(" sigmaphi:\t", sigmaphi, "\n"))
+      cat(" sigmaphi:\t", sigmaphi, "\n")
     if (!is.null(mu))
-      cat(paste0(" mu:\t\t", mu, "\n"))
+      cat(" mu:\t\t", .collapse(mu, quote = FALSE), "\n")
     cat("\n")
 
     if (!is.null(age)) {
       message(paste0("To apply the estimated parameters to a sample of unknown age run:\n\n",
                      "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
                      ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
-                     ", mu = ", signif(unique(results$summary$mu), 3),
-                     ")\n\n"))
+                     ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
+                     "))\n\n"))
     }
   }
 
