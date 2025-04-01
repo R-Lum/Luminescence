@@ -565,6 +565,7 @@ calc_FiniteMixture <- function(
   # create S4 object
   newRLumResults.calc_FiniteMixture <- set_RLum(
     class = "RLum.Results",
+    originator = "calc_FiniteMixture",
     data = list(
       summary=summary,
       data=data,

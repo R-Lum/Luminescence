@@ -68,7 +68,7 @@
 #' diameter (mm) of the targeted area on the sample carrier.
 #'
 #' @param packing.density [numeric] (*with default*):
-#' empirical value for mean packing density. \cr
+#' empirical value for the mean packing density. \cr
 #' If `packing.density = Inf`, a hexagonal structure on an infinite
 #' plane with a packing density of \eqn{\pi / \sqrt{12} \approx 0.9069}
 #' is assumed.
@@ -368,6 +368,7 @@ calc_AliquotSize <- function(
   # create S4 object
   newRLumResults.calc_AliquotSize <- set_RLum(
     class = "RLum.Results",
+    originator = "calc_AliquotSize",
     data = list(
       summary=summary,
       MC=list(estimates=MC.n,
