@@ -24,7 +24,7 @@ mean grain size is computed (e.g. \code{c(100,200)}).}
 diameter (mm) of the targeted area on the sample carrier.}
 
 \item{packing.density}{\link{numeric} (\emph{with default}):
-empirical value for mean packing density. \cr
+empirical value for the mean packing density. \cr
 If \code{packing.density = Inf}, a hexagonal structure on an infinite
 plane with a packing density of \eqn{\pi / \sqrt{12} \approx 0.9069}
 is assumed.}
