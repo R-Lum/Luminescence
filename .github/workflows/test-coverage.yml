@@ -59,10 +59,3 @@ jobs:
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
-
-      - name: Get coverage from master branch
-        run: |
-          git fetch origin master
-          git checkout master -- tests/coverage.rds || true
-          echo "Fetching master branch coverage data"
-
