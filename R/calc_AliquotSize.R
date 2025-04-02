@@ -93,7 +93,10 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param ... further arguments to pass (`main`, `xlab`, `MC.iter`).
+#' @param ... further arguments and graphical parameters to be passed. In
+#' particular, `MC.iter` to control the number of Monte Carlo iterations,
+#' `main`, `xlab`, `col`, `line_col`, `line_lwd`, `cex`, `rug` (`TRUE/FALSE`),
+#' `boxplot` (`TRUE/FALSE`), `summary` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`).
 #'
 #' @return
 #' Returns a terminal output. In addition an
@@ -107,9 +110,11 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.32
+#' @section Function version: 0.33
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
@@ -366,7 +371,7 @@ calc_AliquotSize <- function(
   args<- as.list(sys.call())[-1]
 
   # create S4 object
-  newRLumResults.calc_AliquotSize <- set_RLum(
+  object <- set_RLum(
     class = "RLum.Results",
     originator = "calc_AliquotSize",
     data = list(
@@ -381,10 +386,87 @@ calc_AliquotSize <- function(
 
   ##=========##
   ## PLOTTING
-  if(plot==TRUE) {
-    try(plot_RLum.Results(newRLumResults.calc_AliquotSize, ...))
+  if (plot && !is.null(object@data$MC$estimates)) {
+
+    ## default graphical settings
+    settings <- list(
+        main = "Monte Carlo Simulation",
+        xlab = "Amount of grains on aliquot",
+        col = "gray90",
+        line_col = "black",
+        line_lwd = 1,
+        cex = 0.8,
+        rug = TRUE,
+        boxplot = TRUE,
+        summary = TRUE,
+        legend = TRUE,
+        NULL
+    )
+    settings <- modifyList(settings, list(...))
+
+    ## extract relevant data
+    MC.n <- object@data$MC$estimates
+    MC.n.kde <- object@data$MC$kde
+    MC.stats <- object@data$MC$statistics
+    MC.q <- object@data$MC$quantile
+    MC.iter <- object@data$args$MC.iter
+
+    ## set layout of plotting device
+    nrow.splits <- if (settings$boxplot) 2 else 1
+    layout(matrix(c(1, 1, nrow.splits)), nrow.splits, 1)
+    par(cex = settings$cex)
+
+    ## plot MC estimate distribution
+
+    ## set margins (bottom, left, top, right)
+    par(mar = c(if (settings$boxplot) 2 else 5, 5, 5, 3))
+
+    ## plot histogram
+    hist(MC.n, freq = FALSE, col = settings$col,
+         main = settings$main, xlab = settings$xlab, cex = settings$cex,
+         xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
+         ylim = c(0, max(MC.n.kde$y) * 1.1))
+
+    ## add rugs to histogram
+    if (settings$rug) {
+      graphics::rug(MC.n)
+    }
+
+    ## add KDE curve
+    lines(MC.n.kde, col = settings$line_col, lwd = settings$line_lwd)
+
+    ## add mean, median and quantils (0.05,0.95)
+    abline(v = c(MC.stats$mean, MC.stats$median, MC.q),
+           lty = c(2, 4, 3, 3), lwd = 1)
+
+    ## add title and subtitle
+    if (settings$summary) {
+      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
+                                 italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
+                                 italic(hat(sigma)) == .(round(MC.stats$sd.abs)) ~ "|" ~
+                                 italic(frac(hat(sigma), sqrt(n))) == .(round(MC.stats$se.abs)) ~ "|" ~
+                                 italic(v) == .(round(MC.stats$skewness, 2)))),
+            side = 3, line = -0.5, adj = 0.5, cex = 0.9 * settings$cex)
+    }
+
+    ## add legend
+    if (settings$legend) {
+      legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
+             lty = c(2, 4, 3), bg = "white", box.col = "white",
+             cex = 0.9 * settings$cex)
+    }
+
+    ## BOXPLOT
+    ## set margins (bottom, left, top, right)
+    if (settings$boxplot) {
+      par(mar = c(5, 5, 0, 3))
+      plot(NA, type = "n", xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
+           xlab = settings$xlab, ylim = c(0.5, 1.5),
+           xaxt = "n", yaxt = "n", ylab = "")
+      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
+    }
   }
 
   # Return values
-  invisible(newRLumResults.calc_AliquotSize)
+  invisible(object)
 }

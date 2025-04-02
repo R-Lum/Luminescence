@@ -47,7 +47,6 @@ test_that("check functionality", {
       grain.size = c(100, 150),
       sample.diameter = 1,
       MC.iter = 100,
-      plot = FALSE,
       verbose = FALSE)
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))

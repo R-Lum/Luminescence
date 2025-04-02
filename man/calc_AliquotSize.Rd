@@ -49,7 +49,10 @@ diameter (mm) of the sample carrier.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{...}{further arguments to pass (\code{main}, \code{xlab}, \code{MC.iter}).}
+\item{...}{further arguments and graphical parameters to be passed. In
+particular, \code{MC.iter} to control the number of Monte Carlo iterations,
+\code{main}, \code{xlab}, \code{col}, \code{line_col}, \code{line_lwd}, \code{cex}, \code{rug} (\code{TRUE/FALSE}),
+\code{boxplot} (\code{TRUE/FALSE}), \code{summary} (\code{TRUE/FALSE}), \code{legend} (\code{TRUE/FALSE}).}
 }
 \value{
 Returns a terminal output. In addition an
@@ -124,7 +127,7 @@ option \code{MC.iter} (see \code{...}). Results are visualised in a bar- and
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.32
+ 0.33
 }
 
 \examples{
@@ -160,5 +163,6 @@ optimization method for finding dense packings of equal circles in a circle.
 European Journal of Operational Research 210, 474-481.
 }
 \author{
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

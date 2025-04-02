@@ -951,6 +951,10 @@ plot_RLum.Results<- function(
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size ---------
   if(object@originator=="calc_AliquotSize") {
+    ## FIXME(mcol): The following code has been ported to calc_AliquotSize(),
+    ## where it has been further updated. This version is preserved to support
+    ## the plotting of an RLum.Results object directly, which calc_AliquotSize()
+    ## doesn't yet support.
     if(!is.null(object@data$MC$estimates)) {
       extraArgs <- list(...)
 
@@ -1018,7 +1022,7 @@ plot_RLum.Results<- function(
     } else {
       on.exit(NULL, add = TRUE) # FIXME(mcol): seems unnecessary
     }
-  }#EndOf::Case 5 - calc_AliqoutSize()
+  }#EndOf::Case 5 - calc_AliquotSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 6: calc_SourceDoseRate() ----------
