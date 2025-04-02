@@ -48,6 +48,9 @@ function now produces more helpful error messages (#616).
 the diameter of the sample carrier, which up to now was hardcoded to the very
 common 9.8 mm size (#623).
 
+* Several graphical parameters can now configured via `...` arguments, so
+that the plot appearance can be fully customized (#671).
+
 ### `calc_AverageDose()`
 
 * A bug in the implementation prevented the default plot settings from

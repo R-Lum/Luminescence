@@ -93,7 +93,10 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param ... further arguments to pass (`main`, `xlab`, `MC.iter`).
+#' @param ... further arguments and graphical parameters to be passed. In
+#' particular, `MC.iter` to control the number of Monte Carlo iterations,
+#' `main`, `xlab`, `col`, `line_col`, `line_lwd`, `cex`, `rug` (`TRUE/FALSE`),
+#' `boxplot` (`TRUE/FALSE`), `summary` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`).
 #'
 #' @return
 #' Returns a terminal output. In addition an
@@ -107,9 +110,11 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.32
+#' @section Function version: 0.33
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
@@ -383,9 +388,21 @@ calc_AliquotSize <- function(
   ## PLOTTING
   if (plot && !is.null(object@data$MC$estimates)) {
 
-    extraArgs <- list(...)
-    main <- if ("main" %in% names(extraArgs)) extraArgs$main else "Monte Carlo Simulation"
-    xlab <- if ("xlab" %in% names(extraArgs)) extraArgs$xlab else "Amount of grains on aliquot"
+    ## default graphical settings
+    settings <- list(
+        main = "Monte Carlo Simulation",
+        xlab = "Amount of grains on aliquot",
+        col = "gray90",
+        line_col = "black",
+        line_lwd = 1,
+        cex = 0.8,
+        rug = TRUE,
+        boxplot = TRUE,
+        summary = TRUE,
+        legend = TRUE,
+        NULL
+    )
+    settings <- modifyList(settings, list(...))
 
     ## extract relevant data
     MC.n <- object@data$MC$estimates
@@ -395,53 +412,59 @@ calc_AliquotSize <- function(
     MC.iter <- object@data$args$MC.iter
 
     ## set layout of plotting device
-    layout(matrix(c(1, 1, 2)), 2, 1)
-    par(cex = 0.8)
+    nrow.splits <- if (settings$boxplot) 2 else 1
+    layout(matrix(c(1, 1, nrow.splits)), nrow.splits, 1)
+    par(cex = settings$cex)
 
     ## plot MC estimate distribution
 
     ## set margins (bottom, left, top, right)
-    par(mar = c(2, 5, 5, 3))
+    par(mar = c(if (settings$boxplot) 2 else 5, 5, 5, 3))
 
     ## plot histogram
-    hist(MC.n, freq = FALSE, col = "gray90",
-         main = "", xlab = xlab,
+    hist(MC.n, freq = FALSE, col = settings$col,
+         main = settings$main, xlab = settings$xlab, cex = settings$cex,
          xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
          ylim = c(0, max(MC.n.kde$y) * 1.1))
 
     ## add rugs to histogram
-    graphics::rug(MC.n)
+    if (settings$rug) {
+      graphics::rug(MC.n)
+    }
 
     ## add KDE curve
-    lines(MC.n.kde, col = "black", lwd = 1)
+    lines(MC.n.kde, col = settings$line_col, lwd = settings$line_lwd)
 
     ## add mean, median and quantils (0.05,0.95)
     abline(v = c(MC.stats$mean, MC.stats$median, MC.q),
            lty = c(2, 4, 3, 3), lwd = 1)
 
     ## add title and subtitle
-    mtext(main, side = 3, adj = 0.5, line = 3, cex = 1)
-    mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
+    if (settings$summary) {
+      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
                                  italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
                                  italic(hat(sigma)) == .(round(MC.stats$sd.abs)) ~ "|" ~
                                  italic(frac(hat(sigma), sqrt(n))) == .(round(MC.stats$se.abs)) ~ "|" ~
                                  italic(v) == .(round(MC.stats$skewness, 2)))),
-
-            side = 3, line = 0.3, adj = 0.5, cex = 0.9)
+            side = 3, line = -0.5, adj = 0.5, cex = 0.9 * settings$cex)
+    }
 
     ## add legend
-    legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
-           lty = c(2, 4, 3), bg = "white", box.col = "white", cex = 0.9)
+    if (settings$legend) {
+      legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
+             lty = c(2, 4, 3), bg = "white", box.col = "white",
+             cex = 0.9 * settings$cex)
+    }
 
     ## BOXPLOT
     ## set margins (bottom, left, top, right)
-    par(mar = c(5, 5, 0, 3))
-
-    plot(NA, type = "n", xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
-         xlab = xlab,  ylim = c(0.5, 1.5),
-         xaxt = "n", yaxt = "n", ylab = "")
-    par(bty = "n")
-    graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
+    if (settings$boxplot) {
+      par(mar = c(5, 5, 0, 3))
+      plot(NA, type = "n", xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
+           xlab = settings$xlab, ylim = c(0.5, 1.5),
+           xaxt = "n", yaxt = "n", ylab = "")
+      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
+    }
   }
 
   # Return values
