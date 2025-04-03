@@ -1,14 +1,17 @@
 #' @title Analyse portable CW-OSL measurements
 #'
-#' @description The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and
+#' @description
+#' The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and
 #' produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios
 #' and the IRSL/OSL ratio.
 #'
-#' @details This function only works with [RLum.Analysis-class] objects produced by [read_PSL2R].
+#' @details
+#' This function only works with [RLum.Analysis-class] objects produced by [read_PSL2R].
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
-#' are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-#' the cumulative signal of the last n channels (same number of channels as specified
-#' by `signal.integral`) is divided by cumulative signal of the first n channels (`signal.integral`).
+#' are pairwise combined for calculating the IRSL/OSL ratio.
+#' For calculating the depletion ratios, the cumulative signal of the last *n*
+#' channels (same number of channels as specified by `signal.integral`) is
+#' divided by cumulative signal of the first *n* channels (`signal.integral`).
 #'
 #' **Note:  The function assumes the following sequence pattern: `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`. If you have written a different sequence, the analysis function will (likely) not work!**.
 #'
@@ -30,18 +33,24 @@
 #'
 #' Please note that the unit is meter (m) and the function expects always xy-coordinates.
 #' The latter one is useful for surface interpolations. If you have measured a profile where
-#' the x-coordinates to not measure, x-coordinates should be 0.
+#' the x-coordinates were not measured, x-coordinates should be 0.
 #'
-#' @param object [RLum.Analysis-class] (**required**): [RLum.Analysis-class] object produced by [read_PSL2R].
-#' The input can be a [list] of such objects, in such case each input is treated as a separate sample
-#' and the results are merged.
+#' @param object [RLum.Analysis-class] (**required**):
+#' object produced by [read_PSL2R]. The input can be a [list] of such objects,
+#' in which case each input is treated as a separate sample and the results
+#' are merged.
 #'
-#' @param signal.integral [numeric] (**required**): A vector of two values specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can be provided in form of `c(1, 5)` or `1:5`.
+#' @param signal.integral [numeric] (**required**):
+#' A vector specifying the range of channels used to calculate the OSL/IRSL
+#' signal. It can be provided as a vector of length 2 such as `c(1, 5)`, or
+#' as a sequence such as `1:5`, in which case the lowest and highest values
+#' define the range.
 #'
 #' @param invert [logical] (*with default*): `TRUE` flip the plot the data in reverse order.
 #'
-#' @param normalise [logical] (*with default*): `TRUE` to normalise the OSL/IRSL signals
-#' to the *mean* of all corresponding data curves.
+#' @param normalise [logical] (*with default*):
+#' whether the OSL/IRSL signals should be normalised to the *mean* of all
+#' corresponding data curves.
 #'
 #' @param mode [character] (*with default*):
 #' analysis mode, one of `"profile"` (the default) or `"surface"` for surface
@@ -56,8 +65,8 @@
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param ... other parameters to be passed to modify the plot output.
-#' Supported are `run` to provide the run name ,
-#' if the input is a `list`, this is set automatically. Further plot parameters are
+#' Supported are `run` to provide the run name (if the input is a `list`, this
+#' is set automatically). Further plot parameters are
 #' `surface_values` ([character] with value to plot), `legend` (`TRUE`/`FALSE`), `col_ramp` (for
 #' surface mode), `contour` (contour lines `TRUE`/`FALSE` in surface mode), `grid` (`TRUE`/`FALSE`), `col`, `pch` (for profile mode), `xlim` (a name [list] for profile mode), `ylim`,
 #' `zlim` (surface mode only), `ylab`, `xlab`, `zlab` (here x-axis labelling), `main`, `bg_img` (for
@@ -162,6 +171,8 @@ analyse_portableOSL <- function(
   }
 
   .validate_args(mode, c("profile", "surface"))
+  .validate_logical_scalar(invert)
+  .validate_logical_scalar(normalise)
   .validate_logical_scalar(plot)
 
   ## set SAMPLE --------
@@ -249,11 +260,9 @@ analyse_portableOSL <- function(
   # PLOTTING -------------------------------------------------------------------
   ## generate list of plot matrices
   ## this done to have consistent settings for all plot types
-  parm <-  c("BSL", "BSL_error", "IRSL", "IRSL_error",
-             "BSL_depletion", "IRSL_depletion", "IRSL_BSL_RATIO", "DARK", "DARK_error")
+  parm <- grep("^(BSL|IRSL|DARK)", colnames(summary), value = TRUE)
   m_list <- lapply(parm, function(x){
      cbind(x = summary[["COORD_X"]], y = summary[["COORD_Y"]], value = summary[[x]])
-
   })
 
     ## correct names of the list
@@ -451,7 +460,6 @@ analyse_portableOSL <- function(
 
     # default: par(mar = c(5, 4, 4, 2) + 0.1) // bottom, left, top, right
     par(mfrow = c(1, 7))
-
     par(mar = c(5, 4, 4, 1) + 0.1)
 
     graphics::frame()
@@ -540,7 +548,6 @@ analyse_portableOSL <- function(
     info = list(call = call))
 
   return(newRLumResults)
-
 }
 
 # HELPER FUNCTIONS ----------
@@ -549,13 +556,13 @@ analyse_portableOSL <- function(
 .posl_get_signal <- function(x, signal.integral) {
     raw_signal <- get_RLum(x)[,2]
     sigint <- range(signal.integral)
-    if (sigint[2] > length(raw_signal)) {
-      sigint[2] <- length(raw_signal)
+    num.points <- length(raw_signal)
+    if (sigint[2] > num.points) {
+      sigint[2] <- num.points
       .throw_warning("'signal.integral' (",
                      .collapse(range(signal.integral), quote = FALSE), ") ",
-                     "exceeded the number of available data points (n = ",
-                     length(raw_signal),") and has been automatically ",
-                     "reduced to the maximum number.")
+                     "exceeds the number of data points (n = ", num.points,
+                     "), reset to (", .collapse(sigint, quote = FALSE), ")")
     }
     sum_signal <- sum(raw_signal[sigint[1]:sigint[2]])
     sum_signal_err <- sqrt(sum(x@info$raw_data$counts_per_cycle_error[sigint[1]:sigint[2]]^2))
@@ -569,7 +576,6 @@ analyse_portableOSL <- function(
   counts <- unlist(lapply(x, function(x) as.matrix(x)[,2]))
 
   return(data.frame(mean_dark_count = mean(counts), sd_dark_count = sd(counts)))
-
 }
 
 ## This function normalises the data curve by the mean signal

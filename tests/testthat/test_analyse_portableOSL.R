@@ -170,7 +170,7 @@ test_that("input validation", {
     suppressWarnings( # generated the same warning twice
     expect_warning(analyse_portableOSL(merged[1:5],
                                        signal.integral = c(1, 102)),
-                   "'signal.integral' (1, 102) exceeded the number",
+                   "'signal.integral' (1, 102) exceeds the number of data points",
                    fixed = TRUE)
     )
 })

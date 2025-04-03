@@ -16,16 +16,22 @@ analyse_portableOSL(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): \linkS4class{RLum.Analysis} object produced by \link{read_PSL2R}.
-The input can be a \link{list} of such objects, in such case each input is treated as a separate sample
-and the results are merged.}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+object produced by \link{read_PSL2R}. The input can be a \link{list} of such objects,
+in which case each input is treated as a separate sample and the results
+are merged.}
 
-\item{signal.integral}{\link{numeric} (\strong{required}): A vector of two values specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can be provided in form of \code{c(1, 5)} or \code{1:5}.}
+\item{signal.integral}{\link{numeric} (\strong{required}):
+A vector specifying the range of channels used to calculate the OSL/IRSL
+signal. It can be provided as a vector of length 2 such as \code{c(1, 5)}, or
+as a sequence such as \code{1:5}, in which case the lowest and highest values
+define the range.}
 
 \item{invert}{\link{logical} (\emph{with default}): \code{TRUE} flip the plot the data in reverse order.}
 
-\item{normalise}{\link{logical} (\emph{with default}): \code{TRUE} to normalise the OSL/IRSL signals
-to the \emph{mean} of all corresponding data curves.}
+\item{normalise}{\link{logical} (\emph{with default}):
+whether the OSL/IRSL signals should be normalised to the \emph{mean} of all
+corresponding data curves.}
 
 \item{mode}{\link{character} (\emph{with default}):
 analysis mode, one of \code{"profile"} (the default) or \code{"surface"} for surface
@@ -40,8 +46,8 @@ Expected are x and y coordinates, e.g.,
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
 \item{...}{other parameters to be passed to modify the plot output.
-Supported are \code{run} to provide the run name ,
-if the input is a \code{list}, this is set automatically. Further plot parameters are
+Supported are \code{run} to provide the run name (if the input is a \code{list}, this
+is set automatically). Further plot parameters are
 \code{surface_values} (\link{character} with value to plot), \code{legend} (\code{TRUE}/\code{FALSE}), \code{col_ramp} (for
 surface mode), \code{contour} (contour lines \code{TRUE}/\code{FALSE} in surface mode), \code{grid} (\code{TRUE}/\code{FALSE}), \code{col}, \code{pch} (for profile mode), \code{xlim} (a name \link{list} for profile mode), \code{ylim},
 \code{zlim} (surface mode only), \code{ylab}, \code{xlab}, \code{zlab} (here x-axis labelling), \code{main}, \code{bg_img} (for
@@ -64,9 +70,10 @@ and the IRSL/OSL ratio.
 \details{
 This function only works with \linkS4class{RLum.Analysis} objects produced by \link{read_PSL2R}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
-are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-the cumulative signal of the last n channels (same number of channels as specified
-by \code{signal.integral}) is divided by cumulative signal of the first n channels (\code{signal.integral}).
+are pairwise combined for calculating the IRSL/OSL ratio.
+For calculating the depletion ratios, the cumulative signal of the last \emph{n}
+channels (same number of channels as specified by \code{signal.integral}) is
+divided by cumulative signal of the first \emph{n} channels (\code{signal.integral}).
 
 \strong{Note:  The function assumes the following sequence pattern: \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}. If you have written a different sequence, the analysis function will (likely) not work!}.
 
@@ -88,7 +95,7 @@ Example: \code{coord = list(c(0.2, 1), c(0.3,1.2))}
 
 Please note that the unit is meter (m) and the function expects always xy-coordinates.
 The latter one is useful for surface interpolations. If you have measured a profile where
-the x-coordinates to not measure, x-coordinates should be 0.
+the x-coordinates were not measured, x-coordinates should be 0.
 }
 \section{Function version}{
  0.1.2
