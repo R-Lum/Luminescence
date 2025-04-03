@@ -569,7 +569,7 @@ calc_Huntley2006 <- function(
       #                               length.out = 99)))
       ## ALTERNATIVE: sample from a gamma distribution; with only 10, this should
       ## be enough based on tests RLumSK (2025-03-29)
-      all.D0 <- rgamma(10, shape = start$D0)
+      all.D0 <- stats::rgamma(10, shape = start$D0)
       fit.D0 <- lapply(1:length(all.D0), function(idx) {
         D0 <- all.D0[idx]
         t <- try(minpack.lm::nlsLM(
