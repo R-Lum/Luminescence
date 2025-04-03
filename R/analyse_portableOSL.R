@@ -471,160 +471,63 @@ analyse_portableOSL <- function(
       plot_settings$zlim <- attr(m_list, "zlim")
     }
 
-    #### BSL -------
-    plot(
-      NA,
-      NA,
-      ylim = plot_settings$ylim,
-      xlim = plot_settings$zlim[["BSL"]],
-      xlab = plot_settings$zlab[1],
-      bty = "n",
-      yaxt = "n"
-    )
-      if (plot_settings$grid) graphics::grid()
-      lines(
-        x = m_list[["BSL"]][,"value"],
-        y = m_list[["BSL"]][,"y"],
-        type = "b",
-        pch = plot_settings$pch[1],
-        col = plot_settings$col[1]
-      )
+      ## plot the profile for each measure
+      profile.parts <- c("BSL", "IRSL", "BSL_depletion", "IRSL_depletion",
+                         "IRSL_BSL_RATIO", "DARK")
+      for (prof in profile.parts) {
+        idx <- match(prof, profile.parts)
 
-      ## add error bars
-      segments(
-        x0 = m_list[["BSL"]][,"value"] - m_list[["BSL_error"]][,"value"],
-        x1 = m_list[["BSL"]][,"value"] + m_list[["BSL_error"]][,"value"],
-        y0 = m_list[["BSL"]][,"y"],
-        y1 = m_list[["BSL"]][,"y"],
-        col = plot_settings$col[1])
+        xlim <- plot_settings$zlim[[prof]]
+        if (prof == "DARK") {
+          xlim <- range(c(
+              plot_settings$zlim[["DARK"]] - plot_settings$zlim[["DARK_error"]],
+              plot_settings$zlim[["DARK"]] + plot_settings$zlim[["DARK_error"]]))
+        }
+        plot(
+            NA,
+            NA,
+            ylim = plot_settings$ylim,
+            xlim = xlim,
+            xlab = plot_settings$zlab[idx],
+            ylab = "",
+            bty = "n",
+            yaxt = "n"
+        )
+        if (plot_settings$grid)
+          graphics::grid()
 
-        axis(2, line = 3, at = m_list[["BSL"]][,"y"], labels = m_list[["BSL"]][,"y"])
-        axis(3)
+        x.val <- m_list[[prof]][, "value"]
+        y.val <- m_list[[prof]][, "y"]
+        lines(
+            x = x.val,
+            y = y.val,
+            type = "b",
+            lty = ifelse(prof %in% c("BSL_depletion", "IRSL_depletion"), 2, 1),
+            pch = plot_settings$pch[idx],
+            col = plot_settings$col[idx]
+        )
 
-    ## add general y-axis label
-    mtext(plot_settings$ylab[1], side = 2, line = 6)
-
-    ### IRSL --------------
-    plot(
-        NA, NA,
-        ylim = plot_settings$ylim,
-        xlim = plot_settings$zlim[["IRSL"]],
-        xlab = plot_settings$zlab[2],
-        bty = "n",
-        yaxt = "n"
-    )
-      if (plot_settings$grid) graphics::grid()
-
-      lines(
-        x = m_list[["IRSL"]][,"value"],
-        y = m_list[["IRSL"]][,"y"],
-        type = "b",
-        pch = plot_settings$pch[2],
-        col = plot_settings$col[2])
-
-      ## add error bars
-      segments(
-        x0 = m_list[["IRSL"]][,"value"] - m_list[["IRSL_error"]][,"value"],
-        x1 = m_list[["IRSL"]][,"value"] + m_list[["IRSL_error"]][,"value"],
-        y0 = m_list[["IRSL"]][,"y"],
-        y1 = m_list[["IRSL"]][,"y"],
-        col = plot_settings$col[2])
-
-      axis(3)
-
-    ### OSL DEPLETATION -------
-    plot(
-      NA, NA,
-      ylim = plot_settings$ylim,
-      xlim = plot_settings$zlim[["BSL_depletion"]],
-      xlab = plot_settings$zlab[3],
-      bty = "n",
-      yaxt = "n"
-    )
-
-      if (plot_settings$grid) graphics::grid()
-      lines(
-        x = m_list[["BSL_depletion"]][,"value"],
-        y = m_list[["BSL_depletion"]][,"y"],
-        type = "b",
-        lty = 2,
-        pch = plot_settings$pch[3],
-        col = plot_settings$col[3]
-      )
-
-      axis(3)
-
-    ### IRSL DEPLETION ---------------
-    plot(
-      NA, NA,
-      ylim = plot_settings$ylim,
-      xlim = plot_settings$zlim[["IRSL_depletion"]],
-      xlab = plot_settings$zlab[4],
-      bty = "n",
-      yaxt = "n"
-    )
-
-      if (plot_settings$grid) graphics::grid()
-
-      lines(
-        x = m_list[["IRSL_depletion"]][,"value"],
-        y = m_list[["IRSL_depletion"]][,"y"],
-        type = "b",
-        lty = 2,
-        pch = plot_settings$pch[4],
-        col = plot_settings$col[4])
-
-      axis(3)
-
-    ### RATIO -----------------------------
-    plot(
-      NA, NA,
-      ylim = plot_settings$ylim,
-      xlim = plot_settings$zlim[["IRSL_BSL_RATIO"]],
-      xlab = plot_settings$zlab[5],
-      ylab = "",
-      bty = "n",
-      yaxt = "n"
-    )
-
-      if (plot_settings$grid) graphics::grid()
-
-      lines(
-        x = m_list[["IRSL_BSL_RATIO"]][,"value"],
-        y = m_list[["IRSL_BSL_RATIO"]][,"y"],
-        type = "b",
-        pch = plot_settings$pch[5],
-        col = plot_settings$col[5])
-
-      axis(3)
-
-    ### DARK -----------------------------
-    plot(
-      x = m_list[["DARK"]][,"value"],
-      y = m_list[["DARK_error"]][,"y"],
-      type = "b",
-      pch = plot_settings$pch,
-      col = plot_settings$col[6],
-      ylim = plot_settings$ylim,
-      xlim = range(c(
-        plot_settings$zlim[["DARK"]] - plot_settings$zlim[["DARK_error"]],
-        plot_settings$zlim[["DARK"]] + plot_settings$zlim[["DARK_error"]])),
-      xlab = plot_settings$zlab[6],
-      ylab = "",
-      bty = "n",
-      yaxt = "n"
-    )
-
-      ## add error bars
-      segments(
-        x0 = m_list[["DARK"]][,"value"] - m_list[["DARK_error"]][,"value"],
-        x1 = m_list[["DARK"]][,"value"] + m_list[["DARK_error"]][,"value"],
-        y0 = m_list[["DARK"]][,"y"],
-        y1 = m_list[["DARK"]][,"y"],
-        col = plot_settings$col[6])
+        ## add error bars
+        if (prof %in% c("BSL", "IRSL", "DARK")) {
+          x.err <- m_list[[paste0(prof, "_error")]][, "value"]
+          segments(
+              x0 = x.val - x.err,
+              x1 = x.val + x.err,
+              y0 = y.val,
+              y1 = y.val,
+              col = plot_settings$col[idx])
+        }
 
         axis(3)
-   } ## end mode == "profile"
+
+        ## add general axis labels
+        if (idx == 1) {
+          axis(2, line = 3, at = y.val, labels = y.val)
+          mtext(plot_settings$ylab[1], side = 2, line = 6)
+        }
+      }
+
+    } ## end mode == "profile"
   }
 
   ## RETURN VALUE ----
