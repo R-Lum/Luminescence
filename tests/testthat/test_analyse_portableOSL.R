@@ -189,4 +189,14 @@ test_that("check output", {
     )
 
   expect_equal(round(sum(results$summary[,c(-1, -2, -10,-11)]), digits = 2), 175.44)
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  SW({
+  ## issue 675
+  expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
+                                     signal.integral = 1:5, mode = "surface"),
+                 "Surface interpolation failed: this happens when all points")
+  })
 })

@@ -314,12 +314,15 @@ analyse_portableOSL <- function(
        m <- m_list[[i]]
 
        ## respect xlim and ylim range
-       m <- m[m[,2] >= min(plot_settings$ylim) & m[,2] <= max(plot_settings$ylim), ]
-       m <- m[m[,1] >= min(plot_settings$xlim) & m[,1] <= max(plot_settings$xlim), ]
+       m <- m[m[, 2] >= min(plot_settings$ylim) &
+              m[, 2] <= max(plot_settings$ylim), , drop = FALSE]
+       m <- m[m[, 1] >= min(plot_settings$xlim) &
+              m[, 1] <= max(plot_settings$xlim), , drop = FALSE]
 
        ## respect z_values
        if(!all(is.na(plot_settings$zlim)))
-         m <- m[m[,3] >= min(plot_settings$zlim) & m[,3] <= max(plot_settings$zlim), ]
+         m <- m[m[, 3] >= min(plot_settings$zlim) &
+                m[, 3] <= max(plot_settings$zlim), , drop = FALSE]
 
        ## interpolate ------
        s <-
