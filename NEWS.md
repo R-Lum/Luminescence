@@ -35,6 +35,14 @@
   package, as the function was only meant to report a random quote at
   startup (#644).
 
+- In the functions `fit_DoseResponseCurve()` and `plot_GrowthCurve()`,
+  the `fit.method` option `LambertW` was replaced by the more correct
+  term `OTOR`. Nothing else has changed; however, if you run
+  `fit.method = 'LambertW'`, it fails because it has to read
+  `fit.method = 'OTOR'`. The function does not throw a warning or
+  message for this change because the option was likely not yet used
+  much.
+
 ## Bugfixes
 
 ### `analyse_FadingMeasurement()`

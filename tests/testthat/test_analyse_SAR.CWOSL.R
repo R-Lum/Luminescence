@@ -545,7 +545,7 @@ test_that("advance tests run", {
        signal.integral.max = 2,
        background.integral.min = 200,
        background.integral.max = 1000,
-       fit.method = "LambertW",
+       fit.method = "OTOR",
        n.MC = 10,
        plot = FALSE,
        verbose = FALSE))

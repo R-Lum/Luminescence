@@ -51,8 +51,8 @@
 #' where **c > 0** is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
 #'
-#' `LambertW`: tries to fit a dose-response curve based on the Lambert W function
-#' according to Pagonis et al. (2020). The function has the form
+#' `OTOR` (former `LambertW`): tries to fit a dose-response curve based on the Lambert W function
+#' and the OTOR model according to Pagonis et al. (2020). The function has the form
 #'
 #' \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
@@ -112,7 +112,7 @@
 #' - `EXP+LIN`,
 #' - `EXP+EXP`,
 #' - `GOK`,
-#' - `LambertW`
+#' - `OTOR`
 #'
 #' See details.
 #'
@@ -138,7 +138,7 @@
 #'
 #' @param fit.bounds [logical] (*with default*):
 #' set lower fit bounds for all fitting parameters to 0. Limited for the use
-#' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `LambertW`
+#' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `OTOR`
 #' Argument to be inserted for experimental application only!
 #'
 #' @param n.MC [integer] (*with default*):  number of Monte Carlo simulations
@@ -181,7 +181,7 @@
 #' `D01.ERROR` \tab [numeric] \tab standard error of the D-naught value\cr
 #' `D02` \tab [numeric] \tab 2nd D-naught value, only for `EXP+EXP`\cr
 #' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-naught; only for `EXP+EXP`\cr
-#' `Dc` \tab [numeric] \tab value indicating saturation level; only for `LambertW` \cr
+#' `Dc` \tab [numeric] \tab value indicating saturation level; only for `OTOR` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
 #' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
 #' `De.plot` \tab [numeric] \tab equivalent dose use for plotting \cr
@@ -193,7 +193,7 @@
 #'
 #' }
 #'
-#' @section Function version: 1.2.1
+#' @section Function version: 1.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -325,7 +325,7 @@ fit_DoseResponseCurve <- function(
   .validate_not_empty(object)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN",
-                            "EXP+LIN", "EXP+EXP", "GOK", "LambertW")
+                            "EXP+LIN", "EXP+EXP", "GOK", "OTOR")
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
   .validate_logical_scalar(fit.weights)
@@ -483,7 +483,7 @@ fit_DoseResponseCurve <- function(
   fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
   ### Lambert W -------------
-  fit.functionLambertW <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
+  fit.functionOTOR <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ## input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
@@ -1366,8 +1366,8 @@ fit_DoseResponseCurve <- function(
     }
   }
 
-  ## LambertW ---------------------------------------------------------------
-  else if (fit.method == "LambertW") {
+  ## OTOR ---------------------------------------------------------------
+  else if (fit.method == "OTOR") {
 
     if(mode == "extrapolation"){
       Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
@@ -1380,7 +1380,7 @@ fit_DoseResponseCurve <- function(
     upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
 
     fit <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionLambertW, env = currn_env),
+          formula = .toFormula(fit.functionOTOR, env = currn_env),
           data = data,
           start = list(R = 0, Dc = b, N = b, Dint = 0),
           weights = fit.weights,
@@ -1407,7 +1407,7 @@ fit_DoseResponseCurve <- function(
           if(mode == "interpolation"){
              De <- try(suppressWarnings(stats::uniroot(
                f = function(x, R, Dc, N, Dint, LnTn) {
-                 fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
+                 fit.functionOTOR(R, Dc, N, Dint, x) - LnTn},
                interval = c(0, max(object[[1]]) * 1.2),
                R = R,
                Dc = Dc,
@@ -1418,7 +1418,7 @@ fit_DoseResponseCurve <- function(
           }else if (mode == "extrapolation"){
             De <- try(suppressWarnings(stats::uniroot(
               f = function(x, R, Dc, N, Dint) {
-                fit.functionLambertW(R, Dc, N, Dint, x)},
+                fit.functionOTOR(R, Dc, N, Dint, x)},
               interval = c(-max(object[[1]]), 0),
               R = R,
               Dc = Dc,
@@ -1431,11 +1431,11 @@ fit_DoseResponseCurve <- function(
               .throw_warning(
                   "Standard root estimation using stats::uniroot() failed. ",
                   "Using stats::optimize() instead, which may lead, however, ",
-                  "to unexpected and inconclusive results for fit.method = 'LambertW'")
+                  "to unexpected and inconclusive results for fit.method = 'OTOR'")
 
               De <- try(suppressWarnings(stats::optimize(
                 f = function(x, R, Dc, N, Dint) {
-                  fit.functionLambertW(R, Dc, N, Dint, x)},
+                  fit.functionOTOR(R, Dc, N, Dint, x)},
                 interval = c(-max(object[[1]]), 0),
                 R = R,
                 Dc = Dc,
@@ -1448,7 +1448,7 @@ fit_DoseResponseCurve <- function(
 
           .report_fit(De, " | R = ", round(R, 2), " | Dc = ", round(Dc, 2))
 
-          #LambertW MC -----
+          #OTOR MC -----
           ##Monte Carlo Simulation
           #	--Fit many curves and calculate a new De +/- De_Error
           #	--take De_Error
@@ -1460,7 +1460,7 @@ fit_DoseResponseCurve <- function(
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
-              formula = .toFormula(fit.functionLambertW, env = currn_env),
+              formula = .toFormula(fit.functionOTOR, env = currn_env),
               data = data,
               start = list(R = 0, Dc = b, N = 0, Dint = 0),
               weights = fit.weights,
@@ -1486,7 +1486,7 @@ fit_DoseResponseCurve <- function(
                 try <- try(
                 {suppressWarnings(stats::uniroot(
                   f = function(x, R, Dc, N, Dint, LnTn) {
-                    fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
+                    fit.functionOTOR(R, Dc, N, Dint, x) - LnTn},
                   interval = c(0, max(object[[1]]) * 1.2),
                   R = var.R,
                   Dc = var.Dc[i],
@@ -1499,7 +1499,7 @@ fit_DoseResponseCurve <- function(
                 try <- try(
                   suppressWarnings(stats::uniroot(
                     f = function(x, R, Dc, N, Dint) {
-                      fit.functionLambertW(R, Dc, N, Dint, x)},
+                      fit.functionOTOR(R, Dc, N, Dint, x)},
                     interval = c(-max(object[[1]]), 0),
                     R = var.R,
                     Dc = var.Dc[i],
@@ -1510,7 +1510,7 @@ fit_DoseResponseCurve <- function(
                 if(inherits(try, "try-error")){
                   try <- try(suppressWarnings(stats::optimize(
                     f = function(x, R, Dc, N, Dint) {
-                      fit.functionLambertW(R, Dc, N, Dint, x)},
+                      fit.functionOTOR(R, Dc, N, Dint, x)},
                     interval = c(-max(object[[1]]), 0),
                     R = var.R,
                     Dc = var.Dc[i],

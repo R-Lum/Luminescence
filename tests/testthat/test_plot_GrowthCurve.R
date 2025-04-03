@@ -106,7 +106,7 @@ test_that("main tests", {
                                  fit.method = "GOK",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "LambertW",
+                                 fit.method = "OTOR",
                                  n.MC = 10))
 
   ## force through the origin
@@ -146,7 +146,7 @@ test_that("additional tests", {
                                  mode = "extrapolation",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "LambertW",
+                                 fit.method = "OTOR",
                                  mode = "extrapolation",
                                  n.MC = 10))
 
@@ -181,7 +181,7 @@ test_that("additional tests", {
                                  mode = "alternate",
                                  n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
-                                 fit.method = "LambertW",
+                                 fit.method = "OTOR",
                                  mode = "alternate",
                                  n.MC = 10))
 

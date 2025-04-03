@@ -45,7 +45,7 @@ function used for fitting. Possible options are:
 \item \code{EXP+LIN},
 \item \code{EXP+EXP},
 \item \code{GOK},
-\item \code{LambertW}
+\item \code{OTOR}
 }
 
 See details in \link{fit_DoseResponseCurve}.}

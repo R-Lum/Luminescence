@@ -29,10 +29,10 @@ test_that("input validation", {
 test_that("Test plotting", {
   testthat::skip_on_cran()
 
-  ## create LambertW DRC
-  results_LamW <- analyse_SAR.CWOSL(
+  ## create OTOR DRC
+  results_OTOR <- analyse_SAR.CWOSL(
     object = object,
-    fit.method = "LambertW",
+    fit.method = "OTOR",
     signal.integral.min = 1,
     signal.integral.max = 2,
     background.integral.min = 900,
@@ -48,13 +48,13 @@ test_that("Test plotting", {
   ##simple with graphical arguments
   expect_silent(plot_DRCSummary(results, col.lty = "red"))
 
-  ##simple with LambertW
-  expect_silent(plot_DRCSummary(results_LamW))
+  ##simple with OTOR
+  expect_silent(plot_DRCSummary(results_OTOR))
 
   ## list
-  expect_silent(plot_DRCSummary(list(results, results_LamW),
+  expect_silent(plot_DRCSummary(list(results, results_OTOR),
                                 main = "Title"))
-  expect_silent(plot_DRCSummary(list(results, results_LamW),
+  expect_silent(plot_DRCSummary(list(results, results_OTOR),
                                 source_dose_rate = 1))
   l <- expect_silent(plot_DRCSummary(list()))
   expect_length(l, 0)
@@ -66,6 +66,6 @@ test_that("Test plotting", {
   expect_warning(plot_DRCSummary(results, show_dose_points = TRUE,
                                  show_natural = TRUE, sel_curves = 1000),
                  "'sel_curves' out of bounds, reset to full dataset")
-  expect_warning(plot_DRCSummary(results_LamW, xlim = c(-1e12, 1e12)),
+  expect_warning(plot_DRCSummary(results_OTOR, xlim = c(-1e12, 1e12)),
                  "Dose response curve 1 contains NA/NaN values, curve removed")
 })

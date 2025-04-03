@@ -49,7 +49,7 @@ function used for fitting. Possible options are:
 \item \code{EXP+LIN},
 \item \code{EXP+EXP},
 \item \code{GOK},
-\item \code{LambertW}
+\item \code{OTOR}
 }
 
 See details.}
@@ -76,7 +76,7 @@ has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
-with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{LambertW}
+with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{OTOR}
 Argument to be inserted for experimental application only!}
 
 \item{n.MC}{\link{integer} (\emph{with default}):  number of Monte Carlo simulations
@@ -119,7 +119,7 @@ This object is a \link{data.frame} with the following columns
 \code{D01.ERROR} \tab \link{numeric} \tab standard error of the D-naught value\cr
 \code{D02} \tab \link{numeric} \tab 2nd D-naught value, only for \code{EXP+EXP}\cr
 \code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-naught; only for \code{EXP+EXP}\cr
-\code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{LambertW} \cr
+\code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
 \code{De.plot} \tab \link{numeric} \tab equivalent dose use for plotting \cr
@@ -180,8 +180,8 @@ Guralnik et al. (2015) of the form of
 where \strong{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
 
-\code{LambertW}: tries to fit a dose-response curve based on the Lambert W function
-according to Pagonis et al. (2020). The function has the form
+\code{OTOR} (former \code{LambertW}): tries to fit a dose-response curve based on the Lambert W function
+and the OTOR model according to Pagonis et al. (2020). The function has the form
 
 \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
@@ -216,7 +216,7 @@ especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
 Each error estimation is done with the function of the chosen fitting method.
 }
 \section{Function version}{
- 1.2.1
+ 1.2.2
 }
 
 \examples{

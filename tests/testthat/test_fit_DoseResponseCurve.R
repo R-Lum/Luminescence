@@ -217,7 +217,7 @@ test_that("snapshot tests", {
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
-      fit.method = "LambertW",
+      fit.method = "OTOR",
       verbose = FALSE,
       n.MC = 10
   ), tolerance = snapshot.tolerance)
@@ -323,16 +323,16 @@ test_that("additional tests", {
     n.MC = 10,
     fit.force_through_origin = TRUE
   ), "RLum.Results")
-temp_LambertW <-
+temp_OTOR <-
   fit_DoseResponseCurve(
     LxTxData,
-    fit.method = "LambertW",
+    fit.method = "OTOR",
     verbose = FALSE,
     n.MC = 10
   )
 
   ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
-  ##              here too as coverage currenlty runs on 4.3
+  ##              here too as coverage currently runs on 4.3
   temp_QDR2 <- fit_DoseResponseCurve(
       LxTxData,
       fit.method = "QDR",
@@ -349,7 +349,7 @@ temp_LambertW <-
   expect_s3_class(temp_EXPEXP$Fit, class = "nls")
   expect_s3_class(temp_QDR$Fit, class = "lm")
   expect_s3_class(temp_GOK$Fit, class = "nls")
-  expect_s3_class(temp_LambertW$Fit, class = "nls")
+  expect_s3_class(temp_OTOR$Fit, class = "nls")
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
@@ -376,8 +376,8 @@ temp_LambertW <-
      }
    }
 
-   expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
-   expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17422)
+   expect_equal(round(temp_OTOR$De[[1]], digits = 2),  1784.78)
+   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17422)
 
 
 # Check extrapolation -----------------------------------------------------
@@ -403,13 +403,13 @@ temp_LambertW <-
     fit_DoseResponseCurve(LxTxData,mode = "interpolation", fit.method = "GOK"),
     "RLum.Results")
 
-  LambertW <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
+  OTOR <- expect_s4_class(
+    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
   })
 
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
-  expect_equal(round(LambertW$De$De,0),  114)
+  expect_equal(round(OTOR$De$De,0),  114)
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
@@ -448,18 +448,18 @@ temp_LambertW <-
     "RLum.Results"
   )
 
-  ## LambertW
+  ## OTOR
   expect_s4_class(
     fit_DoseResponseCurve(
       LxTxData,
       mode = "alternate",
-      fit.method = "LambertW",
+      fit.method = "OTOR",
       verbose = FALSE
     ),
     "RLum.Results"
   )
 
-  ## trigger LambertW related warning for
+  ## trigger OTOR related warning for
   ## extrapolation mode
   tmp <- structure(list(
     dose = c(
@@ -538,7 +538,7 @@ temp_LambertW <-
   expect_warning(fit_DoseResponseCurve(
     tmp,
     mode = "extrapolation",
-    fit.method = "LambertW",
+    fit.method = "OTOR",
     verbose = FALSE),
     "[fit_DoseResponseCurve()] Standard root estimation using stats::uniroot()",
     fixed = TRUE)
@@ -575,6 +575,6 @@ test_that("regression tests", {
   expect_s4_class(
     fit_DoseResponseCurve(df, fit.method = "EXP+EXP"), "RLum.Results")
   expect_s4_class(
-    fit_DoseResponseCurve(df, fit.method = "LambertW"), "RLum.Results")
+    fit_DoseResponseCurve(df, fit.method = "OTOR"), "RLum.Results")
   })
 })

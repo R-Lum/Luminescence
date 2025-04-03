@@ -30,7 +30,7 @@
 #' - `EXP+LIN`,
 #' - `EXP+EXP`,
 #' - `GOK`,
-#' - `LambertW`
+#' - `OTOR`
 #'
 #' See details in [fit_DoseResponseCurve].
 #'

@@ -158,8 +158,8 @@ if(inherits(object, "list")){
     ##get DRC
     DRC <- object@data$Formula[sel_curves]
 
-    ## check for Lambert W function (we can only do all )
-    if(all(object@data$data[["Fit"]] == "LambertW"))
+    ## check for OTOR fit option (we can only do all )
+    if(all(object@data$data[["Fit"]] == "OTOR"))
       W <- lamW::lambertW0
 
     ##get limits for each set
