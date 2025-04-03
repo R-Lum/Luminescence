@@ -91,7 +91,7 @@ The latter one is useful for surface interpolations. If you have measured a prof
 the x-coordinates to not measure, x-coordinates should be 0.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -122,8 +122,9 @@ get_RLum(results)
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{read_PSL2R}
 }
 \author{
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
+Christoph Burow, University of Cologne (Germany) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}
 \keyword{plot}

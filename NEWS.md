@@ -57,6 +57,8 @@
 
 - The function now returns an error if `mode` is something other than
   `"profile"` or `"surface"`.
+- The `mode` argument was not respected when operating over a list of
+  objects (#673).
 
 ### `calc_AliquotSize()`
 

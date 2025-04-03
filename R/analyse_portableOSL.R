@@ -74,10 +74,11 @@
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [read_PSL2R]
 #'
-#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-#' Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
+#' @author Christoph Burow, University of Cologne (Germany) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @keywords datagen plot
 #'
@@ -119,11 +120,7 @@ analyse_portableOSL <- function(
   .set_function_name("analyse_portableOSL")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## TODO
-  ## - add tests for background image option
-  ## - clear docu
-
-# Self-call ---------------------------------------------------------------
+  ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
       temp <- .warningCatcher(lapply(seq_along(object), function(x) {
         analyse_portableOSL(
@@ -131,6 +128,7 @@ analyse_portableOSL <- function(
           signal.integral = signal.integral,
           invert = invert,
           normalise = normalise,
+          mode = mode,
           plot = plot,
           run = paste0("RUN #", x))
       }))
