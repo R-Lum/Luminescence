@@ -183,11 +183,11 @@ where \strong{c > 0} is a kinetic order modifier
 \code{OTOR} (former \code{LambertW}): tries to fit a dose-response curve based on the Lambert W function
 and the OTOR model according to Pagonis et al. (2020). The function has the form
 
-\deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+\deqn{y = (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
 with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
-of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
+of trappings states in cm\eqn{^{-3}} and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
 the offset on the x-axis. Please note that finding the root in \code{mode = "extrapolation"}
 is a non-easy task due to the shape of the function and the results might be
 unexpected.
@@ -195,13 +195,13 @@ unexpected.
 \strong{Fit weighting}
 
 If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
-provided signal errors (Lx/Tx error):
+provided signal errors (\eqn{\frac{L_x}{T_x}} error):
 \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 
 \strong{Error estimation using Monte Carlo simulation}
 
 Error estimation is done using a parametric bootstrapping approach. A set of
-\code{Lx/Tx} values is constructed by randomly drawing curve data sampled from normal
+\eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data sampled from normal
 distributions. The normal distribution is defined by the input values (\code{mean = value}, \code{sd = value.error}). Then, a dose-response curve fit is attempted for each
 dataset resulting in a new distribution of single \code{De} values. The standard
 deviation of this distribution becomes then the error of the \code{De}. With increasing
@@ -280,11 +280,11 @@ print(
 
 }
 \references{
-Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}
 
 Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
-from feldspar. Radiation Measurements 81, 224-231.
+from feldspar. Radiation Measurements 81, 224-231. \doi{10.1016/j.radmeas.2015.02.011}
 
 Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
