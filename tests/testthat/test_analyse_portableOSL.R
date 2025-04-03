@@ -27,18 +27,6 @@ test_that("check class and length of output", {
     ## check standard with coordinates
     coord <- as.matrix(results$summary[,c("COORD_X", "COORD_Y")])
 
-    ## standard run profile no plot even with plot activated
-    results <- expect_s4_class(
-      analyse_portableOSL(
-        merged,
-        signal.integral = 1:5,
-        invert = FALSE,
-        normalise = TRUE,
-        mode = NULL,
-        coord = coord,
-        plot = TRUE
-      ), "RLum.Results")
-
     ## verify output
       expect_equal(length(results), 3)
       expect_s3_class(results$summary, "data.frame")
@@ -76,7 +64,7 @@ test_that("check class and length of output", {
 
     ## check list input
     expect_s4_class(
-      suppressWarnings(analyse_portableOSL(ExampleData.portableOSL)),
+      suppressWarnings(analyse_portableOSL(list(surface), mode = "surface")),
       "RLum.Results")
     expect_warning(expect_null(analyse_portableOSL(list())),
                    "Nothing was merged as the object list was found to be empty")
@@ -111,6 +99,9 @@ test_that("input validation", {
                  fixed = TRUE)
     expect_error(analyse_portableOSL(set_RLum("RLum.Analysis")),
                  "'object' cannot be an empty RLum.Analysis")
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
+                                     mode = "error"),
+                 "'mode' should be one of 'profile' or 'surface'")
 
     ## Only RLum.Data.Curves
     tmp <- merged

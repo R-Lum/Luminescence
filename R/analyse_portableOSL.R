@@ -43,9 +43,9 @@
 #' @param normalise [logical] (*with default*): `TRUE` to normalise the OSL/IRSL signals
 #' to the *mean* of all corresponding data curves.
 #'
-#' @param mode [character] (*with default*): defines the analysis mode, allowed
-#' are `"profile"` (the default) and `"surface"` for surface interpolation. If you select
-#' something else, nothing will be plotted (similar to `plot = FALSE`).
+#' @param mode [character] (*with default*):
+#' analysis mode, one of `"profile"` (the default) or `"surface"` for surface
+#' interpolation.
 #'
 #' @param coord [list] [matrix] (*optional*): a list or matrix of the same length as
 #' number of samples measured with coordinates for the sampling positions. Coordinates
@@ -74,10 +74,11 @@
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [read_PSL2R]
 #'
-#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-#' Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
+#' @author Christoph Burow, University of Cologne (Germany) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @keywords datagen plot
 #'
@@ -119,11 +120,7 @@ analyse_portableOSL <- function(
   .set_function_name("analyse_portableOSL")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## TODO
-  ## - add tests for background image option
-  ## - clear docu
-
-# Self-call ---------------------------------------------------------------
+  ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
       temp <- .warningCatcher(lapply(seq_along(object), function(x) {
         analyse_portableOSL(
@@ -131,6 +128,7 @@ analyse_portableOSL <- function(
           signal.integral = signal.integral,
           invert = invert,
           normalise = normalise,
+          mode = mode,
           plot = plot,
           run = paste0("RUN #", x))
       }))
@@ -163,6 +161,8 @@ analyse_portableOSL <- function(
                    "first data point of each curve was used")
   }
 
+  .validate_args(mode, c("profile", "surface"))
+  .validate_logical_scalar(plot)
 
   ## set SAMPLE --------
   if("run" %in% names(list(...)))
@@ -264,12 +264,12 @@ analyse_portableOSL <- function(
     attr(m_list, "zlim") <- lapply(m_list, function(x) range(x[,3]))
 
     ## account for surface case
-    if (!is.null(mode) && mode == "surface") {
+    if (mode == "surface") {
       attr(m_list, "ylim") <- if (invert) rev(range(summary$COORD_Y)) else range(summary$COORD_Y)
       attr(m_list, "xlim") <- range(summary$COORD_X)
     }
 
-  if (!is.null(mode) && plot[1]) {
+  if (plot) {
    ## account for surface case
    ## preset plot settings
    ## plot settings -------
@@ -294,8 +294,8 @@ analyse_portableOSL <- function(
      ),
      val = list(...), keep.null = TRUE)
 
-   ## mode == "surface" ---------
-   if(mode[1] == "surface") {
+    ## mode == "surface" ---------
+    if (mode == "surface") {
      ### check for validity of surface value -------
      if(!all(plot_settings$surface_value %in% names(m_list)))
        .throw_error("Unknown value to plot, valid values are: ",
@@ -442,10 +442,10 @@ analyse_portableOSL <- function(
          }
        }
      }# end for loop
-   }
+    }
 
-   ## mode == "profile" ---------
-   if (!is.null(mode[1]) && mode == "profile") {
+    ## mode == "profile" ---------
+    if (mode == "profile") {
     par.old.full <- par(no.readonly = TRUE)
     on.exit(par(par.old.full), add = TRUE)
 
