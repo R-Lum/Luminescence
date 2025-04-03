@@ -295,6 +295,9 @@ analyse_portableOSL <- function(
      ),
      val = list(...), keep.null = TRUE)
 
+    par.default <- par(no.readonly = TRUE)
+    on.exit(par(par.default), add = TRUE)
+
     ## mode == "surface" ---------
     if (mode == "surface") {
      ### check for validity of surface value -------
@@ -304,8 +307,7 @@ analyse_portableOSL <- function(
 
      ## set par -------
      if(length(plot_settings$surface_value) > 1) {
-       par.default <- par(mfrow = c(2,2))
-       on.exit(par(par.default), add = TRUE)
+       par(mfrow = c(2, 2))
      }
 
      ## loop over surface values -------
@@ -342,10 +344,7 @@ analyse_portableOSL <- function(
 
        ## show error
        if(!inherits(s, "try-error")) {
-         par.default <- c(
-           if(exists("par.default")) par.default else NULL,
-           par(mar = c(4.5,4.5,4,2), xpd = FALSE))
-         on.exit(par(par.default), add = TRUE)
+         par(mar = c(4.5, 4.5, 4, 2), xpd = FALSE)
 
          ## open empty plot
          plot(
@@ -392,8 +391,7 @@ analyse_portableOSL <- function(
 
          ## add legend
          if(plot_settings$legend) {
-           par.default <- c(par.default, par(xpd = TRUE))
-           on.exit(par(par.default), add = TRUE)
+           par(xpd = TRUE)
 
            col_grad <- plot_settings$col_ramp[
              seq(1, length(plot_settings$col_ramp), length.out = 14)]
@@ -450,8 +448,6 @@ analyse_portableOSL <- function(
 
     ## mode == "profile" ---------
     if (mode == "profile") {
-    par.old.full <- par(no.readonly = TRUE)
-    on.exit(par(par.old.full), add = TRUE)
 
     # default: par(mar = c(5, 4, 4, 2) + 0.1) // bottom, left, top, right
     par(mfrow = c(1, 7))
