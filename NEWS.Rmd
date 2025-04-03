@@ -104,7 +104,7 @@ TL steps, rendering the data output hopefully a little bit more intelligible (#6
 (#610).
 * Add initial support for `OTORX` fitting following Lawless and Timar-Gabor (2024). In order
 to use the fit, you have to provide information on the test dose in the input object. Please
-note that following the reference, the function is not defined for `extrapolation`. 
+note that following the reference, the function is not defined for `extrapolation` (#677)
 
 ### `fit_SurfaceExposure()`
 
