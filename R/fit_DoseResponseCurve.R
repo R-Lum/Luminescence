@@ -95,13 +95,14 @@
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided. If `object` is a list,
 #' the function is called on each of its elements. If `fit.method = "OTORX"` you have
-#' to provide the test dose in the same unit as the dose in a column called `TEST_DOSE`.
+#' to provide the test dose in the same unit as the dose in a column called `Test_Dose`.
 #' The function searches explicitly for this column name.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
 #' - `"interpolation"` (default) calculates the De by interpolation,
-#' - `"extrapolation"` calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+#' - `"extrapolation"` calculates the equivalent dose by extrapolation
+#'    (useful for MAAD measurements) and
 #' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"interpolation"` the first point is considered
@@ -117,7 +118,7 @@
 #' - `EXP+EXP`,
 #' - `GOK`,
 #' - `OTOR`,
-#' - `OTORX`
+#' - `OTORX` (not defined for extrapolation)
 #'
 #' See details.
 #'
@@ -466,7 +467,7 @@ fit_DoseResponseCurve <- function(
   x.natural <- NA
 
   ##1.4 set initialise variables
-  De <- De.Error <- D01 <-  R <-  Dc <- D63 <- N <- NA
+  De <- De.Error <- D01 <-  R <-  Dc <- D63 <- N <- TEST_DOSE <- NA_real_
 
   ## FITTING ----------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
@@ -1549,10 +1550,18 @@ fit_DoseResponseCurve <- function(
   }  ## OTORX ---------------------------------------------------------------
   else if (fit.method == "OTORX") {
     ## we need a test dose
-    if(!is.null(object$TEST_DOSE))
-      TEST_DOSE <- object$TEST_DOSE[[1]]
-    else
-      .throw_error("Column 'TEST_DOSE' missing but mandatory for 'OTORX' fitting!")
+    if(!is.null(object$Test_Dose) && all(object$Test_Dose != -1)) {
+      TEST_DOSE <- object$Test_Dose[[1]]
+
+      ## here we replace TEST_DOSE by an evaluated value
+      ## in the function body; this makes things ALOT easier below
+      body(fit.functionOTORX) <- do.call(
+        substitute, list(body(fit.functionOTORX), list(TEST_DOSE = TEST_DOSE)))
+
+   } else {
+      .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
+
+   }
 
     ## TODO we don't have tests for this
     lower <- if (fit.bounds) c(0, 0, 0) else rep(-Inf, 3)
@@ -1648,26 +1657,8 @@ fit_DoseResponseCurve <- function(
               }, silent = TRUE)
 
           }else if(mode == "extrapolation"){
-            try <- try(
-              suppressWarnings(stats::uniroot(
-                f = function(x, Q, D63, c) {
-                  fit.functionOTORX(x, Q, D63, c)},
-                interval = c(-max(object[[1]]), 0),
-                Q = var.Q,
-                D63 = var.D63[i],
-                c = var.c)$root),
-              silent = TRUE)
+            ## NOT SUPPORTED
 
-            if(inherits(try, "try-error")){
-              try <- try(suppressWarnings(stats::optimize(
-                f = function(x, Q, D63, c) {
-                  fit.functionOTORX(x, Q, D63, c)},
-                interval = c(-max(object[[1]]), 0),
-                Q = var.Q,
-                D63 = var.D63[i],
-                c = var.c)$minimum),
-                silent = TRUE)
-            }
           }##endif extrapolation
           if(!inherits(try, "try-error") && !inherits(try, "function"))
             x.natural[i] <- try
@@ -1818,10 +1809,6 @@ fit_DoseResponseCurve <- function(
       replacement = format(param[i], digits = 3, scientific = TRUE),
       x = str,
       fixed = TRUE)
-
-  ## fix OTORX special case with TEST_DOSE (this should be availalbe during runtime)
-  if(exists("TEST_DOSE"))
-    str <- gsub(pattern = "TEST_DOSE", replacement = TEST_DOSE, x = str, fixed = TRUE)
 
   ## return
   return(parse(text = str))

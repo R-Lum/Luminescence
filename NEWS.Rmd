@@ -40,7 +40,12 @@ however, if you run `fit.method = 'LambertW'`, it fails because it has to read `
 The function does not throw a warning or message for this change because the option was likely 
 not yet used much. 
 
-## Bugfixes
+## Bugfixes and changes
+
+### `analyse_SAR.CWOSL()`
+* Add support for `fit.method = 'OTORX'` following the changes in `fit_DoseResponseCurve()`; 
+this change includes the new argument `dose.points.test` that is only of use in combination 
+with the `OTORX` fit. 
 
 ### `analyse_FadingMeasurement()` 
 * The function crashed if the number of `Lx` and `Tx` curves was not equal
@@ -97,6 +102,9 @@ TL steps, rendering the data output hopefully a little bit more intelligible (#6
 
 * The function now allocates less memory for storing intermediate values
 (#610).
+* Add initial support for `OTORX` fitting following Lawless and Timar-Gabor (2024). In order
+to use the fit, you have to provide information on the test dose in the input object. Please
+note that following the reference, the function is not defined for `extrapolation`. 
 
 ### `fit_SurfaceExposure()`
 
@@ -112,6 +120,15 @@ all others.
 
 * The function does no longer stops for differing channel resolutions, 
 but it does issue a warning. The user is responsible for the consequences.
+
+### `plot_DoseResponseCurve()`
+* The response curve always tries to the get the 0 point in the mode `interpolation` and `alternate`
+
+### `plot_DRCSummary()`
+* Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()`
+
+### `plot_GrowthCurve()`
+* Add support for `OTORX` fit corresponding to the underlying change in `fit_DoseReponseCurve()`
 
 ### `plot_KDE()`
 

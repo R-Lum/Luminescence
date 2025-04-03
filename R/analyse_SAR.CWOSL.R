@@ -1,4 +1,4 @@
-#' @title  Analyse SAR CW-OSL measurements
+#' @title Analyse SAR CW-OSL Measurements
 #'
 #' @description The function performs a SAR CW-OSL analysis on an
 #' [RLum.Analysis-class] object including growth curve fitting.
@@ -141,6 +141,10 @@
 #' overwrites dose point values extracted from other data. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
 #'
+#' @param dose.points.test [numeric] (*optional*): a numeric vector containing
+#' with the test dose in the same units as `dose.points`. If length = 1, the numbers
+#' will be recycled. Has only an effect for `fit.method = 'OTORX'`
+#'
 #' @param trim_channels [logical] (*with default*): trim channels per record category
 #' to the lowest number of channels in the category by using [trim_RLum.Data].
 #' Applies only to `OSL` and `IRSL` curves. For a more granular control use [trim_RLum.Data]
@@ -264,6 +268,7 @@ analyse_SAR.CWOSL<- function(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  dose.points.test = NULL,
   trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
@@ -298,6 +303,7 @@ if(is.list(object)){
       background.integral.max = parm$background.integral.max[[x]],
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
+      dose.points.test = parm$dose.points.test[[x]],
       trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
@@ -634,6 +640,12 @@ error.list <- list()
 
       LnLxTnTx$Dose <- dose.points
     }
+
+    ## set test dose points
+    if(!is.null(dose.points.test))
+      LnLxTnTx$Test_Dose <- rep(dose.points.test, length.out = nrow(LnLxTnTx))
+    else
+      LnLxTnTx$Test_Dose <- rep(-1, length.out = nrow(LnLxTnTx))
 
     ##check whether we have dose points at all
     if (is.null(dose.points) & anyNA(LnLxTnTx$Dose)) {
@@ -1195,7 +1207,8 @@ error.list <- list()
       Dose = LnLxTnTx$Dose,
       LxTx = LnLxTnTx$LxTx,
       LxTx.Error = LnLxTnTx$LxTx.Error,
-      TnTx = LnLxTnTx$Net_TnTx
+      TnTx = LnLxTnTx$Net_TnTx,
+      Test_Dose = LnLxTnTx$Test_Dose
     )
 
     ##overall plot option selection for plot.single.sel
@@ -1214,6 +1227,7 @@ error.list <- list()
         D02 = NA,
         D02.ERROR = NA,
         Dc = NA,
+        D63 = NA,
         n_N = NA,
         De.MC = NA,
         De.plot = NA,

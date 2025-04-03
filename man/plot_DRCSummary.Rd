@@ -71,7 +71,7 @@ use option \code{source_dose_rate} or perform your SAR analysis with the dose
 points in Gy (better axis scaling).
 }
 \section{Function version}{
- 0.2.3
+ 0.2.4
 }
 
 \examples{

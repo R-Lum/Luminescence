@@ -34,7 +34,7 @@
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.2
+#' @section Function version: 1.0.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr

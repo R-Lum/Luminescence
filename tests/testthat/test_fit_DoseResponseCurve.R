@@ -334,7 +334,7 @@ temp_OTOR <-
   )
 temp_OTORX <-
   fit_DoseResponseCurve(
-    cbind(LxTxData, TEST_DOSE = 17),## we have to set the TEST_DOSE
+    cbind(LxTxData, Test_Dose = 17),## we have to set the TEST_DOSE
     fit.method = "OTORX",
     verbose = FALSE,
     n.MC = 10
@@ -350,7 +350,7 @@ LxTxData_alt <- data.frame(
   TEST_DOSE = 17)
 temp_OTORX_alt <-
   fit_DoseResponseCurve(
-    cbind(LxTxData_alt, TEST_DOSE = 17),## we have to set the TEST_DOSE
+    cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
     fit.method = "OTORX",
     verbose = FALSE,
     n.MC = 10)
@@ -439,9 +439,9 @@ temp_OTORX_alt <-
   expect_error(
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation",
                           fit.method = "OTORX"),
-    regexp = "Column 'TEST_DOSE' missing but mandatory for 'OTORX' fitting!")
+    regexp = "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
   expect_error(
-    fit_DoseResponseCurve(cbind(LxTxData, TEST_DOSE = 17),
+    fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17),
                           mode = "extrapolation",
                           fit.method = "OTORX"),
     regexp = "Extrapolation not supported for 'OTORX' fit.")
@@ -502,7 +502,7 @@ temp_OTORX_alt <-
   ## OTORX
   expect_s4_class(
     fit_DoseResponseCurve(
-      cbind(LxTxData, TEST_DOSE = 17),
+      cbind(LxTxData, Test_Dose = 17),
       mode = "alternate",
       fit.method = "OTORX",
       verbose = FALSE

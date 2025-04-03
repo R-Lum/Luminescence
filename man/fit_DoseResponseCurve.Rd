@@ -26,13 +26,16 @@ data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \cod
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided. If \code{object} is a list,
-the function is called on each of its elements.}
+the function is called on each of its elements. If \code{fit.method = "OTORX"} you have
+to provide the test dose in the same unit as the dose in a column called \code{Test_Dose}.
+The function searches explicitly for this column name.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
 \itemize{
 \item \code{"interpolation"} (default) calculates the De by interpolation,
-\item \code{"extrapolation"} calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+\item \code{"extrapolation"} calculates the equivalent dose by extrapolation
+(useful for MAAD measurements) and
 \item \code{"alternate"} calculates no equivalent dose and just fits the data points.
 }
 
@@ -49,7 +52,8 @@ function used for fitting. Possible options are:
 \item \code{EXP+LIN},
 \item \code{EXP+EXP},
 \item \code{GOK},
-\item \code{OTOR}
+\item \code{OTOR},
+\item \code{OTORX} (not defined for extrapolation)
 }
 
 See details.}
@@ -76,7 +80,7 @@ has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
-with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{OTOR}
+with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{OTOR}, \code{OTORX}
 Argument to be inserted for experimental application only!}
 
 \item{n.MC}{\link{integer} (\emph{with default}):  number of Monte Carlo simulations
@@ -120,6 +124,7 @@ This object is a \link{data.frame} with the following columns
 \code{D02} \tab \link{numeric} \tab 2nd D-naught value, only for \code{EXP+EXP}\cr
 \code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-naught; only for \code{EXP+EXP}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
+\code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
 \code{De.plot} \tab \link{numeric} \tab equivalent dose use for plotting \cr
@@ -192,6 +197,8 @@ the offset on the x-axis. Please note that finding the root in \code{mode = "ext
 is a non-easy task due to the shape of the function and the results might be
 unexpected.
 
+\code{OTORX} ##TODO
+
 \strong{Fit weighting}
 
 If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
@@ -216,7 +223,7 @@ especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
 Each error estimation is done with the function of the chosen fitting method.
 }
 \section{Function version}{
- 1.2.2
+ 1.3.0
 }
 
 \examples{
@@ -285,6 +292,8 @@ Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7,
 Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 from feldspar. Radiation Measurements 81, 224-231. \doi{10.1016/j.radmeas.2015.02.011}
+
+Lawless, J.L., Timar-Gabor, A., 2024. A new analytical model to fit both fine and coarse grained quartz luminescence dose response curves. Radiation Measurements 170, 107045. \doi{10.1016/j.radmeas.2023.107045}
 
 Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}

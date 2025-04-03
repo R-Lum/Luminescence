@@ -2,7 +2,7 @@
 % Please edit documentation in R/analyse_SAR.CWOSL.R
 \name{analyse_SAR.CWOSL}
 \alias{analyse_SAR.CWOSL}
-\title{Analyse SAR CW-OSL measurements}
+\title{Analyse SAR CW-OSL Measurements}
 \usage{
 analyse_SAR.CWOSL(
   object,
@@ -13,6 +13,7 @@ analyse_SAR.CWOSL(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  dose.points.test = NULL,
   trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
@@ -81,6 +82,10 @@ the RC.Status becomes always \code{'OK'}}
 a numeric vector containing the dose points values. Using this argument
 overwrites dose point values extracted from other data. Can be a \link{list} of
 \link{numeric} vectors, if \code{object} is of type \link{list}}
+
+\item{dose.points.test}{\link{numeric} (\emph{optional}): a numeric vector containing
+with the test dose in the same units as \code{dose.points}. If length = 1, the numbers
+will be recycled. Has only an effect for \code{fit.method = 'OTORX'}}
 
 \item{trim_channels}{\link{logical} (\emph{with default}): trim channels per record category
 to the lowest number of channels in the category by using \link{trim_RLum.Data}.

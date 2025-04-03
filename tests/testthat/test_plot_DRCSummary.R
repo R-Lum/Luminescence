@@ -42,6 +42,20 @@ test_that("Test plotting", {
     verbose = FALSE
   )
 
+  ## create OTOR DRC
+  results_OTORX <- analyse_SAR.CWOSL(
+    object = object,
+    fit.method = "OTORX",
+    dose.points.test = 10,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    n.MC = 2,
+    plot = FALSE,
+    verbose = FALSE
+  )
+
   ##simple
   expect_silent(plot_DRCSummary(results))
 
@@ -50,6 +64,9 @@ test_that("Test plotting", {
 
   ##simple with OTOR
   expect_silent(plot_DRCSummary(results_OTOR))
+
+  ##simple with OTORX
+  expect_silent(plot_DRCSummary(results_OTORX))
 
   ## list
   expect_silent(plot_DRCSummary(list(results, results_OTOR),

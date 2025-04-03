@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -36,22 +36,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1668.25051746]
+                  "value": [1668.2505148]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [47.4271594]
+                  "value": [47.42715906]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1982.75659674]
+                  "value": [1982.75656242]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [93.51781948]
+                  "value": [93.51781674]
                 },
                 {
                   "type": "logical",
@@ -64,9 +64,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -76,12 +81,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1674.83051133]
+                  "value": [1674.83051083]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1668.25051746]
+                  "value": [1668.2505148]
                 },
                 {
                   "type": "character",
@@ -91,22 +96,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1622.73102714]
+                  "value": [1622.73102486]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1726.35370158]
+                  "value": [1726.35369605]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1580.77337983]
+                  "value": [1580.77337886]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1770.85423661]
+                  "value": [1770.85422969]
                 },
                 {
                   "type": "character",
@@ -156,7 +161,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error", "Test_Dose"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -234,6 +239,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.07069549, 0.02857837, 0.0522751, 0.07625841, 0.08205253, 0.02764795, 0.00249118]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-1, -1, -1, -1, -1, -1, -1]
                 }
               ]
             },
@@ -265,7 +275,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.0038, 0.01474165, 0.02843, 1668.25051746]
+                  "value": [1.0501, 0.0038, 0.01474165, 0.02843, 1668.2505148]
                 },
                 {
                   "type": "double",
@@ -335,7 +345,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -380,9 +390,14 @@
                   "value": [null, null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null, null]
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -472,7 +487,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error", "Test_Dose"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -550,6 +565,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.07069549, 0.02857837, 0.0522751, 0.07625841, 0.08205253, 0.02764795, 0.00249118, 0.08602336, 0.03969377, 0.06482206, 0.10095661, 0.11571167, 0.03825259, 0.00365156]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
                 }
               ]
             },
