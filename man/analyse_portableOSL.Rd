@@ -27,9 +27,9 @@ and the results are merged.}
 \item{normalise}{\link{logical} (\emph{with default}): \code{TRUE} to normalise the OSL/IRSL signals
 to the \emph{mean} of all corresponding data curves.}
 
-\item{mode}{\link{character} (\emph{with default}): defines the analysis mode, allowed
-are \code{"profile"} (the default) and \code{"surface"} for surface interpolation. If you select
-something else, nothing will be plotted (similar to \code{plot = FALSE}).}
+\item{mode}{\link{character} (\emph{with default}):
+analysis mode, one of \code{"profile"} (the default) or \code{"surface"} for surface
+interpolation.}
 
 \item{coord}{\link{list} \link{matrix} (\emph{optional}): a list or matrix of the same length as
 number of samples measured with coordinates for the sampling positions. Coordinates
