@@ -1773,7 +1773,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LambertW"]
+                  "value": ["OTOR"]
                 },
                 {
                   "type": "double",
@@ -1847,7 +1847,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LambertW"]
+                  "value": ["OTOR"]
                 },
                 {
                   "type": "character",
