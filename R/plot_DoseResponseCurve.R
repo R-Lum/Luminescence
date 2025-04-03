@@ -210,7 +210,8 @@ plot_DoseResponseCurve <- function(
 
     ## add curve
     if (inherits(object$Formula, "expression")) {
-      x <- seq(par()$usr[1], par()$usr[2], length.out = 100)
+      ## make sure that we always have a zero
+      x <- sort(c(0, seq(par()$usr[1], par()$usr[2], length.out = 100)))
       lines(x, eval(object$Formula))
     }
 
