@@ -217,7 +217,8 @@ analyse_portableOSL <- function(
 
     ## check length
     if(nrow(coord) != length(OSL$sum_signal))
-      .throw_error("Number of coordinates differ from the number of samples")
+      .throw_error("The number of coordinates in 'coord' should match the ",
+                   "number of samples (", length(OSL$sum_signal), ")")
   }
 
   ### GENERATE SUMMARY data.frame -----

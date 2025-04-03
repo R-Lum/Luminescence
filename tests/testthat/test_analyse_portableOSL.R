@@ -130,7 +130,8 @@ test_that("input validation", {
     expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
                                      coord = list(COORD_X = c(0, 0),
                                                   COORD_Y = c(1, 2))),
-                 "Number of coordinates differ from the number of samples")
+                 "The number of coordinates in 'coord' should match the number",
+                 fixed = TRUE)
 
     ## trigger warning
     expect_warning(
