@@ -57,8 +57,12 @@
 
 - The function now returns an error if `mode` is something other than
   `"profile"` or `"surface"`.
+
 - The `mode` argument was not respected when operating over a list of
   objects (#673).
+
+- The function crashed when using `mode = "surface"` if the plotting
+  limits were too tight and left only one point (#675).
 
 ### `calc_AliquotSize()`
 

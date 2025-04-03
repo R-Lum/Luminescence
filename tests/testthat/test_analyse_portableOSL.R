@@ -31,6 +31,7 @@ test_that("check class and length of output", {
       expect_equal(length(results), 3)
       expect_s3_class(results$summary, "data.frame")
       expect_s4_class(results$data, "RLum.Analysis")
+    expect_equal(round(sum(results$summary[,c(-1, -2, -10,-11)]), digits = 2), 175.44)
 
     ## standard surface
     results <- expect_s4_class(
@@ -130,7 +131,8 @@ test_that("input validation", {
     expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
                                      coord = list(COORD_X = c(0, 0),
                                                   COORD_Y = c(1, 2))),
-                 "Number of coordinates differ from the number of samples")
+                 "The number of coordinates in 'coord' should match the number",
+                 fixed = TRUE)
 
     ## trigger warning
     expect_warning(
@@ -173,19 +175,13 @@ test_that("input validation", {
     )
 })
 
-test_that("check output", {
+test_that("regression tests", {
   testthat::skip_on_cran()
 
-  data("ExampleData.portableOSL", envir = environment())
-  merged <- merge_RLum(ExampleData.portableOSL)
-  results <-
-    analyse_portableOSL(
-      merged,
-      signal.integral = 1:5,
-      invert = FALSE,
-      normalise = TRUE,
-      plot = FALSE
-    )
-
-  expect_equal(round(sum(results$summary[,c(-1, -2, -10,-11)]), digits = 2), 175.44)
+  SW({
+  ## issue 675
+  expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
+                                     signal.integral = 1:5, mode = "surface"),
+                 "Surface interpolation failed: this happens when all points")
+  })
 })
