@@ -193,5 +193,11 @@ test_that("regression tests", {
   expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
                                      signal.integral = 1:5, mode = "surface"),
                  "Surface interpolation failed: this happens when all points")
+
+  ## issue 680
+  expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
+                                     signal.integral = c(-3, 200)),
+                 "exceeds the number of data points, reset to (1, 100)",
+                 fixed = TRUE)
   })
 })
