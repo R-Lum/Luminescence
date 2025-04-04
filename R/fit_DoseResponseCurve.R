@@ -55,7 +55,7 @@
 #'
 #' \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
 #'
-#' *This fitting procedure is not reallyt robust against wrong start parameters.*
+#' *This fitting procedure is not really robust against wrong start parameters.*
 #'
 #' **Keyword: `GOK`**
 #'
@@ -1601,7 +1601,7 @@ fit_DoseResponseCurve <- function(
 
   }  ## OTORX ---------------------------------------------------------------
   else if (fit.method == "OTORX") {
-    if(is.null(object$Test_Dose) && all(object$Test_Dose == -1))
+    if(is.null(object$Test_Dose) || all(object$Test_Dose == -1))
       .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
 
     ## we need a test dose; the default value is -1 because an NA will cause
@@ -1652,6 +1652,7 @@ fit_DoseResponseCurve <- function(
           LnTn = object[1, 2])$root), silent = TRUE)
 
       }else if (mode == "extrapolation"){
+         ## we keep this here because they might be future change
         .throw_error("Extrapolation not supported for 'OTORX' fit.")
       }
 

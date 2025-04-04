@@ -107,11 +107,11 @@ test_that("simple run", {
   ##signal integral set to NA
   expect_error(
     analyse_SAR.CWOSL(
-      object = object[1],
-      signal.integral.min = NA,
-      signal.integral.max = NA,
-      background.integral.min = NA,
-      background.integral.max = NA,
+      object = object,
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
       fit.method = "OTORX",
       plot = FALSE,
       verbose = FALSE,
