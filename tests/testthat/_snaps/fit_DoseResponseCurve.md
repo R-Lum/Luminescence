@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -64,9 +64,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -260,7 +265,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -305,9 +310,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -501,7 +511,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -546,9 +556,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -742,7 +757,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -787,9 +802,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -983,7 +1003,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1028,9 +1048,14 @@
                   "value": [387.36156052]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1224,7 +1249,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1269,9 +1294,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1465,7 +1495,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1510,9 +1540,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1706,7 +1741,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1754,6 +1789,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [7033.69444514]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1947,7 +1987,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1992,9 +2032,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2188,7 +2233,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -2233,9 +2278,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2429,7 +2479,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -2474,9 +2524,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2670,7 +2725,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -2715,9 +2770,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
