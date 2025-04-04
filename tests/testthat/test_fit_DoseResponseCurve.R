@@ -222,8 +222,6 @@ test_that("snapshot tests", {
       n.MC = 10
   ), tolerance = snapshot.tolerance)
 
-  ## TODO @mcol: Please add snapshot tests for OTORX
-
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
       fit.method = "QDR",
@@ -240,7 +238,6 @@ test_that("snapshot tests", {
       verbose = TRUE,
       n.MC = 10
   ), tolerance = 5.0e-5)
-  })
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -257,6 +254,15 @@ test_that("snapshot tests", {
       verbose = FALSE,
       n.MC = 10
   ), tolerance = 5e-5)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      cbind(LxTxData, Test_Dose = 17),
+      fit.method = "OTORX",
+      mode = "interpolation",
+      verbose = TRUE,
+      n.MC = 10
+  ), tolerance = 5.0e-5)
+  })
 })
 
 test_that("additional tests", {
