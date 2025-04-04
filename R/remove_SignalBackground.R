@@ -39,7 +39,7 @@
 #'
 #'@seealso [get_RLum], [merge_RLum], [RLum.Analysis-class],[RLum.Data.Curve-class]
 #'
-#'#@keywords datagen
+#'@keywords datagen
 #'
 #'@examples
 #'

@@ -22,7 +22,9 @@ plot_GrowthCurve(
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
-(including the natural) should be provided.}
+(including the natural) should be provided. If \code{fit.method = "OTORX"} you have
+to provide the test dose in the same unit as the dose in a column called \code{Test_Dose}.
+The function searches explicitly for this column name.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
@@ -45,7 +47,8 @@ function used for fitting. Possible options are:
 \item \code{EXP+LIN},
 \item \code{EXP+EXP},
 \item \code{GOK},
-\item \code{OTOR}
+\item \code{OTOR},
+\item \code{OTORX} (mode extrapolation not supported)
 }
 
 See details in \link{fit_DoseResponseCurve}.}
@@ -92,7 +95,7 @@ regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}
 and \link{plot_DoseResponseCurve}
 }
 \section{Function version}{
- 1.2.1
+ 1.2.2
 }
 
 \examples{

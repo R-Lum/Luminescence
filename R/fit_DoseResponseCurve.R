@@ -8,7 +8,7 @@
 #'
 #' @details
 #'
-#' **Fitting methods**
+#' ## Implemented fitting methods
 #'
 #' For all options (except for the `LIN`, `QDR` and the `EXP OR LIN`),
 #' the [minpack.lm::nlsLM] function with the `LM` (Levenberg-Marquardt algorithm)
@@ -17,62 +17,110 @@
 #'
 #' The solution is found by transforming the function or using [stats::uniroot].
 #'
-#' `LIN`: fits a linear function to the data using
-#' [lm]: \deqn{y = mx + n}
+#' **Keyword: `LIN`**
 #'
-#' `QDR`: fits a linear function with a quadratic term to the data using
-#' [lm]: \deqn{y = a + bx + cx^2}
+#' Fits a linear function to the data using [lm]:
+#' \deqn{y = mx + n}
 #'
-#' `EXP`: tries to fit a function of the form
+#' **Keyword: `QDR`**
+#'
+#' Fits a linear function with a quadratic term to the data using  [lm]:
+#' \deqn{y = a + bx + cx^2}
+#'
+#' **Keyword: `EXP`**
+#'
+#' Adapts a function of the form
 #' \deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
-#' Parameters b and c are approximated by a linear fit using [lm]. Note: b = D0
 #'
-#' `EXP OR LIN`: works for some cases where an `EXP` fit fails.
-#' If the `EXP` fit fails, a `LIN` fit is done instead.
+#' Parameters b and c are approximated by a linear fit using [lm]. Note: \eqn{b = D0}
 #'
-#' `EXP+LIN`: tries to fit an exponential plus linear function of the
-#' form:
+#' **Keyword: `EXP OR LIN`**
+#'
+#' Works for some cases where an `EXP` fit fails. If the `EXP` fit fails,
+#' a `LIN` fit is done instead, which always works.
+#'
+#' **Keyword: `EXP+LIN`**
+#'
+#' Tries to fit an exponential plus linear function of the form:
+#'
 #' \deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
 #' The \eqn{D_e} is calculated by iteration.
 #'
-#' **Note:** In the context of luminescence dating, this
-#' function has no physical meaning. Therefore, no D0 value is returned.
+#' **Note:** In the context of luminescence dating, this function has no physical meaning.
+#' Therefore, no \eqn{D_0} value is returned.
 #'
-#' `EXP+EXP`: tries to fit a double exponential function of the form
+#' **Keyword: `EXP+EXP`**
+#'
+#' Tries to fit a double exponential function of the form
+#'
 #' \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
-#' This fitting procedure is not robust against wrong start parameters and
-#' should be further improved.
 #'
-#' `GOK`: tries to fit the general-order kinetics function after
-#' Guralnik et al. (2015) of the form of
+#' *This fitting procedure is not really robust against wrong start parameters.*
+#'
+#' **Keyword: `GOK`**
+#'
+#' Tries to fit the general-order kinetics function following Guralnik et al. (2015)
+#' of the form
 #'
 #' \deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 #'
-#' where **c > 0** is a kinetic order modifier
+#' where \eqn{c > 0} is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
 #'
-#' `OTOR` (former `LambertW`): tries to fit a dose-response curve based on the Lambert W function
-#' and the OTOR model according to Pagonis et al. (2020). The function has the form
+#'**Keyword: `OTOR`** (former `LambertW`)
 #'
-#' \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+#' This tries to fit a dose-response curve based on the Lambert W function
+#' and the one trap one recombination centre (OTOR)
+#' model according to Pagonis et al. (2020). The function has the form
+#'
+#' \deqn{y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
-#' of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
+#' of trappings states in cm\eqn{^{-3}} and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
 #' the offset on the x-axis. Please note that finding the root in `mode = "extrapolation"`
 #' is a non-easy task due to the shape of the function and the results might be
 #' unexpected.
 #'
+#' **Keyword: `OTORX`**
+#'
+#' This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar-Gabor (2024)
+#' accounting for retrapping. Mathematically, the implementation reads (the equation here
+#' as implemented, it is slightly differently written than in the original manuscript):
+#'
+#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{D}{D_{63}}))\right] / Q}
+#'
+#' with
+#'
+#' \deqn{Q = \frac{A_m - A_n}{A_m}\frac{N}{N+N_D}}
+#'
+#' where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
+#' the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
+#' the value at which the trap occupation corresponds to the 63% of the saturation value.
+#'
+#' For the implementation the calculation reads further
+#'
+#' \deqn{y = \frac{F_{OTORX}(D/D_{63}), Q)}{F_{OTORX}(D_{test}/D_{63}, Q)}}
+#'
+#' with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
+#' the regeneration dose points. This value is essential and needs to provided
+#' along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see `object` parameter input
+#' and the example section). For more details see Lawless and Timar-Gabor (2024).
+#'
+#' *Note: `OTORX` is by definition `fit.force_through_origin = TRUE`.*
+#'
+#' *Note: `OTORX` is not defined for extrapolation and hence this mode is not supported!*
+#'
 #' **Fit weighting**
 #'
 #' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
-#' provided signal errors (Lx/Tx error):
+#' provided signal errors (\eqn{\frac{L_x}{T_x}} error):
 #' \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
 #' Error estimation is done using a parametric bootstrapping approach. A set of
-#' `Lx/Tx` values is constructed by randomly drawing curve data sampled from normal
+#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data sampled from normal
 #' distributions. The normal distribution is defined by the input values (`mean
 #' = value`, `sd = value.error`). Then, a dose-response curve fit is attempted for each
 #' dataset resulting in a new distribution of single `De` values. The standard
@@ -93,11 +141,16 @@
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided. If `object` is a list,
 #' the function is called on each of its elements.
+#' If `fit.method = "OTORX"` you have  to provide the test dose in the same unit
+#' as the dose in a column called `Test_Dose`. The function searches explicitly
+#' for this column name. Only the first value will be used assuming a constant
+#' test dose over the measurement cycle.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
 #' - `"interpolation"` (default) calculates the De by interpolation,
-#' - `"extrapolation"` calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+#' - `"extrapolation"` calculates the equivalent dose by extrapolation
+#'    (useful for MAAD measurements) and
 #' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"interpolation"` the first point is considered
@@ -112,7 +165,8 @@
 #' - `EXP+LIN`,
 #' - `EXP+EXP`,
 #' - `GOK`,
-#' - `OTOR`
+#' - `OTOR`,
+#' - `OTORX` (not defined for extrapolation)
 #'
 #' See details.
 #'
@@ -138,7 +192,7 @@
 #'
 #' @param fit.bounds [logical] (*with default*):
 #' set lower fit bounds for all fitting parameters to 0. Limited for the use
-#' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `OTOR`
+#' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `OTOR`, `OTORX`
 #' Argument to be inserted for experimental application only!
 #'
 #' @param n.MC [integer] (*with default*):  number of Monte Carlo simulations
@@ -182,6 +236,7 @@
 #' `D02` \tab [numeric] \tab 2nd D-naught value, only for `EXP+EXP`\cr
 #' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-naught; only for `EXP+EXP`\cr
 #' `Dc` \tab [numeric] \tab value indicating saturation level; only for `OTOR` \cr
+#' `D63` \tab [numeric] \tab the specific saturation level; only for `OTORX` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
 #' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
 #' `De.plot` \tab [numeric] \tab equivalent dose use for plotting \cr
@@ -193,7 +248,7 @@
 #'
 #' }
 #'
-#' @section Function version: 1.2.2
+#' @section Function version: 1.3.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -202,11 +257,13 @@
 #'
 #' @references
 #'
-#' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+#' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}
 #'
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 #' Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
-#' from feldspar. Radiation Measurements 81, 224-231.
+#' from feldspar. Radiation Measurements 81, 224-231. \doi{10.1016/j.radmeas.2015.02.011}
+#'
+#' Lawless, J.L., Timar-Gabor, A., 2024. A new analytical model to fit both fine and coarse grained quartz luminescence dose response curves. Radiation Measurements 170, 107045. \doi{10.1016/j.radmeas.2023.107045}
 #'
 #' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 #' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
@@ -245,6 +302,10 @@
 #' #as alternative error estimation
 #' confint(results$Fit, level = 0.68)
 #'
+#' ##(5) special case the OTORX model with test dose column
+#' df <- cbind(LxTxData, Test_Dose = 15)
+#' fit_DoseResponseCurve(object = df, fit.method = "OTORX", n.MC = 10) |>
+#'  plot_DoseResponseCurve()
 #'
 #' \dontrun{
 #' QNL84_2_bleached <-
@@ -325,7 +386,7 @@ fit_DoseResponseCurve <- function(
   .validate_not_empty(object)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN",
-                            "EXP+LIN", "EXP+EXP", "GOK", "OTOR")
+                            "EXP+LIN", "EXP+EXP", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
   .validate_logical_scalar(fit.weights)
@@ -458,7 +519,7 @@ fit_DoseResponseCurve <- function(
   x.natural <- NA
 
   ##1.4 set initialise variables
-  De <- De.Error <- D01 <-  R <-  Dc <- N <- NA
+  De <- De.Error <- D01 <-  R <-  Dc <- D63 <- N <- TEST_DOSE <- NA_real_
 
   ## FITTING ----------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
@@ -482,8 +543,11 @@ fit_DoseResponseCurve <- function(
   ### GOK ----------------
   fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
-  ### Lambert W -------------
+  ### OTOR -------------
   fit.functionOTOR <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
+
+  ### OTORX -------------
+  fit.functionOTORX <- function(x, Q, D63, c) .D2nN(x, Q, D63) * c / .D2nN(TEST_DOSE, Q, D63)
 
   ## input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
@@ -559,7 +623,7 @@ fit_DoseResponseCurve <- function(
   D02 <- NA
   D02.ERROR <- NA
 
-  ## ------------------------------------------------------------------------
+  ## Let start parameter vary -------------------------------------------------
   ## to be a little bit more flexible, the start parameters varies within
   ## a normal distribution
 
@@ -583,10 +647,10 @@ fit_DoseResponseCurve <- function(
 
   ## QDR --------------------------------------------------------------------
   if (fit.method == "QDR") {
-
     ## establish models without and with intercept term
-    model.qdr <- stats::update(y ~ I(x) + I(x^2),
-                        stats::reformulate(".", intercept = !fit.force_through_origin))
+    model.qdr <- stats::update(
+      y ~ I(x) + I(x^2),
+      stats::reformulate(".", intercept = !fit.force_through_origin))
 
     if (mode == "interpolation") {
       y <- object[1, 2]
@@ -680,9 +744,9 @@ fit_DoseResponseCurve <- function(
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
           parameters<-(coef(fit.initial))
-          a.start[i] <- as.vector((parameters["a"]))
-          b.start[i] <- as.vector((parameters["b"]))
-          c.start[i] <- as.vector((parameters["c"]))
+          a.start[i] <- as.vector(parameters["a"])
+          b.start[i] <- as.vector(parameters["b"])
+          c.start[i] <- as.vector(parameters["c"])
         }
       }
 
@@ -1368,7 +1432,6 @@ fit_DoseResponseCurve <- function(
 
   ## OTOR ---------------------------------------------------------------
   else if (fit.method == "OTOR") {
-
     if(mode == "extrapolation"){
       Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
@@ -1535,7 +1598,134 @@ fit_DoseResponseCurve <- function(
           rm(var.Dc)
 
     }#endif::try-error fit
-  }#End if Fit Method
+
+  }  ## OTORX ---------------------------------------------------------------
+  else if (fit.method == "OTORX") {
+    if(is.null(object$Test_Dose) || all(object$Test_Dose == -1))
+      .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
+
+    ## we need a test dose; the default value is -1 because an NA will cause
+    ## additional problems
+      TEST_DOSE <- object$Test_Dose[[1]]
+
+      ## here we replace TEST_DOSE by an evaluated value
+      ## in the function body; this makes things ALOT easier below
+      body(fit.functionOTORX) <- do.call(
+        substitute, list(body(fit.functionOTORX), list(TEST_DOSE = TEST_DOSE)))
+
+    ## set boundaries
+    lower <- if (fit.bounds) c(0, 0, 0) else rep(-Inf, 3)
+    upper <- c(Inf, Inf, Inf)
+
+    fit <- try(minpack.lm::nlsLM(
+      formula = .toFormula(fit.functionOTORX, env = currn_env),
+      data = data,
+      start = list(Q = 1, D63 = b, c = 1),
+      weights = fit.weights,
+      trace = FALSE,
+      algorithm = "LM",
+      lower = lower,
+      upper = upper,
+      control = minpack.lm::nls.lm.control(maxiter = 500)
+    ), silent = TRUE)
+
+    if (inherits(fit, "try-error")) {
+      .report_fit_failure(fit.method, mode)
+
+    } else {
+      #get parameters out of it
+      parameters <- coef(fit)
+      Q <- as.vector((parameters["Q"]))
+      D63 <- as.vector((parameters["D63"]))
+      c <- as.vector((parameters["c"]))
+
+      #calculate De
+      De <- NA
+      if(mode == "interpolation"){
+        De <- try(suppressWarnings(stats::uniroot(
+          f = function(x, Q, D63, c, LnTn) {
+            fit.functionOTORX(x, Q, D63, c) - LnTn},
+          interval = c(0, max(object[[1]]) * 1.2),
+          Q = Q,
+          D63 = D63,
+          c = c,
+          LnTn = object[1, 2])$root), silent = TRUE)
+
+      }else if (mode == "extrapolation"){
+         ## we keep this here because they might be future change
+        .throw_error("Extrapolation not supported for 'OTORX' fit.")
+      }
+
+      if(inherits(De, "try-error")) De <- NA
+
+      .report_fit(De, " | Q = ", round(Q, 2), " | D63 = ", round(D63, 2))
+
+      #OTORX MC -----
+      ##Monte Carlo Simulation
+      #	--Fit many curves and calculate a new De +/- De_Error
+      #	--take De_Error
+      #set variables
+      var.D63 <- vector(mode = "numeric", length = n.MC)
+
+      #start loop
+      for (i in 1:n.MC) {
+        ##set data set
+        data <- data.frame(x = xy$x,y = data.MC[,i])
+        fit.MC <- try(minpack.lm::nlsLM(
+          formula = .toFormula(fit.functionOTORX, env = currn_env),
+          data = data,
+          start = list(Q = 1, D63 = b, c = 1),
+          weights = fit.weights,
+          trace = FALSE,
+          algorithm = "LM",
+          lower = if (fit.bounds) c(0, 0, 0) else c(-Inf,-Inf, -Inf),
+          upper = upper,
+          control = minpack.lm::nls.lm.control(maxiter = 500)
+        ), silent = TRUE)
+
+        # get parameters out of it including error handling
+        x.natural[i] <- NA
+        if (!inherits(fit.MC, "try-error")) {
+          # get parameters out
+          parameters<-coef(fit.MC)
+          var.Q <- as.numeric(parameters["Q"])
+          var.D63[i] <- as.numeric(parameters["D63"])
+          var.c <- as.numeric(parameters["c"])
+
+          # calculate x.natural for error calculation
+          if(mode == "interpolation"){
+            try <- try(
+              {suppressWarnings(stats::uniroot(
+                f = function(x, Q, D63, c, LnTn) {
+                  fit.functionOTORX(x, Q, D63, c) - LnTn},
+                interval = c(0, max(object[[1]]) * 1.2),
+                Q = var.Q,
+                D63 = var.D63[i],
+                c = var.c,
+                LnTn = data.MC.De[i])$root)
+              }, silent = TRUE)
+
+          }else if(mode == "extrapolation"){
+            ## NOT SUPPORTED
+
+          }##endif extrapolation
+          if(!inherits(try, "try-error") && !inherits(try, "function"))
+            x.natural[i] <- try
+        }
+
+      }#end for loop
+
+      ##we need absolute numbers
+      x.natural <- abs(x.natural)
+
+      ##write Dc.ERROR
+      D63.ERROR <- sd(var.D63, na.rm = TRUE)
+
+      ##remove values
+      rm(var.D63)
+
+    }#endif::try-error fit
+  }#End if fit.method selection (for all)
 
   #Get De values from Monte Carlo simulation
 
@@ -1590,6 +1780,7 @@ fit_DoseResponseCurve <- function(
     D02 = D02,
     D02.ERROR = D02.ERROR,
     Dc = Dc,
+    D63 = D63,
     n_N = n_N,
     De.MC = De.MonteCarlo,
     De.plot = De, # no absolute value, used for plotting
@@ -1697,4 +1888,51 @@ fit_DoseResponseCurve <- function(
   tmp_formula <- stats::as.formula(paste0("y ~ ", paste(tmp[-1], collapse = "")),
                                    env = env)
   return(tmp_formula)
+}
+
+#'@title Convert n/N ratio to Dose
+#'
+#'@description Helper function for OTORX model fit according to
+#'Lawless & Timar-Gabor (2024) Eq. 9
+#'
+#'@param nN [numeric] (**required**): n/N ratio value
+#'
+#'@param Q [numeric] (**required**): product of relative production rates and
+#'hole pairs (see Lawless & Timar-Gabor, 2024)
+#'
+#'@param D63 [numeric] (**required**): characteristic dose
+#'
+#'@references https://github.com/jll2/LumDRC/blob/main/otorx.py
+#'
+#'@note Not used here, however, part of the reference implementation.
+#'
+#'@md
+#'@noRd
+.nN2D <- function(nN, Q, D63) D63 * ((-log(1-nN) - Q*nN)/(1 - Q*(1-exp(-1)))) # nocov
+
+#'@title Convert Dose back to n/N ratio
+#'
+#'@description Return n/N for a given dose D and parameters Q & D63.
+#'see Lawless & Timar-Gabor (2024)
+#'
+#'@param D [numeric] (**required**): dose
+#'
+#'@param Q [numeric] (**required**): product of relative production rates and
+#'hole pairs (see Lawless & Timar-Gabor, 2024)
+#'
+#'@param D63 [numeric] (**required**): characteristic dose
+#'
+#'@references https://github.com/jll2/LumDRC/blob/main/otorx.py
+#'
+#'@md
+#'@noRd
+.D2nN <- function(D, Q, D63) {
+  if(all(abs(Q) < 1e-06))
+    r <- 1 - exp(-D/D63)
+  else if (any(abs(Q) < 1e-06))
+    stop("[.D2nN()] Unsupported of zero and non-zero Q", call. = FALSE)
+  else
+    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * D/D63))) / Q
+
+  return(r)
 }

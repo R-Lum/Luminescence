@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -64,9 +64,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -260,7 +265,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -305,9 +310,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -501,7 +511,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -546,9 +556,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -742,7 +757,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -787,9 +802,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -983,7 +1003,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1028,9 +1048,14 @@
                   "value": [387.36156052]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1224,7 +1249,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1269,9 +1294,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1465,7 +1495,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1510,9 +1540,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1706,7 +1741,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1754,6 +1789,11 @@
                   "type": "double",
                   "attributes": {},
                   "value": [7033.69444514]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1947,7 +1987,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1992,9 +2032,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2188,7 +2233,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -2233,9 +2278,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2429,7 +2479,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -2474,9 +2524,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2670,7 +2725,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -2715,9 +2770,14 @@
                   "value": [null]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2842,6 +2902,257 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.02108303, 0.05525209, 0.02967242, 0.01978161, 0.01780345, 0.05525209, 0.8011553]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["fit_DoseResponseCurve"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["De", "De.MC", "Fit.Args"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1785.42767761]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [58.97294529]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4428.80412756]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.55018449]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1788.90610868]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1785.42767761]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["OTORX"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1706.55480513]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1823.89848275]
+                }
+              ]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [1874.57394252, 1754.23750297, 1894.28617972, 1788.81221968, 1760.26463014, 1822.77889117, 1719.71070472, 1726.16849938, 1790.31776727, 1757.9107492]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Dose", "LxTx", "LxTx.Error", "TnTx", "Test_Dose"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [0, 450, 1050, 2000, 2550, 450, 0]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002]
+                    },
+                    {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [10778, 11298, 11385, 11603, 13141, 13126, 13940]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [17, 17, 17, 17, 17, 17, 17]
+                    }
+                  ]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["OTORX"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [6]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.05644206, 0.03031148, 0.02020765, 0.01818689, 0.05644206, 0.81840987]
                 },
                 {
                   "type": "logical",

@@ -238,7 +238,6 @@ test_that("snapshot tests", {
       verbose = TRUE,
       n.MC = 10
   ), tolerance = 5.0e-5)
-  })
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -255,6 +254,15 @@ test_that("snapshot tests", {
       verbose = FALSE,
       n.MC = 10
   ), tolerance = 5e-5)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      cbind(LxTxData, Test_Dose = 17),
+      fit.method = "OTORX",
+      mode = "interpolation",
+      verbose = TRUE,
+      n.MC = 10
+  ), tolerance = 5.0e-5)
+  })
 })
 
 test_that("additional tests", {
@@ -330,6 +338,29 @@ temp_OTOR <-
     verbose = FALSE,
     n.MC = 10
   )
+temp_OTORX <-
+  fit_DoseResponseCurve(
+    cbind(LxTxData, Test_Dose = 17),## we have to set the TEST_DOSE
+    fit.method = "OTORX",
+    verbose = FALSE,
+    n.MC = 10
+  )
+## test reference dataset from
+## (https://raw.githubusercontent.com/jll2/LumDRC/refs/heads/main/otorx.py)
+LxTxData_alt <- data.frame(
+  Dose = c(0, 17, 47, 94, 201, 402, 804, 1.07e+03, 1.68e+03, 3.35e+03, 5.36e+03,
+           6.7e+03, 8.04e+03, 1e+04, 47, 94, 3.35e+03, 5.36e+03),
+  LxTx = c(10, 1.09, 2.3, 3.67, 5.63, 8.09, 10.3, 11.4, 13, 14.8, 15.8, 16.9,
+           17, 17.1, 2.26, 3.65, 15.6, 15.9),
+  LxTx.Error = 0.1,
+  TEST_DOSE = 17)
+temp_OTORX_alt <-
+  fit_DoseResponseCurve(
+    cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
+    fit.method = "OTORX",
+    verbose = FALSE,
+    n.MC = 10)
+
 
   ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
   ##              here too as coverage currently runs on 4.3
@@ -350,6 +381,8 @@ temp_OTOR <-
   expect_s3_class(temp_QDR$Fit, class = "lm")
   expect_s3_class(temp_GOK$Fit, class = "nls")
   expect_s3_class(temp_OTOR$Fit, class = "nls")
+  expect_s3_class(temp_OTORX$Fit, class = "nls")
+  expect_s3_class(temp_OTORX_alt$Fit, class = "nls")
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
@@ -377,8 +410,10 @@ temp_OTOR <-
    }
 
    expect_equal(round(temp_OTOR$De[[1]], digits = 2),  1784.78)
+   expect_equal(round(temp_OTORX$De[[1]], digits = 2),  1785.43)
+   expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.270)
    expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17422)
-
+   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 14477)
 
 # Check extrapolation -----------------------------------------------------
   ## load data
@@ -405,8 +440,19 @@ temp_OTOR <-
 
   OTOR <- expect_s4_class(
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
-  })
 
+  ##OTORX
+  expect_error(
+    fit_DoseResponseCurve(LxTxData,mode = "extrapolation",
+                          fit.method = "OTORX"),
+    regexp = "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
+  expect_error(
+    fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17),
+                          mode = "extrapolation",
+                          fit.method = "OTORX"),
+    regexp = "Extrapolation not supported for 'OTORX' fit.")
+
+  })
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
   expect_equal(round(OTOR$De$De,0),  114)
@@ -454,6 +500,17 @@ temp_OTOR <-
       LxTxData,
       mode = "alternate",
       fit.method = "OTOR",
+      verbose = FALSE
+    ),
+    "RLum.Results"
+  )
+
+  ## OTORX
+  expect_s4_class(
+    fit_DoseResponseCurve(
+      cbind(LxTxData, Test_Dose = 17),
+      mode = "alternate",
+      fit.method = "OTORX",
       verbose = FALSE
     ),
     "RLum.Results"
@@ -577,4 +634,27 @@ test_that("regression tests", {
   expect_s4_class(
     fit_DoseResponseCurve(df, fit.method = "OTOR"), "RLum.Results")
   })
+})
+
+test_that("test internal functions", {
+  testthat::skip_on_cran()
+
+  ## reference tests from
+  ## https://github.com/jll2/LumDRC/blob/main/otorx.py
+  expect_equal(sum(Luminescence:::.nN2D(
+    nN = 1-exp(-1),
+    Q = c(0.5,0.6,0.7,0.8),
+    D63 = c(1,10,100,1000))), expected = 1111)
+
+  expect_equal(sum(Luminescence:::.nN2D(
+    nN = 0.5,
+    Q = c(0.5,0.6,0.7,0.8),
+    D63 = c(1,10,100,1000))),
+    expected = 661, tolerance = 2)
+
+  expect_equal(sum(Luminescence:::.D2nN(
+    D = 1,
+    Q = c(-10,-3,0.1,1),
+    D63 = 1)), expected = 2.5, tolerance = 1)
+
 })

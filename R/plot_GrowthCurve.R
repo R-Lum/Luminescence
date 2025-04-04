@@ -10,7 +10,9 @@
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
-#' (including the natural) should be provided.
+#' (including the natural) should be provided. If `fit.method = "OTORX"` you have
+#' to provide the test dose in the same unit as the dose in a column called `Test_Dose`.
+#' The function searches explicitly for this column name.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
@@ -30,7 +32,8 @@
 #' - `EXP+LIN`,
 #' - `EXP+EXP`,
 #' - `GOK`,
-#' - `OTOR`
+#' - `OTOR`,
+#' - `OTORX` (mode extrapolation not supported)
 #'
 #' See details in [fit_DoseResponseCurve].
 #'
@@ -68,7 +71,7 @@
 #' Along with a plot (if wanted) the `RLum.Results` object produced by
 #' [fit_DoseResponseCurve] is returned.
 #'
-#' @section Function version: 1.2.1
+#' @section Function version: 1.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr

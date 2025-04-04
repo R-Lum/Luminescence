@@ -104,6 +104,22 @@ test_that("simple run", {
     "[analyse_SAR.CWOSL()] No signal or background integral applied as they",
     fixed = TRUE)
 
+  ##signal integral set to NA
+  expect_error(
+    analyse_SAR.CWOSL(
+      object = object,
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "OTORX",
+      plot = FALSE,
+      verbose = FALSE,
+      fit.weights = FALSE
+    ),
+    "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!",
+    fixed = TRUE)
+
   expect_s4_class(
     suppressWarnings(analyse_SAR.CWOSL(
       object = object[1],
@@ -629,6 +645,19 @@ test_that("advance tests run", {
       plot = FALSE,
       verbose = FALSE)
 
+  ## OTORX
+  expect_s4_class(suppressWarnings(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      fit.method = "OTORX",
+      dose.points.test = 5,
+      background.integral.min = c(900, 975),
+      background.integral.max = c(900, 975),
+      plot = FALSE,
+      n.MC = 10,
+      verbose = FALSE)), class = "RLum.Results")
+
   object[[1]]@records[[2]][1, 1] <- 0
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
@@ -639,5 +668,6 @@ test_that("advance tests run", {
       log = "x",
       verbose = FALSE),
       "Curves shifted by one channel for log-plot")
+
   })
 })
