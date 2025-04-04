@@ -60,6 +60,10 @@ test_that("input validation", {
                      mode = "extrapolation"),
     "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
+  expect_error(
+    fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17), fit.method = "OTORX",
+                          mode = "extrapolation"),
+    "Mode 'extrapolation' for fitting method 'OTORX' not supported")
 })
 
 test_that("weird LxTx values", {
@@ -446,12 +450,6 @@ temp_OTORX_alt <-
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation",
                           fit.method = "OTORX"),
     regexp = "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
-  expect_error(
-    fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17),
-                          mode = "extrapolation",
-                          fit.method = "OTORX"),
-    regexp = "Extrapolation not supported for 'OTORX' fit.")
-
   })
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
@@ -656,5 +654,4 @@ test_that("test internal functions", {
     D = 1,
     Q = c(-10,-3,0.1,1),
     D63 = 1)), expected = 2.5, tolerance = 1)
-
 })

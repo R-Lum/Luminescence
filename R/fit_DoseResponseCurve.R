@@ -1653,7 +1653,7 @@ fit_DoseResponseCurve <- function(
 
       }else if (mode == "extrapolation"){
          ## we keep this here because they might be future change
-        .throw_error("Extrapolation not supported for 'OTORX' fit.")
+        .throw_error("Mode 'extrapolation' for fitting method 'OTORX' not supported")
       }
 
       if(inherits(De, "try-error")) De <- NA
