@@ -64,6 +64,10 @@ function now produces more helpful error messages (#616).
 * The function crashed when using `mode = "surface"` if the plotting limits
 were too tight and left only one point (#675).
 
+* The check on the validity of the `signal.integral` argument occurs only
+once, so at most one warning is raised if the argument is set to a value too
+large (#678).
+
 ### `calc_AliquotSize()`
 
 * The new argument `sample_carrier.diameter` allows to specify a value for
