@@ -1859,7 +1859,7 @@ fit_DoseResponseCurve <- function(
 #'
 #'@md
 #'@noRd
-.nN2D <- function(nN, Q, D63) D63 * ((-log(1-nN) - Q*nN)/(1 - Q*(1-exp(-1))))
+.nN2D <- function(nN, Q, D63) D63 * ((-log(1-nN) - Q*nN)/(1 - Q*(1-exp(-1)))) # nocov
 
 #'@title Convert Dose back to n/N ratio
 #'
@@ -1887,4 +1887,3 @@ fit_DoseResponseCurve <- function(
 
   return(r)
 }
-
