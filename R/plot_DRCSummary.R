@@ -32,7 +32,8 @@
 #' one curve object. Large numbers slow down the plotting process and are
 #' usually not needed.
 #'
-#'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`
+#'@param ... Further arguments and graphical parameters to be passed.
+#'In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`
 #'
 #'@section Function version: 0.2.4
 #'
@@ -159,7 +160,7 @@ if(inherits(object, "list")){
     DRC <- object@data$Formula[sel_curves]
 
     ## check for OTOR fit option (we can only do all )
-    if(all(object@data$data[["Fit"]] == "OTOR") || all(object@data$data[["Fit"]] == "OTORX"))
+    if(all(object@data$data[["Fit"]] %in% c("OTOR", "OTORX")))
       W <- lamW::lambertW0
 
     ##get limits for each set

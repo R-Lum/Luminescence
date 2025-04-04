@@ -26,9 +26,11 @@ data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \cod
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided. If \code{object} is a list,
-the function is called on each of its elements. If \code{fit.method = "OTORX"} you have
-to provide the test dose in the same unit as the dose in a column called \code{Test_Dose}.
-The function searches explicitly for this column name.}
+the function is called on each of its elements.
+If \code{fit.method = "OTORX"} you have  to provide the test dose in the same unit
+as the dose in a column called \code{Test_Dose}. The function searches explicitly
+for this column name. Only the first value will be used assuming a constant
+test dose over the measurement cycle.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
@@ -142,7 +144,7 @@ regenerative or additive protocol. The function supports interpolation and
 extrapolation to calculate the equivalent dose.
 }
 \details{
-\strong{Fitting methods}
+\subsection{Implemented fitting methods}{
 
 For all options (except for the \code{LIN}, \code{QDR} and the \verb{EXP OR LIN}),
 the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the \code{LM} (Levenberg-Marquardt algorithm)
@@ -151,44 +153,63 @@ simulations partly the function \link{nls} using the \code{port} algorithm.
 
 The solution is found by transforming the function or using \link[stats:uniroot]{stats::uniroot}.
 
-\code{LIN}: fits a linear function to the data using
-\link{lm}: \deqn{y = mx + n}
+\strong{Keyword: \code{LIN}}
 
-\code{QDR}: fits a linear function with a quadratic term to the data using
-\link{lm}: \deqn{y = a + bx + cx^2}
+Fits a linear function to the data using \link{lm}:
+\deqn{y = mx + n}
 
-\code{EXP}: tries to fit a function of the form
+\strong{Keyword: \code{QDR}}
+
+Fits a linear function with a quadratic term to the data using  \link{lm}:
+\deqn{y = a + bx + cx^2}
+
+\strong{Keyword: \code{EXP}}
+
+Adapts a function of the form
 \deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
-Parameters b and c are approximated by a linear fit using \link{lm}. Note: b = D0
 
-\verb{EXP OR LIN}: works for some cases where an \code{EXP} fit fails.
-If the \code{EXP} fit fails, a \code{LIN} fit is done instead.
+Parameters b and c are approximated by a linear fit using \link{lm}. Note: \eqn{b = D0}
 
-\code{EXP+LIN}: tries to fit an exponential plus linear function of the
-form:
+\strong{Keyword: \verb{EXP OR LIN}}
+
+Works for some cases where an \code{EXP} fit fails. If the \code{EXP} fit fails,
+a \code{LIN} fit is done instead, which always works.
+
+\strong{Keyword: \code{EXP+LIN}}
+
+Tries to fit an exponential plus linear function of the form:
+
 \deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
 The \eqn{D_e} is calculated by iteration.
 
-\strong{Note:} In the context of luminescence dating, this
-function has no physical meaning. Therefore, no D0 value is returned.
+\strong{Note:} In the context of luminescence dating, this function has no physical meaning.
+Therefore, no \eqn{D_0} value is returned.
 
-\code{EXP+EXP}: tries to fit a double exponential function of the form
+\strong{Keyword: \code{EXP+EXP}}
+
+Tries to fit a double exponential function of the form
+
 \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
-This fitting procedure is not robust against wrong start parameters and
-should be further improved.
 
-\code{GOK}: tries to fit the general-order kinetics function after
-Guralnik et al. (2015) of the form of
+\emph{This fitting procedure is not reallyt robust against wrong start parameters.}
+
+\strong{Keyword: \code{GOK}}
+
+Tries to fit the general-order kinetics function following Guralnik et al. (2015)
+of the form
 
 \deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 
-where \strong{c > 0} is a kinetic order modifier
+where \eqn{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
 
-\code{OTOR} (former \code{LambertW}): tries to fit a dose-response curve based on the Lambert W function
-and the OTOR model according to Pagonis et al. (2020). The function has the form
+\strong{Keyword: \code{OTOR}} (former \code{LambertW})
 
-\deqn{y = (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+This tries to fit a dose-response curve based on the Lambert W function
+and the one trap one recombination centre (OTOR)
+model according to Pagonis et al. (2020). The function has the form
+
+\deqn{y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
 with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
@@ -197,7 +218,34 @@ the offset on the x-axis. Please note that finding the root in \code{mode = "ext
 is a non-easy task due to the shape of the function and the results might be
 unexpected.
 
-\code{OTORX} ##TODO
+\strong{Keyword: \code{OTORX}}
+
+This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar-Gabor (2024)
+accounting for retrapping. Mathematically, the implementation reads (the equation here
+as implemented, it is slightly differently written than in the original manuscript):
+
+\deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{D}{D_{63}}))\right] / Q}
+
+with
+
+\deqn{Q = \frac{A_m - A_n}{A_m}\frac{N}{N+N_D}}
+
+where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
+the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
+the value at which the trap occupation corresponds to the 63\% of the saturation value.
+
+For the implementation the calculation reads further
+
+\deqn{y = \frac{F_{OTORX}(D/D_{63}), Q)}{F_{OTORX}(D_{test}/D_{63}, Q)}}
+
+with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
+the regeneration dose points. This value is essential and needs to provided
+along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see \code{object} parameter input
+and the example section). For more details see Lawless and Timar-Gabor (2024).
+
+\emph{Note: \code{OTORX} is by definition \code{fit.force_through_origin = TRUE}.}
+
+\emph{Note: \code{OTORX} is not defined for extrapolation and hence this mode is not supported!}
 
 \strong{Fit weighting}
 
@@ -221,6 +269,7 @@ estimates as output, users may find more useful under certain circumstances.
 \strong{Note:} It may take some calculation time with increasing MC runs,
 especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
 Each error estimation is done with the function of the chosen fitting method.
+}
 }
 \section{Function version}{
  1.3.0
@@ -257,6 +306,10 @@ results <- fit_DoseResponseCurve(
 #as alternative error estimation
 confint(results$Fit, level = 0.68)
 
+##(5) special case the OTORX model with test dose column
+df <- cbind(LxTxData, Test_Dose = 15)
+fit_DoseResponseCurve(object = df, fit.method = "OTORX", n.MC = 10) |>
+ plot_DoseResponseCurve()
 
 \dontrun{
 QNL84_2_bleached <-

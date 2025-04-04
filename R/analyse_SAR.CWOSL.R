@@ -203,7 +203,7 @@
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
-#' [RLum.Results-class], [get_RLum]
+#' [RLum.Results-class], [get_RLum], [fit_DoseResponseCurve], [plot_DoseResponseCurve]
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -256,6 +256,18 @@
 #'
 #' ##show LnTnLxTx table
 #' get_RLum(results, data.object = "LnLxTnTx.table")
+#'
+#' ## Run example with special case for
+#' ## the OTORX fit
+#' results <- analyse_SAR.CWOSL(
+#'  object = object,
+#'  signal.integral.min = 1,
+#'  signal.integral.max = 2,
+#'  dose.points.test = 15,
+#'  background.integral.min = 900,
+#'  background.integral.max = 1000,
+#'  n.MC = 10,
+#'  fit.method = "OTORX")
 #'
 #' @md
 #' @export

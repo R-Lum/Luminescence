@@ -122,13 +122,13 @@ all others.
 but it does issue a warning. The user is responsible for the consequences.
 
 ### `plot_DoseResponseCurve()`
-* The response curve always tries to the get the 0 point in the mode `interpolation` and `alternate`
+* The response curve always tries to the get the 0 point in the mode `interpolation` and `alternate` (#677)
 
 ### `plot_DRCSummary()`
-* Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()`
+* Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)
 
 ### `plot_GrowthCurve()`
-* Add support for `OTORX` fit corresponding to the underlying change in `fit_DoseReponseCurve()`
+* Add support for `OTORX` fit corresponding to the underlying change in `fit_DoseReponseCurve()` (#677)
 
 ### `plot_KDE()`
 

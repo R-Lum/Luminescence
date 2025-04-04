@@ -8,7 +8,7 @@
 #'
 #' @details
 #'
-#' **Fitting methods**
+#' ## Implemented fitting methods
 #'
 #' For all options (except for the `LIN`, `QDR` and the `EXP OR LIN`),
 #' the [minpack.lm::nlsLM] function with the `LM` (Levenberg-Marquardt algorithm)
@@ -17,44 +17,63 @@
 #'
 #' The solution is found by transforming the function or using [stats::uniroot].
 #'
-#' `LIN`: fits a linear function to the data using
-#' [lm]: \deqn{y = mx + n}
+#' **Keyword: `LIN`**
 #'
-#' `QDR`: fits a linear function with a quadratic term to the data using
-#' [lm]: \deqn{y = a + bx + cx^2}
+#' Fits a linear function to the data using [lm]:
+#' \deqn{y = mx + n}
 #'
-#' `EXP`: tries to fit a function of the form
+#' **Keyword: `QDR`**
+#'
+#' Fits a linear function with a quadratic term to the data using  [lm]:
+#' \deqn{y = a + bx + cx^2}
+#'
+#' **Keyword: `EXP`**
+#'
+#' Adapts a function of the form
 #' \deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
-#' Parameters b and c are approximated by a linear fit using [lm]. Note: b = D0
 #'
-#' `EXP OR LIN`: works for some cases where an `EXP` fit fails.
-#' If the `EXP` fit fails, a `LIN` fit is done instead.
+#' Parameters b and c are approximated by a linear fit using [lm]. Note: \eqn{b = D0}
 #'
-#' `EXP+LIN`: tries to fit an exponential plus linear function of the
-#' form:
+#' **Keyword: `EXP OR LIN`**
+#'
+#' Works for some cases where an `EXP` fit fails. If the `EXP` fit fails,
+#' a `LIN` fit is done instead, which always works.
+#'
+#' **Keyword: `EXP+LIN`**
+#'
+#' Tries to fit an exponential plus linear function of the form:
+#'
 #' \deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
 #' The \eqn{D_e} is calculated by iteration.
 #'
-#' **Note:** In the context of luminescence dating, this
-#' function has no physical meaning. Therefore, no D0 value is returned.
+#' **Note:** In the context of luminescence dating, this function has no physical meaning.
+#' Therefore, no \eqn{D_0} value is returned.
 #'
-#' `EXP+EXP`: tries to fit a double exponential function of the form
+#' **Keyword: `EXP+EXP`**
+#'
+#' Tries to fit a double exponential function of the form
+#'
 #' \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
-#' This fitting procedure is not robust against wrong start parameters and
-#' should be further improved.
 #'
-#' `GOK`: tries to fit the general-order kinetics function after
-#' Guralnik et al. (2015) of the form of
+#' *This fitting procedure is not reallyt robust against wrong start parameters.*
+#'
+#' **Keyword: `GOK`**
+#'
+#' Tries to fit the general-order kinetics function following Guralnik et al. (2015)
+#' of the form
 #'
 #' \deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 #'
-#' where **c > 0** is a kinetic order modifier
+#' where \eqn{c > 0} is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
 #'
-#' `OTOR` (former `LambertW`): tries to fit a dose-response curve based on the Lambert W function
-#' and the OTOR model according to Pagonis et al. (2020). The function has the form
+#'**Keyword: `OTOR`** (former `LambertW`)
 #'
-#' \deqn{y = (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+#' This tries to fit a dose-response curve based on the Lambert W function
+#' and the one trap one recombination centre (OTOR)
+#' model according to Pagonis et al. (2020). The function has the form
+#'
+#' \deqn{y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
@@ -63,7 +82,34 @@
 #' is a non-easy task due to the shape of the function and the results might be
 #' unexpected.
 #'
-#' `OTORX` ##TODO
+#' **Keyword: `OTORX`**
+#'
+#' This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar-Gabor (2024)
+#' accounting for retrapping. Mathematically, the implementation reads (the equation here
+#' as implemented, it is slightly differently written than in the original manuscript):
+#'
+#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{D}{D_{63}}))\right] / Q}
+#'
+#' with
+#'
+#' \deqn{Q = \frac{A_m - A_n}{A_m}\frac{N}{N+N_D}}
+#'
+#' where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
+#' the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
+#' the value at which the trap occupation corresponds to the 63% of the saturation value.
+#'
+#' For the implementation the calculation reads further
+#'
+#' \deqn{y = \frac{F_{OTORX}(D/D_{63}), Q)}{F_{OTORX}(D_{test}/D_{63}, Q)}}
+#'
+#' with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
+#' the regeneration dose points. This value is essential and needs to provided
+#' along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see `object` parameter input
+#' and the example section). For more details see Lawless and Timar-Gabor (2024).
+#'
+#' *Note: `OTORX` is by definition `fit.force_through_origin = TRUE`.*
+#'
+#' *Note: `OTORX` is not defined for extrapolation and hence this mode is not supported!*
 #'
 #' **Fit weighting**
 #'
@@ -94,9 +140,11 @@
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided. If `object` is a list,
-#' the function is called on each of its elements. If `fit.method = "OTORX"` you have
-#' to provide the test dose in the same unit as the dose in a column called `Test_Dose`.
-#' The function searches explicitly for this column name.
+#' the function is called on each of its elements.
+#' If `fit.method = "OTORX"` you have  to provide the test dose in the same unit
+#' as the dose in a column called `Test_Dose`. The function searches explicitly
+#' for this column name. Only the first value will be used assuming a constant
+#' test dose over the measurement cycle.
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
@@ -254,6 +302,10 @@
 #' #as alternative error estimation
 #' confint(results$Fit, level = 0.68)
 #'
+#' ##(5) special case the OTORX model with test dose column
+#' df <- cbind(LxTxData, Test_Dose = 15)
+#' fit_DoseResponseCurve(object = df, fit.method = "OTORX", n.MC = 10) |>
+#'  plot_DoseResponseCurve()
 #'
 #' \dontrun{
 #' QNL84_2_bleached <-
@@ -692,9 +744,9 @@ fit_DoseResponseCurve <- function(
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
           parameters<-(coef(fit.initial))
-          a.start[i] <- as.vector((parameters["a"]))
-          b.start[i] <- as.vector((parameters["b"]))
-          c.start[i] <- as.vector((parameters["c"]))
+          a.start[i] <- as.vector(parameters["a"])
+          b.start[i] <- as.vector(parameters["b"])
+          c.start[i] <- as.vector(parameters["c"])
         }
       }
 
@@ -1549,8 +1601,11 @@ fit_DoseResponseCurve <- function(
 
   }  ## OTORX ---------------------------------------------------------------
   else if (fit.method == "OTORX") {
-    ## we need a test dose
-    if(!is.null(object$Test_Dose) && all(object$Test_Dose != -1)) {
+    if(is.null(object$Test_Dose) && all(object$Test_Dose == -1))
+      .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
+
+    ## we need a test dose; the default value is -1 because an NA will cause
+    ## additional problems
       TEST_DOSE <- object$Test_Dose[[1]]
 
       ## here we replace TEST_DOSE by an evaluated value
@@ -1558,16 +1613,9 @@ fit_DoseResponseCurve <- function(
       body(fit.functionOTORX) <- do.call(
         substitute, list(body(fit.functionOTORX), list(TEST_DOSE = TEST_DOSE)))
 
-   } else {
-      .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
-
-   }
-
-    ## TODO we don't have tests for this
+    ## set boundaries
     lower <- if (fit.bounds) c(0, 0, 0) else rep(-Inf, 3)
     upper <- c(Inf, Inf, Inf)
-    ##TODO
-    #upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
 
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionOTORX, env = currn_env),
