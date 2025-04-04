@@ -118,7 +118,9 @@
   Timar-Gabor (2024). In order to use the fit, you have to provide
   information on the test dose in the input object. Please note that
   following the reference, the function is not defined for
-  `extrapolation` (#677)
+  `extrapolation` (#677). The code implementation follows the pyhton
+  reference by
+  [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py).
 
 ### `fit_SurfaceExposure()`
 
