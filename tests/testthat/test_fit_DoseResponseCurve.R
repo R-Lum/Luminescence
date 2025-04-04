@@ -654,4 +654,7 @@ test_that("test internal functions", {
     D = 1,
     Q = c(-10,-3,0.1,1),
     D63 = 1)), expected = 2.5, tolerance = 1)
+
+  expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0), D63 = 1),
+               "Unsupported zero and non-zero Q")
 })

@@ -52,7 +52,7 @@ function used for fitting. Possible options are:
 \item \code{EXP},
 \item \verb{EXP OR LIN},
 \item \code{EXP+LIN},
-\item \code{EXP+EXP},
+\item \code{EXP+EXP} (not defined for extrapolation),
 \item \code{GOK},
 \item \code{OTOR},
 \item \code{OTORX} (not defined for extrapolation)
@@ -191,7 +191,7 @@ Tries to fit a double exponential function of the form
 
 \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
 
-\emph{This fitting procedure is not reallyt robust against wrong start parameters.}
+\emph{This fitting procedure is not really robust against wrong start parameters.}
 
 \strong{Keyword: \code{GOK}}
 

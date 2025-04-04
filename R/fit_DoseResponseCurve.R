@@ -163,7 +163,7 @@
 #' - `EXP`,
 #' - `EXP OR LIN`,
 #' - `EXP+LIN`,
-#' - `EXP+EXP`,
+#' - `EXP+EXP` (not defined for extrapolation),
 #' - `GOK`,
 #' - `OTOR`,
 #' - `OTORX` (not defined for extrapolation)
@@ -1088,10 +1088,7 @@ fit_DoseResponseCurve <- function(
         )), silent = TRUE)
 
         #get parameters out of it including error handling
-        if (inherits(fit.MC, "try-error")) {
-          x.natural[i] <- NA
-
-        }else {
+        if (!inherits(fit.MC, "try-error")) {
           parameters <- coef(fit.MC)
           var.a <- parameters[["a"]]
           var.b <- parameters[["b"]]
@@ -1120,8 +1117,6 @@ fit_DoseResponseCurve <- function(
 
           if (!inherits(temp.De.MC, "try-error")) {
             x.natural[i] <- temp.De.MC$root
-          } else{
-            x.natural[i] <- NA
           }
         }
         ##update progress bar
@@ -1930,7 +1925,7 @@ fit_DoseResponseCurve <- function(
   if(all(abs(Q) < 1e-06))
     r <- 1 - exp(-D/D63)
   else if (any(abs(Q) < 1e-06))
-    stop("[.D2nN()] Unsupported of zero and non-zero Q", call. = FALSE)
+    stop("[.D2nN()] Unsupported zero and non-zero Q", .call = FALSE)
   else
     r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * D/D63))) / Q
 
