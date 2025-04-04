@@ -168,6 +168,20 @@ analyse_portableOSL <- function(
     signal.integral <- c(1, 1)
     .throw_warning("No value for 'signal.integral' provided. Only the ",
                    "first data point of each curve was used")
+  } else {
+    signal.integral <- range(signal.integral)
+  }
+
+  ## set the maximum signal_integral allowed: as this must be valid across all
+  ## records, we cap it to the minimum number of points
+  num.points <- min(sapply(get_RLum(object, recordType = c("OSL", "IRSL")),
+                             length))
+  if (signal.integral[2] > num.points) {
+    .throw_warning("'signal.integral' (",
+                   .collapse(signal.integral, quote = FALSE), ") ",
+                   "exceeds the number of data points, reset to (",
+                   signal.integral[1], ", ", num.points, ")")
+    signal.integral[2] <- num.points
   }
 
   .validate_args(mode, c("profile", "surface"))
@@ -553,17 +567,8 @@ analyse_portableOSL <- function(
 # HELPER FUNCTIONS ----------
 ## This extracts the relevant curve data information of the RLum.Data.Curve
 ## objects
-.posl_get_signal <- function(x, signal.integral) {
+.posl_get_signal <- function(x, sigint) {
     raw_signal <- get_RLum(x)[,2]
-    sigint <- range(signal.integral)
-    num.points <- length(raw_signal)
-    if (sigint[2] > num.points) {
-      sigint[2] <- num.points
-      .throw_warning("'signal.integral' (",
-                     .collapse(range(signal.integral), quote = FALSE), ") ",
-                     "exceeds the number of data points (n = ", num.points,
-                     "), reset to (", .collapse(sigint, quote = FALSE), ")")
-    }
     sum_signal <- sum(raw_signal[sigint[1]:sigint[2]])
     sum_signal_err <- sqrt(sum(x@info$raw_data$counts_per_cycle_error[sigint[1]:sigint[2]]^2))
     sum_signal_depletion <- sum(raw_signal[(length(raw_signal)-length(sigint[1]:sigint[2])):length(raw_signal)]) / sum_signal

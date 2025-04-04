@@ -167,12 +167,10 @@ test_that("input validation", {
         sample = "test"),
       regexp = "\\[analyse\\_portableOSL\\(\\)\\] In profile mode, zlim.+")
 
-    suppressWarnings( # generated the same warning twice
     expect_warning(analyse_portableOSL(merged[1:5],
                                        signal.integral = c(1, 102)),
                    "'signal.integral' (1, 102) exceeds the number of data points",
                    fixed = TRUE)
-    )
 })
 
 test_that("graphical snapshot tests", {

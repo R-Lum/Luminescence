@@ -71,6 +71,10 @@
 - The function crashed when using `mode = "surface"` if the plotting
   limits were too tight and left only one point (#675).
 
+- The check on the validity of the `signal.integral` argument occurs
+  only once, so at most one warning is raised if the argument is set to
+  a value too large (#678).
+
 ### `calc_AliquotSize()`
 
 - The new argument `sample_carrier.diameter` allows to specify a value
@@ -122,7 +126,7 @@
   Timar-Gabor (2024). In order to use the fit, you have to provide
   information on the test dose in the input object. Please note that
   following the reference, the function is not defined for
-  `extrapolation` (#677). The code implementation follows the pyhton
+  `extrapolation` (#677). The code implementation follows the Python
   reference by
   [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py).
 
