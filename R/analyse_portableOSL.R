@@ -176,12 +176,13 @@ analyse_portableOSL <- function(
   ## records, we cap it to the minimum number of points
   num.points <- min(sapply(get_RLum(object, recordType = c("OSL", "IRSL")),
                              length))
-  if (signal.integral[2] > num.points) {
+  if (max(signal.integral) > num.points || min(signal.integral) < 1) {
+    orig.signal.int <- signal.integral
+    signal.integral <- pmin(pmax(signal.integral, 1), num.points)
     .throw_warning("'signal.integral' (",
-                   .collapse(signal.integral, quote = FALSE), ") ",
+                   .collapse(orig.signal.int, quote = FALSE), ") ",
                    "exceeds the number of data points, reset to (",
-                   signal.integral[1], ", ", num.points, ")")
-    signal.integral[2] <- num.points
+                   .collapse(signal.integral, quote = FALSE), ")")
   }
 
   .validate_args(mode, c("profile", "surface"))

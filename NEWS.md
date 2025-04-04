@@ -71,9 +71,10 @@
 - The function crashed when using `mode = "surface"` if the plotting
   limits were too tight and left only one point (#675).
 
-- The check on the validity of the `signal.integral` argument occurs
-  only once, so at most one warning is raised if the argument is set to
-  a value too large (#678).
+- The check on the validity of the `signal.integral` argument has been
+  improved, and now it occurs only once, so at most one warning is
+  raised if the argument is set to a value exceeding the valid range
+  (#678, \#680).
 
 ### `calc_AliquotSize()`
 
