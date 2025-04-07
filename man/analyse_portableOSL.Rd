@@ -48,12 +48,15 @@ Note that, in such case, a surface plot cannot be produced.}
 
 \item{...}{other parameters to be passed to modify the plot output.
 Supported are \code{run} to provide the run name (if the input is a \code{list}, this
-is set automatically). Further plot parameters are
-\code{surface_values} (\link{character} with value to plot), \code{legend} (\code{TRUE}/\code{FALSE}), \code{col_ramp} (for
-surface mode), \code{contour} (contour lines \code{TRUE}/\code{FALSE} in surface mode), \code{grid} (\code{TRUE}/\code{FALSE}), \code{col}, \code{pch} (for profile mode), \code{xlim} (a name \link{list} for profile mode), \code{ylim},
-\code{zlim} (surface mode only), \code{ylab}, \code{xlab}, \code{zlab} (here x-axis labelling), \code{main}, \code{bg_img} (for
-profile mode background image, usually a profile photo; should be a raster object),
-\code{bg_img_positions} (a vector with the four corner positions, cf. \link[graphics:rasterImage]{graphics::rasterImage})}
+is set automatically). Further plot parameters accepted are \code{main},
+\code{col}, \code{xlim} (a named \link{list} for profile mode), \code{ylim}, \code{ylab}, \code{xlab}.
+Additional parameters for \code{mode = "profile"} are  \code{type}, \code{pch}, \code{grid}
+(\code{TRUE}/\code{FALSE}), \code{bg_img} (a raster object for the background image,
+usually a profile photo), \code{bg_img_positions} (a vector with the four corner
+positions, see \link[graphics:rasterImage]{graphics::rasterImage}).
+Additional parameters for \code{mode = "surface"} are \code{surface_values}
+(\link{character} with value to plot), \code{col_ramp}, \code{legend} (\code{TRUE}/\code{FALSE}),
+\code{contour} (\code{TRUE}/\code{FALSE}), \code{zlim}, \code{zlab} (here x-axis labelling).}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:

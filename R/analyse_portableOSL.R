@@ -67,12 +67,15 @@
 #'
 #' @param ... other parameters to be passed to modify the plot output.
 #' Supported are `run` to provide the run name (if the input is a `list`, this
-#' is set automatically). Further plot parameters are
-#' `surface_values` ([character] with value to plot), `legend` (`TRUE`/`FALSE`), `col_ramp` (for
-#' surface mode), `contour` (contour lines `TRUE`/`FALSE` in surface mode), `grid` (`TRUE`/`FALSE`), `col`, `pch` (for profile mode), `xlim` (a name [list] for profile mode), `ylim`,
-#' `zlim` (surface mode only), `ylab`, `xlab`, `zlab` (here x-axis labelling), `main`, `bg_img` (for
-#' profile mode background image, usually a profile photo; should be a raster object),
-#' `bg_img_positions` (a vector with the four corner positions, cf. [graphics::rasterImage])
+#' is set automatically). Further plot parameters accepted are `main`,
+#' `col`, `xlim` (a named [list] for profile mode), `ylim`, `ylab`, `xlab`.
+#' Additional parameters for `mode = "profile"` are  `type`, `pch`, `grid`
+#' (`TRUE`/`FALSE`), `bg_img` (a raster object for the background image,
+#' usually a profile photo), `bg_img_positions` (a vector with the four corner
+#' positions, see [graphics::rasterImage]).
+#' Additional parameters for `mode = "surface"` are `surface_values`
+#' ([character] with value to plot), `col_ramp`, `legend` (`TRUE`/`FALSE`),
+#' `contour` (`TRUE`/`FALSE`), `zlim`, `zlab` (here x-axis labelling).
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -312,6 +315,8 @@ analyse_portableOSL <- function(
        bg_img_positions = NULL,
        surface_value = c("BSL", "IRSL", "IRSL_BSL_RATIO"),
        legend = TRUE,
+       type = "b",
+       cex = 1,
        col = c("blue", "red", "blue", "red", "black", "grey"),
        pch = rep(16, length(m_list)),
        xlim = attr(m_list, "xlim"),
@@ -385,6 +390,8 @@ analyse_portableOSL <- function(
            xlim = plot_settings$xlim,
            xlab = plot_settings$xlab,
            ylab = plot_settings$ylab,
+           cex.lab = plot_settings$cex,
+           cex.axis = plot_settings$cex,
            main = plot_settings$main)
 
          ## add background image if available -------
@@ -415,10 +422,10 @@ analyse_portableOSL <- function(
            graphics::contour(m, add = TRUE, col = "grey")
 
          ## add points
-         points(m[,1:2], pch = 20)
+         points(m[, 1:2], pch = 20, cex = plot_settings$cex)
 
          ## add what is shown in the plot
-         mtext(side = 3, text = i, cex = 0.7)
+         mtext(side = 3, text = i, cex = plot_settings$cex * 0.7)
 
          ## add legend
          if(plot_settings$legend) {
@@ -448,7 +455,7 @@ analyse_portableOSL <- function(
              } else {
                format(plot_settings$zlim_image[2], digits = 1, scientific = TRUE)
              },
-             cex = 0.6,
+             cex = plot_settings$cex * 0.6,
              srt = 270,
              pos = 3)
 
@@ -460,7 +467,7 @@ analyse_portableOSL <- function(
              } else {
                format(plot_settings$zlim_image[1], digits = 1, scientific = TRUE)
              },
-             cex = 0.6,
+             cex = plot_settings$cex * 0.6,
              pos = 3,
              srt = 270)
 
@@ -469,7 +476,7 @@ analyse_portableOSL <- function(
              x = par()$usr[2] * 1.05,
              y = (par()$usr[4] - par()$usr[3])/2 + par()$usr[3],
              labels = "Intensity [a.u.]",
-             cex = 0.7,
+             cex = plot_settings$cex * 0.7,
              pos = 3,
              srt = 270)
          }
@@ -486,7 +493,8 @@ analyse_portableOSL <- function(
 
     graphics::frame()
 
-    mtext(side= 3, plot_settings$main, cex = 0.7, line = 2)
+      mtext(side = 3, plot_settings$main, line = 2,
+            cex = plot_settings$cex * 0.7)
 
     par(mar = c(5, 0, 4, 1) + 0.1)
 
@@ -516,6 +524,8 @@ analyse_portableOSL <- function(
             xlim = xlim,
             xlab = plot_settings$zlab[idx],
             ylab = "",
+            cex.lab = plot_settings$cex,
+            cex.axis = plot_settings$cex,
             bty = "n",
             yaxt = "n"
         )
@@ -527,7 +537,8 @@ analyse_portableOSL <- function(
         lines(
             x = x.val,
             y = y.val,
-            type = "b",
+            type = plot_settings$type,
+            cex = plot_settings$cex,
             lty = ifelse(prof %in% c("BSL_depletion", "IRSL_depletion"), 2, 1),
             pch = plot_settings$pch[idx],
             col = plot_settings$col[idx]
@@ -544,12 +555,15 @@ analyse_portableOSL <- function(
               col = plot_settings$col[idx])
         }
 
-        axis(3)
+        axis(3, cex.axis = plot_settings$cex)
 
         ## add general axis labels
         if (idx == 1) {
-          axis(2, line = 3, at = y.val, labels = y.val)
-          mtext(plot_settings$ylab[1], side = 2, line = 6)
+          labs <- pretty(y.val, n = 10)
+          axis(2, line = 3, at = labs, labels = labs,
+               cex.axis = plot_settings$cex)
+          mtext(plot_settings$ylab[1], side = 2, line = 6,
+                cex = plot_settings$cex)
         }
       }
 
