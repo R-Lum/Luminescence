@@ -12,13 +12,13 @@ test_that("input validation", {
                "'data' object must have two columns")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1),
                "argument .* is missing, with no default")
-  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2),
-               "argument .* is missing, with no default")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = -1),
                "'sigmab' must be a value between 0 and 1")
+  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2),
+               "'n.components' should be of class 'integer' or 'numeric'")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                                   n.components = 1),
-               "At least two components need to be fitted")
+               "'n.components' should be at least 2")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                                   n.components = 2, pdf.sigma = "error"),
                "'pdf.sigma' should be one of 'sigmab' or 'se'")

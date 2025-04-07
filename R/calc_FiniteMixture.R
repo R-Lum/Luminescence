@@ -201,11 +201,16 @@ calc_FiniteMixture <- function(
   if (sigmab < 0 || sigmab > 1) {
     .throw_error("'sigmab' must be a value between 0 and 1")
   }
-  if(any(n.components<2) == TRUE) {
-    .throw_error("At least two components need to be fitted")
+  .validate_class(n.components, c("integer", "numeric"))
+  if (min(n.components) < 2) {
+    .throw_error("'n.components' should be at least 2")
   }
+  .validate_logical_scalar(grain.probability)
+  .validate_logical_scalar(pdf.weight)
   pdf.sigma <- .validate_args(pdf.sigma, c("sigmab", "se"))
   pdf.colors <- .validate_args(pdf.colors, c("gray", "colors", "none"))
+  .validate_logical_scalar(plot.proportions)
+  .validate_logical_scalar(plot)
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")
@@ -365,7 +370,6 @@ calc_FiniteMixture <- function(
     L0<- sum( log((1/sqrt(2*pi))*fu0 ) )
     bic0<- -2*L0 + log(n)
     comp0<- round(c(exp(mu0),sigmab,L0,bic0),4)
-
 
     ## save results for k components in storage variables
     if(length(n.components)>1) {
