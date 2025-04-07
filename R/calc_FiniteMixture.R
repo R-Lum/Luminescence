@@ -432,36 +432,36 @@ calc_FiniteMixture <- function(
     if(length(n.components) == 1) {
 
       # covariance matrix
-      cat(paste("\n\n--- covariance matrix of mle's ---\n\n"))
+      cat("\n\n--- covariance matrix of mle's ---\n\n")
       print(round(vmat,6))
 
       # general information on sample and model performance
-      cat(paste("\n----------- meta data ------------"))
-      cat(paste("\n n:                    ",n))
-      cat(paste("\n sigmab:               ",sigmab))
-      cat(paste("\n number of components: ",k))
-      cat(paste("\n llik:                 ",round(llik,4)))
-      cat(paste("\n BIC:                   ",round(bic,3)))
+      cat("\n----------- meta data ------------")
+      cat("\n n:                    ", n)
+      cat("\n sigmab:               ", sigmab)
+      cat("\n number of components: ", k)
+      cat("\n llik:                 ", round(llik,4))
+      cat("\n BIC:                  ", round(bic,3))
 
       # fitted components
-      cat(paste("\n\n----------- components -----------\n\n"))
+      cat("\n\n----------- components -----------\n\n")
       print(comp)
 
 
       # print (to 2 decimal places) the estimated probabilities of which component
       # each grain is in -- sometimes useful for diagnostic purposes
       if(grain.probability==TRUE) {
-        cat(paste("\n-------- grain probability -------\n\n"))
+        cat("\n-------- grain probability -------\n\n")
         print(round(pui,2))
       }
 
       # output for single component
-      cat(paste("\n-------- single component --------"))
-      cat(paste("\n mu:                    ", comp0[1]))
-      cat(paste("\n sigmab:                ", comp0[2]))
-      cat(paste("\n llik:                  ", comp0[3]))
-      cat(paste("\n BIC:                   ", comp0[4]))
-      cat(paste("\n----------------------------------\n\n"))
+      cat("\n-------- single component --------")
+      cat("\n mu:                    ", comp0[1])
+      cat("\n sigmab:                ", comp0[2])
+      cat("\n llik:                  ", comp0[3])
+      cat("\n BIC:                   ", comp0[4])
+      cat("\n----------------------------------\n\n")
 
     }#EndOf::Output for length(n.components) == 1
 
@@ -495,41 +495,40 @@ calc_FiniteMixture <- function(
 
       ## CONSOLE OUTPUT
       # general information on sample and model performance
-      cat(paste("\n\n----------- meta data ------------"))
-      cat(paste("\n n:                    ",n))
-      cat(paste("\n sigmab:               ",sigmab))
-      cat(paste("\n number of components:  ",n.components[1],"-",
-                n.components[length(n.components)], sep=""))
+      cat("\n\n----------- meta data ------------")
+      cat("\n n:                    ", n)
+      cat("\n sigmab:               ", sigmab)
+      cat("\n number of components:  ",
+          paste0(n.components[1], "-", n.components[length(n.components)]))
 
       # output for single component
-      cat(paste("\n\n-------- single component --------"))
-      cat(paste("\n mu:                    ", comp0[1]))
-      cat(paste("\n sigmab:                ", comp0[2]))
-      cat(paste("\n llik:                  ", comp0[3]))
-      cat(paste("\n BIC:                   ", comp0[4]))
+      cat("\n\n-------- single component --------")
+      cat("\n mu:                    ", comp0[1])
+      cat("\n sigmab:                ", comp0[2])
+      cat("\n llik:                  ", comp0[3])
+      cat("\n BIC:                   ", comp0[4])
 
       # print component matrix
-      cat(paste("\n\n----------- k components -----------\n"))
+      cat("\n\n----------- k components -----------\n")
       print(comp.n, na.print="<NA>")
 
       # print BIC scores and LLIK estimates
-      cat(paste("\n----------- statistical criteria -----------\n"))
+      cat("\n----------- statistical criteria -----------\n")
       print(results.n)
 
       ## print evaluation of statistical criteria
       # lowest BIC score
-      cat(paste("\n Lowest BIC score for k =", BIC.lowest))
+      cat("\n Lowest BIC score for k =", BIC.lowest)
 
       # first significant increase in LLIK estimates
       if(!any(LLIK.significant, na.rm = TRUE)) {
-        cat(paste("\n No significant increase in maximum log",
-                  "likelihood estimates. \n"))
+        cat("\n No significant increase in maximum log-likelihood estimates.\n")
       } else {
-        cat(paste("\n First significant increase in maximum log likelihood for",
-                  "k =", which(LLIK.significant==TRUE)[1], "\n\n"))
+        cat("\n First significant increase in maximum log-likelihood for",
+            "k =", which(LLIK.significant)[1], "\n\n")
       }
 
-      cat(paste("\n"))
+      cat("\n")
     }#EndOf::Output for length(n.components) > 1
   }
 
