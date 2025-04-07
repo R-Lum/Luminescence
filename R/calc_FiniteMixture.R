@@ -217,16 +217,11 @@ calc_FiniteMixture <- function(
 
   ## default values
   verbose <- TRUE
-  trace <- FALSE
   main <- "Finite Mixture Model"
 
   ## console output
   if("verbose" %in% names(extraArgs)) {
     verbose<- extraArgs$verbose
-  }
-  # trace calculations
-  if("trace" %in% names(extraArgs)) {
-    trace<- extraArgs$trace
   }
   # plot title
   if("main" %in% names(extraArgs)) {
