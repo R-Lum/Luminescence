@@ -68,6 +68,9 @@ were too tight and left only one point (#675).
 and now it occurs only once, so at most one warning is raised if the argument is
 set to a value exceeding the valid range (#678, #680).
 
+* The function returns a clearer message when no x-coordinates were measured
+and `mode = "surface"` was used (#682).
+
 ### `calc_AliquotSize()`
 
 * The new argument `sample_carrier.diameter` allows to specify a value for

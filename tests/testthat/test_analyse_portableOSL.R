@@ -135,7 +135,7 @@ test_that("input validation", {
                  fixed = TRUE)
 
     ## trigger warning
-    expect_warning(
+    expect_message(
       analyse_portableOSL(
         merged,
         signal.integral = 1:5,
@@ -145,11 +145,11 @@ test_that("input validation", {
         surface_value = c("BSL"),
         plot = TRUE,
         sample = "test"),
-      "Surface interpolation failed: this happens when all points are")
+      "Surface plot is not available when all x-coordinates are 0")
 
     expect_error(
       analyse_portableOSL(
-        merged,
+        surface,
         signal.integral = 1:5,
         mode = "surface",
         surface_value = "error"),
@@ -191,6 +191,7 @@ test_that("regression tests", {
   SW({
   ## issue 675
   expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
+                                     coord = list(c(1, 1)),
                                      signal.integral = 1:5, mode = "surface"),
                  "Surface interpolation failed: this happens when all points")
 
