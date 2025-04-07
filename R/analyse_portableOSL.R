@@ -28,12 +28,12 @@
 #' strict and has to follow the scheme `_x:<number>|y:<number>`. Example:
 #' `sample_x:0.2|y:0.4`.
 #'
-#' * (2) Alternatively, you can provide a [list] or [matrix] with the sample coordinates.
+#' * (2) Alternatively, you can provide a [list] or [matrix] with the *(x, y)*
+#' coordinates of each sample in meters (m) using the `coord` argument:
 #' Example: `coord = list(c(0.2, 1), c(0.3,1.2))`
 #'
-#' Please note that the unit is meter (m) and the function expects always xy-coordinates.
-#' The latter one is useful for surface interpolations. If you have measured a profile where
-#' the x-coordinates were not measured, x-coordinates should be 0.
+#' If in your profile the x-coordinates were not measured, *x* should be set
+#' to 0. Note that, in such case, a surface plot cannot be produced.
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' object produced by [read_PSL2R]. The input can be a [list] of such objects,
@@ -56,11 +56,12 @@
 #' analysis mode, one of `"profile"` (the default) or `"surface"` for surface
 #' interpolation.
 #'
-#' @param coord [list] [matrix] (*optional*): a list or matrix of the same length as
-#' number of samples measured with coordinates for the sampling positions. Coordinates
-#' are expected to be provided in meter (unit: m).
-#' Expected are x and y coordinates, e.g.,
-#' `coord = list(samp1 = c(0.1, 0.2)`. If you have not measured x coordinates, please x should be 0.
+#' @param coord [list] [matrix] (*optional*): a list or a 2-column matrix
+#' with the *x* and *y* coordinates for the sampling positions in meters (m),
+#' of the same length as the number of samples measured. For example, the
+#' coordinates for one sample could be `coord = list(samp1 = c(0.1, 0.2)`.
+#' If the *x* coordinates were not measured, *x* should be set to 0.
+#' Note that, in such case, a surface plot cannot be produced.
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
@@ -272,6 +273,12 @@ analyse_portableOSL <- function(
    if(invert)
      summary <- summary[nrow(summary):1,]
 
+  if (mode == "surface" && plot && all(range(summary$COORD_X) == c(0, 0))) {
+    plot <- FALSE
+    message("[analyse_portableOSL()] Surface plot is not available when ",
+            "all x-coordinates are 0, plot reset to FALSE")
+  }
+
   # PLOTTING -------------------------------------------------------------------
   ## generate list of plot matrices
   ## this done to have consistent settings for all plot types
@@ -282,6 +289,8 @@ analyse_portableOSL <- function(
 
     ## correct names of the list
     names(m_list) <- parm
+
+  if (plot) {
 
     ## add a few attributes to be used later
     attr(m_list, "xlim") <- lapply(m_list, function(x) range(x[,1]))
@@ -294,8 +303,6 @@ analyse_portableOSL <- function(
       attr(m_list, "xlim") <- range(summary$COORD_X)
     }
 
-  if (plot) {
-   ## account for surface case
    ## preset plot settings
    ## plot settings -------
    plot_settings <- modifyList(
