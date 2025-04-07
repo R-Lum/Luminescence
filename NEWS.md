@@ -79,6 +79,9 @@
 - The function returns a clearer message when no x-coordinates were
   measured and `mode = "surface"` was used (#682).
 
+- The `cex` and `type` graphical parameters can now configured via the
+  `...` argument (#684).
+
 ### `calc_AliquotSize()`
 
 - The new argument `sample_carrier.diameter` allows to specify a value
