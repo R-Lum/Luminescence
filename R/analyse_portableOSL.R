@@ -255,7 +255,14 @@ analyse_portableOSL <- function(
 
   ### extract  coordinates -------
   if(is.null(coord)) {
-    coord <- .extract_PSL_coord(object)
+    settings_sample <- unique(
+        vapply(object, function(x) x@info$settings$Sample, character(1)))
+    num.names <- length(settings_sample)
+    if (num.names != length(RATIO)) {
+      .throw_error("'object' references ", num.names, " sample names, but ",
+                   "only ", length(RATIO), " IRSL/OSL pairs found")
+    }
+    coord <- .extract_PSL_coord(settings_sample)
 
   } else {
     .validate_class(coord, c("matrix", "list"))
@@ -631,13 +638,8 @@ analyse_portableOSL <- function(
   return(x)
 }
 
-## This function extracts the coordinates from the file name
-##
-.extract_PSL_coord <- function(object){
-  ## get settings
-  settings_sample <- vapply(object, function(x) x@info$settings$Sample, character(1)) |>
-    unique()
-
+## This function extracts the coordinates from the sample names
+.extract_PSL_coord <- function(settings_sample) {
   ## set character vector
   tmp_coord <- character(length(settings_sample))
 
