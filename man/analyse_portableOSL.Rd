@@ -54,7 +54,7 @@ Additional parameters for \code{mode = "profile"} are  \code{type}, \code{pch}, 
 (\code{TRUE}/\code{FALSE}), \code{bg_img} (a raster object for the background image,
 usually a profile photo), \code{bg_img_positions} (a vector with the four corner
 positions, see \link[graphics:rasterImage]{graphics::rasterImage}).
-Additional parameters for \code{mode = "surface"} are \code{surface_values}
+Additional parameters for \code{mode = "surface"} are \code{surface_value}
 (\link{character} with value to plot), \code{col_ramp}, \code{legend} (\code{TRUE}/\code{FALSE}),
 \code{contour} (\code{TRUE}/\code{FALSE}), \code{zlim}, \code{zlab} (here x-axis labelling).}
 }

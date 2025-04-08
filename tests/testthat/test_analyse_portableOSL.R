@@ -53,11 +53,11 @@ test_that("check class and length of output", {
         invert = TRUE,
         mode = "surface",
         xlim = c(0.1, 0.6),
-        ylim = c(0.1, 0.6),
+        ylim = c(0.1, 0.8),
         zlim = c(0.1, 2),
         zlim_image = c(1, 2),
         col_ramp = grDevices::topo.colors(20),
-        surface_values = c("BSL", "IRSL"),
+        surface_value = c("BSL", "IRSL"),
         normalise = TRUE,
         contour = TRUE,
         plot = TRUE

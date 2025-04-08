@@ -77,7 +77,7 @@
 #' (`TRUE`/`FALSE`), `bg_img` (a raster object for the background image,
 #' usually a profile photo), `bg_img_positions` (a vector with the four corner
 #' positions, see [graphics::rasterImage]).
-#' Additional parameters for `mode = "surface"` are `surface_values`
+#' Additional parameters for `mode = "surface"` are `surface_value`
 #' ([character] with value to plot), `col_ramp`, `legend` (`TRUE`/`FALSE`),
 #' `contour` (`TRUE`/`FALSE`), `zlim`, `zlab` (here x-axis labelling).
 #'
