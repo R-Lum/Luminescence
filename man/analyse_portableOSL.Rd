@@ -56,7 +56,7 @@ usually a profile photo), \code{bg_img_positions} (a vector with the four corner
 positions, see \link[graphics:rasterImage]{graphics::rasterImage}).
 Additional parameters for \code{mode = "surface"} are \code{surface_value}
 (\link{character} with value to plot), \code{col_ramp}, \code{legend} (\code{TRUE}/\code{FALSE}),
-\code{contour} (\code{TRUE}/\code{FALSE}), \code{zlim}, \code{zlab} (here x-axis labelling).}
+\code{contour} (\code{TRUE}/\code{FALSE}), \code{contour_nlevels}, \code{zlim}, \code{zlab} (here x-axis labelling).}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:
@@ -106,7 +106,7 @@ If in your profile the x-coordinates were not measured, \emph{x} should be set
 to 0. Note that, in such case, a surface plot cannot be produced.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{

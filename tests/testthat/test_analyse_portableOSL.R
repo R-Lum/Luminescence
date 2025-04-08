@@ -62,6 +62,7 @@ test_that("check class and length of output", {
         surface_value = c("BSL", "IRSL"),
         normalise = TRUE,
         contour = TRUE,
+        contour_nlevels = 20,
         plot = TRUE
       ), "RLum.Results")
 
