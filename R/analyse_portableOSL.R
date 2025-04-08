@@ -13,7 +13,11 @@
 #' channels (same number of channels as specified by `signal.integral`) is
 #' divided by cumulative signal of the first *n* channels (`signal.integral`).
 #'
-#' **Note:  The function assumes the following sequence pattern: `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`. If you have written a different sequence, the analysis function will (likely) not work!**.
+#' **Note:  The function assumes the following sequence pattern:
+#' `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`.** Therefore, the
+#' total number of curves in the input object must be a multiple of 5, and
+#' there must be 3 `DARK_COUNT` records for each IRLS/BSL pair. If you have used
+#' a different sequence, the function will produce an error.
 #'
 #' **Signal processing**
 #' The function processes the signals as follows: `BSL` and `IRSL` signals are extracted using the
@@ -73,7 +77,7 @@
 #' (`TRUE`/`FALSE`), `bg_img` (a raster object for the background image,
 #' usually a profile photo), `bg_img_positions` (a vector with the four corner
 #' positions, see [graphics::rasterImage]).
-#' Additional parameters for `mode = "surface"` are `surface_values`
+#' Additional parameters for `mode = "surface"` are `surface_value`
 #' ([character] with value to plot), `col_ramp`, `legend` (`TRUE`/`FALSE`),
 #' `contour` (`TRUE`/`FALSE`), `zlim`, `zlab` (here x-axis labelling).
 #'
@@ -164,9 +168,10 @@ analyse_portableOSL <- function(
   if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
     .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
 
-  ## check sequence pattern
-  if(!all(names(object)[1:5] == c("USER", "IRSL", "USER", "OSL", "USER")))
-    .throw_error("Sequence pattern not supported, please read manual for details")
+  ## check length and start of the sequence pattern, we check it further below
+  if (length(object) %% 5 != 0 ||
+      !all(names(object)[1:5] == c("USER", "IRSL", "USER", "OSL", "USER")))
+    .throw_error("Sequence pattern not supported: see the manual for details")
 
   if (is.null(signal.integral)) {
     signal.integral <- c(1, 1)
@@ -218,11 +223,23 @@ analyse_portableOSL <- function(
     .posl_get_signal(x, signal.integral)
   }))
 
+  if (nrow(OSL) != nrow(IRSL)) {
+    .throw_error("Sequence pattern not supported: the number of OSL records ",
+                 "does not match the number of IRSL records")
+  }
+
   ### get DARK counts ----------
   ### we assume that USER contains the dark count measurements
   DARK_COUNT <- .unlist_RLum(list(get_RLum(object, recordType = "USER")))
-  DARK_COUNT <- lapply(seq(1,length(DARK_COUNT),3), function(x) DARK_COUNT[x:(x+2)])
 
+  ## we expect a sequence pattern with 3 DARK_COUNT records for each OSL/IRLS pair
+  num.dark.count <- length(DARK_COUNT)
+  if (num.dark.count %% 3 != 0) {
+    .throw_error("Sequence pattern not supported: expected ", nrow(OSL) * 3,
+                 " DARK_COUNT records, but found ", num.dark.count)
+  }
+
+  DARK_COUNT <- lapply(seq(1, num.dark.count, 3), function(x) DARK_COUNT[x:(x+2)])
   DARK_COUNT <- do.call(rbind, lapply(DARK_COUNT, function(x) {
     .posl_get_dark_count(x)
   }))
@@ -238,7 +255,14 @@ analyse_portableOSL <- function(
 
   ### extract  coordinates -------
   if(is.null(coord)) {
-    coord <- .extract_PSL_coord(object)
+    settings_sample <- unique(
+        vapply(object, function(x) x@info$settings$Sample, character(1)))
+    num.names <- length(settings_sample)
+    if (num.names != length(RATIO)) {
+      .throw_error("'object' references ", num.names, " sample names, but ",
+                   "only ", length(RATIO), " IRSL/OSL pairs found")
+    }
+    coord <- .extract_PSL_coord(settings_sample)
 
   } else {
     .validate_class(coord, c("matrix", "list"))
@@ -614,13 +638,8 @@ analyse_portableOSL <- function(
   return(x)
 }
 
-## This function extracts the coordinates from the file name
-##
-.extract_PSL_coord <- function(object){
-  ## get settings
-  settings_sample <- vapply(object, function(x) x@info$settings$Sample, character(1)) |>
-    unique()
-
+## This function extracts the coordinates from the sample names
+.extract_PSL_coord <- function(settings_sample) {
   ## set character vector
   tmp_coord <- character(length(settings_sample))
 

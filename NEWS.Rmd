@@ -74,6 +74,9 @@ and `mode = "surface"` was used (#682).
 * The `cex` and `type` graphical parameters can now configured via the `...`
 argument (#684).
 
+* The expected sequence pattern of the input object is validated more
+thoroughly to avoid crashes in case of misspecifications (#687).
+
 ### `calc_AliquotSize()`
 
 * The new argument `sample_carrier.diameter` allows to specify a value for
