@@ -79,7 +79,11 @@ For calculating the depletion ratios, the cumulative signal of the last \emph{n}
 channels (same number of channels as specified by \code{signal.integral}) is
 divided by cumulative signal of the first \emph{n} channels (\code{signal.integral}).
 
-\strong{Note:  The function assumes the following sequence pattern: \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}. If you have written a different sequence, the analysis function will (likely) not work!}.
+\strong{Note:  The function assumes the following sequence pattern:
+\verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}.} Therefore, the
+total number of curves in the input object must be a multiple of 5, and
+there must be 3 \code{DARK_COUNT} records for each IRLS/BSL pair. If you have used
+a different sequence, the function will produce an error.
 
 \strong{Signal processing}
 The function processes the signals as follows: \code{BSL} and \code{IRSL} signals are extracted using the

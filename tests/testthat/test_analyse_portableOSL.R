@@ -117,10 +117,16 @@ test_that("input validation", {
                  regexp = "\\[analyse\\_portableOSL\\(\\)\\] Only objects originating from .+")
 
     ## Sequence pattern
-    tmp <- merged
-    tmp@records <- tmp@records[-1]
-    expect_error(analyse_portableOSL(tmp),
-                 "Sequence pattern not supported")
+    expect_error(analyse_portableOSL(merged[-7], signal.integral = 1:5),
+                 "Sequence pattern not supported: see the manual for details")
+    expect_error(analyse_portableOSL(merged[1:3], signal.integral = 1:3),
+                 "Sequence pattern not supported: see the manual for details")
+    expect_error(analyse_portableOSL(merged[c(1:5, rep(7, 5))],
+                                     signal.integral = 1:5),
+                 "Sequence pattern not supported: the number of OSL records")
+    expect_error(analyse_portableOSL(merged[c(1:5, rep(6, 5))],
+                                     signal.integral = 1:5),
+                 "Sequence pattern not supported: expected 3 DARK_COUNT records")
 
     ## coordinates not list or matrix
     expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
