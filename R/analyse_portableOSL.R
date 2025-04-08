@@ -79,7 +79,7 @@
 #' positions, see [graphics::rasterImage]).
 #' Additional parameters for `mode = "surface"` are `surface_value`
 #' ([character] with value to plot), `col_ramp`, `legend` (`TRUE`/`FALSE`),
-#' `contour` (`TRUE`/`FALSE`), `zlim`, `zlab` (here x-axis labelling).
+#' `contour` (`TRUE`/`FALSE`), `contour_nlevels`, `zlim`, `zlab` (here x-axis labelling).
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -95,7 +95,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @keywords datagen plot
 #'
@@ -350,6 +350,7 @@ analyse_portableOSL <- function(
        xlab = "x [m]",
        grid = TRUE,
        contour = FALSE,
+       contour_nlevels = 10,
        zlab = c("BSL", "IRSL", "BSL depl.", "IRSL depl.", "IRSL/BSL", "mean DARK"),
        main = summary$RUN[1]
      ),
@@ -443,7 +444,13 @@ analyse_portableOSL <- function(
 
          ## add contour
          if (plot_settings$contour)
-           graphics::contour(m, add = TRUE, col = "grey")
+           graphics::contour(
+             x = s$x,
+             y = s$y,
+             z = s$z,
+             add = TRUE,
+             nlevels = plot_settings$contour_nlevels,
+             col = "grey")
 
          ## add points
          points(m[, 1:2], pch = 20, cex = plot_settings$cex)
