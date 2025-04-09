@@ -105,6 +105,11 @@
   being modified via `...` as advertised. Now custom settings are
   respected (#658).
 
+### `calc_FiniteMixture()`
+
+- The function doesn’t crash anymore if the `n.components` argument
+  specifies non-consecutive values (#691).
+
 ### `calc_Huntley2006()`
 
 - Add support for nls-fitting control arguments `maxiter` and `trace`.

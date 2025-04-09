@@ -212,6 +212,9 @@ calc_FiniteMixture <- function(
   .validate_logical_scalar(plot.proportions)
   .validate_logical_scalar(plot)
 
+  ## ensure that the chosen components are sorted
+  n.components <- sort(n.components)
+
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")
 
@@ -292,13 +295,13 @@ calc_FiniteMixture <- function(
         fui[,i]<-  rwu*exp(-0.5*wu*(yu-mu[i])^2)
         nui[,i]<-  pii[i]*fui[,i]
       }
-      pui<- nui/apply(nui,1,sum)
-      mu<- apply(wu*yu*pui,2,sum)/apply(wu*pui,2,sum)
-      pii<- apply(pui,2,mean)
+      pui <- nui / rowSums(nui)
+      mu <- colSums(wu * yu * pui) / colSums(wu * pui)
+      pii <- colMeans(pui)
     }
 
     # calculate the log likelihood and BIC
-    llik<- sum( log( (1/sqrt(2*pi))*apply(nui,1,sum) ))
+    llik <- sum(log( 1 / sqrt(2 * pi) * rowSums(nui) ))
     bic<- -2*llik + (2*k - 1)*log(n)
 
     # calculate the covariance matrix and standard errors of the estimates
@@ -470,28 +473,15 @@ calc_FiniteMixture <- function(
     if(length(n.components) > 1) {
 
       ## final labeling of component and BIC/llik matrices
-      # create labels
-      dose.lab<- paste("c", 1:n.components[length(n.components)],"_dose", sep="")
-      se.lab<- paste("c", 1:n.components[length(n.components)],"_se", sep="")
-      prop.lab<- paste("c", 1:n.components[length(n.components)],"_prop", sep="")
 
-      # empty vector which stores the labeles in correct order (dose, se, prop)
-      n.lab<- vector(mode = "expression",
-                     n.components[length(n.components)]*3)
-
-      # loop to store the labels in correct order (dose, se, prop)
-      cnt<- 1
-      for(i in pos.n) {
-        n.lab[i]<- dose.lab[cnt]
-        n.lab[i+1]<- se.lab[cnt]
-        n.lab[i+2]<- prop.lab[cnt]
-        cnt<- cnt+1
-      }
+      ## create row labels in correct order (dose, se, prop)
+      prefix <- paste0("c", 1:n.components[length(n.components)])
+      n.lab <- unlist(lapply(prefix,
+                             function(x) paste0(x, c("_dose", "_se", "_prop"))))
 
       # label columns and rows of summary matrix and BIC/LLIK data frame
-      colnames(comp.n)<- n.components[1]:n.components[length(n.components)]
-      rownames(comp.n)<- n.lab
-      colnames(results.n)<- n.components[1]:n.components[length(n.components)]
+      colnames(comp.n) <- colnames(results.n) <- n.components
+      rownames(comp.n) <- n.lab
 
       ## CONSOLE OUTPUT
       # general information on sample and model performance

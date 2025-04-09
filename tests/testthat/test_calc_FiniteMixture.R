@@ -70,7 +70,6 @@ test_that("check class and length of output", {
     n.components = 3,
     verbose = TRUE),
     "The model produced NA values: either the input data are inapplicable")
-
   })
 
   ## plot with plot_RLum.Results
@@ -84,5 +83,18 @@ test_that("check class and length of output", {
     main = "Plot title",
     verbose = FALSE), "RLum.Results")
   plot_RLum.Results(t, pdf.colors = "none")
+})
 
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  SW({
+  ## issue 691
+  expect_s4_class(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                     n.components = c(2, 4), plot = FALSE),
+                  "RLum.Results")
+  expect_s4_class(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                     n.components = 3:2, plot = FALSE),
+                  "RLum.Results")
+  })
 })
