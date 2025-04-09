@@ -473,27 +473,15 @@ calc_FiniteMixture <- function(
     if(length(n.components) > 1) {
 
       ## final labeling of component and BIC/llik matrices
-      # create labels
-      dose.lab<- paste("c", 1:n.components[length(n.components)],"_dose", sep="")
-      se.lab<- paste("c", 1:n.components[length(n.components)],"_se", sep="")
-      prop.lab<- paste("c", 1:n.components[length(n.components)],"_prop", sep="")
 
-      # empty vector which stores the labeles in correct order (dose, se, prop)
-      n.lab<- vector(mode = "expression",
-                     n.components[length(n.components)]*3)
-
-      # loop to store the labels in correct order (dose, se, prop)
-      cnt<- 1
-      for(i in pos.n) {
-        n.lab[i]<- dose.lab[cnt]
-        n.lab[i+1]<- se.lab[cnt]
-        n.lab[i+2]<- prop.lab[cnt]
-        cnt<- cnt+1
-      }
+      ## create row labels in correct order (dose, se, prop)
+      prefix <- paste0("c", 1:n.components[length(n.components)])
+      n.lab <- unlist(lapply(prefix,
+                             function(x) paste0(x, c("_dose", "_se", "_prop"))))
 
       # label columns and rows of summary matrix and BIC/LLIK data frame
       colnames(comp.n) <- colnames(results.n) <- n.components
-      rownames(comp.n)<- n.lab
+      rownames(comp.n) <- n.lab
 
       ## CONSOLE OUTPUT
       # general information on sample and model performance
