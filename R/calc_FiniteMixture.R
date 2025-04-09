@@ -492,9 +492,8 @@ calc_FiniteMixture <- function(
       }
 
       # label columns and rows of summary matrix and BIC/LLIK data frame
-      colnames(comp.n)<- n.components[1]:n.components[length(n.components)]
+      colnames(comp.n) <- colnames(results.n) <- n.components
       rownames(comp.n)<- n.lab
-      colnames(results.n)<- n.components[1]:n.components[length(n.components)]
 
       ## CONSOLE OUTPUT
       # general information on sample and model performance

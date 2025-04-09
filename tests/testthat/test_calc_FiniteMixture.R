@@ -91,6 +91,9 @@ test_that("regression tests", {
   SW({
   ## issue 691
   expect_s4_class(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                     n.components = c(2, 4), plot = FALSE),
+                  "RLum.Results")
+  expect_s4_class(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                                      n.components = 3:2, plot = FALSE),
                   "RLum.Results")
   })
