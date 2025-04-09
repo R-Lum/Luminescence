@@ -652,13 +652,14 @@ analyse_portableOSL <- function(
 
   ## search for pattern match ... why?
   ## because otherwise the dataset becomes inconsistent
+  pattern <- "_x:[0-9].*\\|y:[0-9].*"
   pattern_match <- grepl(
-    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    pattern = pattern,
     x = settings_sample, perl = TRUE)
 
   ## extract coordinates
   tmp_coord[pattern_match] <- regexpr(
-    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    pattern = pattern,
     text = settings_sample[pattern_match ], perl = TRUE) |>
     regmatches(x = settings_sample[pattern_match], m = _)
 
