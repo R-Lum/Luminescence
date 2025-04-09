@@ -78,8 +78,9 @@ argument (#684).
 thoroughly to avoid crashes in case of misspecification (#687).
 
 * The graphical `...` argument `contour` never produced a meaningful contour plot
-due to an internal error (#686). Along, a new argument `contour_nlevels` is now
-supported through `...` to better control the number of contour lines.
+due to an internal error (#686). Along, arguments `contour_nlevels` and
+`contour_col` are now supported through `...` to better control the number
+and colour of contour lines.
 
 ### `calc_AliquotSize()`
 
