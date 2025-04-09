@@ -212,6 +212,9 @@ calc_FiniteMixture <- function(
   .validate_logical_scalar(plot.proportions)
   .validate_logical_scalar(plot)
 
+  ## ensure that the chosen components are sorted
+  n.components <- sort(n.components)
+
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")
 
