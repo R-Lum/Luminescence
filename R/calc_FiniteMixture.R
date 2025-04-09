@@ -295,13 +295,13 @@ calc_FiniteMixture <- function(
         fui[,i]<-  rwu*exp(-0.5*wu*(yu-mu[i])^2)
         nui[,i]<-  pii[i]*fui[,i]
       }
-      pui<- nui/apply(nui,1,sum)
-      mu<- apply(wu*yu*pui,2,sum)/apply(wu*pui,2,sum)
-      pii<- apply(pui,2,mean)
+      pui <- nui / rowSums(nui)
+      mu <- colSums(wu * yu * pui) / colSums(wu * pui)
+      pii <- colMeans(pui)
     }
 
     # calculate the log likelihood and BIC
-    llik<- sum( log( (1/sqrt(2*pi))*apply(nui,1,sum) ))
+    llik <- sum(log( 1 / sqrt(2 * pi) * rowSums(nui) ))
     bic<- -2*llik + (2*k - 1)*log(n)
 
     # calculate the covariance matrix and standard errors of the estimates
