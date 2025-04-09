@@ -76,10 +76,11 @@
 #' Additional parameters for `mode = "profile"` are  `type`, `pch`, `grid`
 #' (`TRUE`/`FALSE`), `bg_img` (a raster object for the background image,
 #' usually a profile photo), `bg_img_positions` (a vector with the four corner
-#' positions, see [graphics::rasterImage]).
+#' positions, see [graphics::rasterImage]), `zlab` (here x-axis labelling).
 #' Additional parameters for `mode = "surface"` are `surface_value`
-#' ([character] with value to plot), `col_ramp`, `legend` (`TRUE`/`FALSE`),
-#' `contour` (`TRUE`/`FALSE`), `contour_nlevels`, `zlim`, `zlab` (here x-axis labelling).
+#' ([character] with names of the surfaces to plot), `col_ramp`, `legend`
+#' (`TRUE`/`FALSE`), `contour` (`TRUE`/`FALSE`),` `contour_nlevels`,
+#' `contour_col`, ' zlim`.
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -351,6 +352,7 @@ analyse_portableOSL <- function(
        grid = TRUE,
        contour = FALSE,
        contour_nlevels = 10,
+       contour_col = "grey",
        zlab = c("BSL", "IRSL", "BSL depl.", "IRSL depl.", "IRSL/BSL", "mean DARK"),
        main = summary$RUN[1]
      ),
@@ -450,7 +452,7 @@ analyse_portableOSL <- function(
              z = s$z,
              add = TRUE,
              nlevels = plot_settings$contour_nlevels,
-             col = "grey")
+             col = plot_settings$contour_col)
 
          ## add points
          points(m[, 1:2], pch = 20, cex = plot_settings$cex)
@@ -652,13 +654,14 @@ analyse_portableOSL <- function(
 
   ## search for pattern match ... why?
   ## because otherwise the dataset becomes inconsistent
+  pattern <- "_x:[0-9].*\\|y:[0-9].*"
   pattern_match <- grepl(
-    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    pattern = pattern,
     x = settings_sample, perl = TRUE)
 
   ## extract coordinates
   tmp_coord[pattern_match] <- regexpr(
-    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    pattern = pattern,
     text = settings_sample[pattern_match ], perl = TRUE) |>
     regmatches(x = settings_sample[pattern_match], m = _)
 
