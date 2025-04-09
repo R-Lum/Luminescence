@@ -437,8 +437,7 @@ calc_Huntley2006 <- function(
     list(...))
 
   ## Define Constants ----------------------------------------------------------
-  kb <- 8.617343 * 1e-5
-  alpha <- 1
+
   Hs <- 3e15 # s value after Huntley (2006)
   Ma <- 1e6 * 365.25 * 24 * 3600 #in seconds
   ka <- Ma / 1000 #in seconds
@@ -1157,4 +1156,3 @@ calc_Huntley2006 <- function(
   ## Return value --------------------------------------------------------------
   return(results)
 }
-
