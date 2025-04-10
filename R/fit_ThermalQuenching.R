@@ -8,21 +8,23 @@
 #'
 #' The equation used for the fitting is
 #'
-#' \deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
+#' \deqn{y = A / (1 + C * exp(-W / (kB * x))) + c}
 #'
-#' *W* is the energy depth in eV and *C* is dimensionless constant. *A* and *c* are used to
-#' adjust the curve for the given signal. *k* is the Boltzmann in eV/K and *x* is the absolute
-#' temperature in K.
+#' *W* is the energy depth in eV, *C* is a dimensionless constant, *A* and *c*
+#' are used to adjust the curve for the given signal, *kB* is the Boltzmann
+#' constant in eV/K and *x* is the absolute temperature in K.
 #'
 #' **Error estimation**\cr
 #'
-#' The error estimation is done be varying the input parameters using the given uncertainties in
-#' a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
+#' The error estimation is done by varying the input parameters using the
+#' given uncertainties in a Monte Carlo simulation. Errors are assumed to
+#' follow a normal distribution.
 #'
 #' **`start_param`** \cr
 #'
-#' The function allows the injection of own start parameters via the argument `start_param`. The
-#' parameters needs to be provided as names list. The names are the parameters to be optimised.
+#' The function allows the injection of starting values for the parameters to
+#' be optimised via the `start_param` argument. The parameters must be provided
+#' as a named list.
 #' Examples: `start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)`
 #'
 #'
@@ -177,8 +179,8 @@ fit_ThermalQuenching <- function(
   # Prepare data --------------------------------------------------------------------------------
   ##set formula for quenching accordingt to Wintle 1973
   ##we here add a constant, otherwise the fit will not really work
-  k <- 8.6173303e-05
-  f <- y ~ (A / (1 + C * (exp(-W / (k * x))))) + c
+  kB <- 8.6173303e-05
+  f <- y ~ A / (1 + C * exp(-W / (kB * x))) + c
 
   ##set translate values in data.frame to absolute temperature
   data_raw <- data
@@ -203,15 +205,16 @@ fit_ThermalQuenching <- function(
     ),
     val = method_control)
 
+  weights <- method_control$weights
+  if (is.null(weights))
+    weights <- rep(1, nrow(data))
+
   # Fitting -------------------------------------------------------------------------------------
   ##guine fitting
   fit <- try(minpack.lm::nlsLM(
     formula = f,
     data = data.frame(x = data[[1]], y = data[[2]]),
-    weights = if(is.null(method_control$weights)){
-      rep(1, length(data[[2]]))
-      } else {
-        method_control$weights},
+    weights = weights,
     control = list(
       maxiter = 500,
       maxfev = 1000,
@@ -242,10 +245,7 @@ fit_ThermalQuenching <- function(
       temp <- try(minpack.lm::nlsLM(
         formula = f,
         data = data.frame(x = x_MC, y = y_MC[,x]),
-        weights = if(is.null(method_control$weights)){
-          rep(1, length(data[[2]]))
-        } else {
-          method_control$weights},
+        weights = weights,
         control = list(
           maxiter = 500,
           maxfev = 1000
@@ -350,7 +350,8 @@ if(verbose){
         W <- fit_coef_MC_full[3,i]
         c <- fit_coef_MC_full[4,i]
         x <- 0
-        curve((A / (1 + C * (exp(-W / (k * x))))) + c, col = rgb(0,0,0,.1), add = TRUE)
+        curve(A / (1 + C * exp(-W / (kB * x))) + c,
+              col = rgb(0, 0, 0, .1), add = TRUE)
       }
     }
 
@@ -372,14 +373,11 @@ if(verbose){
       c <- fit_coef[["c"]]
 
     x <- 0
-    curve((A / (1 + C * (exp(
-      -W / (k * x)
-    )))) + c,
-    lty = plot_settings$lty,
-    lwd = plot_settings$lwd,
-    col = plot_settings$col_fit,
-    add = TRUE
-    )
+    curve(A / (1 + C * exp(-W / (kB * x))) + c,
+          lty = plot_settings$lty,
+          lwd = plot_settings$lwd,
+          col = plot_settings$col_fit,
+          add = TRUE)
 
     ##add mtext
     mtext(side = 3, text = plot_settings$mtext)

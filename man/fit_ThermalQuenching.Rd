@@ -79,21 +79,23 @@ Applying a nls-fitting to thermal quenching data.
 
 The equation used for the fitting is
 
-\deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
+\deqn{y = A / (1 + C * exp(-W / (kB * x))) + c}
 
-\emph{W} is the energy depth in eV and \emph{C} is dimensionless constant. \emph{A} and \emph{c} are used to
-adjust the curve for the given signal. \emph{k} is the Boltzmann in eV/K and \emph{x} is the absolute
-temperature in K.
+\emph{W} is the energy depth in eV, \emph{C} is a dimensionless constant, \emph{A} and \emph{c}
+are used to adjust the curve for the given signal, \emph{kB} is the Boltzmann
+constant in eV/K and \emph{x} is the absolute temperature in K.
 
 \strong{Error estimation}\cr
 
-The error estimation is done be varying the input parameters using the given uncertainties in
-a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
+The error estimation is done by varying the input parameters using the
+given uncertainties in a Monte Carlo simulation. Errors are assumed to
+follow a normal distribution.
 
 \strong{\code{start_param}} \cr
 
-The function allows the injection of own start parameters via the argument \code{start_param}. The
-parameters needs to be provided as names list. The names are the parameters to be optimised.
+The function allows the injection of starting values for the parameters to
+be optimised via the \code{start_param} argument. The parameters must be provided
+as a named list.
 Examples: \code{start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)}
 
 \strong{\code{method_control}} \cr
