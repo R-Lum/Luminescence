@@ -633,8 +633,8 @@ fit_LMCurve<- function(
     ##calculate stimulation intensity Schmidt (2008)
 
     ##Energy - E = h*v
-    h<-6.62606957e-34 #in W*s^2 - Planck constant
-    ny<-299792458/(LED.wavelength/10^9) #frequency of the light
+    h <- .const$h # Planck constant (W*s^2)
+    ny <- .const$c / (LED.wavelength / 10^9) # frequency of the light
     E<-h*ny
 
     ##transform LED.power in W/cm^2

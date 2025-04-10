@@ -162,12 +162,11 @@ calc_ThermalLifetime <- function(
 
 # Set variables -------------------------------------------------------------------------------
 
-  ##Boltzmann constant
-  k <- 8.6173324e-05 #eV/K
+  ## Boltzmann constant (ev/K)
+  kB <- .const$kB
 
-  ##recalculate temparature
-  T.K <- T + 273.15 #K
-
+  ## recalculate temperature in Kelvin (K)
+  T.K <- T + .const$C2K
 
   ##SETTINGS FOR PROFILING
   ##profiling settings
@@ -193,7 +192,7 @@ calc_ThermalLifetime <- function(
 
  ##set function for the calculation
  f <- function(E, s, T.K) {
-    1 / s * exp(E / (k * T.K))
+    1 / s * exp(E / (kB * T.K))
  }
 
  ##PROFILING
@@ -270,16 +269,16 @@ calc_ThermalLifetime <- function(
     dimnames(lifetimes) <- list(s, E, paste0("T = ", T, " \u00B0C"))
   }
 
- ##re-calculate lifetimes accourding to the chosen output unit
+ ## re-calculate lifetimes according to the chosen output unit
  temp.lifetimes <- switch (
     output_unit,
     "s" = lifetimes,
     "min" = lifetimes / 60,
     "h" = lifetimes / 60 / 60,
     "d" = lifetimes / 60 / 60 / 24,
-    "a" = lifetimes / 60 / 60 / 24 / 365,
-    "ka" = lifetimes / 60 / 60 / 24 / 365 / 1000,
-    "Ma" = lifetimes / 60 / 60 / 24 / 365 / 1000 / 1000
+    "a" = lifetimes / .const$year_s,
+    "ka" = lifetimes / (1e3 * .const$year_s),
+    "Ma" = lifetimes / (1e6 * .const$year_s)
   )
 
   ##check for invalid values

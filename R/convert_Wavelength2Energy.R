@@ -141,8 +141,8 @@ convert_Wavelength2Energy <- function(
   ##this treats the matrix; in either caes and we play safe, means, we create in either case
   ##colnames and rownames, but remove them later depending on the input
   .conv_intensity <- function(m){
-      h <- 4.135667662e-15 #eV * s
-      c <- 299792458e+09 #nm/s
+      h <- .const$h_eVs   # eV*s
+      c <- .const$c * 1e9 # nm/s
 
       ##convert count values
       m[] <- m * as.numeric(rownames(m))^2 / (h * c)

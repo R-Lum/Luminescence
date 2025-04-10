@@ -43,6 +43,15 @@
   message for this change because the option was likely not yet used
   much.
 
+- The fundamental physical constants used in the package (such as
+  Boltzmann constant, Planck constant, etc) have been uniformed to those
+  reported in the NIST Reference on Constants, Units and Uncertainty
+  (<https://physics.nist.gov/cuu/Constants/>). This may affect the
+  numerical results of the following functions: calc_FastRatio(),
+  calc_Huntley2006(), calc_SourceDoseRate(), calc_ThermalLifetime(),
+  convert_Activity2Concentration(), convert_Wavelength2Energy(),
+  fit_CWCurve(), fit_LMCurve(), fit_SurfaceExposure() (#693).
+
 ## Bugfixes and changes
 
 ### `analyse_SAR.CWOSL()`

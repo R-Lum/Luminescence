@@ -439,8 +439,7 @@ calc_Huntley2006 <- function(
   ## Define Constants ----------------------------------------------------------
 
   Hs <- 3e15 # s value after Huntley (2006)
-  Ma <- 1e6 * 365.25 * 24 * 3600 #in seconds
-  ka <- Ma / 1000 #in seconds
+  ka <- 1e3 * .const$year_s # in seconds
 
   ## Define Functions ----------------------------------------------------------
   # fit data using using Eq 5. from Kars et al (2008) employing

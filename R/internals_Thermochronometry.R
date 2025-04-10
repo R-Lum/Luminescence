@@ -47,7 +47,7 @@
   .validate_args(output_type, c("RLum.Results", "list"))
 
   ## define variable
-  ka <- 1e+3 * 365 * 24 * 3600 # ka in seconds
+  ka <- 1e+3 * .const$year_s # ka in seconds
 
 # Import ------------------------------------------------------------------
   ## preset records

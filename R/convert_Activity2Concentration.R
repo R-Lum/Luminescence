@@ -145,7 +145,8 @@ convert_Activity2Concentration <- function(
 
   #############################################################################
   ### conversion factors
-  mass_constant <- 1.66053906660e-27  # in kg
+
+  mass_constant <- .const$ma  # in kg
 
   ## set conversion factors ... this are the expected activity per kg of the radionuclide
   ## a = log(2) / ((unified_atomic_mass * mass_constant) / abundance) * T_0.5

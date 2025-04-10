@@ -21,6 +21,38 @@ assign("fn_stack", list(),
        pos = ".LuminescenceEnv",
        envir = .LuminescenceEnv)
 
+## Numeric constants --------------------------------------------------------
+## Values were taken from https://physics.nist.gov/cuu/Constants/
+.const <- list(
+
+    ## Speed of light (m/s)
+    c = 299792458,
+
+    ## Conversion factor from degree Celsius to Kelvin
+    C2K = 273.15,
+
+    ## Planck constant (J*s)
+    h = 6.62607015e-34,
+
+    ## Planck constant (eV*s)
+    h_eVs = 4.135667696e-15,
+
+    ## Boltzmann constant (eV/K)
+    kB = 8.617333262e-05,
+
+    ## Atomic mass constant (kg)
+    ma = 1.66053906892e-27,
+
+    ## Avogadro constant (1/mol)
+    Na = 6.02214076e23,
+
+    ## year (d)
+    year_d = 365.2425,
+
+    ## year (s)
+    year_s = 365.2425 * 24 * 60 * 60
+)
+
 ##==============================================================================
 ##on Attach
 .onAttach <- function(libname,pkgname){
