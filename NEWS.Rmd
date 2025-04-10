@@ -139,6 +139,11 @@ The code implementation follows the Python reference by [jll2](https://github.co
 * It is now possible to specify different values for the light attenuation
 coefficient `mu` when a list of input data is provided (#667).
 
+### `fit_ThermalQuenching()`
+
+* The `trace` option, which can be specified via the `method_control`
+argument, is now respected.
+
 ### `import_Data()`
 
 * The function uses the most common formats (BINX and XSYG) before trying

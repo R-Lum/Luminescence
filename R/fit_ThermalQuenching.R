@@ -194,7 +194,6 @@ fit_ThermalQuenching <- function(
     c = 0),
     val = start_param)
 
-
   ##method control
   method_control <- modifyList(
     x = list(
@@ -218,8 +217,7 @@ fit_ThermalQuenching <- function(
     control = list(
       maxiter = 500,
       maxfev = 1000,
-      trace = method_control$weights
-      ),
+      trace = method_control$trace),
     start = start_param,
     lower = method_control$lower,
     upper = method_control$upper
