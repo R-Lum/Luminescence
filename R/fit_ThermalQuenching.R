@@ -27,7 +27,6 @@
 #' as a named list.
 #' Examples: `start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)`
 #'
-#'
 #' **`method_control`** \cr
 #'
 #' The following arguments can be provided via `method_control`. Please note that arguments provided
@@ -55,8 +54,8 @@
 #' the fitting, see details for
 #' further information
 #'
-#' @param n.MC [numeric] (*with default*): number of Monte Carlo runs for the error estimation. If `n.MC` is
-#' `NULL` or `<=1`, the error estimation is skipped
+#' @param n.MC [integer] (*with default*): number of Monte Carlo runs for the
+#' error estimation. If `n.MC` is `NULL` or 1, the error estimation is skipped.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
@@ -80,7 +79,8 @@
 #'
 #' `[.. $data : data.frame]`\cr
 #'
-#'  A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.
+#' A table with all fitting parameters and the number of Monte Carlo runs used
+#' for the error estimation (this may be smaller that `n.MC`).
 #'
 #' `[.. $fit : nls object]` \cr
 #'
@@ -103,7 +103,7 @@
 #' temperature values are used but are re-calculated to deg. C for the plot.
 #'
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -158,7 +158,7 @@ fit_ThermalQuenching <- function(
   }
 
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame",
                   extra = "a 'list' of such objects")
@@ -176,6 +176,12 @@ fit_ThermalQuenching <- function(
     data <- na.exclude(data)
   }
 
+  .validate_class(start_param, "list")
+  .validate_class(method_control, "list")
+  .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
+  if (is.null(n.MC))
+    n.MC <- 1
+
   # Prepare data --------------------------------------------------------------------------------
   ##set formula for quenching accordingt to Wintle 1973
   ##we here add a constant, otherwise the fit will not really work
@@ -190,7 +196,7 @@ fit_ThermalQuenching <- function(
   ##start parameter
   start_param <- modifyList(x = list(
     A = max(data[[2]]),
-    C = max(data[[1]] * 10e+5),
+    C = max(data[[1]]) * 10e+5,
     W = 0.5,
     c = 0),
     val = start_param)
@@ -225,11 +231,10 @@ fit_ThermalQuenching <- function(
   ), silent = TRUE)
 
   ##only continue if the first fitting worked out
-  if(!inherits(fit, "try-error")){
-
-    ##reset n.MC
-    if(is.null(n.MC) || n.MC < 1)
-      n.MC <- 1
+  if (inherits(fit, "try-error")) {
+    .throw_message("Fitting failed, NULL returned")
+    return(NULL)
+  }
 
     ##Prepare MC runs for the fitting
     x_MC <- data[[1]]
@@ -239,8 +244,8 @@ fit_ThermalQuenching <- function(
       ncol = n.MC)
     y_MC[y_MC < 0] <- 0
 
-    ##run fitting
-    fit_MC <- lapply(1:n.MC, function(x){
+  ## run fitting
+  fit_MC <- lapply(1:n.MC, function(x) {
       temp <- try(minpack.lm::nlsLM(
         formula = f,
         data = data.frame(x = x_MC, y = y_MC[,x]),
@@ -260,18 +265,13 @@ fit_ThermalQuenching <- function(
       } else{
         temp
       }
-    })
-
-  }else{
-    .throw_message("Fitting failed, NULL returned")
-    return(NULL)
-  }
+  })
 
   ## remove NULL (the fit was not successful)
   fit_MC <- .rm_NULL_elements(fit_MC)
   n.MC <- length(fit_MC)
 
-# Extract values ------------------------------------------------------------------------------
+  ## Extract values ---------------------------------------------------------
 
    ##(1) - extract parameters from main fit
    fit_coef <- coef(fit)
@@ -289,18 +289,18 @@ fit_ThermalQuenching <- function(
    W_MC_X <- fit_coef_MC[3]
    c_MC_X <- fit_coef_MC[4]
 
-# Terminal output -----------------------------------------------------------------------------
-if(verbose){
+  ## Terminal output --------------------------------------------------------
+  if (verbose) {
 
     cat("\n[fit_ThermalQuenching()]\n\n")
-    cat(" A = ", A, " \u00b1 ",A_MC_X,"\n")
-    cat(" C = ", C, " \u00b1 ",C_MC_X,"\n")
-    cat(" W = ", W, " \u00b1 ",W_MC_X, " eV\n")
-    cat(" c = ", c, " \u00b1 ",c_MC_X, "\n")
+    cat(" A =", A, "\u00b1", A_MC_X, "\n")
+    cat(" C =", C, "\u00b1", C_MC_X, "\n")
+    cat(" W =", W, "\u00b1", W_MC_X, "eV\n")
+    cat(" c =", c, "\u00b1", c_MC_X, "\n")
     cat(" --------------------------------\n")
-}
+  }
 
-# Potting -------------------------------------------------------------------------------------
+  ## Plotting ---------------------------------------------------------------
   if(plot) {
     ##plot settings
     plot_settings <- list(
@@ -340,9 +340,8 @@ if(verbose){
       axis(side = 1, at = at + .const$C2K, labels = at)
     }
 
-    ##reset n.MC
-    if(!is.null(n.MC) && n.MC > 1){
-      ##add MC curves
+    ## add MC curves
+    if (n.MC > 1) {
       for(i in 1:n.MC){
         A <- fit_coef_MC_full[1,i]
         C <- fit_coef_MC_full[2,i]
@@ -366,10 +365,10 @@ if(verbose){
              )
 
     ##add central fit
-      A <- fit_coef[["A"]]
-      C <- fit_coef[["C"]]
-      W <- fit_coef[["W"]]
-      c <- fit_coef[["c"]]
+    A <- fit_coef[["A"]]
+    C <- fit_coef[["C"]]
+    W <- fit_coef[["W"]]
+    c <- fit_coef[["c"]]
 
     x <- 0
     curve(A / (1 + C * exp(-W / (kB * x))) + c,
@@ -382,8 +381,7 @@ if(verbose){
     mtext(side = 3, text = plot_settings$mtext)
   }
 
-
-  # Return --------------------------------------------------------------------------------------
+  ## Return -----------------------------------------------------------------
   output_df <- data.frame(
     A = A,
     A_X = A_MC_X,
