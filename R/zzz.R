@@ -31,7 +31,7 @@ assign("fn_stack", list(),
     ## Conversion factor from degree Celsius to Kelvin
     C2K = 273.15,
 
-    ## Planck constant (W*s^2)
+    ## Planck constant (J*s)
     h = 6.62607015e-34,
 
     ## Planck constant (eV*s)
@@ -40,7 +40,7 @@ assign("fn_stack", list(),
     ## Boltzmann constant (eV/K)
     kB = 8.617333262e-05,
 
-    ## Atomic mass constant (Kg)
+    ## Atomic mass constant (kg)
     ma = 1.66053906892e-27,
 
     ## Avogadro constant (1/mol)
