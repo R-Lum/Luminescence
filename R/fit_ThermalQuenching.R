@@ -179,12 +179,13 @@ fit_ThermalQuenching <- function(
   # Prepare data --------------------------------------------------------------------------------
   ##set formula for quenching accordingt to Wintle 1973
   ##we here add a constant, otherwise the fit will not really work
+  ## FIXME(mcol): use Boltzmann constant #693
   kB <- 8.6173303e-05
   f <- y ~ A / (1 + C * exp(-W / (kB * x))) + c
 
   ##set translate values in data.frame to absolute temperature
   data_raw <- data
-  data[[1]] <- data[[1]] + 273.15
+  data[[1]] <- data[[1]] + .const$C2K
 
   ##start parameter
   start_param <- modifyList(x = list(
@@ -335,8 +336,8 @@ if(verbose){
 
     ##add axis with correct temperature
     if(!is.null(plot_settings$xaxt) && plot_settings$xaxt == "n"){
-      at <- pretty(round(axTicks(side = 1) - 273.15))
-      axis(side = 1, at = at + 273.15, labels = at)
+      at <- pretty(round(axTicks(side = 1) - .const$C2K))
+      axis(side = 1, at = at + .const$C2K, labels = at)
     }
 
     ##reset n.MC

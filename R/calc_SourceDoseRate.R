@@ -181,7 +181,7 @@ calc_SourceDoseRate <- function(
     "Cs-137" = 30.08
     )
 
-  halflife.days  <- halflife.years * 365
+  halflife.days  <- halflife.years * .const$year_d
 
   # N(t) = N(0)*e^((lambda * t) with lambda = log(2)/T1.2)
   measurement.dose.rate <- (calib.dose.rate) *

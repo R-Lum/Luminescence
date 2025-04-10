@@ -196,12 +196,8 @@ calc_FastRatio <- function(object,
     P <- stimulation.power
     lamdaLED <- wavelength
 
-    ## Constants
     ## c = speed of light, h = Planck's constant
-    h <- 6.62607004E-34
-    c <- 299792458
-
-    I0 <- (P / 1000) / (h * c / (lamdaLED * 10^-9))
+    I0 <- (P / 1000) / (.const$c * .const$h / (lamdaLED * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
 
     # remove dead channels

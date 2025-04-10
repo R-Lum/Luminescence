@@ -333,16 +333,17 @@ fit_SurfaceExposure <- function(
 
   ## Functions
   # w/o dose rate
-  fun <- y ~ exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x))
-  fun_global <- y ~ exp(-sigmaphi * age[group] * 365.25*24*3600 * exp(-mu * x))
+  year_s <- .const$year_s
+  fun <- y ~ exp(-sigmaphi * age * year_s * exp(-mu * x))
+  fun_global <- y ~ exp(-sigmaphi * age[group] * year_s * exp(-mu * x))
 
   # w/ dose rate (Sohbati et al. 2012, eq 12)
   if (!is.null(Ddot))
-    Ddot <- Ddot / 1000 / 365.25 / 24 / 60 / 60
+    Ddot <- Ddot / (1000 * year_s)
 
-  fun_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
+  fun_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age * year_s) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
                          (sigmaphi * exp(-mu * x) + Ddot/D0)
-  fun_global_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age[group] * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
+  fun_global_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age[group] * year_s) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
                                 (sigmaphi * exp(-mu * x) + Ddot/D0)
 
   ## start parameter

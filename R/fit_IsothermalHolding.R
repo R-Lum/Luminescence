@@ -139,7 +139,7 @@ fit_IsothermalHolding <- function(
 
   ###### --- Perform ITL fitting --- #####
   # Define variables --------------------------------------------------------
-  kB <- 8.6173303e-05  # Boltzmann's constant
+  kB <- .const$kB  # Boltzmann constant (eV/K)
   DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
   ## get the rhop value from the fading measurement analysis if available
@@ -154,12 +154,12 @@ fit_IsothermalHolding <- function(
   ## incorrectly interpreted by nlsLM().
 
   f_GOK <- function(A, b, Et, s10, isoT, x) {
-    T_K <- isoT + 273.15
+    T_K <- isoT + .const$C2K
     A * exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
       (1 - (1 - b) * 10^s10 * exp(-Et / (kB * T_K)) * x)^(1 / (1 - b))
   }
   f_BTS <- function(A, Eu, Et, s10, isoT, x) {
-    T_K <- isoT + 273.15
+    T_K <- isoT + .const$C2K
     exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
       vapply(x, function(t) {
         stats::integrate(function(Eb) A * exp(-Eb / Eu) *
