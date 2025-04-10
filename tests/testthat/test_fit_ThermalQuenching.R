@@ -33,35 +33,37 @@ test_that("check functionality", {
     n.MC = NULL),
     "NA values in 'data' automatically removed")
 
-  ##simple run
-  expect_s4_class(fit_ThermalQuenching(
-    data = data,
-    n.MC = NULL), class = "RLum.Results")
-  })
-
   ##simple run with fitting error
   expect_message(expect_null(fit_ThermalQuenching(
     data = data.frame(T = 1:10, V = 1:10, V_X = 1:10),
     n.MC = NULL)),
     "Error: Fitting failed, NULL returned")
 
-  SW({
-  ## switch off weights
-  expect_s4_class(fit_ThermalQuenching(
-    data = data,
-    method_control = list(weights = NULL),
-    n.MC = NULL), class = "RLum.Results")
-
   ##simple list run
   expect_s4_class(fit_ThermalQuenching(
     data = list(data, data),
     n.MC = NULL), class = "RLum.Results")
-
-  ##simple run without plot etc
-  expect_s4_class(fit_ThermalQuenching(
-    data = data,
-    verbose = FALSE,
-    plot = TRUE,
-    n.MC = 10), class = "RLum.Results")
   })
+})
+
+test_that("add snapshot tests", {
+  testthat::skip_on_cran()
+
+  set.seed(1)
+  snapshot.tolerance <- 1.5e-6
+
+  SW({
+  expect_snapshot_RLum(fit_ThermalQuenching(data = data, n.MC = NULL),
+                       tolerance = snapshot.tolerance)
+
+  ## switch off weights
+  expect_snapshot_RLum(fit_ThermalQuenching(data = data, n.MC = NULL,
+                                            method_control = list(weights = NULL)),
+                       tolerance = snapshot.tolerance)
+  })
+
+  ## with Monte Carlo
+  expect_snapshot_RLum(fit_ThermalQuenching(data = data, n.MC = 10,
+                                            verbose = FALSE, plot = TRUE),
+                       tolerance = snapshot.tolerance)
 })
