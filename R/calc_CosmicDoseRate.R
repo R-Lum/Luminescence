@@ -477,24 +477,23 @@ calc_CosmicDoseRate<- function(
     ##============================================================================##
     if (settings$verbose) {
       cat("\n\n [calc_CosmicDoseRate]")
-      cat(paste("\n\n ---------------------------------------------------------"))
-      cat(paste("\n depth (m)              :", depth))
-      cat(paste("\n density (g cm^-3)      :", density))
-      cat(paste("\n latitude (N deg.)      :", latitude))
-      cat(paste("\n longitude (E deg.)     :", longitude))
-      cat(paste("\n altitude (m)           :", altitude))
-      cat(paste("\n ---------------------------------------------------------"))
-      cat(paste("\n total absorber (g cm^-2)       :", round(hgcm[i]*100,3)))
-      cat(paste("\n"))
-      cat(paste("\n cosmic dose rate (Gy ka^-1)    :", round(d0,4)))
-      cat(paste("\n  [@sea-level & 55 deg. N G.lat]"))
-      cat(paste("\n"))
-      cat(paste("\n geomagnetic latitude (deg.)    :", round(true.gml,1)))
-      cat(paste("\n"))
-      cat(paste("\n cosmic dose rate (Gy ka^-1)    :", round(dc,4),"+-",
-                round(dc.err,4)))
-      cat(paste("\n  [corrected]                 "))
-      cat(paste("\n ---------------------------------------------------------\n\n"))
+      cat("\n\n ---------------------------------------------------------")
+      cat("\n depth (m)              :", depth)
+      cat("\n density (g cm^-3)      :", density)
+      cat("\n latitude (N deg.)      :", latitude)
+      cat("\n longitude (E deg.)     :", longitude)
+      cat("\n altitude (m)           :", altitude)
+      cat("\n ---------------------------------------------------------")
+      cat("\n total absorber (g cm^-2)       :", round(hgcm[i] * 100, 3))
+      cat("\n")
+      cat("\n cosmic dose rate (Gy ka^-1)    :", round(d0, 4))
+      cat("\n  [@sea-level & 55 deg. N G.lat]")
+      cat("\n")
+      cat("\n geomagnetic latitude (deg.)    :", round(true.gml, 1))
+      cat("\n")
+      cat("\n cosmic dose rate (Gy ka^-1)    :", round(dc, 4), "+-", round(dc.err, 4))
+      cat("\n  [corrected]                 ")
+      cat("\n ---------------------------------------------------------\n\n")
     }
     ##============================================================================##
     ##RETURN VALUES
@@ -536,8 +535,7 @@ calc_CosmicDoseRate<- function(
     #terminal output
     if (settings$verbose) {
       cat("\n\n [calc_CosmicDoseRate]")
-      cat(paste("\n\n Calculating cosmic dose rate for",length(depth),
-                "samples. \n\n"))
+      cat("\n\n Calculating cosmic dose rate for", length(depth), "samples.\n\n")
       print(profile.results)
     }
 

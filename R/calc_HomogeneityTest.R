@@ -1,7 +1,7 @@
 #' @title Apply a simple homogeneity test after Galbraith (2003)
 #'
 #' @description
-#' A simple homogeneity test for De estimates
+#' A simple homogeneity test for De estimates.
 #' For details see Galbraith (2003).
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
@@ -10,7 +10,7 @@
 #' @param log [logical] (*with default*):
 #' perform the homogeneity test with (un-)logged data
 #'
-#' @param ... further arguments (for internal compatibility only).
+#' @param ... further arguments (`verbose`).
 #'
 #' @return
 #' Returns a terminal output. In addition an
@@ -34,7 +34,6 @@
 #' @references
 #' Galbraith, R.F., 2003. A simple homogeneity test for estimates
 #' of dose obtained using OSL. Ancient TL 21, 75-77.
-#'
 #'
 #' @examples
 #'
@@ -70,6 +69,7 @@ calc_HomogeneityTest <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
+  .validate_logical_scalar(log)
 
   ##==========================================================================##
   ## ... ARGUMENTS
@@ -92,7 +92,6 @@ calc_HomogeneityTest <- function(
 
   } else {
     dat <- data
-
   }
 
   wi <- 1 / dat[[2]] ^ 2
@@ -113,14 +112,14 @@ calc_HomogeneityTest <- function(
 
   if(verbose) {
     cat("\n [calc_HomogeneityTest()]")
-    cat(paste("\n\n ---------------------------------"))
-    cat(paste("\n n:                 ", n))
-    cat(paste("\n ---------------------------------"))
-    cat(paste("\n mu:                ", round(mu,4)))
-    cat(paste("\n G-value:           ", round(G,4)))
-    cat(paste("\n Degrees of freedom:", df))
-    cat(paste("\n P-value:           ", round(P,4)))
-    cat(paste("\n ---------------------------------\n\n"))
+    cat("\n\n ---------------------------------")
+    cat("\n n:                 ", n)
+    cat("\n ---------------------------------")
+    cat("\n mu:                ", round(mu,4))
+    cat("\n G-value:           ", round(G,4))
+    cat("\n Degrees of freedom:", df)
+    cat("\n P-value:           ", round(P,4))
+    cat("\n ---------------------------------\n\n")
   }
 
   ##============================================================================##
@@ -144,5 +143,4 @@ calc_HomogeneityTest <- function(
     ),
     info = list(call = sys.call())
   ))
-
 }

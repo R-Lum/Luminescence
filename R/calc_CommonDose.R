@@ -121,6 +121,7 @@ calc_CommonDose <- function(
       .throw_error("'sigmab' must be a value between 0 and 1")
     }
   }
+  .validate_logical_scalar(log)
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")
@@ -170,14 +171,14 @@ calc_CommonDose <- function(
 
   if (settings$verbose) {
     cat("\n [calc_CommonDose]")
-    cat(paste("\n\n----------- meta data --------------"))
-    cat(paste("\n n:                      ",n))
-    cat(paste("\n log:                    ",if(log==TRUE){"TRUE"}else{"FALSE"}))
-    cat(paste("\n----------- dose estimate ----------"))
-    cat(paste("\n common dose:            ", round(delta,2)))
-    cat(paste("\n SE:                     ", round(delta*sedelta, 2)))
-    cat(paste("\n rel. SE [%]:            ", round(sedelta*100,2)))
-    cat(paste("\n------------------------------------\n\n"))
+    cat("\n\n----------- meta data --------------")
+    cat("\n n:                      ", n)
+    cat("\n log:                    ", log)
+    cat("\n----------- dose estimate ----------")
+    cat("\n common dose:            ", round(delta, 2))
+    cat("\n SE:                     ", round(delta * sedelta, 2))
+    cat("\n rel. SE [%]:            ", round(sedelta * 100, 2))
+    cat("\n------------------------------------\n\n")
   }
 
   ##============================================================================##
@@ -198,5 +199,4 @@ calc_CommonDose <- function(
                 call = call))
 
   invisible(newRLumResults.calc_CommonDose)
-
 }

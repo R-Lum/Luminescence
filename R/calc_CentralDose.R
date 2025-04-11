@@ -259,24 +259,26 @@ calc_CentralDose <- function(
 
   if (options$verbose) {
     cat("\n [calc_CentralDose]")
-    cat(paste("\n\n----------- meta data ----------------"))
-    cat(paste("\n n:                      ", n))
-    cat(paste("\n log:                    ", log))
-    cat(paste("\n----------- dose estimate ------------"))
-    cat(paste("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2)))
-    cat(paste("\n abs. SE:                ", format(out.delta * out.sedelta/100,
-                                                   digits = 2, nsmall = 2)))
-    cat(paste("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2)))
-    cat(paste("\n----------- overdispersion -----------"))
-    cat(paste("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
-    cat(paste("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
-    cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
-    cat(paste("\n SE [%]:                 ", if (!is.na(out.sesigma)) {
+    cat("\n\n----------- meta data ----------------")
+    cat("\n n:                      ", n)
+    cat("\n log:                    ", log)
+    cat("\n----------- dose estimate ------------")
+    cat("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2))
+    cat("\n abs. SE:                ", format(out.delta * out.sedelta / 100,
+                                              digits = 2, nsmall = 2))
+    cat("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2))
+    cat("\n----------- overdispersion -----------")
+    cat("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma),
+                                              digits = 2, nsmall = 2))
+    cat("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma),
+                                              digits = 2, nsmall = 2))
+    cat("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2))
+    cat("\n SE [%]:                 ", if (!is.na(out.sesigma)) {
       format(out.sesigma * 100, digits = 2, nsmall = 2)
     } else {
       "-"
-    }))
-    cat(paste("\n-------------------------------------\n\n"))
+    })
+    cat("\n-------------------------------------\n\n")
   }
 
   ## ============================================================================##

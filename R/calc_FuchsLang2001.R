@@ -194,15 +194,15 @@ calc_FuchsLang2001 <- function(
 
   if(verbose){
     cat("\n[calc_FuchsLang2001]")
-    cat(paste("\n\n----------- meta data --------------"))
-    cat(paste("\n cvThreshold:            ",cvThreshold[1],"%"))
-    cat(paste("\n used values:            ",n.usedDeValues))
-    cat(paste("\n----------- dose estimate ----------"))
-    cat(paste("\n mean:                   ",mean))
-    cat(paste("\n sd:                     ",sd))
-    cat(paste("\n weighted mean:          ",weighted_mean))
-    cat(paste("\n weighted sd:            ",weighted_sd))
-    cat(paste("\n------------------------------------\n\n"))
+    cat("\n\n----------- meta data --------------")
+    cat("\n cvThreshold:            ", cvThreshold[1], "%")
+    cat("\n used values:            ", n.usedDeValues)
+    cat("\n----------- dose estimate ----------")
+    cat("\n mean:                   ", mean)
+    cat("\n sd:                     ", sd)
+    cat("\n weighted mean:          ", weighted_mean)
+    cat("\n weighted sd:            ", weighted_sd)
+    cat("\n------------------------------------\n\n")
   }
 
   ##===========================================================================#
