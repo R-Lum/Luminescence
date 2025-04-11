@@ -102,10 +102,11 @@
 #' The fit is shown as dashed-line (can be modified). Please note that for the fitting the absolute
 #' temperature values are used but are re-calculated to deg. C for the plot.
 #'
+#' @section Function version: 0.2
 #'
-#' @section Function version: 0.1.1
-#'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #'
@@ -182,12 +183,28 @@ fit_ThermalQuenching <- function(
   if (is.null(n.MC))
     n.MC <- 1
 
-  # Prepare data --------------------------------------------------------------------------------
-  ##set formula for quenching accordingt to Wintle 1973
-  ##we here add a constant, otherwise the fit will not really work
+  ## Prepare data -----------------------------------------------------------
+  ##
+  ## Set formula for quenching according to Wintle 1973.
+  ## Here we add a constant, otherwise the fit will not really work.
+  ##
+  ## The actual implementation adopts a slight reformulation, which is
+  ## mathematically equivalent to the one presented in the documentation
+  ## above, but is numerically more stable:
+  ##
+  ## y = A / (1 + C * exp(-W / (kB * x))) + c
+  ##   = A / (1 + exp(log(C)) * exp(-W / (kB * x))) + c
+  ##   = A / (1 + exp(log(C) - W / (kB * x))) + c
+  ##   = A / (1 + exp(C' - W / (kB * x))) + c
+  ##
+  ## For backward compatibility, we keep using the name C for the logged
+  ## parameter, so that the user will keep seeing values in the original scale,
+  ## although internally we operate in log-space for C. When we show the
+  ## final results, we'll have to exponentiate the fitted parameter.
+  ##
   ## FIXME(mcol): use Boltzmann constant #693
   kB <- 8.6173303e-05
-  f <- y ~ A / (1 + C * exp(-W / (kB * x))) + c
+  f <- y ~ A / (1 + exp(C - W / (kB * x))) + c
 
   ##set translate values in data.frame to absolute temperature
   data_raw <- data
@@ -196,7 +213,7 @@ fit_ThermalQuenching <- function(
   ##start parameter
   start_param <- modifyList(x = list(
     A = max(data[[2]]),
-    C = max(data[[1]]) * 10e+5,
+    C = log(max(data[[1]]) * 1e5),
     W = 0.5,
     c = 0),
     val = start_param)
@@ -204,8 +221,10 @@ fit_ThermalQuenching <- function(
   ##method control
   method_control <- modifyList(
     x = list(
-     lower = c(A = 0, C = 0, W = 0, c = 0),
-     upper = c(A = 10 * start_param$A, C = Inf, W = 10, c = start_param$A),
+     lower = c(A = 0, C = 0, W = 0, c = -Inf),
+     upper = c(A = 10 * start_param$A,
+               C = log(max(data[[1]]) * 1e12),
+               W = 10, c = 10 * start_param$A),
      trace = FALSE,
      weights = data[[3]]
     ),
@@ -284,6 +303,9 @@ fit_ThermalQuenching <- function(
    fit_coef_MC_full <- vapply(X = fit_MC, FUN = coef, FUN.VALUE = numeric(4))
    fit_coef_MC <- round(matrixStats::rowSds(fit_coef_MC_full),3)
 
+  ## (3) - unlog the C parameter before computing the standard deviation
+  fit_coef_MC[2] <- signif(sd(exp(fit_coef_MC_full[2, ])), 4)
+
    A_MC_X <- fit_coef_MC[1]
    C_MC_X <- fit_coef_MC[2]
    W_MC_X <- fit_coef_MC[3]
@@ -294,7 +316,7 @@ fit_ThermalQuenching <- function(
 
     cat("\n[fit_ThermalQuenching()]\n\n")
     cat(" A =", A, "\u00b1", A_MC_X, "\n")
-    cat(" C =", C, "\u00b1", C_MC_X, "\n")
+    cat(" C =", exp(C), "\u00b1", C_MC_X, "\n")
     cat(" W =", W, "\u00b1", W_MC_X, "eV\n")
     cat(" c =", c, "\u00b1", c_MC_X, "\n")
     cat(" --------------------------------\n")
@@ -348,7 +370,7 @@ fit_ThermalQuenching <- function(
         W <- fit_coef_MC_full[3,i]
         c <- fit_coef_MC_full[4,i]
         x <- 0
-        curve(A / (1 + C * exp(-W / (kB * x))) + c,
+        curve(A / (1 + exp(C - W / (kB * x))) + c,
               col = rgb(0, 0, 0, .1), add = TRUE)
       }
     }
@@ -371,7 +393,7 @@ fit_ThermalQuenching <- function(
     c <- fit_coef[["c"]]
 
     x <- 0
-    curve(A / (1 + C * exp(-W / (kB * x))) + c,
+    curve(A / (1 + exp(C - W / (kB * x))) + c,
           lty = plot_settings$lty,
           lwd = plot_settings$lwd,
           col = plot_settings$col_fit,
@@ -385,7 +407,7 @@ fit_ThermalQuenching <- function(
   output_df <- data.frame(
     A = A,
     A_X = A_MC_X,
-    C = C,
+    C = exp(C),
     C_X = C_MC_X,
     W = W,
     W_X = W_MC_X,

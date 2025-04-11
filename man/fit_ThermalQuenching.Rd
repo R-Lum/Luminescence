@@ -117,7 +117,7 @@ are applied. The weights are defined by the third column of the input \code{data
 }
 }
 \section{Function version}{
- 0.1.1
+ 0.2
 }
 
 \examples{
@@ -141,5 +141,6 @@ Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. 
 \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

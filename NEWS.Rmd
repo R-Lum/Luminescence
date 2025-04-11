@@ -154,6 +154,11 @@ coefficient `mu` when a list of input data is provided (#667).
 * The `trace` option, which can be specified via the `method_control`
 argument, is now respected.
 
+* The model now get internally reformulated into a mathematically equivalent
+expression that is easier to fit. This should reduce the number of occasions
+when the function fails to find a valid solution and improve the uncertainty
+estimation (#696).
+
 ### `import_Data()`
 
 * The function uses the most common formats (BINX and XSYG) before trying
