@@ -194,6 +194,11 @@ This enhancement ensures that all available arguments are fully supported (#646)
 
 * The function gained a new logical argument named `auto_scale`. When set in conjunction with either `xlim` or `ylim`, this argument automatically adjusts the plot range to align with the corresponding settings for `xlim` or `ylim`. For instance, if a user intends to plot OSL curves but initially selects the `xlim` range `c(10:30)` to examine the background, the initial count values may be excessively large, resulting in limited visibility. With the introduction of the `auto_scale` option, the `ylim` values are automatically adjusted to compensate for this scenario. The `auto_scale` argument is also accessible through `plot_RLum.Analysis()` and `plot_RLum()` (#646).
 
+### `scale_GammaDose()`
+
+* Argument `plot_singlePanels` now works as documented, that is it produces
+all plots in a single page when set to `FALSE` (default), and one plot per
+page when set to `TRUE` (#698).
 
 ### `sort_RLum()`
 * The sorting mechanism for `RLum.Analysis-class` objects has been enhanced. 

@@ -224,6 +224,12 @@
   compensate for this scenario. The `auto_scale` argument is also
   accessible through `plot_RLum.Analysis()` and `plot_RLum()` (#646).
 
+### `scale_GammaDose()`
+
+- Argument `plot_singlePanels` now works as documented, that is it
+  produces all plots in a single page when set to `FALSE` (default), and
+  one plot per page when set to `TRUE` (#698).
+
 ### `sort_RLum()`
 
 - The sorting mechanism for `RLum.Analysis-class` objects has been

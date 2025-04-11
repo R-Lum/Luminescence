@@ -208,7 +208,7 @@ density and water content is not constant for the entire section.
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.3
+ 0.1.4
 }
 
 \section{Acknowledgements}{
