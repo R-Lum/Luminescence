@@ -459,10 +459,6 @@ plot_RLum.Data.Spectrum <- function(
       ##case matrix
       if(inherits(bg.spectrum, "matrix")) bg.xyz <- bg.spectrum
 
-      ##take care of channel settings, otherwise set bg.channels
-      if(is.null(bg.channels))
-        bg.channels <- c(1:ncol(bg.xyz))
-
       ##set rownames
       if(is.null(rownames(bg.xyz)))
         rownames(bg.xyz) <- 1:nrow(bg.xyz)
@@ -482,6 +478,10 @@ plot_RLum.Data.Spectrum <- function(
       ##reduce for xlim
       bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
                              as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
+
+      ##take care of channel settings, otherwise set bg.channels
+      if(is.null(bg.channels))
+        bg.channels <- c(1:ncol(bg.xyz))
   }
 
   # Background subtraction ---------------------------------------------------
