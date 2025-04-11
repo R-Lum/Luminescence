@@ -202,8 +202,7 @@ fit_ThermalQuenching <- function(
   ## although internally we operate in log-space for C. When we show the
   ## final results, we'll have to exponentiate the fitted parameter.
   ##
-  ## FIXME(mcol): use Boltzmann constant #693
-  kB <- 8.6173303e-05
+  kB <- .const$kB
   f <- y ~ A / (1 + exp(C - W / (kB * x))) + c
 
   ##set translate values in data.frame to absolute temperature
