@@ -25,8 +25,8 @@ parameters for the fitting, see details}
 the fitting, see details for
 further information}
 
-\item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation. If \code{n.MC} is
-\code{NULL} or \verb{<=1}, the error estimation is skipped}
+\item{n.MC}{\link{integer} (\emph{with default}): number of Monte Carlo runs for the
+error estimation. If \code{n.MC} is \code{NULL} or 1, the error estimation is skipped.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
@@ -49,7 +49,8 @@ The function returns numerical output and an (\emph{optional}) plot.
 
 \verb{[.. $data : data.frame]}\cr
 
-A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.
+A table with all fitting parameters and the number of Monte Carlo runs used
+for the error estimation (this may be smaller that \code{n.MC}).
 
 \verb{[.. $fit : nls object]} \cr
 
@@ -116,7 +117,7 @@ are applied. The weights are defined by the third column of the input \code{data
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.2
 }
 
 \examples{
@@ -140,5 +141,6 @@ Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. 
 \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

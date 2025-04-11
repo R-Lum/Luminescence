@@ -47,8 +47,7 @@ This may affect the numerical results of the following functions:
 calc_FastRatio(), calc_Huntley2006(), calc_SourceDoseRate(),
 calc_ThermalLifetime(), convert_Activity2Concentration(),
 convert_Wavelength2Energy(), fit_CWCurve(), fit_LMCurve(),
-fit_SurfaceExposure() (#693).
-
+fit_SurfaceExposure(), fit_ThermalQuenching() (#693).
 
 ## Bugfixes and changes
 
@@ -153,6 +152,11 @@ coefficient `mu` when a list of input data is provided (#667).
 
 * The `trace` option, which can be specified via the `method_control`
 argument, is now respected.
+
+* The model now get internally reformulated into a mathematically equivalent
+expression that is easier to fit. This should reduce the number of occasions
+when the function fails to find a valid solution and improve the uncertainty
+estimation (#696).
 
 ### `import_Data()`
 
