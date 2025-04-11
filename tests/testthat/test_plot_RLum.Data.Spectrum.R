@@ -104,6 +104,19 @@ test_that("check functionality", {
       bin.cols = 1
     ), "6 channels removed due to row \\(wavelength\\) binning")
 
+    ##test background subtraction ... with bgchannel
+    expect_warning(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      plot.type = "persp",
+      xlim = c(310, 750),
+      ylim = c(0, 300),
+      bg.spectrum = bg.spectrum,
+      bg.channels = 1,
+      plot = FALSE,
+      bin.rows = 10,
+      bin.cols = 1
+    ), "6 channels removed due to row \\(wavelength\\) binning")
+
     ## check output and limit counts
     expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
       TL.Spectrum,

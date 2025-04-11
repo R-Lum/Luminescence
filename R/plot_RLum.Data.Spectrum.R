@@ -104,17 +104,21 @@
 #' using the bin number.
 #'
 #' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*): Spectrum
-#' used for the background subtraction. By definition, the background spectrum should have been
-#' measured with the same setting as the signal spectrum. If a spectrum is provided, the
-#' argument `bg.channels` works only on the provided background spectrum.
+#' used for the background subtraction. The background spectrum should be
+#' measured with the same setting as the signal spectrum. The argument `bg.channels` controls
+#' how the subtraction is performed. If nothing is set for `bg.channels` or the number
+#' of channels is identical to the number of channels in the background spectrum, a channel-wise
+#' subtraction is performed. Otherwise a the *arithmetic mean* is is calculated and this signal
+#' subtracted from the signal.
 #'
-#' @param bg.channels [vector] (*optional*):
-#' defines the channels used for background subtraction. If a vector is
-#' provided, the mean of the channels is used for subtraction. If a spectrum
+#' @param bg.channels [vector] (*optional*): defines the channels used for background
+#' subtraction. If the number of channels is identical to the number of channels
+#' in the background spectrum, a channel-wise subtracting is applied otherwise his number
+#' is taken to select channels for calculating the *arithmetic mean* . If a spectrum
 #' is provided via `bg.spectrum`, this argument only works on the background
 #' spectrum.
 #'
-#' **Note:** Background subtraction is applied prior to channel binning
+#' **Note:** Background subtraction is applied prior to channel binning!
 #'
 #' @param bin.rows [integer] (*with default*):
 #' allow summing-up wavelength channels (horizontal binning),
@@ -163,7 +167,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.9
+#' @section Function version: 0.6.10
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -495,13 +499,14 @@ plot_RLum.Data.Spectrum <- function(
                      min(bg.channels), ":", max(bg.channels))
     }
 
-    if(length(bg.channels) > 1){
-      temp.bg.signal <- rowMeans(bg.xyz[,bg.channels])
-      temp.xyz <- temp.xyz - temp.bg.signal
-
-    }else{
+    ## the challenge we have here is that we want to maintain
+    ## a channel-wise subtraction if the spectra are identical.
+    if(length(bg.channels) > 1 &&
+       (length(bg.channels) != ncol(bg.xyz) ||
+       length(bg.channels) != ncol(temp.xyz)))
+      temp.xyz <- temp.xyz - rowMeans(bg.xyz[,bg.channels])
+    else
       temp.xyz <- temp.xyz - bg.xyz[,bg.channels]
-    }
 
     ##set values < 0 to 0
     temp.xyz[temp.xyz < 0] <- 0
@@ -515,7 +520,6 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ## Channel binning --------------------------------------------------------
-
   if(bin.rows > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.rows, bin_col = FALSE, names = "mean")
     x <- as.numeric(rownames(temp.xyz))
