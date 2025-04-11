@@ -279,7 +279,7 @@ fit_ThermalQuenching <- function(
 
       ##return value
       if(inherits(temp, 'try-error')) {
-        return(NULL)
+        return(NULL) # nocov
       } else{
         temp
       }
