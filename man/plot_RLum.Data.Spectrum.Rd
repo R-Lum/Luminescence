@@ -45,17 +45,21 @@ binned spectra, the colour assignment is likely to be wrong, since the colour gr
 using the bin number.}
 
 \item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}): Spectrum
-used for the background subtraction. By definition, the background spectrum should have been
-measured with the same setting as the signal spectrum. If a spectrum is provided, the
-argument \code{bg.channels} works only on the provided background spectrum.}
+used for the background subtraction. The background spectrum should be
+measured with the same setting as the signal spectrum. The argument \code{bg.channels} controls
+how the subtraction is performed. If nothing is set for \code{bg.channels} or the number
+of channels is identical to the number of channels in the background spectrum, a channel-wise
+subtraction is performed. Otherwise a the \emph{arithmetic mean} is is calculated and this signal
+subtracted from the signal.}
 
-\item{bg.channels}{\link{vector} (\emph{optional}):
-defines the channels used for background subtraction. If a vector is
-provided, the mean of the channels is used for subtraction. If a spectrum
+\item{bg.channels}{\link{vector} (\emph{optional}): defines the channels used for background
+subtraction. If the number of channels is identical to the number of channels
+in the background spectrum, a channel-wise subtracting is applied otherwise his number
+is taken to select channels for calculating the \emph{arithmetic mean} . If a spectrum
 is provided via \code{bg.spectrum}, this argument only works on the background
 spectrum.
 
-\strong{Note:} Background subtraction is applied prior to channel binning}
+\strong{Note:} Background subtraction is applied prior to channel binning!}
 
 \item{bin.rows}{\link{integer} (\emph{with default}):
 allow summing-up wavelength channels (horizontal binning),
@@ -193,7 +197,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.9
+ 0.6.10
 }
 
 \examples{

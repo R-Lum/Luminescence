@@ -172,6 +172,12 @@ but it does issue a warning. The user is responsible for the consequences.
 
 * The response curve always tries to the get the 0 point in the mode `interpolation` and `alternate` (#677)
 
+### `plot_RLum.Data.Spectrum()`
+
+* The channel-wise background subtraction was essentially broken if a background spectrum with the same 
+setting was provided. The function always calculated the arithmetic mean. This was fixed, and the 
+manual updated accordingly. 
+
 ### `plot_DRCSummary()`
 
 * Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)
