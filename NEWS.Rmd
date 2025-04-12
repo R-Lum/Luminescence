@@ -178,6 +178,10 @@ but it does issue a warning. The user is responsible for the consequences.
 setting was provided. The function always calculated the arithmetic mean. This was fixed, and the 
 manual updated accordingly. 
 
+* If a background spectrum was provided, the behaviour of the plot output was sometimes hard to 
+understand without knowledge of the underlying code. This behaviour was improved and now `ylim` will 
+also affect the background spectrum if `bg.channels = NULL` (the default).
+
 ### `plot_DRCSummary()`
 
 * Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)

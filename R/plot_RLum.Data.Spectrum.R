@@ -479,9 +479,16 @@ plot_RLum.Data.Spectrum <- function(
       bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
                              as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
 
+      ##reduce for ylim by only if channels is NULL
+      if(is.null(bg.channels)) {
+      bg.xyz <- bg.xyz[,as.numeric(colnames(bg.xyz)) >= ylim[1] &
+                         as.numeric(colnames(bg.xyz)) <= ylim[2],drop = FALSE]
+      }
+
       ##take care of channel settings, otherwise set bg.channels
       if(is.null(bg.channels))
         bg.channels <- c(1:ncol(bg.xyz))
+
   }
 
   # Background subtraction ---------------------------------------------------
@@ -1099,3 +1106,4 @@ attr(temp.xyz, "pmat") <- pmat
 ## return visible or not
 if(plot) invisible(temp.xyz) else return(temp.xyz)
 }
+
