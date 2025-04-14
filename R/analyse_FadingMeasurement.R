@@ -408,7 +408,7 @@ analyse_FadingMeasurement <- function(
 
       ## check that all Lx/Tx pairs have the same size
       size.mismatch <- vapply(1:len.Lx, function(i) {
-        length(Lx_data[[i]]) != length(Tx_data[[i]])
+        floor(length(Lx_data[[i]])) != floor(length(Tx_data[[i]]))
       }, logical(1))
 
       ## skip samples with mismatching sizes
