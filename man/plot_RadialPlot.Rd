@@ -215,7 +215,7 @@ plot_RadialPlot(
 ## now with legend, colour, different points and smaller scale
 plot_RadialPlot(
   data = ExampleData.DeValues,
-  legend.text = "Sample 1",
+  legend = "Sample 1",
   col = "tomato4",
   bar.col = "peachpuff",
   pch = "R",

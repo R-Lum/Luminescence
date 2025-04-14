@@ -208,7 +208,7 @@
 #' ## now with legend, colour, different points and smaller scale
 #' plot_RadialPlot(
 #'   data = ExampleData.DeValues,
-#'   legend.text = "Sample 1",
+#'   legend = "Sample 1",
 #'   col = "tomato4",
 #'   bar.col = "peachpuff",
 #'   pch = "R",
@@ -613,10 +613,10 @@ if(centrality[1] == "mean") {
     .validate_length(xlab,  2)
   } else {
     xlab <- c(if(log.z == TRUE) {
-      "Relative standard error (%)"
+        "Relative standard error [%]"
       } else {
         "Standard error"
-        },
+      },
       "Precision")
   }
 
@@ -1179,18 +1179,11 @@ if(centrality[1] == "mean") {
     axis(side = 1, tcl = -0.5, lwd = 0, lwd.ticks = 1, at = limits.x[2],
          labels = FALSE)
 
-    ## add upper axis label
-    mtext(text = xlab[1],
+    ## add upper and lower axis label
+    mtext(text = xlab,
           at = (limits.x[1] + limits.x[2]) / 2,
           side = 1,
-          line = -3.5,
-          cex = cex)
-
-    ## add lower axis label
-    mtext(text = xlab[2],
-          at = (limits.x[1] + limits.x[2]) / 2,
-          side = 1,
-          line = 2.5,
+          line = c(-3.5, 2.5),
           cex = cex)
 
     ## plot upper x-axis

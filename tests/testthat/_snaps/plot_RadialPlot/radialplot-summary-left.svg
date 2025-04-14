@@ -41,7 +41,7 @@
 <polyline points='488.39,518.40 619.20,518.40 ' style='stroke-width: 0.75;' />
 <line x1='619.20' y1='518.40' x2='619.20' y2='511.20' style='stroke-width: 0.75;' />
 <line x1='619.20' y1='518.40' x2='619.20' y2='525.60' style='stroke-width: 0.75;' />
-<text x='338.40' y='479.52' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='144.06px' lengthAdjust='spacingAndGlyphs'>Relative standard error (%)</text>
+<text x='338.40' y='479.52' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='142.74px' lengthAdjust='spacingAndGlyphs'>Relative standard error [%]</text>
 <text x='338.40' y='565.92' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='49.36px' lengthAdjust='spacingAndGlyphs'>Precision</text>
 <line x1='201.20' y1='518.40' x2='201.20' y2='511.20' style='stroke-width: 0.75;' />
 <line x1='344.79' y1='518.40' x2='344.79' y2='511.20' style='stroke-width: 0.75;' />
