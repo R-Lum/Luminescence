@@ -580,12 +580,9 @@ plot_KDE <- function(
   ## plot data sets -----------------------------------------------------------
 
   ## setup plot area
-  if(length(summary) >= 1 & summary.pos[1] == "sub") {
-
+  toplines <- 1
+  if (length(summary) >= 1 && is.sub) {
     toplines <- length(data)
-  } else {
-
-    toplines <- 1
   }
 
   ## extract original plot parameters
@@ -596,15 +593,11 @@ plot_KDE <- function(
       xpd = FALSE,
       cex = cex)
 
-  if(layout$kde$dimension$figure.width != "auto" |
-     layout$kde$dimension$figure.height != "auto") {
-    par(mai = layout$kde$dimension$margin / 25.4,
-        pin = c(layout$kde$dimension$figure.width / 25.4 -
-                  layout$kde$dimension$margin[2] / 25.4 -
-                  layout$kde$dimension$margin[4] / 25.4,
-                layout$kde$dimension$figure.height / 25.4 -
-                  layout$kde$dimension$margin[1] / 25.4 -
-                  layout$kde$dimension$margin[3]/25.4))
+  dim <- layout$kde$dimension
+  if (dim$figure.width != "auto" || dim$figure.height != "auto") {
+    par(mai = dim$margin / 25.4,
+        pin = c(dim$figure.width - dim$margin[2] - dim$margin[4],
+                dim$figure.height - dim$margin[1] - dim$margin[3]) / 25.4)
   }
 
   ## create empty plot to get plot dimensions
@@ -733,8 +726,7 @@ plot_KDE <- function(
   ## add summary content
   for(i in 1:length(data)) {
 
-    if(summary.pos[1] != "sub") {
-
+    if (!is.sub) {
       text(x = summary.pos[1],
            y = summary.pos[2],
            adj = summary.adj,
@@ -744,7 +736,6 @@ plot_KDE <- function(
     } else {
 
       if(mtext == "") {
-
         mtext(side = 3,
               line = (toplines + 0.3 - i) * layout$kde$dimension$stats.line / 100,
               text = label.text[[i]],
@@ -831,8 +822,7 @@ plot_KDE <- function(
         ## draw median line
         lines(x = c(boxplot.data[[i]]$stats[3,1],
                     boxplot.data[[i]]$stats[3,1]),
-              y = c(-11/8 * l_height,
-                    -7/8 * l_height),
+              y = c(-11/8, -7/8) * l_height,
               lwd = 2,
               col = col.boxplot.line[i])
 
@@ -841,36 +831,29 @@ plot_KDE <- function(
                       boxplot.data[[i]]$stats[2,1],
                       boxplot.data[[i]]$stats[4,1],
                       boxplot.data[[i]]$stats[4,1]),
-                y = c(-11/8 * l_height,
-                      -7/8 * l_height,
-                      -7/8 * l_height,
-                      -11/8 * l_height),
+                y = c(-11/8, -7/8, -7/8, -11/8) * l_height,
                 col = col.boxplot.fill[i],
                 border = col.boxplot.line[i])
 
         ## draw whiskers
         lines(x = c(boxplot.data[[i]]$stats[2,1],
                     boxplot.data[[i]]$stats[1,1]),
-              y = c(-9/8 * l_height,
-                    -9/8 * l_height),
+              y = c(-9/8, -9/8) * l_height,
               col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[1,1],
                     boxplot.data[[i]]$stats[1,1]),
-              y = c(-10/8 * l_height,
-                    -8/8 * l_height),
+              y = c(-10/8, -8/8) * l_height,
               col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[4,1],
                     boxplot.data[[i]]$stats[5,1]),
-              y = c(-9/8 * l_height,
-                    -9/8 * l_height),
+              y = c(-9/8, -9/8) * l_height,
               col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[5,1],
                     boxplot.data[[i]]$stats[5,1]),
-              y = c(-10/8 * l_height,
-                    -8/8 * l_height),
+              y = c(-10/8, -8/8) * l_height,
               col = col.boxplot.line[i])
 
         ## draw outliers
