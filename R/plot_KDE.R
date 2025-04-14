@@ -87,10 +87,6 @@
 #' @param bw [character] (*with default*):
 #' bin-width, chose a numeric value for manual setting.
 #'
-#' @param output [logical] (*with default*):
-#' Optional output of numerical plot parameters. These can be useful to
-#' reproduce similar plots. Default is `TRUE`.
-#'
 #' @param ... further arguments and graphical parameters passed to [plot].
 #'
 #' @note
@@ -156,8 +152,7 @@
 #'
 #' ## example of how to use the numerical output of the function
 #' ## return plot output to draw a thicker KDE line
-#' KDE_out <- plot_KDE(data = ExampleData.DeValues,
-#' output = TRUE)
+#' KDE_out <- plot_KDE(data = ExampleData.DeValues)
 #'
 #' @md
 #' @export
@@ -172,7 +167,6 @@ plot_KDE <- function(
   summary.pos = "sub",
   summary.method = "MCM",
   bw = "nrd0",
-  output = TRUE,
   ...
 ) {
   .set_function_name("plot_KDE")
@@ -951,9 +945,7 @@ plot_KDE <- function(
   ## FUN by R Luminescence Team
   if (fun == TRUE) sTeve() # nocov
 
-  if(output == TRUE) {
-    return(invisible(list(De.stats = De.stats,
-                          summary.pos = summary.pos,
-                          De.density = De.density)))
-  }
+  invisible(list(De.stats = De.stats,
+                 summary.pos = summary.pos,
+                 De.density = De.density))
 }

@@ -226,6 +226,9 @@
 - Setting `summary.pos` to one of “left”, “center” or “right” resulted
   in the summary table not being visible (#642).
 
+- Argument `output` has been removed, and it will be ignored if set
+  (#700).
+
 ### `plot_RadialPlot()`
 
 - The function validates its input values more thoroughly (#639).
