@@ -691,6 +691,9 @@ calc_FiniteMixture <- function(
 
     ## NORMAL DISTR. OF EACH COMPONENT
 
+    max.dose <- max(object@data$data[, 1]) + sd(object@data$data[, 1]) / 2
+    min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
+
     ## LOOP - iterate over number of components
     for (j in 1:max(n.components)) {
       ## draw random values of the ND to check for NA values
@@ -715,9 +718,6 @@ calc_FiniteMixture <- function(
 
         ## x-axis scaling - determine highest dose in first cycle
         if (i == 1 && j == 1) {
-          max.dose <- max(object@data$data[, 1]) + sd(object@data$data[, 1]) / 2
-          min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
-
           ## density function to determine y-scaling if no weights are used
           fooY <- function(x) {
             dnorm(x, mean = na.exclude(comp.n[pos.n, ]),

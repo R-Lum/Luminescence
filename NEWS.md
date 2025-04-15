@@ -132,6 +132,11 @@
   especially for high values of `sigmab` there would be an unfilled area
   at the base of the densities (#706).
 
+- If the very first iteration over the components during plotting was
+  skipped, then the function crashed as a quantity computed only in that
+  iteration was not available. This happened for very specific
+  combinations of `sigmab` and `n.components` (#708).
+
 ### `calc_Huntley2006()`
 
 - Add support for nls-fitting control arguments `maxiter` and `trace`.
