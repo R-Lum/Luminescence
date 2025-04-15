@@ -751,6 +751,8 @@ calc_FiniteMixture <- function(
                       ) * wi.temp
               }
               sapply.temp[[b]] <- sapply(0:max.dose, fooT)
+            } else {
+              sapply.temp[[b]] <- 0
             }
           }
           dens.max <- max(Reduce('+', sapply.temp))
@@ -790,6 +792,8 @@ calc_FiniteMixture <- function(
                 y = c(0, 0:max.dose,  0),
                 col = adjustcolor(col.n[j], alpha.f = 0.66),
                 yaxt = "n", border = poly.border, xpd = FALSE, lty = 2, lwd = 1.5)
+      } else {
+        sapply.storage[[j]] <- 0
       }
     }##EndOf::Component loop
 
