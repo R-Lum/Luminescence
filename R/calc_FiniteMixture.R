@@ -788,8 +788,8 @@ calc_FiniteMixture <- function(
              ann = FALSE, xpd = FALSE)
 
         # draw coloured polygons under curve
-        polygon(x = c(min(sapply), sapply,  min(sapply)),
-                y = c(0, 0:max.dose,  0),
+        polygon(x = c(0, min(sapply), sapply, 0),
+                y = c(0, 0, 0:max.dose, max.dose),
                 col = adjustcolor(col.n[j], alpha.f = 0.66),
                 yaxt = "n", border = poly.border, xpd = FALSE, lty = 2, lwd = 1.5)
       } else {

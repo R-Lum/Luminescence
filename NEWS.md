@@ -128,6 +128,10 @@
 - The function sometimes failed to plot some of the densities when the
   number of components was set to a value of 8 or more (#704).
 
+- The density plots would not always be coloured completely, but
+  especially for high values of `sigmab` there would be an unfilled area
+  at the base of the densities (#706).
+
 ### `calc_Huntley2006()`
 
 - Add support for nls-fitting control arguments `maxiter` and `trace`.
