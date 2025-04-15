@@ -694,6 +694,13 @@ calc_FiniteMixture <- function(
     max.dose <- max(object@data$data[, 1]) + sd(object@data$data[, 1]) / 2
     min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
 
+    if (!pdf.weight) {
+      ## estimate the y-scaling if no weights are used
+      dens.max <- max(dnorm(0:max.dose,
+                            mean = na.exclude(c(comp.n[pos.n, ])),
+                            sd = na.exclude(c(comp.n[pos.n + 1, ]))))
+    }
+
     ## LOOP - iterate over number of components
     for (j in 1:max(n.components)) {
       ## draw random values of the ND to check for NA values
@@ -715,17 +722,6 @@ calc_FiniteMixture <- function(
                      else comp.n[pos.n[j], i] * sigmab
                 ) * if (pdf.weight) wi else 1
         }
-
-        ## x-axis scaling - determine highest dose in first cycle
-        if (i == 1 && j == 1) {
-          ## density function to determine y-scaling if no weights are used
-          fooY <- function(x) {
-            dnorm(x, mean = na.exclude(comp.n[pos.n, ]),
-                  sd = na.exclude(comp.n[pos.n + 1, ]))
-          }
-          ## set y-axis scaling
-          dens.max <- max(sapply(0:max.dose, fooY))
-        } ## EndOfIf::first cycle settings
 
         ## override y-axis scaling if weights are used
         if (pdf.weight) {
