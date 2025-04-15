@@ -137,6 +137,10 @@
   iteration was not available. This happened for very specific
   combinations of `sigmab` and `n.components` (#708).
 
+- Another crash occurred when height of the largest density curve could
+  not be estimated due to the presence of too many `NA` values in the
+  intermediate computations (#710).
+
 ### `calc_Huntley2006()`
 
 - Add support for nls-fitting control arguments `maxiter` and `trace`.
