@@ -695,11 +695,34 @@ calc_FiniteMixture <- function(
 
     ## NORMAL DISTR. OF EACH COMPONENT
 
-    if (!settings$pdf.weight) {
+    if (settings$pdf.weight) {
+      dens <- 0
+      for (b in 1:max(n.components)) {
+        fooT <- function(x) {
+          dnorm(x, mean = comp.mu, sd = comp.sd) * wi
+        }
+
+        comp.mu <- comp.n[pos.n[b], i]
+        comp.sd <- if (settings$pdf.sigma == "se") comp.n[pos.n[b] + 1, i]
+                   else comp.mu * sigmab
+        if (!is.na(comp.mu) && !is.na(comp.sd)) {
+          wi <- comp.n[pos.n[b] + 2, i]
+          dens <- dens + sapply(0:max.dose, fooT)
+        }
+      }
+      dens.max <- max(dens)
+    } else {
       ## estimate the y-scaling if no weights are used
       dens.max <- max(dnorm(0:max.dose,
                             mean = na.exclude(c(comp.n[pos.n, ])),
                             sd = na.exclude(c(comp.n[pos.n + 1, ]))))
+    }
+
+    ## x-axis (density)
+    if ("pdf.scale" %in% names(extraArgs)) {
+      x.scale <- extraArgs$pdf.scale
+    } else {
+      x.scale <- dens.max * 1.1
     }
 
     ## LOOP - iterate over number of components
@@ -724,49 +747,11 @@ calc_FiniteMixture <- function(
                 ) * if (settings$pdf.weight) wi else 1
         }
 
-        ## override y-axis scaling if weights are used
-        if (settings$pdf.weight) {
-          sapply.temp <- list()
-          for (b in 1:max(n.components)) {
-
-            ## draw random values of the ND to check for NA values
-            suppressWarnings(
-                comp.nd.n <- sort(rnorm(n = length(object@data$data[, 1]),
-                                        mean = comp.n[pos.n[b], i],
-                                        sd = comp.n[pos.n[b] + 1, i]))
-            )
-            ## proceed if no NA values occurred
-            if (length(comp.nd.n) != 0) {
-
-              ## weight - proportion of the component
-              wi.temp <- comp.n[pos.n[b] + 2, i]
-
-              fooT <- function(x) {
-                dnorm(x, mean = comp.n[pos.n[b], i],
-                      sd = if (settings$pdf.sigma == "se") comp.n[pos.n[b] + 1, i]
-                           else comp.n[pos.n[b], i] * sigmab
-                      ) * wi.temp
-              }
-              sapply.temp[[b]] <- sapply(0:max.dose, fooT)
-            } else {
-              sapply.temp[[b]] <- 0
-            }
-          }
-          dens.max <- max(Reduce('+', sapply.temp))
-        }
-
         ## calculate density values for 0 to maximum dose
         sapply <- sapply(0:max.dose, fooX)
 
         ## save density values in list for sum curve of gaussians
         sapply.storage[[j]] <- sapply
-
-        ## y-axis (density)
-        if ("pdf.scale" %in% names(extraArgs)) {
-          x.scale <- extraArgs$pdf.scale
-        } else {
-          x.scale <- dens.max * 1.1
-        }
 
         ## PLOT Normal Distributions
         par(new = TRUE)
