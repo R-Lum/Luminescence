@@ -868,10 +868,14 @@ calc_FiniteMixture <- function(
     ## create matrix with proportions from a subset of the summary matrix
     prop.matrix <- comp.n[pos.n + 2, ] * 100
 
+    ## this value removes the empty gaps that would be otherwise left before
+    ## the first bar and after the last (found by trial and error)
+    adj <- length(n.components) / (length(n.components) + 17)
+
     ## stacked barplot of proportions without x-axis
     graphics::barplot(prop.matrix,
                       width = 1,
-                      xlim = c(0.2, length(n.components) - 0.2),
+                      xlim = c(adj, length(n.components) - adj),
                       ylim = c(0, 100),
                       axes = TRUE,
                       space = 0,
