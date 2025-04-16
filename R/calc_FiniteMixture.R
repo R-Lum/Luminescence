@@ -655,6 +655,11 @@ calc_FiniteMixture <- function(
   ##--------------------------------------------------------------------------
   ## PLOT 1: EQUIVALENT DOSES OF COMPONENTS
 
+  ## calculate weighted density values
+  .calc.density <- function(x, mu, sd, weights) {
+    dnorm(x, mean = mu, sd = sd) * weights
+  }
+
   max.dose <- max(object@data$data[, 1]) + sd(object@data$data[, 1]) / 2
   min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
 
@@ -690,72 +695,52 @@ calc_FiniteMixture <- function(
       mtext(expression(paste("D"[e]," [Gy]")), side = 2,line = 2.7, cex = 1)
     }
 
-    ## empty list to store normal distribution densities
-    sapply.storage <- list()
-
     ## NORMAL DISTR. OF EACH COMPONENT
 
     if (settings$pdf.weight) {
       dens <- 0
       for (b in 1:max(n.components)) {
-        fooT <- function(x) {
-          dnorm(x, mean = comp.mu, sd = comp.sd) * wi
-        }
-
         comp.mu <- comp.n[pos.n[b], i]
         comp.sd <- if (settings$pdf.sigma == "se") comp.n[pos.n[b] + 1, i]
                    else comp.mu * sigmab
         if (!is.na(comp.mu) && !is.na(comp.sd)) {
           wi <- comp.n[pos.n[b] + 2, i]
-          dens <- dens + sapply(0:max.dose, fooT)
+          dens <- dens + sapply(0:max.dose, .calc.density,
+                                comp.mu, comp.sd, wi)
         }
       }
-      dens.max <- max(dens)
     } else {
       ## estimate the y-scaling if no weights are used
-      dens.max <- max(dnorm(0:max.dose,
-                            mean = na.exclude(c(comp.n[pos.n, ])),
-                            sd = na.exclude(c(comp.n[pos.n + 1, ]))))
+      dens <- sapply(0:max.dose, .calc.density,
+                     na.exclude(c(comp.n[pos.n, ])),
+                     na.exclude(c(comp.n[pos.n + 1, ])), 1)
     }
 
     ## x-axis (density)
     if ("pdf.scale" %in% names(extraArgs)) {
       x.scale <- extraArgs$pdf.scale
     } else {
-      x.scale <- dens.max * 1.1
+      x.scale <- max(dens) * 1.1
     }
 
     ## LOOP - iterate over number of components
+    dens.sum <- 0
     for (j in 1:max(n.components)) {
-      ## draw random values of the ND to check for NA values
-      suppressWarnings(
-          comp.nd.n <- sort(rnorm(n = length(object@data$data[, 1]),
-                                  mean = comp.n[pos.n[j], i],
-                                  sd = comp.n[pos.n[j] + 1, i]))
-      )
-      ## proceed if no NA values occurred
-      if (length(comp.nd.n) != 0) {
-
-        ## weight - proportion of the component
-        wi <- comp.n[pos.n[j] + 2, i]
-
-        ## calculate density values with(out) weights
-        fooX <- function(x) {
-          dnorm(x, mean = comp.n[pos.n[j], i],
-                sd = if (settings$pdf.sigma == "se") comp.n[pos.n[j] + 1, i]
-                     else comp.n[pos.n[j], i] * sigmab
-                ) * if (settings$pdf.weight) wi else 1
-        }
-
+      comp.mu <- comp.n[pos.n[j], i]
+      comp.sd <- if (settings$pdf.sigma == "se") comp.n[pos.n[j] + 1, i]
+                 else comp.mu * sigmab
+      if (!is.na(comp.mu) && !is.na(comp.sd)) {
         ## calculate density values for 0 to maximum dose
-        sapply <- sapply(0:max.dose, fooX)
+        wi <- if (settings$pdf.weight) comp.n[pos.n[j] + 2, i] else 1
+        dens <- sapply(0:max.dose, .calc.density,
+                       comp.mu, comp.sd, wi)
 
         ## save density values in list for sum curve of gaussians
-        sapply.storage[[j]] <- sapply
+        dens.sum <- dens.sum + dens
 
         ## PLOT Normal Distributions
         par(new = TRUE)
-        plot(sapply, 1:length(sapply) - 1,
+        plot(dens, 1:length(dens) - 1,
              type = "l", yaxt = "n", xaxt = "n", col = col.n[j], lwd = 1,
              ylim = y.scale,
              xlim = c(0, x.scale),
@@ -763,19 +748,16 @@ calc_FiniteMixture <- function(
              ann = FALSE, xpd = FALSE)
 
         # draw coloured polygons under curve
-        polygon(x = c(0, min(sapply), sapply, 0),
+        polygon(x = c(0, min(dens), dens, 0),
                 y = c(0, 0, 0:max.dose, max.dose),
                 col = adjustcolor(col.n[j], alpha.f = 0.66),
                 yaxt = "n", border = poly.border, xpd = FALSE, lty = 2, lwd = 1.5)
-      } else {
-        sapply.storage[[j]] <- 0
       }
     }##EndOf::Component loop
 
     ## Add sum of Gaussian curve
     par(new = TRUE)
-
-    plot(Reduce('+', sapply.storage), 1:length(sapply) - 1,
+    plot(dens.sum, 1:length(dens) - 1,
          type = "l", yaxt = "n", xaxt = "n", col = "black",
          lwd = 1.5, lty = 1,
          ylim = y.scale,
