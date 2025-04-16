@@ -72,6 +72,15 @@ test_that("check class and length of output", {
     "The model produced NA values: either the input data are inapplicable")
   })
 
+  expect_output(calc_FiniteMixture(
+    set_RLum("RLum.Results",
+             data = list(data = ExampleData.DeValues$CA1)),
+    sigmab = 0.62,
+    n.components = 2:3,
+    pdf.colors = "colors",
+    verbose = TRUE),
+    "No significant increase in maximum log-likelihood estimates")
+
   ## plot with plot_RLum.Results
   t <- expect_s4_class(calc_FiniteMixture(
     ExampleData.DeValues$CA1,
