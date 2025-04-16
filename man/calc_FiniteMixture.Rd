@@ -23,8 +23,8 @@ calc_FiniteMixture(
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{sigmab}{\link{numeric} (\strong{required}):
-spread in De values given as a fraction (e.g. 0.2). This value represents the expected
-overdispersion in the data should the sample be well-bleached
+spread in De values given as a fraction (e.g. 0.2). This value represents
+the expected overdispersion in the data should the sample be well-bleached
 (Cunningham & Wallinga 2012, p. 100).}
 
 \item{n.components}{\link{numeric} (\strong{required}):
@@ -37,8 +37,8 @@ log-likelihood) is provided.}
 prints the estimated probabilities of which component each grain is in}
 
 \item{pdf.weight}{\link{logical} (\emph{with default}):
-weight the probability density functions by the components proportion (applies only
-when a vector is provided for \code{n.components})}
+weight the probability density functions by the components proportion
+(applies only when a vector is provided for \code{n.components}).}
 
 \item{pdf.sigma}{\link{character} (\emph{with default}):
 if \code{"sigmab"} the components normal distributions are plotted with a common standard
@@ -48,7 +48,7 @@ parameter of the normal distribution}
 
 \item{pdf.colors}{\link{character} (\emph{with default}):
 colour coding of the components in the plot.
-Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}}
+Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}.}
 
 \item{plot.proportions}{\link{logical} (\emph{with default}):
 plot \link[graphics:barplot]{graphics::barplot} showing the proportions of components if
@@ -83,7 +83,7 @@ The output should be accessed using the function \link{get_RLum}.
 \description{
 This function fits a k-component mixture to a De distribution with differing
 known standard errors. Parameters (doses and mixing proportions) are
-estimated by maximum likelihood assuming that the log dose estimates are
+estimated by maximum likelihood assuming that the log dose estimates come
 from a mixture of normal distributions.
 }
 \details{
@@ -101,25 +101,25 @@ Indications of overfitting are:
 
 \strong{Plot}
 
-If a vector (\code{c(k.min:k.max)}) is provided
-for \code{n.components} a plot is generated showing the k components
-equivalent doses as normal distributions. By default \code{pdf.weight} is
-set to \code{FALSE}, so that the area under each normal distribution is
-always 1. If \code{TRUE}, the probability density functions are weighted by
-the components proportion for each iteration of k components, so the sum of
-areas of each component equals 1. While the density values are on the same
-scale when no weights are used, the y-axis are individually scaled if the
-probability density are weighted by the components proportion.\cr
+If \code{n.components} is a vector (\code{c(k.min:k.max)}), a plot is generated
+showing the \emph{k} components equivalent doses as normal distributions.
+By default \code{pdf.weight} is set to \code{TRUE}, so that the probability density
+functions are weighted by the components proportion for each iteration of
+\emph{k} components, so the sum of areas of each component equals 1.
+If \code{pdf.weight} is set to \code{FALSE}, the area under each normal distribution
+is always 1. While the density values are on the same scale when no weights
+are used, the y-axis are individually scaled if the probability density are
+weighted by the components proportion.\cr
 The standard deviation (sigma) of the normal distributions is by default
 determined by a common \code{sigmab} (see \code{pdf.sigma}). For
 \code{pdf.sigma = "se"} the standard error of each component is taken
 instead.\cr
 The stacked \link[graphics:barplot]{graphics::barplot} shows the proportion of each component (in
 per cent) calculated by the FMM. The last plot shows the achieved BIC scores
-and maximum log-likelihood estimates for each iteration of k.
+and maximum log-likelihood estimates for each value of \emph{k}.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.3
 }
 
 \examples{

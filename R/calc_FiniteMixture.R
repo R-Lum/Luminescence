@@ -1,12 +1,14 @@
 #' @title Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
 #' distribution
 #'
-#' @description  This function fits a k-component mixture to a De distribution with differing
+#' @description
+#' This function fits a k-component mixture to a De distribution with differing
 #' known standard errors. Parameters (doses and mixing proportions) are
-#' estimated by maximum likelihood assuming that the log dose estimates are
+#' estimated by maximum likelihood assuming that the log dose estimates come
 #' from a mixture of normal distributions.
 #'
-#' @details This model uses the maximum likelihood and Bayesian Information Criterion
+#' @details
+#' This model uses the maximum likelihood and Bayesian Information Criterion
 #' (BIC) approaches.
 #'
 #' Indications of overfitting are:
@@ -19,29 +21,29 @@
 #'
 #' **Plot**
 #'
-#' If a vector (`c(k.min:k.max)`) is provided
-#' for `n.components` a plot is generated showing the k components
-#' equivalent doses as normal distributions. By default `pdf.weight` is
-#' set to `FALSE`, so that the area under each normal distribution is
-#' always 1. If `TRUE`, the probability density functions are weighted by
-#' the components proportion for each iteration of k components, so the sum of
-#' areas of each component equals 1. While the density values are on the same
-#' scale when no weights are used, the y-axis are individually scaled if the
-#' probability density are weighted by the components proportion.\cr
+#' If `n.components` is a vector (`c(k.min:k.max)`), a plot is generated
+#' showing the *k* components equivalent doses as normal distributions.
+#' By default `pdf.weight` is set to `TRUE`, so that the probability density
+#' functions are weighted by the components proportion for each iteration of
+#' *k* components, so the sum of areas of each component equals 1.
+#' If `pdf.weight` is set to `FALSE`, the area under each normal distribution
+#' is always 1. While the density values are on the same scale when no weights
+#' are used, the y-axis are individually scaled if the probability density are
+#' weighted by the components proportion.\cr
 #' The standard deviation (sigma) of the normal distributions is by default
 #' determined by a common `sigmab` (see `pdf.sigma`). For
 #' `pdf.sigma = "se"` the standard error of each component is taken
 #' instead.\cr
 #' The stacked [graphics::barplot] shows the proportion of each component (in
 #' per cent) calculated by the FMM. The last plot shows the achieved BIC scores
-#' and maximum log-likelihood estimates for each iteration of k.
+#' and maximum log-likelihood estimates for each value of *k*.
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
 #' @param sigmab [numeric] (**required**):
-#' spread in De values given as a fraction (e.g. 0.2). This value represents the expected
-#' overdispersion in the data should the sample be well-bleached
+#' spread in De values given as a fraction (e.g. 0.2). This value represents
+#' the expected overdispersion in the data should the sample be well-bleached
 #' (Cunningham & Wallinga 2012, p. 100).
 #'
 #' @param n.components [numeric] (**required**):
@@ -54,8 +56,8 @@
 #' prints the estimated probabilities of which component each grain is in
 #'
 #' @param pdf.weight [logical] (*with default*):
-#' weight the probability density functions by the components proportion (applies only
-#' when a vector is provided for `n.components`)
+#' weight the probability density functions by the components proportion
+#' (applies only when a vector is provided for `n.components`).
 #'
 #' @param pdf.sigma [character] (*with default*):
 #' if `"sigmab"` the components normal distributions are plotted with a common standard
@@ -65,7 +67,7 @@
 #'
 #' @param pdf.colors [character] (*with default*):
 #' colour coding of the components in the plot.
-#' Possible options are `"gray"`, `"colors"` and `"none"`
+#' Possible options are `"gray"`, `"colors"` and `"none"`.
 #'
 #' @param plot.proportions [logical] (*with default*):
 #' plot [graphics::barplot] showing the proportions of components if
@@ -97,7 +99,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -227,17 +229,11 @@ calc_FiniteMixture <- function(
 
   extraArgs <- list(...)
 
-  ## default values
-  verbose <- TRUE
-  main <- "Finite Mixture Model"
-
   ## console output
+  verbose <- TRUE
   if("verbose" %in% names(extraArgs)) {
     verbose<- extraArgs$verbose
-  }
-  # plot title
-  if("main" %in% names(extraArgs)) {
-    main<- extraArgs$main
+    .validate_logical_scalar(verbose)
   }
 
   ##============================================================================##
@@ -278,7 +274,6 @@ calc_FiniteMixture <- function(
     n<- length(yu)
 
     # compute starting values
-    fui<- matrix(0,n,k)
     pui<- matrix(0,n,k)
     nui<- matrix(0,n,k)
     pii<- rep(1/k,k)
@@ -296,8 +291,8 @@ calc_FiniteMixture <- function(
     for(j in 1:nit){
       for(i in 1:k)
       {
-        fui[,i]<-  rwu*exp(-0.5*wu*(yu-mu[i])^2)
-        nui[,i]<-  pii[i]*fui[,i]
+        fui <- rwu * exp(-0.5 * wu * (yu - mu[i])^2)
+        nui[, i] <- pii[i] * fui
       }
       pui <- nui / rowSums(nui)
       mu <- colSums(wu * yu * pui) / colSums(wu * pui)
@@ -316,7 +311,7 @@ calc_FiniteMixture <- function(
     for(i in 1:k)
     {
       aui[,i]<- wu*(yu-mu[i])
-      bui[,i]<- -wu + (wu*(yu-mu[i]))^2
+      bui[, i] <- -wu + aui[, i]^2
     }
     delta<- diag(rep(1,k))
 
@@ -342,14 +337,10 @@ calc_FiniteMixture <- function(
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
     re <- suppressWarnings(sqrt(diag(vmat)))[-c(1:(k-1))]
-    if (any(is.nan(re)))
-      re[is.nan(re)] <- NA
+    re[is.nan(re)] <- NA
 
     sed<- dose*re
     estd<- rbind(dose,re,sed)
-
-    # rename proportion
-    prop<- pii
 
     # this calculates the proportional standard error of the proportion of grains
     # in the fitted components. However, the calculation is most likely erroneous.
@@ -357,18 +348,14 @@ calc_FiniteMixture <- function(
     # sep<-  c(sqrt(diag(vmat))[c(1:(k-1))],rek)
 
     # rename proportion
-    estp<- prop
+    estp <- pii
 
     # merge results to a data frame
     blk<- rep("    ",k)
     comp<- rbind(blk,round(estd,4),blk,round(estp,4))
     comp<- data.frame(comp,row.names=c("","dose (Gy)    ","rse(dose)    ",
                                        "se(dose)(Gy)"," ","proportion   "))
-
-    # label results data frame
-    cp<- rep("comp",k)
-    cn<- c(1:k)
-    names(comp)<- paste(cp,cn,sep="")
+    names(comp) <- paste0("comp", 1:k)
 
     # calculate the log likelihood and BIC for a single component -- can
     # be useful to see if there is evidence of more than one component
@@ -387,9 +374,8 @@ calc_FiniteMixture <- function(
 
       # save results of each iteration to summary matrix
       for(i in 1:n.components[cnt]) {
-        comp.n[pos.n[i], cnt]<- round(dose[i], 2) #De
-        comp.n[pos.n[i]+1, cnt]<- round(sed[i], 2) #SE
-        comp.n[pos.n[i]+2, cnt]<- round(estp[i], 2) #Proportion
+        ## store De, SE, Proportion
+        comp.n[pos.n[i] + 0:2, cnt] <- round(c(dose[i], sed[i], estp[i]), 2)
       }
 
       # save BIC and llik of each iteration to corresponding vector
@@ -600,12 +586,15 @@ calc_FiniteMixture <- function(
 
   ## deal with additional arguments
   extraArgs <- list(...)
-
-  main <- if ("main" %in% names(extraArgs)) extraArgs$main else "Finite Mixture Model"
-  plot.proportions <- if ("plot.proportions" %in% names(extraArgs)) extraArgs$plot.proportions else TRUE
-  pdf.colors <- if ("pdf.colors" %in% names(extraArgs)) extraArgs$pdf.colors else "gray"
-  pdf.weight <- if ("pdf.weight" %in% names(extraArgs)) extraArgs$pdf.weight else TRUE
-  pdf.sigma <- if ("pdf.sigma" %in% names(extraArgs)) extraArgs$pdf.sigma else "sigmab"
+  settings <- list(
+      main = "Finite Mixture Model",
+      pdf.weight = TRUE,
+      pdf.sigma = "sigmab",
+      pdf.colors = "gray",
+      plot.proportions = TRUE
+  )
+  settings <- modifyList(settings, extraArgs)
+  plot.proportions <- settings$plot.proportions
 
   ## extract relevant data from object
   n.components <- object@data$args$n.components
@@ -615,11 +604,11 @@ calc_FiniteMixture <- function(
   LLIK.n <- object@data$llik$llik
 
   ## save previous plot parameter and set new ones
-  .pardefault<- par(no.readonly = TRUE)
+  par.default <- par(no.readonly = TRUE)
+  on.exit(par(par.default), add = TRUE)
 
   ## DEVICE AND PLOT LAYOUT
   n.plots <- length(n.components) #number of PDF plots in plot area #1
-  seq.vertical.plots <- seq(from = 1, to = n.plots, by = 1) # indices
   ID.plot.two <- n.plots + if (plot.proportions) 1 else 0 # ID of second plot area
   ID.plot.three <- n.plots + if (plot.proportions) 2 else 1 # ID of third plot area
 
@@ -648,23 +637,32 @@ calc_FiniteMixture <- function(
   par(cex = 0.8, xpd = NA)
 
   ## define colour palette for prettier output
-  if (pdf.colors == "colors") {
+  if (settings$pdf.colors == "colors") {
     col.n <- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
                "burlywood4", "magenta4", "mediumpurple3", "brown4", "grey",
                "aquamarine")
     poly.border <- FALSE
   }
-  if (pdf.colors == "gray" || pdf.colors == "grey") {
+  else if (settings$pdf.colors == "gray") {
     col.n <- grDevices::gray.colors(length(n.components)*2)
     poly.border <- FALSE
   }
-  if (pdf.colors == "none") {
+  else if (settings$pdf.colors == "none") {
     col.n <- rgb(0, 0, 0, 0)
     poly.border <- TRUE
   }
 
   ##--------------------------------------------------------------------------
   ## PLOT 1: EQUIVALENT DOSES OF COMPONENTS
+
+  max.dose <- max(object@data$data[, 1]) + sd(object@data$data[, 1]) / 2
+  min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
+
+  ## determine y-axis scaling
+  y.scale <- c(min.dose, max.dose)
+  if ("dose.scale" %in% names(extraArgs)) {
+    y.scale <- extraArgs$dose.scale
+  }
 
   ## create empty plot without x-axis
   for (i in 1:n.plots) {
@@ -697,10 +695,7 @@ calc_FiniteMixture <- function(
 
     ## NORMAL DISTR. OF EACH COMPONENT
 
-    max.dose <- max(object@data$data[, 1]) + sd(object@data$data[, 1]) / 2
-    min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
-
-    if (!pdf.weight) {
+    if (!settings$pdf.weight) {
       ## estimate the y-scaling if no weights are used
       dens.max <- max(dnorm(0:max.dose,
                             mean = na.exclude(c(comp.n[pos.n, ])),
@@ -724,13 +719,13 @@ calc_FiniteMixture <- function(
         ## calculate density values with(out) weights
         fooX <- function(x) {
           dnorm(x, mean = comp.n[pos.n[j], i],
-                sd = if (pdf.sigma == "se") comp.n[pos.n[j] + 1, i]
+                sd = if (settings$pdf.sigma == "se") comp.n[pos.n[j] + 1, i]
                      else comp.n[pos.n[j], i] * sigmab
-                ) * if (pdf.weight) wi else 1
+                ) * if (settings$pdf.weight) wi else 1
         }
 
         ## override y-axis scaling if weights are used
-        if (pdf.weight) {
+        if (settings$pdf.weight) {
           sapply.temp <- list()
           for (b in 1:max(n.components)) {
 
@@ -748,7 +743,7 @@ calc_FiniteMixture <- function(
 
               fooT <- function(x) {
                 dnorm(x, mean = comp.n[pos.n[b], i],
-                      sd = if (pdf.sigma == "se") comp.n[pos.n[b] + 1, i]
+                      sd = if (settings$pdf.sigma == "se") comp.n[pos.n[b] + 1, i]
                            else comp.n[pos.n[b], i] * sigmab
                       ) * wi.temp
               }
@@ -766,13 +761,6 @@ calc_FiniteMixture <- function(
         ## save density values in list for sum curve of gaussians
         sapply.storage[[j]] <- sapply
 
-        ## determine axis scaling
-        ## x-axis (dose)
-        if ("dose.scale" %in% names(extraArgs)) {
-          y.scale <- extraArgs$dose.scale
-        } else {
-          y.scale <- c(min.dose, max.dose)
-        }
         ## y-axis (density)
         if ("pdf.scale" %in% names(extraArgs)) {
           x.scale <- extraArgs$pdf.scale
@@ -817,7 +805,7 @@ calc_FiniteMixture <- function(
             side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
 
       ## main title
-      mtext(main,
+      mtext(settings$main,
             side = 3, font = 2, line = 3.5, adj = 0.5,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
@@ -836,7 +824,7 @@ calc_FiniteMixture <- function(
       axis(side = 2, labels = TRUE)
     }
 
-    if (pdf.colors == "colors") {
+    if (settings$pdf.colors == "colors") {
       ## create legend labels
       dose.lab.legend <- paste0("c", 1:n.components[length(n.components)])
 
@@ -951,7 +939,4 @@ calc_FiniteMixture <- function(
          pch = c(22,16), pt.bg = c("white", "black"),
          adj = 0, pt.cex = 1.3, lty = c(1 ,2),
          bty = "n", horiz = TRUE, x.intersp = 0.5)
-
-  ## restore previous plot parameters
-  par(.pardefault)
 }
