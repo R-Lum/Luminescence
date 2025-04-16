@@ -396,10 +396,6 @@ calc_FiniteMixture <- function(
       BIC.n[cnt]<- bic
       LLIK.n[cnt]<- llik
 
-      # merge BIC and llik scores to a single data frame
-      results.n<- rbind(BIC = round(BIC.n, 3),
-                        llik = round(LLIK.n, 3))
-
       # save mle matrix and grain probabilities to corresponding vector
       vmat.n[[cnt]]<- vmat
       grain.probability.n[[cnt]]<- as.data.frame(pui)
@@ -415,17 +411,27 @@ calc_FiniteMixture <- function(
 
   if(length(n.components)>1) {
 
-    ## Evaluate maximum log likelihood estimates
-    LLIK.significant<- vector(mode = "logical")
+    ## Likelihood ratio test: the difference in deviance is compared to a
+    ## chi-squared distribution with degrees of freedom corresponding to the
+    ## difference in number of parameters (number of components) to obtain a
+    ## p-value.
+    ## We also consider the likelihood of the single component model, so we
+    ## can determine the significance of the 2-component model.
+    LRT <- -2 * (c(L0, LLIK.n) - c(LLIK.n, 0))[1:length(n.components)]
+    dfs <- diff(c(1, n.components))
+    p.vals <- 1 - pchisq(LRT, dfs)
 
-    # check if llik is at least three times greater when adding a further
-    # component
-    for(i in 1:c(length(LLIK.n)-1)) {
-      LLIK.significant[i]<- (LLIK.n[i+1]/LLIK.n[i])>3
-    }
+    ## Add significance stars
+    stars <- as.character(cut(p.vals,
+                              breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+                              labels = c("***", "**", "*", ".", " ")))
 
-    ## Find lowest BIC score
-    BIC.lowest<- n.components[which.min(BIC.n)]
+    ## merge BIC and llik scores to a single data frame, including those
+    ## for the single component model
+    results.n <- rbind(BIC = round(c(bic0, BIC.n), 3),
+                       loglik = round(c(L0, LLIK.n), 3),
+                       signif = c("", stars))
+    colnames(results.n) <- c(1, n.components)
   }
 
   ## OUTPUT ---------
@@ -484,7 +490,7 @@ calc_FiniteMixture <- function(
                              function(x) paste0(x, c("_dose", "_se", "_prop"))))
 
       # label columns and rows of summary matrix and BIC/LLIK data frame
-      colnames(comp.n) <- colnames(results.n) <- n.components
+      colnames(comp.n) <- n.components
       rownames(comp.n) <- n.lab
 
       ## CONSOLE OUTPUT
@@ -508,18 +514,18 @@ calc_FiniteMixture <- function(
 
       # print BIC scores and LLIK estimates
       cat("\n----------- statistical criteria -----------\n")
-      print(results.n)
+      print(results.n, quote = FALSE, right = TRUE)
 
       ## print evaluation of statistical criteria
       # lowest BIC score
-      cat("\n Lowest BIC score for k =", BIC.lowest)
+      cat("\n Lowest BIC score for k =", n.components[which.min(BIC.n)])
 
       # first significant increase in LLIK estimates
-      if(!any(LLIK.significant, na.rm = TRUE)) {
+      if (!any(p.vals < 0.05)) {
         cat("\n No significant increase in maximum log-likelihood estimates.\n")
       } else {
         cat("\n First significant increase in maximum log-likelihood for",
-            "k =", which(LLIK.significant)[1], "\n\n")
+            "k =", n.components[(p.vals < 0.05)][1], "\n")
       }
 
       cat("\n")
