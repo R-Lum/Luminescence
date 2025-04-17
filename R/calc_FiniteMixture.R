@@ -612,7 +612,7 @@ calc_FiniteMixture <- function(
   layout(matrix(c(seq.matrix), 4, n.plots))
 
   ## outer margins (bottom, left, top, right)
-  par(oma = c(2.5, 5, 3, 5))
+  par(oma = c(1, 5, 3, 5))
 
   ## general plot parameters (global scaling, allow overplotting)
   par(cex = 0.8, xpd = NA)
@@ -655,7 +655,7 @@ calc_FiniteMixture <- function(
     pos.n <- seq(from = 1, to = n.components[i] * 3, by = 3)
 
     ## set margins (bottom, left, top, right)
-    par(mar = c(1, 0, 2, 0))
+    par(mar = c(2, 0, 2, 0))
 
     ## empty plot area
     plot(NA, NA,
@@ -666,10 +666,6 @@ calc_FiniteMixture <- function(
          xaxt = "n",
          yaxt = "n",
          xlab = "")
-
-    ## add text in upper part of the plot ("k = 1,2..n")
-    mtext(bquote(italic(k) == .(n.components[i])),
-          side = 3, line = -2, cex=0.8)
 
     ## add y-axis label (only for the first plot)
     if (i == 1) {
@@ -728,6 +724,11 @@ calc_FiniteMixture <- function(
              xaxs = "i", yaxs = "i",
              ann = FALSE, xpd = FALSE)
 
+        ## add x-axis with corrected tick positions
+        if (j == 1)
+          axis(side = 1, labels = paste("k =", n.components[i]),
+               at = x.scale / 2, tick = FALSE, line = -1)
+
         # draw coloured polygons under curve
         polygon(x = c(0, min(dens), dens, 0),
                 y = c(0, 0, 0:max.dose, max.dose),
@@ -765,7 +766,7 @@ calc_FiniteMixture <- function(
 
       ## x-axis label
       mtext("Density [a.u.]",
-            side = 1, line = 0.5, adj = 0.5,
+            side = 1, line = 1.5, adj = 0.5,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## draw y-axis with proper labels
@@ -795,23 +796,22 @@ calc_FiniteMixture <- function(
 
   } ## EndOf::k-loop and Plot 1
 
+  ## this value (found by trial and error) should be summed to xlim to remove
+  ## the empty gaps before the first bar and after the last in the proportions
+  ## plot, and for better centring of points in the statistical criteria plot
+  xlim.adj <- length(n.components) / (length(n.components) + 18) * c(1, -1)
+
   ##--------------------------------------------------------------------------
   ## PLOT 2: PROPORTION OF COMPONENTS
   if (plot.proportions) {
-    ## margins for second plot
-    par(mar = c(2, 0, 2, 0))
 
     ## create matrix with proportions from a subset of the summary matrix
     prop.matrix <- comp.n[pos.n + 2, ] * 100
 
-    ## this value removes the empty gaps that would be otherwise left before
-    ## the first bar and after the last (found by trial and error)
-    adj <- length(n.components) / (length(n.components) + 17)
-
     ## stacked barplot of proportions without x-axis
     graphics::barplot(prop.matrix,
                       width = 1,
-                      xlim = c(adj, length(n.components) - adj),
+                      xlim = c(0, length(n.components)) + xlim.adj,
                       ylim = c(0, 100),
                       axes = TRUE,
                       space = 0,
@@ -824,7 +824,8 @@ calc_FiniteMixture <- function(
           side = 2,line = 3, cex = 1)
 
     ## add x-axis with corrected tick positions
-    axis(side = 1, labels = n.components, at = n.components+0.5-n.components[1])
+    axis(side = 1, labels = paste("k =", n.components),
+         at = 1:length(n.components) - 0.5, tick = FALSE, line = -1)
 
     ## draw a box (not possible with barplot())
     graphics::box(lty = 1, col = "black")
@@ -837,9 +838,6 @@ calc_FiniteMixture <- function(
   ##--------------------------------------------------------------------------
   ## PLOT 3: BIC & LLIK
 
-  ## margins for third plot
-  par(mar = c(2, 0, 2, 0))
-
   ## prepare scaling for both y-axes
   BIC.scale <- c(min(BIC.n) * if (min(BIC.n) < 0) 1.2 else 0.8,
                 max(BIC.n) * if (max(BIC.n) < 0) 0.8 else 1.2)
@@ -847,15 +845,14 @@ calc_FiniteMixture <- function(
                   max(LLIK.n) * if (max(LLIK.n) < 0) 0.8 else 1.2)
 
   ## plot BIC scores
-  plot(n.components, BIC.n,
+  plot(1:length(n.components) - 0.5, BIC.n,
        main = "",
        type = "b",
        pch = 22,
        cex = 1.5,
-       xlim = c(min(n.components) - 0.2, max(n.components) + 0.2),
+       xlim = c(0, length(n.components)) + xlim.adj,
        ylim = BIC.scale,
-       xaxp = c(min(n.components), max(n.components), length(n.components) - 1),
-       xlab = expression(paste(italic(k), " Components")),
+       xlab = "", xaxt = "n",
        ylab = expression(paste("BIC")),
        cex.lab = 1.25)
 
@@ -863,11 +860,14 @@ calc_FiniteMixture <- function(
   par(new = TRUE)
 
   ## plot LLIK estimates
-  plot(n.components, LLIK.n,
-       xlim = c(min(n.components) - 0.2, max(n.components) + 0.2),
-       xaxp = c(min(n.components), max(n.components), length(n.components) - 1),
+  plot(1:length(n.components) - 0.5, LLIK.n,
+       xlim = c(0, length(n.components)) + xlim.adj,
        ylim = LLIK.scale,
-       yaxt = "n", type = "b", pch = 16, xlab = "", ylab = "", lty = 2, cex = 1.5)
+       axes = FALSE, type = "b", pch = 16, ylab = "", xlab = "", lty = 2, cex = 1.5)
+
+  ## add x-axis with corrected tick positions
+  axis(side = 1, labels = paste("k =", n.components),
+       at = 1:length(n.components) - 0.5, tick = FALSE, line = -1)
 
   ## subtitle
   mtext("Statistical criteria",
