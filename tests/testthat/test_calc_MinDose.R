@@ -94,6 +94,10 @@ test_that("check functionality", {
                               par = 4, gamma.lower = 2, log.output = TRUE,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h=100),
                  "Gamma is larger than mu, consider running the model with new")
+  expect_warning(calc_MinDose(ExampleData.DeValues$CA1[1:9, ], sigmab = 0.8,
+                             bootstrap = TRUE, bs.M = 5, bs.N = 5, bs.h = 5,
+                             debug = TRUE, log = FALSE),
+                 "Not enough bootstrap replicates for loess fitting")
   expect_output(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
                              verbose = TRUE, log.output = TRUE, par = 4))
   expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
