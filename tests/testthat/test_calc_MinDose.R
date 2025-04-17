@@ -64,7 +64,7 @@ test_that("check functionality", {
                  "Recycled Bootstrap")
   expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 5,
-                              sigmab.sd = 0.04, debug = TRUE,
+                              sigmab.sd = 0.04, debug = TRUE, log = FALSE,
                               multicore = TRUE, cores = 2),
                  "bootstrap replicates using 2 cores")
   })

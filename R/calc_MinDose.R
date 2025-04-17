@@ -588,7 +588,7 @@ calc_MinDose <- function(
       )
 
     }, error = function(e) {
-      .throw_error("Sorry, seems like I encountered an error: ", e)
+      .throw_error("Sorry, seems like I encountered an error: ", e) # nocov
     })
     return(mle)
   }
