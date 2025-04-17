@@ -80,8 +80,8 @@
 #' @param plot [logical] (*with default*): enable/disable the  plot output.
 #'
 #' @param ... other parameters to control the plot output. Supported are
-#' `main`, `main.densities`, `main.proportions`, `main.criteria`, `pdf.scale`,
-#' `dose.scale`.
+#' `cex`, `main`, `main.densities`, `main.proportions`, `main.criteria`,
+#' `pdf.scale`, `dose.scale`.
 #'
 #' @return
 #' Returns a plot (*optional*) and terminal output. In addition an
@@ -581,6 +581,7 @@ calc_FiniteMixture <- function(
       pdf.weight = TRUE,
       pdf.sigma = "sigmab",
       pdf.colors = "gray",
+      cex = 1,
       main.densities = "Normal distributions",
       main.proportions = "Proportion of components",
       main.criteria = "Statistical criteria",
@@ -617,7 +618,7 @@ calc_FiniteMixture <- function(
   par(oma = c(1, 5, 3, 5))
 
   ## general plot parameters (global scaling, allow overplotting)
-  par(cex = 0.8, xpd = NA)
+  par(cex = 0.8 * settings$cex, xpd = NA)
 
   ## define colour palette for prettier output
   if (settings$pdf.colors == "colors") {
@@ -671,7 +672,8 @@ calc_FiniteMixture <- function(
 
     ## add y-axis label (only for the first plot)
     if (i == 1) {
-      mtext(expression(paste("D"[e]," [Gy]")), side = 2,line = 2.7, cex = 1)
+      mtext(expression(paste("D"[e]," [Gy]")), side = 2, line = 2.7,
+            cex = settings$cex)
     }
 
     ## NORMAL DISTR. OF EACH COMPONENT
@@ -753,22 +755,23 @@ calc_FiniteMixture <- function(
 
       ## plot title
       mtext(settings$main.densities,
-            side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
+            side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
 
       ## main title
       mtext(settings$main,
-            side = 3, font = 2, line = 3.5, adj = 0.5,
+            side = 3, font = 2, line = 3.5, adj = 0.5, cex = settings$cex,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## subtitle
       mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
                                    "|" ~ n == .(length(object@data$data[, 1])))),
             side = 3, font = 1, line = 2.2, adj = 0.5,
-            at = graphics::grconvertX(0.5, from = "ndc", to = "user"), cex = 0.9)
+            at = graphics::grconvertX(0.5, from = "ndc", to = "user"),
+            cex = 0.9 * settings$cex)
 
       ## x-axis label
       mtext("Density [a.u.]",
-            side = 1, line = 1.5, adj = 0.5,
+            side = 1, line = 1.5, adj = 0.5, cex = settings$cex,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## draw y-axis with proper labels
@@ -791,7 +794,7 @@ calc_FiniteMixture <- function(
                pch = 15, adj = c(0,0.2), pt.cex = 1.4,
                bty = "n", ncol = ncol.temp, x.intersp = 0.4)
 
-        mtext("Components: ", cex = 0.8,
+        mtext("Components: ", cex = 0.8 * settings$cex,
               at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
       }
     }
@@ -823,7 +826,7 @@ calc_FiniteMixture <- function(
 
     ## y-axis label
     mtext("Proportion [%]",
-          side = 2,line = 3, cex = 1)
+          side = 2,line = 3, cex = settings$cex)
 
     ## add x-axis with corrected tick positions
     axis(side = 1, labels = paste("k =", n.components),
@@ -834,7 +837,7 @@ calc_FiniteMixture <- function(
 
     ## add subtitle
     mtext(settings$main.proportions,
-          side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
+          side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
   }
 
   ##--------------------------------------------------------------------------
@@ -874,12 +877,12 @@ calc_FiniteMixture <- function(
 
   ## subtitle
   mtext(settings$main.criteria,
-        side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
+        side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
 
   ## second y-axis (LLIK) with label
   axis(side = 4)
   mtext(bquote(italic(L)[max]),
-        side = 4,line = 3, cex = 1.3)
+        side = 4,line = 3, cex = 1.3 * settings$cex)
 
   ## legend
   legend("topleft",

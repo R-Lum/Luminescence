@@ -62,8 +62,8 @@ Ignored if \code{n.components} has length 1.}
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the  plot output.}
 
 \item{...}{other parameters to control the plot output. Supported are
-\code{main}, \code{main.densities}, \code{main.proportions}, \code{main.criteria}, \code{pdf.scale},
-\code{dose.scale}.}
+\code{cex}, \code{main}, \code{main.densities}, \code{main.proportions}, \code{main.criteria},
+\code{pdf.scale}, \code{dose.scale}.}
 }
 \value{
 Returns a plot (\emph{optional}) and terminal output. In addition an
