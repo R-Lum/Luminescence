@@ -628,8 +628,13 @@ on.exit(.unset_function_name(), add = TRUE)
     "recursive"
   )] <- NULL
 
-  ## construct call
-  rm_id <- suppressWarnings(do.call(get_RLum, args = c(object, args_set, args)))
+  ## construct call ... record.id always takes priority
+  if(!is.null(args$record.id))
+    rm_id <- args$record.id
+  else
+    rm_id <- suppressWarnings(do.call(get_RLum, args = c(object, args_set, args)))
+
+  ## remove objects
   object@records[rm_id] <- NULL
   return(object)
 
