@@ -415,7 +415,7 @@ calc_FiniteMixture <- function(
     ## can determine the significance of the 2-component model.
     LRT <- -2 * (c(L0, LLIK.n) - c(LLIK.n, 0))[1:length(n.components)]
     dfs <- diff(c(1, n.components))
-    p.vals <- 1 - pchisq(LRT, dfs)
+    p.vals <- 1 - stats::pchisq(LRT, dfs)
 
     ## Add significance stars
     stars <- as.character(cut(p.vals,
