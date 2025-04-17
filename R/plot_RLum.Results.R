@@ -301,6 +301,7 @@ plot_RLum.Results<- function(
       ### possibly integrate this in the prior polynomial plot loop
 
       ### LOESS PLOT
+      if (!anyNA(object@data$bootstrap$loess.fit)) {
       pairs<- object@data$bootstrap$pairs$gamma
       pred<- predict(object@data$bootstrap$loess.fit)
       loess<- cbind(pairs[,1], pred)
@@ -315,6 +316,7 @@ plot_RLum.Results<- function(
 
       # add LOESS line
       lines(loess, type = "l", col = "black")
+      }
 
       ### ------ PLOT BOOTSTRAP LIKELIHOOD FIT
 

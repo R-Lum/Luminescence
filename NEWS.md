@@ -168,6 +168,11 @@
   message “Could not fit simulated model curve, check suitability of
   model and parameters” is reported (#660).
 
+### `calc_MinDose()`
+
+- The function now warns if the number of bootstrap replicates is too
+  low to perform the loess fitting (#721).
+
 ### `calc_OSLLxTxRatio()`
 
 - The function returned a warning for wrong integral settings for the

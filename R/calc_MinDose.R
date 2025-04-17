@@ -588,7 +588,7 @@ calc_MinDose <- function(
       )
 
     }, error = function(e) {
-      .throw_error("Sorry, seems like I encountered an error: ", e)
+      .throw_error("Sorry, seems like I encountered an error: ", e) # nocov
     })
     return(mle)
   }
@@ -624,7 +624,7 @@ calc_MinDose <- function(
   )
 
   if (debug)
-    print(bbmle::summary(ests))
+    print(suppressWarnings(bbmle::summary(ests)))
 
   if (any(is.nan(coef_err)))
     coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))[which(is.nan(coef_err))] / 100
@@ -917,7 +917,13 @@ calc_MinDose <- function(
     # distribution where actually none is given. The non-parametric
     # LOESS (LOcal polynomial regrESSion) often yields better results than
     # standard polynomials.
-    loess <- loess(pairs[ ,2] ~ pairs[ ,1])
+    if (nrow(pairs) >= 7) {
+      loess <- loess(pairs[, 2] ~ pairs[, 1])
+    } else {
+      loess <- NA
+      .throw_warning("Not enough bootstrap replicates for loess fitting, try ",
+                     "increasing `bs.M`")
+    }
 
   }#EndOf::Bootstrap
 
