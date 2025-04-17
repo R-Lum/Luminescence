@@ -624,7 +624,7 @@ calc_MinDose <- function(
   )
 
   if (debug)
-    print(bbmle::summary(ests))
+    print(suppressWarnings(bbmle::summary(ests)))
 
   if (any(is.nan(coef_err)))
     coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))[which(is.nan(coef_err))] / 100
