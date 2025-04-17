@@ -138,6 +138,12 @@ corrected to be more statistically rigorous (#703).
 for high number of components have been removed (#713), as well as extra
 slices appearing due to rounding errors (#715).
 
+* The plot can be better configured via the new `plot.criteria` argument to
+control whether the statistical critera plot should be drawn. Moreover,
+support for the `...` options has been added: `cex` to control the overall
+scaling, `main.densities`, `main.proportions` and `main.criteria` to set the
+subplot titles (#717).
+
 ### `calc_Huntley2006()`
 
 * Add support for nls-fitting control arguments `maxiter` and `trace`.

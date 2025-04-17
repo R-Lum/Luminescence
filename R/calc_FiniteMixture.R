@@ -56,8 +56,8 @@
 #' prints the estimated probabilities of which component each grain is in
 #'
 #' @param pdf.weight [logical] (*with default*):
-#' weight the probability density functions by the components proportion
-#' (applies only when a vector is provided for `n.components`).
+#' weight the probability density functions by the components proportion.
+#' Ignored if `n.components` has length 1.
 #'
 #' @param pdf.sigma [character] (*with default*):
 #' if `"sigmab"` the components normal distributions are plotted with a common standard
@@ -70,12 +70,18 @@
 #' Possible options are `"gray"`, `"colors"` and `"none"`.
 #'
 #' @param plot.proportions [logical] (*with default*):
-#' plot [graphics::barplot] showing the proportions of components if
-#' `n.components` a vector with a length > 1 (e.g., `n.components = c(2:3)`)
+#' plot a [graphics::barplot] showing the proportions of components.
+#' Ignored if `n.components` has length 1.
+#'
+#' @param plot.criteria [logical] (*with default*):
+#' plot the statistical criteria (BIC and log-likelihood).
+#' Ignored if `n.components` has length 1.
 #'
 #' @param plot [logical] (*with default*): enable/disable the  plot output.
 #'
-#' @param ... further arguments to pass. See details for their usage.
+#' @param ... other parameters to control the plot output. Supported are
+#' `cex`, `main`, `main.densities`, `main.proportions`, `main.criteria`,
+#' `pdf.scale`, `dose.scale`.
 #'
 #' @return
 #' Returns a plot (*optional*) and terminal output. In addition an
@@ -103,6 +109,7 @@
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2006.
 #'
 #' @seealso [calc_CentralDose], [calc_CommonDose],
@@ -185,6 +192,7 @@ calc_FiniteMixture <- function(
   pdf.sigma = "sigmab",
   pdf.colors = "gray",
   plot.proportions = TRUE,
+  plot.criteria = TRUE,
   plot=TRUE,
   ...
 ) {
@@ -216,6 +224,7 @@ calc_FiniteMixture <- function(
   pdf.sigma <- .validate_args(pdf.sigma, c("sigmab", "se"))
   pdf.colors <- .validate_args(pdf.colors, c("gray", "colors", "none"))
   .validate_logical_scalar(plot.proportions)
+  .validate_logical_scalar(plot.criteria)
   .validate_logical_scalar(plot)
 
   ## ensure that the chosen components are sorted
@@ -572,10 +581,16 @@ calc_FiniteMixture <- function(
       pdf.weight = TRUE,
       pdf.sigma = "sigmab",
       pdf.colors = "gray",
-      plot.proportions = TRUE
+      cex = 1,
+      main.densities = "Normal distributions",
+      main.proportions = "Proportion of components",
+      main.criteria = "Statistical criteria",
+      plot.proportions = TRUE,
+      plot.criteria = TRUE
   )
   settings <- modifyList(settings, extraArgs)
   plot.proportions <- settings$plot.proportions
+  plot.criteria <- settings$plot.criteria
 
   ## extract relevant data from object
   n.components <- object@data$args$n.components
@@ -590,32 +605,20 @@ calc_FiniteMixture <- function(
 
   ## DEVICE AND PLOT LAYOUT
   n.plots <- length(n.components) #number of PDF plots in plot area #1
-  ID.plot.two <- n.plots + if (plot.proportions) 1 else 0 # ID of second plot area
-  ID.plot.three <- n.plots + if (plot.proportions) 2 else 1 # ID of third plot area
-
-  ## empty vector for plot indices
-  seq.matrix<- vector(mode = "integer", length = 4 * n.plots)
-
-  ## fill vector with plot indices in correct order
-  cnt <- 1
-  seq <- seq(1, length(seq.matrix), 4)
-  for (i in seq) {
-    seq.matrix[i] <- cnt
-    seq.matrix[i+1] <- cnt
-    seq.matrix[i+2] <- if (plot.proportions) ID.plot.two else cnt
-    seq.matrix[i+3] <- ID.plot.three
-
-    cnt<- cnt+1
-  }
+  seq.matrix <- rbind(c(1:n.plots), c(1:n.plots))
+  if (plot.proportions)
+    seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
+  if (plot.criteria)
+    seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
 
   ## create device layout
-  layout(matrix(c(seq.matrix), 4, n.plots))
+  layout(seq.matrix)
 
   ## outer margins (bottom, left, top, right)
-  par(oma = c(2.5, 5, 3, 5))
+  par(oma = c(1, 5, 3, 5))
 
   ## general plot parameters (global scaling, allow overplotting)
-  par(cex = 0.8, xpd = NA)
+  par(cex = 0.8 * settings$cex, xpd = NA)
 
   ## define colour palette for prettier output
   if (settings$pdf.colors == "colors") {
@@ -655,7 +658,7 @@ calc_FiniteMixture <- function(
     pos.n <- seq(from = 1, to = n.components[i] * 3, by = 3)
 
     ## set margins (bottom, left, top, right)
-    par(mar = c(1, 0, 2, 0))
+    par(mar = c(2, 0, 2, 0))
 
     ## empty plot area
     plot(NA, NA,
@@ -667,13 +670,10 @@ calc_FiniteMixture <- function(
          yaxt = "n",
          xlab = "")
 
-    ## add text in upper part of the plot ("k = 1,2..n")
-    mtext(bquote(italic(k) == .(n.components[i])),
-          side = 3, line = -2, cex=0.8)
-
     ## add y-axis label (only for the first plot)
     if (i == 1) {
-      mtext(expression(paste("D"[e]," [Gy]")), side = 2,line = 2.7, cex = 1)
+      mtext(expression(paste("D"[e]," [Gy]")), side = 2, line = 2.7,
+            cex = settings$cex)
     }
 
     ## NORMAL DISTR. OF EACH COMPONENT
@@ -728,6 +728,11 @@ calc_FiniteMixture <- function(
              xaxs = "i", yaxs = "i",
              ann = FALSE, xpd = FALSE)
 
+        ## add x-axis with corrected tick positions
+        if (j == 1)
+          axis(side = 1, labels = paste("k =", n.components[i]),
+               at = x.scale / 2, tick = FALSE, line = -1)
+
         # draw coloured polygons under curve
         polygon(x = c(0, min(dens), dens, 0),
                 y = c(0, 0, 0:max.dose, max.dose),
@@ -749,23 +754,24 @@ calc_FiniteMixture <- function(
     if (i == 1) {
 
       ## plot title
-      mtext("Normal distributions",
-            side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
+      mtext(settings$main.densities,
+            side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
 
       ## main title
       mtext(settings$main,
-            side = 3, font = 2, line = 3.5, adj = 0.5,
+            side = 3, font = 2, line = 3.5, adj = 0.5, cex = settings$cex,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## subtitle
       mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
                                    "|" ~ n == .(length(object@data$data[, 1])))),
             side = 3, font = 1, line = 2.2, adj = 0.5,
-            at = graphics::grconvertX(0.5, from = "ndc", to = "user"), cex = 0.9)
+            at = graphics::grconvertX(0.5, from = "ndc", to = "user"),
+            cex = 0.9 * settings$cex)
 
       ## x-axis label
       mtext("Density [a.u.]",
-            side = 1, line = 0.5, adj = 0.5,
+            side = 1, line = 1.5, adj = 0.5, cex = settings$cex,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## draw y-axis with proper labels
@@ -788,30 +794,29 @@ calc_FiniteMixture <- function(
                pch = 15, adj = c(0,0.2), pt.cex = 1.4,
                bty = "n", ncol = ncol.temp, x.intersp = 0.4)
 
-        mtext("Components: ", cex = 0.8,
+        mtext("Components: ", cex = 0.8 * settings$cex,
               at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
       }
     }
 
   } ## EndOf::k-loop and Plot 1
 
+  ## this value (found by trial and error) should be summed to xlim to remove
+  ## the empty gaps before the first bar and after the last in the proportions
+  ## plot, and for better centring of points in the statistical criteria plot
+  xlim.adj <- length(n.components) / (length(n.components) + 18) * c(1, -1)
+
   ##--------------------------------------------------------------------------
   ## PLOT 2: PROPORTION OF COMPONENTS
   if (plot.proportions) {
-    ## margins for second plot
-    par(mar = c(2, 0, 2, 0))
 
     ## create matrix with proportions from a subset of the summary matrix
     prop.matrix <- comp.n[pos.n + 2, ] * 100
 
-    ## this value removes the empty gaps that would be otherwise left before
-    ## the first bar and after the last (found by trial and error)
-    adj <- length(n.components) / (length(n.components) + 17)
-
     ## stacked barplot of proportions without x-axis
     graphics::barplot(prop.matrix,
                       width = 1,
-                      xlim = c(adj, length(n.components) - adj),
+                      xlim = c(0, length(n.components)) + xlim.adj,
                       ylim = c(0, 100),
                       axes = TRUE,
                       space = 0,
@@ -821,25 +826,24 @@ calc_FiniteMixture <- function(
 
     ## y-axis label
     mtext("Proportion [%]",
-          side = 2,line = 3, cex = 1)
+          side = 2,line = 3, cex = settings$cex)
 
     ## add x-axis with corrected tick positions
-    axis(side = 1, labels = n.components, at = n.components+0.5-n.components[1])
+    axis(side = 1, labels = paste("k =", n.components),
+         at = 1:length(n.components) - 0.5, tick = FALSE, line = -1)
 
     ## draw a box (not possible with barplot())
     graphics::box(lty = 1, col = "black")
 
     ## add subtitle
-    mtext("Proportion of components",
-          side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
+    mtext(settings$main.proportions,
+          side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
   }
 
   ##--------------------------------------------------------------------------
   ## PLOT 3: BIC & LLIK
 
-  ## margins for third plot
-  par(mar = c(2, 0, 2, 0))
-
+  if (plot.criteria) {
   ## prepare scaling for both y-axes
   BIC.scale <- c(min(BIC.n) * if (min(BIC.n) < 0) 1.2 else 0.8,
                 max(BIC.n) * if (max(BIC.n) < 0) 0.8 else 1.2)
@@ -847,15 +851,14 @@ calc_FiniteMixture <- function(
                   max(LLIK.n) * if (max(LLIK.n) < 0) 0.8 else 1.2)
 
   ## plot BIC scores
-  plot(n.components, BIC.n,
+  plot(1:length(n.components) - 0.5, BIC.n,
        main = "",
        type = "b",
        pch = 22,
        cex = 1.5,
-       xlim = c(min(n.components) - 0.2, max(n.components) + 0.2),
+       xlim = c(0, length(n.components)) + xlim.adj,
        ylim = BIC.scale,
-       xaxp = c(min(n.components), max(n.components), length(n.components) - 1),
-       xlab = expression(paste(italic(k), " Components")),
+       xlab = "", xaxt = "n",
        ylab = expression(paste("BIC")),
        cex.lab = 1.25)
 
@@ -863,28 +866,28 @@ calc_FiniteMixture <- function(
   par(new = TRUE)
 
   ## plot LLIK estimates
-  plot(n.components, LLIK.n,
-       xlim = c(min(n.components) - 0.2, max(n.components) + 0.2),
-       xaxp = c(min(n.components), max(n.components), length(n.components) - 1),
+  plot(1:length(n.components) - 0.5, LLIK.n,
+       xlim = c(0, length(n.components)) + xlim.adj,
        ylim = LLIK.scale,
-       yaxt = "n", type = "b", pch = 16, xlab = "", ylab = "", lty = 2, cex = 1.5)
+       axes = FALSE, type = "b", pch = 16, ylab = "", xlab = "", lty = 2, cex = 1.5)
+
+  ## add x-axis with corrected tick positions
+  axis(side = 1, labels = paste("k =", n.components),
+       at = 1:length(n.components) - 0.5, tick = FALSE, line = -1)
 
   ## subtitle
-  mtext("Statistical criteria",
-        side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
+  mtext(settings$main.criteria,
+        side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
 
-  ## second y-axis with proper scaling
-  axis(side = 4, ylim = c(0, 100))
-
-  ## LLIK axis label
+  ## second y-axis (LLIK) with label
+  axis(side = 4)
   mtext(bquote(italic(L)[max]),
-        side = 4,line = 3, cex = 1.3)
+        side = 4,line = 3, cex = 1.3 * settings$cex)
 
   ## legend
-  legend(graphics::grconvertX(0.75, from = "nfc", to = "user"),
-         graphics::grconvertY(0.96, from = "nfc", to = "user"),
+  legend("topleft",
          legend = c("BIC", as.expression(bquote(italic(L)[max]))),
-         pch = c(22,16), pt.bg = c("white", "black"),
-         adj = 0, pt.cex = 1.3, lty = c(1 ,2),
-         bty = "n", horiz = TRUE, x.intersp = 0.5)
+         pch = c(22, 16), pt.bg = c("white", "black"), pt.cex = 1.3,
+         bty = "n", horiz = FALSE, inset = 0.01)
+  }
 }

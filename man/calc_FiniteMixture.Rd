@@ -14,6 +14,7 @@ calc_FiniteMixture(
   pdf.sigma = "sigmab",
   pdf.colors = "gray",
   plot.proportions = TRUE,
+  plot.criteria = TRUE,
   plot = TRUE,
   ...
 )
@@ -37,8 +38,8 @@ log-likelihood) is provided.}
 prints the estimated probabilities of which component each grain is in}
 
 \item{pdf.weight}{\link{logical} (\emph{with default}):
-weight the probability density functions by the components proportion
-(applies only when a vector is provided for \code{n.components}).}
+weight the probability density functions by the components proportion.
+Ignored if \code{n.components} has length 1.}
 
 \item{pdf.sigma}{\link{character} (\emph{with default}):
 if \code{"sigmab"} the components normal distributions are plotted with a common standard
@@ -51,12 +52,18 @@ colour coding of the components in the plot.
 Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}.}
 
 \item{plot.proportions}{\link{logical} (\emph{with default}):
-plot \link[graphics:barplot]{graphics::barplot} showing the proportions of components if
-\code{n.components} a vector with a length > 1 (e.g., \code{n.components = c(2:3)})}
+plot a \link[graphics:barplot]{graphics::barplot} showing the proportions of components.
+Ignored if \code{n.components} has length 1.}
+
+\item{plot.criteria}{\link{logical} (\emph{with default}):
+plot the statistical criteria (BIC and log-likelihood).
+Ignored if \code{n.components} has length 1.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the  plot output.}
 
-\item{...}{further arguments to pass. See details for their usage.}
+\item{...}{other parameters to control the plot output. Supported are
+\code{cex}, \code{main}, \code{main.densities}, \code{main.proportions}, \code{main.criteria},
+\code{pdf.scale}, \code{dose.scale}.}
 }
 \value{
 Returns a plot (\emph{optional}) and terminal output. In addition an
@@ -194,5 +201,6 @@ reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2006.
 }
