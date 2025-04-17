@@ -61,7 +61,9 @@ Ignored if \code{n.components} has length 1.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the  plot output.}
 
-\item{...}{further arguments to pass. See details for their usage.}
+\item{...}{other parameters to control the plot output. Supported are
+\code{main}, \code{main.densities}, \code{main.proportions}, \code{main.criteria}, \code{pdf.scale},
+\code{dose.scale}.}
 }
 \value{
 Returns a plot (\emph{optional}) and terminal output. In addition an
@@ -199,5 +201,6 @@ reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2006.
 }

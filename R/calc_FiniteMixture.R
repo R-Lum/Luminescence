@@ -79,7 +79,9 @@
 #'
 #' @param plot [logical] (*with default*): enable/disable the  plot output.
 #'
-#' @param ... further arguments to pass. See details for their usage.
+#' @param ... other parameters to control the plot output. Supported are
+#' `main`, `main.densities`, `main.proportions`, `main.criteria`, `pdf.scale`,
+#' `dose.scale`.
 #'
 #' @return
 #' Returns a plot (*optional*) and terminal output. In addition an
@@ -107,6 +109,7 @@
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2006.
 #'
 #' @seealso [calc_CentralDose], [calc_CommonDose],
@@ -578,6 +581,9 @@ calc_FiniteMixture <- function(
       pdf.weight = TRUE,
       pdf.sigma = "sigmab",
       pdf.colors = "gray",
+      main.densities = "Normal distributions",
+      main.proportions = "Proportion of components",
+      main.criteria = "Statistical criteria",
       plot.proportions = TRUE,
       plot.criteria = TRUE
   )
@@ -746,7 +752,7 @@ calc_FiniteMixture <- function(
     if (i == 1) {
 
       ## plot title
-      mtext("Normal distributions",
+      mtext(settings$main.densities,
             side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
 
       ## main title
@@ -827,7 +833,7 @@ calc_FiniteMixture <- function(
     graphics::box(lty = 1, col = "black")
 
     ## add subtitle
-    mtext("Proportion of components",
+    mtext(settings$main.proportions,
           side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
   }
 
@@ -867,7 +873,7 @@ calc_FiniteMixture <- function(
        at = 1:length(n.components) - 0.5, tick = FALSE, line = -1)
 
   ## subtitle
-  mtext("Statistical criteria",
+  mtext(settings$main.criteria,
         side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
 
   ## second y-axis (LLIK) with label
