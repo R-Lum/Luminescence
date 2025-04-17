@@ -873,18 +873,14 @@ calc_FiniteMixture <- function(
   mtext("Statistical criteria",
         side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
 
-  ## second y-axis with proper scaling
-  axis(side = 4, ylim = c(0, 100))
-
-  ## LLIK axis label
+  ## second y-axis (LLIK) with label
+  axis(side = 4)
   mtext(bquote(italic(L)[max]),
         side = 4,line = 3, cex = 1.3)
 
   ## legend
-  legend(graphics::grconvertX(0.75, from = "nfc", to = "user"),
-         graphics::grconvertY(0.96, from = "nfc", to = "user"),
+  legend("topleft",
          legend = c("BIC", as.expression(bquote(italic(L)[max]))),
-         pch = c(22,16), pt.bg = c("white", "black"),
-         adj = 0, pt.cex = 1.3, lty = c(1 ,2),
-         bty = "n", horiz = TRUE, x.intersp = 0.5)
+         pch = c(22, 16), pt.bg = c("white", "black"), pt.cex = 1.3,
+         bty = "n", horiz = FALSE, inset = 0.01)
 }
