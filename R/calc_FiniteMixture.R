@@ -56,8 +56,8 @@
 #' prints the estimated probabilities of which component each grain is in
 #'
 #' @param pdf.weight [logical] (*with default*):
-#' weight the probability density functions by the components proportion
-#' (applies only when a vector is provided for `n.components`).
+#' weight the probability density functions by the components proportion.
+#' Ignored if `n.components` has length 1.
 #'
 #' @param pdf.sigma [character] (*with default*):
 #' if `"sigmab"` the components normal distributions are plotted with a common standard
@@ -70,8 +70,12 @@
 #' Possible options are `"gray"`, `"colors"` and `"none"`.
 #'
 #' @param plot.proportions [logical] (*with default*):
-#' plot [graphics::barplot] showing the proportions of components if
-#' `n.components` a vector with a length > 1 (e.g., `n.components = c(2:3)`)
+#' plot a [graphics::barplot] showing the proportions of components.
+#' Ignored if `n.components` has length 1.
+#'
+#' @param plot.criteria [logical] (*with default*):
+#' plot the statistical criteria (BIC and log-likelihood).
+#' Ignored if `n.components` has length 1.
 #'
 #' @param plot [logical] (*with default*): enable/disable the  plot output.
 #'
@@ -185,6 +189,7 @@ calc_FiniteMixture <- function(
   pdf.sigma = "sigmab",
   pdf.colors = "gray",
   plot.proportions = TRUE,
+  plot.criteria = TRUE,
   plot=TRUE,
   ...
 ) {
@@ -216,6 +221,7 @@ calc_FiniteMixture <- function(
   pdf.sigma <- .validate_args(pdf.sigma, c("sigmab", "se"))
   pdf.colors <- .validate_args(pdf.colors, c("gray", "colors", "none"))
   .validate_logical_scalar(plot.proportions)
+  .validate_logical_scalar(plot.criteria)
   .validate_logical_scalar(plot)
 
   ## ensure that the chosen components are sorted
@@ -572,10 +578,12 @@ calc_FiniteMixture <- function(
       pdf.weight = TRUE,
       pdf.sigma = "sigmab",
       pdf.colors = "gray",
-      plot.proportions = TRUE
+      plot.proportions = TRUE,
+      plot.criteria = TRUE
   )
   settings <- modifyList(settings, extraArgs)
   plot.proportions <- settings$plot.proportions
+  plot.criteria <- settings$plot.criteria
 
   ## extract relevant data from object
   n.components <- object@data$args$n.components
@@ -590,26 +598,14 @@ calc_FiniteMixture <- function(
 
   ## DEVICE AND PLOT LAYOUT
   n.plots <- length(n.components) #number of PDF plots in plot area #1
-  ID.plot.two <- n.plots + if (plot.proportions) 1 else 0 # ID of second plot area
-  ID.plot.three <- n.plots + if (plot.proportions) 2 else 1 # ID of third plot area
-
-  ## empty vector for plot indices
-  seq.matrix<- vector(mode = "integer", length = 4 * n.plots)
-
-  ## fill vector with plot indices in correct order
-  cnt <- 1
-  seq <- seq(1, length(seq.matrix), 4)
-  for (i in seq) {
-    seq.matrix[i] <- cnt
-    seq.matrix[i+1] <- cnt
-    seq.matrix[i+2] <- if (plot.proportions) ID.plot.two else cnt
-    seq.matrix[i+3] <- ID.plot.three
-
-    cnt<- cnt+1
-  }
+  seq.matrix <- rbind(c(1:n.plots), c(1:n.plots))
+  if (plot.proportions)
+    seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
+  if (plot.criteria)
+    seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
 
   ## create device layout
-  layout(matrix(c(seq.matrix), 4, n.plots))
+  layout(seq.matrix)
 
   ## outer margins (bottom, left, top, right)
   par(oma = c(1, 5, 3, 5))
@@ -838,6 +834,7 @@ calc_FiniteMixture <- function(
   ##--------------------------------------------------------------------------
   ## PLOT 3: BIC & LLIK
 
+  if (plot.criteria) {
   ## prepare scaling for both y-axes
   BIC.scale <- c(min(BIC.n) * if (min(BIC.n) < 0) 1.2 else 0.8,
                 max(BIC.n) * if (max(BIC.n) < 0) 0.8 else 1.2)
@@ -883,4 +880,5 @@ calc_FiniteMixture <- function(
          legend = c("BIC", as.expression(bquote(italic(L)[max]))),
          pch = c(22, 16), pt.bg = c("white", "black"), pt.cex = 1.3,
          bty = "n", horiz = FALSE, inset = 0.01)
+  }
 }
