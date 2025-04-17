@@ -376,7 +376,7 @@ calc_FiniteMixture <- function(
       # save results of each iteration to summary matrix
       for(i in 1:n.components[cnt]) {
         ## store De, SE, Proportion
-        comp.n[pos.n[i] + 0:2, cnt] <- round(c(dose[i], sed[i], estp[i]), 2)
+        comp.n[pos.n[i] + 0:2, cnt] <- round(c(dose[i], sed[i], estp[i]), 4)
       }
 
       # save BIC and llik of each iteration to corresponding vector
@@ -483,7 +483,7 @@ calc_FiniteMixture <- function(
 
       # print component matrix
       cat("\n---------- k components ----------\n")
-      print(comp.n, na.print="<NA>")
+      print(round(comp.n, 2), na.print = "<NA>")
 
       # print BIC scores and LLIK estimates
       cat("\n------ statistical criteria ------\n")
