@@ -559,7 +559,7 @@ calc_FiniteMixture <- function(
 
   ##=========##
   ## PLOTTING -----------
-  if(plot && !anyNA(unlist(summary)))
+  if (plot)
     try(do.call(.plot_FiniteMixture, c(results, as.list(sys.call())[-c(1,2)])))
 
   # Return values
@@ -589,8 +589,6 @@ calc_FiniteMixture <- function(
       plot.criteria = TRUE
   )
   settings <- modifyList(settings, extraArgs)
-  plot.proportions <- settings$plot.proportions
-  plot.criteria <- settings$plot.criteria
 
   ## extract relevant data from object
   n.components <- object@data$args$n.components
@@ -606,9 +604,9 @@ calc_FiniteMixture <- function(
   ## DEVICE AND PLOT LAYOUT
   n.plots <- length(n.components) #number of PDF plots in plot area #1
   seq.matrix <- rbind(c(1:n.plots), c(1:n.plots))
-  if (plot.proportions)
+  if (settings$plot.proportions)
     seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
-  if (plot.criteria)
+  if (settings$plot.criteria)
     seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
 
   ## create device layout
@@ -763,10 +761,16 @@ calc_FiniteMixture <- function(
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## subtitle
-      mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
-                                   "|" ~ n == .(length(object@data$data[, 1])))),
+      has.nas <- anyNA(unlist(object$summary))
+      subtitle <- as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
+                                         "|" ~ n == .(length(object@data$data[, 1])) ~
+                                         .(if (has.nas) "| The model produced NA values"
+                                           else "")
+                                       ))
+      mtext(subtitle,
             side = 3, font = 1, line = 2.2, adj = 0.5,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"),
+            col = ifelse(has.nas, 2, 1),
             cex = 0.9 * settings$cex)
 
       ## x-axis label
@@ -808,7 +812,7 @@ calc_FiniteMixture <- function(
 
   ##--------------------------------------------------------------------------
   ## PLOT 2: PROPORTION OF COMPONENTS
-  if (plot.proportions) {
+  if (settings$plot.proportions) {
 
     ## create matrix with proportions from a subset of the summary matrix
     prop.matrix <- comp.n[pos.n + 2, ] * 100
@@ -843,7 +847,7 @@ calc_FiniteMixture <- function(
   ##--------------------------------------------------------------------------
   ## PLOT 3: BIC & LLIK
 
-  if (plot.criteria) {
+  if (settings$plot.criteria) {
   ## prepare scaling for both y-axes
   BIC.scale <- c(min(BIC.n) * if (min(BIC.n) < 0) 1.2 else 0.8,
                 max(BIC.n) * if (max(BIC.n) < 0) 0.8 else 1.2)
