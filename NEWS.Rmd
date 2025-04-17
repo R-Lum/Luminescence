@@ -135,7 +135,8 @@ computations (#710).
 corrected to be more statistically rigorous (#703).
 
 * Blank gaps appearing to the sides of the proportion of components plot
-for hight number of components have been removed (#713).
+for high number of components have been removed (#713), as well as extra
+slices appearing due to rounding errors (#715).
 
 ### `calc_Huntley2006()`
 

@@ -220,6 +220,7 @@ calc_FiniteMixture <- function(
 
   ## ensure that the chosen components are sorted
   n.components <- sort(n.components)
+  multiple.components <- length(n.components) > 1
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")
@@ -241,7 +242,7 @@ calc_FiniteMixture <- function(
   ##============================================================================##
 
   ## create storage variables if more than one k is provided
-  if(length(n.components)>1) {
+  if (multiple.components) {
 
     # counter needed for various purposes
     cnt<- 1
@@ -366,7 +367,7 @@ calc_FiniteMixture <- function(
     comp0<- round(c(exp(mu0),sigmab,L0,bic0),4)
 
     ## save results for k components in storage variables
-    if(length(n.components)>1) {
+    if (multiple.components) {
 
       # vector of indices needed for finding the dose rows of the summary
       # matrix - position 1,4,7...n
@@ -375,7 +376,7 @@ calc_FiniteMixture <- function(
       # save results of each iteration to summary matrix
       for(i in 1:n.components[cnt]) {
         ## store De, SE, Proportion
-        comp.n[pos.n[i] + 0:2, cnt] <- round(c(dose[i], sed[i], estp[i]), 2)
+        comp.n[pos.n[i] + 0:2, cnt] <- round(c(dose[i], sed[i], estp[i]), 4)
       }
 
       # save BIC and llik of each iteration to corresponding vector
@@ -395,7 +396,7 @@ calc_FiniteMixture <- function(
   ## STATISTICAL CHECK
   ##============================================================================##
 
-  if(length(n.components)>1) {
+  if (multiple.components) {
 
     ## Likelihood ratio test: the difference in deviance is compared to a
     ## chi-squared distribution with degrees of freedom corresponding to the
@@ -427,25 +428,25 @@ calc_FiniteMixture <- function(
     ## HEADER (always printed)
     cat("\n [calc_FiniteMixture]")
 
+    # general information on sample and model performance
+    cat("\n\n----------- meta data ------------")
+    cat("\n n:                    ", n)
+    cat("\n sigmab:               ", sigmab)
+    cat("\n number of components: ", .collapse(n.components, quote = FALSE))
+
     ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
-    if(length(n.components) == 1) {
+    if (!multiple.components) {
+
+      cat("\n llik:                 ", round(llik,4))
+      cat("\n BIC:                  ", round(bic,3))
 
       # covariance matrix
       cat("\n\n--- covariance matrix of mle's ---\n\n")
       print(round(vmat,6))
 
-      # general information on sample and model performance
-      cat("\n----------- meta data ------------")
-      cat("\n n:                    ", n)
-      cat("\n sigmab:               ", sigmab)
-      cat("\n number of components: ", k)
-      cat("\n llik:                 ", round(llik,4))
-      cat("\n BIC:                  ", round(bic,3))
-
       # fitted components
       cat("\n\n----------- components -----------\n\n")
       print(comp)
-
 
       # print (to 2 decimal places) the estimated probabilities of which component
       # each grain is in -- sometimes useful for diagnostic purposes
@@ -453,20 +454,19 @@ calc_FiniteMixture <- function(
         cat("\n-------- grain probability -------\n\n")
         print(round(pui,2))
       }
-
-      # output for single component
-      cat("\n-------- single component --------")
-      cat("\n mu:                    ", comp0[1])
-      cat("\n sigmab:                ", comp0[2])
-      cat("\n llik:                  ", comp0[3])
-      cat("\n BIC:                   ", comp0[4])
-      cat("\n----------------------------------\n\n")
-
     }#EndOf::Output for length(n.components) == 1
+
+    ## output for single component
+    cat("\n\n-------- single component --------")
+    cat("\n mu:                    ", comp0[1])
+    cat("\n sigmab:                ", comp0[2])
+    cat("\n llik:                  ", comp0[3])
+    cat("\n BIC:                   ", comp0[4])
+    cat("\n\n")
 
     ##----------------------------------------------------------------------------
     ## OUTPUT WHEN ONLY >1 VALUE FOR n.components IS PROVIDED
-    if(length(n.components) > 1) {
+    if (multiple.components) {
 
       ## final labeling of component and BIC/llik matrices
 
@@ -480,26 +480,13 @@ calc_FiniteMixture <- function(
       rownames(comp.n) <- n.lab
 
       ## CONSOLE OUTPUT
-      # general information on sample and model performance
-      cat("\n\n----------- meta data ------------")
-      cat("\n n:                    ", n)
-      cat("\n sigmab:               ", sigmab)
-      cat("\n number of components:  ",
-          paste0(n.components[1], "-", n.components[length(n.components)]))
-
-      # output for single component
-      cat("\n\n-------- single component --------")
-      cat("\n mu:                    ", comp0[1])
-      cat("\n sigmab:                ", comp0[2])
-      cat("\n llik:                  ", comp0[3])
-      cat("\n BIC:                   ", comp0[4])
 
       # print component matrix
-      cat("\n\n----------- k components -----------\n")
-      print(comp.n, na.print="<NA>")
+      cat("\n---------- k components ----------\n")
+      print(round(comp.n, 2), na.print = "<NA>")
 
       # print BIC scores and LLIK estimates
-      cat("\n----------- statistical criteria -----------\n")
+      cat("\n------ statistical criteria ------\n")
       print(results.n, quote = FALSE, right = TRUE)
 
       ## print evaluation of statistical criteria
@@ -522,17 +509,10 @@ calc_FiniteMixture <- function(
   ##============================================================================##
 
   # .@data$meta
-  BIC<- data.frame(n.components=k, BIC=bic)
-  llik<- data.frame(n.components=k, llik=llik)
-
-  if(length(n.components)>1) {
-    BIC.n<- data.frame(n.components=n.components, BIC=BIC.n)
-    llik.n<- data.frame(n.components=n.components, llik=LLIK.n)
-  }
-
-  # .@data$single.comp
-  single.comp<- data.frame(mu=comp0[1],sigmab=comp0[2],
-                           llik=comp0[3],BIC=comp0[4])
+  BIC <- data.frame(n.components = n.components,
+                    BIC = if (multiple.components) BIC.n else bic)
+  llik <- data.frame(n.components = n.components,
+                     llik = if (multiple.components) LLIK.n else llik)
 
   # .@data$components
   comp.re<- t(rbind(round(estd,4),round(estp,4)))
@@ -555,12 +535,13 @@ calc_FiniteMixture <- function(
       data=data,
       args=args,
       call=call,
-      mle=if(length(n.components)==1){vmat}else{vmat.n},
-      BIC=if(length(n.components)==1){BIC}else{BIC.n},
-      llik=if(length(n.components)==1){llik}else{llik.n},
-      grain.probability=if(length(n.components)==1){grain.probability}else{grain.probability.n},
-      components=if(length(n.components)==1){comp.re}else{comp.n},
-      single.comp=single.comp))
+      mle = if (multiple.components) vmat.n else vmat,
+      BIC = BIC,
+      llik = llik,
+      grain.probability = if (multiple.components) grain.probability.n else grain.probability,
+      components = if (multiple.components) comp.n else comp.re,
+      single.comp = data.frame(mu = comp0[1], sigmab = comp0[2],
+                               llik = comp0[3], BIC = comp0[4])))
 
   if (anyNA(unlist(summary)) && verbose)
     .throw_warning("The model produced NA values: either the input data are ",
