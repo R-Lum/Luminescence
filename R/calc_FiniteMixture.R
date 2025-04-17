@@ -559,7 +559,7 @@ calc_FiniteMixture <- function(
 
   ##=========##
   ## PLOTTING -----------
-  if(plot && !anyNA(unlist(summary)))
+  if (plot)
     try(do.call(.plot_FiniteMixture, c(results, as.list(sys.call())[-c(1,2)])))
 
   # Return values
@@ -761,10 +761,16 @@ calc_FiniteMixture <- function(
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## subtitle
-      mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
-                                   "|" ~ n == .(length(object@data$data[, 1])))),
+      has.nas <- anyNA(unlist(object$summary))
+      subtitle <- as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
+                                         "|" ~ n == .(length(object@data$data[, 1])) ~
+                                         .(if (has.nas) "| The model produced NA values"
+                                           else "")
+                                       ))
+      mtext(subtitle,
             side = 3, font = 1, line = 2.2, adj = 0.5,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"),
+            col = ifelse(has.nas, 2, 1),
             cex = 0.9 * settings$cex)
 
       ## x-axis label

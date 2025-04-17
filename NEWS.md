@@ -149,10 +149,14 @@
   extra slices appearing due to rounding errors (#715).
 
 - The plot can be better configured via the new `plot.criteria` argument
-  to control whether the statistical critera plot should be draws.
-  Moreover, support for these `...` options has been added: `cex` to
+  to control whether the statistical criteria curves should be drawn.
+  Moreover, support for the `...` options has been added: `cex` to
   control the overall scaling, `main.densities`, `main.proportions` and
   `main.criteria` to set the subplot titles (#717).
+
+- Plots are now generated even when results contain `NA` values, as they
+  in general don’t affect the plot. However, when that happens we report
+  it in the plot subtitle (#718).
 
 ### `calc_Huntley2006()`
 
