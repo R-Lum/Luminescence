@@ -60,10 +60,7 @@ test_that("input validation", {
                      mode = "extrapolation"),
     "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
-  expect_error(
-    fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17), fit.method = "OTORX",
-                          mode = "extrapolation"),
-    "Mode 'extrapolation' for fitting method 'OTORX' not supported")
+
 })
 
 test_that("weird LxTx values", {
@@ -459,14 +456,24 @@ temp_OTORX_alt <-
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
 
   ##OTORX
-  expect_error(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation",
-                          fit.method = "OTORX"),
-    regexp = "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
+  OTORX <- expect_s4_class(
+    fit_DoseResponseCurve(
+      object = cbind(LxTxData, Test_Dose = 17),
+      mode = "extrapolation", fit.method = "OTORX"), "RLum.Results")
+
+  ##OTORX ... trigger uniroot warning
+  LxTxData[1,2:3] <- c(5, 0.001)
+  expect_warning(
+    fit_DoseResponseCurve(
+      object = cbind(LxTxData, Test_Dose = 17),
+      mode = "extrapolation", fit.method = "OTORX"))
+
   })
+
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
   expect_equal(round(OTOR$De$De,0),  114)
+  expect_equal(round(OTORX$De$De,0),  110)
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)

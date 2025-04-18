@@ -55,7 +55,7 @@ function used for fitting. Possible options are:
 \item \code{EXP+EXP} (not defined for extrapolation),
 \item \code{GOK},
 \item \code{OTOR},
-\item \code{OTORX} (not defined for extrapolation)
+\item \code{OTORX}
 }
 
 See details.}
@@ -248,8 +248,6 @@ and the example section). For more details see Lawless and Timar-Gabor (2024).
 \emph{Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
 be set to zero with the option \code{fit.force_through_origin = TRUE}}
 
-\emph{Note: \code{OTORX} is not defined for extrapolation and hence this mode is not supported!}
-
 \strong{Fit weighting}
 
 If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
@@ -275,7 +273,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.3.0
+ 1.3.1
 }
 
 \examples{

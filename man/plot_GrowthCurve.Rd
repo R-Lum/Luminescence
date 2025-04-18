@@ -48,7 +48,7 @@ function used for fitting. Possible options are:
 \item \code{EXP+EXP},
 \item \code{GOK},
 \item \code{OTOR},
-\item \code{OTORX} (mode extrapolation not supported)
+\item \code{OTORX}
 }
 
 See details in \link{fit_DoseResponseCurve}.}

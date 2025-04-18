@@ -33,7 +33,7 @@
 #' - `EXP+EXP`,
 #' - `GOK`,
 #' - `OTOR`,
-#' - `OTORX` (mode extrapolation not supported)
+#' - `OTORX`
 #'
 #' See details in [fit_DoseResponseCurve].
 #'

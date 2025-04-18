@@ -112,8 +112,6 @@
 #' *Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
 #' be set to zero with the option `fit.force_through_origin = TRUE`*
 #'
-#' *Note: `OTORX` is not defined for extrapolation and hence this mode is not supported!*
-#'
 #' **Fit weighting**
 #'
 #' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
@@ -169,7 +167,7 @@
 #' - `EXP+EXP` (not defined for extrapolation),
 #' - `GOK`,
 #' - `OTOR`,
-#' - `OTORX` (not defined for extrapolation)
+#' - `OTORX`
 #'
 #' See details.
 #'
@@ -251,7 +249,7 @@
 #'
 #' }
 #'
-#' @section Function version: 1.3.0
+#' @section Function version: 1.3.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -1430,13 +1428,11 @@ fit_DoseResponseCurve <- function(
 
   ## OTOR ---------------------------------------------------------------
   else if (fit.method == "OTOR") {
-    if(mode == "extrapolation"){
+    Dint_lower <- 0.01
+    if(mode == "extrapolation")
       Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
-    } else{
-      Dint_lower <- 0.01
-    }
-
+    ## set bounds
     lower <- if (fit.bounds) c(0, 0, 0, Dint_lower) else rep(-Inf, 4)
     upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
 
@@ -1616,7 +1612,7 @@ fit_DoseResponseCurve <- function(
     upper <- c(Inf, Inf, Inf, Inf)
 
       ## correct boundaries for origin forced through zero
-      if (fit.force_through_origin[1])
+      if (fit.force_through_origin[1] & mode == "interpolation")
         lower[4] <- upper[4] <- 0
 
     fit <- try(minpack.lm::nlsLM(
@@ -1656,8 +1652,33 @@ fit_DoseResponseCurve <- function(
           LnTn = object[1, 2])$root), silent = TRUE)
 
       }else if (mode == "extrapolation"){
-         ## we keep this here because they might be future change
-        .throw_error("Mode 'extrapolation' for fitting method 'OTORX' not supported")
+        De <- try(suppressWarnings(stats::uniroot(
+          f = function(x, Q, D63, c, a) {
+            fit.functionOTORX(x, Q, D63, c, a)},
+          interval = c(-max(object[[1]]), 0),
+          Q = Q,
+          D63 = D63,
+          c = c,
+          a = a)$root), silent = TRUE)
+
+        ## there are cases where the function cannot calculate the root
+        ## due to its shape, here we have to use the minimum
+        if(inherits(De, "try-error")){
+          .throw_warning(
+            "Standard root estimation using stats::uniroot() failed. ",
+            "Using stats::optimize() instead, which may lead, however, ",
+            "to unexpected and inconclusive results for fit.method = 'OTORX'")
+
+          De <- try(suppressWarnings(stats::optimize(
+            f = function(x, Q, D63, c, a) {
+              fit.functionOTORX(x, Q, D63, c, a)},
+            interval = c(-max(object[[1]]), 0),
+            Q = Q,
+            D63 = D63,
+            c = c,
+            a = a)$minimum), silent = TRUE)
+        }
+
       }
 
       if(inherits(De, "try-error")) De <- NA
@@ -1712,8 +1733,29 @@ fit_DoseResponseCurve <- function(
               }, silent = TRUE)
 
           }else if(mode == "extrapolation"){
-            ## NOT SUPPORTED
+            try <- try(
+              suppressWarnings(stats::uniroot(
+                f = function(x, Q, D63, c, a, LnTn) {
+                  fit.functionOTORX(x, Q, D63, c, a, x)},
+                interval = c(-max(object[[1]]), 0),
+                Q = var.Q,
+                D63 = var.D63[i],
+                c = var.c,
+                a = var.a)$root),
+              silent = TRUE)
 
+            if(inherits(try, "try-error")){
+              try <- try(suppressWarnings(stats::optimize(
+                f = function(x, Q, D63, c, a) {
+                  fit.functionOTOR(x, Q, D63, c, a)},
+                interval = c(-max(object[[1]]), 0),
+                Q = var.R,
+                D63 = var.Dc[i],
+                c = var.c,
+                a = var.a)$minimum),
+                silent = TRUE)
+
+            }
           }##endif extrapolation
           if(!inherits(try, "try-error") && !inherits(try, "function"))
             x.natural[i] <- try
