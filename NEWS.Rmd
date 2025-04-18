@@ -184,6 +184,11 @@ TL steps, rendering the data output hopefully a little bit more intelligible (#6
 The code implementation follows the Python reference by [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py)
 with an addition for an allowed offset parameter `a` set if `fit.force_through_origin = FALSE`. This also enables 
 the support of `mode = "extrapolation"` (thanks to John Lawless for his input).
+* The code of the function was optimised in several places to improve code readability and 
+reduce redundant calls.
+* The models for `EXP`, `EXP+LIN`, `EXP+EXP` and `GOK` are now available in 
+C++. This cut the required computation times in half in benchmark scenarios. More importantly, 
+this performance scales with the number of Monte Carlo runs. 
 
 ### `fit_SurfaceExposure()`
 

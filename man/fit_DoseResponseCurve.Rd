@@ -273,7 +273,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.3.1
+ 1.4.0
 }
 
 \examples{

@@ -249,7 +249,7 @@
 #'
 #' }
 #'
-#' @section Function version: 1.3.1
+#' @section Function version: 1.4.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -486,7 +486,6 @@ fit_DoseResponseCurve <- function(
   }
 
   #1.2 Prepare data sets regeneration points for MC Simulation
-
   ## for interpolation the first point is considered as natural dose
   first.idx <- ifelse(mode == "interpolation", 2, 1)
   last.idx <- fit.NumberRegPoints + 1
@@ -521,6 +520,9 @@ fit_DoseResponseCurve <- function(
   ##1.4 set initialise variables
   De <- De.Error <- D01 <-  R <-  Dc <- D63 <- N <- TEST_DOSE <- NA_real_
 
+  ##1.5 create bindings (we generate this with an internal function klate)
+  var.g <- d <- Dint <- Q <- NA_real_
+
   ## FITTING ----------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
   ## set functions for fitting
@@ -531,16 +533,16 @@ fit_DoseResponseCurve <- function(
   currn_env <- environment()
 
   ## Define functions ---------
-  ### EXP -------
+  ### EXP ------- (C++ version available)
   fit.functionEXP <- function(a,b,c,x) a*(1-exp(-(x+c)/b))
 
-  ### EXP+LIN -----------
+  ### EXP+LIN ----------- (C++ version available)
   fit.functionEXPLIN <- function(a,b,c,g,x) a*(1-exp(-(x+c)/b)+(g*x))
 
-  ### EXP+EXP ----------
+  ### EXP+EXP ---------- (C++ version available)
   fit.functionEXPEXP <- function(a1,a2,b1,b2,x) (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
 
-  ### GOK ----------------
+  ### GOK ---------------- (C++ version available)
   fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
   ### OTOR -------------
@@ -719,21 +721,15 @@ fit_DoseResponseCurve <- function(
         a <- a.MC[i]
         b <- b.MC[i]
         c <- c.MC[i]
-        fit.initial <- suppressWarnings(try(nls(
-          formula = .toFormula(fit.functionEXP, env = currn_env),
+        fit.initial <- suppressWarnings(try(minpack.lm::nlsLM(
+          formula = y ~ fit_functionEXP_cpp(a, b, c, x),
           data = data,
-          start = c(a = a, b = b, c = c),
+          start = list(a = a, b = b, c = c),
           trace = FALSE,
-          algorithm = "port",
+          algorithm = "LM",
           lower = c(a = 0, b = 1e-6, c = 0),
-          stats::nls.control(
-            maxiter = 100,
-            warnOnly = TRUE,
-            minFactor = 1 / 2048
-          )
-        ),
-        silent = TRUE
-        ))
+          control = minpack.lm::nls.lm.control(maxiter = 500))
+        , silent = TRUE))
 
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
@@ -814,7 +810,7 @@ fit_DoseResponseCurve <- function(
         #start loop
         for (i in 1:n.MC) {
           fit.MC <- try(minpack.lm::nlsLM(
-            formula = .toFormula(fit.functionEXP, env = currn_env),
+            formula = y ~ fit_functionEXP_cpp(a, b, c, x),
             data = list(x = xy$x,y = data.MC[,i]),
             start = list(a = a, b = b, c = c),
             weights = fit.weights,
@@ -920,7 +916,7 @@ fit_DoseResponseCurve <- function(
       ##start: with EXP function
       fit.EXP <- try({
         suppressWarnings(minpack.lm::nlsLM(
-        formula = .toFormula(fit.functionEXP, env = currn_env),
+        formula = y ~ fit_functionEXP_cpp(a, b, c, x),
         data = data,
         start = c(a=a,b=b,c=c),
         trace = FALSE,
@@ -997,7 +993,7 @@ fit_DoseResponseCurve <- function(
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
       f.unirootEXPLIN <- function(a, b, c, g, x, LnTn) {
-        fit.functionEXPLIN(a, b, c, g, x) - LnTn
+        fit_functionEXPLIN_cpp(a, b, c, g, x) - LnTn
       }
 
       if (mode == "interpolation") {
@@ -1044,7 +1040,7 @@ fit_DoseResponseCurve <- function(
       for(i in  1:n.MC){
         ##perform MC fitting
         fit.MC <- try(suppressWarnings(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionEXPLIN, env = currn_env),
+          formula = y ~ fit_functionEXPLIN_cpp(a, b, c, g, x),
           data = list(x=xy$x,y=data.MC[,i]),
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
@@ -1109,19 +1105,15 @@ fit_DoseResponseCurve <- function(
       a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
       fit.start <- try({
-        nls(formula = .toFormula(fit.functionEXPEXP, env = currn_env),
+        minpack.lm::nlsLM(
+        formula = y ~ fit_functionEXPEXP_cpp(a1, a2, b1, b2, x),
         data = data,
-        start = c(
-          a1 = a1,a2 = a2,b1 = b1,b2 = b2
-        ),
+        start = list(a1 = a1,a2 = a2,b1 = b1,b2 = b2),
         trace = FALSE,
-        algorithm = "port",
+        algorithm = "LM",
         lower = c(a1 = 1e-6, a2 = 1e-6, b1 = 1e-6, b2 = 1e-6),
-        stats::nls.control(
-          maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
-        ) #increase max. iterations
-      )},
-      silent = TRUE)
+        control = minpack.lm::nls.lm.control(maxiter = 500))
+      }, silent = TRUE)
 
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
@@ -1152,8 +1144,7 @@ fit_DoseResponseCurve <- function(
       algorithm = "LM",
       lower = lower,
       control = minpack.lm::nls.lm.control(maxiter = 500)
-    ), silent = TRUE
-    )
+    ), silent = TRUE)
 
     ##insert if for try-error
     if (!inherits(fit, "try-error")) {
@@ -1169,7 +1160,7 @@ fit_DoseResponseCurve <- function(
       if (mode == "interpolation") {
         f.unirootEXPEXP <-
           function(a1, a2, b1, b2, x, LnTn) {
-            fit.functionEXPEXP(a1, a2, b1, b2, x) - LnTn
+            fit_functionEXPEXP_cpp(a1, a2, b1, b2, x) - LnTn
           }
 
         temp.De <-  try(uniroot(
@@ -1222,7 +1213,7 @@ fit_DoseResponseCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionEXPEXP, env = currn_env),
+          formula = y ~ fit_functionEXPEXP_cpp(a1, a2, b1, b2, x),
           data = list(x=xy$x,y=data.MC[,i]),
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
@@ -1327,7 +1318,7 @@ fit_DoseResponseCurve <- function(
         ##set data set
         fit.MC <- try({
           minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionGOK, env = currn_env),
+          formula = y ~ fit_functionGOK_cpp(a, b, c, d, x),
           data = list(x = xy$x,y = data.MC[,i]),
           start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
@@ -1764,9 +1755,7 @@ fit_DoseResponseCurve <- function(
     HPDI95_L = HPDI[1,3],
     HPDI95_U = HPDI[1,4],
     row.names = NULL
-  ),
-  silent = TRUE
-  )
+  ), silent = TRUE)
 
   ##make RLum.Results object
   output.final <- set_RLum(
@@ -1804,16 +1793,20 @@ fit_DoseResponseCurve <- function(
 #'
 #'@param x [stats::nls] (**required**): the fitting output
 #'
-#'@para pre [character] (*with default*): names prefix
+#'@param pre [character] (*with default*): names prefix
+#'
+#'@param sufx [character] (*with default*): names suffix
 #'
 #'@returns New objects into the parent environment
 #'
 #'@md
 #'@noRd
 .get_coef <- function(x, pre = "", sufx = "") {
+  ## get coefficients and set their names
   tmp <- stats::coef(x)
   names(tmp) <- paste0(pre, names(tmp), sufx)
 
+  ## assign to parent frame
   for (name in names(tmp))
     assign(name, as.vector(tmp[name]), pos = parent.frame())
 

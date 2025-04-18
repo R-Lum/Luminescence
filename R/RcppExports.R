@@ -5,6 +5,22 @@ create_UID <- function() {
     .Call(`_Luminescence_create_UID`)
 }
 
+fit_functionEXP_cpp <- function(a, b, c, x) {
+    .Call(`_Luminescence_fit_functionEXP_cpp`, a, b, c, x)
+}
+
+fit_functionEXPLIN_cpp <- function(a, b, c, g, x) {
+    .Call(`_Luminescence_fit_functionEXPLIN_cpp`, a, b, c, g, x)
+}
+
+fit_functionEXPEXP_cpp <- function(a1, a2, b1, b2, x) {
+    .Call(`_Luminescence_fit_functionEXPEXP_cpp`, a1, a2, b1, b2, x)
+}
+
+fit_functionGOK_cpp <- function(a, b, c, d, x) {
+    .Call(`_Luminescence_fit_functionGOK_cpp`, a, b, c, d, x)
+}
+
 src_EED_Calc_Overall_StatUncertainty <- function(M_Simul, Ndata, Nsimul, MinNbSimExp) {
     .Call(`_Luminescence_src_EED_Calc_Overall_StatUncertainty`, M_Simul, Ndata, Nsimul, MinNbSimExp)
 }
