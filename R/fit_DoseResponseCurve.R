@@ -695,7 +695,7 @@ fit_DoseResponseCurve <- function(
       if (txtProgressBar) setTxtProgressBar(pb, i)
       .fit_qdr_model(
         model = model.qdr,
-        data = data.frame(x = xy$x, y = data.MC[, i]),
+        data = list(x = xy$x, y = data.MC[, i]),
         y = data.MC.De[i])$De
     }, numeric(1)))
 
@@ -815,7 +815,7 @@ fit_DoseResponseCurve <- function(
         for (i in 1:n.MC) {
           fit.MC <- try(minpack.lm::nlsLM(
             formula = .toFormula(fit.functionEXP, env = currn_env),
-            data = data.frame(x = xy$x,y = data.MC[,i]),
+            data = list(x = xy$x,y = data.MC[,i]),
             start = list(a = a, b = b, c = c),
             weights = fit.weights,
             trace = FALSE,
@@ -894,7 +894,7 @@ fit_DoseResponseCurve <- function(
       x.natural <- abs(vapply(1:n.MC, function(i) {
         .fit_lin_model(
           model = model.lin,
-          data = data.frame(x = xy$x, y = data.MC[, i]),
+          data = list(x = xy$x, y = data.MC[, i]),
           y = data.MC.De[i])$De
       }, numeric(1)))
 
@@ -1045,7 +1045,7 @@ fit_DoseResponseCurve <- function(
         ##perform MC fitting
         fit.MC <- try(suppressWarnings(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionEXPLIN, env = currn_env),
-          data = data.frame(x=xy$x,y=data.MC[,i]),
+          data = list(x=xy$x,y=data.MC[,i]),
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
           trace = FALSE,
@@ -1223,7 +1223,7 @@ fit_DoseResponseCurve <- function(
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionEXPEXP, env = currn_env),
-          data = data.frame(x=xy$x,y=data.MC[,i]),
+          data = list(x=xy$x,y=data.MC[,i]),
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
           trace = FALSE,
@@ -1328,7 +1328,7 @@ fit_DoseResponseCurve <- function(
         fit.MC <- try({
           minpack.lm::nlsLM(
           formula = .toFormula(fit.functionGOK, env = currn_env),
-          data = data.frame(x = xy$x,y = data.MC[,i]),
+          data = list(x = xy$x,y = data.MC[,i]),
           start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
           trace = FALSE,
@@ -1450,10 +1450,9 @@ fit_DoseResponseCurve <- function(
           #start loop
           for (i in 1:n.MC) {
             ##set data set
-            data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
               formula = .toFormula(fit.functionOTOR, env = currn_env),
-              data = data,
+              data = list(x = xy$x,y = data.MC[,i]),
               start = list(R = 0, Dc = b, N = 0, Dint = 0),
               weights = fit.weights,
               trace = FALSE,
@@ -1486,7 +1485,7 @@ fit_DoseResponseCurve <- function(
                   LnTn = data.MC.De[i])$root)
                 }, silent = TRUE)
 
-              } else if (mo <-  == "extrapolation"){
+              } else if (mode == "extrapolation"){
                 try <- try(
                   suppressWarnings(stats::uniroot(
                     f = function(x, R, Dc, N, Dint) {
@@ -1625,10 +1624,9 @@ fit_DoseResponseCurve <- function(
       #start loop
       for (i in 1:n.MC) {
         ##set data set
-        data <- data.frame(x = xy$x,y = data.MC[,i])
         fit.MC <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionOTORX, env = currn_env),
-          data = data,
+          data = list(x = xy$x,y = data.MC[,i]),
           start = list(Q = 1, D63 = b, c = 1, a = 1),
           weights = fit.weights,
           trace = FALSE,
