@@ -224,7 +224,7 @@ This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar
 accounting for retrapping. Mathematically, the implementation reads (the equation here
 as implemented, it is slightly differently written than in the original manuscript):
 
-\deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{D}{D_{63}}))\right] / Q}
+\deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q}
 
 with
 
@@ -233,17 +233,20 @@ with
 where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
 the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
 the value at which the trap occupation corresponds to the 63\% of the saturation value.
+\eqn{a} is in an offset. If set to zero, the curve will be forced through the origin
+as in the original publication.
 
 For the implementation the calculation reads further
 
-\deqn{y = \frac{F_{OTORX}(D/D_{63}), Q)}{F_{OTORX}(D_{test}/D_{63}, Q)}}
+\deqn{y = \frac{F_{OTORX}(((D + a)/D_{63}), Q)}{F_{OTORX}((D_{test} + a)/D_{63}, Q)}}
 
 with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
 the regeneration dose points. This value is essential and needs to provided
 along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see \code{object} parameter input
 and the example section). For more details see Lawless and Timar-Gabor (2024).
 
-\emph{Note: \code{OTORX} is by definition \code{fit.force_through_origin = TRUE}.}
+\emph{Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
+be set to zero with the option \code{fit.force_through_origin = TRUE}}
 
 \emph{Note: \code{OTORX} is not defined for extrapolation and hence this mode is not supported!}
 

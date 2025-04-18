@@ -88,7 +88,7 @@
 #' accounting for retrapping. Mathematically, the implementation reads (the equation here
 #' as implemented, it is slightly differently written than in the original manuscript):
 #'
-#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{D}{D_{63}}))\right] / Q}
+#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q}
 #'
 #' with
 #'
@@ -97,17 +97,20 @@
 #' where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
 #' the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
 #' the value at which the trap occupation corresponds to the 63% of the saturation value.
+#' \eqn{a} is in an offset. If set to zero, the curve will be forced through the origin
+#' as in the original publication.
 #'
 #' For the implementation the calculation reads further
 #'
-#' \deqn{y = \frac{F_{OTORX}(D/D_{63}), Q)}{F_{OTORX}(D_{test}/D_{63}, Q)}}
+#' \deqn{y = \frac{F_{OTORX}(((D + a)/D_{63}), Q)}{F_{OTORX}((D_{test} + a)/D_{63}, Q)}}
 #'
 #' with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
 #' the regeneration dose points. This value is essential and needs to provided
 #' along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see `object` parameter input
 #' and the example section). For more details see Lawless and Timar-Gabor (2024).
 #'
-#' *Note: `OTORX` is by definition `fit.force_through_origin = TRUE`.*
+#' *Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
+#' be set to zero with the option `fit.force_through_origin = TRUE`*
 #'
 #' *Note: `OTORX` is not defined for extrapolation and hence this mode is not supported!*
 #'
@@ -547,7 +550,7 @@ fit_DoseResponseCurve <- function(
   fit.functionOTOR <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ### OTORX -------------
-  fit.functionOTORX <- function(x, Q, D63, c) .D2nN(x, Q, D63) * c / .D2nN(TEST_DOSE, Q, D63)
+  fit.functionOTORX <- function(x, Q, D63, c, a) .D2nN(x, Q, D63, a) * c / .D2nN(TEST_DOSE, Q, D63, a)
 
   ## input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
@@ -1609,13 +1612,17 @@ fit_DoseResponseCurve <- function(
         substitute, list(body(fit.functionOTORX), list(TEST_DOSE = TEST_DOSE)))
 
     ## set boundaries
-    lower <- if (fit.bounds) c(0, 0, 0) else rep(-Inf, 3)
-    upper <- c(Inf, Inf, Inf)
+    lower <- if (fit.bounds) c(0, 0, 0, 0) else rep(-Inf, 4)
+    upper <- c(Inf, Inf, Inf, Inf)
+
+      ## correct boundaries for origin forced through zero
+      if (fit.force_through_origin[1])
+        lower[4] <- upper[4] <- 0
 
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionOTORX, env = currn_env),
       data = data,
-      start = list(Q = 1, D63 = b, c = 1),
+      start = list(Q = 1, D63 = b, c = 1, a = 1),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1633,17 +1640,19 @@ fit_DoseResponseCurve <- function(
       Q <- as.vector((parameters["Q"]))
       D63 <- as.vector((parameters["D63"]))
       c <- as.vector((parameters["c"]))
+      a <- as.vector((parameters["a"]))
 
       #calculate De
       De <- NA
       if(mode == "interpolation"){
         De <- try(suppressWarnings(stats::uniroot(
-          f = function(x, Q, D63, c, LnTn) {
-            fit.functionOTORX(x, Q, D63, c) - LnTn},
+          f = function(x, Q, D63, c, a, LnTn) {
+            fit.functionOTORX(x, Q, D63, c, a) - LnTn},
           interval = c(0, max(object[[1]]) * 1.2),
           Q = Q,
           D63 = D63,
           c = c,
+          a = a,
           LnTn = object[1, 2])$root), silent = TRUE)
 
       }else if (mode == "extrapolation"){
@@ -1669,11 +1678,11 @@ fit_DoseResponseCurve <- function(
         fit.MC <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionOTORX, env = currn_env),
           data = data,
-          start = list(Q = 1, D63 = b, c = 1),
+          start = list(Q = 1, D63 = b, c = 1, a = 1),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
-          lower = if (fit.bounds) c(0, 0, 0) else c(-Inf,-Inf, -Inf),
+          lower = lower,
           upper = upper,
           control = minpack.lm::nls.lm.control(maxiter = 500)
         ), silent = TRUE)
@@ -1686,17 +1695,19 @@ fit_DoseResponseCurve <- function(
           var.Q <- as.numeric(parameters["Q"])
           var.D63[i] <- as.numeric(parameters["D63"])
           var.c <- as.numeric(parameters["c"])
+          var.a <- as.numeric(parameters["a"])
 
           # calculate x.natural for error calculation
           if(mode == "interpolation"){
             try <- try(
               {suppressWarnings(stats::uniroot(
-                f = function(x, Q, D63, c, LnTn) {
-                  fit.functionOTORX(x, Q, D63, c) - LnTn},
+                f = function(x, Q, D63, c, a, LnTn) {
+                  fit.functionOTORX(x, Q, D63, c, a) - LnTn},
                 interval = c(0, max(object[[1]]) * 1.2),
                 Q = var.Q,
                 D63 = var.D63[i],
                 c = var.c,
+                a = var.a,
                 LnTn = data.MC.De[i])$root)
               }, silent = TRUE)
 
@@ -1917,17 +1928,19 @@ fit_DoseResponseCurve <- function(
 #'
 #'@param D63 [numeric] (**required**): characteristic dose
 #'
+#'@param a [numeric] (**required**): offset parameter
+#'
 #'@references https://github.com/jll2/LumDRC/blob/main/otorx.py
 #'
 #'@md
 #'@noRd
-.D2nN <- function(D, Q, D63) {
+.D2nN <- function(D, Q, D63, a) {
   if(all(abs(Q) < 1e-06))
     r <- 1 - exp(-D/D63)
   else if (any(abs(Q) < 1e-06))
     stop("[.D2nN()] Unsupported zero and non-zero Q", .call = FALSE)
   else
-    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * D/D63))) / Q
+    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * (D + a) /D63))) / Q
 
   return(r)
 }

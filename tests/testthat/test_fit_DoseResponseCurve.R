@@ -262,6 +262,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit_DoseResponseCurve(
       cbind(LxTxData, Test_Dose = 17),
       fit.method = "OTORX",
+      fit.force_through_origin = TRUE,
       mode = "interpolation",
       verbose = TRUE,
       n.MC = 10
@@ -346,6 +347,7 @@ temp_OTORX <-
   fit_DoseResponseCurve(
     cbind(LxTxData, Test_Dose = 17),## we have to set the TEST_DOSE
     fit.method = "OTORX",
+    fit.force_through_origin = TRUE,
     verbose = FALSE,
     n.MC = 10
   )
@@ -362,8 +364,17 @@ temp_OTORX_alt <-
   fit_DoseResponseCurve(
     cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
     fit.method = "OTORX",
+    fit.force_through_origin = TRUE,
     verbose = FALSE,
     n.MC = 10)
+
+  temp_OTORX_alt2 <-
+    fit_DoseResponseCurve(
+      cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
+      fit.method = "OTORX",
+      fit.force_through_origin = FALSE,
+      verbose = FALSE,
+      n.MC = 10)
 
 
   ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
@@ -387,6 +398,7 @@ temp_OTORX_alt <-
   expect_s3_class(temp_OTOR$Fit, class = "nls")
   expect_s3_class(temp_OTORX$Fit, class = "nls")
   expect_s3_class(temp_OTORX_alt$Fit, class = "nls")
+  expect_s3_class(temp_OTORX_alt2$Fit, class = "nls")
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
@@ -415,7 +427,8 @@ temp_OTORX_alt <-
 
    expect_equal(round(temp_OTOR$De[[1]], digits = 2),  1784.78)
    expect_equal(round(temp_OTORX$De[[1]], digits = 2),  1785.43)
-   expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.270)
+   expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
+   expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21)
    expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17422)
    expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 14477)
 
@@ -653,8 +666,9 @@ test_that("test internal functions", {
   expect_equal(sum(Luminescence:::.D2nN(
     D = 1,
     Q = c(-10,-3,0.1,1),
+    a = 0,
     D63 = 1)), expected = 2.5, tolerance = 1)
 
-  expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0), D63 = 1),
+  expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0, 0), D63 = 1),
                "Unsupported zero and non-zero Q")
 })
