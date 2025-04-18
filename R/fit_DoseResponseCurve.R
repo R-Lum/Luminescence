@@ -382,7 +382,6 @@ fit_DoseResponseCurve <- function(
     return(results)
   }
   ## Self-call end ----------------------------------------------------------
-
   .validate_class(object, c("data.frame", "matrix", "list"))
   .validate_not_empty(object)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
@@ -517,7 +516,7 @@ fit_DoseResponseCurve <- function(
   }
 
   #1.3 set x.natural
-  x.natural <- NA
+  x.natural <- rep(NA_real_, n.MC)
 
   ##1.4 set initialise variables
   De <- De.Error <- D01 <-  R <-  Dc <- D63 <- N <- TEST_DOSE <- NA_real_
@@ -619,10 +618,7 @@ fit_DoseResponseCurve <- function(
   g <- max(data[,2]/max(data[,1]))
 
   #set D01 and D02 (in case of EXP+EXP)
-  D01 <- NA
-  D01.ERROR <- NA
-  D02 <- NA
-  D02.ERROR <- NA
+  D01 <- D01.ERROR <- D02 <- D02.ERROR <- NA
 
   ## Let start parameter vary -------------------------------------------------
   ## to be a little bit more flexible, the start parameters varies within
@@ -640,10 +636,8 @@ fit_DoseResponseCurve <- function(
     g.MC <- suppressWarnings(rnorm(50, mean = g, sd = g / 1))
 
     ##set start vector (to avoid errors within the loop)
-    a.start <- NA
-    b.start <- NA
-    c.start <- NA
-    g.start <- NA
+    a.start <-   b.start <- c.start <- g.start <- NA
+
   }
 
   ## QDR --------------------------------------------------------------------
@@ -693,24 +687,23 @@ fit_DoseResponseCurve <- function(
     ##set progressbar
     if(txtProgressBar){
       cat("\n\t Run Monte Carlo loops for error estimation of the QDR fit\n")
-      pb<-txtProgressBar(min=0,max=n.MC, char="=", style=3)
+      pb <- txtProgressBar(min=0,max=n.MC, char="=", style=3)
     }
 
     ## Monte Carlo Error estimation
-    x.natural <- sapply(1:n.MC, function(i) {
+    x.natural <- abs(vapply(1:n.MC, function(i) {
       if (txtProgressBar) setTxtProgressBar(pb, i)
-      abs(.fit_qdr_model(model.qdr,
-                         data.frame(x = xy$x, y = data.MC[, i]),
-                         y = data.MC.De[i])$De)
-    })
+      .fit_qdr_model(
+        model = model.qdr,
+        data = data.frame(x = xy$x, y = data.MC[, i]),
+        y = data.MC.De[i])$De
+    }, numeric(1)))
 
     if(txtProgressBar) close(pb)
   }
   ## EXP --------------------------------------------------------------------
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
-
     if(fit.method != "LIN"){
-
       if (anyNA(c(a, b, c))) {
         .throw_message("Fit ", fit.method, " (", mode,
                        ") could not be applied to this data set, NULL returned")
@@ -744,7 +737,7 @@ fit_DoseResponseCurve <- function(
 
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
-          parameters<-(coef(fit.initial))
+          parameters <- coef(fit.initial)
           a.start[i] <- as.vector(parameters["a"])
           b.start[i] <- as.vector(parameters["b"])
           c.start[i] <- as.vector(parameters["c"])
@@ -760,6 +753,7 @@ fit_DoseResponseCurve <- function(
       if(!is.na(b) && b == 1)
         b <- mean(b.MC)
 
+      ## set boundaries
       lower <- if (fit.bounds) c(0, 0, 0) else c(-Inf, -Inf, -Inf)
       upper <- if (fit.force_through_origin) c(Inf, Inf, 0) else c(Inf, Inf, Inf)
 
@@ -774,8 +768,7 @@ fit_DoseResponseCurve <- function(
         lower = lower,
         upper = upper,
         control = minpack.lm::nls.lm.control(maxiter = 500)
-      ), silent = TRUE
-      )
+      ), silent = TRUE)
 
       if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
         .report_fit_failure(fit.method, mode)
@@ -789,10 +782,7 @@ fit_DoseResponseCurve <- function(
         }
 
         #get parameters out of it
-        parameters <- (coef(fit))
-        a <- as.vector((parameters["a"]))
-        b <- as.vector((parameters["b"]))
-        c <- as.vector((parameters["c"]))
+        .get_coef(fit)
 
         #calculate De
         De <- NA
@@ -813,23 +803,19 @@ fit_DoseResponseCurve <- function(
 
         .report_fit(De, " | D01 = ", round(D01, 2))
 
-
         #EXP MC -----
         ##Monte Carlo Simulation
         #	--Fit many curves and calculate a new De +/- De_Error
         #	--take De_Error
 
         ## preallocate variable
-        var.b<-vector(mode="numeric", length=n.MC)
+        var.b <- vector(mode="numeric", length=n.MC)
 
         #start loop
         for (i in 1:n.MC) {
-          ##set data set
-          data <- data.frame(x = xy$x,y = data.MC[,i])
-
           fit.MC <- try(minpack.lm::nlsLM(
             formula = .toFormula(fit.functionEXP, env = currn_env),
-            data = data,
+            data = data.frame(x = xy$x,y = data.MC[,i]),
             start = list(a = a, b = b, c = c),
             weights = fit.weights,
             trace = FALSE,
@@ -841,12 +827,9 @@ fit_DoseResponseCurve <- function(
           )
 
           #get parameters out of it including error handling
-          if (inherits(fit.MC, "try-error") || mode == "alternate") {
-            x.natural[i] <- NA
-
-          }else {
+          if (!inherits(fit.MC, "try-error") & mode != "alternate") {
             #get parameters out
-            parameters<-coef(fit.MC)
+            parameters <- coef(fit.MC)
             var.a <- as.numeric(parameters["a"]) # Imax
             var.b[i] <- as.numeric(parameters["b"]) # D0
             var.c <- as.numeric(parameters["c"])
@@ -873,9 +856,7 @@ fit_DoseResponseCurve <- function(
     ##two options: just linear fit or LIN fit after the EXP fit failed
 
     #set fit object, if fit object was not set before
-    if (!exists("fit")) {
-      fit <- NA
-    }
+    if (!exists("fit")) fit <- NA
 
     if ((fit.method=="EXP OR LIN" & inherits(fit, "try-error")) |
         fit.method == "LIN") {
@@ -884,26 +865,23 @@ fit_DoseResponseCurve <- function(
       model.lin <- stats::update(y ~ x,
                           stats::reformulate(".", intercept = !fit.force_through_origin))
 
-      if (fit.force_through_origin) {
+      if (fit.force_through_origin)
         De.fs <- function(fit, y) y / coef(fit)[1]
-      } else {
+      else
         De.fs <- function(fit, y) (y - coef(fit)[1]) / coef(fit)[2]
-      }
 
-      if (mode == "interpolation") {
-        y <- object[1, 2]
-      } else if (mode == "extrapolation") {
+      y <- object[1, 2]
+      if (mode == "extrapolation")
         y <- 0
-      }
 
       .fit_lin_model <- function(model, data, y) {
         fit <- stats::lm(model, data = data, weights = fit.weights)
 
         ## solve and get De
         De <- NA
-        if (mode != "alternate") {
+        if (mode != "alternate")
           De <- De.fs(fit, y)
-        }
+
         return(list(fit = fit, De = unname(De)))
       }
 
@@ -913,17 +891,18 @@ fit_DoseResponseCurve <- function(
       .report_fit(De)
 
       ## Monte Carlo Error estimation
-      x.natural <- sapply(1:n.MC, function(i) {
-        abs(.fit_lin_model(model.lin,
-                           data.frame(x = xy$x, y = data.MC[, i]),
-                           y = data.MC.De[i])$De)
-      })
+      x.natural <- abs(vapply(1:n.MC, function(i) {
+        .fit_lin_model(
+          model = model.lin,
+          data = data.frame(x = xy$x, y = data.MC[, i]),
+          y = data.MC.De[i])$De
+      }, numeric(1)))
 
       #correct for fit.method
       fit.method <- "LIN"
 
       ##set fit object
-      if(fit.method=="LIN"){fit<-fit.lm}
+      if(fit.method == "LIN") fit <- fit.lm
 
     }else{fit.method<-"EXP"}#endif::LIN
   }#end if EXP (this includes the LIN fit option)
@@ -954,10 +933,7 @@ fit_DoseResponseCurve <- function(
 
       if(!inherits(fit.EXP, "try-error")){
         #get parameters out of it
-        parameters<-(coef(fit.EXP))
-        a <- parameters[["a"]]
-        b <- parameters[["b"]]
-        c <- parameters[["c"]]
+        .get_coef(fit.EXP)
 
         ##end: with EXP function
         ##---------------------------------------------------------##
@@ -996,6 +972,7 @@ fit_DoseResponseCurve <- function(
     c <- median(c.start, na.rm = TRUE)
     g <- median(g.start, na.rm = TRUE)
 
+    ## set boundaries
     lower <- if (fit.bounds) c(0, 10, 0, 0) else rep(-Inf, 4)
     upper <- if (fit.force_through_origin) c(Inf, Inf, 0, Inf) else rep(Inf, 4)
 
@@ -1015,11 +992,7 @@ fit_DoseResponseCurve <- function(
     #if try error stop calculation
     if(!inherits(fit, "try-error")){
       #get parameters out of it
-      parameters <- coef(fit)
-      a <- as.vector((parameters["a"]))
-      b <- as.vector((parameters["b"]))
-      c <- as.vector((parameters["c"]))
-      g <- as.vector((parameters["g"]))
+      .get_coef(fit)
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
@@ -1051,9 +1024,8 @@ fit_DoseResponseCurve <- function(
         ),
         silent = TRUE)
 
-        if (!inherits(temp.De, "try-error")) {
+        if (!inherits(temp.De, "try-error"))
           De <- temp.De$root
-        }
 
         .report_fit(De)
       }
@@ -1070,12 +1042,10 @@ fit_DoseResponseCurve <- function(
 
       ## start Monte Carlo loops
       for(i in  1:n.MC){
-        data <- data.frame(x=xy$x,y=data.MC[,i])
-
         ##perform MC fitting
         fit.MC <- try(suppressWarnings(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionEXPLIN, env = currn_env),
-          data = data,
+          data = data.frame(x=xy$x,y=data.MC[,i]),
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
           trace = FALSE,
@@ -1090,17 +1060,11 @@ fit_DoseResponseCurve <- function(
 
         #get parameters out of it including error handling
         if (!inherits(fit.MC, "try-error")) {
-          parameters <- coef(fit.MC)
-          var.a <- parameters[["a"]]
-          var.b <- parameters[["b"]]
-          var.c <- parameters[["c"]]
-          var.g <- parameters[["g"]]
+          .get_coef(fit.MC, pre = "var.")
 
-          if (mode == "interpolation") {
-            min.val <- 0
-          } else if (mode == "extrapolation") {
+          min.val <- 0
+          if (mode == "extrapolation")
             min.val <- -1e6
-          }
 
           #problem: analytically it is not easy to calculate x,
           #use uniroot to solve this problem
@@ -1134,13 +1098,10 @@ fit_DoseResponseCurve <- function(
     } #end if "try-error" Fit Method
 
   } #End if EXP+LIN
-
   ## EXP+EXP ----------------------------------------------------------------
   else if (fit.method == "EXP+EXP") {
-    a1.start <- NA
-    a2.start <- NA
-    b1.start <- NA
-    b2.start <- NA
+    ## initialise objects
+    a1.start <-  a2.start <- b1.start <- b2.start <- NA
 
     ## try to create some start parameters from the input values to make the fitting more stable
     for(i in 1:50) {
@@ -1178,6 +1139,7 @@ fit_DoseResponseCurve <- function(
     a2.start <- median(a2.start, na.rm = TRUE)
     b2.start <- median(b2.start, na.rm = TRUE)
 
+    ## set fit bounds
     lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
 
     ##perform final fitting
@@ -1196,11 +1158,7 @@ fit_DoseResponseCurve <- function(
     ##insert if for try-error
     if (!inherits(fit, "try-error")) {
       #get parameters out of it
-      parameters <- coef(fit)
-      b1 <- as.vector((parameters["b1"]))
-      b2 <- as.vector((parameters["b2"]))
-      a1 <- as.vector((parameters["a1"]))
-      a2 <- as.vector((parameters["a2"]))
+      .get_coef(fit)
 
       ##set D0 values
       D01 <- round(b1,digits = 2)
@@ -1248,49 +1206,41 @@ fit_DoseResponseCurve <- function(
       #	--take De_Error from the simulation
       # --comparison of De from the MC and original fitted De gives a value for quality
 
-      #set variables
-      var.b1 <- vector(mode="numeric", length=n.MC)
-      var.b2 <- vector(mode="numeric", length=n.MC)
-
       ##progress bar
       if(txtProgressBar){
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
-        pb<-txtProgressBar(min=0,max=n.MC, initial=0, char="=", style=3)
+        pb <- txtProgressBar(min=0,max=n.MC, initial=0, char="=", style=3)
       }
+
+      #set variables
+      var.b1 <- var.b2 <- vector(mode="numeric", length=n.MC)
 
       ## start Monte Carlo loops
       for (i in 1:n.MC) {
         #update progress bar
         if(txtProgressBar) setTxtProgressBar(pb,i)
 
-        data<-data.frame(x=xy$x,y=data.MC[,i])
-
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionEXPEXP, env = currn_env),
-          data = data,
+          data = data.frame(x=xy$x,y=data.MC[,i]),
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
           lower = lower,
           control = minpack.lm::nls.lm.control(maxiter = 500)
-        ), silent = TRUE
-        )
+        ), silent = TRUE)
 
         #get parameters out of it including error handling
-        if (inherits(fit.MC, "try-error")) {
-          x.natural[i]<-NA
-
-        }else {
-          parameters <- (coef(fit.MC))
+        if (!inherits(fit.MC, "try-error")) {
+          parameters <- coef(fit.MC)
           var.a1 <- as.numeric(parameters["a1"])
           var.a2 <- as.numeric(parameters["a2"])
           var.b1[i] <- as.vector((parameters["b1"]))
           var.b2[i] <- as.vector((parameters["b2"]))
 
           #problem: analytically it is not easy to calculate x, here an simple approximation is made
-
           temp.De.MC <-  try(uniroot(
             f = f.unirootEXPEXP,
             interval = c(0,max(xy$x) * 1.5),
@@ -1302,14 +1252,10 @@ fit_DoseResponseCurve <- function(
             LnTn = data.MC.De[i]
           ), silent = TRUE)
 
-          if (!inherits(temp.De.MC, "try-error")) {
+          if (!inherits(temp.De.MC, "try-error"))
             x.natural[i] <- temp.De.MC$root
-          }else{
-            x.natural[i] <- NA
-          }
 
         } #end if "try-error" MC simulation
-
       } #end for loop
 
       ##write D01.ERROR
@@ -1330,7 +1276,7 @@ fit_DoseResponseCurve <- function(
 
   ## GOK --------------------------------------------------------------------
   else if (fit.method[1] == "GOK") {
-
+    ## set bounds
     lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
     upper <- if (fit.force_through_origin) c(Inf, Inf, Inf, 1) else rep(Inf, 4)
 
@@ -1351,18 +1297,16 @@ fit_DoseResponseCurve <- function(
 
     }else{
       #get parameters out of it
-      parameters <- (coef(fit))
-      b <- as.vector((parameters["b"]))
-      a <- as.vector((parameters["a"]))
-      c <- as.vector((parameters["c"]))
-      d <- as.vector((parameters["d"]))
+      .get_coef(fit)
 
       #calculate De
       y <- object[1, 2]
       De <- switch(
         mode,
-        "interpolation" = suppressWarnings(-(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
-        "extrapolation" = suppressWarnings(-(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
+        "interpolation" = suppressWarnings(
+          -(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
+        "extrapolation" = suppressWarnings(
+          -(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
         NA)
 
       #print D01 value
@@ -1381,12 +1325,10 @@ fit_DoseResponseCurve <- function(
       #start loop
       for (i in 1:n.MC) {
         ##set data set
-        data <- data.frame(x = xy$x,y = data.MC[,i])
-
         fit.MC <- try({
           minpack.lm::nlsLM(
           formula = .toFormula(fit.functionGOK, env = currn_env),
-          data = data,
+          data = data.frame(x = xy$x,y = data.MC[,i]),
           start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
           trace = FALSE,
@@ -1397,10 +1339,7 @@ fit_DoseResponseCurve <- function(
         )}, silent = TRUE)
 
         # get parameters out of it including error handling
-        if (inherits(fit.MC, "try-error") || mode == "alternate") {
-          x.natural[i] <- NA
-
-        } else {
+        if (!inherits(fit.MC, "try-error") && mode != "alternate") {
           # get parameters out
           parameters<-coef(fit.MC)
           var.a <- as.numeric(parameters["a"]) #Imax
@@ -1453,11 +1392,7 @@ fit_DoseResponseCurve <- function(
 
     } else {
           #get parameters out of it
-          parameters <- coef(fit)
-          R <- as.vector((parameters["R"]))
-          Dc <- as.vector((parameters["Dc"]))
-          N <- as.vector((parameters["N"]))
-          Dint <- as.vector((parameters["Dint"]))
+         .get_coef(fit)
 
           #calculate De
           De <- NA
@@ -1529,10 +1464,9 @@ fit_DoseResponseCurve <- function(
             ), silent = TRUE)
 
             # get parameters out of it including error handling
-            x.natural[i] <- NA
             if (!inherits(fit.MC, "try-error")) {
               # get parameters out
-              parameters<-coef(fit.MC)
+              parameters <- coef(fit.MC)
               var.R <- as.numeric(parameters["R"])
               var.Dc[i] <- as.numeric(parameters["Dc"])
               var.N <- as.numeric(parameters["N"])
@@ -1540,8 +1474,8 @@ fit_DoseResponseCurve <- function(
 
               # calculate x.natural for error calculation
               if(mode == "interpolation"){
-                try <- try(
-                {suppressWarnings(stats::uniroot(
+                try <- try({
+                  suppressWarnings(stats::uniroot(
                   f = function(x, R, Dc, N, Dint, LnTn) {
                     fit.functionOTOR(R, Dc, N, Dint, x) - LnTn},
                   interval = c(0, max(object[[1]]) * 1.2),
@@ -1552,7 +1486,7 @@ fit_DoseResponseCurve <- function(
                   LnTn = data.MC.De[i])$root)
                 }, silent = TRUE)
 
-              }else if(mode == "extrapolation"){
+              } else if (mo <-  == "extrapolation"){
                 try <- try(
                   suppressWarnings(stats::uniroot(
                     f = function(x, R, Dc, N, Dint) {
@@ -1632,11 +1566,7 @@ fit_DoseResponseCurve <- function(
 
     } else {
       #get parameters out of it
-      parameters <- coef(fit)
-      Q <- as.vector((parameters["Q"]))
-      D63 <- as.vector((parameters["D63"]))
-      c <- as.vector((parameters["c"]))
-      a <- as.vector((parameters["a"]))
+      .get_coef(fit)
 
       #calculate De
       De <- NA
@@ -1709,7 +1639,6 @@ fit_DoseResponseCurve <- function(
         ), silent = TRUE)
 
         # get parameters out of it including error handling
-        x.natural[i] <- NA
         if (!inherits(fit.MC, "try-error")) {
           # get parameters out
           parameters<-coef(fit.MC)
@@ -1784,7 +1713,6 @@ fit_DoseResponseCurve <- function(
   De.Error <- sd(x.natural, na.rm = TRUE)
 
   # Formula creation --------------------------------------------------------
-
   ## This information is part of the fit object output anyway, but
   ## we keep it here for legacy reasons
   fit_formula <- NA
@@ -1871,6 +1799,29 @@ fit_DoseResponseCurve <- function(
 }
 
 # Helper functions in fit_DoseResponseCurve() -------------------------------------
+
+#'@title Returns coefficient into parent environment
+#'
+#'@description Write fitting coefficients into parent environment
+#'
+#'@param x [stats::nls] (**required**): the fitting output
+#'
+#'@para pre [character] (*with default*): names prefix
+#'
+#'@returns New objects into the parent environment
+#'
+#'@md
+#'@noRd
+.get_coef <- function(x, pre = "", sufx = "") {
+  tmp <- stats::coef(x)
+  names(tmp) <- paste0(pre, names(tmp), sufx)
+
+  for (name in names(tmp))
+    assign(name, as.vector(tmp[name]), pos = parent.frame())
+
+}
+
+
 #'@title Replace coefficients in formula
 #'
 #'@description
