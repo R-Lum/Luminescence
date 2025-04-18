@@ -84,8 +84,8 @@
       assign(x = "warning_collector",
              value = temp,
              envir = env)
-      ##TODO should be replaced tryInvokeRestart once R 4.1 was released
-      invokeRestart("muffleWarning")
+
+      tryInvokeRestart ("muffleWarning")
     }
   )
 
