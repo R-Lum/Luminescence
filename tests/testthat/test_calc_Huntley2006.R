@@ -89,7 +89,7 @@ test_that("input validation", {
       calc_Huntley2006(data = data[1:20, ], rhop = rhop, ddot = ddot,
                        readerDdot = c(0.002, 0.003), n.MC = 2,
                        plot = FALSE, verbose = FALSE),
-      "Simulated D0 is NA: either your input values are unsuitable"),
+      "Could not fit unfaded curve, check suitability of model and parameters"),
       "Ln/Tn is smaller than the minimum computed LxTx value")
 
   expect_error(calc_Huntley2006(data = data[1:20, ], LnTn = data[1, c(2, 3)],
@@ -148,7 +148,7 @@ test_that("Further tests calc_Huntley2006", {
         n.MC = 100,
         fit.method = "GOK",
         mode = "extrapolation",
-        plot = TRUE, verbose = FALSE),
+        plot = FALSE, verbose = FALSE),
       tolerance = snapshot.tolerance)
 
   ## check force through origin EXP with wrong mode settings
@@ -163,7 +163,7 @@ test_that("Further tests calc_Huntley2006", {
         fit.method = "EXP",
         fit.force_through_origin = TRUE,
         mode = "extrapolation",
-        plot = TRUE,
+        plot = FALSE,
         verbose = FALSE),
       tolerance = max(snapshot.tolerance, 1.0e-2))
 
