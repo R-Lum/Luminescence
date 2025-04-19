@@ -164,9 +164,8 @@
   .validate_args(method, c("mean", "median"))
 
   ##set k
-  if (is.null(k)){
+  if (is.null(k))
    k <- ceiling(length(x) / 100)
-  }
 
   ##smooth data
   if(method == "mean"){
