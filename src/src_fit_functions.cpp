@@ -1,5 +1,5 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Title:   Collection of functions for fit_DoseReponseCurve() in C++
+// Title:   Collection of fit functions and models in C++
 // Author:  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 // Contact: sebastian.kreutzer@uni-heidelberg.de
 // Version: 0.1.0 [2025-04-19]
@@ -12,6 +12,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// fit_DoseResponseCurve() =====================================================
 // fit.functionEXP equivalent
 // [[Rcpp::export]]
 NumericVector fit_functionEXP_cpp(double a, double b, double c, NumericVector x) {
