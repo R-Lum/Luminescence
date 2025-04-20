@@ -16,7 +16,7 @@
 #' **Note:  The function assumes the following sequence pattern:
 #' `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`.** Therefore, the
 #' total number of curves in the input object must be a multiple of 5, and
-#' there must be 3 `DARK_COUNT` records for each IRLS/BSL pair. If you have used
+#' there must be 3 `DARK_COUNT` records for each IRSL/BSL pair. If you have used
 #' a different sequence, the function will produce an error.
 #'
 #' **Signal processing**
@@ -233,7 +233,7 @@ analyse_portableOSL <- function(
   ### we assume that USER contains the dark count measurements
   DARK_COUNT <- .unlist_RLum(list(get_RLum(object, recordType = "USER")))
 
-  ## we expect a sequence pattern with 3 DARK_COUNT records for each OSL/IRLS pair
+  ## we expect a sequence pattern with 3 DARK_COUNT records for each OSL/IRSL pair
   num.dark.count <- length(DARK_COUNT)
   if (num.dark.count %% 3 != 0) {
     .throw_error("Sequence pattern not supported: expected ", nrow(OSL) * 3,

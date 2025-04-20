@@ -24,6 +24,7 @@ Azevedo
 BINX
 BINfile
 BINfileData
+BSL
 BT
 Baartman
 Barbouti
@@ -75,6 +76,7 @@ DFG
 DLED
 DRAC
 DRC
+DRCs
 DTU
 DTYPE
 Dau
@@ -93,10 +95,10 @@ Dunson
 Durbin
 EBG
 EED
+EMCCD
 Efron
 Ein
 Elsevier
-EMCCD
 Engelen
 Eq
 Erfurt
@@ -110,6 +112,7 @@ Furetta
 GEPRIS
 GFZ
 GOK
+Gabor
 GammaDose
 Gauthier
 Gelman
@@ -150,7 +153,6 @@ IRAMAT
 IRSAR
 IRSL
 ISSN
-ITL
 ImageJ
 Institut
 Ioannides
@@ -213,13 +215,13 @@ Mittelsachsen
 Mittelstraß
 Modelling
 Moine
-Morans
 MoranScatterplot
 Morthekai
 Moska
 Mungo
 Murari
 NCL
+NIST
 NNDC
 NUTECH
 Namche
@@ -231,6 +233,8 @@ Nurmela
 Nutech
 ORCID
 OSL
+OTOR
+OTORX
 Oestergard
 Olley
 Ostrau
@@ -317,7 +321,6 @@ Stolz
 Storn
 Straessner
 Streibig
-Subclasses
 Svoboda
 Sébastien
 TLAPLLIC
@@ -330,6 +333,7 @@ Thermoluminescence
 Thomsen
 Thue's
 Tibshirani
+Timar
 TnTx
 Tobias
 Torben
@@ -347,7 +351,6 @@ Un
 Université
 Unravelling
 Urbanova
-VSLIDE
 Valla
 Vehtari
 Veldkamp
@@ -365,12 +368,10 @@ Wintle
 Wissenschaftsnetzwerk
 Woda
 XLS
-XLSX
 XRF
 XSXG
 XSYG
 Xcode
-YAML
 Yoshida
 ZENODO
 ZEU
@@ -389,7 +390,6 @@ analysed
 analysing
 anhand
 artefact
-artefacts
 astr
 athermal
 baSAR
@@ -452,8 +452,9 @@ initialisation
 irradiations
 isochrons
 isothermal
-iteratively
+jll
 jlumin
+kB
 ka
 labelling
 lexsyg
@@ -466,8 +467,6 @@ mW
 massebezogenen
 minimisation
 misspecification
-misspecifications
-misspecified
 mit
 modelled
 modelling
@@ -481,6 +480,7 @@ nd
 neighbour
 neighbouring
 neighbours
+nlevels
 nls
 nm
 normalisation
@@ -509,6 +509,7 @@ polymineral
 portableOSL
 pre
 preprint
+prioritised
 programme
 pseudoR
 psl
@@ -524,10 +525,7 @@ readSPE
 realised
 recognised
 reorganisation
-reproducibility
 retrapping
-rho'
-rhop
 rmarkdown
 rstudioapi
 sTeve
@@ -547,10 +545,10 @@ thermochronometry
 thermoluminescence
 uid
 un
-uncontained
 unfaded
 unitless
 unrecognised
+utilised
 utilises
 violinmplot
 violplot
@@ -571,8 +569,3 @@ zur
 µm
 µs
 ’Luminescence’
-OTOR
-OTORX
-Gabor
-Timar
-

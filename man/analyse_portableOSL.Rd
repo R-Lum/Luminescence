@@ -82,7 +82,7 @@ divided by cumulative signal of the first \emph{n} channels (\code{signal.integr
 \strong{Note:  The function assumes the following sequence pattern:
 \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}.} Therefore, the
 total number of curves in the input object must be a multiple of 5, and
-there must be 3 \code{DARK_COUNT} records for each IRLS/BSL pair. If you have used
+there must be 3 \code{DARK_COUNT} records for each IRSL/BSL pair. If you have used
 a different sequence, the function will produce an error.
 
 \strong{Signal processing}
