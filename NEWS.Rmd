@@ -286,6 +286,10 @@ used internally to facilitate a rapid exploration of `RLum.Analysis-class`
 object structures. However, the change may potentially break existing code in
 extremely rare circumstances.
 
+### `write_R2TIFF()`
+
+* The function now supports the export of more than one image slice. 
+
 ## Internals
 
 * The internal function `create_UID()` has undergone further optimisation for speed, 

@@ -19,7 +19,7 @@
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.1.1
 #'
 #'@seealso [tiff::writeTIFF], [RLum.Data.Image-class], [RLum.Data.Spectrum-class]
 #'
@@ -75,7 +75,6 @@ write_R2TIFF <- function(
     file <- normalizePath(paste0(file_dir,"/",file_base,"_",1:length(object),".tiff"), mustWork = FALSE)
 
   ## Export to TIFF ---------------------------------------------------------
-
   ## remove arguments we already use
   args <- list(...)[!list(...) %in% c("what", "where")]
 
@@ -85,8 +84,23 @@ write_R2TIFF <- function(
   ), args)
 
   for (i in seq_along(object)) {
-    object[[i]]@data[] <- as.numeric(object[[i]]@data)
-    object[[i]]@data[] <- object[[i]]@data / norm[1]
-    do.call(what = tiff::writeTIFF, args = c(list(object[[i]]@data, where = file[i]), args))
+    ## consider the case that we have already an image stack
+    if(length(dim(object[[i]]@data)) > 2 &&dim(object[[i]]@data)[3] > 1) {
+      img_list <- lapply(1:dim(object[[i]]@data)[3], function(x) {
+        m <- object[[i]]@data[,,x]
+        storage.mode(m) <- "numeric"
+        m / norm[1]
+      })
+
+    } else {
+      object[[i]]@data[] <- as.numeric(object[[i]]@data)
+      img_list <- object[[i]]@data / norm[1]
+
+    }
+
+    ## write file
+    do.call(what = tiff::writeTIFF, args = c(list(img_list, where = file[i]), args))
+
   }
 }
+

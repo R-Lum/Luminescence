@@ -7,7 +7,8 @@
 #'processing of many images
 #'
 #'@param merge2stack [logical] (*with default*): if `file` is a [list] it merges
-#'the individual images to one image stack
+#'the individual images into one image stack. Please note that the smallest image
+#'dimension determines pixel dimension of the output stack.
 #'
 #'@param verbose [logical] (*with default*): enable/disable output to the
 #'terminal
@@ -51,8 +52,13 @@ read_TIFF2R <- function(
     tmp <- lapply(file, read_TIFF2R, verbose = verbose)
 
     if(merge2stack[1]) {
-      tmp <- lapply(tmp, function(x) x@data)
-      tmp <- array(unlist(tmp), dim = c(nrow(tmp[[1]]), ncol(tmp[[1]]), length(tmp)))
+      ## because we don't know what we get, we determine the minimal dimensions
+      t_dim <- vapply(tmp, function(x) dim(x@data), numeric(3))
+      t_range <- matrixStats::rowMins(t_dim)
+
+      ## the image stack cannot be bigger than the smallest image
+      tmp <- lapply(tmp, function(x) x@data[1:t_range[1],1:t_range[2],])
+      tmp <- array(unlist(tmp), dim = c(t_range[1], t_range[2], length(tmp)))
 
       return(set_RLum(class = "RLum.Data.Image", data = tmp))
     }
@@ -87,4 +93,3 @@ read_TIFF2R <- function(
 # Return ------------------------------------------------------------------
   set_RLum(class = "RLum.Data.Image", data = temp@data)
 }
-

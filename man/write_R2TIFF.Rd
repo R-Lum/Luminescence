@@ -27,7 +27,7 @@ Simple wrapper around \link[tiff:writeTIFF]{tiff::writeTIFF} to export suitable
 RLum-class objects to TIFF images. Per default 16-bit TIFF files are exported.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

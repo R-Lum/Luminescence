@@ -11,7 +11,8 @@ read_TIFF2R(file, merge2stack = FALSE, verbose = TRUE, ...)
 processing of many images}
 
 \item{merge2stack}{\link{logical} (\emph{with default}): if \code{file} is a \link{list} it merges
-the individual images to one image stack}
+the individual images into one image stack. Please note that the smallest image
+dimension determines pixel dimension of the output stack.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal}
