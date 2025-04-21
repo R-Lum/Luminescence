@@ -4,13 +4,17 @@
 \alias{read_TIFF2R}
 \title{Import TIFF Image Data into R}
 \usage{
-read_TIFF2R(file, verbose = TRUE, ...)
+read_TIFF2R(file, merge2stack = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): file name}
+\item{file}{\link{character} (\strong{required}): file name, can be of type \link{list} for automated
+processing of many images}
+
+\item{merge2stack}{\link{logical} (\emph{with default}): if \code{file} is a \link{list} it merges
+the individual images to one image stack}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal.}
+terminal}
 
 \item{...}{not in use, for compatibility reasons only}
 }
@@ -22,16 +26,16 @@ Simple wrapper around \link[tiff:readTIFF]{tiff::readTIFF} to import TIFF images
 and TIFF image stacks to be further processed within the package \code{'Luminescence'}
 }
 \section{Function version}{
- 0.1.2
+ 0.2.0
 }
 
 \examples{
 
-\dontrun{
-file <- file.choose()
-image <- read_TIFF2R(file)
+## use system file
+file <- system.file("extdata", "TIFFfile.tif", package = "Luminescence")
 
-}
+## import image
+image <- read_TIFF2R(file)
 
 }
 \seealso{
