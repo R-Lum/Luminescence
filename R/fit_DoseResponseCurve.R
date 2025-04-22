@@ -1831,7 +1831,6 @@ fit_DoseResponseCurve <- function(
   if(inherits(f, "nls")) {
     str <- as.character(f$m$formula())[3]
     param <- coef(f)
-
   } else {
     str <- "a * x + b * x^2 + n"
     param <- c(n = 0, a = 0, b = 0)
@@ -1841,13 +1840,27 @@ fit_DoseResponseCurve <- function(
       param[1:length(coef(f))] <- coef(f)
   }
 
-  ## replace
-  for(i in 1:length(param))
+  ## if the formula contains a function call, the function name may get mangled
+  ## when parameter names are substituted with coefficients, so we store the
+  ## original name and restore it afterwards
+  fun.name <- NA
+  if (grepl("^fit_function", str)) {
+    fun.name <- gsub("(fit_function.*)(\\(.*)", "\\1", str)
+    str <- gsub("(fit_function.*)(\\(.*)", "\\2", str)
+  }
+
+  ## replace parameters with fitted coefficients
+  for (i in 1:length(param)) {
     str <- gsub(
       pattern = names(param)[i],
       replacement = format(param[i], digits = 3, scientific = TRUE),
       x = str,
       fixed = TRUE)
+  }
+
+  ## rebuild the formula
+  if (!is.na(fun.name))
+    str <- paste0(fun.name, str)
 
   ## return
   return(parse(text = str))
