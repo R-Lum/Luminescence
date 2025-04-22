@@ -148,7 +148,7 @@ test_that("Further tests calc_Huntley2006", {
         n.MC = 100,
         fit.method = "GOK",
         mode = "extrapolation",
-        plot = FALSE, verbose = FALSE),
+        plot = TRUE, verbose = FALSE),
       tolerance = snapshot.tolerance)
 
   ## check force through origin EXP with wrong mode settings
