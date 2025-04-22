@@ -288,6 +288,9 @@ test_that("remove_RLum", {
   t <- expect_s4_class(remove_RLum(sar, recordType = "OSL", drop = TRUE), "RLum.Analysis")
   expect_length(t@records, n = 4)
 
+  t <- expect_s4_class(remove_RLum(sar, record.id = 8:20), "RLum.Analysis")
+  expect_length(t@records, n = 7)
+
   ## provide as list
   t <- expect_type(remove_RLum(list(sar, sar), recordType = "OSL"), "list")
   expect_length(t, n = 2)
@@ -295,6 +298,4 @@ test_that("remove_RLum", {
   ## odd wrong element
   t <- expect_type(remove_RLum(list(sar, "error"), recordType = "OSL"), "list")
   expect_length(t, n = 2)
-
-
 })

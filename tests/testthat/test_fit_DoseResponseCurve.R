@@ -652,6 +652,15 @@ test_that("regression tests", {
   expect_s4_class(
     fit_DoseResponseCurve(df, fit.method = "OTOR"), "RLum.Results")
   })
+
+  ## issue 723
+  set.seed(1)
+  df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
+                   LxTx = c(40, -10, 30, -5, -20), LxTx_X = c(2, 2, 1, 2, 1))
+  SW({
+  expect_s4_class(fit_DoseResponseCurve(df, fit.method = "EXP"),
+                  "RLum.Results")
+  })
 })
 
 test_that("test internal functions", {
