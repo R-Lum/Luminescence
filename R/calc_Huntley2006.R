@@ -598,7 +598,7 @@ calc_Huntley2006 <- function(
 
       ## add back the coefficient for D0
       D0 <- environment(fit.D0$m$predict)$env$D0
-      coefs <- c(coefs[1], D0 = D0, coefs[2:3])
+      coefs <- c(coefs[1], D0 = D0, coefs[2:length(coefs)])
     }
 
     return(coefs)
