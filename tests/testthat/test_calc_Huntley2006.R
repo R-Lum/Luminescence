@@ -278,6 +278,12 @@ test_that("Further tests calc_Huntley2006", {
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
       n.MC = 2, plot = FALSE, verbose = FALSE),
     "Ln is >10 % larger than the maximum computed LxTx value")
+  expect_error(
+    calc_Huntley2006(
+      data = data,
+      rhop = c(1e-3, 1e-7), ddot = ddot, readerDdot = readerDdot,
+      n.MC = 2, plot = FALSE, verbose = FALSE),
+    "All simulated Lx/Tx values are identical and approximately zero")
 })
 
 test_that("regression tests", {

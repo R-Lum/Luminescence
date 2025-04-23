@@ -670,6 +670,11 @@ calc_Huntley2006 <- function(
 
   # calculate Age
   positive <- which(diff(LxTx.sim) > 0)
+  if (length(positive) == 0) {
+    .throw_error("All simulated Lx/Tx values are identical and approximately ",
+                 "zero. Please verify the accuracy of your rho' value, as this ",
+                 "is likely too large and may not be realistic")
+  }
 
   data.unfaded <- data.frame(
     dose = c(0, natdosetimeGray[positive]),
