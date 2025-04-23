@@ -150,11 +150,13 @@ test_that("Test various S3 methods", {
 
   expect_silent(plot(risoe))
   expect_error(plot(list(risoe, risoe)))
-  expect_error(subset(risoe, ERROR == 1))
+  expect_error(subset(risoe, ERROR == 1),
+               "Invalid subset options, valid terms are")
   expect_warning(subset(risoe, ID == 1, error = TRUE),
                  "Argument not supported and skipped")
   expect_length(subset(risoe, ID == 1), 1)
   expect_length(subset(risoe, ID == 1, records.rm = FALSE), 720)
+  expect_null(subset(risoe, ID == -1))
   expect_equal(length(risoe), 720)
   expect_equal(names(risoe)[1:40], c(rep("TL", 24), rep("OSL", 16)))
   expect_s3_class(as.data.frame(risoe), "data.frame")
