@@ -36,4 +36,9 @@ test_that("plot output", {
   expect_s4_class(plot_DoseResponseCurve(fit, density_rug = FALSE), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, density_polygon_col = "green"), "RLum.Results")
   expect_s4_class(plot_DoseResponseCurve(fit, box = FALSE), "RLum.Results")
+
+  ## De is NA
+  df <- data.frame(DOSE = c(0,5,10,20,30), LxTx = c(10,5,-20,-30,-40), LxTx_X = c(1,1,1,1,1))
+  expect_s4_class(plot_DoseResponseCurve(fit_DoseResponseCurve(df, verbose = FALSE)),
+                  "RLum.Results")
 })

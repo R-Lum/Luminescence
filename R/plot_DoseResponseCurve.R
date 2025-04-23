@@ -321,8 +321,8 @@ plot_DoseResponseCurve <- function(
               cex = 0.8 * cex.global),
         silent = TRUE)
 
-    ## write error message in plot if De is NaN
-    try(if (is.nan(De)) {
+    ## write error message in plot if De is NaN or NA
+    try(if (is.na(De)) {
           text(sample[2, 1],
               0,
               "Error: De could not be calculated!",
