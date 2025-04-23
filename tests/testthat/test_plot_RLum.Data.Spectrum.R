@@ -356,4 +356,12 @@ test_that("regression tests", {
       TL.Spectrum,
       bin.rows = 2000)),
       "Insufficient data for plotting, NULL returned")
+
+  ## issue 726
+  spec <- TL.Spectrum
+  rownames(spec@data) <- colnames(spec@data) <- NULL
+  bg.spectrum <- set_RLum(class = "RLum.Data.Spectrum",
+                          data = spec@data[, 15:16, drop = FALSE])
+  expect_silent(plot_RLum.Data.Spectrum(spec, bg.spectrum = bg.spectrum,
+                                        xlim = c(0, 100), ylim = c(0, 10)))
 })

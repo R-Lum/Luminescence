@@ -291,17 +291,12 @@ plot_RLum.Data.Spectrum <- function(
   ##XSYG
   ##check for curveDescripter
   if("curveDescripter" %in% names(object@info) == TRUE){
-
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
-    xlab <- if(xaxis.energy == FALSE){
-      temp.lab[2]}else{"Energy [eV]"}
+    xlab <- temp.lab[2]
     ylab <- temp.lab[1]
     zlab <- temp.lab[3]
-
   }else{
-
-    xlab <- if(xaxis.energy == FALSE){
-      "Row values [a.u.]"}else{"Energy [eV]"}
+    xlab <- "Row values [a.u.]"
     ylab <- "Column values [a.u.]"
     zlab <- "Cell values [a.u.]"
   }
@@ -314,6 +309,9 @@ plot_RLum.Data.Spectrum <- function(
     ##modify row order (otherwise subsequent functions, like persp, have a problem)
     object@data[] <- object@data[order(as.numeric(rownames(object@data))),]
     rownames(object@data) <- sort(as.numeric(rownames(object@data)))
+
+    ## update axis label
+    xlab <- "Energy [eV]"
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
@@ -452,16 +450,16 @@ plot_RLum.Data.Spectrum <- function(
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
     .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"))
+    if (inherits(bg.spectrum, "RLum.Data.Spectrum"))
+      bg.xyz <- bg.spectrum@data
+    else
+      bg.xyz <- bg.spectrum
 
-      ##case RLum
-      if(inherits(bg.spectrum, "RLum.Data.Spectrum")) bg.xyz <- bg.spectrum@data
-
-      ##case matrix
-      if(inherits(bg.spectrum, "matrix")) bg.xyz <- bg.spectrum
-
-      ##set rownames
-      if(is.null(rownames(bg.xyz)))
-        rownames(bg.xyz) <- 1:nrow(bg.xyz)
+    ## set row and column names
+    if (is.null(rownames(bg.xyz)))
+      rownames(bg.xyz) <- 1:nrow(bg.xyz)
+    if (is.null(colnames(bg.xyz)))
+      colnames(bg.xyz) <- 1:ncol(bg.xyz)
 
       ##convert to energy scale if needed
       if(xaxis.energy){
@@ -488,7 +486,6 @@ plot_RLum.Data.Spectrum <- function(
       ##take care of channel settings, otherwise set bg.channels
       if(is.null(bg.channels))
         bg.channels <- c(1:ncol(bg.xyz))
-
   }
 
   # Background subtraction ---------------------------------------------------
@@ -832,7 +829,6 @@ if(plot){
           #colors = col[1:(length(col)-1)],
         )
 
-
        ##change graphical parameters
        p <-  plotly::layout(
          p = p,
@@ -1004,7 +1000,6 @@ if(plot){
         border = NA,
         lwd = NA)
 
-
       ## add rectangle from zero to first value
       graphics::rect(
         xleft = par()$usr[1],
@@ -1051,9 +1046,7 @@ if(plot){
     ##legend
     legend(x = par()$usr[2],
            y = par()$usr[4],
-
            legend = legend.text,
-
            lwd= lwd,
            lty = frames,
            bty = "n",
@@ -1106,4 +1099,3 @@ attr(temp.xyz, "pmat") <- pmat
 ## return visible or not
 if(plot) invisible(temp.xyz) else return(temp.xyz)
 }
-

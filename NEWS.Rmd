@@ -51,11 +51,6 @@ This may affect the numerical results of the following functions:
 
 ## Bugfixes and changes
 
-### `analyse_SAR.CWOSL()`
-* Add support for `fit.method = 'OTORX'` following the changes in `fit_DoseResponseCurve()`; 
-this change includes the new argument `dose.points.test` that is only of use in combination 
-with the `OTORX` fit. 
-
 ### `analyse_FadingMeasurement()` 
 * The function crashed if the number of `Lx` and `Tx` curves was not equal
 when `structure = c("Lx", "Tx")`, which is the default. The check that the
@@ -94,6 +89,12 @@ thoroughly to avoid crashes in case of misspecification (#687).
 due to an internal error (#686). Along, arguments `contour_nlevels` and
 `contour_col` are now supported through `...` to better control the number
 and colour of contour lines.
+
+### `analyse_SAR.CWOSL()`
+
+* Add support for `fit.method = 'OTORX'` following the changes in
+`fit_DoseResponseCurve()`; this change includes the new argument
+`dose.points.test` that is only of use in combination with the `OTORX` fit.
 
 ### `calc_AliquotSize()`
 
@@ -219,16 +220,6 @@ but it does issue a warning. The user is responsible for the consequences.
 
 * The response curve always tries to the get the 0 point in the mode `interpolation` and `alternate` (#677)
 
-### `plot_RLum.Data.Spectrum()`
-
-* The channel-wise background subtraction was essentially broken if a background spectrum with the same 
-setting was provided. The function always calculated the arithmetic mean. This was fixed, and the 
-manual updated accordingly. 
-
-* If a background spectrum was provided, the behaviour of the plot output was sometimes hard to 
-understand without knowledge of the underlying code. This behaviour was improved and now `ylim` will 
-also affect the background spectrum if `bg.channels = NULL` (the default).
-
 ### `plot_DRCSummary()`
 
 * Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)
@@ -256,6 +247,21 @@ the summary table not being visible (#642).
 This enhancement ensures that all available arguments are fully supported (#646).
 
 * The function gained a new logical argument named `auto_scale`. When set in conjunction with either `xlim` or `ylim`, this argument automatically adjusts the plot range to align with the corresponding settings for `xlim` or `ylim`. For instance, if a user intends to plot OSL curves but initially selects the `xlim` range `c(10:30)` to examine the background, the initial count values may be excessively large, resulting in limited visibility. With the introduction of the `auto_scale` option, the `ylim` values are automatically adjusted to compensate for this scenario. The `auto_scale` argument is also accessible through `plot_RLum.Analysis()` and `plot_RLum()` (#646).
+
+### `plot_RLum.Data.Spectrum()`
+
+* The channel-wise background subtraction was essentially broken if a
+background spectrum with the same setting was provided. The function always
+calculated the arithmetic mean. This was fixed, and the manual updated
+accordingly.
+
+* If a background spectrum was provided, the behaviour of the plot output was
+sometimes hard to understand without knowledge of the underlying code. This
+behaviour was improved and now `ylim` will also affect the background spectrum
+if `bg.channels = NULL` (the default).
+
+* The function could crash if column names were missing and the 1bg.spectrum`
+argument was used (#726).
 
 ###`read_TIFF2R()`
 
