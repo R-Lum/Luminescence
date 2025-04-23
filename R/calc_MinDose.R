@@ -686,18 +686,12 @@ calc_MinDose <- function(
     cnt <- cnt + 1
   }
 
-  ## TODO: reduce the redundant code
   ## DELETE rows where z = -Inf/Inf
-  prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != Inf), ]
-  prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != -Inf), ]
-  prof@profile$sigma <-  prof@profile$sigma[which(prof@profile$sigma["z"] != Inf), ]
-  prof@profile$sigma <-  prof@profile$sigma[which(prof@profile$sigma["z"] != -Inf), ]
-  prof@profile$p0 <-  prof@profile$p0[which(prof@profile$p0["z"] != Inf), ]
-  prof@profile$p0 <-  prof@profile$p0[which(prof@profile$p0["z"] != -Inf), ]
-
+  prof@profile$gamma <- prof@profile$gamma[!is.infinite(prof@profile$gamma[["z"]]), ]
+  prof@profile$sigma <- prof@profile$sigma[!is.infinite(prof@profile$sigma[["z"]]), ]
+  prof@profile$p0 <- prof@profile$p0[!is.infinite(prof@profile$p0[["z"]]), ]
   if (par == 4) {
-    prof@profile$mu <-  prof@profile$mu[which(prof@profile$mu["z"] != Inf), ]
-    prof@profile$mu <-  prof@profile$mu[which(prof@profile$mu["z"] != -Inf), ]
+    prof@profile$mu <- prof@profile$mu[!is.infinite(prof@profile$mu[["z"]]), ]
   }
 
   # calculate Bayesian Information Criterion (BIC)
