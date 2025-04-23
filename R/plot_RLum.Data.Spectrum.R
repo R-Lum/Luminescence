@@ -459,9 +459,11 @@ plot_RLum.Data.Spectrum <- function(
       ##case matrix
       if(inherits(bg.spectrum, "matrix")) bg.xyz <- bg.spectrum
 
-      ##set rownames
-      if(is.null(rownames(bg.xyz)))
-        rownames(bg.xyz) <- 1:nrow(bg.xyz)
+    ## set row and column names
+    if (is.null(rownames(bg.xyz)))
+      rownames(bg.xyz) <- 1:nrow(bg.xyz)
+    if (is.null(colnames(bg.xyz)))
+      colnames(bg.xyz) <- 1:ncol(bg.xyz)
 
       ##convert to energy scale if needed
       if(xaxis.energy){
