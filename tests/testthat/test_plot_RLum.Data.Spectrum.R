@@ -328,6 +328,12 @@ test_that("check functionality", {
                               bg.spectrum = bg.spectrum@data * 2,
                               xaxis.energy = TRUE)),
       "Error: After background subtraction all counts are negative")
+
+  spec <- TL.Spectrum
+  rownames(spec@data) <- colnames(spec@data) <- NULL
+  rownames(bg.spectrum@data) <- NULL
+  expect_silent(plot_RLum.Data.Spectrum(spec, bg.spectrum = bg.spectrum,
+                                        xlim = c(0, 300), ylim = c(0, 500)))
 })
 
 test_that("regression tests", {
