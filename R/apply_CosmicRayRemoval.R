@@ -239,7 +239,12 @@ apply_CosmicRayRemoval <- function(
         MARGIN = MARGIN,
         FUN = .smoothing,
         method = extraArgs$method[1],
-        k = max(c(1, min(c(if(MARGIN == 2) ncol(object@data) else abs(nrow(object@data)-8), extraArgs$k[1])))),
+        k = max(c(1, min(c(
+          if(MARGIN == 2)
+           floor(ncol(object@data)/(ncol(object@data)/2))
+          else
+           floor(nrow(object@data)/(nrow(object@data)/2)),
+          extraArgs$k[1])))),
         fill = extraArgs$fill[1],
         align = extraArgs$align[1])
 
