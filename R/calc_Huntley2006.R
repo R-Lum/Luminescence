@@ -717,8 +717,8 @@ calc_Huntley2006 <- function(
   }
 
   if (Ln > max(LxTx.sim) * 1.1)
-    .throw_warning("Ln is >10 % larger than the maximum computed LxTx value.",
-                   " The De and age should be regarded as infinite estimates.")
+    .throw_warning("Ln is >10 % larger than the maximum computed LxTx value, ",
+                   "the De and age should be regarded as infinite estimates")
 
   if (Ln < min(LxTx.sim) * 0.95 && !mode_is_extrapolation)
     .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value: ",
@@ -869,21 +869,19 @@ calc_Huntley2006 <- function(
   ## Plot settings -------------------------------------------------------------
   plot.settings <- modifyList(list(
     main = "Dose response curves",
-    xlab = "Dose (Gy)",
-    ylab = ifelse(normalise, "normalised LxTx (a.u.)", "LxTx (a.u.)")
+    xlab = "Dose [Gy]",
+    ylab = ifelse(normalise, "normalised LxTx [a.u.]", "LxTx [a.u.]")
   ), list(...))
 
   ## Plotting ------------------------------------------------------------------
   if (plot) {
     ### par settings ---------
-    # set plot parameters
-    par.old.full <- par(no.readonly = TRUE)
+    par.default <- par(no.readonly = TRUE)
+    on.exit(par(par.default), add = TRUE)
 
     # set graphical parameters
     par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8,
-        oma = c(0, 9, 0, 9))
-    if (summary)
-      par(oma = c(0, 3, 0, 9))
+        oma = c(0, if (summary) 3 else 9, 0, 9))
 
     # Find a good estimate of the x-axis limits
     if (mode_is_extrapolation && !force_through_origin) {
@@ -948,7 +946,7 @@ calc_Huntley2006 <- function(
 
     # Ln and DE as points
     points(x = if (mode_is_extrapolation)
-                rep(De.measured, 2)
+                 rep(De.measured, 2)
                else
                  c(0, De.measured),
            y = if (mode_is_extrapolation)
@@ -1051,9 +1049,6 @@ calc_Huntley2006 <- function(
              pos = 4)
       }, labels.text, ypos)
     }
-
-    # recover plot parameters
-    on.exit(par(par.old.full), add = TRUE)
   }
 
   ## Results -------------------------------------------------------------------
