@@ -842,7 +842,7 @@ analyse_baSAR <- function(
 
   ##if the input is already of type RLum.Results, use the input and do not run
   ##all pre-calculations again
-  if(is(object, "RLum.Results")){
+  if (inherits(object, "RLum.Results")) {
     if(object@originator == "analyse_baSAR"){
 
       ##We want to use previous function arguments and recycle them
@@ -1140,9 +1140,10 @@ analyse_baSAR <- function(
     }
 
     ## remove duplicated entries
-    is.duplicated <- duplicated(unlist(object.file_name))
+    object.filenames <- unlist(object.file_name)
+    is.duplicated <- duplicated(object.filenames)
     if (any(is.duplicated)) {
-      msg <- paste(.collapse(object.file_name[is.duplicated]),
+      msg <- paste(.collapse(object.filenames[is.duplicated]),
                    "is a duplicate and therefore removed from the input")
       if(verbose){
         message("[analyse_baSAR()] ", msg)
@@ -1684,7 +1685,6 @@ analyse_baSAR <- function(
       if (length(sel.disc.grain[[6]]) != 0) {
         ##DE
         OUTPUT_results[comptage, 4] <- as.numeric(sel.disc.grain[[6]][1])
-
         ##DE.SD
         OUTPUT_results[comptage, 5] <- as.numeric(sel.disc.grain[[6]][2])
 
@@ -1726,8 +1726,8 @@ analyse_baSAR <- function(
     ##the transposition of the matrix may increase the performance for very large matrices
     OUTPUT_results_reduced <- t(OUTPUT_results)
     selection <- vapply(X = 1:ncol(OUTPUT_results_reduced), FUN = function(x){
-        !any(is.nan(OUTPUT_results_reduced[9:(8+3*max_cycles), x]) | is.infinite(OUTPUT_results_reduced[9:(8+3*max_cycles), x]))
-
+      col <- OUTPUT_results_reduced[9:(8 + 3 * max_cycles), x]
+      !any(is.nan(col) | is.infinite(col))
     }, FUN.VALUE = vector(mode = "logical", length = 1))
 
     removed_aliquots <- t(OUTPUT_results_reduced[,!selection])
@@ -1880,7 +1880,7 @@ analyse_baSAR <- function(
     cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
     cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
     cat("------------------------------------------------------------------\n")
-    cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
+    cat("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]], "\n")
     num.aliquots <- results[[1]][["NB_ALIQUOTS"]]
     tot.aliquots <- num.aliquots
     if (!is.null(removed_aliquots))
@@ -1917,10 +1917,9 @@ analyse_baSAR <- function(
     cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = digits), "\t",
                " - \t -"))
     cat("\n------------------------------------------------------------------\n")
-    cat(
-      paste("(systematic error contribution to final De:",
-            format((1-results[[1]][["CENTRAL.SD"]]/results[[1]][["DE_FINAL.ERROR"]])*100, scientific = TRUE), "%)\n")
-    )
+    cat("(systematic error contribution to final De:",
+        format((1 - results[[1]][["CENTRAL.SD"]] / results[[1]][["DE_FINAL.ERROR"]]) * 100,
+               scientific = TRUE), "%)\n")
     if(distribution == "log_normal"){
      cat("* mean of the central dose is the geometric mean\n")
     }

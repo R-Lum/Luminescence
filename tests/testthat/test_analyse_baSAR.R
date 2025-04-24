@@ -454,3 +454,11 @@ test_that("regression tests", {
       "Object conversion failed, NULL returned")
   })
 })
+
+sub2 <- subset(CWOSL.SAR.Data, POSITION %in% 5:6 & LTYPE == "OSL")
+sub2@METADATA$FNAME <- "sub2"
+sub2@METADATA$NPOINTS <- 900
+sub2@DATA <- lapply(sub2@DATA, function(x) x[1:900])
+analyse_baSAR(object = list(CWOSL.sub, sub2), source_doserate = c(0.04, 0.001),
+              signal.integral = 1:2, background.integral = 80:100,
+              n.MCMC = 25)
