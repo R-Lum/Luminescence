@@ -428,6 +428,7 @@ calc_Huntley2006 <- function(
     list(
       verbose = TRUE,
       n.MC = 10000,
+      plot_all_DRC = plot,
       maxiter = 500,
       trace = FALSE),
     list(...))
@@ -495,7 +496,7 @@ calc_Huntley2006 <- function(
   if (inherits(GC.measured$Fit, "try-error"))
     .throw_error("Unable to fit growth curve to measured data, try setting ",
                  "'fit.bounds = FALSE'")
-  if (plot) {
+  if (settings$plot_all_DRC) {
     plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
                            xlab = "Dose [Gy]", verbose = FALSE)
   }
@@ -690,7 +691,7 @@ calc_Huntley2006 <- function(
   De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA
   Age.sim <- Age.sim.error <- Age.sim.2D0 <- Age.sim.2D0.error <- NA
   if (!inherits(GC.simulated, "try-error")) {
-    if (plot) {
+    if (settings$plot_all_DRC) {
       plot_DoseResponseCurve(GC.simulated, main = "Simulated dose response curve",
                              xlab = "Dose (Gy)", verbose = FALSE)
     }
