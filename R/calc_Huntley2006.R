@@ -881,7 +881,7 @@ calc_Huntley2006 <- function(
 
     # set graphical parameters
     par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8,
-        oma = c(0, if (summary) 3 else 9, 0, 9))
+        oma = c(0, 0, 0, if (summary) 12 else 0))
 
     # Find a good estimate of the x-axis limits
     if (mode_is_extrapolation && !force_through_origin) {
@@ -1036,18 +1036,10 @@ calc_Huntley2006 <- function(
       )
 
       # each of the labels is positioned at 1/10 of the available y-axis space
-      ypos <- seq(range(axTicks(2))[2], range(axTicks(2))[1], length.out = 10)[1:length(labels.text)]
-
-      # allow overprinting
-      par(xpd = NA)
-
-      # add labels iteratively
-      mapply(function(label, pos) {
-        text(x = par("usr")[2] * 1.05,
-             y = pos,
-             labels = label,
-             pos = 4)
-      }, labels.text, ypos)
+      ypos <- seq(range(axTicks(2))[2], range(axTicks(2))[1], length.out = 10)
+      for (i in seq_along(labels.text))
+        mtext(labels.text[[i]], at = ypos[i],
+              side = 4, line = 1, las = 1, padj = 1)
     }
   }
 
