@@ -906,9 +906,8 @@ calc_Huntley2006 <- function(
       xlim = xlim
     )
 
-    ##add ablines for extrapolation
-    if (mode_is_extrapolation)
-      abline(v = 0, h = 0, col = "gray")
+    ## add horizontal line at zero
+    abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
     segments(x0 = dosetimeGray[dosetimeGray >= 0],
@@ -981,6 +980,7 @@ calc_Huntley2006 <- function(
              "Unfaded DRC",
              "Measured DRC",
              "Simulated natural DRC"),
+           inset = c(0, 0.04),
            lty = c(5, 1, 3),
            bty = "n",
            cex = 0.8)
