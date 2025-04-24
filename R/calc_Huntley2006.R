@@ -751,16 +751,16 @@ calc_Huntley2006 <- function(
   ##
   ## Now, substituting (2') into (3) we get:
   ##
-  ##  (3') tau <- ((1 / Hs) * exp(1)^(rprime / (rhop_MC[i]^(1 / 3))) / ka
+  ##  (3') tau <- (1 / Hs) * exp(rprime / (rhop_MC[i]^(1 / 3))) / ka
   ##
   ## The current formulation then follows:
   ##
   ##  rho_i <- rhop_MC[i]^(1 / 3)
-  ##  tau <- ((1 / Hs) * exp(1)^(rprime / rho_i)) / ka
+  ##  tau <- (1 / Hs) * exp(rprime / rho_i) / ka
 
   rho_MC <- rhop_MC^(1 / 3)
   nN_SS_MC <- mapply(function(rho_i, ddot_i, UFD0_i) {
-    tau <- ((1 / Hs) * exp(1)^(rprime / rho_i)) / ka
+    tau <- (1 / Hs) * exp(rprime / rho_i) / ka
     Ls <- 1 / (1 + UFD0_i / (ddot_i * tau))
     Lstrap <- (pr * Ls) / sum(pr)
 
