@@ -8,7 +8,7 @@
 #' @details
 #'
 #' This function applies the approach described in Kars et al. (2008) or Guralnik et al. (2015),
-#' which are both developed from the model of Huntley (2006) to calculate the expected sample
+#' which are both developed from the model of Huntley (2006), to calculate the expected sample
 #' specific fraction of saturation of a feldspar and also to calculate fading
 #' corrected age using this model. \eqn{\rho}' (`rhop`), the density of recombination
 #' centres, is a crucial parameter of this model and must be determined
@@ -486,16 +486,17 @@ calc_Huntley2006 <- function(
   GC.settings$object <- data.tmp
   GC.settings$verbose <- FALSE
 
-  ## take of force_through origin settings
+  fit.bounds <- GC.settings$fit.bounds
   force_through_origin <- GC.settings$fit.force_through_origin
   mode_is_extrapolation <- GC.settings$mode == "extrapolation"
 
   ## call the fitting
   GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings))
 
-  if (inherits(GC.measured$Fit, "try-error"))
-    .throw_error("Unable to fit growth curve to measured data, try setting ",
-                 "'fit.bounds = FALSE'")
+  if (inherits(GC.measured$Fit, "try-error")) {
+    .throw_error("Unable to fit growth curve to measured data",
+                 ifelse(fit.bounds, ", try setting 'fit.bounds = FALSE'", ""))
+  }
   if (settings$plot_all_DRC) {
     plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
                            xlab = "Dose [Gy]", verbose = FALSE)
