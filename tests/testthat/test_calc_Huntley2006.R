@@ -271,7 +271,13 @@ test_that("Further tests calc_Huntley2006", {
       data = iris[, 1:3],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
       n.MC = 2, plot = FALSE, verbose = FALSE),
-    "Unable to fit growth curve to measured data, try setting")
+    "Unable to fit growth curve to measured data, try setting 'fit.bounds = FALSE'")
+  expect_error(
+    calc_Huntley2006(
+      data = iris[, 1:3],
+      rhop = rhop, ddot = ddot, readerDdot = readerDdot,
+      n.MC = 2, plot = FALSE, verbose = FALSE, fit.bounds = FALSE),
+    "Unable to fit growth curve to measured data$")
   expect_warning(
     calc_Huntley2006(
       data = data[8:12, ],

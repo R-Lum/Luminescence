@@ -174,6 +174,9 @@
   approximately zero, which could happen if the `rhop` argument was set
   to a large enough value (#725).
 
+- An error message has been improved so that it doesn’t suggest setting
+  the ‘fit.bounds = FALSE’ argument if it has already been set (#729).
+
 ### `calc_MinDose()`
 
 - The function now warns if the number of bootstrap replicates is too
