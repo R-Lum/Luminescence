@@ -395,17 +395,13 @@ calc_Huntley2006 <- function(
   # check if numeric
   if (is.numeric(rhop)) {
     .validate_length(rhop, 2)
-
-    # alternatively, an RLum.Results object produced by analyse_FadingMeasurement()
-    # can be provided
-  } else if (inherits(rhop, "RLum.Results")) {
-
-    if (rhop@originator == "analyse_FadingMeasurement")
-      rhop <- c(rhop@data$rho_prime$MEAN,
-                rhop@data$rho_prime$SD)
-    else
+  } else {
+    ## alternatively, an RLum.Results object produced by
+    ## analyse_FadingMeasurement() can be provided
+    if (is.na(rhop@originator) || rhop@originator != "analyse_FadingMeasurement")
       .throw_error("'rhop' accepts only RLum.Results objects produced ",
                    "by 'analyse_FadingMeasurement()'")
+    rhop <- c(rhop@data$rho_prime$MEAN, rhop@data$rho_prime$SD)
   }
 
   # check if 'rhop' is actually a positive value
