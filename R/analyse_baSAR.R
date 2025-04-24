@@ -1140,9 +1140,10 @@ analyse_baSAR <- function(
     }
 
     ## remove duplicated entries
-    is.duplicated <- duplicated(unlist(object.file_name))
+    object.filenames <- unlist(object.file_name)
+    is.duplicated <- duplicated(object.filenames)
     if (any(is.duplicated)) {
-      msg <- paste(.collapse(object.file_name[is.duplicated]),
+      msg <- paste(.collapse(object.filenames[is.duplicated]),
                    "is a duplicate and therefore removed from the input")
       if(verbose){
         message("[analyse_baSAR()] ", msg)

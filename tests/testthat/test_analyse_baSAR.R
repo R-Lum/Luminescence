@@ -150,7 +150,7 @@ test_that("input validation", {
                     fit.method = "LIN", fit.force_through_origin = FALSE,
                     distribution = "normal",
                     n.MCMC = 75)),
-      "'1' is a duplicate and therefore removed from the input")
+      "'ExampleData.BINfileData' is a duplicate and therefore removed from the input")
 
   CWOSL.min <- subset(CWOSL.sub, subset = ID < 20)
   expect_warning(expect_error(
