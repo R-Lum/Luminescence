@@ -406,8 +406,8 @@ calc_Huntley2006 <- function(
 
   # check if 'rhop' is actually a positive value
   if (anyNA(rhop) || !rhop[1] > 0 || any(is.infinite(rhop))) {
-    .throw_error("'rhop' must be a positive number. Provided value ",
-                 "was: ", signif(rhop[1], 3), " \u2213 ", signif(rhop[2], 3))
+    .throw_error("'rhop' must be a positive number, the provided value ",
+                 "was ", signif(rhop[1], 3), " \u00B1 ", signif(rhop[2], 3))
   }
 
   ## Check ddot & readerDdot
