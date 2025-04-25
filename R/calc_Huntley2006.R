@@ -965,7 +965,7 @@ calc_Huntley2006 <- function(
     lines(x = if (mode_is_extrapolation)
                 c(0, min(c(De.measured, De.sim), na.rm = TRUE))
               else
-                c(par()$usr[1], max(c(De.measured, De.sim), na.rm = TRUE)),
+                c(par()$usr[1], max(c(De.measured, De.sim, 0), na.rm = TRUE)),
           y = c(Ln, Ln),
           col = "red ", lty = 3)
 
