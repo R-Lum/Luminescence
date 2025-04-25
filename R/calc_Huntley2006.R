@@ -424,6 +424,7 @@ calc_Huntley2006 <- function(
   on.exit(parallel::stopCluster(cl), add = TRUE)
 
   ## Settings ------------------------------------------------------------------
+  extraArgs <- list(...)
   settings <- modifyList(
     list(
       verbose = TRUE,
@@ -431,7 +432,13 @@ calc_Huntley2006 <- function(
       plot_all_DRC = plot,
       maxiter = 500,
       trace = FALSE),
-    list(...))
+    extraArgs)
+
+  .validate_positive_scalar(settings$n.MC, int = TRUE, name = "'n.MC'")
+  if (settings$n.MC == 1) {
+    settings$n.MC <- max(settings$n.MC, 2)
+    extraArgs$n.MC <- settings$n.MC
+  }
 
   ## Define Constants ----------------------------------------------------------
 
@@ -466,8 +473,8 @@ calc_Huntley2006 <- function(
   ## around 2.2, so setting it to 3 should be enough in general, and 1000
   ## points seem also enough; in any case, we let the user override it
   rprime <- seq(0.01, 3, length.out = 1000)
-  if ("rprime" %in% names(list(...))) {
-    rprime <- list(...)$rprime
+  if ("rprime" %in% names(extraArgs)) {
+    rprime <- extraArgs$rprime
     .validate_class(rprime, "numeric")
   }
 
@@ -482,7 +489,7 @@ calc_Huntley2006 <- function(
     fit.force_through_origin = FALSE,
     verbose = FALSE)
 
-  GC.settings <- modifyList(GC.settings, list(...))
+  GC.settings <- modifyList(GC.settings, extraArgs)
   GC.settings$object <- data.tmp
   GC.settings$verbose <- FALSE
 
@@ -872,7 +879,7 @@ calc_Huntley2006 <- function(
     main = "Dose response curves",
     xlab = "Dose [Gy]",
     ylab = ifelse(normalise, "normalised LxTx [a.u.]", "LxTx [a.u.]")
-  ), list(...))
+  ), extraArgs)
 
   ## Plotting ------------------------------------------------------------------
   if (plot) {
