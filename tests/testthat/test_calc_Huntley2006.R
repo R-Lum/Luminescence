@@ -75,6 +75,10 @@ test_that("input validation", {
                "'readerDdot' should have length 2")
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = ddot, readerDdot = readerDdot,
+                                n.MC = 0),
+               "'n.MC' should be a positive integer scalar")
+  expect_error(calc_Huntley2006(data, rhop = rhop,
+                                ddot = ddot, readerDdot = readerDdot,
                                 rprime = list()),
                "'rprime' should be of class 'numeric'")
 
@@ -317,5 +321,12 @@ test_that("regression tests", {
           readerDdot = c(0.0868, 0.005),
           ddot = c(2.372, 0.199),
       n.MC = 2, plot = FALSE, verbose = FALSE),
+      "RLum.Results")
+
+  ## issue 733
+  expect_s4_class(
+      calc_Huntley2006(data, rhop = c(4e-6, 5e-7), ddot = c(7, 0.004),
+                       readerDdot = c(0.134, 0.0067), n.MC = 1,
+                       mode = "extrapolation", verbose = FALSE),
       "RLum.Results")
 })
