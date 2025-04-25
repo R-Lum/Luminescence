@@ -184,6 +184,9 @@
 - The scaling of the plot can now be controlled via the `cex` argument
   (#735).
 
+- The plot margins are set more precisely and avoid the summary text to
+  be cut off (#737).
+
 ### `calc_MinDose()`
 
 - The function now warns if the number of bootstrap replicates is too
