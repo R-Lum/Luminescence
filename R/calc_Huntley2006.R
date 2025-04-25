@@ -183,8 +183,9 @@
 #'
 #' @param ...
 #' Further parameters:
-#' - `verbose` [logical]: Show or hide console output
+#' - `verbose` [logical]: Enable/disable output to the terminal (default = `TRUE`)
 #' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = 10000)
+#' - `cex` [numeric]: Scaling of the plot (default = 1)
 #' - `maxiter` [numeric]: Number of iteration limits for nls fitting
 #' - `trace` [logical]: Enable/disable value tracing the terminal during fitting
 #' **Note** that it is generally advised to have a large number of Monte Carlo
@@ -406,8 +407,8 @@ calc_Huntley2006 <- function(
 
   # check if 'rhop' is actually a positive value
   if (anyNA(rhop) || !rhop[1] > 0 || any(is.infinite(rhop))) {
-    .throw_error("'rhop' must be a positive number. Provided value ",
-                 "was: ", signif(rhop[1], 3), " \u2213 ", signif(rhop[2], 3))
+    .throw_error("'rhop' must be a positive number, the provided value ",
+                 "was ", signif(rhop[1], 3), " \u00B1 ", signif(rhop[2], 3))
   }
 
   ## Check ddot & readerDdot
@@ -877,6 +878,7 @@ calc_Huntley2006 <- function(
   ## Plot settings -------------------------------------------------------------
   plot.settings <- modifyList(list(
     main = "Dose response curves",
+    cex = 1,
     xlab = "Dose [Gy]",
     ylab = ifelse(normalise, "normalised LxTx [a.u.]", "LxTx [a.u.]")
   ), extraArgs)
@@ -888,7 +890,7 @@ calc_Huntley2006 <- function(
     on.exit(par(par.default), add = TRUE)
 
     # set graphical parameters
-    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8,
+    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8 * plot.settings$cex,
         oma = c(0, 0, 0, if (summary) 12 else 0))
 
     # Find a good estimate of the x-axis limits

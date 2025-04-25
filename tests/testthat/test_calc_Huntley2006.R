@@ -54,8 +54,8 @@ test_that("input validation", {
                "'rhop' should be of class 'numeric' or 'RLum.Results'")
   expect_error(calc_Huntley2006(data, rhop = rhop.test),
                "'rhop' accepts only RLum.Results objects produced by")
-  expect_error(calc_Huntley2006(data, rhop = c(-1, 4.9e-7)),
-               "'rhop' must be a positive number")
+  expect_error(calc_Huntley2006(data, rhop = c(0, 4e-7)),
+               "'rhop' must be a positive number, the provided value was 0 \u00B1 4e-07")
 
   expect_error(calc_Huntley2006(data, rhop = rhop),
                "'ddot' should be of class 'numeric'")
