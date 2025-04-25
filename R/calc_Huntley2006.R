@@ -847,16 +847,14 @@ calc_Huntley2006 <- function(
   ## Create LxTx tables --------------------------------------------------------
   # normalise by A (saturation point of the un-faded curve)
   if (normalise) {
-    LxTx.measured.relErr <- (LxTx.measured.error / LxTx.measured)
     LxTx.measured <- LxTx.measured / A
-    LxTx.measured.error <- LxTx.measured * LxTx.measured.relErr
+    LxTx.measured.error <- LxTx.measured.error / A
 
     LxTx.sim <- LxTx.sim / A
     LxTx.unfaded <- LxTx.unfaded / A
 
-    Ln.relErr <- Ln.error / Ln
     Ln <- Ln / A
-    Ln.error <- Ln * Ln.relErr
+    Ln.error <- Ln.error / A
   }
 
   # combine all computed LxTx values
