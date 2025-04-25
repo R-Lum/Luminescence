@@ -891,7 +891,7 @@ calc_Huntley2006 <- function(
 
     # set graphical parameters
     par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8 * plot.settings$cex,
-        oma = c(0, 0, 0, if (summary) 12 else 0))
+        oma = c(0, 0, 0, if (summary) 12 / plot.settings$cex else 0))
 
     # Find a good estimate of the x-axis limits
     if (mode_is_extrapolation && !force_through_origin) {
