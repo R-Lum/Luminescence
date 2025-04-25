@@ -181,6 +181,9 @@
   too much unused horizontal space, especially for
   `mode = "extrapolation"` (#731).
 
+- The scaling of the plot can now be controlled via the `cex` argument
+  (#735).
+
 ### `calc_MinDose()`
 
 - The function now warns if the number of bootstrap replicates is too
