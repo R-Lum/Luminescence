@@ -199,7 +199,7 @@ extract_IrradiationTimes <- function(
       }
   }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("character", "RLum.Analysis"),
                   extra = "a 'list' of such objects")
@@ -217,9 +217,8 @@ extract_IrradiationTimes <- function(
       .throw_error("Wrong XSYG file name or file does not exist!")
     }
 
-    ##check if file is XML file
-    if(tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "xsyg" &
-         tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "XSYG" ){
+    ## check if the file has the expected extension
+    if (tolower(tools::file_ext(file.XSYG)) != "xsyg") {
       .throw_error("File is expected to have 'xsyg' or 'XSYG' extension")
     }
 
@@ -230,8 +229,7 @@ extract_IrradiationTimes <- function(
       }
 
       ##check if file is XML file
-      if(tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "binx" &
-           tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "BINX" ){
+      if (tolower(tools::file_ext(file.BINX)) != "binx") {
         .throw_error("File is expected to have 'binx' or 'BINX' extension")
       }
     }
@@ -436,4 +434,3 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
-
