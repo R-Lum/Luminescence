@@ -147,7 +147,7 @@ calc_ThermalLifetime <- function(
   T = 20,
   output_unit = "Ma",
   profiling = FALSE,
-  profiling_config = NULL,
+  profiling_config = list(),
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -155,10 +155,11 @@ calc_ThermalLifetime <- function(
   .set_function_name("calc_ThermalLifetime")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(E, "numeric")
   .validate_class(s, "numeric")
+  .validate_class(T, c("numeric", "integer"))
 
 # Set variables -------------------------------------------------------------------------------
 
@@ -170,16 +171,11 @@ calc_ThermalLifetime <- function(
 
   ##SETTINGS FOR PROFILING
   ##profiling settings
-  profiling_settings <- list(
+  profiling_settings <- modifyList(list(
     n = 1000,
     E.distribution = "norm",
     s.distribution = "norm"
-  )
-
-  ##replace if set
-  if(!is.null(profiling_config)){
-    profiling_settings <- modifyList(profiling_settings, profiling_config)
-  }
+  ), profiling_config)
 
   ##check for odd input values
   if (profiling_settings$n < 1000){
@@ -211,7 +207,6 @@ calc_ThermalLifetime <- function(
       }else{
         .throw_error("Unknown distribution setting for E profiling")
       }
-
 
     ##s
     profiling_matrix[, 2] <-
@@ -266,7 +261,7 @@ calc_ThermalLifetime <- function(
     }
 
     ##set dimnames to make reading more clear
-    dimnames(lifetimes) <- list(s, E, paste0("T = ", T, " \u00B0C"))
+    dimnames(lifetimes) <- list(s, E, paste("T =", T, "\u00B0C"))
   }
 
  ## re-calculate lifetimes according to the chosen output unit
@@ -302,22 +297,21 @@ calc_ThermalLifetime <- function(
     cat("\tprofiling = TRUE")
     cat("\n\t--------------------------\n")
     }
-    cat(paste("\tmean:\t", format(mean(lifetimes), scientific = TRUE), output_unit))
-    cat(paste("\n\tsd:\t", format(sd(lifetimes), scientific = TRUE), output_unit))
-    cat(paste("\n\tmin:\t", format(min(lifetimes), scientific = TRUE), output_unit))
+    cat("\tmean:\t", format(mean(lifetimes), scientific = TRUE), output_unit)
+    cat("\n\tsd:\t", format(sd(lifetimes), scientific = TRUE), output_unit)
 
+    cat("\n\tmin:\t", format(min(lifetimes), scientific = TRUE), output_unit)
     if(!profiling){
-      cat(paste0(" (@",T[which(lifetimes == min(lifetimes), arr.ind = TRUE)[3]], " \u00B0C)"))
+      cat(" (@", T[which(lifetimes == min(lifetimes), arr.ind = TRUE)[3]], "\u00B0C)")
     }
 
-    cat(paste("\n\tmax:\t", format(max(lifetimes), scientific = TRUE), output_unit))
-
+    cat("\n\tmax:\t", format(max(lifetimes), scientific = TRUE), output_unit)
     if(!profiling){
-      cat(paste0(" (@",T[which(lifetimes == max(lifetimes), arr.ind = TRUE)[3]], " \u00B0C)"))
+      cat(" (@", T[which(lifetimes == max(lifetimes), arr.ind = TRUE)[3]], "\u00B0C)")
     }
 
     cat("\n\t--------------------------")
-    cat(paste0("\n\t(", length(lifetimes), " lifetimes calculated in total)"))
+    cat(paste0("\n\t(", length(lifetimes), " lifetimes calculated in total)\n"))
   }
 
 
@@ -325,7 +319,7 @@ calc_ThermalLifetime <- function(
   if(plot & profiling){
 
     ##plot settings
-    plot.settings <- list(
+    plot.settings <- modifyList(list(
       main = "Thermal Lifetime Density Plot",
       xlab = paste0("Thermal lifetime [",output_unit,"]"),
       ylab = "Density",
@@ -335,10 +329,7 @@ calc_ThermalLifetime <- function(
       lwd = 1,
       lty = 1,
       col = rgb(0, 0, 0, 0.25)
-    )
-
-    ##modify on request
-    plot.settings <-   modifyList(plot.settings, list(...))
+    ), list(...))
 
     ##split data and calculate density
     ##set seq
@@ -352,13 +343,11 @@ calc_ThermalLifetime <- function(
       lapply(1:(length(id_seq) - 1),
              function(x) {
                density(lifetimes[id_seq[x]:id_seq[x+1]])
-
              })
 
     ##get x values
     lifetimes_density.x <- matrix(unlist(lapply(1:length(lifetimes_density), function(i){
       lifetimes_density[[i]]$x
-
 
     })), nrow = length(lifetimes_density[[1]]$x))
 

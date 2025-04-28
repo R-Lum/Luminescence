@@ -5,6 +5,8 @@ test_that("input validation", {
                "'E' should be of class 'numeric'")
   expect_error(calc_ThermalLifetime(E = 1.4),
                "'s' should be of class 'numeric'")
+  expect_error(calc_ThermalLifetime(E = 1.4, s = 2, T = "error"),
+               "'T' should be of class 'numeric' or 'integer'")
 
   ##profiling settings
   SW({
@@ -30,8 +32,14 @@ test_that("input validation", {
   expect_warning(calc_ThermalLifetime(E = 1.4, s = 1e05, output_unit = "test"),
                  "'output_unit' unknown, reset to 's'")
   })
-  expect_output(calc_ThermalLifetime(E = 1.4, s = 1e05, verbose = TRUE))
-  expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03), plot = TRUE, profiling = TRUE))
+  expect_output(calc_ThermalLifetime(E = 1.4, s = 1e05, verbose = TRUE),
+                "1 lifetimes calculated in total")
+  expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03),
+                                     profiling = FALSE),
+                "4 lifetimes calculated in total")
+  expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03),
+                                     plot = TRUE, profiling = TRUE),
+                "1000 lifetimes calculated in total")
 })
 
 test_that("snapshot tests", {
