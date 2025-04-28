@@ -254,6 +254,12 @@
   but it does issue a warning. The user is responsible for the
   consequences.
 
+### `plot_DetPlot()`
+
+- The logic for multicore support was incorrect, which resulted in
+  always starting a parallel cluster even when `multicore = FALSE`
+  (#742).
+
 ### `plot_DoseResponseCurve()`
 
 - The response curve always tries to the get the 0 point in the mode

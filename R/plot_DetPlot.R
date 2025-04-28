@@ -174,31 +174,35 @@ plot_DetPlot <- function(
    f_def <- sys.call(sys.parent(n = -1))
    args_default <- as.list(f_def)[-(1:2)]
 
-   ## detect cores
-   cores <- if(inherits(multicore[1], "logical") && multicore[1]) {
-     parallel::detectCores()
-    } else {
-      max(c(as.numeric(multicore[1])), 1)
+    ## detect cores
+    .validate_class(multicore, c("logical", "numeric", "integer"))
+    .validate_length(multicore, 1)
+    cores <- if (is.logical(multicore) && multicore) {
+               parallel::detectCores() # nocov
+             } else {
+               max(multicore, 1)
+             }
+
+    ## function that calls plot_DetPlot() on each element of the list
+    nested.fun <- function(x) {
+      do.call(plot_DetPlot, c(list(object = x), args_default))
     }
 
-   cl <- parallel::makeCluster(cores)
-   on.exit(parallel::stopCluster(cl), add = TRUE)
+    if (cores > 1) {
+      ## run in parallel
+      cl <- parallel::makeCluster(cores)
+      on.exit(parallel::stopCluster(cl), add = TRUE)
 
-   if(!multicore) {
-     cores <- parallel::detectCores()
-     cl <- parallel::makeCluster(cores)
-   }
+      if (verbose)
+        message("\n[plot_DetPlot()] Running multicore session using ", cores,
+                " cores ...")
+      res_list <- parallel::parLapply(cl = cl, X = object, fun = nested.fun)
+    } else {
+      ## run in serial
+      res_list <- lapply(object, nested.fun)
+    }
 
-   ##terminal return
-   if(verbose) cat("\n[plot_DetPlot()] Running mulitcore session with", cores, "core(s) ...")
-
-   ## run in parallel
-   return_list <- parallel::parLapply(
-     cl = cl,
-     X = object,
-     fun = function(x, arg = args_default) do.call(plot_DetPlot, c(list(object = x), arg)))
-
-   return(merge_RLum(return_list))
+    return(merge_RLum(res_list))
   }
 
   ## Integrity checks -------------------------------------------------------
