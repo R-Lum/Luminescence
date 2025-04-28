@@ -309,6 +309,11 @@ used internally to facilitate a rapid exploration of `RLum.Analysis-class`
 object structures. However, the change may potentially break existing code in
 extremely rare circumstances.
 
+### `verify_SingleGrainData()`
+
+* The function crashed if an object originating from `read_XSYG2R()` contained
+positions in its `info` field (#740).
+
 ### `write_R2TIFF()`
 
 * The function now supports the export of more than one image slice. 
