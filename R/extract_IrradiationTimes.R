@@ -190,13 +190,9 @@ extract_IrradiationTimes <- function(
         )
       })
 
-      ##DO NOT use invisible here, this will stop the function from stopping
-      if(length(results) == 0){
-        return(NULL)
-
-      }else{
-        return(results)
-      }
+    if (length(results) == 0)
+      return(NULL)
+    return(results)
   }
 
   ## Integrity checks -------------------------------------------------------
@@ -206,7 +202,6 @@ extract_IrradiationTimes <- function(
   .validate_not_empty(object)
 
   if (is.character(object[1])) {
-
     .validate_length(object, 1)
 
     ##set object to file.XSYG
@@ -216,8 +211,6 @@ extract_IrradiationTimes <- function(
     if (!file.exists(file.XSYG)) {
       .throw_error("Wrong XSYG file name or file does not exist!")
     }
-
-    ## check if the file has the expected extension
     if (tolower(tools::file_ext(file.XSYG)) != "xsyg") {
       .throw_error("File is expected to have 'xsyg' or 'XSYG' extension")
     }
@@ -227,8 +220,6 @@ extract_IrradiationTimes <- function(
       if (!file.exists(file.BINX)) {
         .throw_error("Wrong BINX file name or file does not exist!")
       }
-
-      ##check if file is XML file
       if (tolower(tools::file_ext(file.BINX)) != "binx") {
         .throw_error("File is expected to have 'binx' or 'BINX' extension")
       }
@@ -267,13 +258,9 @@ extract_IrradiationTimes <- function(
     temp.sequence.list <- list(object)
   }
 
-  ##merge objects
-  if(length(temp.sequence.list)>1){
-    temp.sequence <- merge_RLum(temp.sequence.list)
-
-  }else{
-    temp.sequence <- temp.sequence.list[[1]]
-  }
+  ## merge objects and restore originator
+  temp.sequence <- merge_RLum(temp.sequence.list)
+  temp.sequence@originator <- temp.sequence.list[[1]]@originator
 
 # Grep relevant information -------------------------------------------------------------------
   ##Sequence STEP
@@ -285,27 +272,23 @@ extract_IrradiationTimes <- function(
   if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
     temp.START <- vapply(temp.sequence, function(x) {
        paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
-
     }, character(1))
 
-    ##a little bit reformatting.
-    START <- strptime(temp.START, format = "%y%m%d%H%M%S", tz = "GMT")
-      ## make another try in case it does not make sense
-      if (anyNA(START))
-        START <- strptime(temp.START, format = "%y%m%d%H:%M:%S", tz = "GMT")
+    fmt <- if (grepl(":", temp.START[1])) "%y%m%d%H:%M:%S" else "%y%m%d%H%M%S"
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {
       tmp <- suppressWarnings(get_RLum(x, info.object = c("startDate")))
       if(is.null(tmp))
         tmp <- as.character(Sys.Date())
-
       tmp
     }, character(1))
 
-    ##a little bit reformatting.
-    START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
+    fmt <- "%Y%m%d%H%M%S"
   }
+
+  ## reformat start date
+  START <- strptime(temp.START, format = fmt, tz = "GMT")
 
   ##DURATION of each STEP
   DURATION.STEP <- vapply(temp.sequence, function(x) {
@@ -365,25 +348,19 @@ extract_IrradiationTimes <- function(
       IRR_TIME[i] <- temp_last
     }
   }
-  # Calculate time since irradiation ------------------------------------------------------------
-  ##set objects
-  time.irr.end <- NA
 
-  TIMESINCEIRR <- unlist(sapply(1:nrow(temp.results), function(x){
+  ## Calculate time since irradiation ---------------------------------------
+  time.irr.end <- NA
+  TIMESINCEIRR <- vapply(1:nrow(temp.results), function(x) {
     if(grepl("irradiation", temp.results[x,"STEP"])){
       time.irr.end<<-temp.results[x,"END"]
       return(-1)
-
-    }else{
-      if(is.na(time.irr.end)){
-        return(-1)
-
-      }else{
-        return(difftime(temp.results[x,"START"],time.irr.end, units = "secs"))
-      }
     }
+    if (is.na(time.irr.end))
+      return(-1)
 
-  }))
+    difftime(temp.results[x, "START"], time.irr.end, units = "secs")
+  }, numeric(1))
 
   # Calculate time since last step --------------------------------------------------------------
   TIMESINCELAST.STEP <- vapply(1:nrow(temp.results), function(x){
