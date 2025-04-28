@@ -1139,7 +1139,7 @@ SW <- function(expr) {
 
   ## name of the argument to report if not specified
   if (is.null(name))
-    name <- all.vars(match.call())[1]
+    name <- sprintf("'%s'", all.vars(match.call())[1])
 
   ## `arg` will have multiple values when the available choices are listed
   ## in the function's formal arguments: in that case all elements in `arg`
@@ -1150,7 +1150,7 @@ SW <- function(expr) {
 
     ## we throw an error to catch cases when the formal arguments are
     ## changed but `choices` has not been updated
-    .throw_error("'", name, "' contains multiple values but not all of them ",
+    .throw_error(name, " contains multiple values but not all of them ",
                  "match 'choices'")
   }
 
@@ -1171,7 +1171,7 @@ SW <- function(expr) {
 
   idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
   if (all(idx.match == 0L))
-    .throw_error("'", name, "' should be one of ",
+    .throw_error(name, " should be one of ",
                  .collapse(msg.head, quote = FALSE), msg.tail)
   idx <- idx.match[idx.match > 0L]
   choices[idx]

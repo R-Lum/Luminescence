@@ -252,7 +252,7 @@ test_that("Test internals", {
                fixed = TRUE)
 
   fun2 <- function(arg = c("val1", "val2", "val3")) {
-    .validate_args(arg, c("val1", "val2", "val3"), name = "other_name")
+    .validate_args(arg, c("val1", "val2", "val3"), name = "'other_name'")
   }
   expect_equal(fun2(), "val1")
   expect_error(fun2(arg = NULL),
