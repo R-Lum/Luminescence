@@ -105,3 +105,12 @@ test_that("check functionality", {
   ## list
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object))))
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 740
+  object@records[[1]]@info$position <- "123"
+  expect_s4_class(verify_SingleGrainData(object),
+                  "RLum.Results")
+})

@@ -364,7 +364,7 @@ verify_SingleGrainData <- function(
     if(cleanup_level == "aliquot") {
       if (object@originator == "read_XSYG2R") {
 
-        if(!is.na(unique_pairs)){
+        if (!all(is.na(unique_pairs))) {
           selection_id <-
             sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
               which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
