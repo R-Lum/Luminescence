@@ -199,8 +199,7 @@ fit_CWCurve<- function(
 
   .validate_class(values, c("RLum.Data.Curve", "data.frame"))
   .validate_not_empty(values)
-
-  if(is(values, "RLum.Data.Curve") == TRUE){
+  if (inherits(values, "RLum.Data.Curve")) {
     values <- as.data.frame(values@data[, 1:2, drop = FALSE])
   }
 
@@ -262,7 +261,6 @@ fit_CWCurve<- function(
   ## the upper two funtions should be removed ... but chances are needed ... TODO
   ##////equation used for fitting////(start)
   fit.formula <- function(n.components){
-
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
     stats::as.formula(paste0("y ~ ", paste(I0," * ", lambda,
@@ -273,7 +271,6 @@ fit_CWCurve<- function(
 
   ##////equation used for fitting////(start)
   fit.formula.simple <- function(n.components){
-
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
     stats::as.formula(paste0("y ~ ", paste(I0," * exp(-",lambda," * x)",
@@ -292,7 +289,6 @@ fit_CWCurve<- function(
   ##
   ##++++Fitting loop++++(start)
   while(keep.fitting && n.components <= n.components.max) {
-
     ##(0) START PARAMETER ESTIMATION
     ##rough automatic start parameter estimation
 
@@ -352,7 +348,7 @@ fit_CWCurve<- function(
     }
 
     ##(3) FIT WITH THE FULL FUNCTION
-    if(inherits(fit.try,"try-error") == FALSE){
+    if (!inherits(fit.try, "try-error")) {
 
       ##grep parameters from simple fit to further work with them
       parameters <- coef(fit.try)
@@ -384,7 +380,6 @@ fit_CWCurve<- function(
         }
 
       }else{
-
         ##try fit
         fit.try<-suppressWarnings(try(nls(fit.formula(n.components),
                                           trace=fit.trace,
@@ -430,7 +425,7 @@ fit_CWCurve<- function(
 
   ##grep parameters
   output.table <- component.contribution.matrix <- NA
-  if(inherits(fit,"try-error")==FALSE){
+  if (!inherits(fit, "try-error")) {
 
     parameters <- coef(fit)
 
@@ -481,7 +476,7 @@ fit_CWCurve<- function(
     pR<-round(1-RSS/TSS,digits=4)
 
     if(pR<0){
-      .throw_warning("pseudo-R^2 < 0!")
+      .throw_warning("pseudo-R^2 < 0!") # nocov
     }
 
     ## ---------------------------------------------
@@ -516,8 +511,8 @@ fit_CWCurve<- function(
 
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_CWCurve()]")
-      writeLines(paste("\nFitting was finally done using a ",n.components,
-                       "-component function (max=",n.components.max,"):",sep=""))
+      cat(paste0("\nFitting was finally done using a ", n.components,
+                 "-component function (max=", n.components.max, "):\n"))
       writeLines("------------------------------------------------------------------------------")
       writeLines(paste0("y ~ ", as.character(fit.formula(n.components))[3], "\n"))
 
@@ -529,7 +524,8 @@ fit_CWCurve<- function(
       print(fit.results)
 
       #print some additional information
-      if(fit.calcError==TRUE){writeLines("(errors quoted as 1-sigma values)")}
+      if (fit.calcError)
+        cat("(errors quoted as 1-sigma values)\n")
       writeLines("------------------------------------------------------------------------------")
     }#end if
 
@@ -718,7 +714,7 @@ fit_CWCurve<- function(
          main=main,
          log = log), silent = TRUE)
 
-    if (is(plot_check, "try-error")) {
+    if (inherits(plot_check, "try-error")) {
       ## reset the graphic device if plotting failed
       .throw_message("Figure margins too large or plot area too small, ",
                      "nothing plotted")
@@ -732,7 +728,7 @@ fit_CWCurve<- function(
     mtext(side=3, sample_code, cex=0.7*cex.global)
 
     ##plot sum function
-    if(inherits(fit,"try-error")==FALSE){
+    if (!inherits(fit, "try-error")) {
       lines(x,eval(fit.function), lwd=2, col="black")
       legend.caption<-"sum curve"
       curve.col <- 1
@@ -767,7 +763,7 @@ fit_CWCurve<- function(
            log=if(log=="x" | log=="xy"){log="x"}else{""}
       ), silent = TRUE)
 
-      if (is(plot_check2, "try-error")) {
+      if (inherits(plot_check2, "try-error")) {
         ## reset the graphic device if plotting failed
         .throw_message("Figure margins too large or plot area too small, ",
                        "nothing plotted")
