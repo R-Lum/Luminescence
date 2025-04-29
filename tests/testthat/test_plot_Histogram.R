@@ -71,3 +71,11 @@ test_that("graphical snapshot tests", {
                                              summary = c("mean", "skewness")))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 744
+  expect_silent(plot_Histogram(df[, 1, drop = FALSE]))
+  expect_silent(plot_Histogram(cbind(df[, 1, drop = FALSE], NA)))
+})
