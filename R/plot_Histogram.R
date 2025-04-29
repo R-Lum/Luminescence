@@ -135,13 +135,9 @@ plot_Histogram <- function(
   ## Integrity tests --------------------------------------------------------
 
   .validate_class(data, c("data.frame", "RLum.Results"))
+  .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data)[,1:2]
-  }
-
-  ## check that we actually have data
-  if (length(data) == 0 || nrow(data) == 0) {
-    .throw_error("'data' contains no data")
   }
 
   ## handle error-free data sets

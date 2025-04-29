@@ -8,11 +8,11 @@ test_that("input validation", {
   expect_error(plot_Histogram("error"),
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_Histogram(iris[0, ]),
-               "'data' contains no data")
+               "'data' cannot be an empty data.frame")
   expect_error(plot_Histogram(data.frame()),
-               "'data' contains no data")
+               "'data' cannot be an empty data.frame")
   expect_error(plot_Histogram(set_RLum("RLum.Results")),
-               "'data' contains no data")
+               "'data' cannot be an empty RLum.Results")
   expect_error(plot_Histogram(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_Histogram(df, summary.pos = list()),
@@ -39,7 +39,6 @@ test_that("check functionality", {
                                summary.pos = c(20, 0.017),
                                summary = c("n", "mean", "mean.weighted",
                                            "median", "sdrel")))
-  expect_silent(plot_Histogram(df, summary.pos = "bottom"))
 
   ## interactive
   expect_silent(plot_Histogram(df, interactive = TRUE,
@@ -48,7 +47,8 @@ test_that("check functionality", {
   ## missing values
   df.na <- df
   df.na[10, 1] <- NA
-  expect_output(plot_Histogram(df.na),
+  expect_output(plot_Histogram(set_RLum("RLum.Results", data = list(df.na)),
+                               summary.pos = "bottom"),
                 "1 NA value excluded")
   df.na[20, 1] <- NA
   expect_output(plot_Histogram(df.na),
