@@ -26,7 +26,9 @@
 #' - `"skewness"` (skewness).
 #'
 #' @param data [data.frame] or [RLum.Results-class] object (**required**):
-#' for `data.frame`: two columns: De (`data[,1]`) and De error (`data[,2]`)
+#' for `data.frame`: two columns: De (`data[,1]`) and De error (`data[,2]`).
+#' If the error column is missing or only contains `NA` values, then the error
+#' at each measurement is assumed to be 10^-9.
 #'
 #' @param na.rm [logical] (*with default*):
 #' excludes `NA` values from the data set prior to any further operations.
@@ -135,18 +137,14 @@ plot_Histogram <- function(
   ## Integrity tests --------------------------------------------------------
 
   .validate_class(data, c("data.frame", "RLum.Results"))
+  .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data)[,1:2]
   }
 
-  ## check that we actually have data
-  if (length(data) == 0 || nrow(data) == 0) {
-    .throw_error("'data' contains no data")
-  }
-
   ## handle error-free data sets
-  if(length(data) < 2) {
-    data <- cbind(data, rep(NA, length(data)))
+  if (length(data) < 2 || all(is.na(data[, 2]))) {
+    data[, 2] <- 1e-9
   }
 
   .validate_class(summary, "character")
@@ -441,7 +439,7 @@ plot_Histogram <- function(
   }
 
   ## Optionally, add standard error plot --------------------------------------
-  if(sum(is.na(data[,2])) == length(data[,2])) {
+  if (all(data[, 2] == 1e-9)) {
     se <- FALSE
   }
 

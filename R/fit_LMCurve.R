@@ -1,6 +1,7 @@
 #' @title Non-linear Least Squares Fit for LM-OSL curves
 #'
-#' @description The function determines weighted non-linear least-squares estimates of the
+#' @description
+#' The function determines weighted non-linear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
 #' uses the function [nls] with the `port` algorithm.
@@ -31,13 +32,12 @@
 #' and the resulting function is used for background subtraction:
 #' \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
 #'
-#' - `linear`: a linear function is fitted using [glm] and the resulting function
-#' is used for background subtraction:
+#' - `linear`: a linear function is fitted using [glm] and the resulting
+#' function is used for background subtraction:
 #' \deqn{y = a*x + b}
 #'
-#' - `channel`: the measured
-#' background signal is subtracted channel wise from the measured signal.
-#'
+#' - `channel`: the measured background signal is subtracted channel-wise
+#' from the measured signal.
 #'
 #' **Start values**
 #'
@@ -83,14 +83,14 @@
 #'
 #' The 1-sigma error for the components is calculated using
 #' the function [stats::confint]. Due to considerable calculation time, this
-#' option is deactivated by default. In addition, the error for the components
+#' option is disabled by default. In addition, the error for the components
 #' can be estimated by using internal R functions like [summary]. See the
 #' [nls] help page for more information.
 #'
 #' *For more details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
 #' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' x,y data of measured values (time and counts). See examples.
+#' x,y data of measured values (time and counts).
 #'
 #' @param values.bg [RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' x,y data of measured values (time and counts) for background subtraction.
@@ -140,8 +140,9 @@
 #' calculate 1-sigma error range of components using [stats::confint].
 #'
 #' @param bg.subtraction [character] (*with default*):
-#' specifies method for background subtraction (`polynomial`, `linear`, `channel`,
-#' see Details). **Note:** requires input for `values.bg`.
+#' specifies method for background subtraction (one of `"polynomial"`,
+#' `"linear"`, `"channel"`, see Details). Only considered if `values.bg` is
+#' specified.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -150,7 +151,7 @@
 #' enable/disable the plot output.
 #'
 #' @param plot.BG [logical] (*with default*):
-#' returns a plot of the background values with the fit used for the
+#' enable/disable a plot of the background values with the fit used for the
 #' background subtraction.
 #'
 #' @param method_control [list] (*optional*): options to control the output
@@ -159,7 +160,7 @@
 #' matrix.
 #'
 #' @param ... Further arguments that may be passed to the plot output, e.g.
-#' `xlab`, `xlab`, `main`, `log`.
+#' `main`, `xlab`, `xlab`, `xlim`, `ylim`, `cex`, `log`.
 #'
 #' @return
 #' Various types of plots are returned. For details see above. Furthermore an

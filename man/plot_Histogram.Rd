@@ -21,7 +21,9 @@ plot_Histogram(
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
-for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]})}
+for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
+If the error column is missing or only contains \code{NA} values, then the error
+at each measurement is assumed to be 10^-9.}
 
 \item{na.rm}{\link{logical} (\emph{with default}):
 excludes \code{NA} values from the data set prior to any further operations.}

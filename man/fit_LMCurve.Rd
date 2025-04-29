@@ -28,7 +28,7 @@ fit_LMCurve(
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-x,y data of measured values (time and counts). See examples.}
+x,y data of measured values (time and counts).}
 
 \item{values.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 x,y data of measured values (time and counts) for background subtraction.}
@@ -78,8 +78,9 @@ Works only if no start parameters are provided.
 calculate 1-sigma error range of components using \link[stats:confint]{stats::confint}.}
 
 \item{bg.subtraction}{\link{character} (\emph{with default}):
-specifies method for background subtraction (\code{polynomial}, \code{linear}, \code{channel},
-see Details). \strong{Note:} requires input for \code{values.bg}.}
+specifies method for background subtraction (one of \code{"polynomial"},
+\code{"linear"}, \code{"channel"}, see Details). Only considered if \code{values.bg} is
+specified.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -88,7 +89,7 @@ enable/disable output to the terminal.}
 enable/disable the plot output.}
 
 \item{plot.BG}{\link{logical} (\emph{with default}):
-returns a plot of the background values with the fit used for the
+enable/disable a plot of the background values with the fit used for the
 background subtraction.}
 
 \item{method_control}{\link{list} (\emph{optional}): options to control the output
@@ -97,7 +98,7 @@ is supported, to enable/disable export of the component contribution
 matrix.}
 
 \item{...}{Further arguments that may be passed to the plot output, e.g.
-\code{xlab}, \code{xlab}, \code{main}, \code{log}.}
+\code{main}, \code{xlab}, \code{xlab}, \code{xlim}, \code{ylim}, \code{cex}, \code{log}.}
 }
 \value{
 Various types of plots are returned. For details see above. Furthermore an
@@ -154,11 +155,11 @@ are provided for a given background signal (\code{values.bg}).
 \item \code{polynomial}: default method. A polynomial function is fitted using \link{glm}
 and the resulting function is used for background subtraction:
 \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
-\item \code{linear}: a linear function is fitted using \link{glm} and the resulting function
-is used for background subtraction:
+\item \code{linear}: a linear function is fitted using \link{glm} and the resulting
+function is used for background subtraction:
 \deqn{y = a*x + b}
-\item \code{channel}: the measured
-background signal is subtracted channel wise from the measured signal.
+\item \code{channel}: the measured background signal is subtracted channel-wise
+from the measured signal.
 }
 
 \strong{Start values}
@@ -205,7 +206,7 @@ and \eqn{TSS = Total~Sum~of~Squares}
 
 The 1-sigma error for the components is calculated using
 the function \link[stats:confint]{stats::confint}. Due to considerable calculation time, this
-option is deactivated by default. In addition, the error for the components
+option is disabled by default. In addition, the error for the components
 can be estimated by using internal R functions like \link{summary}. See the
 \link{nls} help page for more information.
 

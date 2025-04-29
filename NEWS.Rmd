@@ -250,6 +250,11 @@ starting a parallel cluster even when `multicore = FALSE` (#742).
 
 * Add support for `OTORX` fit corresponding to the underlying change in `fit_DoseReponseCurve()` (#677)
 
+### `plot_Histogram()`
+
+* The function now doesn't produce warnings when the input consists of a
+single-column data frame, as it assumes that the De error is 10^-9 (#744).
+
 ### `plot_KDE()`
 
 * The function validates its input values more thoroughly (#635).
