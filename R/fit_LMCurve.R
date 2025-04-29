@@ -375,23 +375,6 @@ fit_LMCurve<- function(
       #subtract background with fitted function
       values[,2]<-values[,2]-
         (glm.coef[4]*values[,1]^3+glm.coef[3]*values[,1]^2+glm.coef[2]*values[,1]+glm.coef[1])
-      writeLines("[fit_LMCurve] >> Background subtracted (method=\"polynomial\")!")
-
-      ##plot Background measurement if needed
-      if(plot.BG==TRUE){
-
-        plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        curve((glm.coef[4]*x^3+glm.coef[3]*x^2+glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=2)
-        text(0,max(values.bg[,2]),paste("y = ", round(glm.coef[4],digits=2),
-                                        "*x^3+",
-                                        round(glm.coef[3],digits=2),
-                                        "*x^2+",
-                                        round(glm.coef[2],digits=2),
-                                        "*x+",
-                                        round(glm.coef[1],digits=2),
-                                        sep=""),pos=4)
-        mtext(side=3,sample_code,cex=.8*cex)
-      }
 
     }else if(bg.subtraction=="linear"){
 
@@ -401,33 +384,38 @@ fit_LMCurve<- function(
 
       ##substract bg
       values[,2]<-values[,2]-(glm.coef[2]*values[,1]+glm.coef[1])
-      writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"linear\")!")
-
-      ##plot Background measurement if needed
-      if(plot.BG){
-
-        plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        curve((glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=1.5)
-        text(0,max(values.bg[,2]),paste("y = ",
-                                        round(glm.coef[2],digits=2),
-                                        "*x+",
-                                        round(glm.coef[1],digits=2),
-                                        sep=""),pos=4)
-        mtext(side=3,sample_code,cex=.8*cex)
-
-      }#endif::plot BG
 
     }else if(bg.subtraction=="channel"){
-
       values[,2]<-values[,2]-values.bg[,2]
-      writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"channel\")!")
+    }
 
-      if(plot.BG==TRUE){
+    if (plot.BG) {
+      plot(values.bg, main = "Background",
+           ylab = "LM-OSL [a.u.]", xlab = "Time [s]")
+      mtext(side = 3, sample_code, cex = 0.8 * settings$cex)
 
-        plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        mtext(side=3,sample_code,cex=.8*cex)
+      if (bg.subtraction == "polynomial") {
+        curve((glm.coef[4]*x^3 + glm.coef[3]*x^2 + glm.coef[2]*x + glm.coef[1]),
+              add = TRUE, col = "red", lwd = 1.5)
+        text(0,max(values.bg[,2]),
+             paste0("y = ",
+                    round(glm.coef[4], digits = 2), "*x^3+",
+                    round(glm.coef[3], digits = 2), "*x^2+",
+                    round(glm.coef[2], digits = 2), "*x+",
+                    round(glm.coef[1], digits = 2)), pos = 4)
+
+      } else if (bg.subtraction == "linear") {
+        curve((glm.coef[2] * x + glm.coef[1]),
+              add = TRUE, col = "red", lwd = 1.5)
+        text(0, max(values.bg[, 2]),
+             paste0("y = ",
+                    round(glm.coef[2], digits = 2), "*x+",
+                    round(glm.coef[1], digits = 2)), pos = 4)
       }
     }
+
+    cat(paste0("[fit_LMCurve()] >> Background subtracted (method = '",
+               bg.subtraction, "')\n"))
   }
 
 
