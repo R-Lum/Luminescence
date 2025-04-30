@@ -284,6 +284,8 @@
 - The right margin is now smaller when errors are not plotted, as there
   is no need to leave space for the standard error axis (#748).
 
+- The summary text now scales better at non-default cex settings (#750).
+
 ### `plot_KDE()`
 
 - The function validates its input values more thoroughly (#635).

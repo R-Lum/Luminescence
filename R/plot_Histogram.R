@@ -430,7 +430,7 @@ plot_Histogram <- function(
            adj = summary.adj,
            labels = label.text[[i]],
            col = colour[2],
-           cex = cex.global * 0.8)
+           cex = 0.8)
     } else {
       if(mtext == "") {
         mtext(side = 3,
