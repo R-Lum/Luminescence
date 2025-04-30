@@ -268,6 +268,8 @@ the summary table not being visible (#642).
 
 * The function validates its input values more thoroughly (#639).
 
+* The legend text now scales better at non-default cex settings (#746).
+
 ### `plot_RLum.Data.Curve()`
 
 * We added comprehensive support for base R plotting arguments utilised by `plot.default()` and `par()`. 
