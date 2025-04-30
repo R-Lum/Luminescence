@@ -157,6 +157,10 @@ plot_Histogram <- function(
                                   "topleft", "top", "topright",
                                   "bottomleft", "bottom", "bottomright"))
   }
+  .validate_logical_scalar(na.rm)
+  .validate_logical_scalar(se)
+  .validate_logical_scalar(rug)
+  .validate_logical_scalar(normal_curve)
   .validate_length(colour, 4)
 
   ## Set general parameters ---------------------------------------------------
