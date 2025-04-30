@@ -63,8 +63,8 @@
 #'
 #' @param colour [numeric] or [character] (*with default*):
 #' optional vector of length 4 which specifies the colours of the following
-#' plot items in exactly this order: histogram bars, rug lines, normal
-#' distribution curve and standard error points
+#' plot items in exactly this order: histogram bars, rug lines and summary
+#' text, normal distribution curve, standard error points
 #' (e.g., `c("grey", "black", "red", "grey")`).
 #'
 #' @param interactive [logical] (*with default*):
@@ -127,7 +127,7 @@ plot_Histogram <- function(
   normal_curve = FALSE,
   summary = "",
   summary.pos = "sub",
-  colour,
+  colour = c("white", "black", "red", "black"),
   interactive = FALSE,
   ...
 ) {
@@ -142,11 +142,6 @@ plot_Histogram <- function(
     data <- get_RLum(data)[,1:2]
   }
 
-  ## handle error-free data sets
-  if (length(data) < 2 || all(is.na(data[, 2]))) {
-    data[, 2] <- 1e-9
-  }
-
   .validate_class(summary, "character")
   .validate_class(summary.pos, c("numeric", "character"))
   if (is.numeric(summary.pos)) {
@@ -157,15 +152,22 @@ plot_Histogram <- function(
                                   "topleft", "top", "topright",
                                   "bottomleft", "bottom", "bottomright"))
   }
+  .validate_logical_scalar(na.rm)
+  .validate_logical_scalar(se)
+  .validate_logical_scalar(rug)
+  .validate_logical_scalar(normal_curve)
+  .validate_length(colour, 4)
+
+  ## handle error-free data sets
+  if (length(data) < 2 || all(is.na(data[, 2]))) {
+    data[, 2] <- 1e-9
+    se <- FALSE
+  }
 
   ## Set general parameters ---------------------------------------------------
   ## Check/set default parameters
   if(missing(cex.global) == TRUE) {
     cex.global <- 1
-  }
-
-  if(missing(colour) == TRUE) {
-    colour = c("white", "black", "red", "black")
   }
 
   ## read out additional arguments list
@@ -252,7 +254,7 @@ plot_Histogram <- function(
     pch.plot <- 1
   }
   ## Set plot area format
-  par(mar = c(4.5, 4.5, 4.5, 4.5),
+  par(mar = c(4.5, 4.5, 4.5, if (se) 4.5 else 1),
       cex = cex.global)
 
   ## Plot histogram -----------------------------------------------------------
@@ -272,7 +274,9 @@ plot_Histogram <- function(
         main = main.plot)
 
   ## Optionally, add rug ------------------------------------------------------
-  if (rug) graphics::rug(data[, 1], col = colour[2])
+  if (rug) {
+    graphics::rug(data[, 1], col = colour[2], quiet = TRUE)
+  }
 
   ## Optionally, add a normal curve based on the data -------------------------
   if(normal_curve == TRUE){
@@ -439,9 +443,6 @@ plot_Histogram <- function(
   }
 
   ## Optionally, add standard error plot --------------------------------------
-  if (all(data[, 2] == 1e-9)) {
-    se <- FALSE
-  }
 
   if(se == TRUE) {
     par(new = TRUE)

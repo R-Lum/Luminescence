@@ -281,6 +281,9 @@
   single-column data frame, as it assumes that the De error is 10^-9
   (#744).
 
+- The right margin is now smaller when errors are not plotted, as there
+  is no need to leave space for the standard error axis (#748).
+
 ### `plot_KDE()`
 
 - The function validates its input values more thoroughly (#635).

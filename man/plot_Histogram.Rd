@@ -14,7 +14,7 @@ plot_Histogram(
   normal_curve = FALSE,
   summary = "",
   summary.pos = "sub",
-  colour,
+  colour = c("white", "black", "red", "black"),
   interactive = FALSE,
   ...
 )
@@ -58,8 +58,8 @@ specification, y-coordinate refers to the right y-axis.}
 
 \item{colour}{\link{numeric} or \link{character} (\emph{with default}):
 optional vector of length 4 which specifies the colours of the following
-plot items in exactly this order: histogram bars, rug lines, normal
-distribution curve and standard error points
+plot items in exactly this order: histogram bars, rug lines and summary
+text, normal distribution curve, standard error points
 (e.g., \code{c("grey", "black", "red", "grey")}).}
 
 \item{interactive}{\link{logical} (\emph{with default}):
