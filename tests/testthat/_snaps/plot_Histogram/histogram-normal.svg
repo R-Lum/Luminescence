@@ -18,6 +18,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<text x='360.00' y='37.36' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='65.63px' lengthAdjust='spacingAndGlyphs'>Histogram</text>
 <text x='340.66' y='563.43' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text x='349.33' y='565.65' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
 <text x='354.00' y='563.43' style='font-size: 12.00px; font-family: sans;' textLength='25.34px' lengthAdjust='spacingAndGlyphs'> [Gy]</text>
@@ -61,7 +62,6 @@
 <rect x='542.22' y='386.84' width='91.11' height='107.83' style='stroke-width: 0.75; fill: #FFFFFF;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='360.00' y='36.00' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='65.63px' lengthAdjust='spacingAndGlyphs'>Histogram</text>
 <line x1='176.41' y1='511.20' x2='176.41' y2='497.81' style='stroke-width: 0.38;' />
 <line x1='206.02' y1='511.20' x2='206.02' y2='497.81' style='stroke-width: 0.38;' />
 <line x1='230.08' y1='511.20' x2='230.08' y2='497.81' style='stroke-width: 0.38;' />
