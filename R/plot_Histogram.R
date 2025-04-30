@@ -272,7 +272,9 @@ plot_Histogram <- function(
         main = main.plot)
 
   ## Optionally, add rug ------------------------------------------------------
-  if (rug) graphics::rug(data[, 1], col = colour[2])
+  if (rug) {
+    graphics::rug(data[, 1], col = colour[2], quiet = TRUE)
+  }
 
   ## Optionally, add a normal curve based on the data -------------------------
   if(normal_curve == TRUE){
