@@ -142,11 +142,6 @@ plot_Histogram <- function(
     data <- get_RLum(data)[,1:2]
   }
 
-  ## handle error-free data sets
-  if (length(data) < 2 || all(is.na(data[, 2]))) {
-    data[, 2] <- 1e-9
-  }
-
   .validate_class(summary, "character")
   .validate_class(summary.pos, c("numeric", "character"))
   if (is.numeric(summary.pos)) {
@@ -162,6 +157,12 @@ plot_Histogram <- function(
   .validate_logical_scalar(rug)
   .validate_logical_scalar(normal_curve)
   .validate_length(colour, 4)
+
+  ## handle error-free data sets
+  if (length(data) < 2 || all(is.na(data[, 2]))) {
+    data[, 2] <- 1e-9
+    se <- FALSE
+  }
 
   ## Set general parameters ---------------------------------------------------
   ## Check/set default parameters
@@ -253,7 +254,7 @@ plot_Histogram <- function(
     pch.plot <- 1
   }
   ## Set plot area format
-  par(mar = c(4.5, 4.5, 4.5, 4.5),
+  par(mar = c(4.5, 4.5, 4.5, if (se) 4.5 else 1),
       cex = cex.global)
 
   ## Plot histogram -----------------------------------------------------------
@@ -442,9 +443,6 @@ plot_Histogram <- function(
   }
 
   ## Optionally, add standard error plot --------------------------------------
-  if (all(data[, 2] == 1e-9)) {
-    se <- FALSE
-  }
 
   if(se == TRUE) {
     par(new = TRUE)
