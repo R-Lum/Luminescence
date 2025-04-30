@@ -8,7 +8,7 @@ plot_Histogram(
   data,
   na.rm = TRUE,
   mtext = "",
-  cex.global,
+  cex.global = 1,
   se = TRUE,
   rug = TRUE,
   normal_curve = FALSE,

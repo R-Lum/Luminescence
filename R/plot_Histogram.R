@@ -121,7 +121,7 @@ plot_Histogram <- function(
   data,
   na.rm = TRUE,
   mtext = "",
-  cex.global,
+  cex.global = 1,
   se = TRUE,
   rug = TRUE,
   normal_curve = FALSE,
@@ -134,7 +134,7 @@ plot_Histogram <- function(
   .set_function_name("plot_Histogram")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   .validate_not_empty(data)
@@ -142,6 +142,7 @@ plot_Histogram <- function(
     data <- get_RLum(data)[,1:2]
   }
 
+  .validate_class(cex.global, "numeric")
   .validate_class(summary, "character")
   .validate_class(summary.pos, c("numeric", "character"))
   if (is.numeric(summary.pos)) {
@@ -165,68 +166,28 @@ plot_Histogram <- function(
   }
 
   ## Set general parameters ---------------------------------------------------
-  ## Check/set default parameters
-  if(missing(cex.global) == TRUE) {
-    cex.global <- 1
-  }
 
   ## read out additional arguments list
   extraArgs <- list(...)
 
-  ## define fun
-  if("fun" %in% names(extraArgs)) {
-    fun <- extraArgs$fun # nocov
-  } else {
-    fun <- FALSE
-  }
-
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
     n.NA <- sum(is.na(data[,1]))
-    if(n.NA == 1) {
-      print("1 NA value excluded.")
-    } else if(n.NA > 1) {
-      print(paste(n.NA, "NA values excluded."))
+    if (n.NA > 0) {
+      cat(sprintf("%d NA value%s excluded\n", n.NA, ifelse(n.NA > 1, "s", "")))
+      data <- data[!is.na(data[, 1]), ]
     }
-    data <- data[!is.na(data[,1]),]
-  }
-
-  if("main" %in% names(extraArgs)) {
-    main.plot <- extraArgs$main
-  } else {
-    main.plot <- "Histogram"
-  }
-
-  if("xlab" %in% names(extraArgs)) {
-    xlab.plot <- extraArgs$xlab
-  } else {
-    xlab.plot <- expression(paste(D[e], " [Gy]"))
-  }
-
-  if("ylab" %in% names(extraArgs)) {
-    ylab.plot <- extraArgs$ylab
-  } else {
-    ylab.plot <- c("Frequency",
-                   "Standard error")
   }
 
   if("breaks" %in% names(extraArgs)) {
     breaks.plot <- extraArgs$breaks
-
     breaks_calc <- hist(x = data[,1],
                         breaks = breaks.plot,
                         plot = FALSE)$breaks
   } else {
     breaks.plot <- hist(x = data[,1],
                         plot = FALSE)$breaks
-
     breaks_calc <- breaks.plot
-  }
-
-  if("xlim" %in% names(extraArgs)) {
-    xlim.plot <- extraArgs$xlim
-  } else {
-    xlim.plot <- range(breaks_calc)
   }
 
   if("ylim" %in% names(extraArgs)) {
@@ -236,11 +197,7 @@ plot_Histogram <- function(
     H.lim <- hist(data[,1],
                   breaks = breaks.plot,
                   plot = FALSE)
-    if(normal_curve == TRUE) {
-      left.ylim <- c(0, max(H.lim$density))
-    } else {
-      left.ylim <- c(0, max(H.lim$counts))
-    }
+    left.ylim <- c(0, if (normal_curve) max(H.lim$density) else max(H.lim$counts))
     range.error <- try(expr = range(data[,2], na.rm = TRUE),
                        silent = TRUE)
     range.error[1] <- ifelse(is.infinite(range.error[1]), 0, range.error[1])
@@ -248,30 +205,30 @@ plot_Histogram <- function(
     ylim.plot <- c(left.ylim, range.error)
   }
 
-  if("pch" %in% names(extraArgs)) {
-    pch.plot <- extraArgs$pch
-  } else {
-    pch.plot <- 1
-  }
+  settings <- modifyList(list(
+      main = "Histogram",
+      xlab = expression(paste(D[e], " [Gy]")),
+      ylab = c("Frequency", "Standard error"),
+      xlim = range(breaks_calc),
+      pch = 1,
+      fun = FALSE
+  ), extraArgs)
+
   ## Set plot area format
   par(mar = c(4.5, 4.5, 4.5, if (se) 4.5 else 1),
       cex = cex.global)
 
   ## Plot histogram -----------------------------------------------------------
   HIST <- hist(data[,1],
-               main = "",
-               xlab = xlab.plot,
-               ylab = ylab.plot[1],
-               xlim = xlim.plot,
-               ylim = ylim.plot[1:2],
+               main = settings$main,
+               xlab = settings$xlab,
+               ylab = settings$ylab[1],
+               xlim = settings$xlim,
+               ylim = settings$ylim[1:2],
                breaks = breaks.plot,
                freq = !normal_curve,
                col = colour[1]
   )
-
-  ## add title
-  title(line = 2,
-        main = main.plot)
 
   ## Optionally, add rug ------------------------------------------------------
   if (rug) {
@@ -343,8 +300,8 @@ plot_Histogram <- function(
     if(nrow(data) >= 2){
       De.density <-density(x = data[,1],
                            kernel = "gaussian",
-                           from = xlim.plot[1],
-                           to = xlim.plot[2])
+                           from = settings$xlim[1],
+                           to = settings$xlim[2])
 
       De.stats[i,6] <- De.density$x[which.max(De.density$y)]
     }
@@ -418,7 +375,7 @@ plot_Histogram <- function(
   }
 
   ## convert keywords into summary placement coordinates
-  coords <- .get_keyword_coordinates(summary.pos, xlim.plot, ylim.plot)
+  coords <- .get_keyword_coordinates(summary.pos, settings$xlim, ylim.plot)
   summary.pos <- coords$pos
   summary.adj <- coords$adj
 
@@ -450,9 +407,9 @@ plot_Histogram <- function(
 
     plot(x = plot.data[,1],
          y = plot.data[,2],
-         xlim = xlim.plot,
+         xlim = settings$xlim,
          ylim = ylim.plot[3:4],
-         pch = pch.plot,
+         pch = settings$pch,
          col = colour[4],
          main = "",
          xlab = "",
@@ -464,7 +421,7 @@ plot_Histogram <- function(
          labels = TRUE,
          cex = cex.global
     )
-    mtext(ylab.plot[2],
+    mtext(settings$ylab[2],
           side = 4,
           line = 3,
           cex = cex.global)
@@ -479,7 +436,7 @@ plot_Histogram <- function(
         cex = 0.8 * cex.global)
 
   ## FUN by R Luminescence Team
-  if (fun && !interactive) sTeve() # nocov
+  if (settings$fun && !interactive) sTeve() # nocov
 
   ## Optionally: Interactive Plot ----------------------------------------------
   if (interactive) {
@@ -489,8 +446,8 @@ plot_Histogram <- function(
     data <- as.data.frame(data)
     colnames(data) <- c("x", "y")
     x <- y <- NULL # suffice CRAN check for no visible binding
-    if (length(grep("paste", as.character(xlab.plot))) > 0)
-      xlab.plot <- "Equivalent dose [Gy]"
+    if (length(grep("paste", as.character(settings$xlab))) > 0)
+      settings$xlab <- "Equivalent dose [Gy]"
 
     ## create plots ----
 
@@ -523,7 +480,7 @@ plot_Histogram <- function(
     # scatter plot of individual errors
     if (se) {
       yaxis2 <- list(overlaying = "y", side = "right",
-                     showgrid = FALSE, title = ylab.plot[2],
+                     showgrid = FALSE, title = settings$ylab[2],
                      ticks = "", showline = FALSE)
 
       se.text <- paste0("Measured value:</br>",
@@ -542,11 +499,11 @@ plot_Histogram <- function(
 
     # set layout ----
     hist <- plotly::layout(hist, hovermode = "closest",
-                           title = paste("<b>", main.plot, "</b>"),
+                           title = paste("<b>", settings$main, "</b>"),
                            margin = list(r = 90),
-                           xaxis = list(title = xlab.plot,
+                           xaxis = list(title = settings$xlab,
                                         ticks = ""),
-                           yaxis = list(title = ylab.plot[1],
+                           yaxis = list(title = settings$ylab[1],
                                         ticks = "",
                                         showline = FALSE,
                                         showgrid = FALSE)
