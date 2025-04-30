@@ -1269,7 +1269,7 @@ if(centrality[1] == "mean") {
              pch = pch,
              col = col,
              text.col = col,
-             cex = 0.8 * cex,
+             cex = 0.8,
              bty = "n")
     }
 
