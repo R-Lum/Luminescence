@@ -8,6 +8,7 @@ extract_IrradiationTimes(
   object,
   file.BINX,
   recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"),
+  return_same_as_input = FALSE,
   compatibility.mode = TRUE,
   txtProgressBar = TRUE
 )
@@ -40,6 +41,11 @@ described for this function.
 \strong{Note:} A wrong selection will causes a function error. Please change this
 argument only if you have reasons to do so.}
 
+\item{return_same_as_input}{\link{logical} (\emph{with default}): if set to \code{TRUE} an updated
+\linkS4class{RLum.Analysis} object (or a \link{list} of it) is returned, with each record having gained two
+new  info element fields: \code{IRR_TIME} and \code{TIMESCINCEIRR}. This makes the \linkS4class{RLum.Analysis}
+object compatible to external functions that search explicitly for \code{IRR_TIME} and \code{TIMESCINCEIRR}}
+
 \item{compatibility.mode}{\link{logical} (\emph{with default}):
 this option is parsed only if a BIN/BINX file is produced and it will reset all position
 values to a max. value of 48, cf.\link{write_R2BIN}}
@@ -53,6 +59,9 @@ following structure:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{.. $irr.times (data.frame)
 }\if{html}{\out{</div>}}
+
+If \code{return_same_as_input = TRUE} an \linkS4class{RLum.Analysis} or a \link{list} of it, but
+we updated info elements including irradiation times.
 
 If a BINX-file path and name is set, the output will be additionally
 transferred into a new BINX-file with the function name as suffix. For the
@@ -92,7 +101,8 @@ except for \code{TL}, where the function tries to extract meta information about
 }
 \note{
 The function can be also used to extract irradiation times from \linkS4class{RLum.Analysis} objects
-previously imported via \link{read_BIN2R} (\code{fastForward = TRUE}) or in combination with \link{Risoe.BINfileData2RLum.Analysis}.
+previously imported via \link{read_BIN2R} (\code{fastForward = TRUE}) or in combination with
+\link{Risoe.BINfileData2RLum.Analysis}.
 Unfortunately the timestamp might not be very precise (or even invalid),
 but it allows to essentially treat different formats in a similar manner.
 
@@ -133,7 +143,7 @@ If that information is missing, the x-values are presumed time values,
 which might still be wrong.
 }
 \section{Function version}{
- 0.3.5
+ 0.4.0
 }
 
 \examples{

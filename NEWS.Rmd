@@ -193,6 +193,11 @@ perform the loess fitting (#721).
 
 * The function tries a little bit harder to extract the correct duration of 
 TL steps, rendering the data output hopefully a little bit more intelligible (#651).  
+* The function gained a new argument called `return_same_as_input`. If set to `TRUE`, 
+the input object, usually an `RLum.Analysis-class` object or a `list` of it, is returned
+but comes with updated info elements for `IRR_TIME` and `TIMESINCEIRR`. This makes the 
+`RLum.Analysis-class` object compatible with functions that explicitly search for 
+those two objects, such as we have them in the `'OSLdecomposition'` package.
 
 ### `fit_DoseResponseCurve()`
 

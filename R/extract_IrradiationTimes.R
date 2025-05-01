@@ -55,6 +55,11 @@
 #' **Note:** A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
 #'
+#' @param return_same_as_input [logical] (*with default*): if set to `TRUE` an updated
+#' [RLum.Analysis-class] object (or a [list] of it) is returned, with each record having gained two
+#' new  info element fields: `IRR_TIME` and `TIMESCINCEIRR`. This makes the [RLum.Analysis-class]
+#' object compatible to external functions that search explicitly for `IRR_TIME` and `TIMESCINCEIRR`
+#'
 #' @param compatibility.mode [logical] (*with default*):
 #' this option is parsed only if a BIN/BINX file is produced and it will reset all position
 #' values to a max. value of 48, cf.[write_R2BIN]
@@ -63,7 +68,8 @@
 #' enable/disable the progress bar during import and export.
 #'
 #' @note The function can be also used to extract irradiation times from [RLum.Analysis-class] objects
-#' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with [Risoe.BINfileData2RLum.Analysis].
+#' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with
+#' [Risoe.BINfileData2RLum.Analysis].
 #' Unfortunately the timestamp might not be very precise (or even invalid),
 #' but it allows to essentially treat different formats in a similar manner.
 #'
@@ -74,6 +80,9 @@
 #' ```
 #' .. $irr.times (data.frame)
 #' ```
+#'
+#' If `return_same_as_input = TRUE` an [RLum.Analysis-class] or a [list] of it, but
+#' we updated info elements including irradiation times.
 #'
 #' If a BINX-file path and name is set, the output will be additionally
 #' transferred into a new BINX-file with the function name as suffix. For the
@@ -120,7 +129,7 @@
 #' If that information is missing, the x-values are presumed time values,
 #' which might still be wrong.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.4.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -165,6 +174,7 @@ extract_IrradiationTimes <- function(
   object,
   file.BINX,
   recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"),
+  return_same_as_input = FALSE,
   compatibility.mode = TRUE,
   txtProgressBar = TRUE
 ) {
@@ -174,9 +184,8 @@ extract_IrradiationTimes <- function(
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
     ##show message for non-supported arguments
-    if(!missing(file.BINX)){
+    if(!missing(file.BINX))
       .throw_warning("argument 'file.BINX' is not supported in self-call mode.")
-    }
 
     ## expand input arguments
     recordType <- .listify(recordType, length(object))
@@ -186,6 +195,7 @@ extract_IrradiationTimes <- function(
         extract_IrradiationTimes(
           object = object[[x]],
           recordType = recordType[[x]],
+          return_same_as_input = return_same_as_input,
           txtProgressBar = txtProgressBar
         )
       })
@@ -196,10 +206,10 @@ extract_IrradiationTimes <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, c("character", "RLum.Analysis"),
                   extra = "a 'list' of such objects")
   .validate_not_empty(object)
+  .validate_logical_scalar(return_same_as_input)
 
   if (is.character(object[1])) {
     .validate_length(object, 1)
@@ -226,13 +236,17 @@ extract_IrradiationTimes <- function(
     }
 
     # Settings and import XSYG --------------------------------------------------------------------
-    temp.XSYG <- read_XSYG2R(file.XSYG, txtProgressBar = txtProgressBar,
-                             verbose = txtProgressBar)
+    temp.XSYG <- read_XSYG2R(
+      file = file.XSYG,
+      txtProgressBar = txtProgressBar,
+      verbose = txtProgressBar)
 
     if(!missing(file.BINX)){
-      temp.BINX <- read_BIN2R(file.BINX, txtProgressBar = txtProgressBar,
-                              verbose = txtProgressBar)
-      temp.BINX.dirname <- (dirname(file.XSYG))
+      temp.BINX <- read_BIN2R(
+        file = file.BINX,
+        txtProgressBar = txtProgressBar,
+        verbose = txtProgressBar)
+      temp.BINX.dirname <- dirname(file.XSYG)
     }
 
     # Some data preparation -----------------------------------------------------------------------
@@ -409,5 +423,31 @@ extract_IrradiationTimes <- function(
   }
 
   # Output --------------------------------------------------------------------------------------
+   if(return_same_as_input[1]) {
+     ## This odd mode we need to ensure that the function supports
+     ## correctly all the odd modes with the automated import of XSYG files
+     if(exists(x = "temp.XSYG", envir = environment())) {
+       object <- lapply(temp.XSYG, function(x) x$Sequence.Object)
+
+        ## make sure that the output is compatible
+        if(length(object) == 1)
+          object <- object[[1]]
+
+        ## call the function again
+        return(
+          extract_IrradiationTimes(object, return_same_as_input = TRUE, recordType = recordType))
+
+     }
+
+    object@records <- lapply(seq_along(results$IRR_TIME), function(x){
+      add_metadata(object@records[[x]], info_element = "IRR_TIME") <- results$IRR_TIME[[x]]
+      add_metadata(object@records[[x]], info_element = "TIMESINCEIRR") <- results$TIMESINCEIRR[[x]]
+      object@records[[x]]
+    })
+
+    return(object)
+   }
+
+  ## regular return
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
