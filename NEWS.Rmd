@@ -197,7 +197,7 @@ TL steps, rendering the data output hopefully a little bit more intelligible (#6
 the input object, usually an `RLum.Analysis-class` object or a `list` of it, is returned
 but comes with updated info elements for `IRR_TIME` and `TIMESINCEIRR`. This makes the 
 `RLum.Analysis-class` object compatible with functions that explicitly search for 
-those two objects, such as we have them in the `'OSLdecomposition'` package.
+those two objects, such as we have them in the `'OSLdecomposition'` package (#752).
 
 ### `fit_DoseResponseCurve()`
 

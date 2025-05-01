@@ -215,7 +215,7 @@
   elements for `IRR_TIME` and `TIMESINCEIRR`. This makes the
   `RLum.Analysis-class` object compatible with functions that explicitly
   search for those two objects, such as we have them in the
-  `'OSLdecomposition'` package.
+  `'OSLdecomposition'` package (#752).
 
 ### `fit_DoseResponseCurve()`
 
