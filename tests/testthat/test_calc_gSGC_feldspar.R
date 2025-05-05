@@ -44,8 +44,16 @@ test_that("test errors", {
   results <- expect_s4_class(calc_gSGC_feldspar(
     data = data,
     gSGC.type = "50LxTx",
+    n.MC = 20,
     plot = TRUE),
     "RLum.Results")
+
+  ## more coverage
+  set.seed(733)
+  data$LnTn <- rnorm(n = n_samples, mean = 1.0, sd = 0.02)
+  results <- expect_s4_class(calc_gSGC_feldspar(
+      data = data, gSGC.type = "50LxTx", n.MC = 10, plot = TRUE),
+      "RLum.Results")
 
   ## test own curve parameters
   SW({
@@ -60,7 +68,8 @@ test_that("test errors", {
       y2_err = 0.10,
       y0 = 0.001,
       y0_err = 0.0001
-    )),
+    ),
+    plot = TRUE),
     "No solution found for dataset")
   })
 
