@@ -10,14 +10,6 @@ test_that("test errors", {
     "[calc_gSGC_feldspar()] 'data' should be of class 'data.frame'",
     fixed = TRUE)
 
-  ##no character
-  expect_error(calc_gSGC_feldspar(
-    data = data.frame(a  = 1, b = 1, c = 1, d = 1, e = 1),
-    gSGC.type = 1,
-    plot = FALSE),
-    "[calc_gSGC_feldspar()] 'gSGC.type' should be of class 'character'",
-    fixed = TRUE)
-
   ## input is somewhat not what we expect for gSGC
   expect_error(
     calc_gSGC_feldspar(
@@ -25,7 +17,7 @@ test_that("test errors", {
       gSGC.type = "wrong",
       plot = FALSE
     ),
-    "\\[calc_gSGC_feldspar\\(\\)\\] 'gSGC.type' needs to be one of the accepted values"
+    "'gSGC.type' should be one of '50LxTx', '50Lx', '50Tx', '100LxTx', '100Lx'"
   )
 
   ## incorrect number of columns
@@ -35,7 +27,7 @@ test_that("test errors", {
       gSGC.type = "50LxTx",
       plot = FALSE
     ),
-    "Structure of 'data' does not fit the expectations"
+    "'data' should have 5 columns"
   )
 
  ##finally run with plot output
@@ -75,5 +67,4 @@ test_that("test errors", {
   ##regression tests
   expect_s4_class(results, "RLum.Results")
   expect_true(all(is.na(unlist(results$m.MC))))
-
 })

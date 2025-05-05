@@ -80,11 +80,10 @@ calc_gSGC_feldspar <- function (
   ## Integrity checks -------------------------------------------------------
   .validate_class(data, "data.frame")
   if (ncol(data) != 5) {
-    .throw_error("Structure of 'data' does not fit the expectations")
+    .throw_error("'data' should have 5 columns")
   }
   colnames(data) <- c("LnTn", "LnTn.error", "Lr1Tr1", "Lr1Tr1.error",
                       "Dr1")
-  .validate_class(gSGC.type, "character")
 
 # Parametrize -------------------------------------------------------------
   params <- data.frame( # this is the data from Table 3 of Li et al., 2015
@@ -102,6 +101,7 @@ calc_gSGC_feldspar <- function (
     D0_2.3 = c( 2000, 2450, 1420, 1420, 2300, 2900, 1500, 2340, 2880, 1320, 2080, 2980, 1000, 1780, 2500),
     D0_3 = c( 2780, 3280, 2520, 1950, 3100, 4960, 2060, 3130, 4760, 1780, 2800, 5120, 1380, 2360, 4060)
   )
+  .validate_args(gSGC.type, params$Type)
 
   # these are user specified parameters if they so desire
   if (!missing(gSGC.parameters)){
@@ -115,7 +115,6 @@ calc_gSGC_feldspar <- function (
     y0_err <- gSGC.parameters$y0_err
 
   } else {
-   if (gSGC.type[1] %in% params$Type){
    # take the user input pIRSL temperature and assign the correct parameters
    index <- match(gSGC.type,params$Type)
 
@@ -133,12 +132,6 @@ calc_gSGC_feldspar <- function (
 
       y0 <- params$y0[index]
       y0_err <- params$y0_err[index]
-
-    } else {
-      # give error if input is wrong
-      .throw_error("'gSGC.type' needs to be one of the accepted values: ",
-                   .collapse(params$Type))
-    }
   }
 
   ##set function for uniroot
@@ -150,7 +143,6 @@ calc_gSGC_feldspar <- function (
     f_Dr <-  y1 * (1 - exp(-Dr1 / D1)) + y2 * (1 - exp(-Dr1 / D2)) + y0
     ##return(f_D/Lr1Tr1 - f_Dr/LnTn) ##TODO double check seems to be wrong
     return(f_Dr/Lr1Tr1 - f_D/LnTn)
-
   }
 
 # Run calculation ---------------------------------------------------------
@@ -229,7 +221,6 @@ calc_gSGC_feldspar <- function (
             # give an NA if uniroot cannot find a root (usually due to bad random values)
             temp.MC.matrix[j,8] <- NA
           }
-
         }
 
         # set the De uncertainty as the standard deviations of the randomly generated des
@@ -285,9 +276,7 @@ calc_gSGC_feldspar <- function (
          ylim = c(0, y_max),
          main = ""
        )
-
     }
-
   }
 
 
@@ -306,7 +295,6 @@ calc_gSGC_feldspar <- function (
     HPD <- .calc_HPDI(na.exclude(l[[i]]$m.MC[,8]))
     m[i,3] <- HPD[1,1]
     m[i,4] <- HPD[1,2]
-
   }
 
   df <- data.frame(
@@ -326,5 +314,4 @@ calc_gSGC_feldspar <- function (
         call = sys.call()
       )
     ))
-
 }
