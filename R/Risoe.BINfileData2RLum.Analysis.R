@@ -1,8 +1,8 @@
 #' @title Convert Risoe.BINfileData object to an RLum.Analysis object
 #'
 #' @description
-#' Converts values from one specific position of a Risoe.BINfileData S4-class
-#' object to an RLum.Analysis object.
+#' Converts values from one specific position of a [Risoe.BINfileData-class]
+#' object to an [RLum.Analysis-class] object.
 #'
 #' The [RLum.Analysis-class] object requires a set of curves for
 #' specific further protocol analyses. However, the [Risoe.BINfileData-class]
@@ -10,11 +10,11 @@
 #' protocol types that may be mixed up. Therefore, a conversion is needed.
 #'
 #' @param object [Risoe.BINfileData-class] (**required**):
-#' `Risoe.BINfileData` object
+#' object to convert.
 #'
 #' @param pos [numeric] (*optional*): position number of the `Risoe.BINfileData`
 #' object for which the curves are stored in the `RLum.Analysis` object.
-#' If `length(position)>1` a list of `RLum.Analysis` objects is returned.
+#' If `length(pos) > 1`, a list of `RLum.Analysis` objects is returned.
 #' If nothing is provided every position will be converted.
 #' If the position is not valid `NULL` is returned.
 #'
@@ -22,7 +22,7 @@
 #' grain number from the measurement to limit the converted data set
 #' (e.g., `grain = c(1:48)`). Please be aware that this option may lead to
 #' unwanted effects, as the output is strictly limited to the chosen grain
-#' number for all position numbers
+#' number for all position numbers.
 #'
 #' @param run [vector], [numeric] (*optional*):
 #' run number from the measurement to limit the converted data set
@@ -35,11 +35,11 @@
 #' @param ltype [vector], [character] (*optional*):
 #' curve type to limit the converted data. Commonly allowed values are:
 #' `IRSL`, `OSL`, `TL`, `RIR`, `RBR` and `USER`
-#' (see also [Risoe.BINfileData-class])
+#' (see also [Risoe.BINfileData-class]).
 #'
 #' @param dtype [vector], [character] (*optional*):
 #' data type to limit the converted data. Commonly allowed values are
-#' listed in [Risoe.BINfileData-class]
+#' listed in [Risoe.BINfileData-class].
 #'
 #' @param protocol [character] (*optional*):
 #' sets protocol type for analysis object. Value may be used by subsequent
@@ -92,20 +92,17 @@ Risoe.BINfileData2RLum.Analysis<- function(
   .set_function_name("Risoe.BINfileData2RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "Risoe.BINfileData")
-  if (!is.null(pos)) {
-    .validate_class(pos, c("numeric", "integer"))
-  }
 
+  positions.valid <- unique(object@METADATA[["POSITION"]])
   if (is.null(pos)) {
-    pos <- unique(object@METADATA[["POSITION"]])
+    pos <- positions.valid
+  } else {
+    .validate_class(pos, c("numeric", "integer"))
 
-  } else{
-    ##get and check valid positions and remove invalid numbers from the input
-    positions.valid <- unique(object@METADATA[, "POSITION"])
-
+    ## remove invalid positions from the input
     if (length(setdiff(pos, positions.valid)) > 0) {
       .throw_warning("Invalid position number skipped: ",
                      .collapse(setdiff(pos, positions.valid), quote = FALSE))
@@ -115,70 +112,61 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
   # Grep run and set data ---------------------------------------------------
 
-    ##grain
-    if (is.null(grain)) {
-      grain <- unique(object@METADATA[["GRAIN"]])
-
-    }else{
-      grain.valid <- unique(object@METADATA[["GRAIN"]])
+  ## grain
+  grain.valid <- unique(object@METADATA[["GRAIN"]])
+  if (is.null(grain)) {
+    grain <- grain.valid
+  } else {
       if(length(setdiff(grain, grain.valid)) > 0){
         .throw_warning("Invalid grain number skipped: ",
                        .collapse(setdiff(grain, grain.valid), quote = FALSE))
-
         grain <- intersect(grain, grain.valid)
       }
+  }
+
+  ## run
+  run.valid <- unique(object@METADATA[["RUN"]])
+  if (is.null(run)) {
+    run <- run.valid
+  } else {
+    if (length(setdiff(run, run.valid)) > 0) {
+      .throw_error("'run' contains invalid runs, valid runs are: ",
+                   .collapse(run.valid, quote = FALSE))
     }
+  }
 
-    ##run
-    if (is.null(run)) {
-      run <- unique(object@METADATA[["RUN"]])
-    } else{
-      if (TRUE %in% unique(unique(object@METADATA[["RUN"]]) %in% run) != TRUE) {
-        ##get and check valid positions
-        .throw_error("run = ", .collapse(run, quote = FALSE),
-                     " contains invalid runs. Valid runs are: ",
-                     .collapse(unique(object@METADATA[, "RUN"]),
-                               quote = FALSE))
-      }
+  ## set
+  set.valid <- unique(object@METADATA[["SET"]])
+  if (is.null(set)) {
+    set <- set.valid
+  } else {
+    if (length(setdiff(set, set.valid)) > 0) {
+      .throw_error("'set' contains invalid sets, valid sets are: ",
+                   .collapse(set.valid, quote = FALSE))
     }
+  }
 
-    #set
-    if(is.null(set)){set <- unique(object@METADATA[["SET"]])
-    } else{
-
-      if(TRUE %in% unique(unique(object@METADATA[["SET"]]) %in% set) != TRUE){
-
-        ##get and check valid positions
-        .throw_error("set = ", .collapse(set, quote = FALSE),
-                     " contains invalid sets. Valid sets are: ",
-                     .collapse(unique(object@METADATA[, "SET"]),
-                               quote = FALSE))
-      }
+  ## ltype
+  ltype.valid <- unique(object@METADATA[["LTYPE"]])
+  if (is.null(ltype)) {
+    ltype <- ltype.valid
+  } else {
+    if (length(setdiff(ltype, ltype.valid)) > 0) {
+      .throw_error("'ltype' contains invalid ltypes, valid ltypes are: ",
+                   .collapse(ltype.valid, quote = TRUE))
     }
+  }
 
-    ##ltype
-    if (is.null(ltype)) {
-      ltype <- unique(object@METADATA[["LTYPE"]])
-    } else{
-      if (TRUE %in% unique(unique(object@METADATA[, "LTYPE"]) %in% ltype) != TRUE) {
-        ##get and check valid positions
-        .throw_error("ltype = ", .collapse(ltype),
-                     " contains invalid ltypes. Valid ltypes are: ",
-                     .collapse(unique(object@METADATA[, "LTYPE"])))
-      }
+  ## dtype
+  dtype.valid <- unique(object@METADATA[["DTYPE"]])
+  if (is.null(dtype)) {
+    dtype <- dtype.valid
+  } else {
+    if (length(setdiff(dtype, dtype.valid)) > 0) {
+      .throw_error("'dtype' contains invalid dtypes, valid dtypes are: ",
+                   .collapse(dtype.valid, quote = TRUE))
     }
-
-    ##dtype
-    if (is.null(dtype)) {
-      dtype <- unique(object@METADATA[["DTYPE"]])
-    } else{
-      if (TRUE %in% unique(unique(object@METADATA[, "DTYPE"]) %in% dtype) != TRUE) {
-        ##get and check valid positions
-        .throw_error("dtype = ", .collapse(dtype),
-                     " contains invalid dtypes. Valid dtypes are: ",
-                     .collapse(unique(object@METADATA[, "DTYPE"])))
-      }
-    }
+  }
 
     # Select values and convert them-----------------------------------------------------------
     ##set progressbar to false if only one position is provided
@@ -236,6 +224,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
           })
         }
 
+        if (!keep.empty && length(records) == 0)
+          return(NULL)
+
         ## create the RLum.Analysis object
         object <- set_RLum(
           class = "RLum.Analysis",
@@ -244,31 +235,17 @@ Risoe.BINfileData2RLum.Analysis<- function(
           originator = "Risoe.BINfileData2RLum.Analysis"
         )
 
-        if (!keep.empty && length(object@records) == 0)
-          return(NULL)
-
-        ##add unique id of RLum.Analysis object to each curve object as .pid using internal function
+        ## add unique id of RLum.Analysis object to each curve
         .set_pid(object)
-
         return(object)
       })
 
       return(object)
     })
 
-    ##this is necessary to not break with previous code, i.e. if only one element is included
-    ##the output is RLum.Analysis and not a list of it
-    if(length(object) == 1){
+  ## if only one element is included, output an RLum.Analysis object, not a list
+  if (length(object) == 1 && length(object[[1]]) == 1)
+    return(invisible(object[[1]][[1]]))
 
-      # special case: single grain data with only 1 position produces a nested list
-      # the outer one is of length 1, the nested list has length 100 (100 grains)
-      if (is.list(object[[1]]) && length(object[[1]]) > 1)
-        invisible(unlist(object))
-      else
-        invisible(object[[1]][[1]])
-
-    }else{
-
-      invisible(unlist(object))
-    }
+  return(invisible(unlist(object)))
 }
