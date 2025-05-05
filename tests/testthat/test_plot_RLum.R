@@ -21,6 +21,7 @@ test_that("check functionality", {
       set_RLum("RLum.Data.Curve", data = matrix(1:10, ncol = 2)),
       set_RLum("RLum.Data.Curve", data = matrix(1:20, ncol = 2)))))
 
+  expect_silent(plot_RLum(l, main = list("test", "test2")))
   expect_silent(plot_RLum(l, main = list("test", "test2"), mtext = "test",
                           subset = NA))
 
