@@ -74,6 +74,7 @@ Cueva
 Cunha
 DFG
 DLED
+DOI
 DRAC
 DRC
 DRCs
@@ -321,6 +322,7 @@ Stolz
 Storn
 Straessner
 Streibig
+Subclasses
 Svoboda
 Sébastien
 TLAPLLIC
@@ -372,6 +374,7 @@ XRF
 XSXG
 XSYG
 Xcode
+YAML
 Yoshida
 ZENODO
 ZEU
@@ -395,12 +398,14 @@ athermal
 baSAR
 bbmle
 behaviour
+bg
 binx
 calc
 centre
 centred
 centres
 centring
+cex
 characterisation
 characterising
 chemometrics
@@ -452,6 +457,7 @@ initialisation
 irradiations
 isochrons
 isothermal
+iteratively
 jll
 jlumin
 kB
@@ -525,6 +531,7 @@ readSPE
 realised
 recognised
 reorganisation
+reproducibility
 retrapping
 rmarkdown
 rstudioapi
