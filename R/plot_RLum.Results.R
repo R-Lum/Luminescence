@@ -658,8 +658,6 @@ plot_RLum.Results<- function(
            xaxt="n", yaxt="n", ylab="")
       par(bty="n")
       graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
-    } else {
-      on.exit(NULL, add = TRUE) # FIXME(mcol): seems unnecessary
     }
   }#EndOf::Case 5 - calc_AliquotSize()
 
