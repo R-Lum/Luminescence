@@ -310,6 +310,11 @@ argument was used (#726).
 if `file` is either a `list` or a character vector of length > 1. If set to `TRUE`, 
 images are combined into one image stack.
 
+### `read_XSYG2R()`
+
+* A redundant computation has been removed, and the function is now marginally
+faster on files when the detector is not a spectrometer (#753).
+
 ### `scale_GammaDose()`
 
 * Argument `plot_singlePanels` now works as documented, that is it produces

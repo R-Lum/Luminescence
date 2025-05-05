@@ -464,11 +464,6 @@ read_XSYG2R <- function(
                 ##round values (1 digit is the technical resolution of the heating element)
                 temp.sequence.object.curveValue.PMT[,1] <- round(
                   temp.sequence.object.curveValue.PMT[,1], digits = 1)
-
-                #grep values from heating element
-                temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
-                  temp[[x]][[i]][[3]]))
-
               }else{
                 temp.sequence.object.curveValue.spectrum <- get_XSYG.spectrum.values(
                   temp.sequence.object.curveValue)
