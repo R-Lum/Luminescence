@@ -1,10 +1,9 @@
 #' @title Import Princeton Instruments (TM) SPE-file into R
 #'
-#' @description Function imports Princeton Instruments (TM) SPE-files into R environment and
-#' provides [RLum.Data.Image-class] objects as output.
-#'
-#' @details Function provides an R only import routine for the Princeton Instruments
-#' SPE format. Import functionality is based on the file format description provided by
+#' @description
+#' The function imports Princeton Instruments (TM) SPE-files into R and
+#' provides [RLum.Data.Image-class] objects as output. The import
+#' functionality is based on the file format description provided by
 #' Princeton Instruments and a MatLab script written by Carl Hall (see
 #' references).
 #'
@@ -12,14 +11,14 @@
 #' SPE-file name (including path), e.g.
 #' - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
 #' - `[MAC/LINUX]`: `read_SPE2R("/User/test/Desktop/test.spe")`.
-#' Additionally, it can be a URL starting with http:// or https://.
+#' Additionally, it can be a URL starting with `http://` or `https://`.
 #'
 #' @param output.object [character] (*with default*):
-#' set `RLum` output object.  Allowed types are `"RLum.Data.Spectrum"`,
-#' `"RLum.Data.Image"` or `"matrix"`
+#' set the output object type. Allowed types are `"RLum.Data.Spectrum"`,
+#' `"RLum.Data.Image"` or `"matrix"`.
 #'
 #' @param frame.range [vector] (*optional*):
-#' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`
+#' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. Ignored if `verbose = FALSE`.
@@ -27,7 +26,7 @@
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#' @param ... not used, for compatibility reasons only
+#' @param ... not used, for compatibility reasons only.
 #'
 #' @return
 #' Depending on the chosen option the functions returns three different
@@ -101,7 +100,6 @@
 #' #             file = "[your path and filename]",
 #' #             sep = ";", row.names = FALSE)
 #'
-#'
 #' @md
 #' @export
 read_SPE2R <- function(
@@ -119,8 +117,8 @@ read_SPE2R <- function(
 
   .validate_class(file, "character")
   .validate_length(file, 1)
-  valid.output.object <- c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix")
-  .validate_args(output.object, valid.output.object)
+  .validate_args(output.object,
+                 c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"))
 
   ##check if file exists
   if(!file.exists(file)){
@@ -158,7 +156,6 @@ read_SPE2R <- function(
       .throw_error("Unsupported file format: *.",
                    strsplit(file, split = "\\.")[[1]][2], sep = "")
   }}
-
 
   if (!verbose)
     txtProgressBar <- FALSE
@@ -254,10 +251,11 @@ read_SPE2R <- function(
 
   ##number of frames in file.
   NumFrames <- readBin(con, what="int", 1, size=4, endian="little", signed = TRUE)
-
   if(NumFrames > 100 & missing(frame.range) & output.object == "RLum.Data.Image"){
-    .throw_error("Import aborted: this file containes > 100 frames (",
-                 NumFrames, "). Use argument 'frame.range' to force import.")
+    # nocov start
+    .throw_error("This file contains > 100 frames (", NumFrames, "), ",
+                 "use argument 'frame.range' to force import")
+    # nocov end
   }
 
   ##set frame.range
@@ -340,19 +338,12 @@ read_SPE2R <- function(
   ##stepping for frame range
   temp <- readBin(con, what = "raw", (min(frame.range)-1)*2, size = 1, endian = "little")
 
+  data.list <- NULL
   for(i in 1:(diff(frame.range)+1)){#NumFrames
     temp.data <- matrix(read.data(n.counts = (xdim * ydim)),
                         ncol = ydim,
                         nrow = xdim)
-
-    if(exists("data.list") == FALSE){
-
-      data.list <- list(temp.data)
-
-    }else{
-
-      data.list <- c(data.list, list(temp.data))
-    }
+    data.list <- c(data.list, list(temp.data))
 
     ##update progress bar
     if (txtProgressBar) {
@@ -368,7 +359,7 @@ read_SPE2R <- function(
 
   # Output ------------------------------------------------------------------
 
-  if(output.object == "RLum.Data.Spectrum" | output.object == "matrix"){
+  if (output.object %in% c("RLum.Data.Spectrum", "matrix")) {
     ##to create a spectrum object the matrix has to transposed and
     ##the row sums are needed
 
@@ -385,7 +376,6 @@ read_SPE2R <- function(
     colnames(data.spectrum.matrix) <- as.character(1:ncol(data.spectrum.matrix))
     rownames(data.spectrum.matrix) <- as.character(1:nrow(data.spectrum.matrix))
 
-
     ##set output object
     object <- set_RLum(
       class = "RLum.Data.Spectrum",
@@ -399,7 +389,6 @@ read_SPE2R <- function(
     if (output.object == "matrix") {
       object <- get_RLum(object)
     }
-
 
   }else if(output.object == "RLum.Data.Image"){
     object <- as(data.list, "RLum.Data.Image")

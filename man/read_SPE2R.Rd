@@ -19,15 +19,15 @@ SPE-file name (including path), e.g.
 \itemize{
 \item \verb{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
 \item \verb{[MAC/LINUX]}: \code{read_SPE2R("/User/test/Desktop/test.spe")}.
-Additionally, it can be a URL starting with http:// or https://.
+Additionally, it can be a URL starting with \verb{http://} or \verb{https://}.
 }}
 
 \item{output.object}{\link{character} (\emph{with default}):
-set \code{RLum} output object.  Allowed types are \code{"RLum.Data.Spectrum"},
-\code{"RLum.Data.Image"} or \code{"matrix"}}
+set the output object type. Allowed types are \code{"RLum.Data.Spectrum"},
+\code{"RLum.Data.Image"} or \code{"matrix"}.}
 
 \item{frame.range}{\link{vector} (\emph{optional}):
-limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}}
+limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
@@ -35,7 +35,7 @@ enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
 
-\item{...}{not used, for compatibility reasons only}
+\item{...}{not used, for compatibility reasons only.}
 }
 \value{
 Depending on the chosen option the functions returns three different
@@ -63,12 +63,9 @@ meaning that the same results can be obtained by using the function
 \link{get_RLum} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
-Function imports Princeton Instruments (TM) SPE-files into R environment and
-provides \linkS4class{RLum.Data.Image} objects as output.
-}
-\details{
-Function provides an R only import routine for the Princeton Instruments
-SPE format. Import functionality is based on the file format description provided by
+The function imports Princeton Instruments (TM) SPE-files into R and
+provides \linkS4class{RLum.Data.Image} objects as output. The import
+functionality is based on the file format description provided by
 Princeton Instruments and a MatLab script written by Carl Hall (see
 references).
 }
@@ -106,7 +103,6 @@ The function has been successfully tested for SPE format versions 2.x.
 # write.table(x = get_RLum(temp),
 #             file = "[your path and filename]",
 #             sep = ";", row.names = FALSE)
-
 
 }
 \references{
