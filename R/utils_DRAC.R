@@ -310,7 +310,6 @@ DRAC_refs <- function() {
       pages = "25-29"
     )
   )
-
 }
 
 ## internal helper to search key from the DRAC table
@@ -319,5 +318,4 @@ DRAC_refs <- function() {
     which(vapply(x, function(i) attr(i, "key") == key, logical(1)))
   else
     which(colnames(x) == key)
-
 }
