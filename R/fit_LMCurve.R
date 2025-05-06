@@ -994,7 +994,7 @@ fit_LMCurve<- function(
            ylab="Contribution [%]",
            xlab = settings$xlab,
            main="Component contribution to sum curve",
-           log = if (settings$log == "xy") "x" else settings$log)
+           log = gsub("y", "", settings$log))
 
       stepping <- seq(3,length(component.contribution.matrix),2)
 

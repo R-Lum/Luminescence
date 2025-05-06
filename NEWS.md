@@ -237,8 +237,8 @@
 ### `fit_LMCurve()`
 
 - If the user asks logarithmic scaling in the y-axis, using either
-  `log = "y"` or `log = "xy"`, this is now ignored when drawing the
-  residual plot (#755).
+  `log = "y"` or `log = "xy"`, this is now ignored when plotting
+  residuals and component contributions (#755).
 
 ### `fit_SurfaceExposure()`
 
