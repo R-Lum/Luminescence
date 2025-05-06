@@ -4,6 +4,9 @@ data(ExampleData.XSYG, envir = environment())
 ## subtract background
 TL.Spectrum@data <- TL.Spectrum@data[] - TL.Spectrum@data[, 15]
 
+## spectrum with only 1 frame
+TL1 <- set_RLum("RLum.Data.Spectrum", data = TL.Spectrum[, 1, drop = FALSE])
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -54,8 +57,7 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-SW({
-
+  SW({
   ## for matrix input -------
   mat <- get_RLum(TL.Spectrum)[, 1:4]
   expect_s4_class(
@@ -85,9 +87,7 @@ SW({
 
   # silent mode -------
   expect_silent(results <- fit_EmissionSpectra(
-    object = TL.Spectrum,
-    frame = 5,
-    main = "TL spectrum",
+    object = TL1,
     plot = FALSE,
     verbose = FALSE,
     method_control = list(max.runs = 10)))
