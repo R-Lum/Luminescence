@@ -974,6 +974,7 @@ fit_LMCurve<- function(
            col="grey",
            ylab="Residual",
            lwd=2,
+           xpd = NA,
            log = gsub("y", "", settings$log))
 
       ##ad 0 line
