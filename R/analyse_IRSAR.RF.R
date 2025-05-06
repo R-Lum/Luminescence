@@ -1509,7 +1509,7 @@ analyse_IRSAR.RF<- function(
 
       ##set plot frame, if a method was chosen
       if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
-        layout(matrix(c(1, 2), 2, 1, byrow = TRUE), c(2), c(1.3, 0.4), TRUE)
+        graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
         par(
           oma = c(1, 1, 1, 1),
           mar = c(0, 4, 3, 0),

@@ -360,7 +360,7 @@ analyse_SAR.TL <- function(
   col <- get("col", pos = .LuminescenceEnv)
 
   ##set layout matrix
-  layout(matrix(c(
+  graphics::layout(matrix(c(
     1, 1, 2, 2,
     1, 1, 2, 2,
     3, 3, 4, 4,
@@ -643,7 +643,6 @@ analyse_SAR.TL <- function(
 
   }else{
     temp.GC <- data.frame(temp.GC, RC.Status="OK")
-
   }
 
   # Return Values -----------------------------------------------------------
@@ -658,5 +657,4 @@ analyse_SAR.TL <- function(
   )
 
   return(newRLumResults.analyse_SAR.TL)
-
 }

@@ -540,7 +540,8 @@ scale_GammaDose <- function(
     on.exit(par(par.old), add = TRUE)
 
     if (!plot_singlePanels)
-      layout(matrix(c(1,1, 2, 3, 4, 5,
+      graphics::layout(matrix(
+                    c(1,1, 2, 3, 4, 5,
                       1,1, 2, 3, 4, 5,
                       1,1, 6, 6, 6, 6,
                       1,1, 6, 6, 6, 6), ncol = 6, byrow = TRUE))

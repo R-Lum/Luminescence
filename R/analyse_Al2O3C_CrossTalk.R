@@ -281,7 +281,7 @@ analyse_Al2O3C_CrossTalk <- function(
     if (plot) {
 
       ##set layout matrix
-      layout(mat = matrix(
+      graphics::layout(mat = matrix(
         c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3),
         5,
         5,

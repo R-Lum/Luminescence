@@ -107,7 +107,7 @@
 #' @import utils methods data.table
 #'
 #' @importFrom  Rcpp evalCpp
-#' @importFrom graphics plot abline mtext text lines par layout lines axTicks axis curve hist legend points polygon segments title
+#' @importFrom graphics plot abline mtext text lines par lines axTicks axis curve hist legend points polygon segments title
 #' @importFrom grDevices adjustcolor rgb
 #' @importFrom stats approx density dnorm median na.exclude nls quantile rnorm runif sd uniroot setNames coef predict residuals
 #'

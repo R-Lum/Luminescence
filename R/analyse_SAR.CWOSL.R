@@ -888,7 +888,7 @@ error.list <- list()
       on.exit(on_exit(), add = TRUE)
 
       plot_singlePanels <- TRUE
-      layout(matrix(
+      graphics::layout(matrix(
         c(1, 1, 3, 3, 6, 6, 7,
           1, 1, 3, 3, 6, 6, 8,
           2, 2, 4, 4, 9, 9, 10,
@@ -905,7 +905,7 @@ error.list <- list()
 
       if (plot_singlePanels[1] == FALSE) {
         on.exit(on_exit(), add = TRUE)
-        layout(matrix(
+        graphics::layout(matrix(
           c(1, 1, 3, 3,
             1, 1, 3, 3,
             2, 2, 4, 4,

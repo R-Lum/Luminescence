@@ -416,7 +416,7 @@ Analyse_SAR.OSLdata <- function(
 
 
         if (!plot_singlePanels) {
-          layout(matrix(c(1,2,1,2,3,4,3,5),4,2,byrow=TRUE))
+          graphics::layout(matrix(c(1,2,1,2,3,4,3,5), 4, 2, byrow = TRUE))
         }
         ##warning if number of curves exceed colour values
         if(length(col)<length(LnLx.curveID)){

@@ -884,7 +884,8 @@ fit_LMCurve<- function(
     }
 
     ##set plot frame
-    layout(matrix(c(1,2,3),3,1, byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
+    graphics::layout(matrix(c(1, 2, 3), 3, 1, byrow = TRUE),
+                     c(1.6, 1, 1), c(1, 0.3, 0.4), TRUE)
     par(oma = c(1,1,1,1), mar = c(0,4,3,0), cex = settings$cex)
 
     ##==upper plot==##

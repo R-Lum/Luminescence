@@ -182,7 +182,7 @@ plot_DoseResponseCurve <- function(
     on.exit(par(par_default), add = TRUE)
 
     ## set new parameter
-    layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
+    graphics::layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
     par(cex = 0.8 * plot_settings$cex)
   }
 

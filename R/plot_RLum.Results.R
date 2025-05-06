@@ -198,10 +198,10 @@ plot_RLum.Results<- function(
       ## --------- PLOT "RECYCLE" BOOTSTRAP RESULTS ------------ ##
 
       if(single==TRUE) {
-        layout(cbind(c(1,1,2, 5,5,6), c(3,3,4, 7,7,8)))
+        graphics::layout(cbind(c(1, 1, 2, 5, 5, 6), c(3, 3, 4, 7, 7, 8)))
         par(cex = 0.6)
       } else {
-        layout(matrix(c(1,1,2)),2,1)
+        graphics::layout(matrix(c(1, 1, 2)), 2, 1)
         par(cex = 0.8)
       }
 
@@ -608,7 +608,7 @@ plot_RLum.Results<- function(
       MC.iter<- object@data$args$MC.iter
 
       # set layout of plotting device
-      layout(matrix(c(1,1,2)),2,1)
+      graphics::layout(matrix(c(1, 1, 2)), 2, 1)
       par(cex = 0.8)
 
       ## plot MC estimate distribution

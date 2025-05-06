@@ -443,9 +443,8 @@ analyse_pIRIRSequence <- function(
     rep((max(temp.IRSL.layout.vector)+2),1), #TnTc
     rep((max(temp.IRSL.layout.vector)+3),2)) #Rejection criteria
 
-
   ##set layout
-  nf <- layout(
+  nf <- graphics::layout(
     matrix(layout.matrix,(max(layout.matrix)/2 +
                             ifelse(n.loops > 2, 0,2)), 4, byrow = TRUE),
      widths = c(rep(c(1,1,1,.75),6),c(1,1,1,1)),

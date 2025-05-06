@@ -610,7 +610,7 @@ calc_FiniteMixture <- function(
     seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
 
   ## create device layout
-  layout(seq.matrix)
+  graphics::layout(seq.matrix)
 
   ## outer margins (bottom, left, top, right)
   par(oma = c(1, 5, 3, 5))

@@ -413,7 +413,7 @@ calc_AliquotSize <- function(
 
     ## set layout of plotting device
     nrow.splits <- if (settings$boxplot) 2 else 1
-    layout(matrix(c(1, 1, nrow.splits)), nrow.splits, 1)
+    graphics::layout(matrix(c(1, 1, nrow.splits)), nrow.splits, 1)
     par(cex = settings$cex)
 
     ## plot MC estimate distribution
