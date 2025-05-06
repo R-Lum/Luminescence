@@ -120,3 +120,10 @@ test_that("snapshot tests", {
                        tolerance = snapshot.tolerance)
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 755
+  expect_silent(fit_LMCurve(values.curve, log = "xy", verbose = FALSE))
+})

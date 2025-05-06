@@ -213,6 +213,11 @@ reduce redundant calls.
 C++. This cut the required computation times in half in benchmark scenarios. More importantly, 
 this performance scales with the number of Monte Carlo runs. 
 
+### `fit_LMCurve()`
+
+* If the user asks logarithmic scaling in the y-axis, using either `log = "y"`
+or `log = "xy"`, this is now ignored when drawing the residual plot (#755).
+
 ### `fit_SurfaceExposure()`
 
 * It is now possible to specify different values for the light attenuation
