@@ -64,9 +64,9 @@
                   "value": [1.66554152]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -74,14 +74,14 @@
                   "value": [13690.36155225]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.95538284e-17]
+                  "value": [1.95538302e-17]
                 },
                 {
                   "type": "double",
@@ -104,9 +104,9 @@
                   "value": [0.0957434]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -114,14 +114,14 @@
                   "value": [7753.46496196]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.12404889e-18]
+                  "value": [1.12404899e-18]
                 },
                 {
                   "type": "double",
@@ -144,9 +144,9 @@
                   "value": [0.00157891]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -154,14 +154,14 @@
                   "value": [1064017.12625395]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.85367389e-20]
+                  "value": [1.85367405e-20]
                 },
                 {
                   "type": "double",
@@ -184,19 +184,9 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
@@ -209,124 +199,134 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -492,9 +492,9 @@
                   "value": [1.6656264]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -502,14 +502,14 @@
                   "value": [13689.74940598]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.95548249e-17]
+                  "value": [1.95548266e-17]
                 },
                 {
                   "type": "double",
@@ -532,9 +532,9 @@
                   "value": [0.09578821]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -542,14 +542,14 @@
                   "value": [7753.02219862]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.12457487e-18]
+                  "value": [1.12457497e-18]
                 },
                 {
                   "type": "double",
@@ -572,9 +572,9 @@
                   "value": [0.00157891]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -582,14 +582,14 @@
                   "value": [1064017.49082015]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.85367711e-20]
+                  "value": [1.85367727e-20]
                 },
                 {
                   "type": "double",
@@ -612,19 +612,9 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
@@ -637,124 +627,134 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -920,9 +920,9 @@
                   "value": [1.59953483]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -930,14 +930,14 @@
                   "value": [15303.6139709]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.87788952e-17]
+                  "value": [1.87788968e-17]
                 },
                 {
                   "type": "double",
@@ -960,9 +960,9 @@
                   "value": [0.05766462]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -970,14 +970,14 @@
                   "value": [14079.36231441]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [6.76995523e-19]
+                  "value": [6.76995583e-19]
                 },
                 {
                   "type": "double",
@@ -1000,9 +1000,9 @@
                   "value": [0.0015562]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1010,14 +1010,14 @@
                   "value": [1055206.64483228]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.82700775e-20]
+                  "value": [1.82700791e-20]
                 },
                 {
                   "type": "double",
@@ -1040,19 +1040,9 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
@@ -1065,124 +1055,134 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1348,9 +1348,9 @@
                   "value": [1.6655423]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1365,7 +1365,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.95538376e-17]
+                  "value": [1.95538393e-17]
                 },
                 {
                   "type": "double",
@@ -1388,9 +1388,9 @@
                   "value": [0.09574381]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1405,7 +1405,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.12405371e-18]
+                  "value": [1.12405381e-18]
                 },
                 {
                   "type": "double",
@@ -1428,9 +1428,9 @@
                   "value": [0.00157891]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1445,7 +1445,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.85367392e-20]
+                  "value": [1.85367408e-20]
                 },
                 {
                   "type": "double",
@@ -1468,9 +1468,24 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1493,124 +1508,109 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1776,9 +1776,9 @@
                   "value": [1.63483582]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1786,14 +1786,14 @@
                   "value": [13725.2547171]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.91933367e-17]
+                  "value": [1.91933383e-17]
                 },
                 {
                   "type": "double",
@@ -1816,9 +1816,9 @@
                   "value": [0.07064452]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1826,14 +1826,14 @@
                   "value": [8250.05861344]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [8.29382398e-19]
+                  "value": [8.2938247e-19]
                 },
                 {
                   "type": "double",
@@ -1856,9 +1856,9 @@
                   "value": [0.00157809]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1866,14 +1866,14 @@
                   "value": [1063433.25746963]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.85271347e-20]
+                  "value": [1.85271363e-20]
                 },
                 {
                   "type": "double",
@@ -1896,19 +1896,9 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
@@ -1921,124 +1911,134 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2204,9 +2204,9 @@
                   "value": [4000]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2214,14 +2214,14 @@
                   "value": [4.81176192]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4.69608909e-14]
+                  "value": [4.6960895e-14]
                 },
                 {
                   "type": "double",
@@ -2244,9 +2244,9 @@
                   "value": [2.35601395]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2254,14 +2254,14 @@
                   "value": [10147.33052347]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.76601285e-17]
+                  "value": [2.76601309e-17]
                 },
                 {
                   "type": "double",
@@ -2284,9 +2284,9 @@
                   "value": [0.01411212]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2294,14 +2294,14 @@
                   "value": [296641.42134401]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.65679452e-19]
+                  "value": [1.65679466e-19]
                 },
                 {
                   "type": "double",
@@ -2324,19 +2324,9 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
@@ -2349,124 +2339,134 @@
                   "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",

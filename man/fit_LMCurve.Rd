@@ -46,9 +46,9 @@ alter the plot output depending on the input data: \code{"LM"} or \code{"pLM"} (
 See: \link{convert_CW2pLM}}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-select fit method, allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-routine from the function \link{nls} \code{'LM'} utilises the function \code{nlsLM} from
-the package \code{minpack.lm} and with that the Levenberg-Marquardt algorithm.}
+select fit method, one of \code{'port'} or \code{'LM'}. \code{'port'} uses the 'port'
+routine from function \link{nls}; \code{'LM'} uses the Levenberg-Marquardt algorithm
+as implemented in function \code{nlsLM} from package \code{minpack.lm}.}
 
 \item{sample_code}{\link{character} (\emph{optional}):
 sample code used for the plot and the optional output table (mtext).}
@@ -149,16 +149,17 @@ et al. (2008):
 
 \strong{Background subtraction}
 
-Three methods for background subtraction
-are provided for a given background signal (\code{values.bg}).
+When a background signal is provided with the \code{values.bg} argument, the
+user can choose among three methods for background subtraction by setting
+the \code{bg.subtraction} argument to one of these:
 \itemize{
-\item \code{polynomial}: default method. A polynomial function is fitted using \link{glm}
+\item \code{"polynomial"} (default): a polynomial function is fitted using \link{glm}
 and the resulting function is used for background subtraction:
 \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
-\item \code{linear}: a linear function is fitted using \link{glm} and the resulting
+\item \code{"linear"}: a linear function is fitted using \link{glm} and the resulting
 function is used for background subtraction:
 \deqn{y = a*x + b}
-\item \code{channel}: the measured background signal is subtracted channel-wise
+\item \code{"channel"}: the measured background signal is subtracted channel-wise
 from the measured signal.
 }
 
