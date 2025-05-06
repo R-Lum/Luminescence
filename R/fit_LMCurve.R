@@ -340,7 +340,7 @@ fit_LMCurve<- function(
   ##============================================================================##
   if(missing(values.bg)==FALSE){
     #set graphical parameters
-    par(mfrow = c(1, 1), cex = 1.5 * settings$cex, mgp = c(2.5, 1, 0))
+    par(mfrow = c(1, 1), cex = 1.5 * settings$cex)
 
     ##check if length of bg and signal is consistent
     if (nrow(values) != nrow(values.bg))
@@ -820,9 +820,8 @@ fit_LMCurve<- function(
     }
 
     ##set plot frame
-    graphics::layout(matrix(c(1, 2, 3), 3, 1, byrow = TRUE),
-                     widths = 1.6, c(1, 0.3, 0.4), TRUE)
-    par(oma = c(1,1,1,1), mar = c(0,4,3,0), cex = settings$cex)
+    graphics::layout(matrix(c(1, 2, 3), ncol = 1), heights = c(5, 3, 4))
+    par(oma = c(1,1,1,1), mar = c(1,3,3,0), cex = settings$cex)
 
     ##==upper plot==##
     ##open plot area
@@ -834,7 +833,9 @@ fit_LMCurve<- function(
       xlab = "",
       xaxt = "n",
       main = settings$main,
+      xpd = NA,
       log = settings$log,
+      mgp = c(2.5, 1, 0),
       ylab = settings$ylab
     ), silent = TRUE)
 
@@ -901,7 +902,7 @@ fit_LMCurve<- function(
 
       ##==lower plot==##
       ##plot residuals
-      par(mar = c(4, 4, 0, 0))
+      par(mar = c(4, 3, 0, 0))
       plot(values[,1],residuals(fit),
            xlim = settings$xlim,
            xlab = settings$xlab,
@@ -910,6 +911,7 @@ fit_LMCurve<- function(
            ylab="Residual",
            lwd=2,
            xpd = NA,
+           mgp = c(2.5, 1, 0),
            log = gsub("y", "", settings$log))
 
       ##ad 0 line
@@ -921,14 +923,16 @@ fit_LMCurve<- function(
 
       ##plot component contribution to the whole signal
       #open plot area
-      par(mar = c(3, 4, 2, 0))
+      par(mar = c(3, 3, 2, 0))
       plot(NA,NA,
            xlim = settings$xlim,
            ylim=c(0,100),
            ylab="Contribution [%]",
            xlab = settings$xlab,
            main="Component contribution to sum curve",
+           cex.main = 0.9,
            xpd = NA,
+           mgp = c(2.5, 1, 0),
            log = gsub("y", "", settings$log))
 
       stepping <- seq(3,length(component.contribution.matrix),2)
