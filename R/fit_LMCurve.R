@@ -945,7 +945,7 @@ fit_LMCurve<- function(
     ##plot sum function
     if (!inherits(fit, "try-error")) {
       lines(values[,1],eval(fit.function), lwd=2, col="black")
-      legend.caption<-"sum curve"
+      legend.caption <- "Sum curve"
       curve.col<-1
 
       ##plot signal curves
@@ -953,7 +953,7 @@ fit_LMCurve<- function(
       ##plot curve for additional parameters
       for (i in 1:length(xm)) {
         curve(exp(0.5)*Im[i]*x/xm[i]*exp(-x^2/(2*xm[i]^2)),col=col[i+1], lwd=2,add=TRUE)
-        legend.caption<-c(legend.caption,paste("component ",i,sep=""))
+        legend.caption <- c(legend.caption, paste("Component", i))
         curve.col<-c(curve.col,i+1)
       }
 
