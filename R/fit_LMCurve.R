@@ -332,7 +332,7 @@ fit_LMCurve<- function(
                                val = method_control)
 
   # layout safety settings
-  par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma", "mgp")]
+  par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
   on.exit(par(par.default), add = TRUE)
 
   ##============================================================================##
@@ -820,8 +820,9 @@ fit_LMCurve<- function(
     }
 
     ##set plot frame
-    graphics::layout(matrix(c(1, 2, 3), ncol = 1), heights = c(5, 3, 4))
-    par(oma = c(1,1,1,1), mar = c(1,3,3,0), cex = settings$cex)
+    graphics::layout(matrix(c(1, 2, 3), ncol = 1), heights = c(10, 3, 4))
+    par(oma = c(1, 1, 1, 1), mar = c(0.5, 2.5, 2, 0), cex = settings$cex)
+    mgp <- c(1.5, 0.5, 0)
 
     ##==upper plot==##
     ##open plot area
@@ -833,9 +834,11 @@ fit_LMCurve<- function(
       xlab = "",
       xaxt = "n",
       main = settings$main,
+      mgp = mgp,
       xpd = NA,
       log = settings$log,
-      mgp = c(2.5, 1, 0),
+      cex.axis = 0.8,
+      cex.lab = 0.9,
       ylab = settings$ylab
     ), silent = TRUE)
 
@@ -902,16 +905,19 @@ fit_LMCurve<- function(
 
       ##==lower plot==##
       ##plot residuals
-      par(mar = c(4, 3, 0, 0))
+      par(mar = c(0.5, 2.5, 0, 0))
       plot(values[,1],residuals(fit),
            xlim = settings$xlim,
-           xlab = settings$xlab,
+           xlab = "",
+           xaxt = "n",
            type="l",
            col="grey",
            ylab="Residual",
            lwd=2,
            xpd = NA,
-           mgp = c(2.5, 1, 0),
+           mgp = mgp,
+           cex.axis = 0.8,
+           cex.lab = 0.9,
            log = gsub("y", "", settings$log))
 
       ##ad 0 line
@@ -923,16 +929,17 @@ fit_LMCurve<- function(
 
       ##plot component contribution to the whole signal
       #open plot area
-      par(mar = c(3, 3, 2, 0))
+      par(mar = c(2, 2.5, 0, 0))
       plot(NA,NA,
            xlim = settings$xlim,
            ylim=c(0,100),
-           ylab="Contribution [%]",
+           ylab = "Component\ncontrib. [%]",
            xlab = settings$xlab,
-           main="Component contribution to sum curve",
-           cex.main = 0.9,
+           main = "",
            xpd = NA,
-           mgp = c(2.5, 1, 0),
+           mgp = mgp,
+           cex.axis = 0.8,
+           cex.lab = 0.9,
            log = gsub("y", "", settings$log))
 
       stepping <- seq(3,length(component.contribution.matrix),2)
