@@ -268,12 +268,9 @@ plot_KDE <- function(
     for(i in 1:length(data)) {
       na.idx <- which(is.na(data[[i]][, 1]))
       n.NA <- length(na.idx)
-      if(n.NA == 1) {
-        message(paste("1 NA value excluded from data set", i, "."))
-      } else if(n.NA > 1) {
-        message(paste(n.NA, "NA values excluded from data set", i, "."))
-      }
       if (n.NA > 0) {
+        message(sprintf("%d NA value%s excluded from data set %d\n",
+                        n.NA, ifelse(n.NA > 1, "s", ""), i))
         data[[i]] <- data[[i]][-na.idx, ]
       }
     }
