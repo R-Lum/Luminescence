@@ -316,7 +316,7 @@ test_that("Full check of analyse_baSAR function", {
                                background.integral = c(80:100),
                                method_control = list(n.chains = 1),
                                n.MCMC = 100),
-                 "Record pre-selection in BIN-file detected")
+                 "Record pre-selection in BIN-file detected, record reduced to")
 
   CWOSL.mod <- CWOSL.sub
   CWOSL.mod@METADATA$GRAIN[-c(19:24)] <- 2

@@ -1084,7 +1084,7 @@ analyse_baSAR <- function(
 
     if (!all(record.selected)) {
       if (verbose) {
-        message("[analyse_baSAR()] Record pre-selection in BIN-file detected,",
+        message("[analyse_baSAR()] Record pre-selection in BIN-file detected, ",
                 "record reduced to selection\n")
       }
       if (sum(record.selected) == 0) {
