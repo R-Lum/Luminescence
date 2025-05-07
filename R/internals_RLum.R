@@ -909,7 +909,6 @@ fancy_scientific <- function(l) {
     destfile = tempfile(),
     verbose = TRUE
 ) {
-
   ## get name of calling function
   caller <- paste0("[", as.character(sys.call(which = -1)[[1]]), "()]")
   out_file_path <- NULL
@@ -918,8 +917,8 @@ fancy_scientific <- function(l) {
   if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
     ## status reports
     if (verbose) {
-      message(paste0(caller, " URL detected: ", url))
-      message(paste0(caller, " Attempting download ... "), appendLF = FALSE)
+      message(caller, " URL detected: ", url)
+      message(caller, " Attempting download ... ", appendLF = FALSE)
     }
 
     ## extract URL from string only

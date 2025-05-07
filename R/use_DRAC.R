@@ -247,7 +247,7 @@ use_DRAC <- function(
 
   # Send data to DRAC ---------------------------------------------------------------------------
   if (settings$verbose)
-    message(paste("\t Establishing connection to", settings$url))
+    message("\t Establishing connection to ", settings$url)
 
   ## create config list
   conf_l <- list()

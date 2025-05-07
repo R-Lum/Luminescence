@@ -48,8 +48,8 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
 
   # let user pick which branch he wants to install
   while(is.null(index)) {
-    message(paste0("Which development branch do you want to install? \n",
-                   paste0(" [", 1:length(branches$BRANCH), "]: ", branches$BRANCH, collapse = "\n")))
+    message("Which development branch would you like to install?\n",
+            paste0(" [", 1:nrow(branches), "]: ", branches$BRANCH, collapse = "\n"))
     message("\n [0]: <Exit>")
 
     index <- readline()
