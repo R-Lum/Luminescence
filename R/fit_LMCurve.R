@@ -358,7 +358,7 @@ fit_LMCurve<- function(
       }
 
       ## subtract background with fitted function
-      values[, 2] <- values[, 2] - fitted(glm.fit)
+      values[, 2] <- values[, 2] - glm.fit$fitted.values
 
     }else if(bg.subtraction=="channel"){
       values[,2]<-values[,2]-values.bg[,2]
@@ -452,11 +452,11 @@ fit_LMCurve<- function(
 
         ##sample input parameters values from a normal distribution
         xm.MC<-sapply(1:length(xm),function(x){
-          xm.MC<-sample(rnorm(30,mean=xm[x],sd=xm[x]/10), replace=TRUE)
+          sample(rnorm(30, mean = xm[x], sd = xm[x] / 10), replace = TRUE)
         })
 
         Im.MC<-sapply(1:length(xm),function(x){
-          Im.MC<-sample(rnorm(30,mean=Im[x],sd=Im[x]/10), replace=TRUE)
+          sample(rnorm(30, mean = Im[x], sd = Im[x] / 10), replace = TRUE)
         })
         ##---------------------------------------------------------------##
 
