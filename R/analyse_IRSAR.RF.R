@@ -1608,7 +1608,7 @@ analyse_IRSAR.RF<- function(
     ##as useful before further analysis will be applied
     if (method_control.settings$show_fit) {
 
-      if(!is(fit.lambda, "try-error")){
+      if (!inherits(fit.lambda, "try-error")) {
         fit.lambda_coef <- coef(fit.lambda)
 
         curve(fit.lambda_coef[[1]]-

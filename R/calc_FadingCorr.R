@@ -345,7 +345,7 @@ calc_FadingCorr <- function(
       ##otherwise the automatic error value finding
       ##will never work
       res <- NA
-      if (!is(temp,"try-error") && temp$root < 1e8) {
+      if (!inherits(temp, "try-error") && temp$root < 1e8) {
         res <- temp$root
       }
       return(res)

@@ -199,7 +199,7 @@ plot_DoseResponseCurve <- function(
   ),
   silent = TRUE)
 
-  if (!is(plot_check, "try-error")) {
+  if (!inherits(plot_check, "try-error")) {
     if (mode == "extrapolation") {
       abline(v = 0, lty = 1, col = "grey")
       abline(h = 0, lty = 1, col = "grey")
@@ -386,7 +386,7 @@ plot_DoseResponseCurve <- function(
         ), silent = TRUE)
 
         ## add axes
-        if (!is(histogram, "try-error")) {
+        if (!inherits(histogram, "try-error")) {
           axis(side = 1)
           axis(side = 2,
                at = seq(min(histogram$density),
@@ -423,13 +423,13 @@ plot_DoseResponseCurve <- function(
         plot_check <- try(plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
                                main = expression(paste(D[e], " from MC runs"))),
                           silent = TRUE)
-        if (!is(plot_check,"try-error"))
+        if (!inherits(plot_check,"try-error"))
           text(5, 5, "not available")
       }
 
       ## Test dose response curve if available ------------------------------
       ## plot Tx/Tn value for sensitivity change
-      if (!is(plot_check, "try-error")) {
+      if (!inherits(plot_check, "try-error")) {
         if ("TnTx" %in% colnames(sample)) {
           plot(
               1:length(sample[, "TnTx"]),

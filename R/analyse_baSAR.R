@@ -1076,7 +1076,7 @@ analyse_baSAR <- function(
           )
         }
 
-    } else if (is(object, "character")) {
+    } else if (is.character(object)) {
       fileBIN.list <- list(
         read_BIN2R(
           file = object,
@@ -1831,7 +1831,7 @@ analyse_baSAR <- function(
     ), outFile = stdout()) # redirect error messages so they can be silenced
 
   ##check whether this became NULL
-  if(!is(results, "try-error")){
+  if (!inherits(results, "try-error")) {
     ##how do we add the systematic error?
     ##(1) source_doserate is a list, not a vector, but the user can
     ##provide many source dose rates and he can provide only a single vector (no error)
@@ -2006,7 +2006,7 @@ analyse_baSAR <- function(
         main = paste0("Individual Doses | ALQ: ", i,":",step)
       ))
 
-      if(!is(plot_check, "try-error")){
+      if (!inherits(plot_check, "try-error")) {
       if(step == ncol(plot_matrix)){
         axis(side = 2, at = 1:15, labels = as.character(c(i:step, rep(" ", length = 15 - length(i:step)))),
              cex.axis = 0.8
@@ -2124,8 +2124,7 @@ analyse_baSAR <- function(
           main = "baSAR Dose Response Curves"
         ))
 
-
-        if (!is(plot_check, "try-error")) {
+        if (!inherits(plot_check, "try-error")) {
           ##add mtext
           mtext(side = 3, text = paste("Fit:", fit.method_plot))
 
@@ -2264,7 +2263,7 @@ analyse_baSAR <- function(
           )
         )))
 
-        if(!is(plot_check, "try-error")) {
+        if (!inherits(plot_check, "try-error")) {
           abline(v = results[[1]]$CENTRAL, lty = 2)
           abline(
             v = results[[1]][, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
