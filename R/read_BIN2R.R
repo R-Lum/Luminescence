@@ -404,7 +404,7 @@ read_BIN2R <- function(
         strlen <- force.size
       return(suppressWarnings(readChar(raw[-1], strlen, useBytes = TRUE)))
     }
-    return("")
+    return("") # nocov
   }
 
   ##PRESET VALUES
