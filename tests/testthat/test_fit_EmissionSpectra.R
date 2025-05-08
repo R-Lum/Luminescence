@@ -112,3 +112,12 @@ test_that("check functionality", {
       "RLum.Results")
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 761
+  expect_silent(fit_EmissionSpectra(TL.Spectrum, frame = 1, plot = TRUE,
+                                    n_components = 2, verbose = FALSE,
+                                    method_control = list(max.runs = 5)))
+})
