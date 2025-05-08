@@ -1764,7 +1764,7 @@ analyse_baSAR <- function(
       }
     }
 
-    ##we do the same for the lower_centralD, just to have everthing in one place
+    ## do the same for the lower_centralD, just to have everything in one place
     if (is.null(method_control[["lower_centralD"]])) {
       method_control <- c(method_control, lower_centralD = 0)
 

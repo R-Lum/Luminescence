@@ -162,6 +162,16 @@ test_that("input validation", {
       "In input 1 the number of data points (19) is not a multiple of the",
       fixed = TRUE),
       "Only multiple grain data provided, automatic selection skipped")
+
+  CWOSL.sub2 <- CWOSL.sub
+  CWOSL.sub2@METADATA$FNAME <- "Other file"
+  expect_warning(analyse_baSAR(list(CWOSL.sub, CWOSL.sub2),
+                               source_doserate = list(c(0.04, 0.001), c(0.05, 0.02)),
+                               signal.integral = c(1:2),
+                               background.integral = c(5:15),
+                               method_control = list(n.chains = 1),
+                               n.MCMC = 10),
+                 "Provided source dose rate errors differ")
   })
 })
 
@@ -223,16 +233,16 @@ test_that("Full check of analyse_baSAR function", {
       n.MCMC = 100),
      "Number of aliquots used:.+3/3")
 
-  expect_warning(analyse_baSAR(
+  expect_output(analyse_baSAR(
       object = results,
       plot = FALSE,
       verbose = FALSE,
       txtProgressBar = FALSE,
-      method_control = list(upper_centralD = 200),
-      n.MCMC = 100),
-      "You have modified the upper central_D boundary")
+      baSAR_model = "empty",
+      n.MCMC = 10),
+      "Error parsing model file")
 
-    expect_warning(analyse_baSAR(
+  expect_warning(analyse_baSAR(
       object = results,
       plot = FALSE,
       verbose = FALSE,
