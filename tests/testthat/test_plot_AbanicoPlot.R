@@ -135,6 +135,7 @@ test_that("Test examples from the example page", {
                    col = "tomato4",
                    bar.col = "peachpuff",
                    pch = "R",
+                   line = CAM,
                    cex = 0.8))
 
   ## now without 2-sigma bar, polygon, grid lines and central value line
@@ -230,6 +231,7 @@ test_that("more coverage", {
   suppressWarnings( # additional warning on weights not summing to 1
   expect_warning(plot_AbanicoPlot(ExampleData.DeValues, weights = TRUE,
                                   rotate = TRUE, line = 1,
+                                  dispersion = "sd", log.z = FALSE,
                                   grid.col = c(1, 2)),
                  "Selecting bandwidth *not* using 'weights'",
                  fixed = TRUE)
@@ -257,6 +259,7 @@ test_that("more coverage", {
                  fixed = TRUE)
   expect_message(plot_AbanicoPlot(data.na, y.axis = TRUE,
                                   yaxt = "y", ylim = c(2, 3),
+                                  summary.pos = "bottomright",
                                   dispersion = "2sd"),
                  "Data set (1): 1 NA value excluded",
                  fixed = TRUE)
@@ -283,7 +286,6 @@ test_that("more coverage", {
  expect_silent(plot_AbanicoPlot(data = data.frame(
     x = c(-1,10),
     y = c(0.1,3)
-
   ), log.z = TRUE, summary = c("mean", "sd.abs")))
 
  ## handling of negative values; but with zlim
@@ -291,7 +293,6 @@ test_that("more coverage", {
    x = c(-1,10),
    y = c(0.1,3),
    zlim = c(2,10)
-
  ), log.z = TRUE, summary = c("mean", "sd.abs")))
 
  ## test lines 2144 onwards
@@ -299,7 +300,6 @@ test_that("more coverage", {
  expect_silent(plot_AbanicoPlot(data = data.frame(
    x = c(-1,10),
    y = c(0.1,3)
-
  ), log.z = TRUE, summary = c("mean", "sd.abs")))
  par(mfrow = c(1,1))
 
@@ -308,7 +308,6 @@ test_that("more coverage", {
  expect_silent(plot_AbanicoPlot(data = data.frame(
    x = c(-1,10),
    y = c(0.1,3)
-
  ), log.z = TRUE, rotate = TRUE))
  par(mfrow = c(1,1))
 
