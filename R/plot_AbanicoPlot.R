@@ -560,6 +560,8 @@ plot_AbanicoPlot <- function(
 
   ## plot.ratio must be numeric and positive
   .validate_positive_scalar(plot.ratio)
+  .validate_logical_scalar(rotate)
+  .validate_logical_scalar(rug)
 
   if (!is.numeric(z.0)) {
     .validate_class(z.0, "character")
@@ -754,14 +756,9 @@ plot_AbanicoPlot <- function(
   stats.init[[1]] <- NULL
 
   ## calculate central values
-  if(z.0 == "mean") {
+  if (z.0 %in% c("mean", "median")) {
     z.central <- lapply(1:length(data), function(x){
-      rep(stats.init[[x]]$unweighted$mean,
-          length(data[[x]][,3]))})
-
-  } else if(z.0 == "median") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(stats.init[[x]]$unweighted$median,
+      rep(stats.init[[x]]$unweighted[[z.0]],
           length(data[[x]][,3]))})
 
   } else if(z.0 == "mean.weighted") {
@@ -847,10 +844,8 @@ plot_AbanicoPlot <- function(
   stats.global <- calc_Statistics(data = data.global[,3:4])
 
   ## calculate global central value
-  if(z.0 == "mean") {
-    z.central.global <- stats.global$unweighted$mean
-  } else if(z.0 == "median") {
-    z.central.global <- stats.global$unweighted$median
+  if (z.0 %in% c("mean", "median")) {
+    z.central.global <- stats.global$unweighted[[z.0]]
   } else  if(z.0 == "mean.weighted") {
     z.central.global <- stats.global$weighted$mean
   } else if(is.numeric(z.0) == TRUE) {
@@ -1058,7 +1053,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## create empty plot to update plot parameters
-  if(!rotate[1]) {
+  if (!rotate) {
     plot(NA,
          xlim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)),
          ylim = limits.y,
@@ -1247,11 +1242,9 @@ plot_AbanicoPlot <- function(
                               to = limits.z[2]),
                       silent = TRUE)
 
-    if(inherits(De.density, "try-error")) {
-      De.stats[i,4] <- NA
-
-    } else {
-    De.stats[i,4] <- De.density$x[which.max(De.density$y)]
+    De.stats[i, 4] <- NA
+    if (!inherits(De.density, "try-error")) {
+      De.stats[i, 4] <- De.density$x[which.max(De.density$y)]
     }
   }
 
@@ -1314,7 +1307,7 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  if(!rotate[1]) {
+  if (!rotate) {
     ## convert keywords into summary placement coordinates
     coords <- .get_keyword_coordinates(summary.pos, limits.x, limits.y)
 
@@ -1678,25 +1671,13 @@ plot_AbanicoPlot <- function(
       rug.values <- De.global
   }
 
-    rug.coords <- list(NA)
-
-    if(rotate == FALSE) {
-      for(i in 1:length(rug.values)) {
-        rug.x <- c(xy.0[1] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
-                   xy.0[1])
-        rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,1]),
-                   (rug.values[i] - z.central.global) * min(ellipse[,1]))
-        rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
-      }
-  } else {
-      for(i in 1:length(rug.values)) {
-        rug.x <- c(xy.0[2] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
-                   xy.0[2])
-        rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,2]),
-                   (rug.values[i] - z.central.global) * min(ellipse[,2]))
-        rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
-      }
-    rug.coords[1] <- NULL
+  rug.coords <- list()
+  idx <- if (rotate) 2 else 1
+  for (i in 1:length(rug.values)) {
+    rug.x <- c(xy.0[idx] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
+               xy.0[idx])
+    rug.y <- rep((rug.values[i] - z.central.global) * min(ellipse[, idx]), 2)
+    rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
   }
 
   ## Generate plot ------------------------------------------------------------
@@ -1713,7 +1694,7 @@ plot_AbanicoPlot <- function(
   on.exit(par(bg = bg.original), add = TRUE)
   par(bg = layout$abanico$colour$background)
 
-  if(!rotate[1]) {
+  if (!rotate) {
     ## setup plot area
     par(mar = c(4.5, 4.5, shift.lines + 1.5, 7),
         xpd = TRUE,
@@ -1796,7 +1777,6 @@ plot_AbanicoPlot <- function(
 
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
-
       for(i in 1:length(tick.values.minor)) {
         lines(x = c(limits.x[1], min(ellipse[,1])),
               y = c(0, (tick.values.minor[i] - z.central.global) *
@@ -3254,10 +3234,6 @@ plot_AbanicoPlot <- function(
   ## INTERACTIVE PLOT ----------------------------------------------------------
   if (interactive) {
     .require_suggested_package("plotly", "The interactive abanico plot")
-
-    ##cheat R check (global visible binding error)
-    x <- NA
-    y <- NA
 
     ## tidy data ----
     data <- plot.output
