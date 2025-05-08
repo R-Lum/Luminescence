@@ -222,6 +222,8 @@ contributions (#755).
 * The plot has been slightly reworked to reduce the cases of "margin too
 large" errors and to work better at high settings of `cex` (#757).
 
+* Missing values in the input data are now silently removed (#759).
+
 ### `fit_SurfaceExposure()`
 
 * It is now possible to specify different values for the light attenuation

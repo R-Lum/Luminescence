@@ -289,6 +289,11 @@ fit_LMCurve<- function(
     values <- as(values,"data.frame")
   }
 
+  ## remove missing values
+  if (anyNA(values)) {
+    values <- stats::na.omit(values)
+  }
+
   ##(2) data.frame or RLum.Data.Curve object?
   if (!missing(values.bg)) {
     .validate_class(values.bg, c("data.frame", "RLum.Data.Curve"))
