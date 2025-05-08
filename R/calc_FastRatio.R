@@ -287,7 +287,6 @@ calc_FastRatio <- function(object,
       .throw_warning(msg)
       return(NULL)
     }
-
     Cts_L2 <- A[Ch_L2, 2]
 
     # optional: predict the counts from the fitted curve
@@ -312,7 +311,6 @@ calc_FastRatio <- function(object,
       t_L3_start <- A[Ch_L3st,1]
       t_L3_end <- A[Ch_L3end,1]
     }
-
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
 
     # optional: predict the counts from the fitted curve
@@ -330,8 +328,6 @@ calc_FastRatio <- function(object,
 
     ## Fast Ratio
     FR <- (Cts_L1 - Cts_L3) / (Cts_L2 - Cts_L3)
-    if (length(FR) != 1)
-      FR <- NA
 
     ## Fast Ratio - Error calculation
     FR_se <- NA
