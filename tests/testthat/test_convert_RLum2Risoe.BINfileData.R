@@ -1,3 +1,6 @@
+## load data
+data(ExampleData.RLum.Analysis, envir = environment())
+
 test_that("test for errors", {
   testthat::skip_on_cran()
 
@@ -9,9 +12,6 @@ test_that("test for errors", {
 
 test_that("functionality", {
   testthat::skip_on_cran()
-
-  ##load example data
-  data(ExampleData.RLum.Analysis, envir = environment())
 
   ##provide RLum.Analysis
   expect_s4_class(convert_RLum2Risoe.BINfileData(IRSAR.RF.Data), "Risoe.BINfileData")

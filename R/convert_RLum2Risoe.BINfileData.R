@@ -43,22 +43,20 @@ convert_RLum2Risoe.BINfileData <- function(
 
   # Self call -----------------------------------------------------------------------------------
   if(is(object, "list")){
-    ##call function
     object_list <-
       lapply(object, function(x) {
         convert_RLum2Risoe.BINfileData(x)
       })
 
     ##merge objects
-    if(length(object_list) == 1){
+    if (length(object_list) == 1)
       return(object_list[[1]])
 
-    }else{
-      return(merge_Risoe.BINfileData(object_list, keep.position.number = keep.position.number))
-    }
+    return(merge_Risoe.BINfileData(object_list,
+                                   keep.position.number = keep.position.number))
   }
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve"),
                   extra = "a 'list' of such objects")
@@ -73,9 +71,6 @@ convert_RLum2Risoe.BINfileData <- function(
   ##set Risoe.BINfiledata prototype
   prototype <- set_Risoe.BINfileData()
 
-    ##grep allowed names
-    allowed_names <- names(prototype@METADATA)
-
   ##grep records (this will avoid further the subsetting)
   records <- object@records
 
@@ -84,20 +79,20 @@ convert_RLum2Risoe.BINfileData <- function(
 
   # Create METADATA -----------------------------------------------------------------------------
 
+  ## allowed names
+  allowed_names <- names(prototype@METADATA)
   ##create METADATA list
   METADATA_list <- lapply(records, function(x){
     ##grep matching arguments only
     temp <- x@info[toupper(names(x@info)) %in% allowed_names]
 
-    ##account for the case that no matching name was found
-    if(length(temp) != 0){
-      ##correct names
+    ## correct names if a match was found
+    if (length(temp) > 0) {
       names(temp) <- toupper(names(temp))
       return(temp)
-
-    }else{
-      return(list(ID = NA))
     }
+
+    return(list(ID = NA))
   })
 
   ##make data.frame out of it
@@ -145,7 +140,6 @@ convert_RLum2Risoe.BINfileData <- function(
   if (anyNA(prototype@METADATA[["NPOINTS"]])) {
     prototype@METADATA[["NPOINTS"]] <- vapply(records, function(x){
       length(x@data)/2
-
     }, FUN.VALUE = numeric(1))
   }
 
@@ -188,11 +182,9 @@ convert_RLum2Risoe.BINfileData <- function(
     prototype@METADATA[["SAMPLE"]] <- vapply(temp_id, function(x){
       if(any(names(records[[x]]@info) == "name")){
           records[[x]]@info$name
-
       }else{
         "unknown"
       }
-
     }, character(length = 1))
   }
 
@@ -211,10 +203,8 @@ convert_RLum2Risoe.BINfileData <- function(
     prototype@METADATA[["DATE"]] <- vapply(temp_id, function(x){
       if(any(names(records[[x]]@info) == "startDate")){
         strtrim(records[[x]]@info[["startDate"]], width = 8)
-
       }else{
         as.character(format(Sys.Date(),"%Y%m%d"))
-
       }
     }, character(length = 1))
 
@@ -222,14 +212,10 @@ convert_RLum2Risoe.BINfileData <- function(
     prototype@METADATA[["TIME"]] <- vapply(temp_id, function(x){
       if(any(names(records[[x]]@info) == "startDate")){
         substr(records[[x]]@info[["startDate"]], start = 9, stop = 14)
-
       }else{
         as.character(format(Sys.time(),"%H%m%S"))
-
       }
-
     }, character(length = 1))
-
   }
 
   ## >> LOW << ##
@@ -240,7 +226,6 @@ convert_RLum2Risoe.BINfileData <- function(
     ##set date
     prototype@METADATA[["LOW"]] <- vapply(temp_id, function(x){
        min(records[[x]]@data[,1])
-
     }, numeric(length = 1))
   }
 
@@ -252,7 +237,6 @@ convert_RLum2Risoe.BINfileData <- function(
     ##set date
     prototype@METADATA[["HIGH"]] <- vapply(temp_id, function(x){
       max(records[[x]]@data[,1])
-
     }, numeric(length = 1))
   }
 
@@ -260,17 +244,12 @@ convert_RLum2Risoe.BINfileData <- function(
   .replace("SEQUENCE", "")
 
 
-  # METADA >> correct information -------------------------------------------------------------------------
+  ## METADATA >> correct information ----------------------------------------
+
   ##we have to correct the LTYPE, the format is rather strict
     ##(a) create LTYPE from names of objects
-    LTYPE <- vapply(names(object), function(s){
-      if(grepl(pattern = " (", x = s, fixed = TRUE)){
-        strsplit(s, split = " (", fixed = TRUE)[[1]][1]
-
-      }else{
-        s
-      }
-
+  LTYPE <- vapply(names(object), function(x) {
+    strsplit(x, split = " (", fixed = TRUE)[[1]][1]
     }, FUN.VALUE = character(1))
 
     ##(b) replace characters
@@ -287,7 +266,6 @@ convert_RLum2Risoe.BINfileData <- function(
   ##correct USER
   ##limit user to 8 characters
   prototype@METADATA[["USER"]] <- strtrim(prototype@METADATA[["USER"]], 8)
-
 
   ##correct SAMPLE
   ##limit user to 21 characters
