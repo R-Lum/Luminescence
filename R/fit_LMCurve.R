@@ -316,13 +316,13 @@ fit_LMCurve<- function(
 
   ## remove missing values
   if (anyNA(values)) {
-    na.idx <- unique(which(is.na(values), arr.ind = TRUE)[[1]])
+    na.idx <- unique(which(is.na(values), arr.ind = TRUE)[, 1])
     values <- values[-na.idx, ]
     if (!missing(values.bg))
       values.bg <- values.bg[-na.idx, ]
   }
   if (!missing(values.bg) && anyNA(values.bg)) {
-    na.idx <- unique(which(is.na(values.bg), arr.ind = TRUE)[[1]])
+    na.idx <- unique(which(is.na(values.bg), arr.ind = TRUE)[, 1])
     values <- values[-na.idx, ]
     values.bg <- values.bg[-na.idx, ]
   }

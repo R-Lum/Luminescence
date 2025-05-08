@@ -130,12 +130,12 @@ test_that("regression tests", {
 
   ## issue 757
   values.na <- values.curve
-  values.na[5, ] <- NA
+  values.na[c(5, 25), ] <- NA
   expect_silent(fit_LMCurve(values.na, verbose = FALSE))
   expect_silent(fit_LMCurve(values.na, values.bg = values.curveBG, verbose = FALSE))
 
   ## issue 763
   values.na <- values.curveBG
-  values.na[5, ] <- NA
+  values.na[c(5, 25), ] <- NA
   expect_silent(fit_LMCurve(values.curve, values.bg = values.na, verbose = FALSE))
 })
