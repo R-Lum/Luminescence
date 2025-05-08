@@ -226,7 +226,7 @@ contributions (#755).
 * The plot has been slightly reworked to reduce the cases of "margin too
 large" errors and to work better at high settings of `cex` (#757).
 
-* Missing values in the input data are now silently removed (#759).
+* Missing values in the input data are now silently removed (#759, #763).
 
 ### `fit_SurfaceExposure()`
 

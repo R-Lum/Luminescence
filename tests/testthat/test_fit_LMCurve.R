@@ -16,7 +16,7 @@ test_that("input validation", {
                "'values.bg' should be of class 'data.frame' or 'RLum.Data.Curve'")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "LM-OSL"),
                            values.bg = values.curveBG),
-               "Lengths of 'values' and 'values.bg' differ")
+               "'values' and 'values.bg' have different lengths")
   expect_error(fit_LMCurve(values.curve, values.bg = values.curveBG,
                            bg.subtraction = "error"),
                "'bg.subtraction' should be one of 'polynomial', 'linear' or")
@@ -129,6 +129,13 @@ test_that("regression tests", {
   expect_silent(fit_LMCurve(values.curve, log = "xy", verbose = FALSE))
 
   ## issue 757
-  values.curve[5, ] <- NA
-  expect_silent(fit_LMCurve(values.curve, verbose = FALSE))
+  values.na <- values.curve
+  values.na[5, ] <- NA
+  expect_silent(fit_LMCurve(values.na, verbose = FALSE))
+  expect_silent(fit_LMCurve(values.na, values.bg = values.curveBG, verbose = FALSE))
+
+  ## issue 763
+  values.na <- values.curveBG
+  values.na[5, ] <- NA
+  expect_silent(fit_LMCurve(values.curve, values.bg = values.na, verbose = FALSE))
 })

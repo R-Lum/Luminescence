@@ -289,11 +289,6 @@ fit_LMCurve<- function(
     values <- as(values,"data.frame")
   }
 
-  ## remove missing values
-  if (anyNA(values)) {
-    values <- stats::na.omit(values)
-  }
-
   ##(2) data.frame or RLum.Data.Curve object?
   if (!missing(values.bg)) {
     .validate_class(values.bg, c("data.frame", "RLum.Data.Curve"))
@@ -303,6 +298,10 @@ fit_LMCurve<- function(
 
     if (inherits(values.bg, "RLum.Data.Curve"))
       values.bg <- as(values.bg, "data.frame")
+
+    ## check if length of bg and signal is consistent
+    if (nrow(values) != nrow(values.bg))
+      .throw_error("'values' and 'values.bg' have different lengths")
   }
 
   .validate_positive_scalar(n.components, int = TRUE)
@@ -314,6 +313,19 @@ fit_LMCurve<- function(
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot.BG)
   .validate_class(method_control, "list")
+
+  ## remove missing values
+  if (anyNA(values)) {
+    na.idx <- unique(which(is.na(values), arr.ind = TRUE)[[1]])
+    values <- values[-na.idx, ]
+    if (!missing(values.bg))
+      values.bg <- values.bg[-na.idx, ]
+  }
+  if (!missing(values.bg) && anyNA(values.bg)) {
+    na.idx <- unique(which(is.na(values.bg), arr.ind = TRUE)[[1]])
+    values <- values[-na.idx, ]
+    values.bg <- values.bg[-na.idx, ]
+  }
 
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
@@ -346,10 +358,6 @@ fit_LMCurve<- function(
   if(missing(values.bg)==FALSE){
     #set graphical parameters
     par(mfrow = c(1, 1), cex = 1.5 * settings$cex)
-
-    ##check if length of bg and signal is consistent
-    if (nrow(values) != nrow(values.bg))
-      .throw_error("Lengths of 'values' and 'values.bg' differ")
 
     if (bg.subtraction %in% c("polynomial", "linear")) {
       if (bg.subtraction == "polynomial") {
