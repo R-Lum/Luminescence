@@ -387,8 +387,10 @@ fit_LMCurve<- function(
       }
     }
 
-    cat(paste0("[fit_LMCurve()] >> Background subtracted (method = '",
-               bg.subtraction, "')\n"))
+    if (verbose) {
+      message("[fit_LMCurve()] >> Background subtracted (method = '",
+              bg.subtraction, "')")
+    }
   }
 
 
