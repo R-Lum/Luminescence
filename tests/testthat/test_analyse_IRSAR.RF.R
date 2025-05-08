@@ -108,7 +108,7 @@ test_that("input validation", {
                  "'method.control' is deprecated, use 'method_control'")
 })
 
-test_that("check class and length of output", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
   set.seed(1)
@@ -201,6 +201,14 @@ test_that("test edge cases", {
   object <- set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg))
 
   SW({
+  expect_warning(analyse_IRSAR.RF(
+    IRSAR.RF.Data,
+    method = "FIT",
+    plot = TRUE,
+    RF_reg = c(1, 400),
+    txtProgressBar = FALSE),
+    "Threshold exceeded for: 'curves_bounds'")
+
   expect_warning(expect_s4_class(analyse_IRSAR.RF(
     list(object),
     method = "SLIDE",

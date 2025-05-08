@@ -1,4 +1,4 @@
-# check class and length of output
+# snapshot tests
 
     {
       "type": "S4",

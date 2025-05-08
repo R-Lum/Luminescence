@@ -1,6 +1,7 @@
 #' @title Analyse IRSAR RF measurements
 #'
-#' @description Function to analyse IRSAR RF measurements on K-feldspar samples, performed
+#' @description
+#' The function analyses IRSAR RF measurements on K-feldspar samples performed
 #' using the protocol according to Erfurt et al. (2003) and beyond.
 #'
 #' @details The function performs an IRSAR analysis described for K-feldspar samples by
@@ -9,14 +10,12 @@
 #'
 #' **General Sequence Structure** (according to Erfurt et al., 2003)
 #'
-#'
 #' 1. Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
 #' 2. Bleach the samples under solar conditions for at least 30 min without changing the geometry
 #' 3. Waiting for at least one hour
 #' 4. Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
 #' 5. Fitting data with a stretched exponential function
 #' 6. Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
-#'
 #'
 #' Actually three methods are supported to obtain the \eqn{D_{e}}:
 #' `method = "FIT"`, `method = "SLIDE"` and `method = "VSLIDE"`:
@@ -103,7 +102,6 @@
 #' for a parallel processing of the Monte-Carlo runs. The default value is `NULL` (single thread),
 #' the recommended values is `'auto'`. An optional number (e.g., `cores` = 8) assigns a value manually.
 #' }
-#'
 #'
 #' **Error estimation**
 #'
@@ -503,13 +501,9 @@ analyse_IRSAR.RF<- function(
     ##merge results and check if the output became NULL
     results <- merge_RLum(temp)
 
-    ##DO NOT use invisible here, this will stop the function from stopping
-    if(length(results) == 0){
+    if (length(results) == 0)
       return(NULL)
-
-    }else{
-      return(results)
-    }
+    return(results)
   }
 
 
@@ -930,10 +924,8 @@ analyse_IRSAR.RF<- function(
       silent = FALSE
       )
     }else{
-
       fit <- NA
       class(fit) <- "try-error"
-
     }
 
     # get parameters ----------------------------------------------------------
@@ -1400,7 +1392,6 @@ analyse_IRSAR.RF<- function(
     }
   }
 
-
   ##(4) decay parameter
   ##TP$lambda
   if ("lambda"%in%names(TP) & "beta"%in%names(TP) & "delta.phi"%in%names(TP)){
@@ -1462,7 +1453,6 @@ analyse_IRSAR.RF<- function(
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
        }
 
-
     }else if(exists("fit")){
       TP$curves_bounds$VALUE <- De.upper
 
@@ -1497,16 +1487,13 @@ analyse_IRSAR.RF<- function(
   # Plotting ------------------------------------------------------------------------------------
   ##===============================================================================================#
   if (plot) {
+    par.default <- par(no.readonly = TRUE)
+    on.exit(par(par.default), add = TRUE)
 
     ##get internal colour definition
     col <- get("col", pos = .LuminescenceEnv)
 
     if (!plot_reduced) {
-
-      ##grep par default and define reset
-      def.par <- par(no.readonly = TRUE)
-      on.exit(par(def.par), add = TRUE)
-
       ##set plot frame, if a method was chosen
       if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
         graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
@@ -1517,28 +1504,16 @@ analyse_IRSAR.RF<- function(
         )
       }
     }else{
-      if(plot.settings[["cex"]] != 1){
-        def.par <- par()[["cex"]]
-        on.exit(par(def.par), add = TRUE)
-
         par(cex = plot.settings[["cex"]])
-
-      }
     }
 
     ##here control xlim and ylim behaviour
     ##xlim
     xlim  <- if ("xlim" %in% names(list(...))) {
       list(...)$xlim
-    } else
-    {
-      if (plot.settings$log == "x" | plot.settings$log == "xy") {
-        c(min(temp.sequence_structure$x.min),max(temp.sequence_structure$x.max))
-
-      }else{
-        c(0,max(temp.sequence_structure$x.max))
-
-      }
+    } else {
+      c(if (grepl("x", plot.settings$log)) min(temp.sequence_structure$x.min) else 0,
+        max(temp.sequence_structure$x.max))
     }
 
     ##ylim
@@ -1602,7 +1577,6 @@ analyse_IRSAR.RF<- function(
         )
       }
     }
-
 
     ##Add fitted curve, if possible. This is a graphical control that might be considered
     ##as useful before further analysis will be applied
@@ -1683,7 +1657,6 @@ analyse_IRSAR.RF<- function(
 
       ##plot De if De was calculated
       if(is.na(De) == FALSE & is.nan(De) == FALSE){
-
         lines(c(0,De.lower), c(RF_nat.error.lower,RF_nat.error.lower), lty=2, col="grey")
         lines(c(0,De), c(RF_nat.mean,RF_nat.mean), lty=2, col="red")
         lines(c(0,De.upper), c(RF_nat.error.upper,RF_nat.error.upper), lty=2, col="grey")
@@ -1699,16 +1672,12 @@ analyse_IRSAR.RF<- function(
       mtext.txt <-  substitute(D[e] == De,
                                list(De = paste0(De, " [", De.lower,
                                                 " ; ", De.upper,"]")))
-      if(is.na(De) != TRUE & (is.nan(De) == TRUE |
-                              De > max(RF_reg.x) |
-                              De.upper > max(RF_reg.x))){
-
+      if (!is.na(De) && max(De, De.upper) > max(RF_reg.x)) {
         try(mtext(side=3, mtext.txt,
                   line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
         De.status <- "VALUE OUT OF BOUNDS"
 
       } else{
-
         if ("mtext" %in% names(list(...))) {
           mtext(side = 3, list(...)$mtext)
         }else{
@@ -1849,7 +1818,6 @@ analyse_IRSAR.RF<- function(
         )
       }
 
-
       ##TODO
       ##uncomment here to see all the RF_nat curves produced by the MC runs
       ##could become a polygone for future versions
@@ -1871,14 +1839,10 @@ analyse_IRSAR.RF<- function(
         )
       }
 
-
       ##write information on the De in the plot
       if("mtext" %in% names(list(...))) {
-
         mtext(side = 3, list(...)$mtext)
-
       }else{
-
         try(mtext(side=3,
                   substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
                   line=0,
@@ -1934,14 +1898,13 @@ analyse_IRSAR.RF<- function(
 
         ##0-line indicator and arrows if this is not visible
         ##red colouring here only if the 0 point is not visible to avoid too much colouring
-        if (max(residuals) < 0 &
-            min(residuals) < 0) {
+        if (max(residuals) < 0) {
           angle <- 270
           y0 <- max(residuals)
-        } else if (max(residuals) > 0 & min(residuals) > 0) {
+        } else if (min(residuals) > 0) {
           angle <- 90
           y0 <- min(residuals)
-        } else {
+        } else { # min < 0, max > 0
           angle <- NA
           points(xlim[2], 0, pch = 3)
         }
@@ -2006,7 +1969,6 @@ analyse_IRSAR.RF<- function(
   if(!exists("De.MC")){De.MC  <- NA}
   if(!exists("De.lower")){De.lower  <- NA}
   if(!exists("De.upper")){De.upper  <- NA}
-  if(!exists("De.status")){De.status  <- NA}
   if (!exists("fit")) {
     fit  <- list()
     if (exists("fit.lambda")) {

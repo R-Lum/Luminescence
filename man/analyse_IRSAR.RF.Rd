@@ -167,7 +167,7 @@ The output (\code{data}) should be accessed using the function \link{get_RLum}.
 The slid IR-RF curves with the finally obtained De
 }
 \description{
-Function to analyse IRSAR RF measurements on K-feldspar samples, performed
+The function analyses IRSAR RF measurements on K-feldspar samples performed
 using the protocol according to Erfurt et al. (2003) and beyond.
 }
 \details{
