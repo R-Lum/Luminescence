@@ -127,4 +127,8 @@ test_that("regression tests", {
   ## issue 755
   expect_silent(fit_LMCurve(values.curve, log = "y", verbose = FALSE))
   expect_silent(fit_LMCurve(values.curve, log = "xy", verbose = FALSE))
+
+  ## issue 757
+  values.curve[5, ] <- NA
+  expect_silent(fit_LMCurve(values.curve, verbose = FALSE))
 })
