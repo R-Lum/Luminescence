@@ -125,7 +125,7 @@ test_that("Test examples from the example page", {
                           plot = FALSE, verbose = FALSE)
 
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   line = CAM,
+                   line = list(CAM),
                    line.col = "darkgreen",
                    line.label = "CAM"))
 
@@ -249,7 +249,7 @@ test_that("more coverage", {
                                   hist = TRUE, error.bars = TRUE, dots = TRUE,
                                   rug = TRUE, y.axis = FALSE, stats = "min",
                                   legend = "legend", legend.pos = "bottomleft",
-                                  summary.pos = "bottomright", log.z = FALSE,
+                                  summary.pos = "bottomleft", log.z = FALSE,
                                   xlab = c("x1", "x2", "x3"), lty = 2,
                                   dispersion = "2sd",
                                   at = seq(20, 120, nrow(data.na) - 1)),
