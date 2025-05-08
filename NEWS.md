@@ -234,6 +234,11 @@
   scenarios. More importantly, this performance scales with the number
   of Monte Carlo runs.
 
+### `fit_EmissionSpectra()`
+
+- Fix crash when attempting to plot a frame with non-positive counts
+  (#761).
+
 ### `fit_LMCurve()`
 
 - If the user asks logarithmic scaling in the y-axis, using either

@@ -1,11 +1,13 @@
 #'@title Luminescence Emission Spectra Deconvolution
 #'
-#'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
-#'on an **energy scale**. The function is optimised for emission spectra typically
-#'obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
-#'The function is not prepared to deconvolve TL curves (counts against temperature;
-#'no wavelength scale). If you are interested in such analysis, please check, e.g.,
-#'the package `'tgcd'`.
+#' @description
+#' This function performes a luminescence spectra deconvolution on
+#' [RLum.Data.Spectrum-class] and [matrix] objects on an **energy scale**.
+#' The function is optimised for emission spectra typically obtained in the
+#' context of TL, OSL and RF  measurements detected between 200 and 1000 nm.
+#' The function is not designed to deconvolve TL curves (counts against
+#' temperature; no wavelength scale). If you are interested in such analysis,
+#' please check, e.g., package `'tgcd'`.
 #'
 #'@details
 #'
@@ -135,7 +137,7 @@
 #' parameter estimation. The grey band in the residual plot indicates the
 #' 10% deviation from 0 (means no residual).
 #'
-#'@section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -384,7 +386,7 @@ fit_EmissionSpectra <- function(
   # set data.frame ------------------------------------------------------------------------------
   df <- data.frame(x = m[,1], y = m[,2]) ##normalise values, it is just easier
 
-  if(method_control$norm[1])
+  if (method_control$norm[1] && max(m[, 2]) > 0)
     df[["y"]] <- df[["y"]]/max(m[,2]) ##normalise values, it is just easier
 
   ## check graining parameter
