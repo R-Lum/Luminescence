@@ -1319,12 +1319,10 @@ plot_AbanicoPlot <- function(
     coords <- .get_keyword_coordinates(summary.pos, limits.x, limits.y)
 
     ## apply some adjustments to the y positioning
-    if (!missing(summary.pos)) {
-      if (summary.pos[1] %in% c("topleft", "top", "topright")) {
+    if (summary.pos[1] %in% c("topleft", "top", "topright")) {
         coords$pos[2] <- coords$pos[2] - par()$cxy[2] * 1.0
       } else if (summary.pos[1] %in% c("bottomleft", "bottom", "bottomright")) {
         coords$pos[2] <- coords$pos[2] + par()$cxy[2] * 3.5
-      }
     }
     summary.pos <- coords$pos
     summary.adj <- coords$adj
@@ -1339,8 +1337,7 @@ plot_AbanicoPlot <- function(
     ## this time we swap x and y limits as we are rotated, then apply some
     ## adjustments to the x positioning
     coords <- .get_keyword_coordinates(summary.pos, limits.y, limits.x)
-    if (!missing(summary.pos) &&
-        summary.pos[1] %in% c("topleft", "left", "bottomleft")) {
+    if (summary.pos[1] %in% c("topleft", "left", "bottomleft")) {
       coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
     }
     summary.pos <- coords$pos
@@ -1675,12 +1672,11 @@ plot_AbanicoPlot <- function(
   }
 
   ## calculate rug coordinates
-  if(missing(rug) == FALSE) {
-    if(log.z == TRUE) {
+  if (log.z) {
       rug.values <- log(De.global)
-    } else {
+  } else {
       rug.values <- De.global
-    }
+  }
 
     rug.coords <- list(NA)
 
@@ -1692,7 +1688,7 @@ plot_AbanicoPlot <- function(
                    (rug.values[i] - z.central.global) * min(ellipse[,1]))
         rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
       }
-    } else {
+  } else {
       for(i in 1:length(rug.values)) {
         rug.x <- c(xy.0[2] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
                    xy.0[2])
@@ -1700,8 +1696,6 @@ plot_AbanicoPlot <- function(
                    (rug.values[i] - z.central.global) * min(ellipse[,2]))
         rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
       }
-    }
-
     rug.coords[1] <- NULL
   }
 
