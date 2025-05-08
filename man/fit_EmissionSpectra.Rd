@@ -94,7 +94,7 @@ parameter estimation. The grey band in the residual plot indicates the
 10\% deviation from 0 (means no residual).
 }
 \description{
-This function performes a luminescence spectra deconvolution on
+This function performs a luminescence spectra deconvolution on
 \linkS4class{RLum.Data.Spectrum} and \link{matrix} objects on an \strong{energy scale}.
 The function is optimised for emission spectra typically obtained in the
 context of TL, OSL and RF  measurements detected between 200 and 1000 nm.
@@ -154,7 +154,7 @@ of the values of all curves in the plot for each frame analysed \cr
 }
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{

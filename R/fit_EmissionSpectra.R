@@ -1,7 +1,7 @@
 #'@title Luminescence Emission Spectra Deconvolution
 #'
 #' @description
-#' This function performes a luminescence spectra deconvolution on
+#' This function performs a luminescence spectra deconvolution on
 #' [RLum.Data.Spectrum-class] and [matrix] objects on an **energy scale**.
 #' The function is optimised for emission spectra typically obtained in the
 #' context of TL, OSL and RF  measurements detected between 200 and 1000 nm.
