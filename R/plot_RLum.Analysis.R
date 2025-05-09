@@ -462,7 +462,6 @@ plot_RLum.Analysis <- function(
       names(abline) <- abline.names
     }
 
-
     ##(2) PLOT values
     for(k in 1:length(temp.recordType)) {
 
@@ -674,17 +673,15 @@ plot_RLum.Analysis <- function(
       ##if legend is outside of the plotting area we need to allow overplotting
       ##AFTER all lines have been drawn
       if (legend.pos == "outside") {
-        par(xpd = TRUE)
-
         # determine legend position on log(y) scale
         ypos <- par()$usr[4]
         if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
-          ypos <- 10^par()$usr[4]
+          ypos <- 10^ypos
 
         # determine position on log(x) scale
         xpos <- par()$usr[2]
         if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
-          xpos <- 10^par()$usr[2]
+          xpos <- 10^xpos
       }
 
       ##legend
@@ -701,12 +698,9 @@ plot_RLum.Analysis <- function(
             legend.col
           },
           bty = "n",
+          xpd = legend.pos == "outside",
           cex = 0.8 * plot.settings$cex[[k]]
         )
-
-        # revert the over plotting
-        if (legend.pos == "outside")
-          par(xpd = FALSE)
       }
     }
 

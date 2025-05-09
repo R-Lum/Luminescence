@@ -160,11 +160,11 @@ test_that("check functionality", {
 
   plot_RLum.Analysis(temp,
                      subset = list(recordType = "OSL"),
+                     combine = TRUE,
                      curve.transformation = "CW2pHMi")
 
   plot_RLum.Analysis(temp,
                      subset = list(recordType = "TL"),
-                     combine = TRUE,
                      curve.transformation = "CW2pPMi")
 
   ## empty object
