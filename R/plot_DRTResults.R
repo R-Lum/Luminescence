@@ -191,7 +191,7 @@ plot_DRTResults <- function(
   summary = "",
   summary.pos = "topleft",
   legend,
-  legend.pos,
+  legend.pos = "topright",
   par.local = TRUE,
   na.rm  = FALSE,
   ...
@@ -220,10 +220,10 @@ plot_DRTResults <- function(
                                   "topleft", "top", "topright",
                                   "bottomleft", "bottom", "bottomright"))
   }
-  if(missing(legend.pos) == TRUE) {legend.pos <- "topright"}
 
   ## Homogenise and check input data
-  if(is(values, "list") == FALSE) {values <- list(values)}
+  if (!inherits(values, "list"))
+      values <- list(values)
 
   for (i in seq_along(values)) {
     .validate_class(values[[i]], c("data.frame", "RLum.Results"),
@@ -310,22 +310,18 @@ plot_DRTResults <- function(
 
   ## normalise data if given.dose is given
   if(!is.null(given.dose)){
+    .validate_class(given.dose, "numeric")
+    .validate_not_empty(given.dose)
+    if (length(given.dose) == 1) {
+      given.dose <- rep(given.dose, length(values))
+    }
+    else if (length(given.dose) != length(values)) {
+      .throw_error("'given.dose' should have length equal to the number ",
+                   "of input data sets")
+    }
 
-    if(length(given.dose) > 1){
-
-      if(length(values) < length(given.dose)){
-        .throw_error("'given.dose' > number of input data sets")
-      }
-
-      for(i in 1:length(values)) {
-        values[[i]] <- values[[i]]/given.dose[i]
-      }
-
-    }else{
-
-      for(i in 1:length(values)) {
-        values[[i]] <- values[[i]]/given.dose
-      }
+    for (i in 1:length(values)) {
+      values[[i]] <- values[[i]] / given.dose[i]
     }
   }
 
@@ -342,10 +338,9 @@ plot_DRTResults <- function(
   }
 
   ## optionally group data by preheat temperature
-  if(missing(preheat) == FALSE) {
-    modes <- as.numeric(rownames(as.matrix(table(preheat))))
-    values.preheat <- list(NA)
-    values.boxplot <- list(NA)
+  if (!missing(preheat)) {
+    modes <- as.numeric(names(table(preheat)))
+    values.preheat <- values.boxplot <- list()
     for(i in 1:length(modes)) {
       for(j in 1:length(values)) {
         values.preheat[[length(values.preheat) + 1]] <-
@@ -356,8 +351,6 @@ plot_DRTResults <- function(
       }
       j <- 1
     }
-    values.preheat[[1]] <- NULL
-    values.boxplot[[1]] <- NULL
     modes.plot <- rep(modes, each = length(values))
   } else {
     modes <- 1
@@ -464,7 +457,6 @@ plot_DRTResults <- function(
             cex = 0.8
           )
         }
-
       }
 
       ## add data and error bars
@@ -621,12 +613,10 @@ plot_DRTResults <- function(
           ),
           col = "grey",
           border = "grey")
-
       }
 
     }else{
       axis(side = 1, at = 1:length(unique(modes.plot)), labels = unique(modes.plot), las = las)
-
     }
 
     ## add title

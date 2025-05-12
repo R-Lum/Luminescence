@@ -14,7 +14,7 @@ plot_DRTResults(
   summary = "",
   summary.pos = "topleft",
   legend,
-  legend.pos,
+  legend.pos = "topright",
   par.local = TRUE,
   na.rm = FALSE,
   ...

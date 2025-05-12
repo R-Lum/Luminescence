@@ -13,8 +13,12 @@ test_that("input validation", {
                "'values' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(df, preheat = c(200, 240, 240)),
                "Number of preheat temperatures != De values")
+  expect_error(plot_DRTResults(df, given.dose = "error"),
+               "'given.dose' should be of class 'numeric'")
+  expect_error(plot_DRTResults(df, given.dose = numeric(0)),
+               "'given.dose' cannot be an empty numeric")
   expect_error(plot_DRTResults(df, given.dose = c(2800, 3000)),
-               "'given.dose' > number of input data sets")
+               "'given.dose' should have length equal to the number of input")
   expect_warning(plot_DRTResults(df, boxplot = TRUE),
                  "Option 'boxplot' requires a value in 'preheat'")
   expect_error(plot_DRTResults(df, summary = 5),
