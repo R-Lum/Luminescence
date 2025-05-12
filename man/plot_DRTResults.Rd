@@ -28,17 +28,17 @@ sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 
 \item{given.dose}{\link{numeric} (\emph{optional}):
 given dose used for the dose recovery test to normalise data.
-If only one given dose is provided this given dose is valid for all input
-data sets (i.e., \code{values} is a list).  Otherwise a given dose for each input
+If only one given dose is provided, this given dose is valid for all input
+data sets (i.e., \code{values} is a list). Otherwise, a given dose for each input
 data set has to be provided (e.g., \code{given.dose = c(100,200)}).
-If \code{given.dose} in \code{NULL} the values are plotted without normalisation
+If \code{given.dose} is \code{NULL} the values are plotted without normalisation
 (might be useful for preheat plateau tests).
 \strong{Note:} Unit has to be the same as from the input values (e.g., Seconds or
 Gray).}
 
 \item{error.range}{\link{numeric} (\emph{with default}):
 symmetric error range in percent will be shown as dashed lines in the plot.
-Set \code{error.range} to 0 to void plotting of error ranges.}
+It can be set to 0 to remove the error ranges.}
 
 \item{preheat}{\link{numeric} (\emph{optional}):
 optional vector of preheat temperatures to be used for grouping the De values.
@@ -87,8 +87,9 @@ i.e. parameters provided via \code{par()} work}
 \item{na.rm}{\link{logical} (\emph{with default}): indicating whether \code{NA} values are
 removed before plotting from the input data set}
 
-\item{...}{further arguments and graphical parameters passed to \link{plot}, supported are:
-\code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{main}, \code{cex}, \code{las} and `pch``}
+\item{...}{further arguments and graphical parameters passed to \link{plot},
+supported are:
+\code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{main}, \code{cex}, \code{las} and \code{pch}.}
 }
 \value{
 A plot is returned.
@@ -98,9 +99,9 @@ The function provides a standardised plot output for dose recovery test
 measurements.
 }
 \details{
-Procedure to test the accuracy of a measurement protocol to reliably
+The procedure tests the accuracy of a measurement protocol to reliably
 determine the dose of a specific sample. Here, the natural signal is erased
-and a known laboratory dose administered which is treated as unknown. Then
+and a known laboratory dose administered, which is treated as unknown. Then
 the De measurement is carried out and the degree of congruence between
 administered and recovered dose is a measure of the protocol's accuracy for
 this sample.\cr

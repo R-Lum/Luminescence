@@ -1,11 +1,13 @@
 #' @title Visualise dose recovery test results
 #'
-#' @description The function provides a standardised plot output for dose recovery test
+#' @description
+#' The function provides a standardised plot output for dose recovery test
 #' measurements.
 #'
-#' @details Procedure to test the accuracy of a measurement protocol to reliably
+#' @details
+#' The procedure tests the accuracy of a measurement protocol to reliably
 #' determine the dose of a specific sample. Here, the natural signal is erased
-#' and a known laboratory dose administered which is treated as unknown. Then
+#' and a known laboratory dose administered, which is treated as unknown. Then
 #' the De measurement is carried out and the degree of congruence between
 #' administered and recovered dose is a measure of the protocol's accuracy for
 #' this sample.\cr
@@ -18,17 +20,17 @@
 #'
 #' @param given.dose [numeric] (*optional*):
 #' given dose used for the dose recovery test to normalise data.
-#' If only one given dose is provided this given dose is valid for all input
-#' data sets (i.e., `values` is a list).  Otherwise a given dose for each input
+#' If only one given dose is provided, this given dose is valid for all input
+#' data sets (i.e., `values` is a list). Otherwise, a given dose for each input
 #' data set has to be provided (e.g., `given.dose = c(100,200)`).
-#' If `given.dose` in `NULL` the values are plotted without normalisation
+#' If `given.dose` is `NULL` the values are plotted without normalisation
 #' (might be useful for preheat plateau tests).
 #' **Note:** Unit has to be the same as from the input values (e.g., Seconds or
 #' Gray).
 #'
 #' @param error.range [numeric] (*with default*):
 #' symmetric error range in percent will be shown as dashed lines in the plot.
-#' Set `error.range` to 0 to void plotting of error ranges.
+#' It can be set to 0 to remove the error ranges.
 #'
 #' @param preheat [numeric] (*optional*):
 #' optional vector of preheat temperatures to be used for grouping the De values.
@@ -75,8 +77,9 @@
 #' @param na.rm [logical] (*with default*): indicating whether `NA` values are
 #' removed before plotting from the input data set
 #'
-#' @param ... further arguments and graphical parameters passed to [plot], supported are:
-#' `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex`, `las` and `pch``
+#' @param ... further arguments and graphical parameters passed to [plot],
+#' supported are:
+#' `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex`, `las` and `pch`.
 #'
 #' @return A plot is returned.
 #'
