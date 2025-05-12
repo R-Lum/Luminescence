@@ -491,7 +491,7 @@ plot_DRTResults <- function(
                y = summary.pos[2],
                adj = summary.adj,
                labels = label.text[[i]],
-               cex = 0.8 * cex,
+               cex = 0.8,
                col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
         } else {
           if(mtext == "") {
@@ -658,7 +658,7 @@ plot_DRTResults <- function(
              y = summary.pos[2],
              adj = summary.adj,
              labels = label.text[[i]],
-             cex = 0.8 * cex,
+             cex = 0.8,
              col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
       } else {
         if(mtext == "") {
@@ -682,7 +682,7 @@ plot_DRTResults <- function(
            col = unique(col),
            pch = unique(pch),
            lty = 1,
-           cex = cex * 0.8)
+           cex = 0.8)
   }
 
   ## optionally add subheader text
