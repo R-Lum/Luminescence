@@ -580,10 +580,10 @@ plot_DRTResults <- function(
             border = col)
 
     ## add axis label, if necessary
-    if (length(modes.plot) == 1) {
-      axis(side = 1, at = 1, labels = modes.plot, las = las)
-
-    } else if (length(modes.plot) > length(unique(modes.plot))){
+    if (length(modes.plot) <= length(unique(modes.plot))) {
+      axis(side = 1, at = 1:length(unique(modes.plot)),
+           labels = unique(modes.plot), las = las)
+    } else {
       ticks <- seq(from = 1 + ((length(values.boxplot)/length(unique(modes.plot)) - 1)/2),
                    to = length(values.boxplot),
                    by = length(values.boxplot)/length(unique(modes.plot)))
@@ -616,9 +616,6 @@ plot_DRTResults <- function(
           col = "grey",
           border = "grey")
       }
-
-    }else{
-      axis(side = 1, at = 1:length(unique(modes.plot)), labels = unique(modes.plot), las = las)
     }
 
     ## add title
