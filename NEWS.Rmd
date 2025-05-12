@@ -266,6 +266,14 @@ starting a parallel cluster even when `multicore = FALSE` (#742).
 
 * Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)
 
+### `plot_DRTResults()`
+
+* The summary and legend texts now scale better at non-default cex settings
+(#765).
+
+* Argument `given.dose` is now better validated against misspecifications
+(#767).
+
 ### `plot_GrowthCurve()`
 
 * Add support for `OTORX` fit corresponding to the underlying change in `fit_DoseReponseCurve()` (#677)

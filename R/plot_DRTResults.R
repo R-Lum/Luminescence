@@ -310,11 +310,12 @@ plot_DRTResults <- function(
 
   ## normalise data if given.dose is given
   if(!is.null(given.dose)){
-
+    .validate_class(given.dose, "numeric")
+    .validate_not_empty(given.dose)
     if(length(given.dose) > 1){
-
-      if(length(values) < length(given.dose)){
-        .throw_error("'given.dose' > number of input data sets")
+      if(length(values) != length(given.dose)){
+        .throw_error("'given.dose' should have length equal to the number ",
+                     "of input data sets")
       }
 
       for(i in 1:length(values)) {
