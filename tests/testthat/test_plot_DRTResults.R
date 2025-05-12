@@ -99,3 +99,11 @@ test_that("graphical snapshot tests", {
                                               summary = c("mean", "sd.abs")))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 769
+  expect_silent(plot_DRTResults(list(df, df * 2), preheat = rep(200, 5),
+                                boxplot = TRUE))
+})

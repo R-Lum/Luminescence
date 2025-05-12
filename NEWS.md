@@ -302,6 +302,9 @@
 - Argument `given.dose` is now better validated against
   misspecifications (#767).
 
+- The function crashed when multiple inputs were used with
+  `boxplot = TRUE` and all preheat values were identical (#769).
+
 ### `plot_GrowthCurve()`
 
 - Add support for `OTORX` fit corresponding to the underlying change in

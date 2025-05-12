@@ -601,6 +601,8 @@ plot_DRTResults <- function(
       )
 
       polygon.step <- unique(diff(polygon.x) - 1)
+      if (length(polygon.step) == 0)
+        polygon.step <- 1
 
       for (x.plyg in polygon.x) {
         polygon(
