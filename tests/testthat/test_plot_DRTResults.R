@@ -12,7 +12,7 @@ test_that("input validation", {
   expect_error(plot_DRTResults(list("error")),
                "'values' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(df, preheat = c(200, 240, 240)),
-               "Number of preheat temperatures != De values")
+               "'preheat' should have length equal to the number of De values")
   expect_error(plot_DRTResults(df, given.dose = "error"),
                "'given.dose' should be of class 'numeric'")
   expect_error(plot_DRTResults(df, given.dose = numeric(0)),
