@@ -462,13 +462,18 @@ plot_DRTResults <- function(
         }
       }
 
+      ## allow assigning a separate colour to each point, but only if there
+      ## is one input dataset
+      oneinput <- length(values) == 1
+      multicol <- oneinput && nrow(values[[1]]) == length(col)
+
       ## add data and error bars
       for(i in 1:length(values)) {
 
         points(x = c(1:nrow(values[[i]])),
                y = values[[i]][,1],
-               pch = if(nrow(values[[i]]) == length(pch)){ pch } else { pch[i] },
-               col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] },
+               pch = if (oneinput && nrow(values[[i]]) == length(pch)) pch else pch[i],
+               col = if (multicol) col else col[i],
                cex = 1.2 * cex)
 
         graphics::arrows(c(1:nrow(values[[i]])),
@@ -478,7 +483,7 @@ plot_DRTResults <- function(
                angle = 90,
                length = 0.075,
                code = 3,
-               col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] })
+               col = if (multicol) col else col[i])
 
         ## add summary content
         if(summary.pos[1] != "sub") {
@@ -492,13 +497,13 @@ plot_DRTResults <- function(
                adj = summary.adj,
                labels = label.text[[i]],
                cex = 0.8,
-               col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
+               col = if (multicol) "black" else col[i])
         } else {
           if(mtext == "") {
             mtext(side = 3,
                   line = shift.lines - i,
                   text = label.text[[i]],
-                  col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
+                  col = if (multicol) "black" else col[i],
                   cex = cex * 0.8)
           }
         }
