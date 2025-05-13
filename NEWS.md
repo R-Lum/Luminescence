@@ -305,7 +305,8 @@
 - The function crashed when multiple inputs were used with
   `boxplot = TRUE` and all preheat values were identical (#769).
 
-- The plot title is now better placed (#773).
+- The plot title and the summary text are now better positioned (#773,
+  \#774).
 
 ### `plot_GrowthCurve()`
 
