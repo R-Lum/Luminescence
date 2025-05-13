@@ -247,8 +247,9 @@ plot_DRTResults <- function(
 
     ##check for preheat temperature values
     if(missing(preheat) == FALSE) {
-      if(length(preheat) != nrow(values[[i]])){
-        .throw_error("Number of preheat temperatures != De values")
+      if (length(preheat) < nrow(values[[i]])) {
+        .throw_error("'preheat' should have length equal to the number ",
+                     "of De values")
       }
     }
 
