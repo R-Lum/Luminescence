@@ -75,8 +75,8 @@
 <line x1='551.20' y1='274.68' x2='551.20' y2='477.46' style='stroke-width: 0.75;' />
 <polyline points='556.60,274.68 551.20,274.68 545.80,274.68 ' style='stroke-width: 0.75;' />
 <polyline points='545.80,477.46 551.20,477.46 556.60,477.46 ' style='stroke-width: 0.75;' />
-<text x='89.33' y='267.54' style='font-size: 9.60px; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 </text>
-<text x='89.33' y='279.06' style='font-size: 9.60px; font-family: sans;' textLength='63.26px' lengthAdjust='spacingAndGlyphs'>sd.abs = 71.98</text>
+<text x='89.33' y='276.61' style='font-size: 9.60px; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 </text>
+<text x='89.33' y='288.13' style='font-size: 9.60px; font-family: sans;' textLength='63.26px' lengthAdjust='spacingAndGlyphs'>sd.abs = 71.98</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>

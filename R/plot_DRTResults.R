@@ -377,7 +377,6 @@ plot_DRTResults <- function(
         prefix = paste(rep("\n", (i - 1) * length(summary)), collapse = "")
       )
     })
-
   }else{
     label.text <- lapply(1:length(values), function(i) {
       .create_StatisticalSummaryText(
@@ -389,10 +388,14 @@ plot_DRTResults <- function(
     })
   }
 
+  ## keep track if the summary is in the bottom row as we may need to compute
+  ## an adjustment further down, after the plot device has been opened
+  summary.pos_is_bottom <- grepl("bottom", summary.pos[1])
+
   ## convert keywords into summary and legend placement coordinates
   coords <- .get_keyword_coordinates(summary.pos, xlim, ylim)
   summary.pos <- coords$pos
-  summary.adj <- coords$adj
+  summary.adj <- c(coords$adj[1], 1) # always top-aligned
   coords <- .get_keyword_coordinates(legend.pos, xlim, ylim)
   legend.pos <- coords$pos
   legend.adj <- coords$adj
@@ -479,8 +482,13 @@ plot_DRTResults <- function(
 
         ## add summary content
         if(summary.pos[1] != "sub") {
+          vadj <- 0
+          if (summary.pos_is_bottom) {
+            ## adjust the vertical coordinate by the height of the longest label
+            vadj <- graphics::strheight(tail(label.text, 1), cex = 0.8)
+          }
           text(x = summary.pos[1],
-               y = summary.pos[2],
+               y = summary.pos[2] + vadj,
                adj = summary.adj,
                labels = label.text[[i]],
                cex = 0.8,
@@ -643,8 +651,13 @@ plot_DRTResults <- function(
     for(i in 1:length(values)) {
       ## add summary content
       if(summary.pos[1] != "sub") {
+        vadj <- 0
+        if (summary.pos_is_bottom) {
+          ## adjust the vertical coordinate by the height of the longest label
+          vadj <- graphics::strheight(tail(label.text, 1), cex = 0.8)
+        }
         text(x = summary.pos[1],
-             y = summary.pos[2],
+             y = summary.pos[2] + vadj,
              adj = summary.adj,
              labels = label.text[[i]],
              cex = 0.8,
