@@ -53,7 +53,7 @@ test_that("check functionality", {
                                 summary = "mean", summary.pos = "sub"))
   expect_silent(plot_DRTResults(df.list, given.dose = c(2800, 2900)))
   expect_silent(plot_DRTResults(df.list, preheat = c(200, 200, 200, 240, 240),
-                                boxplot = TRUE))
+                                boxplot = TRUE, summary.pos = "bottom"))
 
   ## more coverage
   expect_silent(plot_DRTResults(df[1, ], preheat = 200, boxplot = TRUE))
@@ -69,8 +69,8 @@ test_that("check functionality", {
                                 legend = "legend", legend.pos = c(5, 1.2),
                                 col = 2, cex = 1, pch = 2))
   expect_silent(plot_DRTResults(df, summary = "n", summary.pos = "sub"))
-  expect_silent(plot_DRTResults(df, summary.pos = "top",
-                                legend.pos = "bottom"))
+  expect_silent(plot_DRTResults(df, summary.pos = "bottomright",
+                                legend.pos = "top"))
   expect_silent(plot_DRTResults(df, preheat = 1:5, na.rm = TRUE))
 
   ## RLum.Results object
