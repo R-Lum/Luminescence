@@ -399,16 +399,15 @@ plot_DRTResults <- function(
 
   ## Plot output ------------------------------------------------------------
 
-  ## determine number of subheader lines to shif the plot
-  shift.lines <- if(summary.pos[1] == "sub" & mtext == "") {
-    length(label.text) - 1
-  } else {1}
+  ## determine number of subheader lines to shift the plot
+  shift.lines <- if (mtext == "") {
+                   if (summary.pos[1] == "sub") length(label.text) else 0
+                 } else 1
 
   ## setup plot area
   if(par.local){
-    if (shift.lines <= 0)
-    shift.lines <- 1
-    par.default <- par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
+    par.default <- par(mfrow = c(1, 1), cex = cex,
+                       mar = c(2.5, 2.5, shift.lines, 0) + 2.1)
     on.exit(par(par.default), add = TRUE)
   }
 
@@ -431,7 +430,7 @@ plot_DRTResults <- function(
 
       ## add title
       title(main = main,
-            line = shift.lines + 2)
+            line = shift.lines + 0.5)
 
       ## add additional lines
       if (!is.null(given.dose)) {
@@ -489,7 +488,7 @@ plot_DRTResults <- function(
         } else {
           if(mtext == "") {
             mtext(side = 3,
-                  line = - i + 2.5,
+                  line = shift.lines - i,
                   text = label.text[[i]],
                   col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                   cex = cex * 0.8)
@@ -518,7 +517,7 @@ plot_DRTResults <- function(
 
       ## add title
       title(main = main,
-            line = shift.lines + 2)
+            line = shift.lines + 0.5)
 
       ## add additional lines
       if (!is.null(given.dose)) {
@@ -621,7 +620,7 @@ plot_DRTResults <- function(
 
     ## add title
     title(main = main,
-          line = shift.lines + 2)
+          line = shift.lines + 0.5)
 
     ## add additional lines
     if(!is.null(given.dose)){
@@ -653,7 +652,7 @@ plot_DRTResults <- function(
       } else {
         if(mtext == "") {
           mtext(side = 3,
-                line = - i + 2.5,
+                line = shift.lines - i,
                 text = label.text[[i]],
                 col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                 cex = cex * 0.8)
@@ -677,7 +676,6 @@ plot_DRTResults <- function(
 
   ## optionally add subheader text
   mtext(side = 3,
-        line = shift.lines,
         text = mtext,
         cex = 0.8 * cex)
 
