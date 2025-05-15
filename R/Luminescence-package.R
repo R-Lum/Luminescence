@@ -1297,7 +1297,7 @@ NULL
 #'
 #' **Individual file descriptions**
 #'
-#' *>>Daybreak_TestFile.DAT/.txt<<*
+#' *>>Daybreak_TestFile.DAT.txt<<*
 #'
 #' **Type:** raw measurement data \cr
 #' **Device:** Daybreak OSL/TL reader\cr
@@ -1322,18 +1322,18 @@ NULL
 #' *>>QNL84_2_bleached.txt*, *QNL84_2_unbleached.txt<<*
 #'
 #' **Type:** Test data for exponential fits \cr
-#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \cr
+#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}\cr
 #'
 #'
 #' *>>STRB87_1_bleached.txt*, *STRB87_1_unbleached.txt<<*
 #'
 #' **Type:** Test data for exponential fits \cr
-#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}
 #'
 #' *>>XSYG_file.xsyg*
 #'
 #' **Type:** XSYG-file stump \cr
-#' **Info: ** XSYG-file with some basic curves to test functions \cr
+#' **Info:** XSYG-file with some basic curves to test functions \cr
 #' **Reference:** no reference available
 #'
 #'
