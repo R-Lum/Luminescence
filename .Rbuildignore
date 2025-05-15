@@ -47,8 +47,11 @@
 # -- Exclude build stuff
 ^Makefile$
 
-# -- tests --
+# -- Exclude tests stuff for the CRAN build --
+^tests/testdata$
+^tests/testthat/_data/SPEfile.SPE$
 ^\test\*
+^tests/testthat/_snaps$
 
 # -- Exclude meta data stuff --
 ^codemeta\.json$

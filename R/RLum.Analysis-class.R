@@ -34,12 +34,13 @@
 #'
 #' @examples
 #'
+#' ## show method
 #' showClass("RLum.Analysis")
 #'
-#' ##set empty object
+#' ##set an empty object
 #' set_RLum(class = "RLum.Analysis")
 #'
-#' ###use example data
+#' ## use example data
 #' ##load data
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'
@@ -48,6 +49,16 @@
 #'
 #' ##show only the first object, but by keeping the object
 #' get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
+#'
+#' ## subsetting with SAR sample data
+#' data(ExampleData.BINfileData, envir = environment())
+#' sar <- object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+#'
+#' ## get
+#' get_RLum(sar, subset = "NPOINTS == 250")
+#'
+#' ## remove
+#' remove_RLum(sar, subset = "NPOINTS == 250")
 #'
 #' @keywords internal
 #'
@@ -313,9 +324,10 @@ setMethod(
 #' name of the wanted info element
 #'
 #' @param subset [`get_RLum`]: [expression] (*optional*):
-#' logical expression indicating elements or rows to keep: missing values are
-#' taken as false. This argument takes precedence over all other arguments,
-#' meaning they are not considered when subsetting the object.
+#' logical or character masking a logical expression indicating elements or rows to keep:
+#' missing values are taken as false. This argument takes precedence over all other arguments,
+#' meaning they are not considered when subsetting the object. `subset` works slots and
+#' info elements.
 #'
 #' @param env [`get_RLum`]: [environment] (*with default*):
 #' An environment passed to [eval] as the enclosure. This argument is only
@@ -362,6 +374,11 @@ setMethod("get_RLum",
                  return(val)
                })), stringAsFactors = FALSE)
 
+              ## coerce subset to logical if character to make it compatible
+              ## with remove_RLum()
+              if(inherits(substitute(subset), "character"))
+                subset <- parse(text = subset[1])[[1]]
+
               ##select relevant rows
               sel <- tryCatch(eval(
                 expr = substitute(subset),
@@ -381,6 +398,9 @@ setMethod("get_RLum",
                 sel <- FALSE
 
               if (any(sel)) {
+                if(!is.null(get.index) && get.index[1])
+                  return(which(sel))
+
                 object@records <- object@records[sel]
                 return(object)
               } else {

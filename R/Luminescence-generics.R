@@ -254,13 +254,17 @@ setGeneric("remove_RLum", function(object, ...) {
 setMethod("remove_RLum", signature = "list",
           function(object, ...) {
             ## apply method in the objects and return the same
-            lapply(object, function(x) {
+            tmp <- lapply(object, function(x) {
               if (inherits(x, "RLum.Analysis")) {
                 return(remove_RLum(x,...))
               } else {
                 return(x)
               }
             })
+
+            ## remove empty elements
+            tmp[vapply(tmp,length, numeric(1)) != 0]
+
 })
 
 # length_RLum() -----------------------------------------------------------

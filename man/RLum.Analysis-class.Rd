@@ -129,9 +129,10 @@ undesired if this method is used within a loop.}
 name of the wanted info element}
 
 \item{subset}{\code{\link{get_RLum}}: \link{expression} (\emph{optional}):
-logical expression indicating elements or rows to keep: missing values are
-taken as false. This argument takes precedence over all other arguments,
-meaning they are not considered when subsetting the object.}
+logical or character masking a logical expression indicating elements or rows to keep:
+missing values are taken as false. This argument takes precedence over all other arguments,
+meaning they are not considered when subsetting the object. \code{subset} works slots and
+info elements.}
 
 \item{env}{\code{\link{get_RLum}}: \link{environment} (\emph{with default}):
 An environment passed to \link{eval} as the enclosure. This argument is only
@@ -275,12 +276,13 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 
 \examples{
 
+## show method
 showClass("RLum.Analysis")
 
-##set empty object
+##set an empty object
 set_RLum(class = "RLum.Analysis")
 
-###use example data
+## use example data
 ##load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
@@ -289,6 +291,16 @@ get_RLum(IRSAR.RF.Data)
 
 ##show only the first object, but by keeping the object
 get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
+
+## subsetting with SAR sample data
+data(ExampleData.BINfileData, envir = environment())
+sar <- object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+
+## get
+get_RLum(sar, subset = "NPOINTS == 250")
+
+## remove
+remove_RLum(sar, subset = "NPOINTS == 250")
 
 ## **sort_RLum()** ##
 data(ExampleData.XSYG, envir = environment())
