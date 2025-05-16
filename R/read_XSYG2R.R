@@ -131,7 +131,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.14
+#' @section Function version: 0.6.15
 #'
 #'
 #' @author
@@ -282,14 +282,13 @@ read_XSYG2R <- function(
     ##1st grep wavelength table
     wavelength <- XML::xmlAttrs(curve.node)["wavelengthTable"]
 
-    ##string split
-    wavelength <- as.numeric(unlist(strsplit(wavelength, split = ";", fixed = TRUE)))
+    ##string split (scan is considerably faster by a factor of 2)
+    wavelength <- na.exclude(scan(text = wavelength, what = numeric(), sep = ";", quiet = TRUE))
 
     ##2nd grep time values
-    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), split = ";", fixed = TRUE))
-    curve.node <- strsplit(curve.node, split = ",", fixed = TRUE)
-    curve.node.time <- as.numeric(vapply(curve.node, function(x) x[1], character(1)))
-
+    raw_curve_node <- XML::xmlValue(curve.node)
+    curve.node <- unlist(strsplit(raw_curve_node, split = "];", fixed = TRUE))
+    curve.node <- strsplit(curve.node, split = ",[", fixed = TRUE)
     curve.node.time <- as.numeric(vapply(curve.node, function(x) x[1], character(1)))
 
     ##3rd grep count values
@@ -300,16 +299,14 @@ read_XSYG2R <- function(
         x[3]
     }, character(1))
 
-    ##remove from pattern...
-    curve.node.count <- do.call(
-      what = "gsub", list(pattern="[[]|[]]", replacement="",
-                                             x=curve.node.count))
-
+    ## remove last bracket
+    curve.node.count[length(curve.node.count)] <- gsub(
+      pattern = "]", replacement = "", x = curve.node.count[length(curve.node.count)], fixed = TRUE)
 
     ##4th combine to spectrum matrix
     spectrum.matrix <- matrix(NA, nrow = length(wavelength), ncol = length(curve.node.time))
     for(i in 1:length(curve.node.time)) {
-      tmp <- as.numeric(unlist(strsplit(curve.node.count[i], "|", fixed = TRUE)))
+      tmp <- scan(text = curve.node.count[i], what = numeric(), sep = "|", quiet = TRUE)
       if(length(tmp) == length(wavelength))
         spectrum.matrix[,i] <- tmp
     }
@@ -452,7 +449,6 @@ read_XSYG2R <- function(
           temp.sequence.object.info <- c(as.list(attrs),
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
-
           ## TL curve recalculation ============================================
           if(recalculate.TL.curves){
             ##TL curve heating values is stored in the 3rd curve of every set

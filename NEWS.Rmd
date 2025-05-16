@@ -354,6 +354,13 @@ images are combined into one image stack.
 * A redundant computation has been removed, and the function is now marginally
 faster on files when the detector is not a spectrometer (#753).
 
+* Prepare import for an updated version of LexStudio2 (>=v2.31.1) where the 
+horizontal hardware binning finally works after >10 years, but the changes
+introduce a lot of `NaN` values that would cause a crash of the function. 
+
+* Minor code refactoring for a small speed boost if spectrometer measurements 
+are imported. 
+
 ### `scale_GammaDose()`
 
 * Argument `plot_singlePanels` now works as documented, that is it produces
