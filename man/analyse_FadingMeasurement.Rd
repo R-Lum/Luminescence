@@ -156,7 +156,7 @@ aliquot by its individual prompt measurement please do so \strong{before} runnin
 
 \strong{Shine-down curve plots}
 Please note that the shine-down curve plots are for information only. As such
-not all pause steps are plotted to avoid graphically overloaded plots.
+a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
