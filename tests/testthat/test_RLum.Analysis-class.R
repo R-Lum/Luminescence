@@ -65,7 +65,7 @@ test_that("get_RLum", {
   testthat::skip_on_cran()
 
   ## input validation
-  expect_error(get_RLum(obj, subset = "error"),
+  expect_error(get_RLum(obj, subset = 1),
                "[get_RLum()] 'subset' must contain a logical expression",
                fixed = TRUE)
   expect_error(get_RLum(obj, subset = (error == "OSL")),
@@ -84,6 +84,7 @@ test_that("get_RLum", {
 
   ## check functionality
   expect_length(get_RLum(obj, subset = (recordType == "RF")), 2)
+  expect_length(get_RLum(obj, subset = "recordType == 'RF'"), 2)
   expect_length(get_RLum(tmp, subset = (el == "2")), 1)
   expect_s4_class(get_RLum(tmp, subset = (el == "2")), "RLum.Analysis")
   expect_type(get_RLum(tmp, info.object = "el"), "character")
@@ -298,4 +299,16 @@ test_that("remove_RLum", {
   ## odd wrong element
   t <- expect_type(remove_RLum(list(sar, "error"), recordType = "OSL"), "list")
   expect_length(t, n = 2)
+
+  ## use subset
+  ## this produces and error because of the logical expression
+  expect_error(remove_RLum(list(sar, sar), subset = recordType == "OSL"))
+
+  ## this works with terminal output
+  SW({
+  t <- expect_type(remove_RLum(list(sar, sar), subset = "recordType == 'TL'"), "list")
+  })
+
+  expect_length(t, n = 2)
+
 })
