@@ -304,6 +304,9 @@ test_that("remove_RLum", {
   ## this produces and error because of the logical expression
   expect_error(remove_RLum(list(sar, sar), subset = recordType == "OSL"))
 
+  ## simple check for info element
+  expect_s4_class(remove_RLum(sar, subset = "duration== 118"), "RLum.Analysis")
+
   ## this works with terminal output
   SW({
   t <- expect_type(remove_RLum(list(sar, sar), subset = "recordType == 'TL'"), "list")
