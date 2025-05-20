@@ -157,13 +157,8 @@ analyse_SAR.TL <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
-  if (missing("signal.integral.min")) {
-    .throw_error("No value set for 'signal.integral.min'")
-  }
-  if (missing("signal.integral.max")) {
-    .throw_error("No value set for 'signal.integral.max'")
-  }
-
+  .validate_class(signal.integral.min, c("numeric", "integer"))
+  .validate_class(signal.integral.max, c("numeric", "integer"))
   integral_input <- .validate_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------

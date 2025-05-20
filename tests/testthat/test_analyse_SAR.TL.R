@@ -13,9 +13,10 @@ test_that("input validation", {
                "[analyse_SAR.TL()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
   expect_error(analyse_SAR.TL(object),
-               "No value set for 'signal.integral.min'")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1),
-               "No value set for 'signal.integral.max'")
+               "'signal.integral.min' should be of class 'numeric' or 'integer'")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
+                              signal.integral.max = NA),
+               "'signal.integral.max' should be of class 'numeric' or 'integer'")
   expect_error(analyse_SAR.TL(list(object, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
@@ -134,7 +135,8 @@ test_that("regression tests", {
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   SW({
   expect_error(
-      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
+      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE),
+                     signal.integral.min = 1, signal.integral.max = 20),
       "Input TL curves are not a multiple of the sequence structure")
   })
 })
