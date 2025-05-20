@@ -157,22 +157,14 @@ analyse_SAR.TL <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
-  if (missing("signal.integral.min")) {
-    .throw_error("No value set for 'signal.integral.min'")
-  }
-  if (missing("signal.integral.max")) {
-    .throw_error("No value set for 'signal.integral.max'")
-  }
-
+  .validate_class(signal.integral.min, c("numeric", "integer"))
+  .validate_class(signal.integral.max, c("numeric", "integer"))
   integral_input <- .validate_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------
 
-  ##set allowed curve types
-  type.curves <- c("TL")
-
   ##Remove non TL-curves from object by selecting TL curves
-  object@records <- get_RLum(object, recordType = type.curves,
+  object@records <- get_RLum(object, recordType = "TL",
                              recursive = FALSE)
 
   ##ANALYSE SEQUENCE OBJECT STRUCTURE
@@ -197,6 +189,11 @@ analyse_SAR.TL <- function(
 
     .throw_error("Signal range differs, check sequence structure.\n",
                  temp.sequence.structure)
+  }
+
+  ## we must have a signal to analyse
+  if (!"SIGNAL" %in% sequence.structure) {
+    .throw_error("'sequence.structure' contains no 'SIGNAL' entry")
   }
 
   ##check if the wanted curves are a multiple of the structure
@@ -621,7 +618,7 @@ analyse_SAR.TL <- function(
   temp.GC <- try(fit_DoseResponseCurve(
     object = temp.sample,
     ...
-  ))
+  ), outFile = stdout()) # redirect error messages so they can be silenced
 
   ## fit_DoseResponseCurve() can fail in two ways:
   ## 1. either with a hard error, in which case there's nothing much we

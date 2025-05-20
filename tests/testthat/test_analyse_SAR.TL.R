@@ -13,14 +13,19 @@ test_that("input validation", {
                "[analyse_SAR.TL()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
   expect_error(analyse_SAR.TL(object),
-               "No value set for 'signal.integral.min'")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1),
-               "No value set for 'signal.integral.max'")
+               "'signal.integral.min' should be of class 'numeric' or 'integer'")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
+                              signal.integral.max = NA),
+               "'signal.integral.max' should be of class 'numeric' or 'integer'")
   expect_error(analyse_SAR.TL(list(object, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
                               signal.integral.max = 2),
                "Input TL curves are not a multiple of the sequence structure")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
+                              signal.integral.max = 2,
+                              sequence.structure = "EXCLUDE"),
+               "'sequence.structure' contains no 'SIGNAL' entry")
   expect_error(analyse_SAR.TL(object, dose.points = c(2, 2),
                               signal.integral.min = 210,
                               signal.integral.max = 220,
@@ -96,6 +101,12 @@ test_that("Test examples", {
     ),
   "Error column invalid or 0, 'fit.weights' ignored")
   })
+
+  expect_output(expect_null(
+      analyse_SAR.TL(object[1:4], fit.method = "ERROR",
+                     signal.integral.min = 2, signal.integral.max = 3,
+                     sequence.structure = "SIGNAL"),
+      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
 })
 
 test_that("regression tests", {
@@ -134,7 +145,8 @@ test_that("regression tests", {
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   SW({
   expect_error(
-      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
+      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE),
+                     signal.integral.min = 1, signal.integral.max = 20),
       "Input TL curves are not a multiple of the sequence structure")
   })
 })
