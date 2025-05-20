@@ -80,7 +80,7 @@ test_that("test the import of various BIN-file versions", {
 
   ## this test needs an internet connection ... test for it
   github.url <- file.path("https://github.com/R-Lum/Luminescence",
-                          "raw/dev_0.9.x/tests/testthat/_data")
+                          "raw/archive/dev_0.9.x/tests/testthat/_data")
   if (!httr::http_error(github.url)) {
     ## V3
     expect_snapshot_plain(read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
