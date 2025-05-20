@@ -163,11 +163,8 @@ analyse_SAR.TL <- function(
 
   # Protocol Integrity Checks --------------------------------------------------
 
-  ##set allowed curve types
-  type.curves <- c("TL")
-
   ##Remove non TL-curves from object by selecting TL curves
-  object@records <- get_RLum(object, recordType = type.curves,
+  object@records <- get_RLum(object, recordType = "TL",
                              recursive = FALSE)
 
   ##ANALYSE SEQUENCE OBJECT STRUCTURE
@@ -192,6 +189,11 @@ analyse_SAR.TL <- function(
 
     .throw_error("Signal range differs, check sequence structure.\n",
                  temp.sequence.structure)
+  }
+
+  ## we must have a signal to analyse
+  if (!"SIGNAL" %in% sequence.structure) {
+    .throw_error("'sequence.structure' contains no 'SIGNAL' entry")
   }
 
   ##check if the wanted curves are a multiple of the structure

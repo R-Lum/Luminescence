@@ -96,6 +96,11 @@ and colour of contour lines.
 `fit_DoseResponseCurve()`; this change includes the new argument
 `dose.points.test` that is only of use in combination with the `OTORX` fit.
 
+### `analyse_SAR.TL()`
+
+* A check on the `sequence.structure` argument ensures that a "SIGNAL" entry
+has been specified (#779).
+
 ### `calc_AliquotSize()`
 
 * The new argument `sample_carrier.diameter` allows to specify a value for
