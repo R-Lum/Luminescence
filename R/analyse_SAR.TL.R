@@ -618,7 +618,7 @@ analyse_SAR.TL <- function(
   temp.GC <- try(fit_DoseResponseCurve(
     object = temp.sample,
     ...
-  ))
+  ), outFile = stdout()) # redirect error messages so they can be silenced
 
   ## fit_DoseResponseCurve() can fail in two ways:
   ## 1. either with a hard error, in which case there's nothing much we

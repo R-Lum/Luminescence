@@ -101,6 +101,12 @@ test_that("Test examples", {
     ),
   "Error column invalid or 0, 'fit.weights' ignored")
   })
+
+  expect_output(expect_null(
+      analyse_SAR.TL(object[1:4], fit.method = "ERROR",
+                     signal.integral.min = 2, signal.integral.max = 3,
+                     sequence.structure = "SIGNAL"),
+      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
 })
 
 test_that("regression tests", {
