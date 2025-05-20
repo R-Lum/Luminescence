@@ -1184,24 +1184,15 @@ analyse_baSAR <- function(
           )
 
         ## remove grain position 0 (this are usually TL measurements
-        ## on the cup or we are talking about multiple aliquot)
-        num.grain.pos0 <- sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0,
-                              na.rm = TRUE)
+        ## on the cup or we are talking about multiple aliquots)
+        idx.pos0 <- aliquot_selection$unique_pairs[["GRAIN"]] == 0
+        datalu <- aliquot_selection$unique_pairs[!idx.pos0, ]
+        num.grain.pos0 <- sum(idx.pos0, na.rm = TRUE)
         if (sum(num.grain.pos0) > 0) {
           .throw_warning("Automatic grain selection: ", num.grain.pos0,
                          " curves with grain index 0 have been removed ",
                          "from the dataset")
         }
-
-        datalu <-
-          aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0,]
-
-        if(nrow(datalu) == 0){
-          .throw_message("Nothing left after the automatic grain selection, ",
-                         "NULL returned")
-          return(NULL)
-        }
-
       }else{
           .throw_warning("Only multiple grain data provided, ",
                          "automatic selection skipped")
