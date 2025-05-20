@@ -1280,7 +1280,7 @@ analyse_baSAR <- function(
     Nb_ali <-  0
     k <- NULL
 
-    for (nn in 1:length((datalu[, 1]))) {
+    for (nn in 1:nrow(datalu)) {
       if (!is.na(datalu[nn, 1]))  {
 
         ##check whether one file fits
@@ -1304,11 +1304,9 @@ analyse_baSAR <- function(
         }
 
       } else{
-
         if (Nb_ali == 0) {
           .throw_error("Number of discs/grains = 0")
         }
-
         break()
       }
     }

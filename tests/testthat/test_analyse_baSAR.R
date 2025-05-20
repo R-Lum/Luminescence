@@ -173,6 +173,26 @@ test_that("input validation", {
                                n.MCMC = 10),
                  "Provided source dose rate errors differ")
   })
+
+  CWOSL.mod <- CWOSL.sub
+  CWOSL.mod@METADATA$POSITION[c(1:nrow(CWOSL.mod@METADATA))] <- 2.5
+  expect_warning(expect_message(expect_null(
+      analyse_baSAR(CWOSL.mod, verbose = FALSE,
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = 1:2,
+                    background.integral = 80:100)),
+      "position number 2 does not exist, NULL returned"),
+      "Only multiple grain data provided, automatic selection skipped")
+
+  CWOSL.mod <- CWOSL.sub
+  CWOSL.mod@METADATA$GRAIN[c(1:nrow(CWOSL.mod@METADATA))] <- 2
+  expect_warning(expect_message(expect_null(
+      analyse_baSAR(CWOSL.mod, verbose = FALSE,
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = 1:2,
+                    background.integral = 80:100)),
+      "grain number 0 does not exist, NULL returned"),
+      "Only multiple grain data provided, automatic selection skipped")
 })
 
 test_that("Full check of analyse_baSAR function", {
@@ -356,13 +376,24 @@ test_that("Full check of analyse_baSAR function", {
                                n.MCMC = 10),
                  "Number of background channels for Tx < 25")
 
+  df <- CWOSL.sub@METADATA[, c("FNAME", "POSITION", "GRAIN")]
   analyse_baSAR(CWOSL.sub,
-                CSV_file = CWOSL.sub@METADATA[, c("FNAME", "POSITION", "GRAIN")],
+                CSV_file = df,
                 source_doserate = c(0.04, 0.001),
                 signal.integral = c(1:2),
                 background.integral = c(8:10),
                 method_control = list(n.chains = 1),
                 aliquot_range = 1:2,
+                n.MCMC = 10)
+
+  df$FNAME[3] <- NA
+  analyse_baSAR(CWOSL.sub,
+                CSV_file = df,
+                source_doserate = c(0.04, 0.001),
+                signal.integral = 1:2,
+                background.integral = 8:40,
+                method_control = list(n.chains = 1),
+                aliquot_range = 1:4,
                 n.MCMC = 10)
 
   vnames <- c("central_D", "sigma_D", "")
