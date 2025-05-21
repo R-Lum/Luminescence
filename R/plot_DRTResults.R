@@ -291,7 +291,7 @@ plot_DRTResults <- function(
   }else{expression(paste(D[e], " [s]"), sep = "")}}
 
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {c(1, max(n.values) + 1)}
+  { c(0, max(n.values)) + 0.5 }
 
   ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
   {c(0.75, 1.25)} #check below for further corrections if boundaries exceed set range
