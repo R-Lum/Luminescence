@@ -324,6 +324,9 @@
 - A bug in the way colours and symbols are assigned to plot points has
   been fixed (#777).
 
+- The horizontal axis doesn’t include anymore a spurious extra tick that
+  didn’t correspond to any aliquot (#783).
+
 ### `plot_GrowthCurve()`
 
 - Add support for `OTORX` fit corresponding to the underlying change in
