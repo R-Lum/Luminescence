@@ -353,9 +353,13 @@ plot_DRTResults <- function(
       j <- 1
     }
     modes.plot <- rep(modes, each = length(values))
+    xlim <- c(min(modes.plot) * 0.9, max(modes.plot) * 1.1)
   } else {
     modes <- 1
   }
+
+  if (boxplot)
+    xlim <- c(0.5, length(unique(preheat)) + 0.5)
 
   ## assign colour indices
   col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {
@@ -513,7 +517,7 @@ plot_DRTResults <- function(
       ## option for provided preheat data
       ## create empty plot
       plot(NA,NA,
-           xlim = c(min(modes.plot) * 0.9, max(modes.plot) * 1.1),
+           xlim = xlim,
            ylim = ylim,
            xlab = xlab,
            ylab = ylab,
