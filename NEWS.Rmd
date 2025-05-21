@@ -290,7 +290,8 @@ starting a parallel cluster even when `multicore = FALSE` (#742).
 * The function crashed when multiple inputs were used with `boxplot = TRUE`
 and all preheat values were identical (#769).
 
-* The plot title and the summary text are now better positioned (#773, #774).
+* Plot title, summary text and legend are now better positioned (#773, #774,
+#781).
 
 * A bug in the way colours and symbols are assigned to plot points has been
 fixed (#777).
