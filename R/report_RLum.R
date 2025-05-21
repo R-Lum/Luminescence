@@ -611,45 +611,27 @@ report_RLum <- function(
     ## List objects -----
   }  else if (inherits(x, "list") | typeof(x) == "list" & !inherits(x, "data.frame")) {
 
-    if (!is.null(names(x)) && length(x) != 0) {
+    ## print -----
+    cat(c(root, .class(x), base::length(x), .depth(root), FALSE,
+          .dimension(x), "\n"), sep = "|")
 
-      # print -----
-      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|")
-
-      element <- names(x)
+    if (length(x) > 0) {
+      element <- if (!is.null(names(x))) names(x) else paste0("[[", seq_along(x), "]]")
 
       for (i in 1:length(x)) {
-
         if (grepl(" ", element[i]))
           element[i] <- paste0("`", element[i], "`")
 
-        if (element[i] == "")
+        if (is.null(names(x)))
+          list.root <- paste0(root, element[i])
+        else if (element[i] == "")
           list.root <- paste0(root, "[[", i, "]]")
         else
           list.root <- paste0(root, "$", element[i])
 
         .tree_RLum(x[[i]], root = list.root)
       }
-    } else if (length(x) != 0) {
-
-      # print -----
-      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|")
-
-      element <- paste0("[[", seq(1, length(x),1), "]]")
-
-      for (i in 1:length(x)) {
-        if (grepl(" ", element[i]))
-          element[i] <- paste0("`", element[i], "`")
-
-        list.root <- paste0(root, element[i])
-        .tree_RLum(x[[i]], root = list.root)
-      }
-    } else if (length(x) == 0) {
-
-      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|")
-
     }
-
     invisible()
 
     ## Data frames -----
