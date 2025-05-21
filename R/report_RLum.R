@@ -408,7 +408,7 @@ report_RLum <- function(
       if (elements$endpoint[i]) {
         table <- tryCatch(eval.parent(parse(text = elements$branch[i])),
                           error = function(e) {
-                            return(NULL)
+                            return(NULL) # nocov
                           })
         # exceptions: content may be NULL; convert raw to character to stay
         # compatible with pander::pander

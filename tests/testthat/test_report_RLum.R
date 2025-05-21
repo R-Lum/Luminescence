@@ -22,7 +22,7 @@ test_that("Test Simple RLum Report", {
                                     show_report = FALSE, compact = FALSE))
 
   ## compact view
-  expect_null(report_RLum(list(temp, temp),
+  expect_null(report_RLum(list(temp, temp, NULL),
                           show_report = FALSE, compact = TRUE))
 
   ## data.frame
