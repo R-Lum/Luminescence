@@ -183,6 +183,7 @@ test_that("test support for IR-RF data", {
   expect_warning(expect_s4_class(
       analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE",
                        cex = 1.1, xlim = c(750, 9000), ylim = c(640, 655),
+                       method_control = list(show_fit = TRUE),
                        plot_reduced = TRUE, n.MC = 1),
       "RLum.Results"),
       "Narrow density distribution, no density distribution plotted")
