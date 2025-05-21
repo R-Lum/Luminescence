@@ -355,7 +355,7 @@ report_RLum <- function(
       # SKIP ELEMENT?
       # hide @.pid and @.uid if this is a shortened report (default)
       if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
-        next();
+        next()
 
       # HEADER
       short.name <- elements$bud[i]
@@ -406,7 +406,7 @@ report_RLum <- function(
       # the content of a branch is only printed if it was determined an endpoint
       # in the objects structure
       if (elements$endpoint[i]) {
-        table <- tryCatch(eval(parse(text = elements$branch[i])),
+        table <- tryCatch(eval.parent(parse(text = elements$branch[i])),
                           error = function(e) {
                             return(NULL)
                           })
