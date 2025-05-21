@@ -595,7 +595,8 @@ fit_LMCurve<- function(
     if (verbose){
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_LMCurve()]")
-      writeLines(paste("\nFitting was done using a ",n.components, "-component function:\n",sep=""))
+      writeLines(paste0("\nFitting was done using a ", n.components,
+                        "-component function:\n"))
 
       ##print parameters
       print(c(xm, Im))
@@ -619,7 +620,6 @@ fit_LMCurve<- function(
     LED.power<-LED.power/1000
 
     stimulation_intensity<-LED.power/E
-
 
     ##calculate b and n from the equation of Bulur(1996) to compare results
     ##Using Equation 5 and 6 from Kitis (2008)
