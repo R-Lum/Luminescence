@@ -22,6 +22,8 @@ fit_LMCurve(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  legend = TRUE,
+  legend.pos = "topright",
   method_control = list(),
   ...
 )
@@ -91,6 +93,12 @@ enable/disable the plot output.}
 \item{plot.BG}{\link{logical} (\emph{with default}):
 enable/disable a plot of the background values with the fit used for the
 background subtraction.}
+
+\item{legend}{\link{logical} (\emph{with default}):
+enable/disable the plot legend.}
+
+\item{legend.pos}{\link{character} (\emph{with default}):
+keyword specifying the position of the legend.}
 
 \item{method_control}{\link{list} (\emph{optional}): options to control the output
 produced. Currently only the 'export.comp.contrib.matrix' (logical) option
@@ -223,7 +231,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.5
+ 0.3.6
 }
 
 \examples{

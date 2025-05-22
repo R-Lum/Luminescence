@@ -155,6 +155,12 @@
 #' enable/disable a plot of the background values with the fit used for the
 #' background subtraction.
 #'
+#' @param legend [logical] (*with default*):
+#' enable/disable the plot legend.
+#'
+#' @param legend.pos [character] (*with default*):
+#' keyword specifying the position of the legend.
+#'
 #' @param method_control [list] (*optional*): options to control the output
 #' produced. Currently only the 'export.comp.contrib.matrix' (logical) option
 #' is supported, to enable/disable export of the component contribution
@@ -196,7 +202,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.3.6
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -267,6 +273,8 @@ fit_LMCurve<- function(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  legend = TRUE,
+  legend.pos = "topright",
   method_control = list(),
   ...
 ) {
@@ -312,6 +320,7 @@ fit_LMCurve<- function(
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot.BG)
+  .validate_logical_scalar(legend)
   .validate_class(method_control, "list")
 
   ## remove missing values
@@ -915,11 +924,9 @@ fit_LMCurve<- function(
       }
 
       ## plot legend
-      legend.pos <- "topright"
-      if (settings$log %in% c("x", "xy") && input.dataType == "LM")
-        legend.pos <- "topleft"
-      legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
-             col = col[curve.col])
+      if (legend)
+        legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
+               col = col[curve.col])
 
       ##==lower plot==##
       ##plot residuals
