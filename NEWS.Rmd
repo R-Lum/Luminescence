@@ -233,6 +233,9 @@ large" errors and to work better at high settings of `cex` (#757).
 
 * Missing values in the input data are now silently removed (#759, #763).
 
+* The plotting of residuals, component contributions and legend can now be
+disabled, and the legend position can be controlled (#785).
+
 ### `fit_SurfaceExposure()`
 
 * It is now possible to specify different values for the light attenuation

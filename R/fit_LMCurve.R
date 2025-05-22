@@ -155,6 +155,18 @@
 #' enable/disable a plot of the background values with the fit used for the
 #' background subtraction.
 #'
+#' @param plot.residuals [logical] (*with default*):
+#' enable/disable the plot of the residuals.
+#'
+#' @param plot.contribution [logical] (*with default*):
+#' enable/disable the plot of the component contribution.
+#'
+#' @param legend [logical] (*with default*):
+#' enable/disable the plot legend.
+#'
+#' @param legend.pos [character] (*with default*):
+#' keyword specifying the position of the legend.
+#'
 #' @param method_control [list] (*optional*): options to control the output
 #' produced. Currently only the 'export.comp.contrib.matrix' (logical) option
 #' is supported, to enable/disable export of the component contribution
@@ -196,7 +208,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.3.6
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -267,6 +279,10 @@ fit_LMCurve<- function(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  plot.residuals = TRUE,
+  plot.contribution = TRUE,
+  legend = TRUE,
+  legend.pos = "topright",
   method_control = list(),
   ...
 ) {
@@ -312,6 +328,9 @@ fit_LMCurve<- function(
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot.BG)
+  .validate_logical_scalar(plot.residuals)
+  .validate_logical_scalar(plot.contribution)
+  .validate_logical_scalar(legend)
   .validate_class(method_control, "list")
 
   ## remove missing values
@@ -828,14 +847,19 @@ fit_LMCurve<- function(
     ##grep package colour gallery
     col <- get("col", pos = .LuminescenceEnv)
 
-    ##change xlim values in case of the log plot the avoid problems
+    ## change xlim/ylim values in case of log plot to avoid problems
     if (settings$log %in% c("x", "xy") && settings$xlim[1] == 0) {
       .throw_warning("'xlim' changed to avoid 0 values for log-scale")
       xlim <- c(2^0.5 / 2 * max(values[, 1]) / nrow(values), settings$xlim[2])
     }
+    if (settings$log %in% c("y", "xy") && settings$ylim[1] == 0) {
+      settings$ylim[1] <- 0.01
+    }
 
     ##set plot frame
-    graphics::layout(matrix(c(1, 2, 3), ncol = 1), heights = c(10, 3, 4))
+    graphics::layout(matrix(seq(1 + plot.residuals + plot.contribution), ncol = 1),
+                     heights = c(10, if (plot.residuals) 3,
+                                 if (plot.contribution) 4))
     par(oma = c(1, 1, 1, 1), mar = c(0.5, 2.5, 2, 0), cex = settings$cex)
     mgp <- c(1.5, 0.5, 0)
 
@@ -912,14 +936,13 @@ fit_LMCurve<- function(
       }
 
       ## plot legend
-      legend.pos <- "topright"
-      if (settings$log %in% c("x", "xy") && input.dataType == "LM")
-        legend.pos <- "topleft"
-      legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
-             col = col[curve.col])
+      if (legend)
+        legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
+               col = col[curve.col])
 
       ##==lower plot==##
       ##plot residuals
+      if (plot.residuals) {
       par(mar = c(0.5, 2.5, 0, 0))
       plot(values[,1],residuals(fit),
            xlim = settings$xlim,
@@ -937,6 +960,7 @@ fit_LMCurve<- function(
 
       ##ad 0 line
       abline(h=0)
+      }
 
       ##------------------------------------------------------------------------#
       ##++component to sum contribution plot ++##
@@ -944,6 +968,7 @@ fit_LMCurve<- function(
 
       ##plot component contribution to the whole signal
       #open plot area
+      if (plot.contribution) {
       par(mar = c(2, 2.5, 0, 0))
       plot(NA,NA,
            xlim = settings$xlim,
@@ -967,8 +992,7 @@ fit_LMCurve<- function(
                   component.contribution.matrix[,stepping[i]+1]),
                 col = col[i+1])
       }
-      rm(stepping)
-
+      }
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 
