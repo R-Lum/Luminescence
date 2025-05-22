@@ -908,7 +908,7 @@ fit_LMCurve<- function(
       ##plot curve for additional parameters
       for (i in 1:length(xm)) {
         curve(exp(0.5) * Im[i] * x / xm[i] * exp(-x^2 / (2 * xm[i]^2)),
-              col = curve.col[i + 1], lwd = 2, add = TRUE)
+              col = col[i + 1], lwd = 2, add = TRUE)
       }
 
       ## plot legend
