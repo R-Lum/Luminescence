@@ -133,23 +133,23 @@ if(inherits(object, "list")){
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Results")
+  .validate_args(object@originator,
+                 c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"),
+                 name = "Object originator")
 
 # Extract data from object --------------------------------------------------------------------
-  ##get data from RLum.Results object
-  if(object@originator %in% c("analyse_SAR.CWOSL", "analyse_pIRIRSequence")){
-    ##set limit
-    if(is.null(sel_curves)){
-      sel_curves <- 1:length(object@data$Formula)
 
-    }else{
+  ## set limit
+  if (is.null(sel_curves)) {
+    sel_curves <- 1:length(object@data$Formula)
+  } else {
       if(min(sel_curves) < 1 ||
          max(sel_curves) > length(object@data$Formula) ||
          length(sel_curves) > length(object@data$Formula)){
         .throw_warning("'sel_curves' out of bounds, reset to full dataset")
         sel_curves <- 1:length(object@data$Formula)
       }
-
-    }
+  }
 
     ## check the whether the fitting was all the same
     if(length(unique(object@data[["data"]][["Fit"]])) != 1)
@@ -163,22 +163,15 @@ if(inherits(object, "list")){
     if(all(object@data$data[["Fit"]] %in% c("OTOR", "OTORX")))
       W <- lamW::lambertW0
 
-    ##get limits for each set
-    dataset_limits <- matrix(
-      c(which(object@data$LnLxTnTx.table[["Name"]] == "Natural"),
-        which(object@data$LnLxTnTx.table[["Name"]] == "Natural")[-1] - 1, nrow(object@data$LnLxTnTx.table)),
-      ncol = 2)
+  ## get limits for each set
+  idx.natural <- which(object@data$LnLxTnTx.table[["Name"]] == "Natural")
+  dataset_limits <- cbind(idx.natural,
+                          c(idx.natural[-1] - 1, length(idx.natural)))
 
    ##create list
    LxTx <- lapply(1:nrow(dataset_limits), function(x){
      object@data$LnLxTnTx.table[dataset_limits[x,1]:dataset_limits[x,2],]
-
    })[sel_curves]
-
-  }else{
-    .throw_error("'object' was not created by a supported function, ",
-                 "see the manual for allowed originators")
-  }
 
 # Plotting ------------------------------------------------------------------------------------
   ##set default
@@ -192,7 +185,6 @@ if(inherits(object, "list")){
       c(0,max(vapply(1:length(LxTx), function(y){
         x <- max(LxTx[[y]][["Dose"]], na.rm = TRUE)
         eval(DRC[[y]])
-
        },numeric(1)), na.rm = TRUE))
     },
     main = "DRC Summary",
@@ -231,7 +223,6 @@ if(inherits(object, "list")){
 
   }else{
     axis(side = 1)
-
   }
 
   for(i in 1:length(sel_curves)){

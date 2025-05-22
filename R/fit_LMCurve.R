@@ -595,7 +595,8 @@ fit_LMCurve<- function(
     if (verbose){
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_LMCurve()]")
-      writeLines(paste("\nFitting was done using a ",n.components, "-component function:\n",sep=""))
+      writeLines(paste0("\nFitting was done using a ", n.components,
+                        "-component function:\n"))
 
       ##print parameters
       print(c(xm, Im))
@@ -620,7 +621,6 @@ fit_LMCurve<- function(
 
     stimulation_intensity<-LED.power/E
 
-
     ##calculate b and n from the equation of Bulur(1996) to compare results
     ##Using Equation 5 and 6 from Kitis (2008)
     b<-as.vector(max(values[,1])/xm^2) #detrapping probability
@@ -641,7 +641,8 @@ fit_LMCurve<- function(
         xm.confint <- values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
 
         ##error calculation
-        b.error < -as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
+        b.error <- as.vector(abs((max(values[, 1]) / xm.confint[, 1]^2) -
+                                 (max(values[, 1]) / xm.confint[, 2]^2)))
         n0.error <- as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
 
       } else {
