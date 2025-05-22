@@ -36,8 +36,17 @@
 <text transform='translate(32.26,94.46) rotate(-90)' text-anchor='middle' style='font-size: 7.68px; font-family: sans;' textLength='12.81px' lengthAdjust='spacingAndGlyphs'>600</text>
 <text transform='translate(32.26,55.64) rotate(-90)' text-anchor='middle' style='font-size: 7.68px; font-family: sans;' textLength='12.81px' lengthAdjust='spacingAndGlyphs'>700</text>
 <polygon points='40.32,331.03 708.48,331.03 708.48,34.56 40.32,34.56 ' style='stroke-width: 0.75; fill: none;' />
+</g>
+<defs>
+  <clipPath id='cpMTEuNTJ8NzA4LjQ4fDExLjUyfDMzNi43OQ=='>
+    <rect x='11.52' y='11.52' width='696.96' height='325.27' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTEuNTJ8NzA4LjQ4fDExLjUyfDMzNi43OQ==)'>
 <text x='374.40' y='27.00' text-anchor='middle' style='font-size: 11.52px; font-weight: bold; font-family: sans;' textLength='36.50px' lengthAdjust='spacingAndGlyphs'>Default</text>
 <text transform='translate(20.74,182.80) rotate(-90)' text-anchor='middle' style='font-size: 8.64px; font-family: sans;' textLength='64.35px' lengthAdjust='spacingAndGlyphs'>LM-OSL [cts/1 s]</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
 <defs>
   <clipPath id='cpNDAuMzJ8NzA4LjQ4fDM0LjU2fDMzMS4wMw=='>
