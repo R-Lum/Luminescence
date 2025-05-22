@@ -121,6 +121,21 @@ test_that("snapshot tests", {
   })
 })
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              fit_LMCurve(values.curve))
+  vdiffr::expect_doppelganger("logy",
+                              fit_LMCurve(values.curve, log = "y",
+                                          legend.pos = "topleft",
+                                          plot.contribution = FALSE))
+  })
+})
+
 test_that("regression tests", {
   testthat::skip_on_cran()
 

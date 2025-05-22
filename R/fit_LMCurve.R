@@ -875,7 +875,6 @@ fit_LMCurve<- function(
       xaxt = "n",
       main = settings$main,
       mgp = mgp,
-      xpd = NA,
       log = settings$log,
       cex.axis = 0.8,
       cex.lab = 0.9,
