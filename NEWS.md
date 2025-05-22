@@ -259,6 +259,9 @@
 - The plotting of residuals, component contributions and legend can now
   be disabled, and the legend position can be controlled (#785).
 
+- The error computed when using option `fit.calcError = TRUE` is now
+  returned correctly, instead of being left to `NA` (#789).
+
 ### `fit_SurfaceExposure()`
 
 - It is now possible to specify different values for the light

@@ -641,7 +641,8 @@ fit_LMCurve<- function(
         xm.confint <- values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
 
         ##error calculation
-        b.error < -as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
+        b.error <- as.vector(abs((max(values[, 1]) / xm.confint[, 1]^2) -
+                                 (max(values[, 1]) / xm.confint[, 2]^2)))
         n0.error <- as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
 
       } else {
