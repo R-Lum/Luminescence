@@ -126,7 +126,8 @@ test_that("regression tests", {
 
   ## issue 755
   expect_silent(fit_LMCurve(values.curve, log = "y", verbose = FALSE))
-  expect_silent(fit_LMCurve(values.curve, log = "xy", verbose = FALSE))
+  expect_silent(fit_LMCurve(values.curve, log = "xy", verbose = FALSE,
+                            input.dataType = "pLM"))
 
   ## issue 757
   values.na <- values.curve

@@ -828,10 +828,13 @@ fit_LMCurve<- function(
     ##grep package colour gallery
     col <- get("col", pos = .LuminescenceEnv)
 
-    ##change xlim values in case of the log plot the avoid problems
+    ## change xlim/ylim values in case of log plot to avoid problems
     if (settings$log %in% c("x", "xy") && settings$xlim[1] == 0) {
       .throw_warning("'xlim' changed to avoid 0 values for log-scale")
       xlim <- c(2^0.5 / 2 * max(values[, 1]) / nrow(values), settings$xlim[2])
+    }
+    if (settings$log %in% c("y", "xy") && settings$ylim[1] == 0) {
+      settings$ylim[1] <- 0.01
     }
 
     ##set plot frame
