@@ -155,6 +155,12 @@
 #' enable/disable a plot of the background values with the fit used for the
 #' background subtraction.
 #'
+#' @param plot.residuals [logical] (*with default*):
+#' enable/disable the plot of the residuals.
+#'
+#' @param plot.contribution [logical] (*with default*):
+#' enable/disable the plot of the component contribution.
+#'
 #' @param legend [logical] (*with default*):
 #' enable/disable the plot legend.
 #'
@@ -273,6 +279,8 @@ fit_LMCurve<- function(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  plot.residuals = TRUE,
+  plot.contribution = TRUE,
   legend = TRUE,
   legend.pos = "topright",
   method_control = list(),
@@ -320,6 +328,8 @@ fit_LMCurve<- function(
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot.BG)
+  .validate_logical_scalar(plot.residuals)
+  .validate_logical_scalar(plot.contribution)
   .validate_logical_scalar(legend)
   .validate_class(method_control, "list")
 
@@ -847,7 +857,9 @@ fit_LMCurve<- function(
     }
 
     ##set plot frame
-    graphics::layout(matrix(c(1, 2, 3), ncol = 1), heights = c(10, 3, 4))
+    graphics::layout(matrix(seq(1 + plot.residuals + plot.contribution), ncol = 1),
+                     heights = c(10, if (plot.residuals) 3,
+                                 if (plot.contribution) 4))
     par(oma = c(1, 1, 1, 1), mar = c(0.5, 2.5, 2, 0), cex = settings$cex)
     mgp <- c(1.5, 0.5, 0)
 
@@ -930,6 +942,7 @@ fit_LMCurve<- function(
 
       ##==lower plot==##
       ##plot residuals
+      if (plot.residuals) {
       par(mar = c(0.5, 2.5, 0, 0))
       plot(values[,1],residuals(fit),
            xlim = settings$xlim,
@@ -947,6 +960,7 @@ fit_LMCurve<- function(
 
       ##ad 0 line
       abline(h=0)
+      }
 
       ##------------------------------------------------------------------------#
       ##++component to sum contribution plot ++##
@@ -954,6 +968,7 @@ fit_LMCurve<- function(
 
       ##plot component contribution to the whole signal
       #open plot area
+      if (plot.contribution) {
       par(mar = c(2, 2.5, 0, 0))
       plot(NA,NA,
            xlim = settings$xlim,
@@ -977,8 +992,7 @@ fit_LMCurve<- function(
                   component.contribution.matrix[,stepping[i]+1]),
                 col = col[i+1])
       }
-      rm(stepping)
-
+      }
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 

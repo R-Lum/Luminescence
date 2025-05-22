@@ -22,6 +22,8 @@ fit_LMCurve(
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  plot.residuals = TRUE,
+  plot.contribution = TRUE,
   legend = TRUE,
   legend.pos = "topright",
   method_control = list(),
@@ -93,6 +95,12 @@ enable/disable the plot output.}
 \item{plot.BG}{\link{logical} (\emph{with default}):
 enable/disable a plot of the background values with the fit used for the
 background subtraction.}
+
+\item{plot.residuals}{\link{logical} (\emph{with default}):
+enable/disable the plot of the residuals.}
+
+\item{plot.contribution}{\link{logical} (\emph{with default}):
+enable/disable the plot of the component contribution.}
 
 \item{legend}{\link{logical} (\emph{with default}):
 enable/disable the plot legend.}
