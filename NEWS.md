@@ -43,7 +43,8 @@
   message for this change because the option was likely not yet used
   much.
 
-- The default fitting method of function `fit_LMCurve()` has been
+- The `fit.method` and `fit.advanced` arguments of function
+  `fit_LMCurve()` have been removed. The default fitting method has been
   changed from `port` to `LM`, and support for the `port` algorithm has
   been removed. From now on, argument `fit.method` is silently ignored,
   unless `fit.method = 'port'` is used, in which case a deprecation

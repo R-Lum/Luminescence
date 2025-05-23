@@ -81,7 +81,7 @@ test_that("snapshot tests", {
 
   suppressWarnings(
       expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG,
-                                 fit.advanced = TRUE, fit.calcError = TRUE),
+                                 n.components = 4, fit.calcError = TRUE),
                  "The computation of the parameter confidence intervals failed")
   )
 
@@ -110,11 +110,6 @@ test_that("snapshot tests", {
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    bg.subtraction = "channel"),
-                       tolerance = snapshot.tolerance)
-  skip_on_os("windows")
-  set.seed(1)
-  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
-                                   plot.BG = TRUE, fit.advanced = TRUE),
                        tolerance = snapshot.tolerance)
   })
 })

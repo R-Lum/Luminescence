@@ -62,15 +62,6 @@
 #' If start values are provided, the function works like a simple [nls]
 #' fitting approach.
 #'
-#' **(c)**
-#' If no start parameters are provided and
-#' the option `fit.advanced = TRUE` is chosen, an advanced start parameter
-#' estimation is applied using a stochastic attempt. Therefore, the
-#' recalculated start parameters **(a)** are used to construct a normal
-#' distribution. The start parameters are then sampled randomly from this
-#' distribution. A maximum of 100 attempts will be made. **Note:** This
-#' process may be time consuming.
-#'
 #' **Goodness of fit**
 #'
 #' The goodness of the fit is given by a pseudo-R² value (pseudo coefficient of
@@ -127,11 +118,6 @@
 #'
 #' @param fit.trace [logical] (*with default*):
 #' traces the fitting process on the terminal.
-#'
-#' @param fit.advanced [logical] (*with default*):
-#' enables advanced fitting attempt for automatic start parameter recognition.
-#' Works only if no start parameters are provided.
-#' **Note:** It may take a while and it is not compatible with `fit.method = "LM"`.
 #'
 #' @param fit.calcError [logical] (*with default*):
 #' calculate 1-sigma error range of components using [stats::confint].
@@ -268,7 +254,6 @@ fit_LMCurve<- function(
   LED.power = 36,
   LED.wavelength = 470,
   fit.trace = FALSE,
-  fit.advanced = FALSE,
   fit.calcError = FALSE,
   bg.subtraction = "polynomial",
   verbose = TRUE,
@@ -479,45 +464,6 @@ fit_LMCurve<- function(
       xm <- xm.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
       Im <- Im.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
 
-      if(fit.advanced){
-        ##---------------------------------------------------------------##
-        ##MC for fitting parameter
-        ##make the fitting more stable by small variations of the parameters
-
-        ##sample input parameters values from a normal distribution
-        xm.MC<-sapply(1:length(xm),function(x){
-          sample(rnorm(30, mean = xm[x], sd = xm[x] / 10), replace = TRUE)
-        })
-
-        Im.MC<-sapply(1:length(xm),function(x){
-          sample(rnorm(30, mean = Im[x], sd = Im[x] / 10), replace = TRUE)
-        })
-        ##---------------------------------------------------------------##
-
-        cat("[fit_LMCurve()] >> advanced fitting attempt", b.pseudo_start, ": ")
-        for(i in 1:length(xm.MC[,1])){
-          ##NLS          ##try fit
-          fit<-try(nls(y~eval(fit.function),
-                       trace=fit.trace,
-                       data=data.frame(x=values[,1],y=values[,2]),
-                       algorithm="port",
-                       start=list(Im=Im.MC[i,],xm=xm.MC[i,]),#end start values input
-                       stats::nls.control(
-                         maxiter=500
-                       ),#end nls control
-                       lower=c(xm=min(values[,1]),Im=0),
-                       upper=c(xm=max(values[,1]),Im=max(values[,2]*1.1))
-          ),# nls
-          silent=TRUE)# end try
-          cat("*")
-
-          if (!inherits(fit, "try-error"))
-            break
-        }#end::forloop
-
-        cat("\n")
-
-      }else{
           ##re-name for method == "LM"
           names(Im) <- paste0("Im.", 1:n.components)
           names(xm) <- paste0("xm.", 1:n.components)
@@ -532,7 +478,6 @@ fit_LMCurve<- function(
             trace = fit.trace,
             control = minpack.lm::nls.lm.control(maxiter = 500)
           ), silent = TRUE)
-      }#endifelse::fit.advanced
 
       if (!inherits(fit, "try-error") || n.components + b.pseudo_end == 7) {
         fit.found <- TRUE
