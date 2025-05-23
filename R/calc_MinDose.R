@@ -362,7 +362,7 @@ calc_MinDose <- function(
     }
     exp.names <- c("gamma", "sigma", "p0", "mu")
     mis.names <- setdiff(exp.names, names(init.values))
-    if (length(init.values) != length(exp.names) || length(mis.names) > 0) {
+    if (length(init.values) < length(exp.names) || length(mis.names) > 0) {
       .throw_error("Please provide initial values for all model parameters. ",
                    "\nMissing parameters: ",
                    paste(mis.names, collapse = ", "))
@@ -451,9 +451,6 @@ calc_MinDose <- function(
       message("Logical CPU cores detected: ", cores) # nocov
   }
 
-  ## WARNINGS ----
-  # if (!debug)
-  #   options(warn = -1)
 
   ##============================================================================##
   ## START VALUES
@@ -599,12 +596,10 @@ calc_MinDose <- function(
 
   # combine errors
   if (log) {
+    lcd <- log(data[, 1]) * ifelse(invert, -1, 1)
     if (invert) {
-      lcd <- log(data[ ,1])*-1
       x.offset <- abs(min(lcd))
       lcd <- lcd+x.offset
-    } else {
-      lcd <- log(data[ ,1])
     }
     lse <- sqrt((data[ ,2]/data[ ,1])^2 + sigmab^2)
   } else {
@@ -636,6 +631,9 @@ calc_MinDose <- function(
   if (par == 4)
     which <- c("gamma", "sigma", "p0", "mu")
 
+  prof.lower <- c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf)
+  prof.upper <- c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf)
+
   # calculate profile log likelihoods
   prof <- suppressWarnings(
     bbmle::profile(ests,
@@ -645,15 +643,8 @@ calc_MinDose <- function(
                    quietly = TRUE,
                    tol.newmin = Inf,
                    skiperrs = TRUE,
-                   prof.lower=c(gamma = -Inf,
-                                sigma = 0,
-                                p0 = 0,
-                                mu = -Inf),
-                   prof.upper=c(gamma = Inf,
-                                sigma = Inf,
-                                p0 = 1,
-                                mu = Inf)
-    )
+                   prof.lower = prof.lower,
+                   prof.upper = prof.upper)
   )
   # Fallback when profile() returns a 'better' fit
   maxsteps <- 100
@@ -672,15 +663,8 @@ calc_MinDose <- function(
                      maxsteps = maxsteps,
                      tol.newmin = Inf,
                      skiperrs = TRUE,
-                     prof.lower=c(gamma = -Inf,
-                                  sigma = 0,
-                                  p0 = 0,
-                                  mu = -Inf),
-                     prof.upper=c(gamma = Inf,
-                                  sigma = Inf,
-                                  p0 = 1,
-                                  mu = Inf)
-      )
+                     prof.lower = prof.lower,
+                     prof.upper = prof.upper)
     )
     maxsteps <- maxsteps - 10
     cnt <- cnt + 1
@@ -948,7 +932,6 @@ calc_MinDose <- function(
                   0),
         row.names="", check.names = FALSE), 2)
 
-
       if (log && log.output) {
         tmp$`log(gamma)` = round(log(tmp$gamma),2)
         tmp$`log(sigma)` = round(log(tmp$sigma),2)
@@ -1023,9 +1006,6 @@ calc_MinDose <- function(
   ## PLOTTING
   if (plot)
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
-
-  # if (!debug)
-  #   options(warn = 0)
 
   if (!is.na(summary$mu) && !is.na(summary$de)) {
     ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
