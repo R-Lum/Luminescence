@@ -24,8 +24,6 @@ test_that("input validation", {
                "'n.components' should be a positive integer scalar")
   expect_error(fit_LMCurve(values.curve, input.dataType = "error"),
                "'input.dataType' should be one of 'LM' or 'pLM'")
-  expect_error(fit_LMCurve(values.curve, fit.method = "error"),
-               "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_LMCurve(
     values = values.curve,
     values.bg = set_RLum("RLum.Data.Curve", data = as.matrix(values.curve), recordType = "OSL"),
@@ -60,7 +58,6 @@ test_that("snapshot tests", {
                       values.bg = values.curveBG,
                       n.components = 3,
                       log = "x",
-                      fit.method = "LM",
                       method_control = list(
                           export.comp.contrib.matrix = TRUE),
                       plot = FALSE)
@@ -68,10 +65,11 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit2, tolerance = snapshot.tolerance)
 
   SW({
-  expect_message(fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
-                                    start_values = data.frame(Im = c(70,25,400),
-                                                              xm = c(56,200,10))),
-                 "Error: Fitting failed, plot without fit produced")
+  expect_message(expect_warning(
+      fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
+                         n.components = 6, fit.method = "port"),
+      "`fit.method = 'port'` is deprecated, fitting always occurs with the 'LM'"),
+      "Error: Fitting failed, plot without fit produced")
   expect_equal(fit@data$component_matrix, NA)
 
   set.seed(1)
@@ -83,7 +81,7 @@ test_that("snapshot tests", {
 
   suppressWarnings(
       expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG,
-                                 fit.advanced = TRUE, fit.calcError = TRUE),
+                                 n.components = 4, fit.calcError = TRUE),
                  "The computation of the parameter confidence intervals failed")
   )
 
@@ -112,11 +110,6 @@ test_that("snapshot tests", {
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    bg.subtraction = "channel"),
-                       tolerance = snapshot.tolerance)
-  skip_on_os("windows")
-  set.seed(1)
-  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
-                                   plot.BG = TRUE, fit.advanced = TRUE),
                        tolerance = snapshot.tolerance)
   })
 })

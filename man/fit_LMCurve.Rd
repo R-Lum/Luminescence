@@ -10,13 +10,11 @@ fit_LMCurve(
   n.components = 3,
   start_values,
   input.dataType = "LM",
-  fit.method = "port",
   sample_code = "",
   sample_ID = "",
   LED.power = 36,
   LED.wavelength = 470,
   fit.trace = FALSE,
-  fit.advanced = FALSE,
   fit.calcError = FALSE,
   bg.subtraction = "polynomial",
   verbose = TRUE,
@@ -49,11 +47,6 @@ an automatic start value estimation is attempted (see details).}
 alter the plot output depending on the input data: \code{"LM"} or \code{"pLM"} (pseudo-LM).
 See: \link{convert_CW2pLM}}
 
-\item{fit.method}{\link{character} (\emph{with default}):
-select fit method, one of \code{'port'} or \code{'LM'}. \code{'port'} uses the 'port'
-routine from function \link{nls}; \code{'LM'} uses the Levenberg-Marquardt algorithm
-as implemented in function \code{nlsLM} from package \code{minpack.lm}.}
-
 \item{sample_code}{\link{character} (\emph{optional}):
 sample code used for the plot and the optional output table (mtext).}
 
@@ -72,11 +65,6 @@ photoionisation cross section.}
 
 \item{fit.trace}{\link{logical} (\emph{with default}):
 traces the fitting process on the terminal.}
-
-\item{fit.advanced}{\link{logical} (\emph{with default}):
-enables advanced fitting attempt for automatic start parameter recognition.
-Works only if no start parameters are provided.
-\strong{Note:} It may take a while and it is not compatible with \code{fit.method = "LM"}.}
 
 \item{fit.calcError}{\link{logical} (\emph{with default}):
 calculate 1-sigma error range of components using \link[stats:confint]{stats::confint}.}
@@ -144,7 +132,8 @@ sum for this values.
 The function determines weighted non-linear least-squares estimates of the
 component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
-uses the function \link{nls} with the \code{port} algorithm.
+uses the Levenberg-Marquardt algorithm as implemented in function \code{nlsLM}
+from package \code{minpack.lm}.
 }
 \details{
 \strong{Fitting function}
@@ -186,10 +175,10 @@ point and the fitting procedure may mainly fail due to ill chosen start
 parameters. Here, three options are provided:
 
 \strong{(a)}
-If no start values (\code{start_values}) are provided by the user, a cheap guess is made
+If \code{start_values} is not provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
-\code{xm} and \code{Im} are recalculated for the given data set. In all cases, the fitting
+\code{xm} and \code{Im} are recalculated for the given data set. In all cases, fitting
 starts with the ultra-fast component and (depending on \code{n.components})
 steps through the following values. If no fit could be achieved, an error
 plot (for \code{plot = TRUE}) with the pseudo curve (based on the
@@ -199,15 +188,6 @@ identify appropriate start parameters visually.
 \strong{(b)}
 If start values are provided, the function works like a simple \link{nls}
 fitting approach.
-
-\strong{(c)}
-If no start parameters are provided and
-the option \code{fit.advanced = TRUE} is chosen, an advanced start parameter
-estimation is applied using a stochastic attempt. Therefore, the
-recalculated start parameters \strong{(a)} are used to construct a normal
-distribution. The start parameters are then sampled randomly from this
-distribution. A maximum of 100 attempts will be made. \strong{Note:} This
-process may be time consuming.
 
 \strong{Goodness of fit}
 
