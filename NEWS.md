@@ -269,6 +269,9 @@
 - The error computed when using option `fit.calcError = TRUE` is now
   returned correctly, instead of being left to `NA` (#789).
 
+- Argument `bg.subtraction` also accepts the option `"none"` to disable
+  background subtraction even if `values.bg` is provided (#795).
+
 ### `fit_SurfaceExposure()`
 
 - It is now possible to specify different values for the light

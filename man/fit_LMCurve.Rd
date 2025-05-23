@@ -71,8 +71,8 @@ calculate 1-sigma error range of components using \link[stats:confint]{stats::co
 
 \item{bg.subtraction}{\link{character} (\emph{with default}):
 specifies method for background subtraction (one of \code{"polynomial"},
-\code{"linear"}, \code{"channel"}, see Details). Only considered if \code{values.bg} is
-specified.}
+\code{"linear"}, \code{"channel"}, or \code{"none"}, see Details). Only considered if
+\code{values.bg} is specified.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -166,6 +166,8 @@ function is used for background subtraction:
 \deqn{y = a*x + b}
 \item \code{"channel"}: the measured background signal is subtracted channel-wise
 from the measured signal.
+\item \code{"none"}: this disables background subtraction even if \code{values.bg} is
+provided.
 }
 
 \strong{Start values}
