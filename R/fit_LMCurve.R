@@ -41,6 +41,9 @@
 #' - `"channel"`: the measured background signal is subtracted channel-wise
 #' from the measured signal.
 #'
+#' - `"none"`: this disables background subtraction even if `values.bg` is
+#' provided.
+#'
 #' **Start values**
 #'
 #' The choice of the initial parameters for the `nls`-fitting is a crucial
@@ -124,8 +127,8 @@
 #'
 #' @param bg.subtraction [character] (*with default*):
 #' specifies method for background subtraction (one of `"polynomial"`,
-#' `"linear"`, `"channel"`, see Details). Only considered if `values.bg` is
-#' specified.
+#' `"linear"`, `"channel"`, or `"none"`, see Details). Only considered if
+#' `values.bg` is specified.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -303,7 +306,7 @@ fit_LMCurve<- function(
   .validate_positive_scalar(n.components, int = TRUE)
   input.dataType <- .validate_args(input.dataType, c("LM", "pLM"))
   bg.subtraction <- .validate_args(bg.subtraction,
-                                   c("polynomial", "linear", "channel"))
+                                   c("polynomial", "linear", "channel", "none"))
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot.BG)
@@ -359,7 +362,7 @@ fit_LMCurve<- function(
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION
   ##============================================================================##
-  if(missing(values.bg)==FALSE){
+  if (!missing(values.bg) && bg.subtraction != "none") {
     #set graphical parameters
     par(mfrow = c(1, 1), cex = 1.5 * settings$cex)
 
