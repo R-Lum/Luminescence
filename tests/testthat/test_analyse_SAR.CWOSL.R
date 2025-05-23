@@ -61,11 +61,11 @@ test_that("tests class elements", {
     ), tolerance = snapshot.tolerance
   )
 
-  ##remove position information from the curve
-  ##data
+  ## remove position and grain information from the curve data
   object_f <- object[[1]]
   object_f@records <- lapply(object_f@records, function(x){
     x@info$POSITION <- NULL
+    x@info$GRAIN <- NULL
     x
   })
   t <- expect_s4_class(
