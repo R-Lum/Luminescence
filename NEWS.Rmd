@@ -40,6 +40,12 @@ however, if you run `fit.method = 'LambertW'`, it fails because it has to read `
 The function does not throw a warning or message for this change because the option was likely 
 not yet used much. 
 
+* The default fitting method of function `fit_LMCurve()` has been changed
+from `port` to `LM`, and support for the `port` algorithm has been removed.
+From now on, argument `fit.method` is silently ignored, unless
+`fit.method = 'port'` is used, in which case a deprecation warning is thrown
+(#793).
+
 * The fundamental physical constants used in the package (such as Boltzmann
 constant, Planck constant, etc.) have been uniformed to those reported in the
 [NIST Reference on Constants, Units and Uncertainty](https://physics.nist.gov/cuu/Constants/).

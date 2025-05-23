@@ -4,7 +4,8 @@
 #' The function determines weighted non-linear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
-#' uses the function [nls] with the `port` algorithm.
+#' uses the Levenberg-Marquardt algorithm as implemented in function `nlsLM`
+#' from package `minpack.lm`.
 #'
 #' @details
 #' **Fitting function**
@@ -47,10 +48,10 @@
 #' parameters. Here, three options are provided:
 #'
 #' **(a)**
-#' If no start values (`start_values`) are provided by the user, a cheap guess is made
+#' If `start_values` is not provided by the user, a cheap guess is made
 #' by using the detrapping values found by Jain et al. (2003) for quartz for a
 #' maximum of 7 components. Based on these values, the pseudo start parameters
-#' `xm` and `Im` are recalculated for the given data set. In all cases, the fitting
+#' `xm` and `Im` are recalculated for the given data set. In all cases, fitting
 #' starts with the ultra-fast component and (depending on `n.components`)
 #' steps through the following values. If no fit could be achieved, an error
 #' plot (for `plot = TRUE`) with the pseudo curve (based on the
@@ -107,11 +108,6 @@
 #' @param input.dataType [character] (*with default*):
 #' alter the plot output depending on the input data: `"LM"` or `"pLM"` (pseudo-LM).
 #' See: [convert_CW2pLM]
-#'
-#' @param fit.method [character] (*with default*):
-#' select fit method, one of `'port'` or `'LM'`. `'port'` uses the 'port'
-#' routine from function [nls]; `'LM'` uses the Levenberg-Marquardt algorithm
-#' as implemented in function `nlsLM` from package `minpack.lm`.
 #'
 #' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (mtext).
@@ -267,7 +263,6 @@ fit_LMCurve<- function(
   n.components = 3,
   start_values,
   input.dataType = "LM",
-  fit.method = "port",
   sample_code = "",
   sample_ID = "",
   LED.power = 36,
@@ -322,7 +317,6 @@ fit_LMCurve<- function(
 
   .validate_positive_scalar(n.components, int = TRUE)
   input.dataType <- .validate_args(input.dataType, c("LM", "pLM"))
-  fit.method <- .validate_args(fit.method, c("port", "LM"))
   bg.subtraction <- .validate_args(bg.subtraction,
                                    c("polynomial", "linear", "channel"))
   .validate_logical_scalar(verbose)
@@ -366,6 +360,12 @@ fit_LMCurve<- function(
 
   method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
                                val = method_control)
+
+  ## deprecated argument
+  if ("fit.method" %in% names(extraArgs) && extraArgs$fit.method == "port") {
+    .throw_warning("`fit.method = 'port'` is deprecated, fitting always ",
+                   "occurs with the 'LM' method")
+  }
 
   # layout safety settings
   par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
@@ -518,40 +518,20 @@ fit_LMCurve<- function(
         cat("\n")
 
       }else{
-
-        if(fit.method == "port") {
-          fit <- try(nls(
-            y ~ eval(fit.function),
-            trace = fit.trace,
-            data = data.frame(x = values[,1],y = values[,2]),
-            algorithm = "port",
-            start = list(Im = Im,xm = xm),#end start values input
-            stats::nls.control(maxiter = 500),
-            lower = c(xm = 0,Im = 0)
-          ),# nls
-          silent = TRUE)
-          # end try
-
-        }else if (fit.method == "LM") {
           ##re-name for method == "LM"
           names(Im) <- paste0("Im.", 1:n.components)
           names(xm) <- paste0("xm.", 1:n.components)
           start.list <- c(as.list(Im), as.list(xm))
-          lower <-
-            vapply(start.list, function(x) {
-              start.list[[x]] <- 0
-            }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
           fit <- try(minpack.lm::nlsLM(
             fit.formula(n.components),
             data = data.frame(x = values[,1],
                               y = values[,2]),
             start = start.list,
-            lower = lower,
+            lower = rep(0, length(start.list)),
             trace = fit.trace,
             control = minpack.lm::nls.lm.control(maxiter = 500)
           ), silent = TRUE)
-        }
       }#endifelse::fit.advanced
 
       if (!inherits(fit, "try-error") || n.components + b.pseudo_end == 7) {
@@ -563,14 +543,20 @@ fit_LMCurve<- function(
 
   }else{#endif::missing start values
     ##------------------------------------------------------------------------##
-    fit<-try(nls(y~eval(fit.function),
-                 trace=fit.trace, data.frame(x=values[,1],y=values[,2]),
-                 algorithm="port", start=list(Im=start_values[,1],xm=start_values[,2]),#end start values input
-                 stats::nls.control(maxiter = 500),
-                 lower=c(xm=0,Im=0),
-                 #upper=c(xm=max(x),Im=max(y)*1.1)# set lower boundaries for components
-                 ), outFile = stdout() # redirect error messages so they can be silenced
-             ) # end try
+    Im <- start_values[, 1]
+    names(Im) <- paste0("Im.", 1:n.components)
+    xm <- start_values[, 2]
+    names(xm) <- paste0("xm.", 1:n.components)
+    start.list <- c(as.list(Im), as.list(xm))
+    fit <- try(minpack.lm::nlsLM(
+                       fit.formula(n.components),
+                       data = data.frame(x = values[, 1],
+                                         y = values[, 2]),
+                       start = start.list,
+                       lower = rep(0, length(start.list)),
+                       trace = fit.trace,
+                       control = minpack.lm::nls.lm.control(maxiter = 500)),
+               outFile = stdout()) # redirect error messages so they can be silenced
   }#endif::startparameter
 
   ##------------------------------------------------------------------------##
