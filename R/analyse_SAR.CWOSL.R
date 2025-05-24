@@ -1454,21 +1454,24 @@ error.list <- list()
   shape::emptyplot()
 
   ## draw super circle
-  shape::plotellipse(rx = 0.4, ry = 0.4, mid = c(0.5,0.5))
+  shape::plotellipse(rx = 0.4, ry = 0.4, mid = c(0.5,0.5), lwd = 1)
 
   ## draw positing holes
   shape::plotellipse(
     rx = 0.015,
     ry = 0.015,
-    mid = c(0.15,0.5))
+    mid = c(0.15,0.5),
+    lwd = 1)
   shape::plotellipse(
     rx = 0.015,
     ry = 0.015,
-    mid = c(0.5,0.85))
+    mid = c(0.5,0.85),
+    lwd = 1)
   shape::plotellipse(
     rx = 0.015,
     ry = 0.015,
-    mid = c(0.85,0.5))
+    mid = c(0.85,0.5),
+    lwd = 1)
 
   ## add points
   points(xy_coord, bg = "grey", pch = 21, cex = 1.2)
@@ -1482,7 +1485,7 @@ error.list <- list()
   ## add text
   text(
     x = c(0.5,0.5),
-    y = c(1.2, -.15),
+    y = c(1.15, -.15),
     labels = c(
       paste0("pos: #", this_pos),
       paste0("grain: #", this_grain)),
