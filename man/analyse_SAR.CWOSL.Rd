@@ -224,7 +224,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.10.5
+ 0.11.0
 }
 
 \examples{

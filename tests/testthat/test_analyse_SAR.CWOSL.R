@@ -670,4 +670,19 @@ test_that("advance tests run", {
       "Curves shifted by one channel for log-plot")
 
   })
+
+  ## simulate single grain
+  sg <- get_RLum(object, recordType = "OSL", drop = FALSE)
+  replace_metadata(sg[[1]], info_element = "GRAIN") <- 1
+  replace_metadata(sg[[2]], info_element = "GRAIN") <- 2
+
+  expect_s4_class(analyse_SAR.CWOSL(
+    object = sg,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    background.integral.min = 900,
+    background.integral.max = 975,
+    plot_onePage = TRUE,
+    verbose = FALSE), "RLum.Results")
+
 })
