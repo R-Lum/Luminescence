@@ -115,10 +115,10 @@
 - Add new graphical output if the measurements were single grain
   measurements, in such case a disc with the position and grain number
   marked in shown. This plot replaces the IRSL curve check plot, but
-  only for single grain data.
+  only for single grain data (#797).
 
 - The rejection criteria plot was rewritten and now provides an easier
-  to grasp visual feedback.
+  to grasp visual feedback (#797).
 
 ### `analyse_SAR.TL()`
 
