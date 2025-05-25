@@ -582,9 +582,9 @@ error.list <- list()
 
     ##separate curves by Lx and Tx (it makes it much easier)
     OSL.Curves.ID.Lx <-
-      OSL.Curves.ID[seq(1,length(OSL.Curves.ID),by = 2)]
+      OSL.Curves.ID[seq(1,length(OSL.Curves.ID), by = 2)]
     OSL.Curves.ID.Tx <-
-      OSL.Curves.ID[seq(2,length(OSL.Curves.ID),by = 2)]
+      OSL.Curves.ID[seq(2,length(OSL.Curves.ID), by = 2)]
 
     ##get index of TL curves
     TL.Curves.ID <-
@@ -753,7 +753,8 @@ error.list <- list()
     ##RecyclingRatio
     temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
     if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio))
-      temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (rejection.criteria$recycling.ratio / 100)] <- "FAILED"
+      temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (
+        rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation
     temp.status.Recuperation <- "OK"
