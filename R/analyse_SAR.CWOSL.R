@@ -696,39 +696,21 @@ error.list <- list()
         stringsAsFactors = FALSE),
       LnLxTnTx)
 
-    # Calculate Recycling Ratio -----------------------------------------------
+# Calculate rejection criteria --------------------------------------------
+
+    ## Calculate Recycling Ratio -----------------------------------------------
     RecyclingRatio <- NA
-    if (length(LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,"Repeated"]) > 0) {
-      ##identify repeated doses
-      temp.Repeated <-
-        LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,c("Name","Dose","LxTx")]
+    if(any(LnLxTnTx$Repeated)) {
+      ## get repeated and previous dose points
+      repeated <- LnLxTnTx[LnLxTnTx$Repeated, ]
+      previous <- data.table::rbindlist(
+        lapply(repeated$Dose, \(x) LnLxTnTx[LnLxTnTx$Dose == x & !LnLxTnTx$Repeated, ][1, ]))
 
-      ##find concerning previous dose for the repeated dose
-      temp.Previous <-
-        t(sapply(1:length(temp.Repeated[,1]),function(x) {
-          LnLxTnTx[LnLxTnTx[,"Dose"] == temp.Repeated[x,"Dose"] &
-                     LnLxTnTx[,"Repeated"] == FALSE,c("Name","Dose","LxTx")]
-        }))
-
-      ##convert to data.frame
-      temp.Previous <- as.data.frame(temp.Previous)
-
-      ##set column names
-      temp.ColNames <-
-        unlist(lapply(1:length(temp.Repeated[,1]),function(x) {
-          paste0("Recycling ratio (", temp.Repeated[x,"Name"],"/",
-                temp.Previous[temp.Previous[,"Dose"] == temp.Repeated[x,"Dose"],"Name"],
-                ")")[1]
-        }))
-
-      ##Calculate Recycling Ratio
-      RecyclingRatio <-
-        round(as.numeric(temp.Repeated[,"LxTx"]) / as.numeric(temp.Previous[,"LxTx"]),
-              digits = 4)
-
-      ##Just transform the matrix and add column names
-      RecyclingRatio <- t(RecyclingRatio)
-      colnames(RecyclingRatio) <- temp.ColNames
+      ## calculate value and set names
+      RecyclingRatio <- t(
+        setNames(
+          object = round(repeated$LxTx / previous$LxTx, 4),
+          nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
     }
 
     # Calculate Recuperation Rate ---------------------------------------------
@@ -1536,12 +1518,5 @@ error.list <- list()
 
 }
 
-analyse_SAR.CWOSL(
-  object = sg[[1]],
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min = 900,
-  background.integral.max = 975,
-  plot_onePage = TRUE,
-  verbose = FALSE)
+
 
