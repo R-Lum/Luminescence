@@ -576,7 +576,7 @@ error.list <- list()
     }
 
   # Grep Curves -------------------------------------------------------------
-   ##grep relevant curves from RLum.Analsyis object
+   ##grep relevant curves from RLum.Analysis object
     OSL.Curves.ID <-
       get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
 
@@ -1025,24 +1025,27 @@ error.list <- list()
           xlim = xlim,
           ylim = range(ylim.range),
           main = main,
-          log = log
-        )
+          log = log)
 
         #provide curve information as mtext, to keep the space for the header
         mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep = "")),
               cex = cex * 0.7)
 
-        ##plot shine-donw curves
-        for(i in 1:length(OSL.Curves.ID.Lx)){
-          lines(object@records[[OSL.Curves.ID.Lx[[i]]]]@data, col = col[i])
+        ##plot shine-down curves
+        record_list <- object@records
+
+        for (i in seq_len(length(OSL.Curves.ID.Lx))) {
+          rec <- record_list[[OSL.Curves.ID.Lx[[i]]]]
+          lines(rec@data, col = col[i])
         }
 
         ##mark integration limit Lx curves
+        rec <- object@records[[OSL.Curves.ID.Lx[1]]]@data
         abline(v = c(
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[min(signal.integral),1],
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[max(signal.integral),1],
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[min(background.integral),1],
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[max(background.integral),1]),
+          rec[min(signal.integral),1],
+          rec[max(signal.integral),1],
+          rec[min(background.integral),1],
+          rec[max(background.integral),1]),
           lty = 2,
           col = "gray")
 
@@ -1130,8 +1133,7 @@ error.list <- list()
           xlim = xlim,
           ylim = range(ylim.range),
           main = main,
-          log = log
-        )
+          log = log)
 
         #provide curve information as mtext, to keep the space for the header
         mtext(side = 3,
@@ -1139,16 +1141,21 @@ error.list <- list()
               cex = cex * 0.7)
 
         ##plot curves and get legend values
-        sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
-          lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-        })
+        ##plot shine-down curves
+        record_list <- object@records
+
+        for (i in seq_len(length(OSL.Curves.ID.Tx))) {
+          rec <- record_list[[OSL.Curves.ID.Tx[[i]]]]
+          lines(rec@data, col = col[i])
+        }
 
         ##mark integration limit Tx curves
+        rec <- object@records[[OSL.Curves.ID.Tx[1]]]@data
         abline(v = c(
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[min(signal.integral),1],
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[max(signal.integral),1],
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[min(background.integral),1],
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[max(background.integral),1]),
+          rec[min(signal.integral),1],
+          rec[max(signal.integral),1],
+          rec[min(background.integral),1],
+          rec[max(background.integral),1]),
           lty = 2,
           col = "gray")
 
