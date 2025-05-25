@@ -103,6 +103,13 @@ and colour of contour lines.
 `fit_DoseResponseCurve()`; this change includes the new argument
 `dose.points.test` that is only of use in combination with the `OTORX` fit.
 
+* Add new graphical output if the measurements were single grain measurements, 
+in such case a disc with the position and grain number marked in shown. This
+plot replaces the IRSL curve check plot, but only for single grain data (#797).
+
+* The rejection criteria plot was rewritten and now provides an easier
+to grasp visual feedback (#797).
+
 ### `analyse_SAR.TL()`
 
 * A check on the `sequence.structure` argument ensures that a "SIGNAL" entry

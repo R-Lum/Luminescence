@@ -198,7 +198,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.10.5
+#' @section Function version: 0.11.0
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -575,17 +575,16 @@ error.list <- list()
       }
     }
 
-
   # Grep Curves -------------------------------------------------------------
-   ##grep relevant curves from RLum.Analyis object
+   ##grep relevant curves from RLum.Analysis object
     OSL.Curves.ID <-
       get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
 
     ##separate curves by Lx and Tx (it makes it much easier)
     OSL.Curves.ID.Lx <-
-      OSL.Curves.ID[seq(1,length(OSL.Curves.ID),by = 2)]
+      OSL.Curves.ID[seq(1,length(OSL.Curves.ID), by = 2)]
     OSL.Curves.ID.Tx <-
-      OSL.Curves.ID[seq(2,length(OSL.Curves.ID),by = 2)]
+      OSL.Curves.ID[seq(2,length(OSL.Curves.ID), by = 2)]
 
     ##get index of TL curves
     TL.Curves.ID <-
@@ -646,9 +645,8 @@ error.list <- list()
     # Set regeneration points -------------------------------------------------
     ##overwrite dose point manually
     if (!is.null(dose.points) & length(dose.points) > 0) {
-      if (length(dose.points) != length(LnLxTnTx$Dose)) {
+      if (length(dose.points) != length(LnLxTnTx$Dose))
         .throw_error("Length of 'dose.points' differs from number of curves")
-      }
 
       LnLxTnTx$Dose <- dose.points
     }
@@ -674,138 +672,89 @@ error.list <- list()
       LnLxTnTx$Dose[1] <- 0
     }
 
-    #generate unique dose id - this are also the # for the generated points
-    temp.DoseID <- c(0:(length(LnLxTnTx$Dose) - 1))
-    temp.DoseName <- paste0("R",temp.DoseID)
-    temp.DoseName <-
-      cbind(Name = temp.DoseName,Dose = LnLxTnTx$Dose)
 
+## Label dose points -------------------------------------------------------
+    dose <- LnLxTnTx$Dose
 
-    ##set natural
-    temp.DoseName[temp.DoseName[,"Name"] == "R0","Name"] <-
-      "Natural"
+    ## preset names
+    dose_names <- paste0("R", seq_along(dose) - 1)
 
-    ##set R0
-    temp.DoseName[temp.DoseName[,"Name"] != "Natural" &
-                    temp.DoseName[,"Dose"] == 0,"Name"] <- "R0"
+    ## identify 0 dose point
+    zero_id <- which(dose == 0)
+    dose_names[zero_id] <- "R0"
+    if (length(zero_id)) dose_names[zero_id[1]] <- "Natural"
 
-    ##correct numeration numeration of other dose points
+    ## check for repeated
+    is_repeated <- duplicated(dose)
+    is_repeated[dose == 0] <- FALSE
 
-    ##how many dose points do we have with 0?
-    non.temp.zero.dose.number <- nrow(temp.DoseName[temp.DoseName[, "Dose"] != 0,])
+    ## add to data.frame
+    LnLxTnTx <- cbind(
+      data.frame(
+        Name = dose_names,
+        Repeated = is_repeated,
+        stringsAsFactors = FALSE),
+      LnLxTnTx)
 
-    if(length(non.temp.zero.dose.number) > 0){
-    temp.DoseName[temp.DoseName[,"Name"] != "Natural" & temp.DoseName[,"Name"] != "R0","Name"] <-
-      paste0("R",c(1:non.temp.zero.dose.number))
+# Calculate rejection criteria --------------------------------------------
+    RecyclingRatio <- Recuperation <- NA
+
+    ## Calculate Recycling Ratio -----------------------------------------------
+    if(any(LnLxTnTx$Repeated)) {
+      ## get repeated and previous dose points
+      repeated <- LnLxTnTx[LnLxTnTx$Repeated, ]
+      previous <- data.table::rbindlist(
+        lapply(repeated$Dose, \(x) LnLxTnTx[LnLxTnTx$Dose == x & !LnLxTnTx$Repeated, ][1, ]))
+
+      ## calculate value and set names
+      RecyclingRatio <- t(
+        setNames(
+          object = round(repeated$LxTx / previous$LxTx, 4),
+          nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
     }
 
-    ##find duplicated doses (including 0 dose - which means the Natural)
-    temp.DoseDuplicated <- duplicated(temp.DoseName[,"Dose"])
-
-    ##combine temp.DoseName
-    temp.DoseName <-
-      cbind(temp.DoseName,Repeated = temp.DoseDuplicated)
-
-    ##correct value for R0 (it is not really repeated)
-    temp.DoseName[temp.DoseName[,"Dose"] == 0,"Repeated"] <- FALSE
-
-    ##combine in the data frame
-    temp.LnLxTnTx <- data.frame(
-        Name = factor(x = temp.DoseName[, "Name"],
-                      levels = unique(temp.DoseName[, "Name"])),
-        Repeated = as.logical(temp.DoseName[, "Repeated"]))
-
-    LnLxTnTx <- cbind(temp.LnLxTnTx,LnLxTnTx)
-    LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
-
-    # Calculate Recycling Ratio -----------------------------------------------
-    ##Calculate Recycling Ratio
-    RecyclingRatio <- NA
-    if (length(LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,"Repeated"]) > 0) {
-      ##identify repeated doses
-      temp.Repeated <-
-        LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,c("Name","Dose","LxTx")]
-
-      ##find concerning previous dose for the repeated dose
-      temp.Previous <-
-        t(sapply(1:length(temp.Repeated[,1]),function(x) {
-          LnLxTnTx[LnLxTnTx[,"Dose"] == temp.Repeated[x,"Dose"] &
-                     LnLxTnTx[,"Repeated"] == FALSE,c("Name","Dose","LxTx")]
-        }))
-
-
-      ##convert to data.frame
-      temp.Previous <- as.data.frame(temp.Previous)
-
-      ##set column names
-      temp.ColNames <-
-        unlist(lapply(1:length(temp.Repeated[,1]),function(x) {
-          temp <- paste("Recycling ratio (", temp.Repeated[x,"Name"],"/",
-                temp.Previous[temp.Previous[,"Dose"] == temp.Repeated[x,"Dose"],"Name"],
-                ")",
-                sep = "")
-          return(temp[1])
-        }))
-
-
-      ##Calculate Recycling Ratio
-      RecyclingRatio <-
-        round(as.numeric(temp.Repeated[,"LxTx"]) / as.numeric(temp.Previous[,"LxTx"]),
-              digits = 4)
-
-      ##Just transform the matrix and add column names
-      RecyclingRatio <- t(RecyclingRatio)
-      colnames(RecyclingRatio) <- temp.ColNames
-    }
-
-    # Calculate Recuperation Rate ---------------------------------------------
+    ## Calculate Recuperation Rate ---------------------------------------------
     ## check for incorrect key words
     if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
       .throw_error("Recuperation reference invalid, valid are: ",
                    .collapse(LnLxTnTx[, "Name"], quote = FALSE))
 
-
     ##Recuperation Rate (capable of handling multiple type of recuperation values)
-    Recuperation <- NA
-    if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
-      Recuperation <-
-        vapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
-               function(x) {
-                 round(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","LxTx"][x] /
-                         LnLxTnTx[LnLxTnTx[,"Name"] == rejection.criteria$recuperation_reference[1],"LxTx"],
-                       digits = 4)
+    if(any(LnLxTnTx$Name == "R0")) {
+      Recuperation <- vapply(seq_len(sum(LnLxTnTx$Name == "R0")), \(x) {
+                 LnLxTnTx[LnLxTnTx[["Name"]] == "R0","LxTx"][x] /
+                 LnLxTnTx[LnLxTnTx[["Name"]] == rejection.criteria$recuperation_reference[1],"LxTx"]
                }, numeric(1))
-      ##Just transform the matrix and add column names
-      Recuperation  <-  t(Recuperation)
-      colnames(Recuperation)  <-
-        unlist(strsplit(paste(
-          paste0("Recuperation rate (", rejection.criteria$recuperation_reference[1], ")"),
-          1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"
-        ), ";"))
+
+     ##transform and name
+     Recuperation <- t(setNames(
+        object = Recuperation,
+        nm = paste0(
+          "Recuperation rate (", rejection.criteria$recuperation_reference[1], ") ",
+          seq_along(Recuperation))
+      ))
     }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
+    ## get name of the criteria
     temp.criteria <- c(
-      if(!is.null(colnames(RecyclingRatio))){
-       colnames(RecyclingRatio)}else{NA},
-      if(!is.null(colnames(Recuperation))){
-        colnames(Recuperation)}else{NA})
+      if(!is.null(colnames(RecyclingRatio))) colnames(RecyclingRatio) else NA_character_,
+      if(!is.null(colnames(Recuperation))) colnames(Recuperation) else NA_character_)
 
-    temp.value <- c(RecyclingRatio,Recuperation)
+    ## get value
+    temp.value <- c(RecyclingRatio, Recuperation)
 
+    ## set threshold
     temp.threshold <-
-      c(rep(
-        rejection.criteria$recycling.ratio / 100, length(RecyclingRatio)
-      ),
-      rep(
-        rejection.criteria$recuperation.rate / 100,
-        length(Recuperation)
-      ))
+      c(
+       rep(rejection.criteria$recycling.ratio, length(RecyclingRatio)),
+       rep(rejection.criteria$recuperation.rate, length(Recuperation))) / 100
 
     ##RecyclingRatio
     temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
     if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio))
-      temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (rejection.criteria$recycling.ratio / 100)] <- "FAILED"
+      temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (
+        rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation
     temp.status.Recuperation <- "OK"
@@ -820,7 +769,6 @@ error.list <- list()
           }
         })
     }
-
 
     # Provide Rejection Criteria for Testdose error --------------------------
     testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
@@ -860,9 +808,8 @@ error.list <- list()
 
     RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
 
-    ##========================================================================##
-    ##PLOTTING
-    ##========================================================================##
+
+# Plotting ----------------------------------------------------------------
     if (plot) {
       ##make sure the par settings are good after the functions stops
       ##Why this is so complicated? Good question, if par() is called in the
@@ -875,15 +822,14 @@ error.list <- list()
           mar = x$mar,
           cex = x$cex,
           mfrow = x$mfrow,
-          mfcol = x$mfcol
-        )
+          mfcol = x$mfcol)
       }
 
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
 
       # plot everyting on one page ... doing it here is much cleaner than
-      # Plotting - one Page config -------------------------------------------------------
+      # Plotting - one Page config ---------------------------------------------
       if(plot_onePage){
       on.exit(on_exit(), add = TRUE)
 
@@ -900,9 +846,7 @@ error.list <- list()
           cex = cex * 0.6)
       }
 
-
-      # Plotting - old way config -------------------------------------------------------
-
+# Plotting - old way config ----------------------------------------------------
       if (plot_singlePanels[1] == FALSE) {
         on.exit(on_exit(), add = TRUE)
         graphics::layout(matrix(
@@ -926,14 +870,13 @@ error.list <- list()
         ## set selected curves to allow plotting of all curves
         plot.single.sel <- c(1,2,3,4,5,6,7,8)
 
-      }else{
+      } else {
         ##check for values in the single output of the function and convert
-        if (!is.logical(plot_singlePanels)) {
-          plot.single.sel  <- plot_singlePanels
+        plot.single.sel <- if (!is.logical(plot_singlePanels))
+          plot_singlePanels
+        else
+          c(1,2,3,4,5,6,7,8)
 
-        }else{
-          plot.single.sel <- c(1,2,3,4,5,6,7,8)
-        }
       }
 
       ##warning if number of curves exceed colour values
@@ -946,12 +889,10 @@ error.list <- list()
       legend.text <-
         paste(LnLxTnTx$Name,"\n(",LnLxTnTx$Dose,")", sep = "")
 
-
       ##get channel resolution (should be equal for all curves)
       resolution.OSLCurves <- round(object@records[[OSL.Curves.ID[1]]]@data[2,1] -
                                       object@records[[OSL.Curves.ID[1]]]@data[1,1],
                                     digits = 2)
-
 
       # Plotting TL Curves previous LnLx ----------------------------------------
 
@@ -1009,54 +950,60 @@ error.list <- list()
       }#plot.single.sel
 
       # Plotting LnLx Curves ----------------------------------------------------
-
       ## if we want to apply a log-transform on x and the first time point
       ## is 0, we shift the curves by one channel
       if (log == "x" || log == "xy") {
-        sapply(OSL.Curves.ID.Lx, function(x) {
-          x.vals <- object@records[[x]]@data[, 1]
+        for(i in OSL.Curves.ID.Lx) {
+          x.vals <- object@records[[i]]@data[, 1]
           if (x.vals[1] == 0) {
-            object@records[[x]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
+            object@records[[i]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
             .throw_warning("Curves shifted by one channel for log-plot")
           }
-        })
+        }
       }
+
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
-        ylim.range <- vapply(OSL.Curves.ID.Lx, function(x) {
-          range(object@records[[x]]@data[,2])
-        }, numeric(2))
+        ## get record list
+        record_list <- object@records
 
-        xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
-                   max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
+        ## get value ranges of the curves
+        xy_xlim <- matrixStats::rowRanges(vapply(
+          X = OSL.Curves.ID.Lx,
+          FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+          FUN.VALUE = numeric(4)))
+
+        xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+        ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
 
         #open plot area LnLx
         plot(
           NA,NA,
           xlab = "Time [s]",
-          ylab = paste(CWcurve.type," [cts/",resolution.OSLCurves," s]",sep =
-                         ""),
-          xlim = xlim,
-          ylim = range(ylim.range),
+          ylab = paste0(CWcurve.type," [cts/",resolution.OSLCurves," s]"),
+          xlim = xlim_range,
+          ylim = ylim_range,
           main = main,
-          log = log
-        )
+          log = log)
 
         #provide curve information as mtext, to keep the space for the header
-        mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep = "")),
-              cex = cex * 0.7)
+        mtext(
+          side = 3,
+          text = expression(paste(L[n], ", ", L[x], " curves")),
+          cex = cex * 0.7)
 
-        ##plot curves
-        sapply(1:length(OSL.Curves.ID.Lx), function(x) {
-          lines(object@records[[OSL.Curves.ID.Lx[[x]]]]@data,col = col[x])
-        })
+        for (i in seq_len(length(OSL.Curves.ID.Lx))) {
+          rec <- record_list[[OSL.Curves.ID.Lx[[i]]]]
+          lines(rec@data, col = col[i])
+        }
 
         ##mark integration limit Lx curves
+        rec <- object@records[[OSL.Curves.ID.Lx[1]]]@data
         abline(v = c(
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[min(signal.integral),1],
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[max(signal.integral),1],
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[min(background.integral),1],
-            object@records[[OSL.Curves.ID.Lx[1]]]@data[max(background.integral),1]),
+          rec[min(signal.integral),1],
+          rec[max(signal.integral),1],
+          rec[min(background.integral),1],
+          rec[max(background.integral),1]),
           lty = 2,
           col = "gray")
 
@@ -1067,8 +1014,7 @@ error.list <- list()
           outer = TRUE,
           line = -1.7,
           cex = cex,
-          col = "blue"
-        )
+          col = "blue")
 
       }# plot.single.sel
 
@@ -1129,43 +1075,49 @@ error.list <- list()
       # Plotting TnTx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
-        ylim.range <- vapply(OSL.Curves.ID.Tx, function(x) {
-          range(object@records[[x]]@data[,2])
-        }, numeric(2))
+        ## get record list
+        record_list <- object@records
 
-        xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
-                  max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
+        ## get value ranges of the curves
+        xy_xlim <- matrixStats::rowRanges(vapply(
+          X = OSL.Curves.ID.Tx,
+          FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+          FUN.VALUE = numeric(4)))
+
+        xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+        ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
 
         #open plot area LnLx
         plot(
           NA,NA,
           xlab = "Time [s]",
           ylab = paste0(CWcurve.type ," [cts/",resolution.OSLCurves," s]"),
-          xlim = xlim,
-          ylim = range(ylim.range),
+          xlim = xlim_range,
+          ylim = ylim_range,
           main = main,
-          log = log
-        )
+          log = log)
 
         #provide curve information as mtext, to keep the space for the header
-        mtext(side = 3,
-              expression(paste(T[n],",",T[x]," curves",sep = "")),
-              cex = cex * 0.7)
+        mtext(
+          side = 3,
+          text = expression(paste(T[n], ", ", T[x], " curves")),
+          cex = cex * 0.7)
 
         ##plot curves and get legend values
-        sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
-          lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-        })
+        for (i in seq_len(length(OSL.Curves.ID.Tx))) {
+          rec <- record_list[[OSL.Curves.ID.Tx[[i]]]]
+          lines(rec@data, col = col[i])
+        }
 
         ##mark integration limit Tx curves
+        rec <- object@records[[OSL.Curves.ID.Tx[1]]]@data
         abline(v = c(
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[min(signal.integral),1],
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[max(signal.integral),1],
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[min(background.integral),1],
-          object@records[[OSL.Curves.ID.Tx[1]]]@data[max(background.integral),1]),
+          rec[min(signal.integral),1],
+          rec[max(signal.integral),1],
+          rec[min(background.integral),1],
+          rec[max(background.integral),1]),
           lty = 2,
           col = "gray")
-
 
       }# plot.single.sel
 
@@ -1176,30 +1128,22 @@ error.list <- list()
         par.mai  <- par()$mai
         par(mar = c(1,1,1,1), mai = c(0,0,0,0))
 
+        n <- length(OSL.Curves.ID) / 2
+        x <- seq_len(n)
+        y <- rep(7, n)
+
         plot(
-          c(1:(length(
-            OSL.Curves.ID
-          ) / 2)),
-          rep(7,length(OSL.Curves.ID) / 2),
+          x, y,
           type = "p",
           axes = FALSE,
-          xlab = "",
-          ylab = "",
+          xlab = "", ylab = "",
           pch = 20,
           col = unique(col[1:length(OSL.Curves.ID)]),
           cex = 4 * cex,
-          ylim = c(0,10)
-        )
+          ylim = c(0,10))
 
         ##add text
-        text(c(1:(length(
-          OSL.Curves.ID
-        ) / 2)),
-        rep(7,length(OSL.Curves.ID) / 2),
-        legend.text,
-        offset = 1,
-        pos = 1)
-
+        text(x, y, legend.text, offset = 1, pos = 1)
 
         ##add line
         abline(h = 10,lwd = 0.5)
@@ -1213,7 +1157,6 @@ error.list <- list()
 
 
     # Plotting  GC  ----------------------------------------
-
     ##create data.frame
     temp.sample <- data.frame(
       Dose = LnLxTnTx$Dose,
@@ -1224,12 +1167,7 @@ error.list <- list()
     )
 
     ##overall plot option selection for plot.single.sel
-    if (plot == TRUE && 6 %in% plot.single.sel) {
-      plot  <-  TRUE
-
-    }else {
-      plot  <- FALSE
-    }
+    plot <- if (plot[1] && 6 %in% plot.single.sel) TRUE else FALSE
 
     temp.GC.all.na <- data.frame(
         De = NA,
@@ -1314,7 +1252,9 @@ error.list <- list()
           )
 
           ##add exceed.max.regpoint
-          if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
+          if (!is.na(temp.GC[,1]) &
+              !is.na(rejection.criteria$exceed.max.regpoint) &&
+              rejection.criteria$exceed.max.regpoint) {
             status.exceed.max.regpoint <-
               ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
 
@@ -1388,6 +1328,7 @@ error.list <- list()
         return(NA)
     })))[1]
 
+
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
@@ -1402,225 +1343,49 @@ error.list <- list()
       info = list(call = sys.call())
     )
 
-    # Plot graphical interpretation of rejection criteria -----------------------------------------
-
+    # Plot graphical interpretation of rejection criteria ----------------------------------------
     if (plot && 7 %in% plot.single.sel) {
       ##set graphical parameter
       if (!plot_singlePanels[1]) par(mfrow = c(1,2))
 
       ##Rejection criteria
-      temp.rejection.criteria <- get_RLum(temp.results.final,
-                                          data.object = "rejection.criteria")
+      temp.rejection.criteria <- get_RLum(
+        temp.results.final,
+        data.object = "rejection.criteria")
 
-      temp.rc.reycling.ratio <- temp.rejection.criteria[
-        grep("Recycling ratio",temp.rejection.criteria[,"Criteria"]),]
+      .plot_RCCriteria(temp.rejection.criteria)
+    }
 
-      temp.rc.recuperation.rate <- temp.rejection.criteria[
-        grep("Recuperation rate",temp.rejection.criteria[,"Criteria"]),]
+    if (plot[1] && 8 %in% plot.single.sel) {
+      ## check grain an pos and plot single grain disc marker
+      ## if we don't have single grain, we can safely use the other
+      ## plot option because this kind of test is almost never
+      ## for single grains but on all grains
+      if(!is.na(POSITION) & !is.na(GRAIN) && GRAIN > 0) {
+        .plot_SGMarker(this_grain = GRAIN, this_pos = POSITION)
 
-      temp.rc.palaedose.error <- temp.rejection.criteria[
-        grep("Palaeodose error",temp.rejection.criteria[,"Criteria"]),]
+      } else {
+        ##graphical representation of IR-curve
+        temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
+        if(length(temp.IRSL) != 0){
+          .validate_class(temp.IRSL, c("RLum.Data.Curve", "list"))
+          if(inherits(temp.IRSL, "RLum.Data.Curve")){
+            plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
-      temp.rc.testdose.error <- temp.rejection.criteria[
-        grep("Testdose error",temp.rejection.criteria[,"Criteria"]),]
-
-      plot(
-        NA,NA,
-        xlim = c(-0.5,0.5),
-        ylim = c(0,40),
-        yaxt = "n", ylab = "",
-        xaxt = "n", xlab = "",
-        bty = "n",
-        main = "Rejection criteria"
-      )
-
-      axis(
-        side = 1, at = c(-0.2,-0.1,0,0.1,0.2), labels = c("- 0.2", "- 0.1","0/1","+ 0.1", "+ 0.2")
-      )
-
-      ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
-      ##polygon for recycling ratio
-      text(x = -0.35, y = 35, "Recycling R.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0)
-      polygon(x = c(
-          -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-          as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-          as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]
-        ),
-        y = c(31,39,39,31),
-        col = "gray",
-        border = NA)
-
-      polygon(
-        x = c(-0.3, -0.3, 0.3, 0.3) ,
-        y = c(31, 39, 39, 31),
-        border = ifelse(any(
-          grepl(pattern = "FAILED", temp.rc.reycling.ratio$Status)
-        ), "red", "black"))
-
-
-      ##consider possibility of multiple pIRIR signals and multiple recycling ratios
-      if (nrow(temp.rc.recuperation.rate) > 0) {
-        col.id  <- 1
-        for (i in seq(1,nrow(temp.rc.recuperation.rate),
-                      length(unique(temp.rc.recuperation.rate[,"Criteria"])))) {
-          for (j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))) {
-            points(
-              temp.rc.reycling.ratio[i + j, "Value"] - 1,
-              y = 35,
-              pch = col.id,
-              col = col.id,
-              cex = 1.3 * cex
-            )
+          }else if(inherits(temp.IRSL, "list")){
+            plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
+            .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
           }
-          col.id <- col.id + 1
-        }
-        rm(col.id)
 
-        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
-        ##polygon for recuperation rate
-        text(
-          x = -0.35, y = 25, "Recuperation", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
-        )
-        polygon(
-          x = c(
-            0,
-            0,
-            as.numeric(as.character(
-              temp.rc.recuperation.rate$Threshold
-            ))[1],
-            as.numeric(as.character(
-              temp.rc.recuperation.rate$Threshold
-            ))[1]
-          ),
-          y = c(21,29,29,21),
-          col = "gray",
-          border = NA
-        )
-
-        polygon(
-          x = c(-0.3, -0.3, 0.3, 0.3) ,
-          y = c(21, 29, 29, 21),
-          border = ifelse(any(
-            grepl(pattern = "FAILED", temp.rc.recuperation.rate$Status)
-          ), "red", "black")
-        )
-        polygon(
-          x = c(-0.3,-0.3,0,0) , y = c(21,29,29,21), border = NA, density = 10, angle = 45
-        )
-
-        for (i in 1:nrow(temp.rc.recuperation.rate)) {
-          points(
-            temp.rc.recuperation.rate[i, "Value"],
-            y = 25,
-            pch = i,
-            col = i,
-            cex = 1.3 * cex
-          )
-        }
-      }
-
-      ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
-      ##polygon for testdose error
-      text(
-        x = -0.35, y = 15, "Testdose Err.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
-      )
-
-      polygon(
-        x = c(
-          0,
-          0,
-          as.numeric(as.character(temp.rc.testdose.error$Threshold))[1],
-          as.numeric(as.character(temp.rc.testdose.error$Threshold))[1]
-        ),
-        y = c(11,19,19,11),
-        col = "gray",
-        border = NA
-      )
-      polygon(
-        x = c(-0.3, -0.3, 0.3, 0.3) ,
-        y = c(11, 19, 19, 11),
-        border = ifelse(any(
-          grepl(pattern = "FAILED", temp.rc.testdose.error$Status)
-        ), "red", "black")
-      )
-      polygon(
-        x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45
-      )
-
-
-      for (i in 1:nrow(temp.rc.testdose.error)) {
-        points(
-          temp.rc.testdose.error[i, "Value"],
-          y = 15,
-          pch = i,
-          col = i,
-          cex = 1.3 * cex
-        )
-      }
-
-      ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
-      ##polygon for palaeodose error
-      text(
-        x = -0.35, y = 5, "Palaeodose Err.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
-      )
-      polygon(
-        x = c(
-          0,
-          0,
-          as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
-          as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1]
-        ),
-        y = c(1,9,9,1),
-        col = "gray",
-        border = NA
-      )
-      polygon(
-        x = c(-0.3, -0.3, 0.3, 0.3) ,
-        y = c(1, 9, 9, 1),
-        border = ifelse(any(
-          grepl(pattern = "FAILED", temp.rc.palaedose.error$Status)
-        ), "red", "black")
-      )
-      polygon(
-        x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45
-      )
-
-      if(nrow(temp.rc.palaedose.error) != 0){
-        for (i in 1:nrow(temp.rc.palaedose.error)) {
-          if(!is.na(temp.rc.palaedose.error[i, "Value"])){
-            points(
-              temp.rc.palaedose.error[i, "Value"],
-              y = 5,
-              pch = i,
-              col = i,
-              cex = 1.3 * cex
-            )
-          }
+        }else{
+          plot(1, type="n", axes=F, xlab="", ylab="")
+          text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
         }
       }
     }
 
-    if (plot == TRUE && 8 %in% plot.single.sel) {
-      ##graphical representation of IR-curve
-      temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
-      if(length(temp.IRSL) != 0){
-        .validate_class(temp.IRSL, c("RLum.Data.Curve", "list"))
-        if(inherits(temp.IRSL, "RLum.Data.Curve")){
-          plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
-        }else if(inherits(temp.IRSL, "list")){
-          plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
-          .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
-        }
-
-      }else{
-        plot(1, type="n", axes=F, xlab="", ylab="")
-        text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
-      }
-    }
-
-
-    # Return --------------------------------------------------------------------------------------
+    # Return -------------------------------------------------------------------
     invisible(temp.results.final)
 
   }else{
@@ -1629,3 +1394,117 @@ error.list <- list()
     invisible(NULL)
   }
 }
+
+
+# Helper functions -------------------------------------------------------------
+## create single grain discs with measured grain labelled
+.plot_SGMarker <- function(this_grain = 1, this_pos = 1) {
+  ## calculate coordinate matrix
+  xy_coord <- matrix(
+    data = c(
+      rep(seq(0.25,0.75, length.out = 10), 10),
+      rep(rev(seq(0.25,0.75, length.out = 10)), each = 10)),
+    ncol = 2)
+
+  ##set par
+  par.mar  <- par()$mar
+  par(mar = c(0,0,0,0))
+  on.exit(par(mar = par.mar))
+
+  ## draw disc
+  shape::emptyplot()
+
+  ## draw super circle
+  shape::plotellipse(rx = 0.4, ry = 0.4, mid = c(0.5,0.5), lwd = 1)
+
+  ## draw positing holes
+  shape::plotellipse(
+    rx = 0.015,
+    ry = 0.015,
+    mid = c(0.15,0.5),
+    lwd = 1)
+  shape::plotellipse(
+    rx = 0.015,
+    ry = 0.015,
+    mid = c(0.5,0.85),
+    lwd = 1)
+  shape::plotellipse(
+    rx = 0.015,
+    ry = 0.015,
+    mid = c(0.85,0.5),
+    lwd = 1)
+
+  ## add points
+  points(xy_coord, bg = "grey", pch = 21, cex = 1.2)
+
+  ## add the one point
+  points(
+    x = xy_coord[this_grain,1],
+    y = xy_coord[this_grain,2],
+    bg = "red", pch = 21, cex = 1.2, col = "darkgreen", lwd = 2)
+
+  ## add text
+  text(
+    x = c(0.5,0.5),
+    y = c(1.15, -.15),
+    labels = c(
+      paste0("pos: #", this_pos),
+      paste0("grain: #", this_grain)),
+    font = 2,
+    cex = 1.2)
+
+}
+# create rejection criteria plot
+.plot_RCCriteria <- function(x) {
+  ##set par
+  par.mar  <- par()$mar
+  par(mar = c(1,0.5,4,0.5))
+  on.exit(par(mar = par.mar))
+
+  ## determine number of criteria
+  n <- nrow(x)
+
+  ## calculate middle points for the lines
+  y_coord <- seq(0.1,1,length.out = n)
+
+  # set colours
+  pch_set <- vapply(1:nrow(x), function(y) {
+    c <- if(x[y,"Status"] == "OK") 3 else 2
+    c[is.na(x[y,"Threshold"])] <- 24
+    s <- if(x[y,"Status"] == "FAILED") 4 else 21
+
+   c(c,s)
+  }, numeric(2))
+
+  ## open plot
+  plot(NA, NA,
+    xlim = c(0,1),
+    ylim = c(0,1),
+    frame = FALSE,
+    yaxt = "n",
+    xaxt = "n",
+    ylab = "",
+    xlab = "")
+
+  ## plot header
+  title("Rejection criteria")
+
+  ## plot names
+  text(
+    x = rep(.8,n),
+    y = y_coord,
+    labels = gsub("(.{21})", "\\1\n", x[[1]]),
+    cex = 0.9,
+    adj = c(1, 0.5))
+
+  ## add points
+  points(
+    x = rep(0.95, n),
+    pch = pch_set[2,],
+    y = y_coord,
+    bg = pch_set[1,],
+    col = pch_set[1,],
+    cex = 2)
+
+}
+
