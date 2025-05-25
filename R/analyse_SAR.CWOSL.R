@@ -821,8 +821,7 @@ error.list <- list()
           mar = x$mar,
           cex = x$cex,
           mfrow = x$mfrow,
-          mfcol = x$mfcol
-        )
+          mfcol = x$mfcol)
       }
 
       ##colours and double for plotting
@@ -964,30 +963,33 @@ error.list <- list()
 
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
-        ylim.range <- vapply(OSL.Curves.ID.Lx, function(x) {
-          range(object@records[[x]]@data[,2])
-        }, numeric(2))
+        ## get record list
+        record_list <- object@records
 
-        xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
-                   max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
+        ## get value ranges of the curves
+        xy_xlim <- matrixStats::rowRanges(vapply(
+          X = OSL.Curves.ID.Lx,
+          FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+          FUN.VALUE = numeric(4)))
+
+        xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+        ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
 
         #open plot area LnLx
         plot(
           NA,NA,
           xlab = "Time [s]",
-          ylab = paste(CWcurve.type," [cts/",resolution.OSLCurves," s]",sep =
-                         ""),
-          xlim = xlim,
-          ylim = range(ylim.range),
+          ylab = paste0(CWcurve.type," [cts/",resolution.OSLCurves," s]"),
+          xlim = xlim_range,
+          ylim = ylim_range,
           main = main,
           log = log)
 
         #provide curve information as mtext, to keep the space for the header
-        mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep = "")),
-              cex = cex * 0.7)
-
-        ##plot shine-down curves
-        record_list <- object@records
+        mtext(
+          side = 3,
+          text = expression(paste(L[n], ", ", L[x], " curves")),
+          cex = cex * 0.7)
 
         for (i in seq_len(length(OSL.Curves.ID.Lx))) {
           rec <- record_list[[OSL.Curves.ID.Lx[[i]]]]
@@ -1011,8 +1013,7 @@ error.list <- list()
           outer = TRUE,
           line = -1.7,
           cex = cex,
-          col = "blue"
-        )
+          col = "blue")
 
       }# plot.single.sel
 
@@ -1073,32 +1074,35 @@ error.list <- list()
       # Plotting TnTx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
-        ylim.range <- vapply(OSL.Curves.ID.Tx, function(x) {
-          range(object@records[[x]]@data[,2])
-        }, numeric(2))
+        ## get record list
+        record_list <- object@records
 
-        xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
-                  max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
+        ## get value ranges of the curves
+        xy_xlim <- matrixStats::rowRanges(vapply(
+          X = OSL.Curves.ID.Tx,
+          FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+          FUN.VALUE = numeric(4)))
+
+        xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+        ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
 
         #open plot area LnLx
         plot(
           NA,NA,
           xlab = "Time [s]",
           ylab = paste0(CWcurve.type ," [cts/",resolution.OSLCurves," s]"),
-          xlim = xlim,
-          ylim = range(ylim.range),
+          xlim = xlim_range,
+          ylim = ylim_range,
           main = main,
           log = log)
 
         #provide curve information as mtext, to keep the space for the header
-        mtext(side = 3,
-              expression(paste(T[n],",",T[x]," curves",sep = "")),
-              cex = cex * 0.7)
+        mtext(
+          side = 3,
+          text = expression(paste(T[n], ", ", T[x], " curves")),
+          cex = cex * 0.7)
 
         ##plot curves and get legend values
-        ##plot shine-down curves
-        record_list <- object@records
-
         for (i in seq_len(length(OSL.Curves.ID.Tx))) {
           rec <- record_list[[OSL.Curves.ID.Tx[[i]]]]
           lines(rec@data, col = col[i])
@@ -1123,28 +1127,22 @@ error.list <- list()
         par.mai  <- par()$mai
         par(mar = c(1,1,1,1), mai = c(0,0,0,0))
 
+        n <- length(OSL.Curves.ID) / 2
+        x <- seq_len(n)
+        y <- rep(7, n)
+
         plot(
-          c(1:(length(
-            OSL.Curves.ID
-          ) / 2)),
-          rep(7,length(OSL.Curves.ID) / 2),
+          x, y,
           type = "p",
           axes = FALSE,
-          xlab = "",
-          ylab = "",
+          xlab = "", ylab = "",
           pch = 20,
           col = unique(col[1:length(OSL.Curves.ID)]),
           cex = 4 * cex,
           ylim = c(0,10))
 
         ##add text
-        text(c(1:(length(
-          OSL.Curves.ID
-        ) / 2)),
-        rep(7,length(OSL.Curves.ID) / 2),
-        legend.text,
-        offset = 1,
-        pos = 1)
+        text(x, y, legend.text, offset = 1, pos = 1)
 
         ##add line
         abline(h = 10,lwd = 0.5)
@@ -1508,13 +1506,4 @@ error.list <- list()
     cex = 2)
 
 }
-
-# analyse_SAR.CWOSL(
-#   object = sg[[1]],
-#   signal.integral.min = 1,
-#   signal.integral.max = 2,
-#   background.integral.min = 900,
-#   background.integral.max = 975,
-#   plot_onePage = TRUE,
-#   verbose = FALSE)
 
