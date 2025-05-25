@@ -1465,7 +1465,7 @@ error.list <- list()
   n <- nrow(x)
 
   ## calculate middle points for the lines
-  y_coord <- seq(0.1,1,length.out = n)
+  y_coord <- seq(0.1,1,length.out = n * 2)
 
   # set colours
   pch_set <- vapply(1:nrow(x), function(y) {
@@ -1492,16 +1492,30 @@ error.list <- list()
   ## plot names
   text(
     x = rep(.8,n),
-    y = y_coord,
-    labels = gsub("(.{21})", "\\1\n", x[[1]]),
+    y = y_coord[seq(1,length(y_coord),2)],
+    labels = .shorten_filename(x[[1]], 18),
     cex = 0.9,
     adj = c(1, 0.5))
 
-  ## add points
+  ## add lines with criteria
+  y_coord_l <- y_coord[seq(2,length(y_coord),2)]
+  for(i in 1:nrow(x)) {
+    lines(x = c(0.1,1), y = rep(y_coord_l[i],2), lwd = 0.25)
+
+  }
+
+  text(
+    x = rep(.8,n),
+    y = y_coord_l,
+    labels = paste0(round(x$Value, 1), " <> ", round(x$Threshold, 2)),
+    cex = 0.6,
+    adj = c(1, 1.5))
+
+  ## add final points
   points(
     x = rep(0.95, n),
     pch = pch_set[2,],
-    y = y_coord,
+    y = y_coord[seq(1,length(y_coord),2)],
     bg = pch_set[1,],
     col = pch_set[1,],
     cex = 2)
