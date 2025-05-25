@@ -672,47 +672,29 @@ error.list <- list()
       LnLxTnTx$Dose[1] <- 0
     }
 
-    #generate unique dose id - this are also the # for the generated points
-    temp.DoseName <- paste0("R", 0:(length(LnLxTnTx$Dose)-1))
-    temp.DoseName <-
-      cbind(Name = temp.DoseName, Dose = LnLxTnTx$Dose)
 
-    ##set natural
-    temp.DoseName[temp.DoseName[,"Name"] == "R0","Name"] <-
-      "Natural"
+## Label dose points -------------------------------------------------------
+    dose <- LnLxTnTx$Dose
 
-    ##set R0
-    temp.DoseName[temp.DoseName[,"Name"] != "Natural" &
-                    temp.DoseName[,"Dose"] == 0,"Name"] <- "R0"
+    ## preset names
+    dose_names <- paste0("R", seq_along(dose) - 1)
 
-    ##correct numeration numeration of other dose points
+    ## identify 0 dose point
+    zero_id <- which(dose == 0)
+    dose_names[zero_id] <- "R0"
+    if (length(zero_id)) dose_names[zero_id[1]] <- "Natural"
 
-    ##how many dose points do we have with 0?
-    non.temp.zero.dose.number <- nrow(temp.DoseName[temp.DoseName[, "Dose"] != 0,])
+    ## check for repeated
+    is_repeated <- duplicated(dose)
+    is_repeated[dose == 0] <- FALSE
 
-    if(length(non.temp.zero.dose.number) > 0){
-    temp.DoseName[temp.DoseName[,"Name"] != "Natural" & temp.DoseName[,"Name"] != "R0","Name"] <-
-      paste0("R",c(1:non.temp.zero.dose.number))
-    }
-
-    ##find duplicated doses (including 0 dose - which means the Natural)
-    temp.DoseDuplicated <- duplicated(temp.DoseName[,"Dose"])
-
-    ##combine temp.DoseName
-    temp.DoseName <-
-      cbind(temp.DoseName,Repeated = temp.DoseDuplicated)
-
-    ##correct value for R0 (it is not really repeated)
-    temp.DoseName[temp.DoseName[,"Dose"] == 0,"Repeated"] <- FALSE
-
-    ##combine in the data frame
-    temp.LnLxTnTx <- data.frame(
-        Name = factor(x = temp.DoseName[, "Name"],
-                      levels = unique(temp.DoseName[, "Name"])),
-        Repeated = as.logical(temp.DoseName[, "Repeated"]))
-
-    LnLxTnTx <- cbind(temp.LnLxTnTx,LnLxTnTx)
-    LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
+    ## add to data.frame
+    LnLxTnTx <- cbind(
+      data.frame(
+        Name = dose_names,
+        Repeated = is_repeated,
+        stringsAsFactors = FALSE),
+      LnLxTnTx)
 
     # Calculate Recycling Ratio -----------------------------------------------
     RecyclingRatio <- NA
@@ -1554,4 +1536,12 @@ error.list <- list()
 
 }
 
+analyse_SAR.CWOSL(
+  object = sg[[1]],
+  signal.integral.min = 1,
+  signal.integral.max = 2,
+  background.integral.min = 900,
+  background.integral.max = 975,
+  plot_onePage = TRUE,
+  verbose = FALSE)
 
