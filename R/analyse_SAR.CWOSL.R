@@ -697,9 +697,9 @@ error.list <- list()
       LnLxTnTx)
 
 # Calculate rejection criteria --------------------------------------------
+    RecyclingRatio <- Recuperation <- NA
 
     ## Calculate Recycling Ratio -----------------------------------------------
-    RecyclingRatio <- NA
     if(any(LnLxTnTx$Repeated)) {
       ## get repeated and previous dose points
       repeated <- LnLxTnTx[LnLxTnTx$Repeated, ]
@@ -713,30 +713,28 @@ error.list <- list()
           nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
     }
 
-    # Calculate Recuperation Rate ---------------------------------------------
+    ## Calculate Recuperation Rate ---------------------------------------------
     ## check for incorrect key words
     if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
       .throw_error("Recuperation reference invalid, valid are: ",
                    .collapse(LnLxTnTx[, "Name"], quote = FALSE))
 
-
     ##Recuperation Rate (capable of handling multiple type of recuperation values)
-    Recuperation <- NA
-    if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
-      Recuperation <-
-        vapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
-               function(x) {
-                 round(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","LxTx"][x] /
-                         LnLxTnTx[LnLxTnTx[,"Name"] == rejection.criteria$recuperation_reference[1],"LxTx"],
-                       digits = 4)
+    if(any(LnLxTnTx$Name == "R0")) {
+       Recuperation <-
+        vapply(seq_len(sum(LnLxTnTx$Name == "R0")), \(x) {
+                 LnLxTnTx[LnLxTnTx[["Name"]] == "R0","LxTx"][x] /
+                 LnLxTnTx[LnLxTnTx[["Name"]] == rejection.criteria$recuperation_reference[1],"LxTx"]
                }, numeric(1))
-      ##Just transform the matrix and add column names
-      Recuperation  <-  t(Recuperation)
-      colnames(Recuperation)  <-
-        unlist(strsplit(paste(
-          paste0("Recuperation rate (", rejection.criteria$recuperation_reference[1], ")"),
-          1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"
-        ), ";"))
+
+      ##transform and name
+      Recuperation <- t(setNames(
+        object = Recuperation,
+        nm = paste0(
+          "Recuperation rate (", rejection.criteria$recuperation_reference[1], ") ",
+          seq_along(Recuperation))
+      ))
+
     }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
@@ -1517,6 +1515,5 @@ error.list <- list()
     cex = 2)
 
 }
-
 
 
