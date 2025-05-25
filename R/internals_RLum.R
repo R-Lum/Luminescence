@@ -1429,7 +1429,7 @@ SW <- function(expr) {
 #' Shorten a filename to the given width by cutting out characters from the
 #' middle, leaving the most significant parts.
 #'
-#' @param filename [character] (**required**) A file name
+#' @param filename [character] (**required**) A file name; can be a vector
 #' @param max.width [integer] (*with default*) The maximum width available
 #'
 #' @return
@@ -1441,12 +1441,13 @@ SW <- function(expr) {
   name.len <- nchar(filename)
 
   ## return the current file name if it already fits the available width
-  if (name.len <= max.width)
+  if (all(name.len <= max.width))
     return(filename)
 
   ## shorten the filename
-  part1.end <- ceiling(max.width / 5)
-  part2.beg <- part1.end + name.len - max.width + 2
-  paste0(substring(filename, first = 1, last = part1.end), "\u2026", # "…"
-         substring(filename, first = part2.beg))
+  part1_last <- floor(max.width / 2)
+  part2_first <- floor(name.len - max.width / 2) + 1
+
+  paste0(substring(filename, first = 1, last = part1_last), "\u2026", # "…"
+         substring(filename, first = part2_first))
 }
