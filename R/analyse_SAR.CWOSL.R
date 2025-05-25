@@ -721,39 +721,34 @@ error.list <- list()
 
     ##Recuperation Rate (capable of handling multiple type of recuperation values)
     if(any(LnLxTnTx$Name == "R0")) {
-       Recuperation <-
-        vapply(seq_len(sum(LnLxTnTx$Name == "R0")), \(x) {
+      Recuperation <- vapply(seq_len(sum(LnLxTnTx$Name == "R0")), \(x) {
                  LnLxTnTx[LnLxTnTx[["Name"]] == "R0","LxTx"][x] /
                  LnLxTnTx[LnLxTnTx[["Name"]] == rejection.criteria$recuperation_reference[1],"LxTx"]
                }, numeric(1))
 
-      ##transform and name
-      Recuperation <- t(setNames(
+     ##transform and name
+     Recuperation <- t(setNames(
         object = Recuperation,
         nm = paste0(
           "Recuperation rate (", rejection.criteria$recuperation_reference[1], ") ",
           seq_along(Recuperation))
       ))
-
     }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
+    ## get name of the criteria
     temp.criteria <- c(
-      if(!is.null(colnames(RecyclingRatio))){
-       colnames(RecyclingRatio)}else{NA},
-      if(!is.null(colnames(Recuperation))){
-        colnames(Recuperation)}else{NA})
+      if(!is.null(colnames(RecyclingRatio))) colnames(RecyclingRatio) else NA_character_,
+      if(!is.null(colnames(Recuperation))) colnames(Recuperation) else NA_character_)
 
-    temp.value <- c(RecyclingRatio,Recuperation)
+    ## get value
+    temp.value <- c(RecyclingRatio, Recuperation)
 
+    ## set threshold
     temp.threshold <-
-      c(rep(
-        rejection.criteria$recycling.ratio / 100, length(RecyclingRatio)
-      ),
-      rep(
-        rejection.criteria$recuperation.rate / 100,
-        length(Recuperation)
-      ))
+      c(
+       rep(rejection.criteria$recycling.ratio, length(RecyclingRatio)),
+       rep(rejection.criteria$recuperation.rate, length(Recuperation))) / 100
 
     ##RecyclingRatio
     temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
@@ -773,7 +768,6 @@ error.list <- list()
           }
         })
     }
-
 
     # Provide Rejection Criteria for Testdose error --------------------------
     testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
@@ -876,14 +870,13 @@ error.list <- list()
         ## set selected curves to allow plotting of all curves
         plot.single.sel <- c(1,2,3,4,5,6,7,8)
 
-      }else{
+      } else {
         ##check for values in the single output of the function and convert
-        if (!is.logical(plot_singlePanels)) {
-          plot.single.sel  <- plot_singlePanels
+        plot.single.sel <- if (!is.logical(plot_singlePanels))
+          plot_singlePanels
+        else
+          c(1,2,3,4,5,6,7,8)
 
-        }else{
-          plot.single.sel <- c(1,2,3,4,5,6,7,8)
-        }
       }
 
       ##warning if number of curves exceed colour values
@@ -1516,4 +1509,12 @@ error.list <- list()
 
 }
 
+# analyse_SAR.CWOSL(
+#   object = sg[[1]],
+#   signal.integral.min = 1,
+#   signal.integral.max = 2,
+#   background.integral.min = 900,
+#   background.integral.max = 975,
+#   plot_onePage = TRUE,
+#   verbose = FALSE)
 
