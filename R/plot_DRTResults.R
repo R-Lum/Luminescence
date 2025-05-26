@@ -23,7 +23,7 @@
 #' If only one given dose is provided, this given dose is valid for all input
 #' data sets (i.e., `values` is a list). Otherwise, a given dose for each input
 #' data set has to be provided (e.g., `given.dose = c(100,200)`).
-#' If `given.dose` is `NULL` the values are plotted without normalisation
+#' If `given.dose` is `NULL` or 0, the values are plotted without normalisation
 #' (might be useful for preheat plateau tests).
 #' **Note:** Unit has to be the same as from the input values (e.g., Seconds or
 #' Gray).
@@ -286,9 +286,8 @@ plot_DRTResults <- function(
   }
 
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {if(!is.null(given.dose)){
-    expression(paste("Normalised ", D[e], sep=""))
-  }else{expression(paste(D[e], " [s]"), sep = "")}}
+  { if (!is.null(given.dose) && length(given.dose) > 0 && given.dose[1] > 0) expression(paste("Normalised ", D[e], sep = ""))
+    else expression(paste(D[e], " [s]", sep = "")) }
 
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
   { c(0, max(n.values)) + 0.5 }
@@ -310,7 +309,7 @@ plot_DRTResults <- function(
   ## calculations and settings-------------------------------------------------
 
   ## normalise data if given.dose is given
-  if(!is.null(given.dose)){
+  if (!is.null(given.dose)) {
     .validate_class(given.dose, "numeric")
     .validate_not_empty(given.dose)
     if (length(given.dose) == 1) {
@@ -321,8 +320,12 @@ plot_DRTResults <- function(
                    "of input data sets")
     }
 
-    for (i in 1:length(values)) {
-      values[[i]] <- values[[i]] / given.dose[i]
+    if (all(given.dose > 0)) {
+      for (i in 1:length(values)) {
+        values[[i]] <- values[[i]] / given.dose[i]
+      }
+    } else {
+      given.dose <- NULL
     }
   }
 
