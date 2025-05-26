@@ -1438,10 +1438,10 @@ SW <- function(expr) {
 #' @md
 #' @noRd
 .shorten_filename <- function(filename, max.width = 70) {
-  name.len <- nchar(filename)
+  name.len <- nchar(filename, keepNA = FALSE)
 
   ## return the current file name if it already fits the available width
-  if (all(name.len <= max.width, na.rm = TRUE))
+  if (all(name.len <= max.width))
     return(filename)
 
   ## shorten the filename
@@ -1458,5 +1458,4 @@ SW <- function(expr) {
       substring(filename[x], first = part2_first[x]))
 
   }, character(1))
-
 }

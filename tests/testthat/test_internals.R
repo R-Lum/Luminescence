@@ -437,8 +437,8 @@ test_that("Test internals", {
                30)
 
   ## check vector
-  t <- expect_type(.shorten_filename(c("short", "muchmuchlonger"), 10), "character")
-  expect_equal(t[1], "short")
+  expect_equal(.shorten_filename(c("short", NA, "muchmuchlonger"), 10),
+               c("short", NA, "muchm...onger"))
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
