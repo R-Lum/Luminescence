@@ -1448,6 +1448,6 @@ SW <- function(expr) {
   part1_last <- floor(max.width / 2)
   part2_first <- floor(name.len - max.width / 2) + 1
 
-  paste0(substring(filename, first = 1, last = part1_last), "...", # "…"
+  paste0(substring(filename, first = 1, last = part1_last), "\u2026", # "…"
          substring(filename, first = part2_first))
 }
