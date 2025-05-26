@@ -1448,6 +1448,15 @@ SW <- function(expr) {
   part1_last <- floor(max.width / 2)
   part2_first <- floor(name.len - max.width / 2) + 1
 
-  paste0(substring(filename, first = 1, last = part1_last), "\u2026", # "…"
-         substring(filename, first = part2_first))
+  ## process names ... an account for edge cases
+  vapply(seq_along(filename), \(x) {
+    if(name.len[x] <= max.width)
+      return(filename[x])
+
+    paste0(
+      substring(filename[x], first = 1, last = part1_last), "...",
+      substring(filename[x], first = part2_first[x]))
+
+  }, character(1))
+
 }

@@ -429,12 +429,16 @@ test_that("Test internals", {
                "/path/to/filename")
   expect_equal(.shorten_filename("/path/to/a_somewhat_longer_filename",
                                  max.width = 27),
-               "/path/to/a_so…onger_filename")
+               "/path/to/a_so...onger_filename")
 
-  ## check also length, which is one more
+  ## check also length, which is one more + the ...
   expect_equal(nchar(.shorten_filename("/path/to/a_somewhat_longer_filename",
                                  max.width = 27)),
-               28)
+               30)
+
+  ## check vector
+  t <- expect_type(.shorten_filename(c("short", "muchmuchlonger"), 10), "character")
+  expect_equal(t[1], "short")
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
