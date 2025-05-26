@@ -1438,24 +1438,28 @@ SW <- function(expr) {
 #' @md
 #' @noRd
 .shorten_filename <- function(filename, max.width = 70) {
+  ## optimised for speed with ChatGPT, 2025
+  ## get length
   name.len <- nchar(filename, keepNA = FALSE)
 
-  ## return the current file name if it already fits the available width
-  if (all(name.len <= max.width))
+  ## logical index of names to shorten
+  to_shorten <- name.len > max.width
+
+  ## get out if nothing needs shortening
+  if (!any(to_shorten))
     return(filename)
 
-  ## shorten the filename
+  # calculate parts
   part1_last <- floor(max.width / 2)
-  part2_first <- floor(name.len - max.width / 2) + 1
+  part2_first <- name.len[to_shorten] - part1_last + 1
 
-  ## process names ... an account for edge cases
-  vapply(seq_along(filename), \(x) {
-    if(name.len[x] <= max.width)
-      return(filename[x])
+  # shorten what needs to be shortened
+  filename[to_shorten] <- paste0(
+    substring(filename[to_shorten], 1, part1_last),
+    "...",
+    substring(filename[to_shorten], part2_first)
+  )
 
-    paste0(
-      substring(filename[x], first = 1, last = part1_last), "...",
-      substring(filename[x], first = part2_first[x]))
-
-  }, character(1))
+  ## return
+  filename
 }

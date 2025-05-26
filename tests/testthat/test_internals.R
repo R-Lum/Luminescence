@@ -429,12 +429,12 @@ test_that("Test internals", {
                "/path/to/filename")
   expect_equal(.shorten_filename("/path/to/a_somewhat_longer_filename",
                                  max.width = 27),
-               "/path/to/a_so...onger_filename")
+               "/path/to/a_so...nger_filename")
 
   ## check also length, which is one more + the ...
   expect_equal(nchar(.shorten_filename("/path/to/a_somewhat_longer_filename",
                                  max.width = 27)),
-               30)
+               29)
 
   ## check vector
   expect_equal(.shorten_filename(c("short", NA, "muchmuchlonger"), 10),
