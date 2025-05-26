@@ -828,10 +828,13 @@ error.list <- list()
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
 
+      ## get record list
+      record_list <- object@records
+
       # plot everyting on one page ... doing it here is much cleaner than
       # Plotting - one Page config ---------------------------------------------
       if(plot_onePage){
-      on.exit(on_exit(), add = TRUE)
+          on.exit(on_exit(), add = TRUE)
 
       plot_singlePanels <- TRUE
       graphics::layout(matrix(
@@ -902,110 +905,64 @@ error.list <- list()
         if (length(TL.Curves.ID.Lx) > 0) {
           ##It is just an approximation taken from the data
           resolution.TLCurves <-  round(mean(diff(
-            round(object@records[[TL.Curves.ID.Lx[[1]]]]@data[,1], digits = 1)
+            round(record_list[[TL.Curves.ID.Lx[[1]]]]@data[,1], digits = 1)
           )), digits = 1)
 
-          ylim.range <- vapply(TL.Curves.ID.Lx, function(x) {
-              range(object@records[[x]]@data[,2])
+          ## get value ranges of the curves
+          xy_xlim <- matrixStats::rowRanges(vapply(
+            X = TL.Curves.ID.Lx,
+            FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+            FUN.VALUE = numeric(4)))
 
-            }, numeric(2))
+          xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+          ylim_range <- c(1, max(xy_xlim[4,]))
 
           plot(
             NA,NA,
             xlab = "T [\u00B0C]",
-            ylab = paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep =
-                           ""),
-            xlim = c(object@records[[TL.Curves.ID.Lx[[1]]]]@data[1,1],
-                     max(object@records[[TL.Curves.ID.Lx[[1]]]]@data[,1])),
-            ylim = c(1,max(ylim.range)),
+            ylab = paste0("TL [cts/",resolution.TLCurves," \u00B0C]"),
+            xlim = xlim_range,
+            ylim = ylim_range,
             main = main,
-            log = if (log == "y" | log == "xy") {
-              "y"
-            }else{
-              ""
-            }
-          )
+            log = if (log == "y" | log == "xy") "y"  else "")
 
           #provide curve information as mtext, to keep the space for the header
-          mtext(side = 3,
-                expression(paste(
-                  "TL previous ", L[n],",",L[x]," curves",sep = ""
-                )),
-                cex = cex * 0.7)
+          mtext(
+            side = 3,
+            text = expression(paste("TL previous ", L[n],",",L[x]," curves")),
+            cex = cex * 0.7)
 
           ##plot TL curves
-          sapply(1:length(TL.Curves.ID.Lx) ,function(x) {
-            lines(object@records[[TL.Curves.ID.Lx[[x]]]]@data,col = col[x])
-          })
+          records_data_list <- lapply(TL.Curves.ID.Lx, \(x) record_list[[x]]@data)
+          for (i in seq_along(records_data_list)) {
+            lines(records_data_list[[i]], col = col[i])
+          }
 
         }else{
           plot(
             NA,NA,xlim = c(0,1), ylim = c(0,1), main = "",
             axes = FALSE,
             ylab = "",
-            xlab = ""
-          )
+            xlab = "")
           text(0.5,0.5, "No TL curve detected")
         }
       }#plot.single.sel
 
       # Plotting LnLx Curves ----------------------------------------------------
-      ## if we want to apply a log-transform on x and the first time point
-      ## is 0, we shift the curves by one channel
-      if (log == "x" || log == "xy") {
-        for(i in OSL.Curves.ID.Lx) {
-          x.vals <- object@records[[i]]@data[, 1]
-          if (x.vals[1] == 0) {
-            object@records[[i]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
-            .throw_warning("Curves shifted by one channel for log-plot")
-          }
-        }
-      }
-
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
-        ## get record list
-        record_list <- object@records
-
-        ## get value ranges of the curves
-        xy_xlim <- matrixStats::rowRanges(vapply(
-          X = OSL.Curves.ID.Lx,
-          FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
-          FUN.VALUE = numeric(4)))
-
-        xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
-        ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
-
-        #open plot area LnLx
-        plot(
-          NA,NA,
-          xlab = "Time [s]",
-          ylab = paste0(CWcurve.type," [cts/",resolution.OSLCurves," s]"),
-          xlim = xlim_range,
-          ylim = ylim_range,
-          main = main,
-          log = log)
-
-        #provide curve information as mtext, to keep the space for the header
-        mtext(
-          side = 3,
-          text = expression(paste(L[n], ", ", L[x], " curves")),
-          cex = cex * 0.7)
-
-        records_data_list <- lapply(OSL.Curves.ID.Lx, \(x) record_list[[x]]@data)
-        for (i in seq_along(records_data_list)) {
-          lines(records_data_list[[i]], col = col[i])
-        }
-
-        ##mark integration limit Lx curves
-        rec <- object@records[[OSL.Curves.ID.Lx[1]]]@data
-        abline(v = c(
-          rec[min(signal.integral),1],
-          rec[max(signal.integral),1],
-          rec[min(background.integral),1],
-          rec[max(background.integral),1]),
-          lty = 2,
-          col = "gray")
+        .plot_ShineDownCurves(
+          record_list,
+          curve_ids = OSL.Curves.ID.Lx,
+          signal_integral = signal.integral,
+          background_integral = background.integral,
+          set_main = main,
+          set_log = log,
+          set_cex = cex,
+          set_col = col,
+          set_mtext = expression(paste(L[n], ", ", L[x], " curves")),
+          set_curveType = CWcurve.type,
+          set_curveRes = resolution.OSLCurves)
 
         ##mtext, implemented here, as a plot window has to be called first
         mtext(
@@ -1019,46 +976,44 @@ error.list <- list()
       }# plot.single.sel
 
       # Plotting TL Curves previous TnTx ----------------------------------------
-
       ##overall plot option selection for plot.single.sel
       if (3 %in% plot.single.sel) {
         ##check if TL curves are available
         if (length(TL.Curves.ID.Tx) > 0) {
           ##It is just an approximation taken from the data
           resolution.TLCurves <-  round(mean(diff(
-            round(object@records[[TL.Curves.ID.Tx[[1]]]]@data[,1], digits = 1)
+            round(record_list[[TL.Curves.ID.Tx[[1]]]]@data[,1], digits = 1)
           )), digits = 1)
 
-          ylim.range <- vapply(TL.Curves.ID.Tx, function(x) {
-            range(object@records[[x]]@data[,2])
-          }, numeric(2))
+          ## get value ranges of the curves
+          xy_xlim <- matrixStats::rowRanges(vapply(
+            X = TL.Curves.ID.Tx,
+            FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+            FUN.VALUE = numeric(4)))
+
+          xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+          ylim_range <- c(1, max(xy_xlim[4,]))
 
           plot(
             NA,NA,
             xlab = "T [\u00B0C]",
-            ylab = paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep = ""),
-            xlim = c(object@records[[TL.Curves.ID.Tx[[1]]]]@data[1,1],
-                     max(object@records[[TL.Curves.ID.Tx[[1]]]]@data[,1])),
-            ylim = c(1,max(ylim.range)),
+            ylab = paste0("TL [cts/",resolution.TLCurves," \u00B0C]"),
+            xlim = xlim_range,
+            ylim = ylim_range,
             main = main,
-            log = if (log == "y" | log == "xy") {
-              "y"
-            }else{
-              ""
-            }
-          )
+            log = if (log == "y" | log == "xy") "y" else "")
 
           #provide curve information as mtext, to keep the space for the header
-          mtext(side = 3,
-                expression(paste(
-                  "TL previous ", T[n],",",T[x]," curves",sep = ""
-                )),
-                cex = cex * 0.7)
+          mtext(
+            side = 3,
+            text = expression(paste("TL previous ", T[n],",",T[x]," curves")),
+            cex = cex * 0.7)
 
           ##plot TL curves
-          sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
-            lines(object@records[[TL.Curves.ID.Tx[[x]]]]@data,col = col[x])
-          })
+          records_data_list <- lapply(TL.Curves.ID.Tx, \(x) record_list[[x]]@data)
+          for (i in seq_along(records_data_list)) {
+            lines(records_data_list[[i]], col = col[i])
+          }
 
         }else{
           plot(
@@ -1075,49 +1030,18 @@ error.list <- list()
       # Plotting TnTx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
-        ## get record list
-        record_list <- object@records
-
-        ## get value ranges of the curves
-        xy_xlim <- matrixStats::rowRanges(vapply(
-          X = OSL.Curves.ID.Tx,
-          FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
-          FUN.VALUE = numeric(4)))
-
-        xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
-        ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
-
-        #open plot area LnLx
-        plot(
-          NA,NA,
-          xlab = "Time [s]",
-          ylab = paste0(CWcurve.type ," [cts/",resolution.OSLCurves," s]"),
-          xlim = xlim_range,
-          ylim = ylim_range,
-          main = main,
-          log = log)
-
-        #provide curve information as mtext, to keep the space for the header
-        mtext(
-          side = 3,
-          text = expression(paste(T[n], ", ", T[x], " curves")),
-          cex = cex * 0.7)
-
-        ##plot curves and get legend values
-        records_data_list <- lapply(OSL.Curves.ID.Tx, \(x) record_list[[x]]@data)
-        for (i in seq_along(records_data_list)) {
-          lines(records_data_list[[i]], col = col[i])
-        }
-
-        ##mark integration limit Tx curves
-        rec <- object@records[[OSL.Curves.ID.Tx[1]]]@data
-        abline(v = c(
-          rec[min(signal.integral),1],
-          rec[max(signal.integral),1],
-          rec[min(background.integral),1],
-          rec[max(background.integral),1]),
-          lty = 2,
-          col = "gray")
+        .plot_ShineDownCurves(
+          record_list,
+          curve_ids = OSL.Curves.ID.Tx,
+          signal_integral = signal.integral,
+          background_integral = background.integral,
+          set_main = main,
+          set_log = log,
+          set_cex = cex,
+          set_col = col,
+          set_mtext = expression(paste(T[n], ", ", T[x], " curves")),
+          set_curveType = CWcurve.type,
+          set_curveRes = resolution.OSLCurves)
 
       }# plot.single.sel
 
@@ -1154,7 +1078,6 @@ error.list <- list()
       }#plot.single.sel
 
     }##end plot
-
 
     # Plotting  GC  ----------------------------------------
     ##create data.frame
@@ -1305,7 +1228,6 @@ error.list <- list()
           stringsAsFactors = FALSE
         )
 
-
 # Set return Values -----------------------------------------------------------
     ##generate unique identifier
     UID <- create_UID()
@@ -1327,7 +1249,6 @@ error.list <- list()
       else
         return(NA)
     })))[1]
-
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",
@@ -1521,4 +1442,71 @@ error.list <- list()
     cex = 2)
 
 }
+# plot the shine-down curves more consistently
+.plot_ShineDownCurves <- function(
+    record_list,
+    curve_ids,
+    signal_integral,
+    background_integral,
+    set_main,
+    set_log,
+    set_cex,
+    set_col,
+    set_mtext,
+    set_curveType,
+    set_curveRes
+) {
 
+  ## if we want to apply a log-transform on x and the first time point
+  ## is 0, we shift the curves by one channel
+  if (set_log == "x" || set_log == "xy") {
+    for(i in curve_ids) {
+      x.vals <- record_list[[i]]@data[, 1]
+      if (x.vals[1] == 0) {
+        record_list[[i]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
+        .throw_warning("Curves shifted by one channel for log-plot")
+      }
+    }
+  }
+
+  ## get value ranges of the curves
+  xy_xlim <- matrixStats::rowRanges(vapply(
+    X = curve_ids,
+    FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+    FUN.VALUE = numeric(4)))
+
+  xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
+  ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
+
+  #open plot area LnLx
+  plot(
+    NA,NA,
+    xlab = "Time [s]",
+    ylab = paste0(set_curveType," [cts/",set_curveRes," s]"),
+    xlim = xlim_range,
+    ylim = ylim_range,
+    main = set_main,
+    log = set_log)
+
+  #provide curve information as mtext, to keep the space for the header
+  mtext(
+    side = 3,
+    text = set_mtext,
+    cex = set_cex * 0.7)
+
+  records_data_list <- lapply(curve_ids, \(x) record_list[[x]]@data)
+  for (i in seq_along(records_data_list)) {
+    lines(records_data_list[[i]], col = set_col[i])
+  }
+
+  ##mark integration limit Lx curves
+  rec <- record_list[[curve_ids[1]]]@data
+  abline(v = c(
+    rec[min(signal_integral),1],
+    rec[max(signal_integral),1],
+    rec[min(background_integral),1],
+    rec[max(background_integral),1]),
+    lty = 2,
+    col = "gray")
+
+}
