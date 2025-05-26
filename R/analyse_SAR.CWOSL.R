@@ -992,9 +992,9 @@ error.list <- list()
           text = expression(paste(L[n], ", ", L[x], " curves")),
           cex = cex * 0.7)
 
-        for (i in seq_len(length(OSL.Curves.ID.Lx))) {
-          rec <- record_list[[OSL.Curves.ID.Lx[[i]]]]
-          lines(rec@data, col = col[i])
+        records_data_list <- lapply(OSL.Curves.ID.Lx, \(x) record_list[[x]]@data)
+        for (i in seq_along(records_data_list)) {
+          lines(records_data_list[[i]], col = col[i])
         }
 
         ##mark integration limit Lx curves
@@ -1104,9 +1104,9 @@ error.list <- list()
           cex = cex * 0.7)
 
         ##plot curves and get legend values
-        for (i in seq_len(length(OSL.Curves.ID.Tx))) {
-          rec <- record_list[[OSL.Curves.ID.Tx[[i]]]]
-          lines(rec@data, col = col[i])
+        records_data_list <- lapply(OSL.Curves.ID.Tx, \(x) record_list[[x]]@data)
+        for (i in seq_along(records_data_list)) {
+          lines(records_data_list[[i]], col = col[i])
         }
 
         ##mark integration limit Tx curves
