@@ -118,7 +118,9 @@
   only for single grain data (#797).
 
 - The rejection criteria plot was rewritten and now provides an easier
-  to grasp visual feedback (#797).
+  to grasp visual feedback (#797, \#798).
+
+- More code optimisation for better readability (#802)
 
 ### `analyse_SAR.TL()`
 
