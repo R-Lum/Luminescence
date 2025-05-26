@@ -1441,7 +1441,7 @@ SW <- function(expr) {
   name.len <- nchar(filename)
 
   ## return the current file name if it already fits the available width
-  if (all(name.len <= max.width))
+  if (all(name.len <= max.width, na.rm = TRUE))
     return(filename)
 
   ## shorten the filename
