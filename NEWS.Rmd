@@ -307,8 +307,9 @@ starting a parallel cluster even when `multicore = FALSE` (#742).
 * The summary and legend texts now scale better at non-default cex settings
 (#765).
 
-* Argument `given.dose` is now better validated against misspecifications
-(#767).
+* Argument `given.dose` is better validated against misspecifications, and
+setting it to 0 is equivalent to leaving it at its default `NULL` value,
+which corresponds to avoiding data normalization (#767, #799).
 
 * The function crashed when multiple inputs were used with `boxplot = TRUE`
 and all preheat values were identical (#769).
