@@ -81,7 +81,7 @@ is returned; it has no effect if \code{plot = FALSE}}
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{legend.text} (passes argument to x,y in
-\link[graphics:legend]{graphics::legend}), \code{xaxt}}
+\link[graphics:legend]{graphics::legend}), \code{xaxt}, \code{verbose} (\code{TRUE/FALSE}).}
 }
 \value{
 The function returns numerical output and an (\emph{optional}) plot.
