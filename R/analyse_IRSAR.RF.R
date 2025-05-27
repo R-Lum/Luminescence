@@ -1937,7 +1937,7 @@ analyse_IRSAR.RF<- function(
           side = 1,
           at = De,
           labels = De,
-          cex.axis = 0.8 * plot.settings$cex,
+          cex.axis = 0.8,
           col = "blue",
           padj = -1.55,
         )
