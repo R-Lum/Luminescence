@@ -761,6 +761,7 @@ analyse_IRSAR.RF<- function(
 
   ##modify list if something was set
   plot.settings <- modifyList(plot.settings, list(...))
+  plot.settings$mtext.cex = 0.7 * plot.settings$cex
 
   ##=============================================================================#
   ## ANALYSIS
@@ -1544,7 +1545,7 @@ analyse_IRSAR.RF<- function(
       ##print mtext
       mtext(text = mtext.message,
             side = 3, outer = TRUE, col = "red",
-            cex = 0.8 * par()[["cex"]])
+            cex = plot.settings$mtext.cex)
       .throw_warning(mtext.message)
     }
 
@@ -1573,7 +1574,7 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
     }
@@ -1647,7 +1648,7 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
 
@@ -1674,15 +1675,16 @@ analyse_IRSAR.RF<- function(
                                                 " ; ", De.upper,"]")))
       if (!is.na(De) && max(De, De.upper) > max(RF_reg.x)) {
         try(mtext(side=3, mtext.txt,
-                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
+                  line = 0, cex = plot.settings$mtext.cex, col = "red"),
+            silent = TRUE)
         De.status <- "VALUE OUT OF BOUNDS"
 
       } else{
         if ("mtext" %in% names(list(...))) {
-          mtext(side = 3, list(...)$mtext)
+          mtext(side = 3, list(...)$mtext, cex = plot.settings$mtext.cex)
         }else{
           try(mtext(side = 3, mtext.txt,
-                    line = 0, cex = 0.7 * par()[["cex"]]), silent = TRUE)
+                    line = 0, cex = plot.settings$mtext.cex), silent = TRUE)
         }
 
         De.status <- "OK"
@@ -1835,18 +1837,17 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
 
       ##write information on the De in the plot
       if("mtext" %in% names(list(...))) {
-        mtext(side = 3, list(...)$mtext)
+        mtext(side = 3, list(...)$mtext, cex = plot.settings$mtext.cex)
       }else{
         try(mtext(side=3,
                   substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
-                  line=0,
-                  cex=0.7 * par()[["cex"]]),
+                  line = 0, cex = plot.settings$mtext.cex),
             silent=TRUE)
       }
 
@@ -1936,7 +1937,7 @@ analyse_IRSAR.RF<- function(
           side = 1,
           at = De,
           labels = De,
-          cex.axis = 0.8 * plot.settings$cex,
+          cex.axis = 0.8,
           col = "blue",
           padj = -1.55,
         )
