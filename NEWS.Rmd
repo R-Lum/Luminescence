@@ -376,7 +376,7 @@ if `bg.channels = NULL` (the default).
 * The function could crash if column names were missing and the 1bg.spectrum`
 argument was used (#726).
 
-###`read_TIFF2R()`
+### `read_TIFF2R()`
 
 * The argument `file` can now be provided as a `list` or a character vector.
 
