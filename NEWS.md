@@ -77,7 +77,8 @@
 
 ### `analyse_IRSAR.RF()`
 
-- The legend text now scales better at non-default cex settings (#803).
+- The legend and subtitle texts now scale better at non-default cex
+  settings (#803).
 
 ### `analyse_portableOSL()`
 
