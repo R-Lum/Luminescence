@@ -75,6 +75,10 @@
   records, although this has not actually any meaning for the data
   analysis, means, it should not fail.
 
+### `analyse_IRSAR.RF()`
+
+- The legend text now scales better at non-default cex settings (#803).
+
 ### `analyse_portableOSL()`
 
 - The function now returns an error if `mode` is something other than

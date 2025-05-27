@@ -1573,7 +1573,7 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
     }
@@ -1647,7 +1647,7 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
 
@@ -1835,7 +1835,7 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
 
