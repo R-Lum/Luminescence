@@ -80,6 +80,12 @@
 - The legend and subtitle texts now scale better at non-default cex
   settings (#803).
 
+- The printing of progress bars and messages to the terminal can now be
+  controlled via the `...` argument `verbose`. Previously this could
+  only be done via the `txtProgressBar` argument (which is still
+  supported), but the new option makes the interface consistent with
+  most other functions (#805).
+
 ### `analyse_portableOSL()`
 
 - The function now returns an error if `mode` is something other than

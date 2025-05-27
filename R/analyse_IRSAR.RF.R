@@ -234,8 +234,7 @@
 #' Currently supported arguments are `main`, `xlab`, `ylab`,
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in
-#' [graphics::legend]), `xaxt`
-#'
+#' [graphics::legend]), `xaxt`, `verbose` (`TRUE/FALSE`).
 #'
 #' @return
 #' The function returns numerical output and an (*optional*) plot.
@@ -739,6 +738,14 @@ analyse_IRSAR.RF<- function(
       keep.null = TRUE)
   }
 
+  ## control terminal output
+  verbose <- if ("verbose" %in% names(list(...)))
+               list(...)$verbose else TRUE
+
+  ## don't show the progress bar if not verbose
+  if (!verbose)
+    txtProgressBar <- FALSE
+
 
   ##===============================================================================================#
   ## SET PLOT PARAMETERS
@@ -1230,9 +1237,9 @@ analyse_IRSAR.RF<- function(
           cores <- 1
         }
 
-        ##return message
-        message("[analyse_IRSAR.RF()] Using ", cores,
-                ifelse(cores == 1, " core", " cores"), " ...")
+        if (verbose)
+          message("[analyse_IRSAR.RF()] Using ", cores,
+                  ifelse(cores == 1, " core", " cores"), " ...")
       }
 
       ## SINGLE CORE -----
