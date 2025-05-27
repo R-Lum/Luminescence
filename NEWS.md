@@ -86,6 +86,9 @@
   supported), but the new option makes the interface consistent with
   most other functions (#805).
 
+- The `mtext` and `cex` options are respected if `method = "None"`
+  (#807).
+
 ### `analyse_portableOSL()`
 
 - The function now returns an error if `mode` is something other than

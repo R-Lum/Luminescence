@@ -231,7 +231,7 @@
 #' is returned; it has no effect if `plot = FALSE`
 #'
 #' @param ... further arguments that will be passed to the plot output.
-#' Currently supported arguments are `main`, `xlab`, `ylab`,
+#' Currently supported arguments are `main`, `mtext`, `xlab`, `ylab`,
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in
 #' [graphics::legend]), `xaxt`, `verbose` (`TRUE/FALSE`).
@@ -1501,16 +1501,13 @@ analyse_IRSAR.RF<- function(
     ##get internal colour definition
     col <- get("col", pos = .LuminescenceEnv)
 
-    if (!plot_reduced) {
-      ##set plot frame, if a method was chosen
-      if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
+    if (!plot_reduced && method != "NONE") {
         graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
         par(
           oma = c(1, 1, 1, 1),
           mar = c(0, 4, 3, 0),
           cex = plot.settings$cex
         )
-      }
     }else{
         par(cex = plot.settings[["cex"]])
     }
@@ -1533,8 +1530,8 @@ analyse_IRSAR.RF<- function(
       NA,NA,
       xlim = xlim,
       ylim = ylim,
-      xlab = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xlab," "),
-      xaxt = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xaxt,"n"),
+      xlab = ifelse(method == "NONE" || plot_reduced, plot.settings$xlab, " "),
+      xaxt = ifelse(method == "NONE" || plot_reduced, plot.settings$xaxt, "n"),
       yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
@@ -1567,10 +1564,15 @@ analyse_IRSAR.RF<- function(
     points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
 
     ##show natural points if no analysis was done
-    if(!any(method %in% c("SLIDE", "FIT", "VSLIDE"))){
+    if (method == "NONE") {
       ##add points
       points(RF_nat, pch = 20, col = "grey")
       points(RF_nat.limited, pch = 20, col = "red")
+
+      ## subtitle
+      if ("mtext" %in% names(list(...))) {
+        mtext(side = 3, list(...)$mtext, cex = plot.settings$mtext.cex)
+      }
 
       ##legend
       if (plot.settings$legend) {
@@ -1967,7 +1969,6 @@ analyse_IRSAR.RF<- function(
         }
       }
     }
-
   }#endif::plot
 
   # Return --------------------------------------------------------------------------------------
