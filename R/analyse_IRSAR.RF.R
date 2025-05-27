@@ -1503,7 +1503,7 @@ analyse_IRSAR.RF<- function(
 
     if (!plot_reduced) {
       ##set plot frame, if a method was chosen
-      if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
+      if (method != "NONE") {
         graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
         par(
           oma = c(1, 1, 1, 1),
@@ -1533,8 +1533,8 @@ analyse_IRSAR.RF<- function(
       NA,NA,
       xlim = xlim,
       ylim = ylim,
-      xlab = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xlab," "),
-      xaxt = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xaxt,"n"),
+      xlab = ifelse(method == "NONE" || plot_reduced, plot.settings$xlab, " "),
+      xaxt = ifelse(method == "NONE" || plot_reduced, plot.settings$xaxt, "n"),
       yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
@@ -1567,7 +1567,7 @@ analyse_IRSAR.RF<- function(
     points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
 
     ##show natural points if no analysis was done
-    if(!any(method %in% c("SLIDE", "FIT", "VSLIDE"))){
+    if (method == "NONE") {
       ##add points
       points(RF_nat, pch = 20, col = "grey")
       points(RF_nat.limited, pch = 20, col = "red")
@@ -1967,7 +1967,6 @@ analyse_IRSAR.RF<- function(
         }
       }
     }
-
   }#endif::plot
 
   # Return --------------------------------------------------------------------------------------
