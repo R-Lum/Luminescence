@@ -151,6 +151,7 @@ test_that("snapshot tests", {
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       method = "None",
+      mtext = "Subtitle",
       n.MC = 10,
       txtProgressBar = FALSE
     )
