@@ -356,16 +356,15 @@ fit_LMCurve<- function(
   }
 
   # layout safety settings
-  par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
-  on.exit(par(par.default), add = TRUE)
+  if (plot || plot.BG) {
+    par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
+    on.exit(par(par.default), add = TRUE)
+  }
 
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION
   ##============================================================================##
   if (!missing(values.bg) && bg.subtraction != "none") {
-    #set graphical parameters
-    par(mfrow = c(1, 1), cex = 1.5 * settings$cex)
-
     if (bg.subtraction %in% c("polynomial", "linear")) {
       if (bg.subtraction == "polynomial") {
         ## fit polynomial function to background
@@ -385,6 +384,7 @@ fit_LMCurve<- function(
     }
 
     if (plot.BG) {
+      par(mfrow = c(1, 1), cex = 1.5 * settings$cex)
       plot(values.bg, main = "Background",
            ylab = "LM-OSL [a.u.]", xlab = "Time [s]")
       mtext(side = 3, sample_code, cex = 0.8 * settings$cex)
