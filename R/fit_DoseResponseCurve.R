@@ -495,8 +495,8 @@ fit_DoseResponseCurve <- function(
       FUN = function(x) {
         sample(rnorm(
           n = 10000,
-          mean = object[x, 2],
-          sd = abs(object[x, 3])
+          mean = object[[2]][x],
+          sd = abs(object[[3]][x])
         ),
         size = n.MC,
         replace = TRUE)
@@ -704,7 +704,7 @@ fit_DoseResponseCurve <- function(
     if(txtProgressBar) close(pb)
   }
   ## EXP --------------------------------------------------------------------
-  if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
+  if (any(fit.method %in% c("EXP", "EXP OR LIN", "LIN"))){
     if(fit.method != "LIN"){
       if (anyNA(c(a, b, c))) {
         .throw_message("Fit ", fit.method, " (", mode,
@@ -713,22 +713,28 @@ fit_DoseResponseCurve <- function(
       }
 
       ##FITTING on GIVEN VALUES##
-      #	--use classic R fitting routine to fit the curve
-
       ##try to create some start parameters from the input values to make
       ## the fitting more stable
+
+      ## prepare what we can outside the loop
+      a.start <-  b.start <- c.start <- numeric(50)
+      lower_bounds <- c(a = 0, b = 1e-6, c = 0)
+      control_settings <-  minpack.lm::nls.lm.control(maxiter = 500)
+
+      ## loop for better attempt
       for(i in 1:50){
-        a <- a.MC[i]
-        b <- b.MC[i]
-        c <- c.MC[i]
+        ## get start list
+        start_list <- list(a = a.MC[i], b = b.MC[i], c = c.MC[i])
+
+        ## run fit
         fit.initial <- suppressWarnings(try(minpack.lm::nlsLM(
           formula = y ~ fit_functionEXP_cpp(a, b, c, x),
           data = data,
-          start = list(a = a, b = b, c = c),
+          start = start_list,
           trace = FALSE,
           algorithm = "LM",
-          lower = c(a = 0, b = 1e-6, c = 0),
-          control = minpack.lm::nls.lm.control(maxiter = 500))
+          lower = lower_bounds,
+          control = control_settings)
         , silent = TRUE))
 
         if(!inherits(fit.initial, "try-error")){
@@ -755,7 +761,7 @@ fit_DoseResponseCurve <- function(
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
-        formula = .toFormula(fit.functionEXP, env = currn_env),
+        formula = y ~ fit_functionEXP_cpp(a, b, c, x),
         data = data,
         start = list(a = a, b = b, c = 0),
         weights = fit.weights,
@@ -776,6 +782,10 @@ fit_DoseResponseCurve <- function(
           fit <- fit.initial
           rm(fit.initial)
         }
+
+        ## replace with formula so that we can have the C++ version
+        f <- function(x) .toFormula(fit.functionEXP, env = currn_env)
+        fit$m$formula <- f
 
         #get parameters out of it
         .get_coef(fit)
@@ -832,8 +842,7 @@ fit_DoseResponseCurve <- function(
 
             #calculate x.natural for error calculation
             x.natural[i] <- suppressWarnings(
-                abs(-var.c - var.b[i] * log(1 - data.MC.De[i] / var.a))
-            )
+                abs(-var.c - var.b[i] * log(1 - data.MC.De[i] / var.a)))
           }
 
         }#end for loop
@@ -937,7 +946,7 @@ fit_DoseResponseCurve <- function(
 
       fit <- try({
         suppressWarnings(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionEXPLIN, env = currn_env),
+          formula = y ~ fit_functionEXPLIN_cpp(a, b, c, g, x),
           data = data,
           start = c(a=a,b=b,c=c,g=g),
           trace = FALSE,
@@ -954,7 +963,7 @@ fit_DoseResponseCurve <- function(
 
       if(!inherits(fit, "try-error")){
         #get parameters out of it
-        parameters<-(coef(fit))
+        parameters <- coef(fit)
         a.start[i] <- parameters[["a"]]
         b.start[i] <- parameters[["b"]]
         c.start[i] <- parameters[["c"]]
@@ -974,7 +983,7 @@ fit_DoseResponseCurve <- function(
 
     ##perform final fitting
     fit <- try(suppressWarnings(minpack.lm::nlsLM(
-      formula = .toFormula(fit.functionEXPLIN, env = currn_env),
+      formula = y ~ fit_functionEXPLIN_cpp(a, b, c, g, x),
       data = data,
       start = list(a = a, b = b,c = c, g = g),
       weights = fit.weights,
@@ -987,6 +996,10 @@ fit_DoseResponseCurve <- function(
 
     #if try error stop calculation
     if(!inherits(fit, "try-error")){
+      ## replace with formula so that we can have the C++ version
+      f <- function(x) .toFormula(fit.functionEXPLIN, env = currn_env)
+      fit$m$formula <- f
+
       #get parameters out of it
       .get_coef(fit)
 
