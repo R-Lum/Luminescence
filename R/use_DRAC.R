@@ -6,7 +6,8 @@
 #' @param file [character] (**required**):
 #' name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
 #' be sent to the DRAC website for calculation. It can also be a DRAC template
-#' object obtained from [template_DRAC()].
+#' object obtained from [template_DRAC()], which supports also import from
+#' CSV-files.
 #'
 #' @param name [character] (*with default*):
 #' Optional user name submitted to DRAC. If omitted, a random name will be generated
@@ -143,7 +144,6 @@ use_DRAC <- function(
     keep.null = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(file, c("character", "DRAC.list", "DRAC.data.frame"))
   .validate_not_empty(file)
 

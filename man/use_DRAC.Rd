@@ -10,7 +10,8 @@ use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
 \item{file}{\link{character} (\strong{required}):
 name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
 be sent to the DRAC website for calculation. It can also be a DRAC template
-object obtained from \code{\link[=template_DRAC]{template_DRAC()}}.}
+object obtained from \code{\link[=template_DRAC]{template_DRAC()}}, which supports also import from
+CSV-files.}
 
 \item{name}{\link{character} (\emph{with default}):
 Optional user name submitted to DRAC. If omitted, a random name will be generated}
