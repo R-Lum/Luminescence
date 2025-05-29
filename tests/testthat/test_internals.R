@@ -440,6 +440,14 @@ test_that("Test internals", {
   expect_equal(.shorten_filename(c("short", NA, "muchmuchlonger"), 10),
                c("short", NA, "muchm...onger"))
 
+  ## .rescale() ----------------------------------------------------
+  x <- stats::rnorm(100)
+  y_dens <- stats::density(x)
+  expect_equal(max(.rescale(
+   x = y_dens$y,
+   range_old = c(min(y_dens$y), max(y_dens$y)),
+   range_new = c(0, 20))), 20)
+
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
   # src_create_RLumDataCurve_matrix -------------------------------------------------------------

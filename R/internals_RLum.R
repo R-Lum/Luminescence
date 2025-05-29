@@ -1463,3 +1463,33 @@ SW <- function(expr) {
   ## return
   filename
 }
+#'@title Affine Transformation of Values
+#'
+#'@description Affine (linear) transformation of values; which we use
+#'a couple of times within functions
+#'
+#'@param x [numeric] (*required*): values to be transformed
+#'
+#'@param range_old [numeric] (*required*): original scale limits
+#'
+#'@param range_new [numeric] (*required*): new scale limits
+#'
+#'@returns rescaled values values
+#'
+#'@examples
+#'
+#' x <- stats::rnorm(100)
+#' y_dens <- stats::density(x)
+#' .rescale(
+#'  x = y_dens$y,
+#'  range_old = c(min(y_dens$y), max(y_dens$y)),
+#'  range_new = c(0,20))
+#'
+#'@md
+#'@noRd
+.rescale <- function(x, range_old, range_new) {
+  range_new[1] +
+    (x - range_old[1]) * (range_new[2] - range_new[1]) /
+    (range_old[2] - range_old[1])
+
+}
