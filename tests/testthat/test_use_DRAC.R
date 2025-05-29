@@ -109,8 +109,12 @@ test_that("Test DRAC", {
  })
 
  SW({
- ## communicate with fake url
- expect_error(use_DRAC(t, url = "iamnotvali8793270942hd.valid"),
-              "Transmission failed with HTTP status code: URL invalid")
+  ## check particular warning
+  expect_error(expect_warning(use_DRAC(t, url = "iamnotvali8793270942hd.valid"),
+                "URL is missing '\\?show\\=calculator', please check validity!"))
+
+  ## communicate with fake url
+  expect_error(suppressWarnings(use_DRAC(t, url = "iamnotvali8793270942hd.valid"),
+              "Transmission failed with HTTP status code: URL invalid"))
  })
 })

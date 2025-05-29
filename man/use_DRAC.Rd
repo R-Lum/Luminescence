@@ -61,7 +61,7 @@ The function provides an interface from R to DRAC. An R-object or a
 CSV file is passed to the DRAC website and results are re-imported into R.
 }
 \section{Function version}{
- 0.15
+ 0.16
 }
 
 \examples{

@@ -171,7 +171,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 
       } else {
       ## try coercion
-      .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> coercing to ", class.old)
+      .throw_message(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> coercing to ", class.old)
         if(class.old == "integer")
           value <- as.integer(value)
         else
@@ -195,7 +195,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   if (class.old == "factor") {
     levels <- levels(x[[i]])
     if (any(`%in%`(value, levels) == FALSE)) {
-      .throw_warning(names(x)[i], ": Invalid option, valid options are: ",
+      .throw_error(names(x)[i], ": Invalid option, valid options are: ",
                      .collapse(levels))
       return(x)
     } else {

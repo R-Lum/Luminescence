@@ -50,7 +50,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.15
+#' @section Function version: 0.16
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -142,6 +142,10 @@ use_DRAC <- function(
     password = NULL),
     list(...),
     keep.null = TRUE)
+
+  ## double check URL for validity
+  if(!grepl(pattern = "?show=calculator", settings$url, fixed = TRUE))
+     .throw_warning("URL is missing '?show=calculator', please check validity!")
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(file, c("character", "DRAC.list", "DRAC.data.frame"))

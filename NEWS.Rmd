@@ -432,6 +432,16 @@ used internally to facilitate a rapid exploration of `RLum.Analysis-class`
 object structures. However, the change may potentially break existing code in
 extremely rare circumstances.
 
+### `template_DRAC()`
+
+* The function now throws messages instead of warnings for wanted coercions; however,
+it will be hard on failed coercions that would cause `use_DRAC()` to fail. 
+
+### `use_DRAC()`
+
+* The function now checks for DRAC specific URL parts if a custom URL is provided; 
+this avoids long searches for unspecific errors. 
+
 ### `verify_SingleGrainData()`
 
 * The function crashed if an object originating from `read_XSYG2R()` contained
