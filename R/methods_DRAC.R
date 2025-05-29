@@ -178,6 +178,10 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
           value <- as.numeric(value)
       }
     }
+
+    ## silently round all values to a maximum of 5 digits
+    if(inherits(value, "numeric"))
+      value <- round(value,5)
   }
 
   # for 'factor' and 'character' elements only 'character' input is allowed

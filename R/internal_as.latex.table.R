@@ -1,4 +1,4 @@
-#' Create LaTex tables from data.frames and RLum objects
+#' @title Create LaTeX tables from data.frames and RLum objects
 #'
 #' This function takes a data.frame and returns a table in LaTex code that
 #' can be copied into any tex document.
@@ -40,7 +40,7 @@
 #' -
 #'
 #' @return
-#' Returns LaTex code
+#' Returns LaTeX code
 #'
 #' @examples
 #' df <- data.frame(x = 1:10, y = letters[1:10])
