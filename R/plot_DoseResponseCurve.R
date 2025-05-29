@@ -471,16 +471,15 @@ plot_DoseResponseCurve <- function(
           plot(
               1:length(sample[, "TnTx"]),
               sample[, "TnTx"] / sample[1, "TnTx"],
-              xlab = "SAR cycle",
+              xlab = "#SAR-cycle",
               ylab = expression(paste(T[x] / T[n])),
-              main = "Test-dose response",
+              main = "Sensitivity",
               type = "o",
-              pch = 20,
-              )
+              pch = 20)
           lines(c(1, length(sample[, "TnTx"])), c(1, 1), lty = 2, col = "gray")
         } else {
           plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
-               main = "Test-dose response")
+               main = "Sensitivity")
           text(5, 5, "not available\n no TnTx column")
         }
       }
