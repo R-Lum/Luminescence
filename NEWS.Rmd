@@ -313,6 +313,8 @@ starting a parallel cluster even when `multicore = FALSE` (#742).
 
 * The response curve always tries to the get the 0 point in the mode `interpolation` and `alternate` (#677)
 
+* Minor graphical polish to limit overplotting and also plot a density curve for the `L_n/T_n` signal.
+
 ### `plot_DRCSummary()`
 
 * Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)
