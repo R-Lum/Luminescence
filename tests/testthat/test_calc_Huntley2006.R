@@ -93,7 +93,7 @@ test_that("input validation", {
       calc_Huntley2006(data = data[1:20, ], rhop = rhop, ddot = ddot,
                        readerDdot = c(0.002, 0.003), n.MC = 2,
                        plot = FALSE, verbose = FALSE),
-      "Could not fit unfaded curve, check suitability of model and parameters"),
+      "Simulated D0 is NA"),
       "Ln/Tn is smaller than the minimum computed LxTx value")
 
   expect_error(calc_Huntley2006(data = data[1:20, ], LnTn = data[1, c(2, 3)],
