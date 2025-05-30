@@ -267,6 +267,13 @@ test_that("test edge cases", {
     txtProgressBar = FALSE
   ), "RLum.Results")
   })
+
+  expect_s4_class(analyse_IRSAR.RF(
+      IRSAR.RF.Data,
+      method = "SLIDE",
+      RF_reg.lim = c(1, 7),
+      verbose = FALSE),
+      "RLum.Results")
 })
 
 test_that("regression tests", {
