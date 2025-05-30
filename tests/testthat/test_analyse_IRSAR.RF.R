@@ -268,10 +268,19 @@ test_that("test edge cases", {
   ), "RLum.Results")
   })
 
+  ## more coverage
   expect_s4_class(analyse_IRSAR.RF(
       IRSAR.RF.Data,
       method = "SLIDE",
       RF_reg.lim = c(1, 7),
+      verbose = FALSE),
+      "RLum.Results")
+
+  tmp <- IRSAR.RF.Data
+  tmp@records[[2]]@data <- tmp@records[[2]]@data[1:460, ]
+  expect_s4_class(analyse_IRSAR.RF(
+      tmp,
+      method = "SLIDE",
       verbose = FALSE),
       "RLum.Results")
 })
