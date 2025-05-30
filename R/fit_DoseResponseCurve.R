@@ -1853,14 +1853,12 @@ fit_DoseResponseCurve <- function(
       param[1:length(coef(f))] <- coef(f)
   }
 
-  ## if the formula contains a function call, the function name may get mangled
-  ## when parameter names are substituted with coefficients, so we store the
-  ## original name and restore it afterwards
-  fun.name <- NA
-  if (grepl("^fit_function", str)) {
-    fun.name <- gsub("(fit_function.*)(\\(.*)", "\\1", str)
-    str <- gsub("(fit_function.*)(\\(.*)", "\\2", str)
-  }
+  ## if the following assertion is triggered, it means that we have used a C++
+  ## function to implement the model but forgot to replace the formula in the
+  ## fit object, which can be done with these lines:
+  ##   f <- function(x) .toFormula(fit.functionXXX, env = currn_env)
+  ##   fit$m$formula <- f
+  stopifnot(grepl("^fit_function", str) == FALSE)
 
   ## replace parameters with fitted coefficients
   for (i in 1:length(param)) {
@@ -1870,10 +1868,6 @@ fit_DoseResponseCurve <- function(
       x = str,
       fixed = TRUE)
   }
-
-  ## rebuild the formula
-  if (!is.na(fun.name))
-    str <- paste0(fun.name, str)
 
   ## return
   return(parse(text = str))
