@@ -1376,7 +1376,7 @@ error.list <- list()
 .plot_RCCriteria <- function(x) {
   ##set par
   par.mar  <- par()$mar
-  par(mar = c(1,0,3.2,0.1))
+  par(mar = c(1,0,3.2,0.25))
   on.exit(par(mar = par.mar))
 
   ## determine number of criteria
