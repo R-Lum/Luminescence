@@ -587,12 +587,12 @@ plot_AbanicoPlot <- function(
   }
 
   ## save original plot parameters and restore them upon end or stop
-  par.old.full <- par(no.readonly = TRUE)
+  par.default <- par(no.readonly = TRUE)
   cex_old <- par()$cex
 
   ## this ensures par() is respected for several plots on one page
   if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
-    on.exit(par(par.old.full), add = TRUE)
+    on.exit(par(par.default), add = TRUE)
   }
 
   ## check/set layout definitions
@@ -748,12 +748,10 @@ plot_AbanicoPlot <- function(
   rm(se)
 
   ## calculate initial data statistics
-  stats.init <- list(NA)
+  stats.init <- list()
   for(i in 1:length(data)) {
-    stats.init[[length(stats.init) + 1]] <-
-      calc_Statistics(data = data[[i]][,3:4])
+    stats.init[[i]] <- calc_Statistics(data = data[[i]][,3:4])
   }
-  stats.init[[1]] <- NULL
 
   ## calculate central values
   if (z.0 %in% c("mean", "median")) {
@@ -1137,18 +1135,13 @@ plot_AbanicoPlot <- function(
   ## correct for unpleasant value
   ellipse.values[ellipse.values == -Inf] <- 0
 
-  if(rotate == FALSE) {
-    ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
-    ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
-  } else {
-    ellipse.y <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
-    ellipse.x <- (ellipse.values - z.central.global) * ellipse.y
-  }
-
+  ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
+  ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
   ellipse <- cbind(ellipse.x, ellipse.y)
+  if (rotate)
+    ellipse <- ellipse[, 2:1]
 
   ## calculate statistical labels
-  if(length(stats == 1)) {stats <- rep(stats, 2)}
   stats.data <- matrix(nrow = 3, ncol = 3)
   data.stats <- as.numeric(data.global[,1])
 
@@ -1257,11 +1250,9 @@ plot_AbanicoPlot <- function(
            "")
   }
 
-  ## initialize list with a dummy element, it will be removed afterwards
-  label.text <- list(NA)
-
   is.sub <- summary.pos[1] == "sub"
   stops <- NULL
+  label.text <- list()
   for (i in 1:length(data)) {
     if (!is.sub)
       stops <- paste(rep("\n", (i - 1) * length(summary)), collapse = "")
@@ -1289,14 +1280,11 @@ plot_AbanicoPlot <- function(
                         nrow(data[[i]]) * 100, sep = is.sub,
                         label = "in 2 sigma", percent = TRUE, digits = 1))
     }
-    label.text[[length(label.text) + 1]] <- paste0(
+    label.text[[i]] <- paste0(
         if (is.sub) "" else stops,
         paste(summary.text, collapse = ""),
         stops)
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## remove outer vertical lines from string1
   if (is.sub) {
@@ -1503,7 +1491,7 @@ plot_AbanicoPlot <- function(
 
   ## calculate error bar coordinates
   if(error.bars == TRUE) {
-    arrow.coords <- list(NA)
+    arrow.coords <- list()
     for(i in 1:length(data)) {
       arrow.x1 <- data[[i]][,6]
       arrow.x2 <- data[[i]][,6]
@@ -1515,18 +1503,16 @@ plot_AbanicoPlot <- function(
         arrow.y2 <- log(arrow.y2)
       }
 
-      arrow.coords[[length(arrow.coords) + 1]] <- cbind(
+      arrow.coords[[i]] <- cbind(
         arrow.x1,
         arrow.x2,
         (arrow.y1 - z.central.global) * arrow.x1,
         (arrow.y2 - z.central.global) * arrow.x1)
     }
-    arrow.coords[[1]] <- NULL
   }
 
   ## calculate KDE
-  KDE <- list(NA)
-  KDE.ext <- 0
+  KDE <- list()
   KDE.bw <- numeric(0)
 
   for(i in 1:length(data)) {
@@ -1538,11 +1524,9 @@ plot_AbanicoPlot <- function(
                      weights = data[[i]]$weights)
     KDE.xy <- cbind(KDE.i$x, KDE.i$y)
     KDE.bw <- c(KDE.bw, KDE.i$bw)
-    KDE.ext <- ifelse(max(KDE.xy[,2]) < KDE.ext, KDE.ext, max(KDE.xy[,2]))
     KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
-    KDE[[length(KDE) + 1]] <- cbind(KDE.xy[,1], KDE.xy[,2])
+    KDE[[i]] <- cbind(KDE.xy[, 1], KDE.xy[, 2])
   }
-  KDE[1] <- NULL
 
   ## calculate mean KDE bandwidth
   KDE.bw <- mean(KDE.bw, na.rm = TRUE)
@@ -1558,32 +1542,25 @@ plot_AbanicoPlot <- function(
                         to = limits.z[2])
     KDE.max.plot[i] <- max(KDE.plot$y)
   }
-
   KDE.max.plot <- max(KDE.max.plot, na.rm = TRUE)
 
-  ## calculate histogram data without plotting
+  ## calculate KDE width
+  KDE.max <- max(vapply(KDE, function(x) max(x[, 2]), numeric(1)))
 
-  ## create dummy list
-  hist.data <- list(NA)
-
-  for(i in 1:length(data)) {
-    hist.i <- hist(x = data[[i]][,3],
-                   plot = FALSE,
-                   breaks = breaks)
-    hist.data[[length(hist.data) + 1]] <- hist.i
+  ## optionally adjust KDE width for boxplot option
+  if (boxplot) {
+    KDE.max <- 1.3 * KDE.max
   }
 
-  ## remove dummy list object
-  hist.data[[1]] <- NULL
+  ## calculate histogram data without plotting
+  hist.data <- list()
+  for(i in 1:length(data)) {
+    hist.data[[i]] <- hist(data[[i]][,3], plot = FALSE, breaks = breaks)
+  }
 
   ## calculate maximum histogram bar height for normalisation
-  hist.max.plot <- numeric(length(data))
-  for(i in 1:length(data)) {
-    hist.max.plot <- ifelse(max(hist.data[[i]]$counts, na.rm = TRUE) >
-                              hist.max.plot, max(hist.data[[i]]$counts,
-                                                 na.rm = TRUE), hist.max.plot)
-  }
-  hist.max.plot <- max(hist.max.plot, na.rm = TRUE)
+  hist.max.plot <- max(vapply(hist.data, function(x) max(x$counts, na.rm = TRUE),
+                              numeric(1)), na.rm = TRUE)
 
   ## normalise histogram bar height to KDE dimensions
   for(i in 1:length(data)) {
@@ -1592,18 +1569,10 @@ plot_AbanicoPlot <- function(
   }
 
   ## calculate boxplot data without plotting
-
-  ## create dummy list
-  boxplot.data <- list(NA)
-
+  boxplot.data <- list()
   for(i in 1:length(data)) {
-    boxplot.i <- graphics::boxplot(x = data[[i]][, 3],
-                                   plot = FALSE)
-    boxplot.data[[length(boxplot.data) + 1]] <- boxplot.i
+    boxplot.data[[i]] <- graphics::boxplot(data[[i]][, 3], plot = FALSE)
   }
-
-  ## remove dummy list object
-  boxplot.data[[1]] <- NULL
 
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
@@ -1629,30 +1598,21 @@ plot_AbanicoPlot <- function(
       line <- log(line)
     }
 
-    line.coords <- list(NA)
-
     if(rotate == FALSE) {
-      for(i in 1:length(line)) {
-        line.x <- c(limits.x[1], min(ellipse[,1]), par()$usr[2])
-        line.y <- c(0,
-                    (line[i] - z.central.global) * min(ellipse[,1]),
-                    (line[i] - z.central.global) * min(ellipse[,1]))
-        line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
-      }
+      line.x <- c(limits.x[1], min(ellipse[, 1]), par()$usr[2])
+      min.ellipse.x <- min(ellipse[, 1])
     } else {
-      for(i in 1:length(line)) {
-        line.x <- c(limits.x[1], min(ellipse[,2]),y.max)
-        line.y <- c(0,
-                    (line[i] - z.central.global) * min(ellipse[,2]),
-                    (line[i] - z.central.global) * min(ellipse[,2]))
-        line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
-      }
+      line.x <- c(limits.x[1], min(ellipse[, 2]), y.max)
+      min.ellipse.x <- min(ellipse[, 2])
+    }
+    line.coords <- list()
+    for(i in 1:length(line)) {
+      line.y <- c(0, rep((line[i] - z.central.global) * min.ellipse.x, 2))
+      line.coords[[i]] <- rbind(line.x, line.y)
     }
 
-    line.coords[1] <- NULL
-
     if(missing(line.col) == TRUE) {
-      line.col <- seq(from = 1, to = length(line.coords))
+      line.col <- seq_along(line.coords)
     }
 
     if(missing(line.lty) == TRUE) {
@@ -1677,7 +1637,7 @@ plot_AbanicoPlot <- function(
     rug.x <- c(xy.0[idx] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
                xy.0[idx])
     rug.y <- rep((rug.values[i] - z.central.global) * min(ellipse[, idx]), 2)
-    rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+    rug.coords[[i]] <- rbind(rug.x, rug.y)
   }
 
   ## Generate plot ------------------------------------------------------------
@@ -1691,7 +1651,6 @@ plot_AbanicoPlot <- function(
 
   ## extract original plot parameters
   bg.original <- par()$bg
-  on.exit(par(bg = bg.original), add = TRUE)
   par(bg = layout$abanico$colour$background)
 
   if (!rotate) {
@@ -1833,7 +1792,6 @@ plot_AbanicoPlot <- function(
       }
     } else if(lwd[1] > 0 & lty[1] > 0 & bar[1] != FALSE) {
       for(i in 1:length(data)) {
-
         z.line <- ifelse(test = is.numeric(bar[i]) == TRUE,
                          yes = bar[i],
                          no = data[[i]][1,5])
@@ -2113,25 +2071,9 @@ plot_AbanicoPlot <- function(
              cex = layout$abanico$dimension$pch / 100)
     }
 
-    ## calculate KDE width
-    KDE.max <- 0
-
-    for(i in 1:length(data)) {
-      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]),
-                        yes = max(KDE[[i]][,2]),
-                        no = KDE.max)
-    }
-
-    ## optionally adjust KDE width for boxplot option
-    if(boxplot == TRUE) {
-
-      KDE.max <- 1.25 * KDE.max
-    }
-
-    KDE.scale <- (par()$usr[2] - xy.0[1]) / (KDE.max * 1.05)
-
     ## optionally add KDE plot
     if(kde == TRUE) {
+      KDE.scale <- (par()$usr[2] - xy.0[1]) / (KDE.max * 1.05)
 
       ## plot KDE lines
       for(i in 1:length(data)) {
@@ -2865,26 +2807,10 @@ plot_AbanicoPlot <- function(
              cex = layout$abanico$dimension$pch / 100)
     }
 
-    ## calculate KDE width
-    KDE.max <- 0
-
-    for(i in 1:length(data)) {
-      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]),
-                        yes = max(KDE[[i]][,2]),
-                        no = KDE.max)
-    }
-
-    ## optionally adjust KDE width for boxplot option
-    if(boxplot == TRUE) {
-
-      KDE.max <- 1.3 * KDE.max
-    }
-
-    KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
-
     ## optionally add KDE plot
     if(kde == TRUE) {
 
+      KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
       ## plot KDE lines
       for(i in 1:length(data)) {
         polygon(y = xy.0[2] + KDE[[i]][,2] * KDE.scale,
