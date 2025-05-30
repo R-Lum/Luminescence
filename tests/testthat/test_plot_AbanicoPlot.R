@@ -198,6 +198,7 @@ test_that("Test examples from the example page", {
   ## trigger a few test cases related to layout
   layout$abanico$colour$centrality <- 1:2
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
+                                 rotate = TRUE,
                                  layout = "journal"))
 
   ## now with predefined layout definition and further modifications
@@ -241,8 +242,10 @@ test_that("more coverage", {
   data.neg <- ExampleData.DeValues
   data.neg[1, 1] <- -1
   expect_silent(plot_AbanicoPlot(data.neg, z.0 = "mean", dispersion = "sd",
-                                 boxplot = TRUE, frame = 3,
+                                 boxplot = TRUE, frame = 3, zlim = c(200, 400),
                                  main = "Title", sub = "Subtitle"))
+  data.neg[2, 1] <- -120
+  expect_silent(plot_AbanicoPlot(data.neg, log.z = FALSE))
 
   ## missing values
   data.na <- ExampleData.DeValues
