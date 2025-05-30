@@ -450,6 +450,10 @@ it will be hard on failed coercions that would cause `use_DRAC()` to fail.
 * The function now checks for DRAC specific URL parts if a custom URL is provided; 
 this avoids long searches for unspecific errors. 
 
+* Due to the internal masking of submitted values, the initial row order
+got mixed up; regression from #438. The order is maintained and the row index
+corrected; in other words, the masking should now be again invisible to the user. 
+
 ### `verify_SingleGrainData()`
 
 * The function crashed if an object originating from `read_XSYG2R()` contained

@@ -322,18 +322,22 @@ use_DRAC <- function(
   ## remove first two lines
   DRAC.content <- data.table::fread(as.character(DRAC.content.split[[1]][2]),
                                     sep = ",", skip = 2,
-                                    stringsAsFactors = FALSE, colClasses = c(V3 = "character"),
+                                    stringsAsFactors = FALSE,
+                                    colClasses = c(V3 = "character"),
                                     data.table = FALSE)
 
   ##Get rid of all the value we do not need anymore
   DRAC.content <-  subset(DRAC.content, DRAC.content$V1 %in% DRAC_results.id)
-  DRAC.content <- DRAC.content[with(DRAC.content, order(V1)), ]
+  DRAC.content <- DRAC.content[match(DRAC_results.id, DRAC.content$V1),]
 
   ##replace by original names
-  DRAC.content[ ,1] <- input.raw[ ,1]
+  DRAC.content[[1]] <- input.raw[[1]]
 
   ## assign column names
   colnames(DRAC.content) <- DRAC.raw[1, ]
+
+  ## reset rownames
+  rownames(DRAC.content) <- seq_len(nrow(DRAC.content))
 
   ## save column labels and use them as attributes for the I/O table columns
   DRAC.labels <- DRAC.raw[2, ]
