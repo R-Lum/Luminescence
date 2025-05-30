@@ -1114,16 +1114,12 @@ error.list <- list()
     ##Fit and plot growth curve
     temp.GC <- temp.GC.all.na
     temp.GC.fit.Formula <- NULL
-    if(!onlyLxTxTable){
-      temp.GC <- do.call(plot_GrowthCurve, args = modifyList(
-          list(
-            sample = temp.sample,
-            output.plot = plot,
-            plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
-            cex.global = if(plot_onePage) .6 else 1
-            ),
-          list(...)
-        ))
+
+  # Calculate Dose-response curve -------------------------------------------
+  if(!onlyLxTxTable){
+      temp.GC <- do.call(
+        fit_DoseResponseCurve,
+        args = c(list(object = temp.sample), list(...)))
 
         ##if null
         if(is.null(temp.GC)){
@@ -1141,6 +1137,17 @@ error.list <- list()
           }
 
         }else{
+          if(plot) {
+            do.call(plot_DoseResponseCurve, args = modifyList(
+              list(
+                object = temp.GC,
+                plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
+                cex.global = if(plot_onePage) .6 else 1
+              ),
+              list(...)
+            ))
+          }
+
           ##grep information on the fit object
           temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
