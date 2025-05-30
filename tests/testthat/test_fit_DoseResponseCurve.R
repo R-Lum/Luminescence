@@ -633,6 +633,21 @@ temp_OTORX_alt <-
                all = FALSE, fixed = TRUE)
   expect_match(warnings, "Fitting a non-linear least-squares model requires",
                all = FALSE, fixed = TRUE)
+
+  ## more coverage
+  tmp$dose <- c(0:6, 1000 + 0:6, 20000 + 0:6)
+  expect_output(fit_DoseResponseCurve(
+      tmp[4:8, ],
+      fit.method = "GOK",
+      verbose = TRUE,
+      n.MC = 10),
+      "Fit failed for GOK")
+  expect_output(fit_DoseResponseCurve(
+      cbind(tmp[4:8, ], Test_Dose = 17),
+      fit.method = "OTORX",
+      verbose = TRUE,
+      n.MC = 10),
+      "Fit failed for OTORX")
 })
 
 test_that("regression tests", {

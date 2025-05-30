@@ -1440,7 +1440,7 @@ fit_DoseResponseCurve <- function(
             }
           }
 
-          if(inherits(De, "try-error")) De <- NA
+          if (inherits(De, "try-error")) De <- NA # nocov
 
           .report_fit(De, " | R = ", round(R, 2), " | Dc = ", round(Dc, 2))
 
@@ -1611,10 +1611,9 @@ fit_DoseResponseCurve <- function(
             c = c,
             a = a)$minimum), silent = TRUE)
         }
-
       }
 
-      if(inherits(De, "try-error")) De <- NA
+      if (inherits(De, "try-error")) De <- NA # nocov
 
       .report_fit(De, " | Q = ", round(Q, 2), " | D63 = ", round(D63, 2))
 
@@ -1822,9 +1821,7 @@ fit_DoseResponseCurve <- function(
   ## assign to parent frame
   for (name in names(tmp))
     assign(name, as.vector(tmp[name]), pos = parent.frame())
-
 }
-
 
 #'@title Replace coefficients in formula
 #'
@@ -1948,4 +1945,3 @@ fit_DoseResponseCurve <- function(
 
   return(r)
 }
-
