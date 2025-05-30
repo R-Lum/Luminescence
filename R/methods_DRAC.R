@@ -200,7 +200,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
     if (any(`%in%`(value, levels) == FALSE)) {
       .throw_error(names(x)[i], ": Invalid option, valid options are: ",
                      .collapse(levels))
-      return(x)
     } else {
       value <- factor(value, levels)
     }
