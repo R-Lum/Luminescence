@@ -128,6 +128,9 @@ plot replaces the IRSL curve check plot, but only for single grain data (#797).
 * The rejection criteria plot was rewritten and now provides an easier
 to grasp visual feedback (#797, #798).
 
+* The panel `IRSL`/`Single Grain` panel swapped place with the rejection criteria 
+panel; the plot numbers remained unchanged, though to avoid regression. 
+
 * More code optimisation for better readability (#802)
 
 ### `analyse_SAR.TL()`

@@ -808,7 +808,6 @@ error.list <- list()
 
     RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
 
-
 # Plotting ----------------------------------------------------------------
     if (plot) {
       ##make sure the par settings are good after the functions stops
@@ -832,7 +831,7 @@ error.list <- list()
       record_list <- object@records
 
       # plot everyting on one page ... doing it here is much cleaner than
-      # Plotting - one Page config ---------------------------------------------
+      ## Plotting - one Page config ---------------------------------------------
       if(plot_onePage){
           on.exit(on_exit(), add = TRUE)
 
@@ -849,7 +848,7 @@ error.list <- list()
           cex = cex * 0.6)
       }
 
-# Plotting - old way config ----------------------------------------------------
+    ## Plotting - old way config ----------------------------------------------
       if (plot_singlePanels[1] == FALSE) {
         on.exit(on_exit(), add = TRUE)
         graphics::layout(matrix(
@@ -897,8 +896,7 @@ error.list <- list()
                                       object@records[[OSL.Curves.ID[1]]]@data[1,1],
                                     digits = 2)
 
-      # Plotting TL Curves previous LnLx ----------------------------------------
-
+      ## (1) Plotting TL Curves previous LnLx ----------------------------------------
       ##overall plot option selection for plot.single.sel
       if (1 %in% plot.single.sel) {
         ##check if TL curves are available
@@ -948,7 +946,7 @@ error.list <- list()
         }
       }#plot.single.sel
 
-      # Plotting LnLx Curves ----------------------------------------------------
+      ## (2) Plotting LnLx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
         .plot_ShineDownCurves(
@@ -975,7 +973,7 @@ error.list <- list()
 
       }# plot.single.sel
 
-      # Plotting TL Curves previous TnTx ----------------------------------------
+      ## (3) Plotting TL Curves previous TnTx ----------------------------------------
       ##overall plot option selection for plot.single.sel
       if (3 %in% plot.single.sel) {
         ##check if TL curves are available
@@ -1027,7 +1025,7 @@ error.list <- list()
 
       }#plot.single.sel
 
-      # Plotting TnTx Curves ----------------------------------------------------
+      ## (4) Plotting TnTx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
         .plot_ShineDownCurves(
@@ -1045,7 +1043,7 @@ error.list <- list()
 
       }# plot.single.sel
 
-      # Plotting Legend ----------------------------------------
+      ## (5) Plotting Legend ----------------------------------------
       ##overall plot option selection for plot.single.sel
       if (5 %in% plot.single.sel) {
         par.margin  <- par()$mar
@@ -1079,7 +1077,8 @@ error.list <- list()
 
     }##end plot
 
-    # Plotting  GC  ----------------------------------------
+
+  ## (6) Plot Dose-Response Curve --------------------------------------------
     ##create data.frame
     temp.sample <- data.frame(
       Dose = LnLxTnTx$Dose,
@@ -1264,19 +1263,7 @@ error.list <- list()
       info = list(call = sys.call())
     )
 
-    # Plot graphical interpretation of rejection criteria ----------------------------------------
-    if (plot && 7 %in% plot.single.sel) {
-      ##set graphical parameter
-      if (!plot_singlePanels[1]) par(mfrow = c(1,2))
-
-      ##Rejection criteria
-      temp.rejection.criteria <- get_RLum(
-        temp.results.final,
-        data.object = "rejection.criteria")
-
-      .plot_RCCriteria(temp.rejection.criteria)
-    }
-
+  ## (7) Plot IRSL curve/Single Grain --------------------------------------------
     if (plot[1] && 8 %in% plot.single.sel) {
       ## check grain an pos and plot single grain disc marker
       ## if we don't have single grain, we can safely use the other
@@ -1305,6 +1292,19 @@ error.list <- list()
       }
     }
 
+    ## (8) Plot recjection criteria -------------------------------------
+    if (plot && 7 %in% plot.single.sel) {
+      ##set graphical parameter
+      if (!plot_singlePanels[1]) par(mfrow = c(1,2))
+
+      ##Rejection criteria
+      temp.rejection.criteria <- get_RLum(
+        temp.results.final,
+        data.object = "rejection.criteria")
+
+      .plot_RCCriteria(temp.rejection.criteria)
+    }
+
 
     # Return -------------------------------------------------------------------
     invisible(temp.results.final)
@@ -1329,11 +1329,11 @@ error.list <- list()
 
   ##set par
   par.mar  <- par()$mar
-  par(mar = c(0,0,0,0))
+  par(mar = c(3,3,3,3))
   on.exit(par(mar = par.mar))
 
   ## draw disc
-  shape::emptyplot()
+  shape::emptyplot(main = "Grain location")
 
   ## draw super circle
   shape::plotellipse(rx = 0.4, ry = 0.4, mid = c(0.5,0.5), lwd = 1)
@@ -1365,21 +1365,18 @@ error.list <- list()
     bg = "red", pch = 21, cex = 1.2, col = "darkgreen", lwd = 2)
 
   ## add text
-  text(
-    x = c(0.5,0.5),
-    y = c(1.15, -.15),
-    labels = c(
-      paste0("pos: #", this_pos),
-      paste0("grain: #", this_grain)),
-    font = 2,
-    cex = 1.2)
+  mtext(
+    side = 3,
+    line = -1,
+    paste0("pos: #", this_pos, " | ", "grain: #", this_grain),
+    cex = 0.7)
 
 }
 # create rejection criteria plot
 .plot_RCCriteria <- function(x) {
   ##set par
   par.mar  <- par()$mar
-  par(mar = c(1,0.5,4,0.5))
+  par(mar = c(1,0,3.2,0.1))
   on.exit(par(mar = par.mar))
 
   ## determine number of criteria
@@ -1408,13 +1405,13 @@ error.list <- list()
     xlab = "")
 
   ## plot header
-  title("Rejection criteria")
+  title("Checks")
 
   ## plot names
   text(
     x = rep(.8,n),
     y = y_coord[seq(1,length(y_coord),2)],
-    labels = .shorten_filename(x[[1]], 18),
+    labels = .shorten_filename(x[[1]], 16),
     cex = 0.9,
     adj = c(1, 0.5))
 
