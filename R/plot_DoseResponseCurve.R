@@ -412,13 +412,18 @@ plot_DoseResponseCurve <- function(
                  digits = 0))
 
           ## add norm curve
-          curve(stats::dnorm(
-              x,
-              mean = mean(x.natural, na.rm = TRUE),
-              sd = sd(x.natural, na.rm = TRUE))/1.01,
-            col = col[2],
-            lty = 2,
-            add = TRUE)
+          y_curve <- stats::dnorm(x,
+            mean = mean(x.natural, na.rm = TRUE),
+            sd = sd(x.natural, na.rm = TRUE))
+
+            ## rescale
+            y_curve <- .rescale(
+              x = y_curve,
+              range_old = range(y_curve),
+              range_new = c(0,par()$usr[4]))
+
+          ## plot lines
+          lines(x, y_curve, col = col[2], lty = 2)
 
           ## add rug
           suppressWarnings(graphics::rug(x.natural))
