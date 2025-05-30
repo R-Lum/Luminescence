@@ -453,15 +453,8 @@ analyse_IRSAR.RF<- function(
     RF_nat.lim <- .listify(RF_nat.lim, rep.length)
     RF_reg.lim <- .listify(RF_reg.lim, rep.length)
     method <- .listify(method, rep.length)
+    test_parameters <- .listify(test_parameters, rep.length)
     n.MC <- .listify(n.MC, rep.length)
-
-    ##test_parameters
-    if(is(test_parameters[[1]], "list")){
-      test_parameters <- rep(test_parameters, rep.length)
-
-    }else{
-     test_parameters <- rep(list(test_parameters), rep.length)
-    }
 
     ##main
     if("main"%in% names(list(...))){
@@ -601,23 +594,22 @@ analyse_IRSAR.RF<- function(
 
   ##01
   ## get the allowed curve limits
-  RF_nat.lim.default <- c(1, max(num.channels.nat))
-  RF_reg.lim.default <- c(1, max(num.channels.reg))
+  max.channels.nat <- max(num.channels.nat)
+  max.channels.reg <- max(num.channels.reg)
 
   ## 02 - check boundaries
   ##RF_nat.lim
   if (is.null(RF_nat.lim) || anyNA(RF_nat.lim)) {
-    RF_nat.lim <- RF_nat.lim.default
+    RF_nat.lim <- c(1, max.channels.nat)
 
   }else {
     ##this allows to provide only one boundary and the 2nd will be added automatically
     if (length(RF_nat.lim) == 1) {
-      RF_nat.lim <- c(RF_nat.lim, RF_nat.lim.default[2])
+      RF_nat.lim <- c(RF_nat.lim, max.channels.nat)
     }
 
-    if (min(RF_nat.lim) < RF_nat.lim.default[1] |
-        max(RF_nat.lim) > RF_nat.lim.default[2]) {
-      RF_nat.lim <- RF_nat.lim.default
+    if (min(RF_nat.lim) < 1 || max(RF_nat.lim) > max.channels.nat) {
+      RF_nat.lim <- c(1, max.channels.nat)
       .throw_warning("'RF_nat.lim' out of bounds, reset to c(",
                      paste(range(RF_nat.lim), collapse = ":"),")")
     }
@@ -626,17 +618,16 @@ analyse_IRSAR.RF<- function(
   ##RF_reg.lim
   ##
   if (is.null(RF_reg.lim)) {
-    RF_reg.lim <- RF_reg.lim.default
+    RF_reg.lim <- c(1, max.channels.reg)
 
   }else {
     ##this allows to provide only one boundary and the 2nd will be added automatically
     if (length(RF_reg.lim) == 1) {
-      RF_reg.lim <- c(RF_reg.lim, RF_reg.lim.default[2])
+      RF_reg.lim <- c(RF_reg.lim, max.channels.reg)
     }
 
-    if (min(RF_reg.lim) < RF_reg.lim.default[1] |
-        max(RF_reg.lim) > RF_reg.lim.default[2]) {
-      RF_reg.lim <- RF_reg.lim.default
+    if (min(RF_reg.lim) < 1 || max(RF_reg.lim) > max.channels.reg) {
+      RF_reg.lim <- c(1, max.channels.reg)
       .throw_warning("'RF_reg.lim' out of bounds, reset to c(",
                      paste(range(RF_reg.lim), collapse = ":"), ")")
     }
@@ -648,7 +639,7 @@ analyse_IRSAR.RF<- function(
     RF_reg.lim[2] <- RF_reg.lim[2] + abs(len.RF_reg.lim - RF_nat.lim[2]) + 1
 
     ## check that now we haven't gone beyond the size of RF_reg.lim
-    if (RF_reg.lim[2] > RF_reg.lim.default[2]) {
+    if (RF_reg.lim[2] > max.channels.reg) {
       .throw_error("'RF_reg.lim' defines too short an interval and it's not ",
                    "possible to extend it")
     }
@@ -1352,25 +1343,23 @@ analyse_IRSAR.RF<- function(
       IR_RF_reg.corresponding_id <- which.min(abs(RF_reg[,2] - IR_RF_nat.max))
 
       ##(3) calculate ratio, but just starting from the point where both curves correspond
-      ##in terms of intensiy, otherwise the ratio cannot be correct
+      ##in terms of intensity, otherwise the ratio cannot be correct
 
       ##the boundary check is necessary to avoid errors
-      if((IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2])) > length(RF_reg[,2])){
+      len.RF_nat.lim <- length(RF_nat.lim[1]:RF_nat.lim[2])
+      if (IR_RF_reg.corresponding_id + len.RF_nat.lim > length(RF_reg[, 2])) {
         TP$intersection_ratio$VALUE <- Inf
 
       }else{
-
+      this.idx <- IR_RF_reg.corresponding_id + c(1:len.RF_nat.lim) - 1
       TP$intersection_ratio$VALUE <-
-        abs(1 - sum((RF_nat.limited[, 2] / max(RF_nat.limited[, 2]))) /
-              sum(RF_reg[IR_RF_reg.corresponding_id:(IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2]) - 1), 2] /
-                    max(RF_reg[IR_RF_reg.corresponding_id:(IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2]) - 1), 2])))
+        abs(1 - sum(RF_nat.limited[, 2] / IR_RF_nat.max) /
+            sum(RF_reg[this.idx, 2] / max(RF_reg[this.idx, 2])))
 
       if (!is.na(TP$intersection_ratio$THRESHOLD)) {
         TP$intersection_ratio$STATUS <-
           ifelse(TP$intersection_ratio$VALUE > TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
       }
-
-      rm(IR_RF_nat.max, IR_RF_reg.corresponding_id)
       }
     }
 
