@@ -20,7 +20,7 @@
 #' used references. Valid options are `"Bibtex"`, `"citation"`, `"html"`, `"latex"`
 #' or `"R"`. Default is `"text"`.
 #'
-#' @param ... Further arguments.
+#' @param ... further arguments:
 #'
 #' - `url` [character]: provide an alternative URL to DRAC
 #' - `ignore_version` [logical]: ignores the version check, this might come in handy
@@ -50,6 +50,8 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
+#' @seealso [template_DRAC], [.as.latex.table]
+#'
 #' @section Function version: 0.16
 #'
 #' @author
@@ -72,10 +74,7 @@
 #' use_DRAC(file = file)
 #' }
 #'
-#'
-#'
 #' ## (2) Method using an R template object
-#'
 #' # Create a template
 #' input <- template_DRAC(preset = "DRAC-example_quartz")
 #'
@@ -109,6 +108,9 @@
 #' # use DRAC
 #' \dontrun{
 #' output <- use_DRAC(input)
+#'
+#' ## export as LaTeX table
+#' .as.latex.table(output)
 #' }
 #'
 #' @md

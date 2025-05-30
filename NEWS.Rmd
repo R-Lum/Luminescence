@@ -26,6 +26,11 @@ of such objects to remove unwanted records from datasets. Although the function
 calls `get_RLum()` and relies on its functionality, the new implementation 
 facilitates a more logical workflow and analysis pipeline. 
 
+* `.as.latex.table()`: Converts `RLum.Results-class` objects where suitable 
+to `LaTeX` ready tables, for instance, objects produced by `use_DRAC()`. 
+The function is internally around for many years; now it is exported and better
+linked to make it findable. 
+
 ## Renamed functions and deprecations
 
 ## Breaking changes

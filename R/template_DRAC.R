@@ -35,6 +35,8 @@
 #'
 #' @return A  list of class `DRAC.list`.
 #'
+#' @section Function version: 0.1.1
+#'
 #' @author
 #' Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'

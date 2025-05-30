@@ -24,7 +24,7 @@ If \code{print_references = TRUE} this argument determines the output style of t
 used references. Valid options are \code{"Bibtex"}, \code{"citation"}, \code{"html"}, \code{"latex"}
 or \code{"R"}. Default is \code{"text"}.}
 
-\item{...}{Further arguments.
+\item{...}{further arguments:
 \itemize{
 \item \code{url} \link{character}: provide an alternative URL to DRAC
 \item \code{ignore_version} \link{logical}: ignores the version check, this might come in handy
@@ -75,10 +75,7 @@ file <-  "/PATH/TO/DRAC_Input_Template.csv"
 use_DRAC(file = file)
 }
 
-
-
 ## (2) Method using an R template object
-
 # Create a template
 input <- template_DRAC(preset = "DRAC-example_quartz")
 
@@ -112,12 +109,18 @@ input$`errDe (Gy)` <- 0.2
 # use DRAC
 \dontrun{
 output <- use_DRAC(input)
+
+## export as LaTeX table
+.as.latex.table(output)
 }
 
 }
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
+}
+\seealso{
+\link{template_DRAC}, \link{.as.latex.table}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr

@@ -39,7 +39,6 @@ print.DRAC.highlights <- function(x, ...) {
 
 #' @export
 print.DRAC.list <- function(x, blueprint = FALSE, ...) {
-
   ## CASE 1: Pretty print the structure of the DRAC list
   if (!blueprint) {
     limit <- 80

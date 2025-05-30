@@ -46,6 +46,10 @@ A  list of class \code{DRAC.list}.
 This function returns a DRAC input template (v1.2) to be used in conjunction
 with the \link{use_DRAC} function
 }
+\section{Function version}{
+ 0.1.1
+}
+
 \examples{
 
 # create a new DRAC input input
