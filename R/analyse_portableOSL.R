@@ -407,7 +407,7 @@ analyse_portableOSL <- function(
 
        ## show error
        if(!inherits(s, "try-error")) {
-         par(mar = c(4.5, 4.5, 4, 2), xpd = FALSE)
+         par(mar = c(4.5, 4.5, 4, 3), xpd = FALSE)
 
          ## open empty plot
          plot(
@@ -462,7 +462,7 @@ analyse_portableOSL <- function(
 
          ## add legend
          if(plot_settings$legend) {
-           par(xpd = TRUE)
+           par(xpd = NA)
 
            col_grad <- plot_settings$col_ramp[
              seq(1, length(plot_settings$col_ramp), length.out = 14)]
@@ -471,8 +471,8 @@ analyse_portableOSL <- function(
 
            for(s in 1:(length(slices) - 1)){
              graphics::rect(
-               xleft = par()$usr[2] * 1.01,
-               xright = par()$usr[2] * 1.03,
+               xleft = par()$usr[2] * 1,
+               xright = par()$usr[2] * 1.02,
                ybottom = slices[s],
                ytop =  slices[s + 1],
                col = col_grad[s],
@@ -481,7 +481,7 @@ analyse_portableOSL <- function(
 
            ## add legend text
            text(
-             x = par()$usr[2] * 1.04,
+             x = par()$usr[2] * 1.03,
              y = par()$usr[4],
              labels = if(is.null(plot_settings$zlim_image)) {
                format(max(m[,3]), digits = 1, scientific = TRUE)
@@ -493,7 +493,7 @@ analyse_portableOSL <- function(
              pos = 3)
 
            text(
-             x = par()$usr[2] * 1.04,
+             x = par()$usr[2] * 1.03,
              y = par()$usr[3],
              labels = if(is.null(plot_settings$zlim_image)) {
                format(min(m[,3]), digits = 1, scientific = TRUE)
@@ -506,7 +506,7 @@ analyse_portableOSL <- function(
 
            ## add legend labelling (central)
            text(
-             x = par()$usr[2] * 1.05,
+             x = par()$usr[2] * 1.035,
              y = (par()$usr[4] - par()$usr[3])/2 + par()$usr[3],
              labels = "Intensity [a.u.]",
              cex = plot_settings$cex * 0.7,
