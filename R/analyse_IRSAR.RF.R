@@ -1697,7 +1697,7 @@ analyse_IRSAR.RF<- function(
           plot(
             RF_reg.x,
             residuals(fit),
-            xlim = c(0, max(temp.sequence_structure$x.max)),
+            xlim = xlim,
             xlab = plot.settings$xlab,
             yaxt = "n",
             xaxt = plot.settings$xaxt,
@@ -1705,20 +1705,21 @@ analyse_IRSAR.RF<- function(
             pch = 20,
             col = "grey",
             ylab = "E",
-            log = ""
+            log = plot.settings$log,
           )
 
           ##add 0 line
           abline(h = 0)
         } else{
           plot(NA, NA,
-            xlim = c(0, max(temp.sequence_structure$x.max)),
+            xlim = xlim,
+            ylim = c(-1, 1),
             ylab = "E",
             xlab = plot.settings$xlab,
             xaxt = plot.settings$xaxt,
-            ylim = c(-1, 1)
+            log = plot.settings$log,
           )
-          text(x = max(temp.sequence_structure$x.max) / 2,
+          text(x = (par()$usr[2] - par()$usr[1]) / 2,
                y = 0, "Fitting Error!")
         }
       }
