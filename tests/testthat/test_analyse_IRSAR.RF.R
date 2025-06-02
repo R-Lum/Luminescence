@@ -294,4 +294,12 @@ test_that("regression tests", {
 
   ## issue 382
   expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE))
+
+  ## issue 816
+  data(ExampleData.portableOSL, envir = environment())
+  expect_silent(analyse_IRSAR.RF(merge_RLum(ExampleData.portableOSL)[1:4],
+                                 plot = FALSE))
+  expect_silent(analyse_IRSAR.RF(merge_RLum(ExampleData.portableOSL)[1:9],
+                                 sequence_structure = c("NATURAL", rep("REGENERATED", 2)),
+                                 plot = FALSE))
 })
