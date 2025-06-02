@@ -596,7 +596,7 @@ analyse_portableOSL <- function(
           axis(2, line = 3, at = labs, labels = labs,
                cex.axis = plot_settings$cex)
           mtext(plot_settings$ylab[1], side = 2, line = 6,
-                cex = plot_settings$cex)
+                cex = plot_settings$cex * 0.8)
         }
       }
 
