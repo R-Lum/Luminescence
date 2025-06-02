@@ -51,7 +51,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 521),
                "'RF_reg.lim' defines too short an interval and it's not")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 520),
-               "No sliding space left after limitations were applied")
+               "The range of regenerated channels should be larger than")
   suppressWarnings( # FIXME(mcol): lmdif: info = -1. Number of iterations has reached `maxiter' == 50.
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = c(3, 6)),
                  "'RF_reg.lim' defines too short an interval, reset to")

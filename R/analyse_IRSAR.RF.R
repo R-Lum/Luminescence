@@ -441,7 +441,6 @@ analyse_IRSAR.RF<- function(
   ##TODO
   ## - if a file path is given, the function should try to find out whether an XSYG-file or
   ##   a BIN-file is provided
-  ##  - add NEWS for vslide_range
   ##  - update documentary ... if it works as expected.
 
   # SELF CALL -----------------------------------------------------------------------------------
@@ -616,7 +615,6 @@ analyse_IRSAR.RF<- function(
   }
 
   ##RF_reg.lim
-  ##
   if (is.null(RF_reg.lim)) {
     RF_reg.lim <- c(1, max.channels.reg)
 
@@ -649,8 +647,9 @@ analyse_IRSAR.RF<- function(
   }
 
   ## check again that we can actually slide the curve
-  if (diff(RF_nat.lim) == diff(RF_reg.lim)) {
-    .throw_error("No sliding space left after limitations were applied")
+  if (diff(RF_reg.lim) <= diff(RF_nat.lim)) {
+    .throw_error("The range of regenerated channels should be larger than ",
+                 "the range of natural channels")
   }
 
   # Method Control Settings ---------------------------------------------------------------------
