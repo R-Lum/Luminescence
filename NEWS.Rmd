@@ -86,6 +86,9 @@ new option makes the interface consistent with most other functions (#805).
 
 * The `mtext` and `cex` options are respected if `method = "None"` (#807).
 
+* The residual plot for `method = "FIT"` correctly respects the logarithmic
+transformation of the x-axis, if the user specified `log = "x"` (#814).
+
 ### `analyse_portableOSL()`
 
 * The function now returns an error if `mode` is something other than
