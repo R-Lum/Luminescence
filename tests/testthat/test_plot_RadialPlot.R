@@ -85,7 +85,7 @@ test_that("check functionality", {
       log.z = FALSE))
 
   ## single-column data frame
-  expect_message(plot_RadialPlot(df[, 1, drop = FALSE]),
+  expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
                  "Attention, small standardised estimate scatter")
 
   ## data frame with more than 2 columns
@@ -95,6 +95,13 @@ test_that("check functionality", {
   df.neg <- df
   df.neg[, 1] <- df.neg[, 1] - 5
   plot_RadialPlot(df.neg)
+
+  ## data frame with zeros
+  df.zeros <- data.frame(ED = c(rep(0, 4), 10),
+                         ED_Error = rnorm(5) + 3)
+  expect_silent(plot_RadialPlot(df.zeros))
+  expect_silent(plot_RadialPlot(df.zeros, zlim = c(5, 10),
+                                centrality = "median.weighted"))
 
   ## more coverage
   expect_type(plot_RadialPlot(df, main = "Title", sub = "Subtitle", rug = TRUE,
@@ -114,8 +121,6 @@ test_that("check functionality", {
   plot_RadialPlot(df, show = FALSE, centrality = "median",
                   summary.pos = "topleft", legend.pos = "topright",
                   log.z = FALSE, rug = TRUE)
-  plot_RadialPlot(df, show = FALSE, centrality = "median.weighted",
-                  summary.pos = "top", legend.pos = "bottom")
 
   ## RLum.Results object
   expect_silent(plot_RadialPlot(calc_CommonDose(ExampleData.DeValues$BT998,
