@@ -19,14 +19,14 @@
 #'`Distance` \tab `numeric` \tab distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column\cr
 #'`DistanceError` \tab `numeric` \tab Error on the distance in mm\cr
 #'`Thickness` \tab `numeric` \tab Thickness of each slice in mm\cr
-#'`TicknessError` \tab `numeric` \tab uncertainty of the thickness in mm.\cr
+#'`ThicknessError` \tab `numeric` \tab uncertainty of the thickness in mm.\cr
 #'`Mineral` \tab `character` \tab `'FS'` for feldspar, `'Q'` for quartz, depending which mineral in the cobble is used for dating\cr
 #'`Cobble_K` \tab `numeric` \tab K nuclide content in % of the bulk cobble\cr
 #'`Cobble_K_SE` \tab `numeric` \tab error on K nuclide content in % of the bulk cobble\cr
 #'`Cobble_Th` \tab `numeric` \tab Th nuclide content in ppm of the bulk cobble\cr
 #'`Cobble_Th_SE` \tab `numeric` \tab error on Th nuclide content in ppm of the bulk cobble\cr
 #'`Cobble_U` \tab `numeric` \tab U nuclide content in ppm of the bulk cobble\cr
-#'`CobbleU_SE` \tab `numeric` \tab error on U nuclide content in ppm of the bulk cobble\cr
+#'`Cobble_U_SE` \tab `numeric` \tab error on U nuclide content in ppm of the bulk cobble\cr
 #'`GrainSize` \tab `numeric` \tab average grain size in µm of the grains used for dating\cr
 #'`Density` \tab `numeric` \tab Density of the cobble. Default is 2.7 g cm^-3\cr
 #'`CobbleDiameter` \tab `numeric` \tab Diameter of the cobble in cm.\cr
@@ -36,7 +36,8 @@
 #'`Sed_Th_SE` \tab `numeric` \tab error on Th nuclide content in ppm of the sediment matrix\cr
 #'`Sed_U` \tab `numeric` \tab U nuclide content in ppm of the sediment matrix\cr
 #'`Sed_U_SE` \tab `numeric` \tab error on U nuclide content in ppm of the sediment matrix\cr
-#'`GrainSize` \tab `numeric` \tab average grain size of the sediment matrix\cr
+#'`GrainSize_Sed` \tab `numeric` \tab average grain size of the sediment matrix\cr
+#'`Density_Sed` \tab `numeric` \tab average density of the sediment matrix\cr
 #'`WaterContent` \tab `numeric` \tab mean water content of the sediment matrix in %\cr
 #'`WaterContent_SE` \tab `numeric` \tab relative error on water content
 #'}
@@ -88,6 +89,15 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   ## Integrity checks -------------------------------------------------------
   .validate_class(input, "data.frame")
   .validate_not_empty(input)
+
+  ## this lists only the columns that are referenced by name in the script
+  exp.cols <- c("Distance", "DistanceError", "Thickness", "ThicknessError",
+                "Density", "CobbleDiameter")
+  mis.cols <- setdiff(exp.cols, colnames(input))
+  if (length(mis.cols) > 0)
+    .throw_error("'input' doesn't contain the following columns: ",
+                 .collapse(mis.cols))
+
   if ((max(input[,1])>input$CobbleDiameter[1]*10) ||
       ((max(input[,1]) + input[length(input[,1]),3]) > input$CobbleDiameter[1]*10))
     .throw_error("Slices outside of cobble: please ensure your distances ",

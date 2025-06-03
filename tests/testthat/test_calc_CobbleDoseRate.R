@@ -10,6 +10,8 @@ test_that("input validation", {
                "'input' should be of class 'data.frame'")
   expect_error(calc_CobbleDoseRate(data.frame()),
                "'input' cannot be an empty data.frame")
+  expect_error(calc_CobbleDoseRate(iris),
+               "'input' doesn't contain the following columns:")
   expect_error(calc_CobbleDoseRate(df),
                "Slices outside of cobble: please ensure your distances are in mm")
 
