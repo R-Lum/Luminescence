@@ -457,7 +457,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
         start_parameters <- start$optim$bestmem
 
       ##run differential evolution
-      start <- DEoptim::DEoptim(
+      start <- try(DEoptim::DEoptim(
         fn = fn,
         lower = rep(0, 2 * m),
         upper = rep(c(10 * sum(df[[2]]), 10000), m),
@@ -468,7 +468,11 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
            strategy = 2,
            parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
          )
-      )
+      ), silent = TRUE)
+
+      if (inherits(start, "try-error")) {
+        .throw_error("Failed to optimize the function, check the input data")
+      }
 
       ##set chi^2 value and calculate F for the 2nd run
       chi_squared[2] <- start$optim$bestval

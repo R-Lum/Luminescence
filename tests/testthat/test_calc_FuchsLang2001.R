@@ -1,3 +1,6 @@
+## load data
+data(ExampleData.DeValues, envir = environment())
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -10,9 +13,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-
-  ##load example data
-  data(ExampleData.DeValues, envir = environment())
 
   ##the simple and silent run
   temp <- expect_s4_class(
@@ -49,4 +49,9 @@ test_that("check class and length of output", {
 
     ), "RLum.Results")
   })
+
+  ## issue 818
+  expect_silent(calc_FuchsLang2001(data.frame(ED = c(rep(0, 4), 10),
+                                              ED_Error = rnorm(5) + 1),
+                                   verbose = FALSE))
 })

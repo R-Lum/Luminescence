@@ -79,13 +79,17 @@ calc_OSLLxTxDecomposed <- function(
   ##--------------------------------------------------------------------------##
   ## (1) - integrity checks
   .validate_class(Lx.data, "data.frame")
-  if (nrow(Lx.data) < 1)
+  if (nrow(Lx.data) < 2)
     .throw_error("No valid component data.frame for Lx value")
+  if (!all(c("n", "n.error") %in% colnames(Lx.data)))
+    .throw_error("'Lx.data' should contain the following columns: 'n', 'n.error'")
 
   if (!is.null(Tx.data)) {
     .validate_class(Tx.data, "data.frame")
-    if (nrow(Tx.data) < 1)
+    if (nrow(Tx.data) < 2)
       .throw_error("No valid component data.frame for Tx value")
+    if (!all(c("n", "n.error") %in% colnames(Tx.data)))
+      .throw_error("'Tx.data' should contain the following columns: 'n', 'n.error'")
   }
 
   # define the component

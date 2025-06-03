@@ -389,28 +389,25 @@ plot_RadialPlot <- function(
                   (1.1 + z.span) * max(De.global))
   }
 
-  ## calculate correction dose to shift negative values
-  if(min(De.global) < 0 && log.z) {
+  ## calculate correction dose to shift non-positive values
+  De.add <- 0
+  if (log.z && min(De.global) <= 0) {
     if("zlim" %in% names(extraArgs)) {
       De.add <- abs(extraArgs$zlim[1])
     } else {
+      ## exclude zeros, as they cause infinities when logged
+      De.global.not0 <- De.global[De.global != 0]
+
       ## estimate delta De to add to all data
-      De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
+      De.add <- min(10^ceiling(log10(abs(De.global.not0))) * 10)
 
       ## optionally readjust delta De for extreme values
-      if(De.add <= abs(min(De.global))) {
+      if (De.add <= abs(min(De.global.not0))) {
         De.add <- De.add * 10
       }
     }
-  } else {
-    De.add <- 0
-  }
 
-  ticks <- round(pretty(limits.z, n = 5), 3)
-  De.delta <- ticks[2] - ticks[1]
-
-  ## optionally add correction dose to data set and adjust error
-  if(log.z) {
+    ## add correction dose to data set and adjust error
     for(i in 1:length(data))
       data[[i]][,1] <- data[[i]][,1] + De.add
 
@@ -418,7 +415,6 @@ plot_RadialPlot <- function(
   }
 
   ## calculate major preliminary tick values and tick difference
-  extraArgs <- list(...)
   if("zlim" %in% names(extraArgs)) {
     limits.z <- extraArgs$zlim
   } else {
@@ -601,7 +597,6 @@ if(centrality[1] == "mean") {
   }
 
   ## read out additional arguments---------------------------------------------
-  extraArgs <- list(...)
 
   main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
     {expression(paste(D[e], " distribution"))}

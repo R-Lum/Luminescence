@@ -64,6 +64,11 @@ test_that("input validation", {
                                   verbose = FALSE,
                                   n.components = 1),
                  "At least one parameter is negative")
+
+  expect_error(fit_OSLLifeTimes(data.frame(ED = c(rep(0, 4), 10),
+                                           ED_Error = rnorm(5) + 1),
+                                verbose = FALSE),
+               "Failed to optimize the function, check the input data")
 })
 
 test_that("check functionality", {
