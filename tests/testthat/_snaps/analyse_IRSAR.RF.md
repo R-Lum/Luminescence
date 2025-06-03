@@ -234,19 +234,19 @@
                   "value": [610.17]
                 },
                 {
-                  "type": "integer",
+                  "type": "logical",
                   "attributes": {},
-                  "value": ["NA"]
+                  "value": [null]
                 },
                 {
-                  "type": "integer",
+                  "type": "logical",
                   "attributes": {},
-                  "value": ["NA"]
+                  "value": [null]
                 },
                 {
-                  "type": "integer",
+                  "type": "logical",
                   "attributes": {},
-                  "value": ["NA"]
+                  "value": [null]
                 },
                 {
                   "type": "character",
@@ -281,9 +281,9 @@
               ]
             },
             {
-              "type": "integer",
+              "type": "logical",
               "attributes": {},
-              "value": ["NA"]
+              "value": [null]
             },
             {
               "type": "list",

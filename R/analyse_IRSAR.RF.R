@@ -792,6 +792,21 @@ analyse_IRSAR.RF<- function(
   RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975, na.rm = TRUE)
   RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025, na.rm = TRUE)
 
+  De <- De.error <- De.lower <- De.upper <- De.MC <- De.diff <- NA
+
+  ## parameter boundaries
+  lower <- c(
+      phi.0 = .Machine$double.xmin,
+      delta.phi = .Machine$double.xmin,
+      lambda = .Machine$double.xmin,
+      beta = .Machine$double.xmin
+  )
+  upper <- c(
+      phi.0 = max(RF_reg.y),
+      delta.phi = max(RF_reg.y),
+      lambda = 1,
+      beta = 100
+  )
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD FIT
@@ -812,9 +827,9 @@ analyse_IRSAR.RF<- function(
 
     fit.parameters.start <- c(
       phi.0 = max(RF_reg.y),
+      delta.phi = 1.5 * (max(RF_reg.y) - min(RF_reg.y)),
       lambda = 0.0001,
-      beta = 1,
-      delta.phi = 1.5 * (max(RF_reg.y) - min(RF_reg.y))
+      beta = 1
     )
 
   if(method == "FIT"){
@@ -822,68 +837,43 @@ analyse_IRSAR.RF<- function(
     # start nls fitting -------------------------------------------------------
 
     ##Monte Carlo approach for fitting
-    fit.parameters.results.MC.results <- data.frame()
+    fit.MC.results <- data.frame()
 
     ##produce set of start paramters
-    phi.0.MC <- rep(fit.parameters.start["phi.0"], n.MC)
-    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC)
-    beta.MC <- rep(fit.parameters.start["beta"], n.MC)
-    delta.phi.MC <- rep(fit.parameters.start["delta.phi"], n.MC)
+    lambda.MC <- seq(0.0001, 0.001, length = n.MC)
+    start.MC <- fit.parameters.start
 
     ##start fitting loop for MC runs
     for(i in 1:n.MC){
-
+      start.MC["lambda"] <- lambda.MC[i]
       fit.MC <- try(nls(
         fit.function,
         trace = FALSE,
         data = list(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
-        start = list(
-          phi.0 = phi.0.MC[i],
-          delta.phi = delta.phi.MC[i],
-          lambda = lambda.MC[i],
-          beta = beta.MC[i]
-        ),
         stats::nls.control(
           maxiter = 100,
           warnOnly = FALSE,
           minFactor = 1 / 1024
         ),
-        lower = c(
-          phi.0 = .Machine$double.xmin,
-          delta.phi = .Machine$double.xmin,
-          lambda = .Machine$double.xmin,
-          beta = .Machine$double.xmin
-        ),
-        upper = c(
-          phi.0 = max(RF_reg.y),
-          delta.phi = max(RF_reg.y),
-          lambda = 1,
-          beta = 100
-        )
-      ),
+        start = start.MC,
+        lower = lower,
+        upper = upper),
       silent = TRUE
       )
 
       if(inherits(fit.MC,"try-error") == FALSE) {
-        temp.fit.parameters.results.MC.results <- coef(fit.MC)
-
-        fit.parameters.results.MC.results[i,"phi.0"] <-
-          temp.fit.parameters.results.MC.results["phi.0"]
-        fit.parameters.results.MC.results[i,"lambda"] <-
-          temp.fit.parameters.results.MC.results["lambda"]
-        fit.parameters.results.MC.results[i,"delta.phi"] <-
-          temp.fit.parameters.results.MC.results["delta.phi"]
-        fit.parameters.results.MC.results[i,"beta"] <-
-          temp.fit.parameters.results.MC.results["beta"]
+        fit.MC.coefs <- coef(fit.MC)
+        for (val in c("phi.0", "delta.phi", "lambda", "beta"))
+          fit.MC.results[i, val] <- fit.MC.coefs[val]
       }
     }
 
     ##FINAL fitting after successful MC
-    if (length(stats::na.omit(fit.parameters.results.MC.results)) != 0) {
+    if (length(stats::na.omit(fit.MC.results)) != 0) {
 
       ##choose median as final fit version
-      fit.parameters.results.MC.results <- sapply(stats::na.omit(fit.parameters.results.MC.results), median)
+      fit.MC.results <- sapply(stats::na.omit(fit.MC.results), median)
 
       ##try final fitting
       fit <- try(nls(
@@ -891,29 +881,14 @@ analyse_IRSAR.RF<- function(
         trace = method_control.settings$trace,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
-        start = list(
-          phi.0 = fit.parameters.results.MC.results["phi.0"],
-          delta.phi = fit.parameters.results.MC.results["delta.phi"],
-          lambda = fit.parameters.results.MC.results["lambda"],
-          beta = fit.parameters.results.MC.results["beta"]
-        ),
         stats::nls.control(
           maxiter = method_control.settings$maxiter,
           warnOnly = method_control.settings$warnOnly,
           minFactor = method_control.settings$minFactor
         ),
-        lower = c(
-          phi.0 = .Machine$double.xmin,
-          delta.phi = .Machine$double.xmin,
-          lambda = .Machine$double.xmin,
-          beta = .Machine$double.xmin
-        ),
-        upper = c(
-          phi.0 = max(RF_reg.y),
-          delta.phi = max(RF_reg.y),
-          lambda = 1, beta = 100
-        )
-      ),
+        start = fit.MC.results,
+        lower = lower,
+        upper = upper),
       silent = FALSE
       )
     }else{
@@ -929,37 +904,22 @@ analyse_IRSAR.RF<- function(
     }
 
     ##calculate De value
-    De <- NA
-    De.error <- NA
-    De.lower <- NA
-    De.upper <- NA
     if (!is.na(fit.parameters.results[1])) {
-      De <- suppressWarnings(round(log(
-        -((RF_nat.mean - fit.parameters.results["phi.0"]) /
+      RF_nat.vals <- c(RF_nat.mean, RF_nat.error.lower, RF_nat.error.upper)
+      De.vals <- suppressWarnings(round(log(
+          -((RF_nat.vals - fit.parameters.results["phi.0"]) /
             -fit.parameters.results["delta.phi"]
         ) ^ (1 / fit.parameters.results["beta"]) + 1
-      ) /
-        -fit.parameters.results["lambda"], digits =
-        2))
+      ) / -fit.parameters.results["lambda"], digits = 2))
+
+      De <- De.vals[1]
+      De.lower <- De.vals[2]
+      De.upper <- De.vals[3]
 
       ##This could be solved with a MC simulation, but for this the code has to be adjusted
       ##The question is: Where the parameters are coming from?
       ##TODO
       De.error <- NA
-
-      De.lower <- suppressWarnings(round(log(
-        -((RF_nat.error.lower - fit.parameters.results["phi.0"]) /
-            -fit.parameters.results["delta.phi"]
-        ) ^ (1 / fit.parameters.results["beta"]) + 1
-      ) /
-        -fit.parameters.results["lambda"],digits = 2))
-
-      De.upper <- suppressWarnings(round(log(
-        -((RF_nat.error.upper - fit.parameters.results["phi.0"]) /
-            -fit.parameters.results["delta.phi"]
-        ) ^ (1 / fit.parameters.results["beta"]) + 1
-      ) /
-        -fit.parameters.results["lambda"],digits = 2))
     }
   }
 
@@ -1098,27 +1058,21 @@ analyse_IRSAR.RF<- function(
       t_n <- RF_nat.slid[1,1]
 
       ##the same for the MC runs of the minimum values
+      t_n.MC <- NA_integer_
       if(!is.null(n.MC)) {
         t_n.MC <-
           vapply(
-            X = 1:length(temp.sum.residuals$sliding_vector_min_MC),
+            X = temp.sum.residuals$sliding_vector_min_MC,
             FUN = function(x) {
               ##get minimum for MC
-              t_n.id.MC <- which(temp.sum.residuals$sliding_vector ==
-                                 temp.sum.residuals$sliding_vector_min_MC[x])
+              t_n.id.MC <- which(temp.sum.residuals$sliding_vector == x)
 
               ## there is a non-zero chance that we have got two indices for
               ## the minimun, so we take the mean
-              temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
-              t_n.MC <- (RF_nat[, 1] + mean(temp.sliding.step.MC))[1]
-
-              return(t_n.MC)
+              RF_nat[1, 1] + mean(RF_reg.limited[t_n.id.MC]) - t_min
             },
             FUN.VALUE = vector(mode = "numeric", length = 1)
           )
-
-      } else{
-        t_n.MC <- NA_integer_
       }
 
       ##(4) get residuals (needed to be plotted later)
@@ -1161,7 +1115,6 @@ analyse_IRSAR.RF<- function(
 
     }##end of function sliding()
 
-
     ##PERFORM sliding and overwrite values
     slide <-  sliding(
       RF_nat = RF_nat,
@@ -1181,10 +1134,8 @@ analyse_IRSAR.RF<- function(
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
     ##(i.e., bootstrap from the natural curve distribution)
 
-    De.diff <- De.error <- De.lower <- De.upper <- De.MC <- NA_integer_
     if(!is.null(n.MC)){
       slide.MC.list <- lapply(1:n.MC,function(x) {
-
         reg.limited.idx <- slide$t_n.id:nrow(RF_reg.limited)
         len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
         cbind(RF_nat.limited[1:len.shorter, 1],
@@ -1385,39 +1336,24 @@ analyse_IRSAR.RF<- function(
 
   ##(4) decay parameter
   ##TP$lambda
-  if ("lambda"%in%names(TP) & "beta"%in%names(TP) & "delta.phi"%in%names(TP)){
+  if (all(c("lambda", "beta", "delta.phi") %in% names(TP))) {
 
     fit.lambda <- try(minpack.lm::nlsLM(
         fit.function,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "LM",
-        start = list(
-          phi.0 = fit.parameters.start["phi.0"],
-          delta.phi = fit.parameters.start["delta.phi"],
-          lambda = fit.parameters.start["lambda"],
-          beta = fit.parameters.start["beta"]
-        ),
-        lower = c(
-          phi.0 = .Machine$double.xmin,
-          delta.phi = .Machine$double.xmin,
-          lambda = .Machine$double.xmin,
-          beta = .Machine$double.xmin
-        ),
-        upper = c(
-          phi.0 = max(RF_reg.y),
-          delta.phi = max(RF_reg.y),
-          lambda = 1, beta = 100
-        )
-      ),
+        start = fit.parameters.start,
+        lower = lower,
+        upper = upper),
     silent = TRUE
     )
 
     if(!inherits(fit.lambda, "try-error")){
        temp.coef <- coef(fit.lambda)
 
-       TP$lambda$VALUE <- temp.coef["lambda.lambda"]
-       TP$beta$VALUE <- temp.coef["beta.beta"]
-       TP$delta.phi$VALUE <- temp.coef["delta.phi.delta.phi"]
+       TP$lambda$VALUE <- temp.coef["lambda"]
+       TP$beta$VALUE <- temp.coef["beta"]
+       TP$delta.phi$VALUE <- temp.coef["delta.phi"]
 
        if (!is.na( TP$lambda$THRESHOLD)){
         TP$lambda$STATUS <- ifelse(TP$lambda$VALUE <= TP$lambda$THRESHOLD, "FAILED", "OK")
@@ -1452,7 +1388,6 @@ analyse_IRSAR.RF<- function(
       }
     }
   }
-
 
   ##Combine everything in a data.frame
   De.status <- "OK"
@@ -1957,11 +1892,6 @@ analyse_IRSAR.RF<- function(
 
   # Return --------------------------------------------------------------------------------------
   ##catch up worst case scenarios ... means something went wrong
-  if(!exists("De")){De  <- NA}
-  if(!exists("De.error")){De.error  <- NA}
-  if(!exists("De.MC")){De.MC  <- NA}
-  if(!exists("De.lower")){De.lower  <- NA}
-  if(!exists("De.upper")){De.upper  <- NA}
   if (!exists("fit")) {
     fit  <- list()
     if (exists("fit.lambda")) {
@@ -1969,6 +1899,9 @@ analyse_IRSAR.RF<- function(
     }
   }
   if(!exists("slide")){slide <- list()}
+
+  ##generate unique identifier
+  UID <- create_UID()
 
   ##combine values for De into a data frame
   De.values <- data.frame(
@@ -1982,16 +1915,10 @@ analyse_IRSAR.RF<- function(
       POSITION =  as.integer(aliquot.position),
       DATE = aliquot.date,
       SEQUENCE_NAME = aliquot.sequence_name,
-      UID = NA,
+      UID = UID,
     row.names = NULL,
     stringsAsFactors = FALSE
   )
-
-  ##generate unique identifier
-  UID <- create_UID()
-
-    ##update data.frames accordingly
-    De.values$UID <- UID
 
     if(!is.null(TP.data.frame)){
       TP.data.frame$UID <- UID
