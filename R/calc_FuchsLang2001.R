@@ -135,6 +135,9 @@ calc_FuchsLang2001 <- function(
     sd<-round(sd(data_ordered[startDeValue:endDeValue,1]),digits=2)		#calculate sd from ordered D[e] values
     cv <- round(sd / mean * 100, digits = 2) #calculate coefficient of variation
 
+    ## avoid crashes if the both mean and sd are zero
+    if (is.nan(cv))
+      cv <- 0
 
     # break if cv > cvThreshold
     if (cv > cvThreshold[1] & endDeValue > startDeValue) {
