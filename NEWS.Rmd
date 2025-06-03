@@ -329,6 +329,8 @@ starting a parallel cluster even when `multicore = FALSE` (#742).
 
 * Minor graphical polish to limit overplotting and also plot a density curve for the `L_n/T_n` signal.
 
+* If in `mode = "alternate“`, no error about the equivalent dose that could not be fitted is shown anymore.  
+
 ### `plot_DRCSummary()`
 
 * Add support for `fit.method = 'OTORX'` following the change in `fit_DoseResponseCurve()` (#677)

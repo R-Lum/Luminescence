@@ -343,7 +343,7 @@ plot_DoseResponseCurve <- function(
         silent = TRUE)
 
     ## write error message in plot if De is NaN or NA
-    try(if (is.na(De)) {
+    try(if (is.na(De) & mode != "alternate") {
           text(sample[2, 1],
               0,
               "Error: De could not be calculated!",
