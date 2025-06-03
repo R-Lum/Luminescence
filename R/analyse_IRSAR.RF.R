@@ -181,9 +181,10 @@
 #'
 #' @param sequence_structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Allowed steps are `NATURAL` and
-#' `REGENERATED`, and one of each must appear.
+#' `REGENERATED`, and at least one of each must appear.
 #' In addition any other character is allowed in the sequence structure;
-#' such curves will be ignored during the analysis.
+#' such curves will be ignored during the analysis. If `sequence_structure`
+#' is shorter than the number of curves in `object`, it is recycled.
 #'
 #' @param RF_nat.lim [vector] (*with default*):
 #' set minimum and maximum channel range for natural signal fitting and sliding.
@@ -579,22 +580,17 @@ analyse_IRSAR.RF<- function(
                  "'REGENERATED'")
   }
 
-  ##check if the first curve is shorter than the first curve
-  num.channels.nat <- temp.sequence_structure$n.channels[nat.idx]
-  num.channels.reg <- temp.sequence_structure$n.channels[reg.idx]
-  if (num.channels.nat > num.channels.reg) {
-    .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
-  }
-
   ##===============================================================================================#
   ## SET CURVE LIMITS
   ##===============================================================================================#
-  ##the setting here will be valid for all subsequent operations
 
   ##01
   ## get the allowed curve limits
-  max.channels.nat <- max(num.channels.nat)
-  max.channels.reg <- max(num.channels.reg)
+  max.channels.nat <- sum(temp.sequence_structure$n.channels[nat.idx])
+  max.channels.reg <- sum(temp.sequence_structure$n.channels[reg.idx])
+  if (max.channels.nat > max.channels.reg) {
+    .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
+  }
 
   ## 02 - check boundaries
   ##RF_nat.lim
@@ -765,9 +761,8 @@ analyse_IRSAR.RF<- function(
   ##=============================================================================#
 
   ##grep first regenerated curve
-  RF_reg <- as.data.frame(object@records[[
-    temp.sequence_structure[temp.sequence_structure$protocol.step=="REGENERATED","id"]]]@data)
-
+  RF_reg <- as.data.frame(rbindlist(lapply(object@records[reg.idx],
+                                           function(x) as.data.frame(x@data))))
     ##correct of the onset of detection by using the first time value
     if (grepl("SLIDE", method) &&
         method_control.settings$correct_onset == TRUE) {
@@ -778,8 +773,8 @@ analyse_IRSAR.RF<- function(
   RF_reg.y <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],2]
 
   ##grep values from natural signal
-  RF_nat <- as.data.frame(object@records[[
-    temp.sequence_structure[temp.sequence_structure$protocol.step=="NATURAL","id"]]]@data)
+  RF_nat <- as.data.frame(rbindlist(lapply(object@records[nat.idx],
+                                           function(x) as.data.frame(x@data))))
 
   ## correct the onset of detection by using the first time value
   if (grepl("SLIDE", method) &&
@@ -1380,7 +1375,7 @@ analyse_IRSAR.RF<- function(
   if ("dynamic_ratio"%in%names(TP)){
     TP.dynamic_ratio <- subset(temp.sequence_structure,
                                temp.sequence_structure$protocol.step == "REGENERATED")
-    TP$dynamic_ratio$VALUE <- TP.dynamic_ratio$y.max/TP.dynamic_ratio$y.min
+    TP$dynamic_ratio$VALUE <- min(TP.dynamic_ratio$y.max / TP.dynamic_ratio$y.min)
 
     if (!is.na(TP$dynamic_ratio$THRESHOLD)){
       TP$dynamic_ratio$STATUS  <- ifelse(
