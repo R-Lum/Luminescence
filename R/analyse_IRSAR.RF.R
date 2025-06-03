@@ -445,7 +445,7 @@ analyse_IRSAR.RF<- function(
   ##  - update documentary ... if it works as expected.
 
   # SELF CALL -----------------------------------------------------------------------------------
-  if(is.list(object)){
+  if (inherits(object, "list")) {
     ## expand input arguments
     rep.length <- length(object)
 
