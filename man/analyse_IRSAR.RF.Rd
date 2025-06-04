@@ -55,17 +55,17 @@ These are for (1) \code{method = "FIT"}: \code{'trace'}, \code{'maxiter'}, \code
 See details.}
 
 \item{test_parameters}{\link{list} (\emph{with default}):
-set test parameters. Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
-\code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
-\code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
-values, \code{NA} and \code{NULL} (see Details).
-
-(see Details for further information)}
+set test parameters. Supported parameters are: \code{curves_ratio},
+\code{residuals_slope} (only for \code{method = "SLIDE"} and \code{"VSLIDE"}),
+\code{curves_bounds}, \code{dynamic_ratio}, \code{lambda}, \code{beta} and \code{delta.phi}.
+All input: \link{numeric} values, \code{NA} and \code{NULL} (see Details for further
+information).}
 
 \item{n.MC}{\link{numeric} (\emph{with default}):
-set number of Monte Carlo runs for start parameter estimation (\code{method = "FIT"}) or
-error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
-MC runs. Note: Large values will significantly increase the computation time}
+number of Monte Carlo runs for the estimation of the start parameter
+(\code{method = "FIT"}) or of the error (\code{method = "SLIDE"} and \code{"VSLIDE"}).
+This value can be set to \code{NULL} to skip the MC runs.
+Note: Large values will significantly increase the computation time.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar during MC runs.}
@@ -186,7 +186,7 @@ signal.
 \item Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
-Actually three methods are supported to obtain the \eqn{D_{e}}:
+Three methods are supported to obtain the \eqn{D_{e}}:
 \code{method = "FIT"}, \code{method = "SLIDE"} and \code{method = "VSLIDE"}:
 
 \strong{\code{method = "FIT"}}
@@ -215,8 +215,8 @@ The fitting is done using the \code{port} algorithm of the \link{nls} function.
 \strong{\code{method = "SLIDE"}}
 
 For this method, the natural curve is slid along the x-axis until
-congruence with the regenerated curve is reached. As opposed to fitting, this
-allows working with the original data without the need for any physical
+congruence with the regenerated curve is reached. Unlike fitting, this
+allows for working with the original data without the need for any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
@@ -227,7 +227,7 @@ For the mathematical details of the implementation see Frouin et al., 2017
 \strong{\code{method = "VSLIDE"}}
 
 Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
-See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+See Kreutzer et al. (2017) and Murari et al. (2021). By default, the vertical sliding
 range is set automatically, but can be set manually by changing the
 \code{vslide_range} parameter (see \code{method_control}).
 
@@ -273,16 +273,16 @@ the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} 
 
 \strong{Error estimation}
 
-For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
-the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
+For \strong{\code{method = "FIT"}}, the \eqn{D_{e}} error range is obtained by using
+the 2.5 \% (lower) and the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}}
+curve.
 
-For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}} the error is obtained
-by bootstrapping the residuals of the slid
-curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
-runs and (b) the confidence
-interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
-are returned with the function output.
+For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}}, the error is obtained
+by bootstrapping the residuals of the slid curve to construct new natural
+curves for a Monte Carlo simulation. The error is returned in two ways:
+(a) the standard deviation of the \eqn{D_{e}} obtained from the MC runs and
+(b) the confidence interval using the  2.5 \% (lower) and the 97.5 \% (upper)
+quantiles. The results of the MC runs are returned with the function output.
 
 \strong{Test parameters}
 
@@ -313,12 +313,13 @@ curve is obtained using the maximum count value of the \code{RF_nat} curve and o
 the \code{RF_nat} curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 found at all, \code{Inf} is returned.
 
-\code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}):
+\code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}
+and \verb{"VSLIDE}"):
 
 A linear function is fitted on the residuals after sliding.
 The corresponding slope can be used to discard values as a high (positive, negative) slope
 may indicate that both curves are fundamentally different and the method cannot be applied at all.
-Per default the value of this parameter is calculated but not evaluated.
+By default, the value of this parameter is calculated but not evaluated.
 
 \code{curves_bounds} \link{numeric} (default: \eqn{max(RF_{reg_counts})}:
 
@@ -328,17 +329,18 @@ this is not recommended the value can be changed or disabled.
 
 \code{dynamic_ratio} \link{numeric} (default: \code{NA}):
 
-The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
+The dynamic ratio of the regenerated curve is calculated as ratio of the
+minimum and maximum count values.
 
-\code{lambda}, \code{beta} and \code{delta.phi}
-\link{numeric} (default: \code{NA}; \code{method = "SLIDE"}):
+\code{lambda}, \code{beta} and \code{delta.phi} \link{numeric} (default: \code{NA}):
 
 The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 For \code{method = "FIT"} this parameter is obtained during the fitting, for \code{method = "SLIDE"} a
 rather rough estimation is made using the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} and the equation
-given above. Note: As this procedure requests more computation time, setting of one of these three parameters
-to \code{NULL} also prevents a calculation of the remaining two.
+given above.
+Note: As this procedure requests more computation time, it is performed only
+if all three parameters are set.
 }
 \note{
 This function assumes that there is no sensitivity change during the
