@@ -1810,15 +1810,15 @@ analyse_IRSAR.RF<- function(
         col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
         col.polygon <- col.ramp(100)
 
-        if (plot.settings$log != "x") {
-          shape::filledrectangle(
-            mid = c((xlim[2]) + (par("usr")[2] - xlim[2]) / 2,
+        xright <- if (plot.settings$log == "x") 10^par("usr")[2] else par("usr")[2]
+        shape::filledrectangle(
+            mid = c((xlim[2] + xright) / 2,
                     max(residuals) - diff(range(residuals)) / 2),
-            wx = par("usr")[2] - xlim[2],
+            wx = xright - xlim[2],
             wy = diff(range(residuals)),
             col = col.polygon
           )
-        }
+
         ##add 0 line
         abline(h = 0, lty = 3)
 
