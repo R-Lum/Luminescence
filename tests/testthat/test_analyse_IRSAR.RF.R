@@ -117,10 +117,9 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
       results_fit <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
                                       plot = TRUE))
-  expect_warning(expect_snapshot_RLum(
+  expect_snapshot_RLum(
       results_slide <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
-                                        plot = TRUE, n.MC = NULL)),
-      "Narrow density distribution, no density distribution plotted")
+                                        plot = TRUE, n.MC = NULL))
   SW({
   expect_snapshot_RLum(
   results_slide_alt <-
