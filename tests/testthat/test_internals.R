@@ -369,6 +369,8 @@ test_that("Test internals", {
                "'test' should be a positive scalar")
   expect_error(.validate_positive_scalar(iris),
                "'iris' should be a positive scalar")
+  expect_error(.validate_positive_scalar(iris, null.ok = TRUE),
+               "'iris' should be a positive scalar or NULL")
   expect_error(.validate_positive_scalar(1:2, name = "'var'"),
                "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(0, name = "'var'"),
@@ -392,6 +394,8 @@ test_that("Test internals", {
                "'test' should be a single logical value")
   expect_error(.validate_logical_scalar(iris),
                "'iris' should be a single logical value")
+  expect_error(.validate_logical_scalar(iris, null.ok = TRUE),
+               "'iris' should be a single logical value or NULL")
   expect_error(.validate_logical_scalar(c(TRUE, FALSE), name = "'var'"),
                "'var' should be a single logical value")
   expect_error(.validate_logical_scalar(0, name = "'var'"),

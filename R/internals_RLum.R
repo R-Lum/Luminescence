@@ -1329,7 +1329,7 @@ SW <- function(expr) {
     if (is.null(name))
       name <- sprintf("'%s'", all.vars(match.call())[1])
     .throw_error(name, " should be a positive ", if (int) "integer ",
-                 "scalar")
+                 "scalar", if (null.ok) " or NULL")
   }
 }
 
@@ -1351,7 +1351,8 @@ SW <- function(expr) {
   if (!is.logical(val) || length(val) != 1 || is.na(val)) {
     if (is.null(name))
       name <- sprintf("'%s'", all.vars(match.call())[1])
-    .throw_error(name, " should be a single logical value")
+    .throw_error(name, " should be a single logical value",
+                 if (null.ok) " or NULL")
   }
 }
 
