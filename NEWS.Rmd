@@ -95,6 +95,9 @@ curves (#816).
 * The residual indicator rectangle, which is drawn when `method` is either
 `SLIDE` or `VSLIDE`, is also drawn when `log = "x"` (#821).
 
+* The plotting of the density is silently disabled if `n.MC = NULL`, which
+avoids a spurious warning (#823).
+
 ### `analyse_portableOSL()`
 
 * The function now returns an error if `mode` is something other than

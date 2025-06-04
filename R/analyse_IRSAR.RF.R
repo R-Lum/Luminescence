@@ -1656,7 +1656,7 @@ analyse_IRSAR.RF<- function(
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     else if(method == "SLIDE" || method == "VSLIDE"){
       ##(0) density plot
-      if (method_control.settings$show_density) {
+      if (method_control.settings$show_density && !is.null(n.MC)) {
         ##showing the density makes only sense when we see at least 10 data points
         if (!anyNA(De.MC) && length(unique(De.MC)) >= 15) {
 
