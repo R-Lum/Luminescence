@@ -9,6 +9,10 @@ src_EED_Calc_Overall_StatUncertainty <- function(M_Simul, Ndata, Nsimul, MinNbSi
     .Call(`_Luminescence_src_EED_Calc_Overall_StatUncertainty`, M_Simul, Ndata, Nsimul, MinNbSimExp)
 }
 
+f_BTS_cpp_part <- function(x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop) {
+    .Call(`_Luminescence_f_BTS_cpp_part`, x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop)
+}
+
 src_analyse_IRSARRF_SRS <- function(values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace = FALSE) {
     .Call(`_Luminescence_analyse_IRSARRF_SRS`, values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace)
 }

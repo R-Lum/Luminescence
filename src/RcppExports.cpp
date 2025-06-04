@@ -35,6 +35,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// f_BTS_cpp_part
+NumericVector f_BTS_cpp_part(NumericVector x, double A, double Eu, double s10, double Et, double kB, double T_K, double DeltaE, double rhop);
+RcppExport SEXP _Luminescence_f_BTS_cpp_part(SEXP xSEXP, SEXP ASEXP, SEXP EuSEXP, SEXP s10SEXP, SEXP EtSEXP, SEXP kBSEXP, SEXP T_KSEXP, SEXP DeltaESEXP, SEXP rhopSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type A(ASEXP);
+    Rcpp::traits::input_parameter< double >::type Eu(EuSEXP);
+    Rcpp::traits::input_parameter< double >::type s10(s10SEXP);
+    Rcpp::traits::input_parameter< double >::type Et(EtSEXP);
+    Rcpp::traits::input_parameter< double >::type kB(kBSEXP);
+    Rcpp::traits::input_parameter< double >::type T_K(T_KSEXP);
+    Rcpp::traits::input_parameter< double >::type DeltaE(DeltaESEXP);
+    Rcpp::traits::input_parameter< double >::type rhop(rhopSEXP);
+    rcpp_result_gen = Rcpp::wrap(f_BTS_cpp_part(x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop));
+    return rcpp_result_gen;
+END_RCPP
+}
 // analyse_IRSARRF_SRS
 RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited, arma::vec values_natural_limited, arma::vec vslide_range, int n_MC, bool trace);
 RcppExport SEXP _Luminescence_analyse_IRSARRF_SRS(SEXP values_regenerated_limitedSEXP, SEXP values_natural_limitedSEXP, SEXP vslide_rangeSEXP, SEXP n_MCSEXP, SEXP traceSEXP) {
@@ -144,6 +163,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_Luminescence_create_UID", (DL_FUNC) &_Luminescence_create_UID, 0},
     {"_Luminescence_src_EED_Calc_Overall_StatUncertainty", (DL_FUNC) &_Luminescence_src_EED_Calc_Overall_StatUncertainty, 4},
+    {"_Luminescence_f_BTS_cpp_part", (DL_FUNC) &_Luminescence_f_BTS_cpp_part, 9},
     {"_Luminescence_analyse_IRSARRF_SRS", (DL_FUNC) &_Luminescence_analyse_IRSARRF_SRS, 5},
     {"_Luminescence_create_RLumDataCurve_matrix", (DL_FUNC) &_Luminescence_create_RLumDataCurve_matrix, 10},
     {"_Luminescence_fit_functionEXP_cpp", (DL_FUNC) &_Luminescence_fit_functionEXP_cpp, 4},

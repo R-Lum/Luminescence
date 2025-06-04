@@ -160,18 +160,20 @@ fit_IsothermalHolding <- function(
   }
   f_BTS <- function(A, Eu, Et, s10, isoT, x) {
     T_K <- isoT + .const$C2K
-    exp(-rhop * log(1.8 * 3e15 * (250 + x))^3) *
-      vapply(x, function(t) {
-        stats::integrate(function(Eb) A * exp(-Eb / Eu) *
-                               exp(-10^s10 * t * exp(-(Et - Eb) / (kB * T_K))),
-                         0, DeltaE)$value
-      }, numeric(1))
+    ## call C++ calculation part; which is a lot faster than
+    ## repeated calls to stats::integrate
+    ## an even faster implementation would use pure C++ for everyting,
+    ## however, then we would use minpack.lm::nls.lm() instead ... perhaps
+    ## in the future
+    f_BTS_cpp_part(
+      x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop)
+
   }
 
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b  = 1,   Et = 1, s10 = 5),
+    'GOK' = list(A = 1, b  = 1, Et = 1, s10 = 5),
     'BTS' = list(A = 1, Eu = 0.1, Et = 2))
 
   lower <- switch(
