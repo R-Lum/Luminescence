@@ -958,17 +958,16 @@ analyse_IRSAR.RF<- function(
       ##(1) calculate sum of residual squares using internal Rcpp function
 
       ##initialise slide range for specific conditions, namely NULL and "auto"
+      compute_algorithm_error <- TRUE
       if (is.null(vslide_range)) {
         vslide_range <- 0
 
       } else if (vslide_range[1] == "auto") {
         range <- max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])
         vslide_range <- -range:range
-        algorithm_error <- NA
-
       } else{
         vslide_range <- vslide_range[1]:vslide_range[2]
-        algorithm_error <- NULL
+        compute_algorithm_error <- FALSE
       }
 
       ##problem: the optimisation routine slightly depends on the chosen input sliding vector
@@ -1020,7 +1019,7 @@ analyse_IRSAR.RF<- function(
         ##as somehow systematic uncertainty, but it will be only calculated if the full range
         ##is considered, otherwise it is too biased by the user's choice
         ##ToDo: So far the algorithm error is not sufficiently documented
-        if(!is.null(algorithm_error)){
+        if (compute_algorithm_error) {
           algorithm_error <- sd(vapply(1:length(temp_vslide_indices), function(k){
             temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
             ## return the offset of the t_n values
