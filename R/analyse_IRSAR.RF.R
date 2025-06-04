@@ -17,7 +17,7 @@
 #' 5. Fitting data with a stretched exponential function
 #' 6. Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 #'
-#' Actually three methods are supported to obtain the \eqn{D_{e}}:
+#' Three methods are supported to obtain the \eqn{D_{e}}:
 #' `method = "FIT"`, `method = "SLIDE"` and `method = "VSLIDE"`:
 #'
 #' **`method = "FIT"`**
@@ -47,8 +47,8 @@
 #' **`method = "SLIDE"`**
 #'
 #' For this method, the natural curve is slid along the x-axis until
-#' congruence with the regenerated curve is reached. As opposed to fitting, this
-#' allows working with the original data without the need for any physical
+#' congruence with the regenerated curve is reached. Unlike fitting, this
+#' allows for working with the original data without the need for any physical
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
@@ -59,7 +59,7 @@
 #' **`method = "VSLIDE"`**
 #'
 #' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
-#' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+#' See Kreutzer et al. (2017) and Murari et al. (2021). By default, the vertical sliding
 #' range is set automatically, but can be set manually by changing the
 #' `vslide_range` parameter (see `method_control`).
 #'
@@ -105,16 +105,16 @@
 #'
 #' **Error estimation**
 #'
-#' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 % (lower) and
-#' the 97.5 % (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
+#' For **`method = "FIT"`**, the \eqn{D_{e}} error range is obtained by using
+#' the 2.5 % (lower) and the 97.5 % (upper) quantiles of the \eqn{RF_{nat}}
+#' curve.
 #'
-#' For **`method = "SLIDE"`** and **`method = "VSLIDE"`** the error is obtained
-#' by bootstrapping the residuals of the slid
-#' curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-#' ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
-#' runs and (b) the confidence
-#' interval using the  2.5 % (lower) and the 97.5 % (upper) quantiles. The results of the MC runs
-#' are returned with the function output.
+#' For **`method = "SLIDE"`** and **`method = "VSLIDE"`**, the error is obtained
+#' by bootstrapping the residuals of the slid curve to construct new natural
+#' curves for a Monte Carlo simulation. The error is returned in two ways:
+#' (a) the standard deviation of the \eqn{D_{e}} obtained from the MC runs and
+#' (b) the confidence interval using the  2.5 % (lower) and the 97.5 % (upper)
+#' quantiles. The results of the MC runs are returned with the function output.
 #'
 #' **Test parameters**
 #'
@@ -145,12 +145,13 @@
 #' the `RF_nat` curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 #' found at all, `Inf` is returned.
 #'
-#' `residuals_slope` [numeric] (default: `NA`; only for `method = "SLIDE"`):
+#' `residuals_slope` [numeric] (default: `NA`; only for `method = "SLIDE"`
+#' and `"VSLIDE`"):
 #'
 #' A linear function is fitted on the residuals after sliding.
 #' The corresponding slope can be used to discard values as a high (positive, negative) slope
 #' may indicate that both curves are fundamentally different and the method cannot be applied at all.
-#' Per default the value of this parameter is calculated but not evaluated.
+#' By default, the value of this parameter is calculated but not evaluated.
 #'
 #' `curves_bounds` [numeric] (default: \eqn{max(RF_{reg_counts})}:
 #'
@@ -160,17 +161,18 @@
 #'
 #' `dynamic_ratio` [numeric] (default: `NA`):
 #'
-#' The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
+#' The dynamic ratio of the regenerated curve is calculated as ratio of the
+#' minimum and maximum count values.
 #'
-#' `lambda`, `beta` and `delta.phi`
-#' [numeric] (default: `NA`; `method = "SLIDE"`):
+#' `lambda`, `beta` and `delta.phi` [numeric] (default: `NA`):
 #'
 #' The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 #' the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 #' For `method = "FIT"` this parameter is obtained during the fitting, for `method = "SLIDE"` a
 #' rather rough estimation is made using the function [minpack.lm::nlsLM] and the equation
-#' given above. Note: As this procedure requests more computation time, setting of one of these three parameters
-#' to `NULL` also prevents a calculation of the remaining two.
+#' given above.
+#' Note: As this procedure requests more computation time, it is performed only
+#' if all three parameters are set.
 #'
 #'
 #' @param object [RLum.Analysis-class] or a [list] of [RLum.Analysis-class]-objects (**required**):
@@ -208,17 +210,17 @@
 #' See details.
 #'
 #' @param test_parameters [list] (*with default*):
-#' set test parameters. Supported parameters are: `curves_ratio`, `residuals_slope` (only for
-#' `method = "SLIDE"`), `curves_bounds`, `dynamic_ratio`,
-#' `lambda`, `beta` and `delta.phi`. All input: [numeric]
-#' values, `NA` and `NULL` (see Details).
-#'
-#' (see Details for further information)
+#' set test parameters. Supported parameters are: `curves_ratio`,
+#' `residuals_slope` (only for `method = "SLIDE"` and `"VSLIDE"`),
+#' `curves_bounds`, `dynamic_ratio`, `lambda`, `beta` and `delta.phi`.
+#' All input: [numeric] values, `NA` and `NULL` (see Details for further
+#' information).
 #'
 #' @param n.MC [numeric] (*with default*):
-#' set number of Monte Carlo runs for start parameter estimation (`method = "FIT"`) or
-#' error estimation (`method = "SLIDE"`). This value can be set to `NULL` to skip the
-#' MC runs. Note: Large values will significantly increase the computation time
+#' number of Monte Carlo runs for the estimation of the start parameter
+#' (`method = "FIT"`) or of the error (`method = "SLIDE"` and `"VSLIDE"`).
+#' This value can be set to `NULL` to skip the MC runs.
+#' Note: Large values will significantly increase the computation time.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar during MC runs.
@@ -972,6 +974,7 @@ analyse_IRSAR.RF<- function(
       ##problem: the optimisation routine slightly depends on the chosen input sliding vector
       ##and it might get trapped in a local minimum
       ##therefore we run the algorithm by expanding the sliding vector
+      algorithm_error <- NA
       if(!is.null(vslide_range) && any(vslide_range != 0)){
 
         ##construct list of vector ranges we want to check for, this should avoid that we
@@ -1023,13 +1026,7 @@ analyse_IRSAR.RF<- function(
             ## return the offset of the t_n values
             RF_nat[1, 1] + temp.sliding.step
           }, FUN.VALUE = numeric(length = 1)))
-
-        }else{
-         algorithm_error <- NA
         }
-
-      }else{
-        algorithm_error <- NA
       }
 
       ##now run the final sliding with the identified range that corresponds to the minimum value
@@ -1813,15 +1810,15 @@ analyse_IRSAR.RF<- function(
         col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
         col.polygon <- col.ramp(100)
 
-        if (plot.settings$log != "x") {
-          shape::filledrectangle(
-            mid = c((xlim[2]) + (par("usr")[2] - xlim[2]) / 2,
+        xright <- if (plot.settings$log == "x") 10^par("usr")[2] else par("usr")[2]
+        shape::filledrectangle(
+            mid = c((xlim[2] + xright) / 2,
                     max(residuals) - diff(range(residuals)) / 2),
-            wx = par("usr")[2] - xlim[2],
+            wx = xright - xlim[2],
             wy = diff(range(residuals)),
             col = col.polygon
           )
-        }
+
         ##add 0 line
         abline(h = 0, lty = 3)
 
