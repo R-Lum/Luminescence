@@ -166,6 +166,3 @@ analyse_ThermochronometryData <- function(
 
   return(results)
 }
-
-analyse_ThermochronometryData(
-  object = "~/Desktop/OSLThermo-main/Data/CLBR_100.csv", ITL_model = "GOK")
