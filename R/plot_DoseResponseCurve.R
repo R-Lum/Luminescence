@@ -463,10 +463,11 @@ plot_DoseResponseCurve <- function(
 
       } else {
         plot_check <- try(plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
+                               axes = FALSE, xlab = "", ylab = "",
                                main = expression(paste(D[e], " from MC runs"))),
                           silent = TRUE)
         if (!inherits(plot_check,"try-error"))
-          text(5, 5, "not available")
+          text(5, 5, "Not available", xpd = NA)
       }
 
       ## Test dose response curve if available ------------------------------
@@ -484,8 +485,9 @@ plot_DoseResponseCurve <- function(
           lines(c(1, length(sample[, "TnTx"])), c(1, 1), lty = 2, col = "gray")
         } else {
           plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
+               axes = FALSE, xlab = "", ylab = "",
                main = "Sensitivity")
-          text(5, 5, "not available\n no TnTx column")
+          text(5, 5, "Not available\nNo TnTx column", xpd = NA)
         }
       }
     }
