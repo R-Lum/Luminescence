@@ -1631,7 +1631,7 @@ analyse_IRSAR.RF<- function(
             pch = 20,
             col = "grey",
             ylab = "E",
-            log = plot.settings$log,
+            log = gsub("y", "", plot.settings$log),
           )
 
           ##add 0 line
@@ -1643,7 +1643,7 @@ analyse_IRSAR.RF<- function(
             ylab = "E",
             xlab = plot.settings$xlab,
             xaxt = plot.settings$xaxt,
-            log = plot.settings$log,
+            log = gsub("y", "", plot.settings$log),
           )
           text(x = (par()$usr[2] - par()$usr[1]) / 2,
                y = 0, "Fitting Error!")
@@ -1792,12 +1792,7 @@ analyse_IRSAR.RF<- function(
           xaxt = plot.settings$xaxt,
           ylab = "E",
           yaxt = "n",
-          log = ifelse(
-            plot.settings$log == "y" |
-              plot.settings$log == "xy",
-            "",
-            plot.settings$log
-          )
+          log = gsub("y", "", plot.settings$log)
         )
 
         ##add axis for 0 ... means if the 0 is not visible there is labelling
@@ -1809,7 +1804,7 @@ analyse_IRSAR.RF<- function(
         col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
         col.polygon <- col.ramp(100)
 
-        xright <- if (plot.settings$log == "x") 10^par("usr")[2] else par("usr")[2]
+        xright <- if (grepl("x", plot.settings$log)) 10^par("usr")[2] else par("usr")[2]
         shape::filledrectangle(
             mid = c((xlim[2] + xright) / 2,
                     max(residuals) - diff(range(residuals)) / 2),

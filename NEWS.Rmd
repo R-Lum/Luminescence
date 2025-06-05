@@ -86,8 +86,8 @@ new option makes the interface consistent with most other functions (#805).
 
 * The `mtext` and `cex` options are respected if `method = "None"` (#807).
 
-* The residual plot for `method = "FIT"` correctly respects the logarithmic
-transformation of the x-axis, if the user specified `log = "x"` (#814).
+* The residual plot correctly respects the logarithmic transformation of the
+x-axis when `log = "x"` or `log = "xy"` are specified (#814, #825).
 
 * The function now deals correctly also with input objects containing multiple
 curves (#816).
