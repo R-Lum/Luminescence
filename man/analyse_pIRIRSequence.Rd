@@ -113,11 +113,10 @@ with the following options:
 \code{pdf(file = "<YOUR FILENAME>", height = 18, width = 18)}
 }
 \section{Function version}{
- 0.2.5
+ 0.2.6
 }
 
 \examples{
-
 
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.
 ###

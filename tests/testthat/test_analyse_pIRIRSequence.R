@@ -102,6 +102,7 @@ test_that("check plot stuff", {
       fit.method = "EXP",
       sequence.structure = c("TL", paste0("pseudoIRSL", 1:6)),
       main = "Pseudo pIRIR data set based on quartz OSL",
+      cex = 0.5,
       plot = TRUE,
       verbose = FALSE))
   dev.off()
@@ -147,6 +148,8 @@ test_that("input validation", {
                                      background.integral.min = 900,
                                      background.integral.max = 1000),
                "'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_pIRIRSequence(object),
+               "'signal.integral.min' should be of class 'integer' or 'numeric'")
   expect_error(analyse_pIRIRSequence(object,
                                      signal.integral.min = 1,
                                      signal.integral.max = 2,
@@ -163,6 +166,9 @@ test_that("input validation", {
                "'error' not allowed in 'sequence.structure'")
 
   SW({
+  expect_warning(expect_error(analyse_pIRIRSequence(list(object)),
+                              "'background.integral.min' should be of class"),
+                 "'signal.integral.min' missing, set to 1")
   expect_warning(analyse_pIRIRSequence(list(object),
                                        signal.integral.max = 2,
                                        background.integral.min = 900,
