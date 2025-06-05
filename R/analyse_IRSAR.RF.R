@@ -458,6 +458,8 @@ analyse_IRSAR.RF<- function(
   ##   a BIN-file is provided
   ##  - update documentary ... if it works as expected.
 
+  extraArgs <- list(...)
+
   # SELF CALL -----------------------------------------------------------------------------------
   if (inherits(object, "list")) {
     ## expand input arguments
@@ -471,9 +473,8 @@ analyse_IRSAR.RF<- function(
     n.MC <- .listify(n.MC, rep.length)
 
     ##main
-    if("main"%in% names(list(...))){
-      temp_main <- .listify(list(...)$main, rep.length)
-
+    if ("main" %in% names(extraArgs)) {
+      temp_main <- .listify(extraArgs$main, rep.length)
     }else{
       originator <- if (length(object) > 0) object[[1]]@originator else NA
       if (!is.na(originator) && originator == "read_RF2R") {
@@ -684,8 +685,8 @@ analyse_IRSAR.RF<- function(
   )
 
   ## deprecated argument
-  if ("method.control" %in% names(list(...))) {
-    method_control <- list(...)$method.control
+  if ("method.control" %in% names(extraArgs)) {
+    method_control <- extraArgs$method.control
     .throw_warning("'method.control' is deprecated, use ",
                    "'method_control' instead")
   }
@@ -739,8 +740,8 @@ analyse_IRSAR.RF<- function(
   }
 
   ## control terminal output
-  verbose <- if ("verbose" %in% names(list(...)))
-               list(...)$verbose else TRUE
+  verbose <- if ("verbose" %in% names(extraArgs))
+               extraArgs$verbose else TRUE
 
   ## don't show the progress bar if not verbose
   if (!verbose)
@@ -767,7 +768,7 @@ analyse_IRSAR.RF<- function(
   )
 
   ##modify list if something was set
-  plot.settings <- modifyList(plot.settings, list(...))
+  plot.settings <- modifyList(plot.settings, extraArgs)
   plot.settings$mtext.cex = 0.7 * plot.settings$cex
 
   ##=============================================================================#
@@ -1440,15 +1441,13 @@ analyse_IRSAR.RF<- function(
 
     ##here control xlim and ylim behaviour
     ##xlim
-    xlim  <- if ("xlim" %in% names(list(...))) {
-      list(...)$xlim
-    } else {
+    xlim <- if ("xlim" %in% names(extraArgs)) extraArgs$xlim else {
       c(if (grepl("x", plot.settings$log)) min(temp.sequence_structure$x.min) else 0,
         max(temp.sequence_structure$x.max))
     }
 
     ##ylim
-    ylim  <- if("ylim" %in% names(list(...))) {list(...)$ylim} else
+    ylim <- if ("ylim" %in% names(extraArgs)) extraArgs$ylim else
     {c(min(temp.sequence_structure$y.min), max(temp.sequence_structure$y.max))}
 
     ##open plot area
@@ -1496,8 +1495,8 @@ analyse_IRSAR.RF<- function(
       points(RF_nat.limited, pch = 20, col = "red")
 
       ## subtitle
-      if ("mtext" %in% names(list(...))) {
-        mtext(side = 3, list(...)$mtext, cex = plot.settings$mtext.cex)
+      if ("mtext" %in% names(extraArgs)) {
+        mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
       }
 
       ##legend
@@ -1615,8 +1614,8 @@ analyse_IRSAR.RF<- function(
         De.status <- "VALUE OUT OF BOUNDS"
 
       } else{
-        if ("mtext" %in% names(list(...))) {
-          mtext(side = 3, list(...)$mtext, cex = plot.settings$mtext.cex)
+        if ("mtext" %in% names(extraArgs)) {
+          mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
         }else{
           try(mtext(side = 3, mtext.txt,
                     line = 0, cex = plot.settings$mtext.cex), silent = TRUE)
@@ -1778,8 +1777,8 @@ analyse_IRSAR.RF<- function(
       }
 
       ##write information on the De in the plot
-      if("mtext" %in% names(list(...))) {
-        mtext(side = 3, list(...)$mtext, cex = plot.settings$mtext.cex)
+      if("mtext" %in% names(extraArgs)) {
+        mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
       }else{
         try(mtext(side=3,
                   substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
