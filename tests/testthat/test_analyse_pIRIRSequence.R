@@ -102,6 +102,7 @@ test_that("check plot stuff", {
       fit.method = "EXP",
       sequence.structure = c("TL", paste0("pseudoIRSL", 1:6)),
       main = "Pseudo pIRIR data set based on quartz OSL",
+      cex = 0.5,
       plot = TRUE,
       verbose = FALSE))
   dev.off()
