@@ -92,7 +92,7 @@
 #'
 #' `pdf(file = "<YOUR FILENAME>", height = 18, width = 18)`
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -112,7 +112,6 @@
 #' @keywords datagen plot
 #'
 #' @examples
-#'
 #'
 #' ### NOTE: For this example existing example data are used. These data are non pIRIR data.
 #' ###
@@ -183,8 +182,8 @@ analyse_pIRIRSequence <- function(
   .set_function_name("analyse_pIRIRSequence")
   on.exit(.unset_function_name(), add = TRUE)
 
-# SELF CALL -----------------------------------------------------------------------------------
- if(is.list(object)){
+  ## Self-call --------------------------------------------------------------
+  if (inherits(object, "list")) {
 
    lapply(object, function(x) {
      .validate_class(x, "RLum.Analysis", name = "All elements of 'object'")
@@ -200,6 +199,9 @@ analyse_pIRIRSequence <- function(
       signal.integral.max <- 2
       .throw_warning("'signal.integral.max' missing, set to 2")
     }
+
+    .validate_class(background.integral.min, c("integer", "numeric"))
+    .validate_class(background.integral.max, c("integer", "numeric"))
 
    ## expand input arguments
    rep.length <- length(object)
@@ -246,6 +248,10 @@ analyse_pIRIRSequence <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis", extra = "'list'")
+  .validate_class(signal.integral.min, c("integer", "numeric"))
+  .validate_class(signal.integral.max, c("integer", "numeric"))
+  .validate_class(background.integral.min, c("integer", "numeric"))
+  .validate_class(background.integral.max, c("integer", "numeric"))
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot_singlePanels)
 
