@@ -495,8 +495,10 @@ plot_DoseResponseCurve <- function(
 
   ##reset graphic device if the plotting failed!
   if (inherits(plot_check, "try-error")) {
+    # nocov start
     .throw_message("Figure margins too large, nothing plotted")
     grDevices::dev.off()
+    # nocov end
   }
 
   ## return
