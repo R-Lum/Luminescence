@@ -114,8 +114,8 @@ curve fitting and plotting is skipped.
 This allows to get hands on the \code{Lx/Tx} table for large datasets
 without the need for a curve fitting.}
 
-\item{...}{further arguments that will be passed to the function
-\link{plot_GrowthCurve} or \link{calc_OSLLxTxRatio}
+\item{...}{further arguments that will be passed to the functions
+\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve} or \link{calc_OSLLxTxRatio}
 (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}).
 \strong{Please note} that if you consider to use the early light subtraction
 method you should provide your own \code{sigmab} value!}
