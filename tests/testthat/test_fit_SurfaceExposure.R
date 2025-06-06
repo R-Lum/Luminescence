@@ -1,3 +1,4 @@
+## load data
 data("ExampleData.SurfaceExposure", envir = environment())
 d1 <- ExampleData.SurfaceExposure$sample_1
 d2 <- ExampleData.SurfaceExposure$sample_2
@@ -157,5 +158,21 @@ test_that("not enough parameters provided", {
   expect_message(fit_SurfaceExposure(as.matrix(d1), log = "y"),
                  "Original error from minpack.lm::nlsLM(): singular gradient",
                  fixed = TRUE)
+  })
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("single",
+                              fit_SurfaceExposure(d1, mu = 0.9,
+                                                  age = 12000, sigmaphi = 5e-10))
+
+  vdiffr::expect_doppelganger("multiple",
+                              fit_SurfaceExposure(d3, mu = 0.1 * 7:10,
+                                                  age = c(1e3, 1e4, 1e5, 1e6)))
   })
 })
