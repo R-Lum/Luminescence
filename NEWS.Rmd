@@ -31,6 +31,12 @@ to `LaTeX` ready tables, for instance, objects produced by `use_DRAC()`.
 The function is internally around for many years; now it is exported and better
 linked to make it findable. 
 
+## New datasts
+
+* `RF70Curves` is a new dataset consisting of two IR-RF curves measured with the 
+RF70 protocol. Such a dataset was always missing, and the examples in `analyse_IRSAR.RF()`
+somewhat incomplete.
+
 ## Renamed functions and deprecations
 
 ## Breaking changes

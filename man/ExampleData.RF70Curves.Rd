@@ -8,7 +8,7 @@
 \code{BDX16648}: \linkS4class{RLum.Analysis} with two IR-RF curves as \linkS4class{RLum.Data.Curve} objects
 }
 \source{
-\strong{RF70Curves.Data}
+\strong{RF70Curves}
 
 \tabular{ll}{
 Lab: \tab IRAMAT-CRP2A, CNRS-Université Bordeaux Montaigne, Bordeaux, France\cr
