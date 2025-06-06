@@ -413,7 +413,7 @@ analyse_pIRIRSequence <- function(
   if (plot && !plot_singlePanels) {
 
     ##first (Tx,Tn, Lx,Ln)
-    temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
+    temp.IRSL.layout.vector.first <- c(3, 5, 6, 7, 3, 5, 6, 8)
 
     ## middle (any other Lx,Ln)
     temp.IRSL.layout.vector.middle <- NULL
@@ -421,7 +421,7 @@ analyse_pIRIRSequence <- function(
     temp.IRSL.layout.vector.middle <-
       vapply(2:(n.loops - 1),
         FUN = function(x) 5 * x - 1 + c(0:3, 0:2, 4),
-        FUN.VALUE = vector(mode = "numeric", length = 8)
+        FUN.VALUE = numeric(8)
       )
     }
 
@@ -430,9 +430,10 @@ analyse_pIRIRSequence <- function(
       (if (n.loops > 2) max(temp.IRSL.layout.vector.middle)
        else max(temp.IRSL.layout.vector.first))
 
-    temp.IRSL.layout.vector <- c(temp.IRSL.layout.vector.first,
-                                 temp.IRSL.layout.vector.middle,
-                                 temp.IRSL.layout.vector.last)
+    temp.IRSL.layout.vector <- c(
+      temp.IRSL.layout.vector.first,
+      temp.IRSL.layout.vector.middle,
+      temp.IRSL.layout.vector.last)
 
   ##get layout information
   def.par <- par(no.readonly = TRUE)
@@ -450,11 +451,13 @@ analyse_pIRIRSequence <- function(
     rep((max(temp.IRSL.layout.vector)+3),2)) #Rejection criteria
 
   ##set layout
+  nrows <- max(layout.matrix) / 2 + ifelse(n.loops > 2, 0, 2)
+  mat <- matrix(layout.matrix, nrow = nrows, ncol = 4, byrow = TRUE)
+
   nf <- graphics::layout(
-    matrix(layout.matrix,(max(layout.matrix)/2 +
-                            ifelse(n.loops > 2, 0,2)), 4, byrow = TRUE),
-     widths = c(rep(c(1,1,1,.75),6),c(1,1,1,1)),
-     heights = c(rep(c(1),(2+2*n.loops)),c(0.20, 0.20)))
+    mat = mat,
+    widths = c(rep(c(1, 1, 1, .75), 6), c(1, 1, 1, 1)),
+    heights = c(rep(c(1), (2 + 2 * n.loops)), c(0.20, 0.20)))
 
   ## show the regions that have been allocated to each plot for debug
   #layout.show(nf)
@@ -474,7 +477,6 @@ analyse_pIRIRSequence <- function(
 
   ##(2) set loop
   for(i in 1:n.loops){
-
     ##compile record ids
     temp.id.sel <-
       sort(c(TL.curves.id, IRSL.curves.id[seq(i,length(IRSL.curves.id),by=n.loops)]))
@@ -484,14 +486,12 @@ analyse_pIRIRSequence <- function(
 
     ##(b) grep integral limits as they might be different for different curves
     if(length(signal.integral.min)>1){
-
       temp.signal.integral.min <- signal.integral.min[i]
       temp.signal.integral.max <- signal.integral.max[i]
       temp.background.integral.min <- background.integral.min[i]
       temp.background.integral.max <- background.integral.max[i]
 
     }else{
-
       temp.signal.integral.min <- signal.integral.min
       temp.signal.integral.max <- signal.integral.max
       temp.background.integral.min <- background.integral.min
@@ -499,17 +499,15 @@ analyse_pIRIRSequence <- function(
     }
 
     ##(c) call analysis sequence and plot
-
     ## call single plots
-    if(i == 1){
-      temp.plot.single  <- c(1,2,3,4,6)
-
-    }else if(i == n.loops){
-      temp.plot.single  <- c(2,4,5,6)
-
-   }else{
-      temp.plot.single  <- c(2,4,6)
-   }
+     temp.plot.single <-
+    if(i == 1) {
+      c(1,2,3,4,6)
+    } else if(i == n.loops) {
+      c(2,4,5,6)
+    } else {
+      c(2,4,6)
+    }
 
     ##start analysis
     temp.results <- analyse_SAR.CWOSL(
@@ -534,18 +532,15 @@ analyse_pIRIRSequence <- function(
       ##add signal information to the protocol step
       temp.results.pIRIR.De <- as.data.frame(c(
         get_RLum(temp.results, "data"),
-        data.frame(Signal = pIRIR.curve.names[i])
-      ))
+        data.frame(Signal = pIRIR.curve.names[i])))
 
       temp.results.pIRIR.LnLxTnTx <- as.data.frame(c(
         get_RLum(temp.results, "LnLxTnTx.table"),
-        data.frame(Signal = pIRIR.curve.names[i])
-      ))
+        data.frame(Signal = pIRIR.curve.names[i])))
 
       temp.results.pIRIR.rejection.criteria <- as.data.frame(c(
         get_RLum(temp.results, "rejection.criteria"),
-        data.frame(Signal = pIRIR.curve.names[i])
-      ))
+        data.frame(Signal = pIRIR.curve.names[i])))
 
       temp.results.pIRIR.formula <- list(get_RLum(temp.results,
                                                   "Formula"))
@@ -654,7 +649,6 @@ if(plot){
 
     ##calculate normalised values
     for(j in 1:length(pIRIR.curve.names)){
-
       temp.curve.TnTx.sel <- temp.curve.TnTx[
         temp.curve.TnTx[,"Signal"] == pIRIR.curve.names[j]
         , "TnTx"]
@@ -810,3 +804,4 @@ if(plot){
 
   return(temp.results.final)
 }
+
