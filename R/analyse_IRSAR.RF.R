@@ -916,6 +916,7 @@ analyse_IRSAR.RF<- function(
     fit.parameters.results <- NA
     if (!inherits(fit,"try-error")) {
       fit.parameters.results <- coef(fit)
+      residuals <- residuals(fit)
     }
 
     ##calculate De value
@@ -1430,14 +1431,9 @@ analyse_IRSAR.RF<- function(
 
     if (!plot_reduced && method != "NONE") {
         graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
-        par(
-          oma = c(1, 1, 1, 1),
-          mar = c(0, 4, 3, 0),
-          cex = plot.settings$cex
-        )
-    }else{
-        par(cex = plot.settings[["cex"]])
+        par(mar = c(0, 4, 3, 1))
     }
+    par(cex = plot.settings[["cex"]])
 
     ##here control xlim and ylim behaviour
     ##xlim
@@ -1623,43 +1619,6 @@ analyse_IRSAR.RF<- function(
 
         De.status <- "OK"
       }
-
-      if (!plot_reduced) {
-
-        ##==lower plot==##
-        par(mar = c(4.2, 4, 0, 0))
-
-        ##plot residuals
-        if (is.na(fit.parameters.results[1]) == FALSE) {
-          plot(
-            RF_reg.x,
-            residuals(fit),
-            xlim = xlim,
-            xlab = plot.settings$xlab,
-            yaxt = "n",
-            xaxt = plot.settings$xaxt,
-            type = "p",
-            pch = 20,
-            col = "grey",
-            ylab = "E",
-            log = gsub("y", "", plot.settings$log),
-          )
-
-          ##add 0 line
-          abline(h = 0)
-        } else{
-          plot(NA, NA,
-            xlim = xlim,
-            ylim = c(-1, 1),
-            ylab = "E",
-            xlab = plot.settings$xlab,
-            xaxt = plot.settings$xaxt,
-            log = gsub("y", "", plot.settings$log),
-          )
-          text(x = (par()$usr[2] - par()$usr[1]) / 2,
-               y = 0, "Fitting Error!")
-        }
-      }
     }
 
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
@@ -1785,97 +1744,104 @@ analyse_IRSAR.RF<- function(
                   line = 0, cex = plot.settings$mtext.cex),
             silent=TRUE)
       }
+    }
 
-      if (!plot_reduced) {
-        ##==lower plot==##
-        ##RESIDUAL PLOT
-        par(mar = c(4, 4, 0, 0))
+    if (!plot_reduced && method != "NONE") {
+      ## lower plot of residuals
+      par(mar = c(4.2, 4, 0, 1))
 
-        plot(
+      fit.error <- method == "FIT" && is.na(fit.parameters.results[1])
+      plot(
           NA,
           NA,
-          ylim = range(residuals),
           xlim = xlim,
+          ylim = if (fit.error) c(-1, 1) else range(residuals),
           xlab = plot.settings$xlab,
-          type = "p",
-          pch = 1,
-          col = "grey",
-          xaxt = plot.settings$xaxt,
           ylab = "E",
+          xaxt = plot.settings$xaxt,
           yaxt = "n",
+          type = "p",
           log = gsub("y", "", plot.settings$log)
-        )
+      )
 
-        ##add axis for 0 ... means if the 0 is not visible there is labelling
-        axis(side = 4,
-             at = 0,
-             labels = 0)
+      if (!fit.error) {
+        ## add axis for 0 ... means if the 0 is not visible there is labelling
+        axis(side = 4, at = 0, labels = 0)
 
-        ##add residual indicator (should circle around 0)
-        col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
-        col.polygon <- col.ramp(100)
+        ## add residual points
+        if (method == "FIT") {
+          points(RF_reg.x, residuals, pch = 20, col = "grey")
+        } else {
+          temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
+                                  length(residuals), 0)
+          points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
+                 residuals, pch = 20, col = rgb(0, 0, 0, 0.4))
 
-        xright <- if (grepl("x", plot.settings$log)) 10^par("usr")[2] else par("usr")[2]
-        shape::filledrectangle(
-            mid = c((xlim[2] + xright) / 2,
-                    max(residuals) - diff(range(residuals)) / 2),
-            wx = xright - xlim[2],
-            wy = diff(range(residuals)),
-            col = col.polygon
-          )
+          ## add residual indicator (should circle around 0)
+          col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
+          col.polygon <- col.ramp(100)
 
-        ##add 0 line
-        abline(h = 0, lty = 3)
+          xright <- if (grepl("x", plot.settings$log)) 10^par("usr")[2] else par("usr")[2]
+          shape::filledrectangle(
+                     mid = c((xlim[2] + xright) / 2,
+                             max(residuals) - diff(range(residuals)) / 2),
+                     wx = xright - xlim[2],
+                     wy = diff(range(residuals)),
+                     col = col.polygon
+                 )
 
-        ##0-line indicator and arrows if this is not visible
-        ##red colouring here only if the 0 point is not visible to avoid too much colouring
-        if (max(residuals) < 0) {
-          angle <- 270
-          y0 <- max(residuals)
-        } else if (min(residuals) > 0) {
-          angle <- 90
-          y0 <- min(residuals)
-        } else { # min < 0, max > 0
-          angle <- NA
-          points(xlim[2], 0, pch = 3)
+          ## 0-line indicator and arrows if this is not visible
+          ## red colouring here only if the 0 point is not visible to avoid too much colouring
+          if (max(residuals) < 0) {
+            ## draw arrow pointing down
+            angle <- 270
+            y0 <- max(residuals)
+          } else if (min(residuals) > 0) {
+            ## draw arrow pointing up
+            angle <- 90
+            y0 <- min(residuals)
+          } else { # min < 0, max > 0
+            ## draw no arrow, only a + sign
+            angle <- NA
+            points(xlim[2], 0, pch = 3)
+          }
+          if (!is.na(angle)) {
+            shape::Arrowhead(
+                       x0 = xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+                       y0 = y0,
+                       angle = angle,
+                       lcol = col[2],
+                       arr.length = 0.4,
+                       arr.type = "triangle",
+                       arr.col = col[2]
+                   )
+          }
+
+          ## add 0 line
+          abline(h = 0, lty = 3)
+
+          ## add vertical line to mark De (t_n)
+          abline(v = De, lty = 2, col = col[2])
+
+          ## add numeric value of De ... t_n
+          axis(side = 1,
+               at = De,
+               labels = De,
+               cex.axis = 0.8,
+               col = "blue",
+               padj = -1.55)
         }
-        if (!is.na(angle)) {
-          shape::Arrowhead(
-            x0 = xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-            y0 = y0,
-            angle = angle,
-            lcol = col[2],
-            arr.length = 0.4,
-            arr.type = "triangle",
-            arr.col = col[2]
-          )
-        }
+      } else {
+        text(x = (par()$usr[2] - par()$usr[1]) / 2,
+             y = 0, "Fitting Error!")
+      }
+    }
 
-        ##add residual points
-        temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
-                                length(residuals), 0)
-        points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
-                 residuals,
-                 pch = 20,
-                 col = rgb(0, 0, 0, 0.4))
-
-        ##add vertical line to mark De (t_n)
-        abline(v = De, lty = 2, col = col[2])
-
-        ##add numeric value of De ... t_n
-        axis(
-          side = 1,
-          at = De,
-          labels = De,
-          cex.axis = 0.8,
-          col = "blue",
-          padj = -1.55,
-        )
-
-        ##TODO- CONTROL PLOT! ... can be implemented in appropriate form in a later version
-        if (method_control.settings$trace) {
-          par(new = TRUE)
-          plot(
+    ## TODO: CONTROL PLOT! can be implemented in appropriate form in a later version
+    if (method %in% c("SLIDE", "VSLIDE")) {
+      if (method_control.settings$trace) {
+        par(new = TRUE)
+        plot(
             RF_reg.limited[1:length(slide$squared_residuals),1],
             slide$squared_residuals,
             ylab = "",
@@ -1886,8 +1852,7 @@ analyse_IRSAR.RF<- function(
             xlim = xlim,
             ylim = ylim,
             log = "y"
-          )
-        }
+        )
       }
     }
   }#endif::plot
