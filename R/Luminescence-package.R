@@ -736,6 +736,51 @@ NULL
 #' @md
 NULL
 
+#' RF70 Example data as [RLum.Analysis-class] objects
+#'
+#' Collection two curves from Kreutzer et al. (2018) measured using the RF70 protocol
+#' (Frouin et al., 2017) as [RLum.Analysis-class] objects.
+#'
+#' @format
+#'
+#' `BDX16648`: [RLum.Analysis-class] with two IR-RF curves as [RLum.Data.Curve-class] objects
+#'
+#' @section Version: 0.1.0
+#'
+#' @references
+#'
+#' Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017. An improved
+#' radiofluorescence single-aliquot regenerative dose protocol for K-feldspars. Quaternary Geochronology 38, 13–24.
+#' \doi{10.1016/j.quageo.2016.11.004}
+#'
+#' Kreutzer, S., Duval, M., Bartz, M., Bertran, P., Bosq, M., Eynaud, F., Verdin, F., Mercier, N., 2018.
+#' Deciphering long-term coastal dynamics using IR-RF and ESR dating: A case study from Médoc,
+#' south-West France. Quaternary Geochronology 48, 108–120. \doi{10.1016/j.quageo.2018.09.005}
+#'
+#' @source **RF70Curves**
+#'
+#' \tabular{ll}{
+#' Lab: \tab IRAMAT-CRP2A, CNRS-Université Bordeaux Montaigne, Bordeaux, France\cr
+#' Lab-Code: \tab BDX16648\cr
+#' Location: \tab Médoc, France (details see reference)\cr
+#' Material: \tab K-feldspar (100-200 \eqn{\mu}m)\cr
+#' Reference: \tab Kreutzer et al. (2018)
+#' }
+#'
+#' @keywords datasets internal
+#'
+#' @examples
+#'
+#' ##load data
+#' data(ExampleData.RF70Curves, envir = environment())
+#'
+#' ##plot data
+#' plot_RLum(RF70Curves)
+#'
+#' @name ExampleData.RF70Curves
+#' @aliases RF70Curves
+#' @md
+NULL
 
 #' Example data as [RLum.Data.Image-class] objects
 #'

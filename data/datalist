@@ -13,6 +13,7 @@ ExampleData.LxTxData: LxTxData
 ExampleData.LxTxOSLData: Lx.data Tx.data
 ExampleData.MortarData: MortarData
 ExampleData.portableOSL: ExampleData.portableOSL
+ExampleData.RF70Curves: RF70Curves
 ExampleData.RLum.Analysis: IRSAR.RF.Data
 ExampleData.RLum.Data.Image: ExampleData.RLum.Data.Image
 ExampleData.ScaleGammaDose: ExampleData.ScaleGammaDose
