@@ -1,5 +1,6 @@
 ## load data
 data(ExampleData.LxTxData, envir = environment())
+set.seed(1)
 fit <- fit_DoseResponseCurve(LxTxData, verbose = FALSE)
 
 test_that("input validation", {
@@ -30,15 +31,29 @@ test_that("plot output", {
   expect_s4_class(plot_DoseResponseCurve(fit), "RLum.Results")
 
   ## check plot settings
-  expect_s4_class(plot_DoseResponseCurve(fit, legend = FALSE), "RLum.Results")
-  expect_s4_class(plot_DoseResponseCurve(fit, reg_points_pch = 1), "RLum.Results")
-  expect_s4_class(plot_DoseResponseCurve(fit, density_polygon = FALSE), "RLum.Results")
-  expect_s4_class(plot_DoseResponseCurve(fit, density_rug = FALSE), "RLum.Results")
-  expect_s4_class(plot_DoseResponseCurve(fit, density_polygon_col = "green"), "RLum.Results")
-  expect_s4_class(plot_DoseResponseCurve(fit, box = FALSE), "RLum.Results")
+  expect_s4_class(plot_DoseResponseCurve(fit, legend = FALSE,
+                                         reg_points_pch = 1,
+                                         density_polygon = FALSE,
+                                         box = FALSE), "RLum.Results")
 
   ## De is NA
   df <- data.frame(DOSE = c(0,5,10,20,30), LxTx = c(10,5,-20,-30,-40), LxTx_X = c(1,1,1,1,1))
   expect_s4_class(plot_DoseResponseCurve(fit_DoseResponseCurve(df, verbose = FALSE)),
                   "RLum.Results")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              plot_DoseResponseCurve(fit))
+  vdiffr::expect_doppelganger("cex.global",
+                              plot_DoseResponseCurve(fit, legend = FALSE,
+                                                     reg_points_pch = 1,
+                                                     density_polygon_col = "azure",
+                                                     cex.global = 2))
+  })
 })

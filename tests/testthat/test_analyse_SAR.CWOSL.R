@@ -668,7 +668,6 @@ test_that("advance tests run", {
       log = "x",
       verbose = FALSE),
       "Curves shifted by one channel for log-plot")
-
   })
 
   ## simulate single grain
@@ -684,5 +683,30 @@ test_that("advance tests run", {
     background.integral.max = 975,
     plot_onePage = TRUE,
     verbose = FALSE), "RLum.Results")
+})
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              analyse_SAR.CWOSL(
+                                  object = object[[1]],
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 2,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("list-cex",
+                              analyse_SAR.CWOSL(
+                                  object = list(object[[1]]),
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 5,
+                                  background.integral.min = 800,
+                                  background.integral.max = 1000,
+                                  plot_onePage = TRUE, cex = 1.9))
+  })
 })
