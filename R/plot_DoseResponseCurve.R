@@ -175,7 +175,7 @@ plot_DoseResponseCurve <- function(
   plot_check <- NULL
 
   ## open plot area
-  par.default <- par(cex = cex.global)
+  par.default <- par()["cex"]
   on.exit(par(par.default), add = TRUE)
 
   if (plot_extended && !plot_singlePanels) {
