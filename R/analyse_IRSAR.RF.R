@@ -333,7 +333,7 @@
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
-#' [nls], [minpack.lm::nlsLM], `parallel::mclapply`
+#' [nls], [minpack.lm::nlsLM], [parallel::mclapply], [ExampleData.RF70Curves]
 #'
 #'
 #' @references

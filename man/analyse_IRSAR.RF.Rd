@@ -450,7 +450,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
-\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \code{parallel::mclapply}
+\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}, \link{ExampleData.RF70Curves}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
