@@ -175,14 +175,12 @@ plot_DoseResponseCurve <- function(
   plot_check <- NULL
 
   ## open plot area
-  par(cex = cex.global)
+  par.default <- par(cex = cex.global)
+  on.exit(par(par.default), add = TRUE)
 
   if (plot_extended && !plot_singlePanels) {
-    ## get graphic values
-    par_default <- par(no.readonly = TRUE)
-    on.exit(par(par_default), add = TRUE)
-
-    ## set new parameter
+    ## append the parameters modified by layout()
+    par.default <- c(par.default, par("mfrow", "mfcol"))
     graphics::layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
     par(cex = 0.8 * plot_settings$cex)
   }
