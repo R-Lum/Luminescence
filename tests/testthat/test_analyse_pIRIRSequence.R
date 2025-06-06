@@ -235,3 +235,27 @@ test_that("check class and length of output", {
    expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)
 })
+
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+    vdiffr::expect_doppelganger("default",
+                                analyse_pIRIRSequence(
+                                  object,
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 2,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  fit.method = "EXP",
+                                  sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+                                  main = "Pseudo pIRIR data set based on quartz OSL",
+                                  plot = TRUE,
+                                  plot_singlePanels = TRUE,
+                                  verbose = FALSE))
+
+  })
+})
