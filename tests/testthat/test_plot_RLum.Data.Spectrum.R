@@ -1,5 +1,7 @@
 ## load data
 data(ExampleData.XSYG, envir = environment())
+bg.spectrum <- set_RLum("RLum.Data.Spectrum",
+                        data = TL.Spectrum@data[, 15:16, drop = FALSE])
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -33,7 +35,6 @@ test_that("check functionality", {
 
     ##RLum.Data.Spectrum -------
     m <- TL.Spectrum@data
-    bg.spectrum <- set_RLum(class = "RLum.Data.Spectrum", data = TL.Spectrum@data[,15:16, drop = FALSE])
 
     ##try a matrix as input
     expect_message(plot_RLum.Data.Spectrum(object = m, xaxis.energy = TRUE),
@@ -118,16 +119,6 @@ test_that("check functionality", {
     ), "6 channels removed due to row \\(wavelength\\) binning")
 
     ## check output and limit counts
-    expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
-      TL.Spectrum,
-      plot.type = "persp",
-      xlim = c(310, 750),
-      limit_counts = 10000,
-      bg.spectrum = bg.spectrum,
-      bin.rows = 10,
-      bin.cols = 1
-    )), "double")
-
     expect_warning(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       plot.type = "persp",
@@ -334,6 +325,43 @@ test_that("check functionality", {
   rownames(bg.spectrum@data) <- NULL
   expect_silent(plot_RLum.Data.Spectrum(spec, bg.spectrum = bg.spectrum,
                                         xlim = c(0, 300), ylim = c(0, 500)))
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("contour",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "contour",
+                                                      ylim = c(0, 200),
+                                                      cex = 2))
+  vdiffr::expect_doppelganger("persp",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "persp",
+                                                      xlim = c(310, 750),
+                                                      limit_counts = 10000,
+                                                      bg.spectrum = bg.spectrum,
+                                                      bin.rows = 10,
+                                                      bin.cols = 1))
+  vdiffr::expect_doppelganger("single",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "single",
+                                                      xlim = c(310, 750),
+                                                      ylim = c(0, 300),
+                                                      bin.cols = 10))
+  vdiffr::expect_doppelganger("multiple",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "multiple.lines",
+                                                      xlim = c(1.4, 4),
+                                                      ylim = c(0, 300),
+                                                      bg.spectrum = bg.spectrum,
+                                                      bg.channels = 2,
+                                                      bin.cols = 1,
+                                                      xaxis.energy = TRUE))
+  })
 })
 
 test_that("regression tests", {
