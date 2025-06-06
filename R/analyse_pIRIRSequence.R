@@ -296,18 +296,12 @@ analyse_pIRIRSequence <- function(
   }
 
 # Deal with extra arguments -------------------------------------------------------------------
-  ## default values
-  mtext.outer <- "MEASUREMENT INFO"
-  main <- ""
-  log <- ""
-  cex <- 0.7
-
   ##deal with addition arguments
   extraArgs <- list(...)
   mtext.outer <- if ("mtext.outer" %in% names(extraArgs)) extraArgs$mtext.outer
-  main <- if ("main" %in% names(extraArgs)) extraArgs$main
-  log <- if ("log" %in% names(extraArgs)) extraArgs$log
-  cex <- if ("cex" %in% names(extraArgs)) extraArgs$cex
+  main <- if ("main" %in% names(extraArgs)) extraArgs$main else "MEASUREMENT INFO"
+  log <- if ("log" %in% names(extraArgs)) extraArgs$log else ""
+  cex <- if ("cex" %in% names(extraArgs)) extraArgs$cex else 0.7
 
 
 # Protocol Integrity Checks --------------------------------------------------
@@ -510,6 +504,7 @@ analyse_pIRIRSequence <- function(
     }
 
     ##start analysis
+    par(cex = cex)
     temp.results <- analyse_SAR.CWOSL(
       temp.curves,
       signal.integral.min = temp.signal.integral.min,
@@ -519,7 +514,7 @@ analyse_pIRIRSequence <- function(
       plot = plot,
       dose.points = dose.points,
       plot_singlePanels = temp.plot.single,
-      cex.global = cex,
+      cex = cex,
       ...
     ) ##TODO should be replaced be useful explicit arguments
 
@@ -804,4 +799,3 @@ if(plot){
 
   return(temp.results.final)
 }
-
