@@ -172,8 +172,8 @@
 #' This allows to get hands on the `Lx/Tx` table for large datasets
 #' without the need for a curve fitting.
 #'
-#' @param ... further arguments that will be passed to the function
-#' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
+#' @param ... further arguments that will be passed to the functions
+#' [fit_DoseResponseCurve], [plot_DoseResponseCurve] or [calc_OSLLxTxRatio]
 #' (supported: `background.count.distribution`, `sigmab`, `sig0`).
 #' **Please note** that if you consider to use the early light subtraction
 #' method you should provide your own `sigmab` value!
