@@ -311,18 +311,15 @@ analyse_pIRIRSequence <- function(
   temp.sequence.structure  <- structure_RLum(object)
 
   ##remove data types that fit not to the allowed values
-  temp.sequence.rm.id <- temp.sequence.structure[
-    (!grepl("TL",temp.sequence.structure[["recordType"]])) &
-    (!grepl("OSL", temp.sequence.structure[["recordType"]])) &
-    (!grepl("IRSL", temp.sequence.structure[["recordType"]]))
-    ,"id"]
+  temp.sequence.rm.id <- temp.sequence.structure[["id"]][
+    !temp.sequence.structure[["recordType"]] %in% c("TL", "OSL", "IRSL")]
 
   if(length(temp.sequence.rm.id)>0){
-
   ##removed record from data set
-  object <- get_RLum(object, record.id = -temp.sequence.rm.id,
-        drop = FALSE
-      )
+  object <- get_RLum(
+    object = object,
+    record.id = -temp.sequence.rm.id,
+    drop = FALSE)
 
   .throw_warning("The following unrecognised record types have been removed: ",
                  .collapse(temp.sequence.structure[temp.sequence.rm.id,
@@ -330,7 +327,6 @@ analyse_pIRIRSequence <- function(
   }
 
   ##(2) Apply user sequence structure
-
   ##get sequence structure
   temp.sequence.structure  <- structure_RLum(object)
 
@@ -405,7 +401,6 @@ analyse_pIRIRSequence <- function(
   ## the order of the produced plots by the previous functions
 
   if (plot && !plot_singlePanels) {
-
     ##first (Tx,Tn, Lx,Ln)
     temp.IRSL.layout.vector.first <- c(3, 5, 6, 7, 3, 5, 6, 8)
 
@@ -438,10 +433,10 @@ analyse_pIRIRSequence <- function(
     temp.IRSL.layout.vector, #IRSL curves,
     rep((max(temp.IRSL.layout.vector)-3),8), #legend,
     rep((max(temp.IRSL.layout.vector)+1),1), #GC
-    rep((max(temp.IRSL.layout.vector)+2),1), #TnTc
+    rep((max(temp.IRSL.layout.vector)+2),1), #TnTx
     rep((max(temp.IRSL.layout.vector)+3),2), #Rejection criteria
     rep((max(temp.IRSL.layout.vector)+1),1), #GC
-    rep((max(temp.IRSL.layout.vector)+2),1), #TnTc
+    rep((max(temp.IRSL.layout.vector)+2),1), #TnTx
     rep((max(temp.IRSL.layout.vector)+3),2)) #Rejection criteria
 
   ##set layout
