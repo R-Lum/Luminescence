@@ -69,6 +69,10 @@ This may affect the numerical results of the following functions:
 
 ## Bugfixes and changes
 
+### `analyse_baSAR()`
+
+* The function crashed if only one aliquot was kept (#834).
+
 ### `analyse_FadingMeasurement()` 
 * The function crashed if the number of `Lx` and `Tx` curves was not equal
 when `structure = c("Lx", "Tx")`, which is the default. The check that the

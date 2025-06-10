@@ -433,6 +433,20 @@ test_that("regression tests", {
                     n.MCMC = 60),
       "RLum.Results"),
       "'thin = 60' is too high for 'n.MCMC = 60', reset to 30")
+
+  ## issue 834
+  df <- CWOSL.sub@METADATA[, c("FNAME", "POSITION", "GRAIN")]
+  expect_warning(expect_s4_class(
+      analyse_baSAR(CWOSL.sub,
+                    CSV_file = df,
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = 1:2,
+                    background.integral = 8:40,
+                    method_control = list(n.chains = 1),
+                    aliquot_range = 1,
+                    n.MCMC = 10),
+      "RLum.Results"),
+      "Adaptation incomplete")
   })
 
   ## check parameters irradiation times

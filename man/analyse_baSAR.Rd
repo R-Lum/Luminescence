@@ -45,7 +45,7 @@ is provided the function directly starts with the Bayesian Analysis (see details
 if a \code{character}, it must be the path to a CSV file with data for the
 analysis. Either way, data should contain 3 columns:
 the name of the file, the disc position and the grain position
-(the last being 0 for multi-grain measurements).\cr}
+(the last being 0 for multi-grain measurements).}
 
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
@@ -385,7 +385,6 @@ results <- analyse_baSAR(
   fit.method = "LIN",
   plot = FALSE,
   n.MCMC = 200
-
 )
 
 print(results)

@@ -170,7 +170,7 @@
 #' if a `character`, it must be the path to a CSV file with data for the
 #' analysis. Either way, data should contain 3 columns:
 #' the name of the file, the disc position and the grain position
-#' (the last being 0 for multi-grain measurements).\cr
+#' (the last being 0 for multi-grain measurements).
 #'
 #' @param aliquot_range [numeric] (*optional*):
 #' allows to limit the range of the aliquots used for the analysis.
@@ -1665,7 +1665,7 @@ analyse_baSAR <- function(
     ##remove all NA columns, means all NA columns in POSITION and DISC
     ##this NA values are no calculation artefacts, but coming from the data processing and have
     ##no further value
-    OUTPUT_results <- OUTPUT_results[!is.na(OUTPUT_results[,2]),]
+    OUTPUT_results <- OUTPUT_results[!is.na(OUTPUT_results[, 2]), , drop = FALSE]
 
     ##clean up NaN values in the LxTx and corresponding error values
     ##the transposition of the matrix may increase the performance for very large matrices
@@ -1700,7 +1700,7 @@ analyse_baSAR <- function(
   ##prepare data frame for output that can used as input
   input_object <- data.frame(
     BIN_FILE = unlist(object.file_name)[OUTPUT_results_reduced[[1]]],
-    OUTPUT_results_reduced[, -1],
+    OUTPUT_results_reduced[, -1, drop = FALSE],
     stringsAsFactors = FALSE
   )
 
@@ -1903,8 +1903,9 @@ analyse_baSAR <- function(
 
     ##get list with D values
     ##get list out of it
-    plot_matrix <- as.matrix(results[[2]][,grep(x = varnames, pattern = "D[", fixed = TRUE)])
-    aliquot_quantiles <- t(matrixStats::colQuantiles(x = plot_matrix, probs = c(0.25,0.75)))
+    plot_matrix <- as.matrix(results[[2]][, grep(varnames, pattern = "^D")])
+    aliquot_quantiles <- t(matrixStats::colQuantiles(plot_matrix, probs = c(0.25, 0.75),
+                                                     drop = FALSE))
 
     ##define boxplot colours ... we have red and orange
     box.col <- vapply(1:ncol(aliquot_quantiles), function(x){
