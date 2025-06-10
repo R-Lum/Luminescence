@@ -1061,7 +1061,7 @@ error.list <- list()
           xlab = "", ylab = "",
           pch = 20,
           col = unique(col[1:length(OSL.Curves.ID)]),
-          cex = 4 * cex,
+          cex = 4,
           ylim = c(0,10))
 
         ##add text
