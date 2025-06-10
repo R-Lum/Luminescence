@@ -54,6 +54,11 @@
   message for this change because the option was likely not yet used
   much.
 
+- Argument `cex.global` has been removed from `plot_DoseResponseCurve()`
+  (and consequently also from `plot_GrowthCurve()`), and if set it will
+  be silently ignored. Users can set the `cex` graphical parameter via
+  `...` in its place (#831).
+
 - The `fit.method` and `fit.advanced` arguments of function
   `fit_LMCurve()` have been removed. The default fitting method has been
   changed from `port` to `LM`, and support for the `port` algorithm has
@@ -380,6 +385,9 @@
 - If `mode = "alternate"`, the message that the equivalent dose could
   not be fitted is no longer shown.
 
+- Argument `cex.global` has been removed and will be silently ignored
+  (#831).
+
 ### `plot_DRCSummary()`
 
 - Add support for `fit.method = 'OTORX'` following the change in
@@ -410,6 +418,9 @@
 
 - Add support for `OTORX` fit corresponding to the underlying change in
   `fit_DoseReponseCurve()` (#677)
+
+- Argument `cex.global` has been removed and will be silently ignored
+  (#831).
 
 ### `plot_Histogram()`
 

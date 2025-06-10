@@ -1142,7 +1142,7 @@ error.list <- list()
               list(
                 object = temp.GC,
                 plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
-                cex.global = if(plot_onePage) .6 else 1
+                cex = ifelse(plot_onePage, 0.6, 1)
               ),
               list(...)
             ))

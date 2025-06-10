@@ -19,9 +19,6 @@ test_that("input validation", {
   expect_error(
       plot_DoseResponseCurve(fit, verbose = "error"),
       "'verbose' should be a single logical value")
-  expect_error(
-      plot_DoseResponseCurve(fit, cex.global = 0),
-      "'cex.global' should be a positive scalar")
 })
 
 test_that("plot output", {
@@ -60,6 +57,6 @@ test_that("graphical snapshot tests", {
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      reg_points_pch = 1,
                                                      density_polygon_col = "azure",
-                                                     cex.global = 2))
+                                                     cex = 2))
   })
 })

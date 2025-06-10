@@ -88,18 +88,18 @@
 <polyline points='234.18,311.33 230.49,311.33 ' style='stroke-width: 0.75; stroke: #FF3000; stroke-dasharray: 4.00,4.00;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='301.78' y='42.89' style='font-size: 9.60px; font-family: sans;' textLength='6.94px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text x='308.71' y='44.67' style='font-size: 6.72px; font-family: sans;' textLength='3.74px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='314.67' y='42.89' style='font-size: 9.60px; font-family: sans;' textLength='7.45px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='324.35' y='42.89' style='font-size: 9.60px; font-family: sans;' textLength='116.91px' lengthAdjust='spacingAndGlyphs'>33.97 ± 1.1e+00  | fit:  GOK</text>
+<text x='315.73' y='43.30' style='font-size: 7.68px; font-family: sans;' textLength='5.55px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='321.28' y='44.72' style='font-size: 5.38px; font-family: sans;' textLength='2.99px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='326.04' y='43.30' style='font-size: 7.68px; font-family: sans;' textLength='5.96px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='333.78' y='43.30' style='font-size: 7.68px; font-family: sans;' textLength='93.53px' lengthAdjust='spacingAndGlyphs'>33.97 ± 1.1e+00  | fit:  GOK</text>
 </g>
 <g clip-path='url(#cpMjE1LjIzfDUyNy44MXw0Ny4yM3wzMjUuMjU=)'>
-<circle cx='465.35' cy='297.60' r='1.73' style='stroke-width: 0.75; fill: #000000;' />
-<polygon points='465.35,304.13 467.68,308.16 463.02,308.16 ' style='stroke-width: 0.75; fill: none;' />
-<circle cx='465.35' cy='316.03' r='1.73' style='stroke-width: 0.75;' />
-<text x='472.26' y='300.24' style='font-size: 7.68px; font-family: sans;' textLength='36.72px' lengthAdjust='spacingAndGlyphs'>Dose point</text>
-<text x='472.26' y='309.46' style='font-size: 7.68px; font-family: sans;' textLength='52.09px' lengthAdjust='spacingAndGlyphs'>Dose point rep.</text>
-<text x='472.26' y='318.67' style='font-size: 7.68px; font-family: sans;' textLength='43.13px' lengthAdjust='spacingAndGlyphs'>Dose point 0</text>
+<circle cx='473.16' cy='301.06' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
+<polygon points='473.16,306.77 475.19,310.30 471.12,310.30 ' style='stroke-width: 0.75; fill: none;' />
+<circle cx='473.16' cy='317.18' r='1.51' style='stroke-width: 0.75;' />
+<text x='479.21' y='303.37' style='font-size: 6.72px; font-family: sans;' textLength='32.13px' lengthAdjust='spacingAndGlyphs'>Dose point</text>
+<text x='479.21' y='311.43' style='font-size: 6.72px; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Dose point rep.</text>
+<text x='479.21' y='319.50' style='font-size: 6.72px; font-family: sans;' textLength='37.74px' lengthAdjust='spacingAndGlyphs'>Dose point 0</text>
 </g>
 <defs>
   <clipPath id='cpMjA5LjMzfDMzOC44M3w0MjUuMzN8NTI0LjU5'>
@@ -270,12 +270,12 @@
 <text x='307.79' y='435.70' style='font-size: 6.72px; font-family: sans;' textLength='28.01px' lengthAdjust='spacingAndGlyphs'>diff. 0.4%</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='236.71' y='421.01' style='font-size: 7.20px; font-family: sans;' textLength='5.20px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text x='241.92' y='422.34' style='font-size: 5.04px; font-family: sans;' textLength='2.80px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='244.72' y='423.28' style='font-size: 3.60px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'>M</text>
-<text x='247.72' y='423.28' style='font-size: 3.60px; font-family: sans;' textLength='2.60px' lengthAdjust='spacingAndGlyphs'>C</text>
-<text x='251.99' y='421.01' style='font-size: 7.20px; font-family: sans;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='259.24' y='421.01' style='font-size: 7.20px; font-family: sans;' textLength='52.20px' lengthAdjust='spacingAndGlyphs'>33.82 ± 1.1e+00</text>
+<text x='247.92' y='421.70' style='font-size: 5.04px; font-family: sans;' textLength='3.64px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='251.56' y='422.64' style='font-size: 3.53px; font-family: sans;' textLength='1.96px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='253.53' y='423.29' style='font-size: 2.52px; font-family: sans;' textLength='2.10px' lengthAdjust='spacingAndGlyphs'>M</text>
+<text x='255.63' y='423.29' style='font-size: 2.52px; font-family: sans;' textLength='1.82px' lengthAdjust='spacingAndGlyphs'>C</text>
+<text x='258.61' y='421.70' style='font-size: 5.04px; font-family: sans;' textLength='3.91px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='263.69' y='421.70' style='font-size: 5.04px; font-family: sans;' textLength='36.54px' lengthAdjust='spacingAndGlyphs'>33.82 ± 1.1e+00</text>
 </g>
 <defs>
   <clipPath id='cpNDAxLjMzfDUzMC44M3w0MjUuMzN8NTI0LjU5'>

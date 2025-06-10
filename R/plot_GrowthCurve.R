@@ -52,9 +52,6 @@
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `plotExtended = TRUE`.
 #'
-#' @param cex.global [numeric] (*with default*):
-#' global scaling factor.
-#'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
@@ -136,7 +133,6 @@ plot_GrowthCurve <- function(
   output.plot = TRUE,
   output.plotExtended = TRUE,
   plot_singlePanels = FALSE,
-  cex.global = 1,
   verbose = TRUE,
   n.MC = 100,
   ...
@@ -162,7 +158,6 @@ plot_GrowthCurve <- function(
   .validate_logical_scalar(output.plotExtended)
   .validate_logical_scalar(plot_singlePanels)
   .validate_logical_scalar(verbose)
-  .validate_positive_scalar(cex.global)
 
   ## remaining input validation occurs inside the fitting function
   fit <- fit_DoseResponseCurve(sample, mode, fit.method,
@@ -177,7 +172,7 @@ plot_GrowthCurve <- function(
   if (output.plot) {
     plot_DoseResponseCurve(fit, plot_extended = output.plotExtended,
                            plot_singlePanels = plot_singlePanels,
-                           cex.global = cex.global, verbose = verbose, ...)
+                           verbose = verbose, ...)
   }
 
   invisible(fit)

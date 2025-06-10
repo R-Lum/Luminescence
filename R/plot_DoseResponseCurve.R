@@ -20,9 +20,6 @@
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Ignored if `plot_extended = FALSE`.
 #'
-#' @param cex.global [numeric] (*with default*):
-#' global scaling factor.
-#'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
@@ -34,7 +31,7 @@
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.3
+#' @section Function version: 1.0.4
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -89,7 +86,6 @@ plot_DoseResponseCurve <- function(
   object,
   plot_extended = TRUE,
   plot_singlePanels = FALSE,
-  cex.global = 1,
   verbose = TRUE,
   ...
 ) {
@@ -104,7 +100,6 @@ plot_DoseResponseCurve <- function(
   .validate_logical_scalar(plot_extended)
   .validate_logical_scalar(plot_singlePanels)
   .validate_logical_scalar(verbose)
-  .validate_positive_scalar(cex.global)
 
   ## Fitting arguments ------------------------------------------------------
   fit.args <- object$Fit.Args
@@ -231,7 +226,7 @@ plot_DoseResponseCurve <- function(
         bg = col[2],
         pch = 21,
         col = "black",
-        cex = 1.1 * cex.global)
+        cex = 1.1)
     }
 
     ## repeated Point
@@ -266,7 +261,7 @@ plot_DoseResponseCurve <- function(
           col = "black",
           pch = 21,
           bg = col[2],
-          cex = 1.1 * cex.global)
+          cex = 1.1)
         },
         silent = TRUE)
 
@@ -318,7 +313,7 @@ plot_DoseResponseCurve <- function(
                plot_settings$reg_points_pch[1]
               else
                plot_settings$reg_points_pch[3],
-        cex = 1.5 * cex.global)
+        cex = 1.5)
 
     ## ARROWS	#y-error Bar
     segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
@@ -336,8 +331,7 @@ plot_DoseResponseCurve <- function(
     ## insert fit and result
     try(mtext(side = 3,
               plot_settings$mtext,
-              line = 0,
-              cex = 0.8 * cex.global),
+              cex = 0.8 * par("cex")),
         silent = TRUE)
 
     ## write error message in plot if De is NaN or NA
@@ -358,14 +352,14 @@ plot_DoseResponseCurve <- function(
             "topleft",
             c("REG point", "REG point repeated", "REG point 0"),
             pch = plot_settings$reg_points_pch,
-            cex = 0.8 * cex.global,
+            cex = 0.7,
             bty = "n")
       } else {
         legend(
             "bottomright",
             c("Dose point", "Dose point rep.", "Dose point 0"),
             pch = plot_settings$reg_points_pch,
-            cex = 0.8 * cex.global,
+            cex = 0.7,
             bty = "n")
       }
     }
@@ -373,7 +367,7 @@ plot_DoseResponseCurve <- function(
     if (plot_extended) {
       ## Histogram ----------------------------------------------------------
       if (!plot_singlePanels)
-        par(cex = 0.7 * cex.global)
+        par(cex = 0.7 * plot_settings$cex)
 
       ## calculate histogram data
       try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
@@ -452,7 +446,7 @@ plot_DoseResponseCurve <- function(
             mtext(
               side = 3,
               text = De.expr,
-              cex = 0.6 * cex.global),
+              cex = 0.6 * par("cex")),
             silent = TRUE)
 
         } else {
