@@ -80,8 +80,8 @@
 <line x1='350.87' y1='342.62' x2='370.08' y2='323.41' style='stroke-width: 0.75;' />
 <line x1='361.05' y1='342.62' x2='370.08' y2='333.59' style='stroke-width: 0.75;' />
 <polygon points='187.44,342.62 187.44,223.30 370.08,223.30 370.08,342.62 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
-<circle cx='388.20' cy='282.96' r='1.89' style='stroke-width: 0.75;' />
-<polygon points='388.97,280.02 391.52,284.43 386.43,284.43 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
+<circle cx='388.68' cy='282.96' r='1.89' style='stroke-width: 0.75;' />
+<polygon points='386.88,280.02 389.42,284.43 384.33,284.43 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
 <text x='126.56' y='367.39' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='64.45px' lengthAdjust='spacingAndGlyphs'>Palaeodose error</text>
 <polygon points='370.08,491.78 370.08,372.45 430.96,372.45 430.96,491.78 ' style='stroke-width: 0.75; stroke: none; fill: #BEBEBE;' />
 <polygon points='187.44,491.78 187.44,372.45 552.72,372.45 552.72,491.78 ' style='stroke-width: 0.75; fill: none;' />
@@ -116,8 +116,8 @@
 <line x1='354.45' y1='491.78' x2='370.08' y2='476.15' style='stroke-width: 0.75;' />
 <line x1='364.63' y1='491.78' x2='370.08' y2='486.33' style='stroke-width: 0.75;' />
 <polygon points='187.44,491.78 187.44,372.45 370.08,372.45 370.08,491.78 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
-<circle cx='388.20' cy='432.12' r='1.89' style='stroke-width: 0.75;' />
-<polygon points='388.97,429.18 391.52,433.59 386.43,433.59 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
+<circle cx='388.68' cy='432.12' r='1.89' style='stroke-width: 0.75;' />
+<polygon points='386.88,429.18 389.42,433.59 384.33,433.59 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
 <polyline points='370.08,506.69 370.08,223.30 ' style='stroke-width: 0.79;' />
 <polyline points='370.08,208.38 370.08,74.14 ' style='stroke-width: 0.79;' />
 <circle cx='636.58' cy='504.43' r='1.89' style='stroke-width: 0.75;' />
