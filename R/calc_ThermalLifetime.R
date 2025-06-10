@@ -245,11 +245,8 @@ calc_ThermalLifetime <- function(
           X = E,
           FUN = function(j) {
             f(E = j, s = s, T.K = i)
-
           },
-          FUN.VALUE = vector(mode = "numeric", length = length(s))
-        )
-
+          FUN.VALUE = numeric(length(s)))
       },
       FUN.VALUE = matrix(numeric(), ncol = length(E), nrow = length(s))
     )

@@ -350,8 +350,7 @@ calc_AverageDose <- function(
     FUN = function(x) {
       .mle(yu[I[, x]], su[I[, x]], sigma_d.start = sigma_d, delta.start = delta, wu.start = wu)
     },
-    FUN.VALUE = vector(mode = "numeric", length = 2)
-  ))
+    FUN.VALUE = numeric(2)))
 
   ##exclude NA values
   dstar <- na.exclude(dstar)

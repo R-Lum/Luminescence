@@ -235,7 +235,7 @@ for(i in 1:nrow(data)){
                 maxiter = 1000
                 )$root
 
-      }, FUN.VALUE = vector(mode = "numeric", length = 1))
+      }, FUN.VALUE = numeric(1))
 
       ##calculate also the normalisation factor
       temp.MC.matrix[,8] <- (temp.MC.matrix[,3] * (1 - exp( - Dr1 / temp.MC.matrix[,4])) +

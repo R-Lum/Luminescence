@@ -1436,7 +1436,7 @@ analyse_baSAR <- function(
         Ln_index <- as.numeric(Disc_Grain.list[[k]][[dd]][[gg]][[1]][1])
         Tn_index <- as.numeric(Disc_Grain.list[[k]][[dd]][[gg]][[1]][2])
         return(c(Ln_index, Tn_index))
-      }, FUN.VALUE = vector(mode = "numeric", length = 2))
+      }, FUN.VALUE = numeric(2))
 
 
       ## data.tables for Ln and Tn values
@@ -1691,7 +1691,7 @@ analyse_baSAR <- function(
     selection <- vapply(X = 1:ncol(OUTPUT_results_reduced), FUN = function(x){
       col <- OUTPUT_results_reduced[9:(8 + 3 * max_cycles), x]
       !any(is.nan(col) | is.infinite(col))
-    }, FUN.VALUE = vector(mode = "logical", length = 1))
+    }, FUN.VALUE = logical(1))
 
     removed_aliquots <- t(OUTPUT_results_reduced[,!selection])
     OUTPUT_results_reduced <- t(OUTPUT_results_reduced[,selection])
@@ -1945,7 +1945,7 @@ analyse_baSAR <- function(
       }else{
         "white"
       }
-    }, FUN.VALUE = vector(mode = "character", length = 1))
+    }, FUN.VALUE = character(1))
 
     ## to assure a minimum of quality not more then 15 boxes are plotted in each plot
     i <- 1

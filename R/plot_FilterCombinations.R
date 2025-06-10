@@ -219,8 +219,7 @@ plot_FilterCombinations <- function(
   ##combine everything in a matrix using approx for interpolation
   filter_matrix <- vapply(filters, function(x) {
     approx(x = x[, 1], y = x[, 2], xout = wavelength_range)$y
-
-  }, FUN.VALUE = vector(mode = "numeric", length = length(wavelength_range)))
+  }, FUN.VALUE = numeric(length(wavelength_range)))
 
   ##calculate transmission window
   filter_matrix <- cbind(filter_matrix)

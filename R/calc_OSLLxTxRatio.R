@@ -369,7 +369,7 @@ calc_OSLLxTxRatio <- function(
     Y.i <- vapply(0:round(k,digits=0), function(i){
       sum(Lx.curve[min.bg.integral +
                    (len.sig.integral * i):(len.sig.integral * (i + 1))])
-    }, FUN.VALUE = vector(mode = "numeric", length = 1L))
+    }, FUN.VALUE = numeric(1))
 
     Y.i <- na.exclude(Y.i)
     sigmab.LnLx <- abs(stats::var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean
@@ -397,7 +397,7 @@ calc_OSLLxTxRatio <- function(
     Y.i_TnTx <- vapply(0:round(k.Tx, digits = 0), function(i) {
       sum(Tx.curve[min.bg.integral.Tx +
                    (len.sig.integral.Tx * i):(len.sig.integral.Tx * (i + 1))])
-    }, FUN.VALUE = vector(mode = "numeric", length = 1L))
+    }, FUN.VALUE = numeric(1))
 
     Y.i_TnTx <- na.exclude(Y.i_TnTx)
     sigmab.TnTx <- abs(stats::var(Y.i_TnTx) - mean(Y.i_TnTx))

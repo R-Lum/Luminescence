@@ -181,8 +181,7 @@ write_RLum2CSV <- function(
       ##sort out objects we do not like and we cannot procede ...
       object_list_rm <- vapply(object_list, function(x) {
          inherits(x, "matrix") || inherits(x, "numeric") || inherits(x, "data.frame")
-
-      }, vector(mode = "logical", length = 1))
+      }, FUN.VALUE = logical(1))
 
       ##remove unwanted objects
       object_list <- object_list[object_list_rm]

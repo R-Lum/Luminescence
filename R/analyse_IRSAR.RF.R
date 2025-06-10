@@ -1038,7 +1038,7 @@ analyse_IRSAR.RF<- function(
             temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
             ## return the offset of the t_n values
             RF_nat[1, 1] + temp.sliding.step
-          }, FUN.VALUE = numeric(length = 1)))
+          }, FUN.VALUE = numeric(1)))
         }
       }
 
@@ -1081,8 +1081,7 @@ analyse_IRSAR.RF<- function(
               ## the minimun, so we take the mean
               RF_nat[1, 1] + mean(RF_reg.limited[t_n.id.MC]) - t_min
             },
-            FUN.VALUE = vector(mode = "numeric", length = 1)
-          )
+            FUN.VALUE = numeric(1))
       }
 
       ##(4) get residuals (needed to be plotted later)

@@ -133,8 +133,7 @@ setMethod("show",
               ##get object class types
               temp <- vapply(object@records, function(x){
                 class(x)[1]
-
-              }, FUN.VALUE = vector(mode = "character", length = 1))
+              }, FUN.VALUE = character(1))
 
               ##print object class types
               lapply(1:length(table(temp)), function(x){
@@ -184,8 +183,7 @@ setMethod("show",
                     }else{
                       return("")
                     }
-
-              }, FUN.VALUE = vector(mode = "character", length = 1))
+              }, FUN.VALUE = character(1))
 
                  ##print on screen, differentiate between records with many
                  ##curves or just one

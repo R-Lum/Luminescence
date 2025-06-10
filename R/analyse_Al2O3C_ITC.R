@@ -209,8 +209,7 @@ analyse_Al2O3C_ITC <- function(
     temp_signal <- sum(object[seq(1,length(object), by = 2)][[x]][,2])
     temp_background <- sum(object[seq(2,length(object), by = 2)][[x]][,2])
     return(temp_signal - temp_background)
-
-  }, FUN.VALUE = vector(mode = "numeric", length = 1))
+  }, FUN.VALUE = numeric(1))
 
   ##create data.frames
     ##single points

@@ -532,8 +532,7 @@ analyse_FadingMeasurement <- function(
     }else{
       return(fit)
     }
-
-  }, FUN.VALUE = vector("numeric", length = 2))
+  }, FUN.VALUE = numeric(2))
 
   ##calculate g-values from matrix
   g_value.MC <- -fit_matrix[2, ] * 1 / fit_matrix[1, ] * 100

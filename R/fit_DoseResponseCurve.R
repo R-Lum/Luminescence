@@ -501,7 +501,7 @@ fit_DoseResponseCurve <- function(
         size = n.MC,
         replace = TRUE)
       },
-      FUN.VALUE = vector("numeric", length = n.MC)
+      FUN.VALUE = numeric(n.MC)
     ))
 
   if (mode == "interpolation") {
