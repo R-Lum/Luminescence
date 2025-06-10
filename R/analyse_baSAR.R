@@ -385,7 +385,6 @@
 #'   fit.method = "LIN",
 #'   plot = FALSE,
 #'   n.MCMC = 200
-#'
 #' )
 #'
 #' print(results)
@@ -458,9 +457,7 @@ analyse_baSAR <- function(
              baSAR_model,
              verbose)
     {
-
-      ##lower and uppder De, grep from method_control ... for sure we find it here,
-      ##as it was set before the function call
+      ## lower and upper De
       lower_centralD <- method_control[["lower_centralD"]]
       upper_centralD <- method_control[["upper_centralD"]]
 
@@ -500,10 +497,8 @@ analyse_baSAR <- function(
                        "', reset to ", thin)
       }
 
-      #check whether this makes sense at all, just a direty and quick test
+      ## check whether this makes sense at all, just a quick and dirty test
       stopifnot(lower_centralD >= 0)
-
-      Limited_cycles <- vector()
 
       if (fit.method == "EXP") {ExpoGC <- 1 ; LinGC <-  0 }
       if (fit.method == "LIN") {ExpoGC <- 0 ; LinGC <-  1 }
@@ -524,6 +519,7 @@ analyse_baSAR <- function(
         }
       }
 
+      Limited_cycles <- vector()
       for (i in 1:Nb_aliquots) {
         Limited_cycles[i] <- length(stats::na.exclude(data.Dose[, i]))
       }
@@ -1038,7 +1034,7 @@ analyse_baSAR <- function(
     if (inherits(object, "Risoe.BINfileData")) {
       fileBIN.list <- list(object)
 
-    } else if (is(object, "list")) {
+    } else if (inherits(object, "list")) {
       ##check what the list containes ...
       object_type <- unique(sapply(object, function(x) {
         .validate_class(x, c("Risoe.BINfileData", "character"),
@@ -1249,8 +1245,6 @@ analyse_baSAR <- function(
     } else{
 
       datalu <- CSV_file
-
-      ##check number of number of columns in data.frame
       if(ncol(datalu) < 3){
         .throw_error(err.msg)
       }
@@ -1396,15 +1390,12 @@ analyse_baSAR <- function(
             return(NULL)
           }
 
-          ##if the test passed, compile index list
-          index_liste <- n_index.vector[disc_logic & grain_logic]
+      ## if the test passed, compile index list
+      index_list <- n_index.vector[disc_logic & grain_logic]
 
       if (Mono_grain == FALSE)  {grain_selected <-1}
 
-          for (kn in 1: length(index_liste)) {
-
-              t <- index_liste[kn]
-
+      for (t in index_list) {
               dose.value <- irrad_time.vector[t]
               if(!is.null(unlist(source_doserate))){
                 dose.value <- dose.value * unlist(source_doserate[[k]][1])
@@ -1641,22 +1632,13 @@ analyse_baSAR <- function(
 
       comptage <- comptage + 1
       OUTPUT_results[comptage, 1] <- k
-      OUTPUT_results[comptage, 2] <- as.numeric(dd)
+      OUTPUT_results[comptage, 2] <- dd
       OUTPUT_results[comptage, 3] <- if (Mono_grain) gg else 0
 
       sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
       if (length(sel.disc.grain[[6]]) != 0) {
-        ##DE
-        OUTPUT_results[comptage, 4] <- as.numeric(sel.disc.grain[[6]][1])
-
-        ##DE.SD
-        OUTPUT_results[comptage, 5] <- as.numeric(sel.disc.grain[[6]][2])
-
-        ##D0
-        OUTPUT_results[comptage, 6] <- as.numeric(sel.disc.grain[[6]][3])
-
-        ##D0.SD
-        OUTPUT_results[comptage, 7] <- as.numeric(sel.disc.grain[[6]][4])
+        ## DE, DE.SD, D0, D0.SD
+        OUTPUT_results[comptage, 4:7] <- as.numeric(sel.disc.grain[[6]][1:4])
 
         ##CYCLES_NB
         OUTPUT_results[comptage, 8] <- length(sel.disc.grain[[2]])
@@ -1740,13 +1722,11 @@ analyse_baSAR <- function(
   ## that "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
   ## Dmax = 1000 Gy, to cover the likely range of possible values for D.
 
-
     ##check if something is set in method control, if not, set it
     if (is.null(method_control[["upper_centralD"]])) {
       method_control <- c(method_control, upper_centralD = 1000)
-
     }else{
-      if(distribution == "normal" | distribution == "cauchy" | distribution == "log_normal"){
+      if (distribution %in% c("normal", "cauchy", "log_normal")) {
         .throw_warning("You have modified the upper central_D boundary ",
                        "while applying a predefined model. This is ",
                        "possible but not recommended!")
@@ -1756,9 +1736,8 @@ analyse_baSAR <- function(
     ## do the same for the lower_centralD, just to have everything in one place
     if (is.null(method_control[["lower_centralD"]])) {
       method_control <- c(method_control, lower_centralD = 0)
-
     }else{
-      if(distribution == "normal" | distribution == "cauchy" | distribution == "log_normal"){
+      if (distribution %in% c("normal", "cauchy", "log_normal")) {
         .throw_warning("You have modified the lower central_D boundary ",
                        "while applying a predefined model. This is ",
                        "possible but not recommended!")
@@ -1802,7 +1781,7 @@ analyse_baSAR <- function(
       if(!is.null(function_arguments$source_doserate)){
         source_doserate <- eval(function_arguments$source_doserate)
 
-        if(!is(source_doserate, "list")){
+        if (!inherits(source_doserate, "list")) {
           source_doserate <- list(source_doserate)
         }
       }
@@ -1852,19 +1831,13 @@ analyse_baSAR <- function(
       cat("\n")
     }
 
-    extra <- if (!is.null(baSAR_model)) " (user defined)" else ""
     cat("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],
-        extra, "\n")
+        if (!is.null(baSAR_model)) " (user defined)", "\n")
     cat("Number of independent chains:\t", results[[1]][["N.CHAINS"]], "\n")
     cat("Number MCMC iterations/chain:\t", results[[1]][["N.MCMC"]], "\n")
     cat("------------------------------------------------------------------\n")
-    if(distribution == "log_normal"){
-      cat("\t\t\t\tmean*\tsd\tHPD\n")
-
-    }else{
-      cat("\t\t\t\tmean\tsd\tHPD\n")
-    }
-
+    cat(sprintf("\t\t\t\tmean%s\tsd\tHPD\n",
+                ifelse(distribution == "log_normal", "*", "")))
 
     cat(paste0(">> Central dose:\t\t", results[[1]][["CENTRAL"]],"\t",
                results[[1]][["CENTRAL.SD"]],"\t",
