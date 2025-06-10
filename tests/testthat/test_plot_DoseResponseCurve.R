@@ -50,6 +50,12 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("default",
                               plot_DoseResponseCurve(fit))
+  vdiffr::expect_doppelganger("extrapolation-gok",
+                              plot_DoseResponseCurve(
+                                  fit_DoseResponseCurve(LxTxData,
+                                                        fit.method = "GOK",
+                                                        mode = "extrapolation",
+                                                        verbose = FALSE)))
   vdiffr::expect_doppelganger("cex.global",
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      reg_points_pch = 1,
