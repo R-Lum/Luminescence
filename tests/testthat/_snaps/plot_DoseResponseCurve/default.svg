@@ -194,18 +194,18 @@
 <line x1='434.47' y1='47.23' x2='434.47' y2='55.57' style='stroke-width: 0.38;' />
 <line x1='434.92' y1='47.23' x2='434.92' y2='55.57' style='stroke-width: 0.38;' />
 <line x1='436.05' y1='47.23' x2='436.05' y2='55.57' style='stroke-width: 0.38;' />
-<text x='301.51' y='42.89' style='font-size: 9.60px; font-family: sans;' textLength='6.94px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text x='308.44' y='44.67' style='font-size: 6.72px; font-family: sans;' textLength='3.74px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='314.40' y='42.89' style='font-size: 9.60px; font-family: sans;' textLength='7.45px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='324.08' y='42.89' style='font-size: 9.60px; font-family: sans;' textLength='117.45px' lengthAdjust='spacingAndGlyphs'>1737.88 ± 6e+01  | fit:  EXP</text>
+<text x='315.51' y='43.30' style='font-size: 7.68px; font-family: sans;' textLength='5.55px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='321.06' y='44.72' style='font-size: 5.38px; font-family: sans;' textLength='2.99px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='325.83' y='43.30' style='font-size: 7.68px; font-family: sans;' textLength='5.96px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='333.57' y='43.30' style='font-size: 7.68px; font-family: sans;' textLength='93.96px' lengthAdjust='spacingAndGlyphs'>1737.88 ± 6e+01  | fit:  EXP</text>
 </g>
 <g clip-path='url(#cpMjE1LjIzfDUyNy44MXw0Ny4yM3wzMjUuMjU=)'>
-<circle cx='222.14' cy='56.45' r='1.73' style='stroke-width: 0.75; fill: #000000;' />
-<polygon points='222.14,62.98 224.47,67.01 219.82,67.01 ' style='stroke-width: 0.75; fill: none;' />
-<circle cx='222.14' cy='74.88' r='1.73' style='stroke-width: 0.75;' />
-<text x='229.06' y='59.09' style='font-size: 7.68px; font-family: sans;' textLength='35.44px' lengthAdjust='spacingAndGlyphs'>REG point</text>
-<text x='229.06' y='68.31' style='font-size: 7.68px; font-family: sans;' textLength='67.89px' lengthAdjust='spacingAndGlyphs'>REG point repeated</text>
-<text x='229.06' y='77.52' style='font-size: 7.68px; font-family: sans;' textLength='41.84px' lengthAdjust='spacingAndGlyphs'>REG point 0</text>
+<circle cx='221.28' cy='55.30' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
+<polygon points='221.28,61.01 223.32,64.54 219.24,64.54 ' style='stroke-width: 0.75; fill: none;' />
+<circle cx='221.28' cy='71.42' r='1.51' style='stroke-width: 0.75;' />
+<text x='227.33' y='57.61' style='font-size: 6.72px; font-family: sans;' textLength='31.01px' lengthAdjust='spacingAndGlyphs'>REG point</text>
+<text x='227.33' y='65.67' style='font-size: 6.72px; font-family: sans;' textLength='59.40px' lengthAdjust='spacingAndGlyphs'>REG point repeated</text>
+<text x='227.33' y='73.74' style='font-size: 6.72px; font-family: sans;' textLength='36.61px' lengthAdjust='spacingAndGlyphs'>REG point 0</text>
 </g>
 <defs>
   <clipPath id='cpMjA5LjMzfDMzOC44M3w0MjUuMzN8NTI0LjU5'>
@@ -369,12 +369,12 @@
 <text x='313.40' y='435.70' style='font-size: 6.72px; font-family: sans;' textLength='22.41px' lengthAdjust='spacingAndGlyphs'>diff. 0%</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='235.71' y='421.01' style='font-size: 7.20px; font-family: sans;' textLength='5.20px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text x='240.91' y='422.34' style='font-size: 5.04px; font-family: sans;' textLength='2.80px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='243.72' y='423.28' style='font-size: 3.60px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'>M</text>
-<text x='246.72' y='423.28' style='font-size: 3.60px; font-family: sans;' textLength='2.60px' lengthAdjust='spacingAndGlyphs'>C</text>
-<text x='250.98' y='421.01' style='font-size: 7.20px; font-family: sans;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='258.24' y='421.01' style='font-size: 7.20px; font-family: sans;' textLength='54.21px' lengthAdjust='spacingAndGlyphs'>1738.48 ± 6e+01</text>
+<text x='247.22' y='421.70' style='font-size: 5.04px; font-family: sans;' textLength='3.64px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='250.86' y='422.64' style='font-size: 3.53px; font-family: sans;' textLength='1.96px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='252.83' y='423.29' style='font-size: 2.52px; font-family: sans;' textLength='2.10px' lengthAdjust='spacingAndGlyphs'>M</text>
+<text x='254.93' y='423.29' style='font-size: 2.52px; font-family: sans;' textLength='1.82px' lengthAdjust='spacingAndGlyphs'>C</text>
+<text x='257.91' y='421.70' style='font-size: 5.04px; font-family: sans;' textLength='3.91px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='262.99' y='421.70' style='font-size: 5.04px; font-family: sans;' textLength='37.95px' lengthAdjust='spacingAndGlyphs'>1738.48 ± 6e+01</text>
 </g>
 <defs>
   <clipPath id='cpNDAxLjMzfDUzMC44M3w0MjUuMzN8NTI0LjU5'>
