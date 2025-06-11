@@ -21,6 +21,7 @@ Archaeometry
 Archaésciences
 Auclair
 Azevedo
+BDX
 BINX
 BINfile
 BINfileData
@@ -28,9 +29,11 @@ BSL
 BT
 Baartman
 Barbouti
+Bartz
 Barwa
 BayLum
 Bergakademie
+Bertran
 Bestimmung
 Bingen
 Biometrika
@@ -44,6 +47,7 @@ Bolker
 Bortolot
 Bos
 BosWallinga
+Bosq
 Bq
 Bracht
 Brightline
@@ -94,6 +98,7 @@ Dormagen
 Dosimetry
 Dunson
 Durbin
+Duval
 EBG
 EED
 EMCCD
@@ -104,6 +109,8 @@ Engelen
 Eq
 Erfurt
 ExampleData
+Eynaud
+FALSE’
 FFM
 FI
 FMM
@@ -192,6 +199,7 @@ Lefrais
 Lenovo
 Lett
 Levenberg
+LexStudio
 Liebig
 Liritzis
 LnTn
@@ -221,6 +229,7 @@ Morthekai
 Moska
 Mungo
 Murari
+Médoc
 NCL
 NIST
 NNDC
@@ -356,6 +365,7 @@ Urbanova
 Valla
 Vehtari
 Veldkamp
+Verdin
 Vestonice
 Villaverde
 Visualise
@@ -410,6 +420,7 @@ characterisation
 characterising
 chemometrics
 chronometric
+coercions
 colour
 coloured
 colours
@@ -424,11 +435,11 @@ de
 deconvolution
 deconvolve
 dependences
-deprecations
 der
 des
 detrapping
 devtools
+discoverable
 dispersive
 doi
 dosimetric
@@ -473,6 +484,7 @@ mW
 massebezogenen
 minimisation
 misspecification
+misspecifications
 mit
 modelled
 modelling
