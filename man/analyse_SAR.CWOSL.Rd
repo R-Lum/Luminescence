@@ -263,6 +263,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 
 ## Run example with special case for
 ## the OTORX fit
+\dontrun{
 results <- analyse_SAR.CWOSL(
  object = object,
  signal.integral.min = 1,
@@ -272,6 +273,7 @@ results <- analyse_SAR.CWOSL(
  background.integral.max = 1000,
  n.MC = 10,
  fit.method = "OTORX")
+}
 
 }
 \references{

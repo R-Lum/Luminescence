@@ -303,12 +303,12 @@
 #' #as alternative error estimation
 #' confint(results$Fit, level = 0.68)
 #'
+#' \dontrun{
 #' ##(5) special case the OTORX model with test dose column
 #' df <- cbind(LxTxData, Test_Dose = 15)
 #' fit_DoseResponseCurve(object = df, fit.method = "OTORX", n.MC = 10) |>
 #'  plot_DoseResponseCurve()
 #'
-#' \dontrun{
 #' QNL84_2_bleached <-
 #' read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
 #' STRB87_1_unbleached <-

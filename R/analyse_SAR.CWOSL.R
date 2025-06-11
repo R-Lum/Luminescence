@@ -259,6 +259,7 @@
 #'
 #' ## Run example with special case for
 #' ## the OTORX fit
+#' \dontrun{
 #' results <- analyse_SAR.CWOSL(
 #'  object = object,
 #'  signal.integral.min = 1,
@@ -268,6 +269,7 @@
 #'  background.integral.max = 1000,
 #'  n.MC = 10,
 #'  fit.method = "OTORX")
+#' }
 #'
 #' @md
 #' @export
