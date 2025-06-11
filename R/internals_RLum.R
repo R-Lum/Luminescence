@@ -1451,13 +1451,15 @@ SW <- function(expr) {
     return(filename)
 
   # calculate parts
+  dots <- "..."  # \u2026
+  max.width <- max.width - nchar(dots)
   part1_last <- floor(max.width / 2)
-  part2_first <- name.len[to_shorten] - part1_last + 1
+  part2_first <- floor(name.len[to_shorten] - max.width / 2) + 1
 
   # shorten what needs to be shortened
   filename[to_shorten] <- paste0(
     substring(filename[to_shorten], 1, part1_last),
-    "...",
+    dots,
     substring(filename[to_shorten], part2_first)
   )
 

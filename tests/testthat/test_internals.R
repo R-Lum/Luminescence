@@ -431,18 +431,19 @@ test_that("Test internals", {
   ## .shorten_filename() ----------------------------------------------------
   expect_equal(.shorten_filename("/path/to/filename"),
                "/path/to/filename")
-  expect_equal(.shorten_filename("/path/to/a_somewhat_longer_filename",
-                                 max.width = 27),
-               "/path/to/a_so...nger_filename")
-
-  ## check also length, which is one more + the ...
-  expect_equal(nchar(.shorten_filename("/path/to/a_somewhat_longer_filename",
-                                 max.width = 27)),
-               29)
+  max.width <- 27
+  shortened <- .shorten_filename("/path/to/a_somewhat_longer_filename",
+                                 max.width = max.width)
+  expect_equal(shortened,
+               "/path/to/a_s...ger_filename")
+  expect_equal(nchar(shortened), max.width)
 
   ## check vector
-  expect_equal(.shorten_filename(c("short", NA, "muchmuchlonger"), 10),
-               c("short", NA, "muchm...onger"))
+  max.width <- 10
+  shortened <- .shorten_filename(c("short", NA, "muchmuchlonger"), 10)
+  expect_equal(shortened,
+               c("short", NA, "muc...nger"))
+  expect_equal(nchar(shortened), c(5, NA, max.width))
 
   ## .rescale() ----------------------------------------------------
   x <- stats::rnorm(100)

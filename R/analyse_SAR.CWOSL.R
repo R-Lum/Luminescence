@@ -1418,7 +1418,7 @@ error.list <- list()
   text(
     x = rep(.8,n),
     y = y_coord[seq(1,length(y_coord),2)],
-    labels = .shorten_filename(x[[1]], 16),
+    labels = .shorten_filename(x[[1]], 19),
     cex = 0.9,
     adj = c(1, 0.5))
 
