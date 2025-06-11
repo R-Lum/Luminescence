@@ -66,7 +66,12 @@ values.transformed <- convert_CW2pLM(values)
 ##plot
 plot(values.transformed)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. convert_CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Bulur, E., 2000. A simple transformation for converting CW-OSL
 curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
@@ -82,5 +87,5 @@ Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{manip}

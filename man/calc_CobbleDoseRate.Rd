@@ -76,7 +76,12 @@ data("ExampleData.CobbleData", envir = environment())
 ## run function
 calc_CobbleDoseRate(ExampleData.CobbleData)
 
+} 
+
+\section{How to cite}{
+Riedesel, S., Autzen, M., 2025. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Riedesel, S., Autzen, M., 2020. Beta and gamma dose rate attenuation in rocks and sediment.
 Radiation Measurements 133, 106295.
@@ -87,5 +92,5 @@ Radiation Measurements 133, 106295.
 \author{
 Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
-}
+, RLum Developer Team}
 \keyword{datagen}

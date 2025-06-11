@@ -124,7 +124,12 @@ plot_AbanicoPlot(
  data = ExampleData.DeValues$CA1[1:56,],
  z.0 = AD$summary$AVERAGE_DOSE)
 
+} 
+
+\section{How to cite}{
+Christophe, C., Philippe, A., Kreutzer, S., 2025. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Guerin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
 Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dose, equivalent dose,
@@ -144,5 +149,5 @@ Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
 Anne Philippe, Université de Nantes, (France),
 Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}

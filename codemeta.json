@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/mcol/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
+  "runtimePlatform": "R version 4.5.0 (2025-04-11)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -569,7 +569,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "12340.218KB",
+  "fileSize": "5054.57KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -680,7 +680,7 @@
       ],
       "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
       "url": "https://r-lum.github.io/Luminescence/",
-      "description": "R package version 1.0.0"
+      "description": "R package version 1.1.0"
     },
     {
       "@type": "ScholarlyArticle",

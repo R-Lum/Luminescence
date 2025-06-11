@@ -55,5 +55,10 @@ write_R2BIN(bin, "~/portableOSL.binx")
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
+, RLum Developer Team} 
+
+\section{How to cite}{
+Burow, C., 2025. convert_PSL2Risoe.BINfileData(): Convert portable OSL data to a Risoe.BINfileData object. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/
 }
+
 \keyword{IO}
