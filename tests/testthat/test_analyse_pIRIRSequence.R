@@ -236,6 +236,24 @@ test_that("check class and length of output", {
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)
 })
 
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 838
+  object.mod <- object
+  object.mod@records <- lapply(object.mod@records, function(x) {
+    x@recordType <- paste(x@recordType, "(UVVIS)")
+    x
+  })
+  expect_s4_class(analyse_pIRIRSequence(object.mod,
+                                        signal.integral.min = 1,
+                                        signal.integral.max = 10,
+                                        background.integral.min = 900,
+                                        background.integral.max = 1000,
+                                        plot = FALSE,
+                                        verbose = FALSE),
+               "RLum.Results")
+})
 
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()

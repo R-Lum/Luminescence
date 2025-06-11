@@ -310,7 +310,7 @@ analyse_pIRIRSequence <- function(
 
   ##remove data types that fit not to the allowed values
   temp.sequence.rm.id <- temp.sequence.structure[["id"]][
-    !temp.sequence.structure[["recordType"]] %in% c("TL", "OSL", "IRSL")]
+      !grepl("(T|OS|IRS)L", temp.sequence.structure[["recordType"]])]
 
   if(length(temp.sequence.rm.id)>0){
   ##removed record from data set
