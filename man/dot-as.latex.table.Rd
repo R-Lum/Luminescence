@@ -26,7 +26,7 @@
 \item{col.names}{currently unused}
 
 \item{comments}{\link{logical} (\emph{with default}):
-insert LaTex comments}
+insert LaTeX comments}
 
 \item{pos}{\link{character} (\emph{with default}): \code{character} of length one specifying the
 alignment of each column, e.g., \code{pos = 'clr'} for a three column data frame and
@@ -52,7 +52,7 @@ Returns LaTeX code
 }
 \description{
 This function takes a \link{data.frame} and returns a table in LaTeX code that
-can be copied into any tex document.
+can be copied into any TeX document.
 }
 \section{Function version}{
  0.2.0

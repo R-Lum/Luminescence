@@ -309,7 +309,7 @@
       `mode = "extrapolation"` (thanks to John Lawless for his input).
 
 - The code of the function was optimised in several places to improve
-  code eadability and reduce redundant calls.
+  code readability and reduce redundant calls.
 
 - The models for `EXP`, `EXP+LIN`, `EXP+EXP` and `GOK` are now available
   in C++. This cut the required computation times in half in benchmark

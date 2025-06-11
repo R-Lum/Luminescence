@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This function takes a [data.frame] and returns a table in LaTeX code that
-#' can be copied into any tex document.
+#' can be copied into any TeX document.
 #'
 #' @param x [data.frame] or `RLum` object (**required**)
 #'
@@ -11,7 +11,7 @@
 #' @param col.names currently unused
 #'
 #' @param comments [logical] (*with default*):
-#' insert LaTex comments
+#' insert LaTeX comments
 #'
 #' @param pos [character] (*with default*): `character` of length one specifying the
 #' alignment of each column, e.g., `pos = 'clr'` for a three column data frame and
