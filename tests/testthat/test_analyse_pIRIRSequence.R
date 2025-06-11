@@ -255,7 +255,7 @@ test_that("graphical snapshot tests", {
                                   sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                                   main = "Pseudo pIRIR data set based on quartz OSL",
                                   plot = TRUE,
-                                  plot_singlePanels = TRUE,
+                                  plot_singlePanels = FALSE,
                                   verbose = FALSE))
 
   })
