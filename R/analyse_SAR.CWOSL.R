@@ -878,7 +878,6 @@ error.list <- list()
           plot_singlePanels
         else
           c(1,2,3,4,5,6,7,8)
-
       }
 
       ##warning if number of curves exceed colour values
@@ -1046,8 +1045,10 @@ error.list <- list()
       ## (5) Plotting Legend ----------------------------------------
       ##overall plot option selection for plot.single.sel
       if (5 %in% plot.single.sel) {
-        par.margin  <- par()$mar
-        par.mai  <- par()$mai
+        ## par.old must be assigned before changing the par() values
+        ## because `mai` is affected by `mar`, and doing it in one line like
+        ## it's done elsewhere would store a modified `mai` value
+        par.old <- par("mar", "mai")
         par(mar = c(1,1,1,1), mai = c(0,0,0,0))
 
         n <- length(OSL.Curves.ID) / 2
@@ -1071,12 +1072,9 @@ error.list <- list()
         abline(h = 10,lwd = 0.5)
 
         #reset margin
-        par(mar = par.margin, mai = par.mai)
-
+        par(par.old)
       }#plot.single.sel
-
     }##end plot
-
 
   ## (6) Plot Dose-Response Curve --------------------------------------------
     ##create data.frame
@@ -1335,9 +1333,8 @@ error.list <- list()
     ncol = 2)
 
   ##set par
-  par.mar  <- par()$mar
-  par(mar = c(3,3,3,3))
-  on.exit(par(mar = par.mar))
+  par.old <- par(mar = c(3, 3, 3, 3))
+  on.exit(par(par.old), add = TRUE)
 
   ## draw disc
   shape::emptyplot(main = "Grain location")
@@ -1377,14 +1374,13 @@ error.list <- list()
     line = -1,
     paste0("pos: #", this_pos, " | ", "grain: #", this_grain),
     cex = 0.7)
-
 }
+
 # create rejection criteria plot
 .plot_RCCriteria <- function(x) {
   ##set par
-  par.mar  <- par()$mar
-  par(mar = c(1,0,3.2,0.35))
-  on.exit(par(mar = par.mar))
+  par.old <- par(mar = c(1, 0, 3.2, 0.35))
+  on.exit(par(par.old), add = TRUE)
 
   ## determine number of criteria
   n <- nrow(x)
@@ -1426,7 +1422,6 @@ error.list <- list()
   y_coord_l <- y_coord[seq(2,length(y_coord),2)]
   for(i in 1:nrow(x)) {
     lines(x = c(0.1,1), y = rep(y_coord_l[i],2), lwd = 0.25)
-
   }
 
   text(
@@ -1444,8 +1439,8 @@ error.list <- list()
     bg = pch_set[1,],
     col = pch_set[1,],
     cex = 2)
-
 }
+
 # plot the shine-down curves more consistently
 .plot_ShineDownCurves <- function(
     record_list,
@@ -1512,5 +1507,4 @@ error.list <- list()
     rec[max(background_integral),1]),
     lty = 2,
     col = "gray")
-
 }
