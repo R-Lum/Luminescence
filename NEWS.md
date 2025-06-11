@@ -10,34 +10,33 @@
 ## New functions
 
 - `remove_SignalBackground()`: A user-friendly method to subtract
-  background signals from various curves in `RLum.Analysis-class`
-  objects without resorting to `lapply()` loops. Depending on the record
-  type, the function identifies pairs of curves; for instance, if in a
-  sequence, a `TL` curve is followed immediately by another `TL` curve.
-  The subsequent curve is recognised as the background signal,
-  subtracted using `merge_RLum()` and subsequently removed from the
-  object (if desired). Alternatively, a set of potential background
-  curves can be specified.
+  background signals from various curves in `RLum.Analysis` objects
+  without resorting to `lapply()` loops. Depending on the record type,
+  the function identifies pairs of curves; for instance, if in a
+  sequence, a `TL` curve is immediately followed by another `TL` curve,
+  the second curve is recognised as the background signal, subtracted
+  using `merge_RLum()` and subsequently removed from the object (if
+  desired). Alternatively, a set of potential background curves can be
+  specified.
 
 - `remove_RLum()`: This function further completes the set of methods
   that can handle and modify `RLum-class` objects. It operates on
-  `RLum.Analysis-class` objects or a `list` of such objects to remove
-  unwanted records from datasets. Although the function calls
-  `get_RLum()` and relies on its functionality, the new implementation
-  facilitates a more logical workflow and analysis pipeline.
+  `RLum.Analysis` objects or a `list` of such objects to remove unwanted
+  records from datasets. Although the function calls `get_RLum()` and
+  relies on its functionality, the new implementation facilitates a more
+  logical workflow and analysis pipeline.
 
-- `.as.latex.table()`: Converts `RLum.Results-class` objects where
-  suitable to `LaTeX` ready tables, for instance, objects produced by
-  `use_DRAC()`. The function is internally around for many years; now it
-  is exported and better linked to make it findable.
+- `.as.latex.table()`: Converts `RLum.Results` objects where suitable to
+  `LaTeX` ready tables, for instance, objects produced by `use_DRAC()`.
+  The function has been present in the package as an internal function
+  for many years; now it is exported and better linked to make it
+  discoverable.
 
-## New datasts
+## New datasets
 
 - `RF70Curves` is a new dataset consisting of two IR-RF curves measured
-  with the RF70 protocol. Such a dataset was always missing, and the
-  examples in `analyse_IRSAR.RF()` somewhat incomplete.
-
-## Renamed functions and deprecations
+  with the RF70 protocol. This new dataset provides a more realistic
+  example for `analyse_IRSAR.RF()`.
 
 ## Breaking changes
 
@@ -48,11 +47,7 @@
 
 - In the functions `fit_DoseResponseCurve()` and `plot_GrowthCurve()`,
   the `fit.method` option `LambertW` was replaced by the more correct
-  term `OTOR`. Nothing else has changed; however, if you run
-  `fit.method = 'LambertW'`, it fails because it has to read
-  `fit.method = 'OTOR'`. The function does not throw a warning or
-  message for this change because the option was likely not yet used
-  much.
+  term `OTOR`.
 
 - Argument `cex.global` has been removed from `plot_DoseResponseCurve()`
   (and consequently also from `plot_GrowthCurve()`), and if set it will
@@ -89,11 +84,12 @@
   check that the number of points within each pair of curves has also
   been improved, and the function now produces more helpful error
   messages (#616).
+
 - The function tests are now less rigorous for different `Lx` and `Tx`
   sizes. While they should match, numerical rounding issues in the data
-  returned by the measurement devices could result in a rejection of
-  records, although this has not actually any meaning for the data
-  analysis, means, it should not fail.
+  returned by the measurement devices could previously result in
+  rejection of records, although this had no actual meaning for the data
+  analysis.
 
 ### `analyse_IRSAR.RF()`
 
@@ -173,8 +169,8 @@
 - The rejection criteria plot was rewritten and now provides an easier
   to grasp visual feedback (#797, \#798).
 
-- The panel `IRSL`/`Single Grain` panel swapped place with the rejection
-  criteria panel; the plot numbers remained unchanged, though to avoid
+- The `IRSL`/`Single Grain` panel swapped place with the rejection
+  criteria panel; the plot numbers remained unchanged to avoid
   regression.
 
 - More code optimisation for better readability (#802)
@@ -274,10 +270,11 @@
 ### `calc_OSLLxTxRatio()`
 
 - The function returned a warning for wrong integral settings for the
-  `Tx` curve even if no `Tx` curve was provided; fixed.
+  `Tx` curve even if no `Tx` curve was provided.
+
 - The function does not check any more of different object types for
   `Lx.data` and `Tx.data` but validate objects for allowed types (this
-  should have no user-visible effects)
+  should have no user-visible effects).
 
 ### `convert_Concentration2DoseRate()`
 
@@ -287,27 +284,33 @@
 
 - The function tries a little bit harder to extract the correct duration
   of TL steps, rendering the data output hopefully a little bit more
-  intelligible (#651).  
-- The function gained a new argument called `return_same_as_input`. If
-  set to `TRUE`, the input object, usually an `RLum.Analysis-class`
-  object or a `list` of it, is returned but comes with updated info
-  elements for `IRR_TIME` and `TIMESINCEIRR`. This makes the
-  `RLum.Analysis-class` object compatible with functions that explicitly
-  search for those two objects, such as we have them in the
+  intelligible (#651).
+
+- The function gained a new argument called `return_same_as_input`, with
+  default value of `FALSE`. If set to `TRUE`, the input object (usually
+  an `RLum.Analysis` object or a `list` of them) is returned with
+  updated info elements for `IRR_TIME` and `TIMESINCEIRR`. This makes
+  the `RLum.Analysis` object compatible with functions that explicitly
+  search for those two objects, such as those in the
   `'OSLdecomposition'` package (#752).
 
 ### `fit_DoseResponseCurve()`
 
 - The function now allocates less memory for storing intermediate values
   (#610).
+
 - Add initial support for `OTORX` fitting following Lawless and
-  Timar-Gabor (2024) (#677). The code implementation follows the Python
-  reference by [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py)
-  with an addition for an allowed offset parameter `a` set if
-  `fit.force_through_origin = FALSE`. This also enables the support of
-  `mode = "extrapolation"` (thanks to John Lawless for his input).
+  Timar-Gabor
+
+2024) (#677). The code implementation follows the Python reference by
+      [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py) with an
+      addition for an allowed offset parameter `a` set if
+      `fit.force_through_origin = FALSE`. This also enables to support
+      `mode = "extrapolation"` (thanks to John Lawless for his input).
+
 - The code of the function was optimised in several places to improve
-  code readability and reduce redundant calls.
+  code eadability and reduce redundant calls.
+
 - The models for `EXP`, `EXP+LIN`, `EXP+EXP` and `GOK` are now available
   in C++. This cut the required computation times in half in benchmark
   scenarios. More importantly, this performance scales with the number
@@ -358,10 +361,10 @@
 ### `get_RLum()`
 
 - The argument `subset` can now be provided as a character that
-  represents a logical expression. Before, it required always a logical
-  expression. However, this may lead to odd effects due to the early
+  represents a logical expression. Before, it always required a logical
+  expression, but this may lead to odd effects due to the early
   evaluation happening in R and might not be wanted. Providing `subset`
-  as a character gives a little bit more freedom.
+  as a character is now a viable workaround in those situations.
 
 ### `import_Data()`
 
@@ -383,7 +386,7 @@
 ### `plot_DoseResponseCurve()`
 
 - The response curve always tries to the get the 0 point in the mode
-  `interpolation` and `alternate` (#677)
+  `interpolation` and `alternate` (#677).
 
 - Minor graphical polish to limit overplotting and also plot a density
   curve for the `L_n/T_n` signal.
@@ -397,7 +400,7 @@
 ### `plot_DRCSummary()`
 
 - Add support for `fit.method = 'OTORX'` following the change in
-  `fit_DoseResponseCurve()` (#677)
+  `fit_DoseResponseCurve()` (#677).
 
 ### `plot_DRTResults()`
 
@@ -422,8 +425,8 @@
 
 ### `plot_GrowthCurve()`
 
-- Add support for `OTORX` fit corresponding to the underlying change in
-  `fit_DoseReponseCurve()` (#677)
+- Add support for `fit.method = 'OTORX'` following the change in
+  `fit_DoseResponseCurve()` (#677).
 
 - Argument `cex.global` has been removed and will be silently ignored
   (#831).
@@ -519,22 +522,21 @@
 
 ### `sort_RLum()`
 
-- The sorting mechanism for `RLum.Analysis-class` objects has been
-  enhanced. It now enables sorting based on multiple parameters,
-  including sorting all available `info_elements` in a prioritised
-  manner (#606, \#620).
-- Sorting now works on a list of `RLum.Analysis-class` objects. If the
-  list contains other elements, they are passed through. The output is
-  again a list (#620)
+- The sorting mechanism for `RLum.Analysis` objects has been enhanced.
+  It now enables sorting based on multiple parameters, including sorting
+  all available `info_elements` in a prioritised manner (#606, \#620).
+
+- Sorting now works on a list of `RLum.Analysis` objects. If the list
+  contains elements of a different type, they are passed through
+  unchanged. The output is again a list (#620).
 
 ### `structure_RLum()`
 
 - The function now returns a less messy data frame because it
   encapsulates `.pid` and `info` as lists within the data frame. The
   function is primarily used internally to facilitate a rapid
-  exploration of `RLum.Analysis-class` object structures. However, the
-  change may potentially break existing code in extremely rare
-  circumstances.
+  exploration of `RLum.Analysis` object structures. However, the change
+  may potentially break existing code in extremely rare circumstances.
 
 ### `template_DRAC()`
 
