@@ -1,21 +1,23 @@
 #' @title Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object
 #'
-#' @description The function provides several methods for cosmic-ray removal and spectrum
-#' smoothing [RLum.Data.Spectrum-class] objects and such objects embedded in [list] or
-#' [RLum.Analysis-class] objects.
+#' @description
+#' The function provides several methods for cosmic-ray removal and spectrum
+#' smoothing for [RLum.Data.Spectrum-class] objects, and those embedded in
+#' [list] or [RLum.Analysis-class] objects.
 #'
 #' @details
 #'
 #' **`method = "Pych"`**
 #'
 #' This method applies the cosmic-ray removal algorithm described by Pych
-#' (2003). Some aspects that are different to the publication:
+#' (2003). There are some differences with respect to the publication:
 #'
-#' - For interpolation between neighbouring values the median and not the mean is used.
-#' - The number of breaks to construct the histogram is set to: `length(number.of.input.values)/2`
+#' - For interpolation between neighbouring values the median is used instead
+#' of the mean.
+#' - The number of breaks in the histogram is set to half the number of the
+#' input values.
 #'
 #' For further details see references below.
-#'
 #'
 #' **Other methods**
 #' Arguments supported through `...`
@@ -30,13 +32,12 @@
 #'  \tab `method` \tab [character] \tab see [smooth_RLum]\cr
 #'}
 #'
+#' **Best practice**
 #'
-#'**Best practice**
-#'
-#' There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+#' There is no single silver-bullet strategy for cosmic-ray removal, as it depends
 #' on the characteristic of the detector and the chosen settings. For instance,
-#' high values for pixel binning will improve the light output, but also causes
-#' multiple pixels being affected a single cosmic-ray. The same is valid for
+#' high values for pixel binning will improve the light output, but also cause
+#' multiple pixels being affected by a single cosmic-ray. The same is valid for
 #' longer integration times. The best strategy is to combine methods and ensure
 #' that the spectrum is not distorted on a case-to-case basis.
 #'

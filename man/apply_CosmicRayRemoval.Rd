@@ -61,17 +61,19 @@ Returns same object as input.
 }
 \description{
 The function provides several methods for cosmic-ray removal and spectrum
-smoothing \linkS4class{RLum.Data.Spectrum} objects and such objects embedded in \link{list} or
-\linkS4class{RLum.Analysis} objects.
+smoothing for \linkS4class{RLum.Data.Spectrum} objects, and those embedded in
+\link{list} or \linkS4class{RLum.Analysis} objects.
 }
 \details{
 \strong{\code{method = "Pych"}}
 
 This method applies the cosmic-ray removal algorithm described by Pych
-(2003). Some aspects that are different to the publication:
+(2003). There are some differences with respect to the publication:
 \itemize{
-\item For interpolation between neighbouring values the median and not the mean is used.
-\item The number of breaks to construct the histogram is set to: \code{length(number.of.input.values)/2}
+\item For interpolation between neighbouring values the median is used instead
+of the mean.
+\item The number of breaks in the histogram is set to half the number of the
+input values.
 }
 
 For further details see references below.
@@ -91,10 +93,10 @@ METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
 
 \strong{Best practice}
 
-There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+There is no single silver-bullet strategy for cosmic-ray removal, as it depends
 on the characteristic of the detector and the chosen settings. For instance,
-high values for pixel binning will improve the light output, but also causes
-multiple pixels being affected a single cosmic-ray. The same is valid for
+high values for pixel binning will improve the light output, but also cause
+multiple pixels being affected by a single cosmic-ray. The same is valid for
 longer integration times. The best strategy is to combine methods and ensure
 that the spectrum is not distorted on a case-to-case basis.
 
