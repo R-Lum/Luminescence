@@ -1103,7 +1103,6 @@ fit_DoseResponseCurve <- function(
 
     }else{
       .report_fit_failure(fit.method, mode)
-
     } #end if "try-error" Fit Method
 
   } #End if EXP+LIN
@@ -1271,7 +1270,6 @@ fit_DoseResponseCurve <- function(
 
     }else{
       .report_fit_failure(fit.method, mode)
-
     } #end if "try-error" Fit Method
 
     ##close
@@ -1684,7 +1682,6 @@ fit_DoseResponseCurve <- function(
                 c = var.c,
                 a = var.a)$minimum),
                 silent = TRUE)
-
             }
           }##endif extrapolation
           if(!inherits(try, "try-error") && !inherits(try, "function"))

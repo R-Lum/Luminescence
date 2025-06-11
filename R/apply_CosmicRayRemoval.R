@@ -218,7 +218,7 @@ apply_CosmicRayRemoval <- function(
 
   ## +++++++++++++++++++++++++++++++++++ (smooth.spline) +++++++++++++++++++++##
   }else if(method == "smooth.spline"){
-    ##write the function in a new function to acess the data more easily
+    ## wrap the function in a new function to access the data more easily
     temp_smooth.spline <- function(x, spar){
       stats::smooth.spline(x, spar = spar)$y
     }
@@ -257,7 +257,6 @@ apply_CosmicRayRemoval <- function(
         object@data <- object@data[,-id_NA, drop = FALSE]
       }
 
-
     } else if (MARGIN == 2 & is.na(extraArgs$fill[1])){
       id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
 
@@ -265,7 +264,6 @@ apply_CosmicRayRemoval <- function(
         object.data.temp.smooth <- object.data.temp.smooth[-id_NA, , drop = FALSE]
         object@data <- object@data[-id_NA,,drop = FALSE]
       }
-
     }
 
 
@@ -332,9 +330,7 @@ apply_CosmicRayRemoval <- function(
               median(object.data.temp[(n-method.Pych.smoothing):
                                         (n+method.Pych.smoothing),x]),
               object.data.temp[n,x])
-
           }else{
-
             object.data.temp[n,x]
           }
         })
