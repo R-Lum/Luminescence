@@ -1402,17 +1402,15 @@ error.list <- list()
     xlim = c(0,1),
     ylim = c(0,1),
     frame = FALSE,
+    main = "Checks",
     yaxt = "n",
     xaxt = "n",
     ylab = "",
     xlab = "")
 
-  ## plot header
-  title("Checks")
-
   ## plot names
   text(
-    x = rep(.8,n),
+    x = 0.88,
     y = y_coord[seq(1,length(y_coord),2)],
     labels = .shorten_filename(x[[1]], 19),
     cex = 0.9,
@@ -1425,7 +1423,7 @@ error.list <- list()
   }
 
   text(
-    x = rep(.8,n),
+    x = 0.8,
     y = y_coord_l,
     labels = paste0(round(x$Value, 1), " <> ", round(x$Threshold, 2)),
     cex = 0.6,
@@ -1438,7 +1436,7 @@ error.list <- list()
     y = y_coord[seq(1,length(y_coord),2)],
     bg = pch_set[1,],
     col = pch_set[1,],
-    cex = 2)
+    cex = 1.3)
 }
 
 # plot the shine-down curves more consistently
