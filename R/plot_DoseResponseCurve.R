@@ -170,14 +170,14 @@ plot_DoseResponseCurve <- function(
   plot_check <- NULL
 
   ## open plot area
-  par.default <- par()["cex"]
+  par.default <- par("cex", "mar", "mgp")
   on.exit(par(par.default), add = TRUE)
 
   if (plot_extended && !plot_singlePanels) {
     ## append the parameters modified by layout()
     par.default <- c(par.default, par("mfrow", "mfcol"))
     graphics::layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
-    par(cex = 0.8 * plot_settings$cex)
+    par(cex = 0.8 * plot_settings$cex, mar = c(3, 3, 3, 1), mgp = c(2, 1, 0))
   }
 
   #PLOT		#Plot input values
@@ -365,6 +365,9 @@ plot_DoseResponseCurve <- function(
     }
 
     if (plot_extended) {
+      ## decrease spacing between axis labels and plots
+      par(mar = c(4, 3, ifelse(plot_singlePanels, 2, 3), 1), mgp = c(2, 1, 0))
+
       ## Histogram ----------------------------------------------------------
       if (!plot_singlePanels)
         par(cex = 0.7 * plot_settings$cex)
@@ -387,6 +390,7 @@ plot_DoseResponseCurve <- function(
             sub = paste0("valid fits = ", length(na.exclude(x.natural)),
                          "/", fit.args$n.MC),
             cex.sub = 0.8,
+            cex.main = 0.8,
             col = "grey"
         ), silent = TRUE)
 
@@ -428,7 +432,7 @@ plot_DoseResponseCurve <- function(
                     x = abs((abs(De) - De.MonteCarlo) / abs(De) * 100),
                     digits = 1),
                  "%"),
-                 cex = 0.8,
+                 cex = 0.7,
                  bty = "n")
 
           ## De + Error from MC simulation + quality of error estimation
@@ -472,13 +476,14 @@ plot_DoseResponseCurve <- function(
               xlab = "#SAR-cycle",
               ylab = expression(paste(T[x] / T[n])),
               main = "Sensitivity",
+              cex.main = 0.8,
               type = "o",
               pch = 20)
           lines(c(1, length(sample[, "TnTx"])), c(1, 1), lty = 2, col = "gray")
         } else {
           plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
                axes = FALSE, xlab = "", ylab = "",
-               main = "Sensitivity")
+               main = "Sensitivity", cex.main = 0.8)
           text(5, 5, "Not available\nNo TnTx column", xpd = NA)
         }
       }

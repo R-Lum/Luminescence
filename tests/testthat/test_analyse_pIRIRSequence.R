@@ -58,7 +58,7 @@ suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCur
 test_that("check plot stuff", {
   ## it should throw a warning about the plot size
   pdf.out <- tempfile(fileext = ".pdf")
-  pdf(pdf.out, width = 12, height = 16)
+  pdf(pdf.out, width = 6, height = 8)
   expect_warning(analyse_pIRIRSequence(
     object,
     signal.integral.min = 1,
@@ -255,7 +255,7 @@ test_that("graphical snapshot tests", {
                                   sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                                   main = "Pseudo pIRIR data set based on quartz OSL",
                                   plot = TRUE,
-                                  plot_singlePanels = TRUE,
+                                  plot_singlePanels = FALSE,
                                   verbose = FALSE))
 
   })

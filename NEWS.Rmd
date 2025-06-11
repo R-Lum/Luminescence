@@ -113,6 +113,12 @@ curves (#816).
 * The plotting of the density is silently disabled if `n.MC = NULL`, which
 avoids a spurious warning (#823).
 
+### `analyse_pIRIRSequence()`
+
+* The function now respects the `cex` graphical argument, and its plot output
+has been subtly improved thanks to various fixes that have occurred especially
+in `plot_DoseResponseCurve()` (#831).
+
 ### `analyse_portableOSL()`
 
 * The function now returns an error if `mode` is something other than

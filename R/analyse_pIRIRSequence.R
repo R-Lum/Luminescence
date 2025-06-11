@@ -279,30 +279,28 @@ analyse_pIRIRSequence <- function(
                    "instead")
   }
 
-  ## Enforce a minimum plot device size: this is necessary as otherwise users
-  ## may experience "figure margins too large" errors when trying to draw all
-  ## plots on a single page. We need to round the device size values because
-  ## often they are values such as 15.99999999999 which would incorrectly
-  ## trigger our check
-  min.size <- 16
-  dev.size <- round(grDevices::dev.size("in"), 5)
-  if (plot && !plot_singlePanels && any(dev.size < min.size)) {
-    plot <- FALSE
-    msg <- paste0("Argument 'plot' reset to 'FALSE'. The smallest plot ",
-                  "size required is IN x IN in.\nConsider plotting via ",
-                  "`pdf(..., width = IN, height = IN)` ",
-                  "or setting `plot_singlePanels = TRUE`")
-    .throw_warning(gsub(x = msg, "IN", min.size))
-  }
-
-# Deal with extra arguments -------------------------------------------------------------------
-  ##deal with addition arguments
+  ## Deal with extra arguments
   extraArgs <- list(...)
   mtext.outer <- if ("mtext.outer" %in% names(extraArgs)) extraArgs$mtext.outer
   main <- if ("main" %in% names(extraArgs)) extraArgs$main else "MEASUREMENT INFO"
   log <- if ("log" %in% names(extraArgs)) extraArgs$log else ""
   cex <- if ("cex" %in% names(extraArgs)) extraArgs$cex else 0.7
 
+  ## Enforce a minimum plot device size: this is necessary as otherwise users
+  ## may experience "figure margins too large" errors when trying to draw all
+  ## plots on a single page. We need to round the device size values because
+  ## often they are values such as 15.99999999999 which would incorrectly
+  ## trigger our check
+  min.size <- ceiling(11 * cex)
+  dev.size <- round(grDevices::dev.size("in"), 5)
+  if (plot && !plot_singlePanels && any(dev.size < min.size)) {
+    plot <- FALSE
+    msg <- paste0("Argument 'plot' reset to 'FALSE': the smallest plot ",
+                  "size required is IN x IN in (at cex = ", cex, "). ",
+                  "Consider plotting via `pdf(..., width = IN, height = IN)` ",
+                  "or setting `plot_singlePanels = TRUE`. ")
+    .throw_warning(gsub(x = msg, "IN", min.size))
+  }
 
 # Protocol Integrity Checks --------------------------------------------------
   ##(1) Check structure and remove curves that fit not the recordType criteria
