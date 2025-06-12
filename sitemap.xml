@@ -23,6 +23,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.LxTxData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.LxTxOSLData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.MortarData.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.RF70Curves.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.RLum.Analysis.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.RLum.Data.Image.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.ScaleGammaDose.html</loc></url>
@@ -101,6 +102,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/convert_Second2Gray.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/convert_Wavelength2Energy.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/convert_XSYG2CSV.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/dot-as.latex.table.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/extdata.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/extract_IrradiationTimes.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/extract_ROI.html</loc></url>
@@ -112,7 +114,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/fit_SurfaceExposure.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/fit_ThermalQuenching.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_Layout.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/get_Quote.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_Risoe.BINfileData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_rightAnswer.html</loc></url>
@@ -161,6 +162,8 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_SPE2R.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_TIFF2R.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_XSYG2R.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/remove_RLum.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/remove_SignalBackground.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/replicate_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/report_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/sTeve.html</loc></url>
