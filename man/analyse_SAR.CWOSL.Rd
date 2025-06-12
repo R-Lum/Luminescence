@@ -246,6 +246,7 @@ background.integral.min = 900,
 background.integral.max = 1000,
 log = "x",
 fit.method = "EXP",
+plot_onePage = TRUE,
 rejection.criteria = list(
   recycling.ratio = 10,
   recuperation.rate = 10,
