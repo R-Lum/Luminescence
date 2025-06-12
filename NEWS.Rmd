@@ -283,7 +283,7 @@ such as those in the `'OSLdecomposition'` package (#752).
 (#610).
 
 * Add initial support for `OTORX` fitting following Lawless and Timar-Gabor
-(2024) (#677). The code implementation follows the Python reference by
+2024 (#677). The code implementation follows the Python reference by
 [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py) with an addition for
 an allowed offset parameter `a` set if `fit.force_through_origin = FALSE`.
 This also enables to support `mode = "extrapolation"` (thanks to John Lawless
@@ -471,7 +471,7 @@ to `TRUE`, images are combined into one image stack.
 ### `read_XSYG2R()`
 
 * A redundant computation has been removed, and the function is now marginally
-faster on files when the detector is not a spectrometer (#753).
+faster on files where the detector is not a spectrometer (#753).
 
 * Prepare import for an updated version of LexStudio2 (>=v2.31.1) where the
 horizontal hardware binning finally works after >10 years, but the changes

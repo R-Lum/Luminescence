@@ -300,13 +300,10 @@
   (#610).
 
 - Add initial support for `OTORX` fitting following Lawless and
-  Timar-Gabor
-
-2024) (#677). The code implementation follows the Python reference by
-      [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py) with an
-      addition for an allowed offset parameter `a` set if
-      `fit.force_through_origin = FALSE`. This also enables to support
-      `mode = "extrapolation"` (thanks to John Lawless for his input).
+  Timar-Gabor 2024 (#677). The code implementation follows the Python
+  reference by [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py) with an addition for an allowed offset parameter `a` set if
+  `fit.force_through_origin = FALSE`. This also enables to support
+  `mode = "extrapolation"` (thanks to John Lawless for his input).
 
 - The code of the function was optimised in several places to improve
   code readability and reduce redundant calls.
@@ -503,7 +500,7 @@
 ### `read_XSYG2R()`
 
 - A redundant computation has been removed, and the function is now
-  marginally faster on files when the detector is not a spectrometer
+  marginally faster on files where the detector is not a spectrometer
   (#753).
 
 - Prepare import for an updated version of LexStudio2 (\>=v2.31.1) where
