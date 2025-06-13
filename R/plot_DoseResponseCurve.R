@@ -436,6 +436,7 @@ plot_DoseResponseCurve <- function(
                  digits = 0))
 
           ## add norm curve
+          x <- seq(par("usr")[1], par("usr")[2], length.out = 100)
           y_curve <- stats::dnorm(x,
             mean = mean(x.natural, na.rm = TRUE),
             sd = sd(x.natural, na.rm = TRUE))

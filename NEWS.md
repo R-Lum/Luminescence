@@ -26,3 +26,7 @@
 
 - We added support for the `log` graphical parameter, which can be used
   if the fit was obtained with mode other than `"extrapolation"` (#820).
+
+- The normal curve drawn as part of the histogram plot could appear very
+  jagged or even as a straight line, as it could happen that too few
+  points were actually used when drawing the curve (#843).
