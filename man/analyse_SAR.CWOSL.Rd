@@ -132,6 +132,8 @@ background counts and the dose points}
 \item{Formula}{\link{formula} formula that have been used for the growth curve fitting}
 
 The output should be accessed using the function \link{get_RLum}.
+
+\strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \description{
 The function performs a SAR CW-OSL analysis on an
@@ -215,13 +217,6 @@ set here is taken as dose point.
 use this information to assign these values to the curves. However, the function
 does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
-}
-\note{
-This function must not be mixed up with the function
-\link{Analyse_SAR.OSLdata}, which works with
-\linkS4class{Risoe.BINfileData} objects.
-
-\strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
  0.11.0

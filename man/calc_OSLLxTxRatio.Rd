@@ -183,8 +183,7 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{Analyse_SAR.OSLdata}, \link{fit_DoseResponseCurve},
-\link{analyse_SAR.CWOSL}
+\linkS4class{RLum.Data.Curve}, \link{fit_DoseResponseCurve}, \link{analyse_SAR.CWOSL}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

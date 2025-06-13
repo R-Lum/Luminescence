@@ -139,8 +139,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Curve-class], [Analyse_SAR.OSLdata], [fit_DoseResponseCurve],
-#' [analyse_SAR.CWOSL]
+#' @seealso [RLum.Data.Curve-class], [fit_DoseResponseCurve], [analyse_SAR.CWOSL]
 #'
 #' @references Duller, G., 2018. Analyst v4.57 - User Manual.
 #' `https://users.aber.ac.uk/ggd`\cr
