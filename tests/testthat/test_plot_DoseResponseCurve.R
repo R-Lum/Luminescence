@@ -2,6 +2,8 @@
 data(ExampleData.LxTxData, envir = environment())
 set.seed(1)
 fit <- fit_DoseResponseCurve(LxTxData, verbose = FALSE)
+fit.extra.gok <- fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
+                                       fit.method = "GOK", verbose = FALSE)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -48,11 +50,7 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("default",
                               plot_DoseResponseCurve(fit))
   vdiffr::expect_doppelganger("extrapolation-gok",
-                              plot_DoseResponseCurve(
-                                  fit_DoseResponseCurve(LxTxData,
-                                                        fit.method = "GOK",
-                                                        mode = "extrapolation",
-                                                        verbose = FALSE)))
+                              plot_DoseResponseCurve(fit.extra.gok))
   vdiffr::expect_doppelganger("cex.global",
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      reg_points_pch = 1,
