@@ -216,7 +216,7 @@ plot_DoseResponseCurve <- function(
   silent = TRUE)
 
   ## now that we have opened the plot, we can work out the coordinates of
-  ## the extremes
+  ## the extremes, applying a log-transformation if necessary
   par.usr <- par("usr")
   if (grepl("x", plot_settings$log)) par.usr[1:2] <- 10^par.usr[1:2]
   if (grepl("y", plot_settings$log)) par.usr[3:4] <- 10^par.usr[3:4]
@@ -232,8 +232,13 @@ plot_DoseResponseCurve <- function(
 
     ## add curve
     if (inherits(object$Formula, "expression")) {
-      ## make sure that we always have a zero
-      x <- sort(c(0, seq(par.usr[1], par.usr[2], length.out = 100)))
+      ## make sure that we always have a zero: here we operate with the
+      ## original par("usr") values, so that in case of log-transformation
+      ## the points are still uniformly spaced (#845)
+      x <- sort(c(0, seq(par("usr")[1], par("usr")[2], length.out = 100)))
+      if (grepl("x", plot_settings$log))
+        x <- 10^x
+
       lines(x, eval(object$Formula))
     }
 
