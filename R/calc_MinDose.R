@@ -424,7 +424,7 @@ calc_MinDose <- function(
     h <- extraArgs$bs.h
     .validate_positive_scalar(h, name = "'bs.h'")
   } else {
-    h <- (sd(data[ ,1])/sqrt(length(data[ ,1])))*2
+    h <- sd(data[, 1]) / sqrt(nrow(data)) * 2
   }
 
   # standard deviation of sigmab
