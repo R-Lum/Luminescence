@@ -21,3 +21,8 @@
 ## Breaking changes
 
 ## Bugfixes and changes
+
+### `plot_DoseResponseCurve()`
+
+- We added support for the `log` graphical parameter, which can be used
+  if the fit was obtained with mode other than `"extrapolation"` (#820).

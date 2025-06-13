@@ -24,14 +24,15 @@
 #' enable/disable output to the terminal.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`,
-#' `density_polygon` (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`)),
-#'  `box` (`TRUE`/`FALSE`)
+#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects
+#' fitted with `mode = 'extrapolation'`), `legend`, `box` (`TRUE`/`FALSE`),
+#' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
+#' `density_rug` (`TRUE`/`FALSE`)).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.4
+#' @section Function version: 1.0.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -154,6 +155,7 @@ plot_DoseResponseCurve <- function(
         } else {
           ""
         },
+      log = "",
       legend = TRUE,
       reg_points_pch = c(19,2, 1),
       density_polygon = TRUE,
@@ -163,6 +165,25 @@ plot_DoseResponseCurve <- function(
     val = list(...),
     keep.null = TRUE
   )
+
+  if (plot_settings$log != "") {
+    if (mode == "extrapolation") {
+      .throw_message("[plot_DoseResponseCurve] No logarithmic transformation ",
+                     "allowed on a fit obtained with mode = 'extrapolation', ",
+                     "'log' reset to ''")
+      plot_settings$log <- ""
+    } else {
+      ## if we want to apply a log-transform on x and the first time point
+      ## is 0, we shift the curves by one channel
+      if (grepl("x", plot_settings$log) && min(xy$x) == 0) {
+        xy$x[xy$x == 0] <- 1
+        plot_settings$xlim[1] <- min(xy$x)
+      }
+      if (grepl("y", plot_settings$log)) {
+        plot_settings$ylim[1] <- min(xy$y)
+      }
+    }
+  }
 
   ## Main plots -------------------------------------------------------------
 
@@ -186,12 +207,19 @@ plot_DoseResponseCurve <- function(
       xy[1:fit.args$fit.NumberRegPointsReal, ],
       ylim = plot_settings$ylim,
       xlim = plot_settings$xlim,
+      log = plot_settings$log,
       pch = plot_settings$reg_points_pch,
       xlab = plot_settings$xlab,
       ylab = plot_settings$ylab,
       frame.plot = plot_settings$box[1]
   ),
   silent = TRUE)
+
+  ## now that we have opened the plot, we can work out the coordinates of
+  ## the extremes
+  par.usr <- par("usr")
+  if (grepl("x", plot_settings$log)) par.usr[1:2] <- 10^par.usr[1:2]
+  if (grepl("y", plot_settings$log)) par.usr[3:4] <- 10^par.usr[3:4]
 
   if (!inherits(plot_check, "try-error")) {
     if (mode == "extrapolation") {
@@ -205,7 +233,7 @@ plot_DoseResponseCurve <- function(
     ## add curve
     if (inherits(object$Formula, "expression")) {
       ## make sure that we always have a zero
-      x <- sort(c(0, seq(par()$usr[1], par()$usr[2], length.out = 100)))
+      x <- sort(c(0, seq(par.usr[1], par.usr[2], length.out = 100)))
       lines(x, eval(object$Formula))
     }
 
@@ -242,7 +270,7 @@ plot_DoseResponseCurve <- function(
     if (mode == "interpolation") {
       xmax <- if (is.na(De)) max(sample[, 1]) * 2 else De
       try(lines(
-          c(par()$usr[1], xmax),
+          c(par.usr[1], xmax),
           c(sample[1, 2], sample[1, 2]),
           col = col[2],
           lty = 2,
@@ -250,7 +278,7 @@ plot_DoseResponseCurve <- function(
       ), silent = TRUE)
       try(lines(
           c(De, De),
-          c(par()$usr[3], sample[1, 2]),
+          c(par.usr[3], sample[1, 2]),
           col = col[2],
           lty = 2,
           lwd = 1.25), silent = TRUE)
@@ -274,7 +302,7 @@ plot_DoseResponseCurve <- function(
           density_De$y <- .rescale(
             x = density_De$y,
             range_old = c(max(density_De$y), min(density_De$y)),
-            range_new = c(sample[1, 2]/2, par("usr")[3]))
+            range_new = c(sample[1, 2] / 2, par.usr[3]))
 
           ## for De
           polygon(
@@ -293,7 +321,7 @@ plot_DoseResponseCurve <- function(
           tmp_x <-  .rescale(
             x = tmp_x,
             range_old = c(max(tmp_x), min(tmp_x)),
-            range_new = c(sample[[2]][1], par("usr")[1]))
+            range_new = c(sample[[2]][1], par.usr[1]))
 
           # draw polygon
           polygon(
