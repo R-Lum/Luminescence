@@ -34,6 +34,8 @@ test_that("plot output", {
                                          reg_points_pch = 1,
                                          density_polygon = FALSE,
                                          box = FALSE), "RLum.Results")
+  expect_message(plot_DoseResponseCurve(fit.extra.gok, log = "x"),
+                 "No logarithmic transformation allowed on a fit obtained with")
 
   ## De is NA
   df <- data.frame(DOSE = c(0,5,10,20,30), LxTx = c(10,5,-20,-30,-40), LxTx_X = c(1,1,1,1,1))
@@ -49,6 +51,8 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("default",
                               plot_DoseResponseCurve(fit))
+  vdiffr::expect_doppelganger("log-xy",
+                              plot_DoseResponseCurve(fit, log = "xy"))
   vdiffr::expect_doppelganger("extrapolation-gok",
                               plot_DoseResponseCurve(fit.extra.gok))
   vdiffr::expect_doppelganger("cex.global",
