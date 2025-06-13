@@ -191,11 +191,6 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @note
-#' This function must not be mixed up with the function
-#' [Analyse_SAR.OSLdata], which works with
-#' [Risoe.BINfileData-class] objects.
-#'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
 #' @section Function version: 0.11.0
