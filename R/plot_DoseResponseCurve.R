@@ -310,9 +310,10 @@ plot_DoseResponseCurve <- function(
             range_new = c(sample[1, 2] / 2, par.usr[3]))
 
           ## for De
+          ## we add two extra points to ensure that the base is not wonky (#847)
           polygon(
-            x = density_De$x,
-            y = density_De$y,
+            x = c(density_De$x, tail(density_De$x, 1), density_De$x[1]),
+            y = c(density_De$y, min(density_De$y), min(density_De$y)),
             col = plot_settings$density_polygon_col)
 
           ## for LxTx
