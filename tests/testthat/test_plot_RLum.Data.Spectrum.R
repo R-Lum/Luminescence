@@ -310,6 +310,7 @@ test_that("check functionality", {
   plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "multiple.lines",
                           phi = 15, theta = -30, r = 10, log = "xyz",
                           shade = 0.4, expand = 0.5, border = 1,
+                          optical.wavelength.colours = FALSE, rug = FALSE,
                           axes = FALSE, norm = "min", col = 2, zlim = c(0, 2))
 
   expect_message(expect_null(
