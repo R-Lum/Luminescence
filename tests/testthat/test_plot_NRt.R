@@ -60,3 +60,16 @@ test_that("check functionality", {
   expect_output(plot_NRt(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
                 "BIN/BINX-file non-conform. TL curve may be wrong")
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              plot_NRt(curves))
+  vdiffr::expect_doppelganger("spline-log",
+                              plot_NRt(curves, smooth = "spline", log = "x"))
+  })
+})
