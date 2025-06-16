@@ -24,7 +24,7 @@
 
 ### `calc_AliquotSize()`
 
-- The legend text now scale better at non-default cex settings (#849).
+- The legend text now scales better at non-default cex settings (#849).
 
 ### `plot_DoseResponseCurve()`
 
