@@ -132,7 +132,7 @@ analyse_ThermochronometryData <- function(
     plot_DoseResponseCurve(
       object = results_DRC,
       xlab = if (any("DOSE" %in% colnames(df_DRC))) "Dose [Gy]" else "Dose [s]",
-      cex.global = 0.65,
+      log = "x",
       plot_extended = FALSE,
       main = sample_names[i])
 
