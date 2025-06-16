@@ -453,7 +453,7 @@ calc_AliquotSize <- function(
     if (settings$legend) {
       legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
              lty = c(2, 4, 3), bg = "white", box.col = "white",
-             cex = 0.9 * settings$cex)
+             cex = 0.9)
     }
 
     ## BOXPLOT
