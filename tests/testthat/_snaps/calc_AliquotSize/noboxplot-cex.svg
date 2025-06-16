@@ -122,12 +122,12 @@
 <text x='537.38' y='139.41' style='font-size: 21.60px; font-family: sans;' textLength='49.24px' lengthAdjust='spacingAndGlyphs'>-0.09</text>
 </g>
 <g clip-path='url(#cpMTQ0LjAwfDYzMy42MHwxNDQuMDB8NDMyLjAw)'>
-<rect x='91.15' y='144.00' width='542.45' height='207.36' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='130.03' y1='195.84' x2='207.79' y2='195.84' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
-<line x1='130.03' y1='247.68' x2='207.79' y2='247.68' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00,4.00,3.00;' />
-<line x1='130.03' y1='299.52' x2='207.79' y2='299.52' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
-<text x='246.67' y='210.71' style='font-size: 43.20px; font-family: sans;' textLength='108.09px' lengthAdjust='spacingAndGlyphs'>mean</text>
-<text x='246.67' y='262.55' style='font-size: 43.20px; font-family: sans;' textLength='141.70px' lengthAdjust='spacingAndGlyphs'>median</text>
-<text x='246.67' y='314.39' style='font-size: 43.20px; font-family: sans;' textLength='367.49px' lengthAdjust='spacingAndGlyphs'>0.05 / 0.95 quantile</text>
+<rect x='362.37' y='144.00' width='271.23' height='103.68' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #FFFFFF;' />
+<line x1='381.81' y1='169.92' x2='420.69' y2='169.92' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
+<line x1='381.81' y1='195.84' x2='420.69' y2='195.84' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00,4.00,3.00;' />
+<line x1='381.81' y1='221.76' x2='420.69' y2='221.76' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
+<text x='440.13' y='177.35' style='font-size: 21.60px; font-family: sans;' textLength='54.04px' lengthAdjust='spacingAndGlyphs'>mean</text>
+<text x='440.13' y='203.27' style='font-size: 21.60px; font-family: sans;' textLength='70.85px' lengthAdjust='spacingAndGlyphs'>median</text>
+<text x='440.13' y='229.19' style='font-size: 21.60px; font-family: sans;' textLength='183.75px' lengthAdjust='spacingAndGlyphs'>0.05 / 0.95 quantile</text>
 </g>
 </svg>

@@ -132,13 +132,13 @@
 <text x='440.56' y='53.49' style='font-size: 8.64px; font-family: sans;' textLength='19.69px' lengthAdjust='spacingAndGlyphs'>-0.94</text>
 </g>
 <g clip-path='url(#cpNTcuNjB8Njg1LjQ0fDU3LjYwfDM2MC45Ng==)'>
-<rect x='598.65' y='57.60' width='86.79' height='33.18' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='604.87' y1='65.89' x2='617.31' y2='65.89' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
-<line x1='604.87' y1='74.19' x2='617.31' y2='74.19' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00,4.00,3.00;' />
-<line x1='604.87' y1='82.48' x2='617.31' y2='82.48' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
-<text x='623.53' y='68.27' style='font-size: 6.91px; font-family: sans;' textLength='17.29px' lengthAdjust='spacingAndGlyphs'>mean</text>
-<text x='623.53' y='76.57' style='font-size: 6.91px; font-family: sans;' textLength='22.67px' lengthAdjust='spacingAndGlyphs'>median</text>
-<text x='623.53' y='84.86' style='font-size: 6.91px; font-family: sans;' textLength='58.80px' lengthAdjust='spacingAndGlyphs'>0.05 / 0.95 quantile</text>
+<rect x='576.95' y='57.60' width='108.49' height='41.47' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #FFFFFF;' />
+<line x1='584.73' y1='67.97' x2='600.28' y2='67.97' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
+<line x1='584.73' y1='78.34' x2='600.28' y2='78.34' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00,4.00,3.00;' />
+<line x1='584.73' y1='88.70' x2='600.28' y2='88.70' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
+<text x='608.05' y='70.94' style='font-size: 8.64px; font-family: sans;' textLength='21.62px' lengthAdjust='spacingAndGlyphs'>mean</text>
+<text x='608.05' y='81.31' style='font-size: 8.64px; font-family: sans;' textLength='28.34px' lengthAdjust='spacingAndGlyphs'>median</text>
+<text x='608.05' y='91.68' style='font-size: 8.64px; font-family: sans;' textLength='73.50px' lengthAdjust='spacingAndGlyphs'>0.05 / 0.95 quantile</text>
 </g>
 <defs>
   <clipPath id='cpNTcuNjB8Njg1LjQ0fDM4NC4wMHw1MTguNDA='>
