@@ -1,3 +1,7 @@
+## example data
+set.seed(1234)
+object <- rnorm(1000, 100, 10)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -15,10 +19,6 @@ test_that("input validation", {
 
 test_that("check functionality", {
   testthat::skip_on_cran()
-
-  ##simple run with example data
-  set.seed(1234)
-  object <- rnorm(1000, 100, 10)
 
   ##run as numeric
   SW({
@@ -44,4 +44,19 @@ test_that("check functionality", {
 
   ##check the results
   expect_length(results, 3)
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              plot_OSLAgeSummary(object))
+  vdiffr::expect_doppelganger("level",
+                              plot_OSLAgeSummary(object, level = 0.3))
+  })
 })

@@ -110,3 +110,28 @@ test_that("snapshot tests", {
       tolerance = snapshot.tolerance)
   })
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              calc_AliquotSize(grain.size = c(80, 150),
+                                               sample.diameter = 7,
+                                               sample_carrier.diameter = 7.2,
+                                               MC.iter = 20,
+                                               verbose = FALSE))
+  vdiffr::expect_doppelganger("noboxplot-cex",
+                              calc_AliquotSize(grain.size = c(100, 200),
+                                               sample.diameter = 8,
+                                               sample_carrier.diameter = 2,
+                                               MC.iter = 20,
+                                               cex = 2,
+                                               boxplot = FALSE,
+                                               verbose = FALSE))
+  })
+})
