@@ -1,3 +1,21 @@
+## load data
+data(ExampleData.BINfileData, envir = environment())
+
+## transform the values from the first position in a RLum.Analysis object
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+
+## perform SAR analysis
+results <- analyse_SAR.CWOSL(
+  object = object,
+  signal.integral.min = 1,
+  signal.integral.max = 2,
+  background.integral.min = 900,
+  background.integral.max = 1000,
+  verbose = FALSE,
+  plot = FALSE,
+  onlyLxTxTable = TRUE
+)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -62,44 +80,25 @@ test_that("input validation", {
   )
 })
 
-test_that("Test the function itself", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  ##This is based on the package example
-  ##load data
-  ##ExampleData.BINfileData contains two BINfileData objects
-  ##CWOSL.SAR.Data and TL.SAR.Data
-  data(ExampleData.BINfileData, envir = environment())
+  set.seed(1)
+  snapshot.tolerance <- 1.5e-6
 
-  ##transform the values from the first position in a RLum.Analysis object
-  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-
-  ##perform SAR analysis and set rejection criteria
-  results <- analyse_SAR.CWOSL(
-  object = object,
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min = 900,
-  background.integral.max = 1000,
-  verbose = FALSE,
-  plot = FALSE,
-  onlyLxTxTable = TRUE
-  )
-
-  ##run fading correction
   SW({
-  expect_s4_class(calc_Lamothe2003(
+  ##run fading correction
+  expect_snapshot_RLum(calc_Lamothe2003(
     object = results,
     dose_rate.envir =  c(1.676 , 0.180),
     dose_rate.source = c(0.184, 0.003),
     g_value =  c(2.36, 0.6),
     plot = TRUE,
-    fit.method = "EXP"), class = "RLum.Results")
-  })
+    fit.method = "EXP"),
+    tolerance = snapshot.tolerance)
 
   ##run fading correction
-  SW({
-  expect_s4_class(calc_Lamothe2003(
+  expect_snapshot_RLum(calc_Lamothe2003(
     object = results,
     dose_rate.envir =  c(1.676 , 0.180),
     dose_rate.source = c(0.184, 0.003),
@@ -107,9 +106,12 @@ test_that("Test the function itself", {
     tc = 1000,
     tc.g_value = 1200,
     plot = TRUE,
-    fit.method = "EXP"), class = "RLum.Results")
+    fit.method = "EXP"),
+    tolerance = snapshot.tolerance)
   })
+})
 
+test_that("more coverage", {
   ## pretend to have an analyse_pIRIRSequence originator to increase coverage
   results.mod <- results
   results.mod@originator <- "analyse_pIRIRSequence"
@@ -122,10 +124,8 @@ test_that("Test the function itself", {
     g_value =  c(2.36, 0.6),
     plot = FALSE,
     fit.method = "EXP"), class = "RLum.Results")
-  })
 
   ## signal information present
-  SW({
   res <- suppressWarnings(
     calc_Lamothe2003(
       object = data.frame(x = c(0,10,20), y = c(1.4,0.7,2.3),
