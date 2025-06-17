@@ -1,17 +1,19 @@
-#'@title Apply fading correction after Lamothe et al., 2003
+#' @title Apply fading correction after Lamothe et al., 2003
 #'
-#'@description This function applies the fading correction for the prediction of long-term fading as suggested
-#' by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fits a new dose-response
-#' curve using the function [plot_GrowthCurve].
+#' @description
+#' This function applies the fading correction for the prediction of long-term
+#' fading as suggested by Lamothe et al., 2003. The function basically adjusts
+#' the $L_n/T_n$ values and fits a new dose-response curve using function
+#' [plot_GrowthCurve].
 #'
-#'@details
+#' @details
 #'
 #' **Format of `object` if `data.frame`**
 #'
-#' If `object` is of type [data.frame], all input values most be of type [numeric].
-#' Dose values are excepted in seconds (s) not Gray (Gy). No `NA` values are allowed and
-#' the value for the natural dose (first row) should be `0`. Example for three dose points,
-#' column names are arbitrary:
+#' If `object` is a [data.frame], all input values must be of type [numeric].
+#' Dose values are expected in seconds (s) not Gray (Gy). No `NA` values are
+#' allowed and the value for the natural dose (first row) should be `0`.
+#' Example for three dose points (column names are arbitrary):
 #'
 #' ```
 #'  object <- data.frame(
@@ -22,27 +24,32 @@
 #'
 #'  **Note on the g-value and `tc`**
 #'
-#'  Users new to R and fading measurements are often confused about what to
-#'  enter for `tc` and why it may differ from `tc.g_value`. The `tc` value
-#'  is, by convention (Huntley & Lamothe 2001), the time elapsed between the end of the irradiation and the prompt
-#'  measurement. Usually there is no reason for having a `tc` value different for the equivalent dose measurement
-#'  and the *g*-value measurement, except if different equipment was used.
-#'  However, if, for instance, the *g*-value measurement sequence was analysed
-#'  with the *Analyst* (Duller 2015) and `Luminescence` is used to correct for fading,
-#'  there is a high chance that the value returned by the *Analyst* comes normalised to 2-days;
-#'  even the `tc` values of the measurement were identical.
-#'  In such cases, the fading correction cannot be correct until the `tc.g_value` was manually
-#'  set to 2-days (`172800` s) because the function will internally recalculate values
-#'  to an identical `tc` value.
+#' Users new to R and fading measurements are often confused about what to
+#' enter for `tc` and why it may differ from `tc.g_value`. By convention
+#' (Huntley & Lamothe 2001), the `tc` value is the time elapsed between the
+#' end of the irradiation and the prompt measurement. Usually there is no
+#' reason for having a `tc` value different for the equivalent dose measurement
+#' and the *g*-value measurement, except if different equipment was used.
+#' However, if, for instance, the *g*-value measurement sequence was analysed
+#' with the *Analyst* (Duller 2015) and `Luminescence` is used to correct for
+#' fading, there is a high chance that the value returned by the *Analyst*
+#' comes normalised to 2-days, even if the `tc` values of the measurement were
+#' identical. In such cases, the fading correction cannot be correct until the
+#' `tc.g_value` is manually set to 2-days (`172800` s) because the function
+#' will internally recalculate values to an identical `tc` value.
 #'
-#' @param object [RLum.Results-class] [data.frame] (**required**): Input data for applying the
-#' fading correction. Allow are (1) [data.frame] with three columns (`dose`, `LxTx`, `LxTx error`; see details), (2)
-#' [RLum.Results-class] object created by the function [analyse_SAR.CWOSL] or [analyse_pIRIRSequence]
+#' @param object [RLum.Results-class] [data.frame] (**required**):
+#' Input data for applying the fading correction, can be (1) a [data.frame]
+#' with three columns (`dose`, `LxTx`, `LxTx error`; see details), or (2) an
+#' [RLum.Results-class] object created by [analyse_SAR.CWOSL] or
+#' [analyse_pIRIRSequence].
 #'
-#' @param dose_rate.envir [numeric] vector of length 2 (**required**): Environmental dose rate in mGy/a
+#' @param dose_rate.envir [numeric] vector of length 2 (**required**):
+#' Environmental dose rate in mGy/a.
 #'
-#' @param dose_rate.source [numeric] vector of length 2 (**required**): Irradiation source dose rate in Gy/s,
-#' which is, according to Lamothe et al. (2003) De/t*.
+#' @param dose_rate.source [numeric] vector of length 2 (**required**):
+#' Irradiation source dose rate in Gy/s, which is, according to Lamothe et al.
+#' (2003) De/t.
 #'
 #' @param g_value [numeric] vector of length 2 (**required**): g_value in
 #' %/decade *recalculated at the moment* the equivalent dose was calculated,
@@ -54,14 +61,16 @@
 #' @param tc [numeric] (*optional*): time in seconds between the **end** of
 #' the irradiation and the prompt measurement used in the equivalent dose
 #' estimation (cf. Huntley & Lamothe 2001).
-#' If set to `NULL` it is assumed that `tc` is similar for the equivalent dose
-#' estimation and the *g*-value estimation
+#' If set to `NULL`, it is assumed that `tc` is similar for the equivalent
+#' dose estimation and the *g*-value estimation.
 #'
-#' @param tc.g_value [numeric] (*with default*): the time in seconds between irradiation and the
-#' prompt measurement estimating the *g*-value. If the *g*-value was normalised to, e.g., 2 days,
-#' this time in seconds (i.e., `172800`) should be entered here along with the time used for the
-#' equivalent dose estimation. If nothing is provided the time is set to `tc`, which is the
-#' usual case for *g*-values obtained using the SAR method and *g*-values that had been not normalised to 2 days.
+#' @param tc.g_value [numeric] (*with default*):
+#' time in seconds between irradiation and the prompt measurement estimating
+#' the *g*-value. If the *g*-value was normalised to, e.g., 2 days, this time
+#' in seconds (i.e., `172800`) should be entered here along with the time used
+#' for the equivalent dose estimation. If nothing is provided the time is set
+#' to `tc`, which is the usual case for *g*-values obtained using the SAR
+#' method and *g*-values that had been not normalised to 2 days.
 #' Note: If this value is not `NULL` the functions expects a [numeric] value for `tc`.
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
@@ -71,8 +80,9 @@
 #'
 #' @param ... further arguments passed to function [plot_GrowthCurve].
 #'
-#' @return The function returns are graphical output produced by the function [plot_GrowthCurve] and
-#' an [RLum.Results-class].
+#' @return
+#' The function returns an [RLum.Results-class] object and the graphical
+#' output produced by [plot_GrowthCurve].
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr

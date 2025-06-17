@@ -17,14 +17,18 @@ calc_Lamothe2003(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}): Input data for applying the
-fading correction. Allow are (1) \link{data.frame} with three columns (\code{dose}, \code{LxTx}, \verb{LxTx error}; see details), (2)
-\linkS4class{RLum.Results} object created by the function \link{analyse_SAR.CWOSL} or \link{analyse_pIRIRSequence}}
+\item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}):
+Input data for applying the fading correction, can be (1) a \link{data.frame}
+with three columns (\code{dose}, \code{LxTx}, \verb{LxTx error}; see details), or (2) an
+\linkS4class{RLum.Results} object created by \link{analyse_SAR.CWOSL} or
+\link{analyse_pIRIRSequence}.}
 
-\item{dose_rate.envir}{\link{numeric} vector of length 2 (\strong{required}): Environmental dose rate in mGy/a}
+\item{dose_rate.envir}{\link{numeric} vector of length 2 (\strong{required}):
+Environmental dose rate in mGy/a.}
 
-\item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}): Irradiation source dose rate in Gy/s,
-which is, according to Lamothe et al. (2003) De/t*.}
+\item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}):
+Irradiation source dose rate in Gy/s, which is, according to Lamothe et al.
+(2003) De/t.}
 
 \item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in
 \%/decade \emph{recalculated at the moment} the equivalent dose was calculated,
@@ -36,14 +40,16 @@ lead to wrong results.}
 \item{tc}{\link{numeric} (\emph{optional}): time in seconds between the \strong{end} of
 the irradiation and the prompt measurement used in the equivalent dose
 estimation (cf. Huntley & Lamothe 2001).
-If set to \code{NULL} it is assumed that \code{tc} is similar for the equivalent dose
-estimation and the \emph{g}-value estimation}
+If set to \code{NULL}, it is assumed that \code{tc} is similar for the equivalent
+dose estimation and the \emph{g}-value estimation.}
 
-\item{tc.g_value}{\link{numeric} (\emph{with default}): the time in seconds between irradiation and the
-prompt measurement estimating the \emph{g}-value. If the \emph{g}-value was normalised to, e.g., 2 days,
-this time in seconds (i.e., \code{172800}) should be entered here along with the time used for the
-equivalent dose estimation. If nothing is provided the time is set to \code{tc}, which is the
-usual case for \emph{g}-values obtained using the SAR method and \emph{g}-values that had been not normalised to 2 days.
+\item{tc.g_value}{\link{numeric} (\emph{with default}):
+time in seconds between irradiation and the prompt measurement estimating
+the \emph{g}-value. If the \emph{g}-value was normalised to, e.g., 2 days, this time
+in seconds (i.e., \code{172800}) should be entered here along with the time used
+for the equivalent dose estimation. If nothing is provided the time is set
+to \code{tc}, which is the usual case for \emph{g}-values obtained using the SAR
+method and \emph{g}-values that had been not normalised to 2 days.
 Note: If this value is not \code{NULL} the functions expects a \link{numeric} value for \code{tc}.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
@@ -54,8 +60,8 @@ terminal.}
 \item{...}{further arguments passed to function \link{plot_GrowthCurve}.}
 }
 \value{
-The function returns are graphical output produced by the function \link{plot_GrowthCurve} and
-an \linkS4class{RLum.Results}.
+The function returns an \linkS4class{RLum.Results} object and the graphical
+output produced by \link{plot_GrowthCurve}.
 
 -----------------------------------\cr
 \verb{[ NUMERICAL OUTPUT ]}\cr
@@ -76,17 +82,18 @@ an \linkS4class{RLum.Results}.
 The original function call
 }
 \description{
-This function applies the fading correction for the prediction of long-term fading as suggested
-by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fits a new dose-response
-curve using the function \link{plot_GrowthCurve}.
+This function applies the fading correction for the prediction of long-term
+fading as suggested by Lamothe et al., 2003. The function basically adjusts
+the $L_n/T_n$ values and fits a new dose-response curve using function
+\link{plot_GrowthCurve}.
 }
 \details{
 \strong{Format of \code{object} if \code{data.frame}}
 
-If \code{object} is of type \link{data.frame}, all input values most be of type \link{numeric}.
-Dose values are excepted in seconds (s) not Gray (Gy). No \code{NA} values are allowed and
-the value for the natural dose (first row) should be \code{0}. Example for three dose points,
-column names are arbitrary:
+If \code{object} is a \link{data.frame}, all input values must be of type \link{numeric}.
+Dose values are expected in seconds (s) not Gray (Gy). No \code{NA} values are
+allowed and the value for the natural dose (first row) should be \code{0}.
+Example for three dose points (column names are arbitrary):
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ object <- data.frame(
  dose = c(0,25,50),
@@ -97,17 +104,18 @@ column names are arbitrary:
 \strong{Note on the g-value and \code{tc}}
 
 Users new to R and fading measurements are often confused about what to
-enter for \code{tc} and why it may differ from \code{tc.g_value}. The \code{tc} value
-is, by convention (Huntley & Lamothe 2001), the time elapsed between the end of the irradiation and the prompt
-measurement. Usually there is no reason for having a \code{tc} value different for the equivalent dose measurement
+enter for \code{tc} and why it may differ from \code{tc.g_value}. By convention
+(Huntley & Lamothe 2001), the \code{tc} value is the time elapsed between the
+end of the irradiation and the prompt measurement. Usually there is no
+reason for having a \code{tc} value different for the equivalent dose measurement
 and the \emph{g}-value measurement, except if different equipment was used.
 However, if, for instance, the \emph{g}-value measurement sequence was analysed
-with the \emph{Analyst} (Duller 2015) and \code{Luminescence} is used to correct for fading,
-there is a high chance that the value returned by the \emph{Analyst} comes normalised to 2-days;
-even the \code{tc} values of the measurement were identical.
-In such cases, the fading correction cannot be correct until the \code{tc.g_value} was manually
-set to 2-days (\code{172800} s) because the function will internally recalculate values
-to an identical \code{tc} value.
+with the \emph{Analyst} (Duller 2015) and \code{Luminescence} is used to correct for
+fading, there is a high chance that the value returned by the \emph{Analyst}
+comes normalised to 2-days, even if the \code{tc} values of the measurement were
+identical. In such cases, the fading correction cannot be correct until the
+\code{tc.g_value} is manually set to 2-days (\code{172800} s) because the function
+will internally recalculate values to an identical \code{tc} value.
 }
 \section{Function version}{
  0.1.0
