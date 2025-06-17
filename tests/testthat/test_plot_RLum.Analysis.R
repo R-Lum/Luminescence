@@ -186,6 +186,12 @@ test_that("graphical snapshot tests", {
                                   combine = TRUE,
                                   norm = TRUE,
                                   abline = list(v = 110)))
+  vdiffr::expect_doppelganger("smooth-type-cex",
+                              plot_RLum.Analysis(
+                                  temp[1:6],
+                                  smooth = TRUE,
+                                  type = "b",
+                                  cex = 2))
   vdiffr::expect_doppelganger("plot_RLum.Analysis persp",
                               plot_RLum.Analysis(
                                   set_RLum(class = "RLum.Analysis",
