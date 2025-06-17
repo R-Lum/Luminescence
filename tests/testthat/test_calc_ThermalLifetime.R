@@ -67,3 +67,18 @@ test_that("snapshot tests", {
                                             plot = FALSE),
                        tolerance = snapshot.tolerance)
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("profiling",
+                              calc_ThermalLifetime(E = c(1.600, 0.003),
+                                            s = c(1e+13, 1e+11),
+                                            T = 20,
+                                            profiling = TRUE,
+                                            output_unit = "Ma"))
+  })
+})
