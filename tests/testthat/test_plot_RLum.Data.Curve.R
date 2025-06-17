@@ -40,3 +40,22 @@ test_that("check functionality", {
   temp@info <- list(curveDescripter = "xlab;ylab", RATE = 2)
   expect_silent(plot_RLum.Data.Curve(temp))
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              plot_RLum.Data.Curve(temp))
+  vdiffr::expect_doppelganger("autoscale-xlim-smooth",
+                              plot_RLum.Data.Curve(temp, auto_scale = TRUE,
+                                                   xlim = c(10, 20),
+                                                   smooth = TRUE))
+  vdiffr::expect_doppelganger("autoscale-ylim-mtext-cex",
+                              plot_RLum.Data.Curve(temp, auto_scale = TRUE,
+                                                   ylim = c(1, 200),
+                                                   mtext = "Test", cex = 2))
+  })
+})
