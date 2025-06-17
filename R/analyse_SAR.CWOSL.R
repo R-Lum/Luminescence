@@ -644,7 +644,8 @@ error.list <- list()
     ##overwrite dose point manually
     if (!is.null(dose.points) & length(dose.points) > 0) {
       if (length(dose.points) != length(LnLxTnTx$Dose))
-        .throw_error("Length of 'dose.points' differs from number of curves")
+        .throw_error("Length of 'dose.points' (", length(dose.points),
+                     ") differs from number of curves (", length(LnLxTnTx$Dose), ")")
 
       LnLxTnTx$Dose <- dose.points
     }

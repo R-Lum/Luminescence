@@ -320,8 +320,9 @@ test_that("simple run", {
      dose.points = c(0,1,2),
      fit.method = "LIN",
      plot = FALSE,
-     verbose = FALSE
-   ), regexp = "Length of 'dose.points' differs from number of curves")
+     verbose = FALSE),
+     "Length of 'dose.points' (3) differs from number of curves (7)",
+     fixed = TRUE)
 
   expect_message(
    expect_null(analyse_SAR.CWOSL(
