@@ -28,6 +28,10 @@ found in `calc_Huntley2006()` and `analyse_SAR.CWOSL()`, respectively.
 
 * The legend text now scales better at non-default cex settings (#849).
 
+### `plot_RLum.Analysis()`
+
+* The legend text now scales better at non-default cex settings (#854).
+
 ### `plot_DoseResponseCurve()`
 
 * We added support for the `log` graphical parameter, which can be used if

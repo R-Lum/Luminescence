@@ -68,35 +68,35 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
 <g clip-path='url(#cpMTE4LjA4fDY1OS41MnwxMTguMDh8NDI5LjEy)'>
-<line x1='382.72' y1='164.16' x2='451.84' y2='164.16' style='stroke-width: 0.75;' />
-<line x1='382.72' y1='210.24' x2='451.84' y2='210.24' style='stroke-width: 0.75; stroke: #FF3000;' />
-<line x1='382.72' y1='256.32' x2='451.84' y2='256.32' style='stroke-width: 0.75; stroke: #6495ED;' />
-<line x1='382.72' y1='302.40' x2='451.84' y2='302.40' style='stroke-width: 0.75; stroke: #458B00;' />
-<line x1='382.72' y1='348.48' x2='451.84' y2='348.48' style='stroke-width: 0.75; stroke: #FFB90F;' />
-<line x1='382.72' y1='394.56' x2='451.84' y2='394.56' style='stroke-width: 0.75; stroke: #8B6914;' />
-<line x1='382.72' y1='440.64' x2='451.84' y2='440.64' style='stroke-width: 0.75; stroke: #FF00FF;' />
-<line x1='382.72' y1='486.72' x2='451.84' y2='486.72' style='stroke-width: 0.75; stroke: #00FA9A;' />
-<line x1='382.72' y1='532.80' x2='451.84' y2='532.80' style='stroke-width: 0.75; stroke: #EEEE00;' />
-<line x1='382.72' y1='578.88' x2='451.84' y2='578.88' style='stroke-width: 0.75; stroke: #9ACD32;' />
-<line x1='382.72' y1='624.96' x2='451.84' y2='624.96' style='stroke-width: 0.75; stroke: #8B0000;' />
-<line x1='382.72' y1='671.04' x2='451.84' y2='671.04' style='stroke-width: 0.75; stroke: #EEE8AA;' />
-<line x1='382.72' y1='717.12' x2='451.84' y2='717.12' style='stroke-width: 0.75; stroke: #8B7D6B;' />
-<line x1='382.72' y1='763.20' x2='451.84' y2='763.20' style='stroke-width: 0.75; stroke: #00EE76;' />
-<line x1='382.72' y1='809.28' x2='451.84' y2='809.28' style='stroke-width: 0.75; stroke: #1E90FF;' />
-<text x='486.40' y='177.37' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 1</text>
-<text x='486.40' y='223.45' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 2</text>
-<text x='486.40' y='269.53' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 3</text>
-<text x='486.40' y='315.61' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 4</text>
-<text x='486.40' y='361.69' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 5</text>
-<text x='486.40' y='407.77' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 6</text>
-<text x='486.40' y='453.85' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 7</text>
-<text x='486.40' y='499.93' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 8</text>
-<text x='486.40' y='546.01' style='font-size: 38.40px; font-family: sans;' textLength='134.48px' lengthAdjust='spacingAndGlyphs'>Curve 9</text>
-<text x='486.40' y='592.09' style='font-size: 38.40px; font-family: sans;' textLength='155.84px' lengthAdjust='spacingAndGlyphs'>Curve 10</text>
-<text x='486.40' y='638.17' style='font-size: 38.40px; font-family: sans;' textLength='155.84px' lengthAdjust='spacingAndGlyphs'>Curve 11</text>
-<text x='486.40' y='684.25' style='font-size: 38.40px; font-family: sans;' textLength='155.84px' lengthAdjust='spacingAndGlyphs'>Curve 12</text>
-<text x='486.40' y='730.33' style='font-size: 38.40px; font-family: sans;' textLength='155.84px' lengthAdjust='spacingAndGlyphs'>Curve 13</text>
-<text x='486.40' y='776.41' style='font-size: 38.40px; font-family: sans;' textLength='155.84px' lengthAdjust='spacingAndGlyphs'>Curve 14</text>
-<text x='486.40' y='822.49' style='font-size: 38.40px; font-family: sans;' textLength='155.84px' lengthAdjust='spacingAndGlyphs'>Curve 15</text>
+<line x1='521.12' y1='141.12' x2='555.68' y2='141.12' style='stroke-width: 0.75;' />
+<line x1='521.12' y1='164.16' x2='555.68' y2='164.16' style='stroke-width: 0.75; stroke: #FF3000;' />
+<line x1='521.12' y1='187.20' x2='555.68' y2='187.20' style='stroke-width: 0.75; stroke: #6495ED;' />
+<line x1='521.12' y1='210.24' x2='555.68' y2='210.24' style='stroke-width: 0.75; stroke: #458B00;' />
+<line x1='521.12' y1='233.28' x2='555.68' y2='233.28' style='stroke-width: 0.75; stroke: #FFB90F;' />
+<line x1='521.12' y1='256.32' x2='555.68' y2='256.32' style='stroke-width: 0.75; stroke: #8B6914;' />
+<line x1='521.12' y1='279.36' x2='555.68' y2='279.36' style='stroke-width: 0.75; stroke: #FF00FF;' />
+<line x1='521.12' y1='302.40' x2='555.68' y2='302.40' style='stroke-width: 0.75; stroke: #00FA9A;' />
+<line x1='521.12' y1='325.44' x2='555.68' y2='325.44' style='stroke-width: 0.75; stroke: #EEEE00;' />
+<line x1='521.12' y1='348.48' x2='555.68' y2='348.48' style='stroke-width: 0.75; stroke: #9ACD32;' />
+<line x1='521.12' y1='371.52' x2='555.68' y2='371.52' style='stroke-width: 0.75; stroke: #8B0000;' />
+<line x1='521.12' y1='394.56' x2='555.68' y2='394.56' style='stroke-width: 0.75; stroke: #EEE8AA;' />
+<line x1='521.12' y1='417.60' x2='555.68' y2='417.60' style='stroke-width: 0.75; stroke: #8B7D6B;' />
+<line x1='521.12' y1='440.64' x2='555.68' y2='440.64' style='stroke-width: 0.75; stroke: #00EE76;' />
+<line x1='521.12' y1='463.68' x2='555.68' y2='463.68' style='stroke-width: 0.75; stroke: #1E90FF;' />
+<text x='572.96' y='147.73' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 1</text>
+<text x='572.96' y='170.77' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 2</text>
+<text x='572.96' y='193.81' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 3</text>
+<text x='572.96' y='216.85' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 4</text>
+<text x='572.96' y='239.89' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 5</text>
+<text x='572.96' y='262.93' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 6</text>
+<text x='572.96' y='285.97' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 7</text>
+<text x='572.96' y='309.01' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 8</text>
+<text x='572.96' y='332.05' style='font-size: 19.20px; font-family: sans;' textLength='67.24px' lengthAdjust='spacingAndGlyphs'>Curve 9</text>
+<text x='572.96' y='355.09' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 10</text>
+<text x='572.96' y='378.13' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 11</text>
+<text x='572.96' y='401.17' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 12</text>
+<text x='572.96' y='424.21' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 13</text>
+<text x='572.96' y='447.25' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 14</text>
+<text x='572.96' y='470.29' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 15</text>
 </g>
 </svg>
