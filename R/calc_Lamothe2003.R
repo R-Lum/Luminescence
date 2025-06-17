@@ -165,35 +165,20 @@ calc_Lamothe2003 <- function(
 
   .validate_class(object, c("data.frame", "RLum.Results"))
 
-  ## dose_rate.envir
-  .validate_class(dose_rate.envir, "numeric")
-  if (length(dose_rate.envir) < 2) {
-    .throw_error("'dose_rate.envir' should contain 2 elements")
+  .validate_length_2_vector <- function(vec) {
+    name <- sprintf("'%s'", all.vars(match.call())[1])
+    .validate_class(vec, "numeric", name = name)
+    if (length(vec) < 2)
+      .throw_error(name, " should contain 2 elements")
+    if (length(vec) > 2) {
+      .throw_warning(name, " has length > 2, taking only the first two entries")
+      vec <- vec[1:2]
+    }
+    return(vec)
   }
-  if (length(dose_rate.envir) > 2) {
-    .throw_warning("'dose_rate.envir' has length > 2, taking only the first two entries")
-    dose_rate.envir <- dose_rate.envir[1:2]
-  }
-
-  ## dose_rate.source
-  .validate_class(dose_rate.source, "numeric")
-  if (length(dose_rate.source) < 2) {
-    .throw_error("'dose_rate.source' should contain 2 elements")
-  }
-  if (length(dose_rate.source) > 2) {
-    .throw_warning("'dose_rate.source' has length > 2, taking only the first two entries")
-    dose_rate.source <- dose_rate.source[1:2]
-  }
-
-  ## g_value
-  .validate_class(g_value, "numeric")
-  if (length(g_value) < 2) {
-    .throw_error("'g_value' should contain 2 elements")
-  }
-  if (length(g_value) > 2) {
-    .throw_warning("'g_value' has length > 2, taking only the first two entries")
-    g_value <- g_value[1:2]
-  }
+  .validate_length_2_vector(dose_rate.envir)
+  .validate_length_2_vector(dose_rate.source)
+  .validate_length_2_vector(g_value)
 
   ##tc
   if(is.null(tc) && !is.null(tc.g_value))
@@ -208,32 +193,29 @@ calc_Lamothe2003 <- function(
 
     ##add signal information
     if(any(grepl(pattern = "Signal", x = colnames(object), fixed = TRUE))){
-      SIGNAL <- object[[which(grepl(pattern = "Signal", colnames(object), fixed = TRUE))[1]]]
-
+      SIGNAL <- object[[grep(pattern = "Signal", colnames(object), fixed = TRUE)[1]]]
     }else{
       SIGNAL <- NA
-
     }
 
   }else if(inherits(object, "RLum.Results")){
-    if(object@originator == "analyse_SAR.CWOSL" || object@originator == "analyse_pIRIRSequence"){
-      ##now we do crazy stuff, we make a self-call here since this file can contain a lot of information
+    if (!object@originator %in% c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
+      .throw_error("Input for 'object' created by function ",
+                   object@originator, "() not supported")
 
-        ##get number of datasets; we have to search for the word natural, everything else is not safe enough
-        full_table <- object@data$LnLxTnTx.table
-        set_start <- which(grepl(full_table$Name, pattern = "Natural", fixed = TRUE))
-        set_end <- c(set_start[-1] - 1, nrow(full_table))
+    ## get number of datasets; we have to search for the word "Natural",
+    ## everything else is not safe enough
+    full_table <- object@data$LnLxTnTx.table
+    set_start <- grep(full_table$Name, pattern = "Natural", fixed = TRUE)
+    set_end <- c(set_start[-1] - 1, nrow(full_table))
 
-        ##signal column if available
-        if(object@originator == "analyse_pIRIRSequence"){
-          object <- full_table[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
-        }else{
-          object <- full_table[,c("Dose", "LxTx", "LxTx.Error")]
+    ## columns of interest
+    cols <- c("Dose", "LxTx", "LxTx.Error",
+              if (object@originator == "analyse_pIRIRSequence") "Signal")
+    object <- full_table[, cols]
 
-        }
-
-        ##now run the function
-        results <- lapply(1:length(set_start), function(x){
+    ## we make a self-call here since this file can contain a lot of information
+    results <- lapply(1:length(set_start), function(x){
           calc_Lamothe2003(
             object = object[set_start[x]:set_end[x], ],
             dose_rate.envir = dose_rate.envir,
@@ -247,12 +229,8 @@ calc_Lamothe2003 <- function(
           )
         })
 
-        ##merge output
-        return(merge_RLum(results))
-    }else{
-      .throw_error("Input for 'object' created by function ",
-                   object@originator, "() not supported")
-    }
+    ## merge output
+    return(merge_RLum(results))
   }
 
   # Apply correction----------------------------------------------------------------------------
@@ -263,7 +241,6 @@ calc_Lamothe2003 <- function(
     k0 <- g_value / 100 / log(10)
     k1 <- k0 / (1 - k0 * log(tc[1]/tc.g_value[1]))
     g_value <-  100 * k1 * log(10)
-
   }
 
   # transform irradiation times to dose values
@@ -290,7 +267,7 @@ calc_Lamothe2003 <- function(
 
   # Fitting ---------------------------------------------------------------------------------
   ##set arguments
-  argument_list <- list(
+  argument_list <- modifyList(list(
     sample = data,
     verbose = FALSE,
     main = "Corrected Dose Response Curve",
@@ -298,19 +275,17 @@ calc_Lamothe2003 <- function(
     txtProgressBar = verbose,
     output.plotExtended = FALSE,
     output.plot = plot
-  )
-
-  ##filter doubled arguments
-  argument_list <- modifyList(x = argument_list, val = list(...))
+  ), val = list(...))
 
   ##run plot function
   fit_results <- do.call(what = plot_GrowthCurve, args = argument_list)
 
 
   # Age calculation -----------------------------------------------------------------------------
-  Age <-  get_RLum(fit_results)[["De"]] / dose_rate.envir[1]
-  s_Age <-  sqrt((100*get_RLum(fit_results)[["De.Error"]]/get_RLum(fit_results)[["De"]])^2 + (100*dose_rate.envir[2]/dose_rate.envir[1])^2) *Age/100
-
+  res <- get_RLum(fit_results)
+  Age <- res[["De"]] / dose_rate.envir[1]
+  s_Age <- sqrt((100 * res[["De.Error"]] / res[["De"]])^2 +
+                (100 * dose_rate.envir[2] / dose_rate.envir[1])^2) * Age / 100
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
@@ -318,16 +293,14 @@ calc_Lamothe2003 <- function(
     cat(" Used g_value:\t\t", round(g_value[1],3)," \u00b1 ",round(g_value[2],3),"%/decade \n")
     if(!is.null(tc)){
       cat(" tc for g_value:\t", tc.g_value, " s\n")
-
     }
     cat("\n")
     cat(" Fading_C:\t\t", round(Fading_C,3), " \u00b1 ", round(sFading_C,3),"\n")
     cat(" Corrected Ln/Tn:\t", round(data[[2]][1],3), " \u00b1 ", round(data[[3]][1],3),"\n")
-    cat(" Corrected De:\t\t", round(get_RLum(fit_results)[["De"]],2), " \u00b1 ", round(get_RLum(fit_results)[["De.Error"]],2)," Gy \n")
+    cat(" Corrected De:\t\t", round(res[["De"]], 2), " \u00b1 ", round(res[["De.Error"]], 2)," Gy \n")
     cat("--------------------------------------------------------\n")
     cat(" Corrected Age:\t\t", round(Age,2), " \u00b1 ", round(s_Age,2)," ka \n")
     cat("--------------------------------------------------------\n")
-
   }
 
   # Compile output ------------------------------------------------------------------------------
@@ -346,20 +319,17 @@ calc_Lamothe2003 <- function(
           LnTn_BEFORE.ERROR = LnTn_BEFORE.ERROR,
           LnTn_AFTER = data[[2]][1],
           LnTn_AFTER.ERROR = data[[3]][1],
-          DE = get_RLum(fit_results)[["De"]],
-          DE.ERROR = get_RLum(fit_results)[["De.Error"]],
+          DE = res[["De"]],
+          DE.ERROR = res[["De.Error"]],
           AGE = Age,
           AGE.ERROR = s_Age,
           SIGNAL = SIGNAL
           ),
         fit = get_RLum(fit_results, data.object = "Fit")
-
       ),
       info = list(
         call = sys.call()
       )
     )
-
   )
-
 }
