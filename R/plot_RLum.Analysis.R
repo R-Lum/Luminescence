@@ -699,7 +699,7 @@ plot_RLum.Analysis <- function(
           },
           bty = "n",
           xpd = legend.pos == "outside",
-          cex = 0.8 * plot.settings$cex[[k]]
+          cex = 0.8
         )
       }
     }
