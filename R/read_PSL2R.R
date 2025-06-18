@@ -238,11 +238,11 @@ format_Measurements <- function(x, convert, header) {
   settings_split <- unlist(strsplit(settings, "|", fixed = TRUE))
 
   # welcome to regex/strsplit hell
-  settings_measurement <- trimws(gsub(".*: ", "", settings_split[which(grepl("Measure", settings_split))]))
-  settings_stimulation_unit <- gsub("[^0-9]", "", settings_split[which(grepl("Stim", settings_split))])
-  settings_on_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("Off", settings_split))]), ","))[1])
-  settings_off_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("Off", settings_split))]), ","))[2])
-  vals <- stats::na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("No", settings_split))]), ","))))
+  settings_measurement <- trimws(gsub(".*: ", "", settings_split[grep("Measure", settings_split)]))
+  settings_stimulation_unit <- gsub("[^0-9]", "", settings_split[grep("Stim", settings_split)])
+  settings_on_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[grep("Off", settings_split)]), ","))[1])
+  settings_off_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[grep("Off", settings_split)]), ","))[2])
+  vals <- stats::na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[grep("No", settings_split)]), ","))))
   settings_cycle <- vals[1]
   settings_stimulation_time <- vals[2]
 

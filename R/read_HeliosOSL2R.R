@@ -84,7 +84,7 @@ read_HeliosOSL2R <- function(
   lines <- readLines(file)
 
     ## get footer lines id, which is printed in quotes but not the first
-    footer_id <- which(grepl(pattern = '\\"', x = lines, fixed = FALSE))[2]
+    footer_id <- grep(pattern = '\\"', x = lines)[2]
 
     ## import data measurement data
     df <- read.table(
