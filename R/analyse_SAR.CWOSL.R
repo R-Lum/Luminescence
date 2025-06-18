@@ -500,11 +500,11 @@ error.list <- list()
   }
 
   ##check if the curve lengths differ
-  temp.matrix.length <- unlist(sapply(1:length(object@records), function(x) {
-                          if(object@records[[x]]@recordType==CWcurve.type){
-                              length(object@records[[x]]@data[,1])
-                          }
-  }))
+  temp.matrix.length <- unlist(lapply(object@records,
+                                      function(x) {
+                                        if (x@recordType == CWcurve.type)
+                                          nrow(x@data)
+                                      }))
 
   if(length(unique(temp.matrix.length))!=1){
     error.list[[2]] <- paste0("Input curves have different lengths (",
@@ -759,14 +759,9 @@ error.list <- list()
     temp.status.Recuperation <- "OK"
     if (!is.na(Recuperation)[1] &
         !is.na(rejection.criteria$recuperation.rate)) {
-      temp.status.Recuperation  <-
-        sapply(1:length(Recuperation), function(x) {
-          if (Recuperation[x] > rejection.criteria$recuperation.rate / 100) {
-            "FAILED"
-          } else{
-            "OK"
-          }
-        })
+      temp.status.Recuperation  <- sapply(Recuperation, function(x) {
+        ifelse(x > rejection.criteria$recuperation.rate / 100, "FAILED", "OK")
+      })
     }
 
     # Provide Rejection Criteria for Testdose error --------------------------
@@ -1152,10 +1147,8 @@ error.list <- list()
           temp.GC <- get_RLum(temp.GC)
 
           # Provide Rejection Criteria for Palaeodose error --------------------------
-          if(is.na(temp.GC[,1])){
-            palaeodose.error.calculated <- NA
-
-          }else{
+          palaeodose.error.calculated <- NA
+          if (!is.na(temp.GC[, 1])) {
             palaeodose.error.calculated <- round(temp.GC[,2] / temp.GC[,1], digits = 5)
           }
 
@@ -1240,8 +1233,7 @@ error.list <- list()
       chk <- grepl(pattern = "position", tolower(names(x@info)), fixed = TRUE)
       if (any(chk))
         return(x@info[chk])
-      else
-        return(NA)
+      return(NA)
     })))[1]
 
     ## get grain numbers
@@ -1249,8 +1241,7 @@ error.list <- list()
       chk <- grepl(pattern = "grain", tolower(names(x@info)), fixed = TRUE)
       if (any(chk))
         return(x@info[chk])
-      else
-        return(NA)
+      return(NA)
     })))[1]
 
     temp.results.final <- set_RLum(
@@ -1288,7 +1279,6 @@ error.list <- list()
             plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
             .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
           }
-
         }else{
           plot(1, type="n", axes=F, xlab="", ylab="")
           text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
