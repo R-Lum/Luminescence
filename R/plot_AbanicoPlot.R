@@ -502,8 +502,8 @@ plot_AbanicoPlot <- function(
       n.NA <- sum(!stats::complete.cases(data[[i]]))
 
       if (n.NA > 0) {
-        message("[plot_AbanicoPlot()] Data set (", i, "): ", n.NA,
-                " NA value", ifelse (n.NA > 1, "s", ""), " excluded")
+        .throw_message("Data set (", i, "): ", n.NA, " NA value",
+                       ifelse (n.NA > 1, "s", ""), " excluded", error = FALSE)
         data[[i]] <- na.exclude(data[[i]])
       }
     }
@@ -881,7 +881,8 @@ plot_AbanicoPlot <- function(
   ## print message for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
     small.sigma <- TRUE
-    message("[plot_AbanicoPlot()] Attention, small standardised estimate scatter. Toggle off y.axis?")
+    .throw_message("Small standardised estimate scatter, toggle off y.axis?",
+                   error = FALSE)
   }
 
   ## read out additional arguments---------------------------------------------

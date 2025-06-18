@@ -275,8 +275,8 @@ plot_RLum.Data.Spectrum <- function(
     }
 
     object <- set_RLum(class = "RLum.Data.Spectrum", data = object)
-    message("[plot_RLum.Data.Spectrum()] Input has been converted to a ",
-            "'RLum.Data.Spectrum' object using set_RLum()")
+    .throw_message("Input has been converted to an 'RLum.Data.Spectrum' ",
+                   "object using set_RLum()", error = FALSE)
   }
 
   if (length(object@data) < 2) {

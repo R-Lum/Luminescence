@@ -118,8 +118,8 @@ calc_CentralDose <- function(
 
   ##remove NA values
   if (anyNA(data)) {
-    message("[calc_CentralDose()] ", length(which(is.na(data))),
-            " NA values removed from dataset")
+    .throw_message(length(which(is.na(data))), " NA values removed from dataset",
+                   error = FALSE)
     data <- na.exclude(data)
   }
 

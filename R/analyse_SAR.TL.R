@@ -377,13 +377,11 @@ analyse_SAR.TL <- function(
   signal.integral.temperature <- c(object@records[[TL.signal.ID[1]]]@data[signal.integral.min,1] :
                                      object@records[[TL.signal.ID[1]]]@data[signal.integral.max,1])
 
-
   ## warning if number of curves exceeds colour values
   if(length(col)<length(TL.signal.ID/2)){
-    message("\n[analyse_SAR.TL.R()] Warning: Too many curves, ",
-            "only the first ", length(col), " curves are plotted")
+    .throw_message("Too many curves, only the first ", length(col),
+                   " curves are plotted", error = FALSE)
   }
-
 
   # # Plotting TL LnLx Curves ----------------------------------------------------
   ##matrix with LnLx curves

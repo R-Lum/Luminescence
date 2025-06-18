@@ -1183,8 +1183,8 @@ analyse_IRSAR.RF<- function(
         }
 
         if (verbose)
-          message("[analyse_IRSAR.RF()] Using ", cores,
-                  ifelse(cores == 1, " core", " cores"), " ...")
+          .throw_message("Using ", cores, ifelse(cores == 1, " core", " cores"),
+                         " ...", error = FALSE)
       }
 
       ## SINGLE CORE -----

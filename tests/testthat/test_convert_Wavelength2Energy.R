@@ -50,7 +50,8 @@ test_that("check functionality", {
 
   ##test special treatment of RLum.Data.Spectrum objects
   object@info[["curveDescripter"]] <- "energy"
-  expect_message(convert_Wavelength2Energy(object), regexp = "Your object has already an energy scale, nothing done!")
+  expect_message(convert_Wavelength2Energy(object),
+                 "'object' has already an energy scale, nothing done")
   object@info[["curveDescripter"]] <- "wavelength"
   res <- convert_Wavelength2Energy(object)
   expect_equal(res@info[["curveDescripter"]],

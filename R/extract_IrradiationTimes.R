@@ -414,7 +414,10 @@ extract_IrradiationTimes <- function(
 
       ##set message on the format definition
       if(!inherits(x = try, 'try-error')){
-        message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
+        .throw_message("'Time Since Irradiation' was redefined in the ",
+                       "exported BINX-file to: 'Time Since Irradiation' plus ",
+                       "'Irradiation Time' to be compatible with the Analyst",
+                       error = FALSE)
       }
     } else {
       .throw_message("XSYG-file and BINX-file do not contain similar entries, ",

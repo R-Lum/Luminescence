@@ -12,7 +12,7 @@ test_that("Test merging", {
   ## nothing done
   input <- "data"
   expect_message(res <- merge_Risoe.BINfileData(input.objects = input),
-                 "Nothing done: at least two input objects are needed")
+                 "At least two input objects are needed, nothing done")
   expect_equal(res, input)
 
   ## expect success

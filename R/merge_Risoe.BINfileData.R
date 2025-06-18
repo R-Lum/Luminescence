@@ -91,7 +91,8 @@ merge_Risoe.BINfileData <- function(
 
   .validate_class(input.objects, c("character", "list"))
   if(length(input.objects) < 2){
-    message("[merge_Risoe.BINfileData()] Nothing done: at least two input objects are needed!")
+    .throw_message("At least two input objects are needed, nothing done",
+                   error = FALSE)
     return(input.objects)
   }
 

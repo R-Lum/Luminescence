@@ -165,7 +165,7 @@ plot_GrowthCurve <- function(
 
   if (is.null(fit)) {
     if (verbose)
-      message("[plot_GrowthCurve()] Fitting failed, no plot possible")
+      .throw_message("Fitting failed, no plot possible")
     return(NULL)
   }
 

@@ -403,8 +403,8 @@ fit_LMCurve<- function(
     }
 
     if (verbose) {
-      message("[fit_LMCurve()] >> Background subtracted (method = '",
-              bg.subtraction, "')")
+      .throw_message(">> Background subtracted (method = '",
+                     bg.subtraction, "')", error = FALSE)
     }
   }
 

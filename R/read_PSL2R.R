@@ -86,8 +86,8 @@ read_PSL2R <- function(
       file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)
       if (length(file) == 0)
         .throw_error("No .psl files found")
-      message("[read_PSL2R()] The following files were found and imported:\n",
-              paste(" ..", file, collapse = "\n"))
+      .throw_message("The following files were found and imported:\n",
+                     paste(" ..", file, collapse = "\n"), error = FALSE)
     }
   }
   if (!all(file.exists(file)))

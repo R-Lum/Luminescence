@@ -122,8 +122,8 @@ convert_Concentration2DoseRate <- function(
 
   ## return a template if no input is given
   if (missing(input)) {
-    message("[convert_Concentration2DoseRate()] Input template returned: ",
-            "please fill this data frame and use it as input to the function")
+    .throw_message("Input template returned, please fill this data frame ",
+                   "and use it as input to the function", error = FALSE)
     return(template)
   }
 

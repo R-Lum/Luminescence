@@ -401,8 +401,8 @@ verify_SingleGrainData <- function(
         if(selection_id_text == "")
           selection_id_text <- "<none>"
 
-        message("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
-                selection_id_text)
+        .throw_message("RLum.Analysis object reduced to records: ",
+                       selection_id_text, error = FALSE)
       }
 
       ##selected wanted elements

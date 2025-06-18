@@ -303,8 +303,8 @@ analyse_portableOSL <- function(
 
   if (mode == "surface" && plot && all(range(summary$COORD_X) == c(0, 0))) {
     plot <- FALSE
-    message("[analyse_portableOSL()] Surface plot is not available when ",
-            "all x-coordinates are 0, plot reset to FALSE")
+    .throw_message("Surface plot is not available when all x-coordinates ",
+                   "are 0, plot reset to FALSE", error = FALSE)
   }
 
   # PLOTTING -------------------------------------------------------------------
