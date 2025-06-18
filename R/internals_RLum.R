@@ -1065,13 +1065,16 @@ fancy_scientific <- function(l) {
 
 #'@title Throws a Custom Tailored Message
 #'
-#'@param ... the message to throw, preceded by "Error:"
+#' @param ... the message to throw
+#' @param error Whether the message should be preceded by "Error:" (`TRUE` by
+#' default).
 #'
 #'@md
 #'@noRd
-.throw_message <- function(...) {
+.throw_message <- function(..., error = TRUE) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
-  message("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] Error: ", ...)
+  message("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] ",
+          if (error) "Error: ", ...)
 }
 
 #' @title Silence Output and Warnings during Tests
