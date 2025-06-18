@@ -428,25 +428,13 @@ plot_RadialPlot <- function(
   De.delta <- ticks[2] - ticks[1]
 
   ## calculate and append statistical measures --------------------------------
-  ## z-values based on log-option
-  z <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
 
-  data <- lapply(1:length(data), function(x) {
-     cbind(data[[x]], z[[x]])})
-  rm(z)
-
-  ## calculate se-values based on log-option
-  se <- lapply(1:length(data), function(x, De.add){
-    if(log.z == TRUE) {
-      data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
-    } else {
-      data[[x]][,2]
-    }}, De.add = De.add)
-
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], se[[x]])})
-  rm(se)
+  ## z-values and se based on log-option
+  data <- lapply(data, function(x, De.add) {
+    cbind(x,
+          z = if (log.z) log(x[, 1]) else x[, 1],
+          se = if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2])
+  }, De.add = De.add)
 
   ## define function after isotone::weighted.mean
   median.w <- function (y, w) {
@@ -467,67 +455,42 @@ plot_RadialPlot <- function(
   }
 
   ## calculate central values
-  if(centrality[1] == "mean") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else if(centrality[1] == "median") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else  if(centrality[1] == "mean.weighted") {
-    z.central <- lapply(1:length(data), function(x){
-      sum(data[[x]][,3] / data[[x]][,4]^2) /
-        sum(1 / data[[x]][,4]^2)})
-  } else if(centrality[1] == "median.weighted") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(median.w(y = data[[x]][,3],
-                   w = data[[x]][,4]), length(data[[x]][,3]))})
-  } else if(is.numeric(centrality) & length(centrality) == length(data)) {
-    z.central.raw <- if(log.z == TRUE) {
-      log(centrality + De.add)
-    } else {
-      centrality + De.add
-    }
-    z.central <- lapply(1:length(data), function(x){
-      rep(z.central.raw[x], length(data[[x]][,3]))})
-  } else if(is.numeric(centrality) == TRUE &
-              length(centrality) > length(data)) {
-    z.central <- lapply(1:length(data), function(x){
-      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+  data <- lapply(data, function(x) {
+    cbind(x,
+          z.central = if (centrality[1] == "mean") {
+                        rep(mean(x[, 3], na.rm = TRUE), nrow(x))
+                      } else if (centrality[1] == "median") {
+                        rep(median(x[, 3], na.rm = TRUE), nrow(x))
+                      } else if (centrality[1] == "mean.weighted") {
+                        sum(x[, 3] / x[, 4]^2) / sum(1 / x[, 4]^2)
+                      } else if (centrality[1] == "median.weighted") {
+                        rep(median.w(y = x[, 3], w = x[, 4]), nrow(x))
+                      } else if (is.numeric(centrality) && length(centrality) > length(data)) {
+                        rep(median(x[, 3], na.rm = TRUE), nrow(x))
+                      } else NA)
+  })
+
+  if (is.numeric(centrality) && length(centrality) == length(data)) {
+    ## compute z.central, as this could not be done in the lapply before
+    z.central.raw <- if (log.z) log(centrality + De.add) else centrality + De.add
+    lapply(1:length(data), function(x) data[[x]][, 5] <<- rep(z.central.raw[x], nrow(data[[x]])))
   }
 
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], z.central[[x]])})
-  rm(z.central)
-
-  ## calculate precision
-  precision <- lapply(1:length(data), function(x){
-    1 / data[[x]][,4]})
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], precision[[x]])})
-  rm(precision)
-
-  ## calculate standard estimate
-  std.estimate <- lapply(1:length(data), function(x){
-    (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], std.estimate[[x]])})
-
-  ## append empty standard estimate for plotting
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], std.estimate[[x]])})
-  rm(std.estimate)
+  ## calculate precision and standard estimate
+  data <- lapply(data, function(x) {
+    cbind(x,
+          precision = 1 / x[, 4],
+          std.estimate = (x[, 3] - x[, 5]) / x[, 4],
+          std.estimate.plot = NA)
+  })
 
   ## generate global data set
-  data.global <- cbind(data[[1]],
-                       rep(x = 1,
-                           times = nrow(data[[1]])))
-
+  data.global <- cbind(data[[1]], 1)
   colnames(data.global) <- rep("", 9)
 
   if(length(data) > 1) {
     for(i in 2:length(data)) {
-      data.add <- cbind(data[[i]],
-                        rep(x = i, times = nrow(data[[i]])))
+      data.add <- cbind(data[[i]], i)
       colnames(data.add) <- rep("", 9)
       data.global <- rbind(data.global,
                            data.add)
@@ -539,20 +502,19 @@ plot_RadialPlot <- function(
     "De", "error", "z", "se", "z.central", "precision", "std.estimate",
     "std.estimate.plot")
 
-## calculate global central value
-if(centrality[1] == "mean") {
-  z.central.global <- mean(data.global[,3], na.rm = TRUE)
-} else if(centrality[1] == "median") {
-  z.central.global <- median(data.global[,3], na.rm = TRUE)
-} else  if(centrality[1] == "mean.weighted") {
-  z.central.global <- sum(data.global[,3] / data.global[,4]^2) /
-    sum(1 / data.global[,4]^2)
-} else if(centrality[1] == "median.weighted") {
-  z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
-} else if(is.numeric(centrality) == TRUE &
-            length(centrality == length(data))) {
-  z.central.global <- mean(data.global[,3], na.rm = TRUE)
-}
+  ## calculate global central value
+  z.central.global <-
+    if (centrality[1] == "mean") {
+      mean(data.global[, 3], na.rm = TRUE)
+    } else if (centrality[1] == "median") {
+      median(data.global[, 3], na.rm = TRUE)
+    } else if (centrality[1] == "mean.weighted") {
+      sum(data.global[, 3] / data.global[, 4]^2) / sum(1 / data.global[, 4]^2)
+    } else if (centrality[1] == "median.weighted") {
+      median.w(y = data.global[, 3], w = data.global[, 4])
+    } else if (is.numeric(centrality) && length(centrality == length(data))) {
+      mean(data.global[, 3], na.rm = TRUE)
+    }
 
   ## optionally adjust central value by user-defined value
   if(missing(central.value) == FALSE) {
