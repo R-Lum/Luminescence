@@ -1,6 +1,8 @@
 #' @title  Merge Risoe.BINfileData objects or Risoe BIN-files
 #'
-#' @description Function allows merging Risoe BIN/BINX files or [Risoe.BINfileData-class] objects.
+#' @description
+#' The function allows merging Risoe BIN/BINX files or [Risoe.BINfileData-class]
+#' objects.
 #'
 #' @details
 #' The function allows merging different measurements to one file or one
@@ -110,7 +112,6 @@ merge_Risoe.BINfileData <- function(
     }
   }
 
-
   # Import Files ------------------------------------------------------------
 
   ##loop over all files to store the results in a list
@@ -118,7 +119,6 @@ merge_Risoe.BINfileData <- function(
 
   if (is.character(input.objects)) {
     temp <- lapply(input.objects, read_BIN2R, txtProgressBar = FALSE)
-
   }else{
     temp <- input.objects
   }
@@ -141,35 +141,21 @@ merge_Risoe.BINfileData <- function(
 
   temp.position.values <- c(temp[[1]]@METADATA[["POSITION"]], temp.position.values)
 
-
   # Get overall record length -----------------------------------------------
-  temp.record.length <- sum(sapply(1:length(temp), function(x){
-    length(temp[[x]]@METADATA[,"ID"])
-  }))
-
+  temp.record.length <- sum(sapply(temp, function(x) nrow(x@METADATA)))
 
   # Merge Files -------------------------------------------------------------
-  ##loop for similar input objects
-  for(i in 1:length(input.objects)){
-    if (!exists("temp.new.METADATA")) {
+  temp.new.METADATA <- temp[[1]]@METADATA
+  temp.new.DATA <- temp[[1]]@DATA
+  temp.new.RESERVED <- if (".RESERVED" %in% slotNames(temp[[1]]))
+                         temp[[1]]@.RESERVED else list()
 
-      temp.new.METADATA <- temp[[i]]@METADATA
-      temp.new.DATA <- temp[[i]]@DATA
-      temp.new.RESERVED <- list()
-      if (".RESERVED" %in% slotNames(temp[[i]])) {
-        temp.new.RESERVED <- temp[[i]]@.RESERVED
-      }
-
-    }else{
-
-      temp.new.METADATA <- rbind(temp.new.METADATA, temp[[i]]@METADATA)
-      temp.new.DATA <- c(temp.new.DATA, temp[[i]]@DATA)
-
-      new.reserved <- list()
-      if (".RESERVED" %in% slotNames(temp[[i]])) {
-        new.reserved <- temp[[i]]@.RESERVED
-      }
-      temp.new.RESERVED <- c(temp.new.RESERVED, new.reserved)
+  ## loop over the remaining input objects
+  for (i in 2:length(input.objects)) {
+    temp.new.METADATA <- rbind(temp.new.METADATA, temp[[i]]@METADATA)
+    temp.new.DATA <- c(temp.new.DATA, temp[[i]]@DATA)
+    if (".RESERVED" %in% slotNames(temp[[i]])) {
+      temp.new.RESERVED <- c(temp.new.RESERVED, temp[[i]]@.RESERVED)
     }
   }
 
@@ -177,7 +163,7 @@ merge_Risoe.BINfileData <- function(
   temp.new.METADATA$ID <- 1:temp.record.length
 
   ##SET POSITION VALUES
-  if(keep.position.number == FALSE){
+  if (!keep.position.number) {
     temp.new.METADATA$POSITION <- temp.position.values
   }
 
@@ -190,10 +176,8 @@ merge_Risoe.BINfileData <- function(
   )
 
   # OUTPUT ------------------------------------------------------------------
-  if(missing(output.file) == FALSE){
-    write_R2BIN(temp.new, output.file)
-
-  }else{
+  if (missing(output.file))
     return(temp.new)
-  }
+
+  write_R2BIN(temp.new, output.file)
 }

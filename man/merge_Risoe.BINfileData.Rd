@@ -35,7 +35,8 @@ information.}
 Returns a \code{file} or a \linkS4class{Risoe.BINfileData} object.
 }
 \description{
-Function allows merging Risoe BIN/BINX files or \linkS4class{Risoe.BINfileData} objects.
+The function allows merging Risoe BIN/BINX files or \linkS4class{Risoe.BINfileData}
+objects.
 }
 \details{
 The function allows merging different measurements to one file or one
