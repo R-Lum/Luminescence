@@ -716,36 +716,13 @@ plot_AbanicoPlot <- function(
   }
 
   ## calculate and append statistical measures --------------------------------
-  ## z-values based on log-option
-  z <- lapply(1:length(data), function(x){
-    if(log.z[1]) {
-      log(data[[x]][,1])
-    } else {
-      data[[x]][,1]
-    }
-  })
 
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], z[[x]])
-  })
-  rm(z)
-
-  ## calculate dispersion based on log-option
-  se <- lapply(1:length(data), function(x, De.add){
-    if(log.z == TRUE) {
-      if(De.add != 0) {
-        data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
-      } else {
-        data[[x]][,2] / data[[x]][,1]
-      }
-    } else {
-      data[[x]][,2]
-    }}, De.add = De.add)
-
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], se[[x]])
-  })
-  rm(se)
+  ## z-values and se based on log-option
+  data <- lapply(data, function(x, De.add) {
+    cbind(x,
+          z = if (log.z) log(x[, 1]) else x[, 1],
+          se = if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2])
+  }, De.add = De.add)
 
   ## calculate initial data statistics
   stats.init <- list()
@@ -777,49 +754,29 @@ plot_AbanicoPlot <- function(
     cbind(data[[x]], z.central[[x]])})
   rm(z.central)
 
-  ## calculate precision
-  precision <- lapply(1:length(data), function(x){
-    1 / data[[x]][,4]})
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], precision[[x]])})
-  rm(precision)
-
-  ## calculate standardised estimate
-  std.estimate <- lapply(1:length(data), function(x){
-    (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], std.estimate[[x]])})
-
-  ## append empty standard estimate for plotting
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], std.estimate[[x]])})
-  rm(std.estimate)
+  ## calculate precision and standard estimate
+  data <- lapply(data, function(x) {
+    cbind(x,
+          precision = 1 / x[, 4],
+          std.estimate = (x[, 3] - x[, 5]) / x[, 4],
+          std.estimate.plot = NA)
+  })
 
   ## append optional weights for KDE curve
-  if ("weights" %in% names(extraArgs) && extraArgs$weights == TRUE) {
-    wgt <- lapply(1:length(data), function(x) {
-      (1 / data[[x]][,2]) / sum(1 / data[[x]][,2]^2)
-    })
-  } else {
-    wgt <- lapply(1:length(data), function(x) {
-      rep(1, times = nrow(data[[x]])) / nrow(data[[x]])
-    })
-  }
-
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], wgt[[x]])
+  use.weights <- "weights" %in% names(extraArgs) && extraArgs$weights == TRUE
+  data <- lapply(data, function(x) {
+    cbind(x,
+          weights = if (use.weights) (1 / x[, 2]) / sum(1 / x[, 2]^2)
+                    else 1 / nrow(x))
   })
-  rm(wgt)
 
   ## generate global data set
-  data.global <- cbind(data[[1]],
-                       rep(x = 1, times = nrow(data[[1]])))
+  data.global <- cbind(data[[1]], 1)
   colnames(data.global) <- rep("", 10)
 
   if(length(data) > 1) {
     for(i in 2:length(data)) {
-      data.add <- cbind(data[[i]],
-                        rep(x = i, times = nrow(data[[i]])))
+      data.add <- cbind(data[[i]], i)
       colnames(data.add) <- rep("", 10)
       data.global <- rbind(data.global,
                            data.add)
