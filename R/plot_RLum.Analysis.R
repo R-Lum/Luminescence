@@ -183,8 +183,8 @@ plot_RLum.Analysis <- function(
   .validate_logical_scalar(combine)
   if (combine && length(object@records) <= 1) {
     combine <- FALSE
-    .throw_warning("'combine' can't be used with fewer than two curves, ",
-                   "reset to FALSE")
+    .throw_message("'combine' can't be used with fewer than two curves, ",
+                   "reset to FALSE", error = FALSE)
   }
   if (combine) {
     sapply(object@records, function(x) {
