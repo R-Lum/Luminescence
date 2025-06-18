@@ -351,8 +351,8 @@ calc_MinDose <- function(
   }
 
   if (any(!stats::complete.cases(data))) {
-    message("\n[calc_MinDose] Warning: Input data contained NA/NaN values, ",
-            "which were removed prior to calculations!")
+    .throw_message("Warning: Input data contained NA/NaN values, ",
+                   "which were removed prior to calculations", error = FALSE)
     data <- data[stats::complete.cases(data), ]
   }
 

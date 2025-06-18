@@ -38,13 +38,13 @@ test_that("check functionality", {
 
     ##try a matrix as input
     expect_message(plot_RLum.Data.Spectrum(object = m, xaxis.energy = TRUE),
-                   "Input has been converted to a 'RLum.Data.Spectrum' object")
+                   "Input has been converted to an 'RLum.Data.Spectrum' object")
 
     ##remove rownames and column names
     rownames(m) <- NULL
     colnames(m) <- NULL
     expect_message(plot_RLum.Data.Spectrum(object = m),
-        regexp = "Input has been converted to a 'RLum.Data.Spectrum' object")
+                   "Input has been converted to an 'RLum.Data.Spectrum' object")
 
     ## test duplicated column names
     t <- TL.Spectrum

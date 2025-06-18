@@ -527,8 +527,8 @@ analyse_baSAR <- function(
       ##check and correct for distribution name
       if (!is.null(baSAR_model) && distribution != "user_defined") {
         distribution <- "user_defined"
-        message("[analyse_basAR()] 'baSAR_model' provided, setting ",
-                "distribution to 'user_defined'")
+        .throw_message("'baSAR_model' provided, setting distribution to ",
+                       "'user_defined'", error = FALSE)
       }
 
       # Bayesian Models ----------------------------------------------------------------------------
@@ -1080,8 +1080,8 @@ analyse_baSAR <- function(
 
     if (!all(record.selected)) {
       if (verbose) {
-        message("[analyse_baSAR()] Record pre-selection in BIN-file detected, ",
-                "record reduced to selection\n")
+        .throw_message("Record pre-selection in BIN-file detected, ",
+                       "record reduced to selection\n", error = FALSE)
       }
       if (sum(record.selected) == 0) {
         .throw_warning("No records selected, NULL returned")
@@ -1129,7 +1129,7 @@ analyse_baSAR <- function(
       msg <- paste(.collapse(object.filenames[is.duplicated]),
                    "is a duplicate and therefore removed from the input")
       if(verbose){
-        message("[analyse_baSAR()] ", msg)
+        .throw_message(msg, error = FALSE)
       }
       .throw_warning(msg)
 

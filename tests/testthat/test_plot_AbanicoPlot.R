@@ -277,7 +277,7 @@ test_that("more coverage", {
   df[,1] <- -df[,1]
   expect_message(
     object = plot_AbanicoPlot(data = df),
-    regexp = "Attention, small standardised estimate scatter. Toggle off y.axis?")
+    regexp = "Small standardised estimate scatter, toggle off y.axis?")
 
   ## test boundaries
   expect_warning(

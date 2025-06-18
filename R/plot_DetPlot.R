@@ -194,8 +194,8 @@ plot_DetPlot <- function(
       on.exit(parallel::stopCluster(cl), add = TRUE)
 
       if (verbose)
-        message("\n[plot_DetPlot()] Running multicore session using ", cores,
-                " cores ...")
+        .throw_message("Running multicore session using ", cores,
+                       " cores ...", error = FALSE)
       res_list <- parallel::parLapply(cl = cl, X = object, fun = nested.fun)
     } else {
       ## run in serial
@@ -242,7 +242,8 @@ plot_DetPlot <- function(
       (background.integral.min - 1 - signal.integral.max) / (signal.integral.max - signal.integral.min)
     )
     if (verbose) {
-      message("'n.channels' not specified, set to ", n.channels)
+      .throw_message("'n.channels' not specified, set to ", n.channels,
+                     error = FALSE)
     }
   }
 

@@ -574,7 +574,7 @@ fit_DoseResponseCurve <- function(
                  num.params, "dose points, 'fit.method' changed to 'LIN'")
     .throw_warning(msg)
     if (verbose)
-      message("[fit_DoseResponseCurve()] ", msg)
+      .throw_message(msg, error = FALSE)
   }
 
   ## helper to report the fit

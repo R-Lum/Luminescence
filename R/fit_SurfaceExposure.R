@@ -308,7 +308,7 @@ fit_SurfaceExposure <- function(
   if (anyNA(data)) {
     data <- data[stats::complete.cases(data), ]
     if (settings$verbose)
-      message("[fit_SurfaceExposure()] NA values in 'data' were removed")
+      .throw_message("NA values in 'data' were removed", error = FALSE)
   }
 
   ## extract errors into separate variable
@@ -585,11 +585,11 @@ fit_SurfaceExposure <- function(
     cat("\n")
 
     if (!is.null(age)) {
-      message(paste0("To apply the estimated parameters to a sample of unknown age run:\n\n",
-                     "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
-                     ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
-                     ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
-                     "))\n\n"))
+      message("To apply the estimated parameters to a sample of unknown age run:\n\n",
+              "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
+              ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
+              ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
+              "))\n")
     }
   }
 

@@ -158,8 +158,8 @@ read_BIN2R <- function(
       ##If this is not really a path we skip this here
       if (all(dir.exists(file)) & length(dir(file)) > 0) {
         if (verbose)
-          message("[read_BIN2R()] Directory detected, trying to extract ",
-                  "'*.bin'/'*.binx' files ...\n")
+          .throw_message("Directory detected, trying to extract ",
+                         "'*.bin'/'*.binx' files ...\n", error = FALSE)
 
         ##get files
         file <- as.list(list.files(
@@ -293,8 +293,8 @@ read_BIN2R <- function(
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
       if (verbose)
-        message("[read_BIN2R()] 'forced.VersionNumber' set to ", temp.VERSION,
-                ", but this version may not match your input file")
+        .throw_message("'forced.VersionNumber' set to ", temp.VERSION,
+                       ", but this version may not match your input file", error = FALSE)
     }
 
     ##stop input if wrong VERSION
@@ -332,9 +332,11 @@ read_BIN2R <- function(
     if (num.toread > 0) {
       seek.connection(con, num.toread, origin = "current")
     } else {
-      if (verbose)
-        message("\n[read_BIN2R()] Record #", temp.ID + 1,
-                " skipped due to wrong record length")
+      if (verbose) {
+        message("") # add a newline
+        .throw_message("Record #", temp.ID + 1,
+                       " skipped due to wrong record length", error = FALSE)
+      }
       next()
     }
     temp.ID <- temp.ID + 1
@@ -596,11 +598,13 @@ read_BIN2R <- function(
         ## we can check for a specific value for temp.RECTYPE
         if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
           seek.connection(con, temp.LENGTH - 15, origin = "current")
-            if(verbose)
-              message("\n[read_BIN2R()] Record #", temp.ID + 1,
-                      " skipped due to ignore.RECTYPE setting")
-            next()
+          if(verbose) {
+            message("") # add a newline
+            .throw_message("Record #", temp.ID + 1,
+                           " skipped due to ignore.RECTYPE setting", error = FALSE)
           }
+          next()
+        }
 
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
@@ -612,8 +616,10 @@ read_BIN2R <- function(
           }
 
           ## skip to next record
-          if (verbose)
-            message("\n[read_BIN2R()] ", msg, ", record skipped")
+          if (verbose) {
+            message("") # add a newline
+            .throw_message(msg, ", record skipped", error = FALSE)
+          }
           temp.ID <- temp.ID + 1
           next()
         }
@@ -1102,8 +1108,8 @@ read_BIN2R <- function(
       results.RESERVED <- results.RESERVED[keep.positions]
 
       if (verbose) {
-        message("[read_BIN2R()] Kept records matching 'position': ",
-                .collapse(position, quote = FALSE))
+        .throw_message("Kept records matching 'position': ",
+                       .collapse(position, quote = FALSE), error = FALSE)
       }
     }else{
       .throw_warning("At least one position number is not valid, ",
@@ -1131,7 +1137,7 @@ read_BIN2R <- function(
   ## if nothing is left, return an empty object
   if (nrow(results.METADATA) == 0) {
     if (verbose)
-      message("[read_BIN2R()] Empty object returned")
+      .throw_message("Empty object returned", error = FALSE)
     return(set_Risoe.BINfileData())
   }
 
@@ -1157,8 +1163,8 @@ read_BIN2R <- function(
 
         ##message
         if(verbose) {
-          message("[read_BIN2R()] Duplicated records detected and removed: ",
-                  .collapse(duplication.check, quote = FALSE))
+          .throw_message("Duplicated records detected and removed: ",
+                         .collapse(duplication.check, quote = FALSE), error = FALSE)
         }
 
       } else{
@@ -1174,7 +1180,7 @@ read_BIN2R <- function(
   if (results.METADATA[, .N != n.length || max(ID) > n.length]) {
     results.METADATA[, ID := 1:.N]
     if (verbose)
-      message("[read_BIN2R()] The record index has been recalculated")
+      .throw_message("The record index has been recalculated", error = FALSE)
   }
 
   # Convert Translation Matrix Values ---------------------------------------
