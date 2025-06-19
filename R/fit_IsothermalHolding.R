@@ -303,7 +303,7 @@ fit_IsothermalHolding <- function(
         xlab = "Isothermal holding time [s]",
         ylab = expression(paste("Norm. lumin. [", L[x]/T[x], "]")),
         pch = 21,
-        col =  grDevices::palette("Okabe-Ito"),
+        col = grDevices::palette.colors(),
         col.border = "black",
         main = sample_id,
         mtext = paste("Fitted with the", ITL_model, "model"),
