@@ -157,7 +157,7 @@ plot_RLum.Analysis <- function(
     ylab = NULL,
     xlim = NULL,
     ylim = NULL,
-    pch = 1,
+    pch = NULL,
     col = "auto",
     norm = FALSE,
     sub_title = NULL,
@@ -231,12 +231,8 @@ plot_RLum.Analysis <- function(
   }
 
   # Plotting ------------------------------------------------------------------
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  ##(1) NORMAL (combine == FALSE)
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+  ## (1) NORMAL (combine == FALSE) -------------------------------------------
   if (!combine) {
-
     ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
     temp <- lapply(object@records, function(x) {
       if (inherits(x, "RLum.Data.Curve") ||
@@ -289,9 +285,7 @@ plot_RLum.Analysis <- function(
 
     ##apply curve transformation
     for (i in seq_along(temp)) {
-
       if (inherits(temp[[i]], "RLum.Data.Curve")) {
-
         ##set curve transformation if wanted
         if (grepl("IRSL|OSL", temp[[i]]@recordType) &&
             curve.transformation != "None") {
@@ -357,9 +351,9 @@ plot_RLum.Analysis <- function(
           plot.settings$main[[i]]
         }
 
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##PLOT
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##plot RLum.Data.Curve curve
           ##we have to do this via this way, otherwise we run into a duplicated arguments
           ##problem
@@ -417,9 +411,7 @@ plot_RLum.Analysis <- function(
 
   }else{
 
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ##(2) NORMAL (combine == TRUE)
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## (2) NORMAL (combine == TRUE)----------------------------------------------
     ##(1) check RLum objects in the set
 
     ##account for different curve types, combine similar
