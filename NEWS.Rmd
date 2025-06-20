@@ -32,6 +32,12 @@ found in `calc_Huntley2006()` and `analyse_SAR.CWOSL()`, respectively.
 
 * The legend text now scales better at non-default cex settings (#854).
 
+### `plot_RLum.Data.Curve()`
+
+* The function gained a new logical argument `interactive` that enables interactive
+plotting of curves using `plotly::plot_ly()`. It requires the suggested package 
+`'plotly'` to be present.
+
 ### `plot_DoseResponseCurve()`
 
 * We added support for the `log` graphical parameter, which can be used if

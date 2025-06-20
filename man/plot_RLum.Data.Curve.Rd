@@ -10,6 +10,7 @@ plot_RLum.Data.Curve(
   norm = FALSE,
   smooth = FALSE,
   auto_scale = FALSE,
+  interactive = FALSE,
   ...
 )
 }
@@ -30,6 +31,9 @@ provides automatic curve smoothing based on the internal function \code{.smoothi
 
 \item{auto_scale}{\link{logical} (\emph{with default}): if activated, auto scales \code{xlim} or \code{ylim}
 to the extent of the other. If both are set, the auto-scaling is skipped.}
+
+\item{interactive}{\link{logical} (\emph{with default}): enables/disables interactive
+plotting mode using \link[plotly:plot_ly]{plotly::plot_ly}}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to \link[graphics:plot.default]{graphics::plot.default} and \link[graphics:par]{graphics::par}}
@@ -69,7 +73,7 @@ of a curve.
 Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
- 0.3.0
+ 0.4.0
 }
 
 \examples{

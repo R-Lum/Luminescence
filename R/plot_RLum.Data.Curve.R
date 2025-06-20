@@ -43,6 +43,9 @@
 #' @param auto_scale [logical] (*with default*): if activated, auto scales `xlim` or `ylim`
 #' to the extent of the other. If both are set, the auto-scaling is skipped.
 #'
+#' @param interactive [logical] (*with default*): enables/disables interactive
+#' plotting mode using [plotly::plot_ly]
+#'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to [graphics::plot.default] and [graphics::par]
 #'
@@ -50,7 +53,7 @@
 #'
 #' @note Not all arguments of [plot] will be passed!
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.4.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -80,6 +83,7 @@ plot_RLum.Data.Curve<- function(
   norm = FALSE,
   smooth = FALSE,
   auto_scale = FALSE,
+  interactive = FALSE,
   ...
 ) {
   .set_function_name("plot_RLum.Data.Curve")
@@ -188,7 +192,7 @@ plot_RLum.Data.Curve<- function(
       ylab = ylab,
       sub = sub,
       cex = 1,
-      type = "l",
+      type = if(interactive) "scatter" else "l",
       las = NULL,
       lwd = 1,
       lty = 1,
@@ -224,9 +228,48 @@ plot_RLum.Data.Curve<- function(
       args[!names(args) %in% c(names(formals(graphics::plot.default)), names(par()))] <- NULL
 
       ## call the plot
-      do.call(graphics::plot.default, args = c(list(x = object@data[,1], y = object@data[,2]), args))
+      if(interactive[1]) {
+        .require_suggested_package("plotly", "Displaying interactive plots")
+        p <- do.call(
+          plotly::plot_ly,
+          args = c(
+            list(
+              x = object@data[,1],
+              y = object@data[,2],
+              type = "scatter",
+              line = list(
+                width = plot_settings$lwd * 1.3,
+                dash = switch(as.character(plot_settings$lty), `2` = "dash", `3` = "dot", "solid"),
+                color = if(is.numeric(plot_settings$col)) grDevices::colours()[plot_settings$col] else plot_settings$col),
+              symbol = plot_settings$pch),
+              mode = "lines"))
 
-    ##plot additional mtext
-    mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)
+        ## add more scene information
+        p <-  plotly::layout(
+          p = p,
+          xaxis = list(
+            title = plot_settings$xlab,
+            type = if(any(grepl(pattern = "x", plot_settings$log[1]))) "log" else "linear"
+            ),
+          yaxis = list(
+            title = plot_settings$ylab,
+            type = if(any(grepl(pattern = "y", plot_settings$log[1]))) "log" else "linear"
+            ),
+          title = plot_settings$main,
+          annotations = list(plot_settings$mtext)
+        )
+
+        ## print and return
+        suppressMessages(print(p))
+        on.exit(return(p), add = TRUE)
+
+      } else {
+        do.call(graphics::plot.default, args = c(list(x = object@data[,1], y = object@data[,2]), args))
+
+        ##plot additional mtext
+        mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)
+
+      }
+
 }
 

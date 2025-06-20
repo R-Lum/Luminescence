@@ -41,6 +41,22 @@ test_that("check functionality", {
   expect_silent(plot_RLum.Data.Curve(temp))
 })
 
+test_that("check interactive mode", {
+  testthat::skip_on_cran()
+
+  ## simple plot
+  expect_silent(plot_RLum.Data.Curve(temp, interactive = TRUE))
+
+  ## with arguments
+  expect_silent(plot_RLum.Data.Curve(
+    object = temp,
+    interactive = TRUE,
+    lty = 2,
+    col = "red",
+    log = "xy"))
+
+})
+
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
