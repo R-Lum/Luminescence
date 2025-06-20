@@ -196,7 +196,7 @@ plot_RLum.Data.Curve<- function(
       las = NULL,
       lwd = 1,
       lty = 1,
-      pch = 1,
+      pch = NULL,
       col = 1,
       axes = TRUE,
       log = "",
@@ -240,8 +240,11 @@ plot_RLum.Data.Curve<- function(
               line = list(
                 width = plot_settings$lwd * 1.3,
                 dash = switch(as.character(plot_settings$lty), `2` = "dash", `3` = "dot", "solid"),
-                color = if(is.numeric(plot_settings$col)) grDevices::colours()[plot_settings$col] else plot_settings$col),
-              symbol = plot_settings$pch),
+                color = if(is.numeric(plot_settings$col))
+                  grDevices::palette()[plot_settings$col]
+                else
+                  plot_settings$col)),
+              symbol = plot_settings$pch,
               mode = "lines"))
 
         ## add more scene information
@@ -272,4 +275,5 @@ plot_RLum.Data.Curve<- function(
       }
 
 }
+
 
