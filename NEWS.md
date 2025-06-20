@@ -34,7 +34,7 @@
 
 - The function gained a new logical argument `interactive` that enables
   interactive plotting of curves using `plotly::plot_ly()`. It requires
-  the suggested package `'plotly'` to be present.
+  the suggested package `'plotly'` to be present (#e4746ea).
 
 ### `plot_DoseResponseCurve()`
 
