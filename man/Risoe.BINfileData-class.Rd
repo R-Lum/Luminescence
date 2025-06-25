@@ -184,10 +184,10 @@ but an own structure accounting for the different versions.
 \verb{[,79]} \tab \code{EXTR_END} \tab \code{numeric} \tab 08 \tab usage unknown\cr
 \verb{[,80]} \tab \code{SEQUENCE} \tab \code{character} \tab 03-04 \tab Sequence name
 }
-V = BIN-file version (RLum means that it does not depend on a specific BIN version)
+V = BIN-file version (RLum means that it does not depend on a specific BIN-file version)
 
 Note that the \code{Risoe.BINfileData} object combines all values from
-different versions from the BIN-file, reserved bits are skipped, however,
+different versions from the BIN/BINX-file, reserved bits are skipped, however,
 the function \link{write_R2BIN} reset arbitrary reserved bits. Invalid
 values for a specific version are set to \code{NA}. Furthermore, the
 internal R data types do not necessarily match the required data types for
@@ -246,7 +246,20 @@ With version 8 of the BIN/BINX file format, slot \verb{@DATA} (byte array \code{
 contain two different values:
 \enumerate{
 \item \code{DPOINTS} (standard for \code{RECTYPE} := (0,1)): is a vector with the length defined
-through \code{NPOINTS}. This is the standard for xy-curves since version 03.
+through \code{NPOINTS}. This is the standard for xy-curves since version 03. However,
+recorded are only y-values and x-values are calculated during import using
+information from, amongst others, \code{LOW} and \code{HIGH}. For instance, a simple TL curve
+would store \code{LOW = 0} and \code{HIGH = 400}. This is then becomes the range for the
+temperature values. All values in between are interpolated with a length
+matching the number of corresponding values stored in \code{DPOINTS}.
+}
+
+\emph{Note: The Sequence Editor uses 0 deg. C as the lowest temperature, although
+this temperature is usually not available in a laboratory. This, however, does not
+mean that the calculated TL curves are invalid, as the heater would only
+start the temperature ramp if the ambient temperature is lower than
+the target temperature.}
+\enumerate{
 \item \code{DPOINTS} (\code{RECTYPE} := 128) is contains no count values but information about
 the definition of the regions of interest (ROI). Each definition is 504 bytes long.
 The number of definitions is defined by \code{NPOINTS} in \verb{@METADATA}. The record

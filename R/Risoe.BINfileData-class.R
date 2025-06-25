@@ -107,10 +107,10 @@
 #' `[,79]` \tab `EXTR_END` \tab `numeric` \tab 08 \tab usage unknown\cr
 #' `[,80]` \tab `SEQUENCE` \tab `character` \tab 03-04 \tab Sequence name
 #' }
-#' V = BIN-file version (RLum means that it does not depend on a specific BIN version)
+#' V = BIN-file version (RLum means that it does not depend on a specific BIN-file version)
 #'
 #' Note that the `Risoe.BINfileData` object combines all values from
-#' different versions from the BIN-file, reserved bits are skipped, however,
+#' different versions from the BIN/BINX-file, reserved bits are skipped, however,
 #' the function [write_R2BIN] reset arbitrary reserved bits. Invalid
 #' values for a specific version are set to `NA`. Furthermore, the
 #' internal R data types do not necessarily match the required data types for
@@ -169,7 +169,18 @@
 #' contain two different values:
 #'
 #' 1. `DPOINTS` (standard for `RECTYPE` := (0,1)): is a vector with the length defined
-#' through `NPOINTS`. This is the standard for xy-curves since version 03.
+#' through `NPOINTS`. This is the standard for xy-curves since version 03. However,
+#' recorded are only y-values and x-values are calculated during import using
+#' information from, amongst others, `LOW` and `HIGH`. For instance, a simple TL curve
+#' would store `LOW = 0` and `HIGH = 400`. This is then becomes the range for the
+#' temperature values. All values in between are interpolated with a length
+#' matching the number of corresponding values stored in `DPOINTS`.
+#'
+#' *Note: The Sequence Editor uses 0 deg. C as the lowest temperature, although
+#' this temperature is usually not available in a laboratory. This, however, does not
+#' mean that the calculated TL curves are invalid, as the heater would only
+#' start the temperature ramp if the ambient temperature is lower than
+#' the target temperature.*
 #'
 #' 2. `DPOINTS` (`RECTYPE` := 128) is contains no count values but information about
 #' the definition of the regions of interest (ROI). Each definition is 504 bytes long.

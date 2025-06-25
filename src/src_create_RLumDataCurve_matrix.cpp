@@ -58,8 +58,8 @@ NumericMatrix create_RLumDataCurve_matrix(
     //fill x column for the case we have a TL curve
     if(LTYPE == "TL" && VERSION >= 4.0){
 
-      //provide a fallback for non-conform  BIN/BINX-files, otherwise the
-      //the TL curves are wrong withouth having a reason.
+      //provide a fall-back for non-conform  BIN/BINX-files, otherwise the
+      //the TL curves are wrong without having a reason shown
       if((TOLON == 0) & (TOLOFF == 0) & (TOLDELAY == 0)){
         Rcout << "[src_create_RLumDataCurve_matrix()] BIN/BINX-file non-conform. TL curve may be wrong!\n";
         TOLOFF = NPOINTS;
