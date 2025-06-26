@@ -216,10 +216,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
     ## make sure we organise this list (not nice but it works)
     arg_list <- lapply(1:length(object), function(x){
-      args <- lapply(1:length(arg_names), function(y){
-        arg_list[[y]][[x]]
-
-      })
+      args <- lapply(arg_list, function(y) y[[x]])
       names(args) <- arg_names
       args
     })

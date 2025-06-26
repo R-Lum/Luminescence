@@ -52,7 +52,7 @@ merge_RLum.Results <- function(
 
               ## shelf list of attributes
               attr_list <- unlist(
-                lapply(1:length(objects), function(x) attributes(objects[[x]]@data[[i]])),
+                lapply(objects, function(x) attributes(x@data[[i]])),
                 recursive = FALSE)
 
               ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -62,7 +62,7 @@ merge_RLum.Results <- function(
                  is(objects[[1]]@data[[i]], "matrix")){
 
                 ##grep elements and combine them into a list
-                temp.list <- lapply(1:length(objects), function(x) objects[[x]]@data[[i]])
+                temp.list <- lapply(objects, function(x) x@data[[i]])
 
                 ##check whether the objects can be combined by rbind
                 if(length(unique(unlist(lapply(temp.list, FUN = ncol)))) > 1)
@@ -101,7 +101,7 @@ merge_RLum.Results <- function(
               }else{
                 ##all other elements
                 ##grep elements and write them into a list
-                objects[[1]]@data[[i]] <- lapply(1:length(objects), function(x) objects[[x]]@data[[i]])
+                objects[[1]]@data[[i]] <- lapply(objects, function(x) x@data[[i]])
 
                 ##unlist to flatten list if necessary for the elements
                 if(is(objects[[1]]@data[[i]][[1]])[1] == "list"){

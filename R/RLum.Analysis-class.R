@@ -136,10 +136,11 @@ setMethod("show",
               }, FUN.VALUE = character(1))
 
               ##print object class types
-              lapply(1:length(table(temp)), function(x){
+              table.temp <- table(temp)
+              lapply(names(table.temp), function(x) {
 
                 ##show RLum class type
-                cat("\n\t .. :", names(table(temp)[x]),":",table(temp)[x])
+                cat("\n\t .. :", x, ":", table.temp[x])
 
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
@@ -152,7 +153,7 @@ setMethod("show",
                 ##create terminal output
                 terminal_output <-
                   vapply(1:length(object@records),  function(i) {
-                    if (names(table(temp)[x]) == is(object@records[[i]])[1]) {
+                    if (x == is(object@records[[i]])[1]) {
                       if (i %% temp.width == 0 & i != length(object@records)) {
                         assign(x = "linebreak", value = TRUE, envir = env)
                       }
@@ -470,11 +471,8 @@ setMethod("get_RLum",
 
               ##curveType
               if (is.null(curveType)) {
-                curveType <- unique(unlist(lapply(1:length(object@records),
-                                                  function(x) {
-                                                    object@records[[x]]@curveType
-                                                  })))
-
+                curveType <- unique(unlist(lapply(object@records,
+                                                  function(x) x@curveType)))
               } else {
                 .validate_class(curveType, "character")
               }

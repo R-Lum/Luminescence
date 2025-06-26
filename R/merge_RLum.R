@@ -73,11 +73,10 @@ merge_RLum<- function(
   ##if list is empty afterwards we do nothing
   if(length(objects) >= 1) {
       ##check if objects are of class RLum
-     temp.class.test <- unique(sapply(1:length(objects), function(x) {
-       .validate_class(objects[[x]], "RLum",
+     temp.class.test <- unique(sapply(objects, function(x) {
+       .validate_class(x, "RLum",
                        name = "All elements of 'objects'")
-        ##provide class of objects ... so far they should be similar
-        is(objects[[x]])[1]
+        is(x)[1]
       }))
 
       ##check if objects are consistent

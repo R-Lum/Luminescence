@@ -180,13 +180,11 @@ setMethod("get_RLum", signature = "list",
       ## remove empty or NULL objects after the selection ... if wanted
       if (null.rm) {
         ## first set all empty objects to NULL ... for RLum.Analysis objects
-        selection <- lapply(1:length(selection), function(x) {
-          if (length(selection[[x]]) == 0 ||
-              (inherits(selection[[x]], "RLum.Analysis") &&
-               length(selection[[x]]@records) == 0))
+        selection <- lapply(selection, function(x) {
+          if (length(x) == 0 ||
+              (inherits(x, "RLum.Analysis") && length(x@records) == 0))
             return(NULL)
-          else
-            return(selection[[x]])
+          return(x)
         })
         ## get rid of all NULL objects
         selection <- selection[!vapply(selection, is.null, logical(1))]

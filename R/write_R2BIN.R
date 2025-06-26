@@ -352,14 +352,10 @@ write_R2BIN <- function(
     })}
 
   ##TIME
-  object@METADATA[,"TIME"] <- vapply(1:length(object@METADATA[["TIME"]]),function(x){
-    if(is.na(object@METADATA[["TIME"]][x])){
-      "000000"
-
-    }else{
-      as.character(gsub(":","",object@METADATA[["TIME"]][x]))
-    }
-
+  object@METADATA[, "TIME"] <- vapply(object@METADATA[["TIME"]], function(x) {
+    if (is.na(x))
+      return("000000")
+    as.character(gsub(":", "", x))
   }, character(1))
 
   ##TAG and SEL

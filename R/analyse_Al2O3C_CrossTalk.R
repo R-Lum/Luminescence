@@ -173,14 +173,14 @@ analyse_Al2O3C_CrossTalk <- function(
   ##we have two dose points, and one background curve, we do know only the 2nd dose
 
   ##create signal table list
-  signal_table_list <- lapply(1:length(object), function(i) {
+  signal_table_list <- lapply(object, function(x) {
     ##calculate all the three signals needed
-    BACKGROUND <- sum(object[[i]][[3]][, 2])
-    NATURAL <- sum(object[[i]][[1]][, 2])
-    REGENERATED <- sum(object[[i]][[2]][, 2])
+    BACKGROUND <- sum(x[[3]][, 2])
+    NATURAL <- sum(x[[1]][, 2])
+    REGENERATED <- sum(x[[2]][, 2])
 
     temp_df <- data.frame(
-      POSITION = get_RLum(object[[i]][[1]], info.object = "position"),
+      POSITION = get_RLum(x[[1]], info.object = "position"),
       DOSE = if(!is.null(irradiation_time_correction)){
         dose_points + irradiation_time_correction[1]
       }else{
@@ -206,21 +206,20 @@ analyse_Al2O3C_CrossTalk <- function(
     return(temp_df)
   })
 
-  APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(1:length(object), function(x){
+  APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(signal_table_list, function(x) {
 
     ##run in MC run
-    if(!is.null(irradiation_time_correction)){
-    DOSE <- rnorm(1000, mean = signal_table_list[[x]]$DOSE[2], sd = signal_table_list[[x]]$DOSE_ERROR[2])
-
-    }else{
-      DOSE <- signal_table_list[[x]]$DOSE[2]
-    }
+    DOSE <- if (!is.null(irradiation_time_correction)) {
+              rnorm(1000, mean = x$DOSE[2], sd = x$DOSE_ERROR[2])
+            } else {
+              x$DOSE[2]
+            }
 
     ##calculation
-    temp <- (DOSE * signal_table_list[[x]]$NET_INTEGRAL[1])/signal_table_list[[x]]$NET_INTEGRAL[2]
+    temp <- (DOSE * x$NET_INTEGRAL[1]) / x$NET_INTEGRAL[2]
 
     data.frame(
-      POSITION = signal_table_list[[x]]$POSITION[1],
+      POSITION = x$POSITION[1],
       AD = mean(temp),
       AD_ERROR = sd(temp))
   })))

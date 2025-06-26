@@ -163,12 +163,12 @@ merge_RLum.Data.Curve<- function(
   step <- round(diff(object[[1]]@data[, 1]), 1)[1]
 
   ## extract the curve values from each object
-  temp.matrix <- sapply(1:num.objects, function(x) {
+  temp.matrix <- sapply(object, function(x) {
     ## check the resolution (roughly)
-    if (round(diff(object[[x]]@data[, 1]), 1)[1] != step)
+    if (round(diff(x@data[, 1]), 1)[1] != step)
       .throw_warning("The objects do not seem to have the same channel resolution!")
     ## limit all objects to the shortest one
-    object[[x]]@data[1:num.rows, 2]
+    x@data[1:num.rows, 2]
   })
 
   ## throw the warning only now to avoid printing it in case of error
@@ -250,11 +250,7 @@ merge_RLum.Data.Curve<- function(
   ##unlist is needed here, as otherwise it would cause unexpected behaviour further using
   ##the RLum.object
   if(missing(method.info)){
-    temp.info <- unlist(lapply(1:num.objects, function(x) {
-      object[[x]]@info
-
-    }), recursive = FALSE)
-
+    temp.info <- unlist(lapply(object, function(x) x@info), recursive = FALSE)
   }else{
     temp.info <- object[[method.info]]@info
   }
@@ -267,9 +263,7 @@ merge_RLum.Data.Curve<- function(
     curveType =  "merged",
     data = temp.matrix,
     info = temp.info,
-    .pid = unlist(lapply(object, function(x) {
-      x@.uid
-    }))
+    .pid = unlist(lapply(object, function(x) x@.uid))
   )
 
   return(temp.new.Data.Curve)

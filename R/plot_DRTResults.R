@@ -330,15 +330,12 @@ plot_DRTResults <- function(
   }
 
   ##correct ylim for data set which exceed boundaries
-  if((max(sapply(1:length(values), function(x){max(values[[x]][,1], na.rm = TRUE)}))>1.25 |
-        min(sapply(1:length(values), function(x){min(values[[x]][,1], na.rm = TRUE)}))<0.75) &
+  if ((max(sapply(values, function(x) max(x[, 1], na.rm = TRUE))) > 1.25 ||
+       min(sapply(values, function(x) min(x[, 1], na.rm = TRUE))) < 0.75) &&
        ("ylim" %in% names(extraArgs)) == FALSE){
-
     ylim <- c(
-      min(sapply(1:length(values), function(x){
-        min(values[[x]][,1], na.rm = TRUE) - max(values[[x]][,2], na.rm = TRUE)})),
-      max(sapply(1:length(values), function(x){
-        max(values[[x]][,1], na.rm = TRUE) + max(values[[x]][,2], na.rm = TRUE)})))
+      min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) - max(x[, 2], na.rm = TRUE))),
+      max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) + max(x[, 2], na.rm = TRUE))))
   }
 
   ## optionally group data by preheat temperature
@@ -385,9 +382,9 @@ plot_DRTResults <- function(
       )
     })
   }else{
-    label.text <- lapply(1:length(values), function(i) {
+    label.text <- lapply(values, function(x) {
       .create_StatisticalSummaryText(
-        x = calc_Statistics(values[[i]]),
+        x = calc_Statistics(x),
         keywords = summary,
         digits = 2,
         sep = " | "

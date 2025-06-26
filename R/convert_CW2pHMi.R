@@ -271,12 +271,8 @@ convert_CW2pHMi<- function(
   }
 
   ##interpolate between the lower and the upper value
-  invalid_values.interpolated<-sapply(1:length(invalid_values.id),
-                                      function(x) {
-                                        mean(c(temp[invalid_values.id[x]-1,2],
-                                               temp[invalid_values.id[x]+1,2]))
-                                      }
-  )
+  invalid_values.interpolated <- sapply(invalid_values.id,
+                                        function(x) mean(temp[c(x - 1, x + 1), 2]))
 
   ##replace invalid values in data.frame with newly interpolated values
   if(length(invalid_values.id)>0){

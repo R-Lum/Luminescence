@@ -1004,11 +1004,11 @@ analyse_IRSAR.RF<- function(
         ##the algorithm finds sufficiently the global minimum.
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
-        temp_minimum_list <- lapply(1:num_slide_windows, function(x) {
+        temp_minimum_list <- lapply(vslide_range.list, function(range) {
           src_analyse_IRSARRF_SRS(
             values_regenerated_limited =  RF_reg.limited[,2],
             values_natural_limited = RF_nat.limited[,2],
-            vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
+            vslide_range = vslide_range[range[1]:range[2]],
             n_MC = 0, #we don't need MC runs here, so make it quick
             trace = trace)[c("sliding_vector_min_index","vslide_minimum", "vslide_index")]
         })
@@ -1034,8 +1034,8 @@ analyse_IRSAR.RF<- function(
         ##is considered, otherwise it is too biased by the user's choice
         ##ToDo: So far the algorithm error is not sufficiently documented
         if (compute_algorithm_error) {
-          algorithm_error <- sd(vapply(1:length(temp_vslide_indices), function(k){
-            temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
+          algorithm_error <- sd(vapply(temp_hslide_indices, function(k) {
+            temp.sliding.step <- RF_reg.limited[k] - t_min
             ## return the offset of the t_n values
             RF_nat[1, 1] + temp.sliding.step
           }, FUN.VALUE = numeric(1)))
@@ -1144,7 +1144,7 @@ analyse_IRSAR.RF<- function(
     ##(i.e., bootstrap from the natural curve distribution)
 
     if(!is.null(n.MC)){
-      slide.MC.list <- lapply(1:n.MC,function(x) {
+      slide.MC.list <- lapply(1:n.MC, function(dummy) {
         reg.limited.idx <- slide$t_n.id:nrow(RF_reg.limited)
         len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
         cbind(RF_nat.limited[1:len.shorter, 1],

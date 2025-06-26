@@ -453,8 +453,8 @@ fit_LMCurve<- function(
     xm.pseudo<-sqrt(max(values[,1])/b.pseudo)
 
     ##the Im values obtaind by calculating residuals
-    Im.pseudo <- sapply(1:length(b.pseudo), function(x) {
-      xm.residual <- abs(values[, 1] - xm.pseudo[x])
+    Im.pseudo <- sapply(xm.pseudo, function(x) {
+      xm.residual <- abs(values[, 1] - x)
       values[which.min(xm.residual), 1] # time value of minimum residual
     })
 
