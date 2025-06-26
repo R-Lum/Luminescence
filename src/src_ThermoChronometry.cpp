@@ -12,7 +12,7 @@
 using namespace Rcpp;
 
 // Helper function: Simpson's rule for 1D definite integration
-double integrate_simpson(std::function<double(double)> f, double a, double b, int n = 100) {
+double integrate_simpson(std::function<double(double)> f, double a, double b, int n) {
   if (n % 2 == 1) n++;
   double h = (b - a) / n;
   double s = f(a) + f(b);
@@ -41,13 +41,17 @@ NumericVector f_BTS_cpp_part(
   int nx = x.size();
   NumericVector out(nx);
 
+  // precompute constant part of the outer term
+  double log_factor = std::log(1.8 * 3e15);
+
   for (int i = 0; i < nx; ++i) {
     double t = x[i];
+
     // precompute outside the integral for this t
-    double outer = std::exp(-rhop * std::pow(std::log(1.8 * 3e15 * (250.0 + t)), 3.0));
+    double outer = std::exp(-rhop * std::pow(log_factor + std::log(250.0 + t), 3.0));
 
     // define integrand as a lambda
-    std::function<double(double)> integrand = [&](double Eb) {
+    std::function<double(double)> integrand = [&](double Eb) { // # nocov
       double exp1 = std::exp(-Eb / Eu);
       double exp2 = std::exp(-std::pow(10.0, s10) * t * std::exp(-(Et - Eb) / (kB * T_K)));
       return A * exp1 * exp2;
