@@ -159,7 +159,7 @@ write_R2BIN <- function(
     object@METADATA[["LENGTH"]] <- object@METADATA[["LENGTH"]] - (4 * object@METADATA[["NPOINTS"]]) + (temp_NPOINTS * 4)
 
     ##correct PREVIOUS
-    object@METADATA[["PREVIOUS"]] <- c(0,object@METADATA[["LENGTH"]][2:length(object@METADATA[["LENGTH"]])])
+    object@METADATA[["PREVIOUS"]] <- c(0, head(object@METADATA$LENGTH, -1))
 
     ##correct NPOINTS
     object@METADATA[["NPOINTS"]] <- temp_NPOINTS
