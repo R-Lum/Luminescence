@@ -81,9 +81,9 @@
 <polyline points='514.49,110.23 619.20,110.23 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='514.49,83.80 619.20,83.80 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='64.80,179.17 501.39,179.17 514.49,179.17 619.20,179.17 ' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
-<text x='297.18' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='10.40px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text x='307.58' y='28.10' style='font-size: 10.08px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='313.19' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='73.64px' lengthAdjust='spacingAndGlyphs'> distribution</text>
+<text x='252.35' y='29.28' style='font-size: 28.80px; font-family: sans;' textLength='20.81px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='273.16' y='34.60' style='font-size: 20.16px; font-family: sans;' textLength='11.21px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='284.37' y='29.28' style='font-size: 28.80px; font-family: sans;' textLength='147.28px' lengthAdjust='spacingAndGlyphs'> distribution</text>
 <line x1='64.80' y1='511.20' x2='471.87' y2='511.20' style='stroke-width: 0.75;' />
 <line x1='64.80' y1='511.20' x2='64.80' y2='518.40' style='stroke-width: 0.75;' />
 <line x1='200.49' y1='511.20' x2='200.49' y2='518.40' style='stroke-width: 0.75;' />
@@ -142,12 +142,12 @@
 <polyline points='619.20,83.80 635.83,83.80 ' style='stroke-width: 0.75;' />
 <polyline points='501.39,363.63 501.39,69.04 ' style='stroke-width: 0.75;' />
 <polyline points='619.20,363.63 619.20,69.04 ' style='stroke-width: 0.75;' />
-<text x='663.55' y='360.11' style='font-size: 48.00px; font-family: sans;' textLength='53.40px' lengthAdjust='spacingAndGlyphs'>20</text>
-<text x='663.55' y='259.61' style='font-size: 48.00px; font-family: sans;' textLength='53.40px' lengthAdjust='spacingAndGlyphs'>40</text>
-<text x='663.55' y='200.83' style='font-size: 48.00px; font-family: sans;' textLength='53.40px' lengthAdjust='spacingAndGlyphs'>60</text>
-<text x='663.55' y='159.11' style='font-size: 48.00px; font-family: sans;' textLength='53.40px' lengthAdjust='spacingAndGlyphs'>80</text>
-<text x='663.55' y='126.76' style='font-size: 48.00px; font-family: sans;' textLength='80.09px' lengthAdjust='spacingAndGlyphs'>100</text>
-<text x='663.55' y='100.33' style='font-size: 48.00px; font-family: sans;' textLength='80.09px' lengthAdjust='spacingAndGlyphs'>120</text>
+<text x='663.55' y='351.85' style='font-size: 24.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>20</text>
+<text x='663.55' y='251.35' style='font-size: 24.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>40</text>
+<text x='663.55' y='192.56' style='font-size: 24.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>60</text>
+<text x='663.55' y='150.85' style='font-size: 24.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>80</text>
+<text x='663.55' y='118.50' style='font-size: 24.00px; font-family: sans;' textLength='40.05px' lengthAdjust='spacingAndGlyphs'>100</text>
+<text x='663.55' y='92.06' style='font-size: 24.00px; font-family: sans;' textLength='40.05px' lengthAdjust='spacingAndGlyphs'>120</text>
 <text transform='translate(676.14,255.02) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='17.34px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text transform='translate(680.58,237.68) rotate(-90)' style='font-size: 16.80px; font-family: sans;' textLength='9.34px' lengthAdjust='spacingAndGlyphs'>e</text>
 <text transform='translate(676.14,228.34) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'> </text>
@@ -285,8 +285,8 @@
 <text x='552.27' y='105.10' text-anchor='middle' style='font-size: 33.60px; font-family: sans;' textLength='8.73px' lengthAdjust='spacingAndGlyphs'>|</text>
 <polyline points='514.49,363.63 514.49,69.04 ' style='stroke-width: 0.75;' />
 <polygon points='64.80,179.17 501.39,69.04 619.20,69.04 619.20,363.63 501.39,363.63 ' style='stroke-width: 0.60; fill: none;' />
-<text x='64.80' y='239.36' style='font-size: 40.00px; font-family: sans;' textLength='274.70px' lengthAdjust='spacingAndGlyphs'>abs. sd = 22.01</text>
-<text x='64.80' y='287.36' style='font-size: 40.00px; font-family: sans;' textLength='143.47px' lengthAdjust='spacingAndGlyphs'>se = 2.8</text>
-<text x='64.80' y='335.36' style='font-size: 40.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='64.80' y='256.48' style='font-size: 20.00px; font-family: sans;' textLength='137.35px' lengthAdjust='spacingAndGlyphs'>abs. sd = 22.01</text>
+<text x='64.80' y='280.48' style='font-size: 20.00px; font-family: sans;' textLength='71.74px' lengthAdjust='spacingAndGlyphs'>se = 2.8</text>
+<text x='64.80' y='304.48' style='font-size: 20.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 </g>
 </svg>

@@ -1775,20 +1775,18 @@ plot_AbanicoPlot <- function(
              labels = line.label[i],
              pos = 2,
              col = line.col[i],
-             cex = cex * 0.9)
+             cex = 0.9)
       }
     }
 
     ## add plot title
-    cex.old <- par()$cex
-    par(cex = layout$abanico$font.size$main / 12)
     title(main = main,
           family = layout$abanico$font.type$main,
           font = which(c("normal", "bold", "italic", "bold italic") ==
                          layout$abanico$font.deco$main)[1],
           col.main = layout$abanico$colour$main,
+          cex = layout$abanico$font.size$main / 12,
           line = shift.lines * layout$abanico$dimension$main / 100)
-    par(cex = cex.old)
 
     ## calculate lower x-axis (precision)
     x.axis.ticks <- axTicks(side = 1)
@@ -1985,7 +1983,7 @@ plot_AbanicoPlot <- function(
          family = layout$abanico$font.type$ztck,
          font = which(c("normal", "bold", "italic", "bold italic") ==
                         layout$abanico$font.deco$ztck)[1],
-         cex = cex * layout$abanico$font.size$ztck/12)
+         cex = layout$abanico$font.size$ztck / 12)
 
 
     ## plot z-label
@@ -2267,7 +2265,7 @@ plot_AbanicoPlot <- function(
            family = layout$abanico$font.type$stats,
            font = which(c("normal", "bold", "italic", "bold italic") ==
                           layout$abanico$font.deco$stats)[1],
-           cex = cex * layout$abanico$font.size$stats/12,
+           cex = layout$abanico$font.size$stats / 12,
            col = layout$abanico$colour$stats)
     }
 
@@ -2353,7 +2351,7 @@ plot_AbanicoPlot <- function(
              family = layout$abanico$font.type$summary,
              font = which(c("normal", "bold", "italic", "bold italic") ==
                             layout$abanico$font.deco$summary)[1],
-             cex = cex * layout$abanico$font.size$summary / 12)
+             cex = layout$abanico$font.size$summary / 12)
       } else {
         if(mtext == "") {
           mtext(side = 3,
@@ -2510,7 +2508,7 @@ plot_AbanicoPlot <- function(
              labels = line.label[i],
              pos = 2,
              col = line.col[i],
-             cex = cex * 0.9)
+             cex = 0.9)
       }
     }
 
@@ -2725,7 +2723,7 @@ plot_AbanicoPlot <- function(
          family = layout$abanico$font.type$ztck,
          font = which(c("normal", "bold", "italic", "bold italic") ==
                         layout$abanico$font.deco$ztck)[1],
-         cex = cex * layout$abanico$font.size$ztck/12)
+         cex = layout$abanico$font.size$ztck / 12)
 
     ## plot z-label
     mtext(text = zlab,
@@ -3004,7 +3002,7 @@ plot_AbanicoPlot <- function(
            family = layout$abanico$font.type$stats,
            font = which(c("normal", "bold", "italic", "bold italic") ==
                           layout$abanico$font.deco$stats)[1],
-           cex = cex * layout$abanico$font.size$stats/12,
+           cex = layout$abanico$font.size$stats / 12,
            col = layout$abanico$colour$stats)
     }
 
@@ -3074,7 +3072,7 @@ plot_AbanicoPlot <- function(
              family = layout$abanico$font.type$summary,
              font = which(c("normal", "bold", "italic", "bold italic") ==
                             layout$abanico$font.deco$summary)[1],
-             cex = cex * layout$abanico$font.size$summary / 12)
+             cex = layout$abanico$font.size$summary / 12)
       } else {
         if(mtext == "") {
           mtext(side = 3,

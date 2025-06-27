@@ -33,6 +33,9 @@
 
 - The minor grid lines were drawn incorrectly in a rotated plot (#849).
 
+- Some plot elements didn’t scale correctly at non-default cex values
+  (#861).
+
 ### `plot_RLum.Analysis()`
 
 - The legend text now scales better at non-default cex settings (#854).
