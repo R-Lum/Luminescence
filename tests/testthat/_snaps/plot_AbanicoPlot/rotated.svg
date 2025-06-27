@@ -83,7 +83,8 @@
 <polyline points='360.00,518.40 360.00,178.20 360.00,167.99 360.00,86.40 ' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
 <text x='315.18' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='10.40px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text x='325.58' y='28.10' style='font-size: 10.08px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='331.19' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='73.64px' lengthAdjust='spacingAndGlyphs'> distribution</text>
+<text x='331.19' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='4.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text x='335.19' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='69.64px' lengthAdjust='spacingAndGlyphs'>distribution</text>
 <line x1='57.60' y1='518.40' x2='57.60' y2='201.20' style='stroke-width: 0.75;' />
 <line x1='57.60' y1='518.40' x2='50.40' y2='518.40' style='stroke-width: 0.75;' />
 <line x1='57.60' y1='412.67' x2='50.40' y2='412.67' style='stroke-width: 0.75;' />

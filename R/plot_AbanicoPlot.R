@@ -848,7 +848,7 @@ plot_AbanicoPlot <- function(
   main <- if("main" %in% names(extraArgs)) {
     extraArgs$main
   } else {
-    expression(paste(D[e], " distribution"))
+    expression(D[e] * " " * "distribution")
   }
 
   sub <- if("sub" %in% names(extraArgs)) {
