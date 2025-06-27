@@ -344,5 +344,11 @@ test_that("Test graphical snapshot", {
                                                  grid.col = "grey",
                                                  summary.pos = "bottomleft",
                                                  summary = c("mean", "in.2s", "skewness")))
+    vdiffr::expect_doppelganger("dots cex",
+                                plot_AbanicoPlot(ExampleData.DeValues,
+                                                 dots = TRUE, cex = 2,
+                                                 grid.col = "grey80",
+                                                 summary.pos = "left",
+                                                 summary = c("sd.abs", "se.abs")))
   })
 })
