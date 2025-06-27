@@ -2513,15 +2513,13 @@ plot_AbanicoPlot <- function(
     }
 
     ## add plot title
-    cex.old <- par()$cex
-    par(cex = layout$abanico$font.size$main / 12)
     title(main = main,
           family = layout$abanico$font.type$main,
           font = which(c("normal", "bold", "italic", "bold italic") ==
                          layout$abanico$font.deco$main)[1],
           col.main = layout$abanico$colour$main,
+          cex = layout$abanico$font.size$main / 12,
           line = (shift.lines + 3.5) * layout$abanico$dimension$main / 100)
-    par(cex = cex.old)
 
     ## calculate lower x-axis (precision)
     x.axis.ticks <- axTicks(side = 2)
