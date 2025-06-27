@@ -31,6 +31,8 @@
 - The positioning of the y-axis label has been improved to be centred
   around the zero line (#847).
 
+- The minor grid lines were drawn incorrectly in a rotated plot (#849).
+
 ### `plot_RLum.Analysis()`
 
 - The legend text now scales better at non-default cex settings (#854).

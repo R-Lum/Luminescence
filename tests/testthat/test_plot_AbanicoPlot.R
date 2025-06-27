@@ -341,6 +341,7 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger("rotated",
                                 plot_AbanicoPlot(ExampleData.DeValues,
                                                  rotate = TRUE, rug = TRUE,
+                                                 grid.col = "grey",
                                                  summary.pos = "bottomleft",
                                                  summary = c("mean", "in.2s", "skewness")))
   })

@@ -2449,15 +2449,15 @@ plot_AbanicoPlot <- function(
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
       for(i in 1:length(tick.values.minor)) {
-        lines(y = c(limits.x[1], min(ellipse[,1])),
-              x = c(0, (tick.values.minor[i] - z.central.global) * min(ellipse[,1])),
+        lines(y = c(limits.x[1], min(ellipse[, 2])),
+              x = c(0, tick.values.minor[i] - z.central.global) * min(ellipse[, 2]),
               col = grid.minor,
               lwd = 1)
       }
       for(i in 1:length(tick.values.minor)) {
-        lines(y = c(xy.0[2], par()$usr[2]),
-              x = c((tick.values.minor[i] - z.central.global) * min(ellipse[,1]),
-                    (tick.values.minor[i] - z.central.global) * min(ellipse[,1])),
+        lines(y = c(xy.0[2], par()$usr[4]),
+              x = c(tick.values.minor[i] - z.central.global,
+                    tick.values.minor[i] - z.central.global) * min(ellipse[, 2]),
               col = grid.minor,
               lwd = 1)
       }
