@@ -867,7 +867,7 @@ plot_AbanicoPlot <- function(
     } else {xlab <- c(extraArgs$xlab, "Density")}
   } else {
     xlab <- c(if(log.z == TRUE) {
-      "Relative standard error (%)"
+      "Relative standard error [%]"
     } else {
       "Standard error"
     },
@@ -884,7 +884,7 @@ plot_AbanicoPlot <- function(
   zlab <- if("zlab" %in% names(extraArgs)) {
     extraArgs$zlab
   } else {
-    expression(paste(D[e], " [Gy]"))
+    expression(D[e] * " " * "[Gy]")
   }
 
   if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {

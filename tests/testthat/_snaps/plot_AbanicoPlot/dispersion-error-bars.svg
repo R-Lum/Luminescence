@@ -51,7 +51,7 @@
 <line x1='501.39' y1='511.20' x2='501.39' y2='518.40' style='stroke-width: 0.75;' />
 <line x1='501.39' y1='511.20' x2='501.39' y2='504.00' style='stroke-width: 0.75;' />
 <text x='283.09' y='555.12' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='49.36px' lengthAdjust='spacingAndGlyphs'>Precision</text>
-<text x='283.09' y='477.36' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='144.06px' lengthAdjust='spacingAndGlyphs'>Relative standard error (%)</text>
+<text x='283.09' y='477.36' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='142.74px' lengthAdjust='spacingAndGlyphs'>Relative standard error [%]</text>
 <line x1='200.49' y1='511.20' x2='471.87' y2='511.20' style='stroke-width: 0.75;' />
 <line x1='200.49' y1='511.20' x2='200.49' y2='504.00' style='stroke-width: 0.75;' />
 <line x1='336.18' y1='511.20' x2='336.18' y2='504.00' style='stroke-width: 0.75;' />
@@ -105,7 +105,8 @@
 <text x='641.38' y='87.93' style='font-size: 12.00px; font-family: sans;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>120</text>
 <text transform='translate(678.63,235.68) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text transform='translate(680.85,227.01) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text transform='translate(678.63,222.34) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='25.34px' lengthAdjust='spacingAndGlyphs'> [Gy]</text>
+<text transform='translate(678.63,222.34) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.33px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(678.63,219.00) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='22.01px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
 <line x1='314.62' y1='284.04' x2='314.62' y2='265.94' style='stroke-width: 0.75;' />
 <line x1='413.34' y1='288.55' x2='413.34' y2='270.49' style='stroke-width: 0.75;' />
 <line x1='429.89' y1='271.02' x2='429.89' y2='252.96' style='stroke-width: 0.75;' />

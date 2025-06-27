@@ -51,7 +51,7 @@
 <line x1='501.39' y1='511.20' x2='501.39' y2='518.40' style='stroke-width: 0.75;' />
 <line x1='501.39' y1='511.20' x2='501.39' y2='504.00' style='stroke-width: 0.75;' />
 <text x='283.09' y='555.12' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='49.36px' lengthAdjust='spacingAndGlyphs'>Precision</text>
-<text x='283.09' y='477.36' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='144.06px' lengthAdjust='spacingAndGlyphs'>Relative standard error (%)</text>
+<text x='283.09' y='477.36' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='142.74px' lengthAdjust='spacingAndGlyphs'>Relative standard error [%]</text>
 <line x1='200.49' y1='511.20' x2='471.87' y2='511.20' style='stroke-width: 0.75;' />
 <line x1='200.49' y1='511.20' x2='200.49' y2='504.00' style='stroke-width: 0.75;' />
 <line x1='336.18' y1='511.20' x2='336.18' y2='504.00' style='stroke-width: 0.75;' />
@@ -105,7 +105,8 @@
 <text x='641.38' y='100.88' style='font-size: 12.00px; font-family: sans;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>120</text>
 <text transform='translate(678.63,244.61) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text transform='translate(680.85,235.94) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text transform='translate(678.63,231.27) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='25.34px' lengthAdjust='spacingAndGlyphs'> [Gy]</text>
+<text transform='translate(678.63,231.27) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.33px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(678.63,227.94) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='22.01px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
 <circle cx='314.62' cy='281.67' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='413.34' cy='286.20' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='429.89' cy='269.22' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
