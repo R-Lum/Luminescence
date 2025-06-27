@@ -1640,10 +1640,7 @@ plot_AbanicoPlot <- function(
 
     ## add y-axis label
     mtext(text = ylab,
-          at = mean(x = c(min(ellipse[,2]),
-                          max(ellipse[,2])),
-                    na.rm = TRUE),
-          #        at = 0, ## BUG FROM VERSION 0.4.0, maybe removed in future
+          at = 0,
           adj = 0.5,
           side = 2,
           line = 3 * layout$abanico$dimension$ylab.line / 100,
