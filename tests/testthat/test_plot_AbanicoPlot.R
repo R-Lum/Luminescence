@@ -330,12 +330,13 @@ test_that("Test graphical snapshot", {
   testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
-    vdiffr::expect_doppelganger(
-      title = "Abanico expected",
-      fig = plot_AbanicoPlot(data = ExampleData.DeValues))
-    vdiffr::expect_doppelganger("summary sub",
+    vdiffr::expect_doppelganger("default",
+                                plot_AbanicoPlot(ExampleData.DeValues))
+    vdiffr::expect_doppelganger("dispersion error bars",
                                 plot_AbanicoPlot(ExampleData.DeValues,
-                                                 summary.pos = "sub",
+                                                 dispersion = "sd",
+                                                 error.bars = TRUE,
+                                                 summary.pos = "topleft",
                                                  summary = c("n", "se.rel", "kurtosis")))
     vdiffr::expect_doppelganger("rotated",
                                 plot_AbanicoPlot(ExampleData.DeValues,
