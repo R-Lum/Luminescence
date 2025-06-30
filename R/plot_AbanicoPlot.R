@@ -631,13 +631,8 @@ plot_AbanicoPlot <- function(
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
   } else {
-    if(length(grid.col) == 1) {
-      grid.major <- grid.col[1]
-      grid.minor <- grid.col[1]
-    } else {
-      grid.major <- grid.col[1]
-      grid.minor <- grid.col[2]
-    }
+    grid.major <- grid.col[1]
+    grid.minor <- grid.col[min(length(grid.col), 2)]
   }
 
   ## create preliminary global data set
@@ -1000,11 +995,8 @@ plot_AbanicoPlot <- function(
 
   ## define auxiliary plot parameters -----------------------------------------
   ## set space between z-axis and baseline of cartesian part
-  if(boxplot[1]) {
-    lostintranslation <- 1.03
-
-  } else {
-    lostintranslation <- 1.03
+  lostintranslation <- 1.03
+  if (!boxplot) {
     plot.ratio <- plot.ratio * 1.05
   }
 
@@ -1061,8 +1053,8 @@ plot_AbanicoPlot <- function(
                                            limits.z[2]]
 
   if(log.z[1]) {
-    tick.values.major[which(tick.values.major==0)] <- 1
-    tick.values.minor[which(tick.values.minor==0)] <- 1
+    tick.values.major[tick.values.major == 0] <- 1
+    tick.values.minor[tick.values.minor == 0] <- 1
 
     tick.values.major <- log(tick.values.major)
     tick.values.minor <- log(tick.values.minor)
@@ -1139,7 +1131,6 @@ plot_AbanicoPlot <- function(
     if(rotate == TRUE) {
       limits.y <- c(-max(abs(limits.y)), max(abs(limits.y)))
     }
-
   }
   if(!("xlim" %in% names(extraArgs))) {
     if(limits.z.x[2] > 1.1 * limits.x[2]) {
@@ -1306,87 +1297,47 @@ plot_AbanicoPlot <- function(
   polygons <- matrix(nrow = length(data), ncol = 14)
   for(i in 1:length(data)) {
     if(dispersion == "qr") {
-      ci.lower <- quantile(data[[i]][,1], 0.25)
-      ci.upper <- quantile(data[[i]][,1], 0.75)
+      ci.lo_up <- quantile(data[[i]][, 1], c(0.25, 0.75))
     } else if(grepl(x = dispersion, pattern = "p") == TRUE) {
       ci.plot <- as.numeric(strsplit(x = dispersion,
                                      split = "p")[[1]][2])
       ci.plot <- (100 - ci.plot) / 100
-      ci.lower <- quantile(data[[i]][,1], ci.plot)
-      ci.upper <- quantile(data[[i]][,1], 1 - ci.plot)
+      ci.lo_up <- quantile(data[[i]][, 1], c(ci.plot, 1 - ci.plot))
     } else if(dispersion == "sd") {
       if(log.z == TRUE) {
-        ci.lower <- exp(mean(log(data[[i]][,1])) - sd(log(data[[i]][,1])))
-        ci.upper <- exp(mean(log(data[[i]][,1])) + sd(log(data[[i]][,1])))
+        ci.lo_up <- exp(mean(log(data[[i]][, 1])) + c(-1, 1) * sd(log(data[[i]][, 1])))
       } else {
-        ci.lower <- mean(data[[i]][,1]) - sd(data[[i]][,1])
-        ci.upper <- mean(data[[i]][,1]) + sd(data[[i]][,1])
+        ci.lo_up <- mean(data[[i]][, 1]) + c(-1, 1) * sd(data[[i]][, 1])
       }
     } else if(dispersion == "2sd") {
       if(log.z == TRUE) {
-        ci.lower <- exp(mean(log(data[[i]][,1])) - 2 * sd(log(data[[i]][,1])))
-        ci.upper <- exp(mean(log(data[[i]][,1])) + 2 * sd(log(data[[i]][,1])))
+        ci.lo_up <- exp(mean(log(data[[i]][, 1])) + c(-2, 2) * sd(log(data[[i]][, 1])))
       } else {
-        ci.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
-        ci.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
+        ci.lo_up <- mean(data[[i]][, 1]) + c(-2, 2) * sd(data[[i]][, 1])
       }
     }
 
     if(log.z == TRUE) {
-      ci.lower[which(ci.lower < 0)] <- 1
-      y.lower <- log(ci.lower)
-      y.upper <- log(ci.upper)
-    } else {
-      y.lower <- ci.lower
-      y.upper <- ci.upper
+      ci.lo_up[which(ci.lo_up < 0)] <- 1
+      ci.lo_up <- log(ci.lo_up)
     }
+    y.lower <- ci.lo_up[1]
+    y.upper <- ci.lo_up[2]
 
-    if(rotate == FALSE) {
-      polygons[i,1:7] <- c(limits.x[1],
-                           limits.x[2],
-                           xy.0[1],
-                           par()$usr[2],
-                           par()$usr[2],
-                           xy.0[1],
-                           limits.x[2])
-      polygons[i,8:14] <- c(0,
-                            (y.upper - z.central.global) *
-                              limits.x[2],
-                            (y.upper - z.central.global) *
-                              xy.0[1],
-                            (y.upper - z.central.global) *
-                              xy.0[1],
-                            (y.lower - z.central.global) *
-                              xy.0[1],
-                            (y.lower - z.central.global) *
-                              xy.0[1],
-                            (y.lower - z.central.global) *
-                              limits.x[2]
-      )
-    } else {
-      y.max <- par()$usr[4]
-      polygons[i,1:7] <- c(limits.x[1],
-                           limits.x[2],
-                           xy.0[2],
-                           y.max,
-                           y.max,
-                           xy.0[2],
-                           limits.x[2])
-      polygons[i,8:14] <- c(0,
-                            (y.upper - z.central.global) *
-                              limits.x[2],
-                            (y.upper - z.central.global) *
-                              xy.0[2],
-                            (y.upper - z.central.global) *
-                              xy.0[2],
-                            (y.lower - z.central.global) *
-                              xy.0[2],
-                            (y.lower - z.central.global) *
-                              xy.0[2],
-                            (y.lower - z.central.global) *
-                              limits.x[2]
-      )
-    }
+    polygons[i, 1:7] <- c(limits.x[1],
+                          limits.x[2],
+                          xy.0[rotate.idx],
+                          y.max,
+                          y.max,
+                          xy.0[rotate.idx],
+                          limits.x[2])
+    polygons[i, 8:14] <- c(0,
+                           (y.upper - z.central.global) * limits.x[2],
+                           (y.upper - z.central.global) * xy.0[rotate.idx],
+                           (y.upper - z.central.global) * xy.0[rotate.idx],
+                           (y.lower - z.central.global) * xy.0[rotate.idx],
+                           (y.lower - z.central.global) * xy.0[rotate.idx],
+                           (y.lower - z.central.global) * limits.x[2])
   }
 
   ## append information about data in confidence interval
@@ -1398,33 +1349,13 @@ plot_AbanicoPlot <- function(
 
   ## calculate coordinates for 2-sigma bar overlay
   if(bar[1] == TRUE) {
-    bars <- matrix(nrow = length(data), ncol = 8)
+    bar <- sapply(data, function(x) x[1, 5])
+  } else if (log.z) {
+    bar <- log(bar)
+  }
 
-    for(i in 1:length(data)) {
-      bars[i,1:4] <- c(limits.x[1],
-                       limits.x[1],
-                       ifelse("xlim" %in% names(extraArgs),
-                              extraArgs$xlim[2] * 0.95,
-                              max(data.global$precision)),
-                       ifelse("xlim" %in% names(extraArgs),
-                              extraArgs$xlim[2] * 0.95,
-                              max(data.global$precision)))
-
-      bars[i,5:8] <- c(-2,
-                       2,
-                       (data[[i]][1,5] - z.central.global) *
-                         bars[i,3] + 2,
-                       (data[[i]][1,5] - z.central.global) *
-                         bars[i,3] - 2)
-    }
-  } else {
-    bars <- matrix(nrow = length(bar), ncol = 8)
-
-    if(is.numeric(bar) == TRUE & log.z == TRUE) {
-      bar <- log(bar)
-    }
-
-    for(i in 1:length(bar)) {
+  bars <- matrix(nrow = length(bar), ncol = 8)
+  for(i in 1:length(bar)) {
       bars[i,1:4] <- c(limits.x[1],
                        limits.x[1],
                        ifelse("xlim" %in% names(extraArgs),
@@ -1440,7 +1371,6 @@ plot_AbanicoPlot <- function(
                          bars[i,3] + 2,
                        (bar[i] - z.central.global) *
                          bars[i,3] - 2)
-    }
   }
   if (rotate == TRUE) {
     bars <- matrix(bars[, rev(seq_len(ncol(bars)))], ncol = 8)
@@ -1555,13 +1485,8 @@ plot_AbanicoPlot <- function(
       line <- log(line)
     }
 
-    if(rotate == FALSE) {
-      line.x <- c(limits.x[1], min(ellipse[, 1]), par()$usr[2])
-      min.ellipse.x <- min(ellipse[, 1])
-    } else {
-      line.x <- c(limits.x[1], min(ellipse[, 2]), y.max)
-      min.ellipse.x <- min(ellipse[, 2])
-    }
+    line.x <- c(limits.x[1], min(ellipse[, rotate.idx]), y.max)
+    min.ellipse.x <- min(ellipse[, rotate.idx])
     line.coords <- list()
     for(i in 1:length(line)) {
       line.y <- c(0, rep((line[i] - z.central.global) * min.ellipse.x, 2))
@@ -1582,18 +1507,13 @@ plot_AbanicoPlot <- function(
   }
 
   ## calculate rug coordinates
-  if (log.z) {
-      rug.values <- log(De.global)
-  } else {
-      rug.values <- De.global
-  }
+  rug.values <- if (log.z) log(De.global) else De.global
 
   rug.coords <- list()
-  idx <- if (rotate) 2 else 1
   for (i in 1:length(rug.values)) {
-    rug.x <- c(xy.0[idx] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
-               xy.0[idx])
-    rug.y <- rep((rug.values[i] - z.central.global) * min(ellipse[, idx]), 2)
+    rug.x <- c(xy.0[rotate.idx] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
+               xy.0[rotate.idx])
+    rug.y <- rep((rug.values[i] - z.central.global) * min(ellipse[, rotate.idx]), 2)
     rug.coords[[i]] <- rbind(rug.x, rug.y)
   }
 
