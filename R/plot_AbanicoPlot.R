@@ -1606,6 +1606,11 @@ plot_AbanicoPlot <- function(
     shift.lines <- 1
   }
 
+  ## wrapper functions to deal with rotation
+  polygon.rot <- function(x, y, ...) {
+    if (!rotate) polygon(x, y, ...) else polygon(y, x, ...)
+  }
+
   ## extract original plot parameters
   bg.original <- par()$bg
   par(bg = layout$abanico$colour$background)
@@ -2282,30 +2287,6 @@ plot_AbanicoPlot <- function(
           y = c(min(ellipse[,2]), max(ellipse[,2])),
           col = layout$abanico$colour$border)
 
-    ## draw border around plot
-    if(frame == 1) {
-      polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
-                    par()$usr[2], min(ellipse[,1])),
-              y = c(0, max(ellipse[,2]), max(ellipse[,2]),
-                    min(ellipse[,2]), min(ellipse[,2])),
-              border = layout$abanico$colour$border,
-              lwd = 0.8)
-    } else if(frame == 2) {
-      polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
-                    par()$usr[2], min(ellipse[,1]), limits.x[1]),
-              y = c(2, max(ellipse[,2]), max(ellipse[,2]),
-                    min(ellipse[,2]), min(ellipse[,2]), -2),
-              border = layout$abanico$colour$border,
-              lwd = 0.8)
-    } else if(frame == 3) {
-      polygon(x = c(limits.x[1], par()$usr[2],
-                    par()$usr[2], limits.x[1]),
-              y = c(max(ellipse[,2]), max(ellipse[,2]),
-                    min(ellipse[,2]), min(ellipse[,2])),
-              border = layout$abanico$colour$border,
-              lwd = 0.8)
-    }
-
   } else {
     ## setup plot area
     par(mar = c(4, 4, shift.lines + 5, 4),
@@ -2957,14 +2938,29 @@ plot_AbanicoPlot <- function(
     lines(y = c(xy.0[2], xy.0[2]),
           x = c(min(ellipse[,1]), max(ellipse[,1])),
           col = layout$abanico$colour$border)
+  }
 
-    ## draw border around plot
-    polygon(y = c(limits.x[1], min(ellipse[,2]), y.max,
-                  y.max, min(ellipse[,2])),
-            x = c(0, max(ellipse[,1]), max(ellipse[,1]),
-                  min(ellipse[,1]), min(ellipse[,1])),
-            border = layout$abanico$colour$border,
-            lwd = 0.8)
+  ## draw border around plot
+  if (frame == 1) {
+    polygon.rot(x = c(limits.x[1], min(ellipse[, rotate.idx]), y.max,
+                      y.max, min(ellipse[, rotate.idx])),
+                y = c(0, max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
+                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx])),
+                border = layout$abanico$colour$border,
+                lwd = 0.8)
+  } else if (frame == 2) {
+    polygon.rot(x = c(limits.x[1], min(ellipse[, rotate.idx]), y.max,
+                      y.max, min(ellipse[, rotate.idx]), limits.x[1]),
+                y = c(2, max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
+                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx]), -2),
+                border = layout$abanico$colour$border,
+                lwd = 0.8)
+  } else if (frame == 3) {
+    polygon.rot(x = c(limits.x[1], y.max, y.max, limits.x[1]),
+                y = c(max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
+                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx])),
+                border = layout$abanico$colour$border,
+                lwd = 0.8)
   }
 
   ## optionally add legend content

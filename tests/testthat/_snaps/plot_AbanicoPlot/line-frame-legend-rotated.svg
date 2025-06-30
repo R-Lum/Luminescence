@@ -177,7 +177,7 @@
 <text transform='translate(40.32,115.20) rotate(-90)' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='36.04px' lengthAdjust='spacingAndGlyphs'>0.032</text>
 <text transform='translate(22.32,153.28) rotate(-90)' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='120.07px' lengthAdjust='spacingAndGlyphs'>Density (bw 0.074)</text>
 <polyline points='192.00,191.35 454.48,191.35 ' style='stroke-width: 0.75;' />
-<polygon points='360.00,518.40 454.48,200.88 454.48,115.20 192.00,115.20 192.00,200.88 ' style='stroke-width: 0.60; fill: none;' />
+<polygon points='374.27,518.40 454.48,200.88 454.48,115.20 192.00,115.20 192.00,200.88 345.73,518.40 ' style='stroke-width: 0.60; fill: none;' />
 <polygon points='58.60,161.28 62.97,168.84 54.24,168.84 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />
 <polygon points='58.60,188.64 62.97,181.08 54.24,181.08 ' style='stroke-width: 0.75; stroke: #8B5A00; fill: none;' />
 <text x='71.56' y='171.28' style='font-size: 14.40px; fill: #36648B; font-family: sans;' textLength='40.04px' lengthAdjust='spacingAndGlyphs'>data 1</text>
