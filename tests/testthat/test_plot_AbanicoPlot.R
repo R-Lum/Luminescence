@@ -350,5 +350,40 @@ test_that("Test graphical snapshot", {
                                                  grid.col = "grey80",
                                                  summary.pos = "left",
                                                  summary = c("sd.abs", "se.abs")))
+
+    data.list <- list(ExampleData.DeValues[1:30,],
+                      ExampleData.DeValues[31:62,] * 1.3)
+    vdiffr::expect_doppelganger("line frame legend",
+                                plot_AbanicoPlot(data = data.list,
+                                                 line = 75.7,
+                                                 line.lty = 3,
+                                                 line.label = "CAM",
+                                                 frame = 3,
+                                                 legend = c("data 1", "data 2"),
+                                                 cex = 1.2,
+                                                 z.0 = "median",
+                                                 col = c("steelblue4", "orange4"),
+                                                 bar.col = c("steelblue3", "orange3"),
+                                                 polygon.col = c("steelblue1", "orange1"),
+                                                 pch = c(2, 6),
+                                                 angle = c(30, 50),
+                                                 summary = c("n", "in.2s", "median")))
+
+    vdiffr::expect_doppelganger("line frame legend rotated",
+                                plot_AbanicoPlot(data = data.list,
+                                                 rotate = TRUE,
+                                                 line = 75.7,
+                                                 line.lty = 3,
+                                                 line.label = "CAM",
+                                                 frame = 2,
+                                                 legend = c("data 1", "data 2"),
+                                                 cex = 1.2,
+                                                 z.0 = "mean",
+                                                 col = c("steelblue4", "orange4"),
+                                                 bar.col = c("steelblue3", "orange3"),
+                                                 polygon.col = c("steelblue1", "orange1"),
+                                                 pch = c(2, 6),
+                                                 angle = c(30, 50),
+                                                 summary = c("n", "in.2s", "median")))
   })
 })

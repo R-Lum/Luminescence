@@ -37,6 +37,8 @@ the zero line (#847).
 
 * Some plot elements didn't scale correctly at non-default cex values (#861).
 
+* The `frame` argument is now respected also when the plot is rotated (#863).
+
 ### `plot_RLum.Analysis()`
 
 * The legend text now scales better at non-default cex settings (#854).

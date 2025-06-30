@@ -1121,14 +1121,12 @@ plot_AbanicoPlot <- function(
     stats.data[3, 2] <- data.global[data.stats == stats.data[3, 3], 8][1]
   }
 
+  ## index to pick according to the value of the rotate argument
+  rotate.idx <- if (!rotate) 1 else 2
+
   ## re-calculate axes limits if necessary
-  if(rotate == FALSE) {
-    limits.z.x <- range(ellipse[,1])
-    limits.z.y <- range(ellipse[,2])
-  } else {
-    limits.z.x <- range(ellipse[,2])
-    limits.z.y <- range(ellipse[,1])
-  }
+  limits.z.x <- range(ellipse[, rotate.idx])
+  limits.z.y <- range(ellipse[, 3 - rotate.idx])
 
   if(!("ylim" %in% names(extraArgs))) {
     if(limits.z.y[1] < 0.66 * limits.y[1]) {
@@ -1303,6 +1301,7 @@ plot_AbanicoPlot <- function(
 
   ## calculate coordinates for dispersion polygon overlay
   y.max.x <- 2 * limits.x[2] / max(data.global[6])
+  y.max <- if (!rotate) par()$usr[2] else par()$usr[4]
 
   polygons <- matrix(nrow = length(data), ncol = 14)
   for(i in 1:length(data)) {
@@ -1605,6 +1604,11 @@ plot_AbanicoPlot <- function(
     shift.lines <- (length(data) + 1) * layout$abanico$dimension$summary.line/100
   } else {
     shift.lines <- 1
+  }
+
+  ## wrapper functions to deal with rotation
+  polygon.rot <- function(x, y, ...) {
+    if (!rotate) polygon(x, y, ...) else polygon(y, x, ...)
   }
 
   ## extract original plot parameters
@@ -2283,89 +2287,6 @@ plot_AbanicoPlot <- function(
           y = c(min(ellipse[,2]), max(ellipse[,2])),
           col = layout$abanico$colour$border)
 
-    ## draw border around plot
-    if(frame == 1) {
-      polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
-                    par()$usr[2], min(ellipse[,1])),
-              y = c(0, max(ellipse[,2]), max(ellipse[,2]),
-                    min(ellipse[,2]), min(ellipse[,2])),
-              border = layout$abanico$colour$border,
-              lwd = 0.8)
-    } else if(frame == 2) {
-      polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
-                    par()$usr[2], min(ellipse[,1]), limits.x[1]),
-              y = c(2, max(ellipse[,2]), max(ellipse[,2]),
-                    min(ellipse[,2]), min(ellipse[,2]), -2),
-              border = layout$abanico$colour$border,
-              lwd = 0.8)
-    } else if(frame == 3) {
-      polygon(x = c(limits.x[1], par()$usr[2],
-                    par()$usr[2], limits.x[1]),
-              y = c(max(ellipse[,2]), max(ellipse[,2]),
-                    min(ellipse[,2]), min(ellipse[,2])),
-              border = layout$abanico$colour$border,
-              lwd = 0.8)
-    }
-
-    ## optionally add legend content
-    if(!missing(legend)) {
-      ## store and change font family
-      par.family <- par()$family
-      par(family = layout$abanico$font.type$legend)
-
-      legend(x = legend.pos[1],
-             y = 0.8 * legend.pos[2],
-             xjust = legend.adj[1],
-             yjust = legend.adj[2],
-             legend = legend,
-             pch = pch,
-             col = value.dot,
-             text.col = value.dot,
-             text.font = which(c("normal", "bold", "italic", "bold italic") ==
-                                 layout$abanico$font.deco$legend)[1],
-             cex = cex * layout$abanico$font.size$legend/12,
-             bty = "n")
-
-      ## restore font family
-      par(family = par.family)
-    }
-
-    ## optionally add subheader text
-    mtext(text = mtext,
-          side = 3,
-          line = (shift.lines - 2) * layout$abanico$dimension$mtext / 100,
-          col = layout$abanico$colour$mtext,
-          family = layout$abanico$font.type$mtext,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$mtext)[1],
-          cex = cex * layout$abanico$font.size$mtext / 12)
-
-    ## add summary content
-    for(i in 1:length(data)) {
-      if(summary.pos[1] != "sub") {
-        text(x = summary.pos[1],
-             y = summary.pos[2],
-             adj = summary.adj,
-             labels = label.text[[i]],
-             col = summary.col[i],
-             family = layout$abanico$font.type$summary,
-             font = which(c("normal", "bold", "italic", "bold italic") ==
-                            layout$abanico$font.deco$summary)[1],
-             cex = layout$abanico$font.size$summary / 12)
-      } else {
-        if(mtext == "") {
-          mtext(side = 3,
-                line = (shift.lines- 1 - i) *
-                  layout$abanico$dimension$summary / 100 ,
-                text = label.text[[i]],
-                col = summary.col[i],
-                family = layout$abanico$font.type$summary,
-                font = which(c("normal", "bold", "italic", "bold italic") ==
-                               layout$abanico$font.deco$summary)[1],
-                cex = cex * layout$abanico$font.size$summary / 12)
-        }
-      }
-    }
   } else {
     ## setup plot area
     par(mar = c(4, 4, shift.lines + 5, 4),
@@ -3017,51 +2938,71 @@ plot_AbanicoPlot <- function(
     lines(y = c(xy.0[2], xy.0[2]),
           x = c(min(ellipse[,1]), max(ellipse[,1])),
           col = layout$abanico$colour$border)
+  }
 
-    ## draw border around plot
-    polygon(y = c(limits.x[1], min(ellipse[,2]), y.max,
-                  y.max, min(ellipse[,2])),
-            x = c(0, max(ellipse[,1]), max(ellipse[,1]),
-                  min(ellipse[,1]), min(ellipse[,1])),
-            border = layout$abanico$colour$border,
-            lwd = 0.8)
+  ## draw border around plot
+  if (frame == 1) {
+    polygon.rot(x = c(limits.x[1], min(ellipse[, rotate.idx]), y.max,
+                      y.max, min(ellipse[, rotate.idx])),
+                y = c(0, max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
+                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx])),
+                border = layout$abanico$colour$border,
+                lwd = 0.8)
+  } else if (frame == 2) {
+    polygon.rot(x = c(limits.x[1], min(ellipse[, rotate.idx]), y.max,
+                      y.max, min(ellipse[, rotate.idx]), limits.x[1]),
+                y = c(2, max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
+                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx]), -2),
+                border = layout$abanico$colour$border,
+                lwd = 0.8)
+  } else if (frame == 3) {
+    polygon.rot(x = c(limits.x[1], y.max, y.max, limits.x[1]),
+                y = c(max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
+                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx])),
+                border = layout$abanico$colour$border,
+                lwd = 0.8)
+  }
 
-    ## optionally add legend content
-    if(missing(legend) == FALSE) {
-      ## store and change font familiy
-      par.family <- par()$family
-      par(family = layout$abanico$font.type$legend)
+  ## optionally add legend content
+  if (!missing(legend)) {
+    ## store and change font familiy
+    par.family <- par()$family
+    par(family = layout$abanico$font.type$legend)
 
-      legend(y = legend.pos[2],
-             x = 0.8 * legend.pos[1],
-             xjust = legend.adj[2],
-             yjust = legend.adj[1],
-             legend = legend,
-             pch = pch,
-             col = value.dot,
-             text.col = value.dot,
-             text.font = which(c("normal", "bold", "italic", "bold italic") ==
-                                 layout$abanico$font.deco$legend)[1],
-             cex = cex * layout$abanico$font.size$legend/12,
-             bty = "n")
+    scale.rot <- if (!rotate) c(1, 0.8) else c(0.8, 1)
+    if (rotate)
+      legend.adj <- rev(legend.adj)
+    legend(x = legend.pos[1] * scale.rot[1],
+           y = legend.pos[2] * scale.rot[2],
+           xjust = legend.adj[1],
+           yjust = legend.adj[2],
+           legend = legend,
+           pch = pch,
+           col = value.dot,
+           text.col = value.dot,
+           text.font = which(c("normal", "bold", "italic", "bold italic") ==
+                             layout$abanico$font.deco$legend)[1],
+           cex = cex * layout$abanico$font.size$legend / 12,
+           bty = "n")
 
-      ## restore font family
-      par(family = par.family)
-    }
+    ## restore font family
+    par(family = par.family)
+  }
 
-    ## optionally add subheader text
-    mtext(text = mtext,
-          side = 3,
-          line = (shift.lines - 2 + 3.5) * layout$abanico$dimension$mtext / 100,
-          col = layout$abanico$colour$mtext,
-          family = layout$abanico$font.type$mtext,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$mtext)[1],
-          cex = cex * layout$abanico$font.size$mtext / 12)
+  ## optionally add subheader text
+  add.shift <- if (!rotate) 0 else 3.5
+  mtext(text = mtext,
+        side = 3,
+        line = (shift.lines - 2 + add.shift) * layout$abanico$dimension$mtext / 100,
+        col = layout$abanico$colour$mtext,
+        family = layout$abanico$font.type$mtext,
+        font = which(c("normal", "bold", "italic", "bold italic") ==
+                     layout$abanico$font.deco$mtext)[1],
+        cex = cex * layout$abanico$font.size$mtext / 12)
 
-    ## add summary content
-    for(i in 1:length(data)) {
-      if(summary.pos[1] != "sub") {
+  ## add summary content
+  for (i in 1:length(data)) {
+    if (summary.pos[1] != "sub") {
         text(x = summary.pos[1],
              y = summary.pos[2],
              adj = summary.adj,
@@ -3071,10 +3012,10 @@ plot_AbanicoPlot <- function(
              font = which(c("normal", "bold", "italic", "bold italic") ==
                             layout$abanico$font.deco$summary)[1],
              cex = layout$abanico$font.size$summary / 12)
-      } else {
-        if(mtext == "") {
+    } else {
+        if (mtext == "") {
           mtext(side = 3,
-                line = (shift.lines - 1 + 3.5 - i) *
+                line = (shift.lines - 1 + add.shift - i) *
                   layout$abanico$dimension$summary / 100 ,
                 text = label.text[[i]],
                 col = summary.col[i],
@@ -3083,7 +3024,6 @@ plot_AbanicoPlot <- function(
                                layout$abanico$font.deco$summary)[1],
                 cex = cex * layout$abanico$font.size$summary / 12)
         }
-      }
     }
   }
 
