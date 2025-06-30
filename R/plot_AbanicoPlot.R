@@ -1001,31 +1001,17 @@ plot_AbanicoPlot <- function(
   }
 
   ## create empty plot to update plot parameters
-  if (!rotate) {
-    plot(NA,
-         xlim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)),
-         ylim = limits.y,
-         main = "",
-         sub = "",
-         xlab = "",
-         ylab = "",
-         xaxs = "i",
-         yaxs = "i",
-         frame.plot = FALSE,
-         axes = FALSE)
-  } else {
-    plot(NA,
-         xlim = limits.y,
-         ylim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)),
-         main = "",
-         sub = "",
-         xlab = "",
-         ylab = "",
-         xaxs = "i",
-         yaxs = "i",
-         frame.plot = FALSE,
-         axes = FALSE)
-  }
+  plot(NA,
+       xlim = if (!rotate) c(limits.x[1], limits.x[2] * (1 / plot.ratio)) else limits.y,
+       ylim = if (!rotate) limits.y else c(limits.x[1], limits.x[2] * (1 / plot.ratio)),
+       main = "",
+       sub = "",
+       xlab = "",
+       ylab = "",
+       xaxs = "i",
+       yaxs = "i",
+       frame.plot = FALSE,
+       axes = FALSE)
 
   ## calculate conversion factor for plot coordinates
   f <- 0
@@ -1529,6 +1515,15 @@ plot_AbanicoPlot <- function(
   ## wrapper functions to deal with rotation
   polygon.rot <- function(x, y, ...) {
     if (!rotate) polygon(x, y, ...) else polygon(y, x, ...)
+  }
+  points.rot <- function(x, y, ...) {
+    if (!rotate) points(x, y, ...) else points(y, x, ...)
+  }
+  lines.rot <- function(x, y, ...) {
+    if (!rotate) lines(x, y, ...) else lines(y, x, ...)
+  }
+  text.rot <- function(x, y, ...) {
+    if (!rotate) text(x, y, ...) else text(y, x, ...)
   }
 
   ## extract original plot parameters
@@ -2071,47 +2066,6 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## optionally add dot plot
-    if(dots == TRUE) {
-      for(i in 1:length(data)) {
-        for(j in 1:length(hist.data[[i]]$counts)) {
-
-          ## calculate scaling factor for histogram bar heights
-          dots.distance <- (par()$usr[2] - (xy.0[1] + par()$cxy[1] * 0.4)) / hist.max.plot
-
-          dots.x.i <- seq(from = xy.0[1] + par()$cxy[1] * 0.4,
-                          by = dots.distance,
-                          length.out = hist.data[[i]]$counts[j])
-
-          dots.y.i <- rep((hist.data[[i]]$mids[j] - z.central.global) *
-                            min(ellipse[,1]), length(dots.x.i))
-
-          ## remove data out of z-axis range
-          dots.x.i <- dots.x.i[dots.y.i >= min(ellipse[,2]) &
-                                 dots.y.i <= max(ellipse[,2])]
-          dots.y.i <- dots.y.i[dots.y.i >= min(ellipse[,2]) &
-                                 dots.y.i <= max(ellipse[,2])]
-
-          if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[2] -
-                                                   par()$cxy[1] * 0.4)) {
-            dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
-            dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
-            pch.dots <- c(rep(20, max(length(dots.x.i) - 1),1), 15)
-
-          } else {
-            pch.dots <- rep(20, length(dots.x.i))
-          }
-
-          ## plot points
-          points(x = dots.x.i,
-                 y = dots.y.i,
-                 pch = "|",
-                 cex = 0.7 * cex,
-                 col = kde.line[i])
-        }
-      }
-    }
-
     ## optionally add box plot
     if(boxplot == TRUE) {
 
@@ -2179,33 +2133,6 @@ plot_AbanicoPlot <- function(
                col = kde.line[i])
       }
     }
-
-    ## optionally add stats, i.e. min, max, median sample text
-    if(length(stats) > 0) {
-      text(x = stats.data[,1],
-           y = stats.data[,2],
-           pos = 2,
-           labels = round(stats.data[,3], 1),
-           family = layout$abanico$font.type$stats,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$stats)[1],
-           cex = layout$abanico$font.size$stats / 12,
-           col = layout$abanico$colour$stats)
-    }
-
-    ## optionally add rug
-    if(rug == TRUE) {
-      for(i in 1:length(rug.coords)) {
-        lines(x = rug.coords[[i]][1,],
-              y = rug.coords[[i]][2,],
-              col = value.rug[data.global[i,10]])
-      }
-    }
-
-    ## plot KDE base line
-    lines(x = c(xy.0[1], xy.0[1]),
-          y = c(min(ellipse[,2]), max(ellipse[,2])),
-          col = layout$abanico$colour$border)
 
   } else {
     ## setup plot area
@@ -2722,46 +2649,6 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## optionally add dot plot
-    if(dots == TRUE) {
-      for(i in 1:length(data)) {
-        for(j in 1:length(hist.data[[i]]$counts)) {
-
-          ## calculate scaling factor for histogram bar heights
-          dots.distance <- (par()$usr[4] - (xy.0[2] + par()$cxy[1] * 0.4)) / hist.max.plot
-
-          dots.x.i <- seq(from = xy.0[2] + par()$cxy[2] * 0.4,
-                          by = dots.distance,
-                          length.out = hist.data[[i]]$counts[j])
-
-          dots.y.i <- rep((hist.data[[i]]$mids[j] - z.central.global) *
-                            min(ellipse[,2]), length(dots.x.i))
-
-          ## remove data out of z-axis range
-          dots.x.i <- dots.x.i[dots.y.i >= min(ellipse[,1]) &
-                                 dots.y.i <= max(ellipse[,1])]
-          dots.y.i <- dots.y.i[dots.y.i >= min(ellipse[,1]) &
-                                 dots.y.i <= max(ellipse[,1])]
-
-          if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[4] -
-                                                   par()$cxy[2] * 0.4)) {
-            dots.y.i <- dots.y.i[dots.x.i < (par()$usr[4] - par()$cxy[2] * 0.4)]
-            dots.x.i <- dots.x.i[dots.x.i < (par()$usr[4] - par()$cxy[2] * 0.4)]
-            pch.dots <- c(rep(20, length(dots.x.i) - 1), 15)
-          } else {
-            pch.dots <- rep(20, length(dots.x.i))
-          }
-
-          ## plot points
-          points(y = dots.x.i,
-                 x = dots.y.i,
-                 pch = "-",
-                 cex = 0.7 * cex,
-                 col = kde.line[i])
-        }
-      }
-    }
-
     ## optionally add box plot
     if(boxplot == TRUE) {
 
@@ -2831,34 +2718,72 @@ plot_AbanicoPlot <- function(
                col = kde.line[i])
       }
     }
+  }
 
-    ## optionally add stats, i.e. min, max, median sample text
-    if(length(stats) > 0) {
-      text(y = stats.data[,1],
-           x = stats.data[,2],
-           pos = 2,
-           labels = round(stats.data[,3], 1),
-           family = layout$abanico$font.type$stats,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$stats)[1],
-           cex = layout$abanico$font.size$stats / 12,
-           col = layout$abanico$colour$stats)
-    }
+  ## optionally add dot plot
+  if (dots) {
+    for (i in 1:length(data)) {
+      for (j in 1:length(hist.data[[i]]$counts)) {
 
-    ## optionally add rug
-    if(rug == TRUE) {
-      for(i in 1:length(rug.coords)) {
-        lines(y = rug.coords[[i]][1,],
-              x = rug.coords[[i]][2,],
-              col = value.rug[data.global[i,10]])
+        ## calculate scaling factor for histogram bar heights
+        dots.distance <- (y.max - (xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4)) / hist.max.plot
+
+        dots.x.i <- seq(from = xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4,
+                        by = dots.distance,
+                        length.out = hist.data[[i]]$counts[j])
+
+        dots.y.i <- rep((hist.data[[i]]$mids[j] - z.central.global) *
+                        min(ellipse[, rotate.idx]), length(dots.x.i))
+
+        ## remove data out of z-axis range
+        keep.idx <- between(dots.y.i,
+                            min(ellipse[, 3 - rotate.idx]),
+                            max(ellipse[, 3 - rotate.idx]))
+        dots.x.i <- dots.x.i[keep.idx]
+        dots.y.i <- dots.y.i[keep.idx]
+
+        max.val <- y.max - par()$cxy[rotate.idx] * 0.4
+        if (max(c(0, dots.x.i), na.rm = TRUE) >= max.val) {
+          dots.y.i <- dots.y.i[dots.x.i < max.val]
+          dots.x.i <- dots.x.i[dots.x.i < max.val]
+        }
+
+        ## plot points
+        points.rot(x = dots.x.i,
+                   y = dots.y.i,
+                   pch = if (!rotate) "|" else "-",
+                   cex = 0.7 * cex,
+                   col = kde.line[i])
       }
     }
-
-    ## plot KDE base line
-    lines(y = c(xy.0[2], xy.0[2]),
-          x = c(min(ellipse[,1]), max(ellipse[,1])),
-          col = layout$abanico$colour$border)
   }
+
+  ## optionally add stats, i.e. min, max, median sample text
+  if (length(stats) > 0) {
+    text.rot(x = stats.data[, 1],
+             y = stats.data[, 2],
+             pos = 2,
+             labels = round(stats.data[, 3], 1),
+             family = layout$abanico$font.type$stats,
+             font = which(c("normal", "bold", "italic", "bold italic") ==
+                          layout$abanico$font.deco$stats)[1],
+             cex = layout$abanico$font.size$stats / 12,
+             col = layout$abanico$colour$stats)
+  }
+
+  ## optionally add rug
+  if (rug) {
+    for (i in 1:length(rug.coords)) {
+      lines.rot(x = rug.coords[[i]][1, ],
+                y = rug.coords[[i]][2, ],
+                col = value.rug[data.global[i, 10]])
+    }
+  }
+
+  ## plot KDE base line
+  lines.rot(x = c(xy.0[rotate.idx], xy.0[rotate.idx]),
+            y = c(min(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx])),
+            col = layout$abanico$colour$border)
 
   ## draw border around plot
   if (frame == 1) {
