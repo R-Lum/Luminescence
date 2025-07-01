@@ -23,16 +23,16 @@
 <polygon points='619.20,548.09 619.20,-41.09 1173.60,-41.09 1173.60,548.09 ' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
 <polygon points='64.80,179.17 480.60,117.89 493.07,116.05 619.20,116.05 619.20,224.34 493.07,224.34 480.60,223.03 ' style='stroke-width: 0.75; stroke: none; fill: #BFBFBF; fill-opacity: 0.60;' />
 <polyline points='64.80,179.17 480.60,343.58 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,179.17 480.60,243.08 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,179.17 480.60,184.29 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,179.17 480.60,142.58 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,179.17 480.60,110.23 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,179.17 480.60,83.80 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='493.07,343.58 619.20,343.58 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,179.17 480.60,243.08 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='493.07,243.08 619.20,243.08 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,179.17 480.60,184.29 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='493.07,184.29 619.20,184.29 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,179.17 480.60,142.58 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='493.07,142.58 619.20,142.58 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,179.17 480.60,110.23 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='493.07,110.23 619.20,110.23 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,179.17 480.60,83.80 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='493.07,83.80 619.20,83.80 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='64.80,179.17 480.60,179.17 493.07,179.17 619.20,179.17 ' style='stroke-width: 0.75; stroke-dasharray: 4.00,4.00;' />
 <text x='297.18' y='25.44' style='font-size: 14.40px; font-family: sans;' textLength='10.40px' lengthAdjust='spacingAndGlyphs'>D</text>

@@ -25,10 +25,10 @@
 <polygon points='64.80,159.71 501.39,204.96 514.49,206.32 619.20,206.32 619.20,240.55 514.49,240.55 501.39,238.20 ' style='stroke-width: 0.75; stroke: none; fill: #63B8FF;' />
 <polygon points='64.80,159.71 501.39,126.41 514.49,125.41 619.20,125.41 619.20,150.43 514.49,150.43 501.39,150.70 ' style='stroke-width: 0.75; stroke: none; fill: #FFA500;' />
 <polyline points='64.80,159.71 501.39,231.75 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,159.71 501.39,150.42 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='64.80,159.71 501.39,102.85 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='514.49,231.75 619.20,231.75 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,159.71 501.39,150.42 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='514.49,150.42 619.20,150.42 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='64.80,159.71 501.39,102.85 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='514.49,102.85 619.20,102.85 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='64.80,159.71 501.39,225.05 514.49,225.05 619.20,225.05 ' style='stroke-width: 0.75; stroke: #36648B; stroke-dasharray: 4.00,4.00;' />
 <polyline points='64.80,159.71 501.39,139.31 514.49,139.31 619.20,139.31 ' style='stroke-width: 0.75; stroke: #8B5A00; stroke-dasharray: 4.00,4.00;' />

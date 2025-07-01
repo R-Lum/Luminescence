@@ -1616,9 +1616,6 @@ plot_AbanicoPlot <- function(
                       min(ellipse[,1])),
               col = grid.minor,
               lwd = 1)
-      }
-
-      for(i in 1:length(tick.values.minor)) {
         lines(x = c(xy.0[1], par()$usr[2]),
               y = c((tick.values.minor[i] - z.central.global) *
                       min(ellipse[,1]),
@@ -1637,8 +1634,6 @@ plot_AbanicoPlot <- function(
                       min(ellipse[,1])),
               col = grid.major,
               lwd = 1)
-      }
-      for(i in 1:length(tick.values.major)) {
         lines(x = c(xy.0[1], par()$usr[2]),
               y = c((tick.values.major[i] - z.central.global) *
                       min(ellipse[,1]),
@@ -2219,8 +2214,6 @@ plot_AbanicoPlot <- function(
               x = c(0, tick.values.minor[i] - z.central.global) * min(ellipse[, 2]),
               col = grid.minor,
               lwd = 1)
-      }
-      for(i in 1:length(tick.values.minor)) {
         lines(y = c(xy.0[2], par()$usr[4]),
               x = c(tick.values.minor[i] - z.central.global,
                     tick.values.minor[i] - z.central.global) * min(ellipse[, 2]),
@@ -2236,8 +2229,6 @@ plot_AbanicoPlot <- function(
               x = c(0, (tick.values.major[i] - z.central.global) * min(ellipse[,2])),
               col = grid.major,
               lwd = 1)
-      }
-      for(i in 1:length(tick.values.major)) {
         lines(y = c(xy.0[2],y.max),
               x = c((tick.values.major[i] - z.central.global) * min(ellipse[,2]),
                     (tick.values.major[i] - z.central.global) * min(ellipse[,2])),

@@ -25,10 +25,10 @@
 <polygon points='360.00,518.40 338.78,200.88 338.15,191.35 338.15,115.20 304.65,115.20 304.65,191.35 306.26,200.88 ' style='stroke-width: 0.75; stroke: none; fill: #63B8FF;' />
 <polygon points='360.00,518.40 415.64,200.88 417.31,191.35 417.31,115.20 392.83,115.20 392.83,191.35 391.87,200.88 ' style='stroke-width: 0.75; stroke: none; fill: #FFA500;' />
 <polyline points='360.00,518.40 312.57,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='360.00,518.40 392.14,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
-<polyline points='360.00,518.40 438.69,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='312.57,191.35 312.57,115.20 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='360.00,518.40 392.14,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='392.14,191.35 392.14,115.20 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='360.00,518.40 438.69,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='438.69,191.35 438.69,115.20 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='360.00,518.40 360.18,200.88 360.18,115.20 ' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
 <text x='354.54' y='118.17' text-anchor='end' style='font-size: 12.96px; font-family: sans;' textLength='28.81px' lengthAdjust='spacingAndGlyphs'>CAM</text>
