@@ -30,6 +30,8 @@
 <polyline points='392.14,191.35 392.14,115.20 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='360.00,518.40 438.69,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='438.69,191.35 438.69,115.20 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
+<polyline points='360.00,518.40 311.68,200.88 311.68,191.35 311.68,115.20 ' style='stroke-width: 0.75; stroke: #36648B; stroke-dasharray: 4.00,4.00;' />
+<polyline points='360.00,518.40 405.30,200.88 405.30,191.35 405.30,115.20 ' style='stroke-width: 0.75; stroke: #8B5A00; stroke-dasharray: 4.00,4.00;' />
 <polyline points='360.00,518.40 360.18,200.88 360.18,115.20 ' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
 <text x='354.54' y='118.17' text-anchor='end' style='font-size: 12.96px; font-family: sans;' textLength='28.81px' lengthAdjust='spacingAndGlyphs'>CAM</text>
 <text x='306.21' y='26.21' style='font-size: 17.28px; font-family: sans;' textLength='12.48px' lengthAdjust='spacingAndGlyphs'>D</text>
