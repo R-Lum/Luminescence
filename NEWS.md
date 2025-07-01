@@ -26,6 +26,13 @@
 
 - The legend text now scales better at non-default cex settings (#849).
 
+### `calc_Huntley2006()`
+
+- If the user set the `n.MC` argument, this was also used in the fitting
+  of the dose response curve. This was not the expected behaviour, and
+  resulted in poor performance (a 2x slowdown for `n.MC = 10000`). This
+  regression was introduced in version 1.0.0 (#867).
+
 ### `plot_AbanicoPlot()`
 
 - The positioning of the y-axis label has been improved to be centred
