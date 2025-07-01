@@ -1687,7 +1687,7 @@ plot_AbanicoPlot <- function(
     x.axis.ticks <- x.axis.ticks[c(TRUE, x.axis.ticks <= limits.x[2])]
     x.axis.ticks <- x.axis.ticks[x.axis.ticks <= max.ellipse]
 
-    ## x-axis with lables and ticks
+    ## x-axis with labels and ticks
     axis(side = rotate.idx,
          at = x.axis.ticks,
          col = layout$abanico$colour$xtck1,
@@ -1841,25 +1841,17 @@ plot_AbanicoPlot <- function(
 
     ## plot minor z-ticks
     for(i in 1:length(tick.values.minor)) {
-      lines(x = c(par()$usr[2],
-                  (1 + 0.007 * cex * layout$abanico$dimension$ztcl / 100) *
-                    par()$usr[2]),
-            y = c((tick.values.minor[i] - z.central.global) *
-                    min(ellipse[,1]),
-                  (tick.values.minor[i] - z.central.global) *
-                    min(ellipse[,1])),
+      lines(x = y.max + c(0, 0.15 * layout$abanico$dimension$ztcl / 100),
+            y = c(tick.values.minor[i] - z.central.global,
+                  tick.values.minor[i] - z.central.global) * min(ellipse[, 1]),
             col = layout$abanico$colour$ztck)
     }
 
     ## plot major z-ticks
     for(i in 1:length(tick.values.major)) {
-      lines(x = c(par()$usr[2],
-                  (1 + 0.015 * cex * layout$abanico$dimension$ztcl / 100) *
-                    par()$usr[2]),
-            y = c((tick.values.major[i] - z.central.global) *
-                    min(ellipse[,1]),
-                  (tick.values.major[i] - z.central.global) *
-                    min(ellipse[,1])),
+      lines(x = y.max + c(0, 0.3 * layout$abanico$dimension$ztcl / 100),
+            y = c(tick.values.major[i] - z.central.global,
+                  tick.values.major[i] - z.central.global) * min(ellipse[, 1]),
             col = layout$abanico$colour$ztck)
     }
 
@@ -1870,16 +1862,14 @@ plot_AbanicoPlot <- function(
 
 
     ## plot z-axis text
-    text(x = (1 + 0.04 * cex * layout$abanico$dimension$ztcl / 100) *
-           par()$usr[2],
+    text(x = y.max + 0.4 * layout$abanico$dimension$ztcl / 100,
          y = (tick.values.major - z.central.global) * min(ellipse[,1]),
          labels = label.z.text,
-         adj = 0,
+         adj = c(0, 0.5),
          family = layout$abanico$font.type$ztck,
          font = which(c("normal", "bold", "italic", "bold italic") ==
                         layout$abanico$font.deco$ztck)[1],
          cex = layout$abanico$font.size$ztck / 12)
-
 
     ## plot z-label
     mtext(text = zlab,
@@ -1890,7 +1880,7 @@ plot_AbanicoPlot <- function(
           side = 4,
           las = 3,
           adj = 0.5,
-          line = 5 * layout$abanico$dimension$zlab.line / 100,
+          line = (4 + cex) * layout$abanico$dimension$zlab.line / 100,
           col = layout$abanico$colour$zlab,
           family = layout$abanico$font.type$zlab,
           font = which(c("normal", "bold", "italic", "bold italic") ==
@@ -2183,9 +2173,7 @@ plot_AbanicoPlot <- function(
 
     ## plot minor z-ticks
     for(i in 1:length(tick.values.minor)) {
-      lines(y = c(par()$usr[4],
-                  (1 + 0.015 * cex * layout$abanico$dimension$ztcl / 100) *
-                    y.max),
+      lines(y = y.max + c(0, 0.15 * layout$abanico$dimension$ztcl / 100),
             x = c((tick.values.minor[i] - z.central.global) *
                     min(ellipse[,2]),
                   (tick.values.minor[i] - z.central.global) *
@@ -2195,9 +2183,7 @@ plot_AbanicoPlot <- function(
 
     ## plot major z-ticks
     for(i in 1:length(tick.values.major)) {
-      lines(y = c(par()$usr[4],
-                  (1 + 0.03 * cex * layout$abanico$dimension$ztcl / 100) *
-                    y.max),
+      lines(y = y.max + c(0, 0.3 * layout$abanico$dimension$ztcl / 100),
             x = c((tick.values.major[i] - z.central.global) *
                     min(ellipse[,2]),
                   (tick.values.major[i] - z.central.global) *
@@ -2212,11 +2198,10 @@ plot_AbanicoPlot <- function(
           col = layout$abanico$colour$ztck)
 
     ## plot z-axis text
-    text(y = (1 + 0.06 * cex * layout$abanico$dimension$ztcl / 100) *
-           y.max,
+    text(y = y.max + 0.4 * layout$abanico$dimension$ztcl / 100,
          x = (tick.values.major - z.central.global) * min(ellipse[,2]),
          labels = label.z.text,
-         adj = 0.5,
+         adj = c(0.5, 0),
          family = layout$abanico$font.type$ztck,
          font = which(c("normal", "bold", "italic", "bold italic") ==
                         layout$abanico$font.deco$ztck)[1],
@@ -2228,7 +2213,7 @@ plot_AbanicoPlot <- function(
           side = 3,
           las = 1,
           adj = 0.5,
-          line = 2.5 * layout$abanico$dimension$zlab.line / 100,
+          line = (1.5 + cex) * layout$abanico$dimension$zlab.line / 100,
           col = layout$abanico$colour$zlab,
           family = layout$abanico$font.type$zlab,
           font = which(c("normal", "bold", "italic", "bold italic") ==
