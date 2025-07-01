@@ -494,6 +494,10 @@ calc_Huntley2006 <- function(
   GC.settings$object <- data.tmp
   GC.settings$verbose <- FALSE
 
+  ## unset the n.MC argument so that fit_DoseResponseCurve() won't use it,
+  ## which would result in a large performance slowdown (#867)
+  GC.settings$n.MC <- NULL
+
   fit.bounds <- GC.settings$fit.bounds
   force_through_origin <- GC.settings$fit.force_through_origin
   mode_is_extrapolation <- GC.settings$mode == "extrapolation"
