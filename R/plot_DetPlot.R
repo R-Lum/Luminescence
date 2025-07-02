@@ -320,17 +320,14 @@ plot_DetPlot <- function(
   }
 
 
-# Plot ----------------------------------------------------------------------------------------
-    ##get De results
-    if(analyse_function == "analyse_pIRIRSequence"){
-      pIRIR_signals <- unique(get_RLum(results)$Signal)
+  ## Plot -------------------------------------------------------------------
 
-    }else{
-      pIRIR_signals <- NA
-    }
+  pIRIR_signals <- if (analyse_function == "analyse_pIRIRSequence") {
+                     unique(get_RLum(results)$Signal)
+                   } else NA
 
-    ##run this in a loop to account for pIRIR data
-    df_final <- lapply(1:length(pIRIR_signals), function(i){
+  ## run this in a loop to account for pIRIR data
+  df_final <- lapply(1:length(pIRIR_signals), function(i) {
       ##get data.frame
       df <- get_RLum(results)
 
@@ -346,23 +343,19 @@ plot_DetPlot <- function(
       ##limit to what we see
       OSL_curve <- OSL_curve[1:signal_integral.seq[n.channels + 1],]
 
-      m <-
-        ((min(df$De - df$De.Error, na.rm = TRUE)) -
-           (max(df$De, na.rm = TRUE) +
-              max(df$De.Error, na.rm = TRUE))) /
+      min.de <- min(df$De - df$De.Error, na.rm = TRUE)
+      max.de <- max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE)
+      m <- (min.de - max.de) /
         (min(OSL_curve[, 2], na.rm = TRUE) -
            max(OSL_curve[, 2], na.rm = TRUE))
-      n <- (max(df$De, na.rm = TRUE) +
-              max(df$De.Error, na.rm = TRUE)) - m * max(OSL_curve[, 2])
+      n <- max.de - m * max(OSL_curve[, 2])
 
       OSL_curve[, 2] <- m * OSL_curve[, 2] + n
       rm(n, m)
 
         ##set plot setting
         plot.settings <- modifyList(list(
-          ylim = c(
-            min(df$De - df$De.Error, na.rm = TRUE),
-            (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
+          ylim = c(min.de, max.de),
           xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
           ylab = if(show_ShineDownCurve[1])
                   expression(paste(D[e], " [s] and ", L[n], " [a.u.]"))
@@ -436,8 +429,7 @@ plot_DetPlot <- function(
       } ## end plot
       ##set return
       return(df_final)
-    })
-
+  })
 
 # Return ------------------------------------------------------------------
   ##merge results
