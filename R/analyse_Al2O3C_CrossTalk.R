@@ -1,22 +1,23 @@
-#' @title Al2O3:C Reader Cross Talk Analysis
+#' @title Al2O3:C Reader Cross-Talk Analysis
 #'
-#' @description The function provides the analysis of cross-talk measurements on a
-#' FI lexsyg SMART reader using Al2O3:C chips
+#' @description The function provides the analysis of cross-talk measurements
+#' on a FI lexsyg SMART reader using Al2O3:C chips.
 #'
 #' @param object [RLum.Analysis-class] or [list] (**required**):
 #' measurement input
 #'
 #' @param signal_integral [numeric] (*optional*):
 #' signal integral, used for the signal and the background.
-#' If nothing is provided the full range is used
+#' If nothing is provided, the full range is used.
 #'
 #' @param dose_points [numeric] (*with default*):
 #' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., 2018
+#' made by Kreutzer et al., 2018.
 #'
-#' @param recordType [character] (*with default*): input curve selection, which is passed to
-#' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
+#' @param recordType [character] (*with default*):
+#' input curve selection, which is passed to [get_RLum]. To deactivate the
+#' automatic selection set the argument to `NULL`.
 #'
 #' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obtained by another
@@ -24,7 +25,7 @@
 #'
 #' @param method_control [list] (*optional*):
 #' optional parameters to control the calculation.
-#' See details for further explanations
+#' See details for further explanations.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
