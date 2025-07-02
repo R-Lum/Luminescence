@@ -163,6 +163,16 @@ analyse_SAR.TL <- function(
 
   # Protocol Integrity Checks --------------------------------------------------
 
+  ## silence notes raised by R CMD check
+  id <- n.channels <- protocol.step <- NULL
+  prev.idx <- criterion <- value <- threshold <- status <- NULL
+  Name <- Dose <- LxTx <- Repeated <- NULL
+
+  ## we must have a signal to analyse
+  if (!"SIGNAL" %in% sequence.structure) {
+    .throw_error("'sequence.structure' contains no 'SIGNAL' entry")
+  }
+
   ##Remove non TL-curves from object by selecting TL curves
   object@records <- get_RLum(object, recordType = "TL",
                              recursive = FALSE)
@@ -173,43 +183,31 @@ analyse_SAR.TL <- function(
   temp.protocol.step <- rep(sequence.structure,length(object@records))[1:length(object@records)]
 
   ## grep object structure
-  temp.sequence.structure <- structure_RLum(object)
+  temp.sequence.structure <- as.data.table(structure_RLum(object))
 
   ##set values for step
-  temp.sequence.structure[,"protocol.step"] <- temp.protocol.step
+  temp.sequence.structure[, protocol.step := temp.protocol.step]
 
   ##remove TL curves which are excluded
-  temp.sequence.structure <- temp.sequence.structure[which(
-    temp.sequence.structure[,"protocol.step"]!="EXCLUDE"),]
+  temp.sequence.structure <- temp.sequence.structure[protocol.step != "EXCLUDE"]
 
   ##check integrity; signal and bg range should be equal
-  if(length(
-    unique(
-      temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","n.channels"]))>1){
-
-    .throw_error("Signal range differs, check sequence structure.\n",
-                 temp.sequence.structure)
-  }
-
-  ## we must have a signal to analyse
-  if (!"SIGNAL" %in% sequence.structure) {
-    .throw_error("'sequence.structure' contains no 'SIGNAL' entry")
+  signal.channels <- temp.sequence.structure[protocol.step == "SIGNAL",
+                                             unique(n.channels)]
+  if (length(signal.channels) > 1) {
+    .throw_error("Signal ranges differ (", .collapse(signal.channels, quote = FALSE),
+                 "), check sequence structure")
   }
 
   ##check if the wanted curves are a multiple of the structure
-  if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0)
+  if (nrow(temp.sequence.structure) %% length(sequence.structure) != 0)
     .throw_error("Input TL curves are not a multiple of the sequence structure")
 
   # # Calculate LnLxTnTx values  --------------------------------------------------
   ##grep IDs for signal and background curves
-  TL.preheat.ID <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "PREHEAT","id"]
-
-  TL.signal.ID <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "SIGNAL","id"]
-
-  TL.background.ID <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "BACKGROUND","id"]
+  TL.preheat.ID <- temp.sequence.structure[protocol.step == "PREHEAT", id]
+  TL.signal.ID <- temp.sequence.structure[protocol.step == "SIGNAL", id]
+  TL.background.ID <- temp.sequence.structure[protocol.step == "BACKGROUND", id]
 
   ## check that `dose.points` is compatible with our signals:
   ## as we expect each signal to have an Lx and a Tx components (see calls
@@ -295,10 +293,6 @@ analyse_SAR.TL <- function(
 
   ## convert to data.table for more convenient column manipulation
   temp <- data.table(LnLxTnTx[, c("Name", "Dose", "Repeated", "LxTx")])
-
-  ## silence notes raised by R CMD check
-  prev.idx <- criterion <- value <- threshold <- status <- NULL
-  Name <- Dose <- LxTx <- Repeated <- NULL
 
   # Calculate Recycling Ratio -----------------------------------------------
   ## we first create a dummy object to use in case there are no repeated doses,

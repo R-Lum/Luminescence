@@ -43,7 +43,8 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(obj.rm, signal.integral.min = 210,
                               signal.integral.max = 220,
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
-               "Signal range differs, check sequence structure")
+               "Signal ranges differ (225, 250), check sequence structure",
+               fixed = TRUE)
 })
 
 test_that("Test examples", {
