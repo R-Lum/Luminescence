@@ -24,6 +24,11 @@ found in `calc_Huntley2006()` and `analyse_SAR.CWOSL()`, respectively.
 
 ## Bugfixes and changes
 
+### `analyse_SAR.CWOSL()`
+
+* The function crashed if any of the curves had `NA` as its `recordType`
+(#867).
+
 ### `calc_AliquotSize()`
 
 * The legend text now scales better at non-default cex settings (#849).

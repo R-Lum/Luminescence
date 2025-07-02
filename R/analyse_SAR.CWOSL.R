@@ -502,7 +502,7 @@ error.list <- list()
   ##check if the curve lengths differ
   temp.matrix.length <- unlist(lapply(object@records,
                                       function(x) {
-                                        if (x@recordType == CWcurve.type)
+                                        if (x@recordType %in% CWcurve.type)
                                           nrow(x@data)
                                       }))
 

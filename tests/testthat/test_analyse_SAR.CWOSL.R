@@ -711,3 +711,17 @@ test_that("graphical snapshot tests", {
                                   plot_onePage = TRUE, cex = 1.9))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 868
+  data <- object[[1]]
+  data@records[[1]]@recordType <- NA_character_
+  expect_s4_class(analyse_SAR.CWOSL(data, verbose = FALSE,
+                                    signal.integral.min = 1,
+                                    signal.integral.max = 2,
+                                    background.integral.min = 900,
+                                    background.integral.max = 1000),
+                  "RLum.Results")
+})
