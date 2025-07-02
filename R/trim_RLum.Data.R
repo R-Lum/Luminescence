@@ -97,7 +97,7 @@ trim_RLum.Data <- function(
   .trim_RLum.Data.Curve <- function(object, type, range){
     ## only if type is matched
     if  (any(object@recordType[1] %in% type)) {
-      range[2] <- min(nrow(object@data), range[2])
+      range <- pmin(nrow(object@data), range)
       object@data <- object@data[range[1]:range[2], , drop = FALSE]
     }
     object
@@ -107,7 +107,7 @@ trim_RLum.Data <- function(
   .trim_RLum.Data.Spectrum <- function(object, type, range){
     ## only if type is matched
     if (any(object@recordType[1] %in% type)) {
-      range[2] <- min(ncol(object@data), range[2])
+      range <- pmin(ncol(object@data), range)
       object@data <- object@data[, range[1]:range[2], drop = FALSE]
     }
     object
