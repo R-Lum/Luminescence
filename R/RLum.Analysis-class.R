@@ -493,11 +493,10 @@ setMethod("get_RLum",
               ##-----------------------------------------------------------------##
               ##a pre-selection is necessary to support negative index selection
               object@records <- object@records[record.id]
-              record.id <- 1:length(object@records)
+              record.id <- seq_along(object@records)
 
               ##select curves according to the chosen parameter
-              if (length(record.id) >= 1) {
-                temp <- lapply(record.id, function(x) {
+              temp <- lapply(record.id, function(x) {
                   if (is(object@records[[x]])[1] %in% RLum.type) {
                       ##as input a vector is allowed
                     temp <- lapply(recordType, function(type) {
@@ -540,9 +539,8 @@ setMethod("get_RLum",
                 ##remove list for get.index
                 if (get.index) {
                   return(unlist(temp))
-
-                } else{
-                  if (!drop) {
+                }
+                if (!drop) {
                     temp <- set_RLum(
                       class = "RLum.Analysis",
                       originator = originator,
@@ -551,43 +549,10 @@ setMethod("get_RLum",
                       .pid = object@.pid
                     )
                     return(temp)
-
-                  } else{
-                    if (length(temp) == 1 & recursive == TRUE) {
-                      return(temp[[1]])
-
-                    } else{
-                      return(temp)
-                    }
-                  }
                 }
-
-              } else{
-                ## FIXME(mcol): this block seems unreachable : as before the
-                ## `if` block we set `record.id <- 1:length(object@records)`,
-                ## it can never happen that `length(record.id) < 1`
-                # nocov start
-                if (!get.index[1]) {
-                  if (drop == FALSE) {
-                    ##needed to keep the argument drop == TRUE
-                    temp <- set_RLum(
-                      class = "RLum.Analysis",
-                      originator = originator,
-                      records = list(object@records[[record.id]]),
-                      protocol = object@protocol,
-                      .pid = object@.pid
-                    )
-                    return(temp)
-
-                  } else{
-                    return(object@records[[record.id]])
-                  }
-
-                } else{
-                  return(record.id)
-                }
-                # nocov end
-              }
+                if (length(temp) == 1 && recursive)
+                  return(temp[[1]])
+                return(temp)
             }
           })
 

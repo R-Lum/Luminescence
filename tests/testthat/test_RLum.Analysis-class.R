@@ -141,6 +141,10 @@ test_that("get_RLum", {
                                       info = "test")),
                  "[get_RLum()] This 'RLum.Analysis' object has no info objects",
                  fixed = TRUE)
+  expect_warning(get_RLum(obj, record.id = -c(1:2)),
+                 "This request produced an empty list of records")
+  expect_warning(expect_null(get_RLum(obj, record.id = -c(1:2), get.index = TRUE)),
+                 "This request produced an empty list of records")
   SW({
   expect_message(expect_null(get_RLum(obj, subset = (recordType == "error"))),
                  "'subset' expression produced an empty selection, NULL returned")

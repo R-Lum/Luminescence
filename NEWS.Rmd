@@ -40,6 +40,11 @@ the dose response curve. This was not the expected behaviour, and resulted
 in poor performance (a 2x slowdown for `n.MC = 10000`). This regression was
 introduced in version 1.0.0 (#867).
 
+### `get_RLum()`
+
+* The function doesn't crash anymore on `RLum.Analysis` objects if
+`record.id` removes all available records (#873).
+
 ### `plot_AbanicoPlot()`
 
 * The positioning of the y-axis label has been improved to be centred around
