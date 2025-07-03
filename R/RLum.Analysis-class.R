@@ -498,12 +498,11 @@ setMethod("get_RLum",
               ##select curves according to the chosen parameter
               temp <- lapply(record.id, function(x) {
                   if (is(object@records[[x]])[1] %in% RLum.type) {
-                      ##as input a vector is allowed
+                    ## translate input to regular expression and remove ^ $
+                    recordType <- glob2rx(recordType)
+                    recordType <- substr(recordType,
+                                         start = 2, stop = nchar(recordType) - 1)
                     temp <- lapply(recordType, function(type) {
-                      ##translate input to regular expression
-                      type <- glob2rx(type)
-                      type <- substr(type, start = 2, stop = nchar(type) - 1)
-
                       ##handle NA
                       if(is.na(object@records[[x]]@recordType))
                         recordType_comp <- "NA"
