@@ -238,14 +238,12 @@
 <polygon points='369.28,184.68 395.69,184.68 395.69,91.08 369.28,91.08 ' style='stroke-width: 0.75; fill: none;' />
 <polygon points='395.69,184.68 422.10,184.68 422.10,103.56 395.69,103.56 ' style='stroke-width: 0.75; fill: none;' />
 <polygon points='422.10,184.68 448.51,184.68 448.51,147.24 422.10,147.24 ' style='stroke-width: 0.75; fill: none;' />
-<polyline points='377.69,166.67 377.69,155.43 ' style='stroke-width: 1.50;' />
-<polygon points='340.44,166.67 401.73,166.67 401.73,155.43 340.44,155.43 ' style='stroke-width: 0.75; fill: none;' />
-<polyline points='340.44,161.05 270.16,161.05 ' style='stroke-width: 0.75;' />
-<polyline points='270.16,166.67 270.16,155.43 ' style='stroke-width: 0.75;' />
-<polyline points='401.73,161.05 445.82,161.05 ' style='stroke-width: 0.75;' />
-<polyline points='445.82,166.67 445.82,155.43 ' style='stroke-width: 0.75;' />
-<circle cx='208.26' cy='161.05' r='2.16' style='stroke-width: 0.75;' />
-<circle cx='245.92' cy='161.05' r='2.16' style='stroke-width: 0.75;' />
+<polyline points='377.69,168.50 377.69,155.73 ' style='stroke-width: 1.50;' />
+<polygon points='340.44,168.50 401.73,168.50 401.73,155.73 340.44,155.73 ' style='stroke-width: 0.75; fill: none;' />
+<polyline points='340.44,162.12 270.16,162.12 270.16,168.50 270.16,155.73 ' style='stroke-width: 0.75;' />
+<polyline points='401.73,162.12 445.82,162.12 445.82,168.50 445.82,155.73 ' style='stroke-width: 0.75;' />
+<circle cx='208.26' cy='162.12' r='2.16' style='stroke-width: 0.75;' />
+<circle cx='245.92' cy='162.12' r='2.16' style='stroke-width: 0.75;' />
 <polyline points='208.26,189.02 208.26,184.68 ' style='stroke-width: 0.75;' />
 <polyline points='245.92,189.02 245.92,184.68 ' style='stroke-width: 0.75;' />
 <polyline points='270.16,189.02 270.16,184.68 ' style='stroke-width: 0.75;' />

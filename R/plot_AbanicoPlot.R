@@ -1442,12 +1442,6 @@ plot_AbanicoPlot <- function(
       KDE.max.plot
   }
 
-  ## calculate boxplot data without plotting
-  boxplot.data <- list()
-  for(i in 1:length(data)) {
-    boxplot.data[[i]] <- graphics::boxplot(data[[i]][, 3], plot = FALSE)
-  }
-
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
     ## check if line parameters are R.Lum-objects
@@ -2013,74 +2007,6 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## optionally add box plot
-    if(boxplot == TRUE) {
-
-      for(i in 1:length(data)) {
-
-        ## draw median line
-        lines(x = c(xy.0[1] + KDE.max * 0.85, xy.0[1] + KDE.max * 0.95),
-              y = c((boxplot.data[[i]]$stats[3,1] - z.central.global) *
-                      min(ellipse[,1]),
-                    (boxplot.data[[i]]$stats[3,1] - z.central.global) *
-                      min(ellipse[,1])),
-              lwd = 2,
-              col = kde.line[i])
-
-        ## draw p25-p75-polygon
-        polygon(x = c(xy.0[1] + KDE.max * 0.85,
-                      xy.0[1] + KDE.max * 0.85,
-                      xy.0[1] + KDE.max * 0.95,
-                      xy.0[1] + KDE.max * 0.95),
-                y = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                        min(ellipse[,1]),
-                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                        min(ellipse[,1]),
-                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                        min(ellipse[,1]),
-                      (boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                        min(ellipse[,1])),
-                border = kde.line[i])
-
-        ## draw whiskers
-        lines(x = c(xy.0[1] + KDE.max * 0.9,
-                    xy.0[1] + KDE.max * 0.9),
-              y = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                      min(ellipse[,1]),
-                    (boxplot.data[[i]]$stats[1,1] - z.central.global) *
-                      min(ellipse[,1])),
-              col = kde.line[i])
-
-        lines(x = c(xy.0[1] + KDE.max * 0.87,
-                    xy.0[1] + KDE.max * 0.93),
-              y = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
-                        min(ellipse[,1]), 2),
-              col = kde.line[i])
-
-        lines(x = c(xy.0[1] + KDE.max * 0.9,
-                    xy.0[1] + KDE.max * 0.9),
-              y = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                      min(ellipse[,1]),
-                    (boxplot.data[[i]]$stats[5,1] - z.central.global) *
-                      min(ellipse[,1])),
-              col = kde.line[i])
-
-        lines(x = c(xy.0[1] + KDE.max * 0.87,
-                    xy.0[1] + KDE.max * 0.93),
-              y = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
-                        min(ellipse[,1]), 2),
-              col = kde.line[i])
-
-        ## draw outlier points
-        points(x = rep(xy.0[1] + KDE.max * 0.9,
-                       length(boxplot.data[[i]]$out)),
-               y = (boxplot.data[[i]]$out - z.central.global) *
-                 min(ellipse[,1]),
-               cex = cex * 0.8,
-               col = kde.line[i])
-      }
-    }
-
   } else { # rotate
 
     ## plot y-axis
@@ -2345,75 +2271,43 @@ plot_AbanicoPlot <- function(
         }
       }
     }
+  }
 
-    ## optionally add box plot
-    if(boxplot == TRUE) {
+  ## optionally add box plot
+  if (boxplot) {
 
-      for(i in 1:length(data)) {
+    box.x <- c(min.ellipse + KDE.max * 0.85, xy.0[rotate.idx] + KDE.max * 0.95)
+    for (i in 1:length(data)) {
+      ## calculate boxplot data without plotting
+      boxplot.data <- graphics::boxplot(data[[i]][, 3], plot = FALSE)
+      stats <- (boxplot.data$stats[, 1] - z.central.global) * min.ellipse
 
-        ## draw median line
-        lines(x = c((boxplot.data[[i]]$stats[3,1] - z.central.global) *
-                      min(ellipse[,2]),
-                    (boxplot.data[[i]]$stats[3,1] - z.central.global) *
-                      min(ellipse[,2])),
-              y = c(min(ellipse[,2]) + KDE.max * 0.91,
-                    xy.0[2] + KDE.max * 0.96),
-              lwd = 2,
-              col = kde.line[i])
+      ## draw median line
+      lines.rot(x = box.x,
+                y = c(stats[3], stats[3]),
+                lwd = 2,
+                col = kde.line[i])
 
-        ## draw p25-p75-polygon
-        polygon(y = c(min(ellipse[,2]) + KDE.max * 0.91,
-                      min(ellipse[,2]) + KDE.max * 0.91,
-                      xy.0[2] + KDE.max * 0.96,
-                      xy.0[2] + KDE.max * 0.96),
-                x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                        min(ellipse[,2]),
-                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                        min(ellipse[,2]),
-                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                        min(ellipse[,2]),
-                      (boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                        min(ellipse[,2])),
-                border = kde.line[i])
+      ## draw p25-p75-polygon
+      polygon.rot(x = rep(box.x, each = 2),
+                  y = c(stats[2], stats[4], stats[4], stats[2]),
+                  border = kde.line[i])
 
-        ## draw whiskers
-        lines(y = rep(mean(c(min(ellipse[,2]) + KDE.max * 0.91,
-                             xy.0[2] + KDE.max * 0.96)), 2),
-              x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                      min(ellipse[,2]),
-                    (boxplot.data[[i]]$stats[1,1] - z.central.global) *
-                      min(ellipse[,2])),
-              col = kde.line[i])
+      ## draw lower whisker
+      lines.rot(x = c(rep(mean(box.x), 2), box.x),
+                y = c(stats[2], stats[1], stats[1], stats[1]),
+                col = kde.line[i])
 
-        lines(y = c(min(ellipse[,2]) + KDE.max * 0.91,
-                    xy.0[2] + KDE.max * 0.96),
-              x = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
-                        min(ellipse[,2]), 2),
-              col = kde.line[i])
+      ## draw upper whisker
+      lines.rot(x = c(rep(mean(box.x), 2), box.x),
+                y = c(stats[4], stats[5], stats[5], stats[5]),
+                col = kde.line[i])
 
-        lines(y = rep(mean(c(min(ellipse[,2]) + KDE.max * 0.91,
-                             xy.0[2] + KDE.max * 0.96)), 2),
-              x = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                      min(ellipse[,2]),
-                    (boxplot.data[[i]]$stats[5,1] - z.central.global) *
-                      min(ellipse[,2])),
-              col = kde.line[i])
-
-        lines(y = c(min(ellipse[,2]) + KDE.max * 0.91,
-                    xy.0[2] + KDE.max * 0.96),
-              x = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
-                        min(ellipse[,2]), 2),
-              col = kde.line[i])
-
-        ## draw outlier points
-        points(y = rep(mean(c(min(ellipse[,2]) + KDE.max * 0.91,
-                              xy.0[2] + KDE.max * 0.96)),
-                       length(boxplot.data[[i]]$out)),
-               x = (boxplot.data[[i]]$out - z.central.global) *
-                 min(ellipse[,2]),
-               cex = cex * 0.8,
-               col = kde.line[i])
-      }
+      ## draw outlier points
+      points.rot(x = rep(mean(box.x), length(boxplot.data$out)),
+                 y = (boxplot.data$out - z.central.global) * min.ellipse,
+                 cex = cex * 0.8,
+                 col = kde.line[i])
     }
   }
 
