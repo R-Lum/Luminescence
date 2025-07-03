@@ -43,6 +43,11 @@
 - The function doesn’t crash anymore on `RLum.Analysis` objects if
   `record.id` removes all available records (#873).
 
+- An internal optimization increased the performance of the function.
+  The difference is not perceivable on single calls to `get_RLum()`, but
+  the change brings a visible speed up when `merge_RLum()` is called
+  over a sufficiently large number of `RLum.Analysis` objects (#875).
+
 ### `plot_AbanicoPlot()`
 
 - The positioning of the y-axis label has been improved to be centred
