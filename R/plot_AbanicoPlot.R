@@ -498,9 +498,7 @@ plot_AbanicoPlot <- function(
   ## optionally, remove NA-values
   if(na.rm == TRUE) {
     for(i in seq_along(data)) {
-
       n.NA <- sum(!stats::complete.cases(data[[i]]))
-
       if (n.NA > 0) {
         .throw_message("Data set (", i, "): ", n.NA, " NA value",
                        ifelse (n.NA > 1, "s", ""), " excluded", error = FALSE)
@@ -707,7 +705,6 @@ plot_AbanicoPlot <- function(
       data[[i]][,1] <- data[[i]][,1] + De.add
 
     De.global <- De.global + De.add
-
   }
 
   ## calculate and append statistical measures --------------------------------
@@ -1359,27 +1356,12 @@ plot_AbanicoPlot <- function(
     bar <- log(bar)
   }
 
-  bars <- matrix(nrow = length(bar), ncol = 8)
-  for(i in 1:length(bar)) {
-      bars[i,1:4] <- c(limits.x[1],
-                       limits.x[1],
-                       ifelse("xlim" %in% names(extraArgs),
-                              extraArgs$xlim[2] * 0.95,
-                              max(data.global$precision)),
-                       ifelse("xlim" %in% names(extraArgs),
-                              extraArgs$xlim[2] * 0.95,
-                              max(data.global$precision)))
-
-      bars[i,5:8] <- c(-2,
-                       2,
-                       (bar[i] - z.central.global) *
-                         bars[i,3] + 2,
-                       (bar[i] - z.central.global) *
-                         bars[i,3] - 2)
-  }
-  if (rotate == TRUE) {
-    bars <- matrix(bars[, rev(seq_len(ncol(bars)))], ncol = 8)
-  }
+  bars.xmax <- ifelse("xlim" %in% names(extraArgs),
+                      extraArgs$xlim[2] * 0.95,
+                      max(data.global$precision))
+  bars.ymax <- (bar - z.central.global) * bars.xmax
+  bars.x <- c(limits.x[1], limits.x[1], bars.xmax, bars.xmax)
+  bars.y <- cbind(-2, 2, bars.ymax + 2, bars.ymax - 2)
 
   ## calculate error bar coordinates
   if(error.bars == TRUE) {
@@ -1579,10 +1561,10 @@ plot_AbanicoPlot <- function(
     ## optionally, plot 2-sigma-bar
     if (bar[1] != FALSE) {
       for (i in 1:length(bar)) {
-        polygon(x = bars[i, 1:4],
-                y = bars[i, 5:8],
-                col = bar.fill[i],
-                border = bar.line[i])
+        polygon.rot(x = bars.x,
+                    y = bars.y[i, ],
+                    col = bar.fill[i],
+                    border = bar.line[i])
       }
     }
 
@@ -2747,7 +2729,7 @@ plot_AbanicoPlot <- function(
                                        tickvals = c(-2, 0, 2)),
                           shapes = list(list(type = "rect", # 2 sigma bar
                                              x0 = 0, y0 = -2,
-                                             x1 = bars[1,3], y1 = 2,
+                                             x1 = bars.x[3], y1 = 2,
                                              xref = "x", yref = "y",
                                              fillcolor = "grey",
                                              opacity = 0.2))

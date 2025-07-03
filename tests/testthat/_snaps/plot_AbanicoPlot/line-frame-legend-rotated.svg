@@ -19,8 +19,8 @@
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='360.00' y='573.12' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='143.30px' lengthAdjust='spacingAndGlyphs'>Standardised estimate</text>
-<polygon points='272.81,216.00 292.61,216.00 369.90,518.40 350.10,518.40 ' style='stroke-width: 0.75; stroke: none; fill: #4F94CD;' />
-<polygon points='422.56,216.00 442.36,216.00 369.90,518.40 350.10,518.40 ' style='stroke-width: 0.75; stroke: none; fill: #CD8500;' />
+<polygon points='350.10,518.40 369.90,518.40 292.61,216.00 272.81,216.00 ' style='stroke-width: 0.75; stroke: none; fill: #4F94CD;' />
+<polygon points='350.10,518.40 369.90,518.40 442.36,216.00 422.56,216.00 ' style='stroke-width: 0.75; stroke: none; fill: #CD8500;' />
 <polygon points='360.00,518.40 307.52,200.88 305.95,191.35 305.95,115.20 265.27,115.20 265.27,191.35 268.03,200.88 ' style='stroke-width: 0.75; stroke: none; fill: #63B8FF;' />
 <polygon points='360.00,518.40 460.14,200.88 463.14,191.35 463.14,115.20 402.91,115.20 402.91,191.35 401.66,200.88 ' style='stroke-width: 0.75; stroke: none; fill: #FFA500;' />
 <polyline points='360.00,518.40 274.84,200.88 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
