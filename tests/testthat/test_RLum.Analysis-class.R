@@ -225,7 +225,7 @@ test_that("structure_RLum", {
   expect_error(structure_RLum(
       set_RLum("RLum.Analysis",
                records = list(set_RLum("RLum.Data.Image")))),
-      "Only 'RLum.Data.Curve' objects are allowed")
+      "All elements of 'object' should be of class 'RLum.Data.Curve'")
 
   ## full functionality
 

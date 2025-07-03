@@ -361,12 +361,10 @@ setMethod("get_RLum",
               envir <- as.data.frame(do.call(rbind,
                 lapply(object@records, function(el) {
                   val <- c(curveType = el@curveType, recordType = el@recordType, unlist(el@info))
-
                   # add missing info elements and set NA
                   if (any(!info_el %in% names(val))) {
-                    val_new <- setNames(
-                      rep("",length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
-                    val <- c(val, val_new)
+                    new <- info_el[!info_el %in% names(val)]
+                    val <- c(val, setNames(rep("", length(new)), new))
                   }
 
                  # order the named char vector by its names so we don't mix up the columns
@@ -418,7 +416,6 @@ setMethod("get_RLum",
             else if(!is.null(info.object)) {
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
-
               }else{
                 ##check for entries
                 if(length(object@info) == 0){
@@ -443,7 +440,6 @@ setMethod("get_RLum",
               ##record.id
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
-
               } else {
                 .validate_class(record.id, c("integer", "numeric", "logical"))
               }
@@ -466,7 +462,6 @@ setMethod("get_RLum",
                 recordType <-
                   unique(vapply(object@records, function(x)
                     x@recordType, character(1)))
-
               } else {
                 .validate_class(recordType, "character")
               }
@@ -505,10 +500,10 @@ setMethod("get_RLum",
                 temp <- lapply(record.id, function(x) {
                   if (is(object@records[[x]])[1] %in% RLum.type) {
                       ##as input a vector is allowed
-                    temp <- lapply(1:length(recordType), function(k) {
+                    temp <- lapply(recordType, function(type) {
                       ##translate input to regular expression
-                      recordType[k] <- glob2rx(recordType[k])
-                      recordType[k] <- substr(recordType[k], start = 2, stop = nchar(recordType[k]) - 1)
+                      type <- glob2rx(type)
+                      type <- substr(type, start = 2, stop = nchar(type) - 1)
 
                       ##handle NA
                       if(is.na(object@records[[x]]@recordType))
@@ -517,7 +512,7 @@ setMethod("get_RLum",
                         recordType_comp <- object@records[[x]]@recordType
 
                       ## get the results object and if requested, get the index
-                      if (grepl(recordType[k], recordType_comp) &
+                      if (grepl(type, recordType_comp) &&
                           object@records[[x]]@curveType %in% curveType) {
                         if (!get.index) object@records[[x]] else x
                       }
@@ -616,17 +611,14 @@ setMethod("get_RLum",
 setMethod("remove_RLum",
       signature= "RLum.Analysis",
       definition = function(object, ...) {
-
-# DO NOT TOUCH ------------------------------------------------------------
-.set_function_name("remove_RLum")
-on.exit(.unset_function_name(), add = TRUE)
+  .set_function_name("remove_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Treatment of ... --------------------------------------------------------
   ## make settings with preset
   args_set <- list(
     get.index = TRUE,
     drop = FALSE
-
   )
   ## we do not support all arguments; therefore we make a positive list
   args <- list(...)
@@ -650,7 +642,6 @@ on.exit(.unset_function_name(), add = TRUE)
   ## remove objects
   object@records[rm_id] <- NULL
   return(object)
-
 })
 
 # structure_RLum() ----------------------------------------------------------------------------
@@ -678,8 +669,10 @@ setMethod("structure_RLum",
             on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
-            if(!all(vapply(object@records, FUN = class, character(1)) == "RLum.Data.Curve"))
-              .throw_error("Only 'RLum.Data.Curve' objects are allowed")
+            sapply(object@records, function (x) {
+              .validate_class(x, "RLum.Data.Curve",
+                              name = "All elements of 'object'")
+            })
 
             ##get length object
             temp.object.length <- length(object@records)
@@ -734,7 +727,6 @@ setMethod("structure_RLum",
                temp.info.elements <- lapply(object@records, function(x) {
                  if(is.null(names(x@info)))
                     return(NA)
-
                   names(x@info)
                  })
             }
