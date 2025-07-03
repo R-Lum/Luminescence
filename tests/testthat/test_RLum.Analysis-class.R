@@ -81,6 +81,10 @@ test_that("get_RLum", {
                "'RLum.type' should be of class 'character'")
   expect_error(get_RLum(tmp, get.index = "a"),
                "'get.index' should be a single logical value")
+  expect_error(get_RLum(obj, get.index = NULL),
+               "'get.index' should be a single logical value")
+  expect_error(get_RLum(obj, subset = "recordType == 'RF'", get.index = NA),
+               "'get.index' should be a single logical value")
 
   ## check functionality
   expect_length(get_RLum(obj, subset = (recordType == "RF")), 2)
@@ -95,7 +99,6 @@ test_that("get_RLum", {
   expect_length(get_RLum(t_subset, subset = c(TEST == "SUBSET")), 1)
 
   expect_type(get_RLum(obj, get.index = FALSE), "list")
-  expect_type(get_RLum(obj, get.index = NULL), "list")
   expect_type(get_RLum(obj, get.index = TRUE), "integer")
   expect_s4_class(get_RLum(obj, get.index = FALSE, drop = FALSE),
                   "RLum.Analysis")
@@ -108,12 +111,29 @@ test_that("get_RLum", {
                   "RLum.Data.Curve")
   expect_s4_class(get_RLum(obj, record.id = 1, drop = FALSE),
                   "RLum.Analysis")
-  expect_type(get_RLum(obj, record.id = 1, get.index = TRUE),
-              "integer")
+  expect_equal(get_RLum(tmp, record.id = 1, get.index = TRUE),
+               1)
+  expect_equal(get_RLum(tmp, record.id = -c(1:15), get.index = TRUE),
+               1:5)
+  expect_equal(get_RLum(tmp, record.id = c(1, 10, 20), get.index = TRUE),
+               1:3)
   expect_message(expect_null(get_RLum(obj, record.id = 99)),
                  "[get_RLum()] Error: At least one 'record.id' is invalid",
                  fixed = TRUE)
+  expect_message(expect_null(get_RLum(obj, record.id = 99, get.index = TRUE)),
+                 "[get_RLum()] Error: At least one 'record.id' is invalid",
+                 fixed = TRUE)
 
+  expect_warning(res <- get_RLum(obj, RLum.type = "error"),
+                 "This request produced an empty list of records")
+  expect_type(res, "list")
+  expect_length(res, 0)
+  expect_warning(res <- get_RLum(obj, RLum.type = "error", drop = FALSE),
+                 "This request produced an empty list of records")
+  expect_s4_class(res, "RLum.Analysis")
+  expect_length(res, 0)
+  expect_warning(expect_null(get_RLum(obj, RLum.type = "error", get.index = TRUE)),
+                 "This request produced an empty list of records")
   expect_warning(get_RLum(tmp, info.object = "missing"),
                  "[get_RLum()] Invalid 'info.object' name, valid names are:",
                  fixed = TRUE)

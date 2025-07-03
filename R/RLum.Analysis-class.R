@@ -307,7 +307,8 @@ setMethod(
 #' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
 #'
 #' @param get.index [`get_RLum`]: [logical] (*optional*):
-#' return a numeric vector with the index of each element in the RLum.Analysis object.
+#' return a numeric vector with the index of each element in the RLum.Analysis
+#' object (`FALSE` by default).
 #'
 #' @param recursive [`get_RLum`]: [logical] (*with default*):
 #' if `TRUE` (default) when the result of the `get_RLum()` request is a single
@@ -347,7 +348,7 @@ setMethod(
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
-                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
+                   protocol = "UNKNOWN", get.index = FALSE, drop = TRUE, recursive = TRUE,
                    info.object = NULL, subset = NULL, env = parent.frame(2)) {
             .set_function_name("get_RLum")
             on.exit(.unset_function_name(), add = TRUE)
@@ -397,7 +398,8 @@ setMethod("get_RLum",
                 sel <- FALSE
 
               if (any(sel)) {
-                if(!is.null(get.index) && get.index[1])
+                .validate_logical_scalar(get.index)
+                if (get.index)
                   return(which(sel))
 
                 object@records <- object@records[sel]
@@ -485,12 +487,7 @@ setMethod("get_RLum",
               }
 
               ##get.index
-              if (is.null(get.index)) {
-                get.index <- FALSE
-
-              } else {
-                .validate_logical_scalar(get.index)
-              }
+              .validate_logical_scalar(get.index)
 
               ##get originator
               originator <- NA_character_

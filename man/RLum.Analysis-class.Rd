@@ -38,7 +38,7 @@
   curveType = NULL,
   RLum.type = NULL,
   protocol = "UNKNOWN",
-  get.index = NULL,
+  get.index = FALSE,
   drop = TRUE,
   recursive = TRUE,
   info.object = NULL,
@@ -113,7 +113,8 @@ curve type (e.g. "predefined" or "measured")}
 RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
 
 \item{get.index}{\code{\link{get_RLum}}: \link{logical} (\emph{optional}):
-return a numeric vector with the index of each element in the RLum.Analysis object.}
+return a numeric vector with the index of each element in the RLum.Analysis
+object (\code{FALSE} by default).}
 
 \item{drop}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
 coerce to the next possible layer (which are \code{RLum.Data}-objects),
