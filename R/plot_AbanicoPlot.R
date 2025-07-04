@@ -1329,28 +1329,6 @@ plot_AbanicoPlot <- function(
     data[[i]] <- cbind(data[[i]], data.in.2s)
   }
 
-  ## calculate error bar coordinates
-  if(error.bars == TRUE) {
-    arrow.coords <- list()
-    for(i in 1:length(data)) {
-      arrow.x1 <- data[[i]][,6]
-      arrow.x2 <- data[[i]][,6]
-      arrow.y1 <- data[[i]][,1] - data[[i]][,2]
-      arrow.y2 <- data[[i]][,1] + data[[i]][,2]
-
-      if(log.z == TRUE) {
-        arrow.y1 <- log(arrow.y1)
-        arrow.y2 <- log(arrow.y2)
-      }
-
-      arrow.coords[[i]] <- cbind(
-        arrow.x1,
-        arrow.x2,
-        (arrow.y1 - z.central.global) * arrow.x1,
-        (arrow.y2 - z.central.global) * arrow.x1)
-    }
-  }
-
   ## calculate KDE
   KDE <- list()
   KDE.bw <- numeric(length(data))
@@ -1778,28 +1756,6 @@ plot_AbanicoPlot <- function(
                          layout$abanico$font.deco$zlab)[1],
           cex = cex * layout$abanico$font.size$zlab/12)
 
-    ## plot values and optionally error bars
-    if(error.bars == TRUE) {
-      for(i in 1:length(data)) {
-        graphics::arrows(x0 = arrow.coords[[i]][,1],
-               x1 = arrow.coords[[i]][,2],
-               y0 = arrow.coords[[i]][,3],
-               y1 = arrow.coords[[i]][,4],
-               length = 0,
-               angle = 90,
-               code = 3,
-               col = value.bar[i])
-      }
-    }
-
-    for(i in 1:length(data)) {
-      points(data[[i]][,6][data[[i]][,6] <= limits.x[2]],
-             data[[i]][,8][data[[i]][,6] <= limits.x[2]],
-             col = value.dot[i],
-             pch = pch[i],
-             cex = layout$abanico$dimension$pch / 100)
-    }
-
   } else { # rotate
 
     ## plot y-axis
@@ -1919,28 +1875,43 @@ plot_AbanicoPlot <- function(
           font = which(c("normal", "bold", "italic", "bold italic") ==
                          layout$abanico$font.deco$zlab)[1],
           cex = cex * layout$abanico$font.size$zlab/12)
+  }
 
-    ## plot values and optionally error bars
-    if(error.bars == TRUE) {
-      for(i in 1:length(data)) {
-        graphics::arrows(y0 = arrow.coords[[i]][,1],
-               y1 = arrow.coords[[i]][,2],
-               x0 = arrow.coords[[i]][,3],
-               x1 = arrow.coords[[i]][,4],
+  ## plot values and optionally error bars
+  if (error.bars) {
+    for (i in 1:length(data)) {
+      arrow.x <- data[[i]][, 6]
+      arrow.y1 <- data[[i]][, 1] - data[[i]][, 2]
+      arrow.y2 <- data[[i]][, 1] + data[[i]][, 2]
+      if (log.z == TRUE) {
+        arrow.y1 <- log(arrow.y1)
+        arrow.y2 <- log(arrow.y2)
+      }
+
+      arrow.coords <- cbind(
+          arrow.x,
+          arrow.x,
+          (arrow.y1 - z.central.global) * arrow.x,
+          (arrow.y2 - z.central.global) * arrow.x)
+
+      graphics::arrows(
+               x0 = arrow.coords[, 2 * rotate.idx - 1],
+               x1 = arrow.coords[, 2 * rotate.idx],
+               y0 = arrow.coords[, 2 * (3 - rotate.idx) - 1],
+               y1 = arrow.coords[, 2 * (3 - rotate.idx)],
                length = 0,
                angle = 90,
                code = 3,
                col = value.bar[i])
-      }
     }
+  }
 
-    for(i in 1:length(data)) {
-      points(y = data[[i]][,6][data[[i]][,6] <= limits.x[2]],
-             x = data[[i]][,8][data[[i]][,6] <= limits.x[2]],
+  for (i in 1:length(data)) {
+    points.rot(x = data[[i]][, 6][data[[i]][, 6] <= limits.x[2]],
+               y = data[[i]][, 8][data[[i]][, 6] <= limits.x[2]],
              col = value.dot[i],
              pch = pch[i],
              cex = layout$abanico$dimension$pch / 100)
-    }
   }
 
   ## optionally add KDE plot
