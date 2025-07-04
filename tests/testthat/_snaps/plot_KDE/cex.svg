@@ -70,11 +70,11 @@
 <polyline points='245.42,418.82 245.42,415.22 ' style='stroke-width: 0.75;' />
 <polyline points='333.44,417.02 362.29,417.02 ' style='stroke-width: 0.75;' />
 <polyline points='362.29,418.82 362.29,415.22 ' style='stroke-width: 0.75;' />
-<circle cx='218.77' cy='417.02' r='8.64' style='stroke-width: 0.75;' />
-<circle cx='409.08' cy='417.02' r='8.64' style='stroke-width: 0.75;' />
-<circle cx='449.02' cy='417.02' r='8.64' style='stroke-width: 0.75;' />
-<circle cx='452.41' cy='417.02' r='8.64' style='stroke-width: 0.75;' />
-<circle cx='530.03' cy='417.02' r='8.64' style='stroke-width: 0.75;' />
+<circle cx='218.77' cy='417.02' r='4.32' style='stroke-width: 0.75;' />
+<circle cx='409.08' cy='417.02' r='4.32' style='stroke-width: 0.75;' />
+<circle cx='449.02' cy='417.02' r='4.32' style='stroke-width: 0.75;' />
+<circle cx='452.41' cy='417.02' r='4.32' style='stroke-width: 0.75;' />
+<circle cx='530.03' cy='417.02' r='4.32' style='stroke-width: 0.75;' />
 <polyline points='218.77,400.82 218.77,404.42 ' style='stroke-width: 0.75;' />
 <polyline points='245.42,400.82 245.42,404.42 ' style='stroke-width: 0.75;' />
 <polyline points='263.01,400.82 263.01,404.42 ' style='stroke-width: 0.75;' />

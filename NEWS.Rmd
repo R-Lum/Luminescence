@@ -58,9 +58,18 @@ non-default cex values (#865).
 
 * The minor grid lines were drawn incorrectly in a rotated plot (#849).
 
-* Some plot elements didn't scale correctly at non-default cex values (#861).
+* Some plot elements didn't scale correctly at non-default cex values (#861,
+#879).
 
 * The `frame` argument is now respected also when the plot is rotated (#863).
+
+### `plot_DRTResults()`
+
+* Points didn't scale correctly at non-default cex values (#879).
+
+### `plot_KDE()`
+
+* Outlier points didn't scale correctly at non-default cex values (#879).
 
 ### `plot_RLum.Analysis()`
 

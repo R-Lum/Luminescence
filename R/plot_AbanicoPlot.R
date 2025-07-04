@@ -2087,7 +2087,7 @@ plot_AbanicoPlot <- function(
       ## draw outlier points
       points.rot(x = rep(mean(box.x), length(boxplot.data$out)),
                  y = (boxplot.data$out - z.central.global) * min.ellipse,
-                 cex = cex * 0.8,
+                 cex = 0.8,
                  col = kde.line[i])
     }
   }
@@ -2123,7 +2123,7 @@ plot_AbanicoPlot <- function(
         points.rot(x = dots.x.i,
                    y = dots.y.i,
                    pch = if (!rotate) "|" else "-",
-                   cex = 0.7 * cex,
+                   cex = 0.7,
                    col = kde.line[i])
       }
     }

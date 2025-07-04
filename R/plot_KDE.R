@@ -852,7 +852,7 @@ plot_KDE <- function(
                y = rep(-9/8 * l_height,
                        length(boxplot.data[[i]]$out)),
                col = col.boxplot.line[i],
-               cex = cex * 0.8)
+               cex = 0.8)
       }
     }
 
