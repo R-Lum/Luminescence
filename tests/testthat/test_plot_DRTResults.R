@@ -92,6 +92,8 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("defaults",
                               plot_DRTResults(df))
+  vdiffr::expect_doppelganger("cex",
+                              plot_DRTResults(df, cex = 2))
   vdiffr::expect_doppelganger("summary sub",
                               plot_DRTResults(df, summary.pos = "sub",
                                               summary = c("n", "se.rel")))

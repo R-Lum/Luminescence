@@ -351,6 +351,7 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger("dots cex",
                                 plot_AbanicoPlot(ExampleData.DeValues,
                                                  dots = TRUE, cex = 2,
+                                                 boxplot = TRUE,
                                                  grid.col = "grey80",
                                                  summary.pos = "left",
                                                  summary = c("sd.abs", "se.abs")))
