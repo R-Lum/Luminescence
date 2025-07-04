@@ -1426,22 +1426,6 @@ plot_AbanicoPlot <- function(
     KDE.max <- 1.3 * KDE.max
   }
 
-  ## calculate histogram data without plotting
-  hist.data <- list()
-  for(i in 1:length(data)) {
-    hist.data[[i]] <- hist(data[[i]][,3], plot = FALSE, breaks = breaks)
-  }
-
-  ## calculate maximum histogram bar height for normalisation
-  hist.max.plot <- max(vapply(hist.data, function(x) max(x$counts, na.rm = TRUE),
-                              numeric(1)), na.rm = TRUE)
-
-  ## normalise histogram bar height to KDE dimensions
-  for(i in 1:length(data)) {
-    hist.data[[i]]$density <- hist.data[[i]]$counts / hist.max.plot *
-      KDE.max.plot
-  }
-
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
     ## check if line parameters are R.Lum-objects
@@ -1934,79 +1918,6 @@ plot_AbanicoPlot <- function(
             cex = cex * layout$abanico$font.size$xlab3/12)
     }
 
-    ## optionally add histogram or dot plot axis
-    if(hist == TRUE) {
-      axis(side = 1,
-           at = c(xy.0[1], par()$usr[2]),
-           labels = as.character(c(0, hist.max.plot)),
-           line = -1 * layout$abanico$dimension$xtck3.line / 100 - 2,
-           lwd = 0,
-           col = layout$abanico$colour$xtck3,
-           family = layout$abanico$font.type$xtck3,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$xtck3)[1],
-           col.axis = layout$abanico$colour$xtck3,
-           cex.axis = layout$abanico$font.size$xtck3/12)
-
-      ## add label
-      mtext(text = "n",
-            at = (xy.0[1] + par()$usr[2]) / 2,
-            side = 1,
-            line = -3.5 * layout$abanico$dimension$xlab2.line / 100,
-            col = layout$abanico$colour$xlab2,
-            family = layout$abanico$font.type$xlab2,
-            font = which(c("normal", "bold", "italic", "bold italic") ==
-                           layout$abanico$font.deco$xlab2)[1],
-            cex = cex * layout$abanico$font.size$xlab2/12)
-
-      ## plot ticks
-      axis(side = 1,
-           at = c(xy.0[1], par()$usr[2]),
-           col = layout$abanico$colour$xtck2,
-           col.axis = layout$abanico$colour$xtck2,
-           labels = NA,
-           tcl = layout$abanico$dimension$xtcl2 / 200,
-           cex = cex)
-
-      ## calculate scaling factor for histogram bar heights
-      hist.scale <- (par()$usr[2] - xy.0[1]) / (KDE.max.plot * 1.05)
-
-      ## draw each bar for each data set
-      for(i in 1:length(data)) {
-        for(j in 1:length(hist.data[[i]]$density)) {
-          ## calculate x-coordinates
-          hist.x.i <- c(xy.0[1],
-                        xy.0[1],
-                        xy.0[1] + hist.data[[i]]$density[j] * hist.scale,
-                        xy.0[1] + hist.data[[i]]$density[j] * hist.scale)
-
-          ## calculate y-coordinates
-          hist.y.i <- c((hist.data[[i]]$breaks[j] - z.central.global) *
-                          min(ellipse[,1]),
-                        (hist.data[[i]]$breaks[j + 1] - z.central.global) *
-                          min(ellipse[,1]),
-                        (hist.data[[i]]$breaks[j + 1] - z.central.global) *
-                          min(ellipse[,1]),
-                        (hist.data[[i]]$breaks[j] - z.central.global) *
-                          min(ellipse[,1]))
-
-          ## remove data out of z-axis range
-          hist.y.i <- ifelse(hist.y.i < min(ellipse[,2]),
-                             min(ellipse[,2]),
-                             hist.y.i)
-          hist.y.i <- ifelse(hist.y.i > max(ellipse[,2]),
-                             max(ellipse[,2]),
-                             hist.y.i)
-
-          ## draw the bars
-          polygon(x = hist.x.i,
-                  y = hist.y.i,
-                  col = kde.fill[i],
-                  border = kde.line[i])
-        }
-      }
-    }
-
   } else { # rotate
 
     ## plot y-axis
@@ -2198,12 +2109,34 @@ plot_AbanicoPlot <- function(
                            layout$abanico$font.deco$xlab3)[1],
             cex = cex * layout$abanico$font.size$xlab3/12)
     }
+  }
 
-    ## optionally add histogram or dot plot axis
-    if(hist == TRUE) {
-      axis(side = 2,
-           at = c(xy.0[2], y.max),
-           labels = as.character(c(0, hist.max.plot)),
+  ## compute data for histogram and dot plot
+  if (hist || dots) {
+    ## calculate histogram data without plotting
+    hist.data <- lapply(data, function(x) {
+      hist(x[, 3], plot = FALSE, breaks = breaks)
+    })
+
+    ## calculate maximum histogram bar height for normalisation
+    hist.max <- max(vapply(hist.data, function(x) max(x$counts, na.rm = TRUE),
+                           numeric(1)), na.rm = TRUE)
+
+    ## calculate scaling factor for histogram bar heights
+    hist.scale <- (y.max - xy.0[rotate.idx]) / (hist.max * 1.05)
+
+    ## normalise histogram bar height to KDE dimensions
+    for (i in 1:length(data)) {
+      hist.data[[i]]$density <- hist.data[[i]]$counts * hist.scale
+      hist.data[[i]]$breaks <- hist.data[[i]]$breaks - z.central.global
+    }
+  }
+
+  ## optionally add histogram
+  if (hist) {
+      axis(side = rotate.idx,
+           at = c(xy.0[rotate.idx], y.max),
+           labels = as.character(c(0, hist.max)),
            line = -1 * layout$abanico$dimension$xtck3.line / 100 - 2,
            lwd = 0,
            col = layout$abanico$colour$xtck3,
@@ -2211,65 +2144,50 @@ plot_AbanicoPlot <- function(
            font = which(c("normal", "bold", "italic", "bold italic") ==
                           layout$abanico$font.deco$xtck3)[1],
            col.axis = layout$abanico$colour$xtck3,
-           cex.axis = layout$abanico$font.size$xtck3/12)
+           cex.axis = layout$abanico$font.size$xtck3 / 12)
 
       ## add label
       mtext(text = "n",
-            at = (xy.0[2] + y.max) / 2,
-            side = 2,
+            at = (xy.0[rotate.idx] + y.max) / 2,
+            side = rotate.idx,
             line = -3.5 * layout$abanico$dimension$xlab2.line / 100,
             col = layout$abanico$colour$xlab2,
             family = layout$abanico$font.type$xlab2,
             font = which(c("normal", "bold", "italic", "bold italic") ==
                            layout$abanico$font.deco$xlab2)[1],
-            cex = cex * layout$abanico$font.size$xlab2/12)
+            cex = cex * layout$abanico$font.size$xlab2 / 12)
 
       ## plot ticks
-      axis(side = 2,
-           at = c(xy.0[2], y.max),
+      axis(side = rotate.idx,
+           at = c(xy.0[rotate.idx], y.max),
            col = layout$abanico$colour$xtck2,
            col.axis = layout$abanico$colour$xtck2,
            labels = NA,
            tcl = layout$abanico$dimension$xtcl2 / 200,
            cex = cex)
 
-      ## calculate scaling factor for histogram bar heights
-      hist.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max.plot * 1.05)
-
-      ## draw each bar for each data set
-      for(i in 1:length(data)) {
-        for(j in 1:length(hist.data[[i]]$density)) {
+    ## draw each bar for each data set
+    for (i in 1:length(data)) {
+      for (j in 1:length(hist.data[[i]]$density)) {
           ## calculate x-coordinates
-          hist.x.i <- c(xy.0[2],
-                        xy.0[2],
-                        xy.0[2] + hist.data[[i]]$density[j] * hist.scale,
-                        xy.0[2] + hist.data[[i]]$density[j] * hist.scale)
+          hist.x.i <- xy.0[rotate.idx] + c(0, 0, rep(hist.data[[i]]$density[j], 2))
 
           ## calculate y-coordinates
-          hist.y.i <- c((hist.data[[i]]$breaks[j] - z.central.global) *
-                          min(ellipse[,2]),
-                        (hist.data[[i]]$breaks[j + 1] - z.central.global) *
-                          min(ellipse[,2]),
-                        (hist.data[[i]]$breaks[j + 1] - z.central.global) *
-                          min(ellipse[,2]),
-                        (hist.data[[i]]$breaks[j] - z.central.global) *
-                          min(ellipse[,2]))
+          hist.y.i <- c(hist.data[[i]]$breaks[j],
+                        hist.data[[i]]$breaks[j + 1],
+                        hist.data[[i]]$breaks[j + 1],
+                        hist.data[[i]]$breaks[j]) * min.ellipse
 
           ## remove data out of z-axis range
-          hist.y.i <- ifelse(hist.y.i < min(ellipse[,1]),
-                             min(ellipse[,1]),
-                             hist.y.i)
-          hist.y.i <- ifelse(hist.y.i > max(ellipse[,1]),
-                             max(ellipse[,1]),
-                             hist.y.i)
+          hist.y.i <- pmax(hist.y.i, min(ellipse[, 3 - rotate.idx]))
+          hist.y.i <- pmin(hist.y.i, max(ellipse[, 3 - rotate.idx]))
 
           ## draw the bars
-          polygon(y = hist.x.i,
-                  x = hist.y.i,
-                  col = kde.fill[i],
-                  border = kde.line[i])
+          polygon.rot(x = hist.x.i,
+                      y = hist.y.i,
+                      col = kde.fill[i],
+                      border = kde.line[i])
         }
-      }
     }
   }
 
@@ -2313,12 +2231,11 @@ plot_AbanicoPlot <- function(
 
   ## optionally add dot plot
   if (dots) {
+    ## calculate distance between dots
+    dots.distance <- (y.max - (xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4)) / hist.max
+
     for (i in 1:length(data)) {
       for (j in 1:length(hist.data[[i]]$counts)) {
-
-        ## calculate scaling factor for histogram bar heights
-        dots.distance <- (y.max - (xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4)) / hist.max.plot
-
         dots.x.i <- seq(from = xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4,
                         by = dots.distance,
                         length.out = hist.data[[i]]$counts[j])
