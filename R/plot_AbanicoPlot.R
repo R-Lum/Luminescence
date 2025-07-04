@@ -1436,17 +1436,6 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  ## calculate rug coordinates
-  rug.values <- if (log.z) log(De.global) else De.global
-
-  rug.coords <- list()
-  for (i in 1:length(rug.values)) {
-    rug.x <- c(xy.0[rotate.idx] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
-               xy.0[rotate.idx])
-    rug.y <- rep((rug.values[i] - z.central.global) * min.ellipse, 2)
-    rug.coords[[i]] <- rbind(rug.x, rug.y)
-  }
-
   ## Generate plot ------------------------------------------------------------
   ##
   ## determine number of subheader lines to shift the plot
@@ -2253,9 +2242,11 @@ plot_AbanicoPlot <- function(
 
   ## optionally add rug
   if (rug) {
-    for (i in 1:length(rug.coords)) {
-      lines.rot(x = rug.coords[[i]][1, ],
-                y = rug.coords[[i]][2, ],
+    rug.x <- c(1 - 0.013 * (layout$abanico$dimension$rugl / 100), 1) * xy.0[rotate.idx]
+    rug.y <- ((if (log.z) log(De.global) else De.global) - z.central.global) * min.ellipse
+    for (i in 1:length(rug.y)) {
+      lines.rot(x = rug.x,
+                y = rep(rug.y[i], 2),
                 col = value.rug[data.global[i, 10]])
     }
   }
