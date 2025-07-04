@@ -194,7 +194,7 @@
 #' polygon may be omitted for clarity. To disable it use `FALSE` or
 #' `polygon = FALSE`. Default is `"grey80"`.
 #'
-#' @param line [numeric]:
+#' @param line [numeric] or [RLum.Results-class]:
 #' numeric values of the additional lines to be added.
 #'
 #' @param line.col [character] or [numeric]:
@@ -634,12 +634,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## create preliminary global data set
-  De.global <- data[[1]][,1]
-  if(length(data) > 1) {
-    for(i in 2:length(data)) {
-      De.global <- c(De.global, data[[i]][,1])
-    }
-  }
+  De.global <- unlist(lapply(data, function(x) x[, 1]))
 
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
@@ -717,10 +712,7 @@ plot_AbanicoPlot <- function(
   }, De.add = De.add)
 
   ## calculate initial data statistics
-  stats.init <- list()
-  for(i in 1:length(data)) {
-    stats.init[[i]] <- calc_Statistics(data = data[[i]][,3:4])
-  }
+  stats.init <- lapply(data, function(x) calc_Statistics(data = x[, 3:4]))
 
   ## calculate central values
   if (z.0 %in% c("mean", "median")) {
@@ -1039,18 +1031,11 @@ plot_AbanicoPlot <- function(
     tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
   }
 
-  tick.values.major <- tick.values.major[tick.values.major >=
-                                           min(tick.values.minor)]
-  tick.values.major <- tick.values.major[tick.values.major <=
-                                           max(tick.values.minor)]
-  tick.values.major <- tick.values.major[tick.values.major >=
-                                           limits.z[1]]
-  tick.values.major <- tick.values.major[tick.values.major <=
-                                           limits.z[2]]
-  tick.values.minor <- tick.values.minor[tick.values.minor >=
-                                           limits.z[1]]
-  tick.values.minor <- tick.values.minor[tick.values.minor <=
-                                           limits.z[2]]
+  tick.values.major <- tick.values.major[
+      between(tick.values.major, limits.z[1], limits.z[2]) &
+      between(tick.values.major, min(tick.values.minor), max(tick.values.minor))]
+  tick.values.minor <- tick.values.minor[
+      between(tick.values.minor, limits.z[1], limits.z[2])]
 
   if(log.z[1]) {
     tick.values.major[tick.values.major == 0] <- 1
@@ -1296,7 +1281,9 @@ plot_AbanicoPlot <- function(
   y.max.x <- 2 * limits.x[2] / max(data.global[6])
   y.max <- if (!rotate) par()$usr[2] else par()$usr[4]
 
-  polygons <- matrix(nrow = length(data), ncol = 14)
+  polygons.x <- c(limits.x[1], limits.x[2], xy.0[rotate.idx], y.max, y.max,
+                  xy.0[rotate.idx], limits.x[2])
+  polygons.y <- matrix(nrow = length(data), ncol = 7)
   for(i in 1:length(data)) {
     if(dispersion == "qr") {
       ci.lo_up <- quantile(data[[i]][, 1], c(0.25, 0.75))
@@ -1323,23 +1310,16 @@ plot_AbanicoPlot <- function(
       ci.lo_up[which(ci.lo_up < 0)] <- 1
       ci.lo_up <- log(ci.lo_up)
     }
-    y.lower <- ci.lo_up[1]
-    y.upper <- ci.lo_up[2]
+    y.lower <- ci.lo_up[1] - z.central.global
+    y.upper <- ci.lo_up[2] - z.central.global
 
-    polygons[i, 1:7] <- c(limits.x[1],
-                          limits.x[2],
-                          xy.0[rotate.idx],
-                          y.max,
-                          y.max,
-                          xy.0[rotate.idx],
-                          limits.x[2])
-    polygons[i, 8:14] <- c(0,
-                           (y.upper - z.central.global) * limits.x[2],
-                           (y.upper - z.central.global) * xy.0[rotate.idx],
-                           (y.upper - z.central.global) * xy.0[rotate.idx],
-                           (y.lower - z.central.global) * xy.0[rotate.idx],
-                           (y.lower - z.central.global) * xy.0[rotate.idx],
-                           (y.lower - z.central.global) * limits.x[2])
+    polygons.y[i, ] <- c(0,
+                         y.upper * limits.x[2],
+                         y.upper * xy.0[rotate.idx],
+                         y.upper * xy.0[rotate.idx],
+                         y.lower * xy.0[rotate.idx],
+                         y.lower * xy.0[rotate.idx],
+                         y.lower * limits.x[2])
   }
 
   ## append information about data in confidence interval
@@ -1348,20 +1328,6 @@ plot_AbanicoPlot <- function(
     data.in.2s[data[[i]][,8] > -2 & data[[i]][,8] < 2] <- TRUE
     data[[i]] <- cbind(data[[i]], data.in.2s)
   }
-
-  ## calculate coordinates for 2-sigma bar overlay
-  if(bar[1] == TRUE) {
-    bar <- sapply(data, function(x) x[1, 5])
-  } else if (log.z) {
-    bar <- log(bar)
-  }
-
-  bars.xmax <- ifelse("xlim" %in% names(extraArgs),
-                      extraArgs$xlim[2] * 0.95,
-                      max(data.global$precision))
-  bars.ymax <- (bar - z.central.global) * bars.xmax
-  bars.x <- c(limits.x[1], limits.x[1], bars.xmax, bars.xmax)
-  bars.y <- cbind(-2, 2, bars.ymax + 2, bars.ymax - 2)
 
   ## calculate error bar coordinates
   if(error.bars == TRUE) {
@@ -1387,7 +1353,7 @@ plot_AbanicoPlot <- function(
 
   ## calculate KDE
   KDE <- list()
-  KDE.bw <- numeric(0)
+  KDE.bw <- numeric(length(data))
 
   for(i in 1:length(data)) {
     KDE.i <- density(x = data[[i]][,3],
@@ -1396,10 +1362,10 @@ plot_AbanicoPlot <- function(
                      from = ellipse.values[1],
                      to = ellipse.values[2],
                      weights = data[[i]]$weights)
-    KDE.xy <- cbind(KDE.i$x, KDE.i$y)
-    KDE.bw <- c(KDE.bw, KDE.i$bw)
-    KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
-    KDE[[i]] <- cbind(KDE.xy[, 1], KDE.xy[, 2])
+    KDE.bw[i] <- KDE.i$bw
+    KDE[[i]] <- rbind(c(min(KDE.i$x), 0),
+                      cbind(KDE.i$x, KDE.i$y),
+                      c(max(KDE.i$x), 0))
   }
 
   ## calculate mean KDE bandwidth
@@ -1538,6 +1504,18 @@ plot_AbanicoPlot <- function(
 
     ## optionally, plot 2-sigma-bar
     if (bar[1] != FALSE) {
+      if (is.logical(bar)) {
+        bar <- sapply(data, function(x) x[1, 5])
+      } else if (log.z) {
+        bar <- log(bar)
+      }
+      bars.xmax <- ifelse("xlim" %in% names(extraArgs),
+                          extraArgs$xlim[2] * 0.95,
+                          max(data.global$precision))
+      bars.ymax <- (bar - z.central.global) * bars.xmax
+      bars.x <- c(limits.x[1], limits.x[1], bars.xmax, bars.xmax)
+      bars.y <- cbind(-2, 2, bars.ymax + 2, bars.ymax - 2)
+
       for (i in 1:length(bar)) {
         polygon.rot(x = bars.x,
                     y = bars.y[i, ],
@@ -1556,8 +1534,8 @@ plot_AbanicoPlot <- function(
     ## optionally, plot dispersion polygon
     if (polygon.fill[1] != "none") {
       for (i in 1:length(data)) {
-        polygon.rot(x = polygons[i, 1:7],
-                y = polygons[i, 8:14],
+        polygon.rot(x = polygons.x,
+                    y = polygons.y[i, ],
                 col = polygon.fill[i],
                 border = polygon.line[i])
       }
@@ -1597,14 +1575,8 @@ plot_AbanicoPlot <- function(
 
     ## optionally, plot lines for each bar
     if (lwd[1] > 0 && lty[1] > 0 && bar[1] != FALSE) {
-
-      ## assign a numerical value to bar, if necessary
-      if (bar[1] == TRUE && length(bar) == 1) {
-        bar[1] <- z.central.global
-      }
-
       for (i in 1:length(data)) {
-        z.line <- if (length(bar) == 1) bar[1] else if (is.numeric(bar[i])) bar[i] else data[[i]][1, 5]
+        z.line <- if (length(bar) == 1) bar[1] else bar[i]
         x2 <- r / sqrt(1 + f^2 * (z.line - z.central.global)^2)
         y2 <- (z.line - z.central.global) * x2
         lines.rot(x = c(limits.x[1], x2, xy.0[rotate.idx], y.max),
