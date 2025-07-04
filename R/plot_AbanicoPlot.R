@@ -1392,50 +1392,6 @@ plot_AbanicoPlot <- function(
     KDE.max <- 1.3 * KDE.max
   }
 
-  ## calculate line coordinates and further parameters
-  if(missing(line) == FALSE) {
-    ## check if line parameters are R.Lum-objects
-    for(i in 1:length(line)) {
-      if(is.list(line) == TRUE) {
-        if(is(line[[i]], "RLum.Results")) {
-          line[[i]] <- as.numeric(get_RLum(object = line[[i]],
-                                           data.object = "summary")$de)
-        }
-      } else if(is(object = line, class2 = "RLum.Results")) {
-        line <- as.numeric(get_RLum(object = line,
-                                    data.object = "summary")$de)
-      }
-    }
-
-    ## convert list to vector
-    if(is.list(line) == TRUE) {
-      line <- unlist(line)
-    }
-
-    if(log.z == TRUE) {
-      line <- log(line)
-    }
-
-    line.x <- c(limits.x[1], min.ellipse, y.max)
-    line.coords <- list()
-    for(i in 1:length(line)) {
-      line.y <- c(0, rep((line[i] - z.central.global) * min.ellipse, 2))
-      line.coords[[i]] <- rbind(line.x, line.y)
-    }
-
-    if(missing(line.col) == TRUE) {
-      line.col <- seq_along(line.coords)
-    }
-
-    if(missing(line.lty) == TRUE) {
-      line.lty <- rep(1, length(line.coords))
-    }
-
-    if(missing(line.label) == TRUE) {
-      line.label <- rep("", length(line.coords))
-    }
-  }
-
   ## Generate plot ------------------------------------------------------------
   ##
   ## determine number of subheader lines to shift the plot
@@ -1576,18 +1532,46 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## optionally add further lines
-    if (!missing(line)) {
-      for (i in 1:length(line)) {
-        lines.rot(x = line.coords[[i]][1, 1:3],
-                  y = line.coords[[i]][2, 1:3],
+  ## optionally add further lines
+  if (!missing(line) && length(line) > 0) {
+
+    ## check if line parameters are RLum.Results objects
+    if (is.list(line)) {
+      for (i in seq_along(line)) {
+        if (is(line[[i]], "RLum.Results")) {
+          line[[i]] <- as.numeric(get_RLum(line[[i]], data.object = "summary")$de)
+        }
+      }
+    } else if (inherits(line, "RLum.Results")) {
+      line <- as.numeric(get_RLum(line, data.object = "summary")$de)
+    }
+
+    ## convert list to vector
+    if (is.list(line))
+      line <- unlist(line)
+    if (log.z)
+      line <- log(line)
+    if (missing(line.col))
+      line.col <- seq_along(line)
+    if (missing(line.lty))
+      line.lty <- rep(1, length(line))
+    if (missing(line.label))
+      line.label <- rep("", length(line))
+
+    ## calculate line coordinates and further parameters
+    line.x <- c(limits.x[1], min.ellipse, y.max)
+    line.y <- (line - z.central.global) * min.ellipse
+
+    for (i in 1:length(line)) {
+        lines.rot(x = line.x,
+                  y = c(0, line.y[i], line.y[i]),
                   col = line.col[i],
                   lty = line.lty[i]
                   )
-        text.rot(x = line.coords[[i]][1, 3],
-                 y = line.coords[[i]][2, 3] + par()$cxy[2] * 0.3,
+        text.rot(x = line.x[3],
+                 y = line.y[i] + par()$cxy[2] * 0.3,
                  labels = line.label[i],
-                 pos = 2,
+                 pos = 3 - rotate.idx,
                  col = line.col[i],
                  cex = 0.9)
       }
