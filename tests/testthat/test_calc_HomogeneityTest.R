@@ -13,6 +13,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_HomogeneityTest(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_HomogeneityTest(iris[, 1, drop = FALSE]),
+               "'data' should have 2 columns")
 })
 
 test_that("check values from output example", {

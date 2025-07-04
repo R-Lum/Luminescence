@@ -169,6 +169,9 @@ convert_CW2pPMi<- function(
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
   .validate_not_empty(values)
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
+  }
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
   if (inherits(values, "RLum.Data.Curve")) {

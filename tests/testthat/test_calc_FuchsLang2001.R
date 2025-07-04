@@ -9,6 +9,8 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(calc_FuchsLang2001(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_FuchsLang2001(iris[, 1, drop = FALSE]),
+               "'data' should have 2 columns")
 })
 
 test_that("check class and length of output", {

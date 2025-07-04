@@ -11,6 +11,8 @@ test_that("input validation", {
       fixed = TRUE)
   expect_error(fit_DoseResponseCurve(data.frame()),
                "'object' cannot be an empty data.frame")
+  expect_error(fit_DoseResponseCurve(iris[, 1, drop = FALSE]),
+               "'object' should have at least 2 columns")
   expect_error(fit_DoseResponseCurve(as.list(LxTxData)),
                "All elements of 'object' should be of class 'data.frame'")
 

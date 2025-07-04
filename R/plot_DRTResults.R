@@ -233,6 +233,8 @@ plot_DRTResults <- function(
       if (is.null(val))
         val <- NA
       values[[i]] <- val
+    } else if (ncol(values[[i]]) < 2) {
+      .throw_error("'values' should have 2 columns")
     }
   }
 
