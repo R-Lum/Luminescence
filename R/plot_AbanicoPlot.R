@@ -1371,19 +1371,6 @@ plot_AbanicoPlot <- function(
   ## calculate mean KDE bandwidth
   KDE.bw <- mean(KDE.bw, na.rm = TRUE)
 
-  ## calculate max KDE value for labelling
-  KDE.max.plot <- numeric(length(data))
-
-  for(i in 1:length(data)) {
-    KDE.plot <- density(x = data[[i]][,1],
-                        kernel = "gaussian",
-                        bw = bw,
-                        from = limits.z[1],
-                        to = limits.z[2])
-    KDE.max.plot[i] <- max(KDE.plot$y)
-  }
-  KDE.max.plot <- max(KDE.max.plot, na.rm = TRUE)
-
   ## calculate KDE width
   KDE.max <- max(vapply(KDE, function(x) max(x[, 2]), numeric(1)))
 
@@ -1813,56 +1800,6 @@ plot_AbanicoPlot <- function(
              cex = layout$abanico$dimension$pch / 100)
     }
 
-    ## optionally add KDE plot
-    if(kde == TRUE) {
-      KDE.scale <- (par()$usr[2] - xy.0[1]) / (KDE.max * 1.05)
-
-      ## plot KDE lines
-      for(i in 1:length(data)) {
-        polygon(x = xy.0[1] + KDE[[i]][,2] * KDE.scale,
-                y = (KDE[[i]][,1] - z.central.global) * min(ellipse[,1]),
-                col = kde.fill[i],
-                border = kde.line[i],
-                lwd = 1.7)
-      }
-
-      ## plot KDE x-axis
-      axis(side = 1,
-           at = c(xy.0[1], par()$usr[2]),
-           col = layout$abanico$colour$xtck3,
-           col.axis = layout$abanico$colour$xtck3,
-           labels = NA,
-           tcl = -layout$abanico$dimension$xtcl3 / 200,
-           cex = cex)
-
-      axis(side = 1,
-           at = c(xy.0[1], par()$usr[2]),
-           labels = as.character(round(c(0, KDE.max.plot), 3)),
-           line = 2 * layout$abanico$dimension$xtck3.line / 100 - 2,
-           lwd = 0,
-           col = layout$abanico$colour$xtck3,
-           family = layout$abanico$font.type$xtck3,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$xtck3)[1],
-           col.axis = layout$abanico$colour$xtck3,
-           cex.axis = layout$abanico$font.size$xtck3/12)
-
-      mtext(text = paste(xlab[3],
-                         " (bw ",
-                         round(x = KDE.bw,
-                               digits = 3),
-                         ")",
-                         sep = ""),
-            at = (xy.0[1] + par()$usr[2]) / 2,
-            side = 1,
-            line = 2.5 * layout$abanico$dimension$xlab3.line / 100,
-            col = layout$abanico$colour$xlab3,
-            family = layout$abanico$font.type$xlab3,
-            font = which(c("normal", "bold", "italic", "bold italic") ==
-                           layout$abanico$font.deco$xlab3)[1],
-            cex = cex * layout$abanico$font.size$xlab3/12)
-    }
-
   } else { # rotate
 
     ## plot y-axis
@@ -2004,31 +1941,43 @@ plot_AbanicoPlot <- function(
              pch = pch[i],
              cex = layout$abanico$dimension$pch / 100)
     }
+  }
 
-    ## optionally add KDE plot
-    if(kde == TRUE) {
+  ## optionally add KDE plot
+  if (kde) {
 
-      KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
-      ## plot KDE lines
-      for(i in 1:length(data)) {
-        polygon(y = xy.0[2] + KDE[[i]][,2] * KDE.scale,
-                x = (KDE[[i]][,1] - z.central.global) * min(ellipse[,2]),
+    ## calculate max KDE value for axis label
+    KDE.max.plot <- 0
+    for (x in data) {
+      KDE.plot <- density(x[, 1],
+                          kernel = "gaussian",
+                          bw = bw,
+                          from = limits.z[1],
+                          to = limits.z[2])
+      KDE.max.plot <- max(KDE.plot$y, KDE.max.plot)
+    }
+    KDE.scale <- (y.max - xy.0[rotate.idx]) / (KDE.max * 1.05)
+
+    ## plot KDE lines
+    for (i in 1:length(data)) {
+      polygon.rot(x = xy.0[rotate.idx] + KDE[[i]][, 2] * KDE.scale,
+                  y = (KDE[[i]][, 1] - z.central.global) * min.ellipse,
                 col = kde.fill[i],
                 border = kde.line[i],
                 lwd = 1.7)
       }
 
       ## plot KDE x-axis
-      axis(side = 2,
-           at = c(xy.0[2], y.max),
+      axis(side = rotate.idx,
+           at = c(xy.0[rotate.idx], y.max),
            col = layout$abanico$colour$xtck3,
            col.axis = layout$abanico$colour$xtck3,
            labels = NA,
            tcl = -layout$abanico$dimension$xtcl3 / 200,
            cex = cex)
 
-      axis(side = 2,
-           at = c(xy.0[2], y.max),
+      axis(side = rotate.idx,
+           at = c(xy.0[rotate.idx], y.max),
            labels = as.character(round(c(0, KDE.max.plot), 3)),
            line = 2 * layout$abanico$dimension$xtck3.line / 100 - 2,
            lwd = 0,
@@ -2037,23 +1986,21 @@ plot_AbanicoPlot <- function(
            font = which(c("normal", "bold", "italic", "bold italic") ==
                           layout$abanico$font.deco$xtck3)[1],
            col.axis = layout$abanico$colour$xtck3,
-           cex.axis = layout$abanico$font.size$xtck3/12)
+           cex.axis = layout$abanico$font.size$xtck3 / 12)
 
-      mtext(text = paste(xlab[3],
+      mtext(text = paste0(xlab[3],
                          " (bw ",
                          round(x = KDE.bw,
                                digits = 3),
-                         ")",
-                         sep = ""),
-            at = (xy.0[2] + y.max) / 2,
-            side = 2,
+                         ")"),
+            at = (xy.0[rotate.idx] + y.max) / 2,
+            side = rotate.idx,
             line = 2.5 * layout$abanico$dimension$xlab3.line / 100,
             col = layout$abanico$colour$xlab3,
             family = layout$abanico$font.type$xlab3,
             font = which(c("normal", "bold", "italic", "bold italic") ==
                            layout$abanico$font.deco$xlab3)[1],
-            cex = cex * layout$abanico$font.size$xlab3/12)
-    }
+            cex = cex * layout$abanico$font.size$xlab3 / 12)
   }
 
   ## compute data for histogram and dot plot
