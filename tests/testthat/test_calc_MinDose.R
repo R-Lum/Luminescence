@@ -14,6 +14,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_MinDose(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_MinDose(iris[, 1, drop = FALSE]),
+               "'data' should have 2 columns")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "is missing, with no default")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, init.values = 1:4),

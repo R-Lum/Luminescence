@@ -202,6 +202,9 @@ fit_CWCurve<- function(
   if (inherits(values, "RLum.Data.Curve")) {
     values <- as.data.frame(values@data[, 1:2, drop = FALSE])
   }
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
+  }
 
   ## set x and y values
   x <- values[, 1]

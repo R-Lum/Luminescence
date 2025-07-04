@@ -349,6 +349,9 @@ calc_MinDose <- function(
   if (is(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have 2 columns")
+  }
 
   if (any(!stats::complete.cases(data))) {
     .throw_message("Warning: Input data contained NA/NaN values, ",

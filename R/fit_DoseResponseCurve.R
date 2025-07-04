@@ -382,6 +382,8 @@ fit_DoseResponseCurve <- function(
     return(results)
   }
   ## Self-call end ----------------------------------------------------------
+
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("data.frame", "matrix", "list"))
   .validate_not_empty(object)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
@@ -405,6 +407,9 @@ fit_DoseResponseCurve <- function(
 
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have at least 2 columns")
+  }
   if (ncol(object) == 2)
     object <- cbind(object, 0)
 

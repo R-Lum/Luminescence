@@ -287,6 +287,9 @@ fit_LMCurve<- function(
 
     values <- as(values,"data.frame")
   }
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
+  }
 
   ##(2) data.frame or RLum.Data.Curve object?
   if (!missing(values.bg)) {

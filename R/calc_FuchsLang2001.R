@@ -96,6 +96,9 @@ calc_FuchsLang2001 <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have 2 columns")
+  }
 
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments
