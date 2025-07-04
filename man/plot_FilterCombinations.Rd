@@ -33,7 +33,7 @@ enable/disable the plot output.}
 
 \item{...}{further arguments that can be passed to control the plot output.
 Supported are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
-For non common plotting parameters see the details section.}
+For non common plotting parameters, see the details section.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
@@ -55,9 +55,10 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 }
 }
 \description{
-The function allows to plot transmission windows for different filters. Missing data for specific
-wavelengths are automatically interpolated for the given filter data using the function \link{approx}.
-With that a standardised output is reached and a net transmission window can be shown.
+The function allows to plot transmission windows for different filters.
+Missing data for specific wavelengths are automatically interpolated for
+the given filter data using function \link{approx}. With that, a standardised
+output is reached and a net transmission window can be shown.
 
 \strong{Calculations}
 
@@ -75,26 +76,27 @@ The net transmission window of two filters is approximated by
 
 \deqn{OD_{total} = OD_{1} +  OD_{2}}
 
-Please consider using own calculations for more precise values.
+Please consider using your own calculations for more precise values.
 
 \strong{How to provide input data?}
 
 \emph{CASE 1}
 
-The function expects that all filter values are either of type \code{matrix} or \code{data.frame}
-with two columns. The first columns contains the wavelength, the second the relative transmission
-(but not in percentage, i.e. the maximum transmission can be only become 1).
+The function expects that all filter values are either of type \code{matrix} or
+\code{data.frame} with two columns. The first columns contains the wavelength,
+the second the relative transmission (but not in percentage, i.e. the
+maximum transmission can be only become 1).
 
-In this case only the transmission window is show as provided. Changes in filter thickness and
-reflection factor are not considered.
+In this case only the transmission window is show as provided. Changes in
+filter thickness and reflection factor are not considered.
 
 \emph{CASE 2}
 
 The filter data itself are provided as list element containing a \code{matrix} or
 \code{data.frame} and additional information on the thickness of the filter, e.g.,
 \code{list(filter1 = list(filter_matrix, d = 2))}.
-The given filter data are always considered as standard input and the filter thickness value
-is taken into account by
+The given filter data are always considered as standard input and the filter
+thickness value is taken into account by
 
 \deqn{Transmission = Transmission^(d)}
 
@@ -123,9 +125,9 @@ The following further non-common plotting parameters can be passed to the functi
 \code{grid} \tab \code{list} \tab full list of arguments that can be passed to the function \link[graphics:grid]{graphics::grid}
 }
 
-For further modifications standard additional R plot functions are recommend, e.g., the legend
-can be fully customised by disabling the standard legend and use the function \link[graphics:legend]{graphics::legend}
-instead.
+For further modifications standard additional R plot functions are recommend,
+e.g., the legend can be fully customised by disabling the standard legend
+and using the function \link[graphics:legend]{graphics::legend} instead.
 }
 \section{Function version}{
  0.3.2
@@ -157,7 +159,6 @@ plot(results$OD_total)
 plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 
 }
-
 
 }
 \seealso{
