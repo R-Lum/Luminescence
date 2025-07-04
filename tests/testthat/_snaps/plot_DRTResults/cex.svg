@@ -53,11 +53,11 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMTMyLjQ4fDY1OS41Mnw2MC40OHw0NDMuNTI=)'>
-<circle cx='200.80' cy='235.86' r='8.64' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='298.40' cy='167.27' r='8.64' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='396.00' cy='207.62' r='8.64' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='493.60' cy='219.72' r='8.64' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='591.20' cy='336.73' r='8.64' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='200.80' cy='235.86' r='4.32' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='298.40' cy='167.27' r='4.32' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='396.00' cy='207.62' r='4.32' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='493.60' cy='219.72' r='4.32' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='591.20' cy='336.73' r='4.32' style='stroke-width: 0.75; fill: #000000;' />
 <line x1='200.80' y1='151.31' x2='200.80' y2='320.42' style='stroke-width: 0.75;' />
 <polyline points='206.20,151.31 200.80,151.31 195.40,151.31 ' style='stroke-width: 0.75;' />
 <polyline points='195.40,320.42 200.80,320.42 206.20,320.42 ' style='stroke-width: 0.75;' />

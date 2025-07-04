@@ -478,7 +478,7 @@ plot_DRTResults <- function(
                y = values[[i]][,1],
                pch = if (oneinput && nrow(values[[i]]) == length(pch)) pch else pch[i],
                col = if (multicol) col else col[i],
-               cex = 1.2 * cex)
+               cex = 1.2)
 
         graphics::arrows(c(1:nrow(values[[i]])),
                values[[i]][,1] + values[[i]][,2],
@@ -569,7 +569,7 @@ plot_DRTResults <- function(
                y = values.preheat[[i]][,1],
                pch = pch[i],
                col = col[i],
-               cex = 1.2 * cex)
+               cex = 1.2)
 
         graphics::arrows(values.preheat[[i]][,3],
                values.preheat[[i]][,1] + values.preheat[[i]][,2],
