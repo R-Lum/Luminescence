@@ -150,16 +150,3 @@ convert_Second2Gray <- function(
 
   return(data)
 }
-
-#' Converting equivalent dose values from seconds (s) to Gray (Gy)
-#'
-#' @description
-#' This function is defunct, use [convert_Second2Gray] instead.
-#'
-#' @param ... Unused.
-#'
-#' @md
-#' @export
-Second2Gray <- function(...) {
-  .Defunct("convert_Second2Gray")
-}
