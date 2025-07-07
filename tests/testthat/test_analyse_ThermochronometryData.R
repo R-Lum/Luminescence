@@ -22,10 +22,10 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  SW({
   expect_s4_class(analyse_ThermochronometryData(input.csv[1],
                                                 verbose = FALSE),
                   "RLum.Results")
-  SW({
   expect_s4_class(analyse_ThermochronometryData(input.csv[1], ITL_model = "BTS",
                                                 verbose = TRUE,
                                                 num_s_values_bts = 10),
