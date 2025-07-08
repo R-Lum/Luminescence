@@ -60,7 +60,7 @@
 #' @export
 fit_IsothermalHolding <- function(
     data,
-    ITL_model = 'GOK',
+    ITL_model = "GOK",
     rhop,
     plot = TRUE,
     verbose = TRUE,
@@ -167,18 +167,17 @@ fit_IsothermalHolding <- function(
     ## in the future
     f_BTS_cpp_part(
       x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop)
-
   }
 
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b  = 1, Et = 1, s10 = 5),
+    'GOK' = list(A = 1, b = 1, Et = 1, s10 = 5),
     'BTS' = list(A = 1, Eu = 0.1, Et = 2))
 
   lower <- switch(
     ITL_model,
-    'GOK' = c(0, 0,   0, 0),
+    'GOK' = c(0, 0, 0, 0),
     'BTS' = c(1, 0.3, 1))
 
   upper <- switch(
@@ -191,7 +190,7 @@ fit_IsothermalHolding <- function(
   ## each sample has n temperature steps
   num.fits <- 0
   fitted.coefs <- NULL
-  fit_list <- lapply(df_raw_list, function(s){
+  fit_list <- lapply(df_raw_list, function(s) {
 
     ## extract temperatures
     isoT <- unique(s$TEMP)
@@ -207,7 +206,7 @@ fit_IsothermalHolding <- function(
       if (ITL_model == "GOK") {
         fit <- try({
           minpack.lm::nlsLM(
-              formula = y ~ f_GOK(A, b,  Et, s10, isoT, x),
+              formula = y ~ f_GOK(A, b, Et, s10, isoT, x),
               data = df,
               start = start,
               lower = lower,
@@ -290,7 +289,7 @@ fit_IsothermalHolding <- function(
     close(pb)
   }
 
-# Plotting ----------------------------------------------------------------
+  ## Plotting ---------------------------------------------------------------
   if (plot) {
     ## define plot settings
     plot_settings <- modifyList(

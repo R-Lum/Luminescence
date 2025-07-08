@@ -45,6 +45,7 @@ test_that("check functionality", {
 
 test_that("regression tests", {
 
+  ## issue 652
   df <- data.frame(SAMPLE = rep("S1", 6),
                    TEMP = rep(150, 6),
                    TIME = c(1, 10, 30, 100, 300, 1000),
