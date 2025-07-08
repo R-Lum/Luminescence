@@ -9,7 +9,9 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF("test"),
                "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(iris),
-               "'object' should be of class 'RLum.Analysis'")
+               "'object' should be of class 'RLum.Analysis' or a 'list'")
+   expect_error(analyse_IRSAR.RF(list(iris)),
+               "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),

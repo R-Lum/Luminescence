@@ -476,7 +476,10 @@ analyse_IRSAR.RF<- function(
     if ("main" %in% names(extraArgs)) {
       temp_main <- .listify(extraArgs$main, rep.length)
     }else{
-      originator <- if (length(object) > 0) object[[1]]@originator else NA
+      originator <- if (length(object) > 0) {
+                      .validate_class(object[[1]], "RLum.Analysis",
+                                      name = "All elements of 'object'")
+                      object[[1]]@originator } else NA
       if (!is.na(originator) && originator == "read_RF2R") {
         temp_main <- lapply(object, function(x) x@info$ROI)
       } else {
@@ -516,7 +519,7 @@ analyse_IRSAR.RF<- function(
 
   ## Integrity checks -------------------------------------------------------
 
-  .validate_class(object, "RLum.Analysis")
+  .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
   .validate_class(sequence_structure, "character")
   .validate_not_empty(object)
   if (length(sequence_structure) < 2) {
