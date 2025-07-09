@@ -7,6 +7,8 @@ test_that("input validation", {
                "'object' cannot be an empty data.frame")
   expect_error(convert_Wavelength2Energy(matrix()),
                "'object' should have at least two columns")
+  expect_error(convert_Wavelength2Energy(list(iris)),
+               "'object' should have only numeric fields")
   expect_error(convert_Wavelength2Energy(set_RLum("RLum.Data.Spectrum")),
                "'object' contains no data")
 })

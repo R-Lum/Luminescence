@@ -203,6 +203,9 @@ convert_Wavelength2Energy <- function(
     }
 
     temp <- as.matrix(object[,2:ncol(object)])
+    if (!is.numeric(temp)) {
+      .throw_error("'object' should have only numeric fields")
+    }
 
     ##set rownames
     rownames(temp) <- object[,1]
