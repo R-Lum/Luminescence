@@ -76,6 +76,10 @@ calc_WodaFuchs2008 <- function(
                          error = function(e) get_RLum(data))
   }
 
+  if (!is.numeric(data[[1]])) {
+    .throw_error("'data' should have only numeric fields")
+  }
+
       ## if data is a numeric vector or a single-column data frame,
       ## append a second column of NAs
       if (NCOL(data) < 2) {
@@ -90,10 +94,8 @@ calc_WodaFuchs2008 <- function(
   ## read additional arguments
 
   if("trace" %in% names(list(...))) {
-
     trace <- list(...)$trace
   } else {
-
     trace <- FALSE
   }
 
@@ -106,7 +108,6 @@ calc_WodaFuchs2008 <- function(
     bin_width <- median(data[,1] / 10,
                         na.rm = TRUE)
   } else {
-
     bin_width <- median(data[,2],
                         na.rm = TRUE)
   }

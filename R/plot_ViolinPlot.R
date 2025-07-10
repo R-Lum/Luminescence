@@ -116,6 +116,7 @@ plot_ViolinPlot <- function(
   if (is.data.frame(data) || is.matrix(data)) {
     data <- data[, 1]
   }
+  .validate_class(data, "numeric", name = "All elements of 'data'")
 
     ##Remove NA values
     if(na.rm){
