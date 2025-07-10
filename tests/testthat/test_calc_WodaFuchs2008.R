@@ -7,6 +7,8 @@ test_that("input validation", {
                  "'data' should be of class 'data.frame', 'RLum.Results' or")
   expect_error(calc_WodaFuchs2008(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_WodaFuchs2008(data.frame(a = letters)),
+               "'data' should have only numeric fields")
   res <- calc_WodaFuchs2008(ExampleData.DeValues$CA1)
   expect_error(calc_WodaFuchs2008(res, breaks = 4),
                "Insufficient number of data points")

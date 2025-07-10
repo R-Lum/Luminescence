@@ -142,6 +142,9 @@ plot_Histogram <- function(
     data <- get_RLum(data)[,1:2]
   }
 
+  ## we don't check the second column, as that can be NA
+  .validate_class(data[, 1], "numeric", name = "All columns of 'data'")
+
   .validate_class(cex.global, "numeric")
   .validate_class(summary, "character")
   .validate_class(summary.pos, c("numeric", "character"))
