@@ -191,13 +191,15 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{box},
 \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
 \code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
-\code{contour}, \code{contour.col} (\code{"image"})
+\code{contour}, \code{contour.col} (\code{"image"}), \code{labcex} (\code{"image"}, \code{"contour"}),
+\code{n_breaks} (\verb{"image}), \code{legend} (\code{TRUE}/\code{FALSE}),
+\code{legend.pos} (\code{"image"}), \code{legend.horiz} (\code{TRUE}/\code{FALSE} | \code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.10
+ 0.6.11
 }
 
 \examples{

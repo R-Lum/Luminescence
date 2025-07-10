@@ -80,7 +80,9 @@
 #' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `box`,
 #' `zlim`, `main`, `mtext`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
 #' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
-#' `contour`, `contour.col` (`"image"`)
+#' `contour`, `contour.col` (`"image"`), `labcex` (`"image"`, `"contour"`),
+#' `n_breaks` (`"image`), `legend` (`TRUE`/`FALSE`),
+#' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
 #' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
 #' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count
@@ -167,7 +169,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.10
+#' @section Function version: 0.6.11
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -388,6 +390,8 @@ plot_RLum.Data.Spectrum <- function(
   log<- if("log" %in% names(extraArgs)) {extraArgs$log} else
   {""}
 
+  labcex <- if(is.null(extraArgs$labcex)) 0.6 else extraArgs$labcex
+
   type<- if("type" %in% names(extraArgs)) {extraArgs$type} else
   {
     if (plot.type == "interactive") {
@@ -414,6 +418,16 @@ plot_RLum.Data.Spectrum <- function(
   showscale<- if("showscale" %in% names(extraArgs)) {extraArgs$showscale} else
   {FALSE}
 
+  ## further plot settings
+  plot_settings <- modifyList(
+    x = list(
+      legend = TRUE,
+      legend.pos = "topright",
+      legend.horiz = FALSE,
+      n_breaks = 50
+
+    ),
+    val = extraArgs)
 
   # prepare values for plot ---------------------------------------------------
   ##copy data
@@ -664,7 +678,7 @@ pmat <- NA
 
 if(plot){
   ##par setting for possible combination with plot method for RLum.Analysis objects
-  if(par.local) par(mfrow=c(1,1), cex = cex)
+  if(par.local) par(mfrow = c(1,1), cex = cex)
 
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1 && plot.type != "single"){
@@ -855,7 +869,7 @@ if(plot){
             xlab = xlab,
             ylab = ylab,
             main = main,
-            labcex = 0.6 * cex,
+            labcex = labcex * cex,
             col = "black"
     )
 
@@ -865,19 +879,48 @@ if(plot){
   } else if (plot.type == "image") {
     ## Plot: image plot ----
     ## ==========================================================================#
-    graphics::image(x,y,temp.xyz,
-            xlab = xlab,
-            ylab = ylab,
-            main = main,
-            col = if(is.null(extraArgs$col)) grDevices::hcl.colors(50, palette = "Inferno") else
-              extraArgs$col
+
+    ## set breaks
+    n_breaks <- plot_settings$n_breaks
+
+    ## get colours
+    col <- if(is.null(extraArgs$col))
+      grDevices::hcl.colors(n_breaks, palette = "Inferno")
+    else
+      extraArgs$col
+
+    ## set break vector
+    breaks <- seq(min(temp.xyz), max(temp.xyz), length.out = length(col) + 1)
+
+    ## render graphic
+    graphics::image(
+      x,y,temp.xyz,
+      xlab = xlab,
+      ylab = ylab,
+      main = main,
+      breaks = breaks,
+      col = col
     )
 
     if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
       graphics::contour(x, y, temp.xyz,
               col = if(is.null(extraArgs$contour.col)) rgb(1,1,1,0.8) else extraArgs$contour.col,
-              labcex = 0.6 * cex,
+              labcex = labcex * cex,
               add = TRUE)
+    }
+
+    if(plot_settings$legend[1]) {
+      ## add legend
+      legend_scale_id <- seq(1,length(breaks),length.out = c(min(c(length(breaks), 6))))
+
+      legend(
+          plot_settings$legend.pos,
+          legend = ceiling(breaks[legend_scale_id]/10) * 10,
+          fill = col[legend_scale_id],
+          bg = grDevices::rgb(1,1,1,0.7),
+          title = "Intensity",
+          cex = cex * 0.9,
+          horiz = plot_settings$legend.horiz)
     }
 
     ##plot additional mtext
@@ -1044,13 +1087,15 @@ if(plot){
       legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
 
     ##legend
-    legend(x = par()$usr[2],
-           y = par()$usr[4],
-           legend = legend.text,
-           lwd= lwd,
-           lty = frames,
-           bty = "n",
-           cex = 0.6*cex)
+    if(plot_settings$legend) {
+      legend(x = par()$usr[2],
+             y = par()$usr[4],
+             legend = legend.text,
+             lwd= lwd,
+             lty = frames,
+             bty = "n",
+             cex = 0.6 * cex)
+    }
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
@@ -1099,3 +1144,4 @@ attr(temp.xyz, "pmat") <- pmat
 ## return visible or not
 if(plot) invisible(temp.xyz) else return(temp.xyz)
 }
+

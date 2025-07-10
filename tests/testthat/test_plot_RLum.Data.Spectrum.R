@@ -191,6 +191,22 @@ test_that("check functionality", {
         bin.cols = 1
       )
     ))
+    ## image labelling scaler
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "image",
+        xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        labcex = 2,
+        n_breaks = 10,
+        legend.pos = "bottom",
+        legend.horiz = TRUE,
+        bin.cols = 1
+      )
+    ))
+
 
   ### plot_image: no contour -------
    expect_silent(suppressWarnings(

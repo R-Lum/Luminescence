@@ -1,8 +1,8 @@
-#' General plot function for RLum S4 class objects
+#' @title General plot function for RLum S4 class objects
 #'
-#' Function calls object specific plot functions for RLum S4 class objects.
+#' @description Function calls object specific plot functions for RLum S4 class objects.
 #'
-#' The function provides a generalised access point for plotting specific
+#' @details The function provides a generalised access point for plotting specific
 #' [RLum-class] objects.\cr
 #' Depending on the input object, the
 #' corresponding plot function will be selected.  Allowed arguments can be
@@ -58,7 +58,7 @@
 #'
 #' @md
 #' @export
-plot_RLum<- function(
+plot_RLum <- function(
   object,
   ...
 ) {
@@ -119,10 +119,11 @@ plot_RLum<- function(
         mtext <- rep(list(...)$mtext, length.out = length(object))
       }
       for (i in 1:length(object)) {
-        RLum.dispatcher(object = object[[i]],
-                        main = main[[i]],
-                        mtext = mtext[[i]],
-                        ...)
+        RLum.dispatcher(
+          object = object[[i]],
+          main = main[[i]],
+          mtext = mtext[[i]],
+          ...)
       }
     }
   }else{
@@ -130,3 +131,4 @@ plot_RLum<- function(
     RLum.dispatcher(object = object, ...)
   }
 }
+
