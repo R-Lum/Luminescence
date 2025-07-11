@@ -29,7 +29,7 @@
 #' `"smooth_RLum"` \tab `k` \tab [numeric] \tab see [smooth_RLum]\cr
 #'  \tab `fill` \tab [numeric] \tab see [smooth_RLum]\cr
 #'  \tab `align` \tab [character] \tab see [smooth_RLum]\cr
-#'  \tab `method` \tab [character] \tab see [smooth_RLum]\cr
+#'  \tab `method_smooth_RLum` \tab [character] \tab see [smooth_RLum]\cr
 #'}
 #'
 #' **Best practice**
@@ -87,7 +87,7 @@
 #'
 #' @return Returns same object as input.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -198,7 +198,7 @@ apply_CosmicRayRemoval <- function(
       kind = "3RS3R",
       twiceit = TRUE,
       spar = NULL,
-      method = "median",
+      method_smooth_RLum = "median",
       k = NULL,
       fill = NA,
       align = "right"),
@@ -239,7 +239,7 @@ apply_CosmicRayRemoval <- function(
         X = object@data,
         MARGIN = MARGIN,
         FUN = .smoothing,
-        method = extraArgs$method[1],
+        method = extraArgs$method_smooth_RLum[1],
         k = max(c(1, min(c(
           if(MARGIN == 2)
            floor(ncol(object@data)/(ncol(object@data)/2))

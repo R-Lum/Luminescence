@@ -88,7 +88,7 @@ METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
 \code{"smooth_RLum"} \tab \code{k} \tab \link{numeric} \tab see \link{smooth_RLum}\cr
 \tab \code{fill} \tab \link{numeric} \tab see \link{smooth_RLum}\cr
 \tab \code{align} \tab \link{character} \tab see \link{smooth_RLum}\cr
-\tab \code{method} \tab \link{character} \tab see \link{smooth_RLum}\cr
+\tab \code{method_smooth_RLum} \tab \link{character} \tab see \link{smooth_RLum}\cr
 }
 
 \strong{Best practice}
@@ -106,7 +106,7 @@ Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
 \section{Function version}{
- 0.4.0
+ 0.4.1
 }
 
 \examples{

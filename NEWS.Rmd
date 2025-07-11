@@ -26,6 +26,12 @@ found in functions `calc_Huntley2006()`, `analyse_SAR.CWOSL()`,
 
 ## Bugfixes and changes
 
+### `apply_CosmicRayRemoval()`
+
+* The argument `method` for `method = "smooth_RLum()"` was not reachable and
+would lead to a crash if called. Now the `<...>` argument is called
+`method_smooth_RLum` and works as expected. 
+
 ### `analyse_SAR.CWOSL()`
 
 * The function crashed if any of the curves had `NA` as its `recordType`
