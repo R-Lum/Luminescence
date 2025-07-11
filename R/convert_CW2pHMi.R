@@ -353,6 +353,6 @@ convert_CW2pHMi<- function(
 #' @rdname convert_CW2pHMi
 #' @export
 CW2pHMi <- function(values, delta) {
-  .Deprecated("convert_CW2pHMi")
+  .Deprecated("convert_CW2pHMi", old = "CW2pHMi")
   convert_CW2pHMi(values, delta)
 }

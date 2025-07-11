@@ -293,6 +293,6 @@ convert_CW2pPMi<- function(
 #' @rdname convert_CW2pPMi
 #' @export
 CW2pPMi <- function(values, P) {
-  .Deprecated("convert_CW2pPMi")
+  .Deprecated("convert_CW2pPMi", old = "CW2pPMi")
   convert_CW2pPMi(values, P)
 }

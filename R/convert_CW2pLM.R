@@ -133,6 +133,6 @@ convert_CW2pLM <- function(
 #' @rdname convert_CW2pLM
 #' @export
 CW2pLM <- function(values) {
-  .Deprecated("convert_CW2pLM")
+  .Deprecated("convert_CW2pLM", old = "CW2pLM")
   convert_CW2pLM(values)
 }
