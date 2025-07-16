@@ -10,6 +10,21 @@ test_that("Check github_commits()", {
 
   response <- tryCatch(github_commits(), error = function(e) return(e))
 
+  expect_error(github_commits(user = NA),
+               "'user' should be of class 'character'")
+  expect_error(github_commits(user = letters),
+               "'user' should have length 1")
+  expect_error(github_commits(repo = NA),
+               "'repo' should be of class 'character'")
+  expect_error(github_commits(repo = letters),
+               "'repo' should have length 1")
+  expect_error(github_commits(branch = NA),
+               "'branch' should be of class 'character'")
+  expect_error(github_commits(branch = letters),
+               "'branch' should have length 1")
+  expect_error(github_commits(n = -1:2),
+               "'n' should be a positive integer scalar")
+
   if (inherits(response, "error")){
     expect_output(print(response), regexp = "returned status code")
   } else {

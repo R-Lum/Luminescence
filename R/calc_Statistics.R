@@ -82,6 +82,9 @@ calc_Statistics <- function(
   ##strip na values
   if(na.rm){
     data <- na.exclude(data)
+    if (nrow(data) == 0) {
+      .throw_error("'data' contains only NA values")
+    }
   }
 
   ## handle error-free data sets

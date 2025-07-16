@@ -32,6 +32,8 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(calc_Statistics(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_Statistics(data.frame(a = NA)),
+               "'data' contains only NA values")
   expect_error(calc_Statistics(data = df, weight.calc = "error"),
                "'weight.calc' should be one of 'square' or 'reciprocal'")
   expect_error(calc_Statistics(df, digits = 2.4),
