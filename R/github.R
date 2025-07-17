@@ -71,6 +71,15 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
   .set_function_name("github_commits")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## input validation
+  .validate_class(user, "character")
+  .validate_length(user, 1)
+  .validate_class(repo, "character")
+  .validate_length(repo, 1)
+  .validate_class(branch, "character")
+  .validate_length(branch, 1)
+  .validate_positive_scalar(n, int = TRUE)
+
   # fetch available branches and check if provided branch exists
   branches <- github_branches(user, repo)
   if (!any(grepl(branch, branches$BRANCH)))
