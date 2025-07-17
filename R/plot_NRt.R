@@ -134,9 +134,13 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   if (inherits(data, "list")) {
     if (length(data) < 2)
       .throw_error("'data' contains only curve data for the natural signal")
-    if (all(sapply(data, class) == "RLum.Data.Curve") ||
-        all(sapply(data, class) == "RLum.Analysis"))
+    class.data <- sapply(data, function(x) class(x)[1])
+    if (all(class.data == "RLum.Data.Curve") || all(class.data == "RLum.Analysis"))
       curves <- lapply(data, get_RLum)
+    else if (all(class.data == "data.frame") || all(class.data == "matrix"))
+      curves <- data
+    else
+      .throw_error("'data' doesn't contain the expected type of elements")
   }
   else if (inherits(data, "data.frame") || inherits(data, "matrix")) {
     if (ncol(data) < 3)

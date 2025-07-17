@@ -15,6 +15,8 @@ test_that("input validation", {
                 "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),
                 "'data' contains only curve data for the natural signal")
+  expect_error(plot_NRt(list(a = 1, b = 2)),
+                "'data' doesn't contain the expected type of elements")
   expect_error(plot_NRt(curves, smooth = "error"),
                "'smooth' should be one of 'none', 'spline' or 'rmean'")
 
@@ -42,6 +44,8 @@ test_that("check functionality", {
 
   ## list
   expect_silent(plot_NRt(curves))
+  expect_silent(plot_NRt(list(get_RLum(curves[[1]]),
+                              get_RLum(curves[[2]]))))
   expect_silent(plot_NRt(curves, smooth = "spline", log = "x"))
 
   small <- curves[1:3]
