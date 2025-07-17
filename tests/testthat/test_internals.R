@@ -13,7 +13,6 @@ test_that("Test internals", {
   ##might be a list of RLum.Analysis objects is might be super large
   f <- function(object, a, b = 1, c = list(), d = NULL) {
     Luminescence:::.expand_parameters(len = 3)
-
   }
 
   ##test some functions
@@ -34,9 +33,18 @@ test_that("Test internals", {
   ##create a case where the value cannot be calculated
   expect_type(.calc_HPDI(rlnorm(n = 100, meanlog = 10, sdlog = 100)), type = "logical")
 
-  # .warningCatcher() ---------------------------------------------------------------------------
-  expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) warning("test")),
-                 regexp = "\\(1\\) test\\: This warning occurred 5 times\\!")
+  ## .warningCatcher() ------------------------------------------------------
+  expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) {
+                                                  warning("message 1")
+                                                  if (i %% 2 == 0)
+                                                    warning("message 2")
+                                                  if (i %% 3 == 0)
+                                                    warning("message 3")
+                                                }),
+                 paste(c("(1) message 1: This warning occurred 5 times",
+                         "(2) message 2: This warning occurred 2 times",
+                         "(3) message 3"), collapse = "\n"),
+                 fixed = TRUE)
 
   # .smoothing ----------------------------------------------------------------------------------
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))
