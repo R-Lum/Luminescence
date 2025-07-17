@@ -46,8 +46,8 @@
 #+++++++++++++++++++++
 
 #' Catches warning returned by a function and merges them.
-#' The original return of the function is returned. This function is in particular
-#' helpful if a function returns a lot of warnings with the same content.
+#' The original return value of the function is returned. This function is
+#' particularly helpful if a function returns a lot of identical warnings.
 #'
 #' @param expr [expression] (**required**):
 #' the R expression, usually a function
@@ -94,20 +94,12 @@
     w_table <- table(as.character(unlist(warning_collector)))
     w_table_names <- names(w_table)
 
-    warning(paste0(
-       "(",
-        1:length(w_table),
-        ") ",
-        w_table_names,
-        ": This warning occurred ",
-        w_table,
-        " times!"
-      ,collapse = "\n"),
-      call. = FALSE)
-
+    msg <- sprintf("(%d) %s%s", 1:length(w_table), w_table_names,
+                   ifelse(w_table == 1, "",
+                          paste(": This warning occurred", w_table, "times")))
+    warning(paste(msg, collapse = "\n"), call. = FALSE)
   }
   return(results)
-
 }
 
 #+++++++++++++++++++++
