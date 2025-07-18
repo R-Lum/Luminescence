@@ -41,8 +41,8 @@ test_that("Test internals", {
                                                   if (i %% 3 == 0)
                                                     warning("message 3")
                                                 }),
-                 paste(c("(1) message 1: This warning occurred 5 times",
-                         "(2) message 2: This warning occurred 2 times",
+                 paste(c("(1) message 1 [5 times]",
+                         "(2) message 2 [2 times]",
                          "(3) message 3"), collapse = "\n"),
                  fixed = TRUE)
 

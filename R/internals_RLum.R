@@ -42,10 +42,10 @@
 }
 
 #+++++++++++++++++++++
-#+ .warningCatcher()        +
+#+ .warningCatcher() +
 #+++++++++++++++++++++
 
-#' Catches warning returned by a function and merges them.
+#' Catches warnings returned by a function and merges them into a single one.
 #' The original return value of the function is returned. This function is
 #' particularly helpful if a function returns a lot of identical warnings.
 #'
@@ -53,9 +53,9 @@
 #' the R expression, usually a function
 #'
 #' @return
-#' Returns the same object as the input and a warning table
+#' Returns the same object as the input and throws a warning.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -74,17 +74,12 @@
 .warningCatcher <- function(expr) {
   ##set variables
   warning_collector <- list()
-  env <-  environment()
 
   ##run function and catch warnings
   results <- withCallingHandlers(
     expr = expr,
-    warning = function(c) {
-      temp <- c(get("warning_collector", envir = env), c[[1]])
-      assign(x = "warning_collector",
-             value = temp,
-             envir = env)
-
+    warning = function(w) {
+      warning_collector <<- c(warning_collector, w$message)
       tryInvokeRestart ("muffleWarning")
     }
   )
@@ -95,8 +90,7 @@
     w_table_names <- names(w_table)
 
     msg <- sprintf("(%d) %s%s", 1:length(w_table), w_table_names,
-                   ifelse(w_table == 1, "",
-                          paste(": This warning occurred", w_table, "times")))
+                   ifelse(w_table == 1, "", sprintf(" [%d times]", w_table)))
     warning(paste(msg, collapse = "\n"), call. = FALSE)
   }
   return(results)
