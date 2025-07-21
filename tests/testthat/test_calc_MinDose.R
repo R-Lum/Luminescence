@@ -134,7 +134,15 @@ test_that("graphical snapshot tests", {
   testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
-  vdiffr::expect_doppelganger("calc_MinDose expected",
-                              fig = calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1))
+  vdiffr::expect_doppelganger("default",
+                              calc_MinDose(ExampleData.DeValues$CA1,
+                                           sigmab = 0.1))
+  vdiffr::expect_doppelganger("invert",
+                              calc_MinDose(ExampleData.DeValues$CA1,
+                                           sigmab = 0.1,
+                                           invert = TRUE))
+  vdiffr::expect_doppelganger("small sigmab",
+                              calc_MinDose(ExampleData.DeValues$CA1,
+                                           sigmab = 0.009))
   })
 })
