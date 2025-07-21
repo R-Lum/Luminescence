@@ -388,7 +388,7 @@ calc_MinDose <- function(
   if ("invert" %in% names(extraArgs)) {
     invert <- extraArgs$invert
     .validate_logical_scalar(invert)
-    if (!log) {
+    if (invert && !log) {
       log <- TRUE # overwrite user choice as max dose model currently only supports the logged version
       .throw_warning("The maximum dose model only supports the logged version, ",
                      "'log' reset to TRUE\n")
@@ -839,7 +839,7 @@ calc_MinDose <- function(
       message(msg)
 
     n <- length(data[ ,1])
-    # Draw N+M samples of a normale distributed sigmab
+    # Draw N+M samples from a normally distributed sigmab
     sigmab <- rnorm(N + M, sigmab, sigmab.sd)
     # Draw N+M random indices and their frequencies
     b2Pmatrix <- draw_Freq()
