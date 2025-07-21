@@ -44,10 +44,10 @@ test_that("input validation", {
                  "'signal_range' accepts only positive values")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = c(1, 300), verbose = FALSE),
-                 "'signal_range' > number of channels, reset to maximum")
+                 "The last element of 'signal_range' exceeds the number of channels")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = 300, verbose = FALSE),
-                 "'signal_range' first element > last element, reset to default"
+                 "The first element of 'signal_range' exceeds the last element"
                 )
 
   temp <- temp_mat

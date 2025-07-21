@@ -186,7 +186,6 @@ fit_OSLLifeTimes <- function(
 
 # Self-call -----------------------------------------------------------------------------------
 if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
-
   .validate_not_empty(object)
 
   ##allow RLum.Analysis objects
@@ -236,14 +235,12 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
          verbose = verbose
          ),
          arg_list[[x]])
-
      ), outFile = stdout()) # redirect error messages so they can be silenced
 
      if(inherits(temp, "try-error")){
        return(NULL)
-     }else{
-       return(temp)
      }
+    return(temp)
   })
 
   ##combine results and return
@@ -305,28 +302,34 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   if(!is.null(signal_range)){
     .validate_class(signal_range, "numeric")
 
+    ## format the extremes of the signal range
+    reset_msg <- function(sr) {
+      sprintf("'signal_range' reset to c(%d, %d)", sr[1], sr[2])
+    }
+
     ##check lengths
     if(length(signal_range) == 1)
       signal_range <- c(signal_range, nrow(df))
-
-    if(length(signal_range) > 2)
+    else if (length(signal_range) > 2)
       .throw_warning("'signal_range' has more than 2 elements, ",
-                     "only the first 2 will be used")
+                     "only the first 2 will be used, ", reset_msg(signal_range))
 
     if (any(signal_range < 1)) {
       signal_range <- pmax(signal_range, 1)
       .throw_warning("'signal_range' accepts only positive values, ",
-                     "'signal_range' minimum reset to 1")
+                     reset_msg(signal_range))
     }
 
     if(signal_range[2] > nrow(df)){
-      .throw_warning("'signal_range' > number of channels, reset to maximum")
       signal_range[2] <- nrow(df)
+      .throw_warning("The last element of 'signal_range' exceeds the number ",
+                     "of channels, ", reset_msg(signal_range))
     }
 
     if(signal_range[1] > signal_range[2]){
-      .throw_warning("'signal_range' first element > last element, reset to default")
       signal_range <- c(1, nrow(df))
+      .throw_warning("The first element of 'signal_range' exceeds the last ",
+                     "element, ", reset_msg(signal_range))
     }
 
     ##set range
@@ -335,10 +338,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
   ## number of components requested
   .validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE)
-  m <- 1
-  if (!is.null(n.components)){
-    m <- n.components
-  }
+  m <- max(n.components, 1) ## using max() as n.components may be NULL
 
   ## ensure that we have a minimum of data points available: the minimum
   ## is computed so that the degrees of freedom for the F distribution is
@@ -375,32 +375,22 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   ##(1) >> set fitting function for minpack.lm
   x <- 0 #cheat R check routine
   fit_formula <- function(n.components, tp) {
-    A <- paste0("A.",1:n.components)
-    tau <- paste0("tau.",1:n.components)
-    stats::as.formula(paste0("y ~ ", paste(A," * exp(- x/(",tau," + ", tp, "))",
-                             collapse = " + ")))
+    comps <- 1:n.components
+    stats::reformulate(paste0("A.", comps, " * exp(-x / (tau.", comps,
+                              " + ", tp, "))", collapse = " + "),
+                       response = "y")
   }
   ##
   ##
   ##(2) create formula for differential evolution run
-    fn_constructor <- function(m){
-    ##get length of x-vector
-    x_len <- 1:(2 * m)
-
+  fn_constructor <- function(m) {
     ##generate term
-    term <- vapply(seq(1,length(x_len), by = 2), function(i){
-      paste0("(x[", i, "] * exp(-t/(x[", i + 1, "] + tp)))")
-
-    },character(1))
-
-    ##parse
-    term <- paste(term, collapse = " + ")
+    idx <- seq(1, 2 * m, by = 2)
+    term <- paste0("(x[", idx, "] * exp(-t / (x[", idx + 1, "] + tp)))",
+                   collapse = " + ")
 
     ##set weight (should be given as character)
-    w <- "1"
-    if(method_control_setting$weights){
-      w <- "c^2/n"
-    }
+    w <- if (method_control_setting$weights) "c^2 / n" else "1"
 
     ##combine
     term <- paste0("sum(",w," * ((n/c) - (",term,"))^2)")
@@ -556,7 +546,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
          NULL
        },
       lower = if(method_control_setting$nlsLM.lower){
-        c(rep(0,2*length(A)))
+         rep(0, 2 * length(A))
        }else{
          NULL
        },
@@ -740,7 +730,6 @@ if(plot) {
       bty = "n"
     )
 
-
     if(!plot_simple){
       graphics::screen(2)
       par(mar = c(4, 4, 0, 4))
@@ -757,6 +746,7 @@ if(plot) {
     }
 
   }else{
+      ## fitting failed
       plot(
         df,
         xlab = plot_settings$xlab,
@@ -768,14 +758,12 @@ if(plot) {
         log = plot_settings$log
       )
   }
-
 }#if plot
 
 # Return --------------------------------------------------------------------------------------
 
   ##create return object
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         data = summary_matrix,
@@ -786,6 +774,5 @@ if(plot) {
       info = list(
         call = sys.call()
       )
-    )
   )
 }
