@@ -242,8 +242,7 @@ calc_FiniteMixture <- function(
   ## console output
   verbose <- TRUE
   if("verbose" %in% names(extraArgs)) {
-    verbose<- extraArgs$verbose
-    .validate_logical_scalar(verbose)
+    verbose <- .validate_logical_scalar(extraArgs$verbose, name = "'verbose'")
   }
 
   ##============================================================================##

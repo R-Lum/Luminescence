@@ -1307,12 +1307,17 @@ SW <- function(expr) {
 #'        inferred from the name of the variable tested and reported with
 #'        quotes.
 #'
+#' @return
+#' The validated value, unless the validation failed with an error thrown.
+#'
 #' @md
 #' @noRd
 .validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
                                       name = NULL) {
-  if (missing(val) || is.null(val) && null.ok)
+  if (missing(val))
     return()
+  if (is.null(val) && null.ok)
+    return(NULL)
   if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && val != as.integer(val))) {
     if (is.null(name))
@@ -1320,6 +1325,7 @@ SW <- function(expr) {
     .throw_error(name, " should be a positive ", if (int) "integer ",
                  "scalar", if (null.ok) " or NULL")
   }
+  val
 }
 
 #' @title Validate logical scalar variables
@@ -1332,17 +1338,23 @@ SW <- function(expr) {
 #'        inferred from the name of the variable tested and reported with
 #'        quotes.
 #'
+#' @return
+#' The validated value, unless the validation failed with an error thrown.
+#'
 #' @md
 #' @noRd
 .validate_logical_scalar <- function(val, null.ok = FALSE, name = NULL) {
-  if (missing(val) || is.null(val) && null.ok)
+  if (missing(val))
     return()
+  if (is.null(val) && null.ok)
+    return(NULL)
   if (!is.logical(val) || length(val) != 1 || is.na(val)) {
     if (is.null(name))
       name <- sprintf("'%s'", all.vars(match.call())[1])
     .throw_error(name, " should be a single logical value",
                  if (null.ok) " or NULL")
   }
+  val
 }
 
 #' Check that a suggested package is installed

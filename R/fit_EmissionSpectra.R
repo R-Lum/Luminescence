@@ -197,9 +197,7 @@ fit_EmissionSpectra <- function(
   ## create a list of data treat, frame controls the number of frames analysed
 
   .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
-  if (!is.null(n_components)) {
-    .validate_positive_scalar(n_components, int = TRUE)
-  }
+  .validate_positive_scalar(n_components, int = TRUE, null.ok = TRUE)
   input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
                                 null.ok = TRUE)
   .validate_class(method_control, "list")

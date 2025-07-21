@@ -24,6 +24,9 @@ test_that("input validation", {
                "'verbose' should be a single logical value")
   expect_error(fit_IsothermalHolding(test_path("_data/CLBR.xlsx"), rhop = 1e-7),
                "XLS/XLSX format is not supported, use CSV instead")
+  expect_error(fit_IsothermalHolding(input.csv[1], rhop = 1e-7,
+                                     num_s_values_bts = 0),
+               "'num_s_values_bts' should be a positive integer scalar")
 })
 
 test_that("check functionality", {

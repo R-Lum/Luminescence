@@ -120,9 +120,10 @@ fit_IsothermalHolding <- function(
 
   ## allow to control how many random values for the s parameter should be
   ## generated when fitting the BTS model
-  num_s_values_bts <- list(...)$num_s_values_bts
-  if (!is.null(num_s_values_bts)) {
-    .validate_positive_scalar(num_s_values_bts, int = TRUE)
+  extraArgs <- list(...)
+  if (!is.null(extraArgs$num_s_values_bts)) {
+    num_s_values_bts <- .validate_positive_scalar(extraArgs$num_s_values_bts,
+                                                  int = TRUE, name = "'num_s_values_bts'")
   } else {
     num_s_values_bts <- 1000
   }

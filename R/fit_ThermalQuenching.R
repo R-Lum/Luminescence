@@ -179,9 +179,7 @@ fit_ThermalQuenching <- function(
 
   .validate_class(start_param, "list")
   .validate_class(method_control, "list")
-  .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
-  if (is.null(n.MC))
-    n.MC <- 1
+  n.MC <- max(.validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE), 1)
 
   ## Prepare data -----------------------------------------------------------
   ##
