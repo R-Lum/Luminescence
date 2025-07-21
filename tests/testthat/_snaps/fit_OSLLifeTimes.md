@@ -14,50 +14,31 @@
           },
           "value": [
             {
-              "type": "list",
-              "attributes": {},
-              "value": [
-                {
-                  "type": "double",
+              "type": "double",
+              "attributes": {
+                "dim": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": [21187374624.91338]
+                  "value": [2, 4]
                 },
-                {
-                  "type": "double",
+                "dimnames": {
+                  "type": "list",
                   "attributes": {},
-                  "value": [87.91459512]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [97105538.01901485]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [3.1679345]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [218.18914819]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [27.75139291]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1.19644063e-143]
+                  "value": [
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["A.1", "tau.1"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Estimate", "Std. Error", "t value", "Pr(>|t|)"]
+                    }
+                  ]
                 }
-              ]
+              },
+              "value": [21187374624.91338, 87.91459512, 97105538.01901485, 3.1679345, 218.18914819, 27.75139291, 0, 1.19644063e-143]
             },
             {
               "type": "double",
@@ -142,90 +123,31 @@
           },
           "value": [
             {
-              "type": "list",
-              "attributes": {},
-              "value": [
-                {
-                  "type": "double",
+              "type": "double",
+              "attributes": {
+                "dim": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": [21187380528.417492]
+                  "value": [4, 4]
                 },
-                {
-                  "type": "double",
+                "dimnames": {
+                  "type": "list",
                   "attributes": {},
-                  "value": [87.91437058]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [21187374615.080013]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [87.91459548]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [97105552.15831606]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [3.16791835]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [97105537.39146955]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [3.1679345]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [218.18917721]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [27.75146355]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [218.1891495]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [27.75139309]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1.19474683e-143]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1.19643624e-143]
+                  "value": [
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["A.1", "tau.1", "A.1", "tau.1"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Estimate", "Std. Error", "t value", "Pr(>|t|)"]
+                    }
+                  ]
                 }
-              ]
+              },
+              "value": [21187380528.417492, 87.91437058, 21187374615.080013, 87.91459548, 97105552.15831606, 3.16791835, 97105537.39146955, 3.1679345, 218.18917721, 27.75146355, 218.1891495, 27.75139309, 0, 1.19474683e-143, 0, 1.19643624e-143]
             },
             {
               "type": "double",
@@ -310,50 +232,31 @@
           },
           "value": [
             {
-              "type": "list",
-              "attributes": {},
-              "value": [
-                {
-                  "type": "double",
+              "type": "double",
+              "attributes": {
+                "dim": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": [31649193808.64809]
+                  "value": [2, 4]
                 },
-                {
-                  "type": "double",
+                "dimnames": {
+                  "type": "list",
                   "attributes": {},
-                  "value": [3.19735974]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [733990387.37895739]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.24304722]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [43.11935736]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [13.15530275]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1.34471628e-102]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [8.14487851e-29]
+                  "value": [
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["A.1", "tau.1"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Estimate", "Std. Error", "t value", "Pr(>|t|)"]
+                    }
+                  ]
                 }
-              ]
+              },
+              "value": [31649193808.64809, 3.19735974, 733990387.37895739, 0.24304722, 43.11935736, 13.15530275, 1.34471628e-102, 8.14487851e-29]
             },
             {
               "type": "double",
@@ -438,50 +341,31 @@
           },
           "value": [
             {
-              "type": "list",
-              "attributes": {},
-              "value": [
-                {
-                  "type": "double",
+              "type": "double",
+              "attributes": {
+                "dim": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": [19824557591.686665]
+                  "value": [2, 4]
                 },
-                {
-                  "type": "double",
+                "dimnames": {
+                  "type": "list",
                   "attributes": {},
-                  "value": [1002.32328719]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [15145738206.299696]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [614028.48522272]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1.30891986]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.00163237]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.26069371]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.99877572]
+                  "value": [
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["A.1", "tau.1"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Estimate", "Std. Error", "t value", "Pr(>|t|)"]
+                    }
+                  ]
                 }
-              ]
+              },
+              "value": [19824557591.686665, 1002.32328719, 15145738206.299696, 614028.48522272, 1.30891986, 0.00163237, 0.26069371, 0.99877572]
             },
             {
               "type": "double",
