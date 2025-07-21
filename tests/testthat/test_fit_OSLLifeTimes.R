@@ -149,4 +149,11 @@ test_that("check functionality", {
   expect_message(fit_OSLLifeTimes(temp_mat[1:10, ]),
                  "The fitting was not successful, consider trying again")
   })
+
+  ## more coverage
+  expect_snapshot_RLum(fit_OSLLifeTimes(
+      object = temp_mat[125:130, ],
+      verbose = FALSE,
+      plot = FALSE),
+      tolerance = 1.5e-5)
 })

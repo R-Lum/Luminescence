@@ -422,3 +422,131 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["data", "start_matrix", "total_counts"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {},
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [19824557591.686665]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1002.32328719]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [15145738206.299696]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [614028.48522272]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.30891986]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.00163237]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.26069371]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.99877572]
+                }
+              ]
+            },
+            {
+              "type": "double",
+              "attributes": {
+                "dim": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2]
+                },
+                "dimnames": {
+                  "type": "list",
+                  "attributes": {},
+                  "value": [
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Comp.1"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["A", "tau"]
+                    }
+                  ]
+                }
+              },
+              "value": [16470292470.938137, 9999.99999827]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [117200000000]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["fit_OSLLifeTimes"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+

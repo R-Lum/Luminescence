@@ -26,8 +26,10 @@ expect_snapshot_RLum <- function(object, ...) {
         object@data$fits$unfaded$convInfo$finIter <- NULL # for macos
       }
     }
-    if ("data" %in% names(object@data))
-      object@data$data$UID <- NULL
+    if ("data" %in% names(object@data)) {
+      if ("UID" %in% names(object@data$data))
+        object@data$data$UID <- NULL
+    }
     if ("Fit" %in% names(object@data))
       object@data$Fit <- NULL
     if ("Formula" %in% names(object@data))
