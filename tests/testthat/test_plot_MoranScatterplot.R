@@ -38,6 +38,9 @@ test_that("check functionality", {
   expect_warning(plot_MoranScatterplot((1:100) - 20, log = "y",
                                        legend = FALSE),
                  "y-axis values rescaled because of log transform \\(also in return df\\)")
+  expect_warning(plot_MoranScatterplot((1:100) - 4.5, log = "y",
+                                       legend = FALSE),
+                 "y-axis values rescaled because of log transform \\(also in return df\\)")
 
   expect_silent(plot_MoranScatterplot((1:100) - 2, log = "y",
                                        legend = FALSE))
