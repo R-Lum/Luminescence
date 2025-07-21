@@ -48,6 +48,11 @@ the dose response curve. This was not the expected behaviour, and resulted
 in poor performance (a 2x slowdown for `n.MC = 10000`). This regression was
 introduced in version 1.0.0 (#867).
 
+### `fit_OSLLifeTimes()`
+
+* The function ensures that the `signal_range` argument doesn't contain
+negative values instead of crashing (#896).
+
 ### `get_RLum()`
 
 * The function doesn't crash anymore on `RLum.Analysis` objects if

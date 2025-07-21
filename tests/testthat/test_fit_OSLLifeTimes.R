@@ -40,11 +40,14 @@ test_that("input validation", {
                                   signal_range = c(1, 150:200), verbose = FALSE),
                  "'signal_range' has more than 2 elements")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
+                                  signal_range = -1, verbose = FALSE),
+                 "'signal_range' accepts only positive values")
+  expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = c(1, 300), verbose = FALSE),
-                 "'signal_range' > number of channels, reset to maximum")
+                 "The last element of 'signal_range' exceeds the number of channels")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = 300, verbose = FALSE),
-                 "'signal_range' first element > last element, reset to default"
+                 "The first element of 'signal_range' exceeds the last element"
                 )
 
   temp <- temp_mat
@@ -103,11 +106,15 @@ test_that("check functionality", {
     object = temp_analysis,
     verbose = FALSE,
     plot = FALSE,
+    method_control = list(DEoptim.itermax = 25),
     n.components = 1), class = "RLum.Results")
   expect_s4_class(fit_OSLLifeTimes(
     object = list(temp_analysis),
     verbose = FALSE,
     plot = FALSE,
+    method_control = list(seed = 1, weights = FALSE,
+                          DEoptim.itermax = 25,
+                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
     n.components = 1), class = "RLum.Results")
 
   ## simple data.frame
@@ -122,17 +129,6 @@ test_that("check functionality", {
     n.components = NULL),
     tolerance = snapshot.tolerance)
   })
-
-  ##test arguments
-  ##simple run
-  expect_s4_class(object = fit_OSLLifeTimes(
-    object = ExampleData.TR_OSL,
-    method_control = list(seed = 1, weights = FALSE,
-                          DEoptim.itermax = 25,
-                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
-    plot = FALSE,
-    verbose = FALSE,
-    n.components = 1), class = "RLum.Results")
 
   ##warning for log
   expect_warning(expect_warning(
