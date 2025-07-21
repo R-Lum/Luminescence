@@ -410,6 +410,7 @@ calc_MinDose <- function(
   if ("bs.M" %in% names(extraArgs)) {
     M <- as.integer(extraArgs$bs.M)
     .validate_positive_scalar(M, int = TRUE, name = "'bs.M'")
+    M <- max(M, 2) # issue 900
   } else {
     M <- 1000
   }

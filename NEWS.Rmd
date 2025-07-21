@@ -52,6 +52,12 @@ introduced in version 1.0.0 (#867).
 
 * The function crashed if `sigmab` was set to a very small value (#898).
 
+### `calc_MinDose()`
+
+* The function crashed when bootstrapping with `bs.M = 1`. Now the `bs.M`
+parameter is silently reset to 2 in that case, although such low values are
+discouraged as they may trigger a warning during lues fitting (#900).
+
 ### `fit_OSLLifeTimes()`
 
 * The function ensures that the `signal_range` argument doesn't contain

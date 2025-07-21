@@ -154,4 +154,9 @@ test_that("regression tests", {
   expect_silent(calc_MinDose(ExampleData.DeValues$CA1,
                              sigmab = 0.009, invert = TRUE,
                              verbose = FALSE, plot = FALSE))
+
+  ## issue 900
+  expect_warning(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              bootstrap = TRUE, bs.M = 1,
+                              verbose = FALSE, plot = FALSE))
 })
