@@ -106,11 +106,15 @@ test_that("check functionality", {
     object = temp_analysis,
     verbose = FALSE,
     plot = FALSE,
+    method_control = list(DEoptim.itermax = 25),
     n.components = 1), class = "RLum.Results")
   expect_s4_class(fit_OSLLifeTimes(
     object = list(temp_analysis),
     verbose = FALSE,
     plot = FALSE,
+    method_control = list(seed = 1, weights = FALSE,
+                          DEoptim.itermax = 25,
+                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
     n.components = 1), class = "RLum.Results")
 
   ## simple data.frame
@@ -125,17 +129,6 @@ test_that("check functionality", {
     n.components = NULL),
     tolerance = snapshot.tolerance)
   })
-
-  ##test arguments
-  ##simple run
-  expect_s4_class(object = fit_OSLLifeTimes(
-    object = ExampleData.TR_OSL,
-    method_control = list(seed = 1, weights = FALSE,
-                          DEoptim.itermax = 25,
-                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
-    plot = FALSE,
-    verbose = FALSE,
-    n.components = 1), class = "RLum.Results")
 
   ##warning for log
   expect_warning(expect_warning(
