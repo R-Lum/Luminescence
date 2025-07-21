@@ -47,6 +47,10 @@
   resulted in poor performance (a 2x slowdown for `n.MC = 10000`). This
   regression was introduced in version 1.0.0 (#867).
 
+### `calc_MaxDose()`
+
+- The function crashed if `sigmab` was set to a very small value (#898).
+
 ### `fit_OSLLifeTimes()`
 
 - The function ensures that the `signal_range` argument doesn’t contain

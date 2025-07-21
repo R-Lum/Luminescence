@@ -146,3 +146,12 @@ test_that("graphical snapshot tests", {
                                            sigmab = 0.009))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 898
+  expect_silent(calc_MinDose(ExampleData.DeValues$CA1,
+                             sigmab = 0.009, invert = TRUE,
+                             verbose = FALSE, plot = FALSE))
+})

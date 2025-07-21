@@ -531,7 +531,7 @@ calc_MinDose <- function(
   }
 
   ##============================================================================##
-  ## AUXILLARY FUNCTIONS
+  ## AUXILIARY FUNCTIONS
   ##============================================================================##
 
   # THIS FUNCTION CALCULATES THE NEGATIVE LOG LIKELIHOOD OF THE DATA
@@ -673,12 +673,12 @@ calc_MinDose <- function(
     cnt <- cnt + 1
   }
 
-  ## DELETE rows where z = -Inf/Inf
-  prof@profile$gamma <- prof@profile$gamma[!is.infinite(prof@profile$gamma[["z"]]), ]
-  prof@profile$sigma <- prof@profile$sigma[!is.infinite(prof@profile$sigma[["z"]]), ]
-  prof@profile$p0 <- prof@profile$p0[!is.infinite(prof@profile$p0[["z"]]), ]
+  ## delete rows where z = -Inf/Inf or NaN
+  prof@profile$gamma <- prof@profile$gamma[is.finite(prof@profile$gamma$z), ]
+  prof@profile$sigma <- prof@profile$sigma[is.finite(prof@profile$sigma$z), ]
+  prof@profile$p0 <- prof@profile$p0[is.finite(prof@profile$p0$z), ]
   if (par == 4) {
-    prof@profile$mu <- prof@profile$mu[!is.infinite(prof@profile$mu[["z"]]), ]
+    prof@profile$mu <- prof@profile$mu[is.finite(prof@profile$mu$z), ]
   }
 
   # calculate Bayesian Information Criterion (BIC)
