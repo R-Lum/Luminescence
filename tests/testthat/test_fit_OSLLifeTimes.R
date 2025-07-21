@@ -40,6 +40,9 @@ test_that("input validation", {
                                   signal_range = c(1, 150:200), verbose = FALSE),
                  "'signal_range' has more than 2 elements")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
+                                  signal_range = -1, verbose = FALSE),
+                 "'signal_range' accepts only positive values")
+  expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = c(1, 300), verbose = FALSE),
                  "'signal_range' > number of channels, reset to maximum")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,

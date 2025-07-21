@@ -313,6 +313,12 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       .throw_warning("'signal_range' has more than 2 elements, ",
                      "only the first 2 will be used")
 
+    if (any(signal_range < 1)) {
+      signal_range <- pmax(signal_range, 1)
+      .throw_warning("'signal_range' accepts only positive values, ",
+                     "'signal_range' minimum reset to 1")
+    }
+
     if(signal_range[2] > nrow(df)){
       .throw_warning("'signal_range' > number of channels, reset to maximum")
       signal_range[2] <- nrow(df)
