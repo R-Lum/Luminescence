@@ -337,8 +337,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   }
 
   ## number of components requested
-  .validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE)
-  m <- max(n.components, 1) ## using max() as n.components may be NULL
+  m <- max(.validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE), 1)
 
   ## ensure that we have a minimum of data points available: the minimum
   ## is computed so that the degrees of freedom for the F distribution is

@@ -300,10 +300,8 @@ calc_FadingCorr <- function(
       cat(paste0("   ",paste0("(",0:9,")", collapse = "   "), "\n"))
     }
   }else{
-    .validate_positive_scalar(n.MC, int = TRUE)
-    n.MC.i <- n.MC
+    n.MC.i <- .validate_positive_scalar(n.MC, int = TRUE)
   }
-
 
   # Start loop  ---------------------------------------------------------------------------------
 

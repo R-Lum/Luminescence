@@ -485,7 +485,6 @@ analyse_baSAR <- function(
       } else{
         .validate_positive_scalar(method_control[["thin"]], int = TRUE,
                                   name = "'thin' in 'method_control'")
-        method_control[["thin"]]
       }
 
       ## jags reports ugly errors if thin exceeds n.MCMC / 2, as that
