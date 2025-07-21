@@ -55,7 +55,7 @@
 
 - The function crashed when bootstrapping with `bs.M = 1`. Now the
   `bs.M` parameter is silently reset to 2 in that case, although such
-  low values are discouraged as they may trigger a warning during lues
+  low values are discouraged as they may trigger a warning during loess
   fitting (#900).
 
 ### `fit_OSLLifeTimes()`
