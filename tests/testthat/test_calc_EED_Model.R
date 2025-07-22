@@ -63,5 +63,12 @@ test_that("check functionality", {
     verbose = TRUE,
     method_control = list(trace = TRUE, trace_plot = TRUE),
     expected_dose = 11.7), "RLum.Results")
+
+  expect_error(calc_EED_Model(
+    data = MortarData,
+    kappa = 1,
+    expected_dose = 95,
+    n.simul = 300),
+    "Surface interpolation failed, you may want to try it again")
   })
 })
