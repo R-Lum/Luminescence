@@ -143,35 +143,22 @@ calc_EED_Model <- function(
   ##the helper functions base on ode by Pierre, each helper was only a little bit
   ## optimised and then tested separately
 
+  # Col_Index = 3:
   # Calcul de la variance du plateau sur la base des doses arch?o
   # corrig?es de la dose r?siduelle uniquement (modif 31.5.2018)
-  # nocov start
-  .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index){
-    var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, 3]) # doses nettes corrigées résiduel uniquement
-    mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 3])
-    return(var_ratio / (mean_ratio ^ 2))
-  }
-  # nocov end
-
+  # Col_Index = 4 (.calc_Plateau_Variance_uncorr):
   # Calcul de la variance du plateau      modifi? le 31.5.2018
   # sur la base des rapport observ?/simul? des doses totales brutes
-  .calc_Plateau_Variance_uncorr <- function (M_Data, MinDose_Index, MaxDose_Index){
-    var_ratio <-
-      stats::var(M_Data[MinDose_Index:MaxDose_Index, 4]) # ratio observé/simulé brut
-    mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 4])
-    return (var_ratio / (mean_ratio ^ 2))
-  }
-
+  # Col_Index = 6 (.calc_Plateau_Variance_AD):
   # Calcul de la variance du plateau      ajout le 20.8.2018
   # sur la base des doses archeologiques
   # ##TODO not yet included
-  # nocov start
-  .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
-      var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, 6])
-      mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 6])
-      return (var_ratio / (mean_ratio ^ 2))
-    }
-  # nocov end
+  .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index,
+                                     Col_Index) {
+    var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, Col_Index])
+    mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, Col_Index])
+    return(var_ratio / mean_ratio^2)
+  }
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
 
@@ -346,8 +333,9 @@ calc_EED_Model <- function(
       ##return variance and the mean DE
       return(
         c(
-        VAR = .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = set_MinDose_Index,
-                                            MaxDose_Index = set_MaxDose_Index),
+        VAR = .calc_Plateau_Variance(M_Data, MinDose_Index = set_MinDose_Index,
+                                     MaxDose_Index = set_MaxDose_Index,
+                                     Col_Index = 4),
         RESIDUAL = sum((M_Data[,6] - rep(set_expected_dose, nrow(M_Data)))^2)
         ))
       }
