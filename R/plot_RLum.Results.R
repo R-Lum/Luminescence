@@ -51,7 +51,6 @@
 #' plot_RLum.Results(grains)
 #'
 #'
-#' @md
 #' @export
 plot_RLum.Results<- function(
   object,

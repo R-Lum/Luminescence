@@ -65,7 +65,6 @@
 #'
 #' plot_AbanicoPlot(results)
 #'
-#'@md
 #'@export
 calc_gSGC_feldspar <- function (
   data,

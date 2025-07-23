@@ -33,7 +33,6 @@
 #'## import image
 #'image <- read_TIFF2R(file)
 #'
-#'@md
 #'@export
 read_TIFF2R <- function(
   file,

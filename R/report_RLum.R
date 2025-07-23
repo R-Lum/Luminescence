@@ -176,7 +176,6 @@
 #' report_RLum(object = x, file = "~/arbitray_list")
 #' }
 #'
-#' @md
 #' @export
 report_RLum <- function(
   object,

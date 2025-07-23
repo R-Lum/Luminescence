@@ -50,7 +50,6 @@
 #' A novel tool to assess crosstalk in single-grain luminescence detection.
 #' Submitted.
 #'
-#' @md
 #' @export
 plot_MoranScatterplot <- function(
     object,

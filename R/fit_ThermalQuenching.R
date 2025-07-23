@@ -127,7 +127,6 @@
 #'  data = data,
 #'  n.MC = NULL)
 #'
-#' @md
 #' @export
 fit_ThermalQuenching <- function(
   data,

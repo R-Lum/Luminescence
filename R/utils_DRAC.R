@@ -5,7 +5,6 @@
 #' @param x [data.frame] or [DRAC.list]
 #'
 #'
-#' @md
 #' @noRd
 .get_DRAC_references <- function(x) {
   refs <- DRAC_refs()

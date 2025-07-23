@@ -80,7 +80,6 @@
 #'## run function
 #'calc_CobbleDoseRate(ExampleData.CobbleData)
 #'
-#'@md
 #'@export
 calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   .set_function_name("calc_CobbleDoseRate")

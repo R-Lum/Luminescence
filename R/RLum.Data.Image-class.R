@@ -43,7 +43,6 @@
 #' ##create empty RLum.Data.Image object
 #' set_RLum(class = "RLum.Data.Image")
 #'
-#' @md
 #' @export
 setClass(
   "RLum.Data.Image",
@@ -77,7 +76,6 @@ setClass(
 #'   `matrix` \tab `matrix`
 #' }
 #'
-#' @md
 #' @name as
 ## from data.frame ----
 setAs("data.frame", "RLum.Data.Image",
@@ -167,7 +165,6 @@ setAs("RLum.Data.Image", "list",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Image"),
@@ -229,7 +226,6 @@ setMethod("show",
 #'
 #' Returns an object from class `RLum.Data.Image`
 #'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -313,7 +309,6 @@ setMethod(
 #' 1. Returns the data object ([array])
 #' 2. only the info object if `info.object` was set.
 #'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Image"),
@@ -347,7 +342,6 @@ setMethod("get_RLum",
 #'
 #' Returns the names of the info elements
 #'
-#' @md
 #' @export
 setMethod(
   "names_RLum",

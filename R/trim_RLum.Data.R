@@ -67,7 +67,6 @@
 #'nrow(c@records[[4]]@data)
 #'
 #'
-#'@md
 #'@export
 trim_RLum.Data <- function(
     object,

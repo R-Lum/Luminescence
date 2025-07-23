@@ -85,7 +85,6 @@
 #' calc_MoransI(object = rnorm(n = 100))
 #' calc_MoransI(object = rnorm(n = 100))
 #'
-#' @md
 #' @export
 calc_MoransI <- function(object,
                          df_neighbours = NULL,
@@ -216,7 +215,6 @@ calc_MoransI <- function(object,
 #' Submitted.
 #'
 #' @keywords internal
-#' @md
 #' @noRd
 .compute_pseudo_p <- function(values, moransI, n_permutations, df_neighbours) {
 

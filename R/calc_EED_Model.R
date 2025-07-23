@@ -94,7 +94,6 @@
 #'  expected_dose = 11.7)
 #' }
 #'
-#' @md
 #' @export
 calc_EED_Model <- function(
   data,

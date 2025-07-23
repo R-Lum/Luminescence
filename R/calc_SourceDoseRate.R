@@ -130,7 +130,6 @@
 #'
 #'}
 #'
-#' @md
 #' @export
 calc_SourceDoseRate <- function(
   measurement.date = Sys.Date(),

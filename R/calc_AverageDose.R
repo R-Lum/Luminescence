@@ -125,7 +125,6 @@
 #'  data = ExampleData.DeValues$CA1[1:56,],
 #'  z.0 = AD$summary$AVERAGE_DOSE)
 #'
-#' @md
 #' @export
 calc_AverageDose <- function(
   data,

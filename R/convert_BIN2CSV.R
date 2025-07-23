@@ -39,7 +39,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 convert_BIN2CSV <- function(
   file,

@@ -86,7 +86,6 @@
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'
 #' @keywords internal
-#' @md
 #' @name methods_RLum
 NULL
 
@@ -187,7 +186,6 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 #' @param records.rm [subset] [logical] (*with default*):
 #' remove records from data set, can be disabled, to just set the column `SET` to `TRUE` or `FALSE`
 #'
-#' @md
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
   .set_function_name("subset.Risoe.BINfileData")

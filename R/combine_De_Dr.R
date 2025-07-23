@@ -54,7 +54,6 @@
 #' sigma <- sqrt(fit$parameters$variance$sigmasq)
 #' Age_range <- c(0, Dr * (1 + rnorm(length(Dr), 0, int_OD[1])))
 #' res <- .calc_IndividualAgeModel(theta, mu, sigma, De, s, sig0, Age_range = Age_range)
-#'@md
 #'@noRd
 .calc_IndividualAgeModel <- function(
   theta,
@@ -217,7 +216,6 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@md
 #'@noRd
 .calc_BayesianCentralAgeModel <- function(
   theta,
@@ -495,7 +493,6 @@
 #'writeLines(results@info$model_BCAM)
 #'}
 #'
-#'@md
 #'@export
 combine_De_Dr <- function(
   De,

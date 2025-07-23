@@ -48,7 +48,6 @@
 #' .as.latex.table(df, pos = "lr")
 #' .as.latex.table(df, select = "y", pos = "r")
 #'
-#' @md
 #' @export
 .as.latex.table <- function(
     x,

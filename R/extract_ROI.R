@@ -50,7 +50,6 @@
 #' roi <- matrix(c(2.,4,2,5,6,7,3,1,1), ncol = 3)
 #' extract_ROI(object = m, roi = roi, plot = TRUE)
 #'
-#'@md
 #'@export
 extract_ROI <- function(
   object,

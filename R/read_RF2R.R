@@ -36,7 +36,6 @@
 #' file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 #' temp <- read_RF2R(file)
 #'
-#' @md
 #' @export
 read_RF2R <- function(
   file,

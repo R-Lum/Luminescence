@@ -56,7 +56,6 @@
 #' [http://luminescence.de/OSLdecomp_talk.pdf]()\cr
 #'
 #' @keywords datagen
-#' @md
 #' @export
 calc_OSLLxTxDecomposed <- function(
   Lx.data,

@@ -103,7 +103,6 @@
 #' ##run analysis
 #' analyse_Al2O3C_ITC(data_ITC)
 #'
-#' @md
 #' @export
 analyse_Al2O3C_ITC <- function(
   object,

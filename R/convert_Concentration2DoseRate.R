@@ -99,7 +99,6 @@
 #'## convert
 #'convert_Concentration2DoseRate(input)
 #'
-#'@md
 #'@export
 convert_Concentration2DoseRate <- function(
   input,

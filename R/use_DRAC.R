@@ -113,7 +113,6 @@
 #' .as.latex.table(output)
 #' }
 #'
-#' @md
 #' @export
 use_DRAC <- function(
   file,

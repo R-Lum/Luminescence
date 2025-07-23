@@ -37,7 +37,6 @@
 #'object <- rnorm(1000, 100, 10)
 #'plot_OSLAgeSummary(object)
 #'
-#'@md
 #'@export
 plot_OSLAgeSummary <- function(
   object,

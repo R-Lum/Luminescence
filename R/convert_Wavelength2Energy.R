@@ -121,7 +121,6 @@
 #'  ylab = "Luminescence [a.u.]"
 #' )
 #'
-#'@md
 #'@export
 convert_Wavelength2Energy <- function(
   object,

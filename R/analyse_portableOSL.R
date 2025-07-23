@@ -123,7 +123,6 @@
 #'   normalise = TRUE)
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 analyse_portableOSL <- function(
   object,

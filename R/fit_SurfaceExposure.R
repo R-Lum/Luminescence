@@ -211,7 +211,6 @@
 #'  D0 = 40)
 #'get_RLum(results)
 #'
-#' @md
 #' @export
 fit_SurfaceExposure <- function(
     data,

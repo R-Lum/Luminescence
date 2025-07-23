@@ -87,7 +87,6 @@
 #' ##export to temporary file path
 #' write_R2BIN(temp, file = temp_file)
 #'
-#' @md
 #' @export
 write_R2BIN <- function(
   object,

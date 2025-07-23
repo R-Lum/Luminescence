@@ -154,7 +154,6 @@
 #' ## return plot output to draw a thicker KDE line
 #' KDE_out <- plot_KDE(data = ExampleData.DeValues)
 #'
-#' @md
 #' @export
 plot_KDE <- function(
   data,

@@ -29,7 +29,6 @@
 #'data(ExampleData.RLum.Data.Image, envir = environment())
 #'write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile())
 #'
-#'@md
 #'@export
 write_R2TIFF <- function(
   object,

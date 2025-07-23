@@ -59,7 +59,6 @@
 #'
 #' plot_SingleGrainDisc(1:100)
 #'
-#' @md
 #' @export
 plot_SingleGrainDisc <- function(object,
                                  show_coordinates = FALSE,

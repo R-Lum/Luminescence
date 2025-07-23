@@ -44,7 +44,6 @@
 #' observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
 #' hist(observations_with_simulated_crosstalk)
 #'
-#' @md
 #' @export
 apply_Crosstalk <- function(object,
                             n_crosstalk = 0.2

@@ -34,7 +34,6 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @md
 #' @export
 analyse_ThermochronometryData <- function(
   object,

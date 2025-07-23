@@ -62,7 +62,6 @@
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setClass("RLum.Analysis",
          slots = list(
@@ -93,7 +92,6 @@ setClass("RLum.Analysis",
 #'
 #' Given that the [list] consists of [RLum.Analysis-class] objects.
 #'
-#' @md
 #' @name as
 setAs("list", "RLum.Analysis",
       function(from,to){
@@ -112,7 +110,6 @@ setAs("RLum.Analysis", "list",
 #' @describeIn RLum.Analysis
 #' Show structure of `RLum.Analysis` object
 #'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Analysis"),
@@ -235,7 +232,6 @@ setMethod("show",
 #'
 #' Returns an [RLum.Analysis-class] object.
 #'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -343,7 +339,6 @@ setMethod(
 #' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
 #' 3. [RLum.Analysis-class] objects for `drop = FALSE`
 #'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
@@ -570,7 +565,6 @@ setMethod("get_RLum",
 #'
 #' [RLum.Analysis-class]; can be empty.
 #'
-#' @md
 #' @export
 setMethod("remove_RLum",
       signature= "RLum.Analysis",
@@ -624,7 +618,6 @@ setMethod("remove_RLum",
 #'
 #' Returns [data.frame-class] showing the structure.
 #'
-#' @md
 #' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
@@ -726,7 +719,6 @@ setMethod("structure_RLum",
 #'
 #' Returns the number records in this object.
 #'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Analysis",
@@ -745,7 +737,6 @@ setMethod("length_RLum",
 #'
 #' Returns the names of the record types (`recordType`) in this object.
 #'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Analysis",
@@ -766,7 +757,6 @@ setMethod("names_RLum",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("add_metadata<-",
           signature= "RLum.Analysis",
@@ -796,7 +786,6 @@ setMethod("add_metadata<-",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("rename_metadata<-",
           signature= "RLum.Analysis",
@@ -827,7 +816,6 @@ setMethod("rename_metadata<-",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("replace_metadata<-",
           signature= "RLum.Analysis",
@@ -866,7 +854,6 @@ setMethod("replace_metadata<-",
 #'
 #' Same object as input, after smoothing
 #'
-#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",
@@ -919,7 +906,6 @@ setMethod(
 #' sar <- OSL.SARMeasurement$Sequence.Object[1:5]
 #' sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 #'
-#' @md
 #' @export
 setMethod(
   f = "sort_RLum",
@@ -1041,7 +1027,6 @@ setMethod(
 #'
 #' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
 #'
-#' @md
 #' @export
 setMethod(
   f = "melt_RLum",
@@ -1060,7 +1045,6 @@ setMethod(
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("view",
           signature = "RLum.Analysis",

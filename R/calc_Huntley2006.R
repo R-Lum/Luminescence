@@ -301,7 +301,6 @@
 #'  readerDdot = readerDdot,
 #'  n.MC = 25)
 #' }
-#' @md
 #' @export
 calc_Huntley2006 <- function(
     data,

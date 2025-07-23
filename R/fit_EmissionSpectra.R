@@ -175,7 +175,6 @@
 #'
 #'}
 #'
-#'@md
 #'@export
 fit_EmissionSpectra <- function(
   object,

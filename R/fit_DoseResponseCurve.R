@@ -335,7 +335,6 @@
 #'  verbose = FALSE)$Fit)
 #'  }
 #'
-#' @md
 #' @export
 fit_DoseResponseCurve <- function(
   object,
@@ -1813,7 +1812,6 @@ fit_DoseResponseCurve <- function(
 #'
 #'@returns New objects into the parent environment
 #'
-#'@md
 #'@noRd
 .get_coef <- function(x, pre = "", sufx = "") {
   ## get coefficients and set their names
@@ -1836,7 +1834,6 @@ fit_DoseResponseCurve <- function(
 #'
 #'@returns Returns an [expression]
 #'
-#'@md
 #'@noRd
 .replace_coef <- function(f) {
   ## get formula as character string
@@ -1884,7 +1881,6 @@ fit_DoseResponseCurve <- function(
 #'very complicated to-track-down errors when R tries to access the function
 #'stack
 #'
-#'@md
 #'@noRd
 .toFormula <- function(f, env) {
   ## deparse
@@ -1915,7 +1911,6 @@ fit_DoseResponseCurve <- function(
 #'
 #'@note Not used here, however, part of the reference implementation.
 #'
-#'@md
 #'@noRd
 .nN2D <- function(nN, Q, D63) D63 * ((-log(1-nN) - Q*nN)/(1 - Q*(1-exp(-1)))) # nocov
 
@@ -1935,7 +1930,6 @@ fit_DoseResponseCurve <- function(
 #'
 #'@references https://github.com/jll2/LumDRC/blob/main/otorx.py
 #'
-#'@md
 #'@noRd
 .D2nN <- function(D, Q, D63, a) {
   if(all(abs(Q) < 1e-06))

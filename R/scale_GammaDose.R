@@ -236,7 +236,6 @@
 #'
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 scale_GammaDose <- function(
   data,

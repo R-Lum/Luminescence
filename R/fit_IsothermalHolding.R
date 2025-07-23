@@ -56,7 +56,6 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @md
 #' @export
 fit_IsothermalHolding <- function(
     data,

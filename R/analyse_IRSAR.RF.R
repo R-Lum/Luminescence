@@ -434,7 +434,6 @@
 #'  method_control = list(trace = TRUE))
 #' }
 #'
-#' @md
 #' @export
 analyse_IRSAR.RF<- function(
   object,

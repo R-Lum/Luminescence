@@ -155,7 +155,6 @@
 #'   fit.method = "EXP")
 #'
 #'
-#'@md
 #'@export
 calc_Lamothe2003 <- function(
   object,

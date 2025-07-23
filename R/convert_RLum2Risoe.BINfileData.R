@@ -32,7 +32,6 @@
 #'
 #'@return The function returns a [Risoe.BINfileData-class] object.
 #'
-#'@md
 #'@export
 convert_RLum2Risoe.BINfileData <- function(
   object,

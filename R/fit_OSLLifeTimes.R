@@ -168,7 +168,6 @@
 #' object = ExampleData.TR_OSL)
 #' }
 #'
-#'@md
 #'@export
 fit_OSLLifeTimes <- function(
   object,

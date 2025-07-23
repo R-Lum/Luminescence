@@ -115,7 +115,6 @@
 #'                                    merge.method = "sum")
 #' plot_RLum(merged)
 #'
-#' @md
 #' @export
 merge_RLum.Data.Spectrum <- function(
   object,

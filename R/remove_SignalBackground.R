@@ -71,7 +71,6 @@
 #'  object = xsyg_v1,
 #'  recordType = "TL (UVVIS)")
 #'
-#'@md
 #'@export
 remove_SignalBackground <- function(
   object,

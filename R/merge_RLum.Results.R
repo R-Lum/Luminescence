@@ -19,7 +19,6 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @md
 #' @export
 merge_RLum.Results <- function(
   objects

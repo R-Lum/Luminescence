@@ -83,7 +83,6 @@
 #' ##run analysis
 #' analyse_Al2O3C_CrossTalk(data_CrossTalk)
 #'
-#' @md
 #' @export
 analyse_Al2O3C_CrossTalk <- function(
   object,

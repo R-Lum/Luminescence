@@ -113,7 +113,6 @@
 #'
 #' @useDynLib Luminescence, .registration = TRUE
 #'
-#' @md
 "_PACKAGE"
 
 #' Base data set of dose-rate conversion factors
@@ -172,7 +171,6 @@
 #' data("BaseDataSet.ConversionFactors", envir = environment())
 #'
 #' @name BaseDataSet.ConversionFactors
-#' @md
 NULL
 
 #' @title Base dataset for grain size attenuation data by Guérin et al. (2012)
@@ -200,7 +198,6 @@ NULL
 #' data("BaseDataSet.GrainSizeAttenuation", envir = environment())
 #'
 #' @name BaseDataSet.GrainSizeAttenuation
-#' @md
 NULL
 
 #' Base data set of fractional gamma-dose values
@@ -237,7 +234,6 @@ NULL
 #' data("BaseDataSet.FractionalGammaDose", envir = environment())
 #'
 #' @name BaseDataSet.FractionalGammaDose
-#' @md
 NULL
 
 #' Example data for scale_GammaDose()
@@ -262,7 +258,6 @@ NULL
 #' data("ExampleData.ScaleGammaDose", envir = environment())
 #'
 #' @name ExampleData.ScaleGammaDose
-#' @md
 NULL
 
 #' Example data for calc_CobbleDoseRate()
@@ -285,7 +280,6 @@ NULL
 #' data("ExampleData.CobbleData", envir = environment())
 #'
 #' @name ExampleData.CobbleData
-#' @md
 NULL
 
 #' Base data set for cosmic dose rate calculation
@@ -406,7 +400,6 @@ NULL
 #' @name BaseDataSet.CosmicDoseRate
 #' @aliases values.cosmic.Softcomp values.factor.Altitude values.par.FJH
 #'
-#' @md
 NULL
 
 #' @title Example data from a SAR OSL and SAR TL measurement for the package
@@ -473,7 +466,6 @@ NULL
 #'
 #' @name ExampleData.BINfileData
 #' @aliases CWOSL.SAR.Data TL.SAR.Data
-#' @md
 NULL
 
 
@@ -528,7 +520,6 @@ NULL
 #' plot(ExampleData.CW_OSL_Curve)
 #'
 #' @aliases CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
-#' @md
 NULL
 
 
@@ -562,7 +553,6 @@ NULL
 #' data(ExampleData.portableOSL, envir = environment())
 #' plot_RLum(ExampleData.portableOSL)
 #'
-#' @md
 NULL
 
 
@@ -600,7 +590,6 @@ NULL
 #'
 #' @name ExampleData.FittingLM
 #' @aliases values.curve values.curveBG
-#' @md
 NULL
 
 
@@ -631,7 +620,6 @@ NULL
 #'
 #' @name ExampleData.LxTxData
 #' @aliases LxTxData
-#' @md
 NULL
 
 
@@ -659,7 +647,6 @@ NULL
 #'
 #' @name ExampleData.LxTxOSLData
 #' @aliases Lx.data Tx.data
-#' @md
 NULL
 
 #' Example equivalent dose data from mortar samples
@@ -685,7 +672,6 @@ NULL
 #'
 #' @name ExampleData.MortarData
 #' @aliases MortarData
-#' @md
 NULL
 
 #' Example data as [RLum.Analysis-class] objects
@@ -733,7 +719,6 @@ NULL
 #'
 #' @name ExampleData.RLum.Analysis
 #' @aliases IRSAR.RF.Data
-#' @md
 NULL
 
 #' RF70 Example data as [RLum.Analysis-class] objects
@@ -779,7 +764,6 @@ NULL
 #'
 #' @name ExampleData.RF70Curves
 #' @aliases RF70Curves
-#' @md
 NULL
 
 #' Example data as [RLum.Data.Image-class] objects
@@ -820,7 +804,6 @@ NULL
 #' plot_RLum(ExampleData.RLum.Data.Image)
 #'
 #' @name ExampleData.RLum.Data.Image
-#' @md
 NULL
 
 
@@ -922,7 +905,6 @@ NULL
 #'
 #' @name ExampleData.XSYG
 #' @aliases OSL.SARMeasurement TL.Spectrum
-#' @md
 NULL
 
 
@@ -997,7 +979,6 @@ NULL
 #' plot_Histogram(De.values, xlab = "De [Gy]")
 #'
 #' @name ExampleData.DeValues
-#' @md
 NULL
 
 
@@ -1093,7 +1074,6 @@ NULL
 #'
 #'
 #' @name ExampleData.Fading
-#' @md
 NULL
 
 
@@ -1248,7 +1228,6 @@ NULL
 #'
 #' @keywords datasets
 #' @name ExampleData.SurfaceExposure
-#' @md
 NULL
 
 #' Example Al2O3:C Measurement Data
@@ -1289,7 +1268,6 @@ NULL
 #'
 #' @name ExampleData.Al2O3C
 #' @aliases data_CrossTalk data_ITC
-#' @md
 NULL
 
 #' Example TR-OSL data
@@ -1320,7 +1298,6 @@ NULL
 #' plot_RLum(ExampleData.TR_OSL)
 #'
 #' @name ExampleData.TR_OSL
-#' @md
 NULL
 
 #' Collection of External Data
@@ -1384,5 +1361,4 @@ NULL
 #'
 #' @keywords datasets
 #' @name extdata
-#' @md
 NULL

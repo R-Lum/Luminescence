@@ -31,7 +31,6 @@
 #' data(ExampleData.BINfileData, envir = environment())
 #' convert_SG2MG(CWOSL.SAR.Data)
 #'
-#' @md
 #' @export
 convert_SG2MG <- function(
   object,

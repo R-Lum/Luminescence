@@ -46,7 +46,6 @@
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("bin_RLum.Data", function(object, ...) {
   standardGeneric("bin_RLum.Data")
@@ -79,7 +78,6 @@ setGeneric("bin_RLum.Data", function(object, ...) {
 #'
 #' @keywords utilities internal
 #'
-#' @md
 #' @export
 setGeneric("get_Risoe.BINfileData", function(object, ...) {
   standardGeneric("get_Risoe.BINfileData")
@@ -128,7 +126,6 @@ setGeneric("get_Risoe.BINfileData", function(object, ...) {
 #' ## get results and store them in a new object
 #' temp.get <- get_RLum(object = temp1)
 #'
-#' @md
 #' @export
 setGeneric("get_RLum", function (object, ...) {
   standardGeneric("get_RLum")
@@ -144,7 +141,6 @@ setGeneric("get_RLum", function (object, ...) {
 #'
 #' @param null.rm [logical] (*with default*): remove empty and `NULL` objects.
 #'
-#' @md
 #' @export
 setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
@@ -198,7 +194,6 @@ setMethod("get_RLum", signature = "list",
 #'
 #' Returns `NULL`.
 #'
-#' @md
 #' @export
 setMethod("get_RLum", signature = "NULL",
     function(object, ...) {
@@ -238,7 +233,6 @@ setMethod("get_RLum", signature = "NULL",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("remove_RLum", function(object, ...) {
   standardGeneric("remove_RLum")
@@ -247,7 +241,6 @@ setGeneric("remove_RLum", function(object, ...) {
 #' @describeIn remove_RLum
 #' Returns a list of [RLum-class] objects where the selected records are stripped
 #'
-#' @md
 #' @export
 setMethod("remove_RLum", signature = "list",
           function(object, ...) {
@@ -294,7 +287,6 @@ setMethod("remove_RLum", signature = "list",
 #' [RLum.Results-class]
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("length_RLum", function(object) {
   standardGeneric("length_RLum")
@@ -325,7 +317,6 @@ setGeneric("length_RLum", function(object) {
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("melt_RLum", function(object, ...) {
   standardGeneric("melt_RLum")
@@ -334,7 +325,6 @@ setGeneric("melt_RLum", function(object, ...) {
 #' @describeIn melt_RLum
 #' Returns a list a single [data.frame]
 #'
-#' @md
 #' @export
 setMethod("melt_RLum", signature = "list",
     function(object, ...) {
@@ -414,7 +404,6 @@ setMethod("melt_RLum", signature = "list",
 #' CWOSL.SAR.Data
 #'
 #' @rdname metadata
-#' @md
 #' @export
 setGeneric("add_metadata<-", function (object, ..., value) {
   standardGeneric("add_metadata<-")
@@ -461,7 +450,6 @@ setGeneric("replace_metadata<-", function (object, ..., value) {
 #'
 #' @aliases names_RLum
 #'
-#' @md
 #' @export
 setGeneric("names_RLum", function(object) {
   standardGeneric("names_RLum")
@@ -470,7 +458,6 @@ setGeneric("names_RLum", function(object) {
 #' @describeIn names_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [names_RLum]
 #'
-#' @md
 #' @export
 setMethod("names_RLum", signature = "list",
     function(object) {
@@ -510,7 +497,6 @@ setMethod("names_RLum", signature = "list",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("replicate_RLum", function (object, times = NULL) {
    standardGeneric("replicate_RLum")
@@ -545,7 +531,6 @@ setGeneric("replicate_RLum", function (object, times = NULL) {
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
                                              DATA = list(), .RESERVED = list()) {
@@ -618,7 +603,6 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 #' ## plot this curve object
 #' plot_RLum(object)
 #'
-#' @md
 #' @export
 setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
                                  .pid = NA_character_, ... ) {
@@ -696,7 +680,6 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("smooth_RLum", function(object, ...) {
   standardGeneric("smooth_RLum")
@@ -705,7 +688,6 @@ setGeneric("smooth_RLum", function(object, ...) {
 #' @describeIn smooth_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [smooth_RLum]
 #'
-#' @md
 #' @export
 setMethod("smooth_RLum", signature = "list",
     function(object, ...) {
@@ -756,7 +738,6 @@ setMethod("smooth_RLum", signature = "list",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("sort_RLum", function(object, ...) {
   standardGeneric("sort_RLum")
@@ -765,7 +746,6 @@ setGeneric("sort_RLum", function(object, ...) {
 #' @describeIn sort_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [sort_RLum]
 #'
-#' @md
 #' @export
 setMethod("sort_RLum", signature = "list",
           function(object, ...) {
@@ -816,7 +796,6 @@ setMethod("sort_RLum", signature = "list",
 #' ## show structure
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
-#' @md
 #' @export
 setGeneric("structure_RLum", function(object, ...) {
   standardGeneric("structure_RLum")
@@ -825,7 +804,6 @@ setGeneric("structure_RLum", function(object, ...) {
 #' @describeIn structure_RLum
 #' Returns a list of [RLum-class] objects that were passed to [structure_RLum]
 #'
-#' @md
 #' @export
 setMethod("structure_RLum", signature = "list",
     function(object, ...) {
@@ -861,7 +839,6 @@ setMethod("structure_RLum", signature = "list",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("view", function (object, ... ) {
   standardGeneric("view")
@@ -869,7 +846,6 @@ setGeneric("view", function (object, ... ) {
 
 ## ensure that we can use the internal RStudio view function
 ## https://stackoverflow.com/questions/48234850/how-to-use-r-studio-view-function-programatically-in-a-package
-#' @md
 #' @noRd
 .view <- function(x, title) {
   get("View", envir = as.environment("package:utils"))(x, title) # nocov

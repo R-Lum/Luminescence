@@ -177,7 +177,6 @@
 #' ##(3) How to see the structure of an object?
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
-#' @md
 #' @export
 read_XSYG2R <- function(
   file,

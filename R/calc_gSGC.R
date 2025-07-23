@@ -74,7 +74,6 @@
 #'
 #' get_RLum(results, data.object = "De")
 #'
-#' @md
 #' @export
 calc_gSGC<- function(
   data,

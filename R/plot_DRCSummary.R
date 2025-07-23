@@ -83,7 +83,6 @@
 #'##plot only DRC
 #'plot_DRCSummary(results)
 #'
-#'@md
 #'@export
 plot_DRCSummary <- function(
   object,

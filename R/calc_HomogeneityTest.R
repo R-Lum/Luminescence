@@ -52,7 +52,6 @@
 #' calc_HomogeneityTest(df)
 #'
 #'
-#' @md
 #' @export
 calc_HomogeneityTest <- function(
   data,

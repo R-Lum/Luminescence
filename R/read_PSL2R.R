@@ -62,7 +62,6 @@
 #' print(str(psl, max.level = 3))
 #' plot(psl, combine = TRUE)
 #'
-#' @md
 #' @export
 read_PSL2R <- function(
   file,

@@ -189,7 +189,6 @@
 #' g_value = g_value,
 #' n.MC = 10)
 #'
-#' @md
 #' @export
 analyse_FadingMeasurement <- function(
   object,

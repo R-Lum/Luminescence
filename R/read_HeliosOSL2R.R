@@ -27,7 +27,6 @@
 #'file <- system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")
 #'read_HeliosOSL2R(file)
 #'
-#'@md
 #'@export
 read_HeliosOSL2R <- function(
   file,

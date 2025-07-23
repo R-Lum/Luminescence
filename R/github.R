@@ -44,7 +44,6 @@
 #' github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 #' }
 #'
-#' @md
 #' @name GitHub-API
 NULL
 
@@ -64,7 +63,6 @@ NULL
 #'  `[ ,4]` \tab MESSAGE \cr
 #' }
 #'
-#' @md
 #' @export
 github_commits <- function(user = "r-lum", repo = "luminescence",
                            branch = "master", n = 5) {
@@ -121,7 +119,6 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #'  `[ ,3]` \tab INSTALL \cr
 #' }
 #'
-#' @md
 #' @export
 github_branches <- function(user = "r-lum", repo = "luminescence") {
   .set_function_name("github_branches")
@@ -173,7 +170,6 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #'  `[[8]]` \tab STATUS \cr
 #' }
 #'
-#' @md
 #' @export
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
   .set_function_name("github_issues")

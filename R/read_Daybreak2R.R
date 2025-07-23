@@ -49,7 +49,6 @@
 #' temp <- read_Daybreak2R(file)
 #' }
 #'
-#' @md
 #' @export
 read_Daybreak2R <- function(
   file,

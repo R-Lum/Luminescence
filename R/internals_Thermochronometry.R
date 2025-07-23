@@ -25,7 +25,6 @@
 #'
 #'This refers to `$ITL`: Isothermal curves, `$DRC`: Dose-response curve, `$FAD`: Fading
 #'
-#'@md
 #'@noRd
 .import_ThermochronometryData <- function(
   file,

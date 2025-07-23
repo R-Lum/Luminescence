@@ -54,7 +54,6 @@
 #' ##alternatively objects can be accessed using S3 generics, such as
 #' dose.rate$parameters
 #'
-#' @md
 #' @export
 setClass(
   Class = "RLum.Results",
@@ -80,7 +79,6 @@ setClass(
 #'
 #' Given that the [list] consists of [RLum.Results-class] objects.
 #'
-#' @md
 #' @name as
 setAs("list", "RLum.Results",
       function(from,to){
@@ -100,7 +98,6 @@ setAs("RLum.Results", "list",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
@@ -162,7 +159,6 @@ setMethod("show",
 #'
 #' Returns an object from the class [RLum.Results-class]
 #'
-#' @md
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
@@ -222,7 +218,6 @@ setMethod("set_RLum",
 #' 3. an [RLum.Results-class] for `drop = FALSE`.
 #'
 #'
-#' @md
 #' @export
 setMethod(
   "get_RLum",
@@ -329,7 +324,6 @@ setMethod(
 #'
 #' Returns the number of data elements in the `RLum.Results` object.
 #'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Results",
@@ -348,7 +342,6 @@ setMethod("length_RLum",
 #'
 #' Returns the names of the data elements in the object.
 #'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Results",
@@ -369,7 +362,6 @@ setMethod("names_RLum",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("view",
           signature = "RLum.Results",

@@ -143,7 +143,6 @@
 #' write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 #' }
 #'
-#' @md
 #' @export
 verify_SingleGrainData <- function(
     object,

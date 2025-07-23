@@ -109,7 +109,6 @@
 #' ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "Pych")
 #' ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "smooth")
 #'
-#' @md
 #' @export
 apply_CosmicRayRemoval <- function(
   object,

@@ -142,7 +142,6 @@
 #'   n.channels = 5)
 #' }
 #'
-#' @md
 #' @export
 plot_DetPlot <- function(
   object,

@@ -101,7 +101,6 @@ assign("fn_stack", list(),
 #'
 #' ##no example available
 #'
-#' @md
 #' @export
 sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
   .set_function_name("sTeve")

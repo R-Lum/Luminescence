@@ -81,7 +81,6 @@
 #'  type = "l"
 #' )
 #'
-#' @md
 #' @export
 plot_DoseResponseCurve <- function(
   object,

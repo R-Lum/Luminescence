@@ -94,7 +94,6 @@
 #' ## apply the common dose model
 #' calc_CommonDose(ExampleData.DeValues$CA1)
 #'
-#' @md
 #' @export
 calc_CommonDose <- function(
   data,

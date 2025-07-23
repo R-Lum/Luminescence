@@ -53,7 +53,6 @@
 #' plot_RLum(TL.Spectrum)
 #' }
 #'
-#' @md
 #' @export
 setClass(
   "RLum.Data.Spectrum",
@@ -89,7 +88,6 @@ setClass(
 #'   `list` \tab `list`
 #' }
 #'
-#' @md
 #' @name as
 setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
@@ -146,7 +144,6 @@ setAs("RLum.Data.Spectrum", "list",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
@@ -211,7 +208,6 @@ setMethod("show",
 #'
 #' An object from the class `RLum.Data.Spectrum`
 #'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -298,7 +294,6 @@ setMethod(
 #' 1. A [matrix] with the spectrum values or
 #' 2. only the info object if `info.object` was set.
 #'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
@@ -331,7 +326,6 @@ setMethod("get_RLum",
 #'
 #' The names of the info objects
 #'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Spectrum",
@@ -361,7 +355,6 @@ setMethod("names_RLum",
 #'
 #' Same object as input, after applying the binning.
 #'
-#' @md
 #' @export
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Spectrum",

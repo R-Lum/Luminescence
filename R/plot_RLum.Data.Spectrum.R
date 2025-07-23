@@ -242,7 +242,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 plot_RLum.Data.Spectrum <- function(
   object,

@@ -267,7 +267,6 @@
 #'  fit.method = "OTORX")
 #' }
 #'
-#' @md
 #' @export
 analyse_SAR.CWOSL<- function(
   object,

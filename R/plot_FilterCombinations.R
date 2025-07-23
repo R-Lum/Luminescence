@@ -149,7 +149,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 plot_FilterCombinations <- function(
   filters,

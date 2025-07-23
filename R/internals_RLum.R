@@ -29,7 +29,6 @@
 #'
 #' object <- .set_pid(object)
 #'
-#' @md
 #' @noRd
 .set_pid <- function(object){
   object@records <-
@@ -69,7 +68,6 @@
 #' }
 #' print(.warningCatcher(f()))
 #'
-#' @md
 #' @noRd
 .warningCatcher <- function(expr) {
   ##set variables
@@ -135,7 +133,6 @@
 #' v <- 1:100
 #' .smoothing(v)
 #'
-#' @md
 #' @noRd
 .smoothing <- function(
   x,
@@ -183,7 +180,6 @@
 #' if logical, whether curve normalisation should occur; alternatively, one
 #' of `"max"` (used with `TRUE`), `"last"` and `"huot"`.
 #'
-#' @md
 #' @noRd
 .normalise_curve <- function(data, norm) {
 
@@ -223,7 +219,6 @@
 #' @param digits [integer] (**required**): round numbers to the specified
 #'        digits. If set to `NULL`, no rounding occurs.
 #'
-#' @md
 #' @noRd
 .calculate_LxTx_error <- function(LnLxTnTx, sig0, digits) {
 
@@ -283,7 +278,6 @@
 #' axis(1, at = axTicks(1),
 #'      labels = fancy_scientific(axTicks(1)))
 #'
-#' @md
 #' @noRd
 fancy_scientific <- function(l) {
   # turn in to character string in scientific notation
@@ -316,7 +310,6 @@ fancy_scientific <- function(l) {
 #'plot(1:length(y), y, yaxt = "n", log = "y")
 #'.add_fancy_log_axis(side = 2, las = 1)
 #'
-#'@md
 #'@noRd
 .add_fancy_log_axis <- function(side, ...){
   ## do just nothing if it would cause an error
@@ -364,7 +357,6 @@ fancy_scientific <- function(l) {
 #' @return
 #' A list of two elements: `pos` and `adj`.
 #'
-#' @md
 #' @noRd
 .get_keyword_coordinates <- function(pos, xlim, ylim) {
   adj <- NA
@@ -438,7 +430,6 @@ fancy_scientific <- function(l) {
 #'@section Version: 0.1.0
 #'
 #'
-#'@md
 #'@noRd
 .create_StatisticalSummaryText <- function(
   x = NULL, #insert the output of calc_Statistics
@@ -527,7 +518,6 @@ fancy_scientific <- function(l) {
 #' .unlist_RLum(a)
 #'
 #' @return [list] with only one level left
-#' @md
 #' @noRd
 .unlist_RLum <- function(x){
   stopifnot(class(x) == "list")
@@ -565,7 +555,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [list] with only RLum objects
 #'
-#' @md
 #' @noRd
 .rm_nonRLum <- function(x, class = NULL){
   if(is.null(class))
@@ -589,7 +578,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [list] without `NULL` elements, can be empty
 #'
-#' @md
 #' @noRd
 .rm_NULL_elements <- function(x){
   x[vapply(x, is.null, logical(1))] <- NULL
@@ -635,7 +623,6 @@ fancy_scientific <- function(l) {
 #'
 #' .matrix_binning(m, bin_size = 4)
 #'
-#' @md
 #' @noRd
 .matrix_binning <- function(
   m,
@@ -717,7 +704,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [list] with expanded parameters
 #'
-#' @md
 #' @noRd
 .expand_parameters <- function(len){
   ##get original definition and the call of f
@@ -816,7 +802,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [matrix] with HPDI
 #'
-#' @md
 #' @noRd
 .calc_HPDI <- function(object, prob = 0.95, plot = FALSE, ...){
   ##estimate density
@@ -888,7 +873,6 @@ fancy_scientific <- function(l) {
 #' suppressMessages(
 #' .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
 #'
-#'@md
 #'@noRd
 .download_file <- function(
     url,
@@ -953,7 +937,6 @@ fancy_scientific <- function(l) {
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany);
 #'inspired by a ChatGPT request (2024-07-01)
 #'
-#'@md
 #'@noRd
 .get_named_list_element <- function(l, element) {
   ## set helper function to iterate over list
@@ -1014,14 +997,12 @@ fancy_scientific <- function(l) {
 #'   .set_function_name("name_of_the_function")
 #'   on.exit(.unset_function_name(), add = TRUE)
 #'
-#' @md
 #' @noRd
 .set_function_name <- function(name) {
   .LuminescenceEnv$fn_stack[length(.LuminescenceEnv$fn_stack) + 1] <- name
 }
 
 #' @rdname .set_function_name
-#' @md
 #' @noRd
 .unset_function_name <- function() {
   .LuminescenceEnv$fn_stack[length(.LuminescenceEnv$fn_stack)] <- NULL
@@ -1031,7 +1012,6 @@ fancy_scientific <- function(l) {
 #'
 #'@param ... the error message to throw
 #'
-#'@md
 #'@noRd
 .throw_error <- function(...) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
@@ -1042,7 +1022,6 @@ fancy_scientific <- function(l) {
 #'
 #'@param ... the warning message to throw
 #'
-#'@md
 #'@noRd
 .throw_warning <- function(...) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
@@ -1055,7 +1034,6 @@ fancy_scientific <- function(l) {
 #' @param error Whether the message should be preceded by "Error:" (`TRUE` by
 #' default).
 #'
-#'@md
 #'@noRd
 .throw_message <- function(..., error = TRUE) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
@@ -1083,7 +1061,6 @@ fancy_scientific <- function(l) {
 #'   template_DRAC(preset = "DRAC-example_quartz")
 #' })
 #'
-#' @md
 #' @noRd
 SW <- function(expr) {
   capture.output(suppressMessages(suppressWarnings(expr)))
@@ -1117,7 +1094,6 @@ SW <- function(expr) {
 #' If `arg` contains multiple elements, only the first matching one will be
 #' returned.
 #'
-#' @md
 #' @noRd
 .validate_args <- function(arg, choices, null.ok = FALSE,
                            name = NULL, extra = NULL) {
@@ -1185,7 +1161,6 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .validate_class <- function(arg, classes, throw.error = TRUE,
                             name = NULL, extra = NULL) {
@@ -1236,7 +1211,6 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .validate_not_empty <- function(arg, what = NULL, throw.error = TRUE,
                                 name = NULL) {
@@ -1276,7 +1250,6 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .validate_length <- function(arg, exp.length, throw.error = TRUE,
                             name = NULL) {
@@ -1310,7 +1283,6 @@ SW <- function(expr) {
 #' @return
 #' The validated value, unless the validation failed with an error thrown.
 #'
-#' @md
 #' @noRd
 .validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
                                       name = NULL) {
@@ -1341,7 +1313,6 @@ SW <- function(expr) {
 #' @return
 #' The validated value, unless the validation failed with an error thrown.
 #'
-#' @md
 #' @noRd
 .validate_logical_scalar <- function(val, null.ok = FALSE, name = NULL) {
   if (missing(val))
@@ -1374,7 +1345,6 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .require_suggested_package <- function(pkg, reason = "This function",
                                        throw.error = TRUE) {
@@ -1398,7 +1368,6 @@ SW <- function(expr) {
 #' @return
 #' A list with the object repeated the specified number of times.
 #'
-#' @md
 #' @noRd
 .listify <- function(x, length) {
   if (!inherits(x, "list"))
@@ -1420,7 +1389,6 @@ SW <- function(expr) {
 #' A comma-separated string where each element of the original vector is
 #' optionally surrounded by single quotes.
 #'
-#' @md
 #' @noRd
 .collapse <- function(x, quote = TRUE) {
   paste0(if (quote) sQuote(x, FALSE) else x, collapse=", ")
@@ -1437,7 +1405,6 @@ SW <- function(expr) {
 #' @return
 #' A filename not longer than the maximum available width.
 #'
-#' @md
 #' @noRd
 .shorten_filename <- function(filename, max.width = 70) {
   ## optimised for speed with ChatGPT, 2025
@@ -1489,7 +1456,6 @@ SW <- function(expr) {
 #'  range_old = c(min(y_dens$y), max(y_dens$y)),
 #'  range_new = c(0,20))
 #'
-#'@md
 #'@noRd
 .rescale <- function(x, range_old, range_new) {
   range_new[1] +

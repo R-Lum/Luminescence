@@ -23,7 +23,6 @@
 #'
 #' showClass("RLum.Data")
 #'
-#' @md
 #' @export
 setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
@@ -43,7 +42,6 @@ setClass("RLum.Data",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("add_metadata<-",
           signature = "RLum.Data",
@@ -80,7 +78,6 @@ setMethod("add_metadata<-",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("rename_metadata<-",
           signature = "RLum.Data",
@@ -126,7 +123,6 @@ setMethod("rename_metadata<-",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("replace_metadata<-",
           signature = "RLum.Data",
@@ -199,7 +195,6 @@ setMethod("replace_metadata<-",
 #'
 #' @keywords internal
 #'
-#' @md
 #' @export
 setMethod("view",
           signature = "RLum.Data",
