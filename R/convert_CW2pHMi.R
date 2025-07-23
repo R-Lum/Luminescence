@@ -227,7 +227,7 @@ convert_CW2pHMi<- function(
   ## remove NAs
   temp.values <- na.exclude(temp.values)
   if (nrow(temp.values) < 2) {
-    .throw_error("'values' contains too many missing values")
+    .throw_error("'values' should have at least 2 non-missing values")
   }
 
   # (1) Transform values ------------------------------------------------------

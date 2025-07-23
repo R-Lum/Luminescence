@@ -75,7 +75,7 @@ test_that("input validation", {
   expect_error(convert_CW2pHMi(iris[, 1, drop = FALSE]),
                "'values' should have 2 columns")
   expect_error(convert_CW2pHMi(data.frame(a = 1:10, b = NA)),
-               "'values' contains too many missing values")
+               "'values' should have at least 2 non-missing values")
 
   expect_error(convert_CW2pLMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
@@ -84,7 +84,7 @@ test_that("input validation", {
   expect_error(convert_CW2pLMi(iris[, 1, drop = FALSE]),
                "'values' should have 2 columns")
   expect_error(convert_CW2pLMi(data.frame(a = 1:10, b = NA)),
-               "'values' contains too many missing values")
+               "'values' should have at least 2 non-missing values")
 
   expect_error(convert_CW2pLM(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
@@ -100,7 +100,7 @@ test_that("input validation", {
   expect_error(convert_CW2pPMi(iris[, 1, drop = FALSE]),
                "'values' should have 2 columns")
   expect_error(convert_CW2pPMi(data.frame(a = 1:10, b = NA)),
-               "'values' contains too many missing values")
+               "'values' should have at least 2 non-missing values")
 
   object@recordType <- "RF"
   expect_error(convert_CW2pLM(values = object),
