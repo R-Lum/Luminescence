@@ -11,6 +11,8 @@ test_that("input validation", {
                "'values' cannot be an empty data.frame")
   expect_error(fit_CWCurve(iris[, 1, drop = FALSE]),
                "'values' should have 2 columns")
+  expect_error(fit_CWCurve(data.frame(a = 1:10, b = NA)),
+               "'values' contains no positive counts")
   expect_error(fit_CWCurve(set_RLum("RLum.Data.Curve")),
                "'values' contains no positive counts")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
