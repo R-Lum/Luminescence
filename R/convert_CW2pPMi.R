@@ -186,6 +186,11 @@ convert_CW2pPMi<- function(
     temp.values <- values
   }
 
+  ## remove NAs
+  temp.values <- na.exclude(temp.values)
+  if (nrow(temp.values) < 2) {
+    .throw_error("'values' contains too many missing values")
+  }
 
   # (3) Transform values ------------------------------------------------------
 
@@ -199,22 +204,18 @@ convert_CW2pPMi<- function(
   ##if no values for P is set selected a P value for a maximum of
   ##two extrapolation points
   if(missing(P)==TRUE){
-
     i<-1
     P<-1/i
     t.transformed<-(1/3)*(1/P^2)*t^3
 
     while(length(t.transformed[t.transformed<min(t)])>2){
-
       P<-1/i
       t.transformed<-(1/3)*(1/P^2)*t^3
       i<-i+1
-
     }
   }else{
 
     t.transformed<-(1/3)*(1/P^2)*t^3
-
   }
 
   # (4) Interpolation ---------------------------------------------------------

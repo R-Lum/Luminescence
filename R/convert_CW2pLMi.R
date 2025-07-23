@@ -177,6 +177,11 @@ convert_CW2pLMi<- function(
     temp.values <- values
   }
 
+  ## remove NAs
+  temp.values <- na.exclude(temp.values)
+  if (nrow(temp.values) < 2) {
+    .throw_error("'values' contains too many missing values")
+  }
 
   # (1) Transform values ------------------------------------------------------------------------
 
@@ -191,7 +196,6 @@ convert_CW2pLMi<- function(
   ##if no values for P is set selected a P value for a maximum of
   ##two extrapolation points
   if(missing(P)==TRUE){
-
     i<-10
     P<-1/i
     t.transformed<-0.5*1/P*t^2

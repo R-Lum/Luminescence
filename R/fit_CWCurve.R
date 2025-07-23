@@ -209,7 +209,7 @@ fit_CWCurve<- function(
   x <- values[, 1]
   y <- values[, 2]
 
-  if (sum(y > 0) == 0) {
+  if (sum(y > 0, na.rm = TRUE) == 0) {
     .throw_error("'values' contains no positive counts")
   }
   if (any(order(x) != seq_along(x))) {

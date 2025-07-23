@@ -224,6 +224,12 @@ convert_CW2pHMi<- function(
     temp.values <- values
   }
 
+  ## remove NAs
+  temp.values <- na.exclude(temp.values)
+  if (nrow(temp.values) < 2) {
+    .throw_error("'values' contains too many missing values")
+  }
+
   # (1) Transform values ------------------------------------------------------
 
   ##log transformation of the CW-OSL count values
@@ -236,7 +242,6 @@ convert_CW2pHMi<- function(
   ##if no values for delta is set selected a delta value for a maximum of
   ##two extrapolation points
   if(missing(delta)==TRUE){
-
     i<-10
     delta<-i
     t.transformed<-t-(1/delta)*log(1+delta*t)
