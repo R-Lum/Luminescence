@@ -58,6 +58,11 @@ introduced in version 1.0.0 (#867).
 parameter is silently reset to 2 in that case, although such low values are
 discouraged as they may trigger a warning during loess fitting (#900).
 
+### `calc_Statistics()`
+
+* The computation of the weighted median is now correct, while before it
+corresponded to the simple (unweighted) median (#905).
+
 ### `fit_OSLLifeTimes()`
 
 * The function ensures that the `signal_range` argument doesn't contain
@@ -86,13 +91,28 @@ non-default cex values (#865).
 
 * The `frame` argument is now respected also when the plot is rotated (#863).
 
+* The weighted median is computed correctly when `summary = "median"` and
+`summary.method = "weighted"` are used (#905).
+
 ### `plot_DRTResults()`
 
 * Points didn't scale correctly at non-default `cex` values (#879).
+* Option `summary = "weighted$median"` is now officially supported (#905).
+
+### `plot_Histogram()`
+
+* Option `summary = "median.weighted"` is now officially supported (#905).
 
 ### `plot_KDE()`
 
 * Outlier points didn't scale correctly at non-default `cex` values (#879).
+
+* The weighted median is computed correctly when `summary = "median"` and
+`summary.method = "weighted"` are used (#905).
+
+### `plot_RadialPlot()`
+
+* Option `summary = "median.weighted"` is now officially supported (#905).
 
 ### `plot_RLum.Analysis()`
 

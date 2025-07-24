@@ -160,6 +160,38 @@
   }
 }
 
+#' Computation of a weighted median
+#'
+#' @param x [numeric] (**required**):
+#' Values whose weighted median is to becomputed.
+#'
+#' @param w [numeric] (**required**):
+#' Weights to use for elements of `x`.
+#'
+#' @param na.rm [logical] (*with default*):
+#' Whether `NA` values in `x` should be removed before the computation.
+#'
+#' @return
+#' A numeric value corresponding to the weighted median of the input vector.
+#'
+#' @noRd
+.weighted.median <- function (x, w, na.rm = FALSE) {
+  ## based on limma::weighted.median
+  if (na.rm) {
+    keep.idx <- !is.na(x)
+    x <- x[keep.idx]
+    w <- w[keep.idx]
+  }
+  ox <- order(x)
+  x <- x[ox]
+  w <- w[ox]
+  p <- cumsum(w) / sum(w)
+  n <- sum(p < 0.5)
+  if (p[n + 1] > 0.5)
+    return(x[n + 1])
+  (x[n + 1] + x[n + 2]) / 2
+}
+
 #++++++++++++++++++++++++++++++
 #+ Curve normalisation        +
 #++++++++++++++++++++++++++++++
@@ -439,20 +471,16 @@ fancy_scientific <- function(l) {
   prefix = "",
   suffix = ""
 ){
-
   ## Grep keyword information
   if (is.null(x)) {
     summary <- calc_Statistics(data.frame(x = 1:2, y = 1:2))
-
   } else {
     summary <- x
-
   }
 
   #all allowed combinations
   keywords_allowed <- unlist(lapply(names(summary), function(x){
     paste0(x, "$", names(summary[[x]]))
-
   }))
 
   ##return if for x == NULL
@@ -472,7 +500,6 @@ fancy_scientific <- function(l) {
     } else{
       keywords_prefix <- "unweighted"
       k_strip <- k
-
     }
 
     ##construct string
@@ -482,14 +509,11 @@ fancy_scientific <- function(l) {
 
       }else{
         paste0(k, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
-
       }
 
     }else{
       return(NULL)
-
     }
-
   })
 
   ##remove NULL entries
@@ -497,7 +521,6 @@ fancy_scientific <- function(l) {
 
   ##construct final call
   return(paste0(prefix, paste(unlist(l), collapse = sep), suffix))
-
 }
 
 #++++++++++++++++++++++++++++++
@@ -527,9 +550,7 @@ fancy_scientific <- function(l) {
     .unlist_RLum(x)
   }else{
     return(x)
-
   }
-
 }
 
 #++++++++++++++++++++++++++++++
@@ -667,7 +688,6 @@ fancy_scientific <- function(l) {
 
     }else{
       row_names <- names
-
     }
 
     ##reset rownames and make sure it fits the length
@@ -675,7 +695,6 @@ fancy_scientific <- function(l) {
 
   }else{
     rownames(temp_m) <- NULL
-
   }
 
   ## re-transpose in column mode
@@ -727,7 +746,6 @@ fancy_scientific <- function(l) {
          class(args_new[[i]])[1] == "call" |
          class(args_new[[i]])[1] == "(" ) {
         args_new[[i]] <- eval(args_new[[i]], envir = p_env)
-
       }
     }
   }
@@ -763,7 +781,6 @@ fancy_scientific <- function(l) {
 
     } else {
       args[[i]] <- rep(list(args[[i]]), length = len[1])
-
     }
   }
 
@@ -835,7 +852,6 @@ fancy_scientific <- function(l) {
               y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
       }
     }
-
   }
 
   return(HPDI)
@@ -965,7 +981,6 @@ fancy_scientific <- function(l) {
 
   ## return
   return(out)
-
 }
 
 #' @title Set/unset the function name for error/warning reporting
@@ -1434,6 +1449,7 @@ SW <- function(expr) {
   ## return
   filename
 }
+
 #'@title Affine Transformation of Values
 #'
 #'@description Affine (linear) transformation of values; which we use
@@ -1461,5 +1477,4 @@ SW <- function(expr) {
   range_new[1] +
     (x - range_old[1]) * (range_new[2] - range_new[1]) /
     (range_old[2] - range_old[1])
-
 }

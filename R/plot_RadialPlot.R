@@ -25,6 +25,7 @@
 #' - `"mean"` (mean De value),
 #' - `"mean.weighted"` (error-weighted mean),
 #' - `"median"` (median of the De values),
+#' - `"median.weighted"` (error-weighted median),
 #' - `"sdrel"` (relative standard deviation in percent),
 #' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent),
 #' - `"sdabs"` (absolute standard deviation),
@@ -435,24 +436,6 @@ plot_RadialPlot <- function(
           se = if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2])
   }, De.add = De.add)
 
-  ## define function after isotone::weighted.mean
-  median.w <- function (y, w) {
-    ox <- order(y)
-    y <- y[ox]
-    w <- w[ox]
-    k <- 1
-    low <- cumsum(c(0, w))
-    up <- sum(w) - low
-    df <- low - up
-    repeat {
-      if (df[k] < 0)
-        k <- k + 1
-      else if (df[k] == 0)
-        return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
-      else return(y[k - 1])
-    }
-  }
-
   ## calculate central values
   data <- lapply(data, function(x) {
     cbind(x,
@@ -463,7 +446,7 @@ plot_RadialPlot <- function(
                       } else if (centrality[1] == "mean.weighted") {
                         sum(x[, 3] / x[, 4]^2) / sum(1 / x[, 4]^2)
                       } else if (centrality[1] == "median.weighted") {
-                        rep(median.w(y = x[, 3], w = x[, 4]), nrow(x))
+                        rep(.weighted.median(x[, 3], w = x[, 4]), nrow(x))
                       } else if (is.numeric(centrality) && length(centrality) > length(data)) {
                         rep(median(x[, 3], na.rm = TRUE), nrow(x))
                       } else NA)
@@ -510,7 +493,7 @@ plot_RadialPlot <- function(
     } else if (centrality[1] == "mean.weighted") {
       sum(data.global[, 3] / data.global[, 4]^2) / sum(1 / data.global[, 4]^2)
     } else if (centrality[1] == "median.weighted") {
-      median.w(y = data.global[, 3], w = data.global[, 4])
+      .weighted.median(data.global[, 3], w = data.global[, 4])
     } else if (is.numeric(centrality) && length(centrality == length(data))) {
       mean(data.global[, 3], na.rm = TRUE)
     }
@@ -857,7 +840,7 @@ plot_RadialPlot <- function(
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
     De.stats[i,4] <- statistics$unweighted$median
-    De.stats[i,5] <- statistics$unweighted$median
+    De.stats[i,5] <- statistics$weighted$median
     De.stats[i,7] <- statistics$unweighted$sd.abs
     De.stats[i,8] <- statistics$unweighted$sd.rel
     De.stats[i,9] <- statistics$unweighted$se.abs

@@ -56,6 +56,17 @@ test_that("Test internals", {
   expect_error(.smoothing(runif(100), align = "error"),
                "'align' should be one of 'right', 'center' or 'left'")
 
+  ## .weighted.median() -----------------------------------------------------
+  expect_equal(.weighted.median(1:10, w = rep(1, 10)),
+               median(1:10))
+  expect_equal(.weighted.median(1:5, w = c(0.15, 0.1, 0.2, 0.3, 0.25)),
+               4)
+  expect_equal(.weighted.median(c(1:5, NA), w = c(0.15, 0.1, 0.2, 0.3, 0.25, 1)),
+               NA_real_)
+  expect_equal(.weighted.median(c(1:5, NA), w = c(0.15, 0.1, 0.2, 0.3, 0.25, 1),
+                                na.rm = TRUE),
+               4)
+
   ## .normalise_curve() -----------------------------------------------------
   data <- runif(100)
   expect_equal(data, .normalise_curve(data, FALSE))

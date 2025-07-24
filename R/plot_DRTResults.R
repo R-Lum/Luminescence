@@ -49,6 +49,7 @@
 #' - `"mean"` (mean De value),
 #' - `"weighted$mean"` (error-weighted mean),
 #' - `"median"` (median of the De values),
+#' - `"weighted$median"` (error-weighted median),
 #' - `"sd.rel"` (relative standard deviation in percent),
 #' - `"sd.abs"` (absolute standard deviation),
 #' - `"se.rel"` (relative standard error) and

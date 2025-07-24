@@ -14,6 +14,7 @@
 #' - `"mean"` (mean De value),
 #' - `"mean.weighted"` (error-weighted mean),
 #' - `"median"` (median of the De values),
+#' - `"median.weighted"` (error-weighted median),
 #' - `"sdrel"` (relative standard deviation in percent),
 #' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent),
 #' - `"sdabs"` (absolute standard deviation),
@@ -282,7 +283,7 @@ plot_Histogram <- function(
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
     De.stats[i,4] <- statistics$unweighted$median
-    De.stats[i,5] <- statistics$unweighted$median
+    De.stats[i,5] <- statistics$weighted$median
     De.stats[i,7] <- statistics$unweighted$sd.abs
     De.stats[i,8] <- statistics$unweighted$sd.rel
     De.stats[i,9] <- statistics$unweighted$se.abs

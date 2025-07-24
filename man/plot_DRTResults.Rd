@@ -58,6 +58,7 @@ adds numerical output to the plot.  Can be one or more out of:
 \item \code{"mean"} (mean De value),
 \item \code{"weighted$mean"} (error-weighted mean),
 \item \code{"median"} (median of the De values),
+\item \code{"weighted$median"} (error-weighted median),
 \item \code{"sd.rel"} (relative standard deviation in percent),
 \item \code{"sd.abs"} (absolute standard deviation),
 \item \code{"se.rel"} (relative standard error) and
