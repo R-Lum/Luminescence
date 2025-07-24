@@ -163,6 +163,7 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("RadialPlot list",
                               plot_RadialPlot(list(df, df2),
                                               centrality = "median.weighted",
+                                              summary = c("n", "in.2s", "median.weighted"),
                                               rug = TRUE, col = c(2, 3)))
   })
 })

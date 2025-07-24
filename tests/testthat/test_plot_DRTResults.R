@@ -98,7 +98,8 @@ test_that("graphical snapshot tests", {
                               plot_DRTResults(df, cex = 2))
   vdiffr::expect_doppelganger("summary sub",
                               plot_DRTResults(df, summary.pos = "sub",
-                                              summary = c("n", "se.rel")))
+                                              summary = c("n", "se.rel", "median",
+                                                          "weighted$median")))
   vdiffr::expect_doppelganger("summary left",
                               plot_DRTResults(df, summary.pos = "left",
                                               summary = c("mean", "sd.abs")))

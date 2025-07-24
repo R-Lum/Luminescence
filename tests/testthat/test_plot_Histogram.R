@@ -72,7 +72,8 @@ test_that("graphical snapshot tests", {
                                              summary = c("n", "serel", "kurtosis")))
   vdiffr::expect_doppelganger("Histogram summary left",
                               plot_Histogram(df, summary.pos = "left",
-                                             summary = c("mean", "skewness")))
+                                             summary = c("mean", "skewness",
+                                                         "median.weighted")))
   })
 })
 

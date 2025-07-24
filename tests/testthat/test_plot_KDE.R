@@ -95,6 +95,8 @@ test_that("graphical snapshot tests", {
                                        summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("KDE summary left",
                               plot_KDE(data = df, summary.pos = "left",
-                                       summary = c("mean", "in.2s", "skewness")))
+                                       summary.method = "weighted",
+                                       summary = c("mean", "in.2s", "skewness",
+                                                   "median")))
   })
 })

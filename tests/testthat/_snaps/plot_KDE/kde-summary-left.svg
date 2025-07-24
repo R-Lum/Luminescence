@@ -70,10 +70,11 @@
 <text x='333.58' y='23.20' style='font-size: 16.80px; font-weight: bold; font-family: sans;' textLength='85.91px' lengthAdjust='spacingAndGlyphs'> distribution</text>
 </g>
 <g clip-path='url(#cpNzkuMjB8NjU1LjIwfDUwLjQwfDUwNC4wMA==)'>
-<text x='100.53' y='250.11' style='font-size: 12.00px; font-family: sans;' textLength='80.41px' lengthAdjust='spacingAndGlyphs'>mean = 129.25</text>
-<text x='100.53' y='264.51' style='font-size: 12.00px; font-family: sans;' textLength='95.73px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 96 %</text>
-<text x='100.53' y='278.91' style='font-size: 12.00px; font-family: sans;' textLength='89.75px' lengthAdjust='spacingAndGlyphs'>skewness = 1.34</text>
-<text x='100.53' y='293.31' style='font-size: 12.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='100.53' y='242.91' style='font-size: 12.00px; font-family: sans;' textLength='80.41px' lengthAdjust='spacingAndGlyphs'>mean = 126.85</text>
+<text x='100.53' y='257.31' style='font-size: 12.00px; font-family: sans;' textLength='95.73px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 88 %</text>
+<text x='100.53' y='271.71' style='font-size: 12.00px; font-family: sans;' textLength='89.75px' lengthAdjust='spacingAndGlyphs'>skewness = 1.34</text>
+<text x='100.53' y='286.11' style='font-size: 12.00px; font-family: sans;' textLength='89.75px' lengthAdjust='spacingAndGlyphs'>median = 126.34</text>
+<text x='100.53' y='300.51' style='font-size: 12.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <line x1='79.20' y1='467.96' x2='655.20' y2='467.96' style='stroke-width: 0.75;' />
 <polyline points='277.06,487.76 277.06,480.56 ' style='stroke-width: 1.50;' />
 <polygon points='256.70,487.76 256.70,480.56 312.59,480.56 312.59,487.76 ' style='stroke-width: 0.75; fill: none;' />

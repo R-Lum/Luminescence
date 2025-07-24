@@ -222,7 +222,7 @@
 <text x='43.20' y='274.56' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='43.20' y='245.23' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='43.20' y='215.91' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='338.40' y='47.52' text-anchor='middle' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='119.38px' lengthAdjust='spacingAndGlyphs'>n = 30 | in 2 sigma = 76.7 %</text>
-<text x='338.40' y='61.92' text-anchor='middle' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='119.38px' lengthAdjust='spacingAndGlyphs'>n = 30 | in 2 sigma = 73.3 %</text>
+<text x='338.40' y='47.52' text-anchor='middle' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='229.43px' lengthAdjust='spacingAndGlyphs'>n = 30 | in 2 sigma = 76.7 % | weighted median = 5.15</text>
+<text x='338.40' y='61.92' text-anchor='middle' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='229.43px' lengthAdjust='spacingAndGlyphs'>n = 30 | in 2 sigma = 73.3 % | weighted median = 4.15</text>
 </g>
 </svg>
