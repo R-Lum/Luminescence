@@ -152,6 +152,7 @@ one or more of the following keywords:
 \item \code{"mean"} (mean De value),
 \item \code{"mean.weighted"} (error-weighted mean),
 \item \code{"median"} (median of the De values),
+\item \code{"median.weighted"} (error-weighted median),
 \item \code{"sdrel"} (relative standard deviation in percent),
 \item \code{"sdrel.weighted"} (error-weighted relative standard deviation in percent),
 \item \code{"sdabs"} (absolute standard deviation),
