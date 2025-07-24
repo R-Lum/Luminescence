@@ -162,7 +162,7 @@ test_that("graphical snapshot tests", {
   df2 <- data.frame(x = df$x - 1, y = df$y * 0.75)
   vdiffr::expect_doppelganger("RadialPlot list",
                               plot_RadialPlot(list(df, df2),
-                                              centrality = c(5, 4),
+                                              centrality = "median.weighted",
                                               rug = TRUE, col = c(2, 3)))
   })
 })
