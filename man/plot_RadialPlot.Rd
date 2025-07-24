@@ -10,7 +10,7 @@ plot_RadialPlot(
   log.z = TRUE,
   central.value,
   centrality = "mean.weighted",
-  mtext,
+  mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   legend,
@@ -57,7 +57,7 @@ the central line. Can either be one out of
 \item numeric value used for the standardisation.
 }}
 
-\item{mtext}{\link{character}:
+\item{mtext}{\link{character} (\emph{with default}):
 additional text below the plot title.}
 
 \item{summary}{\link{character} (\emph{with default}):

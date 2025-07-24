@@ -64,7 +64,7 @@
 #' - `"median.weighted"` or a
 #' - numeric value used for the standardisation.
 #'
-#' @param mtext [character]:
+#' @param mtext [character] (*with default*):
 #' additional text below the plot title.
 #'
 #' @param summary [character] (*with default*):
@@ -274,7 +274,7 @@ plot_RadialPlot <- function(
   log.z = TRUE,
   central.value,
   centrality = "mean.weighted",
-  mtext,
+  mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   legend,
@@ -343,38 +343,29 @@ plot_RadialPlot <- function(
 
   if(missing(stats) == TRUE) {stats <- numeric(0)}
 
-  if(missing(bar.col) == TRUE) {
+  if (missing(bar.col)) {
     bar.col <- rep("grey80", length(data))
   }
 
-  if(missing(grid.col) == TRUE) {
+  if (missing(grid.col)) {
     grid.col <- rep("grey70", length(data))
   }
 
-  if(missing(mtext) == TRUE) {
-    mtext <- ""
-  }
-
   ## check z-axis log-option for grouped data sets
-  if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
+  if (is(data, "list") && length(data) > 1 && log.z == FALSE) {
     .throw_warning("Option 'log.z' is not set to 'TRUE' altough ",
                    "more than one data set (group) is provided.")
   }
 
   ## optionally, remove NA-values
-  if(na.rm == TRUE) {
+  if (na.rm) {
     for(i in 1:length(data)) {
       data[[i]] <- na.exclude(data[[i]])
     }
   }
 
   ## create preliminary global data set
-  De.global <- data[[1]][,1]
-  if(length(data) > 1) {
-    for(i in 2:length(data)) {
-      De.global <- c(De.global, data[[i]][,1])
-    }
-  }
+  De.global <- unlist(lapply(data, function(x) x[, 1]))
 
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
@@ -459,30 +450,19 @@ plot_RadialPlot <- function(
   }
 
   ## calculate precision and standard estimate
+  idx <- 0
   data <- lapply(data, function(x) {
+    idx <<- idx + 1
+    colnames(x) <- c("De", "error", "z", "se", "z.central")
     cbind(x,
           precision = 1 / x[, 4],
           std.estimate = (x[, 3] - x[, 5]) / x[, 4],
-          std.estimate.plot = NA)
+          std.estimate.plot = NA,
+          .id = idx)
   })
 
   ## generate global data set
-  data.global <- cbind(data[[1]], 1)
-  colnames(data.global) <- rep("", 9)
-
-  if(length(data) > 1) {
-    for(i in 2:length(data)) {
-      data.add <- cbind(data[[i]], i)
-      colnames(data.add) <- rep("", 9)
-      data.global <- rbind(data.global,
-                           data.add)
-    }
-  }
-
-  ## create column names
-  colnames(data.global) <- c(
-    "De", "error", "z", "se", "z.central", "precision", "std.estimate",
-    "std.estimate.plot")
+  data.global <- if (length(data) > 1) as.data.frame(rbindlist(data)) else data[[1]]
 
   ## calculate global central value
   z.central.global <-
@@ -508,33 +488,13 @@ plot_RadialPlot <- function(
                                central.value)
   }
 
-  ## create column names
-  for(i in 1:length(data)) {
-    colnames(data[[i]]) <- c("De",
-                             "error",
-                             "z",
-                             "se",
-                             "z.central",
-                             "precision",
-                             "std.estimate",
-                             "std.estimate.plot")
-  }
-
   ## re-calculate standardised estimate for plotting
   for(i in 1:length(data)) {
     data[[i]][,8] <- (data[[i]][,3] - z.central.global) / data[[i]][,4]
   }
 
-  data.global.plot <- data[[1]][,8]
-  if(length(data) > 1) {
-    for(i in 2:length(data)) {
-      data.global.plot <- c(data.global.plot, data[[i]][,8])
-    }
-  }
-  data.global[,8] <- data.global.plot
-
   ## print warning for too small scatter
-  if(max(abs(1 / data.global[6])) < 0.02) {
+  if (max(abs(1 / data.global[, 6])) < 0.02) {
     small.sigma <- TRUE
     message("Attention, small standardised estimate scatter. ",
             "Toggle off y.ticks?")
@@ -648,10 +608,8 @@ plot_RadialPlot <- function(
     -0.5
   }
 
-  show <- if("show" %in% names(extraArgs)) {extraArgs$show} else {TRUE}
-  if(show != TRUE) {show <- FALSE}
-
-  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
+  show <- if("show" %in% names(extraArgs)) isTRUE(extraArgs$show) else TRUE
+  fun <- if ("fun" %in% names(extraArgs)) isTRUE(extraArgs$fun) else FALSE # nocov
 
   ## define auxiliary plot parameters -----------------------------------------
 
@@ -676,18 +634,13 @@ plot_RadialPlot <- function(
   tick.values.major <- signif(c(limits.z, pretty(limits.z, n = 5)))
   tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
 
-  tick.values.major <- tick.values.major[tick.values.major >=
-    min(tick.values.minor)]
-  tick.values.major <- tick.values.major[tick.values.major <=
-    max(tick.values.minor)]
-  tick.values.major <- tick.values.major[tick.values.major >=
-    limits.z[1]]
-  tick.values.major <- tick.values.major[tick.values.major <=
-    limits.z[2]]
-  tick.values.minor <- tick.values.minor[tick.values.minor >=
-    limits.z[1]]
-  tick.values.minor <- tick.values.minor[tick.values.minor <=
-    limits.z[2]]
+  tick.values.major <- tick.values.major[between(tick.values.major,
+                                                 min(tick.values.minor),
+                                                 max(tick.values.minor))]
+  tick.values.major <- tick.values.major[between(tick.values.major,
+                                                 limits.z[1], limits.z[2])]
+  tick.values.minor <- tick.values.minor[between(tick.values.minor,
+                                                 limits.z[1], limits.z[2])]
 
   if(log.z == TRUE) {
     tick.values.major <- log(tick.values.major)
@@ -727,12 +680,10 @@ plot_RadialPlot <- function(
   label.y <- (tick.values.major - z.central.global) * tick.x2.major
 
   ## create z-axes labels
-  if(log.z) {
-    label.z.text <- signif(exp(tick.values.major), 3)
-
-  } else {
-    label.z.text <- signif(tick.values.major, 3)
-  }
+  label.z.text <- if (log.z)
+                    signif(exp(tick.values.major), 3)
+                  else
+                    signif(tick.values.major, 3)
 
   ## subtract De.add from label values
   if(De.add != 0)
@@ -1218,8 +1169,7 @@ plot_RadialPlot <- function(
       tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
       tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
       if(tick.space < char.height * 1.5) {
-        axis(side = 2, at = c(-2, 2), labels = c("", ""), las = 1)
-        axis(side = 2, at = 0, tcl = 0, labels = paste("\u00B1", "2"), las = 1)
+        axis(side = 2, at = 0, tcl = 0, labels = "\u00B1 2", las = 1)
       } else {
         axis(side = 2, at = seq(-2, 2, by = 2), las = 2)
       }
