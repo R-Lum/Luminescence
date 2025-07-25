@@ -144,6 +144,10 @@ test_that("Test internals", {
       c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2), class = "RLum.Analysis"),
     "list")
 
+  ## regression test for issue 907
+  expect_length(Luminescence:::.rm_nonRLum(list(matrix(iris)), "RLum.Analysis"),
+                0)
+
   # .rm_NULL_elements() -----------------------------------------------------------
   expect_type(.rm_NULL_elements(list("a", NULL)),
     "list")
