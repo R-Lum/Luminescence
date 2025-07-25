@@ -581,7 +581,7 @@ fancy_scientific <- function(l) {
   if(is.null(class))
     return(x[vapply(x, inherits, logical(1), "RLum")])
 
-  x[vapply(x, "class", character(1)) == class[1]]
+  x[vapply(x, function(x) class(x)[1] == class[1], logical(1))]
 }
 
 #++++++++++++++++++++++++++++++
