@@ -303,6 +303,9 @@ fit_LMCurve<- function(
     ## check if length of bg and signal is consistent
     if (nrow(values) != nrow(values.bg))
       .throw_error("'values' and 'values.bg' have different lengths")
+
+    ## silently limit columns of values.bg to prevent problems
+    values.bg <- values.bg[,1:2]
   }
 
   .validate_positive_scalar(n.components, int = TRUE)
