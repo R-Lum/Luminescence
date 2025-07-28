@@ -82,6 +82,8 @@ test_that("test input", {
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  expect_error(calc_OSLLxTxRatio(numeric()),
+               "'Lx.data' cannot be an empty numeric")
   expect_error(calc_OSLLxTxRatio(Lx.data, "error"),
                "'Tx.data' should be of class 'RLum.Data.Curve', 'data.frame', 'numeric' or 'matrix'")
   expect_error(calc_OSLLxTxRatio("error", "error"),

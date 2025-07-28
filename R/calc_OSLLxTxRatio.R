@@ -186,6 +186,7 @@ calc_OSLLxTxRatio <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
+  .validate_not_empty(Lx.data)
 
   ## Lx - coerce if required
   Lx.data <- switch(
