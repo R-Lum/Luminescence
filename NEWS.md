@@ -58,6 +58,9 @@
   low values are discouraged as they may trigger a warning during loess
   fitting (#900).
 
+- The function crashed when all rows in the input data set contained
+  `NA` values (#915).
+
 ### `calc_Statistics()`
 
 - The computation of the weighted median is now correct, while before it

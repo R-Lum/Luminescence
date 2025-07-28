@@ -58,6 +58,9 @@ introduced in version 1.0.0 (#867).
 parameter is silently reset to 2 in that case, although such low values are
 discouraged as they may trigger a warning during loess fitting (#900).
 
+* The function crashed when all rows in the input data set contained `NA`
+values (#915).
+
 ### `calc_Statistics()`
 
 * The computation of the weighted median is now correct, while before it

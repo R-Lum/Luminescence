@@ -356,6 +356,8 @@ calc_MinDose <- function(
     .throw_message("Warning: Input data contained NA/NaN values, ",
                    "which were removed prior to calculations", error = FALSE)
     data <- data[stats::complete.cases(data), ]
+    if (nrow(data) == 0)
+      .throw_error("After NA removal, nothing is left from the data set")
   }
 
   if (!missing(init.values)) {
