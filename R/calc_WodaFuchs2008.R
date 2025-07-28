@@ -90,6 +90,12 @@ calc_WodaFuchs2008 <- function(
         .throw_error("Insufficient number of data points")
       }
 
+  if (any(is.infinite(unlist(data)))) {
+    .throw_warning("Inf values found in 'data', replaced by NA")
+    data[is.infinite(data[, 1]), 1] <- NA
+    data[is.infinite(data[, 2]), 2] <- NA
+  }
+
   ## read additional arguments
 
   if("trace" %in% names(list(...))) {
@@ -118,6 +124,7 @@ calc_WodaFuchs2008 <- function(
   if(is.null(breaks)) {
     n_breaks <- diff(range(data[, 1], na.rm = TRUE)) / bin_width
   } else {
+    .validate_positive_scalar(breaks)
     n_breaks <- breaks
   }
 
