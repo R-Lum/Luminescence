@@ -10,11 +10,13 @@ test_that("input validation", {
                "'data' cannot be an empty data.frame")
   expect_error(calc_WodaFuchs2008(data.frame(a = letters)),
                "'data' should have only numeric fields")
+  expect_error(calc_WodaFuchs2008(ExampleData.DeValues$CA1, breaks = 0),
+               "'breaks' should be a positive scalar")
   res <- calc_WodaFuchs2008(ExampleData.DeValues$CA1)
   expect_error(calc_WodaFuchs2008(res, breaks = 4),
                "Insufficient number of data points")
   expect_error(expect_message(
-      calc_WodaFuchs2008(data.frame(c(-1, 0, 1))),
+      calc_WodaFuchs2008(c(-1, 0, 1)),
       "No errors provided, bin width set by 10 percent of input data"),
       "The estimated bin width is not positive, check your data")
 })
@@ -53,4 +55,10 @@ test_that("Test general functionality", {
   ## RLum.Results object
   obj <- calc_CommonDose(ExampleData.DeValues$BT998, verbose = FALSE)
   expect_silent(calc_WodaFuchs2008(obj))
+
+  ## Inf values
+  expect_warning(expect_warning(
+      calc_WodaFuchs2008(data.frame(c(Inf, -0.5, 1234, 5), rep(1, 4))),
+      "Inf values found in 'data', replaced by NA"),
+      "More than one maximum, fit may be invalid")
 })

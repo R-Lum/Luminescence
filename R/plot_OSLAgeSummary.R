@@ -71,6 +71,11 @@ plot_OSLAgeSummary <- function(
     object <- get_RLum(object, data.object = data.object)
   }
 
+  if (any(is.infinite(object))) {
+    .throw_warning("Inf values found in 'object', removed")
+    object <- object[!is.infinite(object)]
+  }
+
   ## A should be a matrix
   A <- as.matrix(object, ncol = 1)
 
