@@ -80,6 +80,10 @@ test_that("check functionality", {
   data.na[1, 1] <- NA
   expect_message(calc_MinDose(data.na, sigmab = 0.1, verbose = FALSE),
                  "Input data contained NA/NaN values, which were removed")
+  expect_message(expect_error(
+      calc_MinDose(data.frame(data.na[, 1], NA)),
+      "After NA removal, nothing is left from the data set"),
+      "Input data contained NA/NaN values, which were removed")
 
   ## no converging fit
   skip_on_os("windows")
