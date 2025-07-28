@@ -15,6 +15,12 @@ test_that("input validation", {
   empty <- set_RLum("RLum.Results", originator = NA_character_)
   expect_error(plot_OSLAgeSummary(empty),
                "Object originator 'NA' not supported")
+  expect_error(plot_OSLAgeSummary(object, level = 0),
+               "'level' should be a positive scalar")
+  expect_error(plot_OSLAgeSummary(object, digits = 1.2),
+               "'digits' should be a positive integer scalar")
+  expect_error(plot_OSLAgeSummary(c(-1, 0, NaN, 10000)),
+               "'object' contains missing values")
 })
 
 test_that("check functionality", {

@@ -111,6 +111,9 @@ calc_WodaFuchs2008 <- function(
                         na.rm = TRUE)
   }
 
+  if (bin_width <= 0)
+    .throw_error("The estimated bin width is not positive, check your data")
+
   ## optionally estimate class breaks based on bin width
   if(is.null(breaks)) {
     n_breaks <- diff(range(data[, 1], na.rm = TRUE)) / bin_width
