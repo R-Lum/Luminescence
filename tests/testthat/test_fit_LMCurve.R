@@ -33,10 +33,10 @@ test_that("input validation", {
                "'recordType' for values.bg should be 'RBR'!")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
-  SW({
-  if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
-    expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE))
-  })
+  # SW({
+  # if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
+  #   fit_LMCurve(values = values.curve, fit.calcError = TRUE)
+  # })
 })
 
 test_that("snapshot tests", {

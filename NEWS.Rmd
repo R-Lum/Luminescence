@@ -63,6 +63,11 @@ discouraged as they may trigger a warning during loess fitting (#900).
 * The computation of the weighted median is now correct, while before it
 corresponded to the simple (unweighted) median (#905).
 
+### `fit_LMCurve()`
+
+* The automated correction of the x-axis in case of `0` for lowest value threw 
+the correct warning but actually did nothing; fixed. 
+
 ### `fit_OSLLifeTimes()`
 
 * The function ensures that the `signal_range` argument doesn't contain

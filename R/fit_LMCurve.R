@@ -790,7 +790,8 @@ fit_LMCurve<- function(
     ## change xlim/ylim values in case of log plot to avoid problems
     if (settings$log %in% c("x", "xy") && settings$xlim[1] == 0) {
       .throw_warning("'xlim' changed to avoid 0 values for log-scale")
-      xlim <- c(2^0.5 / 2 * max(values[, 1]) / nrow(values), settings$xlim[2])
+      settings$xlim <- c(2^0.5 / 2 * max(values[, 1]) / nrow(values), settings$xlim[2])
+
     }
     if (settings$log %in% c("y", "xy") && settings$ylim[1] == 0) {
       settings$ylim[1] <- 0.01
