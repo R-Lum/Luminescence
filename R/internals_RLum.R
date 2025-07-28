@@ -85,9 +85,10 @@
   ##set new warning messages with merged results
   if (length(warning_collector) > 0) {
     w_table <- table(as.character(unlist(warning_collector)))
-    w_table_names <- names(w_table)
-
-    msg <- sprintf("(%d) %s%s", 1:length(w_table), w_table_names,
+    w_single <- rep(length(w_table) == 1, length(w_table))
+    msg <- sprintf("%s%s%s",
+                   ifelse(w_single, "", sprintf("(%d) ", 1:length(w_table))),
+                   names(w_table),
                    ifelse(w_table == 1, "", sprintf(" [%d times]", w_table)))
     warning(paste(msg, collapse = "\n"), call. = FALSE)
   }

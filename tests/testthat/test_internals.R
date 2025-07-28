@@ -45,6 +45,8 @@ test_that("Test internals", {
                          "(2) message 2 [2 times]",
                          "(3) message 3"), collapse = "\n"),
                  fixed = TRUE)
+  expect_warning(Luminescence:::.warningCatcher(warning("single message")),
+                 "single message")
 
   # .smoothing ----------------------------------------------------------------------------------
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))
