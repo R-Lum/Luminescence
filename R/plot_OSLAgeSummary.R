@@ -1,21 +1,27 @@
-#'@title Plot Posterior OSL-Age Summary
+#' @title Plot Posterior OSL-Age Summary
 #'
-#'@description A graphical summary of the statistical inference of an OSL age
+#' @description
+#' The function produces a graphical summary of the statistical inference of
+#' an OSL age.
 #'
-#'@details The function is called automatically by [combine_De_Dr]
+#' @details The function is called automatically by [combine_De_Dr].
 #'
-#'@param object [RLum.Results-class], [numeric] (**required**): an object produced
-#' by [combine_De_Dr]. Alternatively, a [numeric] vector of a parameter from an MCMC process
+#' @param object [RLum.Results-class], [numeric] (**required**):
+#' an object produced by [combine_De_Dr]. Alternatively, a [numeric] vector of
+#' a parameter from an MCMC process.
 #'
-#'@param level [numeric] (*with default*): probability of shown credible interval
+#' @param level [numeric] (*with default*):
+#' probability of shown credible interval.
 #'
-#'@param digits [integer] (*with default*): number of digits considered for the calculation
+#' @param digits [integer] (*with default*):
+#' number of digits considered for the calculation.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#'@param ... further arguments to modify the plot, supported: `xlim`, `ylim`, `xlab`, `ylab`,
-#' `main`, `lwd`, `lty`, `col`, `polygon_col`, `polygon_density`, `rug`
+#' @param ... further arguments to modify the plot, supported: `xlim`, `ylim`,
+#' `xlab`, `ylab`, `main`, `lwd`, `lty`, `col`, `rug`, `polygon_col`,
+#' `polygon_density`.
 #'
 #'@return A posterior distribution plot and an [RLum.Results-class]
 #' object with the credible interval.
