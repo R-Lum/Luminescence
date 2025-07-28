@@ -7,28 +7,33 @@
 plot_OSLAgeSummary(object, level = 0.95, digits = 1L, verbose = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results}, \link{numeric} (\strong{required}): an object produced
-by \link{combine_De_Dr}. Alternatively, a \link{numeric} vector of a parameter from an MCMC process}
+\item{object}{\linkS4class{RLum.Results}, \link{numeric} (\strong{required}):
+an object produced by \link{combine_De_Dr}. Alternatively, a \link{numeric} vector of
+a parameter from an MCMC process.}
 
-\item{level}{\link{numeric} (\emph{with default}): probability of shown credible interval}
+\item{level}{\link{numeric} (\emph{with default}):
+probability of shown credible interval.}
 
-\item{digits}{\link{integer} (\emph{with default}): number of digits considered for the calculation}
+\item{digits}{\link{integer} (\emph{with default}):
+number of digits considered for the calculation.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
 
-\item{...}{further arguments to modify the plot, supported: \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab},
-\code{main}, \code{lwd}, \code{lty}, \code{col}, \code{polygon_col}, \code{polygon_density}, \code{rug}}
+\item{...}{further arguments to modify the plot, supported: \code{xlim}, \code{ylim},
+\code{xlab}, \code{ylab}, \code{main}, \code{lwd}, \code{lty}, \code{col}, \code{rug}, \code{polygon_col},
+\code{polygon_density}.}
 }
 \value{
 A posterior distribution plot and an \linkS4class{RLum.Results}
 object with the credible interval.
 }
 \description{
-A graphical summary of the statistical inference of an OSL age
+The function produces a graphical summary of the statistical inference of
+an OSL age.
 }
 \details{
-The function is called automatically by \link{combine_De_Dr}
+The function is called automatically by \link{combine_De_Dr}.
 }
 \section{Function version}{
  0.1.0

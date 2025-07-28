@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 
 test_that("input validation", {
@@ -12,6 +13,10 @@ test_that("input validation", {
   res <- calc_WodaFuchs2008(ExampleData.DeValues$CA1)
   expect_error(calc_WodaFuchs2008(res, breaks = 4),
                "Insufficient number of data points")
+  expect_error(expect_message(
+      calc_WodaFuchs2008(data.frame(c(-1, 0, 1))),
+      "No errors provided, bin width set by 10 percent of input data"),
+      "The estimated bin width is not positive, check your data")
 })
 
 test_that("Test general functionality", {
@@ -27,7 +32,7 @@ test_that("Test general functionality", {
   expect_warning(calc_WodaFuchs2008(ExampleData.DeValues$CA1[1:40, ]),
                  "More than one maximum, fit may be invalid")
 
-  ## issue #197
+  ## issue 197
   set.seed(1)
   df <- data.frame(rnorm(20, 10), rnorm(20, 0.5))
   expect_silent(calc_WodaFuchs2008(df))

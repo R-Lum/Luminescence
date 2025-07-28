@@ -1,21 +1,27 @@
-#'@title Plot Posterior OSL-Age Summary
+#' @title Plot Posterior OSL-Age Summary
 #'
-#'@description A graphical summary of the statistical inference of an OSL age
+#' @description
+#' The function produces a graphical summary of the statistical inference of
+#' an OSL age.
 #'
-#'@details The function is called automatically by [combine_De_Dr]
+#' @details The function is called automatically by [combine_De_Dr].
 #'
-#'@param object [RLum.Results-class], [numeric] (**required**): an object produced
-#' by [combine_De_Dr]. Alternatively, a [numeric] vector of a parameter from an MCMC process
+#' @param object [RLum.Results-class], [numeric] (**required**):
+#' an object produced by [combine_De_Dr]. Alternatively, a [numeric] vector of
+#' a parameter from an MCMC process.
 #'
-#'@param level [numeric] (*with default*): probability of shown credible interval
+#' @param level [numeric] (*with default*):
+#' probability of shown credible interval.
 #'
-#'@param digits [integer] (*with default*): number of digits considered for the calculation
+#' @param digits [integer] (*with default*):
+#' number of digits considered for the calculation.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#'@param ... further arguments to modify the plot, supported: `xlim`, `ylim`, `xlab`, `ylab`,
-#' `main`, `lwd`, `lty`, `col`, `polygon_col`, `polygon_density`, `rug`
+#' @param ... further arguments to modify the plot, supported: `xlim`, `ylim`,
+#' `xlab`, `ylab`, `main`, `lwd`, `lty`, `col`, `rug`, `polygon_col`,
+#' `polygon_density`.
 #'
 #'@return A posterior distribution plot and an [RLum.Results-class]
 #' object with the credible interval.
@@ -50,6 +56,8 @@ plot_OSLAgeSummary <- function(
 
   ## Integrity tests --------------------------------------------------------
   .validate_class(object, c("RLum.Results", "numeric"))
+  .validate_positive_scalar(level)
+  .validate_positive_scalar(digits, int = TRUE)
 
   if (inherits(object, "RLum.Results")) {
     if (object@originator %in% c(".calc_BayesianCentralAgeModel",
@@ -67,8 +75,11 @@ plot_OSLAgeSummary <- function(
   A <- as.matrix(object, ncol = 1)
 
 # Run calculations --------------------------------------------------------
-  ## use our internal function instead of Archaeophase to avoid the decency hell
-  CI <- round(.calc_HPDI(A, prob = level[1]), digits[1])
+  ## use our internal function instead of Archaeophase to avoid dependency hell
+  CI <- tryCatch(round(.calc_HPDI(A, prob = level), digits),
+                 error = function(e) {
+                   .throw_error(gsub("'x'", "'object'", e$message))
+                 })
   Bayes_est_mean <- round(mean(A), digits = digits)
   Bayes_est_sd <- round(sd(A), digits = digits)
 
@@ -77,7 +88,6 @@ plot_OSLAgeSummary <- function(
     cat("\n[plot_OSLAgeSummary()]\n")
     cat(paste0(" Credible Interval (", level * 100 ),"%): ",paste(CI[1,], collapse = " : "), "\n")
     cat(paste0(" Bayes estimate (posterior mean \u00b1 sd): ", Bayes_est_mean[1], " \u00b1 ", Bayes_est_sd[1]),"\n")
-
   }
 
 # Plot output -------------------------------------------------------------
@@ -95,7 +105,6 @@ plot_OSLAgeSummary <- function(
     polygon_col = rgb(1,0,0,0.3),
     polygon_density = 20,
     rug = FALSE
-
   ), val = list(...))
 
   plot(
@@ -158,5 +167,4 @@ plot_OSLAgeSummary <- function(
       Credible_Interval = CI,
       level = level),
   info = list(call = sys.call())))
-
 }

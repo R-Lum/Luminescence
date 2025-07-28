@@ -106,9 +106,9 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
   .set_function_name("sTeve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  .validate_class(n_frames, c("integer", "numeric"))
-  .validate_class(t_animation, c("integer", "numeric"))
-  .validate_class(n.tree, c("integer", "numeric"))
+  .validate_positive_scalar(n_frames, int = TRUE)
+  .validate_positive_scalar(t_animation, int = TRUE)
+  .validate_positive_scalar(n.tree, int = TRUE)
 
   ## allow new overlay plot
   par(new = TRUE)
