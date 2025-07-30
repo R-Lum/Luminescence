@@ -32,7 +32,7 @@
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.5
+#' @section Function version: 1.0.6
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -134,6 +134,15 @@ plot_DoseResponseCurve <- function(
             c(0, xmax)
           }
 
+  ## pch lookup table
+  reg_points_pch <- rep(19, nrow(xy))
+
+    ## correct repeated an zero
+    if(mode == "interpolation") {
+      reg_points_pch[duplicated(xy[[1]])] <- 2
+      reg_points_pch[xy[[1]] == 0] <-  1
+    }
+
   ## set plot settings
   plot_settings <- modifyList(
     x = list(
@@ -156,7 +165,7 @@ plot_DoseResponseCurve <- function(
         },
       log = "",
       legend = TRUE,
-      reg_points_pch = c(19,2, 1),
+      reg_points_pch = reg_points_pch,
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
       density_rug = TRUE,
@@ -383,15 +392,15 @@ plot_DoseResponseCurve <- function(
       if (mode == "interpolation") {
         legend(
             "topleft",
-            c("REG point", "REG point repeated", "REG point 0"),
-            pch = plot_settings$reg_points_pch,
+            c("REG point", "REG point 0", "REG point repeated"),
+            pch = unique(plot_settings$reg_points_pch),
             cex = 0.7,
             bty = "n")
       } else {
         legend(
             "bottomright",
-            c("Dose point", "Dose point rep.", "Dose point 0"),
-            pch = plot_settings$reg_points_pch,
+            c("Dose point", "Dose point 0", "Dose point rep."),
+            pch = unique(plot_settings$reg_points_pch),
             cex = 0.7,
             bty = "n")
       }
