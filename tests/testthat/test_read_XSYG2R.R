@@ -1,7 +1,7 @@
 ## path to the XSYG file on github
 github.url <- file.path("https://raw.githubusercontent.com/R-Lum",
                         "rxylib/master/inst/extdata/TLSpectrum.xsyg")
-xsyg.file <- .download_file(github.url, tempfile("test_read_XSYG2R"),
+xsyg.file <- Luminescence:::.download_file(github.url, tempfile("test_read_XSYG2R"),
                             verbose = FALSE)
 
 test_that("input validation", {
@@ -121,7 +121,7 @@ test_that("test import of XSYG files", {
       fastForward = TRUE,
       auto_linearity_correction = TRUE,
       verbose = FALSE
-    ),
+    )[[1]],
     class = "RLum.Analysis")
 
 })

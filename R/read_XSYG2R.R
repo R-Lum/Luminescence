@@ -719,9 +719,10 @@ read_XSYG2R <- function(
       "NIR40" = 70,
       "ETPMT" = 25)
 
+
     # correct only curves that can be corrected
     output <- lapply(output, \(x) {
-      lapply(x@records, \(y) {
+      x@records <- lapply(x@records, \(y) {
         detector <- y@info$detector
         if(!is.null(detector) && any(detector %in% c("UVVIS"))) {
           y <- correct_PMTLinearity(y, PMT_pulse_pair_resolution = count_pair_res[detector])
@@ -729,6 +730,7 @@ read_XSYG2R <- function(
         }
         return(y)
       })
+      return(x)
     })
 
   }
