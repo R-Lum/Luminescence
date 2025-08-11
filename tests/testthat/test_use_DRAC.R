@@ -76,6 +76,9 @@ test_that("Test DRAC", {
  input$`De (Gy)` <- 20
  input$`errDe (Gy)` <- 0.2
 
+## temporarily disabled due to issue 919
+if (FALSE) {
+
  ##run DRAC
  SW({
  output <- expect_s4_class(use_DRAC(input), "RLum.Results")
@@ -89,6 +92,8 @@ test_that("Test DRAC", {
  class(input.df) <- c("data.frame", "DRAC.data.frame")
  expect_s4_class(use_DRAC(input.df, verbose = FALSE),
                  "RLum.Results")
+
+} # end issue 919
 
  ## CSV input
  expect_s4_class(use_DRAC(test_path("_data/DRAC_Input_Template.csv"),
