@@ -10,7 +10,7 @@
 ## New functions
 
 - `correct_PMTLinearity()`A little helper to corrected luminescence
-  signals for count linearity, if measured with a PMT
+  signals for count linearity, if measured with a PMT (#920)
 
 ## New datasets
 
@@ -170,7 +170,7 @@
 
 ### `read_XSYG2R()`
 
-- Add support for the new function `correct_PMTLinearity()`.
+- Add support for the new function `correct_PMTLinearity()` (#920).
 
 ### `trim_RLum.Data()`
 
