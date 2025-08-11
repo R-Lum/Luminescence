@@ -114,4 +114,14 @@ test_that("test import of XSYG files", {
     read_XSYG2R(test_path("_data/xsyg-tests/XSYG_spectra_duplicated_TL.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE),
     regexp = "Temperature values are found to be duplicated and increased by 1 K.")
 
+  ## test automated linearity correction
+  expect_s4_class(
+    read_XSYG2R(
+      file = xsyg.file,
+      fastForward = TRUE,
+      auto_linearity_correction = TRUE,
+      verbose = FALSE
+    ),
+    class = "RLum.Analysis")
+
 })

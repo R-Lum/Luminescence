@@ -578,4 +578,5 @@ test_that("Test internals", {
     TOLDELAY = 10,
     TOLON = 10,
     TOLOFF = 400),  type = "double")
+
 })

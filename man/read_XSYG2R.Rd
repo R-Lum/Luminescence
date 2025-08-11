@@ -11,6 +11,7 @@ read_XSYG2R(
   fastForward = FALSE,
   import = TRUE,
   pattern = ".xsyg",
+  auto_linearity_correction = FALSE,
   verbose = TRUE,
   txtProgressBar = TRUE
 )
@@ -43,6 +44,11 @@ if set to \code{FALSE}, only the XSYG file structure is shown.}
 \item{pattern}{\link{regex} (\emph{with default}):
 optional regular expression if \code{file} is a link to a folder, to select just
 specific XSYG-files}
+
+\item{auto_linearity_correction}{\link{logical} (\emph{with default}): enable/disable
+automatic count linearity correction. Because the information on the detectors
+are not consistent and are not consistently stored, this option should be used
+with caution.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal. If verbose is \code{FALSE} the \code{txtProgressBar} is also switched off}
@@ -132,6 +138,28 @@ values based on values delivered by the heating element, it may happen that
 multiple count values exists for each temperature value and temperature
 values may also decrease during heating, not only increase.
 
+\strong{Count linearity correction}
+
+If the argument \code{auto_linearity_correction = TRUE}, the function offers a,
+theoretically, automated linearity correction of the PMT signal using
+the internal function \link{correct_PMTLinearity}. The critical parameter
+is the count-pair resolution, which is provided to the function
+automatically depending on the detector. Currently, the following
+settings are used:
+
+\tabular{ll}{
+DETECTOR \tab COUNT-PAIR-RESOLUTION\cr
+UVVIS \tab 18 ns\cr
+NIR50 \tab 70 ns\cr
+NIR40 \tab 70 ns \cr
+ETMPT \tab 25 ns
+}
+
+Unfortunately, not all XSYG files provide correct information on
+the used detector, depending on software version. Hence, in case
+of doubt, please verify the settings and conduct a manual correction
+if required.
+
 \strong{Advanced file import}
 
 To allow for a more efficient usage of the function, instead of single path
@@ -150,7 +178,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.15
+ 0.7.0
 }
 
 \examples{
@@ -189,7 +217,8 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\code{'XML'}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
+\code{'XML'}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\link{approx}, \link{correct_PMTLinearity}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
