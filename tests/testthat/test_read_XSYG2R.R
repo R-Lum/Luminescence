@@ -115,9 +115,10 @@ test_that("test import of XSYG files", {
     regexp = "Temperature values are found to be duplicated and increased by 1 K.")
 
   ## test automated linearity correction
-  expect_s4_class(
+  file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
+  t <- expect_s4_class(
     read_XSYG2R(
-      file = xsyg.file,
+      file = file,
       fastForward = TRUE,
       auto_linearity_correction = TRUE,
       verbose = FALSE

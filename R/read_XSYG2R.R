@@ -724,7 +724,7 @@ read_XSYG2R <- function(
     output <- lapply(output, \(x) {
       x@records <- lapply(x@records, \(y) {
         detector <- y@info$detector
-        if(!is.null(detector) && any(detector %in% c("UVVIS"))) {
+        if(!is.null(detector) && any(detector %in% names(count_pair_res))) {
           y <- correct_PMTLinearity(y, PMT_pulse_pair_resolution = count_pair_res[detector])
 
         }
