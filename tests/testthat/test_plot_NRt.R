@@ -17,6 +17,8 @@ test_that("input validation", {
                 "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(list(a = 1, b = 2)),
                 "'data' doesn't contain the expected type of elements")
+  expect_error(plot_NRt(data.frame(a = NA, b = 1:5, c = 1:5)),
+                "'data' contains missing values in the time column")
   expect_error(plot_NRt(curves, smooth = "error"),
                "'smooth' should be one of 'none', 'spline' or 'rmean'")
 

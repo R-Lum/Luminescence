@@ -303,7 +303,8 @@ fit_CWCurve<- function(
     ##estimation and fit an linear function a first guess
     temp.values <- data.frame(x[y > 0], log(y[y > 0]))
 
-    temp <- stats::lm(temp.values)
+    temp <- tryCatch(stats::lm(temp.values),
+                     error = function(e) .throw_error(e$message))
     lambda<-abs(temp$coefficient[2])/nrow(values)
 
     k<-2

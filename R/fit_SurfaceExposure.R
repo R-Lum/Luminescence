@@ -306,6 +306,8 @@ fit_SurfaceExposure <- function(
   ## remove rows with NA
   if (anyNA(data)) {
     data <- data[stats::complete.cases(data), ]
+    if (nrow(data) == 0)
+      .throw_error("After NA removal, nothing is left from the data set")
     if (settings$verbose)
       .throw_message("NA values in 'data' were removed", error = FALSE)
   }

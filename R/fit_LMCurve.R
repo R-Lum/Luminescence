@@ -333,6 +333,9 @@ fit_LMCurve<- function(
     values.bg <- values.bg[-na.idx, ]
   }
 
+  if (nrow(values) == 0)
+    .throw_error("After NA removal, nothing is left from the data set")
+
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
 

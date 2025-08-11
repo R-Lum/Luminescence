@@ -17,6 +17,8 @@ test_that("input validation", {
       "2 unsupported records removed")
   expect_error(analyse_FadingMeasurement(cbind(fading_data, fading_data[, 1])),
                "if you provide a data.frame as input, the number of columns")
+  expect_error(analyse_FadingMeasurement(data.frame(NA, 1:5, 1:5)),
+               "After NA removal, nothing is left from the data set")
 
   ## check various for t_star
   ## stop t_star

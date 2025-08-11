@@ -138,7 +138,7 @@ calc_FuchsLang2001 <- function(
     cv <- round(sd / mean * 100, digits = 2) #calculate coefficient of variation
 
     ## avoid crashes if the both mean and sd are zero
-    if (is.nan(cv))
+    if (is.na(cv))
       cv <- 0
 
     # break if cv > cvThreshold
@@ -236,7 +236,8 @@ calc_FuchsLang2001 <- function(
   ##=========##
   ## PLOTTING
   if(plot) {
-    try(plot_RLum.Results(newRLumResults.calc_FuchsLang2001, ...))
+    try(plot_RLum.Results(newRLumResults.calc_FuchsLang2001, ...),
+        outFile = stdout()) # redirect error messages so they can be silenced
   }#endif::plot
 
   invisible(newRLumResults.calc_FuchsLang2001)
