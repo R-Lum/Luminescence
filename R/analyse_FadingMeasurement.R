@@ -236,6 +236,8 @@ analyse_FadingMeasurement <- function(
                           })
                         )
       object <- object[stats::complete.cases(object), ]
+      if (nrow(object) == 0)
+        .throw_error("After NA removal, nothing is left from the data set")
     }
 
     ##set table and object

@@ -31,6 +31,8 @@ test_that("input validation", {
     values.bg = set_RLum("RLum.Data.Curve", data = as.matrix(values.curve), recordType = "OSL"),
     verbose = FALSE),
                "'recordType' for values.bg should be 'RBR'!")
+  expect_error(fit_LMCurve(data.frame(NA, 1:5)),
+               "After NA removal, nothing is left from the data set")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
   # SW({

@@ -361,6 +361,8 @@ plot_RadialPlot <- function(
   if (na.rm) {
     for(i in 1:length(data)) {
       data[[i]] <- na.exclude(data[[i]])
+      if (nrow(data[[i]]) == 0)
+        .throw_error("After NA removal, nothing is left from data set ", i)
     }
   }
 

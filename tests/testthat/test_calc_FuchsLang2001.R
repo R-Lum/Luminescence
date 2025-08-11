@@ -51,9 +51,19 @@ test_that("check class and length of output", {
 
     ), "RLum.Results")
   })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
 
   ## issue 818
   expect_silent(calc_FuchsLang2001(data.frame(ED = c(rep(0, 4), 10),
                                               ED_Error = rnorm(5) + 1),
                                    verbose = FALSE))
+
+  ## issue 917
+  expect_output(calc_FuchsLang2001(data.frame(ED = NA,
+                                              ED_Error = rnorm(5) + 1),
+                                   verbose = FALSE),
+                "need finite 'xlim' values")
 })

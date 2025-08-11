@@ -90,6 +90,8 @@ test_that("check functionality", {
   pdf(tempfile(), width = 1, height = 1)
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve, verbose = FALSE),
                  "Figure margins too large or plot area too small")
+  expect_error(fit_CWCurve(data.frame(NA, 1:5)),
+               "0 (non-NA) cases", fixed = TRUE)
 })
 
 test_that("regression tests", {

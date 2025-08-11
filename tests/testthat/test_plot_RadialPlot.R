@@ -20,6 +20,8 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(list(df[0, ])),
                "Input 'data[[1]]' cannot be an empty data.frame",
                fixed = TRUE)
+  expect_error(plot_RadialPlot(data.frame(NA, 1:5)),
+               "After NA removal, nothing is left from data set 1")
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' should have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),

@@ -203,7 +203,12 @@ calc_FastRatio <- function(object,
     A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
     A[ ,1] <- A[ ,1] - A[1,1]
 
-    # estimate the photo-ionisation crossections of the fast and medium
+    ## remove missing values in the first column
+    A <- A[!is.na(A[, 1]), ]
+    if (nrow(A) == 0)
+      .throw_error("After NA removal, nothing is left from the data set")
+
+    # estimate the photo-ionisation cross-sections of the fast and medium
     # component using the fit_CWCurve function
     if (fitCW.sigma | fitCW.curve) {
       fitCW.res <- try(fit_CWCurve(A, n.components.max = settings$n.components.max,
