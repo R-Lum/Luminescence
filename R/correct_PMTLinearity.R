@@ -42,7 +42,7 @@
 #' o <- set_RLum("RLum.Data.Curve")
 #' correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10)
 #'
-#' @keywords internal
+#' @keywords manip
 #'
 #' @md
 #' @export
