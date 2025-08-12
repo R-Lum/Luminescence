@@ -167,13 +167,8 @@ calc_FuchsLang2001 <- function(
       # write used D[e] values in data.frame
       usedDeValues[endDeValue,1]<-data_ordered[endDeValue,1]
       usedDeValues[endDeValue,2]<-data_ordered[endDeValue,2]
+      usedDeValues[endDeValue,3] <- paste(cv, "%")
 
-      # first cv values alway contains NA to ensure that NA% is not printed test
-      if(is.na(cv)==TRUE) {
-        usedDeValues[endDeValue,3]<-cv
-      } else {
-        usedDeValues[endDeValue,3]<-paste(cv," %",sep="")
-      }
     }#EndElse
 
     # go the next D[e] value until the maximum number is reached
