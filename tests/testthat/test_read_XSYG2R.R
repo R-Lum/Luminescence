@@ -1,7 +1,7 @@
 ## path to the XSYG file on github
 github.url <- file.path("https://raw.githubusercontent.com/R-Lum",
                         "rxylib/master/inst/extdata/TLSpectrum.xsyg")
-xsyg.file <- .download_file(github.url, tempfile("test_read_XSYG2R"),
+xsyg.file <- Luminescence:::.download_file(github.url, tempfile("test_read_XSYG2R"),
                             verbose = FALSE)
 
 test_that("input validation", {
@@ -114,4 +114,14 @@ test_that("test import of XSYG files", {
     read_XSYG2R(test_path("_data/xsyg-tests/XSYG_spectra_duplicated_TL.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE),
     regexp = "Temperature values are found to be duplicated and increased by 1 K.")
 
+  ## test automated linearity correction
+  file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
+  t <- expect_s4_class(
+    read_XSYG2R(
+      file = file,
+      fastForward = TRUE,
+      auto_linearity_correction = TRUE,
+      verbose = FALSE
+    )[[1]],
+    class = "RLum.Analysis")
 })

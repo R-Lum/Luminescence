@@ -12,6 +12,9 @@ header-includes:
 
 ## New functions
 
+* `correct_PMTLinearity()`A little helper to correct luminescence signals for
+count linearity, if measured with a PMT (#920).
+
 ## New datasets
 
 ## Removed functions and deprecations
@@ -155,7 +158,11 @@ the fit was obtained with mode other than `"extrapolation"` (#820).
 jagged or even as a straight line, as it could happen that too few points
 were actually used when drawing the curve (#843).
 
-## `trim_RLum.Data()`
+### `read_XSYG2R()`
+
+* Add support for the new function `correct_PMTLinearity()` (#920).
+
+### `trim_RLum.Data()`
 
 * The function crashed if both values specified in the `trim_range` argument
   exceeded the number of channels available (#871).
