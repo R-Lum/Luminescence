@@ -430,6 +430,8 @@ test_that("Test internals", {
                "'var' should be a positive scalar")
   expect_error(.validate_positive_scalar(-1, name = "'var'"),
                "'var' should be a positive scalar")
+  expect_error(.validate_positive_scalar(Inf, int = TRUE, name = "'var'"),
+               "'var' should be a positive integer")
   expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "'var'"),
                "'var' should be a positive integer")
   expect_error(.validate_positive_scalar(NA, int = TRUE, name = "The variable"),

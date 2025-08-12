@@ -1307,7 +1307,7 @@ SW <- function(expr) {
   if (is.null(val) && null.ok)
     return(NULL)
   if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
-      (int && val != as.integer(val))) {
+      (int && (is.infinite(val) || val != as.integer(val)))) {
     if (is.null(name))
       name <- sprintf("'%s'", all.vars(match.call())[1])
     .throw_error(name, " should be a positive ", if (int) "integer ",
