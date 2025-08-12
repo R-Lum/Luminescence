@@ -18,6 +18,10 @@ test_that("Test internals", {
       object = correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10),
       class = "RLum.Data.Curve")
 
+  ## nothing done
+  expect_equal(correct_PMTLinearity(o),
+               o)
+
   ## run with only one row
   o <- set_RLum(
       class = "RLum.Analysis",
