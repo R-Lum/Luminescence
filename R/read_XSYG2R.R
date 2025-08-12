@@ -283,6 +283,8 @@ read_XSYG2R <- function(
 
   ## Integrity checks -------------------------------------------------------
 
+  .validate_logical_scalar(auto_linearity_correction)
+
   ## check for URL and attempt download
   url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"),
                              verbose = verbose)
@@ -298,7 +300,6 @@ read_XSYG2R <- function(
     if(verbose)
       .throw_message("File does not exist, nothing imported, NULL returned")
     return(NULL)
-
   }
 
   # (0) config --------------------------------------------------------------
@@ -711,7 +712,7 @@ read_XSYG2R <- function(
   output <- .rm_NULL_elements(output)
 
   ## account for linearity
-  if(auto_linearity_correction[1]) {
+  if (auto_linearity_correction) {
     ## set look-up table for common FI PMTs
     count_pair_res <- c(
       "UVVIS" = 18,
@@ -719,23 +720,19 @@ read_XSYG2R <- function(
       "NIR40" = 70,
       "ETPMT" = 25)
 
-
-    # correct only curves that can be corrected
+    ## correct only curves that can be corrected
     output <- lapply(output, \(x) {
       x@records <- lapply(x@records, \(y) {
         detector <- y@info$detector
-        if(!is.null(detector) && any(detector %in% names(count_pair_res))) {
+        if (!is.null(detector) && any(detector %in% names(count_pair_res))) {
           y <- correct_PMTLinearity(y, PMT_pulse_pair_resolution = count_pair_res[detector])
-
         }
         return(y)
       })
       return(x)
     })
-
   }
 
   ## return object
   return(output)
-
 }

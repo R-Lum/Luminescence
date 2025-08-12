@@ -124,5 +124,4 @@ test_that("test import of XSYG files", {
       verbose = FALSE
     )[[1]],
     class = "RLum.Analysis")
-
 })
