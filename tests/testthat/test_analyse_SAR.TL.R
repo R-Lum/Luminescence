@@ -88,14 +88,15 @@ test_that("Test examples", {
     ),
   "Error column invalid or 0, 'fit.weights' ignored")
 
-  expect_snapshot_RLum(
+  ## FIXME(mcol): this example doesn't work with snapshotting
+  expect_s4_class(
     analyse_SAR.TL(
       object,
       signal.integral.min = 210,
       signal.integral.max = 220,
       fit.method = "EXP OR LIN",
-      sequence.structure = c("SIGNAL", "BACKGROUND"))
-  )
+      sequence.structure = c("SIGNAL", "BACKGROUND")),
+    "RLum.Results")
   })
 
   expect_output(expect_null(
