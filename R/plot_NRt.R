@@ -171,6 +171,14 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     .throw_error("'data' contains missing values in the time column, ",
                  "check your data")
   }
+  if (anyNA(natural[, 2])) {
+    .throw_error("'data' contains missing values in the natural signal, ",
+                 "check your data")
+  }
+  if (anyNA(regCurves[[1]][, 2])) {
+    .throw_error("'data' contains missing values in the regenerated signal, ",
+                 "check your data")
+  }
   if (any(sapply(regCurves, nrow) != nrow(natural))) {
     .throw_error("The time values for the natural signal don't match ",
                  "those for the regenerated signal")
@@ -219,7 +227,6 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
 
   # override defaults with user settings
   settings <- modifyList(settings, list(...))
-
 
   ## PLOTTING ----------
 

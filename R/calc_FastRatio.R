@@ -126,7 +126,7 @@ calc_FastRatio <- function(object,
   .set_function_name("calc_FastRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity checks - -----------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Analysis", "RLum.Results", "RLum.Data.Curve",
                             "data.frame", "matrix"))
@@ -203,8 +203,8 @@ calc_FastRatio <- function(object,
     A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
     A[ ,1] <- A[ ,1] - A[1,1]
 
-    ## remove missing values in the first column
-    A <- A[!is.na(A[, 1]), ]
+    ## remove missing values
+    A <- na.exclude(A[, 1:2])
     if (nrow(A) == 0)
       .throw_error("After NA removal, nothing is left from the data set")
 
@@ -300,7 +300,6 @@ calc_FastRatio <- function(object,
         Cts_L2 <- predict(nls, list(x = t_L2))
       }
     }
-
 
     # L3 ----
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {

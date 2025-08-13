@@ -174,6 +174,8 @@ fit_ThermalQuenching <- function(
   if (anyNA(data)) {
     .throw_warning("NA values in 'data' automatically removed")
     data <- na.exclude(data)
+    if (nrow(data) == 0)
+      .throw_error("After NA removal, nothing is left from the data set")
   }
 
   .validate_class(start_param, "list")

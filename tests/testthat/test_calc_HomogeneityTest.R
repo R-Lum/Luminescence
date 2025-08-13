@@ -49,3 +49,12 @@ test_that("check values from output example", {
       "'data' contains negative values and 'log = TRUE'"),
       "NaNs produced")
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 924
+  expect_s4_class(
+      calc_HomogeneityTest(data.frame(1:4, NA), verbose = FALSE),
+      "RLum.Results")
+})
