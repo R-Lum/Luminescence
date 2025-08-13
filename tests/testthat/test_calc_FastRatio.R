@@ -62,6 +62,8 @@ test_that("input validation", {
                "All elements of 'dead.channels' should be non-negative")
   expect_error(calc_FastRatio(data.frame(NA, 1:4, 1:4)),
                "After NA removal, nothing is left from the data set")
+  expect_error(calc_FastRatio(data.frame(1:4, NA)),
+               "After NA removal, nothing is left from the data set")
 
   expect_warning(expect_null(calc_FastRatio(ExampleData.CW_OSL_Curve,
                                             Ch_L2 = 1)),

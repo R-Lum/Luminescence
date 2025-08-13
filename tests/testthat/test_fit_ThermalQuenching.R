@@ -15,6 +15,10 @@ test_that("input validation", {
     data = data[,1:2],
     n.MC = NULL),
     "'data' is empty or has fewer than three columns")
+  expect_warning(expect_error(
+      fit_ThermalQuenching(data.frame(1:10, NA, 1:10)),
+      "After NA removal, nothing is left from the data set"),
+      "NA values in 'data' automatically removed")
 })
 
 test_that("check functionality", {
