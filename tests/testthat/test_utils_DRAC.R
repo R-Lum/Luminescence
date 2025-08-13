@@ -15,6 +15,7 @@ test_that("check functionality", {
 
   ## more coverage
   DRAC[["TI:4"]] <- DRAC[["TI:34"]] <- DRAC[["TI:35"]] <- DRAC[["TI:38"]] <- "X"
+  DRAC[["TI:22"]] <- "Y"
   t <- expect_type(.get_DRAC_references(DRAC), "list")
-  expect_length(t$refs, 3)
+  expect_length(t$refs, 4)
 })
