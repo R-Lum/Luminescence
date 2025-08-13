@@ -233,7 +233,8 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 # This function queries the URL, checks the server response and returns
 # the content.
 .github_getContent <- function(url) {
-  response <- httr::GET(url, httr::accept_json())
+  response <- tryCatch(httr::GET(url, httr::accept_json()),
+                       error = function(e) .throw_error(e$message))
   # nocov start
   if (httr::status_code(response) != 200)
     .throw_error("Contacting ", url, " returned status code ",

@@ -22,6 +22,8 @@ test_that("Check github_commits()", {
                "'branch' should be of class 'character'")
   expect_error(github_commits(branch = letters),
                "'branch' should have length 1")
+  expect_error(github_commits(repo = "a test"),
+               "URL using bad/illegal format or missing URL")
   expect_error(github_commits(n = -1:2),
                "'n' should be a positive integer scalar")
 
@@ -49,6 +51,8 @@ test_that("Check github_branches()", {
                "'repo' should be of class 'character'")
   expect_error(github_branches(repo = letters),
                "'repo' should have length 1")
+  expect_error(github_branches(repo = "a test"),
+               "URL using bad/illegal format or missing URL")
 
   response <- tryCatch(github_branches(), error = function(e) return(e))
 
@@ -68,6 +72,8 @@ test_that("Check github_issues()", {
                "'user' should be of class 'character'")
   expect_error(github_issues(repo = NA),
                "'repo' should be of class 'character'")
+  expect_error(github_issues(repo = "a test"),
+               "URL using bad/illegal format or missing URL")
 
   SW({
   response <- tryCatch(github_issues(), error = function(e) return(e))
