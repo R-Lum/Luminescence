@@ -11,6 +11,8 @@ test_that("input validation", {
                "'data' should be of class 'list', 'data.frame', 'matrix' or")
   expect_error(plot_NRt(obj[[2]]),
                "'data' should be of class 'list', 'data.frame', 'matrix' or")
+  expect_error(plot_NRt(iris[0, ]),
+               "'data' cannot be an empty data.frame")
   expect_error(plot_NRt(curves[1]),
                 "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),
