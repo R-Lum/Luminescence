@@ -34,7 +34,7 @@
               },
               "value": [
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": ["NA", "NA"]
                 },
@@ -219,7 +219,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [136, 7, 147, 7, 7, 7, 136, 147]
+                  "value": [133, 7, 144, 7, 7, 7, 133, 144]
                 }
               },
               "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal.integral.min = signal.integral.min, signal.integral.max = signal.integral.max, ", "    integral_input = integral_input, sequence.structure = sequence.structure, ", "    rejection.criteria = rejection.criteria, dose.points = dose.points, ", "    log = log, ...)"]
@@ -247,7 +247,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [136, 7, 147, 7, 7, 7, 136, 147]
+                  "value": [133, 7, 144, 7, 7, 7, 133, 144]
                 }
               },
               "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal.integral.min = signal.integral.min, signal.integral.max = signal.integral.max, ", "    integral_input = integral_input, sequence.structure = sequence.structure, ", "    rejection.criteria = rejection.criteria, dose.points = dose.points, ", "    log = log, ...)"]
@@ -307,7 +307,7 @@
               },
               "value": [
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": ["NA"]
                 },
@@ -492,7 +492,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [136, 7, 147, 7, 7, 7, 136, 147]
+                  "value": [133, 7, 144, 7, 7, 7, 133, 144]
                 }
               },
               "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal.integral.min = signal.integral.min, signal.integral.max = signal.integral.max, ", "    integral_input = integral_input, sequence.structure = sequence.structure, ", "    rejection.criteria = rejection.criteria, dose.points = dose.points, ", "    log = log, ...)"]
@@ -663,15 +663,15 @@
                   "attributes": {},
                   "value": ["criterion", "value", "threshold", "status"]
                 },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -737,7 +737,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [6, 3, 6, 30, 3, 30, 6, 6]
+                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
                 }
               },
               "value": ["analyse_SAR.TL(object, signal.integral.min = 2, signal.integral.max = 3, ", "    sequence.structure = c(\"SIGNAL\", \"EXCLUDE\"))"]
@@ -1049,7 +1049,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [29.59178565]
+                  "value": [29.59240401]
                 },
                 {
                   "type": "character",
@@ -1066,15 +1066,15 @@
                   "attributes": {},
                   "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
                 },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4, 5, 6, 7]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -1153,15 +1153,15 @@
                   "attributes": {},
                   "value": ["criterion", "value", "threshold", "status"]
                 },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -1227,7 +1227,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [6, 3, 6, 30, 3, 30, 6, 6]
+                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
                 }
               },
               "value": ["analyse_SAR.TL(object, sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"), ", "    signal.integral.min = 2, signal.integral.max = 3)"]
@@ -1306,15 +1306,15 @@
                   "attributes": {},
                   "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
                 },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4, 5, 6, 7]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -1467,7 +1467,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [6, 3, 6, 30, 3, 30, 6, 6]
+                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
                 }
               },
               "value": ["analyse_SAR.TL(object, dose.points = 2, signal.integral.min = 210, ", "    signal.integral.max = 220, sequence.structure = c(\"SIGNAL\", ", "        \"BACKGROUND\"))"]
