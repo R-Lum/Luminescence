@@ -285,10 +285,8 @@ plot_DetPlot <- function(
         verbose = verbose
       )
     }))
-
-  }
-  else if(analyse_function  == "analyse_pIRIRSequence"){
-    result.temp.list <- lapply(1:n.channels, function(x) {
+  } else if (analyse_function == "analyse_pIRIRSequence") {
+    results <- lapply(1:n.channels, function(x) {
       analyse_pIRIRSequence(
         object = object,
         signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
@@ -306,18 +304,14 @@ plot_DetPlot <- function(
 
     ## as the analyse_pIRIRSequence() may fail, we see how many results
     ## we've actually managed to produce
-    num.valid.results <- sum(!sapply(result.temp.list, is.null))
+    num.valid.results <- sum(!sapply(results, is.null))
     if (num.valid.results == 0) {
       .throw_error("No valid results produced")
     }
-    if (num.valid.results == 1) {
-      results <- result.temp.list
-    } else {
-      results <- merge_RLum(result.temp.list)
+    if (num.valid.results > 1) {
+      results <- merge_RLum(results)
     }
-    rm(result.temp.list)
   }
-
 
   ## Plot -------------------------------------------------------------------
 
