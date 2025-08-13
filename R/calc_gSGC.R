@@ -90,6 +90,7 @@ calc_gSGC<- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
+  .validate_not_empty(data)
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")
   gSGC.type <- .validate_args(gSGC.type, c("0-250", "0-450"))

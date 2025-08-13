@@ -130,6 +130,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("list", "data.frame", "matrix", "RLum.Analysis"))
+  .validate_not_empty(data)
   if (inherits(data, "list")) {
     if (length(data) < 2)
       .throw_error("'data' contains only curve data for the natural signal")

@@ -1,7 +1,6 @@
-test_that("test errors", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##crash function
   ##no data.frame
   expect_error(calc_gSGC_feldspar(
     data = "data",
@@ -9,6 +8,8 @@ test_that("test errors", {
     plot = FALSE),
     "[calc_gSGC_feldspar()] 'data' should be of class 'data.frame'",
     fixed = TRUE)
+  expect_error(calc_gSGC_feldspar(iris[0, ]),
+               "'data' cannot be an empty data.frame")
 
   ## input is somewhat not what we expect for gSGC
   expect_error(
@@ -29,6 +30,10 @@ test_that("test errors", {
     ),
     "'data' should have 5 columns"
   )
+})
+
+test_that("test functionality", {
+  testthat::skip_on_cran()
 
  ##finally run with plot output
  #test on a generated random sample
