@@ -1,5 +1,6 @@
 ## load data
 data(ExampleData.DeValues, envir = environment())
+data(ExampleData.RLum.Analysis, envir = environment())
 
 test_that("Test Simple RLum Report", {
   testthat::skip_on_cran()
@@ -27,6 +28,9 @@ test_that("Test Simple RLum Report", {
 
   ## data.frame
   expect_null(report_RLum(ExampleData.DeValues$CA1))
+
+  ## list of RLum objects
+  report_RLum(IRSAR.RF.Data@records)
 
   ## names with spaces or missing
   ll <- as.list(ExampleData.DeValues$CA1)
