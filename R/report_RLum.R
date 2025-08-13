@@ -491,14 +491,8 @@ report_RLum <- function(
 
   # PLOTTING ----
   if (structure$plot) {
-    isRLumObject <- length(grep("RLum", class(object)))
-
-    if (is.list(object))
-      isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
-    else
-      isRLumList <- FALSE
-
-    if (isRLumObject | isRLumList) {
+    isRLumList <- is.list(object) && all(sapply(object, is.RLum.Data.Curve))
+    if (inherits(object, "RLum") || isRLumList) {
 
       # mutual exclusivity: it is either a list or an RLum-Object
       if (isRLumList)
@@ -605,7 +599,6 @@ report_RLum <- function(
       s4.root <- paste0(root, "@", slot)
       .tree_RLum(slot(x, slot), root = s4.root)
     }
-    invisible()
 
     ## List objects -----
   }  else if (inherits(x, "list") | typeof(x) == "list" & !inherits(x, "data.frame")) {
@@ -631,7 +624,6 @@ report_RLum <- function(
         .tree_RLum(x[[i]], root = list.root)
       }
     }
-    invisible()
 
     ## Data frames -----
   } else if (inherits(x, "data.frame")) {
@@ -651,15 +643,12 @@ report_RLum <- function(
       # print ----
       cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = "|")
     }
-    invisible()
 
     ## Last elements -----
   }  else {
 
     # print ----
     cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = "|")
-
-    invisible()
   }
 }
 
@@ -715,5 +704,5 @@ report_RLum <- function(
     df[is.na(df$bud.freq), ][match(unique.bud, df[is.na(df$bud.freq), ]$bud), ]$bud.freq <- i - 1
   }
 
-  invisible(df)
+  df
 }
