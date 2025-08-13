@@ -50,21 +50,7 @@ test_that("input validation", {
 test_that("Test examples", {
   skip_on_cran()
 
-  ##perform analysis
-  ## FIXME(mcol): this example doesn't work with snapshotting, presumably
-  ## due to setting the `fit.method = "EXP OR LIN"` option
   SW({
-  expect_s4_class(
-    analyse_SAR.TL(
-      object,
-      signal.integral.min = 210,
-      signal.integral.max = 220,
-      fit.method = "EXP OR LIN",
-      sequence.structure = c("SIGNAL", "BACKGROUND")
-    ),
-    "RLum.Results"
-  )
-
   expect_snapshot_RLum(
     analyse_SAR.TL(
         list(object, object),
@@ -101,6 +87,15 @@ test_that("Test examples", {
                    sequence.structure = c("SIGNAL", "EXCLUDE"))
     ),
   "Error column invalid or 0, 'fit.weights' ignored")
+
+  expect_snapshot_RLum(
+    analyse_SAR.TL(
+      object,
+      signal.integral.min = 210,
+      signal.integral.max = 220,
+      fit.method = "EXP OR LIN",
+      sequence.structure = c("SIGNAL", "BACKGROUND"))
+  )
   })
 
   expect_output(expect_null(
