@@ -219,8 +219,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   # default values
   settings <- list(
     xlim = if (log == "x" || log ==  "xy") c(0.1, max(time)) else c(0, max(time)),
-    ylim = range(pretty(c(min(sapply(NRnorm, min, na.rm = TRUE)),
-                          max(sapply(NRnorm, max, na.rm = TRUE))))),
+    ylim = range(pretty(c(sapply(NRnorm, range, na.rm = TRUE)))),
     xlab = "Time [s]",
     ylab = "Natural signal / Regenerated signal",
     cex = 1L,
