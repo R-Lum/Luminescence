@@ -900,9 +900,7 @@ calc_Huntley2006 <- function(
       De.measured <- -De.measured
     }
 
-    xlim <- range(pretty(dosetimeGray, n = 15))
-    if (!is.na(De.sim) & De.sim > xlim[2])
-      xlim <- range(pretty(c(min(dosetimeGray), De.sim), n = 15))
+    xlim <- range(pretty(c(dosetimeGray, De.sim), n = 15))
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     ## open plot window ------------
