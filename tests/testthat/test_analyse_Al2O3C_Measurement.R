@@ -13,6 +13,8 @@ test_that("input validation", {
                "'object' cannot be an empty list")
   expect_error(analyse_Al2O3C_Measurement(list(data_CrossTalk, "error")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk, plot = c(TRUE, FALSE)),
+               "'plot' should be a single logical value")
   suppressWarnings(
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           travel_dosimeter = "error"),
@@ -29,7 +31,13 @@ test_that("input validation", {
                "should be of class 'RLum.Results' or 'numeric'")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           cross_talk_correction = "a"),
-               "'cross_talk_correction' was created by an unsupported function")
+               "'cross_talk_correction' should be of class 'numeric', 'RLum.Results'")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
+                                          cross_talk_correction = c(1, 0.4)),
+               "'cross_talk_correction' should have length 3")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
+                                          cross_talk_correction = set_RLum("RLum.Results")),
+               "was created by an unsupported function")
 
   expect_warning(Luminescence:::.warningCatcher(
                                      analyse_Al2O3C_Measurement(object = data_CrossTalk, signal_integral = 1000)))
@@ -79,6 +87,10 @@ test_that("check functionality", {
   ct.corr <- analyse_Al2O3C_CrossTalk(data_CrossTalk)
   analyse_Al2O3C_Measurement(temp, cross_talk_correction = list(ct.corr),
                              plot = FALSE, verbose = FALSE)
+  expect_message(analyse_Al2O3C_Measurement(temp, travel_dosimeter = 1:2,
+                                            cross_talk_correction = c(-2e-4, -3e-4, 0),
+                                            plot = FALSE, verbose = FALSE),
+                 "'travel_dosimeter' specifies every position")
 })
 
 test_that("more coverage", {

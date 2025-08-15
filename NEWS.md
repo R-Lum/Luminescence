@@ -34,6 +34,11 @@
   and would lead to a crash if called. Now the `<...>` argument is
   called `method_smooth_RLum` and works as expected.
 
+### `analyse_Al2O3C_Measurement()`
+
+- The function allows to specify the `cross_talk_argument` as a numeric
+  vector of length 3, as was already documented (#930).
+
 ### `analyse_SAR.CWOSL()`
 
 - The function crashed if any of the curves had `NA` as its `recordType`
@@ -173,7 +178,7 @@
 - The `FNAME` metadata field is no longer left empty if the BIN-file
   didn’t specify one, but it’s populated with the BIN-file name without
   extension. This is the behaviour that was present up to version
-  0.9.26, but version 1.0.0 had regressed it.
+  0.9.26, but version 1.0.0 had regressed it (#928).
 
 ### `read_XSYG2R()`
 
