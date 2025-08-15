@@ -277,6 +277,7 @@ analyse_Al2O3C_Measurement <- function(
 
   .validate_class(object, "RLum.Analysis",
                   extra = "a 'list' of such objects")
+  .validate_class(cross_talk_correction, c("numeric", "RLum.Results", "NULL"))
 
   ## Preparation ------------------------------------------------------------
 
@@ -335,12 +336,14 @@ analyse_Al2O3C_Measurement <- function(
 
   if(is.null(cross_talk_correction)){
     cross_talk_correction <- c(0,0,0)
-
-  }else{
-
-    ## check whether the input is of type RLum.Results and check originator
-    if (is(cross_talk_correction, "RLum.Results") &&
-        cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
+  } else if (is.numeric(cross_talk_correction)) {
+    .validate_length(cross_talk_correction, 3)
+  } else {
+    ## RLum.Results case
+    if (!cross_talk_correction@originator %in% "analyse_Al2O3C_CrossTalk") {
+      .throw_error("'cross_talk_correction' was created by an unsupported function ",
+                   "(originator is '", cross_talk_correction@originator, "')")
+    }
 
       ## calculate the cross-talk correction values for this particular
       ## carousel position
@@ -356,11 +359,6 @@ analyse_Al2O3C_Measurement <- function(
                                         dimnames = list("position",
                                                         c("fit", "lwr", "upr")))
       }
-
-    }else{
-      .throw_error("The object provided for 'cross_talk_correction' was ",
-                   "created by an unsupported function or has a wrong originator")
-    }
   }
 
   # Calculation -------------------------------------------------------------
