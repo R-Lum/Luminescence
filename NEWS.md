@@ -168,6 +168,13 @@
   jagged or even as a straight line, as it could happen that too few
   points were actually used when drawing the curve (#843).
 
+### `read_BIN2R()`
+
+- The `FNAME` metadata field is no longer left empty if the BIN-file
+  didn’t specify one, but it’s populated with the BIN-file name without
+  extension. This is the behaviour that was present up to version
+  0.9.26, but version 1.0.0 had regressed it.
+
 ### `read_XSYG2R()`
 
 - Add support for the new function `correct_PMTLinearity()` (#920).

@@ -1210,7 +1210,7 @@ read_BIN2R <- function(
 
   ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
   ## This can happen if the user uses different equipment
-  if (results.METADATA[, all(is.na(FNAME))]) {
+  if (results.METADATA[, all(FNAME == "")]) {
     results.METADATA[, FNAME := tools::file_path_sans_ext(basename(file))]
   }
 
