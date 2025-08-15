@@ -255,25 +255,13 @@ plot_RLum.Analysis <- function(
     }
 
     ##expand plot settings list
-    plot.settings <- lapply(setNames(1:length(plot.settings), names(plot.settings)),
-                            function(x) {
-                              if (!is.null(plot.settings[[x]])) {
-                                if(length(plot.settings[[x]]) > 1){
-
-                                  if(is(plot.settings[[x]], "list")){
-                                    rep_len(plot.settings[[x]], length.out = length(temp))
-                                  }else{
-                                   rep_len(list(plot.settings[[x]]), length.out = length(temp))
-                                  }
-
-                                }else{
-                                  rep_len(plot.settings[[x]], length.out = length(temp))
-                                }
-
-                              } else{
-                                plot.settings[[x]]
-                              }
-                            })
+    plot.settings <- lapply(plot.settings, function(setting) {
+      if (is.null(setting))
+        return(NULL)
+      if (length(setting) == 1 || inherits(setting, "list"))
+        return(rep(setting, length.out = length(temp)))
+      rep(list(setting), length.out = length(temp))
+    })
 
     ##expand abline
     if(!is.null(abline)){
@@ -432,18 +420,12 @@ plot_RLum.Analysis <- function(
 
     ##expand plot settings list
     ##expand list
-    plot.settings <- lapply(setNames(1:length(plot.settings), names(plot.settings)), function(x) {
-      if (!is.null(plot.settings[[x]])) {
-        if(is.list(plot.settings[[x]])){
-          rep_len(plot.settings[[x]], length.out = length(temp.recordType))
-
-        }else{
-          rep_len(list(plot.settings[[x]]), length.out = length(temp.recordType))
-        }
-
-      } else{
-        plot.settings[[x]]
-      }
+    plot.settings <- lapply(plot.settings, function(setting) {
+      if (is.null(setting))
+        return(NULL)
+      if (is.list(setting))
+        return(rep(setting, length.out = length(temp.recordType)))
+      rep(list(setting), length.out = length(temp.recordType))
     })
 
     ##expand abline
@@ -576,7 +558,6 @@ plot_RLum.Analysis <- function(
       }else{
         if(!is.null(records_max) && records_max[1] > 2) {
           paste("Curve", records_show)
-
         } else {
           paste("Curve", 1:length(object.list))
         }

@@ -106,6 +106,7 @@ test_that("check functionality", {
     combine = TRUE,
     auto_scale = TRUE,
     xlim = c(10, 20),
+    legend.text = paste("Curve", 1:2),
     norm = "last",
     abline = list(v = c(110))
   ))
@@ -136,7 +137,6 @@ test_that("check functionality", {
     col = get("col", pos = .LuminescenceEnv)[1:4],
     xlab = "Temperature recorded [log \u00B0C]", ylab = "log TL [a.u.]",
     xlim = c(0, 200), ylim = c(0, 1), lty = c(1, 2),
-    legend.text = paste("Curve", 1:4),
     legend.col = get("col", pos = .LuminescenceEnv)[1:4],
     legend.pos = "outside",
   ))
