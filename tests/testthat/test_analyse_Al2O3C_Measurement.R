@@ -13,6 +13,8 @@ test_that("input validation", {
                "'object' cannot be an empty list")
   expect_error(analyse_Al2O3C_Measurement(list(data_CrossTalk, "error")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk, plot = c(TRUE, FALSE)),
+               "'plot' should be a single logical value")
   suppressWarnings(
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           travel_dosimeter = "error"),
