@@ -116,7 +116,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["", ""]
+              "value": ["read_BIN22R_FILE", "read_BIN22R_FILE"]
             },
             {
               "type": "character",
@@ -604,7 +604,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["", ""]
+              "value": ["BINfile_V4", "BINfile_V4"]
             },
             {
               "type": "character",
