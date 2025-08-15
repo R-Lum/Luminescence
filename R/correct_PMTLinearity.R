@@ -15,7 +15,7 @@
 #' and \eqn{t} (in s) the pulse pair resolution.
 #'
 #' @param object [RLum.Analysis-class] [RLum.Data.Curve-class] (**required**):
-#' object with records to correct.
+#' object with records to correct; can be a [list] of such objects
 #'
 #' @param PMT_pulse_pair_resolution [numeric] (*with default*): pulse-pair resolution
 #' in ns. Values can be found on the PMT datasheets. If `NULL` nothing is done.
@@ -53,6 +53,16 @@ correct_PMTLinearity <- function(
   ## set function name
   .set_function_name("correct_PMTLinearity")
   on.exit(.unset_function_name(), add = TRUE)
+
+# Self-call ---------------------------------------------------------------
+  if(inherits(object, "list")) {
+    ## remove non-RLum objects and run
+    return(lapply(
+      X = .rm_nonRLum(object),
+      FUN = correct_PMTLinearity,
+      PMT_pulse_pair_resolution = PMT_pulse_pair_resolution))
+  }
+
 
   ## input validation
   .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve"))

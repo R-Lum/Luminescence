@@ -8,7 +8,7 @@ correct_PMTLinearity(object, PMT_pulse_pair_resolution = NULL)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \linkS4class{RLum.Data.Curve} (\strong{required}):
-object with records to correct.}
+object with records to correct; can be a \link{list} of such objects}
 
 \item{PMT_pulse_pair_resolution}{\link{numeric} (\emph{with default}): pulse-pair resolution
 in ns. Values can be found on the PMT datasheets. If \code{NULL} nothing is done.}
@@ -49,4 +49,4 @@ component analysis for optically stimulated luminescence. \doi{10.32614/CRAN.pac
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Dirk Mittelstrass, Institute of Geography, Heidelberg University (Germany)
 }
-\keyword{internal}
+\keyword{manip}

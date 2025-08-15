@@ -56,4 +56,10 @@ test_that("Test internals", {
       class = "RLum.Analysis")
   expect_length(t, 2)
   expect_equal(t@records[[1]][1,2], 10010, tolerance = 0.001)
+
+  ## test list case
+  t <- expect_type(
+    object = correct_PMTLinearity(list(o,o,"not correct"), PMT_pulse_pair_resolution = 10),
+    type = "list")
+  expect_length(t, 2)
 })
