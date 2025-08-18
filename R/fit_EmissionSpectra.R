@@ -317,7 +317,7 @@ fit_EmissionSpectra <- function(
   }
 
   ##extract matrix for everything below
-  m <- object[,1:2]
+  m <- object[, 1:2, drop = FALSE]
 
   ##replace all negative values
   if(!is.null(sub_negative))

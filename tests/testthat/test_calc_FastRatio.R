@@ -175,4 +175,8 @@ test_that("regression tests", {
       "Error: Fitting failed, please call 'fit_CWCurve()' manually",
       fixed = TRUE)
   })
+
+  ## issue 932
+  expect_warning(expect_null(calc_FastRatio(matrix(rnorm(5), 1, 5))),
+                 "Calculated time/channel for L2 is too small")
 })
