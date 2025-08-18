@@ -10,6 +10,9 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Data.Spectrum' or 'matrix'")
   expect_error(plot_RLum.Data.Spectrum(set_RLum("RLum.Data.Spectrum")),
                "'object' contains no data")
+  expect_error(expect_message(plot_RLum.Data.Spectrum(matrix(0, 0, 0)),
+                              "Input has been converted"),
+               "'object' contains no data")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "error"),
                "'plot.type' should be one of 'contour', 'persp', 'single'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, norm = "error"),

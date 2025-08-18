@@ -269,10 +269,10 @@ plot_RLum.Data.Spectrum <- function(
 
   if (inherits(object, "matrix")) {
     if (is.null(colnames(object))) {
-        colnames(object) <- 1:ncol(object)
+      colnames(object) <- seq_len(ncol(object))
     }
     if (is.null(rownames(object))) {
-        rownames(object) <- 1:nrow(object)
+      rownames(object) <- seq_len(nrow(object))
     }
 
     object <- set_RLum(class = "RLum.Data.Spectrum", data = object)
@@ -1143,4 +1143,3 @@ attr(temp.xyz, "pmat") <- pmat
 ## return visible or not
 if(plot) invisible(temp.xyz) else return(temp.xyz)
 }
-
