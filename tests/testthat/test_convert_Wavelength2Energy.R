@@ -40,6 +40,8 @@ test_that("check functionality", {
   expect_s3_class(convert_Wavelength2Energy(as.data.frame(data)), class = "data.frame")
   object <- set_RLum(class = "RLum.Data.Spectrum", data = data[,1,drop = FALSE])
   expect_s4_class(convert_Wavelength2Energy(object), class = "RLum.Data.Spectrum")
+  expect_type(convert_Wavelength2Energy(matrix(rnorm(5), 1, 5)),
+              "double")
 
   ##test the list option
   expect_type(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), "list")

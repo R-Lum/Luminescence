@@ -201,7 +201,7 @@ convert_Wavelength2Energy <- function(
       .throw_error("'object' should have at least two columns")
     }
 
-    temp <- as.matrix(object[,2:ncol(object)])
+    temp <- as.matrix(object[, 2:ncol(object), drop = FALSE])
     if (!is.numeric(temp)) {
       .throw_error("'object' should have only numeric fields")
     }

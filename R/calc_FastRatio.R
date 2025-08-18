@@ -200,7 +200,8 @@ calc_FastRatio <- function(object,
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
 
     # remove dead channels
-    A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
+    A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ,
+                         drop = FALSE])
     A[ ,1] <- A[ ,1] - A[1,1]
 
     ## remove missing values
