@@ -174,8 +174,9 @@
   .set_function_name("as.latex.table.data.frame")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(x, "data.frame")
+  .validate_not_empty(x)
   if (!is.null(col.names) && length(col.names) != ncol(x))
     .throw_error("Length of 'col.names' does not match the number of columns")
   if (!is.null(row.names) && length(row.names) != nrow(x))
