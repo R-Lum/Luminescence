@@ -53,10 +53,21 @@ test_that("Test internals", {
   expect_silent(.smoothing(runif(200), method = "median"))
   expect_silent(.smoothing(runif(100), k = 4, method = "mean"))
   expect_silent(.smoothing(runif(100), k = 4, method = "median"))
+  expect_equal(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
+                          method = "Carter"),
+               c(1, 1, 2, 1, 0, 2, 1, 2, 0, 1, NA))
+  expect_equal(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
+                          method = "Carter", fill = 0),
+               c(1, 1, 2, 1, 0, 2, 1, 2, 0, 1, 0))
+  expect_error(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
+                          method = "Carter", p_acceptance = 0.5),
+               "'p_acceptance' rejects all counts, set it to a smaller value")
   expect_error(.smoothing(runif(100), method = "error"),
-               "'method' should be one of 'mean' or 'median'")
+               "'method' should be one of 'mean', 'median' or")
   expect_error(.smoothing(runif(100), align = "error"),
                "'align' should be one of 'right', 'center' or 'left'")
+  expect_error(.smoothing(runif(100), p_acceptance = "error"),
+               "'p_acceptance' should be a positive scalar")
 
   ## .weighted.median() -----------------------------------------------------
   expect_equal(.weighted.median(1:10, w = rep(1, 10)),

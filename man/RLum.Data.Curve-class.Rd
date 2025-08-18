@@ -34,7 +34,14 @@
 
 \S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
 
-\S4method{smooth_RLum}{RLum.Data.Curve}(object, k = NULL, fill = NA, align = "right", method = "mean")
+\S4method{smooth_RLum}{RLum.Data.Curve}(
+  object,
+  k = NULL,
+  fill = NA,
+  align = "right",
+  method = "mean",
+  p_acceptance = 1e-07
+)
 
 \S4method{melt_RLum}{RLum.Data.Curve}(object)
 }
@@ -77,19 +84,27 @@ set number of channels used for each bin, e.g. \code{bin_size = 2} means that
 two channels are binned.}
 
 \item{k}{\code{\link{smooth_RLum}}; \link{integer} (\emph{with default}):
-window for the rolling mean; must be odd for \code{rollmedian}.
-If nothing is set k is set automatically}
+window for the rolling mean or median. If \code{NULL}, this set automatically
+(ignored if \code{method = "Carter_etal_2018"}).}
 
 \item{fill}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
-a vector defining the left and the right hand data}
+value used to pad the result so to have the same length as the input.}
 
 \item{align}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
-specifying whether the index of the result should be left- or right-aligned
-or centred (default) compared to the rolling window of observations, allowed
-\code{"right"}, \code{"center"} and \code{"left"}}
+one of \code{"right"}, \code{"center"} or \code{"left"}, specifying whether the index
+of the result should be right-aligned (default), centred, or lef-aligned
+compared to the rolling window of observations (ignored if
+\code{method = "Carter_etal_2018"}).}
 
 \item{method}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
-defines which method should be applied for the smoothing: \code{"mean"} or \code{"median"}}
+smoothing method to be applied: one of \code{"mean"}, \code{"median"} or
+\code{"Carter_etal_2018"}.}
+
+\item{p_acceptance}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
+probability threshold of accepting a value to be a sample from a Poisson
+distribution (only used for \code{method = "Carter_etal_2018"}). Values that
+have a Poisson probability below the threshold are replaced by the average
+over the four neighbouring values.}
 }
 \value{
 \strong{\code{set_RLum}}
@@ -116,7 +131,7 @@ Same object as input, after applying the binning.
 
 \strong{\code{smooth_RLum}}
 
-Same object as input, after smoothing
+Same object as input, with smoothed values.
 
 \strong{\code{melt_RLum}}
 
@@ -143,8 +158,13 @@ value time/temperature of the curve (corresponding to the stimulation length)
 
 \item \code{bin_RLum.Data(RLum.Data.Curve)}: Allows binning of specific objects
 
-\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of RLum.Data.Curve objects using a rolling mean or median.
+\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of \linkS4class{RLum.Data.Curve} objects using a rolling mean or median.
 In particular the internal function \code{.smoothing} is used.
+
+For methods \code{"mean"} and \code{"median"}, smoothing is performed by rolling
+mean and rolling median with window of size \code{k}. Method \code{"Carter_etal_2018"}
+implements a Poisson smoother for dark-background signals measured by a
+photomultiplier tube.
 
 \item \code{melt_RLum(RLum.Data.Curve)}: Melts \linkS4class{RLum.Data.Curve} objects into a flat data.frame to be used
 in combination with other packages such as \code{ggplot2}.
@@ -196,6 +216,11 @@ showClass("RLum.Data.Curve")
 ##set empty curve object
 set_RLum(class = "RLum.Data.Curve")
 
+}
+\references{
+Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S. &
+Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
+implications for luminescence dating. Radiation Measurements 120, 267-273.
 }
 \seealso{
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}

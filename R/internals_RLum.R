@@ -99,35 +99,46 @@
 #+ .smoothing()      +
 #+++++++++++++++++++++
 
-#' Allows smoothing of data based on rolling means or medians
+#' Smooth data based on rolling means or medians
 #'
-#' The function just allows a direct and meaningful access to the
-#' functionality of `data.table::frollmean()` and `data.table::frollmedian()`.
-#' Arguments of the function are only partly valid.
+#' The function allows a direct and meaningful access to the functionality of
+#' `data.table::frollmean()` and `data.table::frollapply()`. It also provides
+#' an implementation of the Poisson smoother of Carter et al. (2018).
 #'
 #' @param x [numeric] (**required**):
 #' the object for which the smoothing should be applied.
 #'
 #' @param k [integer] (*with default*):
-#' window for the rolling mean. If not set, `k` is set automatically.
+#' window size for the rolling mean or median (ignored if
+#' `method = "Carter_etal_2018"`).
 #'
 #' @param fill [numeric] (*with default*):
-#' value used to pad the result so to have the same length as the input
+#' value used to pad the result so to have the same length as the input.
 #'
 #' @param align [character] (*with default*):
 #' one of `"right"`, `"center"` or `"left"`, specifying whether the index
-#' of the result should be right-aligned (default), centered, or lef-aligned
-#' compared to the rolling window of observations
+#' of the result should be right-aligned (default), centred, or lef-aligned
+#' compared to the rolling window of observations (ignored if
+#' `method = "Carter_etal_2018"`).
+#'
+#' @param p_acceptance [numeric] (*with default*):
+#' probability threshold of accepting a value to be a sample from a Poisson
+#' distribution (only used for `method = "Carter_etal_2018"`). Values that
+#' have a Poisson probability below the threshold are replaced by the average
+#' over the four neighbouring values.
 #'
 #' @param method [method] (*with default*):
-#' defines which method should be applied for the smoothing: `"mean"` or `"median"`
+#' smoothing method to be applied: one of `"mean"`, `"median"` or
+#' `"Carter_etal_2018"`.
 #'
 #' @return
-#' Returns the same object as the input
+#' Returns a numeric vector with smoothed values.
 #'
-#' @section Function version: 0.2
+#' @section Function version: 0.3
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -140,12 +151,14 @@
   k = NULL,
   fill = NA,
   align = "right",
+  p_acceptance = 1e-7,
   method = "mean") {
   .set_function_name(".smoothing")
   on.exit(.unset_function_name(), add = TRUE)
 
   .validate_args(align, c("right", "center", "left"))
-  .validate_args(method, c("mean", "median"))
+  method <- .validate_args(method, c("mean", "median", "Carter_etal_2018"))
+  .validate_positive_scalar(p_acceptance)
 
   ##set k
   if (is.null(k))
@@ -158,6 +171,31 @@
   }else if(method == "median"){
     data.table::frollapply(x, n = k, FUN = "median",
                            fill = fill, align = align)
+  }
+  else if (method == "Carter_etal_2018") {
+    ## Code derived with corrections and improvements from the supplementary
+    ## materials of Carter et al. (2018)
+    ## https://doi.org/10.1016/j.radmeas.2018.05.010
+
+    ## Poisson probability of sample counts
+    mx <- mean(x, na.rm = TRUE)
+    prob <- exp(-mx) * mx^x / factorial(x)
+
+    ## remove counts with probability below the acceptance threshold
+    ## so they are not considered when averaging over the neighbours
+    na.idx <- prob < p_acceptance
+    x[na.idx] <- NA
+    if (all(is.na(x)))
+      .throw_error("'p_acceptance' rejects all counts, set it to a smaller value")
+
+    ## average over four neighbours: we set "n = 5" instead of "n = 4" because
+    ## we want to include the 2 neighbours to the left and the 2 on the right,
+    ## but the window size also counts the element itself; this is not a
+    ## problem, as we use the rolling mean only for elements that we have set
+    ## to NA just above, and they don't have a value to contribute to the mean
+    x[na.idx] <- data.table::frollmean(x, n = 5, align = "center",
+                                       fill = fill, na.rm = TRUE)[na.idx]
+    round(x)
   }
 }
 
