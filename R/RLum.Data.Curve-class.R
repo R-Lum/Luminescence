@@ -462,6 +462,7 @@ setMethod(f = "bin_RLum.Data",
 #' Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S. &
 #' Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
 #' implications for luminescence dating. Radiation Measurements 120, 267-273.
+#' \doi{10.1016/j.radmeas.2018.05.010}
 #'
 #' @export
 setMethod(
