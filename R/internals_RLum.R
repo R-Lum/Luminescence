@@ -164,7 +164,7 @@
 #' Computation of a weighted median
 #'
 #' @param x [numeric] (**required**):
-#' Values whose weighted median is to becomputed.
+#' Values whose weighted median is to be computed.
 #'
 #' @param w [numeric] (**required**):
 #' Weights to use for elements of `x`.
