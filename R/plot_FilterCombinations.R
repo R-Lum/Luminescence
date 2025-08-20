@@ -204,7 +204,7 @@ plot_FilterCombinations <- function(
 
   #check if there are transmission values greater than one, this is not possible
   lapply(filters, function(x) {
-    if (ncol(x) < 2)
+    if (NCOL(x) < 2)
       .throw_error("All data frames in 'filters' should have 2 columns")
     if (max(x[, 2], na.rm = TRUE) > 1.01) {
       .throw_error("Transmission values > 1 found, check your data")
