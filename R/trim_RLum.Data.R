@@ -82,6 +82,8 @@ trim_RLum.Data <- function(
     parm <- .expand_parameters(length(object))
 
     l <- lapply(seq_along(object), function(x){
+      .validate_class(object[[x]], c("RLum.Data", "RLum.Analysis"),
+                      name = "All elements of 'object'")
       trim_RLum.Data(
         object = object[[x]],
         recordType = parm$recordType[[x]],
