@@ -170,6 +170,7 @@ plot_FilterCombinations <- function(
   lapply(filters, function(x) {
     .validate_class(x, c("data.frame", "matrix", "list"),
                     name = "All elements of 'filters'")
+    .validate_not_empty(x, name = "Each element of 'filters'")
   })
 
   #check for named list, if not set names
