@@ -2,7 +2,7 @@
 data(ExampleData.DeValues, envir = environment())
 data(ExampleData.RLum.Analysis, envir = environment())
 
-test_that("Test Simple RLum Report", {
+test_that("test functionality", {
   testthat::skip_on_cran()
 
   ## the test fails on AppVeyor for no obvious reason on the windows
@@ -31,6 +31,9 @@ test_that("Test Simple RLum Report", {
 
   ## list of RLum objects
   report_RLum(IRSAR.RF.Data@records)
+
+  ## array()
+  expect_null(report_RLum(array()))
 
   ## names with spaces or missing
   ll <- as.list(ExampleData.DeValues$CA1)

@@ -662,10 +662,10 @@ report_RLum <- function(
   length(strsplit(x, split = "\\$|@|\\[\\[")[[1]]) - 1
 }
 .dimension <- function(x) {
-  if (!is.null(dim(x)))
-    dim <- paste(dim(x), collapse = "|")
-  else
-    dim <- c(0, 0)
+  ## ensure `dim` is padded with zeros if its length is shorter than 2
+  dim <- numeric(2)
+  dim[seq_along(dim(x))] <- dim(x)
+  dim
 }
 .class <- function(x) {
   paste(class(x), collapse = "/")
