@@ -421,41 +421,62 @@ setMethod(f = "bin_RLum.Data",
 
 # smooth_RLum() -------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Curve
-#' Smoothing of RLum.Data.Curve objects using a rolling mean or median.
+#' Smoothing of [RLum.Data.Curve-class] objects using a rolling mean or median.
 #' In particular the internal function `.smoothing` is used.
 #'
+#' For methods `"mean"` and `"median"`, smoothing is performed by rolling
+#' mean and rolling median with window of size `k`. Method `"Carter_etal_2018"`
+#' implements a Poisson smoother for dark-background signals measured by a
+#' photomultiplier tube.
+#'
 #' @param k [`smooth_RLum`]; [integer] (*with default*):
-#' window for the rolling mean; must be odd for `rollmedian`.
-#' If nothing is set k is set automatically
+#' window for the rolling mean or median. If `NULL`, this set automatically
+#' (ignored if `method = "Carter_etal_2018"`).
 #'
 #' @param fill [`smooth_RLum`]; [numeric] (*with default*):
-#' a vector defining the left and the right hand data
+#' value used to pad the result so to have the same length as the input.
 #'
 #' @param align [`smooth_RLum`]; [character] (*with default*):
-#' specifying whether the index of the result should be left- or right-aligned
-#' or centred (default) compared to the rolling window of observations, allowed
-#' `"right"`, `"center"` and `"left"`
+#' one of `"right"`, `"center"` or `"left"`, specifying whether the index
+#' of the result should be right-aligned (default), centred, or lef-aligned
+#' compared to the rolling window of observations (ignored if
+#' `method = "Carter_etal_2018"`).
 #'
 #' @param method [`smooth_RLum`]; [character] (*with default*):
-#' defines which method should be applied for the smoothing: `"mean"` or `"median"`
+#' smoothing method to be applied: one of `"mean"`, `"median"` or
+#' `"Carter_etal_2018"`.
+#'
+#' @param p_acceptance [`smooth_RLum`]; [numeric] (*with default*):
+#' probability threshold of accepting a value to be a sample from a Poisson
+#' distribution (only used for `method = "Carter_etal_2018"`). Values that
+#' have a Poisson probability below the threshold are replaced by the average
+#' over the four neighbouring values.
 #'
 #' @return
 #'
 #' **`smooth_RLum`**
 #'
-#' Same object as input, after smoothing
+#' Same object as input, with smoothed values.
+#'
+#' @references
+#' Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S. &
+#' Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
+#' implications for luminescence dating. Radiation Measurements 120, 267-273.
+#' \doi{10.1016/j.radmeas.2018.05.010}
 #'
 #' @export
 setMethod(
   f = "smooth_RLum",
   signature = "RLum.Data.Curve",
-    function(object, k = NULL, fill = NA, align = "right", method = "mean") {
+  function(object, k = NULL, fill = NA, align = "right", method = "mean",
+           p_acceptance = 1e-7) {
 
         object@data[,2] <- .smoothing(
           x = object@data[,2],
           k = k,
           fill = fill,
           align = align,
+          p_acceptance = p_acceptance,
           method = method)
 
         ##return via set function to get a new id
