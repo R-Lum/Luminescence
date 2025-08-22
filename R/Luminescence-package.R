@@ -178,7 +178,7 @@ NULL
 #' @description Grain size correction data for beta-dose rates
 #' published by Guérin et al. (2012).
 #'
-#'#' @format
+#' @format
 #'
 #' A [`data.frame`] seven columns and sixteen rows. Column headers
 #' are `GrainSize`, `Q_K`, `FS_K`, `Q_Th`, `FS_Th`, `Q_U`, `FS_U`.
