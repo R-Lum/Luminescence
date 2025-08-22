@@ -17,7 +17,7 @@ extract_IrradiationTimes(
 \item{object}{\link{character}, \linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
 path and file name of the XSYG file or an \linkS4class{RLum.Analysis}
 produced by the function \link{read_XSYG2R};
-alternatively a \code{list} of \linkS4class{RLum.Analysis} can be provided.
+alternatively, a \code{list} of \linkS4class{RLum.Analysis} can be provided.
 
 \strong{Note}: If an \linkS4class{RLum.Analysis} is used, any input for
 the arguments \code{file.BINX} and \code{recordType} will be ignored!}
@@ -41,14 +41,16 @@ described for this function.
 \strong{Note:} A wrong selection will causes a function error. Please change this
 argument only if you have reasons to do so.}
 
-\item{return_same_as_input}{\link{logical} (\emph{with default}): if set to \code{TRUE} an updated
-\linkS4class{RLum.Analysis} object (or a \link{list} of it) is returned, with each record having gained two
-new  info element fields: \code{IRR_TIME} and \code{TIMESCINCEIRR}. This makes the \linkS4class{RLum.Analysis}
-object compatible to external functions that search explicitly for \code{IRR_TIME} and \code{TIMESCINCEIRR}}
+\item{return_same_as_input}{\link{logical} (\emph{with default}):
+if set to \code{TRUE}, an updated \linkS4class{RLum.Analysis} object (or a \link{list} of
+it) is returned, with each record having gained two new info element fields:
+\code{IRR_TIME} and \code{TIMESCINCEIRR}. This makes the \linkS4class{RLum.Analysis} object
+compatible witht external functions that search explicitly for \code{IRR_TIME}
+and \code{TIMESCINCEIRR}.}
 
 \item{compatibility.mode}{\link{logical} (\emph{with default}):
-this option is parsed only if a BIN/BINX file is produced and it will reset all position
-values to a max. value of 48, cf.\link{write_R2BIN}}
+whether all position values should be reset to a maximum value of 48 (see
+\link{write_R2BIN}). Only used if \code{file.BINX} is specified.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar during import and export.}
@@ -64,8 +66,8 @@ If \code{return_same_as_input = TRUE} an \linkS4class{RLum.Analysis} or a \link{
 we updated info elements including irradiation times.
 
 If a BINX-file path and name is set, the output will be additionally
-transferred into a new BINX-file with the function name as suffix. For the
-output the path of the input BINX-file itself is used. Note that this will
+transferred into a new BINX-file (with the function name as suffix) located
+in the folder of the input BINX-file. Note that this will
 not work if the input object is a file path to an XSYG-file, instead of a
 link to only one file. In this case the argument input for \code{file.BINX} is ignored.
 
@@ -87,8 +89,8 @@ be further used by other software, e.g., \emph{Analyst} (Geoff Duller).
 Typical application example: \emph{g}-value estimation from fading measurements
 using the Analyst or any other self-written script.
 
-Beside some simple data transformation steps, the function applies
-functions \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN} for data import and export.
+Beside some simple data transformation steps, the function relies on
+\link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN} for data import and export.
 
 \strong{Calculation details}
 \itemize{
@@ -100,8 +102,9 @@ except for \code{TL}, where the function tries to extract meta information about
 }
 }
 \note{
-The function can be also used to extract irradiation times from \linkS4class{RLum.Analysis} objects
-previously imported via \link{read_BIN2R} (\code{fastForward = TRUE}) or in combination with
+The function can be also used to extract irradiation times from
+\linkS4class{RLum.Analysis} objects imported via \link{read_BIN2R} with option
+\code{fastForward = TRUE}, or in combination with
 \link{Risoe.BINfileData2RLum.Analysis}.
 Unfortunately the timestamp might not be very precise (or even invalid),
 but it allows to essentially treat different formats in a similar manner.

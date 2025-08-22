@@ -1,6 +1,7 @@
 #' @title Extract Irradiation Times from an XSYG-file or `RLum.Analysis` object
 #'
-#' @description Extracts irradiation times, dose and times since last irradiation, from a
+#' @description
+#' Extracts irradiation times, dose and times since last irradiation, from a
 #' Freiberg Instruments XSYG-file. These information can be further used to
 #' update an existing BINX-file.
 #'
@@ -14,8 +15,8 @@
 #' Typical application example: *g*-value estimation from fading measurements
 #' using the Analyst or any other self-written script.
 #'
-#' Beside some simple data transformation steps, the function applies
-#' functions [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
+#' Beside some simple data transformation steps, the function relies on
+#' [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
 #'
 #' **Calculation details**
 #'
@@ -31,7 +32,7 @@
 #' @param object [character], [RLum.Analysis-class] or [list] (**required**):
 #' path and file name of the XSYG file or an [RLum.Analysis-class]
 #' produced by the function [read_XSYG2R];
-#' alternatively a `list` of [RLum.Analysis-class] can be provided.
+#' alternatively, a `list` of [RLum.Analysis-class] can be provided.
 #'
 #' **Note**: If an [RLum.Analysis-class] is used, any input for
 #' the arguments `file.BINX` and `recordType` will be ignored!
@@ -55,20 +56,23 @@
 #' **Note:** A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
 #'
-#' @param return_same_as_input [logical] (*with default*): if set to `TRUE` an updated
-#' [RLum.Analysis-class] object (or a [list] of it) is returned, with each record having gained two
-#' new  info element fields: `IRR_TIME` and `TIMESCINCEIRR`. This makes the [RLum.Analysis-class]
-#' object compatible to external functions that search explicitly for `IRR_TIME` and `TIMESCINCEIRR`
+#' @param return_same_as_input [logical] (*with default*):
+#' if set to `TRUE`, an updated [RLum.Analysis-class] object (or a [list] of
+#' it) is returned, with each record having gained two new info element fields:
+#' `IRR_TIME` and `TIMESCINCEIRR`. This makes the [RLum.Analysis-class] object
+#' compatible witht external functions that search explicitly for `IRR_TIME`
+#' and `TIMESCINCEIRR`.
 #'
 #' @param compatibility.mode [logical] (*with default*):
-#' this option is parsed only if a BIN/BINX file is produced and it will reset all position
-#' values to a max. value of 48, cf.[write_R2BIN]
+#' whether all position values should be reset to a maximum value of 48 (see
+#' [write_R2BIN]). Only used if `file.BINX` is specified.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar during import and export.
 #'
-#' @note The function can be also used to extract irradiation times from [RLum.Analysis-class] objects
-#' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with
+#' @note The function can be also used to extract irradiation times from
+#' [RLum.Analysis-class] objects imported via [read_BIN2R] with option
+#' `fastForward = TRUE`, or in combination with
 #' [Risoe.BINfileData2RLum.Analysis].
 #' Unfortunately the timestamp might not be very precise (or even invalid),
 #' but it allows to essentially treat different formats in a similar manner.
@@ -85,8 +89,8 @@
 #' we updated info elements including irradiation times.
 #'
 #' If a BINX-file path and name is set, the output will be additionally
-#' transferred into a new BINX-file with the function name as suffix. For the
-#' output the path of the input BINX-file itself is used. Note that this will
+#' transferred into a new BINX-file (with the function name as suffix) located
+#' in the folder of the input BINX-file. Note that this will
 #' not work if the input object is a file path to an XSYG-file, instead of a
 #' link to only one file. In this case the argument input for `file.BINX` is ignored.
 #'
