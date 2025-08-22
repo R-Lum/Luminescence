@@ -150,7 +150,6 @@ analyse_Al2O3C_ITC <- function(
       ##catch error
       if(inherits(results, "try-error")){
         return(NULL)
-
       }else{
         return(results)
       }
@@ -160,9 +159,16 @@ analyse_Al2O3C_ITC <- function(
     return(merge_RLum(results_full))
   }
 
-  ## Integrity tests  -------------------------------------------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
+  .validate_not_empty(object)
+  .validate_class(dose_points, c("numeric", "list"))
+  if (is.list(dose_points)) {
+    lapply(dose_points, function(x) {
+      .validate_class(x, "numeric",
+                      name = "All elements of 'dose_points'")
+    })
+  }
 
   ##TODO
   ##implement more checks ... if you find some time, somehow, somewhere

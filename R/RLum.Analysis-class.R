@@ -1049,6 +1049,10 @@ setMethod(
 setMethod("view",
           signature = "RLum.Analysis",
           definition = function(object, ...) {
+    .set_function_name("view")
+    on.exit(.unset_function_name(), add = TRUE)
+
+    .validate_not_empty(object)
 
     ## set title
     name <- list(...)$title
