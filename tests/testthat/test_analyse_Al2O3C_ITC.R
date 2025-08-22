@@ -17,8 +17,10 @@ test_that("input validation", {
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_Al2O3C_ITC(data_ITC, method_control = "EXP"),
                "'method_control' should be of class 'list'")
-#  expect_error(analyse_Al2O3C_ITC(data_ITC, dose_points = list(NA)),
-#               "At least three regeneration points are required") XXX!
+  expect_error(analyse_Al2O3C_ITC(data_ITC, dose_points = NA),
+               "'dose_points' should be of class 'numeric' or 'list'")
+  expect_error(analyse_Al2O3C_ITC(data_ITC, dose_points = list(NA)),
+               "All elements of 'dose_points' should be of class 'numeric'")
 
   SW({
   expect_warning(analyse_Al2O3C_ITC(data_ITC, signal_integral = 0),
