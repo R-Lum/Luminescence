@@ -11,6 +11,8 @@ test_that("input validation", {
 
   expect_error(analyse_Al2O3C_ITC("test"),
                "'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_Al2O3C_ITC(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_Al2O3C_ITC(list(data_ITC, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_Al2O3C_ITC(data_ITC, method_control = "EXP"),

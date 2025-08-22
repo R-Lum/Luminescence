@@ -277,6 +277,7 @@ analyse_Al2O3C_Measurement <- function(
 
   .validate_class(object, "RLum.Analysis",
                   extra = "a 'list' of such objects")
+  .validate_not_empty(object)
   .validate_class(cross_talk_correction, c("numeric", "RLum.Results", "NULL"))
 
   ## Preparation ------------------------------------------------------------

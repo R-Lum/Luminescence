@@ -77,9 +77,7 @@ remove_SignalBackground <- function(
   object_bg = NULL,
   recordType = NULL,
   clean_up = TRUE
-
-){
-    # Internals (DO NOT TOUCH THIS PART) --------------------------------------
+) {
   .set_function_name("remove_SignalBackground")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -93,13 +91,12 @@ remove_SignalBackground <- function(
         object_bg = object_bg,
         recordType = recordType,
         clean_up = clean_up)
-
     })
-
   }
 
-  # Integrity tests ---------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
+  .validate_not_empty(object)
   if(!is.null(object_bg)) .validate_class(object_bg, c("RLum.Data.Curve","list", "matrix", "numeric", "integer"))
   if(!is.null(recordType)) .validate_class(recordType, "character")
   .validate_class(clean_up, "logical")
@@ -183,4 +180,3 @@ remove_SignalBackground <- function(
   ## return whatever is left
   return(object)
 }
-
