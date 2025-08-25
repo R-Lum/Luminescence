@@ -249,12 +249,11 @@ setMethod(
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
-          definition = function(object, info.object) {
+          definition = function(object, info.object = NULL) {
               .set_function_name("get_RLum")
               on.exit(.unset_function_name(), add = TRUE)
 
-              ##if missing info.object just show the curve values
-              if (!missing(info.object)) {
+              if (!is.null(info.object)) {
                 .validate_class(info.object, "character")
 
                 if (!info.object %in% names(object@info)) {
@@ -263,6 +262,7 @@ setMethod("get_RLum",
                 }
                 unlist(object@info[info.object])
               } else {
+                ## info.object not provided, return the curve data
                 object@data
               }
           })

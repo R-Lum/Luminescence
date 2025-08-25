@@ -266,11 +266,11 @@ setMethod(
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Image"),
-          definition = function(object, info.object) {
+          definition = function(object, info.object = NULL) {
             .set_function_name("get_RLum")
             on.exit(.unset_function_name(), add = TRUE)
 
-            if(!missing(info.object)){
+            if (!is.null(info.object)) {
               .validate_class(info.object, "character")
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])

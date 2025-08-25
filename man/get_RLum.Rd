@@ -37,9 +37,9 @@ get_RLum(object, ...)
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
 
-\S4method{get_RLum}{RLum.Data.Image}(object, info.object)
+\S4method{get_RLum}{RLum.Data.Image}(object, info.object = NULL)
 
-\S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
+\S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object = NULL)
 
 \S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL, drop = TRUE)
 }
