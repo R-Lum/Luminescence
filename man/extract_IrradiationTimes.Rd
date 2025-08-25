@@ -45,7 +45,7 @@ argument only if you have reasons to do so.}
 if set to \code{TRUE}, an updated \linkS4class{RLum.Analysis} object (or a \link{list} of
 it) is returned, with each record having gained two new info element fields:
 \code{IRR_TIME} and \code{TIMESCINCEIRR}. This makes the \linkS4class{RLum.Analysis} object
-compatible witht external functions that search explicitly for \code{IRR_TIME}
+compatible with external functions that search explicitly for \code{IRR_TIME}
 and \code{TIMESCINCEIRR}.}
 
 \item{compatibility.mode}{\link{logical} (\emph{with default}):

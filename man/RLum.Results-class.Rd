@@ -3,109 +3,10 @@
 \docType{class}
 \name{RLum.Results-class}
 \alias{RLum.Results-class}
-\alias{show,RLum.Results-method}
-\alias{set_RLum,RLum.Results-method}
-\alias{get_RLum,RLum.Results-method}
-\alias{length_RLum,RLum.Results-method}
-\alias{names_RLum,RLum.Results-method}
-\alias{view,RLum.Results-method}
 \title{Class \code{"RLum.Results"}}
-\usage{
-\S4method{show}{RLum.Results}(object)
-
-\S4method{set_RLum}{RLum.Results}(class, originator, .uid, .pid, data = list(), info = list())
-
-\S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL, drop = TRUE)
-
-\S4method{length_RLum}{RLum.Results}(object)
-
-\S4method{names_RLum}{RLum.Results}(object)
-
-\S4method{view}{RLum.Results}(object, element = 1, ...)
-}
-\arguments{
-\item{object}{an object of class \linkS4class{RLum.Results}}
-
-\item{class}{\code{\link{set_RLum}}; \link{character} (\strong{required}):
-name of the \code{RLum} class to create}
-
-\item{originator}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
-contains the name of the calling function (the function that produces this object);
-can be set manually.}
-
-\item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
-sets an unique ID for this object using the internal C++ function \code{create_UID}.}
-
-\item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
-option to provide a parent id for nesting at will.}
-
-\item{data}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):
-a list containing the data to
-be stored in the object}
-
-\item{info}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):
-a list containing additional info data for the object}
-
-\item{data.object}{\code{\link{get_RLum}}; \link{character} or \link{numeric}:
-name or index of the data slot to be returned}
-
-\item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
-name of the wanted info element}
-
-\item{drop}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
-coerce to the next possible layer (which are data objects, \code{drop = FALSE}
-keeps the original \code{RLum.Results}}
-
-\item{element}{\link{integer} (\emph{with default}): index of the element to display}
-
-\item{...}{other arguments that might be passed}
-}
-\value{
-\strong{\code{set_RLum}}:
-
-Returns an object from the class \linkS4class{RLum.Results}
-
-\strong{\code{get_RLum}}:
-
-Returns:
-\enumerate{
-\item Data object from the specified slot
-\item \link{list} of data objects from the slots if 'data.object' is vector or
-\item an \linkS4class{RLum.Results} for \code{drop = FALSE}.
-}
-
-\strong{\code{length_RLum}}
-
-Returns the number of data elements in the \code{RLum.Results} object.
-
-\strong{\code{names_RLum}}
-
-Returns the names of the data elements in the object.
-}
 \description{
 Object class contains results data from functions (e.g., \link{analyse_SAR.CWOSL}).
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{show(RLum.Results)}: Show structure of \code{RLum.Results} object
-
-\item \code{set_RLum(RLum.Results)}: Construction method for an RLum.Results object.
-
-\item \code{get_RLum(RLum.Results)}: Accessor method for RLum.Results object. The argument data.object allows
-directly accessing objects delivered within the slot data. The default
-return object depends on the object originator (e.g., \code{fit_LMCurve}).
-If nothing is specified always the first \code{data.object} will be returned.
-
-Note: Detailed specification should be made in combination with the originator slot in the
-receiving function if results are pipped.
-
-\item \code{length_RLum(RLum.Results)}: Returns the length of the object, i.e., number of stored data.objects
-
-\item \code{names_RLum(RLum.Results)}: Returns the names data.objects
-
-\item \code{view(RLum.Results)}: View method for \linkS4class{RLum.Results} objects
-
-}}
 \section{Slots}{
 
 \describe{
@@ -162,5 +63,4 @@ dose.rate$parameters
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{classes}
-\keyword{internal}
 \keyword{methods}

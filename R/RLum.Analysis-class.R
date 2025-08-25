@@ -60,8 +60,6 @@
 #' ## remove
 #' remove_RLum(sar, subset = "NPOINTS == 250")
 #'
-#' @keywords internal
-#'
 #' @export
 setClass("RLum.Analysis",
          slots = list(
@@ -76,7 +74,7 @@ setClass("RLum.Analysis",
 )
 
 
-# as() -----------------------------------------------------------------------------------------
+## as() ---------------------------------------------------------------------
 ##LIST
 ##COERCE RLum.Analyse >> list AND list >> RLum.Analysis
 #' as() - RLum-object coercion
@@ -106,8 +104,8 @@ setAs("RLum.Analysis", "list",
       })
 
 
-# show() --------------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+## show() -------------------------------------------------------------------
+#' @describeIn show
 #' Show structure of `RLum.Analysis` object
 #'
 #' @export
@@ -202,35 +200,18 @@ setMethod("show",
           }
 )##end show method
 
-# set_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+## set_RLum() ---------------------------------------------------------------
+#' @describeIn set_RLum
 #' Construction method for [RLum.Analysis-class] objects.
 #'
-#' @param class [`set_RLum`] [character] (**required**):
-#' name of the `RLum` class to be created
-#'
-#' @param originator [`set_RLum`] [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object);
-#' can be set manually.
-#'
-#' @param .uid [`set_RLum`] [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `create_UID`.
-#'
-#' @param .pid [`set_RLum`] [character] (*with default*):
-#' option to provide a parent id for nesting at will.
-#'
-#' @param protocol [`set_RLum`] [character] (*optional*):
+#' @param protocol [character] (*optional*):
 #' sets protocol type for analysis object. Value may be used by subsequent analysis functions.
 #'
-#' @param records [`set_RLum`] [list] (**required**):
+#' @param records [list] (*optional*):
 #' list of [RLum.Analysis-class] objects
 #'
-#' @param info [`set_RLum`] [list] (*optional*):
-#' a list containing additional info data for the object
-#'
-#' **`set_RLum`**:
-#'
-#' Returns an [RLum.Analysis-class] object.
+#' @param info [list] (*optional*):
+#' a list containing additional info data for the object.
 #'
 #' @export
 setMethod(
@@ -272,72 +253,64 @@ setMethod(
   }
 )
 
-# get_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Accessor method for RLum.Analysis object.
-#'
-#' The slots record.id, `@recordType`, `@curveType` and `@RLum.type` are optional to allow for records
-#' limited by their id (list index number), their record type (e.g. `recordType = "OSL"`)
-#' or object type.
-#'
-#' Example: curve type (e.g. `curveType = "predefined"` or `curveType ="measured"`)
+## get_RLum() ---------------------------------------------------------------
+#' @describeIn get_RLum
+#' Accessor method for RLum.Analysis objects.
+#' The optional arguments `record.id`, `recordType`, `curveType` and `RLum.type`
+#' allow to limit records by their id (list index number), their record type
+#' (e.g. `recordType = "OSL"`), their curve type (e.g. `curveType = "predefined"`
+#' or `curveType ="measured"`), or object type.
 #'
 #' The selection of a specific RLum.type object superimposes the default selection.
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
-#'
-#' @param object (**required**):
-#' an object of class [RLum.Analysis-class]
-#'
-#' @param record.id [`get_RLum`]: [numeric] or [logical] (*optional*):
-#' IDs of specific records. If of type `logical` the entire id range is assumed
-#' and `TRUE` and `FALSE` indicates the selection.
-#'
-#' @param recordType [`get_RLum`]: [character] (*optional*):
-#' record type (e.g., "OSL"). Can be also a vector, for multiple matching,
-#' e.g., `recordType = c("OSL", "IRSL")`
-#'
-#' @param curveType [`get_RLum`]: [character] (*optional*):
-#' curve type (e.g. "predefined" or "measured")
-#'
-#' @param RLum.type [`get_RLum`]: [character] (*optional*):
-#' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
-#'
-#' @param get.index [`get_RLum`]: [logical] (*optional*):
-#' return a numeric vector with the index of each element in the RLum.Analysis
-#' object (`FALSE` by default).
-#'
-#' @param recursive [`get_RLum`]: [logical] (*with default*):
-#' if `TRUE` (default) when the result of the `get_RLum()` request is a single
-#' object, the object itself will be returned directly, rather than being
-#' wrapped in a list. Mostly this makes things easier, but this might be
-#' undesired if this method is used within a loop.
-#'
-#' @param drop [`get_RLum`]: [logical] (*with default*):
-#' coerce to the next possible layer (which are `RLum.Data`-objects),
-#' `drop = FALSE` keeps the original `RLum.Analysis`
-#'
-#' @param info.object [`get_RLum`]: [character] (*optional*):
-#' name of the wanted info element
-#'
-#' @param subset [`get_RLum`]: [expression] (*optional*):
-#' logical or character masking a logical expression indicating elements or rows to keep:
-#' missing values are taken as false. This argument takes precedence over all other arguments,
-#' meaning they are not considered when subsetting the object. `subset` works slots and
-#' info elements.
-#'
-#' @param env [`get_RLum`]: [environment] (*with default*):
-#' An environment passed to [eval] as the enclosure. This argument is only
-#' relevant when subsetting the object and should not be used manually.
-#'
-#' @return
-#'
-#' **`get_RLum`**:
 #'
 #' Returns:
 #'
 #' 1. [list] of [RLum.Data-class] objects or
 #' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
 #' 3. [RLum.Analysis-class] objects for `drop = FALSE`
+#'
+#' @param record.id [numeric] or [logical] (*optional*):
+#' IDs of specific records. If of type `logical` the entire id range is assumed
+#' and `TRUE` and `FALSE` indicates the selection.
+#'
+#' @param recordType [character] (*optional*):
+#' record type (e.g., "OSL"). Can be also a vector, for multiple matching,
+#' e.g., `recordType = c("OSL", "IRSL")`
+#'
+#' @param curveType [character] (*optional*):
+#' curve type (e.g. "predefined" or "measured")
+#'
+#' @param RLum.type [character] (*optional*):
+#' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
+#'
+#' @param protocol [character] (*optional*):
+#' currently ignored.
+#'
+#' @param get.index [logical] (*optional*):
+#' return a numeric vector with the index of each element in the RLum.Analysis
+#' object (`FALSE` by default).
+#'
+#' @param drop [logical] (*with default*):
+#' coerce to the next possible layer (which are [RLum.Data-class] objects if
+#' `object` is an [RLum.Analysis-class] object). If `drop = FALSE`, an object
+#' of the same type as the input is returned.
+#'
+#' @param recursive [logical] (*with default*):
+#' if `TRUE` (default) when the result of the `get_RLum()` request is a single
+#' object, the object itself will be returned directly, rather than being
+#' wrapped in a list. Mostly this makes things easier, but this might be
+#' undesired if this method is used within a loop.
+#'
+#' @param subset [expression] (*optional*):
+#' logical or character masking a logical expression indicating elements or rows to keep:
+#' missing values are taken as false. This argument takes precedence over all other arguments,
+#' meaning they are not considered when subsetting the object. `subset` works slots and
+#' info elements.
+#'
+#' @param env [environment] (*with default*):
+#' An environment passed to [eval] as the enclosure. This argument is only
+#' relevant when subsetting the object and should not be used manually.
 #'
 #' @export
 setMethod("get_RLum",
@@ -551,19 +524,12 @@ setMethod("get_RLum",
           })
 
 
-# remove_RLum() ----------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+## remove_RLum() ------------------------------------------------------------
+#' @describeIn remove_RLum
 #' Method to remove records from an [RLum.Analysis-class] object.
-#'
-#' @param object [RLum.Analysis-class] (**required**): object with records
-#' to be removed
 #'
 #' @param ... parameters to be passed to [get_RLum]. The arguments `get.index` and
 #' `drop` are preset and have no effect when provided
-#'
-#' @return
-#'
-#' [RLum.Analysis-class]; can be empty.
 #'
 #' @export
 setMethod("remove_RLum",
@@ -602,21 +568,14 @@ setMethod("remove_RLum",
   return(object)
 })
 
-# structure_RLum() ----------------------------------------------------------------------------
-###
-#' @describeIn RLum.Analysis
-#' Method to show the structure of an [RLum.Analysis-class] object.
+## structure_RLum() ---------------------------------------------------------
+#' @describeIn structure_RLum
+#' Returns the structure of an [RLum.Analysis-class] object.
 #'
-#' @param fullExtent [structure_RLum]; [logical] (*with default*):
+#' @param fullExtent [logical] (*with default*):
 #' extends the returned `data.frame` to its full extent, i.e. all info elements
 #' are part of the return as well. The default value is `FALSE` as the data
 #' frame might become rather big.
-#'
-#' @return
-#'
-#' **`structure_RLum`**:
-#'
-#' Returns [data.frame-class] showing the structure.
 #'
 #' @export
 setMethod("structure_RLum",
@@ -709,15 +668,9 @@ setMethod("structure_RLum",
             )
           })
 
-# length_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Returns the length of the object, i.e., number of stored records.
-#'
-#' @return
-#'
-#' **`length_RLum`**
-#'
-#' Returns the number records in this object.
+## length_RLum() ------------------------------------------------------------
+#' @describeIn length_RLum
+#' Returns the number of records stored in the object.
 #'
 #' @export
 setMethod("length_RLum",
@@ -726,16 +679,9 @@ setMethod("length_RLum",
             length(object@records)
           })
 
-# names_RLum() --------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Returns the names of the [RLum.Data-class] objects (same as shown with the
-#' `show` method)
-#'
-#' @return
-#'
-#' **`names_RLum`**
-#'
-#' Returns the names of the record types (`recordType`) in this object.
+## names_RLum() -------------------------------------------------------------
+#' @describeIn names_RLum
+#' Returns the names of the [RLum.Data-class] objects stored in the object.
 #'
 #' @export
 setMethod("names_RLum",
@@ -749,13 +695,14 @@ setMethod("names_RLum",
 #' @describeIn RLum.Analysis
 #' Adds metadata to [RLum.Analysis-class] objects
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to add
+#' @param object [RLum.Analysis-class] (**required**):
+#' object of class `RLum.Analysis`.
 #'
-#' @param value (**required**) The value assigned to the selected element
-#' of the metadata field.
+#' @param info_element [character] (**required**):
+#' name of the metadata field to add.
 #'
-#' @keywords internal
+#' @param value (**required**):
+#' value to be assigned to the selected element of the metadata field.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -778,13 +725,11 @@ setMethod("add_metadata<-",
 #' @describeIn RLum.Analysis
 #' Renames a metadata entry of [RLum.Analysis-class] objects
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to rename
+#' @param info_element [character] (**required**):
+#' name of the metadata field to rename.
 #'
-#' @param value (**required**) The value assigned to the selected element
-#' of the `info` slot.
-#'
-#' @keywords internal
+#' @param value (**required**):
+#' value to be assigned to the selected element of the `info` slot.
 #'
 #' @export
 setMethod("rename_metadata<-",
@@ -807,14 +752,16 @@ setMethod("rename_metadata<-",
 #' @describeIn RLum.Analysis
 #' Replaces or removes metadata of [RLum.Analysis-class] objects
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to replace or remove
+#' @param info_element [character] (**required**):
+#' name of the metadata field to replace or remove.
 #'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field. If `NULL` the elements named in `info_element`
-#' will be removed.
+#' @param subset [expression] (*optional*):
+#' logical expression to limit the substitution only to the selected subset
+#' of elements.
 #'
-#' @keywords internal
+#' @param value (**required**):
+#' value to be assigned to the selected elements of the metadata field. If
+#' `NULL` the elements named in `info_element` will be removed.
 #'
 #' @export
 setMethod("replace_metadata<-",
@@ -840,19 +787,9 @@ setMethod("replace_metadata<-",
           })
 
 
-# smooth_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#'
-#' Smoothing of `RLum.Data` objects contained in this `RLum.Analysis` object
-#' using the internal function `.smoothing`.
-#'
-#' @param ... further arguments passed to underlying methods
-#'
-#' @return
-#'
-#' **`smooth_RLum`**
-#'
-#' Same object as input, after smoothing
+## smooth_RLum() ------------------------------------------------------------
+#' @describeIn smooth_RLum
+#' Smoothing of `RLum.Data` records contained in the input object.
 #'
 #' @export
 setMethod(
@@ -867,16 +804,14 @@ setMethod(
   }
 )
 
-# sort_RLum() -------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#'
+## sort_RLum() --------------------------------------------------------------
+#' @describeIn sort_RLum
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
 #' At least one of `slot` and `info_element` must be provided. If both are
 #' given, ordering by `slot` always takes priority over `info_element`.
 #' Only the first element in each `slot` and each `info_element` is used
 #' for sorting. Example: `.pid` can contain multiple values, however, only the
 #' first is taken.
-#'
 #' Please note that the `show()` method does some structuring, which may
 #' lead to the impression that the sorting did not work.
 #'
@@ -886,22 +821,13 @@ setMethod(
 #' to use in sorting. The order of the names sets the sorting priority.
 #' Regardless of available info elements, the following
 #' elements always exist because they are calculated from the record
-#' `XY_LENGTH`, `NCOL`, `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`
+#' `XY_LENGTH`, `NCOL`, `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`.
 #'
 #' @param decreasing [logical] (*with default*): whether the sort order should
 #' be decreasing (`FALSE` by default). It can be provided as a vector to control
 #' the ordering sequence for each sorting element.
 #'
-#' @param ... further arguments passed to underlying methods
-#'
-#' @return
-#'
-#' **`sort_RLum`**
-#'
-#' Same object as input, but sorted according to the specified parameters.
-#'
 #' @examples
-#' ## **sort_RLum()** ##
 #' data(ExampleData.XSYG, envir = environment())
 #' sar <- OSL.SARMeasurement$Sequence.Object[1:5]
 #' sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
@@ -1016,16 +942,11 @@ setMethod(
   }
 )
 
-# melt_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Melts [RLum.Analysis-class] objects into a flat data.frame to be used
-#' in combination with other packages such as `ggplot2`.
-#'
-#' @return
-#'
-#' **`melt_RLum`**
-#'
-#' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
+## melt_RLum() --------------------------------------------------------------
+#' @describeIn melt_RLum
+#' Melts [RLum.Analysis-class] objects into a flat data.frame with columns
+#' `X`, `Y`, `TYPE`, `UID`, to be used in combination with other packages
+#' such as `ggplot2`.
 #'
 #' @export
 setMethod(
@@ -1037,13 +958,8 @@ setMethod(
 )
 
 ## view() -------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#'
-#' View method for [RLum.Analysis-class] objects
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @keywords internal
+#' @describeIn view
+#' View method for [RLum.Analysis-class] objects.
 #'
 #' @export
 setMethod("view",
