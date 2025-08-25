@@ -34,7 +34,7 @@ Show the structure of RLum-class and Risoe.BINfileData-class objects
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{show(RLum.Analysis)}: Show structure of \code{RLum.Analysis} object
+\item \code{show(RLum.Analysis)}: Show the structure of \code{RLum.Analysis} objects.
 
 \item \code{show(RLum.Data.Curve)}: Show the structure of \code{RLum.Data.Curve} objects.
 

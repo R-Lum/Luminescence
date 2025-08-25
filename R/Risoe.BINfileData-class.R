@@ -394,8 +394,9 @@ setMethod(f = "show",
 
 ## set method for object class ----------------------------------------------
 #' @describeIn Risoe.BINfileData
-#' The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
-#' This construction method is intended for internal usage only.
+#' A [Risoe.BINfileData-class] object is normally produced as output of the
+#' function [read_BIN2R]. This construction method is intended for internal
+#' usage only.
 #'
 #' @param METADATA Object of class "data.frame" containing the meta information
 #' for each curve.
@@ -596,20 +597,8 @@ setMethod("replace_metadata<-",
 
 
 ## sort_RLum() --------------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#'
-#' Sort method for [Risoe.BINfileData-class] objects
-#'
-#' @param object (**required**):
-#' an object of class [Risoe.BINfileData-class].
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to use in sorting.
-#'
-#' @param decreasing [logical] (*with default*):
-#' whether the sort order should be decreasing (`FALSE` by default).
-#'
-#' @param ... further arguments that might be passed to underlying methods.
+#' @describeIn sort_RLum
+#' Sort method for [Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod(
@@ -646,13 +635,8 @@ setMethod(
 
 
 ## view() -------------------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' View method for [Risoe.BINfileData-class] objects
-#'
-#' @param object (**required**):
-#' an object of class [Risoe.BINfileData-class]
-#'
-#' @param ... other arguments that might be passed
+#' @describeIn view
+#' View method for [Risoe.BINfileData-class] objects.
 #'
 #'@export
 setMethod("view",

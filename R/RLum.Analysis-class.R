@@ -106,7 +106,7 @@ setAs("RLum.Analysis", "list",
 
 ## show() -------------------------------------------------------------------
 #' @describeIn show
-#' Show structure of `RLum.Analysis` object
+#' Show the structure of `RLum.Analysis` objects.
 #'
 #' @export
 setMethod("show",

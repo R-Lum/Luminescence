@@ -8,8 +8,6 @@
 \alias{add_metadata<-,Risoe.BINfileData-method}
 \alias{rename_metadata<-,Risoe.BINfileData-method}
 \alias{replace_metadata<-,Risoe.BINfileData-method}
-\alias{sort_RLum,Risoe.BINfileData-method}
-\alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{set_Risoe.BINfileData}{ANY}(
@@ -25,10 +23,6 @@
 \S4method{rename_metadata}{Risoe.BINfileData}(object, info_element) <- value
 
 \S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
-
-\S4method{sort_RLum}{Risoe.BINfileData}(object, info_element, decreasing = FALSE, ...)
-
-\S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
 \item{METADATA}{Object of class "data.frame" containing the meta information
@@ -40,12 +34,12 @@ for each curve.}
 values for internal use only.}
 
 \item{object}{(\strong{required}):
-an object of class \linkS4class{Risoe.BINfileData}}
+an object of class \linkS4class{Risoe.BINfileData}.}
 
 \item{...}{other arguments that might be passed}
 
 \item{info_element}{\link{character} (\strong{required}):
-name of the metadata field to use in sorting.}
+name of the metadata field to replace or remove.}
 
 \item{value}{(\strong{required}):
 value to be assigned to the selected elements of the metadata field. If
@@ -54,9 +48,6 @@ value to be assigned to the selected elements of the metadata field. If
 \item{subset}{\link{expression} (\emph{optional}):
 logical expression to limit the substitution only to the selected subset of
 elements.}
-
-\item{decreasing}{\link{logical} (\emph{with default}):
-whether the sort order should be decreasing (\code{FALSE} by default).}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -64,8 +55,9 @@ of the function \link{read_BIN2R}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_Risoe.BINfileData(ANY)}: The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
-This construction method is intended for internal usage only.
+\item \code{set_Risoe.BINfileData(ANY)}: A \linkS4class{Risoe.BINfileData} object is normally produced as output of the
+function \link{read_BIN2R}. This construction method is intended for internal
+usage only.
 
 \item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.
@@ -75,10 +67,6 @@ the object directly, it is just showing a terminal message.
 \item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \linkS4class{Risoe.BINfileData} objects
 
 \item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects
-
-\item \code{sort_RLum(Risoe.BINfileData)}: Sort method for \linkS4class{Risoe.BINfileData} objects
-
-\item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects
 
 }}
 \section{Slots}{
