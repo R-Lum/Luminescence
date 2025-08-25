@@ -106,16 +106,18 @@ setMethod("rename_metadata<-",
 #' @describeIn RLum.Data
 #' Replaces or removes metadata of [RLum.Data-class] objects
 #'
-#' @param object (**required**) an object of class [RLum.Data-class]
+#' @param object (**required**):
+#' an object of class [RLum.Data-class].
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to replace or remove
+#' @param info_element [character] (**required**):
+#' name of the metadata field to replace or remove.
 #'
-#' @param subset [expression] (*optional*) logical expression to limit the
-#' substitution only to the selected subset of elements
+#' @param subset [expression] (*optional*):
+#' logical expression to limit the substitution only to the selected subset
+#' of elements.
 #'
-#' @param verbose [logical] (*with default*) enable/disable output to the
-#' terminal.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #' @param value (**required**) The value assigned to the selected elements
 #' of the metadata field. If `NULL` the elements named in `info_element`
@@ -187,13 +189,8 @@ setMethod("replace_metadata<-",
           })
 
 ## view() -------------------------------------------------------------------
-#' @describeIn RLum.Data
-#'
-#' View method for [RLum.Data-class] objects
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @keywords internal
+#' @describeIn view
+#' View method for [RLum.Data-class] objects.
 #'
 #' @export
 setMethod("view",

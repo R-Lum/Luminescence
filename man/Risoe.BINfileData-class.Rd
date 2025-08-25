@@ -34,7 +34,8 @@
 \S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{(\strong{required}) an object of class \linkS4class{Risoe.BINfileData}}
+\item{object}{(\strong{required}):
+an object of class \linkS4class{Risoe.BINfileData}}
 
 \item{METADATA}{Object of class "data.frame" containing the meta information
 for each curve.}
@@ -46,18 +47,19 @@ values for internal use only.}
 
 \item{...}{other arguments that might be passed}
 
-\item{info_element}{\link{character} (\strong{required}): name of the metadata field
-to use in sorting.}
+\item{info_element}{\link{character} (\strong{required}):
+name of the metadata field to use in sorting.}
 
-\item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field. If \code{NULL} the elements named in \code{info_element}
-will be removed.}
+\item{value}{(\strong{required}):
+value to be assigned to the selected elements of the metadata field. If
+\code{NULL}, the elements named in \code{info_element} will be removed.}
 
-\item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
-substitution only to the selected subset of elements}
+\item{subset}{\link{expression} (\emph{optional}):
+logical expression to limit the substitution only to the selected subset of
+elements.}
 
-\item{decreasing}{\link{logical} (\emph{with default}): whether the sort order should
-be decreasing (\code{FALSE} by default).}
+\item{decreasing}{\link{logical} (\emph{with default}):
+whether the sort order should be decreasing (\code{FALSE} by default).}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -308,6 +310,4 @@ The Sequence Editor User Manual - February 2016
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 }
-\keyword{class}
 \keyword{classes}
-\keyword{internal}

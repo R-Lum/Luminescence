@@ -1,14 +1,15 @@
 #' Class `"RLum.Data.Image"`
 #'
-#' Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
-#' by the function [read_SPE2R]
+#' Class for representing luminescence image data (TL/OSL/RF). Such data are
+#' for example produced by function [read_SPE2R].
 #'
 #' @name RLum.Data.Image-class
 #'
 #' @docType class
 #'
 #' @slot recordType
-#' Object of class [character] containing the type of the curve (e.g. "OSL image", "TL image")
+#' Object of class [character] containing the type of the curve (e.g.
+#' "OSL image", "TL image").
 #'
 #' @slot curveType
 #' Object of class [character] containing curve type, allowed values
@@ -61,7 +62,7 @@ setClass(
   )
 )
 
-# as() ----------------------------------------------------------------------------------------
+## as() ---------------------------------------------------------------------
 ##DATA.FRAME
 ##COERCE RLum.Data.Image >> data.frame AND data.frame >> RLum.Data.Image
 #' as()
@@ -159,11 +160,12 @@ setAs("RLum.Data.Image", "list",
         lapply(1:num.images, function(x) from@data[,,x])
       })
 
-# show() --------------------------------------------------------------------------------------
+## show() -------------------------------------------------------------------
 #' @describeIn RLum.Data.Image
 #' Show structure of `RLum.Data.Image` object
 #'
-#' @keywords internal
+#' @param object [RLum.Data.Image-class] (**required**):
+#' object of class `RLum.Data.Image`.
 #'
 #' @export
 setMethod("show",
@@ -189,42 +191,9 @@ setMethod("show",
 )
 
 
-# set_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Image
-#' Construction method for RLum.Data.Image object. The slot info is optional
-#' and predefined as empty list by default.
-#'
-#' @param class [`set_RLum`]; [character]: name of the `RLum` class to create
-#'
-#' @param originator [`set_RLum`]; [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object);
-#' can be set manually.
-#'
-#' @param .uid [`set_RLum`]; [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `create_UID`.
-#'
-#' @param .pid [`set_RLum`]; [character] (*with default*):
-#' option to provide a parent id for nesting at will.
-#'
-#' @param recordType [`set_RLum`]; [character]:
-#' record type (e.g. "OSL")
-#'
-#' @param curveType [`set_RLum`]; [character]:
-#' curve type (e.g. "predefined" or "measured")
-#'
-#' @param data [`set_RLum`]; [matrix]:
-#' raw curve data. If data is of type `RLum.Data.Image` this can be used to
-#' re-construct the object, i.e. modified parameters except `.uid` and `.pid`. The rest
-#' will be subject to copy and paste unless provided.
-#'
-#' @param info [`set_RLum`]; [list]:
-#' info elements
-#'
-#' @return
-#'
-#' **`set_RLum`**
-#'
-#' Returns an object from class `RLum.Data.Image`
+## set_RLum() ---------------------------------------------------------------
+#' @describeIn set_RLum
+#' Construction method for [RLum.Data.Image-class] objects.
 #'
 #' @export
 setMethod(
@@ -290,24 +259,12 @@ setMethod(
   }
 )
 
-# get_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Image
-#' Accessor method for `RLum.Data.Image` object. The argument `info.object` is
-#' optional to directly access the info elements. If no info element name is
-#' provided, the raw image data (`array`) will be returned.
-#'
-#' @param object [`get_RLum`], [`names_RLum`] (**required**):
-#' an object of class [RLum.Data.Image-class]
-#'
-#' @param info.object [`get_RLum`]; [character]:
-#' name of the info object to returned
-#'
-#' @return
-#'
-#' **`get_RLum`**
-#'
-#' 1. Returns the data object ([array])
-#' 2. only the info object if `info.object` was set.
+## get_RLum() ---------------------------------------------------------------
+#' @describeIn get_RLum
+#' Accessor method for [RLum.Data.Image-class] objects.
+#' The argument `info.object` is optional to directly access the info elements.
+#' If no info element name is provided, the raw image data (`array`) will be
+#' returned.
 #'
 #' @export
 setMethod("get_RLum",
@@ -320,7 +277,6 @@ setMethod("get_RLum",
               .validate_class(info.object, "character")
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
-
               } else {
                 .throw_error("Invalid element name, valid names are: ",
                              .collapse(names(object@info)))
@@ -331,16 +287,9 @@ setMethod("get_RLum",
           })
 
 
-
 # names_RLum() --------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Image
-#' Returns the names info elements coming along with this curve object
-#'
-#' @return
-#'
-#' **`names_RLum`**
-#'
-#' Returns the names of the info elements
+#' @describeIn names_RLum
+#' Returns the names of the info elements stored in the object.
 #'
 #' @export
 setMethod(

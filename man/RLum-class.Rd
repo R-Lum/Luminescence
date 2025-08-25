@@ -3,18 +3,7 @@
 \docType{class}
 \name{RLum-class}
 \alias{RLum-class}
-\alias{replicate_RLum,RLum-method}
 \title{Class \code{"RLum"}}
-\usage{
-\S4method{replicate_RLum}{RLum}(object, times = NULL)
-}
-\arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
-an object of class \linkS4class{RLum}}
-
-\item{times}{\link{integer} (\emph{optional}):
-number for times each element is repeated element}
-}
 \description{
 Abstract class for data in the package Luminescence
 Subclasses are:
@@ -29,11 +18,6 @@ Subclasses are:
 |----\linkS4class{RLum.Analysis}\cr
 |----\linkS4class{RLum.Results}
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{replicate_RLum(RLum)}: Replication method RLum-objects
-
-}}
 \section{Slots}{
 
 \describe{

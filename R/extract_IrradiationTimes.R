@@ -60,7 +60,7 @@
 #' if set to `TRUE`, an updated [RLum.Analysis-class] object (or a [list] of
 #' it) is returned, with each record having gained two new info element fields:
 #' `IRR_TIME` and `TIMESCINCEIRR`. This makes the [RLum.Analysis-class] object
-#' compatible witht external functions that search explicitly for `IRR_TIME`
+#' compatible with external functions that search explicitly for `IRR_TIME`
 #' and `TIMESCINCEIRR`.
 #'
 #' @param compatibility.mode [logical] (*with default*):

@@ -14,8 +14,6 @@
 #'
 #' @slot .RESERVED Object of class "list" containing list of undocumented raw values for internal use only.
 #'
-#' @keywords class
-#'
 #' @note
 #'
 #' **Internal METADATA - object structure**
@@ -394,7 +392,7 @@ setMethod(f = "show",
           )#end setMethod
 
 
-# set method for object class -----------------------------------
+## set method for object class ----------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
 #' This construction method is intended for internal usage only.
@@ -429,7 +427,7 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
-# get () -----------------------------------------------------------------------
+## get () -------------------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' Formal get-method for Risoe.BINfileData object. It does not allow accessing
 #' the object directly, it is just showing a terminal message.
@@ -451,15 +449,14 @@ setMethod("get_Risoe.BINfileData",
 #' @describeIn Risoe.BINfileData
 #' Adds metadata to [Risoe.BINfileData-class] objects
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
+#' @param object (**required**):
+#' an object of class [Risoe.BINfileData-class].
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to add
+#' @param info_element [character] (**required**):
+#' name of the metadata field to add/
 #'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
-#'
-#' @keywords internal
+#' @param value (**required**):
+#' value to be assigned to the selected elements of the metadata field.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -469,7 +466,6 @@ setMethod("add_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- colnames(object@METADATA)
@@ -487,15 +483,14 @@ setMethod("add_metadata<-",
 #' @describeIn Risoe.BINfileData
 #' Renames a metadata entry of [Risoe.BINfileData-class] objects
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
+#' @param object (**required**):
+#' an object of class [Risoe.BINfileData-class].
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to rename.
+#' @param info_element [character] (**required**):
+#' name of the metadata field to rename.
 #'
-#' @param value (**required**) The value assigned to the selected element
-#' of the metadata field.
-#'
-#' @keywords internal
+#' @param value (**required**):
+#' value to be assigned to the selected element of the metadata field.
 #'
 #' @export
 setMethod("rename_metadata<-",
@@ -505,7 +500,6 @@ setMethod("rename_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- colnames(object@METADATA)
@@ -525,19 +519,19 @@ setMethod("rename_metadata<-",
 #' @describeIn Risoe.BINfileData
 #' Replaces or removes metadata of [Risoe.BINfileData-class] objects
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
+#' @param object (**required**):
+#' an object of class [Risoe.BINfileData-class].
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to replace or remove
+#' @param info_element [character] (**required**):
+#' name of the metadata field to replace or remove.
 #'
-#' @param subset [expression] (*optional*) logical expression to limit the
-#' substitution only to the selected subset of elements
+#' @param subset [expression] (*optional*):
+#' logical expression to limit the substitution only to the selected subset of
+#' elements.
 #'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field. If `NULL` the elements named in `info_element`
-#' will be removed.
-#'
-#' @keywords internal
+#' @param value (**required**):
+#' value to be assigned to the selected elements of the metadata field. If
+#' `NULL`, the elements named in `info_element` will be removed.
 #'
 #' @export
 setMethod("replace_metadata<-",
@@ -606,17 +600,16 @@ setMethod("replace_metadata<-",
 #'
 #' Sort method for [Risoe.BINfileData-class] objects
 #'
-#' @param object (**required**): an object of class [Risoe.BINfileData-class].
+#' @param object (**required**):
+#' an object of class [Risoe.BINfileData-class].
 #'
-#' @param info_element [character] (**required**): name of the metadata field
-#' to use in sorting.
+#' @param info_element [character] (**required**):
+#' name of the metadata field to use in sorting.
 #'
-#' @param decreasing [logical] (*with default*): whether the sort order should
-#' be decreasing (`FALSE` by default).
+#' @param decreasing [logical] (*with default*):
+#' whether the sort order should be decreasing (`FALSE` by default).
 #'
 #' @param ... further arguments that might be passed to underlying methods.
-#'
-#' @keywords internal
 #'
 #' @export
 setMethod(
@@ -652,15 +645,14 @@ setMethod(
 )
 
 
-# view () -----------------------------------------------------------------------
-#'@describeIn Risoe.BINfileData
-#'View method for [Risoe.BINfileData-class] objects
+## view () ------------------------------------------------------------------
+#' @describeIn Risoe.BINfileData
+#' View method for [Risoe.BINfileData-class] objects
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
+#' @param object (**required**):
+#' an object of class [Risoe.BINfileData-class]
 #'
-#'@param ... other arguments that might be passed
-#'
-#'@keywords internal
+#' @param ... other arguments that might be passed
 #'
 #'@export
 setMethod("view",

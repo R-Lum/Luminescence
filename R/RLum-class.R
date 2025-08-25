@@ -68,16 +68,9 @@ setClass("RLum",
          )
 
 
-# replication method for object class ------------------------------------------
-
-#' @describeIn RLum
-#' Replication method RLum-objects
-#'
-#' @param object [RLum-class] (**required**):
-#' an object of class [RLum-class]
-#'
-#' @param times [integer] (*optional*):
-#' number for times each element is repeated element
+## replicate_RLum() ---------------------------------------------------------
+#' @describeIn replicate_RLum
+#' Replication method for [RLum-class] objects
 #'
 #' @export
 setMethod(

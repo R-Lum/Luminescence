@@ -4,138 +4,13 @@
 \name{RLum.Data.Curve-class}
 \alias{RLum.Data.Curve-class}
 \alias{show,RLum.Data.Curve-method}
-\alias{set_RLum,RLum.Data.Curve-method}
-\alias{get_RLum,RLum.Data.Curve-method}
-\alias{length_RLum,RLum.Data.Curve-method}
-\alias{names_RLum,RLum.Data.Curve-method}
-\alias{bin_RLum.Data,RLum.Data.Curve-method}
-\alias{smooth_RLum,RLum.Data.Curve-method}
-\alias{melt_RLum,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
-
-\S4method{set_RLum}{RLum.Data.Curve}(
-  class,
-  originator,
-  .uid,
-  .pid,
-  recordType = NA_character_,
-  curveType = NA_character_,
-  data = matrix(0, ncol = 2),
-  info = list()
-)
-
-\S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
-
-\S4method{length_RLum}{RLum.Data.Curve}(object)
-
-\S4method{names_RLum}{RLum.Data.Curve}(object)
-
-\S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
-
-\S4method{smooth_RLum}{RLum.Data.Curve}(
-  object,
-  k = NULL,
-  fill = NA,
-  align = "right",
-  method = "mean",
-  p_acceptance = 1e-07
-)
-
-\S4method{melt_RLum}{RLum.Data.Curve}(object)
 }
 \arguments{
-\item{object}{\code{\link{get_RLum}}, \code{\link{length_RLum}}, \code{\link{names_RLum}} (\strong{required}):
-an object of class \linkS4class{RLum.Data.Curve}}
-
-\item{class}{\code{\link{set_RLum}}; \link{character} (\strong{required}):
-name of the \code{RLum} class to create}
-
-\item{originator}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
-contains the name of the calling function (the function that produces this object);
-can be set manually.}
-
-\item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
-sets an unique ID for this object using the internal C++ function \code{create_UID}.}
-
-\item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
-option to provide a parent id for nesting at will.}
-
-\item{recordType}{\code{\link{set_RLum}}; \link{character} (\emph{optional}):
-record type (e.g., "OSL")}
-
-\item{curveType}{\code{\link{set_RLum}}; \link{character} (\emph{optional}):
-curve type (e.g., "predefined" or "measured")}
-
-\item{data}{\code{\link{set_RLum}}; \link{matrix} (\strong{required}):
-raw curve data. If \code{data} itself is a \code{RLum.Data.Curve}-object this can be
-used to re-construct the object (see details), i.e. modified parameters except
-\code{.uid}, \code{.pid} and \code{originator}. The rest will be subject to copy and paste unless provided.}
-
-\item{info}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):
-info elements}
-
-\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}):
-name of the wanted info element}
-
-\item{bin_size}{\link{integer} (\emph{with default}):
-set number of channels used for each bin, e.g. \code{bin_size = 2} means that
-two channels are binned.}
-
-\item{k}{\code{\link{smooth_RLum}}; \link{integer} (\emph{with default}):
-window for the rolling mean or median. If \code{NULL}, this set automatically
-(ignored if \code{method = "Carter_etal_2018"}).}
-
-\item{fill}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
-value used to pad the result so to have the same length as the input.}
-
-\item{align}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
-one of \code{"right"}, \code{"center"} or \code{"left"}, specifying whether the index
-of the result should be right-aligned (default), centred, or lef-aligned
-compared to the rolling window of observations (ignored if
-\code{method = "Carter_etal_2018"}).}
-
-\item{method}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
-smoothing method to be applied: one of \code{"mean"}, \code{"median"} or
-\code{"Carter_etal_2018"}.}
-
-\item{p_acceptance}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
-probability threshold of accepting a value to be a sample from a Poisson
-distribution (only used for \code{method = "Carter_etal_2018"}). Values that
-have a Poisson probability below the threshold are replaced by the average
-over the four neighbouring values.}
-}
-\value{
-\strong{\code{set_RLum}}
-
-Returns an \linkS4class{RLum.Data.Curve} object.
-
-\strong{\code{get_RLum}}
-\enumerate{
-\item A \link{matrix} with the curve values or
-\item only the info object if \code{info.object} was set.
-}
-
-\strong{\code{length_RLum}}
-
-Number of channels in the curve (row number of the matrix)
-
-\strong{\code{names_RLum}}
-
-Names of the info elements (slot \code{info})
-
-\strong{\code{bin_RLum.Data}}
-
-Same object as input, after applying the binning.
-
-\strong{\code{smooth_RLum}}
-
-Same object as input, with smoothed values.
-
-\strong{\code{melt_RLum}}
-
-Flat \link{data.frame} with \code{X}, \code{Y}, \code{TYPE}, \code{UID}
+\item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}):
+object of class \code{RLum.Data.Curve}.}
 }
 \description{
 Class for representing luminescence curve data.
@@ -143,31 +18,6 @@ Class for representing luminescence curve data.
 \section{Methods (by generic)}{
 \itemize{
 \item \code{show(RLum.Data.Curve)}: Show structure of \code{RLum.Data.Curve} object
-
-\item \code{set_RLum(RLum.Data.Curve)}: Construction method for RLum.Data.Curve object. The slot info is optional
-and predefined as empty list by default.
-
-\item \code{get_RLum(RLum.Data.Curve)}: Accessor method for RLum.Data.Curve object. The argument info.object is
-optional to directly access the info elements. If no info element name is
-provided, the raw curve data (matrix) will be returned.
-
-\item \code{length_RLum(RLum.Data.Curve)}: Returns the length of the curve object, which is the maximum of the
-value time/temperature of the curve (corresponding to the stimulation length)
-
-\item \code{names_RLum(RLum.Data.Curve)}: Returns the names info elements coming along with this curve object
-
-\item \code{bin_RLum.Data(RLum.Data.Curve)}: Allows binning of specific objects
-
-\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of \linkS4class{RLum.Data.Curve} objects using a rolling mean or median.
-In particular the internal function \code{.smoothing} is used.
-
-For methods \code{"mean"} and \code{"median"}, smoothing is performed by rolling
-mean and rolling median with window of size \code{k}. Method \code{"Carter_etal_2018"}
-implements a Poisson smoother for dark-background signals measured by a
-photomultiplier tube.
-
-\item \code{melt_RLum(RLum.Data.Curve)}: Melts \linkS4class{RLum.Data.Curve} objects into a flat data.frame to be used
-in combination with other packages such as \code{ggplot2}.
 
 }}
 \section{Slots}{
@@ -217,12 +67,6 @@ showClass("RLum.Data.Curve")
 set_RLum(class = "RLum.Data.Curve")
 
 }
-\references{
-Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S. &
-Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
-implications for luminescence dating. Radiation Measurements 120, 267-273.
-\doi{10.1016/j.radmeas.2018.05.010}
-}
 \seealso{
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
 }
@@ -230,4 +74,3 @@ implications for luminescence dating. Radiation Measurements 120, 267-273.
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{classes}
-\keyword{internal}

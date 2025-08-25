@@ -6,7 +6,6 @@
 \alias{add_metadata<-,RLum.Data-method}
 \alias{rename_metadata<-,RLum.Data-method}
 \alias{replace_metadata<-,RLum.Data-method}
-\alias{view,RLum.Data-method}
 \title{Class \code{"RLum.Data"}}
 \usage{
 \S4method{add_metadata}{RLum.Data}(object, info_element) <- value
@@ -14,26 +13,24 @@
 \S4method{rename_metadata}{RLum.Data}(object, info_element) <- value
 
 \S4method{replace_metadata}{RLum.Data}(object, info_element, subset = NULL, verbose = TRUE) <- value
-
-\S4method{view}{RLum.Data}(object, ...)
 }
 \arguments{
-\item{object}{(\strong{required}) an object of class \linkS4class{RLum.Data}}
+\item{object}{(\strong{required}):
+an object of class \linkS4class{RLum.Data}.}
 
-\item{info_element}{\link{character} (\strong{required}) name of the metadata field
-to replace or remove}
+\item{info_element}{\link{character} (\strong{required}):
+name of the metadata field to replace or remove.}
 
 \item{value}{(\strong{required}) The value assigned to the selected elements
 of the metadata field. If \code{NULL} the elements named in \code{info_element}
 will be removed.}
 
-\item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
-substitution only to the selected subset of elements}
+\item{subset}{\link{expression} (\emph{optional}):
+logical expression to limit the substitution only to the selected subset
+of elements.}
 
-\item{verbose}{\link{logical} (\emph{with default}) enable/disable output to the
-terminal.}
-
-\item{...}{other arguments that might be passed}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 }
 \description{
 Generalized virtual data class for luminescence data.
@@ -45,8 +42,6 @@ Generalized virtual data class for luminescence data.
 \item \code{rename_metadata(RLum.Data) <- value}: Rename a metadata entry of \linkS4class{RLum.Data} objects
 
 \item \code{replace_metadata(RLum.Data) <- value}: Replaces or removes metadata of \linkS4class{RLum.Data} objects
-
-\item \code{view(RLum.Data)}: View method for \linkS4class{RLum.Data} objects
 
 }}
 \section{Objects from the Class}{
