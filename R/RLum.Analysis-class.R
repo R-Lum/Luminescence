@@ -696,7 +696,7 @@ setMethod("names_RLum",
 #' Adds metadata to [RLum.Analysis-class] objects.
 #'
 #' @param info_element [character] (**required**):
-#' name of the metadata field to manipulate.
+#' name of the metadata entry to manipulate.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -726,7 +726,7 @@ setMethod("rename_metadata<-",
             .set_function_name("rename_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 
-            ## rename the metadata field in all records
+            ## rename the metadata entry in all records
             records <- lapply(object@records, function(x) {
               do.call(`rename_metadata<-`,
                       list(x, info_element = info_element, value = value))

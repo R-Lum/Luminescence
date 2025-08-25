@@ -361,7 +361,7 @@ setMethod("melt_RLum", signature = "list",
 #' @param ... further arguments passed to the specific class method
 #'
 #' @param value (**required**):
-#' value to be assigned to the selected metadata field. A `NULL` value is
+#' value to be assigned to the selected metadata entry. A `NULL` value is
 #' acceptable only for `replace_metadata`, in which case the elements named
 #' in `info_element` will be removed.
 #'

@@ -40,13 +40,15 @@ setMethod("add_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- names(object@info)
             if (info_element %in% valid.names) {
               .throw_error("'info_element' already present, to modify it ",
                            "you should use `replace_metadata()`")
+            }
+            if (is.null(value)) {
+              .throw_error("Cannot store a metadata entry with NULL value")
             }
 
             ## add the metadata element
@@ -66,7 +68,6 @@ setMethod("rename_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- names(object@info)
@@ -74,6 +75,10 @@ setMethod("rename_metadata<-",
               .throw_error("'info_element' not recognised (",
                            .collapse(info_element), "), valid terms are: ",
                            .collapse(valid.names, quote = FALSE))
+            }
+            if (is.null(value)) {
+              .throw_error("Cannot rename a metadata entry to NULL, ",
+                           "to remove it you should use `replace_metadata()`")
             }
 
             ## rename the metadata element
