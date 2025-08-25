@@ -355,11 +355,15 @@ setMethod("melt_RLum", signature = "list",
 #' Generic functions for manipulation of metadata in [Risoe.BINfileData-class],
 #' [RLum.Analysis-class] and [RLum.Data-class] objects.
 #'
-#' @param object (**required**) object to manipulate
+#' @param object [RLum.Analysis-class], [Risoe.BINfileData-class] (**required**):
+#' object of class `RLum.Analysis` or `Risoe.BINfileData` to manipulate.
 #'
 #' @param ... further arguments passed to the specific class method
 #'
-#' @param value the value to be assigned
+#' @param value (**required**):
+#' value to be assigned to the selected metadata field. A `NULL` value is
+#' acceptable only for `replace_metadata`, in which case the elements named
+#' in `info_element` will be removed.
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)

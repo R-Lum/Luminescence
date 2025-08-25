@@ -447,17 +447,8 @@ setMethod("get_Risoe.BINfileData",
 )
 
 ## add_metadata() -----------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Adds metadata to [Risoe.BINfileData-class] objects
-#'
-#' @param object (**required**):
-#' an object of class [Risoe.BINfileData-class].
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to add/
-#'
-#' @param value (**required**):
-#' value to be assigned to the selected elements of the metadata field.
+#' @describeIn metadata
+#' Adds metadata to [Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -481,17 +472,8 @@ setMethod("add_metadata<-",
           })
 
 ## rename_metadata() --------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Renames a metadata entry of [Risoe.BINfileData-class] objects
-#'
-#' @param object (**required**):
-#' an object of class [Risoe.BINfileData-class].
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to rename.
-#'
-#' @param value (**required**):
-#' value to be assigned to the selected element of the metadata field.
+#' @describeIn metadata
+#' Renames a metadata entry of [Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod("rename_metadata<-",
@@ -517,22 +499,8 @@ setMethod("rename_metadata<-",
           })
 
 ## replace_metadata() -------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Replaces or removes metadata of [Risoe.BINfileData-class] objects
-#'
-#' @param object (**required**):
-#' an object of class [Risoe.BINfileData-class].
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to replace or remove.
-#'
-#' @param subset [expression] (*optional*):
-#' logical expression to limit the substitution only to the selected subset of
-#' elements.
-#'
-#' @param value (**required**):
-#' value to be assigned to the selected elements of the metadata field. If
-#' `NULL`, the elements named in `info_element` will be removed.
+#' @describeIn metadata
+#' Replaces or removes metadata of [Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod("replace_metadata<-",

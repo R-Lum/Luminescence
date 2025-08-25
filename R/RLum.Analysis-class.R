@@ -692,17 +692,11 @@ setMethod("names_RLum",
 
 
 ## add_metadata() -----------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Adds metadata to [RLum.Analysis-class] objects
-#'
-#' @param object [RLum.Analysis-class] (**required**):
-#' object of class `RLum.Analysis`.
+#' @describeIn metadata
+#' Adds metadata to [RLum.Analysis-class] objects.
 #'
 #' @param info_element [character] (**required**):
-#' name of the metadata field to add.
-#'
-#' @param value (**required**):
-#' value to be assigned to the selected element of the metadata field.
+#' name of the metadata field to manipulate.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -722,14 +716,8 @@ setMethod("add_metadata<-",
           })
 
 ## rename_metadata() --------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Renames a metadata entry of [RLum.Analysis-class] objects
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to rename.
-#'
-#' @param value (**required**):
-#' value to be assigned to the selected element of the `info` slot.
+#' @describeIn metadata
+#' Renames a metadata entry of [RLum.Analysis-class] objects.
 #'
 #' @export
 setMethod("rename_metadata<-",
@@ -749,19 +737,12 @@ setMethod("rename_metadata<-",
           })
 
 ## replace_metadata() -------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Replaces or removes metadata of [RLum.Analysis-class] objects
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to replace or remove.
+#' @describeIn metadata
+#' Replaces or removes metadata of [RLum.Analysis-class] objects.
 #'
 #' @param subset [expression] (*optional*):
 #' logical expression to limit the substitution only to the selected subset
 #' of elements.
-#'
-#' @param value (**required**):
-#' value to be assigned to the selected elements of the metadata field. If
-#' `NULL` the elements named in `info_element` will be removed.
 #'
 #' @export
 setMethod("replace_metadata<-",

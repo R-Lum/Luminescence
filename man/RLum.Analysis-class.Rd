@@ -3,46 +3,12 @@
 \docType{class}
 \name{RLum.Analysis-class}
 \alias{RLum.Analysis-class}
-\alias{add_metadata<-,RLum.Analysis-method}
-\alias{rename_metadata<-,RLum.Analysis-method}
-\alias{replace_metadata<-,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
-\usage{
-\S4method{add_metadata}{RLum.Analysis}(object, info_element) <- value
-
-\S4method{rename_metadata}{RLum.Analysis}(object, info_element) <- value
-
-\S4method{replace_metadata}{RLum.Analysis}(object, info_element, subset = NULL) <- value
-}
-\arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-object of class \code{RLum.Analysis}.}
-
-\item{info_element}{\link{character} (\strong{required}):
-name of the metadata field to replace or remove.}
-
-\item{value}{(\strong{required}):
-value to be assigned to the selected elements of the metadata field. If
-\code{NULL} the elements named in \code{info_element} will be removed.}
-
-\item{subset}{\link{expression} (\emph{optional}):
-logical expression to limit the substitution only to the selected subset
-of elements.}
-}
 \description{
 Object class to represent analysis data for protocol analysis, i.e. all curves,
 spectra etc. from one measurements. Objects from this class are produced,
 by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects
-
-\item \code{rename_metadata(RLum.Analysis) <- value}: Renames a metadata entry of \linkS4class{RLum.Analysis} objects
-
-\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces or removes metadata of \linkS4class{RLum.Analysis} objects
-
-}}
 \section{Slots}{
 
 \describe{

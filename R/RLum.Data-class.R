@@ -29,18 +29,8 @@ setClass("RLum.Data",
 )
 
 ## add_metadata() -----------------------------------------------------------
-#' @describeIn RLum.Data
-#' Add metadata entries to [RLum.Data-class] objects
-#'
-#' @param object (**required**) an object of class [RLum.Data-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to add
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
-#'
-#' @keywords internal
+#' @describeIn metadata
+#' Add metadata entries to [RLum.Data-class] objects.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -65,18 +55,8 @@ setMethod("add_metadata<-",
           })
 
 ## rename_metadata() --------------------------------------------------------
-#' @describeIn RLum.Data
-#' Rename a metadata entry of [RLum.Data-class] objects
-#'
-#' @param object (**required**) an object of class [RLum.Data-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to rename.
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the `info` slot.
-#'
-#' @keywords internal
+#' @describeIn metadata
+#' Rename a metadata entry of [RLum.Data-class] objects.
 #'
 #' @export
 setMethod("rename_metadata<-",
@@ -103,27 +83,11 @@ setMethod("rename_metadata<-",
           })
 
 ## replace_metadata() -------------------------------------------------------
-#' @describeIn RLum.Data
-#' Replaces or removes metadata of [RLum.Data-class] objects
-#'
-#' @param object (**required**):
-#' an object of class [RLum.Data-class].
-#'
-#' @param info_element [character] (**required**):
-#' name of the metadata field to replace or remove.
-#'
-#' @param subset [expression] (*optional*):
-#' logical expression to limit the substitution only to the selected subset
-#' of elements.
+#' @describeIn metadata
+#' Replaces or removes metadata of [RLum.Data-class] objects.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field. If `NULL` the elements named in `info_element`
-#' will be removed.
-#'
-#' @keywords internal
 #'
 #' @export
 setMethod("replace_metadata<-",
@@ -134,7 +98,6 @@ setMethod("replace_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             valid.names <- names(object@info)
             not.found <- setdiff(info_element, valid.names)

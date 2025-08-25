@@ -5,9 +5,6 @@
 \alias{Risoe.BINfileData-class}
 \alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
-\alias{add_metadata<-,Risoe.BINfileData-method}
-\alias{rename_metadata<-,Risoe.BINfileData-method}
-\alias{replace_metadata<-,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{set_Risoe.BINfileData}{ANY}(
@@ -17,12 +14,6 @@
 )
 
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
-
-\S4method{add_metadata}{Risoe.BINfileData}(object, info_element) <- value
-
-\S4method{rename_metadata}{Risoe.BINfileData}(object, info_element) <- value
-
-\S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
 }
 \arguments{
 \item{METADATA}{Object of class "data.frame" containing the meta information
@@ -33,21 +24,9 @@ for each curve.}
 \item{.RESERVED}{Object of class "list" containing list of undocumented raw
 values for internal use only.}
 
-\item{object}{(\strong{required}):
-an object of class \linkS4class{Risoe.BINfileData}.}
+\item{object}{an object of class \linkS4class{Risoe.BINfileData}}
 
 \item{...}{other arguments that might be passed}
-
-\item{info_element}{\link{character} (\strong{required}):
-name of the metadata field to replace or remove.}
-
-\item{value}{(\strong{required}):
-value to be assigned to the selected elements of the metadata field. If
-\code{NULL}, the elements named in \code{info_element} will be removed.}
-
-\item{subset}{\link{expression} (\emph{optional}):
-logical expression to limit the substitution only to the selected subset of
-elements.}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -61,12 +40,6 @@ usage only.
 
 \item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.
-
-\item \code{add_metadata(Risoe.BINfileData) <- value}: Adds metadata to \linkS4class{Risoe.BINfileData} objects
-
-\item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \linkS4class{Risoe.BINfileData} objects
-
-\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects
 
 }}
 \section{Slots}{
