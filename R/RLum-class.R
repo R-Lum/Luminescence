@@ -70,18 +70,13 @@ setClass("RLum",
 
 ## replicate_RLum() ---------------------------------------------------------
 #' @describeIn replicate_RLum
-#' Replication method for [RLum-class] objects
+#' Replication method for [RLum-class] objects.
 #'
 #' @export
 setMethod(
   "replicate_RLum",
   "RLum",
-  definition = function(object, times = NULL) {
-    ##The case this is NULL
-    if (is.null(times))
-      times <- 1
-
-    ## replicate
+  definition = function(object, times = 1) {
     lapply(1:times, function(x) object)
   }
 )

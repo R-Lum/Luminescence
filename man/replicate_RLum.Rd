@@ -5,9 +5,9 @@
 \alias{replicate_RLum,RLum-method}
 \title{General replication function for RLum-class objects}
 \usage{
-replicate_RLum(object, times = NULL)
+replicate_RLum(object, times = 1)
 
-\S4method{replicate_RLum}{RLum}(object, times = NULL)
+\S4method{replicate_RLum}{RLum}(object, times = 1)
 }
 \arguments{
 \item{object}{\linkS4class{RLum} (\strong{required}):
@@ -25,7 +25,7 @@ objects.
 }
 \section{Functions}{
 \itemize{
-\item \code{replicate_RLum(RLum)}: Replication method for \linkS4class{RLum} objects
+\item \code{replicate_RLum(RLum)}: Replication method for \linkS4class{RLum} objects.
 
 }}
 \section{Function version}{

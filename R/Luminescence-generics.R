@@ -490,7 +490,7 @@ setMethod("names_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("replicate_RLum", function (object, times = NULL) {
+setGeneric("replicate_RLum", function (object, times = 1) {
    standardGeneric("replicate_RLum")
 })
 
