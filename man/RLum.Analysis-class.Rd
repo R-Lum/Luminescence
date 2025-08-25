@@ -3,14 +3,11 @@
 \docType{class}
 \name{RLum.Analysis-class}
 \alias{RLum.Analysis-class}
-\alias{show,RLum.Analysis-method}
 \alias{add_metadata<-,RLum.Analysis-method}
 \alias{rename_metadata<-,RLum.Analysis-method}
 \alias{replace_metadata<-,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
 \usage{
-\S4method{show}{RLum.Analysis}(object)
-
 \S4method{add_metadata}{RLum.Analysis}(object, info_element) <- value
 
 \S4method{rename_metadata}{RLum.Analysis}(object, info_element) <- value
@@ -39,8 +36,6 @@ by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show(RLum.Analysis)}: Show structure of \code{RLum.Analysis} object
-
 \item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects
 
 \item \code{rename_metadata(RLum.Analysis) <- value}: Renames a metadata entry of \linkS4class{RLum.Analysis} objects

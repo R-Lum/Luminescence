@@ -3,23 +3,10 @@
 \docType{class}
 \name{RLum.Data.Spectrum-class}
 \alias{RLum.Data.Spectrum-class}
-\alias{show,RLum.Data.Spectrum-method}
 \title{Class \code{"RLum.Data.Spectrum"}}
-\usage{
-\S4method{show}{RLum.Data.Spectrum}(object)
-}
-\arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}):
-object of class \code{RLum.Data.Spectrum}.}
-}
 \description{
 Class for representing luminescence spectra data (TL/OSL/RF).
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{show(RLum.Data.Spectrum)}: Show structure of \code{RLum.Data.Spectrum} object
-
-}}
 \section{Slots}{
 
 \describe{

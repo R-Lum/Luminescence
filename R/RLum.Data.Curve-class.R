@@ -150,11 +150,8 @@ setAs("RLum.Data.Curve", "matrix",
       })
 
 ## show() -------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Show structure of `RLum.Data.Curve` object
-#'
-#' @param object [RLum.Data.Curve-class] (**required**):
-#' object of class `RLum.Data.Curve`.
+#' @describeIn show
+#' Show the structure of `RLum.Data.Curve` objects.
 #'
 #' @export
 setMethod("show",

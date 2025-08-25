@@ -3,7 +3,6 @@
 \docType{class}
 \name{Risoe.BINfileData-class}
 \alias{Risoe.BINfileData-class}
-\alias{show,Risoe.BINfileData-method}
 \alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
 \alias{add_metadata<-,Risoe.BINfileData-method}
@@ -13,8 +12,6 @@
 \alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
-\S4method{show}{Risoe.BINfileData}(object)
-
 \S4method{set_Risoe.BINfileData}{ANY}(
   METADATA = data.frame(),
   DATA = list(),
@@ -34,9 +31,6 @@
 \S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{(\strong{required}):
-an object of class \linkS4class{Risoe.BINfileData}}
-
 \item{METADATA}{Object of class "data.frame" containing the meta information
 for each curve.}
 
@@ -44,6 +38,9 @@ for each curve.}
 
 \item{.RESERVED}{Object of class "list" containing list of undocumented raw
 values for internal use only.}
+
+\item{object}{(\strong{required}):
+an object of class \linkS4class{Risoe.BINfileData}}
 
 \item{...}{other arguments that might be passed}
 
@@ -67,8 +64,6 @@ of the function \link{read_BIN2R}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show(Risoe.BINfileData)}: Show structure of RLum and Risoe.BINfile class objects
-
 \item \code{set_Risoe.BINfileData(ANY)}: The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
 This construction method is intended for internal usage only.
 

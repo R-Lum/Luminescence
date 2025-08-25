@@ -3,23 +3,10 @@
 \docType{class}
 \name{RLum.Data.Curve-class}
 \alias{RLum.Data.Curve-class}
-\alias{show,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
-\usage{
-\S4method{show}{RLum.Data.Curve}(object)
-}
-\arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}):
-object of class \code{RLum.Data.Curve}.}
-}
 \description{
 Class for representing luminescence curve data.
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{show(RLum.Data.Curve)}: Show structure of \code{RLum.Data.Curve} object
-
-}}
 \section{Slots}{
 
 \describe{

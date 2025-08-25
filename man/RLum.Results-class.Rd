@@ -3,23 +3,10 @@
 \docType{class}
 \name{RLum.Results-class}
 \alias{RLum.Results-class}
-\alias{show,RLum.Results-method}
 \title{Class \code{"RLum.Results"}}
-\usage{
-\S4method{show}{RLum.Results}(object)
-}
-\arguments{
-\item{object}{\linkS4class{RLum.Results} (\strong{required}):
-object of class \code{RLum.Results}.}
-}
 \description{
 Object class contains results data from functions (e.g., \link{analyse_SAR.CWOSL}).
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{show(RLum.Results)}: Show structure of \code{RLum.Results} object
-
-}}
 \section{Slots}{
 
 \describe{

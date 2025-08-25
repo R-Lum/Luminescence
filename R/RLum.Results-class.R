@@ -93,11 +93,8 @@ setAs("RLum.Results", "list",
       })
 
 ## show() -------------------------------------------------------------------
-#' @describeIn RLum.Results
-#' Show structure of `RLum.Results` object
-#'
-#' @param object [RLum.Results-class] (**required**):
-#' object of class `RLum.Results`.
+#' @describeIn show
+#' Show the structure of `RLum.Results` objects.
 #'
 #' @export
 setMethod("show",
@@ -208,7 +205,7 @@ setMethod(
 
     } else{
       if (!missing(data.object)) {
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         .validate_class(data.object, c("character", "numeric"))
 
         ##CASE1: data.object is of type 'character'
@@ -223,7 +220,6 @@ setMethod(
 
             } else{
               temp.return <- list(data.object = object@data[[data.object]])
-
             }
           } else {
             .throw_error("Unknown 'data.object', valid names are: ",
@@ -231,13 +227,12 @@ setMethod(
           }
         }
 
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##CASE2: data.object is of type 'numeric'
         else if (is.numeric(data.object)) {
           ##check if index is valid
           if (max(data.object) > length(object@data)) {
             .throw_error("'data.object' index out of bounds")
-
           } else if (length(data.object) > 1) {
             temp.return <- lapply(data.object, function(x) {
               object@data[[x]]
@@ -263,7 +258,6 @@ setMethod(
         ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
         ##should always return the lowest possible element here
         return(temp.return[[1]])
-
       } else{
         return(set_RLum(
           "RLum.Results",

@@ -3,24 +3,11 @@
 \docType{class}
 \name{RLum.Data.Image-class}
 \alias{RLum.Data.Image-class}
-\alias{show,RLum.Data.Image-method}
 \title{Class \code{"RLum.Data.Image"}}
-\usage{
-\S4method{show}{RLum.Data.Image}(object)
-}
-\arguments{
-\item{object}{\linkS4class{RLum.Data.Image} (\strong{required}):
-object of class \code{RLum.Data.Image}.}
-}
 \description{
 Class for representing luminescence image data (TL/OSL/RF). Such data are
 for example produced by function \link{read_SPE2R}.
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{show(RLum.Data.Image)}: Show structure of \code{RLum.Data.Image} object
-
-}}
 \section{Slots}{
 
 \describe{

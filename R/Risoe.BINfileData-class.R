@@ -319,9 +319,9 @@ setClass("Risoe.BINfileData",
          )
 
 
-# show method --------
-#' @describeIn Risoe.BINfileData
-#' Show structure of RLum and Risoe.BINfile class objects
+## show method --------------------------------------------------------------
+#' @describeIn show
+#' Show the structure of `Risoe.BINfileData` objects.
 #'
 #' @export
 setMethod(f = "show",
@@ -427,7 +427,7 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
-## get () -------------------------------------------------------------------
+## get() --------------------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' Formal get-method for Risoe.BINfileData object. It does not allow accessing
 #' the object directly, it is just showing a terminal message.
@@ -595,7 +595,7 @@ setMethod("replace_metadata<-",
           })
 
 
-## sort_RLum () -------------------------------------------------------------
+## sort_RLum() --------------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #'
 #' Sort method for [Risoe.BINfileData-class] objects
@@ -645,7 +645,7 @@ setMethod(
 )
 
 
-## view () ------------------------------------------------------------------
+## view() -------------------------------------------------------------------
 #' @describeIn Risoe.BINfileData
 #' View method for [Risoe.BINfileData-class] objects
 #'

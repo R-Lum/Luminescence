@@ -139,11 +139,8 @@ setAs("RLum.Data.Spectrum", "list",
       })
 
 ## show() -------------------------------------------------------------------
-#' @describeIn RLum.Data.Spectrum
-#' Show structure of `RLum.Data.Spectrum` object
-#'
-#' @param object [RLum.Data.Spectrum-class] (**required**):
-#' object of class `RLum.Data.Spectrum`.
+#' @describeIn show
+#' Show the structure of `RLum.Data.Spectrum` objects.
 #'
 #' @export
 setMethod("show",

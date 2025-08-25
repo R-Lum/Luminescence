@@ -161,11 +161,8 @@ setAs("RLum.Data.Image", "list",
       })
 
 ## show() -------------------------------------------------------------------
-#' @describeIn RLum.Data.Image
-#' Show structure of `RLum.Data.Image` object
-#'
-#' @param object [RLum.Data.Image-class] (**required**):
-#' object of class `RLum.Data.Image`.
+#' @describeIn show
+#' Show the structure of `RLum.Data.Image` objects.
 #'
 #' @export
 setMethod("show",

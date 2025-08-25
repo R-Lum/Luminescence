@@ -105,11 +105,8 @@ setAs("RLum.Analysis", "list",
 
 
 ## show() -------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+#' @describeIn show
 #' Show structure of `RLum.Analysis` object
-#'
-#' @param object [RLum.Analysis-class] (**required**):
-#' object of class `RLum.Analysis`.
 #'
 #' @export
 setMethod("show",
@@ -697,6 +694,9 @@ setMethod("names_RLum",
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn RLum.Analysis
 #' Adds metadata to [RLum.Analysis-class] objects
+#'
+#' @param object [RLum.Analysis-class] (**required**):
+#' object of class `RLum.Analysis`.
 #'
 #' @param info_element [character] (**required**):
 #' name of the metadata field to add.

@@ -615,6 +615,15 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
 })
 
 
+## show() -------------------------------------------------------------------
+#' @name show
+#' @title Show the structure of RLum-class and Risoe.BINfileData-class objects
+#'
+#' @param object [RLum-class], [Risoe.BINfileData-class] (**required**):
+#' object of class `RLum` or `Risoe.BINfileData`.
+#'
+NULL
+
 ## smooth_RLum() ------------------------------------------------------------
 #' @title Smoothing of data for RLum-class objects
 #'
