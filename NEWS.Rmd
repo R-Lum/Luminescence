@@ -29,6 +29,10 @@ found in functions `calc_Huntley2006()`, `analyse_SAR.CWOSL()`,
 
 ## Bugfixes and changes
 
+## `add_metadata<-()`
+* The function throws an error if trying to assign a `NULL` value instead of
+silently ignoring it (#946).
+
 ### `apply_CosmicRayRemoval()`
 
 * The argument `method` for `method = "smooth_RLum()"` was not reachable and

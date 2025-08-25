@@ -22,6 +22,10 @@ test_that("input validation", {
                "'info_element' already present, to modify it you should use")
   expect_error(add_metadata(curve, "POSITION") <- 1,
                "'info_element' already present, to modify it you should use")
+  expect_error(add_metadata(risoe, "NEW") <- NULL,
+               "Cannot store a metadata entry with NULL value")
+  expect_error(add_metadata(curve, "NEW") <- NULL,
+               "Cannot store a metadata entry with NULL value")
 
   ## rename_metadata
   expect_error(rename_metadata(risoe, list()) <- 1,
@@ -38,6 +42,10 @@ test_that("input validation", {
   expect_error(rename_metadata(curve, "error") <- 1,
                "'info_element' not recognised ('error'), valid terms are",
                fixed = TRUE)
+  expect_error(rename_metadata(risoe, "POSITION") <- NULL,
+               "Cannot rename a metadata entry to NULL, to remove it you should")
+  expect_error(rename_metadata(curve, "POSITION") <- NULL,
+               "Cannot rename a metadata entry to NULL, to remove it you should")
 
   ## replace_metadata
   expect_error(replace_metadata(risoe, list()) <- 1,

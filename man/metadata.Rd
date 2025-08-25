@@ -47,12 +47,12 @@ object of class \code{RLum.Analysis} or \code{Risoe.BINfileData} to manipulate.}
 \item{...}{further arguments passed to the specific class method}
 
 \item{value}{(\strong{required}):
-value to be assigned to the selected metadata field. A \code{NULL} value is
+value to be assigned to the selected metadata entry. A \code{NULL} value is
 acceptable only for \code{replace_metadata}, in which case the elements named
 in \code{info_element} will be removed.}
 
 \item{info_element}{\link{character} (\strong{required}):
-name of the metadata field to manipulate.}
+name of the metadata entry to manipulate.}
 
 \item{subset}{\link{expression} (\emph{optional}):
 logical expression to limit the substitution only to the selected subset
