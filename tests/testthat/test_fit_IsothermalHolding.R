@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(fit_IsothermalHolding(list()),
                "'data' should be of class 'character', 'RLum.Results' or")
   expect_error(fit_IsothermalHolding("error", rhop = 1e-7),
-               "File does not exist")
+               "File 'error' does not exist")
   expect_error(fit_IsothermalHolding(set_RLum("RLum.Results", data = list(1)),
                                      rhop = 1e-7),
                "'data' has unsupported originator")
