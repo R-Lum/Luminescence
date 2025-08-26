@@ -567,9 +567,8 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #'
 #' Recursive unlisting of lists until the first element in the list
-#' is something, but not a list. This funktion helps
-#' to get rid of nested lists. The function stops running if a single
-#' level list is reached.
+#' is something other than a list. This function helps to get rid of nested
+#' lists. The function stops running if a single level list is reached.
 #'
 #' @param x [list] (**required**): list with lists
 #'
@@ -597,15 +596,16 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #' @title Removes all non-RLum objects from list
 #'
-#' @description Removes all non RLum objects from a list
-#' supposed to consist only of RLum-class objects
+#' @description
+#' Removes all non-RLum objects from a list supposed to consist only of
+#' [RLum-class] objects.
 #' As an internal function, the function is rather unforgiving, no further
 #' checks are applied.
 #'
 #' @param x [list] (**required**): list
 #'
-#' @param class [character]: class to look for, if nothing is set
-#' it checks for RLum in general
+#' @param class [character] (*with default*):
+#' class of elements to keep, by default [RLum-class].
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -613,14 +613,12 @@ fancy_scientific <- function(l) {
 #' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
 #' .rm_nonRLum(x)
 #'
-#' @return [list] with only RLum objects
+#' @return
+#' A list containing only objects of the specified class.
 #'
 #' @noRd
-.rm_nonRLum <- function(x, class = NULL){
-  if(is.null(class))
-    return(x[vapply(x, inherits, logical(1), "RLum")])
-
-  x[vapply(x, \(x) class(x)[1] == class[1], logical(1))]
+.rm_nonRLum <- function(x, class = "RLum") {
+  x[vapply(x, inherits, logical(1), class)]
 }
 
 #++++++++++++++++++++++++++++++
