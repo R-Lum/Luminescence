@@ -6,26 +6,29 @@
 #' Benny Guralnik, 2014, modified to accept CSV files with the same structure
 #' as the original Excel files.
 #'
-#'@param file [character] (**required**): path to a CSV file; alternatively a
-#' [vector] of paths
+#' @param file [character] (**required**):
+#' path to a CSV file; alternatively a [vector] of paths.
 #'
-#'@param output_type [character] (*with default*): defines the output for the function,
-#'which can be either `"RLum.Results"` (the default) or a plain R list (`"list"`)
+#' @param output_type [character] (*with default*):
+#' return type for the function, either `"RLum.Results"` (default) or `"list"`
+#' (for a plain R list).
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @returns
+#' Depending on the setting of `output_type` it will be either a plain R [list]
+#' or an [RLum.Results-class] object with the following structure data elements:
 #'
+#' `$data:`
+#' `.. $ITL`: data frame with columns `SAMPLE`, `TEMP`, `TIME`, `LxTx`, `LxTx_ERROR`
+#' `.. $DRC`: data frame with columns `SAMPLE`, `ALQ`, `TIME`, `LxTx`, `LxTx_ERROR`
+#' `.. $FAD`: data frame with columns `SAMPLE`, `ALQ`, `TIME`, `LxTx`, `LxTx_ERROR`
 #'
-#'@returns Depending on the setting of `output_type` it will be either a plain R [list]
-#'or an [RLum.Results-class] object with the following structure data elements
+#' This refers to `$ITL`: Isothermal curves, `$DRC`: Dose-response curve,
+#' `$FAD`: Fading.
 #'
-#'`$data: `
-#'`.. $ITL` : a [data.frame] with five columns, `SAMPLE`, `TEMP`, `TIME`, `LxTx`, `LxTx_ERROR`
-#'`.. $DRC` : a [data.frame] with five columns, `SAMPLE`, `ALQ`, `TIME`, `LxTx`, `LxTx_ERROR`
-#'`.. $FAD` : a [data.frame] with five columns, `SAMPLE`, `ALQ`, `TIME`, `LxTx`, `LxTx_ERROR`
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'This refers to `$ITL`: Isothermal curves, `$DRC`: Dose-response curve, `$FAD`: Fading
-#'
-#'@noRd
+#' @noRd
 .import_ThermochronometryData <- function(
   file,
   output_type = "RLum.Results"
@@ -38,29 +41,28 @@
   .extract_numerics <- function(x) {
     tmp <- suppressWarnings(as.numeric(na.exclude(as.numeric(x))))
     if(length(tmp) == 0)
-      tmp <- NA
-
+      return(NA)
     tmp
   }
 
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(file, "character")
   .validate_args(output_type, c("RLum.Results", "list"))
+
+  exists <- file.exists(file)
+  if (any(!exists)) {
+    .throw_error("File '", file[!exists][1], "' does not exist")
+  }
+  if (any(grepl("xlsx?", tools::file_ext(file), ignore.case = TRUE))) {
+    .throw_error("XLS/XLSX format is not supported, use CSV instead")
+  }
 
   ## define variable
   ka <- 1e+3 * .const$year_s # ka in seconds
 
-# Import ------------------------------------------------------------------
-  ## preset records
-  records <- file[1]
-  if (inherits(file, "character")) {
-
-    if (grepl("xlsx?", tools::file_ext(file[1]), ignore.case = TRUE)) {
-      .throw_error("XLS/XLSX format is not supported, use CSV instead")
-    }
-
-    ## import data from all files ... separate header and body
+  ## Import -----------------------------------------------------------------
+  ## import data from all files ... separate header and body
     tmp_records <- lapply(file, function(x) {
-      if (!file.exists(x))
-        .throw_error("File does not exist")
       header <- data.table::fread(x, nrows = 3, select = c(1:5))
       body <- data.table::fread(x, skip = 3, header = TRUE)
       list(as.data.frame(header), as.data.frame(body))
@@ -70,7 +72,8 @@
   ## compile records
   records <- lapply(tmp_records, function(x){
     list(
-      id = colnames(x[[1]][-1])[!grepl(pattern = "\\.\\.\\.[0-9]+", x = colnames(x[[1]])[-1])],
+      id = grep("\\.\\.\\.[0-9]+", colnames(x[[1]])[-1], invert = TRUE,
+                value = TRUE),
       params = list(
         natT = .extract_numerics(x[[1]][1,-1]),          #natural temperature
         natDdot = .extract_numerics(x[[1]][2,-1]) / ka,  #natural dose rate
@@ -88,22 +91,14 @@
   ## assign originator to this list
   attr(records, "originator") <- ".import_ThermochronometryData "
 
-  } # end CSV import
-
-  ## if input is a list check what is coming in
-  if(!inherits(records, "list") ||
-     is.null(attr(records, "originator")) ||
-     attr(records, "originator") != ".import_ThermochronometryData ")
-    .throw_error("Input type not supported")
-
   # Create output -----------------------------------------------------------
   if (output_type == "RLum.Results") {
     ## create data frame for each data type
 
     ## we will use the temperature to discriminate the records; everything
     ## with temperature < 15 is either for DRC or FAD, the rest ITL.
-    ## here we safe the list index of each record type so that we can access those
-    ## data later
+    ## here we save the list index of each record type so that we can access
+    ## them later
     ## index --------
     id_l <- lapply(records, function(x) {
         tmp <- cumsum(unlist(.get_named_list_element(x, "T")) > 15)
@@ -114,7 +109,6 @@
           DRC = which(tmp == 0),
           ITL = which(!duplicated(tmp))[-1],
           FAD = which(tmp == max(tmp))[-1])
-
     })
 
     ## now we create for each data type a data.frame in the ggplot2 accessible
@@ -136,7 +130,6 @@
         TIME = unlist(.get_named_list_element(records[[x]], "t")[id_l[[x]]$DRC]),
         LxTx = unlist(.get_named_list_element(records[[x]], "L")[id_l[[x]]$DRC]),
         LxTx_ERROR = NA)
-
     })))
 
     ## ITL ---------
@@ -156,7 +149,6 @@
         TIME = unlist(TIME),
         LxTx = unlist(LxTx),
         LxTx_ERROR = NA)
-
     })))
 
     ## FAD ---------
@@ -176,7 +168,6 @@
         TIME = unlist(.get_named_list_element(records[[x]], "t")[id_l[[x]]$FAD]),
         LxTx = unlist(.get_named_list_element(records[[x]], "L")[id_l[[x]]$FAD]),
         LxTx_ERROR = NA)
-
     })))
 
     ## Ddot ----------
@@ -203,7 +194,6 @@
         Ddot_DRC = Ddot_DRC,
         nat_Ddot = nat_Ddot)
       )
-
   }
 
   ## always return records
