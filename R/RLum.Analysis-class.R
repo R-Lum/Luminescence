@@ -139,7 +139,7 @@ setMethod("show",
 
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
-                if(getOption("width")<=50) temp.width <- 4 else temp.width  <- 7
+                temp.width <- if (getOption("width") <= 50) 4 else 7
 
                 ##set line break variable
                 linebreak <- FALSE
@@ -175,11 +175,9 @@ setMethod("show",
                         }
                       }
                       return(paste0(first,last))
-
-                    }else{
-                      return("")
                     }
-              }, FUN.VALUE = character(1))
+                    return("")
+                  }, FUN.VALUE = character(1))
 
                  ##print on screen, differentiate between records with many
                  ##curves or just one
@@ -383,18 +381,18 @@ setMethod("get_RLum",
             ##if info.object is set, only the info objects are returned
             else if(!is.null(info.object)) {
               if(info.object %in% names(object@info)){
-                unlist(object@info[info.object])
-              }else{
-                ##check for entries
-                if(length(object@info) == 0){
-                  .throw_warning("This 'RLum.Analysis' object has no info ",
-                                 "objects, NULL returned")
-                }else{
-                  .throw_warning("Invalid 'info.object' name, valid names are: ",
-                                 .collapse(names(object@info)))
-                }
-                return(NULL)
+                return(unlist(object@info[info.object]))
               }
+
+              ## check for entries
+              if (length(object@info) == 0) {
+                .throw_warning("This 'RLum.Analysis' object has no info ",
+                               "objects, NULL returned")
+              } else {
+                .throw_warning("Invalid 'info.object' name, valid names are: ",
+                               .collapse(names(object@info)))
+              }
+              return(NULL)
 
             } else {
 
@@ -436,8 +434,8 @@ setMethod("get_RLum",
 
               ##curveType
               if (is.null(curveType)) {
-                curveType <- unique(unlist(lapply(object@records,
-                                                  function(x) x@curveType)))
+                curveType <- unique(vapply(object@records, function(x)
+                  x@curveType, character(1)))
               } else {
                 .validate_class(curveType, "character")
               }
