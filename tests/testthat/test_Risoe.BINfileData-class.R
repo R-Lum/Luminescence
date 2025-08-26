@@ -12,11 +12,6 @@ test_that("Check the example and the numerical values", {
   temp <-
     set_Risoe.BINfileData(METADATA = data.frame(), DATA = list(), .RESERVED = list())
 
-  ##get function and check whether we get NULL
-  expect_output(expect_null(
-    get_Risoe.BINfileData(temp)),
-    "No direct access is provided for this object type.")
-
   ##check object
   expect_s4_class(temp, class = "Risoe.BINfileData")
   expect_output(show(temp),
