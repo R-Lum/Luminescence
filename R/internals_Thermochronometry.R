@@ -26,7 +26,8 @@
 #' `$FAD`: Fading.
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @noRd
 .import_ThermochronometryData <- function(
@@ -61,35 +62,31 @@
   ka <- 1e+3 * .const$year_s # ka in seconds
 
   ## Import -----------------------------------------------------------------
-  ## import data from all files ... separate header and body
-    tmp_records <- lapply(file, function(x) {
-      header <- data.table::fread(x, nrows = 3, select = c(1:5))
-      body <- data.table::fread(x, skip = 3, header = TRUE)
-      list(as.data.frame(header), as.data.frame(body))
-    })
-    names(tmp_records) <- basename(tools::file_path_sans_ext(file))
+  records <- lapply(file, function(x) {
+    ## read the files separating header and body
+    head <- data.table::fread(x, nrows = 3, select = c(1:5))
+    body <- data.table::fread(x, skip = 3, header = TRUE)
 
-  ## compile records
-  records <- lapply(tmp_records, function(x){
     list(
-      id = grep("\\.\\.\\.[0-9]+", colnames(x[[1]])[-1], invert = TRUE,
-                value = TRUE),
-      params = list(
-        natT = .extract_numerics(x[[1]][1,-1]),          #natural temperature
-        natDdot = .extract_numerics(x[[1]][2,-1]) / ka,  #natural dose rate
-      rawdata = lapply(seq(1,nrow(x[[2]]),2), function(y) {
-        list(
-          T = x[[2]][y, 2], # Temperature
-          Ddot = x[[2]][y + 1, 2], # Instrument dose rate
-          t = .extract_numerics(x[[2]][y, -c(2:4)]) * 1e+3, # Measurement time (irradiation or delay time)
-          L = .extract_numerics(x[[2]][y + 1, -c(2:4)])/max(.extract_numerics(x[[2]][y + 1, -c(2:4)])) # normalise the luminescence signal data to the maximum
-        )
-      })
-    ))
+        id = grep("\\.\\.\\.[0-9]+", colnames(head)[-1], invert = TRUE,
+                  value = TRUE),
+        natT = .extract_numerics(head[1, -1]),         # natural temperature
+        natDdot = .extract_numerics(head[2, -1]) / ka, # natural dose rate
+        T = body[seq(1, nrow(body), 2)][[2]],          # temperature
+        Ddot = body[seq(2, nrow(body), 2)][[2]],       # instrument dose rate
+        rawdata = lapply(seq(1, nrow(body), 2), function(y) {
+          LxTx <- .extract_numerics(body[y + 1, -c(1:4)])
+          data.table(SAMPLE = basename(tools::file_path_sans_ext(x)),
+                     ALQ = ceiling(y / 2),
+                     TEMP = body[y][[2]],
+                     ## measurement time (irradiation or delay time)
+                     TIME = .extract_numerics(body[y, -c(1:4)]) * 1e+3,
+                     ## normalise the luminescence signal data to the maximum
+                     LxTx = LxTx / max(LxTx))
+        })
+    )
   })
-
-  ## assign originator to this list
-  attr(records, "originator") <- ".import_ThermochronometryData "
+  names(records) <- basename(tools::file_path_sans_ext(file))
 
   # Create output -----------------------------------------------------------
   if (output_type == "RLum.Results") {
@@ -99,87 +96,38 @@
     ## with temperature < 15 is either for DRC or FAD, the rest ITL.
     ## here we save the list index of each record type so that we can access
     ## them later
-    ## index --------
-    id_l <- lapply(records, function(x) {
-        tmp <- cumsum(unlist(.get_named_list_element(x, "T")) > 15)
-        names(tmp) <- NULL
+    res <- lapply(seq_along(records), function(idx) {
+      x <- records[[idx]]
+      tmp <- cumsum(x$T > 15)
+      idx_DRC <- which(tmp == 0)
+      idx_ITL <- setdiff(which(!duplicated(tmp)), idx_DRC)
+      idx_FAD <- setdiff(which(tmp == max(tmp)), idx_ITL)
 
-        ## create index list
-        list(
-          DRC = which(tmp == 0),
-          ITL = which(!duplicated(tmp))[-1],
-          FAD = which(tmp == max(tmp))[-1])
+      ## extract variables
+      DRC <- data.table::rbindlist(x$rawdata[idx_DRC])
+      ITL <- data.table::rbindlist(x$rawdata[idx_ITL])
+      FAD <- data.table::rbindlist(x$rawdata[idx_FAD])
+
+      ## adjust aliquot numbers to start from 1 in each block
+      DRC$ALQ <- DRC$ALQ - DRC$ALQ[1] + 1
+      FAD$ALQ <- FAD$ALQ - FAD$ALQ[1] + 1
+
+      list(DRC = data.frame(DRC[, -3], # drop TEMP
+                            LxTx_ERROR = NA),
+           ITL = data.frame(ITL[, -2], # drop ALQ
+                            LxTx_ERROR = NA),
+           FAD = data.frame(FAD[, -3], # drop TEMP
+                            LxTx_ERROR = NA),
+           ## Ddot is only relevant for DRC data
+           Ddot_DRC = x$Ddot[idx_DRC]
+           )
     })
 
-    ## now we create for each data type a data.frame in the ggplot2 accessible
-    ## way
-    ## DRC ---------
-    DRC <- as.data.frame(data.table::rbindlist(lapply(seq_along(records), function(x) {
-      ## extract variables
-      ALQ <- seq_along(id_l[[x]]$DRC)
-      TIME <- .get_named_list_element(records[[x]], "t")[id_l[[x]]$DRC]
-      LxTx <- .get_named_list_element(records[[x]], "L")[id_l[[x]]$DRC]
-
-      ## get length of each record
-      n_length <- lengths(TIME)
-
-      ## the number of rows are determined automatically
-      data.frame(
-        SAMPLE = names(records)[x],
-        ALQ = as.numeric(mapply(rep, ALQ, n_length)),
-        TIME = unlist(.get_named_list_element(records[[x]], "t")[id_l[[x]]$DRC]),
-        LxTx = unlist(.get_named_list_element(records[[x]], "L")[id_l[[x]]$DRC]),
-        LxTx_ERROR = NA)
-    })))
-
-    ## ITL ---------
-    ITL <- as.data.frame(data.table::rbindlist(lapply(seq_along(records), function(x) {
-      ## extract variables
-      TEMP <- .get_named_list_element(records[[x]], "T")[id_l[[x]]$ITL]
-      TIME <- .get_named_list_element(records[[x]], "t")[id_l[[x]]$ITL]
-      LxTx <- .get_named_list_element(records[[x]], "L")[id_l[[x]]$ITL]
-
-      ## get length of each record
-      n_length <- lengths(TIME)
-
-      ## the number of rows are determined automatically
-      data.frame(
-        SAMPLE = names(records)[x],
-        TEMP = unlist(mapply(rep, TEMP, n_length, SIMPLIFY = FALSE)),
-        TIME = unlist(TIME),
-        LxTx = unlist(LxTx),
-        LxTx_ERROR = NA)
-    })))
-
-    ## FAD ---------
-    FAD <- as.data.frame(data.table::rbindlist(lapply(seq_along(records), function(x) {
-      ## extract variables
-      ALQ <- seq_along(id_l[[x]]$FAD)
-      TIME <- .get_named_list_element(records[[x]], "t")[id_l[[x]]$FAD]
-      LxTx <- .get_named_list_element(records[[x]], "L")[id_l[[x]]$FAD]
-
-      ## get length of each record
-      n_length <- lengths(TIME)
-
-      ## the number of rows are determined automatically
-      data.frame(
-        SAMPLE = names(records)[x],
-        ALQ = unlist(mapply(rep, ALQ, n_length)),
-        TIME = unlist(.get_named_list_element(records[[x]], "t")[id_l[[x]]$FAD]),
-        LxTx = unlist(.get_named_list_element(records[[x]], "L")[id_l[[x]]$FAD]),
-        LxTx_ERROR = NA)
-    })))
-
-    ## Ddot ----------
-    ## Ddot is only relevant for DRC data
-    Ddot_DRC <- lapply(seq_along(records), function(x) {
-      unlist(.get_named_list_element(records[[x]], "Ddot"))[id_l[[x]]$DRC]
-    })
-
-    ##natDdot
-    nat_Ddot <- unlist(
-      lapply(records, .get_named_list_element, "natDdot"),
-      recursive = FALSE)
+    DRC <- as.data.frame(data.table::rbindlist(lapply(res, function(x) x$DRC)))
+    ITL <- as.data.frame(data.table::rbindlist(lapply(res, function(x) x$ITL)))
+    FAD <- as.data.frame(data.table::rbindlist(lapply(res, function(x) x$FAD)))
+    Ddot_DRC <- lapply(res, function(x) x$Ddot_DRC)
+    nat_Ddot <- lapply(records, function(x) x$natDdot)
 
     ## create RLum.Results object
     records <- set_RLum(

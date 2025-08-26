@@ -216,16 +216,6 @@ test_that("Test internals", {
                      "OK")
   )
 
-  # .get_named_list_element  ------------------------------------------------
-  ## create random named list element
-  l <- list(
-    a = list(x = 1:10),
-    b = list(x = 1:10)
-
-  )
-  t <- expect_type(.get_named_list_element(l, element = "x"), type = "list")
-  expect_equal(sum(unlist(t)), expected = 110)
-
   ## .throw_error() ---------------------------------------------------------
   fun.int <- function() {
     .set_function_name("fun.int")

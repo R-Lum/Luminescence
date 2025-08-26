@@ -133,7 +133,7 @@
                   "value": ["CLBR_IR50", "CLBR_IR50", "CLBR_IR50", "CLBR_IR50", "CLBR_IR50", "CLBR_IR50", "CLBR_IR50", "CLBR_IR50", "CLBR_IR100", "CLBR_IR100", "CLBR_IR100", "CLBR_IR100", "CLBR_IR100", "CLBR_IR100", "CLBR_IR100", "CLBR_IR100", "CLBR_IR150", "CLBR_IR150", "CLBR_IR150", "CLBR_IR150", "CLBR_IR150", "CLBR_IR150", "CLBR_IR150", "CLBR_IR150", "CLBR_IR225", "CLBR_IR225", "CLBR_IR225", "CLBR_IR225", "CLBR_IR225", "CLBR_IR225", "CLBR_IR225", "CLBR_IR225"]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 3]
                 },
@@ -182,46 +182,22 @@
               "value": [
                 {
                   "type": "double",
-                  "attributes": {
-                    "names": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Ddot", "Ddot", "Ddot"]
-                    }
-                  },
+                  "attributes": {},
                   "value": [0.092, 0.092, 0.092]
                 },
                 {
                   "type": "double",
-                  "attributes": {
-                    "names": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Ddot", "Ddot", "Ddot"]
-                    }
-                  },
+                  "attributes": {},
                   "value": [0.092, 0.092, 0.092]
                 },
                 {
                   "type": "double",
-                  "attributes": {
-                    "names": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Ddot", "Ddot", "Ddot"]
-                    }
-                  },
+                  "attributes": {},
                   "value": [0.092, 0.092, 0.092]
                 },
                 {
                   "type": "double",
-                  "attributes": {
-                    "names": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Ddot", "Ddot", "Ddot"]
-                    }
-                  },
+                  "attributes": {},
                   "value": [0.092, 0.092, 0.092]
                 }
               ]
@@ -232,7 +208,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["CLBR_IR50.natDdot", "CLBR_IR100.natDdot", "CLBR_IR150.natDdot", "CLBR_IR225.natDdot"]
+                  "value": ["CLBR_IR50", "CLBR_IR100", "CLBR_IR150", "CLBR_IR225"]
                 }
               },
               "value": [
