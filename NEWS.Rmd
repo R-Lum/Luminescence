@@ -25,6 +25,9 @@ count linearity, if measured with a PMT (#920).
 found in functions `calc_Huntley2006()`, `analyse_SAR.CWOSL()`,
 `convert_PSL2Risoe.BINfileData()` and `convert_Second2Gray()`, respectively.
 
+* Function `get_Risoe.BINfileData()` has been removed as it was not used and
+provided no benefits to the user (#945).
+
 ## Breaking changes
 
 ## Bugfixes and changes

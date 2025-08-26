@@ -428,24 +428,6 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
-## get() --------------------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Formal get-method for Risoe.BINfileData object. It does not allow accessing
-#' the object directly, it is just showing a terminal message.
-#'
-#' @param object an object of class [Risoe.BINfileData-class]
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @export
-setMethod("get_Risoe.BINfileData",
-          signature= "Risoe.BINfileData",
-          definition = function(object, ...) {
-
-            cat("[get_Risoe.BINfileData()] No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
-          }
-)
-
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
 #' Adds metadata to [Risoe.BINfileData-class] objects.

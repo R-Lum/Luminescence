@@ -49,38 +49,6 @@ setGeneric("bin_RLum.Data", function(object, ...) {
   standardGeneric("bin_RLum.Data")
 })
 
-## get_Risoe.BINfileData() --------------------------------------------------
-#' @title General accessor function for Risoe.BINfileData objects
-#'
-#' @description
-#' The function provides a generalised access point for specific
-#' [Risoe.BINfileData-class] objects. Depending on the input object, the
-#' corresponding function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [Risoe.BINfileData-class] class.
-#'
-#' @param object [Risoe.BINfileData-class] (**required**):
-#' S4 object of class `Risoe.BINfileData`
-#'
-#' @param ... further arguments passed to the specific class method
-#'
-#' @return
-#' An object of the same type as the input object provided.
-#'
-#' @section Function version: 0.1.0
-#'
-#' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-#'
-#' @seealso [Risoe.BINfileData-class]
-#'
-#' @keywords utilities internal
-#'
-#' @export
-setGeneric("get_Risoe.BINfileData", function(object, ...) {
-  standardGeneric("get_Risoe.BINfileData")
-})
-
 
 ## get_RLum() ---------------------------------------------------------------
 #' @title General accessor function for RLum-class objects

@@ -4,7 +4,6 @@
 \name{Risoe.BINfileData-class}
 \alias{Risoe.BINfileData-class}
 \alias{set_Risoe.BINfileData,ANY-method}
-\alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{set_Risoe.BINfileData}{ANY}(
@@ -12,8 +11,6 @@
   DATA = list(),
   .RESERVED = list()
 )
-
-\S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
 \item{METADATA}{Object of class "data.frame" containing the meta information
@@ -23,10 +20,6 @@ for each curve.}
 
 \item{.RESERVED}{Object of class "list" containing list of undocumented raw
 values for internal use only.}
-
-\item{object}{an object of class \linkS4class{Risoe.BINfileData}}
-
-\item{...}{other arguments that might be passed}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -37,9 +30,6 @@ of the function \link{read_BIN2R}.
 \item \code{set_Risoe.BINfileData(ANY)}: A \linkS4class{Risoe.BINfileData} object is normally produced as output of the
 function \link{read_BIN2R}. This construction method is intended for internal
 usage only.
-
-\item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
-the object directly, it is just showing a terminal message.
 
 }}
 \section{Slots}{
