@@ -1,13 +1,11 @@
-#' @title General merge function for RLum S4 class objects
+#' @title General merge function for RLum-class objects
 #'
 #' @description
-#' Function calls object-specific merge functions for RLum S4 class objects.
-#'
 #' The function provides a generalised access point for merging specific
 #' [RLum-class] objects. Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
 #' found in the documentation of each merge function.
-#' Empty list elements (`NULL`) are automatically removed from the input `list`.
+#' Empty list elements (`NULL`) are automatically removed from the input list.
 #'
 #' \tabular{lll}{
 #' **object** \tab \tab **corresponding merge function** \cr
@@ -18,27 +16,29 @@
 #' }
 #'
 #' @param objects [list] of [RLum-class] (**required**):
-#' list of S4 object of class `RLum`
+#' list of S4 object of class `RLum`.
 #'
 #' @param ... further arguments that one might want to pass to the specific merge function
 #'
-#' @return Return is the same as input objects as provided in the list.
+#' @return
+#' Returns an [RLum.Analysis-class] object of class if any of the inputs is
+#' of that class. Otherwise, it returns an object of the same type as the
+#' input.
 #'
-#' @note So far not for every `RLum` object a merging function exists.
+#' @note
+#' So far merging of [RLum.Data.Image-class] objects is not supported.
 #'
 #' @section Function version: 0.1.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
+#' @seealso [RLum.Data.Curve-class],
 #' [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
-#'
 #'
 #' @keywords utilities
 #'
 #' @examples
-#'
 #'
 #' ##Example based using data and from the calc_CentralDose() function
 #'
@@ -62,36 +62,38 @@ merge_RLum<- function(
   .set_function_name("merge_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(objects, "list")
 
     ##we are friendly and remove all empty list elements, this helps a lot if we place things
     ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
     objects <- .rm_NULL_elements(objects)
 
-  ##if list is empty afterwards we do nothing
-  if(length(objects) >= 1) {
-      ##check if objects are of class RLum
-     temp.class.test <- unique(sapply(objects, function(x) {
+  ## if the list is empty we do nothing
+  if (length(objects) < 1) {
+    .throw_warning("Nothing was merged as the object list was found ",
+                   "to be empty or contains only one object")
+    return(NULL)
+  }
+
+  ## check if objects are of class RLum
+  temp.class.test <- unique(sapply(objects, function(x) {
        .validate_class(x, "RLum",
                        name = "All elements of 'objects'")
         is(x)[1]
       }))
 
-      ##check if objects are consistent
-      if (length(temp.class.test) > 1) {
-        ##This is not valid for RLum.Analysis objects
-        if (!"RLum.Analysis" %in% temp.class.test) {
-          .throw_error("Only similar input objects in the list are supported")
-        }
-      }
+  ## objects must be consistent, unless there's an RLum.Analysis object
+  if (length(temp.class.test) > 1 && !"RLum.Analysis" %in% temp.class.test) {
+    .throw_error("Only similar input objects in the list are supported")
+  }
 
-      ##grep object class
-      objects.class <-
+  ## determine the output class
+  objects.class <-
         ifelse("RLum.Analysis" %in% temp.class.test, "RLum.Analysis", temp.class.test)
 
-      ##select which merge function should be used
-      switch (
+  ## select which merge function should be used
+  switch (
         objects.class,
         RLum.Data.Image = .throw_error("Merging of 'RLum.Data.Image' objects is currently not supported"),
         RLum.Data.Spectrum = merge_RLum.Data.Spectrum(objects, ...),
@@ -99,10 +101,4 @@ merge_RLum<- function(
         RLum.Analysis = merge_RLum.Analysis(objects, ...),
         RLum.Results = merge_RLum.Results(objects, ...)
       )
-
-    }else{
-      .throw_warning("Nothing was merged as the object list was found ",
-                     "to be empty or contains only one object")
-      return(NULL)
-    }
 }
