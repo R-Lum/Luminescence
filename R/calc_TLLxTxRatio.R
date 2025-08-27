@@ -1,8 +1,9 @@
-#'@title Calculate the Lx/Tx ratio for a given set of TL curves -beta version-
+#' @title Calculate the Lx/Tx ratio for a given set of TL curves -beta version-
 #'
-#'@description Calculate Lx/Tx ratio for a given set of TL curves.
+#' @description
+#' Calculate Lx/Tx ratio for a given set of TL curves.
 #'
-#'@details
+#' @details
 #' **Uncertainty estimation**
 #'
 #' The standard errors are calculated using the following generalised equation:
@@ -14,14 +15,14 @@
 #' if both signals are similar the error becomes zero.
 #'
 #' @param Lx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' TL data (x = temperature, y = counts) (TL signal)
+#' TL data (x = temperature, y = counts) (TL signal).
 #'
 #' @param Lx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' TL data (x = temperature, y = counts).
 #' If no data are provided no background subtraction is performed.
 #'
 #' @param Tx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' TL data (x = temperature, y = counts) (TL test signal)
+#' TL data (x = temperature, y = counts) (TL test signal).
 #'
 #' @param Tx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' TL data (x = temperature, y = counts).
@@ -29,11 +30,11 @@
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' channel number for the lower signal integral bound
-#' (e.g. `signal.integral.min = 100`)
+#' (e.g. `signal.integral.min = 100`).
 #'
 #' @param signal.integral.max [integer] (**required**):
 #' channel number for the upper signal integral bound
-#' (e.g. `signal.integral.max = 200`)
+#' (e.g. `signal.integral.max = 200`).
 #'
 #' @return
 #' Returns an S4 object of type [RLum.Results-class].
@@ -100,9 +101,10 @@ calc_TLLxTxRatio <- function(
   .set_function_name("calc_TLLxTxRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(Lx.data.signal, c("data.frame", "RLum.Data.Curve"))
+  .validate_positive_scalar(signal.integral.min, int = TRUE)
+  .validate_positive_scalar(signal.integral.max, int = TRUE)
 
   ##check DATA TYPE differences
    if(is(Lx.data.signal)[1] != is(Tx.data.signal)[1])
@@ -114,16 +116,17 @@ calc_TLLxTxRatio <- function(
     Lx.data.signal <- as(Lx.data.signal, "matrix")
     Tx.data.signal <- as(Tx.data.signal, "matrix")
 
-    if(!missing(Lx.data.background) && !is.null(Lx.data.background))
+    if (!is.null(Lx.data.background))
       Lx.data.background <- as(Lx.data.background, "matrix")
 
-    if(!missing(Tx.data.background) && !is.null(Tx.data.background))
+    if (!is.null(Tx.data.background))
       Tx.data.background <- as(Tx.data.background, "matrix")
   }
 
   ##(d) - check if Lx and Tx curves have the same channel length
-     if(length(Lx.data.signal[,2])!=length(Tx.data.signal[,2])){
-       .throw_error("Channel numbers differ for Lx and Tx data")}
+  if (length(Lx.data.signal[, 2]) != length(Tx.data.signal[, 2])) {
+    .throw_error("Channel numbers differ for Lx and Tx data")
+  }
 
    ##(e) - check if signal integral is valid
    if(signal.integral.min < 1 | signal.integral.max > length(Lx.data.signal[,2])){
@@ -131,27 +134,28 @@ calc_TLLxTxRatio <- function(
    }
 
 #  Background Consideration --------------------------------------------------
-   LnLx.BG <- TnTx.BG <- NA
+  LnLx.BG <- TnTx.BG <- NA
+  signal.interval <- signal.integral.min:signal.integral.max
 
-   ##Lx.data
-   if(!is.null(Lx.data.background))
-     LnLx.BG <- sum(Lx.data.background[signal.integral.min:signal.integral.max, 2])
+  ## Lx.data
+  if (!is.null(Lx.data.background))
+    LnLx.BG <- sum(Lx.data.background[signal.interval, 2])
 
-   ##Tx.data
-   if(!is.null(Tx.data.background))
-     TnTx.BG <- sum(Tx.data.background[signal.integral.min:signal.integral.max, 2])
+  ## Tx.data
+  if (!is.null(Tx.data.background))
+    TnTx.BG <- sum(Tx.data.background[signal.interval, 2])
 
 # Calculate Lx/Tx values --------------------------------------------------
     ## preset variables
     net_LnLx <- net_LnLx.Error <- net_TnTx <- net_TnTx.Error <- NA
     BG.Error <- NA
 
-    ## calculate values
-    LnLx <- sum(Lx.data.signal[signal.integral.min:signal.integral.max, 2])
-    TnTx <- sum(Tx.data.signal[signal.integral.min:signal.integral.max, 2])
+  ## calculate values
+  LnLx <- sum(Lx.data.signal[signal.interval, 2])
+  TnTx <- sum(Tx.data.signal[signal.interval, 2])
 
-     ##calculate standard deviation of background
-     if(!is.na(LnLx.BG) & !is.na(TnTx.BG)){
+  ## calculate standard deviation of background
+  if (!is.na(LnLx.BG) && !is.na(TnTx.BG)) {
        BG.Error <- sd(c(LnLx.BG, TnTx.BG))
 
        if(BG.Error == 0) {
@@ -159,7 +163,7 @@ calc_TLLxTxRatio <- function(
                         "to be similar, no background error was calculated")
          BG.Error <- NA
        }
-     }
+  }
 
     ## calculate net LnLx
     if(!is.na(LnLx.BG)){
@@ -177,7 +181,6 @@ calc_TLLxTxRatio <- function(
     if(is.na(net_TnTx)){
       LxTx <- LnLx/TnTx
       LxTx.Error <- NA
-
     }else{
       LxTx <- net_LnLx/net_TnTx
       LxTx.Error <- abs(LxTx*((net_LnLx.Error/net_LnLx) + (net_TnTx.Error/net_TnTx)))

@@ -15,14 +15,14 @@ calc_TLLxTxRatio(
 }
 \arguments{
 \item{Lx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-TL data (x = temperature, y = counts) (TL signal)}
+TL data (x = temperature, y = counts) (TL signal).}
 
 \item{Lx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.}
 
 \item{Tx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-TL data (x = temperature, y = counts) (TL test signal)}
+TL data (x = temperature, y = counts) (TL test signal).}
 
 \item{Tx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 TL data (x = temperature, y = counts).
@@ -30,11 +30,11 @@ If no data are provided no background subtraction is performed.}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 channel number for the lower signal integral bound
-(e.g. \code{signal.integral.min = 100})}
+(e.g. \code{signal.integral.min = 100}).}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
 channel number for the upper signal integral bound
-(e.g. \code{signal.integral.max = 200})}
+(e.g. \code{signal.integral.max = 200}).}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
