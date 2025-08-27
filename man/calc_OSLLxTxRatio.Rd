@@ -27,16 +27,17 @@ requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the \code{Tx.data} will be treated as \code{NA} and no \code{Lx/Tx} ratio
 is calculated.}
 
-\item{signal.integral}{\link{numeric} (\strong{required}): vector with the limits for the signal integral.
-Can be set to \code{NA} than now integrals are considered and all other integrals are set to \code{NA} as well.}
+\item{signal.integral}{\link{numeric} (\strong{required}):
+vector with the limits for the signal integral. If set to \code{NA}, no integrals
+are considered and all other integrals are ignored.}
 
 \item{signal.integral.Tx}{\link{numeric} (\emph{optional}):
 vector with the limits for the signal integral for the \code{Tx}-curve. If
 missing, the value from \code{signal.integral} is used.}
 
 \item{background.integral}{\link{numeric} (\strong{required}):
-vector with the bounds for the background integral.
-Can be set to \code{NA} than now integrals are considered and all other integrals are set to \code{NA} as well.}
+vector with the limits for the background integral. If set to \code{NA}, no
+integrals are considered and all other integrals ignored.}
 
 \item{background.integral.Tx}{\link{numeric} (\emph{optional}):
 vector with the limits for the background integral for the \code{Tx} curve.
@@ -115,7 +116,7 @@ The default value of \code{sigmab} is calculated assuming the background is
 constant and \strong{would not} applicable when the background varies as,
 e.g., as observed for the early light subtraction method.
 
-\strong{sig0}
+\strong{\code{sig0}}
 
 This argument allows to add an extra component of error to the final \code{Lx/Tx}
 error value. The input will be treated as factor that is multiplied with
@@ -123,7 +124,7 @@ the already calculated \code{LxTx} and the result is add up by:
 
 \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 
-\strong{background.count.distribution}
+\strong{\code{background.count.distribution}}
 
 This argument allows selecting the distribution assumption that is used for
 the error calculation. According to Galbraith (2002, 2014) the background

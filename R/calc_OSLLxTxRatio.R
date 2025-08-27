@@ -21,7 +21,7 @@
 #' constant and **would not** applicable when the background varies as,
 #' e.g., as observed for the early light subtraction method.
 #'
-#' **sig0**
+#' **`sig0`**
 #'
 #' This argument allows to add an extra component of error to the final `Lx/Tx`
 #' error value. The input will be treated as factor that is multiplied with
@@ -30,7 +30,7 @@
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
 #'
-#' **background.count.distribution**
+#' **`background.count.distribution`**
 #'
 #' This argument allows selecting the distribution assumption that is used for
 #' the error calculation. According to Galbraith (2002, 2014) the background
@@ -60,16 +60,17 @@
 #' input is given the `Tx.data` will be treated as `NA` and no `Lx/Tx` ratio
 #' is calculated.
 #'
-#' @param signal.integral [numeric] (**required**): vector with the limits for the signal integral.
-#' Can be set to `NA` than now integrals are considered and all other integrals are set to `NA` as well.
+#' @param signal.integral [numeric] (**required**):
+#' vector with the limits for the signal integral. If set to `NA`, no integrals
+#' are considered and all other integrals are ignored.
 #'
 #' @param signal.integral.Tx [numeric] (*optional*):
 #' vector with the limits for the signal integral for the `Tx`-curve. If
 #' missing, the value from `signal.integral` is used.
 #'
 #' @param background.integral [numeric] (**required**):
-#' vector with the bounds for the background integral.
-#' Can be set to `NA` than now integrals are considered and all other integrals are set to `NA` as well.
+#' vector with the limits for the background integral. If set to `NA`, no
+#' integrals are considered and all other integrals ignored.
 #'
 #' @param background.integral.Tx [numeric] (*optional*):
 #' vector with the limits for the background integral for the `Tx` curve.
@@ -312,13 +313,7 @@ calc_OSLLxTxRatio <- function(
   n.Tx <- length(signal.integral.Tx)
 
   ##use previous BG and account for the option to set different integral limits
-  if(use_previousBG){
-    m.Tx <- m
-
-  }else{
-    m.Tx <- length(background.integral.Tx)
-  }
-
+  m.Tx <- if (use_previousBG) m else length(background.integral.Tx)
   k.Tx <- m.Tx/n.Tx
 
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
