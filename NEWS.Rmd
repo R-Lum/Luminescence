@@ -101,6 +101,11 @@ difference is not perceivable on single calls to `get_RLum()`, but the change
 brings a visible speed up when `merge_RLum()` is called over a sufficiently
 large number of `RLum.Analysis` objects (#875).
 
+### `merge_Risoe.BINfileData()`
+
+* The function gained argument `verbose` to allow disabling the output from
+`read_BIN2R()` and `write_R2BIN()` (#950).
+
 ### `plot_AbanicoPlot()`
 
 * The positioning of the y-axis label has been improved to be centred around

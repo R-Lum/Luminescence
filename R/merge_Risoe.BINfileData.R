@@ -1,4 +1,4 @@
-#' @title  Merge Risoe.BINfileData objects or Risoe BIN-files
+#' @title Merge Risoe.BINfileData objects or Risoe BIN-files
 #'
 #' @description
 #' The function allows merging Risoe BIN/BINX files or [Risoe.BINfileData-class]
@@ -29,16 +29,14 @@
 #' `position.number.append.gap = 1` it will become:
 #' `1,3,5,7,9,11,13,15,17`.
 #'
-#' @param input.objects [character] with [Risoe.BINfileData-class] objects (**required**):
-#' Character vector with path and files names
-#' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or
+#' @param input.objects [character] or [Risoe.BINfileData-class] objects (**required**):
+#' Character vector with path and files names with ".bin" or ".binx" extension
+#' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or a list of
 #' [Risoe.BINfileData-class] objects (e.g. `input.objects = c(object1, object2)`).
-#' Alternatively a `list` is supported.
-#'
 #'
 #' @param output.file [character] (*optional*):
-#' File output path and name. If no value is given, a [Risoe.BINfileData-class] is
-#' returned instead of a file.
+#' File output path and name. If no value is given, a [Risoe.BINfileData-class]
+#' object returned instead of a file.
 #'
 #' @param keep.position.number [logical] (*with default*):
 #' Allows keeping the original position numbers of the input objects.
@@ -49,12 +47,17 @@
 #' `keep.position.number = FALSE` is used. See details for further
 #' information.
 #'
-#' @return Returns a `file` or a [Risoe.BINfileData-class] object.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
+#'
+#' @return
+#' Returns a [Risoe.BINfileData-class] object or writes to the BIN-file
+#' specified by `output.file`.
 #'
 #' @note
 #' The validity of the output objects is not further checked.
 #'
-#' @section Function version: 0.2.9
+#' @section Function version: 0.2.10
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -64,9 +67,7 @@
 #' @references
 #' Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, Aberystwyth.
 #'
-#'
 #' @keywords IO manip
-#'
 #'
 #' @examples
 #'
@@ -83,12 +84,13 @@ merge_Risoe.BINfileData <- function(
   input.objects,
   output.file,
   keep.position.number = FALSE,
-  position.number.append.gap = 0
+  position.number.append.gap = 0,
+  verbose = TRUE
 ) {
   .set_function_name("merge_Risoe.BINfileData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Integrity Checks --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(input.objects, c("character", "list"))
   if(length(input.objects) < 2){
@@ -110,6 +112,7 @@ merge_Risoe.BINfileData <- function(
                       name = "All elements of 'input.objects'")
     }
   }
+  .validate_logical_scalar(verbose)
 
   # Import Files ------------------------------------------------------------
 
@@ -117,7 +120,7 @@ merge_Risoe.BINfileData <- function(
   ##or the input is already a list
 
   if (is.character(input.objects)) {
-    temp <- lapply(input.objects, read_BIN2R, txtProgressBar = FALSE)
+    temp <- lapply(input.objects, read_BIN2R, verbose = verbose)
   }else{
     temp <- input.objects
   }
@@ -178,5 +181,5 @@ merge_Risoe.BINfileData <- function(
   if (missing(output.file))
     return(temp.new)
 
-  write_R2BIN(temp.new, output.file)
+  write_R2BIN(temp.new, output.file, verbose = verbose)
 }
