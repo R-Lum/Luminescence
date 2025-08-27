@@ -221,9 +221,8 @@ analyse_Al2O3C_Measurement <- function(
 
     ##travel dosimeter
     ##check for travel dosimeter and subtract the values so far this is meaningful at all
+    .validate_class(travel_dosimeter, c("numeric", "integer"), null.ok = TRUE)
     if(!is.null(travel_dosimeter)){
-      .validate_class(travel_dosimeter, c("numeric", "integer"))
-
       ##check whether everything is subtracted from everything ... you never know, users do weird stuff
       if(length(travel_dosimeter) == nrow(results$data))
         .throw_message("'travel_dosimeter' specifies every position, nothing corrected")
@@ -263,7 +262,6 @@ analyse_Al2O3C_Measurement <- function(
       ##return message
       if(verbose)
         cat("\n ...+ travel dosimeter correction applied.\n ...+ results stored in object $data_TDcorrected.\n\n")
-
     } ##end travel dosimeter
 
     ##return results
@@ -271,14 +269,15 @@ analyse_Al2O3C_Measurement <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  ##TODO ... do more, push harder
-  ##Add sufficient unit tests
-
   .validate_class(object, "RLum.Analysis",
                   extra = "a 'list' of such objects")
   .validate_not_empty(object)
-  .validate_class(cross_talk_correction, c("numeric", "RLum.Results", "NULL"))
+  .validate_class(irradiation_time_correction, c("RLum.Results", "numeric"),
+                  null.ok = TRUE)
+  .validate_class(cross_talk_correction, c("numeric", "RLum.Results"),
+                  null.ok = TRUE)
+  .validate_class(travel_dosimeter, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(test_parameters, "list", null.ok = TRUE)
 
   ## Preparation ------------------------------------------------------------
 
@@ -303,8 +302,6 @@ analyse_Al2O3C_Measurement <- function(
 
   ## Set Irradiation Time Correction ---------------
   if (!is.null(irradiation_time_correction)) {
-    .validate_class(irradiation_time_correction, c("RLum.Results", "numeric"))
-
     if (is.numeric(irradiation_time_correction)) {
       .validate_length(irradiation_time_correction, 2)
     } else {

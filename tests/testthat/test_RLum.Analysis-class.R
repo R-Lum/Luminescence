@@ -72,7 +72,7 @@ test_that("get_RLum", {
                "[get_RLum()] Invalid subset expression, valid terms are:",
                fixed = TRUE)
   expect_error(get_RLum(tmp, record.id = "character"),
-               "'record.id' should be of class 'integer', 'numeric' or 'logical'")
+               "'record.id' should be of class 'integer', 'numeric', 'logical' or NULL")
   expect_error(get_RLum(tmp, recordType = 1L),
                "'recordType' should be of class 'character'")
   expect_error(get_RLum(tmp, curveType = 1L),

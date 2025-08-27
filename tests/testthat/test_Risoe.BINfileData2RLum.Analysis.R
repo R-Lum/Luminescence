@@ -7,7 +7,7 @@ test_that("input validation", {
   expect_error(Risoe.BINfileData2RLum.Analysis("test"),
                "'object' should be of class 'Risoe.BINfileData")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = "test"),
-               "'pos' should be of class 'numeric' or 'integer'")
+               "'pos' should be of class 'numeric', 'integer' or NULL")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, run = 10:12),
                "'run' contains invalid runs, valid runs are: 1, 2, 3, 4, 5, 6")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, set = 10:12),

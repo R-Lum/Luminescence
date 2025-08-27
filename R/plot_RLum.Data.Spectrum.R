@@ -263,8 +263,7 @@ plot_RLum.Data.Spectrum <- function(
   .set_function_name("plot_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests  -------------------------------------------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Data.Spectrum", "matrix"))
 
   if (inherits(object, "matrix")) {
@@ -283,6 +282,7 @@ plot_RLum.Data.Spectrum <- function(
   if (length(object@data) < 2) {
     .throw_error("'object' contains no data")
   }
+  .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"), null.ok = TRUE)
   .validate_args(norm, c("min", "max"), null.ok = TRUE)
   .validate_args(plot.type, c("contour", "persp", "single", "multiple.lines",
                               "image", "transect", "interactive"))
@@ -395,7 +395,6 @@ plot_RLum.Data.Spectrum <- function(
   {
     if (plot.type == "interactive") {
       "surface"
-
     } else{
       "l"
     }
@@ -462,7 +461,6 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
-    .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"))
     if (inherits(bg.spectrum, "RLum.Data.Spectrum"))
       bg.xyz <- bg.spectrum@data
     else

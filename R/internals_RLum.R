@@ -1154,6 +1154,8 @@ SW <- function(expr) {
 #' @param arg [character] (**required**): variable to validate.
 #' @param classes [vector] [character] (**required**): a vector of candidate
 #'        classes or types.
+#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
+#'        considered valid (`FALSE` by default).
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
@@ -1170,8 +1172,11 @@ SW <- function(expr) {
 #' was successful or not.
 #'
 #' @noRd
-.validate_class <- function(arg, classes, throw.error = TRUE,
+.validate_class <- function(arg, classes, null.ok = FALSE, throw.error = TRUE,
                             name = NULL, extra = NULL) {
+
+  if (!missing(arg) && is.null(arg) && null.ok)
+    return(TRUE)
 
   ## name of the argument to report if not specified
   if (is.null(name))
@@ -1181,6 +1186,8 @@ SW <- function(expr) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
     classes.extra <- c(sQuote(classes, q = FALSE), extra)
+    if (null.ok)
+      classes.extra <- c(classes.extra, "NULL")
 
     ## use an 'or' instead of a comma before the last choice
     if (length(classes.extra) > 1) {

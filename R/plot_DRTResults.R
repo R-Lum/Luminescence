@@ -202,6 +202,7 @@ plot_DRTResults <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_not_empty(values)
+  .validate_class(given.dose, "numeric", null.ok = TRUE)
 
   ##avoid crash for wrongly set boxlot argument
   if(missing(preheat) & boxplot == TRUE){
@@ -312,7 +313,6 @@ plot_DRTResults <- function(
 
   ## normalise data if given.dose is given
   if (!is.null(given.dose)) {
-    .validate_class(given.dose, "numeric")
     .validate_not_empty(given.dose)
     if (length(given.dose) == 1) {
       given.dose <- rep(given.dose, length(values))

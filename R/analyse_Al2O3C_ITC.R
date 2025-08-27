@@ -169,6 +169,7 @@ analyse_Al2O3C_ITC <- function(
                       name = "All elements of 'dose_points'")
     })
   }
+  .validate_class(method_control, "list", null.ok = TRUE)
 
   ##TODO
   ##implement more checks ... if you find some time, somehow, somewhere
@@ -186,7 +187,6 @@ analyse_Al2O3C_ITC <- function(
 
   ## modify on request
   if (!is.null(method_control)) {
-    .validate_class(method_control, "list")
     method_control_settings <- modifyList(x = method_control_settings,
                                           val = method_control)
   }

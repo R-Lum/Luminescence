@@ -528,10 +528,8 @@ analyse_IRSAR.RF<- function(
     .throw_error("'sequence_structure' must contain one each of 'NATURAL' ",
                  "and 'REGENERATED'")
   }
-  if (!is.null(RF_nat.lim))
-    .validate_class(RF_nat.lim, c("numeric", "integer"))
-  if (!is.null(RF_reg.lim))
-    .validate_class(RF_reg.lim, c("numeric", "integer"))
+  .validate_class(RF_nat.lim, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(RF_reg.lim, c("numeric", "integer"), null.ok = TRUE)
   method <- .validate_args(toupper(method), c("FIT", "SLIDE", "VSLIDE", "NONE"))
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 

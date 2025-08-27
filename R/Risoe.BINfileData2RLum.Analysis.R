@@ -92,15 +92,13 @@ Risoe.BINfileData2RLum.Analysis<- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "Risoe.BINfileData")
+  .validate_class(pos, c("numeric", "integer"), null.ok = TRUE)
 
   positions.valid <- unique(object@METADATA[["POSITION"]])
   if (is.null(pos)) {
     pos <- positions.valid
   } else {
-    .validate_class(pos, c("numeric", "integer"))
-
     ## remove invalid positions from the input
     if (length(setdiff(pos, positions.valid)) > 0) {
       .throw_warning("Invalid position number skipped: ",

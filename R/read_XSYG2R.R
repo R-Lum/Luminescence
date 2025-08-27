@@ -229,8 +229,7 @@ read_XSYG2R <- function(
   ##  - xlum should be general, xsyg should take care about subsequent details
 
   .validate_class(file, c("character", "list"))
-  if (!is.null(n_records))
-    .validate_class(n_records, c("numeric", "integer"))
+  .validate_class(n_records, c("numeric", "integer"), null.ok = TRUE)
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection

@@ -188,6 +188,12 @@ calc_OSLLxTxRatio <- function(
   ## Integrity checks -------------------------------------------------------
   .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
   .validate_not_empty(Lx.data)
+  .validate_class(Tx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"),
+                  null.ok = TRUE)
+  .validate_class(sigmab, "numeric", null.ok = TRUE)
+  if (!is.null(sigmab) && length(sigmab) > 2) {
+    .throw_error("'sigmab' can have at most length 2")
+  }
 
   ## Lx - coerce if required
   Lx.data <- switch(
@@ -201,8 +207,6 @@ calc_OSLLxTxRatio <- function(
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
-    .validate_class(Tx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
-
     Tx.data <- switch(
       class(Tx.data)[1],
       "RLum.Data.Curve" = as(Tx.data, "data.frame"),
@@ -291,15 +295,6 @@ calc_OSLLxTxRatio <- function(
   }else{
     signal.integral.Tx <- signal.integral
     background.integral.Tx <- background.integral
-  }
-
-  ##check sigmab
-  if (!is.null(sigmab)) {
-    .validate_class(sigmab, "numeric")
-
-    if (length(sigmab) > 2) {
-      .throw_error("'sigmab' can have at most length 2")
-    }
   }
 
   ##--------------------------------------------------------------------------##

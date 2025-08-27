@@ -128,10 +128,8 @@ calc_EED_Model <- function(
 
   .validate_class(data, "data.frame")
   .validate_class(expected_dose, "numeric")
-  if (!is.null(MinIndivDose))
-    .validate_class(MinIndivDose, "numeric")
-  if (!is.null(MaxIndivDose))
-    .validate_class(MaxIndivDose, "numeric")
+  .validate_class(MinIndivDose, "numeric", null.ok = TRUE)
+  .validate_class(MaxIndivDose, "numeric", null.ok = TRUE)
 
   ##store and restore par settings
   par_default <- par(no.readonly = TRUE)

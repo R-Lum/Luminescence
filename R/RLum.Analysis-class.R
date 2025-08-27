@@ -404,10 +404,10 @@ setMethod("get_RLum",
               }
 
               ##record.id
+              .validate_class(record.id, c("integer", "numeric", "logical"),
+                              null.ok = TRUE)
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
-              } else {
-                .validate_class(record.id, c("integer", "numeric", "logical"))
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
@@ -424,27 +424,24 @@ setMethod("get_RLum",
               }
 
               ##recordType
+              .validate_class(recordType, "character", null.ok = TRUE)
               if (is.null(recordType)) {
                 recordType <-
                   unique(vapply(object@records, function(x)
                     x@recordType, character(1)))
-              } else {
-                .validate_class(recordType, "character")
               }
 
               ##curveType
+              .validate_class(curveType, "character", null.ok = TRUE)
               if (is.null(curveType)) {
                 curveType <- unique(vapply(object@records, function(x)
                   x@curveType, character(1)))
-              } else {
-                .validate_class(curveType, "character")
               }
 
               ##RLum.type
+              .validate_class(RLum.type, "character", null.ok = TRUE)
               if (is.null(RLum.type)) {
                 RLum.type <- c("RLum.Data.Curve", "RLum.Data.Spectrum", "RLum.Data.Image")
-              } else {
-                .validate_class(RLum.type, "character")
               }
 
               ##get.index
@@ -825,8 +822,8 @@ setMethod(
       return(object)
 
     ## input validation
+    .validate_class(slot, "character", null.ok = TRUE)
     if (!is.null(slot)) {
-      .validate_class(slot, "character", extra = "NULL")
       valid.names <- slotNames(object@records[[1]])
       if (any(!slot %in% valid.names)) {
         .throw_error("Invalid 'slot' name, valid names are: ",
@@ -838,8 +835,8 @@ setMethod(
       }
     }
 
+    .validate_class(info_element, "character", null.ok = TRUE)
     if (!is.null(info_element)) {
-      .validate_class(info_element, "character", extra = "NULL")
       valid.names <- c(
         "XY_LENGTH", "NCOL", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX",
         names(object@records[[1]]@info))

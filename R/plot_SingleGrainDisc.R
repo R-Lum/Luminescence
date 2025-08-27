@@ -73,8 +73,7 @@ plot_SingleGrainDisc <- function(object,
   .set_function_name("plot_SingleGrainDisc")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Validate input arguments -----------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Results", "numeric", "integer"))
   if (is.numeric(object)) {
     vn_values_to_show <- object
@@ -91,13 +90,12 @@ plot_SingleGrainDisc <- function(object,
   .validate_logical_scalar(show_neighbours)
   .validate_logical_scalar(show_positioning_holes)
 
+  .validate_class(df_neighbours, "data.frame", null.ok = TRUE)
+  .validate_logical_scalar(ignore_borders)
   if (is.null(df_neighbours)) {
-    .validate_logical_scalar(ignore_borders)
     df_neighbours <- .get_Neighbours(object, ignore_borders)
-  } else {
-    .validate_class(df_neighbours, "data.frame")
-    if (ncol(df_neighbours) != 3)
-      .throw_error("'df_neighbours' should be a data frame with 3 columns")
+  } else if (ncol(df_neighbours) != 3) {
+    .throw_error("'df_neighbours' should be a data frame with 3 columns")
   }
 
   .validate_args(str_transform, c("sqrt", "lin", "log"))

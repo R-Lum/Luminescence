@@ -270,8 +270,8 @@ setMethod("get_RLum",
             .set_function_name("get_RLum")
             on.exit(.unset_function_name(), add = TRUE)
 
+            .validate_class(info.object, "character", null.ok = TRUE)
             if (!is.null(info.object)) {
-              .validate_class(info.object, "character")
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
               } else {

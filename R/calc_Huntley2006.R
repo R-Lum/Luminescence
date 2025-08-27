@@ -323,6 +323,7 @@ calc_Huntley2006 <- function(
 
   .validate_class(data, "data.frame")
   .validate_not_empty(data)
+  .validate_class(LnTn, "data.frame", null.ok = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
   .validate_length(lower.bounds, 4)
   .validate_logical_scalar(summary)
@@ -339,7 +340,6 @@ calc_Huntley2006 <- function(
 
   ## Check if 'LnTn' is used and overwrite 'data'
   if (!is.null(LnTn)) {
-    .validate_class(LnTn, "data.frame")
     if (ncol(LnTn) != 2)
       .throw_error("'LnTn' should be a data frame with 2 columns")
     if (ncol(data) > 3)

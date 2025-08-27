@@ -107,6 +107,9 @@ analyse_Al2O3C_CrossTalk <- function(
                                        name = "All elements of 'object'"))
   }
   .validate_class(recordType, "character")
+  .validate_class(irradiation_time_correction, c("numeric", "RLum.Results"),
+                  null.ok = TRUE)
+  .validate_class(method_control, "list", null.ok = TRUE)
 
   ##TODO ... do more, push harder
   ##Accept the entire sequence ... including TL and extract
@@ -130,7 +133,6 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##modify on request
   if(!is.null(method_control)){
-    .validate_class(method_control, "list")
     method_control_settings <- modifyList(x = method_control_settings, val = method_control)
   }
 
@@ -149,8 +151,6 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##check irradiation time correction
   if (!is.null(irradiation_time_correction)) {
-    .validate_class(irradiation_time_correction, c("numeric", "RLum.Results"))
-
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)

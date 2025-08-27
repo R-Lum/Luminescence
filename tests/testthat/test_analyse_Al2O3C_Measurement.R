@@ -20,7 +20,7 @@ test_that("input validation", {
   suppressWarnings(
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           travel_dosimeter = "error"),
-               "'travel_dosimeter' should be of class 'numeric' or 'integer'")
+               "'travel_dosimeter' should be of class 'numeric', 'integer' or")
   )
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = 7),
@@ -30,7 +30,7 @@ test_that("input validation", {
                "was created by an unsupported function")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = "a"),
-               "should be of class 'RLum.Results' or 'numeric'")
+               "should be of class 'RLum.Results', 'numeric' or NULL")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           cross_talk_correction = "a"),
                "'cross_talk_correction' should be of class 'numeric', 'RLum.Results'")

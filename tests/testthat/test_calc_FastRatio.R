@@ -33,7 +33,7 @@ test_that("input validation", {
                               Ch_L3 = c(40, 50, 60)),
                "'Ch_L3' should have length 2")
   expect_error(calc_FastRatio(obj, Ch_L3 = list(4, 5)),
-               "'Ch_L3' should be of class 'integer' or 'numeric'")
+               "'Ch_L3' should be of class 'integer', 'numeric' or NULL")
   expect_error(calc_FastRatio(obj, Ch_L3 = c(0, 2)),
                "'Ch_L3[1]' should be a positive integer scalar",
                fixed = TRUE)

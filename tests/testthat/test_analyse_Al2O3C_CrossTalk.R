@@ -23,7 +23,7 @@ test_that("input validation", {
                "'method_control' should be of class 'list'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = FALSE),
-               "'irradiation_time_correction' should be of class 'numeric' or")
+               "'irradiation_time_correction' should be of class 'numeric',")
   corr <- set_RLum("RLum.Results")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = corr),
