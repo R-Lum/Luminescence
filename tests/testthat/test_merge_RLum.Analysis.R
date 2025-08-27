@@ -16,11 +16,11 @@ test_that("input validation", {
   expect_error(merge_RLum.Analysis(list(c1)),
                "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(NULL)),
-               "All elements of 'object' should be of class 'RLum'")
+               "All elements of 'object' should be of class 'RLum.Analysis' or")
   expect_error(merge_RLum.Analysis(list(o1, "test")),
-               "All elements of 'object' should be of class 'RLum'")
+               "All elements of 'object' should be of class 'RLum.Analysis' or")
   expect_error(merge_RLum.Analysis(list(o1, r1)),
-               "'objects' should be of class 'RLum.Analysis' or 'RLum.Data'")
+               "All elements of 'object' should be of class 'RLum.Analysis' or")
 })
 
 test_that("snapshot tests", {
