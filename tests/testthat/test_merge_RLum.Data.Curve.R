@@ -54,6 +54,12 @@ test_that("check functionality", {
                                  "RLum.Data.Curve"),
                  "8 'inf' values have been replaced by 0 in the matrix"))
   expect_s4_class(TL.curve.1 * TL.curve.3, "RLum.Data.Curve")
+
+  ## only one curve
+  expect_s4_class(new <- merge_RLum.Data.Curve(list(TL.curve.1)),
+                  "RLum.Data.Curve")
+  expect_equal(TL.curve.1@data,
+               new@data)
 })
 
 test_that("snapshot tests", {

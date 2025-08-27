@@ -152,7 +152,7 @@ merge_RLum.Data.Curve<- function(
   ##(1) build new data matrix
   ## first find the shortest object
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
-  if (length(check.rows) < 2) {
+  if (length(check.rows) < 1 || min(check.rows) < 2) {
     .throw_error("'object' contains no data")
   }
   num.rows <- min(check.rows)
@@ -202,23 +202,13 @@ merge_RLum.Data.Curve<- function(
     temp.matrix <- sapply(temp.matrix, c)
 
   }else if(merge.method == "-"){
-    if (num.objects > 2) {
-      temp.matrix  <- temp.matrix[,1] - rowSums(temp.matrix[,-1])
-    }else{
-      temp.matrix <-  temp.matrix[,1] - temp.matrix[,2]
-    }
+    temp.matrix <- temp.matrix[, 1] - rowSums(temp.matrix[, -1, drop = FALSE])
+
   }else if(merge.method == "*"){
-    if (num.objects > 2) {
-      temp.matrix  <- temp.matrix[,1] * rowSums(temp.matrix[,-1])
-    }else{
-      temp.matrix <-  temp.matrix[,1] * temp.matrix[,2]
-    }
+    temp.matrix <- temp.matrix[, 1] * rowSums(temp.matrix[, -1, drop = FALSE])
+
   }else if(merge.method == "/"){
-    if (num.objects > 2) {
-      temp.matrix  <- temp.matrix[,1] / rowSums(temp.matrix[,-1])
-    }else{
-      temp.matrix <-  temp.matrix[,1] / temp.matrix[,2]
-    }
+    temp.matrix <- temp.matrix[, 1] / rowSums(temp.matrix[, -1, drop = FALSE])
 
     ## replace infinities with 0 and throw warning
     id.inf <- which(is.infinite(temp.matrix) == TRUE)
@@ -242,6 +232,9 @@ merge_RLum.Data.Curve<- function(
     temp.matrix <- cbind(object[[1]]@data[1:num.rows, 1], temp.matrix)
   }
 
+  ## remove spurious column names added by cbind()
+  temp.matrix <- unname(temp.matrix)
+
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##merge info objects as simple as possible ... just keep them all ... other possibility
   ##would be to choose on the input objects
@@ -255,7 +248,7 @@ merge_RLum.Data.Curve<- function(
   }
 
   ## Build new RLum.Data.Curve object ---------------------------------------
-  temp.new.Data.Curve <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Curve",
     originator = "merge_RLum.Data.Curve",
     recordType = object[[1]]@recordType,
@@ -264,6 +257,4 @@ merge_RLum.Data.Curve<- function(
     info = temp.info,
     .pid = unlist(lapply(object, function(x) x@.uid))
   )
-
-  return(temp.new.Data.Curve)
 }
