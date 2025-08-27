@@ -873,17 +873,17 @@ fancy_scientific <- function(l) {
 
   ##calculate HPDI
   HPDI <- matrix(NA, ncol = 2, nrow = 1)
-  if(length(peaks_id != 0))
+  if (length(peaks_id) > 0)
     HPDI <- matrix(m[peaks_id,1], ncol = 2)
 
   colnames(HPDI) <- c("lower", "upper")
-  attr(HPDI, "Probabilty") <- prob
+  attr(HPDI, "Probability") <- prob
 
   if(plot){
     xy <- m[m_ind,c(1,2)]
     plot(dens, main = "HPDI (control plot)")
     abline(h = thres, lty = 2)
-    if(length(peaks_id != 0)) {
+    if (length(peaks_id) > 0) {
       for(i in seq(1,length(peaks_id),2)) {
         lines(x = m[peaks_id[i]:peaks_id[i + 1], 1],
               y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
