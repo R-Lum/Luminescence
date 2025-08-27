@@ -12,6 +12,8 @@ test_that("input validation", {
                "All elements of 'input.objects' should be of class 'Risoe.BINfileData'")
   expect_error(merge_Risoe.BINfileData(input.objects = c(FALSE, FALSE)),
                "'input.objects' should be of class 'character' or 'list'")
+  expect_error(merge_Risoe.BINfileData(c(o1, o2), verbose = NA),
+               "'verbose' should be a single logical value")
 })
 
 test_that("check functionality", {
@@ -26,9 +28,7 @@ test_that("check functionality", {
   ## write to an output file and read it back in
   binx <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   output.file <- tempfile(fileext = ".binx")
-  SW({
-  merge_Risoe.BINfileData(c(binx, binx), output.file)
-  })
+  merge_Risoe.BINfileData(c(binx, binx), output.file, verbose = FALSE)
   expect_true(file.exists(output.file))
   expect_s4_class(new <- read_BIN2R(output.file, verbose = FALSE),
                   "Risoe.BINfileData")

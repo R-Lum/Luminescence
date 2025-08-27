@@ -8,19 +8,19 @@ merge_Risoe.BINfileData(
   input.objects,
   output.file,
   keep.position.number = FALSE,
-  position.number.append.gap = 0
+  position.number.append.gap = 0,
+  verbose = TRUE
 )
 }
 \arguments{
-\item{input.objects}{\link{character} with \linkS4class{Risoe.BINfileData} objects (\strong{required}):
-Character vector with path and files names
-(e.g. \code{input.objects = c("path/file1.bin", "path/file2.bin")} or
-\linkS4class{Risoe.BINfileData} objects (e.g. \code{input.objects = c(object1, object2)}).
-Alternatively a \code{list} is supported.}
+\item{input.objects}{\link{character} or \linkS4class{Risoe.BINfileData} objects (\strong{required}):
+Character vector with path and files names with ".bin" or ".binx" extension
+(e.g. \code{input.objects = c("path/file1.bin", "path/file2.bin")} or a list of
+\linkS4class{Risoe.BINfileData} objects (e.g. \code{input.objects = c(object1, object2)}).}
 
 \item{output.file}{\link{character} (\emph{optional}):
-File output path and name. If no value is given, a \linkS4class{Risoe.BINfileData} is
-returned instead of a file.}
+File output path and name. If no value is given, a \linkS4class{Risoe.BINfileData}
+object returned instead of a file.}
 
 \item{keep.position.number}{\link{logical} (\emph{with default}):
 Allows keeping the original position numbers of the input objects.
@@ -30,9 +30,13 @@ Otherwise the position numbers are recalculated.}
 Set the position number gap between merged BIN-file sets, if the option
 \code{keep.position.number = FALSE} is used. See details for further
 information.}
+
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 }
 \value{
-Returns a \code{file} or a \linkS4class{Risoe.BINfileData} object.
+Returns a \linkS4class{Risoe.BINfileData} object or writes to the BIN-file
+specified by \code{output.file}.
 }
 \description{
 The function allows merging Risoe BIN/BINX files or \linkS4class{Risoe.BINfileData}
@@ -68,7 +72,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.9
+ 0.2.10
 }
 
 \examples{
