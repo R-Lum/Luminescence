@@ -103,7 +103,7 @@
     ...) {
 
   ## Object: DRAC.highlights
-  if (x@originator == "use_DRAC") {
+  if (x@originator %in% "use_DRAC") {
     x <- get_RLum(x)$highlights
     x <- .digits(x, digits)
 

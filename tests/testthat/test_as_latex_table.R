@@ -12,6 +12,7 @@ test_that("Check .as.latex.table()", {
   expect_output(.as.latex.table(df, select = "x"))
 
   ## RLum.Results
+  expect_null(.as.latex.table(set_RLum("RLum.Results")))
   expect_null(.as.latex.table(as(object = list(1:10),
                                  Class = "RLum.Results")))
 
