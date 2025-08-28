@@ -58,7 +58,7 @@ enable/disable plotting of the results in a single windows for each plot.
 Ignored if \code{plot = FALSE}.}
 
 \item{...}{further arguments that will be passed to
-\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}. Furthermore, the
+\link{analyse_SAR.CWOSL} and \link{plot_DoseResponseCurve}. Furthermore, the
 arguments \code{main} (headers), \code{log} (IRSL curves), \code{cex} (control
 the size) and \code{mtext.outer} (additional text on the plot area) can be passed to influence the plotting. If the input
 is a list, \code{main} can be passed as \link{vector} or \link{list}.}

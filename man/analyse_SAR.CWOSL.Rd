@@ -289,8 +289,8 @@ extracts. Radiation Measurements 43, 1474-1486.
 doi:10.1016/j.radmeas.2008.06.002
 }
 \seealso{
-\link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}, \link{get_RLum}, \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
+\link{calc_OSLLxTxRatio}, \link{fit_DoseResponseCurve},
+\link{plot_DoseResponseCurve}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

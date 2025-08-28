@@ -66,7 +66,7 @@
 #' Ignored if `plot = FALSE`.
 #'
 #' @param ... further arguments that will be passed to
-#' [analyse_SAR.CWOSL] and [plot_GrowthCurve]. Furthermore, the
+#' [analyse_SAR.CWOSL] and [plot_DoseResponseCurve]. Furthermore, the
 #' arguments `main` (headers), `log` (IRSL curves), `cex` (control
 #' the size) and `mtext.outer` (additional text on the plot area) can be passed to influence the plotting. If the input
 #' is a list, `main` can be passed as [vector] or [list].

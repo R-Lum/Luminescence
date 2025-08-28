@@ -197,8 +197,8 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
-#' [RLum.Results-class], [get_RLum], [fit_DoseResponseCurve], [plot_DoseResponseCurve]
+#' @seealso [calc_OSLLxTxRatio], [fit_DoseResponseCurve],
+#' [plot_DoseResponseCurve], [RLum.Analysis-class], [RLum.Results-class]
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
