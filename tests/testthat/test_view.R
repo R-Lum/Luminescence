@@ -9,7 +9,9 @@ test_that("input validation", {
   expect_error(view(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(view(set_RLum("RLum.Data.Image")),
-               "'info' slot cannot be an empty list")
+               "'object' cannot be an empty RLum.Data")
+  expect_error(view(set_RLum("RLum.Results")),
+               "'object' cannot be an empty RLum.Results")
 })
 
 test_that("check functionality", {

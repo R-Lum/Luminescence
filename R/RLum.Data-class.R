@@ -167,7 +167,7 @@ setMethod("view",
   .set_function_name("view")
   on.exit(.unset_function_name(), add = TRUE)
 
-  .validate_not_empty(object@info, name = "'info' slot")
+  .validate_not_empty(object@info, what = "RLum.Data")
 
     ## set title
     name <- list(...)$title
