@@ -106,6 +106,6 @@ test_that("regression tests", {
 
   ## issue 953
   SW({
-  fit_CWCurve(ExampleData.CW_OSL_Curve[1:2, ])
+  fit_CWCurve(ExampleData.CW_OSL_Curve[1:2, ], fit.trace = TRUE)
   })
 })
