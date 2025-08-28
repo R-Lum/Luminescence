@@ -3,8 +3,7 @@
 #' @description
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
-#' components and returns various component parameters. The fitting procedure
-#' uses the [nls] function with the `port` algorithm.
+#' components and returns various component parameters.
 #'
 #' **Fitting function**
 #'
@@ -58,9 +57,9 @@
 #' limits the failed fitting attempts.
 #'
 #' @param fit.method [character] (*with default*):
-#' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
-#' routine from the function [nls] `'LM'` utilises the function `nlsLM` from
-#' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
+#' select the fit method, either `"port"` to use the 'port' routine from
+#' function [nls], or `"LM"` to use the Levenberg-Marquardt algorithm as
+#' implemented in function [minpack.lm::nlsLM].
 #'
 #' @param fit.trace [logical] (*with default*):
 #' traces the fitting process on the terminal.
@@ -293,6 +292,9 @@ fit_CWCurve<- function(
   while(keep.fitting && n.components <= n.components.max) {
     ##(0) START PARAMETER ESTIMATION
     ##rough automatic start parameter estimation
+
+    if (fit.trace)
+      cat("n.component:", n.components, "/", n.components.max, "\n")
 
     ##I0
     I0<-rep(values[1,2]/3,n.components)

@@ -34,9 +34,9 @@ The upper limit is 7.}
 limits the failed fitting attempts.}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-select fit method, allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-routine from the function \link{nls} \code{'LM'} utilises the function \code{nlsLM} from
-the package \code{minpack.lm} and with that the Levenberg-Marquardt algorithm.}
+select the fit method, either \code{"port"} to use the 'port' routine from
+function \link{nls}, or \code{"LM"} to use the Levenberg-Marquardt algorithm as
+implemented in function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}.}
 
 \item{fit.trace}{\link{logical} (\emph{with default}):
 traces the fitting process on the terminal.}
@@ -109,8 +109,7 @@ sum for this values.
 \description{
 The function determines the weighted least-squares estimates of the
 component parameters of a CW-OSL signal for a given maximum number of
-components and returns various component parameters. The fitting procedure
-uses the \link{nls} function with the \code{port} algorithm.
+components and returns various component parameters.
 
 \strong{Fitting function}
 
