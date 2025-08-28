@@ -103,4 +103,9 @@ test_that("regression tests", {
                              fit.method = "LM", fit.calcError = TRUE),
                  "Error: Computation of confidence interval failed")
   })
+
+  ## issue 953
+  SW({
+  fit_CWCurve(ExampleData.CW_OSL_Curve[1:2, ])
+  })
 })

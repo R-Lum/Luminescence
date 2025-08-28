@@ -81,6 +81,11 @@ values (#915).
 * The computation of the weighted median is now correct, while before it
 corresponded to the simple (unweighted) median (#905).
 
+### `fit_CWCurve()`
+
+* The function hanged on particularly small datasets as it tried to fit too
+many components for the available data (#953).
+
 ### `fit_LMCurve()`
 
 * The automated correction of the x-axis in case of `0` for lowest value threw 

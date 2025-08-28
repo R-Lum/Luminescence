@@ -284,8 +284,11 @@ fit_CWCurve<- function(
   n.components <- 1 #number of components used for fitting - start with 1
   fit.failure_counter <- 0 #counts the failed fitting attempts
 
-  ##if n.components_max is missing, then it is Inf
-  if(missing(n.components.max)==TRUE){n.components.max<-Inf}
+  ## if n.components.max is missing, set it to the maximum value that can be
+  ## fitted given the data size (issue #953), up to a maximum of 7 components
+  if (missing(n.components.max))
+    n.components.max <- max(nrow(values) - 3, 1)
+  n.components.max <- min(n.components.max, 7)
 
   ##
   ##++++Fitting loop++++(start)
@@ -318,7 +321,6 @@ fit_CWCurve<- function(
 
     ##(1) FIRST FIT WITH A SIMPLE FUNCTION
     if(fit.method == "LM"){
-
       ##try fit simple
       fit.try<-suppressWarnings(try(minpack.lm::nlsLM(fit.formula.simple(n.components),
                                           data=values,
@@ -331,9 +333,7 @@ fit_CWCurve<- function(
                                     silent = TRUE
       ))#end try
 
-
     }else if(fit.method == "port"){
-
       ##try fit simple
       fit.try<-suppressWarnings(try(nls(fit.formula.simple(n.components),
                                         data=values,
@@ -513,7 +513,6 @@ fit_CWCurve<- function(
     ##============================================================================##
 
     if (verbose) {
-
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_CWCurve()]")
       cat(paste0("\nFitting was finally done using a ", n.components,
@@ -538,17 +537,16 @@ fit_CWCurve<- function(
     ## Terminal Output (advanced)
     ##============================================================================##
     if (verbose && output.terminalAdvanced) {
-
       ##sum of squares
       writeLines(paste("pseudo-R^2 = ",pR,sep=""))
     }#end if
+
     ##============================================================================##
     ## Table Output
     ##============================================================================##
 
     ##write output table if values exists
     if (exists("fit")){
-
       ##set data.frame for a max value of 7 components
       output.table<-data.frame(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
                                NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
@@ -629,7 +627,6 @@ fit_CWCurve<- function(
         k <- seq(3, ncol(component.contribution.matrix), by=2)
 
         while (i<=length(I0)-1) {
-
           y.contribution_next<-I0[i]*lambda[i]*exp(-lambda[i]*x)/(eval(fit.function))*100
 
           ##avoid NaN values
@@ -643,7 +640,6 @@ fit_CWCurve<- function(
           y.contribution_prev <- y.contribution_prev + y.contribution_next
 
           i <- i+1
-
         }#end while loop
       }#end if
 
@@ -686,7 +682,6 @@ fit_CWCurve<- function(
         component.contribution.matrix.names,
         paste(c("cont.c"),rep(1:n.components,each=1), sep=""),
         "cont.sum")
-
     }#endif :: (exists("fit"))
   }
 
