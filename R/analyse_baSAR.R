@@ -175,8 +175,8 @@
 #' @param aliquot_range [numeric] (*optional*):
 #' allows to limit the range of the aliquots used for the analysis.
 #' This argument has only an effect if the argument `CSV_file` is used or
-#' the input is the previous output (i.e. is [RLum.Results-class]). In this case the
-#' new selection will add the aliquots to the removed aliquots table.
+#' `object` is a previous output (i.e. is [RLum.Results-class]). In this case,
+#' the new selection will add the aliquots to the removed aliquots table.
 #'
 #' @param source_doserate [numeric] (**required**):
 #' source dose rate of beta-source used for the measurement and its uncertainty
@@ -985,7 +985,7 @@ analyse_baSAR <- function(
 
       ##extract wanted curves
       if(verbose)
-        cat(paste0("\t\t  .. extract '", additional_arguments$recordType ,"'\n"))
+        cat("\t\t  .. extract '", additional_arguments$recordType , "'\n", sep = "")
       object <- get_RLum(object, recordType = additional_arguments$recordType, drop = FALSE)
 
       ## check that we are not left with empty records
@@ -1007,7 +1007,7 @@ analyse_baSAR <- function(
                     outFile = stdout()) # redirect error messages so they can be silenced
 
       ##create fallback
-       if(inherits(object, "try-error")){
+      if (inherits(object, "try-error")) {
          .throw_message("Object conversion failed, NULL returned")
          return(NULL)
        }
@@ -1671,42 +1671,41 @@ analyse_baSAR <- function(
     removed_aliquots <- t(OUTPUT_results_reduced[,!selection])
     OUTPUT_results_reduced <- t(OUTPUT_results_reduced[,selection])
 
-    ##finally, check for difference in the number of dose points ... they should be the same
-    if(length(unique(OUTPUT_results_reduced[,"CYCLES_NB"])) > 1){
-      .throw_warning("The number of dose points differs across ",
-                     "your data set. Check your data!")
+    ## check for difference in the number of dose points, they should be the same
+    if (length(unique(OUTPUT_results_reduced[, "CYCLES_NB"])) > 1) {
+      .throw_warning("The number of dose points differs across your data set")
     }
 
-  ##correct number of aliquots if necessary
-  if(Nb_aliquots > nrow(OUTPUT_results_reduced)) {
-    Nb_aliquots <- nrow(OUTPUT_results_reduced)
-    .throw_warning("'Nb_aliquots' corrected due to NaN or Inf values ",
-                   "in Lx and/or Tx to ", Nb_aliquots, ". You might want ",
-                   "to check 'removed_aliquots' in the function output.")
+    ## correct number of aliquots if necessary
+    if (Nb_aliquots > nrow(OUTPUT_results_reduced)) {
+      Nb_aliquots <- nrow(OUTPUT_results_reduced)
+      .throw_warning("'Nb_aliquots' corrected due to NaN or Inf values ",
+                     "in Lx and/or Tx to ", Nb_aliquots, ", you might want ",
+                     "to check 'removed_aliquots' in the function output")
+    }
+
+    ## prepare for Bayesian analysis
+    Doses <- t(OUTPUT_results_reduced[,9:(8 + max_cycles)])
+    LxTx <- t(OUTPUT_results_reduced[, (9 + max_cycles):(8 + 2 * max_cycles)])
+    LxTx.error <- t(OUTPUT_results_reduced[, (9 + 2 * max_cycles):(8 + 3 * max_cycles)])
+
+    ## prepare data frame for output that can used as input
+    BIN_FILE <- character(0)
+    if (length(OUTPUT_results_reduced) > 0)
+      BIN_FILE <- unlist(object.file_name)[OUTPUT_results_reduced[[1]]]
+    input_object <- data.frame(
+        BIN_FILE = BIN_FILE,
+        OUTPUT_results_reduced[, -1, drop = FALSE],
+        stringsAsFactors = FALSE
+    )
+
+    ## prepare data frame for output that shows rejected aliquots
+    if (NROW(removed_aliquots) > 0) {
+      removed_aliquots <- cbind(BIN_FILE = BIN_FILE, removed_aliquots[, -1])
+    } else {
+      removed_aliquots <- NULL
+    }
   }
-
-  ##Prepare for Bayesian analysis
-  Doses <- t(OUTPUT_results_reduced[,9:(8 + max_cycles)])
-  LxTx <- t(OUTPUT_results_reduced[, (9 + max_cycles):(8 + 2 * max_cycles)])
-  LxTx.error <- t(OUTPUT_results_reduced[, (9 + 2 * max_cycles):(8 + 3 * max_cycles)])
-
-  ##prepare data frame for output that can used as input
-  input_object <- data.frame(
-    BIN_FILE = unlist(object.file_name)[OUTPUT_results_reduced[[1]]],
-    OUTPUT_results_reduced[, -1, drop = FALSE],
-    stringsAsFactors = FALSE
-  )
-
-  ##prepare data frame for output that shows rejected aliquots
-  if (length(removed_aliquots) > 0) {
-    removed_aliquots <-
-      as.data.frame(removed_aliquots,  stringsAsFactors = FALSE)
-    removed_aliquots <- cbind(BIN_FILE = unlist(object.file_name)[removed_aliquots[[1]]],
-                              removed_aliquots[, -1])
-  }else{
-    removed_aliquots <- NULL
-  }
-}
 
   # Call baSAR-function -------------------------------------------------------------------------
 
@@ -1819,7 +1818,7 @@ analyse_baSAR <- function(
       tot.aliquots <- tot.aliquots + nrow(removed_aliquots)
     cat(paste0("Number of aliquots used:\t", num.aliquots, "/", tot.aliquots))
     if (!is.null(aliquot_range)) {
-      cat(" (manually removed: ", length(aliquot_range), ")\n")
+      cat(" (manually removed: ", length(aliquot_range), ")\n", sep = "")
     } else {
       cat("\n")
     }

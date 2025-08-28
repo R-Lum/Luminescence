@@ -50,8 +50,8 @@ the name of the file, the disc position and the grain position
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
 This argument has only an effect if the argument \code{CSV_file} is used or
-the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
-new selection will add the aliquots to the removed aliquots table.}
+\code{object} is a previous output (i.e. is \linkS4class{RLum.Results}). In this case,
+the new selection will add the aliquots to the removed aliquots table.}
 
 \item{source_doserate}{\link{numeric} (\strong{required}):
 source dose rate of beta-source used for the measurement and its uncertainty

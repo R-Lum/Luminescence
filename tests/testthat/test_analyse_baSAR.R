@@ -328,6 +328,19 @@ test_that("Full check of analyse_baSAR function", {
       fixed = TRUE),
       "'source_doserate' is ignored in this mode as it was already set")
 
+  ## more coverage
+  SW({
+  expect_warning(analyse_baSAR(
+      object = CWOSL.sub,
+      source_doserate = c(NaN, 0.001),
+      signal.integral = 1:2,
+      background.integral = 80:100,
+      plot = FALSE,
+      verbose = TRUE,
+      n.MCMC = 100),
+      "'Nb_aliquots' corrected due to NaN or Inf values")
+  })
+
   CWOSL.mod <- CWOSL.sub
   CWOSL.mod@METADATA$SEL <- FALSE
   expect_warning(expect_null(analyse_baSAR(CWOSL.mod, verbose = TRUE,
