@@ -618,13 +618,8 @@ error.list <- list()
             sig0 = sig0))
       }
 
-        ##grep dose
-        temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
-
-          ##for the case that no information on the dose can be found
-          if (is.null(temp.Dose)) temp.Dose <- NA
-
-          temp.LnLxTnTx <- cbind(Dose = temp.Dose, temp.LnLxTnTx)
+      temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME %||% NA
+      temp.LnLxTnTx <- cbind(Dose = temp.Dose, temp.LnLxTnTx)
 
       }), silent = TRUE)
 
@@ -650,10 +645,8 @@ error.list <- list()
     }
 
     ## set test dose points
-    if(!is.null(dose.points.test))
-      LnLxTnTx$Test_Dose <- rep(dose.points.test, length.out = nrow(LnLxTnTx))
-    else
-      LnLxTnTx$Test_Dose <- rep(-1, length.out = nrow(LnLxTnTx))
+    LnLxTnTx$Test_Dose <- rep(dose.points.test %||% -1,
+                              length.out = nrow(LnLxTnTx))
 
     ##check whether we have dose points at all
     if (is.null(dose.points) & anyNA(LnLxTnTx$Dose)) {
@@ -735,9 +728,8 @@ error.list <- list()
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
     ## get name of the criteria
-    temp.criteria <- c(
-      if(!is.null(colnames(RecyclingRatio))) colnames(RecyclingRatio) else NA_character_,
-      if(!is.null(colnames(Recuperation))) colnames(Recuperation) else NA_character_)
+    temp.criteria <- c(colnames(RecyclingRatio) %||% NA_character_,
+                       colnames(Recuperation) %||% NA_character_)
 
     ## get value
     temp.value <- c(RecyclingRatio, Recuperation)
@@ -1216,10 +1208,10 @@ error.list <- list()
                                max(signal.integral)),
           background.range = paste(min(background.integral),":",
                                    max(background.integral)),
-          signal.range.Tx = paste(min(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx)),":",
-                                  max(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx))),
-          background.range.Tx = paste(min(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx)) ,":",
-                                      max(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx))),
+          signal.range.Tx = paste(min(signal.integral.Tx %||% NA), ":",
+                                  max(signal.integral.Tx %||% NA)),
+          background.range.Tx = paste(min(background.integral.Tx %||% NA) , ":",
+                                      max(background.integral.Tx %||% NA)),
           stringsAsFactors = FALSE
         )
 

@@ -511,11 +511,7 @@ fancy_scientific <- function(l) {
   suffix = ""
 ){
   ## Grep keyword information
-  if (is.null(x)) {
-    summary <- calc_Statistics(data.frame(x = 1:2, y = 1:2))
-  } else {
-    summary <- x
-  }
+  summary <- x %||% calc_Statistics(data.frame(x = 1:2, y = 1:2))
 
   #all allowed combinations
   keywords_allowed <- unlist(lapply(names(summary), function(x){
@@ -1373,6 +1369,25 @@ SW <- function(expr) {
     return(FALSE)
   }
   return(TRUE)
+}
+
+#' Default value for `NULL`
+#'
+#' Given two values, it returns the first if not `NULL` otherwise the second.
+#'
+#' @param x The value to check.
+#' @param y The default value to use in case `x` is `NULL`.
+#'
+#' @return
+#' A non-`NULL` value.
+#'
+#' @noRd
+"%||%" <- function(x, y)
+  if (is.null(x)) y else x
+
+## Reexport from base on newer versions of R to avoid conflict messages
+if (exists("%||%", envir = baseenv())) {
+  `%||%` <- get("%||%", envir = baseenv())
 }
 
 #' Create a list of objects repeated a given number of times

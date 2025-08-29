@@ -557,17 +557,11 @@ analyse_IRSAR.RF<- function(
   ##name
   record1 <- get_RLum(object, record.id = 1)
   aliquot.sequence_name <- suppressWarnings(get_RLum(record1,
-                                                     info.object = "name"))
-  if (is.null(aliquot.sequence_name)) {
-    aliquot.sequence_name <- NA
-  }
+                                                     info.object = "name")) %||% NA
 
   ##position
   aliquot.position <- suppressWarnings(get_RLum(record1,
-                                                info.object = "position"))
-  if (is.null(aliquot.position)) {
-    aliquot.position <- NA
-  }
+                                                info.object = "position")) %||% NA
 
   ##date
   aliquot.date <- suppressWarnings(get_RLum(record1,
@@ -1048,7 +1042,7 @@ analyse_IRSAR.RF<- function(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
           vslide_range = vslide_range,
-          n_MC = if(is.null(n.MC)) 0 else n.MC,
+          n_MC = n.MC %||% 0,
           trace = trace
       )
 
@@ -1056,11 +1050,7 @@ analyse_IRSAR.RF<- function(
       index_min <- which.min(temp.sum.residuals$sliding_vector)
       if(length(index_min) == 0) t_n.id <- 1 else t_n.id <- index_min
 
-      I_n <- 0
-      if (!is.null(vslide_range)) {
-        I_n <- vslide_range[temp.sum.residuals$vslide_index]
-      }
-
+      I_n <- vslide_range[temp.sum.residuals$vslide_index] %||% 0
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later

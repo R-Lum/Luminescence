@@ -406,11 +406,11 @@ fit_SurfaceExposure <- function(
 
   ## RESULTS ----
   summary <- data.frame(
-    age = if (is.null(age)) coef["age", "Estimate"] else age,
+    age = age %||% coef["age", "Estimate"],
     age_error = coef["age", "Std. Error"],
-    sigmaphi = if (is.null(sigmaphi)) coef["sigmaphi", "Estimate"] else sigmaphi,
+    sigmaphi = sigmaphi %||% coef["sigmaphi", "Estimate"],
     sigmaphi_error = coef["sigmaphi", "Std. Error"],
-    mu = if (is.null(mu)) coef["mu", "Estimate"] else mu,
+    mu = mu %||% coef["mu", "Estimate"],
     mu_error = coef["mu", "Std. Error"]
   )
 

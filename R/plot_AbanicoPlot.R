@@ -593,10 +593,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## check/set layout definitions
-  if(!is.null(list(...)$layout))
-    layout <- get_Layout(layout = list(...)$layout)
-  else
-    layout <- get_Layout(layout = "default")
+  layout <- get_Layout(layout = list(...)$layout %||% "default")
 
   if(missing(stats))
     stats <- numeric(0)

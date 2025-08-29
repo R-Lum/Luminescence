@@ -402,7 +402,7 @@ calc_FadingCorr <- function(
     TC.G_VALUE = tc.g_value,
     n.MC = n.MC,
     OBSERVATIONS = length(tempMC),
-    SEED = ifelse(is.null(seed), NA, seed)
+    SEED = seed %||% NA
   )
 
   ##============================================================================##
@@ -437,7 +437,7 @@ calc_FadingCorr <- function(
       round(kappa[2], digits = 4)
     ))
     cat("\n ----------------------------------------------")
-    cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
+    cat("\n seed: \t\t\t", seed %||% NA)
     cat(paste0("\n n.MC: \t\t\t", n.MC))
     cat(paste0(
       "\n observations: \t\t",

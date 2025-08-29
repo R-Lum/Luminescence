@@ -69,6 +69,7 @@ calc_WodaFuchs2008 <- function(
     return(NULL)
   }
   .validate_not_empty(data)
+  .validate_positive_scalar(breaks, null.ok = TRUE)
 
   if (inherits(data, "RLum.Results")) {
         data <- tryCatch(get_RLum(data, "data"),
@@ -121,12 +122,7 @@ calc_WodaFuchs2008 <- function(
     .throw_error("The estimated bin width is not positive, check your data")
 
   ## optionally estimate class breaks based on bin width
-  if(is.null(breaks)) {
-    n_breaks <- diff(range(data[, 1], na.rm = TRUE)) / bin_width
-  } else {
-    .validate_positive_scalar(breaks)
-    n_breaks <- breaks
-  }
+  n_breaks <- breaks %||% (diff(range(data[, 1], na.rm = TRUE)) / bin_width)
 
   if (n_breaks <= 3) {
     .throw_warning("Fewer than 4 bins produced, 'breaks' set to 4")

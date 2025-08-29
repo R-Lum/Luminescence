@@ -347,74 +347,28 @@ plot_RLum.Data.Spectrum <- function(
 
   #for zlim see below
 
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
-  {""}
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {1}
-
-  phi <- if("phi" %in% names(extraArgs)) {extraArgs$phi} else
-  {15}
-
-  theta <- if("theta" %in% names(extraArgs)) {extraArgs$theta} else
-  {-30}
-
-  lphi <- if("lphi" %in% names(extraArgs)) {extraArgs$lphi} else
-  {15}
-
-  ltheta <- if("ltheta" %in% names(extraArgs)) {extraArgs$ltheta} else
-  {-30}
-
-  r <- if("r" %in% names(extraArgs)) {extraArgs$r} else
-  {10}
-
-  shade <- if("shade" %in% names(extraArgs)) {extraArgs$shade} else
-  {0.4}
-
-  expand <- if("expand" %in% names(extraArgs)) {extraArgs$expand} else
-  {0.6}
-
-  border <- if("border" %in% names(extraArgs)) {extraArgs$border} else
-  {NULL}
-
-  box <- if("box" %in% names(extraArgs)) {extraArgs$box} else
-  {TRUE}
-
-  axes <- if("axes" %in% names(extraArgs)) {extraArgs$axes} else
-  {TRUE}
-
-  ticktype <- if("ticktype" %in% names(extraArgs)) {extraArgs$ticktype} else
-  {"detailed"}
-
-  log<- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  labcex <- if(is.null(extraArgs$labcex)) 0.6 else extraArgs$labcex
-
-  type<- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {
-    if (plot.type == "interactive") {
-      "surface"
-    } else{
-      "l"
-    }
-  }
-
-  pch<- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
-  {1}
-
-  lwd<- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
-  {1}
-
-  bty <- if("bty" %in% names(extraArgs)) {extraArgs$bty} else
-  {NULL}
-
-  sub<- if("sub" %in% names(extraArgs)) {extraArgs$sub} else
-  {""}
-
+  mtext <- extraArgs$mtext %||% ""
+  cex <- extraArgs$cex %||% 1
+  phi <- extraArgs$phi %||% 15
+  theta <- extraArgs$theta %||% -30
+  lphi <- extraArgs$lphi %||% 15
+  ltheta <- extraArgs$ltheta %||% -30
+  r <- extraArgs$r %||% 10
+  shade <- extraArgs$shade %||% 0.4
+  expand <- extraArgs$expand %||% 0.6
+  border <- extraArgs$border
+  box <- extraArgs$box %||% TRUE
+  axes <- extraArgs$axes %||% TRUE
+  ticktype <- extraArgs$ticktype %||% "detailed"
+  log <- extraArgs$log %||% ""
+  labcex <- extraArgs$labcex %||% 0.6
+  type <- extraArgs$type %||% ifelse(plot.type == "interactive", "surface", "l")
+  pch <- extraArgs$pch %||% 1
+  lwd <- extraArgs$lwd %||% 1
+  bty <- extraArgs$bty
+  sub <- extraArgs$sub %||% ""
   #for plotly::plot_ly
-  showscale<- if("showscale" %in% names(extraArgs)) {extraArgs$showscale} else
-  {FALSE}
+  showscale <- extraArgs$showscale %||% FALSE
 
   ## further plot settings
   plot_settings <- modifyList(
