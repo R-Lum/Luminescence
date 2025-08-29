@@ -44,13 +44,15 @@ exclude NA values from the data set prior to any further operations.}
 information.}
 }
 \description{
-Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin
-is constructed using a mirrored density curve. This plot is especially designed for cases
-where the individual errors are zero or too small to be visualised. The idea for this plot is
-based on the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
+Draws a kernel density plot in combination with a boxplot in its middle.
+The shape of the violin is constructed using a mirrored density curve.
+This plot is especially designed for cases where the individual errors are
+zero or too small to be visualised. The idea for this plot is based on the
+'violin plot' in the \code{ggplot2} package by Hadley Wickham and Winston Chang.
 The general idea for the violin plot seems to have been introduced by
 Hintze and Nelson (1998).
-
+}
+\details{
 The function is passing several arguments to the functions \link{plot},
 \link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
 
@@ -63,10 +65,10 @@ Supported arguments are:
 \code{'skewness'}, \code{'kurtosis'}
 }
 \note{
-Although the code for this function was developed independently and just the idea for the plot
-was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
-two other R packages exist providing a possibility to produces this kind of plot, namely:
-\code{'vioplot'} and \code{'violinmplot'} (see references for details).
+Although the code for this function was developed independently and just
+the idea for the plot was based on the 'ggplot2' plot type 'violin', it
+should be mentioned that, beyond this, at least another R package produces
+this kind of plot, namely \code{'vioplot'} (see references for details).
 }
 \section{Function version}{
  0.1.4
@@ -84,13 +86,11 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 
 }
 \references{
-Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
-R package version 0.2 http://CRAN.R-project.org/package=violplot
+Daniel Adler (2025). vioplot: violin plot.
+R package version 0.5.1 http://CRAN.R-project.org/package=vioplot
 
-Hintze, J.L., Nelson, R.D., 1998. A Box Plot-Density Trace Synergism. The American Statistician 52, 181-184.
-
-Raphael W. Majeed (2012). violinmplot: Combination of violin plot with mean and standard deviation.
-R package version 0.2.1. http://CRAN.R-project.org/package=violinmplot
+Hintze, J.L., Nelson, R.D. (1998). A Box Plot-Density Trace Synergism.
+The American Statistician 52, 181-184.
 
 Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 }
