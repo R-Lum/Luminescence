@@ -143,7 +143,7 @@ analyse_Al2O3C_ITC <- function(
         method_control = method_control,
         verbose = verbose,
         plot = plot,
-        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+        main = list(...)$main %||% paste0("ALQ #", x),
         ...
       ), outFile = stdout()) # redirect error messages so they can be silenced
 

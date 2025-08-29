@@ -732,8 +732,7 @@ analyse_IRSAR.RF<- function(
   }
 
   ## control terminal output
-  verbose <- if ("verbose" %in% names(extraArgs))
-               extraArgs$verbose else TRUE
+  verbose <- extraArgs$verbose %||% TRUE
 
   ## don't show the progress bar if not verbose
   if (!verbose)
@@ -1423,15 +1422,11 @@ analyse_IRSAR.RF<- function(
     par(cex = plot.settings[["cex"]])
 
     ##here control xlim and ylim behaviour
-    ##xlim
-    xlim <- if ("xlim" %in% names(extraArgs)) extraArgs$xlim else {
-      c(if (grepl("x", plot.settings$log)) min(temp.sequence_structure$x.min) else 0,
-        max(temp.sequence_structure$x.max))
-    }
-
-    ##ylim
-    ylim <- if ("ylim" %in% names(extraArgs)) extraArgs$ylim else
-    {c(min(temp.sequence_structure$y.min), max(temp.sequence_structure$y.max))}
+    xlim <- extraArgs$xlim %||% c(if (grepl("x", plot.settings$log))
+                                    min(temp.sequence_structure$x.min) else 0,
+                                  max(temp.sequence_structure$x.max))
+    ylim <- extraArgs$ylim %||% c(min(temp.sequence_structure$y.min),
+                                  max(temp.sequence_structure$y.max))
 
     ##open plot area
     plot(

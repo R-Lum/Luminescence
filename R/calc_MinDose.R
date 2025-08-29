@@ -398,11 +398,8 @@ calc_MinDose <- function(
   }
 
   ## console output
-  if ("verbose" %in% names(extraArgs)) {
-    verbose <- .validate_logical_scalar(extraArgs$verbose, name = "'verbose'")
-  } else {
-    verbose <- TRUE
-  }
+  verbose <- extraArgs$verbose %||% TRUE
+  .validate_logical_scalar(verbose)
 
   ## bootstrap replications
   # first level bootstrap

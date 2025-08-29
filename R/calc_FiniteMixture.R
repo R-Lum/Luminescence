@@ -644,10 +644,7 @@ calc_FiniteMixture <- function(
   min.dose <- min(object@data$data[, 1]) - sd(object@data$data[, 1]) / 2
 
   ## determine y-axis scaling
-  y.scale <- c(min.dose, max.dose)
-  if ("dose.scale" %in% names(extraArgs)) {
-    y.scale <- extraArgs$dose.scale
-  }
+  y.scale <- extraArgs$dose.scale %||% c(min.dose, max.dose)
 
   ## create empty plot without x-axis
   for (i in 1:n.plots) {
@@ -694,11 +691,7 @@ calc_FiniteMixture <- function(
     }
 
     ## x-axis (density)
-    if ("pdf.scale" %in% names(extraArgs)) {
-      x.scale <- extraArgs$pdf.scale
-    } else {
-      x.scale <- max(dens) * 1.1
-    }
+    x.scale <- extraArgs$pdf.scale %||% max(dens) * 1.1
 
     ## LOOP - iterate over number of components
     dens.sum <- 0

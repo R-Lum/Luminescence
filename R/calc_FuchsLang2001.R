@@ -102,7 +102,7 @@ calc_FuchsLang2001 <- function(
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments
   extraArgs <- list(...)
-  verbose <- if("verbose" %in% names(extraArgs)) {extraArgs$verbose} else {TRUE}
+  verbose <- extraArgs$verbose %||% TRUE
 
   ##============================================================================##
   ##PREPARE DATA

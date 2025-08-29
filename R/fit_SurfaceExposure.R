@@ -502,17 +502,17 @@ fit_SurfaceExposure <- function(
       if (!global_fit) {
         points(newx, newy,
                type = "l",
-               col = ifelse("line_col" %in% names(list(...)), list(...)$line_col, "blue"),
-               lty = ifelse("line_lty" %in% names(list(...)), list(...)$line_lty, 1),
-               lwd = ifelse("line_lwd" %in% names(list(...)), list(...)$line_lwd, 1))
+               col = list(...)$line_col %||% "blue",
+               lty = list(...)$line_lty %||% 1,
+               lwd = list(...)$line_lwd %||% 1)
       } else {
         for (i in 1:length(data_list)) {
           seg <- seq(i * 101 - 100, 10000, nrow(data))
           points(newx[seg], newy[seg],
                  type = "l",
-                 col = ifelse("line_col" %in% names(list(...)), list(...)$line_col, i),
-                 lty = ifelse("line_lty" %in% names(list(...)), list(...)$line_lty, 1),
-                 lwd = ifelse("line_lwd" %in% names(list(...)), list(...)$line_lwd, 1))
+                 col = list(...)$line_col %||% i,
+                 lty = list(...)$line_lty %||% 1,
+                 lwd = list(...)$line_lwd %||% 1)
         }
       }
 

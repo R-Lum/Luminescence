@@ -139,7 +139,7 @@ plot_ViolinPlot <- function(
   if(length(data)>1){
     density <-
       density(x = data,
-              bw = ifelse("bw" %in% names(list(...)),list(...)$bw,"nrd0"))
+              bw = list(...)$bw %||% "nrd0")
   }else{
     density <- NULL
     .throw_warning("Single data point found, no density calculated")

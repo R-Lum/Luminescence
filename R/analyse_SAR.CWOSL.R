@@ -445,19 +445,14 @@ error.list <- list()
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) extraArgs$main else  ""
-  log <- if("log" %in% names(extraArgs)) extraArgs$log else ""
-  cex <- if("cex" %in% names(extraArgs)) extraArgs$cex else 1
+  main <- extraArgs$main %||% ""
+  log <- extraArgs$log %||% ""
+  cex <- extraArgs$cex %||% 1
 
   background.count.distribution <-
-    if ("background.count.distribution" %in% names(extraArgs)) {
-      extraArgs$background.count.distribution
-    } else  {
-      "non-poisson"
-    }
-
-  sigmab <- if("sigmab" %in% names(extraArgs)) extraArgs$sigmab else NULL
-  sig0 <- if("sig0" %in% names(extraArgs)) extraArgs$sig0 else 0
+      extraArgs$background.count.distribution %||% "non-poisson"
+  sigmab <- extraArgs$sigmab
+  sig0 <- extraArgs$sig0 %||% 0
 
   ## deprecated argument
   if ("plot.single" %in% names(extraArgs)) {

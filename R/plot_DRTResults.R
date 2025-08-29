@@ -279,33 +279,22 @@ plot_DRTResults <- function(
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"Dose recovery test"}
+  main <- extraArgs$main %||% "Dose recovery test"
+  xlab <- extraArgs$xlab %||% ifelse(missing(preheat) == TRUE,
+                                     "# Aliquot", "Preheat temperature [\u00B0C]")
 
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else {
-    ifelse(missing(preheat) == TRUE, "# Aliquot", "Preheat temperature [\u00B0C]")
+  ylab <- extraArgs$ylab %||% {
+    if (!is.null(given.dose) && length(given.dose) > 0 && given.dose[1] > 0)
+      expression(paste("Normalised ", D[e], sep = ""))
+    else expression(paste(D[e], " [s]", sep = ""))
   }
 
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  { if (!is.null(given.dose) && length(given.dose) > 0 && given.dose[1] > 0) expression(paste("Normalised ", D[e], sep = ""))
-    else expression(paste(D[e], " [s]", sep = "")) }
-
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  { c(0, max(n.values)) + 0.5 }
-
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(0.75, 1.25)} #check below for further corrections if boundaries exceed set range
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else {1}
-
-  pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else {
-    abs(seq(from = 20, to = -100))
-  }
-
-  ##axis labels
-  las <- if("las" %in% names(extraArgs)) extraArgs$las else 0
-
-  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
+  xlim <- extraArgs$xlim %||% (c(0, max(n.values)) + 0.5)
+  ylim <- extraArgs$ylim %||% c(0.75, 1.25) # check below for further corrections if boundaries exceed set range
+  cex <- extraArgs$cex %||% 1
+  pch <- extraArgs$pch %||% abs(seq(from = 20, to = -100))
+  las <- extraArgs$las %||% 0
+  fun <- isTRUE(extraArgs$fun)
 
   ## calculations and settings-------------------------------------------------
 

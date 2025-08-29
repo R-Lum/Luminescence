@@ -247,18 +247,10 @@ plot_KDE <- function(
   }
 
   ## set mtext output
-  if("mtext" %in% names(list(...))) {
-    mtext <- list(...)$mtext
-  } else {
-    mtext <- ""
-  }
+  mtext <- list(...)$mtext %||% ""
 
   ## check/set layout definitions
-  if("layout" %in% names(list(...))) {
-    layout <- get_Layout(layout = list(...)$layout)
-  } else {
-    layout <- get_Layout(layout = "default")
-  }
+  layout <- get_Layout(layout = list(...)$layout %||% "default")
 
   ## data preparation steps ---------------------------------------------------
 
@@ -424,40 +416,16 @@ plot_KDE <- function(
   }
 
   ## read out additional parameters -------------------------------------------
-  if("main" %in% names(list(...))) {
-    main <- list(...)$main
-  } else {
-    main <- expression(bold(paste(D[e], " distribution")))
-  }
-
-  if("sub" %in% names(list(...))) {
-    sub <- list(...)$sub
-  } else {
-    sub <- NULL
-  }
-
-  if("xlab" %in% names(list(...))) {
-    xlab <- list(...)$xlab
-  } else {
-    xlab <- expression(paste(D[e], " [Gy]"))
-  }
-
-  if("ylab" %in% names(list(...))) {
-    ylab <- list(...)$ylab
-  } else {
-    ylab <- c("Density", "Cumulative frequency")
-  }
-
-  if("xlim" %in% names(list(...))) {
-    xlim.plot <- list(...)$xlim
-  } else {
-    xlim.plot <- c(min(c(De.global - De.error.global),
-                       De.density.range[1],
-                       na.rm = TRUE),
-                   max(c(De.global + De.error.global),
-                       De.density.range[2],
-                       na.rm = TRUE))
-  }
+  main <- list(...)$main %||% expression(bold(paste(D[e], " distribution")))
+  sub <- list(...)$sub
+  xlab <- list(...)$xlab %||% expression(paste(D[e], " [Gy]"))
+  ylab <- list(...)$ylab %||% c("Density", "Cumulative frequency")
+  xlim.plot <- list(...)$xlim %||% c(min(c(De.global - De.error.global),
+                                         De.density.range[1],
+                                         na.rm = TRUE),
+                                     max(c(De.global + De.error.global),
+                                         De.density.range[2],
+                                         na.rm = TRUE))
 
   if("ylim" %in% names(list(...))) {
     ylim.plot <- list(...)$ylim
@@ -477,14 +445,13 @@ plot_KDE <- function(
     }
   }
 
-  if("log" %in% names(list(...))) {
-    log.option <- list(...)$log
-  } else {
-    log.option <- ""
-  }
+  log.option <- list(...)$log %||% ""
+  lty <- list(...)$lty %||% rep(1, length(data))
+  lwd <- list(...)$lwd %||% rep(1, length(data))
+  cex <- list(...)$cex %||% 1
+  fun <- isTRUE(list(...)$fun)
 
   if("col" %in% names(list(...))) {
-
     col.main <- list(...)$col
     col.xlab <- 1
     col.ylab1 <- 1
@@ -509,7 +476,6 @@ plot_KDE <- function(
                               alpha.f = 0.4)
     col.background <- NA
   } else {
-
     .set_colour_value <- function(layout_value) {
       if (length(layout_value) == 1)
         c(layout_value, 2:length(data))
@@ -536,30 +502,6 @@ plot_KDE <- function(
     col.mean.line <- .set_colour_value(layout$kde$colour$mean.point)
     col.sd.bar <- .set_colour_value(layout$kde$colour$sd.line)
     col.background <- .set_colour_value(layout$kde$colour$background)
-  }
-
-  if("lty" %in% names(list(...))) {
-    lty <- list(...)$lty
-  } else {
-    lty <- rep(1, length(data))
-  }
-
-  if("lwd" %in% names(list(...))) {
-    lwd <- list(...)$lwd
-  } else {
-    lwd <- rep(1, length(data))
-  }
-
-  if("cex" %in% names(list(...))) {
-    cex <- list(...)$cex
-  } else {
-    cex <- 1
-  }
-
-  if("fun" %in% names(list(...))) {
-    fun <- list(...)$fun # nocov
-  } else {
-    fun <- FALSE
   }
 
   ## convert keywords into summary placement coordinates
@@ -604,7 +546,6 @@ plot_KDE <- function(
 
   ## optionally update ylim
   if(boxplot == TRUE) {
-
     ylim.plot[1] <- ylim.plot[1] - 1.4 * l_height
   }
 

@@ -324,27 +324,13 @@ plot_RLum.Data.Spectrum <- function(
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"RLum.Data.Spectrum"}
-
-  zlab <- if("zlab" %in% names(extraArgs)) {extraArgs$zlab} else
-  {ifelse(plot.type == "multiple.lines", ylab, zlab)}
-
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-  {xlab}
-
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {ifelse(plot.type == "single" | plot.type == "multiple.lines",
-          "Luminescence [cts/channel]", ylab)}
-
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {c(min(as.numeric(rownames(object@data))),
-     max(as.numeric(rownames(object@data))))}
-
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(min(as.numeric(colnames(object@data))),
-     max(as.numeric(colnames(object@data))))}
-
+  main <- extraArgs$main %||% "RLum.Data.Spectrum"
+  zlab <- extraArgs$zlab %||% ifelse(plot.type == "multiple.lines", ylab, zlab)
+  xlab <- extraArgs$xlab %||% xlab
+  ylab <- extraArgs$ylab %||% ifelse(plot.type %in% c("single", "multiple.lines"),
+                                     "Luminescence [cts/channel]", ylab)
+  xlim <- extraArgs$xlim %||% range(as.numeric(rownames(object@data)))
+  ylim <- extraArgs$ylim %||% range(as.numeric(colnames(object@data)))
   #for zlim see below
 
   mtext <- extraArgs$mtext %||% ""
@@ -883,9 +869,9 @@ if(plot){
 
     ## set colour rug
     col.rug <- col
-    col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {"black"}
-    box <- if("box" %in% names(extraArgs)) extraArgs$box[1] else TRUE
-    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
+    col <- extraArgs$col %||% "black"
+    box <- extraArgs$box[1] %||% TRUE
+    frames <- extraArgs$frames %||% 1:length(y)
 
     for(i in frames) {
       if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
@@ -958,9 +944,9 @@ if(plot){
     ## Plot: multiple.lines ----
     ## ========================================================================#
     col.rug <- col
-    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else  {"black"}
-    box <- if("box" %in% names(extraArgs)) extraArgs$box else TRUE
-    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
+    col <- extraArgs$col %||% "black"
+    box <- extraArgs$box[1] %||% TRUE
+    frames <- extraArgs$frames %||% 1:length(y)
 
     ##change graphic settings
     par.default <- par()[c("mfrow", "mar", "xpd")]

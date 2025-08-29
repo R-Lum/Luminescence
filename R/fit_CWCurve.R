@@ -227,18 +227,10 @@ fit_CWCurve<- function(
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"CW-OSL Curve Fit"}
-
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-  {"Time [s]"}
-
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {paste("OSL [cts/",round(max(x)/length(x), digits = 2)," s]",sep="")}
-
+  main <- extraArgs$main %||% "CW-OSL Curve Fit"
+  log <- extraArgs$log %||% ""
+  xlab <- extraArgs$xlab %||% "Time [s]"
+  ylab <- extraArgs$ylab %||% paste0("OSL [cts/", round(max(x) / length(x), digits = 2), " s]")
   method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
                                val = method_control)
 

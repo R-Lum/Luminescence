@@ -141,10 +141,7 @@ plot_Risoe.BINfileData<- function(
   ##temp.lab
   if(missing(temp.lab) == TRUE){temp.lab <- "\u00B0C"}
 
-
-  ##fun
-  extraArgs <- list(...) # read out additional arguments list
-  fun       <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
+  fun <- isTRUE(list(...)$fun)
 
   # Ordering --------------------------------------------------------------------
 

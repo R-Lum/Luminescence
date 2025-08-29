@@ -79,11 +79,7 @@ calc_HomogeneityTest <- function(
   extraArgs <- list(...)
 
   ## set plot main title
-  if("verbose" %in% names(extraArgs)) {
-    verbose<- extraArgs$verbose
-  } else {
-    verbose<- TRUE
-  }
+  verbose<- extraArgs$verbose %||% TRUE
 
   ##============================================================================##
   ## CALCULATIONS

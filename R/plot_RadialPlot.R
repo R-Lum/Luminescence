@@ -371,16 +371,6 @@ plot_RadialPlot <- function(
 
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
-  if("zlim" %in% names(extraArgs)) {
-    limits.z <- extraArgs$zlim
-  } else {
-    z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
-    z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(test = min(De.global) <= 0,
-                          yes = 1.1,
-                          no =  0.9) - z.span) * min(De.global),
-                  (1.1 + z.span) * max(De.global))
-  }
 
   ## calculate correction dose to shift non-positive values
   De.add <- 0
@@ -408,14 +398,11 @@ plot_RadialPlot <- function(
   }
 
   ## calculate major preliminary tick values and tick difference
-  if("zlim" %in% names(extraArgs)) {
-    limits.z <- extraArgs$zlim
-  } else {
+  limits.z <- extraArgs$zlim %||% {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
-                  (1.1 + z.span) * max(De.global))
-
+    c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
+      (1.1 + z.span) * max(De.global))
   }
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
@@ -504,10 +491,8 @@ plot_RadialPlot <- function(
 
   ## read out additional arguments---------------------------------------------
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-    {expression(paste(D[e], " distribution"))}
-
-  sub <- if("sub" %in% names(extraArgs)) {extraArgs$sub} else {""}
+  main <- extraArgs$main %||% expression(paste(D[e], " distribution"))
+  sub <- extraArgs$sub %||% ""
 
   if("xlab" %in% names(extraArgs)) {
     xlab <- extraArgs$xlab
@@ -521,81 +506,39 @@ plot_RadialPlot <- function(
       "Precision")
   }
 
-  ylab <- if("ylab" %in% names(extraArgs)) {
-    extraArgs$ylab
-    } else {
-      "Standardised estimate"
-    }
+  ylab <- extraArgs$ylab %||% "Standardised estimate"
+  zlab <- extraArgs$zlab %||% expression(paste(D[e], " [Gy]"))
 
-  zlab <- if("zlab" %in% names(extraArgs)) {
-    extraArgs$zlab
-    } else {
-      expression(paste(D[e], " [Gy]"))
-    }
-
-  if("zlim" %in% names(extraArgs)) {
-    limits.z <- extraArgs$zlim
-  } else {
+  limits.z <- extraArgs$zlim %||% {
     z.span <- (mean(data.global[,1]) * 0.5) / (sd(data.global[,1]) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
-                  (1.1 + z.span) * max(data.global[[1]]))
+    c((0.9 - z.span) * min(data.global[[1]]),
+      (1.1 + z.span) * max(data.global[[1]]))
   }
 
-  if("xlim" %in% names(extraArgs)) {
-    limits.x <- extraArgs$xlim
-  } else {
-    limits.x <- c(0, max(data.global[,6]))
-  }
-
+  limits.x <- extraArgs$xlim %||% c(0, max(data.global[,6]))
   if(limits.x[1] != 0) {
     limits.x[1] <- 0
     .throw_warning("Lower x-axis limit not set to zero, corrected")
   }
 
-  if("ylim" %in% names(extraArgs)) {
-    limits.y <- extraArgs$ylim
-  } else {
+  limits.y <- extraArgs$ylim %||% {
     y.span <- (mean(data.global[,1]) * 10) / (sd(data.global[,1]) * 100)
     y.span <- ifelse(y.span > 1, 0.98, y.span)
-    limits.y <- c(-(1 + y.span) * max(abs(data.global[,7])),
-                   (0.8 + y.span) * max(abs(data.global[,7])))
+    c(-(1 + y.span) * max(abs(data.global[, 7])),
+      (0.8 + y.span) * max(abs(data.global[, 7])))
   }
 
-  cex <- if("cex" %in% names(extraArgs)) {
-    .validate_length(extraArgs$cex, 1, name = "'cex'")
-    extraArgs$cex
-  } else {
-    1
-  }
-
-  lty <- if("lty" %in% names(extraArgs)) {
-    .validate_length(extraArgs$lty, length(data), name = "'lty'")
-    extraArgs$lty
-    } else {
-      rep(2, length(data))
-    }
-
-  lwd <- if("lwd" %in% names(extraArgs)) {
-    .validate_length(extraArgs$lwd, length(data), name = "'lwd'")
-    extraArgs$lwd
-    } else {
-      rep(1, length(data))
-    }
-
-  pch <- if("pch" %in% names(extraArgs)) {
-    .validate_length(extraArgs$pch, length(data), name = "'pch'")
-    extraArgs$pch
-    } else {
-      rep(1, length(data))
-    }
-
-  col <- if("col" %in% names(extraArgs)) {
-    .validate_length(extraArgs$col, length(data), name = "'col'")
-    extraArgs$col
-    } else {
-      1:length(data)
-    }
+  cex <- extraArgs$cex %||% 1
+  lty <- extraArgs$lty %||% rep(2, length(data))
+  lwd <- extraArgs$lwd %||% rep(1, length(data))
+  pch <- extraArgs$pch %||% rep(1, length(data))
+  col <- extraArgs$col %||% 1:length(data)
+  .validate_length(cex, 1)
+  .validate_length(lty, length(data))
+  .validate_length(lwd, length(data))
+  .validate_length(pch, length(data))
+  .validate_length(col, length(data))
 
   tck <- if("tck" %in% names(extraArgs)) {
     .validate_length(extraArgs$tck, length(data), name = "'tck'")
@@ -604,14 +547,9 @@ plot_RadialPlot <- function(
     NA
   }
 
-  tcl <- if("tcl" %in% names(extraArgs)) {
-    extraArgs$tcl
-  } else {
-    -0.5
-  }
-
-  show <- if("show" %in% names(extraArgs)) isTRUE(extraArgs$show) else TRUE
-  fun <- if ("fun" %in% names(extraArgs)) isTRUE(extraArgs$fun) else FALSE # nocov
+  tcl <- extraArgs$tcl %||% -0.5
+  show <- extraArgs$show %||% TRUE
+  fun <- isTRUE(extraArgs$fun)
 
   ## define auxiliary plot parameters -----------------------------------------
 

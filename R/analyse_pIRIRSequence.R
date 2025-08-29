@@ -280,10 +280,9 @@ analyse_pIRIRSequence <- function(
 
   ## Deal with extra arguments
   extraArgs <- list(...)
-  mtext.outer <- if ("mtext.outer" %in% names(extraArgs)) extraArgs$mtext.outer
-  main <- if ("main" %in% names(extraArgs)) extraArgs$main else "MEASUREMENT INFO"
-  log <- if ("log" %in% names(extraArgs)) extraArgs$log else ""
-  cex <- if ("cex" %in% names(extraArgs)) extraArgs$cex else 0.7
+  main <- extraArgs$main %||% "MEASUREMENT INFO"
+  log <- extraArgs$log %||% ""
+  cex <- extraArgs$cex %||% 0.7
 
   ## Enforce a minimum plot device size: this is necessary as otherwise users
   ## may experience "figure margins too large" errors when trying to draw all

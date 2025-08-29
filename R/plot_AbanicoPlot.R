@@ -645,17 +645,9 @@ plot_AbanicoPlot <- function(
                   (1.1 + z.span) * max(De.global))
   }
 
-  if("at" %in% names(extraArgs)) {
-    ticks <- extraArgs$at
-  } else {
-    ticks <- round(pretty(limits.z, n = 5), 3)
-  }
-
-  if("breaks" %in% names(extraArgs)) {
-    breaks <- extraArgs$breaks
-  } else {
-    breaks <- "Sturges"
-  }
+  ticks <- extraArgs$at %||% round(pretty(limits.z, n = 5), 3)
+  breaks <- extraArgs$breaks %||% "Sturges"
+  fun <- isTRUE(list(...)$fun)
 
   ## check/set bw-parameter
   for(i in 1:length(data)) {
@@ -666,12 +658,6 @@ plot_AbanicoPlot <- function(
       bw <- "nrd0"
       .throw_warning("Option for 'bw' not valid, reset to 'nrd0'")
     }
-  }
-
-  if ("fun" %in% names(extraArgs)) {
-    fun <- list(...)$fun # nocov
-  } else {
-    fun <- FALSE
   }
 
   ## check for negative values, stop function, but do not stop
@@ -825,17 +811,8 @@ plot_AbanicoPlot <- function(
   ## read out additional arguments---------------------------------------------
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {
-    extraArgs$main
-  } else {
-    expression(D[e] * " " * "distribution")
-  }
-
-  sub <- if("sub" %in% names(extraArgs)) {
-    extraArgs$sub
-  } else {
-    ""
-  }
+  main <- extraArgs$main %||% expression(D[e] * " " * "distribution")
+  sub <- extraArgs$sub %||% ""
 
   if("xlab" %in% names(extraArgs)) {
     if(length(extraArgs$xlab) != 2) {
@@ -855,17 +832,8 @@ plot_AbanicoPlot <- function(
     "Density")
   }
 
-  ylab <- if("ylab" %in% names(extraArgs)) {
-    extraArgs$ylab
-  } else {
-    "Standardised estimate"
-  }
-
-  zlab <- if("zlab" %in% names(extraArgs)) {
-    extraArgs$zlab
-  } else {
-    expression(D[e] * " " * "[Gy]")
-  }
+  ylab <-extraArgs$ylab %||% "Standardised estimate"
+  zlab <- extraArgs$zlab %||% expression(D[e] * " " * "[Gy]")
 
   if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
     limits.z <- extraArgs$zlim
@@ -898,29 +866,10 @@ plot_AbanicoPlot <- function(
                   (1 + y.span) * max(abs(data.global[,7])))
   }
 
-  cex <- if("cex" %in% names(extraArgs)) {
-    extraArgs$cex
-  } else {
-    1
-  }
-
-  lty <- if("lty" %in% names(extraArgs)) {
-    extraArgs$lty
-  } else {
-    rep(rep(2, length(data)), length(bar))
-  }
-
-  lwd <- if("lwd" %in% names(extraArgs)) {
-    extraArgs$lwd
-  } else {
-    rep(rep(1, length(data)), length(bar))
-  }
-
-  pch <- if("pch" %in% names(extraArgs)) {
-    extraArgs$pch
-  } else {
-    rep(20, length(data))
-  }
+  cex <- extraArgs$cex %||% 1
+  lty <- extraArgs$lty %||% rep(rep(2, length(data)), length(bar))
+  lwd <- extraArgs$lwd %||% rep(rep(1, length(data)), length(bar))
+  pch <- extraArgs$pch %||% rep(20, length(data))
 
   if("col" %in% names(extraArgs)) {
     bar.col <- extraArgs$col

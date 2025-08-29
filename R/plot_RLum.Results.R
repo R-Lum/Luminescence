@@ -82,30 +82,14 @@ plot_RLum.Results<- function(
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  ##main
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {""}
-  ##mtext
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
-  {""}
-  ##log
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-  ##lwd
-  lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
-  {1}
-  ##lty
-  lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
-  {1}
-  ##type
-  type <- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {"l"}
-  ##pch
-  pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
-  {1}
-  ##col
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
-  {"black"}
+  main <- extraArgs$main %||% ""
+  mtext <- extraArgs$mtext %||% ""
+  log <- extraArgs$log %||% ""
+  lwd <- extraArgs$lwd %||% 1
+  lty <- extraArgs$lty %||% 1
+  type <- extraArgs$type %||% "l"
+  pch <- extraArgs$pch %||% 1
+  col <- extraArgs$col %||% "black"
 
   ##============================================================================##
   ## PLOTTING
@@ -169,7 +153,6 @@ plot_RLum.Results<- function(
       })
     }
     par(mfrow=c(1,1))
-
 
     # })
 
@@ -456,7 +439,6 @@ plot_RLum.Results<- function(
              lwd=c(10,2,2,2),
              legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)","Profile likelihood", "Grain / aliquot"),
       )
-
     }##EndOf::Bootstrap_plotting
   }#EndOf::CASE1_MinimumAgeModel-3
 
@@ -510,16 +492,17 @@ plot_RLum.Results<- function(
     ##deal with addition arguments
     extraArgs <- list(...)
 
-    main <- if("main" %in% names(extraArgs)) {extraArgs$main} else {"Fuchs & Lang (2001)"}
-    xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else {expression(paste(D[e]," [s]"))}
-    ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else {"# Aliquots"}
-    sub <-  if("sub" %in% names(extraArgs)) {extraArgs$sub} else {""}
-    cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else {1}
-    lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else {1}
-    pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else {19}
-    ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else {c(1,length(object@data$data[,1])+3)}
-    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else {c(min(object@data$data[,1])-max(object@data$data[,2]), max(object@data$data[,1])+max(object@data$data[,2]))}
-    mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else {"unknown sample"}
+    main <- extraArgs$main %||% "Fuchs & Lang (2001)"
+    xlab <- extraArgs$xlab %||% expression(paste(D[e]," [s]"))
+    ylab <- extraArgs$ylab %||% "# Aliquots"
+    sub <-  extraArgs$sub %||% ""
+    cex <- extraArgs$cex %||% 1
+    lwd <- extraArgs$lwd %||% 1
+    pch <- extraArgs$pch %||% 19
+    ylim <- extraArgs$ylim %||% c(1, length(object@data$data[, 1]) + 3)
+    xlim <- extraArgs$xlim %||% c(min(object@data$data[, 1]) - max(object@data$data[, 2]),
+                                  max(object@data$data[, 1]) + max(object@data$data[, 2]))
+    mtext <- extraArgs$mtext %||% "unknown sample"
 
     # extract relevant plotting parameters
     o<- order(object@data$data[[1]])
@@ -545,7 +528,6 @@ plot_RLum.Results<- function(
              data_ordered[,1]+data_ordered[,2],1:length(data_ordered[,1]),
              col="gray")
 
-
     ##POINTS
     points(data_ordered[,1], counter,pch=pch)
 
@@ -558,7 +540,6 @@ plot_RLum.Results<- function(
       c(min(o)-0.5,max(o)+0.5),
       col="red",
       lty="dashed", lwd = lwd)
-
 
     #upper boundary
     lines(c(max(usedDeValues[,1]),max(usedDeValues[,1])),c(min(o)-0.5,max(o)+0.5),
@@ -596,8 +577,8 @@ plot_RLum.Results<- function(
     if(!is.null(object@data$MC$estimates)) {
       extraArgs <- list(...)
 
-      main <- if("main" %in% names(extraArgs)) { extraArgs$main } else { "Monte Carlo Simulation"  }
-      xlab <- if("xlab" %in% names(extraArgs)) { extraArgs$xlab } else { "Amount of grains on aliquot" }
+      main <- extraArgs$main %||% "Monte Carlo Simulation"
+      xlab <- extraArgs$xlab %||% "Amount of grains on aliquot"
 
       # extract relevant data
       MC.n<- object@data$MC$estimates
@@ -700,7 +681,6 @@ plot_RLum.Results<- function(
     ##modify list if something was set
     plot.settings <- modifyList(plot.settings, list(...))
 
-
     ##plot
     plot(
       df[,3], df[,1],
@@ -792,7 +772,6 @@ plot_RLum.Results<- function(
               curve(fit@data$data[[paste0("I0", i)]] * fit@data$data[[paste0("lambda", i)]] * exp(-fit@data$data[[paste0("lambda", i)]] * x),
                     lwd = 1, lty = 4, add = TRUE, col = col_components[i])
           }
-
         }
       }
     }
