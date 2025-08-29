@@ -140,7 +140,6 @@ plot_ViolinPlot <- function(
     density <-
       density(x = data,
               bw = ifelse("bw" %in% names(list(...)),list(...)$bw,"nrd0"))
-
   }else{
     density <- NULL
     .throw_warning("Single data point found, no density calculated")
@@ -153,7 +152,7 @@ plot_ViolinPlot <- function(
 
     ##at least show a warning for invalid keywords
     if(!all(summary %in% names(stat.summary[[1]]))){
-      .throw_warning("Only keywords for weighted statistical measures ",
+      .throw_warning("Only keywords for unweighted statistical measures ",
                      "are supported. Valid keywords are: ",
                      .collapse(names(stat.summary[[1]])))
     }
@@ -163,7 +162,6 @@ plot_ViolinPlot <- function(
 
     stat.text <- .create_StatisticalSummaryText(stat.summary, keywords = summary, sep = " \n ")
     stat.mtext <- .create_StatisticalSummaryText(stat.summary, keywords = summary, sep = " | ")
-
 
   # Plot settings -------------------------------------------------------------------------------
 

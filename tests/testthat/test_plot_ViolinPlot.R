@@ -27,7 +27,7 @@ test_that("input validation", {
   expect_warning(plot_ViolinPlot(df[1, ]),
                  "Single data point found, no density calculated")
   expect_warning(plot_ViolinPlot(df, summary = "error"),
-                 "Only keywords for weighted statistical measures are supported")
+                 "Only keywords for unweighted statistical measures are supported")
 
   ## missing values
   df.na <- df
