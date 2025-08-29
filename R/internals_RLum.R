@@ -479,9 +479,8 @@ fancy_scientific <- function(l) {
 #' the package. This should unify the approach how such things are created and support, theoretically
 #' all keywords for all plot functions in a similar way.
 #'
-#' @param x [data.frame] (*optional*): output from function `calc_Statistics()`.
-#' If nothing is provided, a list of prefix keyword combinations supported by
-#' `calc_Statistics()` is returned.
+#' @param summary [data.frame] (**required**):
+#' output from function `calc_Statistics()`.
 #'
 #' @param keywords[character] (*with default*): keywords supported by function
 #' `calc_Statistics()`.
@@ -503,52 +502,34 @@ fancy_scientific <- function(l) {
 #'
 #'@noRd
 .create_StatisticalSummaryText <- function(
-  x = NULL, #insert the output of calc_Statistics
+  summary,
   keywords = NULL,
   digits = 2, #allow for different digits
   sep = " \n ",
   prefix = "",
   suffix = ""
-){
-  ## Grep keyword information
-  summary <- x %||% calc_Statistics(data.frame(x = 1:2, y = 1:2))
-
-  #all allowed combinations
-  keywords_allowed <- unlist(lapply(names(summary), function(x){
-    paste0(x, "$", names(summary[[x]]))
-  }))
-
-  ##return if for x == NULL
-  if(is.null(x))
-    return(keywords_allowed)
-
-  ## Create call
-  #create list
+) {
+  ## loop over all keywords provided
   l <- lapply(keywords, function(k) {
-    ##strip keyword if necessary
-    if (grepl(pattern = "$",
-              x = k,
-              fixed = TRUE)[1]) {
-      strip <- strsplit(k, split = "$", fixed = TRUE)[[1]]
-      keywords_prefix <- strip[1]
-      k_strip <- strip[2]
-    } else{
-      keywords_prefix <- "unweighted"
-      k_strip <- k
-    }
-
-    ##construct string
-    if(!is.null(summary[[keywords_prefix]][[k_strip]])){
-      if(keywords_prefix == "unweighted"){
-        paste0(k_strip, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
-
-      }else{
-        paste0(k, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
-      }
-
-    }else{
+    if (nchar(k) == 0)
       return(NULL)
+
+    ## strip the prefix if necessary
+    keywords_prefix <- "unweighted"
+    k_strip <- unlist(strsplit(k, split = "$", fixed = TRUE))
+    if (length(k_strip) > 1) {
+      keywords_prefix <- k_strip[1]
+      k_strip <- k_strip[2]
     }
+
+    ## return early if the keyword cannot be found
+    value <- summary[[keywords_prefix]][[k_strip]]
+    if (is.null(value))
+      return(NULL)
+
+    ## construct string
+    paste(if (keywords_prefix == "unweighted") k_strip else k,
+          "=", round(value, digits))
   })
 
   ##remove NULL entries

@@ -133,7 +133,10 @@ test_that("Test internals", {
 
   # .create_StatisticalSummaryText() ------------------------------------------------------------
   stats <- calc_Statistics(data.frame(1:10,1:10))
-  expect_silent(Luminescence:::.create_StatisticalSummaryText())
+  expect_equal(Luminescence:::.create_StatisticalSummaryText(),
+               "")
+  expect_equal(.create_StatisticalSummaryText(stats, keywords = ""),
+               "")
   expect_equal(.create_StatisticalSummaryText(stats,
                                               keywords = "mean"),
                "mean = 5.5")

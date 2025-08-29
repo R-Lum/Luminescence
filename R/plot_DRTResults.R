@@ -374,7 +374,7 @@ plot_DRTResults <- function(
   if(summary.pos[1] != "sub") {
     label.text <- lapply(1:length(values), function(i) {
       .create_StatisticalSummaryText(
-        x = calc_Statistics(values[[i]]),
+        calc_Statistics(values[[i]]),
         keywords = summary,
         digits = 2,
         sep = " \n",
@@ -384,7 +384,7 @@ plot_DRTResults <- function(
   }else{
     label.text <- lapply(values, function(x) {
       .create_StatisticalSummaryText(
-        x = calc_Statistics(x),
+        calc_Statistics(x),
         keywords = summary,
         digits = 2,
         sep = " | "
