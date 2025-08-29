@@ -515,9 +515,7 @@ analyse_IRSAR.RF<- function(
     return(results)
   }
 
-
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
   .validate_class(sequence_structure, "character")
   .validate_not_empty(object)
@@ -531,6 +529,7 @@ analyse_IRSAR.RF<- function(
   .validate_class(RF_nat.lim, c("numeric", "integer"), null.ok = TRUE)
   .validate_class(RF_reg.lim, c("numeric", "integer"), null.ok = TRUE)
   method <- .validate_args(toupper(method), c("FIT", "SLIDE", "VSLIDE", "NONE"))
+  .validate_class(method_control, "list", null.ok = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   ##SELECT ONLY MEASURED CURVES
@@ -687,7 +686,6 @@ analyse_IRSAR.RF<- function(
 
   ##modify list if necessary
   if (!is.null(method_control)) {
-    .validate_class(method_control, "list")
 
     ##check whether this arguments are supported at all
     unsupported.idx <- which(!names(method_control) %in%

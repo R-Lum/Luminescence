@@ -26,7 +26,7 @@ test_that("input validation", {
   ## test input object failure for object_bg
   expect_error(
     object = remove_SignalBackground(object = xsyg[[1]], object_bg = "error"),
-    regexp = "'object_bg' should be of class 'RLum.Data.Curve', 'list', 'matrix', 'numeric' or 'integer'")
+    "'object_bg' should be of class 'RLum.Data.Curve', 'list', 'matrix', 'numeric', 'integer'")
 
   ## test input object failure for recordType
   expect_error(
