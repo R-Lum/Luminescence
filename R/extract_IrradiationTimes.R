@@ -295,10 +295,8 @@ extract_IrradiationTimes <- function(
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {
-      tmp <- suppressWarnings(get_RLum(x, info.object = c("startDate")))
-      if(is.null(tmp))
-        tmp <- as.character(Sys.Date())
-      tmp
+      suppressWarnings(get_RLum(x, info.object = c("startDate"))) %||%
+        as.character(Sys.Date())
     }, character(1))
 
     fmt <- "%Y%m%d%H%M%S"
@@ -337,12 +335,8 @@ extract_IrradiationTimes <- function(
 
     ##POSITION of each STEP
     POSITION <- vapply(temp.sequence, function(x){
-      tmp <- suppressWarnings(get_RLum(x, info.object = c("position")))
-
-      if(is.null(tmp))
-        tmp <- get_RLum(x, info.object = c("POSITION"))
-
-      tmp
+      suppressWarnings(get_RLum(x, info.object = c("position"))) %||%
+        get_RLum(x, info.object = c("POSITION"))
     }, numeric(1))
   }
 

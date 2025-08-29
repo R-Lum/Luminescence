@@ -332,11 +332,7 @@ plot_RLum.Analysis <- function(
         }
 
         ##main
-        main <- if (is.null(plot.settings$main[[i]])) {
-          temp[[i]]@recordType
-        } else{
-          plot.settings$main[[i]]
-        }
+        main <- plot.settings$main[[i]] %||% temp[[i]]@recordType
 
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##PLOT
@@ -349,11 +345,7 @@ plot_RLum.Analysis <- function(
             list(
               object = temp[[i]],
               col = col,
-              mtext = if (!is.null(plot.settings$mtext[[i]])) {
-                plot.settings$mtext[[i]]
-              } else{
-                paste("#", i, sep = "")
-              },
+              mtext = plot.settings$mtext[[i]] %||% paste("#", i, sep = ""),
               par.local = FALSE,
               main = main,
               log = plot.settings$log[[i]],
@@ -388,9 +380,9 @@ plot_RLum.Analysis <- function(
 
         do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
             object = temp[[i]],
-            mtext =  if(!is.null(plot.settings$mtext[[i]])) plot.settings$mtext[[i]] else paste("#", i, sep = ""),
+            mtext = plot.settings$mtext[[i]] %||% paste("#", i, sep = ""),
             par.local = FALSE,
-            main = if(!is.null(plot.settings$main)) plot.settings$main else temp[[i]]@recordType
+            main = plot.settings$main %||% temp[[i]]@recordType
         ), args))
       }
 
@@ -482,11 +474,7 @@ plot_RLum.Analysis <- function(
 
       ##set plot parameters
       ##main
-      main <- if (!is.null(plot.settings$main[[k]])) {
-        plot.settings$main[[k]]
-      } else{
-        paste0(temp.recordType[[k]], " combined")
-      }
+      main <- plot.settings$main[[k]] %||% paste0(temp.recordType[[k]], " combined")
 
       ##xlab
       xlab <- if(!is.null(plot.settings$xlab[[k]])){
@@ -499,11 +487,7 @@ plot_RLum.Analysis <- function(
       }
 
       ##ylab
-      ylab <- if(!is.null(plot.settings$ylab[[k]])){
-        plot.settings$ylab[[k]]
-      }else{
-        paste0(temp.recordType[[k]], " [a.u.]")
-      }
+      ylab <- plot.settings$ylab[[k]] %||% paste0(temp.recordType[[k]], " [a.u.]")
 
       ##xlim
       xlim <- if (!is.null(plot.settings$xlim[[k]]) & length(plot.settings$xlim[[k]]) >1) {
@@ -554,7 +538,6 @@ plot_RLum.Analysis <- function(
       ##legend.text
       legend.text <- if(!is.null(plot.settings$legend.text[[k]])){
         plot.settings$legend.text[[k]]
-
       }else{
         if(!is.null(records_max) && records_max[1] > 2) {
           paste("Curve", records_show)
@@ -567,12 +550,7 @@ plot_RLum.Analysis <- function(
       legend.col <- plot.settings$legend.col[[k]]
 
       ##legend.pos
-      legend.pos <- if(!is.null(plot.settings$legend.pos[[k]])){
-        plot.settings$legend.pos[[k]]
-
-      }else{
-        "topright"
-      }
+      legend.pos <- plot.settings$legend.pos[[k]] %||% "topright"
 
       if (legend.pos == "outside") {
         par.default.outside <- par()[c("mar", "xpd")]
@@ -664,11 +642,7 @@ plot_RLum.Analysis <- function(
           legend = legend.text,
           lwd = plot.settings$lwd[[k]],
           lty = plot.settings$lty[[k]],
-          col = if (is.null(legend.col)) {
-            col[1:length(object.list)]
-          } else{
-            legend.col
-          },
+          col = legend.col %||% col[1:length(object.list)],
           bty = "n",
           xpd = legend.pos == "outside",
           cex = 0.8

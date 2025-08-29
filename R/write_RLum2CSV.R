@@ -199,8 +199,7 @@ write_RLum2CSV <- function(
 
   } else if (inherits(object, "data.frame")) {
     object_list <- list(object)
-    if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  filename <- ""
-
+    filename <- attr(object, "filename") %||% ""
     names(object_list) <- paste0("conv_", attr(object, "list_name"), filename)
   }
 

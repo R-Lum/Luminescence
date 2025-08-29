@@ -160,7 +160,7 @@ plot_settings <- modifyList(x = list(
         x = image,
         useRaster = plot_settings$useRaster,
         axes = FALSE,
-        zlim = if(is.null(plot_settings$zlim_image)) range(image) else plot_settings$zlim_image,
+        zlim = plot_settings$zlim_image %||% range(image),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
         main = paste0(plot_settings$main, " #",i),
@@ -199,22 +199,16 @@ plot_settings <- modifyList(x = list(
         text(
           x = par()$usr[4] * 1.04,
           y = par()$usr[2],
-          labels = if(is.null(plot_settings$zlim_image)) {
-            format(max(x), digits = 1, scientific = TRUE)
-            } else {
-            format(plot_settings$zlim_image[2], digits = 1, scientific = TRUE)
-            },
+          labels = format(plot_settings$zlim_image[2] %||% max(x),
+                          digits = 1, scientific = TRUE),
           cex = 0.7,
           srt = 270,
           pos = 3)
         text(
           x = par()$usr[4] * 1.04,
           y = par()$usr[3],
-          labels = if(is.null(plot_settings$zlim_image)) {
-            format(min(x), digits = 1, scientific = TRUE)
-          } else {
-            format(plot_settings$zlim_image[1], digits = 1, scientific = TRUE)
-          },
+          labels = format(plot_settings$zlim_image[1] %||% min(x),
+                          digits = 1, scientific = TRUE),
           cex = 0.7,
           pos = 3,
           srt = 270)
@@ -227,7 +221,7 @@ plot_settings <- modifyList(x = list(
       graphics::contour(
         x = x[,,1],
         axes = FALSE,
-        zlim = if(is.null(plot_settings$zlim_image)) range(x) else plot_settings$zlim_image,
+        zlim = plot_settings$zlim_image %||% range(x),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
         main = paste0(plot_settings$main, " #",i),

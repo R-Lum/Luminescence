@@ -320,8 +320,8 @@ calc_Lamothe2003 <- function(
         data = data.frame(
           g_value = g_value[1],
           g_value.ERROR = g_value[2],
-          tc = ifelse(is.null(tc), NA, tc),
-          tc.g_value = ifelse(is.null(tc.g_value), NA, tc.g_value),
+          tc = tc %||% NA,
+          tc.g_value = tc.g_value %||% NA,
           FADING_C = Fading_C,
           FADING_C.ERROR = sFading_C,
           LnTn_BEFORE = LnTn_BEFORE,

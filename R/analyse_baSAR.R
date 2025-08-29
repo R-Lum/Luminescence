@@ -460,18 +460,10 @@ analyse_baSAR <- function(
       upper_centralD <- method_control[["upper_centralD"]]
 
       ##number of MCMC
-      n.chains <-  if (is.null(method_control[["n.chains"]])) {
-        3
-      } else{
-        method_control[["n.chains"]]
-      }
+      n.chains <- method_control[["n.chains"]] %||% 3
 
       ##inits
-      inits <-  if (is.null(method_control[["inits"]])) {
-        NULL
-      } else{
-        method_control[["inits"]]
-      }
+      inits <- method_control[["inits"]]
 
       ##thin
       thin <-  if (is.null(method_control[["thin"]])) {
@@ -727,7 +719,7 @@ analyse_baSAR <- function(
         N.CHAINS = n.chains,
         N.MCMC = n.MCMC,
         FIT_METHOD = fit.method,
-        CENTRAL = if(is.null(gm)){output.mean[1,1]}else{gm},
+        CENTRAL = gm %||% output.mean[1, 1],
         CENTRAL.SD = output.mean[1,2],
         SIGMA = output.mean[2,1],
         SIGMA.SD = output.mean[2,2],
@@ -767,9 +759,7 @@ analyse_baSAR <- function(
   .validate_positive_scalar(n.MCMC, int = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
   distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
-                                      null.ok = TRUE)
-  if (is.null(distribution_plot))
-    distribution_plot <- ""
+                                      null.ok = TRUE) %||% ""
 
   #capture additional piped arguments
   additional_arguments <- list(
@@ -1460,14 +1450,10 @@ analyse_baSAR <- function(
       )
 
       ##add integration limits depending on the choosen value
-      abline(v = if (!is.null(signal.integral.Tx[[k]]))
-                   range(signal.integral.Tx[[k]])
-                 else
-                   range(signal.integral[[k]]), lty = 2, col = "green")
-      abline(v = if (!is.null(background.integral.Tx[[k]]))
-                   range(background.integral.Tx[[k]])
-                 else
-                   range(background.integral[[k]]), lty = 2, col = "red")
+      abline(v = range(signal.integral.Tx[[k]] %||% signal.integral[[k]]),
+             lty = 2, col = "green")
+      abline(v = range(background.integral.Tx[[k]] %||% background.integral[[k]]),
+             lty = 2, col = "red")
 
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
 

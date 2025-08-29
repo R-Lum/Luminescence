@@ -608,7 +608,7 @@ report_RLum <- function(
           .dimension(x), "\n"), sep = "|")
 
     if (length(x) > 0) {
-      element <- if (!is.null(names(x))) names(x) else paste0("[[", seq_along(x), "]]")
+      element <- names(x) %||% paste0("[[", seq_along(x), "]]")
 
       for (i in 1:length(x)) {
         if (grepl(" ", element[i]))

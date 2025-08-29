@@ -252,10 +252,7 @@ analyse_SAR.TL <- function(
     rm(LxTxRatio)
 
     ##grep dose
-    temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
-    if (is.null(temp.Dose)) {
-      temp.Dose <- NA
-    }
+    temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME %||% NA
 
     ## append row to the data.frame
     LnLxTnTx <- rbind(LnLxTnTx, cbind(Dose = temp.Dose, temp.LnLxTnTx))
@@ -621,14 +618,11 @@ analyse_SAR.TL <- function(
   ## 2. or with a soft error by returning NULL, in which case we set
   ##    temp.GC to NA and continue (this can be done after the call to
   ##    get_RLum(), as it deals well with NULLs)
-  temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
-  if (is.null(temp.GC))
-    temp.GC <- NA
+  temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")] %||% NA
 
   ##add rejection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
     temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
-
   }else{
     temp.GC <- data.frame(temp.GC, RC.Status="OK")
   }

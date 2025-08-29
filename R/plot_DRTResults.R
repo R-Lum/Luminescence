@@ -230,9 +230,7 @@ plot_DRTResults <- function(
     .validate_class(values[[i]], c("data.frame", "RLum.Results"),
                     name = "'values'")
     if (inherits(values[[i]], "RLum.Results")) {
-      val <- get_RLum(values[[i]])[, 1:2]
-      if (is.null(val))
-        val <- NA
+      val <- get_RLum(values[[i]])[, 1:2] %||% NA
       values[[i]] <- val
     } else if (ncol(values[[i]]) < 2) {
       .throw_error("'values' should have 2 columns")

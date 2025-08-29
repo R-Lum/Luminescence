@@ -200,13 +200,8 @@ analyse_portableOSL <- function(
   .validate_logical_scalar(plot)
 
   ## set SAMPLE --------
-  if("run" %in% names(list(...)))
-    run <- list(...)$run
-  else if (!is.null(object@info$Run_Name))
-    run <- object@info$Run_Name
-  else
-    run <- "Run #1"
-
+  run <- if ("run" %in% ...names()) list(...)$run
+         else object@info$Run_Name %||% "Run #1"
 
   ## CALCULATIONS ----
   ## Note: the list ... unlist construction is used make sure that get_RLum() always

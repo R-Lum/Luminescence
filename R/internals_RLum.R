@@ -511,11 +511,7 @@ fancy_scientific <- function(l) {
   suffix = ""
 ){
   ## Grep keyword information
-  if (is.null(x)) {
-    summary <- calc_Statistics(data.frame(x = 1:2, y = 1:2))
-  } else {
-    summary <- x
-  }
+  summary <- x %||% calc_Statistics(data.frame(x = 1:2, y = 1:2))
 
   #all allowed combinations
   keywords_allowed <- unlist(lapply(names(summary), function(x){

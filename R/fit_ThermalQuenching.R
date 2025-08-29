@@ -228,9 +228,7 @@ fit_ThermalQuenching <- function(
     ),
     val = method_control)
 
-  weights <- method_control$weights
-  if (is.null(weights))
-    weights <- rep(1, nrow(data))
+  weights <- method_control$weights %||% rep(1, nrow(data))
 
   # Fitting -------------------------------------------------------------------------------------
   ##guine fitting

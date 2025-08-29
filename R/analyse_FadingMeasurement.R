@@ -445,18 +445,10 @@ analyse_FadingMeasurement <- function(
         signal.integral.Tx = list(...)$signal.integral.Tx,
         background.integral.Tx = list(...)$background.integral.Tx,
         sigmab = list(...)$sigmab,
-        sig0 = if(
-          is.null(list(...)$sig0)){
-          formals(calc_OSLLxTxRatio)$sig0
-        }else{
-          list(...)$sig0
-        },
-        background.count.distribution = if(
-          is.null(list(...)$background.count.distribution)){
-          formals(calc_OSLLxTxRatio)$background.count.distribution
-        }else{
-          list(...)$background.count.distribution
-        }
+        sig0 = list(...)$sig0 %||% formals(calc_OSLLxTxRatio)$sig0,
+        background.count.distribution =
+          list(...)$background.count.distribution %||%
+                   formals(calc_OSLLxTxRatio)$background.count.distribution
       )
     })))$LxTx.table
   }
