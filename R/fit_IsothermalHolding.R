@@ -256,7 +256,7 @@ fit_IsothermalHolding <- function(
           }
 
           if (inherits(t, "try-error"))
-            return(NULL)
+            return(NULL) # nocov
           return(t)
         })
 
