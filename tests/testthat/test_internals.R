@@ -137,6 +137,8 @@ test_that("Test internals", {
                "")
   expect_equal(.create_StatisticalSummaryText(stats, keywords = ""),
                "")
+  expect_equal(.create_StatisticalSummaryText(stats, keywords = "nonexisting"),
+               "")
   expect_equal(.create_StatisticalSummaryText(stats,
                                               keywords = "mean"),
                "mean = 5.5")
