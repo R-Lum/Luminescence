@@ -56,9 +56,8 @@ merge_RLum.Results <- function(
 
               ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++
               ##numeric vector or data.frame or matrix
-              if(is(objects[[1]]@data[[i]], "data.frame")||
-                 is(objects[[1]]@data[[i]], "numeric") ||
-                 is(objects[[1]]@data[[i]], "matrix")){
+              if (inherits(objects[[1]]@data[[i]],
+                           c("data.frame", "numeric", "matrix"))) {
 
                 ##grep elements and combine them into a list
                 temp.list <- lapply(objects, function(x) x@data[[i]])
@@ -68,10 +67,10 @@ merge_RLum.Results <- function(
                   .throw_error("Objects cannot be merged, different number of columns")
 
                 ##combine them using rbind or data.table::rbindList (depends on the data type)
-                if(is(objects[[1]]@data[[i]], "numeric")){
+                if (inherits(objects[[1]]@data[[i]], "numeric")) {
                   objects[[1]]@data[[i]] <- unlist(temp.list)
 
-                }else if(is(objects[[1]]@data[[i]], "matrix")){
+                } else if (inherits(objects[[1]]@data[[i]], "matrix")) {
                   objects[[1]]@data[[i]] <- do.call("rbind", temp.list)
 
                 }else{
@@ -103,7 +102,7 @@ merge_RLum.Results <- function(
                 objects[[1]]@data[[i]] <- lapply(objects, function(x) x@data[[i]])
 
                 ##unlist to flatten list if necessary for the elements
-                if(is(objects[[1]]@data[[i]][[1]])[1] == "list"){
+                if (inherits(objects[[1]]@data[[i]][[1]], "list")) {
                   objects[[1]]@data[[i]] <- unlist(objects[[1]]@data[[i]],
                                                        recursive = FALSE)
                 }

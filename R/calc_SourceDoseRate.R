@@ -146,12 +146,12 @@ calc_SourceDoseRate <- function(
   .validate_class(measurement.date, c("Date", "character"))
   .validate_class(calib.date, c("Date", "character"))
 
-  if (is(measurement.date, "character")) {
+  if (is.character(measurement.date)) {
         measurement.date <- as.Date(measurement.date)
       }
 
   ##calibration date
-  if(is(calib.date, "character")) {
+  if (is.character(calib.date)) {
     calib.date <- as.Date(calib.date)
   }
 

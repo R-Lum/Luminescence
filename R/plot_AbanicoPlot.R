@@ -475,7 +475,7 @@ plot_AbanicoPlot <- function(
   ## Integrity checks -------------------------------------------------------
 
   ## Homogenise input data format
-  if(is(data, "list") == FALSE) {
+  if (!inherits(data, "list")) {
     data <- list(data)
   }
 
@@ -1448,7 +1448,7 @@ plot_AbanicoPlot <- function(
     ## check if line parameters are RLum.Results objects
     if (is.list(line)) {
       for (i in seq_along(line)) {
-        if (is(line[[i]], "RLum.Results")) {
+        if (inherits(line[[i]], "RLum.Results")) {
           line[[i]] <- as.numeric(get_RLum(line[[i]], data.object = "summary")$de)
         }
       }

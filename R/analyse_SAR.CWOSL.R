@@ -403,7 +403,7 @@ error.list <- list()
       }
 
     ##INTEGRAL LIMITS
-    if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
+    if (!is.integer(signal.integral) || !is.integer(background.integral)) {
       .throw_error("'signal.integral' or 'background.integral' is not of type integer")
     }
   }

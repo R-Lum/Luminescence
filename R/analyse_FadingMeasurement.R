@@ -210,7 +210,7 @@ analyse_FadingMeasurement <- function(
   .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
 
-  if (is(object, "list")) {
+  if (inherits(object, "list")) {
     wrong.class <- sapply(object, class) != "RLum.Analysis"
     if (any(wrong.class)) {
       .throw_warning(sum(wrong.class), " unsupported records removed")
@@ -247,7 +247,7 @@ analyse_FadingMeasurement <- function(
     object <- NULL
   }
 
-  if (!is(t_star, "function")) {
+  if (!inherits(t_star, "function")) {
     t_star <- .validate_args(t_star, c("half", "half_complex", "end"),
                              extra = "a function")
   }
@@ -365,7 +365,7 @@ analyse_FadingMeasurement <- function(
     t2 <- TIMESINCEIRR + irradiation_times
 
     ## set t_star ----
-    if(is(t_star, "function")){
+    if (inherits(t_star, "function")) {
       t_star <- t_star(t1)
 
     } else {

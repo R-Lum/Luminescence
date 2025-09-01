@@ -254,7 +254,7 @@ read_XSYG2R <- function(
     }
   }
 
-  if (is(file, "list")) {
+  if (inherits(file, "list")) {
     temp.return <- lapply(seq_along(file), function(x) {
       read_XSYG2R(
         file = file[[x]],

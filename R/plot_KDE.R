@@ -173,12 +173,12 @@ plot_KDE <- function(
 
   ## Integrity checks -------------------------------------------------------
 
-  if (is(data, "list") && length(data) == 0) {
+  if (inherits(data, "list") && length(data) == 0) {
     .throw_error("'data' is an empty list")
   }
 
   ## Homogenise input data format
-  if(is(data, "list") == FALSE) {
+  if (!inherits(data, "list")) {
     data <- list(data)
   }
 

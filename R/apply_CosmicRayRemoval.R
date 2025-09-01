@@ -169,7 +169,6 @@ apply_CosmicRayRemoval <- function(
       if(!is.null(record_id.spectra)){
         o@records[record_id.spectra] <- results
         return(o)
-
       }else{
         return(results)
       }
@@ -178,7 +177,6 @@ apply_CosmicRayRemoval <- function(
     ##final return, make sure that we return what we had as input
     if(!is.null(class_original)){
       return(results_list[[1]])
-
     }else{
       return(results_list)
     }
@@ -367,15 +365,15 @@ apply_CosmicRayRemoval <- function(
           sum(temp.hist$counts[temp.hist.thres:length(temp.hist$counts)]),
           silent = TRUE)
 
-        if(is(sum.corrected.channels)[1] == "try-error"){sum.corrected.channels <- 0}
+        if (inherits(sum.corrected.channels, "try-error"))
+          sum.corrected.channels <- 0
 
-        cat("[apply_CosmicRayRemoval()] >> ")
-        cat(paste(sum.corrected.channels, " channels corrected in frame ", x, "\n", sep = ""))
+        .throw_message(">> ", sum.corrected.channels,
+                       " channels corrected in frame ", x, "\n", error = FALSE)
       }
 
       ##return object
       return(object.data.temp[,x])
-
     })#end loop
   }
 

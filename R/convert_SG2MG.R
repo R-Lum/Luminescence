@@ -45,7 +45,7 @@ convert_SG2MG <- function(
   .validate_class(object, c("character", "Risoe.BINfileData"))
   .validate_not_empty(object)
 
-  if(!is(object, "Risoe.BINfileData")) {
+  if (!inherits(object, "Risoe.BINfileData")) {
     file_name <- object
     object <- read_BIN2R(object, ...)
   }

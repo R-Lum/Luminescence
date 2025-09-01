@@ -189,7 +189,7 @@ setMethod(
     ##The case where an RLum.Data.Spectrum object can be provided
     ##with this RLum.Data.Spectrum objects can be provided to be reconstructed
 
-    if (is(data, "RLum.Data.Spectrum")) {
+    if (inherits(data, "RLum.Data.Spectrum")) {
       ##check for missing curveType
       if (missing(curveType))
         curveType <- data@curveType
@@ -197,7 +197,6 @@ setMethod(
       ##check for missing recordType
       if (missing(recordType))
         recordType <- data@recordType
-
 
       ##check for missing data ... not possible as data is the object itself
 

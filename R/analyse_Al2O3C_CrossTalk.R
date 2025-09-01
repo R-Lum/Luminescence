@@ -151,8 +151,8 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##check irradiation time correction
   if (!is.null(irradiation_time_correction)) {
-    if (is(irradiation_time_correction, "RLum.Results")) {
-      if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
+    if (inherits(irradiation_time_correction, "RLum.Results")) {
+      if (irradiation_time_correction@originator %in% "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
         ##insert case for more than one observation ...

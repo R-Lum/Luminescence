@@ -112,21 +112,15 @@ convert_CW2pLM <- function(
   # Return values -----------------------------------------------------------
 
   ##returns the same data type as the input
+  if (is.data.frame(values)) {
+    return(temp.values)
+  }
 
-  if(is(values, "data.frame") == TRUE){
-
-    values <- temp.values
-    return(values)
-
-  }else{
-
-    newRLumDataCurves.CW2pLM <- set_RLum(
+  set_RLum(
       class = "RLum.Data.Curve",
       recordType = values@recordType,
-                                                    data = as.matrix(temp.values),
-                                                    info = values@info)
-    return(newRLumDataCurves.CW2pLM)
-  }
+      data = as.matrix(temp.values),
+      info = values@info)
 }
 
 #' @rdname convert_CW2pLM

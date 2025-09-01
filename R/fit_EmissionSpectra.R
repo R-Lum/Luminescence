@@ -489,7 +489,7 @@ fit_EmissionSpectra <- function(
 
   ## Extract values of components -------------------------------------------
   m_coef <- NA
-  if(!is.na(fit[1]) && is(fit, "nls")){
+  if (!is.na(fit[1]) && inherits(fit, "nls")) {
     ##extract values we need only
     m_coef <- summary(fit)$coefficients
     m_coef <- matrix(

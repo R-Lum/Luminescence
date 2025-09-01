@@ -30,7 +30,13 @@ test_that("check function", {
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 2, k = 10000))
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", k = 10))
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth", MARGIN = 1))
-  expect_output(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych", MARGIN = 2, verbose = TRUE, plot = TRUE))
+  SW({
+  expect_message(expect_message(
+      apply_CosmicRayRemoval(TL.Spectrum, method = "Pych", MARGIN = 2,
+                             verbose = TRUE, plot = TRUE),
+      "1024 channels corrected in frame 4"),
+      "0 channels corrected in frame 24")
+  })
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",
                                        method.Pych.smoothing = 2, method.Pych.threshold_factor = 2))
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth.spline",

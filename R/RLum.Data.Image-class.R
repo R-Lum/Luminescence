@@ -208,7 +208,7 @@ setMethod(
 
     ##The case where an RLum.Data.Image object can be provided
     ##with this RLum.Data.Image objects can be provided to be reconstructed
-    if (is(data, "RLum.Data.Image")) {
+    if (inherits(data, "RLum.Data.Image")) {
       ##check for missing curveType
       if (missing(curveType))
         curveType <- data@curveType

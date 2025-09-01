@@ -513,9 +513,8 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 #' @rdname methods_RLum
 #' @export
 `[.RLum.Analysis` <- function(x, i, drop = FALSE) {
-  if (is(i, "character")) {
+  if (is.character(i)) {
     get_RLum(x, recordType = i, drop = drop)
-
   } else{
     get_RLum(x, record.id = i, drop = drop)
   }
@@ -541,12 +540,10 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 #' @rdname methods_RLum
 #' @export
 `[[.RLum.Analysis` <- function(x, i) {
-  if (is(i, "character")) {
+  if (is.character(i)) {
     get_RLum(x, recordType = i)
-
   } else{
     get_RLum(x, record.id = i)
-
   }
 }
 

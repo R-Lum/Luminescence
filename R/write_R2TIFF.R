@@ -46,7 +46,7 @@ write_R2TIFF <- function(
   .require_suggested_package("tiff", "Exporting objects to TIFF files")
 
   ## make a list ... it is just easier
-  if(!is(object, "list"))
+  if (!inherits(object, "list"))
     object <- list(object)
 
   ## check list input
@@ -102,4 +102,3 @@ write_R2TIFF <- function(
 
   }
 }
-

@@ -345,7 +345,7 @@ calc_MinDose <- function(
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   .validate_not_empty(data)
-  if (is(data, "RLum.Results")) {
+  if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
   if (ncol(data) < 2) {

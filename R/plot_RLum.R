@@ -108,7 +108,7 @@ plot_RLum <- function(
 
       ##set also mtext, but in a different way
       if(!"mtext" %in% names(list(...))){
-        if(is(object[[1]], "RLum.Analysis")){
+        if (inherits(object[[1]], "RLum.Analysis")) {
           mtext <- paste("Record:", 1:length(object))
 
         }else{
@@ -130,4 +130,3 @@ plot_RLum <- function(
     RLum.dispatcher(object = object, ...)
   }
 }
-

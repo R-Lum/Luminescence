@@ -569,7 +569,7 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
   class(class) <- as.character(class)
 
   if (missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "language")) {
+    if (is.language(sys.call(which = -1)[[1]])) {
       originator <- as.character(sys.call(which = -1)[[1]])
 
       ## account for calls using the double colons, in this case the vector

@@ -333,25 +333,20 @@ convert_CW2pHMi<- function(
   # (5) Return values ---------------------------------------------------------
 
   ##returns the same data type as the input
-  if(is(values, "data.frame") == TRUE){
-
-    values <- temp.values
-    return(values)
-
-  }else{
+  if (is.data.frame(values)) {
+    return(temp.values)
+  }
 
     ##add old info elements to new info elements
     temp.info <- c(values@info,
                    CW2pHMi.x.t = list(temp.values$x.t),
                    CW2pHMi.method = list(temp.values$method))
 
-    newRLumDataCurves.CW2pHMi <- set_RLum(
+  set_RLum(
       class = "RLum.Data.Curve",
       recordType = values@recordType,
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
-    return(newRLumDataCurves.CW2pHMi)
-  }
 }
 
 #' @rdname convert_CW2pHMi

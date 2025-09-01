@@ -148,7 +148,7 @@ setMethod("show",
                 ##create terminal output
                 terminal_output <-
                   vapply(1:length(object@records),  function(i) {
-                    if (x == is(object@records[[i]])[1]) {
+                    if (inherits(object@records[[i]], x)) {
                       if (i %% temp.width == 0 & i != length(object@records)) {
                         assign(x = "linebreak", value = TRUE, envir = env)
                       }
@@ -460,7 +460,7 @@ setMethod("get_RLum",
 
               ##select curves according to the chosen parameter
               temp <- lapply(record.id, function(x) {
-                  if (is(object@records[[x]])[1] %in% RLum.type) {
+                  if (inherits(object@records[[x]], RLum.type)) {
                     ## translate input to regular expression and remove ^ $
                     recordType <- glob2rx(recordType)
                     recordType <- substr(recordType,

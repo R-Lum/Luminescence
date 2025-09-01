@@ -304,7 +304,8 @@ plot_RadialPlot <- function(
   }
 
   ## Homogenise input data format
-  if(is(data, "list") == FALSE) {data <- list(data)}
+  if (!inherits(data, "list"))
+      data <- list(data)
 
   ## Check input data
   for(i in 1:length(data)) {
@@ -352,7 +353,7 @@ plot_RadialPlot <- function(
   }
 
   ## check z-axis log-option for grouped data sets
-  if (is(data, "list") && length(data) > 1 && log.z == FALSE) {
+  if (inherits(data, "list") && length(data) > 1 && log.z == FALSE) {
     .throw_warning("Option 'log.z' is not set to 'TRUE' altough ",
                    "more than one data set (group) is provided.")
   }

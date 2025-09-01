@@ -74,7 +74,7 @@ read_Daybreak2R <- function(
   .validate_class(file, c("character", "list"))
   .validate_logical_scalar(verbose)
 
-  if(is(file, "character")) {
+  if (is.character(file)) {
     .validate_length(file, 1)
 
     ##If this is not really a path we skip this here
@@ -91,7 +91,7 @@ read_Daybreak2R <- function(
   }
 
   ##if the input is already a list
-  if (is(file, "list")) {
+  if (inherits(file, "list")) {
     temp.return <- lapply(seq_along(file), function(x) {
       read_Daybreak2R(
         file = file[[x]],
