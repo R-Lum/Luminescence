@@ -526,8 +526,7 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ##check for zlim
-  zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
-  {range(temp.xyz)}
+  zlim <- extraArgs$zlim %||% range(temp.xyz)
 
   # set colour values --------------------------------------------------------
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
@@ -821,10 +820,7 @@ if(plot){
     n_breaks <- plot_settings$n_breaks
 
     ## get colours
-    col <- if(is.null(extraArgs$col))
-      grDevices::hcl.colors(n_breaks, palette = "Inferno")
-    else
-      extraArgs$col
+    col <- extraArgs$col %||% grDevices::hcl.colors(n_breaks, palette = "Inferno")
 
     ## set break vector
     breaks <- seq(min(temp.xyz), max(temp.xyz), length.out = length(col) + 1)
@@ -839,9 +835,9 @@ if(plot){
       col = col
     )
 
-    if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
+    if (isTRUE(extraArgs$contour)) {
       graphics::contour(x, y, temp.xyz,
-              col = if(is.null(extraArgs$contour.col)) rgb(1,1,1,0.8) else extraArgs$contour.col,
+              col = extraArgs$contour.col %||% rgb(1, 1, 1, 0.8),
               labcex = labcex * cex,
               add = TRUE)
     }

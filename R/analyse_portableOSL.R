@@ -418,10 +418,7 @@ analyse_portableOSL <- function(
          ## add background image if available -------
          if (!is.null(plot_settings$bg_img)) {
            ## get corner positions
-           positions <- plot_settings$bg_img_positions[1:4]
-           if (is.null(positions))
-             positions <- par()$usr
-
+           positions <- plot_settings$bg_img_positions[1:4] %||% par()$usr
            graphics::rasterImage(
              image = plot_settings$bg_img,
              xleft = positions[1],

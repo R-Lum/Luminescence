@@ -866,14 +866,12 @@ analyse_FadingMeasurement <- function(
           xaxt = "n",
           xlab = "Time since irradition [s]",
           sub = expression(paste("[", log[10](t / t[c]), "]")),
-          ylim = if(is.null(plot_settings$ylim)){
+          ylim = plot_settings$ylim %||% {
             if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
               c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
             } else {
               c(0.1, 1.1)
             }
-          } else {
-            plot_settings$ylim
           },
           xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
           main = "Signal Fading"
