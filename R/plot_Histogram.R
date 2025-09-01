@@ -298,7 +298,7 @@ plot_Histogram <- function(
     De.stats[i,18] <- statistics$weighted$se.rel
 
     ##kdemax - here a little doubled as it appears below again
-    De.denisty <- NA
+    De.density <- NA
     De.stats[i,6] <- NA
     if(nrow(data) >= 2){
       De.density <-density(x = data[,1],
