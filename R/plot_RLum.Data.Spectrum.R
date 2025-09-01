@@ -835,7 +835,7 @@ if(plot){
       col = col
     )
 
-    if (isTRUE(extraArgs$contour)) {
+    if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
       graphics::contour(x, y, temp.xyz,
               col = extraArgs$contour.col %||% rgb(1, 1, 1, 0.8),
               labcex = labcex * cex,
