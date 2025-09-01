@@ -135,7 +135,7 @@ This object is a \link{data.frame} with the following columns
 \code{HPDI68_U} \tab \link{numeric} \tab same as \code{HPDI68_L} for the upper bound \cr
 \code{HPDI95_L} \tab \link{numeric} \tab same as \code{HPDI68_L} but for 95\% probability \cr
 \code{HPDI95_U} \tab \link{numeric} \tab same as \code{HPDI95_L} but for the upper bound \cr
-
+\code{De.raw} \tab \link{numeric} \tab only for \code{mode = "interpolation"}; reports the fitted De values (can also be negative)\cr
 }
 }
 \description{
@@ -273,7 +273,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.4.0
+ 1.4.1
 }
 
 \examples{
