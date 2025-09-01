@@ -103,18 +103,9 @@ setMethod("show",
             ##data elements
             temp.names <- names(object@data)
 
-            if (length(object) > 0) {
-              temp.type <- sapply(1:length(object@data),
-                                  function(x) {
-                                    paste("\t .. $", temp.names[x],
-                                          " : ",
-                                          is(object@data[[x]])[1],
-                                          sep = "")
-                                  })
-            } else{
-              temp.type <- paste0("\t .. $", temp.names, " : ", is(object@data)[1])
-            }
-
+            data_list <- if (length(object) > 0) object@data else list(object@data)
+            temp.type <- paste0("\t .. $", temp.names, " : ",
+                                vapply(data_list, function(x) is(x)[1], character(1)))
             temp.type <- paste(temp.type, collapse = "\n")
 
             ##print information
@@ -123,7 +114,6 @@ setMethod("show",
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
             cat("\n\t additional info elements: ", length(object@info),"\n")
-
           })
 
 
