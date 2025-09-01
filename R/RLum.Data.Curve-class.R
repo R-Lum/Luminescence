@@ -387,7 +387,7 @@ setMethod(f = "bin_RLum.Data",
 #'
 #' @param align [`smooth_RLum`]; [character] (*with default*):
 #' one of `"right"`, `"center"` or `"left"`, specifying whether the index
-#' of the result should be right-aligned (default), centred, or lef-aligned
+#' of the result should be right-aligned (default), centred, or left-aligned
 #' compared to the rolling window of observations (ignored if
 #' `method = "Carter_etal_2018"`).
 #'

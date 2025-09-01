@@ -38,7 +38,7 @@ value used to pad the result so to have the same length as the input.}
 
 \item{align}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
 one of \code{"right"}, \code{"center"} or \code{"left"}, specifying whether the index
-of the result should be right-aligned (default), centred, or lef-aligned
+of the result should be right-aligned (default), centred, or left-aligned
 compared to the rolling window of observations (ignored if
 \code{method = "Carter_etal_2018"}).}
 
