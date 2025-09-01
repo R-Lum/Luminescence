@@ -115,9 +115,7 @@ setMethod("show",
 
             ##print
             cat("\n [RLum.Analysis-class]")
-
-            ## show originator, for compatibility reasons with old example data
-            if(.hasSlot(object, "originator")){cat("\n\t originator:", paste0(object@originator,"()"))}
+            cat("\n\t originator:", paste0(object@originator, "()"))
 
             cat("\n\t protocol:", object@protocol)
             cat("\n\t additional info elements: ", if(.hasSlot(object, "info")){length(object@info)}else{0})
@@ -447,12 +445,6 @@ setMethod("get_RLum",
               ##get.index
               .validate_logical_scalar(get.index)
 
-              ##get originator
-              originator <- NA_character_
-              if (.hasSlot(object, "originator")) {
-                originator <- object@originator
-              }
-
               ##-----------------------------------------------------------------##
               ##a pre-selection is necessary to support negative index selection
               object@records <- object@records[record.id]
@@ -466,11 +458,9 @@ setMethod("get_RLum",
                     recordType <- substr(recordType,
                                          start = 2, stop = nchar(recordType) - 1)
                     temp <- lapply(recordType, function(type) {
-                      ##handle NA
-                      if(is.na(object@records[[x]]@recordType))
-                        recordType_comp <- "NA"
-                      else
-                        recordType_comp <- object@records[[x]]@recordType
+                      ## use format() to handle NA so that it gets turned into
+                      ## the "NA" string (as.character() would leave it as NA)
+                      recordType_comp <- format(object@records[[x]]@recordType)
 
                       ## get the results object and if requested, get the index
                       if (grepl(type, recordType_comp) &&
@@ -480,19 +470,17 @@ setMethod("get_RLum",
                     })
 
                     ##remove empty entries and select just one to unlist
-                    temp <- temp[!vapply(temp, is.null,logical(1))]
+                    temp <- .rm_NULL_elements(temp)
 
                     ##if list has length 0 skip entry
                     if (length(temp) != 0) {
                       temp[[1]]
-                    } else{
-                      temp <- NULL
                     }
                   }
                 })
 
                 ##remove empty list element
-                temp <- temp[!vapply(temp, is.null, logical(1))]
+                temp <- .rm_NULL_elements(temp)
 
                 ##check if the produced object is empty and show warning message
                 if (length(temp) == 0)
@@ -505,7 +493,7 @@ setMethod("get_RLum",
                 if (!drop) {
                     temp <- set_RLum(
                       class = "RLum.Analysis",
-                      originator = originator,
+                      originator = object@originator,
                       records = temp,
                       protocol = object@protocol,
                       .pid = object@.pid
