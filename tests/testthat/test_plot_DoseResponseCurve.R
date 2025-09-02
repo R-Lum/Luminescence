@@ -36,11 +36,6 @@ test_that("plot output", {
                                          box = FALSE), "RLum.Results")
   expect_message(plot_DoseResponseCurve(fit.extra.gok, log = "x"),
                  "No logarithmic transformation allowed on a fit obtained with")
-
-  ## De is NA
-  df <- data.frame(DOSE = c(0,5,10,20,30), LxTx = c(10,5,-20,-30,-40), LxTx_X = c(1,1,1,1,1))
-  expect_s4_class(plot_DoseResponseCurve(fit_DoseResponseCurve(df, verbose = FALSE)),
-                  "RLum.Results")
 })
 
 test_that("graphical snapshot tests", {
@@ -60,5 +55,12 @@ test_that("graphical snapshot tests", {
                                                      reg_points_pch = 1,
                                                      density_polygon_col = "azure",
                                                      cex = 2))
+
+  ## De is NA
+  df <- data.frame(DOSE = c(0, 5, 10, 20, 30),
+                   LxTx = c(10, 5, -20, -30, -40),
+                   LxTx_X = c(1, 1, 1, 1, 1))
+  vdiffr::expect_doppelganger("De.NA",
+                              plot_DoseResponseCurve(fit_DoseResponseCurve(df)))
   })
 })

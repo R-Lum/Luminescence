@@ -246,10 +246,10 @@
 #' `HPDI68_U` \tab [numeric] \tab same as `HPDI68_L` for the upper bound \cr
 #' `HPDI95_L` \tab [numeric] \tab same as `HPDI68_L` but for 95% probability \cr
 #' `HPDI95_U` \tab [numeric] \tab same as `HPDI95_L` but for the upper bound \cr
-#'
+#' `De.raw` \tab [numeric] \tab only for `mode = "interpolation"`; reports all calculated De values 'as is', without setting meaningless values to `NA`. In particular, it reports infinities and negative values if they could be calculated. Bear in mind that values may be arbitrary when negative.\cr
 #' }
 #'
-#' @section Function version: 1.4.0
+#' @section Function version: 1.4.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -798,12 +798,6 @@ fit_DoseResponseCurve <- function(
         De <- NA
         if(mode == "interpolation"){
           De <- suppressWarnings(-c - b * log(1 - object[1, 2] / a))
-
-          ## account for the fact that we can still calculate a De that is negative
-          ## even it does not make sense
-          if(!is.na(De) && De < 0)
-            De <- NA
-
         }else if (mode == "extrapolation"){
           De <- suppressWarnings(-c-b*log(1-0/a))
         }
@@ -1750,6 +1744,13 @@ fit_DoseResponseCurve <- function(
       else
         n_N <- n/N
 
+  ## account for the fact that we can still calculate a De that is negative
+  ## even it does not make sense for interpolation
+  De.raw <- De
+  if (mode == "interpolation" && !is.na(De) && De < 0) {
+    De <- NA
+  }
+
   output <- try(data.frame(
     De = abs(De),
     De.Error = De.Error,
@@ -1769,6 +1770,9 @@ fit_DoseResponseCurve <- function(
     HPDI95_U = HPDI[1,4],
     row.names = NULL
   ), silent = TRUE)
+
+  if (mode == "interpolation")
+    output$De.raw <- De.raw # negative values not set to NA
 
   ##make RLum.Results object
   output.final <- set_RLum(
