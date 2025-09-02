@@ -89,11 +89,12 @@ many components for the available data (#953).
 ### `fit_DoseResponseCurve()`
 
 * For `mode = "interpolation"`, the object returned contains an additional
-`De.raw` column, which stores the value of the raw De value as computed by the
-fitting function. The only difference between the `De` and `De.raw` columns,
-is that the first sets the De to `NA` if negative, while the latter doesn't.
-This can be helpful when testing that the De values from a null are close to
-zero; for general applications, this column should be ignored (#957).
+`De.raw` column, which stores the calculated De value computed by the fitting
+function 'as is', without setting meaningless results to `NA`. Therefore, the
+only difference between the `De` and `De.raw` columns is that the first sets
+the De to `NA` if negative, while the latter doesn't. It is then up to the
+user to decide what to do with those values, bearing in mind that they may be
+arbitrary when negative (#957).
 
 ### `fit_LMCurve()`
 

@@ -246,7 +246,7 @@
 #' `HPDI68_U` \tab [numeric] \tab same as `HPDI68_L` for the upper bound \cr
 #' `HPDI95_L` \tab [numeric] \tab same as `HPDI68_L` but for 95% probability \cr
 #' `HPDI95_U` \tab [numeric] \tab same as `HPDI95_L` but for the upper bound \cr
-#' `De.raw` \tab [numeric] \tab only for `mode = "interpolation"`; reports the fitted De values (can also be negative)\cr
+#' `De.raw` \tab [numeric] \tab only for `mode = "interpolation"`; reports all calculated De values 'as is', without setting meaningless values to `NA`. In particular, it reports infinities and negative values if they could be calculated. Bear in mind that values may be arbitrary when negative.\cr
 #' }
 #'
 #' @section Function version: 1.4.1
