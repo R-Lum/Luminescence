@@ -643,7 +643,6 @@ fit_DoseResponseCurve <- function(
 
     ##set start vector (to avoid errors within the loop)
     a.start <-   b.start <- c.start <- g.start <- NA
-
   }
 
   ## QDR --------------------------------------------------------------------
@@ -707,8 +706,9 @@ fit_DoseResponseCurve <- function(
 
     if(txtProgressBar) close(pb)
   }
+
   ## EXP --------------------------------------------------------------------
-  if (any(fit.method %in% c("EXP", "EXP OR LIN", "LIN"))){
+  if (fit.method %in% c("EXP", "EXP OR LIN", "LIN")) {
     if(fit.method != "LIN"){
       if (anyNA(c(a, b, c))) {
         .throw_message("Fit ", fit.method, " (", mode,
@@ -721,12 +721,12 @@ fit_DoseResponseCurve <- function(
       ## the fitting more stable
 
       ## prepare what we can outside the loop
-      a.start <-  b.start <- c.start <- numeric(50)
+      a.start <-  b.start <- c.start <- numeric(length(a.MC))
       lower_bounds <- c(a = 0, b = 1e-6, c = 0)
       control_settings <-  minpack.lm::nls.lm.control(maxiter = 500)
 
       ## loop for better attempt
-      for(i in 1:50){
+      for (i in seq_along(a.MC)) {
         ## get start list
         start_list <- list(a = a.MC[i], b = b.MC[i], c = c.MC[i])
 
@@ -852,7 +852,6 @@ fit_DoseResponseCurve <- function(
         rm(var.b)
 
       }#endif::try-error fit
-
     }#endif:fit.method!="LIN"
 
     ## LIN ------------------------------------------------------------------
@@ -912,8 +911,12 @@ fit_DoseResponseCurve <- function(
 
   ## EXP+LIN ----------------------------------------------------------------
   else if (fit.method=="EXP+LIN") {
+    ## set boundaries
+    lower <- if (fit.bounds) c(0, 10, 0, 0) else rep(-Inf, 4)
+    upper <- if (fit.force_through_origin) c(Inf, Inf, 0, Inf) else rep(Inf, 4)
+
     ##try some start parameters from the input values to makes the fitting more stable
-    for(i in 1:length(a.MC)){
+    for (i in seq_along(a.MC)) {
       a <- a.MC[i]
       b <- b.MC[i]
       c <- c.MC[i]
@@ -949,11 +952,7 @@ fit_DoseResponseCurve <- function(
           start = c(a=a,b=b,c=c,g=g),
           trace = FALSE,
           algorithm = "LM",
-          lower = if(fit.bounds){
-            c(a = 0, b = 10, c = 0, g = 0)
-          } else {
-            c(a = -Inf, b = -Inf,c = -Inf,g = -Inf)
-          },
+          lower = lower,
           control = minpack.lm::nls.lm.control(
             maxiter = 500) #increase max. iterations
           ))
@@ -974,10 +973,6 @@ fit_DoseResponseCurve <- function(
     b <- median(b.start, na.rm = TRUE)
     c <- median(c.start, na.rm = TRUE)
     g <- median(g.start, na.rm = TRUE)
-
-    ## set boundaries
-    lower <- if (fit.bounds) c(0, 10, 0, 0) else rep(-Inf, 4)
-    upper <- if (fit.force_through_origin) c(Inf, Inf, 0, Inf) else rep(Inf, 4)
 
     ##perform final fitting
     fit <- try(suppressWarnings(minpack.lm::nlsLM(
@@ -1057,11 +1052,7 @@ fit_DoseResponseCurve <- function(
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
-          lower = if (fit.bounds) {
-            c(0,10,0,0)
-          }else{
-            c(-Inf,-Inf,-Inf, -Inf)
-          },
+          lower = lower,
           control = minpack.lm::nls.lm.control(maxiter = 500)
         )), silent = TRUE)
 
@@ -1102,17 +1093,17 @@ fit_DoseResponseCurve <- function(
     }else{
       .report_fit_failure(fit.method, mode)
     } #end if "try-error" Fit Method
-
   } #End if EXP+LIN
+
   ## EXP+EXP ----------------------------------------------------------------
   else if (fit.method == "EXP+EXP") {
     ## initialise objects
     a1.start <-  a2.start <- b1.start <- b2.start <- NA
 
     ## try to create some start parameters from the input values to make the fitting more stable
-    for(i in 1:50) {
-      a1 <- a.MC[i];b1 <- b.MC[i];
-      a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
+    for (i in seq_along(a.MC)) {
+      a1 <- a.MC[i]; a2 <- a1 / 2
+      b1 <- b.MC[i]; b2 <- b1 / 2
 
       fit.start <- try({
         minpack.lm::nlsLM(
