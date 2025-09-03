@@ -1589,140 +1589,51 @@ plot_AbanicoPlot <- function(
          col.axis = layout$abanico$colour$xtck2,
          cex.axis = layout$abanico$font.size$xlab2 / 12)
 
-  if (!rotate) {
-    ## plot y-axis
-    if(is.null(extraArgs$yaxt) || extraArgs$yaxt != "n"){
-      line <- 2 * layout$abanico$dimension$ytck.line / 100 - 2
-      family <- layout$abanico$font.type$ytck
-      font <- which(c("normal", "bold", "italic", "bold italic") ==
-                    layout$abanico$font.deco$ytck)[1]
-      col.axis <- layout$abanico$colour$ytck
-      cex.axis <- layout$abanico$font.size$ylab/12
-      if(y.axis) {
-        char.height <- par()$cxy[2]
-        tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
-        tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
-
-        ## this comes into play for panel plots, e.g., par(mfrow = c(4,4))
-        if(tick.space < char.height * 1.7) {
-          axis(side = 2,
-               tcl = -layout$abanico$dimension$ytcl / 200,
-               lwd = 1,
-               lwd.ticks = 1,
-               at = c(-2, 2),
-               labels = c("", ""),
-               las = 1,
-               col = layout$abanico$colour$ytck)
-          axis(side = 2,
-               at = 0,
-               tcl = 0,
-               labels = paste("\u00B1", "2"),
-               line = line, las = 1,
-               family = family, font = font,
-               col.axis = col.axis, cex.axis = cex.axis)
-        } else {
-          axis(side = 2,
-               at = seq(-2, 2, by = 2),
-               col = layout$abanico$colour$ytck,
-               col.axis = layout$abanico$colour$ytck,
-               labels = NA,
-               las = 1,
-               tcl = -layout$abanico$dimension$ytcl / 200,
-               cex = cex)
-          axis(side = 2,
-               at = seq(-2, 2, by = 2),
-               col = layout$abanico$colour$ytck,
-               line = line, lwd = 0, las = 1,
-               family = family, font = font,
-               col.axis = col.axis, cex.axis = cex.axis)
-        }
-      } else {
-        axis(side = 2,
-             at = 0,
-             col = layout$abanico$colour$ytck,
-             col.axis = layout$abanico$colour$ytck,
-             labels = NA,
-             las = 1,
-             tcl = -layout$abanico$dimension$ytcl / 200,
-             cex = cex)
-        axis(side = 2,
-             at = 0,
-             col = layout$abanico$colour$ytck,
-             line = line, lwd = 0, las = 1,
-             family = family, font = font,
-             col.axis = col.axis, cex.axis = cex.axis)
-      }
-    }
-
-  } else { # rotate
-
-    ## plot y-axis
-    if(y.axis[1]) {
+  ## plot y-axis
+  if (is.null(extraArgs$yaxt) || extraArgs$yaxt != "n") {
+    line <- 2 * layout$abanico$dimension$ytck.line / 100 - 2
+    family <- layout$abanico$font.type$ytck
+    font <- which(c("normal", "bold", "italic", "bold italic") ==
+                  layout$abanico$font.deco$ytck)[1]
+    col.axis <- layout$abanico$colour$ytck
+    cex.axis <- layout$abanico$font.size$ylab / 12
+    if (y.axis) {
       char.height <- par()$cxy[2]
       tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
       tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
-      if(tick.space < char.height * 1.7) {
-        axis(side = 1,
+
+      ## this comes into play for panel plots, e.g., par(mfrow = c(4,4))
+      if (tick.space < char.height * 1.7) {
+        axis(side = 3 - rotate.idx,
+             at = c(-2, 2),
              tcl = -layout$abanico$dimension$ytcl / 200,
              lwd = 1,
              lwd.ticks = 1,
-             at = c(-2, 2),
-             labels = c("", ""),
-             las = 1,
-             col = layout$abanico$colour$ytck)
-
-        axis(side = 1,
-             at = 0,
-             tcl = 0,
-             line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-             labels = paste("\u00B1", "2"),
-             las = 1,
-             family = layout$abanico$font.type$ytck,
-             font = which(c("normal", "bold", "italic", "bold italic") ==
-                            layout$abanico$font.deco$ytck)[1],
-             col.axis = layout$abanico$colour$ytck,
-             cex.axis = layout$abanico$font.size$ylab/12)
-      } else {
-        axis(side = 1,
-             at = seq(-2, 2, by = 2),
-             col = layout$abanico$colour$ytck,
-             col.axis = layout$abanico$colour$ytck,
              labels = NA,
              las = 1,
-             tcl = -layout$abanico$dimension$ytcl / 200,
-             cex = cex)
-        axis(side = 1,
+             col = col.axis)
+        axis(side = 3 - rotate.idx,
+             at = 0,
+             tcl = 0,
+             labels = "\u00B1 2",
+             line = line, las = 1,
+             family = family, font = font,
+             col.axis = col.axis, cex.axis = cex.axis)
+      } else {
+        axis(side = 3 - rotate.idx,
              at = seq(-2, 2, by = 2),
-             line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-             lwd = 0,
-             las = 1,
-             col = layout$abanico$colour$ytck,
-             family = layout$abanico$font.type$ytck,
-             font = which(c("normal", "bold", "italic", "bold italic") ==
-                            layout$abanico$font.deco$ytck)[1],
-             col.axis = layout$abanico$colour$ytck,
-             cex.axis = layout$abanico$font.size$ylab/12)
+             line = line, las = 1,
+             tcl = -layout$abanico$dimension$ytcl / 200,
+             family = family, font = font,
+             col.axis = col.axis, cex.axis = cex.axis)
       }
     } else {
-      axis(side = 1,
+      axis(side = 3 - rotate.idx,
            at = 0,
-           col = layout$abanico$colour$ytck,
-           col.axis = layout$abanico$colour$ytck,
-           labels = NA,
-           las = 1,
+           line = line, las = 1,
            tcl = -layout$abanico$dimension$ytcl / 200,
-           cex = cex)
-      axis(side = 1,
-           at = 0,
-           line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-           lwd = 0,
-           las = 1,
-           col = layout$abanico$colour$ytck,
-           family = layout$abanico$font.type$ytck,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$ytck)[1],
-           col.axis = layout$abanico$colour$ytck,
-           cex.axis = layout$abanico$font.size$ylab/12)
+           family = family, font = font,
+           col.axis = col.axis, cex.axis = cex.axis)
     }
   }
 
