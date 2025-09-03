@@ -150,8 +150,11 @@ test_that("weird LxTx values", {
       df_odd,
       verbose = FALSE),
     class = "RLum.Results")
-
   expect_true(is.na(t$De[[1]]))
+
+  ## issue 961
+  expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
+                "Fit failed for QDR (interpolation)", fixed = TRUE)
 })
 
 test_that("snapshot tests", {
