@@ -195,9 +195,6 @@ plot_DoseResponseCurve <- function(
 
   ## Main plots -------------------------------------------------------------
 
-  ## set plot check
-  plot_check <- NULL
-
   ## open plot area
   par.default <- par("cex", "mar", "mgp")
   on.exit(par(par.default), add = TRUE)
@@ -271,9 +268,10 @@ plot_DoseResponseCurve <- function(
     }
 
     ## repeated Point
+    idx.rep <- which(duplicated(xy[, 1]))
     points(
-        x = xy[which(duplicated(xy[, 1])), 1],
-        y = xy[which(duplicated(xy[, 1])), 2],
+        x = xy[idx.rep, 1],
+        y = xy[idx.rep, 2],
         pch = if(is.na(plot_settings$reg_points_pch[2]))
                 plot_settings$reg_points_pch[1]
               else
@@ -347,18 +345,19 @@ plot_DoseResponseCurve <- function(
       }
 
 
-    ## reg Point 0
-    points(
-        x = xy[which(xy == 0), 1],
-        y = xy[which(xy == 0), 2],
+      ## reg Point 0
+      idx.0 <- which(xy == 0)
+      points(
+        x = xy[idx.0, 1],
+        y = xy[idx.0, 2],
         pch = if(is.na(plot_settings$reg_points_pch[3]))
                plot_settings$reg_points_pch[1]
               else
                plot_settings$reg_points_pch[3],
         cex = 1.5)
 
-    ## ARROWS	#y-error Bar
-    segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
+      ## y-error bar
+      segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
       if(plot_settings$density_rug[1])
         suppressWarnings(graphics::rug(x = x.natural, side = 3))
@@ -389,21 +388,15 @@ plot_DoseResponseCurve <- function(
 
     ## plot legend
     if(plot_settings$legend) {
-      if (mode == "interpolation") {
-        legend(
-            "topleft",
-            c("REG point", "REG point 0", "REG point repeated"),
-            pch = unique(plot_settings$reg_points_pch),
-            cex = 0.7,
-            bty = "n")
-      } else {
-        legend(
-            "bottomright",
-            c("Dose point", "Dose point 0", "Dose point rep."),
-            pch = unique(plot_settings$reg_points_pch),
-            cex = 0.7,
-            bty = "n")
-      }
+      legend(
+          if (mode == "interpolation") "topleft" else "bottomright",
+          legend = if (mode == "interpolation")
+                     c("REG point", "REG point 0", "REG point repeated")
+                   else
+                     c("Dose point", "Dose point 0", "Dose point rep."),
+          pch = unique(plot_settings$reg_points_pch),
+          cex = 0.7,
+          bty = "n")
     }
 
     if (plot_extended) {
@@ -495,9 +488,6 @@ plot_DoseResponseCurve <- function(
               text = De.expr,
               cex = 0.6 * par("cex")),
             silent = TRUE)
-
-        } else {
-          plot_check <- histogram
         }
 
       } else {
