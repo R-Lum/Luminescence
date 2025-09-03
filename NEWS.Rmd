@@ -142,6 +142,9 @@ non-default cex values (#865).
 * The legend did not match anymore the plotted regeneration/dose points. This was
 fixed including affected functions such as `analyse_SAR.CWOSL()` and `analyse_pIRIRSequence()` 
 
+* The legend positioning can now be controlled via the `...` argument
+`legend.pos` (#959).
+
 ### `plot_DRTResults()`
 
 * Points didn't scale correctly at non-default `cex` values (#879).
