@@ -35,9 +35,9 @@ enable/disable output to the terminal.}
 
 \item{...}{Further graphical parameters to be passed (supported:
 \code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{log} (not valid for objects
-fitted with \code{mode = 'extrapolation'}), \code{legend}, \code{box} (\code{TRUE}/\code{FALSE}),
+fitted with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}), \code{leged.pos},
 \code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col},
-\code{density_rug} (\code{TRUE}/\code{FALSE})).}
+\code{density_rug} (\code{TRUE}/\code{FALSE}), \code{box} (\code{TRUE}/\code{FALSE}).}
 }
 \value{
 A plot (or a series of plots) is produced.
@@ -47,7 +47,7 @@ A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
 }
 \section{Function version}{
- 1.0.6
+ 1.0.7
 }
 
 \examples{

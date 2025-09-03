@@ -25,14 +25,14 @@
 #'
 #' @param ... Further graphical parameters to be passed (supported:
 #' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects
-#' fitted with `mode = 'extrapolation'`), `legend`, `box` (`TRUE`/`FALSE`),
+#' fitted with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `leged.pos`,
 #' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
-#' `density_rug` (`TRUE`/`FALSE`)).
+#' `density_rug` (`TRUE`/`FALSE`), `box` (`TRUE`/`FALSE`).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.6
+#' @section Function version: 1.0.7
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -165,6 +165,7 @@ plot_DoseResponseCurve <- function(
         },
       log = "",
       legend = TRUE,
+      legend.pos = if (mode == "interpolation") "topleft" else "bottomright",
       reg_points_pch = reg_points_pch,
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
@@ -389,7 +390,7 @@ plot_DoseResponseCurve <- function(
     ## plot legend
     if(plot_settings$legend) {
       legend(
-          if (mode == "interpolation") "topleft" else "bottomright",
+          plot_settings$legend.pos,
           legend = if (mode == "interpolation")
                      c("REG point", "REG point 0", "REG point repeated")
                    else
