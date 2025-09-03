@@ -98,6 +98,9 @@
   do with those values, bearing in mind that they may be arbitrary when
   negative (#957).
 
+- The message reported for `fit.method = "QDR"` now states correctly
+  whether the fit succeeded or failed (#961).
+
 ### `fit_LMCurve()`
 
 - The automated correction of the x-axis in case of `0` for lowest value

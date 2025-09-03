@@ -665,7 +665,7 @@ fit_DoseResponseCurve <- function(
       fit <- stats::lm(model, data = data, weights = fit.weights)
 
       ## solve and get De
-      De <- NA
+      success <- TRUE
       if (mode != "alternate") {
         De.fs <- function(fit, x, y) {
           predict(fit, newdata = data.frame(x)) - y
@@ -674,17 +674,18 @@ fit_DoseResponseCurve <- function(
                                   lower = lower, upper = upper),
                           silent = TRUE)
 
-        if (!inherits(De.uniroot, "try-error")) {
+        success <- !inherits(De.uniroot, "try-error")
+        if (success) {
           De <- De.uniroot$root
         }
       }
-      return(list(fit = fit, De = De))
+      return(list(fit = fit, De = De, success = success))
     }
 
     res <- .fit_qdr_model(model.qdr, data, y)
     fit <- res$fit
     De <- res$De
-    if (!inherits(fit, "try-error"))
+    if (res$success)
       .report_fit(De)
     else
       .report_fit_failure(fit.method, mode)
