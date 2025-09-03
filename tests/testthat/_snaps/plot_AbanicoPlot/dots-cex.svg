@@ -149,10 +149,10 @@
 <text x='630.29' y='150.84' style='font-size: 24.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>80</text>
 <text x='630.29' y='118.49' style='font-size: 24.00px; font-family: sans;' textLength='40.05px' lengthAdjust='spacingAndGlyphs'>100</text>
 <text x='630.29' y='92.05' style='font-size: 24.00px; font-family: sans;' textLength='40.05px' lengthAdjust='spacingAndGlyphs'>120</text>
-<text transform='translate(686.22,255.02) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='17.34px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text transform='translate(690.66,237.68) rotate(-90)' style='font-size: 16.80px; font-family: sans;' textLength='9.34px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text transform='translate(686.22,228.34) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'> </text>
-<text transform='translate(686.22,221.67) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='44.02px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
+<text transform='translate(686.22,217.85) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='17.34px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text transform='translate(690.66,200.51) rotate(-90)' style='font-size: 16.80px; font-family: sans;' textLength='9.34px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text transform='translate(686.22,191.17) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(686.22,184.50) rotate(-90)' style='font-size: 24.00px; font-family: sans;' textLength='44.02px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
 <circle cx='302.73' cy='274.50' r='3.60' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='396.74' cy='279.17' r='3.60' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='412.50' cy='261.66' r='3.60' style='stroke-width: 0.75; fill: #000000;' />

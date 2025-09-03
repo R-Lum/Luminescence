@@ -1654,53 +1654,6 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## plot minor z-ticks
-    for(i in 1:length(tick.values.minor)) {
-      lines(x = y.max * c(1, 1 + 0.007 * layout$abanico$dimension$ztcl / 100),
-            y = c(tick.values.minor[i] - z.central.global,
-                  tick.values.minor[i] - z.central.global) * min(ellipse[, 1]),
-            col = layout$abanico$colour$ztck)
-    }
-
-    ## plot major z-ticks
-    for(i in 1:length(tick.values.major)) {
-      lines(x = y.max * c(1, 1 + 0.015 * layout$abanico$dimension$ztcl / 100),
-            y = c(tick.values.major[i] - z.central.global,
-                  tick.values.major[i] - z.central.global) * min(ellipse[, 1]),
-            col = layout$abanico$colour$ztck)
-    }
-
-    ## plot z-axes
-    lines(ellipse, col = layout$abanico$colour$border)
-    lines(rep(par()$usr[2], nrow(ellipse)), ellipse[,2],
-          col = layout$abanico$colour$ztck)
-
-    ## plot z-axis text
-    text(x = y.max * (1 + 0.02 * layout$abanico$dimension$ztcl / 100),
-         y = (tick.values.major - z.central.global) * min(ellipse[,1]),
-         labels = label.z.text,
-         adj = c(0, 0.5),
-         family = layout$abanico$font.type$ztck,
-         font = which(c("normal", "bold", "italic", "bold italic") ==
-                        layout$abanico$font.deco$ztck)[1],
-         cex = layout$abanico$font.size$ztck / 12)
-
-    ## plot z-label
-    mtext(text = zlab,
-          at = mean(x = c(min(ellipse[,2]),
-                          max(ellipse[,2])),
-                    na.rm = TRUE),
-          #        at = 0, ## BUG from version 0.4.0, maybe removed in future
-          side = 4,
-          las = 3,
-          adj = 0.5,
-          line = (4 + cex) * layout$abanico$dimension$zlab.line / 100,
-          col = layout$abanico$colour$zlab,
-          family = layout$abanico$font.type$zlab,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$zlab)[1],
-          cex = cex * layout$abanico$font.size$zlab/12)
-
   } else { # rotate
 
     ## plot y-axis
@@ -1771,56 +1724,54 @@ plot_AbanicoPlot <- function(
            col.axis = layout$abanico$colour$ytck,
            cex.axis = layout$abanico$font.size$ylab/12)
     }
-
-    ## plot minor z-ticks
-    for(i in 1:length(tick.values.minor)) {
-      lines(y = y.max * c(1, 1 + 0.007 * layout$abanico$dimension$ztcl / 100),
-            x = c((tick.values.minor[i] - z.central.global) *
-                    min(ellipse[,2]),
-                  (tick.values.minor[i] - z.central.global) *
-                    min(ellipse[,2])),
-            col = layout$abanico$colour$ztck)
-    }
-
-    ## plot major z-ticks
-    for(i in 1:length(tick.values.major)) {
-      lines(y = y.max * c(1, 1 + 0.015 * layout$abanico$dimension$ztcl / 100),
-            x = c((tick.values.major[i] - z.central.global) *
-                    min(ellipse[,2]),
-                  (tick.values.major[i] - z.central.global) *
-                    min(ellipse[,2])),
-            col = layout$abanico$colour$ztck)
-    }
-
-    ## plot z-axes
-    lines(ellipse, col = layout$abanico$colour$border)
-    lines(y = rep(par()$usr[4], nrow(ellipse)),
-          x = ellipse[,1],
-          col = layout$abanico$colour$ztck)
-
-    ## plot z-axis text
-    text(y = y.max * (1 + 0.02 * layout$abanico$dimension$ztcl / 100),
-         x = (tick.values.major - z.central.global) * min(ellipse[,2]),
-         labels = label.z.text,
-         adj = c(0.5, 0),
-         family = layout$abanico$font.type$ztck,
-         font = which(c("normal", "bold", "italic", "bold italic") ==
-                        layout$abanico$font.deco$ztck)[1],
-         cex = layout$abanico$font.size$ztck / 12)
-
-    ## plot z-label
-    mtext(text = zlab,
-          at = 0,
-          side = 3,
-          las = 1,
-          adj = 0.5,
-          line = (1.5 + cex) * layout$abanico$dimension$zlab.line / 100,
-          col = layout$abanico$colour$zlab,
-          family = layout$abanico$font.type$zlab,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$zlab)[1],
-          cex = cex * layout$abanico$font.size$zlab/12)
   }
+
+  ## plot minor z-ticks
+  for (i in 1:length(tick.values.minor)) {
+    lines.rot(x = y.max * c(1, 1 + 0.007 * layout$abanico$dimension$ztcl / 100),
+            y = c(tick.values.minor[i] - z.central.global,
+                  tick.values.minor[i] - z.central.global) *
+              min(ellipse[, rotate.idx]),
+            col = layout$abanico$colour$ztck)
+  }
+
+  ## plot major z-ticks
+  for (i in 1:length(tick.values.major)) {
+    lines.rot(x = y.max * c(1, 1 + 0.015 * layout$abanico$dimension$ztcl / 100),
+              y = c(tick.values.major[i] - z.central.global,
+                    tick.values.major[i] - z.central.global) *
+                min(ellipse[, rotate.idx]),
+              col = layout$abanico$colour$ztck)
+  }
+
+  ## plot z-axes
+  lines(ellipse, col = layout$abanico$colour$border)
+  lines.rot(x = rep(y.max, nrow(ellipse)),
+            y = ellipse[, 2],
+            col = layout$abanico$colour$ztck)
+
+  ## plot z-axis text
+  text.rot(x = y.max * (1 + 0.02 * layout$abanico$dimension$ztcl / 100),
+           y = (tick.values.major - z.central.global) * min(ellipse[, rotate.idx]),
+           labels = label.z.text,
+           adj = if (rotate) c(0.5, 0) else c(0, 0.5),
+           family = layout$abanico$font.type$ztck,
+           font = which(c("normal", "bold", "italic", "bold italic") ==
+                        layout$abanico$font.deco$ztck)[1],
+           cex = layout$abanico$font.size$ztck / 12)
+
+  ## plot z-label
+  mtext(text = zlab,
+        at = 0,
+        side = 5 - rotate.idx,
+        las = ifelse(rotate, 1, 3),
+        adj = 0.5,
+        line = (ifelse(rotate, 1.5, 4) + cex) * layout$abanico$dimension$zlab.line / 100,
+        col = layout$abanico$colour$zlab,
+        family = layout$abanico$font.type$zlab,
+        font = which(c("normal", "bold", "italic", "bold italic") ==
+                     layout$abanico$font.deco$zlab)[1],
+        cex = cex * layout$abanico$font.size$zlab / 12)
 
   ## plot values and optionally error bars
   if (error.bars) {

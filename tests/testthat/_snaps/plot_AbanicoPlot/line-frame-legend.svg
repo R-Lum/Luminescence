@@ -112,10 +112,10 @@
 <text x='630.29' y='343.14' style='font-size: 14.40px; font-family: sans;' textLength='16.02px' lengthAdjust='spacingAndGlyphs'>50</text>
 <text x='630.29' y='249.55' style='font-size: 14.40px; font-family: sans;' textLength='24.03px' lengthAdjust='spacingAndGlyphs'>100</text>
 <text x='630.29' y='155.96' style='font-size: 14.40px; font-family: sans;' textLength='24.03px' lengthAdjust='spacingAndGlyphs'>150</text>
-<text transform='translate(680.15,277.52) rotate(-90)' style='font-size: 14.40px; font-family: sans;' textLength='10.40px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text transform='translate(682.81,267.12) rotate(-90)' style='font-size: 10.08px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text transform='translate(680.15,261.51) rotate(-90)' style='font-size: 14.40px; font-family: sans;' textLength='4.00px' lengthAdjust='spacingAndGlyphs'> </text>
-<text transform='translate(680.15,257.51) rotate(-90)' style='font-size: 14.40px; font-family: sans;' textLength='26.41px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
+<text transform='translate(680.15,282.05) rotate(-90)' style='font-size: 14.40px; font-family: sans;' textLength='10.40px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text transform='translate(682.81,271.64) rotate(-90)' style='font-size: 10.08px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text transform='translate(680.15,266.04) rotate(-90)' style='font-size: 14.40px; font-family: sans;' textLength='4.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(680.15,262.04) rotate(-90)' style='font-size: 14.40px; font-family: sans;' textLength='26.41px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
 <polygon points='461.17,377.33 465.53,384.89 456.81,384.89 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />
 <polygon points='480.60,371.80 484.96,379.36 476.24,379.36 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />
 <polygon points='427.29,348.46 431.66,356.02 422.93,356.02 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />
