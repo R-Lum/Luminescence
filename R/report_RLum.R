@@ -368,17 +368,17 @@ report_RLum <- function(
       if (i == 1)
         hlevel <- "#"
       else
-        hlevel <- paste(rep("#", elements$depth[i]), collapse = "")
+        hlevel <- strrep("#", elements$depth[i])
 
       # write header; number of dots represents depth in the object. because there
       # may be duplicate header names, for each further occurrence of a name
       # Zero-width non-joiner entities are added to the name (non visible)
       writeLines(paste0(hlevel, " ",
                         "<span style='color:#74a9d8'>",
-                        paste(rep("..", elements$depth[i]), collapse = ""),
+                        strrep("..", elements$depth[i]),
                         type,
                         "</span>",
-                        paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
+                        strrep("&zwnj;", elements$bud.freq[i]),
                         short.name[length(short.name)],
                         ifelse(elements$endpoint[i], "", paste0("{#root",i,"}")),
                         ##ifelse(elements$endpoint[i], "", "{#root}"),
@@ -455,7 +455,7 @@ report_RLum <- function(
     elements.html <- elements
     elements.html$branch <- gsub("\\$", "&#36;", elements$branch)
     writeLines(pander::pander_return(elements.html,
-                                     justify = paste(rep("l", ncol(elements)), collapse = "")),
+                                     justify = strrep("l", ncol(elements))),
                tmp)
     writeLines("\n\n", tmp)
   }#EndOf::Structure

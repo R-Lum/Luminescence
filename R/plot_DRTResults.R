@@ -367,7 +367,7 @@ plot_DRTResults <- function(
         keywords = summary,
         digits = 2,
         sep = " \n",
-        prefix = paste(rep("\n", (i - 1) * length(summary)), collapse = "")
+        prefix = strrep("\n", (i - 1) * length(summary))
       )
     })
   }else{
