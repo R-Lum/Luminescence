@@ -173,11 +173,12 @@ plot_Risoe.BINfileData<- function(
   ##(3) plot curves
   for(i in 1:length(temp@METADATA[,"ID"])){
     ##print only if SEL == TRUE
-    if(temp@METADATA[i,"SEL"]==TRUE)
-    {
+    if (temp@METADATA[i, "SEL"]) {
+      ltype <- temp@METADATA[i, "LTYPE"]
+      is.TL <- ltype == "TL"
 
       ##find measured unit
-      measured_unit<-if(temp@METADATA[i,"LTYPE"]=="TL"){" \u00B0C"}else{"s"}
+      measured_unit <- if (is.TL) temp.lab else "s"
 
       ##set x and y values
       values.x <- seq(temp@METADATA[i,"HIGH"]/temp@METADATA[i,"NPOINTS"],
@@ -201,7 +202,7 @@ plot_Risoe.BINfileData<- function(
            type="l",
            ylab=paste(temp@METADATA[i,"LTYPE"]," [cts/",round(temp@METADATA[i,"HIGH"]/temp@METADATA[i,"NPOINTS"],digits=3)," ",
                       measured_unit,"]",sep=""),
-           xlab=if(measured_unit=="\u00B0C"){paste("temp. [",temp.lab,"]",sep="")}else{"time [s]"},
+           xlab = if (is.TL) paste0("temp. [", temp.lab, "]") else "time [s]",
            col=if(temp@METADATA[i,"LTYPE"]=="IRSL" | temp@METADATA[i,"LTYPE"]=="RIR"){"red"}
            else if(temp@METADATA[i,"LTYPE"]=="OSL" | temp@METADATA[i,"LTYPE"]=="RBR"){"blue"}
            else{"black"},
