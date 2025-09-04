@@ -1,7 +1,8 @@
 #' @title Plot Single Luminescence Curves from a Risoe.BINfileData-class object
 #'
-#' @description Plots single luminescence curves from an object returned by the
-#' [read_BIN2R] function [Risoe.BINfileData-class]
+#' @description
+#' Plots single luminescence curves from a [Risoe.BINfileData-class] object
+#' produced by [read_BIN2R].
 #'
 #' @details
 #' **Nomenclature**
@@ -72,11 +73,12 @@
 #' The function has been successfully tested for the Sequence Editor file
 #' output version 3 and 4.
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
-#' Michael Dietze, GFZ Potsdam (Germany)
+#' Michael Dietze, GFZ Potsdam (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Risoe.BINfileData-class], [read_BIN2R], [convert_CW2pLM],
 #' [convert_CW2pLMi], [convert_CW2pPMi], [convert_CW2pHMi]
@@ -137,55 +139,40 @@ plot_Risoe.BINfileData<- function(
     curve.transformation <- paste0("convert_", curve.transformation)
   }
 
-  temp <- data
+  temp <- data@METADATA
 
-  ##set plot position if missing
+  ## set values for missing arguments
   if (is.null(position))
-    position <- c(min(temp@METADATA[, "POSITION"]):max(temp@METADATA[, "POSITION"]))
+    position <- sort(unique(temp[, "POSITION"]))
   if (is.null(run))
-    run <- c(min(temp@METADATA[, "RUN"]):max(temp@METADATA[, "RUN"]))
+    run <- sort(unique(temp[, "RUN"]))
   if (is.null(set))
-    set <- c(min(temp@METADATA[, "SET"]):max(temp@METADATA[, "SET"]))
+    set <- sort(unique(temp[, "SET"]))
 
   fun <- isTRUE(list(...)$fun)
 
-  # Ordering --------------------------------------------------------------------
+  ## Plot -------------------------------------------------------------------
 
-  ##(1) order by RUN, SET OR BY POSITION
-  temp@METADATA <- temp@METADATA[order(temp@METADATA[, sorter]), ]
+  ## keep only the curves to plot
+  temp <- temp[temp[, "POSITION"] %in% position &
+               temp[, "RUN"] %in% run &
+               temp[, "SET"] %in% set &
+               temp[, "LTYPE"] %in% ltype, ]
 
-  # Select values for plotting ------------------------------------------------------------------
+  ## order by RUN, SET OR BY POSITION
+  temp <- temp[order(temp[, sorter]), ]
 
-  ##(2) set SEL for selected position
-
-  ##set all to FALSE
-  temp@METADATA[,"SEL"]<-FALSE
-
-  ##set TRUE
-  temp@METADATA[(temp@METADATA[,"POSITION"] %in% position)==TRUE &
-                  (temp@METADATA[,"RUN"] %in% run)==TRUE &
-                  (temp@METADATA[,"SET"] %in% set)==TRUE &
-                  (temp@METADATA[,"LTYPE"] %in% ltype)==TRUE,"SEL"]<-TRUE
-
-  ##------------------------------------------------------------------------##
-  ##PLOTTING
-  ##------------------------------------------------------------------------##
-  ##(3) plot curves
-  for(i in 1:length(temp@METADATA[,"ID"])){
-    ##print only if SEL == TRUE
-    if (temp@METADATA[i, "SEL"]) {
-      high <- temp@METADATA[i, "HIGH"]
-      npoints <- temp@METADATA[i, "NPOINTS"]
-      ltype <- temp@METADATA[i, "LTYPE"]
+  ## plot the selected curves
+  for (i in seq_len(nrow(temp))) {
+      high <- temp[i, "HIGH"]
+      npoints <- temp[i, "NPOINTS"]
+      ltype <- temp[i, "LTYPE"]
       is.TL <- ltype == "TL"
-
-      ##find measured unit
       measured_unit <- if (is.TL) temp.lab else "s"
 
       ##set x and y values
-      values.x <- seq(high / npoints, high, by = high/npoints)
-      values.y <- unlist(temp@DATA[temp@METADATA[i,"ID"]])
-      values.xy <- data.frame(values.x, values.y)
+      values.xy <- data.frame(x = seq(high / npoints, high, by = high / npoints),
+                              y = unlist(data@DATA[temp[i, "ID"]]))
 
       ##set curve transformation if wanted
       if (grepl("IRSL|OSL", ltype) &&
@@ -197,9 +184,9 @@ plot_Risoe.BINfileData<- function(
 
       ##plot graph
       plot(values.xy,
-           main = paste0("pos=", temp@METADATA[i, "POSITION"],
-                         ", run=", temp@METADATA[i, "RUN"],
-                         ", set=", temp@METADATA[i, "SET"]),
+           main = paste0("pos=", temp[i, "POSITION"],
+                         ", run=", temp[i, "RUN"],
+                         ", set=", temp[i, "SET"]),
            type="l",
            xlab = if (is.TL) paste0("Temperature [", temp.lab, "]") else "Time [s]",
            ylab = paste0(ltype, " [cts/", round(high / npoints, 3),
@@ -207,34 +194,28 @@ plot_Risoe.BINfileData<- function(
            col = if (ltype %in% c("IRSL", "RIR")) "red"
                  else if (ltype %in% c("OSL", "RBR")) "blue"
                  else "black",
-           sub = if (is.TL) paste0("(", temp@METADATA[i, "RATE"], " K/s)"),
+           sub = if (is.TL) paste0("(", temp[i, "RATE"], " K/s)"),
            lwd=1.2*cex.global,
            cex=0.9*cex.global
       )
 
       ##add mtext for temperature
-
-      ##grep temperature (different for different verions)
-      temp.field <- if (temp@METADATA[i, "VERSION"] == "03") "AN_TEMP" else "TEMPERATURE"
-      temperature <- temp@METADATA[i, temp.field]
-
-      ##mtext
+      temp.field <- if (temp[i, "VERSION"] == "03") "AN_TEMP" else "TEMPERATURE"
+      temperature <- temp[i, temp.field]
       mtext(side=3,
             if (is.TL) paste("TL to", high, temp.lab)
             else paste0(ltype, "@", temperature, " ", temp.lab),
             cex=0.9*cex.global)
 
       ##add mtext for irradiation
-      mtext(side=4,cex=0.8*cex.global, line=0.5,
-            if(temp@METADATA[i, "IRR_TIME"]!=0){
-              if(missing("dose_rate")==TRUE){
-                paste("dose = ",temp@METADATA[i, "IRR_TIME"], " s", sep="")
-              }else{
-                paste("dose = ",temp@METADATA[i, "IRR_TIME"]*dose_rate, " Gy", sep="")
-              }
-            }
-      )#end mtext
-    }#endif::selection
+      if (temp[i, "IRR_TIME"] != 0) {
+        mtext(side = 4, cex = 0.8 * cex.global, line = 0.5,
+              if (missing("dose_rate"))
+                paste("dose =", temp[i, "IRR_TIME"], "s")
+              else
+                paste("dose =", temp[i, "IRR_TIME"] * dose_rate, "Gy")
+              )
+      }
   }#endforloop
 
   if (fun == TRUE) sTeve() # nocov
