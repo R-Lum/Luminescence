@@ -46,3 +46,25 @@ test_that("general test", {
   CWOSL.SAR.Data@METADATA$VERSION <- 04
   expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1))
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("TL",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 1, run = 2, set = 5))
+  vdiffr::expect_doppelganger("OSL",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 2, run = 7, set = 3))
+  vdiffr::expect_doppelganger("IRSL",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 2, run = 8, set = 3))
+  vdiffr::expect_doppelganger("dose rate",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 2, run = 5, set = 3,
+                                                     dose_rate = 0.123))
+  })
+})
