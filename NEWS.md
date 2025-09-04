@@ -186,6 +186,9 @@
 - Input arguments are validate more strictly to avoid unexpected crashes
   in case of misspecification (#964).
 
+- The x-axis label for TL curves now reports temperature rather than
+  time, consistently with the data shown (#971).
+
 ### `plot_RLum.Analysis()`
 
 - The legend text now scales better at non-default `cex` settings
