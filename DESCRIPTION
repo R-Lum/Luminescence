@@ -58,6 +58,7 @@ Imports:
     shape (>= 1.4.6),
     parallel,
     XML (>= 3.99-0.16),
+    stats4
 Suggests:
     spelling (>= 2.3.0),
     plotly (>= 4.10.4),
