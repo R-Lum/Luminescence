@@ -676,6 +676,9 @@ calc_MinDose <- function(
     prof@profile$mu <- prof@profile$mu[is.finite(prof@profile$mu$z), ]
   }
 
+  ## workaround for #967 FIXME(mcol)
+  logLik <- bbmle::logLik
+
   # calculate Bayesian Information Criterion (BIC)
   BIC <- BIC(ests)
 
