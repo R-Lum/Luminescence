@@ -26,21 +26,6 @@ test_that("input validation", {
 test_that("plot_DetPlot", {
   testthat::skip_on_cran()
 
-  ## simple run with default
-  SW({
-  results <- expect_s4_class(plot_DetPlot(
-    object,
-    method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
-    analyse_function.control = list(
-      fit.method = "LIN"),
-    n.channels = 2),
-    "RLum.Results")
-  })
-
   ## simple run with default but no plot
   results <- expect_s4_class(plot_DetPlot(
     object,
@@ -51,23 +36,6 @@ test_that("plot_DetPlot", {
     background.integral.max = 1000,
     analyse_function.control = list(
       fit.method = "LIN"),
-    n.channels = 2,
-    verbose = FALSE,
-    plot = FALSE),
-    "RLum.Results")
-
-  ## test with trim channels
-  results <- expect_s4_class(plot_DetPlot(
-    object,
-    method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
-    analyse_function.control = list(
-      fit.method = "LIN",
-      trim_channels = TRUE
-      ),
     n.channels = 2,
     verbose = FALSE,
     plot = FALSE),
@@ -110,20 +78,6 @@ test_that("plot_DetPlot", {
     plot = FALSE),
     "RLum.Results")
   })
-
-  ## simple run with default
-  results <- expect_s4_class(plot_DetPlot(
-    object,
-    method = "expansion",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
-    analyse_function.control = list(
-      fit.method = "LIN"),
-    verbose = FALSE,
-    n.channels = 2),
-    "RLum.Results")
 
   ## try with NA values
   object@records[[2]][,2] <- 1
@@ -200,5 +154,36 @@ test_that("plot_DetPlot", {
           "An error occurred, analysis skipped"),
       "No valid results produced")
   )
+  })
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("shift trim",
+                              plot_DetPlot(object,
+                                           method = "shift",
+                                           signal.integral.min = 1,
+                                           signal.integral.max = 3,
+                                           background.integral.min = 900,
+                                           background.integral.max = 1000,
+                                           analyse_function.control = list(
+                                               fit.method = "LIN",
+                                               trim_channels = TRUE
+                                           ),
+                                           n.channels = 3))
+  vdiffr::expect_doppelganger("expansion",
+                              plot_DetPlot(object,
+                                           method = "expansion",
+                                           signal.integral.min = 1,
+                                           signal.integral.max = 3,
+                                           background.integral.min = 900,
+                                           background.integral.max = 1000,
+                                           analyse_function.control = list(
+                                               fit.method = "LIN"),
+                                           n.channels = 2))
   })
 })

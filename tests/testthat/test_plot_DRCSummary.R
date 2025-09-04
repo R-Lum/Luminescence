@@ -59,9 +59,6 @@ test_that("Test plotting", {
   ##simple
   expect_silent(plot_DRCSummary(results))
 
-  ##simple with graphical arguments
-  expect_silent(plot_DRCSummary(results, col.lty = "red"))
-
   ##simple with OTOR
   expect_silent(plot_DRCSummary(results_OTOR))
 
@@ -76,13 +73,27 @@ test_that("Test plotting", {
   l <- expect_silent(plot_DRCSummary(list()))
   expect_length(l, 0)
 
-  ##plus points
-  expect_silent(plot_DRCSummary(results, show_dose_points = TRUE, show_natural = TRUE))
-
   ##expect warning
   expect_warning(plot_DRCSummary(results, show_dose_points = TRUE,
                                  show_natural = TRUE, sel_curves = 1000),
                  "'sel_curves' out of bounds, reset to full dataset")
   expect_warning(plot_DRCSummary(results_OTOR, xlim = c(-1e12, 1e12)),
                  "Dose response curve 1 contains NA/NaN values, curve removed")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+  testthat::skip_if_not(getRversion() >= "4.4.0")
+
+  SW({
+  vdiffr::expect_doppelganger("dose points natural",
+                              plot_DRCSummary(results,
+                                              show_dose_points = TRUE,
+                                              show_natural = TRUE))
+  vdiffr::expect_doppelganger("dose_rate",
+                              plot_DRCSummary(results,
+                                              col.lty = "red",
+                                              source_dose_rate = 0.5))
+  })
 })
