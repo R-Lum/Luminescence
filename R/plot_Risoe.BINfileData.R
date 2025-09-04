@@ -201,7 +201,7 @@ plot_Risoe.BINfileData<- function(
                          ", run=", temp@METADATA[i, "RUN"],
                          ", set=", temp@METADATA[i, "SET"]),
            type="l",
-           xlab = if (is.TL) paste0("temp. [", temp.lab, "]") else "time [s]",
+           xlab = if (is.TL) paste0("Temperature [", temp.lab, "]") else "Time [s]",
            ylab = paste0(ltype, " [cts/", round(high / npoints, 3),
                          " ", measured_unit, "]"),
            col = if (ltype %in% c("IRSL", "RIR")) "red"
