@@ -681,7 +681,7 @@ fit_LMCurve<- function(
 
     ##change names of matrix to make more easy to understand
     component.contribution.matrix.names <- c("x", "rev.x",
-                                             paste(c("y.c","rev.y.c"),rep(1:n.components,each=2), sep=""))
+                                             paste0(c("y.c", "rev.y.c"), rep(1:n.components, each = 2)))
 
     ##calculate area for each component, for each time interval
     component.contribution.matrix.area <- sapply(
@@ -701,7 +701,7 @@ fit_LMCurve<- function(
     ##set final column names
     colnames(component.contribution.matrix) <- c(
       component.contribution.matrix.names,
-      paste(c("cont.c"),rep(1:n.components,each=1), sep=""),
+      paste0("cont.c", 1:n.components),
       "cont.sum")
 
     ##============================================================================##

@@ -243,10 +243,8 @@ fit_CWCurve<- function(
   ##
   ##////equation used for fitting////(start)
   fit.equation <- function(I0.i,lambda.i){
-    equation<-parse(
-      text=paste("I0[",I0.i,"]*lambda[",lambda.i,"]*exp(-lambda[",lambda.i,"]*x)",
-                 collapse="+",sep=""))
-    return(equation)
+    parse(text = paste0("I0[", I0.i, "] * lambda[", lambda.i,
+                        "] * exp(-lambda[", lambda.i ,"] * x)", collapse = "+"))
   }
   ##////equation used for fitting///(end)
 
@@ -514,7 +512,7 @@ fit_CWCurve<- function(
 
       ##combine values and change rows names
       fit.results<-cbind(I0,I0.error,lambda,lambda.error,cs, cs.rel)
-      row.names(fit.results)<-paste("c", 1:(length(parameters)/2), sep="")
+      row.names(fit.results) <- paste0("c", 1:(length(parameters) / 2))
 
       ##print parameters
       print(fit.results)
@@ -530,7 +528,7 @@ fit_CWCurve<- function(
     ##============================================================================##
     if (verbose && output.terminalAdvanced) {
       ##sum of squares
-      writeLines(paste("pseudo-R^2 = ",pR,sep=""))
+      cat("pseudo-R^2 = ", pR, "\n")
     }#end if
 
     ##============================================================================##
@@ -651,7 +649,7 @@ fit_CWCurve<- function(
       ##change names of matrix to make more easy to understand
       component.contribution.matrix.names <- c(
         "x", "rev.x",
-        paste(c("y.c","rev.y.c"),rep(1:n.components,each=2), sep=""))
+        paste0(c("y.c", "rev.y.c"), rep(1:n.components, each = 2)))
 
       ##calculate area for each component, for each time interval
       component.contribution.matrix.area <- sapply(
@@ -672,7 +670,7 @@ fit_CWCurve<- function(
       ##set final column names
       colnames(component.contribution.matrix) <- c(
         component.contribution.matrix.names,
-        paste(c("cont.c"),rep(1:n.components,each=1), sep=""),
+        paste0("cont.c", 1:n.components),
         "cont.sum")
     }#endif :: (exists("fit"))
   }
@@ -735,7 +733,7 @@ fit_CWCurve<- function(
           curve(I0[i]*lambda[i]*exp(-lambda[i]*x),col=col[i+1],
                 lwd = 2,
                 add = TRUE)
-          legend.caption<-c(legend.caption,paste("component ",i,sep=""))
+          legend.caption<- c(legend.caption, paste("component", i))
           curve.col<-c(curve.col,i+1)
         }
       }#end if

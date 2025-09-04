@@ -174,6 +174,8 @@ plot_Risoe.BINfileData<- function(
   for(i in 1:length(temp@METADATA[,"ID"])){
     ##print only if SEL == TRUE
     if (temp@METADATA[i, "SEL"]) {
+      high <- temp@METADATA[i, "HIGH"]
+      npoints <- temp@METADATA[i, "NPOINTS"]
       ltype <- temp@METADATA[i, "LTYPE"]
       is.TL <- ltype == "TL"
 
@@ -181,13 +183,12 @@ plot_Risoe.BINfileData<- function(
       measured_unit <- if (is.TL) temp.lab else "s"
 
       ##set x and y values
-      values.x <- seq(temp@METADATA[i,"HIGH"]/temp@METADATA[i,"NPOINTS"],
-                      temp@METADATA[i,"HIGH"],by=temp@METADATA[i,"HIGH"]/temp@METADATA[i,"NPOINTS"])
+      values.x <- seq(high / npoints, high, by = high/npoints)
       values.y <- unlist(temp@DATA[temp@METADATA[i,"ID"]])
       values.xy <- data.frame(values.x, values.y)
 
       ##set curve transformation if wanted
-      if (grepl("IRSL|OSL", temp@METADATA[i, "LTYPE"]) &&
+      if (grepl("IRSL|OSL", ltype) &&
           curve.transformation != "None") {
 
         ## get the actual function from the parameter value and apply it
@@ -196,17 +197,17 @@ plot_Risoe.BINfileData<- function(
 
       ##plot graph
       plot(values.xy,
-           main=paste("pos=", temp@METADATA[i,"POSITION"],", run=", temp@METADATA[i,"RUN"],
-                      ", set=", temp@METADATA[i,"SET"],sep=""
-           ),
+           main = paste0("pos=", temp@METADATA[i, "POSITION"],
+                         ", run=", temp@METADATA[i, "RUN"],
+                         ", set=", temp@METADATA[i, "SET"]),
            type="l",
-           ylab=paste(temp@METADATA[i,"LTYPE"]," [cts/",round(temp@METADATA[i,"HIGH"]/temp@METADATA[i,"NPOINTS"],digits=3)," ",
-                      measured_unit,"]",sep=""),
            xlab = if (is.TL) paste0("temp. [", temp.lab, "]") else "time [s]",
-           col=if(temp@METADATA[i,"LTYPE"]=="IRSL" | temp@METADATA[i,"LTYPE"]=="RIR"){"red"}
-           else if(temp@METADATA[i,"LTYPE"]=="OSL" | temp@METADATA[i,"LTYPE"]=="RBR"){"blue"}
-           else{"black"},
-           sub=if(temp@METADATA[i,"LTYPE"]=="TL"){paste("(",temp@METADATA[i,"RATE"]," K/s)",sep="")}else{},
+           ylab = paste0(ltype, " [cts/", round(high / npoints, 3),
+                         " ", measured_unit, "]"),
+           col = if (ltype %in% c("IRSL", "RIR")) "red"
+                 else if (ltype %in% c("OSL", "RBR")) "blue"
+                 else "black",
+           sub = if (is.TL) paste0("(", temp@METADATA[i, "RATE"], " K/s)"),
            lwd=1.2*cex.global,
            cex=0.9*cex.global
       )
@@ -214,23 +215,18 @@ plot_Risoe.BINfileData<- function(
       ##add mtext for temperature
 
       ##grep temperature (different for different verions)
-
-      temperature <- if(temp@METADATA[i,"VERSION"]=="03") {
-        temp@METADATA[i,"AN_TEMP"]
-        } else {
-          temp@METADATA[i,"TEMPERATURE"]
-        }
+      temp.field <- if (temp@METADATA[i, "VERSION"] == "03") "AN_TEMP" else "TEMPERATURE"
+      temperature <- temp@METADATA[i, temp.field]
 
       ##mtext
       mtext(side=3,
-            if(temp@METADATA[i,"LTYPE"]=="TL"){paste("TL to ",temp@METADATA[i,"HIGH"], " ",temp.lab,sep="")}
-            else{paste(temp@METADATA[i,"LTYPE"],"@",temperature," ",temp.lab ,sep="")},
+            if (is.TL) paste("TL to", high, temp.lab)
+            else paste0(ltype, "@", temperature, " ", temp.lab),
             cex=0.9*cex.global)
 
       ##add mtext for irradiation
       mtext(side=4,cex=0.8*cex.global, line=0.5,
             if(temp@METADATA[i, "IRR_TIME"]!=0){
-
               if(missing("dose_rate")==TRUE){
                 paste("dose = ",temp@METADATA[i, "IRR_TIME"], " s", sep="")
               }else{
@@ -238,9 +234,7 @@ plot_Risoe.BINfileData<- function(
               }
             }
       )#end mtext
-
     }#endif::selection
-
   }#endforloop
 
   if (fun == TRUE) sTeve() # nocov
