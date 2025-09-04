@@ -152,6 +152,11 @@
 - The legend positioning can now be controlled via the `...` argument
   `legend.pos` (#959).
 
+### `plot_DRCSummary()`
+
+- The dose-response curve is now plotted as expected, after a regression
+  in 1.1.0 caused the function to produce an empty plot (#969).
+
 ### `plot_DRTResults()`
 
 - Points didn’t scale correctly at non-default `cex` values (#879).
