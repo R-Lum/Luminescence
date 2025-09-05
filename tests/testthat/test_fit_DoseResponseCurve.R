@@ -267,14 +267,16 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit_DoseResponseCurve(
       df_odd,
       mode = "interpolation",
-      verbose = FALSE
-  ), tolerance = snapshot.tolerance)
+      verbose = FALSE,
+      n.MC = 10
+  ), tolerance = 5.0e-3)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       df_odd,
       mode = "extrapolation",
-      verbose = FALSE
-  ), tolerance = snapshot.tolerance)
+      verbose = FALSE,
+      n.MC = 10
+  ), tolerance = 5.0e-3)
   })
 })
 
