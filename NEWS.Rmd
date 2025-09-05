@@ -99,6 +99,10 @@ arbitrary when negative (#957).
 * The message reported for `fit.method = "QDR"` now states correctly whether
 the fit succeeded or failed (#961).
 
+* The computation of De.MC, De.Error and HPDI for `mode = "interpolation"` has
+been modified to account correctly for possible negative De values resulting
+from the fit (#963).
+
 ### `fit_LMCurve()`
 
 * The automated correction of the x-axis in case of `0` for lowest value threw 
