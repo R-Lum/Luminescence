@@ -105,6 +105,11 @@
   `mode = "interpolation"` has been modified to account correctly for
   possible negative De values resulting from the fit (#963).
 
+- Previously, a single `NA`value in the Monte Carlo results would
+  prevent the computation of Highest Density Intervals (HPDI). This
+  limitation has been removed, and now HPDIs are reported in more cases
+  (#976).
+
 ### `fit_LMCurve()`
 
 - The automated correction of the x-axis in case of `0` for lowest value
