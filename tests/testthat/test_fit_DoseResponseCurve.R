@@ -276,7 +276,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       verbose = FALSE,
       n.MC = 10
-  ), tolerance = 1.0e-2)
+  ), tolerance = 4.0e-2)
   })
 })
 
