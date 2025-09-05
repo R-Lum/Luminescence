@@ -3284,7 +3284,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [8.08823021]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3324,7 +3324,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [32.61722972]
+                  "value": [0]
                 },
                 {
                   "type": "logical",
@@ -3339,12 +3339,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [24.29412484]
+                  "value": [-41.17011698]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [41.07025904]
+                  "value": [-24.29412484]
                 },
                 {
                   "type": "double",
@@ -3356,7 +3356,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [18.3470547, 36.68117017, 32.81524269, 32.82983634, 37.56755114, 28.59341121, 46.91747124, 28.48737439, 24.70569649, 39.22748881]
+              "value": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             },
             {
               "type": "list",

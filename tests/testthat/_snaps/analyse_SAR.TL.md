@@ -559,7 +559,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0]
+                  "value": ["NA"]
                 },
                 {
                   "type": "character",
@@ -804,7 +804,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [29.59240401]
+                  "value": ["NA"]
                 },
                 {
                   "type": "character",
