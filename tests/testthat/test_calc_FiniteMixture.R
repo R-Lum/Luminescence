@@ -58,6 +58,7 @@ test_that("check class and length of output", {
     ExampleData.DeValues$CA1[2:9, ],
     sigmab = 0.1,
     n.components = 3,
+    pdf.colors = "none",
     verbose = TRUE),
     "The model produced NA values: either the input data are inapplicable")
   })
@@ -108,8 +109,8 @@ test_that("graphical snapshot tests", {
                             main = "From RLum.Results",
                             verbose = FALSE)
   vdiffr::expect_doppelganger("from RLum.Results",
-                              plot_RLum.Results(res,
-                                                pdf.colors = "colors"))
+                              calc_FiniteMixture(res,
+                                                 pdf.colors = "colors"))
   })
 })
 
