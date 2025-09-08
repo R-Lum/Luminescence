@@ -88,6 +88,16 @@ test_that("graphical snapshot tests", {
                                   main = "Plot title",
                                   verbose = TRUE))
 
+  vdiffr::expect_doppelganger("cex pdf.weights",
+                              calc_FiniteMixture(
+                                  ExampleData.DeValues$CA1,
+                                  sigmab = 0.2,
+                                  n.components = 2:3,
+                                  grain.probability = TRUE,
+                                  pdf.weights = FALSE,
+                                  pdf.colors = "none",
+                                  cex = 2))
+
   ## plot with plot_RLum.Results
   res <- calc_FiniteMixture(ExampleData.DeValues$CA1,
                             sigmab = 0.2,
