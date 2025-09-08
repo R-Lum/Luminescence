@@ -1711,10 +1711,10 @@ fit_DoseResponseCurve <- function(
   HPDI <- matrix(c(NA,NA,NA,NA), ncol = 4)
   ## here we use the original x.natural because we need the entire
   ## distribution of De values, not a censored one
-  if (!anyNA(x.natural)) {
+  if (sum(!is.na(x.natural)) >= 5) {
     HPDI <- cbind(
-      .calc_HPDI(x.natural, prob = 0.68)[1, ,drop = FALSE],
-      .calc_HPDI(x.natural, prob = 0.95)[1, ,drop = FALSE])
+        .calc_HPDI(x.natural, prob = 0.68, na.rm = TRUE)[1, , drop = FALSE],
+        .calc_HPDI(x.natural, prob = 0.95, na.rm = TRUE)[1, , drop = FALSE])
   }
 
   ## calculate the n/N value (the relative saturation level)

@@ -1093,14 +1093,14 @@
                   "value": ["EXP+EXP"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": [1778.26645496]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": [1860.87796402]
                 },
                 {
                   "type": "double",
@@ -3583,14 +3583,14 @@
                   "value": ["EXP"]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": [28.23498744]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": [55.23882042]
                 }
               ]
             },
