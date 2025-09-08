@@ -28,17 +28,29 @@ test_that("input validation", {
   })
 })
 
-test_that("Full check", {
+test_that("check functionality", {
   skip_on_cran()
 
   ##run analysis
   SW({
-  expect_s4_class(analyse_Al2O3C_ITC(data_ITC), "RLum.Results")
-  expect_s4_class(analyse_Al2O3C_ITC(list(data_ITC), signal_integral = 2,
-                                     method_control = list(fit.method = "EXP")),
-                  "RLum.Results")
   expect_warning(expect_null(analyse_Al2O3C_ITC(list(data_ITC),
                                                 dose_points = list(2))),
                  "Nothing was merged as the object list was found to be empty")
+  })
+})
+
+test_that("snapshot tests", {
+  skip_on_cran()
+
+  set.seed(1)
+  snapshot.tolerance <- 5.0e-6
+
+  SW({
+  expect_snapshot_RLum(analyse_Al2O3C_ITC(data_ITC),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(analyse_Al2O3C_ITC(list(data_ITC),
+                                          signal_integral = 2,
+                                          method_control = list(fit.method = "EXP")),
+                       tolerance = snapshot.tolerance)
   })
 })
