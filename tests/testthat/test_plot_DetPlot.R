@@ -162,6 +162,8 @@ test_that("graphical snapshot tests", {
   testthat::skip_if_not_installed("vdiffr")
   testthat::skip_if_not(getRversion() >= "4.4.0")
 
+  set.seed(1)
+
   SW({
   vdiffr::expect_doppelganger("shift trim",
                               plot_DetPlot(object,
