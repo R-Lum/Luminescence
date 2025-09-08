@@ -195,7 +195,7 @@ test_that("check functionality", {
         exceed.max.regpoint = FALSE),
       plot = TRUE,
     ),
-    regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Recuperation reference invalid, valid are")
+    "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
    # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters

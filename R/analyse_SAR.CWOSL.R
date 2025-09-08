@@ -1,26 +1,29 @@
 #' @title Analyse SAR CW-OSL Measurements
 #'
-#' @description The function performs a SAR CW-OSL analysis on an
-#' [RLum.Analysis-class] object including growth curve fitting.
+#' @description
+#' The function performs a SAR CW-OSL analysis on an [RLum.Analysis-class]
+#' object, including growth curve fitting.
 #'
 #' @details
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 #' calculation of the `Lx/Tx` value the function [calc_OSLLxTxRatio] is
-#' used. For **changing the way the Lx/Tx error is calculated** use the argument
+#' used. To **change the way the Lx/Tx error is calculated** use the arguments
 #' `background.count.distribution` and `sigmab`, which will be passed to the function
 #' [calc_OSLLxTxRatio].
 #'
 #' **What is part of a SAR sequence?**
 #'
-#' The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
-#' A SAR sequence is basically a set of \eqn{L_{x}/T_{x}} curves. Hence, every 2nd curve
-#' is considered a shine-down curve related to the test dose. It also means that the number of
-#' curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves, and that
-#' hot-bleach curves **do not** belong into a SAR sequence; at least not for the analysis.
-#' Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
-#' irradiation curves. The later one indicates the duration of the irradiation, the
-#' dose and test dose points, e.g., as part of XSYG files.
+#' The function is rather picky when it comes down to accepted curve input
+#' (OSL, IRSL,...) and structure. A SAR sequence is basically a set of
+#' \eqn{L_{x}/T_{x}} curves. Hence, every second curve is considered a
+#' shine-down curve related to the test dose. It also means that the number of
+#' curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves,
+#' and that hot-bleach curves **do not** belong into a SAR sequence; at least
+#' not for the analysis. Other curves allowed and processed are preheat curves,
+#' or preheat curves measured as TL, and irradiation curves. The later one
+#' indicates the duration of the irradiation, the dose and test dose points,
+#' e.g., as part of XSYG files.
 #'
 #' **Argument `object` is of type `list`**
 #'
@@ -34,8 +37,9 @@
 #' otherwise the function will create an own list of the requested length.
 #' Function output will be just one single [RLum.Results-class] object.
 #'
-#' Please be careful when using this option. It may allow a fast an efficient data analysis, but
-#' the function may also break with an unclear error message, due to wrong input data.
+#' Please be careful when using this option. While it may allow for a fast and
+#' efficient data analysis, the function may break with an unclear error
+#' message if the input data is misspecified.
 #'
 #' **Working with IRSL data**
 #'
@@ -48,23 +52,24 @@
 #' have to be pre-selected by the user to fit the standards of the SAR
 #' protocol, i.e., Lx,Tx,Lx,Tx and so on.
 #'
-#' Example: Imagine the measurement contains `pIRIR50` and `pIRIR225` IRSL curves.
-#' Only one curve type can be analysed at the same time: The `pIRIR50` curves or
-#' the `pIRIR225` curves.
+#' Example: Imagine the measurement contains `pIRIR50` and `pIRIR225` IRSL
+#' curves. Only one curve type can be analysed at the same time: either the
+#' `pIRIR50` curves or the `pIRIR225` curves.
 #'
 #' **Supported rejection criteria**
 #'
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
-#' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
-#' ratio of the natural signal). For methodological background see Aitken and
-#' Smith (1988). As a variant with the argument `recuperation_reference` another dose point can be
-#' selected as reference instead of `Ln/Tn`.
+#' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the
+#' `Lx/Tx` ratio of the natural signal). For methodological background see
+#' Aitken and Smith (1988). As a variant, `recuperation_reference` can be
+#' specified to select another dose point as reference instead of `Ln/Tn`.
 #'
-#' `[testdose.error]`: set the allowed error for the test dose, which per
-#' default should not exceed 10%. The test dose error is calculated as `Tx_net.error/Tx_net`.
-#' The calculation of the \eqn{T_{n}} error is detailed in [calc_OSLLxTxRatio].
+#' `[testdose.error]`: set the allowed error for the test dose, which by
+#' default should not exceed 10%. The test dose error is calculated as
+#' `Tx_net.error/Tx_net`. The calculation of the \eqn{T_{n}} error is detailed
+#' in [calc_OSLLxTxRatio].
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10%.
@@ -72,47 +77,49 @@
 #' **Irradiation times**
 #'
 #' The function makes two attempts to extra irradiation data (dose points)
-#' automatically from the input object, if the argument `dose.points` was not
+#' automatically from the input object, if the argument `dose.points` is not
 #' set (aka set to `NULL`).
 #'
-#' 1. It searches in every curve for an info object called `IRR_TIME`. If this was set, any value
-#' set here is taken as dose point.
+#' 1. It searches in every curve for an info object called `IRR_TIME`. If this
+#' is found, any value set there is taken as dose point.
 #'
-#' 2. If the object contains curves of type `irradiation`, the function tries to
-#' use this information to assign these values to the curves. However, the function
-#' does **not** overwrite values preset in `IRR_TIME`.
+#' 2. If the object contains curves of type `irradiation`, the function tries
+#' to use this information to assign these values to the curves. However, the
+#' function does **not** overwrite values preset in `IRR_TIME`.
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
-#' [RLum.Analysis-class] objects can be provided. The object should contain **only** curves
-#' considered part of the SAR protocol (see Details).
+#' [RLum.Analysis-class] objects can be provided. The object should **only**
+#' contain curves considered part of the SAR protocol (see Details).
 #'
 #' @param signal.integral.min [integer] (**required**):
-#' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
-#' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the minimum signal integral for the `Tx` curve. Can be set to `NA`, in this
-#' case no integrals are taken into account.
+#' lower bound of the signal integral. It can be a [list] of integers, if
+#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
+#' value will be interpreted as the minimum signal integral for the `Tx` curve.
+#' It can be set to `NA`, in which case no integrals are taken into account.
 #'
 #' @param signal.integral.max [integer] (**required**):
-#' upper bound of the signal integral. Can be a [list] of [integer]s, if `object` is
-#' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the maximum signal integral for the `Tx` curve. Can be set to `NA`, in this
-#' case no integrals are taken into account.
+#' upper bound of the signal integral. It can be a [list] of integers if
+#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
+#' value will be interpreted as the maximum signal integral for the `Tx` curve.
+#' It can be set to `NA`, in which case no integrals are taken into account.
 #'
 #' @param background.integral.min [integer] (**required**):
-#' lower bound of the background integral. Can be a [list] of [integer]s, if `object` is
-#' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the minimum background integral for the `Tx` curve. Can be set to `NA`, in this
-#' case no integrals are taken into account.
+#' lower bound of the background integral. It can be a [list] of integers if
+#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
+#' value will be interpreted as the minimum background integral for the `Tx`
+#' curve. It can be set to `NA`, in which case no integrals are taken into
+#' account.
 #'
 #' @param background.integral.max [integer] (**required**):
-#' upper bound of the background integral. Can be a [list] of [integer]s, if `object` is
-#' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the maximum background integral for the `Tx` curve. Can be set to `NA`, in this
-#' case no integrals are taken into account.
+#' upper bound of the background integral. It can be a [list] of integers if
+#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
+#' value will be interpreted as the maximum background integral for the `Tx`
+#' curve. It can be set to `NA`, in which case no integrals are taken into
+#' account.
 #'
-#' @param OSL.component [character] or [integer] (*optional*): s single index
-#' or a [character] defining the signal component to be evaluated.
+#' @param OSL.component [character] or [integer] (*optional*):
+#' single index or a [character] defining the signal component to be evaluated.
 #' It requires that the object was processed by `OSLdecomposition::RLum.OSL_decomposition`.
 #' This argument can either be the name of the OSL component assigned by
 #' `OSLdecomposition::RLum.OSL_global_fitting` or the index in the descending
@@ -130,25 +137,27 @@
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
 #' `palaeodose.error`, `testdose.error`, `exceed.max.regpoint = TRUE/FALSE`,
-#' `recuperation_reference = "Natural"` (or any other dose point, e.g., `"R1"`).
+#' `recuperation_reference` ("Natural" or any other dose point, e.g., `"R1"`).
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
-#' Per default all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
-#' Every criterion can be set to `NA`. In this value are calculated, but not considered, i.e.
-#' the RC.Status becomes always `'OK'`
+#' By default, all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
+#' Every criterion can be set to `NA`, in which case values are calculated, but
+#' they are not considered, i.e. their corresponding RC.Status is always `'OK'`.
 #'
 #' @param dose.points [numeric] (*optional*):
 #' a numeric vector containing the dose points values. Using this argument
 #' overwrites dose point values extracted from other data. Can be a [list] of
-#' [numeric] vectors, if `object` is of type [list]
+#' [numeric] vectors, if `object` is of type [list].
 #'
-#' @param dose.points.test [numeric] (*optional*): a numeric vector containing
-#' with the test dose in the same units as `dose.points`. If length = 1, the numbers
-#' will be recycled. Has only an effect for `fit.method = 'OTORX'`
+#' @param dose.points.test [numeric] (*optional*):
+#' a numeric vector containing the test dose in the same units as `dose.points`.
+#' If length = 1, the values will be recycled. It has only an effect for
+#' `fit.method = 'OTORX'`.
 #'
-#' @param trim_channels [logical] (*with default*): trim channels per record category
-#' to the lowest number of channels in the category by using [trim_RLum.Data].
-#' Applies only to `OSL` and `IRSL` curves. For a more granular control use [trim_RLum.Data]
-#' before passing the input object.
+#' @param trim_channels [logical] (*with default*):
+#' trim channels per record category to the lowest number of channels in the
+#' category by using [trim_RLum.Data]. Applies only to `OSL` and `IRSL` curves.
+#' For a more granular control use [trim_RLum.Data] before calling this
+#' function.
 #'
 #' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin `mtext`. Can be a [list] of [character]s,
@@ -298,7 +307,6 @@ if(is.list(object)){
   ##handle main separately
   if("main"%in% names(list(...))){
     main <- .listify(list(...)$main, length = length(object))
-
   }else{
     main <- as.list(paste0("ALQ #",1:length(object)))
   }
@@ -324,9 +332,7 @@ if(is.list(object)){
       ...)
   })))
 
-
   ##return
-  ##DO NOT use invisible here, this will prevent the function from stopping
   if(length(results) == 0) return(NULL)
 
   ## add aliquot number
@@ -342,6 +348,7 @@ error.list <- list()
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
+  .validate_logical_scalar(onlyLxTxTable)
 
   ## trim OSL or IRSL channels
   if(trim_channels[1]) {
@@ -425,11 +432,12 @@ error.list <- list()
   CWcurve.type <- names(which.max(table(CWcurve.type)))
 
 # Rejection criteria ------------------------------------------------------
-  if(is.null(rejection.criteria) || class(rejection.criteria)[1] != "list")
+
+  if (class(rejection.criteria)[1] != "list")
     rejection.criteria <- list()
 
   ##set list
-    rejection.criteria <- modifyList(x = list(
+  rejection.criteria <- modifyList(x = list(
       recycling.ratio = 10,
       recuperation.rate = 10,
       palaeodose.error = 10,
@@ -438,7 +446,7 @@ error.list <- list()
       recuperation_reference = "Natural"
     ),
     val = rejection.criteria,
-  keep.null = TRUE)
+    keep.null = TRUE)
 
 
 # Deal with extra arguments ----------------------------------------------------
@@ -701,12 +709,12 @@ error.list <- list()
 
     ## Calculate Recuperation Rate ---------------------------------------------
     ## check for incorrect key words
-    if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
-      .throw_error("Recuperation reference invalid, valid are: ",
-                   .collapse(LnLxTnTx[, "Name"], quote = FALSE))
+    if (!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[, "Name"])
+      .throw_error("Recuperation reference invalid, valid values are: ",
+                   .collapse(LnLxTnTx[, "Name"]))
 
     ##Recuperation Rate (capable of handling multiple type of recuperation values)
-    if(any(LnLxTnTx$Name == "R0")) {
+    if ("R0" %in% LnLxTnTx$Name) {
       Recuperation <- vapply(seq_len(sum(LnLxTnTx$Name == "R0")), \(x) {
                  LnLxTnTx[LnLxTnTx[["Name"]] == "R0","LxTx"][x] /
                  LnLxTnTx[LnLxTnTx[["Name"]] == rejection.criteria$recuperation_reference[1],"LxTx"]
@@ -735,6 +743,13 @@ error.list <- list()
        rep(rejection.criteria$recycling.ratio, length(RecyclingRatio)),
        rep(rejection.criteria$recuperation.rate, length(Recuperation))) / 100
 
+    ## compare a single value with a threshold (either can be NA)
+    .status_from_threshold <- function(value, threshold) {
+      if (is.na(threshold) || isTRUE(value <= threshold))
+        return("OK")
+      return("FAILED")
+    }
+
     ##RecyclingRatio
     temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
     if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio))
@@ -742,13 +757,11 @@ error.list <- list()
         rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation
-    temp.status.Recuperation <- "OK"
-    if (!is.na(Recuperation)[1] &
-        !is.na(rejection.criteria$recuperation.rate)) {
-      temp.status.Recuperation  <- sapply(Recuperation, function(x) {
-        ifelse(x > rejection.criteria$recuperation.rate / 100, "FAILED", "OK")
-      })
-    }
+    temp.status.Recuperation <- sapply(Recuperation, function(value) {
+      if (is.na(value))
+        return("OK")
+      .status_from_threshold(value, rejection.criteria$recuperation.rate / 100)
+    })
 
     # Provide Rejection Criteria for Testdose error --------------------------
     testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
@@ -756,27 +769,14 @@ error.list <- list()
     testdose.error.threshold <-
       rejection.criteria$testdose.error / 100
 
-    if (is.na(testdose.error.calculated)) {
-      testdose.error.status <- "FAILED"
-
-    }else{
-      testdose.error.status <- "OK"
-      if(!is.na(testdose.error.threshold)){
-        testdose.error.status <- ifelse(
-          testdose.error.calculated <= testdose.error.threshold,
-          "OK", "FAILED"
-        )
-      }
-    }
-
     testdose.error.data.frame <- data.frame(
       Criteria = "Testdose error",
       Value = testdose.error.calculated,
       Threshold = testdose.error.threshold,
-      Status =  testdose.error.status,
+      Status = .status_from_threshold(testdose.error.calculated,
+                                      testdose.error.threshold),
       stringsAsFactors = FALSE
     )
-
 
     RejectionCriteria <- data.frame(
       Criteria = temp.criteria,
@@ -865,10 +865,6 @@ error.list <- list()
         .throw_warning("Too many curves, only the first ",
                        length(col), " curves are plotted")
       }
-
-      ##legend text
-      legend.text <-
-        paste(LnLxTnTx$Name,"\n(",LnLxTnTx$Dose,")", sep = "")
 
       ##get channel resolution (should be equal for all curves)
       resolution.OSLCurves <- round(object@records[[OSL.Curves.ID[1]]]@data[2,1] -
@@ -978,7 +974,7 @@ error.list <- list()
             xlim = xlim_range,
             ylim = ylim_range,
             main = main,
-            log = if (log == "y" | log == "xy") "y" else "")
+            log = gsub("x", "", log))
 
           #provide curve information as mtext, to keep the space for the header
           mtext(
@@ -1045,8 +1041,9 @@ error.list <- list()
           cex = 4,
           ylim = c(0,10))
 
-        ##add text
-        text(x, y, legend.text, offset = 1, pos = 1)
+        ## add legend text
+        text(x, y, paste0(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")"),
+             offset = 1, pos = 1)
 
         ##add line
         abline(h = 10,lwd = 0.5)
@@ -1094,27 +1091,24 @@ error.list <- list()
     temp.GC.fit.Formula <- NULL
 
   # Calculate Dose-response curve -------------------------------------------
-  if(!onlyLxTxTable){
+    if (!onlyLxTxTable) {
       temp.GC <- do.call(
         fit_DoseResponseCurve,
         args = c(list(object = temp.sample), list(...)))
 
-        ##if null
-        if(is.null(temp.GC)){
+      if (is.null(temp.GC)) {
           temp.GC <- temp.GC.all.na
           temp.GC.fit.Formula <- NA
 
           ##create empty plots if needed, otherwise subsequent functions may crash
           if(plot){
             shape::emptyplot()
-            if (!"output.plotExtended" %in% extraArgs ||
-                extraArgs$output.plotExtended) {
+            if (extraArgs$plot_extended %||% TRUE) {
               shape::emptyplot()
               shape::emptyplot()
             }
           }
-
-        }else{
+      } else {
           if(plot) {
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
@@ -1134,42 +1128,26 @@ error.list <- list()
 
           # Provide Rejection Criteria for Palaeodose error --------------------------
           palaeodose.error.calculated <- NA
-          if (!is.na(temp.GC[, 1])) {
-            palaeodose.error.calculated <- round(temp.GC[,2] / temp.GC[,1], digits = 5)
+          De <- as.numeric(temp.GC[, 1])
+          if (!is.na(De)) {
+            palaeodose.error.calculated <- round(temp.GC[, 2] / De, digits = 5)
           }
 
           palaeodose.error.threshold <-
             rejection.criteria$palaeodose.error / 100
 
-          if (!is.na(palaeodose.error.threshold) && (is.na(palaeodose.error.calculated) ||
-              palaeodose.error.calculated > palaeodose.error.threshold)) {
-            palaeodose.error.status <- "FAILED"
-          } else {
-            palaeodose.error.status <- "OK"
-          }
-
           palaeodose.error.data.frame <- data.frame(
             Criteria = "Palaeodose error",
             Value = palaeodose.error.calculated,
             Threshold = palaeodose.error.threshold,
-            Status =  palaeodose.error.status,
+            Status = .status_from_threshold(palaeodose.error.calculated,
+                                            palaeodose.error.threshold),
             stringsAsFactors = FALSE
           )
 
-          ##add exceed.max.regpoint
-          if (!is.na(temp.GC[,1]) &
-              !is.na(rejection.criteria$exceed.max.regpoint) &&
-              rejection.criteria$exceed.max.regpoint) {
-            status.exceed.max.regpoint <-
-              ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
-
-          }else{
-            status.exceed.max.regpoint <- "OK"
-          }
-
           exceed.max.regpoint.data.frame <- data.frame(
             Criteria = "De > max. dose point",
-            Value = as.numeric(temp.GC[,1]),
+            Value = De,
             Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
                 NA
               }else if(!rejection.criteria$exceed.max.regpoint){
@@ -1177,7 +1155,7 @@ error.list <- list()
               }else{
                 as.numeric(max(LnLxTnTx$Dose))
               },
-            Status =  status.exceed.max.regpoint
+            Status = .status_from_threshold(De, max(LnLxTnTx$Dose))
           )
 
           ##add to RejectionCriteria data.frame
@@ -1185,19 +1163,16 @@ error.list <- list()
                                      palaeodose.error.data.frame,
                                      exceed.max.regpoint.data.frame)
 
-
-        ##add rejection status
-        if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
-          temp.GC <- data.frame(temp.GC, RC.Status = "FAILED", stringsAsFactors = FALSE)
-
-        }else{
-          temp.GC <- data.frame(temp.GC, RC.Status = "OK", stringsAsFactors = FALSE)
-        }
-       }#endif for is.null
+          ## add rejection status
+          status <- if ("FAILED" %in% RejectionCriteria$Status) "FAILED" else "OK"
+          temp.GC <- data.frame(temp.GC,
+                                RC.Status = status,
+                                stringsAsFactors = FALSE)
+      }
     }
 
       ##add information on the integration limits
-      temp.GC.extended <-
+    temp.GC.extended <-
         data.frame(
           signal.range = paste(min(signal.integral),":",
                                max(signal.integral)),

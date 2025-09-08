@@ -26,35 +26,37 @@ analyse_SAR.CWOSL(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 input object containing data for analysis, alternatively a \link{list} of
-\linkS4class{RLum.Analysis} objects can be provided. The object should contain \strong{only} curves
-considered part of the SAR protocol (see Details).}
+\linkS4class{RLum.Analysis} objects can be provided. The object should \strong{only}
+contain curves considered part of the SAR protocol (see Details).}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
-lower bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
-of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum signal integral for the \code{Tx} curve. Can be set to \code{NA}, in this
-case no integrals are taken into account.}
+lower bound of the signal integral. It can be a \link{list} of integers, if
+\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
+value will be interpreted as the minimum signal integral for the \code{Tx} curve.
+It can be set to \code{NA}, in which case no integrals are taken into account.}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
-upper bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
-of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum signal integral for the \code{Tx} curve. Can be set to \code{NA}, in this
-case no integrals are taken into account.}
+upper bound of the signal integral. It can be a \link{list} of integers if
+\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
+value will be interpreted as the maximum signal integral for the \code{Tx} curve.
+It can be set to \code{NA}, in which case no integrals are taken into account.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
-lower bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
-of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
-case no integrals are taken into account.}
+lower bound of the background integral. It can be a \link{list} of integers if
+\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
+value will be interpreted as the minimum background integral for the \code{Tx}
+curve. It can be set to \code{NA}, in which case no integrals are taken into
+account.}
 
 \item{background.integral.max}{\link{integer} (\strong{required}):
-upper bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
-of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
-case no integrals are taken into account.}
+upper bound of the background integral. It can be a \link{list} of integers if
+\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
+value will be interpreted as the maximum background integral for the \code{Tx}
+curve. It can be set to \code{NA}, in which case no integrals are taken into
+account.}
 
-\item{OSL.component}{\link{character} or \link{integer} (\emph{optional}): s single index
-or a \link{character} defining the signal component to be evaluated.
+\item{OSL.component}{\link{character} or \link{integer} (\emph{optional}):
+single index or a \link{character} defining the signal component to be evaluated.
 It requires that the object was processed by \code{OSLdecomposition::RLum.OSL_decomposition}.
 This argument can either be the name of the OSL component assigned by
 \code{OSLdecomposition::RLum.OSL_global_fitting} or the index in the descending
@@ -72,25 +74,27 @@ Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
 
 Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
 \code{palaeodose.error}, \code{testdose.error}, \code{exceed.max.regpoint = TRUE/FALSE},
-\code{recuperation_reference = "Natural"} (or any other dose point, e.g., \code{"R1"}).
+\code{recuperation_reference} ("Natural" or any other dose point, e.g., \code{"R1"}).
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
-Every criterion can be set to \code{NA}. In this value are calculated, but not considered, i.e.
-the RC.Status becomes always \code{'OK'}}
+By default, all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
+Every criterion can be set to \code{NA}, in which case values are calculated, but
+they are not considered, i.e. their corresponding RC.Status is always \code{'OK'}.}
 
 \item{dose.points}{\link{numeric} (\emph{optional}):
 a numeric vector containing the dose points values. Using this argument
 overwrites dose point values extracted from other data. Can be a \link{list} of
-\link{numeric} vectors, if \code{object} is of type \link{list}}
+\link{numeric} vectors, if \code{object} is of type \link{list}.}
 
-\item{dose.points.test}{\link{numeric} (\emph{optional}): a numeric vector containing
-with the test dose in the same units as \code{dose.points}. If length = 1, the numbers
-will be recycled. Has only an effect for \code{fit.method = 'OTORX'}}
+\item{dose.points.test}{\link{numeric} (\emph{optional}):
+a numeric vector containing the test dose in the same units as \code{dose.points}.
+If length = 1, the values will be recycled. It has only an effect for
+\code{fit.method = 'OTORX'}.}
 
-\item{trim_channels}{\link{logical} (\emph{with default}): trim channels per record category
-to the lowest number of channels in the category by using \link{trim_RLum.Data}.
-Applies only to \code{OSL} and \code{IRSL} curves. For a more granular control use \link{trim_RLum.Data}
-before passing the input object.}
+\item{trim_channels}{\link{logical} (\emph{with default}):
+trim channels per record category to the lowest number of channels in the
+category by using \link{trim_RLum.Data}. Applies only to \code{OSL} and \code{IRSL} curves.
+For a more granular control use \link{trim_RLum.Data} before calling this
+function.}
 
 \item{mtext.outer}{\link{character} (\emph{optional}):
 option to provide an outer margin \code{mtext}. Can be a \link{list} of \link{character}s,
@@ -136,27 +140,29 @@ The output should be accessed using the function \link{get_RLum}.
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \description{
-The function performs a SAR CW-OSL analysis on an
-\linkS4class{RLum.Analysis} object including growth curve fitting.
+The function performs a SAR CW-OSL analysis on an \linkS4class{RLum.Analysis}
+object, including growth curve fitting.
 }
 \details{
 The function performs an analysis for a standard SAR protocol measurements
 introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 calculation of the \code{Lx/Tx} value the function \link{calc_OSLLxTxRatio} is
-used. For \strong{changing the way the Lx/Tx error is calculated} use the argument
+used. To \strong{change the way the Lx/Tx error is calculated} use the arguments
 \code{background.count.distribution} and \code{sigmab}, which will be passed to the function
 \link{calc_OSLLxTxRatio}.
 
 \strong{What is part of a SAR sequence?}
 
-The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
-A SAR sequence is basically a set of \eqn{L_{x}/T_{x}} curves. Hence, every 2nd curve
-is considered a shine-down curve related to the test dose. It also means that the number of
-curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves, and that
-hot-bleach curves \strong{do not} belong into a SAR sequence; at least not for the analysis.
-Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
-irradiation curves. The later one indicates the duration of the irradiation, the
-dose and test dose points, e.g., as part of XSYG files.
+The function is rather picky when it comes down to accepted curve input
+(OSL, IRSL,...) and structure. A SAR sequence is basically a set of
+\eqn{L_{x}/T_{x}} curves. Hence, every second curve is considered a
+shine-down curve related to the test dose. It also means that the number of
+curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves,
+and that hot-bleach curves \strong{do not} belong into a SAR sequence; at least
+not for the analysis. Other curves allowed and processed are preheat curves,
+or preheat curves measured as TL, and irradiation curves. The later one
+indicates the duration of the irradiation, the dose and test dose points,
+e.g., as part of XSYG files.
 
 \strong{Argument \code{object} is of type \code{list}}
 
@@ -170,8 +176,9 @@ be of similar length as the \code{list} provided with the argument \code{object}
 otherwise the function will create an own list of the requested length.
 Function output will be just one single \linkS4class{RLum.Results} object.
 
-Please be careful when using this option. It may allow a fast an efficient data analysis, but
-the function may also break with an unclear error message, due to wrong input data.
+Please be careful when using this option. While it may allow for a fast and
+efficient data analysis, the function may break with an unclear error
+message if the input data is misspecified.
 
 \strong{Working with IRSL data}
 
@@ -184,23 +191,24 @@ SAR protocol structure, i.e., to analyse a post-IR IRSL protocol, curve data
 have to be pre-selected by the user to fit the standards of the SAR
 protocol, i.e., Lx,Tx,Lx,Tx and so on.
 
-Example: Imagine the measurement contains \code{pIRIR50} and \code{pIRIR225} IRSL curves.
-Only one curve type can be analysed at the same time: The \code{pIRIR50} curves or
-the \code{pIRIR225} curves.
+Example: Imagine the measurement contains \code{pIRIR50} and \code{pIRIR225} IRSL
+curves. Only one curve type can be analysed at the same time: either the
+\code{pIRIR50} curves or the \code{pIRIR225} curves.
 
 \strong{Supported rejection criteria}
 
 \verb{[recycling.ratio]}: calculated for every repeated regeneration dose point.
 
 \verb{[recuperation.rate]}: recuperation rate calculated by comparing the
-\code{Lx/Tx} values of the zero regeneration point with the \code{Ln/Tn} value (the \code{Lx/Tx}
-ratio of the natural signal). For methodological background see Aitken and
-Smith (1988). As a variant with the argument \code{recuperation_reference} another dose point can be
-selected as reference instead of \code{Ln/Tn}.
+\code{Lx/Tx} values of the zero regeneration point with the \code{Ln/Tn} value (the
+\code{Lx/Tx} ratio of the natural signal). For methodological background see
+Aitken and Smith (1988). As a variant, \code{recuperation_reference} can be
+specified to select another dose point as reference instead of \code{Ln/Tn}.
 
-\verb{[testdose.error]}: set the allowed error for the test dose, which per
-default should not exceed 10\%. The test dose error is calculated as \code{Tx_net.error/Tx_net}.
-The calculation of the \eqn{T_{n}} error is detailed in \link{calc_OSLLxTxRatio}.
+\verb{[testdose.error]}: set the allowed error for the test dose, which by
+default should not exceed 10\%. The test dose error is calculated as
+\code{Tx_net.error/Tx_net}. The calculation of the \eqn{T_{n}} error is detailed
+in \link{calc_OSLLxTxRatio}.
 
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\%.
@@ -208,14 +216,14 @@ default should not exceed 10\%.
 \strong{Irradiation times}
 
 The function makes two attempts to extra irradiation data (dose points)
-automatically from the input object, if the argument \code{dose.points} was not
+automatically from the input object, if the argument \code{dose.points} is not
 set (aka set to \code{NULL}).
 \enumerate{
-\item It searches in every curve for an info object called \code{IRR_TIME}. If this was set, any value
-set here is taken as dose point.
-\item If the object contains curves of type \code{irradiation}, the function tries to
-use this information to assign these values to the curves. However, the function
-does \strong{not} overwrite values preset in \code{IRR_TIME}.
+\item It searches in every curve for an info object called \code{IRR_TIME}. If this
+is found, any value set there is taken as dose point.
+\item If the object contains curves of type \code{irradiation}, the function tries
+to use this information to assign these values to the curves. However, the
+function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
