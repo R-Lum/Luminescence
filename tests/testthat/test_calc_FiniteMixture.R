@@ -111,6 +111,9 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("from RLum.Results",
                               calc_FiniteMixture(res,
                                                  pdf.colors = "colors"))
+  vdiffr::expect_doppelganger("from RLum.Results none",
+                              calc_FiniteMixture(res,
+                                                 pdf.colors = "none"))
   })
 })
 
