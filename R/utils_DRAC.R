@@ -2,8 +2,7 @@
 
 #' @title Subset the DRAC reference
 #'
-#' @param x [data.frame] or [DRAC.list]
-#'
+#' @param x [data.frame] or `DRAC.list`
 #'
 #' @noRd
 .get_DRAC_references <- function(x) {

@@ -127,7 +127,7 @@
 #' have a Poisson probability below the threshold are replaced by the average
 #' over the four neighbouring values.
 #'
-#' @param method [method] (*with default*):
+#' @param method [character] (*with default*):
 #' smoothing method to be applied: one of `"mean"`, `"median"` or
 #' `"Carter_etal_2018"`.
 #'
