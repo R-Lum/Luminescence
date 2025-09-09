@@ -11,10 +11,17 @@ test_that("input validation", {
 
   expect_error(analyse_Al2O3C_ITC("test"),
                "'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_Al2O3C_ITC(iris),
+               "'object' should be of class 'RLum.Analysis' or a 'list' of")
   expect_error(analyse_Al2O3C_ITC(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_Al2O3C_ITC(list(data_ITC, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_Al2O3C_ITC(data_ITC, recordType = NA),
+               "'recordType' should be of class 'character' or NULL")
+  expect_error(expect_warning(analyse_Al2O3C_ITC(data_ITC, recordType = "EXP"),
+                              "This request produced an empty list of records"),
+               "'recordType' produced an empty object")
   expect_error(analyse_Al2O3C_ITC(data_ITC, method_control = "EXP"),
                "'method_control' should be of class 'list'")
   expect_error(analyse_Al2O3C_ITC(data_ITC, dose_points = NA),

@@ -118,7 +118,7 @@ analyse_Al2O3C_ITC <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   # SELF CALL -----------------------------------------------------------------------------------
-  if(is.list(object)){
+  if (inherits(object, "list")) {
     ##check whether the list contains only RLum.Analysis objects
     lapply(object,
            function(x) .validate_class(x, "RLum.Analysis",
@@ -128,10 +128,6 @@ analyse_Al2O3C_ITC <- function(
     rep.length <- length(object)
     signal_integral <- .listify(signal_integral, rep.length)
     dose_points <- .listify(dose_points, rep.length)
-
-    ##method_control
-    ##verbose
-    ##plot
 
     ##run analysis
     results_full <- lapply(1:length(object), function(x){
@@ -148,11 +144,9 @@ analyse_Al2O3C_ITC <- function(
       ), outFile = stdout()) # redirect error messages so they can be silenced
 
       ##catch error
-      if(inherits(results, "try-error")){
+      if (is.null(results) || inherits(results, "try-error"))
         return(NULL)
-      }else{
-        return(results)
-      }
+      return(results)
     })
 
     ##return
@@ -160,7 +154,7 @@ analyse_Al2O3C_ITC <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "RLum.Analysis")
+  .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
   .validate_not_empty(object)
   .validate_class(dose_points, c("numeric", "list"))
   if (is.list(dose_points)) {
@@ -169,15 +163,18 @@ analyse_Al2O3C_ITC <- function(
                       name = "All elements of 'dose_points'")
     })
   }
+  .validate_class(recordType, "character", null.ok = TRUE)
   .validate_class(method_control, "list", null.ok = TRUE)
-
-  ##TODO
-  ##implement more checks ... if you find some time, somehow, somewhere
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   # Preparation ---------------------------------------------------------------------------------
   ##select curves based on the recordType selection; if not NULL
-  if(!is.null(recordType[1]))
+  if (!is.null(recordType)) {
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
+    if (length(object) == 0)
+      .throw_error("'recordType' produced an empty object")
+  }
 
   #set method control
   method_control_settings <- list(
