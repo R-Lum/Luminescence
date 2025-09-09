@@ -1066,6 +1066,7 @@ error.list <- list()
     ##overall plot option selection for plot.single.sel
     plot <- if (plot[1] && 6 %in% plot.single.sel) TRUE else FALSE
 
+    ## this must be kept in sync with fit_DoseResponseCurve()
     temp.GC.all.na <- data.frame(
         De = NA,
         De.Error = NA,
@@ -1077,13 +1078,15 @@ error.list <- list()
         D63 = NA,
         n_N = NA,
         De.MC = NA,
-        De.plot = NA,
         Fit = NA,
+        Mode = NA,
         HPDI68_L = NA,
         HPDI68_U = NA,
         HPDI95_L = NA,
         HPDI95_U = NA,
         RC.Status = NA,
+        .De.plot = NA,
+        .De.raw = NA,
         stringsAsFactors = FALSE)
 
     ##Fit and plot growth curve

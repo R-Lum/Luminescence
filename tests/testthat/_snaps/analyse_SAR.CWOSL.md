@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -84,14 +84,14 @@
                   "value": [1674.83051081]
                 },
                 {
-                  "type": "double",
+                  "type": "character",
                   "attributes": {},
-                  "value": [1668.25051542]
+                  "value": ["EXP"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["interpolation"]
                 },
                 {
                   "type": "double",
@@ -106,12 +106,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1580.77337937]
+                  "value": [1581.40910129]
                 },
                 {
                   "type": "double",
                   "attributes": {},
                   "value": [1770.85423376]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1668.25051542]
                 },
                 {
                   "type": "double",
@@ -350,7 +355,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -415,14 +420,14 @@
                   "value": [1770.23018623, 1669.32980118]
                 },
                 {
-                  "type": "double",
+                  "type": "character",
                   "attributes": {},
-                  "value": [1768.62308496, 1660.6965308]
+                  "value": ["LIN", "LIN"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LIN", "LIN"]
+                  "value": ["interpolation", "interpolation"]
                 },
                 {
                   "type": "double",
@@ -437,12 +442,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1694.00062711, 1565.71247498]
+                  "value": [1694.49193165, 1565.71247498]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1844.33981662, 1752.32339741]
+                  "value": [1844.33981662, 1751.68431891]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1768.62308496, 1660.6965308]
                 },
                 {
                   "type": "double",
@@ -681,7 +691,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "De.plot", "Fit", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", "De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -746,19 +756,19 @@
                   "value": [1775.23665128]
                 },
                 {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1768.62308496]
-                },
-                {
                   "type": "character",
                   "attributes": {},
                   "value": ["LIN"]
                 },
                 {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["interpolation"]
+                },
+                {
                   "type": "double",
                   "attributes": {},
-                  "value": [1741.44150282]
+                  "value": [1741.87460364]
                 },
                 {
                   "type": "double",
@@ -773,7 +783,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1836.7236819]
+                  "value": [1836.29058108]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1768.62308496]
                 },
                 {
                   "type": "double",
