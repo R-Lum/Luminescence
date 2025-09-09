@@ -58,7 +58,6 @@ test_that("check class and length of output", {
     ExampleData.DeValues$CA1[2:9, ],
     sigmab = 0.1,
     n.components = 3,
-    pdf.colors = "none",
     verbose = TRUE),
     "The model produced NA values: either the input data are inapplicable")
   })
@@ -72,9 +71,12 @@ test_that("check class and length of output", {
     verbose = TRUE),
     "No significant increase in maximum log-likelihood estimates")
 
-  ## TODO(mcol): redundant with a graphical snapshot test, remove when
+  ## TODO(mcol): redundant with graphical snapshot tests, remove when
   ## coverage is no longer run on R 4.3
   calc_FiniteMixture(temp, pdf.colors = "none")
+  expect_silent(calc_FiniteMixture(ExampleData.DeValues$CA1,
+                                   sigmab = 0.2, n.components = 2:3,
+                                   pdf.colors = "none", verbose = FALSE))
 })
 
 test_that("graphical snapshot tests", {
