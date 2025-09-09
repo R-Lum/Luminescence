@@ -72,7 +72,7 @@ test_that("check functionality", {
   res <- expect_silent(verify_SingleGrainData(CWOSL.SAR.Data, plot = TRUE))
   expect_s4_class(res, "RLum.Results")
 
-  res <- expect_output(verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
+  expect_output(res <- verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
                                               cleanup_level = "curve"),
                        "Risoe.BINfileData object reduced to records")
   expect_s4_class(res, "Risoe.BINfileData")
