@@ -231,10 +231,10 @@
 #' \tabular{lll}{
 #' `De` \tab [numeric] \tab equivalent dose \cr
 #' `De.Error` \tab [numeric] \tab standard error the equivalent dose \cr
-#' `D01` \tab [numeric] \tab D-naught value, curvature parameter of the exponential \cr
-#' `D01.ERROR` \tab [numeric] \tab standard error of the D-naught value\cr
-#' `D02` \tab [numeric] \tab 2nd D-naught value, only for `EXP+EXP`\cr
-#' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-naught; only for `EXP+EXP`\cr
+#' `D01` \tab [numeric] \tab D-nought value, curvature parameter of the exponential \cr
+#' `D01.ERROR` \tab [numeric] \tab standard error of the D-nought value\cr
+#' `D02` \tab [numeric] \tab 2nd D-nought value, only for `EXP+EXP`\cr
+#' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-nought; only for `EXP+EXP`\cr
 #' `Dc` \tab [numeric] \tab value indicating saturation level; only for `OTOR` \cr
 #' `D63` \tab [numeric] \tab the specific saturation level; only for `OTORX` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr

@@ -121,10 +121,10 @@ This object is a \link{data.frame} with the following columns
 \tabular{lll}{
 \code{De} \tab \link{numeric} \tab equivalent dose \cr
 \code{De.Error} \tab \link{numeric} \tab standard error the equivalent dose \cr
-\code{D01} \tab \link{numeric} \tab D-naught value, curvature parameter of the exponential \cr
-\code{D01.ERROR} \tab \link{numeric} \tab standard error of the D-naught value\cr
-\code{D02} \tab \link{numeric} \tab 2nd D-naught value, only for \code{EXP+EXP}\cr
-\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-naught; only for \code{EXP+EXP}\cr
+\code{D01} \tab \link{numeric} \tab D-nought value, curvature parameter of the exponential \cr
+\code{D01.ERROR} \tab \link{numeric} \tab standard error of the D-nought value\cr
+\code{D02} \tab \link{numeric} \tab 2nd D-nought value, only for \code{EXP+EXP}\cr
+\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-nought; only for \code{EXP+EXP}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
 \code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr

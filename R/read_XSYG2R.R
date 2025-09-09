@@ -79,7 +79,7 @@
 #' UVVIS \tab 18 ns\cr
 #' NIR50 \tab 70 ns\cr
 #' NIR40 \tab 70 ns \cr
-#' ETMPT \tab 25 ns
+#' ETPMT \tab 25 ns
 #' }
 #'
 #' Unfortunately, not all XSYG files provide correct information on
