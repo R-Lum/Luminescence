@@ -80,8 +80,7 @@
 #' in a loop.**
 #'
 #' @param structure [character] (*with default*):
-#' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`.
-#' Other input is ignored
+#' the structure of the measurement data, one of `'Lx'` or `c('Lx','Tx')`.
 #'
 #' @param signal.integral [vector] (**required**): vector with channels for the signal integral
 #' (e.g., `c(1:10)`). Not required if a `data.frame` with `LxTx` values is provided.
@@ -205,9 +204,9 @@ analyse_FadingMeasurement <- function(
   .set_function_name("analyse_FadingMeasurement")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity Tests --------------------------------------------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
+  .validate_class(structure, "character")
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
 
   if (inherits(object, "list")) {
@@ -348,10 +347,8 @@ analyse_FadingMeasurement <- function(
       ##set irradiation times
       irradiation_times <- vapply(object_clean, function(o){
         o@info$IRR_TIME
-
       }, numeric(1))
 
-      ##not support
     }else{
       .throw_message("Unknown or unsupported originator, NULL returned")
       return(NULL)
@@ -468,17 +465,15 @@ analyse_FadingMeasurement <- function(
   }
 
   ##normalise
-  if(length(structure) == 2 | is.null(object)){
-    LxTx_NORM <-
-      LxTx_table[["LxTx"]] / LxTx_table[["LxTx"]][which(TIMESINCEIRR== tc)[1]]
-    LxTx_NORM.ERROR <-
-      LxTx_table[["LxTx.Error"]] / LxTx_table[["LxTx"]][which(TIMESINCEIRR == tc)[1]]
-
-  }else{
-    LxTx_NORM <-
-      LxTx_table[["Net_LnLx"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR== tc)[1]]
-    LxTx_NORM.ERROR <-
-       LxTx_table[["Net_LnLx.Error"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR == tc)[1]]
+  idx.tc <- which(TIMESINCEIRR == tc)[1]
+  if (length(structure) == 2 || is.null(object)){
+    LxTx <- LxTx_table[["LxTx"]]
+    LxTx_NORM <- LxTx / LxTx[idx.tc]
+    LxTx_NORM.ERROR <- LxTx_table[["LxTx.Error"]] / LxTx[idx.tc]
+  } else {
+    LnLx <- LxTx_table[["Net_LnLx"]]
+    LxTx_NORM <- LnLx / LnLx[idx.tc]
+    LxTx_NORM.ERROR <- LxTx_table[["Net_LnLx.Error"]] / LnLx[idx.tc]
   }
 
   ## normalise time since irradiation
@@ -519,12 +514,9 @@ analyse_FadingMeasurement <- function(
       x = MC_matrix[,1],
       y = MC_matrix[,x]))$coefficients, silent = TRUE)
 
-    if(inherits(fit, "try-error")){
+    if (inherits(fit, "try-error"))
       return(c(NA_real_, NA_real_))
-
-    }else{
-      return(fit)
-    }
+    return(fit)
   }, FUN.VALUE = numeric(2))
 
   ##calculate g-values from matrix
@@ -569,7 +561,6 @@ analyse_FadingMeasurement <- function(
     row.names = NULL
   )
 
-
   ## calc g-value -----
   fit <-
     try(stats::lm(y ~ x,
@@ -580,7 +571,6 @@ analyse_FadingMeasurement <- function(
   fit_power <- try(stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,
                          data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                                            y = LxTx_table[["LxTx_NORM"]])), silent = TRUE)
-
 
   ##for predicting
   fit_predict <-
@@ -610,7 +600,7 @@ analyse_FadingMeasurement <- function(
   ## calc g2-value days ----
   k0 <- g_value[,c("FIT", "SD")] / 100 / log(10)
   k1 <- k0 / (1 - k0 * log(172800/tc))
-  g_value_2days <-  100 * k1 * log(10)
+  g_value_2days <-  as.numeric(100 * k1 * log(10))
   names(g_value_2days) <- c("G_VALUE_2DAYS", "G_VALUE_2DAYS.ERROR")
 
   # Approximation -------------------------------------------------------------------------------
@@ -1021,20 +1011,21 @@ analyse_FadingMeasurement <- function(
 
   # Terminal ------------------------------------------------------------------------------------
   if (verbose){
-
     cat("\n[analyse_FadingMeasurement()]\n")
-    cat(paste0("\n n.MC:\t",n.MC))
-    cat(paste0("\n tc:\t",format(tc, digits = 4, scientific = TRUE), " s"))
+    cat("\n n.MC:\t", n.MC)
+    cat("\n tc:\t", format(tc, digits = 4, scientific = TRUE), "s")
     cat("\n---------------------------------------------------")
-    cat(paste0("\nT_0.5 interpolated:\t",T_0.5$T_0.5_INTERPOLATED))
-    cat(paste0("\nT_0.5 predicted:\t",format(T_0.5$T_0.5_PREDICTED, digits = 2, scientific = TRUE)))
-    cat(paste0("\ng-value:\t\t", round(g_value$FIT, digits = 2), " \u00b1 ", round(g_value$SD, digits = 2),
-               " (%/decade)"))
-    cat(paste0("\ng-value (norm. 2 days):\t", round(g_value_2days[1], digits = 2), " \u00b1 ", round(g_value_2days[2], digits = 2),
-               " (%/decade)"))
+    cat("\nT_0.5 interpolated:\t", T_0.5$T_0.5_INTERPOLATED)
+    cat("\nT_0.5 predicted:\t", format(T_0.5$T_0.5_PREDICTED, digits = 2, scientific = TRUE))
+    cat("\ng-value:\t\t", round(g_value$FIT, digits = 2),
+        "\u00b1", round(g_value$SD, digits = 2), "(%/decade)")
+    cat("\ng-value (norm. 2 days):\t", round(g_value_2days[1], digits = 2),
+        "\u00b1", round(g_value_2days[2], digits = 2), "(%/decade)")
     cat("\n---------------------------------------------------")
-    cat(paste0("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3), " \u00b1 ", format(rhoPrime$SD, digits = 3)))
-    cat(paste0("\nlog10(rho'):\t\t", suppressWarnings(round(log10(rhoPrime$MEAN), 2)), " \u00b1 ", round(rhoPrime$SD /  (rhoPrime$MEAN * log(10, base = exp(1))), 2)))
+    cat("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3),
+        "\u00b1", format(rhoPrime$SD, digits = 3))
+    cat("\nlog10(rho'):\t\t", suppressWarnings(round(log10(rhoPrime$MEAN), 2)),
+        "\u00b1", round(rhoPrime$SD / (rhoPrime$MEAN * log(10)), 2))
     cat("\n---------------------------------------------------\n")
   }
 
@@ -1060,7 +1051,6 @@ analyse_FadingMeasurement <- function(
       UID = uid,
       stringsAsFactors = FALSE
     )
-
   }else{
     fading_results <- data.frame(
       g_value,
