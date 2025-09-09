@@ -71,6 +71,10 @@ test_that("check class and length of output", {
     pdf.colors = "colors",
     verbose = TRUE),
     "No significant increase in maximum log-likelihood estimates")
+
+  ## TODO(mcol): redundant with a graphical snapshot test, remove when
+  ## coverage is no longer run on R 4.3
+  calc_FiniteMixture(temp, pdf.colors = "none")
 })
 
 test_that("graphical snapshot tests", {
