@@ -246,6 +246,8 @@ analyse_Al2O3C_ITC <- function(
     fit.method = method_control_settings$fit.method,
     verbose = FALSE
   )
+  if (is.null(GC))
+    return(NULL)
 
   ##output
   if(verbose){
