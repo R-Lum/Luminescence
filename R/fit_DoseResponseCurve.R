@@ -239,16 +239,17 @@
 #' `D63` \tab [numeric] \tab the specific saturation level; only for `OTORX` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
 #' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
-#' `De.plot` \tab [numeric] \tab equivalent dose use for plotting \cr
-#' `Fig` \tab [character] \tab applied fit function \cr
+#' `Fit` \tab [character] \tab applied fit function \cr
+#' `Mode` \tab [character] \tab mode used in fitting \cr
 #' `HPDI68_L` \tab [numeric] \tab highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68% probability \cr
 #' `HPDI68_U` \tab [numeric] \tab same as `HPDI68_L` for the upper bound \cr
 #' `HPDI95_L` \tab [numeric] \tab same as `HPDI68_L` but for 95% probability \cr
 #' `HPDI95_U` \tab [numeric] \tab same as `HPDI95_L` but for the upper bound \cr
-#' `De.raw` \tab [numeric] \tab only for `mode = "interpolation"`; reports all calculated De values 'as is', without setting meaningless values to `NA`. In particular, it reports infinities and negative values if they could be calculated. Bear in mind that values may be arbitrary when negative.\cr
+#' `.De.plot` \tab [numeric] \tab equivalent dose used internally for plotting \cr
+#' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.4.2
+#' @section Function version: 1.4.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -1744,6 +1745,8 @@ fit_DoseResponseCurve <- function(
     De <- NA
   }
 
+  ## if fields in this objects are changed, update also `temp.GC.all.na`
+  ## in analyse_SAR.CWOSL()
   output <- try(data.frame(
     De = abs(De),
     De.Error = De.Error,
@@ -1755,17 +1758,16 @@ fit_DoseResponseCurve <- function(
     D63 = D63,
     n_N = n_N,
     De.MC = De.MonteCarlo,
-    De.plot = De, # no absolute value, used for plotting
     Fit = fit.method,
+    Mode = mode,
     HPDI68_L = HPDI[1,1],
     HPDI68_U = HPDI[1,2],
     HPDI95_L = HPDI[1,3],
     HPDI95_U = HPDI[1,4],
+    .De.plot = De,    # no absolute value, needed for plot_DoseResposeCurve()
+    .De.raw = De.raw, # negative values not set to NA for interpolation
     row.names = NULL
   ), silent = TRUE)
-
-  if (mode == "interpolation")
-    output$De.raw <- De.raw # negative values not set to NA
 
   ##make RLum.Results object
   output.final <- set_RLum(

@@ -94,14 +94,13 @@
 
 ### `fit_DoseResponseCurve()`
 
-- For `mode = "interpolation"`, the object returned contains an
-  additional `De.raw` column, which stores the calculated De value
-  computed by the fitting function ‘as is’, without setting meaningless
-  results to `NA`. Therefore, the only difference between the `De` and
-  `De.raw` columns is that the first sets the De to `NA` if negative,
-  while the latter doesn’t. It is then up to the user to decide what to
-  do with those values, bearing in mind that they may be arbitrary when
-  negative (#957).
+- The object returned now contains an additional `.De.raw` column to
+  store the calculated De value computed by the fitting function ‘as
+  is’, without setting meaningless results to `NA`. The `De` and
+  `.De.raw` columns differ only for `mode = "interpolation"`, where the
+  first sets the De to `NA` if negative, while the latter doesn’t. It is
+  then up to the user to decide what to do with those values, bearing in
+  mind that they may be arbitrary when negative (#957).
 
 - The message reported for `fit.method = "QDR"` now states correctly
   whether the fit succeeded or failed (#961).
@@ -113,6 +112,11 @@
 - Previously, a single `NA`value in the Monte Carlo results prevented
   the computation of Highest Density Intervals (HPDI). This limitation
   has been removed, and now HPDIs are reported in more cases (#976).
+
+- The columns of the `results$De` data frame are now reported in a
+  different order; an additional “Mode” column reports the value of the
+  `mode` argument; columns meant for internal use have been moved to the
+  end and their names are now prefixed with `.` (#974).
 
 ### `fit_LMCurve()`
 
