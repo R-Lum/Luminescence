@@ -196,7 +196,6 @@ analyse_Al2O3C_ITC <- function(
   ##set signal integral
   if(is.null(signal_integral)){
     signal_integral <- c(1:nrow(object[[1]][]))
-
   }else{
     ##check whether the input is valid, otherwise make it valid
     if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
@@ -207,15 +206,17 @@ analyse_Al2O3C_ITC <- function(
   }
 
   ##calculate curve sums, assuming the background
-  net_SIGNAL <- vapply(1:length(object[seq(1,length(object), by = 2)]), function(x){
-    temp_signal <- sum(object[seq(1,length(object), by = 2)][[x]][,2])
-    temp_background <- sum(object[seq(2,length(object), by = 2)][[x]][,2])
+  net_SIGNAL <- vapply(seq(1, length(object), by = 2), function(x) {
+    temp_signal <- sum(object[[x]][, 2])
+    temp_background <- sum(object[[x + 1]][, 2])
     return(temp_signal - temp_background)
   }, FUN.VALUE = numeric(1))
 
-  ##create data.frames
-    ##single points
-    df <- data.frame(
+  ## silence notes raised by R CMD check
+  DOSE <- net_SIGNAL_NORM <- NULL
+
+  ## create data.tables
+  df <- data.table(
       DOSE = dose_points,
       net_SIGNAL = net_SIGNAL,
       net_SIGNAL.ERROR = 0,
@@ -223,18 +224,12 @@ analyse_Al2O3C_ITC <- function(
       net_SIGNAL_NORM.ERROR = 0
     )
 
-    ##take mean
-    ##make data frame for all curves for MC runs
-    df_mean <- as.data.frame(data.table::rbindlist(lapply(unique(df$DOSE), function(x){
-      data.frame(
-        DOSE = x,
-        net_SIGNAL = mean(df[df$DOSE == x, "net_SIGNAL"]),
-        net_SIGNAL.ERROR = sd(df[df$DOSE == x, "net_SIGNAL"]),
-        net_SIGNAL_NORM = mean(df[df$DOSE == x, "net_SIGNAL_NORM"]),
-        net_SIGNAL_NORM.ERROR = sd(df[df$DOSE == x, "net_SIGNAL_NORM"])
-      )
-    })))
-
+  ## compute means and errors
+  df_mean <- as.data.frame(df[, list(net_SIGNAL = mean(net_SIGNAL),
+                                     net_SIGNAL.ERROR = sd(net_SIGNAL),
+                                     net_SIGNAL_NORM = mean(net_SIGNAL_NORM),
+                                     net_SIGNAL_NORM.ERROR = sd(net_SIGNAL_NORM)),
+                              by = DOSE])
 
   ##calculate GC
   GC <- fit_DoseResponseCurve(
@@ -249,8 +244,8 @@ analyse_Al2O3C_ITC <- function(
   ##output
   if(verbose){
     cat("\n[analyse_Al2O3C_ITC()]\n")
-    cat(paste0("\n Used fit:\t\t",method_control_settings$fit.method))
-    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", round(GC$De$De.Error, 3)))
+    cat("\n Used fit method:\t\t", method_control_settings$fit.method)
+    cat("\n Time correction value:\t", round(GC$De$De, 3), "\u00B1", round(GC$De$De.Error, 3))
     cat("\n\n")
   }
 
@@ -348,7 +343,7 @@ analyse_Al2O3C_ITC <- function(
         VALUE = as.numeric(GC$De$De),
         VALUE_ERROR = as.numeric(sd(GC$De.MC))
       ),
-      table = df,
+      table = as.data.frame(df),
       table_mean = df_mean,
       fit = GC$Fit
     ),

@@ -36,12 +36,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.58729319]
+                  "value": [2.5872917]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03831355]
+                  "value": [0.03484788]
                 }
               ]
             },
@@ -53,15 +53,15 @@
                   "attributes": {},
                   "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
                 },
-                "class": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["data.frame"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
                 }
               },
               "value": [
@@ -95,11 +95,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -109,6 +104,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
                 }
               },
               "value": [
@@ -212,12 +212,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.58729238]
+                  "value": [2.5872919]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03301487]
+                  "value": [0.03567595]
                 }
               ]
             },
