@@ -188,6 +188,11 @@ apply_CosmicRayRemoval <- function(
     .throw_error("'object' contains no data")
 
   .validate_args(method, c("smooth", "smooth.spline", "smooth_RLum", "Pych"))
+  .validate_positive_scalar(method.Pych.smoothing, int = TRUE)
+  .validate_positive_scalar(method.Pych.threshold_factor)
+  .validate_args(MARGIN, c(1, 2))
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ##deal with additional arguments
   extraArgs <- modifyList(
