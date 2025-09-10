@@ -287,21 +287,20 @@ use_DRAC <- function(
   ## if the input was valid from a technical standpoint, but not with regard
   ## contents, we indeed get a valid response, but no DRAC output
   if (!grepl("DRAC Outputs", DRAC.content)) {
-    error_start <- max(gregexpr("drac_field_error", DRAC.content)[[1]])
-    error_end <- regexec('textarea name=', DRAC.content)[[1]]
-    error_msg <- substr(DRAC.content, error_start, error_end)
-
-    # nocov start
     on.exit({
-      reply <- readline("Do you want to see the DRAC error message (Y/N)?")
-      if (reply == "Y" || reply == "y" || reply == 1)
-        cat(error_msg)
-    }, add = TRUE)
-    # nocov end
+      reply <- readline("Do you want to see the DRAC error message (y/N)? ")
+      if (reply %in% c("Y", "y", "1")) {
+        ## convert to html and extract the error fields
+        html <- XML::htmlParse(DRAC.content, asText = TRUE)
+        error <- XML::xpathSApply(html, "//div[@class='drac_field_error']",
+                                  XML::xmlValue)
 
-    .throw_error("\n\t We got a response from the server, but it\n",
-                 "\t did not contain DRAC output. Please check\n",
-                 "\t your data and verify its validity.\n")
+        cat("\n", paste(error, collapse = "\n"), "\n", sep = "")
+      }
+    }, add = TRUE)
+
+    .throw_error("The response from the server did not contain DRAC output, ",
+                 "please check your data and verify its validity.")
   } else {
     if (settings$verbose) message("\t Finalising the results...")
   }
@@ -400,7 +399,6 @@ use_DRAC <- function(
       print(references$refs[[i]], style = citation_style)
     }
   }
-
 
   ## return output
   DRAC.return <- set_RLum(
