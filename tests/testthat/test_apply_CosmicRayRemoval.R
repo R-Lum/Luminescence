@@ -75,4 +75,7 @@ test_that("regression tests", {
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum",
                                        method_smooth_RLum = "Carter_etal_2018"))
 
+  ## issue 987
+  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",
+                                       MARGIN = 1))
 })

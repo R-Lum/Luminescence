@@ -377,7 +377,7 @@ apply_CosmicRayRemoval <- function(
   }
 
   ## Rotate matrix if required
-  if(MARGIN[1] == 1)
+  if (MARGIN[1] == 1 && method != "Pych")
     object.data.temp.smooth <- t(object.data.temp.smooth)
 
   # Correct row and column names --------------------------------------------

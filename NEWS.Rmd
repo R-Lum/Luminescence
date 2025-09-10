@@ -32,13 +32,6 @@ provided no benefits to the user (#945).
 * The function throws an error if trying to assign a `NULL` value instead of
 silently ignoring it (#946).
 
-### `apply_CosmicRayRemoval()`
-
-* The `method` argument of `smooth_RLum()` was not reachable via `...` as
-the `apply_CosmicRayRemoval()` already has an argument called `method`. Now
-the `...` argument is called `method_smooth_RLum` and works as expected
-(9b27467).
-
 ### `analyse_Al2O3C_ITC()`
 
 * The function returns early if the fitting of the dose response curve fails
@@ -53,6 +46,17 @@ of length 3, as was already documented (#930).
 
 * The function crashed if any of the curves had `NA` as its `recordType`
 (#867).
+
+### `apply_CosmicRayRemoval()`
+
+* The `method` argument of `smooth_RLum()` was not reachable via `...` as
+the `apply_CosmicRayRemoval()` already has an argument called `method`. Now
+the `...` argument is called `method_smooth_RLum` and works as expected
+(9b27467).
+
+* The function crashed if method = "Pych"` and `MARGIN = 1` were specified.
+The function now better validates its inputs and no longer returns invisibly
+but normally (#987).
 
 ### `calc_AliquotSize()`
 
