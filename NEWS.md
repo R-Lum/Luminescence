@@ -9,10 +9,8 @@
 
 ## New functions
 
-- `correct_PMTLinearity()`A little helper to correct luminescence
-  signals for count linearity, if measured with a PMT (#920).
-
-## New datasets
+- `correct_PMTLinearity()`: A helper function to correct luminescence
+  signals measured with a PMT for count linearity (#920).
 
 ## Removed functions and deprecations
 
@@ -27,8 +25,6 @@
 - Function `get_Risoe.BINfileData()` has been removed as it was not used
   and provided no benefits to the user (#945).
 
-## Breaking changes
-
 ## Bugfixes and changes
 
 ## `add_metadata<-()`
@@ -38,9 +34,10 @@
 
 ### `apply_CosmicRayRemoval()`
 
-- The argument `method` for `method = "smooth_RLum()"` was not reachable
-  and would lead to a crash if called. Now the `<...>` argument is
-  called `method_smooth_RLum` and works as expected.
+- The `method` argument of `smooth_RLum()` was not reachable via `...`
+  as the `apply_CosmicRayRemoval()` already has an argument called
+  `method`. Now the `...` argument is called `method_smooth_RLum` and
+  works as expected (9b27467).
 
 ### `analyse_Al2O3C_ITC()`
 
@@ -95,8 +92,8 @@
 ### `fit_DoseResponseCurve()`
 
 - The object returned now contains an additional `.De.raw` column to
-  store the calculated De value computed by the fitting function ‘as
-  is’, without setting meaningless results to `NA`. The `De` and
+  store the calculated De value computed by the fitting function “as
+  is”, without setting meaningless results to `NA`. The `De` and
   `.De.raw` columns differ only for `mode = "interpolation"`, where the
   first sets the De to `NA` if negative, while the latter doesn’t. It is
   then up to the user to decide what to do with those values, bearing in
@@ -120,8 +117,9 @@
 
 ### `fit_LMCurve()`
 
-- The automated correction of the x-axis in case of `0` for lowest value
-  threw the correct warning but actually did nothing; fixed.
+- The automatic correction of the x-axis limits when `log = "x"` is
+  specified and the lowest value is set to `0` threw the correct warning
+  but actually did nothing (38e4324).
 
 ### `fit_OSLLifeTimes()`
 
@@ -130,8 +128,8 @@
 
 ### `get_RLum()`
 
-- The function doesn’t crash anymore on `RLum.Analysis` objects if
-  `record.id` removes all available records (#873).
+- The function doesn’t crash anymore on `RLum.Analysis` objects if using
+  the `record.id` argument removes all available records (#873).
 
 - An internal optimization increased the performance of the function.
   The difference is not perceivable on single calls to `get_RLum()`, but
@@ -162,9 +160,9 @@
 
 ### `plot_DoseResponseCurve()`
 
-- The legend did not match anymore the plotted regeneration/dose points.
-  This was fixed including affected functions such as
-  `analyse_SAR.CWOSL()` and `analyse_pIRIRSequence()`
+- The legend symbols did not match anymore the plotted regeneration/dose
+  points. This also affected functions such as `analyse_SAR.CWOSL()` and
+  `analyse_pIRIRSequence()` (9ba54e65).
 
 - The legend positioning can now be controlled via the `...` argument
   `legend.pos` (#959).
@@ -177,6 +175,7 @@
 ### `plot_DRTResults()`
 
 - Points didn’t scale correctly at non-default `cex` values (#879).
+
 - Option `summary = "weighted$median"` is now officially supported
   (#905).
 
@@ -215,15 +214,15 @@
 
 - The function gained a new logical argument `interactive` that enables
   interactive plotting of curves using `plotly::plot_ly()`. It requires
-  the suggested package `'plotly'` to be present (#e4746ea).
+  the suggested package `'plotly'` to be installed (e4746eaa).
 
 ### `plot_RLum.Data.Spectrum()`
 
 - Types `image` and `contour` gained more control of the contour line
   labels through the argument `labcex`.
 
-- For plot types `"image"` and `"multiple.lines"` the `...` argument
-  `legend` (`TRUE`  `FALSE`) was added.
+- For plot types `"image"` and `"multiple.lines"` the `...` logical
+  argument `legend` was added.
 
 - Plot type `"image"` further gained a legend with support through `...`
   for `legend.pos`, `legend.horiz` and `n_breaks` to control the number
