@@ -2,7 +2,7 @@
 % Please edit documentation in R/apply_CosmicRayRemoval.R
 \name{apply_CosmicRayRemoval}
 \alias{apply_CosmicRayRemoval}
-\title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object}
+\title{Cosmic-ray removal and spectrum smoothing for RLum.Data.Spectrum objects}
 \usage{
 apply_CosmicRayRemoval(
   object,
@@ -16,10 +16,11 @@ apply_CosmicRayRemoval(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}): input
-object to be treated. This can be also provided as \link{list}. If an \linkS4class{RLum.Analysis} object
-is provided, only the \linkS4class{RLum.Data.Spectrum} objects are treated. Please note: this mixing of
-objects does not work for a list of \code{RLum.Data} objects.}
+\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}):
+input object to be treated, which can be also provided as \link{list}. If an
+\linkS4class{RLum.Analysis} object is provided, only its \linkS4class{RLum.Data.Spectrum}
+objects are treated. Please note: this mixing of objects does not work for
+a list of \code{RLum.Data} objects.}
 
 \item{method}{\link{character} (\emph{with default}):
 Defines method that is applied for cosmic ray removal. Allowed methods are
@@ -42,7 +43,8 @@ on which part the function cosmic ray removal should be applied on:
 \item 2 = along the wavelength axis (column by column).
 }
 
-\strong{Note:} This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
+\strong{Note:} This argument only affects methods \code{smooth}, \code{smooth.spline} and
+\code{smooth_RLum}.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -70,7 +72,7 @@ smoothing for \linkS4class{RLum.Data.Spectrum} objects, and those embedded in
 This method applies the cosmic-ray removal algorithm described by Pych
 (2003). There are some differences with respect to the publication:
 \itemize{
-\item For interpolation between neighbouring values the median is used instead
+\item For interpolation between neighbouring values, the median is used instead
 of the mean.
 \item The number of breaks in the histogram is set to half the number of the
 input values.
@@ -96,7 +98,7 @@ METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
 There is no single silver-bullet strategy for cosmic-ray removal, as it depends
 on the characteristic of the detector and the chosen settings. For instance,
 high values for pixel binning will improve the light output, but also cause
-multiple pixels being affected by a single cosmic-ray. The same is valid for
+multiple pixels to be affected by a single cosmic ray. The same is valid for
 longer integration times. The best strategy is to combine methods and ensure
 that the spectrum is not distorted on a case-to-case basis.
 
@@ -124,8 +126,8 @@ Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
 \doi{10.1086/381786}
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline},
-\link{smooth_RLum}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link[stats:smooth]{stats::smooth},
+\link[stats:smooth.spline]{stats::smooth.spline}, \link{smooth_RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
