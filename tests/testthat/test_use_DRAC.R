@@ -60,7 +60,10 @@ test_that("Test DRAC", {
  input$`External K (%)` <- 1.2
  input$`errExternal K (%)` <- 0.14
  input$`Calculate external Rb from K conc?` <- "Y"
+ ## TODO(mcol): temporarily disabled due to issue 919
+ if (FALSE) {
  input$`Calculate internal Rb from K conc?` <- "Y"
+ }
  input$`Scale gammadoserate at shallow depths?` <- "Y"
  input$`Grain size min (microns)` <- 90L
  input$`Grain size max (microns)` <- 125L
@@ -76,9 +79,6 @@ test_that("Test DRAC", {
  input$`De (Gy)` <- 20
  input$`errDe (Gy)` <- 0.2
 
-## temporarily disabled due to issue 919
-if (FALSE) {
-
  ##run DRAC
  SW({
  output <- expect_s4_class(use_DRAC(input), "RLum.Results")
@@ -92,8 +92,6 @@ if (FALSE) {
  class(input.df) <- c("data.frame", "DRAC.data.frame")
  expect_s4_class(use_DRAC(input.df, verbose = FALSE),
                  "RLum.Results")
-
-} # end issue 919
 
  ## CSV input
  expect_s4_class(use_DRAC(test_path("_data/DRAC_Input_Template.csv"),
