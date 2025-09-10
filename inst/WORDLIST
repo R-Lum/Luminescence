@@ -23,7 +23,6 @@ Auclair
 Azevedo
 BDX
 BINX
-BINfile
 BINfileData
 BSL
 BT
@@ -78,7 +77,6 @@ Cueva
 Cunha
 DFG
 DLED
-DOI
 DRAC
 DRC
 DRCs
@@ -102,6 +100,7 @@ Duval
 EBG
 EED
 EMCCD
+ETPMT
 Efron
 Ein
 Elsevier
@@ -110,7 +109,6 @@ Eq
 Erfurt
 ExampleData
 Eynaud
-FALSE’
 FFM
 FI
 FMM
@@ -142,8 +140,11 @@ Guralnik
 Guérin
 Gy
 HC
+HPDI
+HPDIs
 HZDR
 Hadley
+Hamamatsu
 Hamzaoui
 Hase
 Hatte
@@ -175,6 +176,7 @@ Kars
 Karsten
 Kehl
 Kinahan
+Kinnaird
 Kitis
 Klasen
 Kolb
@@ -199,7 +201,6 @@ Lefrais
 Lenovo
 Lett
 Levenberg
-LexStudio
 Liebig
 Liritzis
 LnTn
@@ -214,7 +215,6 @@ MCM
 MERCHANTABILITY
 Maartje
 Madsen
-Majeed
 Marquardt
 MatLab
 Maternicki
@@ -231,7 +231,7 @@ Mungo
 Murari
 Médoc
 NCL
-NIST
+NIR
 NNDC
 NUTECH
 Namche
@@ -243,6 +243,7 @@ Nurmela
 Nutech
 ORCID
 OSL
+OSLdecomposition
 OTOR
 OTORX
 Oestergard
@@ -250,6 +251,7 @@ Olley
 Ostrau
 PECC
 PMT
+PMTs
 POSL
 PSL
 Pagonis
@@ -262,6 +264,7 @@ Pederson
 Petr
 Photoionisation
 Photomultiplier
+Photonics
 Pikal
 Plummer
 Preusser
@@ -331,7 +334,6 @@ Stolz
 Storn
 Straessner
 Streibig
-Subclasses
 Svoboda
 Sébastien
 TLAPLLIC
@@ -357,6 +359,7 @@ Tx
 UMR
 UNIL
 USGS
+UVVIS
 Umweltbedingungen
 Un
 Université
@@ -384,7 +387,6 @@ XRF
 XSXG
 XSYG
 Xcode
-YAML
 Yoshida
 ZENODO
 ZEU
@@ -408,7 +410,6 @@ athermal
 baSAR
 bbmle
 behaviour
-bg
 binx
 calc
 centre
@@ -420,7 +421,6 @@ characterisation
 characterising
 chemometrics
 chronometric
-coercions
 colour
 coloured
 colours
@@ -431,15 +431,16 @@ curveType
 customise
 customised
 data's
+datasheets
 de
 deconvolution
 deconvolve
 dependences
+deprecations
 der
 des
 detrapping
 devtools
-discoverable
 dispersive
 doi
 dosimetric
@@ -458,7 +459,6 @@ geochr
 geochronometry
 ggplot
 grey
-hardcoded
 harmonise
 hg
 hotbleach
@@ -468,8 +468,6 @@ initialisation
 irradiations
 isochrons
 isothermal
-iteratively
-jll
 jlumin
 kB
 ka
@@ -484,7 +482,7 @@ mW
 massebezogenen
 minimisation
 misspecification
-misspecifications
+misspecified
 mit
 modelled
 modelling
@@ -505,6 +503,8 @@ normalisation
 normalise
 normalised
 normalises
+nought
+ns
 nuclide
 onwards
 optimisation
@@ -520,6 +520,7 @@ pandoc
 pch
 photoionisation
 photomultiplier
+photomultipliers
 physica
 plotly
 poisson
@@ -527,7 +528,6 @@ polymineral
 portableOSL
 pre
 preprint
-prioritised
 programme
 pseudoR
 psl
@@ -543,13 +543,11 @@ readSPE
 realised
 recognised
 reorganisation
-reproducibility
 retrapping
 rmarkdown
 rstudioapi
 sTeve
 serialised
-sig
 sigmab
 standardisation
 standardised
@@ -560,6 +558,7 @@ summarised
 summarises
 summarising
 tc
+th
 thermochronometry
 thermoluminescence
 uid
@@ -569,8 +568,6 @@ unitless
 unrecognised
 utilised
 utilises
-violinmplot
-violplot
 vioplot
 visualisation
 visualise
