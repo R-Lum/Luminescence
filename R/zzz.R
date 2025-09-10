@@ -53,6 +53,9 @@ assign("fn_stack", list("<>"),
     year_s = 365.2425 * 24 * 60 * 60
 )
 
+## binding to allow us to mock readline() during tests (see test_use_DRAC.R)
+readline <- NULL
+
 ##==============================================================================
 ##on Attach
 .onAttach <- function(libname,pkgname){
