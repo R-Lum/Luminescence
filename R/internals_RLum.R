@@ -178,8 +178,10 @@
     ## https://doi.org/10.1016/j.radmeas.2018.05.010
 
     ## Poisson probability of sample counts
+    ## We operate on logged values to avoid overflow that would happen with
+    ## the naive formulation `exp(-mx) * mx^x / factorial(x)`
     mx <- mean(x, na.rm = TRUE)
-    prob <- exp(-mx) * mx^x / factorial(x)
+    prob <- exp(-mx + x * log(mx) - lfactorial(x))
 
     ## remove counts with probability below the acceptance threshold
     ## so they are not considered when averaging over the neighbours
