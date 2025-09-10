@@ -59,3 +59,12 @@ test_that("check function", {
   expect_s4_class(apply_CosmicRayRemoval(RLum.Analysis_mixed), class = "RLum.Analysis")
   expect_type(apply_CosmicRayRemoval(RLum.Analysis_mixed_list), "list")
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 985
+  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum",
+                                       method_smooth_RLum = "Carter_etal_2018"))
+
+})

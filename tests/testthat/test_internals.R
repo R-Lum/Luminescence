@@ -59,6 +59,9 @@ test_that("Test internals", {
   expect_equal(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
                           method = "Carter", fill = 0),
                c(1, 1, 2, 1, 0, 2, 1, 2, 0, 1, 0))
+  expect_equal(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50) * 10,
+                          method = "Carter", p_acceptance = 1e-30),
+               c(10, 10, 20, 17, 17, 20, 10, 20, 13, 10, NA))
   expect_error(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
                           method = "Carter", p_acceptance = 0.5),
                "'p_acceptance' rejects all counts, set it to a smaller value")
