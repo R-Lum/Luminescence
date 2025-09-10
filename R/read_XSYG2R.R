@@ -322,10 +322,7 @@ read_XSYG2R <- function(
 
     ##3rd grep count values
     curve.node.count <- vapply(curve.node, function(x) {
-      if(length(x) == 2)
-        x[2]
-      else
-        x[3]
+      x[length(x)]
     }, character(1))
 
     ## remove last bracket
@@ -443,7 +440,7 @@ read_XSYG2R <- function(
         ##the XSYG file might be broken due to a machine error during the measurement, this
         ##control flow helps; if a try-error is observed NULL is returned
         if (inherits(temp.sequence.object.recordType, "try-error"))
-          return(NULL)
+          return(NULL) # nocov
 
          ##create a fallback, the function should not fail
          if(is.null(temp.sequence.object.recordType) || is.na(temp.sequence.object.recordType)){
@@ -656,7 +653,6 @@ read_XSYG2R <- function(
               data = temp.sequence.object.curveValue,
               info = temp.sequence.object.info)
         })
-
       }),
        use.names = FALSE)
 
@@ -682,15 +678,10 @@ read_XSYG2R <- function(
         ##merge output and return values
         if(fastForward){
           return(temp.sequence.object)
-
         }else{
           return(list(Sequence.Header = temp.sequence.header, Sequence.Object = temp.sequence.object))
         }
-
-      }else{
-        return(temp.sequence.object)
       }
-
   }) ##end loop for sequence list
 
   ## close ProgressBar
