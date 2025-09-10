@@ -109,8 +109,10 @@ test_that("Test DRAC", {
   ## communicate with insufficient input
   t <- template_DRAC(notification = FALSE)
   local_mocked_bindings(readline = function(prompt) "Y")
-  expect_error(use_DRAC(t),
-               "We got a response from the server")
+  expect_output(expect_error(
+      use_DRAC(t),
+      "The response from the server did not contain DRAC output"),
+      "ERROR: Some fields were invalid")
 
   ## communicate with fake url
   expect_error(expect_warning(

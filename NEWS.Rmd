@@ -249,3 +249,8 @@ to an average over four neighbours (#921).
 
 * The function crashed if both values specified in the `trim_range` argument
   exceeded the number of channels available (#871).
+
+### `use_DRAC()`
+
+* Report the message produced by the DRAC server more reliably in case of
+error (#982).
