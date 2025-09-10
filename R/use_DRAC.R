@@ -295,6 +295,10 @@ use_DRAC <- function(
         error <- XML::xpathSApply(html, "//div[@class='drac_field_error']",
                                   XML::xmlValue)
 
+        ## extract the fragment we are given if no drac_field_error is found
+        if (length(error) == 0)
+          error <- XML::xpathSApply(html, "//body", XML::xmlValue) # nocov
+
         cat("\n", paste(error, collapse = "\n"), "\n", sep = "")
       }
     }, add = TRUE)
