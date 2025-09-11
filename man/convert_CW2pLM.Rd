@@ -2,12 +2,9 @@
 % Please edit documentation in R/convert_CW2pLM.R
 \name{convert_CW2pLM}
 \alias{convert_CW2pLM}
-\alias{CW2pLM}
 \title{Transform a CW-OSL curve into a pLM-OSL curve}
 \usage{
 convert_CW2pLM(values)
-
-CW2pLM(values)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -77,8 +74,8 @@ Bulur, E., 1996. An Alternative Technique For Optically Stimulated
 Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
 }
 \seealso{
-\link{CW2pHMi}, \link{CW2pLMi}, \link{CW2pPMi}, \link{fit_LMCurve}, \link{lm},
-\linkS4class{RLum.Data.Curve}
+\link{convert_CW2pHMi}, \link{convert_CW2pLMi}, \link{convert_CW2pPMi},
+\link{fit_LMCurve}, \link{lm}, \linkS4class{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

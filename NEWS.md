@@ -6,4 +6,8 @@
 
 ## Removed functions and deprecations
 
+- The functions `CW2pHMi()`, `CW2pLM()`, `CW2pLMi()` and `CW2pPMi()`
+  (deprecated since 1.0.0) have been removed, but their functionality
+  remains in the corresponding `convert_CW2*()` functions (#992).
+
 ## Bugfixes and changes

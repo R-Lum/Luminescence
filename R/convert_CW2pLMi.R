@@ -295,10 +295,3 @@ convert_CW2pLMi<- function(
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
 }
-
-#' @rdname convert_CW2pLMi
-#' @export
-CW2pLMi <- function(values, P) {
-  .Deprecated("convert_CW2pLMi", old = "CW2pLMi")
-  convert_CW2pLMi(values, P)
-}

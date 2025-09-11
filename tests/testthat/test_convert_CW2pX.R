@@ -47,17 +47,6 @@ test_that("Test RLum.Types", {
                   class = "RLum.Data.Curve")
   expect_s4_class(suppressWarnings(convert_CW2pPMi(object)),
                   class = "RLum.Data.Curve")
-
-  ## deprecated names
-  expect_warning(CW2pHMi(object),
-                 "'CW2pHMi' is deprecated")
-  expect_warning(CW2pLM(object),
-                 "'CW2pLM' is deprecated")
-  expect_warning(CW2pLMi(object),
-                 "'CW2pLMi' is deprecated")
-  suppressWarnings(
-  expect_warning(CW2pPMi(object),
-                 "'CW2pPMi' is deprecated"))
 })
 
 test_that("input validation", {
