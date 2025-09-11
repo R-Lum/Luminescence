@@ -130,7 +130,12 @@ print(plot_GrowthCurve(LxTxData, mode = "extrapolation"))
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(plot_GrowthCurve(LxTxData, mode = "alternate"))
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 
@@ -148,4 +153,4 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}

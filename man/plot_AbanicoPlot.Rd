@@ -467,7 +467,12 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
        pch = 1)
 
+} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S., 2025. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.18. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Galbraith, R. & Green, P., 1990. Estimating the component ages
 in a finite mixture. International Journal of Radiation Applications and
@@ -485,4 +490,4 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)
-}
+, RLum Developer Team}

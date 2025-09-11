@@ -174,7 +174,12 @@ write.table(x = get_RLum(output),
  row.names = FALSE)
 }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file or RLum.Analysis object. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
 recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
@@ -185,6 +190,6 @@ recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{IO}
 \keyword{manip}

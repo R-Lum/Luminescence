@@ -95,7 +95,12 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
+} 
+
+\section{How to cite}{
+Burow, C., Kreutzer, S., 2025. template_DRAC(): Create a DRAC input data template (v1.2). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
@@ -105,4 +110,4 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}

@@ -170,7 +170,12 @@ pdf(file = tempfile, height = 18, width = 18)
   dev.off()
 }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation
@@ -187,6 +192,6 @@ extracts. Radiation Measurements 43, 1474-1486.
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

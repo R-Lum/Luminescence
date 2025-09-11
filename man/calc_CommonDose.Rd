@@ -67,7 +67,12 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the common dose model
 calc_CommonDose(ExampleData.DeValues$CA1)
 
+} 
+
+\section{How to cite}{
+Burow, C., 2025. calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
@@ -106,4 +111,4 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+, RLum Developer Team}

@@ -146,7 +146,12 @@ lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
       col = "blue", lwd = 1.3)
 text(0.5,6500,"PM", col = "blue", cex = .8)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. convert_CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.
@@ -169,5 +174,5 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 Based on comments and suggestions from:\cr
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
-}
+, RLum Developer Team}
 \keyword{manip}
