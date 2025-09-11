@@ -32,7 +32,7 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 
 Visit our [R-Luminescence homepage](https://r-luminescence.org). News
 and updates on `'Luminescence'` are also available from the [REPLAY
-website](https://replay.r-luminescence.org/).
+website](https://r-lum.github.io/REPLAY-website/).
 
 ## Installation
 
