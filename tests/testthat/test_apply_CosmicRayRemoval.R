@@ -9,9 +9,17 @@ test_that("input validation", {
   expect_error(apply_CosmicRayRemoval(TL.Spectrum, method = "error"),
                "'method' should be one of 'smooth', 'smooth.spline', 'smooth_RLum' or 'Pych'",
                fixed = TRUE)
-
   expect_error(apply_CosmicRayRemoval(set_RLum("RLum.Data.Spectrum"),
                                       "'object' contains no data"))
+
+  expect_error(apply_CosmicRayRemoval(TL.Spectrum,
+                                      method.Pych.smoothing = iris),
+               "'method.Pych.smoothing' should be a positive integer scalar")
+  expect_error(apply_CosmicRayRemoval(TL.Spectrum,
+                                      method.Pych.threshold_factor = -2),
+               "'method.Pych.threshold_factor' should be a positive scalar")
+  expect_error(apply_CosmicRayRemoval(TL.Spectrum, MARGIN = 3),
+               "'MARGIN' should be one of '1' or '2'")
 })
 
 test_that("check function", {
@@ -67,4 +75,7 @@ test_that("regression tests", {
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum",
                                        method_smooth_RLum = "Carter_etal_2018"))
 
+  ## issue 987
+  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",
+                                       MARGIN = 1))
 })

@@ -188,6 +188,11 @@ apply_CosmicRayRemoval <- function(
     .throw_error("'object' contains no data")
 
   .validate_args(method, c("smooth", "smooth.spline", "smooth_RLum", "Pych"))
+  .validate_positive_scalar(method.Pych.smoothing, int = TRUE)
+  .validate_positive_scalar(method.Pych.threshold_factor)
+  .validate_args(MARGIN, c(1, 2))
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ##deal with additional arguments
   extraArgs <- modifyList(
@@ -372,7 +377,7 @@ apply_CosmicRayRemoval <- function(
   }
 
   ## Rotate matrix if required
-  if(MARGIN[1] == 1)
+  if (MARGIN[1] == 1 && method != "Pych")
     object.data.temp.smooth <- t(object.data.temp.smooth)
 
   # Correct row and column names --------------------------------------------
