@@ -34,9 +34,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [CW2pHMi], [CW2pLMi], [CW2pPMi], [fit_LMCurve], [lm],
-#' [RLum.Data.Curve-class]
-#'
+#' @seealso [convert_CW2pHMi], [convert_CW2pLMi], [convert_CW2pPMi],
+#' [fit_LMCurve], [lm], [RLum.Data.Curve-class]
 #'
 #' @references
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL
@@ -121,11 +120,4 @@ convert_CW2pLM <- function(
       recordType = values@recordType,
       data = as.matrix(temp.values),
       info = values@info)
-}
-
-#' @rdname convert_CW2pLM
-#' @export
-CW2pLM <- function(values) {
-  .Deprecated("convert_CW2pLM", old = "CW2pLM")
-  convert_CW2pLM(values)
 }

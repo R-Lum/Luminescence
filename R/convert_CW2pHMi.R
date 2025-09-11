@@ -63,7 +63,6 @@
 #' The function returns the same data type as the input data type with
 #' the transformed curve values.
 #'
-#'
 #' **`RLum.Data.Curve`**
 #'
 #' \tabular{ll}{
@@ -347,11 +346,4 @@ convert_CW2pHMi<- function(
       recordType = values@recordType,
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
-}
-
-#' @rdname convert_CW2pHMi
-#' @export
-CW2pHMi <- function(values, delta) {
-  .Deprecated("convert_CW2pHMi", old = "CW2pHMi")
-  convert_CW2pHMi(values, delta)
 }
