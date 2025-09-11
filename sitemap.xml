@@ -8,7 +8,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/authors.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/index.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/news/index.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/Analyse_SAR.OSLdata.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.ConversionFactors.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.CosmicDoseRate.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.FractionalGammaDose.html</loc></url>
@@ -33,7 +32,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.portableOSL.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/GitHub-API.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/Luminescence-package.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/PSL2Risoe.BINfileData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/RLum-class.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/RLum.Data-class.html</loc></url>
@@ -43,7 +41,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/RLum.Results-class.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData2RLum.Analysis.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/Second2Gray.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_CrossTalk.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_ITC.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_Measurement.html</loc></url>
@@ -102,6 +99,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/convert_Second2Gray.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/convert_Wavelength2Energy.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/convert_XSYG2CSV.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/correct_PMTLinearity.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/dot-as.latex.table.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/extdata.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/extract_IrradiationTimes.html</loc></url>
@@ -115,7 +113,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/fit_ThermalQuenching.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_Layout.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_RLum.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/get_Risoe.BINfileData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_rightAnswer.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/import_Data.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/index.html</loc></url>
@@ -170,6 +167,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/scale_GammaDose.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/set_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/set_Risoe.BINfileData.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/show.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/smooth_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/sort_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/structure_RLum.html</loc></url>

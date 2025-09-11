@@ -11,7 +11,7 @@ global standardised growth curve (gSGC) assumption proposed by Li et al.,
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ global standardised growth curve (gSGC) assumption proposed by Li et al.,
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate De value based on the gSGC by Li et al., 2015</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/calc_gSGC.R" class="external-link"><code>R/calc_gSGC.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/calc_gSGC.R" class="external-link"><code>R/calc_gSGC.R</code></a></small>
       <div class="d-none name"><code>calc_gSGC.Rd</code></div>
     </div>
 
@@ -119,7 +119,7 @@ Large values for <code>n.MC</code> will significantly increase the computation t
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -155,12 +155,12 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  f(D):		 0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  n.MC:		 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ------------------------------ </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  De:		28.43 ± 1.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  De:		28.43 ± 1.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ------------------------------ </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"De"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         DE DE.ERROR       ETA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.42881 1.665237 0.1325632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.42881 1.495121 0.1325632</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

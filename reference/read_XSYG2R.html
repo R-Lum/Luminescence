@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import XSYG files to R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/read_XSYG2R.R" class="external-link"><code>R/read_XSYG2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/read_XSYG2R.R" class="external-link"><code>R/read_XSYG2R.R</code></a></small>
       <div class="d-none name"><code>read_XSYG2R.Rd</code></div>
     </div>
 
@@ -45,6 +45,7 @@
 <span>  fastForward <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  import <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">".xsyg"</span>,</span>
+<span>  auto_linearity_correction <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -92,6 +93,13 @@ if set to <code>FALSE</code>, only the XSYG file structure is shown.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/regex.html" class="external-link">regex</a> (<em>with default</em>):
 optional regular expression if <code>file</code> is a link to a folder, to select just
 specific XSYG-files</p></dd>
+
+
+<dt id="arg-auto-linearity-correction">auto_linearity_correction<a class="anchor" aria-label="anchor" href="#arg-auto-linearity-correction"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable
+automatic count linearity correction. Because the information on the detectors
+are not consistent and are not consistently stored, this option should be used
+with caution.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -164,6 +172,17 @@ Please note that due to the recalculation of the temperature
 values based on values delivered by the heating element, it may happen that
 multiple count values exists for each temperature value and temperature
 values may also decrease during heating, not only increase.</p>
+<p><strong>Count linearity correction</strong></p>
+<p>If the argument <code>auto_linearity_correction = TRUE</code>, the function offers a,
+theoretically, automated linearity correction of the PMT signal using
+the internal function <a href="correct_PMTLinearity.html">correct_PMTLinearity</a>. The critical parameter
+is the count-pair resolution, which is provided to the function
+automatically depending on the detector. Currently, the following
+settings are used:</p>
+<table class="table table"><tr><td>DETECTOR</td><td>COUNT-PAIR-RESOLUTION</td></tr><tr><td>UVVIS</td><td>18 ns</td></tr><tr><td>NIR50</td><td>70 ns</td></tr><tr><td>NIR40</td><td>70 ns</td></tr><tr><td>ETPMT</td><td>25 ns</td></tr></table><p>Unfortunately, not all XSYG files provide correct information on
+the used detector, depending on software version. Hence, in case
+of doubt, please verify the settings and conduct a manual correction
+if required.</p>
 <p><strong>Advanced file import</strong></p>
 <p>To allow for a more efficient usage of the function, instead of single path
 to a file just a directory can be passed as input. In this particular case
@@ -182,11 +201,11 @@ Corresponding values in the XSXG file are skipped.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.6.15</p>
+    <p>0.7.0</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. read_XSYG2R(): Import XSYG files to R. Function version 0.6.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. read_XSYG2R(): Import XSYG files to R. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -197,7 +216,8 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>'XML'</code>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approx</a></p></div>
+    <div class="dont-index"><p><code>'XML'</code>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>,
+<a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approx</a>, <a href="correct_PMTLinearity.html">correct_PMTLinearity</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

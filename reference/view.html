@@ -9,7 +9,7 @@ If started from RStudio, it uses the RStudio viewer."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ If started from RStudio, it uses the RStudio viewer."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Convenience data visualisation function</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/RLum.Data-class.R" class="external-link"><code>R/RLum.Data-class.R</code></a>, and 2 more</small>
       <div class="d-none name"><code>view.Rd</code></div>
     </div>
 
@@ -41,7 +41,19 @@ If started from RStudio, it uses the RStudio viewer.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">view</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">view</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu">view</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
+<span><span class="fu">view</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Results'</span></span>
+<span><span class="fu">view</span><span class="op">(</span><span class="va">object</span>, element <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">view</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -55,11 +67,24 @@ If started from RStudio, it uses the RStudio viewer.</p>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>further arguments passed to the specific class method</p></dd>
 
+
+<dt id="arg-element">element<a class="anchor" aria-label="anchor" href="#arg-element"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
+index of the element to display.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>NULL</code> and opens the data viewer.</p>
     </div>
+    <div class="section level2">
+    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
+
+<ul><li><p><code>view(RLum.Analysis)</code>: View method for <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p></li>
+<li><p><code>view(RLum.Data)</code>: View method for <a href="RLum.Data-class.html">RLum.Data</a> objects.</p></li>
+<li><p><code>view(RLum.Results)</code>: View method for <a href="RLum.Results-class.html">RLum.Results</a> objects.</p></li>
+<li><p><code>view(Risoe.BINfileData)</code>: View method for <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> objects.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/utils/View.html" class="external-link">utils::View()</a></code></p></div>
@@ -71,7 +96,7 @@ If started from RStudio, it uses the RStudio viewer.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. view(): Convenience data visualisation function. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. view(): Convenience data visualisation function. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

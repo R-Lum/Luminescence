@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate Moran's I</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/calc_MoransI.R" class="external-link"><code>R/calc_MoransI.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/calc_MoransI.R" class="external-link"><code>R/calc_MoransI.R</code></a></small>
       <div class="d-none name"><code>calc_MoransI.Rd</code></div>
     </div>
 
@@ -139,7 +139,7 @@ observations.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Boer, A.d., Steinbuch, L., 2025. calc_MoransI(): Calculate Moran's I. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Boer, A.d., Steinbuch, L., 2025. calc_MoransI(): Calculate Moran's I. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -163,11 +163,11 @@ Submitted.</p>
 <span class="r-in"><span><span class="co">## Test some fictional samples without spatial correlation;</span></span></span>
 <span class="r-in"><span><span class="co">## note the randomness with each repetition</span></span></span>
 <span class="r-in"><span><span class="fu">calc_MoransI</span><span class="op">(</span>object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0343341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.05292131</span>
 <span class="r-in"><span><span class="fu">calc_MoransI</span><span class="op">(</span>object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1067881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.003450826</span>
 <span class="r-in"><span><span class="fu">calc_MoransI</span><span class="op">(</span>object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02060626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01774666</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,12 +42,6 @@
 
 
       <dl><dt>
-
-          <code><a href="Analyse_SAR.OSLdata.html">Analyse_SAR.OSLdata()</a></code>
-
-        </dt>
-        <dd>Analyse SAR CW-OSL measurements (deprecated)</dd>
-      </dl><dl><dt>
 
           <code><a href="BaseDataSet.ConversionFactors.html">BaseDataSet.ConversionFactors</a></code>
 
@@ -127,16 +121,46 @@
         <dd>Comprehensive Luminescence Dating Data Analysis<br><img src="figures/Luminescence_logo.png" width="75" alt="r-luminescence.org"></dd>
       </dl><dl><dt>
 
-          <code><a href="PSL2Risoe.BINfileData.html">PSL2Risoe.BINfileData()</a></code>
-
-        </dt>
-        <dd>Convert portable OSL data to a Risoe.BINfileData object</dd>
-      </dl><dl><dt>
-
-          <code><a href="RLum-class.html">replicate_RLum(<i>&lt;RLum&gt;</i>)</a></code>
+          <code><a href="RLum-class.html">RLum-class</a></code>
 
         </dt>
         <dd>Class <code>"RLum"</code></dd>
+      </dl><dl><dt>
+
+          <code><a href="RLum.Analysis-class.html">RLum.Analysis-class</a></code>
+
+        </dt>
+        <dd>Class <code>"RLum.Analysis"</code></dd>
+      </dl><dl><dt>
+
+          <code><a href="RLum.Data.Curve-class.html">RLum.Data.Curve-class</a></code>
+
+        </dt>
+        <dd>Class <code>"RLum.Data.Curve"</code></dd>
+      </dl><dl><dt>
+
+          <code><a href="RLum.Data.Image-class.html">RLum.Data.Image-class</a></code>
+
+        </dt>
+        <dd>Class <code>"RLum.Data.Image"</code></dd>
+      </dl><dl><dt>
+
+          <code><a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum-class</a></code>
+
+        </dt>
+        <dd>Class <code>"RLum.Data.Spectrum"</code></dd>
+      </dl><dl><dt>
+
+          <code><a href="RLum.Results-class.html">RLum.Results-class</a></code>
+
+        </dt>
+        <dd>Class <code>"RLum.Results"</code></dd>
+      </dl><dl><dt>
+
+          <code><a href="Risoe.BINfileData-class.html">set_Risoe.BINfileData(<i>&lt;ANY&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Class <code>"Risoe.BINfileData"</code></dd>
       </dl><dl><dt>
 
           <code><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis()</a></code>
@@ -145,16 +169,10 @@
         <dd>Convert Risoe.BINfileData object to an RLum.Analysis object</dd>
       </dl><dl><dt>
 
-          <code><a href="Second2Gray.html">Second2Gray()</a></code>
-
-        </dt>
-        <dd>Converting equivalent dose values from seconds (s) to Gray (Gy)</dd>
-      </dl><dl><dt>
-
           <code><a href="analyse_Al2O3C_CrossTalk.html">analyse_Al2O3C_CrossTalk()</a></code>
 
         </dt>
-        <dd>Al2O3:C Reader Cross Talk Analysis</dd>
+        <dd>Al2O3:C Reader Cross-Talk Analysis</dd>
       </dl><dl><dt>
 
           <code><a href="analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC()</a></code>
@@ -214,7 +232,7 @@
           <code><a href="apply_CosmicRayRemoval.html">apply_CosmicRayRemoval()</a></code>
 
         </dt>
-        <dd>Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object</dd>
+        <dd>Cosmic-ray removal and spectrum smoothing for RLum.Data.Spectrum objects</dd>
       </dl><dl><dt>
 
           <code><a href="apply_Crosstalk.html">apply_Crosstalk()</a></code>
@@ -238,7 +256,7 @@
           <code><a href="bin_RLum.Data.html">bin_RLum.Data()</a></code>
 
         </dt>
-        <dd>Channel binning for RLum.Data S4 class objects.</dd>
+        <dd>Channel binning for RLum.Data-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="calc_AliquotSize.html">calc_AliquotSize()</a></code>
@@ -499,6 +517,12 @@
         <dd>Export XSYG-file(s) to CSV-files</dd>
       </dl><dl><dt>
 
+          <code><a href="correct_PMTLinearity.html">correct_PMTLinearity()</a></code>
+
+        </dt>
+        <dd>Linearity Correction for Photomultiplier tubes (PMT)</dd>
+      </dl><dl><dt>
+
           <code><a href="extdata.html">extdata</a></code>
 
         </dt>
@@ -568,7 +592,7 @@
           <code><a href="get_RLum.html">get_RLum()</a></code>
 
         </dt>
-        <dd>General accessor function for RLum S4 class objects</dd>
+        <dd>General accessor function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="get_rightAnswer.html">get_rightAnswer()</a></code>
@@ -592,7 +616,7 @@
           <code><a href="length_RLum.html">length_RLum()</a></code>
 
         </dt>
-        <dd>Length retrieval function for RLum S4 class objects</dd>
+        <dd>Length retrieval function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="melt_RLum.html">melt_RLum()</a></code>
@@ -604,7 +628,7 @@
           <code><a href="merge_RLum.html">merge_RLum()</a></code>
 
         </dt>
-        <dd>General merge function for RLum S4 class objects</dd>
+        <dd>General merge function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="merge_Risoe.BINfileData.html">merge_Risoe.BINfileData()</a></code>
@@ -622,7 +646,7 @@
           <code><a href="names_RLum.html">names_RLum()</a></code>
 
         </dt>
-        <dd>Name retrieval function for RLum S4 class objects</dd>
+        <dd>Name retrieval function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="plot_AbanicoPlot.html">plot_AbanicoPlot()</a></code>
@@ -826,7 +850,7 @@
           <code><a href="replicate_RLum.html">replicate_RLum()</a></code>
 
         </dt>
-        <dd>General replication function for RLum S4 class objects</dd>
+        <dd>General replication function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="report_RLum.html">report_RLum()</a></code>
@@ -850,7 +874,7 @@
           <code><a href="set_RLum.html">set_RLum()</a></code>
 
         </dt>
-        <dd>General setter function for RLum S4 class objects</dd>
+        <dd>General setter function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="set_Risoe.BINfileData.html">set_Risoe.BINfileData()</a></code>
@@ -859,22 +883,28 @@
         <dd>General setter function for Risoe.BINfileData objects</dd>
       </dl><dl><dt>
 
+          <code><a href="show.html">show(<i>&lt;RLum.Analysis&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;RLum.Data.Curve&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;RLum.Data.Image&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;RLum.Data.Spectrum&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;RLum.Results&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;Risoe.BINfileData&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Show the structure of RLum-class and Risoe.BINfileData-class objects</dd>
+      </dl><dl><dt>
+
           <code><a href="smooth_RLum.html">smooth_RLum()</a></code>
 
         </dt>
-        <dd>Smoothing of data for RLum S4-class objects</dd>
+        <dd>Smoothing of data for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="sort_RLum.html">sort_RLum()</a></code>
 
         </dt>
-        <dd>Sort data for RLum S4-class objects</dd>
+        <dd>Sort data for RLum-class and Risoe.BINfileData-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="structure_RLum.html">structure_RLum()</a></code>
 
         </dt>
-        <dd>General structure function for RLum S4 class objects</dd>
+        <dd>General structure function for RLum-class objects</dd>
       </dl><dl><dt>
 
           <code><a href="subset_SingleGrainData.html">subset_SingleGrainData()</a></code>

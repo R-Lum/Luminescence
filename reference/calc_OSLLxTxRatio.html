@@ -9,7 +9,7 @@ background subtraction."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ background subtraction."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate <code>Lx/Tx</code> ratio for CW-OSL curves</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/calc_OSLLxTxRatio.R" class="external-link"><code>R/calc_OSLLxTxRatio.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/calc_OSLLxTxRatio.R" class="external-link"><code>R/calc_OSLLxTxRatio.R</code></a></small>
       <div class="d-none name"><code>calc_OSLLxTxRatio.Rd</code></div>
     </div>
 
@@ -73,8 +73,9 @@ is calculated.</p></dd>
 
 
 <dt id="arg-signal-integral">signal.integral<a class="anchor" aria-label="anchor" href="#arg-signal-integral"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): vector with the limits for the signal integral.
-Can be set to <code>NA</code> than now integrals are considered and all other integrals are set to <code>NA</code> as well.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
+vector with the limits for the signal integral. If set to <code>NA</code>, no integrals
+are considered and all other integrals are ignored.</p></dd>
 
 
 <dt id="arg-signal-integral-tx">signal.integral.Tx<a class="anchor" aria-label="anchor" href="#arg-signal-integral-tx"></a></dt>
@@ -85,8 +86,8 @@ missing, the value from <code>signal.integral</code> is used.</p></dd>
 
 <dt id="arg-background-integral">background.integral<a class="anchor" aria-label="anchor" href="#arg-background-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
-vector with the bounds for the background integral.
-Can be set to <code>NA</code> than now integrals are considered and all other integrals are set to <code>NA</code> as well.</p></dd>
+vector with the limits for the background integral. If set to <code>NA</code>, no
+integrals are considered and all other integrals ignored.</p></dd>
 
 
 <dt id="arg-background-integral-tx">background.integral.Tx<a class="anchor" aria-label="anchor" href="#arg-background-integral-tx"></a></dt>
@@ -165,12 +166,12 @@ values are replaced by 0.</p>
 <p>The default value of <code>sigmab</code> is calculated assuming the background is
 constant and <strong>would not</strong> applicable when the background varies as,
 e.g., as observed for the early light subtraction method.</p>
-<p><strong>sig0</strong></p>
+<p><strong><code>sig0</code></strong></p>
 <p>This argument allows to add an extra component of error to the final <code>Lx/Tx</code>
 error value. The input will be treated as factor that is multiplied with
 the already calculated <code>LxTx</code> and the result is add up by:</p>
 <p>$$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)$$</p>
-<p><strong>background.count.distribution</strong></p>
+<p><strong><code>background.count.distribution</code></strong></p>
 <p>This argument allows selecting the distribution assumption that is used for
 the error calculation. According to Galbraith (2002, 2014) the background
 counts may be overdispersed (i.e. do not follow a Poisson distribution,
@@ -200,7 +201,7 @@ own <code>sigmab</code> value or use <code>background.count.distribution = "pois
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -213,8 +214,7 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3. <a href="https://doi.or
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="Analyse_SAR.OSLdata.html">Analyse_SAR.OSLdata</a>, <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>,
-<a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></p></div>
+    <div class="dont-index"><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>, <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

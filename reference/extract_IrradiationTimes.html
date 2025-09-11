@@ -11,7 +11,7 @@ update an existing BINX-file."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ update an existing BINX-file."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Extract Irradiation Times from an XSYG-file or <code>RLum.Analysis</code> object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/extract_IrradiationTimes.R" class="external-link"><code>R/extract_IrradiationTimes.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/extract_IrradiationTimes.R" class="external-link"><code>R/extract_IrradiationTimes.R</code></a></small>
       <div class="d-none name"><code>extract_IrradiationTimes.Rd</code></div>
     </div>
 
@@ -62,7 +62,7 @@ update an existing BINX-file.</p>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<strong>required</strong>):
 path and file name of the XSYG file or an <a href="RLum.Analysis-class.html">RLum.Analysis</a>
 produced by the function <a href="read_XSYG2R.html">read_XSYG2R</a>;
-alternatively a <code>list</code> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> can be provided.</p>
+alternatively, a <code>list</code> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> can be provided.</p>
 <p><strong>Note</strong>: If an <a href="RLum.Analysis-class.html">RLum.Analysis</a> is used, any input for
 the arguments <code>file.BINX</code> and <code>recordType</code> will be ignored!</p></dd>
 
@@ -89,16 +89,18 @@ argument only if you have reasons to do so.</p></dd>
 
 
 <dt id="arg-return-same-as-input">return_same_as_input<a class="anchor" aria-label="anchor" href="#arg-return-same-as-input"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): if set to <code>TRUE</code> an updated
-<a href="RLum.Analysis-class.html">RLum.Analysis</a> object (or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of it) is returned, with each record having gained two
-new  info element fields: <code>IRR_TIME</code> and <code>TIMESCINCEIRR</code>. This makes the <a href="RLum.Analysis-class.html">RLum.Analysis</a>
-object compatible to external functions that search explicitly for <code>IRR_TIME</code> and <code>TIMESCINCEIRR</code></p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+if set to <code>TRUE</code>, an updated <a href="RLum.Analysis-class.html">RLum.Analysis</a> object (or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of
+it) is returned, with each record having gained two new info element fields:
+<code>IRR_TIME</code> and <code>TIMESCINCEIRR</code>. This makes the <a href="RLum.Analysis-class.html">RLum.Analysis</a> object
+compatible with external functions that search explicitly for <code>IRR_TIME</code>
+and <code>TIMESCINCEIRR</code>.</p></dd>
 
 
 <dt id="arg-compatibility-mode">compatibility.mode<a class="anchor" aria-label="anchor" href="#arg-compatibility-mode"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-this option is parsed only if a BIN/BINX file is produced and it will reset all position
-values to a max. value of 48, cf.<a href="write_R2BIN.html">write_R2BIN</a></p></dd>
+whether all position values should be reset to a maximum value of 48 (see
+<a href="write_R2BIN.html">write_R2BIN</a>). Only used if <code>file.BINX</code> is specified.</p></dd>
 
 
 <dt id="arg-txtprogressbar">txtProgressBar<a class="anchor" aria-label="anchor" href="#arg-txtprogressbar"></a></dt>
@@ -114,8 +116,8 @@ following structure:</p>
 <p>If <code>return_same_as_input = TRUE</code> an <a href="RLum.Analysis-class.html">RLum.Analysis</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of it, but
 we updated info elements including irradiation times.</p>
 <p>If a BINX-file path and name is set, the output will be additionally
-transferred into a new BINX-file with the function name as suffix. For the
-output the path of the input BINX-file itself is used. Note that this will
+transferred into a new BINX-file (with the function name as suffix) located
+in the folder of the input BINX-file. Note that this will
 not work if the input object is a file path to an XSYG-file, instead of a
 link to only one file. In this case the argument input for <code>file.BINX</code> is ignored.</p>
 <p>In the self call mode (input is a <code>list</code> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects
@@ -130,8 +132,8 @@ and used for further analysis or/and to stored in a new BINX-file, which can
 be further used by other software, e.g., <em>Analyst</em> (Geoff Duller).</p>
 <p>Typical application example: <em>g</em>-value estimation from fading measurements
 using the Analyst or any other self-written script.</p>
-<p>Beside some simple data transformation steps, the function applies
-functions <a href="read_XSYG2R.html">read_XSYG2R</a>, <a href="read_BIN2R.html">read_BIN2R</a>, <a href="write_R2BIN.html">write_R2BIN</a> for data import and export.</p>
+<p>Beside some simple data transformation steps, the function relies on
+<a href="read_XSYG2R.html">read_XSYG2R</a>, <a href="read_BIN2R.html">read_BIN2R</a>, <a href="write_R2BIN.html">write_R2BIN</a> for data import and export.</p>
 <p><strong>Calculation details</strong></p><ul><li><p>The value <code>DURATION.STEP</code> is calculated as <code>START</code> + the end of the time axis for all curves
 except for <code>TL</code>, where the function tries to extract meta information about the duration.</p></li>
 <li><p>The value <code>END</code> is calculated as <code>START</code> + <code>DURACTION.STEP</code></p></li>
@@ -140,8 +142,9 @@ except for <code>TL</code>, where the function tries to extract meta information
 </ul></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>The function can be also used to extract irradiation times from <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects
-previously imported via <a href="read_BIN2R.html">read_BIN2R</a> (<code>fastForward = TRUE</code>) or in combination with
+    <p>The function can be also used to extract irradiation times from
+<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects imported via <a href="read_BIN2R.html">read_BIN2R</a> with option
+<code>fastForward = TRUE</code>, or in combination with
 <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a>.
 Unfortunately the timestamp might not be very precise (or even invalid),
 but it allows to essentially treat different formats in a similar manner.</p>
@@ -177,7 +180,7 @@ which might still be wrong.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file or RLum.Analysis object. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file or RLum.Analysis object. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

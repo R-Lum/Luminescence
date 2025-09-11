@@ -9,7 +9,7 @@ RLum.Analysis and RLum.Data objects."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ RLum.Analysis and RLum.Data objects."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Safe manipulation of object metadata</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/RLum.Data-class.R" class="external-link"><code>R/RLum.Data-class.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>metadata.Rd</code></div>
     </div>
 
@@ -45,7 +45,34 @@ RLum.Analysis and RLum.Data objects."></head><body>
 <span></span>
 <span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
-<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
+<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu">add_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Analysis'</span></span>
+<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, subset <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
+<span><span class="fu">add_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
+<span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
+<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, subset <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">add_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'Risoe.BINfileData'</span></span>
+<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, subset <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -53,7 +80,8 @@ RLum.Analysis and RLum.Data objects."></head><body>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>(<strong>required</strong>) object to manipulate</p></dd>
+<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
+object of class <code>RLum.Analysis</code> or <code>Risoe.BINfileData</code> to manipulate.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -61,9 +89,41 @@ RLum.Analysis and RLum.Data objects."></head><body>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
-<dd><p>the value to be assigned</p></dd>
+<dd><p>(<strong>required</strong>):
+value to be assigned to the selected metadata entry. A <code>NULL</code> value is
+acceptable only for <code>replace_metadata</code>, in which case the elements named
+in <code>info_element</code> will be removed.</p></dd>
+
+
+<dt id="arg-info-element">info_element<a class="anchor" aria-label="anchor" href="#arg-info-element"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
+name of the metadata entry to manipulate.</p></dd>
+
+
+<dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a> (<em>optional</em>):
+logical expression to limit the substitution only to the selected subset
+of elements.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enable/disable output to the terminal.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
+
+<ul><li><p><code>add_metadata(RLum.Analysis) &lt;- value</code>: Adds metadata to <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p></li>
+<li><p><code>rename_metadata(RLum.Analysis) &lt;- value</code>: Renames a metadata entry of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p></li>
+<li><p><code>replace_metadata(RLum.Analysis) &lt;- value</code>: Replaces or removes metadata of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p></li>
+<li><p><code>add_metadata(RLum.Data) &lt;- value</code>: Add metadata entries to <a href="RLum.Data-class.html">RLum.Data</a> objects.</p></li>
+<li><p><code>rename_metadata(RLum.Data) &lt;- value</code>: Rename a metadata entry of <a href="RLum.Data-class.html">RLum.Data</a> objects.</p></li>
+<li><p><code>replace_metadata(RLum.Data) &lt;- value</code>: Replaces or removes metadata of <a href="RLum.Data-class.html">RLum.Data</a> objects.</p></li>
+<li><p><code>add_metadata(Risoe.BINfileData) &lt;- value</code>: Adds metadata to <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> objects.</p></li>
+<li><p><code>rename_metadata(Risoe.BINfileData) &lt;- value</code>: Renames a metadata entry of <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> objects.</p></li>
+<li><p><code>replace_metadata(Risoe.BINfileData) &lt;- value</code>: Replaces or removes metadata of <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> objects.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="RLum.Data-class.html">RLum.Data</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a></p></div>
@@ -75,7 +135,7 @@ RLum.Analysis and RLum.Data objects."></head><body>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Colombo, M., 2025. add_metadata&lt;-(): Safe manipulation of object metadata. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Colombo, M., 2025. add_metadata&lt;-(): Safe manipulation of object metadata. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">

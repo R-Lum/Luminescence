@@ -9,7 +9,7 @@ regenerative or additive protocol as implemented in fit_DoseResponseCurve."></he
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ regenerative or additive protocol as implemented in fit_DoseResponseCurve."></he
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/plot_DoseResponseCurve.R" class="external-link"><code>R/plot_DoseResponseCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/plot_DoseResponseCurve.R" class="external-link"><code>R/plot_DoseResponseCurve.R</code></a></small>
       <div class="d-none name"><code>plot_DoseResponseCurve.Rd</code></div>
     </div>
 
@@ -80,9 +80,10 @@ enable/disable output to the terminal.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further graphical parameters to be passed (supported:
-<code>main</code>, <code>mtext</code>, <code>xlim</code>, <code>ylim</code>, <code>xlab</code>, <code>ylab</code>, <code>legend</code>, <code>reg_points_pch</code>,
-<code>density_polygon</code> (<code>TRUE/FALSE</code>), <code>density_polygon_col</code>, <code>density_rug</code> (<code>TRUE</code>/<code>FALSE</code>)),
-<code>box</code> (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
+<code>main</code>, <code>mtext</code>, <code>xlim</code>, <code>ylim</code>, <code>xlab</code>, <code>ylab</code>, <code>log</code> (not valid for objects
+fitted with <code>mode = "extrapolation"</code>), <code>legend</code> (<code>TRUE/FALSE</code>), <code>leged.pos</code>,
+<code>reg_points_pch</code>, <code>density_polygon</code> (<code>TRUE/FALSE</code>), <code>density_polygon_col</code>,
+<code>density_rug</code> (<code>TRUE</code>/<code>FALSE</code>), <code>box</code> (<code>TRUE</code>/<code>FALSE</code>).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -91,11 +92,11 @@ enable/disable output to the terminal.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>1.0.4</p>
+    <p>1.0.7</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_DoseResponseCurve(): Plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_DoseResponseCurve(): Plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.0.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

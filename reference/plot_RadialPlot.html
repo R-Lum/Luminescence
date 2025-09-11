@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to create a Radial Plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/plot_RadialPlot.R" class="external-link"><code>R/plot_RadialPlot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/plot_RadialPlot.R" class="external-link"><code>R/plot_RadialPlot.R</code></a></small>
       <div class="d-none name"><code>plot_RadialPlot.Rd</code></div>
     </div>
 
@@ -44,7 +44,7 @@
 <span>  log.z <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">central.value</span>,</span>
 <span>  centrality <span class="op">=</span> <span class="st">"mean.weighted"</span>,</span>
-<span>  <span class="va">mtext</span>,</span>
+<span>  mtext <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"in.2s"</span><span class="op">)</span>,</span>
 <span>  summary.pos <span class="op">=</span> <span class="st">"sub"</span>,</span>
 <span>  <span class="va">legend</span>,</span>
@@ -104,7 +104,7 @@ the central line. Can either be one out of</p><ul><li><p><code>"mean"</code>,</p
 
 
 <dt id="arg-mtext">mtext<a class="anchor" aria-label="anchor" href="#arg-mtext"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 additional text below the plot title.</p></dd>
 
 
@@ -223,6 +223,7 @@ one or more of the following keywords:</p><ul><li><p><code>"n"</code> (number of
 <li><p><code>"mean"</code> (mean De value),</p></li>
 <li><p><code>"mean.weighted"</code> (error-weighted mean),</p></li>
 <li><p><code>"median"</code> (median of the De values),</p></li>
+<li><p><code>"median.weighted"</code> (error-weighted median),</p></li>
 <li><p><code>"sdrel"</code> (relative standard deviation in percent),</p></li>
 <li><p><code>"sdrel.weighted"</code> (error-weighted relative standard deviation in percent),</p></li>
 <li><p><code>"sdabs"</code> (absolute standard deviation),</p></li>
@@ -241,7 +242,7 @@ one or more of the following keywords:</p><ul><li><p><code>"n"</code> (number of
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Dietze, M., Kreutzer, S., 2025. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Dietze, M., Kreutzer, S., 2025. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -328,61 +329,87 @@ Based on a rewritten S script of Rex Galbraith, 2010
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617       -0.11741617</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093       -3.26441093</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930       -1.90481930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $data.global</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        De error      z    se z.central precision std.estimate std.estimate.plot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168        4.61813168</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  152.08 5.144 152.08 5.144  126.8469 0.1944012   4.90534883        4.90534883</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  165.80 6.805 165.80 6.805  126.8469 0.1469508   5.72419021        5.72419021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  136.15 4.608 136.15 4.608  126.8469 0.2170139   2.01890503        2.01890503</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  144.42 4.642 144.42 4.642  126.8469 0.2154244   3.78567738        3.78567738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  123.44 4.471 123.44 4.471  126.8469 0.2236636  -0.76199634       -0.76199634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  123.64 4.227 123.64 4.227  126.8469 0.2365744  -0.75866705       -0.75866705</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  127.07 4.396 127.07 4.396  126.8469 0.2274795   0.05075395        0.05075395</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  125.06 4.630 125.06 4.630  126.8469 0.2159827  -0.38593642       -0.38593642</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 124.45 4.256 124.45 4.256  126.8469 0.2349624  -0.56317801       -0.56317801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 118.60 4.049 118.60 4.049  126.8469 0.2469746  -2.03677096       -2.03677096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 128.08 4.408 128.08 4.408  126.8469 0.2268603   0.27974464        0.27974464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 110.78 3.701 110.78 3.701  126.8469 0.2701972  -4.34122821       -4.34122821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 121.02 4.187 121.02 4.187  126.8469 0.2388345  -1.39166124       -1.39166124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 124.09 4.129 124.09 4.129  126.8469 0.2421894  -0.66768845       -0.66768845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 124.70 4.043 124.70 4.043  126.8469 0.2473411  -0.53101302       -0.53101302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 123.68 4.262 123.68 4.262  126.8469 0.2346316  -0.74305153       -0.74305153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 126.34 4.228 126.34 4.228  126.8469 0.2365184  -0.11988780       -0.11988780</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 128.59 4.254 128.59 4.254  126.8469 0.2350729   0.40975890        0.40975890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 131.46 4.448 131.46 4.448  126.8469 0.2248201   1.03712104        1.03712104</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 127.77 4.330 127.77 4.330  126.8469 0.2309469   0.21319039        0.21319039</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 131.05 5.023 131.05 5.023  126.8469 0.1990842   0.83677372        0.83677372</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617       -0.11741617</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093       -3.26441093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930       -1.90481930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  152.08 5.144 152.08 5.144  126.8469 0.1944012   4.90534883                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  165.80 6.805 165.80 6.805  126.8469 0.1469508   5.72419021                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  136.15 4.608 136.15 4.608  126.8469 0.2170139   2.01890503                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  144.42 4.642 144.42 4.642  126.8469 0.2154244   3.78567738                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  123.44 4.471 123.44 4.471  126.8469 0.2236636  -0.76199634                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  123.64 4.227 123.64 4.227  126.8469 0.2365744  -0.75866705                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  127.07 4.396 127.07 4.396  126.8469 0.2274795   0.05075395                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  125.06 4.630 125.06 4.630  126.8469 0.2159827  -0.38593642                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 124.45 4.256 124.45 4.256  126.8469 0.2349624  -0.56317801                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 118.60 4.049 118.60 4.049  126.8469 0.2469746  -2.03677096                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 128.08 4.408 128.08 4.408  126.8469 0.2268603   0.27974464                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 110.78 3.701 110.78 3.701  126.8469 0.2701972  -4.34122821                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 121.02 4.187 121.02 4.187  126.8469 0.2388345  -1.39166124                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 124.09 4.129 124.09 4.129  126.8469 0.2421894  -0.66768845                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 124.70 4.043 124.70 4.043  126.8469 0.2473411  -0.53101302                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 123.68 4.262 123.68 4.262  126.8469 0.2346316  -0.74305153                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 126.34 4.228 126.34 4.228  126.8469 0.2365184  -0.11988780                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 128.59 4.254 128.59 4.254  126.8469 0.2350729   0.40975890                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 131.46 4.448 131.46 4.448  126.8469 0.2248201   1.03712104                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 127.77 4.330 127.77 4.330  126.8469 0.2309469   0.21319039                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 131.05 5.023 131.05 5.023  126.8469 0.1990842   0.83677372                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $xlim</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0000000 0.2874389</span>

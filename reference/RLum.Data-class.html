@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Class <code>"RLum.Data"</code></h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/RLum.Data-class.R" class="external-link"><code>R/RLum.Data-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/RLum.Data-class.R" class="external-link"><code>R/RLum.Data-class.R</code></a></small>
       <div class="d-none name"><code>RLum.Data-class.Rd</code></div>
     </div>
 
@@ -36,62 +36,7 @@
     <p>Generalized virtual data class for luminescence data.</p>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for class 'RLum.Data'</span></span>
-<span><span class="fu">add_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
-<span><span class="fu">rename_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
-<span><span class="fu">replace_metadata</span><span class="op">(</span><span class="va">object</span>, <span class="va">info_element</span>, subset <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'RLum.Data'</span></span>
-<span><span class="fu"><a href="view.html">view</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
-    </div>
 
-    <div class="section level2">
-    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-
-
-<dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>(<strong>required</strong>) an object of class RLum.Data</p></dd>
-
-
-<dt id="arg-info-element">info_element<a class="anchor" aria-label="anchor" href="#arg-info-element"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>) name of the metadata field
-to replace or remove</p></dd>
-
-
-<dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
-<dd><p>(<strong>required</strong>) The value assigned to the selected elements
-of the metadata field. If <code>NULL</code> the elements named in <code>info_element</code>
-will be removed.</p></dd>
-
-
-<dt id="arg-subset">subset<a class="anchor" aria-label="anchor" href="#arg-subset"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a> (<em>optional</em>) logical expression to limit the
-substitution only to the selected subset of elements</p></dd>
-
-
-<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>) enable/disable output to the
-terminal.</p></dd>
-
-
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>other arguments that might be passed</p></dd>
-
-</dl></div>
-    <div class="section level2">
-    <h2 id="methods-by-generic-">Methods (by generic)<a class="anchor" aria-label="anchor" href="#methods-by-generic-"></a></h2>
-
-<ul><li><p><code>add_metadata(RLum.Data) &lt;- value</code>: Add metadata entries to RLum.Data objects</p></li>
-<li><p><code>rename_metadata(RLum.Data) &lt;- value</code>: Rename a metadata entry of RLum.Data objects</p></li>
-<li><p><code>replace_metadata(RLum.Data) &lt;- value</code>: Replaces or removes metadata of RLum.Data objects</p></li>
-<li><p><code>view(RLum.Data)</code>: View method for RLum.Data objects</p></li>
-</ul></div>
     <div class="section level2">
     <h2 id="objects-from-the-class">Objects from the Class<a class="anchor" aria-label="anchor" href="#objects-from-the-class"></a></h2>
 
@@ -111,10 +56,6 @@ terminal.</p></dd>
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
-    </div>
-    <div class="section level2">
-    <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. RLum.Data-class(): Class 'RLum.Data'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">

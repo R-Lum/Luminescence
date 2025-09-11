@@ -11,7 +11,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)."></head
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)."></head
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Nonlinear Least Squares Fit for OSL surface exposure data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/archive/dev_1.1.0/R/fit_SurfaceExposure.R" class="external-link"><code>R/fit_SurfaceExposure.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/fit_SurfaceExposure.R" class="external-link"><code>R/fit_SurfaceExposure.R</code></a></small>
       <div class="d-none name"><code>fit_SurfaceExposure.Rd</code></div>
     </div>
 
@@ -203,7 +203,7 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2025. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., 2025. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -336,7 +336,6 @@ Icarus 221, 160-166.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> To apply the estimated parameters to a sample of unknown age run:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = c(0.901, 0.901, 0.901, 0.901))</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     age age_error sigmaphi sigmaphi_error        mu    mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1e+03        NA    5e-10             NA 0.9009494 0.001612274</span>
@@ -388,7 +387,6 @@ Icarus 221, 160-166.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> To apply the estimated parameters to a sample of unknown age run:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = c(0.899, 0.899, 0.899, 0.899, 0.899))</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     age age_error sigmaphi sigmaphi_error        mu    mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1e+02        NA    5e-10             NA 0.8986586 0.002323746</span>
