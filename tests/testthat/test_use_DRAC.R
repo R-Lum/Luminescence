@@ -118,6 +118,12 @@ test_that("Test DRAC", {
   expect_error(expect_warning(
       use_DRAC(t, url = "iamnotvali8793270942hd.valid"),
       "URL is missing '\\?show=calculator', please check validity!"),
-      "Transmission failed with HTTP status code: URL invalid")
+      "Transmission failed with error: Couldn't resolve host name")
+
+  ## mock error status code
+  local_mocked_bindings(POST = function(...) list(status_code = 313),
+                        .package = "httr")
+  expect_error(use_DRAC(t),
+               "Transmission failed with HTTP status code: 313")
  })
 })

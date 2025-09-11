@@ -189,14 +189,14 @@ use_DRAC <- function(
   if (nrow(input.raw) > 5000)
     .throw_error("The limit of allowed datasets is 5000!")
 
+  .validate_logical_scalar(print_references)
   citation_style <- .validate_args(citation_style,
                                    c("text", "Bibtex", "citation", "html",
                                      "latex", "R"))
 
-  # Set helper function -------------------------------------------------------------------------
-  ## The real data are transferred without any encryption, so we have to mask the original
 
-  ##(0) set masking function
+  ## Helper function --------------------------------------------------------
+  ## The data are transferred without encryption, so we mask the original
   .masking <- function(mean, sd, n) {
     temp <- rnorm(n = 30 * n, mean = mean, sd = sd)
     t(vapply(seq(1, length(temp), 30), function(x) {
@@ -270,15 +270,16 @@ use_DRAC <- function(
     silent = TRUE)
 
   ## check for correct response
-  if (inherits(DRAC.response, "try-error") || DRAC.response$status_code != 200) {
-    if(inherits(DRAC.response, "try-error"))
-       DRAC.response$status_code <- "URL invalid"
-
+  if (inherits(DRAC.response, "try-error")) {
+    .throw_error("Transmission failed with error: ",
+                 attr(DRAC.response, "condition")$message)
+  } else if (DRAC.response$status_code != 200) {
     .throw_error("Transmission failed with HTTP status code: ",
                  DRAC.response$status_code)
-  } else {
-    if (settings$verbose) message("\t The request was successful, processing the reply...")
   }
+
+  if (settings$verbose)
+    message("\t The request was successful, processing the reply...")
 
   ## assign DRAC response data to variables
   http.header <- DRAC.response$header
@@ -305,9 +306,9 @@ use_DRAC <- function(
 
     .throw_error("The response from the server did not contain DRAC output, ",
                  "please check your data and verify its validity.")
-  } else {
-    if (settings$verbose) message("\t Finalising the results...")
   }
+
+  if (settings$verbose) message("\t Finalising the results...")
 
   ## split header and content
   DRAC.content.split <- strsplit(x = DRAC.content,
