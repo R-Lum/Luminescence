@@ -24,7 +24,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),
 #' Svenja Riedesel, DTU Risø (Denmark)
 #'
-#' @keywords datagen
+#' @keywords datagen internal
 #'
 #' @return
 #' An [RLum.Results-class] object is returned: ##TODO
@@ -34,7 +34,7 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @export
+#' @noRd
 analyse_ThermochronometryData <- function(
   object,
   ITL_model = c("GOK", "BTS"),

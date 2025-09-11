@@ -35,7 +35,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @keywords datagen
+#' @keywords datagen internal
 #'
 #' @return
 #' The function returns an [RLum.Results-class] object and an *optional* plot.
@@ -56,7 +56,7 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @export
+#' @noRd
 fit_IsothermalHolding <- function(
     data,
     ITL_model = "GOK",
