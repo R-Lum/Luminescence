@@ -157,6 +157,13 @@ non-default cex values (#865).
 
 ### `plot_DoseResponseCurve()`
 
+* We added support for the `log` graphical parameter, which can be used if
+the fit was obtained with mode other than `"extrapolation"` (#820).
+
+* The normal curve drawn as part of the histogram plot could appear very
+jagged or even as a straight line, as it could happen that too few points
+were actually used when drawing the curve (#843).
+
 * The legend symbols did not match anymore the plotted regeneration/dose
 points. This also affected functions such as `analyse_SAR.CWOSL()` and
 `analyse_pIRIRSequence()` (9ba54e65).
@@ -219,15 +226,6 @@ through the argument `labcex`.
 * Plot type `"image"` further gained a legend with support through `...` for
 `legend.pos`, `legend.horiz` and `n_breaks` to control the number of colours
 in the graphic.
-
-### `plot_DoseResponseCurve()`
-
-* We added support for the `log` graphical parameter, which can be used if
-the fit was obtained with mode other than `"extrapolation"` (#820).
-
-* The normal curve drawn as part of the histogram plot could appear very
-jagged or even as a straight line, as it could happen that too few points
-were actually used when drawing the curve (#843).
 
 ### `read_BIN2R()`
 
