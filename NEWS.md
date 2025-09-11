@@ -105,7 +105,7 @@
   `mode = "interpolation"` has been modified to account correctly for
   possible negative De values resulting from the fit (#963).
 
-- Previously, a single `NA`value in the Monte Carlo results prevented
+- Previously, a single `NA` value in the Monte Carlo results prevented
   the computation of Highest Density Intervals (HPDI). This limitation
   has been removed, and now HPDIs are reported in more cases (#976).
 
