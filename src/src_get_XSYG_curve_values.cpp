@@ -29,22 +29,12 @@ NumericMatrix src_get_XSYG_curve_values(std::string s) {
   std::istringstream ss(s);
   std::string value;
   int i = 0;
-  int sw = 0;
 
   //04: loop over string and convert to double
-  while (std::getline(ss, value,  ',')) {
-    if (sw % 2 == 0){
-      m(i,0) = atof(value.c_str());
+  while (std::getline(ss, value, ',')) {
+    m(i / 2, i % 2) = atof(value.c_str());
+    i++;
+  }
 
-    }else{
-      m(i,1) = atof(value.c_str());
-      i++;
-
-    }
-    sw++;
-
-   }
- return m;
-
+  return m;
 }
-
