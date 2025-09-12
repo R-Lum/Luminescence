@@ -29,7 +29,7 @@ cran-comments.html
 NEWS.html
 README.html
 
-tests/testthat/vdiffr.Rout.fail
+tests/vdiffr.Rout.fail
 tests/testthat/_snaps/*.new.md
 vignettes/*_cache/
 vignettes/*_files/
