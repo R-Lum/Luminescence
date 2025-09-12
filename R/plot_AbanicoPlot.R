@@ -587,11 +587,6 @@ plot_AbanicoPlot <- function(
   par.default <- par(no.readonly = TRUE)
   cex_old <- par()$cex
 
-  ## this ensures par() is respected for several plots on one page
-  if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
-    on.exit(par(par.default), add = TRUE)
-  }
-
   ## check/set layout definitions
   layout <- get_Layout(layout = list(...)$layout %||% "default")
 
@@ -932,6 +927,13 @@ plot_AbanicoPlot <- function(
   lostintranslation <- 1.03
   if (!boxplot) {
     plot.ratio <- plot.ratio * 1.05
+  }
+
+  ## this ensures par() is respected for several plots on one page
+  ## it must be done after all validations have completed, otherwise a
+  ## warning may be generated (#1001)
+  if (sum(par()$mfrow) == 2 && sum(par()$mfcol) == 2) {
+    on.exit(par(par.default), add = TRUE)
   }
 
   ## wrapper functions to deal with rotation
