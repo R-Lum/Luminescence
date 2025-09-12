@@ -21,3 +21,7 @@ in the corresponding `convert_CW2*()` functions (#992).
 
 ## Bugfixes and changes
 
+### `plot_AbanicoPlot()`
+
+* A warning was raised if the function returned early (for example due to
+invalid inputs) and the graphical device was off (#1001).
