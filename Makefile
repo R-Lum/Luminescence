@@ -6,11 +6,13 @@ DEVEL := 1
 
 ## modules to exclude: it should not be necessary to touch these, they are
 ## controlled by the DEVEL variable set before
+AS_CRAN := TRUE
 EXCLUDE_MODULES := \
 	'module_check_ReverseDependencies', \
 	'module_write_codemetar' \
 	$(NULL)
 ifeq ($(DEVEL), 1)
+  AS_CRAN := FALSE
   EXCLUDE_MODULES += ,\
 	'module_add_RLumTeam', \
 	'module_add_HowToCite', \
@@ -24,5 +26,5 @@ all:
 	${RSCRIPT} -e "RLumBuild::build_package(\
 		exclude = c(\
 		$(EXCLUDE_MODULES) ),\
-		as_cran = TRUE,\
+		as_cran = $(AS_CRAN),\
 		write_Rbuildignore = TRUE)";
