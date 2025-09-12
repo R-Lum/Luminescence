@@ -16,10 +16,10 @@
       "resource_type": "software"
     }
   ],
-  "version": "1.1.0.9000-3",
+  "version": "1.1.1.9000",
   "upload_type": "software",
   "keywords": ["Luminescence", "Luminescence dating", "Chronology", "Age models"],
-  "publication_date": "2025-06-20",
+  "publication_date": "2025-09-11",
   "creators": [
     {
       "orcid": "0000-0002-0734-2199",
@@ -127,6 +127,16 @@
       "orcid": "0000-0001-6672-0623",
       "affiliation": "Institute of Geography, Heidelberg University (Germany)",
       "name": "Colombo, Marco"
+    },
+    {
+      "orcid": "0000-0001-6484-0920",
+      "affiliation": "Wageningen University & Research (The Netherlands)",
+      "name": "Steinbuch, Luc"
+    },
+    {
+      "orcid": "0000-0002-7359-6939",
+      "affiliation": "Wageningen University & Research (The Netherlands)",
+      "name": "de Boer, Anna-Maartje"
     }
   ],
   "access_right": "open",
