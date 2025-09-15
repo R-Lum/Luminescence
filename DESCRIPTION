@@ -18,7 +18,7 @@ Authors@R: c(
     person("Julie", "Durcan", role = c("ctb"), comment = c(ORCID = "0000-0001-8724-8022")),
     person("Georgina E.", "King", role = c("ctb", "dtc"), comment = c(ORCID = "0000-0003-1059-8192")),
     person("Anne", "Philippe", role = c("aut"), comment = c(ORCID = "0000-0002-5331-5087")),
-    person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
+    person("Guillaume", "Guérin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
     person("Svenja", "Riedesel", role = c("aut"), comment = c(ORCID = "0000-0003-2936-8776")),
     person("Martin", "Autzen", role = c("aut"), comment = c(ORCID = "0000-0001-6249-426X")),
     person("Pierre", "Guibert", role = c("ctb"), comment = c(ORCID = "0000-0001-8969-8684")),
