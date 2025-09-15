@@ -1354,25 +1354,6 @@ SW <- function(expr) {
   return(TRUE)
 }
 
-#' Default value for `NULL`
-#'
-#' Given two values, it returns the first if not `NULL` otherwise the second.
-#'
-#' @param x The value to check.
-#' @param y The default value to use in case `x` is `NULL`.
-#'
-#' @return
-#' A non-`NULL` value.
-#'
-#' @noRd
-"%||%" <- function(x, y)
-  if (is.null(x)) y else x
-
-## Reexport from base on newer versions of R to avoid conflict messages
-if (exists("%||%", envir = baseenv())) {
-  `%||%` <- get("%||%", envir = baseenv())
-}
-
 #' Create a list of objects repeated a given number of times
 #'
 #' @param x [vector] (**required**) An object to be repeated into a list.

@@ -2,6 +2,8 @@
 
 # Changes in version 1.1.1.9000 (2025-09-15)
 
+**This package version requires R \>= 4.4**
+
 ## New functions
 
 ## Removed functions and deprecations

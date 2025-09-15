@@ -486,18 +486,6 @@ test_that("Test internals", {
       expect_false(.require_suggested_package("error", throw.error = FALSE),
                    "This function requires the 'error' package: to install it"))
 
-  ## %||% -------------------------------------------------------------------
-  expect_equal(letters %||% LETTERS,
-               letters)
-  expect_equal(NULL %||% LETTERS,
-               LETTERS)
-  expect_equal(NA %||% LETTERS,
-               NA)
-  expect_equal(character(0) %||% LETTERS,
-               character(0))
-  expect_equal("" %||% LETTERS,
-               "")
-
   ## .listify() -------------------------------------------------------------
   expect_equal(.listify(1, length = 3),
                list(1, 1, 1))

@@ -39,7 +39,7 @@ License: GPL-3
 URL: https://r-lum.github.io/Luminescence/
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 4.3),
+    R (>= 4.4),
     utils
 LinkingTo: Rcpp (>= 1.0.12),
     RcppArmadillo (>= 0.12.8.4.0)
