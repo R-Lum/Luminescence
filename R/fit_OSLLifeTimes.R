@@ -667,14 +667,13 @@ if(plot) {
   if (!inherits(fit, 'try-error')) {
 
     if(!plot_simple){
-      ##make sure that the screen closes if something is wrong
-      on.exit(graphics::close.screen(all.screens = TRUE), add = TRUE)
+      screen.idx <- graphics::split.screen(rbind(c(0.1, 1, 0.32, 0.98),
+                                                 c(0.1, 1, 0.10, 0.32)))
 
-      graphics::split.screen(rbind(
-        c(0.1,1,0.32, 0.98),
-        c(0.1,1,0.1, 0.32)))
+      ## make sure to close the screen
+      on.exit(graphics::close.screen(n = screen.idx), add = TRUE)
 
-      graphics::screen(1)
+      graphics::screen(screen.idx[1])
       par(mar = c(0, 4, 3, 4))
     }
 
@@ -730,7 +729,7 @@ if(plot) {
     )
 
     if(!plot_simple){
-      graphics::screen(2)
+      graphics::screen(screen.idx[2])
       par(mar = c(4, 4, 0, 4))
       plot(
         x = df[[1]],

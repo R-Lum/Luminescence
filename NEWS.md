@@ -12,9 +12,19 @@
 
 ## Bugfixes and changes
 
+### `fit_EmissionSpectra()`
+
+- The function uses the correct indices reported by `split.screen()`,
+  which prevents some graphical errors if run in a parallel setting
+  (#1007).
+
 ### `fit_OSLLifeTimes()`
 
 - The function throws a warning when the fit fails (#1005).
+
+- The function uses the correct indices reported by `split.screen()`,
+  which prevents some graphical errors if run in a parallel setting
+  (#1007).
 
 ### `plot_AbanicoPlot()`
 
