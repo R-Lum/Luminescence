@@ -385,18 +385,6 @@ temp_OTORX_alt <-
       fit.force_through_origin = FALSE,
       verbose = FALSE,
       n.MC = 10)
-
-
-  ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
-  ##              here too as coverage currently runs on 4.3
-  temp_QDR2 <- fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "QDR",
-      mode = "extrapolation",
-      fit.force_through_origin = TRUE,
-      verbose = TRUE,
-      n.MC = 10
-  )
   })
 
   expect_s3_class(temp_EXP$Fit, class = "nls")
@@ -431,7 +419,6 @@ temp_OTORX_alt <-
      } else {
        expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9,
                     tolerance = 0.1)
-
      }
    }
 
