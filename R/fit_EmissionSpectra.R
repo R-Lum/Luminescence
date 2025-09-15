@@ -546,20 +546,17 @@ fit_EmissionSpectra <- function(
       legend = TRUE,
       legend.pos = "topright",
       legend.text = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " eV"))
-
     ), val = list(...))
 
     if (!is.na(fit[1]) && !inherits(fit, "try-error")) {
-    ##make sure that the screen closes if something is wrong
-    on.exit(graphics::close.screen(n = c(1,2)), add = TRUE)
+      screen.idx <- graphics::split.screen(rbind(c(0.1, 1, 0.32, 0.98),
+                                                 c(0.1, 1, 0.10, 0.315)))
 
-    ##set split screen settings
-    graphics::split.screen(rbind(
-      c(0.1,1,0.32, 0.98),
-      c(0.1,1,0.1, 0.315)))
+      ## make sure to close the screen
+      on.exit(graphics::close.screen(n = screen.idx), add = TRUE)
 
     ##SCREEN 1 ----------
-    graphics::screen(1)
+    graphics::screen(screen.idx[1])
     par(mar = c(0, 4, 3, 4))
     plot(
       df,
@@ -620,7 +617,7 @@ fit_EmissionSpectra <- function(
     }
 
     ## SCREEN 2 -----
-    graphics::screen(2)
+    graphics::screen(screen.idx[2])
     par(mar = c(4, 4, 0, 4))
     plot(NA, NA,
       ylim = range(residuals(fit)),
