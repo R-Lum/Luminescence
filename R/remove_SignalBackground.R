@@ -84,14 +84,14 @@ remove_SignalBackground <- function(
   # Self-call ---------------------------------------------------------------
   if(inherits(object, "list")) {
     ## no expansion not special treatment except for silent object removal
-    return({
+    return(
       lapply(
         X = .rm_nonRLum(object, "RLum.Analysis"),
         FUN = remove_SignalBackground,
         object_bg = object_bg,
         recordType = recordType,
         clean_up = clean_up)
-    })
+    )
   }
 
   ## Integrity checks -------------------------------------------------------
@@ -100,7 +100,7 @@ remove_SignalBackground <- function(
   .validate_class(object_bg, null.ok = TRUE,
                   c("RLum.Data.Curve","list", "matrix", "numeric", "integer"))
   .validate_class(recordType, "character", null.ok = TRUE)
-  .validate_class(clean_up, "logical")
+  .validate_logical_scalar(clean_up)
 
   # Find curves for removal -------------------------------------------------
   ## if nothing is set, we do quick and dirty recordType guess based on the
@@ -112,7 +112,7 @@ remove_SignalBackground <- function(
   id_pairs <- suppressWarnings(
     get_RLum(object, recordType = recordType[1], get.index = TRUE))
 
-    ## bet gentle if the recordType does not exist, this behaviour
+    ## be gentle if the recordType does not exist, this behaviour
     ## should make it easier in case we process a list
     if(is.null(id_pairs)) {
       .throw_warning("'recordType' setting invalid, nothing removed.")
@@ -172,7 +172,7 @@ remove_SignalBackground <- function(
   })
 
   # Return ------------------------------------------------------------------
-  if (clean_up[1] && !all(id_signal == id_bg))
+  if (clean_up && any(id_signal != id_bg))
     object@records[id_bg] <- NULL
 
   ## return whatever is left

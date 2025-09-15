@@ -738,7 +738,7 @@ if(plot) {
         type = "b",
         pch = 20,
         xlim = plot_settings$xlim,
-        log = if(plot_settings$log == "x"){"x"}else{""},
+        log = gsub("y", "", plot_settings$log),
         ylab = "Resid."
       )
     }

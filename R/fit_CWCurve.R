@@ -751,7 +751,7 @@ fit_CWCurve<- function(
            col="grey",
            ylab="Residual [a.u.]",
            lwd=2,
-           log=if(log=="x" | log=="xy"){log="x"}else{""}
+           log = gsub("y", "", log),
       ), silent = TRUE)
 
       if (inherits(plot_check2, "try-error")) {

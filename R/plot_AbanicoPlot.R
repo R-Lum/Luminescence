@@ -809,25 +809,16 @@ plot_AbanicoPlot <- function(
   main <- extraArgs$main %||% expression(D[e] * " " * "distribution")
   sub <- extraArgs$sub %||% ""
 
-  if("xlab" %in% names(extraArgs)) {
-    if(length(extraArgs$xlab) != 2) {
-      if (length(extraArgs$xlab) == 3) {
-        xlab <- c(extraArgs$xlab[1:2], "Density")
-      } else {
-        .throw_error("'xlab' must have length 2")
-      }
-    } else {xlab <- c(extraArgs$xlab, "Density")}
-  } else {
-    xlab <- c(if(log.z == TRUE) {
-      "Relative standard error [%]"
-    } else {
-      "Standard error"
-    },
-    "Precision",
-    "Density")
-  }
-
-  ylab <-extraArgs$ylab %||% "Standardised estimate"
+  xlab <- if ("xlab" %in% names(extraArgs)) {
+            if (!length(extraArgs$xlab) %in% c(2, 3))
+              .throw_error("'xlab' must have length 2")
+            c(extraArgs$xlab[1:2], "Density")
+          } else {
+            c(if (log.z) "Relative standard error [%]" else "Standard error",
+              "Precision",
+              "Density")
+          }
+  ylab <- extraArgs$ylab %||% "Standardised estimate"
   zlab <- extraArgs$zlab %||% expression(D[e] * " " * "[Gy]")
 
   if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {

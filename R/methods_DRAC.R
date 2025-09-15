@@ -122,7 +122,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 
   ## CHECK INPUT CLASS ----
   class.old <- attr(x[[i]], "default_class")
-
   class.new <- class(value)
 
   ## CHECK INPUT FIELDS THAT ALLOW 'X' -----
@@ -163,18 +162,12 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       ## check if coercion is possible
       if (anyNA(suppressWarnings(as.numeric(value)))) {
         .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> cannot coerce, set NAs")
-         if(class.old == "integer")
-           value <- NA_integer_
-         else
-           value <- NA_real_
+         value <- if (class.old == "integer") NA_integer_ else NA_real_
 
       } else {
       ## try coercion
       .throw_message(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> coercing to ", class.old)
-        if(class.old == "integer")
-          value <- as.integer(value)
-        else
-          value <- as.numeric(value)
+        value <- if (class.old == "integer") as.integer(value) else as.numeric(value)
       }
     }
 

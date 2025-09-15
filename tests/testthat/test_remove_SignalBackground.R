@@ -36,7 +36,7 @@ test_that("input validation", {
   ## test input object failure for clean_up
   expect_error(
     object = remove_SignalBackground(object = xsyg[[1]], clean_up = "error"),
-    regexp = "'clean_up' should be of class 'logical'")
+    regexp = "'clean_up' should be a single logical value")
 })
 
 test_that("simple run", {
