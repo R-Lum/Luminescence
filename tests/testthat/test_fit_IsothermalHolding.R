@@ -59,4 +59,11 @@ test_that("regression tests", {
   expect_equal(res@data$coefs,
                data.frame(SAMPLE = "S1", TEMP = 150, A = NA_real_,
                           b = NA_real_, Et = NA_real_, s10 = NA_real_))
+
+  ## issue 1003
+  set.seed(5)
+  expect_s4_class(fit_IsothermalHolding(input.csv[2], rhop = 1e-5,
+                                        ITL_model = "BTS", verbose = FALSE,
+                                        num_s_values_bts = 2),
+                  "RLum.Results")
 })

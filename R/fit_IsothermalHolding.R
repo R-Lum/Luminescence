@@ -233,6 +233,9 @@ fit_IsothermalHolding <- function(
           setTxtProgressBar(pb, num.fits)
         }
 
+        if (inherits(fit, "try-error"))
+          fit <- NA
+
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
         all.s10 <- rnorm(num_s_values_bts, mean = 10, sd = 1.5)
@@ -256,12 +259,15 @@ fit_IsothermalHolding <- function(
           }
 
           if (inherits(t, "try-error"))
-            return(NULL) # nocov
+            return(NULL)
           return(t)
         })
 
         ## pick the one with the best fit after removing those that didn't fit
         fit <- .rm_NULL_elements(fit)
+        if (length(fit) == 0)
+          return(NA)
+
         fit <- fit[[which.min(vapply(fit, stats::deviance, numeric(1)))]]
         s10 <- environment(fit$m$predict)$env$s10
         fitted.coefs <<- rbind(fitted.coefs,
@@ -269,9 +275,6 @@ fit_IsothermalHolding <- function(
                                           TEMP = isoT,
                                           t(coef(fit)), s10))
       }
-
-      if (inherits(fit, "try-error"))
-        fit <- NA
 
       ## return fit
       return(fit)
