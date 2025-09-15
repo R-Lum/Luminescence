@@ -164,7 +164,7 @@ plot_settings <- modifyList(x = list(
         zlim = if(is.null(plot_settings$zlim_image)) range(image) else plot_settings$zlim_image,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        main = paste0(plot_settings$main, " #",i),
+        main = plot_settings$main[i],
         col = plot_settings$col)
       graphics::box()
 
