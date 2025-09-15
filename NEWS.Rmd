@@ -21,6 +21,10 @@ in the corresponding `convert_CW2*()` functions (#992).
 
 ## Bugfixes and changes
 
+### `fit_OSLLifeTimes()`
+
+* The function throws a warning when the fit fails (#1005).
+
 ### `plot_AbanicoPlot()`
 
 * A warning was raised if the function returned early (for example due to

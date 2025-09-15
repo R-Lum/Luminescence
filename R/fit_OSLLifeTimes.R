@@ -556,7 +556,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       },
       trace = method_control_setting$nlsLM.trace,
       control = minpack.lm::nls.lm.control(maxiter = 500)
-    ), outFile = stdout()) # redirect error messages so they can be silenced
+    ), silent = TRUE)
 
 # Post-processing -----------------------------------------------------------------------------
 
@@ -594,6 +594,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     D <- round(sum((R - c(0,R[-length(R)]))^2) / sum(R^2),2)
     rm(R)
   } else {
+    .throw_warning("Fitting failed: ", attr(fit, "condition")$message)
     m <- 1
   }
 

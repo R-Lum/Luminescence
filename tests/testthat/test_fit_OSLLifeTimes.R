@@ -156,4 +156,12 @@ test_that("check functionality", {
       verbose = FALSE,
       plot = FALSE),
       tolerance = 1.5e-5)
+
+  expect_warning(fit_OSLLifeTimes(
+    object = ExampleData.TR_OSL,
+    plot = FALSE,
+    verbose = FALSE,
+    method_control = list(seed = 100, DEoptim.itermax = 15),
+    n.components = 1),
+    "Fitting failed: singular gradient matrix at initial parameter estimates")
 })
