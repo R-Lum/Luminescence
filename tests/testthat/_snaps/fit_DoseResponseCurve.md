@@ -3830,7 +3830,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [20.51960659]
+                  "value": [19.71803659]
                 },
                 {
                   "type": "double",
