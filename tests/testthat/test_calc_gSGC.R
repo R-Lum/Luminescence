@@ -73,7 +73,6 @@ test_that("snapshot tests", {
 
   ## graphical snapshot tests
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("calc_gSGC expected",

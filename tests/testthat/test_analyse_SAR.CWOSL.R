@@ -604,7 +604,6 @@ test_that("advance tests run", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   set.seed(1)
 
