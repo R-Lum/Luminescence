@@ -130,21 +130,6 @@ test_that("check functionality", {
     tolerance = snapshot.tolerance)
   })
 
-  ##warning for log
-  expect_warning(expect_warning(
-      fit_OSLLifeTimes(
-          object = temp_mat,
-          verbose = FALSE,
-          plot = TRUE,
-          plot_simple = TRUE,
-          log = list("xy"),
-          lty = 1,
-          col = 1,
-          n.components = 1),
-      "log-scale requires x-values > 0, set min xlim to 0.01"),
-      "log-scale requires y-values > 0, set min ylim to 1.69e+10",
-      fixed = TRUE)
-
   SW({
   expect_message(fit_OSLLifeTimes(temp_mat[1:10, ]),
                  "The fitting was not successful, consider trying again")
@@ -164,4 +149,34 @@ test_that("check functionality", {
     method_control = list(seed = 100, DEoptim.itermax = 15),
     n.components = 1),
     "Fitting failed: singular gradient matrix at initial parameter estimates")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("1 comp",
+                              fit_OSLLifeTimes(
+                                  object = ExampleData.TR_OSL,
+                                  method_control = list(DEoptim.itermax = 15),
+                                  n.components = 1))
+
+  expect_warning(expect_warning(
+      vdiffr::expect_doppelganger("log xy",
+                                  fit_OSLLifeTimes(
+                                      object = temp_mat,
+                                      verbose = FALSE,
+                                      plot = TRUE,
+                                      plot_simple = TRUE,
+                                      log = list("xy"),
+                                      lty = 1,
+                                      col = 1,
+                                      n.components = 1)),
+      "log-scale requires x-values > 0, set min xlim to 0.01"),
+      "log-scale requires y-values > 0, set min ylim to 1.69e+10",
+      fixed = TRUE)
+  })
 })
