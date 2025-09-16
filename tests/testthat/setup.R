@@ -6,7 +6,7 @@
 expect_snapshot_RLum <- function(object, ...) {
   object@.uid <- NA_character_
   object@.pid <- NA_character_
-  object@info$call <- NULL
+  object@info[names(object@info) == "call"] <- NULL # may be multiple "call"
   if ("data" %in% slotNames(object)) {
     if ("fit" %in% names(object@data))
       object@data$fit <- NULL
