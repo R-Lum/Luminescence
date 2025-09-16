@@ -552,39 +552,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["call"]
+              "value": []
             }
           },
-          "value": [
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [34, 50, 34, 78, 50, 78, 34, 34]
-                }
-              },
-              "value": ["extract_ROI(a, x)"]
-            }
-          ]
+          "value": []
         },
         ".uid": {
           "type": "character",
