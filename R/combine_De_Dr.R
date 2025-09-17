@@ -130,10 +130,8 @@
   if(length(theta) == 1) {
     data1$theta <- NULL
     model <- textConnection(event1)
-
   } else {
     model <- textConnection(event2)
-
   }
 
   ## run model
@@ -167,7 +165,6 @@
   if(method_control$diag) {
     cat("\n[.calc_IndividualAgeModel()]\n")
     print(coda::gelman.diag(samp))
-
   }
 
   # Return ------------------------------------------------------------------
@@ -285,10 +282,8 @@
   if(length(theta) == 1) {
     data$theta <- NULL
     model <- textConnection(central_age_model1)
-
   } else {
     model <- textConnection(central_age_model2)
-
   }
 
   ## run modelling
@@ -322,7 +317,6 @@
   if(method_control$diag) {
     cat("\n[.calc_BayesianCentralAgeModel()]\n")
     print(coda::gelman.diag(samp2))
-
   }
 
   # Return ------------------------------------------------------------------
@@ -335,7 +329,6 @@
       mcmc_BCAM = if(method_control$return_mcmc) samp2 else NULL),
     info = list(call = sys.call())
   ))
-
 }
 
 #'@title Combine Dose Rate and Equivalent Dose Distribution
@@ -599,7 +592,6 @@ fit_IAM <- .calc_IndividualAgeModel(
     sig_max <- sig0 * ((1 - alpha) / alpha) ^ .5
     test <- vapply(1:length(De), function(j){
       mean(fit_IAM$sig_a[, j] >= sig_max)
-
     }, numeric(1))
 
     out <- sort(which(test > alpha))
@@ -622,7 +614,6 @@ fit_IAM <- .calc_IndividualAgeModel(
   if (length(out) == 0) {
       De1 <- De
       s1 <- s
-
    } else {
       De1 <- De[-out]
       s1 <- s[-out]
@@ -696,7 +687,6 @@ if(verbose){
   cat("    Age (CI 68%):\t", paste(format(round(range(CI_68),2), nsmall =2), collapse = " : "), "\n")
   cat("    Age (CI 95%):\t", paste(format(round(range(CI_95),2), nsmall =2), collapse = " : "), "\n")
   cat("    -----------------------------------\n")
-
 }
 
 # Plotting ----------------------------------------------------------------
@@ -709,11 +699,8 @@ if(plot){
   ), list(...))
 
   ##make sure we reset plots
-  if(par_local) {
-    old.par <- par(mfrow = c(1, 2))
-    on.exit(par(old.par), add = TRUE)
-
-  }
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
   if(outlier_analysis_plot){
     N <- length(De)
@@ -746,11 +733,9 @@ if(plot){
 
     abline(h = sig0, col = "violet")
 
-
     } else {
       shape::emptyplot()
       text(0.5, 0.5, "No outlier detected!")
-
     }
   }
 
@@ -822,5 +807,4 @@ if(plot){
       model_IAM = fit_IAM$model,
       model_BCAM = fit_BCAM$model)
   ))
-
 }

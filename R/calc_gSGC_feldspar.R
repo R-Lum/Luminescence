@@ -234,8 +234,8 @@ calc_gSGC_feldspar <- function (
 
 # Plotting ----------------------------------------------------------------
   if(plot){
-    old.par <- par(no.readonly = TRUE)
-    on.exit(par(old.par), add = TRUE)
+    par.defaults <- .par_defaults()
+    on.exit(par(par.defaults), add = TRUE)
 
     par(mfrow = c(mfrow = c(3,3)))
     for (i in 1:length(l)) {

@@ -535,8 +535,8 @@ scale_GammaDose <- function(
   if (plot) {
 
     # save and recover plot parameters
-    par.old <- par(no.readonly = TRUE)
-    on.exit(par(par.old), add = TRUE)
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     if (!plot_singlePanels)
       graphics::layout(matrix(
@@ -606,7 +606,7 @@ scale_GammaDose <- function(
         # oma = c(1, 1, 1, 1) + 0.1,
         pch = 16)
     } else {
-      par(par.old)
+      par(par.default)
       par(
         mfrow = c(1, 4),
         mar = c(4, 5, 0, 0) + 0.1,
@@ -666,7 +666,7 @@ scale_GammaDose <- function(
       par(mar = c(5, 5, 1, 6) + 0.1,
           cex = 0.7)
     } else {
-      par(par.old)
+      par(par.default)
       par(mar = c(5, 8, 4, 4) + 0.1,
           cex = settings$cex)
     }
@@ -709,9 +709,6 @@ scale_GammaDose <- function(
           col = "#b22222", las = 1,
           line = ifelse(plot_singlePanels, -1, -0.5),
           cex = ifelse(plot_singlePanels, 0.8, 0.7))
-
-    # recover old plot parameters
-    par(par.old)
   }
 
   ## ------------------------------------------------------------------------ ##

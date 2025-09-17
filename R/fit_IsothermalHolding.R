@@ -333,6 +333,9 @@ fit_IsothermalHolding <- function(
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
+
     ## define plot settings
     plot_settings <- modifyList(
       x = list(
@@ -363,8 +366,6 @@ fit_IsothermalHolding <- function(
 
     ## par settings (the check for mfrow ensures that it works in the analysis function)
     if (!is.null(plot_settings$mfrow)) {
-      par_old <- par(no.readonly = TRUE)
-      on.exit(par(par_old))
       par(cex = plot_settings$cex, mfrow = plot_settings$mfrow)
     }
 

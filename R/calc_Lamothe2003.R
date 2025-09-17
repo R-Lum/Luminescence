@@ -287,8 +287,9 @@ calc_Lamothe2003 <- function(
   ), val = list(...))
 
   ##run plot function
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
   fit_results <- do.call(what = plot_GrowthCurve, args = argument_list)
-
 
   # Age calculation -----------------------------------------------------------------------------
   res <- get_RLum(fit_results)

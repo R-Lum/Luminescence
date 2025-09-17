@@ -646,8 +646,8 @@ analyse_FadingMeasurement <- function(
 
     ## split the plot area into 4 regions if plot_singlePanels = FALSE (default)
     if (is.logical(plot_singlePanels) && !plot_singlePanels[1]) {
-      par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default), add = TRUE)
+      par.default <- .par_defaults()
+      on.exit(par(par.default), add = TRUE)
       par(mfrow = c(2, 2))
     }
 

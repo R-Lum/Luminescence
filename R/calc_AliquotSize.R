@@ -410,6 +410,9 @@ calc_AliquotSize <- function(
     MC.q <- object@data$MC$quantile
     MC.iter <- object@data$args$MC.iter
 
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
+
     ## set layout of plotting device
     nrow.splits <- if (settings$boxplot) 2 else 1
     graphics::layout(matrix(c(1, 1, nrow.splits)), nrow.splits, 1)

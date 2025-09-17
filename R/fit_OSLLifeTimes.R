@@ -663,14 +663,14 @@ if(plot) {
       }
     }
 
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ##plot if the fitting was a success
   if (!inherits(fit, 'try-error')) {
 
     if(!plot_simple){
-      par.default <- par(no.readonly = TRUE)
-      on.exit(par(par.default), add = TRUE)
       graphics::layout(matrix(c(1, 2), 2, 1), height = c(0.7, 0.3))
-
       par(mar = c(0, 4.5, 3, 2))
     }
 

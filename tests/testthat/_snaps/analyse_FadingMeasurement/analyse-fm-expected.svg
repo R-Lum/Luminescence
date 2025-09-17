@@ -251,4 +251,11 @@
 <text x='444.86' y='352.38' style='font-size: 9.96px; font-family: sans;' textLength='52.59px' lengthAdjust='spacingAndGlyphs'>HPD - 68 %</text>
 <text x='444.86' y='364.33' style='font-size: 9.96px; font-family: sans;' textLength='52.59px' lengthAdjust='spacingAndGlyphs'>HPD - 95 %</text>
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>

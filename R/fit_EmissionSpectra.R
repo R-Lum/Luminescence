@@ -533,7 +533,7 @@ fit_EmissionSpectra <- function(
   if(plot){
     ##get colour values
     col <- get("col", pos = .LuminescenceEnv)[-1]
-    par.default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ##plot settings

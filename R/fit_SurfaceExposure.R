@@ -427,6 +427,8 @@ fit_SurfaceExposure <- function(
 
   ## PLOT ----
   if (plot) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     # remove $group column for easier data handling
     if (global_fit)

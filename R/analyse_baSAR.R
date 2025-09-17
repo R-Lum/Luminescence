@@ -1397,6 +1397,9 @@ analyse_baSAR <- function(
   count <- 1
   calc_OSLLxTxRatio_warning <- list()
 
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   for (k in 1:length(fileBIN.list)) {
 
     ##plot Ln and Tn curves if wanted
@@ -1419,7 +1422,6 @@ analyse_baSAR <- function(
 
       ##open plot are
       if (!plot_singlePanels) {
-        par.default <- par()$mfrow
         par(mfrow = c(1, 2))
       }
 
@@ -1459,7 +1461,7 @@ analyse_baSAR <- function(
 
       ##reset par
       if (!plot_singlePanels) {
-        par(mfrow = par.default)
+        par(mfrow = par.default$mfrow)
       }
 
       ##remove some variables
@@ -1973,7 +1975,6 @@ analyse_baSAR <- function(
 
     if (!plot_singlePanels) {
       par(mfrow = c(1,2))
-      on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE), add = TRUE)
     }
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##DOSE RESPONSE CURVES AND Lx/Tx VALUES

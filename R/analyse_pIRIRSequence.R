@@ -181,6 +181,12 @@ analyse_pIRIRSequence <- function(
   .set_function_name("analyse_pIRIRSequence")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## store the graphical parameters: this is done here because the function
+  ## self calls, and this should ensure that we reset the global state to
+  ## what it was when we were first called
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
 
@@ -419,9 +425,6 @@ analyse_pIRIRSequence <- function(
       temp.IRSL.layout.vector.first,
       temp.IRSL.layout.vector.middle,
       temp.IRSL.layout.vector.last)
-
-  ##get layout information
-  def.par <- par(no.readonly = TRUE)
 
   ##set up layout matrix linked to the number of plot areas needed
   layout.matrix  <- c(
@@ -774,13 +777,6 @@ if(plot){
          col = c(1:length(pIRIR.curve.names)),
          bty = "n",
          pch = c(1:length(pIRIR.curve.names)))
-
-
-  ##reset graphic settings
-  if (!plot_singlePanels) {
-    par(def.par)
-  }
-
 }##end plot == TRUE
 
 

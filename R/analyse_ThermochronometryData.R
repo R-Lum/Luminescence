@@ -66,9 +66,9 @@ analyse_ThermochronometryData <- function(
 
   ## prepare plot and reset to default on exit
   if(plot) {
-    par_default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
     par(mfrow = c(1,3))
-    on.exit(par(par_default), add = TRUE)
   }
 
   ## Reminder: We have n samples in one Excel sheet ... each set will be analysed

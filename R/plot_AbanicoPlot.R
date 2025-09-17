@@ -583,10 +583,6 @@ plot_AbanicoPlot <- function(
                                   "bottomleft", "bottom", "bottomright"))
   }
 
-  ## save original plot parameters and restore them upon end or stop
-  par.default <- par(no.readonly = TRUE)
-  cex_old <- par()$cex
-
   ## check/set layout definitions
   layout <- get_Layout(layout = list(...)$layout %||% "default")
 
@@ -920,12 +916,17 @@ plot_AbanicoPlot <- function(
     plot.ratio <- plot.ratio * 1.05
   }
 
-  ## this ensures par() is respected for several plots on one page
-  ## it must be done after all validations have completed, otherwise a
-  ## warning may be generated (#1001)
+  ## save the original plot parameters and restore them when exiting
+  ## this must be done after all validations have completed, otherwise a
+  ## warning may be generated (#1001) if any validation step fails.
   if (sum(par()$mfrow) == 2 && sum(par()$mfcol) == 2) {
-    on.exit(par(par.default), add = TRUE)
+    par.default <- .par_defaults()
+  } else {
+    ## this ensures that mfrow/mfcol are not reset when we want to draw
+    ## several plots on one page
+    par.default <- par(c("mar", "mai", "xpd", "cex"))
   }
+  on.exit(par(par.default), add = TRUE)
 
   ## wrapper functions to deal with rotation
   plot.rot <- function(xlim, ylim, ...) {
@@ -2216,9 +2217,6 @@ plot_AbanicoPlot <- function(
     print(IAP)
     return(IAP)
   }
-
-  ## restore initial cex
-  par(cex = cex_old)
 
   ## create and return numeric output
   invisible(plot.output)

@@ -679,9 +679,7 @@ fit_CWCurve<- function(
   ## PLOTTING
   ##============================================================================##
   if(plot==TRUE){
-
-    ##grep par parameters
-    par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ##set colors gallery to provide more colors
