@@ -667,14 +667,11 @@ if(plot) {
   if (!inherits(fit, 'try-error')) {
 
     if(!plot_simple){
-      screen.idx <- graphics::split.screen(rbind(c(0.1, 1, 0.32, 0.98),
-                                                 c(0.1, 1, 0.10, 0.32)))
+      par.default <- par(no.readonly = TRUE)
+      on.exit(par(par.default), add = TRUE)
+      graphics::layout(matrix(c(1, 2), 2, 1), height = c(0.7, 0.3))
 
-      ## make sure to close the screen
-      on.exit(graphics::close.screen(n = screen.idx), add = TRUE)
-
-      graphics::screen(screen.idx[1])
-      par(mar = c(0, 4, 3, 4))
+      par(mar = c(0, 4.5, 3, 2))
     }
 
     plot(NA,NA,
@@ -729,8 +726,7 @@ if(plot) {
     )
 
     if(!plot_simple){
-      graphics::screen(screen.idx[2])
-      par(mar = c(4, 4, 0, 4))
+      par(mar = c(5, 4.5, 0, 2))
       plot(
         x = df[[1]],
         y = residuals(fit),

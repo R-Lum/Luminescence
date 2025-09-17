@@ -25,15 +25,15 @@ in the corresponding `convert_CW2*()` functions (#992).
 
 ### `fit_EmissionSpectra()`
 
-* The function uses the correct indices reported by `split.screen()`, which
-prevents some graphical errors if run in a parallel setting (#1007).
+* The function makes better use of the plot area, leaving smaller margins
+around the plot (#1011).
 
 ### `fit_OSLLifeTimes()`
 
 * The function throws a warning when the fit fails (#1005).
 
-* The function uses the correct indices reported by `split.screen()`, which
-prevents some graphical errors if run in a parallel setting (#1007).
+* The function makes better use of the plot area, leaving smaller margins
+around the plot (#1011).
 
 ### `plot_AbanicoPlot()`
 
