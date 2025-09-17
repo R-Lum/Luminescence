@@ -533,6 +533,8 @@ fit_EmissionSpectra <- function(
   if(plot){
     ##get colour values
     col <- get("col", pos = .LuminescenceEnv)[-1]
+    par.default <- par(no.readonly = TRUE)
+    on.exit(par(par.default), add = TRUE)
 
     ##plot settings
     plot_settings <- modifyList(x = list(
@@ -549,15 +551,10 @@ fit_EmissionSpectra <- function(
     ), val = list(...))
 
     if (!is.na(fit[1]) && !inherits(fit, "try-error")) {
-      screen.idx <- graphics::split.screen(rbind(c(0.1, 1, 0.32, 0.98),
-                                                 c(0.1, 1, 0.10, 0.315)))
-
-      ## make sure to close the screen
-      on.exit(graphics::close.screen(n = screen.idx), add = TRUE)
+      graphics::layout(matrix(c(1, 2), 2, 1), height = c(0.7, 0.3))
 
     ##SCREEN 1 ----------
-    graphics::screen(screen.idx[1])
-    par(mar = c(0, 4, 3, 4))
+    par(mar = c(0, 4.5, 3, 2))
     plot(
       df,
       pch = 20,
@@ -617,8 +614,7 @@ fit_EmissionSpectra <- function(
     }
 
     ## SCREEN 2 -----
-    graphics::screen(screen.idx[2])
-    par(mar = c(4, 4, 0, 4))
+    par(mar = c(5, 4.5, 0, 2))
     plot(NA, NA,
       ylim = range(residuals(fit)),
       xlab = plot_settings$xlab,
@@ -627,6 +623,7 @@ fit_EmissionSpectra <- function(
       yaxt = "n",
       xlim = plot_settings$xlim,
       ylab = "",
+      xpd = NA,
       col = rgb(0,0,0,.6),
       log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
     )
