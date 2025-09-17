@@ -229,6 +229,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   settings <- modifyList(settings, list(...))
 
   ## PLOTTING ----------
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
   # set graphical parameter
   par(cex = settings$cex)

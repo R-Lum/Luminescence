@@ -233,12 +233,11 @@ analyse_Al2O3C_CrossTalk <- function(
   data_full <- as.data.frame(data.table::rbindlist(signal_table_list), stringsAsFactors = FALSE)
 
   # Plotting ------------------------------------------------------------------------------------
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
     ## set colours
     col_pal <- grDevices::hcl.colors(100, palette = "RdYlGn", rev = TRUE)
-
-    ##get plot settings
-    par.default <- par(no.readonly = TRUE)
-    on.exit(par(par.default), add = TRUE)
 
     ##settings
     plot_settings <- list(

@@ -132,8 +132,8 @@ calc_EED_Model <- function(
   .validate_class(MaxIndivDose, "numeric", null.ok = TRUE)
 
   ##store and restore par settings
-  par_default <- par(no.readonly = TRUE)
-  on.exit(par(mfrow = par_default$mfrow), add = TRUE)
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
 # Helper functions ----------------------------------------------------------------------------
 

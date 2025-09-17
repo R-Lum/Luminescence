@@ -379,9 +379,9 @@ plot_DetPlot <- function(
 
        if(plot[1]) {
         ##general settings
-        old_par <- par(no.readonly = TRUE)
+        par.default <- .par_defaults()
+        on.exit(par(par.default), add = TRUE)
         par(cex = plot.settings$cex)
-        on.exit(par(old_par), add = TRUE)
 
         ##open plot area
         plot(

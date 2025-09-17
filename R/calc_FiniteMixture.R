@@ -596,7 +596,7 @@ calc_FiniteMixture <- function(
   LLIK.n <- object@data$llik$llik
 
   ## save previous plot parameter and set new ones
-  par.default <- par(no.readonly = TRUE)
+  par.default <- .par_defaults()
   on.exit(par(par.default), add = TRUE)
 
   ## DEVICE AND PLOT LAYOUT

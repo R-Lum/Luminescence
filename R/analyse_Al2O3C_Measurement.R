@@ -584,9 +584,8 @@ analyse_Al2O3C_Measurement <- function(
     ##enable or disable plot ... we cannot put the condition higher, because we here
     ##calculate something we are going to need later
     if (plot) {
-      ##get plot settings
-      par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default), add = TRUE)
+      par.default <- .par_defaults()
+      on.exit(par(par.default), add = TRUE)
 
       ##settings
       plot_settings <- list(

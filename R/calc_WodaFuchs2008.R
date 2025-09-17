@@ -182,6 +182,8 @@ calc_WodaFuchs2008 <- function(
 
   ## plot output --------------------------------------------------------------
   if(plot) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     ##define plot settings
     plot_settings <- list(

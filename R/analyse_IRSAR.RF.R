@@ -1409,7 +1409,7 @@ analyse_IRSAR.RF<- function(
   # Plotting ------------------------------------------------------------------------------------
   ##===============================================================================================#
   if (plot) {
-    par.default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ##get internal colour definition

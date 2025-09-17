@@ -72,8 +72,8 @@ plot_RLum.Results<- function(
   ##============================================================================##
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
   ##============================================================================##
-  par.old <- par(no.readonly = TRUE)
-  on.exit(suppressWarnings(par(par.old)), add = TRUE)
+  par.default <- .par_defaults()
+  on.exit(suppressWarnings(par(par.default)), add = TRUE)
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -160,7 +160,7 @@ plot_RLum.Results<- function(
     if(object@data$args$bootstrap==TRUE) {
 
       # save previous plot parameter and set new ones
-      .pardefault<- par(no.readonly = TRUE)
+      .pardefault <- .par_defaults()
 
       # get De-llik pairs
       pairs<- object@data$bootstrap$pairs$gamma
@@ -452,7 +452,7 @@ plot_RLum.Results<- function(
     llik<- object@data$profile$llik
 
     # save previous plot parameter and set new ones
-    .pardefault<- par(no.readonly = TRUE)
+    .pardefault <- .par_defaults()
 
     # plot the profile log likeihood
     par(oma=c(2,1,2,1),las=1,cex.axis=1.2, cex.lab=1.2)
@@ -481,7 +481,6 @@ plot_RLum.Results<- function(
 
     # restore previous plot parameters
     par(.pardefault)
-    rm(.pardefault)
   }##EndOf::Case 2 - calc_CentralDose()
 
 

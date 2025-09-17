@@ -130,4 +130,11 @@
 <text x='440.13' y='203.27' style='font-size: 21.60px; font-family: sans;' textLength='70.85px' lengthAdjust='spacingAndGlyphs'>median</text>
 <text x='440.13' y='229.19' style='font-size: 21.60px; font-family: sans;' textLength='183.75px' lengthAdjust='spacingAndGlyphs'>0.05 / 0.95 quantile</text>
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>

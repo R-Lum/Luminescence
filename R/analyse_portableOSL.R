@@ -352,7 +352,7 @@ analyse_portableOSL <- function(
      ),
      val = list(...), keep.null = TRUE)
 
-    par.default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ## mode == "surface" ---------

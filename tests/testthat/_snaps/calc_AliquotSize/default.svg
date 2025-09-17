@@ -184,4 +184,11 @@
 <text x='681.34' y='539.14' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>3500</text>
 <polygon points='57.60,518.40 685.44,518.40 685.44,384.00 57.60,384.00 ' style='stroke-width: 0.75; fill: none;' />
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>

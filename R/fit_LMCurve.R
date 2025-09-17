@@ -364,10 +364,8 @@ fit_LMCurve<- function(
   }
 
   # layout safety settings
-  if (plot || plot.BG) {
-    par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
-    on.exit(par(par.default), add = TRUE)
-  }
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION

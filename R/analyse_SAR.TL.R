@@ -340,7 +340,7 @@ analyse_SAR.TL <- function(
 
   # Plotting - Config -------------------------------------------------------
   ##grep plot parameter
-  par.default <- par(no.readonly = TRUE)
+  par.default <- .par_defaults()
   on.exit(par(par.default), add = TRUE)
 
   ##grep colours

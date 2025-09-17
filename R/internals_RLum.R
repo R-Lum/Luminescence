@@ -419,6 +419,19 @@ fancy_scientific <- function(l) {
     args))
 }
 
+#' Retrieve graphical parameters
+#'
+#' @return
+#' A list of graphical parameters that can be restored. The `pin` parameter
+#' is removed because at times (when a pdf file with too small size) it can
+#' become negative, and restoring it would throw an error.
+#'
+.par_defaults <- function() {
+  pars <- par(no.readonly = TRUE)
+  pars$pin <- NULL
+  pars
+}
+
 #' Convert position keywords into summary placement coordinates
 #'
 #' @param pos [numeric] or [character] (**required**) Position coordinates

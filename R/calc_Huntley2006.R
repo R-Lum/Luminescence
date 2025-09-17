@@ -887,7 +887,7 @@ calc_Huntley2006 <- function(
   ## Plotting ------------------------------------------------------------------
   if (plot) {
     ### par settings ---------
-    par.default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     # set graphical parameters
