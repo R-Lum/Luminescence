@@ -39,3 +39,8 @@ around the plot (#1011).
 
 * A warning was raised if the function returned early (for example due to
 invalid inputs) and the graphical device was off (#1001).
+
+### `plot_RLum.Analysis()`
+
+* Setting `records_max` to a value larger than the number of curves no longer
+generates spurious legend entries (#1017).

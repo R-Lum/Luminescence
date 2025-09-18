@@ -1,7 +1,8 @@
 #' @title Plot function for an `RLum.Analysis` S4 class object
 #'
-#' @description The function provides a standardised plot output for curve data of an
-#' [RLum.Analysis-class] object
+#' @description
+#' The function provides a standardised plot output for curve data of an
+#' [RLum.Analysis-class] object.
 #'
 #' The function produces a multiple plot output. A file output is recommended
 #' (e.g., [pdf]).
@@ -45,11 +46,11 @@
 #' @param combine [logical] (*with default*):
 #' allows to combine all [RLum.Data.Curve-class] objects in one single plot.
 #'
-#' @param records_max [numeric] (*optional*): limits number of records
-#' shown if `combine = TRUE`. Shown are always the first and the last curve,
-#' the other number of curves to be shown a distributed evenly, this may result
-#' in fewer curves plotted as specified. This parameter has only
-#' an effect for  n > 2.
+#' @param records_max [integer] (*optional*):
+#' limits number of records shown when `combine = TRUE` is used. The first and
+#' last curves are always shown, the other curves shown are distributed evenly;
+#' this may result in fewer curves plotted than specified. This argument must
+#' be at least 2 to have an effect.
 #'
 #' @param curve.transformation [character] (*with default*):
 #' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
@@ -133,8 +134,8 @@ plot_RLum.Analysis <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Analysis")
+  .validate_positive_scalar(records_max, null.ok = TRUE)
 
   if(!is.null(subset)){
     ##check whether the user set the drop option and remove it, as we cannot work with it
@@ -242,7 +243,6 @@ plot_RLum.Analysis <- function(
     ##calculate number of pages for mtext
     if (length(temp) == 0 || length(temp) %% (nrows * ncols) > 0) {
       n.pages <- round(length(temp) / (nrows * ncols), digits = 0) + 1
-
     } else{
       n.pages <- length(temp) / (nrows * ncols)
     }
@@ -380,7 +380,7 @@ plot_RLum.Analysis <- function(
 
         do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
             object = temp[[i]],
-            mtext = plot.settings$mtext[[i]] %||% paste("#", i, sep = ""),
+            mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
             par.local = FALSE,
             main = plot.settings$main %||% temp[[i]]@recordType
         ), args))
@@ -443,13 +443,19 @@ plot_RLum.Analysis <- function(
 
       ## limit number of records shown ... show always first and last;
       ## distribute the rest
-      if(!is.null(records_max) && records_max[1] > 2){
-        records_show <- ceiling(seq(1,length(object.list), length.out = records_max))
-        object.list[(1:length(object.list))[-records_show]] <- NULL
+      records_show <- NULL
+      if (!is.null(records_max) && records_max > 2) {
+        num.objects <- length(object.list)
+        records_show <- ceiling(seq(1, num.objects,
+                                    length.out = min(records_max, num.objects)))
+        object.list[(1:num.objects)[-records_show]] <- NULL
       }
 
+      ## recompute num.objects, as it may have changed due to records_max
+      num.objects <- length(object.list)
+
       ##transform values to data.frame and norm values
-      temp.data.list <- lapply(1:length(object.list), function(x) {
+      temp.data.list <- lapply(1:num.objects, function(x) {
 
         ## set curve transformation if wanted
         if (grepl("IRSL|OSL", object.list[[x]]@recordType) &&
@@ -469,17 +475,14 @@ plot_RLum.Analysis <- function(
         }
 
         return(temp.data)
-
       })
 
       ##set plot parameters
       ##main
-      main <- plot.settings$main[[k]] %||% paste0(temp.recordType[[k]], " combined")
+      main <- plot.settings$main[[k]] %||% paste(temp.recordType[[k]], "combined")
 
       ##xlab
-      xlab <- if(!is.null(plot.settings$xlab[[k]])){
-        plot.settings$xlab[[k]]
-      }else{
+      xlab <- plot.settings$xlab[[k]] %||% {
         if (temp.recordType[[k]] == "TL")
           "Temperature [\u00B0C]"
         else
@@ -487,10 +490,10 @@ plot_RLum.Analysis <- function(
       }
 
       ##ylab
-      ylab <- plot.settings$ylab[[k]] %||% paste0(temp.recordType[[k]], " [a.u.]")
+      ylab <- plot.settings$ylab[[k]] %||% paste(temp.recordType[[k]], "[a.u.]")
 
       ##xlim
-      xlim <- if (!is.null(plot.settings$xlim[[k]]) & length(plot.settings$xlim[[k]]) >1) {
+      xlim <- if (length(plot.settings$xlim[[k]]) > 1) {
         plot.settings$xlim[[k]]
       } else {
         c(min(object.structure$x.min), max(object.structure$x.max))
@@ -499,52 +502,43 @@ plot_RLum.Analysis <- function(
         xlim[which(xlim == 0)] <- 1
 
       ##ylim
-      ylim <- if (!is.null(plot.settings$ylim[[k]]) & length(plot.settings$ylim[[k]]) > 1) {
+      ylim <- if (length(plot.settings$ylim[[k]]) > 1) {
         plot.settings$ylim[[k]]
       } else {
         range(unlist(lapply(X = temp.data.list, FUN = function(x){
           range(x[,2])
         })))
       }
-
       if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
         ylim[which(ylim == 0)] <- 1
 
       ##col (again)
       col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "auto"){
         plot.settings$col[[k]]
-
       }else{
-        col <- get("col", pos = .LuminescenceEnv)
+        get("col", pos = .LuminescenceEnv)
       }
 
       ##if length of provided colours is < the number of objects, just one colour is supported
-      if (length(col) < length(object.list)) {
-        col <- rep_len(col, length(object.list))
+      if (length(col) < num.objects) {
+        col <- rep_len(col, num.objects)
       }
 
       ##lty
       lty <- plot.settings$lty[[k]]
-      if (length(plot.settings$lty[[k]]) < length(object.list)) {
-        lty <- rep(plot.settings$lty[[k]], times = length(object.list))
+      if (length(plot.settings$lty[[k]]) < num.objects) {
+        lty <- rep(plot.settings$lty[[k]], times = num.objects)
       }
 
       ##pch
       pch <- plot.settings$pch[[k]]
-      if (length(plot.settings$pch[[k]]) < length(object.list)) {
-        pch <- rep(plot.settings$pch[[k]], times = length(object.list))
+      if (length(plot.settings$pch[[k]]) < num.objects) {
+        pch <- rep(plot.settings$pch[[k]], times = num.objects)
       }
 
       ##legend.text
-      legend.text <- if(!is.null(plot.settings$legend.text[[k]])){
-        plot.settings$legend.text[[k]]
-      }else{
-        if(!is.null(records_max) && records_max[1] > 2) {
-          paste("Curve", records_show)
-        } else {
-          paste("Curve", 1:length(object.list))
-        }
-      }
+      legend.text <- plot.settings$legend.text[[k]] %||%
+        paste("Curve", records_show %||% 1:num.objects)
 
       ##legend.col
       legend.col <- plot.settings$legend.col[[k]]
@@ -577,7 +571,6 @@ plot_RLum.Analysis <- function(
         ##Why here again ... because the call differs from the one before, where the argument
         ##is passed to plot_RLum.Data.Curve()
         if(plot.settings$smooth[[k]]){
-
           k_factor <- ceiling(length(temp.data.list[[n]][, 2])/100)
           temp.data.list[[n]][, 2] <- .smoothing(temp.data.list[[n]][, 2],
                                                  k = k_factor, fill = NA,
@@ -642,7 +635,7 @@ plot_RLum.Analysis <- function(
           legend = legend.text,
           lwd = plot.settings$lwd[[k]],
           lty = plot.settings$lty[[k]],
-          col = legend.col %||% col[1:length(object.list)],
+          col = legend.col %||% col[1:num.objects],
           bty = "n",
           xpd = legend.pos == "outside",
           cex = 0.8
