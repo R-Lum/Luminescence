@@ -426,6 +426,7 @@ fancy_scientific <- function(l) {
 #' is removed because at times (when a pdf file with too small size) it can
 #' become negative, and restoring it would throw an error.
 #'
+#' @noRd
 .par_defaults <- function() {
   pars <- par(no.readonly = TRUE)
   pars$pin <- NULL

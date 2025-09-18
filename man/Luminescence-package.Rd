@@ -142,7 +142,7 @@ Other contributors:
   \item Antoine Zink (\href{https://orcid.org/0000-0001-7146-1101}{ORCID}) [contributor]
   \item Julie Durcan (\href{https://orcid.org/0000-0001-8724-8022}{ORCID}) [contributor]
   \item Georgina E. King (\href{https://orcid.org/0000-0003-1059-8192}{ORCID}) [contributor, data contributor]
-  \item Guillaume Guerin (\href{https://orcid.org/0000-0001-6298-5579}{ORCID}) [contributor]
+  \item Guillaume Guérin (\href{https://orcid.org/0000-0001-6298-5579}{ORCID}) [contributor]
   \item Pierre Guibert (\href{https://orcid.org/0000-0001-8969-8684}{ORCID}) [contributor]
   \item Markus Fuchs (\href{https://orcid.org/0000-0003-4669-6528}{ORCID}) [thesis advisor]
 }
