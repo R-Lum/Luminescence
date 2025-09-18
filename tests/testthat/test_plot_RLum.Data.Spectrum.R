@@ -28,6 +28,9 @@ test_that("input validation", {
       "No data left after applying 'xlim' and 'ylim'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = c(5, 10)),
       "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = bg.spectrum,
+                                       ylim = c(0, 100)),
+               "No background channels left after applying 'ylim'")
 
   expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = -2),
                  "'bg.channels' out of range")

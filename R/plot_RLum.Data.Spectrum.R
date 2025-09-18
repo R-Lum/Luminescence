@@ -431,6 +431,10 @@ plot_RLum.Data.Spectrum <- function(
     if (is.null(bg.channels)) {
       bg.xyz <- bg.xyz[, as.numeric(colnames(bg.xyz)) >= ylim[1] &
                          as.numeric(colnames(bg.xyz)) <= ylim[2], drop = FALSE]
+      if (ncol(bg.xyz) == 0) {
+        .throw_error("No background channels left after applying 'ylim'")
+      }
+
       bg.channels <- 1:ncol(bg.xyz)
     }
   }

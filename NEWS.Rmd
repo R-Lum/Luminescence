@@ -44,3 +44,8 @@ invalid inputs) and the graphical device was off (#1001).
 
 * Setting `records_max` to a value larger than the number of curves no longer
 generates spurious legend entries (#1017).
+
+### `plot_RLum.Data.Spectrum()`
+
+* The function doesn't crash anymore if `bg.spectrum` is used and `ylim`
+specifies an interval that doesn't contain any background channels (#1019).
