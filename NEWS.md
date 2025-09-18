@@ -41,3 +41,6 @@
 - The function doesn’t crash anymore if `bg.spectrum` is used and `ylim`
   specifies an interval that doesn’t contain any background channels
   (#1019).
+
+- The function doesn’t crash anymore if the value of `frames` given is
+  too large when `plot.type = "multiple.lines"` (#1021).

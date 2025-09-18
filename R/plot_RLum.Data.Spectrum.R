@@ -943,6 +943,13 @@ if(plot){
     box <- extraArgs$box[1] %||% TRUE
     frames <- extraArgs$frames %||% 1:length(y)
 
+    max.frames <- ncol(temp.xyz)
+    if (any(frames > max.frames)) {
+      .throw_message("Skipped frames exceeding the maximum (", max.frames, ")",
+                     error = FALSE)
+      frames <- pmin(frames, max.frames)
+    }
+
     ##change graphic settings
     par.default <- par()[c("mfrow", "mar", "xpd")]
     par(mfrow = c(1,1), mar=c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
