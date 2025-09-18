@@ -790,18 +790,11 @@ error.list <- list()
 
 # Plotting ----------------------------------------------------------------
     if (plot) {
-      ##make sure the par settings are good after the functions stops
-      ##Why this is so complicated? Good question, if par() is called in the
-      ##single mode, it starts a new plot and then subsequent functions like
-      ##analyse_pIRIRSequence() produce an odd plot output.
-      par.default <- par()[c("oma","mar","cex", "mfrow", "mfcol")]
-      on_exit <- function(x = par.default){
-        par(
-          oma = x$oma,
-          mar = x$mar,
-          cex = x$cex,
-          mfrow = x$mfrow,
-          mfcol = x$mfcol)
+      ## the graphical parameters cannot be restored unconditionally, as that
+      ## may affect the analyse_pIRIRSequence() plots
+      if (plot_onePage || plot_singlePanels[1] == FALSE) {
+        par.default <- .par_defaults()
+        on.exit(par(par.default), add = TRUE)
       }
 
       ##colours and double for plotting
@@ -813,7 +806,6 @@ error.list <- list()
       # plot everyting on one page ... doing it here is much cleaner than
       ## Plotting - one Page config ---------------------------------------------
       if(plot_onePage){
-          on.exit(on_exit(), add = TRUE)
 
       plot_singlePanels <- TRUE
       graphics::layout(matrix(
@@ -830,7 +822,6 @@ error.list <- list()
 
     ## Plotting - old way config ----------------------------------------------
       if (plot_singlePanels[1] == FALSE) {
-        on.exit(on_exit(), add = TRUE)
         graphics::layout(matrix(
           c(1, 1, 3, 3,
             1, 1, 3, 3,

@@ -248,10 +248,10 @@ plot_RLum.Analysis <- function(
     }
 
     ##set par
-    par.default <- par("mfrow")
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
     if (!plot_singlePanels) {
       par(mfrow = c(nrows, ncols))
-      on.exit(par(mfrow = par.default), add = TRUE)
     }
 
     ##expand plot settings list
@@ -399,12 +399,9 @@ plot_RLum.Analysis <- function(
 
     ##change graphic settings
     if (!plot_singlePanels) {
-      par.default <- par()[c("cex", "mfrow")]
       if(!missing(ncols) & !missing(nrows)){
         par(mfrow = c(nrows, ncols))
       }
-    } else {
-      par.default <- par()["cex"]
     }
     ## this 2nd par request is needed as setting mfrow resets the par
     ## settings ... this might not be wanted
@@ -547,7 +544,6 @@ plot_RLum.Analysis <- function(
       legend.pos <- plot.settings$legend.pos[[k]] %||% "topright"
 
       if (legend.pos == "outside") {
-        par.default.outside <- par()[c("mar", "xpd")]
         par(mar = c(5.1, 4.1, 4.1, 8.1))
       }
 
@@ -642,11 +638,5 @@ plot_RLum.Analysis <- function(
         )
       }
     }
-
-    ##reset graphic settings
-    if (exists("par.default.outside")) {
-      par(par.default.outside)
-    }
-    par(par.default)
   }
 }

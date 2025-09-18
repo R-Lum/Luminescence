@@ -721,4 +721,11 @@
 <circle cx='708.66' cy='319.16' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='708.66' cy='283.21' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>

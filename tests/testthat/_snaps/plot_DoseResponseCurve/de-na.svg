@@ -134,4 +134,11 @@
 <text x='466.08' y='472.81' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='48.57px' lengthAdjust='spacingAndGlyphs'>Not available</text>
 <text x='466.08' y='482.89' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='61.63px' lengthAdjust='spacingAndGlyphs'>No TnTx column</text>
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>
