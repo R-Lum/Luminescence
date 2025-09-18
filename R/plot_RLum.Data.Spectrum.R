@@ -943,6 +943,13 @@ if(plot){
     box <- extraArgs$box[1] %||% TRUE
     frames <- extraArgs$frames %||% 1:length(y)
 
+    max.frames <- ncol(temp.xyz)
+    if (any(frames > max.frames)) {
+      .throw_message("Skipped frames exceeding the maximum (", max.frames, ")",
+                     error = FALSE)
+      frames <- pmin(frames, max.frames)
+    }
+
     ##change graphic settings
     par.default <- par()[c("mfrow", "mar", "xpd")]
     par(mfrow = c(1,1), mar=c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
@@ -1044,13 +1051,8 @@ if(plot){
     temp.xyz <- colSums(temp.xyz)
 
     ##consider differences within the arguments
-    #check for zlim
-    zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
-    {c(0,max(temp.xyz))}
-
-    #check for zlim
-    zlab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-    {paste("Counts [1/summed channels]")}
+    zlim <- extraArgs$zlim %||% c(0, max(temp.xyz))
+    zlab <- extraArgs$ylab %||% "Counts [1/summed channels]"
 
     plot(y, temp.xyz,
          xlab = ylab,
@@ -1059,7 +1061,7 @@ if(plot){
          xlim = ylim,
          ylim = zlim,
          col = col,
-         sub = paste("(channel range: ", min(xlim), " : ", max(xlim), ")", sep=""),
+         sub = paste0("(channel range: ", min(xlim), " : ", max(xlim), ")"),
          type = type,
          pch = pch)
 

@@ -173,17 +173,15 @@ test_that("check functionality", {
       )
     ))
 
-    expect_silent(suppressWarnings(
+    expect_message(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
         plot.type = "multiple.lines",
         xlim = c(310, 750),
-        frames = c(1,3),
-        ylim = c(0, 100),
-        bin.rows = 10,
-        bin.cols = 1
-      )
-    ))
+        frames = c(1, 3, 100),
+        ylim = c(0, 50)),
+      "Skipped frames exceeding the maximum (3)",
+      fixed = TRUE)
 
     ## plot: image ------------
     ### plot_image: standard -------
