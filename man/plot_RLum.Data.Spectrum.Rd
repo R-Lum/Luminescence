@@ -44,20 +44,20 @@ limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}.
 binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
 using the bin number.}
 
-\item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}): Spectrum
-used for the background subtraction. The background spectrum should be
-measured with the same setting as the signal spectrum. The argument \code{bg.channels} controls
-how the subtraction is performed. If nothing is set for \code{bg.channels} or the number
-of channels is identical to the number of channels in the background spectrum, a channel-wise
-subtraction is performed. Otherwise a the \emph{arithmetic mean} is is calculated and this signal
-subtracted from the signal.}
+\item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}):
+spectrum used for the background subtraction. The background spectrum should
+be measured using the same setting as the signal spectrum. The argument
+\code{bg.channels} controls how the subtraction is performed: if \code{bg.channels}
+is not specified or the number of channels is identical between the signal
+and background spectra, a channel-wise subtraction is performed; otherwise,
+the \emph{arithmetic mean} is calculated and subtracted from the signal.}
 
-\item{bg.channels}{\link{vector} (\emph{optional}): defines the channels used for background
-subtraction. If the number of channels is identical to the number of channels
-in the background spectrum, a channel-wise subtracting is applied otherwise his number
-is taken to select channels for calculating the \emph{arithmetic mean} . If a spectrum
-is provided via \code{bg.spectrum}, this argument only works on the background
-spectrum.
+\item{bg.channels}{\link{vector} (\emph{optional}):
+channels used for background subtraction. If the number of channels is
+identical between the signal and background spectra, a channel-wise
+subtraction is performed; otherwise this number is used to select channels
+for calculating the \emph{arithmetic mean}  If a spectrum is provided via
+\code{bg.spectrum}, this argument only works on the background spectrum.
 
 \strong{Note:} Background subtraction is applied prior to channel binning!}
 
@@ -263,12 +263,12 @@ plot_RLum.Data.Spectrum(
  bin.cols = 1,
  type = "heatmap",
  showscale = TRUE)
-
 }
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
+\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot_RLum},
+\link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

@@ -395,7 +395,7 @@ test_that("regression tests", {
       TL.Spectrum,
       ylim = c(0, 100),
       bin.cols = 8),
-      "Single column matrix: plot.type has been automatically reset to")
+      "Single column matrix, 'plot.type' reset to 'single'")
   expect_silent(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       bin.rows = 600))
