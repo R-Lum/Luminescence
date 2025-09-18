@@ -134,8 +134,8 @@ plot_RLum.Analysis <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Analysis")
+  .validate_positive_scalar(records_max, null.ok = TRUE)
 
   if(!is.null(subset)){
     ##check whether the user set the drop option and remove it, as we cannot work with it
@@ -443,9 +443,12 @@ plot_RLum.Analysis <- function(
 
       ## limit number of records shown ... show always first and last;
       ## distribute the rest
-      if(!is.null(records_max) && records_max[1] > 2){
-        records_show <- ceiling(seq(1,length(object.list), length.out = records_max))
-        object.list[(1:length(object.list))[-records_show]] <- NULL
+      records_show <- NULL
+      if (!is.null(records_max) && records_max > 2) {
+        num.objects <- length(object.list)
+        records_show <- ceiling(seq(1, num.objects,
+                                    length.out = min(records_max, num.objects)))
+        object.list[(1:num.objects)[-records_show]] <- NULL
       }
 
       ## recompute num.objects, as it may have changed due to records_max
