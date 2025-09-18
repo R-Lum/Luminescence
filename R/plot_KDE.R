@@ -510,6 +510,8 @@ plot_KDE <- function(
   summary.adj <- coords$adj
 
   ## plot data sets -----------------------------------------------------------
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
   ## setup plot area
   toplines <- 1

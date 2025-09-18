@@ -614,8 +614,13 @@ plot_RLum.Data.Spectrum <- function(
 pmat <- NA
 
 if(plot){
+
   ##par setting for possible combination with plot method for RLum.Analysis objects
-  if(par.local) par(mfrow = c(1,1), cex = cex)
+  if(par.local) {
+    par.default <- par()[c("mfrow", "mar", "xpd")]
+    on.exit(par(par.default), add = TRUE)
+    par(mfrow = c(1,1), cex = cex)
+  }
 
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1 && plot.type != "single"){
@@ -951,7 +956,6 @@ if(plot){
     }
 
     ##change graphic settings
-    par.default <- par()[c("mfrow", "mar", "xpd")]
     par(mfrow = c(1,1), mar=c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
 
     ##grep zlim
@@ -1038,10 +1042,6 @@ if(plot){
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
-
-    ##reset graphic settings
-    par(par.default)
-    rm(par.default)
 
   } else if (plot.type == "transect") {
     ## Plot: transect plot ----
