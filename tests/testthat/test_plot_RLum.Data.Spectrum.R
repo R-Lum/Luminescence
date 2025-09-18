@@ -28,6 +28,9 @@ test_that("input validation", {
       "No data left after applying 'xlim' and 'ylim'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = c(5, 10)),
       "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = bg.spectrum,
+                                       ylim = c(0, 100)),
+               "No background channels left after applying 'ylim'")
 
   expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = -2),
                  "'bg.channels' out of range")
@@ -395,7 +398,7 @@ test_that("regression tests", {
       TL.Spectrum,
       ylim = c(0, 100),
       bin.cols = 8),
-      "Single column matrix: plot.type has been automatically reset to")
+      "Single column matrix, 'plot.type' reset to 'single'")
   expect_silent(plot_RLum.Data.Spectrum(
       TL.Spectrum,
       bin.rows = 600))

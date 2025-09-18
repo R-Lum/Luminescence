@@ -105,20 +105,20 @@
 #' binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
 #' using the bin number.
 #'
-#' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*): Spectrum
-#' used for the background subtraction. The background spectrum should be
-#' measured with the same setting as the signal spectrum. The argument `bg.channels` controls
-#' how the subtraction is performed. If nothing is set for `bg.channels` or the number
-#' of channels is identical to the number of channels in the background spectrum, a channel-wise
-#' subtraction is performed. Otherwise a the *arithmetic mean* is is calculated and this signal
-#' subtracted from the signal.
+#' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*):
+#' spectrum used for the background subtraction. The background spectrum should
+#' be measured using the same setting as the signal spectrum. The argument
+#' `bg.channels` controls how the subtraction is performed: if `bg.channels`
+#' is not specified or the number of channels is identical between the signal
+#' and background spectra, a channel-wise subtraction is performed; otherwise,
+#' the *arithmetic mean* is calculated and subtracted from the signal.
 #'
-#' @param bg.channels [vector] (*optional*): defines the channels used for background
-#' subtraction. If the number of channels is identical to the number of channels
-#' in the background spectrum, a channel-wise subtracting is applied otherwise his number
-#' is taken to select channels for calculating the *arithmetic mean* . If a spectrum
-#' is provided via `bg.spectrum`, this argument only works on the background
-#' spectrum.
+#' @param bg.channels [vector] (*optional*):
+#' channels used for background subtraction. If the number of channels is
+#' identical between the signal and background spectra, a channel-wise
+#' subtraction is performed; otherwise this number is used to select channels
+#' for calculating the *arithmetic mean*  If a spectrum is provided via
+#' `bg.spectrum`, this argument only works on the background spectrum.
 #'
 #' **Note:** Background subtraction is applied prior to channel binning!
 #'
@@ -174,7 +174,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
+#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot_RLum],
+#' [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
 #'
 #' @keywords aplot
 #'
@@ -239,7 +240,6 @@
 #'  bin.cols = 1,
 #'  type = "heatmap",
 #'  showscale = TRUE)
-#'
 #' }
 #'
 #' @export
@@ -363,7 +363,6 @@ plot_RLum.Data.Spectrum <- function(
       legend.pos = "topright",
       legend.horiz = FALSE,
       n_breaks = 50
-
     ),
     val = extraArgs)
 
@@ -401,10 +400,10 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
-    if (inherits(bg.spectrum, "RLum.Data.Spectrum"))
-      bg.xyz <- bg.spectrum@data
-    else
-      bg.xyz <- bg.spectrum
+    bg.xyz <- if (inherits(bg.spectrum, "RLum.Data.Spectrum"))
+                bg.spectrum@data
+              else
+                bg.spectrum
 
     ## set row and column names
     if (is.null(rownames(bg.xyz)))
@@ -412,8 +411,8 @@ plot_RLum.Data.Spectrum <- function(
     if (is.null(colnames(bg.xyz)))
       colnames(bg.xyz) <- 1:ncol(bg.xyz)
 
-      ##convert to energy scale if needed
-      if(xaxis.energy){
+    ## convert to energy scale if needed
+    if (xaxis.energy) {
         #conversion
         bg.xyz <- convert_Wavelength2Energy(cbind(as.numeric(rownames(bg.xyz)), bg.xyz), digits = 5)
         rownames(bg.xyz) <- bg.xyz[,1]
@@ -422,21 +421,22 @@ plot_RLum.Data.Spectrum <- function(
         ##modify row order (otherwise subsequent functions, like persp, have a problem)
         bg.xyz <- bg.xyz[order(as.numeric(rownames(bg.xyz))),,drop = FALSE]
         rownames(bg.xyz) <- sort(as.numeric(rownames(bg.xyz)))
+    }
+
+    ## reduce for xlim
+    bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
+                     as.numeric(rownames(bg.xyz)) <= xlim[2], , drop = FALSE]
+
+    ## reduce for ylim by only if channels is NULL
+    if (is.null(bg.channels)) {
+      bg.xyz <- bg.xyz[, as.numeric(colnames(bg.xyz)) >= ylim[1] &
+                         as.numeric(colnames(bg.xyz)) <= ylim[2], drop = FALSE]
+      if (ncol(bg.xyz) == 0) {
+        .throw_error("No background channels left after applying 'ylim'")
       }
 
-      ##reduce for xlim
-      bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
-                             as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
-
-      ##reduce for ylim by only if channels is NULL
-      if(is.null(bg.channels)) {
-      bg.xyz <- bg.xyz[,as.numeric(colnames(bg.xyz)) >= ylim[1] &
-                         as.numeric(colnames(bg.xyz)) <= ylim[2],drop = FALSE]
-      }
-
-      ##take care of channel settings, otherwise set bg.channels
-      if(is.null(bg.channels))
-        bg.channels <- c(1:ncol(bg.xyz))
+      bg.channels <- 1:ncol(bg.xyz)
+    }
   }
 
   # Background subtraction ---------------------------------------------------
@@ -529,8 +529,9 @@ plot_RLum.Data.Spectrum <- function(
   zlim <- extraArgs$zlim %||% range(temp.xyz)
 
   # set colour values --------------------------------------------------------
-  if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
-    if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
+  if (is.null(extraArgs$col) || plot.type %in% c("single", "multiple.lines")) {
+    if (optical.wavelength.colours ||
+        (rug && (!plot.type %in% c("persp", "interactive")))) {
 
       col.labels <- c(violet = "#EE82EE",
                       blue   = "#0000FF",
@@ -619,8 +620,7 @@ if(plot){
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1 && plot.type != "single"){
     plot.type <- "single"
-    .throw_warning("Single column matrix: plot.type has been automatically ",
-                   "reset to 'single'")
+    .throw_warning("Single column matrix, 'plot.type' reset to 'single'")
   }
 
   if (nrow(temp.xyz) == 1 && plot.type != "single") {
@@ -796,7 +796,6 @@ if(plot){
 
        print(p)
        on.exit(return(p), add = TRUE)
-
 
   } else if (plot.type == "contour") {
     ## Plot: contour plot ----
