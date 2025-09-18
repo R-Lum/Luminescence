@@ -202,5 +202,10 @@ test_that("graphical snapshot tests", {
                                   set_RLum(class = "RLum.Analysis",
                                            records = list(TL.Spectrum, temp[[1]])),
                                   plot.type = "persp"))
+  vdiffr::expect_doppelganger("records_max",
+                              plot_RLum.Analysis(
+                                  temp[1:6],
+                                  combine = TRUE,
+                                  records_max = 10))
   })
 })
