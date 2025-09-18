@@ -26,29 +26,29 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ##run as numeric
-  SW({
-  results <- expect_s4_class(plot_OSLAgeSummary(object), "RLum.Results")
-  })
   expect_warning(plot_OSLAgeSummary(c(object, Inf), verbose = FALSE),
                  "Inf values found in 'object', removed")
 
   ##run from S4-class
   object1 <- set_RLum("RLum.Results",
-                     data = list(A = object), originator = ".calc_BayesianCentralAgeModel")
+                     data = list(Ages = object), originator = "combine_De_Dr")
   object2 <- set_RLum("RLum.Results",
                       data = list(A = object), originator = ".calc_IndividualAgeModel")
 
   SW({
-  expect_s4_class(plot_OSLAgeSummary(object1), "RLum.Results")
-  expect_s4_class(plot_OSLAgeSummary(object2), "RLum.Results")
+  expect_s4_class(plot_OSLAgeSummary(object1, polygon_density = 5),
+                  "RLum.Results")
+  expect_s4_class(plot_OSLAgeSummary(object2, polygon_density = 5),
+                  "RLum.Results")
   })
+})
 
-  ##run with rug option
-  expect_silent(plot_OSLAgeSummary(object, verbose = FALSE, rug = TRUE))
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
 
-  ##check the results
-  expect_length(results, 3)
+  expect_snapshot_RLum(plot_OSLAgeSummary(object, verbose = FALSE,
+                                          polygon_density = 5),
+                       tolerance = 1.5e-6)
 })
 
 test_that("graphical snapshot tests", {
@@ -62,5 +62,9 @@ test_that("graphical snapshot tests", {
                               plot_OSLAgeSummary(object))
   vdiffr::expect_doppelganger("level",
                               plot_OSLAgeSummary(object, level = 0.3))
+  vdiffr::expect_doppelganger("rug",
+                              plot_OSLAgeSummary(object, rug = TRUE))
+  vdiffr::expect_doppelganger("polygon density",
+                              plot_OSLAgeSummary(object, polygon_density = 5))
   })
 })

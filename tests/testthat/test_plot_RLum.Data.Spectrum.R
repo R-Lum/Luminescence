@@ -58,58 +58,9 @@ test_that("check functionality", {
     expect_warning(plot_RLum.Data.Spectrum(t),
                    "Duplicated column names found")
 
-    ##standard plot with some settings
-    expect_silent(plot_RLum.Data.Spectrum(
-      TL.Spectrum,
-      plot.type = "contour",
-      main = "Test",
-      xlab = "test",
-      ylab = "test",
-      mtext = "test",
-      cex = 1.2,
-      pch = 2,
-      lwd = 2,
-      bty = "n",
-      sub = "est"
-    ))
-
-    ##no plot
-    expect_type(plot(
-      TL.Spectrum,
-      plot.type = "contour",
-      main = "Test",
-      xlab = "test",
-      ylab = "test",
-      mtext = "test",
-      cex = 1.2,
-      pch = 2,
-      lwd = 2,
-      bty = "n",
-      plot = FALSE,
-    ), "double")
-
-    ##persp plot
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "persp",
-        xlim = c(310, 750),
-        ylim = c(0, 100),
-        bin.rows = 10,
-        bin.cols = 2,
-        zlab = "test")
-    ))
-
-    ##test background subtraction
-    expect_warning(plot_RLum.Data.Spectrum(
-      TL.Spectrum,
-      plot.type = "persp",
-      xlim = c(310, 750),
-      ylim = c(0, 300),
-      bg.spectrum = bg.spectrum,
-      bin.rows = 10,
-      bin.cols = 1
-    ), "6 channels removed due to row \\(wavelength\\) binning")
+    ## no plot
+    expect_type(plot(TL.Spectrum, plot = FALSE),
+                "double")
 
     ##test background subtraction ... with bgchannel
     expect_warning(plot_RLum.Data.Spectrum(
@@ -124,55 +75,7 @@ test_that("check functionality", {
       bin.cols = 1
     ), "6 channels removed due to row \\(wavelength\\) binning")
 
-    ## check output and limit counts
-    expect_warning(plot_RLum.Data.Spectrum(
-      TL.Spectrum,
-      plot.type = "persp",
-      xlim = c(310, 750),
-      limit_counts = 2,
-      lphi = 20,
-      ltheta = -15,
-      ticktype = "simple",
-      bin.rows = 1,
-      bin.cols = 1
-    ), "Lowest count value is larger than the set count threshold")
-
-    ## check our axes
-    expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
-    TL.Spectrum,
-    plot.type = "persp",
-    xlim = c(310, 750),
-    limit_counts = 10000,
-    bg.spectrum = bg.spectrum,
-    bin.rows = 10,
-    box = "alternate",
-    bin.cols = 1
-    )), "double")
-
-    ##test energy axis
-    expect_silent(plot_RLum.Data.Spectrum(
-      TL.Spectrum,
-      plot.type = "multiple.lines",
-      xlim = c(1.4, 4),
-      ylim = c(0, 300),
-      bg.spectrum = bg.spectrum,
-      bg.channels = 2,
-      bin.cols = 1,
-      xaxis.energy = TRUE
-    ))
-
     ## plot: multiple.lines ---------
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "multiple.lines",
-        xlim = c(310, 750),
-        ylim = c(0, 100),
-        bin.rows = 10,
-        bin.cols = 1
-      )
-    ))
-
     expect_message(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
@@ -183,107 +86,15 @@ test_that("check functionality", {
       "Skipped frames exceeding the maximum (3)",
       fixed = TRUE)
 
-    ## plot: image ------------
-    ### plot_image: standard -------
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "image",
-        xlim = c(310, 750),
-        ylim = c(0, 300),
-        bin.rows = 10,
-        bin.cols = 1
-      )
-    ))
-    ## image labelling scaler
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "image",
-        xlim = c(310, 750),
-        ylim = c(0, 300),
-        bin.rows = 10,
-        labcex = 2,
-        n_breaks = 10,
-        legend.pos = "bottom",
-        legend.horiz = TRUE,
-        bin.cols = 1
-      )
-    ))
-
-
-  ### plot_image: no contour -------
-   expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "image",
-        xlim = c(310, 750),
-        ylim = c(0, 300),
-        bin.rows = 10,
-        bin.cols = 1,
-        contour = FALSE
-      )))
-
     ## plot: transect ------------
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
         plot.type = "transect",
         xlim = c(310, 750),
-        ylim = c(0, 300),
-        bin.rows = 10,
-        bin.cols = 1,
-        contour = FALSE)))
-
-  expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "transect",
-        xlim = c(310, 750),
         ylim = c(0, 350),
-#        bin.rows = 50,
-        ## bin.cols = 1,
         zlim = c(0, 1e6),
-        ylab = "Counts [1 / summed channels]",
-        contour = TRUE)))
-
-    ## plot: single ------------
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "single",
-        xlim = c(310, 750),
-        ylim = c(0, 300),
-        bin.rows = 10,
-        bin.cols = 6,
-        contour = FALSE)))
-
-    ## test frames
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "single",
-        xlim = c(310, 750),
-        frames = 1,
-        ylim = c(0, 300),
-        bin.rows = 10,
-        bin.cols = 6,
-        col = 1,
-        contour = FALSE)))
-
-    ### plot_image: colour changes -------
-    expect_silent(suppressWarnings(
-      plot_RLum.Data.Spectrum(
-        TL.Spectrum,
-        plot.type = "image",
-        xlim = c(310, 750),
-        ylim = c(0, 300),
-        bin.rows = 10,
-        bin.cols = 1,
-        col = grDevices::hcl.colors(20),
-        contour.col = "yellow"
-      )
-    ))
+        ylab = "Counts [1 / summed channels]")))
 
     ## plot: interactive ------------
     expect_silent(suppressWarnings(
@@ -359,18 +170,68 @@ test_that("graphical snapshot tests", {
                                                       ylim = c(0, 200),
                                                       cex = 2))
   vdiffr::expect_doppelganger("persp",
+                              expect_warning(
                               plot_RLum.Data.Spectrum(TL.Spectrum,
                                                       plot.type = "persp",
                                                       xlim = c(310, 750),
                                                       limit_counts = 10000,
                                                       bg.spectrum = bg.spectrum,
+                                                      bin.rows = 10),
+                              "6 channels removed due to row \\(wavelength\\) binning"))
+  vdiffr::expect_doppelganger("persp alternate",
+                              expect_warning(
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "persp",
+                                                      xlim = c(410, 700),
+                                                      ylim = c(200, 300),
+                                                      bg.spectrum = bg.spectrum,
+                                                      box = "alternate",
+                                                      zlab = "test",
+                                                      bin.cols = 2),
+                              "1 channels removed due to column \\(frame\\) binning"))
+  vdiffr::expect_doppelganger("persp theta phi ticktype",
+                              expect_warning(
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "persp",
+                                                      xlim = c(410, 750),
+                                                      ylim = c(0, 200),
+                                                      limit_counts = 20,
+                                                      theta = -25,
+                                                      phi = 45,
+                                                      ticktype = "simple",
+                                                      bin.rows = 5),
+                              "Lowest count value is larger than the set count threshold"))
+  vdiffr::expect_doppelganger("image",
+                              expect_warning(
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "image",
+                                                      xlim = c(310, 750),
+                                                      ylim = c(50, 300),
+                                                      bin.rows = 20,
+                                                      col = grDevices::hcl.colors(20),
+                                                      contour.col = "yellow"),
+                              "3 channels removed due to row \\(wavelength\\) binning"))
+  vdiffr::expect_doppelganger("image no contour",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "image",
+                                                      ylim = c(50, 250),
+                                                      contour = FALSE))
+  vdiffr::expect_doppelganger("image labcex bottom",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "image",
+                                                      xlim = c(310, 750),
+                                                      ylim = c(0, 300),
                                                       bin.rows = 10,
-                                                      bin.cols = 1))
+                                                      labcex = 2,
+                                                      n_breaks = 10,
+                                                      legend.pos = "bottom",
+                                                      legend.horiz = TRUE))
   vdiffr::expect_doppelganger("single",
                               plot_RLum.Data.Spectrum(TL.Spectrum,
                                                       plot.type = "single",
                                                       xlim = c(310, 750),
                                                       ylim = c(0, 300),
+                                                      frames = 2,
                                                       bin.cols = 10))
   vdiffr::expect_doppelganger("multiple",
                               plot_RLum.Data.Spectrum(TL.Spectrum,
@@ -381,6 +242,12 @@ test_that("graphical snapshot tests", {
                                                       bg.channels = 2,
                                                       bin.cols = 1,
                                                       xaxis.energy = TRUE))
+  vdiffr::expect_doppelganger("transect",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "transect",
+                                                      xlim = c(310, 750),
+                                                      ylim = c(0, 300),
+                                                      bin.rows = 10))
   })
 })
 
