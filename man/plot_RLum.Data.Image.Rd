@@ -27,9 +27,10 @@ If \code{par.local = FALSE} global parameters are inherited.}
 Supported types are \code{plot.raster}, \code{contour}}
 
 \item{...}{further arguments and graphical parameters that will be passed
-to the specific plot functions. Standard supported parameters are \code{xlim}, \code{ylim}, \code{zlim},
-\code{xlab}, \code{ylab}, \code{main}, \code{legend} (\code{TRUE} or \code{FALSE}), \code{col}, \code{cex}, \code{axes} (\code{TRUE} or \code{FALSE}),
-\code{zlim_image} (adjust the z-scale over different images), \code{stretch}}
+to the specific plot functions. Standard supported parameters are \code{xlim},
+\code{ylim}, \code{zlim}, \code{xlab}, \code{ylab}, \code{main}, \code{mtext}, \code{legend} (\code{TRUE} or \code{FALSE}),
+\code{col}, \code{cex}, \code{axes} (\code{TRUE} or \code{FALSE}), \code{zlim_image} (adjust the z-scale
+over different images), \code{stretch}.}
 }
 \value{
 Returns a plot

@@ -35,6 +35,7 @@ test_that("graphical snapshot tests", {
                               plot_RLum.Data.Image(image,
                                                    plot.type = "plot.raster",
                                                    frames = 10,
+                                                   mtext = "Test",
                                                    stretch = "lin"))
   vdiffr::expect_doppelganger("raster zlim_image",
                               plot_RLum.Data.Image(image,
@@ -45,6 +46,7 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("contour",
                               plot_RLum.Data.Image(image,
                                                    plot.type = "contour",
+                                                   mtext = "Test",
                                                    frames = 5))
   })
 })

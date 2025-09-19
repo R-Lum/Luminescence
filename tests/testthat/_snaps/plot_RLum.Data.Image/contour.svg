@@ -1350,5 +1350,6 @@
 <text transform='translate(41.76,239.73) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>6</text>
 <text transform='translate(41.76,157.60) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>8</text>
 <text transform='translate(41.76,75.47) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>10</text>
+<text x='374.40' y='56.16' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.34px' lengthAdjust='spacingAndGlyphs'>Test</text>
 </g>
 </svg>
