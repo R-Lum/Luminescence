@@ -1,7 +1,6 @@
-test_that("Test various S3 methods", {
+test_that("test RLum.Analysis S3 methods", {
   testthat::skip_on_cran()
 
-  ## RLum.Analysis
   data(ExampleData.RLum.Analysis, envir = environment())
   analysis <- IRSAR.RF.Data
 
@@ -25,8 +24,11 @@ test_that("Test various S3 methods", {
   expect_true(is.RLum(analysis))
   expect_true(is.RLum.Analysis(analysis))
   expect_false(is.RLum.Data(analysis))
+})
 
-  ## RLum.Results
+test_that("test RLum.Results S3 methods", {
+  testthat::skip_on_cran()
+
   result <- calc_SourceDoseRate(
     measurement.date = "2012-01-27",
     calib.date = "2014-12-19",
@@ -49,8 +51,11 @@ test_that("Test various S3 methods", {
   expect_true(is.RLum(result))
   expect_true(is.RLum.Results(result))
   expect_false(is.RLum.Data(result))
+})
 
-  ## RLum.Data.Curve
+test_that("test RLum.Data.Curve S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.CW_OSL_Curve, envir = environment())
   curve <- set_RLum(
       class = "RLum.Data.Curve",
@@ -83,8 +88,11 @@ test_that("Test various S3 methods", {
   expect_true(is.RLum(curve))
   expect_true(is.RLum.Data(curve))
   expect_true(is.RLum.Data.Curve(curve))
+})
 
-  ## RLum.Data.Image
+test_that("test RLum.Data.Image S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.RLum.Data.Image, envir = environment())
   image <- ExampleData.RLum.Data.Image
   image3 <- set_RLum("RLum.Data.Image",
@@ -117,8 +125,11 @@ test_that("Test various S3 methods", {
   expect_true(is.RLum(image))
   expect_true(is.RLum.Data(image))
   expect_true(is.RLum.Data.Image(image))
+})
 
-  ## RLum.Data.Spectrum
+test_that("test RLum.Data.Spectrum S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.XSYG, envir = environment())
   spectrum <- TL.Spectrum
 
@@ -143,12 +154,15 @@ test_that("Test various S3 methods", {
   expect_true(is.RLum(spectrum))
   expect_true(is.RLum.Data(spectrum))
   expect_true(is.RLum.Data.Spectrum(spectrum))
+})
 
-  ## Risoe.BINfileData
+test_that("test Risoe.BINfileData S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.BINfileData, envir = environment())
   risoe <- CWOSL.SAR.Data
 
-  expect_silent(plot(risoe))
+  expect_silent(plot(risoe, pos = 1))
   expect_error(plot(list(risoe, risoe)))
   expect_error(subset(risoe, ERROR == 1),
                "Invalid subset options, valid terms are")
