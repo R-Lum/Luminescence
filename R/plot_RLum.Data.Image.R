@@ -146,14 +146,16 @@ plot_settings <- modifyList(x = list(
   object[object <= plot_settings$zlim[1]] <- max(0,plot_settings$zlim[1])
   object[object >= plot_settings$zlim[2]] <- min(max(object),plot_settings$zlim[2])
 
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
 
   if (plot.type == "plot.raster") {
 # plot.raster -------------------------------------------------------------
     for(i in 1:dim(object)[3]) {
-      par.default <- par(mar = c(4.5,4.5,4,3))
-      on.exit(par(par.default), add = TRUE)
+      par(mar = c(4.5, 4.5, 4, 3))
       x <- object[, , i, drop = FALSE]
       image <-.stretch(x, type = plot_settings$stretch)
 
@@ -183,8 +185,6 @@ plot_settings <- modifyList(x = list(
 
       ## add legend
       if(plot_settings$legend) {
-        par.default <- c(par.default, par(xpd = TRUE))
-        on.exit(par(par.default), add = TRUE)
         col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 14)]
         slices <- seq(0,1,length.out = 15)
         for(s in 1:(length(slices) - 1)){
@@ -194,6 +194,7 @@ plot_settings <- modifyList(x = list(
             ybottom = slices[s],
             ytop =  slices[s + 1],
             col = col_grad[s],
+            xpd = TRUE,
             border = TRUE)
         }
 
@@ -202,6 +203,7 @@ plot_settings <- modifyList(x = list(
           y = par()$usr[2],
           labels = format(plot_settings$zlim_image[2] %||% max(x),
                           digits = 1, scientific = TRUE),
+          xpd = TRUE,
           cex = 0.7,
           srt = 270,
           pos = 3)
@@ -210,6 +212,7 @@ plot_settings <- modifyList(x = list(
           y = par()$usr[3],
           labels = format(plot_settings$zlim_image[1] %||% min(x),
                           digits = 1, scientific = TRUE),
+          xpd = TRUE,
           cex = 0.7,
           pos = 3,
           srt = 270)
