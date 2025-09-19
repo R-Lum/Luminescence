@@ -218,6 +218,8 @@ plot_Histogram <- function(
   ), extraArgs)
 
   ## Set plot area format
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
   par(mar = c(4.5, 4.5, 4.5, if (se) 4.5 else 1),
       cex = cex.global)
 
@@ -428,8 +430,6 @@ plot_Histogram <- function(
           side = 4,
           line = 3,
           cex = cex.global)
-
-    #    par(new = FALSE)
   }
 
   ## Optionally add user-defined mtext

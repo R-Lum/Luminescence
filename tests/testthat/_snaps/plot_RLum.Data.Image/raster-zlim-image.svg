@@ -75,4 +75,11 @@
 <text transform='translate(700.06,50.40) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='23.60px' lengthAdjust='spacingAndGlyphs'>1e+00</text>
 <text transform='translate(700.06,504.00) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='23.60px' lengthAdjust='spacingAndGlyphs'>0e+00</text>
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>
