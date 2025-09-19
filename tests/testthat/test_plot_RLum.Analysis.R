@@ -28,6 +28,19 @@ test_that("input validation", {
       combine = TRUE),
       "'combine' is valid only for 'RLum.Data.Curve' objects")
 
+  ## empty object
+  expect_message(expect_null(plot_RLum.Analysis(set_RLum("RLum.Analysis"))),
+                 "Nothing plotted, NULL returned")
+  expect_message(expect_message(
+      plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
+      "'combine' can't be used with fewer than two curves"),
+      "Nothing plotted, NULL returned")
+
+  ## only images
+  expect_message(expect_null(plot_RLum.Analysis(
+      set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Image"))))),
+      "Nothing plotted, NULL returned")
+
   ## this generates multiple warnings
   warnings <- capture_warnings(plot_RLum.Analysis(c1, col = 2,
                                                   xlim = c(-1, 50),
@@ -166,11 +179,6 @@ test_that("check functionality", {
   plot_RLum.Analysis(temp,
                      subset = list(recordType = "TL"),
                      curve.transformation = "CW2pPMi")
-
-  ## empty object
-  expect_silent(plot_RLum.Analysis(set_RLum("RLum.Analysis")))
-  expect_message(plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
-                 "'combine' can't be used with fewer than two curves")
 })
 
 test_that("graphical snapshot tests", {

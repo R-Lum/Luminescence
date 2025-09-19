@@ -240,8 +240,14 @@ plot_RLum.Analysis <- function(
         x
       }})
 
+    temp <- .rm_NULL_elements(temp)
+    if (length(temp) == 0) {
+      .throw_message("Nothing plotted, NULL returned", error = FALSE)
+      return(NULL)
+    }
+
     ##calculate number of pages for mtext
-    if (length(temp) == 0 || length(temp) %% (nrows * ncols) > 0) {
+    if (length(temp) %% (nrows * ncols) > 0) {
       n.pages <- round(length(temp) / (nrows * ncols), digits = 0) + 1
     } else{
       n.pages <- length(temp) / (nrows * ncols)

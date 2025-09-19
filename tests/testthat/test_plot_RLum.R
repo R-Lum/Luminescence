@@ -26,7 +26,8 @@ test_that("check functionality", {
                           subset = NA))
 
   ## empty object
-  expect_silent(plot_RLum(set_RLum("RLum.Analysis")))
+  expect_message(plot_RLum(set_RLum("RLum.Analysis")),
+                 "Nothing plotted, NULL returned")
   expect_silent(plot_RLum(set_RLum("RLum.Data.Image")))
 
   ## plot results objects
