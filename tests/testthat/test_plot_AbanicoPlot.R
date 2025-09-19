@@ -261,7 +261,7 @@ test_that("more coverage", {
                  "Data set (1): 1 NA value excluded",
                  fixed = TRUE)
   expect_message(plot_AbanicoPlot(data.na, y.axis = TRUE,
-                                  yaxt = "y", ylim = c(2, 3),
+                                  yaxt = "y",
                                   summary.pos = "bottomright",
                                   dispersion = "2sd"),
                  "Data set (1): 1 NA value excluded",
@@ -282,7 +282,7 @@ test_that("more coverage", {
   ## test boundaries
   expect_warning(
     object = plot_AbanicoPlot(
-    data = data.frame(x = c(0,1), y = c(0.1,01))),
+    data = data.frame(x = c(0,1), y = c(0.1, 0.1))),
     regexp = "Found zero values in x-column of dataset 1: set log.z = FALSE")
 
   ## handling of negative values; before it produced wrong plots
