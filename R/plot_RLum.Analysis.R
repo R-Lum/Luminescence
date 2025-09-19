@@ -143,7 +143,26 @@ plot_RLum.Analysis <- function(
     object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
   }
 
-  # Deal with additional arguments.  ------------------------------------------------------------
+  .validate_logical_scalar(combine)
+  if (combine) {
+    sapply(object@records, function(x) {
+      if (!inherits(x, "RLum.Data.Curve")) {
+        .throw_error("'combine' is valid only for 'RLum.Data.Curve' objects")
+      }
+    })
+
+    if (length(object@records) < 2) {
+      combine <- FALSE
+      .throw_message("'combine' can't be used with fewer than two curves, ",
+                     "reset to FALSE", error = FALSE)
+    }
+  }
+
+  .validate_positive_scalar(nrows)
+  .validate_positive_scalar(ncols)
+
+  ## Deal with additional arguments -----------------------------------------
+  extraArgs <- list(...)
 
   ##create plot settings list
   plot.settings <- list(
@@ -169,36 +188,22 @@ plot_RLum.Analysis <- function(
     smooth = FALSE
   )
 
-  plot.settings <- modifyList(x = plot.settings, val = list(...), keep.null = TRUE)
+  plot.settings <- modifyList(x = plot.settings, val = extraArgs, keep.null = TRUE)
 
   ## deprecated argument
-  if ("plot.single" %in% names(list(...))) {
-    plot_singlePanels <- list(...)$plot.single
+  if ("plot.single" %in% names(extraArgs)) {
+    plot_singlePanels <- extraArgs$plot.single
     .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
                    "instead")
   }
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
-  .validate_logical_scalar(combine)
-  if (combine && length(object@records) <= 1) {
-    combine <- FALSE
-    .throw_message("'combine' can't be used with fewer than two curves, ",
-                   "reset to FALSE", error = FALSE)
-  }
   if (combine) {
-    sapply(object@records, function(x) {
-      if (!inherits(x, "RLum.Data.Curve")) {
-        .throw_error("'combine' is valid only for 'RLum.Data.Curve' objects")
-      }
-    })
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
   }
   else
     n.plots <- max(length_RLum(object), 1)
-
-  .validate_positive_scalar(nrows)
-  .validate_positive_scalar(ncols)
 
   ## set appropriate values for nrows and ncols if not both specified
   if (missing(nrows) || missing(ncols)) {
@@ -233,14 +238,7 @@ plot_RLum.Analysis <- function(
   # Plotting ------------------------------------------------------------------
   ## (1) NORMAL (combine == FALSE) -------------------------------------------
   if (!combine) {
-    ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
-    temp <- lapply(object@records, function(x) {
-      if (inherits(x, "RLum.Data.Curve") ||
-          inherits(x, "RLum.Data.Spectrum")) {
-        x
-      }})
-
-    temp <- .rm_NULL_elements(temp)
+    temp <- .rm_NULL_elements(object@records)
     if (length(temp) == 0) {
       .throw_message("Nothing plotted, NULL returned", error = FALSE)
       return(NULL)
@@ -366,7 +364,7 @@ plot_RLum.Analysis <- function(
               legend.col = plot.settings$legend.col[[i]],
               smooth = plot.settings$smooth[[i]]
             ),
-            list(...)
+            extraArgs
           )
 
           arguments[duplicated(names(arguments))] <- NULL
@@ -382,7 +380,7 @@ plot_RLum.Analysis <- function(
 
       } else if(inherits(temp[[i]], "RLum.Data.Spectrum")) {
         ## remove already provided arguments
-        args <- list(...)[!names(list(...)) %in% c("object", "mtext", "par.local", "main")]
+        args <- extraArgs[!names(extraArgs) %in% c("object", "mtext", "par.local", "main")]
 
         do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
             object = temp[[i]],
@@ -390,6 +388,14 @@ plot_RLum.Analysis <- function(
             par.local = FALSE,
             main = plot.settings$main %||% temp[[i]]@recordType
         ), args))
+      } else {
+        ## RLum.Data.Image objects
+        do.call(what = "plot_RLum.Data.Image", args = c(list(
+            object = temp[[i]],
+            mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
+            par.local = FALSE,
+            main = plot.settings$main %||% temp[[i]]@recordType
+        ), extraArgs))
       }
 
     }#end for loop
