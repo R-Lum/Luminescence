@@ -6,7 +6,7 @@
 # Reference: https://docs.github.com/v3/
 #  ------------------------------------------------------------------------
 
-#' GitHub API
+#' GitHub API - Deprecated
 #'
 #' R Interface to the GitHub API v3.
 #'
@@ -68,6 +68,7 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
                            branch = "master", n = 5) {
   .set_function_name("github_commits")
   on.exit(.unset_function_name(), add = TRUE)
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
   ## input validation
   .validate_class(user, "character")
@@ -80,8 +81,10 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 
   # fetch available branches and check if provided branch exists
   branches <- github_branches(user, repo)
+  # nocov start
   if (!any(grepl(branch, branches$BRANCH)))
     .throw_error("Branch '", branch, "' does not exist")
+  # nocov end
 
   # build URL and retrieve content
   sha <- branches$SHA[grep(paste0("^", branch, "$"), branches$BRANCH)]
@@ -123,6 +126,7 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 github_branches <- function(user = "r-lum", repo = "luminescence") {
   .set_function_name("github_branches")
   on.exit(.unset_function_name(), add = TRUE)
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
   .validate_class(user, "character")
   .validate_length(user, 1)
@@ -174,6 +178,7 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
   .set_function_name("github_issues")
   on.exit(.unset_function_name(), add = TRUE)
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
   .validate_class(user, "character")
   .validate_length(user, 1)

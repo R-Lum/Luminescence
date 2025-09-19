@@ -21,6 +21,9 @@ header-includes:
 (deprecated since 1.0.0) have been removed, but their functionality remains
 in the corresponding `convert_CW2*()` functions (#992).
 
+* Functions `github_commits()`, `github_branches()` and `github_issues()` are
+now deprecated and will be removed in a future release (#1026).
+
 ## Bugfixes and changes
 
 ### `fit_EmissionSpectra()`
