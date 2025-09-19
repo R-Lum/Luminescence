@@ -161,7 +161,8 @@ plot_RLum.Analysis <- function(
   .validate_positive_scalar(nrows)
   .validate_positive_scalar(ncols)
 
-  # Deal with additional arguments.  ------------------------------------------------------------
+  ## Deal with additional arguments -----------------------------------------
+  extraArgs <- list(...)
 
   ##create plot settings list
   plot.settings <- list(
@@ -187,11 +188,11 @@ plot_RLum.Analysis <- function(
     smooth = FALSE
   )
 
-  plot.settings <- modifyList(x = plot.settings, val = list(...), keep.null = TRUE)
+  plot.settings <- modifyList(x = plot.settings, val = extraArgs, keep.null = TRUE)
 
   ## deprecated argument
-  if ("plot.single" %in% names(list(...))) {
-    plot_singlePanels <- list(...)$plot.single
+  if ("plot.single" %in% names(extraArgs)) {
+    plot_singlePanels <- extraArgs$plot.single
     .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
                    "instead")
   }
@@ -370,7 +371,7 @@ plot_RLum.Analysis <- function(
               legend.col = plot.settings$legend.col[[i]],
               smooth = plot.settings$smooth[[i]]
             ),
-            list(...)
+            extraArgs
           )
 
           arguments[duplicated(names(arguments))] <- NULL
@@ -386,7 +387,7 @@ plot_RLum.Analysis <- function(
 
       } else if(inherits(temp[[i]], "RLum.Data.Spectrum")) {
         ## remove already provided arguments
-        args <- list(...)[!names(list(...)) %in% c("object", "mtext", "par.local", "main")]
+        args <- extraArgs[!names(extraArgs) %in% c("object", "mtext", "par.local", "main")]
 
         do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
             object = temp[[i]],
