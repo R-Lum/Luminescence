@@ -34,9 +34,10 @@
 #' Supported types are `plot.raster`, `contour`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the specific plot functions. Standard supported parameters are `xlim`, `ylim`, `zlim`,
-#' `xlab`, `ylab`, `main`, `legend` (`TRUE` or `FALSE`), `col`, `cex`, `axes` (`TRUE` or `FALSE`),
-#' `zlim_image` (adjust the z-scale over different images), `stretch`
+#' to the specific plot functions. Standard supported parameters are `xlim`,
+#' `ylim`, `zlim`, `xlab`, `ylab`, `main`, `mtext`, `legend` (`TRUE` or `FALSE`),
+#' `col`, `cex`, `axes` (`TRUE` or `FALSE`), `zlim_image` (adjust the z-scale
+#' over different images), `stretch`.
 #'
 #' @return Returns a plot
 #'
@@ -75,7 +76,6 @@ plot_RLum.Data.Image <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Data.Image")
 
   ## extract object
@@ -120,6 +120,7 @@ plot_settings <- modifyList(x = list(
     ylim = c(1,dim(object)[2]),
     zlim = range(object),
     zlim_image = NULL,
+    mtext = "",
     legend = TRUE,
     useRaster = TRUE,
     stretch = "hist",
@@ -213,6 +214,9 @@ plot_settings <- modifyList(x = list(
           pos = 3,
           srt = 270)
       }
+
+      ## add mtext
+      mtext(side = 3, plot_settings$mtext)
     }
 
   }else if(plot.type == "contour"){
@@ -241,5 +245,8 @@ plot_settings <- modifyList(x = list(
       yat <- seq(0,1,length.out = length(ylab))
       graphics::axis(side = 2, at = yat, labels = ylab)
     }
+
+     ## add mtext
+     mtext(side = 3, plot_settings$mtext)
   }
 }

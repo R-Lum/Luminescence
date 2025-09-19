@@ -43,6 +43,10 @@
 - The function now supports plotting of `RLum.Data.Image` objects
   contained in its records (#1028).
 
+### `plot_RLum.Data.Image()`
+
+- The function now supports the `...` argument `mtext` (#1031).
+
 ### `plot_RLum.Data.Spectrum()`
 
 - The function doesn’t crash anymore if `bg.spectrum` is used and `ylim`

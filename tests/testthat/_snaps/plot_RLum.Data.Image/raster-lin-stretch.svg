@@ -74,5 +74,6 @@
 <rect x='682.61' y='80.28' width='11.63' height='29.16' style='stroke-width: 0.75; fill: #FFFE9E;' />
 <text transform='translate(700.06,50.40) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='23.60px' lengthAdjust='spacingAndGlyphs'>2e+00</text>
 <text transform='translate(700.06,504.00) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='26.39px' lengthAdjust='spacingAndGlyphs'>-3e+00</text>
+<text x='370.80' y='54.72' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.34px' lengthAdjust='spacingAndGlyphs'>Test</text>
 </g>
 </svg>
