@@ -143,6 +143,24 @@ plot_RLum.Analysis <- function(
     object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
   }
 
+  .validate_logical_scalar(combine)
+  if (combine) {
+    sapply(object@records, function(x) {
+      if (!inherits(x, "RLum.Data.Curve")) {
+        .throw_error("'combine' is valid only for 'RLum.Data.Curve' objects")
+      }
+    })
+
+    if (length(object@records) < 2) {
+      combine <- FALSE
+      .throw_message("'combine' can't be used with fewer than two curves, ",
+                     "reset to FALSE", error = FALSE)
+    }
+  }
+
+  .validate_positive_scalar(nrows)
+  .validate_positive_scalar(ncols)
+
   # Deal with additional arguments.  ------------------------------------------------------------
 
   ##create plot settings list
@@ -180,25 +198,11 @@ plot_RLum.Analysis <- function(
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
-  .validate_logical_scalar(combine)
-  if (combine && length(object@records) <= 1) {
-    combine <- FALSE
-    .throw_message("'combine' can't be used with fewer than two curves, ",
-                   "reset to FALSE", error = FALSE)
-  }
   if (combine) {
-    sapply(object@records, function(x) {
-      if (!inherits(x, "RLum.Data.Curve")) {
-        .throw_error("'combine' is valid only for 'RLum.Data.Curve' objects")
-      }
-    })
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
   }
   else
     n.plots <- max(length_RLum(object), 1)
-
-  .validate_positive_scalar(nrows)
-  .validate_positive_scalar(ncols)
 
   ## set appropriate values for nrows and ncols if not both specified
   if (missing(nrows) || missing(ncols)) {
