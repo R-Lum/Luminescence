@@ -5,7 +5,7 @@
 \alias{github_commits}
 \alias{github_branches}
 \alias{github_issues}
-\title{GitHub API}
+\title{GitHub API - Deprecated}
 \usage{
 github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 5)
 
