@@ -9,6 +9,12 @@ temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 c1 <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1,
                                       run = 1, set = 6)
 
+## image
+set.seed(1)
+img <- set_RLum("RLum.Analysis",
+                records = list(set_RLum("RLum.Data.Image",
+                                        data = array(rnorm(250), c(5, 5, 10)))))
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -36,10 +42,9 @@ test_that("input validation", {
       "'combine' can't be used with fewer than two curves"),
       "Nothing plotted, NULL returned")
 
-  ## only images
-  expect_message(expect_null(plot_RLum.Analysis(
-      set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Image"))))),
-      "Nothing plotted, NULL returned")
+  ## empty RLum.Data.Image
+  expect_silent(plot_RLum.Analysis(
+      set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Image")))))
 
   ## this generates multiple warnings
   warnings <- capture_warnings(plot_RLum.Analysis(c1, col = 2,
@@ -222,5 +227,9 @@ test_that("graphical snapshot tests", {
                                   combine = TRUE,
                                   abline = list(v = c(50, 150)),
                                   legend.pos = "outside"))
+  vdiffr::expect_doppelganger("image",
+                              plot_RLum.Analysis(
+                                  img,
+                                  frame = 3))
   })
 })

@@ -40,6 +40,9 @@
 - Setting `records_max` to a value larger than the number of curves no
   longer generates spurious legend entries (#1017).
 
+- The function now supports plotting of `RLum.Data.Image` objects
+  contained in its records (#1028).
+
 ### `plot_RLum.Data.Spectrum()`
 
 - The function doesn’t crash anymore if `bg.spectrum` is used and `ylim`

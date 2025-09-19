@@ -238,14 +238,7 @@ plot_RLum.Analysis <- function(
   # Plotting ------------------------------------------------------------------
   ## (1) NORMAL (combine == FALSE) -------------------------------------------
   if (!combine) {
-    ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
-    temp <- lapply(object@records, function(x) {
-      if (inherits(x, "RLum.Data.Curve") ||
-          inherits(x, "RLum.Data.Spectrum")) {
-        x
-      }})
-
-    temp <- .rm_NULL_elements(temp)
+    temp <- .rm_NULL_elements(object@records)
     if (length(temp) == 0) {
       .throw_message("Nothing plotted, NULL returned", error = FALSE)
       return(NULL)
@@ -395,6 +388,14 @@ plot_RLum.Analysis <- function(
             par.local = FALSE,
             main = plot.settings$main %||% temp[[i]]@recordType
         ), args))
+      } else {
+        ## RLum.Data.Image objects
+        do.call(what = "plot_RLum.Data.Image", args = c(list(
+            object = temp[[i]],
+            mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
+            par.local = FALSE,
+            main = plot.settings$main %||% temp[[i]]@recordType
+        ), extraArgs))
       }
 
     }#end for loop
