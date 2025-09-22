@@ -645,6 +645,7 @@ fit_IAM <- .calc_IndividualAgeModel(
         n.chains = method_control$n.chains,
         n.adapt = method_control$n.adapt,
         n.iter = method_control$n.iter,
+        inits = method_control$inits,
         thin = method_control$thin,
         progress.bar = method_control$progress.bar,
         quiet = method_control$quiet,
