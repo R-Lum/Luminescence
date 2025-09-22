@@ -21,9 +21,6 @@ test_that("test RLum.Analysis S3 methods", {
   expect_s4_class(analysis[[1]], "RLum.Data.Curve")
   expect_type(analysis[["RF"]], "list")
   expect_length(analysis$RF, 2)
-  expect_true(is.RLum(analysis))
-  expect_true(is.RLum.Analysis(analysis))
-  expect_false(is.RLum.Data(analysis))
 })
 
 test_that("test RLum.Results S3 methods", {
@@ -48,9 +45,6 @@ test_that("test RLum.Results S3 methods", {
   expect_visible(result[1])
   expect_visible(result[[1]])
   expect_visible(result$dose.rate)
-  expect_true(is.RLum(result))
-  expect_true(is.RLum.Results(result))
-  expect_false(is.RLum.Data(result))
 })
 
 test_that("test RLum.Data.Curve S3 methods", {
@@ -85,9 +79,6 @@ test_that("test RLum.Data.Curve S3 methods", {
   expect_visible(curve / curve)
   expect_vector(curve[1])
   expect_equal(curve$a, c(a = "test"))
-  expect_true(is.RLum(curve))
-  expect_true(is.RLum.Data(curve))
-  expect_true(is.RLum.Data.Curve(curve))
 })
 
 test_that("test RLum.Data.Image S3 methods", {
@@ -122,9 +113,6 @@ test_that("test RLum.Data.Image S3 methods", {
   expect_vector(image[1])
   expect_error(image3[1],
                "No viable coercion to matrix, object contains multiple frames")
-  expect_true(is.RLum(image))
-  expect_true(is.RLum.Data(image))
-  expect_true(is.RLum.Data.Image(image))
 })
 
 test_that("test RLum.Data.Spectrum S3 methods", {
@@ -151,9 +139,6 @@ test_that("test RLum.Data.Spectrum S3 methods", {
   expect_visible(spectrum * spectrum)
   expect_visible(spectrum / spectrum)
   expect_vector(spectrum[1])
-  expect_true(is.RLum(spectrum))
-  expect_true(is.RLum.Data(spectrum))
-  expect_true(is.RLum.Data.Spectrum(spectrum))
 })
 
 test_that("test Risoe.BINfileData S3 methods", {

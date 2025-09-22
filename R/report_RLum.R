@@ -491,7 +491,8 @@ report_RLum <- function(
 
   # PLOTTING ----
   if (structure$plot) {
-    isRLumList <- is.list(object) && all(sapply(object, is.RLum.Data.Curve))
+    isRLumList <- is.list(object) &&
+      all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
     if (inherits(object, "RLum") || isRLumList) {
 
       # mutual exclusivity: it is either a list or an RLum-Object
