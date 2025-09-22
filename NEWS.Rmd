@@ -50,6 +50,9 @@ around the plot (#1011).
 * A warning was raised if the function returned early (for example due to
 invalid inputs) and the graphical device was off (#1001).
 
+* The function now validates the `frame` argument in order to avoid crashing
+on misspecified values (#1036).
+
 ### `plot_RLum.Analysis()`
 
 * Setting `records_max` to a value larger than the number of curves no longer

@@ -559,6 +559,11 @@ plot_AbanicoPlot <- function(
   .validate_positive_scalar(plot.ratio)
   .validate_logical_scalar(rotate)
   .validate_logical_scalar(rug)
+  .validate_logical_scalar(kde)
+  .validate_logical_scalar(hist)
+  .validate_logical_scalar(dots)
+  .validate_logical_scalar(boxplot)
+  .validate_logical_scalar(error.bars)
 
   if (!is.numeric(z.0)) {
     .validate_class(z.0, "character")
@@ -582,6 +587,9 @@ plot_AbanicoPlot <- function(
                                   "topleft", "top", "topright",
                                   "bottomleft", "bottom", "bottomright"))
   }
+
+  .validate_class(frame, c("integer", "numeric"))
+  .validate_length(frame, 1)
 
   ## check/set layout definitions
   layout <- get_Layout(layout = list(...)$layout %||% "default")
