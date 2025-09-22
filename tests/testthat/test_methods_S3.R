@@ -148,6 +148,7 @@ test_that("test Risoe.BINfileData S3 methods", {
   risoe <- CWOSL.SAR.Data
 
   expect_silent(plot(risoe, pos = 1))
+  expect_silent(plot(risoe, run = 1, set = 2))
   expect_error(plot(list(risoe, risoe)))
   expect_error(subset(risoe, ERROR == 1),
                "Invalid subset options, valid terms are")
