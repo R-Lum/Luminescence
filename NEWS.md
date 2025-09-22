@@ -25,6 +25,11 @@
 
 ## Bugfixes and changes
 
+### `combine_De_Dr()`
+
+- It is now possible to control the random seeds used by the JAGS MCMC
+  chains via the `method_control` argument (#1038).
+
 ### `fit_EmissionSpectra()`
 
 - The function makes better use of the plot area, leaving smaller
