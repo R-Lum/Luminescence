@@ -398,16 +398,6 @@ plot_RadialPlot <- function(
     De.global <- De.global + De.add
   }
 
-  ## calculate major preliminary tick values and tick difference
-  limits.z <- extraArgs$zlim %||% {
-    z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
-    z.span <- ifelse(z.span > 1, 0.9, z.span)
-    c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
-      (1.1 + z.span) * max(De.global))
-  }
-  ticks <- round(pretty(limits.z, n = 5), 3)
-  De.delta <- ticks[2] - ticks[1]
-
   ## calculate and append statistical measures --------------------------------
 
   ## z-values and se based on log-option

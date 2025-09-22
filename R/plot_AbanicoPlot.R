@@ -623,20 +623,8 @@ plot_AbanicoPlot <- function(
   ## create preliminary global data set
   De.global <- unlist(lapply(data, function(x) x[, 1]))
 
-  ## calculate major preliminary tick values and tick difference
+  ## additional arguments
   extraArgs <- list(...)
-  if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
-    limits.z <- extraArgs$zlim
-    .validate_class(limits.z, "numeric", name = "'zlim'")
-  } else {
-    z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
-    z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) *
-                    min(De.global),
-                  (1.1 + z.span) * max(De.global))
-  }
-
-  ticks <- extraArgs$at %||% round(pretty(limits.z, n = 5), 3)
   breaks <- extraArgs$breaks %||% "Sturges"
   fun <- isTRUE(list(...)$fun)
 
@@ -819,6 +807,7 @@ plot_AbanicoPlot <- function(
 
   if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
     limits.z <- extraArgs$zlim
+    .validate_class(limits.z, "numeric", name = "'zlim'")
   } else {
     z.span <- (mean(data.global[,1]) * 0.5) / (sd(data.global[,1]) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
