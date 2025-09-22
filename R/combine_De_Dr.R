@@ -140,6 +140,7 @@
   jags <- rjags::jags.model(
     file = model,
     data = data1,
+    inits = method_control$inits,
     n.chains = method_control$n.chains,
     n.adapt = method_control$n.adapt,
     quiet = method_control$quiet
@@ -292,6 +293,7 @@
   jags2 <- rjags::jags.model(
     file = model,
     data = data,
+    inits = method_control$inits,
     n.chains = method_control$n.chains,
     n.adapt = method_control$n.adapt,
     quiet = method_control$quiet
@@ -400,8 +402,17 @@
 #' outlier analysis plot. Note: the outlier analysis will happen independently
 #' of the plot output.
 #'
-#'@param method_control [list] (*with default*): named [list] of further parameters passed down
-#' to the [rjags::rjags] modelling
+#' @param method_control [list] (*with default*):
+#' named [list] of parameters to control [rjags::jags.model]. This can be
+#' used to set the random seed for the MCMC chains (four by default):
+#' ```
+#' method_control = list(inits = list(
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3),
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 4))
+#' )
+#' ```
 #'
 #'@param par_local [logical] (*with default*): if set to `TRUE` the function uses its
 #'own [graphics::par] settings (which will end in two plots next to each other)
@@ -569,6 +580,7 @@ fit_IAM <- .calc_IndividualAgeModel(
           n.chains = method_control$n.chains,
           n.adapt = method_control$n.adapt,
           n.iter = method_control$n.iter,
+          inits = method_control$inits,
           thin = method_control$thin,
           progress.bar = method_control$progress.bar,
           quiet = method_control$quiet,
