@@ -116,3 +116,21 @@ test_that("check functionality", {
   ## reset the graphical parameters to the original values
   par(oldpar)
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("defaults",
+                              combine_De_Dr(De, s, Dr, int_OD = 0.1,
+                                            method_control =
+                                              list(n.iter = 100,
+                                                   n.chains = 1,
+                                                   inits = list(
+                                                       list(.RNG.name = "base::Wichmann-Hill",
+                                                            .RNG.seed = 1)))))
+  })
+})

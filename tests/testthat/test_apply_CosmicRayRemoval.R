@@ -22,22 +22,73 @@ test_that("input validation", {
                "'MARGIN' should be one of '1' or '2'")
 })
 
-test_that("check function", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  ##run basic tests
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych"))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth"))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum"))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 1, k = 0))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 1, k = 4))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 1, k = 10000))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 2, k = 0))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 2, k = 4))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 2, k = 4, method_smooth_RLum = "mean"))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", MARGIN = 2, k = 10000))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth_RLum", k = 10))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth", MARGIN = 1))
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "Pych"),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth"),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum"),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 1, k = 0),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 1, k = 4),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 1, k = 10000),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 2, k = 0),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 2, k = 4),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 2, k = 4,
+                                              method_smooth_RLum = "mean"),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              MARGIN = 2, k = 10000),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth_RLum",
+                                              k = 10),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth",
+                                              MARGIN = 1),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",
+                                              method.Pych.smoothing = 2,
+                                              method.Pych.threshold_factor = 2),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(apply_CosmicRayRemoval(TL.Spectrum,
+                                              method = "smooth.spline",
+                                              MARGIN = 1,
+                                              kind = "3RS3R",
+                                              twiceit = TRUE,
+                                              spar = NULL),
+                       tolerance = snapshot.tolerance)
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
   SW({
   expect_message(expect_message(
       apply_CosmicRayRemoval(TL.Spectrum, method = "Pych", MARGIN = 2,
@@ -45,11 +96,6 @@ test_that("check function", {
       "1024 channels corrected in frame 4"),
       "0 channels corrected in frame 24")
   })
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",
-                                       method.Pych.smoothing = 2, method.Pych.threshold_factor = 2))
-  expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "smooth.spline",
-                                       kind = "3RS3R", twiceit = TRUE,
-                                       spar = NULL, MARGIN = 1))
 
   ##construct objects for different tests
   RLum_list <- list(TL.Spectrum)
