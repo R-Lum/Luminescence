@@ -1,15 +1,16 @@
-test_that("check functionality", {
+## load data
+data(ExampleData.RLum.Analysis, envir = environment())
+
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  data(ExampleData.RLum.Analysis, envir = environment())
-  expect_silent(structure_RLum(IRSAR.RF.Data))
-  expect_s3_class(structure_RLum(IRSAR.RF.Data), "data.frame")
-
-  ##test a list of such elements
-  expect_type(structure_RLum(list(IRSAR.RF.Data,IRSAR.RF.Data, "a")), "list")
+  expect_snapshot_plain(structure_RLum(IRSAR.RF.Data))
+  expect_snapshot_plain(structure_RLum(list(IRSAR.RF.Data,
+                                            IRSAR.RF.Data,
+                                            "a")))
 
   ## empty object
   res <- structure_RLum(set_RLum("RLum.Analysis"))
-  expect_s3_class(res, "data.frame")
+  expect_snapshot_plain(res)
   expect_equal(nrow(res), 0)
 })

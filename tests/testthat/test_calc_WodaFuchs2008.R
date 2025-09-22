@@ -21,15 +21,11 @@ test_that("input validation", {
       "The estimated bin width is not positive, check your data")
 })
 
-test_that("Test general functionality", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ##test arguments
-  expect_s4_class(calc_WodaFuchs2008(ExampleData.DeValues$CA1),
-                  "RLum.Results")
   expect_s4_class(calc_WodaFuchs2008(ExampleData.DeValues$CA1, plot = FALSE),
-                  "RLum.Results")
-  expect_s4_class(calc_WodaFuchs2008(ExampleData.DeValues$CA1, breaks = 20),
                   "RLum.Results")
   expect_warning(calc_WodaFuchs2008(ExampleData.DeValues$CA1[1:40, ]),
                  "More than one maximum, fit may be invalid")
@@ -61,4 +57,18 @@ test_that("Test general functionality", {
       calc_WodaFuchs2008(data.frame(c(Inf, -0.5, 1234, 5), rep(1, 4))),
       "Inf values found in 'data', replaced by NA"),
       "More than one maximum, fit may be invalid")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("defaults",
+                              calc_WodaFuchs2008(ExampleData.DeValues$CA1))
+  vdiffr::expect_doppelganger("main breaks",
+                              calc_WodaFuchs2008(ExampleData.DeValues$CA1,
+                                                 main = "Woda-Fuchs (2008)",
+                                                 breaks = 20))
+  })
 })
