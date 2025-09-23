@@ -606,7 +606,7 @@ analyse_Al2O3C_Measurement <- function(
        plot_singlePanels = TRUE,
        combine = TRUE,
        mtext = list(paste0("DE: ", round(data$DE,2), " \u00b1 ", round(data$DE_ERROR,2)), ""),
-       xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
+       xlab = list("Stimulation [s]", "Temperature [\u00B0C]"),
        legend.text = list(list("#1 NAT", "#3 REG", "#5 BG"), list("#2 NAT", "#4 REG")),
        legend.pos = list("topright", "topleft"),
        main = as.list(plot_settings$main),
