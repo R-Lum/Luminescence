@@ -1291,6 +1291,10 @@ analyse_baSAR <- function(
     }
   }
 
+    if (length(fileBIN.list) == 0) {
+      .throw_error("All provided objects were removed")
+    }
+
   if(verbose){
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
     cat("\n[analyse_baSAR()] Hang on, this may take a while ... \n")

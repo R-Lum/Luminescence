@@ -95,6 +95,16 @@ test_that("input validation", {
   expect_error(suppressWarnings(
     analyse_baSAR(obj, recordType = "NONE", verbose = TRUE)),
     "No records of the appropriate type were found")
+
+  empty <- CWOSL.sub
+  empty@METADATA <- empty@METADATA[integer(0), ]
+  expect_error(expect_warning(
+      analyse_baSAR(list(empty),
+                    source_doserate = c(0.04, 0.001),
+                    signal.integral = c(1:2),
+                    background.integral = c(80:100)),
+      "No data selected from BIN-file 1, BIN-file removed from input"),
+      "All provided objects were removed")
   })
 
   expect_warning(expect_output(
