@@ -52,7 +52,7 @@
 <text transform='translate(83.52,129.60) rotate(-90)' text-anchor='middle' style='font-size: 24.00px; font-family: sans;' textLength='40.05px' lengthAdjust='spacingAndGlyphs'>200</text>
 <polygon points='118.08,429.12 659.52,429.12 659.52,118.08 118.08,118.08 ' style='stroke-width: 0.75; fill: none;' />
 <text x='388.80' y='68.95' text-anchor='middle' style='font-size: 28.80px; font-weight: bold; font-family: sans;' textLength='256.21px' lengthAdjust='spacingAndGlyphs'>unknown curve type</text>
-<text x='388.80' y='538.56' text-anchor='middle' style='font-size: 24.00px; font-family: sans;' textLength='253.56px' lengthAdjust='spacingAndGlyphs'>Independent [Unknown]</text>
+<text x='388.80' y='538.56' text-anchor='middle' style='font-size: 24.00px; font-family: sans;' textLength='249.57px' lengthAdjust='spacingAndGlyphs'>Independent [unknown]</text>
 <text transform='translate(25.92,273.60) rotate(-90)' text-anchor='middle' style='font-size: 24.00px; font-family: sans;' textLength='233.54px' lengthAdjust='spacingAndGlyphs'>Dependent [unknown]</text>
 <text x='388.80' y='112.32' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='37.35px' lengthAdjust='spacingAndGlyphs'>Test</text>
 </g>

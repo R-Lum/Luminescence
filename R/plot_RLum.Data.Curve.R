@@ -88,7 +88,7 @@ plot_RLum.Data.Curve<- function(
   .set_function_name("plot_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests  -------------------------------------------------------
+  ## Integrity checks  ------------------------------------------------------
   .validate_class(object, "RLum.Data.Curve")
 
   ## check for NA values
@@ -103,18 +103,22 @@ plot_RLum.Data.Curve<- function(
     norm <- .validate_args(norm, c("max", "last", "huot"),
                            extra = "a logical value")
 
-# Preset plot -------------------------------------------------------------
-    ## preset
-    lab.unit <- "Unknown"
-    lab.xlab <- "Independent"
-    xlab.xsyg <- ylab.xsyg <- NA
+  .validate_logical_scalar(par.local)
+  .validate_logical_scalar(smooth)
+  .validate_logical_scalar(auto_scale)
+  .validate_logical_scalar(interactive)
 
-    ##set labelling unit
-    if(!is.na(object@recordType)){
+# Preset plot -------------------------------------------------------------
+
+  lab.unit <- "unknown"
+  lab.xlab <- "Independent"
+  xlab.xsyg <- ylab.xsyg <- NULL
+
+  ## set labelling unit
+  if (!is.na(object@recordType)) {
       if(object@recordType[1] %in% c("OSL", "IRSL", "RL", "RF", "LM-OSL", "RBR")){
         lab.unit <- "s"
         lab.xlab <- "Stimulation time"
-
       } else if(object@recordType[1] == "TL") {
         lab.unit <- "\u00B0C"
         lab.xlab <- "Temperature"
@@ -128,66 +132,57 @@ plot_RLum.Data.Curve<- function(
         strsplit(object@info$curveDescripter,
                  split = ";",
                  fixed = TRUE)[[1]]
-
       xlab.xsyg <- temp.lab[1]
       ylab.xsyg <- temp.lab[2]
     }
 
-    ## curve normalisation
-    if (norm[1] == TRUE || norm %in% c("max", "last", "huot")) {
-      object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
-    }
-
-    ylab <- if (!is.na(ylab.xsyg)) {
-      ylab.xsyg
-    } else if (lab.xlab == "Independent") {
+  xlab <- xlab.xsyg %||% paste0(lab.xlab, " [", lab.unit, "]")
+  ylab <- ylab.xsyg %||% {
+    if (lab.xlab == "Independent") {
       "Dependent [unknown]"
-
     } else {
-      paste0(
-        object@recordType,
-        " [cts/", round(
-          max(object@data[,1]) / length(object@data[,1]),digits = 2)
-        , " ", lab.unit,"]")
+      vals <- object@data[, 1]
+      sprintf("%s [cts/%.2f %s]", object@recordType,
+              round(max(vals) / length(vals), digits = 2), lab.unit)
     }
+  }
 
-    sub <-  if ((grepl("TL", object@recordType)) &
-          "RATE" %in% names(object@info)) {
-        paste0("(",object@info$RATE," K/s)")
-      } else if ((grepl("OSL", object@recordType) |
-           grepl("IRSL", object@recordType)) &
-          "interval" %in% names(object@info)) {
-        paste0("(resolution: ",object@info$interval," s)")
-      }
+  sub <- if (grepl("TL", object@recordType) && "RATE" %in% names(object@info)) {
+           paste0("(", object@info$RATE, " K/s)")
+         } else if (grepl("OSL|IRSL", object@recordType) &&
+                    "interval" %in% names(object@info)) {
+           paste("(resolution:", object@info$interval, "s)")
+         }
 
-    ## set auto scale if required
-    if(auto_scale[1] && !all(is.null(c(list(...)$xlim, list(...)$ylim)))) {
-      ## because of the if condition, we can only have xlim or ylim set
-      ## if both is set, auto_scale is not required
+  ## curve normalisation
+  if (norm != FALSE) {
+    object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
+  }
 
-      if(!is.null(list(...)$xlim))  {
+  extraArgs <- list(...)
+
+  ## set auto scale if required and only one of xlim or ylim is specified
+  if (auto_scale && xor(is.null(extraArgs$xlim), is.null(extraArgs$ylim))) {
+    if (!is.null(extraArgs$xlim))  {
         x_range <- range(object@data[,1])
-        x_min <- max(c(x_range[1], min(c(list(...)$xlim[1], x_range[2]))), na.rm = TRUE)
-        x_max <- min(c(x_range[2], max(c(list(...)$xlim[2], x_range[1]))), na.rm = TRUE)
+        x_min <- max(c(x_range[1], min(c(extraArgs$xlim[1], x_range[2]))), na.rm = TRUE)
+        x_max <- min(c(x_range[2], max(c(extraArgs$xlim[2], x_range[1]))), na.rm = TRUE)
 
         object@data <- object[object@data[,1] >= x_min & object@data[,1] <= x_max, ,drop = FALSE]
-
       }
-
-      if(!is.null(list(...)$ylim)) {
+    if (!is.null(extraArgs$ylim)) {
         y_range <- range(object@data[,2])
-        y_min <- max(c(y_range[1], min(c(list(...)$ylim[1], y_range[2]))), na.rm = TRUE)
-        y_max <- min(c(y_range[2], max(c(list(...)$ylim[2], y_range[1]))), na.rm = TRUE)
+        y_min <- max(c(y_range[1], min(c(extraArgs$ylim[1], y_range[2]))), na.rm = TRUE)
+        y_max <- min(c(y_range[2], max(c(extraArgs$ylim[2], y_range[1]))), na.rm = TRUE)
 
         object@data <- object[object@data[,2] >= y_min & object@data[,2] <= y_max, ,drop = FALSE]
       }
+  }
 
-    }
-
-    ##deal with additional arguments
-    plot_settings <- modifyList(x = list(
+  ## deal with additional arguments
+  plot_settings <- modifyList(x = list(
       main = object@recordType[1],
-      xlab = if (!is.na(xlab.xsyg)) xlab.xsyg else  paste0(lab.xlab, " [", lab.unit, "]"),
+      xlab = xlab,
       ylab = ylab,
       sub = sub,
       cex = 1,
@@ -200,8 +195,7 @@ plot_RLum.Data.Curve<- function(
       axes = TRUE,
       log = "",
       mtext = ""
-
-    ), val = list(...), keep.null = TRUE)
+    ), val = extraArgs, keep.null = TRUE)
 
     ##par setting for possible combination with plot method for RLum.Analysis objects
     if (par.local)
@@ -213,21 +207,15 @@ plot_RLum.Data.Curve<- function(
       object@data[, 2] <- .smoothing(object@data[, 2], k = k, align = "center")
     }
 
-    ##plot curve
-      ## get list of allowed parameters
-      args <- list(...)
+  ## remove parameters already set in plot_settings
+  extraArgs[names(extraArgs) %in% names(plot_settings)] <- NULL
+  extraArgs <- c(extraArgs, plot_settings)
 
-      ## remove parameters already set in plot_settings
-      args[names(args) %in% names(plot_settings)] <- NULL
+  ## remove parameters not supported by plot.default and par
+  extraArgs[!names(extraArgs) %in% c(names(formals(graphics::plot.default)), names(par()))] <- NULL
 
-      ## combine
-      args <- c(args, plot_settings)
-
-      ## remove parameters not supported by plot.default and par
-      args[!names(args) %in% c(names(formals(graphics::plot.default)), names(par()))] <- NULL
-
-      ## call the plot
-      if(interactive[1]) {
+  ## call the plot
+  if (interactive) {
         .require_suggested_package("plotly", "Displaying interactive plots")
         p <- do.call(
           plotly::plot_ly,
@@ -251,11 +239,11 @@ plot_RLum.Data.Curve<- function(
           p = p,
           xaxis = list(
             title = plot_settings$xlab,
-            type = if(any(grepl(pattern = "x", plot_settings$log[1]))) "log" else "linear"
+            type = if (grepl(pattern = "x", plot_settings$log[1])) "log" else "linear"
             ),
           yaxis = list(
             title = plot_settings$ylab,
-            type = if(any(grepl(pattern = "y", plot_settings$log[1]))) "log" else "linear"
+            type = if (grepl(pattern = "y", plot_settings$log[1])) "log" else "linear"
             ),
           title = plot_settings$main,
           annotations = list(plot_settings$mtext)
@@ -265,14 +253,11 @@ plot_RLum.Data.Curve<- function(
         suppressMessages(print(p))
         on.exit(return(p), add = TRUE)
 
-      } else {
-        do.call(graphics::plot.default, args = c(list(x = object@data[,1], y = object@data[,2]), args))
+  } else {
+    do.call(graphics::plot.default,
+            c(list(x = object@data[, 1], y = object@data[, 2]), extraArgs))
 
         ##plot additional mtext
         mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)
-
-      }
-
+  }
 }
-
-
