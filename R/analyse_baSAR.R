@@ -803,6 +803,9 @@ analyse_baSAR <- function(
 
   # Set input -----------------------------------------------------------------------------------
 
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ##if the input is already of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if (inherits(object, "RLum.Results")) {
@@ -1374,9 +1377,6 @@ analyse_baSAR <- function(
   ######################  Data associated with a single Disc/Grain
   max_cycles <-  0
   count <- 1
-
-  par.default <- .par_defaults()
-  on.exit(par(par.default), add = TRUE)
 
   for (k in 1:length(fileBIN.list)) {
 

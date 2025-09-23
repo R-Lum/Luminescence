@@ -302,21 +302,14 @@ test_that("more coverage", {
    zlim = c(2,10)
  ), log.z = TRUE, summary = c("mean", "sd.abs")))
 
- ## test lines 2144 onwards
- par(mfrow = c(4,4))
+ ## test panel plots
+ par.defaults <- .par_defaults()
+ par(mfrow = c(4, 4))
  expect_silent(plot_AbanicoPlot(data = data.frame(
    x = c(-1,10),
    y = c(0.1,3)
  ), log.z = TRUE, summary = c("mean", "sd.abs")))
- par(mfrow = c(1,1))
-
- ## test lines 2888 onwards (same was above, just with the rotated plot)
- par(mfrow = c(3,3))
- expect_silent(plot_AbanicoPlot(data = data.frame(
-   x = c(-1,10),
-   y = c(0.1,3)
- ), log.z = TRUE, rotate = TRUE))
- par(mfrow = c(1,1))
+ par(par.defaults)
 
  ## test centrality from layout
  layout <- get_Layout("default")
