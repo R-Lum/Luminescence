@@ -360,7 +360,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.36
+ 0.1.37
 }
 
 \examples{
@@ -433,7 +433,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{
-Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
+Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 }

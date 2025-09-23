@@ -46,7 +46,7 @@ test_that("input validation", {
                              signal.integral = c(1:2),
                              background.integral = c(80:100),
                              CSV_file = "error"),
-               "'CSV_file' does not exist")
+               "does not exist or is non-readable")
   data.table::fwrite(data.frame(BIN_file = "a", DISC = 1), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
