@@ -582,33 +582,31 @@ plot_RadialPlot <- function(
   r.x <- limits.x[2] / max(data.global[,6]) + 0.05
   r <- max(sqrt((data.global[,6])^2+(data.global[,7] * f)^2)) * r.x
 
-  ## calculate major z-tick coordinates
-  tick.x1.major <- r / sqrt(1 + f^2 * (
-    tick.values.major - z.central.global)^2)
+  ## compute the coordinates for points on the z-axis
+  x.coord <- function(x) r / sqrt(1 + f^2 * (x - z.central.global)^2)
+  y.coord <- function(x, x.coord) (x - z.central.global) * x.coord
 
-  tick.y1.major <- (tick.values.major - z.central.global) * tick.x1.major
-  tick.x2.major <- (1 + 0.015 * cex) * r / sqrt(
-    1 + f^2 * (tick.values.major - z.central.global)^2)
-  tick.y2.major <- (tick.values.major - z.central.global) * tick.x2.major
+  ## calculate major z-tick coordinates
+  tick.x1.major <- x.coord(tick.values.major)
+  tick.y1.major <- y.coord(tick.values.major, tick.x1.major)
+  tick.x2.major <- (1 + 0.015 * cex) * tick.x1.major
+  tick.y2.major <- y.coord(tick.values.major, tick.x2.major)
   ticks.major <- cbind(0,
     tick.x1.major, tick.x2.major, tick.y1.major, tick.y2.major)
 
   ## calculate minor z-tick coordinates
-  tick.x1.minor <- r / sqrt(1 + f^2 * (
-    tick.values.minor - z.central.global)^2)
-  tick.y1.minor <- (tick.values.minor - z.central.global) * tick.x1.minor
-  tick.x2.minor <- (1 + 0.007 * cex) * r / sqrt(
-    1 + f^2 * (tick.values.minor - z.central.global)^2)
-  tick.y2.minor <- (tick.values.minor - z.central.global) * tick.x2.minor
+  tick.x1.minor <- x.coord(tick.values.minor)
+  tick.y1.minor <- y.coord(tick.values.minor, tick.x1.minor)
+  tick.x2.minor <- (1 + 0.007 * cex) * tick.x1.minor
+  tick.y2.minor <- y.coord(tick.values.minor, tick.x2.minor)
   ticks.minor <- cbind(tick.x1.minor,
                        tick.x2.minor,
                        tick.y1.minor,
                        tick.y2.minor)
 
   ## calculate z-label positions
-  label.x <- 1.03 * r / sqrt(1 + f^2 *
-    (tick.values.major - z.central.global)^2)
-  label.y <- (tick.values.major - z.central.global) * tick.x2.major
+  label.x <- 1.03 * x.coord(tick.values.major)
+  label.y <- y.coord(tick.values.major, label.x)
 
   ## create z-axes labels
   label.z.text <- if (log.z)
@@ -645,8 +643,8 @@ plot_RadialPlot <- function(
     from = min(c(tick.values.major, tick.values.minor, user.limits[1])),
     to = max(c(tick.values.major,tick.values.minor, user.limits[2])),
     length.out = 500)
-  ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
-  ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
+  ellipse.x <- x.coord(ellipse.values)
+  ellipse.y <- y.coord(ellipse.values, ellipse.x)
   ellipse <- cbind(ellipse.x, ellipse.y)
   ellipse.lims <- rbind(range(ellipse[,1]), range(ellipse[,2]))
 
@@ -837,10 +835,8 @@ plot_RadialPlot <- function(
     line.coords <- list(NA)
 
     for(i in 1:length(line)) {
-      line.x <- c(limits.x[1],
-                  r / sqrt(1 + f^2 * (line[i] - z.central.global)^2))
-      line.y <- c(0, (line[i] - z.central.global) * line.x[2])
-
+      line.x <- c(limits.x[1], x.coord(line[i]))
+      line.y <- c(0, y.coord(line[i], line.x[2]))
       line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
     }
 
@@ -863,17 +859,12 @@ plot_RadialPlot <- function(
       rug.values <- De.global
     }
 
-    rug.coords <- list(NA)
-
+    rug.coords <- NULL
     for(i in 1:length(rug.values)) {
-      rug.x <- c(r / sqrt(1 + f^2 * (rug.values[i] - z.central.global)^2) * 0.988,
-                 r / sqrt(1 + f^2 * (rug.values[i] - z.central.global)^2) * 0.995)
-      rug.y <- c((rug.values[i] - z.central.global) * rug.x[1],
-                 (rug.values[i] - z.central.global) * rug.x[2])
+      rug.x <- x.coord(rug.values[i]) * c(0.988, 0.995)
+      rug.y <- y.coord(rug.values[i], rug.x)
       rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
     }
-
-    rug.coords[1] <- NULL
   }
 
   ## Generate plot ------------------------------------------------------------
@@ -944,9 +935,8 @@ plot_RadialPlot <- function(
     ## optionally, plot central value lines
     if(lwd[1] > 0 & lty[1] > 0) {
       for(i in 1:length(data)) {
-        x2 <- r / sqrt(1 + f^2 * (
-          data[[i]][1,5] - z.central.global)^2)
-        y2 <- (data[[i]][1,5] - z.central.global) * x2
+        x2 <- x.coord(data[[i]][1, 5])
+        y2 <- y.coord(data[[i]][1, 5], x2)
         lines(x = c(limits.x[1], x2),
               y = c(0, y2),
               lty = lty[i],
