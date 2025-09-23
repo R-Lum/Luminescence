@@ -562,14 +562,21 @@ plot_RadialPlot <- function(
        (max(data.global[,7]) - min(data.global[,7])) * plot.ratio
 
   ## calculate major and minor z-tick values
-  tick.values.major <- signif(c(limits.z, pretty(limits.z, n = 5)))
+  tick.values.major <- signif(pretty(limits.z, n = 5))
   tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
-
   tick.values.major <- tick.values.major[between(tick.values.major,
                                                  min(tick.values.minor),
                                                  max(tick.values.minor))]
   tick.values.minor <- tick.values.minor[between(tick.values.minor,
                                                  limits.z[1], limits.z[2])]
+
+  ## add ticks corresponding to the extremes of the z-axis but only if they
+  ## fall outside of the major ticks
+  tick.add <- signif(limits.z[!between(limits.z,
+                                       min(tick.values.major),
+                                       max(tick.values.major))])
+  tick.values.major <- c(tick.add, tick.values.major)
+
   user.limits <- limits.z
 
   if(log.z == TRUE) {
@@ -619,7 +626,7 @@ plot_RadialPlot <- function(
   ## to avoid overprinting we remove the z-axis labels at the extremes if
   ## they are too close to a major tick label (#1013)
   rm.idx <- NULL
-  for (idx in seq_along(user.limits)) {
+  for (idx in seq_along(tick.add)) {
     dist <- sqrt((label.x[-idx] - label.x[idx])^2 +
                  (label.y[-idx] - label.y[idx])^2)
     if (any(dist < 1))
