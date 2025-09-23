@@ -1838,16 +1838,14 @@ analyse_baSAR <- function(
 
     ##define boxplot colours ... we have red and orange
     box.col <- vapply(1:ncol(aliquot_quantiles), function(x){
-      if(aliquot_quantiles[2,x] < results[[1]][,c("CENTRAL_Q_.025")] |
-         aliquot_quantiles[1,x] > results[[1]][,c("CENTRAL_Q_.975")]
-      ){
-        col[2]
-      }else if(aliquot_quantiles[2,x] < results[[1]][,c("CENTRAL_Q_.16")] |
-               aliquot_quantiles[1,x] > results[[1]][,c("CENTRAL_Q_.84")]){
-        "orange"
-      }else{
-        "white"
-      }
+      idx <- 1
+      if (aliquot_quantiles[2,x] < results[[1]][, c("CENTRAL_Q_.16")] ||
+          aliquot_quantiles[1,x] > results[[1]][, c("CENTRAL_Q_.84")])
+        idx <- idx + 1
+      if (aliquot_quantiles[2,x] < results[[1]][, c("CENTRAL_Q_.025")] ||
+          aliquot_quantiles[1,x] > results[[1]][, c("CENTRAL_Q_.975")])
+        idx <- idx + 1
+      c("white", "orange", col[2])[idx]
     }, FUN.VALUE = character(1))
 
     ## make selection according to the model for the curve plotting
