@@ -568,14 +568,16 @@ plot_RadialPlot <- function(
   tick.values.major <- tick.values.major[between(tick.values.major,
                                                  min(tick.values.minor),
                                                  max(tick.values.minor))]
-  tick.values.major <- tick.values.major[between(tick.values.major,
-                                                 limits.z[1], limits.z[2])]
   tick.values.minor <- tick.values.minor[between(tick.values.minor,
                                                  limits.z[1], limits.z[2])]
+  user.limits <- limits.z
 
   if(log.z == TRUE) {
+    tick.values.major[tick.values.major == 0] <- 1
+    tick.values.minor[tick.values.minor == 0] <- 1
     tick.values.major <- log(tick.values.major)
     tick.values.minor <- log(tick.values.minor)
+    user.limits <- log(user.limits)
   }
 
   ## calculate z-axis radius
@@ -591,8 +593,8 @@ plot_RadialPlot <- function(
   tick.y1.major <- y.coord(tick.values.major, tick.x1.major)
   tick.x2.major <- (1 + 0.015 * cex) * tick.x1.major
   tick.y2.major <- y.coord(tick.values.major, tick.x2.major)
-  ticks.major <- cbind(0,
-    tick.x1.major, tick.x2.major, tick.y1.major, tick.y2.major)
+  ticks.major <- cbind(tick.x1.major, tick.x2.major,
+                       tick.y1.major, tick.y2.major)
 
   ## calculate minor z-tick coordinates
   tick.x1.minor <- x.coord(tick.values.minor)
@@ -608,15 +610,29 @@ plot_RadialPlot <- function(
   label.x <- 1.03 * x.coord(tick.values.major)
   label.y <- y.coord(tick.values.major, label.x)
 
-  ## create z-axes labels
+  ## create z-axis labels
   label.z.text <- if (log.z)
                     signif(exp(tick.values.major), 3)
                   else
                     signif(tick.values.major, 3)
 
+  ## to avoid overprinting we remove the z-axis labels at the extremes if
+  ## they are too close to a major tick label (#1013)
+  rm.idx <- NULL
+  for (idx in seq_along(user.limits)) {
+    dist <- sqrt((label.x[-idx] - label.x[idx])^2 +
+                 (label.y[-idx] - label.y[idx])^2)
+    if (any(dist < 1))
+      rm.idx <- c(rm.idx, idx)
+  }
+  if (!is.null(rm.idx)) {
+    label.x <- label.x[-rm.idx]
+    label.y <- label.y[-rm.idx]
+    label.z.text <- label.z.text[-rm.idx]
+  }
+
   ## subtract De.add from label values
-  if(De.add != 0)
-    label.z.text <- label.z.text - De.add
+  label.z.text <- label.z.text - De.add
 
   labels <- cbind(label.x, label.y, label.z.text)
 
@@ -637,16 +653,16 @@ plot_RadialPlot <- function(
   }
 
   ## calculate node coordinates for semi-circle
-  user.limits <- if(log.z) log(limits.z) else limits.z
-
+  num.values <- 500
   ellipse.values <- seq(
     from = min(c(tick.values.major, tick.values.minor, user.limits[1])),
     to = max(c(tick.values.major,tick.values.minor, user.limits[2])),
-    length.out = 500)
+    length.out = num.values)
   ellipse.x <- x.coord(ellipse.values)
   ellipse.y <- y.coord(ellipse.values, ellipse.x)
   ellipse <- cbind(ellipse.x, ellipse.y)
-  ellipse.lims <- rbind(range(ellipse[,1]), range(ellipse[,2]))
+  ellipse.lims <- rbind(ellipse[c(1, num.values), 1],
+                        ellipse[c(1, num.values), 2])
 
   ## check if z-axis overlaps with 2s-polygon
   polygon_y_max <- max(polygons[,7])
@@ -974,7 +990,7 @@ plot_RadialPlot <- function(
     x.axis.ticks <- x.axis.ticks[c(TRUE, x.axis.ticks <= limits.x[2])]
     x.axis.ticks <- x.axis.ticks[x.axis.ticks <= limits.x[2]]
 
-    ## axis with lables and ticks
+    ## axis with labels and ticks
     axis(side = 1,
          at = x.axis.ticks,
          lwd = 1,
