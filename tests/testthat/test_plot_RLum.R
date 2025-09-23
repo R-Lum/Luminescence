@@ -1,3 +1,23 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(plot_RLum("error"),
+               "[plot_RLum()] 'object' should be of class 'RLum'",
+               fixed = TRUE)
+})
+
+test_that("empty objects", {
+  testthat::skip_on_cran()
+
+  expect_message(plot_RLum(set_RLum("RLum.Analysis")),
+                 "Nothing plotted, NULL returned")
+  expect_silent(plot_RLum(set_RLum("RLum.Data.Curve")))
+  expect_silent(plot_RLum(set_RLum("RLum.Data.Image")))
+  expect_error(plot_RLum(set_RLum("RLum.Data.Spectrum")),
+               "'object' contains no data")
+  expect_silent(plot_RLum(set_RLum("RLum.Results")))
+})
+
 test_that("check functionality", {
   testthat::skip_on_cran()
 
@@ -9,11 +29,6 @@ test_that("check functionality", {
   image_short <- as(array(rnorm(100), dim = c(10, 10, 1)), "RLum.Data.Image")
   expect_silent(plot_RLum(list(image_short, image_short), main = list("test1", "test2"), mtext = "test"))
 
-  ## trigger error
-  expect_error(plot_RLum("error"),
-               "[plot_RLum()] 'object' should be of class 'RLum'",
-               fixed = TRUE)
-
   ## test list of RLum.Analysis
   l <- list(set_RLum(
     class = "RLum.Analysis",
@@ -24,11 +39,6 @@ test_that("check functionality", {
   expect_silent(plot_RLum(l, main = list("test", "test2")))
   expect_silent(plot_RLum(l, main = list("test", "test2"), mtext = "test",
                           subset = NA))
-
-  ## empty object
-  expect_message(plot_RLum(set_RLum("RLum.Analysis")),
-                 "Nothing plotted, NULL returned")
-  expect_silent(plot_RLum(set_RLum("RLum.Data.Image")))
 
   ## plot results objects
   data(ExampleData.BINfileData, envir = environment())

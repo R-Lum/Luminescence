@@ -43,7 +43,6 @@
 #' [plot_RLum.Analysis], [RLum.Analysis-class], [plot_RLum.Results],
 #' [RLum.Results-class]
 #'
-#'
 #' @keywords dplot
 #'
 #' @examples
@@ -68,21 +67,16 @@ plot_RLum <- function(
   RLum.dispatcher <- function(object, ...) {
     .validate_class(object, "RLum")
 
-      ##grep object class
-      object.class <- is(object)[1]
-
-      ##select which plot function should be used and call it
-      switch (
-        object.class,
+    ## select which plot function should be used and call it
+    switch (
+        class(object),
         RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
         RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
 
-        ##here we have to do prevent the partial matching with 'sub' by 'subset'
-        RLum.Analysis =
-          if(!grepl(pattern = "subset", x = paste(deparse(match.call()), collapse = " "), fixed = TRUE)){
+        ## here we have to prevent the partial matching of 'sub' by 'subset'
+        RLum.Analysis = if (!"subset" %in% ...names()) {
           plot_RLum.Analysis(object = object, subset = NULL, ...)
-
         }else{
           plot_RLum.Analysis(object = object, ...)
         },
@@ -100,22 +94,22 @@ plot_RLum <- function(
 
     ##(2) check if empty, if empty do nothing ...
     if (length(object) != 0) {
+      extraArgs <- list(...)
+
       ## If we iterate over a list, this might be extremely useful to have different plot titles
-      main <- NULL
-      if("main" %in% names(list(...))){
-        main <- .listify(list(...)$main, length = length(object))
+      main <- extraArgs$main
+      if (!is.null(main)) {
+        main <- .listify(extraArgs$main, length = length(object))
       }
 
       ##set also mtext, but in a different way
-      if(!"mtext" %in% names(list(...))){
+      mtext <- extraArgs$mtext
+      if (is.null(mtext)) {
         if (inherits(object[[1]], "RLum.Analysis")) {
           mtext <- paste("Record:", 1:length(object))
-
-        }else{
-          mtext <- NULL
         }
       }else{
-        mtext <- rep(list(...)$mtext, length.out = length(object))
+        mtext <- rep(mtext, length.out = length(object))
       }
       for (i in 1:length(object)) {
         RLum.dispatcher(
