@@ -55,6 +55,11 @@
 - The function now validates the `frame` argument in order to avoid
   crashing on misspecified values (#1036).
 
+### `plot_RadialPlot()`
+
+- The function avoids some possible overprinting at the extremes of the
+  z-axis labels and draws lines at the extremes of the ellipse (#1013).
+
 ### `plot_RLum.Analysis()`
 
 - Setting `records_max` to a value larger than the number of curves no
