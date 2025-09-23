@@ -236,6 +236,9 @@ plot_RLum.Analysis <- function(
   }
 
   # Plotting ------------------------------------------------------------------
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ## (1) NORMAL (combine == FALSE) -------------------------------------------
   if (!combine) {
     temp <- .rm_NULL_elements(object@records)
@@ -252,8 +255,6 @@ plot_RLum.Analysis <- function(
     }
 
     ##set par
-    par.default <- .par_defaults()
-    on.exit(par(par.default), add = TRUE)
     if (!plot_singlePanels) {
       par(mfrow = c(nrows, ncols))
     }

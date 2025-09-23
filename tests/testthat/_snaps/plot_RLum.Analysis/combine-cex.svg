@@ -99,4 +99,11 @@
 <text x='572.96' y='447.25' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 14</text>
 <text x='572.96' y='470.29' style='font-size: 19.20px; font-family: sans;' textLength='77.92px' lengthAdjust='spacingAndGlyphs'>Curve 15</text>
 </g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+</g>
 </svg>
