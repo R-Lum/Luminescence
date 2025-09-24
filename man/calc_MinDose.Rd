@@ -2,8 +2,7 @@
 % Please edit documentation in R/calc_MinDose.R
 \name{calc_MinDose}
 \alias{calc_MinDose}
-\title{Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)
-to a given De distribution}
+\title{(Un-)logged minimum age model (MAM) after Galbraith et al. (1999)}
 \usage{
 calc_MinDose(
   data,
@@ -21,7 +20,7 @@ calc_MinDose(
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
-for \link{data.frame}: two columns with De \code{(data[ ,1])} and De error \code{(data[ ,2])}.}
+for \link{data.frame}: two columns for De and De error.}
 
 \item{sigmab}{\link{numeric} (\strong{required}):
 additional spread in De values.
@@ -33,11 +32,10 @@ a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALS
 See details.}
 
 \item{log}{\link{logical} (\emph{with default}):
-fit the (un-)logged minimum dose model to De data.}
+whether the logged minimum dose model should be fit to De data.}
 
 \item{par}{\link{numeric} (\emph{with default}):
-apply the 3- or 4-parameter minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
-used by default.}
+number of parameters in the minimum age model, either 3 (default) or 4.}
 
 \item{bootstrap}{\link{logical} (\emph{with default}):
 apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
@@ -54,25 +52,25 @@ are automatically log-transformed.}
 the confidence level required (defaults to 0.95).}
 
 \item{log.output}{\link{logical} (\emph{with default}):
-If \code{TRUE} the console output will also show the logged values of the final parameter estimates
-and confidence intervals (only applicable if \code{log = TRUE}).}
+if \code{TRUE} and \code{log = TRUE}, the console output will also show the logged
+values of the final parameter estimates and confidence intervals.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
 \item{multicore}{\link{logical} (\emph{with default}):
-enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
-on the number of available logical CPU cores this may drastically reduce
-the computation time. Note that this option is highly experimental and may not
-work on all machines. (\code{TRUE}/\code{FALSE})}
+parallelize the computation of the bootstrap by creating a multicore cluster
+(only considered if \code{bootstrap = TRUE}). By default, it uses all available
+logical CPU cores, but this can be changed with option \code{cores}. Note that
+this option is highly experimental and may not work on all machines.}
 
 \item{...}{(\emph{optional}) further arguments for bootstrapping
 (\code{bs.M}, \code{bs.N}, \code{bs.h}, \code{sigmab.sd}). See details for their usage.
 Further arguments are
 \itemize{
-\item \code{verbose} to de-/activate console output (logical),
-\item \code{debug} for extended console output (logical) and
-\item \code{cores} (integer) to manually specify the number of cores to be used when \code{multicore=TRUE}.
+\item \code{verbose}: enable/disable output to the terminal
+\item \code{debug}: enable/disable extended console output
+\item \code{cores}: number of cores to be used when \code{multicore=TRUE}
 }}
 }
 \value{
@@ -95,8 +93,7 @@ The output should be accessed using the function \link{get_RLum}.
 \description{
 Function to fit the (un-)logged three or four parameter minimum dose model
 (MAM-3/4) to De data.
-}
-\details{
+
 \strong{Parameters}
 
 This model has four parameters:
@@ -131,37 +128,35 @@ samples containing negative, zero or near-zero De estimates (Arnold et al.
 
 \strong{Initial values & boundaries}
 
-The log likelihood calculations use the \link{nlminb} function for box-constrained
+The log-likelihood calculations use the \link{nlminb} function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via \code{init.values}. If no values are
 provided for \code{init.values}, reasonable starting values are estimated
 from the input data.  If the final estimates of \emph{gamma}, \emph{mu},
 \emph{sigma} and \emph{p0} are totally off target, consider providing custom
 starting values via \code{init.values}.
-In contrast to previous versions of this function, the boundaries for the
-individual model parameters are no longer required to be explicitly specified.
-If you want to override the default boundary values use arguments
-\code{gamma.lower}, \code{gamma.upper}, \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
-\code{mu.lower} and \code{mu.upper}.
+
+The boundaries for the individual model parameters are not required to be
+explicitly specified. If you want to override the default boundary values,
+use arguments \code{gamma.lower}, \code{gamma.upper}, \code{sigma.lower}, \code{sigma.upper},
+\code{p0.lower}, \code{p0.upper}, \code{mu.lower} and \code{mu.upper}.
 
 \strong{Bootstrap}
 
 When \code{bootstrap=TRUE} the function applies the bootstrapping method as
 described in Wallinga & Cunningham (2012). By default, the minimum age model
-produces 1000 first level and 3000 second level bootstrap replicates
-(actually, the number of second level bootstrap replicates is three times
-the number of first level replicates unless specified otherwise).  The
+produces 1000 first level and 3000 second level bootstrap replicates. The
 uncertainty on \code{sigmab} is 0.04 by default. These values can be changed by
 using the arguments \code{bs.M} (first level replicates), \code{bs.N}
-(second level replicates) and \code{sigmab.sd} (error on \code{sigmab}). With
-\code{bs.h} the bandwidth of the kernel density estimate can be specified.
-By default, \code{h} is calculated as
+(second level replicates) and \code{sigmab.sd} (error on \code{sigmab}). The bandwidth
+of the kernel density estimate can be specified with \code{bs.h}. By default,
+this is calculated as:
 
 \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
 
 \strong{Multicore support}
 
-This function supports parallel computing and can be activated by \code{multicore=TRUE}.
+Parallel computations can be activated by setting \code{multicore=TRUE}.
 By default, the number of available logical CPU cores is determined
 automatically, but can be changed with \code{cores}. The multicore support
 is only available when \code{bootstrap=TRUE} and spawns \code{n} R instances
@@ -169,7 +164,7 @@ for each core to get MAM estimates for each of the N and M bootstrap
 replicates. Note that this option is highly experimental and may or may not
 work for your machine. The performance gain increases for larger number
 of bootstrap replicates. However, note that with each additional core (and
-hence R instance) the memory usage can significantly increase and depending
+hence R instance) the memory usage can significantly increase, depending
 on the number of bootstrap replicates. When insufficient memory is available,
 there will be a massive performance hit.
 
@@ -185,7 +180,7 @@ works well \verb{[...]}." (Bolker 2016).
 
 For more details on the profile likelihood
 calculations and plots please see the vignettes of the \code{bbmle} package
-(also available here: \url{https://CRAN.R-project.org/package=bbmle}).
+(also available here: \link{https://CRAN.R-project.org/package=bbmle}.
 }
 \note{
 The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}
@@ -198,7 +193,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.4
+ 0.4.5
 }
 
 \examples{

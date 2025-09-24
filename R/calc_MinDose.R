@@ -1,6 +1,6 @@
-#' Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)
-#' to a given De distribution
+#' @title (Un-)logged minimum age model (MAM) after Galbraith et al. (1999)
 #'
+#' @description
 #' Function to fit the (un-)logged three or four parameter minimum dose model
 #' (MAM-3/4) to De data.
 #'
@@ -38,37 +38,35 @@
 #'
 #' **Initial values & boundaries**
 #'
-#' The log likelihood calculations use the [nlminb] function for box-constrained
+#' The log-likelihood calculations use the [nlminb] function for box-constrained
 #' optimisation using PORT routines.  Accordingly, initial values for the four
 #' parameters can be specified via `init.values`. If no values are
 #' provided for `init.values`, reasonable starting values are estimated
 #' from the input data.  If the final estimates of *gamma*, *mu*,
 #' *sigma* and *p0* are totally off target, consider providing custom
 #' starting values via `init.values`.
-#' In contrast to previous versions of this function, the boundaries for the
-#' individual model parameters are no longer required to be explicitly specified.
-#' If you want to override the default boundary values use arguments
-#' `gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`, `p0.lower`, `p0.upper`,
-#' `mu.lower` and `mu.upper`.
+#'
+#' The boundaries for the individual model parameters are not required to be
+#' explicitly specified. If you want to override the default boundary values,
+#' use arguments `gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`,
+#' `p0.lower`, `p0.upper`, `mu.lower` and `mu.upper`.
 #'
 #' **Bootstrap**
 #'
 #' When `bootstrap=TRUE` the function applies the bootstrapping method as
 #' described in Wallinga & Cunningham (2012). By default, the minimum age model
-#' produces 1000 first level and 3000 second level bootstrap replicates
-#' (actually, the number of second level bootstrap replicates is three times
-#' the number of first level replicates unless specified otherwise).  The
+#' produces 1000 first level and 3000 second level bootstrap replicates. The
 #' uncertainty on `sigmab` is 0.04 by default. These values can be changed by
 #' using the arguments `bs.M` (first level replicates), `bs.N`
-#' (second level replicates) and `sigmab.sd` (error on `sigmab`). With
-#' `bs.h` the bandwidth of the kernel density estimate can be specified.
-#' By default, `h` is calculated as
+#' (second level replicates) and `sigmab.sd` (error on `sigmab`). The bandwidth
+#' of the kernel density estimate can be specified with `bs.h`. By default,
+#' this is calculated as:
 #'
 #' \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
 #'
 #' **Multicore support**
 #'
-#' This function supports parallel computing and can be activated by `multicore=TRUE`.
+#' Parallel computations can be activated by setting `multicore=TRUE`.
 #' By default, the number of available logical CPU cores is determined
 #' automatically, but can be changed with `cores`. The multicore support
 #' is only available when `bootstrap=TRUE` and spawns `n` R instances
@@ -76,7 +74,7 @@
 #' replicates. Note that this option is highly experimental and may or may not
 #' work for your machine. The performance gain increases for larger number
 #' of bootstrap replicates. However, note that with each additional core (and
-#' hence R instance) the memory usage can significantly increase and depending
+#' hence R instance) the memory usage can significantly increase, depending
 #' on the number of bootstrap replicates. When insufficient memory is available,
 #' there will be a massive performance hit.
 #'
@@ -92,10 +90,10 @@
 #'
 #' For more details on the profile likelihood
 #' calculations and plots please see the vignettes of the `bbmle` package
-#' (also available here: [https://CRAN.R-project.org/package=bbmle]()).
+#' (also available here: [https://CRAN.R-project.org/package=bbmle].
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
-#' for [data.frame]: two columns with De `(data[ ,1])` and De error `(data[ ,2])`.
+#' for [data.frame]: two columns for De and De error.
 #'
 #' @param sigmab [numeric] (**required**):
 #' additional spread in De values.
@@ -107,11 +105,10 @@
 #' See details.
 #'
 #' @param log [logical] (*with default*):
-#' fit the (un-)logged minimum dose model to De data.
+#' whether the logged minimum dose model should be fit to De data.
 #'
 #' @param par [numeric] (*with default*):
-#' apply the 3- or 4-parameter minimum age model (`par=3` or `par=4`). The MAM-3 is
-#' used by default.
+#' number of parameters in the minimum age model, either 3 (default) or 4.
 #'
 #' @param bootstrap [logical] (*with default*):
 #' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
@@ -128,24 +125,24 @@
 #' the confidence level required (defaults to 0.95).
 #'
 #' @param log.output [logical] (*with default*):
-#' If `TRUE` the console output will also show the logged values of the final parameter estimates
-#' and confidence intervals (only applicable if `log = TRUE`).
+#' if `TRUE` and `log = TRUE`, the console output will also show the logged
+#' values of the final parameter estimates and confidence intervals.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
 #' @param multicore [logical] (*with default*):
-#' enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
-#' on the number of available logical CPU cores this may drastically reduce
-#' the computation time. Note that this option is highly experimental and may not
-#' work on all machines. (`TRUE`/`FALSE`)
+#' parallelize the computation of the bootstrap by creating a multicore cluster
+#' (only considered if `bootstrap = TRUE`). By default, it uses all available
+#' logical CPU cores, but this can be changed with option `cores`. Note that
+#' this option is highly experimental and may not work on all machines.
 #'
 #' @param ... (*optional*) further arguments for bootstrapping
 #' (`bs.M`, `bs.N`, `bs.h`, `sigmab.sd`). See details for their usage.
 #' Further arguments are
-#' - `verbose` to de-/activate console output (logical),
-#' - `debug` for extended console output (logical) and
-#' - `cores` (integer) to manually specify the number of cores to be used when `multicore=TRUE`.
+#' - `verbose`: enable/disable output to the terminal
+#' - `debug`: enable/disable extended console output
+#' - `cores`: number of cores to be used when `multicore=TRUE`
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
@@ -173,7 +170,7 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.4.4
+#' @section Function version: 0.4.5
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -230,7 +227,6 @@
 #'
 #' Rodnight, H., 2008. How many equivalent dose values are needed to
 #' obtain a reproducible distribution?. Ancient TL 26, 3-10.
-#'
 #'
 #' @examples
 #'
@@ -342,7 +338,6 @@ calc_MinDose <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(data, c("data.frame", "RLum.Results"))
   .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
@@ -495,24 +490,17 @@ calc_MinDose <- function(
   boundaries <- modifyList(boundaries, list(...))
 
   # combine lower and upper boundary values to vectors
+  xlb <- c(boundaries$gamma.lower,
+           boundaries$sigma.lower,
+           boundaries$p0.lower)
+  xub <- c(boundaries$gamma.upper,
+           exp(boundaries$sigma.upper),
+           boundaries$p0.lower)
   if (log) {
-    xlb <- c(ifelse(is.infinite(boundaries$gamma.lower),
-                    boundaries$gamma.lower,
-                    log(boundaries$gamma.lower)),
-             boundaries$sigma.lower,
-             boundaries$p0.lower)
-    xub <- c(ifelse(is.infinite(boundaries$gamma.upper),
-                    boundaries$gamma.upper,
-                    log(boundaries$gamma.upper)),
-             boundaries$sigma.upper,
-             boundaries$p0.lower)
-  } else {
-    xlb <- c(boundaries$gamma.lower,
-             boundaries$sigma.lower,
-             boundaries$p0.lower)
-    xub <- c(boundaries$gamma.upper,
-             exp(boundaries$sigma.upper),
-             boundaries$p0.lower)
+    if (!is.infinite(xlb[1])) # gamma.lower
+      xlb[1] <- log(xlb[1])
+    if (!is.infinite(xub[1])) # gamma.upper
+      xub[1] <- log(xub[1])
   }
   if (par == 4) {
     xlb <- c(xlb,
@@ -564,7 +552,6 @@ calc_MinDose <- function(
 
   # THIS MAXIMIZES THE Neglik_f LIKELIHOOD FUNCTION AND RETURNS AN MLE OBJECT
   Get_mle <- function(data) {
-    # TODO: PROPER ERROR HANDLING
     tryCatch({
       suppressWarnings(
         mle <- bbmle::mle2(data = list(data = data),
@@ -581,9 +568,8 @@ calc_MinDose <- function(
                            control = list(iter.max = 1000L),
                            start = start)
       )
-
     }, error = function(e) {
-      .throw_error("Sorry, seems like I encountered an error: ", e) # nocov
+      .throw_error("Maximizing the negative log-likelihood failed: ", e$message) # nocov
     })
     return(mle)
   }
@@ -619,16 +605,11 @@ calc_MinDose <- function(
   if (debug)
     print(suppressWarnings(bbmle::summary(ests)))
 
-  if (any(is.nan(coef_err)))
-    coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))[which(is.nan(coef_err))] / 100
+  ## deal with NA/NaN values
   if (anyNA(coef_err))
     coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))[which(is.na(coef_err))] / 100
 
-  if (par == 3)
-    which <- c("gamma", "sigma", "p0")
-  if (par == 4)
-    which <- c("gamma", "sigma", "p0", "mu")
-
+  which <- c("gamma", "sigma", "p0", if (par == 4) "mu")
   prof.lower <- c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf)
   prof.upper <- c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf)
 
@@ -718,19 +699,24 @@ calc_MinDose <- function(
     conf[1,1] <- conf[1,2]
     conf[1,2] <- t
   }
-  gamma_err <- if (log) {
-    (exp(conf["gamma",2])-exp(conf["gamma",1]))/3.92
-  } else {
-    (conf["gamma",2]-conf["gamma",1])/3.92
+
+  ## keep a copy of the original conf object to be returned at the end
+  conf.orig <- conf
+  if (log) {
+    logged.rows <- row.names(conf) != "p0"
+    conf[logged.rows, ] <- exp(conf[logged.rows, ])
   }
+
+  gamma_err <- (conf["gamma", 2] - conf["gamma", 1]) / 3.92
+
 
   ##============================================================================##
   ## AGGREGATE RESULTS
   summary <- data.frame(de=pal,
                         de_err=gamma_err,
                         ci_level = level,
-                        "ci_lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
-                        "ci_upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
+                        "ci_lower" = conf["gamma", 1],
+                        "ci_upper" = conf["gamma", 2],
                         par=par,
                         sig=ifelse(log, exp(sig), sig),
                         p0=p0end,
@@ -741,6 +727,13 @@ calc_MinDose <- function(
   args <- list(log=log, sigmab=sigmab, par = par, bootstrap=bootstrap,
                init.values=start, log.output = log.output,
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
+
+  if (!is.na(summary$mu) && !is.na(summary$de)) {
+    ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
+    if (summary$de > exp(summary$mu))
+      .throw_warning("Gamma is larger than mu, consider running the model ",
+                     "with new boundary values (see details '?calc_MinDose')")
+  }
 
   ##============================================================================##
   ## BOOTSTRAP
@@ -944,27 +937,21 @@ calc_MinDose <- function(
 
       cat("\n------ confidence intervals -----\n")
       conf_print <- round(conf, 2)
-      if (log) {
-        logged_rows <- row.names(conf_print) != "p0"
-        conf_print[logged_rows, ] <- exp(conf_print[logged_rows, ])
-        conf_print <- round(conf_print, 2)
-
-        if (log.output) {
-          conf_tmp <- round(conf, 2)
+      if (log && log.output) {
+          conf_tmp <- round(conf.orig, 2)
           conf_tmp[which(rownames(conf_tmp) == "p0"), ] <- "-"
-          conf_print <- cbind(round(conf_print, 2),
+          conf_print <- cbind(conf_print,
                               setNames(conf_tmp, names(conf_tmp)))
           conf_print <- rbind(
             setNames(data.frame("", "", "(logged)", "(logged)", row.names = "", stringsAsFactors = FALSE), names(conf_print)),
             conf_print)
-        }
       }
       print(conf_print)
 
       cat("\n------ De (asymmetric error) -----\n")
       print(round(data.frame(De=pal,
-                             "lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
-                             "upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
+                             "lower" = conf["gamma", 1],
+                             "upper" = conf["gamma", 2],
                              row.names=""), 2))
 
       cat("\n------ De (symmetric error) -----\n")
@@ -984,7 +971,7 @@ calc_MinDose <- function(
   if (!bootstrap)
     pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
 
-  newRLumResults.calc_MinDose <- set_RLum(
+  results <- set_RLum(
     class = "RLum.Results",
     originator = "calc_MinDose",
     data = list(summary = summary,
@@ -993,7 +980,7 @@ calc_MinDose <- function(
                 call = call,
                 mle = ests,
                 BIC = BIC,
-                confint = conf,
+                confint = conf.orig,
                 profile = prof,
                 bootstrap = list(
                   pairs = list(gamma=pairs),
@@ -1006,14 +993,7 @@ calc_MinDose <- function(
   ##=========##
   ## PLOTTING
   if (plot)
-    try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
+    try(plot_RLum.Results(results, ...))
 
-  if (!is.na(summary$mu) && !is.na(summary$de)) {
-    ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
-    if (summary$de > exp(summary$mu))
-      .throw_warning("Gamma is larger than mu, consider running the model ",
-                     "with new boundary values (see details '?calc_MinDose')")
-  }
-
-  invisible(newRLumResults.calc_MinDose)
+  results
 }
