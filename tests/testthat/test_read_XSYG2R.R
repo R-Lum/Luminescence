@@ -89,6 +89,13 @@ test_that("test import of XSYG files", {
     read_XSYG2R(test_path("_data/xsyg-tests/XSYG_file_TL_CASE3.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],
     "RLum.Analysis")
 
+  ## check case for no sequences in the file
+  expect_warning(t <- read_XSYG2R(test_path("_data/xsyg-tests/XSYG_noSequence.xsyg"),
+                                  verbose = FALSE),
+                 "1 incomplete sequence(s) removed",
+                 fixed = TRUE)
+  expect_equal(t, list())
+
   ## check case for no record Type
   t <- expect_s4_class(
     read_XSYG2R(test_path("_data/xsyg-tests/XSYG_noRecordType.xsyg"), fastForward = TRUE, txtProgressBar = FALSE, verbose = FALSE)[[1]],

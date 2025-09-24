@@ -672,9 +672,6 @@ read_XSYG2R <- function(
         }
         return(list(Sequence.Header = sequence.header,
                     Sequence.Object = sequence.object))
-
-      }else{
-        return(sequence.object)
       }
   }) ##end loop for sequence list
 
