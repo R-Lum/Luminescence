@@ -192,6 +192,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
   ## convert metadata object to data.table
   metadata.dt <- as.data.table(object@METADATA[, sel.cols])
 
+  ## silence notes raised by R CMD check
+  POSITION <- GRAIN <- RUN <- SET <- LTYPE <- DTYPE <- ID <- NULL
+
   object <- lapply(pos, function(pos) {
 
       ##update progress bar
