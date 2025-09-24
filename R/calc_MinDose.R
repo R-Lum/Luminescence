@@ -783,13 +783,11 @@ calc_MinDose <- function(
     }
 
     # Function that takes each of the N replicates and produces a kernel density
-    # estimate of length n. The normalised values are then returned as a matrix
-    # with dimensions [N, n]
+    # estimate of length n.
     get_KDE <- function(d) {
       f <- approx(density(x=d[ ,1], kernel="gaussian", bw = h), xout = d[ ,1])
       pStarTheta <- as.vector(f$y / sum(f$y))
-      x <- matrix(t(pStarTheta/(1/n)), N, n, byrow = TRUE)
-      return(x)
+      pStarTheta / (1 / n)
     }
 
     # Function that calculates the product term of the recycled bootstrap
@@ -800,19 +798,13 @@ calc_MinDose <- function(
 
     # Function that calculates the pseudo likelihoods for M replicates and
     # returns the dose-likelihood pairs
-    make_Pairs <- function(theta, b2mamvec, prodterm) {
-      pairs <- matrix(0, M, 2)
-      for (i in seq_len(M)) {
-        thetavec <- matrix(theta[i], N, 1)
-        kdthis <- (thetavec-b2mamvec)/h
-        kd1 <- dnorm(kdthis)
-
-        kd2 <- kd1*prodterm[[i]]
-        kd <- sum(kd2, na.rm = TRUE)
-        likelihood <- (1/(N*h))*kd
-        pairs[i, ] <- c(theta[i], likelihood)
-      }
-      return(pairs)
+    make_Pairs <- function(theta, b2mam, prodterm) {
+      kdthis <- vapply(theta, function(x) (x - b2mam) / h, numeric(N))
+      kd1 <- dnorm(kdthis)
+      kd2 <- kd1 * prodterm
+      kd <- colSums(kd2, na.rm = TRUE)
+      likelihood <- kd / (N * h)
+      cbind(theta, likelihood)
     }
 
     ## START BOOTSTRAP ----
@@ -853,13 +845,13 @@ calc_MinDose <- function(
     if (verbose)
       message("Calculating likelihoods...")
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
-    b2mamvec <- as.matrix(sapply(mle[1:N], save_Gamma, simplify = TRUE))
+    b2mam <- sapply(mle[1:N], save_Gamma)
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
     # Calculate the probability/pseudo-likelihood
     Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
-    prodterm <- lapply(Pmat, get_ProductTerm, b2Pmatrix)
+    prodterm <- vapply(Pmat, get_ProductTerm, b2Pmatrix, FUN.VALUE = numeric(N))
     # Save the bootstrap results as dose-likelihood pairs
-    pairs <- make_Pairs(theta, b2mamvec, prodterm)
+    pairs <- make_Pairs(theta, b2mam, prodterm)
 
     ## --------- FIT POLYNOMIALS -------------- ##
     if (verbose)
