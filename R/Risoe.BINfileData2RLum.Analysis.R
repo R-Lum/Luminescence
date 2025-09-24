@@ -95,6 +95,13 @@ Risoe.BINfileData2RLum.Analysis<- function(
   .validate_class(object, "Risoe.BINfileData")
   .validate_class(pos, c("numeric", "integer"), null.ok = TRUE)
 
+  ## check that all required columns are available
+  sel.cols <- c("ID", "POSITION", "GRAIN", "RUN", "SET", "LTYPE", "DTYPE")
+  if (!all(sel.cols %in% colnames(object@METADATA))) {
+    .throw_error("'object' has missing columns in METADATA: ",
+                 .collapse(setdiff(sel.cols, colnames(object@METADATA))))
+  }
+
   positions.valid <- unique(object@METADATA[["POSITION"]])
   if (is.null(pos)) {
     pos <- positions.valid
@@ -182,28 +189,27 @@ Risoe.BINfileData2RLum.Analysis<- function(
       pb <- txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
     }
 
-    object <- lapply(pos, function(pos){
+  ## convert metadata object to data.table
+  metadata.dt <- as.data.table(object@METADATA[, sel.cols])
+
+  object <- lapply(pos, function(pos) {
 
       ##update progress bar
       if(txtProgressBar){
         setTxtProgressBar(pb, value = pos)
       }
 
-      ##loop over the grains and produce RLum.Analysis objects
-      object <- lapply(grain, function(grain){
+    ## loop over the grains and produce RLum.Analysis objects
+    object <- lapply(grain, function(grain) {
 
         ## select data
         ## the NA check for grain is necessary as FI readers like to report
         ## NA instead of 0 in that column, and this causes some trouble
-        temp_id <- object@METADATA[
-              object@METADATA[["POSITION"]] == pos &
-              (is.na(object@METADATA[["GRAIN"]]) |
-               object@METADATA[["GRAIN"]] == grain) &
-              object@METADATA[["RUN"]] %in% run &
-              object@METADATA[["SET"]] %in% set &
-              object@METADATA[["LTYPE"]] %in% ltype &
-              object@METADATA[["DTYPE"]] %in% dtype
-            , "ID"]
+        temp_id <- metadata.dt[POSITION == pos &
+                               (is.na(GRAIN) | GRAIN == grain) &
+                               RUN %in% run & LTYPE %in% ltype &
+                               SET %in% set & DTYPE %in% dtype,
+                               ID]
 
         ## if the input object is empty, bypass the creation of curve objects
         if (length(object@DATA) == 0) {
