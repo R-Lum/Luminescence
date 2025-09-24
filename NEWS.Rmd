@@ -38,6 +38,11 @@ using the `inherits()` function, as in `inherits(object, "RLum.Data.Curve")`
 * The function no longer crashes if all objects in the input list are removed
 because empty (#1041).
 
+### `calc_Huntley()`
+
+* A warning raised in rare occasions if the number of Monte Carlo iterations
+is very small has been fixed (#1048).
+
 ### `combine_De_Dr()`
 
 * It is now possible to control the random seeds used by the JAGS MCMC chains

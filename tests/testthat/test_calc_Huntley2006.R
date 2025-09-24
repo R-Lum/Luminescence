@@ -329,4 +329,12 @@ test_that("regression tests", {
                        readerDdot = c(0.134, 0.0067), n.MC = 1,
                        mode = "extrapolation", verbose = FALSE),
       "RLum.Results")
+
+  ## issue 1048
+  set.seed(1)
+  expect_silent(
+      calc_Huntley2006(data, rhop = c(1e-7, 5e-7), ddot = c(7, 0.004),
+                       readerDdot = c(0.134, 0.0067), n.MC = 1,
+                       mode = "extrapolation", verbose = FALSE,
+                       plot_all_DRC = FALSE))
 })
