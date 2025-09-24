@@ -50,8 +50,8 @@ automatic count linearity correction. Because the information on the detectors
 are not consistent and are not consistently stored, this option should be used
 with caution.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal. If verbose is \code{FALSE} the \code{txtProgressBar} is also switched off}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
@@ -178,7 +178,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.7.0
+ 0.7.1
 }
 
 \examples{
@@ -221,6 +221,7 @@ XML: \url{https://en.wikipedia.org/wiki/XML}
 \link{approx}, \link{correct_PMTLinearity}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{IO}

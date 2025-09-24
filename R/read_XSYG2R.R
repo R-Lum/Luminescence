@@ -87,7 +87,6 @@
 #' of doubt, please verify the settings and conduct a manual correction
 #' if required.
 #'
-#'
 #' **Advanced file import**
 #'
 #' To allow for a more efficient usage of the function, instead of single path
@@ -130,8 +129,8 @@
 #' are not consistent and are not consistently stored, this option should be used
 #' with caution.
 #'
-#' @param verbose [logical] (*with default*): enable/disable output to the
-#' terminal. If verbose is `FALSE` the `txtProgressBar` is also switched off
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar during import. Ignored if `verbose = FALSE`.
@@ -158,17 +157,14 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSXG file are skipped.
 #'
-#'
-#' @section Function version: 0.7.0
-#'
+#' @section Function version: 0.7.1
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-#'
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso `'XML'`, [RLum.Analysis-class], [RLum.Data.Curve-class],
 #' [approx], [correct_PMTLinearity]
-#'
 #'
 #' @references
 #' Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
@@ -229,7 +225,8 @@ read_XSYG2R <- function(
   ##  - xlum should be general, xsyg should take care about subsequent details
 
   .validate_class(file, c("character", "list"))
-  .validate_class(n_records, c("numeric", "integer"), null.ok = TRUE)
+  .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
+  .validate_class(pattern, "character")
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -268,13 +265,9 @@ read_XSYG2R <- function(
 
     ##return
     if (fastForward) {
-      if(import){
+      if (import)
         return(unlist(temp.return, recursive = FALSE))
-
-      } else{
-        return(as.data.frame(data.table::rbindlist(temp.return)))
-      }
-
+      return(as.data.frame(data.table::rbindlist(temp.return)))
     } else{
       return(temp.return)
     }
@@ -282,7 +275,11 @@ read_XSYG2R <- function(
 
   ## Integrity checks -------------------------------------------------------
 
+  .validate_logical_scalar(fastForward)
+  .validate_logical_scalar(import)
   .validate_logical_scalar(auto_linearity_correction)
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(txtProgressBar)
 
   ## check for URL and attempt download
   url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"),
@@ -300,6 +297,10 @@ read_XSYG2R <- function(
       .throw_message("File does not exist, nothing imported, NULL returned")
     return(NULL)
   }
+
+  ## don't show the progress bar if not verbose
+  if (!verbose)
+    txtProgressBar <- FALSE
 
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")
@@ -388,7 +389,6 @@ read_XSYG2R <- function(
 
       ##additional option for fastForward == TRUE
       if(fastForward){
-
         ##change column header
         temp.sample <- t(temp.sample)
         colnames(temp.sample) <- paste0("sample::", colnames(temp.sample))
@@ -404,7 +404,7 @@ read_XSYG2R <- function(
   ## ========================================================================
   ## IMPORT XSYG FILE
 
-    if (verbose) {
+  if (verbose) {
       cat("\n[read_XSYG2R()] Importing ...")
       cat("\n path: ", dirname(file))
       cat("\n file: ", .shorten_filename(basename(file)))
@@ -412,10 +412,10 @@ read_XSYG2R <- function(
     }
 
   ## set n_records
-  n_records <- min(XML::xmlSize(temp), n_records[1])
+  n_records <- min(XML::xmlSize(temp), n_records)
 
   ## initialize the progress bar
-  if (verbose && txtProgressBar) {
+  if (txtProgressBar) {
     pb <- txtProgressBar(min = 0, max = n_records, char = "=", style = 3)
   }
 
@@ -511,7 +511,7 @@ read_XSYG2R <- function(
                       drop = FALSE]
 
               ## calculate corresponding heating rate, this makes only sense
-              ## for linear heating, therefore is has to be the maximum value
+              ## for linear heating, therefore it has to be the maximum value
 
               ##remove 0 values (not measured) and limit to peak
               heating.rate.values <- temp.sequence.object.curveValue.heating.element[
@@ -619,7 +619,6 @@ read_XSYG2R <- function(
                 ##change curve descriptor
                 temp.sequence.object.info$curveDescripter <- "Temperature [\u00B0C]; Wavelength [nm]; Counts [1/ch]"
               }
-
             }##endif
           }##endif recalculate.TL.curves == TRUE
 
@@ -635,7 +634,6 @@ read_XSYG2R <- function(
               temp.sequence.object.curveValue <-
                 src_get_XSYG_curve_values(XML::xmlValue(temp.sequence.object.curveValue))
             }
-
           } else {
             out.class <- "RLum.Data.Spectrum"
             if (!inherits(temp.sequence.object.curveValue, "matrix")) {
@@ -671,7 +669,7 @@ read_XSYG2R <- function(
         temp.sequence.object <- .set_pid(temp.sequence.object)
 
         ##update progress bar
-        if (verbose && txtProgressBar) {
+        if (txtProgressBar) {
           setTxtProgressBar(pb, x)
         }
 
@@ -685,7 +683,7 @@ read_XSYG2R <- function(
   }) ##end loop for sequence list
 
   ## close ProgressBar
-  if (verbose && txtProgressBar)
+  if (txtProgressBar)
     close(pb)
 
   ## show output information

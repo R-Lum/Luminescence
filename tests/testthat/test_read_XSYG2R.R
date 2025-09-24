@@ -17,6 +17,8 @@ test_that("input validation", {
                  "Error: File does not exist, nothing imported")
   expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
                  "Error: XML file not readable, nothing imported")
+  expect_error(read_XSYG2R(xsyg.file, n_records = "error"),
+               "'n_records' should be a positive integer scalar or NULL")
 
   SW({
   expect_message(expect_null(read_XSYG2R(test_path("_data/bin-tests/"))),
@@ -55,8 +57,6 @@ test_that("test import of XSYG files", {
               "list")
   expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 10),
               "list")
-  expect_error(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = "error"),
-               regexp = "\\[read\\_XSYG2R\\(\\)\\] 'n\\_records' should be of class")
 
   ## list input
   expect_type(read_XSYG2R(list(xsyg.file), fastForward = TRUE,
