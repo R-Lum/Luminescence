@@ -862,11 +862,13 @@ calc_MinDose <- function(
     ## Inf values >>> we remove them here with a warning
     is.inf <- is.infinite(pairs[, 2])
     if (any(is.inf)) {
+      # nocov start
       .throw_warning("Inf values produced by bootstrapping removed for loess ",
                      "fitting (", round(sum(is.inf) / nrow(pairs) * 100, 2),
                      "% of the total dataset). This message usually indicates ",
                      "that your values are close to 0.")
       pairs <- pairs[!is.inf, ]
+      # nocov end
     }
 
     poly.three <- stats::lm(pairs[, 2] ~ poly(pairs[, 1], degree = 3, raw = TRUE))

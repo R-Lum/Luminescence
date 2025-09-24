@@ -105,6 +105,7 @@ test_that("check functionality", {
                              debug = TRUE, log = FALSE),
                  "Not enough bootstrap replicates for loess fitting")
   expect_output(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
+                             gamma.upper = 4,
                              verbose = TRUE, log.output = TRUE, par = 4))
   expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                              verbose = FALSE, invert = TRUE,
