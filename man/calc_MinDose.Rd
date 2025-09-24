@@ -180,7 +180,7 @@ works well \verb{[...]}." (Bolker 2016).
 
 For more details on the profile likelihood
 calculations and plots please see the vignettes of the \code{bbmle} package
-(also available here: \link{https://CRAN.R-project.org/package=bbmle}.
+(also available here: \url{https://CRAN.R-project.org/package=bbmle}.
 }
 \note{
 The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}

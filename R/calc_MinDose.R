@@ -90,7 +90,7 @@
 #'
 #' For more details on the profile likelihood
 #' calculations and plots please see the vignettes of the `bbmle` package
-#' (also available here: [https://CRAN.R-project.org/package=bbmle].
+#' (also available here: [https://CRAN.R-project.org/package=bbmle]().
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns for De and De error.
