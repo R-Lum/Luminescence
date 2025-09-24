@@ -36,11 +36,10 @@ test_that("input validation", {
 
   ## empty object
   expect_message(expect_null(plot_RLum.Analysis(set_RLum("RLum.Analysis"))),
-                 "Nothing plotted, NULL returned")
-  expect_message(expect_message(
+                 "Nothing to plot, NULL returned")
+  expect_message(
       plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
-      "'combine' can't be used with fewer than two curves"),
-      "Nothing plotted, NULL returned")
+      "Nothing to plot, NULL returned")
 
   ## empty RLum.Data.Image
   expect_silent(plot_RLum.Analysis(

@@ -135,6 +135,10 @@ plot_RLum.Analysis <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
+  if (length(object) == 0) {
+    .throw_message("Nothing to plot, NULL returned", error = FALSE)
+    return(NULL)
+  }
   .validate_positive_scalar(records_max, null.ok = TRUE)
 
   if(!is.null(subset)){
@@ -241,11 +245,7 @@ plot_RLum.Analysis <- function(
 
   ## (1) NORMAL (combine == FALSE) -------------------------------------------
   if (!combine) {
-    temp <- .rm_NULL_elements(object@records)
-    if (length(temp) == 0) {
-      .throw_message("Nothing plotted, NULL returned", error = FALSE)
-      return(NULL)
-    }
+    temp <- object@records
 
     ##calculate number of pages for mtext
     if (length(temp) %% (nrows * ncols) > 0) {

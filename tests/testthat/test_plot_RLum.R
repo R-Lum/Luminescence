@@ -10,7 +10,7 @@ test_that("empty objects", {
   testthat::skip_on_cran()
 
   expect_message(plot_RLum(set_RLum("RLum.Analysis")),
-                 "Nothing plotted, NULL returned")
+                 "Nothing to plot, NULL returned")
   expect_silent(plot_RLum(set_RLum("RLum.Data.Curve")))
   expect_silent(plot_RLum(set_RLum("RLum.Data.Image")))
   expect_error(plot_RLum(set_RLum("RLum.Data.Spectrum")),
