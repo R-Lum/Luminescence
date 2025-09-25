@@ -35,9 +35,6 @@ test_that("check functionality", {
                   "RLum.Results")
   })
 
-  ## TODO this leads to a crash and should be checked
-  ## calc_EED_Model(data = MortarData, expected_dose = 11.7, n.simul = 1950)
-
   ## fast run
   expect_s4_class(calc_EED_Model(
     data = MortarData,
