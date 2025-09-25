@@ -66,7 +66,7 @@ test_that("check functionality", {
     kappa = 1,
     expected_dose = 95,
     n.simul = 300),
-    "Surface interpolation failed, you may want to try it again")
+    "Surface interpolation failed: scales of x and y are too dissimilar")
   })
 })
 
