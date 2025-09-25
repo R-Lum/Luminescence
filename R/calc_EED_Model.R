@@ -381,10 +381,12 @@ calc_EED_Model <- function(
           nx = 200,
           ny = 200,
           duplicate = "strip" #does not seem to work
-        ), outFile = stdout()) # redirect messages so they can be silenced
+        ), silent = TRUE)
 
       if (inherits(s, "try-error")) {
-        .throw_error("Surface interpolation failed, you may want to try it again")
+        .throw_error("Surface interpolation failed: ",
+                     attr(s, "condition")$message,
+                     ", you may want to try it again")
       }
 
       ##graphical output

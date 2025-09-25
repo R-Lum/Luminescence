@@ -35,6 +35,9 @@
 - A crash that occurred with a small number of simulation was fixed
   (#1051).
 
+- The error message in case of failed surface interpolation is now
+  clearer and more complete (#1053).
+
 ### `calc_Huntley()`
 
 - A warning raised in rare occasions if the number of Monte Carlo
