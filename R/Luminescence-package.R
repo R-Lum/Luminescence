@@ -115,12 +115,37 @@
 #'
 "_PACKAGE"
 
-#' Base data set of dose-rate conversion factors
+#' @title Base datasets
 #'
-#' Collection of published dose-rate conversion factors to convert concentrations
-#' of radioactive isotopes to dose rate values.
+#' @description
+#' Collection of datasets with published and unpublished data used within the
+#' package.
 #'
+#' \describe{
+#' \item{BaseData.ConversionFactors}{Collection of published dose-rate
+#' conversion factors to convert concentrations of radioactive isotopes to
+#' dose rate values}
+#' \item{BaseData.GrainSizeAttenuation}{Grain size attenuation data by Guérin
+#' et al. (2012)}
+#' \item{BaseData.FractionalGammaDose}{Collection of (un-)published fractional
+#' gamma dose-rate values to scale the gamma-dose rate considering layer-to-layer
+#' variations in soil radioactivity}
+#' }
+#'
+#' @section Version: 0.2.0
+#'
+#' @keywords datasets
+#'
+#' @aliases
+#' BaseDataSet.ConversionFactors
+#' BaseDataSet.GrainSizeAttenuation
+#' BaseDataSet.FractionalGammaDose
+#'
+#' @name BaseDataSet
+NULL
+
 #' @format
+#' **Dose-rate conversion factors**
 #'
 #' A [`list`] with three elements with dose-rate conversion factors
 #' sorted by article and radiation type (alpha, beta, gamma):
@@ -140,9 +165,10 @@
 #' Conversion factors from Tables 1, 2 and 3 \cr
 #' }
 #'
-#' @section Version: 0.2.0
+#' @source
+#' **Dose-rate conversion factors**
 #'
-#' @references
+#' All gamma conversion factors were carefully read from the tables given in:
 #'
 #' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 #' Ancient TL 16, 37-46.
@@ -151,64 +177,45 @@
 #' Dose rate conversion parameters: Assessment of nuclear data.
 #' Radiation Measurements 120, 195-201.
 #'
-#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+#' Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 #' factors: update. Ancient TL, 29, 5-8.
 #'
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 #' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 #' Archaeology and Archaeometry 13, 1-15.
 #'
-#'
-#' @source
-#' All gamma conversion factors were carefully read from the tables given in the
-#' references above.
-#'
-#' @keywords datasets
-#'
 #' @examples
-#'
-#' ## Load data
+#' ## conversion factors
 #' data("BaseDataSet.ConversionFactors", envir = environment())
 #'
-#' @name BaseDataSet.ConversionFactors
+#' @name BaseDataSet
 NULL
 
-#' @title Base dataset for grain size attenuation data by Guérin et al. (2012)
-#'
-#' @description Grain size correction data for beta-dose rates
-#' published by Guérin et al. (2012).
-#'
 #' @format
+#' **Grain size attenuation data**
 #'
 #' A [`data.frame`] seven columns and sixteen rows. Column headers
 #' are `GrainSize`, `Q_K`, `FS_K`, `Q_Th`, `FS_Th`, `Q_U`, `FS_U`.
 #' Grain sizes are quoted in µm (e.g., 20, 40, 60 etc.)
 #'
-#' @section Version: 0.1.0
+#' @source
+#' **Grain size attenuation data**
 #'
-#' @source Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012.
+#' Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012.
 #' On the use of the infinite matrix assumption and associated concepts:
 #' A critical review. Radiation Measurements, 47, 778-785.
 #'
-#' @keywords datasets
-#'
 #' @examples
-#'
-#' ## load data
+#' ## grain size attenuation
 #' data("BaseDataSet.GrainSizeAttenuation", envir = environment())
 #'
-#' @name BaseDataSet.GrainSizeAttenuation
+#' @name BaseDataSet
 NULL
 
-#' Base data set of fractional gamma-dose values
-#'
-#' Collection of (un-)published fractional gamma dose-rate values to scale the
-#' gamma-dose rate considering layer-to-layer variations in soil radioactivity.
-#'
 #' @format
+#' **Fractional gamma dose-rate values**
 #'
-#' A [`list`] with fractional gamma dose-rate values
-#' sorted by article:
+#' A [`list`] with fractional gamma dose-rate values sorted by article:
 #'
 #' \tabular{ll}{
 #'
@@ -216,24 +223,18 @@ NULL
 #' Fractional gamma-dose values from table H.1
 #' }
 #'
+#' @source
+#' **Fractional gamma dose-rate values**
 #'
-#' @section Version: 0.1
+#' Fractional gamma dose values were carefully read from the tables given in:
 #'
-#' @references
 #' Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 #'
-#' @source
-#' Fractional gamma dose values were carefully read from the tables given in the
-#' references above.
-#'
-#' @keywords datasets
-#'
 #' @examples
-#'
-#' ## Load data
+#' ## fractional gamma dose
 #' data("BaseDataSet.FractionalGammaDose", envir = environment())
 #'
-#' @name BaseDataSet.FractionalGammaDose
+#' @name BaseDataSet
 NULL
 
 #' Example data for scale_GammaDose()
