@@ -715,7 +715,7 @@ if(plot) {
     plot_index <- 1
     cur_ind <- 1
 
-   while(plot_index < Nsimul ){
+  while (plot_index < NbSimPtsDisplayed) {
      XY_psimul[cur_ind, 1] <-  M_Simul[plot_index, 4]
      XY_psimul[cur_ind, 2] <-  M_Simul[plot_index, 8]
      plot_index <- plot_index + delta_index

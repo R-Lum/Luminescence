@@ -72,3 +72,15 @@ test_that("check functionality", {
     "Surface interpolation failed, you may want to try it again")
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1051
+  expect_silent(calc_EED_Model(
+    data = MortarData,
+    expected_dose = 11.7,
+    n.simul = 10,
+    verbose = FALSE,
+    plot = TRUE))
+})
