@@ -846,11 +846,12 @@ analyse_IRSAR.RF<- function(
     fit.MC.results <- data.frame()
 
     ##produce set of start paramters
+    n.MC <- n.MC %||% 0
     lambda.MC <- seq(0.0001, 0.001, length = n.MC)
     start.MC <- fit.parameters.start
 
     ##start fitting loop for MC runs
-    for(i in 1:n.MC){
+    for (i in seq_len(n.MC)) {
       start.MC["lambda"] <- lambda.MC[i]
       fit.MC <- try(nls(
         fit.function,
