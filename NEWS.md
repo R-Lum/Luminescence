@@ -30,6 +30,11 @@
 - The function no longer crashes if all objects in the input list are
   removed because empty (#1041).
 
+### `analyse_IRSAR.RF()`
+
+- The function no longer crashes when `n.MC = NULL` is used with the
+  `FIT` method (#1055).
+
 ### `calc_EED_Model()`
 
 - A crash that occurred with a small number of simulation was fixed
