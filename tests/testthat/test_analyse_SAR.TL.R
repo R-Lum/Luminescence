@@ -45,9 +45,15 @@ test_that("input validation", {
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
                "Signal ranges differ (225, 250), check sequence structure",
                fixed = TRUE)
+
+  expect_output(expect_null(
+      analyse_SAR.TL(object[1:4], fit.method = "ERROR",
+                     signal.integral.min = 2, signal.integral.max = 3,
+                     sequence.structure = "SIGNAL"),
+      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
 })
 
-test_that("Test examples", {
+test_that("snapshot tests", {
   skip_on_cran()
 
   SW({
@@ -87,23 +93,20 @@ test_that("Test examples", {
                    sequence.structure = c("SIGNAL", "EXCLUDE"))
     ),
   "Error column invalid or 0, 'fit.weights' ignored")
-
-  ## FIXME(mcol): this example doesn't work with snapshotting
-  expect_s4_class(
-    analyse_SAR.TL(
-      object,
-      signal.integral.min = 210,
-      signal.integral.max = 220,
-      fit.method = "EXP OR LIN",
-      sequence.structure = c("SIGNAL", "BACKGROUND")),
-    "RLum.Results")
   })
+})
 
-  expect_output(expect_null(
-      analyse_SAR.TL(object[1:4], fit.method = "ERROR",
-                     signal.integral.min = 2, signal.integral.max = 3,
-                     sequence.structure = "SIGNAL"),
-      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              analyse_SAR.TL(object,
+                                             signal.integral.min = 210,
+                                             signal.integral.max = 220,
+                                             sequence.structure = c("SIGNAL", "BACKGROUND")))
+  })
 })
 
 test_that("regression tests", {

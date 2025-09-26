@@ -1,4 +1,4 @@
-# Test examples
+# snapshot tests
 
     {
       "type": "S4",

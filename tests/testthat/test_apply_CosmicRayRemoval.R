@@ -114,6 +114,20 @@ test_that("check functionality", {
   expect_type(apply_CosmicRayRemoval(RLum.Analysis_mixed_list), "list")
 })
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  frame <- trim_RLum.Data(TL.Spectrum, trim_range = c(10, 10))
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              apply_CosmicRayRemoval(frame,
+                                                     method = "Pych",
+                                                     plot = TRUE))
+  })
+})
+
 test_that("regression tests", {
   testthat::skip_on_cran()
 
