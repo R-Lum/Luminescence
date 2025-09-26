@@ -121,7 +121,7 @@ DRAC_refs <- function() {
     Guerinetal2011 = bibentry(
       bibtype = "Article",
       author = c(
-        person("G.", "Guérin"),
+        person("G.", "Guerin"),
         person("N.", "Mercier"),
         person("G.", "Adamiec")
       ),
@@ -241,7 +241,7 @@ DRAC_refs <- function() {
     `Guerinetal2012-Q` = bibentry(
       bibtype = "Article",
       author = c(
-        person("G.", "Guérin"),
+        person("G.", "Guerin"),
         person("N.", "Mercier"),
         person("R.", "Nathan"),
         person("G.", "Adamiec"),
@@ -257,7 +257,7 @@ DRAC_refs <- function() {
     `Guerinetal2012-F` = bibentry(
       bibtype = "Article",
       author = c(
-        person("G.", "Guérin"),
+        person("G.", "Guerin"),
         person("N.", "Mercier"),
         person("R.", "Nathan"),
         person("G.", "Adamiec"),

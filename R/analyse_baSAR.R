@@ -1001,7 +1001,7 @@ analyse_baSAR <- function(
         object@DATA[rm_id] <- NULL
 
         ##reset index
-        object@METADATA[["ID"]] <- 1:length(object@METADATA[["ID"]])
+        object@METADATA[["ID"]] <- seq_along(object@METADATA[["ID"]])
       }
     }
 
@@ -1068,7 +1068,7 @@ analyse_baSAR <- function(
             x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
 
             ##reset index
-            x@METADATA[["ID"]] <- 1:nrow(x@METADATA)
+            x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
             return(x)
       })
     }
@@ -1088,7 +1088,7 @@ analyse_baSAR <- function(
     Limited_cycles <- vector()
 
     ##set information
-    for (i in 1 : length(fileBIN.list)) {
+    for (i in seq_along(fileBIN.list)) {
       Disc[[i]] <-  list()
       Grain[[i]] <-  list()
 
@@ -1141,7 +1141,7 @@ analyse_baSAR <- function(
       cat("[analyse_baSAR()] 'CSV_file' not provided, running automatic grain selection ...\n")
     }
 
-    for (k in 1:length(fileBIN.list)) {
+    for (k in seq_along(fileBIN.list)) {
       ##if the uses provides only multiple grain data (GRAIN == 0), the verification
       ##here makes not really sense and should be skipped
       if(length(unique(fileBIN.list[[k]]@METADATA[["GRAIN"]])) > 1){
@@ -1230,7 +1230,7 @@ analyse_baSAR <- function(
     Nb_ali <-  0
     k <- NULL
 
-    for (nn in 1:nrow(datalu)) {
+    for (nn in seq_len(nrow(datalu))) {
       if (!is.na(datalu[nn, 1]))  {
 
         ##check whether one file fits
@@ -1270,7 +1270,7 @@ analyse_baSAR <- function(
   }
 
   ###################################### loops on files_number
-  for (k in 1:length(fileBIN.list)) {
+  for (k in seq_along(fileBIN.list)) {
     Disc_Grain.list[[k]] <- list()   # data.file number
     n_aliquots_k <- length(Disc[[k]])
 
@@ -1303,7 +1303,7 @@ analyse_baSAR <- function(
     cat("\n[analyse_baSAR()] Hang on, this may take a while ... \n")
   }
 
-  for (k in 1:length(fileBIN.list)) {
+  for (k in seq_along(fileBIN.list)) {
     ## check that the data available is consistent
     length.data <- nrow(fileBIN.list[[k]]@METADATA)
     length.disc <- length(Disc[[k]])
@@ -1334,7 +1334,7 @@ analyse_baSAR <- function(
     }
 
     ### Automatic Filling - Disc_Grain.list
-    for (i in 1: length(Disc[[k]])) {
+    for (i in seq_along(Disc[[k]])) {
       disc_selected <-  as.integer(Disc[[k]][i])
       grain_selected <- if (Mono_grain) as.integer(Grain[[k]][i]) else 0
 
@@ -1378,13 +1378,13 @@ analyse_baSAR <- function(
   max_cycles <-  0
   count <- 1
 
-  for (k in 1:length(fileBIN.list)) {
+  for (k in seq_along(fileBIN.list)) {
 
     ##plot Ln and Tn curves if wanted
     ##we want to plot the Ln and Tn curves to get a better feeling
     ##The approach here is rather rough coded, but it works
     if (plot) {
-      curve_index <- vapply(1:length(Disc[[k]]), function(i) {
+      curve_index <- vapply(seq_along(Disc[[k]]), function(i) {
         dd <- as.integer(Disc[[k]][i])
         gg <- if (Mono_grain) as.integer(Grain[[k]][i]) else 1
 
@@ -1405,7 +1405,7 @@ analyse_baSAR <- function(
 
       ##get natural curve and combine them in matrix
       graphics::matplot(
-        x = 1:nrow(Ln_dt),
+        x = seq_len(nrow(Ln_dt)),
         y = Ln_dt,
         col = rgb(0, 0, 0, 0.3),
         ylab = "Luminescence [a.u.]",
@@ -1420,7 +1420,7 @@ analyse_baSAR <- function(
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
 
       graphics::matplot(
-        x = 1:nrow(Tn_dt),
+        x = seq_len(nrow(Tn_dt)),
         y = Tn_dt,
         col = rgb(0, 0, 0, 0.3),
         ylab = "Luminescence [a.u.]",
@@ -1447,7 +1447,7 @@ analyse_baSAR <- function(
     }
 
 
-    for (i in 1:length(Disc[[k]])) {
+    for (i in seq_along(Disc[[k]])) {
       dd <- as.integer(Disc[[k]][i])
       gg <- if (Mono_grain) as.integer(Grain[[k]][i]) else 1
       sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
@@ -1562,8 +1562,8 @@ analyse_baSAR <- function(
   )
 
   comptage <- 0
-  for (k in 1:length(fileBIN.list)) {
-    for (i in 1:length(Disc[[k]])) {
+  for (k in seq_along(fileBIN.list)) {
+    for (i in seq_along(Disc[[k]])) {
       dd <- as.numeric(Disc[[k]][i])
       gg <- if (Mono_grain) as.numeric(Grain[[k]][i]) else 1
 
@@ -1607,7 +1607,7 @@ analyse_baSAR <- function(
     ##clean up NaN values in the LxTx and corresponding error values
     ##the transposition of the matrix may increase the performance for very large matrices
     OUTPUT_results_reduced <- t(OUTPUT_results)
-    selection <- vapply(X = 1:ncol(OUTPUT_results_reduced), FUN = function(x){
+    selection <- vapply(seq_len(ncol(OUTPUT_results_reduced)), function(x) {
       col <- OUTPUT_results_reduced[9:(8 + 3 * max_cycles), x]
       !any(is.nan(col) | is.infinite(col))
     }, FUN.VALUE = logical(1))
@@ -1675,8 +1675,8 @@ analyse_baSAR <- function(
       .throw_warning(sprintf(msg, "lower"))
     }
 
-    if(min(input_object[["DE"]][input_object[["DE"]] > 0], na.rm = TRUE) < method_control$lower_centralD |
-       max(input_object[["DE"]], na.rm = TRUE) > method_control$upper_centralD){
+    if (min(input_object[["DE"]][input_object[["DE"]] > 0], na.rm = TRUE) < method_control$lower_centralD ||
+        max(input_object[["DE"]], na.rm = TRUE) > method_control$upper_centralD) {
       .throw_warning("Your lower_centralD and/or upper_centralD values ",
                      "seem not to fit to your input data. This may indicate ",
                      "a wronlgy set 'source_doserate'.")
@@ -1837,7 +1837,7 @@ analyse_baSAR <- function(
     aliquot_quantiles <- apply(plot_matrix, 2, quantile, c(0.25, 0.75))
 
     ##define boxplot colours ... we have red and orange
-    box.col <- vapply(1:ncol(aliquot_quantiles), function(x){
+    box.col <- vapply(seq_len(ncol(aliquot_quantiles)), function(x) {
       idx <- 1
       if (aliquot_quantiles[2,x] < results[[1]][, c("CENTRAL_Q_.16")] ||
           aliquot_quantiles[1,x] > results[[1]][, c("CENTRAL_Q_.84")])
