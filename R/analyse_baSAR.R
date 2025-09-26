@@ -1983,7 +1983,7 @@ analyse_baSAR <- function(
           if (nrow(plot_matrix) != 0 && all(var.required %in% variable.names)) {
             ##plot individual dose response curves
             x <- NA
-            for (i in seq(1, nrow(plot_matrix), length.out = 1000)) {
+            for (i in seq_len(min(nrow(plot_matrix), 1000))) {
               curve(
                   GC_Origin * plot_matrix[i, "g"] +
                   LinGC * (plot_matrix[i, "c"] * x) +
