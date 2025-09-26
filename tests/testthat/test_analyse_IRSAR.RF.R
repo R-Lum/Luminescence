@@ -10,7 +10,7 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(iris),
                "'object' should be of class 'RLum.Analysis' or a 'list'")
-   expect_error(analyse_IRSAR.RF(list(iris)),
+  expect_error(analyse_IRSAR.RF(list(iris)),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
@@ -92,6 +92,10 @@ test_that("input validation", {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method_control = list(vslide_range = 1:4)),
                  "'vslide_range' in 'method_control' has more than 2 elements")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
+                                method_control = list(vslide_range = c(0, 1e7))),
+               "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)",
+               fixed = TRUE)
 
   ## num_slide_windows
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
@@ -116,15 +120,10 @@ test_that("snapshot tests", {
   testthat::skip_on_cran()
 
   set.seed(1)
-  expect_snapshot_RLum(
-      results_fit <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
-                                      plot = TRUE))
-  expect_snapshot_RLum(
-      results_slide <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
-                                        plot = TRUE, n.MC = NULL))
+  expect_snapshot_RLum(analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
+                                        plot = FALSE))
   SW({
   expect_snapshot_RLum(
-  results_slide_alt <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -137,7 +136,6 @@ test_that("snapshot tests", {
   )
 
   expect_snapshot_RLum(
-  results_slide_alt2 <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -149,31 +147,33 @@ test_that("snapshot tests", {
     )
   )
   })
-
-  expect_snapshot_RLum(
-    analyse_IRSAR.RF(
-      object = IRSAR.RF.Data,
-      method = "None",
-      mtext = "Subtitle",
-      n.MC = 10,
-      txtProgressBar = FALSE
-    )
-  )
-
-  expect_s3_class(results_fit$fit, class = "nls")
-  expect_s3_class(results_slide$fit, class = "nls")
 })
 
-test_that("test controlled crash conditions", {
+test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
 
-  ##the sliding range should not exceed a certain value ... test it
-  expect_error(
-    analyse_IRSAR.RF(
-      object = IRSAR.RF.Data,
-      method = "SLIDE",
-      method_control = list(vslide_range = c(0,1e+07)),
-    ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
+  SW({
+  vdiffr::expect_doppelganger("fit",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "FIT",
+                                               n.MC = NULL))
+  vdiffr::expect_doppelganger("slide",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "SLIDE",
+                                               n.MC = NULL))
+  vdiffr::expect_doppelganger("vslide",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "VSLIDE",
+                                               n.MC = NULL))
+  vdiffr::expect_doppelganger("none subtitle log",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "None",
+                                               mtext = "Subtitle",
+                                               log = "xy",
+                                               n.MC = 10,
+                                               txtProgressBar = FALSE))
+  })
 })
 
 test_that("test support for IR-RF data", {
