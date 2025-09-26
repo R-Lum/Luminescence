@@ -251,44 +251,34 @@ apply_CosmicRayRemoval <- function(
         fill = extraArgs$fill[1],
         align = extraArgs$align[1])
 
-    ## remove BA
-    if(MARGIN == 1 & is.na(extraArgs$fill[1])) {
+    ## remove NA values
+    if (is.na(extraArgs$fill[1])) {
       id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
-
-      if(length(id_NA) > 0) {
-        object.data.temp.smooth <- object.data.temp.smooth[-id_NA, ,drop = FALSE]
-        object@data <- object@data[,-id_NA, drop = FALSE]
-      }
-
-    } else if (MARGIN == 2 & is.na(extraArgs$fill[1])){
-      id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
-
-      if(length(id_NA) > 0) {
+      if (length(id_NA) > 0) {
         object.data.temp.smooth <- object.data.temp.smooth[-id_NA, , drop = FALSE]
-        object@data <- object@data[-id_NA,,drop = FALSE]
+        if (MARGIN == 1)
+          object@data <- object@data[,-id_NA, drop = FALSE]
+        else
+          object@data <- object@data[-id_NA,, drop = FALSE]
       }
     }
 
   ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
   }else if(method == "Pych"){
-    ## grep data matrix
-    object.data.temp <- object@data
-
     ## apply smoothing
-    object.data.temp.smooth <- sapply(X = 1:ncol(object.data.temp), function(x){
-
+    frame.idx <- 0
+    object.data.temp.smooth <- apply(object@data, 2, function(data.col) {
+      frame.idx <<- frame.idx + 1
       ##(1) - calculate sd for each subframe
-      temp.sd <- sd(object.data.temp[,x])
+      temp.sd <- sd(data.col)
 
       ##(2) - correct estimation of sd by 1-sigma clipping
-      temp.sd.corr <- sd(object.data.temp[
-        object.data.temp[,x] >= (mean(object.data.temp[,x]) - temp.sd) &
-          object.data.temp[,x] <= (mean(object.data.temp[,x]) + temp.sd)
-        , x])
+      temp.sd.corr <- sd(data.col[data.col >= (mean(data.col) - temp.sd) &
+                                  data.col <= (mean(data.col) + temp.sd)])
 
       ##(3) - construct histogram of count distribution
-      temp.hist <- hist(object.data.temp[,x],
-                        breaks = length(object.data.temp[,x])/2, plot = FALSE)
+      temp.hist <- hist(data.col,
+                        breaks = length(data.col)/2, plot = FALSE)
 
       ##(4) - find mode of the histogram (e.g. peak)
       temp.hist.max <- which.max(temp.hist$counts)
@@ -319,18 +309,16 @@ apply_CosmicRayRemoval <- function(
       ##(7) - use counts above the threshold and recalculate values
       ## on all further values
       if(!is.na(temp.hist.thres)){
-        object.data.temp[,x] <- sapply(1:nrow(object.data.temp), function(n){
+        data.col <- sapply(1:length(data.col), function(n) {
 
-          if(c(n + method.Pych.smoothing) <= nrow(object.data.temp) &
+          if((n + method.Pych.smoothing) <= length(data.col) &
              (n - method.Pych.smoothing) >= 0){
-
             ifelse(
-              object.data.temp[n,x] >= temp.hist$breaks[temp.hist.thres],
-              median(object.data.temp[(n-method.Pych.smoothing):
-                                        (n+method.Pych.smoothing),x]),
-              object.data.temp[n,x])
+              data.col[n] >= temp.hist$breaks[temp.hist.thres],
+              median(data.col[(n-method.Pych.smoothing):(n+method.Pych.smoothing)]),
+              data.col[n])
           }else{
-            object.data.temp[n,x]
+            data.col[n]
           }
         })
       }
@@ -344,16 +332,13 @@ apply_CosmicRayRemoval <- function(
         abline(v = temp.hist$breaks[temp.hist.thres],
                col = "red")
 
+        mtext.text <- sprintf("Frame: %d (%s)", frame.idx, colnames(object@data)[frame.idx])
         if(!is.na(temp.hist$breaks[temp.hist.thres])){
           legend("topright", "threshold" ,lty = 1, lwd = 1, col = "red", bty = "n")
-          mtext(side = 3, paste0("Frame: ", x, " (",
-                                 colnames(object.data.temp)[x],
-                                 ")"))
         }else{
-          mtext(side = 3, paste0("Frame: ", x, " (",
-                                 colnames(object.data.temp)[x],
-                                 ") - no threshold applied!"))
+          mtext.text <- paste(mtext.text, "- no threshold applied")
         }
+        mtext(side = 3, mtext.text)
       }
 
       ##(9) - return information on the amount of removed cosmic-rays
@@ -368,11 +353,11 @@ apply_CosmicRayRemoval <- function(
           sum.corrected.channels <- 0
 
         .throw_message(">> ", sum.corrected.channels,
-                       " channels corrected in frame ", x, "\n", error = FALSE)
+                       " channels corrected in frame ", frame.idx, "\n", error = FALSE)
       }
 
       ##return object
-      return(object.data.temp[,x])
+      return(data.col)
     })#end loop
   }
 
