@@ -38,6 +38,9 @@ using the `inherits()` function, as in `inherits(object, "RLum.Data.Curve")`
 * The function no longer crashes if all objects in the input list are removed
 because empty (#1041).
 
+* The dose response curves are no longer overplotted when there are fewer than
+1000 MCMC iterations (#1058).
+
 ### `analyse_IRSAR.RF()`
 
 * The function no longer crashes when `n.MC = NULL` is used with the `FIT`

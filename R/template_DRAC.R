@@ -175,7 +175,7 @@ template_DRAC <- function(
 
     `Conversion factors` =
       structure(factor(rep(NA_character_, nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "Cresswelletal2018", "X")), required = FALSE, allowsX = TRUE,  default_class = "factor", key = "TI:4",
-                description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guérin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal2018', or 'X' if conversion factors are not required."), #
+                description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal2018', or 'X' if conversion factors are not required."), #
 
     `External U (ppm)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE,  default_class = "numeric", key = "TI:5",
@@ -299,7 +299,7 @@ template_DRAC <- function(
 
     `beta-Grain size attenuation ` =
       structure(factor(rep(NA_character_, nrow), c("Mejdahl1979", "Brennan2003", "Guerinetal2012-Q", "Guerinetal2012-F")), required = TRUE, allowsX = FALSE,  default_class = "factor", key = "TI:35",
-                description = "The grain size attenuation factors for the beta dose rate. Users have the option of datasets from Mejdahl (1979), Brennan (2003) and Guérin et al. (2012) for quartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q' or 'Guerinetal2012-F' ."), #
+                description = "The grain size attenuation factors for the beta dose rate. Users have the option of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for quartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q' or 'Guerinetal2012-F' ."), #
 
     `Etch depth min (microns)` =
       structure(rep(NA_integer_, nrow), required = TRUE, allowsX = FALSE,  default_class = "integer", key = "TI:36",
