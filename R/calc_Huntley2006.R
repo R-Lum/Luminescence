@@ -797,14 +797,14 @@ calc_Huntley2006 <- function(
 
   ## (3) UNFADED ---------------------------------------------------------------
   LxTx.unfaded <- LxTx.measured / theta(dosetime, rhop[1])
-  LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
-  LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
+
+  ## set Inf and NaN values to 0
+  LxTx.unfaded[!is.finite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
 
   ## run this first model also for GOK as in general it provides more
   ## stable estimates that can be used as starting point for GOK
-  if (fit.method[1] == "EXP" || fit.method[1] == "GOK") {
-    fit_unfaded <- try(minpack.lm::nlsLM(
+  fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
         a = coef(fit_simulated)[["a"]],
@@ -818,7 +818,6 @@ calc_Huntley2006 <- function(
         lower = lower.bounds[1:3],
         trace = settings$trace,
       control = list(maxiter = settings$maxiter)), silent = TRUE)
-  }
 
   ## if this fit has failed, what we do depends on fit.method:
   ## - for EXP, this error is irrecoverable
