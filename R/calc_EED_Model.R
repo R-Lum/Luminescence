@@ -506,7 +506,7 @@ colnames(M_Data) <- c("CUM_MEAN_DE", "CUM_MEAN_DE_X", "NET_CUM_MEAN_DE_NET", "NE
 Min_plateau <- .Get_Plateau_MinDoseIndex(M_Data, Ndata, MinIndivDose = NULL)
 Max_plateau <- .Get_Plateau_MaxDoseIndex(M_Data, Ndata, MaxIndivDose = NULL)
 if (Max_plateau <= Min_plateau) {
-  Min_plateau <- 1
+  Min_plateau <- 1 # nocov
 } #priorité max dose
 
 # Guess parameters if needed ------------------------------------------------------------------
