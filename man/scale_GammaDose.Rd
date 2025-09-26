@@ -160,7 +160,7 @@ The options are:
 \itemize{
 \item \code{"Cresswelletal2018"} (Cresswell et al., 2018)
 \item \code{"Liritzisetal2013"} (Liritzis et al., 2013)
-\item \code{"Guerinetal2011"} (Guerin et al., 2011)
+\item \code{"Guerinetal2011"} (Guérin et al., 2011)
 \item \code{"AdamiecAitken1998"} (Adamiec and Aitken, 1998)
 }
 
@@ -244,7 +244,7 @@ Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
 Dose rate conversion parameters: Assessment of nuclear data.
 Radiation Measurements 120, 195-201.
 
-Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 factors: update. Ancient TL, 29, 5-8.
 
 Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.

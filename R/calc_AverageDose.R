@@ -3,7 +3,7 @@
 #' @description
 #' This functions calculates the Average Dose and its extrinsic dispersion,
 #' estimating the standard errors by bootstrapping based on the Average
-#' Dose Model by Guerin et al., 2017.
+#' Dose Model by Guérin et al., 2017.
 #'
 #' **`sigma_m`**\cr
 #'
@@ -96,7 +96,7 @@
 #' dose and the sigma values.
 #'
 #' @references
-#' Guerin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
+#' Guérin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
 #' Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dose, equivalent dose,
 #' measured dose rates, and implications for OSL age estimates: Introducing the Average Dose Model.
 #' Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2017.04.002
