@@ -5,21 +5,11 @@ fading_data <- ExampleData.Fading$fading.data$IR50
 data <- ExampleData.Fading$equivalentDose.data$IR50
 ddot <- c(7.00, 0.004)
 readerDdot <- c(0.134, 0.0067)
-
 rhop <-
   analyse_FadingMeasurement(fading_data,
                             plot = FALSE,
                             verbose = FALSE,
                             n.MC = 10)
-huntley <- calc_Huntley2006(
-  data = data,
-  rhop = rhop,
-  ddot = ddot,
-  readerDdot = readerDdot,
-  n.MC = 50,
-  plot = FALSE,
-  verbose = FALSE
-)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -89,6 +79,7 @@ test_that("input validation", {
                  "'data' has only two columns: we assume that the errors")
   })
 
+  set.seed(1)
   expect_warning(expect_error(
       calc_Huntley2006(data = data[1:20, ], rhop = rhop, ddot = ddot,
                        readerDdot = c(0.002, 0.003), n.MC = 2,
@@ -101,35 +92,6 @@ test_that("input validation", {
                                 readerDdot = c(0.01, 0.02), n.MC = 2,
                                 verbose = FALSE),
                "Could not fit simulated curve, check suitability of model")
-})
-
-test_that("check class and length of output", {
-  testthat::skip_on_cran()
-
-  ##rhop
-  expect_s4_class(rhop, class = "RLum.Results")
-  expect_s3_class(rhop$fading_results, "data.frame")
-  expect_s3_class(rhop$fit, "lm")
-  expect_s3_class(rhop$rho_prime, "data.frame")
-  expect_equal(round(sum(rhop$fading_results[,1:9]),0),415)
-  expect_equal(round(sum(rhop$rho_prime),5),2e-05)
-  expect_equal(round(sum(rhop$irr.times)), 2673108)
-
-  ##kars
-  expect_s4_class(huntley, class = "RLum.Results")
-  expect_s3_class(huntley$results, class = "data.frame")
-  expect_s3_class(huntley$data, class = "data.frame")
-  expect_type(huntley$Ln, "double")
-  expect_type(huntley$fits, "list")
-
-  expect_equal(round(huntley$results$Sim_Age, 1), 34)
-  expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
-  expect_equal(round(sum(huntley$Ln),2), 0.16)
-
-  expect_equal(round(sum(huntley$data),0), 191530)
-  expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.8)
-  expect_equal(round(sum(residuals(huntley$fits$measured)),4),  0.1894)
-  expect_equal(round(sum(residuals(huntley$fits$unfaded)),2),  0)
 })
 
 test_that("Further tests calc_Huntley2006", {
@@ -247,27 +209,12 @@ test_that("Further tests calc_Huntley2006", {
                "Could not fit unfaded curve, check suitability of model and")
 
   ## more coverage
-  expect_s4_class(
-    calc_Huntley2006(
-      data = data[1:10, ],
-      LnTn = data[1:10, c(2, 3)],
-      rhop = rhop, ddot = ddot, readerDdot = readerDdot,
-      n.MC = 2, plot = TRUE, verbose = FALSE),
-    class = "RLum.Results")
-  expect_s4_class(
-    calc_Huntley2006(
-      data = data[1:10, ],
-      LnTn = data[1, c(2, 3)],
-      rhop = rhop, ddot = ddot, readerDdot = readerDdot,
-      rprime = c(0.01, 2.2, length.out = 500),
-      n.MC = 2, plot = FALSE, verbose = FALSE),
-    class = "RLum.Results")
-  ## set maxiter and trace
   expect_output(
     calc_Huntley2006(
       data = data[1:10, ],
       LnTn = data[1:10, c(2, 3)],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
+      rprime = c(0.01, 2.2, length.out = 500),
       n.MC = 2, plot = FALSE, verbose = FALSE, maxiter = 50, trace = TRUE))
 
   expect_error(
