@@ -652,7 +652,6 @@ calc_Huntley2006 <- function(
   natdosetime <- natdosetimeGray
   pr <- 3 * rprime^2 * exp(-rprime^3) # Huntley 2006, eq. 3
   K <- Hs * exp(-rhop[1]^-(1/3) * rprime)
-  TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
   UFD0 <- mean(fitcoef[ ,"D0"], na.rm = TRUE) * readerDdot
 
   c_val <- mean(fitcoef[, "c"], na.rm = TRUE)
@@ -663,16 +662,24 @@ calc_Huntley2006 <- function(
     d_gok <- mean(fitcoef[ ,"d"], na.rm = TRUE)
   }
 
-  for (k in 1:length(rprime)) {
-    if (fit.method[1] == "EXP") {
-      TermA[k, ] <- A * pr[k] *
-        ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
-         (1 - exp(-(natdosetime + c_val) * (1 / UFD0 + K[k] / ddots))))
-    } else if (fit.method[1] == "GOK") {
-      TermA[k, ] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) *
-        (d_gok-(1+(1 / UFD0 + K[k] / ddots) * natdosetime * c_val)^(-1 / c_val))
-    }
+  ## the original formulation used:
+  ##  (1) (ddots / UFD0) / (ddots / UFD0 + K[k])
+  ##  (2) 1 / UFD0 + K[k] / ddots
+  ## which are algebraically equivalent to:
+  ##  (1) ddots / (ddots + UFD0 * K[k]) -> scaled.ddots
+  ##  (2) 1 / scaled.dots / UFD0
+  scaled.ddots <- ddots / (ddots + UFD0 * K)
+  A.pr.ddots <- A * pr * scaled.ddots
+  inv.UFD0.K <- 1 / scaled.ddots / UFD0
+  if (fit.method == "EXP") {
+    fun <- function(k) A.pr.ddots[k] *
+        (1 - exp(-(natdosetime + c_val) * inv.UFD0.K[k]))
+  } else if (fit.method == "GOK") {
+    fun <- function(k) A.pr.ddots[k] *
+        (d_gok - (1 + inv.UFD0.K[k] * natdosetime * c_val)^(-1 / c_val))
   }
+  TermA <- t(vapply(seq_along(rprime), fun, USE.NAMES = FALSE,
+                    FUN.VALUE = numeric(length(natdosetime))))
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
