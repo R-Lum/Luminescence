@@ -208,6 +208,7 @@ analyse_FadingMeasurement <- function(
   .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
   .validate_class(structure, "character")
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
+  .validate_positive_scalar(n.MC, int = TRUE)
 
   if (inherits(object, "list")) {
     wrong.class <- sapply(object, class) != "RLum.Analysis"
@@ -226,23 +227,21 @@ analyse_FadingMeasurement <- function(
   } else if(inherits(object,"data.frame")){
     .validate_not_empty(object)
     if (ncol(object) %% 3 != 0) {
-      .throw_error("'object': if you provide a data.frame as input, ",
-                   "the number of columns must be a multiple of 3.")
-    } else {
-      object <- do.call(rbind,
-                        lapply(seq(1, ncol(object), 3), function(col) {
-                          setNames(object[ , col:c(col+2)], c("LxTx", "LxTxError", "timeSinceIrr"))
-                          })
-                        )
+      .throw_error("When 'object' is a data.frame, the number of columns ",
+                   "must be a multiple of 3")
+    }
+    colnames(object) <- NULL
+    object <- do.call(rbind,
+                      lapply(seq(1, ncol(object), 3), function(col) {
+                        object[, col + 0:2]
+                      }))
       object <- object[stats::complete.cases(object), ]
       if (nrow(object) == 0)
         .throw_error("After NA removal, nothing is left from the data set")
-    }
 
     ##set table and object
     LxTx_table <- data.frame(LxTx = object[[1]], LxTx.Error = object[[2]])
-    TIMESINCEIRR <- object[[3]]
-    irradiation_times <- TIMESINCEIRR
+    irradiation_times <- TIMESINCEIRR <- object[[3]]
     object <- NULL
   }
 
@@ -253,8 +252,6 @@ analyse_FadingMeasurement <- function(
 
   # Prepare data --------------------------------------------------------------------------------
   if(!is.null(object)){
-    originators <- unique(unlist(lapply(object, slot, name = "originator")))
-
     if (!(length(structure) == 1 && structure == "Lx" ||
           length(structure) == 2 && all(structure == c("Lx", "Tx")))) {
       .throw_message("'structure' can only be 'Lx' or c('Lx', 'Tx'), ",
@@ -263,6 +260,7 @@ analyse_FadingMeasurement <- function(
     }
 
     ## support read_XSYG2R()
+    originators <- unique(unlist(lapply(object, slot, name = "originator")))
     if (length(originators) == 1 && originators == "read_XSYG2R") {
       ## extract irradiation times
       irradiation_times <- extract_IrradiationTimes(object)
@@ -314,9 +312,6 @@ analyse_FadingMeasurement <- function(
 
       ##check whether we have negative irradiation times, sort out such values
       if(any(TIMESINCEIRR < 0)){
-        #count affected records
-        rm_records <- sum(TIMESINCEIRR < 0)
-
         ##now we have a problem and we first have to make sure that we understand
         ##the data structure and remove also the corresponding values
         if(all(structure == c("Lx", "Tx"))){
@@ -327,8 +322,8 @@ analyse_FadingMeasurement <- function(
           TIMESINCEIRR <- TIMESINCEIRR[-rm_id]
           rm_records <- length(rm_id)
           rm(rm_id)
-
         }else{
+          rm_records <- sum(TIMESINCEIRR < 0)
           object_clean[TIMESINCEIRR < 0] <- NULL
           TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
         }
@@ -364,7 +359,6 @@ analyse_FadingMeasurement <- function(
     ## set t_star ----
     if (inherits(t_star, "function")) {
       t_star <- t_star(t1)
-
     } else {
       if(t_star == "half"){
         ##calculate t_star using the simplified equation in Auclair et al. (2003)
@@ -491,10 +485,9 @@ analyse_FadingMeasurement <- function(
       UID = uid
     )
 
-
   # Fitting -------------------------------------------------------------------------------------
   ## prevent that n.MC can become smaller than 2
-  n.MC <- max(c(n.MC[1],2))
+  n.MC <- max(n.MC, 2)
 
   ##we need to fit the data to get the g_value
 
@@ -508,11 +501,11 @@ analyse_FadingMeasurement <- function(
                      ncol = n.MC)))
 
   ##apply the fit
-  fit_matrix <- vapply(X = 2:(n.MC+1), FUN = function(x){
+  fit_matrix <- vapply(X = 1:n.MC, FUN = function(x) {
     ##fit
     fit <- try(stats::lm(y ~ x, data = data.frame(
       x = MC_matrix[,1],
-      y = MC_matrix[,x]))$coefficients, silent = TRUE)
+      y = MC_matrix[, x + 1]))$coefficients, silent = TRUE)
 
     if (inherits(fit, "try-error"))
       return(c(NA_real_, NA_real_))
@@ -534,7 +527,6 @@ analyse_FadingMeasurement <- function(
     sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
   ), ncol = n.MC))
 
-
   ## calculate rho prime for all MC samples
   fit_vector_rhop <- suppressWarnings(apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
     tryCatch({
@@ -550,27 +542,26 @@ analyse_FadingMeasurement <- function(
   ## discard all NA values produced in MC runs
   fit_vector_rhop <- fit_vector_rhop[!is.na(fit_vector_rhop)]
 
+  .collect_results <- function(val, vals.MC) {
+    data.frame(FIT = val,
+               MEAN = mean(vals.MC),
+               SD = sd(vals.MC),
+               Q_0.025 = quantile(vals.MC, probs = 0.025, na.rm = TRUE),
+               Q_0.16  = quantile(vals.MC, probs = 0.16,  na.rm = TRUE),
+               Q_0.84  = quantile(vals.MC, probs = 0.84,  na.rm = TRUE),
+               Q_0.975 = quantile(vals.MC, probs = 0.975, na.rm = TRUE),
+               row.names = NULL)
+  }
+
   ## calculate mean and standard deviation of rho prime (in log10 space)
-  rhoPrime <- data.frame(
-    MEAN = mean(fit_vector_rhop),
-    SD = sd(fit_vector_rhop),
-    Q_0.025 = quantile(x = fit_vector_rhop, probs = 0.025, na.rm = TRUE),
-    Q_0.16 = quantile(x = fit_vector_rhop, probs = 0.16, na.rm = TRUE),
-    Q_0.84 = quantile(x = fit_vector_rhop, probs = 0.84, na.rm = TRUE),
-    Q_0.975 = quantile(x = fit_vector_rhop, probs = 0.975, na.rm = TRUE),
-    row.names = NULL
-  )
+  rhoPrime <- .collect_results(mean(fit_vector_rhop), fit_vector_rhop)
 
   ## calc g-value -----
-  fit <-
-    try(stats::lm(y ~ x,
-              data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                y = LxTx_table[["LxTx_NORM"]])), silent = TRUE)
-
-
-  fit_power <- try(stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,
-                         data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                           y = LxTx_table[["LxTx_NORM"]])), silent = TRUE)
+  df <- data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+                   y = LxTx_table[["LxTx_NORM"]])
+  fit <- try(stats::lm(y ~ x, data = df), silent = TRUE)
+  fit_power <- try(stats::lm(y ~ I(x^3) + I(x^2) + I(x),
+                             data = df), silent = TRUE)
 
   ##for predicting
   fit_predict <-
@@ -585,15 +576,7 @@ analyse_FadingMeasurement <- function(
   }
 
   ##construct output data.frame
-  g_value <- data.frame(
-    FIT =  g_value_fit,
-    MEAN = mean(g_value.MC),
-    SD = sd(g_value.MC),
-    Q_0.025 = quantile(x = g_value.MC, probs = 0.025, na.rm = TRUE),
-    Q_0.16 = quantile(x = g_value.MC, probs = 0.16, na.rm = TRUE),
-    Q_0.84 = quantile(x = g_value.MC, probs = 0.84, na.rm = TRUE),
-    Q_0.975 = quantile(x = g_value.MC, probs = 0.975, na.rm = TRUE)
-  )
+  g_value <- .collect_results(g_value_fit, g_value.MC)
 
   ##normalise the g-value to 2-days using the equation provided by Sébastien Huot via e-mail
   ##this means the data is extended
@@ -633,10 +616,8 @@ analyse_FadingMeasurement <- function(
     )
   }
 
-
   ## Plotting ---------------------------------------------------------------
   if(plot) {
-
     ## deprecated argument
     if ("plot.single" %in% names(list(...))) {
       plot_singlePanels <- list(...)$plot.single
@@ -757,7 +738,6 @@ analyse_FadingMeasurement <- function(
             )
           }
         }
-
       } else{
         if (1 %in% plot_singlePanels) {
           plot_RLum(
