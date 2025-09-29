@@ -1571,6 +1571,7 @@ plot_AbanicoPlot <- function(
     ## remove first tick label (infinity)
     label.x.upper <- label.x.upper[1:(length(x.axis.ticks) - 1)]
 
+  if (length(x.axis.ticks) > 1) {
     axis(side = rotate.idx,
          at = x.axis.ticks[-1],
          labels = label.x.upper,
@@ -1582,6 +1583,7 @@ plot_AbanicoPlot <- function(
                         layout$abanico$font.deco$xtck2)[1],
          col.axis = layout$abanico$colour$xtck2,
          cex.axis = layout$abanico$font.size$xlab2 / 12)
+  }
 
   ## plot y-axis
   if (is.null(extraArgs$yaxt) || extraArgs$yaxt != "n") {
