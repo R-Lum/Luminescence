@@ -1853,20 +1853,20 @@
 <polyline points='395.39,315.91 391.89,315.07 395.39,312.75 401.69,304.89 407.98,301.25 414.27,300.56 420.55,301.58 426.82,306.39 433.08,314.17 434.53,315.07 433.08,315.23 426.82,317.04 420.55,318.60 414.27,318.83 407.98,319.03 401.69,318.02 395.39,315.91 ' style='stroke-width: 0.75; stroke: #FFFFFF; stroke-opacity: 0.80;' />
 <polyline points='656.42,135.54 650.23,132.69 644.04,129.40 641.94,128.45 ' style='stroke-width: 0.75; stroke: #FFFFFF; stroke-opacity: 0.80;' />
 <polyline points='656.42,131.20 651.11,128.45 ' style='stroke-width: 0.75; stroke: #FFFFFF; stroke-opacity: 0.80;' />
-<rect x='-235.85' y='273.60' width='1249.29' height='155.52' style='stroke-width: 0.75; fill: #FFFFFF; fill-opacity: 0.70;' />
-<rect x='-196.97' y='364.32' width='31.10' height='25.92' style='stroke-width: 0.75; fill: #040404;' />
-<rect x='8.01' y='364.32' width='31.10' height='25.92' style='stroke-width: 0.75; fill: #55125D;' />
-<rect x='212.98' y='364.32' width='31.10' height='25.92' style='stroke-width: 0.75; fill: #B12275;' />
-<rect x='417.96' y='364.32' width='31.10' height='25.92' style='stroke-width: 0.75; fill: #F36E35;' />
-<rect x='622.94' y='364.32' width='31.10' height='25.92' style='stroke-width: 0.75; fill: #F9CE5A;' />
-<rect x='827.91' y='364.32' width='31.10' height='25.92' style='stroke-width: 0.75;' />
-<text x='388.80' y='325.44' text-anchor='middle' style='font-size: 43.20px; font-family: sans;' textLength='160.91px' lengthAdjust='spacingAndGlyphs'>Intensity</text>
-<text x='-126.98' y='392.15' style='font-size: 43.20px; font-family: sans;' textLength='96.11px' lengthAdjust='spacingAndGlyphs'>5630</text>
-<text x='77.99' y='392.15' style='font-size: 43.20px; font-family: sans;' textLength='96.11px' lengthAdjust='spacingAndGlyphs'>5930</text>
-<text x='282.97' y='392.15' style='font-size: 43.20px; font-family: sans;' textLength='96.11px' lengthAdjust='spacingAndGlyphs'>6230</text>
-<text x='487.94' y='392.15' style='font-size: 43.20px; font-family: sans;' textLength='96.11px' lengthAdjust='spacingAndGlyphs'>6530</text>
-<text x='692.92' y='392.15' style='font-size: 43.20px; font-family: sans;' textLength='96.11px' lengthAdjust='spacingAndGlyphs'>6830</text>
-<text x='897.89' y='392.15' style='font-size: 43.20px; font-family: sans;' textLength='96.11px' lengthAdjust='spacingAndGlyphs'>7130</text>
+<rect x='76.48' y='351.36' width='624.65' height='77.76' style='stroke-width: 0.75; fill: #FFFFFF; fill-opacity: 0.70;' />
+<rect x='95.92' y='396.72' width='15.55' height='12.96' style='stroke-width: 0.75; fill: #040404;' />
+<rect x='198.40' y='396.72' width='15.55' height='12.96' style='stroke-width: 0.75; fill: #55125D;' />
+<rect x='300.89' y='396.72' width='15.55' height='12.96' style='stroke-width: 0.75; fill: #B12275;' />
+<rect x='403.38' y='396.72' width='15.55' height='12.96' style='stroke-width: 0.75; fill: #F36E35;' />
+<rect x='505.87' y='396.72' width='15.55' height='12.96' style='stroke-width: 0.75; fill: #F9CE5A;' />
+<rect x='608.36' y='396.72' width='15.55' height='12.96' style='stroke-width: 0.75;' />
+<text x='388.80' y='377.28' text-anchor='middle' style='font-size: 21.60px; font-family: sans;' textLength='80.46px' lengthAdjust='spacingAndGlyphs'>Intensity</text>
+<text x='130.91' y='410.63' style='font-size: 21.60px; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>5630</text>
+<text x='233.40' y='410.63' style='font-size: 21.60px; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>5930</text>
+<text x='335.88' y='410.63' style='font-size: 21.60px; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>6230</text>
+<text x='438.37' y='410.63' style='font-size: 21.60px; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>6530</text>
+<text x='540.86' y='410.63' style='font-size: 21.60px; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>6830</text>
+<text x='643.35' y='410.63' style='font-size: 21.60px; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>7130</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>

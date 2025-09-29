@@ -112,3 +112,5 @@
 
 - The function doesn’t crash anymore if the value of `frames` given is
   too large when `plot.type = "multiple.lines"` (#1021).
+
+- The legend text now scales better at high `cex` values (#1068).
