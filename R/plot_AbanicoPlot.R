@@ -816,6 +816,9 @@ plot_AbanicoPlot <- function(
   if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
     limits.z <- extraArgs$zlim
     .validate_class(limits.z, "numeric", name = "'zlim'")
+    if (log.z && any(limits.z <= 0)) {
+      .throw_error("'zlim' should only contain positive values when 'log.z = TRUE'")
+    }
   } else {
     z.span <- (mean(data.global[,1]) * 0.5) / (sd(data.global[,1]) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
