@@ -161,11 +161,9 @@
 <circle cx='193.72' cy='197.90' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='237.01' cy='195.72' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='207.39' cy='196.26' r='2.70' style='stroke-width: 0.75;' />
-<line x1='57.60' y1='206.18' x2='57.60' y2='200.67' style='stroke-width: 0.75;' />
-<line x1='57.60' y1='206.18' x2='50.40' y2='206.18' style='stroke-width: 0.75;' />
-<line x1='57.60' y1='203.43' x2='50.40' y2='203.43' style='stroke-width: 0.75;' />
-<line x1='57.60' y1='200.67' x2='50.40' y2='200.67' style='stroke-width: 0.75;' />
-<text x='43.20' y='210.31' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>-2</text>
+<line x1='57.60' y1='203.43' x2='57.60' y2='203.43' style='stroke-width: 0.75;' />
+<line x1='57.60' y1='203.43' x2='57.60' y2='203.43' style='stroke-width: 0.75;' />
+<text x='43.20' y='207.56' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='16.60px' lengthAdjust='spacingAndGlyphs'>± 2</text>
 <text x='338.40' y='47.52' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='119.38px' lengthAdjust='spacingAndGlyphs'>n = 62 | in 2 sigma = 41.9 %</text>
 </g>
 </svg>

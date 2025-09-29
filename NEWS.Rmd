@@ -91,6 +91,9 @@ values are used with `log.z = TRUE` (#1063).
 * The function avoids some possible overprinting at the extremes of the z-axis
 labels and draws lines at the extremes of the ellipse (#1013).
 
+* The appearance of the y-axis ticks has been improved in the case when the
+y-axis is particularly narrow (#1060).
+
 ### `plot_RLum.Analysis()`
 
 * Setting `records_max` to a value larger than the number of curves no longer
