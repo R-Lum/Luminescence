@@ -355,6 +355,9 @@ test_that("Test graphical snapshot", {
                                                  summary.method = "weighted",
                                                  summary = c("sd.abs", "se.abs",
                                                              "median")))
+    vdiffr::expect_doppelganger("plot ratio",
+                                plot_AbanicoPlot(ExampleData.DeValues,
+                                                 plot.ratio = 0.1))
 
     data.list <- list(ExampleData.DeValues[1:30,],
                       ExampleData.DeValues[31:62,] * 1.3)

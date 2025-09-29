@@ -76,6 +76,9 @@
 - The function now validates the `frame` argument in order to avoid
   crashing on misspecified values (#1036).
 
+- The function no longer crashes when a small `plot.ratio` value is
+  specified (#1062).
+
 - The function now validates the `zlim` argument to avoid a crash if
   negative values are used with `log.z = TRUE` (#1063).
 
