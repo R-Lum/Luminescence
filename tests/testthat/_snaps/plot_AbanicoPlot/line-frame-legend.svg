@@ -188,10 +188,10 @@
 <text x='566.84' y='555.12' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='112.06px' lengthAdjust='spacingAndGlyphs'>Density (bw 5.61)</text>
 <polyline points='514.49,399.04 514.49,109.58 ' style='stroke-width: 0.75;' />
 <polygon points='64.80,109.58 619.20,109.58 619.20,399.04 64.80,399.04 ' style='stroke-width: 0.60; fill: none;' />
-<polygon points='77.76,115.85 82.12,123.41 73.40,123.41 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />
-<polygon points='77.76,143.21 82.12,135.65 73.40,135.65 ' style='stroke-width: 0.75; stroke: #8B5A00; fill: none;' />
-<text x='90.72' y='125.84' style='font-size: 14.40px; fill: #36648B; font-family: sans;' textLength='40.04px' lengthAdjust='spacingAndGlyphs'>data 1</text>
-<text x='90.72' y='143.12' style='font-size: 14.40px; fill: #8B5A00; font-family: sans;' textLength='40.04px' lengthAdjust='spacingAndGlyphs'>data 2</text>
+<polygon points='75.60,113.81 79.24,120.11 71.96,120.11 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />
+<polygon points='75.60,136.61 79.24,130.31 71.96,130.31 ' style='stroke-width: 0.75; stroke: #8B5A00; fill: none;' />
+<text x='86.40' y='122.14' style='font-size: 12.00px; fill: #36648B; font-family: sans;' textLength='33.36px' lengthAdjust='spacingAndGlyphs'>data 1</text>
+<text x='86.40' y='136.54' style='font-size: 12.00px; fill: #8B5A00; font-family: sans;' textLength='33.36px' lengthAdjust='spacingAndGlyphs'>data 2</text>
 <text x='342.00' y='47.52' text-anchor='middle' style='font-size: 12.00px; fill: #36648B; font-family: sans;' textLength='242.09px' lengthAdjust='spacingAndGlyphs'>n = 30 | in 2 sigma = 73.3 % | median = 52.94</text>
 <text x='342.00' y='61.92' text-anchor='middle' style='font-size: 12.00px; fill: #8B5A00; font-family: sans;' textLength='248.76px' lengthAdjust='spacingAndGlyphs'>n = 32 | in 2 sigma = 84.4 % | median = 109.93</text>
 </g>

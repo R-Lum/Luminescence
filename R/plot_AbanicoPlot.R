@@ -2003,7 +2003,7 @@ plot_AbanicoPlot <- function(
            text.col = value.dot,
            text.font = which(c("normal", "bold", "italic", "bold italic") ==
                              layout$abanico$font.deco$legend)[1],
-           cex = cex * layout$abanico$font.size$legend / 12,
+           cex = layout$abanico$font.size$legend / 12,
            bty = "n")
 
     ## restore font family
