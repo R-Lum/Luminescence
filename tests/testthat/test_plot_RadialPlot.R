@@ -172,6 +172,11 @@ test_that("graphical snapshot tests", {
                                               xlim = c(0, 21.2),
                                               zlim = c(23, 135.1),
                                               summary = ""))
+  vdiffr::expect_doppelganger("regression 1060",
+                              plot_RadialPlot(ExampleData.DeValues$CA1,
+                                              xlim = c(0, 30),
+                                              zlim = c(5, 1000),
+                                              plot.ratio = 0))
   df2 <- data.frame(x = df$x - 1, y = df$y * 0.75)
   vdiffr::expect_doppelganger("RadialPlot list",
                               plot_RadialPlot(list(df, df2),

@@ -1110,12 +1110,10 @@ plot_RadialPlot <- function(
     ## plot y-axis
     if(y.ticks == TRUE) {
       char.height <- par()$cxy[2]
-      tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
-      tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
-      if(tick.space < char.height * 1.5) {
-        axis(side = 2, at = 0, tcl = 0, labels = "\u00B1 2", las = 1)
+      if (char.height > 4.5 / cex) {
+        axis(side = 2, las = 2, at = 0, labels = "\uB1 2", tcl = 0, hadj = 0.5)
       } else {
-        axis(side = 2, at = seq(-2, 2, by = 2), las = 2)
+        axis(side = 2, las = 2, at = c(-2, 0, 2))
       }
     } else {
       axis(side = 2, at = 0)
