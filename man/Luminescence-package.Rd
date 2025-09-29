@@ -90,7 +90,7 @@ Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 
 Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its
-implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14-21.
+implementation in the R package 'Luminescence'. Ancient TL 34 (2), 14-21.
 
 Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., 2022.
 Luminescence age calculation through Bayesian convolution of equivalent dose
