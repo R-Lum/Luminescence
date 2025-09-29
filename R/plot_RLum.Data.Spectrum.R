@@ -765,9 +765,6 @@ if(plot){
         xpd = TRUE)
     }
 
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex * 0.8)
-
   } else if (plot.type == "interactive") {
     ## ==========================================================================#
     ##interactive plot and former persp3d
@@ -815,9 +812,6 @@ if(plot){
             col = "black"
     )
 
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
-
   } else if (plot.type == "image") {
     ## Plot: image plot ----
     ## ==========================================================================#
@@ -861,9 +855,6 @@ if(plot){
           cex = 0.9,
           horiz = plot_settings$legend.horiz)
     }
-
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
 
   } else if(plot.type == "single") {
     ## Plot: single plot ----
@@ -938,9 +929,6 @@ if(plot){
       ## add box if needed
       if(box) graphics::box()
     }
-
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
 
   } else if (plot.type == "multiple.lines") {
     ## Plot: multiple.lines ----
@@ -1042,9 +1030,6 @@ if(plot){
              cex = 0.6 * cex)
     }
 
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
-
   } else if (plot.type == "transect") {
     ## Plot: transect plot ----
     ## ========================================================================#
@@ -1066,10 +1051,10 @@ if(plot){
          sub = paste0("(channel range: ", min(xlim), " : ", max(xlim), ")"),
          type = type,
          pch = pch)
-
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
   }
+
+  ## plot additional mtext
+  mtext(mtext, side = 3, cex = cex * 0.8)
 }
 
 # Return ------------------------------------------------------------------
