@@ -222,7 +222,8 @@ test_that("graphical snapshot tests", {
                                                       xlim = c(310, 750),
                                                       ylim = c(0, 300),
                                                       bin.rows = 10,
-                                                      labcex = 2,
+                                                      cex = 2,
+                                                      labcex = 1.2,
                                                       n_breaks = 10,
                                                       legend.pos = "bottom",
                                                       legend.horiz = TRUE))
