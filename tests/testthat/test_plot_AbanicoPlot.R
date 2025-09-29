@@ -351,6 +351,7 @@ test_that("Test graphical snapshot", {
                                                  dots = TRUE, cex = 2,
                                                  boxplot = TRUE,
                                                  grid.col = "grey80",
+                                                 legend = "primary data",
                                                  summary.pos = "left",
                                                  summary.method = "weighted",
                                                  summary = c("sd.abs", "se.abs",

@@ -82,6 +82,8 @@
 - The function now validates the `zlim` argument to avoid a crash if
   negative values are used with `log.z = TRUE` (#1063).
 
+- The legend text now scales better at high `cex` values (#1066).
+
 ### `plot_RadialPlot()`
 
 - The function avoids some possible overprinting at the extremes of the
