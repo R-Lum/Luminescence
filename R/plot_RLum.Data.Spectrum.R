@@ -856,7 +856,7 @@ if(plot){
           fill = col[legend_scale_id],
           bg = grDevices::rgb(1,1,1,0.7),
           title = "Intensity",
-          cex = cex * 0.9,
+          cex = 0.9,
           horiz = plot_settings$legend.horiz)
     }
 
