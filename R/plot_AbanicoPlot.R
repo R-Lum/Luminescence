@@ -829,13 +829,12 @@ plot_AbanicoPlot <- function(
   if ("xlim" %in% names(extraArgs) && !is.null(extraArgs$xlim)) {
     limits.x <- extraArgs$xlim
     .validate_class(limits.x, "numeric", name = "'xlim'")
+    if (limits.x[1] != 0) {
+      .throw_warning("Lower x-axis limit was ", limits.x[1], ", reset to zero")
+      limits.x[1] <- 0
+    }
   } else {
     limits.x <- c(0, max(data.global[,6]) * 1.05)
-  }
-
-  if(limits.x[1] != 0) {
-    .throw_warning("Lower x-axis limit was ", limits.x[1], ", reset to zero")
-    limits.x[1] <- 0
   }
 
   if ("ylim" %in% names(extraArgs) && !is.null(extraArgs$ylim)) {
@@ -1043,10 +1042,8 @@ plot_AbanicoPlot <- function(
   max.ellipse <- max(ellipse[, rotate.idx])
 
   ## re-calculate axes limits if necessary
-  limits.z.x <- range(ellipse[, rotate.idx])
-  limits.z.y <- range(ellipse[, 3 - rotate.idx])
-
   if(!("ylim" %in% names(extraArgs))) {
+    limits.z.y <- range(ellipse[, 3 - rotate.idx])
     if(limits.z.y[1] < 0.66 * limits.y[1]) {
       limits.y[1] <- 1.8 * limits.z.y[1]
     }
@@ -1059,9 +1056,8 @@ plot_AbanicoPlot <- function(
     }
   }
   if(!("xlim" %in% names(extraArgs))) {
-    if(limits.z.x[2] > 1.1 * limits.x[2]) {
-      limits.x[2] <- limits.z.x[2]
-    }
+    limits.z.x <- range(ellipse[, rotate.idx])
+    limits.x[2] <- max(limits.z.x[2], limits.z.x)
   }
 
   ## calculate and paste statistical summary
