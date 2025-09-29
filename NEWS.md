@@ -114,3 +114,6 @@
   too large when `plot.type = "multiple.lines"` (#1021).
 
 - The legend text now scales better at high `cex` values (#1068).
+
+- The function now makes better use of the plot area by setting better
+  margins and spacing between axis elements (#1070).
