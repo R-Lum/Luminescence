@@ -617,9 +617,11 @@ if(plot){
 
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) {
-    par.default <- par()[c("mfrow", "mar", "xpd")]
+    par.default <- par()[c("mfrow", "mar", "mgp", "xpd")]
     on.exit(par(par.default), add = TRUE)
-    par(mfrow = c(1,1), cex = cex)
+    add.bottom <- if (plot.type %in% c("single", "transect")) 1 else 0
+    par(mfrow = c(1, 1), mar = c(3.1 + add.bottom, 3.1, 2, 1),
+        mgp = c(2, 0.5, 0), cex = cex)
   }
 
   ##rest plot type for 1 column matrix
@@ -956,7 +958,7 @@ if(plot){
     }
 
     ##change graphic settings
-    par(mfrow = c(1,1), mar=c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
+    par(mar = c(3.1, 3.1, 2, 7), xpd = TRUE)
 
     ##grep zlim
     if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz)}
