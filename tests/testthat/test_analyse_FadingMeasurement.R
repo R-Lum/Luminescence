@@ -206,6 +206,10 @@ test_that("test BIN file while fading data", {
       "RLum.Results"),
       "removed 1 records with negative 'time since irradiation'")
   )
+
+  fd.mod <- fading_data
+  fd.mod[6, 1] <- 0.712
+  expect_output(analyse_FadingMeasurement(fd.mod, n.MC = 10))
 })
 
 test_that("regression tests", {
