@@ -21,15 +21,15 @@
                   "attributes": {},
                   "value": ["POSITION", "AD", "AD_ERROR"]
                 },
-                "row.names": {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [1, 2]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2]
                 }
               },
               "value": [
@@ -56,7 +56,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR", "AD", "AD_ERROR"]
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -104,16 +104,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-97, 1810251, 220, 1203810]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-0.00021433, -0.00021433, 0.00073101, 0.00073101]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA", "NA", "NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -190,15 +180,15 @@
                   "attributes": {},
                   "value": ["POSITION", "AD", "AD_ERROR"]
                 },
-                "row.names": {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [1, 2]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2]
                 }
               },
               "value": [
@@ -225,7 +215,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR", "AD", "AD_ERROR"]
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -273,16 +263,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-97, 1810251, 220, 1203810]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-0.00021433, -0.00021433, 0.00073101, 0.00073101]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA", "NA", "NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -394,7 +374,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR", "AD", "AD_ERROR"]
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -442,16 +422,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-97, 1810251, 220, 1203810]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-0.00035292, -0.00035292, 0.00120418, 0.00120418]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [2.6535148e-06, 2.6535148e-06, 8.81151012e-06, 8.81151012e-06]
                 },
                 {
                   "type": "double",
@@ -528,15 +498,15 @@
                   "attributes": {},
                   "value": ["POSITION", "AD", "AD_ERROR"]
                 },
-                "row.names": {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [1, 2]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2]
                 }
               },
               "value": [
@@ -563,7 +533,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR", "AD", "AD_ERROR"]
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -585,7 +555,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0, 6.58729235, 0, 6.58729235]
+                  "value": [0, 6.58729246, 0, 6.58729246]
                 },
                 {
                   "type": "double",
@@ -611,16 +581,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [-97, 1810251, 220, 1203810]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [-0.00035297, -0.00035297, 0.00120385, 0.00120385]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0, 0, 0, 0]
                 },
                 {
                   "type": "double",

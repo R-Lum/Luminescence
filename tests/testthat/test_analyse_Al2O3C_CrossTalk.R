@@ -12,6 +12,14 @@ test_that("input validation", {
                "'object' cannot be an empty list")
   expect_error(analyse_Al2O3C_CrossTalk(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, signal_integral = NA),
+               "'signal_integral' should be of class 'numeric', 'integer' or NULL")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, dose_points = NA),
+               "'dose_points' should be of class 'numeric' or 'integer'")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, dose_points = numeric(0)),
+               "'dose_points' cannot be an empty numeric")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, dose_points = 1:3),
+               "'dose_points' should have length 1 or divisible by 2")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         recordType = list(NA)),
                "'recordType' should be of class 'character'")
