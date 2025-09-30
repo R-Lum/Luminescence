@@ -227,13 +227,9 @@ analyse_Al2O3C_CrossTalk <- function(
       AD_ERROR = sd(temp))
   }))
 
-  ##add apparent dose to the information
-  signal_table_list <- lapply(1:length(signal_table_list), function(x){
-      cbind(signal_table_list[[x]], rep(APPARENT_DOSE[x,2:3], 2))
-  })
-
   ##combine
-  data_full <- as.data.frame(data.table::rbindlist(signal_table_list), stringsAsFactors = FALSE)
+  data_full <- as.data.frame(cbind(data.table::rbindlist(signal_table_list),
+                                   APPARENT_DOSE[rep(1:.N, each = 2), 2:3]))
 
   # Plotting ------------------------------------------------------------------------------------
   par.default <- .par_defaults()
