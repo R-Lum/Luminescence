@@ -112,7 +112,7 @@ analyse_Al2O3C_CrossTalk <- function(
   if (length(dose_points) != 1 && length(dose_points) %% 2 != 0) {
     .throw_error("'dose_points' should have length 1 or divisible by 2")
   }
-  .validate_class(recordType, "character")
+  .validate_class(recordType, "character", null.ok = TRUE)
   .validate_class(irradiation_time_correction, c("numeric", "RLum.Results"),
                   null.ok = TRUE)
   .validate_class(method_control, "list", null.ok = TRUE)
@@ -156,7 +156,6 @@ analyse_Al2O3C_CrossTalk <- function(
   }
 
   ##check irradiation time correction
-  if (!is.null(irradiation_time_correction)) {
     if (inherits(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator %in% "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -173,7 +172,6 @@ analyse_Al2O3C_CrossTalk <- function(
                      "was created by an unsupported function")
       }
     }
-  }
 
   # Calculation ---------------------------------------------------------------------------------
   ##we have two dose points, and one background curve, we do know only the 2nd dose
@@ -200,7 +198,7 @@ analyse_Al2O3C_CrossTalk <- function(
       STEP = c("NATURAL", "REGENERATED"),
       INTEGRAL = c(NATURAL, REGENERATED),
       BACKGROUND = c(BACKGROUND, BACKGROUND),
-      NET_INTEGRAL = c(NATURAL - BACKGROUND, REGENERATED - BACKGROUND),
+      NET_INTEGRAL = c(NATURAL, REGENERATED) - BACKGROUND,
       row.names = NULL
     )
 
@@ -212,8 +210,7 @@ analyse_Al2O3C_CrossTalk <- function(
     return(temp_df)
   })
 
-  APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(signal_table_list, function(x) {
-
+  APPARENT_DOSE <- data.table::rbindlist(lapply(signal_table_list, function(x) {
     ##run in MC run
     DOSE <- if (!is.null(irradiation_time_correction)) {
               rnorm(1000, mean = x$DOSE[2], sd = x$DOSE_ERROR[2])
@@ -228,7 +225,7 @@ analyse_Al2O3C_CrossTalk <- function(
       POSITION = x$POSITION[1],
       AD = mean(temp),
       AD_ERROR = sd(temp))
-  })))
+  }))
 
   ##add apparent dose to the information
   signal_table_list <- lapply(1:length(signal_table_list), function(x){
@@ -260,11 +257,9 @@ analyse_Al2O3C_CrossTalk <- function(
     arc.step <- (2 * pi) / n.positions
     step <- 0
 
-    ##condense data.frame, by calculating the mean for similar positions
-    AD_matrix <- t(vapply(sort(unique(APPARENT_DOSE$POSITION)), function(x){
-        c(x,mean(APPARENT_DOSE[["AD"]][APPARENT_DOSE[["POSITION"]] == x]),
-          sd(APPARENT_DOSE[["AD"]][APPARENT_DOSE[["POSITION"]] == x]))
-    }, FUN.VALUE = numeric(3)))
+  ## calculate mean and standard deviation for similar positions
+  AD <- POSITION <- NULL  # silence notes raised by R CMD check
+  AD_matrix <- APPARENT_DOSE[, .(AD = mean(AD), AD_ERROR = sd(AD)), by = POSITION]
 
     ##create colour ramp
     col.seq <- data.frame(
@@ -380,11 +375,7 @@ analyse_Al2O3C_CrossTalk <- function(
   output <- set_RLum(
     class = "RLum.Results",
     data = list(
-      data = data.frame(
-        POSITION = AD_matrix[,1],
-        AD = AD_matrix[,2],
-        AD_ERROR = AD_matrix[,3]
-        ),
+      data = as.data.frame(AD_matrix),
       data_full = data_full,
       fit = fit,
       col.seq = col.seq
