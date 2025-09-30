@@ -439,6 +439,31 @@ test_that("Full check of analyse_baSAR function", {
                                                      variable.names = vnames),
                                n.MCMC = 10, verbose = FALSE),
                  "Plots for 'central_D' and 'sigma_D' could not be produced")
+
+  ## user model just for coverage
+  expect_output(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+                              source_doserate = c(0.04, 0.001),
+                              signal.integral = 1:2,
+                              background.integral = 80:100,
+                              distribution = "cauchy",
+                              baSAR_model =
+                                "model {
+                                  central_D ~ dunif(lower_centralD, upper_centralD)
+                                  sigma_D ~ dunif(0.01, 1 * central_D)
+                                  for (i in 1:Nb_aliquots) {
+                                    a[i] ~ dnorm(6.5 , 1/(9.2^2))
+                                    b[i] ~ dnorm(50 , 1/(1000^2))
+                                    c[i] ~ dnorm(1.002 , 1/(0.9^2))
+                                    g[i] ~ dnorm(0.5 , 1/(2.5^2))
+                                    sigma_f[i] ~ dexp(20)
+                                    D[i] ~ dnorm( central_D  + Dose[1, i], 1/(sigma_D^2))
+                                    S_y[1,i] <- 1 / (sLum[1,i]^2 + sigma_f[i]^2)
+                                    Lum[1,i] ~ dnorm( Q[1,i] , S_y[1,i])
+                                    Q[1,i] <- GC_Origin * LinGC * ExpoGC * Limited_cycles[1]
+                                  }
+                                }",
+                              method_control = list(n.chains = 1),
+                              n.MCMC = 10))
   })
 })
 
