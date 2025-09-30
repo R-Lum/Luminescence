@@ -106,6 +106,12 @@ analyse_Al2O3C_CrossTalk <- function(
            function(x) .validate_class(x, "RLum.Analysis",
                                        name = "All elements of 'object'"))
   }
+  .validate_class(signal_integral, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(dose_points, c("numeric", "integer"))
+  .validate_not_empty(dose_points)
+  if (length(dose_points) != 1 && length(dose_points) %% 2 != 0) {
+    .throw_error("'dose_points' should have length 1 or divisible by 2")
+  }
   .validate_class(recordType, "character")
   .validate_class(irradiation_time_correction, c("numeric", "RLum.Results"),
                   null.ok = TRUE)
