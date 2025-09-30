@@ -35,7 +35,7 @@ test_that("plot output", {
                                          density_polygon = FALSE,
                                          box = FALSE), "RLum.Results")
   expect_message(plot_DoseResponseCurve(fit.extra.gok, log = "x"),
-                 "No logarithmic transformation allowed on a fit obtained with")
+                 "No logarithmic transformation is allowed on an object fitted with")
 })
 
 test_that("graphical snapshot tests", {

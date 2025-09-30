@@ -177,9 +177,8 @@ plot_DoseResponseCurve <- function(
 
   if (plot_settings$log != "") {
     if (mode == "extrapolation") {
-      .throw_message("[plot_DoseResponseCurve] No logarithmic transformation ",
-                     "allowed on a fit obtained with mode = 'extrapolation', ",
-                     "'log' reset to ''")
+      .throw_message("No logarithmic transformation is allowed on an object ",
+                     "fitted with mode = 'extrapolation', 'log' reset to ''")
       plot_settings$log <- ""
     } else {
       ## if we want to apply a log-transform on x and the first time point
