@@ -52,6 +52,9 @@ method (#1055).
 
 ### `analyse_portableOSL()`
 
+* The size of the contour labels for `mode = "surface"` can now be controlled
+with the `...` argument `labcex` and scale with `cex` (#1075).
+
 * The size of the interpolation grid can be controlled via the `...` arguments
 `nx` and `ny` (#1077).
 
