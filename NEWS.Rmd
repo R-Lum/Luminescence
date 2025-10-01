@@ -50,6 +50,11 @@ because empty (#1041).
 * The function no longer crashes when `n.MC = NULL` is used with the `FIT`
 method (#1055).
 
+### `analyse_portableOSL()`
+
+* The size of the interpolation grid can be controlled via the `...` arguments
+`nx` and `ny` (#1077).
+
 ### `calc_EED_Model()`
 
 * A crash that occurred with a small number of simulation was fixed (#1051).

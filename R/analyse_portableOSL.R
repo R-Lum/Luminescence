@@ -79,8 +79,8 @@
 #' positions, see [graphics::rasterImage]), `zlab` (here x-axis labelling).
 #' Additional parameters for `mode = "surface"` are `surface_value`
 #' ([character] with names of the surfaces to plot), `col_ramp`, `legend`
-#' (`TRUE`/`FALSE`), `contour` (`TRUE`/`FALSE`),` `contour_nlevels`,
-#' `contour_col`, ' zlim`.
+#' (`TRUE`/`FALSE`), `contour` (`TRUE`/`FALSE`), `contour_nlevels`,
+#' `contour_col`, `nx` and `ny` (size of the interpolation grid), `zlim`.
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -343,6 +343,8 @@ analyse_portableOSL <- function(
        zlim = if(mode == "surface") NA else attr(m_list, "zlim"),
        ylab = if (!anyNA(summary$COORD_Y)) "Depth [m]" else "Index",
        xlab = "x [m]",
+       nx = 200,
+       ny = 200,
        grid = TRUE,
        contour = FALSE,
        contour_nlevels = 10,
@@ -389,8 +391,8 @@ analyse_portableOSL <- function(
            x = m[, 1],
            y = m[, 2],
            z = m[, 3],
-           nx = 200,
-           ny = 200,
+           nx = plot_settings$nx,
+           ny = plot_settings$ny,
          ), silent = TRUE)
 
        ## show only warning
