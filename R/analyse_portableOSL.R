@@ -80,7 +80,8 @@
 #' Additional parameters for `mode = "surface"` are `surface_value`
 #' ([character] with names of the surfaces to plot), `col_ramp`, `legend`
 #' (`TRUE`/`FALSE`), `contour` (`TRUE`/`FALSE`), `contour_nlevels`,
-#' `contour_col`, `nx` and `ny` (size of the interpolation grid), `zlim`.
+#' `contour_col`, `nx` and `ny` (size of the interpolation grid),
+#' `labcex` (scaling of the contour labels), `zlim`.
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -336,6 +337,7 @@ analyse_portableOSL <- function(
        legend = TRUE,
        type = "b",
        cex = 1,
+       labcex = 0.6,
        col = c("blue", "red", "blue", "red", "black", "grey"),
        pch = rep(16, length(m_list)),
        xlim = attr(m_list, "xlim"),
@@ -444,6 +446,7 @@ analyse_portableOSL <- function(
              y = s$y,
              z = s$z,
              add = TRUE,
+             labcex = plot_settings$labcex * plot_settings$cex,
              nlevels = plot_settings$contour_nlevels,
              col = plot_settings$contour_col)
 

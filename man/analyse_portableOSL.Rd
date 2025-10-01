@@ -57,7 +57,8 @@ positions, see \link[graphics:rasterImage]{graphics::rasterImage}), \code{zlab} 
 Additional parameters for \code{mode = "surface"} are \code{surface_value}
 (\link{character} with names of the surfaces to plot), \code{col_ramp}, \code{legend}
 (\code{TRUE}/\code{FALSE}), \code{contour} (\code{TRUE}/\code{FALSE}), \code{contour_nlevels},
-\code{contour_col}, \code{nx} and \code{ny} (size of the interpolation grid), \code{zlim}.}
+\code{contour_col}, \code{nx} and \code{ny} (size of the interpolation grid),
+\code{labcex} (scaling of the contour labels), \code{zlim}.}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:
