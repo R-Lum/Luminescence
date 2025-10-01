@@ -192,6 +192,19 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("profile",
                               analyse_portableOSL(merged, mode = "profile",
                                                   signal.integral = 1:5))
+  vdiffr::expect_doppelganger("surface",
+                              analyse_portableOSL(surface, mode = "surface",
+                                                  signal.integral = 1:5,
+                                                  nx = 40,
+                                                  ny = 40))
+  vdiffr::expect_doppelganger("surface contour cex",
+                              analyse_portableOSL(surface, mode = "surface",
+                                                  signal.integral = 1:5,
+                                                  nx = 40,
+                                                  ny = 40,
+                                                  contour = TRUE,
+                                                  contour_col = "gray50",
+                                                  cex = 2))
   })
 })
 

@@ -56,7 +56,8 @@ usually a profile photo), \code{bg_img_positions} (a vector with the four corner
 positions, see \link[graphics:rasterImage]{graphics::rasterImage}), \code{zlab} (here x-axis labelling).
 Additional parameters for \code{mode = "surface"} are \code{surface_value}
 (\link{character} with names of the surfaces to plot), \code{col_ramp}, \code{legend}
-(\code{TRUE}/\code{FALSE}), \code{contour} (\code{TRUE}/\code{FALSE}),\verb{ }contour_nlevels\verb{, }contour_col\verb{, ' zlim}.}
+(\code{TRUE}/\code{FALSE}), \code{contour} (\code{TRUE}/\code{FALSE}), \code{contour_nlevels},
+\code{contour_col}, \code{nx} and \code{ny} (size of the interpolation grid), \code{zlim}.}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:
