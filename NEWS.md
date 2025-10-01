@@ -82,6 +82,11 @@
 - The function makes better use of the plot area, leaving smaller
   margins around the plot (#1011).
 
+### `install_DevelopmentVersion()`
+
+- The function has been refactored so that it no longer depends on the
+  deprecated `github_branches()` function (#1079).
+
 ### `plot_AbanicoPlot()`
 
 - A warning was raised if the function returned early (for example due

@@ -4,7 +4,7 @@
 \alias{install_DevelopmentVersion}
 \title{Attempts to install the development version of the 'Luminescence' package}
 \usage{
-install_DevelopmentVersion(force_install = FALSE)
+install_DevelopmentVersion(force_install = FALSE, branch = "master")
 }
 \arguments{
 \item{force_install}{\link{logical} (\emph{optional}):
@@ -12,6 +12,10 @@ If \code{FALSE} (the default) the function produces and prints the required
 code to the console for the user to run manually afterwards. When \code{TRUE}
 and all requirements are fulfilled (see details) this function attempts to install
 the package itself.}
+
+\item{branch}{\link{character} (\emph{with default}):
+Name of the branch to install. The default value ("master") corresponds to
+the main development branch.}
 }
 \value{
 This function requires user input at the command prompt to choose the
@@ -19,24 +23,15 @@ desired development branch to be installed. The required R code to install
 the package is then printed to the console.
 }
 \description{
-This function is a convenient method for installing the development
+This function provides a convenient method for installing the development
 version of the R package 'Luminescence' directly from GitHub.
 }
 \details{
-This function uses \link[=GitHub-API]{Luminescence::github_branches} to check
-which development branches of the R package 'Luminescence' are currently
-available on GitHub. The user is then prompted to choose one of the branches
-to be installed. It further checks whether the R package 'devtools' is
-currently installed and available on the system. Finally, it prints R code
-to the console that the user can copy and paste to the R console in order
-to install the desired development version of the package.
-
-If \code{force_install = TRUE} the functions checks if 'devtools' is available
-and then attempts to install the chosen development branch via
-\link[devtools:remote-reexports]{devtools::install_github}.
+This function checks whether the 'devtools' package is currently installed
+on the system. If \code{force_install = TRUE} the functions attempts to install
+the chosen development branch via \link[devtools:remote-reexports]{devtools::install_github}.
 }
 \examples{
-
 \dontrun{
 install_DevelopmentVersion()
 }
