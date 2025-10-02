@@ -61,3 +61,15 @@ test_that("snapshot tests", {
                        tolerance = snapshot.tolerance)
   })
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+    vdiffr::expect_doppelganger("default",
+                                analyse_Al2O3C_ITC(data_ITC))
+  })
+})

@@ -234,9 +234,6 @@ fit_CWCurve<- function(
   method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
                                val = method_control)
 
-  if ("output.path" %in% names(extraArgs))
-    .throw_warning("Argument 'output.path' no longer supported, ignored")
-
   ##============================================================================##
   ## FITTING
   ##============================================================================##

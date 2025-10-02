@@ -106,6 +106,17 @@ test_that("check functionality", {
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object))))
 })
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              verify_SingleGrainData(object,
+                                                     plot = TRUE))
+  })
+})
+
 test_that("regression tests", {
   testthat::skip_on_cran()
 
