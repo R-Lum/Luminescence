@@ -152,17 +152,11 @@ plot_DoseResponseCurve <- function(
       ylim = ylim,
       xlim = xlim,
       cex = 1,
-      mtext = if (mode != "alternate") {
-          substitute(
-            D[e] == De,
-            list(De = paste(
-              round(
-                abs(De), digits = 2), "\u00B1",
-              format(De.Error, scientific = TRUE, digits = 2),
-              " | fit: ", fit.args$fit.method)))
-        } else {
-          ""
-        },
+      mtext = if (mode != "alternate")
+                substitute(D[e] == De,
+                           list(De = sprintf("%.2f \uB1 %.1e  |  fit: %s",
+                                             abs(De), De.Error, fit.args$fit.method)))
+              else "",
       log = "",
       legend = TRUE,
       legend.pos = if (mode == "interpolation") "topleft" else "bottomright",
@@ -346,7 +340,6 @@ plot_DoseResponseCurve <- function(
 
           rm(tmp_x, tmp_y, density_De)
       }
-
 
       ## reg Point 0
       idx.0 <- which(xy == 0)

@@ -192,10 +192,10 @@
 <line x1='441.82' y1='69.12' x2='441.82' y2='76.49' style='stroke-width: 0.38;' />
 <line x1='442.23' y1='69.12' x2='442.23' y2='76.49' style='stroke-width: 0.38;' />
 <line x1='443.29' y1='69.12' x2='443.29' y2='76.49' style='stroke-width: 0.38;' />
-<text x='271.02' y='61.26' style='font-size: 15.36px; font-family: sans;' textLength='11.10px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text x='282.12' y='64.10' style='font-size: 10.75px; font-family: sans;' textLength='5.98px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='291.65' y='61.26' style='font-size: 15.36px; font-family: sans;' textLength='11.93px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='307.14' y='61.26' style='font-size: 15.36px; font-family: sans;' textLength='187.92px' lengthAdjust='spacingAndGlyphs'>1737.88 ± 6e+01  | fit:  EXP</text>
+<text x='264.62' y='61.26' style='font-size: 15.36px; font-family: sans;' textLength='11.10px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='275.71' y='64.10' style='font-size: 10.75px; font-family: sans;' textLength='5.98px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='285.25' y='61.26' style='font-size: 15.36px; font-family: sans;' textLength='11.93px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='300.73' y='61.26' style='font-size: 15.36px; font-family: sans;' textLength='200.73px' lengthAdjust='spacingAndGlyphs'>1737.88 ± 6.0e+01  |  fit: EXP</text>
 </g>
 <defs>
   <clipPath id='cpMjI4LjQ4fDMzOS44NHw0NDQuNDh8NDk1LjM2'>
