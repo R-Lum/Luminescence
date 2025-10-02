@@ -1,6 +1,11 @@
 ## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 data(ExampleData.FittingLM, envir = environment())
+curve <- set_RLum("RLum.Data.Curve",
+                  data = as.matrix(ExampleData.CW_OSL_Curve),
+                  curveType = "measured",
+                  recordType = "OSL")
+curve@data <- curve@data[1:90, ]
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -31,48 +36,49 @@ test_that("input validation", {
                "Time values are not ordered")
 })
 
-test_that("check functionality", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  ## data.frame
+  snapshot.tolerance <- 1.5e-6
+
   SW({
-  fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
-                     main = "CW Curve Fit",
-                     n.components.max = 4,
-                     log = "x",
-                     plot = FALSE)
-  })
-  expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 3)
-  expect_equal(fit$data$n.components, 3, tolerance = 1)
-  expect_equal(round(fit$data$I01, digits = 0), 2388, tolerance = 1)
-  expect_equal(round(fit$data$lambda1, digits = 1), 4.6, tolerance = 1)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
-  expect_type(fit@data$component.contribution.matrix, "list")
-  expect_equal(fit@data$component.contribution.matrix[[1]], NA)
+  ## data.frame
+  expect_snapshot_RLum(fit_CWCurve(ExampleData.CW_OSL_Curve,
+                                   n.components.max = 3,
+                                   fit.method = "LM",
+                                   plot = FALSE),
+                       tolerance = snapshot.tolerance)
 
   ## RLum.Data.Curve object
-  curve <- set_RLum("RLum.Data.Curve",
-                    data = as.matrix(ExampleData.CW_OSL_Curve),
-                    curveType = "measured",
-                    recordType = "OSL")
+  expect_snapshot_RLum(fit_CWCurve(curve,
+                                   n.components.max = 2,
+                                   fit.calcError = TRUE,
+                                   method_control = list(export.comp.contrib.matrix = TRUE),
+                                   verbose = FALSE,
+                                   plot = FALSE),
+                       tolerance = snapshot.tolerance)
+  })
+})
 
-  fit <- fit_CWCurve(values = curve,
-                     main = "CW Curve Fit",
-                     n.components.max = 4,
-                     log = "x",
-                     method_control = list(export.comp.contrib.matrix = TRUE),
-                     verbose = FALSE,
-                     plot = FALSE)
-  expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 3)
-  expect_equal(fit$data$n.components, 3, tolerance = 1)
-  expect_equal(round(fit$data$I01, digits = 0), 2388, tolerance = 1)
-  expect_equal(round(fit$data$lambda1, digits = 1), 4.6, tolerance = 1)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
-  expect_gte(length(fit@data$component.contribution.matrix[[1]]), 9000)
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
 
-  ## more coverage
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              fit_CWCurve(ExampleData.CW_OSL_Curve))
+  vdiffr::expect_doppelganger("logx cex",
+                              fit_CWCurve(ExampleData.CW_OSL_Curve,
+                                          main = "CW Curve Fit",
+                                          n.components.max = 4,
+                                          cex.global = 2,
+                                          log = "x"))
+  })
+})
+
+test_that("more coverage", {
+  testthat::skip_on_cran()
+
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1, ]),
                  "Error: Fitting failed, plot without fit produced")
 
