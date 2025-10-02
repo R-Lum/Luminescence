@@ -177,7 +177,7 @@ plot_DoseResponseCurve <- function(
 
   if (plot_settings$log != "") {
     if (mode == "extrapolation") {
-      .throw_message("No logarithmic transformation is allowed on an object ",
+      .throw_message("Logarithmic transformation not allowed on an object ",
                      "fitted with mode = 'extrapolation', 'log' reset to ''")
       plot_settings$log <- ""
     } else {
