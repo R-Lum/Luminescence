@@ -255,7 +255,8 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ## calculate mean and standard deviation for similar positions
   AD <- POSITION <- NULL  # silence notes raised by R CMD check
-  AD_matrix <- APPARENT_DOSE[, .(AD = mean(AD), AD_ERROR = sd(AD)), by = POSITION]
+  AD_matrix <- APPARENT_DOSE[, list(AD = mean(AD), AD_ERROR = sd(AD)),
+                             by = POSITION]
 
     ##create colour ramp
     col.seq <- data.frame(
