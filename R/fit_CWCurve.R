@@ -270,6 +270,7 @@ fit_CWCurve<- function(
   ##////equation used for fitting///(end)
 
   ##set variables
+  fit <- NULL
   keep.fitting <- TRUE # set to FALSE if the fitting should be stopped early
   n.components <- 1 #number of components used for fitting - start with 1
   fit.failure_counter <- 0 #counts the failed fitting attempts
@@ -395,20 +396,15 @@ fit_CWCurve<- function(
     }
     n.components <- n.components + 1
 
-    ##count failed attempts for fitting
-    if (!inherits(fit.try, "try-error")) {
+    if (!inherits(fit.try, "try-error") || is.null(fit)) {
       fit <- fit.try
-
-    }else{
-      fit.failure_counter <- fit.failure_counter+1
-      if (!exists("fit")) {
-        fit <- fit.try
-      }
     }
 
-    ##stop fitting after a given number of wrong attempts
-    if(fit.failure_counter>=fit.failure_threshold){
-      keep.fitting <- FALSE
+    ## count failed fitting attempts and stop after a given number of attempts
+    if (inherits(fit.try, "try-error")) {
+      fit.failure_counter <- fit.failure_counter + 1
+      if (fit.failure_counter >= fit.failure_threshold)
+        keep.fitting <- FALSE
     }
 
   }##end while
@@ -536,7 +532,6 @@ fit_CWCurve<- function(
     ##============================================================================##
 
     ##write output table if values exists
-    if (exists("fit")){
       ##set data.frame for a max value of 7 components
       output.table<-data.frame(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
                                NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
@@ -672,7 +667,6 @@ fit_CWCurve<- function(
         component.contribution.matrix.names,
         paste0("cont.c", 1:n.components),
         "cont.sum")
-    }#endif :: (exists("fit"))
   }
 
   ##============================================================================##

@@ -75,6 +75,12 @@ is very small has been fixed (#1048).
 * It is now possible to control the random seeds used by the JAGS MCMC chains
 via the `method_control` argument (#1038).
 
+### `fit_CWCurve()`
+
+* If model fitting failed but an object named `fit` was present in the
+workspace, the function tried to use that one, which would lead to a crash
+or to unexpected results (#1081).
+
 ### `fit_EmissionSpectra()`
 
 * The function makes better use of the plot area, leaving smaller margins
