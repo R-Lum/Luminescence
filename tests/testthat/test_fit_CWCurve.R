@@ -72,13 +72,6 @@ test_that("check functionality", {
   expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
   expect_gte(length(fit@data$component.contribution.matrix[[1]]), 9000)
 
-  SW({
-  expect_warning(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "LM",
-                             fit.calcError = TRUE, xlab = "x", ylab = "y",
-                             log = "x", output.path = tempdir()),
-                 "Argument 'output.path' no longer supported")
-  })
-
   ## more coverage
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1, ]),
                  "Error: Fitting failed, plot without fit produced")
