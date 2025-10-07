@@ -81,6 +81,9 @@ via the `method_control` argument (#1038).
 workspace, the function tried to use that one, which would lead to a crash
 or to unexpected results (#1081).
 
+* The `output.table` field of the `RLum.Results` object returned now contains
+only columns corresponding to the components effectively fitted (#1083).
+
 ### `fit_EmissionSpectra()`
 
 * The function makes better use of the plot area, leaving smaller margins

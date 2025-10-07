@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample_code", "n.components", "I01", "I01.error", "lambda1", "lambda1.error", "cs1", "cs1.rel", "I02", "I02.error", "lambda2", "lambda2.error", "cs2", "cs2.rel", "I03", "I03.error", "lambda3", "lambda3.error", "cs3", "cs3.rel", "I04", "I04.error", "lambda4", "lambda4.error", "cs4", "cs4.rel", "I05", "I05.error", "lambda5", "lambda5.error", "cs5", "cs5.rel", "I06", "I06.error", "lambda6", "lambda6.error", "cs6", "cs6.rel", "I07", "I07.error", "lambda7", "lambda7.error", "cs7", "cs7.rel", "pseudo-R^2"]
+                  "value": ["sample_code", "n.components", "I01", "I01.error", "lambda1", "lambda1.error", "cs1", "cs1.rel", "I02", "I02.error", "lambda2", "lambda2.error", "cs2", "cs2.rel", "I03", "I03.error", "lambda3", "lambda3.error", "cs3", "cs3.rel", "pseudo-R^2"]
                 },
                 "class": {
                   "type": "character",
@@ -49,9 +49,9 @@
                   "value": [2387.6195467]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -59,9 +59,9 @@
                   "value": [4.59053798]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -79,9 +79,9 @@
                   "value": [1053.48890772]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -89,9 +89,9 @@
                   "value": [1.95936172]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -109,9 +109,9 @@
                   "value": [2816.63024409]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -119,9 +119,9 @@
                   "value": [0.02054733]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -132,126 +132,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.0045]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
@@ -327,7 +207,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sample_code", "n.components", "I01", "I01.error", "lambda1", "lambda1.error", "cs1", "cs1.rel", "I02", "I02.error", "lambda2", "lambda2.error", "cs2", "cs2.rel", "I03", "I03.error", "lambda3", "lambda3.error", "cs3", "cs3.rel", "I04", "I04.error", "lambda4", "lambda4.error", "cs4", "cs4.rel", "I05", "I05.error", "lambda5", "lambda5.error", "cs5", "cs5.rel", "I06", "I06.error", "lambda6", "lambda6.error", "cs6", "cs6.rel", "I07", "I07.error", "lambda7", "lambda7.error", "cs7", "cs7.rel", "pseudo-R^2"]
+                  "value": ["sample_code", "n.components", "I01", "I01.error", "lambda1", "lambda1.error", "cs1", "cs1.rel", "I02", "I02.error", "lambda2", "lambda2.error", "cs2", "cs2.rel", "pseudo-R^2"]
                 },
                 "class": {
                   "type": "character",
@@ -410,156 +290,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.192]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
                 },
                 {
                   "type": "double",
