@@ -141,7 +141,7 @@
 #' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -529,11 +529,8 @@ fit_CWCurve<- function(
     ##============================================================================##
 
     ##write output table if values exists
-      ##set data.frame for a max value of 7 components
-      output.table<-data.frame(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-                               NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-                               NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)
-      output.tableColNames<-c("I01","I01.error","lambda1", "lambda1.error",
+    ## set data.frame for a max value of 7 components
+    output.tableColNames <- c("I01","I01.error","lambda1", "lambda1.error",
                               "cs1","cs1.rel",
                               "I02","I02.error","lambda2", "lambda2.error",
                               "cs2","cs2.rel",
@@ -546,29 +543,14 @@ fit_CWCurve<- function(
                               "I06","I06.error","lambda6", "lambda6.error",
                               "cs6","cs6.rel",
                               "I07","I07.error","lambda7", "lambda7.error",
-                              "cs7","cs7.rel"
-      )
+                              "cs7","cs7.rel")
 
-      ##write components in output table
-      i<-0
-      k<-1
-      while(i<=n.components*6){
-        output.table[1,i+1]<-I0[k]
-        output.table[1,i+2]<-I0.error[k]
-        output.table[1,i+3]<-lambda[k]
-        output.table[1,i+4]<-lambda.error[k]
-        output.table[1,i+5]<-cs[k]
-        output.table[1,i+6]<-cs.rel[k]
-        i<-i+6
-        k<-k+1
-      }
-
-      ##add pR and n.components
-      output.table<-cbind(sample_code,n.components,output.table,pR)
-
-      ##alter column names
-      colnames(output.table)<-c("sample_code","n.components",
-                                output.tableColNames,"pseudo-R^2")
+    output.table <- data.frame(matrix(rbind(I0, I0.error, lambda, lambda.error,
+                                            cs, cs.rel),
+                                      nrow = 1))
+    colnames(output.table) <- output.tableColNames[1:ncol(output.table)]
+    output.table <- cbind(sample_code, n.components, output.table,
+                          "pseudo-R^2"=pR)
 
       ##============================================================================##
       ## COMPONENT TO SUM CONTRIBUTION PLOT
@@ -805,10 +787,6 @@ fit_CWCurve<- function(
     ),
     info = list(call = sys.call())
   )
-
-  rm(fit)
-  rm(output.table)
-  rm(component.contribution.matrix)
 
   invisible(newRLumResults.fit_CWCurve)
 }
