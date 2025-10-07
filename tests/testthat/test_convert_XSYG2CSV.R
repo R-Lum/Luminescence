@@ -13,7 +13,7 @@ test_that("input validation", {
   SW({
   expect_error(expect_message(convert_XSYG2CSV(file = "", export = FALSE),
                               "XML file not readable, nothing imported"),
-               "'object' should be of class 'RLum.Analysis', 'RLum.Data.Curve'")
+               "'object' should be of class 'RLum.Analysis', 'RLum.Data'")
   })
 })
 
