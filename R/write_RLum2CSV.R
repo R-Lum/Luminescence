@@ -87,7 +87,7 @@ write_RLum2CSV <- function(
 
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
-  if(is.list(object) && !is.data.frame(object)){
+  if (inherits(object, "list")) {
     ## expand input arguments
     rep.length <- length(object)
     path <- .listify(path, rep.length)
@@ -111,29 +111,28 @@ write_RLum2CSV <- function(
         )
       })
 
-      ##this prevents that we get a list of NULL
-      if(is.null(unlist(temp))){
-        return(NULL)
-
-      }else{
-        return(temp)
-      }
+    ## this prevents that we get a list of NULL
+    if (is.null(unlist(temp)))
+      return(NULL)
+    return(temp)
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve",
-                            "RLum.Data.Image", "RLum.Data.Spectrum",
+  .validate_class(object, c("RLum.Analysis", "RLum.Data",
                             "RLum.Results", "data.frame"))
   .validate_not_empty(object)
+  .validate_class(path, "character", null.ok = TRUE)
+  .validate_class(prefix, "character")
+  .validate_logical_scalar(export)
+  .validate_logical_scalar(compact)
 
   ## check export path
   if (export == TRUE) {
-    if (is.null(path)) {
+    if (is.null(path) || nchar(path) == 0) {
       path <- getwd()
       .throw_message("Path automatically set to: ", path, error = FALSE)
     } else if (!dir.exists(path)) {
-      .throw_error("Directory provided via the argument 'path' does not exist")
+      .throw_error("Path '", path, "' does not exist")
     }
   }
 
@@ -142,14 +141,12 @@ write_RLum2CSV <- function(
 
   ## extract all elements ... depending on the input
   if (inherits(object, "RLum.Analysis")) {
-        ##tricky, we cannot use get_RLum() as the function lapply calls as.list() for an object!
-        object_list <- lapply(object, function(x){get_RLum(x)})
+        object_list <- lapply(object, get_RLum)
 
         ##change names of the list and produce the right format straight away
         names(object_list) <- paste0(1:length(object_list),"_",names(object))
 
   } else if (inherits(object, "RLum.Data")) {
-
         ##get object and make list
         object_list <- list(get_RLum(object))
 
@@ -168,7 +165,7 @@ write_RLum2CSV <- function(
 
         ##unlist the rest until the end
         if(!compact)
-          return(unlist(e))
+          e <- unlist(e)
 
         ##now we return whatever we have
         return(e)
