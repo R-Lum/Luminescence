@@ -8,8 +8,12 @@ test_that("input validation", {
   expect_error(write_R2TIFF(object = "test"),
                "[write_R2TIFF()] 'object' should be of class 'RLum.Data.Image'",
                fixed = TRUE)
+  expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = NULL),
+               "'file' should be of class 'character'")
+  expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, norm = 0),
+               "'norm' should be a positive scalar")
   expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = "error/error"),
-               "[write_R2TIFF()] Path does not exist",
+               "[write_R2TIFF()] Path 'error' does not exist",
                fixed = TRUE)
   expect_error(write_R2TIFF(set_RLum("RLum.Data.Image")),
                "Empty RLum.Data.Image object detected")

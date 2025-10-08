@@ -1,35 +1,40 @@
-#'@title Export RLum.Data.Image and RLum.Data.Spectrum objects to TIFF Images
+#' @title Export RLum.Data.Image and RLum.Data.Spectrum objects to TIFF Images
 #'
-#'@description Simple wrapper around [tiff::writeTIFF] to export suitable
-#' RLum-class objects to TIFF images. Per default 16-bit TIFF files are exported.
+#' @description
+#' Simple wrapper around [tiff::writeTIFF] to export suitable [RLum-class]
+#' objects to TIFF images. Per default 16-bit TIFF files are exported.
 #'
-#'@param object [RLum.Data.Image-class] or [RLum.Data.Spectrum-class] object (**required**):
-#'input object, can be a [list] of such objects
+#' @param object [RLum.Data.Image-class] or [RLum.Data.Spectrum-class] object (**required**):
+#' input object, can be a [list] of such objects.
 #'
-#'@param file [character] (**required**): the file name and path
+#' @param file [character] (**required**):
+#' name of the output file.
 #'
-#'@param norm [numeric] (*with default*): normalisation values. Values in TIFF files must range between 0-1, however, usually
-#'in imaging applications the pixel values are real integer count values. The normalisation to the
-#'to the highest 16-bit integer values -1 ensures that the numerical values are retained in the exported
-#'image. If `1` nothing is normalised.
+#' @param norm [numeric] (*with default*):
+#' normalisation value. Usually, in imaging applications the pixel values are
+#' integer count values, but values in TIFF files must be in the 0-1 range.
+#' Normalising to the to the highest 16-bit integer values - 1 ensures that
+#' the numerical values are retained in the exported image. If `1` nothing is
+#' normalised.
 #'
-#'@param ... further arguments to be passed to [tiff::writeTIFF].
+#' @param ... further arguments to be passed to [tiff::writeTIFF].
 #'
-#'@return A TIFF file
+#' @return A TIFF file
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
-#'@seealso [tiff::writeTIFF], [RLum.Data.Image-class], [RLum.Data.Spectrum-class]
+#' @seealso [tiff::writeTIFF], [RLum.Data.Image-class], [RLum.Data.Spectrum-class]
 #'
-#'@keywords IO
+#' @keywords IO
 #'
-#'@examples
-#'data(ExampleData.RLum.Data.Image, envir = environment())
-#'write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile())
+#' @examples
+#' data(ExampleData.RLum.Data.Image, envir = environment())
+#' write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile(fileext = ".tiff"))
 #'
-#'@export
+#' @export
 write_R2TIFF <- function(
   object,
   file = tempfile(),
@@ -58,47 +63,45 @@ write_R2TIFF <- function(
       .throw_error("Empty RLum.Data.Image object detected")
   })
 
+  .validate_class(file, "character")
+  .validate_positive_scalar(norm)
+
   ## Prepare filenames ------------------------------------------------------
 
-  ## check path
-  if(!dir.exists(dirname(file)))
-    .throw_error("Path does not exist")
-
-  ## create file names
   file <- normalizePath(file, mustWork = FALSE)
   file_dir <- dirname(file)
-  file_base <- strsplit(basename(file), split = ".", fixed = TRUE)[[1]][1]
+  if (!dir.exists(file_dir))
+    .throw_error("Path '", file_dir, "' does not exist")
 
   ## expand if longer than 1
   if(length(object) > 1)
-    file <- normalizePath(paste0(file_dir,"/",file_base,"_",1:length(object),".tiff"), mustWork = FALSE)
+    file <- paste0(tools::file_path_sans_ext(file), "_", 1:length(object), ".tiff")
 
   ## Export to TIFF ---------------------------------------------------------
-  ## remove arguments we already use
-  args <- list(...)[!list(...) %in% c("what", "where")]
 
   ## modify arguments
   args <- modifyList(x = list(
     bits.per.sample = 16L
-  ), args)
+  ), list(...))
+
+  ## remove arguments we already use
+  args[c("what", "where")] <- NULL
 
   for (i in seq_along(object)) {
+    data <- object[[i]]@data
+
     ## consider the case that we have already an image stack
-    if(length(dim(object[[i]]@data)) > 2 &&dim(object[[i]]@data)[3] > 1) {
-      img_list <- lapply(1:dim(object[[i]]@data)[3], function(x) {
-        m <- object[[i]]@data[,,x]
+    if (length(dim(data)) > 2 && dim(data)[3] > 1) {
+      img_list <- lapply(1:dim(data)[3], function(x) {
+        m <- data[, , x]
         storage.mode(m) <- "numeric"
-        m / norm[1]
+        m / norm
       })
-
     } else {
-      object[[i]]@data[] <- as.numeric(object[[i]]@data)
-      img_list <- object[[i]]@data / norm[1]
-
+      img_list <- data / norm
     }
 
     ## write file
     do.call(what = tiff::writeTIFF, args = c(list(img_list, where = file[i]), args))
-
   }
 }
