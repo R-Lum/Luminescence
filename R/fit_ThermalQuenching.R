@@ -142,8 +142,6 @@ fit_ThermalQuenching <- function(
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(data, "list")){
-
-    ##get arguments
     args <- as.list(match.call())
     args[[1]] <- NULL
     args$data <- NULL
@@ -157,9 +155,7 @@ fit_ThermalQuenching <- function(
     return(merge_RLum(results_list))
   }
 
-
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(data, "data.frame",
                   extra = "a 'list' of such objects")
 
@@ -400,28 +396,24 @@ fit_ThermalQuenching <- function(
   }
 
   ## Return -----------------------------------------------------------------
-  output_df <- data.frame(
-    A = A,
-    A_X = A_MC_X,
-    C = exp(C),
-    C_X = C_MC_X,
-    W = W,
-    W_X = W_MC_X,
-    c = c,
-    c_X = c_MC_X,
-    n.MC = n.MC
-  )
-
-  output <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
-      data = output_df,
+      data = data.frame(
+          A = A,
+          A_X = A_MC_X,
+          C = exp(C),
+          C_X = C_MC_X,
+          W = W,
+          W_X = W_MC_X,
+          c = c,
+          c_X = c_MC_X,
+          n.MC = n.MC
+      ),
       fit = fit
     ),
     info = list(
       call = sys.call()
     )
   )
-
-  return(output)
 }
