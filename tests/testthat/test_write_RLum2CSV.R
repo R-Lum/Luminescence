@@ -5,11 +5,13 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(write_RLum2CSV(object = "", export = FALSE),
-               "[write_RLum2CSV()] 'object' should be of class 'RLum.Analysis'",
-               fixed = TRUE)
+               "'object' should be of class 'RLum', 'data.frame' or a 'list'")
   expect_error(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE,
                               path = "non-existing"),
                "Path 'non-existing' does not exist")
+  expect_error(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE,
+                              file = "non-existing/filename.csv"),
+               "Path 'non-existing/filename.csv' does not exist")
   expect_error(write_RLum2CSV(set_RLum("RLum.Results"), verbose = FALSE),
                "'object' cannot be an empty RLum.Results")
 })
