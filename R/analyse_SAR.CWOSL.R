@@ -305,7 +305,7 @@ if(is.list(object)){
   parm <- .expand_parameters(length(object))
 
   ##handle main separately
-  if("main"%in% names(list(...))){
+  if ("main" %in% ...names()) {
     main <- .listify(list(...)$main, length = length(object))
   }else{
     main <- as.list(paste0("ALQ #",1:length(object)))

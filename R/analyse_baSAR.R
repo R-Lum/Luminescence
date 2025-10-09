@@ -1794,7 +1794,7 @@ analyse_baSAR <- function(
   if(plot){
 
     ## deprecated argument
-    if ("plot.single" %in% names(list(...))) {
+    if ("plot.single" %in% ...names()) {
       plot_singlePanels <- list(...)$plot.single
       .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
                      "instead")

@@ -98,12 +98,7 @@ calc_WodaFuchs2008 <- function(
   }
 
   ## read additional arguments
-
-  if("trace" %in% names(list(...))) {
-    trace <- list(...)$trace
-  } else {
-    trace <- FALSE
-  }
+  trace <- isTRUE(list(...)$trace)
 
   ## calculations -------------------------------------------------------------
 

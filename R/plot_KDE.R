@@ -427,7 +427,7 @@ plot_KDE <- function(
                                          De.density.range[2],
                                          na.rm = TRUE))
 
-  if("ylim" %in% names(list(...))) {
+  if ("ylim" %in% ...names()) {
     ylim.plot <- list(...)$ylim
     .validate_length(ylim.plot, 4, name = "'ylim'")
   } else {
@@ -451,7 +451,7 @@ plot_KDE <- function(
   cex <- list(...)$cex %||% 1
   fun <- isTRUE(list(...)$fun)
 
-  if("col" %in% names(list(...))) {
+  if ("col" %in% ...names()) {
     col.main <- list(...)$col
     col.xlab <- 1
     col.ylab1 <- 1

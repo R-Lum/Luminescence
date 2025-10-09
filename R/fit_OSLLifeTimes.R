@@ -202,7 +202,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   tp <- .listify(tp, rep.length)
 
   ## names of extra arguments
-  arg_names <- names(list(...))
+  arg_names <- ...names()
 
   ##pretreat some of the ... settings to avoid
   ## expand all arguments

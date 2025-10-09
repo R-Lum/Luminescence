@@ -148,7 +148,6 @@ calc_CentralDose <- function(
     .throw_error("'sigmab' should be a value between 0 and 1 if log = TRUE")
   }
 
-
   ## ============================================================================##
   ## ... ARGUMENTS
   ## ============================================================================##
@@ -159,11 +158,10 @@ calc_CentralDose <- function(
   options <- modifyList(options, list(...))
 
   ## deprecated argument
-  if ("na.rm" %in% names(list(...))) {
+  if ("na.rm" %in% ...names()) {
     .throw_warning("'na.rm' is deprecated, missing values are always removed ",
                    "by default")
   }
-
 
   ## ============================================================================##
   ## CALCULATIONS

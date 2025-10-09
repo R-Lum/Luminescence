@@ -218,7 +218,7 @@ analyse_pIRIRSequence <- function(
    sequence.structure <- .listify(sequence.structure, rep.length)
    dose.points <- .listify(dose.points, rep.length)
 
-   if ("main" %in% names(list(...))) {
+   if ("main" %in% ...names()) {
      main_list <- .listify(list(...)$main, rep.length)
    }
 
@@ -233,7 +233,7 @@ analyse_pIRIRSequence <- function(
                         sequence.structure = sequence.structure[[x]],
                         plot = plot,
                         plot_singlePanels = plot_singlePanels,
-                        main = ifelse("main"%in% names(list(...)), main_list[[x]], paste0("ALQ #",x)),
+                        main = ifelse("main"%in% ...names(), main_list[[x]], paste0("ALQ #",x)),
                         ...)
     }))
 
@@ -278,7 +278,7 @@ analyse_pIRIRSequence <- function(
   }
 
   ## deprecated argument
-  if ("plot.single" %in% names(list(...))) {
+  if ("plot.single" %in% ...names()) {
     plot_singlePanels <- list(...)$plot.single
     .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
                    "instead")

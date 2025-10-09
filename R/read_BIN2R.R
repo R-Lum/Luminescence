@@ -1225,7 +1225,7 @@ read_BIN2R <- function(
   ## set fastForward to TRUE if arguments to Risoe.BINfileData2RLum.Analysis
   ## were specified
   if (!fastForward) {
-    dots <- names(list(...))
+    dots <- ...names()
     args <- dots[dots %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]]
     if (length(args) > 0) {
       fastForward <- TRUE

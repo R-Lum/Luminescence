@@ -103,7 +103,7 @@ if(inherits(object, "list")){
   plot_settings <- list(...)
 
   ## expand input arguments
-  if("main" %in% names(list(...))){
+  if ("main" %in% ...names()) {
     main <- .listify(list(...)[["main"]], length(object))
 
     ##filter main from the ... argument list otherwise we will have a collusion

@@ -191,8 +191,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
   .set_function_name("subset.Risoe.BINfileData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  if(length(list(...)))
-    .throw_warning("Argument not supported and skipped:", names(list(...)))
+  if (...length())
+    .throw_warning("Argument not supported and skipped: ", ...names())
 
   ##select relevant rows
   sel <- tryCatch(eval(
