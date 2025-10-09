@@ -168,7 +168,7 @@ write_R2BIN <- function(
   }
 
   if(any(temp_check))
-    .throw_error(length(which(temp_check)), " out of ", length(temp_check),
+    .throw_error(sum(temp_check), " out of ", length(temp_check),
                  " records contain more than 9,999 data points. ",
                  "This violates the BIN/BINX-file definition")
 
@@ -176,18 +176,18 @@ write_R2BIN <- function(
   rm(temp_check)
 
   ## UTF-8 conversion
-  object@METADATA[["SAMPLE"]] <- base::iconv(object@METADATA[["SAMPLE"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["COMMENT"]] <- base::iconv(object@METADATA[["COMMENT"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["FNAME"]] <- base::iconv(object@METADATA[["FNAME"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["USER"]] <- base::iconv(object@METADATA[["USER"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["SEQUENCE"]] <- base::iconv(object@METADATA[["SEQUENCE"]], "latin1", "ASCII", sub="_")
+  conv <- function(x) base::iconv(x, "latin1", "ASCII", sub = "_")
+  object@METADATA[["SAMPLE"]] <- conv(object@METADATA[["SAMPLE"]])
+  object@METADATA[["COMMENT"]] <- conv(object@METADATA[["COMMENT"]])
+  object@METADATA[["FNAME"]] <- conv(object@METADATA[["FNAME"]])
+  object@METADATA[["USER"]] <- conv(object@METADATA[["USER"]])
+  object@METADATA[["SEQUENCE"]] <- conv(object@METADATA[["SEQUENCE"]])
 
   ##VERSION
   ##If missing version argument set to the highest value
   if(missing(version)){
     version <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version.original <- version
-
   }else{
     version.original <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version <- as.raw(version)
@@ -786,8 +786,7 @@ write_R2BIN <- function(
 
       ##avoid problems with empty sample names
       if(SAMPLE_SIZE == 0){
-
-        SAMPLE_SIZE <- as.integer(2)
+        SAMPLE_SIZE <- 2L
         object@METADATA[ID,"SAMPLE"] <- "  "
       }
 
@@ -795,7 +794,6 @@ write_R2BIN <- function(
                con,
                size = 1,
                endian="little")
-
 
       writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
                 con,
