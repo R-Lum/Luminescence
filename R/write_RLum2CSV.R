@@ -118,8 +118,8 @@ write_RLum2CSV <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, c("RLum.Analysis", "RLum.Data",
-                            "RLum.Results", "data.frame"))
+  .validate_class(object, c("RLum", "data.frame"),
+                  extra = "a 'list' of such objects")
   .validate_not_empty(object)
   .validate_class(path, "character", null.ok = TRUE)
   .validate_class(prefix, "character")
