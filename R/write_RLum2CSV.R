@@ -57,20 +57,18 @@
 #'
 #' @examples
 #'
-#' ##transform values to a list (and do not write)
+#' ## transform values to a list (and do not write)
 #' data(ExampleData.BINfileData, envir = environment())
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
 #' write_RLum2CSV(object, export = FALSE)
 #'
 #' \dontrun{
-#'
-#' ##create temporary filepath
-#' ##(for usage replace by own path)
+#' ## write to a temporary file
 #' temp_file <- tempfile(pattern = "output", fileext = ".csv")
+#' write_RLum2CSV(object, temp_file)
 #'
-#' ##write CSV-file to working directory
-#' write_RLum2CSV(temp_file)
-#'
+#' ## write to the working directory
+#' write_RLum2CSV(object)
 #' }
 #'
 #' @export
@@ -84,6 +82,11 @@ write_RLum2CSV <- function(
 ) {
   .set_function_name("write_RLum2CSV")
   on.exit(.unset_function_name(), add = TRUE)
+
+  ## support using `file` for the output path to help RLumShiny
+  if ("file" %in% ...names() && is.null(path)) {
+    path <- list(...)$file
+  }
 
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
