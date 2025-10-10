@@ -424,13 +424,14 @@ test_that("Test internals", {
                  "'letters' should have length 25")
 
   ## .validate_positive_scalar() --------------------------------------------
-  expect_silent(.validate_positive_scalar(int = TRUE))
   expect_equal(.validate_positive_scalar(1.3),
                1.3)
   expect_equal(.validate_positive_scalar(2, int = TRUE),
                2)
   expect_null(.validate_positive_scalar(NULL, int = TRUE, null.ok = TRUE))
 
+  expect_error(.validate_positive_scalar(int = TRUE),
+               "'NA' should be a positive integer scalar")
   expect_error(.validate_positive_scalar(test <- "a"),
                "'test' should be a positive scalar")
   expect_error(.validate_positive_scalar(test <- NULL),
@@ -453,13 +454,14 @@ test_that("Test internals", {
                "The variable should be a positive integer")
 
   ## .validate_logical_scalar() ---------------------------------------------
-  expect_silent(.validate_logical_scalar())
   expect_equal(.validate_logical_scalar(TRUE),
                TRUE)
   expect_equal(.validate_logical_scalar(FALSE),
                FALSE)
   expect_null(.validate_logical_scalar(NULL, null.ok = TRUE))
 
+  expect_error(.validate_logical_scalar(),
+               "'NA' should be a single logical value")
   expect_error(.validate_logical_scalar(test <- "a"),
                "'test' should be a single logical value")
   expect_error(.validate_logical_scalar(test <- NULL),

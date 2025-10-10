@@ -1298,11 +1298,9 @@ SW <- function(expr) {
 #' @noRd
 .validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
                                       name = NULL) {
-  if (missing(val))
-    return()
-  if (is.null(val) && null.ok)
+  if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
-  if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
+  if (missing(val) || !is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && (is.infinite(val) || val != as.integer(val)))) {
     if (is.null(name))
       name <- sprintf("'%s'", all.vars(match.call())[1])
@@ -1327,11 +1325,9 @@ SW <- function(expr) {
 #'
 #' @noRd
 .validate_logical_scalar <- function(val, null.ok = FALSE, name = NULL) {
-  if (missing(val))
-    return()
-  if (is.null(val) && null.ok)
+  if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
-  if (!is.logical(val) || length(val) != 1 || is.na(val)) {
+  if (missing(val) || !is.logical(val) || length(val) != 1 || is.na(val)) {
     if (is.null(name))
       name <- sprintf("'%s'", all.vars(match.call())[1])
     .throw_error(name, " should be a single logical value",

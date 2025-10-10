@@ -355,6 +355,7 @@ calc_MinDose <- function(
       .throw_error("After NA removal, nothing is left from the data set")
   }
 
+  .validate_positive_scalar(sigmab)
   if (!missing(init.values)) {
     if (!is.list(init.values)) {
       .throw_error("'init.values' is expected to be a named list")

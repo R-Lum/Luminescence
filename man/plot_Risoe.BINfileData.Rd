@@ -12,7 +12,7 @@ plot_Risoe.BINfileData(
   sorter = "POSITION",
   ltype = c("IRSL", "OSL", "TL", "RIR", "RBR", "RL"),
   curve.transformation = "None",
-  dose_rate,
+  dose_rate = NULL,
   temp.lab = "°C",
   cex.global = 1,
   ...

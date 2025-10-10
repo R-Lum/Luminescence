@@ -211,6 +211,7 @@ calc_FiniteMixture <- function(
   if (ncol(data) < 2) {
     .throw_error("'data' object must have two columns")
   }
+  .validate_positive_scalar(sigmab)
   if (sigmab < 0 || sigmab > 1) {
     .throw_error("'sigmab' must be a value between 0 and 1")
   }

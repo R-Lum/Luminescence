@@ -162,8 +162,10 @@ plot_RLum.Analysis <- function(
     }
   }
 
-  .validate_positive_scalar(nrows)
-  .validate_positive_scalar(ncols)
+  if (!missing(nrows))
+    .validate_positive_scalar(nrows, int = TRUE)
+  if (!missing(ncols))
+    .validate_positive_scalar(ncols, int = TRUE)
 
   ## Deal with additional arguments -----------------------------------------
   extraArgs <- list(...)

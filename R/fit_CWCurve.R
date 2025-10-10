@@ -175,7 +175,7 @@
 #' @export
 fit_CWCurve<- function(
   values,
-  n.components.max,
+  n.components.max = 7,
   fit.failure_threshold = 5,
   fit.method = "port",
   fit.trace = FALSE,
@@ -272,11 +272,10 @@ fit_CWCurve<- function(
   n.components <- 1 #number of components used for fitting - start with 1
   fit.failure_counter <- 0 #counts the failed fitting attempts
 
-  ## if n.components.max is missing, set it to the maximum value that can be
+  ## set n.components.max it to the maximum value that can be
   ## fitted given the data size (issue #953), up to a maximum of 7 components
-  if (missing(n.components.max))
-    n.components.max <- max(nrow(values) - 3, 1)
-  n.components.max <- min(n.components.max, 7)
+  n.fittable <- max(nrow(values) - 3, 1)
+  n.components.max <- min(n.components.max, n.fittable, 7)
 
   ##
   ##++++Fitting loop++++(start)

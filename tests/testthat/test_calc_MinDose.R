@@ -17,18 +17,18 @@ test_that("input validation", {
   expect_error(calc_MinDose(iris[, 1, drop = FALSE]),
                "'data' should have 2 columns")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
-               "is missing, with no default")
-  expect_error(calc_MinDose(ExampleData.DeValues$CA1, init.values = 1:4),
+               "'sigmab' should be a positive scalar")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 1, init.values = 1:4),
                "'init.values' is expected to be a named list")
-  expect_error(calc_MinDose(ExampleData.DeValues$CA1,
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(1, 2, 3)),
                "Please provide initial values for all model parameters")
-  expect_error(calc_MinDose(ExampleData.DeValues$CA1,
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
                "Missing parameters: gamma, sigma")
-  expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = "error"),
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = "error"),
                "'par' should be a positive integer scalar")
-  expect_error(calc_MinDose(ExampleData.DeValues$CA1, par = 2),
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = 2),
                "'par' can only be set to 3 or 4")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             invert = "error"),

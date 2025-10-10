@@ -206,7 +206,7 @@ calc_FadingCorr <- function(
   interval = c(0.01,500),
   txtProgressBar = TRUE,
   verbose = TRUE
-){
+) {
   .set_function_name("calc_FadingCorr")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -228,7 +228,6 @@ calc_FadingCorr <- function(
   }
 
   ## tc is validated only now, as it may be set in the previous block
-  .validate_class(tc, c("numeric", "integer"))
   .validate_positive_scalar(tc)
   .validate_positive_scalar(tc.g_value)
   .validate_class(interval, "numeric")

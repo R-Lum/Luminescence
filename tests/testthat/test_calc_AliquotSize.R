@@ -13,6 +13,7 @@ test_that("input validation", {
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1),
                "'sample.diameter' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1,
+                                sample.diameter = 1,
                                 sample_carrier.diameter = -1),
                "'sample_carrier.diameter' should be a positive scalar")
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,

@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(calc_FadingCorr(c(0.1, 0), 1),
                "'g_value' should have length 2")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0)),
-               "[calc_FadingCorr()] 'tc' should be of class 'numeric' or",
+               "[calc_FadingCorr()] 'tc' should be a positive scalar",
                fixed = TRUE)
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = c(1000, 2000)),

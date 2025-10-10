@@ -6,7 +6,7 @@
 \usage{
 fit_CWCurve(
   values,
-  n.components.max,
+  n.components.max = 7,
   fit.failure_threshold = 5,
   fit.method = "port",
   fit.trace = FALSE,

@@ -114,7 +114,7 @@ plot_Risoe.BINfileData<- function(
   sorter = "POSITION",
   ltype = c("IRSL","OSL","TL","RIR","RBR","RL"),
   curve.transformation = "None",
-  dose_rate,
+  dose_rate = NULL,
   temp.lab = "\u00B0C",
   cex.global = 1,
   ...
@@ -130,7 +130,7 @@ plot_Risoe.BINfileData<- function(
   .validate_class(set, c("integer", "numeric"), null.ok = TRUE)
   .validate_args(sorter, c("POSITION", "RUN", "SET"))
   .validate_length(sorter, 1)
-  .validate_positive_scalar(dose_rate)
+  .validate_positive_scalar(dose_rate, null.ok = TRUE)
   curve.transformation <- .validate_args(curve.transformation,
                                          c("CW2pLM", "CW2pLMi",
                                            "CW2pHMi", "CW2pPMi", "None"))
@@ -210,7 +210,7 @@ plot_Risoe.BINfileData<- function(
       ##add mtext for irradiation
       if (temp[i, "IRR_TIME"] != 0) {
         mtext(side = 4, cex = 0.8 * cex.global, line = 0.5,
-              if (missing("dose_rate"))
+              if (is.null(dose_rate))
                 paste("dose =", temp[i, "IRR_TIME"], "s")
               else
                 paste("dose =", temp[i, "IRR_TIME"] * dose_rate, "Gy")
