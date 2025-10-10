@@ -184,7 +184,8 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 #' @method subset Risoe.BINfileData
 #'
 #' @param records.rm [subset] [logical] (*with default*):
-#' remove records from data set, can be disabled, to just set the column `SET` to `TRUE` or `FALSE`
+#' whether records should be removed from the data set. If `FALSE`, the `SEL`
+#' column marks the selected records.
 #'
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
@@ -201,8 +202,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
     enclos = parent.frame()
   ),
   error = function(e) {
-    .throw_error("\nInvalid subset options, valid terms are: ",
-                 .collapse(names(x@METADATA)))
+    .throw_error("Invalid subset options, valid terms are: ",
+                 .collapse(names(x@METADATA), quote = FALSE))
   })
 
   ##probably everything is FALSE now?
@@ -211,6 +212,11 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
       x@METADATA <- x@METADATA[sel, ]
       x@DATA <- x@DATA[sel]
       x@METADATA[["ID"]] <- 1:length(x@METADATA[["ID"]])
+      ## the .RESERVED slot may not be there, in which case we don't subset it,
+      ## otherwise we generate a list of NULLs which can't be written out by
+      ## write_R2BIN()
+      if (length(x@.RESERVED) > 0)
+        x@.RESERVED <- x@.RESERVED[sel]
       return(x)
 
     } else{

@@ -154,8 +154,16 @@ test_that("test Risoe.BINfileData S3 methods", {
                "Invalid subset options, valid terms are")
   expect_warning(subset(risoe, ID == 1, error = TRUE),
                  "Argument not supported and skipped")
-  expect_length(subset(risoe, ID == 1), 1)
-  expect_length(subset(risoe, ID == 1, records.rm = FALSE), 720)
+  sel <- subset(risoe, ID == 1)
+  expect_length(sel, 1)
+  expect_length(sel@.RESERVED, 0)
+  sel <- subset(risoe, ID == 1, records.rm = FALSE)
+  expect_length(sel, 720)
+  expect_equal(sel@METADATA$SEL, c(TRUE, rep(FALSE, 719)))
+  sel <- subset(read_BIN2R(system.file("extdata/BINfile_V8.binx",
+                                       package = "Luminescence")),
+                POSITION == 1)
+  expect_equal(nrow(sel@METADATA), length(sel@.RESERVED))
   expect_null(subset(risoe, ID == -1))
   expect_equal(length(risoe), 720)
   expect_equal(names(risoe)[1:40], c(rep("TL", 24), rep("OSL", 16)))
