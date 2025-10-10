@@ -161,7 +161,8 @@ test_that("test Risoe.BINfileData S3 methods", {
   expect_length(sel, 720)
   expect_equal(sel@METADATA$SEL, c(TRUE, rep(FALSE, 719)))
   sel <- subset(read_BIN2R(system.file("extdata/BINfile_V8.binx",
-                                       package = "Luminescence")),
+                                       package = "Luminescence"),
+                           verbose = FALSE),
                 POSITION == 1)
   expect_equal(nrow(sel@METADATA), length(sel@.RESERVED))
   expect_null(subset(risoe, ID == -1))
