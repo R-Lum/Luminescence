@@ -279,7 +279,6 @@ format_Measurements <- function(x, convert, header) {
   names(df) <- c("time", "counts", "counts_error",
                  "counts_per_cycle", "counts_per_cycle_error")
 
-
   # shape of the curve: decay or cumulative
   if (convert)
     data <- matrix(c(df$time, df$counts_per_cycle), ncol = 2)
@@ -324,35 +323,26 @@ format_Header <- function(x) {
     n_elements <- length(x)
     n_properties <- length(grep(":", x, fixed = TRUE))
 
-    if (n_elements / n_properties == 1)
+    if (n_elements == n_properties)
       x <- unlist(strsplit(x, ": ", fixed = TRUE))
 
     return(x)
   })
 
   # format parameter/settings names and corresponding values
-  values <- vector(mode = "character")
-  names <- vector(mode = "character")
-
-  for (i in 1:length(header_split_clean)) {
-    for (j in seq(1, length(header_split_clean[[i]]), 2)) {
-      names <- c(names, header_split_clean[[i]][j])
-      values <- c(values, header_split_clean[[i]][j + 1])
-    }
-  }
+  dt <- rbindlist(lapply(header_split_clean, function(header) {
+    idx <- seq(1, length(header), 2)
+    data.frame(names = header[idx], values = header[idx + 1])
+  }))
 
   # some RegExing for nice reading
-  names <- gsub("[: ]$", "", names, perl = TRUE)
-  names <- gsub("^ ", "", names)
-  names <- gsub(" $", "", names)
+  names <- gsub(":$", "", dt$names, perl = TRUE) |> trimws()
   # for some weird reason "offset subtract" starts with '256 '
   names <- gsub("256 ", "", names)
   # finally, replace all blanks with underscores
   names <- gsub(" ", "_", names)
 
-  values <- gsub("[: ]$", "", values, perl = TRUE)
-  values <- gsub("^ ", "", values)
-  values <- gsub(" $", "", values)
+  values <- gsub(":$", "", dt$values, perl = TRUE) |> trimws()
 
   # return header as list
   header <- as.list(values)
