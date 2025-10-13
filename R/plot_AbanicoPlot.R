@@ -588,8 +588,7 @@ plot_AbanicoPlot <- function(
                                     "bottomleft", "bottom", "bottomright"))
   }
 
-  .validate_class(frame, c("integer", "numeric"))
-  .validate_length(frame, 1)
+  frame <- .validate_args(frame, c(0, 1, 2, 3))
 
   ## check/set layout definitions
   layout <- get_Layout(layout = list(...)$layout %||% "default")
