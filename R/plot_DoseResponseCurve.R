@@ -32,7 +32,7 @@
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.7
+#' @section Function version: 1.0.8
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -134,15 +134,6 @@ plot_DoseResponseCurve <- function(
             c(0, xmax)
           }
 
-  ## pch lookup table
-  reg_points_pch <- rep(19, nrow(xy))
-
-    ## correct repeated an zero
-    if(mode == "interpolation") {
-      reg_points_pch[duplicated(xy[[1]])] <- 2
-      reg_points_pch[xy[[1]] == 0] <-  1
-    }
-
   ## set plot settings
   plot_settings <- modifyList(
     x = list(
@@ -160,7 +151,7 @@ plot_DoseResponseCurve <- function(
       log = "",
       legend = TRUE,
       legend.pos = if (mode == "interpolation") "topleft" else "bottomright",
-      reg_points_pch = reg_points_pch,
+      reg_points_pch = c(19, 1, 2), # point, point 0, point repeated
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
       density_rug = TRUE,
@@ -187,6 +178,12 @@ plot_DoseResponseCurve <- function(
     }
   }
 
+  if (length(plot_settings$reg_points_pch) < 3) {
+    plot_settings$reg_points_pch <- c(19, 1, 2)
+    .throw_message("'reg_points_pch' should have length 3 (for point, point 0, ",
+                   "point repeated), 'reg_points_pch' reset to c(19, 1, 2)")
+  }
+
   ## Main plots -------------------------------------------------------------
 
   ## open plot area
@@ -210,7 +207,7 @@ plot_DoseResponseCurve <- function(
       ylim = plot_settings$ylim,
       xlim = plot_settings$xlim,
       log = plot_settings$log,
-      pch = plot_settings$reg_points_pch,
+      pch = plot_settings$reg_points_pch[1],
       xlab = plot_settings$xlab,
       ylab = plot_settings$ylab,
       frame.plot = plot_settings$box[1]
@@ -269,10 +266,7 @@ plot_DoseResponseCurve <- function(
     points(
         x = xy[idx.rep, 1],
         y = xy[idx.rep, 2],
-        pch = if(is.na(plot_settings$reg_points_pch[2]))
-                plot_settings$reg_points_pch[1]
-              else
-                plot_settings$reg_points_pch[2])
+        pch = plot_settings$reg_points_pch[3])
 
        ## LINES	#Insert Ln/Tn
     if (mode == "interpolation") {
@@ -346,10 +340,7 @@ plot_DoseResponseCurve <- function(
       points(
         x = xy[idx.0, 1],
         y = xy[idx.0, 2],
-        pch = if(is.na(plot_settings$reg_points_pch[3]))
-               plot_settings$reg_points_pch[1]
-              else
-               plot_settings$reg_points_pch[3],
+        pch = plot_settings$reg_points_pch[2],
         cex = 1.5)
 
       ## y-error bar
@@ -386,11 +377,9 @@ plot_DoseResponseCurve <- function(
     if(plot_settings$legend) {
       legend(
           plot_settings$legend.pos,
-          legend = if (mode == "interpolation")
-                     c("REG point", "REG point 0", "REG point repeated")
-                   else
-                     c("Dose point", "Dose point 0", "Dose point rep."),
-          pch = unique(plot_settings$reg_points_pch),
+          legend = paste(ifelse(mode == "interpolation", "REG", "Dose"),
+                         c("point", "point 0", "point repeated")),
+          pch = plot_settings$reg_points_pch,
           cex = 0.7,
           bty = "n")
     }

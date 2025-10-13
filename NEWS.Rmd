@@ -117,6 +117,13 @@ values are used with `log.z = TRUE` (#1063).
 
 * The legend text now scales better at high `cex` values (#1066).
 
+### `plot_DoseResponseCurve()`
+
+* The plot symbols are now correctly assigned for `mode = "extrapolation"` and
+in the legend. If `reg_points_pch` is specified, it must now be a vector of
+3 elements, corresponding to the symbols to use for normal points, point 0 and
+repeated points, respectively (#1072).
+
 ### `plot_RadialPlot()`
 
 * The function avoids some possible overprinting at the extremes of the z-axis
