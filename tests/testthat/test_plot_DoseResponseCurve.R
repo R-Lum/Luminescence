@@ -4,6 +4,8 @@ set.seed(1)
 fit <- fit_DoseResponseCurve(LxTxData, verbose = FALSE)
 fit.extra.gok <- fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
                                        fit.method = "GOK", verbose = FALSE)
+fit.alt <- fit_DoseResponseCurve(LxTxData, mode = "alternate",
+                                 verbose = FALSE)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -49,6 +51,8 @@ test_that("graphical snapshot tests", {
                               plot_DoseResponseCurve(fit, log = "xy"))
   vdiffr::expect_doppelganger("extrapolation-gok",
                               plot_DoseResponseCurve(fit.extra.gok))
+  vdiffr::expect_doppelganger("alternate",
+                              plot_DoseResponseCurve(fit.alt))
   vdiffr::expect_doppelganger("cex.global",
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      reg_points_pch = 1,
