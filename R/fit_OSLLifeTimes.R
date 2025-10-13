@@ -183,9 +183,9 @@ fit_OSLLifeTimes <- function(
   .set_function_name("fit_OSLLifeTimes")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Self-call -----------------------------------------------------------------------------------
-if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
-  .validate_not_empty(object)
+  ## Self-call --------------------------------------------------------------
+  if (inherits(object, c("list", "RLum.Analysis"))) {
+    .validate_not_empty(object)
 
   ##allow RLum.Analysis objects
   if(all(vapply(object, function(x){

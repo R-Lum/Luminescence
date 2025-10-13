@@ -197,7 +197,7 @@ convert_Wavelength2Energy <- function(
     ##return new object
     return(object)
 
-  }else if(inherits(object, "matrix") || inherits(object, "data.frame")){
+  } else if (inherits(object, c("matrix", "data.frame"))) {
 
     if (ncol(object) < 2) {
       .throw_error("'object' should have at least two columns")

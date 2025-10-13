@@ -484,7 +484,7 @@ fit_SurfaceExposure <- function(
     }
 
     ## add fitted curve
-    if (!inherits(fit, "error") && !inherits(fit, "simpleError")) {
+    if (!inherits(fit, c("error", "simpleError"))) {
 
       if (coord_flip) {
         oldx <- data[ ,2]

@@ -1499,7 +1499,7 @@ fit_DoseResponseCurve <- function(
                     silent = TRUE)
                 }
               }##endif extrapolation
-              if(!inherits(try, "try-error") && !inherits(try, "function"))
+              if (!inherits(try, c("try-error", "function")))
                 x.natural[i] <- try
             }
 
@@ -1669,7 +1669,7 @@ fit_DoseResponseCurve <- function(
                 silent = TRUE)
             }
           }##endif extrapolation
-          if(!inherits(try, "try-error") && !inherits(try, "function"))
+          if (!inherits(try, c("try-error", "function")))
             x.natural[i] <- try
         }
       }#end for loop
