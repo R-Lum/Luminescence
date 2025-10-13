@@ -82,8 +82,8 @@
 <g clip-path='url(#cpMjAyLjU2fDU0MC40OHwzNC41NnwzNDkuNDQ=)'>
 <polyline points='202.56,359.11 205.97,353.64 209.39,348.28 212.80,343.03 216.21,337.88 219.63,332.84 223.04,327.90 223.04,327.89 226.45,323.05 229.87,318.30 233.28,313.63 236.69,309.06 240.11,304.57 243.52,300.16 246.93,295.83 250.35,291.58 253.76,287.41 257.17,283.31 260.59,279.28 264.00,275.32 267.41,271.43 270.83,267.61 274.24,263.85 277.65,260.15 281.07,256.52 284.48,252.94 287.89,249.42 291.31,245.96 294.72,242.55 298.13,239.20 301.55,235.90 304.96,232.65 308.37,229.45 311.79,226.30 315.20,223.20 318.61,220.14 322.03,217.13 325.44,214.16 328.85,211.24 332.27,208.36 335.68,205.52 339.09,202.72 342.51,199.96 345.92,197.24 349.33,194.55 352.75,191.90 356.16,189.29 359.57,186.72 362.99,184.18 366.40,181.67 369.81,179.20 373.23,176.76 376.64,174.35 380.05,171.97 383.47,169.63 386.88,167.31 390.29,165.02 393.71,162.76 397.12,160.53 400.53,158.33 403.95,156.16 407.36,154.01 410.77,151.89 414.19,149.79 417.60,147.72 421.01,145.67 424.43,143.65 427.84,141.65 431.25,139.67 434.67,137.72 438.08,135.79 441.49,133.88 444.91,132.00 448.32,130.13 451.73,128.29 455.15,126.47 458.56,124.66 461.97,122.88 465.39,121.11 468.80,119.37 472.21,117.64 475.63,115.94 479.04,114.25 482.45,112.58 485.87,110.92 489.28,109.29 492.69,107.67 496.11,106.07 499.52,104.48 502.93,102.91 506.35,101.36 509.76,99.82 513.17,98.30 516.59,96.79 520.00,95.30 523.41,93.83 526.83,92.36 530.24,90.91 533.65,89.48 537.07,88.06 540.48,86.65 ' style='stroke-width: 0.75;' />
 <circle cx='219.06' cy='333.68' r='2.38' style='stroke-width: 0.75; fill: #FF3000;' />
-<circle cx='275.82' cy='260.39' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='223.04' cy='332.86' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
+<polygon points='275.82,257.03 278.73,262.07 272.91,262.07 ' style='stroke-width: 0.75; fill: none;' />
+<polygon points='223.04,329.50 225.95,334.54 220.13,334.54 ' style='stroke-width: 0.75; fill: none;' />
 <line x1='219.06' y1='349.44' x2='219.06' y2='34.56' style='stroke-width: 0.75; stroke: #FF3000; stroke-dasharray: 4.00,4.00;' />
 <polyline points='223.04,333.68 219.06,333.68 ' style='stroke-width: 0.75; stroke: #FF3000; stroke-dasharray: 4.00,4.00;' />
 </g>
@@ -94,12 +94,12 @@
 <text x='333.78' y='30.63' style='font-size: 7.68px; font-family: sans;' textLength='93.53px' lengthAdjust='spacingAndGlyphs'>33.97 ± 1.4e+00  |  fit: GOK</text>
 </g>
 <g clip-path='url(#cpMjAyLjU2fDU0MC40OHwzNC41NnwzNDkuNDQ=)'>
-<circle cx='485.83' cy='325.25' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='485.83' cy='333.31' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='485.83' cy='341.38' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
-<text x='491.88' y='327.56' style='font-size: 6.72px; font-family: sans;' textLength='32.13px' lengthAdjust='spacingAndGlyphs'>Dose point</text>
-<text x='491.88' y='335.62' style='font-size: 6.72px; font-family: sans;' textLength='37.74px' lengthAdjust='spacingAndGlyphs'>Dose point 0</text>
-<text x='491.88' y='343.69' style='font-size: 6.72px; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Dose point rep.</text>
+<circle cx='470.88' cy='325.25' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='470.88' cy='333.31' r='1.51' style='stroke-width: 0.75;' />
+<polygon points='470.88,339.02 472.92,342.55 468.84,342.55 ' style='stroke-width: 0.75; fill: none;' />
+<text x='476.93' y='327.56' style='font-size: 6.72px; font-family: sans;' textLength='32.13px' lengthAdjust='spacingAndGlyphs'>Dose point</text>
+<text x='476.93' y='335.62' style='font-size: 6.72px; font-family: sans;' textLength='37.74px' lengthAdjust='spacingAndGlyphs'>Dose point 0</text>
+<text x='476.93' y='343.69' style='font-size: 6.72px; font-family: sans;' textLength='60.53px' lengthAdjust='spacingAndGlyphs'>Dose point repeated</text>
 </g>
 <defs>
   <clipPath id='cpMTk4LjI0fDM0OS45Mnw0MTQuMjR8NTM1LjY4'>

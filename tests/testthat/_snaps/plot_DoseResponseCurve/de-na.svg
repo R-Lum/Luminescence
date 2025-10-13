@@ -89,8 +89,8 @@
 <g clip-path='url(#cpMjAyLjU2fDU0MC40OHwzNC41NnwzNDkuNDQ=)'>
 <text x='252.32' y='337.78' style='font-size: 7.68px; fill: #FF3000; font-family: sans;' textLength='113.99px' lengthAdjust='spacingAndGlyphs'>Error: De could not be calculated!</text>
 <circle cx='208.61' cy='42.62' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='208.61' cy='50.69' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='208.61' cy='58.75' r='1.51' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='208.61' cy='50.69' r='1.51' style='stroke-width: 0.75;' />
+<polygon points='208.61,56.40 210.64,59.93 206.57,59.93 ' style='stroke-width: 0.75; fill: none;' />
 <text x='214.66' y='44.94' style='font-size: 6.72px; font-family: sans;' textLength='31.01px' lengthAdjust='spacingAndGlyphs'>REG point</text>
 <text x='214.66' y='53.00' style='font-size: 6.72px; font-family: sans;' textLength='36.61px' lengthAdjust='spacingAndGlyphs'>REG point 0</text>
 <text x='214.66' y='61.06' style='font-size: 6.72px; font-family: sans;' textLength='59.40px' lengthAdjust='spacingAndGlyphs'>REG point repeated</text>

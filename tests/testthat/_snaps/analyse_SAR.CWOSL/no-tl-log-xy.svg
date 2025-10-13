@@ -235,8 +235,8 @@
 <circle cx='585.13' cy='51.73' r='1.62' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='597.46' cy='40.83' r='1.62' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='602.11' cy='37.01' r='1.62' style='stroke-width: 0.75; fill: #000000;' />
-<polygon points='568.92,65.85 571.10,69.62 566.74,69.62 ' style='stroke-width: 0.75; fill: none;' />
-<circle cx='452.01' cy='189.55' r='1.62' style='stroke-width: 0.75;' />
+<circle cx='568.92' cy='68.36' r='1.62' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='452.01' cy='189.55' r='1.62' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <line x1='452.01' y1='195.84' x2='584.20' y2='195.84' style='stroke-width: 0.75;' />
@@ -285,7 +285,7 @@
 </g>
 <g clip-path='url(#cpNDQ1Ljk5fDYwOC41MHwyNS45MnwxOTUuODQ=)'>
 <polyline points='445.99,182.49 447.63,182.18 449.27,181.84 450.91,181.47 452.01,181.22 452.55,181.08 454.20,180.66 455.84,180.21 457.48,179.73 459.12,179.22 460.76,178.67 462.40,178.08 464.05,177.46 465.69,176.80 467.33,176.09 468.97,175.35 470.61,174.56 472.25,173.72 473.90,172.85 475.54,171.92 477.18,170.95 478.82,169.93 480.46,168.86 482.10,167.74 483.74,166.58 485.39,165.37 487.03,164.11 488.67,162.80 490.31,161.45 491.95,160.05 493.59,158.61 495.24,157.12 496.88,155.60 498.52,154.03 500.16,152.42 501.80,150.77 503.44,149.09 505.08,147.37 506.73,145.62 508.37,143.84 510.01,142.03 511.65,140.19 513.29,138.32 514.93,136.43 516.58,134.52 518.22,132.58 519.86,130.63 521.50,128.66 523.14,126.67 524.78,124.66 526.42,122.64 528.07,120.61 529.71,118.56 531.35,116.51 532.99,114.44 534.63,112.37 536.27,110.29 537.92,108.21 539.56,106.12 541.20,104.03 542.84,101.94 544.48,99.84 546.12,97.75 547.77,95.65 549.41,93.56 551.05,91.47 552.69,89.39 554.33,87.31 555.97,85.24 557.61,83.17 559.26,81.12 560.90,79.07 562.54,77.04 564.18,75.03 565.82,73.02 567.46,71.04 569.11,69.07 570.75,67.13 572.39,65.20 574.03,63.30 575.67,61.43 577.31,59.59 578.95,57.78 580.60,56.00 582.24,54.26 583.88,52.56 585.52,50.91 587.16,49.30 588.80,47.73 590.45,46.22 592.09,44.77 593.73,43.37 595.37,42.04 597.01,40.77 598.65,39.57 600.30,38.44 601.94,37.39 603.58,36.41 605.22,35.51 606.86,34.69 608.50,33.94 ' style='stroke-width: 0.75;' />
-<circle cx='568.92' cy='68.36' r='1.62' style='stroke-width: 0.75; fill: #000000;' />
+<polygon points='568.92,65.85 571.10,69.62 566.74,69.62 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='445.99,42.45 594.90,42.45 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <polyline points='594.90,195.84 594.90,42.45 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <circle cx='594.90' cy='42.45' r='1.78' style='stroke-width: 0.75; fill: #FF3000;' />
@@ -406,8 +406,8 @@
 </g>
 <g clip-path='url(#cpNDQ1Ljk5fDYwOC41MHwyNS45MnwxOTUuODQ=)'>
 <circle cx='450.52' cy='31.97' r='1.13' style='stroke-width: 0.75; fill: #000000;' />
-<polygon points='450.52,36.25 452.05,38.90 449.00,38.90 ' style='stroke-width: 0.75; fill: none;' />
-<circle cx='450.52' cy='44.06' r='1.13' style='stroke-width: 0.75;' />
+<circle cx='450.52' cy='38.02' r='1.13' style='stroke-width: 0.75;' />
+<polygon points='450.52,42.30 452.05,44.95 449.00,44.95 ' style='stroke-width: 0.75; fill: none;' />
 <text x='455.06' y='33.70' style='font-size: 5.04px; font-family: sans;' textLength='23.25px' lengthAdjust='spacingAndGlyphs'>REG point</text>
 <text x='455.06' y='39.75' style='font-size: 5.04px; font-family: sans;' textLength='27.46px' lengthAdjust='spacingAndGlyphs'>REG point 0</text>
 <text x='455.06' y='45.80' style='font-size: 5.04px; font-family: sans;' textLength='44.55px' lengthAdjust='spacingAndGlyphs'>REG point repeated</text>

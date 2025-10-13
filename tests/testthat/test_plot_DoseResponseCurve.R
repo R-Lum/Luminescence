@@ -23,7 +23,10 @@ test_that("input validation", {
   expect_error(
       plot_DoseResponseCurve(fit, verbose = "error"),
       "'verbose' should be a single logical value")
-})
+  expect_message(
+      plot_DoseResponseCurve(fit, reg_points_pch = 1),
+      "'reg_points_pch' should have length 3")
+  })
 
 test_that("plot output", {
   testthat::skip_on_cran()
@@ -33,7 +36,7 @@ test_that("plot output", {
 
   ## check plot settings
   expect_s4_class(plot_DoseResponseCurve(fit, legend = FALSE,
-                                         reg_points_pch = 1,
+                                         reg_points_pch = c(19, 1, 2),
                                          density_polygon = FALSE,
                                          box = FALSE), "RLum.Results")
   expect_message(plot_DoseResponseCurve(fit.extra.gok, log = "x"),
@@ -55,7 +58,6 @@ test_that("graphical snapshot tests", {
                               plot_DoseResponseCurve(fit.alt))
   vdiffr::expect_doppelganger("cex.global",
                               plot_DoseResponseCurve(fit, legend = FALSE,
-                                                     reg_points_pch = 1,
                                                      density_polygon_col = "azure",
                                                      cex = 2))
 
