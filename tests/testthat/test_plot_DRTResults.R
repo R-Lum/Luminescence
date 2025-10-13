@@ -25,10 +25,10 @@ test_that("input validation", {
                  "Option 'boxplot' requires a value in 'preheat'")
   expect_error(plot_DRTResults(df, summary = 5),
                "'summary' should be of class 'character'")
-  expect_error(plot_DRTResults(df, summary.pos = list()),
-               "'summary.pos' should be of class 'numeric' or 'character'")
   expect_error(plot_DRTResults(df, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_DRTResults(df, summary.pos = list()),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_DRTResults(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
 

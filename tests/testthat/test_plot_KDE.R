@@ -18,10 +18,10 @@ test_that("input validation", {
                "'summary.method' should be one of 'MCM', 'weighted' or 'unweighted'")
   expect_error(plot_KDE(df, summary = 5),
                "'summary' should be of class 'character'")
-  expect_error(plot_KDE(df, summary.pos = list()),
-               "'summary.pos' should be of class 'numeric' or 'character'")
   expect_error(plot_KDE(df, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_KDE(df, summary.pos = list()),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_KDE(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_KDE(df, ylim = c(0, 1)),
