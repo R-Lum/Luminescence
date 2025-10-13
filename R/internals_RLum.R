@@ -1071,6 +1071,14 @@ SW <- function(expr) {
   capture.output(suppressMessages(suppressWarnings(expr)))
 }
 
+#' @title Retrieve the name of the variable used as first argument
+#'
+#' @noRd
+.first_argument <- function() {
+  sprintf("'%s'", all.vars(match.call(sys.function(sys.parent()),
+                                      sys.call(sys.parent())))[1])
+}
+
 #' @title Validate a character argument from a list of choices
 #'
 #' @description
@@ -1106,10 +1114,6 @@ SW <- function(expr) {
   if (is.null(arg) && null.ok)
     return(NULL)
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
-
   ## `arg` will have multiple values when the available choices are listed
   ## in the function's formal arguments: in that case all elements in `arg`
   ## are also in `choices` and we return the first one
@@ -1119,8 +1123,8 @@ SW <- function(expr) {
 
     ## we throw an error to catch cases when the formal arguments are
     ## changed but `choices` has not been updated
-    .throw_error(name, " contains multiple values but not all of them ",
-                 "match 'choices'")
+    .throw_error(name %||% .first_argument(),
+                 " contains multiple values but not all of them match 'choices'")
   }
 
   ## additional text to append after the valid choices to account for
@@ -1140,7 +1144,7 @@ SW <- function(expr) {
 
   idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
   if (all(idx.match == 0L))
-    .throw_error(name, " should be one of ",
+    .throw_error(name %||% .first_argument(), " should be one of ",
                  .collapse(msg.head, quote = FALSE), msg.tail)
   idx <- idx.match[idx.match > 0L]
   choices[idx]
@@ -1175,10 +1179,6 @@ SW <- function(expr) {
   if (!missing(arg) && is.null(arg) && null.ok)
     return(TRUE)
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
-
   if (missing(arg) || sum(inherits(arg, classes)) == 0L) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
@@ -1194,7 +1194,7 @@ SW <- function(expr) {
       msg.head <- classes.extra
       msg.tail <- NULL
     }
-    msg <- paste0(name, " should be of class ",
+    msg <- paste0(name %||% .first_argument(), " should be of class ",
                   .collapse(msg.head, quote = FALSE), msg.tail)
     if (throw.error)
       .throw_error(msg)
@@ -1231,12 +1231,8 @@ SW <- function(expr) {
   if (is.null(what))
     what <- class(arg)[1]
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
-
   if (NROW(arg) == 0 || NCOL(arg) == 0) {
-    msg <- paste0(name, " cannot be an empty ", what)
+    msg <- paste0(name %||% .first_argument(), " cannot be an empty ", what)
     if (throw.error)
       .throw_error(msg)
     .throw_warning(msg)
@@ -1266,12 +1262,8 @@ SW <- function(expr) {
 .validate_length <- function(arg, exp.length, throw.error = TRUE,
                             name = NULL) {
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
-
   if (length(arg) != exp.length) {
-    msg <- paste0(name, " should have length ", exp.length)
+    msg <- paste0(name %||% .first_argument(), " should have length ", exp.length)
     if (throw.error)
       .throw_error(msg)
     .throw_warning(msg)
@@ -1280,7 +1272,7 @@ SW <- function(expr) {
   return(TRUE)
 }
 
-#' @title Validate Scalar Variables Expected to be Positive
+#' @title Validate scalar variables expected to be positive
 #'
 #' @param val [numeric] (**required**): value to validate
 #' @param int [logical] (*with default*): whether the value has to be an
@@ -1302,10 +1294,8 @@ SW <- function(expr) {
     return(NULL)
   if (missing(val) || !is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && (is.infinite(val) || val != as.integer(val)))) {
-    if (is.null(name))
-      name <- sprintf("'%s'", all.vars(match.call())[1])
-    .throw_error(name, " should be a positive ", if (int) "integer ",
-                 "scalar", if (null.ok) " or NULL")
+    .throw_error(name %||% .first_argument(), " should be a positive ",
+                 if (int) "integer ", "scalar", if (null.ok) " or NULL")
   }
   val
 }
@@ -1328,9 +1318,7 @@ SW <- function(expr) {
   if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
   if (missing(val) || !is.logical(val) || length(val) != 1 || is.na(val)) {
-    if (is.null(name))
-      name <- sprintf("'%s'", all.vars(match.call())[1])
-    .throw_error(name, " should be a single logical value",
+    .throw_error(name %||% .first_argument(), " should be a single logical value",
                  if (null.ok) " or NULL")
   }
   val
