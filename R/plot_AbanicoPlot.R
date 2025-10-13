@@ -578,14 +578,14 @@ plot_AbanicoPlot <- function(
     dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
 
   .validate_class(summary, "character")
-  .validate_class(summary.pos, c("numeric", "character"))
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    .validate_args(summary.pos, c("sub", "left", "center", "right",
-                                  "topleft", "top", "topright",
-                                  "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos,
+                                  c("sub", "left", "center", "right",
+                                    "topleft", "top", "topright",
+                                    "bottomleft", "bottom", "bottomright"))
   }
 
   .validate_class(frame, c("integer", "numeric"))

@@ -113,6 +113,9 @@
 
 - The legend text now scales better at high `cex` values (#1066).
 
+- If `summary.pos` contains multiple valid positions, use the first one
+  rather than generating warnings and not showing the summary (#1093).
+
 ### `plot_DoseResponseCurve()`
 
 - The plot symbols are now correctly assigned for
@@ -128,6 +131,9 @@
 
 - The appearance of the y-axis ticks has been improved in the case when
   the y-axis is particularly narrow (#1060).
+
+- If `summary.pos` contains multiple valid positions, use the first one
+  rather than generating warnings and not showing the summary (#1093).
 
 ### `plot_RLum.Analysis()`
 

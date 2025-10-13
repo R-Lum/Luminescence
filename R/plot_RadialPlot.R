@@ -332,14 +332,14 @@ plot_RadialPlot <- function(
   }
 
   .validate_class(summary, "character")
-  .validate_class(summary.pos, c("numeric", "character"))
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    .validate_args(summary.pos, c("sub", "left", "center", "right",
-                                  "topleft", "top", "topright",
-                                  "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos,
+                                  c("sub", "left", "center", "right",
+                                    "topleft", "top", "topright",
+                                    "bottomleft", "bottom", "bottomright"))
   }
 
   if(missing(stats) == TRUE) {stats <- numeric(0)}
