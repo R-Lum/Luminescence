@@ -52,6 +52,9 @@
 - The size of the interpolation grid can be controlled via the `...`
   arguments `nx` and `ny` (#1077).
 
+- The `coord` argument is now better validated to avoid a crash in case
+  of misspecification (#1097).
+
 ### `calc_EED_Model()`
 
 - A crash that occurred with a small number of simulation was fixed

@@ -269,6 +269,8 @@ analyse_portableOSL <- function(
     if(nrow(coord) != length(OSL$sum_signal))
       .throw_error("The number of coordinates in 'coord' should match the ",
                    "number of samples (", length(OSL$sum_signal), ")")
+    if (ncol(coord) != 2)
+      .throw_error("'coord' should specify two coordinates per sample")
   }
 
   ### GENERATE SUMMARY data.frame -----
