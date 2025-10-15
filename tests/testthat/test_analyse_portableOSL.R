@@ -137,6 +137,9 @@ test_that("input validation", {
                                                   COORD_Y = c(1, 2))),
                  "The number of coordinates in 'coord' should match the number",
                  fixed = TRUE)
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
+                                     coord = as.list(1:14)),
+                 "'coord' should specify two coordinates per sample")
 
     ## trigger message if sample names don't contain coordinates
     mod <- merged
