@@ -2,15 +2,7 @@
 data(ExampleData.portableOSL, envir = environment())
 
 ## generate test data set for profile
-merged <- surface <- merge_RLum(ExampleData.portableOSL)
-
-## generate dataset for surface: each sample has its own set of coordinates
-sample.names <- unique(sapply(surface@records, function(x) x@info$settings$Sample))
-surface@records <- lapply(surface@records, function(x){
-  set.seed(match(x@info$settings$Sample, sample.names))
-  x@info$settings$Sample <- paste0("Test_x:", runif(1), "|y:", runif(1))
-  x
-})
+merged <- merge_RLum(ExampleData.portableOSL)
 
 test_that("check class and length of output", {
     testthat::skip_on_cran()
@@ -33,12 +25,13 @@ test_that("check class and length of output", {
       expect_equal(length(results), 3)
       expect_s3_class(results$summary, "data.frame")
       expect_s4_class(results$data, "RLum.Analysis")
-    expect_equal(round(sum(results$summary[,c(-1, -2, -10,-11)]), digits = 2), 175.44)
+    expect_equal(round(sum(results$summary[,c(-1, -2, -10, -11)]), 2),
+                 82.1)
 
     ## standard surface
     results <- expect_s4_class(
         analyse_portableOSL(
-          surface,
+          merged,
           signal.integral = 1:5,
           invert = FALSE,
           mode = "surface",
@@ -50,7 +43,7 @@ test_that("check class and length of output", {
     set.seed(1234)
     results <- expect_s4_class(
       analyse_portableOSL(
-        surface,
+        merged,
         signal.integral = 1:5,
         invert = TRUE,
         mode = "surface",
@@ -68,7 +61,7 @@ test_that("check class and length of output", {
 
     ## check list input
     expect_s4_class(
-      suppressWarnings(analyse_portableOSL(list(surface), mode = "surface")),
+      suppressWarnings(analyse_portableOSL(list(merged), mode = "surface")),
       "RLum.Results")
     expect_warning(expect_null(analyse_portableOSL(list())),
                    "Nothing was merged as the object list was found to be empty")
@@ -88,7 +81,7 @@ test_that("check class and length of output", {
 
     ## more coverage
     expect_s4_class(analyse_portableOSL(
-        surface,
+        merged,
         signal.integral = 1:5,
         mode = "surface",
         bg_img = as.raster(matrix(0:1, ncol = 4, nrow = 3))
@@ -134,21 +127,26 @@ test_that("input validation", {
                  "'object' references 14 sample names, but only 13 IRSL/OSL")
 
     ## coordinates not list or matrix
-    expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
                                      coord = "error"),
       "'coord' should be of class 'matrix' or 'list'")
 
     ## coordinates are not of the correct size
-    expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
                                      coord = list(COORD_X = c(0, 0),
                                                   COORD_Y = c(1, 2))),
                  "The number of coordinates in 'coord' should match the number",
                  fixed = TRUE)
 
-    ## trigger warning
+    ## trigger message if sample names don't contain coordinates
+    mod <- merged
+    mod@records <- lapply(mod@records, function(x) {
+      x@info$settings$Sample <- substr(x@info$settings$Sample, 1, 4)
+      x
+    })
     expect_message(
       analyse_portableOSL(
-        merged,
+        mod,
         signal.integral = 1:5,
         invert = FALSE,
         normalise = TRUE,
@@ -160,7 +158,7 @@ test_that("input validation", {
 
     expect_error(
       analyse_portableOSL(
-        surface,
+        merged,
         signal.integral = 1:5,
         mode = "surface",
         surface_value = "error"),
@@ -193,12 +191,12 @@ test_that("graphical snapshot tests", {
                               analyse_portableOSL(merged, mode = "profile",
                                                   signal.integral = 1:5))
   vdiffr::expect_doppelganger("surface",
-                              analyse_portableOSL(surface, mode = "surface",
+                              analyse_portableOSL(merged, mode = "surface",
                                                   signal.integral = 1:5,
                                                   nx = 40,
                                                   ny = 40))
   vdiffr::expect_doppelganger("surface contour cex",
-                              analyse_portableOSL(surface, mode = "surface",
+                              analyse_portableOSL(merged, mode = "surface",
                                                   signal.integral = 1:5,
                                                   nx = 40,
                                                   ny = 40,
