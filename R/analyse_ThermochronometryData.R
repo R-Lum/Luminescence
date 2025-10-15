@@ -154,7 +154,7 @@ analyse_ThermochronometryData <- function(
   names(results_combined) <- unique(originator)
 
 # Results -----------------------------------------------------------------
-  results <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       FAD = results_combined[["analyse_FadingMeasurement"]],
@@ -163,6 +163,4 @@ analyse_ThermochronometryData <- function(
     info = list(
       call = sys.call()
     ))
-
-  return(results)
 }

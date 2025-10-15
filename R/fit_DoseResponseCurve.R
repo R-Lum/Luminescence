@@ -1770,7 +1770,7 @@ fit_DoseResponseCurve <- function(
   ), silent = TRUE)
 
   ##make RLum.Results object
-  output.final <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       De = output,
@@ -1794,7 +1794,6 @@ fit_DoseResponseCurve <- function(
       call = sys.call()
     )
   )
-  invisible(output.final)
 }
 
 # Helper functions in fit_DoseResponseCurve() -------------------------------------

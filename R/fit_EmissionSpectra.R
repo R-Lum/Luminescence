@@ -680,7 +680,7 @@ fit_EmissionSpectra <- function(
   if (!method_control$export.plot.data) {
     df_plot <- NA
   }
-  results <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(data = m_coef,
                 fit = fit,
@@ -693,7 +693,4 @@ fit_EmissionSpectra <- function(
                 ),
     info = list(call = sys.call())
   )
-
-  ##return
-  return(results)
 }

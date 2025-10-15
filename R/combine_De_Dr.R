@@ -797,7 +797,7 @@ if(plot){
 }
 
 # Return results ----------------------------------------------------------
-  return(set_RLum(
+  set_RLum(
     "RLum.Results",
     data = list(
       Ages = fit_BCAM$A,
@@ -819,5 +819,5 @@ if(plot){
       call = sys.call(),
       model_IAM = fit_IAM$model,
       model_BCAM = fit_BCAM$model)
-  ))
+  )
 }

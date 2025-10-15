@@ -1875,7 +1875,7 @@ analyse_IRSAR.RF<- function(
     }
 
   ##produce results object
-    newRLumResults.analyse_IRSAR.RF <- set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         data = De.values,
@@ -1885,7 +1885,5 @@ analyse_IRSAR.RF<- function(
         slide = slide
       ),
       info = list(call = sys.call())
-    )
-
-  invisible(newRLumResults.analyse_IRSAR.RF)
+  )
 }

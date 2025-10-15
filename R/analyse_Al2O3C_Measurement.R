@@ -617,7 +617,7 @@ analyse_Al2O3C_Measurement <- function(
   # Output --------------------------------------------------------------------------------------
   UID <- create_UID()
 
-  output <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = cbind(data, UID),

@@ -127,13 +127,10 @@ apply_EfficiencyCorrection <- function(
 
 
   # Return Output------------------------------------------------------------
-  temp.output <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Spectrum",
     recordType = object@recordType,
     curveType = object@curveType,
     data = temp.matrix,
     info = object@info)
-
-  invisible(temp.output)
-
 }

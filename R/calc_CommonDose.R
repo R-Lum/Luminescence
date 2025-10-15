@@ -190,12 +190,10 @@ calc_CommonDose <- function(
   call<- sys.call()
   args<- list(log=log, sigmab=sigmab)
 
-  newRLumResults.calc_CommonDose<- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
                 args = args,
                 call = call))
-
-  invisible(newRLumResults.calc_CommonDose)
 }

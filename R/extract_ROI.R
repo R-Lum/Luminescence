@@ -203,13 +203,12 @@ extract_ROI <- function(
     grain_d = roi[,3])
 
 # Return ------------------------------------------------------------------
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         roi_signals = roi_signals,
         roi_summary = roi_summary,
         roi_coord = roi),
       info = list(
-        call = sys.call())))
+          call = sys.call()))
 }

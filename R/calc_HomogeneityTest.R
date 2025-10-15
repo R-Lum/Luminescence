@@ -134,7 +134,7 @@ calc_HomogeneityTest <- function(
 
   args <- list(log = log)
 
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       summary = summary,
@@ -142,5 +142,5 @@ calc_HomogeneityTest <- function(
       args = args
     ),
     info = list(call = sys.call())
-  ))
+  )
 }

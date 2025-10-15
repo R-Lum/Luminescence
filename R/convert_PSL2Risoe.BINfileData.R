@@ -181,11 +181,7 @@ convert_PSL2Risoe.BINfileData <- function(object, ...) {
                          RECTYPE = rep(0, length(curves)))
 
   ## CREATE Risoe.BINfileData OBJECT ----
-  bin <- set_Risoe.BINfileData(METADATA = METADATA,
-                               DATA = DATA,
-                               .RESERVED = list())
-
-
-  ## RETURN VALUE ----
-  return(bin)
+  set_Risoe.BINfileData(METADATA = METADATA,
+                        DATA = DATA,
+                        .RESERVED = list())
 }

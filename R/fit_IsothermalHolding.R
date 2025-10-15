@@ -430,7 +430,7 @@ fit_IsothermalHolding <- function(
   }## plot condition
 
   # Return results ----------------------------------------------------------
-  output <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
      ITL_params = data.frame(ITL_params),
@@ -440,6 +440,4 @@ fit_IsothermalHolding <- function(
     info = list(
       call = sys.call())
     )
-
-  return(output)
 }

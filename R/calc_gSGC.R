@@ -384,7 +384,7 @@ for(i in 1:nrow(data)){
 ##OUTPUT RLUM
 ##============================================================================##
 
-    temp.RLum.Results <- set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         De = as.data.frame(output.data),
@@ -393,6 +393,4 @@ for(i in 1:nrow(data)){
       ),
       info = list( call = sys.call())
     )
-
-  return(temp.RLum.Results)
 }

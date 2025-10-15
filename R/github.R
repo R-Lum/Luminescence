@@ -142,14 +142,12 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
   sha <- sapply(content, function(x) x$commit$sha)
 
   # format output as data.frame
-  output <- data.frame(
+  data.frame(
     BRANCH = branches,
     SHA = sha,
     INSTALL = paste0("devtools::install_github('r-lum/luminescence@", branches, "')"),
     stringsAsFactors = FALSE
   )
-
-  return(output)
 }
 
 
@@ -245,6 +243,5 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
     .throw_error("Contacting ", url, " returned status code ",
                  httr::status_code(response))
   # nocov end
-  content <- httr::content(response)
-  return(content)
+  httr::content(response)
 }

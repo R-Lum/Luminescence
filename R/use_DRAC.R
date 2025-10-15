@@ -406,7 +406,7 @@ use_DRAC <- function(
   }
 
   ## return output
-  DRAC.return <- set_RLum(
+  invisible(set_RLum(
     "RLum.Results",
     data = list(
     DRAC = list(highlights = DRAC.highlights,
@@ -419,6 +419,5 @@ use_DRAC <- function(
         data = file,
         call = sys.call(),
         args = as.list(sys.call()[-1])))
-
-  invisible(DRAC.return)
+    )
 }

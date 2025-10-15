@@ -777,7 +777,7 @@ fit_CWCurve<- function(
   if (!method_control$export.comp.contrib.matrix) {
     component.contribution.matrix <- NA
   }
-  newRLumResults.fit_CWCurve <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = output.table,
@@ -786,6 +786,4 @@ fit_CWCurve<- function(
     ),
     info = list(call = sys.call())
   )
-
-  invisible(newRLumResults.fit_CWCurve)
 }

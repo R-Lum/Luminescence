@@ -163,11 +163,11 @@ calc_OSLLxTxDecomposed <- function(
   # calc.parameters <- list(...)
 
   ##set results object
-  return(set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         LxTx.table = temp),
       #  calc.parameters = calc.parameters),
       info = list(call = sys.call())
-  ))
+  )
 }

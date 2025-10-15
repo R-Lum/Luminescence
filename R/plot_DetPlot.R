@@ -426,7 +426,7 @@ plot_DetPlot <- function(
 
 # Return ------------------------------------------------------------------
   ##merge results
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       De.values = as.data.frame(data.table::rbindlist(df_final)),
@@ -434,5 +434,5 @@ plot_DetPlot <- function(
       ),
     info = list(
       call = sys.call())
-  ))
+  )
 }

@@ -369,7 +369,7 @@ analyse_Al2O3C_CrossTalk <- function(
     }
 
   # Output --------------------------------------------------------------------------------------
-  output <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = as.data.frame(AD_matrix),

@@ -201,9 +201,9 @@ calc_TLLxTxRatio <- function(
     )
 
 # Return values -----------------------------------------------------------
-    return(set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(LxTx.table = temp.results),
       info = list(call = sys.call())
-    ))
+  )
 }

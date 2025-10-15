@@ -336,7 +336,7 @@ analyse_Al2O3C_ITC <- function(
   }
 
   # Output --------------------------------------------------------------------------------------
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = data.frame(
@@ -348,5 +348,5 @@ analyse_Al2O3C_ITC <- function(
       fit = GC$Fit
     ),
     info = list(call = sys.call())
-  ))
+  )
 }

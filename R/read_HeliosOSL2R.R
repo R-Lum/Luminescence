@@ -145,10 +145,8 @@ read_HeliosOSL2R <- function(
   })
 
   ## create RLum.Analysis as output
-  object <- set_RLum(
+  set_RLum(
     class = "RLum.Analysis",
     originator = "read_HeliosOSL2R",
     records = records)
-
-  return(object)
 }

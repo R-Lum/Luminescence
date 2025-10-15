@@ -548,10 +548,9 @@ calc_CosmicDoseRate<- function(
     summary<- data.frame(cbind(profile.results,add.info))
   }
 
-  newRLumResults.calc_CosmicDoseRate <- set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(summary=summary,
                   args=args,
                   call=call))
-  invisible(newRLumResults.calc_CosmicDoseRate)
 }

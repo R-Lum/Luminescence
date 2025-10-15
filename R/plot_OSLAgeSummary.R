@@ -166,10 +166,10 @@ plot_OSLAgeSummary <- function(
   )
 
 # Return ------------------------------------------------------------------
-  return(set_RLum("RLum.Results",
+  set_RLum("RLum.Results",
     data = list(
       Estimate = Bayes_est_mean,
       Credible_Interval = CI,
       level = level),
-  info = list(call = sys.call())))
+    info = list(call = sys.call()))
 }

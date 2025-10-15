@@ -628,7 +628,7 @@ analyse_SAR.TL <- function(
   }
 
   # Return Values -----------------------------------------------------------
-  newRLumResults.analyse_SAR.TL <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = temp.GC,
@@ -637,6 +637,4 @@ analyse_SAR.TL <- function(
     ),
     info = list(info = sys.call())
   )
-
-  return(newRLumResults.analyse_SAR.TL)
 }

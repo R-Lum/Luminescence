@@ -304,14 +304,12 @@ calc_gSGC_feldspar <- function (
     HPD95_UPPER = m[, 4]
   )
 
-  return(
-    set_RLum("RLum.Results",
+  set_RLum("RLum.Results",
       data = list(
         data = df,
         m.MC = lapply(l, function(x) {if(is.na(x[[1]])) {return(x)} else {x$m.MC} })
       ),
       info = list(
         call = sys.call()
-      )
-    ))
+      ))
 }

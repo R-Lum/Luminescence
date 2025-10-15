@@ -213,7 +213,7 @@ calc_WodaFuchs2008 <- function(
   }
 
   ## return output ------------------------------------------------------------
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       D_estimate = data.frame(
@@ -228,5 +228,5 @@ calc_WodaFuchs2008 <- function(
       breaks = H$breaks
     ),
     info = list(call = sys.call())
-  ))
+  )
 }

@@ -1044,7 +1044,7 @@ analyse_FadingMeasurement <- function(
   }
 
   ##return
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       fading_results = fading_results,
@@ -1054,5 +1054,5 @@ analyse_FadingMeasurement <- function(
       irr.times = irradiation_times
     ),
     info = list(call = sys.call())
-  ))
+  )
 }

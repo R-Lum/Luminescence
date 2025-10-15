@@ -952,7 +952,7 @@ fit_LMCurve<- function(
   if (!method_control$export.comp.contrib.matrix) {
     component.contribution.matrix <- NA
   }
-  newRLumResults.fit_LMCurve <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = output.table,
@@ -962,6 +962,4 @@ fit_LMCurve<- function(
     ),
     info = list(call = sys.call())
   )
-
-  invisible(newRLumResults.fit_LMCurve)
 }

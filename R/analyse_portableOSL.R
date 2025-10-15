@@ -605,7 +605,7 @@ analyse_portableOSL <- function(
   call<- sys.call()
   args <- as.list(call)[2:length(call)]
 
-  newRLumResults <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       summary=summary,
@@ -613,8 +613,6 @@ analyse_portableOSL <- function(
       args=args
     ),
     info = list(call = call))
-
-  return(newRLumResults)
 }
 
 # HELPER FUNCTIONS ----------

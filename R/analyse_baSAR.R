@@ -2134,7 +2134,7 @@ analyse_baSAR <- function(
   }
 
   # Return --------------------------------------------------------------------------------------
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       summary = results[[1]],
@@ -2144,5 +2144,5 @@ analyse_baSAR <- function(
       removed_aliquots = removed_aliquots
       ),
     info = list(call = sys.call())
-  ))
+  )
 }

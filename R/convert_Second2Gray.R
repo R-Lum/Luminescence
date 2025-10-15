@@ -145,7 +145,5 @@ convert_Second2Gray <- function(
   }
 
   ## Return -----------------------------------------------------------------
-  data <- data.frame(De=De.gray, De.error=De.error.gray)
-
-  return(data)
+  data.frame(De = De.gray, De.error = De.error.gray)
 }

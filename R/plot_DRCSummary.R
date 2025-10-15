@@ -274,7 +274,7 @@ if(inherits(object, "list")){
   }
 
   ## Results -------------------------------------------------------------------
-  results <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       results = data.frame(
@@ -287,7 +287,4 @@ if(inherits(object, "list")){
       call = sys.call(),
       args = as.list(sys.call())[-1])
   )
-
-  ## Return value --------------------------------------------------------------
-  return(results)
 }

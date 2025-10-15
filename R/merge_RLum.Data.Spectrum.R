@@ -257,7 +257,7 @@ merge_RLum.Data.Spectrum <- function(
                }
 
   ## Build new RLum.Data.Spectrum object ------------------------------------
-  new.Data.Spectrum <- set_RLum(
+  set_RLum(
     class = as.character(class(object[[1]])),
     originator = "merge_RLum.Data.Spectrum",
     recordType = object[[1]]@recordType,
@@ -268,6 +268,4 @@ merge_RLum.Data.Spectrum <- function(
       x@.uid
     }))
   )
-
-  return(new.Data.Spectrum)
 }

@@ -753,7 +753,7 @@ scale_GammaDose <- function(
   )
 
   ## Create RLum.Results object (return object)
-  results <- set_RLum(class = "RLum.Results",
+  set_RLum(class = "RLum.Results",
                       originator = "scale_GammaDose",
                       data = list(summary = summary,
                                   data = data,
@@ -773,6 +773,4 @@ scale_GammaDose <- function(
                                   call = sys.call()),
                       info = settings$info
   )
-
-  return(results)
 }

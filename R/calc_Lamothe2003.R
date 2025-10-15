@@ -314,8 +314,7 @@ calc_Lamothe2003 <- function(
   }
 
   # Compile output ------------------------------------------------------------------------------
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         data = data.frame(
@@ -340,6 +339,5 @@ calc_Lamothe2003 <- function(
       info = list(
         call = sys.call()
       )
-    )
   )
 }

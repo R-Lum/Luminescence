@@ -208,7 +208,7 @@ calc_SourceDoseRate <- function(
     stringsAsFactors = TRUE
   )
 
-  temp.return <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       dose.rate = dose_rate,
@@ -217,6 +217,4 @@ calc_SourceDoseRate <- function(
                         dose.rate.unit = dose.rate.unit),
       call = sys.call()
     ))
-
-  return(temp.return)
 }

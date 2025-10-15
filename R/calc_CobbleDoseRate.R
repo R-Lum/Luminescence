@@ -403,8 +403,7 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   DataComponent[is.na(DataComponent)] <- 0
 
   # Return ------------------------------------------------------------------
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         DataIndividual = DataIndividual,
@@ -413,6 +412,5 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
       ),
       info = list(
         call = sys.call()
-      )))
-
+      ))
 }

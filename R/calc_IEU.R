@@ -281,7 +281,7 @@ calc_IEU <- function(
   args <- list(a = a, b = b, interval = interval,
                decimal.point = decimal.point, plot = plot)
 
-  newRLumResults.calc_IEU <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
@@ -292,6 +292,4 @@ calc_IEU <- function(
                   Table.Fixed.Iteration = Fixed.Iterations,
                   Table.IEUResults = Table.Results
                 )))
-
-  invisible(newRLumResults.calc_IEU)
 }

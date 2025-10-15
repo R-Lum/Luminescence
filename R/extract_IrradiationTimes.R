@@ -449,5 +449,6 @@ extract_IrradiationTimes <- function(
    }
 
   ## regular return
-  return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
+  set_RLum("RLum.Results",
+           data = list(irr.times = results))
 }

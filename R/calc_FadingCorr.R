@@ -464,10 +464,10 @@ calc_FadingCorr <- function(
   ##============================================================================##
   ##OUTPUT RLUM
   ##============================================================================##
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(age.corr = age.corr,
                 age.corr.MC = tempMC),
     info = list(call = sys.call())
-  ))
+  )
 }

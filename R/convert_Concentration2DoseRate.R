@@ -255,8 +255,7 @@ convert_Concentration2DoseRate <- function(
     InfDRG <- round(InfDRG, digits = 3)
 
 # Return ------------------------------------------------------------------
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         InfDRG = InfDRG,
@@ -264,5 +263,5 @@ convert_Concentration2DoseRate <- function(
       ),
       info = list(
         call = sys.call()
-      )))
+      ))
 }
