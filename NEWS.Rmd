@@ -167,3 +167,8 @@ and spacing between axis elements (#1070).
 
 * The function also updates the `.RESERVED` slot (if present) to keep only the
 elements selected (#1089).
+
+## Other changes
+
+* The `ExampleData.portableOSL` file has been updated with surface coordinates
+(#1095).
