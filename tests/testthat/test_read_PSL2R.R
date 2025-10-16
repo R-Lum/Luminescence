@@ -1,3 +1,4 @@
+## load file
 psl.file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
 
 test_that("Test functionality", {
@@ -39,6 +40,9 @@ test_that("input validation", {
                                   package = "Luminescence")),
     "No .psl files found"
   )
+  expect_error(read_PSL2R(system.file("extdata", package = "Luminescence"),
+                          pattern = "error"),
+               "No .psl files found")
 
   ## list of files with a non-existent file
   expect_error(

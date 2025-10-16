@@ -1,4 +1,4 @@
-#' @title Import XSYG files to R
+#' @title Import XSYG files into R
 #'
 #' @description Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 #'
@@ -120,9 +120,9 @@
 #' @param import [logical] (*with default*):
 #' if set to `FALSE`, only the XSYG file structure is shown.
 #'
-#' @param pattern [regex] (*with default*):
-#' optional regular expression if `file` is a link to a folder, to select just
-#' specific XSYG-files
+#' @param pattern [character] (*with default*):
+#' regular expression pattern passed to [list.files] to construct a list of
+#' files to read (used only when a path is provided).
 #'
 #' @param auto_linearity_correction [logical] (*with default*): enable/disable
 #' automatic count linearity correction. Because the information on the detectors
@@ -209,7 +209,7 @@ read_XSYG2R <- function(
   n_records = NULL,
   fastForward = FALSE,
   import = TRUE,
-  pattern = ".xsyg",
+  pattern = "\\.xsyg",
   auto_linearity_correction = FALSE,
   verbose = TRUE,
   txtProgressBar = TRUE

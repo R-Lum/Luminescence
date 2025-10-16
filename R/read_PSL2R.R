@@ -1,17 +1,18 @@
-#' @title Import PSL files to R
+#' @title Import SUERC portable OSL Reader PSL files into R
 #'
-#' @description Imports PSL files produced by a SUERC portable OSL reader into R.
-#'
-#' @details This function provides an import routine for the SUERC portable OSL Reader PSL
-#' format (measurement data and sequence). PSL files are just plain text and can be
-#' viewed with any text editor.  Due to the formatting of PSL files this import
-#' function relies heavily on regular expression to find and extract all relevant information. See **note**.
+#' @description
+#' This function provides an import routine for the SUERC portable OSL Reader
+#' PSL format (measurement data and sequence). PSL files are just plain text
+#' and can be viewed with any text editor. Due to the formatting of PSL files,
+#' this import function relies heavily on regular expression to find and
+#' extract all relevant information. See **note**.
 #'
 #' @param file [character] (**required**):
 #' path and file name of the PSL file. If input is a `vector` it should comprise
 #' only `character`s representing valid paths and PSL file names.
-#' Alternatively the input character can be just a directory (path). In this case the
-#' the function tries to detect and import all PSL files found in the directory.
+#' Alternatively, the input character can be just a directory (path), in which
+#' case the function tries to detect and import all PSL files found in the
+#' directory.
 #'
 #' @param drop_bg [logical] (*with default*):
 #' `TRUE` to automatically remove all non-OSL/IRSL curves.
@@ -28,6 +29,10 @@
 #' @param merge [logical] (*with default*):
 #' `TRUE` to merge all `RLum.Analysis` objects. Only applicable if multiple
 #' files are imported.
+#'
+#' @param pattern [character] (*with default*):
+#' regular expression pattern passed to [list.files] to construct a list of
+#' files to read (used only when a path is provided).
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -69,6 +74,7 @@ read_PSL2R <- function(
   as_decay_curve = TRUE,
   smooth = FALSE,
   merge = FALSE,
+  pattern = "\\.psl$",
   verbose = TRUE,
   ...
 ) {
@@ -79,10 +85,11 @@ read_PSL2R <- function(
 
   .validate_class(file, "character")
   .validate_not_empty(file)
+  .validate_class(pattern, "character")
 
   if (length(file) == 1) {
-    if (!grepl(".psl$", file, ignore.case = TRUE)) {
-      file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)
+    if (!grepl("\\.psl$", file, ignore.case = TRUE)) {
+      file <- list.files(file, pattern = pattern, full.names = TRUE, ignore.case = TRUE)
       if (length(file) == 0)
         .throw_error("No .psl files found")
       .throw_message("The following files were found and imported:\n",

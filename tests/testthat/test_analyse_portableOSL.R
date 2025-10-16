@@ -124,7 +124,7 @@ test_that("input validation", {
                                      signal.integral = 1:5),
                  "Sequence pattern not supported: expected 3 DARK_COUNT records")
     expect_error(analyse_portableOSL(merged[-c(7:11)], signal.integral = 1:5),
-                 "'object' references 14 sample names, but only 13 IRSL/OSL")
+                 "'object' references 14 sample names, but 13 IRSL/OSL pairs")
 
     ## coordinates not list or matrix
     expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
