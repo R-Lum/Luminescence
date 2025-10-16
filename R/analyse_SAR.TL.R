@@ -123,9 +123,8 @@ analyse_SAR.TL <- function(
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ##run sequence
     results <- lapply(object, function(o){
@@ -203,7 +202,6 @@ analyse_SAR.TL <- function(
 
   # # Calculate LnLxTnTx values  --------------------------------------------------
   ##grep IDs for signal and background curves
-  TL.preheat.ID <- temp.sequence.structure[protocol.step == "PREHEAT", id]
   TL.signal.ID <- temp.sequence.structure[protocol.step == "SIGNAL", id]
   TL.background.ID <- temp.sequence.structure[protocol.step == "BACKGROUND", id]
 
@@ -265,7 +263,7 @@ analyse_SAR.TL <- function(
 
   # Set regeneration points -------------------------------------------------
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseName <- data.frame(Name = paste0("R", seq(nrow(LnLxTnTx)) - 1),
+  temp.DoseName <- data.frame(Name = paste0("R", seq_len(nrow(LnLxTnTx)) - 1),
                               Dose = LnLxTnTx[["Dose"]])
 
   ##set natural
@@ -400,17 +398,15 @@ analyse_SAR.TL <- function(
   TnTx_matrix <- cbind(object@records[[TL.signal.ID[1]]]@data[,1], TnTx_matrix)
 
   ##catch log-scale problem
-  if(log != ""){
-    if(min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0){
-      .throw_warning("Non-positive values detected, log-scale disabled")
+  if (log != "" && (min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0)) {
+    .throw_warning("Non-positive values detected, log-scale disabled")
     log <- ""
-    }
   }
 
   #open plot area LnLx
   plot(NA,NA,
        xlab = "Temp. [\u00B0C]",
-       ylab = paste0("TL [a.u.]"),
+       ylab = "TL [a.u.]",
        xlim = range(LnLx_matrix[, 1]),
        ylim = range(LnLx_matrix[, -1]),
        main = expression(paste(L[n], ",", L[x], " curves", sep = "")),
@@ -479,7 +475,6 @@ analyse_SAR.TL <- function(
                                 ""))
     )
 
-
     ##plot single curves
     lines(NTL.net.LnLx, col = col[1])
     lines(Reg1.net.LnLx, col = col[2])
@@ -537,7 +532,6 @@ analyse_SAR.TL <- function(
                                 ""))
     )
 
-
     ##plot single curves
     lines(NTL.net.TnTx, col = col[1])
     lines(Reg1.net.TnTx, col = col[2])
@@ -575,20 +569,18 @@ analyse_SAR.TL <- function(
     ##add text
     text(c(1:(length(TL.signal.ID) / 2)),
          rep(4, length(TL.signal.ID) / 2),
-         paste(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")", sep = ""))
+         paste0(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")"))
 
     ##add line
     abline(h = 10, lwd = 0.5)
 
     ##set failed text and mark De as failed
-    if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
+    if (any(grepl("FAILED", RejectionCriteria$status, fixed = TRUE))) {
       mtext("[FAILED]", col = "red")
     }
   }
 
   # Plotting  GC  ----------------------------------------
-  #reset par
-  par(par.default)
 
   ##create data.frame
   temp.sample <- data.frame(
@@ -620,11 +612,9 @@ analyse_SAR.TL <- function(
   temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")] %||% NA
 
   ##add rejection status
-  if(length(grep("FAILED",RejectionCriteria$status))>0){
-    temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
-  }else{
-    temp.GC <- data.frame(temp.GC, RC.Status="OK")
-  }
+  RC.status <- if (any(grepl("FAILED", RejectionCriteria$status, fixed = TRUE)))
+                 "FAILED" else "OK"
+  temp.GC <- data.frame(temp.GC, RC.Status = RC.status)
 
   # Return Values -----------------------------------------------------------
   set_RLum(
