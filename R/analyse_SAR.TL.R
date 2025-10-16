@@ -69,8 +69,7 @@
 #' @note
 #' **THIS IS A BETA VERSION**
 #'
-#' None TL curves will be removed
-#' from the input object without further warning.
+#' No TL curves will be removed from the input object without further warning.
 #'
 #' @section Function version: 0.3.0
 #'

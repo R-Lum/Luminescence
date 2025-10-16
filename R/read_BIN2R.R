@@ -13,7 +13,7 @@
 #'
 #' @param file [character] or [list] (**required**): path and file name of the
 #' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
-#' only `character`s representing each valid path and BIN/BINX-file names.
+#' only `character`s representing valid path and BIN/BINX-file names.
 #' Alternatively, the input character can be just a directory (path), in which
 #' case the function tries to detect and import all BIN/BINX files found in
 #' the directory.
@@ -70,9 +70,8 @@
 #' for import.
 #'
 #' @param pattern [character] (*optional*):
-#' argument that is used if only a path is provided. The argument will than be
-#' passed to the function [list.files] used internally to construct a `list`
-#' of wanted files
+#' regular expression pattern passed to [list.files] to construct a list of
+#' files to read (used only when a path is provided).
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.

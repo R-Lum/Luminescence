@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_PSL2R.R
 \name{read_PSL2R}
 \alias{read_PSL2R}
-\title{Import PSL files to R}
+\title{Import SUERC portable OSL Reader PSL files into R}
 \usage{
 read_PSL2R(
   file,
@@ -19,8 +19,9 @@ read_PSL2R(
 \item{file}{\link{character} (\strong{required}):
 path and file name of the PSL file. If input is a \code{vector} it should comprise
 only \code{character}s representing valid paths and PSL file names.
-Alternatively the input character can be just a directory (path). In this case the
-the function tries to detect and import all PSL files found in the directory.}
+Alternatively, the input character can be just a directory (path), in which
+case the function tries to detect and import all PSL files found in the
+directory.}
 
 \item{drop_bg}{\link{logical} (\emph{with default}):
 \code{TRUE} to automatically remove all non-OSL/IRSL curves.}
@@ -52,13 +53,11 @@ Returns an S4 \linkS4class{RLum.Analysis} object containing
 \linkS4class{RLum.Data.Curve} objects for each curve.
 }
 \description{
-Imports PSL files produced by a SUERC portable OSL reader into R.
-}
-\details{
-This function provides an import routine for the SUERC portable OSL Reader PSL
-format (measurement data and sequence). PSL files are just plain text and can be
-viewed with any text editor.  Due to the formatting of PSL files this import
-function relies heavily on regular expression to find and extract all relevant information. See \strong{note}.
+This function provides an import routine for the SUERC portable OSL Reader
+PSL format (measurement data and sequence). PSL files are just plain text
+and can be viewed with any text editor. Due to the formatting of PSL files,
+this import function relies heavily on regular expression to find and
+extract all relevant information. See \strong{note}.
 }
 \note{
 Because this function relies heavily on regular expressions to parse
