@@ -10,6 +10,7 @@ read_PSL2R(
   as_decay_curve = TRUE,
   smooth = FALSE,
   merge = FALSE,
+  pattern = "\\\\.psl$",
   verbose = TRUE,
   ...
 )
@@ -36,6 +37,10 @@ to hardware errors.}
 \item{merge}{\link{logical} (\emph{with default}):
 \code{TRUE} to merge all \code{RLum.Analysis} objects. Only applicable if multiple
 files are imported.}
+
+\item{pattern}{\link{character} (\emph{with default}):
+regular expression pattern passed to \link{list.files} to construct a list of
+files to read (used only when a path is provided).}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
