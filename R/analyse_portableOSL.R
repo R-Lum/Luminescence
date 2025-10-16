@@ -256,7 +256,7 @@ analyse_portableOSL <- function(
     num.names <- length(settings_sample)
     if (num.names != length(RATIO)) {
       .throw_error("'object' references ", num.names, " sample names, but ",
-                   "only ", length(RATIO), " IRSL/OSL pairs found")
+                   length(RATIO), " IRSL/OSL pairs found")
     }
     coord <- .extract_PSL_coord(settings_sample)
 
