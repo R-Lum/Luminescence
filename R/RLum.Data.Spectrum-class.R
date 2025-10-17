@@ -198,40 +198,27 @@ setMethod(
       if (missing(recordType))
         recordType <- data@recordType
 
-      ##check for missing data ... not possible as data is the object itself
-
       ##check for missing info
       if (missing(info))
         info <- data@info
 
-      ##check for missing .uid and .pid >> this are always taken from the
-      ##original dataset
-
-      ##set empty clas form object
-      newRLumDataSpectrum <- new("RLum.Data.Spectrum")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataSpectrum@originator = data@originator
-      newRLumDataSpectrum@recordType = recordType
-      newRLumDataSpectrum@curveType = curveType
-      newRLumDataSpectrum@data = data@data
-      newRLumDataSpectrum@info = info
-      newRLumDataSpectrum@.uid = data@.uid
-      newRLumDataSpectrum@.pid = data@.pid
-
-    } else {
-      ##set empty class from object
-      newRLumDataSpectrum <- new("RLum.Data.Spectrum")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataSpectrum@originator = originator
-      newRLumDataSpectrum@recordType = recordType
-      newRLumDataSpectrum@curveType = curveType
-      newRLumDataSpectrum@data = data
-      newRLumDataSpectrum@info = info
-      newRLumDataSpectrum@.uid = .uid
-      newRLumDataSpectrum@.pid = .pid
+      originator <- data@originator
+      .uid <- data@.uid
+      .pid <- data@.pid
+      data <- data@data
     }
+
+    ## set empty class from object
+    newRLumDataSpectrum <- new("RLum.Data.Spectrum")
+
+    ## fill - this is the faster way, filling in new() costs ...
+    newRLumDataSpectrum@originator <- originator
+    newRLumDataSpectrum@recordType <- recordType
+    newRLumDataSpectrum@curveType <- curveType
+    newRLumDataSpectrum@data <- data
+    newRLumDataSpectrum@info <- info
+    newRLumDataSpectrum@.uid <- .uid
+    newRLumDataSpectrum@.pid <- .pid
 
     return(newRLumDataSpectrum)
   }
