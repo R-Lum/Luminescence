@@ -87,14 +87,12 @@ read_PSL2R <- function(
   .validate_not_empty(file)
   .validate_class(pattern, "character")
 
-  if (length(file) == 1) {
-    if (!grepl("\\.psl$", file, ignore.case = TRUE)) {
+  if (length(file) == 1 && !grepl("\\.psl$", file, ignore.case = TRUE)) {
       file <- list.files(file, pattern = pattern, full.names = TRUE, ignore.case = TRUE)
       if (length(file) == 0)
         .throw_error("No .psl files found")
       .throw_message("The following files were found and imported:\n",
                      paste(" ..", file, collapse = "\n"), error = FALSE)
-    }
   }
   if (!all(file.exists(file)))
     .throw_error("The following files do not exist, please check:\n",
@@ -125,9 +123,11 @@ read_PSL2R <- function(
 
     ## OFFENDING LINE: this deletes the line with sample name and time and date
     sample_and_date <- lines_with_slashes[length(lines_with_slashes)]
-    sample <- trimws(gsub("\\\\", "", strsplit(sample_and_date, "@")[[1]][1]))
-    date_and_time <- strsplit(strsplit(sample_and_date, "@")[[1]][2], " ")[[1]]
-    date_and_time_clean <- date_and_time[date_and_time != "" & date_and_time != "/" & date_and_time != "PM" & date_and_time != "AM"]
+    sample_date_split <- strsplit(sample_and_date, "@", fixed = TRUE)[[1]]
+    sample <- trimws(gsub("\\", "", sample_date_split[1], fixed = TRUE))
+    date_and_time <- strsplit(sample_date_split[2], " ")[[1]]
+    date_and_time_clean <- date_and_time[nzchar(date_and_time) &
+                                         !date_and_time %in% c("/", "AM", "PM")]
     date <- as.Date(date_and_time_clean[1], "%m/%d/%Y")
     time <- format(date_and_time_clean[2], format = "%h:%M:%S")
     doc <- gsub(lines_with_slashes[length(lines_with_slashes)],
@@ -139,7 +139,7 @@ read_PSL2R <- function(
                 "", fixed = TRUE, doc)
 
     # finally remove all empty lines
-    doc <- doc[doc != ""]
+    doc <- doc[nzchar(doc)]
 
     ## Split document ----
     begin_of_measurements <- grep("Measurement :", doc, fixed = TRUE)
@@ -159,10 +159,8 @@ read_PSL2R <- function(
 
     # save lines of each measurement to individual list elements
     for (j in seq_len(number_of_measurements)) {
-      if (j != max(number_of_measurements))
-        measurements_split[[j]] <- doc[begin_of_measurements[j]:(begin_of_measurements[j+1] - 1)]
-      else
-        measurements_split[[j]] <- doc[begin_of_measurements[j]:length(doc)]
+      last <- min(begin_of_measurements[j + 1] - 1, length(doc), na.rm = TRUE)
+      measurements_split[[j]] <- doc[begin_of_measurements[j]:last]
     }
 
     # format each measurement; this will return a list of RLum.Data.Curve objects
@@ -240,20 +238,24 @@ read_PSL2R <- function(
 format_Measurements <- function(x, convert, header) {
   ## measurement parameters are given in the first line
   settings <- x[1]
-
-  settings_split <- unlist(strsplit(settings, "|", fixed = TRUE))
+  settings_split <- trimws(unlist(strsplit(settings, "|", fixed = TRUE)))
 
   # welcome to regex/strsplit hell
-  settings_measurement <- trimws(gsub(".*: ", "", settings_split[grep("Measure", settings_split)]))
-  settings_stimulation_unit <- gsub("[^0-9]", "", settings_split[grep("Stim", settings_split)])
-  settings_on_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[grep("Off", settings_split)]), ","))[1])
-  settings_off_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[grep("Off", settings_split)]), ","))[2])
-  vals <- stats::na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[grep("No", settings_split)]), ","))))
+  grepvf <- function(pattern, x) grep(pattern, x, value = TRUE, fixed = TRUE)
+  settings_measurement <- gsub(".*: ", "", grepvf("Measure", settings_split))
+  settings_stim_unit <- gsub("[^0-9]", "", grepvf("Stim", settings_split))
+  recordType <- switch(settings_stim_unit,
+                       "0" = "USER", "1" = "IRSL", "2" = "OSL")
+  on_off_times <- strsplit(gsub("[^0-9,]", "", grepvf("Off", settings_split)), ",")[[1]]
+  settings_on_time <- as.integer(on_off_times[1])
+  settings_off_time <- as.integer(on_off_times[2])
+  vals <- stats::na.omit(as.integer(strsplit(
+                     gsub("[^0-9,]", "", grepvf("No", settings_split)), ",")[[1]]))
   settings_cycle <- vals[1]
   settings_stimulation_time <- vals[2]
 
   settings_list <- list("measurement" = settings_measurement,
-                        "stimulation_unit" = switch(settings_stimulation_unit, "0" = "USER", "1" = "IRSL", "2" = "OSL"),
+                        "stimulation_unit" = recordType,
                         "on_time" = settings_on_time,
                         "off_time" = settings_off_time,
                         "cycle" = settings_cycle,
@@ -265,12 +267,10 @@ format_Measurements <- function(x, convert, header) {
 
   ## parse values and create a data frame
   x_stripped <- x[-c(1, 2, length(x))]
-
   df <- data.frame(matrix(NA, ncol = 5, nrow = length(x_stripped)))
-
   for (i in 1:length(x_stripped)) {
-    x_split <- unlist(strsplit(x_stripped[i], " "))
-    x_split <- x_split[x_split != ""]
+    x_split <- unlist(strsplit(x_stripped[i], " ", fixed = TRUE))
+    x_split <- x_split[nzchar(x_split)]
     x_split_clean <- gsub("[^0-9\\-]", "", x_split)
     x_split_cleaner <- x_split_clean[x_split_clean != "-"]
 
@@ -286,18 +286,7 @@ format_Measurements <- function(x, convert, header) {
   else
     data <- matrix(c(df$time, df$counts), ncol = 2)
 
-  # determine the stimulation type
-  if (grepl("Stim 0", settings)) {
-    recordType <- "USER"
-  }
-  if (grepl("Stim 1", settings)) {
-    recordType <- "IRSL"
-  }
-  if (grepl("Stim 2", settings)) {
-    recordType <- "OSL"
-  }
-
-  object <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Curve",
     originator = "read_PSL2R",
     recordType = recordType,
@@ -305,8 +294,6 @@ format_Measurements <- function(x, convert, header) {
     data = data,
     info = list(settings = c(settings_list, header),
     raw_data = df))
-
-  return(object)
 }
 
 ## ---------------------------- FORMAT HEADER ------------------------------- ##
@@ -318,7 +305,7 @@ format_Header <- function(x) {
   # as colons; if there is an equal amount, the previous split was not sufficient
   # and we need to further split by a colon (that is followed by a blank)
   header_split_clean <- lapply(header_split, function(x) {
-    x <- x[x != ""]
+    x <- x[nzchar(x)]
     n_elements <- length(x)
     n_properties <- length(grep(":", x, fixed = TRUE))
 
@@ -337,9 +324,9 @@ format_Header <- function(x) {
   # some RegExing for nice reading
   names <- gsub(":$", "", dt$names, perl = TRUE) |> trimws()
   # for some weird reason "offset subtract" starts with '256 '
-  names <- gsub("256 ", "", names)
+  names <- gsub("256 ", "", names, fixed = TRUE)
   # finally, replace all blanks with underscores
-  names <- gsub(" ", "_", names)
+  names <- gsub(" ", "_", names, fixed = TRUE)
 
   values <- gsub(":$", "", dt$values, perl = TRUE) |> trimws()
 
