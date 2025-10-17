@@ -209,9 +209,6 @@ plot_DetPlot <- function(
   .validate_class(object, "RLum.Analysis")
   .validate_not_empty(object)
 
-  ##get structure
-  object.structure <- structure_RLum(object)
-
   ## signal.integral
   .validate_positive_scalar(signal.integral.min, int = TRUE)
   .validate_positive_scalar(signal.integral.max, int = TRUE)

@@ -467,7 +467,6 @@ plot_KDE <- function(
     col.value.dot <- list(...)$col
     col.value.bar <- list(...)$col
     col.value.rug <- list(...)$col
-    col.boxplot <- list(...)$col
     col.boxplot.line <- list(...)$col
     col.boxplot.fill <- NA
     col.mean.line <- adjustcolor(col = list(...)$col,

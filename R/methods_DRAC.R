@@ -47,7 +47,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       # for pretty printing we insert newlines and tabs at specified lengths
       ls <- attributes(x[[i]])$description
       ls.n <- nchar(ls)
-      ls.block <- floor(ls.n / limit)
       strStarts <- seq(0, ls.n, limit)
       strEnds <- seq(limit-1, ls.n + limit, limit)
       blockString <- paste(mapply(function(start, end) {

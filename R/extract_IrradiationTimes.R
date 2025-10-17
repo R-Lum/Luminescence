@@ -249,7 +249,6 @@ extract_IrradiationTimes <- function(
         file = file.BINX,
         txtProgressBar = txtProgressBar,
         verbose = txtProgressBar)
-      temp.BINX.dirname <- dirname(file.XSYG)
     }
 
     # Some data preparation -----------------------------------------------------------------------

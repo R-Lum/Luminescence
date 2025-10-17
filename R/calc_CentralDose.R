@@ -229,7 +229,6 @@ calc_CentralDose <- function(
   }
   if (is.infinite(out.sesigma))
     out.sesigma <- NA
-  out.llik <- round(llik, 4)
 
   # profile log likelihood
   Lmax <- llik

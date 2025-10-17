@@ -197,7 +197,7 @@ read_SPE2R <- function(
   Date <- suppressWarnings(readChar(con, 10, useBytes=TRUE))
 
   ##jump
-  stepping <- readBin(con, what="raw", 4, size=1, endian="little", signed = TRUE)
+  readBin(con, what = "raw", 4, size = 1, endian = "little", signed = TRUE)
 
   #Old number of scans - should always be -1
   noscan <- readBin(con, what="int", 1, size=2, endian="little", signed = TRUE)
@@ -212,7 +212,7 @@ read_SPE2R <- function(
   xdim <- readBin(con, what="int", 1, size=2, endian="little", signed = FALSE)
 
   ##jump
-  stepping <- readBin(con, what="raw", 64, size=1, endian="little", signed = TRUE)
+  readBin(con, what = "raw", 64, size = 1, endian = "little", signed = TRUE)
 
   ##experiment data type
   ##0 = 32f (4 bytes)
@@ -222,7 +222,7 @@ read_SPE2R <- function(
   datatype <- readBin(con, what="int", 1, size=2, endian="little", signed = TRUE)
 
   ##jump
-  stepping <- readBin(con, what="raw", 546, size=1, endian="little")
+  readBin(con, what = "raw", 546, size = 1, endian = "little")
 
   #y dimension of raw data.
   ydim <- readBin(con, what="int", 1, size=2, endian="little", signed = FALSE)
@@ -231,7 +231,7 @@ read_SPE2R <- function(
   scramble <- readBin(con, what="int", 1, size=2, endian="little", signed = FALSE)
 
   ##jump
-  stepping <- readBin(con, what="raw", 4, size=1, endian="little")
+  readBin(con, what = "raw", 4, size = 1, endian = "little")
 
   #Number of scans (Early WinX)
   lnoscan <- readBin(con, what="int", 1, size=4, endian="little", signed = TRUE)
@@ -246,7 +246,7 @@ read_SPE2R <- function(
   TriggeredModeFlag <- readBin(con, what="int", 1, size=2, endian="little", signed = TRUE)
 
   ##jump
-  stepping <- readBin(con, what="raw", 768, size=1, endian="little")
+  readBin(con, what = "raw", 768, size = 1, endian = "little")
 
   ##number of frames in file.
   NumFrames <- readBin(con, what="int", 1, size=4, endian="little", signed = TRUE)
@@ -261,22 +261,22 @@ read_SPE2R <- function(
   if(missing(frame.range) == TRUE){frame.range <- c(1,NumFrames)}
 
   ##jump
-  stepping <- readBin(con, what="raw", 542, size=1, endian="little")
+  readBin(con, what = "raw", 542, size = 1, endian = "little")
 
   #file_header_ver
   file_header_ver <- readBin(con, what="double", 1, size=4, endian="little")
 
   ##jump
-  stepping <- readBin(con, what="raw", 1000, size=1, endian="little")
+  readBin(con, what = "raw", 1000, size = 1, endian = "little")
 
   ##WinView_id - set to 19,088,743 (or 1234567 hex) (required for legacy reasons)
-  WinView_id <- readBin(con, what="integer", 1, size=4, endian="little", signed = TRUE)
+  readBin(con, what = "integer", 1, size = 4, endian = "little", signed = TRUE)
 
   ##jump
-  stepping <- readBin(con, what="raw", 1098, size=1, endian="little")
+  readBin(con, what = "raw", 1098, size = 1, endian = "little")
 
   ##lastvalue - set to 21,845 (or 5555 hex) (required for legacy reasons)
-  lastvalue <- readBin(con, what="integer", 1, size=2, endian="little", signed = TRUE)
+  readBin(con, what = "integer", 1, size = 2, endian = "little", signed = TRUE)
 
 
   ##end header

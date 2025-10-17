@@ -204,7 +204,7 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
   # custom printing of the issues list, as print.list produces unreadable
   # console output
   if (verbose) {
-    tmp <- lapply(issues, function(x) {
+    lapply(issues, function(x) {
 
       # limit width of description text
       DESCRIPTION <- ""

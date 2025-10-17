@@ -367,7 +367,7 @@ setMethod("get_RLum",
                 object@records <- object@records[sel]
                 return(object)
               } else {
-                tmp <- mapply(function(name, op) {
+                mapply(function(name, op) {
                   message("  ", name, ": ", .collapse(unique(op), quote = FALSE))
                 }, names(envir), envir)
                 .throw_message("'subset' expression produced an ",

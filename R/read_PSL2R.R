@@ -259,15 +259,9 @@ format_Measurements <- function(x, convert, header) {
                         "cycle" = settings_cycle,
                         "stimulation_time" = settings_stimulation_time)
 
-  ## terminal counts are given in the last line
-  terminal_count_text <- x[length(x)]
-
-  terminal_count_text_formatted <- gsub("[^0-9]", "",
-                                        unlist(strsplit(terminal_count_text, "/")))
-
-  terminal_count <- as.numeric(terminal_count_text_formatted[1])
-  terminal_count_error <- as.numeric(terminal_count_text_formatted[2])
-
+  ## terminal counts are given in the last line as count / count_error
+  # terminal_count_text_formatted <- gsub("[^0-9]", "",
+  #                                       unlist(strsplit(x[length(x)], "/")))
 
   ## parse values and create a data frame
   x_stripped <- x[-c(1, 2, length(x))]
@@ -317,8 +311,6 @@ format_Measurements <- function(x, convert, header) {
 
 ## ---------------------------- FORMAT HEADER ------------------------------- ##
 format_Header <- function(x) {
-  header_formatted <- list()
-
   # split by double blanks
   header_split <- strsplit(x, "  ", fixed = TRUE)
 

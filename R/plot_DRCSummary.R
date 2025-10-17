@@ -158,10 +158,6 @@ if(inherits(object, "list")){
     ##get DRC
     DRC <- object@data$Formula[sel_curves]
 
-    ## check for OTOR fit option (we can only do all )
-    if(all(object@data$data[["Fit"]] %in% c("OTOR", "OTORX")))
-      W <- lamW::lambertW0
-
   ## get limits for each set
   idx.natural <- which(object@data$LnLxTnTx.table[["Name"]] == "Natural")
   dataset_limits <- cbind(idx.natural,

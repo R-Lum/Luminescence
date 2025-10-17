@@ -249,13 +249,6 @@ plot_RLum.Analysis <- function(
   if (!combine) {
     temp <- object@records
 
-    ##calculate number of pages for mtext
-    if (length(temp) %% (nrows * ncols) > 0) {
-      n.pages <- round(length(temp) / (nrows * ncols), digits = 0) + 1
-    } else{
-      n.pages <- length(temp) / (nrows * ncols)
-    }
-
     ##set par
     if (!plot_singlePanels) {
       par(mfrow = c(nrows, ncols))

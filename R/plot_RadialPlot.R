@@ -475,7 +475,6 @@ plot_RadialPlot <- function(
 
   ## print warning for too small scatter
   if (max(abs(1 / data.global[, 6])) < 0.02) {
-    small.sigma <- TRUE
     message("Attention, small standardised estimate scatter. ",
             "Toggle off y.ticks?")
   }

@@ -465,9 +465,6 @@ read_XSYG2R <- function(
           ##get detector
           temp.sequence.object.detector <- as.character(attrs["detector"])
 
-          ##get stimulator
-          temp.sequence.object.stimulator <- as.character(attrs["stimulator"])
-
           ##get additional information
           temp.sequence.object.info <- c(as.list(attrs),
                                          position = as.integer(as.character(sequence.header["position", ])),

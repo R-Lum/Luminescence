@@ -127,7 +127,6 @@ merge_RLum.Data.Curve<- function(
   .validate_class(object, "list")
 
   ##(1) check if object is of class RLum.Data.Curve
-  num.objects <- length(object)
   temp.recordType.test <- sapply(object, function(x) {
     .validate_class(x, "RLum.Data.Curve",
                     name = "All elements of 'object'")

@@ -635,10 +635,10 @@ calc_Huntley2006 <- function(
   # natdosetime <- seq(0, 1e14, length.out = settings$n.MC)
   # natdosetimeGray <- natdosetime * ddot / ka
 
-  # calculate D0 dose in seconds
-  computedD0 <- (fitcoef[ ,"D0"] * readerDdot) / (ddot / ka)
-
   # Legacy code:
+  # calculate D0 dose in seconds
+  # computedD0 <- (fitcoef[ ,"D0"] * readerDdot) / (ddot / ka)
+  #
   # This is an older approximation to calculate the natural dose response curve,
   # which sometimes tended to slightly underestimate nN_ss. This is now replaced
   # with the newer approach below.

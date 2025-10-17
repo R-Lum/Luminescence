@@ -155,8 +155,6 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   ThicknessError <- matrix(data = NA, nrow = N, ncol = 8)
   DataIndividual <- matrix(data = NA, nrow = N, ncol = 25)
   DataComponent <- matrix(data = NA, nrow = N, ncol = 9)
-  DoseRates <- matrix(data = NA, nrow = 1, ncol = 24)
-  output <- matrix(list(), nrow = 2, ncol = 1)
 
   ### Calculate dose rate profiles through the rock ----
   t <- Diameter * 10 - DiameterSeq

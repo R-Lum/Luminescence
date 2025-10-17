@@ -793,8 +793,6 @@ analyse_IRSAR.RF<- function(
 
   ##calculate some useful parameters
   RF_nat.mean <- mean(RF_nat.limited[,2])
-  RF_nat.sd <- sd(RF_nat.limited[,2])
-
   RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975, na.rm = TRUE)
   RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025, na.rm = TRUE)
 
@@ -958,7 +956,6 @@ analyse_IRSAR.RF<- function(
       ##is used instead the real time values
       t_max.id <- nrow(RF_reg.limited)
       t_max_nat.id <- nrow(RF_nat.limited)
-      t_min.id <- 1
       t_min <- RF_nat.limited[1,1]
 
       ##(1) calculate sum of residual squares using internal Rcpp function
@@ -1074,7 +1071,7 @@ analyse_IRSAR.RF<- function(
 
       ##(4) get residuals (needed to be plotted later)
       ## they cannot be longer than the RF_reg.limited curve
-      reg.limited.idx <- t_n.id:nrow(RF_reg.limited)
+      reg.limited.idx <- t_n.id:t_max.id
       len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
       residuals <- (RF_nat.limited[1:len.shorter, 2] + I_n) -
         RF_reg.limited[reg.limited.idx[1:len.shorter], 2]

@@ -173,8 +173,6 @@ for(i in 1:nrow(data)){
     Lr1Tr1 <- data[i, "Lr1Tr1"]
     Lr1Tr1.error <- data[i,"Lr1Tr1.error"]
     Dr1 <- data[i,"Dr1"]
-    Dr1.error <- data[i,"Dr1.error"]
-
     LnTn <- data[i,"LnTn"]
     LnTn.error <- data[i,"LnTn.error"]
 

@@ -877,7 +877,6 @@ fancy_scientific <- function(l) {
   attr(HPDI, "Probability") <- prob
 
   if(plot){
-    xy <- m[m_ind,c(1,2)]
     plot(dens, main = "HPDI (control plot)")
     abline(h = thres, lty = 2)
     if (length(peaks_id) > 0) {

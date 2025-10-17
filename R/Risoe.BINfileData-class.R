@@ -377,6 +377,7 @@ setMethod(f = "show",
                   cat("\n\tGrain range:         ", grain.range[1],":",grain.range[2])
 
               cat("\n\tRun range:           ", run.range[1],":",run.range[2])
+              cat("\n\tSet range:           ", set.range[1], ":", set.range[2])
 
               ## if id_128
               if(any(!id_128))

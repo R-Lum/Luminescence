@@ -441,14 +441,10 @@ analyse_pIRIRSequence <- function(
   ##set layout
   nrows <- max(layout.matrix) / 2 + ifelse(n.loops > 2, 0, 2)
   mat <- matrix(layout.matrix, nrow = nrows, ncol = 4, byrow = TRUE)
-
-  nf <- graphics::layout(
+  graphics::layout(
     mat = mat,
     widths = c(rep(c(1, 1, 1, .75), 6), c(1, 1, 1, 1)),
     heights = c(rep(c(1), (2 + 2 * n.loops)), c(0.20, 0.20)))
-
-  ## show the regions that have been allocated to each plot for debug
-  #layout.show(nf)
   }
 
   ##(1) INFO PLOT

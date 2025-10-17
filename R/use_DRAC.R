@@ -282,7 +282,6 @@ use_DRAC <- function(
     message("\t The request was successful, processing the reply...")
 
   ## assign DRAC response data to variables
-  http.header <- DRAC.response$header
   DRAC.content <- httr::content(x = DRAC.response, as = "text")
 
   ## if the input was valid from a technical standpoint, but not with regard
