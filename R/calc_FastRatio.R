@@ -152,6 +152,9 @@ calc_FastRatio <- function(object,
   if (any(dead.channels < 0)) {
     .throw_error("All elements of 'dead.channels' should be non-negative")
   }
+  .validate_logical_scalar(fitCW.sigma)
+  .validate_logical_scalar(fitCW.curve)
+  .validate_logical_scalar(plot)
 
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))

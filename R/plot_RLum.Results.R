@@ -760,7 +760,7 @@ plot_RLum.Results<- function(
     if (!is.null(fit)) {
       nls.fit <- get_RLum(fit, "fit")
       if (!inherits(fit, "try-error") & "fitCW.curve" %in% names(object@data$args)) {
-        if (object@data$args$fitCW.curve == "T" | object@data$args$fitCW.curve == TRUE) {
+        if (object@data$args$fitCW.curve) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1],
                 predict(nls.fit), col = "red", lty = 1)
 
