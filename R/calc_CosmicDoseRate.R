@@ -273,6 +273,7 @@ calc_CosmicDoseRate<- function(
       .throw_error("Correction for geomagnetic field ",
                    "changes requires an age estimate")
     }
+    .validate_positive_scalar(est.age)
     if(est.age > 80) {
       cat("\nCAUTION: No geomagnetic field change correction for samples",
           "older than 80 ka possible, 'corr.fieldChanges' set to FALSE")
@@ -285,17 +286,15 @@ calc_CosmicDoseRate<- function(
     .throw_error("The number of values for 'density' should either be 1 ",
                  "or correspond to the number of values for 'depth'")
   }
+  .validate_logical_scalar(half.depth)
 
-  settings <- list(verbose = TRUE)
-  settings <- modifyList(settings, list(...))
+  settings <- modifyList(list(verbose = TRUE), list(...))
 
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
 
-
   # initialize parameter for Prescott & Hutton (1994) equation
-
   C<- 6072
   B<- 0.00055
   d<- 11.6
@@ -305,40 +304,30 @@ calc_CosmicDoseRate<- function(
 
   #variable needed to check if cosmic dose rate is calculated for more
   #than one sample
-
   profile.mode<- FALSE
 
   ## calculate total absorber of n depths and n densities [single sample]
   ## the calculation is still valid if there is only one depth and one density
   if(length(depth)==length(density)){
-    hgcm<- 0
-    for(i in 1:length(depth)) {
-      hgcm<- hgcm + depth[i]*density[i]
-    }
-    if(half.depth == TRUE) {
-      hgcm<- hgcm/2
-    }
+    hgcm <- sum(depth * density)
   }
 
   #if there are >1 depths and only one density, calculate
   #absorber for each sample [multi sample]
-  if(length(depth) > length(density) & length(density) == 1) {
+  else if (length(depth) > length(density) && length(density) == 1) {
     profile.mode<- TRUE
-    hgcm<- 1:length(depth)
-    for(i in 1:length(depth)) {
-      hgcm[i]<- depth[i]*density
-    }
-    if(half.depth == TRUE) {
-      hgcm<- hgcm/2
-    }
-    profile.results<- data.frame(rbind(c(1:3)),cbind(1:length(depth)))
+    hgcm <- depth * density
+    profile.results <- data.frame(rbind(1:3), cbind(1:length(depth)))
     colnames(profile.results)<- c("depth (m)", "d0 (Gy/ka)",
                                   "dc (Gy/ka)","dc_error (Gy/ka)")
   }
 
+  if (half.depth) {
+    hgcm <- hgcm / 2
+  }
 
+  pi.radians <- pi / 180
   for(i in 1:length(hgcm)) {
-
     # calculate cosmic dose rate at sea-level for geomagnetic latitude 55 degrees
     d0 <- (C / ((((hgcm[i] + d)^alpha) + a) * (hgcm[i] + H))) * exp(-B * hgcm[i])
 
@@ -355,27 +344,23 @@ calc_CosmicDoseRate<- function(
       d0 <- max(d0, d0.ph)
     }
     # Calculate geomagnetic latitude
-    gml.temp<- 0.203*cos((pi/180)*latitude)*
-      cos(((pi/180)*longitude)-(291*pi/180))+0.979*
-      sin((pi/180)*latitude)
-    true.gml<- asin(gml.temp)/(pi/180)
-    gml<- abs(asin(gml.temp)/(pi/180))
+    gml.temp <- 0.203 * cos(pi.radians * latitude) *
+      cos(pi.radians * (longitude - 291)) + 0.979 * sin(pi.radians * latitude)
+    true.gml <- asin(gml.temp) / pi.radians
+    gml <- abs(true.gml)
 
     # Find values for F, J and H from graph shown in Prescott & Hutton (1994)
     # values were read from the graph and fitted with 3 degree polynomials and a
     # linear part
 
     if(gml < 36.5) { # Polynomial fit
-
       F_ph<- -7*10^-7*gml^3-8*10^-5*gml^2-0.0009*gml+0.3988
     }
     else { # Linear fit
-
       F_ph<- -0.0001*gml + 0.2347
     }
 
     if(gml < 34) { # Polynomial fit
-
       J_ph<- 5*10^-6*gml^3-5*10^-5*gml^2+0.0026*gml+0.5177
     }
     else { # Linear fit
@@ -383,22 +368,18 @@ calc_CosmicDoseRate<- function(
     }
 
     if(gml < 36) { # Polynomial fit
-
       H_ph<- -3*10^-6*gml^3-5*10^-5*gml^2-0.0031*gml+4.398
     }
     else { # Linear fit
-
       H_ph<- 0.0002*gml + 4.0914
     }
 
     # Apply correction for geomagnetic latitude and altitude according to
     # Prescott & Hutton (1994)
-
     dc<- d0*(F_ph + J_ph*exp((altitude/1000)/H_ph))
 
 
     ## Additional correction for geomagnetic field change
-
     if(corr.fieldChanges==TRUE) {
 
       if(gml <= 35) {
@@ -429,21 +410,19 @@ calc_CosmicDoseRate<- function(
         # Find altitude factor via fitted function 2-degree polynomial
         # This factor is only available for positive altitudes
         if(altitude > 0) {
-
           alt.fac<- -0.026*(altitude/1000)^2 + 0.6628*altitude/1000 + 1.0435
 
           # Combine geomagnetic latitude correction with altitude
           # correction (figure caption of Fig. 1 in Precott and Hutton (1994))
-          diff.one<- corr.fac - 1
-          corr.fac<- corr.fac + diff.one * alt.fac
+          corr.fac <- corr.fac + (corr.fac - 1) * alt.fac
         }
 
         # Final correction of cosmic dose rate
-
         dc<- dc * corr.fac
 
         if (settings$verbose)
-          print(paste("corr.fac",corr.fac,"diff.one",diff.one,"alt.fac",alt.fac))
+          print(paste("corr.fac:", corr.fac, " diff.one:", corr.fac - 1,
+                      " alt.fac:", alt.fac))
 
       } else {
         if (settings$verbose)
@@ -501,26 +480,10 @@ calc_CosmicDoseRate<- function(
     if(length(depth)==1) {
       temp1<- data.frame(depth=depth,density=density)
     } else {
-
-      temp1a<- data.frame(rbind(c(1:length(depth))))
-      tmpcoln1<- 1:length(depth)
-
-      for(i in 1:length(depth)) {
-        temp1a[i]<- depth[i]
-        tmpcoln1[i]<- paste("depth",i)
-      }
-
-      temp1b<- data.frame(rbind(c(1:length(density))))
-      tmpcoln2<- 1:length(density)
-
-      for(i in 1:length(density)) {
-        temp1b[i]<- density[i]
-        tmpcoln2[i]<- paste("density",i)
-      }
-
-      colnames(temp1a)<- tmpcoln1
-      colnames(temp1b)<- tmpcoln2
-      temp1<- cbind(temp1a,temp1b)
+      temp1 <- cbind(data.frame(as.list(depth)),
+                     data.frame(as.list(density)))
+      colnames(temp1) <- c(paste("depth", seq_along(depth)),
+                           paste("density", seq_along(density)))
     }
 
     temp2<- data.frame(latitude=latitude,longitude=longitude,
