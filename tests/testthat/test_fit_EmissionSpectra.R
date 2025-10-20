@@ -21,7 +21,7 @@ test_that("input validation", {
   expect_error(fit_EmissionSpectra(matrix()),
                "'object' should have at least two columns")
   expect_error(fit_EmissionSpectra(TL.Spectrum, n_components = 1.4),
-               "'n_components' should be a positive integer scalar")
+               "'n_components' should be a single positive integer value")
   expect_error(fit_EmissionSpectra(TL.Spectrum, input_scale = "error"),
                "'input_scale' should be one of 'wavelength', 'energy' or NULL")
   expect_error(fit_EmissionSpectra(TL.Spectrum, method_control = "error"),

@@ -58,15 +58,15 @@ test_that("input validation", {
                "'fit.includingRepeatedRegPoints' should be a single logical")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.NumberRegPoints = "error"),
-               "'fit.NumberRegPoints' should be a positive integer scalar")
+               "'fit.NumberRegPoints' should be a single positive integer value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.NumberRegPointsReal = "error"),
-               "'fit.NumberRegPointsReal' should be a positive integer scalar")
+               "'fit.NumberRegPointsReal' should be a single positive integer value")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.bounds = "error"),
                "'fit.bounds' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      n.MC = "error"),
-               "'n.MC' should be a positive integer scalar")
+               "'n.MC' should be a single positive integer value")
 
   ## shorten dataframe
   expect_warning(fit_DoseResponseCurve(LxTxData[1:2, ], verbose = FALSE),

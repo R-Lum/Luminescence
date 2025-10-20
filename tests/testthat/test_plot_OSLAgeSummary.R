@@ -16,9 +16,9 @@ test_that("input validation", {
   expect_error(plot_OSLAgeSummary(empty),
                "Object originator 'NA' not supported")
   expect_error(plot_OSLAgeSummary(object, level = 0),
-               "'level' should be a positive scalar")
+               "'level' should be a single positive value")
   expect_error(plot_OSLAgeSummary(object, digits = 1.2),
-               "'digits' should be a positive integer scalar")
+               "'digits' should be a single positive integer value")
   expect_error(plot_OSLAgeSummary(c(-1, 0, NaN, 10000)),
                "'object' contains missing values")
 })

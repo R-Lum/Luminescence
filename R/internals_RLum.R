@@ -1293,8 +1293,8 @@ SW <- function(expr) {
     return(NULL)
   if (missing(val) || !is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && (is.infinite(val) || val != as.integer(val)))) {
-    .throw_error(name %||% .first_argument(), " should be a positive ",
-                 if (int) "integer ", "scalar", if (null.ok) " or NULL")
+    .throw_error(name %||% .first_argument(), " should be a single positive ",
+                 if (int) "integer ", "value", if (null.ok) " or NULL")
   }
   val
 }

@@ -18,7 +18,7 @@ test_that("input validation", {
   expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
                  "Error: XML file not readable, nothing imported")
   expect_error(read_XSYG2R(xsyg.file, n_records = "error"),
-               "'n_records' should be a positive integer scalar or NULL")
+               "'n_records' should be a single positive integer value or NULL")
 
   SW({
   expect_message(expect_null(read_XSYG2R(test_path("_data/bin-tests/"))),

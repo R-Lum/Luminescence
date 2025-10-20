@@ -21,7 +21,7 @@ test_that("input validation", {
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7, altitude = 364,
                                    latitude = 38.1, longitude = 1.4,
                                    corr.fieldChanges = TRUE, est.age = 0),
-               "'est.age' should be a positive scalar")
+               "'est.age' should be a single positive value")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    latitude = 38.06451),
                "'longitude' should be of class 'numeric'")

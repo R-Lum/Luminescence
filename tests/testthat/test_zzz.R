@@ -24,13 +24,13 @@ test_that("Test zzz functions ... they should still work", {
 
   ## create plot straightforward
   expect_error(sTeve("error"),
-               "'n_frames' should be a positive integer scalar")
+               "'n_frames' should be a single positive integer value")
   expect_error(sTeve(c(1, NaN, 0)),
-               "'n_frames' should be a positive integer scalar")
+               "'n_frames' should be a single positive integer value")
   expect_error(sTeve(t_animation = 0),
-               "'t_animation' should be a positive integer scalar")
+               "'t_animation' should be a single positive integer value")
   expect_error(sTeve(n.tree = 0.12),
-               "'n.tree' should be a positive integer scalar")
+               "'n.tree' should be a single positive integer value")
   expect_silent(plot_KDE(data = ExampleData.DeValues))
   expect_silent(sTeve(type = 1))
   expect_silent(sTeve(type = 2, t_animation = 1))

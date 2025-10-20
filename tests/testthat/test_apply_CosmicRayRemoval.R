@@ -14,10 +14,10 @@ test_that("input validation", {
 
   expect_error(apply_CosmicRayRemoval(TL.Spectrum,
                                       method.Pych.smoothing = iris),
-               "'method.Pych.smoothing' should be a positive integer scalar")
+               "'method.Pych.smoothing' should be a single positive integer value")
   expect_error(apply_CosmicRayRemoval(TL.Spectrum,
                                       method.Pych.threshold_factor = -2),
-               "'method.Pych.threshold_factor' should be a positive scalar")
+               "'method.Pych.threshold_factor' should be a single positive value")
   expect_error(apply_CosmicRayRemoval(TL.Spectrum, MARGIN = 3),
                "'MARGIN' should be one of '1' or '2'")
 })

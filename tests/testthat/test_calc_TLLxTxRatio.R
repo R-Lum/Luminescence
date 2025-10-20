@@ -51,7 +51,7 @@ test_that("input validation", {
       Tx.data.background,
       signal.integral.min = "error",
       signal.integral.max),
-      "'signal.integral.min' should be a positive integer scalar")
+      "'signal.integral.min' should be a single positive integer value")
     expect_error(calc_TLLxTxRatio(
       Lx.data.signal = Lx.data.signal,
       Lx.data.background,
@@ -59,7 +59,7 @@ test_that("input validation", {
       Tx.data.background,
       signal.integral.min,
       signal.integral.max = "error"),
-      "'signal.integral.max' should be a positive integer scalar")
+      "'signal.integral.max' should be a single positive integer value")
 
     ## check for different channel numbers
     expect_error(calc_TLLxTxRatio(

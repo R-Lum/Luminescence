@@ -18,7 +18,7 @@ test_that("input validation", {
   expect_error(calc_MoransI(obj, compute_pseudo_p = "error"),
                "'compute_pseudo_p' should be a single logical value")
   expect_error(calc_MoransI(obj, n_permutations = "error"),
-               "'n_permutations' should be a positive integer scalar")
+               "'n_permutations' should be a single positive integer value")
   expect_error(calc_MoransI(obj, ignore_borders = "error"),
                "'ignore_borders' should be a single logical value")
   expect_error(calc_MoransI(obj, return_intermediate_values = "error"),
