@@ -423,6 +423,36 @@ test_that("Test internals", {
   expect_warning(expect_false(.validate_length(letters, 25, throw.error = FALSE)),
                  "'letters' should have length 25")
 
+  ## .validate_scalar() -----------------------------------------------------
+  expect_equal(.validate_scalar(1.3),
+               1.3)
+  expect_equal(.validate_scalar(-2, int = TRUE),
+               -2)
+  expect_null(.validate_scalar(NULL, int = TRUE, null.ok = TRUE))
+
+  expect_error(.validate_scalar(int = TRUE),
+               "'NA' should be a single integer value")
+  expect_error(.validate_scalar(test <- "a"),
+               "'test' should be a single value")
+  expect_error(.validate_scalar(test <- NULL),
+               "'test' should be a single value")
+  expect_error(.validate_scalar(iris),
+               "'iris' should be a single value")
+  expect_error(.validate_scalar(iris, null.ok = TRUE),
+               "'iris' should be a single value or NULL")
+  expect_error(.validate_scalar(-1:2, name = "'var'"),
+               "'var' should be a single value")
+  expect_error(.validate_scalar(Inf, int = TRUE, name = "'var'"),
+               "'var' should be a single integer value")
+  expect_error(.validate_scalar(1.5, int = TRUE, name = "'var'"),
+               "'var' should be a single integer value")
+  expect_error(.validate_scalar(NA, int = TRUE, name = "The variable"),
+               "The variable should be a single integer value")
+  expect_error(.validate_scalar(-1:2, pos = TRUE, name = "'var'"),
+               "'var' should be a single positive value")
+  expect_error(.validate_scalar(-1:2, int = TRUE, pos = TRUE, name = "'var'"),
+               "'var' should be a single positive integer value")
+
   ## .validate_positive_scalar() --------------------------------------------
   expect_equal(.validate_positive_scalar(1.3),
                1.3)
