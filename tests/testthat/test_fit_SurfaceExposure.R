@@ -31,49 +31,38 @@ test_that("input validation", {
   })
 })
 
-
-test_that("check values from output example", {
+test_that("check values from example 1", {
   testthat::skip_on_cran()
 
   fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
                              plot = TRUE, verbose = FALSE)
 
   ## Example data 1
-  expect_s4_class(
-    fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, age = 12000,
-    plot = FALSE, verbose = FALSE), "RLum.Results")
-
+  expect_s4_class(fit, "RLum.Results")
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
   expect_equal(is(fit$fit), "nls")
 
   expect_equal(round(fit$summary$age), 9893)
   expect_equal(round(fit$summary$age_error), 369)
-
-  expect_s4_class(fit_SurfaceExposure(d1, sigmaphi = 5e-10, age = 12000,
-                                      verbose = FALSE),
-                  "RLum.Results")
 })
 
-# Sub-test - weighted fitting
-fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE,
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
+test_that("check values from example 1 - weighted fitting", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE,
+                             plot = FALSE, verbose = FALSE)
 
   expect_equal(round(fit$summary$age), 9624)
   expect_equal(round(fit$summary$age_error), 273)
 })
 
-
-## Example data 2
-fit <- fit_SurfaceExposure(data = data.table(d2), age = 1e4,
-                           sigmaphi = 5e-10, Ddot = 2.5, D0 = 40,
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
+test_that("check values from example 2", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = data.table(d2), age = 1e4,
+                             sigmaphi = 5e-10, Ddot = 2.5, D0 = 40,
+                             plot = FALSE, verbose = FALSE)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
@@ -83,13 +72,11 @@ test_that("check values from output example", {
   expect_equal(round(fit$summary$mu_error, 3), 0.007)
 })
 
-
-## Example data 3
-fit <- fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
+test_that("check values from example 3", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
+                             plot = FALSE, verbose = FALSE)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(nrow(fit$summary), 4)
@@ -112,14 +99,13 @@ test_that("check values from output example", {
   })
 })
 
+test_that("check values from example 4", {
+  testthat::skip_on_cran()
 
-## Example data 4
-fit <- fit_SurfaceExposure(data = d4, age = c(1e2, 1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
+  fit <- fit_SurfaceExposure(data = d4, age = c(1e2, 1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
                            Ddot = 1.0, D0 = 40,
                            plot = FALSE, verbose = FALSE)
 
-test_that("check values from output example", {
-  testthat::skip_on_cran()
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(nrow(fit$summary), 5)
   expect_equal(length(fit), 5)
