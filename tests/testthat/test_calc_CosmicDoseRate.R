@@ -24,17 +24,17 @@ test_that("input validation", {
                "'est.age' should be a single positive value")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    latitude = 38.06451),
-               "'longitude' should be of class 'numeric'")
+               "'longitude' should be a single value")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    latitude = 38.1, longitude = numeric(0)),
-               "'longitude' cannot be an empty numeric")
+               "'longitude' should be a single value")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    latitude = 38.06451, longitude = 1.49646),
-               "'altitude' should be of class 'numeric'")
+               "'altitude' should be a single value")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                    latitude = 38.06451, longitude = 1.49646,
                                    altitude = numeric(0)),
-               "'altitude' cannot be an empty numeric")
+               "'altitude' should be a single value")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = c(1.7, 2.9),
                                    corr.fieldChanges = TRUE, est.age = 20,
                                    latitude = 38.06451, longitude = 1.49646,
