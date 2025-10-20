@@ -1271,13 +1271,15 @@ SW <- function(expr) {
   return(TRUE)
 }
 
-#' @title Validate scalar variables expected to be positive
+#' @title Validate scalar variables
 #'
-#' @param val [numeric] (**required**): value to validate
+#' @param val [numeric] (**required**): value to validate.
 #' @param int [logical] (*with default*): whether the value has to be an
-#'        integer (`FALSE` by default)
+#'        integer (`FALSE` by default).
+#' @param pos [logical] (*with default*): whether the value has to be positive
+#'        (`FALSE` by default).
 #' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default)
+#'        considered valid (`FALSE` by default).
 #' @param name [character] (*with default*): variable name to report in case
 #'        of error: if specified, it's reported as is; if not specified it's
 #'        inferred from the name of the variable tested and reported with
@@ -1287,16 +1289,32 @@ SW <- function(expr) {
 #' The validated value, unless the validation failed with an error thrown.
 #'
 #' @noRd
-.validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
-                                      name = NULL) {
+.validate_scalar <- function(val, int = FALSE, pos = FALSE,
+                             null.ok = FALSE, name = NULL) {
   if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
-  if (missing(val) || !is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
-      (int && (is.infinite(val) || val != as.integer(val)))) {
-    .throw_error(name %||% .first_argument(), " should be a positive ",
-                 if (int) "integer ", "scalar", if (null.ok) " or NULL")
+  if (missing(val) || !is.numeric(val) || length(val) != 1 || is.na(val) ||
+      (int && (is.infinite(val) || val != as.integer(val))) ||
+      (pos && val <= 0)) {
+    .throw_error(name %||% .first_argument(), " should be a single ",
+                 if (pos) "positive ", if (int) "integer ", "value",
+                 if (null.ok) " or NULL")
   }
   val
+}
+
+#' @title Validate scalar variables expected to be positive
+#'
+#' @inheritParams .validate_scalar
+#'
+#' @return
+#' The validated value, unless the validation failed with an error thrown.
+#'
+#' @noRd
+.validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
+                                      name = NULL) {
+  .validate_scalar(val, int = int, pos = TRUE, null.ok = null.ok,
+                   name = name %||% .first_argument())
 }
 
 #' @title Validate logical scalar variables

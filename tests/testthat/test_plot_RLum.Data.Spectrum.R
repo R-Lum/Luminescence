@@ -20,9 +20,9 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
                "'bg.spectrum' should be of class 'RLum.Data.Spectrum', 'matrix' or")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.rows = 1.7),
-               "'bin.rows' should be a positive integer scalar")
+               "'bin.rows' should be a single positive integer value")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
-               "'bin.cols' should be a positive integer scalar")
+               "'bin.cols' should be a single positive integer value")
 
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, xlim = c(0, 100)),
       "No data left after applying 'xlim' and 'ylim'")

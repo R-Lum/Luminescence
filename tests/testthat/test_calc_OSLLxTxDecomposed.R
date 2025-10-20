@@ -29,7 +29,7 @@ test_that("input validation", {
                                       OSL.component = 1000),
                "Invalid OSL component index, component table has 100 rows")
   expect_error(calc_OSLLxTxDecomposed(Lx.data, digits = NA),
-               "'digits' should be a positive integer scalar")
+               "'digits' should be a single positive integer value")
 })
 
 test_that("check class and length of output", {

@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(plot_DetPlot(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
-               "'signal.integral.min' should be a positive integer scalar")
+               "'signal.integral.min' should be a single positive integer value")
   expect_error(plot_DetPlot(object, signal.integral.min = 1,
                             signal.integral.max = 1),
                "'signal.integral.max' must be greater than 'signal.integral.min'")

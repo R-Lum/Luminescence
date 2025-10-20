@@ -11,7 +11,7 @@ test_that("input validation", {
   expect_error(calc_FiniteMixture(data.frame(col = 1:10)),
                "'data' object must have two columns")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1),
-               "'sigmab' should be a positive scalar")
+               "'sigmab' should be a single positive value")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 2),
                "'sigmab' must be a value between 0 and 1")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2),

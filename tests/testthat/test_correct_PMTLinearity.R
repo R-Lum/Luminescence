@@ -6,7 +6,7 @@ test_that("input validation", {
       regexp = "'object' should be of class 'RLum.Analysis'")
   expect_error(correct_PMTLinearity(set_RLum("RLum.Data.Curve"),
                                     PMT_pulse_pair_resolution = NA),
-               "'PMT_pulse_pair_resolution' should be a positive scalar or NULL")
+               "'PMT_pulse_pair_resolution' should be a single positive value or NULL")
 })
 
 test_that("Test internals", {

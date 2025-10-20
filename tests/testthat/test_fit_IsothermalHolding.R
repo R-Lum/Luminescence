@@ -26,7 +26,7 @@ test_that("input validation", {
                "XLS/XLSX format is not supported, use CSV instead")
   expect_error(fit_IsothermalHolding(input.csv[1], rhop = 1e-7,
                                      num_s_values_bts = 0),
-               "'num_s_values_bts' should be a positive integer scalar")
+               "'num_s_values_bts' should be a single positive integer value")
 })
 
 test_that("check functionality", {

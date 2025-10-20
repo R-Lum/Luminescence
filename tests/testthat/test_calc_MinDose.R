@@ -17,7 +17,7 @@ test_that("input validation", {
   expect_error(calc_MinDose(iris[, 1, drop = FALSE]),
                "'data' should have 2 columns")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
-               "'sigmab' should be a positive scalar")
+               "'sigmab' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 1, init.values = 1:4),
                "'init.values' is expected to be a named list")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
@@ -27,7 +27,7 @@ test_that("input validation", {
                             init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
                "Missing parameters: gamma, sigma")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = "error"),
-               "'par' should be a positive integer scalar")
+               "'par' should be a single positive integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = 2),
                "'par' can only be set to 3 or 4")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
@@ -41,19 +41,19 @@ test_that("input validation", {
                "'debug' should be a single logical value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             sigmab.sd = c(0.01, 0.02)),
-               "'sigmab.sd' should be a positive scalar")
+               "'sigmab.sd' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             bootstrap = TRUE, bs.M = -1),
-               "'bs.M' should be a positive integer scalar")
+               "'bs.M' should be a single positive integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             bootstrap = TRUE, bs.N = -1),
-               "'bs.N' should be a positive integer scalar")
+               "'bs.N' should be a single positive integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             bootstrap = TRUE, bs.h = -1),
-               "'bs.h' should be a positive scalar")
+               "'bs.h' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             cores = -1),
-               "'cores' should be a positive integer scalar")
+               "'cores' should be a single positive integer value")
 })
 
 test_that("check functionality", {

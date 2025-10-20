@@ -40,9 +40,9 @@ test_that("Check template creation ", {
 
   ## expect failure
   expect_error(template_DRAC(nrow = -1),
-               "'nrow' should be a positive integer scalar")
+               "'nrow' should be a single positive integer value")
   expect_error(template_DRAC("preset"),
-               "'nrow' should be a positive integer scalar")
+               "'nrow' should be a single positive integer value")
   expect_warning(template_DRAC(nrow = 5001, notification = FALSE),
                  "[template_DRAC()] More than 5000 datasets might not be supported",
                  fixed = TRUE)
@@ -53,4 +53,3 @@ test_that("Check template creation ", {
   expect_error(template_DRAC(preset = 999),
                "'preset' should be one of 'quartz_coarse', 'quartz_fine'")
 })
-

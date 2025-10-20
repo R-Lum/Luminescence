@@ -22,9 +22,9 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
 
   expect_error(plot_RLum.Analysis(temp, nrows = -1),
-               "'nrows' should be a positive integer scalar")
+               "'nrows' should be a single positive integer value")
   expect_error(plot_RLum.Analysis(temp, ncols = -1),
-               "'ncols' should be a positive integer scalar")
+               "'ncols' should be a single positive integer value")
   expect_error(plot_RLum.Analysis(temp, combine = -1),
                "'combine' should be a single logical value")
 

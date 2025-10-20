@@ -16,7 +16,7 @@ test_that("input validation", {
   expect_error(fit_OSLLifeTimes(matrix()),
                "'object' should have at least two columns")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
-               "'n.components' should be a positive integer scalar")
+               "'n.components' should be a single positive integer value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
                "'signal_range' should be of class 'numeric'")
 

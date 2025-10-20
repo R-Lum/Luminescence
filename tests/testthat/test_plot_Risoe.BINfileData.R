@@ -11,7 +11,7 @@ test_that("input validation", {
   expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, sorter = c("SET", "RUN")),
                "'sorter' should have length 1")
   expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, dose_rate = c(3, 4)),
-               "'dose_rate' should be a positive scalar")
+               "'dose_rate' should be a single positive value")
   expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                       curve.transformation = "error"),
                "'curve.transformation' should be one of 'CW2pLM', 'CW2pLMi'")

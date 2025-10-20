@@ -15,7 +15,7 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
-               "'n.MC' should be a positive integer scalar")
+               "'n.MC' should be a single positive integer value")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
                "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE' or 'NONE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
@@ -100,7 +100,7 @@ test_that("input validation", {
   ## num_slide_windows
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                 method_control = list(num_slide_windows = NA)),
-                 "'num_slide_windows' in 'method_control' should be a positive")
+                 "'num_slide_windows' in 'method_control' should be a single positive")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method_control = list(num_slide_windows = 20)),
                  "should be between 1 and 10, reset to 10")

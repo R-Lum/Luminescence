@@ -76,7 +76,7 @@ test_that("input validation", {
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = ddot, readerDdot = readerDdot,
                                 n.MC = 0),
-               "'n.MC' should be a positive integer scalar")
+               "'n.MC' should be a single positive integer value")
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = ddot, readerDdot = readerDdot,
                                 rprime = list()),

@@ -23,9 +23,9 @@ test_that("input validation", {
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
                "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, n.components.max = 0),
-               "'n.components.max' should be a positive integer scalar")
+               "'n.components.max' should be a single positive integer value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.failure_threshold = -1),
-               "'fit.failure_threshold' should be a positive integer scalar")
+               "'fit.failure_threshold' should be a single positive integer value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, verbose = "error"),
                "'verbose' should be a single logical value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, output.terminalAdvanced = "error"),

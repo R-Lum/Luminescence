@@ -70,7 +70,7 @@ test_that("Test internals", {
   expect_error(.smoothing(runif(100), align = "error"),
                "'align' should be one of 'right', 'center' or 'left'")
   expect_error(.smoothing(runif(100), p_acceptance = "error"),
-               "'p_acceptance' should be a positive scalar")
+               "'p_acceptance' should be a single positive value")
 
   ## .weighted.median() -----------------------------------------------------
   expect_equal(.weighted.median(1:10, w = rep(1, 10)),
@@ -423,6 +423,36 @@ test_that("Test internals", {
   expect_warning(expect_false(.validate_length(letters, 25, throw.error = FALSE)),
                  "'letters' should have length 25")
 
+  ## .validate_scalar() -----------------------------------------------------
+  expect_equal(.validate_scalar(1.3),
+               1.3)
+  expect_equal(.validate_scalar(-2, int = TRUE),
+               -2)
+  expect_null(.validate_scalar(NULL, int = TRUE, null.ok = TRUE))
+
+  expect_error(.validate_scalar(int = TRUE),
+               "'NA' should be a single integer value")
+  expect_error(.validate_scalar(test <- "a"),
+               "'test' should be a single value")
+  expect_error(.validate_scalar(test <- NULL),
+               "'test' should be a single value")
+  expect_error(.validate_scalar(iris),
+               "'iris' should be a single value")
+  expect_error(.validate_scalar(iris, null.ok = TRUE),
+               "'iris' should be a single value or NULL")
+  expect_error(.validate_scalar(-1:2, name = "'var'"),
+               "'var' should be a single value")
+  expect_error(.validate_scalar(Inf, int = TRUE, name = "'var'"),
+               "'var' should be a single integer value")
+  expect_error(.validate_scalar(1.5, int = TRUE, name = "'var'"),
+               "'var' should be a single integer value")
+  expect_error(.validate_scalar(NA, int = TRUE, name = "The variable"),
+               "The variable should be a single integer value")
+  expect_error(.validate_scalar(-1:2, pos = TRUE, name = "'var'"),
+               "'var' should be a single positive value")
+  expect_error(.validate_scalar(-1:2, int = TRUE, pos = TRUE, name = "'var'"),
+               "'var' should be a single positive integer value")
+
   ## .validate_positive_scalar() --------------------------------------------
   expect_equal(.validate_positive_scalar(1.3),
                1.3)
@@ -431,27 +461,27 @@ test_that("Test internals", {
   expect_null(.validate_positive_scalar(NULL, int = TRUE, null.ok = TRUE))
 
   expect_error(.validate_positive_scalar(int = TRUE),
-               "'NA' should be a positive integer scalar")
+               "'NA' should be a single positive integer value")
   expect_error(.validate_positive_scalar(test <- "a"),
-               "'test' should be a positive scalar")
+               "'test' should be a single positive value")
   expect_error(.validate_positive_scalar(test <- NULL),
-               "'test' should be a positive scalar")
+               "'test' should be a single positive value")
   expect_error(.validate_positive_scalar(iris),
-               "'iris' should be a positive scalar")
+               "'iris' should be a single positive value")
   expect_error(.validate_positive_scalar(iris, null.ok = TRUE),
-               "'iris' should be a positive scalar or NULL")
+               "'iris' should be a single positive value or NULL")
   expect_error(.validate_positive_scalar(1:2, name = "'var'"),
-               "'var' should be a positive scalar")
+               "'var' should be a single positive value")
   expect_error(.validate_positive_scalar(0, name = "'var'"),
-               "'var' should be a positive scalar")
+               "'var' should be a single positive value")
   expect_error(.validate_positive_scalar(-1, name = "'var'"),
-               "'var' should be a positive scalar")
+               "'var' should be a single positive value")
   expect_error(.validate_positive_scalar(Inf, int = TRUE, name = "'var'"),
-               "'var' should be a positive integer")
+               "'var' should be a single positive integer value")
   expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "'var'"),
-               "'var' should be a positive integer")
+               "'var' should be a single positive integer value")
   expect_error(.validate_positive_scalar(NA, int = TRUE, name = "The variable"),
-               "The variable should be a positive integer")
+               "The variable should be a single positive integer value")
 
   ## .validate_logical_scalar() ---------------------------------------------
   expect_equal(.validate_logical_scalar(TRUE),

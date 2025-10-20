@@ -10,15 +10,15 @@ test_that("input validation", {
   expect_error(calc_FadingCorr(c(0.1, 0), 1),
                "'g_value' should have length 2")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0)),
-               "[calc_FadingCorr()] 'tc' should be a positive scalar",
+               "[calc_FadingCorr()] 'tc' should be a single positive value",
                fixed = TRUE)
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = c(1000, 2000)),
-               "[calc_FadingCorr()] 'tc' should be a positive scalar",
+               "[calc_FadingCorr()] 'tc' should be a single positive value",
                fixed = TRUE)
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = 2592000, n.MC = "error"),
-               "'n.MC' should be a positive integer scalar")
+               "'n.MC' should be a single positive integer value")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = 2592000, interval = "error"),
                "'interval' should be of class 'numeric'")
