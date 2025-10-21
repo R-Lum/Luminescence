@@ -6,14 +6,20 @@ test_that("input validation", {
   expect_error(calc_CosmicDoseRate(depth = numeric(0), density = 1.7,
                                    latitude = 38.1, longitude = 1.4),
                "'depth' cannot be an empty numeric")
-  expect_error(calc_CosmicDoseRate(depth = -2, density = 1.7, altitude = 364,
-                                   latitude = 38.1, longitude = 1.4),
-               "No negative values allowed for 'depth' and 'density'")
   expect_error(calc_CosmicDoseRate(depth = 10, density = "error"),
                "'density' should be of class 'numeric'")
   expect_error(calc_CosmicDoseRate(depth = 10, density = numeric(0),
                                    latitude = 38.1, longitude = 1.4),
                "'density' cannot be an empty numeric")
+  expect_error(calc_CosmicDoseRate(depth = -2, density = 1.7, altitude = 364,
+                                   latitude = 38.1, longitude = 1.4),
+               "No negative or missing values allowed for 'depth' and 'density'")
+  expect_error(calc_CosmicDoseRate(depth = c(1.78, NA), density = c(0.7, 1.0),
+                                   latitude = 10, longitude = 20, altitude = 1),
+               "No negative or missing values allowed for 'depth' and 'density'")
+  expect_error(calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.7, NA),
+                                   latitude = 10, longitude = 20, altitude = 1),
+               "No negative or missing values allowed for 'depth' and 'density'")
   expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7, altitude = 364,
                                    latitude = 38.1, longitude = 1.4,
                                    corr.fieldChanges = TRUE),

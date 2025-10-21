@@ -261,8 +261,8 @@ calc_CosmicDoseRate<- function(
   .validate_scalar(longitude)
   .validate_scalar(altitude)
 
-  if(any(depth < 0) || any(density < 0)) {
-    .throw_error("No negative values allowed for 'depth' and 'density'")
+  if (any(depth < 0) || anyNA(depth) || any(density < 0) || anyNA(density)) {
+    .throw_error("No negative or missing values allowed for 'depth' and 'density'")
   }
 
   if(corr.fieldChanges == TRUE) {
