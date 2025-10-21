@@ -288,12 +288,11 @@ setMethod(f = "bin_RLum.Data",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             if (length(object@data) < 2) {
               .throw_error("'object' contains no data")
             }
-            .validate_class(bin_size.row, c("numeric", "integer"))
-            .validate_class(bin_size.col, c("numeric", "integer"))
+            .validate_positive_scalar(bin_size.row, int = TRUE)
+            .validate_positive_scalar(bin_size.col, int = TRUE)
 
             ##make sure that we do not get in trouble with negative values
             bin_size.col <- abs(bin_size.col)

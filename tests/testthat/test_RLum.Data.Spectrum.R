@@ -26,9 +26,9 @@ test_that("check class", {
   rownames(object@data) <- 1:10
   colnames(object@data) <- 1:20
   expect_error(bin_RLum.Data(object, bin_size.row = "test"),
-               "'bin_size.row' should be of class 'numeric'")
+               "'bin_size.row' should be a single positive integer value")
   expect_error(bin_RLum.Data(object, bin_size.row = 12, bin_size.col = "test"),
-               "'bin_size.col' should be of class 'numeric'")
+               "'bin_size.col' should be a single positive integer value")
   expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 2), "RLum.Data.Spectrum")
 
   expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 1, bin_size.col = 2), "RLum.Data.Spectrum")

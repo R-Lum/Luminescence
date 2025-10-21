@@ -55,6 +55,12 @@
 - The `coord` argument is now better validated to avoid a crash in case
   of misspecification (#1097).
 
+### `bin_RLum.Data()`
+
+- Validation of the `bin_size` (for `RLum.Data.Curve`), `bin_size.row`
+  and `bin_size.col` (for `RLum.Data.Spectrum`) has been made stricter,
+  so that invalid values produce an error (#1104).
+
 ### `calc_CosmicDoseRate()`
 
 - The function is now more robust against `NA` values in its input
