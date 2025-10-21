@@ -239,7 +239,7 @@ calc_gSGC_feldspar <- function (
 
     par(mfrow = c(mfrow = c(3,3)))
     for (i in 1:length(l)) {
-      if(is.na(l[[i]][1])) next();
+      if (is.na(l[[i]][1])) next
 
       y_max <- max(l[[i]]$m.MC[, 1:2])
       plot(NA, NA,
@@ -287,7 +287,7 @@ calc_gSGC_feldspar <- function (
 
   ##calculate a few useful parameters
   for(i in 1:nrow(m)){
-    if(is.na(l[[i]][1])) next();
+    if (is.na(l[[i]][1])) next
 
     m[i,1] <- l[[i]]$DE
     m[i,2] <- l[[i]]$DE.ERROR

@@ -432,7 +432,7 @@ calc_EED_Model <- function(
 
       ##implement differential break if the search area is already smaller than the area
       if(diff(c(method_control$lower[1], method_control$upper[1])) < 0.1)
-         break()
+         break
     }
 
     return(list(

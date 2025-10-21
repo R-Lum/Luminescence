@@ -204,7 +204,7 @@ calc_CentralDose <- function(
 
     ## don't let sigma become zero
     if (sigma < 1e-16)
-      break()
+      break
   }
 
   # log likelihood

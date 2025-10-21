@@ -354,7 +354,7 @@ report_RLum <- function(
       # SKIP ELEMENT?
       # hide @.pid and @.uid if this is a shortened report (default)
       if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
-        next()
+        next
 
       # HEADER
       short.name <- elements$bud[i]

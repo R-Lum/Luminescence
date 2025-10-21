@@ -15,7 +15,7 @@
   ref_tmp <- unique(x[[.search_key(x, "TI:4")]])
   for (i in 1:length(ref_tmp)) {
     if (ref_tmp[i] == "X")
-      next()
+      next
 
     used$refs <- c(used$refs, refs[refs_names %in% ref_tmp[i]])
     used$desc <- c(used$desc, "Conversion factors")
