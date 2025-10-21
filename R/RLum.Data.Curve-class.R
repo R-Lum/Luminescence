@@ -333,9 +333,11 @@ setMethod("names_RLum",
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Curve",
           function(object, bin_size = 2) {
+            .set_function_name("bin_RLum.Data.Curve")
+            on.exit(.unset_function_name(), add = TRUE)
 
-            ##check for invalid bin_size values
-            if (!is.null(bin_size) && bin_size > 0) {
+            .validate_positive_scalar(bin_size, int = TRUE)
+
               ##set stepping vector
               stepping <- seq(1, nrow(object@data), by = bin_size)
 
@@ -361,12 +363,6 @@ setMethod(f = "bin_RLum.Data",
               ##set matrix
               return(set_RLum(class = "RLum.Data.Curve",
                               data = object))
-            } else{
-              warning("Argument 'bin_size' invalid, nothing was done!")
-
-              ##just return the object
-              return(object)
-            }
           })
 
 
