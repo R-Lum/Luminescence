@@ -61,6 +61,11 @@ with the `...` argument `labcex` and scale with `cex` (#1075).
 * The `coord` argument is now better validated to avoid a crash in case of
 misspecification (#1097).
 
+### `calc_CosmicDoseRate()`
+
+* The function is now more robust against `NA` values in its input arguments
+(#1101).
+
 ### `calc_EED_Model()`
 
 * A crash that occurred with a small number of simulation was fixed (#1051).
