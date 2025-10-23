@@ -1,15 +1,16 @@
 #'@title Emission Spectra Conversion from Wavelength to Energy Scales (Jacobian Conversion)
 #'
-#'@description The function provides a convenient and fast way to convert emission spectra wavelength
-#'to energy scales. The function works on [RLum.Data.Spectrum-class], [data.frame] and [matrix] and
-#'a [list] of such objects. The function was written to smooth the workflow while analysing
-#'emission spectra data. This is in particular useful if you want to further treat your data
-#'and apply, e.g., a signal deconvolution.
+#' @description
+#' The function provides a convenient and fast way to convert emission spectra
+#' wavelength to energy scales. The function works on [RLum.Data.Spectrum-class],
+#' [data.frame] and [matrix] and a [list] of such objects. The function was
+#' written to smooth the workflow while analysing emission spectra data. This
+#' is in particular useful if you want to further treat your data and apply,
+#' e.g., a signal deconvolution.
 #'
-#'@details
-#'
-#' The intensity of the spectrum is re-calculated using the following approach to recalculate
-#' wavelength and corresponding intensity values
+#' @details
+#' The intensity of the spectrum is re-calculated using the following approach
+#' to recalculate wavelength and corresponding intensity values
 #' (e.g., Appendix 4 in Blasse and Grabmaier, 1994; Mooney and Kambhampati, 2013):
 #'
 #' \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
@@ -24,11 +25,13 @@
 #'
 #' \deqn{E = hc/\lambda}
 #'
-#' @param object [RLum.Data.Spectrum-class], [data.frame], [matrix] (**required**): input object to be converted.
-#' If the input is not an [RLum.Data.Spectrum-class], the first column is always treated as the wavelength
+#' @param object [RLum.Data.Spectrum-class], [data.frame], [matrix] (**required**):
+#' input object to be converted. If the input is not an `RLum.Data.Spectrum`
+#' object, the first column is always treated as the wavelength
 #' column. The function supports a list of allowed input objects.
 #'
-#' @param digits [integer] (*with default*): set the number of digits on the returned energy axis
+#' @param digits [integer] (*with default*):
+#' number of digits on the returned energy axis.
 #'
 #' @param order [logical] (*with default*): enable/disable sorting of the
 #' values in ascending energy order. After the conversion, the longest
@@ -78,8 +81,7 @@
 #' m <- matrix(
 #'   data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
 #'
-#'##(1.2) set plot function to reproduce the
-#'##literature figure
+#' ##(1.2) set plot function to reproduce the literature figure
 #'p <- function(m) {
 #'  plot(x = m[, 1], y = m[, 2])
 #'  polygon(
@@ -121,7 +123,6 @@
 #'  ylab = "Luminescence [a.u.]"
 #' )
 #'
-#'@md
 #'@export
 convert_Wavelength2Energy <- function(
   object,
@@ -141,8 +142,8 @@ convert_Wavelength2Energy <- function(
   ##this treats the matrix; in either caes and we play safe, means, we create in either case
   ##colnames and rownames, but remove them later depending on the input
   .conv_intensity <- function(m){
-      h <- 4.135667662e-15 #eV * s
-      c <- 299792458e+09 #nm/s
+      h <- .const$h_eVs   # eV*s
+      c <- .const$c * 1e9 # nm/s
 
       ##convert count values
       m[] <- m * as.numeric(rownames(m))^2 / (h * c)
@@ -159,9 +160,10 @@ convert_Wavelength2Energy <- function(
   .validate_class(object, c("RLum.Data.Spectrum", "data.frame", "matrix"),
                   extra = "a 'list' of such objects")
   .validate_not_empty(object)
+  .validate_positive_scalar(digits, int = TRUE)
+  .validate_logical_scalar(order)
 
   if(inherits(object, "RLum.Data.Spectrum")){
-
     if (length(object@data) < 2) {
       .throw_error("'object' contains no data")
     }
@@ -170,9 +172,16 @@ convert_Wavelength2Energy <- function(
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){
      if(any(grepl(pattern = "energy", x = tolower(object@info$curveDescripter), fixed = TRUE))){
-         message("[convert_Wavelength2Energy()] Your object has already an energy scale, nothing done!")
+        .throw_message("'object' has already an energy scale, nothing done",
+                       error = FALSE)
          return(object)
      }
+
+      ## correct curveDescripter (we do not attach the table, otherwise the
+      ## object gets too big)
+      descr <- strsplit(object@info$curveDescripter, ";", fixed = TRUE)[[1]]
+      descr[grepl("wavelength", descr, fixed = TRUE)] <- "energy [eV]"
+      object@info$curveDescripter <- paste(descr, collapse = ";")
     }
 
     ##convert data
@@ -185,23 +194,19 @@ convert_Wavelength2Energy <- function(
       rownames(object@data) <- sort(as.numeric(rownames(object@data)))
     }
 
-    ##correct $curveDescripter (we do not attach the table, otherwise the object gets too big)
-    if(any("curveDescripter" %in% names(object@info))){
-     temp_descripter <- strsplit(object@info$curveDescripter, ";", TRUE)[[1]]
-     temp_descripter[grepl(x = temp_descripter,pattern = "wavelength", fixed = TRUE)] <- "energy [eV]"
-      object@info$curveDescripter <- paste(temp_descripter, collapse = ";")
-    }
-
     ##return new object
     return(object)
 
-  }else if(inherits(object, "matrix") || inherits(object, "data.frame")){
+  } else if (inherits(object, c("matrix", "data.frame"))) {
 
     if (ncol(object) < 2) {
       .throw_error("'object' should have at least two columns")
     }
 
-    temp <- as.matrix(object[,2:ncol(object)])
+    temp <- as.matrix(object[, 2:ncol(object), drop = FALSE])
+    if (!is.numeric(temp)) {
+      .throw_error("'object' should have only numeric fields")
+    }
 
     ##set rownames
     rownames(temp) <- object[,1]

@@ -10,7 +10,7 @@ test_that("input validation", {
   expect_error(plot_DetPlot(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
-               "'signal.integral.min' should be a positive integer scalar")
+               "'signal.integral.min' should be a single positive integer value")
   expect_error(plot_DetPlot(object, signal.integral.min = 1,
                             signal.integral.max = 1),
                "'signal.integral.max' must be greater than 'signal.integral.min'")
@@ -25,21 +25,6 @@ test_that("input validation", {
 
 test_that("plot_DetPlot", {
   testthat::skip_on_cran()
-
-  ## simple run with default
-  SW({
-  results <- expect_s4_class(plot_DetPlot(
-    object,
-    method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
-    analyse_function.control = list(
-      fit.method = "LIN"),
-    n.channels = 2),
-    "RLum.Results")
-  })
 
   ## simple run with default but no plot
   results <- expect_s4_class(plot_DetPlot(
@@ -56,26 +41,9 @@ test_that("plot_DetPlot", {
     plot = FALSE),
     "RLum.Results")
 
-  ## test with trim channels
-  results <- expect_s4_class(plot_DetPlot(
-    object,
-    method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
-    analyse_function.control = list(
-      fit.method = "LIN",
-      trim_channels = TRUE
-      ),
-    n.channels = 2,
-    verbose = FALSE,
-    plot = FALSE),
-    "RLum.Results")
-
   ## test self call with multi core
   SW({
-  results <- expect_s4_class(plot_DetPlot(
+  expect_message(expect_s4_class(plot_DetPlot(
     object = list(x = object, y = object),
     method = "shift",
     signal.integral.min = 1,
@@ -86,26 +54,30 @@ test_that("plot_DetPlot", {
       fit.method = "LIN",
       trim_channels = TRUE
     ),
-    multicore = 1,
+    multicore = 2,
     n.channels = 2,
     verbose = TRUE,
     plot = FALSE),
-    "RLum.Results")
-  })
+    "RLum.Results"),
+    "Running multicore session using 2 cores")
 
-  ## simple run with default
-  results <- expect_s4_class(plot_DetPlot(
-    object,
-    method = "expansion",
+  expect_s4_class(plot_DetPlot(
+    object = list(x = object, y = object),
+    method = "shift",
     signal.integral.min = 1,
     signal.integral.max = 3,
     background.integral.min = 900,
     background.integral.max = 1000,
     analyse_function.control = list(
-      fit.method = "LIN"),
-    verbose = FALSE,
-    n.channels = 2),
+      fit.method = "LIN",
+      trim_channels = TRUE
+    ),
+    multicore = FALSE,
+    n.channels = 2,
+    verbose = TRUE,
+    plot = FALSE),
     "RLum.Results")
+  })
 
   ## try with NA values
   object@records[[2]][,2] <- 1
@@ -182,5 +154,37 @@ test_that("plot_DetPlot", {
           "An error occurred, analysis skipped"),
       "No valid results produced")
   )
+  })
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("shift trim",
+                              plot_DetPlot(object,
+                                           method = "shift",
+                                           signal.integral.min = 1,
+                                           signal.integral.max = 3,
+                                           background.integral.min = 900,
+                                           background.integral.max = 1000,
+                                           analyse_function.control = list(
+                                               fit.method = "LIN",
+                                               trim_channels = TRUE
+                                           ),
+                                           n.channels = 3))
+  vdiffr::expect_doppelganger("expansion",
+                              plot_DetPlot(object,
+                                           method = "expansion",
+                                           signal.integral.min = 1,
+                                           signal.integral.max = 3,
+                                           background.integral.min = 900,
+                                           background.integral.max = 1000,
+                                           analyse_function.control = list(
+                                               fit.method = "LIN"),
+                                           n.channels = 2))
   })
 })

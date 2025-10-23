@@ -29,7 +29,6 @@
 #'
 #' object <- .set_pid(object)
 #'
-#' @md
 #' @noRd
 .set_pid <- function(object){
   object@records <-
@@ -42,20 +41,20 @@
 }
 
 #+++++++++++++++++++++
-#+ .warningCatcher()        +
+#+ .warningCatcher() +
 #+++++++++++++++++++++
 
-#' Catches warning returned by a function and merges them.
-#' The original return of the function is returned. This function is in particular
-#' helpful if a function returns a lot of warnings with the same content.
+#' Catches warnings returned by a function and merges them into a single one.
+#' The original return value of the function is returned. This function is
+#' particularly helpful if a function returns a lot of identical warnings.
 #'
 #' @param expr [expression] (**required**):
 #' the R expression, usually a function
 #'
 #' @return
-#' Returns the same object as the input and a warning table
+#' Returns the same object as the input and throws a warning.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -69,104 +68,101 @@
 #' }
 #' print(.warningCatcher(f()))
 #'
-#' @md
 #' @noRd
 .warningCatcher <- function(expr) {
   ##set variables
   warning_collector <- list()
-  env <-  environment()
 
   ##run function and catch warnings
   results <- withCallingHandlers(
     expr = expr,
-    warning = function(c) {
-      temp <- c(get("warning_collector", envir = env), c[[1]])
-      assign(x = "warning_collector",
-             value = temp,
-             envir = env)
-      ##TODO should be replaced tryInvokeRestart once R 4.1 was released
-      invokeRestart("muffleWarning")
+    warning = function(w) {
+      warning_collector <<- c(warning_collector, w$message)
+      tryInvokeRestart ("muffleWarning")
     }
   )
 
   ##set new warning messages with merged results
   if (length(warning_collector) > 0) {
     w_table <- table(as.character(unlist(warning_collector)))
-    w_table_names <- names(w_table)
-
-    warning(paste0(
-       "(",
-        1:length(w_table),
-        ") ",
-        w_table_names,
-        ": This warning occurred ",
-        w_table,
-        " times!"
-      ,collapse = "\n"),
-      call. = FALSE)
-
+    w_single <- rep(length(w_table) == 1, length(w_table))
+    msg <- sprintf("%s%s%s",
+                   ifelse(w_single, "", sprintf("(%d) ", 1:length(w_table))),
+                   names(w_table),
+                   ifelse(w_table == 1, "", sprintf(" [%d times]", w_table)))
+    warning(paste(msg, collapse = "\n"), call. = FALSE)
   }
   return(results)
-
 }
 
 #+++++++++++++++++++++
 #+ .smoothing()      +
 #+++++++++++++++++++++
 
-#' Allows smoothing of data based on rolling means or medians
+#' Smooth data based on rolling means or medians
 #'
-#' The function just allows a direct and meaningful access to the
-#' functionality of `data.table::frollmean()` and `data.table::frollmedian()`.
-#' Arguments of the function are only partly valid.
+#' The function allows a direct and meaningful access to the functionality of
+#' `data.table::frollmean()` and `data.table::frollapply()`. It also provides
+#' an implementation of the Poisson smoother of Carter et al. (2018).
 #'
 #' @param x [numeric] (**required**):
 #' the object for which the smoothing should be applied.
 #'
 #' @param k [integer] (*with default*):
-#' window for the rolling mean. If not set, `k` is set automatically.
+#' window size for the rolling mean or median (ignored if
+#' `method = "Carter_etal_2018"`).
 #'
 #' @param fill [numeric] (*with default*):
-#' value used to pad the result so to have the same length as the input
+#' value used to pad the result so to have the same length as the input.
 #'
 #' @param align [character] (*with default*):
 #' one of `"right"`, `"center"` or `"left"`, specifying whether the index
-#' of the result should be right-aligned (default), centered, or lef-aligned
-#' compared to the rolling window of observations
+#' of the result should be right-aligned (default), centred, or left-aligned
+#' compared to the rolling window of observations (ignored if
+#' `method = "Carter_etal_2018"`).
 #'
-#' @param method [method] (*with default*):
-#' defines which method should be applied for the smoothing: `"mean"` or `"median"`
+#' @param p_acceptance [numeric] (*with default*):
+#' probability threshold of accepting a value to be a sample from a Poisson
+#' distribution (only used for `method = "Carter_etal_2018"`). Values that
+#' have a Poisson probability below the threshold are replaced by the average
+#' over the four neighbouring values.
+#'
+#' @param method [character] (*with default*):
+#' smoothing method to be applied: one of `"mean"`, `"median"` or
+#' `"Carter_etal_2018"`.
 #'
 #' @return
-#' Returns the same object as the input
+#' Returns a numeric vector with smoothed values.
 #'
-#' @section Function version: 0.2
+#' @section Function version: 0.3
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
 #' v <- 1:100
 #' .smoothing(v)
 #'
-#' @md
 #' @noRd
 .smoothing <- function(
   x,
   k = NULL,
   fill = NA,
   align = "right",
+  p_acceptance = 1e-7,
   method = "mean") {
   .set_function_name(".smoothing")
   on.exit(.unset_function_name(), add = TRUE)
 
   .validate_args(align, c("right", "center", "left"))
-  .validate_args(method, c("mean", "median"))
+  method <- .validate_args(method, c("mean", "median", "Carter_etal_2018"))
+  .validate_positive_scalar(p_acceptance)
 
   ##set k
-  if (is.null(k)){
+  if (is.null(k))
    k <- ceiling(length(x) / 100)
-  }
 
   ##smooth data
   if(method == "mean"){
@@ -176,6 +172,65 @@
     data.table::frollapply(x, n = k, FUN = "median",
                            fill = fill, align = align)
   }
+  else if (method == "Carter_etal_2018") {
+    ## Code derived with corrections and improvements from the supplementary
+    ## materials of Carter et al. (2018)
+    ## https://doi.org/10.1016/j.radmeas.2018.05.010
+
+    ## Poisson probability of sample counts
+    ## We operate on logged values to avoid overflow that would happen with
+    ## the naive formulation `exp(-mx) * mx^x / factorial(x)`
+    mx <- mean(x, na.rm = TRUE)
+    prob <- exp(-mx + x * log(mx) - lfactorial(x))
+
+    ## remove counts with probability below the acceptance threshold
+    ## so they are not considered when averaging over the neighbours
+    na.idx <- prob < p_acceptance
+    x[na.idx] <- NA
+    if (all(is.na(x)))
+      .throw_error("'p_acceptance' rejects all counts, set it to a smaller value")
+
+    ## average over four neighbours: we set "n = 5" instead of "n = 4" because
+    ## we want to include the 2 neighbours to the left and the 2 on the right,
+    ## but the window size also counts the element itself; this is not a
+    ## problem, as we use the rolling mean only for elements that we have set
+    ## to NA just above, and they don't have a value to contribute to the mean
+    x[na.idx] <- data.table::frollmean(x, n = 5, align = "center",
+                                       fill = fill, na.rm = TRUE)[na.idx]
+    round(x)
+  }
+}
+
+#' Computation of a weighted median
+#'
+#' @param x [numeric] (**required**):
+#' Values whose weighted median is to be computed.
+#'
+#' @param w [numeric] (**required**):
+#' Weights to use for elements of `x`.
+#'
+#' @param na.rm [logical] (*with default*):
+#' Whether `NA` values in `x` should be removed before the computation.
+#'
+#' @return
+#' A numeric value corresponding to the weighted median of the input vector.
+#'
+#' @noRd
+.weighted.median <- function (x, w, na.rm = FALSE) {
+  ## based on limma::weighted.median
+  if (na.rm) {
+    keep.idx <- !is.na(x)
+    x <- x[keep.idx]
+    w <- w[keep.idx]
+  }
+  ox <- order(x)
+  x <- x[ox]
+  w <- w[ox]
+  p <- cumsum(w) / sum(w)
+  n <- sum(p < 0.5)
+  if (p[n + 1] > 0.5)
+    return(x[n + 1])
+  (x[n + 1] + x[n + 2]) / 2
 }
 
 #++++++++++++++++++++++++++++++
@@ -198,7 +253,6 @@
 #' if logical, whether curve normalisation should occur; alternatively, one
 #' of `"max"` (used with `TRUE`), `"last"` and `"huot"`.
 #'
-#' @md
 #' @noRd
 .normalise_curve <- function(data, norm) {
 
@@ -238,7 +292,6 @@
 #' @param digits [integer] (**required**): round numbers to the specified
 #'        digits. If set to `NULL`, no rounding occurs.
 #'
-#' @md
 #' @noRd
 .calculate_LxTx_error <- function(LnLxTnTx, sig0, digits) {
 
@@ -298,7 +351,6 @@
 #' axis(1, at = axTicks(1),
 #'      labels = fancy_scientific(axTicks(1)))
 #'
-#' @md
 #' @noRd
 fancy_scientific <- function(l) {
   # turn in to character string in scientific notation
@@ -331,7 +383,6 @@ fancy_scientific <- function(l) {
 #'plot(1:length(y), y, yaxt = "n", log = "y")
 #'.add_fancy_log_axis(side = 2, las = 1)
 #'
-#'@md
 #'@noRd
 .add_fancy_log_axis <- function(side, ...){
   ## do just nothing if it would cause an error
@@ -368,6 +419,24 @@ fancy_scientific <- function(l) {
     args))
 }
 
+#' Retrieve graphical parameters
+#'
+#' @return
+#' A list of graphical parameters that can be restored. The `pin` parameter
+#' is removed because at times (when a pdf file with too small size) it can
+#' become negative, and restoring it would throw an error. The `new` parameter
+#' is set to `FALSE` because calling `par()` with no graphical device open
+#' will set `par("new")` to `TRUE`, which is not what we want to restore, as
+#' otherwise the next plot may accidentally overwrite the previous one.
+#'
+#' @noRd
+.par_defaults <- function() {
+  pars <- par(no.readonly = TRUE)
+  pars$pin <- NULL
+  pars$new <- FALSE
+  pars
+}
+
 #' Convert position keywords into summary placement coordinates
 #'
 #' @param pos [numeric] or [character] (**required**) Position coordinates
@@ -379,7 +448,6 @@ fancy_scientific <- function(l) {
 #' @return
 #' A list of two elements: `pos` and `adj`.
 #'
-#' @md
 #' @noRd
 .get_keyword_coordinates <- function(pos, xlim, ylim) {
   adj <- NA
@@ -431,9 +499,8 @@ fancy_scientific <- function(l) {
 #' the package. This should unify the approach how such things are created and support, theoretically
 #' all keywords for all plot functions in a similar way.
 #'
-#' @param x [data.frame] (*optional*): output from function `calc_Statistics()`.
-#' If nothing is provided, a list of prefix keyword combinations supported by
-#' `calc_Statistics()` is returned.
+#' @param summary [data.frame] (**required**):
+#' output from function `calc_Statistics()`.
 #'
 #' @param keywords[character] (*with default*): keywords supported by function
 #' `calc_Statistics()`.
@@ -453,67 +520,36 @@ fancy_scientific <- function(l) {
 #'@section Version: 0.1.0
 #'
 #'
-#'@md
 #'@noRd
 .create_StatisticalSummaryText <- function(
-  x = NULL, #insert the output of calc_Statistics
+  summary,
   keywords = NULL,
   digits = 2, #allow for different digits
   sep = " \n ",
   prefix = "",
   suffix = ""
-){
-
-  ## Grep keyword information
-  if (is.null(x)) {
-    summary <- calc_Statistics(data.frame(x = 1:2, y = 1:2))
-
-  } else {
-    summary <- x
-
-  }
-
-  #all allowed combinations
-  keywords_allowed <- unlist(lapply(names(summary), function(x){
-    paste0(x, "$", names(summary[[x]]))
-
-  }))
-
-  ##return if for x == NULL
-  if(is.null(x))
-    return(keywords_allowed)
-
-  ## Create call
-  #create list
+) {
+  ## loop over all keywords provided
   l <- lapply(keywords, function(k) {
-    ##strip keyword if necessary
-    if (grepl(pattern = "$",
-              x = k,
-              fixed = TRUE)[1]) {
-      strip <- strsplit(k, split = "$", fixed = TRUE)[[1]]
-      keywords_prefix <- strip[1]
-      k_strip <- strip[2]
-    } else{
-      keywords_prefix <- "unweighted"
-      k_strip <- k
-
-    }
-
-    ##construct string
-    if(!is.null(summary[[keywords_prefix]][[k_strip]])){
-      if(keywords_prefix == "unweighted"){
-        paste0(k_strip, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
-
-      }else{
-        paste0(k, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
-
-      }
-
-    }else{
+    if (nchar(k) == 0)
       return(NULL)
 
+    ## strip the prefix if necessary
+    keywords_prefix <- "unweighted"
+    k_strip <- unlist(strsplit(k, split = "$", fixed = TRUE))
+    if (length(k_strip) > 1) {
+      keywords_prefix <- k_strip[1]
+      k_strip <- k_strip[2]
     }
 
+    ## return early if the keyword cannot be found
+    value <- summary[[keywords_prefix]][[k_strip]]
+    if (is.null(value))
+      return(NULL)
+
+    ## construct string
+    paste(if (keywords_prefix == "unweighted") k_strip else k,
+          "=", round(value, digits))
   })
 
   ##remove NULL entries
@@ -521,7 +557,6 @@ fancy_scientific <- function(l) {
 
   ##construct final call
   return(paste0(prefix, paste(unlist(l), collapse = sep), suffix))
-
 }
 
 #++++++++++++++++++++++++++++++
@@ -529,9 +564,8 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #'
 #' Recursive unlisting of lists until the first element in the list
-#' is something, but not a list. This funktion helps
-#' to get rid of nested lists. The function stops running if a single
-#' level list is reached.
+#' is something other than a list. This function helps to get rid of nested
+#' lists. The function stops running if a single level list is reached.
 #'
 #' @param x [list] (**required**): list with lists
 #'
@@ -542,7 +576,6 @@ fancy_scientific <- function(l) {
 #' .unlist_RLum(a)
 #'
 #' @return [list] with only one level left
-#' @md
 #' @noRd
 .unlist_RLum <- function(x){
   stopifnot(class(x) == "list")
@@ -552,9 +585,7 @@ fancy_scientific <- function(l) {
     .unlist_RLum(x)
   }else{
     return(x)
-
   }
-
 }
 
 #++++++++++++++++++++++++++++++
@@ -562,15 +593,16 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #' @title Removes all non-RLum objects from list
 #'
-#' @description Removes all non RLum objects from a list
-#' supposed to consist only of RLum-class objects
+#' @description
+#' Removes all non-RLum objects from a list supposed to consist only of
+#' [RLum-class] objects.
 #' As an internal function, the function is rather unforgiving, no further
 #' checks are applied.
 #'
 #' @param x [list] (**required**): list
 #'
-#' @param class [character]: class to look for, if nothing is set
-#' it checks for RLum in general
+#' @param class [character] (*with default*):
+#' class of elements to keep, by default [RLum-class].
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -578,15 +610,12 @@ fancy_scientific <- function(l) {
 #' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
 #' .rm_nonRLum(x)
 #'
-#' @return [list] with only RLum objects
+#' @return
+#' A list containing only objects of the specified class.
 #'
-#' @md
 #' @noRd
-.rm_nonRLum <- function(x, class = NULL){
-  if(is.null(class))
-    return(x[vapply(x, inherits, logical(1), "RLum")])
-
-  x[vapply(x, "class", character(1)) == class[1]]
+.rm_nonRLum <- function(x, class = "RLum") {
+  x[vapply(x, inherits, logical(1), class)]
 }
 
 #++++++++++++++++++++++++++++++
@@ -604,7 +633,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [list] without `NULL` elements, can be empty
 #'
-#' @md
 #' @noRd
 .rm_NULL_elements <- function(x){
   x[vapply(x, is.null, logical(1))] <- NULL
@@ -650,7 +678,6 @@ fancy_scientific <- function(l) {
 #'
 #' .matrix_binning(m, bin_size = 4)
 #'
-#' @md
 #' @noRd
 .matrix_binning <- function(
   m,
@@ -695,7 +722,6 @@ fancy_scientific <- function(l) {
 
     }else{
       row_names <- names
-
     }
 
     ##reset rownames and make sure it fits the length
@@ -703,7 +729,6 @@ fancy_scientific <- function(l) {
 
   }else{
     rownames(temp_m) <- NULL
-
   }
 
   ## re-transpose in column mode
@@ -732,7 +757,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [list] with expanded parameters
 #'
-#' @md
 #' @noRd
 .expand_parameters <- function(len){
   ##get original definition and the call of f
@@ -756,7 +780,6 @@ fancy_scientific <- function(l) {
          class(args_new[[i]])[1] == "call" |
          class(args_new[[i]])[1] == "(" ) {
         args_new[[i]] <- eval(args_new[[i]], envir = p_env)
-
       }
     }
   }
@@ -792,7 +815,6 @@ fancy_scientific <- function(l) {
 
     } else {
       args[[i]] <- rep(list(args[[i]]), length = len[1])
-
     }
   }
 
@@ -831,7 +853,6 @@ fancy_scientific <- function(l) {
 #'
 #' @return [matrix] with HPDI
 #'
-#' @md
 #' @noRd
 .calc_HPDI <- function(object, prob = 0.95, plot = FALSE, ...){
   ##estimate density
@@ -849,23 +870,21 @@ fancy_scientific <- function(l) {
 
   ##calculate HPDI
   HPDI <- matrix(NA, ncol = 2, nrow = 1)
-  if(length(peaks_id != 0))
+  if (length(peaks_id) > 0)
     HPDI <- matrix(m[peaks_id,1], ncol = 2)
 
   colnames(HPDI) <- c("lower", "upper")
-  attr(HPDI, "Probabilty") <- prob
+  attr(HPDI, "Probability") <- prob
 
   if(plot){
-    xy <- m[m_ind,c(1,2)]
     plot(dens, main = "HPDI (control plot)")
     abline(h = thres, lty = 2)
-    if(length(peaks_id != 0)) {
+    if (length(peaks_id) > 0) {
       for(i in seq(1,length(peaks_id),2)) {
         lines(x = m[peaks_id[i]:peaks_id[i + 1], 1],
               y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
       }
     }
-
   }
 
   return(HPDI)
@@ -903,14 +922,12 @@ fancy_scientific <- function(l) {
 #' suppressMessages(
 #' .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
 #'
-#'@md
 #'@noRd
 .download_file <- function(
     url,
     destfile = tempfile(),
     verbose = TRUE
 ) {
-
   ## get name of calling function
   caller <- paste0("[", as.character(sys.call(which = -1)[[1]]), "()]")
   out_file_path <- NULL
@@ -919,8 +936,8 @@ fancy_scientific <- function(l) {
   if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
     ## status reports
     if (verbose) {
-      message(paste0(caller, " URL detected: ", url))
-      message(paste0(caller, " Attempting download ... "), appendLF = FALSE)
+      message(caller, " URL detected: ", url)
+      message(caller, " Attempting download ... ", appendLF = FALSE)
     }
 
     ## extract URL from string only
@@ -955,52 +972,6 @@ fancy_scientific <- function(l) {
   return(out_file_path)
 }
 
-#'@title Extract named element from nested list
-#'
-#'@description The function extracts a named element from a nested list. It assumes
-#'that the name is unique in the nested list
-#'
-#'@param l [list] (**required**): input list for which we search the elements
-#'
-#'@param element [character] (**required**): name of the element we are looking for
-#'
-#'@returns Returns a flat [list] with only the elements with a particular name
-#'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany);
-#'inspired by a ChatGPT request (2024-07-01)
-#'
-#'@md
-#'@noRd
-.get_named_list_element <- function(l, element) {
-  ## set helper function to iterate over list
-  f_iterate <- function(x, env) {
-    if (inherits(x, "list")) {
-      ## if name is in element, return element and update out
-      if (element %in% names(x)) {
-        tmp <- c(out, list(x[names(x) %in% element]))
-        assign(x = "out", value = tmp, envir = env)
-      }
-
-      ## call the helper function with lapply
-      lapply(x, f_iterate, env = env)
-    }
-  }
-
-  ## set output list and get current environment
-  out <- list()
-  env <- environment()
-
-  ## call recursive function
-  f_iterate(l, env)
-
-  ## unlist output (and keep NA)
-  out <- unlist(out, recursive = FALSE)
-
-  ## return
-  return(out)
-
-}
-
 #' @title Set/unset the function name for error/warning reporting
 #'
 #' @description
@@ -1030,14 +1001,12 @@ fancy_scientific <- function(l) {
 #'   .set_function_name("name_of_the_function")
 #'   on.exit(.unset_function_name(), add = TRUE)
 #'
-#' @md
 #' @noRd
 .set_function_name <- function(name) {
   .LuminescenceEnv$fn_stack[length(.LuminescenceEnv$fn_stack) + 1] <- name
 }
 
 #' @rdname .set_function_name
-#' @md
 #' @noRd
 .unset_function_name <- function() {
   .LuminescenceEnv$fn_stack[length(.LuminescenceEnv$fn_stack)] <- NULL
@@ -1047,7 +1016,6 @@ fancy_scientific <- function(l) {
 #'
 #'@param ... the error message to throw
 #'
-#'@md
 #'@noRd
 .throw_error <- function(...) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
@@ -1058,7 +1026,6 @@ fancy_scientific <- function(l) {
 #'
 #'@param ... the warning message to throw
 #'
-#'@md
 #'@noRd
 .throw_warning <- function(...) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
@@ -1067,13 +1034,15 @@ fancy_scientific <- function(l) {
 
 #'@title Throws a Custom Tailored Message
 #'
-#'@param ... the message to throw, preceded by "Error:"
+#' @param ... the message to throw
+#' @param error Whether the message should be preceded by "Error:" (`TRUE` by
+#' default).
 #'
-#'@md
 #'@noRd
-.throw_message <- function(...) {
+.throw_message <- function(..., error = TRUE) {
   top.idx <- length(.LuminescenceEnv$fn_stack)
-  message("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] Error: ", ...)
+  message("[", .LuminescenceEnv$fn_stack[[top.idx]], "()] ",
+          if (error) "Error: ", ...)
 }
 
 #' @title Silence Output and Warnings during Tests
@@ -1096,10 +1065,17 @@ fancy_scientific <- function(l) {
 #'   template_DRAC(preset = "DRAC-example_quartz")
 #' })
 #'
-#' @md
 #' @noRd
 SW <- function(expr) {
   capture.output(suppressMessages(suppressWarnings(expr)))
+}
+
+#' @title Retrieve the name of the variable used as first argument
+#'
+#' @noRd
+.first_argument <- function() {
+  sprintf("'%s'", all.vars(match.call(sys.function(sys.parent()),
+                                      sys.call(sys.parent())))[1])
 }
 
 #' @title Validate a character argument from a list of choices
@@ -1130,17 +1106,12 @@ SW <- function(expr) {
 #' If `arg` contains multiple elements, only the first matching one will be
 #' returned.
 #'
-#' @md
 #' @noRd
 .validate_args <- function(arg, choices, null.ok = FALSE,
                            name = NULL, extra = NULL) {
 
   if (is.null(arg) && null.ok)
     return(NULL)
-
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- all.vars(match.call())[1]
 
   ## `arg` will have multiple values when the available choices are listed
   ## in the function's formal arguments: in that case all elements in `arg`
@@ -1151,8 +1122,8 @@ SW <- function(expr) {
 
     ## we throw an error to catch cases when the formal arguments are
     ## changed but `choices` has not been updated
-    .throw_error("'", name, "' contains multiple values but not all of them ",
-                 "match 'choices'")
+    .throw_error(name %||% .first_argument(),
+                 " contains multiple values but not all of them match 'choices'")
   }
 
   ## additional text to append after the valid choices to account for
@@ -1172,7 +1143,7 @@ SW <- function(expr) {
 
   idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
   if (all(idx.match == 0L))
-    .throw_error("'", name, "' should be one of ",
+    .throw_error(name %||% .first_argument(), " should be one of ",
                  .collapse(msg.head, quote = FALSE), msg.tail)
   idx <- idx.match[idx.match > 0L]
   choices[idx]
@@ -1183,6 +1154,8 @@ SW <- function(expr) {
 #' @param arg [character] (**required**): variable to validate.
 #' @param classes [vector] [character] (**required**): a vector of candidate
 #'        classes or types.
+#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
+#'        considered valid (`FALSE` by default).
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
@@ -1198,19 +1171,19 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
-.validate_class <- function(arg, classes, throw.error = TRUE,
+.validate_class <- function(arg, classes, null.ok = FALSE, throw.error = TRUE,
                             name = NULL, extra = NULL) {
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
+  if (!missing(arg) && is.null(arg) && null.ok)
+    return(TRUE)
 
   if (missing(arg) || sum(inherits(arg, classes)) == 0L) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
     classes.extra <- c(sQuote(classes, q = FALSE), extra)
+    if (null.ok)
+      classes.extra <- c(classes.extra, "NULL")
 
     ## use an 'or' instead of a comma before the last choice
     if (length(classes.extra) > 1) {
@@ -1220,7 +1193,7 @@ SW <- function(expr) {
       msg.head <- classes.extra
       msg.tail <- NULL
     }
-    msg <- paste0(name, " should be of class ",
+    msg <- paste0(name %||% .first_argument(), " should be of class ",
                   .collapse(msg.head, quote = FALSE), msg.tail)
     if (throw.error)
       .throw_error(msg)
@@ -1249,7 +1222,6 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .validate_not_empty <- function(arg, what = NULL, throw.error = TRUE,
                                 name = NULL) {
@@ -1258,12 +1230,8 @@ SW <- function(expr) {
   if (is.null(what))
     what <- class(arg)[1]
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
-
   if (NROW(arg) == 0 || NCOL(arg) == 0) {
-    msg <- paste0(name, " cannot be an empty ", what)
+    msg <- paste0(name %||% .first_argument(), " cannot be an empty ", what)
     if (throw.error)
       .throw_error(msg)
     .throw_warning(msg)
@@ -1289,17 +1257,12 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .validate_length <- function(arg, exp.length, throw.error = TRUE,
                             name = NULL) {
 
-  ## name of the argument to report if not specified
-  if (is.null(name))
-    name <- sprintf("'%s'", all.vars(match.call())[1])
-
   if (length(arg) != exp.length) {
-    msg <- paste0(name, " should have length ", exp.length)
+    msg <- paste0(name %||% .first_argument(), " should have length ", exp.length)
     if (throw.error)
       .throw_error(msg)
     .throw_warning(msg)
@@ -1308,53 +1271,65 @@ SW <- function(expr) {
   return(TRUE)
 }
 
-#' @title Validate Scalar Variables Expected to be Positive
+#' @title Validate scalar variables
 #'
-#' @param val [numeric] (**required**): value to validate
+#' This function is meant to validate unbounded (integer) scalar variables.
+#' The `pos` and `log` arguments are not intended for direct use, they serve
+#' to facilitate the implementation of `.validate_positive_scalar()` and
+#' `.validate_logical_scalar()`.
+#'
+#' @param val [numeric] (**required**): value to validate.
 #' @param int [logical] (*with default*): whether the value has to be an
-#'        integer (`FALSE` by default)
+#'        integer (`FALSE` by default).
+#' @param pos [logical] (*with default*): whether the value has to be positive
+#'        (`FALSE` by default).
+#' @param log [logical] (*with default*): whether the value has to be logical
+#'        (`FALSE` by default).
 #' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default)
+#'        considered valid (`FALSE` by default).
 #' @param name [character] (*with default*): variable name to report in case
 #'        of error: if specified, it's reported as is; if not specified it's
 #'        inferred from the name of the variable tested and reported with
 #'        quotes.
 #'
-#' @md
+#' @return
+#' The validated value, unless the validation failed with an error thrown.
+#'
+#' @noRd
+.validate_scalar <- function(val, int = FALSE, pos = FALSE, log = FALSE,
+                             null.ok = FALSE, name = NULL) {
+  if (!missing(val) && is.null(val) && null.ok)
+    return(NULL)
+  if (missing(val) || length(val) != 1 || is.na(val) ||
+      (!log && !is.numeric(val)) || (log && !is.logical(val)) ||
+      (int && (is.infinite(val) || val != as.integer(val))) ||
+      (pos && val <= 0)) {
+    .throw_error(name %||% .first_argument(), " should be a single ",
+                 if (pos) "positive ", if (int) "integer ", if (log) "logical ",
+                 "value", if (null.ok) " or NULL")
+  }
+  val
+}
+
+#' @title Validate scalar variables expected to be positive
+#'
+#' @inheritParams .validate_scalar
+#'
 #' @noRd
 .validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
                                       name = NULL) {
-  if (missing(val) || is.null(val) && null.ok)
-    return()
-  if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
-      (int && val != as.integer(val))) {
-    if (is.null(name))
-      name <- sprintf("'%s'", all.vars(match.call())[1])
-    .throw_error(name, " should be a positive ", if (int) "integer ",
-                 "scalar")
-  }
+  .validate_scalar(val, int = int, pos = TRUE, null.ok = null.ok,
+                   name = name %||% .first_argument())
 }
 
 #' @title Validate logical scalar variables
 #'
-#' @param val [numeric] (**required**): value to validate
-#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default)
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_scalar
 #'
-#' @md
 #' @noRd
 .validate_logical_scalar <- function(val, null.ok = FALSE, name = NULL) {
-  if (missing(val) || is.null(val) && null.ok)
-    return()
-  if (!is.logical(val) || length(val) != 1 || is.na(val)) {
-    if (is.null(name))
-      name <- sprintf("'%s'", all.vars(match.call())[1])
-    .throw_error(name, " should be a single logical value")
-  }
+  .validate_scalar(val, log = TRUE, null.ok = null.ok,
+                   name = name %||% .first_argument())
 }
 
 #' Check that a suggested package is installed
@@ -1374,7 +1349,6 @@ SW <- function(expr) {
 #' anything. Otherwise, it will return a boolean to indicate whether validation
 #' was successful or not.
 #'
-#' @md
 #' @noRd
 .require_suggested_package <- function(pkg, reason = "This function",
                                        throw.error = TRUE) {
@@ -1398,7 +1372,6 @@ SW <- function(expr) {
 #' @return
 #' A list with the object repeated the specified number of times.
 #'
-#' @md
 #' @noRd
 .listify <- function(x, length) {
   if (!inherits(x, "list"))
@@ -1420,7 +1393,6 @@ SW <- function(expr) {
 #' A comma-separated string where each element of the original vector is
 #' optionally surrounded by single quotes.
 #'
-#' @md
 #' @noRd
 .collapse <- function(x, quote = TRUE) {
   paste0(if (quote) sQuote(x, FALSE) else x, collapse=", ")
@@ -1431,24 +1403,67 @@ SW <- function(expr) {
 #' Shorten a filename to the given width by cutting out characters from the
 #' middle, leaving the most significant parts.
 #'
-#' @param filename [character] (**required**) A file name
+#' @param filename [character] (**required**) A file name; can be a vector
 #' @param max.width [integer] (*with default*) The maximum width available
 #'
 #' @return
 #' A filename not longer than the maximum available width.
 #'
-#' @md
 #' @noRd
 .shorten_filename <- function(filename, max.width = 70) {
-  name.len <- nchar(filename)
+  ## optimised for speed with ChatGPT, 2025
+  ## get length
+  name.len <- nchar(filename, keepNA = FALSE)
 
-  ## return the current file name if it already fits the available width
-  if (name.len <= max.width)
+  ## logical index of names to shorten
+  to_shorten <- name.len > max.width
+
+  ## get out if nothing needs shortening
+  if (!any(to_shorten))
     return(filename)
 
-  ## shorten the filename
-  part1.end <- ceiling(max.width / 5)
-  part2.beg <- part1.end + name.len - max.width + 2
-  paste0(substring(filename, first = 1, last = part1.end), "\u2026", # "…"
-         substring(filename, first = part2.beg))
+  # calculate parts
+  dots <- "..."  # \u2026
+  max.width <- max.width - nchar(dots)
+  part1_last <- floor(max.width / 2)
+  part2_first <- floor(name.len[to_shorten] - max.width / 2) + 1
+
+  # shorten what needs to be shortened
+  filename[to_shorten] <- paste0(
+    substring(filename[to_shorten], 1, part1_last),
+    dots,
+    substring(filename[to_shorten], part2_first)
+  )
+
+  ## return
+  filename
+}
+
+#'@title Affine Transformation of Values
+#'
+#'@description Affine (linear) transformation of values; which we use
+#'a couple of times within functions
+#'
+#'@param x [numeric] (*required*): values to be transformed
+#'
+#'@param range_old [numeric] (*required*): original scale limits
+#'
+#'@param range_new [numeric] (*required*): new scale limits
+#'
+#'@returns rescaled values values
+#'
+#'@examples
+#'
+#' x <- stats::rnorm(100)
+#' y_dens <- stats::density(x)
+#' .rescale(
+#'  x = y_dens$y,
+#'  range_old = c(min(y_dens$y), max(y_dens$y)),
+#'  range_new = c(0,20))
+#'
+#'@noRd
+.rescale <- function(x, range_old, range_new) {
+  range_new[1] +
+    (x - range_old[1]) * (range_new[2] - range_new[1]) /
+    (range_old[2] - range_old[1])
 }

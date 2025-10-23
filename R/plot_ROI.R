@@ -56,7 +56,6 @@
 #'t <- extract_ROI(object = m, roi = roi)
 #'plot_ROI(t, bg_image = m)
 #'
-#'@md
 #'@export
 plot_ROI <- function(
   object,

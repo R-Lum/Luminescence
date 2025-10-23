@@ -7,6 +7,8 @@ test_that("input validation", {
 
   expect_error(calc_gSGC(data = NA),
                "'data' should be of class 'data.frame'")
+  expect_error(calc_gSGC(iris[0, ]),
+               "'data' cannot be an empty data.frame")
   expect_error(calc_gSGC(data.frame(a = 1, b = 1, c = 1, d = 1, e = 1, f = 1)),
                "'data' is expected to have 5 columns")
   expect_error(calc_gSGC(df, gSGC.type = 3),
@@ -71,7 +73,6 @@ test_that("snapshot tests", {
 
   ## graphical snapshot tests
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("calc_gSGC expected",

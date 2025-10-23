@@ -13,14 +13,19 @@ test_that("input validation", {
                "[analyse_SAR.TL()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
   expect_error(analyse_SAR.TL(object),
-               "No value set for 'signal.integral.min'")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1),
-               "No value set for 'signal.integral.max'")
+               "'signal.integral.min' should be of class 'numeric' or 'integer'")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
+                              signal.integral.max = NA),
+               "'signal.integral.max' should be of class 'numeric' or 'integer'")
   expect_error(analyse_SAR.TL(list(object, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
                               signal.integral.max = 2),
                "Input TL curves are not a multiple of the sequence structure")
+  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
+                              signal.integral.max = 2,
+                              sequence.structure = "EXCLUDE"),
+               "'sequence.structure' contains no 'SIGNAL' entry")
   expect_error(analyse_SAR.TL(object, dose.points = c(2, 2),
                               signal.integral.min = 210,
                               signal.integral.max = 220,
@@ -38,27 +43,20 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(obj.rm, signal.integral.min = 210,
                               signal.integral.max = 220,
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
-               "Signal range differs, check sequence structure")
+               "Signal ranges differ (225, 250), check sequence structure",
+               fixed = TRUE)
+
+  expect_output(expect_null(
+      analyse_SAR.TL(object[1:4], fit.method = "ERROR",
+                     signal.integral.min = 2, signal.integral.max = 3,
+                     sequence.structure = "SIGNAL"),
+      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
 })
 
-test_that("Test examples", {
+test_that("snapshot tests", {
   skip_on_cran()
 
-  ##perform analysis
-  ## FIXME(mcol): this example doesn't work with snapshotting, presumably
-  ## due to setting the `fit.method = "EXP OR LIN"` option
   SW({
-  expect_s4_class(
-    analyse_SAR.TL(
-      object,
-      signal.integral.min = 210,
-      signal.integral.max = 220,
-      fit.method = "EXP OR LIN",
-      sequence.structure = c("SIGNAL", "BACKGROUND")
-    ),
-    "RLum.Results"
-  )
-
   expect_snapshot_RLum(
     analyse_SAR.TL(
         list(object, object),
@@ -98,6 +96,19 @@ test_that("Test examples", {
   })
 })
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              analyse_SAR.TL(object,
+                                             signal.integral.min = 210,
+                                             signal.integral.max = 220,
+                                             sequence.structure = c("SIGNAL", "BACKGROUND")))
+  })
+})
+
 test_that("regression tests", {
   skip_on_cran()
 
@@ -134,7 +145,8 @@ test_that("regression tests", {
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   SW({
   expect_error(
-      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
+      analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE),
+                     signal.integral.min = 1, signal.integral.max = 20),
       "Input TL curves are not a multiple of the sequence structure")
   })
 })

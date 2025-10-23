@@ -14,7 +14,7 @@ object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
 ## be rebuilt and the tolerance restored to 1.5e-6.
 snapshot.tolerance <- 1.5e-3
 
-test_that("tests class elements", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
   expect_snapshot_RLum(
@@ -28,24 +28,6 @@ test_that("tests class elements", {
       verbose = FALSE
     ), tolerance = snapshot.tolerance
   )
-
-  expect_s4_class(results, "RLum.Results")
-  expect_equal(length(results), 4)
-  expect_s3_class(results$data, "data.frame")
-  expect_s3_class(results$LnLxTnTx.table, "data.frame")
-  expect_s3_class(results$rejection.criteria, "data.frame")
-  expect_type(results$Formula, "expression")
-
-  expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
-  expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx), digits = 5),  20.92051)
-  expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx.Error), digits = 2), 0.34)
-
-  expect_type(object = results$data$POS, "integer")
-  expect_equal(object = results$data$POS, 1)
-  expect_type(object = results$data$ALQ, "double")
-
-  expect_equal(round(sum(results$rejection.criteria$Value), digits = 0),
-               1669)
 
   ## fit.method
   expect_snapshot_RLum(
@@ -61,11 +43,39 @@ test_that("tests class elements", {
     ), tolerance = snapshot.tolerance
   )
 
-  ##remove position information from the curve
-  ##data
+  ## check rejection criteria and recuperation point selection
+  expect_snapshot_RLum(
+    t <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+        recycling.ratio = NA,
+        recuperation.rate = 1,
+        palaeodose.error = NA,
+        testdose.error = 1,
+        recuperation_reference = "R1",
+        exceed.max.regpoint = FALSE),
+      plot = FALSE,
+      verbose = FALSE
+    ), tolerance = snapshot.tolerance
+  )
+
+  ## check if a different point was selected
+  expect_equal(round(t$rejection.criteria$Value[2],2), expected = 0.01)
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  ## remove position and grain information from the curve data
   object_f <- object[[1]]
   object_f@records <- lapply(object_f@records, function(x){
     x@info$POSITION <- NULL
+    x@info$GRAIN <- NULL
     x
   })
   t <- expect_s4_class(
@@ -83,10 +93,6 @@ test_that("tests class elements", {
   )
 
   expect_type(t@data$data$POS, "logical")
-})
-
-test_that("simple run", {
-  testthat::skip_on_cran()
 
   ##signal integral set to NA
   expect_warning(
@@ -104,7 +110,6 @@ test_that("simple run", {
     "[analyse_SAR.CWOSL()] No signal or background integral applied as they",
     fixed = TRUE)
 
-  ##signal integral set to NA
   expect_error(
     analyse_SAR.CWOSL(
       object = object,
@@ -134,52 +139,7 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
-  ##verbose and plot on
-  ##full dataset
   SW({
-  expect_s4_class(
-    analyse_SAR.CWOSL(
-      object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      fit.method = "LIN",
-      log = "x",
-    ),
-    class = "RLum.Results"
-  )
-
-  ##only CH TL
-  expect_s4_class(
-    analyse_SAR.CWOSL(
-      object = object_CH_TL[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      fit.method = "LIN",
-      log = "x",
-      plot_onePage = TRUE
-    ),
-    class = "RLum.Results"
-  )
-
-  ##no TL
-  expect_s4_class(
-    analyse_SAR.CWOSL(
-      object = object_NO_TL[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      fit.method = "LIN",
-      log = "x",
-      plot_onePage = TRUE
-    ),
-    class = "RLum.Results"
-  )
-
   ##no mix TL and OSL (the only TL will be sorted out automatically)
   only_TL <- set_RLum("RLum.Analysis", records = rep(object_CH_TL[[1]]@records[[2]], length(object_NO_TL[[1]]@records)))
   object_mixed <- c(object_NO_TL, only_TL)
@@ -214,53 +174,7 @@ test_that("simple run", {
     ),
     class = "RLum.Results"
   )
-
-  ##check rejection criteria
-  expect_s4_class(
-    analyse_SAR.CWOSL(
-      object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      fit.method = "LIN",
-      rejection.criteria= list(
-        recycling.ratio = NA,
-        recuperation.rate = 1,
-        palaeodose.error =  NA,
-        testdose.error = 1,
-        test = "new",
-        exceed.max.regpoint = FALSE),
-      plot = TRUE,
-    ),
-    class = "RLum.Results"
-  )
-
-  ##check recuperation point selection
-  t <- expect_s4_class(
-    analyse_SAR.CWOSL(
-      object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      fit.method = "LIN",
-      rejection.criteria= list(
-        recycling.ratio = NA,
-        recuperation.rate = 1,
-        palaeodose.error = 1,
-        testdose.error = 1,
-        recuperation_reference = "R1",
-        test = "new",
-        exceed.max.regpoint = FALSE),
-      plot = TRUE,
-    ),
-    class = "RLum.Results"
-  )
   })
-
-  ## check if a different point was selected
-  expect_equal(round(t$rejection.criteria$Value[2],2), expected = 0.01)
 
   ## trigger stop of recuperation reference point
   expect_error(
@@ -281,7 +195,7 @@ test_that("simple run", {
         exceed.max.regpoint = FALSE),
       plot = TRUE,
     ),
-    regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Recuperation reference invalid, valid are")
+    "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
    # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters
@@ -320,8 +234,9 @@ test_that("simple run", {
      dose.points = c(0,1,2),
      fit.method = "LIN",
      plot = FALSE,
-     verbose = FALSE
-   ), regexp = "Length of 'dose.points' differs from number of curves")
+     verbose = FALSE),
+     "Length of 'dose.points' (3) differs from number of curves (7)",
+     fixed = TRUE)
 
   expect_message(
    expect_null(analyse_SAR.CWOSL(
@@ -635,7 +550,7 @@ test_that("advance tests run", {
 
   ## more coverage
   SW({
-  analyse_SAR.CWOSL(
+  expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
       signal.integral.min = 1,
       signal.integral.max = 2,
@@ -643,7 +558,8 @@ test_that("advance tests run", {
       background.integral.max = c(900, 975),
       dose.points = rep(2, 7),
       plot = FALSE,
-      verbose = FALSE)
+      verbose = FALSE),
+      "The natural signal has a dose of 2 s, which is indicative of")
 
   ## OTORX
   expect_s4_class(suppressWarnings(analyse_SAR.CWOSL(
@@ -668,6 +584,81 @@ test_that("advance tests run", {
       log = "x",
       verbose = FALSE),
       "Curves shifted by one channel for log-plot")
-
   })
+
+  ## simulate single grain
+  sg <- get_RLum(object, recordType = "OSL", drop = FALSE)
+  replace_metadata(sg[[1]], info_element = "GRAIN") <- 1
+  replace_metadata(sg[[2]], info_element = "GRAIN") <- 2
+
+  expect_s4_class(analyse_SAR.CWOSL(
+    object = sg,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    background.integral.min = 900,
+    background.integral.max = 975,
+    plot_onePage = TRUE,
+    verbose = FALSE), "RLum.Results")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              analyse_SAR.CWOSL(
+                                  object = object[[1]],
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 2,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("list-cex",
+                              analyse_SAR.CWOSL(
+                                  object = list(object[[1]]),
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 5,
+                                  background.integral.min = 800,
+                                  background.integral.max = 1000,
+                                  plot_onePage = TRUE, cex = 1.9))
+
+  vdiffr::expect_doppelganger("CH_TL log x",
+                              analyse_SAR.CWOSL(
+                                  object = object_CH_TL[[1]],
+                                  signal.integral.min = 4,
+                                  signal.integral.max = 10,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  fit.method = "LIN",
+                                  log = "x",
+                                  plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("NO_TL log xy",
+                              analyse_SAR.CWOSL(
+                                  object = object_NO_TL[[1]],
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 5,
+                                  background.integral.min = 600,
+                                  background.integral.max = 900,
+                                  log = "xy",
+                                  plot_onePage = TRUE))
+  })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 868
+  data <- object[[1]]
+  data@records[[1]]@recordType <- NA_character_
+  expect_s4_class(analyse_SAR.CWOSL(data, verbose = FALSE,
+                                    signal.integral.min = 1,
+                                    signal.integral.max = 2,
+                                    background.integral.min = 900,
+                                    background.integral.max = 1000),
+                  "RLum.Results")
 })

@@ -1,6 +1,25 @@
 ## load data
 data(ExampleData.LxTxData, envir = environment())
 
+## odd data set where the calculated De is negative for EXP
+df_odd <- data.frame(
+    dose = c(
+      0, 0, 2.71828182845905, 2.74202785430992,
+      2.76598131771852, 2.79014403079188, 2.814517821467, 2.83910453364916,
+      2.86390602735137, 2.88892417883514, 2.91416088075237, 2.93961804228855,
+      2.96529758930721, 2.99120146449558, 3.01733162751159, 3.04369005513209,
+      3.07027874140241, 3.09709969778723, 3.1241549533227, 3.15144655477),
+    LxTx = c(0.439, 0.851865307456887, 0.881530377359027, 0.881788046363334,
+      0.882047940677405, 0.882310079298982, 0.882574481384203, 0.882841166248859,
+      0.883110153369655, 0.883381462385488, 0.883655113098727, 0.883931125476509,
+      0.884209519652028, 0.88449031592586, 0.884773534767266, 0.885059196815536,
+      0.885347322881313, 0.885637933947948, 0.885931051172847, 0.886226695888845),
+    LxTx.error = c(0.029, 1e-04, 0.0393190034426231, 0.0393304962836274,
+      0.0393420883803856, 0.0393537805802564, 0.0393655737376631, 0.0393774687141504,
+      0.03938946637844, 0.0394015676064878, 0.0394137732815415, 0.0394260842941973,
+      0.0394385015424588, 0.0394510259317946, 0.0394636583751979, 0.0394763997932453,
+      0.0394892511141562, 0.0395022132738537, 0.0395152872160239, 0.0395284738921779))
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -11,6 +30,8 @@ test_that("input validation", {
       fixed = TRUE)
   expect_error(fit_DoseResponseCurve(data.frame()),
                "'object' cannot be an empty data.frame")
+  expect_error(fit_DoseResponseCurve(iris[, 1, drop = FALSE]),
+               "'object' should have at least 2 columns")
   expect_error(fit_DoseResponseCurve(as.list(LxTxData)),
                "All elements of 'object' should be of class 'data.frame'")
 
@@ -37,15 +58,15 @@ test_that("input validation", {
                "'fit.includingRepeatedRegPoints' should be a single logical")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.NumberRegPoints = "error"),
-               "'fit.NumberRegPoints' should be a positive integer scalar")
+               "'fit.NumberRegPoints' should be a single positive integer value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.NumberRegPointsReal = "error"),
-               "'fit.NumberRegPointsReal' should be a positive integer scalar")
+               "'fit.NumberRegPointsReal' should be a single positive integer value")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.bounds = "error"),
                "'fit.bounds' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      n.MC = "error"),
-               "'n.MC' should be a positive integer scalar")
+               "'n.MC' should be a single positive integer value")
 
   ## shorten dataframe
   expect_warning(fit_DoseResponseCurve(LxTxData[1:2, ], verbose = FALSE),
@@ -60,10 +81,7 @@ test_that("input validation", {
                      mode = "extrapolation"),
     "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
-  expect_error(
-    fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17), fit.method = "OTORX",
-                          mode = "extrapolation"),
-    "Mode 'extrapolation' for fitting method 'OTORX' not supported")
+
 })
 
 test_that("weird LxTx values", {
@@ -127,32 +145,9 @@ test_that("weird LxTx values", {
       fit.includingRepeatedRegPoints = FALSE),
     class = "RLum.Results")
 
-  ## use odd data set where the calculated De is negative for EXP
-  df_odd <- structure(list(dose = c(0, 0, 2.71828182845905, 2.74202785430992,
-      2.76598131771852, 2.79014403079188, 2.814517821467, 2.83910453364916,
-      2.86390602735137, 2.88892417883514, 2.91416088075237, 2.93961804228855,
-      2.96529758930721, 2.99120146449558, 3.01733162751159, 3.04369005513209,
-      3.07027874140241, 3.09709969778723, 3.1241549533227, 3.15144655477
-      ), LxTx = c(0.439, 0.851865307456887, 0.881530377359027, 0.881788046363334,
-      0.882047940677405, 0.882310079298982, 0.882574481384203, 0.882841166248859,
-      0.883110153369655, 0.883381462385488, 0.883655113098727, 0.883931125476509,
-      0.884209519652028, 0.88449031592586, 0.884773534767266, 0.885059196815536,
-      0.885347322881313, 0.885637933947948, 0.885931051172847, 0.886226695888845
-      ), LxTx.error = c(0.029, 1e-04, 0.0393190034426231, 0.0393304962836274,
-      0.0393420883803856, 0.0393537805802564, 0.0393655737376631, 0.0393774687141504,
-      0.03938946637844, 0.0394015676064878, 0.0394137732815415, 0.0394260842941973,
-      0.0394385015424588, 0.0394510259317946, 0.0394636583751979, 0.0394763997932453,
-      0.0394892511141562, 0.0395022132738537, 0.0395152872160239, 0.0395284738921779
-      )), row.names = c(NA, 20L), class = "data.frame")
-
-  ## do not include reg point
-  t <- expect_s4_class(
-    fit_DoseResponseCurve(
-      df_odd,
-      verbose = FALSE),
-    class = "RLum.Results")
-
-  expect_true(is.na(t$De[[1]]))
+  ## issue 961
+  expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
+                "Fit failed for QDR (interpolation)", fixed = TRUE)
 })
 
 test_that("snapshot tests", {
@@ -262,10 +257,26 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit_DoseResponseCurve(
       cbind(LxTxData, Test_Dose = 17),
       fit.method = "OTORX",
+      fit.force_through_origin = TRUE,
       mode = "interpolation",
       verbose = TRUE,
       n.MC = 10
   ), tolerance = 5.0e-5)
+
+  ## negative De
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      df_odd,
+      mode = "interpolation",
+      verbose = FALSE,
+      n.MC = 10
+  ), tolerance = 5.0e-3)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      df_odd,
+      mode = "extrapolation",
+      verbose = FALSE,
+      n.MC = 10
+  ), tolerance = 4.0e-2)
   })
 })
 
@@ -346,6 +357,7 @@ temp_OTORX <-
   fit_DoseResponseCurve(
     cbind(LxTxData, Test_Dose = 17),## we have to set the TEST_DOSE
     fit.method = "OTORX",
+    fit.force_through_origin = TRUE,
     verbose = FALSE,
     n.MC = 10
   )
@@ -362,20 +374,17 @@ temp_OTORX_alt <-
   fit_DoseResponseCurve(
     cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
     fit.method = "OTORX",
+    fit.force_through_origin = TRUE,
     verbose = FALSE,
     n.MC = 10)
 
-
-  ## FIXME(mcol): duplicate of a test in the snapshot block, we need it
-  ##              here too as coverage currently runs on 4.3
-  temp_QDR2 <- fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "QDR",
-      mode = "extrapolation",
-      fit.force_through_origin = TRUE,
-      verbose = TRUE,
-      n.MC = 10
-  )
+  temp_OTORX_alt2 <-
+    fit_DoseResponseCurve(
+      cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
+      fit.method = "OTORX",
+      fit.force_through_origin = FALSE,
+      verbose = FALSE,
+      n.MC = 10)
   })
 
   expect_s3_class(temp_EXP$Fit, class = "nls")
@@ -387,6 +396,7 @@ temp_OTORX_alt <-
   expect_s3_class(temp_OTOR$Fit, class = "nls")
   expect_s3_class(temp_OTORX$Fit, class = "nls")
   expect_s3_class(temp_OTORX_alt$Fit, class = "nls")
+  expect_s3_class(temp_OTORX_alt2$Fit, class = "nls")
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
@@ -409,15 +419,15 @@ temp_OTORX_alt <-
      } else {
        expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9,
                     tolerance = 0.1)
-
      }
    }
 
    expect_equal(round(temp_OTOR$De[[1]], digits = 2),  1784.78)
    expect_equal(round(temp_OTORX$De[[1]], digits = 2),  1785.43)
-   expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.270)
+   expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
+   expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
    expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17422)
-   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 14477)
+   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 14477, tolerance = 0.2)
 
 # Check extrapolation -----------------------------------------------------
   ## load data
@@ -446,14 +456,24 @@ temp_OTORX_alt <-
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
 
   ##OTORX
-  expect_error(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation",
-                          fit.method = "OTORX"),
-    regexp = "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
+  OTORX <- expect_s4_class(
+    fit_DoseResponseCurve(
+      object = cbind(LxTxData, Test_Dose = 17),
+      mode = "extrapolation", fit.method = "OTORX"), "RLum.Results")
+
+  ##OTORX ... trigger uniroot warning
+  LxTxData[1,2:3] <- c(5, 0.001)
+  expect_warning(
+    fit_DoseResponseCurve(
+      object = cbind(LxTxData, Test_Dose = 17),
+      mode = "extrapolation", fit.method = "OTORX"))
+
   })
+
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
   expect_equal(round(OTOR$De$De,0),  114)
+  expect_equal(round(OTORX$De$De,0),  110)
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
@@ -613,6 +633,21 @@ temp_OTORX_alt <-
                all = FALSE, fixed = TRUE)
   expect_match(warnings, "Fitting a non-linear least-squares model requires",
                all = FALSE, fixed = TRUE)
+
+  ## more coverage
+  tmp$dose <- c(0:6, 1000 + 0:6, 20000 + 0:6)
+  expect_output(fit_DoseResponseCurve(
+      tmp[4:8, ],
+      fit.method = "GOK",
+      verbose = TRUE,
+      n.MC = 10),
+      "Fit failed for GOK")
+  expect_output(fit_DoseResponseCurve(
+      cbind(tmp[4:8, ], Test_Dose = 17),
+      fit.method = "OTORX",
+      verbose = TRUE,
+      n.MC = 10),
+      "Fit failed for OTORX")
 })
 
 test_that("regression tests", {
@@ -631,6 +666,15 @@ test_that("regression tests", {
     fit_DoseResponseCurve(df, fit.method = "EXP+EXP"), "RLum.Results")
   expect_s4_class(
     fit_DoseResponseCurve(df, fit.method = "OTOR"), "RLum.Results")
+  })
+
+  ## issue 723
+  set.seed(1)
+  df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
+                   LxTx = c(40, -10, 30, -5, -20), LxTx_X = c(2, 2, 1, 2, 1))
+  SW({
+  expect_s4_class(fit_DoseResponseCurve(df, fit.method = "EXP"),
+                  "RLum.Results")
   })
 })
 
@@ -653,8 +697,9 @@ test_that("test internal functions", {
   expect_equal(sum(Luminescence:::.D2nN(
     D = 1,
     Q = c(-10,-3,0.1,1),
+    a = 0,
     D63 = 1)), expected = 2.5, tolerance = 1)
 
-  expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0), D63 = 1),
+  expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0, 0), D63 = 1),
                "Unsupported zero and non-zero Q")
 })

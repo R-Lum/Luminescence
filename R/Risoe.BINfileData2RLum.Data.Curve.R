@@ -57,7 +57,6 @@
 #' ##convert one record
 #' Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 #'
-#' @md
 #' @noRd
 .Risoe.BINfileData2RLum.Data.Curve <- function(
   object,
@@ -82,7 +81,7 @@
   }
 
   ##grep info elements
-  info <- lapply(1:length(names(METADATA)), function(x){METADATA[[x]][id]})
+  info <- lapply(METADATA, function(x) x[id])
   names(info) <- names(METADATA)
 
   # Build object ------------------------------------------------------------
@@ -100,9 +99,7 @@
       TOLDELAY = METADATA[["TOLDELAY"]][id],
       TOLON = METADATA[["TOLON"]][id],
       TOLOFF = METADATA[["TOLOFF"]][id]
-
     ),
     info = info
   )
-
 }

@@ -79,6 +79,14 @@ test_that("check functionality", {
                      version = "08", verbose = FALSE))
   expect_type(object = t, type = "character")
 
+  ## actually compare the files produced
+  bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+  new.v8 <- paste0(path, "new.binx")
+  SW({
+  write_R2BIN(read_BIN2R(bin.v8), file = new.v8)
+  })
+  expect_length(system(paste("diff", bin.v8, new.v8), intern = TRUE),
+                0) # nothing is printed out if the files don't differ
 })
 
 test_that("input validation", {
@@ -120,6 +128,4 @@ test_that("input validation", {
                              file = paste0(tempfile(), "BINfile_V8.binx")),
                  "'COMMENT' exceeds storage limit"),
     "some data sets have more than 9,999 points")
-
 })
-

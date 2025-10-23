@@ -18,10 +18,10 @@ test_that("input validation", {
                "'summary.method' should be one of 'MCM', 'weighted' or 'unweighted'")
   expect_error(plot_KDE(df, summary = 5),
                "'summary' should be of class 'character'")
-  expect_error(plot_KDE(df, summary.pos = list()),
-               "'summary.pos' should be of class 'numeric' or 'character'")
   expect_error(plot_KDE(df, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_KDE(df, summary.pos = list()),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_KDE(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_KDE(df, ylim = c(0, 1)),
@@ -83,16 +83,19 @@ test_that("check functionality", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("KDE expected",
                               plot_KDE(data = df))
+  vdiffr::expect_doppelganger("cex",
+                              plot_KDE(data = df, cex = 2))
   vdiffr::expect_doppelganger("KDE summary sub",
                               plot_KDE(data = df, summary.pos = "sub",
                                        summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("KDE summary left",
                               plot_KDE(data = df, summary.pos = "left",
-                                       summary = c("mean", "in.2s", "skewness")))
+                                       summary.method = "weighted",
+                                       summary = c("mean", "in.2s", "skewness",
+                                                   "median")))
   })
 })

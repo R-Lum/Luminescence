@@ -120,8 +120,9 @@ enable/disable the plot output.}
 
 \item{...}{Further parameters:
 \itemize{
-\item \code{verbose} \link{logical}: Show or hide console output
+\item \code{verbose} \link{logical}: Enable/disable output to the terminal (default = \code{TRUE})
 \item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = 10000)
+\item \code{cex} \link{numeric}: Scaling of the plot (default = 1)
 \item \code{maxiter} \link{numeric}: Number of iteration limits for nls fitting
 \item \code{trace} \link{logical}: Enable/disable value tracing the terminal during fitting
 \strong{Note} that it is generally advised to have a large number of Monte Carlo
@@ -164,7 +165,7 @@ in Kars et al. (2008) or Guralnik et al. (2015).
 }
 \details{
 This function applies the approach described in Kars et al. (2008) or Guralnik et al. (2015),
-which are both developed from the model of Huntley (2006) to calculate the expected sample
+which are both developed from the model of Huntley (2006), to calculate the expected sample
 specific fraction of saturation of a feldspar and also to calculate fading
 corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination
 centres, is a crucial parameter of this model and must be determined

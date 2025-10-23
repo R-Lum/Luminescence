@@ -135,7 +135,6 @@
 #' ##run analysis
 #' analyse_Al2O3C_Measurement(data_CrossTalk)
 #'
-#' @md
 #' @export
 analyse_Al2O3C_Measurement <- function(
   object,
@@ -155,9 +154,8 @@ analyse_Al2O3C_Measurement <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Self call --------------------------------------------------------------
-  if(is(object, "list")){
-
-    .validate_not_empty(object, "list")
+  if (inherits(object, "list")) {
+    .validate_not_empty(object)
     lapply(object,
            function(x) .validate_class(x, "RLum.Analysis",
                                        name = "All elements of 'object'"))
@@ -179,9 +177,9 @@ analyse_Al2O3C_Measurement <- function(
     test_parameters <- rep(list(test_parameters), rep.length)
 
     ##plot
-    if(is(plot, "logical")){
+    if (is.logical(plot)) {
+      .validate_logical_scalar(plot)
       plot <- rep(x = plot, length(object))
-
     }else{
       plot <- 1:length(object)%in%plot
     }
@@ -223,9 +221,8 @@ analyse_Al2O3C_Measurement <- function(
 
     ##travel dosimeter
     ##check for travel dosimeter and subtract the values so far this is meaningful at all
+    .validate_class(travel_dosimeter, c("numeric", "integer"), null.ok = TRUE)
     if(!is.null(travel_dosimeter)){
-      .validate_class(travel_dosimeter, c("numeric", "integer"))
-
       ##check whether everything is subtracted from everything ... you never know, users do weird stuff
       if(length(travel_dosimeter) == nrow(results$data))
         .throw_message("'travel_dosimeter' specifies every position, nothing corrected")
@@ -265,7 +262,6 @@ analyse_Al2O3C_Measurement <- function(
       ##return message
       if(verbose)
         cat("\n ...+ travel dosimeter correction applied.\n ...+ results stored in object $data_TDcorrected.\n\n")
-
     } ##end travel dosimeter
 
     ##return results
@@ -273,12 +269,15 @@ analyse_Al2O3C_Measurement <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  ##TODO ... do more, push harder
-  ##Add sufficient unit tests
-
   .validate_class(object, "RLum.Analysis",
                   extra = "a 'list' of such objects")
+  .validate_not_empty(object)
+  .validate_class(irradiation_time_correction, c("RLum.Results", "numeric"),
+                  null.ok = TRUE)
+  .validate_class(cross_talk_correction, c("numeric", "RLum.Results"),
+                  null.ok = TRUE)
+  .validate_class(travel_dosimeter, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(test_parameters, "list", null.ok = TRUE)
 
   ## Preparation ------------------------------------------------------------
 
@@ -303,26 +302,24 @@ analyse_Al2O3C_Measurement <- function(
 
   ## Set Irradiation Time Correction ---------------
   if (!is.null(irradiation_time_correction)) {
-    .validate_class(irradiation_time_correction, c("RLum.Results", "numeric"))
-
-    if (is(irradiation_time_correction, "RLum.Results")) {
-      if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
-        irradiation_time_correction <- get_RLum(irradiation_time_correction)
-
-        ##consider the case for more than one observation ...
-        if(nrow(irradiation_time_correction)>1){
-          irradiation_time_correction <- c(mean(irradiation_time_correction[[1]]), sd(irradiation_time_correction[[1]]))
-
-        }else{
-          irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
-        }
-
-      } else{
-        .throw_error("The object provided for 'irradiation_time_correction' ",
-                     "was created by an unsupported function")
-      }
-    } else if (is.numeric(irradiation_time_correction)) {
+    if (is.numeric(irradiation_time_correction)) {
       .validate_length(irradiation_time_correction, 2)
+    } else {
+      ## RLum.Results case
+      if (!irradiation_time_correction@originator %in% "analyse_Al2O3C_ITC") {
+        .throw_error("'irradiation_time_correction' was created by an ",
+                     "unsupported function (originator is '",
+                     irradiation_time_correction@originator, "')")
+      }
+      irradiation_time_correction <- get_RLum(irradiation_time_correction)
+
+      ## consider the case for more than one observation ...
+      irradiation_time_correction <-
+        c(mean(irradiation_time_correction[[1]]),
+          if (nrow(irradiation_time_correction) > 1)
+            sd(irradiation_time_correction[[1]])
+          else
+            irradiation_time_correction[[2]])
     }
   }
 
@@ -337,12 +334,14 @@ analyse_Al2O3C_Measurement <- function(
 
   if(is.null(cross_talk_correction)){
     cross_talk_correction <- c(0,0,0)
-
-  }else{
-
-    ## check whether the input is of type RLum.Results and check originator
-    if (is(cross_talk_correction, "RLum.Results") &&
-        cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
+  } else if (is.numeric(cross_talk_correction)) {
+    .validate_length(cross_talk_correction, 3)
+  } else {
+    ## RLum.Results case
+    if (!cross_talk_correction@originator %in% "analyse_Al2O3C_CrossTalk") {
+      .throw_error("'cross_talk_correction' was created by an unsupported function ",
+                   "(originator is '", cross_talk_correction@originator, "')")
+    }
 
       ## calculate the cross-talk correction values for this particular
       ## carousel position
@@ -358,11 +357,6 @@ analyse_Al2O3C_Measurement <- function(
                                         dimnames = list("position",
                                                         c("fit", "lwr", "upr")))
       }
-
-    }else{
-      .throw_error("The object provided for 'cross_talk_correction' was ",
-                   "created by an unsupported function or has a wrong originator")
-    }
   }
 
   # Calculation -------------------------------------------------------------
@@ -448,7 +442,6 @@ analyse_Al2O3C_Measurement <- function(
 
    }else{
     DOSE_MC <- temp_df$DOSE[2]
-
   }
 
    ##(2) random sampling from cross-irradiation
@@ -591,9 +584,8 @@ analyse_Al2O3C_Measurement <- function(
     ##enable or disable plot ... we cannot put the condition higher, because we here
     ##calculate something we are going to need later
     if (plot) {
-      ##get plot settings
-      par.default <- par()$mfrow
-      on.exit(par(mfrow = par.default), add = TRUE)
+      par.default <- .par_defaults()
+      on.exit(par(par.default), add = TRUE)
 
       ##settings
       plot_settings <- list(
@@ -614,7 +606,7 @@ analyse_Al2O3C_Measurement <- function(
        plot_singlePanels = TRUE,
        combine = TRUE,
        mtext = list(paste0("DE: ", round(data$DE,2), " \u00b1 ", round(data$DE_ERROR,2)), ""),
-       xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
+       xlab = list("Stimulation [s]", "Temperature [\u00B0C]"),
        legend.text = list(list("#1 NAT", "#3 REG", "#5 BG"), list("#2 NAT", "#4 REG")),
        legend.pos = list("topright", "topleft"),
        main = as.list(plot_settings$main),
@@ -625,7 +617,7 @@ analyse_Al2O3C_Measurement <- function(
   # Output --------------------------------------------------------------------------------------
   UID <- create_UID()
 
-  output <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = cbind(data, UID),

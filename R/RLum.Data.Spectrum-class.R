@@ -53,7 +53,6 @@
 #' plot_RLum(TL.Spectrum)
 #' }
 #'
-#' @md
 #' @export
 setClass(
   "RLum.Data.Spectrum",
@@ -89,7 +88,6 @@ setClass(
 #'   `list` \tab `list`
 #' }
 #'
-#' @md
 #' @name as
 setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
@@ -141,12 +139,9 @@ setAs("RLum.Data.Spectrum", "list",
       })
 
 ## show() -------------------------------------------------------------------
-#' @describeIn RLum.Data.Spectrum
-#' Show structure of `RLum.Data.Spectrum` object
+#' @describeIn show
+#' Show the structure of `RLum.Data.Spectrum` objects.
 #'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
@@ -174,44 +169,9 @@ setMethod("show",
 
 
 ## set_RLum() ---------------------------------------------------------------
-#' @describeIn RLum.Data.Spectrum
-#' Construction method for RLum.Data.Spectrum object. The `info` slot is
-#' optional and by default it is set to an empty list
+#' @describeIn set_RLum
+#' Construction method for [RLum.Data.Spectrum-class] objects.
 #'
-#' @param class [`set_RLum`]; [character] (*automatic*):
-#' name of the `RLum` class to create.
-#'
-#' @param originator [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object);
-#' can be set manually.
-#'
-#' @param .uid [`set_RLum`]; [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `create_UID`.
-#'
-#' @param .pid [`set_RLum`]; [character] (*with default*):
-#' option to provide a parent id for nesting at will.
-#'
-#' @param recordType [`set_RLum`]; [character]:
-#' record type (e.g. "OSL")
-#'
-#' @param curveType [`set_RLum`]; [character]:
-#' curve type (e.g. "predefined" or "measured")
-#'
-#' @param data [`set_RLum`]; [matrix]:
-#' raw curve data. If data is of type `RLum.Data.Spectrum`, this can be used
-#' to re-construct the object. If the object is reconstructed, `.uid`, `.pid`
-#' and `originator` are always taken from the input object
-#'
-#' @param info [`set_RLum`] [list]:
-#' info elements
-#'
-#' @return
-#'
-#' **`[set_RLum]`**
-#'
-#' An object from the class `RLum.Data.Spectrum`
-#'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -229,7 +189,7 @@ setMethod(
     ##The case where an RLum.Data.Spectrum object can be provided
     ##with this RLum.Data.Spectrum objects can be provided to be reconstructed
 
-    if (is(data, "RLum.Data.Spectrum")) {
+    if (inherits(data, "RLum.Data.Spectrum")) {
       ##check for missing curveType
       if (missing(curveType))
         curveType <- data@curveType
@@ -238,100 +198,65 @@ setMethod(
       if (missing(recordType))
         recordType <- data@recordType
 
-
-      ##check for missing data ... not possible as data is the object itself
-
       ##check for missing info
       if (missing(info))
         info <- data@info
 
-      ##check for missing .uid and .pid >> this are always taken from the
-      ##original dataset
-
-      ##set empty clas form object
-      newRLumDataSpectrum <- new("RLum.Data.Spectrum")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataSpectrum@originator = data@originator
-      newRLumDataSpectrum@recordType = recordType
-      newRLumDataSpectrum@curveType = curveType
-      newRLumDataSpectrum@data = data@data
-      newRLumDataSpectrum@info = info
-      newRLumDataSpectrum@.uid = data@.uid
-      newRLumDataSpectrum@.pid = data@.pid
-
-    } else {
-      ##set empty class from object
-      newRLumDataSpectrum <- new("RLum.Data.Spectrum")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataSpectrum@originator = originator
-      newRLumDataSpectrum@recordType = recordType
-      newRLumDataSpectrum@curveType = curveType
-      newRLumDataSpectrum@data = data
-      newRLumDataSpectrum@info = info
-      newRLumDataSpectrum@.uid = .uid
-      newRLumDataSpectrum@.pid = .pid
+      originator <- data@originator
+      .uid <- data@.uid
+      .pid <- data@.pid
+      data <- data@data
     }
 
-    return(newRLumDataSpectrum)
+    ## set empty class from object
+    newRLumDataSpectrum <- new("RLum.Data.Spectrum")
 
+    ## fill - this is the faster way, filling in new() costs ...
+    newRLumDataSpectrum@originator <- originator
+    newRLumDataSpectrum@recordType <- recordType
+    newRLumDataSpectrum@curveType <- curveType
+    newRLumDataSpectrum@data <- data
+    newRLumDataSpectrum@info <- info
+    newRLumDataSpectrum@.uid <- .uid
+    newRLumDataSpectrum@.pid <- .pid
+
+    return(newRLumDataSpectrum)
   }
 )
 
 
 ## get_RLum() ---------------------------------------------------------------
-#' @describeIn RLum.Data.Spectrum
-#' Accessor method for `RLum.Data.Spectrum` object.
+#' @describeIn get_RLum
+#' Accessor method for [RLum.Data.Spectrum-class] objects.
+#' The argument `info.object` is optional to directly access the info elements.
+#' If no info element name is provided, the raw curve data (matrix) will be
+#' returned.
 #'
-#' @param object [`get_RLum`], [`names_RLum`] (**required**):
-#' an object of class [RLum.Data.Spectrum-class]
-#'
-#' @param info.object [`get_RLum`]; [character] (*optional*):
-#' the name of the info object to be called. If no info element name
-#' is provided, the raw curve data (matrix) will be returned
-#'
-#' @return
-#'
-#' **`[get_RLum]`**
-#'
-#' 1. A [matrix] with the spectrum values or
-#' 2. only the info object if `info.object` was set.
-#'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
-          definition = function(object, info.object) {
+          definition = function(object, info.object = NULL) {
               .set_function_name("get_RLum")
               on.exit(.unset_function_name(), add = TRUE)
 
-              ##if missing info.object just show the curve values
-              if (!missing(info.object)) {
-                .validate_class(info.object, "character")
-
+              .validate_class(info.object, "character", null.ok = TRUE)
+              if (!is.null(info.object)) {
                 if (!info.object %in% names(object@info)) {
                   .throw_error("Invalid element name, valid names are: ",
                                .collapse(names(object@info)))
                 }
                 unlist(object@info[info.object])
               } else {
+                ## info.object not provided, return the curve data
                 object@data
               }
           })
 
 
-## names() ------------------------------------------------------------------
-#' @describeIn RLum.Data.Spectrum
-#' Returns the names info elements coming along with this curve object
+## names_RLum ---------------------------------------------------------------
+#' @describeIn names_RLum
+#' Returns the names of the info elements stored in the object.
 #'
-#' @return
-#'
-#' **`[names_RLum]`**
-#'
-#' The names of the info objects
-#'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Spectrum",
@@ -341,27 +266,20 @@ setMethod("names_RLum",
 
 
 ## bin_RLum() ---------------------------------------------------------------
-#' @describeIn RLum.Data.Spectrum
-#' Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
-#' for wavelength/energy values the mean is calculated.
+#' @describeIn bin_RLum.Data
+#' Allows binning of RLum.Data.Spectrum data. Count values and values on the
+#' x-axis are summed up; for wavelength/energy values, the mean is calculated.
 #'
 #' @param bin_size.col [integer] (*with default*):
-#' set number of channels used for each bin, e.g. `bin_size.col = 2` means that
+#' number of channels used for each bin, e.g. `bin_size.col = 2` means that
 #' two channels are binned. Note: The function does not check the input, very large values
 #' mean a full column binning (a single sum)
 #'
 #' @param bin_size.row [integer] (*with default*):
-#' set number of channels used for each bin, e.g. `bin_size.row = 2` means that
+#' number of channels used for each bin, e.g. `bin_size.row = 2` means that
 #' two channels are binned. Note: The function does not check the input, very large values
 #' mean a full row binning (a single sum)
 #'
-#' @return
-#'
-#' **`[bin_RLum.Data]`**
-#'
-#' Same object as input, after applying the binning.
-#'
-#' @md
 #' @export
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Spectrum",
@@ -370,12 +288,11 @@ setMethod(f = "bin_RLum.Data",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             if (length(object@data) < 2) {
               .throw_error("'object' contains no data")
             }
-            .validate_class(bin_size.row, c("numeric", "integer"))
-            .validate_class(bin_size.col, c("numeric", "integer"))
+            .validate_positive_scalar(bin_size.row, int = TRUE)
+            .validate_positive_scalar(bin_size.col, int = TRUE)
 
             ##make sure that we do not get in trouble with negative values
             bin_size.col <- abs(bin_size.col)

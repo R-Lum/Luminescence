@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.BINfileData, envir = environment())
 
 test_that("input validation", {
@@ -6,15 +7,19 @@ test_that("input validation", {
   expect_error(Risoe.BINfileData2RLum.Analysis("test"),
                "'object' should be of class 'Risoe.BINfileData")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = "test"),
-               "'pos' should be of class 'numeric' or 'integer'")
+               "'pos' should be of class 'numeric', 'integer' or NULL")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, run = 10:12),
-               "run = 10, 11, 12 contains invalid runs")
+               "'run' contains invalid runs, valid runs are: 1, 2, 3, 4, 5, 6")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, set = 10:12),
-               "set = 10, 11, 12 contains invalid sets")
+               "'set' contains invalid sets, valid sets are: 2, 3, 5, 6")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, ltype = 10:12),
-               "ltype = '10', '11', '12' contains invalid ltypes")
+               "'ltype' contains invalid ltypes, valid ltypes are: 'TL', 'OSL'")
   expect_error(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, dtype = 10:12),
-               "dtype = '10', '11', '12' contains invalid dtypes")
+               "'dtype' contains invalid dtypes, valid dtypes are: 'Natural'")
+
+  risoe <- set_Risoe.BINfileData(METADATA = data.frame(ID = 1, POSITION = 0))
+  expect_error(Risoe.BINfileData2RLum.Analysis(risoe),
+               "'object' has missing columns in METADATA: 'GRAIN', 'RUN', 'SET'")
 
   expect_warning(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:30),
                  "Invalid position number skipped")
@@ -58,10 +63,9 @@ test_that("check functionality", {
                  "Invalid position number skipped: 0")
 
   ## reading an object with fields set to zero
-  zero <- set_Risoe.BINfileData(METADATA = data.frame(ID = 1, VERSION = 0,
-                                                      POSITION = 0, GRAIN = 0),
-                                DATA = list(),
-                                .RESERVED = list())
+  zero <- set_Risoe.BINfileData(METADATA = data.frame(ID = 1, POSITION = 0,
+                                                      GRAIN = 0, RUN = 0, SET = 0,
+                                                      LTYPE = 0, DTYPE = 0))
   expect_message(res <- Risoe.BINfileData2RLum.Analysis(zero),
                  "Empty Risoe.BINfileData object detected")
   expect_s4_class(res, "RLum.Analysis")

@@ -54,7 +54,6 @@
 #' sigma <- sqrt(fit$parameters$variance$sigmasq)
 #' Age_range <- c(0, Dr * (1 + rnorm(length(Dr), 0, int_OD[1])))
 #' res <- .calc_IndividualAgeModel(theta, mu, sigma, De, s, sig0, Age_range = Age_range)
-#'@md
 #'@noRd
 .calc_IndividualAgeModel <- function(
   theta,
@@ -131,10 +130,8 @@
   if(length(theta) == 1) {
     data1$theta <- NULL
     model <- textConnection(event1)
-
   } else {
     model <- textConnection(event2)
-
   }
 
   ## run model
@@ -143,6 +140,7 @@
   jags <- rjags::jags.model(
     file = model,
     data = data1,
+    inits = method_control$inits,
     n.chains = method_control$n.chains,
     n.adapt = method_control$n.adapt,
     quiet = method_control$quiet
@@ -168,7 +166,6 @@
   if(method_control$diag) {
     cat("\n[.calc_IndividualAgeModel()]\n")
     print(coda::gelman.diag(samp))
-
   }
 
   # Return ------------------------------------------------------------------
@@ -217,7 +214,6 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@md
 #'@noRd
 .calc_BayesianCentralAgeModel <- function(
   theta,
@@ -287,10 +283,8 @@
   if(length(theta) == 1) {
     data$theta <- NULL
     model <- textConnection(central_age_model1)
-
   } else {
     model <- textConnection(central_age_model2)
-
   }
 
   ## run modelling
@@ -299,6 +293,7 @@
   jags2 <- rjags::jags.model(
     file = model,
     data = data,
+    inits = method_control$inits,
     n.chains = method_control$n.chains,
     n.adapt = method_control$n.adapt,
     quiet = method_control$quiet
@@ -324,7 +319,6 @@
   if(method_control$diag) {
     cat("\n[.calc_BayesianCentralAgeModel()]\n")
     print(coda::gelman.diag(samp2))
-
   }
 
   # Return ------------------------------------------------------------------
@@ -337,7 +331,6 @@
       mcmc_BCAM = if(method_control$return_mcmc) samp2 else NULL),
     info = list(call = sys.call())
   ))
-
 }
 
 #'@title Combine Dose Rate and Equivalent Dose Distribution
@@ -409,8 +402,17 @@
 #' outlier analysis plot. Note: the outlier analysis will happen independently
 #' of the plot output.
 #'
-#'@param method_control [list] (*with default*): named [list] of further parameters passed down
-#' to the [rjags::rjags] modelling
+#' @param method_control [list] (*with default*):
+#' named [list] of parameters to control [rjags::jags.model]. This can be
+#' used to set the random seed for the MCMC chains (four by default):
+#' ```
+#' method_control = list(inits = list(
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3),
+#'   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 4))
+#' )
+#' ```
 #'
 #'@param par_local [logical] (*with default*): if set to `TRUE` the function uses its
 #'own [graphics::par] settings (which will end in two plots next to each other)
@@ -495,7 +497,6 @@
 #'writeLines(results@info$model_BCAM)
 #'}
 #'
-#'@md
 #'@export
 combine_De_Dr <- function(
   De,
@@ -579,6 +580,7 @@ fit_IAM <- .calc_IndividualAgeModel(
           n.chains = method_control$n.chains,
           n.adapt = method_control$n.adapt,
           n.iter = method_control$n.iter,
+          inits = method_control$inits,
           thin = method_control$thin,
           progress.bar = method_control$progress.bar,
           quiet = method_control$quiet,
@@ -602,7 +604,6 @@ fit_IAM <- .calc_IndividualAgeModel(
     sig_max <- sig0 * ((1 - alpha) / alpha) ^ .5
     test <- vapply(1:length(De), function(j){
       mean(fit_IAM$sig_a[, j] >= sig_max)
-
     }, numeric(1))
 
     out <- sort(which(test > alpha))
@@ -625,7 +626,6 @@ fit_IAM <- .calc_IndividualAgeModel(
   if (length(out) == 0) {
       De1 <- De
       s1 <- s
-
    } else {
       De1 <- De[-out]
       s1 <- s[-out]
@@ -645,6 +645,7 @@ fit_IAM <- .calc_IndividualAgeModel(
         n.chains = method_control$n.chains,
         n.adapt = method_control$n.adapt,
         n.iter = method_control$n.iter,
+        inits = method_control$inits,
         thin = method_control$thin,
         progress.bar = method_control$progress.bar,
         quiet = method_control$quiet,
@@ -699,7 +700,6 @@ if(verbose){
   cat("    Age (CI 68%):\t", paste(format(round(range(CI_68),2), nsmall =2), collapse = " : "), "\n")
   cat("    Age (CI 95%):\t", paste(format(round(range(CI_95),2), nsmall =2), collapse = " : "), "\n")
   cat("    -----------------------------------\n")
-
 }
 
 # Plotting ----------------------------------------------------------------
@@ -712,11 +712,8 @@ if(plot){
   ), list(...))
 
   ##make sure we reset plots
-  if(par_local) {
-    old.par <- par(mfrow = c(1, 2))
-    on.exit(par(old.par), add = TRUE)
-
-  }
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
   if(outlier_analysis_plot){
     N <- length(De)
@@ -749,11 +746,9 @@ if(plot){
 
     abline(h = sig0, col = "violet")
 
-
     } else {
       shape::emptyplot()
       text(0.5, 0.5, "No outlier detected!")
-
     }
   }
 
@@ -802,7 +797,7 @@ if(plot){
 }
 
 # Return results ----------------------------------------------------------
-  return(set_RLum(
+  set_RLum(
     "RLum.Results",
     data = list(
       Ages = fit_BCAM$A,
@@ -824,6 +819,5 @@ if(plot){
       call = sys.call(),
       model_IAM = fit_IAM$model,
       model_BCAM = fit_BCAM$model)
-  ))
-
+  )
 }

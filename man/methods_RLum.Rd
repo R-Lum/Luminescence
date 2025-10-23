@@ -241,7 +241,8 @@ in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but ta
 of the object structure. Works also on \linkS4class{RLum.Analysis} objects.}
 
 \item{records.rm}{\link{subset} \link{logical} (\emph{with default}):
-remove records from data set, can be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
+whether records should be removed from the data set. If \code{FALSE}, the \code{SEL}
+column marks the selected records.}
 
 \item{row.names}{\link{logical} (\emph{with default}):
 enable/disable row names (\code{as.data.frame}).}

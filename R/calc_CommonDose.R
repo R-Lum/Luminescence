@@ -94,7 +94,6 @@
 #' ## apply the common dose model
 #' calc_CommonDose(ExampleData.DeValues$CA1)
 #'
-#' @md
 #' @export
 calc_CommonDose <- function(
   data,
@@ -110,7 +109,7 @@ calc_CommonDose <- function(
   ##============================================================================##
 
   .validate_class(data, c("data.frame", "RLum.Results"))
-  if (is(data, "RLum.Results")) {
+  if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
   if (ncol(data) < 2) {
@@ -121,6 +120,7 @@ calc_CommonDose <- function(
       .throw_error("'sigmab' must be a value between 0 and 1")
     }
   }
+  .validate_logical_scalar(log)
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")
@@ -170,14 +170,14 @@ calc_CommonDose <- function(
 
   if (settings$verbose) {
     cat("\n [calc_CommonDose]")
-    cat(paste("\n\n----------- meta data --------------"))
-    cat(paste("\n n:                      ",n))
-    cat(paste("\n log:                    ",if(log==TRUE){"TRUE"}else{"FALSE"}))
-    cat(paste("\n----------- dose estimate ----------"))
-    cat(paste("\n common dose:            ", round(delta,2)))
-    cat(paste("\n SE:                     ", round(delta*sedelta, 2)))
-    cat(paste("\n rel. SE [%]:            ", round(sedelta*100,2)))
-    cat(paste("\n------------------------------------\n\n"))
+    cat("\n\n----------- meta data --------------")
+    cat("\n n:                      ", n)
+    cat("\n log:                    ", log)
+    cat("\n----------- dose estimate ----------")
+    cat("\n common dose:            ", round(delta, 2))
+    cat("\n SE:                     ", round(delta * sedelta, 2))
+    cat("\n rel. SE [%]:            ", round(sedelta * 100, 2))
+    cat("\n------------------------------------\n\n")
   }
 
   ##============================================================================##
@@ -190,13 +190,10 @@ calc_CommonDose <- function(
   call<- sys.call()
   args<- list(log=log, sigmab=sigmab)
 
-  newRLumResults.calc_CommonDose<- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
                 args = args,
                 call = call))
-
-  invisible(newRLumResults.calc_CommonDose)
-
 }

@@ -19,7 +19,6 @@
 #' ## ask for an arbitrary quote
 #' get_Quote()
 #'
-#' @md
 #' @noRd
 get_Quote <- function(
   ID,

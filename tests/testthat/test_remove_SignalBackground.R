@@ -14,18 +14,19 @@ xsyg_v1 <- set_RLum("RLum.Analysis", records = list(
   xsyg[[1]]@records[[4]]
   ))
 
-test_that("test paramters", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## test input object failure for object
   expect_error(
     object = remove_SignalBackground(object = "error"),
     regexp = "'object' should be of class 'RLum.Analysis'")
+  expect_error(remove_SignalBackground(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
 
   ## test input object failure for object_bg
   expect_error(
     object = remove_SignalBackground(object = xsyg[[1]], object_bg = "error"),
-    regexp = "'object_bg' should be of class 'RLum.Data.Curve', 'list', 'matrix', 'numeric' or 'integer'")
+    "'object_bg' should be of class 'RLum.Data.Curve', 'list', 'matrix', 'numeric', 'integer'")
 
   ## test input object failure for recordType
   expect_error(
@@ -35,8 +36,7 @@ test_that("test paramters", {
   ## test input object failure for clean_up
   expect_error(
     object = remove_SignalBackground(object = xsyg[[1]], clean_up = "error"),
-    regexp = "'clean_up' should be of class 'logical'")
-
+    regexp = "'clean_up' should be a single logical value")
 })
 
 test_that("simple run", {
@@ -83,5 +83,4 @@ test_that("simple run", {
   expect_s4_class(remove_SignalBackground(
     object = xsyg_v1, recordType = "OSL (UVVIS)",
     object_bg = c(runif(100,1,100))), "RLum.Analysis")
-
 })

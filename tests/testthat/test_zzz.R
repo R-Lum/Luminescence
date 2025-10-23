@@ -23,10 +23,16 @@ test_that("Test zzz functions ... they should still work", {
     convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
   ## create plot straightforward
+  expect_error(sTeve("error"),
+               "'n_frames' should be a single positive integer value")
+  expect_error(sTeve(c(1, NaN, 0)),
+               "'n_frames' should be a single positive integer value")
+  expect_error(sTeve(t_animation = 0),
+               "'t_animation' should be a single positive integer value")
+  expect_error(sTeve(n.tree = 0.12),
+               "'n.tree' should be a single positive integer value")
   expect_silent(plot_KDE(data = ExampleData.DeValues))
   expect_silent(sTeve(type = 1))
   expect_silent(sTeve(type = 2, t_animation = 1))
   expect_silent(sTeve(type = 3, t_animation = 1, n.tree = 2))
-  expect_error(sTeve("error"),
-               "'n_frames' should be of class 'integer' or 'numeric'")
 })

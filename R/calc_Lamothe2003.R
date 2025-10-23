@@ -1,17 +1,19 @@
-#'@title Apply fading correction after Lamothe et al., 2003
+#' @title Apply fading correction after Lamothe et al., 2003
 #'
-#'@description This function applies the fading correction for the prediction of long-term fading as suggested
-#' by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fits a new dose-response
-#' curve using the function [plot_GrowthCurve].
+#' @description
+#' This function applies the fading correction for the prediction of long-term
+#' fading as suggested by Lamothe et al., 2003. The function basically adjusts
+#' the $L_n/T_n$ values and fits a new dose-response curve using function
+#' [plot_GrowthCurve].
 #'
-#'@details
+#' @details
 #'
 #' **Format of `object` if `data.frame`**
 #'
-#' If `object` is of type [data.frame], all input values most be of type [numeric].
-#' Dose values are excepted in seconds (s) not Gray (Gy). No `NA` values are allowed and
-#' the value for the natural dose (first row) should be `0`. Example for three dose points,
-#' column names are arbitrary:
+#' If `object` is a [data.frame], all input values must be of type [numeric].
+#' Dose values are expected in seconds (s) not Gray (Gy). No `NA` values are
+#' allowed and the value for the natural dose (first row) should be `0`.
+#' Example for three dose points (column names are arbitrary):
 #'
 #' ```
 #'  object <- data.frame(
@@ -22,27 +24,32 @@
 #'
 #'  **Note on the g-value and `tc`**
 #'
-#'  Users new to R and fading measurements are often confused about what to
-#'  enter for `tc` and why it may differ from `tc.g_value`. The `tc` value
-#'  is, by convention (Huntley & Lamothe 2001), the time elapsed between the end of the irradiation and the prompt
-#'  measurement. Usually there is no reason for having a `tc` value different for the equivalent dose measurement
-#'  and the *g*-value measurement, except if different equipment was used.
-#'  However, if, for instance, the *g*-value measurement sequence was analysed
-#'  with the *Analyst* (Duller 2015) and `Luminescence` is used to correct for fading,
-#'  there is a high chance that the value returned by the *Analyst* comes normalised to 2-days;
-#'  even the `tc` values of the measurement were identical.
-#'  In such cases, the fading correction cannot be correct until the `tc.g_value` was manually
-#'  set to 2-days (`172800` s) because the function will internally recalculate values
-#'  to an identical `tc` value.
+#' Users new to R and fading measurements are often confused about what to
+#' enter for `tc` and why it may differ from `tc.g_value`. By convention
+#' (Huntley & Lamothe 2001), the `tc` value is the time elapsed between the
+#' end of the irradiation and the prompt measurement. Usually there is no
+#' reason for having a `tc` value different for the equivalent dose measurement
+#' and the *g*-value measurement, except if different equipment was used.
+#' However, if, for instance, the *g*-value measurement sequence was analysed
+#' with the *Analyst* (Duller 2015) and `Luminescence` is used to correct for
+#' fading, there is a high chance that the value returned by the *Analyst*
+#' comes normalised to 2-days, even if the `tc` values of the measurement were
+#' identical. In such cases, the fading correction cannot be correct until the
+#' `tc.g_value` is manually set to 2-days (`172800` s) because the function
+#' will internally recalculate values to an identical `tc` value.
 #'
-#' @param object [RLum.Results-class] [data.frame] (**required**): Input data for applying the
-#' fading correction. Allow are (1) [data.frame] with three columns (`dose`, `LxTx`, `LxTx error`; see details), (2)
-#' [RLum.Results-class] object created by the function [analyse_SAR.CWOSL] or [analyse_pIRIRSequence]
+#' @param object [RLum.Results-class] [data.frame] (**required**):
+#' Input data for applying the fading correction, can be (1) a [data.frame]
+#' with three columns (`dose`, `LxTx`, `LxTx error`; see details), or (2) an
+#' [RLum.Results-class] object created by [analyse_SAR.CWOSL] or
+#' [analyse_pIRIRSequence].
 #'
-#' @param dose_rate.envir [numeric] vector of length 2 (**required**): Environmental dose rate in mGy/a
+#' @param dose_rate.envir [numeric] vector of length 2 (**required**):
+#' Environmental dose rate in mGy/a.
 #'
-#' @param dose_rate.source [numeric] vector of length 2 (**required**): Irradiation source dose rate in Gy/s,
-#' which is, according to Lamothe et al. (2003) De/t*.
+#' @param dose_rate.source [numeric] vector of length 2 (**required**):
+#' Irradiation source dose rate in Gy/s, which is, according to Lamothe et al.
+#' (2003) De/t.
 #'
 #' @param g_value [numeric] vector of length 2 (**required**): g_value in
 #' %/decade *recalculated at the moment* the equivalent dose was calculated,
@@ -54,14 +61,16 @@
 #' @param tc [numeric] (*optional*): time in seconds between the **end** of
 #' the irradiation and the prompt measurement used in the equivalent dose
 #' estimation (cf. Huntley & Lamothe 2001).
-#' If set to `NULL` it is assumed that `tc` is similar for the equivalent dose
-#' estimation and the *g*-value estimation
+#' If set to `NULL`, it is assumed that `tc` is similar for the equivalent
+#' dose estimation and the *g*-value estimation.
 #'
-#' @param tc.g_value [numeric] (*with default*): the time in seconds between irradiation and the
-#' prompt measurement estimating the *g*-value. If the *g*-value was normalised to, e.g., 2 days,
-#' this time in seconds (i.e., `172800`) should be entered here along with the time used for the
-#' equivalent dose estimation. If nothing is provided the time is set to `tc`, which is the
-#' usual case for *g*-values obtained using the SAR method and *g*-values that had been not normalised to 2 days.
+#' @param tc.g_value [numeric] (*with default*):
+#' time in seconds between irradiation and the prompt measurement estimating
+#' the *g*-value. If the *g*-value was normalised to, e.g., 2 days, this time
+#' in seconds (i.e., `172800`) should be entered here along with the time used
+#' for the equivalent dose estimation. If nothing is provided the time is set
+#' to `tc`, which is the usual case for *g*-values obtained using the SAR
+#' method and *g*-values that had been not normalised to 2 days.
 #' Note: If this value is not `NULL` the functions expects a [numeric] value for `tc`.
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
@@ -71,8 +80,9 @@
 #'
 #' @param ... further arguments passed to function [plot_GrowthCurve].
 #'
-#' @return The function returns are graphical output produced by the function [plot_GrowthCurve] and
-#' an [RLum.Results-class].
+#' @return
+#' The function returns an [RLum.Results-class] object and the graphical
+#' output produced by [plot_GrowthCurve].
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
@@ -145,7 +155,6 @@
 #'   fit.method = "EXP")
 #'
 #'
-#'@md
 #'@export
 calc_Lamothe2003 <- function(
   object,
@@ -165,35 +174,20 @@ calc_Lamothe2003 <- function(
 
   .validate_class(object, c("data.frame", "RLum.Results"))
 
-  ## dose_rate.envir
-  .validate_class(dose_rate.envir, "numeric")
-  if (length(dose_rate.envir) < 2) {
-    .throw_error("'dose_rate.envir' should contain 2 elements")
+  .validate_length_2_vector <- function(vec) {
+    name <- sprintf("'%s'", all.vars(match.call())[1])
+    .validate_class(vec, "numeric", name = name)
+    if (length(vec) < 2)
+      .throw_error(name, " should contain 2 elements")
+    if (length(vec) > 2) {
+      .throw_warning(name, " has length > 2, taking only the first two entries")
+      vec <- vec[1:2]
+    }
+    return(vec)
   }
-  if (length(dose_rate.envir) > 2) {
-    .throw_warning("'dose_rate.envir' has length > 2, taking only the first two entries")
-    dose_rate.envir <- dose_rate.envir[1:2]
-  }
-
-  ## dose_rate.source
-  .validate_class(dose_rate.source, "numeric")
-  if (length(dose_rate.source) < 2) {
-    .throw_error("'dose_rate.source' should contain 2 elements")
-  }
-  if (length(dose_rate.source) > 2) {
-    .throw_warning("'dose_rate.source' has length > 2, taking only the first two entries")
-    dose_rate.source <- dose_rate.source[1:2]
-  }
-
-  ## g_value
-  .validate_class(g_value, "numeric")
-  if (length(g_value) < 2) {
-    .throw_error("'g_value' should contain 2 elements")
-  }
-  if (length(g_value) > 2) {
-    .throw_warning("'g_value' has length > 2, taking only the first two entries")
-    g_value <- g_value[1:2]
-  }
+  .validate_length_2_vector(dose_rate.envir)
+  .validate_length_2_vector(dose_rate.source)
+  .validate_length_2_vector(g_value)
 
   ##tc
   if(is.null(tc) && !is.null(tc.g_value))
@@ -208,32 +202,29 @@ calc_Lamothe2003 <- function(
 
     ##add signal information
     if(any(grepl(pattern = "Signal", x = colnames(object), fixed = TRUE))){
-      SIGNAL <- object[[which(grepl(pattern = "Signal", colnames(object), fixed = TRUE))[1]]]
-
+      SIGNAL <- object[[grep(pattern = "Signal", colnames(object), fixed = TRUE)[1]]]
     }else{
       SIGNAL <- NA
-
     }
 
   }else if(inherits(object, "RLum.Results")){
-    if(object@originator == "analyse_SAR.CWOSL" || object@originator == "analyse_pIRIRSequence"){
-      ##now we do crazy stuff, we make a self-call here since this file can contain a lot of information
+    if (!object@originator %in% c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
+      .throw_error("Input for 'object' created by function ",
+                   object@originator, "() not supported")
 
-        ##get number of datasets; we have to search for the word natural, everything else is not safe enough
-        full_table <- object@data$LnLxTnTx.table
-        set_start <- which(grepl(full_table$Name, pattern = "Natural", fixed = TRUE))
-        set_end <- c(set_start[-1] - 1, nrow(full_table))
+    ## get number of datasets; we have to search for the word "Natural",
+    ## everything else is not safe enough
+    full_table <- object@data$LnLxTnTx.table
+    set_start <- grep(full_table$Name, pattern = "Natural", fixed = TRUE)
+    set_end <- c(set_start[-1] - 1, nrow(full_table))
 
-        ##signal column if available
-        if(object@originator == "analyse_pIRIRSequence"){
-          object <- full_table[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
-        }else{
-          object <- full_table[,c("Dose", "LxTx", "LxTx.Error")]
+    ## columns of interest
+    cols <- c("Dose", "LxTx", "LxTx.Error",
+              if (object@originator == "analyse_pIRIRSequence") "Signal")
+    object <- full_table[, cols]
 
-        }
-
-        ##now run the function
-        results <- lapply(1:length(set_start), function(x){
+    ## we make a self-call here since this file can contain a lot of information
+    results <- lapply(1:length(set_start), function(x){
           calc_Lamothe2003(
             object = object[set_start[x]:set_end[x], ],
             dose_rate.envir = dose_rate.envir,
@@ -247,12 +238,8 @@ calc_Lamothe2003 <- function(
           )
         })
 
-        ##merge output
-        return(merge_RLum(results))
-    }else{
-      .throw_error("Input for 'object' created by function ",
-                   object@originator, "() not supported")
-    }
+    ## merge output
+    return(merge_RLum(results))
   }
 
   # Apply correction----------------------------------------------------------------------------
@@ -263,7 +250,6 @@ calc_Lamothe2003 <- function(
     k0 <- g_value / 100 / log(10)
     k1 <- k0 / (1 - k0 * log(tc[1]/tc.g_value[1]))
     g_value <-  100 * k1 * log(10)
-
   }
 
   # transform irradiation times to dose values
@@ -290,7 +276,7 @@ calc_Lamothe2003 <- function(
 
   # Fitting ---------------------------------------------------------------------------------
   ##set arguments
-  argument_list <- list(
+  argument_list <- modifyList(list(
     sample = data,
     verbose = FALSE,
     main = "Corrected Dose Response Curve",
@@ -298,19 +284,18 @@ calc_Lamothe2003 <- function(
     txtProgressBar = verbose,
     output.plotExtended = FALSE,
     output.plot = plot
-  )
-
-  ##filter doubled arguments
-  argument_list <- modifyList(x = argument_list, val = list(...))
+  ), val = list(...))
 
   ##run plot function
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
   fit_results <- do.call(what = plot_GrowthCurve, args = argument_list)
 
-
   # Age calculation -----------------------------------------------------------------------------
-  Age <-  get_RLum(fit_results)[["De"]] / dose_rate.envir[1]
-  s_Age <-  sqrt((100*get_RLum(fit_results)[["De.Error"]]/get_RLum(fit_results)[["De"]])^2 + (100*dose_rate.envir[2]/dose_rate.envir[1])^2) *Age/100
-
+  res <- get_RLum(fit_results)
+  Age <- res[["De"]] / dose_rate.envir[1]
+  s_Age <- sqrt((100 * res[["De.Error"]] / res[["De"]])^2 +
+                (100 * dose_rate.envir[2] / dose_rate.envir[1])^2) * Age / 100
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
@@ -318,48 +303,41 @@ calc_Lamothe2003 <- function(
     cat(" Used g_value:\t\t", round(g_value[1],3)," \u00b1 ",round(g_value[2],3),"%/decade \n")
     if(!is.null(tc)){
       cat(" tc for g_value:\t", tc.g_value, " s\n")
-
     }
     cat("\n")
     cat(" Fading_C:\t\t", round(Fading_C,3), " \u00b1 ", round(sFading_C,3),"\n")
     cat(" Corrected Ln/Tn:\t", round(data[[2]][1],3), " \u00b1 ", round(data[[3]][1],3),"\n")
-    cat(" Corrected De:\t\t", round(get_RLum(fit_results)[["De"]],2), " \u00b1 ", round(get_RLum(fit_results)[["De.Error"]],2)," Gy \n")
+    cat(" Corrected De:\t\t", round(res[["De"]], 2), " \u00b1 ", round(res[["De.Error"]], 2)," Gy \n")
     cat("--------------------------------------------------------\n")
     cat(" Corrected Age:\t\t", round(Age,2), " \u00b1 ", round(s_Age,2)," ka \n")
     cat("--------------------------------------------------------\n")
-
   }
 
   # Compile output ------------------------------------------------------------------------------
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         data = data.frame(
           g_value = g_value[1],
           g_value.ERROR = g_value[2],
-          tc = ifelse(is.null(tc), NA, tc),
-          tc.g_value = ifelse(is.null(tc.g_value), NA, tc.g_value),
+          tc = tc %||% NA,
+          tc.g_value = tc.g_value %||% NA,
           FADING_C = Fading_C,
           FADING_C.ERROR = sFading_C,
           LnTn_BEFORE = LnTn_BEFORE,
           LnTn_BEFORE.ERROR = LnTn_BEFORE.ERROR,
           LnTn_AFTER = data[[2]][1],
           LnTn_AFTER.ERROR = data[[3]][1],
-          DE = get_RLum(fit_results)[["De"]],
-          DE.ERROR = get_RLum(fit_results)[["De.Error"]],
+          DE = res[["De"]],
+          DE.ERROR = res[["De.Error"]],
           AGE = Age,
           AGE.ERROR = s_Age,
           SIGNAL = SIGNAL
           ),
         fit = get_RLum(fit_results, data.object = "Fit")
-
       ),
       info = list(
         call = sys.call()
       )
-    )
-
   )
-
 }

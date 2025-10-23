@@ -34,9 +34,10 @@
 #' Supported types are `plot.raster`, `contour`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the specific plot functions. Standard supported parameters are `xlim`, `ylim`, `zlim`,
-#' `xlab`, `ylab`, `main`, `legend` (`TRUE` or `FALSE`), `col`, `cex`, `axes` (`TRUE` or `FALSE`),
-#' `zlim_image` (adjust the z-scale over different images), `stretch`
+#' to the specific plot functions. Standard supported parameters are `xlim`,
+#' `ylim`, `zlim`, `xlab`, `ylab`, `main`, `mtext`, `legend` (`TRUE` or `FALSE`),
+#' `col`, `cex`, `axes` (`TRUE` or `FALSE`), `zlim_image` (adjust the z-scale
+#' over different images), `stretch`.
 #'
 #' @return Returns a plot
 #'
@@ -63,7 +64,6 @@
 #' ##plot data
 #' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 #'
-#' @md
 #' @export
 plot_RLum.Data.Image <- function(
   object,
@@ -76,7 +76,6 @@ plot_RLum.Data.Image <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Data.Image")
 
   ## extract object
@@ -121,6 +120,7 @@ plot_settings <- modifyList(x = list(
     ylim = c(1,dim(object)[2]),
     zlim = range(object),
     zlim_image = NULL,
+    mtext = "",
     legend = TRUE,
     useRaster = TRUE,
     stretch = "hist",
@@ -146,14 +146,16 @@ plot_settings <- modifyList(x = list(
   object[object <= plot_settings$zlim[1]] <- max(0,plot_settings$zlim[1])
   object[object >= plot_settings$zlim[2]] <- min(max(object),plot_settings$zlim[2])
 
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
 
   if (plot.type == "plot.raster") {
 # plot.raster -------------------------------------------------------------
     for(i in 1:dim(object)[3]) {
-      par.default <- par(mar = c(4.5,4.5,4,3))
-      on.exit(par(par.default), add = TRUE)
+      par(mar = c(4.5, 4.5, 4, 3))
       x <- object[, , i, drop = FALSE]
       image <-.stretch(x, type = plot_settings$stretch)
 
@@ -161,7 +163,7 @@ plot_settings <- modifyList(x = list(
         x = image,
         useRaster = plot_settings$useRaster,
         axes = FALSE,
-        zlim = if(is.null(plot_settings$zlim_image)) range(image) else plot_settings$zlim_image,
+        zlim = plot_settings$zlim_image %||% range(image),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
         main = plot_settings$main[i],
@@ -183,8 +185,6 @@ plot_settings <- modifyList(x = list(
 
       ## add legend
       if(plot_settings$legend) {
-        par.default <- c(par.default, par(xpd = TRUE))
-        on.exit(par(par.default), add = TRUE)
         col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 14)]
         slices <- seq(0,1,length.out = 15)
         for(s in 1:(length(slices) - 1)){
@@ -194,32 +194,32 @@ plot_settings <- modifyList(x = list(
             ybottom = slices[s],
             ytop =  slices[s + 1],
             col = col_grad[s],
+            xpd = TRUE,
             border = TRUE)
         }
 
         text(
           x = par()$usr[4] * 1.04,
           y = par()$usr[2],
-          labels = if(is.null(plot_settings$zlim_image)) {
-            format(max(x), digits = 1, scientific = TRUE)
-            } else {
-            format(plot_settings$zlim_image[2], digits = 1, scientific = TRUE)
-            },
+          labels = format(plot_settings$zlim_image[2] %||% max(x),
+                          digits = 1, scientific = TRUE),
+          xpd = TRUE,
           cex = 0.7,
           srt = 270,
           pos = 3)
         text(
           x = par()$usr[4] * 1.04,
           y = par()$usr[3],
-          labels = if(is.null(plot_settings$zlim_image)) {
-            format(min(x), digits = 1, scientific = TRUE)
-          } else {
-            format(plot_settings$zlim_image[1], digits = 1, scientific = TRUE)
-          },
+          labels = format(plot_settings$zlim_image[1] %||% min(x),
+                          digits = 1, scientific = TRUE),
+          xpd = TRUE,
           cex = 0.7,
           pos = 3,
           srt = 270)
       }
+
+      ## add mtext
+      mtext(side = 3, plot_settings$mtext)
     }
 
   }else if(plot.type == "contour"){
@@ -228,7 +228,7 @@ plot_settings <- modifyList(x = list(
       graphics::contour(
         x = x[,,1],
         axes = FALSE,
-        zlim = if(is.null(plot_settings$zlim_image)) range(x) else plot_settings$zlim_image,
+        zlim = plot_settings$zlim_image %||% range(x),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
         main = paste0(plot_settings$main, " #",i),
@@ -248,5 +248,8 @@ plot_settings <- modifyList(x = list(
       yat <- seq(0,1,length.out = length(ylab))
       graphics::axis(side = 2, at = yat, labels = ylab)
     }
+
+     ## add mtext
+     mtext(side = 3, plot_settings$mtext)
   }
 }

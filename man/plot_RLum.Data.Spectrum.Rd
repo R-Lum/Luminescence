@@ -44,18 +44,22 @@ limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}.
 binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
 using the bin number.}
 
-\item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}): Spectrum
-used for the background subtraction. By definition, the background spectrum should have been
-measured with the same setting as the signal spectrum. If a spectrum is provided, the
-argument \code{bg.channels} works only on the provided background spectrum.}
+\item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}):
+spectrum used for the background subtraction. The background spectrum should
+be measured using the same setting as the signal spectrum. The argument
+\code{bg.channels} controls how the subtraction is performed: if \code{bg.channels}
+is not specified or the number of channels is identical between the signal
+and background spectra, a channel-wise subtraction is performed; otherwise,
+the \emph{arithmetic mean} is calculated and subtracted from the signal.}
 
 \item{bg.channels}{\link{vector} (\emph{optional}):
-defines the channels used for background subtraction. If a vector is
-provided, the mean of the channels is used for subtraction. If a spectrum
-is provided via \code{bg.spectrum}, this argument only works on the background
-spectrum.
+channels used for background subtraction. If the number of channels is
+identical between the signal and background spectra, a channel-wise
+subtraction is performed; otherwise this number is used to select channels
+for calculating the \emph{arithmetic mean}  If a spectrum is provided via
+\code{bg.spectrum}, this argument only works on the background spectrum.
 
-\strong{Note:} Background subtraction is applied prior to channel binning}
+\strong{Note:} Background subtraction is applied prior to channel binning!}
 
 \item{bin.rows}{\link{integer} (\emph{with default}):
 allow summing-up wavelength channels (horizontal binning),
@@ -187,13 +191,15 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{box},
 \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
 \code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
-\code{contour}, \code{contour.col} (\code{"image"})
+\code{contour}, \code{contour.col} (\code{"image"}), \code{labcex} (\code{"image"}, \code{"contour"}),
+\code{n_breaks} (\verb{"image}), \code{legend} (\code{TRUE}/\code{FALSE}),
+\code{legend.pos} (\code{"image"}), \code{legend.horiz} (\code{TRUE}/\code{FALSE} | \code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.9
+ 0.6.11
 }
 
 \examples{
@@ -257,12 +263,12 @@ plot_RLum.Data.Spectrum(
  bin.cols = 1,
  type = "heatmap",
  showscale = TRUE)
-
 }
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
+\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot_RLum},
+\link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

@@ -34,7 +34,6 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @md
 #' @export
 analyse_ThermochronometryData <- function(
   object,
@@ -67,9 +66,9 @@ analyse_ThermochronometryData <- function(
 
   ## prepare plot and reset to default on exit
   if(plot) {
-    par_default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
     par(mfrow = c(1,3))
-    on.exit(par(par_default), add = TRUE)
   }
 
   ## Reminder: We have n samples in one Excel sheet ... each set will be analysed
@@ -123,15 +122,19 @@ analyse_ThermochronometryData <- function(
     }
 
     ## DRC fitting
-    results_DRC <- suppressWarnings(plot_GrowthCurve(
-      sample = df_DRC,
-      mode = "alternate",
+    results_DRC <- suppressWarnings(
+        fit_DoseResponseCurve(
+            object = df_DRC,
+            mode = "alternate",
+            verbose = verbose))
+
+    ## DRC plotting
+    plot_DoseResponseCurve(
+      object = results_DRC,
       xlab = if (any("DOSE" %in% colnames(df_DRC))) "Dose [Gy]" else "Dose [s]",
-      cex.global = 0.65,
-      output.plot = plot,
-      main = sample_names[i],
-      output.plotExtended = FALSE
-    ))
+      log = "x",
+      plot_extended = FALSE,
+      main = sample_names[i])
 
     ## return single lists
     return(list(results_FAD, results_ITL, results_DRC))
@@ -151,7 +154,7 @@ analyse_ThermochronometryData <- function(
   names(results_combined) <- unique(originator)
 
 # Results -----------------------------------------------------------------
-  results <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       FAD = results_combined[["analyse_FadingMeasurement"]],
@@ -160,6 +163,4 @@ analyse_ThermochronometryData <- function(
     info = list(
       call = sys.call()
     ))
-
-  return(results)
 }

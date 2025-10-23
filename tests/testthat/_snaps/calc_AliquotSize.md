@@ -138,7 +138,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["x", "y", "bw", "n", "call", "data.name", "has.na"]
+                      "value": ["x", "y", "bw", "n", "old.coords", "call", "data.name", "has.na"]
                     },
                     "class": {
                       "type": "character",
@@ -166,6 +166,11 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [20]
+                    },
+                    {
+                      "type": "logical",
+                      "attributes": {},
+                      "value": [false]
                     },
                     {
                       "type": "language",
@@ -390,15 +395,15 @@
                   "attributes": {},
                   "value": ["grain.size", "sample.diameter", "packing.density", "n.grains", "grains.counted"]
                 },
-                "row.names": {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [1, 2, 3]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2, 3]
                 }
               },
               "value": [
@@ -674,7 +679,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["x", "y", "bw", "n", "call", "data.name", "has.na"]
+                      "value": ["x", "y", "bw", "n", "old.coords", "call", "data.name", "has.na"]
                     },
                     "class": {
                       "type": "character",
@@ -702,6 +707,11 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [20]
+                    },
+                    {
+                      "type": "logical",
+                      "attributes": {},
+                      "value": [false]
                     },
                     {
                       "type": "language",

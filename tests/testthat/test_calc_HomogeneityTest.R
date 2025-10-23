@@ -13,6 +13,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_HomogeneityTest(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_HomogeneityTest(iris[, 1, drop = FALSE]),
+               "'data' should have 2 columns")
 })
 
 test_that("check values from output example", {
@@ -40,4 +42,19 @@ test_that("check values from output example", {
   temp <- calc_HomogeneityTest(df, log = FALSE)$summary
   })
   expect_equal(round(temp$P.value,3),0.001)
+
+  ## negative values in data
+  expect_warning(expect_warning(
+      calc_HomogeneityTest(data.frame(1:5, -1:3), verbose = FALSE),
+      "'data' contains negative values and 'log = TRUE'"),
+      "NaNs produced")
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 924
+  expect_s4_class(
+      calc_HomogeneityTest(data.frame(1:4, NA), verbose = FALSE),
+      "RLum.Results")
 })

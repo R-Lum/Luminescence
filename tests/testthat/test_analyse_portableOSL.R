@@ -2,13 +2,7 @@
 data(ExampleData.portableOSL, envir = environment())
 
 ## generate test data set for profile
-merged <- surface <- merge_RLum(ExampleData.portableOSL)
-
-## generate dataset for surface
-surface@records <- lapply(surface@records, function(x){
-  x@info$settings$Sample <- paste0("Test_x:", runif(1), "|y:", runif(1))
-  x
-})
+merged <- merge_RLum(ExampleData.portableOSL)
 
 test_that("check class and length of output", {
     testthat::skip_on_cran()
@@ -31,12 +25,13 @@ test_that("check class and length of output", {
       expect_equal(length(results), 3)
       expect_s3_class(results$summary, "data.frame")
       expect_s4_class(results$data, "RLum.Analysis")
-    expect_equal(round(sum(results$summary[,c(-1, -2, -10,-11)]), digits = 2), 175.44)
+    expect_equal(round(sum(results$summary[,c(-1, -2, -10, -11)]), 2),
+                 82.1)
 
     ## standard surface
     results <- expect_s4_class(
         analyse_portableOSL(
-          surface,
+          merged,
           signal.integral = 1:5,
           invert = FALSE,
           mode = "surface",
@@ -48,24 +43,25 @@ test_that("check class and length of output", {
     set.seed(1234)
     results <- expect_s4_class(
       analyse_portableOSL(
-        surface,
+        merged,
         signal.integral = 1:5,
         invert = TRUE,
         mode = "surface",
         xlim = c(0.1, 0.6),
-        ylim = c(0.1, 0.6),
+        ylim = c(0.1, 0.8),
         zlim = c(0.1, 2),
         zlim_image = c(1, 2),
         col_ramp = grDevices::topo.colors(20),
-        surface_values = c("BSL", "IRSL"),
+        surface_value = c("BSL", "IRSL"),
         normalise = TRUE,
         contour = TRUE,
+        contour_nlevels = 20,
         plot = TRUE
       ), "RLum.Results")
 
     ## check list input
     expect_s4_class(
-      suppressWarnings(analyse_portableOSL(list(surface), mode = "surface")),
+      suppressWarnings(analyse_portableOSL(list(merged), mode = "surface")),
       "RLum.Results")
     expect_warning(expect_null(analyse_portableOSL(list())),
                    "Nothing was merged as the object list was found to be empty")
@@ -85,7 +81,7 @@ test_that("check class and length of output", {
 
     ## more coverage
     expect_s4_class(analyse_portableOSL(
-        surface,
+        merged,
         signal.integral = 1:5,
         mode = "surface",
         bg_img = as.raster(matrix(0:1, ncol = 4, nrow = 3))
@@ -117,27 +113,43 @@ test_that("input validation", {
                  regexp = "\\[analyse\\_portableOSL\\(\\)\\] Only objects originating from .+")
 
     ## Sequence pattern
-    tmp <- merged
-    tmp@records <- tmp@records[-1]
-    expect_error(analyse_portableOSL(tmp),
-                 "Sequence pattern not supported")
+    expect_error(analyse_portableOSL(merged[-7], signal.integral = 1:5),
+                 "Sequence pattern not supported: see the manual for details")
+    expect_error(analyse_portableOSL(merged[1:3], signal.integral = 1:3),
+                 "Sequence pattern not supported: see the manual for details")
+    expect_error(analyse_portableOSL(merged[c(1:5, rep(7, 5))],
+                                     signal.integral = 1:5),
+                 "Sequence pattern not supported: the number of OSL records")
+    expect_error(analyse_portableOSL(merged[c(1:5, rep(6, 5))],
+                                     signal.integral = 1:5),
+                 "Sequence pattern not supported: expected 3 DARK_COUNT records")
+    expect_error(analyse_portableOSL(merged[-c(7:11)], signal.integral = 1:5),
+                 "'object' references 14 sample names, but 13 IRSL/OSL pairs")
 
     ## coordinates not list or matrix
-    expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
                                      coord = "error"),
       "'coord' should be of class 'matrix' or 'list'")
 
     ## coordinates are not of the correct size
-    expect_error(analyse_portableOSL(surface, signal.integral = 1:5,
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
                                      coord = list(COORD_X = c(0, 0),
                                                   COORD_Y = c(1, 2))),
                  "The number of coordinates in 'coord' should match the number",
                  fixed = TRUE)
+    expect_error(analyse_portableOSL(merged, signal.integral = 1:5,
+                                     coord = as.list(1:14)),
+                 "'coord' should specify two coordinates per sample")
 
-    ## trigger warning
-    expect_warning(
+    ## trigger message if sample names don't contain coordinates
+    mod <- merged
+    mod@records <- lapply(mod@records, function(x) {
+      x@info$settings$Sample <- substr(x@info$settings$Sample, 1, 4)
+      x
+    })
+    expect_message(
       analyse_portableOSL(
-        merged,
+        mod,
         signal.integral = 1:5,
         invert = FALSE,
         normalise = TRUE,
@@ -145,7 +157,7 @@ test_that("input validation", {
         surface_value = c("BSL"),
         plot = TRUE,
         sample = "test"),
-      "Surface interpolation failed: this happens when all points are")
+      "Surface plot is not available when all x-coordinates are 0")
 
     expect_error(
       analyse_portableOSL(
@@ -176,12 +188,24 @@ test_that("input validation", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("profile",
                               analyse_portableOSL(merged, mode = "profile",
                                                   signal.integral = 1:5))
+  vdiffr::expect_doppelganger("surface",
+                              analyse_portableOSL(merged, mode = "surface",
+                                                  signal.integral = 1:5,
+                                                  nx = 40,
+                                                  ny = 40))
+  vdiffr::expect_doppelganger("surface contour cex",
+                              analyse_portableOSL(merged, mode = "surface",
+                                                  signal.integral = 1:5,
+                                                  nx = 40,
+                                                  ny = 40,
+                                                  contour = TRUE,
+                                                  contour_col = "gray50",
+                                                  cex = 2))
   })
 })
 
@@ -191,6 +215,7 @@ test_that("regression tests", {
   SW({
   ## issue 675
   expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
+                                     coord = list(c(1, 1)),
                                      signal.integral = 1:5, mode = "surface"),
                  "Surface interpolation failed: this happens when all points")
 

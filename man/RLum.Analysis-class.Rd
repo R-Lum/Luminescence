@@ -3,255 +3,12 @@
 \docType{class}
 \name{RLum.Analysis-class}
 \alias{RLum.Analysis-class}
-\alias{show,RLum.Analysis-method}
-\alias{set_RLum,RLum.Analysis-method}
-\alias{get_RLum,RLum.Analysis-method}
-\alias{remove_RLum,RLum.Analysis-method}
-\alias{structure_RLum,RLum.Analysis-method}
-\alias{length_RLum,RLum.Analysis-method}
-\alias{names_RLum,RLum.Analysis-method}
-\alias{add_metadata<-,RLum.Analysis-method}
-\alias{rename_metadata<-,RLum.Analysis-method}
-\alias{replace_metadata<-,RLum.Analysis-method}
-\alias{smooth_RLum,RLum.Analysis-method}
-\alias{sort_RLum,RLum.Analysis-method}
-\alias{melt_RLum,RLum.Analysis-method}
-\alias{view,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
-\usage{
-\S4method{show}{RLum.Analysis}(object)
-
-\S4method{set_RLum}{RLum.Analysis}(
-  class,
-  originator,
-  .uid,
-  .pid,
-  protocol = NA_character_,
-  records = list(),
-  info = list()
-)
-
-\S4method{get_RLum}{RLum.Analysis}(
-  object,
-  record.id = NULL,
-  recordType = NULL,
-  curveType = NULL,
-  RLum.type = NULL,
-  protocol = "UNKNOWN",
-  get.index = NULL,
-  drop = TRUE,
-  recursive = TRUE,
-  info.object = NULL,
-  subset = NULL,
-  env = parent.frame(2)
-)
-
-\S4method{remove_RLum}{RLum.Analysis}(object, ...)
-
-\S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
-
-\S4method{length_RLum}{RLum.Analysis}(object)
-
-\S4method{names_RLum}{RLum.Analysis}(object)
-
-\S4method{add_metadata}{RLum.Analysis}(object, info_element) <- value
-
-\S4method{rename_metadata}{RLum.Analysis}(object, info_element) <- value
-
-\S4method{replace_metadata}{RLum.Analysis}(object, info_element, subset = NULL) <- value
-
-\S4method{smooth_RLum}{RLum.Analysis}(object, ...)
-
-\S4method{sort_RLum}{RLum.Analysis}(object, slot = NULL, info_element = NULL, decreasing = FALSE, ...)
-
-\S4method{melt_RLum}{RLum.Analysis}(object)
-
-\S4method{view}{RLum.Analysis}(object, ...)
-}
-\arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): object with records
-to be removed}
-
-\item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}):
-name of the \code{RLum} class to be created}
-
-\item{originator}{\code{\link{set_RLum}} \link{character} (\emph{automatic}):
-contains the name of the calling function (the function that produces this object);
-can be set manually.}
-
-\item{.uid}{\code{\link{set_RLum}} \link{character} (\emph{automatic}):
-sets an unique ID for this object using the internal C++ function \code{create_UID}.}
-
-\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}):
-option to provide a parent id for nesting at will.}
-
-\item{protocol}{\code{\link{set_RLum}} \link{character} (\emph{optional}):
-sets protocol type for analysis object. Value may be used by subsequent analysis functions.}
-
-\item{records}{\code{\link{set_RLum}} \link{list} (\strong{required}):
-list of \linkS4class{RLum.Analysis} objects}
-
-\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}):
-a list containing additional info data for the object
-
-\strong{\code{set_RLum}}:
-
-Returns an \linkS4class{RLum.Analysis} object.}
-
-\item{record.id}{\code{\link{get_RLum}}: \link{numeric} or \link{logical} (\emph{optional}):
-IDs of specific records. If of type \code{logical} the entire id range is assumed
-and \code{TRUE} and \code{FALSE} indicates the selection.}
-
-\item{recordType}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
-record type (e.g., "OSL"). Can be also a vector, for multiple matching,
-e.g., \code{recordType = c("OSL", "IRSL")}}
-
-\item{curveType}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
-curve type (e.g. "predefined" or "measured")}
-
-\item{RLum.type}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
-RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
-
-\item{get.index}{\code{\link{get_RLum}}: \link{logical} (\emph{optional}):
-return a numeric vector with the index of each element in the RLum.Analysis object.}
-
-\item{drop}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
-coerce to the next possible layer (which are \code{RLum.Data}-objects),
-\code{drop = FALSE} keeps the original \code{RLum.Analysis}}
-
-\item{recursive}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
-if \code{TRUE} (default) when the result of the \code{get_RLum()} request is a single
-object, the object itself will be returned directly, rather than being
-wrapped in a list. Mostly this makes things easier, but this might be
-undesired if this method is used within a loop.}
-
-\item{info.object}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
-name of the wanted info element}
-
-\item{subset}{\code{\link{get_RLum}}: \link{expression} (\emph{optional}):
-logical expression indicating elements or rows to keep: missing values are
-taken as false. This argument takes precedence over all other arguments,
-meaning they are not considered when subsetting the object.}
-
-\item{env}{\code{\link{get_RLum}}: \link{environment} (\emph{with default}):
-An environment passed to \link{eval} as the enclosure. This argument is only
-relevant when subsetting the object and should not be used manually.}
-
-\item{...}{other arguments that might be passed}
-
-\item{fullExtent}{\link{structure_RLum}; \link{logical} (\emph{with default}):
-extends the returned \code{data.frame} to its full extent, i.e. all info elements
-are part of the return as well. The default value is \code{FALSE} as the data
-frame might become rather big.}
-
-\item{info_element}{\link{character} (\emph{optional}): names of the \code{info} field
-to use in sorting. The order of the names sets the sorting priority.
-Regardless of available info elements, the following
-elements always exist because they are calculated from the record
-\code{XY_LENGTH}, \code{NCOL}, \code{X_MIN}, \code{X_MAX}, \code{Y_MIN}, \code{Y_MAX}}
-
-\item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field. If \code{NULL} the elements named in \code{info_element}
-will be removed.}
-
-\item{slot}{\link{character} (\emph{optional}): slot name to use in sorting.}
-
-\item{decreasing}{\link{logical} (\emph{with default}): whether the sort order should
-be decreasing (\code{FALSE} by default). It can be provided as a vector to control
-the ordering sequence for each sorting element.}
-}
-\value{
-\strong{\code{get_RLum}}:
-
-Returns:
-\enumerate{
-\item \link{list} of \linkS4class{RLum.Data} objects or
-\item Single \linkS4class{RLum.Data} object, if only one object is contained and \code{recursive = FALSE} or
-\item \linkS4class{RLum.Analysis} objects for \code{drop = FALSE}
-}
-
-\linkS4class{RLum.Analysis}; can be empty.
-
-\strong{\code{structure_RLum}}:
-
-Returns \linkS4class{data.frame} showing the structure.
-
-\strong{\code{length_RLum}}
-
-Returns the number records in this object.
-
-\strong{\code{names_RLum}}
-
-Returns the names of the record types (\code{recordType}) in this object.
-
-\strong{\code{smooth_RLum}}
-
-Same object as input, after smoothing
-
-\strong{\code{sort_RLum}}
-
-Same object as input, but sorted according to the specified parameters.
-
-\strong{\code{melt_RLum}}
-
-Flat \link{data.frame} with \code{X}, \code{Y}, \code{TYPE}, \code{UID}
-}
 \description{
 Object class to represent analysis data for protocol analysis, i.e. all curves,
 spectra etc. from one measurements. Objects from this class are produced,
 by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{show(RLum.Analysis)}: Show structure of \code{RLum.Analysis} object
-
-\item \code{set_RLum(RLum.Analysis)}: Construction method for \linkS4class{RLum.Analysis} objects.
-
-\item \code{get_RLum(RLum.Analysis)}: Accessor method for RLum.Analysis object.
-
-The slots record.id, \verb{@recordType}, \verb{@curveType} and \verb{@RLum.type} are optional to allow for records
-limited by their id (list index number), their record type (e.g. \code{recordType = "OSL"})
-or object type.
-
-Example: curve type (e.g. \code{curveType = "predefined"} or \code{curveType ="measured"})
-
-The selection of a specific RLum.type object superimposes the default selection.
-Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
-
-\item \code{remove_RLum(RLum.Analysis)}: Method to remove records from an \linkS4class{RLum.Analysis} object.
-
-\item \code{structure_RLum(RLum.Analysis)}: Method to show the structure of an \linkS4class{RLum.Analysis} object.
-
-\item \code{length_RLum(RLum.Analysis)}: Returns the length of the object, i.e., number of stored records.
-
-\item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects (same as shown with the
-\code{show} method)
-
-\item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects
-
-\item \code{rename_metadata(RLum.Analysis) <- value}: Renames a metadata entry of \linkS4class{RLum.Analysis} objects
-
-\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces or removes metadata of \linkS4class{RLum.Analysis} objects
-
-\item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
-using the internal function \code{.smoothing}.
-
-\item \code{sort_RLum(RLum.Analysis)}: Sorting of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object.
-At least one of \code{slot} and \code{info_element} must be provided. If both are
-given, ordering by \code{slot} always takes priority over \code{info_element}.
-Only the first element in each \code{slot} and each \code{info_element} is used
-for sorting. Example: \code{.pid} can contain multiple values, however, only the
-first is taken.
-
-Please note that the \code{show()} method does some structuring, which may
-lead to the impression that the sorting did not work.
-
-\item \code{melt_RLum(RLum.Analysis)}: Melts \linkS4class{RLum.Analysis} objects into a flat data.frame to be used
-in combination with other packages such as \code{ggplot2}.
-
-\item \code{view(RLum.Analysis)}: View method for \linkS4class{RLum.Analysis} objects
-
-}}
 \section{Slots}{
 
 \describe{
@@ -275,12 +32,13 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 
 \examples{
 
+## show method
 showClass("RLum.Analysis")
 
-##set empty object
+##set an empty object
 set_RLum(class = "RLum.Analysis")
 
-###use example data
+## use example data
 ##load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
@@ -290,10 +48,15 @@ get_RLum(IRSAR.RF.Data)
 ##show only the first object, but by keeping the object
 get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 
-## **sort_RLum()** ##
-data(ExampleData.XSYG, envir = environment())
-sar <- OSL.SARMeasurement$Sequence.Object[1:5]
-sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
+## subsetting with SAR sample data
+data(ExampleData.BINfileData, envir = environment())
+sar <- object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+
+## get
+get_RLum(sar, subset = "NPOINTS == 250")
+
+## remove
+remove_RLum(sar, subset = "NPOINTS == 250")
 
 }
 \seealso{
@@ -304,5 +67,4 @@ sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{classes}
-\keyword{internal}
 \keyword{methods}

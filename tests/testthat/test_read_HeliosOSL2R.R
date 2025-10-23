@@ -44,4 +44,8 @@ test_that("Test functionality", {
       type = "list")
   })
   expect_length(t,2)
+
+  ## all list elements skipped
+  expect_message(expect_null(read_HeliosOSL2R(list("error"), verbose = FALSE)),
+                 "record skipped")
 })

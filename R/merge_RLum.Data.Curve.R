@@ -113,7 +113,6 @@
 #' TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.method = "/")
 #' plot_RLum(TL.curve.merged)
 #'
-#' @md
 #' @export
 merge_RLum.Data.Curve<- function(
   object,
@@ -128,7 +127,6 @@ merge_RLum.Data.Curve<- function(
   .validate_class(object, "list")
 
   ##(1) check if object is of class RLum.Data.Curve
-  num.objects <- length(object)
   temp.recordType.test <- sapply(object, function(x) {
     .validate_class(x, "RLum.Data.Curve",
                     name = "All elements of 'object'")
@@ -153,7 +151,7 @@ merge_RLum.Data.Curve<- function(
   ##(1) build new data matrix
   ## first find the shortest object
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
-  if (length(check.rows) < 2) {
+  if (length(check.rows) < 1 || min(check.rows) < 2) {
     .throw_error("'object' contains no data")
   }
   num.rows <- min(check.rows)
@@ -163,12 +161,12 @@ merge_RLum.Data.Curve<- function(
   step <- round(diff(object[[1]]@data[, 1]), 1)[1]
 
   ## extract the curve values from each object
-  temp.matrix <- sapply(1:num.objects, function(x) {
+  temp.matrix <- sapply(object, function(x) {
     ## check the resolution (roughly)
-    if (round(diff(object[[x]]@data[, 1]), 1)[1] != step)
+    if (round(diff(x@data[, 1]), 1)[1] != step)
       .throw_warning("The objects do not seem to have the same channel resolution!")
     ## limit all objects to the shortest one
-    object[[x]]@data[1:num.rows, 2]
+    x@data[1:num.rows, 2]
   })
 
   ## throw the warning only now to avoid printing it in case of error
@@ -203,23 +201,13 @@ merge_RLum.Data.Curve<- function(
     temp.matrix <- sapply(temp.matrix, c)
 
   }else if(merge.method == "-"){
-    if (num.objects > 2) {
-      temp.matrix  <- temp.matrix[,1] - rowSums(temp.matrix[,-1])
-    }else{
-      temp.matrix <-  temp.matrix[,1] - temp.matrix[,2]
-    }
+    temp.matrix <- temp.matrix[, 1] - rowSums(temp.matrix[, -1, drop = FALSE])
+
   }else if(merge.method == "*"){
-    if (num.objects > 2) {
-      temp.matrix  <- temp.matrix[,1] * rowSums(temp.matrix[,-1])
-    }else{
-      temp.matrix <-  temp.matrix[,1] * temp.matrix[,2]
-    }
+    temp.matrix <- temp.matrix[, 1] * rowSums(temp.matrix[, -1, drop = FALSE])
+
   }else if(merge.method == "/"){
-    if (num.objects > 2) {
-      temp.matrix  <- temp.matrix[,1] / rowSums(temp.matrix[,-1])
-    }else{
-      temp.matrix <-  temp.matrix[,1] / temp.matrix[,2]
-    }
+    temp.matrix <- temp.matrix[, 1] / rowSums(temp.matrix[, -1, drop = FALSE])
 
     ## replace infinities with 0 and throw warning
     id.inf <- which(is.infinite(temp.matrix) == TRUE)
@@ -243,6 +231,9 @@ merge_RLum.Data.Curve<- function(
     temp.matrix <- cbind(object[[1]]@data[1:num.rows, 1], temp.matrix)
   }
 
+  ## remove spurious column names added by cbind()
+  temp.matrix <- unname(temp.matrix)
+
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ##merge info objects as simple as possible ... just keep them all ... other possibility
   ##would be to choose on the input objects
@@ -250,27 +241,19 @@ merge_RLum.Data.Curve<- function(
   ##unlist is needed here, as otherwise it would cause unexpected behaviour further using
   ##the RLum.object
   if(missing(method.info)){
-    temp.info <- unlist(lapply(1:num.objects, function(x) {
-      object[[x]]@info
-
-    }), recursive = FALSE)
-
+    temp.info <- unlist(lapply(object, function(x) x@info), recursive = FALSE)
   }else{
     temp.info <- object[[method.info]]@info
   }
 
   ## Build new RLum.Data.Curve object ---------------------------------------
-  temp.new.Data.Curve <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Curve",
     originator = "merge_RLum.Data.Curve",
     recordType = object[[1]]@recordType,
     curveType =  "merged",
     data = temp.matrix,
     info = temp.info,
-    .pid = unlist(lapply(object, function(x) {
-      x@.uid
-    }))
+    .pid = unlist(lapply(object, function(x) x@.uid))
   )
-
-  return(temp.new.Data.Curve)
 }

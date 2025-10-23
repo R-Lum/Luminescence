@@ -1,3 +1,6 @@
+## load data
+data(ExampleData.DeValues, envir = environment())
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -6,13 +9,12 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(calc_FuchsLang2001(data.frame()),
                "'data' cannot be an empty data.frame")
+  expect_error(calc_FuchsLang2001(iris[, 1, drop = FALSE]),
+               "'data' should have 2 columns")
 })
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-
-  ##load example data
-  data(ExampleData.DeValues, envir = environment())
 
   ##the simple and silent run
   temp <- expect_s4_class(
@@ -49,4 +51,19 @@ test_that("check class and length of output", {
 
     ), "RLum.Results")
   })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 818
+  expect_silent(calc_FuchsLang2001(data.frame(ED = c(rep(0, 4), 10),
+                                              ED_Error = rnorm(5) + 1),
+                                   verbose = FALSE))
+
+  ## issue 917
+  expect_output(calc_FuchsLang2001(data.frame(ED = NA,
+                                              ED_Error = rnorm(5) + 1),
+                                   verbose = FALSE),
+                "need finite 'xlim' values")
 })

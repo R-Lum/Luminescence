@@ -7,6 +7,8 @@ test_that("input validation", {
                "'object' cannot be an empty data.frame")
   expect_error(convert_Wavelength2Energy(matrix()),
                "'object' should have at least two columns")
+  expect_error(convert_Wavelength2Energy(list(iris)),
+               "'object' should have only numeric fields")
   expect_error(convert_Wavelength2Energy(set_RLum("RLum.Data.Spectrum")),
                "'object' contains no data")
 })
@@ -38,6 +40,8 @@ test_that("check functionality", {
   expect_s3_class(convert_Wavelength2Energy(as.data.frame(data)), class = "data.frame")
   object <- set_RLum(class = "RLum.Data.Spectrum", data = data[,1,drop = FALSE])
   expect_s4_class(convert_Wavelength2Energy(object), class = "RLum.Data.Spectrum")
+  expect_type(convert_Wavelength2Energy(matrix(rnorm(5), 1, 5)),
+              "double")
 
   ##test the list option
   expect_type(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), "list")
@@ -50,7 +54,8 @@ test_that("check functionality", {
 
   ##test special treatment of RLum.Data.Spectrum objects
   object@info[["curveDescripter"]] <- "energy"
-  expect_message(convert_Wavelength2Energy(object), regexp = "Your object has already an energy scale, nothing done!")
+  expect_message(convert_Wavelength2Energy(object),
+                 "'object' has already an energy scale, nothing done")
   object@info[["curveDescripter"]] <- "wavelength"
   res <- convert_Wavelength2Energy(object)
   expect_equal(res@info[["curveDescripter"]],

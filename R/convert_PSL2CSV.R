@@ -50,7 +50,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 convert_PSL2CSV <- function(
   file,

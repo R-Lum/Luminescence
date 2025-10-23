@@ -6,7 +6,7 @@
 # Reference: https://docs.github.com/v3/
 #  ------------------------------------------------------------------------
 
-#' GitHub API
+#' GitHub API - Deprecated
 #'
 #' R Interface to the GitHub API v3.
 #'
@@ -44,7 +44,6 @@
 #' github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 #' }
 #'
-#' @md
 #' @name GitHub-API
 NULL
 
@@ -64,17 +63,28 @@ NULL
 #'  `[ ,4]` \tab MESSAGE \cr
 #' }
 #'
-#' @md
 #' @export
 github_commits <- function(user = "r-lum", repo = "luminescence",
                            branch = "master", n = 5) {
   .set_function_name("github_commits")
   on.exit(.unset_function_name(), add = TRUE)
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
+
+  ## input validation
+  .validate_class(user, "character")
+  .validate_length(user, 1)
+  .validate_class(repo, "character")
+  .validate_length(repo, 1)
+  .validate_class(branch, "character")
+  .validate_length(branch, 1)
+  .validate_positive_scalar(n, int = TRUE)
 
   # fetch available branches and check if provided branch exists
   branches <- github_branches(user, repo)
+  # nocov start
   if (!any(grepl(branch, branches$BRANCH)))
     .throw_error("Branch '", branch, "' does not exist")
+  # nocov end
 
   # build URL and retrieve content
   sha <- branches$SHA[grep(paste0("^", branch, "$"), branches$BRANCH)]
@@ -112,11 +122,11 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #'  `[ ,3]` \tab INSTALL \cr
 #' }
 #'
-#' @md
 #' @export
 github_branches <- function(user = "r-lum", repo = "luminescence") {
   .set_function_name("github_branches")
   on.exit(.unset_function_name(), add = TRUE)
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
   .validate_class(user, "character")
   .validate_length(user, 1)
@@ -132,14 +142,12 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
   sha <- sapply(content, function(x) x$commit$sha)
 
   # format output as data.frame
-  output <- data.frame(
+  data.frame(
     BRANCH = branches,
     SHA = sha,
     INSTALL = paste0("devtools::install_github('r-lum/luminescence@", branches, "')"),
     stringsAsFactors = FALSE
   )
-
-  return(output)
 }
 
 
@@ -164,11 +172,11 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #'  `[[8]]` \tab STATUS \cr
 #' }
 #'
-#' @md
 #' @export
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
   .set_function_name("github_issues")
   on.exit(.unset_function_name(), add = TRUE)
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
   .validate_class(user, "character")
   .validate_length(user, 1)
@@ -196,7 +204,7 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
   # custom printing of the issues list, as print.list produces unreadable
   # console output
   if (verbose) {
-    tmp <- lapply(issues, function(x) {
+    lapply(issues, function(x) {
 
       # limit width of description text
       DESCRIPTION <- ""
@@ -228,12 +236,12 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
 # This function queries the URL, checks the server response and returns
 # the content.
 .github_getContent <- function(url) {
-  response <- httr::GET(url, httr::accept_json())
+  response <- tryCatch(httr::GET(url, httr::accept_json()),
+                       error = function(e) .throw_error(e$message))
   # nocov start
   if (httr::status_code(response) != 200)
     .throw_error("Contacting ", url, " returned status code ",
                  httr::status_code(response))
   # nocov end
-  content <- httr::content(response)
-  return(content)
+  httr::content(response)
 }

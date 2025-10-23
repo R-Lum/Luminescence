@@ -1,11 +1,13 @@
 #'@title Luminescence Emission Spectra Deconvolution
 #'
-#'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
-#'on an **energy scale**. The function is optimised for emission spectra typically
-#'obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
-#'The function is not prepared to deconvolve TL curves (counts against temperature;
-#'no wavelength scale). If you are interested in such analysis, please check, e.g.,
-#'the package `'tgcd'`.
+#' @description
+#' This function performs a luminescence spectra deconvolution on
+#' [RLum.Data.Spectrum-class] and [matrix] objects on an **energy scale**.
+#' The function is optimised for emission spectra typically obtained in the
+#' context of TL, OSL and RF  measurements detected between 200 and 1000 nm.
+#' The function is not designed to deconvolve TL curves (counts against
+#' temperature; no wavelength scale). If you are interested in such analysis,
+#' please check, e.g., package `'tgcd'`.
 #'
 #'@details
 #'
@@ -135,7 +137,7 @@
 #' parameter estimation. The grey band in the residual plot indicates the
 #' 10% deviation from 0 (means no residual).
 #'
-#'@section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -173,7 +175,6 @@
 #'
 #'}
 #'
-#'@md
 #'@export
 fit_EmissionSpectra <- function(
   object,
@@ -195,9 +196,8 @@ fit_EmissionSpectra <- function(
   ## create a list of data treat, frame controls the number of frames analysed
 
   .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
-  if (!is.null(n_components)) {
-    .validate_positive_scalar(n_components, int = TRUE)
-  }
+  .validate_class(frame, c("integer", "numeric"), null.ok = TRUE)
+  .validate_positive_scalar(n_components, int = TRUE, null.ok = TRUE)
   input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
                                 null.ok = TRUE)
   .validate_class(method_control, "list")
@@ -228,7 +228,6 @@ fit_EmissionSpectra <- function(
         frame <- 1:ncol(o@data)
 
       }else{
-        .validate_class(frame, c("integer", "numeric"), extra = "NULL")
         if(max(frame) > ncol(o@data)|| min(frame) < 1){
           .throw_error("Invalid 'frame', allowed values range from 1 to ",
                        ncol(o@data))
@@ -257,9 +256,7 @@ fit_EmissionSpectra <- function(
     ##set frame
     if(is.null(frame)){
       frame <- 1:(ncol(object) - 1)
-
     }else{
-      .validate_class(frame, c("integer", "numeric"), extra = "NULL")
       if(max(frame) > (ncol(object)-1) || min(frame) < 1){
         .throw_error("Invalid 'frame', allowed values range from 1 to ",
                      ncol(object) - 1)
@@ -318,7 +315,7 @@ fit_EmissionSpectra <- function(
   }
 
   ##extract matrix for everything below
-  m <- object[,1:2]
+  m <- object[, 1:2, drop = FALSE]
 
   ##replace all negative values
   if(!is.null(sub_negative))
@@ -384,7 +381,7 @@ fit_EmissionSpectra <- function(
   # set data.frame ------------------------------------------------------------------------------
   df <- data.frame(x = m[,1], y = m[,2]) ##normalise values, it is just easier
 
-  if(method_control$norm[1])
+  if (method_control$norm[1] && max(m[, 2]) > 0)
     df[["y"]] <- df[["y"]]/max(m[,2]) ##normalise values, it is just easier
 
   ## check graining parameter
@@ -492,7 +489,7 @@ fit_EmissionSpectra <- function(
 
   ## Extract values of components -------------------------------------------
   m_coef <- NA
-  if(!is.na(fit[1]) && is(fit, "nls")){
+  if (!is.na(fit[1]) && inherits(fit, "nls")) {
     ##extract values we need only
     m_coef <- summary(fit)$coefficients
     m_coef <- matrix(
@@ -536,6 +533,8 @@ fit_EmissionSpectra <- function(
   if(plot){
     ##get colour values
     col <- get("col", pos = .LuminescenceEnv)[-1]
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     ##plot settings
     plot_settings <- modifyList(x = list(
@@ -549,21 +548,13 @@ fit_EmissionSpectra <- function(
       legend = TRUE,
       legend.pos = "topright",
       legend.text = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " eV"))
-
     ), val = list(...))
 
     if (!is.na(fit[1]) && !inherits(fit, "try-error")) {
-    ##make sure that the screen closes if something is wrong
-    on.exit(graphics::close.screen(n = c(1,2)), add = TRUE)
-
-    ##set split screen settings
-    graphics::split.screen(rbind(
-      c(0.1,1,0.32, 0.98),
-      c(0.1,1,0.1, 0.315)))
+      graphics::layout(matrix(c(1, 2), 2, 1), height = c(0.7, 0.3))
 
     ##SCREEN 1 ----------
-    graphics::screen(1)
-    par(mar = c(0, 4, 3, 4))
+    par(mar = c(0, 4.5, 3, 2))
     plot(
       df,
       pch = 20,
@@ -623,8 +614,7 @@ fit_EmissionSpectra <- function(
     }
 
     ## SCREEN 2 -----
-    graphics::screen(2)
-    par(mar = c(4, 4, 0, 4))
+    par(mar = c(5, 4.5, 0, 2))
     plot(NA, NA,
       ylim = range(residuals(fit)),
       xlab = plot_settings$xlab,
@@ -633,6 +623,7 @@ fit_EmissionSpectra <- function(
       yaxt = "n",
       xlim = plot_settings$xlim,
       ylab = "",
+      xpd = NA,
       col = rgb(0,0,0,.6),
       log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
     )
@@ -689,7 +680,7 @@ fit_EmissionSpectra <- function(
   if (!method_control$export.plot.data) {
     df_plot <- NA
   }
-  results <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(data = m_coef,
                 fit = fit,
@@ -702,7 +693,4 @@ fit_EmissionSpectra <- function(
                 ),
     info = list(call = sys.call())
   )
-
-  ##return
-  return(results)
 }

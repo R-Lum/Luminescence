@@ -69,10 +69,10 @@ test_that("check functionality", {
   expect_null(suppressWarnings(verify_SingleGrainData(t, cleanup = TRUE, threshold = 20000)))
 
   ## Risoe.BINfileData
-  res <- expect_silent(verify_SingleGrainData(CWOSL.SAR.Data))
+  res <- expect_silent(verify_SingleGrainData(CWOSL.SAR.Data, plot = TRUE))
   expect_s4_class(res, "RLum.Results")
 
-  res <- expect_output(verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
+  expect_output(res <- verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
                                               cleanup_level = "curve"),
                        "Risoe.BINfileData object reduced to records")
   expect_s4_class(res, "Risoe.BINfileData")
@@ -102,15 +102,26 @@ test_that("check functionality", {
   expect_length(res@records, 0)
   expect_equal(res@originator, "verify_SingleGrainData")
 
-  ##check options
-  expect_silent(suppressWarnings(verify_SingleGrainData(object, plot = TRUE)))
-  expect_silent(suppressWarnings(verify_SingleGrainData(object, threshold = 100)))
-  expect_silent(suppressWarnings(verify_SingleGrainData(object, verbose = FALSE)))
-  expect_silent(suppressWarnings(verify_SingleGrainData(object, cleanup = TRUE)))
-  expect_silent(verify_SingleGrainData(object, cleanup_level = "curve"))
-  expect_silent(suppressWarnings(verify_SingleGrainData(list(object), cleanup = TRUE)))
+  ## list
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object))))
+})
 
-  ## use fft option
-  expect_silent(suppressWarnings(verify_SingleGrainData(list(object), use_fft = TRUE)))
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              verify_SingleGrainData(object,
+                                                     plot = TRUE))
+  })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 740
+  object@records[[1]]@info$position <- "123"
+  expect_s4_class(verify_SingleGrainData(object),
+                  "RLum.Results")
 })

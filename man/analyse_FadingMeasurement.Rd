@@ -36,8 +36,7 @@ one (comparable) sample. If you have to treat independent samples, you have use 
 in a loop.}}
 
 \item{structure}{\link{character} (\emph{with default}):
-sets the structure of the measurement data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}.
-Other input is ignored}
+the structure of the measurement data, one of \code{'Lx'} or \code{c('Lx','Tx')}.}
 
 \item{signal.integral}{\link{vector} (\strong{required}): vector with channels for the signal integral
 (e.g., \code{c(1:10)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
@@ -156,7 +155,7 @@ aliquot by its individual prompt measurement please do so \strong{before} runnin
 
 \strong{Shine-down curve plots}
 Please note that the shine-down curve plots are for information only. As such
-not all pause steps are plotted to avoid graphically overloaded plots.
+a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{

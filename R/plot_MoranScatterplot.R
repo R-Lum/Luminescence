@@ -50,7 +50,6 @@
 #' A novel tool to assess crosstalk in single-grain luminescence detection.
 #' Submitted.
 #'
-#' @md
 #' @export
 plot_MoranScatterplot <- function(
     object,
@@ -71,12 +70,11 @@ plot_MoranScatterplot <- function(
   }
   .validate_length(vn_values, 100, name = "'object'")
 
+  .validate_class(df_neighbours, "data.frame", null.ok = TRUE)
   if (is.null(df_neighbours)) {
     df_neighbours <- .get_Neighbours(object)
-  } else {
-    .validate_class(df_neighbours, "data.frame")
-    if (ncol(df_neighbours) != 3)
-      .throw_error("'df_neighbours' should be a data frame with 3 columns")
+  } else if (ncol(df_neighbours) != 3) {
+    .throw_error("'df_neighbours' should be a data frame with 3 columns")
   }
 
   .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))

@@ -14,8 +14,6 @@
 #'
 #' @slot .RESERVED Object of class "list" containing list of undocumented raw values for internal use only.
 #'
-#' @keywords class
-#'
 #' @note
 #'
 #' **Internal METADATA - object structure**
@@ -107,10 +105,10 @@
 #' `[,79]` \tab `EXTR_END` \tab `numeric` \tab 08 \tab usage unknown\cr
 #' `[,80]` \tab `SEQUENCE` \tab `character` \tab 03-04 \tab Sequence name
 #' }
-#' V = BIN-file version (RLum means that it does not depend on a specific BIN version)
+#' V = BIN-file version (RLum means that it does not depend on a specific BIN-file version)
 #'
 #' Note that the `Risoe.BINfileData` object combines all values from
-#' different versions from the BIN-file, reserved bits are skipped, however,
+#' different versions from the BIN/BINX-file, reserved bits are skipped, however,
 #' the function [write_R2BIN] reset arbitrary reserved bits. Invalid
 #' values for a specific version are set to `NA`. Furthermore, the
 #' internal R data types do not necessarily match the required data types for
@@ -169,7 +167,18 @@
 #' contain two different values:
 #'
 #' 1. `DPOINTS` (standard for `RECTYPE` := (0,1)): is a vector with the length defined
-#' through `NPOINTS`. This is the standard for xy-curves since version 03.
+#' through `NPOINTS`. This is the standard for xy-curves since version 03. However,
+#' recorded are only y-values and x-values are calculated during import using
+#' information from, amongst others, `LOW` and `HIGH`. For instance, a simple TL curve
+#' would store `LOW = 0` and `HIGH = 400`. This is then becomes the range for the
+#' temperature values. All values in between are interpolated with a length
+#' matching the number of corresponding values stored in `DPOINTS`.
+#'
+#' *Note: The Sequence Editor uses 0 deg. C as the lowest temperature, although
+#' this temperature is usually not available in a laboratory. This, however, does not
+#' mean that the calculated TL curves are invalid, as the heater would only
+#' start the temperature ramp if the ambient temperature is lower than
+#' the target temperature.*
 #'
 #' 2. `DPOINTS` (`RECTYPE` := 128) is contains no count values but information about
 #' the definition of the regions of interest (ROI). Each definition is 504 bytes long.
@@ -213,7 +222,6 @@
 #'
 #' showClass("Risoe.BINfileData")
 #'
-#' @md
 #' @export
 setClass("Risoe.BINfileData",
          slots = list(
@@ -311,11 +319,10 @@ setClass("Risoe.BINfileData",
          )
 
 
-# show method --------
-#' @describeIn Risoe.BINfileData
-#' Show structure of RLum and Risoe.BINfile class objects
+## show method --------------------------------------------------------------
+#' @describeIn show
+#' Show the structure of `Risoe.BINfileData` objects.
 #'
-#' @md
 #' @export
 setMethod(f = "show",
           signature = signature(object = "Risoe.BINfileData"),
@@ -370,6 +377,7 @@ setMethod(f = "show",
                   cat("\n\tGrain range:         ", grain.range[1],":",grain.range[2])
 
               cat("\n\tRun range:           ", run.range[1],":",run.range[2])
+              cat("\n\tSet range:           ", set.range[1], ":", set.range[2])
 
               ## if id_128
               if(any(!id_128))
@@ -385,10 +393,11 @@ setMethod(f = "show",
           )#end setMethod
 
 
-# set method for object class -----------------------------------
+## set method for object class ----------------------------------------------
 #' @describeIn Risoe.BINfileData
-#' The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
-#' This construction method is intended for internal usage only.
+#' A [Risoe.BINfileData-class] object is normally produced as output of the
+#' function [read_BIN2R]. This construction method is intended for internal
+#' usage only.
 #'
 #' @param METADATA Object of class "data.frame" containing the meta information
 #' for each curve.
@@ -398,7 +407,6 @@ setMethod(f = "show",
 #' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
 #'
-#' @md
 #' @export
 setMethod(f = "set_Risoe.BINfileData",
           signature = signature("ANY"),
@@ -421,40 +429,10 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
-# get () -----------------------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Formal get-method for Risoe.BINfileData object. It does not allow accessing
-#' the object directly, it is just showing a terminal message.
-#'
-#' @param object an object of class [Risoe.BINfileData-class]
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @md
-#' @export
-setMethod("get_Risoe.BINfileData",
-          signature= "Risoe.BINfileData",
-          definition = function(object, ...) {
-
-            cat("[get_Risoe.BINfileData()] No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
-          }
-)
-
 ## add_metadata() -----------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Adds metadata to [Risoe.BINfileData-class] objects
+#' @describeIn metadata
+#' Adds metadata to [Risoe.BINfileData-class] objects.
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to add
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("add_metadata<-",
           signature= "Risoe.BINfileData",
@@ -463,13 +441,15 @@ setMethod("add_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- colnames(object@METADATA)
             if (info_element %in% valid.names) {
               .throw_error("'info_element' already present, to modify it ",
                            "you should use `replace_metadata()`")
+            }
+            if (is.null(value)) {
+              .throw_error("Cannot store a metadata entry with NULL value")
             }
 
             ## add the metadata element
@@ -478,20 +458,9 @@ setMethod("add_metadata<-",
           })
 
 ## rename_metadata() --------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Renames a metadata entry of [Risoe.BINfileData-class] objects
+#' @describeIn metadata
+#' Renames a metadata entry of [Risoe.BINfileData-class] objects.
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to rename.
-#'
-#' @param value (**required**) The value assigned to the selected element
-#' of the metadata field.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("rename_metadata<-",
           signature= "Risoe.BINfileData",
@@ -500,7 +469,6 @@ setMethod("rename_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- colnames(object@METADATA)
@@ -508,6 +476,10 @@ setMethod("rename_metadata<-",
               .throw_error("'info_element' not recognised (",
                            .collapse(info_element), "), valid terms are: ",
                            .collapse(valid.names, quote = FALSE))
+            }
+            if (is.null(value)) {
+              .throw_error("Cannot rename a metadata entry to NULL, ",
+                           "to remove it you should use `replace_metadata()`")
             }
 
             ## rename the metadata element
@@ -517,24 +489,9 @@ setMethod("rename_metadata<-",
           })
 
 ## replace_metadata() -------------------------------------------------------
-#' @describeIn Risoe.BINfileData
-#' Replaces or removes metadata of [Risoe.BINfileData-class] objects
+#' @describeIn metadata
+#' Replaces or removes metadata of [Risoe.BINfileData-class] objects.
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to replace or remove
-#'
-#' @param subset [expression] (*optional*) logical expression to limit the
-#' substitution only to the selected subset of elements
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field. If `NULL` the elements named in `info_element`
-#' will be removed.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("replace_metadata<-",
           signature= "Risoe.BINfileData",
@@ -543,7 +500,6 @@ setMethod("replace_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             valid.names <- colnames(object@METADATA)
             not.found <- setdiff(info_element, valid.names)
@@ -597,24 +553,10 @@ setMethod("replace_metadata<-",
           })
 
 
-## sort_RLum () -------------------------------------------------------------
-#' @describeIn Risoe.BINfileData
+## sort_RLum() --------------------------------------------------------------
+#' @describeIn sort_RLum
+#' Sort method for [Risoe.BINfileData-class] objects.
 #'
-#' Sort method for [Risoe.BINfileData-class] objects
-#'
-#' @param object (**required**): an object of class [Risoe.BINfileData-class].
-#'
-#' @param info_element [character] (**required**): name of the metadata field
-#' to use in sorting.
-#'
-#' @param decreasing [logical] (*with default*): whether the sort order should
-#' be decreasing (`FALSE` by default).
-#'
-#' @param ... further arguments that might be passed to underlying methods.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod(
   f = "sort_RLum",
@@ -649,17 +591,10 @@ setMethod(
 )
 
 
-# view () -----------------------------------------------------------------------
-#'@describeIn Risoe.BINfileData
-#'View method for [Risoe.BINfileData-class] objects
+## view() -------------------------------------------------------------------
+#' @describeIn view
+#' View method for [Risoe.BINfileData-class] objects.
 #'
-#' @param object (**required**) an object of class [Risoe.BINfileData-class]
-#'
-#'@param ... other arguments that might be passed
-#'
-#'@keywords internal
-#'
-#'@md
 #'@export
 setMethod("view",
           signature= "Risoe.BINfileData",

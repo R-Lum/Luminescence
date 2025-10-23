@@ -2,27 +2,27 @@
 % Please edit documentation in R/merge_RLum.R
 \name{merge_RLum}
 \alias{merge_RLum}
-\title{General merge function for RLum S4 class objects}
+\title{General merge function for RLum-class objects}
 \usage{
 merge_RLum(objects, ...)
 }
 \arguments{
 \item{objects}{\link{list} of \linkS4class{RLum} (\strong{required}):
-list of S4 object of class \code{RLum}}
+list of S4 object of class \code{RLum}.}
 
 \item{...}{further arguments that one might want to pass to the specific merge function}
 }
 \value{
-Return is the same as input objects as provided in the list.
+Returns an \linkS4class{RLum.Analysis} object of class if any of the inputs is
+of that class. Otherwise, it returns an object of the same type as the
+input.
 }
 \description{
-Function calls object-specific merge functions for RLum S4 class objects.
-
 The function provides a generalised access point for merging specific
 \linkS4class{RLum} objects. Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
 found in the documentation of each merge function.
-Empty list elements (\code{NULL}) are automatically removed from the input \code{list}.
+Empty list elements (\code{NULL}) are automatically removed from the input list.
 
 \tabular{lll}{
 \strong{object} \tab \tab \strong{corresponding merge function} \cr
@@ -33,14 +33,13 @@ Empty list elements (\code{NULL}) are automatically removed from the input \code
 }
 }
 \note{
-So far not for every \code{RLum} object a merging function exists.
+So far merging of \linkS4class{RLum.Data.Image} objects is not supported.
 }
 \section{Function version}{
  0.1.3
 }
 
 \examples{
-
 
 ##Example based using data and from the calc_CentralDose() function
 
@@ -58,7 +57,7 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Curve},
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{

@@ -20,21 +20,19 @@
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Ignored if `plot_extended = FALSE`.
 #'
-#' @param cex.global [numeric] (*with default*):
-#' global scaling factor.
-#'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `legend`, `reg_points_pch`,
-#' `density_polygon` (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`)),
-#'  `box` (`TRUE`/`FALSE`)
+#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects
+#' fitted with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `leged.pos`,
+#' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
+#' `density_rug` (`TRUE`/`FALSE`), `box` (`TRUE`/`FALSE`).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.3
+#' @section Function version: 1.0.8
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -83,26 +81,25 @@
 #'  type = "l"
 #' )
 #'
-#' @md
 #' @export
 plot_DoseResponseCurve <- function(
   object,
   plot_extended = TRUE,
   plot_singlePanels = FALSE,
-  cex.global = 1,
   verbose = TRUE,
   ...
 ) {
   .set_function_name("plot_DoseResponseCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity checks -------------------------------------------------------
+  ## get Luminescence colours
+  col <- get("col", pos = .LuminescenceEnv)
 
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Results")
   .validate_logical_scalar(plot_extended)
   .validate_logical_scalar(plot_singlePanels)
   .validate_logical_scalar(verbose)
-  .validate_positive_scalar(cex.global)
 
   ## Fitting arguments ------------------------------------------------------
   fit.args <- object$Fit.Args
@@ -116,13 +113,12 @@ plot_DoseResponseCurve <- function(
   colnames(xy) <- c("x", "y")
   y.Error <- sample[first.idx:last.idx, 3]
 
-  De <- object@data$De$De.plot
+  De <- object@data$De$.De.plot
   x.natural <- na.exclude(object@data$De.MC)
   De.MonteCarlo <- mean(na.exclude(x.natural))
   De.Error <- sd(na.exclude(x.natural))
 
   ## Graphical arguments ----------------------------------------------------
-
   ymax <- max(xy$y) + if (max(xy$y) * 0.1 > 1.5) 1.5 else max(xy$y) * 0.2
   ylim <- if (mode == "extrapolation" || fit.args$fit.force_through_origin) {
             c(0 - max(y.Error), ymax)
@@ -147,19 +143,15 @@ plot_DoseResponseCurve <- function(
       ylim = ylim,
       xlim = xlim,
       cex = 1,
-      mtext = if (mode != "alternate") {
-          substitute(
-            D[e] == De,
-            list(De = paste(
-              round(
-                abs(De), digits = 2), "\u00B1",
-              format(De.Error, scientific = TRUE, digits = 2),
-              " | fit: ", fit.args$fit.method)))
-        } else {
-          ""
-        },
+      mtext = if (mode != "alternate")
+                substitute(D[e] == De,
+                           list(De = sprintf("%.2f \uB1 %.1e  |  fit: %s",
+                                             abs(De), De.Error, fit.args$fit.method)))
+              else "",
+      log = "",
       legend = TRUE,
-      reg_points_pch = c(19,2, 1),
+      legend.pos = if (mode == "interpolation") "topleft" else "bottomright",
+      reg_points_pch = c(19, 1, 2), # point, point 0, point repeated
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
       density_rug = TRUE,
@@ -168,23 +160,45 @@ plot_DoseResponseCurve <- function(
     keep.null = TRUE
   )
 
+  if (plot_settings$log != "") {
+    if (mode == "extrapolation") {
+      .throw_message("Logarithmic transformation not allowed on an object ",
+                     "fitted with mode = 'extrapolation', 'log' reset to ''")
+      plot_settings$log <- ""
+    } else {
+      ## if we want to apply a log-transform on x and the first time point
+      ## is 0, we shift the curves by one channel
+      if (grepl("x", plot_settings$log) && min(xy$x) == 0) {
+        xy$x[xy$x == 0] <- 1
+        plot_settings$xlim[1] <- min(xy$x)
+      }
+      if (grepl("y", plot_settings$log)) {
+        plot_settings$ylim[1] <- min(xy$y)
+      }
+    }
+  }
+
+  if (length(plot_settings$reg_points_pch) < 3) {
+    plot_settings$reg_points_pch <- c(19, 1, 2)
+    .throw_message("'reg_points_pch' should have length 3 (for point, point 0, ",
+                   "point repeated), 'reg_points_pch' reset to c(19, 1, 2)")
+  }
+
   ## Main plots -------------------------------------------------------------
 
-  ## set plot check
-  plot_check <- NULL
-
   ## open plot area
-  par(cex = cex.global)
 
   if (plot_extended && !plot_singlePanels) {
-    ## get graphic values
-    par_default <- par(no.readonly = TRUE)
-    on.exit(par(par_default), add = TRUE)
-
-    ## set new parameter
-    layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
-    par(cex = 0.8 * plot_settings$cex)
+    par.default <- .par_defaults()
+    graphics::layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
+    par(cex = 0.8 * plot_settings$cex, mar = c(3, 3, 3, 1), mgp = c(2, 1, 0))
+  } else {
+    ## only restore those we are changing, to avoid resetting all graphical
+    ## parameters if we were restoring also mfrow/mfcol, as that would affect
+    ## the plots generated by analyse_SAR.CWOSL() and analyse_pIRIRSequence()
+    par.default <- par(c("cex", "mar", "mgp"))
   }
+  on.exit(par(par.default), add = TRUE)
 
   #PLOT		#Plot input values
   ##Make selection to support manual number of reg points input
@@ -192,14 +206,21 @@ plot_DoseResponseCurve <- function(
       xy[1:fit.args$fit.NumberRegPointsReal, ],
       ylim = plot_settings$ylim,
       xlim = plot_settings$xlim,
-      pch = plot_settings$reg_points_pch,
+      log = plot_settings$log,
+      pch = plot_settings$reg_points_pch[1],
       xlab = plot_settings$xlab,
       ylab = plot_settings$ylab,
       frame.plot = plot_settings$box[1]
   ),
   silent = TRUE)
 
-  if (!is(plot_check, "try-error")) {
+  ## now that we have opened the plot, we can work out the coordinates of
+  ## the extremes, applying a log-transformation if necessary
+  par.usr <- par("usr")
+  if (grepl("x", plot_settings$log)) par.usr[1:2] <- 10^par.usr[1:2]
+  if (grepl("y", plot_settings$log)) par.usr[3:4] <- 10^par.usr[3:4]
+
+  if (!inherits(plot_check, "try-error")) {
     if (mode == "extrapolation") {
       abline(v = 0, lty = 1, col = "grey")
       abline(h = 0, lty = 1, col = "grey")
@@ -210,63 +231,57 @@ plot_DoseResponseCurve <- function(
 
     ## add curve
     if (inherits(object$Formula, "expression")) {
-      ## make sure that we always have a zero
-      x <- sort(c(0, seq(par()$usr[1], par()$usr[2], length.out = 100)))
+      ## make sure that we always have a zero: here we operate with the
+      ## original par("usr") values, so that in case of log-transformation
+      ## the points are still uniformly spaced (#845)
+      x <- sort(c(0, seq(par("usr")[1], par("usr")[2], length.out = 100)))
+      if (grepl("x", plot_settings$log))
+        x <- 10^x
+
       lines(x, eval(object$Formula))
     }
 
     ## natural value
     if (mode == "interpolation") {
-      points(sample[1, 1:2], col = "red", pch = plot_settings$reg_points_pch[1])
-      segments(sample[1, 1], sample[1, 2] - sample[1, 3],
-               sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
-
+      if(!plot_settings$density_polygon[1]) {
+        points(
+          x = sample[1, 1:2],
+          col = 2,
+          pch = plot_settings$reg_points_pch[1])
+        segments(sample[1, 1], sample[1, 2] - sample[1, 3],
+                 sample[1, 1], sample[1, 2] + sample[1, 3], col = col[2])
+      }
     } else if (mode == "extrapolation"){
       points(
         x = De,
         y = 0,
-        bg = "red",
+        bg = col[2],
         pch = 21,
         col = "black",
-        cex = 1.1 * cex.global)
+        cex = 1.1)
     }
 
     ## repeated Point
+    idx.rep <- which(duplicated(xy[, 1]))
     points(
-        x = xy[which(duplicated(xy[, 1])), 1],
-        y = xy[which(duplicated(xy[, 1])), 2],
-        pch = if(is.na(plot_settings$reg_points_pch[2]))
-                plot_settings$reg_points_pch[1]
-              else
-                plot_settings$reg_points_pch[2])
+        x = xy[idx.rep, 1],
+        y = xy[idx.rep, 2],
+        pch = plot_settings$reg_points_pch[3])
 
-    ## reg Point 0
-    points(
-        x = xy[which(xy == 0), 1],
-        y = xy[which(xy == 0), 2],
-        pch = if(is.na(plot_settings$reg_points_pch[3]))
-               plot_settings$reg_points_pch[1]
-              else
-               plot_settings$reg_points_pch[3],
-        cex = 1.5 * cex.global)
-
-    ## ARROWS	#y-error Bar
-    segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
-
-    ## LINES	#Insert Ln/Tn
+       ## LINES	#Insert Ln/Tn
     if (mode == "interpolation") {
       xmax <- if (is.na(De)) max(sample[, 1]) * 2 else De
       try(lines(
-          c(par()$usr[1], xmax),
+          c(par.usr[1], xmax),
           c(sample[1, 2], sample[1, 2]),
-          col = "red",
+          col = col[2],
           lty = 2,
           lwd = 1.25
       ), silent = TRUE)
       try(lines(
           c(De, De),
-          c(par()$usr[3], sample[1, 2]),
-          col = "red",
+          c(par.usr[3], sample[1, 2]),
+          col = col[2],
           lty = 2,
           lwd = 1.25), silent = TRUE)
       try({
@@ -275,86 +290,107 @@ plot_DoseResponseCurve <- function(
           y = sample[1, 2],
           col = "black",
           pch = 21,
-          bg = "red",
-          cex = 1.1 * cex.global)
+          bg = col[2],
+          cex = 1.1)
         },
         silent = TRUE)
-
 
       if (plot_settings$density_polygon[1] & length(x.natural) > 1 &&
           !all(is.na(x.natural))) {
           ##calculate density De.MC
-          density_De <- density(x.natural, na.rm = TRUE)
+          density_De <- stats::density(x.natural, na.rm = TRUE)
 
           ##calculate transformation function
-          x.1 <- max(density_De$y)
-          x.2 <- min(density_De$y)
-          y.1 <- c(sample[1, 2])/2
-          y.2 <- par("usr")[3]
+          density_De$y <- .rescale(
+            x = density_De$y,
+            range_old = c(max(density_De$y), min(density_De$y)),
+            range_new = c(sample[1, 2] / 2, par.usr[3]))
 
-          m <- (y.1 - y.2) / (x.1 + x.2)
-          n <- y.1 - m * x.1
-          density_De$y <- m * density_De$y + n
-
+          ## for De
+          ## we add two extra points to ensure that the base is not wonky (#847)
           polygon(
-            x = density_De$x,
-            y = density_De$y,
+            x = c(density_De$x, tail(density_De$x, 1), density_De$x[1]),
+            y = c(density_De$y, min(density_De$y), min(density_De$y)),
             col = plot_settings$density_polygon_col)
 
-          rm(x.1,x.2,y.1,y.2,m,n, density_De)
+          ## for LxTx
+          tmp_y <- seq(
+            sample[[2]][1] - 5 * sample[[3]][1],
+            sample[[2]][1] + 5 *  sample[[3]][1],
+            length.out = 100)
+
+          tmp_x <- dnorm(tmp_y, mean = sample[1, 2], sd = sample[1, 3])
+
+          tmp_x <-  .rescale(
+            x = tmp_x,
+            range_old = c(max(tmp_x), min(tmp_x)),
+            range_new = c(sample[[2]][1], par.usr[1]))
+
+          # draw polygon
+          polygon(
+            x = tmp_x,
+            y = tmp_y,
+            col = plot_settings$density_polygon_col)
+
+          rm(tmp_x, tmp_y, density_De)
       }
+
+      ## reg Point 0
+      idx.0 <- which(xy == 0)
+      points(
+        x = xy[idx.0, 1],
+        y = xy[idx.0, 2],
+        pch = plot_settings$reg_points_pch[2],
+        cex = 1.5)
+
+      ## y-error bar
+      segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
       if(plot_settings$density_rug[1])
         suppressWarnings(graphics::rug(x = x.natural, side = 3))
 
     } else if (mode == "extrapolation"){
       if (!is.na(De)) {
-        abline(v = De, lty = 2, col = "red")
-        lines(x = c(0,De), y = c(0,0), lty = 2, col = "red")
+        abline(v = De, lty = 2, col = col[2])
+        lines(x = c(0,De), y = c(0,0), lty = 2, col = col[2])
       }
     }
 
     ## insert fit and result
     try(mtext(side = 3,
               plot_settings$mtext,
-              line = 0,
-              cex = 0.8 * cex.global),
+              cex = 0.8 * par("cex")),
         silent = TRUE)
 
-    ## write error message in plot if De is NaN
-    try(if (is.nan(De)) {
+    ## write error message in plot if De is NaN or NA
+    try(if (is.na(De) & mode != "alternate") {
           text(sample[2, 1],
               0,
               "Error: De could not be calculated!",
               adj = c(0, 0),
               cex = 0.8,
-              col = "red"
+              col = col[2]
           )
         }, silent = TRUE)
 
     ## plot legend
     if(plot_settings$legend) {
-      if (mode == "interpolation") {
-        legend(
-            "topleft",
-            c("REG point", "REG point repeated", "REG point 0"),
-            pch = plot_settings$reg_points_pch,
-            cex = 0.8 * cex.global,
-            bty = "n")
-      } else {
-        legend(
-            "bottomright",
-            c("Dose point", "Dose point rep.", "Dose point 0"),
-            pch = plot_settings$reg_points_pch,
-            cex = 0.8 * cex.global,
-            bty = "n")
-      }
+      legend(
+          plot_settings$legend.pos,
+          legend = paste(ifelse(mode == "interpolation", "REG", "Dose"),
+                         c("point", "point 0", "point repeated")),
+          pch = plot_settings$reg_points_pch,
+          cex = 0.7,
+          bty = "n")
     }
 
     if (plot_extended) {
+      ## decrease spacing between axis labels and plots
+      par(mar = c(4, 3, ifelse(plot_singlePanels, 2, 3), 1), mgp = c(2, 1, 0))
+
       ## Histogram ----------------------------------------------------------
       if (!plot_singlePanels)
-        par(cex = 0.7 * cex.global)
+        par(cex = 0.7 * plot_settings$cex)
 
       ## calculate histogram data
       try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
@@ -362,89 +398,111 @@ plot_DoseResponseCurve <- function(
       ## to avoid errors plot only if histogram exists
       if (exists("histogram") && length(histogram$counts) > 2) {
 
-        ## calculate normal distribution curves for overlay
-        norm.curve.x <- seq(min(x.natural, na.rm = TRUE),
-                            max(x.natural, na.rm = TRUE),
-                            length = 101)
-        norm.curve.y <- dnorm(norm.curve.x,
-                              mean = mean(x.natural, na.rm = TRUE),
-                              sd = sd(x.natural, na.rm = TRUE))
-
         ## plot histogram
         histogram <- try(hist(
             x.natural,
             xlab = plot_settings$xlab,
-            ylab = "Frequency",
+            ylab = "Freq.",
             main = "MC runs",
             freq = FALSE,
             border = "white",
             axes = FALSE,
-            ylim = c(0, max(norm.curve.y)),
             sub = paste0("valid fits = ", length(na.exclude(x.natural)),
                          "/", fit.args$n.MC),
+            cex.sub = 0.8,
+            cex.main = 0.8,
             col = "grey"
         ), silent = TRUE)
 
         ## add axes
-        if (!is(histogram, "try-error")) {
+        if (!inherits(histogram, "try-error")) {
           axis(side = 1)
           axis(side = 2,
                at = seq(min(histogram$density),
                         max(histogram$density), length = 5),
-               labels = round(seq(min(histogram$counts),
-                                  max(histogram$counts), length = 5),
-                              digits = 0))
+               labels = round(
+                 seq(
+                   min(histogram$counts),
+                   max(histogram$counts),
+                   length = 5),
+                 digits = 0))
 
           ## add norm curve
-          lines(norm.curve.x, norm.curve.y, col = "red")
+          x <- seq(par("usr")[1], par("usr")[2], length.out = 100)
+          y_curve <- stats::dnorm(x,
+            mean = mean(x.natural, na.rm = TRUE),
+            sd = sd(x.natural, na.rm = TRUE))
+
+            ## rescale
+            y_curve <- .rescale(
+              x = y_curve,
+              range_old = range(y_curve),
+              range_new = c(0,par()$usr[4]))
+
+          ## plot lines
+          lines(x, y_curve, col = col[2], lty = 2)
 
           ## add rug
           suppressWarnings(graphics::rug(x.natural))
 
-          ## De + Error from MC simulation + quality of error estimation
-          try(mtext(side = 3,
-                    substitute(D[e[MC]] == De,
-                               list(De = paste(
-                                        abs(round(De.MonteCarlo, 2)),
-                                        "\u00B1",
-                                        format(De.Error, scientific = TRUE, digits = 2),
-                                        " | diff. = ",
-                                        abs(round((abs(abs(De) - De.MonteCarlo) / abs(De)) * 100,1)),
-                                        "%"
-                                    )
-                                    )),
-                    cex = 0.6 * cex.global), silent = TRUE)
+          ## add difference text
+          legend('topright',
+                 legend = paste0(
+                  "diff. ",
+                  round(
+                    x = abs((abs(De) - De.MonteCarlo) / abs(De) * 100),
+                    digits = 1),
+                 "%"),
+                 cex = 0.7,
+                 bty = "n")
 
-        } else {
-          plot_check <- histogram
+          ## De + Error from MC simulation + quality of error estimation
+          # De label
+          De.label <- paste(
+            abs(round(De.MonteCarlo, 2)),
+            "\u00B1",
+            format(De.Error, scientific = TRUE, digits = 2))
+
+          # set expression
+          De.expr <- substitute(D[e[MC]] == val, list(val = De.label))
+
+          # Safely add the text to the plot
+          try(
+            mtext(
+              side = 3,
+              text = De.expr,
+              cex = 0.6 * par("cex")),
+            silent = TRUE)
         }
 
       } else {
         plot_check <- try(plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
+                               axes = FALSE, xlab = "", ylab = "",
                                main = expression(paste(D[e], " from MC runs"))),
                           silent = TRUE)
-        if (!is(plot_check,"try-error"))
-          text(5, 5, "not available")
+        if (!inherits(plot_check,"try-error"))
+          text(5, 5, "Not available", xpd = NA)
       }
 
       ## Test dose response curve if available ------------------------------
       ## plot Tx/Tn value for sensitivity change
-      if (!is(plot_check, "try-error")) {
+      if (!inherits(plot_check, "try-error")) {
         if ("TnTx" %in% colnames(sample)) {
           plot(
               1:length(sample[, "TnTx"]),
               sample[, "TnTx"] / sample[1, "TnTx"],
-              xlab = "SAR cycle",
+              xlab = "#SAR-cycle",
               ylab = expression(paste(T[x] / T[n])),
-              main = "Test-dose response",
+              main = "Sensitivity",
+              cex.main = 0.8,
               type = "o",
-              pch = 20,
-              )
+              pch = 20)
           lines(c(1, length(sample[, "TnTx"])), c(1, 1), lty = 2, col = "gray")
         } else {
           plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
-               main = "Test-dose response")
-          text(5, 5, "not available\n no TnTx column")
+               axes = FALSE, xlab = "", ylab = "",
+               main = "Sensitivity", cex.main = 0.8)
+          text(5, 5, "Not available\nNo TnTx column", xpd = NA)
         }
       }
     }
@@ -452,8 +510,10 @@ plot_DoseResponseCurve <- function(
 
   ##reset graphic device if the plotting failed!
   if (inherits(plot_check, "try-error")) {
+    # nocov start
     .throw_message("Figure margins too large, nothing plotted")
     grDevices::dev.off()
+    # nocov end
   }
 
   ## return

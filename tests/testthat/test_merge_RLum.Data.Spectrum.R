@@ -45,6 +45,16 @@ test_that("input validation", {
                                          max.temp.diff = 1))
 })
 
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  ## only one spectrum
+  expect_s4_class(new <- merge_RLum.Data.Spectrum(list(TL.Spectrum)),
+                  "RLum.Data.Spectrum")
+  expect_equal(TL.Spectrum@data,
+               new@data)
+})
+
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 

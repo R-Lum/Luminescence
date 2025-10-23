@@ -10,7 +10,7 @@ plot_RadialPlot(
   log.z = TRUE,
   central.value,
   centrality = "mean.weighted",
-  mtext,
+  mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   legend,
@@ -57,7 +57,7 @@ the central line. Can either be one out of
 \item numeric value used for the standardisation.
 }}
 
-\item{mtext}{\link{character}:
+\item{mtext}{\link{character} (\emph{with default}):
 additional text below the plot title.}
 
 \item{summary}{\link{character} (\emph{with default}):
@@ -152,6 +152,7 @@ one or more of the following keywords:
 \item \code{"mean"} (mean De value),
 \item \code{"mean.weighted"} (error-weighted mean),
 \item \code{"median"} (median of the De values),
+\item \code{"median.weighted"} (error-weighted median),
 \item \code{"sdrel"} (relative standard deviation in percent),
 \item \code{"sdrel.weighted"} (error-weighted relative standard deviation in percent),
 \item \code{"sdabs"} (absolute standard deviation),
@@ -215,7 +216,7 @@ plot_RadialPlot(
 ## now with legend, colour, different points and smaller scale
 plot_RadialPlot(
   data = ExampleData.DeValues,
-  legend.text = "Sample 1",
+  legend = "Sample 1",
   col = "tomato4",
   bar.col = "peachpuff",
   pch = "R",

@@ -103,7 +103,6 @@
 #' ##run analysis
 #' analyse_Al2O3C_ITC(data_ITC)
 #'
-#' @md
 #' @export
 analyse_Al2O3C_ITC <- function(
   object,
@@ -119,7 +118,7 @@ analyse_Al2O3C_ITC <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   # SELF CALL -----------------------------------------------------------------------------------
-  if(is.list(object)){
+  if (inherits(object, "list")) {
     ##check whether the list contains only RLum.Analysis objects
     lapply(object,
            function(x) .validate_class(x, "RLum.Analysis",
@@ -129,10 +128,6 @@ analyse_Al2O3C_ITC <- function(
     rep.length <- length(object)
     signal_integral <- .listify(signal_integral, rep.length)
     dose_points <- .listify(dose_points, rep.length)
-
-    ##method_control
-    ##verbose
-    ##plot
 
     ##run analysis
     results_full <- lapply(1:length(object), function(x){
@@ -144,34 +139,42 @@ analyse_Al2O3C_ITC <- function(
         method_control = method_control,
         verbose = verbose,
         plot = plot,
-        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+        main = list(...)$main %||% paste0("ALQ #", x),
         ...
       ), outFile = stdout()) # redirect error messages so they can be silenced
 
       ##catch error
-      if(inherits(results, "try-error")){
+      if (is.null(results) || inherits(results, "try-error"))
         return(NULL)
-
-      }else{
-        return(results)
-      }
+      return(results)
     })
 
     ##return
     return(merge_RLum(results_full))
   }
 
-  ## Integrity tests  -------------------------------------------------------
-
-  .validate_class(object, "RLum.Analysis")
-
-  ##TODO
-  ##implement more checks ... if you find some time, somehow, somewhere
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
+  .validate_not_empty(object)
+  .validate_class(dose_points, c("numeric", "list"))
+  if (is.list(dose_points)) {
+    lapply(dose_points, function(x) {
+      .validate_class(x, "numeric",
+                      name = "All elements of 'dose_points'")
+    })
+  }
+  .validate_class(recordType, "character", null.ok = TRUE)
+  .validate_class(method_control, "list", null.ok = TRUE)
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   # Preparation ---------------------------------------------------------------------------------
   ##select curves based on the recordType selection; if not NULL
-  if(!is.null(recordType[1]))
+  if (!is.null(recordType)) {
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
+    if (length(object) == 0)
+      .throw_error("'recordType' produced an empty object")
+  }
 
   #set method control
   method_control_settings <- list(
@@ -181,7 +184,6 @@ analyse_Al2O3C_ITC <- function(
 
   ## modify on request
   if (!is.null(method_control)) {
-    .validate_class(method_control, "list")
     method_control_settings <- modifyList(x = method_control_settings,
                                           val = method_control)
   }
@@ -194,7 +196,6 @@ analyse_Al2O3C_ITC <- function(
   ##set signal integral
   if(is.null(signal_integral)){
     signal_integral <- c(1:nrow(object[[1]][]))
-
   }else{
     ##check whether the input is valid, otherwise make it valid
     if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
@@ -205,16 +206,17 @@ analyse_Al2O3C_ITC <- function(
   }
 
   ##calculate curve sums, assuming the background
-  net_SIGNAL <- vapply(1:length(object[seq(1,length(object), by = 2)]), function(x){
-    temp_signal <- sum(object[seq(1,length(object), by = 2)][[x]][,2])
-    temp_background <- sum(object[seq(2,length(object), by = 2)][[x]][,2])
+  net_SIGNAL <- vapply(seq(1, length(object), by = 2), function(x) {
+    temp_signal <- sum(object[[x]][, 2])
+    temp_background <- sum(object[[x + 1]][, 2])
     return(temp_signal - temp_background)
+  }, FUN.VALUE = numeric(1))
 
-  }, FUN.VALUE = vector(mode = "numeric", length = 1))
+  ## silence notes raised by R CMD check
+  DOSE <- net_SIGNAL_NORM <- NULL
 
-  ##create data.frames
-    ##single points
-    df <- data.frame(
+  ## create data.tables
+  df <- data.table(
       DOSE = dose_points,
       net_SIGNAL = net_SIGNAL,
       net_SIGNAL.ERROR = 0,
@@ -222,18 +224,12 @@ analyse_Al2O3C_ITC <- function(
       net_SIGNAL_NORM.ERROR = 0
     )
 
-    ##take mean
-    ##make data frame for all curves for MC runs
-    df_mean <- as.data.frame(data.table::rbindlist(lapply(unique(df$DOSE), function(x){
-      data.frame(
-        DOSE = x,
-        net_SIGNAL = mean(df[df$DOSE == x, "net_SIGNAL"]),
-        net_SIGNAL.ERROR = sd(df[df$DOSE == x, "net_SIGNAL"]),
-        net_SIGNAL_NORM = mean(df[df$DOSE == x, "net_SIGNAL_NORM"]),
-        net_SIGNAL_NORM.ERROR = sd(df[df$DOSE == x, "net_SIGNAL_NORM"])
-      )
-    })))
-
+  ## compute means and errors
+  df_mean <- as.data.frame(df[, list(net_SIGNAL = mean(net_SIGNAL),
+                                     net_SIGNAL.ERROR = sd(net_SIGNAL),
+                                     net_SIGNAL_NORM = mean(net_SIGNAL_NORM),
+                                     net_SIGNAL_NORM.ERROR = sd(net_SIGNAL_NORM)),
+                              by = DOSE])
 
   ##calculate GC
   GC <- fit_DoseResponseCurve(
@@ -242,12 +238,14 @@ analyse_Al2O3C_ITC <- function(
     fit.method = method_control_settings$fit.method,
     verbose = FALSE
   )
+  if (is.null(GC))
+    return(NULL)
 
   ##output
   if(verbose){
     cat("\n[analyse_Al2O3C_ITC()]\n")
-    cat(paste0("\n Used fit:\t\t",method_control_settings$fit.method))
-    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", round(GC$De$De.Error, 3)))
+    cat("\n Used fit method:\t\t", method_control_settings$fit.method)
+    cat("\n Time correction value:\t", round(GC$De$De, 3), "\u00B1", round(GC$De$De.Error, 3))
     cat("\n\n")
   }
 
@@ -338,17 +336,17 @@ analyse_Al2O3C_ITC <- function(
   }
 
   # Output --------------------------------------------------------------------------------------
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = data.frame(
         VALUE = as.numeric(GC$De$De),
         VALUE_ERROR = as.numeric(sd(GC$De.MC))
       ),
-      table = df,
+      table = as.data.frame(df),
       table_mean = df_mean,
       fit = GC$Fit
     ),
     info = list(call = sys.call())
-  ))
+  )
 }

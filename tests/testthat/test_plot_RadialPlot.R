@@ -20,6 +20,8 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(list(df[0, ])),
                "Input 'data[[1]]' cannot be an empty data.frame",
                fixed = TRUE)
+  expect_error(plot_RadialPlot(data.frame(NA, 1:5)),
+               "After NA removal, nothing is left from data set 1")
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' should have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),
@@ -28,10 +30,10 @@ test_that("input validation", {
                "'centrality' should be one of 'mean', 'mean.weighted', 'median'")
   expect_error(plot_RadialPlot(df, summary = 5),
                "'summary' should be of class 'character'")
-  expect_error(plot_RadialPlot(df, summary.pos = list()),
-               "'summary.pos' should be of class 'numeric' or 'character'")
   expect_error(plot_RadialPlot(df, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_RadialPlot(df, summary.pos = list()),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(list(df, df), lty = 1),
@@ -85,7 +87,7 @@ test_that("check functionality", {
       log.z = FALSE))
 
   ## single-column data frame
-  expect_message(plot_RadialPlot(df[, 1, drop = FALSE]),
+  expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
                  "Attention, small standardised estimate scatter")
 
   ## data frame with more than 2 columns
@@ -95,6 +97,13 @@ test_that("check functionality", {
   df.neg <- df
   df.neg[, 1] <- df.neg[, 1] - 5
   plot_RadialPlot(df.neg)
+
+  ## data frame with zeros
+  df.zeros <- data.frame(ED = c(rep(0, 4), 10),
+                         ED_Error = rnorm(5) + 3)
+  expect_silent(plot_RadialPlot(df.zeros))
+  expect_silent(plot_RadialPlot(df.zeros, zlim = c(5, 10),
+                                centrality = "median.weighted"))
 
   ## more coverage
   expect_type(plot_RadialPlot(df, main = "Title", sub = "Subtitle", rug = TRUE,
@@ -114,8 +123,6 @@ test_that("check functionality", {
   plot_RadialPlot(df, show = FALSE, centrality = "median",
                   summary.pos = "topleft", legend.pos = "topright",
                   log.z = FALSE, rug = TRUE)
-  plot_RadialPlot(df, show = FALSE, centrality = "median.weighted",
-                  summary.pos = "top", legend.pos = "bottom")
 
   ## RLum.Results object
   expect_silent(plot_RadialPlot(calc_CommonDose(ExampleData.DeValues$BT998,
@@ -143,7 +150,6 @@ test_that("check functionality", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("RadialPlot defaults",
@@ -154,10 +160,28 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("RadialPlot summary left",
                               plot_RadialPlot(df, summary.pos = "left",
                                               summary = c("mean", "in.2s", "skewness")))
+  vdiffr::expect_doppelganger("central value xlim zlim pch",
+                              plot_RadialPlot(ExampleData.DeValues$CA1,
+                                              central.value = 69.9,
+                                              xlim = c(0, 16),
+                                              zlim = c(15, 143),
+                                              pch = 1,
+                                              summary = ""))
+  vdiffr::expect_doppelganger("regression 1044",
+                              plot_RadialPlot(ExampleData.DeValues$CA1,
+                                              xlim = c(0, 21.2),
+                                              zlim = c(23, 135.1),
+                                              summary = ""))
+  vdiffr::expect_doppelganger("regression 1060",
+                              plot_RadialPlot(ExampleData.DeValues$CA1,
+                                              xlim = c(0, 30),
+                                              zlim = c(5, 1000),
+                                              plot.ratio = 0))
   df2 <- data.frame(x = df$x - 1, y = df$y * 0.75)
   vdiffr::expect_doppelganger("RadialPlot list",
                               plot_RadialPlot(list(df, df2),
-                                              centrality = c(5, 4),
+                                              centrality = "median.weighted",
+                                              summary = c("n", "in.2s", "median.weighted"),
                                               rug = TRUE, col = c(2, 3)))
   })
 })

@@ -1,7 +1,8 @@
 ## load data
 data(ExampleData.DeValues, envir = environment())
+data(ExampleData.RLum.Analysis, envir = environment())
 
-test_that("Test Simple RLum Report", {
+test_that("test functionality", {
   testthat::skip_on_cran()
 
   ## the test fails on AppVeyor for no obvious reason on the windows
@@ -9,8 +10,6 @@ test_that("Test Simple RLum Report", {
   ## we skip this platform for the test
   testthat::skip_on_os("windows")
 
-  ### load example data
-  data(ExampleData.DeValues, envir = environment())
   SW({
   temp <- calc_CommonDose(ExampleData.DeValues$CA1)
   })
@@ -24,20 +23,31 @@ test_that("Test Simple RLum Report", {
                                     show_report = FALSE, compact = FALSE))
 
   ## compact view
-  expect_null(report_RLum(list(temp, temp),
+  expect_null(report_RLum(list(temp, temp, NULL),
                           show_report = FALSE, compact = TRUE))
 
   ## data.frame
   expect_null(report_RLum(ExampleData.DeValues$CA1))
+
+  ## list of RLum objects
+  report_RLum(IRSAR.RF.Data@records)
+
+  ## array()
+  expect_null(report_RLum(array()))
 
   ## names with spaces or missing
   ll <- as.list(ExampleData.DeValues$CA1)
   names(ll) <- c("", "ED Error")
   expect_null(report_RLum(ll))
 
-  ## more coverage: data frame with a column containing a matrix
+  ## more coverage: data frame with a column containing a matrix, raw data,
+  ## and the css.file option (any existing file is enough for coverage)
   m <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
-  df <- data.frame(id = 1, mat = rep(0, nrow(m)))
+  df <- data.frame(id = 1, mat = rep(0, nrow(m)), raw = raw(2))
   df$mat <- m
-  expect_null(report_RLum(df))
+  df$raw[1] <- as.raw(65)
+  df$raw[2] <- as.raw(66)
+  colnames(df)[2] <- "mat col"
+  fake.css <- system.file("CITATION", package = "Luminescence")
+  expect_null(report_RLum(df, css.file = fake.css))
 })

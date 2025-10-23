@@ -115,7 +115,6 @@
 #'                                    merge.method = "sum")
 #' plot_RLum(merged)
 #'
-#' @md
 #' @export
 merge_RLum.Data.Spectrum <- function(
   object,
@@ -167,25 +166,25 @@ merge_RLum.Data.Spectrum <- function(
   x.vals <- rownames(object[[1]]@data)
   y.vals <- as.numeric(colnames(object[[1]]@data))
   cameraType <- object[[1]]@info$cameraType
-  temp.matrix <- sapply(1:num.objects, function(x) {
+  temp.matrix <- sapply(object, function(x) {
     ## row names must match exactly
-    if (!identical(rownames(object[[x]]@data), x.vals))
+    if (!identical(rownames(x@data), x.vals))
       .throw_error("'RLum.Data.Spectrum' objects with different channels ",
                    "cannot be merged")
 
     ## check the camera type
-    if (!identical(object[[x]]@info$cameraType, cameraType))
+    if (!identical(x@info$cameraType, cameraType))
       .throw_error("'RLum.Data.Spectrum' objects from different camera types",
                    "cannot be merged")
 
     ## for time/temperature data we allow some small differences: we report
     ## a warning if they are too high, but continue anyway
-    if (max(abs(as.numeric(colnames(object[[x]]@data)) - y.vals)) > max.temp.diff) {
+    if (max(abs(as.numeric(colnames(x@data)) - y.vals)) > max.temp.diff) {
       .throw_warning("The time/temperatures recorded are too different, ",
                      "proceed with caution")
     }
 
-    object[[x]]@data
+    x@data
   })
 
   ## reshape all spectrum data into a 3D array
@@ -251,17 +250,14 @@ merge_RLum.Data.Spectrum <- function(
                                if (merge.method == "append") num.objects else 1)
 
   ## add the info slot
-  if (missing(method.info)) {
-    temp.info <- unlist(lapply(1:num.objects, function(x) {
-      object[[x]]@info
-    }), recursive = FALSE)
-
-  } else {
-    temp.info <- object[[method.info]]@info
-  }
+  temp.info <- if (missing(method.info)) {
+                 unlist(lapply(object, function(x) x@info), recursive = FALSE)
+               } else {
+                 object[[method.info]]@info
+               }
 
   ## Build new RLum.Data.Spectrum object ------------------------------------
-  new.Data.Spectrum <- set_RLum(
+  set_RLum(
     class = as.character(class(object[[1]])),
     originator = "merge_RLum.Data.Spectrum",
     recordType = object[[1]]@recordType,
@@ -272,6 +268,4 @@ merge_RLum.Data.Spectrum <- function(
       x@.uid
     }))
   )
-
-  return(new.Data.Spectrum)
 }

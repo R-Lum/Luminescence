@@ -42,7 +42,6 @@
 #' #plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,
 #' #                summary = c("n", "mean"))
 #'
-#' @md
 #' @export
 tune_Data <- function(
   data,

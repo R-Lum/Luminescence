@@ -28,9 +28,10 @@ If a \code{list} is provided as input all other parameters can be provided as
 
 \item{sequence_structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Allowed steps are \code{NATURAL} and
-\code{REGENERATED}, and one of each must appear.
+\code{REGENERATED}, and at least one of each must appear.
 In addition any other character is allowed in the sequence structure;
-such curves will be ignored during the analysis.}
+such curves will be ignored during the analysis. If \code{sequence_structure}
+is shorter than the number of curves in \code{object}, it is recycled.}
 
 \item{RF_nat.lim}{\link{vector} (\emph{with default}):
 set minimum and maximum channel range for natural signal fitting and sliding.
@@ -54,17 +55,17 @@ These are for (1) \code{method = "FIT"}: \code{'trace'}, \code{'maxiter'}, \code
 See details.}
 
 \item{test_parameters}{\link{list} (\emph{with default}):
-set test parameters. Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
-\code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
-\code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
-values, \code{NA} and \code{NULL} (see Details).
-
-(see Details for further information)}
+set test parameters. Supported parameters are: \code{curves_ratio},
+\code{residuals_slope} (only for \code{method = "SLIDE"} and \code{"VSLIDE"}),
+\code{curves_bounds}, \code{dynamic_ratio}, \code{lambda}, \code{beta} and \code{delta.phi}.
+All input: \link{numeric} values, \code{NA} and \code{NULL} (see Details for further
+information).}
 
 \item{n.MC}{\link{numeric} (\emph{with default}):
-set number of Monte Carlo runs for start parameter estimation (\code{method = "FIT"}) or
-error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
-MC runs. Note: Large values will significantly increase the computation time}
+number of Monte Carlo runs for the estimation of the start parameter
+(\code{method = "FIT"}) or of the error (\code{method = "SLIDE"} and \code{"VSLIDE"}).
+This value can be set to \code{NULL} to skip the MC runs.
+Note: Large values will significantly increase the computation time.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar during MC runs.}
@@ -78,10 +79,10 @@ e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
 is returned; it has no effect if \code{plot = FALSE}}
 
 \item{...}{further arguments that will be passed to the plot output.
-Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
+Currently supported arguments are \code{main}, \code{mtext}, \code{xlab}, \code{ylab},
 \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{legend.text} (passes argument to x,y in
-\link[graphics:legend]{graphics::legend}), \code{xaxt}}
+\link[graphics:legend]{graphics::legend}), \code{xaxt}, \code{verbose} (\code{TRUE/FALSE}).}
 }
 \value{
 The function returns numerical output and an (\emph{optional}) plot.
@@ -167,7 +168,7 @@ The output (\code{data}) should be accessed using the function \link{get_RLum}.
 The slid IR-RF curves with the finally obtained De
 }
 \description{
-Function to analyse IRSAR RF measurements on K-feldspar samples, performed
+The function analyses IRSAR RF measurements on K-feldspar samples performed
 using the protocol according to Erfurt et al. (2003) and beyond.
 }
 \details{
@@ -185,7 +186,7 @@ signal.
 \item Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
-Actually three methods are supported to obtain the \eqn{D_{e}}:
+Three methods are supported to obtain the \eqn{D_{e}}:
 \code{method = "FIT"}, \code{method = "SLIDE"} and \code{method = "VSLIDE"}:
 
 \strong{\code{method = "FIT"}}
@@ -214,8 +215,8 @@ The fitting is done using the \code{port} algorithm of the \link{nls} function.
 \strong{\code{method = "SLIDE"}}
 
 For this method, the natural curve is slid along the x-axis until
-congruence with the regenerated curve is reached. As opposed to fitting, this
-allows working with the original data without the need for any physical
+congruence with the regenerated curve is reached. Unlike fitting, this
+allows for working with the original data without the need for any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
@@ -226,7 +227,7 @@ For the mathematical details of the implementation see Frouin et al., 2017
 \strong{\code{method = "VSLIDE"}}
 
 Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
-See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+See Kreutzer et al. (2017) and Murari et al. (2021). By default, the vertical sliding
 range is set automatically, but can be set manually by changing the
 \code{vslide_range} parameter (see \code{method_control}).
 
@@ -272,16 +273,16 @@ the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} 
 
 \strong{Error estimation}
 
-For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
-the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
+For \strong{\code{method = "FIT"}}, the \eqn{D_{e}} error range is obtained by using
+the 2.5 \% (lower) and the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}}
+curve.
 
-For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}} the error is obtained
-by bootstrapping the residuals of the slid
-curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
-runs and (b) the confidence
-interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
-are returned with the function output.
+For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}}, the error is obtained
+by bootstrapping the residuals of the slid curve to construct new natural
+curves for a Monte Carlo simulation. The error is returned in two ways:
+(a) the standard deviation of the \eqn{D_{e}} obtained from the MC runs and
+(b) the confidence interval using the  2.5 \% (lower) and the 97.5 \% (upper)
+quantiles. The results of the MC runs are returned with the function output.
 
 \strong{Test parameters}
 
@@ -312,12 +313,13 @@ curve is obtained using the maximum count value of the \code{RF_nat} curve and o
 the \code{RF_nat} curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 found at all, \code{Inf} is returned.
 
-\code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}):
+\code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}
+and \verb{"VSLIDE}"):
 
 A linear function is fitted on the residuals after sliding.
 The corresponding slope can be used to discard values as a high (positive, negative) slope
 may indicate that both curves are fundamentally different and the method cannot be applied at all.
-Per default the value of this parameter is calculated but not evaluated.
+By default, the value of this parameter is calculated but not evaluated.
 
 \code{curves_bounds} \link{numeric} (default: \eqn{max(RF_{reg_counts})}:
 
@@ -327,17 +329,18 @@ this is not recommended the value can be changed or disabled.
 
 \code{dynamic_ratio} \link{numeric} (default: \code{NA}):
 
-The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
+The dynamic ratio of the regenerated curve is calculated as ratio of the
+minimum and maximum count values.
 
-\code{lambda}, \code{beta} and \code{delta.phi}
-\link{numeric} (default: \code{NA}; \code{method = "SLIDE"}):
+\code{lambda}, \code{beta} and \code{delta.phi} \link{numeric} (default: \code{NA}):
 
 The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 For \code{method = "FIT"} this parameter is obtained during the fitting, for \code{method = "SLIDE"} a
 rather rough estimation is made using the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} and the equation
-given above. Note: As this procedure requests more computation time, setting of one of these three parameters
-to \code{NULL} also prevents a calculation of the remaining two.
+given above.
+Note: As this procedure requests more computation time, it is performed only
+if all three parameters are set.
 }
 \note{
 This function assumes that there is no sensitivity change during the
@@ -356,19 +359,23 @@ data(ExampleData.RLum.Analysis, envir = environment())
 ##(1) perform analysis using the method 'FIT'
 results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 
-##show De results and test paramter results
+##show De results and test parameter results
 get_RLum(results, data.object = "data")
 get_RLum(results, data.object = "test_parameters")
 
 ##(2) perform analysis using the method 'SLIDE'
-results <- analyse_IRSAR.RF(object = IRSAR.RF.Data, method = "SLIDE", n.MC = 1)
+data(ExampleData.RF70Curves, envir = environment())
+results <- analyse_IRSAR.RF(
+object = RF70Curves,
+method = "SLIDE",
+ n.MC = 1)
 
 \dontrun{
-##(3) perform analysis using the method 'SLIDE' and method control option
+##(3) perform analysis using the method 'VSLIDE' and method control option
 ## 'trace
 results <- analyse_IRSAR.RF(
- object = IRSAR.RF.Data,
- method = "SLIDE",
+ object = RF70Curves,
+ method = "VSLIDE",
  method_control = list(trace = TRUE))
 }
 
@@ -376,66 +383,74 @@ results <- analyse_IRSAR.RF(
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
-Radiation Measurements 44 (5-6), 560-565. doi: 10.1016/j.radmeas.2012.06.021
+Radiation Measurements 44 (5-6), 560-565. \doi{10.1016/j.radmeas.2012.06.021}
 
 Erfurt, G., Krbetschek, M.R., 2003. IRSAR - A single-aliquot
 regenerative-dose dating protocol applied to the infrared radiofluorescence
 (IR-RF) of coarse- grain K-feldspar. Ancient TL 21, 35-42.
+\doi{10.26034/la.atl.2003.358}
 
 Erfurt, G., 2003. Infrared luminescence of Pb+ centres in potassium-rich
-feldspars. physica status solidi (a) 200, 429-438.
+feldspars. physica status solidi (a) 200, 429-438. \doi{10.1002/pssa.200306700}
 
 Erfurt, G., Krbetschek, M.R., 2003. Studies on the physics of the infrared
 radioluminescence of potassium feldspar and on the methodology of its
 application to sediment dating. Radiation Measurements 37, 505-510.
+\doi{10.1016/s1350-4487(03)00058-1}
 
 Erfurt, G., Krbetschek, M.R., Bortolot, V.J., Preusser, F., 2003. A fully
 automated multi-spectral radioluminescence reading system for geochronometry
 and dosimetry. Nuclear Instruments and Methods in Physics Research Section
 B: Beam Interactions with Materials and Atoms 207, 487-499.
+\doi{10.1016/s0168-583x(03)01121-2}
 
 Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017.
 An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
-Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
+Quaternary Geochronology 38, 13-24. \doi{10.1016/j.quageo.2016.11.004}
 
 Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
 Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
-Ancient TL 35, 20–30.
+Ancient TL 35, 20–30. \doi{10.26034/la.atl.2017.510}
 
 Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
 Dose recovery and correction. Radiation Measurements 120, 110–119.
-doi: 10.1016/j.radmeas.2018.04.017
+doi: 10.1016/j.radmeas.2018.04.017 \doi{10.1016/j.radmeas.2018.04.017}
 
 Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
-Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
+Measurements 47, 803-808.
+\doi{10.1016/j.radmeas.2012.02.006}
 
 Trautmann, T., 2000. A study of radioluminescence kinetics of natural
 feldspar dosimeters: experiments and simulations. Journal of Physics D:
 Applied Physics 33, 2304-2310.
+\doi{10.1088/0022-3727/33/18/315}
 
 Trautmann, T., Krbetschek, M.R., Dietrich, A., Stolz, W., 1998.
 Investigations of feldspar radioluminescence: potential for a new dating
 technique. Radiation Measurements 29, 421-425.
+\doi{10.1016/s1350-4487(98)00012-2}
 
 Trautmann, T., Krbetschek, M.R., Dietrich, A., Stolz, W., 1999. Feldspar
 radioluminescence: a new dating method and its physical background. Journal
 of Luminescence 85, 45-58.
+\doi{10.1016/s0022-2313(99)00152-0}
 
 Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.
+\doi{10.1016/s1350-4487(00)00077-9}
 
 ** Further reading**
 
 Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
 Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
 Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
-101155. doi: 10.1016/j.quageo.2021.101155
+101155. \doi{10.1016/j.quageo.2021.101155}
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
-\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \code{parallel::mclapply}
+\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}, \link{ExampleData.RF70Curves}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

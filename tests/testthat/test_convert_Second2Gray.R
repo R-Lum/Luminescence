@@ -24,10 +24,6 @@ test_that("input validation", {
   dose.rate@originator <- "unexpected-originator"
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate = dose.rate),
                "Wrong originator for dose.rate 'RLum.Results' object")
-
-  ## defunct name
-  expect_error(Second2Gray(ExampleData.DeValues$BT998, dose.rate = dose.rate),
-               "'Second2Gray' is defunct")
 })
 
 test_that("snapshot tests", {

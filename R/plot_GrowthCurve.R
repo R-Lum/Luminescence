@@ -33,7 +33,7 @@
 #' - `EXP+EXP`,
 #' - `GOK`,
 #' - `OTOR`,
-#' - `OTORX` (mode extrapolation not supported)
+#' - `OTORX`
 #'
 #' See details in [fit_DoseResponseCurve].
 #'
@@ -51,9 +51,6 @@
 #' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `plotExtended = TRUE`.
-#'
-#' @param cex.global [numeric] (*with default*):
-#' global scaling factor.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -127,7 +124,6 @@
 #' LxTxData[1,2:3] <- c(0.5, 0.001)
 #' print(plot_GrowthCurve(LxTxData, mode = "alternate"))
 #'
-#' @md
 #' @export
 plot_GrowthCurve <- function(
   sample,
@@ -136,7 +132,6 @@ plot_GrowthCurve <- function(
   output.plot = TRUE,
   output.plotExtended = TRUE,
   plot_singlePanels = FALSE,
-  cex.global = 1,
   verbose = TRUE,
   n.MC = 100,
   ...
@@ -162,7 +157,6 @@ plot_GrowthCurve <- function(
   .validate_logical_scalar(output.plotExtended)
   .validate_logical_scalar(plot_singlePanels)
   .validate_logical_scalar(verbose)
-  .validate_positive_scalar(cex.global)
 
   ## remaining input validation occurs inside the fitting function
   fit <- fit_DoseResponseCurve(sample, mode, fit.method,
@@ -170,14 +164,14 @@ plot_GrowthCurve <- function(
 
   if (is.null(fit)) {
     if (verbose)
-      message("[plot_GrowthCurve()] Fitting failed, no plot possible")
+      .throw_message("Fitting failed, NULL returned")
     return(NULL)
   }
 
   if (output.plot) {
     plot_DoseResponseCurve(fit, plot_extended = output.plotExtended,
                            plot_singlePanels = plot_singlePanels,
-                           cex.global = cex.global, verbose = verbose, ...)
+                           verbose = verbose, ...)
   }
 
   invisible(fit)

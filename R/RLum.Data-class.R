@@ -23,27 +23,15 @@
 #'
 #' showClass("RLum.Data")
 #'
-#' @md
 #' @export
 setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
 )
 
 ## add_metadata() -----------------------------------------------------------
-#' @describeIn RLum.Data
-#' Add metadata entries to [RLum.Data-class] objects
+#' @describeIn metadata
+#' Add metadata entries to [RLum.Data-class] objects.
 #'
-#' @param object (**required**) an object of class [RLum.Data-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to add
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("add_metadata<-",
           signature = "RLum.Data",
@@ -52,13 +40,15 @@ setMethod("add_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- names(object@info)
             if (info_element %in% valid.names) {
               .throw_error("'info_element' already present, to modify it ",
                            "you should use `replace_metadata()`")
+            }
+            if (is.null(value)) {
+              .throw_error("Cannot store a metadata entry with NULL value")
             }
 
             ## add the metadata element
@@ -67,20 +57,9 @@ setMethod("add_metadata<-",
           })
 
 ## rename_metadata() --------------------------------------------------------
-#' @describeIn RLum.Data
-#' Rename a metadata entry of [RLum.Data-class] objects
+#' @describeIn metadata
+#' Rename a metadata entry of [RLum.Data-class] objects.
 #'
-#' @param object (**required**) an object of class [RLum.Data-class]
-#'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to rename.
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the `info` slot.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("rename_metadata<-",
           signature = "RLum.Data",
@@ -89,7 +68,6 @@ setMethod("rename_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             .validate_length(info_element, 1)
             valid.names <- names(object@info)
@@ -97,6 +75,10 @@ setMethod("rename_metadata<-",
               .throw_error("'info_element' not recognised (",
                            .collapse(info_element), "), valid terms are: ",
                            .collapse(valid.names, quote = FALSE))
+            }
+            if (is.null(value)) {
+              .throw_error("Cannot rename a metadata entry to NULL, ",
+                           "to remove it you should use `replace_metadata()`")
             }
 
             ## rename the metadata element
@@ -106,27 +88,12 @@ setMethod("rename_metadata<-",
           })
 
 ## replace_metadata() -------------------------------------------------------
-#' @describeIn RLum.Data
-#' Replaces or removes metadata of [RLum.Data-class] objects
+#' @describeIn metadata
+#' Replaces or removes metadata of [RLum.Data-class] objects.
 #'
-#' @param object (**required**) an object of class [RLum.Data-class]
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to replace or remove
-#'
-#' @param subset [expression] (*optional*) logical expression to limit the
-#' substitution only to the selected subset of elements
-#'
-#' @param verbose [logical] (*with default*) enable/disable output to the
-#' terminal.
-#'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field. If `NULL` the elements named in `info_element`
-#' will be removed.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("replace_metadata<-",
           signature = "RLum.Data",
@@ -136,7 +103,6 @@ setMethod("replace_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-
             .validate_class(info_element, "character")
             valid.names <- names(object@info)
             not.found <- setdiff(info_element, valid.names)
@@ -191,15 +157,9 @@ setMethod("replace_metadata<-",
           })
 
 ## view() -------------------------------------------------------------------
-#' @describeIn RLum.Data
+#' @describeIn view
+#' View method for [RLum.Data-class] objects.
 #'
-#' View method for [RLum.Data-class] objects
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("view",
           signature = "RLum.Data",
@@ -207,7 +167,7 @@ setMethod("view",
   .set_function_name("view")
   on.exit(.unset_function_name(), add = TRUE)
 
-  .validate_not_empty(object@info, name = "'info' slot")
+  .validate_not_empty(object@info, what = "RLum.Data")
 
     ## set title
     name <- list(...)$title

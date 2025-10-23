@@ -65,14 +65,14 @@ test_that("get_RLum", {
   testthat::skip_on_cran()
 
   ## input validation
-  expect_error(get_RLum(obj, subset = "error"),
+  expect_error(get_RLum(obj, subset = 1),
                "[get_RLum()] 'subset' must contain a logical expression",
                fixed = TRUE)
   expect_error(get_RLum(obj, subset = (error == "OSL")),
                "[get_RLum()] Invalid subset expression, valid terms are:",
                fixed = TRUE)
   expect_error(get_RLum(tmp, record.id = "character"),
-               "'record.id' should be of class 'integer', 'numeric' or 'logical'")
+               "'record.id' should be of class 'integer', 'numeric', 'logical' or NULL")
   expect_error(get_RLum(tmp, recordType = 1L),
                "'recordType' should be of class 'character'")
   expect_error(get_RLum(tmp, curveType = 1L),
@@ -81,9 +81,14 @@ test_that("get_RLum", {
                "'RLum.type' should be of class 'character'")
   expect_error(get_RLum(tmp, get.index = "a"),
                "'get.index' should be a single logical value")
+  expect_error(get_RLum(obj, get.index = NULL),
+               "'get.index' should be a single logical value")
+  expect_error(get_RLum(obj, subset = "recordType == 'RF'", get.index = NA),
+               "'get.index' should be a single logical value")
 
   ## check functionality
   expect_length(get_RLum(obj, subset = (recordType == "RF")), 2)
+  expect_length(get_RLum(obj, subset = "recordType == 'RF'"), 2)
   expect_length(get_RLum(tmp, subset = (el == "2")), 1)
   expect_s4_class(get_RLum(tmp, subset = (el == "2")), "RLum.Analysis")
   expect_type(get_RLum(tmp, info.object = "el"), "character")
@@ -94,7 +99,6 @@ test_that("get_RLum", {
   expect_length(get_RLum(t_subset, subset = c(TEST == "SUBSET")), 1)
 
   expect_type(get_RLum(obj, get.index = FALSE), "list")
-  expect_type(get_RLum(obj, get.index = NULL), "list")
   expect_type(get_RLum(obj, get.index = TRUE), "integer")
   expect_s4_class(get_RLum(obj, get.index = FALSE, drop = FALSE),
                   "RLum.Analysis")
@@ -107,12 +111,29 @@ test_that("get_RLum", {
                   "RLum.Data.Curve")
   expect_s4_class(get_RLum(obj, record.id = 1, drop = FALSE),
                   "RLum.Analysis")
-  expect_type(get_RLum(obj, record.id = 1, get.index = TRUE),
-              "integer")
+  expect_equal(get_RLum(tmp, record.id = 1, get.index = TRUE),
+               1)
+  expect_equal(get_RLum(tmp, record.id = -c(1:15), get.index = TRUE),
+               1:5)
+  expect_equal(get_RLum(tmp, record.id = c(1, 10, 20), get.index = TRUE),
+               1:3)
   expect_message(expect_null(get_RLum(obj, record.id = 99)),
                  "[get_RLum()] Error: At least one 'record.id' is invalid",
                  fixed = TRUE)
+  expect_message(expect_null(get_RLum(obj, record.id = 99, get.index = TRUE)),
+                 "[get_RLum()] Error: At least one 'record.id' is invalid",
+                 fixed = TRUE)
 
+  expect_warning(res <- get_RLum(obj, RLum.type = "error"),
+                 "This request produced an empty list of records")
+  expect_type(res, "list")
+  expect_length(res, 0)
+  expect_warning(res <- get_RLum(obj, RLum.type = "error", drop = FALSE),
+                 "This request produced an empty list of records")
+  expect_s4_class(res, "RLum.Analysis")
+  expect_length(res, 0)
+  expect_warning(expect_null(get_RLum(obj, RLum.type = "error", get.index = TRUE)),
+                 "This request produced an empty list of records")
   expect_warning(get_RLum(tmp, info.object = "missing"),
                  "[get_RLum()] Invalid 'info.object' name, valid names are:",
                  fixed = TRUE)
@@ -120,6 +141,10 @@ test_that("get_RLum", {
                                       info = "test")),
                  "[get_RLum()] This 'RLum.Analysis' object has no info objects",
                  fixed = TRUE)
+  expect_warning(get_RLum(obj, record.id = -c(1:2)),
+                 "This request produced an empty list of records")
+  expect_warning(expect_null(get_RLum(obj, record.id = -c(1:2), get.index = TRUE)),
+                 "This request produced an empty list of records")
   SW({
   expect_message(expect_null(get_RLum(obj, subset = (recordType == "error"))),
                  "'subset' expression produced an empty selection, NULL returned")
@@ -166,6 +191,7 @@ test_that("sort_RLum", {
 
   ## present a list of those objects
   expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
+  expect_type(sort_RLum(list(iris, mtcars), info_element = "X_MIN"), "list")
   expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 
   ## sort after three columns
@@ -194,7 +220,6 @@ test_that("sort_RLum", {
   ## check a special case where individual info elements have a length > 1
   sar@records[[1]]@info <- c(sar@records[[1]]@info, test = list(x = 1:10))
   expect_s4_class(sort_RLum(sar, info_element = "startDate"), class = "RLum.Analysis")
-
 })
 
 test_that("structure_RLum", {
@@ -204,7 +229,7 @@ test_that("structure_RLum", {
   expect_error(structure_RLum(
       set_RLum("RLum.Analysis",
                records = list(set_RLum("RLum.Data.Image")))),
-      "Only 'RLum.Data.Curve' objects are allowed")
+      "All elements of 'object' should be of class 'RLum.Data.Curve'")
 
   ## full functionality
 
@@ -288,6 +313,9 @@ test_that("remove_RLum", {
   t <- expect_s4_class(remove_RLum(sar, recordType = "OSL", drop = TRUE), "RLum.Analysis")
   expect_length(t@records, n = 4)
 
+  t <- expect_s4_class(remove_RLum(sar, record.id = 8:20), "RLum.Analysis")
+  expect_length(t@records, n = 7)
+
   ## provide as list
   t <- expect_type(remove_RLum(list(sar, sar), recordType = "OSL"), "list")
   expect_length(t, n = 2)
@@ -296,5 +324,18 @@ test_that("remove_RLum", {
   t <- expect_type(remove_RLum(list(sar, "error"), recordType = "OSL"), "list")
   expect_length(t, n = 2)
 
+  ## use subset
+  ## this produces and error because of the logical expression
+  expect_error(remove_RLum(list(sar, sar), subset = recordType == "OSL"))
+
+  ## simple check for info element
+  expect_s4_class(remove_RLum(sar, subset = "duration== 118"), "RLum.Analysis")
+
+  ## this works with terminal output
+  SW({
+  t <- expect_type(remove_RLum(list(sar, sar), subset = "recordType == 'TL'"), "list")
+  })
+
+  expect_length(t, n = 2)
 
 })

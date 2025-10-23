@@ -11,14 +11,14 @@ test_that("input validation", {
   expect_error(calc_FiniteMixture(data.frame(col = 1:10)),
                "'data' object must have two columns")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1),
-               "argument .* is missing, with no default")
-  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2),
-               "argument .* is missing, with no default")
-  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = -1),
+               "'sigmab' should be a single positive value")
+  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 2),
                "'sigmab' must be a value between 0 and 1")
+  expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2),
+               "'n.components' should be of class 'integer' or 'numeric'")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                                   n.components = 1),
-               "At least two components need to be fitted")
+               "'n.components' should be at least 2")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
                                   n.components = 2, pdf.sigma = "error"),
                "'pdf.sigma' should be one of 'sigmab' or 'se'")
@@ -52,37 +52,92 @@ test_that("check class and length of output", {
   expect_equal(results$proportion[1], 0.1096)
   expect_equal(results$proportion[2], 0.8904)
 
-  ## test plot
-  SW({
-  expect_s4_class(calc_FiniteMixture(
-    ExampleData.DeValues$CA1,
-    sigmab = 0.2,
-    n.components = 2:3,
-    grain.probability = TRUE,
-    trace = TRUE,
-    main = "Plot title",
-    verbose = TRUE), "RLum.Results")
-
   ## more coverage
+  SW({
   expect_warning(calc_FiniteMixture(
     ExampleData.DeValues$CA1[2:9, ],
     sigmab = 0.1,
     n.components = 3,
     verbose = TRUE),
     "The model produced NA values: either the input data are inapplicable")
-
   })
 
-  ## plot with plot_RLum.Results
-  t <- expect_s4_class(calc_FiniteMixture(
-    ExampleData.DeValues$CA1,
-    sigmab = 0.2,
+  expect_output(calc_FiniteMixture(
+    set_RLum("RLum.Results",
+             data = list(data = ExampleData.DeValues$CA1)),
+    sigmab = 0.62,
     n.components = 2:3,
-    grain.probability = FALSE,
-    trace = FALSE,
-    plot = FALSE,
-    main = "Plot title",
-    verbose = FALSE), "RLum.Results")
-  plot_RLum.Results(t, pdf.colors = "none")
+    pdf.colors = "colors",
+    verbose = TRUE),
+    "No significant increase in maximum log-likelihood estimates")
+})
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              calc_FiniteMixture(
+                                  ExampleData.DeValues$CA1,
+                                  sigmab = 0.2,
+                                  n.components = 2:3,
+                                  grain.probability = TRUE,
+                                  trace = TRUE,
+                                  main = "Plot title",
+                                  verbose = TRUE))
+
+  vdiffr::expect_doppelganger("cex pdf.weights",
+                              calc_FiniteMixture(
+                                  ExampleData.DeValues$CA1,
+                                  sigmab = 0.2,
+                                  n.components = 2:3,
+                                  grain.probability = TRUE,
+                                  pdf.weights = FALSE,
+                                  pdf.colors = "none",
+                                  cex = 2))
+
+  ## plot with plot_RLum.Results
+  res <- calc_FiniteMixture(ExampleData.DeValues$CA1,
+                            sigmab = 0.2,
+                            n.components = 3:4,
+                            grain.probability = FALSE,
+                            trace = FALSE,
+                            plot = FALSE,
+                            main = "From RLum.Results",
+                            verbose = FALSE)
+  vdiffr::expect_doppelganger("from RLum.Results",
+                              calc_FiniteMixture(res,
+                                                 pdf.colors = "colors"))
+  vdiffr::expect_doppelganger("from RLum.Results none",
+                              calc_FiniteMixture(res,
+                                                 pdf.colors = "none"))
+  })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  SW({
+  ## issue 691
+  expect_s4_class(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                     n.components = c(2, 4), plot = FALSE),
+                  "RLum.Results")
+  expect_s4_class(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                     n.components = 3:2, plot = FALSE),
+                  "RLum.Results")
+
+  ## issue 704
+  expect_silent(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                   n.components = 2:9, verbose = FALSE))
+
+  ## issue 708
+  expect_silent(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.57,
+                                   n.components = 2:6, verbose = FALSE))
+
+  ## issue 710
+  expect_silent(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.54,
+                                   n.components = 2:5, pdf.weight = FALSE,
+                                   verbose = FALSE))
+  })
 })

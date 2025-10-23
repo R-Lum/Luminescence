@@ -8,7 +8,7 @@
 #' @details
 #'
 #' This function applies the approach described in Kars et al. (2008) or Guralnik et al. (2015),
-#' which are both developed from the model of Huntley (2006) to calculate the expected sample
+#' which are both developed from the model of Huntley (2006), to calculate the expected sample
 #' specific fraction of saturation of a feldspar and also to calculate fading
 #' corrected age using this model. \eqn{\rho}' (`rhop`), the density of recombination
 #' centres, is a crucial parameter of this model and must be determined
@@ -183,8 +183,9 @@
 #'
 #' @param ...
 #' Further parameters:
-#' - `verbose` [logical]: Show or hide console output
+#' - `verbose` [logical]: Enable/disable output to the terminal (default = `TRUE`)
 #' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = 10000)
+#' - `cex` [numeric]: Scaling of the plot (default = 1)
 #' - `maxiter` [numeric]: Number of iteration limits for nls fitting
 #' - `trace` [logical]: Enable/disable value tracing the terminal during fitting
 #' **Note** that it is generally advised to have a large number of Monte Carlo
@@ -300,7 +301,6 @@
 #'  readerDdot = readerDdot,
 #'  n.MC = 25)
 #' }
-#' @md
 #' @export
 calc_Huntley2006 <- function(
     data,
@@ -323,6 +323,7 @@ calc_Huntley2006 <- function(
 
   .validate_class(data, "data.frame")
   .validate_not_empty(data)
+  .validate_class(LnTn, "data.frame", null.ok = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
   .validate_length(lower.bounds, 4)
   .validate_logical_scalar(summary)
@@ -339,7 +340,6 @@ calc_Huntley2006 <- function(
 
   ## Check if 'LnTn' is used and overwrite 'data'
   if (!is.null(LnTn)) {
-    .validate_class(LnTn, "data.frame")
     if (ncol(LnTn) != 2)
       .throw_error("'LnTn' should be a data frame with 2 columns")
     if (ncol(data) > 3)
@@ -395,23 +395,19 @@ calc_Huntley2006 <- function(
   # check if numeric
   if (is.numeric(rhop)) {
     .validate_length(rhop, 2)
-
-    # alternatively, an RLum.Results object produced by analyse_FadingMeasurement()
-    # can be provided
-  } else if (inherits(rhop, "RLum.Results")) {
-
-    if (rhop@originator == "analyse_FadingMeasurement")
-      rhop <- c(rhop@data$rho_prime$MEAN,
-                rhop@data$rho_prime$SD)
-    else
+  } else {
+    ## alternatively, an RLum.Results object produced by
+    ## analyse_FadingMeasurement() can be provided
+    if (is.na(rhop@originator) || rhop@originator != "analyse_FadingMeasurement")
       .throw_error("'rhop' accepts only RLum.Results objects produced ",
                    "by 'analyse_FadingMeasurement()'")
+    rhop <- c(rhop@data$rho_prime$MEAN, rhop@data$rho_prime$SD)
   }
 
   # check if 'rhop' is actually a positive value
   if (anyNA(rhop) || !rhop[1] > 0 || any(is.infinite(rhop))) {
-    .throw_error("'rhop' must be a positive number. Provided value ",
-                 "was: ", signif(rhop[1], 3), " \u2213 ", signif(rhop[2], 3))
+    .throw_error("'rhop' must be a positive number, the provided value ",
+                 "was ", signif(rhop[1], 3), " \u00B1 ", signif(rhop[2], 3))
   }
 
   ## Check ddot & readerDdot
@@ -428,20 +424,26 @@ calc_Huntley2006 <- function(
   on.exit(parallel::stopCluster(cl), add = TRUE)
 
   ## Settings ------------------------------------------------------------------
+  extraArgs <- list(...)
   settings <- modifyList(
     list(
       verbose = TRUE,
       n.MC = 10000,
+      plot_all_DRC = plot,
       maxiter = 500,
       trace = FALSE),
-    list(...))
+    extraArgs)
+
+  .validate_positive_scalar(settings$n.MC, int = TRUE, name = "'n.MC'")
+  if (settings$n.MC == 1) {
+    settings$n.MC <- max(settings$n.MC, 2)
+    extraArgs$n.MC <- settings$n.MC
+  }
 
   ## Define Constants ----------------------------------------------------------
-  kb <- 8.617343 * 1e-5
-  alpha <- 1
+
   Hs <- 3e15 # s value after Huntley (2006)
-  Ma <- 1e6 * 365.25 * 24 * 3600 #in seconds
-  ka <- Ma / 1000 #in seconds
+  ka <- 1e3 * .const$year_s # in seconds
 
   ## Define Functions ----------------------------------------------------------
   # fit data using using Eq 5. from Kars et al (2008) employing
@@ -471,8 +473,8 @@ calc_Huntley2006 <- function(
   ## around 2.2, so setting it to 3 should be enough in general, and 1000
   ## points seem also enough; in any case, we let the user override it
   rprime <- seq(0.01, 3, length.out = 1000)
-  if ("rprime" %in% names(list(...))) {
-    rprime <- list(...)$rprime
+  if ("rprime" %in% names(extraArgs)) {
+    rprime <- extraArgs$rprime
     .validate_class(rprime, "numeric")
   }
 
@@ -487,21 +489,26 @@ calc_Huntley2006 <- function(
     fit.force_through_origin = FALSE,
     verbose = FALSE)
 
-  GC.settings <- modifyList(GC.settings, list(...))
+  GC.settings <- modifyList(GC.settings, extraArgs)
   GC.settings$object <- data.tmp
   GC.settings$verbose <- FALSE
 
-  ## take of force_through origin settings
+  ## unset the n.MC argument so that fit_DoseResponseCurve() won't use it,
+  ## which would result in a large performance slowdown (#867)
+  GC.settings$n.MC <- NULL
+
+  fit.bounds <- GC.settings$fit.bounds
   force_through_origin <- GC.settings$fit.force_through_origin
   mode_is_extrapolation <- GC.settings$mode == "extrapolation"
 
   ## call the fitting
   GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings))
 
-  if (inherits(GC.measured$Fit, "try-error"))
-    .throw_error("Unable to fit growth curve to measured data, try setting ",
-                 "'fit.bounds = FALSE'")
-  if (plot) {
+  if (inherits(GC.measured$Fit, "try-error")) {
+    .throw_error("Unable to fit growth curve to measured data",
+                 ifelse(fit.bounds, ", try setting 'fit.bounds = FALSE'", ""))
+  }
+  if (settings$plot_all_DRC) {
     plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
                            xlab = "Dose [Gy]", verbose = FALSE)
   }
@@ -600,7 +607,7 @@ calc_Huntley2006 <- function(
 
       ## add back the coefficient for D0
       D0 <- environment(fit.D0$m$predict)$env$D0
-      coefs <- c(coefs[1], D0 = D0, coefs[2:3])
+      coefs <- c(coefs[1], D0 = D0, coefs[2:length(coefs)])
     }
 
     return(coefs)
@@ -628,10 +635,10 @@ calc_Huntley2006 <- function(
   # natdosetime <- seq(0, 1e14, length.out = settings$n.MC)
   # natdosetimeGray <- natdosetime * ddot / ka
 
-  # calculate D0 dose in seconds
-  computedD0 <- (fitcoef[ ,"D0"] * readerDdot) / (ddot / ka)
-
   # Legacy code:
+  # calculate D0 dose in seconds
+  # computedD0 <- (fitcoef[ ,"D0"] * readerDdot) / (ddot / ka)
+  #
   # This is an older approximation to calculate the natural dose response curve,
   # which sometimes tended to slightly underestimate nN_ss. This is now replaced
   # with the newer approach below.
@@ -645,7 +652,6 @@ calc_Huntley2006 <- function(
   natdosetime <- natdosetimeGray
   pr <- 3 * rprime^2 * exp(-rprime^3) # Huntley 2006, eq. 3
   K <- Hs * exp(-rhop[1]^-(1/3) * rprime)
-  TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
   UFD0 <- mean(fitcoef[ ,"D0"], na.rm = TRUE) * readerDdot
 
   c_val <- mean(fitcoef[, "c"], na.rm = TRUE)
@@ -656,22 +662,35 @@ calc_Huntley2006 <- function(
     d_gok <- mean(fitcoef[ ,"d"], na.rm = TRUE)
   }
 
-  for (k in 1:length(rprime)) {
-    if (fit.method[1] == "EXP") {
-      TermA[k, ] <- A * pr[k] *
-        ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
-         (1 - exp(-(natdosetime + c_val) * (1 / UFD0 + K[k] / ddots))))
-    } else if (fit.method[1] == "GOK") {
-      TermA[k, ] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) *
-        (d_gok-(1+(1 / UFD0 + K[k] / ddots) * natdosetime * c_val)^(-1 / c_val))
-    }
+  ## the original formulation used:
+  ##  (1) (ddots / UFD0) / (ddots / UFD0 + K[k])
+  ##  (2) 1 / UFD0 + K[k] / ddots
+  ## which are algebraically equivalent to:
+  ##  (1) ddots / (ddots + UFD0 * K[k]) -> scaled.ddots
+  ##  (2) 1 / scaled.dots / UFD0
+  scaled.ddots <- ddots / (ddots + UFD0 * K)
+  A.pr.ddots <- A * pr * scaled.ddots
+  inv.UFD0.K <- 1 / scaled.ddots / UFD0
+  if (fit.method == "EXP") {
+    fun <- function(k) A.pr.ddots[k] *
+        (1 - exp(-(natdosetime + c_val) * inv.UFD0.K[k]))
+  } else if (fit.method == "GOK") {
+    fun <- function(k) A.pr.ddots[k] *
+        (d_gok - (1 + inv.UFD0.K[k] * natdosetime * c_val)^(-1 / c_val))
   }
+  TermA <- t(vapply(seq_along(rprime), fun, USE.NAMES = FALSE,
+                    FUN.VALUE = numeric(length(natdosetime))))
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
 
   # calculate Age
   positive <- which(diff(LxTx.sim) > 0)
+  if (length(positive) == 0) {
+    .throw_error("All simulated Lx/Tx values are identical and approximately ",
+                 "zero. Please verify the accuracy of your rho' value, as this ",
+                 "is likely too large and may not be realistic")
+  }
 
   data.unfaded <- data.frame(
     dose = c(0, natdosetimeGray[positive]),
@@ -691,7 +710,7 @@ calc_Huntley2006 <- function(
   De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA
   Age.sim <- Age.sim.error <- Age.sim.2D0 <- Age.sim.2D0.error <- NA
   if (!inherits(GC.simulated, "try-error")) {
-    if (plot) {
+    if (settings$plot_all_DRC) {
       plot_DoseResponseCurve(GC.simulated, main = "Simulated dose response curve",
                              xlab = "Dose (Gy)", verbose = FALSE)
     }
@@ -717,8 +736,8 @@ calc_Huntley2006 <- function(
   }
 
   if (Ln > max(LxTx.sim) * 1.1)
-    .throw_warning("Ln is >10 % larger than the maximum computed LxTx value.",
-                   " The De and age should be regarded as infinite estimates.")
+    .throw_warning("Ln is >10 % larger than the maximum computed LxTx value, ",
+                   "the De and age should be regarded as infinite estimates")
 
   if (Ln < min(LxTx.sim) * 0.95 && !mode_is_extrapolation)
     .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value: ",
@@ -748,16 +767,16 @@ calc_Huntley2006 <- function(
   ##
   ## Now, substituting (2') into (3) we get:
   ##
-  ##  (3') tau <- ((1 / Hs) * exp(1)^(rprime / (rhop_MC[i]^(1 / 3))) / ka
+  ##  (3') tau <- (1 / Hs) * exp(rprime / (rhop_MC[i]^(1 / 3))) / ka
   ##
   ## The current formulation then follows:
   ##
   ##  rho_i <- rhop_MC[i]^(1 / 3)
-  ##  tau <- ((1 / Hs) * exp(1)^(rprime / rho_i)) / ka
+  ##  tau <- (1 / Hs) * exp(rprime / rho_i) / ka
 
   rho_MC <- rhop_MC^(1 / 3)
   nN_SS_MC <- mapply(function(rho_i, ddot_i, UFD0_i) {
-    tau <- ((1 / Hs) * exp(1)^(rprime / rho_i)) / ka
+    tau <- (1 / Hs) * exp(rprime / rho_i) / ka
     Ls <- 1 / (1 + UFD0_i / (ddot_i * tau))
     Lstrap <- (pr * Ls) / sum(pr)
 
@@ -778,14 +797,14 @@ calc_Huntley2006 <- function(
 
   ## (3) UNFADED ---------------------------------------------------------------
   LxTx.unfaded <- LxTx.measured / theta(dosetime, rhop[1])
-  LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
-  LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
+
+  ## set Inf and NaN values to 0
+  LxTx.unfaded[!is.finite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
 
   ## run this first model also for GOK as in general it provides more
   ## stable estimates that can be used as starting point for GOK
-  if (fit.method[1] == "EXP" || fit.method[1] == "GOK") {
-    fit_unfaded <- try(minpack.lm::nlsLM(
+  fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
         a = coef(fit_simulated)[["a"]],
@@ -799,7 +818,6 @@ calc_Huntley2006 <- function(
         lower = lower.bounds[1:3],
         trace = settings$trace,
       control = list(maxiter = settings$maxiter)), silent = TRUE)
-  }
 
   ## if this fit has failed, what we do depends on fit.method:
   ## - for EXP, this error is irrecoverable
@@ -838,16 +856,14 @@ calc_Huntley2006 <- function(
   ## Create LxTx tables --------------------------------------------------------
   # normalise by A (saturation point of the un-faded curve)
   if (normalise) {
-    LxTx.measured.relErr <- (LxTx.measured.error / LxTx.measured)
     LxTx.measured <- LxTx.measured / A
-    LxTx.measured.error <- LxTx.measured * LxTx.measured.relErr
+    LxTx.measured.error <- LxTx.measured.error / A
 
     LxTx.sim <- LxTx.sim / A
     LxTx.unfaded <- LxTx.unfaded / A
 
-    Ln.relErr <- Ln.error / Ln
     Ln <- Ln / A
-    Ln.error <- Ln * Ln.relErr
+    Ln.error <- Ln.error / A
   }
 
   # combine all computed LxTx values
@@ -869,21 +885,20 @@ calc_Huntley2006 <- function(
   ## Plot settings -------------------------------------------------------------
   plot.settings <- modifyList(list(
     main = "Dose response curves",
-    xlab = "Dose (Gy)",
-    ylab = ifelse(normalise, "normalised LxTx (a.u.)", "LxTx (a.u.)")
-  ), list(...))
+    cex = 1,
+    xlab = "Dose [Gy]",
+    ylab = ifelse(normalise, "normalised LxTx [a.u.]", "LxTx [a.u.]")
+  ), extraArgs)
 
   ## Plotting ------------------------------------------------------------------
   if (plot) {
     ### par settings ---------
-    # set plot parameters
-    par.old.full <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     # set graphical parameters
-    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8,
-        oma = c(0, 9, 0, 9))
-    if (summary)
-      par(oma = c(0, 3, 0, 9))
+    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8 * plot.settings$cex,
+        oma = c(0, 0, 0, if (summary) 12 / plot.settings$cex else 0))
 
     # Find a good estimate of the x-axis limits
     if (mode_is_extrapolation && !force_through_origin) {
@@ -891,9 +906,7 @@ calc_Huntley2006 <- function(
       De.measured <- -De.measured
     }
 
-    xlim <- range(pretty(dosetimeGray))
-    if (!is.na(De.sim) & De.sim > xlim[2])
-      xlim <- range(pretty(c(min(dosetimeGray), De.sim)))
+    xlim <- range(pretty(c(dosetimeGray, De.sim), n = 15))
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     ## open plot window ------------
@@ -908,9 +921,8 @@ calc_Huntley2006 <- function(
       xlim = xlim
     )
 
-    ##add ablines for extrapolation
-    if (mode_is_extrapolation)
-      abline(v = 0, h = 0, col = "gray")
+    ## add horizontal line at zero
+    abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
     segments(x0 = dosetimeGray[dosetimeGray >= 0],
@@ -948,7 +960,7 @@ calc_Huntley2006 <- function(
 
     # Ln and DE as points
     points(x = if (mode_is_extrapolation)
-                rep(De.measured, 2)
+                 rep(De.measured, 2)
                else
                  c(0, De.measured),
            y = if (mode_is_extrapolation)
@@ -967,7 +979,7 @@ calc_Huntley2006 <- function(
     lines(x = if (mode_is_extrapolation)
                 c(0, min(c(De.measured, De.sim), na.rm = TRUE))
               else
-                c(par()$usr[1], max(c(De.measured, De.sim), na.rm = TRUE)),
+                c(par()$usr[1], max(c(De.measured, De.sim, 0), na.rm = TRUE)),
           y = c(Ln, Ln),
           col = "red ", lty = 3)
 
@@ -983,6 +995,7 @@ calc_Huntley2006 <- function(
              "Unfaded DRC",
              "Measured DRC",
              "Simulated natural DRC"),
+           inset = c(0, 0.04),
            lty = c(5, 1, 3),
            bty = "n",
            cex = 0.8)
@@ -1031,29 +1044,18 @@ calc_Huntley2006 <- function(
         bquote(dot(D)["Reader"] == .(format(readerDdot, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(readerDdot.error, digits = 3, nsmall = 3)), 3)) ~ frac(Gy, s)),
         bquote(log[10]~(rho~"'") == .(format(log10(rhop[1]), digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(rhop[2] / (rhop[1] * log(10, base = exp(1))), digits = 2, nsmall = 2)), 2)) ),
         bquote(bgroup("(", frac(n, N), ")") == .(format(nN, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN.error, digits = 2, nsmall = 2)), 2)) ),
-        bquote(bgroup("(", frac(n, N), ")")[SS] == .(format(nN_SS, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN_SS.error, digits = 2, nsmall = 2)), 2)) ),
+        bquote(bgroup("(", frac(n, N), ")")[SS] == .(format(nN_SS, digits = 2, nsmall = 2)) %+-% .(round(nN_SS.error, 2))),
         bquote(D["E,sim"] == .(format(De.sim, digits = 1, nsmall = 0)) %+-% .(format(De.error.sim, digits = 1, nsmall = 0)) ~ Gy),
         bquote(D["0,sim"] == .(format(D0.sim.Gy, digits = 1, nsmall = 0)) %+-% .(format(D0.sim.Gy.error, digits = 1, nsmall = 0)) ~ Gy),
         bquote(Age["sim"] == .(format(Age.sim, digits = 1, nsmall = 0)) %+-% .(format(Age.sim.error, digits = 1, nsmall = 0)) ~ ka)
       )
 
       # each of the labels is positioned at 1/10 of the available y-axis space
-      ypos <- seq(range(axTicks(2))[2], range(axTicks(2))[1], length.out = 10)[1:length(labels.text)]
-
-      # allow overprinting
-      par(xpd = NA)
-
-      # add labels iteratively
-      mapply(function(label, pos) {
-        text(x = par("usr")[2] * 1.05,
-             y = pos,
-             labels = label,
-             pos = 4)
-      }, labels.text, ypos)
+      ypos <- seq(range(axTicks(2))[2], range(axTicks(2))[1], length.out = 10)
+      for (i in seq_along(labels.text))
+        mtext(labels.text[[i]], at = ypos[i],
+              side = 4, line = 1, las = 1, padj = 1)
     }
-
-    # recover plot parameters
-    on.exit(par(par.old.full), add = TRUE)
   }
 
   ## Results -------------------------------------------------------------------
@@ -1157,4 +1159,3 @@ calc_Huntley2006 <- function(
   ## Return value --------------------------------------------------------------
   return(results)
 }
-

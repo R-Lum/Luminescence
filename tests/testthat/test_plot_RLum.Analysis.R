@@ -9,6 +9,12 @@ temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 c1 <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1,
                                       run = 1, set = 6)
 
+## image
+set.seed(1)
+img <- set_RLum("RLum.Analysis",
+                records = list(set_RLum("RLum.Data.Image",
+                                        data = array(rnorm(250), c(5, 5, 10)))))
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -16,9 +22,9 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
 
   expect_error(plot_RLum.Analysis(temp, nrows = -1),
-               "'nrows' should be a positive scalar")
+               "'nrows' should be a single positive integer value")
   expect_error(plot_RLum.Analysis(temp, ncols = -1),
-               "'ncols' should be a positive scalar")
+               "'ncols' should be a single positive integer value")
   expect_error(plot_RLum.Analysis(temp, combine = -1),
                "'combine' should be a single logical value")
 
@@ -27,6 +33,17 @@ test_that("input validation", {
                                                set_RLum("RLum.Data.Image"))),
       combine = TRUE),
       "'combine' is valid only for 'RLum.Data.Curve' objects")
+
+  ## empty object
+  expect_message(expect_null(plot_RLum.Analysis(set_RLum("RLum.Analysis"))),
+                 "Nothing to plot, NULL returned")
+  expect_message(
+      plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
+      "Nothing to plot, NULL returned")
+
+  ## empty RLum.Data.Image
+  expect_silent(plot_RLum.Analysis(
+      set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Image")))))
 
   ## this generates multiple warnings
   warnings <- capture_warnings(plot_RLum.Analysis(c1, col = 2,
@@ -48,7 +65,7 @@ test_that("input validation", {
                          norm = TRUE, log = "y")),
       "12 y values <= 0 omitted from logarithmic plot")
 
-  expect_warning(plot_RLum.Analysis(c1, combine = TRUE, main = "Curve"),
+  expect_message(plot_RLum.Analysis(c1, combine = TRUE, main = "Curve"),
                  "'combine' can't be used with fewer than two curves")
   expect_warning(plot_RLum.Analysis(c1, plot.single = TRUE),
                   "'plot.single' is deprecated, use 'plot_singlePanels'")
@@ -106,6 +123,7 @@ test_that("check functionality", {
     combine = TRUE,
     auto_scale = TRUE,
     xlim = c(10, 20),
+    legend.text = paste("Curve", 1:2),
     norm = "last",
     abline = list(v = c(110))
   ))
@@ -136,7 +154,6 @@ test_that("check functionality", {
     col = get("col", pos = .LuminescenceEnv)[1:4],
     xlab = "Temperature recorded [log \u00B0C]", ylab = "log TL [a.u.]",
     xlim = c(0, 200), ylim = c(0, 1), lty = c(1, 2),
-    legend.text = paste("Curve", 1:4),
     legend.col = get("col", pos = .LuminescenceEnv)[1:4],
     legend.pos = "outside",
   ))
@@ -160,23 +177,17 @@ test_that("check functionality", {
 
   plot_RLum.Analysis(temp,
                      subset = list(recordType = "OSL"),
+                     combine = TRUE,
                      curve.transformation = "CW2pHMi")
 
   plot_RLum.Analysis(temp,
                      subset = list(recordType = "TL"),
-                     combine = TRUE,
                      curve.transformation = "CW2pPMi")
-
-  ## empty object
-  expect_silent(plot_RLum.Analysis(set_RLum("RLum.Analysis")))
-  expect_warning(plot_RLum.Analysis(set_RLum("RLum.Analysis"), combine = TRUE),
-                 "'combine' can't be used with fewer than two curves")
 })
 
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("plot_RLum.Analysis",
@@ -186,10 +197,38 @@ test_that("graphical snapshot tests", {
                                   combine = TRUE,
                                   norm = TRUE,
                                   abline = list(v = 110)))
+  vdiffr::expect_doppelganger("combine-cex",
+                              plot_RLum.Analysis(
+                                  temp,
+                                  subset = list(recordType = "TL"),
+                                  combine = TRUE,
+                                  cex = 2))
+  vdiffr::expect_doppelganger("smooth-type-cex",
+                              plot_RLum.Analysis(
+                                  temp[1:6],
+                                  smooth = TRUE,
+                                  type = "b",
+                                  cex = 2))
   vdiffr::expect_doppelganger("plot_RLum.Analysis persp",
                               plot_RLum.Analysis(
                                   set_RLum(class = "RLum.Analysis",
                                            records = list(TL.Spectrum, temp[[1]])),
                                   plot.type = "persp"))
+  vdiffr::expect_doppelganger("records_max",
+                              plot_RLum.Analysis(
+                                  temp[1:6],
+                                  combine = TRUE,
+                                  records_max = 10))
+  vdiffr::expect_doppelganger("abline outside",
+                              plot_RLum.Analysis(
+                                  temp[1:8],
+                                  subset = list(recordType = "TL"),
+                                  combine = TRUE,
+                                  abline = list(v = c(50, 150)),
+                                  legend.pos = "outside"))
+  vdiffr::expect_doppelganger("image",
+                              plot_RLum.Analysis(
+                                  img,
+                                  frame = 3))
   })
 })

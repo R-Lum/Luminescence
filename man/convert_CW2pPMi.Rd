@@ -2,13 +2,10 @@
 % Please edit documentation in R/convert_CW2pPMi.R
 \name{convert_CW2pPMi}
 \alias{convert_CW2pPMi}
-\alias{CW2pPMi}
 \title{Transform a CW-OSL curve into a pPM-OSL curve via interpolation under
 parabolic modulation conditions}
 \usage{
 convert_CW2pPMi(values, P)
-
-CW2pPMi(values, P)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):

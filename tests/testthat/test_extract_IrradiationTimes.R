@@ -16,6 +16,8 @@ test_that("input validation", {
                "'object' should be of class 'character', 'RLum.Analysis' or a")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = "fail"),
                "Wrong BINX file name or file does not exist!")
+  expect_error(extract_IrradiationTimes(xsyg, return_same_as_input = "error"),
+               "return_same_as_input' should be a single logical value")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = tempdir()),
                "File is expected to have 'binx' or 'BINX' extension")
 
@@ -34,6 +36,14 @@ test_that("Test the extraction of irradiation times", {
   SW({
   res <- expect_s4_class(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE),
                          "RLum.Results")
+
+  res_a <- expect_type(extract_IrradiationTimes(list(xsyg, xsyg), txtProgressBar = FALSE, return_same_as_input = TRUE),
+                         "list")
+  expect_s4_class(res_a[[1]], "RLum.Analysis")
+
+  expect_s4_class(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE, return_same_as_input = TRUE),
+                       "RLum.Analysis")
+
   })
 
   ##check whether it makes sense

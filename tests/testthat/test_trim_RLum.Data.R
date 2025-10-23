@@ -8,6 +8,10 @@ test_that("input validation", {
   expect_error(trim_RLum.Data("error"),
                "[trim_RLum.Data()] 'object' should be of class 'RLum.Data' or",
                fixed = TRUE)
+  expect_error(trim_RLum.Data(list(list())),
+               "All elements of 'object' should be of class 'RLum.Data' or")
+  expect_error(trim_RLum.Data(list(list(3))),
+               "All elements of 'object' should be of class 'RLum.Data' or")
   expect_error(trim_RLum.Data(temp, recordType = c(1, 20)),
                "'recordType' should be of class 'character'")
   expect_error(trim_RLum.Data(temp, trim_range = "error"),
@@ -21,8 +25,6 @@ test_that("RLum.Data.Curve", {
   t <- testthat::expect_type(
     object = trim_RLum.Data(temp$TL, trim_range = c(20,50)),
     type = "list")
-
-  ## check output length
   testthat::expect_length(
     object = t[[1]]@data[,1], n = 31)
 
@@ -30,8 +32,6 @@ test_that("RLum.Data.Curve", {
   t <- testthat::expect_type(
     object = trim_RLum.Data(temp$TL, trim_range = c(50)),
     type = "list")
-
-  ## check output length
   testthat::expect_length(
     object = t[[1]]@data[,1], n = 50)
 
@@ -39,8 +39,6 @@ test_that("RLum.Data.Curve", {
   t <- testthat::expect_type(
     object = trim_RLum.Data(temp$TL, trim_range = NULL),
     type = "list")
-
-  ## check output length
   testthat::expect_length(
     object = t[[1]]@data[,1], n = 250)
 
@@ -50,8 +48,6 @@ test_that("RLum.Data.Curve", {
   t <- testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], recordType = "OSL", trim_range = NULL),
     class = "RLum.Data.Curve")
-
-  ## check output length
   testthat::expect_length(
     object = t@data[,1], n = 250)
 
@@ -68,19 +64,27 @@ test_that("RLum.Data.Curve", {
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(-1)),
     class = "RLum.Data.Curve")
+
   ## c(0, 1)
   t <- trim_RLum.Data(temp@records[[1]], trim_range = c(0, 1))
   expect_equal(nrow(t@data), 1)
+
   ## c(-10, -20)
   t <- trim_RLum.Data(temp@records[[1]], trim_range = c(-10, -20))
   expect_equal(nrow(t@data), 11)
+
   ## c(1025, 2)
   t <- trim_RLum.Data(temp@records[[1]], trim_range = c(1025, 2))
   expect_equal(nrow(t@data), 249)
+
   ## c(1,2,3)
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(1:3)),
     class = "RLum.Data.Curve")
+
+  ## c(265, 270)
+  t <- trim_RLum.Data(temp@records[[1]], trim_range = c(265, 270))
+  expect_equal(nrow(t@data), 1)
 })
 
 test_that("RLum.Data.Spectrum", {
@@ -94,6 +98,11 @@ test_that("RLum.Data.Spectrum", {
     object = trim_RLum.Data(TL.Spectrum, trim_range = c(2, 4)),
     class = "RLum.Data.Spectrum")
   testthat::expect_length(object = t@data[1,], n = 3)
+
+  ## both values in the range exceeding the number of channels
+  t <- expect_s4_class(trim_RLum.Data(TL.Spectrum, trim_range = c(265, 270)),
+                       "RLum.Data.Spectrum")
+  expect_length(ncol(t@data), 1)
 
   ## RLum.Analysis object with RLum.Data.Spectrum data
   obj <- set_RLum("RLum.Analysis", records = list(TL.Spectrum))
@@ -138,18 +147,15 @@ test_that("RLum.Analysis", {
  t <- testthat::expect_s4_class(
    object = trim_RLum.Data(temp, trim_range = c(10,20)),
    class = "RLum.Analysis")
-
- ## check for two curves
  testthat::expect_length(
    object = t@records[[4]]@data[,1], n = 11)
  testthat::expect_length(
    object = t@records[[1]]@data[,1], n = 11)
 
- ## apply a trimming to TL curves only
+ ## apply a trimming to OSL curves only
  t <- testthat::expect_s4_class(
    object = trim_RLum.Data(temp, recordType = "OSL", trim_range = c(10,20)),
    class = "RLum.Analysis")
- ## check for two curves
  testthat::expect_length(
    object = t@records[[4]]@data[,1], n = 11)
  testthat::expect_length(

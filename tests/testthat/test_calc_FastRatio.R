@@ -15,16 +15,16 @@ test_that("input validation", {
                "'object' should have at least two columns")
 
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
-               "'Ch_L1' should be a positive integer scalar")
+               "'Ch_L1' should be a single positive integer value")
   expect_error(calc_FastRatio(obj, Ch_L1 = 0),
-               "'Ch_L1' should be a positive integer scalar")
+               "'Ch_L1' should be a single positive integer value")
   expect_error(calc_FastRatio(obj, Ch_L1 = c(1, 2)),
-               "'Ch_L1' should be a positive integer scalar")
+               "'Ch_L1' should be a single positive integer value")
 
   expect_error(calc_FastRatio(obj, Ch_L2 = 0),
-               "'Ch_L2' should be a positive integer scalar")
+               "'Ch_L2' should be a single positive integer value")
   expect_error(calc_FastRatio(obj, Ch_L2 = c(1, 2)),
-               "'Ch_L2' should be a positive integer scalar")
+               "'Ch_L2' should be a single positive integer value")
 
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve,
                               Ch_L3 = 50),
@@ -33,9 +33,9 @@ test_that("input validation", {
                               Ch_L3 = c(40, 50, 60)),
                "'Ch_L3' should have length 2")
   expect_error(calc_FastRatio(obj, Ch_L3 = list(4, 5)),
-               "'Ch_L3' should be of class 'integer' or 'numeric'")
+               "'Ch_L3' should be of class 'integer', 'numeric' or NULL")
   expect_error(calc_FastRatio(obj, Ch_L3 = c(0, 2)),
-               "'Ch_L3[1]' should be a positive integer scalar",
+               "'Ch_L3[1]' should be a single positive integer value",
                fixed = TRUE)
   expect_error(calc_FastRatio(obj, Ch_L3 = c(5, 2)),
                "'Ch_L3[2]' must be greater than or equal to 'Ch_L3[1]'",
@@ -45,21 +45,25 @@ test_that("input validation", {
                fixed = TRUE)
 
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, wavelength=0),
-               "'wavelength' should be a positive scalar")
+               "'wavelength' should be a single positive value")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, sigmaF= 0),
-               "'sigmaF' should be a positive scalar")
+               "'sigmaF' should be a single positive value")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, sigmaM= 0),
-               "'sigmaM' should be a positive scalar")
+               "'sigmaM' should be a single positive value")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, x = -12),
-               "'x' should be a positive scalar")
+               "'x' should be a single positive value")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, x2 = -12),
-               "'x2' should be a positive scalar")
+               "'x2' should be a single positive value")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = TRUE),
                "'dead.channels' should be of class 'integer' or 'numeric'")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = 1),
                "'dead.channels' should have length 2")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = c(-1, 1)),
                "All elements of 'dead.channels' should be non-negative")
+  expect_error(calc_FastRatio(data.frame(NA, 1:4, 1:4)),
+               "After NA removal, nothing is left from the data set")
+  expect_error(calc_FastRatio(data.frame(1:4, NA)),
+               "After NA removal, nothing is left from the data set")
 
   expect_warning(expect_null(calc_FastRatio(ExampleData.CW_OSL_Curve,
                                             Ch_L2 = 1)),
@@ -135,7 +139,6 @@ test_that("check functionality", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("FastRatio defaults",
@@ -171,4 +174,8 @@ test_that("regression tests", {
       "Error: Fitting failed, please call 'fit_CWCurve()' manually",
       fixed = TRUE)
   })
+
+  ## issue 932
+  expect_warning(expect_null(calc_FastRatio(matrix(rnorm(5), 1, 5))),
+                 "Calculated time/channel for L2 is too small")
 })

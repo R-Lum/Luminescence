@@ -6,7 +6,8 @@
 #' @param file [character] (**required**):
 #' name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
 #' be sent to the DRAC website for calculation. It can also be a DRAC template
-#' object obtained from [template_DRAC()].
+#' object obtained from [template_DRAC()], which supports also import from
+#' CSV-files.
 #'
 #' @param name [character] (*with default*):
 #' Optional user name submitted to DRAC. If omitted, a random name will be generated
@@ -19,7 +20,7 @@
 #' used references. Valid options are `"Bibtex"`, `"citation"`, `"html"`, `"latex"`
 #' or `"R"`. Default is `"text"`.
 #'
-#' @param ... Further arguments.
+#' @param ... further arguments:
 #'
 #' - `url` [character]: provide an alternative URL to DRAC
 #' - `ignore_version` [logical]: ignores the version check, this might come in handy
@@ -49,7 +50,9 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.15
+#' @seealso [template_DRAC], [.as.latex.table]
+#'
+#' @section Function version: 0.16
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -71,10 +74,7 @@
 #' use_DRAC(file = file)
 #' }
 #'
-#'
-#'
 #' ## (2) Method using an R template object
-#'
 #' # Create a template
 #' input <- template_DRAC(preset = "DRAC-example_quartz")
 #'
@@ -108,9 +108,11 @@
 #' # use DRAC
 #' \dontrun{
 #' output <- use_DRAC(input)
+#'
+#' ## export as LaTeX table
+#' .as.latex.table(output)
 #' }
 #'
-#' @md
 #' @export
 use_DRAC <- function(
   file,
@@ -142,8 +144,11 @@ use_DRAC <- function(
     list(...),
     keep.null = TRUE)
 
-  ## Integrity checks -------------------------------------------------------
+  ## double check URL for validity
+  if(!grepl(pattern = "?show=calculator", settings$url, fixed = TRUE))
+     .throw_warning("URL is missing '?show=calculator', please check validity!")
 
+  ## Integrity checks -------------------------------------------------------
   .validate_class(file, c("character", "DRAC.list", "DRAC.data.frame"))
   .validate_not_empty(file)
 
@@ -184,14 +189,14 @@ use_DRAC <- function(
   if (nrow(input.raw) > 5000)
     .throw_error("The limit of allowed datasets is 5000!")
 
+  .validate_logical_scalar(print_references)
   citation_style <- .validate_args(citation_style,
                                    c("text", "Bibtex", "citation", "html",
                                      "latex", "R"))
 
-  # Set helper function -------------------------------------------------------------------------
-  ## The real data are transferred without any encryption, so we have to mask the original
 
-  ##(0) set masking function
+  ## Helper function --------------------------------------------------------
+  ## The data are transferred without encryption, so we mask the original
   .masking <- function(mean, sd, n) {
     temp <- rnorm(n = 30 * n, mean = mean, sd = sd)
     t(vapply(seq(1, length(temp), 30), function(x) {
@@ -247,7 +252,7 @@ use_DRAC <- function(
 
   # Send data to DRAC ---------------------------------------------------------------------------
   if (settings$verbose)
-    message(paste("\t Establishing connection to", settings$url))
+    message("\t Establishing connection to ", settings$url)
 
   ## create config list
   conf_l <- list()
@@ -265,41 +270,44 @@ use_DRAC <- function(
     silent = TRUE)
 
   ## check for correct response
-  if (inherits(DRAC.response, "try-error") || DRAC.response$status_code != 200) {
-    if(inherits(DRAC.response, "try-error"))
-       DRAC.response$status_code <- "URL invalid"
-
+  if (inherits(DRAC.response, "try-error")) {
+    .throw_error("Transmission failed with error: ",
+                 attr(DRAC.response, "condition")$message)
+  } else if (DRAC.response$status_code != 200) {
     .throw_error("Transmission failed with HTTP status code: ",
                  DRAC.response$status_code)
-  } else {
-    if (settings$verbose) message("\t The request was successful, processing the reply...")
   }
 
+  if (settings$verbose)
+    message("\t The request was successful, processing the reply...")
+
   ## assign DRAC response data to variables
-  http.header <- DRAC.response$header
   DRAC.content <- httr::content(x = DRAC.response, as = "text")
 
   ## if the input was valid from a technical standpoint, but not with regard
   ## contents, we indeed get a valid response, but no DRAC output
   if (!grepl("DRAC Outputs", DRAC.content)) {
-    error_start <- max(gregexpr("drac_field_error", DRAC.content)[[1]])
-    error_end <- regexec('textarea name=', DRAC.content)[[1]]
-    error_msg <- substr(DRAC.content, error_start, error_end)
-
-    # nocov start
     on.exit({
-      reply <- readline("Do you want to see the DRAC error message (Y/N)?")
-      if (reply == "Y" || reply == "y" || reply == 1)
-        cat(error_msg)
-    }, add = TRUE)
-    # nocov end
+      reply <- readline("Do you want to see the DRAC error message (y/N)? ")
+      if (reply %in% c("Y", "y", "1")) {
+        ## convert to html and extract the error fields
+        html <- XML::htmlParse(DRAC.content, asText = TRUE)
+        error <- XML::xpathSApply(html, "//div[@class='drac_field_error']",
+                                  XML::xmlValue)
 
-    .throw_error("\n\t We got a response from the server, but it\n",
-                 "\t did not contain DRAC output. Please check\n",
-                 "\t your data and verify its validity.\n")
-  } else {
-    if (settings$verbose) message("\t Finalising the results...")
+        ## extract the fragment we are given if no drac_field_error is found
+        if (length(error) == 0)
+          error <- XML::xpathSApply(html, "//body", XML::xmlValue) # nocov
+
+        cat("\n", paste(error, collapse = "\n"), "\n", sep = "")
+      }
+    }, add = TRUE)
+
+    .throw_error("The response from the server did not contain DRAC output, ",
+                 "please check your data and verify its validity.")
   }
+
+  if (settings$verbose) message("\t Finalising the results...")
 
   ## split header and content
   DRAC.content.split <- strsplit(x = DRAC.content,
@@ -316,18 +324,22 @@ use_DRAC <- function(
   ## remove first two lines
   DRAC.content <- data.table::fread(as.character(DRAC.content.split[[1]][2]),
                                     sep = ",", skip = 2,
-                                    stringsAsFactors = FALSE, colClasses = c(V3 = "character"),
+                                    stringsAsFactors = FALSE,
+                                    colClasses = c(V3 = "character"),
                                     data.table = FALSE)
 
   ##Get rid of all the value we do not need anymore
   DRAC.content <-  subset(DRAC.content, DRAC.content$V1 %in% DRAC_results.id)
-  DRAC.content <- DRAC.content[with(DRAC.content, order(V1)), ]
+  DRAC.content <- DRAC.content[match(DRAC_results.id, DRAC.content$V1),]
 
   ##replace by original names
-  DRAC.content[ ,1] <- input.raw[ ,1]
+  DRAC.content[[1]] <- input.raw[[1]]
 
   ## assign column names
   colnames(DRAC.content) <- DRAC.raw[1, ]
+
+  ## reset rownames
+  rownames(DRAC.content) <- seq_len(nrow(DRAC.content))
 
   ## save column labels and use them as attributes for the I/O table columns
   DRAC.labels <- DRAC.raw[2, ]
@@ -392,9 +404,8 @@ use_DRAC <- function(
     }
   }
 
-
   ## return output
-  DRAC.return <- set_RLum(
+  invisible(set_RLum(
     "RLum.Results",
     data = list(
     DRAC = list(highlights = DRAC.highlights,
@@ -407,6 +418,5 @@ use_DRAC <- function(
         data = file,
         call = sys.call(),
         args = as.list(sys.call()[-1])))
-
-  invisible(DRAC.return)
+    )
 }

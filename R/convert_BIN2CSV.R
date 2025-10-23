@@ -39,7 +39,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 convert_BIN2CSV <- function(
   file,
@@ -55,7 +54,7 @@ convert_BIN2CSV <- function(
 
   ##set input arguments
   convert_BIN2CSV_settings.default <- list(
-    path = if(!is(file, "Risoe.BINfileData")){dirname(file)}else{NULL},
+    path = if (!inherits(file, "Risoe.BINfileData")) dirname(file) else NULL,
     show.raw.values = FALSE,
     position = NULL,
     n.records = NULL,
@@ -74,7 +73,7 @@ convert_BIN2CSV <- function(
   convert_BIN2CSV_settings <- modifyList(x = convert_BIN2CSV_settings.default, val = list(...))
 
   # Import file ---------------------------------------------------------------------------------
-  if(!is(file, "Risoe.BINfileData")){
+  if (!inherits(file, "Risoe.BINfileData")) {
     object <- read_BIN2R(
       file = file,
       show.raw.values = convert_BIN2CSV_settings$show.raw.values,
@@ -90,7 +89,6 @@ convert_BIN2CSV <- function(
       pattern = convert_BIN2CSV_settings$pattern,
       verbose = convert_BIN2CSV_settings$verbose
    )
-
   }else{
    object <- Risoe.BINfileData2RLum.Analysis(file)
   }
@@ -104,7 +102,6 @@ convert_BIN2CSV <- function(
   ##this if-condition prevents NULL in the terminal
   if(convert_BIN2CSV_settings$export == TRUE){
     invisible(do.call("write_RLum2CSV", arguments))
-
   }else{
     do.call("write_RLum2CSV", arguments)
   }

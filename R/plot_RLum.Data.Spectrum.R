@@ -80,7 +80,9 @@
 #' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `box`,
 #' `zlim`, `main`, `mtext`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
 #' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
-#' `contour`, `contour.col` (`"image"`)
+#' `contour`, `contour.col` (`"image"`), `labcex` (`"image"`, `"contour"`),
+#' `n_breaks` (`"image`), `legend` (`TRUE`/`FALSE`),
+#' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
 #' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
 #' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count
@@ -103,18 +105,22 @@
 #' binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
 #' using the bin number.
 #'
-#' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*): Spectrum
-#' used for the background subtraction. By definition, the background spectrum should have been
-#' measured with the same setting as the signal spectrum. If a spectrum is provided, the
-#' argument `bg.channels` works only on the provided background spectrum.
+#' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*):
+#' spectrum used for the background subtraction. The background spectrum should
+#' be measured using the same setting as the signal spectrum. The argument
+#' `bg.channels` controls how the subtraction is performed: if `bg.channels`
+#' is not specified or the number of channels is identical between the signal
+#' and background spectra, a channel-wise subtraction is performed; otherwise,
+#' the *arithmetic mean* is calculated and subtracted from the signal.
 #'
 #' @param bg.channels [vector] (*optional*):
-#' defines the channels used for background subtraction. If a vector is
-#' provided, the mean of the channels is used for subtraction. If a spectrum
-#' is provided via `bg.spectrum`, this argument only works on the background
-#' spectrum.
+#' channels used for background subtraction. If the number of channels is
+#' identical between the signal and background spectra, a channel-wise
+#' subtraction is performed; otherwise this number is used to select channels
+#' for calculating the *arithmetic mean*  If a spectrum is provided via
+#' `bg.spectrum`, this argument only works on the background spectrum.
 #'
-#' **Note:** Background subtraction is applied prior to channel binning
+#' **Note:** Background subtraction is applied prior to channel binning!
 #'
 #' @param bin.rows [integer] (*with default*):
 #' allow summing-up wavelength channels (horizontal binning),
@@ -163,12 +169,13 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.9
+#' @section Function version: 0.6.11
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
+#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot_RLum],
+#' [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
 #'
 #' @keywords aplot
 #'
@@ -233,10 +240,8 @@
 #'  bin.cols = 1,
 #'  type = "heatmap",
 #'  showscale = TRUE)
-#'
 #' }
 #'
-#' @md
 #' @export
 plot_RLum.Data.Spectrum <- function(
   object,
@@ -258,26 +263,26 @@ plot_RLum.Data.Spectrum <- function(
   .set_function_name("plot_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests  -------------------------------------------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Data.Spectrum", "matrix"))
 
   if (inherits(object, "matrix")) {
     if (is.null(colnames(object))) {
-        colnames(object) <- 1:ncol(object)
+      colnames(object) <- seq_len(ncol(object))
     }
     if (is.null(rownames(object))) {
-        rownames(object) <- 1:nrow(object)
+      rownames(object) <- seq_len(nrow(object))
     }
 
     object <- set_RLum(class = "RLum.Data.Spectrum", data = object)
-    message("[plot_RLum.Data.Spectrum()] Input has been converted to a ",
-            "'RLum.Data.Spectrum' object using set_RLum()")
+    .throw_message("Input has been converted to an 'RLum.Data.Spectrum' ",
+                   "object using set_RLum()", error = FALSE)
   }
 
   if (length(object@data) < 2) {
     .throw_error("'object' contains no data")
   }
+  .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"), null.ok = TRUE)
   .validate_args(norm, c("min", "max"), null.ok = TRUE)
   .validate_args(plot.type, c("contour", "persp", "single", "multiple.lines",
                               "image", "transect", "interactive"))
@@ -287,17 +292,12 @@ plot_RLum.Data.Spectrum <- function(
   ##XSYG
   ##check for curveDescripter
   if("curveDescripter" %in% names(object@info) == TRUE){
-
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
-    xlab <- if(xaxis.energy == FALSE){
-      temp.lab[2]}else{"Energy [eV]"}
+    xlab <- temp.lab[2]
     ylab <- temp.lab[1]
     zlab <- temp.lab[3]
-
   }else{
-
-    xlab <- if(xaxis.energy == FALSE){
-      "Row values [a.u.]"}else{"Energy [eV]"}
+    xlab <- "Row values [a.u.]"
     ylab <- "Column values [a.u.]"
     zlab <- "Cell values [a.u.]"
   }
@@ -310,6 +310,9 @@ plot_RLum.Data.Spectrum <- function(
     ##modify row order (otherwise subsequent functions, like persp, have a problem)
     object@data[] <- object@data[order(as.numeric(rownames(object@data))),]
     rownames(object@data) <- sort(as.numeric(rownames(object@data)))
+
+    ## update axis label
+    xlab <- "Energy [eV]"
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
@@ -321,97 +324,47 @@ plot_RLum.Data.Spectrum <- function(
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"RLum.Data.Spectrum"}
-
-  zlab <- if("zlab" %in% names(extraArgs)) {extraArgs$zlab} else
-  {ifelse(plot.type == "multiple.lines", ylab, zlab)}
-
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-  {xlab}
-
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {ifelse(plot.type == "single" | plot.type == "multiple.lines",
-          "Luminescence [cts/channel]", ylab)}
-
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {c(min(as.numeric(rownames(object@data))),
-     max(as.numeric(rownames(object@data))))}
-
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(min(as.numeric(colnames(object@data))),
-     max(as.numeric(colnames(object@data))))}
-
+  main <- extraArgs$main %||% "RLum.Data.Spectrum"
+  zlab <- extraArgs$zlab %||% ifelse(plot.type == "multiple.lines", ylab, zlab)
+  xlab <- extraArgs$xlab %||% xlab
+  ylab <- extraArgs$ylab %||% ifelse(plot.type %in% c("single", "multiple.lines"),
+                                     "Luminescence [cts/channel]", ylab)
+  xlim <- extraArgs$xlim %||% range(as.numeric(rownames(object@data)))
+  ylim <- extraArgs$ylim %||% range(as.numeric(colnames(object@data)))
   #for zlim see below
 
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
-  {""}
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {1}
-
-  phi <- if("phi" %in% names(extraArgs)) {extraArgs$phi} else
-  {15}
-
-  theta <- if("theta" %in% names(extraArgs)) {extraArgs$theta} else
-  {-30}
-
-  lphi <- if("lphi" %in% names(extraArgs)) {extraArgs$lphi} else
-  {15}
-
-  ltheta <- if("ltheta" %in% names(extraArgs)) {extraArgs$ltheta} else
-  {-30}
-
-  r <- if("r" %in% names(extraArgs)) {extraArgs$r} else
-  {10}
-
-  shade <- if("shade" %in% names(extraArgs)) {extraArgs$shade} else
-  {0.4}
-
-  expand <- if("expand" %in% names(extraArgs)) {extraArgs$expand} else
-  {0.6}
-
-  border <- if("border" %in% names(extraArgs)) {extraArgs$border} else
-  {NULL}
-
-  box <- if("box" %in% names(extraArgs)) {extraArgs$box} else
-  {TRUE}
-
-  axes <- if("axes" %in% names(extraArgs)) {extraArgs$axes} else
-  {TRUE}
-
-  ticktype <- if("ticktype" %in% names(extraArgs)) {extraArgs$ticktype} else
-  {"detailed"}
-
-  log<- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  type<- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {
-    if (plot.type == "interactive") {
-      "surface"
-
-    } else{
-      "l"
-    }
-  }
-
-  pch<- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
-  {1}
-
-  lwd<- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
-  {1}
-
-  bty <- if("bty" %in% names(extraArgs)) {extraArgs$bty} else
-  {NULL}
-
-  sub<- if("sub" %in% names(extraArgs)) {extraArgs$sub} else
-  {""}
-
+  mtext <- extraArgs$mtext %||% ""
+  cex <- extraArgs$cex %||% 1
+  phi <- extraArgs$phi %||% 15
+  theta <- extraArgs$theta %||% -30
+  lphi <- extraArgs$lphi %||% 15
+  ltheta <- extraArgs$ltheta %||% -30
+  r <- extraArgs$r %||% 10
+  shade <- extraArgs$shade %||% 0.4
+  expand <- extraArgs$expand %||% 0.6
+  border <- extraArgs$border
+  box <- extraArgs$box %||% TRUE
+  axes <- extraArgs$axes %||% TRUE
+  ticktype <- extraArgs$ticktype %||% "detailed"
+  log <- extraArgs$log %||% ""
+  labcex <- extraArgs$labcex %||% 0.6
+  type <- extraArgs$type %||% ifelse(plot.type == "interactive", "surface", "l")
+  pch <- extraArgs$pch %||% 1
+  lwd <- extraArgs$lwd %||% 1
+  bty <- extraArgs$bty
+  sub <- extraArgs$sub %||% ""
   #for plotly::plot_ly
-  showscale<- if("showscale" %in% names(extraArgs)) {extraArgs$showscale} else
-  {FALSE}
+  showscale <- extraArgs$showscale %||% FALSE
 
+  ## further plot settings
+  plot_settings <- modifyList(
+    x = list(
+      legend = TRUE,
+      legend.pos = "topright",
+      legend.horiz = FALSE,
+      n_breaks = 50
+    ),
+    val = extraArgs)
 
   # prepare values for plot ---------------------------------------------------
   ##copy data
@@ -447,24 +400,19 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
-    .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"))
+    bg.xyz <- if (inherits(bg.spectrum, "RLum.Data.Spectrum"))
+                bg.spectrum@data
+              else
+                bg.spectrum
 
-      ##case RLum
-      if(inherits(bg.spectrum, "RLum.Data.Spectrum")) bg.xyz <- bg.spectrum@data
+    ## set row and column names
+    if (is.null(rownames(bg.xyz)))
+      rownames(bg.xyz) <- 1:nrow(bg.xyz)
+    if (is.null(colnames(bg.xyz)))
+      colnames(bg.xyz) <- 1:ncol(bg.xyz)
 
-      ##case matrix
-      if(inherits(bg.spectrum, "matrix")) bg.xyz <- bg.spectrum
-
-      ##take care of channel settings, otherwise set bg.channels
-      if(is.null(bg.channels))
-        bg.channels <- c(1:ncol(bg.xyz))
-
-      ##set rownames
-      if(is.null(rownames(bg.xyz)))
-        rownames(bg.xyz) <- 1:nrow(bg.xyz)
-
-      ##convert to energy scale if needed
-      if(xaxis.energy){
+    ## convert to energy scale if needed
+    if (xaxis.energy) {
         #conversion
         bg.xyz <- convert_Wavelength2Energy(cbind(as.numeric(rownames(bg.xyz)), bg.xyz), digits = 5)
         rownames(bg.xyz) <- bg.xyz[,1]
@@ -473,11 +421,22 @@ plot_RLum.Data.Spectrum <- function(
         ##modify row order (otherwise subsequent functions, like persp, have a problem)
         bg.xyz <- bg.xyz[order(as.numeric(rownames(bg.xyz))),,drop = FALSE]
         rownames(bg.xyz) <- sort(as.numeric(rownames(bg.xyz)))
+    }
+
+    ## reduce for xlim
+    bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
+                     as.numeric(rownames(bg.xyz)) <= xlim[2], , drop = FALSE]
+
+    ## reduce for ylim by only if channels is NULL
+    if (is.null(bg.channels)) {
+      bg.xyz <- bg.xyz[, as.numeric(colnames(bg.xyz)) >= ylim[1] &
+                         as.numeric(colnames(bg.xyz)) <= ylim[2], drop = FALSE]
+      if (ncol(bg.xyz) == 0) {
+        .throw_error("No background channels left after applying 'ylim'")
       }
 
-      ##reduce for xlim
-      bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
-                             as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
+      bg.channels <- 1:ncol(bg.xyz)
+    }
   }
 
   # Background subtraction ---------------------------------------------------
@@ -495,13 +454,14 @@ plot_RLum.Data.Spectrum <- function(
                      min(bg.channels), ":", max(bg.channels))
     }
 
-    if(length(bg.channels) > 1){
-      temp.bg.signal <- rowMeans(bg.xyz[,bg.channels])
-      temp.xyz <- temp.xyz - temp.bg.signal
-
-    }else{
+    ## the challenge we have here is that we want to maintain
+    ## a channel-wise subtraction if the spectra are identical.
+    if(length(bg.channels) > 1 &&
+       (length(bg.channels) != ncol(bg.xyz) ||
+       length(bg.channels) != ncol(temp.xyz)))
+      temp.xyz <- temp.xyz - rowMeans(bg.xyz[,bg.channels])
+    else
       temp.xyz <- temp.xyz - bg.xyz[,bg.channels]
-    }
 
     ##set values < 0 to 0
     temp.xyz[temp.xyz < 0] <- 0
@@ -515,7 +475,6 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ## Channel binning --------------------------------------------------------
-
   if(bin.rows > 1){
     temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.rows, bin_col = FALSE, names = "mean")
     x <- as.numeric(rownames(temp.xyz))
@@ -567,12 +526,12 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ##check for zlim
-  zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
-  {range(temp.xyz)}
+  zlim <- extraArgs$zlim %||% range(temp.xyz)
 
   # set colour values --------------------------------------------------------
-  if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
-    if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
+  if (is.null(extraArgs$col) || plot.type %in% c("single", "multiple.lines")) {
+    if (optical.wavelength.colours ||
+        (rug && (!plot.type %in% c("persp", "interactive")))) {
 
       col.labels <- c(violet = "#EE82EE",
                       blue   = "#0000FF",
@@ -655,14 +614,20 @@ plot_RLum.Data.Spectrum <- function(
 pmat <- NA
 
 if(plot){
+
   ##par setting for possible combination with plot method for RLum.Analysis objects
-  if(par.local) par(mfrow=c(1,1), cex = cex)
+  if(par.local) {
+    par.default <- par()[c("mfrow", "mar", "mgp", "xpd")]
+    on.exit(par(par.default), add = TRUE)
+    add.bottom <- if (plot.type %in% c("single", "transect")) 1 else 0
+    par(mfrow = c(1, 1), mar = c(3.1 + add.bottom, 3.1, 2, 1),
+        mgp = c(2, 0.5, 0), cex = cex)
+  }
 
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1 && plot.type != "single"){
     plot.type <- "single"
-    .throw_warning("Single column matrix: plot.type has been automatically ",
-                   "reset to 'single'")
+    .throw_warning("Single column matrix, 'plot.type' reset to 'single'")
   }
 
   if (nrow(temp.xyz) == 1 && plot.type != "single") {
@@ -800,9 +765,6 @@ if(plot){
         xpd = TRUE)
     }
 
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex * 0.8)
-
   } else if (plot.type == "interactive") {
     ## ==========================================================================#
     ##interactive plot and former persp3d
@@ -820,7 +782,6 @@ if(plot){
           showscale = showscale
           #colors = col[1:(length(col)-1)],
         )
-
 
        ##change graphical parameters
        p <-  plotly::layout(
@@ -840,7 +801,6 @@ if(plot){
        print(p)
        on.exit(return(p), add = TRUE)
 
-
   } else if (plot.type == "contour") {
     ## Plot: contour plot ----
     ## ==========================================================================#
@@ -848,33 +808,53 @@ if(plot){
             xlab = xlab,
             ylab = ylab,
             main = main,
-            labcex = 0.6 * cex,
+            labcex = labcex * cex,
             col = "black"
     )
-
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
 
   } else if (plot.type == "image") {
     ## Plot: image plot ----
     ## ==========================================================================#
-    graphics::image(x,y,temp.xyz,
-            xlab = xlab,
-            ylab = ylab,
-            main = main,
-            col = if(is.null(extraArgs$col)) grDevices::hcl.colors(50, palette = "Inferno") else
-              extraArgs$col
+
+    ## set breaks
+    n_breaks <- plot_settings$n_breaks
+
+    ## get colours
+    col <- extraArgs$col %||% grDevices::hcl.colors(n_breaks, palette = "Inferno")
+
+    ## set break vector
+    breaks <- seq(min(temp.xyz), max(temp.xyz), length.out = length(col) + 1)
+
+    ## render graphic
+    graphics::image(
+      x,y,temp.xyz,
+      xlab = xlab,
+      ylab = ylab,
+      main = main,
+      breaks = breaks,
+      col = col
     )
 
     if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
       graphics::contour(x, y, temp.xyz,
-              col = if(is.null(extraArgs$contour.col)) rgb(1,1,1,0.8) else extraArgs$contour.col,
-              labcex = 0.6 * cex,
+              col = extraArgs$contour.col %||% rgb(1, 1, 1, 0.8),
+              labcex = labcex * cex,
               add = TRUE)
     }
 
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
+    if(plot_settings$legend[1]) {
+      ## add legend
+      legend_scale_id <- seq(1,length(breaks),length.out = c(min(c(length(breaks), 6))))
+
+      legend(
+          plot_settings$legend.pos,
+          legend = ceiling(breaks[legend_scale_id]/10) * 10,
+          fill = col[legend_scale_id],
+          bg = grDevices::rgb(1,1,1,0.7),
+          title = "Intensity",
+          cex = 0.9,
+          horiz = plot_settings$legend.horiz)
+    }
 
   } else if(plot.type == "single") {
     ## Plot: single plot ----
@@ -882,9 +862,9 @@ if(plot){
 
     ## set colour rug
     col.rug <- col
-    col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {"black"}
-    box <- if("box" %in% names(extraArgs)) extraArgs$box[1] else TRUE
-    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
+    col <- extraArgs$col %||% "black"
+    box <- extraArgs$box[1] %||% TRUE
+    frames <- extraArgs$frames %||% 1:length(y)
 
     for(i in frames) {
       if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
@@ -950,20 +930,23 @@ if(plot){
       if(box) graphics::box()
     }
 
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
-
   } else if (plot.type == "multiple.lines") {
     ## Plot: multiple.lines ----
     ## ========================================================================#
     col.rug <- col
-    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else  {"black"}
-    box <- if("box" %in% names(extraArgs)) extraArgs$box else TRUE
-    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
+    col <- extraArgs$col %||% "black"
+    box <- extraArgs$box[1] %||% TRUE
+    frames <- extraArgs$frames %||% 1:length(y)
+
+    max.frames <- ncol(temp.xyz)
+    if (any(frames > max.frames)) {
+      .throw_message("Skipped frames exceeding the maximum (", max.frames, ")",
+                     error = FALSE)
+      frames <- pmin(frames, max.frames)
+    }
 
     ##change graphic settings
-    par.default <- par()[c("mfrow", "mar", "xpd")]
-    par(mfrow = c(1,1), mar=c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
+    par(mar = c(3.1, 3.1, 2, 7), xpd = TRUE)
 
     ##grep zlim
     if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz)}
@@ -992,7 +975,6 @@ if(plot){
         col = col.rug[i],
         border = NA,
         lwd = NA)
-
 
       ## add rectangle from zero to first value
       graphics::rect(
@@ -1038,22 +1020,15 @@ if(plot){
       legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
 
     ##legend
-    legend(x = par()$usr[2],
-           y = par()$usr[4],
-
-           legend = legend.text,
-
-           lwd= lwd,
-           lty = frames,
-           bty = "n",
-           cex = 0.6*cex)
-
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
-
-    ##reset graphic settings
-    par(par.default)
-    rm(par.default)
+    if(plot_settings$legend) {
+      legend(x = par()$usr[2],
+             y = par()$usr[4],
+             legend = legend.text,
+             lwd= lwd,
+             lty = frames,
+             bty = "n",
+             cex = 0.6 * cex)
+    }
 
   } else if (plot.type == "transect") {
     ## Plot: transect plot ----
@@ -1063,13 +1038,8 @@ if(plot){
     temp.xyz <- colSums(temp.xyz)
 
     ##consider differences within the arguments
-    #check for zlim
-    zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
-    {c(0,max(temp.xyz))}
-
-    #check for zlim
-    zlab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-    {paste("Counts [1/summed channels]")}
+    zlim <- extraArgs$zlim %||% c(0, max(temp.xyz))
+    zlab <- extraArgs$ylab %||% "Counts [1/summed channels]"
 
     plot(y, temp.xyz,
          xlab = ylab,
@@ -1078,13 +1048,13 @@ if(plot){
          xlim = ylim,
          ylim = zlim,
          col = col,
-         sub = paste("(channel range: ", min(xlim), " : ", max(xlim), ")", sep=""),
+         sub = paste0("(channel range: ", min(xlim), " : ", max(xlim), ")"),
          type = type,
          pch = pch)
-
-    ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
   }
+
+  ## plot additional mtext
+  mtext(mtext, side = 3, cex = cex * 0.8)
 }
 
 # Return ------------------------------------------------------------------

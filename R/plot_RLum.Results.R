@@ -51,7 +51,6 @@
 #' plot_RLum.Results(grains)
 #'
 #'
-#' @md
 #' @export
 plot_RLum.Results<- function(
   object,
@@ -73,8 +72,8 @@ plot_RLum.Results<- function(
   ##============================================================================##
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
   ##============================================================================##
-  par.old <- par(no.readonly = TRUE)
-  on.exit(suppressWarnings(par(par.old)), add = TRUE)
+  par.default <- .par_defaults()
+  on.exit(suppressWarnings(par(par.default)), add = TRUE)
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -83,30 +82,14 @@ plot_RLum.Results<- function(
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  ##main
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {""}
-  ##mtext
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
-  {""}
-  ##log
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-  ##lwd
-  lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
-  {1}
-  ##lty
-  lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
-  {1}
-  ##type
-  type <- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {"l"}
-  ##pch
-  pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
-  {1}
-  ##col
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
-  {"black"}
+  main <- extraArgs$main %||% ""
+  mtext <- extraArgs$mtext %||% ""
+  log <- extraArgs$log %||% ""
+  lwd <- extraArgs$lwd %||% 1
+  lty <- extraArgs$lty %||% 1
+  type <- extraArgs$type %||% "l"
+  pch <- extraArgs$pch %||% 1
+  col <- extraArgs$col %||% "black"
 
   ##============================================================================##
   ## PLOTTING
@@ -118,6 +101,7 @@ plot_RLum.Results<- function(
       "analyse_SAR.CWOSL" = plot_AbanicoPlot(object),
       "analyse_pIRIRSequence" = plot_AbanicoPlot(object),
       "analyse_IRSAR.RF" = plot_AbanicoPlot(object),
+      "calc_FiniteMixture" = do.call(calc_FiniteMixture, c(object, extraArgs)),
     NULL
     )
 
@@ -170,14 +154,13 @@ plot_RLum.Results<- function(
     }
     par(mfrow=c(1,1))
 
-
     # })
 
     ## bootstrap MAM estimates
     if(object@data$args$bootstrap==TRUE) {
 
       # save previous plot parameter and set new ones
-      .pardefault<- par(no.readonly = TRUE)
+      .pardefault <- .par_defaults()
 
       # get De-llik pairs
       pairs<- object@data$bootstrap$pairs$gamma
@@ -197,10 +180,10 @@ plot_RLum.Results<- function(
       ## --------- PLOT "RECYCLE" BOOTSTRAP RESULTS ------------ ##
 
       if(single==TRUE) {
-        layout(cbind(c(1,1,2, 5,5,6), c(3,3,4, 7,7,8)))
+        graphics::layout(cbind(c(1, 1, 2, 5, 5, 6), c(3, 3, 4, 7, 7, 8)))
         par(cex = 0.6)
       } else {
-        layout(matrix(c(1,1,2)),2,1)
+        graphics::layout(matrix(c(1, 1, 2)), 2, 1)
         par(cex = 0.8)
       }
 
@@ -300,6 +283,7 @@ plot_RLum.Results<- function(
       ### possibly integrate this in the prior polynomial plot loop
 
       ### LOESS PLOT
+      if (!anyNA(object@data$bootstrap$loess.fit)) {
       pairs<- object@data$bootstrap$pairs$gamma
       pred<- predict(object@data$bootstrap$loess.fit)
       loess<- cbind(pairs[,1], pred)
@@ -314,6 +298,7 @@ plot_RLum.Results<- function(
 
       # add LOESS line
       lines(loess, type = "l", col = "black")
+      }
 
       ### ------ PLOT BOOTSTRAP LIKELIHOOD FIT
 
@@ -454,7 +439,6 @@ plot_RLum.Results<- function(
              lwd=c(10,2,2,2),
              legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)","Profile likelihood", "Grain / aliquot"),
       )
-
     }##EndOf::Bootstrap_plotting
   }#EndOf::CASE1_MinimumAgeModel-3
 
@@ -468,7 +452,7 @@ plot_RLum.Results<- function(
     llik<- object@data$profile$llik
 
     # save previous plot parameter and set new ones
-    .pardefault<- par(no.readonly = TRUE)
+    .pardefault <- .par_defaults()
 
     # plot the profile log likeihood
     par(oma=c(2,1,2,1),las=1,cex.axis=1.2, cex.lab=1.2)
@@ -497,7 +481,6 @@ plot_RLum.Results<- function(
 
     # restore previous plot parameters
     par(.pardefault)
-    rm(.pardefault)
   }##EndOf::Case 2 - calc_CentralDose()
 
 
@@ -508,16 +491,17 @@ plot_RLum.Results<- function(
     ##deal with addition arguments
     extraArgs <- list(...)
 
-    main <- if("main" %in% names(extraArgs)) {extraArgs$main} else {"Fuchs & Lang (2001)"}
-    xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else {expression(paste(D[e]," [s]"))}
-    ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else {"# Aliquots"}
-    sub <-  if("sub" %in% names(extraArgs)) {extraArgs$sub} else {""}
-    cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else {1}
-    lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else {1}
-    pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else {19}
-    ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else {c(1,length(object@data$data[,1])+3)}
-    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else {c(min(object@data$data[,1])-max(object@data$data[,2]), max(object@data$data[,1])+max(object@data$data[,2]))}
-    mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else {"unknown sample"}
+    main <- extraArgs$main %||% "Fuchs & Lang (2001)"
+    xlab <- extraArgs$xlab %||% expression(paste(D[e]," [s]"))
+    ylab <- extraArgs$ylab %||% "# Aliquots"
+    sub <-  extraArgs$sub %||% ""
+    cex <- extraArgs$cex %||% 1
+    lwd <- extraArgs$lwd %||% 1
+    pch <- extraArgs$pch %||% 19
+    ylim <- extraArgs$ylim %||% c(1, length(object@data$data[, 1]) + 3)
+    xlim <- extraArgs$xlim %||% c(min(object@data$data[, 1]) - max(object@data$data[, 2]),
+                                  max(object@data$data[, 1]) + max(object@data$data[, 2]))
+    mtext <- extraArgs$mtext %||% "unknown sample"
 
     # extract relevant plotting parameters
     o<- order(object@data$data[[1]])
@@ -543,7 +527,6 @@ plot_RLum.Results<- function(
              data_ordered[,1]+data_ordered[,2],1:length(data_ordered[,1]),
              col="gray")
 
-
     ##POINTS
     points(data_ordered[,1], counter,pch=pch)
 
@@ -556,7 +539,6 @@ plot_RLum.Results<- function(
       c(min(o)-0.5,max(o)+0.5),
       col="red",
       lty="dashed", lwd = lwd)
-
 
     #upper boundary
     lines(c(max(usedDeValues[,1]),max(usedDeValues[,1])),c(min(o)-0.5,max(o)+0.5),
@@ -584,370 +566,6 @@ plot_RLum.Results<- function(
     mtext(side=3,mtext,cex=cex)
   }
 
-
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 4: Finite Mixture Model --------
-  if(object@originator == "calc_FiniteMixture") {
-    if(length(object@data$args$n.components) > 1) {
-      ##deal with addition arguments
-      extraArgs <- list(...)
-
-      main <- if("main" %in% names(extraArgs)) {extraArgs$main} else {"Finite Mixture Model"}
-      plot.proportions<- if("plot.proportions" %in% names(extraArgs)) {extraArgs$plot.proportions} else {TRUE}
-      pdf.colors<- if("pdf.colors" %in% names(extraArgs)) {extraArgs$pdf.colors} else {"gray"}
-      pdf.weight<- if("pdf.weight" %in% names(extraArgs)) {extraArgs$pdf.weight} else {TRUE}
-      pdf.sigma<- if("pdf.sigma" %in% names(extraArgs)) {extraArgs$pdf.sigma} else {"sigmab"}
-
-      # extract relevant data from object
-      n.components <- object@data$args$n.components
-      comp.n <- object@data$components
-      sigmab <- object@data$args$sigmab
-      BIC.n <- object@data$BIC$BIC
-      LLIK.n <- object@data$llik$llik
-
-      # save previous plot parameter and set new ones
-      .pardefault<- par(no.readonly = TRUE)
-
-      ## DEVICE AND PLOT LAYOUT
-      n.plots<- length(n.components) #number of PDF plots in plot area #1
-      seq.vertical.plots<- seq(from = 1, to = n.plots, by = 1) #indices
-      ID.plot.two<- n.plots+if(plot.proportions==TRUE){1}else{0} #ID of second plot area
-      ID.plot.three<- n.plots+if(plot.proportions==TRUE){2}else{1} #ID of third plot area
-
-      #empty vector for plot indices
-      seq.matrix<- vector(mode="integer", length=4*n.plots)
-
-      #fill vector with plot indices in correct order
-      cnt<- 1
-      seq<- seq(1,length(seq.matrix),4)
-      for(i in seq) {
-        seq.matrix[i]<- cnt
-        seq.matrix[i+1]<- cnt
-        seq.matrix[i+2]<- if(plot.proportions==TRUE){ID.plot.two}else{cnt}
-        seq.matrix[i+3]<- ID.plot.three
-
-        cnt<- cnt+1
-      }
-
-      # create device layout
-      layout(matrix(c(seq.matrix),4,n.plots))
-
-      # outer margins (bottom, left, top, right)
-      par(oma=c(2.5,5,3,5))
-
-      # general plot parameters (global scaling, allow overplotting)
-      par(cex = 0.8, xpd = NA)
-
-      # define colour palette for prettier output
-      if(pdf.colors == "colors") {
-        col.n<- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
-                  "burlywood4", "magenta4", "mediumpurple3", "brown4","grey",
-                  "aquamarine")
-        poly.border<- FALSE
-      }
-      if(pdf.colors == "gray" || pdf.colors == "grey") {
-        col.n <- grDevices::gray.colors(length(n.components)*2)
-        poly.border<- FALSE
-      }
-      if(pdf.colors == "none") {
-        col.n <- rgb(0,0,0,0)
-        poly.border<- TRUE
-      }
-
-      ##--------------------------------------------------------------------------
-      ## PLOT 1: EQUIVALENT DOSES OF COMPONENTS
-
-      ## create empty plot without x-axis
-      for(i in 1:n.plots) {
-        pos.n<- seq(from = 1, to = n.components[i]*3, by = 3)
-
-        # set margins (bottom, left, top, right)
-        par(mar=c(1,0,2,0))
-
-        # empty plot area
-        plot(NA, NA,
-             xlim=c(min(n.components)-0.2, max(n.components)+0.2),
-             ylim=c(min(comp.n[pos.n,]-comp.n[pos.n+1,], na.rm = TRUE),
-                    max((comp.n[pos.n,]+comp.n[pos.n+1,])*1.1, na.rm = TRUE)),
-             ylab="",
-             xaxt="n",
-             yaxt="n",
-             xlab="")
-
-        # add text in upper part of the plot ("k = 1,2..n")
-        mtext(bquote(italic(k) == .(n.components[i])),
-              side = 3, line = -2, cex=0.8)
-
-        # add y-axis label (only for the first plot)
-        if(i==1) {
-          mtext(expression(paste("D"[e]," [Gy]")), side=2,line=2.7, cex=1)
-        }
-
-        # empty list to store normal distribution densities
-        sapply.storage<- list()
-
-        ## NORMAL DISTR. OF EACH COMPONENT
-
-        # LOOP - iterate over number of components
-        for(j in 1:max(n.components)) {
-          # draw random values of the ND to check for NA values
-          suppressWarnings(
-          comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
-                                 mean = comp.n[pos.n[j],i],
-                                 sd = comp.n[pos.n[j]+1,i]))
-          )
-          # proceed if no NA values occurred
-          if(length(comp.nd.n)!=0) {
-
-            # weight - proportion of the component
-            wi<- comp.n[pos.n[j]+2,i]
-
-            # calculate density values with(out) weights
-            fooX<- function(x) {
-              dnorm(x, mean = comp.n[pos.n[j],i],
-                    sd = if(pdf.sigma=="se"){comp.n[pos.n[j]+1,i]}
-                    else{if(pdf.sigma=="sigmab"){comp.n[pos.n[j],i]*sigmab}}
-              )*
-                if(pdf.weight==TRUE){wi}else{1}
-            }
-
-            # x-axis scaling - determine highest dose in first cycle
-            if(i==1 && j==1){
-              max.dose<- max(object@data$data[,1])+sd(object@data$data[,1])/2
-              min.dose<- min(object@data$data[,1])-sd(object@data$data[,1])/2
-
-              # density function to determine y-scaling if no weights are used
-              fooY<- function(x) {
-                dnorm(x, mean = na.exclude(comp.n[pos.n,]),
-                      sd = na.exclude(comp.n[pos.n+1,]))
-              }
-              # set y-axis scaling
-              dens.max<-max(sapply(0:max.dose, fooY))
-            }##EndOfIf::first cycle settings
-
-            # override y-axis scaling if weights are used
-            if(pdf.weight==TRUE){
-              sapply.temp<- list()
-              for(b in 1:max(n.components)){
-
-                # draw random values of the ND to check for NA values
-                suppressWarnings(
-                comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
-                                       mean = comp.n[pos.n[b],i],
-                                       sd = comp.n[pos.n[b]+1,i]))
-                )
-                # proceed if no NA values occurred
-                if(length(comp.nd.n)!=0) {
-
-                  # weight - proportion of the component
-                  wi.temp<- comp.n[pos.n[b]+2,i]
-
-                  fooT<- function(x) {
-                    dnorm(x, mean = comp.n[pos.n[b],i],
-                          sd = if(pdf.sigma=="se"){comp.n[pos.n[b]+1,i]}
-                          else{if(pdf.sigma=="sigmab"){comp.n[pos.n[b],i]*sigmab}}
-                    )*wi.temp
-                  }
-                  sapply.temp[[b]]<- sapply(0:max.dose, fooT)
-                }
-              }
-              dens.max<- max(Reduce('+', sapply.temp))
-            }
-
-            # calculate density values for 0 to maximum dose
-            sapply<- sapply(0:max.dose, fooX)
-
-            # save density values in list for sum curve of gaussians
-            sapply.storage[[j]]<- sapply
-
-            ## determine axis scaling
-            # x-axis (dose)
-            if("dose.scale" %in% names(extraArgs)) {
-              y.scale<- extraArgs$dose.scale
-            } else {
-              y.scale<- c(min.dose,max.dose)
-            }
-            # y-axis (density)
-            if("pdf.scale" %in% names(extraArgs)) {
-              x.scale<- extraArgs$pdf.scale
-            } else {
-              x.scale<- dens.max*1.1
-            }
-
-            ## PLOT Normal Distributions
-            par(new=TRUE)
-            plot(sapply, 1:length(sapply)-1,
-                 type="l", yaxt="n", xaxt="n", col=col.n[j], lwd=1,
-                 ylim=y.scale,
-                 xlim=c(0,x.scale),
-                 xaxs="i", yaxs="i",
-                 ann=FALSE, xpd = FALSE)
-
-            # draw coloured polygons under curve
-            polygon(x=c(min(sapply), sapply,  min(sapply)),
-                    y=c(0, 0:max.dose,  0),
-                    col = adjustcolor(col.n[j], alpha.f = 0.66),
-                    yaxt="n", border=poly.border, xpd = FALSE, lty = 2, lwd = 1.5)
-
-          }
-        }##EndOf::Component loop
-
-        # Add sum of Gaussian curve
-        par(new = TRUE)
-
-        plot(Reduce('+', sapply.storage),1:length(sapply)-1,
-             type="l", yaxt="n", xaxt="n", col="black",
-             lwd=1.5, lty = 1,
-             ylim=y.scale,
-             xlim=c(0,x.scale),
-             xaxs="i", yaxs="i", ann=FALSE, xpd = FALSE)
-
-        # draw additional info during first k-cycle
-        if(i == 1) {
-
-          # plot title
-          mtext("Normal distributions",
-                side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-
-          # main title
-          mtext(main,
-                side = 3, font = 2, line = 3.5, adj = 0.5,
-                at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
-
-          # subtitle
-          mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
-                                       "|" ~ n == .(length(object@data$data[,1])))),
-                side = 3, font = 1, line = 2.2, adj = 0.5,
-                at = graphics::grconvertX(0.5, from = "ndc", to = "user"), cex = 0.9)
-
-          # x-axis label
-          mtext("Density [a.u.]",
-                side = 1, line = 0.5, adj = 0.5,
-                at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
-
-          # draw y-axis with proper labels
-          axis(side=2, labels = TRUE)
-        }
-
-        if(pdf.colors == "colors") {
-          # create legend labels
-          dose.lab.legend<- paste("c", 1:n.components[length(n.components)], sep="")
-
-          ncol.temp <- min(max(n.components), 8)
-          yadj <- if (max(n.components) > 8) 1.025 else 0.93
-
-          # add legend
-          if(i==n.plots) {
-            legend(graphics::grconvertX(0.55, from = "ndc", to = "user"),
-                   graphics::grconvertY(yadj, from = "ndc", to = "user"),
-                   legend = dose.lab.legend,
-                   col = col.n[1:max(n.components)],
-                   pch = 15, adj = c(0,0.2), pt.cex=1.4,
-                   bty = "n", ncol=ncol.temp, x.intersp=0.4)
-
-            mtext("Components: ", cex = 0.8,
-                  at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
-          }
-        }
-
-      }##EndOf::k-loop and Plot 1
-
-      ##--------------------------------------------------------------------------
-      ## PLOT 2: PROPORTION OF COMPONENTS
-      if(plot.proportions==TRUE) {
-        # margins for second plot
-        par(mar=c(2,0,2,0))
-
-        # create matrix with proportions from a subset of the summary matrix
-        prop.matrix<- comp.n[pos.n+2,]*100
-
-        # stacked barplot of proportions without x-axis
-        graphics::barplot(prop.matrix,
-                width=1,
-                xlim=c(0.2, length(n.components)-0.2),
-                ylim=c(0,100),
-                axes=TRUE,
-                space=0,
-                col=col.n,
-                xpd=FALSE,
-                xaxt="n")
-
-        # y-axis label
-        mtext("Proportion [%]",
-              side=2,line=3, cex=1)
-
-
-        # add x-axis with corrected tick positions
-        axis(side = 1, labels = n.components, at = n.components+0.5-n.components[1])
-
-        # draw a box (not possible with barplot())
-        graphics::box(lty = 1, col = "black")
-
-        # add subtitle
-        mtext("Proportion of components",
-              side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-      }
-      ##--------------------------------------------------------------------------
-      ## PLOT 3: BIC & LLIK
-
-      # margins for third plot
-      par(mar=c(2,0,2,0))
-
-      # prepare scaling for both y-axes
-      BIC.scale<- c(min(BIC.n)*if(min(BIC.n)<0){1.2}else{0.8},
-                    max(BIC.n)*if(max(BIC.n)<0){0.8}else{1.2})
-      LLIK.scale<- c(min(LLIK.n)*if(min(LLIK.n)<0){1.2}else{0.8},
-                     max(LLIK.n)*if(max(LLIK.n)<0){0.8}else{1.2})
-
-      # plot BIC scores
-      plot(n.components, BIC.n,
-           main= "",
-           type="b",
-           pch=22,
-           cex=1.5,
-           xlim=c(min(n.components)-0.2, max(n.components)+0.2),
-           ylim=BIC.scale,
-           xaxp=c(min(n.components), max(n.components), length(n.components)-1),
-           xlab=expression(paste(italic(k), " Components")),
-           ylab=expression(paste("BIC")),
-           cex.lab=1.25)
-
-      # following plot should be added to previous
-      par(new = TRUE)
-
-      # plot LLIK estimates
-      plot(n.components, LLIK.n,
-           xlim=c(min(n.components)-0.2, max(n.components)+0.2),
-           xaxp=c(min(n.components), max(n.components), length(n.components)-1),
-           ylim=LLIK.scale,
-           yaxt="n", type="b", pch=16, xlab="", ylab="", lty=2, cex = 1.5)
-
-      # subtitle
-      mtext("Statistical criteria",
-            side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-
-      # second y-axis with proper scaling
-      axis(side = 4, ylim=c(0,100))
-
-      # LLIK axis label
-      mtext(bquote(italic(L)[max]),
-            side=4,line=3, cex=1.3)
-
-      # legend
-      legend(graphics::grconvertX(0.75, from = "nfc", to = "user"),
-             graphics::grconvertY(0.96, from = "nfc", to = "user"),
-             legend = c("BIC", as.expression(bquote(italic(L)[max]))),
-             pch = c(22,16), pt.bg=c("white","black"),
-             adj = 0, pt.cex=1.3, lty=c(1,2),
-             bty = "n", horiz = TRUE, x.intersp=0.5)
-
-
-      ## restore previous plot parameters
-      par(.pardefault)
-    }
-
-  }##EndOf::Case 4 - Finite Mixture Model
-
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size ---------
   if(object@originator=="calc_AliquotSize") {
@@ -958,8 +576,8 @@ plot_RLum.Results<- function(
     if(!is.null(object@data$MC$estimates)) {
       extraArgs <- list(...)
 
-      main <- if("main" %in% names(extraArgs)) { extraArgs$main } else { "Monte Carlo Simulation"  }
-      xlab <- if("xlab" %in% names(extraArgs)) { extraArgs$xlab } else { "Amount of grains on aliquot" }
+      main <- extraArgs$main %||% "Monte Carlo Simulation"
+      xlab <- extraArgs$xlab %||% "Amount of grains on aliquot"
 
       # extract relevant data
       MC.n<- object@data$MC$estimates
@@ -969,7 +587,7 @@ plot_RLum.Results<- function(
       MC.iter<- object@data$args$MC.iter
 
       # set layout of plotting device
-      layout(matrix(c(1,1,2)),2,1)
+      graphics::layout(matrix(c(1, 1, 2)), 2, 1)
       par(cex = 0.8)
 
       ## plot MC estimate distribution
@@ -1019,8 +637,6 @@ plot_RLum.Results<- function(
            xaxt="n", yaxt="n", ylab="")
       par(bty="n")
       graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
-    } else {
-      on.exit(NULL, add = TRUE) # FIXME(mcol): seems unnecessary
     }
   }#EndOf::Case 5 - calc_AliquotSize()
 
@@ -1063,7 +679,6 @@ plot_RLum.Results<- function(
 
     ##modify list if something was set
     plot.settings <- modifyList(plot.settings, list(...))
-
 
     ##plot
     plot(
@@ -1145,7 +760,7 @@ plot_RLum.Results<- function(
     if (!is.null(fit)) {
       nls.fit <- get_RLum(fit, "fit")
       if (!inherits(fit, "try-error") & "fitCW.curve" %in% names(object@data$args)) {
-        if (object@data$args$fitCW.curve == "T" | object@data$args$fitCW.curve == TRUE) {
+        if (object@data$args$fitCW.curve) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1],
                 predict(nls.fit), col = "red", lty = 1)
 
@@ -1156,7 +771,6 @@ plot_RLum.Results<- function(
               curve(fit@data$data[[paste0("I0", i)]] * fit@data$data[[paste0("lambda", i)]] * exp(-fit@data$data[[paste0("lambda", i)]] * x),
                     lwd = 1, lty = 4, add = TRUE, col = col_components[i])
           }
-
         }
       }
     }

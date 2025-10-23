@@ -7,11 +7,13 @@
 convert_Wavelength2Energy(object, digits = 3L, order = FALSE)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}): input object to be converted.
-If the input is not an \linkS4class{RLum.Data.Spectrum}, the first column is always treated as the wavelength
+\item{object}{\linkS4class{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}):
+input object to be converted. If the input is not an \code{RLum.Data.Spectrum}
+object, the first column is always treated as the wavelength
 column. The function supports a list of allowed input objects.}
 
-\item{digits}{\link{integer} (\emph{with default}): set the number of digits on the returned energy axis}
+\item{digits}{\link{integer} (\emph{with default}):
+number of digits on the returned energy axis.}
 
 \item{order}{\link{logical} (\emph{with default}): enable/disable sorting of the
 values in ascending energy order. After the conversion, the longest
@@ -22,15 +24,16 @@ highest. While this is correct, some R functions expect increasing x-values.}
 The same object class as provided as input is returned.
 }
 \description{
-The function provides a convenient and fast way to convert emission spectra wavelength
-to energy scales. The function works on \linkS4class{RLum.Data.Spectrum}, \link{data.frame} and \link{matrix} and
-a \link{list} of such objects. The function was written to smooth the workflow while analysing
-emission spectra data. This is in particular useful if you want to further treat your data
-and apply, e.g., a signal deconvolution.
+The function provides a convenient and fast way to convert emission spectra
+wavelength to energy scales. The function works on \linkS4class{RLum.Data.Spectrum},
+\link{data.frame} and \link{matrix} and a \link{list} of such objects. The function was
+written to smooth the workflow while analysing emission spectra data. This
+is in particular useful if you want to further treat your data and apply,
+e.g., a signal deconvolution.
 }
 \details{
-The intensity of the spectrum is re-calculated using the following approach to recalculate
-wavelength and corresponding intensity values
+The intensity of the spectrum is re-calculated using the following approach
+to recalculate wavelength and corresponding intensity values
 (e.g., Appendix 4 in Blasse and Grabmaier, 1994; Mooney and Kambhampati, 2013):
 
 \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
@@ -61,8 +64,7 @@ the x-axis has to be converted.
 m <- matrix(
   data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
 
-##(1.2) set plot function to reproduce the
-##literature figure
+##(1.2) set plot function to reproduce the literature figure
 p <- function(m) {
  plot(x = m[, 1], y = m[, 2])
  polygon(

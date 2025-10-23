@@ -1,23 +1,34 @@
-test_that("Test combine_De_Dr", {
+## load data
+set.seed(1276)
+Dr <- stats::rlnorm(1000, 0, 0.3)
+De <- 50*sample(Dr, 50, replace = TRUE)
+s <- stats::rnorm(50, 10, 2)
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## set seed
-  set.seed(1276)
-
-  ## simple test using the example
-  ## set parameters
-  Dr <- stats::rlnorm(1000, 0, 0.3)
-  De <- 50*sample(Dr, 50, replace = TRUE)
-  s <- stats::rnorm(50, 10, 2)
-
-  ## break function
+  expect_error(combine_De_Dr(De, s[-1], Dr, int_OD = 0.1),
+               "'De' and 's' should have the same length")
   SW({
-  expect_error(combine_De_Dr(
-    Dr = Dr,
-    int_OD = 0.1,
-    De,
-    s[-1]), "'De' and 's' should have the same length")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1,
+                             method_control = list(n.chains = 1, diag = TRUE,
+                                                   n.iter = 20)),
+               "You need at least two chains")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1,
+                             method_control = list(n.chains = 2,
+                                                   inits = list(
+                                                       list(
+                                                           .RNG.name = "base::Wichmann-Hill",
+                                                           .RNG.seed = 1)
+                                                   ))),
+               "Length mismatch between inits and n.chains")
+  })
+})
 
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  SW({
   ## simple run with standard settings
   results <- expect_s4_class(combine_De_Dr(
     Dr = Dr,
@@ -69,10 +80,6 @@ test_that("Test combine_De_Dr", {
 
   ## diag = TRUE
   SW({
-  expect_error(combine_De_Dr(
-    Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
-    method_control = list(n.iter = 100, n.chains = 1, diag = TRUE)),
-    "You need at least two chains")
   expect_s4_class(combine_De_Dr(
     Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
     method_control = list(n.iter = 100, n.chains = 2, diag = TRUE)),
@@ -108,4 +115,22 @@ test_that("Test combine_De_Dr", {
 
   ## reset the graphical parameters to the original values
   par(oldpar)
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("defaults",
+                              combine_De_Dr(De, s, Dr, int_OD = 0.1,
+                                            method_control =
+                                              list(n.iter = 100,
+                                                   n.chains = 1,
+                                                   inits = list(
+                                                       list(.RNG.name = "base::Wichmann-Hill",
+                                                            .RNG.seed = 1)))))
+  })
 })

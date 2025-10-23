@@ -1,6 +1,11 @@
 ## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 data(ExampleData.FittingLM, envir = environment())
+curve <- set_RLum("RLum.Data.Curve",
+                  data = as.matrix(ExampleData.CW_OSL_Curve),
+                  curveType = "measured",
+                  recordType = "OSL")
+curve@data <- curve@data[1:90, ]
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -9,14 +14,18 @@ test_that("input validation", {
                "'values' should be of class 'RLum.Data.Curve' or 'data.frame'")
   expect_error(fit_CWCurve(data.frame()),
                "'values' cannot be an empty data.frame")
+  expect_error(fit_CWCurve(iris[, 1, drop = FALSE]),
+               "'values' should have 2 columns")
+  expect_error(fit_CWCurve(data.frame(a = 1:10, b = NA)),
+               "'values' contains no positive counts")
   expect_error(fit_CWCurve(set_RLum("RLum.Data.Curve")),
                "'values' contains no positive counts")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
                "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, n.components.max = 0),
-               "'n.components.max' should be a positive integer scalar")
+               "'n.components.max' should be a single positive integer value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.failure_threshold = -1),
-               "'fit.failure_threshold' should be a positive integer scalar")
+               "'fit.failure_threshold' should be a single positive integer value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, verbose = "error"),
                "'verbose' should be a single logical value")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, output.terminalAdvanced = "error"),
@@ -27,55 +36,54 @@ test_that("input validation", {
                "Time values are not ordered")
 })
 
-test_that("check functionality", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  ## data.frame
+  snapshot.tolerance <- 1.5e-6
+
   SW({
-  fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
-                     main = "CW Curve Fit",
-                     n.components.max = 4,
-                     log = "x",
-                     plot = FALSE)
-  })
-  expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 3)
-  expect_equal(fit$data$n.components, 3, tolerance = 1)
-  expect_equal(round(fit$data$I01, digits = 0), 2388, tolerance = 1)
-  expect_equal(round(fit$data$lambda1, digits = 1), 4.6, tolerance = 1)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
-  expect_type(fit@data$component.contribution.matrix, "list")
-  expect_equal(fit@data$component.contribution.matrix[[1]], NA)
+  ## data.frame
+  expect_snapshot_RLum(fit_CWCurve(ExampleData.CW_OSL_Curve,
+                                   n.components.max = 3,
+                                   fit.method = "LM",
+                                   plot = FALSE),
+                       tolerance = snapshot.tolerance)
 
   ## RLum.Data.Curve object
-  curve <- set_RLum("RLum.Data.Curve",
-                    data = as.matrix(ExampleData.CW_OSL_Curve),
-                    curveType = "measured",
-                    recordType = "OSL")
-
-  fit <- fit_CWCurve(values = curve,
-                     main = "CW Curve Fit",
-                     n.components.max = 4,
-                     log = "x",
-                     method_control = list(export.comp.contrib.matrix = TRUE),
-                     verbose = FALSE,
-                     plot = FALSE)
-  expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 3)
-  expect_equal(fit$data$n.components, 3, tolerance = 1)
-  expect_equal(round(fit$data$I01, digits = 0), 2388, tolerance = 1)
-  expect_equal(round(fit$data$lambda1, digits = 1), 4.6, tolerance = 1)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
-  expect_gte(length(fit@data$component.contribution.matrix[[1]]), 9000)
-
-  SW({
-  expect_warning(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "LM",
-                             fit.calcError = TRUE, xlab = "x", ylab = "y",
-                             log = "x", output.path = tempdir()),
-                 "Argument 'output.path' no longer supported")
+  expect_snapshot_RLum(fit_CWCurve(curve,
+                                   n.components.max = 2,
+                                   fit.calcError = TRUE,
+                                   method_control = list(export.comp.contrib.matrix = TRUE),
+                                   verbose = FALSE,
+                                   plot = FALSE),
+                       tolerance = snapshot.tolerance)
   })
+})
 
-  ## more coverage
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  ## FIXME(mcol): n.components.max is set to 2 due to failures in CI that
+  ## are not reproducible on Ubuntu 22.04 with R 4.5.1 or R-devel: the Ubuntu
+  ## 24.04 with R-devel on CI tend to pick more than 2 components, while
+  ## locally only 2 are chosen even when the maximum is higher
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              fit_CWCurve(ExampleData.CW_OSL_Curve,
+                                          n.components.max = 2))
+  vdiffr::expect_doppelganger("logx cex",
+                              fit_CWCurve(ExampleData.CW_OSL_Curve,
+                                          main = "CW Curve Fit",
+                                          n.components.max = 2,
+                                          cex.global = 2,
+                                          log = "x"))
+  })
+})
+
+test_that("more coverage", {
+  testthat::skip_on_cran()
+
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1, ]),
                  "Error: Fitting failed, plot without fit produced")
 
@@ -86,6 +94,8 @@ test_that("check functionality", {
   pdf(tempfile(), width = 1, height = 1)
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve, verbose = FALSE),
                  "Figure margins too large or plot area too small")
+  expect_error(fit_CWCurve(data.frame(NA, 1:5)),
+               "0 (non-NA) cases", fixed = TRUE)
 })
 
 test_that("regression tests", {
@@ -96,5 +106,10 @@ test_that("regression tests", {
   expect_message(fit_CWCurve(ExampleData.CW_OSL_Curve[1:20, ],
                              fit.method = "LM", fit.calcError = TRUE),
                  "Error: Computation of confidence interval failed")
+  })
+
+  ## issue 953
+  SW({
+  fit_CWCurve(ExampleData.CW_OSL_Curve[1:2, ], fit.trace = TRUE)
   })
 })

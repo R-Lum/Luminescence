@@ -24,9 +24,6 @@ test_that("input validation", {
   expect_error(
       plot_GrowthCurve(LxTxData, verbose = "error"),
       "'verbose' should be a single logical value")
-  expect_error(
-      plot_GrowthCurve(LxTxData, cex.global = 0),
-      "'cex.global' should be a positive scalar")
 
   ## Weird LxTx values
   LxTx <- structure(list(

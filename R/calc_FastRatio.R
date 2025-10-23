@@ -107,7 +107,6 @@
 #' # show the summary table
 #' get_RLum(res)
 #'
-#' @md
 #' @export
 calc_FastRatio <- function(object,
                            stimulation.power = 30.6,
@@ -127,15 +126,15 @@ calc_FastRatio <- function(object,
   .set_function_name("calc_FastRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity checks - -----------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Analysis", "RLum.Results", "RLum.Data.Curve",
                             "data.frame", "matrix"))
   .validate_not_empty(object)
   .validate_positive_scalar(Ch_L1, int = TRUE)
   .validate_positive_scalar(Ch_L2, int = TRUE, null.ok = TRUE)
+  .validate_class(Ch_L3, c("integer", "numeric"), null.ok = TRUE)
   if (!is.null(Ch_L3)) {
-    .validate_class(Ch_L3, c("integer", "numeric"))
     .validate_length(Ch_L3, 2)
     .validate_positive_scalar(Ch_L3[1], int = TRUE, name = "'Ch_L3[1]'")
     .validate_positive_scalar(Ch_L3[2], int = TRUE, name = "'Ch_L3[2]'")
@@ -153,6 +152,9 @@ calc_FastRatio <- function(object,
   if (any(dead.channels < 0)) {
     .throw_error("All elements of 'dead.channels' should be non-negative")
   }
+  .validate_logical_scalar(fitCW.sigma)
+  .validate_logical_scalar(fitCW.curve)
+  .validate_logical_scalar(plot)
 
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))
@@ -196,19 +198,21 @@ calc_FastRatio <- function(object,
     P <- stimulation.power
     lamdaLED <- wavelength
 
-    ## Constants
     ## c = speed of light, h = Planck's constant
-    h <- 6.62607004E-34
-    c <- 299792458
-
-    I0 <- (P / 1000) / (h * c / (lamdaLED * 10^-9))
+    I0 <- (P / 1000) / (.const$c * .const$h / (lamdaLED * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
 
     # remove dead channels
-    A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
+    A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ,
+                         drop = FALSE])
     A[ ,1] <- A[ ,1] - A[1,1]
 
-    # estimate the photo-ionisation crossections of the fast and medium
+    ## remove missing values
+    A <- na.exclude(A[, 1:2])
+    if (nrow(A) == 0)
+      .throw_error("After NA removal, nothing is left from the data set")
+
+    # estimate the photo-ionisation cross-sections of the fast and medium
     # component using the fit_CWCurve function
     if (fitCW.sigma | fitCW.curve) {
       fitCW.res <- try(fit_CWCurve(A, n.components.max = settings$n.components.max,
@@ -291,7 +295,6 @@ calc_FastRatio <- function(object,
       .throw_warning(msg)
       return(NULL)
     }
-
     Cts_L2 <- A[Ch_L2, 2]
 
     # optional: predict the counts from the fitted curve
@@ -301,7 +304,6 @@ calc_FastRatio <- function(object,
         Cts_L2 <- predict(nls, list(x = t_L2))
       }
     }
-
 
     # L3 ----
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
@@ -316,7 +318,6 @@ calc_FastRatio <- function(object,
       t_L3_start <- A[Ch_L3st,1]
       t_L3_end <- A[Ch_L3end,1]
     }
-
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
 
     # optional: predict the counts from the fitted curve
@@ -334,8 +335,6 @@ calc_FastRatio <- function(object,
 
     ## Fast Ratio
     FR <- (Cts_L1 - Cts_L3) / (Cts_L2 - Cts_L3)
-    if (length(FR) != 1)
-      FR <- NA
 
     ## Fast Ratio - Error calculation
     FR_se <- NA

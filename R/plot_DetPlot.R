@@ -142,7 +142,6 @@
 #'   n.channels = 5)
 #' }
 #'
-#' @md
 #' @export
 plot_DetPlot <- function(
   object,
@@ -174,40 +173,41 @@ plot_DetPlot <- function(
    f_def <- sys.call(sys.parent(n = -1))
    args_default <- as.list(f_def)[-(1:2)]
 
-   ## detect cores
-   cores <- if(inherits(multicore[1], "logical") && multicore[1]) {
-     parallel::detectCores()
-    } else {
-      max(c(as.numeric(multicore[1])), 1)
+    ## detect cores
+    .validate_class(multicore, c("logical", "numeric", "integer"))
+    .validate_length(multicore, 1)
+    cores <- if (is.logical(multicore) && multicore) {
+               parallel::detectCores() # nocov
+             } else {
+               max(multicore, 1)
+             }
+
+    ## function that calls plot_DetPlot() on each element of the list
+    nested.fun <- function(x) {
+      do.call(plot_DetPlot, c(list(object = x), args_default))
     }
 
-   cl <- parallel::makeCluster(cores)
-   on.exit(parallel::stopCluster(cl), add = TRUE)
+    if (cores > 1) {
+      ## run in parallel
+      cl <- parallel::makeCluster(cores)
+      on.exit(parallel::stopCluster(cl), add = TRUE)
 
-   if(!multicore) {
-     cores <- parallel::detectCores()
-     cl <- parallel::makeCluster(cores)
-   }
+      if (verbose)
+        .throw_message("Running multicore session using ", cores,
+                       " cores ...", error = FALSE)
+      res_list <- parallel::parLapply(cl = cl, X = object, fun = nested.fun)
+    } else {
+      ## run in serial
+      res_list <- lapply(object, nested.fun)
+    }
 
-   ##terminal return
-   if(verbose) cat("\n[plot_DetPlot()] Running mulitcore session with", cores, "core(s) ...")
-
-   ## run in parallel
-   return_list <- parallel::parLapply(
-     cl = cl,
-     X = object,
-     fun = function(x, arg = args_default) do.call(plot_DetPlot, c(list(object = x), arg)))
-
-   return(merge_RLum(return_list))
+    return(merge_RLum(res_list))
   }
 
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
   .validate_not_empty(object)
-
-  ##get structure
-  object.structure <- structure_RLum(object)
 
   ## signal.integral
   .validate_positive_scalar(signal.integral.min, int = TRUE)
@@ -225,7 +225,7 @@ plot_DetPlot <- function(
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
   ## deprecated argument
-  if ("plot.single" %in% names(list(...))) {
+  if ("plot.single" %in% ...names()) {
     plot_singlePanels <- list(...)$plot.single
     .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
                    "instead")
@@ -238,7 +238,8 @@ plot_DetPlot <- function(
       (background.integral.min - 1 - signal.integral.max) / (signal.integral.max - signal.integral.min)
     )
     if (verbose) {
-      message("'n.channels' not specified, set to ", n.channels)
+      .throw_message("'n.channels' not specified, set to ", n.channels,
+                     error = FALSE)
     }
   }
 
@@ -281,10 +282,8 @@ plot_DetPlot <- function(
         verbose = verbose
       )
     }))
-
-  }
-  else if(analyse_function  == "analyse_pIRIRSequence"){
-    result.temp.list <- lapply(1:n.channels, function(x) {
+  } else if (analyse_function == "analyse_pIRIRSequence") {
+    results <- lapply(1:n.channels, function(x) {
       analyse_pIRIRSequence(
         object = object,
         signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
@@ -302,30 +301,23 @@ plot_DetPlot <- function(
 
     ## as the analyse_pIRIRSequence() may fail, we see how many results
     ## we've actually managed to produce
-    num.valid.results <- sum(!sapply(result.temp.list, is.null))
+    num.valid.results <- sum(!sapply(results, is.null))
     if (num.valid.results == 0) {
       .throw_error("No valid results produced")
     }
-    if (num.valid.results == 1) {
-      results <- result.temp.list
-    } else {
-      results <- merge_RLum(result.temp.list)
+    if (num.valid.results > 1) {
+      results <- merge_RLum(results)
     }
-    rm(result.temp.list)
   }
 
+  ## Plot -------------------------------------------------------------------
 
-# Plot ----------------------------------------------------------------------------------------
-    ##get De results
-    if(analyse_function == "analyse_pIRIRSequence"){
-      pIRIR_signals <- unique(get_RLum(results)$Signal)
+  pIRIR_signals <- if (analyse_function == "analyse_pIRIRSequence") {
+                     unique(get_RLum(results)$Signal)
+                   } else NA
 
-    }else{
-      pIRIR_signals <- NA
-    }
-
-    ##run this in a loop to account for pIRIR data
-    df_final <- lapply(1:length(pIRIR_signals), function(i){
+  ## run this in a loop to account for pIRIR data
+  df_final <- lapply(1:length(pIRIR_signals), function(i) {
       ##get data.frame
       df <- get_RLum(results)
 
@@ -341,23 +333,19 @@ plot_DetPlot <- function(
       ##limit to what we see
       OSL_curve <- OSL_curve[1:signal_integral.seq[n.channels + 1],]
 
-      m <-
-        ((min(df$De - df$De.Error, na.rm = TRUE)) -
-           (max(df$De, na.rm = TRUE) +
-              max(df$De.Error, na.rm = TRUE))) /
+      min.de <- min(df$De - df$De.Error, na.rm = TRUE)
+      max.de <- max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE)
+      m <- (min.de - max.de) /
         (min(OSL_curve[, 2], na.rm = TRUE) -
            max(OSL_curve[, 2], na.rm = TRUE))
-      n <- (max(df$De, na.rm = TRUE) +
-              max(df$De.Error, na.rm = TRUE)) - m * max(OSL_curve[, 2])
+      n <- max.de - m * max(OSL_curve[, 2])
 
       OSL_curve[, 2] <- m * OSL_curve[, 2] + n
       rm(n, m)
 
         ##set plot setting
         plot.settings <- modifyList(list(
-          ylim = c(
-            min(df$De - df$De.Error, na.rm = TRUE),
-            (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
+          ylim = c(min.de, max.de),
           xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
           ylab = if(show_ShineDownCurve[1])
                   expression(paste(D[e], " [s] and ", L[n], " [a.u.]"))
@@ -388,9 +376,9 @@ plot_DetPlot <- function(
 
        if(plot[1]) {
         ##general settings
-        old_par <- par(no.readonly = TRUE)
+        par.default <- .par_defaults()
+        on.exit(par(par.default), add = TRUE)
         par(cex = plot.settings$cex)
-        on.exit(par(old_par), add = TRUE)
 
         ##open plot area
         plot(
@@ -431,12 +419,11 @@ plot_DetPlot <- function(
       } ## end plot
       ##set return
       return(df_final)
-    })
-
+  })
 
 # Return ------------------------------------------------------------------
   ##merge results
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       De.values = as.data.frame(data.table::rbindlist(df_final)),
@@ -444,5 +431,5 @@ plot_DetPlot <- function(
       ),
     info = list(
       call = sys.call())
-  ))
+  )
 }

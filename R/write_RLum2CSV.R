@@ -57,23 +57,20 @@
 #'
 #' @examples
 #'
-#' ##transform values to a list (and do not write)
+#' ## transform values to a list (and do not write)
 #' data(ExampleData.BINfileData, envir = environment())
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
 #' write_RLum2CSV(object, export = FALSE)
 #'
 #' \dontrun{
-#'
-#' ##create temporary filepath
-#' ##(for usage replace by own path)
+#' ## write to a temporary file
 #' temp_file <- tempfile(pattern = "output", fileext = ".csv")
+#' write_RLum2CSV(object, temp_file)
 #'
-#' ##write CSV-file to working directory
-#' write_RLum2CSV(temp_file)
-#'
+#' ## write to the working directory
+#' write_RLum2CSV(object)
 #' }
 #'
-#' @md
 #' @export
 write_RLum2CSV <- function(
   object,
@@ -86,9 +83,14 @@ write_RLum2CSV <- function(
   .set_function_name("write_RLum2CSV")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## support using `file` for the output path to help RLumShiny
+  if ("file" %in% ...names() && is.null(path)) {
+    path <- list(...)$file
+  }
+
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
-  if(is.list(object) && !is.data.frame(object)){
+  if (inherits(object, "list")) {
     ## expand input arguments
     rep.length <- length(object)
     path <- .listify(path, rep.length)
@@ -112,29 +114,28 @@ write_RLum2CSV <- function(
         )
       })
 
-      ##this prevents that we get a list of NULL
-      if(is.null(unlist(temp))){
-        return(NULL)
-
-      }else{
-        return(temp)
-      }
+    ## this prevents that we get a list of NULL
+    if (is.null(unlist(temp)))
+      return(NULL)
+    return(temp)
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve",
-                            "RLum.Data.Image", "RLum.Data.Spectrum",
-                            "RLum.Results", "data.frame"))
+  .validate_class(object, c("RLum", "data.frame"),
+                  extra = "a 'list' of such objects")
   .validate_not_empty(object)
+  .validate_class(path, "character", null.ok = TRUE)
+  .validate_class(prefix, "character")
+  .validate_logical_scalar(export)
+  .validate_logical_scalar(compact)
 
   ## check export path
   if (export == TRUE) {
-    if (is.null(path)) {
+    if (is.null(path) || nchar(path) == 0) {
       path <- getwd()
-      message("[write_RLum2CSV()] Path automatically set to: ", path)
+      .throw_message("Path automatically set to: ", path, error = FALSE)
     } else if (!dir.exists(path)) {
-      .throw_error("Directory provided via the argument 'path' does not exist")
+      .throw_error("Path '", path, "' does not exist")
     }
   }
 
@@ -143,14 +144,12 @@ write_RLum2CSV <- function(
 
   ## extract all elements ... depending on the input
   if (inherits(object, "RLum.Analysis")) {
-        ##tricky, we cannot use get_RLum() as the function lapply calls as.list() for an object!
-        object_list <- lapply(object, function(x){get_RLum(x)})
+        object_list <- lapply(object, get_RLum)
 
         ##change names of the list and produce the right format straight away
         names(object_list) <- paste0(1:length(object_list),"_",names(object))
 
   } else if (inherits(object, "RLum.Data")) {
-
         ##get object and make list
         object_list <- list(get_RLum(object))
 
@@ -164,12 +163,12 @@ write_RLum2CSV <- function(
       ##get elements
       object_list <- lapply(object@data, function(e){
         ##only run something on the list of it is worth it and pack it in the list
-        if(inherits(e, "matrix") || inherits(e, "numeric") || inherits(e, "data.frame"))
+        if (inherits(e, c("matrix", "numeric", "data.frame")))
           return(list(e))
 
         ##unlist the rest until the end
         if(!compact)
-          return(unlist(e))
+          e <- unlist(e)
 
         ##now we return whatever we have
         return(e)
@@ -180,9 +179,8 @@ write_RLum2CSV <- function(
 
       ##sort out objects we do not like and we cannot procede ...
       object_list_rm <- vapply(object_list, function(x) {
-         inherits(x, "matrix") || inherits(x, "numeric") || inherits(x, "data.frame")
-
-      }, vector(mode = "logical", length = 1))
+         inherits(x, c("matrix", "numeric", "data.frame"))
+      }, FUN.VALUE = logical(1))
 
       ##remove unwanted objects
       object_list <- object_list[object_list_rm]
@@ -201,8 +199,7 @@ write_RLum2CSV <- function(
 
   } else if (inherits(object, "data.frame")) {
     object_list <- list(object)
-    if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  filename <- ""
-
+    filename <- attr(object, "filename") %||% ""
     names(object_list) <- paste0("conv_", attr(object, "list_name"), filename)
   }
 

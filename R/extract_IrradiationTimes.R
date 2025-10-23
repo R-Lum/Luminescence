@@ -1,6 +1,7 @@
 #' @title Extract Irradiation Times from an XSYG-file or `RLum.Analysis` object
 #'
-#' @description Extracts irradiation times, dose and times since last irradiation, from a
+#' @description
+#' Extracts irradiation times, dose and times since last irradiation, from a
 #' Freiberg Instruments XSYG-file. These information can be further used to
 #' update an existing BINX-file.
 #'
@@ -14,8 +15,8 @@
 #' Typical application example: *g*-value estimation from fading measurements
 #' using the Analyst or any other self-written script.
 #'
-#' Beside some simple data transformation steps, the function applies
-#' functions [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
+#' Beside some simple data transformation steps, the function relies on
+#' [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
 #'
 #' **Calculation details**
 #'
@@ -31,7 +32,7 @@
 #' @param object [character], [RLum.Analysis-class] or [list] (**required**):
 #' path and file name of the XSYG file or an [RLum.Analysis-class]
 #' produced by the function [read_XSYG2R];
-#' alternatively a `list` of [RLum.Analysis-class] can be provided.
+#' alternatively, a `list` of [RLum.Analysis-class] can be provided.
 #'
 #' **Note**: If an [RLum.Analysis-class] is used, any input for
 #' the arguments `file.BINX` and `recordType` will be ignored!
@@ -55,15 +56,24 @@
 #' **Note:** A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
 #'
+#' @param return_same_as_input [logical] (*with default*):
+#' if set to `TRUE`, an updated [RLum.Analysis-class] object (or a [list] of
+#' it) is returned, with each record having gained two new info element fields:
+#' `IRR_TIME` and `TIMESCINCEIRR`. This makes the [RLum.Analysis-class] object
+#' compatible with external functions that search explicitly for `IRR_TIME`
+#' and `TIMESCINCEIRR`.
+#'
 #' @param compatibility.mode [logical] (*with default*):
-#' this option is parsed only if a BIN/BINX file is produced and it will reset all position
-#' values to a max. value of 48, cf.[write_R2BIN]
+#' whether all position values should be reset to a maximum value of 48 (see
+#' [write_R2BIN]). Only used if `file.BINX` is specified.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar during import and export.
 #'
-#' @note The function can be also used to extract irradiation times from [RLum.Analysis-class] objects
-#' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with [Risoe.BINfileData2RLum.Analysis].
+#' @note The function can be also used to extract irradiation times from
+#' [RLum.Analysis-class] objects imported via [read_BIN2R] with option
+#' `fastForward = TRUE`, or in combination with
+#' [Risoe.BINfileData2RLum.Analysis].
 #' Unfortunately the timestamp might not be very precise (or even invalid),
 #' but it allows to essentially treat different formats in a similar manner.
 #'
@@ -75,9 +85,12 @@
 #' .. $irr.times (data.frame)
 #' ```
 #'
+#' If `return_same_as_input = TRUE` an [RLum.Analysis-class] or a [list] of it, but
+#' we updated info elements including irradiation times.
+#'
 #' If a BINX-file path and name is set, the output will be additionally
-#' transferred into a new BINX-file with the function name as suffix. For the
-#' output the path of the input BINX-file itself is used. Note that this will
+#' transferred into a new BINX-file (with the function name as suffix) located
+#' in the folder of the input BINX-file. Note that this will
 #' not work if the input object is a file path to an XSYG-file, instead of a
 #' link to only one file. In this case the argument input for `file.BINX` is ignored.
 #'
@@ -120,7 +133,7 @@
 #' If that information is missing, the x-values are presumed time values,
 #' which might still be wrong.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.4.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -159,12 +172,12 @@
 #'  row.names = FALSE)
 #' }
 #'
-#' @md
 #' @export
 extract_IrradiationTimes <- function(
   object,
   file.BINX,
   recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"),
+  return_same_as_input = FALSE,
   compatibility.mode = TRUE,
   txtProgressBar = TRUE
 ) {
@@ -174,9 +187,8 @@ extract_IrradiationTimes <- function(
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
     ##show message for non-supported arguments
-    if(!missing(file.BINX)){
+    if(!missing(file.BINX))
       .throw_warning("argument 'file.BINX' is not supported in self-call mode.")
-    }
 
     ## expand input arguments
     recordType <- .listify(recordType, length(object))
@@ -186,27 +198,23 @@ extract_IrradiationTimes <- function(
         extract_IrradiationTimes(
           object = object[[x]],
           recordType = recordType[[x]],
+          return_same_as_input = return_same_as_input,
           txtProgressBar = txtProgressBar
         )
       })
 
-      ##DO NOT use invisible here, this will stop the function from stopping
-      if(length(results) == 0){
-        return(NULL)
-
-      }else{
-        return(results)
-      }
+    if (length(results) == 0)
+      return(NULL)
+    return(results)
   }
 
-  ## Integrity tests --------------------------------------------------------
-
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("character", "RLum.Analysis"),
                   extra = "a 'list' of such objects")
   .validate_not_empty(object)
+  .validate_logical_scalar(return_same_as_input)
 
   if (is.character(object[1])) {
-
     .validate_length(object, 1)
 
     ##set object to file.XSYG
@@ -216,10 +224,7 @@ extract_IrradiationTimes <- function(
     if (!file.exists(file.XSYG)) {
       .throw_error("Wrong XSYG file name or file does not exist!")
     }
-
-    ##check if file is XML file
-    if(tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "xsyg" &
-         tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "XSYG" ){
+    if (tolower(tools::file_ext(file.XSYG)) != "xsyg") {
       .throw_error("File is expected to have 'xsyg' or 'XSYG' extension")
     }
 
@@ -228,22 +233,22 @@ extract_IrradiationTimes <- function(
       if (!file.exists(file.BINX)) {
         .throw_error("Wrong BINX file name or file does not exist!")
       }
-
-      ##check if file is XML file
-      if(tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "binx" &
-           tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "BINX" ){
+      if (tolower(tools::file_ext(file.BINX)) != "binx") {
         .throw_error("File is expected to have 'binx' or 'BINX' extension")
       }
     }
 
     # Settings and import XSYG --------------------------------------------------------------------
-    temp.XSYG <- read_XSYG2R(file.XSYG, txtProgressBar = txtProgressBar,
-                             verbose = txtProgressBar)
+    temp.XSYG <- read_XSYG2R(
+      file = file.XSYG,
+      txtProgressBar = txtProgressBar,
+      verbose = txtProgressBar)
 
     if(!missing(file.BINX)){
-      temp.BINX <- read_BIN2R(file.BINX, txtProgressBar = txtProgressBar,
-                              verbose = txtProgressBar)
-      temp.BINX.dirname <- (dirname(file.XSYG))
+      temp.BINX <- read_BIN2R(
+        file = file.BINX,
+        txtProgressBar = txtProgressBar,
+        verbose = txtProgressBar)
     }
 
     # Some data preparation -----------------------------------------------------------------------
@@ -269,13 +274,9 @@ extract_IrradiationTimes <- function(
     temp.sequence.list <- list(object)
   }
 
-  ##merge objects
-  if(length(temp.sequence.list)>1){
-    temp.sequence <- merge_RLum(temp.sequence.list)
-
-  }else{
-    temp.sequence <- temp.sequence.list[[1]]
-  }
+  ## merge objects and restore originator
+  temp.sequence <- merge_RLum(temp.sequence.list)
+  temp.sequence@originator <- temp.sequence.list[[1]]@originator
 
 # Grep relevant information -------------------------------------------------------------------
   ##Sequence STEP
@@ -287,27 +288,21 @@ extract_IrradiationTimes <- function(
   if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
     temp.START <- vapply(temp.sequence, function(x) {
        paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
-
     }, character(1))
 
-    ##a little bit reformatting.
-    START <- strptime(temp.START, format = "%y%m%d%H%M%S", tz = "GMT")
-      ## make another try in case it does not make sense
-      if (anyNA(START))
-        START <- strptime(temp.START, format = "%y%m%d%H:%M:%S", tz = "GMT")
+    fmt <- if (grepl(":", temp.START[1])) "%y%m%d%H:%M:%S" else "%y%m%d%H%M%S"
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {
-      tmp <- suppressWarnings(get_RLum(x, info.object = c("startDate")))
-      if(is.null(tmp))
-        tmp <- as.character(Sys.Date())
-
-      tmp
+      suppressWarnings(get_RLum(x, info.object = c("startDate"))) %||%
+        as.character(Sys.Date())
     }, character(1))
 
-    ##a little bit reformatting.
-    START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
+    fmt <- "%Y%m%d%H%M%S"
   }
+
+  ## reformat start date
+  START <- strptime(temp.START, format = fmt, tz = "GMT")
 
   ##DURATION of each STEP
   DURATION.STEP <- vapply(temp.sequence, function(x) {
@@ -339,12 +334,8 @@ extract_IrradiationTimes <- function(
 
     ##POSITION of each STEP
     POSITION <- vapply(temp.sequence, function(x){
-      tmp <- suppressWarnings(get_RLum(x, info.object = c("position")))
-
-      if(is.null(tmp))
-        tmp <- get_RLum(x, info.object = c("POSITION"))
-
-      tmp
+      suppressWarnings(get_RLum(x, info.object = c("position"))) %||%
+        get_RLum(x, info.object = c("POSITION"))
     }, numeric(1))
   }
 
@@ -367,25 +358,19 @@ extract_IrradiationTimes <- function(
       IRR_TIME[i] <- temp_last
     }
   }
-  # Calculate time since irradiation ------------------------------------------------------------
-  ##set objects
-  time.irr.end <- NA
 
-  TIMESINCEIRR <- unlist(sapply(1:nrow(temp.results), function(x){
+  ## Calculate time since irradiation ---------------------------------------
+  time.irr.end <- NA
+  TIMESINCEIRR <- vapply(1:nrow(temp.results), function(x) {
     if(grepl("irradiation", temp.results[x,"STEP"])){
       time.irr.end<<-temp.results[x,"END"]
       return(-1)
-
-    }else{
-      if(is.na(time.irr.end)){
-        return(-1)
-
-      }else{
-        return(difftime(temp.results[x,"START"],time.irr.end, units = "secs"))
-      }
     }
+    if (is.na(time.irr.end))
+      return(-1)
 
-  }))
+    difftime(temp.results[x, "START"], time.irr.end, units = "secs")
+  }, numeric(1))
 
   # Calculate time since last step --------------------------------------------------------------
   TIMESINCELAST.STEP <- vapply(1:nrow(temp.results), function(x){
@@ -425,7 +410,10 @@ extract_IrradiationTimes <- function(
 
       ##set message on the format definition
       if(!inherits(x = try, 'try-error')){
-        message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
+        .throw_message("'Time Since Irradiation' was redefined in the ",
+                       "exported BINX-file to: 'Time Since Irradiation' plus ",
+                       "'Irradiation Time' to be compatible with the Analyst",
+                       error = FALSE)
       }
     } else {
       .throw_message("XSYG-file and BINX-file do not contain similar entries, ",
@@ -434,6 +422,32 @@ extract_IrradiationTimes <- function(
   }
 
   # Output --------------------------------------------------------------------------------------
-  return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
-}
+   if(return_same_as_input[1]) {
+     ## This odd mode we need to ensure that the function supports
+     ## correctly all the odd modes with the automated import of XSYG files
+     if(exists(x = "temp.XSYG", envir = environment())) {
+       object <- lapply(temp.XSYG, function(x) x$Sequence.Object)
 
+        ## make sure that the output is compatible
+        if(length(object) == 1)
+          object <- object[[1]]
+
+        ## call the function again
+        return(
+          extract_IrradiationTimes(object, return_same_as_input = TRUE, recordType = recordType))
+
+     }
+
+    object@records <- lapply(seq_along(results$IRR_TIME), function(x){
+      add_metadata(object@records[[x]], info_element = "IRR_TIME") <- results$IRR_TIME[[x]]
+      add_metadata(object@records[[x]], info_element = "TIMESINCEIRR") <- results$TIMESINCEIRR[[x]]
+      object@records[[x]]
+    })
+
+    return(object)
+   }
+
+  ## regular return
+  set_RLum("RLum.Results",
+           data = list(irr.times = results))
+}

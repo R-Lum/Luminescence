@@ -15,10 +15,6 @@ test_that("check class", {
   expect_s4_class(as(list(), "RLum.Results"),
                   "RLum.Results")
 
-  ## show()
-  expect_output(show(obj))
-  expect_output(show(empty))
-
   ## names()
   expect_equal(names_RLum(obj),
                c("summary", "data", "args", "usedDeValues"))
@@ -64,4 +60,14 @@ test_that("get_RLum", {
                   "RLum.Results")
   expect_type(get_RLum(obj, info.object = "call"),
               "list")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  ## show()
+  SW({
+  expect_snapshot(show(obj))
+  expect_snapshot(show(empty))
+  })
 })

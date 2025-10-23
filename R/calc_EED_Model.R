@@ -94,7 +94,6 @@
 #'  expected_dose = 11.7)
 #' }
 #'
-#' @md
 #' @export
 calc_EED_Model <- function(
   data,
@@ -129,49 +128,34 @@ calc_EED_Model <- function(
 
   .validate_class(data, "data.frame")
   .validate_class(expected_dose, "numeric")
-  if (!is.null(MinIndivDose))
-    .validate_class(MinIndivDose, "numeric")
-  if (!is.null(MaxIndivDose))
-    .validate_class(MaxIndivDose, "numeric")
+  .validate_class(MinIndivDose, "numeric", null.ok = TRUE)
+  .validate_class(MaxIndivDose, "numeric", null.ok = TRUE)
 
   ##store and restore par settings
-  par_default <- par(no.readonly = TRUE)
-  on.exit(par(mfrow = par_default$mfrow), add = TRUE)
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
 # Helper functions ----------------------------------------------------------------------------
 
   ##the helper functions base on ode by Pierre, each helper was only a little bit
   ## optimised and then tested separately
 
+  # Col_Index = 3:
   # Calcul de la variance du plateau sur la base des doses arch?o
   # corrig?es de la dose r?siduelle uniquement (modif 31.5.2018)
-  # nocov start
-  .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index){
-    var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, 3]) # doses nettes corrigées résiduel uniquement
-    mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 3])
-    return(var_ratio / (mean_ratio ^ 2))
-  }
-  # nocov end
-
+  # Col_Index = 4 (.calc_Plateau_Variance_uncorr):
   # Calcul de la variance du plateau      modifi? le 31.5.2018
   # sur la base des rapport observ?/simul? des doses totales brutes
-  .calc_Plateau_Variance_uncorr <- function (M_Data, MinDose_Index, MaxDose_Index){
-    var_ratio <-
-      stats::var(M_Data[MinDose_Index:MaxDose_Index, 4]) # ratio observé/simulé brut
-    mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 4])
-    return (var_ratio / (mean_ratio ^ 2))
-  }
-
+  # Col_Index = 6 (.calc_Plateau_Variance_AD):
   # Calcul de la variance du plateau      ajout le 20.8.2018
   # sur la base des doses archeologiques
   # ##TODO not yet included
-  # nocov start
-  .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
-      var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, 6])
-      mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 6])
-      return (var_ratio / (mean_ratio ^ 2))
-    }
-  # nocov end
+  .calc_Plateau_Variance <- function(M_Data, MinDose_Index, MaxDose_Index,
+                                     Col_Index) {
+    var_ratio <- stats::var(M_Data[MinDose_Index:MaxDose_Index, Col_Index])
+    mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, Col_Index])
+    return(var_ratio / mean_ratio^2)
+  }
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
 
@@ -346,8 +330,9 @@ calc_EED_Model <- function(
       ##return variance and the mean DE
       return(
         c(
-        VAR = .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = set_MinDose_Index,
-                                            MaxDose_Index = set_MaxDose_Index),
+        VAR = .calc_Plateau_Variance(M_Data, MinDose_Index = set_MinDose_Index,
+                                     MaxDose_Index = set_MaxDose_Index,
+                                     Col_Index = 4),
         RESIDUAL = sum((M_Data[,6] - rep(set_expected_dose, nrow(M_Data)))^2)
         ))
       }
@@ -396,10 +381,12 @@ calc_EED_Model <- function(
           nx = 200,
           ny = 200,
           duplicate = "strip" #does not seem to work
-        ), silent = FALSE)
+        ), silent = TRUE)
 
       if (inherits(s, "try-error")) {
-        .throw_error("Surface interpolation failed, you may want to try it again")
+        .throw_error("Surface interpolation failed: ",
+                     attr(s, "condition")$message,
+                     ", you may want to try it again")
       }
 
       ##graphical output
@@ -445,7 +432,7 @@ calc_EED_Model <- function(
 
       ##implement differential break if the search area is already smaller than the area
       if(diff(c(method_control$lower[1], method_control$upper[1])) < 0.1)
-         break()
+         break
     }
 
     return(list(
@@ -519,7 +506,7 @@ colnames(M_Data) <- c("CUM_MEAN_DE", "CUM_MEAN_DE_X", "NET_CUM_MEAN_DE_NET", "NE
 Min_plateau <- .Get_Plateau_MinDoseIndex(M_Data, Ndata, MinIndivDose = NULL)
 Max_plateau <- .Get_Plateau_MaxDoseIndex(M_Data, Ndata, MaxIndivDose = NULL)
 if (Max_plateau <= Min_plateau) {
-  Min_plateau <- 1
+  Min_plateau <- 1 # nocov
 } #priorité max dose
 
 # Guess parameters if needed ------------------------------------------------------------------
@@ -730,7 +717,7 @@ if(plot) {
     plot_index <- 1
     cur_ind <- 1
 
-   while(plot_index < Nsimul ){
+  while (plot_index < NbSimPtsDisplayed) {
      XY_psimul[cur_ind, 1] <-  M_Simul[plot_index, 4]
      XY_psimul[cur_ind, 2] <-  M_Simul[plot_index, 8]
      plot_index <- plot_index + delta_index

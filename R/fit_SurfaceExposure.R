@@ -211,7 +211,6 @@
 #'  D0 = 40)
 #'get_RLum(results)
 #'
-#' @md
 #' @export
 fit_SurfaceExposure <- function(
     data,
@@ -307,8 +306,10 @@ fit_SurfaceExposure <- function(
   ## remove rows with NA
   if (anyNA(data)) {
     data <- data[stats::complete.cases(data), ]
+    if (nrow(data) == 0)
+      .throw_error("After NA removal, nothing is left from the data set")
     if (settings$verbose)
-      message("[fit_SurfaceExposure()] NA values in 'data' were removed")
+      .throw_message("NA values in 'data' were removed", error = FALSE)
   }
 
   ## extract errors into separate variable
@@ -333,16 +334,17 @@ fit_SurfaceExposure <- function(
 
   ## Functions
   # w/o dose rate
-  fun <- y ~ exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x))
-  fun_global <- y ~ exp(-sigmaphi * age[group] * 365.25*24*3600 * exp(-mu * x))
+  year_s <- .const$year_s
+  fun <- y ~ exp(-sigmaphi * age * year_s * exp(-mu * x))
+  fun_global <- y ~ exp(-sigmaphi * age[group] * year_s * exp(-mu * x))
 
   # w/ dose rate (Sohbati et al. 2012, eq 12)
   if (!is.null(Ddot))
-    Ddot <- Ddot / 1000 / 365.25 / 24 / 60 / 60
+    Ddot <- Ddot / (1000 * year_s)
 
-  fun_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
+  fun_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age * year_s) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
                          (sigmaphi * exp(-mu * x) + Ddot/D0)
-  fun_global_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age[group] * 365.25*24*3600) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
+  fun_global_w_dr <- y ~ (sigmaphi * exp(-mu * x) * exp(-(age[group] * year_s) * (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
                                 (sigmaphi * exp(-mu * x) + Ddot/D0)
 
   ## start parameter
@@ -404,11 +406,11 @@ fit_SurfaceExposure <- function(
 
   ## RESULTS ----
   summary <- data.frame(
-    age = if (is.null(age)) coef["age", "Estimate"] else age,
+    age = age %||% coef["age", "Estimate"],
     age_error = coef["age", "Std. Error"],
-    sigmaphi = if (is.null(sigmaphi)) coef["sigmaphi", "Estimate"] else sigmaphi,
+    sigmaphi = sigmaphi %||% coef["sigmaphi", "Estimate"],
     sigmaphi_error = coef["sigmaphi", "Std. Error"],
-    mu = if (is.null(mu)) coef["mu", "Estimate"] else mu,
+    mu = mu %||% coef["mu", "Estimate"],
     mu_error = coef["mu", "Std. Error"]
   )
 
@@ -425,6 +427,8 @@ fit_SurfaceExposure <- function(
 
   ## PLOT ----
   if (plot) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     # remove $group column for easier data handling
     if (global_fit)
@@ -480,7 +484,7 @@ fit_SurfaceExposure <- function(
     }
 
     ## add fitted curve
-    if (!inherits(fit, "error") && !inherits(fit, "simpleError")) {
+    if (!inherits(fit, c("error", "simpleError"))) {
 
       if (coord_flip) {
         oldx <- data[ ,2]
@@ -500,17 +504,17 @@ fit_SurfaceExposure <- function(
       if (!global_fit) {
         points(newx, newy,
                type = "l",
-               col = ifelse("line_col" %in% names(list(...)), list(...)$line_col, "blue"),
-               lty = ifelse("line_lty" %in% names(list(...)), list(...)$line_lty, 1),
-               lwd = ifelse("line_lwd" %in% names(list(...)), list(...)$line_lwd, 1))
+               col = list(...)$line_col %||% "blue",
+               lty = list(...)$line_lty %||% 1,
+               lwd = list(...)$line_lwd %||% 1)
       } else {
         for (i in 1:length(data_list)) {
           seg <- seq(i * 101 - 100, 10000, nrow(data))
           points(newx[seg], newy[seg],
                  type = "l",
-                 col = ifelse("line_col" %in% names(list(...)), list(...)$line_col, i),
-                 lty = ifelse("line_lty" %in% names(list(...)), list(...)$line_lty, 1),
-                 lwd = ifelse("line_lwd" %in% names(list(...)), list(...)$line_lwd, 1))
+                 col = list(...)$line_col %||% i,
+                 lty = list(...)$line_lty %||% 1,
+                 lwd = list(...)$line_lwd %||% 1)
         }
       }
 
@@ -584,11 +588,11 @@ fit_SurfaceExposure <- function(
     cat("\n")
 
     if (!is.null(age)) {
-      message(paste0("To apply the estimated parameters to a sample of unknown age run:\n\n",
-                     "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
-                     ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
-                     ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
-                     "))\n\n"))
+      message("To apply the estimated parameters to a sample of unknown age run:\n\n",
+              "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
+              ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
+              ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
+              "))\n")
     }
   }
 

@@ -46,8 +46,17 @@ method, either \code{"default"} or \code{"RousseeuwCroux1993"}. See details for 
 outlier analysis plot. Note: the outlier analysis will happen independently
 of the plot output.}
 
-\item{method_control}{\link{list} (\emph{with default}): named \link{list} of further parameters passed down
-to the \link[rjags:rjags-package]{rjags::rjags} modelling}
+\item{method_control}{\link{list} (\emph{with default}):
+named \link{list} of parameters to control \link[rjags:jags.model]{rjags::jags.model}. This can be
+used to set the random seed for the MCMC chains (four by default):
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{method_control = list(inits = list(
+  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3),
+  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 4))
+)
+}\if{html}{\out{</div>}}}
 
 \item{par_local}{\link{logical} (\emph{with default}): if set to \code{TRUE} the function uses its
 own \link[graphics:par]{graphics::par} settings (which will end in two plots next to each other)}

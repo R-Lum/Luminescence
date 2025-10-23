@@ -40,7 +40,7 @@
 #' The options are:
 #' - `"Cresswelletal2018"` (Cresswell et al., 2018)
 #' - `"Liritzisetal2013"` (Liritzis et al., 2013)
-#' - `"Guerinetal2011"` (Guerin et al., 2011)
+#' - `"Guerinetal2011"` (Guérin et al., 2011)
 #' - `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
 #'
 #'
@@ -181,7 +181,7 @@
 #' - A barplot visualising the contribution of each layer to the total dose rate
 #' received by the sample in the target layer.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @keywords datagen
 #'
@@ -208,7 +208,7 @@
 #' Dose rate conversion parameters: Assessment of nuclear data.
 #' Radiation Measurements 120, 195-201.
 #'
-#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+#' Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 #' factors: update. Ancient TL, 29, 5-8.
 #'
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
@@ -236,7 +236,6 @@
 #'
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 scale_GammaDose <- function(
   data,
@@ -321,11 +320,11 @@ scale_GammaDose <- function(
                 valid_conversion_factors))
   conversion_factors <- .validate_args(conversion_factors,
                                        valid_conversion_factors)
-
-  ## fractional gamma dose
   fractional_gamma_dose <- .validate_args(fractional_gamma_dose,
                                           names(BaseDataSet.FractionalGammaDose))
-
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(plot_singlePanels)
 
   ## ------------------------------------------------------------------------ ##
   ## Select tables
@@ -536,11 +535,12 @@ scale_GammaDose <- function(
   if (plot) {
 
     # save and recover plot parameters
-    par.old <- par(no.readonly = TRUE)
-    on.exit(par(par.old), add = TRUE)
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
-    if (plot_singlePanels)
-      layout(matrix(c(1,1, 2, 3, 4, 5,
+    if (!plot_singlePanels)
+      graphics::layout(matrix(
+                    c(1,1, 2, 3, 4, 5,
                       1,1, 2, 3, 4, 5,
                       1,1, 6, 6, 6, 6,
                       1,1, 6, 6, 6, 6), ncol = 6, byrow = TRUE))
@@ -549,13 +549,10 @@ scale_GammaDose <- function(
     ## --------------------------------------------------------------
 
     ## Global plot settings
-    if (plot_singlePanels)
-      par(mar = c(2, 5, 1, 4) + 0.1)
-    else
-      par(mar = c(2, 5, 4, 4) + 0.1)
+    par(mar = c(2, 5, ifelse(plot_singlePanels, 4, 1), 4) + 0.1)
 
     plot(NA, NA,
-         main = ifelse(plot_singlePanels, "", "Profile structure"),
+         main = ifelse(plot_singlePanels, "Profile structure", ""),
          xlim = c(0, 1),
          ylim = rev(range(pretty(c(sum(data$thickness), 0)))),
          xaxt = "n",
@@ -582,7 +579,7 @@ scale_GammaDose <- function(
     # right y-axis labels
     mtext(side = 4, at = c(0, cumsum(data$thickness) - data$thickness / 2, sum(data$thickness)),
           text = c("", paste(data$thickness, "cm"), ""), las = 1,
-          line = ifelse(plot_singlePanels, -4, 0.5),
+          line = ifelse(plot_singlePanels, 0.5, -4),
           cex = 0.8,
           col = "#b22222")
 
@@ -602,14 +599,14 @@ scale_GammaDose <- function(
     ## --------------------------------------------------------------
 
     # global plot settings
-    if (plot_singlePanels) {
+    if (!plot_singlePanels) {
       par(
         mar = c(4, 2, 3, 0.5) + 0.1,
         cex = 0.6,
         # oma = c(1, 1, 1, 1) + 0.1,
         pch = 16)
     } else {
-      par(par.old)
+      par(par.default)
       par(
         mfrow = c(1, 4),
         mar = c(4, 5, 0, 0) + 0.1,
@@ -665,11 +662,11 @@ scale_GammaDose <- function(
 
     ## Global plot settings
     # recover standard plot settings first
-    if (plot_singlePanels) {
+    if (!plot_singlePanels) {
       par(mar = c(5, 5, 1, 6) + 0.1,
           cex = 0.7)
     } else {
-      par(par.old)
+      par(par.default)
       par(mar = c(5, 8, 4, 4) + 0.1,
           cex = settings$cex)
     }
@@ -681,16 +678,16 @@ scale_GammaDose <- function(
     ## Contributions of each layer
     bp <- graphics::barplot(height = op$contrib[(nrow(op)-1):1],
                   horiz = TRUE,
-                  main = ifelse(plot_singlePanels, "", settings$main),
+                  main = ifelse(plot_singlePanels, settings$main, ""),
                   xlab = settings$xlab,
                   xlim = range(pretty(op$contrib[1:(nrow(op)-1)])),
                   col = cols[pos])
 
     # layer names
     mtext(side = 2, at = bp,
-          line = ifelse(plot_singlePanels, 3.5, 3),
+          line = ifelse(plot_singlePanels, 3, 3.5),
           las = 1,
-          cex = ifelse(plot_singlePanels, 0.7, 0.8),
+          cex = ifelse(plot_singlePanels, 0.8, 0.7),
           text = rev(data$id))
 
     # contribution percentage
@@ -710,11 +707,8 @@ scale_GammaDose <- function(
           at = min(bp) - diff(bp)[1] / 2,
           text = paste("=", f(op$sum[nrow(op)]), "Gy/ka"),
           col = "#b22222", las = 1,
-          line = ifelse(plot_singlePanels, -0.5, -1),
-          cex = ifelse(plot_singlePanels, 0.7, 0.8))
-
-    # recover old plot parameters
-    par(par.old)
+          line = ifelse(plot_singlePanels, -1, -0.5),
+          cex = ifelse(plot_singlePanels, 0.8, 0.7))
   }
 
   ## ------------------------------------------------------------------------ ##
@@ -759,7 +753,7 @@ scale_GammaDose <- function(
   )
 
   ## Create RLum.Results object (return object)
-  results <- set_RLum(class = "RLum.Results",
+  set_RLum(class = "RLum.Results",
                       originator = "scale_GammaDose",
                       data = list(summary = summary,
                                   data = data,
@@ -779,6 +773,4 @@ scale_GammaDose <- function(
                                   call = sys.call()),
                       info = settings$info
   )
-
-  return(results)
 }

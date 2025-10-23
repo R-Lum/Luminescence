@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(fit_IsothermalHolding(list()),
                "'data' should be of class 'character', 'RLum.Results' or")
   expect_error(fit_IsothermalHolding("error", rhop = 1e-7),
-               "File does not exist")
+               "File 'error' does not exist")
   expect_error(fit_IsothermalHolding(set_RLum("RLum.Results", data = list(1)),
                                      rhop = 1e-7),
                "'data' has unsupported originator")
@@ -24,6 +24,9 @@ test_that("input validation", {
                "'verbose' should be a single logical value")
   expect_error(fit_IsothermalHolding(test_path("_data/CLBR.xlsx"), rhop = 1e-7),
                "XLS/XLSX format is not supported, use CSV instead")
+  expect_error(fit_IsothermalHolding(input.csv[1], rhop = 1e-7,
+                                     num_s_values_bts = 0),
+               "'num_s_values_bts' should be a single positive integer value")
 })
 
 test_that("check functionality", {
@@ -45,6 +48,7 @@ test_that("check functionality", {
 
 test_that("regression tests", {
 
+  ## issue 652
   df <- data.frame(SAMPLE = rep("S1", 6),
                    TEMP = rep(150, 6),
                    TIME = c(1, 10, 30, 100, 300, 1000),
@@ -55,4 +59,11 @@ test_that("regression tests", {
   expect_equal(res@data$coefs,
                data.frame(SAMPLE = "S1", TEMP = 150, A = NA_real_,
                           b = NA_real_, Et = NA_real_, s10 = NA_real_))
+
+  ## issue 1003
+  set.seed(5)
+  expect_s4_class(fit_IsothermalHolding(input.csv[2], rhop = 1e-5,
+                                        ITL_model = "BTS", verbose = FALSE,
+                                        num_s_values_bts = 2),
+                  "RLum.Results")
 })

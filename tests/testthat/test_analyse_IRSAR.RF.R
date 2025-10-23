@@ -8,10 +8,14 @@ test_that("input validation", {
                "is missing, with no default")
   expect_error(analyse_IRSAR.RF("test"),
                "'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_IRSAR.RF(iris),
+               "'object' should be of class 'RLum.Analysis' or a 'list'")
+  expect_error(analyse_IRSAR.RF(list(iris)),
+               "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_IRSAR.RF(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, n.MC = 0),
-               "'n.MC' should be a positive integer scalar")
+               "'n.MC' should be a single positive integer value")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "error"),
                "'method' should be one of 'FIT', 'SLIDE', 'VSLIDE' or 'NONE'")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method_control = 3),
@@ -39,19 +43,19 @@ test_that("input validation", {
 
   ## RF_nat.lim
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_nat.lim = "error"),
-               "'RF_nat.lim' should be of class 'numeric' or 'integer'")
+               "'RF_nat.lim' should be of class 'numeric', 'integer' or NULL")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_nat.lim = 6),
                  "'RF_nat.lim' out of bounds, reset to")
 
   ## RF_reg.lim
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = "error"),
-               "'RF_reg.lim' should be of class 'numeric' or 'integer'")
+               "'RF_reg.lim' should be of class 'numeric', 'integer' or NULL")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 2000),
                  "'RF_reg.lim' out of bounds, reset to")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 521),
                "'RF_reg.lim' defines too short an interval and it's not")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = 520),
-               "No sliding space left after limitations were applied")
+               "The range of regenerated channels should be larger than")
   suppressWarnings( # FIXME(mcol): lmdif: info = -1. Number of iterations has reached `maxiter' == 50.
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, RF_reg.lim = c(3, 6)),
                  "'RF_reg.lim' defines too short an interval, reset to")
@@ -88,11 +92,15 @@ test_that("input validation", {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method_control = list(vslide_range = 1:4)),
                  "'vslide_range' in 'method_control' has more than 2 elements")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
+                                method_control = list(vslide_range = c(0, 1e7))),
+               "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)",
+               fixed = TRUE)
 
   ## num_slide_windows
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                 method_control = list(num_slide_windows = NA)),
-                 "'num_slide_windows' in 'method_control' should be a positive")
+                 "'num_slide_windows' in 'method_control' should be a single positive")
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method_control = list(num_slide_windows = 20)),
                  "should be between 1 and 10, reset to 10")
@@ -108,20 +116,14 @@ test_that("input validation", {
                  "'method.control' is deprecated, use 'method_control'")
 })
 
-test_that("check class and length of output", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
   set.seed(1)
-  expect_snapshot_RLum(
-      results_fit <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
-                                      plot = TRUE))
-  expect_warning(expect_snapshot_RLum(
-      results_slide <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
-                                        plot = TRUE, n.MC = NULL)),
-      "Narrow density distribution, no density distribution plotted")
+  expect_snapshot_RLum(analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
+                                        plot = FALSE))
   SW({
   expect_snapshot_RLum(
-  results_slide_alt <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -134,7 +136,6 @@ test_that("check class and length of output", {
   )
 
   expect_snapshot_RLum(
-  results_slide_alt2 <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -146,30 +147,33 @@ test_that("check class and length of output", {
     )
   )
   })
-
-  expect_snapshot_RLum(
-    analyse_IRSAR.RF(
-      object = IRSAR.RF.Data,
-      method = "None",
-      n.MC = 10,
-      txtProgressBar = FALSE
-    )
-  )
-
-  expect_s3_class(results_fit$fit, class = "nls")
-  expect_s3_class(results_slide$fit, class = "nls")
 })
 
-test_that("test controlled crash conditions", {
+test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
 
-  ##the sliding range should not exceed a certain value ... test it
-  expect_error(
-    analyse_IRSAR.RF(
-      object = IRSAR.RF.Data,
-      method = "SLIDE",
-      method_control = list(vslide_range = c(0,1e+07)),
-    ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
+  SW({
+  vdiffr::expect_doppelganger("fit",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "FIT",
+                                               n.MC = NULL))
+  vdiffr::expect_doppelganger("slide",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "SLIDE",
+                                               n.MC = NULL))
+  vdiffr::expect_doppelganger("vslide",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "VSLIDE",
+                                               n.MC = NULL))
+  vdiffr::expect_doppelganger("none subtitle log",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method = "None",
+                                               mtext = "Subtitle",
+                                               log = "xy",
+                                               n.MC = 10,
+                                               txtProgressBar = FALSE))
+  })
 })
 
 test_that("test support for IR-RF data", {
@@ -183,6 +187,7 @@ test_that("test support for IR-RF data", {
   expect_warning(expect_s4_class(
       analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE",
                        cex = 1.1, xlim = c(750, 9000), ylim = c(640, 655),
+                       method_control = list(show_fit = TRUE),
                        plot_reduced = TRUE, n.MC = 1),
       "RLum.Results"),
       "Narrow density distribution, no density distribution plotted")
@@ -201,6 +206,14 @@ test_that("test edge cases", {
   object <- set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg))
 
   SW({
+  expect_warning(analyse_IRSAR.RF(
+    IRSAR.RF.Data,
+    method = "FIT",
+    plot = TRUE,
+    RF_reg = c(1, 400),
+    txtProgressBar = FALSE),
+    "Threshold exceeded for: 'curves_bounds'")
+
   expect_warning(expect_s4_class(analyse_IRSAR.RF(
     list(object),
     method = "SLIDE",
@@ -257,6 +270,22 @@ test_that("test edge cases", {
     txtProgressBar = FALSE
   ), "RLum.Results")
   })
+
+  ## more coverage
+  expect_s4_class(analyse_IRSAR.RF(
+      IRSAR.RF.Data,
+      method = "SLIDE",
+      RF_reg.lim = c(1, 7),
+      verbose = FALSE),
+      "RLum.Results")
+
+  tmp <- IRSAR.RF.Data
+  tmp@records[[2]]@data <- tmp@records[[2]]@data[1:460, ]
+  expect_s4_class(analyse_IRSAR.RF(
+      tmp,
+      method = "SLIDE",
+      verbose = FALSE),
+      "RLum.Results")
 })
 
 test_that("regression tests", {
@@ -268,4 +297,15 @@ test_that("regression tests", {
 
   ## issue 382
   expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), plot = FALSE))
+
+  ## issue 816
+  data(ExampleData.portableOSL, envir = environment())
+  expect_silent(analyse_IRSAR.RF(merge_RLum(ExampleData.portableOSL)[1:4],
+                                 plot = FALSE))
+  expect_silent(analyse_IRSAR.RF(merge_RLum(ExampleData.portableOSL)[1:9],
+                                 sequence_structure = c("NATURAL", rep("REGENERATED", 2)),
+                                 plot = FALSE))
+
+  ## issue 1055
+  expect_silent(analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT", n.MC = NULL))
 })

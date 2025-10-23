@@ -8,20 +8,22 @@ plot_Histogram(
   data,
   na.rm = TRUE,
   mtext = "",
-  cex.global,
+  cex.global = 1,
   se = TRUE,
   rug = TRUE,
   normal_curve = FALSE,
   summary = "",
   summary.pos = "sub",
-  colour,
+  colour = c("white", "black", "red", "black"),
   interactive = FALSE,
   ...
 )
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
-for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]})}
+for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
+If the error column is missing or only contains \code{NA} values, then the error
+at each measurement is assumed to be 10^-9.}
 
 \item{na.rm}{\link{logical} (\emph{with default}):
 excludes \code{NA} values from the data set prior to any further operations.}
@@ -56,8 +58,8 @@ specification, y-coordinate refers to the right y-axis.}
 
 \item{colour}{\link{numeric} or \link{character} (\emph{with default}):
 optional vector of length 4 which specifies the colours of the following
-plot items in exactly this order: histogram bars, rug lines, normal
-distribution curve and standard error points
+plot items in exactly this order: histogram bars, rug lines and summary
+text, normal distribution curve, standard error points
 (e.g., \code{c("grey", "black", "red", "grey")}).}
 
 \item{interactive}{\link{logical} (\emph{with default}):
@@ -86,6 +88,7 @@ one or more of the following keywords:
 \item \code{"mean"} (mean De value),
 \item \code{"mean.weighted"} (error-weighted mean),
 \item \code{"median"} (median of the De values),
+\item \code{"median.weighted"} (error-weighted median),
 \item \code{"sdrel"} (relative standard deviation in percent),
 \item \code{"sdrel.weighted"} (error-weighted relative standard deviation in percent),
 \item \code{"sdabs"} (absolute standard deviation),

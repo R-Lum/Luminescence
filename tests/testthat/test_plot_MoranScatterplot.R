@@ -38,6 +38,9 @@ test_that("check functionality", {
   expect_warning(plot_MoranScatterplot((1:100) - 20, log = "y",
                                        legend = FALSE),
                  "y-axis values rescaled because of log transform \\(also in return df\\)")
+  expect_warning(plot_MoranScatterplot((1:100) - 4.5, log = "y",
+                                       legend = FALSE),
+                 "y-axis values rescaled because of log transform \\(also in return df\\)")
 
   expect_silent(plot_MoranScatterplot((1:100) - 2, log = "y",
                                        legend = FALSE))
@@ -51,7 +54,6 @@ test_that("check functionality", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   vdiffr::expect_doppelganger("MoranScatterplot defaults",

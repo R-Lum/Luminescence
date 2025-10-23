@@ -49,7 +49,6 @@
 #' temp <- read_Daybreak2R(file)
 #' }
 #'
-#' @md
 #' @export
 read_Daybreak2R <- function(
   file,
@@ -75,7 +74,7 @@ read_Daybreak2R <- function(
   .validate_class(file, c("character", "list"))
   .validate_logical_scalar(verbose)
 
-  if(is(file, "character")) {
+  if (is.character(file)) {
     .validate_length(file, 1)
 
     ##If this is not really a path we skip this here
@@ -92,7 +91,7 @@ read_Daybreak2R <- function(
   }
 
   ##if the input is already a list
-  if (is(file, "list")) {
+  if (inherits(file, "list")) {
     temp.return <- lapply(seq_along(file), function(x) {
       read_Daybreak2R(
         file = file[[x]],
@@ -368,21 +367,15 @@ read_Daybreak2R <- function(
     ##(2)
     ##Loop over the list to create RLum.Data.Curve objects
     RLum.Data.Curve.list <- lapply(1:length(data.list), function(x){
-
-
       ##get length of record
       record.length <- length(data.list[[x]])
 
       ##get header length until the argument 'Points'
       header.length <- grep(pattern = "Points", x = data.list[[x]])
 
-      if(length(header.length)>0){
-        temp.meta_data <- unlist(strsplit(data.list[[x]][2:header.length], split = "=", fixed = TRUE))
-
-      }else{
-        temp.meta_data <- unlist(strsplit(data.list[[x]][2:length(data.list[[x]])], split = "=", fixed = TRUE))
-
-      }
+      last.idx <- if (length(header.length) > 0) header.length else record.length
+      temp.meta_data <- unlist(strsplit(data.list[[x]][2:last.idx],
+                                        split = "=", fixed = TRUE))
 
       ##get list names for the info element list
       info.names <- temp.meta_data[seq(1,length(temp.meta_data), by = 2)]

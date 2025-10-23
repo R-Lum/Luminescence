@@ -16,7 +16,7 @@ test_that("input validation", {
   expect_error(fit_OSLLifeTimes(matrix()),
                "'object' should have at least two columns")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
-               "'n.components' should be a positive integer scalar")
+               "'n.components' should be a single positive integer value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
                "'signal_range' should be of class 'numeric'")
 
@@ -40,11 +40,14 @@ test_that("input validation", {
                                   signal_range = c(1, 150:200), verbose = FALSE),
                  "'signal_range' has more than 2 elements")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
+                                  signal_range = -1, verbose = FALSE),
+                 "'signal_range' accepts only positive values")
+  expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = c(1, 300), verbose = FALSE),
-                 "'signal_range' > number of channels, reset to maximum")
+                 "The last element of 'signal_range' exceeds the number of channels")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = 300, verbose = FALSE),
-                 "'signal_range' first element > last element, reset to default"
+                 "The first element of 'signal_range' exceeds the last element"
                 )
 
   temp <- temp_mat
@@ -64,6 +67,11 @@ test_that("input validation", {
                                   verbose = FALSE,
                                   n.components = 1),
                  "At least one parameter is negative")
+
+  expect_error(fit_OSLLifeTimes(data.frame(ED = c(rep(0, 4), 10),
+                                           ED_Error = rnorm(5) + 1),
+                                verbose = FALSE),
+               "Failed to optimize the function, check the input data")
 })
 
 test_that("check functionality", {
@@ -98,11 +106,15 @@ test_that("check functionality", {
     object = temp_analysis,
     verbose = FALSE,
     plot = FALSE,
+    method_control = list(DEoptim.itermax = 25),
     n.components = 1), class = "RLum.Results")
   expect_s4_class(fit_OSLLifeTimes(
     object = list(temp_analysis),
     verbose = FALSE,
     plot = FALSE,
+    method_control = list(seed = 1, weights = FALSE,
+                          DEoptim.itermax = 25,
+                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
     n.components = 1), class = "RLum.Results")
 
   ## simple data.frame
@@ -118,34 +130,53 @@ test_that("check functionality", {
     tolerance = snapshot.tolerance)
   })
 
-  ##test arguments
-  ##simple run
-  expect_s4_class(object = fit_OSLLifeTimes(
-    object = ExampleData.TR_OSL,
-    method_control = list(seed = 1, weights = FALSE,
-                          DEoptim.itermax = 25,
-                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
-    plot = FALSE,
-    verbose = FALSE,
-    n.components = 1), class = "RLum.Results")
-
-  ##warning for log
-  expect_warning(expect_warning(
-      fit_OSLLifeTimes(
-          object = temp_mat,
-          verbose = FALSE,
-          plot = TRUE,
-          plot_simple = TRUE,
-          log = list("xy"),
-          lty = 1,
-          col = 1,
-          n.components = 1),
-      "log-scale requires x-values > 0, set min xlim to 0.01"),
-      "log-scale requires y-values > 0, set min ylim to 1.69e+10",
-      fixed = TRUE)
-
   SW({
   expect_message(fit_OSLLifeTimes(temp_mat[1:10, ]),
                  "The fitting was not successful, consider trying again")
+  })
+
+  ## more coverage
+  expect_snapshot_RLum(fit_OSLLifeTimes(
+      object = temp_mat[125:130, ],
+      verbose = FALSE,
+      plot = FALSE),
+      tolerance = 1.5e-5)
+
+  expect_warning(fit_OSLLifeTimes(
+    object = ExampleData.TR_OSL,
+    plot = FALSE,
+    verbose = FALSE,
+    method_control = list(seed = 100, DEoptim.itermax = 15),
+    n.components = 1),
+    "Fitting failed: singular gradient matrix at initial parameter estimates")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("1 comp",
+                              fit_OSLLifeTimes(
+                                  object = ExampleData.TR_OSL,
+                                  method_control = list(DEoptim.itermax = 15),
+                                  n.components = 1))
+
+  expect_warning(expect_warning(
+      vdiffr::expect_doppelganger("log xy",
+                                  fit_OSLLifeTimes(
+                                      object = temp_mat,
+                                      verbose = FALSE,
+                                      plot = TRUE,
+                                      plot_simple = TRUE,
+                                      log = list("xy"),
+                                      lty = 1,
+                                      col = 1,
+                                      n.components = 1)),
+      "log-scale requires x-values > 0, set min xlim to 0.01"),
+      "log-scale requires y-values > 0, set min ylim to 1.69e+10",
+      fixed = TRUE)
   })
 })

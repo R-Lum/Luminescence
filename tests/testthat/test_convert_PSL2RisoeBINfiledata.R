@@ -5,10 +5,6 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
   expect_error(convert_PSL2Risoe.BINfileData(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
-
-  ## defunct name
-  expect_error(PSL2Risoe.BINfileData(set_RLum("RLum.Analysis")),
-               "'PSL2Risoe.BINfileData' is defunct")
 })
 
 test_that("check functionality", {

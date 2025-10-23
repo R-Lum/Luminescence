@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(analyse_ThermochronometryData(list()),
                "'object' should be of class 'character'")
   expect_error(analyse_ThermochronometryData("error"),
-               "File does not exist")
+               "File 'error' does not exist")
   expect_error(analyse_ThermochronometryData(input.csv[1], verbose = "error"),
                "'verbose' should be a single logical value")
   expect_error(analyse_ThermochronometryData(test_path("_data/CLBR.xlsx")),

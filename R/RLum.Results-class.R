@@ -54,7 +54,6 @@
 #' ##alternatively objects can be accessed using S3 generics, such as
 #' dose.rate$parameters
 #'
-#' @md
 #' @export
 setClass(
   Class = "RLum.Results",
@@ -64,7 +63,7 @@ setClass(
 )
 
 
-# as() ----------------------------------------------------------------------------------------
+## as() ---------------------------------------------------------------------
 ##LIST
 ##COERCE RLum.Results >> list AND list >> RLum.Results
 #' as() - RLum-object coercion
@@ -80,7 +79,6 @@ setClass(
 #'
 #' Given that the [list] consists of [RLum.Results-class] objects.
 #'
-#' @md
 #' @name as
 setAs("list", "RLum.Results",
       function(from,to){
@@ -94,13 +92,10 @@ setAs("RLum.Results", "list",
         from@data
       })
 
-# show() --------------------------------------------------------------------------------------
-#' @describeIn RLum.Results
-#' Show structure of `RLum.Results` object
+## show() -------------------------------------------------------------------
+#' @describeIn show
+#' Show the structure of `RLum.Results` objects.
 #'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
@@ -108,18 +103,9 @@ setMethod("show",
             ##data elements
             temp.names <- names(object@data)
 
-            if (length(object) > 0) {
-              temp.type <- sapply(1:length(object@data),
-                                  function(x) {
-                                    paste("\t .. $", temp.names[x],
-                                          " : ",
-                                          is(object@data[[x]])[1],
-                                          sep = "")
-                                  })
-            } else{
-              temp.type <- paste0("\t .. $", temp.names, " : ", is(object@data)[1])
-            }
-
+            data_list <- if (length(object) > 0) object@data else list(object@data)
+            temp.type <- paste0("\t .. $", temp.names, " : ",
+                                vapply(data_list, function(x) is(x)[1], character(1)))
             temp.type <- paste(temp.type, collapse = "\n")
 
             ##print information
@@ -128,45 +114,16 @@ setMethod("show",
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
             cat("\n\t additional info elements: ", length(object@info),"\n")
-
           })
 
 
-# set_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Results
-#' Construction method for an RLum.Results object.
+## set_RLum() ---------------------------------------------------------------
+#' @describeIn set_RLum
+#' Construction method for [RLum.Results-class] objects.
 #'
-#' @param class [`set_RLum`]; [character] (**required**):
-#' name of the `RLum` class to create
-#'
-#' @param originator [`set_RLum`]; [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object);
-#' can be set manually.
-#'
-#' @param .uid [`set_RLum`]; [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `create_UID`.
-#'
-#' @param .pid [`set_RLum`]; [character] (*with default*):
-#' option to provide a parent id for nesting at will.
-#'
-#' @param data [`set_RLum`]; [list] (*optional*):
-#' a list containing the data to
-#' be stored in the object
-#'
-#' @param info [`set_RLum`]; [list] (*optional*):
-#' a list containing additional info data for the object
-#'
-#' @return
-#'
-#' **`set_RLum`**:
-#'
-#' Returns an object from the class [RLum.Results-class]
-#'
-#' @md
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
-
           function(class,
                    originator,
                    .uid,
@@ -188,32 +145,16 @@ setMethod("set_RLum",
           })
 
 
-# get_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Results
-#' Accessor method for RLum.Results object. The argument data.object allows
-#' directly accessing objects delivered within the slot data. The default
-#' return object depends on the object originator (e.g., `fit_LMCurve`).
-#' If nothing is specified always the first `data.object` will be returned.
+## get_RLum() ---------------------------------------------------------------
+#' @describeIn get_RLum
+#' Accessor method for [RLum.Results-class] object.
+#' The argument `data.object` allows to access directly objects stored
+#' within the slot data. The default return object depends on the object
+#' originator (e.g., `fit_LMCurve`). If nothing is specified always the first
+#' `data.object` will be returned.
 #'
-#' Note: Detailed specification should be made in combination with the originator slot in the
-#' receiving function if results are pipped.
-#'
-#' @param object [`get_RLum`]; [RLum.Results-class] (**required**):
-#' an object of class [RLum.Results-class] to be evaluated
-#'
-#' @param data.object [`get_RLum`]; [character] or [numeric]:
-#' name or index of the data slot to be returned
-#'
-#' @param info.object [`get_RLum`]; [character] (*optional*):
-#' name of the wanted info element
-#'
-#' @param drop [`get_RLum`]; [logical] (*with default*):
-#' coerce to the next possible layer (which are data objects, `drop = FALSE`
-#' keeps the original `RLum.Results`
-#'
-#' @return
-#'
-#' **`get_RLum`**:
+#' Note: Detailed specification should be made in combination with the
+#' originator slot in the receiving function if results are piped.
 #'
 #' Returns:
 #'
@@ -221,8 +162,12 @@ setMethod("set_RLum",
 #' 2. [list] of data objects from the slots if 'data.object' is vector or
 #' 3. an [RLum.Results-class] for `drop = FALSE`.
 #'
+#' @param data.object [character] or [numeric]:
+#' name or index of the data slot to be returned.
 #'
-#' @md
+#' @param info.object [character] (*optional*):
+#' name of the wanted info element.
+#'
 #' @export
 setMethod(
   "get_RLum",
@@ -250,7 +195,7 @@ setMethod(
 
     } else{
       if (!missing(data.object)) {
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         .validate_class(data.object, c("character", "numeric"))
 
         ##CASE1: data.object is of type 'character'
@@ -265,7 +210,6 @@ setMethod(
 
             } else{
               temp.return <- list(data.object = object@data[[data.object]])
-
             }
           } else {
             .throw_error("Unknown 'data.object', valid names are: ",
@@ -273,13 +217,12 @@ setMethod(
           }
         }
 
-        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##CASE2: data.object is of type 'numeric'
         else if (is.numeric(data.object)) {
           ##check if index is valid
           if (max(data.object) > length(object@data)) {
             .throw_error("'data.object' index out of bounds")
-
           } else if (length(data.object) > 1) {
             temp.return <- lapply(data.object, function(x) {
               object@data[[x]]
@@ -305,7 +248,6 @@ setMethod(
         ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
         ##should always return the lowest possible element here
         return(temp.return[[1]])
-
       } else{
         return(set_RLum(
           "RLum.Results",
@@ -317,38 +259,21 @@ setMethod(
   }
 )
 
-
-
-# length_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Results
-#' Returns the length of the object, i.e., number of stored data.objects
+## length_RLum() ------------------------------------------------------------
+#' @describeIn length_RLum
+#' Returns the number of stored data elements.
 #'
-#' @return
-#'
-#' **`length_RLum`**
-#'
-#' Returns the number of data elements in the `RLum.Results` object.
-#'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Results",
           function(object){
-
             length(object@data)
           })
 
-# names_RLum() --------------------------------------------------------------------------------
-#' @describeIn RLum.Results
-#' Returns the names data.objects
+## names_RLum() -------------------------------------------------------------
+#' @describeIn names_RLum
+#' Returns the names of the `data` field stored in the object.
 #'
-#' @return
-#'
-#' **`names_RLum`**
-#'
-#' Returns the names of the data elements in the object.
-#'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Results",
@@ -357,23 +282,20 @@ setMethod("names_RLum",
           })
 
 ## view() -------------------------------------------------------------------
-#' @describeIn RLum.Results
+#' @describeIn view
+#' View method for [RLum.Results-class] objects.
 #'
-#' View method for [RLum.Results-class] objects
+#' @param element [integer] (*with default*):
+#' index of the element to display.
 #'
-#' @param object an object of class [RLum.Results-class]
-#'
-#' @param element [integer] (*with default*): index of the element to display
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("view",
           signature = "RLum.Results",
           definition = function(object, element = 1, ...) {
+    .set_function_name("view")
+    on.exit(.unset_function_name(), add = TRUE)
+
+    .validate_not_empty(object)
 
     ## set title
     name <- list(...)$title

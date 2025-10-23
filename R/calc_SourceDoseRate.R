@@ -130,7 +130,6 @@
 #'
 #'}
 #'
-#' @md
 #' @export
 calc_SourceDoseRate <- function(
   measurement.date = Sys.Date(),
@@ -147,12 +146,12 @@ calc_SourceDoseRate <- function(
   .validate_class(measurement.date, c("Date", "character"))
   .validate_class(calib.date, c("Date", "character"))
 
-  if (is(measurement.date, "character")) {
+  if (is.character(measurement.date)) {
         measurement.date <- as.Date(measurement.date)
       }
 
   ##calibration date
-  if(is(calib.date, "character")) {
+  if (is.character(calib.date)) {
     calib.date <- as.Date(calib.date)
   }
 
@@ -181,7 +180,7 @@ calc_SourceDoseRate <- function(
     "Cs-137" = 30.08
     )
 
-  halflife.days  <- halflife.years * 365
+  halflife.days  <- halflife.years * .const$year_d
 
   # N(t) = N(0)*e^((lambda * t) with lambda = log(2)/T1.2)
   measurement.dose.rate <- (calib.dose.rate) *
@@ -209,7 +208,7 @@ calc_SourceDoseRate <- function(
     stringsAsFactors = TRUE
   )
 
-  temp.return <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       dose.rate = dose_rate,
@@ -218,6 +217,4 @@ calc_SourceDoseRate <- function(
                         dose.rate.unit = dose.rate.unit),
       call = sys.call()
     ))
-
-  return(temp.return)
 }

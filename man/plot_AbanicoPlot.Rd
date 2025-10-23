@@ -159,7 +159,7 @@ colour of the polygon showing the data scatter. Sometimes this
 polygon may be omitted for clarity. To disable it use \code{FALSE} or
 \code{polygon = FALSE}. Default is \code{"grey80"}.}
 
-\item{line}{\link{numeric}:
+\item{line}{\link{numeric} or \linkS4class{RLum.Results}:
 numeric values of the additional lines to be added.}
 
 \item{line.col}{\link{character} or \link{numeric}:

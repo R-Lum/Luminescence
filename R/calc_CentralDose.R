@@ -97,7 +97,6 @@
 #' ##apply the central dose model
 #' calc_CentralDose(ExampleData.DeValues$CA1)
 #'
-#' @md
 #' @export
 calc_CentralDose <- function(
   data,
@@ -118,8 +117,8 @@ calc_CentralDose <- function(
 
   ##remove NA values
   if (anyNA(data)) {
-    message("[calc_CentralDose()] ", length(which(is.na(data))),
-            " NA values removed from dataset")
+    .throw_message(length(which(is.na(data))), " NA values removed from dataset",
+                   error = FALSE)
     data <- na.exclude(data)
   }
 
@@ -149,7 +148,6 @@ calc_CentralDose <- function(
     .throw_error("'sigmab' should be a value between 0 and 1 if log = TRUE")
   }
 
-
   ## ============================================================================##
   ## ... ARGUMENTS
   ## ============================================================================##
@@ -160,11 +158,10 @@ calc_CentralDose <- function(
   options <- modifyList(options, list(...))
 
   ## deprecated argument
-  if ("na.rm" %in% names(list(...))) {
+  if ("na.rm" %in% ...names()) {
     .throw_warning("'na.rm' is deprecated, missing values are always removed ",
                    "by default")
   }
-
 
   ## ============================================================================##
   ## CALCULATIONS
@@ -207,7 +204,7 @@ calc_CentralDose <- function(
 
     ## don't let sigma become zero
     if (sigma < 1e-16)
-      break()
+      break
   }
 
   # log likelihood
@@ -232,7 +229,6 @@ calc_CentralDose <- function(
   }
   if (is.infinite(out.sesigma))
     out.sesigma <- NA
-  out.llik <- round(llik, 4)
 
   # profile log likelihood
   Lmax <- llik
@@ -259,24 +255,26 @@ calc_CentralDose <- function(
 
   if (options$verbose) {
     cat("\n [calc_CentralDose]")
-    cat(paste("\n\n----------- meta data ----------------"))
-    cat(paste("\n n:                      ", n))
-    cat(paste("\n log:                    ", log))
-    cat(paste("\n----------- dose estimate ------------"))
-    cat(paste("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2)))
-    cat(paste("\n abs. SE:                ", format(out.delta * out.sedelta/100,
-                                                   digits = 2, nsmall = 2)))
-    cat(paste("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2)))
-    cat(paste("\n----------- overdispersion -----------"))
-    cat(paste("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
-    cat(paste("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
-    cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
-    cat(paste("\n SE [%]:                 ", if (!is.na(out.sesigma)) {
+    cat("\n\n----------- meta data ----------------")
+    cat("\n n:                      ", n)
+    cat("\n log:                    ", log)
+    cat("\n----------- dose estimate ------------")
+    cat("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2))
+    cat("\n abs. SE:                ", format(out.delta * out.sedelta / 100,
+                                              digits = 2, nsmall = 2))
+    cat("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2))
+    cat("\n----------- overdispersion -----------")
+    cat("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma),
+                                              digits = 2, nsmall = 2))
+    cat("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma),
+                                              digits = 2, nsmall = 2))
+    cat("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2))
+    cat("\n SE [%]:                 ", if (!is.na(out.sesigma)) {
       format(out.sesigma * 100, digits = 2, nsmall = 2)
     } else {
       "-"
-    }))
-    cat(paste("\n-------------------------------------\n\n"))
+    })
+    cat("\n-------------------------------------\n\n")
   }
 
   ## ============================================================================##

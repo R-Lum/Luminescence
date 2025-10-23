@@ -12,22 +12,16 @@ list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects of
 class \linkS4class{RLum} can be added, see details.}
 }
 \value{
-Return an \linkS4class{RLum.Analysis} object.
+Returns an \linkS4class{RLum.Analysis} object ordered according to the order
+provided with the input list.
 }
 \description{
-Function allows merging of RLum.Analysis objects and adding of allowed
-objects to an RLum.Analysis.
-}
-\details{
 This function simply allows to merge \linkS4class{RLum.Analysis}
-objects. Moreover, other \linkS4class{RLum} objects can be added
+objects. Moreover, other \linkS4class{RLum.Data} objects can be added
 to an existing \linkS4class{RLum.Analysis} object. Supported objects
 to be added are: \linkS4class{RLum.Data.Curve},
 \linkS4class{RLum.Data.Spectrum} and
 \linkS4class{RLum.Data.Image}.
-
-The order in the new \linkS4class{RLum.Analysis} object is the object
-order provided with the input list.
 }
 \note{
 The information for the slot 'protocol' is taken from the first
@@ -35,11 +29,10 @@ The information for the slot 'protocol' is taken from the first
 least one object of type \linkS4class{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
- 0.2.0
+ 0.2.1
 }
 
 \examples{
-
 
 ##merge different RLum objects from the example data
 data(ExampleData.RLum.Analysis, envir = environment())

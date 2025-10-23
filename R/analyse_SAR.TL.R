@@ -69,8 +69,7 @@
 #' @note
 #' **THIS IS A BETA VERSION**
 #'
-#' None TL curves will be removed
-#' from the input object without further warning.
+#' No TL curves will be removed from the input object without further warning.
 #'
 #' @section Function version: 0.3.0
 #'
@@ -106,7 +105,6 @@
 #'  fit.method = "EXP OR LIN",
 #'  sequence.structure = c("SIGNAL", "BACKGROUND"))
 #'
-#' @md
 #' @export
 analyse_SAR.TL <- function(
   object,
@@ -125,9 +123,8 @@ analyse_SAR.TL <- function(
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ##run sequence
     results <- lapply(object, function(o){
@@ -157,22 +154,24 @@ analyse_SAR.TL <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
-  if (missing("signal.integral.min")) {
-    .throw_error("No value set for 'signal.integral.min'")
-  }
-  if (missing("signal.integral.max")) {
-    .throw_error("No value set for 'signal.integral.max'")
-  }
-
+  .validate_class(signal.integral.min, c("numeric", "integer"))
+  .validate_class(signal.integral.max, c("numeric", "integer"))
   integral_input <- .validate_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------
 
-  ##set allowed curve types
-  type.curves <- c("TL")
+  ## silence notes raised by R CMD check
+  id <- n.channels <- protocol.step <- NULL
+  prev.idx <- criterion <- value <- threshold <- status <- NULL
+  Name <- Dose <- LxTx <- Repeated <- NULL
+
+  ## we must have a signal to analyse
+  if (!"SIGNAL" %in% sequence.structure) {
+    .throw_error("'sequence.structure' contains no 'SIGNAL' entry")
+  }
 
   ##Remove non TL-curves from object by selecting TL curves
-  object@records <- get_RLum(object, recordType = type.curves,
+  object@records <- get_RLum(object, recordType = "TL",
                              recursive = FALSE)
 
   ##ANALYSE SEQUENCE OBJECT STRUCTURE
@@ -181,38 +180,30 @@ analyse_SAR.TL <- function(
   temp.protocol.step <- rep(sequence.structure,length(object@records))[1:length(object@records)]
 
   ## grep object structure
-  temp.sequence.structure <- structure_RLum(object)
+  temp.sequence.structure <- as.data.table(structure_RLum(object))
 
   ##set values for step
-  temp.sequence.structure[,"protocol.step"] <- temp.protocol.step
+  temp.sequence.structure[, protocol.step := temp.protocol.step]
 
   ##remove TL curves which are excluded
-  temp.sequence.structure <- temp.sequence.structure[which(
-    temp.sequence.structure[,"protocol.step"]!="EXCLUDE"),]
+  temp.sequence.structure <- temp.sequence.structure[protocol.step != "EXCLUDE"]
 
   ##check integrity; signal and bg range should be equal
-  if(length(
-    unique(
-      temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","n.channels"]))>1){
-
-    .throw_error("Signal range differs, check sequence structure.\n",
-                 temp.sequence.structure)
+  signal.channels <- temp.sequence.structure[protocol.step == "SIGNAL",
+                                             unique(n.channels)]
+  if (length(signal.channels) > 1) {
+    .throw_error("Signal ranges differ (", .collapse(signal.channels, quote = FALSE),
+                 "), check sequence structure")
   }
 
   ##check if the wanted curves are a multiple of the structure
-  if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0)
+  if (nrow(temp.sequence.structure) %% length(sequence.structure) != 0)
     .throw_error("Input TL curves are not a multiple of the sequence structure")
 
   # # Calculate LnLxTnTx values  --------------------------------------------------
   ##grep IDs for signal and background curves
-  TL.preheat.ID <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "PREHEAT","id"]
-
-  TL.signal.ID <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "SIGNAL","id"]
-
-  TL.background.ID <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "BACKGROUND","id"]
+  TL.signal.ID <- temp.sequence.structure[protocol.step == "SIGNAL", id]
+  TL.background.ID <- temp.sequence.structure[protocol.step == "BACKGROUND", id]
 
   ## check that `dose.points` is compatible with our signals:
   ## as we expect each signal to have an Lx and a Tx components (see calls
@@ -258,10 +249,7 @@ analyse_SAR.TL <- function(
     rm(LxTxRatio)
 
     ##grep dose
-    temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
-    if (is.null(temp.Dose)) {
-      temp.Dose <- NA
-    }
+    temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME %||% NA
 
     ## append row to the data.frame
     LnLxTnTx <- rbind(LnLxTnTx, cbind(Dose = temp.Dose, temp.LnLxTnTx))
@@ -275,7 +263,7 @@ analyse_SAR.TL <- function(
 
   # Set regeneration points -------------------------------------------------
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseName <- data.frame(Name = paste0("R", seq(nrow(LnLxTnTx)) - 1),
+  temp.DoseName <- data.frame(Name = paste0("R", seq_len(nrow(LnLxTnTx)) - 1),
                               Dose = LnLxTnTx[["Dose"]])
 
   ##set natural
@@ -298,10 +286,6 @@ analyse_SAR.TL <- function(
 
   ## convert to data.table for more convenient column manipulation
   temp <- data.table(LnLxTnTx[, c("Name", "Dose", "Repeated", "LxTx")])
-
-  ## silence notes raised by R CMD check
-  prev.idx <- criterion <- value <- threshold <- status <- NULL
-  Name <- Dose <- LxTx <- Repeated <- NULL
 
   # Calculate Recycling Ratio -----------------------------------------------
   ## we first create a dummy object to use in case there are no repeated doses,
@@ -353,14 +337,14 @@ analyse_SAR.TL <- function(
 
   # Plotting - Config -------------------------------------------------------
   ##grep plot parameter
-  par.default <- par(no.readonly = TRUE)
+  par.default <- .par_defaults()
   on.exit(par(par.default), add = TRUE)
 
   ##grep colours
   col <- get("col", pos = .LuminescenceEnv)
 
   ##set layout matrix
-  layout(matrix(c(
+  graphics::layout(matrix(c(
     1, 1, 2, 2,
     1, 1, 2, 2,
     3, 3, 4, 4,
@@ -380,13 +364,11 @@ analyse_SAR.TL <- function(
   signal.integral.temperature <- c(object@records[[TL.signal.ID[1]]]@data[signal.integral.min,1] :
                                      object@records[[TL.signal.ID[1]]]@data[signal.integral.max,1])
 
-
   ## warning if number of curves exceeds colour values
   if(length(col)<length(TL.signal.ID/2)){
-    message("\n[analyse_SAR.TL.R()] Warning: Too many curves, ",
-            "only the first ", length(col), " curves are plotted")
+    .throw_message("Too many curves, only the first ", length(col),
+                   " curves are plotted", error = FALSE)
   }
-
 
   # # Plotting TL LnLx Curves ----------------------------------------------------
   ##matrix with LnLx curves
@@ -416,17 +398,15 @@ analyse_SAR.TL <- function(
   TnTx_matrix <- cbind(object@records[[TL.signal.ID[1]]]@data[,1], TnTx_matrix)
 
   ##catch log-scale problem
-  if(log != ""){
-    if(min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0){
-      .throw_warning("Non-positive values detected, log-scale disabled")
+  if (log != "" && (min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0)) {
+    .throw_warning("Non-positive values detected, log-scale disabled")
     log <- ""
-    }
   }
 
   #open plot area LnLx
   plot(NA,NA,
        xlab = "Temp. [\u00B0C]",
-       ylab = paste0("TL [a.u.]"),
+       ylab = "TL [a.u.]",
        xlim = range(LnLx_matrix[, 1]),
        ylim = range(LnLx_matrix[, -1]),
        main = expression(paste(L[n], ",", L[x], " curves", sep = "")),
@@ -495,7 +475,6 @@ analyse_SAR.TL <- function(
                                 ""))
     )
 
-
     ##plot single curves
     lines(NTL.net.LnLx, col = col[1])
     lines(Reg1.net.LnLx, col = col[2])
@@ -553,7 +532,6 @@ analyse_SAR.TL <- function(
                                 ""))
     )
 
-
     ##plot single curves
     lines(NTL.net.TnTx, col = col[1])
     lines(Reg1.net.TnTx, col = col[2])
@@ -591,20 +569,18 @@ analyse_SAR.TL <- function(
     ##add text
     text(c(1:(length(TL.signal.ID) / 2)),
          rep(4, length(TL.signal.ID) / 2),
-         paste(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")", sep = ""))
+         paste0(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")"))
 
     ##add line
     abline(h = 10, lwd = 0.5)
 
     ##set failed text and mark De as failed
-    if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
+    if (any(grepl("FAILED", RejectionCriteria$status, fixed = TRUE))) {
       mtext("[FAILED]", col = "red")
     }
   }
 
   # Plotting  GC  ----------------------------------------
-  #reset par
-  par(par.default)
 
   ##create data.frame
   temp.sample <- data.frame(
@@ -621,7 +597,7 @@ analyse_SAR.TL <- function(
   temp.GC <- try(fit_DoseResponseCurve(
     object = temp.sample,
     ...
-  ))
+  ), outFile = stdout()) # redirect error messages so they can be silenced
 
   ## fit_DoseResponseCurve() can fail in two ways:
   ## 1. either with a hard error, in which case there's nothing much we
@@ -633,21 +609,15 @@ analyse_SAR.TL <- function(
   ## 2. or with a soft error by returning NULL, in which case we set
   ##    temp.GC to NA and continue (this can be done after the call to
   ##    get_RLum(), as it deals well with NULLs)
-  temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
-  if (is.null(temp.GC))
-    temp.GC <- NA
+  temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")] %||% NA
 
   ##add rejection status
-  if(length(grep("FAILED",RejectionCriteria$status))>0){
-    temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
-
-  }else{
-    temp.GC <- data.frame(temp.GC, RC.Status="OK")
-
-  }
+  RC.status <- if (any(grepl("FAILED", RejectionCriteria$status, fixed = TRUE)))
+                 "FAILED" else "OK"
+  temp.GC <- data.frame(temp.GC, RC.Status = RC.status)
 
   # Return Values -----------------------------------------------------------
-  newRLumResults.analyse_SAR.TL <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = temp.GC,
@@ -656,7 +626,4 @@ analyse_SAR.TL <- function(
     ),
     info = list(info = sys.call())
   )
-
-  return(newRLumResults.analyse_SAR.TL)
-
 }

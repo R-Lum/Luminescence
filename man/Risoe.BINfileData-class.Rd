@@ -3,39 +3,16 @@
 \docType{class}
 \name{Risoe.BINfileData-class}
 \alias{Risoe.BINfileData-class}
-\alias{show,Risoe.BINfileData-method}
 \alias{set_Risoe.BINfileData,ANY-method}
-\alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
-\alias{add_metadata<-,Risoe.BINfileData-method}
-\alias{rename_metadata<-,Risoe.BINfileData-method}
-\alias{replace_metadata<-,Risoe.BINfileData-method}
-\alias{sort_RLum,Risoe.BINfileData-method}
-\alias{view,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
-\S4method{show}{Risoe.BINfileData}(object)
-
 \S4method{set_Risoe.BINfileData}{ANY}(
   METADATA = data.frame(),
   DATA = list(),
   .RESERVED = list()
 )
-
-\S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
-
-\S4method{add_metadata}{Risoe.BINfileData}(object, info_element) <- value
-
-\S4method{rename_metadata}{Risoe.BINfileData}(object, info_element) <- value
-
-\S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
-
-\S4method{sort_RLum}{Risoe.BINfileData}(object, info_element, decreasing = FALSE, ...)
-
-\S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{(\strong{required}) an object of class \linkS4class{Risoe.BINfileData}}
-
 \item{METADATA}{Object of class "data.frame" containing the meta information
 for each curve.}
 
@@ -43,21 +20,6 @@ for each curve.}
 
 \item{.RESERVED}{Object of class "list" containing list of undocumented raw
 values for internal use only.}
-
-\item{...}{other arguments that might be passed}
-
-\item{info_element}{\link{character} (\strong{required}): name of the metadata field
-to use in sorting.}
-
-\item{value}{(\strong{required}) The value assigned to the selected elements
-of the metadata field. If \code{NULL} the elements named in \code{info_element}
-will be removed.}
-
-\item{subset}{\link{expression} (\emph{optional}) logical expression to limit the
-substitution only to the selected subset of elements}
-
-\item{decreasing}{\link{logical} (\emph{with default}): whether the sort order should
-be decreasing (\code{FALSE} by default).}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -65,23 +27,9 @@ of the function \link{read_BIN2R}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show(Risoe.BINfileData)}: Show structure of RLum and Risoe.BINfile class objects
-
-\item \code{set_Risoe.BINfileData(ANY)}: The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
-This construction method is intended for internal usage only.
-
-\item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
-the object directly, it is just showing a terminal message.
-
-\item \code{add_metadata(Risoe.BINfileData) <- value}: Adds metadata to \linkS4class{Risoe.BINfileData} objects
-
-\item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \linkS4class{Risoe.BINfileData} objects
-
-\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects
-
-\item \code{sort_RLum(Risoe.BINfileData)}: Sort method for \linkS4class{Risoe.BINfileData} objects
-
-\item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects
+\item \code{set_Risoe.BINfileData(ANY)}: A \linkS4class{Risoe.BINfileData} object is normally produced as output of the
+function \link{read_BIN2R}. This construction method is intended for internal
+usage only.
 
 }}
 \section{Slots}{
@@ -184,10 +132,10 @@ but an own structure accounting for the different versions.
 \verb{[,79]} \tab \code{EXTR_END} \tab \code{numeric} \tab 08 \tab usage unknown\cr
 \verb{[,80]} \tab \code{SEQUENCE} \tab \code{character} \tab 03-04 \tab Sequence name
 }
-V = BIN-file version (RLum means that it does not depend on a specific BIN version)
+V = BIN-file version (RLum means that it does not depend on a specific BIN-file version)
 
 Note that the \code{Risoe.BINfileData} object combines all values from
-different versions from the BIN-file, reserved bits are skipped, however,
+different versions from the BIN/BINX-file, reserved bits are skipped, however,
 the function \link{write_R2BIN} reset arbitrary reserved bits. Invalid
 values for a specific version are set to \code{NA}. Furthermore, the
 internal R data types do not necessarily match the required data types for
@@ -246,7 +194,20 @@ With version 8 of the BIN/BINX file format, slot \verb{@DATA} (byte array \code{
 contain two different values:
 \enumerate{
 \item \code{DPOINTS} (standard for \code{RECTYPE} := (0,1)): is a vector with the length defined
-through \code{NPOINTS}. This is the standard for xy-curves since version 03.
+through \code{NPOINTS}. This is the standard for xy-curves since version 03. However,
+recorded are only y-values and x-values are calculated during import using
+information from, amongst others, \code{LOW} and \code{HIGH}. For instance, a simple TL curve
+would store \code{LOW = 0} and \code{HIGH = 400}. This is then becomes the range for the
+temperature values. All values in between are interpolated with a length
+matching the number of corresponding values stored in \code{DPOINTS}.
+}
+
+\emph{Note: The Sequence Editor uses 0 deg. C as the lowest temperature, although
+this temperature is usually not available in a laboratory. This, however, does not
+mean that the calculated TL curves are invalid, as the heater would only
+start the temperature ramp if the ambient temperature is lower than
+the target temperature.}
+\enumerate{
 \item \code{DPOINTS} (\code{RECTYPE} := 128) is contains no count values but information about
 the definition of the regions of interest (ROI). Each definition is 504 bytes long.
 The number of definitions is defined by \code{NPOINTS} in \verb{@METADATA}. The record
@@ -295,6 +256,4 @@ The Sequence Editor User Manual - February 2016
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 }
-\keyword{class}
 \keyword{classes}
-\keyword{internal}

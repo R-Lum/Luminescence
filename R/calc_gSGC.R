@@ -74,7 +74,6 @@
 #'
 #' get_RLum(results, data.object = "De")
 #'
-#' @md
 #' @export
 calc_gSGC<- function(
   data,
@@ -91,6 +90,7 @@ calc_gSGC<- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
+  .validate_not_empty(data)
   if (ncol(data) != 5)
     .throw_error("'data' is expected to have 5 columns")
   gSGC.type <- .validate_args(gSGC.type, c("0-250", "0-450"))
@@ -173,8 +173,6 @@ for(i in 1:nrow(data)){
     Lr1Tr1 <- data[i, "Lr1Tr1"]
     Lr1Tr1.error <- data[i,"Lr1Tr1.error"]
     Dr1 <- data[i,"Dr1"]
-    Dr1.error <- data[i,"Dr1.error"]
-
     LnTn <- data[i,"LnTn"]
     LnTn.error <- data[i,"LnTn.error"]
 
@@ -235,7 +233,7 @@ for(i in 1:nrow(data)){
                 maxiter = 1000
                 )$root
 
-      }, FUN.VALUE = vector(mode = "numeric", length = 1))
+      }, FUN.VALUE = numeric(1))
 
       ##calculate also the normalisation factor
       temp.MC.matrix[,8] <- (temp.MC.matrix[,3] * (1 - exp( - Dr1 / temp.MC.matrix[,4])) +
@@ -384,7 +382,7 @@ for(i in 1:nrow(data)){
 ##OUTPUT RLUM
 ##============================================================================##
 
-    temp.RLum.Results <- set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         De = as.data.frame(output.data),
@@ -393,6 +391,4 @@ for(i in 1:nrow(data)){
       ),
       info = list( call = sys.call())
     )
-
-  return(temp.RLum.Results)
 }

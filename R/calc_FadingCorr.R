@@ -195,7 +195,6 @@
 #' ##access the last output
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 calc_FadingCorr <- function(
   age.faded,
@@ -207,7 +206,7 @@ calc_FadingCorr <- function(
   interval = c(0.01,500),
   txtProgressBar = TRUE,
   verbose = TRUE
-){
+) {
   .set_function_name("calc_FadingCorr")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -229,7 +228,6 @@ calc_FadingCorr <- function(
   }
 
   ## tc is validated only now, as it may be set in the previous block
-  .validate_class(tc, c("numeric", "integer"))
   .validate_positive_scalar(tc)
   .validate_positive_scalar(tc.g_value)
   .validate_class(interval, "numeric")
@@ -260,10 +258,9 @@ calc_FadingCorr <- function(
   ##calculate kappa (equation [5] in Huntley and Lamothe, 2001)
   kappa <- g_value / log(10) / 100
 
-  ##transform tc in ka years
-  ##duration of the year over a long term taken from http://wikipedia.org
-  tc <- tc[1] / 60 / 60 / 24 / 365.2425  / 1000
-  tc.g_value <- tc.g_value[1] / 60 / 60 / 24 / 365.2425  / 1000
+  ## transform tc from s to ka years
+  tc <- tc / (1000 * .const$year_s)
+  tc.g_value <- tc.g_value / (1000 * .const$year_s)
 
   ##calculate mean value
   temp <-
@@ -301,10 +298,8 @@ calc_FadingCorr <- function(
       cat(paste0("   ",paste0("(",0:9,")", collapse = "   "), "\n"))
     }
   }else{
-    .validate_positive_scalar(n.MC, int = TRUE)
-    n.MC.i <- n.MC
+    n.MC.i <- .validate_positive_scalar(n.MC, int = TRUE)
   }
-
 
   # Start loop  ---------------------------------------------------------------------------------
 
@@ -346,7 +341,7 @@ calc_FadingCorr <- function(
       ##otherwise the automatic error value finding
       ##will never work
       res <- NA
-      if (!is(temp,"try-error") && temp$root < 1e8) {
+      if (!inherits(temp, "try-error") && temp$root < 1e8) {
         res <- temp$root
       }
       return(res)
@@ -406,7 +401,7 @@ calc_FadingCorr <- function(
     TC.G_VALUE = tc.g_value,
     n.MC = n.MC,
     OBSERVATIONS = length(tempMC),
-    SEED = ifelse(is.null(seed), NA, seed)
+    SEED = seed %||% NA
   )
 
   ##============================================================================##
@@ -441,7 +436,7 @@ calc_FadingCorr <- function(
       round(kappa[2], digits = 4)
     ))
     cat("\n ----------------------------------------------")
-    cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
+    cat("\n seed: \t\t\t", seed %||% NA)
     cat(paste0("\n n.MC: \t\t\t", n.MC))
     cat(paste0(
       "\n observations: \t\t",
@@ -469,10 +464,10 @@ calc_FadingCorr <- function(
   ##============================================================================##
   ##OUTPUT RLUM
   ##============================================================================##
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(age.corr = age.corr,
                 age.corr.MC = tempMC),
     info = list(call = sys.call())
-  ))
+  )
 }

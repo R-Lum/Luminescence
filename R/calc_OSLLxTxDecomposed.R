@@ -56,7 +56,6 @@
 #' [http://luminescence.de/OSLdecomp_talk.pdf]()\cr
 #'
 #' @keywords datagen
-#' @md
 #' @export
 calc_OSLLxTxDecomposed <- function(
   Lx.data,
@@ -79,13 +78,17 @@ calc_OSLLxTxDecomposed <- function(
   ##--------------------------------------------------------------------------##
   ## (1) - integrity checks
   .validate_class(Lx.data, "data.frame")
-  if (nrow(Lx.data) < 1)
+  if (nrow(Lx.data) < 2)
     .throw_error("No valid component data.frame for Lx value")
+  if (!all(c("n", "n.error") %in% colnames(Lx.data)))
+    .throw_error("'Lx.data' should contain the following columns: 'n', 'n.error'")
 
+  .validate_class(Tx.data, "data.frame", null.ok = TRUE)
   if (!is.null(Tx.data)) {
-    .validate_class(Tx.data, "data.frame")
-    if (nrow(Tx.data) < 1)
+    if (nrow(Tx.data) < 2)
       .throw_error("No valid component data.frame for Tx value")
+    if (!all(c("n", "n.error") %in% colnames(Tx.data)))
+      .throw_error("'Tx.data' should contain the following columns: 'n', 'n.error'")
   }
 
   # define the component
@@ -99,7 +102,9 @@ calc_OSLLxTxDecomposed <- function(
   # get component index from component name
   if (is.character(OSL.component)) {
     if (tolower(OSL.component) %in% tolower(Lx.data$name)) {
-      component_index <- which(tolower(OSL.component) == tolower(Lx.data$name))
+      ## FIXME(mcol): this seems unreachable, as Lx.data doesn't store the
+      ## component names
+      component_index <- which(tolower(OSL.component) == tolower(Lx.data$name)) # nocov
 
     } else {
       .throw_error("Invalid OSL component name, valid names are: ",
@@ -158,11 +163,11 @@ calc_OSLLxTxDecomposed <- function(
   # calc.parameters <- list(...)
 
   ##set results object
-  return(set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         LxTx.table = temp),
       #  calc.parameters = calc.parameters),
       info = list(call = sys.call())
-  ))
+  )
 }

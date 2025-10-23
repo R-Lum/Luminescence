@@ -121,7 +121,6 @@
 #' par(mfrow = c(1, 1))
 #'
 #'
-#' @md
 #' @export
 plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
                      legend = TRUE, legend.pos = "topright", ...) {
@@ -131,14 +130,19 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, c("list", "data.frame", "matrix", "RLum.Analysis"))
+  .validate_not_empty(data)
   if (inherits(data, "list")) {
     if (length(data) < 2)
       .throw_error("'data' contains only curve data for the natural signal")
-    if (all(sapply(data, class) == "RLum.Data.Curve") ||
-        all(sapply(data, class) == "RLum.Analysis"))
+    class.data <- sapply(data, function(x) class(x)[1])
+    if (all(class.data == "RLum.Data.Curve") || all(class.data == "RLum.Analysis"))
       curves <- lapply(data, get_RLum)
+    else if (all(class.data == "data.frame") || all(class.data == "matrix"))
+      curves <- data
+    else
+      .throw_error("'data' doesn't contain the expected type of elements")
   }
-  else if (inherits(data, "data.frame") || inherits(data, "matrix")) {
+  else if (inherits(data, c("data.frame", "matrix"))) {
     if (ncol(data) < 3)
       .throw_error("'data' contains only curve data for the natural signal")
     if (is.matrix(data))
@@ -164,6 +168,18 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   regCurves <- curves[2:length(curves)]
   time <- curves[[1]][ ,1]
 
+  if (anyNA(time)) {
+    .throw_error("'data' contains missing values in the time column, ",
+                 "check your data")
+  }
+  if (anyNA(natural[, 2])) {
+    .throw_error("'data' contains missing values in the natural signal, ",
+                 "check your data")
+  }
+  if (anyNA(regCurves[[1]][, 2])) {
+    .throw_error("'data' contains missing values in the regenerated signal, ",
+                 "check your data")
+  }
   if (any(sapply(regCurves, nrow) != nrow(natural))) {
     .throw_error("The time values for the natural signal don't match ",
                  "those for the regenerated signal")
@@ -203,8 +219,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   # default values
   settings <- list(
     xlim = if (log == "x" || log ==  "xy") c(0.1, max(time)) else c(0, max(time)),
-    ylim = range(pretty(c(min(sapply(NRnorm, min, na.rm = TRUE)),
-                          max(sapply(NRnorm, max, na.rm = TRUE))))),
+    ylim = range(pretty(c(sapply(NRnorm, range, na.rm = TRUE)))),
     xlab = "Time [s]",
     ylab = "Natural signal / Regenerated signal",
     cex = 1L,
@@ -213,8 +228,9 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   # override defaults with user settings
   settings <- modifyList(settings, list(...))
 
-
   ## PLOTTING ----------
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
 
   # set graphical parameter
   par(cex = settings$cex)

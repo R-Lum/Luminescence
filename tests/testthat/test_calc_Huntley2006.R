@@ -54,8 +54,8 @@ test_that("input validation", {
                "'rhop' should be of class 'numeric' or 'RLum.Results'")
   expect_error(calc_Huntley2006(data, rhop = rhop.test),
                "'rhop' accepts only RLum.Results objects produced by")
-  expect_error(calc_Huntley2006(data, rhop = c(-1, 4.9e-7)),
-               "'rhop' must be a positive number")
+  expect_error(calc_Huntley2006(data, rhop = c(0, 4e-7)),
+               "'rhop' must be a positive number, the provided value was 0 \u00B1 4e-07")
 
   expect_error(calc_Huntley2006(data, rhop = rhop),
                "'ddot' should be of class 'numeric'")
@@ -75,6 +75,10 @@ test_that("input validation", {
                "'readerDdot' should have length 2")
   expect_error(calc_Huntley2006(data, rhop = rhop,
                                 ddot = ddot, readerDdot = readerDdot,
+                                n.MC = 0),
+               "'n.MC' should be a single positive integer value")
+  expect_error(calc_Huntley2006(data, rhop = rhop,
+                                ddot = ddot, readerDdot = readerDdot,
                                 rprime = list()),
                "'rprime' should be of class 'numeric'")
 
@@ -89,7 +93,7 @@ test_that("input validation", {
       calc_Huntley2006(data = data[1:20, ], rhop = rhop, ddot = ddot,
                        readerDdot = c(0.002, 0.003), n.MC = 2,
                        plot = FALSE, verbose = FALSE),
-      "Simulated D0 is NA: either your input values are unsuitable"),
+      "Simulated D0 is NA"),
       "Ln/Tn is smaller than the minimum computed LxTx value")
 
   expect_error(calc_Huntley2006(data = data[1:20, ], LnTn = data[1, c(2, 3)],
@@ -118,7 +122,7 @@ test_that("check class and length of output", {
   expect_type(huntley$Ln, "double")
   expect_type(huntley$fits, "list")
 
-  expect_equal(round(huntley$results$Sim_Age, 1), 34.10)
+  expect_equal(round(huntley$results$Sim_Age, 1), 34)
   expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
   expect_equal(round(sum(huntley$Ln),2), 0.16)
 
@@ -163,7 +167,7 @@ test_that("Further tests calc_Huntley2006", {
         fit.method = "EXP",
         fit.force_through_origin = TRUE,
         mode = "extrapolation",
-        plot = TRUE,
+        plot = FALSE,
         verbose = FALSE),
       tolerance = max(snapshot.tolerance, 1.0e-2))
 
@@ -271,13 +275,33 @@ test_that("Further tests calc_Huntley2006", {
       data = iris[, 1:3],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
       n.MC = 2, plot = FALSE, verbose = FALSE),
-    "Unable to fit growth curve to measured data, try setting")
-  expect_warning(
+    "Unable to fit growth curve to measured data, try setting 'fit.bounds = FALSE'")
+  expect_error(
     calc_Huntley2006(
-      data = data[8:12, ],
+      data = iris[, 1:3],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
-      n.MC = 2, plot = FALSE, verbose = FALSE),
+      n.MC = 2, plot = FALSE, verbose = FALSE, fit.bounds = FALSE),
+    "Unable to fit growth curve to measured data$")
+  expect_warning(expect_error(
+    calc_Huntley2006(
+      data = data,
+      rhop = c(4e-5, 5e-7), ddot = c(8, 0.04), readerDdot = c(0.1, 0.006),
+      n.MC = 2, fit.method = "GOK", plot = FALSE, verbose = FALSE),
+    "Could not fit unfaded curve, check suitability of model and parameters"),
     "Ln is >10 % larger than the maximum computed LxTx value")
+  expect_warning(expect_error(
+    calc_Huntley2006(
+      data = data,
+      rhop = c(4e-5, 5e-7), ddot = c(8, 0.04), readerDdot = c(0.1, 0.006),
+      n.MC = 2, mode = "extrapolation", plot = FALSE, verbose = FALSE),
+    "Simulated D0 is NA: either your input values are unsuitable"),
+    "Ln is >10 % larger than the maximum computed LxTx value")
+  expect_error(
+    calc_Huntley2006(
+      data = data,
+      rhop = c(1e-3, 1e-7), ddot = ddot, readerDdot = readerDdot,
+      n.MC = 2, plot = FALSE, verbose = FALSE),
+    "All simulated Lx/Tx values are identical and approximately zero")
 })
 
 test_that("regression tests", {
@@ -298,4 +322,19 @@ test_that("regression tests", {
           ddot = c(2.372, 0.199),
       n.MC = 2, plot = FALSE, verbose = FALSE),
       "RLum.Results")
+
+  ## issue 733
+  expect_s4_class(
+      calc_Huntley2006(data, rhop = c(4e-6, 5e-7), ddot = c(7, 0.004),
+                       readerDdot = c(0.134, 0.0067), n.MC = 1,
+                       mode = "extrapolation", verbose = FALSE),
+      "RLum.Results")
+
+  ## issue 1048
+  set.seed(1)
+  expect_silent(
+      calc_Huntley2006(data, rhop = c(1e-7, 5e-7), ddot = c(7, 0.004),
+                       readerDdot = c(0.134, 0.0067), n.MC = 1,
+                       mode = "extrapolation", verbose = FALSE,
+                       plot_all_DRC = FALSE))
 })

@@ -10,25 +10,27 @@ fit_LMCurve(
   n.components = 3,
   start_values,
   input.dataType = "LM",
-  fit.method = "port",
   sample_code = "",
   sample_ID = "",
   LED.power = 36,
   LED.wavelength = 470,
   fit.trace = FALSE,
-  fit.advanced = FALSE,
   fit.calcError = FALSE,
   bg.subtraction = "polynomial",
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  plot.residuals = TRUE,
+  plot.contribution = TRUE,
+  legend = TRUE,
+  legend.pos = "topright",
   method_control = list(),
   ...
 )
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-x,y data of measured values (time and counts). See examples.}
+x,y data of measured values (time and counts).}
 
 \item{values.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 x,y data of measured values (time and counts) for background subtraction.}
@@ -44,11 +46,6 @@ an automatic start value estimation is attempted (see details).}
 \item{input.dataType}{\link{character} (\emph{with default}):
 alter the plot output depending on the input data: \code{"LM"} or \code{"pLM"} (pseudo-LM).
 See: \link{convert_CW2pLM}}
-
-\item{fit.method}{\link{character} (\emph{with default}):
-select fit method, allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-routine from the function \link{nls} \code{'LM'} utilises the function \code{nlsLM} from
-the package \code{minpack.lm} and with that the Levenberg-Marquardt algorithm.}
 
 \item{sample_code}{\link{character} (\emph{optional}):
 sample code used for the plot and the optional output table (mtext).}
@@ -69,17 +66,13 @@ photoionisation cross section.}
 \item{fit.trace}{\link{logical} (\emph{with default}):
 traces the fitting process on the terminal.}
 
-\item{fit.advanced}{\link{logical} (\emph{with default}):
-enables advanced fitting attempt for automatic start parameter recognition.
-Works only if no start parameters are provided.
-\strong{Note:} It may take a while and it is not compatible with \code{fit.method = "LM"}.}
-
 \item{fit.calcError}{\link{logical} (\emph{with default}):
 calculate 1-sigma error range of components using \link[stats:confint]{stats::confint}.}
 
 \item{bg.subtraction}{\link{character} (\emph{with default}):
-specifies method for background subtraction (\code{polynomial}, \code{linear}, \code{channel},
-see Details). \strong{Note:} requires input for \code{values.bg}.}
+specifies method for background subtraction (one of \code{"polynomial"},
+\code{"linear"}, \code{"channel"}, or \code{"none"}, see Details). Only considered if
+\code{values.bg} is specified.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -88,8 +81,20 @@ enable/disable output to the terminal.}
 enable/disable the plot output.}
 
 \item{plot.BG}{\link{logical} (\emph{with default}):
-returns a plot of the background values with the fit used for the
+enable/disable a plot of the background values with the fit used for the
 background subtraction.}
+
+\item{plot.residuals}{\link{logical} (\emph{with default}):
+enable/disable the plot of the residuals.}
+
+\item{plot.contribution}{\link{logical} (\emph{with default}):
+enable/disable the plot of the component contribution.}
+
+\item{legend}{\link{logical} (\emph{with default}):
+enable/disable the plot legend.}
+
+\item{legend.pos}{\link{character} (\emph{with default}):
+keyword specifying the position of the legend.}
 
 \item{method_control}{\link{list} (\emph{optional}): options to control the output
 produced. Currently only the 'export.comp.contrib.matrix' (logical) option
@@ -97,7 +102,7 @@ is supported, to enable/disable export of the component contribution
 matrix.}
 
 \item{...}{Further arguments that may be passed to the plot output, e.g.
-\code{xlab}, \code{xlab}, \code{main}, \code{log}.}
+\code{main}, \code{xlab}, \code{xlab}, \code{xlim}, \code{ylim}, \code{cex}, \code{log}.}
 }
 \value{
 Various types of plots are returned. For details see above. Furthermore an
@@ -127,7 +132,8 @@ sum for this values.
 The function determines weighted non-linear least-squares estimates of the
 component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
-uses the function \link{nls} with the \code{port} algorithm.
+uses the Levenberg-Marquardt algorithm as implemented in function \code{nlsLM}
+from package \code{minpack.lm}.
 }
 \details{
 \strong{Fitting function}
@@ -148,17 +154,20 @@ et al. (2008):
 
 \strong{Background subtraction}
 
-Three methods for background subtraction
-are provided for a given background signal (\code{values.bg}).
+When a background signal is provided with the \code{values.bg} argument, the
+user can choose among three methods for background subtraction by setting
+the \code{bg.subtraction} argument to one of these:
 \itemize{
-\item \code{polynomial}: default method. A polynomial function is fitted using \link{glm}
+\item \code{"polynomial"} (default): a polynomial function is fitted using \link{glm}
 and the resulting function is used for background subtraction:
 \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
-\item \code{linear}: a linear function is fitted using \link{glm} and the resulting function
-is used for background subtraction:
+\item \code{"linear"}: a linear function is fitted using \link{glm} and the resulting
+function is used for background subtraction:
 \deqn{y = a*x + b}
-\item \code{channel}: the measured
-background signal is subtracted channel wise from the measured signal.
+\item \code{"channel"}: the measured background signal is subtracted channel-wise
+from the measured signal.
+\item \code{"none"}: this disables background subtraction even if \code{values.bg} is
+provided.
 }
 
 \strong{Start values}
@@ -168,10 +177,10 @@ point and the fitting procedure may mainly fail due to ill chosen start
 parameters. Here, three options are provided:
 
 \strong{(a)}
-If no start values (\code{start_values}) are provided by the user, a cheap guess is made
+If \code{start_values} is not provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
-\code{xm} and \code{Im} are recalculated for the given data set. In all cases, the fitting
+\code{xm} and \code{Im} are recalculated for the given data set. In all cases, fitting
 starts with the ultra-fast component and (depending on \code{n.components})
 steps through the following values. If no fit could be achieved, an error
 plot (for \code{plot = TRUE}) with the pseudo curve (based on the
@@ -181,15 +190,6 @@ identify appropriate start parameters visually.
 \strong{(b)}
 If start values are provided, the function works like a simple \link{nls}
 fitting approach.
-
-\strong{(c)}
-If no start parameters are provided and
-the option \code{fit.advanced = TRUE} is chosen, an advanced start parameter
-estimation is applied using a stochastic attempt. Therefore, the
-recalculated start parameters \strong{(a)} are used to construct a normal
-distribution. The start parameters are then sampled randomly from this
-distribution. A maximum of 100 attempts will be made. \strong{Note:} This
-process may be time consuming.
 
 \strong{Goodness of fit}
 
@@ -205,7 +205,7 @@ and \eqn{TSS = Total~Sum~of~Squares}
 
 The 1-sigma error for the components is calculated using
 the function \link[stats:confint]{stats::confint}. Due to considerable calculation time, this
-option is deactivated by default. In addition, the error for the components
+option is disabled by default. In addition, the error for the components
 can be estimated by using internal R functions like \link{summary}. See the
 \link{nls} help page for more information.
 
@@ -221,7 +221,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.5
+ 0.3.6
 }
 
 \examples{

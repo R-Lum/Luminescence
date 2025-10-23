@@ -87,7 +87,6 @@
 #' ##export to temporary file path
 #' write_R2BIN(temp, file = temp_file)
 #'
-#' @md
 #' @export
 write_R2BIN <- function(
   object,
@@ -122,14 +121,8 @@ write_R2BIN <- function(
 
   # Check Risoe.BINfileData Struture ----------------------------------------
   ##check whether the BIN-file DATA slot contains more than 9999 records; needs to be run all the time
-  temp_check <- vapply(object@DATA, function(x){
-    if(length(x) > 9999){
-      TRUE
-    }else{
-      FALSE
-    }
-
-  }, FUN.VALUE = logical(1))
+  temp_check <- vapply(object@DATA, function(x) length(x) > 9999,
+                       FUN.VALUE = logical(1))
 
   ##force compatibility
   if(compatibility.mode && any(temp_check)){
@@ -165,7 +158,7 @@ write_R2BIN <- function(
     object@METADATA[["LENGTH"]] <- object@METADATA[["LENGTH"]] - (4 * object@METADATA[["NPOINTS"]]) + (temp_NPOINTS * 4)
 
     ##correct PREVIOUS
-    object@METADATA[["PREVIOUS"]] <- c(0,object@METADATA[["LENGTH"]][2:length(object@METADATA[["LENGTH"]])])
+    object@METADATA[["PREVIOUS"]] <- c(0, head(object@METADATA$LENGTH, -1))
 
     ##correct NPOINTS
     object@METADATA[["NPOINTS"]] <- temp_NPOINTS
@@ -175,7 +168,7 @@ write_R2BIN <- function(
   }
 
   if(any(temp_check))
-    .throw_error(length(which(temp_check)), " out of ", length(temp_check),
+    .throw_error(sum(temp_check), " out of ", length(temp_check),
                  " records contain more than 9,999 data points. ",
                  "This violates the BIN/BINX-file definition")
 
@@ -183,18 +176,18 @@ write_R2BIN <- function(
   rm(temp_check)
 
   ## UTF-8 conversion
-  object@METADATA[["SAMPLE"]] <- base::iconv(object@METADATA[["SAMPLE"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["COMMENT"]] <- base::iconv(object@METADATA[["COMMENT"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["FNAME"]] <- base::iconv(object@METADATA[["FNAME"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["USER"]] <- base::iconv(object@METADATA[["USER"]], "latin1", "ASCII", sub="_")
-  object@METADATA[["SEQUENCE"]] <- base::iconv(object@METADATA[["SEQUENCE"]], "latin1", "ASCII", sub="_")
+  conv <- function(x) base::iconv(x, "latin1", "ASCII", sub = "_")
+  object@METADATA[["SAMPLE"]] <- conv(object@METADATA[["SAMPLE"]])
+  object@METADATA[["COMMENT"]] <- conv(object@METADATA[["COMMENT"]])
+  object@METADATA[["FNAME"]] <- conv(object@METADATA[["FNAME"]])
+  object@METADATA[["USER"]] <- conv(object@METADATA[["USER"]])
+  object@METADATA[["SEQUENCE"]] <- conv(object@METADATA[["SEQUENCE"]])
 
   ##VERSION
   ##If missing version argument set to the highest value
   if(missing(version)){
     version <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version.original <- version
-
   }else{
     version.original <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version <- as.raw(version)
@@ -212,41 +205,24 @@ write_R2BIN <- function(
         "04" = 272,
         "03" = 272)
 
-      object@METADATA[,"LENGTH"] <- vapply(1:nrow(object@METADATA), function(x){
-        header.stepping + 4 * object@METADATA[x,"NPOINTS"]
-
-      }, numeric(1))
-
-      object@METADATA[,"PREVIOUS"] <- vapply(1:nrow(object@METADATA), function(x){
-        if(x == 1) 0 else header.stepping + 4 * object@METADATA[x-1,"NPOINTS"]
-
-      }, numeric(1))
+      object@METADATA$LENGTH <- header.stepping + 4 * object@METADATA$NPOINTS
+      object@METADATA$PREVIOUS <- c(0, head(object@METADATA$LENGTH, -1))
     }
   }
 
   ##Check if the BINfile object contains of unsupported versions
-  if((as.raw(object@METADATA[1,"VERSION"]) %in% VERSION.supported) == FALSE ||
-       version %in% VERSION.supported == FALSE){
-
-    ##show error message
+  if (!as.raw(object@METADATA$VERSION[1]) %in% VERSION.supported ||
+      !version %in% VERSION.supported) {
     .throw_error("Writing BIN-files in format version (",
                  object@METADATA[1, "VERSION"], ") is currently not supported, ",
                  "supported version numbers are: ",
                  .collapse(VERSION.supported))
   }
 
-  ##CHECK file name for version == 06 it has to be *.binx and correct for it
-  if(version == 05 | version == 06 | version == 07 | version == 08){
-    ##grep file ending
-    temp.file.name <- unlist(strsplit(file, "[:.:]"))
-
-    ##*.bin? >> correct to binx
-    if(temp.file.name[length(temp.file.name)]=="bin"){
-      temp.file.name[length(temp.file.name)] <- "binx"
-      file <- paste(temp.file.name, collapse=".")
-    }
+  ## ensure that file name for version >= 05 has *.binx extension
+  if (version >= 05 && tools::file_ext(file) == "bin") {
+    file <- paste0(tools::file_path_sans_ext(file), ".binx")
   }
-
 
   ##SEQUENCE
   if (suppressWarnings(max(nchar(as.character(object@METADATA[,"SEQUENCE"]), type =
@@ -280,15 +256,12 @@ write_R2BIN <- function(
       ##set translation vector starting from 1 and ending at 48
       temp.POSITION48.new <- rep_len(1:48, length.out = length(temp.POSITION48.unique))
 
-      ##recaluate POSITION and update comment
+      ## recalculate POSITION and update comment
       for(i in 1:length(temp.POSITION48.unique)){
-
-        object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"COMMENT"] <-
-          paste0(object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"COMMENT"],
-                 "OP:",object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"POSITION"])
-
-        object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"POSITION"] <-
-          temp.POSITION48.new[i]
+        idx <- object@METADATA[, "POSITION"] == temp.POSITION48.unique[i]
+        object@METADATA[idx, "COMMENT"] <- paste0(object@METADATA$COMMENT[idx],
+                                                  "OP:", object@METADATA$POSITION[idx])
+        object@METADATA[idx, "POSITION"] <- temp.POSITION48.new[i]
       }
     }
   }
@@ -298,68 +271,44 @@ write_R2BIN <- function(
     .throw_error("'COMMENT' exceeds storage limit")
   }
 
-  # Translation Matrices -----------------------------------------------------
-  ##LTYPE
-  LTYPE.TranslationMatrix <- matrix(NA, nrow=14, ncol=2)
-  LTYPE.TranslationMatrix[,1] <- 0:13
-  LTYPE.TranslationMatrix[,2] <- c(
-    "TL", "OSL", "IRSL", "M-IR", "M-VIS", "TOL", "TRPOSL", "RIR", "RBR",
-    "USER", "POSL", "SGOSL", "RL", "XRF")
+  ## Convert strings to integers --------------------------------------------
+  ## The ordering of these entries is important, as it allows us to convert
+  ## character strings to the corresponding 0-based index (which must be an
+  ## integer, hence the -1L below)
 
-  ##DTYPE
-  DTYPE.TranslationMatrix <- matrix(NA, nrow=8, ncol=2)
-  DTYPE.TranslationMatrix[,1] <- 0:7
-  DTYPE.TranslationMatrix[,2] <- c("Natural","N+dose","Bleach",
-                                   "Bleach+dose","Natural (Bleach)",
-                                   "N+dose (Bleach)","Dose","Background")
-
-  ##LIGHTSOURCE
-  LIGHTSOURCE.TranslationMatrix <- matrix(NA, nrow=8, ncol=2)
-  LIGHTSOURCE.TranslationMatrix[,1] <- 0:7
-  LIGHTSOURCE.TranslationMatrix[,2] <- c(
-    "None", "Lamp", "IR diodes/IR Laser", "Calibration LED", "Blue Diodes",
-    "White light", "Green laser (single grain)", "IR laser (single grain)"
-  )
+  LTYPE.Conv <- c("TL", "OSL", "IRSL", "M-IR", "M-VIS", "TOL", "TRPOSL",
+                  "RIR", "RBR", "USER", "POSL", "SGOSL", "RL", "XRF")
+  DTYPE.Conv <- c("Natural", "N+dose", "Bleach", "Bleach+dose",
+                  "Natural (Bleach)", "N+dose (Bleach)", "Dose", "Background")
+  LIGHT.Conv <- c("None", "Lamp", "IR diodes/IR Laser",
+                  "Calibration LED", "Blue Diodes", "White light",
+                  "Green laser (single grain)", "IR laser (single grain)")
 
   ##TRANSLATE VALUES IN METADATA
   ##LTYPE
-  if(is(object@METADATA[1,"LTYPE"], "character") == TRUE |
-       is(object@METADATA[1,"LTYPE"], "factor") == TRUE){
-
-    object@METADATA[,"LTYPE"]<- sapply(1:length(object@METADATA[,"LTYPE"]),function(x){
-      as.integer(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"]==LTYPE.TranslationMatrix[,2],1])
-    })
+  if (is.character(object@METADATA$LTYPE) || is.factor(object@METADATA$LTYPE)) {
+    object@METADATA[, "LTYPE"] <- match(object@METADATA[, "LTYPE"],
+                                        LTYPE.Conv) - 1L
   }
 
   ##DTYPE
-  if(is(object@METADATA[1,"DTYPE"], "character") == TRUE |
-       is(object@METADATA[1,"DTYPE"], "factor") == TRUE){
-    object@METADATA[,"DTYPE"]<- sapply(1:length(object@METADATA[,"DTYPE"]),function(x){
-
-      as.integer(DTYPE.TranslationMatrix[object@METADATA[x,"DTYPE"]==DTYPE.TranslationMatrix[,2],1])
-
-    })
+  if (is.character(object@METADATA$DTYPE) || is.factor(object@METADATA$DTYPE)) {
+    object@METADATA[, "DTYPE"] <- match(object@METADATA[, "DTYPE"],
+                                        DTYPE.Conv) - 1L
   }
 
   ##LIGHTSOURCE
-  if(is(object@METADATA[1,"LIGHTSOURCE"], "character") == TRUE |
-       is(object@METADATA[1,"LIGHTSOURCE"], "factor") == TRUE){
-
-    object@METADATA[,"LIGHTSOURCE"]<- sapply(1:length(object@METADATA[,"LIGHTSOURCE"]),function(x){
-
-      as.integer(LIGHTSOURCE.TranslationMatrix[
-        object@METADATA[x,"LIGHTSOURCE"]==LIGHTSOURCE.TranslationMatrix[,2],1])
-    })}
+  if (is.character(object@METADATA$LIGHTSOURCE) ||
+      is.factor(object@METADATA$LIGHTSOURCE)) {
+    object@METADATA[,"LIGHTSOURCE"] <- match(object@METADATA[, "LIGHTSOURCE"],
+                                             LIGHT.Conv) - 1L
+  }
 
   ##TIME
-  object@METADATA[,"TIME"] <- vapply(1:length(object@METADATA[["TIME"]]),function(x){
-    if(is.na(object@METADATA[["TIME"]][x])){
-      "000000"
-
-    }else{
-      as.character(gsub(":","",object@METADATA[["TIME"]][x]))
-    }
-
+  object@METADATA[, "TIME"] <- vapply(object@METADATA[["TIME"]], function(x) {
+    if (is.na(x))
+      return("000000")
+    as.character(gsub(":", "", x))
   }, character(1))
 
   ##TAG and SEL
@@ -408,7 +357,6 @@ write_R2BIN <- function(
                con,
                size = 1,
                endian="little")
-
 
       ##LENGTH, PREVIOUS, NPOINTS
       writeBin(c(as.integer(object@METADATA[ID,"LENGTH"]),
@@ -613,7 +561,6 @@ write_R2BIN <- function(
       if(COMMENT_SIZE == 0){
         COMMENT_SIZE <- as.integer(2)
         object@METADATA[ID,"COMMENT"] <- "  "
-
       }
 
       writeBin(COMMENT_SIZE,
@@ -752,7 +699,6 @@ write_R2BIN <- function(
                  size = 1,
                  endian="little")
 
-
         ##GATE_START, GATE_STOP
         writeBin(c(as.integer(object@METADATA[ID,"GATE_START"]),
                    as.integer(object@METADATA[ID,"GATE_STOP"])),
@@ -760,13 +706,11 @@ write_R2BIN <- function(
                  size = 4,
                  endian="little")
 
-
         ##PTENABLED
         writeBin(as.integer(object@METADATA[ID,"PTENABLED"]),
                  con,
                  size = 1,
                  endian="little")
-
 
         ##RESERVED 2
         if(length(object@.RESERVED) == 0 || version.original != version){
@@ -774,7 +718,6 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-
         } else {
           writeBin(object@.RESERVED[[ID]][[2]],
                    con,
@@ -843,8 +786,7 @@ write_R2BIN <- function(
 
       ##avoid problems with empty sample names
       if(SAMPLE_SIZE == 0){
-
-        SAMPLE_SIZE <- as.integer(2)
+        SAMPLE_SIZE <- 2L
         object@METADATA[ID,"SAMPLE"] <- "  "
       }
 
@@ -852,7 +794,6 @@ write_R2BIN <- function(
                con,
                size = 1,
                endian="little")
-
 
       writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
                 con,
@@ -872,7 +813,6 @@ write_R2BIN <- function(
 
       ##avoid problems with empty comments
       if(COMMENT_SIZE == 0){
-
         COMMENT_SIZE <- as.integer(2)
         object@METADATA[ID,"COMMENT"] <- "  "
       }
@@ -944,7 +884,6 @@ write_R2BIN <- function(
                 useBytes=TRUE,
                 eos = NULL)
 
-
       if((30-USER_SIZE)>0){
         writeBin(raw(length = c(30-USER_SIZE)),
                  con,
@@ -993,7 +932,6 @@ write_R2BIN <- function(
                size = 1,
                endian="little")
 
-
       ##BL_TIME
       writeBin(as.double(object@METADATA[ID,"BL_TIME"]),
                con,
@@ -1034,7 +972,6 @@ write_R2BIN <- function(
                  size = 1,
                  endian="little")
       }else{
-
         writeBin(object@.RESERVED[[ID]][[1]],
                  con,
                  size = 1,
@@ -1047,7 +984,6 @@ write_R2BIN <- function(
                con,
                size = 1,
                endian="little")
-
 
       ##LIGHTSOURCE
       writeBin(c(as.integer(object@METADATA[ID,"LIGHTSOURCE"])),
@@ -1092,7 +1028,6 @@ write_R2BIN <- function(
                size = 4,
                endian="little")
 
-
       ##IRR_TYPE
       writeBin(c(object@METADATA[ID,"IRR_TYPE"]),
                con,
@@ -1105,14 +1040,12 @@ write_R2BIN <- function(
                  con,
                  size = 4,
                  endian="little")
-
       }else{
         writeBin(c(as.double(object@METADATA[ID,"IRR_DOSERATE"]),
                    as.double(object@METADATA[ID,"IRR_DOSERATEERR"])),
                  con,
                  size = 4,
                  endian="little")
-
       }
 
       ##TIMESINCEIRR
@@ -1175,7 +1108,6 @@ write_R2BIN <- function(
                size = 4,
                endian="little")
 
-
       ##add version support for V7
       if(version == 05){
         ##RESERVED 2
@@ -1220,7 +1152,6 @@ write_R2BIN <- function(
                  size = 2,
                  endian="little")
 
-
         ##ENOISEFACTOR
         writeBin(as.double(object@METADATA[ID,"ENOISEFACTOR"]),
                  con,
@@ -1238,13 +1169,11 @@ write_R2BIN <- function(
                      size = 1,
                      endian="little")
           }else{
-
             writeBin(object@.RESERVED[[ID]][[2]],
                      con,
                      size = 1,
                      endian="little")
           }
-
 
         }else{
 
@@ -1272,7 +1201,6 @@ write_R2BIN <- function(
                      size = 1,
                      endian="little")
           }else{
-
             writeBin(object@.RESERVED[[ID]][[2]],
                      con,
                      size = 1,
@@ -1295,7 +1223,6 @@ write_R2BIN <- function(
     }
   }
 
-  #
   # ##close
   if(txtProgressBar) close(pb)
 

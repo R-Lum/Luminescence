@@ -6,6 +6,12 @@ test_that("input validation", {
 
   expect_error(plot_Risoe.BINfileData("error"),
                "'data' should be of class 'Risoe.BINfileData'")
+  expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, sorter = 1),
+               "'sorter' should be one of 'POSITION', 'RUN' or 'SET'")
+  expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, sorter = c("SET", "RUN")),
+               "'sorter' should have length 1")
+  expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, dose_rate = c(3, 4)),
+               "'dose_rate' should be a single positive value")
   expect_error(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                       curve.transformation = "error"),
                "'curve.transformation' should be one of 'CW2pLM', 'CW2pLMi'")
@@ -39,4 +45,25 @@ test_that("general test", {
   ## simulate v4
   CWOSL.SAR.Data@METADATA$VERSION <- 04
   expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1))
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("TL",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 1, run = 2, set = 5))
+  vdiffr::expect_doppelganger("OSL",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 2, run = 7, set = 3))
+  vdiffr::expect_doppelganger("IRSL",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 2, run = 8, set = 3))
+  vdiffr::expect_doppelganger("dose rate",
+                              plot_Risoe.BINfileData(CWOSL.SAR.Data,
+                                                     pos = 2, run = 5, set = 3,
+                                                     dose_rate = 0.123))
+  })
 })

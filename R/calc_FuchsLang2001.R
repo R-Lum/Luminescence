@@ -77,7 +77,6 @@
 #' ## calculate De according to Fuchs & Lang (2001)
 #' temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 #'
-#' @md
 #' @export
 calc_FuchsLang2001 <- function(
   data,
@@ -96,11 +95,14 @@ calc_FuchsLang2001 <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have 2 columns")
+  }
 
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments
   extraArgs <- list(...)
-  verbose <- if("verbose" %in% names(extraArgs)) {extraArgs$verbose} else {TRUE}
+  verbose <- extraArgs$verbose %||% TRUE
 
   ##============================================================================##
   ##PREPARE DATA
@@ -135,6 +137,9 @@ calc_FuchsLang2001 <- function(
     sd<-round(sd(data_ordered[startDeValue:endDeValue,1]),digits=2)		#calculate sd from ordered D[e] values
     cv <- round(sd / mean * 100, digits = 2) #calculate coefficient of variation
 
+    ## avoid crashes if the both mean and sd are zero
+    if (is.na(cv))
+      cv <- 0
 
     # break if cv > cvThreshold
     if (cv > cvThreshold[1] & endDeValue > startDeValue) {
@@ -162,13 +167,8 @@ calc_FuchsLang2001 <- function(
       # write used D[e] values in data.frame
       usedDeValues[endDeValue,1]<-data_ordered[endDeValue,1]
       usedDeValues[endDeValue,2]<-data_ordered[endDeValue,2]
+      usedDeValues[endDeValue,3] <- paste(cv, "%")
 
-      # first cv values alway contains NA to ensure that NA% is not printed test
-      if(is.na(cv)==TRUE) {
-        usedDeValues[endDeValue,3]<-cv
-      } else {
-        usedDeValues[endDeValue,3]<-paste(cv," %",sep="")
-      }
     }#EndElse
 
     # go the next D[e] value until the maximum number is reached
@@ -194,15 +194,16 @@ calc_FuchsLang2001 <- function(
 
   if(verbose){
     cat("\n[calc_FuchsLang2001]")
-    cat(paste("\n\n----------- meta data --------------"))
-    cat(paste("\n cvThreshold:            ",cvThreshold[1],"%"))
-    cat(paste("\n used values:            ",n.usedDeValues))
-    cat(paste("\n----------- dose estimate ----------"))
-    cat(paste("\n mean:                   ",mean))
-    cat(paste("\n sd:                     ",sd))
-    cat(paste("\n weighted mean:          ",weighted_mean))
-    cat(paste("\n weighted sd:            ",weighted_sd))
-    cat(paste("\n------------------------------------\n\n"))
+    cat("\n\n----------- meta data --------------")
+    cat("\n cvThreshold:            ", cvThreshold[1], "%")
+    cat("\n used values:            ", n.usedDeValues)
+    cat("\n----------- dose estimate ----------")
+    cat("\n mean:                   ", mean)
+    cat("\n sd:                     ", sd)
+    cat("\n weighted mean:          ", weighted_mean)
+    cat("\n weighted sd:            ", weighted_sd)
+    cat("\n se:                     ", se)
+    cat("\n------------------------------------\n\n")
   }
 
   ##===========================================================================#
@@ -213,6 +214,7 @@ calc_FuchsLang2001 <- function(
     de_err = sd,
     de_weighted = weighted_mean,
     de_weighted_err = weighted_sd,
+    se = se,
     n.usedDeValues = n.usedDeValues
   )
 
@@ -231,7 +233,8 @@ calc_FuchsLang2001 <- function(
   ##=========##
   ## PLOTTING
   if(plot) {
-    try(plot_RLum.Results(newRLumResults.calc_FuchsLang2001, ...))
+    try(plot_RLum.Results(newRLumResults.calc_FuchsLang2001, ...),
+        outFile = stdout()) # redirect error messages so they can be silenced
   }#endif::plot
 
   invisible(newRLumResults.calc_FuchsLang2001)

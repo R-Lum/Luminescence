@@ -168,7 +168,6 @@
 #' object = ExampleData.TR_OSL)
 #' }
 #'
-#'@md
 #'@export
 fit_OSLLifeTimes <- function(
   object,
@@ -184,10 +183,9 @@ fit_OSLLifeTimes <- function(
   .set_function_name("fit_OSLLifeTimes")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Self-call -----------------------------------------------------------------------------------
-if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
-
-  .validate_not_empty(object)
+  ## Self-call --------------------------------------------------------------
+  if (inherits(object, c("list", "RLum.Analysis"))) {
+    .validate_not_empty(object)
 
   ##allow RLum.Analysis objects
   if(all(vapply(object, function(x){
@@ -204,7 +202,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   tp <- .listify(tp, rep.length)
 
   ## names of extra arguments
-  arg_names <- names(list(...))
+  arg_names <- ...names()
 
   ##pretreat some of the ... settings to avoid
   ## expand all arguments
@@ -216,10 +214,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
 
     ## make sure we organise this list (not nice but it works)
     arg_list <- lapply(1:length(object), function(x){
-      args <- lapply(1:length(arg_names), function(y){
-        arg_list[[y]][[x]]
-
-      })
+      args <- lapply(arg_list, function(y) y[[x]])
       names(args) <- arg_names
       args
     })
@@ -239,14 +234,12 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
          verbose = verbose
          ),
          arg_list[[x]])
-
      ), outFile = stdout()) # redirect error messages so they can be silenced
 
      if(inherits(temp, "try-error")){
        return(NULL)
-     }else{
-       return(temp)
      }
+    return(temp)
   })
 
   ##combine results and return
@@ -308,22 +301,34 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   if(!is.null(signal_range)){
     .validate_class(signal_range, "numeric")
 
+    ## format the extremes of the signal range
+    reset_msg <- function(sr) {
+      sprintf("'signal_range' reset to c(%d, %d)", sr[1], sr[2])
+    }
+
     ##check lengths
     if(length(signal_range) == 1)
       signal_range <- c(signal_range, nrow(df))
-
-    if(length(signal_range) > 2)
+    else if (length(signal_range) > 2)
       .throw_warning("'signal_range' has more than 2 elements, ",
-                     "only the first 2 will be used")
+                     "only the first 2 will be used, ", reset_msg(signal_range))
+
+    if (any(signal_range < 1)) {
+      signal_range <- pmax(signal_range, 1)
+      .throw_warning("'signal_range' accepts only positive values, ",
+                     reset_msg(signal_range))
+    }
 
     if(signal_range[2] > nrow(df)){
-      .throw_warning("'signal_range' > number of channels, reset to maximum")
       signal_range[2] <- nrow(df)
+      .throw_warning("The last element of 'signal_range' exceeds the number ",
+                     "of channels, ", reset_msg(signal_range))
     }
 
     if(signal_range[1] > signal_range[2]){
-      .throw_warning("'signal_range' first element > last element, reset to default")
       signal_range <- c(1, nrow(df))
+      .throw_warning("The first element of 'signal_range' exceeds the last ",
+                     "element, ", reset_msg(signal_range))
     }
 
     ##set range
@@ -331,11 +336,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   }
 
   ## number of components requested
-  .validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE)
-  m <- 1
-  if (!is.null(n.components)){
-    m <- n.components
-  }
+  m <- max(.validate_positive_scalar(n.components, int = TRUE, null.ok = TRUE), 1)
 
   ## ensure that we have a minimum of data points available: the minimum
   ## is computed so that the degrees of freedom for the F distribution is
@@ -372,32 +373,22 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   ##(1) >> set fitting function for minpack.lm
   x <- 0 #cheat R check routine
   fit_formula <- function(n.components, tp) {
-    A <- paste0("A.",1:n.components)
-    tau <- paste0("tau.",1:n.components)
-    stats::as.formula(paste0("y ~ ", paste(A," * exp(- x/(",tau," + ", tp, "))",
-                             collapse = " + ")))
+    comps <- 1:n.components
+    stats::reformulate(paste0("A.", comps, " * exp(-x / (tau.", comps,
+                              " + ", tp, "))", collapse = " + "),
+                       response = "y")
   }
   ##
   ##
   ##(2) create formula for differential evolution run
-    fn_constructor <- function(m){
-    ##get length of x-vector
-    x_len <- 1:(2 * m)
-
+  fn_constructor <- function(m) {
     ##generate term
-    term <- vapply(seq(1,length(x_len), by = 2), function(i){
-      paste0("(x[", i, "] * exp(-t/(x[", i + 1, "] + tp)))")
-
-    },character(1))
-
-    ##parse
-    term <- paste(term, collapse = " + ")
+    idx <- seq(1, 2 * m, by = 2)
+    term <- paste0("(x[", idx, "] * exp(-t / (x[", idx + 1, "] + tp)))",
+                   collapse = " + ")
 
     ##set weight (should be given as character)
-    w <- "1"
-    if(method_control_setting$weights){
-      w <- "c^2/n"
-    }
+    w <- if (method_control_setting$weights) "c^2 / n" else "1"
 
     ##combine
     term <- paste0("sum(",w," * ((n/c) - (",term,"))^2)")
@@ -457,7 +448,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
         start_parameters <- start$optim$bestmem
 
       ##run differential evolution
-      start <- DEoptim::DEoptim(
+      start <- try(DEoptim::DEoptim(
         fn = fn,
         lower = rep(0, 2 * m),
         upper = rep(c(10 * sum(df[[2]]), 10000), m),
@@ -468,7 +459,11 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
            strategy = 2,
            parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
          )
-      )
+      ), silent = TRUE)
+
+      if (inherits(start, "try-error")) {
+        .throw_error("Failed to optimize the function, check the input data")
+      }
 
       ##set chi^2 value and calculate F for the 2nd run
       chi_squared[2] <- start$optim$bestval
@@ -549,7 +544,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
          NULL
        },
       lower = if(method_control_setting$nlsLM.lower){
-        c(rep(0,2*length(A)))
+         rep(0, 2 * length(A))
        }else{
          NULL
        },
@@ -561,7 +556,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
       },
       trace = method_control_setting$nlsLM.trace,
       control = minpack.lm::nls.lm.control(maxiter = 500)
-    ), outFile = stdout()) # redirect error messages so they can be silenced
+    ), silent = TRUE)
 
 # Post-processing -----------------------------------------------------------------------------
 
@@ -599,6 +594,7 @@ if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
     D <- round(sum((R - c(0,R[-length(R)]))^2) / sum(R^2),2)
     rm(R)
   } else {
+    .throw_warning("Fitting failed: ", attr(fit, "condition")$message)
     m <- 1
   }
 
@@ -667,19 +663,15 @@ if(plot) {
       }
     }
 
+  par.default <- .par_defaults()
+  on.exit(par(par.default), add = TRUE)
+
   ##plot if the fitting was a success
   if (!inherits(fit, 'try-error')) {
 
     if(!plot_simple){
-      ##make sure that the screen closes if something is wrong
-      on.exit(graphics::close.screen(all.screens = TRUE), add = TRUE)
-
-      graphics::split.screen(rbind(
-        c(0.1,1,0.32, 0.98),
-        c(0.1,1,0.1, 0.32)))
-
-      graphics::screen(1)
-      par(mar = c(0, 4, 3, 4))
+      graphics::layout(matrix(c(1, 2), 2, 1), height = c(0.7, 0.3))
+      par(mar = c(0, 4.5, 3, 2))
     }
 
     plot(NA,NA,
@@ -733,10 +725,8 @@ if(plot) {
       bty = "n"
     )
 
-
     if(!plot_simple){
-      graphics::screen(2)
-      par(mar = c(4, 4, 0, 4))
+      par(mar = c(5, 4.5, 0, 2))
       plot(
         x = df[[1]],
         y = residuals(fit),
@@ -744,12 +734,13 @@ if(plot) {
         type = "b",
         pch = 20,
         xlim = plot_settings$xlim,
-        log = if(plot_settings$log == "x"){"x"}else{""},
+        log = gsub("y", "", plot_settings$log),
         ylab = "Resid."
       )
     }
 
   }else{
+      ## fitting failed
       plot(
         df,
         xlab = plot_settings$xlab,
@@ -761,14 +752,12 @@ if(plot) {
         log = plot_settings$log
       )
   }
-
 }#if plot
 
 # Return --------------------------------------------------------------------------------------
 
   ##create return object
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         data = summary_matrix,
@@ -779,6 +768,5 @@ if(plot) {
       info = list(
         call = sys.call()
       )
-    )
   )
 }

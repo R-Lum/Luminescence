@@ -1,21 +1,23 @@
-#' @title Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object
+#' @title Cosmic-ray removal and spectrum smoothing for RLum.Data.Spectrum objects
 #'
-#' @description The function provides several methods for cosmic-ray removal and spectrum
-#' smoothing [RLum.Data.Spectrum-class] objects and such objects embedded in [list] or
-#' [RLum.Analysis-class] objects.
+#' @description
+#' The function provides several methods for cosmic-ray removal and spectrum
+#' smoothing for [RLum.Data.Spectrum-class] objects, and those embedded in
+#' [list] or [RLum.Analysis-class] objects.
 #'
 #' @details
 #'
 #' **`method = "Pych"`**
 #'
 #' This method applies the cosmic-ray removal algorithm described by Pych
-#' (2003). Some aspects that are different to the publication:
+#' (2003). There are some differences with respect to the publication:
 #'
-#' - For interpolation between neighbouring values the median and not the mean is used.
-#' - The number of breaks to construct the histogram is set to: `length(number.of.input.values)/2`
+#' - For interpolation between neighbouring values, the median is used instead
+#' of the mean.
+#' - The number of breaks in the histogram is set to half the number of the
+#' input values.
 #'
 #' For further details see references below.
-#'
 #'
 #' **Other methods**
 #' Arguments supported through `...`
@@ -27,16 +29,15 @@
 #' `"smooth_RLum"` \tab `k` \tab [numeric] \tab see [smooth_RLum]\cr
 #'  \tab `fill` \tab [numeric] \tab see [smooth_RLum]\cr
 #'  \tab `align` \tab [character] \tab see [smooth_RLum]\cr
-#'  \tab `method` \tab [character] \tab see [smooth_RLum]\cr
+#'  \tab `method_smooth_RLum` \tab [character] \tab see [smooth_RLum]\cr
 #'}
 #'
+#' **Best practice**
 #'
-#'**Best practice**
-#'
-#' There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+#' There is no single silver-bullet strategy for cosmic-ray removal, as it depends
 #' on the characteristic of the detector and the chosen settings. For instance,
-#' high values for pixel binning will improve the light output, but also causes
-#' multiple pixels being affected a single cosmic-ray. The same is valid for
+#' high values for pixel binning will improve the light output, but also cause
+#' multiple pixels to be affected by a single cosmic ray. The same is valid for
 #' longer integration times. The best strategy is to combine methods and ensure
 #' that the spectrum is not distorted on a case-to-case basis.
 #'
@@ -45,10 +46,11 @@
 #' Different methods can be combined by applying the method repeatedly to the
 #' dataset (see example).
 #'
-#' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**): input
-#' object to be treated. This can be also provided as [list]. If an [RLum.Analysis-class] object
-#' is provided, only the [RLum.Data.Spectrum-class] objects are treated. Please note: this mixing of
-#' objects does not work for a list of `RLum.Data` objects.
+#' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**):
+#' input object to be treated, which can be also provided as [list]. If an
+#' [RLum.Analysis-class] object is provided, only its [RLum.Data.Spectrum-class]
+#' objects are treated. Please note: this mixing of objects does not work for
+#' a list of `RLum.Data` objects.
 #'
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
@@ -70,7 +72,8 @@
 #' - 1 = along the time axis (line by line),
 #' - 2 = along the wavelength axis (column by column).
 #'
-#' **Note:** This argument currently only affects the methods `smooth` and `smooth.spline`
+#' **Note:** This argument only affects methods `smooth`, `smooth.spline` and
+#' `smooth_RLum`.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -86,12 +89,12 @@
 #'
 #' @return Returns same object as input.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [stats::smooth], [stats::smooth.spline],
-#' [smooth_RLum]
+#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [stats::smooth],
+#' [stats::smooth.spline], [smooth_RLum]
 #'
 #' @references
 #' Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from
@@ -108,7 +111,6 @@
 #' ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "Pych")
 #' ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "smooth")
 #'
-#' @md
 #' @export
 apply_CosmicRayRemoval <- function(
   object,
@@ -136,9 +138,6 @@ apply_CosmicRayRemoval <- function(
   ##handle the list and recall
   if(inherits(object, "list")){
     results_list <- lapply(object, function(o){
-      ##preset objects
-      record_id.spectra <- NULL
-
       ##RLum.Analysis
       if(inherits(o, "RLum.Analysis")){
          ##get id of RLum.Data.Spectrum objects in this object
@@ -149,6 +148,7 @@ apply_CosmicRayRemoval <- function(
          temp_o <- o@records[record_id.spectra]
 
       }else{
+        record_id.spectra <- NULL
         temp_o <- o
       }
 
@@ -169,7 +169,6 @@ apply_CosmicRayRemoval <- function(
       if(!is.null(record_id.spectra)){
         o@records[record_id.spectra] <- results
         return(o)
-
       }else{
         return(results)
       }
@@ -178,7 +177,6 @@ apply_CosmicRayRemoval <- function(
     ##final return, make sure that we return what we had as input
     if(!is.null(class_original)){
       return(results_list[[1]])
-
     }else{
       return(results_list)
     }
@@ -190,6 +188,11 @@ apply_CosmicRayRemoval <- function(
     .throw_error("'object' contains no data")
 
   .validate_args(method, c("smooth", "smooth.spline", "smooth_RLum", "Pych"))
+  .validate_positive_scalar(method.Pych.smoothing, int = TRUE)
+  .validate_positive_scalar(method.Pych.threshold_factor)
+  .validate_args(MARGIN, c(1, 2))
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ##deal with additional arguments
   extraArgs <- modifyList(
@@ -197,7 +200,7 @@ apply_CosmicRayRemoval <- function(
       kind = "3RS3R",
       twiceit = TRUE,
       spar = NULL,
-      method = "median",
+      method_smooth_RLum = "median",
       k = NULL,
       fill = NA,
       align = "right"),
@@ -218,7 +221,7 @@ apply_CosmicRayRemoval <- function(
 
   ## +++++++++++++++++++++++++++++++++++ (smooth.spline) +++++++++++++++++++++##
   }else if(method == "smooth.spline"){
-    ##write the function in a new function to acess the data more easily
+    ## wrap the function in a new function to access the data more easily
     temp_smooth.spline <- function(x, spar){
       stats::smooth.spline(x, spar = spar)$y
     }
@@ -238,54 +241,44 @@ apply_CosmicRayRemoval <- function(
         X = object@data,
         MARGIN = MARGIN,
         FUN = .smoothing,
-        method = extraArgs$method[1],
-        k = max(c(1, min(c(if(MARGIN == 1) ncol(object@data) else abs(nrow(object@data)-8), extraArgs$k[1])))),
+        method = extraArgs$method_smooth_RLum[1],
+        k = max(c(1, min(c(
+          if(MARGIN == 2)
+           floor(ncol(object@data)/(ncol(object@data)/2))
+          else
+           floor(nrow(object@data)/(nrow(object@data)/2)),
+          extraArgs$k[1])))),
         fill = extraArgs$fill[1],
         align = extraArgs$align[1])
 
-    ## remove BA
-    if(MARGIN == 1 & is.na(extraArgs$fill[1])) {
+    ## remove NA values
+    if (is.na(extraArgs$fill[1])) {
       id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
-
-      if(length(id_NA) > 0) {
-        object.data.temp.smooth <- object.data.temp.smooth[-id_NA, ,drop = FALSE]
-        object@data <- object@data[,-id_NA, drop = FALSE]
-      }
-
-
-    } else if (MARGIN == 2 & is.na(extraArgs$fill[1])){
-      id_NA <- which(matrixStats::rowAnyNAs(object.data.temp.smooth))
-
-      if(length(id_NA) > 0) {
+      if (length(id_NA) > 0) {
         object.data.temp.smooth <- object.data.temp.smooth[-id_NA, , drop = FALSE]
-        object@data <- object@data[-id_NA,,drop = FALSE]
+        if (MARGIN == 1)
+          object@data <- object@data[,-id_NA, drop = FALSE]
+        else
+          object@data <- object@data[-id_NA,, drop = FALSE]
       }
-
     }
-
 
   ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
   }else if(method == "Pych"){
-    ## grep data matrix
-    object.data.temp <- object@data
-
     ## apply smoothing
-    object.data.temp.smooth <- sapply(X = 1:ncol(object.data.temp), function(x){
-
+    frame.idx <- 0
+    object.data.temp.smooth <- apply(object@data, 2, function(data.col) {
+      frame.idx <<- frame.idx + 1
       ##(1) - calculate sd for each subframe
-      temp.sd <- sd(object.data.temp[,x])
+      temp.sd <- sd(data.col)
 
       ##(2) - correct estimation of sd by 1-sigma clipping
-      temp.sd.corr <- sd(object.data.temp[
-
-        object.data.temp[,x] >= (mean(object.data.temp[,x]) - temp.sd) &
-          object.data.temp[,x] <= (mean(object.data.temp[,x]) + temp.sd)
-
-        , x])
+      temp.sd.corr <- sd(data.col[data.col >= (mean(data.col) - temp.sd) &
+                                  data.col <= (mean(data.col) + temp.sd)])
 
       ##(3) - construct histogram of count distribution
-      temp.hist <- hist(object.data.temp[,x],
-                        breaks = length(object.data.temp[,x])/2, plot = FALSE)
+      temp.hist <- hist(data.col,
+                        breaks = length(data.col)/2, plot = FALSE)
 
       ##(4) - find mode of the histogram (e.g. peak)
       temp.hist.max <- which.max(temp.hist$counts)
@@ -308,7 +301,6 @@ apply_CosmicRayRemoval <- function(
       temp.hist.nonzerobin.diff <- diff(
         temp.hist$breaks[temp.hist.nonzerobin])
 
-
       ## select the first value where the threshold is reached
       ## factor 3 is defined by Pych (2003)
       temp.hist.thres <- which(
@@ -317,27 +309,22 @@ apply_CosmicRayRemoval <- function(
       ##(7) - use counts above the threshold and recalculate values
       ## on all further values
       if(!is.na(temp.hist.thres)){
-        object.data.temp[,x] <- sapply(1:nrow(object.data.temp), function(n){
+        data.col <- sapply(1:length(data.col), function(n) {
 
-          if(c(n + method.Pych.smoothing) <= nrow(object.data.temp) &
+          if((n + method.Pych.smoothing) <= length(data.col) &
              (n - method.Pych.smoothing) >= 0){
-
             ifelse(
-              object.data.temp[n,x] >= temp.hist$breaks[temp.hist.thres],
-              median(object.data.temp[(n-method.Pych.smoothing):
-                                        (n+method.Pych.smoothing),x]),
-              object.data.temp[n,x])
-
+              data.col[n] >= temp.hist$breaks[temp.hist.thres],
+              median(data.col[(n-method.Pych.smoothing):(n+method.Pych.smoothing)]),
+              data.col[n])
           }else{
-
-            object.data.temp[n,x]
+            data.col[n]
           }
         })
       }
 
       ##(8) - return histogram used for the removal as plot
       if(plot){
-
         plot(temp.hist,
              xlab = "Signal intensity [a.u.]",
              main = "Cosmic-ray removal histogram")
@@ -345,17 +332,13 @@ apply_CosmicRayRemoval <- function(
         abline(v = temp.hist$breaks[temp.hist.thres],
                col = "red")
 
+        mtext.text <- sprintf("Frame: %d (%s)", frame.idx, colnames(object@data)[frame.idx])
         if(!is.na(temp.hist$breaks[temp.hist.thres])){
           legend("topright", "threshold" ,lty = 1, lwd = 1, col = "red", bty = "n")
-          mtext(side = 3, paste0("Frame: ", x, " (",
-                                 colnames(object.data.temp)[x],
-                                 ")"))
-
         }else{
-          mtext(side = 3, paste0("Frame: ", x, " (",
-                                 colnames(object.data.temp)[x],
-                                 ") - no threshold applied!"))
+          mtext.text <- paste(mtext.text, "- no threshold applied")
         }
+        mtext(side = 3, mtext.text)
       }
 
       ##(9) - return information on the amount of removed cosmic-rays
@@ -366,21 +349,20 @@ apply_CosmicRayRemoval <- function(
           sum(temp.hist$counts[temp.hist.thres:length(temp.hist$counts)]),
           silent = TRUE)
 
-        if(is(sum.corrected.channels)[1] == "try-error"){sum.corrected.channels <- 0}
+        if (inherits(sum.corrected.channels, "try-error"))
+          sum.corrected.channels <- 0
 
-        cat("[apply_CosmicRayRemoval()] >> ")
-        cat(paste(sum.corrected.channels, " channels corrected in frame ", x, "\n", sep = ""))
+        .throw_message(">> ", sum.corrected.channels,
+                       " channels corrected in frame ", frame.idx, "\n", error = FALSE)
       }
 
       ##return object
-      return(object.data.temp[,x])
-
+      return(data.col)
     })#end loop
   }
 
-
   ## Rotate matrix if required
-  if(MARGIN[1] == 1)
+  if (MARGIN[1] == 1 && method != "Pych")
     object.data.temp.smooth <- t(object.data.temp.smooth)
 
   # Correct row and column names --------------------------------------------
@@ -388,12 +370,10 @@ apply_CosmicRayRemoval <- function(
   rownames(object.data.temp.smooth) <- rownames(object@data)
 
   # Return Output------------------------------------------------------------
-  temp.output <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Spectrum",
     recordType = object@recordType,
     curveType = object@curveType,
     data = object.data.temp.smooth,
     info = object@info)
-
-  invisible(temp.output)
 }

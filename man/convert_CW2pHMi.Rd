@@ -2,13 +2,10 @@
 % Please edit documentation in R/convert_CW2pHMi.R
 \name{convert_CW2pHMi}
 \alias{convert_CW2pHMi}
-\alias{CW2pHMi}
 \title{Transform a CW-OSL curve into a pHM-OSL curve via interpolation under
 hyperbolic modulation conditions}
 \usage{
 convert_CW2pHMi(values, delta)
-
-CW2pHMi(values, delta)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):

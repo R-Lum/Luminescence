@@ -1,65 +1,6 @@
 ## load data
-data("ExampleData.ScaleGammaDose", envir = environment())
+data(ExampleData.ScaleGammaDose, envir = environment())
 d <- ExampleData.ScaleGammaDose
-
-## Conversion factors: Liritzisetal2013
-results <- scale_GammaDose(data = d,
-                           conversion_factors = "Liritzisetal2013",
-                           fractional_gamma_dose = "Aitken1985",
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
-
-  expect_equal(is(results), c("RLum.Results", "RLum"))
-  expect_equal(length(results), 6)
-  expect_equal(is(results$summary)[1], "data.frame")
-
-  expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9242")
-  expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2131")
-})
-
-## Conversion factors: Guerinetal2011
-results <- scale_GammaDose(data = d,
-                           conversion_factors = "Guerinetal2011",
-                           fractional_gamma_dose = "Aitken1985",
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
-
-  expect_equal(is(results), c("RLum.Results", "RLum"))
-  expect_equal(length(results), 6)
-  expect_equal(is(results$summary)[1], "data.frame")
-
-  expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9214")
-  expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2124")
-})
-
-## Conversion factors: Guerinetal2011
-results <- scale_GammaDose(data = d,
-                           conversion_factors = "AdamiecAitken1998",
-                           fractional_gamma_dose = "Aitken1985",
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
-
-  expect_equal(is(results), c("RLum.Results", "RLum"))
-  expect_equal(length(results), 6)
-  expect_equal(is(results$summary)[1], "data.frame")
-
-  expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9123")
-  expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2097")
-})
-
-## CONSOLE & PLOT OUTPUT
-test_that("console & plot", {
-  expect_output({
-   scale_GammaDose(d, plot = TRUE, verbose = TRUE)
-   scale_GammaDose(d, plot = TRUE, plot_singlePanels = TRUE, verbose = TRUE)
-  })
-})
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -123,4 +64,44 @@ test_that("input validation", {
                "'fractional_gamma_dose' should be one of 'Aitken1985'")
   expect_error(scale_GammaDose(d, fractional_gamma_dose = "error"),
                "'fractional_gamma_dose' should be one of 'Aitken1985'")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  ## Conversion factors: Liritzisetal2013
+  SW({
+  expect_snapshot_RLum(scale_GammaDose(data = ExampleData.ScaleGammaDose,
+                                       conversion_factors = "Liritzisetal2013",
+                                       fractional_gamma_dose = "Aitken1985",
+                                       plot = TRUE, plot_singlePanels = TRUE,
+                                       verbose = TRUE),
+                       tolerance = snapshot.tolerance)
+  })
+
+  ## Conversion factors: Guerinetal2011
+  expect_snapshot_RLum(scale_GammaDose(data = ExampleData.ScaleGammaDose,
+                                       conversion_factors = "Guerinetal2011",
+                                       fractional_gamma_dose = "Aitken1985",
+                                       plot = TRUE, verbose = FALSE),
+                       tolerance = snapshot.tolerance)
+
+  ## Conversion factors: AdamiecAitken1998
+  expect_snapshot_RLum(scale_GammaDose(data = ExampleData.ScaleGammaDose,
+                                       conversion_factors = "AdamiecAitken1998",
+                                       fractional_gamma_dose = "Aitken1985",
+                                       plot = FALSE, verbose = FALSE),
+                       tolerance = snapshot.tolerance)
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("defaults",
+                              scale_GammaDose(ExampleData.ScaleGammaDose))
+  })
 })

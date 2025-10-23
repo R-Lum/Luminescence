@@ -10,7 +10,7 @@ calc_ThermalLifetime(
   T = 20,
   output_unit = "Ma",
   profiling = FALSE,
-  profiling_config = NULL,
+  profiling_config = list(),
   verbose = TRUE,
   plot = TRUE,
   ...

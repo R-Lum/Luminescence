@@ -25,11 +25,11 @@ test_that("methods_DRAC", {
     input <- template_DRAC()
     input[[1]] <- c(1, 2)
   }, regexp = "Project ID should have length 1")
-  expect_warning({
+  expect_error({
     input <- template_DRAC()
     input[[4]] <- "error"
   }, regexp = "Conversion factors: Invalid option, valid options are:")
-  expect_warning({
+  expect_message({
     input <- template_DRAC()
     input[[5]] <- "1"
   }, regexp = "found character, expected numeric")
@@ -53,7 +53,7 @@ test_that("methods_DRAC", {
   })
 
   input <- template_DRAC(notification = FALSE)
-  expect_warning({
+  expect_message({
     input[[5]] <- 1L
   }, regexp = "found integer, expected numeric")
 
@@ -66,7 +66,7 @@ test_that("methods_DRAC", {
     input[[32]] <- 200L
     Luminescence:::.warningCatcher(input[[32]] <- "abc")
   }, regexp = "found character, expected integer -> cannot coerce, set NAs")
-  expect_warning({
+  expect_message({
     input <- template_DRAC()
     input[[32]] <- 200L
     Luminescence:::.warningCatcher(input[[32]] <- "100")

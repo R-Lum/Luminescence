@@ -45,13 +45,13 @@ is provided the function directly starts with the Bayesian Analysis (see details
 if a \code{character}, it must be the path to a CSV file with data for the
 analysis. Either way, data should contain 3 columns:
 the name of the file, the disc position and the grain position
-(the last being 0 for multi-grain measurements).\cr}
+(the last being 0 for multi-grain measurements).}
 
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
 This argument has only an effect if the argument \code{CSV_file} is used or
-the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
-new selection will add the aliquots to the removed aliquots table.}
+\code{object} is a previous output (i.e. is \linkS4class{RLum.Results}). In this case,
+the new selection will add the aliquots to the removed aliquots table.}
 
 \item{source_doserate}{\link{numeric} (\strong{required}):
 source dose rate of beta-source used for the measurement and its uncertainty
@@ -360,7 +360,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.36
+ 0.1.37
 }
 
 \examples{
@@ -385,7 +385,6 @@ results <- analyse_baSAR(
   fit.method = "LIN",
   plot = FALSE,
   n.MCMC = 200
-
 )
 
 print(results)
@@ -410,11 +409,11 @@ list(
 
 }
 \references{
-Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
+Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guérin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 
-Mercier, N., Kreutzer, S., Christophe, C., Guerin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
+Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its implementation
 in the R package 'Luminescence'. Ancient TL 34, 14-21.
 
@@ -434,7 +433,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{
-Norbert Mercier, Archaésciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
+Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 }

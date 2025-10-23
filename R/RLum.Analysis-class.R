@@ -34,12 +34,13 @@
 #'
 #' @examples
 #'
+#' ## show method
 #' showClass("RLum.Analysis")
 #'
-#' ##set empty object
+#' ##set an empty object
 #' set_RLum(class = "RLum.Analysis")
 #'
-#' ###use example data
+#' ## use example data
 #' ##load data
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'
@@ -49,9 +50,16 @@
 #' ##show only the first object, but by keeping the object
 #' get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 #'
-#' @keywords internal
+#' ## subsetting with SAR sample data
+#' data(ExampleData.BINfileData, envir = environment())
+#' sar <- object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
 #'
-#' @md
+#' ## get
+#' get_RLum(sar, subset = "NPOINTS == 250")
+#'
+#' ## remove
+#' remove_RLum(sar, subset = "NPOINTS == 250")
+#'
 #' @export
 setClass("RLum.Analysis",
          slots = list(
@@ -66,7 +74,7 @@ setClass("RLum.Analysis",
 )
 
 
-# as() -----------------------------------------------------------------------------------------
+## as() ---------------------------------------------------------------------
 ##LIST
 ##COERCE RLum.Analyse >> list AND list >> RLum.Analysis
 #' as() - RLum-object coercion
@@ -82,7 +90,6 @@ setClass("RLum.Analysis",
 #'
 #' Given that the [list] consists of [RLum.Analysis-class] objects.
 #'
-#' @md
 #' @name as
 setAs("list", "RLum.Analysis",
       function(from,to){
@@ -97,11 +104,10 @@ setAs("RLum.Analysis", "list",
       })
 
 
-# show() --------------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Show structure of `RLum.Analysis` object
+## show() -------------------------------------------------------------------
+#' @describeIn show
+#' Show the structure of `RLum.Analysis` objects.
 #'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Analysis"),
@@ -109,9 +115,7 @@ setMethod("show",
 
             ##print
             cat("\n [RLum.Analysis-class]")
-
-            ## show originator, for compatibility reasons with old example data
-            if(.hasSlot(object, "originator")){cat("\n\t originator:", paste0(object@originator,"()"))}
+            cat("\n\t originator:", paste0(object@originator, "()"))
 
             cat("\n\t protocol:", object@protocol)
             cat("\n\t additional info elements: ", if(.hasSlot(object, "info")){length(object@info)}else{0})
@@ -122,18 +126,18 @@ setMethod("show",
               ##get object class types
               temp <- vapply(object@records, function(x){
                 class(x)[1]
-
-              }, FUN.VALUE = vector(mode = "character", length = 1))
+              }, FUN.VALUE = character(1))
 
               ##print object class types
-              lapply(1:length(table(temp)), function(x){
+              table.temp <- table(temp)
+              lapply(names(table.temp), function(x) {
 
                 ##show RLum class type
-                cat("\n\t .. :", names(table(temp)[x]),":",table(temp)[x])
+                cat("\n\t .. :", x, ":", table.temp[x])
 
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
-                if(getOption("width")<=50) temp.width <- 4 else temp.width  <- 7
+                temp.width <- if (getOption("width") <= 50) 4 else 7
 
                 ##set line break variable
                 linebreak <- FALSE
@@ -142,7 +146,7 @@ setMethod("show",
                 ##create terminal output
                 terminal_output <-
                   vapply(1:length(object@records),  function(i) {
-                    if (names(table(temp)[x]) == is(object@records[[i]])[1]) {
+                    if (inherits(object@records[[i]], x)) {
                       if (i %% temp.width == 0 & i != length(object@records)) {
                         assign(x = "linebreak", value = TRUE, envir = env)
                       }
@@ -169,12 +173,9 @@ setMethod("show",
                         }
                       }
                       return(paste0(first,last))
-
-                    }else{
-                      return("")
                     }
-
-              }, FUN.VALUE = vector(mode = "character", length = 1))
+                    return("")
+                  }, FUN.VALUE = character(1))
 
                  ##print on screen, differentiate between records with many
                  ##curves or just one
@@ -195,37 +196,19 @@ setMethod("show",
           }
 )##end show method
 
-# set_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+## set_RLum() ---------------------------------------------------------------
+#' @describeIn set_RLum
 #' Construction method for [RLum.Analysis-class] objects.
 #'
-#' @param class [`set_RLum`] [character] (**required**):
-#' name of the `RLum` class to be created
-#'
-#' @param originator [`set_RLum`] [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object);
-#' can be set manually.
-#'
-#' @param .uid [`set_RLum`] [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `create_UID`.
-#'
-#' @param .pid [`set_RLum`] [character] (*with default*):
-#' option to provide a parent id for nesting at will.
-#'
-#' @param protocol [`set_RLum`] [character] (*optional*):
+#' @param protocol [character] (*optional*):
 #' sets protocol type for analysis object. Value may be used by subsequent analysis functions.
 #'
-#' @param records [`set_RLum`] [list] (**required**):
+#' @param records [list] (*optional*):
 #' list of [RLum.Analysis-class] objects
 #'
-#' @param info [`set_RLum`] [list] (*optional*):
-#' a list containing additional info data for the object
+#' @param info [list] (*optional*):
+#' a list containing additional info data for the object.
 #'
-#' **`set_RLum`**:
-#'
-#' Returns an [RLum.Analysis-class] object.
-#'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -266,64 +249,16 @@ setMethod(
   }
 )
 
-# get_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Accessor method for RLum.Analysis object.
-#'
-#' The slots record.id, `@recordType`, `@curveType` and `@RLum.type` are optional to allow for records
-#' limited by their id (list index number), their record type (e.g. `recordType = "OSL"`)
-#' or object type.
-#'
-#' Example: curve type (e.g. `curveType = "predefined"` or `curveType ="measured"`)
+## get_RLum() ---------------------------------------------------------------
+#' @describeIn get_RLum
+#' Accessor method for RLum.Analysis objects.
+#' The optional arguments `record.id`, `recordType`, `curveType` and `RLum.type`
+#' allow to limit records by their id (list index number), their record type
+#' (e.g. `recordType = "OSL"`), their curve type (e.g. `curveType = "predefined"`
+#' or `curveType ="measured"`), or object type.
 #'
 #' The selection of a specific RLum.type object superimposes the default selection.
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
-#'
-#' @param object (**required**):
-#' an object of class [RLum.Analysis-class]
-#'
-#' @param record.id [`get_RLum`]: [numeric] or [logical] (*optional*):
-#' IDs of specific records. If of type `logical` the entire id range is assumed
-#' and `TRUE` and `FALSE` indicates the selection.
-#'
-#' @param recordType [`get_RLum`]: [character] (*optional*):
-#' record type (e.g., "OSL"). Can be also a vector, for multiple matching,
-#' e.g., `recordType = c("OSL", "IRSL")`
-#'
-#' @param curveType [`get_RLum`]: [character] (*optional*):
-#' curve type (e.g. "predefined" or "measured")
-#'
-#' @param RLum.type [`get_RLum`]: [character] (*optional*):
-#' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
-#'
-#' @param get.index [`get_RLum`]: [logical] (*optional*):
-#' return a numeric vector with the index of each element in the RLum.Analysis object.
-#'
-#' @param recursive [`get_RLum`]: [logical] (*with default*):
-#' if `TRUE` (default) when the result of the `get_RLum()` request is a single
-#' object, the object itself will be returned directly, rather than being
-#' wrapped in a list. Mostly this makes things easier, but this might be
-#' undesired if this method is used within a loop.
-#'
-#' @param drop [`get_RLum`]: [logical] (*with default*):
-#' coerce to the next possible layer (which are `RLum.Data`-objects),
-#' `drop = FALSE` keeps the original `RLum.Analysis`
-#'
-#' @param info.object [`get_RLum`]: [character] (*optional*):
-#' name of the wanted info element
-#'
-#' @param subset [`get_RLum`]: [expression] (*optional*):
-#' logical expression indicating elements or rows to keep: missing values are
-#' taken as false. This argument takes precedence over all other arguments,
-#' meaning they are not considered when subsetting the object.
-#'
-#' @param env [`get_RLum`]: [environment] (*with default*):
-#' An environment passed to [eval] as the enclosure. This argument is only
-#' relevant when subsetting the object and should not be used manually.
-#'
-#' @return
-#'
-#' **`get_RLum`**:
 #'
 #' Returns:
 #'
@@ -331,12 +266,53 @@ setMethod(
 #' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
 #' 3. [RLum.Analysis-class] objects for `drop = FALSE`
 #'
-#' @md
+#' @param record.id [numeric] or [logical] (*optional*):
+#' IDs of specific records. If of type `logical` the entire id range is assumed
+#' and `TRUE` and `FALSE` indicates the selection.
+#'
+#' @param recordType [character] (*optional*):
+#' record type (e.g., "OSL"). Can be also a vector, for multiple matching,
+#' e.g., `recordType = c("OSL", "IRSL")`
+#'
+#' @param curveType [character] (*optional*):
+#' curve type (e.g. "predefined" or "measured")
+#'
+#' @param RLum.type [character] (*optional*):
+#' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
+#'
+#' @param protocol [character] (*optional*):
+#' currently ignored.
+#'
+#' @param get.index [logical] (*optional*):
+#' return a numeric vector with the index of each element in the RLum.Analysis
+#' object (`FALSE` by default).
+#'
+#' @param drop [logical] (*with default*):
+#' coerce to the next possible layer (which are [RLum.Data-class] objects if
+#' `object` is an [RLum.Analysis-class] object). If `drop = FALSE`, an object
+#' of the same type as the input is returned.
+#'
+#' @param recursive [logical] (*with default*):
+#' if `TRUE` (default) when the result of the `get_RLum()` request is a single
+#' object, the object itself will be returned directly, rather than being
+#' wrapped in a list. Mostly this makes things easier, but this might be
+#' undesired if this method is used within a loop.
+#'
+#' @param subset [expression] (*optional*):
+#' logical or character masking a logical expression indicating elements or rows to keep:
+#' missing values are taken as false. This argument takes precedence over all other arguments,
+#' meaning they are not considered when subsetting the object. `subset` works slots and
+#' info elements.
+#'
+#' @param env [environment] (*with default*):
+#' An environment passed to [eval] as the enclosure. This argument is only
+#' relevant when subsetting the object and should not be used manually.
+#'
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
-                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
+                   protocol = "UNKNOWN", get.index = FALSE, drop = TRUE, recursive = TRUE,
                    info.object = NULL, subset = NULL, env = parent.frame(2)) {
             .set_function_name("get_RLum")
             on.exit(.unset_function_name(), add = TRUE)
@@ -349,18 +325,21 @@ setMethod("get_RLum",
               envir <- as.data.frame(do.call(rbind,
                 lapply(object@records, function(el) {
                   val <- c(curveType = el@curveType, recordType = el@recordType, unlist(el@info))
-
                   # add missing info elements and set NA
                   if (any(!info_el %in% names(val))) {
-                    val_new <- setNames(
-                      rep("",length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
-                    val <- c(val, val_new)
+                    new <- info_el[!info_el %in% names(val)]
+                    val <- c(val, setNames(rep("", length(new)), new))
                   }
 
                  # order the named char vector by its names so we don't mix up the columns
                  val <- val[order(names(val))]
                  return(val)
                })), stringAsFactors = FALSE)
+
+              ## coerce subset to logical if character to make it compatible
+              ## with remove_RLum()
+              if(inherits(substitute(subset), "character"))
+                subset <- parse(text = subset[1])[[1]]
 
               ##select relevant rows
               sel <- tryCatch(eval(
@@ -381,10 +360,14 @@ setMethod("get_RLum",
                 sel <- FALSE
 
               if (any(sel)) {
+                .validate_logical_scalar(get.index)
+                if (get.index)
+                  return(which(sel))
+
                 object@records <- object@records[sel]
                 return(object)
               } else {
-                tmp <- mapply(function(name, op) {
+                mapply(function(name, op) {
                   message("  ", name, ": ", .collapse(unique(op), quote = FALSE))
                 }, names(envir), envir)
                 .throw_message("'subset' expression produced an ",
@@ -396,19 +379,18 @@ setMethod("get_RLum",
             ##if info.object is set, only the info objects are returned
             else if(!is.null(info.object)) {
               if(info.object %in% names(object@info)){
-                unlist(object@info[info.object])
-
-              }else{
-                ##check for entries
-                if(length(object@info) == 0){
-                  .throw_warning("This 'RLum.Analysis' object has no info ",
-                                 "objects, NULL returned")
-                }else{
-                  .throw_warning("Invalid 'info.object' name, valid names are: ",
-                                 .collapse(names(object@info)))
-                }
-                return(NULL)
+                return(unlist(object@info[info.object]))
               }
+
+              ## check for entries
+              if (length(object@info) == 0) {
+                .throw_warning("This 'RLum.Analysis' object has no info ",
+                               "objects, NULL returned")
+              } else {
+                .throw_warning("Invalid 'info.object' name, valid names are: ",
+                               .collapse(names(object@info)))
+              }
+              return(NULL)
 
             } else {
 
@@ -420,11 +402,10 @@ setMethod("get_RLum",
               }
 
               ##record.id
+              .validate_class(record.id, c("integer", "numeric", "logical"),
+                              null.ok = TRUE)
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
-
-              } else {
-                .validate_class(record.id, c("integer", "numeric", "logical"))
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
@@ -441,89 +422,65 @@ setMethod("get_RLum",
               }
 
               ##recordType
+              .validate_class(recordType, "character", null.ok = TRUE)
               if (is.null(recordType)) {
                 recordType <-
                   unique(vapply(object@records, function(x)
                     x@recordType, character(1)))
-
-              } else {
-                .validate_class(recordType, "character")
               }
 
               ##curveType
+              .validate_class(curveType, "character", null.ok = TRUE)
               if (is.null(curveType)) {
-                curveType <- unique(unlist(lapply(1:length(object@records),
-                                                  function(x) {
-                                                    object@records[[x]]@curveType
-                                                  })))
-
-              } else {
-                .validate_class(curveType, "character")
+                curveType <- unique(vapply(object@records, function(x)
+                  x@curveType, character(1)))
               }
 
               ##RLum.type
+              .validate_class(RLum.type, "character", null.ok = TRUE)
               if (is.null(RLum.type)) {
                 RLum.type <- c("RLum.Data.Curve", "RLum.Data.Spectrum", "RLum.Data.Image")
-              } else {
-                .validate_class(RLum.type, "character")
               }
 
               ##get.index
-              if (is.null(get.index)) {
-                get.index <- FALSE
-
-              } else {
-                .validate_logical_scalar(get.index)
-              }
-
-              ##get originator
-              originator <- NA_character_
-              if (.hasSlot(object, "originator")) {
-                originator <- object@originator
-              }
+              .validate_logical_scalar(get.index)
 
               ##-----------------------------------------------------------------##
               ##a pre-selection is necessary to support negative index selection
               object@records <- object@records[record.id]
-              record.id <- 1:length(object@records)
+              record.id <- seq_along(object@records)
 
               ##select curves according to the chosen parameter
-              if (length(record.id) >= 1) {
-                temp <- lapply(record.id, function(x) {
-                  if (is(object@records[[x]])[1] %in% RLum.type) {
-                      ##as input a vector is allowed
-                    temp <- lapply(1:length(recordType), function(k) {
-                      ##translate input to regular expression
-                      recordType[k] <- glob2rx(recordType[k])
-                      recordType[k] <- substr(recordType[k], start = 2, stop = nchar(recordType[k]) - 1)
-
-                      ##handle NA
-                      if(is.na(object@records[[x]]@recordType))
-                        recordType_comp <- "NA"
-                      else
-                        recordType_comp <- object@records[[x]]@recordType
+              temp <- lapply(record.id, function(x) {
+                  if (inherits(object@records[[x]], RLum.type)) {
+                    ## translate input to regular expression and remove ^ $
+                    recordType <- glob2rx(recordType)
+                    recordType <- substr(recordType,
+                                         start = 2, stop = nchar(recordType) - 1)
+                    temp <- lapply(recordType, function(type) {
+                      ## use format() to handle NA so that it gets turned into
+                      ## the "NA" string (as.character() would leave it as NA)
+                      recordType_comp <- format(object@records[[x]]@recordType)
 
                       ## get the results object and if requested, get the index
-                      if (grepl(recordType[k], recordType_comp) &
+                      if (grepl(type, recordType_comp) &&
                           object@records[[x]]@curveType %in% curveType) {
                         if (!get.index) object@records[[x]] else x
                       }
                     })
 
                     ##remove empty entries and select just one to unlist
-                    temp <- temp[!vapply(temp, is.null,logical(1))]
+                    temp <- .rm_NULL_elements(temp)
 
                     ##if list has length 0 skip entry
                     if (length(temp) != 0) {
                       temp[[1]]
-                    } else{
-                      temp <- NULL
                     }
                   }
                 })
 
                 ##remove empty list element
-                temp <- temp[!vapply(temp, is.null, logical(1))]
+                temp <- .rm_NULL_elements(temp)
 
                 ##check if the produced object is empty and show warning message
                 if (length(temp) == 0)
@@ -532,88 +489,43 @@ setMethod("get_RLum",
                 ##remove list for get.index
                 if (get.index) {
                   return(unlist(temp))
-
-                } else{
-                  if (!drop) {
+                }
+                if (!drop) {
                     temp <- set_RLum(
                       class = "RLum.Analysis",
-                      originator = originator,
+                      originator = object@originator,
                       records = temp,
                       protocol = object@protocol,
                       .pid = object@.pid
                     )
                     return(temp)
-
-                  } else{
-                    if (length(temp) == 1 & recursive == TRUE) {
-                      return(temp[[1]])
-
-                    } else{
-                      return(temp)
-                    }
-                  }
                 }
-
-              } else{
-                ## FIXME(mcol): this block seems unreachable : as before the
-                ## `if` block we set `record.id <- 1:length(object@records)`,
-                ## it can never happen that `length(record.id) < 1`
-                # nocov start
-                if (!get.index[1]) {
-                  if (drop == FALSE) {
-                    ##needed to keep the argument drop == TRUE
-                    temp <- set_RLum(
-                      class = "RLum.Analysis",
-                      originator = originator,
-                      records = list(object@records[[record.id]]),
-                      protocol = object@protocol,
-                      .pid = object@.pid
-                    )
-                    return(temp)
-
-                  } else{
-                    return(object@records[[record.id]])
-                  }
-
-                } else{
-                  return(record.id)
-                }
-                # nocov end
-              }
+                if (length(temp) == 1 && recursive)
+                  return(temp[[1]])
+                return(temp)
             }
           })
 
 
-# remove_RLum() ----------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+## remove_RLum() ------------------------------------------------------------
+#' @describeIn remove_RLum
 #' Method to remove records from an [RLum.Analysis-class] object.
-#'
-#' @param object [RLum.Analysis-class] (**required**): object with records
-#' to be removed
 #'
 #' @param ... parameters to be passed to [get_RLum]. The arguments `get.index` and
 #' `drop` are preset and have no effect when provided
 #'
-#' @return
-#'
-#' [RLum.Analysis-class]; can be empty.
-#'
-#' @md
 #' @export
 setMethod("remove_RLum",
       signature= "RLum.Analysis",
       definition = function(object, ...) {
-
-# DO NOT TOUCH ------------------------------------------------------------
-.set_function_name("remove_RLum")
-on.exit(.unset_function_name(), add = TRUE)
+  .set_function_name("remove_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
 
 # Treatment of ... --------------------------------------------------------
   ## make settings with preset
   args_set <- list(
     get.index = TRUE,
     drop = FALSE
-
   )
   ## we do not support all arguments; therefore we make a positive list
   args <- list(...)
@@ -628,30 +540,26 @@ on.exit(.unset_function_name(), add = TRUE)
     "recursive"
   )] <- NULL
 
-  ## construct call
-  rm_id <- suppressWarnings(do.call(get_RLum, args = c(object, args_set, args)))
+  ## construct call ... record.id always takes priority
+  if(!is.null(args$record.id))
+    rm_id <- args$record.id
+  else
+    rm_id <- suppressWarnings(do.call(get_RLum, args = c(object, args_set, args)))
+
+  ## remove objects
   object@records[rm_id] <- NULL
   return(object)
-
 })
 
-# structure_RLum() ----------------------------------------------------------------------------
-###
-#' @describeIn RLum.Analysis
-#' Method to show the structure of an [RLum.Analysis-class] object.
+## structure_RLum() ---------------------------------------------------------
+#' @describeIn structure_RLum
+#' Returns the structure of an [RLum.Analysis-class] object.
 #'
-#' @param fullExtent [structure_RLum]; [logical] (*with default*):
+#' @param fullExtent [logical] (*with default*):
 #' extends the returned `data.frame` to its full extent, i.e. all info elements
 #' are part of the return as well. The default value is `FALSE` as the data
 #' frame might become rather big.
 #'
-#' @return
-#'
-#' **`structure_RLum`**:
-#'
-#' Returns [data.frame-class] showing the structure.
-#'
-#' @md
 #' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
@@ -660,8 +568,10 @@ setMethod("structure_RLum",
             on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
-            if(!all(vapply(object@records, FUN = class, character(1)) == "RLum.Data.Curve"))
-              .throw_error("Only 'RLum.Data.Curve' objects are allowed")
+            sapply(object@records, function (x) {
+              .validate_class(x, "RLum.Data.Curve",
+                              name = "All elements of 'object'")
+            })
 
             ##get length object
             temp.object.length <- length(object@records)
@@ -716,7 +626,6 @@ setMethod("structure_RLum",
                temp.info.elements <- lapply(object@records, function(x) {
                  if(is.null(names(x@info)))
                     return(NA)
-
                   names(x@info)
                  })
             }
@@ -742,17 +651,10 @@ setMethod("structure_RLum",
             )
           })
 
-# length_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Returns the length of the object, i.e., number of stored records.
+## length_RLum() ------------------------------------------------------------
+#' @describeIn length_RLum
+#' Returns the number of records stored in the object.
 #'
-#' @return
-#'
-#' **`length_RLum`**
-#'
-#' Returns the number records in this object.
-#'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Analysis",
@@ -760,18 +662,10 @@ setMethod("length_RLum",
             length(object@records)
           })
 
-# names_RLum() --------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Returns the names of the [RLum.Data-class] objects (same as shown with the
-#' `show` method)
+## names_RLum() -------------------------------------------------------------
+#' @describeIn names_RLum
+#' Returns the names of the [RLum.Data-class] objects stored in the object.
 #'
-#' @return
-#'
-#' **`names_RLum`**
-#'
-#' Returns the names of the record types (`recordType`) in this object.
-#'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Analysis",
@@ -781,18 +675,12 @@ setMethod("names_RLum",
 
 
 ## add_metadata() -----------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Adds metadata to [RLum.Analysis-class] objects
+#' @describeIn metadata
+#' Adds metadata to [RLum.Analysis-class] objects.
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to add
+#' @param info_element [character] (**required**):
+#' name of the metadata entry to manipulate.
 #'
-#' @param value (**required**) The value assigned to the selected element
-#' of the metadata field.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("add_metadata<-",
           signature= "RLum.Analysis",
@@ -811,18 +699,9 @@ setMethod("add_metadata<-",
           })
 
 ## rename_metadata() --------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Renames a metadata entry of [RLum.Analysis-class] objects
+#' @describeIn metadata
+#' Renames a metadata entry of [RLum.Analysis-class] objects.
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to rename
-#'
-#' @param value (**required**) The value assigned to the selected element
-#' of the `info` slot.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("rename_metadata<-",
           signature= "RLum.Analysis",
@@ -830,7 +709,7 @@ setMethod("rename_metadata<-",
             .set_function_name("rename_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 
-            ## rename the metadata field in all records
+            ## rename the metadata entry in all records
             records <- lapply(object@records, function(x) {
               do.call(`rename_metadata<-`,
                       list(x, info_element = info_element, value = value))
@@ -841,19 +720,13 @@ setMethod("rename_metadata<-",
           })
 
 ## replace_metadata() -------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Replaces or removes metadata of [RLum.Analysis-class] objects
+#' @describeIn metadata
+#' Replaces or removes metadata of [RLum.Analysis-class] objects.
 #'
-#' @param info_element [character] (**required**) name of the metadata field
-#' to replace or remove
+#' @param subset [expression] (*optional*):
+#' logical expression to limit the substitution only to the selected subset
+#' of elements.
 #'
-#' @param value (**required**) The value assigned to the selected elements
-#' of the metadata field. If `NULL` the elements named in `info_element`
-#' will be removed.
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("replace_metadata<-",
           signature= "RLum.Analysis",
@@ -878,21 +751,10 @@ setMethod("replace_metadata<-",
           })
 
 
-# smooth_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+## smooth_RLum() ------------------------------------------------------------
+#' @describeIn smooth_RLum
+#' Smoothing of `RLum.Data` records contained in the input object.
 #'
-#' Smoothing of `RLum.Data` objects contained in this `RLum.Analysis` object
-#' using the internal function `.smoothing`.
-#'
-#' @param ... further arguments passed to underlying methods
-#'
-#' @return
-#'
-#' **`smooth_RLum`**
-#'
-#' Same object as input, after smoothing
-#'
-#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",
@@ -906,16 +768,14 @@ setMethod(
   }
 )
 
-# sort_RLum() -------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#'
+## sort_RLum() --------------------------------------------------------------
+#' @describeIn sort_RLum
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
 #' At least one of `slot` and `info_element` must be provided. If both are
 #' given, ordering by `slot` always takes priority over `info_element`.
 #' Only the first element in each `slot` and each `info_element` is used
 #' for sorting. Example: `.pid` can contain multiple values, however, only the
 #' first is taken.
-#'
 #' Please note that the `show()` method does some structuring, which may
 #' lead to the impression that the sorting did not work.
 #'
@@ -925,27 +785,17 @@ setMethod(
 #' to use in sorting. The order of the names sets the sorting priority.
 #' Regardless of available info elements, the following
 #' elements always exist because they are calculated from the record
-#' `XY_LENGTH`, `NCOL`, `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`
+#' `XY_LENGTH`, `NCOL`, `X_MIN`, `X_MAX`, `Y_MIN`, `Y_MAX`.
 #'
 #' @param decreasing [logical] (*with default*): whether the sort order should
 #' be decreasing (`FALSE` by default). It can be provided as a vector to control
 #' the ordering sequence for each sorting element.
 #'
-#' @param ... further arguments passed to underlying methods
-#'
-#' @return
-#'
-#' **`sort_RLum`**
-#'
-#' Same object as input, but sorted according to the specified parameters.
-#'
 #' @examples
-#' ## **sort_RLum()** ##
 #' data(ExampleData.XSYG, envir = environment())
 #' sar <- OSL.SARMeasurement$Sequence.Object[1:5]
 #' sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 #'
-#' @md
 #' @export
 setMethod(
   f = "sort_RLum",
@@ -960,8 +810,8 @@ setMethod(
       return(object)
 
     ## input validation
+    .validate_class(slot, "character", null.ok = TRUE)
     if (!is.null(slot)) {
-      .validate_class(slot, "character", extra = "NULL")
       valid.names <- slotNames(object@records[[1]])
       if (any(!slot %in% valid.names)) {
         .throw_error("Invalid 'slot' name, valid names are: ",
@@ -973,8 +823,8 @@ setMethod(
       }
     }
 
+    .validate_class(info_element, "character", null.ok = TRUE)
     if (!is.null(info_element)) {
-      .validate_class(info_element, "character", extra = "NULL")
       valid.names <- c(
         "XY_LENGTH", "NCOL", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX",
         names(object@records[[1]]@info))
@@ -1056,18 +906,12 @@ setMethod(
   }
 )
 
-# melt_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Analysis
-#' Melts [RLum.Analysis-class] objects into a flat data.frame to be used
-#' in combination with other packages such as `ggplot2`.
+## melt_RLum() --------------------------------------------------------------
+#' @describeIn melt_RLum
+#' Melts [RLum.Analysis-class] objects into a flat data.frame with columns
+#' `X`, `Y`, `TYPE`, `UID`, to be used in combination with other packages
+#' such as `ggplot2`.
 #'
-#' @return
-#'
-#' **`melt_RLum`**
-#'
-#' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
-#'
-#' @md
 #' @export
 setMethod(
   f = "melt_RLum",
@@ -1078,19 +922,17 @@ setMethod(
 )
 
 ## view() -------------------------------------------------------------------
-#' @describeIn RLum.Analysis
+#' @describeIn view
+#' View method for [RLum.Analysis-class] objects.
 #'
-#' View method for [RLum.Analysis-class] objects
-#'
-#' @param ... other arguments that might be passed
-#'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("view",
           signature = "RLum.Analysis",
           definition = function(object, ...) {
+    .set_function_name("view")
+    on.exit(.unset_function_name(), add = TRUE)
+
+    .validate_not_empty(object)
 
     ## set title
     name <- list(...)$title

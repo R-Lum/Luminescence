@@ -2,7 +2,7 @@
 % Please edit documentation in R/apply_CosmicRayRemoval.R
 \name{apply_CosmicRayRemoval}
 \alias{apply_CosmicRayRemoval}
-\title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object}
+\title{Cosmic-ray removal and spectrum smoothing for RLum.Data.Spectrum objects}
 \usage{
 apply_CosmicRayRemoval(
   object,
@@ -16,10 +16,11 @@ apply_CosmicRayRemoval(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}): input
-object to be treated. This can be also provided as \link{list}. If an \linkS4class{RLum.Analysis} object
-is provided, only the \linkS4class{RLum.Data.Spectrum} objects are treated. Please note: this mixing of
-objects does not work for a list of \code{RLum.Data} objects.}
+\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}):
+input object to be treated, which can be also provided as \link{list}. If an
+\linkS4class{RLum.Analysis} object is provided, only its \linkS4class{RLum.Data.Spectrum}
+objects are treated. Please note: this mixing of objects does not work for
+a list of \code{RLum.Data} objects.}
 
 \item{method}{\link{character} (\emph{with default}):
 Defines method that is applied for cosmic ray removal. Allowed methods are
@@ -42,7 +43,8 @@ on which part the function cosmic ray removal should be applied on:
 \item 2 = along the wavelength axis (column by column).
 }
 
-\strong{Note:} This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
+\strong{Note:} This argument only affects methods \code{smooth}, \code{smooth.spline} and
+\code{smooth_RLum}.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -61,17 +63,19 @@ Returns same object as input.
 }
 \description{
 The function provides several methods for cosmic-ray removal and spectrum
-smoothing \linkS4class{RLum.Data.Spectrum} objects and such objects embedded in \link{list} or
-\linkS4class{RLum.Analysis} objects.
+smoothing for \linkS4class{RLum.Data.Spectrum} objects, and those embedded in
+\link{list} or \linkS4class{RLum.Analysis} objects.
 }
 \details{
 \strong{\code{method = "Pych"}}
 
 This method applies the cosmic-ray removal algorithm described by Pych
-(2003). Some aspects that are different to the publication:
+(2003). There are some differences with respect to the publication:
 \itemize{
-\item For interpolation between neighbouring values the median and not the mean is used.
-\item The number of breaks to construct the histogram is set to: \code{length(number.of.input.values)/2}
+\item For interpolation between neighbouring values, the median is used instead
+of the mean.
+\item The number of breaks in the histogram is set to half the number of the
+input values.
 }
 
 For further details see references below.
@@ -86,15 +90,15 @@ METHOD \tab ARGUMENT \tab TYPE \tab REMARKS\cr
 \code{"smooth_RLum"} \tab \code{k} \tab \link{numeric} \tab see \link{smooth_RLum}\cr
 \tab \code{fill} \tab \link{numeric} \tab see \link{smooth_RLum}\cr
 \tab \code{align} \tab \link{character} \tab see \link{smooth_RLum}\cr
-\tab \code{method} \tab \link{character} \tab see \link{smooth_RLum}\cr
+\tab \code{method_smooth_RLum} \tab \link{character} \tab see \link{smooth_RLum}\cr
 }
 
 \strong{Best practice}
 
-There is no single silver-bullet-strategy for the cosmic-ray removal, because it depends
+There is no single silver-bullet strategy for cosmic-ray removal, as it depends
 on the characteristic of the detector and the chosen settings. For instance,
-high values for pixel binning will improve the light output, but also causes
-multiple pixels being affected a single cosmic-ray. The same is valid for
+high values for pixel binning will improve the light output, but also cause
+multiple pixels to be affected by a single cosmic ray. The same is valid for
 longer integration times. The best strategy is to combine methods and ensure
 that the spectrum is not distorted on a case-to-case basis.
 
@@ -104,7 +108,7 @@ Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
 \section{Function version}{
- 0.4.0
+ 0.4.1
 }
 
 \examples{
@@ -122,8 +126,8 @@ Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
 \doi{10.1086/381786}
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline},
-\link{smooth_RLum}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link[stats:smooth]{stats::smooth},
+\link[stats:smooth.spline]{stats::smooth.spline}, \link{smooth_RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

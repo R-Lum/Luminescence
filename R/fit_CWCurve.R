@@ -3,8 +3,7 @@
 #' @description
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
-#' components and returns various component parameters. The fitting procedure
-#' uses the [nls] function with the `port` algorithm.
+#' components and returns various component parameters.
 #'
 #' **Fitting function**
 #'
@@ -58,9 +57,9 @@
 #' limits the failed fitting attempts.
 #'
 #' @param fit.method [character] (*with default*):
-#' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
-#' routine from the function [nls] `'LM'` utilises the function `nlsLM` from
-#' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
+#' select the fit method, either `"port"` to use the 'port' routine from
+#' function [nls], or `"LM"` to use the Levenberg-Marquardt algorithm as
+#' implemented in function [minpack.lm::nlsLM].
 #'
 #' @param fit.trace [logical] (*with default*):
 #' traces the fitting process on the terminal.
@@ -142,7 +141,7 @@
 #' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -173,11 +172,10 @@
 #'                    n.components.max = 4,
 #'                    log = "x")
 #'
-#' @md
 #' @export
 fit_CWCurve<- function(
   values,
-  n.components.max,
+  n.components.max = 7,
   fit.failure_threshold = 5,
   fit.method = "port",
   fit.trace = FALSE,
@@ -199,16 +197,18 @@ fit_CWCurve<- function(
 
   .validate_class(values, c("RLum.Data.Curve", "data.frame"))
   .validate_not_empty(values)
-
-  if(is(values, "RLum.Data.Curve") == TRUE){
+  if (inherits(values, "RLum.Data.Curve")) {
     values <- as.data.frame(values@data[, 1:2, drop = FALSE])
+  }
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
   }
 
   ## set x and y values
   x <- values[, 1]
   y <- values[, 2]
 
-  if (sum(y > 0) == 0) {
+  if (sum(y > 0, na.rm = TRUE) == 0) {
     .throw_error("'values' contains no positive counts")
   }
   if (any(order(x) != seq_along(x))) {
@@ -227,23 +227,12 @@ fit_CWCurve<- function(
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"CW-OSL Curve Fit"}
-
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-  {"Time [s]"}
-
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {paste("OSL [cts/",round(max(x)/length(x), digits = 2)," s]",sep="")}
-
+  main <- extraArgs$main %||% "CW-OSL Curve Fit"
+  log <- extraArgs$log %||% ""
+  xlab <- extraArgs$xlab %||% "Time [s]"
+  ylab <- extraArgs$ylab %||% paste0("OSL [cts/", round(max(x) / length(x), digits = 2), " s]")
   method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
                                val = method_control)
-
-  if ("output.path" %in% names(extraArgs))
-    .throw_warning("Argument 'output.path' no longer supported, ignored")
 
   ##============================================================================##
   ## FITTING
@@ -251,10 +240,8 @@ fit_CWCurve<- function(
   ##
   ##////equation used for fitting////(start)
   fit.equation <- function(I0.i,lambda.i){
-    equation<-parse(
-      text=paste("I0[",I0.i,"]*lambda[",lambda.i,"]*exp(-lambda[",lambda.i,"]*x)",
-                 collapse="+",sep=""))
-    return(equation)
+    parse(text = paste0("I0[", I0.i, "] * lambda[", lambda.i,
+                        "] * exp(-lambda[", lambda.i ,"] * x)", collapse = "+"))
   }
   ##////equation used for fitting///(end)
 
@@ -262,7 +249,6 @@ fit_CWCurve<- function(
   ## the upper two funtions should be removed ... but chances are needed ... TODO
   ##////equation used for fitting////(start)
   fit.formula <- function(n.components){
-
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
     stats::as.formula(paste0("y ~ ", paste(I0," * ", lambda,
@@ -273,7 +259,6 @@ fit_CWCurve<- function(
 
   ##////equation used for fitting////(start)
   fit.formula.simple <- function(n.components){
-
     I0 <- paste0("I0.",1:n.components)
     lambda <- paste0("lambda.",1:n.components)
     stats::as.formula(paste0("y ~ ", paste(I0," * exp(-",lambda," * x)",
@@ -282,19 +267,24 @@ fit_CWCurve<- function(
   ##////equation used for fitting///(end)
 
   ##set variables
+  fit <- NULL
   keep.fitting <- TRUE # set to FALSE if the fitting should be stopped early
   n.components <- 1 #number of components used for fitting - start with 1
   fit.failure_counter <- 0 #counts the failed fitting attempts
 
-  ##if n.components_max is missing, then it is Inf
-  if(missing(n.components.max)==TRUE){n.components.max<-Inf}
+  ## set n.components.max it to the maximum value that can be
+  ## fitted given the data size (issue #953), up to a maximum of 7 components
+  n.fittable <- max(nrow(values) - 3, 1)
+  n.components.max <- min(n.components.max, n.fittable, 7)
 
   ##
   ##++++Fitting loop++++(start)
   while(keep.fitting && n.components <= n.components.max) {
-
     ##(0) START PARAMETER ESTIMATION
     ##rough automatic start parameter estimation
+
+    if (fit.trace)
+      cat("n.component:", n.components, "/", n.components.max, "\n")
 
     ##I0
     I0<-rep(values[1,2]/3,n.components)
@@ -305,7 +295,8 @@ fit_CWCurve<- function(
     ##estimation and fit an linear function a first guess
     temp.values <- data.frame(x[y > 0], log(y[y > 0]))
 
-    temp <- stats::lm(temp.values)
+    temp <- tryCatch(stats::lm(temp.values),
+                     error = function(e) .throw_error(e$message))
     lambda<-abs(temp$coefficient[2])/nrow(values)
 
     k<-2
@@ -317,7 +308,6 @@ fit_CWCurve<- function(
 
     ##(1) FIRST FIT WITH A SIMPLE FUNCTION
     if(fit.method == "LM"){
-
       ##try fit simple
       fit.try<-suppressWarnings(try(minpack.lm::nlsLM(fit.formula.simple(n.components),
                                           data=values,
@@ -330,9 +320,7 @@ fit_CWCurve<- function(
                                     silent = TRUE
       ))#end try
 
-
     }else if(fit.method == "port"){
-
       ##try fit simple
       fit.try<-suppressWarnings(try(nls(fit.formula.simple(n.components),
                                         data=values,
@@ -352,7 +340,7 @@ fit_CWCurve<- function(
     }
 
     ##(3) FIT WITH THE FULL FUNCTION
-    if(inherits(fit.try,"try-error") == FALSE){
+    if (!inherits(fit.try, "try-error")) {
 
       ##grep parameters from simple fit to further work with them
       parameters <- coef(fit.try)
@@ -384,7 +372,6 @@ fit_CWCurve<- function(
         }
 
       }else{
-
         ##try fit
         fit.try<-suppressWarnings(try(nls(fit.formula(n.components),
                                           trace=fit.trace,
@@ -405,20 +392,15 @@ fit_CWCurve<- function(
     }
     n.components <- n.components + 1
 
-    ##count failed attempts for fitting
-    if (!inherits(fit.try, "try-error")) {
+    if (!inherits(fit.try, "try-error") || is.null(fit)) {
       fit <- fit.try
-
-    }else{
-      fit.failure_counter <- fit.failure_counter+1
-      if (!exists("fit")) {
-        fit <- fit.try
-      }
     }
 
-    ##stop fitting after a given number of wrong attempts
-    if(fit.failure_counter>=fit.failure_threshold){
-      keep.fitting <- FALSE
+    ## count failed fitting attempts and stop after a given number of attempts
+    if (inherits(fit.try, "try-error")) {
+      fit.failure_counter <- fit.failure_counter + 1
+      if (fit.failure_counter >= fit.failure_threshold)
+        keep.fitting <- FALSE
     }
 
   }##end while
@@ -430,7 +412,7 @@ fit_CWCurve<- function(
 
   ##grep parameters
   output.table <- component.contribution.matrix <- NA
-  if(inherits(fit,"try-error")==FALSE){
+  if (!inherits(fit, "try-error")) {
 
     parameters <- coef(fit)
 
@@ -456,8 +438,8 @@ fit_CWCurve<- function(
     ##calculate stimulation intensity Schmidt (2008)
 
     ##Energy - E = h*v
-    h<-6.62606957e-34 #in W*s^2 - Planck constant
-    ny<-299792458/(LED.wavelength/10^9) #frequency of light
+    h <- .const$h # Planck constant (W*s^2)
+    ny <- .const$c / (LED.wavelength / 10^9) # frequency of light
     E<-h*ny
 
     ## transform LED.power in W/cm²
@@ -481,7 +463,7 @@ fit_CWCurve<- function(
     pR<-round(1-RSS/TSS,digits=4)
 
     if(pR<0){
-      .throw_warning("pseudo-R^2 < 0!")
+      .throw_warning("pseudo-R^2 < 0!") # nocov
     }
 
     ## ---------------------------------------------
@@ -513,23 +495,23 @@ fit_CWCurve<- function(
     ##============================================================================##
 
     if (verbose) {
-
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_CWCurve()]")
-      writeLines(paste("\nFitting was finally done using a ",n.components,
-                       "-component function (max=",n.components.max,"):",sep=""))
+      cat(paste0("\nFitting was finally done using a ", n.components,
+                 "-component function (max=", n.components.max, "):\n"))
       writeLines("------------------------------------------------------------------------------")
       writeLines(paste0("y ~ ", as.character(fit.formula(n.components))[3], "\n"))
 
       ##combine values and change rows names
       fit.results<-cbind(I0,I0.error,lambda,lambda.error,cs, cs.rel)
-      row.names(fit.results)<-paste("c", 1:(length(parameters)/2), sep="")
+      row.names(fit.results) <- paste0("c", 1:(length(parameters) / 2))
 
       ##print parameters
       print(fit.results)
 
       #print some additional information
-      if(fit.calcError==TRUE){writeLines("(errors quoted as 1-sigma values)")}
+      if (fit.calcError)
+        cat("(errors quoted as 1-sigma values)\n")
       writeLines("------------------------------------------------------------------------------")
     }#end if
 
@@ -537,22 +519,17 @@ fit_CWCurve<- function(
     ## Terminal Output (advanced)
     ##============================================================================##
     if (verbose && output.terminalAdvanced) {
-
       ##sum of squares
-      writeLines(paste("pseudo-R^2 = ",pR,sep=""))
+      cat("pseudo-R^2 = ", pR, "\n")
     }#end if
+
     ##============================================================================##
     ## Table Output
     ##============================================================================##
 
     ##write output table if values exists
-    if (exists("fit")){
-
-      ##set data.frame for a max value of 7 components
-      output.table<-data.frame(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-                               NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-                               NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)
-      output.tableColNames<-c("I01","I01.error","lambda1", "lambda1.error",
+    ## set data.frame for a max value of 7 components
+    output.tableColNames <- c("I01","I01.error","lambda1", "lambda1.error",
                               "cs1","cs1.rel",
                               "I02","I02.error","lambda2", "lambda2.error",
                               "cs2","cs2.rel",
@@ -565,29 +542,14 @@ fit_CWCurve<- function(
                               "I06","I06.error","lambda6", "lambda6.error",
                               "cs6","cs6.rel",
                               "I07","I07.error","lambda7", "lambda7.error",
-                              "cs7","cs7.rel"
-      )
+                              "cs7","cs7.rel")
 
-      ##write components in output table
-      i<-0
-      k<-1
-      while(i<=n.components*6){
-        output.table[1,i+1]<-I0[k]
-        output.table[1,i+2]<-I0.error[k]
-        output.table[1,i+3]<-lambda[k]
-        output.table[1,i+4]<-lambda.error[k]
-        output.table[1,i+5]<-cs[k]
-        output.table[1,i+6]<-cs.rel[k]
-        i<-i+6
-        k<-k+1
-      }
-
-      ##add pR and n.components
-      output.table<-cbind(sample_code,n.components,output.table,pR)
-
-      ##alter column names
-      colnames(output.table)<-c("sample_code","n.components",
-                                output.tableColNames,"pseudo-R^2")
+    output.table <- data.frame(matrix(rbind(I0, I0.error, lambda, lambda.error,
+                                            cs, cs.rel),
+                                      nrow = 1))
+    colnames(output.table) <- output.tableColNames[1:ncol(output.table)]
+    output.table <- cbind(sample_code, n.components, output.table,
+                          "pseudo-R^2"=pR)
 
       ##============================================================================##
       ## COMPONENT TO SUM CONTRIBUTION PLOT
@@ -628,7 +590,6 @@ fit_CWCurve<- function(
         k <- seq(3, ncol(component.contribution.matrix), by=2)
 
         while (i<=length(I0)-1) {
-
           y.contribution_next<-I0[i]*lambda[i]*exp(-lambda[i]*x)/(eval(fit.function))*100
 
           ##avoid NaN values
@@ -642,7 +603,6 @@ fit_CWCurve<- function(
           y.contribution_prev <- y.contribution_prev + y.contribution_next
 
           i <- i+1
-
         }#end while loop
       }#end if
 
@@ -662,7 +622,7 @@ fit_CWCurve<- function(
       ##change names of matrix to make more easy to understand
       component.contribution.matrix.names <- c(
         "x", "rev.x",
-        paste(c("y.c","rev.y.c"),rep(1:n.components,each=2), sep=""))
+        paste0(c("y.c", "rev.y.c"), rep(1:n.components, each = 2)))
 
       ##calculate area for each component, for each time interval
       component.contribution.matrix.area <- sapply(
@@ -683,19 +643,15 @@ fit_CWCurve<- function(
       ##set final column names
       colnames(component.contribution.matrix) <- c(
         component.contribution.matrix.names,
-        paste(c("cont.c"),rep(1:n.components,each=1), sep=""),
+        paste0("cont.c", 1:n.components),
         "cont.sum")
-
-    }#endif :: (exists("fit"))
   }
 
   ##============================================================================##
   ## PLOTTING
   ##============================================================================##
   if(plot==TRUE){
-
-    ##grep par parameters
-    par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ##set colors gallery to provide more colors
@@ -704,7 +660,8 @@ fit_CWCurve<- function(
     ##set plot frame
     par(cex = cex.global)
     if(!inherits(fit, "try-error")){
-      layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
+      graphics::layout(matrix(c(1, 2, 3), 3, 1, byrow = TRUE),
+                       c(1.6, 1, 1), c(1, 0.3, 0.4), TRUE)
       par(oma = c(1, 1, 1, 1), mar = c(0, 4, 3, 0))
     }
     ##== upper plot ==##
@@ -718,7 +675,7 @@ fit_CWCurve<- function(
          main=main,
          log = log), silent = TRUE)
 
-    if (is(plot_check, "try-error")) {
+    if (inherits(plot_check, "try-error")) {
       ## reset the graphic device if plotting failed
       .throw_message("Figure margins too large or plot area too small, ",
                      "nothing plotted")
@@ -732,7 +689,7 @@ fit_CWCurve<- function(
     mtext(side=3, sample_code, cex=0.7*cex.global)
 
     ##plot sum function
-    if(inherits(fit,"try-error")==FALSE){
+    if (!inherits(fit, "try-error")) {
       lines(x,eval(fit.function), lwd=2, col="black")
       legend.caption<-"sum curve"
       curve.col <- 1
@@ -746,7 +703,7 @@ fit_CWCurve<- function(
           curve(I0[i]*lambda[i]*exp(-lambda[i]*x),col=col[i+1],
                 lwd = 2,
                 add = TRUE)
-          legend.caption<-c(legend.caption,paste("component ",i,sep=""))
+          legend.caption<- c(legend.caption, paste("component", i))
           curve.col<-c(curve.col,i+1)
         }
       }#end if
@@ -764,10 +721,10 @@ fit_CWCurve<- function(
            col="grey",
            ylab="Residual [a.u.]",
            lwd=2,
-           log=if(log=="x" | log=="xy"){log="x"}else{""}
+           log = gsub("y", "", log),
       ), silent = TRUE)
 
-      if (is(plot_check2, "try-error")) {
+      if (inherits(plot_check2, "try-error")) {
         ## reset the graphic device if plotting failed
         .throw_message("Figure margins too large or plot area too small, ",
                        "nothing plotted")
@@ -820,7 +777,7 @@ fit_CWCurve<- function(
   if (!method_control$export.comp.contrib.matrix) {
     component.contribution.matrix <- NA
   }
-  newRLumResults.fit_CWCurve <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = output.table,
@@ -829,10 +786,4 @@ fit_CWCurve<- function(
     ),
     info = list(call = sys.call())
   )
-
-  rm(fit)
-  rm(output.table)
-  rm(component.contribution.matrix)
-
-  invisible(newRLumResults.fit_CWCurve)
 }

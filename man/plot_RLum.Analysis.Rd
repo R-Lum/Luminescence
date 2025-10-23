@@ -44,11 +44,11 @@ the first and a vertical line at 100 to the 2nd plot.}
 \item{combine}{\link{logical} (\emph{with default}):
 allows to combine all \linkS4class{RLum.Data.Curve} objects in one single plot.}
 
-\item{records_max}{\link{numeric} (\emph{optional}): limits number of records
-shown if \code{combine = TRUE}. Shown are always the first and the last curve,
-the other number of curves to be shown a distributed evenly, this may result
-in fewer curves plotted as specified. This parameter has only
-an effect for  n > 2.}
+\item{records_max}{\link{integer} (\emph{optional}):
+limits number of records shown when \code{combine = TRUE} is used. The first and
+last curves are always shown, the other curves shown are distributed evenly;
+this may result in fewer curves plotted than specified. This argument must
+be at least 2 to have an effect.}
 
 \item{curve.transformation}{\link{character} (\emph{with default}):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
@@ -76,7 +76,7 @@ Returns multiple plots.
 }
 \description{
 The function provides a standardised plot output for curve data of an
-\linkS4class{RLum.Analysis} object
+\linkS4class{RLum.Analysis} object.
 
 The function produces a multiple plot output. A file output is recommended
 (e.g., \link{pdf}).

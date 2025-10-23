@@ -1,6 +1,7 @@
 #' @title Analyse IRSAR RF measurements
 #'
-#' @description Function to analyse IRSAR RF measurements on K-feldspar samples, performed
+#' @description
+#' The function analyses IRSAR RF measurements on K-feldspar samples performed
 #' using the protocol according to Erfurt et al. (2003) and beyond.
 #'
 #' @details The function performs an IRSAR analysis described for K-feldspar samples by
@@ -9,7 +10,6 @@
 #'
 #' **General Sequence Structure** (according to Erfurt et al., 2003)
 #'
-#'
 #' 1. Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
 #' 2. Bleach the samples under solar conditions for at least 30 min without changing the geometry
 #' 3. Waiting for at least one hour
@@ -17,8 +17,7 @@
 #' 5. Fitting data with a stretched exponential function
 #' 6. Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 #'
-#'
-#' Actually three methods are supported to obtain the \eqn{D_{e}}:
+#' Three methods are supported to obtain the \eqn{D_{e}}:
 #' `method = "FIT"`, `method = "SLIDE"` and `method = "VSLIDE"`:
 #'
 #' **`method = "FIT"`**
@@ -48,8 +47,8 @@
 #' **`method = "SLIDE"`**
 #'
 #' For this method, the natural curve is slid along the x-axis until
-#' congruence with the regenerated curve is reached. As opposed to fitting, this
-#' allows working with the original data without the need for any physical
+#' congruence with the regenerated curve is reached. Unlike fitting, this
+#' allows for working with the original data without the need for any physical
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
@@ -60,7 +59,7 @@
 #' **`method = "VSLIDE"`**
 #'
 #' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
-#' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+#' See Kreutzer et al. (2017) and Murari et al. (2021). By default, the vertical sliding
 #' range is set automatically, but can be set manually by changing the
 #' `vslide_range` parameter (see `method_control`).
 #'
@@ -104,19 +103,18 @@
 #' the recommended values is `'auto'`. An optional number (e.g., `cores` = 8) assigns a value manually.
 #' }
 #'
-#'
 #' **Error estimation**
 #'
-#' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 % (lower) and
-#' the 97.5 % (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
+#' For **`method = "FIT"`**, the \eqn{D_{e}} error range is obtained by using
+#' the 2.5 % (lower) and the 97.5 % (upper) quantiles of the \eqn{RF_{nat}}
+#' curve.
 #'
-#' For **`method = "SLIDE"`** and **`method = "VSLIDE"`** the error is obtained
-#' by bootstrapping the residuals of the slid
-#' curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
-#' ways: (a) the standard deviation of the \eqn{D_{e}} obtained from the MC
-#' runs and (b) the confidence
-#' interval using the  2.5 % (lower) and the 97.5 % (upper) quantiles. The results of the MC runs
-#' are returned with the function output.
+#' For **`method = "SLIDE"`** and **`method = "VSLIDE"`**, the error is obtained
+#' by bootstrapping the residuals of the slid curve to construct new natural
+#' curves for a Monte Carlo simulation. The error is returned in two ways:
+#' (a) the standard deviation of the \eqn{D_{e}} obtained from the MC runs and
+#' (b) the confidence interval using the  2.5 % (lower) and the 97.5 % (upper)
+#' quantiles. The results of the MC runs are returned with the function output.
 #'
 #' **Test parameters**
 #'
@@ -147,12 +145,13 @@
 #' the `RF_nat` curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 #' found at all, `Inf` is returned.
 #'
-#' `residuals_slope` [numeric] (default: `NA`; only for `method = "SLIDE"`):
+#' `residuals_slope` [numeric] (default: `NA`; only for `method = "SLIDE"`
+#' and `"VSLIDE`"):
 #'
 #' A linear function is fitted on the residuals after sliding.
 #' The corresponding slope can be used to discard values as a high (positive, negative) slope
 #' may indicate that both curves are fundamentally different and the method cannot be applied at all.
-#' Per default the value of this parameter is calculated but not evaluated.
+#' By default, the value of this parameter is calculated but not evaluated.
 #'
 #' `curves_bounds` [numeric] (default: \eqn{max(RF_{reg_counts})}:
 #'
@@ -162,17 +161,18 @@
 #'
 #' `dynamic_ratio` [numeric] (default: `NA`):
 #'
-#' The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
+#' The dynamic ratio of the regenerated curve is calculated as ratio of the
+#' minimum and maximum count values.
 #'
-#' `lambda`, `beta` and `delta.phi`
-#' [numeric] (default: `NA`; `method = "SLIDE"`):
+#' `lambda`, `beta` and `delta.phi` [numeric] (default: `NA`):
 #'
 #' The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 #' the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 #' For `method = "FIT"` this parameter is obtained during the fitting, for `method = "SLIDE"` a
 #' rather rough estimation is made using the function [minpack.lm::nlsLM] and the equation
-#' given above. Note: As this procedure requests more computation time, setting of one of these three parameters
-#' to `NULL` also prevents a calculation of the remaining two.
+#' given above.
+#' Note: As this procedure requests more computation time, it is performed only
+#' if all three parameters are set.
 #'
 #'
 #' @param object [RLum.Analysis-class] or a [list] of [RLum.Analysis-class]-objects (**required**):
@@ -183,9 +183,10 @@
 #'
 #' @param sequence_structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Allowed steps are `NATURAL` and
-#' `REGENERATED`, and one of each must appear.
+#' `REGENERATED`, and at least one of each must appear.
 #' In addition any other character is allowed in the sequence structure;
-#' such curves will be ignored during the analysis.
+#' such curves will be ignored during the analysis. If `sequence_structure`
+#' is shorter than the number of curves in `object`, it is recycled.
 #'
 #' @param RF_nat.lim [vector] (*with default*):
 #' set minimum and maximum channel range for natural signal fitting and sliding.
@@ -209,17 +210,17 @@
 #' See details.
 #'
 #' @param test_parameters [list] (*with default*):
-#' set test parameters. Supported parameters are: `curves_ratio`, `residuals_slope` (only for
-#' `method = "SLIDE"`), `curves_bounds`, `dynamic_ratio`,
-#' `lambda`, `beta` and `delta.phi`. All input: [numeric]
-#' values, `NA` and `NULL` (see Details).
-#'
-#' (see Details for further information)
+#' set test parameters. Supported parameters are: `curves_ratio`,
+#' `residuals_slope` (only for `method = "SLIDE"` and `"VSLIDE"`),
+#' `curves_bounds`, `dynamic_ratio`, `lambda`, `beta` and `delta.phi`.
+#' All input: [numeric] values, `NA` and `NULL` (see Details for further
+#' information).
 #'
 #' @param n.MC [numeric] (*with default*):
-#' set number of Monte Carlo runs for start parameter estimation (`method = "FIT"`) or
-#' error estimation (`method = "SLIDE"`). This value can be set to `NULL` to skip the
-#' MC runs. Note: Large values will significantly increase the computation time
+#' number of Monte Carlo runs for the estimation of the start parameter
+#' (`method = "FIT"`) or of the error (`method = "SLIDE"` and `"VSLIDE"`).
+#' This value can be set to `NULL` to skip the MC runs.
+#' Note: Large values will significantly increase the computation time.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar during MC runs.
@@ -233,11 +234,10 @@
 #' is returned; it has no effect if `plot = FALSE`
 #'
 #' @param ... further arguments that will be passed to the plot output.
-#' Currently supported arguments are `main`, `xlab`, `ylab`,
+#' Currently supported arguments are `main`, `mtext`, `xlab`, `ylab`,
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in
-#' [graphics::legend]), `xaxt`
-#'
+#' [graphics::legend]), `xaxt`, `verbose` (`TRUE/FALSE`).
 #'
 #' @return
 #' The function returns numerical output and an (*optional*) plot.
@@ -333,68 +333,76 @@
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
-#' [nls], [minpack.lm::nlsLM], `parallel::mclapply`
+#' [nls], [minpack.lm::nlsLM], [parallel::mclapply], [ExampleData.RF70Curves]
 #'
 #'
 #' @references
 #' Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 #' 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
-#' Radiation Measurements 44 (5-6), 560-565. doi: 10.1016/j.radmeas.2012.06.021
+#' Radiation Measurements 44 (5-6), 560-565. \doi{10.1016/j.radmeas.2012.06.021}
 #'
 #' Erfurt, G., Krbetschek, M.R., 2003. IRSAR - A single-aliquot
 #' regenerative-dose dating protocol applied to the infrared radiofluorescence
 #' (IR-RF) of coarse- grain K-feldspar. Ancient TL 21, 35-42.
+#' \doi{10.26034/la.atl.2003.358}
 #'
 #' Erfurt, G., 2003. Infrared luminescence of Pb+ centres in potassium-rich
-#' feldspars. physica status solidi (a) 200, 429-438.
+#' feldspars. physica status solidi (a) 200, 429-438. \doi{10.1002/pssa.200306700}
 #'
 #' Erfurt, G., Krbetschek, M.R., 2003. Studies on the physics of the infrared
 #' radioluminescence of potassium feldspar and on the methodology of its
 #' application to sediment dating. Radiation Measurements 37, 505-510.
+#' \doi{10.1016/s1350-4487(03)00058-1}
 #'
 #' Erfurt, G., Krbetschek, M.R., Bortolot, V.J., Preusser, F., 2003. A fully
 #' automated multi-spectral radioluminescence reading system for geochronometry
 #' and dosimetry. Nuclear Instruments and Methods in Physics Research Section
 #' B: Beam Interactions with Materials and Atoms 207, 487-499.
+#' \doi{10.1016/s0168-583x(03)01121-2}
 #'
 #' Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017.
 #' An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
-#' Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
+#' Quaternary Geochronology 38, 13-24. \doi{10.1016/j.quageo.2016.11.004}
 #'
 #' Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
 #' Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
-#' Ancient TL 35, 20–30.
+#' Ancient TL 35, 20–30. \doi{10.26034/la.atl.2017.510}
 #'
 #' Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
 #' Dose recovery and correction. Radiation Measurements 120, 110–119.
-#' doi: 10.1016/j.radmeas.2018.04.017
+#' doi: 10.1016/j.radmeas.2018.04.017 \doi{10.1016/j.radmeas.2018.04.017}
 #'
 #' Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 #' luminescence measurement facilities in retrospective dosimetry. Radiation
-#' Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
+#' Measurements 47, 803-808.
+#' \doi{10.1016/j.radmeas.2012.02.006}
 #'
 #' Trautmann, T., 2000. A study of radioluminescence kinetics of natural
 #' feldspar dosimeters: experiments and simulations. Journal of Physics D:
 #' Applied Physics 33, 2304-2310.
+#' \doi{10.1088/0022-3727/33/18/315}
 #'
 #' Trautmann, T., Krbetschek, M.R., Dietrich, A., Stolz, W., 1998.
 #' Investigations of feldspar radioluminescence: potential for a new dating
 #' technique. Radiation Measurements 29, 421-425.
+#' \doi{10.1016/s1350-4487(98)00012-2}
 #'
 #' Trautmann, T., Krbetschek, M.R., Dietrich, A., Stolz, W., 1999. Feldspar
 #' radioluminescence: a new dating method and its physical background. Journal
 #' of Luminescence 85, 45-58.
+#' \doi{10.1016/s0022-2313(99)00152-0}
 #'
 #' Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 #' radioluminescence properties of single feldspar grains. Radiation
 #' Measurements 32, 685-690.
+#' \doi{10.1016/s1350-4487(00)00077-9}
 #'
 #' ** Further reading**
 #'
 #' Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
 #' Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
 #' Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
-#' 101155. doi: 10.1016/j.quageo.2021.101155
+#' 101155. \doi{10.1016/j.quageo.2021.101155}
 #'
 #' @keywords datagen
 #'
@@ -406,23 +414,26 @@
 #' ##(1) perform analysis using the method 'FIT'
 #' results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 #'
-#' ##show De results and test paramter results
+#' ##show De results and test parameter results
 #' get_RLum(results, data.object = "data")
 #' get_RLum(results, data.object = "test_parameters")
 #'
 #' ##(2) perform analysis using the method 'SLIDE'
-#' results <- analyse_IRSAR.RF(object = IRSAR.RF.Data, method = "SLIDE", n.MC = 1)
+#' data(ExampleData.RF70Curves, envir = environment())
+#' results <- analyse_IRSAR.RF(
+#' object = RF70Curves,
+#' method = "SLIDE",
+#'  n.MC = 1)
 #'
 #' \dontrun{
-#' ##(3) perform analysis using the method 'SLIDE' and method control option
+#' ##(3) perform analysis using the method 'VSLIDE' and method control option
 #' ## 'trace
 #' results <- analyse_IRSAR.RF(
-#'  object = IRSAR.RF.Data,
-#'  method = "SLIDE",
+#'  object = RF70Curves,
+#'  method = "VSLIDE",
 #'  method_control = list(trace = TRUE))
 #' }
 #'
-#' @md
 #' @export
 analyse_IRSAR.RF<- function(
   object,
@@ -444,11 +455,12 @@ analyse_IRSAR.RF<- function(
   ##TODO
   ## - if a file path is given, the function should try to find out whether an XSYG-file or
   ##   a BIN-file is provided
-  ##  - add NEWS for vslide_range
   ##  - update documentary ... if it works as expected.
 
+  extraArgs <- list(...)
+
   # SELF CALL -----------------------------------------------------------------------------------
-  if(is.list(object)){
+  if (inherits(object, "list")) {
     ## expand input arguments
     rep.length <- length(object)
 
@@ -456,22 +468,17 @@ analyse_IRSAR.RF<- function(
     RF_nat.lim <- .listify(RF_nat.lim, rep.length)
     RF_reg.lim <- .listify(RF_reg.lim, rep.length)
     method <- .listify(method, rep.length)
+    test_parameters <- .listify(test_parameters, rep.length)
     n.MC <- .listify(n.MC, rep.length)
 
-    ##test_parameters
-    if(is(test_parameters[[1]], "list")){
-      test_parameters <- rep(test_parameters, rep.length)
-
-    }else{
-     test_parameters <- rep(list(test_parameters), rep.length)
-    }
-
     ##main
-    if("main"%in% names(list(...))){
-      temp_main <- .listify(list(...)$main, rep.length)
-
+    if ("main" %in% names(extraArgs)) {
+      temp_main <- .listify(extraArgs$main, rep.length)
     }else{
-      originator <- if (length(object) > 0) object[[1]]@originator else NA
+      originator <- if (length(object) > 0) {
+                      .validate_class(object[[1]], "RLum.Analysis",
+                                      name = "All elements of 'object'")
+                      object[[1]]@originator } else NA
       if (!is.na(originator) && originator == "read_RF2R") {
         temp_main <- lapply(object, function(x) x@info$ROI)
       } else {
@@ -503,19 +510,13 @@ analyse_IRSAR.RF<- function(
     ##merge results and check if the output became NULL
     results <- merge_RLum(temp)
 
-    ##DO NOT use invisible here, this will stop the function from stopping
-    if(length(results) == 0){
+    if (length(results) == 0)
       return(NULL)
-
-    }else{
-      return(results)
-    }
+    return(results)
   }
 
-
   ## Integrity checks -------------------------------------------------------
-
-  .validate_class(object, "RLum.Analysis")
+  .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
   .validate_class(sequence_structure, "character")
   .validate_not_empty(object)
   if (length(sequence_structure) < 2) {
@@ -525,11 +526,10 @@ analyse_IRSAR.RF<- function(
     .throw_error("'sequence_structure' must contain one each of 'NATURAL' ",
                  "and 'REGENERATED'")
   }
-  if (!is.null(RF_nat.lim))
-    .validate_class(RF_nat.lim, c("numeric", "integer"))
-  if (!is.null(RF_reg.lim))
-    .validate_class(RF_reg.lim, c("numeric", "integer"))
+  .validate_class(RF_nat.lim, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(RF_reg.lim, c("numeric", "integer"), null.ok = TRUE)
   method <- .validate_args(toupper(method), c("FIT", "SLIDE", "VSLIDE", "NONE"))
+  .validate_class(method_control, "list", null.ok = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   ##SELECT ONLY MEASURED CURVES
@@ -556,17 +556,11 @@ analyse_IRSAR.RF<- function(
   ##name
   record1 <- get_RLum(object, record.id = 1)
   aliquot.sequence_name <- suppressWarnings(get_RLum(record1,
-                                                     info.object = "name"))
-  if (is.null(aliquot.sequence_name)) {
-    aliquot.sequence_name <- NA
-  }
+                                                     info.object = "name")) %||% NA
 
   ##position
   aliquot.position <- suppressWarnings(get_RLum(record1,
-                                                info.object = "position"))
-  if (is.null(aliquot.position)) {
-    aliquot.position <- NA
-  }
+                                                info.object = "position")) %||% NA
 
   ##date
   aliquot.date <- suppressWarnings(get_RLum(record1,
@@ -594,56 +588,48 @@ analyse_IRSAR.RF<- function(
                  "'REGENERATED'")
   }
 
-  ##check if the first curve is shorter than the first curve
-  num.channels.nat <- temp.sequence_structure$n.channels[nat.idx]
-  num.channels.reg <- temp.sequence_structure$n.channels[reg.idx]
-  if (num.channels.nat > num.channels.reg) {
-    .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
-  }
-
   ##===============================================================================================#
   ## SET CURVE LIMITS
   ##===============================================================================================#
-  ##the setting here will be valid for all subsequent operations
 
   ##01
   ## get the allowed curve limits
-  RF_nat.lim.default <- c(1, max(num.channels.nat))
-  RF_reg.lim.default <- c(1, max(num.channels.reg))
+  max.channels.nat <- sum(temp.sequence_structure$n.channels[nat.idx])
+  max.channels.reg <- sum(temp.sequence_structure$n.channels[reg.idx])
+  if (max.channels.nat > max.channels.reg) {
+    .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
+  }
 
   ## 02 - check boundaries
   ##RF_nat.lim
   if (is.null(RF_nat.lim) || anyNA(RF_nat.lim)) {
-    RF_nat.lim <- RF_nat.lim.default
+    RF_nat.lim <- c(1, max.channels.nat)
 
   }else {
     ##this allows to provide only one boundary and the 2nd will be added automatically
     if (length(RF_nat.lim) == 1) {
-      RF_nat.lim <- c(RF_nat.lim, RF_nat.lim.default[2])
+      RF_nat.lim <- c(RF_nat.lim, max.channels.nat)
     }
 
-    if (min(RF_nat.lim) < RF_nat.lim.default[1] |
-        max(RF_nat.lim) > RF_nat.lim.default[2]) {
-      RF_nat.lim <- RF_nat.lim.default
+    if (min(RF_nat.lim) < 1 || max(RF_nat.lim) > max.channels.nat) {
+      RF_nat.lim <- c(1, max.channels.nat)
       .throw_warning("'RF_nat.lim' out of bounds, reset to c(",
                      paste(range(RF_nat.lim), collapse = ":"),")")
     }
   }
 
   ##RF_reg.lim
-  ##
   if (is.null(RF_reg.lim)) {
-    RF_reg.lim <- RF_reg.lim.default
+    RF_reg.lim <- c(1, max.channels.reg)
 
   }else {
     ##this allows to provide only one boundary and the 2nd will be added automatically
     if (length(RF_reg.lim) == 1) {
-      RF_reg.lim <- c(RF_reg.lim, RF_reg.lim.default[2])
+      RF_reg.lim <- c(RF_reg.lim, max.channels.reg)
     }
 
-    if (min(RF_reg.lim) < RF_reg.lim.default[1] |
-        max(RF_reg.lim) > RF_reg.lim.default[2]) {
-      RF_reg.lim <- RF_reg.lim.default
+    if (min(RF_reg.lim) < 1 || max(RF_reg.lim) > max.channels.reg) {
+      RF_reg.lim <- c(1, max.channels.reg)
       .throw_warning("'RF_reg.lim' out of bounds, reset to c(",
                      paste(range(RF_reg.lim), collapse = ":"), ")")
     }
@@ -655,7 +641,7 @@ analyse_IRSAR.RF<- function(
     RF_reg.lim[2] <- RF_reg.lim[2] + abs(len.RF_reg.lim - RF_nat.lim[2]) + 1
 
     ## check that now we haven't gone beyond the size of RF_reg.lim
-    if (RF_reg.lim[2] > RF_reg.lim.default[2]) {
+    if (RF_reg.lim[2] > max.channels.reg) {
       .throw_error("'RF_reg.lim' defines too short an interval and it's not ",
                    "possible to extend it")
     }
@@ -665,8 +651,9 @@ analyse_IRSAR.RF<- function(
   }
 
   ## check again that we can actually slide the curve
-  if (diff(RF_nat.lim) == diff(RF_reg.lim)) {
-    .throw_error("No sliding space left after limitations were applied")
+  if (diff(RF_reg.lim) <= diff(RF_nat.lim)) {
+    .throw_error("The range of regenerated channels should be larger than ",
+                 "the range of natural channels")
   }
 
   # Method Control Settings ---------------------------------------------------------------------
@@ -691,15 +678,14 @@ analyse_IRSAR.RF<- function(
   )
 
   ## deprecated argument
-  if ("method.control" %in% names(list(...))) {
-    method_control <- list(...)$method.control
+  if ("method.control" %in% names(extraArgs)) {
+    method_control <- extraArgs$method.control
     .throw_warning("'method.control' is deprecated, use ",
                    "'method_control' instead")
   }
 
   ##modify list if necessary
   if (!is.null(method_control)) {
-    .validate_class(method_control, "list")
 
     ##check whether this arguments are supported at all
     unsupported.idx <- which(!names(method_control) %in%
@@ -745,6 +731,13 @@ analyse_IRSAR.RF<- function(
       keep.null = TRUE)
   }
 
+  ## control terminal output
+  verbose <- extraArgs$verbose %||% TRUE
+
+  ## don't show the progress bar if not verbose
+  if (!verbose)
+    txtProgressBar <- FALSE
+
 
   ##===============================================================================================#
   ## SET PLOT PARAMETERS
@@ -766,16 +759,16 @@ analyse_IRSAR.RF<- function(
   )
 
   ##modify list if something was set
-  plot.settings <- modifyList(plot.settings, list(...))
+  plot.settings <- modifyList(plot.settings, extraArgs)
+  plot.settings$mtext.cex = 0.7 * plot.settings$cex
 
   ##=============================================================================#
   ## ANALYSIS
   ##=============================================================================#
 
   ##grep first regenerated curve
-  RF_reg <- as.data.frame(object@records[[
-    temp.sequence_structure[temp.sequence_structure$protocol.step=="REGENERATED","id"]]]@data)
-
+  RF_reg <- as.data.frame(rbindlist(lapply(object@records[reg.idx],
+                                           function(x) as.data.frame(x@data))))
     ##correct of the onset of detection by using the first time value
     if (grepl("SLIDE", method) &&
         method_control.settings$correct_onset == TRUE) {
@@ -786,8 +779,8 @@ analyse_IRSAR.RF<- function(
   RF_reg.y <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],2]
 
   ##grep values from natural signal
-  RF_nat <- as.data.frame(object@records[[
-    temp.sequence_structure[temp.sequence_structure$protocol.step=="NATURAL","id"]]]@data)
+  RF_nat <- as.data.frame(rbindlist(lapply(object@records[nat.idx],
+                                           function(x) as.data.frame(x@data))))
 
   ## correct the onset of detection by using the first time value
   if (grepl("SLIDE", method) &&
@@ -800,11 +793,24 @@ analyse_IRSAR.RF<- function(
 
   ##calculate some useful parameters
   RF_nat.mean <- mean(RF_nat.limited[,2])
-  RF_nat.sd <- sd(RF_nat.limited[,2])
-
   RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975, na.rm = TRUE)
   RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025, na.rm = TRUE)
 
+  De <- De.error <- De.lower <- De.upper <- De.MC <- De.diff <- NA
+
+  ## parameter boundaries
+  lower <- c(
+      phi.0 = .Machine$double.xmin,
+      delta.phi = .Machine$double.xmin,
+      lambda = .Machine$double.xmin,
+      beta = .Machine$double.xmin
+  )
+  upper <- c(
+      phi.0 = max(RF_reg.y),
+      delta.phi = max(RF_reg.y),
+      lambda = 1,
+      beta = 100
+  )
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD FIT
@@ -825,9 +831,9 @@ analyse_IRSAR.RF<- function(
 
     fit.parameters.start <- c(
       phi.0 = max(RF_reg.y),
+      delta.phi = 1.5 * (max(RF_reg.y) - min(RF_reg.y)),
       lambda = 0.0001,
-      beta = 1,
-      delta.phi = 1.5 * (max(RF_reg.y) - min(RF_reg.y))
+      beta = 1
     )
 
   if(method == "FIT"){
@@ -835,68 +841,44 @@ analyse_IRSAR.RF<- function(
     # start nls fitting -------------------------------------------------------
 
     ##Monte Carlo approach for fitting
-    fit.parameters.results.MC.results <- data.frame()
+    fit.MC.results <- data.frame()
 
     ##produce set of start paramters
-    phi.0.MC <- rep(fit.parameters.start["phi.0"], n.MC)
-    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC)
-    beta.MC <- rep(fit.parameters.start["beta"], n.MC)
-    delta.phi.MC <- rep(fit.parameters.start["delta.phi"], n.MC)
+    n.MC <- n.MC %||% 0
+    lambda.MC <- seq(0.0001, 0.001, length = n.MC)
+    start.MC <- fit.parameters.start
 
     ##start fitting loop for MC runs
-    for(i in 1:n.MC){
-
+    for (i in seq_len(n.MC)) {
+      start.MC["lambda"] <- lambda.MC[i]
       fit.MC <- try(nls(
         fit.function,
         trace = FALSE,
         data = list(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
-        start = list(
-          phi.0 = phi.0.MC[i],
-          delta.phi = delta.phi.MC[i],
-          lambda = lambda.MC[i],
-          beta = beta.MC[i]
-        ),
         stats::nls.control(
           maxiter = 100,
           warnOnly = FALSE,
           minFactor = 1 / 1024
         ),
-        lower = c(
-          phi.0 = .Machine$double.xmin,
-          delta.phi = .Machine$double.xmin,
-          lambda = .Machine$double.xmin,
-          beta = .Machine$double.xmin
-        ),
-        upper = c(
-          phi.0 = max(RF_reg.y),
-          delta.phi = max(RF_reg.y),
-          lambda = 1,
-          beta = 100
-        )
-      ),
+        start = start.MC,
+        lower = lower,
+        upper = upper),
       silent = TRUE
       )
 
       if(inherits(fit.MC,"try-error") == FALSE) {
-        temp.fit.parameters.results.MC.results <- coef(fit.MC)
-
-        fit.parameters.results.MC.results[i,"phi.0"] <-
-          temp.fit.parameters.results.MC.results["phi.0"]
-        fit.parameters.results.MC.results[i,"lambda"] <-
-          temp.fit.parameters.results.MC.results["lambda"]
-        fit.parameters.results.MC.results[i,"delta.phi"] <-
-          temp.fit.parameters.results.MC.results["delta.phi"]
-        fit.parameters.results.MC.results[i,"beta"] <-
-          temp.fit.parameters.results.MC.results["beta"]
+        fit.MC.coefs <- coef(fit.MC)
+        for (val in c("phi.0", "delta.phi", "lambda", "beta"))
+          fit.MC.results[i, val] <- fit.MC.coefs[val]
       }
     }
 
     ##FINAL fitting after successful MC
-    if (length(stats::na.omit(fit.parameters.results.MC.results)) != 0) {
+    if (length(stats::na.omit(fit.MC.results)) != 0) {
 
       ##choose median as final fit version
-      fit.parameters.results.MC.results <- sapply(stats::na.omit(fit.parameters.results.MC.results), median)
+      fit.MC.results <- sapply(stats::na.omit(fit.MC.results), median)
 
       ##try final fitting
       fit <- try(nls(
@@ -904,36 +886,19 @@ analyse_IRSAR.RF<- function(
         trace = method_control.settings$trace,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
-        start = list(
-          phi.0 = fit.parameters.results.MC.results["phi.0"],
-          delta.phi = fit.parameters.results.MC.results["delta.phi"],
-          lambda = fit.parameters.results.MC.results["lambda"],
-          beta = fit.parameters.results.MC.results["beta"]
-        ),
         stats::nls.control(
           maxiter = method_control.settings$maxiter,
           warnOnly = method_control.settings$warnOnly,
           minFactor = method_control.settings$minFactor
         ),
-        lower = c(
-          phi.0 = .Machine$double.xmin,
-          delta.phi = .Machine$double.xmin,
-          lambda = .Machine$double.xmin,
-          beta = .Machine$double.xmin
-        ),
-        upper = c(
-          phi.0 = max(RF_reg.y),
-          delta.phi = max(RF_reg.y),
-          lambda = 1, beta = 100
-        )
-      ),
+        start = fit.MC.results,
+        lower = lower,
+        upper = upper),
       silent = FALSE
       )
     }else{
-
       fit <- NA
       class(fit) <- "try-error"
-
     }
 
     # get parameters ----------------------------------------------------------
@@ -941,40 +906,26 @@ analyse_IRSAR.RF<- function(
     fit.parameters.results <- NA
     if (!inherits(fit,"try-error")) {
       fit.parameters.results <- coef(fit)
+      residuals <- residuals(fit)
     }
 
     ##calculate De value
-    De <- NA
-    De.error <- NA
-    De.lower <- NA
-    De.upper <- NA
     if (!is.na(fit.parameters.results[1])) {
-      De <- suppressWarnings(round(log(
-        -((RF_nat.mean - fit.parameters.results["phi.0"]) /
+      RF_nat.vals <- c(RF_nat.mean, RF_nat.error.lower, RF_nat.error.upper)
+      De.vals <- suppressWarnings(round(log(
+          -((RF_nat.vals - fit.parameters.results["phi.0"]) /
             -fit.parameters.results["delta.phi"]
         ) ^ (1 / fit.parameters.results["beta"]) + 1
-      ) /
-        -fit.parameters.results["lambda"], digits =
-        2))
+      ) / -fit.parameters.results["lambda"], digits = 2))
+
+      De <- De.vals[1]
+      De.lower <- De.vals[2]
+      De.upper <- De.vals[3]
 
       ##This could be solved with a MC simulation, but for this the code has to be adjusted
       ##The question is: Where the parameters are coming from?
       ##TODO
       De.error <- NA
-
-      De.lower <- suppressWarnings(round(log(
-        -((RF_nat.error.lower - fit.parameters.results["phi.0"]) /
-            -fit.parameters.results["delta.phi"]
-        ) ^ (1 / fit.parameters.results["beta"]) + 1
-      ) /
-        -fit.parameters.results["lambda"],digits = 2))
-
-      De.upper <- suppressWarnings(round(log(
-        -((RF_nat.error.upper - fit.parameters.results["phi.0"]) /
-            -fit.parameters.results["delta.phi"]
-        ) ^ (1 / fit.parameters.results["beta"]) + 1
-      ) /
-        -fit.parameters.results["lambda"],digits = 2))
     }
   }
 
@@ -1005,28 +956,27 @@ analyse_IRSAR.RF<- function(
       ##is used instead the real time values
       t_max.id <- nrow(RF_reg.limited)
       t_max_nat.id <- nrow(RF_nat.limited)
-      t_min.id <- 1
       t_min <- RF_nat.limited[1,1]
 
       ##(1) calculate sum of residual squares using internal Rcpp function
 
       ##initialise slide range for specific conditions, namely NULL and "auto"
+      compute_algorithm_error <- TRUE
       if (is.null(vslide_range)) {
         vslide_range <- 0
 
       } else if (vslide_range[1] == "auto") {
         range <- max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])
         vslide_range <- -range:range
-        algorithm_error <- NA
-
       } else{
         vslide_range <- vslide_range[1]:vslide_range[2]
-        algorithm_error <- NULL
+        compute_algorithm_error <- FALSE
       }
 
       ##problem: the optimisation routine slightly depends on the chosen input sliding vector
       ##and it might get trapped in a local minimum
       ##therefore we run the algorithm by expanding the sliding vector
+      algorithm_error <- NA
       if(!is.null(vslide_range) && any(vslide_range != 0)){
 
         ##construct list of vector ranges we want to check for, this should avoid that we
@@ -1043,11 +993,11 @@ analyse_IRSAR.RF<- function(
         ##the algorithm finds sufficiently the global minimum.
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
-        temp_minimum_list <- lapply(1:num_slide_windows, function(x) {
+        temp_minimum_list <- lapply(vslide_range.list, function(range) {
           src_analyse_IRSARRF_SRS(
             values_regenerated_limited =  RF_reg.limited[,2],
             values_natural_limited = RF_nat.limited[,2],
-            vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
+            vslide_range = vslide_range[range[1]:range[2]],
             n_MC = 0, #we don't need MC runs here, so make it quick
             trace = trace)[c("sliding_vector_min_index","vslide_minimum", "vslide_index")]
         })
@@ -1072,19 +1022,13 @@ analyse_IRSAR.RF<- function(
         ##as somehow systematic uncertainty, but it will be only calculated if the full range
         ##is considered, otherwise it is too biased by the user's choice
         ##ToDo: So far the algorithm error is not sufficiently documented
-        if(!is.null(algorithm_error)){
-          algorithm_error <- sd(vapply(1:length(temp_vslide_indices), function(k){
-            temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
+        if (compute_algorithm_error) {
+          algorithm_error <- sd(vapply(temp_hslide_indices, function(k) {
+            temp.sliding.step <- RF_reg.limited[k] - t_min
             ## return the offset of the t_n values
             RF_nat[1, 1] + temp.sliding.step
-          }, FUN.VALUE = numeric(length = 1)))
-
-        }else{
-         algorithm_error <- NA
+          }, FUN.VALUE = numeric(1)))
         }
-
-      }else{
-        algorithm_error <- NA
       }
 
       ##now run the final sliding with the identified range that corresponds to the minimum value
@@ -1093,7 +1037,7 @@ analyse_IRSAR.RF<- function(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
           vslide_range = vslide_range,
-          n_MC = if(is.null(n.MC)) 0 else n.MC,
+          n_MC = n.MC %||% 0,
           trace = trace
       )
 
@@ -1101,11 +1045,7 @@ analyse_IRSAR.RF<- function(
       index_min <- which.min(temp.sum.residuals$sliding_vector)
       if(length(index_min) == 0) t_n.id <- 1 else t_n.id <- index_min
 
-      I_n <- 0
-      if (!is.null(vslide_range)) {
-        I_n <- vslide_range[temp.sum.residuals$vslide_index]
-      }
-
+      I_n <- vslide_range[temp.sum.residuals$vslide_index] %||% 0
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later
@@ -1113,32 +1053,25 @@ analyse_IRSAR.RF<- function(
       t_n <- RF_nat.slid[1,1]
 
       ##the same for the MC runs of the minimum values
+      t_n.MC <- NA_integer_
       if(!is.null(n.MC)) {
         t_n.MC <-
           vapply(
-            X = 1:length(temp.sum.residuals$sliding_vector_min_MC),
+            X = temp.sum.residuals$sliding_vector_min_MC,
             FUN = function(x) {
               ##get minimum for MC
-              t_n.id.MC <- which(temp.sum.residuals$sliding_vector ==
-                                 temp.sum.residuals$sliding_vector_min_MC[x])
+              t_n.id.MC <- which(temp.sum.residuals$sliding_vector == x)
 
               ## there is a non-zero chance that we have got two indices for
               ## the minimun, so we take the mean
-              temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
-              t_n.MC <- (RF_nat[, 1] + mean(temp.sliding.step.MC))[1]
-
-              return(t_n.MC)
+              RF_nat[1, 1] + mean(RF_reg.limited[t_n.id.MC]) - t_min
             },
-            FUN.VALUE = vector(mode = "numeric", length = 1)
-          )
-
-      } else{
-        t_n.MC <- NA_integer_
+            FUN.VALUE = numeric(1))
       }
 
       ##(4) get residuals (needed to be plotted later)
       ## they cannot be longer than the RF_reg.limited curve
-      reg.limited.idx <- t_n.id:nrow(RF_reg.limited)
+      reg.limited.idx <- t_n.id:t_max.id
       len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
       residuals <- (RF_nat.limited[1:len.shorter, 2] + I_n) -
         RF_reg.limited[reg.limited.idx[1:len.shorter], 2]
@@ -1176,7 +1109,6 @@ analyse_IRSAR.RF<- function(
 
     }##end of function sliding()
 
-
     ##PERFORM sliding and overwrite values
     slide <-  sliding(
       RF_nat = RF_nat,
@@ -1196,10 +1128,8 @@ analyse_IRSAR.RF<- function(
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
     ##(i.e., bootstrap from the natural curve distribution)
 
-    De.diff <- De.error <- De.lower <- De.upper <- De.MC <- NA_integer_
     if(!is.null(n.MC)){
-      slide.MC.list <- lapply(1:n.MC,function(x) {
-
+      slide.MC.list <- lapply(1:n.MC, function(dummy) {
         reg.limited.idx <- slide$t_n.id:nrow(RF_reg.limited)
         len.shorter <- min(nrow(RF_nat.limited), length(reg.limited.idx))
         cbind(RF_nat.limited[1:len.shorter, 1],
@@ -1237,9 +1167,9 @@ analyse_IRSAR.RF<- function(
           cores <- 1
         }
 
-        ##return message
-        message("[analyse_IRSAR.RF()] Using ", cores,
-                ifelse(cores == 1, " core", " cores"), " ...")
+        if (verbose)
+          .throw_message("Using ", cores, ifelse(cores == 1, " core", " cores"),
+                         " ...", error = FALSE)
       }
 
       ## SINGLE CORE -----
@@ -1352,25 +1282,23 @@ analyse_IRSAR.RF<- function(
       IR_RF_reg.corresponding_id <- which.min(abs(RF_reg[,2] - IR_RF_nat.max))
 
       ##(3) calculate ratio, but just starting from the point where both curves correspond
-      ##in terms of intensiy, otherwise the ratio cannot be correct
+      ##in terms of intensity, otherwise the ratio cannot be correct
 
       ##the boundary check is necessary to avoid errors
-      if((IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2])) > length(RF_reg[,2])){
+      len.RF_nat.lim <- length(RF_nat.lim[1]:RF_nat.lim[2])
+      if (IR_RF_reg.corresponding_id + len.RF_nat.lim > length(RF_reg[, 2])) {
         TP$intersection_ratio$VALUE <- Inf
 
       }else{
-
+      this.idx <- IR_RF_reg.corresponding_id + c(1:len.RF_nat.lim) - 1
       TP$intersection_ratio$VALUE <-
-        abs(1 - sum((RF_nat.limited[, 2] / max(RF_nat.limited[, 2]))) /
-              sum(RF_reg[IR_RF_reg.corresponding_id:(IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2]) - 1), 2] /
-                    max(RF_reg[IR_RF_reg.corresponding_id:(IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2]) - 1), 2])))
+        abs(1 - sum(RF_nat.limited[, 2] / IR_RF_nat.max) /
+            sum(RF_reg[this.idx, 2] / max(RF_reg[this.idx, 2])))
 
       if (!is.na(TP$intersection_ratio$THRESHOLD)) {
         TP$intersection_ratio$STATUS <-
           ifelse(TP$intersection_ratio$VALUE > TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
       }
-
-      rm(IR_RF_nat.max, IR_RF_reg.corresponding_id)
       }
     }
 
@@ -1392,7 +1320,7 @@ analyse_IRSAR.RF<- function(
   if ("dynamic_ratio"%in%names(TP)){
     TP.dynamic_ratio <- subset(temp.sequence_structure,
                                temp.sequence_structure$protocol.step == "REGENERATED")
-    TP$dynamic_ratio$VALUE <- TP.dynamic_ratio$y.max/TP.dynamic_ratio$y.min
+    TP$dynamic_ratio$VALUE <- min(TP.dynamic_ratio$y.max / TP.dynamic_ratio$y.min)
 
     if (!is.na(TP$dynamic_ratio$THRESHOLD)){
       TP$dynamic_ratio$STATUS  <- ifelse(
@@ -1400,42 +1328,26 @@ analyse_IRSAR.RF<- function(
     }
   }
 
-
   ##(4) decay parameter
   ##TP$lambda
-  if ("lambda"%in%names(TP) & "beta"%in%names(TP) & "delta.phi"%in%names(TP)){
+  if (all(c("lambda", "beta", "delta.phi") %in% names(TP))) {
 
     fit.lambda <- try(minpack.lm::nlsLM(
         fit.function,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "LM",
-        start = list(
-          phi.0 = fit.parameters.start["phi.0"],
-          delta.phi = fit.parameters.start["delta.phi"],
-          lambda = fit.parameters.start["lambda"],
-          beta = fit.parameters.start["beta"]
-        ),
-        lower = c(
-          phi.0 = .Machine$double.xmin,
-          delta.phi = .Machine$double.xmin,
-          lambda = .Machine$double.xmin,
-          beta = .Machine$double.xmin
-        ),
-        upper = c(
-          phi.0 = max(RF_reg.y),
-          delta.phi = max(RF_reg.y),
-          lambda = 1, beta = 100
-        )
-      ),
+        start = fit.parameters.start,
+        lower = lower,
+        upper = upper),
     silent = TRUE
     )
 
     if(!inherits(fit.lambda, "try-error")){
        temp.coef <- coef(fit.lambda)
 
-       TP$lambda$VALUE <- temp.coef["lambda.lambda"]
-       TP$beta$VALUE <- temp.coef["beta.beta"]
-       TP$delta.phi$VALUE <- temp.coef["delta.phi.delta.phi"]
+       TP$lambda$VALUE <- temp.coef["lambda"]
+       TP$beta$VALUE <- temp.coef["beta"]
+       TP$delta.phi$VALUE <- temp.coef["delta.phi"]
 
        if (!is.na( TP$lambda$THRESHOLD)){
         TP$lambda$STATUS <- ifelse(TP$lambda$VALUE <= TP$lambda$THRESHOLD, "FAILED", "OK")
@@ -1462,7 +1374,6 @@ analyse_IRSAR.RF<- function(
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
        }
 
-
     }else if(exists("fit")){
       TP$curves_bounds$VALUE <- De.upper
 
@@ -1471,7 +1382,6 @@ analyse_IRSAR.RF<- function(
       }
     }
   }
-
 
   ##Combine everything in a data.frame
   De.status <- "OK"
@@ -1497,61 +1407,32 @@ analyse_IRSAR.RF<- function(
   # Plotting ------------------------------------------------------------------------------------
   ##===============================================================================================#
   if (plot) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
 
     ##get internal colour definition
     col <- get("col", pos = .LuminescenceEnv)
 
-    if (!plot_reduced) {
-
-      ##grep par default and define reset
-      def.par <- par(no.readonly = TRUE)
-      on.exit(par(def.par), add = TRUE)
-
-      ##set plot frame, if a method was chosen
-      if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
-        layout(matrix(c(1, 2), 2, 1, byrow = TRUE), c(2), c(1.3, 0.4), TRUE)
-        par(
-          oma = c(1, 1, 1, 1),
-          mar = c(0, 4, 3, 0),
-          cex = plot.settings$cex
-        )
-      }
-    }else{
-      if(plot.settings[["cex"]] != 1){
-        def.par <- par()[["cex"]]
-        on.exit(par(def.par), add = TRUE)
-
-        par(cex = plot.settings[["cex"]])
-
-      }
+    if (!plot_reduced && method != "NONE") {
+        graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
+        par(mar = c(0, 4, 3, 1))
     }
+    par(cex = plot.settings[["cex"]])
 
     ##here control xlim and ylim behaviour
-    ##xlim
-    xlim  <- if ("xlim" %in% names(list(...))) {
-      list(...)$xlim
-    } else
-    {
-      if (plot.settings$log == "x" | plot.settings$log == "xy") {
-        c(min(temp.sequence_structure$x.min),max(temp.sequence_structure$x.max))
-
-      }else{
-        c(0,max(temp.sequence_structure$x.max))
-
-      }
-    }
-
-    ##ylim
-    ylim  <- if("ylim" %in% names(list(...))) {list(...)$ylim} else
-    {c(min(temp.sequence_structure$y.min), max(temp.sequence_structure$y.max))}
+    xlim <- extraArgs$xlim %||% c(if (grepl("x", plot.settings$log))
+                                    min(temp.sequence_structure$x.min) else 0,
+                                  max(temp.sequence_structure$x.max))
+    ylim <- extraArgs$ylim %||% c(min(temp.sequence_structure$y.min),
+                                  max(temp.sequence_structure$y.max))
 
     ##open plot area
     plot(
       NA,NA,
       xlim = xlim,
       ylim = ylim,
-      xlab = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xlab," "),
-      xaxt = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xaxt,"n"),
+      xlab = ifelse(method == "NONE" || plot_reduced, plot.settings$xlab, " "),
+      xaxt = ifelse(method == "NONE" || plot_reduced, plot.settings$xaxt, "n"),
       yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
@@ -1569,7 +1450,7 @@ analyse_IRSAR.RF<- function(
       ##print mtext
       mtext(text = mtext.message,
             side = 3, outer = TRUE, col = "red",
-            cex = 0.8 * par()[["cex"]])
+            cex = plot.settings$mtext.cex)
       .throw_warning(mtext.message)
     }
 
@@ -1584,10 +1465,15 @@ analyse_IRSAR.RF<- function(
     points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
 
     ##show natural points if no analysis was done
-    if(!any(method %in% c("SLIDE", "FIT", "VSLIDE"))){
+    if (method == "NONE") {
       ##add points
       points(RF_nat, pch = 20, col = "grey")
       points(RF_nat.limited, pch = 20, col = "red")
+
+      ## subtitle
+      if ("mtext" %in% names(extraArgs)) {
+        mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
+      }
 
       ##legend
       if (plot.settings$legend) {
@@ -1598,17 +1484,16 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
     }
-
 
     ##Add fitted curve, if possible. This is a graphical control that might be considered
     ##as useful before further analysis will be applied
     if (method_control.settings$show_fit) {
 
-      if(!is(fit.lambda, "try-error")){
+      if (!inherits(fit.lambda, "try-error")) {
         fit.lambda_coef <- coef(fit.lambda)
 
         curve(fit.lambda_coef[[1]]-
@@ -1673,7 +1558,7 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
 
@@ -1683,7 +1568,6 @@ analyse_IRSAR.RF<- function(
 
       ##plot De if De was calculated
       if(is.na(De) == FALSE & is.nan(De) == FALSE){
-
         lines(c(0,De.lower), c(RF_nat.error.lower,RF_nat.error.lower), lty=2, col="grey")
         lines(c(0,De), c(RF_nat.mean,RF_nat.mean), lty=2, col="red")
         lines(c(0,De.upper), c(RF_nat.error.upper,RF_nat.error.upper), lty=2, col="grey")
@@ -1699,60 +1583,21 @@ analyse_IRSAR.RF<- function(
       mtext.txt <-  substitute(D[e] == De,
                                list(De = paste0(De, " [", De.lower,
                                                 " ; ", De.upper,"]")))
-      if(is.na(De) != TRUE & (is.nan(De) == TRUE |
-                              De > max(RF_reg.x) |
-                              De.upper > max(RF_reg.x))){
-
+      if (!is.na(De) && max(De, De.upper) > max(RF_reg.x)) {
         try(mtext(side=3, mtext.txt,
-                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
+                  line = 0, cex = plot.settings$mtext.cex, col = "red"),
+            silent = TRUE)
         De.status <- "VALUE OUT OF BOUNDS"
 
       } else{
-
-        if ("mtext" %in% names(list(...))) {
-          mtext(side = 3, list(...)$mtext)
+        if ("mtext" %in% names(extraArgs)) {
+          mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
         }else{
           try(mtext(side = 3, mtext.txt,
-                    line = 0, cex = 0.7 * par()[["cex"]]), silent = TRUE)
+                    line = 0, cex = plot.settings$mtext.cex), silent = TRUE)
         }
 
         De.status <- "OK"
-      }
-
-      if (!plot_reduced) {
-
-        ##==lower plot==##
-        par(mar = c(4.2, 4, 0, 0))
-
-        ##plot residuals
-        if (is.na(fit.parameters.results[1]) == FALSE) {
-          plot(
-            RF_reg.x,
-            residuals(fit),
-            xlim = c(0, max(temp.sequence_structure$x.max)),
-            xlab = plot.settings$xlab,
-            yaxt = "n",
-            xaxt = plot.settings$xaxt,
-            type = "p",
-            pch = 20,
-            col = "grey",
-            ylab = "E",
-            log = ""
-          )
-
-          ##add 0 line
-          abline(h = 0)
-        } else{
-          plot(NA, NA,
-            xlim = c(0, max(temp.sequence_structure$x.max)),
-            ylab = "E",
-            xlab = plot.settings$xlab,
-            xaxt = plot.settings$xaxt,
-            ylim = c(-1, 1)
-          )
-          text(x = max(temp.sequence_structure$x.max) / 2,
-               y = 0, "Fitting Error!")
-        }
       }
     }
 
@@ -1761,7 +1606,7 @@ analyse_IRSAR.RF<- function(
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     else if(method == "SLIDE" || method == "VSLIDE"){
       ##(0) density plot
-      if (method_control.settings$show_density) {
+      if (method_control.settings$show_density && !is.null(n.MC)) {
         ##showing the density makes only sense when we see at least 10 data points
         if (!anyNA(De.MC) && length(unique(De.MC)) >= 15) {
 
@@ -1849,7 +1694,6 @@ analyse_IRSAR.RF<- function(
         )
       }
 
-
       ##TODO
       ##uncomment here to see all the RF_nat curves produced by the MC runs
       ##could become a polygone for future versions
@@ -1867,121 +1711,117 @@ analyse_IRSAR.RF<- function(
           col = c("red", col[10]),
           horiz = TRUE,
           bty = "n",
-          cex = .9 * par()[["cex"]]
+          cex = 0.9
         )
       }
-
 
       ##write information on the De in the plot
-      if("mtext" %in% names(list(...))) {
-
-        mtext(side = 3, list(...)$mtext)
-
+      if("mtext" %in% names(extraArgs)) {
+        mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
       }else{
-
         try(mtext(side=3,
                   substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
-                  line=0,
-                  cex=0.7 * par()[["cex"]]),
+                  line = 0, cex = plot.settings$mtext.cex),
             silent=TRUE)
       }
+    }
 
-      if (!plot_reduced) {
-        ##==lower plot==##
-        ##RESIDUAL PLOT
-        par(mar = c(4, 4, 0, 0))
+    if (!plot_reduced && method != "NONE") {
+      ## lower plot of residuals
+      par(mar = c(4.2, 4, 0, 1))
 
-        plot(
+      fit.error <- method == "FIT" && is.na(fit.parameters.results[1])
+      plot(
           NA,
           NA,
-          ylim = range(residuals),
           xlim = xlim,
+          ylim = if (fit.error) c(-1, 1) else range(residuals),
           xlab = plot.settings$xlab,
-          type = "p",
-          pch = 1,
-          col = "grey",
-          xaxt = plot.settings$xaxt,
           ylab = "E",
+          xaxt = plot.settings$xaxt,
           yaxt = "n",
-          log = ifelse(
-            plot.settings$log == "y" |
-              plot.settings$log == "xy",
-            "",
-            plot.settings$log
-          )
-        )
+          type = "p",
+          log = gsub("y", "", plot.settings$log)
+      )
 
-        ##add axis for 0 ... means if the 0 is not visible there is labelling
-        axis(side = 4,
-             at = 0,
-             labels = 0)
+      if (!fit.error) {
+        ## add axis for 0 ... means if the 0 is not visible there is labelling
+        axis(side = 4, at = 0, labels = 0)
 
-        ##add residual indicator (should circle around 0)
-        col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
-        col.polygon <- col.ramp(100)
-
-        if (plot.settings$log != "x") {
-          shape::filledrectangle(
-            mid = c((xlim[2]) + (par("usr")[2] - xlim[2]) / 2,
-                    max(residuals) - diff(range(residuals)) / 2),
-            wx = par("usr")[2] - xlim[2],
-            wy = diff(range(residuals)),
-            col = col.polygon
-          )
-        }
-        ##add 0 line
-        abline(h = 0, lty = 3)
-
-        ##0-line indicator and arrows if this is not visible
-        ##red colouring here only if the 0 point is not visible to avoid too much colouring
-        if (max(residuals) < 0 &
-            min(residuals) < 0) {
-          angle <- 270
-          y0 <- max(residuals)
-        } else if (max(residuals) > 0 & min(residuals) > 0) {
-          angle <- 90
-          y0 <- min(residuals)
+        ## add residual points
+        if (method == "FIT") {
+          points(RF_reg.x, residuals, pch = 20, col = "grey")
         } else {
-          angle <- NA
-          points(xlim[2], 0, pch = 3)
+          temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
+                                  length(residuals), 0)
+          points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
+                 residuals, pch = 20, col = rgb(0, 0, 0, 0.4))
+
+          ## add residual indicator (should circle around 0)
+          col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
+          col.polygon <- col.ramp(100)
+
+          xright <- if (grepl("x", plot.settings$log)) 10^par("usr")[2] else par("usr")[2]
+          shape::filledrectangle(
+                     mid = c((xlim[2] + xright) / 2,
+                             max(residuals) - diff(range(residuals)) / 2),
+                     wx = xright - xlim[2],
+                     wy = diff(range(residuals)),
+                     col = col.polygon
+                 )
+
+          ## 0-line indicator and arrows if this is not visible
+          ## red colouring here only if the 0 point is not visible to avoid too much colouring
+          if (max(residuals) < 0) {
+            ## draw arrow pointing down
+            angle <- 270
+            y0 <- max(residuals)
+          } else if (min(residuals) > 0) {
+            ## draw arrow pointing up
+            angle <- 90
+            y0 <- min(residuals)
+          } else { # min < 0, max > 0
+            ## draw no arrow, only a + sign
+            angle <- NA
+            points(xlim[2], 0, pch = 3)
+          }
+          if (!is.na(angle)) {
+            shape::Arrowhead(
+                       x0 = xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+                       y0 = y0,
+                       angle = angle,
+                       lcol = col[2],
+                       arr.length = 0.4,
+                       arr.type = "triangle",
+                       arr.col = col[2]
+                   )
+          }
+
+          ## add 0 line
+          abline(h = 0, lty = 3)
+
+          ## add vertical line to mark De (t_n)
+          abline(v = De, lty = 2, col = col[2])
+
+          ## add numeric value of De ... t_n
+          axis(side = 1,
+               at = De,
+               labels = De,
+               cex.axis = 0.8,
+               col = "blue",
+               padj = -1.55)
         }
-        if (!is.na(angle)) {
-          shape::Arrowhead(
-            x0 = xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-            y0 = y0,
-            angle = angle,
-            lcol = col[2],
-            arr.length = 0.4,
-            arr.type = "triangle",
-            arr.col = col[2]
-          )
-        }
+      } else {
+        text(x = (par()$usr[2] - par()$usr[1]) / 2,
+             y = 0, "Fitting Error!")
+      }
+    }
 
-        ##add residual points
-        temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
-                                length(residuals), 0)
-        points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
-                 residuals,
-                 pch = 20,
-                 col = rgb(0, 0, 0, 0.4))
-
-        ##add vertical line to mark De (t_n)
-        abline(v = De, lty = 2, col = col[2])
-
-        ##add numeric value of De ... t_n
-        axis(
-          side = 1,
-          at = De,
-          labels = De,
-          cex.axis = 0.8 * plot.settings$cex,
-          col = "blue",
-          padj = -1.55,
-        )
-
-        ##TODO- CONTROL PLOT! ... can be implemented in appropriate form in a later version
-        if (method_control.settings$trace) {
-          par(new = TRUE)
-          plot(
+    ## TODO: CONTROL PLOT! can be implemented in appropriate form in a later version
+    if (method %in% c("SLIDE", "VSLIDE")) {
+      if (method_control.settings$trace) {
+        par(new = TRUE)
+        plot(
             RF_reg.limited[1:length(slide$squared_residuals),1],
             slide$squared_residuals,
             ylab = "",
@@ -1992,21 +1832,13 @@ analyse_IRSAR.RF<- function(
             xlim = xlim,
             ylim = ylim,
             log = "y"
-          )
-        }
+        )
       }
     }
-
   }#endif::plot
 
   # Return --------------------------------------------------------------------------------------
   ##catch up worst case scenarios ... means something went wrong
-  if(!exists("De")){De  <- NA}
-  if(!exists("De.error")){De.error  <- NA}
-  if(!exists("De.MC")){De.MC  <- NA}
-  if(!exists("De.lower")){De.lower  <- NA}
-  if(!exists("De.upper")){De.upper  <- NA}
-  if(!exists("De.status")){De.status  <- NA}
   if (!exists("fit")) {
     fit  <- list()
     if (exists("fit.lambda")) {
@@ -2014,6 +1846,9 @@ analyse_IRSAR.RF<- function(
     }
   }
   if(!exists("slide")){slide <- list()}
+
+  ##generate unique identifier
+  UID <- create_UID()
 
   ##combine values for De into a data frame
   De.values <- data.frame(
@@ -2027,23 +1862,17 @@ analyse_IRSAR.RF<- function(
       POSITION =  as.integer(aliquot.position),
       DATE = aliquot.date,
       SEQUENCE_NAME = aliquot.sequence_name,
-      UID = NA,
+      UID = UID,
     row.names = NULL,
     stringsAsFactors = FALSE
   )
-
-  ##generate unique identifier
-  UID <- create_UID()
-
-    ##update data.frames accordingly
-    De.values$UID <- UID
 
     if(!is.null(TP.data.frame)){
       TP.data.frame$UID <- UID
     }
 
   ##produce results object
-    newRLumResults.analyse_IRSAR.RF <- set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         data = De.values,
@@ -2053,7 +1882,5 @@ analyse_IRSAR.RF<- function(
         slide = slide
       ),
       info = list(call = sys.call())
-    )
-
-  invisible(newRLumResults.analyse_IRSAR.RF)
+  )
 }

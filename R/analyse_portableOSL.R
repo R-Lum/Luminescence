@@ -13,7 +13,11 @@
 #' channels (same number of channels as specified by `signal.integral`) is
 #' divided by cumulative signal of the first *n* channels (`signal.integral`).
 #'
-#' **Note:  The function assumes the following sequence pattern: `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`. If you have written a different sequence, the analysis function will (likely) not work!**.
+#' **Note:  The function assumes the following sequence pattern:
+#' `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`.** Therefore, the
+#' total number of curves in the input object must be a multiple of 5, and
+#' there must be 3 `DARK_COUNT` records for each IRSL/BSL pair. If you have used
+#' a different sequence, the function will produce an error.
 #'
 #' **Signal processing**
 #' The function processes the signals as follows: `BSL` and `IRSL` signals are extracted using the
@@ -28,12 +32,12 @@
 #' strict and has to follow the scheme `_x:<number>|y:<number>`. Example:
 #' `sample_x:0.2|y:0.4`.
 #'
-#' * (2) Alternatively, you can provide a [list] or [matrix] with the sample coordinates.
+#' * (2) Alternatively, you can provide a [list] or [matrix] with the *(x, y)*
+#' coordinates of each sample in meters (m) using the `coord` argument:
 #' Example: `coord = list(c(0.2, 1), c(0.3,1.2))`
 #'
-#' Please note that the unit is meter (m) and the function expects always xy-coordinates.
-#' The latter one is useful for surface interpolations. If you have measured a profile where
-#' the x-coordinates were not measured, x-coordinates should be 0.
+#' If in your profile the x-coordinates were not measured, *x* should be set
+#' to 0. Note that, in such case, a surface plot cannot be produced.
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' object produced by [read_PSL2R]. The input can be a [list] of such objects,
@@ -56,22 +60,28 @@
 #' analysis mode, one of `"profile"` (the default) or `"surface"` for surface
 #' interpolation.
 #'
-#' @param coord [list] [matrix] (*optional*): a list or matrix of the same length as
-#' number of samples measured with coordinates for the sampling positions. Coordinates
-#' are expected to be provided in meter (unit: m).
-#' Expected are x and y coordinates, e.g.,
-#' `coord = list(samp1 = c(0.1, 0.2)`. If you have not measured x coordinates, please x should be 0.
+#' @param coord [list] [matrix] (*optional*): a list or a 2-column matrix
+#' with the *x* and *y* coordinates for the sampling positions in meters (m),
+#' of the same length as the number of samples measured. For example, the
+#' coordinates for one sample could be `coord = list(samp1 = c(0.1, 0.2)`.
+#' If the *x* coordinates were not measured, *x* should be set to 0.
+#' Note that, in such case, a surface plot cannot be produced.
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param ... other parameters to be passed to modify the plot output.
 #' Supported are `run` to provide the run name (if the input is a `list`, this
-#' is set automatically). Further plot parameters are
-#' `surface_values` ([character] with value to plot), `legend` (`TRUE`/`FALSE`), `col_ramp` (for
-#' surface mode), `contour` (contour lines `TRUE`/`FALSE` in surface mode), `grid` (`TRUE`/`FALSE`), `col`, `pch` (for profile mode), `xlim` (a name [list] for profile mode), `ylim`,
-#' `zlim` (surface mode only), `ylab`, `xlab`, `zlab` (here x-axis labelling), `main`, `bg_img` (for
-#' profile mode background image, usually a profile photo; should be a raster object),
-#' `bg_img_positions` (a vector with the four corner positions, cf. [graphics::rasterImage])
+#' is set automatically). Further plot parameters accepted are `main`,
+#' `col`, `xlim` (a named [list] for profile mode), `ylim`, `ylab`, `xlab`.
+#' Additional parameters for `mode = "profile"` are  `type`, `pch`, `grid`
+#' (`TRUE`/`FALSE`), `bg_img` (a raster object for the background image,
+#' usually a profile photo), `bg_img_positions` (a vector with the four corner
+#' positions, see [graphics::rasterImage]), `zlab` (here x-axis labelling).
+#' Additional parameters for `mode = "surface"` are `surface_value`
+#' ([character] with names of the surfaces to plot), `col_ramp`, `legend`
+#' (`TRUE`/`FALSE`), `contour` (`TRUE`/`FALSE`), `contour_nlevels`,
+#' `contour_col`, `nx` and `ny` (size of the interpolation grid),
+#' `labcex` (scaling of the contour labels), `zlim`.
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -87,7 +97,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @keywords datagen plot
 #'
@@ -114,7 +124,6 @@
 #'   normalise = TRUE)
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 analyse_portableOSL <- function(
   object,
@@ -160,9 +169,10 @@ analyse_portableOSL <- function(
   if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
     .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
 
-  ## check sequence pattern
-  if(!all(names(object)[1:5] == c("USER", "IRSL", "USER", "OSL", "USER")))
-    .throw_error("Sequence pattern not supported, please read manual for details")
+  ## check length and start of the sequence pattern, we check it further below
+  if (length(object) %% 5 != 0 ||
+      !all(names(object)[1:5] == c("USER", "IRSL", "USER", "OSL", "USER")))
+    .throw_error("Sequence pattern not supported: see the manual for details")
 
   if (is.null(signal.integral)) {
     signal.integral <- c(1, 1)
@@ -191,13 +201,8 @@ analyse_portableOSL <- function(
   .validate_logical_scalar(plot)
 
   ## set SAMPLE --------
-  if("run" %in% names(list(...)))
-    run <- list(...)$run
-  else if (!is.null(object@info$Run_Name))
-    run <- object@info$Run_Name
-  else
-    run <- "Run #1"
-
+  run <- if ("run" %in% ...names()) list(...)$run
+         else object@info$Run_Name %||% "Run #1"
 
   ## CALCULATIONS ----
   ## Note: the list ... unlist construction is used make sure that get_RLum() always
@@ -214,11 +219,23 @@ analyse_portableOSL <- function(
     .posl_get_signal(x, signal.integral)
   }))
 
+  if (nrow(OSL) != nrow(IRSL)) {
+    .throw_error("Sequence pattern not supported: the number of OSL records ",
+                 "does not match the number of IRSL records")
+  }
+
   ### get DARK counts ----------
   ### we assume that USER contains the dark count measurements
   DARK_COUNT <- .unlist_RLum(list(get_RLum(object, recordType = "USER")))
-  DARK_COUNT <- lapply(seq(1,length(DARK_COUNT),3), function(x) DARK_COUNT[x:(x+2)])
 
+  ## we expect a sequence pattern with 3 DARK_COUNT records for each OSL/IRSL pair
+  num.dark.count <- length(DARK_COUNT)
+  if (num.dark.count %% 3 != 0) {
+    .throw_error("Sequence pattern not supported: expected ", nrow(OSL) * 3,
+                 " DARK_COUNT records, but found ", num.dark.count)
+  }
+
+  DARK_COUNT <- lapply(seq(1, num.dark.count, 3), function(x) DARK_COUNT[x:(x+2)])
   DARK_COUNT <- do.call(rbind, lapply(DARK_COUNT, function(x) {
     .posl_get_dark_count(x)
   }))
@@ -234,7 +251,14 @@ analyse_portableOSL <- function(
 
   ### extract  coordinates -------
   if(is.null(coord)) {
-    coord <- .extract_PSL_coord(object)
+    settings_sample <- unique(
+        vapply(object, function(x) x@info$settings$Sample, character(1)))
+    num.names <- length(settings_sample)
+    if (num.names != length(RATIO)) {
+      .throw_error("'object' references ", num.names, " sample names, but ",
+                   length(RATIO), " IRSL/OSL pairs found")
+    }
+    coord <- .extract_PSL_coord(settings_sample)
 
   } else {
     .validate_class(coord, c("matrix", "list"))
@@ -245,6 +269,8 @@ analyse_portableOSL <- function(
     if(nrow(coord) != length(OSL$sum_signal))
       .throw_error("The number of coordinates in 'coord' should match the ",
                    "number of samples (", length(OSL$sum_signal), ")")
+    if (ncol(coord) != 2)
+      .throw_error("'coord' should specify two coordinates per sample")
   }
 
   ### GENERATE SUMMARY data.frame -----
@@ -272,6 +298,12 @@ analyse_portableOSL <- function(
    if(invert)
      summary <- summary[nrow(summary):1,]
 
+  if (mode == "surface" && plot && all(range(summary$COORD_X) == c(0, 0))) {
+    plot <- FALSE
+    .throw_message("Surface plot is not available when all x-coordinates ",
+                   "are 0, plot reset to FALSE", error = FALSE)
+  }
+
   # PLOTTING -------------------------------------------------------------------
   ## generate list of plot matrices
   ## this done to have consistent settings for all plot types
@@ -282,6 +314,8 @@ analyse_portableOSL <- function(
 
     ## correct names of the list
     names(m_list) <- parm
+
+  if (plot) {
 
     ## add a few attributes to be used later
     attr(m_list, "xlim") <- lapply(m_list, function(x) range(x[,1]))
@@ -294,8 +328,6 @@ analyse_portableOSL <- function(
       attr(m_list, "xlim") <- range(summary$COORD_X)
     }
 
-  if (plot) {
-   ## account for surface case
    ## preset plot settings
    ## plot settings -------
    plot_settings <- modifyList(
@@ -305,6 +337,9 @@ analyse_portableOSL <- function(
        bg_img_positions = NULL,
        surface_value = c("BSL", "IRSL", "IRSL_BSL_RATIO"),
        legend = TRUE,
+       type = "b",
+       cex = 1,
+       labcex = 0.6,
        col = c("blue", "red", "blue", "red", "black", "grey"),
        pch = rep(16, length(m_list)),
        xlim = attr(m_list, "xlim"),
@@ -312,14 +347,18 @@ analyse_portableOSL <- function(
        zlim = if(mode == "surface") NA else attr(m_list, "zlim"),
        ylab = if (!anyNA(summary$COORD_Y)) "Depth [m]" else "Index",
        xlab = "x [m]",
+       nx = 200,
+       ny = 200,
        grid = TRUE,
        contour = FALSE,
+       contour_nlevels = 10,
+       contour_col = "grey",
        zlab = c("BSL", "IRSL", "BSL depl.", "IRSL depl.", "IRSL/BSL", "mean DARK"),
        main = summary$RUN[1]
      ),
      val = list(...), keep.null = TRUE)
 
-    par.default <- par(no.readonly = TRUE)
+    par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ## mode == "surface" ---------
@@ -356,8 +395,8 @@ analyse_portableOSL <- function(
            x = m[, 1],
            y = m[, 2],
            z = m[, 3],
-           nx = 200,
-           ny = 200,
+           nx = plot_settings$nx,
+           ny = plot_settings$ny,
          ), silent = TRUE)
 
        ## show only warning
@@ -368,7 +407,7 @@ analyse_portableOSL <- function(
 
        ## show error
        if(!inherits(s, "try-error")) {
-         par(mar = c(4.5, 4.5, 4, 2), xpd = FALSE)
+         par(mar = c(4.5, 4.5, 4, 3), xpd = FALSE)
 
          ## open empty plot
          plot(
@@ -378,15 +417,14 @@ analyse_portableOSL <- function(
            xlim = plot_settings$xlim,
            xlab = plot_settings$xlab,
            ylab = plot_settings$ylab,
+           cex.lab = plot_settings$cex,
+           cex.axis = plot_settings$cex,
            main = plot_settings$main)
 
          ## add background image if available -------
          if (!is.null(plot_settings$bg_img)) {
            ## get corner positions
-           positions <- plot_settings$bg_img_positions[1:4]
-           if (is.null(positions))
-             positions <- par()$usr
-
+           positions <- plot_settings$bg_img_positions[1:4] %||% par()$usr
            graphics::rasterImage(
              image = plot_settings$bg_img,
              xleft = positions[1],
@@ -405,17 +443,24 @@ analyse_portableOSL <- function(
 
          ## add contour
          if (plot_settings$contour)
-           graphics::contour(m, add = TRUE, col = "grey")
+           graphics::contour(
+             x = s$x,
+             y = s$y,
+             z = s$z,
+             add = TRUE,
+             labcex = plot_settings$labcex * plot_settings$cex,
+             nlevels = plot_settings$contour_nlevels,
+             col = plot_settings$contour_col)
 
          ## add points
-         points(m[,1:2], pch = 20)
+         points(m[, 1:2], pch = 20, cex = plot_settings$cex)
 
          ## add what is shown in the plot
-         mtext(side = 3, text = i, cex = 0.7)
+         mtext(side = 3, text = i, cex = plot_settings$cex * 0.7)
 
          ## add legend
          if(plot_settings$legend) {
-           par(xpd = TRUE)
+           par(xpd = NA)
 
            col_grad <- plot_settings$col_ramp[
              seq(1, length(plot_settings$col_ramp), length.out = 14)]
@@ -424,8 +469,8 @@ analyse_portableOSL <- function(
 
            for(s in 1:(length(slices) - 1)){
              graphics::rect(
-               xleft = par()$usr[2] * 1.01,
-               xright = par()$usr[2] * 1.03,
+               xleft = par()$usr[2] * 1,
+               xright = par()$usr[2] * 1.02,
                ybottom = slices[s],
                ytop =  slices[s + 1],
                col = col_grad[s],
@@ -434,35 +479,35 @@ analyse_portableOSL <- function(
 
            ## add legend text
            text(
-             x = par()$usr[2] * 1.04,
+             x = par()$usr[2] * 1.03,
              y = par()$usr[4],
              labels = if(is.null(plot_settings$zlim_image)) {
                format(max(m[,3]), digits = 1, scientific = TRUE)
              } else {
                format(plot_settings$zlim_image[2], digits = 1, scientific = TRUE)
              },
-             cex = 0.6,
+             cex = plot_settings$cex * 0.6,
              srt = 270,
              pos = 3)
 
            text(
-             x = par()$usr[2] * 1.04,
+             x = par()$usr[2] * 1.03,
              y = par()$usr[3],
              labels = if(is.null(plot_settings$zlim_image)) {
                format(min(m[,3]), digits = 1, scientific = TRUE)
              } else {
                format(plot_settings$zlim_image[1], digits = 1, scientific = TRUE)
              },
-             cex = 0.6,
+             cex = plot_settings$cex * 0.6,
              pos = 3,
              srt = 270)
 
            ## add legend labelling (central)
            text(
-             x = par()$usr[2] * 1.05,
+             x = par()$usr[2] * 1.035,
              y = (par()$usr[4] - par()$usr[3])/2 + par()$usr[3],
              labels = "Intensity [a.u.]",
-             cex = 0.7,
+             cex = plot_settings$cex * 0.7,
              pos = 3,
              srt = 270)
          }
@@ -479,7 +524,8 @@ analyse_portableOSL <- function(
 
     graphics::frame()
 
-    mtext(side= 3, plot_settings$main, cex = 0.7, line = 2)
+      mtext(side = 3, plot_settings$main, line = 2,
+            cex = plot_settings$cex * 0.7)
 
     par(mar = c(5, 0, 4, 1) + 0.1)
 
@@ -509,6 +555,8 @@ analyse_portableOSL <- function(
             xlim = xlim,
             xlab = plot_settings$zlab[idx],
             ylab = "",
+            cex.lab = plot_settings$cex,
+            cex.axis = plot_settings$cex,
             bty = "n",
             yaxt = "n"
         )
@@ -520,7 +568,8 @@ analyse_portableOSL <- function(
         lines(
             x = x.val,
             y = y.val,
-            type = "b",
+            type = plot_settings$type,
+            cex = plot_settings$cex,
             lty = ifelse(prof %in% c("BSL_depletion", "IRSL_depletion"), 2, 1),
             pch = plot_settings$pch[idx],
             col = plot_settings$col[idx]
@@ -537,12 +586,15 @@ analyse_portableOSL <- function(
               col = plot_settings$col[idx])
         }
 
-        axis(3)
+        axis(3, cex.axis = plot_settings$cex)
 
         ## add general axis labels
         if (idx == 1) {
-          axis(2, line = 3, at = y.val, labels = y.val)
-          mtext(plot_settings$ylab[1], side = 2, line = 6)
+          labs <- pretty(y.val, n = 10)
+          axis(2, line = 3, at = labs, labels = labs,
+               cex.axis = plot_settings$cex)
+          mtext(plot_settings$ylab[1], side = 2, line = 6,
+                cex = plot_settings$cex * 0.8)
         }
       }
 
@@ -553,7 +605,7 @@ analyse_portableOSL <- function(
   call<- sys.call()
   args <- as.list(call)[2:length(call)]
 
-  newRLumResults <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       summary=summary,
@@ -561,8 +613,6 @@ analyse_portableOSL <- function(
       args=args
     ),
     info = list(call = call))
-
-  return(newRLumResults)
 }
 
 # HELPER FUNCTIONS ----------
@@ -593,25 +643,21 @@ analyse_portableOSL <- function(
   return(x)
 }
 
-## This function extracts the coordinates from the file name
-##
-.extract_PSL_coord <- function(object){
-  ## get settings
-  settings_sample <- vapply(object, function(x) x@info$settings$Sample, character(1)) |>
-    unique()
-
+## This function extracts the coordinates from the sample names
+.extract_PSL_coord <- function(settings_sample) {
   ## set character vector
   tmp_coord <- character(length(settings_sample))
 
   ## search for pattern match ... why?
   ## because otherwise the dataset becomes inconsistent
+  pattern <- "_x:[0-9].*\\|y:[0-9].*"
   pattern_match <- grepl(
-    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    pattern = pattern,
     x = settings_sample, perl = TRUE)
 
   ## extract coordinates
   tmp_coord[pattern_match] <- regexpr(
-    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    pattern = pattern,
     text = settings_sample[pattern_match ], perl = TRUE) |>
     regmatches(x = settings_sample[pattern_match], m = _)
 

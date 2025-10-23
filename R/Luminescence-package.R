@@ -88,7 +88,7 @@
 #'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 #' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its
-#' implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14-21.
+#' implementation in the R package 'Luminescence'. Ancient TL 34 (2), 14-21.
 #'
 #' Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., 2022.
 #' Luminescence age calculation through Bayesian convolution of equivalent dose
@@ -107,21 +107,45 @@
 #' @import utils methods data.table
 #'
 #' @importFrom  Rcpp evalCpp
-#' @importFrom graphics plot abline mtext text lines par layout lines axTicks axis curve hist legend points polygon segments title
+#' @importFrom graphics plot abline mtext text lines par lines axTicks axis curve hist legend points polygon segments title
 #' @importFrom grDevices adjustcolor rgb
 #' @importFrom stats approx density dnorm median na.exclude nls quantile rnorm runif sd uniroot setNames coef predict residuals
 #'
 #' @useDynLib Luminescence, .registration = TRUE
 #'
-#' @md
 "_PACKAGE"
 
-#' Base data set of dose-rate conversion factors
+#' @title Base datasets
 #'
-#' Collection of published dose-rate conversion factors to convert concentrations
-#' of radioactive isotopes to dose rate values.
+#' @description
+#' Collection of datasets with published and unpublished data used within the
+#' package.
 #'
+#' \describe{
+#' \item{BaseData.ConversionFactors}{Collection of published dose-rate
+#' conversion factors to convert concentrations of radioactive isotopes to
+#' dose rate values}
+#' \item{BaseData.GrainSizeAttenuation}{Grain size attenuation data by Guérin
+#' et al. (2012)}
+#' \item{BaseData.FractionalGammaDose}{Collection of (un-)published fractional
+#' gamma dose-rate values to scale the gamma-dose rate considering layer-to-layer
+#' variations in soil radioactivity}
+#' }
+#'
+#' @section Version: 0.2.0
+#'
+#' @keywords datasets
+#'
+#' @aliases
+#' BaseDataSet.ConversionFactors
+#' BaseDataSet.GrainSizeAttenuation
+#' BaseDataSet.FractionalGammaDose
+#'
+#' @name BaseDataSet
+NULL
+
 #' @format
+#' **Dose-rate conversion factors**
 #'
 #' A [`list`] with three elements with dose-rate conversion factors
 #' sorted by article and radiation type (alpha, beta, gamma):
@@ -141,9 +165,10 @@
 #' Conversion factors from Tables 1, 2 and 3 \cr
 #' }
 #'
-#' @section Version: 0.2.0
+#' @source
+#' **Dose-rate conversion factors**
 #'
-#' @references
+#' All gamma conversion factors were carefully read from the tables given in:
 #'
 #' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 #' Ancient TL 16, 37-46.
@@ -152,66 +177,45 @@
 #' Dose rate conversion parameters: Assessment of nuclear data.
 #' Radiation Measurements 120, 195-201.
 #'
-#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+#' Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 #' factors: update. Ancient TL, 29, 5-8.
 #'
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 #' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 #' Archaeology and Archaeometry 13, 1-15.
 #'
-#'
-#' @source
-#' All gamma conversion factors were carefully read from the tables given in the
-#' references above.
-#'
-#' @keywords datasets
-#'
 #' @examples
-#'
-#' ## Load data
+#' ## conversion factors
 #' data("BaseDataSet.ConversionFactors", envir = environment())
 #'
-#' @name BaseDataSet.ConversionFactors
-#' @md
+#' @name BaseDataSet
 NULL
 
-#' @title Base dataset for grain size attenuation data by Guérin et al. (2012)
-#'
-#' @description Grain size correction data for beta-dose rates
-#' published by Guérin et al. (2012).
-#'
-#'#' @format
+#' @format
+#' **Grain size attenuation data**
 #'
 #' A [`data.frame`] seven columns and sixteen rows. Column headers
 #' are `GrainSize`, `Q_K`, `FS_K`, `Q_Th`, `FS_Th`, `Q_U`, `FS_U`.
 #' Grain sizes are quoted in µm (e.g., 20, 40, 60 etc.)
 #'
-#' @section Version: 0.1.0
+#' @source
+#' **Grain size attenuation data**
 #'
-#' @source Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012.
+#' Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012.
 #' On the use of the infinite matrix assumption and associated concepts:
 #' A critical review. Radiation Measurements, 47, 778-785.
 #'
-#' @keywords datasets
-#'
 #' @examples
-#'
-#' ## load data
+#' ## grain size attenuation
 #' data("BaseDataSet.GrainSizeAttenuation", envir = environment())
 #'
-#' @name BaseDataSet.GrainSizeAttenuation
-#' @md
+#' @name BaseDataSet
 NULL
 
-#' Base data set of fractional gamma-dose values
-#'
-#' Collection of (un-)published fractional gamma dose-rate values to scale the
-#' gamma-dose rate considering layer-to-layer variations in soil radioactivity.
-#'
 #' @format
+#' **Fractional gamma dose-rate values**
 #'
-#' A [`list`] with fractional gamma dose-rate values
-#' sorted by article:
+#' A [`list`] with fractional gamma dose-rate values sorted by article:
 #'
 #' \tabular{ll}{
 #'
@@ -219,25 +223,18 @@ NULL
 #' Fractional gamma-dose values from table H.1
 #' }
 #'
+#' @source
+#' **Fractional gamma dose-rate values**
 #'
-#' @section Version: 0.1
+#' Fractional gamma dose values were carefully read from the tables given in:
 #'
-#' @references
 #' Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 #'
-#' @source
-#' Fractional gamma dose values were carefully read from the tables given in the
-#' references above.
-#'
-#' @keywords datasets
-#'
 #' @examples
-#'
-#' ## Load data
+#' ## fractional gamma dose
 #' data("BaseDataSet.FractionalGammaDose", envir = environment())
 #'
-#' @name BaseDataSet.FractionalGammaDose
-#' @md
+#' @name BaseDataSet
 NULL
 
 #' Example data for scale_GammaDose()
@@ -262,7 +259,6 @@ NULL
 #' data("ExampleData.ScaleGammaDose", envir = environment())
 #'
 #' @name ExampleData.ScaleGammaDose
-#' @md
 NULL
 
 #' Example data for calc_CobbleDoseRate()
@@ -285,7 +281,6 @@ NULL
 #' data("ExampleData.CobbleData", envir = environment())
 #'
 #' @name ExampleData.CobbleData
-#' @md
 NULL
 
 #' Base data set for cosmic dose rate calculation
@@ -406,7 +401,6 @@ NULL
 #' @name BaseDataSet.CosmicDoseRate
 #' @aliases values.cosmic.Softcomp values.factor.Altitude values.par.FJH
 #'
-#' @md
 NULL
 
 #' @title Example data from a SAR OSL and SAR TL measurement for the package
@@ -473,7 +467,6 @@ NULL
 #'
 #' @name ExampleData.BINfileData
 #' @aliases CWOSL.SAR.Data TL.SAR.Data
-#' @md
 NULL
 
 
@@ -528,7 +521,6 @@ NULL
 #' plot(ExampleData.CW_OSL_Curve)
 #'
 #' @aliases CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
-#' @md
 NULL
 
 
@@ -562,7 +554,6 @@ NULL
 #' data(ExampleData.portableOSL, envir = environment())
 #' plot_RLum(ExampleData.portableOSL)
 #'
-#' @md
 NULL
 
 
@@ -600,7 +591,6 @@ NULL
 #'
 #' @name ExampleData.FittingLM
 #' @aliases values.curve values.curveBG
-#' @md
 NULL
 
 
@@ -631,7 +621,6 @@ NULL
 #'
 #' @name ExampleData.LxTxData
 #' @aliases LxTxData
-#' @md
 NULL
 
 
@@ -659,7 +648,6 @@ NULL
 #'
 #' @name ExampleData.LxTxOSLData
 #' @aliases Lx.data Tx.data
-#' @md
 NULL
 
 #' Example equivalent dose data from mortar samples
@@ -685,7 +673,6 @@ NULL
 #'
 #' @name ExampleData.MortarData
 #' @aliases MortarData
-#' @md
 NULL
 
 #' Example data as [RLum.Analysis-class] objects
@@ -733,9 +720,52 @@ NULL
 #'
 #' @name ExampleData.RLum.Analysis
 #' @aliases IRSAR.RF.Data
-#' @md
 NULL
 
+#' RF70 Example data as [RLum.Analysis-class] objects
+#'
+#' Collection two curves from Kreutzer et al. (2018) measured using the RF70 protocol
+#' (Frouin et al., 2017) as [RLum.Analysis-class] objects.
+#'
+#' @format
+#'
+#' `BDX16648`: [RLum.Analysis-class] with two IR-RF curves as [RLum.Data.Curve-class] objects
+#'
+#' @section Version: 0.1.0
+#'
+#' @references
+#'
+#' Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017. An improved
+#' radiofluorescence single-aliquot regenerative dose protocol for K-feldspars. Quaternary Geochronology 38, 13–24.
+#' \doi{10.1016/j.quageo.2016.11.004}
+#'
+#' Kreutzer, S., Duval, M., Bartz, M., Bertran, P., Bosq, M., Eynaud, F., Verdin, F., Mercier, N., 2018.
+#' Deciphering long-term coastal dynamics using IR-RF and ESR dating: A case study from Médoc,
+#' south-West France. Quaternary Geochronology 48, 108–120. \doi{10.1016/j.quageo.2018.09.005}
+#'
+#' @source **RF70Curves**
+#'
+#' \tabular{ll}{
+#' Lab: \tab IRAMAT-CRP2A, CNRS-Université Bordeaux Montaigne, Bordeaux, France\cr
+#' Lab-Code: \tab BDX16648\cr
+#' Location: \tab Médoc, France (details see reference)\cr
+#' Material: \tab K-feldspar (100-200 \eqn{\mu}m)\cr
+#' Reference: \tab Kreutzer et al. (2018)
+#' }
+#'
+#' @keywords datasets internal
+#'
+#' @examples
+#'
+#' ##load data
+#' data(ExampleData.RF70Curves, envir = environment())
+#'
+#' ##plot data
+#' plot_RLum(RF70Curves)
+#'
+#' @name ExampleData.RF70Curves
+#' @aliases RF70Curves
+NULL
 
 #' Example data as [RLum.Data.Image-class] objects
 #'
@@ -775,7 +805,6 @@ NULL
 #' plot_RLum(ExampleData.RLum.Data.Image)
 #'
 #' @name ExampleData.RLum.Data.Image
-#' @md
 NULL
 
 
@@ -877,7 +906,6 @@ NULL
 #'
 #' @name ExampleData.XSYG
 #' @aliases OSL.SARMeasurement TL.Spectrum
-#' @md
 NULL
 
 
@@ -952,7 +980,6 @@ NULL
 #' plot_Histogram(De.values, xlab = "De [Gy]")
 #'
 #' @name ExampleData.DeValues
-#' @md
 NULL
 
 
@@ -1048,7 +1075,6 @@ NULL
 #'
 #'
 #' @name ExampleData.Fading
-#' @md
 NULL
 
 
@@ -1203,7 +1229,6 @@ NULL
 #'
 #' @keywords datasets
 #' @name ExampleData.SurfaceExposure
-#' @md
 NULL
 
 #' Example Al2O3:C Measurement Data
@@ -1244,7 +1269,6 @@ NULL
 #'
 #' @name ExampleData.Al2O3C
 #' @aliases data_CrossTalk data_ITC
-#' @md
 NULL
 
 #' Example TR-OSL data
@@ -1275,7 +1299,6 @@ NULL
 #' plot_RLum(ExampleData.TR_OSL)
 #'
 #' @name ExampleData.TR_OSL
-#' @md
 NULL
 
 #' Collection of External Data
@@ -1297,7 +1320,7 @@ NULL
 #'
 #' **Individual file descriptions**
 #'
-#' *>>Daybreak_TestFile.DAT/.txt<<*
+#' *>>Daybreak_TestFile.DAT.txt<<*
 #'
 #' **Type:** raw measurement data \cr
 #' **Device:** Daybreak OSL/TL reader\cr
@@ -1322,22 +1345,21 @@ NULL
 #' *>>QNL84_2_bleached.txt*, *QNL84_2_unbleached.txt<<*
 #'
 #' **Type:** Test data for exponential fits \cr
-#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \cr
+#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}\cr
 #'
 #'
 #' *>>STRB87_1_bleached.txt*, *STRB87_1_unbleached.txt<<*
 #'
 #' **Type:** Test data for exponential fits \cr
-#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+#' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}
 #'
 #' *>>XSYG_file.xsyg*
 #'
 #' **Type:** XSYG-file stump \cr
-#' **Info: ** XSYG-file with some basic curves to test functions \cr
+#' **Info:** XSYG-file with some basic curves to test functions \cr
 #' **Reference:** no reference available
 #'
 #'
 #' @keywords datasets
 #' @name extdata
-#' @md
 NULL

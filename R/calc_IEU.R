@@ -67,7 +67,6 @@
 #' ## apply the IEU model
 #' ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 #'
-#' @md
 #' @export
 calc_IEU <- function(
   data,
@@ -108,16 +107,10 @@ calc_IEU <- function(
   extraArgs <- list(...)
 
   ## console output
-  verbose <- TRUE
-  if ("verbose" %in% names(extraArgs)) {
-    verbose <- extraArgs$verbose
-  }
+  verbose <- extraArgs$verbose %||% TRUE
 
   ## trace calculations
-  trace <- FALSE
-  if ("trace" %in% names(extraArgs)) {
-    trace <- extraArgs$trace
-  }
+  trace <- extraArgs$trace %||% FALSE
   # TODO: main, xlab, ylab, xlim, ylim, pch, col
 
 
@@ -288,7 +281,7 @@ calc_IEU <- function(
   args <- list(a = a, b = b, interval = interval,
                decimal.point = decimal.point, plot = plot)
 
-  newRLumResults.calc_IEU <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
@@ -299,6 +292,4 @@ calc_IEU <- function(
                   Table.Fixed.Iteration = Fixed.Iterations,
                   Table.IEUResults = Table.Results
                 )))
-
-  invisible(newRLumResults.calc_IEU)
 }

@@ -2,10 +2,8 @@
 
 #' @title Subset the DRAC reference
 #'
-#' @param x [data.frame] or [DRAC.list]
+#' @param x [data.frame] or `DRAC.list`
 #'
-#'
-#' @md
 #' @noRd
 .get_DRAC_references <- function(x) {
   refs <- DRAC_refs()
@@ -17,7 +15,7 @@
   ref_tmp <- unique(x[[.search_key(x, "TI:4")]])
   for (i in 1:length(ref_tmp)) {
     if (ref_tmp[i] == "X")
-      next()
+      next
 
     used$refs <- c(used$refs, refs[refs_names %in% ref_tmp[i]])
     used$desc <- c(used$desc, "Conversion factors")
@@ -310,7 +308,6 @@ DRAC_refs <- function() {
       pages = "25-29"
     )
   )
-
 }
 
 ## internal helper to search key from the DRAC table
@@ -319,5 +316,4 @@ DRAC_refs <- function() {
     which(vapply(x, function(i) attr(i, "key") == key, logical(1)))
   else
     which(colnames(x) == key)
-
 }

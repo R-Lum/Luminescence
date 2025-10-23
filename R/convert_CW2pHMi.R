@@ -63,7 +63,6 @@
 #' The function returns the same data type as the input data type with
 #' the transformed curve values.
 #'
-#'
 #' **`RLum.Data.Curve`**
 #'
 #' \tabular{ll}{
@@ -192,7 +191,6 @@
 #'       col="blue", lwd=1.3)
 #' text(0.5,6500,"PM", col="blue" ,cex=.8)
 #'
-#' @md
 #' @export
 convert_CW2pHMi<- function(
   values,
@@ -206,6 +204,9 @@ convert_CW2pHMi<- function(
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
   .validate_not_empty(values)
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
+  }
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
   if (inherits(values, "RLum.Data.Curve")) {
@@ -222,6 +223,12 @@ convert_CW2pHMi<- function(
     temp.values <- values
   }
 
+  ## remove NAs
+  temp.values <- na.exclude(temp.values)
+  if (nrow(temp.values) < 2) {
+    .throw_error("'values' should have at least 2 non-missing values")
+  }
+
   # (1) Transform values ------------------------------------------------------
 
   ##log transformation of the CW-OSL count values
@@ -234,7 +241,6 @@ convert_CW2pHMi<- function(
   ##if no values for delta is set selected a delta value for a maximum of
   ##two extrapolation points
   if(missing(delta)==TRUE){
-
     i<-10
     delta<-i
     t.transformed<-t-(1/delta)*log(1+delta*t)
@@ -271,12 +277,8 @@ convert_CW2pHMi<- function(
   }
 
   ##interpolate between the lower and the upper value
-  invalid_values.interpolated<-sapply(1:length(invalid_values.id),
-                                      function(x) {
-                                        mean(c(temp[invalid_values.id[x]-1,2],
-                                               temp[invalid_values.id[x]+1,2]))
-                                      }
-  )
+  invalid_values.interpolated <- sapply(invalid_values.id,
+                                        function(x) mean(temp[c(x - 1, x + 1), 2]))
 
   ##replace invalid values in data.frame with newly interpolated values
   if(length(invalid_values.id)>0){
@@ -330,30 +332,18 @@ convert_CW2pHMi<- function(
   # (5) Return values ---------------------------------------------------------
 
   ##returns the same data type as the input
-  if(is(values, "data.frame") == TRUE){
-
-    values <- temp.values
-    return(values)
-
-  }else{
+  if (is.data.frame(values)) {
+    return(temp.values)
+  }
 
     ##add old info elements to new info elements
     temp.info <- c(values@info,
                    CW2pHMi.x.t = list(temp.values$x.t),
                    CW2pHMi.method = list(temp.values$method))
 
-    newRLumDataCurves.CW2pHMi <- set_RLum(
+  set_RLum(
       class = "RLum.Data.Curve",
       recordType = values@recordType,
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
-    return(newRLumDataCurves.CW2pHMi)
-  }
-}
-
-#' @rdname convert_CW2pHMi
-#' @export
-CW2pHMi <- function(values, delta) {
-  .Deprecated("convert_CW2pHMi")
-  convert_CW2pHMi(values, delta)
 }

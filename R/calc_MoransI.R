@@ -85,7 +85,6 @@
 #' calc_MoransI(object = rnorm(n = 100))
 #' calc_MoransI(object = rnorm(n = 100))
 #'
-#' @md
 #' @export
 calc_MoransI <- function(object,
                          df_neighbours = NULL,
@@ -108,24 +107,19 @@ calc_MoransI <- function(object,
     vn_values <- get_RLum(object)
   }
   .validate_length(vn_values, 100, name = "'object'")
-
-  if (is.null(df_neighbours)) {
-    .validate_logical_scalar(ignore_borders)
-    df_neighbours <- .get_Neighbours(object, ignore_borders)
-  } else {
-    .validate_class(df_neighbours, "data.frame")
-    if (ncol(df_neighbours) != 3)
-      .throw_error("'df_neighbours' should be a data frame with 3 columns")
-  }
-
   .validate_logical_scalar(spatial_autocorrelation)
   .validate_logical_scalar(compute_pseudo_p)
-  if (!is.null(tested_moransI)) {
-    .validate_class(tested_moransI, "numeric")
-    .validate_length(tested_moransI, 1)
-  }
+  .validate_class(df_neighbours, "data.frame", null.ok = TRUE)
+  .validate_scalar(tested_moransI, null.ok = TRUE)
   .validate_positive_scalar(n_permutations, int = TRUE)
+  .validate_logical_scalar(ignore_borders, null.ok = TRUE)
   .validate_logical_scalar(return_intermediate_values)
+
+  if (is.null(df_neighbours)) {
+    df_neighbours <- .get_Neighbours(object, ignore_borders)
+  } else if (ncol(df_neighbours) != 3) {
+    .throw_error("'df_neighbours' should be a data frame with 3 columns")
+  }
 
   ## No spatial autocorrelation ---------------------------------------------
 
@@ -216,7 +210,6 @@ calc_MoransI <- function(object,
 #' Submitted.
 #'
 #' @keywords internal
-#' @md
 #' @noRd
 .compute_pseudo_p <- function(values, moransI, n_permutations, df_neighbours) {
 

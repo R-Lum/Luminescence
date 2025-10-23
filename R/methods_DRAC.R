@@ -39,7 +39,6 @@ print.DRAC.highlights <- function(x, ...) {
 
 #' @export
 print.DRAC.list <- function(x, blueprint = FALSE, ...) {
-
   ## CASE 1: Pretty print the structure of the DRAC list
   if (!blueprint) {
     limit <- 80
@@ -48,7 +47,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       # for pretty printing we insert newlines and tabs at specified lengths
       ls <- attributes(x[[i]])$description
       ls.n <- nchar(ls)
-      ls.block <- floor(ls.n / limit)
       strStarts <- seq(0, ls.n, limit)
       strEnds <- seq(limit-1, ls.n + limit, limit)
       blockString <- paste(mapply(function(start, end) {
@@ -123,7 +121,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 
   ## CHECK INPUT CLASS ----
   class.old <- attr(x[[i]], "default_class")
-
   class.new <- class(value)
 
   ## CHECK INPUT FIELDS THAT ALLOW 'X' -----
@@ -164,20 +161,18 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       ## check if coercion is possible
       if (anyNA(suppressWarnings(as.numeric(value)))) {
         .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> cannot coerce, set NAs")
-         if(class.old == "integer")
-           value <- NA_integer_
-         else
-           value <- NA_real_
+         value <- if (class.old == "integer") NA_integer_ else NA_real_
 
       } else {
       ## try coercion
-      .throw_warning(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> coercing to ", class.old)
-        if(class.old == "integer")
-          value <- as.integer(value)
-        else
-          value <- as.numeric(value)
+      .throw_message(names(x)[i], ": found ", class.new, ", expected ", class.old, " -> coercing to ", class.old)
+        value <- if (class.old == "integer") as.integer(value) else as.numeric(value)
       }
     }
+
+    ## silently round all values to a maximum of 5 digits
+    if(inherits(value, "numeric"))
+      value <- round(value,5)
   }
 
   # for 'factor' and 'character' elements only 'character' input is allowed
@@ -195,9 +190,8 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   if (class.old == "factor") {
     levels <- levels(x[[i]])
     if (any(`%in%`(value, levels) == FALSE)) {
-      .throw_warning(names(x)[i], ": Invalid option, valid options are: ",
+      .throw_error(names(x)[i], ": Invalid option, valid options are: ",
                      .collapse(levels))
-      return(x)
     } else {
       value <- factor(value, levels)
     }

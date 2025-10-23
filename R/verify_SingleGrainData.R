@@ -143,7 +143,6 @@
 #' write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 #' }
 #'
-#' @md
 #' @export
 verify_SingleGrainData <- function(
     object,
@@ -164,7 +163,7 @@ verify_SingleGrainData <- function(
   ##(3) List of RLum.Analysis
 
   # Self Call -----------------------------------------------------------------------------------
-  if(is(object, "list")){
+  if (inherits(object, "list")) {
     if (length(object) == 0)
       return(set_RLum(class = if (cleanup) "RLum.Analysis" else "RLum.Results"))
 
@@ -212,8 +211,7 @@ verify_SingleGrainData <- function(
       tmp_power_spectrum <- Mod(stats::fft(x)^2)
       tmp_mean_power <- mean(tmp_power_spectrum[-1])
       tmp_dominant_power <- max(tmp_power_spectrum[2:(length(tmp_power_spectrum)/2)])
-      tmp_sel <- tmp_dominant_power > tmp_threshold * tmp_mean_power
-      tmp_sel
+      tmp_dominant_power > tmp_threshold * tmp_mean_power
     }, logical(1))
   }
 
@@ -267,7 +265,6 @@ verify_SingleGrainData <- function(
     if(cleanup){
       ##selected wanted elements
       object@DATA <- object@DATA[selection_id]
-
       if(length(object@DATA) > 0) {
         object@METADATA <- object@METADATA[selection_id,]
         object@METADATA$ID <- 1:length(object@DATA)
@@ -275,9 +272,9 @@ verify_SingleGrainData <- function(
         ##print message
         selection_id <- .collapse(selection_id, quote = FALSE)
         if(verbose){
-          cat(paste0("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
+          cat("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records:\n",
+              selection_id)
           cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
-
         }
       } else {
         object <- NULL
@@ -301,7 +298,7 @@ verify_SingleGrainData <- function(
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##RLum.Analysis and list with RLum.Analysis objects
     ## ... and yes it make sense not to mix that up with the code above
-  }else if(is(object,"RLum.Analysis")){
+  } else if (inherits(object,"RLum.Analysis")) {
     ##first extract all count values from all curves
     object_list <- lapply(object@records, function(x){
       ##yes, would work differently, but it is faster
@@ -337,10 +334,7 @@ verify_SingleGrainData <- function(
         THRESHOLD = rep_len(threshold, length(object_list)),
         VALID = temp.results_matrix_VALID
       )
-
-      ##get unique pairs for POSITION and GRAIN for VALID == TRUE
-      unique_pairs <- unique(
-        selection[selection[["VALID"]], c("POSITION", "GRAIN")])
+      sel.cols <- c("POSITION", "GRAIN")
 
     } else if (object@originator == "read_XSYG2R") {
       ##combine everything to in a data.frame
@@ -356,21 +350,20 @@ verify_SingleGrainData <- function(
         THRESHOLD = rep_len(threshold, length(object_list)),
         VALID = temp.results_matrix_VALID
       )
-
-      ##get unique pairs for POSITION for VALID == TRUE
-      unique_pairs <- unique(
-        selection[["POSITION"]][selection[["VALID"]]])
+      sel.cols <- "POSITION"
 
     } else{
       .throw_error("Object originator '", object@originator, "' not supported")
     }
 
+    ## get unique POSITION and GRAIN pairs where VALID == TRUE
+    unique_pairs <- unique(selection[selection[["VALID"]], sel.cols, drop = FALSE])
 
     ##set up cleanup
     if(cleanup_level == "aliquot") {
       if (object@originator == "read_XSYG2R") {
 
-        if(!is.na(unique_pairs)){
+        if (!all(is.na(unique_pairs))) {
           selection_id <-
             sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
               which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
@@ -379,7 +372,6 @@ verify_SingleGrainData <- function(
         }else{
           selection_id <- NA
         }
-
 
       } else if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
         selection_id <-
@@ -408,8 +400,8 @@ verify_SingleGrainData <- function(
         if(selection_id_text == "")
           selection_id_text <- "<none>"
 
-        message("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
-                selection_id_text)
+        .throw_message("RLum.Analysis object reduced to records: ",
+                       selection_id_text, error = FALSE)
       }
 
       ##selected wanted elements
@@ -435,7 +427,6 @@ verify_SingleGrainData <- function(
             selection_full = selection)
         )
       }
-
 
       ##return
       return_object <- object

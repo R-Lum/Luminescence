@@ -11,7 +11,6 @@ plot_GrowthCurve(
   output.plot = TRUE,
   output.plotExtended = TRUE,
   plot_singlePanels = FALSE,
-  cex.global = 1,
   verbose = TRUE,
   n.MC = 100,
   ...
@@ -48,7 +47,7 @@ function used for fitting. Possible options are:
 \item \code{EXP+EXP},
 \item \code{GOK},
 \item \code{OTOR},
-\item \code{OTORX} (mode extrapolation not supported)
+\item \code{OTORX}
 }
 
 See details in \link{fit_DoseResponseCurve}.}
@@ -69,9 +68,6 @@ If \code{FALSE}, just the growth curve will be plotted.}
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 single plot windows. Requires \code{plotExtended = TRUE}.}
-
-\item{cex.global}{\link{numeric} (\emph{with default}):
-global scaling factor.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}

@@ -1,7 +1,6 @@
-test_that("Test various S3 methods", {
+test_that("test RLum.Analysis S3 methods", {
   testthat::skip_on_cran()
 
-  ## RLum.Analysis
   data(ExampleData.RLum.Analysis, envir = environment())
   analysis <- IRSAR.RF.Data
 
@@ -22,11 +21,11 @@ test_that("Test various S3 methods", {
   expect_s4_class(analysis[[1]], "RLum.Data.Curve")
   expect_type(analysis[["RF"]], "list")
   expect_length(analysis$RF, 2)
-  expect_true(is.RLum(analysis))
-  expect_true(is.RLum.Analysis(analysis))
-  expect_false(is.RLum.Data(analysis))
+})
 
-  ## RLum.Results
+test_that("test RLum.Results S3 methods", {
+  testthat::skip_on_cran()
+
   result <- calc_SourceDoseRate(
     measurement.date = "2012-01-27",
     calib.date = "2014-12-19",
@@ -46,11 +45,11 @@ test_that("Test various S3 methods", {
   expect_visible(result[1])
   expect_visible(result[[1]])
   expect_visible(result$dose.rate)
-  expect_true(is.RLum(result))
-  expect_true(is.RLum.Results(result))
-  expect_false(is.RLum.Data(result))
+})
 
-  ## RLum.Data.Curve
+test_that("test RLum.Data.Curve S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.CW_OSL_Curve, envir = environment())
   curve <- set_RLum(
       class = "RLum.Data.Curve",
@@ -80,11 +79,11 @@ test_that("Test various S3 methods", {
   expect_visible(curve / curve)
   expect_vector(curve[1])
   expect_equal(curve$a, c(a = "test"))
-  expect_true(is.RLum(curve))
-  expect_true(is.RLum.Data(curve))
-  expect_true(is.RLum.Data.Curve(curve))
+})
 
-  ## RLum.Data.Image
+test_that("test RLum.Data.Image S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.RLum.Data.Image, envir = environment())
   image <- ExampleData.RLum.Data.Image
   image3 <- set_RLum("RLum.Data.Image",
@@ -114,11 +113,11 @@ test_that("Test various S3 methods", {
   expect_vector(image[1])
   expect_error(image3[1],
                "No viable coercion to matrix, object contains multiple frames")
-  expect_true(is.RLum(image))
-  expect_true(is.RLum.Data(image))
-  expect_true(is.RLum.Data.Image(image))
+})
 
-  ## RLum.Data.Spectrum
+test_that("test RLum.Data.Spectrum S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.XSYG, envir = environment())
   spectrum <- TL.Spectrum
 
@@ -140,21 +139,33 @@ test_that("Test various S3 methods", {
   expect_visible(spectrum * spectrum)
   expect_visible(spectrum / spectrum)
   expect_vector(spectrum[1])
-  expect_true(is.RLum(spectrum))
-  expect_true(is.RLum.Data(spectrum))
-  expect_true(is.RLum.Data.Spectrum(spectrum))
+})
 
-  ## Risoe.BINfileData
+test_that("test Risoe.BINfileData S3 methods", {
+  testthat::skip_on_cran()
+
   data(ExampleData.BINfileData, envir = environment())
   risoe <- CWOSL.SAR.Data
 
-  expect_silent(plot(risoe))
+  expect_silent(plot(risoe, pos = 1))
+  expect_silent(plot(risoe, run = 1, set = 2))
   expect_error(plot(list(risoe, risoe)))
-  expect_error(subset(risoe, ERROR == 1))
+  expect_error(subset(risoe, ERROR == 1),
+               "Invalid subset options, valid terms are")
   expect_warning(subset(risoe, ID == 1, error = TRUE),
                  "Argument not supported and skipped")
-  expect_length(subset(risoe, ID == 1), 1)
-  expect_length(subset(risoe, ID == 1, records.rm = FALSE), 720)
+  sel <- subset(risoe, ID == 1)
+  expect_length(sel, 1)
+  expect_length(sel@.RESERVED, 0)
+  sel <- subset(risoe, ID == 1, records.rm = FALSE)
+  expect_length(sel, 720)
+  expect_equal(sel@METADATA$SEL, c(TRUE, rep(FALSE, 719)))
+  sel <- subset(read_BIN2R(system.file("extdata/BINfile_V8.binx",
+                                       package = "Luminescence"),
+                           verbose = FALSE),
+                POSITION == 1)
+  expect_equal(nrow(sel@METADATA), length(sel@.RESERVED))
+  expect_null(subset(risoe, ID == -1))
   expect_equal(length(risoe), 720)
   expect_equal(names(risoe)[1:40], c(rep("TL", 24), rep("OSL", 16)))
   expect_s3_class(as.data.frame(risoe), "data.frame")

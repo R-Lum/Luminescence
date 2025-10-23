@@ -6,7 +6,7 @@
 expect_snapshot_RLum <- function(object, ...) {
   object@.uid <- NA_character_
   object@.pid <- NA_character_
-  object@info$call <- NULL
+  object@info[names(object@info) == "call"] <- NULL # may be multiple "call"
   if ("data" %in% slotNames(object)) {
     if ("fit" %in% names(object@data))
       object@data$fit <- NULL
@@ -26,8 +26,10 @@ expect_snapshot_RLum <- function(object, ...) {
         object@data$fits$unfaded$convInfo$finIter <- NULL # for macos
       }
     }
-    if ("data" %in% names(object@data))
-      object@data$data$UID <- NULL
+    if ("data" %in% names(object@data)) {
+      if ("UID" %in% names(object@data$data))
+        object@data$data$UID <- NULL
+    }
     if ("Fit" %in% names(object@data))
       object@data$Fit <- NULL
     if ("Formula" %in% names(object@data))
@@ -38,21 +40,6 @@ expect_snapshot_RLum <- function(object, ...) {
       object@data$rejection.criteria$UID <- NULL
     if ("test_parameters" %in% names(object@data))
       object@data$test_parameters$UID <- NULL
-
-    ## This should be removed once we do not run coverage
-    ## anymore on R 4.3 (issue #312)
-    if ("De" %in% names(object@data)) {
-      object@data$De$HPDI95_L <- NULL
-      object@data$De$HPDI95_U <- NULL
-    }
-
-    ## This should be removed once we do not run coverage
-    ## anymore on R 4.3 (pull #420)
-    if ("MC" %in% names(object@data) && "kde" %in% names(object@data$MC)) {
-      if (!is.null(object@data$MC$kde$old.coords))
-        object@data$MC$kde$old.coords <- NULL
-    }
-
   }
   if ("info" %in% slotNames(object)) {
     if ("call" %in% names(object@info)) {

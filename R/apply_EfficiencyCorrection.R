@@ -45,7 +45,6 @@
 #' ##
 #' ## your.spectrum <- apply_EfficiencyCorrection(your.spectrum, )
 #'
-#' @md
 #' @export
 apply_EfficiencyCorrection <- function(
   object,
@@ -59,9 +58,8 @@ apply_EfficiencyCorrection <- function(
   ##case we have a list
   if(inherits(object, "list")){
     output_list <- lapply(object, function(o){
-      if(inherits(o, "RLum.Data.Spectrum") || inherits(o, "RLum.Analysis")){
+      if (inherits(o, c("RLum.Data.Spectrum", "RLum.Analysis"))) {
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
-
       }else{
         .throw_warning("Skipping '", class(o), "' object in input list")
         return(o)
@@ -129,13 +127,10 @@ apply_EfficiencyCorrection <- function(
 
 
   # Return Output------------------------------------------------------------
-  temp.output <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Spectrum",
     recordType = object@recordType,
     curveType = object@curveType,
     data = temp.matrix,
     info = object@info)
-
-  invisible(temp.output)
-
 }

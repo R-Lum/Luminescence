@@ -25,8 +25,8 @@ parameters for the fitting, see details}
 the fitting, see details for
 further information}
 
-\item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation. If \code{n.MC} is
-\code{NULL} or \verb{<=1}, the error estimation is skipped}
+\item{n.MC}{\link{integer} (\emph{with default}): number of Monte Carlo runs for the
+error estimation. If \code{n.MC} is \code{NULL} or 1, the error estimation is skipped.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
@@ -49,7 +49,8 @@ The function returns numerical output and an (\emph{optional}) plot.
 
 \verb{[.. $data : data.frame]}\cr
 
-A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.
+A table with all fitting parameters and the number of Monte Carlo runs used
+for the error estimation (this may be smaller that \code{n.MC}).
 
 \verb{[.. $fit : nls object]} \cr
 
@@ -79,21 +80,23 @@ Applying a nls-fitting to thermal quenching data.
 
 The equation used for the fitting is
 
-\deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
+\deqn{y = A / (1 + C * exp(-W / (kB * x))) + c}
 
-\emph{W} is the energy depth in eV and \emph{C} is dimensionless constant. \emph{A} and \emph{c} are used to
-adjust the curve for the given signal. \emph{k} is the Boltzmann in eV/K and \emph{x} is the absolute
-temperature in K.
+\emph{W} is the energy depth in eV, \emph{C} is a dimensionless constant, \emph{A} and \emph{c}
+are used to adjust the curve for the given signal, \emph{kB} is the Boltzmann
+constant in eV/K and \emph{x} is the absolute temperature in K.
 
 \strong{Error estimation}\cr
 
-The error estimation is done be varying the input parameters using the given uncertainties in
-a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
+The error estimation is done by varying the input parameters using the
+given uncertainties in a Monte Carlo simulation. Errors are assumed to
+follow a normal distribution.
 
 \strong{\code{start_param}} \cr
 
-The function allows the injection of own start parameters via the argument \code{start_param}. The
-parameters needs to be provided as names list. The names are the parameters to be optimised.
+The function allows the injection of starting values for the parameters to
+be optimised via the \code{start_param} argument. The parameters must be provided
+as a named list.
 Examples: \code{start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)}
 
 \strong{\code{method_control}} \cr
@@ -114,7 +117,7 @@ are applied. The weights are defined by the third column of the input \code{data
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.2
 }
 
 \examples{
@@ -138,5 +141,6 @@ Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. 
 \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

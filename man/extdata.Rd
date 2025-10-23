@@ -21,7 +21,7 @@ data from within \strong{R} is as follows:
 
 \strong{Individual file descriptions}
 
-\emph{>>Daybreak_TestFile.DAT/.txt<<}
+\emph{>>Daybreak_TestFile.DAT.txt<<}
 
 \strong{Type:} raw measurement data \cr
 \strong{Device:} Daybreak OSL/TL reader\cr
@@ -46,17 +46,17 @@ Dormagen-Nievenheim (Germany) during a practical course on Luminescence dating i
 \emph{>>QNL84_2_bleached.txt}, \emph{QNL84_2_unbleached.txt<<}
 
 \strong{Type:} Test data for exponential fits \cr
-\strong{Reference:} Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \cr
+\strong{Reference:} Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}\cr
 
 \emph{>>STRB87_1_bleached.txt}, \emph{STRB87_1_unbleached.txt<<}
 
 \strong{Type:} Test data for exponential fits \cr
-\strong{Reference:} Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+\strong{Reference:} Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}
 
 \emph{>>XSYG_file.xsyg}
 
 \strong{Type:} XSYG-file stump \cr
-**Info: ** XSYG-file with some basic curves to test functions \cr
+\strong{Info:} XSYG-file with some basic curves to test functions \cr
 \strong{Reference:} no reference available
 }
 \keyword{datasets}

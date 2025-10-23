@@ -1,9 +1,11 @@
 #' @title Non-linear Least Squares Fit for LM-OSL curves
 #'
-#' @description The function determines weighted non-linear least-squares estimates of the
+#' @description
+#' The function determines weighted non-linear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
-#' uses the function [nls] with the `port` algorithm.
+#' uses the Levenberg-Marquardt algorithm as implemented in function `nlsLM`
+#' from package `minpack.lm`.
 #'
 #' @details
 #' **Fitting function**
@@ -24,20 +26,23 @@
 #'
 #' **Background subtraction**
 #'
-#' Three methods for background subtraction
-#' are provided for a given background signal (`values.bg`).
+#' When a background signal is provided with the `values.bg` argument, the
+#' user can choose among three methods for background subtraction by setting
+#' the `bg.subtraction` argument to one of these:
 #'
-#' - `polynomial`: default method. A polynomial function is fitted using [glm]
+#' - `"polynomial"` (default): a polynomial function is fitted using [glm]
 #' and the resulting function is used for background subtraction:
 #' \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
 #'
-#' - `linear`: a linear function is fitted using [glm] and the resulting function
-#' is used for background subtraction:
+#' - `"linear"`: a linear function is fitted using [glm] and the resulting
+#' function is used for background subtraction:
 #' \deqn{y = a*x + b}
 #'
-#' - `channel`: the measured
-#' background signal is subtracted channel wise from the measured signal.
+#' - `"channel"`: the measured background signal is subtracted channel-wise
+#' from the measured signal.
 #'
+#' - `"none"`: this disables background subtraction even if `values.bg` is
+#' provided.
 #'
 #' **Start values**
 #'
@@ -46,10 +51,10 @@
 #' parameters. Here, three options are provided:
 #'
 #' **(a)**
-#' If no start values (`start_values`) are provided by the user, a cheap guess is made
+#' If `start_values` is not provided by the user, a cheap guess is made
 #' by using the detrapping values found by Jain et al. (2003) for quartz for a
 #' maximum of 7 components. Based on these values, the pseudo start parameters
-#' `xm` and `Im` are recalculated for the given data set. In all cases, the fitting
+#' `xm` and `Im` are recalculated for the given data set. In all cases, fitting
 #' starts with the ultra-fast component and (depending on `n.components`)
 #' steps through the following values. If no fit could be achieved, an error
 #' plot (for `plot = TRUE`) with the pseudo curve (based on the
@@ -59,15 +64,6 @@
 #' **(b)**
 #' If start values are provided, the function works like a simple [nls]
 #' fitting approach.
-#'
-#' **(c)**
-#' If no start parameters are provided and
-#' the option `fit.advanced = TRUE` is chosen, an advanced start parameter
-#' estimation is applied using a stochastic attempt. Therefore, the
-#' recalculated start parameters **(a)** are used to construct a normal
-#' distribution. The start parameters are then sampled randomly from this
-#' distribution. A maximum of 100 attempts will be made. **Note:** This
-#' process may be time consuming.
 #'
 #' **Goodness of fit**
 #'
@@ -83,14 +79,14 @@
 #'
 #' The 1-sigma error for the components is calculated using
 #' the function [stats::confint]. Due to considerable calculation time, this
-#' option is deactivated by default. In addition, the error for the components
+#' option is disabled by default. In addition, the error for the components
 #' can be estimated by using internal R functions like [summary]. See the
 #' [nls] help page for more information.
 #'
 #' *For more details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
 #' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' x,y data of measured values (time and counts). See examples.
+#' x,y data of measured values (time and counts).
 #'
 #' @param values.bg [RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' x,y data of measured values (time and counts) for background subtraction.
@@ -106,11 +102,6 @@
 #' @param input.dataType [character] (*with default*):
 #' alter the plot output depending on the input data: `"LM"` or `"pLM"` (pseudo-LM).
 #' See: [convert_CW2pLM]
-#'
-#' @param fit.method [character] (*with default*):
-#' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
-#' routine from the function [nls] `'LM'` utilises the function `nlsLM` from
-#' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
 #'
 #' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (mtext).
@@ -131,17 +122,13 @@
 #' @param fit.trace [logical] (*with default*):
 #' traces the fitting process on the terminal.
 #'
-#' @param fit.advanced [logical] (*with default*):
-#' enables advanced fitting attempt for automatic start parameter recognition.
-#' Works only if no start parameters are provided.
-#' **Note:** It may take a while and it is not compatible with `fit.method = "LM"`.
-#'
 #' @param fit.calcError [logical] (*with default*):
 #' calculate 1-sigma error range of components using [stats::confint].
 #'
 #' @param bg.subtraction [character] (*with default*):
-#' specifies method for background subtraction (`polynomial`, `linear`, `channel`,
-#' see Details). **Note:** requires input for `values.bg`.
+#' specifies method for background subtraction (one of `"polynomial"`,
+#' `"linear"`, `"channel"`, or `"none"`, see Details). Only considered if
+#' `values.bg` is specified.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -150,8 +137,20 @@
 #' enable/disable the plot output.
 #'
 #' @param plot.BG [logical] (*with default*):
-#' returns a plot of the background values with the fit used for the
+#' enable/disable a plot of the background values with the fit used for the
 #' background subtraction.
+#'
+#' @param plot.residuals [logical] (*with default*):
+#' enable/disable the plot of the residuals.
+#'
+#' @param plot.contribution [logical] (*with default*):
+#' enable/disable the plot of the component contribution.
+#'
+#' @param legend [logical] (*with default*):
+#' enable/disable the plot legend.
+#'
+#' @param legend.pos [character] (*with default*):
+#' keyword specifying the position of the legend.
 #'
 #' @param method_control [list] (*optional*): options to control the output
 #' produced. Currently only the 'export.comp.contrib.matrix' (logical) option
@@ -159,7 +158,7 @@
 #' matrix.
 #'
 #' @param ... Further arguments that may be passed to the plot output, e.g.
-#' `xlab`, `xlab`, `main`, `log`.
+#' `main`, `xlab`, `xlab`, `xlim`, `ylim`, `cex`, `log`.
 #'
 #' @return
 #' Various types of plots are returned. For details see above. Furthermore an
@@ -194,7 +193,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.3.6
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -245,7 +244,6 @@
 #'             log = "x",
 #'             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))
 #'
-#' @md
 #' @export
 fit_LMCurve<- function(
   values,
@@ -253,18 +251,20 @@ fit_LMCurve<- function(
   n.components = 3,
   start_values,
   input.dataType = "LM",
-  fit.method = "port",
   sample_code = "",
   sample_ID = "",
   LED.power = 36,
   LED.wavelength = 470,
   fit.trace = FALSE,
-  fit.advanced = FALSE,
   fit.calcError = FALSE,
   bg.subtraction = "polynomial",
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
+  plot.residuals = TRUE,
+  plot.contribution = TRUE,
+  legend = TRUE,
+  legend.pos = "topright",
   method_control = list(),
   ...
 ) {
@@ -286,6 +286,9 @@ fit_LMCurve<- function(
 
     values <- as(values,"data.frame")
   }
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
+  }
 
   ##(2) data.frame or RLum.Data.Curve object?
   if (!missing(values.bg)) {
@@ -297,136 +300,117 @@ fit_LMCurve<- function(
     if (inherits(values.bg, "RLum.Data.Curve"))
       values.bg <- as(values.bg, "data.frame")
 
+    ## check if length of bg and signal is consistent
+    if (nrow(values) != nrow(values.bg))
+      .throw_error("'values' and 'values.bg' have different lengths")
+
+    ## silently limit columns of values.bg to prevent problems
+    values.bg <- values.bg[,1:2]
   }
 
+  .validate_positive_scalar(n.components, int = TRUE)
   input.dataType <- .validate_args(input.dataType, c("LM", "pLM"))
-  fit.method <- .validate_args(fit.method, c("port", "LM"))
   bg.subtraction <- .validate_args(bg.subtraction,
-                                   c("polynomial", "linear", "channel"))
+                                   c("polynomial", "linear", "channel", "none"))
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot.BG)
+  .validate_logical_scalar(plot.residuals)
+  .validate_logical_scalar(plot.contribution)
+  .validate_logical_scalar(legend)
   .validate_class(method_control, "list")
+
+  ## remove missing values
+  if (anyNA(values)) {
+    na.idx <- unique(which(is.na(values), arr.ind = TRUE)[, 1])
+    values <- values[-na.idx, ]
+    if (!missing(values.bg))
+      values.bg <- values.bg[-na.idx, ]
+  }
+  if (!missing(values.bg) && anyNA(values.bg)) {
+    na.idx <- unique(which(is.na(values.bg), arr.ind = TRUE)[, 1])
+    values <- values[-na.idx, ]
+    values.bg <- values.bg[-na.idx, ]
+  }
+
+  if (nrow(values) == 0)
+    .throw_error("After NA removal, nothing is left from the data set")
 
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
 
-  log       <- if("log" %in% names(extraArgs)) {extraArgs$log}
-  else {""}
-
-  xlim      <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim}
-  else {c(min(values[,1]),max(values[,1]))}
-
-  ylim      <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim}
-  else {
-    if(input.dataType=="pLM"){
-      c(0,max(values[,2]*1.1))
-    }else{
-      c(min(values[,2]),max(values[,2]*1.1))
-    }
-  }
-
-  xlab      <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab}
-  else {
-    if(input.dataType=="LM"){"Time [s]"}else{"u [s]"}
-  }
-
-  ylab     <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab}
-  else {
-    if(input.dataType=="LM"){
-      paste("LM-OSL [cts/",round(max(values[,1])/length(values[,1]),digits=2)," s]",sep="")
-    }else{"pLM-OSL [a.u.]"}
-  }
-
-  main      <- if("main" %in% names(extraArgs)) {extraArgs$main}
-  else {"Default"}
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex}
-  else {0.8}
-
-  fun <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
+  settings <- modifyList(list(
+      main = "Default",
+      xlim = range(values[, 1]),
+      ylim = c(if (input.dataType == "LM") min(values[, 2]) else 0,
+               max(values[, 2] * 1.1)),
+      xlab = if (input.dataType == "LM") "Time [s]" else "u [s]",
+      ylab = if (input.dataType == "LM") {
+               paste0("LM-OSL [cts/",
+                      round(max(values[, 1]) / nrow(values), digits = 2), " s]")
+             } else "pLM-OSL [a.u.]",
+      log = "",
+      cex = 0.8,
+      fun = FALSE
+  ), extraArgs)
 
   method_control <- modifyList(x = list(export.comp.contrib.matrix = FALSE),
                                val = method_control)
 
+  ## deprecated argument
+  if ("fit.method" %in% names(extraArgs) && extraArgs$fit.method == "port") {
+    .throw_warning("`fit.method = 'port'` is deprecated, fitting always ",
+                   "occurs with the 'LM' method")
+  }
+
   # layout safety settings
-  par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
+  par.default <- .par_defaults()
   on.exit(par(par.default), add = TRUE)
 
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION
   ##============================================================================##
-  if(missing(values.bg)==FALSE){
-    #set graphical parameters
-    par(mfrow=c(1,1), cex=1.5*cex)
-
-    ##check if length of bg and signal is consistent
-    if(length(values[,2])!=length(values.bg[,2]))
-      .throw_error("Lengths of 'values' and 'values.bg' differ")
-
-    if(bg.subtraction=="polynomial"){
-
-      #fit polynomial function to background
-      glm.fit <- stats::glm(values.bg[, 2] ~ values.bg[, 1]
+  if (!missing(values.bg) && bg.subtraction != "none") {
+    if (bg.subtraction %in% c("polynomial", "linear")) {
+      if (bg.subtraction == "polynomial") {
+        ## fit polynomial function to background
+        glm.fit <- stats::glm(values.bg[, 2] ~ values.bg[, 1]
                                          + I(values.bg[, 1]^2)
                                          + I(values.bg[, 1]^3))
-      glm.coef<-coef(glm.fit)
-
-      #subtract background with fitted function
-      values[,2]<-values[,2]-
-        (glm.coef[4]*values[,1]^3+glm.coef[3]*values[,1]^2+glm.coef[2]*values[,1]+glm.coef[1])
-      writeLines("[fit_LMCurve] >> Background subtracted (method=\"polynomial\")!")
-
-      ##plot Background measurement if needed
-      if(plot.BG==TRUE){
-
-        plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        curve((glm.coef[4]*x^3+glm.coef[3]*x^2+glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=2)
-        text(0,max(values.bg[,2]),paste("y = ", round(glm.coef[4],digits=2),
-                                        "*x^3+",
-                                        round(glm.coef[3],digits=2),
-                                        "*x^2+",
-                                        round(glm.coef[2],digits=2),
-                                        "*x+",
-                                        round(glm.coef[1],digits=2),
-                                        sep=""),pos=4)
-        mtext(side=3,sample_code,cex=.8*cex)
+      } else {
+        ## fit linear function to background
+        glm.fit <- stats::glm(values.bg[, 2] ~ values.bg[, 1])
       }
 
-    }else if(bg.subtraction=="linear"){
-
-      #fit linear function to background
-      glm.fit <- stats::glm(values.bg[, 2] ~ values.bg[, 1])
-      glm.coef<-coef(glm.fit)
-
-      ##substract bg
-      values[,2]<-values[,2]-(glm.coef[2]*values[,1]+glm.coef[1])
-      writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"linear\")!")
-
-      ##plot Background measurement if needed
-      if(plot.BG){
-
-        plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        curve((glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=1.5)
-        text(0,max(values.bg[,2]),paste("y = ",
-                                        round(glm.coef[2],digits=2),
-                                        "*x+",
-                                        round(glm.coef[1],digits=2),
-                                        sep=""),pos=4)
-        mtext(side=3,sample_code,cex=.8*cex)
-
-      }#endif::plot BG
+      ## subtract background with fitted function
+      values[, 2] <- values[, 2] - glm.fit$fitted.values
 
     }else if(bg.subtraction=="channel"){
-
       values[,2]<-values[,2]-values.bg[,2]
-      writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"channel\")!")
+    }
 
-      if(plot.BG==TRUE){
+    if (plot.BG) {
+      par(mfrow = c(1, 1), cex = 1.5 * settings$cex)
+      plot(values.bg, main = "Background",
+           ylab = "LM-OSL [a.u.]", xlab = "Time [s]")
+      mtext(side = 3, sample_code, cex = 0.8 * settings$cex)
 
-        plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        mtext(side=3,sample_code,cex=.8*cex)
+      if (bg.subtraction %in% c("polynomial", "linear")) {
+        lines(values.bg[, 1], glm.fit$fitted.values, col = "red", lwd = 1.5)
+
+        ## extract and round coefficients to produce the fitted equation
+        glm.coef <- round(coef(glm.fit), 2)
+        text(0,max(values.bg[,2]),
+             paste0("y = ",
+                    if (bg.subtraction == "polynomial")
+                      paste0(glm.coef[4], "*x^3+", glm.coef[3], "*x^2+"),
+                    glm.coef[2], "*x+", glm.coef[1]), pos = 4)
       }
+    }
+
+    if (verbose) {
+      .throw_message(">> Background subtracted (method = '",
+                     bg.subtraction, "')", error = FALSE)
     }
   }
 
@@ -434,8 +418,6 @@ fit_LMCurve<- function(
   ##============================================================================##
   ##  FITTING
   ##============================================================================##
-
-  .validate_positive_scalar(n.components, int = TRUE)
 
   ##------------------------------------------------------------------------##
   ##set function for fit equation (according Kitis and Pagonis, 2008)
@@ -453,7 +435,6 @@ fit_LMCurve<- function(
   ## the upper two functions should be removed ... but chances are needed ... TODO
   ##////equation used for fitting////(start)
   fit.formula <- function(n.components){
-
     Im <- paste0("Im.",1:n.components)
     xm <- paste0("xm.",1:n.components)
 
@@ -478,127 +459,64 @@ fit_LMCurve<- function(
     xm.pseudo<-sqrt(max(values[,1])/b.pseudo)
 
     ##the Im values obtaind by calculating residuals
-    xm.residual<-sapply(1:length(b.pseudo),function(x){abs(values[,1]-xm.pseudo[x])})
-    xm.residual<-cbind(xm.residual,values[,1])
-    Im.pseudo<-sapply(1:length(xm.pseudo),function(x){
-      min(xm.residual[which(xm.residual[,x]==min(xm.residual[,x])),8])#8 is time index
+    Im.pseudo <- sapply(xm.pseudo, function(x) {
+      xm.residual <- abs(values[, 1] - x)
+      values[which.min(xm.residual), 1] # time value of minimum residual
     })
 
     ##set additional variables
     b.pseudo_start<-1
     b.pseudo_end<-0
-    fit.trigger<-FALSE
+    fit.found <- FALSE
 
-    while(fit.trigger==FALSE){
-
+    while(!fit.found) {
       xm <- xm.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
       Im <- Im.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
 
-      if(fit.advanced){
-        ##---------------------------------------------------------------##
-        ##MC for fitting parameter
-        ##make the fitting more stable by small variations of the parameters
-
-        ##sample input parameters values from a normal distribution
-        xm.MC<-sapply(1:length(xm),function(x){
-          xm.MC<-sample(rnorm(30,mean=xm[x],sd=xm[x]/10), replace=TRUE)
-        })
-
-        Im.MC<-sapply(1:length(xm),function(x){
-          Im.MC<-sample(rnorm(30,mean=Im[x],sd=Im[x]/10), replace=TRUE)
-        })
-        ##---------------------------------------------------------------##
-
-        for(i in 1:length(xm.MC[,1])){
-
-          ##NLS          ##try fit
-          fit<-try(nls(y~eval(fit.function),
-                       trace=fit.trace,
-                       data=data.frame(x=values[,1],y=values[,2]),
-                       algorithm="port",
-                       start=list(Im=Im.MC[i,],xm=xm.MC[i,]),#end start values input
-                       stats::nls.control(
-                         maxiter=500
-                       ),#end nls control
-                       lower=c(xm=min(values[,1]),Im=0),
-                       upper=c(xm=max(values[,1]),Im=max(values[,2]*1.1))
-          ),# nls
-          silent=TRUE)# end try
-          ##graphical output
-          if(i==1){cat(paste("[fit_LMCurve()] >> advanced fitting attempt (#",
-                             b.pseudo_start,"): ",sep=""))}
-          cat("*")
-
-          if(inherits(fit,"try-error") == FALSE){break}
-        }#end::forloop
-
-        cat("\n")
-
-      }else{
-
-        if(fit.method == "port") {
-          fit <- try(nls(
-            y ~ eval(fit.function),
-            trace = fit.trace,
-            data = data.frame(x = values[,1],y = values[,2]),
-            algorithm = "port",
-            start = list(Im = Im,xm = xm),#end start values input
-            stats::nls.control(maxiter = 500),
-            lower = c(xm = 0,Im = 0)
-          ),# nls
-          silent = TRUE)
-          # end try
-
-        }else if (fit.method == "LM") {
           ##re-name for method == "LM"
           names(Im) <- paste0("Im.", 1:n.components)
           names(xm) <- paste0("xm.", 1:n.components)
           start.list <- c(as.list(Im), as.list(xm))
-          lower <-
-            vapply(start.list, function(x) {
-              start.list[[x]] <- 0
-            }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
           fit <- try(minpack.lm::nlsLM(
             fit.formula(n.components),
             data = data.frame(x = values[,1],
                               y = values[,2]),
             start = start.list,
-            lower = lower,
+            lower = rep(0, length(start.list)),
             trace = fit.trace,
             control = minpack.lm::nls.lm.control(maxiter = 500)
           ), silent = TRUE)
-        }
-      }#endifelse::fit.advanced
 
-
-      if(inherits(fit,"try-error")==FALSE){fit.trigger<-TRUE}
-      else{
-
-        if((n.components+b.pseudo_end)==7){fit.trigger<-TRUE
-        }else{
-          b.pseudo_start<-b.pseudo_start+1
-          b.pseudo_end<-b.pseudo_end+1
-        }#endif::maximum loops
-      }#endif::try-error
-    }#end:whileloop fit trigger
+      if (!inherits(fit, "try-error") || n.components + b.pseudo_end == 7) {
+        fit.found <- TRUE
+      }
+      b.pseudo_start <- b.pseudo_start + 1
+      b.pseudo_end <- b.pseudo_end + 1
+    }#end:while loop fit found
 
   }else{#endif::missing start values
     ##------------------------------------------------------------------------##
-    fit<-try(nls(y~eval(fit.function),
-                 trace=fit.trace, data.frame(x=values[,1],y=values[,2]),
-                 algorithm="port", start=list(Im=start_values[,1],xm=start_values[,2]),#end start values input
-                 stats::nls.control(maxiter = 500),
-                 lower=c(xm=0,Im=0),
-                 #upper=c(xm=max(x),Im=max(y)*1.1)# set lower boundaries for components
-                 ), outFile = stdout() # redirect error messages so they can be silenced
-             ) # end try
+    Im <- start_values[, 1]
+    names(Im) <- paste0("Im.", 1:n.components)
+    xm <- start_values[, 2]
+    names(xm) <- paste0("xm.", 1:n.components)
+    start.list <- c(as.list(Im), as.list(xm))
+    fit <- try(minpack.lm::nlsLM(
+                       fit.formula(n.components),
+                       data = data.frame(x = values[, 1],
+                                         y = values[, 2]),
+                       start = start.list,
+                       lower = rep(0, length(start.list)),
+                       trace = fit.trace,
+                       control = minpack.lm::nls.lm.control(maxiter = 500)),
+               outFile = stdout()) # redirect error messages so they can be silenced
   }#endif::startparameter
 
   ##------------------------------------------------------------------------##
 
   ##grep parameters
-  if(inherits(fit,"try-error")==FALSE){
+  if (!inherits(fit, "try-error")) {
     parameters<-coef(fit)
 
     ##write parameters in vectors and order parameters
@@ -617,7 +535,8 @@ fit_LMCurve<- function(
     if (verbose){
       ##print rough fitting information - use the nls() control for more information
       writeLines("\n[fit_LMCurve()]")
-      writeLines(paste("\nFitting was done using a ",n.components, "-component function:\n",sep=""))
+      writeLines(paste0("\nFitting was done using a ", n.components,
+                        "-component function:\n"))
 
       ##print parameters
       print(c(xm, Im))
@@ -633,15 +552,14 @@ fit_LMCurve<- function(
     ##calculate stimulation intensity Schmidt (2008)
 
     ##Energy - E = h*v
-    h<-6.62606957e-34 #in W*s^2 - Planck constant
-    ny<-299792458/(LED.wavelength/10^9) #frequency of the light
+    h <- .const$h # Planck constant (W*s^2)
+    ny <- .const$c / (LED.wavelength / 10^9) # frequency of the light
     E<-h*ny
 
     ##transform LED.power in W/cm^2
     LED.power<-LED.power/1000
 
     stimulation_intensity<-LED.power/E
-
 
     ##calculate b and n from the equation of Bulur(1996) to compare results
     ##Using Equation 5 and 6 from Kitis (2008)
@@ -663,7 +581,8 @@ fit_LMCurve<- function(
         xm.confint <- values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
 
         ##error calculation
-        b.error < -as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
+        b.error <- as.vector(abs((max(values[, 1]) / xm.confint[, 1]^2) -
+                                 (max(values[, 1]) / xm.confint[, 2]^2)))
         n0.error <- as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
 
       } else {
@@ -718,7 +637,6 @@ fit_LMCurve<- function(
     ##set polygons in between
     ##polygons in between (calculate and plot)
     if (length(xm)>2){
-
       y.contribution_prev <- y.contribution_first
       i<-2
 
@@ -761,8 +679,7 @@ fit_LMCurve<- function(
 
     ##change names of matrix to make more easy to understand
     component.contribution.matrix.names <- c("x", "rev.x",
-                                             paste(c("y.c","rev.y.c"),rep(1:n.components,each=2), sep=""))
-
+                                             paste0(c("y.c", "rev.y.c"), rep(1:n.components, each = 2)))
 
     ##calculate area for each component, for each time interval
     component.contribution.matrix.area <- sapply(
@@ -782,7 +699,7 @@ fit_LMCurve<- function(
     ##set final column names
     colnames(component.contribution.matrix) <- c(
       component.contribution.matrix.names,
-      paste(c("cont.c"),rep(1:n.components,each=1), sep=""),
+      paste0("cont.c", 1:n.components),
       "cont.sum")
 
     ##============================================================================##
@@ -793,24 +710,26 @@ fit_LMCurve<- function(
       writeLines("------------------------------------------------------------------------------")
       writeLines("(1) Corresponding values according to the equation in Bulur, 1996 for b and n0:\n")
       for (i in 1:length(b)){
-        writeLines(paste("b",i," = ",format(b[i],scientific=TRUE)," +/- ",format(b.error[i],scientific=TRUE),sep=""))
-        writeLines(paste("n0",i," = ",format(n0[i],scientific=TRUE)," +/- ",format(n0.error[i],scientific=TRUE),"\n",sep=""))
+        cat(paste0("b", i), "=", format(b[i], scientific = TRUE),
+            "\u00B1", format(b.error[i], scientific = TRUE), "\n")
+        cat(paste0("n0", i), "=", format(n0[i], scientific = TRUE),
+            "\u00B1", format(n0.error[i], scientific = TRUE), "\n\n")
       }#end for loop
 
       ##write photoionisation cross section on terminal
       for (i in 1:length(cs)){
-        writeLines(paste("cs from component.",i," = ",format(cs[i],scientific=TRUE, digits=4), " cm^2",
-                         "\t >> relative: ",round(cs[i]/cs[1],digits=4),sep=""))
-
+        cat(paste0("cs from component.", i), "=",
+            format(cs[i], scientific = TRUE, digits = 4),
+            "cm^2\t >> relative: ", round(cs[i] / cs[1], 4), "\n")
       }#end for loop
 
-      writeLines(paste(
-        "\n(stimulation intensity value used for calculation: ",format(stimulation_intensity,scientific=TRUE)," 1/s 1/cm^2)",sep=""))
+      cat("\n(stimulation intensity value used for calculation: ",
+          format(stimulation_intensity, scientific = TRUE), " 1/s 1/cm^2)\n")
       writeLines("(errors quoted as 1-sigma uncertainties)")
       writeLines("------------------------------------------------------------------------------\n")
 
       #sum of squares
-      writeLines(paste("pseudo-R^2 = ",pR,sep=""))
+      cat("pseudo-R^2 =", pR, "\n")
     }#end if
 
     ##============================================================================##
@@ -819,58 +738,21 @@ fit_LMCurve<- function(
 
     ##write output table if values exists
     if (exists("fit")){
-      ##set data.frame for a max value of 7 components
-      output.table <- data.frame(NA,NA,NA,NA,NA,NA,NA,NA,
-                                 NA,NA,NA,NA,NA,NA,NA,NA,
-                                 NA,NA,NA,NA,NA,NA,NA,NA,
-                                 NA,NA,NA,NA,NA,NA,NA,NA,
-                                 NA,NA,NA,NA,NA,NA,NA,NA,
-                                 NA,NA,NA,NA,NA,NA,NA,NA,
-                                 NA,NA,NA,NA,NA,NA,NA,NA)
+      ## build column names according to a pattern
+      pat <- c("Im%d", "xm%d", "b%d", "b%d.error",
+               "n%02d", "n%02d.error", "cs%d", "rel_cs%d")
+      output.tableColNames <- unlist(lapply(1:7, function(x) sprintf(pat, x)))
 
-      output.tableColNames<-c("Im1","xm1",
-                              "b1","b1.error","n01","n01.error",
-                              "cs1","rel_cs1",
-                              "Im2","xm2",
-                              "b2","b2.error","n02","n02.error",
-                              "cs2","rel_cs2",
-                              "Im3","xm3",
-                              "b3","b3.error","n03","n03.error",
-                              "cs3","rel_cs3",
-                              "Im4","xm4",
-                              "b4","b4.error","n04","n04.error",
-                              "cs4","rel_cs4",
-                              "Im5","xm5",
-                              "b5","b5.error","n05","n05.error",
-                              "cs5","rel_cs5",
-                              "Im6","xm6",
-                              "b6","b6.error","n06","n06.error",
-                              "cs6","rel_cs6",
-                              "Im7","xm7",
-                              "b7","b7.error","n07","n07.error",
-                              "cs7","rel_cs7")
-
-
-      ##write components in output table
-      i<-0
-      k<-1
-      while(i<=n.components*8){
-        output.table[1,i+1]<-Im[k]
-        output.table[1,i+2]<-xm[k]
-        output.table[1,i+3]<-b[k]
-        output.table[1,i+4]<-b.error[k]
-        output.table[1,i+5]<-n0[k]
-        output.table[1,i+6]<-n0.error[k]
-        output.table[1,i+7]<-cs[k]
-        output.table[1,i+8]<-rel_cs[k]
-        i<-i+8
-        k<-k+1
+      ## set data.frame for a max value of 7 components
+      output.table <- rep(NA_real_, length(pat) * 7)
+      for (k in 1:n.components) {
+        output.table[(k - 1) * 8 + 1:8] <- c(Im[k], xm[k], b[k], b.error[k],
+                                             n0[k], n0.error[k], cs[k], rel_cs[k])
       }
 
       ##add pR and n.components
-      output.table<-cbind(sample_ID,sample_code,n.components,output.table,pR)
-
-      ###alter column names
+      output.table <- cbind(sample_ID, sample_code, n.components,
+                            data.frame(as.list(output.table)), pR)
       colnames(output.table)<-c("ID","sample_code","n.components",output.tableColNames,"pseudo-R^2")
 
       ##----------------------------------------------------------------------------##
@@ -906,38 +788,48 @@ fit_LMCurve<- function(
     ##grep package colour gallery
     col <- get("col", pos = .LuminescenceEnv)
 
-    ##change xlim values in case of the log plot the avoid problems
-    if((log == "x" | log == "xy") && xlim[1] == 0){
+    ## change xlim/ylim values in case of log plot to avoid problems
+    if (settings$log %in% c("x", "xy") && settings$xlim[1] == 0) {
       .throw_warning("'xlim' changed to avoid 0 values for log-scale")
-      xlim <- c(2^0.5/2 * max(values[,1])/length(values[,1]), xlim[2])
+      settings$xlim <- c(2^0.5 / 2 * max(values[, 1]) / nrow(values), settings$xlim[2])
+
+    }
+    if (settings$log %in% c("y", "xy") && settings$ylim[1] == 0) {
+      settings$ylim[1] <- 0.01
     }
 
     ##set plot frame
-    layout(matrix(c(1,2,3),3,1, byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
-    par(oma = c(1,1,1,1), mar = c(0,4,3,0), cex=cex)
+    graphics::layout(matrix(seq(1 + plot.residuals + plot.contribution), ncol = 1),
+                     heights = c(10, if (plot.residuals) 3,
+                                 if (plot.contribution) 4))
+    par(oma = c(1, 1, 1, 1), mar = c(0.5, 2.5, 2, 0), cex = settings$cex)
+    mgp <- c(1.5, 0.5, 0)
 
     ##==upper plot==##
     ##open plot area
     plot_check <- try(plot(
       NA,
       NA,
-      xlim = xlim,
-      ylim = ylim,
+      xlim = settings$xlim,
+      ylim = settings$ylim,
       xlab = "",
       xaxt = "n",
-      main = main,
-      log = log,
-      ylab = ylab
+      main = settings$main,
+      mgp = mgp,
+      log = settings$log,
+      cex.axis = 0.8,
+      cex.lab = 0.9,
+      ylab = settings$ylab
     ), silent = TRUE)
 
-    if (is(plot_check, "try-error")) {
+    if (inherits(plot_check, "try-error")) {
       ## reset the graphic device if plotting failed
       .throw_message("Figure margins too large or plot area too small, ",
                      "nothing plotted")
       grDevices::dev.off()
     } else {
 
-    mtext(side=3,sample_code,cex=0.8*cex)
+    mtext(side = 3, sample_code, cex = 0.8 * settings$cex)
 
     ##plotting measured signal
     points(values[, 1],
@@ -948,7 +840,7 @@ fit_LMCurve<- function(
     ##==pseudo curve==##------------------------------------------------------#
 
     ##curve for used pseudo values
-    if(inherits(fit,"try-error")==TRUE & missing(start_values)==TRUE){
+    if (inherits(fit, "try-error") && missing(start_values)) {
       fit.function<-fit.equation(Im.i=1:n.components,xm.i=1:n.components)
       Im<-Im.pseudo[1:n.components]
       xm<-xm.pseudo[1:n.components]
@@ -957,9 +849,10 @@ fit_LMCurve<- function(
       lines(values[,1],eval(fit.function), lwd=2, col="red", lty=2)
 
       axis(side=1)
-      mtext(side=1,xlab, cex=.9*cex,line=2)
+      mtext(side = 1, settings$xlab, cex = 0.9 * settings$cex, line = 2)
 
-      mtext(side=4,paste(n.components, " component pseduo function is shown",sep=""),cex=0.7, col="blue")
+      mtext(side = 4, paste(n.components, "component pseudo function is shown"),
+            cex = 0.7, col = "blue")
 
       ##draw information text on plot
       text(min(values[,1]),max(values[,2]),"FITTING ERROR!",pos=4)
@@ -970,42 +863,45 @@ fit_LMCurve<- function(
     ##==pseudo curve==##------------------------------------------------------##
 
     ##plot sum function
-    if(inherits(fit,"try-error")==FALSE){
+    if (!inherits(fit, "try-error")) {
       lines(values[,1],eval(fit.function), lwd=2, col="black")
-      legend.caption<-"sum curve"
-      curve.col<-1
+      legend.caption <- c("Sum curve", paste("Component", 1:n.components))
+      curve.col <- seq(n.components + 1)
 
       ##plot signal curves
 
       ##plot curve for additional parameters
       for (i in 1:length(xm)) {
-        curve(exp(0.5)*Im[i]*x/xm[i]*exp(-x^2/(2*xm[i]^2)),col=col[i+1], lwd=2,add=TRUE)
-        legend.caption<-c(legend.caption,paste("component ",i,sep=""))
-        curve.col<-c(curve.col,i+1)
+        curve(exp(0.5) * Im[i] * x / xm[i] * exp(-x^2 / (2 * xm[i]^2)),
+              col = col[i + 1], lwd = 2, add = TRUE)
       }
 
       ## plot legend
-      legend.pos <- "topright"
-      if ((log == "x" || log == "xy") && input.dataType != "pLM")
-        legend.pos <- "topleft"
-      legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
-             col = col[curve.col])
+      if (legend)
+        legend(legend.pos, legend.caption, lty = 1, lwd = 2, bty = "n",
+               col = col[curve.col])
 
       ##==lower plot==##
       ##plot residuals
-      par(mar=c(4.2,4,0,0))
+      if (plot.residuals) {
+      par(mar = c(0.5, 2.5, 0, 0))
       plot(values[,1],residuals(fit),
-           xlim=xlim,
-           xlab=xlab,
+           xlim = settings$xlim,
+           xlab = "",
+           xaxt = "n",
            type="l",
            col="grey",
            ylab="Residual",
            lwd=2,
-           log=log)
+           xpd = NA,
+           mgp = mgp,
+           cex.axis = 0.8,
+           cex.lab = 0.9,
+           log = gsub("y", "", settings$log))
 
       ##ad 0 line
       abline(h=0)
-
+      }
 
       ##------------------------------------------------------------------------#
       ##++component to sum contribution plot ++##
@@ -1013,14 +909,19 @@ fit_LMCurve<- function(
 
       ##plot component contribution to the whole signal
       #open plot area
-      par(mar=c(4,4,3.2,0))
+      if (plot.contribution) {
+      par(mar = c(2, 2.5, 0, 0))
       plot(NA,NA,
-           xlim=xlim,
+           xlim = settings$xlim,
            ylim=c(0,100),
-           ylab="Contribution [%]",
-           xlab=xlab,
-           main="Component contribution to sum curve",
-           log=if(log=="xy"){"x"}else{log})
+           ylab = "Component\ncontrib. [%]",
+           xlab = settings$xlab,
+           main = "",
+           xpd = NA,
+           mgp = mgp,
+           cex.axis = 0.8,
+           cex.lab = 0.9,
+           log = gsub("y", "", settings$log))
 
       stepping <- seq(3,length(component.contribution.matrix),2)
 
@@ -1032,12 +933,11 @@ fit_LMCurve<- function(
                   component.contribution.matrix[,stepping[i]+1]),
                 col = col[i+1])
       }
-      rm(stepping)
-
+      }
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 
-    if (fun == TRUE) sTeve() # nocov
+    if (settings$fun == TRUE) sTeve() # nocov
 
     } # end if (plot_check)
   }
@@ -1052,7 +952,7 @@ fit_LMCurve<- function(
   if (!method_control$export.comp.contrib.matrix) {
     component.contribution.matrix <- NA
   }
-  newRLumResults.fit_LMCurve <- set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       data = output.table,
@@ -1062,6 +962,4 @@ fit_LMCurve<- function(
     ),
     info = list(call = sys.call())
   )
-
-  invisible(newRLumResults.fit_LMCurve)
 }

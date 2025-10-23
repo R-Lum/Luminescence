@@ -1,3 +1,4 @@
+## load data
 data("ExampleData.SurfaceExposure", envir = environment())
 d1 <- ExampleData.SurfaceExposure$sample_1
 d2 <- ExampleData.SurfaceExposure$sample_2
@@ -21,6 +22,8 @@ test_that("input validation", {
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = rep(1e4, 5), mu = c(0.8, 0.9)),
                "'mu' must either be of the same length or of length 1")
+  expect_error(fit_SurfaceExposure(data.frame(NA, 1:5)),
+               "After NA removal, nothing is left from the data set")
 
   SW({
   expect_message(fit_SurfaceExposure(rbind(d1, NA), mu = 0.9),
@@ -28,49 +31,38 @@ test_that("input validation", {
   })
 })
 
-
-test_that("check values from output example", {
+test_that("check values from example 1", {
   testthat::skip_on_cran()
 
   fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
                              plot = TRUE, verbose = FALSE)
 
   ## Example data 1
-  expect_s4_class(
-    fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, age = 12000,
-    plot = FALSE, verbose = FALSE), "RLum.Results")
-
+  expect_s4_class(fit, "RLum.Results")
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
   expect_equal(is(fit$fit), "nls")
 
   expect_equal(round(fit$summary$age), 9893)
   expect_equal(round(fit$summary$age_error), 369)
-
-  expect_s4_class(fit_SurfaceExposure(d1, sigmaphi = 5e-10, age = 12000,
-                                      verbose = FALSE),
-                  "RLum.Results")
 })
 
-# Sub-test - weighted fitting
-fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE,
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
+test_that("check values from example 1 - weighted fitting", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE,
+                             plot = FALSE, verbose = FALSE)
 
   expect_equal(round(fit$summary$age), 9624)
   expect_equal(round(fit$summary$age_error), 273)
 })
 
-
-## Example data 2
-fit <- fit_SurfaceExposure(data = data.table(d2), age = 1e4,
-                           sigmaphi = 5e-10, Ddot = 2.5, D0 = 40,
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
+test_that("check values from example 2", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = data.table(d2), age = 1e4,
+                             sigmaphi = 5e-10, Ddot = 2.5, D0 = 40,
+                             plot = FALSE, verbose = FALSE)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
@@ -80,13 +72,11 @@ test_that("check values from output example", {
   expect_equal(round(fit$summary$mu_error, 3), 0.007)
 })
 
-
-## Example data 3
-fit <- fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
-                           plot = FALSE, verbose = FALSE)
-
-test_that("check values from output example", {
+test_that("check values from example 3", {
   testthat::skip_on_cran()
+
+  fit <- fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
+                             plot = FALSE, verbose = FALSE)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(nrow(fit$summary), 4)
@@ -109,14 +99,13 @@ test_that("check values from output example", {
   })
 })
 
+test_that("check values from example 4", {
+  testthat::skip_on_cran()
 
-## Example data 4
-fit <- fit_SurfaceExposure(data = d4, age = c(1e2, 1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
+  fit <- fit_SurfaceExposure(data = d4, age = c(1e2, 1e3, 1e4, 1e5, 1e6), sigmaphi = 5e-10,
                            Ddot = 1.0, D0 = 40,
                            plot = FALSE, verbose = FALSE)
 
-test_that("check values from output example", {
-  testthat::skip_on_cran()
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(nrow(fit$summary), 5)
   expect_equal(length(fit), 5)
@@ -157,5 +146,20 @@ test_that("not enough parameters provided", {
   expect_message(fit_SurfaceExposure(as.matrix(d1), log = "y"),
                  "Original error from minpack.lm::nlsLM(): singular gradient",
                  fixed = TRUE)
+  })
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("single",
+                              fit_SurfaceExposure(d1, mu = 0.9,
+                                                  age = 12000, sigmaphi = 5e-10))
+
+  vdiffr::expect_doppelganger("multiple",
+                              fit_SurfaceExposure(d3, mu = 0.1 * 7:10,
+                                                  age = c(1e3, 1e4, 1e5, 1e6)))
   })
 })

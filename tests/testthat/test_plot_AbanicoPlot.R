@@ -22,7 +22,7 @@ test_that("input validation", {
       "Data sets 1 are found to be empty or consisting of only 1 row")
 
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
-               "'plot.ratio' should be a positive scalar")
+               "'plot.ratio' should be a single positive value")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlab = "x"),
                "'xlab' must have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = "error"),
@@ -37,12 +37,14 @@ test_that("input validation", {
                "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary = 5),
                "'summary' should be of class 'character'")
-  expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = list()),
-               "'summary.pos' should be of class 'numeric' or 'character'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = list()),
+               "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
+               "'frame' should be one of '0', '1', '2' or '3'")
 
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlim = NA),
                "'xlim' should be of class 'numeric'")
@@ -50,6 +52,8 @@ test_that("input validation", {
                "'ylim' should be of class 'numeric'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, zlim = NA),
                "'zlim' should be of class 'numeric'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, zlim = c(-10, 10)),
+               "'zlim' should only contain positive values when 'log.z = TRUE'")
 
   ## zero-error values
   data.zeros <- ExampleData.DeValues
@@ -125,7 +129,7 @@ test_that("Test examples from the example page", {
                           plot = FALSE, verbose = FALSE)
 
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   line = CAM,
+                   line = list(CAM),
                    line.col = "darkgreen",
                    line.label = "CAM"))
 
@@ -135,6 +139,7 @@ test_that("Test examples from the example page", {
                    col = "tomato4",
                    bar.col = "peachpuff",
                    pch = "R",
+                   line = CAM,
                    cex = 0.8))
 
   ## now without 2-sigma bar, polygon, grid lines and central value line
@@ -197,6 +202,7 @@ test_that("Test examples from the example page", {
   ## trigger a few test cases related to layout
   layout$abanico$colour$centrality <- 1:2
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
+                                 rotate = TRUE,
                                  layout = "journal"))
 
   ## now with predefined layout definition and further modifications
@@ -230,6 +236,7 @@ test_that("more coverage", {
   suppressWarnings( # additional warning on weights not summing to 1
   expect_warning(plot_AbanicoPlot(ExampleData.DeValues, weights = TRUE,
                                   rotate = TRUE, line = 1,
+                                  dispersion = "sd", log.z = FALSE,
                                   grid.col = c(1, 2)),
                  "Selecting bandwidth *not* using 'weights'",
                  fixed = TRUE)
@@ -239,8 +246,10 @@ test_that("more coverage", {
   data.neg <- ExampleData.DeValues
   data.neg[1, 1] <- -1
   expect_silent(plot_AbanicoPlot(data.neg, z.0 = "mean", dispersion = "sd",
-                                 boxplot = TRUE, frame = 3,
+                                 boxplot = TRUE, frame = 3, zlim = c(200, 400),
                                  main = "Title", sub = "Subtitle"))
+  data.neg[2, 1] <- -120
+  expect_silent(plot_AbanicoPlot(data.neg, log.z = FALSE))
 
   ## missing values
   data.na <- ExampleData.DeValues
@@ -249,14 +258,15 @@ test_that("more coverage", {
                                   hist = TRUE, error.bars = TRUE, dots = TRUE,
                                   rug = TRUE, y.axis = FALSE, stats = "min",
                                   legend = "legend", legend.pos = "bottomleft",
-                                  summary.pos = "bottomright", log.z = FALSE,
+                                  summary.pos = "bottomleft", log.z = FALSE,
                                   xlab = c("x1", "x2", "x3"), lty = 2,
                                   dispersion = "2sd",
                                   at = seq(20, 120, nrow(data.na) - 1)),
                  "Data set (1): 1 NA value excluded",
                  fixed = TRUE)
   expect_message(plot_AbanicoPlot(data.na, y.axis = TRUE,
-                                  yaxt = "y", ylim = c(2, 3),
+                                  yaxt = "y",
+                                  summary.pos = "bottomright",
                                   dispersion = "2sd"),
                  "Data set (1): 1 NA value excluded",
                  fixed = TRUE)
@@ -271,19 +281,18 @@ test_that("more coverage", {
   df[,1] <- -df[,1]
   expect_message(
     object = plot_AbanicoPlot(data = df),
-    regexp = "Attention, small standardised estimate scatter. Toggle off y.axis?")
+    regexp = "Small standardised estimate scatter, toggle off y.axis?")
 
   ## test boundaries
   expect_warning(
     object = plot_AbanicoPlot(
-    data = data.frame(x = c(0,1), y = c(0.1,01))),
+    data = data.frame(x = c(0,1), y = c(0.1, 0.1))),
     regexp = "Found zero values in x-column of dataset 1: set log.z = FALSE")
 
   ## handling of negative values; before it produced wrong plots
  expect_silent(plot_AbanicoPlot(data = data.frame(
     x = c(-1,10),
     y = c(0.1,3)
-
   ), log.z = TRUE, summary = c("mean", "sd.abs")))
 
  ## handling of negative values; but with zlim
@@ -291,26 +300,16 @@ test_that("more coverage", {
    x = c(-1,10),
    y = c(0.1,3),
    zlim = c(2,10)
-
  ), log.z = TRUE, summary = c("mean", "sd.abs")))
 
- ## test lines 2144 onwards
- par(mfrow = c(4,4))
+ ## test panel plots
+ par.defaults <- .par_defaults()
+ par(mfrow = c(4, 4))
  expect_silent(plot_AbanicoPlot(data = data.frame(
    x = c(-1,10),
    y = c(0.1,3)
-
  ), log.z = TRUE, summary = c("mean", "sd.abs")))
- par(mfrow = c(1,1))
-
- ## test lines 2888 onwards (same was above, just with the rotated plot)
- par(mfrow = c(3,3))
- expect_silent(plot_AbanicoPlot(data = data.frame(
-   x = c(-1,10),
-   y = c(0.1,3)
-
- ), log.z = TRUE, rotate = TRUE))
- par(mfrow = c(1,1))
+ par(par.defaults)
 
  ## test centrality from layout
  layout <- get_Layout("default")
@@ -325,19 +324,75 @@ test_that("more coverage", {
 test_that("Test graphical snapshot", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
-    vdiffr::expect_doppelganger(
-      title = "Abanico expected",
-      fig = plot_AbanicoPlot(data = ExampleData.DeValues))
-    vdiffr::expect_doppelganger("summary sub",
+    vdiffr::expect_doppelganger("default",
+                                plot_AbanicoPlot(ExampleData.DeValues))
+    vdiffr::expect_doppelganger("dispersion error bars",
                                 plot_AbanicoPlot(ExampleData.DeValues,
-                                                 summary.pos = "sub",
+                                                 dispersion = "sd",
+                                                 error.bars = TRUE,
+                                                 hist = TRUE,
+                                                 boxplot = TRUE,
+                                                 summary.pos = "topleft",
                                                  summary = c("n", "se.rel", "kurtosis")))
-    vdiffr::expect_doppelganger("summary left",
+    vdiffr::expect_doppelganger("rotated",
                                 plot_AbanicoPlot(ExampleData.DeValues,
-                                                 summary.pos = "left",
+                                                 rotate = TRUE, rug = TRUE,
+                                                 hist = TRUE,
+                                                 boxplot = TRUE,
+                                                 grid.col = "grey",
+                                                 summary.pos = "bottomleft",
                                                  summary = c("mean", "in.2s", "skewness")))
+    vdiffr::expect_doppelganger("dots cex",
+                                plot_AbanicoPlot(ExampleData.DeValues,
+                                                 dots = TRUE, cex = 2,
+                                                 boxplot = TRUE,
+                                                 grid.col = "grey80",
+                                                 legend = "primary data",
+                                                 summary.pos = "left",
+                                                 summary.method = "weighted",
+                                                 summary = c("sd.abs", "se.abs",
+                                                             "median")))
+    vdiffr::expect_doppelganger("plot ratio",
+                                plot_AbanicoPlot(ExampleData.DeValues,
+                                                 plot.ratio = 0.1))
+
+    data.list <- list(ExampleData.DeValues[1:30,],
+                      ExampleData.DeValues[31:62,] * 1.3)
+    vdiffr::expect_doppelganger("line frame legend",
+                                plot_AbanicoPlot(data = data.list,
+                                                 line = 75.7,
+                                                 line.lty = 3,
+                                                 line.label = "CAM",
+                                                 frame = 3,
+                                                 legend = c("data 1", "data 2"),
+                                                 cex = 1.2,
+                                                 log.z = FALSE,
+                                                 z.0 = "median",
+                                                 col = c("steelblue4", "orange4"),
+                                                 bar.col = c("steelblue3", "orange3"),
+                                                 polygon.col = c("steelblue1", "orange1"),
+                                                 pch = c(2, 6),
+                                                 angle = c(30, 50),
+                                                 summary = c("n", "in.2s", "median")))
+
+    vdiffr::expect_doppelganger("line frame legend rotated",
+                                plot_AbanicoPlot(data = data.list,
+                                                 rotate = TRUE,
+                                                 line = 75.7,
+                                                 line.lty = 3,
+                                                 line.label = "CAM",
+                                                 frame = 2,
+                                                 legend = c("data 1", "data 2"),
+                                                 cex = 1.2,
+                                                 log.z = FALSE,
+                                                 z.0 = "mean",
+                                                 col = c("steelblue4", "orange4"),
+                                                 bar.col = c("steelblue3", "orange3"),
+                                                 polygon.col = c("steelblue1", "orange1"),
+                                                 pch = c(2, 6),
+                                                 angle = c(30, 50),
+                                                 summary = c("n", "in.2s", "median")))
   })
 })

@@ -19,11 +19,11 @@ Risoe.BINfileData2RLum.Analysis(
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
-\code{Risoe.BINfileData} object}
+object to convert.}
 
 \item{pos}{\link{numeric} (\emph{optional}): position number of the \code{Risoe.BINfileData}
 object for which the curves are stored in the \code{RLum.Analysis} object.
-If \code{length(position)>1} a list of \code{RLum.Analysis} objects is returned.
+If \code{length(pos) > 1}, a list of \code{RLum.Analysis} objects is returned.
 If nothing is provided every position will be converted.
 If the position is not valid \code{NULL} is returned.}
 
@@ -31,7 +31,7 @@ If the position is not valid \code{NULL} is returned.}
 grain number from the measurement to limit the converted data set
 (e.g., \code{grain = c(1:48)}). Please be aware that this option may lead to
 unwanted effects, as the output is strictly limited to the chosen grain
-number for all position numbers}
+number for all position numbers.}
 
 \item{run}{\link{vector}, \link{numeric} (\emph{optional}):
 run number from the measurement to limit the converted data set
@@ -44,11 +44,11 @@ set number from the measurement to limit the converted data set
 \item{ltype}{\link{vector}, \link{character} (\emph{optional}):
 curve type to limit the converted data. Commonly allowed values are:
 \code{IRSL}, \code{OSL}, \code{TL}, \code{RIR}, \code{RBR} and \code{USER}
-(see also \linkS4class{Risoe.BINfileData})}
+(see also \linkS4class{Risoe.BINfileData}).}
 
 \item{dtype}{\link{vector}, \link{character} (\emph{optional}):
 data type to limit the converted data. Commonly allowed values are
-listed in \linkS4class{Risoe.BINfileData}}
+listed in \linkS4class{Risoe.BINfileData}.}
 
 \item{protocol}{\link{character} (\emph{optional}):
 sets protocol type for analysis object. Value may be used by subsequent
@@ -65,8 +65,8 @@ enable/disable the progress bar.}
 Returns an \linkS4class{RLum.Analysis} object.
 }
 \description{
-Converts values from one specific position of a Risoe.BINfileData S4-class
-object to an RLum.Analysis object.
+Converts values from one specific position of a \linkS4class{Risoe.BINfileData}
+object to an \linkS4class{RLum.Analysis} object.
 
 The \linkS4class{RLum.Analysis} object requires a set of curves for
 specific further protocol analyses. However, the \linkS4class{Risoe.BINfileData}

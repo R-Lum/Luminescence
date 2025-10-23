@@ -15,7 +15,6 @@ plot_KDE(
   summary.pos = "sub",
   summary.method = "MCM",
   bw = "nrd0",
-  output = TRUE,
   ...
 )
 }
@@ -63,10 +62,6 @@ See \link{calc_Statistics} for details.}
 
 \item{bw}{\link{character} (\emph{with default}):
 bin-width, chose a numeric value for manual setting.}
-
-\item{output}{\link{logical} (\emph{with default}):
-Optional output of numerical plot parameters. These can be useful to
-reproduce similar plots. Default is \code{TRUE}.}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}.}
 }
@@ -172,8 +167,7 @@ plot_KDE(data = data.3,
 
 ## example of how to use the numerical output of the function
 ## return plot output to draw a thicker KDE line
-KDE_out <- plot_KDE(data = ExampleData.DeValues,
-output = TRUE)
+KDE_out <- plot_KDE(data = ExampleData.DeValues)
 
 }
 \seealso{

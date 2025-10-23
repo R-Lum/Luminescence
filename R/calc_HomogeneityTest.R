@@ -1,7 +1,7 @@
 #' @title Apply a simple homogeneity test after Galbraith (2003)
 #'
 #' @description
-#' A simple homogeneity test for De estimates
+#' A simple homogeneity test for De estimates.
 #' For details see Galbraith (2003).
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
@@ -10,7 +10,7 @@
 #' @param log [logical] (*with default*):
 #' perform the homogeneity test with (un-)logged data
 #'
-#' @param ... further arguments (for internal compatibility only).
+#' @param ... further arguments (`verbose`).
 #'
 #' @return
 #' Returns a terminal output. In addition an
@@ -35,7 +35,6 @@
 #' Galbraith, R.F., 2003. A simple homogeneity test for estimates
 #' of dose obtained using OSL. Ancient TL 21, 75-77.
 #'
-#'
 #' @examples
 #'
 #' ## load example data
@@ -53,7 +52,6 @@
 #' calc_HomogeneityTest(df)
 #'
 #'
-#' @md
 #' @export
 calc_HomogeneityTest <- function(
   data,
@@ -70,6 +68,10 @@ calc_HomogeneityTest <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have 2 columns")
+  }
+  .validate_logical_scalar(log)
 
   ##==========================================================================##
   ## ... ARGUMENTS
@@ -77,22 +79,19 @@ calc_HomogeneityTest <- function(
   extraArgs <- list(...)
 
   ## set plot main title
-  if("verbose" %in% names(extraArgs)) {
-    verbose<- extraArgs$verbose
-  } else {
-    verbose<- TRUE
-  }
+  verbose<- extraArgs$verbose %||% TRUE
 
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
   if(log) {
+    if (any(data[, 1:2] < 0, na.rm = TRUE))
+      .throw_warning("'data' contains negative values and 'log = TRUE', ",
+                     "check your input")
     dat <- log(data)
     dat[[2]] <- data[[2]]/data[[1]]
-
   } else {
     dat <- data
-
   }
 
   wi <- 1 / dat[[2]] ^ 2
@@ -113,14 +112,14 @@ calc_HomogeneityTest <- function(
 
   if(verbose) {
     cat("\n [calc_HomogeneityTest()]")
-    cat(paste("\n\n ---------------------------------"))
-    cat(paste("\n n:                 ", n))
-    cat(paste("\n ---------------------------------"))
-    cat(paste("\n mu:                ", round(mu,4)))
-    cat(paste("\n G-value:           ", round(G,4)))
-    cat(paste("\n Degrees of freedom:", df))
-    cat(paste("\n P-value:           ", round(P,4)))
-    cat(paste("\n ---------------------------------\n\n"))
+    cat("\n\n ---------------------------------")
+    cat("\n n:                 ", n)
+    cat("\n ---------------------------------")
+    cat("\n mu:                ", round(mu,4))
+    cat("\n G-value:           ", round(G,4))
+    cat("\n Degrees of freedom:", df)
+    cat("\n P-value:           ", round(P,4))
+    cat("\n ---------------------------------\n\n")
   }
 
   ##============================================================================##
@@ -135,7 +134,7 @@ calc_HomogeneityTest <- function(
 
   args <- list(log = log)
 
-  return(set_RLum(
+  set_RLum(
     class = "RLum.Results",
     data = list(
       summary = summary,
@@ -143,6 +142,5 @@ calc_HomogeneityTest <- function(
       args = args
     ),
     info = list(call = sys.call())
-  ))
-
+  )
 }

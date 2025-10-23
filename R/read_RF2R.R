@@ -36,7 +36,6 @@
 #' file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 #' temp <- read_RF2R(file)
 #'
-#' @md
 #' @export
 read_RF2R <- function(
   file,
@@ -210,7 +209,7 @@ read_RF2R <- function(
 
 
 # Create RLum.Analysis objects ----------------------------------------------------------------
-    object_list <- lapply(1:nrow(df_statistics), function(a){
+  lapply(1:nrow(df_statistics), function(a) {
 
       ##set records
       records <- lapply(1:2, function(o) {
@@ -239,8 +238,5 @@ read_RF2R <- function(
                  as.list(df_statistics[a,]),
                  header
                  ))
-    })
-
-# Return --------------------------------------------------------------------------------------
-return(object_list)
+  })
 }

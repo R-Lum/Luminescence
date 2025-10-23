@@ -1,19 +1,18 @@
-test_that("calc_TLLxTxRatio", {
+## load data
+data(ExampleData.BINfileData, envir = environment())
+
+## convert Risoe.BINfileData into a curve object
+temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
+Lx.data.signal <- get_RLum(temp, record.id = 1)
+Lx.data.background <- get_RLum(temp, record.id = 2)
+Tx.data.signal <- get_RLum(temp, record.id = 3)
+Tx.data.background <- get_RLum(temp, record.id = 4)
+signal.integral.min <- 210
+signal.integral.max <- 230
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ##load package example data
-  data(ExampleData.BINfileData, envir = environment())
-
-  ##convert Risoe.BINfileData into a curve object
-  temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
-  Lx.data.signal <- get_RLum(temp, record.id = 1)
-  Lx.data.background <- get_RLum(temp, record.id = 2)
-  Tx.data.signal <- get_RLum(temp, record.id = 3)
-  Tx.data.background <- get_RLum(temp, record.id = 4)
-  signal.integral.min <- 210
-  signal.integral.max <- 230
-
-  ## break the function
     ## different data types
     expect_error(calc_TLLxTxRatio(
       Lx.data.signal,
@@ -45,6 +44,22 @@ test_that("calc_TLLxTxRatio", {
       signal.integral.min,
       signal.integral.max),
       "'Lx.data.signal' should be of class 'data.frame' or 'RLum.Data.Curve'")
+    expect_error(calc_TLLxTxRatio(
+      Lx.data.signal = Lx.data.signal,
+      Lx.data.background,
+      Tx.data.signal = Tx.data.signal,
+      Tx.data.background,
+      signal.integral.min = "error",
+      signal.integral.max),
+      "'signal.integral.min' should be a single positive integer value")
+    expect_error(calc_TLLxTxRatio(
+      Lx.data.signal = Lx.data.signal,
+      Lx.data.background,
+      Tx.data.signal = Tx.data.signal,
+      Tx.data.background,
+      signal.integral.min,
+      signal.integral.max = "error"),
+      "'signal.integral.max' should be a single positive integer value")
 
     ## check for different channel numbers
     expect_error(calc_TLLxTxRatio(
@@ -67,6 +82,10 @@ test_that("calc_TLLxTxRatio", {
       signal.integral.max = 1000),
       "[calc_TLLxTxRatio()] 'signal.integral' is not valid",
       fixed = TRUE)
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ## trigger warning
   expect_warning(calc_TLLxTxRatio(
@@ -77,39 +96,25 @@ test_that("calc_TLLxTxRatio", {
       signal.integral.min,
       signal.integral.max),
       regexp = "\\[calc\\_TLLxTxRatio\\(\\)\\] The background signals for Lx and Tx appear to be similar.+")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
 
   ## run function without error
-  temp <- expect_s4_class(calc_TLLxTxRatio(
+  expect_snapshot_RLum(calc_TLLxTxRatio(
     Lx.data.signal,
     Lx.data.background,
     Tx.data.signal,
     Tx.data.background,
     signal.integral.min,
-    signal.integral.max), class = "RLum.Results")
+    signal.integral.max))
 
-  ## check lenght
-  expect_equal(length(temp), 1)
-
-  ## extract elements
-  results <- get_RLum(temp)
-
-  expect_equal(length(results), 10)
-  expect_equal(results$LnLx, 257042)
-  expect_equal(results$LnLx.BG, 4068)
-  expect_equal(results$TnTx, 82298)
-  expect_equal(results$TnTx.BG, 2943)
-  expect_equal(results$net_LnLx, 252974)
-  expect_equal(round(results$net_LnLx.Error, digits = 2), 49468.92)
-  expect_equal(results$net_TnTx, 79355)
-  expect_equal(round(results$net_TnTx.Error,2), 21449.72)
-  expect_equal(round(results$LxTx, digits =  6), 3.187877)
-  expect_equal(round(results$LxTx.Error, digits = 6), 1.485073)
-
-  expect_s4_class(calc_TLLxTxRatio(
+  expect_snapshot_RLum(calc_TLLxTxRatio(
     Lx.data.signal,
     Lx.data.background=NULL,
     Tx.data.signal,
     Tx.data.background=NULL,
     signal.integral.min,
-    signal.integral.max), class = "RLum.Results")
+    signal.integral.max))
 })

@@ -80,11 +80,14 @@ test_that("test the import of various BIN-file versions", {
 
   ## this test needs an internet connection ... test for it
   github.url <- file.path("https://github.com/R-Lum/Luminescence",
-                          "raw/dev_0.9.x/tests/testthat/_data")
+                          "raw/archive/dev_0.9.x/tests/testthat/_data")
   if (!httr::http_error(github.url)) {
     ## V3
-    expect_snapshot_plain(read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
-                                     verbose = FALSE))
+    bin <- read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
+                      verbose = FALSE)
+    ## remove randomness in FNAME due to the use of a temporary file
+    bin@METADATA$FNAME <- substr(bin@METADATA$FNAME, 1, 16)
+    expect_snapshot_plain(bin)
   }
 
   ## V4

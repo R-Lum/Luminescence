@@ -11,10 +11,20 @@ test_that("input validation", {
                "'data' should be of class 'list', 'data.frame', 'matrix' or")
   expect_error(plot_NRt(obj[[2]]),
                "'data' should be of class 'list', 'data.frame', 'matrix' or")
+  expect_error(plot_NRt(iris[0, ]),
+               "'data' cannot be an empty data.frame")
   expect_error(plot_NRt(curves[1]),
                 "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),
                 "'data' contains only curve data for the natural signal")
+  expect_error(plot_NRt(list(a = 1, b = 2)),
+                "'data' doesn't contain the expected type of elements")
+  expect_error(plot_NRt(data.frame(a = NA, b = 1:5, c = 1:5)),
+                "'data' contains missing values in the time column")
+  expect_error(plot_NRt(data.frame(a = 1:5, b = NA, c = 1:5)),
+                "'data' contains missing values in the natural signal")
+  expect_error(plot_NRt(data.frame(a = 1:5, b = 1:5, c = NA)),
+                "'data' contains missing values in the regenerated signal")
   expect_error(plot_NRt(curves, smooth = "error"),
                "'smooth' should be one of 'none', 'spline' or 'rmean'")
 
@@ -42,6 +52,8 @@ test_that("check functionality", {
 
   ## list
   expect_silent(plot_NRt(curves))
+  expect_silent(plot_NRt(list(get_RLum(curves[[1]]),
+                              get_RLum(curves[[2]]))))
   expect_silent(plot_NRt(curves, smooth = "spline", log = "x"))
 
   small <- curves[1:3]
@@ -59,4 +71,16 @@ test_that("check functionality", {
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   expect_output(plot_NRt(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE)),
                 "BIN/BINX-file non-conform. TL curve may be wrong")
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              plot_NRt(curves))
+  vdiffr::expect_doppelganger("spline-log",
+                              plot_NRt(curves, smooth = "spline", log = "x"))
+  })
 })

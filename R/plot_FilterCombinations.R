@@ -1,9 +1,10 @@
 #' @title Plot filter combinations along with the (optional) net transmission window
 #'
 #' @description
-#' The function allows to plot transmission windows for different filters. Missing data for specific
-#' wavelengths are automatically interpolated for the given filter data using the function [approx].
-#' With that a standardised output is reached and a net transmission window can be shown.
+#' The function allows to plot transmission windows for different filters.
+#' Missing data for specific wavelengths are automatically interpolated for
+#' the given filter data using function [approx]. With that, a standardised
+#' output is reached and a net transmission window can be shown.
 #'
 #' **Calculations**
 #'
@@ -21,26 +22,27 @@
 #'
 #' \deqn{OD_{total} = OD_{1} +  OD_{2}}
 #'
-#' Please consider using own calculations for more precise values.
+#' Please consider using your own calculations for more precise values.
 #'
 #' **How to provide input data?**
 #'
 #' *CASE 1*
 #'
-#' The function expects that all filter values are either of type `matrix` or `data.frame`
-#' with two columns. The first columns contains the wavelength, the second the relative transmission
-#' (but not in percentage, i.e. the maximum transmission can be only become 1).
+#' The function expects that all filter values are either of type `matrix` or
+#' `data.frame` with two columns. The first columns contains the wavelength,
+#' the second the relative transmission (but not in percentage, i.e. the
+#' maximum transmission can be only become 1).
 #'
-#' In this case only the transmission window is show as provided. Changes in filter thickness and
-#' reflection factor are not considered.
+#' In this case only the transmission window is show as provided. Changes in
+#' filter thickness and reflection factor are not considered.
 #'
 #' *CASE 2*
 #'
 #' The filter data itself are provided as list element containing a `matrix` or
 #' `data.frame` and additional information on the thickness of the filter, e.g.,
 #' `list(filter1 = list(filter_matrix, d = 2))`.
-#' The given filter data are always considered as standard input and the filter thickness value
-#' is taken into account by
+#' The given filter data are always considered as standard input and the filter
+#' thickness value is taken into account by
 #'
 #' \deqn{Transmission = Transmission^(d)}
 #'
@@ -69,10 +71,9 @@
 #' `grid` \tab `list` \tab full list of arguments that can be passed to the function [graphics::grid]
 #' }
 #'
-#' For further modifications standard additional R plot functions are recommend, e.g., the legend
-#' can be fully customised by disabling the standard legend and use the function [graphics::legend]
-#' instead.
-#'
+#' For further modifications standard additional R plot functions are recommend,
+#' e.g., the legend can be fully customised by disabling the standard legend
+#' and using the function [graphics::legend] instead.
 #'
 #' @param filters [list] (**required**):
 #' a named list of filter data for each filter to be shown.
@@ -93,7 +94,7 @@
 #'
 #' @param ... further arguments that can be passed to control the plot output.
 #' Supported are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
-#' For non common plotting parameters see the details section.
+#' For non common plotting parameters, see the details section.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].
 #'
@@ -148,8 +149,6 @@
 #'
 #' }
 #'
-#'
-#' @md
 #' @export
 plot_FilterCombinations <- function(
   filters,
@@ -171,6 +170,7 @@ plot_FilterCombinations <- function(
   lapply(filters, function(x) {
     .validate_class(x, c("data.frame", "matrix", "list"),
                     name = "All elements of 'filters'")
+    .validate_not_empty(x, name = "Each element of 'filters'")
   })
 
   #check for named list, if not set names
@@ -178,39 +178,34 @@ plot_FilterCombinations <- function(
     names(filters) <- paste("Filter ", seq_along(filters))
   }
 
-
   ## Data preparation -------------------------------------------------------
 
   ## check if filters are provided with their thickness, if so correct
   ## transmission for this ... relevant for glass filters
   filters <- lapply(filters, function(x) {
-    if (is(x, "list")) {
+    if (inherits(x, "list")) {
 
       ## correction for the transmission accounting for filter thickness,
       ## the provided thickness is always assumed to be 1
-      if(length(x) > 1){
-        x[[1]][, 2] <- x[[1]][, 2] ^ (x[[2]])
-
-      }else{
-        return(x[[1]])
+      if (length(x) > 1) {
+        x[[1]][, 2] <- x[[1]][, 2] ^ x[[2]]
       }
 
       ## account for potentially provided transmission reflection factor
-      if(length(x) > 2){
-       x[[1]][,2] <-  x[[1]][,2] * x[[3]]
-       return(x[[1]])
-
-      }else{
-       return(x[[1]])
+      if (length(x) > 2) {
+        x[[1]][, 2] <- x[[1]][, 2] * x[[3]]
       }
 
-    } else{
-      return(x)
+      return(x[[1]])
     }
+
+    return(x)
   })
 
   #check if there are transmission values greater than one, this is not possible
   lapply(filters, function(x) {
+    if (NCOL(x) < 2)
+      .throw_error("All data frames in 'filters' should have 2 columns")
     if (max(x[, 2], na.rm = TRUE) > 1.01) {
       .throw_error("Transmission values > 1 found, check your data")
     }
@@ -219,8 +214,7 @@ plot_FilterCombinations <- function(
   ##combine everything in a matrix using approx for interpolation
   filter_matrix <- vapply(filters, function(x) {
     approx(x = x[, 1], y = x[, 2], xout = wavelength_range)$y
-
-  }, FUN.VALUE = vector(mode = "numeric", length = length(wavelength_range)))
+  }, FUN.VALUE = numeric(length(wavelength_range)))
 
   ##calculate transmission window
   filter_matrix <- cbind(filter_matrix)
@@ -245,12 +239,13 @@ plot_FilterCombinations <- function(
   ##set column names for filter matrix
   colnames(filter_matrix) <- c(names(filters), paste0(names(filters), "_OD"))
 
-
   # Plotting ------------------------------------------------------------------------------------
   if (plot) {
 
     ##(1) ... select transmission values
-    filter_matrix_transmisison <- filter_matrix[,!grepl(pattern = "OD", x = colnames(filter_matrix)), drop = FALSE]
+    filter_matrix_transmission <- filter_matrix[, !grepl(pattern = "OD",
+                                                         colnames(filter_matrix)),
+                                                drop = FALSE]
 
     ##set plot settings
     plot_settings <- list(
@@ -265,7 +260,7 @@ plot_FilterCombinations <- function(
       col = 1:length(filters),
       grid = expression(nx = 10, ny = 10),
       legend = TRUE,
-      legend.text = colnames(filter_matrix_transmisison),
+      legend.text = colnames(filter_matrix_transmission),
       net_transmission.col = rgb(0,0.7,0,.2),
       net_transmission.col_lines = "grey",
       net_transmission.density = 20
@@ -282,19 +277,18 @@ plot_FilterCombinations <- function(
         plotly::plot_ly(x = wavelength_range,
                         y = filter_matrix[,1],
                         type = "scatter",
-                        name = colnames(filter_matrix_transmisison)[1],
+                        name = colnames(filter_matrix_transmission)[1],
                         mode = "lines")
 
         ##add further filters
-        if (ncol(filter_matrix_transmisison) > 1) {
-          for (i in 2:ncol(filter_matrix_transmisison)) {
+        if (ncol(filter_matrix_transmission) > 1) {
+          for (i in 2:ncol(filter_matrix_transmission)) {
             p <- plotly::add_trace(p,
                         y = filter_matrix[, i],
-                        name = colnames(filter_matrix_transmisison)[i],
+                        name = colnames(filter_matrix_transmission)[i],
                         mode = 'lines')
           }
         }
-
 
       ##add polygon
       ##replace all NA vaules with 0, otherwise it looks odd
@@ -321,12 +315,11 @@ plot_FilterCombinations <- function(
       print(p)
       on.exit(return(p), add = TRUE)
 
-
     }else{
       ##plot induvidal filters
       graphics::matplot(
         x = wavelength_range,
-        y = filter_matrix_transmisison,
+        y = filter_matrix_transmission,
         type = "l",
         main = plot_settings$main,
         xlab = plot_settings$xlab,
@@ -363,7 +356,6 @@ plot_FilterCombinations <- function(
           border = NA,
           density = plot_settings$net_transmission.density
         )
-
       }
 
       #legend
@@ -378,7 +370,6 @@ plot_FilterCombinations <- function(
       }
     }
   }
-
 
   # Produce output object -----------------------------------------------------------------------
   invisible(set_RLum(

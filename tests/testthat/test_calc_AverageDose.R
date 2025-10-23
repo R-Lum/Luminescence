@@ -10,11 +10,11 @@ test_that("input validation", {
   expect_error(calc_AverageDose("test"),
                "'data' should be of class 'RLum.Results' or 'data.frame'")
   expect_error(calc_AverageDose(data),
-               "\"sigma_m\" is missing, with no default")
+               "'sigma_m' should be a single positive value")
   expect_error(calc_AverageDose(data, sigma_m = NULL),
-               "'sigma_m' should be a positive scalar")
+               "'sigma_m' should be a single positive value")
   expect_error(calc_AverageDose(data, sigma_m = 0.1, Nb_BE = NULL),
-               "'Nb_BE' should be a positive integer scalar")
+               "'Nb_BE' should be a single positive integer value")
   expect_message(expect_null(
       calc_AverageDose(data[, 1, drop = FALSE], sigma_m = 0.1)),
       "Error: 'data' contains < 2 columns")

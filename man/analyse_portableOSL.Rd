@@ -37,22 +37,28 @@ corresponding data curves.}
 analysis mode, one of \code{"profile"} (the default) or \code{"surface"} for surface
 interpolation.}
 
-\item{coord}{\link{list} \link{matrix} (\emph{optional}): a list or matrix of the same length as
-number of samples measured with coordinates for the sampling positions. Coordinates
-are expected to be provided in meter (unit: m).
-Expected are x and y coordinates, e.g.,
-\verb{coord = list(samp1 = c(0.1, 0.2)}. If you have not measured x coordinates, please x should be 0.}
+\item{coord}{\link{list} \link{matrix} (\emph{optional}): a list or a 2-column matrix
+with the \emph{x} and \emph{y} coordinates for the sampling positions in meters (m),
+of the same length as the number of samples measured. For example, the
+coordinates for one sample could be \verb{coord = list(samp1 = c(0.1, 0.2)}.
+If the \emph{x} coordinates were not measured, \emph{x} should be set to 0.
+Note that, in such case, a surface plot cannot be produced.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
 \item{...}{other parameters to be passed to modify the plot output.
 Supported are \code{run} to provide the run name (if the input is a \code{list}, this
-is set automatically). Further plot parameters are
-\code{surface_values} (\link{character} with value to plot), \code{legend} (\code{TRUE}/\code{FALSE}), \code{col_ramp} (for
-surface mode), \code{contour} (contour lines \code{TRUE}/\code{FALSE} in surface mode), \code{grid} (\code{TRUE}/\code{FALSE}), \code{col}, \code{pch} (for profile mode), \code{xlim} (a name \link{list} for profile mode), \code{ylim},
-\code{zlim} (surface mode only), \code{ylab}, \code{xlab}, \code{zlab} (here x-axis labelling), \code{main}, \code{bg_img} (for
-profile mode background image, usually a profile photo; should be a raster object),
-\code{bg_img_positions} (a vector with the four corner positions, cf. \link[graphics:rasterImage]{graphics::rasterImage})}
+is set automatically). Further plot parameters accepted are \code{main},
+\code{col}, \code{xlim} (a named \link{list} for profile mode), \code{ylim}, \code{ylab}, \code{xlab}.
+Additional parameters for \code{mode = "profile"} are  \code{type}, \code{pch}, \code{grid}
+(\code{TRUE}/\code{FALSE}), \code{bg_img} (a raster object for the background image,
+usually a profile photo), \code{bg_img_positions} (a vector with the four corner
+positions, see \link[graphics:rasterImage]{graphics::rasterImage}), \code{zlab} (here x-axis labelling).
+Additional parameters for \code{mode = "surface"} are \code{surface_value}
+(\link{character} with names of the surfaces to plot), \code{col_ramp}, \code{legend}
+(\code{TRUE}/\code{FALSE}), \code{contour} (\code{TRUE}/\code{FALSE}), \code{contour_nlevels},
+\code{contour_col}, \code{nx} and \code{ny} (size of the interpolation grid),
+\code{labcex} (scaling of the contour labels), \code{zlim}.}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:
@@ -75,7 +81,11 @@ For calculating the depletion ratios, the cumulative signal of the last \emph{n}
 channels (same number of channels as specified by \code{signal.integral}) is
 divided by cumulative signal of the first \emph{n} channels (\code{signal.integral}).
 
-\strong{Note:  The function assumes the following sequence pattern: \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}. If you have written a different sequence, the analysis function will (likely) not work!}.
+\strong{Note:  The function assumes the following sequence pattern:
+\verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}.} Therefore, the
+total number of curves in the input object must be a multiple of 5, and
+there must be 3 \code{DARK_COUNT} records for each IRSL/BSL pair. If you have used
+a different sequence, the function will produce an error.
 
 \strong{Signal processing}
 The function processes the signals as follows: \code{BSL} and \code{IRSL} signals are extracted using the
@@ -89,16 +99,16 @@ to the function:
 \item (1) Add coordinates to the sample name during measurement. The form is rather
 strict and has to follow the scheme \verb{_x:<number>|y:<number>}. Example:
 \code{sample_x:0.2|y:0.4}.
-\item (2) Alternatively, you can provide a \link{list} or \link{matrix} with the sample coordinates.
+\item (2) Alternatively, you can provide a \link{list} or \link{matrix} with the \emph{(x, y)}
+coordinates of each sample in meters (m) using the \code{coord} argument:
 Example: \code{coord = list(c(0.2, 1), c(0.3,1.2))}
 }
 
-Please note that the unit is meter (m) and the function expects always xy-coordinates.
-The latter one is useful for surface interpolations. If you have measured a profile where
-the x-coordinates were not measured, x-coordinates should be 0.
+If in your profile the x-coordinates were not measured, \emph{x} should be set
+to 0. Note that, in such case, a surface plot cannot be produced.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{

@@ -16,5 +16,16 @@ test_that("check functionality", {
   file <- system.file("extdata", "TIFFfile.tif", package = "Luminescence")
   SW({
   expect_s4_class(read_TIFF2R(file), "RLum.Data.Image")
+
+  ## check image stack
+  t <- expect_s4_class(read_TIFF2R(list(file, file), merge2stack = TRUE), "RLum.Data.Image")
+  expect_equal(dim(t@data)[3], 2)
+
+  t <- expect_type(read_TIFF2R(list(file, file), merge2stack = FALSE), "list")
+  expect_length(t, 2)
+
+  t <- expect_type(read_TIFF2R(c(file, file), merge2stack = FALSE), "list")
+  expect_length(t, 2)
+
   })
 })

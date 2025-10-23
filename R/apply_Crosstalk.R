@@ -44,7 +44,6 @@
 #' observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
 #' hist(observations_with_simulated_crosstalk)
 #'
-#' @md
 #' @export
 apply_Crosstalk <- function(object,
                             n_crosstalk = 0.2
@@ -61,9 +60,7 @@ apply_Crosstalk <- function(object,
     vn_values <- get_RLum(object)
   }
   .validate_length(vn_values, 100, name = "'object'")
-
-  .validate_class(n_crosstalk, c("numeric"))
-  .validate_length(n_crosstalk, 1)
+  .validate_scalar(n_crosstalk)
 
   vb_na_s <- is.na(vn_values)
   vn_values[vb_na_s] <- 0

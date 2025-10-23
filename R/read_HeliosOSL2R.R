@@ -27,7 +27,6 @@
 #'file <- system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")
 #'read_HeliosOSL2R(file)
 #'
-#'@md
 #'@export
 read_HeliosOSL2R <- function(
   file,
@@ -84,7 +83,7 @@ read_HeliosOSL2R <- function(
   lines <- readLines(file)
 
     ## get footer lines id, which is printed in quotes but not the first
-    footer_id <- which(grepl(pattern = '\\"', x = lines, fixed = FALSE))[2]
+    footer_id <- grep(pattern = '\\"', x = lines)[2]
 
     ## import data measurement data
     df <- read.table(
@@ -146,10 +145,8 @@ read_HeliosOSL2R <- function(
   })
 
   ## create RLum.Analysis as output
-  object <- set_RLum(
+  set_RLum(
     class = "RLum.Analysis",
     originator = "read_HeliosOSL2R",
     records = records)
-
-  return(object)
 }

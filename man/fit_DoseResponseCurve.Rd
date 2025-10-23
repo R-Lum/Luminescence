@@ -55,7 +55,7 @@ function used for fitting. Possible options are:
 \item \code{EXP+EXP} (not defined for extrapolation),
 \item \code{GOK},
 \item \code{OTOR},
-\item \code{OTORX} (not defined for extrapolation)
+\item \code{OTORX}
 }
 
 See details.}
@@ -121,21 +121,22 @@ This object is a \link{data.frame} with the following columns
 \tabular{lll}{
 \code{De} \tab \link{numeric} \tab equivalent dose \cr
 \code{De.Error} \tab \link{numeric} \tab standard error the equivalent dose \cr
-\code{D01} \tab \link{numeric} \tab D-naught value, curvature parameter of the exponential \cr
-\code{D01.ERROR} \tab \link{numeric} \tab standard error of the D-naught value\cr
-\code{D02} \tab \link{numeric} \tab 2nd D-naught value, only for \code{EXP+EXP}\cr
-\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-naught; only for \code{EXP+EXP}\cr
+\code{D01} \tab \link{numeric} \tab D-nought value, curvature parameter of the exponential \cr
+\code{D01.ERROR} \tab \link{numeric} \tab standard error of the D-nought value\cr
+\code{D02} \tab \link{numeric} \tab 2nd D-nought value, only for \code{EXP+EXP}\cr
+\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd D-nought; only for \code{EXP+EXP}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
 \code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
-\code{De.plot} \tab \link{numeric} \tab equivalent dose use for plotting \cr
-\code{Fig} \tab \link{character} \tab applied fit function \cr
+\code{Fit} \tab \link{character} \tab applied fit function \cr
+\code{Mode} \tab \link{character} \tab mode used in fitting \cr
 \code{HPDI68_L} \tab \link{numeric} \tab highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68\% probability \cr
 \code{HPDI68_U} \tab \link{numeric} \tab same as \code{HPDI68_L} for the upper bound \cr
 \code{HPDI95_L} \tab \link{numeric} \tab same as \code{HPDI68_L} but for 95\% probability \cr
 \code{HPDI95_U} \tab \link{numeric} \tab same as \code{HPDI95_L} but for the upper bound \cr
-
+\code{.De.plot} \tab \link{numeric} \tab equivalent dose used internally for plotting \cr
+\code{.De.raw} \tab \link{numeric} \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 }
 }
 \description{
@@ -224,7 +225,7 @@ This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar
 accounting for retrapping. Mathematically, the implementation reads (the equation here
 as implemented, it is slightly differently written than in the original manuscript):
 
-\deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{D}{D_{63}}))\right] / Q}
+\deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q}
 
 with
 
@@ -233,19 +234,20 @@ with
 where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
 the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
 the value at which the trap occupation corresponds to the 63\% of the saturation value.
+\eqn{a} is in an offset. If set to zero, the curve will be forced through the origin
+as in the original publication.
 
 For the implementation the calculation reads further
 
-\deqn{y = \frac{F_{OTORX}(D/D_{63}), Q)}{F_{OTORX}(D_{test}/D_{63}, Q)}}
+\deqn{y = \frac{F_{OTORX}(((D + a)/D_{63}), Q)}{F_{OTORX}((D_{test} + a)/D_{63}, Q)}}
 
 with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
 the regeneration dose points. This value is essential and needs to provided
 along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see \code{object} parameter input
 and the example section). For more details see Lawless and Timar-Gabor (2024).
 
-\emph{Note: \code{OTORX} is by definition \code{fit.force_through_origin = TRUE}.}
-
-\emph{Note: \code{OTORX} is not defined for extrapolation and hence this mode is not supported!}
+\emph{Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
+be set to zero with the option \code{fit.force_through_origin = TRUE}}
 
 \strong{Fit weighting}
 
@@ -272,7 +274,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.3.0
+ 1.4.3
 }
 
 \examples{
@@ -306,12 +308,12 @@ results <- fit_DoseResponseCurve(
 #as alternative error estimation
 confint(results$Fit, level = 0.68)
 
+\dontrun{
 ##(5) special case the OTORX model with test dose column
 df <- cbind(LxTxData, Test_Dose = 15)
 fit_DoseResponseCurve(object = df, fit.method = "OTORX", n.MC = 10) |>
  plot_DoseResponseCurve()
 
-\dontrun{
 QNL84_2_bleached <-
 read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
 STRB87_1_unbleached <-

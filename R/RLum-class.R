@@ -50,7 +50,6 @@
 #'
 #' showClass("RLum")
 #'
-#' @md
 #' @export
 setClass("RLum",
            slots = list(
@@ -69,28 +68,15 @@ setClass("RLum",
          )
 
 
-# replication method for object class ------------------------------------------
-
-#' @describeIn RLum
-#' Replication method RLum-objects
+## replicate_RLum() ---------------------------------------------------------
+#' @describeIn replicate_RLum
+#' Replication method for [RLum-class] objects.
 #'
-#' @param object [RLum-class] (**required**):
-#' an object of class [RLum-class]
-#'
-#' @param times [integer] (*optional*):
-#' number for times each element is repeated element
-#'
-#' @md
 #' @export
 setMethod(
   "replicate_RLum",
   "RLum",
-  definition = function(object, times = NULL) {
-    ##The case this is NULL
-    if (is.null(times))
-      times <- 1
-
-    ## replicate
+  definition = function(object, times = 1) {
     lapply(1:times, function(x) object)
   }
 )

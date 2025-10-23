@@ -59,7 +59,6 @@
 #' str(calc_Statistics(x))
 #' }
 #'
-#' @md
 #' @export
 calc_Statistics <- function(
   data,
@@ -82,6 +81,9 @@ calc_Statistics <- function(
   ##strip na values
   if(na.rm){
     data <- na.exclude(data)
+    if (nrow(data) == 0) {
+      .throw_error("'data' contains only NA values")
+    }
   }
 
   ## handle error-free data sets
@@ -120,7 +122,6 @@ calc_Statistics <- function(
         sd = data[, 2]
       ),
       ncol = n.MCM)
-
   }
 
   ## calculate n
@@ -138,12 +139,13 @@ calc_Statistics <- function(
   S.m.mean <- mean(x = data.MCM,
                    na.rm = na.rm)
 
-
   ## calculate median
   S.median <- median(x = data[,1],
                      na.rm = na.rm)
 
-  S.wg.median <- S.median
+  S.wg.median <- .weighted.median(data[, 1],
+                                  w = S.weights,
+                                  na.rm = na.rm)
 
   S.m.median <- median(x = data.MCM,
                        na.rm = na.rm)
@@ -157,7 +159,6 @@ calc_Statistics <- function(
 
   S.m.sd.abs <- sd(x = data.MCM,
                    na.rm = na.rm)
-
 
   ## calculate relative standard deviation
   S.sd.rel <- S.sd.abs / S.mean * 100
@@ -229,7 +230,6 @@ calc_Statistics <- function(
                             function(x) {
                               round(S.unweighted [[x]],
                                     digits = digits)})
-
   }
 
   S.MCM <- list(n = S.n,
@@ -255,5 +255,4 @@ calc_Statistics <- function(
   list(weighted = S.weighted,
        unweighted = S.unweighted,
        MCM = S.MCM)
-
 }

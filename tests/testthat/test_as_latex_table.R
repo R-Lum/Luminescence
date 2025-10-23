@@ -5,11 +5,14 @@ test_that("Check .as.latex.table()", {
   df <- data.frame(x = "test", y = 1:10, z = as.factor(letters[1:10]))
   expect_error(.as.latex.table(df, select = 2),
                "Undefined columns selected")
+  expect_error(.as.latex.table(data.frame()),
+               "'x' cannot be an empty data.frame")
 
   expect_output(.as.latex.table(df))
   expect_output(.as.latex.table(df, select = "x"))
 
   ## RLum.Results
+  expect_null(.as.latex.table(set_RLum("RLum.Results")))
   expect_null(.as.latex.table(as(object = list(1:10),
                                  Class = "RLum.Results")))
 

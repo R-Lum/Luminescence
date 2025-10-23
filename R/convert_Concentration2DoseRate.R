@@ -7,8 +7,8 @@
 #'(Gy/ka) and corrects for grain size attenuation and water content
 #'
 #'Dose rate conversion factors can be chosen from Adamiec and Aitken (1998),
-#'Guerin et al. (2011), Liritzis et al. (201) and Cresswell et al. (2018).
-#'Default is Guerin et al. (2011).
+#'Guérin et al. (2011), Liritzis et al. (201) and Cresswell et al. (2018).
+#'Default is Guérin et al. (2011).
 #'
 #'Grain size correction for beta dose rates is achieved using the correction
 #'factors published by Guérin et al. (2012).
@@ -66,10 +66,10 @@
 #'Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018. Dose rate conversion parameters:
 #'Assessment of nuclear data. Radiation Measurements 120, 195-201.
 #'
-#'Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion factors: update.
+#'Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion factors: update.
 #'Ancient TL, 29, 5-8.
 #'
-#'Guerin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012. On the use
+#'Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012. On the use
 #'of the infinite matrix assumption and associated concepts: A critical review.
 #'Radiation Measurements, 47, 778-785.
 #'
@@ -99,7 +99,6 @@
 #'## convert
 #'convert_Concentration2DoseRate(input)
 #'
-#'@md
 #'@export
 convert_Concentration2DoseRate <- function(
   input,
@@ -122,8 +121,8 @@ convert_Concentration2DoseRate <- function(
 
   ## return a template if no input is given
   if (missing(input)) {
-    message("[convert_Concentration2DoseRate()] Input template returned: ",
-            "please fill this data frame and use it as input to the function")
+    .throw_message("Input template returned, please fill this data frame ",
+                   "and use it as input to the function", error = FALSE)
     return(template)
   }
 
@@ -256,8 +255,7 @@ convert_Concentration2DoseRate <- function(
     InfDRG <- round(InfDRG, digits = 3)
 
 # Return ------------------------------------------------------------------
-  return(
-    set_RLum(
+  set_RLum(
       class = "RLum.Results",
       data = list(
         InfDRG = InfDRG,
@@ -265,5 +263,5 @@ convert_Concentration2DoseRate <- function(
       ),
       info = list(
         call = sys.call()
-      )))
+      ))
 }

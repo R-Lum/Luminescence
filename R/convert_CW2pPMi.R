@@ -155,7 +155,6 @@
 #'       col = "blue", lwd = 1.3)
 #' text(0.5,6500,"PM", col = "blue", cex = .8)
 #'
-#' @md
 #' @export
 convert_CW2pPMi<- function(
   values,
@@ -169,6 +168,9 @@ convert_CW2pPMi<- function(
   ##(1) data.frame or RLum.Data.Curve object?
   .validate_class(values, c("data.frame", "RLum.Data.Curve"))
   .validate_not_empty(values)
+  if (ncol(values) < 2) {
+    .throw_error("'values' should have 2 columns")
+  }
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
   if (inherits(values, "RLum.Data.Curve")) {
@@ -184,6 +186,11 @@ convert_CW2pPMi<- function(
     temp.values <- values
   }
 
+  ## remove NAs
+  temp.values <- na.exclude(temp.values)
+  if (nrow(temp.values) < 2) {
+    .throw_error("'values' should have at least 2 non-missing values")
+  }
 
   # (3) Transform values ------------------------------------------------------
 
@@ -197,22 +204,18 @@ convert_CW2pPMi<- function(
   ##if no values for P is set selected a P value for a maximum of
   ##two extrapolation points
   if(missing(P)==TRUE){
-
     i<-1
     P<-1/i
     t.transformed<-(1/3)*(1/P^2)*t^3
 
     while(length(t.transformed[t.transformed<min(t)])>2){
-
       P<-1/i
       t.transformed<-(1/3)*(1/P^2)*t^3
       i<-i+1
-
     }
   }else{
 
     t.transformed<-(1/3)*(1/P^2)*t^3
-
   }
 
   # (4) Interpolation ---------------------------------------------------------
@@ -267,29 +270,18 @@ convert_CW2pPMi<- function(
   # (7) Return values ---------------------------------------------------------
 
   ##returns the same data type as the input
-  if(is(values, "data.frame") == TRUE){
+  if (is.data.frame(values)) {
+    return(temp.values)
+  }
 
-    values <- temp.values
-    return(values)
-
-  }else{
     ##add old info elements to new info elements
     temp.info <- c(values@info,
                    CW2pPMi.x.t = list(temp.values$x.t),
                    CW2pPMi.method = list(temp.values$method))
 
-    newRLumDataCurves.CW2pPMi <- set_RLum(
+  set_RLum(
       class = "RLum.Data.Curve",
       recordType = values@recordType,
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
-    return(newRLumDataCurves.CW2pPMi)
-  }
-}
-
-#' @rdname convert_CW2pPMi
-#' @export
-CW2pPMi <- function(values, P) {
-  .Deprecated("convert_CW2pPMi")
-  convert_CW2pPMi(values, P)
 }

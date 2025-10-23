@@ -53,7 +53,6 @@
 #' ##set empty curve object
 #' set_RLum(class = "RLum.Data.Curve")
 #'
-#' @md
 #' @export
 setClass("RLum.Data.Curve",
          slots = list(
@@ -69,7 +68,7 @@ setClass("RLum.Data.Curve",
            )
          )
 
-# as() ----------------------------------------------------------------------------------------
+## as() ---------------------------------------------------------------------
 ##LIST
 ##COERCE RLum.Data.Curve >> list AND list >> RLum.Data.Curve
 #' as() - RLum-object coercion
@@ -97,7 +96,6 @@ setClass("RLum.Data.Curve",
 #' Due to the complex structure of the `RLum` objects itself a coercing to standard
 #' R data structures will be always loosely!
 #'
-#' @md
 #' @name as
 setAs("list", "RLum.Data.Curve",
       function(from,to){
@@ -151,13 +149,10 @@ setAs("RLum.Data.Curve", "matrix",
         from@data
       })
 
-# show() --------------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Show structure of `RLum.Data.Curve` object
+## show() -------------------------------------------------------------------
+#' @describeIn show
+#' Show the structure of `RLum.Data.Curve` objects.
 #'
-#' @keywords internal
-#'
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Curve"),
@@ -179,45 +174,26 @@ setMethod("show",
           }
 )
 
-# set_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Construction method for RLum.Data.Curve object. The slot info is optional
-#' and predefined as empty list by default.
+## set_RLum() ---------------------------------------------------------------
+#' @describeIn set_RLum
+#' Construction method for [RLum.Data.Curve-class] objects.
 #'
-#' @param class [`set_RLum`]; [character] (**required**):
-#' name of the `RLum` class to create
-#'
-#' @param originator [`set_RLum`]; [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object);
-#' can be set manually.
-#'
-#' @param .uid [`set_RLum`]; [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `create_UID`.
-#'
-#' @param .pid [`set_RLum`]; [character] (*with default*):
-#' option to provide a parent id for nesting at will.
-#'
-#' @param recordType [`set_RLum`]; [character] (*optional*):
+#' @param recordType [character] (*optional*):
 #' record type (e.g., "OSL")
 #'
-#' @param curveType [`set_RLum`]; [character] (*optional*):
+#' @param curveType [character] (*optional*):
 #' curve type (e.g., "predefined" or "measured")
 #'
-#' @param data [`set_RLum`]; [matrix] (**required**):
-#' raw curve data. If `data` itself is a `RLum.Data.Curve`-object this can be
-#' used to re-construct the object (see details), i.e. modified parameters except
-#' `.uid`, `.pid` and `originator`. The rest will be subject to copy and paste unless provided.
+#' @param data [matrix] or [list] (*with default*):
+#' a matrix containing raw curve data or a list containing the data to be
+#' stored in the object (for [RLum.Results-class] objects) . If `data` itself
+#' is a `RLum.Data.Curve`-object this can be used to re-construct the object,
+#' i.e. modified parameters except `.uid`, `.pid` and `originator`. The rest
+#' will be subject to copy and paste unless provided.
 #'
-#' @param info [`set_RLum`]; [list] (*optional*):
-#' info elements
+#' @param info [list] (*optional*):
+#' a list containing additional info data for the object.
 #'
-#' @return
-#'
-#' **`set_RLum`**
-#'
-#' Returns an [RLum.Data.Curve-class] object.
-#'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -234,7 +210,7 @@ setMethod(
 
     ##The case where an RLum.Data.Curve object can be provided
     ##with this RLum.Data.Curve objects can be provided to be reconstructed
-    if (is(data, "RLum.Data.Curve")) {
+    if (inherits(data, "RLum.Data.Curve")) {
       ##check for missing curveType
       if (missing(curveType))
         curveType <- data@curveType
@@ -282,26 +258,13 @@ setMethod(
   }
 )
 
-# get_RLum() ----------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Accessor method for RLum.Data.Curve object. The argument info.object is
-#' optional to directly access the info elements. If no info element name is
-#' provided, the raw curve data (matrix) will be returned.
+## get_RLum() ---------------------------------------------------------------
+#' @describeIn get_RLum
+#' Accessor method for [RLum.Data.Curve-class] object.
+#' The argument `info.object` is optional to directly access the info elements.
+#' If no info element name is provided, the raw curve data (matrix) will be
+#' returned.
 #'
-#' @param object [`get_RLum`], [`length_RLum`], [`names_RLum`] (**required**):
-#' an object of class [RLum.Data.Curve-class]
-#'
-#' @param info.object [`get_RLum`] [character] (*optional*):
-#' name of the wanted info element
-#'
-#' @return
-#'
-#' **`get_RLum`**
-#'
-#' 1. A [matrix] with the curve values or
-#' 2. only the info object if `info.object` was set.
-#'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
@@ -332,18 +295,12 @@ setMethod("get_RLum",
           })
 
 
-# length_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Returns the length of the curve object, which is the maximum of the
-#' value time/temperature of the curve (corresponding to the stimulation length)
+## length_RLum() ------------------------------------------------------------
+#' @describeIn length_RLum
+#' Returns the number of channels in the curve, which is the maximum of the
+#' value time/temperature of the curve (corresponding to the stimulation
+#' length).
 #'
-#' @return
-#'
-#' **`length_RLum`**
-#'
-#' Number of channels in the curve (row number of the matrix)
-#'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Data.Curve",
@@ -352,17 +309,10 @@ setMethod("length_RLum",
           })
 
 
-# names_RLum() --------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Returns the names info elements coming along with this curve object
+## names_RLum() -------------------------------------------------------------
+#' @describeIn names_RLum
+#' Returns the names info elements stored in the object.
 #'
-#' @return
-#'
-#' **`names_RLum`**
-#'
-#' Names of the info elements (slot `info`)
-#'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Curve",
@@ -371,28 +321,23 @@ setMethod("names_RLum",
           })
 
 
-# bin_RLum.Data() -----------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Allows binning of specific objects
+## bin_RLum.Data() ----------------------------------------------------------
+#' @describeIn bin_RLum.Data
+#' Allows binning of RLum.Data.Curve data.
 #'
 #' @param bin_size [integer] (*with default*):
-#' set number of channels used for each bin, e.g. `bin_size = 2` means that
+#' number of channels used for each bin, e.g. `bin_size = 2` means that
 #' two channels are binned.
 #'
-#' @return
-#'
-#' **`bin_RLum.Data`**
-#'
-#' Same object as input, after applying the binning.
-#'
-#' @md
 #' @export
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Curve",
           function(object, bin_size = 2) {
+            .set_function_name("bin_RLum.Data.Curve")
+            on.exit(.unset_function_name(), add = TRUE)
 
-            ##check for invalid bin_size values
-            if (!is.null(bin_size) && bin_size > 0) {
+            .validate_positive_scalar(bin_size, int = TRUE)
+
               ##set stepping vector
               stepping <- seq(1, nrow(object@data), by = bin_size)
 
@@ -418,53 +363,59 @@ setMethod(f = "bin_RLum.Data",
               ##set matrix
               return(set_RLum(class = "RLum.Data.Curve",
                               data = object))
-            } else{
-              warning("Argument 'bin_size' invalid, nothing was done!")
-
-              ##just return the object
-              return(object)
-            }
           })
 
 
-# smooth_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Smoothing of RLum.Data.Curve objects using a rolling mean or median.
-#' In particular the internal function `.smoothing` is used.
+## smooth_RLum() ------------------------------------------------------------
+#' @describeIn smooth_RLum
+#' Smoothing of [RLum.Data.Curve-class] objects using a rolling mean or median.
+#' For methods `"mean"` and `"median"`, smoothing is performed by rolling
+#' mean and rolling median with window of size `k`. Method `"Carter_etal_2018"`
+#' implements a Poisson smoother for dark-background signals measured by a
+#' photomultiplier tube.
 #'
 #' @param k [`smooth_RLum`]; [integer] (*with default*):
-#' window for the rolling mean; must be odd for `rollmedian`.
-#' If nothing is set k is set automatically
+#' window for the rolling mean or median. If `NULL`, this set automatically
+#' (ignored if `method = "Carter_etal_2018"`).
 #'
 #' @param fill [`smooth_RLum`]; [numeric] (*with default*):
-#' a vector defining the left and the right hand data
+#' value used to pad the result so to have the same length as the input.
 #'
 #' @param align [`smooth_RLum`]; [character] (*with default*):
-#' specifying whether the index of the result should be left- or right-aligned
-#' or centred (default) compared to the rolling window of observations, allowed
-#' `"right"`, `"center"` and `"left"`
+#' one of `"right"`, `"center"` or `"left"`, specifying whether the index
+#' of the result should be right-aligned (default), centred, or left-aligned
+#' compared to the rolling window of observations (ignored if
+#' `method = "Carter_etal_2018"`).
 #'
 #' @param method [`smooth_RLum`]; [character] (*with default*):
-#' defines which method should be applied for the smoothing: `"mean"` or `"median"`
+#' smoothing method to be applied: one of `"mean"`, `"median"` or
+#' `"Carter_etal_2018"`.
 #'
-#' @return
+#' @param p_acceptance [`smooth_RLum`]; [numeric] (*with default*):
+#' probability threshold of accepting a value to be a sample from a Poisson
+#' distribution (only used for `method = "Carter_etal_2018"`). Values that
+#' have a Poisson probability below the threshold are replaced by the average
+#' over the four neighbouring values.
 #'
-#' **`smooth_RLum`**
+#' @references
+#' Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S. &
+#' Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
+#' implications for luminescence dating. Radiation Measurements 120, 267-273.
+#' \doi{10.1016/j.radmeas.2018.05.010}
 #'
-#' Same object as input, after smoothing
-#'
-#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",
   signature = "RLum.Data.Curve",
-    function(object, k = NULL, fill = NA, align = "right", method = "mean") {
+  function(object, k = NULL, fill = NA, align = "right", method = "mean",
+           p_acceptance = 1e-7) {
 
         object@data[,2] <- .smoothing(
           x = object@data[,2],
           k = k,
           fill = fill,
           align = align,
+          p_acceptance = p_acceptance,
           method = method)
 
         ##return via set function to get a new id
@@ -474,18 +425,12 @@ setMethod(
     }
  )
 
-# melt_RLum() -------------------------------------------------------------------------------
-#' @describeIn RLum.Data.Curve
-#' Melts [RLum.Data.Curve-class] objects into a flat data.frame to be used
-#' in combination with other packages such as `ggplot2`.
+## melt_RLum() --------------------------------------------------------------
+#' @describeIn melt_RLum
+#' Melts [RLum.Data.Curve-class] objects into a flat data.frame with columns
+#' `X`, `Y`, `TYPE`, `UID`, to be used in combination with other packages
+#' such as `ggplot2`.
 #'
-#' @return
-#'
-#' **`melt_RLum`**
-#'
-#' Flat [data.frame] with `X`, `Y`, `TYPE`, `UID`
-#'
-#' @md
 #' @export
 setMethod(
   f = "melt_RLum",

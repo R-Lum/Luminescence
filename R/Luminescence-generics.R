@@ -1,12 +1,10 @@
-# bin_RLum.Data -----------------------------------------------------------
-#' @title Channel binning for RLum.Data S4 class objects.
+## bin_RLum.Data ------------------------------------------------------------
+#' @title Channel binning for RLum.Data-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum.Data-class] objects. Depending on the input object, the corresponding
 #' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum.Data-class] class.
 #'
 #' @param object [RLum.Data-class] (**required**):
 #' S4 object of class `RLum.Data`
@@ -14,7 +12,7 @@
 #' @param ... further arguments passed to the specific class method
 #'
 #' @return
-#' An object of the same type as the input object provided.
+#' An object of the same type as the input provided after binning is applied.
 #'
 #' @section Function version: 0.2.0
 #'
@@ -46,55 +44,19 @@
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("bin_RLum.Data", function(object, ...) {
   standardGeneric("bin_RLum.Data")
 })
 
-# get_Risoe.BINfileData() -------------------------------------------------
-#' @title General accessor function for Risoe.BINfileData objects
-#'
-#' @description
-#' The function provides a generalised access point for specific
-#' [Risoe.BINfileData-class] objects. Depending on the input object, the
-#' corresponding function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [Risoe.BINfileData-class] class.
-#'
-#' @param object [Risoe.BINfileData-class] (**required**):
-#' S4 object of class `Risoe.BINfileData`
-#'
-#' @param ... further arguments passed to the specific class method
-#'
-#' @return
-#' An object of the same type as the input object provided.
-#'
-#' @section Function version: 0.1.0
-#'
-#' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-#'
-#' @seealso [Risoe.BINfileData-class]
-#'
-#' @keywords utilities internal
-#'
-#' @md
-#' @export
-setGeneric("get_Risoe.BINfileData", function(object, ...) {
-  standardGeneric("get_Risoe.BINfileData")
-})
 
-
-# get_RLum() --------------------------------------------------------------
-#' @title General accessor function for RLum S4 class objects
+## get_RLum() ---------------------------------------------------------------
+#' @title General accessor function for RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum-class] objects. Depending on the input object, the corresponding
 #' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum-class] class.
 #'
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum` or an object of type [list] containing only objects
@@ -128,7 +90,6 @@ setGeneric("get_Risoe.BINfileData", function(object, ...) {
 #' ## get results and store them in a new object
 #' temp.get <- get_RLum(object = temp1)
 #'
-#' @md
 #' @export
 setGeneric("get_RLum", function (object, ...) {
   standardGeneric("get_RLum")
@@ -137,14 +98,15 @@ setGeneric("get_RLum", function (object, ...) {
 #' @describeIn get_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [get_RLum]
 #'
-#' @param class [character] (*optional*): allows to define the class that gets
-#' selected if applied to a list, e.g., if a list consists of different type
-#' of [RLum-class] objects, this arguments allows to make selection. If nothing
-#' is provided, all RLum-objects are treated.
+#' @param class [character] (*optional*):
+#' define which class gets selected if applied to a list, e.g., if a list
+#' consists of different type of [RLum-class] objects, this arguments allows
+#' to make a selection. If nothing is provided, all [RLum-class] objects are
+#' treated.
 #'
-#' @param null.rm [logical] (*with default*): remove empty and `NULL` objects.
+#' @param null.rm [logical] (*with default*):
+#' whether empty and `NULL` objects should be removed.
 #'
-#' @md
 #' @export
 setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
@@ -180,13 +142,11 @@ setMethod("get_RLum", signature = "list",
       ## remove empty or NULL objects after the selection ... if wanted
       if (null.rm) {
         ## first set all empty objects to NULL ... for RLum.Analysis objects
-        selection <- lapply(1:length(selection), function(x) {
-          if (length(selection[[x]]) == 0 ||
-              (inherits(selection[[x]], "RLum.Analysis") &&
-               length(selection[[x]]@records) == 0))
+        selection <- lapply(selection, function(x) {
+          if (length(x) == 0 ||
+              (inherits(x, "RLum.Analysis") && length(x@records) == 0))
             return(NULL)
-          else
-            return(selection[[x]])
+          return(x)
         })
         ## get rid of all NULL objects
         selection <- selection[!vapply(selection, is.null, logical(1))]
@@ -194,13 +154,9 @@ setMethod("get_RLum", signature = "list",
       return(selection)
     })
 
-#' Method to handle NULL if the user calls get_RLum
-#'
 #' @describeIn get_RLum
-#'
 #' Returns `NULL`.
 #'
-#' @md
 #' @export
 setMethod("get_RLum", signature = "NULL",
     function(object, ...) {
@@ -208,19 +164,21 @@ setMethod("get_RLum", signature = "NULL",
     })
 
 
-# remove_RLum() -------------------------------------------------------------
+## remove_RLum() ------------------------------------------------------------
 #' @title Strips records from RLum-class objects
 #'
 #' @description
 #' Remove records from an RLum-class object in a convenient way using
 #' [get_RLum] for the selection.
 #'
-#' @param object [RLum-class] (**required**):  S4 object of class `RLum`
+#' @param object [RLum-class] (**required**):
+#' object with records to be removed.
 #'
 #' @param ... further arguments passed to the specific class method
 #'
 #' @return
-#' Same as input, can be empty
+#' An object of the same type as the input provided with records removed; it
+#' can result in an empty object.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -240,7 +198,6 @@ setMethod("get_RLum", signature = "NULL",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("remove_RLum", function(object, ...) {
   standardGeneric("remove_RLum")
@@ -249,29 +206,29 @@ setGeneric("remove_RLum", function(object, ...) {
 #' @describeIn remove_RLum
 #' Returns a list of [RLum-class] objects where the selected records are stripped
 #'
-#' @md
 #' @export
 setMethod("remove_RLum", signature = "list",
           function(object, ...) {
             ## apply method in the objects and return the same
-            lapply(object, function(x) {
+            tmp <- lapply(object, function(x) {
               if (inherits(x, "RLum.Analysis")) {
                 return(remove_RLum(x,...))
               } else {
                 return(x)
               }
             })
+
+            ## remove empty elements
+            tmp[vapply(tmp,length, numeric(1)) != 0]
 })
 
-# length_RLum() -----------------------------------------------------------
-#' @title Length retrieval function for RLum S4 class objects
+## length_RLum() ------------------------------------------------------------
+#' @title Length retrieval function for RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum-class] objects. Depending on the input object, the corresponding
 #' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum-class] class.
 #'
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
@@ -292,14 +249,13 @@ setMethod("remove_RLum", signature = "list",
 #' [RLum.Results-class]
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("length_RLum", function(object) {
   standardGeneric("length_RLum")
 })
 
 
-# melt_RLum() -------------------------------------------------------------
+## melt_RLum() --------------------------------------------------------------
 #' @title Melt RLum-class objects into a flat data.frame
 #'
 #' @param object [RLum-class] (**required**):
@@ -323,16 +279,15 @@ setGeneric("length_RLum", function(object) {
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("melt_RLum", function(object, ...) {
   standardGeneric("melt_RLum")
 })
 
 #' @describeIn melt_RLum
-#' Returns a list a single [data.frame]
+#' Returns a list of melted [RLum-class] objects; non-RLum objects are silently
+#' removed.
 #'
-#' @md
 #' @export
 setMethod("melt_RLum", signature = "list",
     function(object, ...) {
@@ -361,18 +316,22 @@ setMethod("melt_RLum", signature = "list",
     })
 
 
-# add_metadata<-() --------------------------------------------------------
+## add_metadata<-() ---------------------------------------------------------
 #' @title Safe manipulation of object metadata
 #'
 #' @description
 #' Generic functions for manipulation of metadata in [Risoe.BINfileData-class],
 #' [RLum.Analysis-class] and [RLum.Data-class] objects.
 #'
-#' @param object (**required**) object to manipulate
+#' @param object [RLum.Analysis-class], [Risoe.BINfileData-class] (**required**):
+#' object of class `RLum.Analysis` or `Risoe.BINfileData` to manipulate.
 #'
 #' @param ... further arguments passed to the specific class method
 #'
-#' @param value the value to be assigned
+#' @param value (**required**):
+#' value to be assigned to the selected metadata entry. A `NULL` value is
+#' acceptable only for `replace_metadata`, in which case the elements named
+#' in `info_element` will be removed.
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
@@ -412,7 +371,6 @@ setMethod("melt_RLum", signature = "list",
 #' CWOSL.SAR.Data
 #'
 #' @rdname metadata
-#' @md
 #' @export
 setGeneric("add_metadata<-", function (object, ..., value) {
   standardGeneric("add_metadata<-")
@@ -431,15 +389,13 @@ setGeneric("replace_metadata<-", function (object, ..., value) {
 })
 
 
-# names_RLum() ------------------------------------------------------------
-#' @title Name retrieval function for RLum S4 class objects
+## names_RLum() -------------------------------------------------------------
+#' @title Name retrieval function for RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum-class] objects. Depending on the input object, the corresponding
 #' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum-class] class.
 #'
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
@@ -457,18 +413,15 @@ setGeneric("replace_metadata<-", function (object, ..., value) {
 #'
 #' @keywords utilities
 #'
-#' @aliases names_RLum
-#'
-#' @md
 #' @export
 setGeneric("names_RLum", function(object) {
   standardGeneric("names_RLum")
 })
 
 #' @describeIn names_RLum
-#' Returns a list of [RLum-class] objects that had been passed to [names_RLum]
+#' Returns a list of names of the [RLum-class] objects that had been passed to
+#' it.
 #'
-#' @md
 #' @export
 setMethod("names_RLum", signature = "list",
     function(object) {
@@ -483,18 +436,18 @@ setMethod("names_RLum", signature = "list",
     })
 
 
-# replicate_RLum() --------------------------------------------------------
-#' @title General replication function for RLum S4 class objects
+## replicate_RLum() ---------------------------------------------------------
+#' @title General replication function for RLum-class objects
 #'
 #' @description
-#' The function replicates RLum S4 class objects and returns a list of such
+#' The function replicates [RLum-class] objects and returns a list of such
 #' objects.
 #'
 #' @param object [RLum-class] (**required**):
 #' an [RLum-class] object
 #'
 #' @param times [integer] (*optional*):
-#' number for times each element is repeated element
+#' number for times each element should be repeated.
 #'
 #' @return
 #' A [list] with the object repeated.
@@ -508,14 +461,13 @@ setMethod("names_RLum", signature = "list",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
-setGeneric("replicate_RLum", function (object, times = NULL) {
+setGeneric("replicate_RLum", function (object, times = 1) {
    standardGeneric("replicate_RLum")
 })
 
 
-# set_Risoe.BINfileData() -------------------------------------------------
+## set_Risoe.BINfileData() --------------------------------------------------
 #' @title General setter function for Risoe.BINfileData objects
 #'
 #' @description
@@ -543,7 +495,6 @@ setGeneric("replicate_RLum", function (object, times = NULL) {
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
                                              DATA = list(), .RESERVED = list()) {
@@ -551,21 +502,13 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 })
 
 
-
-# set_RLum() --------------------------------------------------------------
-#' @title General setter function for RLum S4 class objects
+## set_RLum() ---------------------------------------------------------------
+#' @title General setter function for RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum-class] objects. Depending on the given class, the corresponding
 #' method to create an object from this class will be selected.
-#' Allowed additional arguments can be found in the documentations of the
-#' corresponding [RLum-class] class:
-#' - [RLum.Data.Curve-class],
-#' - [RLum.Data.Image-class],
-#' - [RLum.Data.Spectrum-class],
-#' - [RLum.Analysis-class],
-#' - [RLum.Results-class]
 #'
 #' @param class [character] (**required**):
 #' name of the S4 class to create, must correspond to one of the [RLum-class]
@@ -616,7 +559,6 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 #' ## plot this curve object
 #' plot_RLum(object)
 #'
-#' @md
 #' @export
 setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
                                  .pid = NA_character_, ... ) {
@@ -627,7 +569,7 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
   class(class) <- as.character(class)
 
   if (missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "language")) {
+    if (is.language(sys.call(which = -1)[[1]])) {
       originator <- as.character(sys.call(which = -1)[[1]])
 
       ## account for calls using the double colons, in this case the vector
@@ -645,16 +587,23 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
 })
 
 
-# smooth_RLum() -----------------------------------------------------------
-#' @title Smoothing of data for RLum S4-class objects
+## show() -------------------------------------------------------------------
+#' @name show
+#' @title Show the structure of RLum-class and Risoe.BINfileData-class objects
+#'
+#' @param object [RLum-class], [Risoe.BINfileData-class] (**required**):
+#' object of class `RLum` or `Risoe.BINfileData`.
+#'
+NULL
+
+## smooth_RLum() ------------------------------------------------------------
+#' @title Smoothing of data for RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum-class] objects. Depending on the input object, the corresponding
-#' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum-class] class. The smoothing is based on an internal function
-#' called `.smoothing`.
+#' function will be selected. The smoothing is performed in the internal
+#' function `.smoothing()`.
 #'
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
@@ -694,7 +643,6 @@ setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("smooth_RLum", function(object, ...) {
   standardGeneric("smooth_RLum")
@@ -703,7 +651,6 @@ setGeneric("smooth_RLum", function(object, ...) {
 #' @describeIn smooth_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [smooth_RLum]
 #'
-#' @md
 #' @export
 setMethod("smooth_RLum", signature = "list",
     function(object, ...) {
@@ -718,18 +665,16 @@ setMethod("smooth_RLum", signature = "list",
     })
 
 
-# sort_RLum() -------------------------------------------------------------
-#' @title Sort data for RLum S4-class objects
+## sort_RLum() --------------------------------------------------------------
+#' @title Sort data for RLum-class and Risoe.BINfileData-class objects
 #'
 #' @description
-#' The function provides a generalised access point for specific
-#' [RLum-class] objects. Depending on the input object, the corresponding
-#' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum-class] class.
+#' The function provides a generalised access point for specific [RLum-class]
+#' and [Risoe.BINfileData-class] objects. Depending on the input object,
+#' the corresponding function will be selected.
 #'
 #' @param object [RLum-class] or [Risoe.BINfileData-class] (**required**):
-#' S4 object of class `RLum.Analysis` or `Risoe.BINfileData`
+#' S4 object of class `RLum.Analysis` or `Risoe.BINfileData`.
 #'
 #' @param ... further arguments passed to the specific class method
 #'
@@ -754,16 +699,14 @@ setMethod("smooth_RLum", signature = "list",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("sort_RLum", function(object, ...) {
   standardGeneric("sort_RLum")
 })
 
 #' @describeIn sort_RLum
-#' Returns a list of [RLum-class] objects that had been passed to [sort_RLum]
+#' Returns a list of sorted [RLum-class] objects.
 #'
-#' @md
 #' @export
 setMethod("sort_RLum", signature = "list",
           function(object, ...) {
@@ -778,15 +721,13 @@ setMethod("sort_RLum", signature = "list",
           })
 
 
-# structure_RLum() --------------------------------------------------------
-#' @title General structure function for RLum S4 class objects
+## structure_RLum() ---------------------------------------------------------
+#' @title General structure function for RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
 #' [RLum-class] objects. Depending on the input object, the corresponding
 #' function will be selected.
-#' Allowed arguments can be found in the documentations of the corresponding
-#' [RLum-class] class.
 #'
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
@@ -814,16 +755,15 @@ setMethod("sort_RLum", signature = "list",
 #' ## show structure
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
-#' @md
 #' @export
 setGeneric("structure_RLum", function(object, ...) {
   standardGeneric("structure_RLum")
 })
 
 #' @describeIn structure_RLum
-#' Returns a list of [RLum-class] objects that were passed to [structure_RLum]
+#' Returns a list of data frames containing the structure of each [RLum-class]
+#' object in the input list.
 #'
-#' @md
 #' @export
 setMethod("structure_RLum", signature = "list",
     function(object, ...) {
@@ -838,7 +778,7 @@ setMethod("structure_RLum", signature = "list",
     })
 
 
-# view() ------------------------------------------------------------------
+## view() -------------------------------------------------------------------
 #' @title Convenience data visualisation function
 #'
 #' @description
@@ -859,7 +799,6 @@ setMethod("structure_RLum", signature = "list",
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("view", function (object, ... ) {
   standardGeneric("view")
@@ -867,7 +806,6 @@ setGeneric("view", function (object, ... ) {
 
 ## ensure that we can use the internal RStudio view function
 ## https://stackoverflow.com/questions/48234850/how-to-use-r-studio-view-function-programatically-in-a-package
-#' @md
 #' @noRd
 .view <- function(x, title) {
   get("View", envir = as.environment("package:utils"))(x, title) # nocov

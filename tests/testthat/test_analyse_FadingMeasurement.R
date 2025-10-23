@@ -2,6 +2,30 @@
 data("ExampleData.Fading", envir = environment())
 fading_data <- ExampleData.Fading$fading.data$IR50
 
+## create artificial object
+set.seed(0)
+time <- as.POSIXct("2025-09-26 10:26:20 CEST")
+ll <- list()
+for (x in runif(3, 120, 130)) {
+  irr <- set_RLum("RLum.Data.Curve",
+                  data = matrix(c(1:x, rep(1, x)), ncol = 2),
+                  originator = "read_XSYG2R",
+                  recordType = "irradiation (NA)",
+                  curveType = "simulated",
+                  info = list(startDate = format(time, "%Y%m%d%H%M%S"),
+                              position = 1))
+  lum <- set_RLum("RLum.Data.Curve",
+                  data = matrix(c(1:40, exp(-c(1:40) / x * 10)), ncol = 2),
+                  originator = "read_XSYG2R",
+                  recordType = "IRSL",
+                  curveType = "measured",
+                  info = list(startDate = format(time + x + 30, "%Y%m%d%H%M%S"),
+                              position = 1))
+  time <- time + x + 60
+  ll <- c(ll, irr, lum, lum)
+}
+object <- set_RLum("RLum.Analysis", records = ll, originator = "read_XSYG2R")
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -16,7 +40,18 @@ test_that("input validation", {
       "No valid records in 'object' left"),
       "2 unsupported records removed")
   expect_error(analyse_FadingMeasurement(cbind(fading_data, fading_data[, 1])),
-               "if you provide a data.frame as input, the number of columns")
+               "When 'object' is a data.frame, the number of columns must be")
+  expect_error(analyse_FadingMeasurement(data.frame(NA, 1:5, 1:5)),
+               "After NA removal, nothing is left from the data set")
+
+  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
+                                         background.integral = 2),
+               "'signal.integral' and 'background.integral' overlap")
+  expect_error(analyse_FadingMeasurement(object[-3], signal.integral = 1:2,
+                                         background.integral = 3:40,
+                                         structure = c("Lx", "Tx")),
+               "The number of Lx curves (3) differs from the number of Tx curves (2)",
+               fixed = TRUE)
 
   ## check various for t_star
   ## stop t_star
@@ -28,11 +63,9 @@ test_that("input validation", {
   SW({
   expect_message(expect_null(analyse_FadingMeasurement(read_PSL2R(psl.file))),
                  "Error: Unknown or unsupported originator, NULL returned")
-  })
 
   ## no irradiation steps
   xsyg.file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
-  SW({
   expect_error(analyse_FadingMeasurement(read_XSYG2R(xsyg.file, fastForward = TRUE)),
                "No irradiation times could be retrieved, check that 'object'")
   })
@@ -83,45 +116,6 @@ test_that("test functionality", {
 test_that("test XSYG file fading data", {
   testthat::skip_on_cran()
 
-  # Create artificial object ------------------------------------------------
-  l <- list()
-  time <- 0
-  set.seed(0)
-  for(x in runif(3, 120,130)) {
-    ## set irr
-    irr  <-
-      set_RLum(
-        "RLum.Data.Curve",
-        data = matrix(c(1:x, rep(1,x)), ncol = 2),
-        originator = "read_XSYG2R",
-        recordType = "irradiation (NA)",
-        curveType = "simulated",
-        info = list(
-          startDate = format(Sys.time() + time, "%Y%m%d%H%M%S"),
-          position = 1)
-      )
-
-    ## set lum
-    lum  <-
-      set_RLum(
-        "RLum.Data.Curve",
-        data = matrix(c(1:40, exp(-c(1:40)/ x * 10)), ncol = 2),
-        originator = "read_XSYG2R",
-        recordType = "IRSL",
-        curveType = "measured",
-        info = list(
-          startDate = format(Sys.time() + time + x + 30, "%Y%m%d%H%M%S"),
-          position = 1)
-      )
-
-    time <- time + x + 60
-    l <- c(l, irr, lum, lum)
-  }
-
-  ## generate object
-  object <- set_RLum("RLum.Analysis", records = l, originator = "read_XSYG2R")
-
-  # Test --------------------------------------------------------------------
   SW({
   expect_s4_class(analyse_FadingMeasurement(
     object,
@@ -135,24 +129,12 @@ test_that("test XSYG file fading data", {
   expect_s4_class(analyse_FadingMeasurement(
     object,
     signal.integral = 1:2,
-    t_star = "half_complex",
-    background.integral = 10:40,
-    structure = "Lx",
-    plot = FALSE
-  ), "RLum.Results")
-  expect_s4_class(analyse_FadingMeasurement(
-    object,
-    signal.integral = 1:2,
     t_star = "end",
     background.integral = 10:40,
     structure = "Lx",
     plot = FALSE
   ), "RLum.Results")
   })
-
-  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
-                                         background.integral = 2),
-               "'signal.integral' and 'background.integral' overlap")
 
   obj.sub <- get_RLum(object, record.id = 1:2, drop = FALSE)
   expect_message(expect_null(analyse_FadingMeasurement(obj.sub)),
@@ -164,23 +146,18 @@ test_that("test XSYG file fading data", {
                                            structure = "Lx"),
                  "Number of background channels for Lx < 25")
 
-  expect_error(analyse_FadingMeasurement(object[-3], signal.integral = 1:2,
-                                         background.integral = 3:40,
-                                         structure = c("Lx", "Tx")),
-               "The number of Lx curves (3) differs from the number of Tx curves (2)",
-               fixed = TRUE)
-
   object@records[[3]]@data <- object@records[[3]]@data[1:10, ]
   expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
                                            background.integral = 3:40),
                  "Skipped the following samples because Lx and Tx have different sizes: 1")
   })
 
-  object@records[[6]]@data <- object@records[[6]]@data[1:10, ]
-  object@records[[9]]@data <- object@records[[9]]@data[1:10, ]
-  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
+  obj.mod <- object
+  obj.mod@records[[6]]@data <- obj.mod@records[[6]]@data[1:10, ]
+  obj.mod@records[[9]]@data <- obj.mod@records[[9]]@data[1:10, ]
+  expect_error(analyse_FadingMeasurement(obj.mod, signal.integral = 1:2,
                                          background.integral = 3:40),
-                 "No curves left after removing those with different Lx and Tx sizes")
+               "No curves left after removing those with different Lx and Tx sizes")
 })
 
 test_that("test BIN file while fading data", {
@@ -201,12 +178,6 @@ test_that("test BIN file while fading data", {
   expect_message(expect_null(
       analyse_FadingMeasurement(d2, signal.integral = 1:2,
                                 background.integral = 10:30,
-                                structure = "error")),
-      "Error: 'structure' can only be 'Lx' or c('Lx', 'Tx'), NULL returned",
-      fixed = TRUE)
-  expect_message(expect_null(
-      analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                                background.integral = 10:30,
                                 structure = c("Lx", "Tx", "Lx"))),
       "Error: 'structure' can only be 'Lx' or c('Lx', 'Tx'), NULL returned",
       fixed = TRUE)
@@ -219,9 +190,6 @@ test_that("test BIN file while fading data", {
                             plot_singlePanels = 2:3, ylim = c(0.1, 1.1),
                             background.count.distribution = "poisson",
                             sig0 = 2, verbose = FALSE, plot = TRUE)
-  analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                            background.integral = 10:40,
-                            t_star = identity, verbose = FALSE, plot = FALSE)
 
   d2[[2]]@records[[1]]@info$TIMESINCEIRR <- -1
   expect_message(expect_warning(expect_null(
@@ -238,6 +206,10 @@ test_that("test BIN file while fading data", {
       "RLum.Results"),
       "removed 1 records with negative 'time since irradiation'")
   )
+
+  fd.mod <- fading_data
+  fd.mod[6, 1] <- 0.712
+  expect_output(analyse_FadingMeasurement(fd.mod, n.MC = 10))
 })
 
 test_that("regression tests", {
@@ -257,20 +229,33 @@ test_that("regression tests", {
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-  testthat::skip_if_not(getRversion() >= "4.4.0")
 
   SW({
   set.seed(1)
-  vdiffr::expect_doppelganger("analyse_FM_expected",
+  vdiffr::expect_doppelganger("default",
                               analyse_FadingMeasurement(fading_data,
                                                         n.MC = 10))
-  vdiffr::expect_doppelganger("analyse_FM_singlePanels3",
+  vdiffr::expect_doppelganger("panel 3",
                               analyse_FadingMeasurement(fading_data,
                                                         plot_singlePanels = 3,
                                                         n.MC = 10))
-  vdiffr::expect_doppelganger("analyse_FM_singlePanels_4",
+  vdiffr::expect_doppelganger("panel 4",
                               analyse_FadingMeasurement(fading_data,
                                                         plot_singlePanels = 4,
+                                                        n.MC = 10))
+  vdiffr::expect_doppelganger("lx half_complex",
+                              analyse_FadingMeasurement(object,
+                                                        signal.integral = 1:2,
+                                                        background.integral = 10:40,
+                                                        structure = "Lx",
+                                                        t_star = "half_complex",
+                                                        n.MC = 10))
+  vdiffr::expect_doppelganger("lx tx identity",
+                              analyse_FadingMeasurement(object,
+                                                        signal.integral = 1:2,
+                                                        background.integral = 10:40,
+                                                        structure = c("Lx", "Tx"),
+                                                        t_star = identity,
                                                         n.MC = 10))
   })
 })
