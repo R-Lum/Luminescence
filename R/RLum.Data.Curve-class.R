@@ -218,41 +218,28 @@ setMethod(
       if(missing(recordType))
         recordType <- data@recordType
 
-      ##check for missing data ... not possible as data is the object itself
-
       ##check for missing info
       if(missing(info))
         info <- data@info
 
-      ##check for missing .uid and .pid and originator
-      ##>> no this is always taken from the old object here
-
-      ##set empty class from object
-      newRLumDataCurve <- new("RLum.Data.Curve")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataCurve@recordType <- recordType
-      newRLumDataCurve@curveType <- curveType
-      newRLumDataCurve@data <- data@data
-      newRLumDataCurve@info <- info
-      newRLumDataCurve@originator <- data@originator
-      newRLumDataCurve@.uid <- data@.uid
-      newRLumDataCurve@.pid <- data@.pid
-
-    } else {
-
-      ##set empty class form object
-      newRLumDataCurve <- new("RLum.Data.Curve")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataCurve@originator <- originator
-      newRLumDataCurve@recordType <- recordType
-      newRLumDataCurve@curveType <- curveType
-      newRLumDataCurve@data <- data
-      newRLumDataCurve@info <- info
-      newRLumDataCurve@.uid <- .uid
-      newRLumDataCurve@.pid <- .pid
+      originator <- data@originator
+      .uid <- data@.uid
+      .pid <- data@.pid
+      data <- data@data
     }
+
+    ## set empty class form object
+    newRLumDataCurve <- new("RLum.Data.Curve")
+
+    ## fill - this is the faster way, filling in new() costs ...
+    newRLumDataCurve@originator <- originator
+    newRLumDataCurve@recordType <- recordType
+    newRLumDataCurve@curveType <- curveType
+    newRLumDataCurve@data <- data
+    newRLumDataCurve@info <- info
+    newRLumDataCurve@.uid <- .uid
+    newRLumDataCurve@.pid <- .pid
+
     return(newRLumDataCurve)
   }
 )
