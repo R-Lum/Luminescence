@@ -9,6 +9,8 @@ test_that("check class", {
   expect_s4_class(set_RLum(class = "RLum.Data.Curve", data = object), class = "RLum.Data.Curve")
 
   ##check get_RLum
+  expect_warning(expect_null(get_RLum(object, info.object = "test")),
+                 "'object' has no info objects, NULL returned")
   object <- set_RLum(class = "RLum.Data.Curve", data = object, info = list(a = "test"))
   expect_warning(get_RLum(object, info.object = "error"),
                  "Invalid 'info.object' name, valid names are:")
