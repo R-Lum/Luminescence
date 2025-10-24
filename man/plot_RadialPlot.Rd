@@ -15,7 +15,7 @@ plot_RadialPlot(
   summary.pos = "sub",
   legend,
   legend.pos,
-  stats,
+  stats = "none",
   rug = FALSE,
   plot.ratio,
   bar.col,
@@ -73,17 +73,13 @@ option is only possible if \code{mtext} is not used.}
 \item{legend}{\link{character} vector (\emph{optional}):
 legend content to be added to the plot.}
 
-\item{legend.pos}{\link{numeric} or \link{character} (with
-default): optional position coordinates or keyword (e.g. \code{"topright"})
-for the legend to be plotted.}
+\item{legend.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional legend position coordinates or keyword (e.g. \code{"topright"}).}
 
-\item{stats}{\link{character}: additional labels of statistically
-important values in the plot. One or more out of the following:
-\itemize{
-\item \code{"min"},
-\item \code{"max"},
-\item \code{"median"}.
-}}
+\item{stats}{\link{character} (\emph{optional}):
+additional labels of statistically important values in the plot. It can be
+one or more of \code{"min"}, \code{"max"} and \code{"median"}; any other values will be
+ignored.}
 
 \item{rug}{\link{logical}:
 Option to add a rug to the z-scale, to indicate the location of individual values}
