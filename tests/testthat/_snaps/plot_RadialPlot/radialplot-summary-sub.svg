@@ -114,6 +114,8 @@
 <circle cx='511.80' cy='215.01' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='610.51' cy='182.39' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='367.32' cy='231.76' r='2.70' style='stroke-width: 0.75;' />
+<text x='423.40' y='298.99' text-anchor='end' style='font-size: 10.20px; font-family: sans;' textLength='14.18px' lengthAdjust='spacingAndGlyphs'>4.1</text>
+<text x='455.97' y='177.63' text-anchor='end' style='font-size: 10.20px; font-family: sans;' textLength='14.18px' lengthAdjust='spacingAndGlyphs'>6.2</text>
 <line x1='57.60' y1='279.78' x2='57.60' y2='192.97' style='stroke-width: 0.75;' />
 <line x1='57.60' y1='279.78' x2='50.40' y2='279.78' style='stroke-width: 0.75;' />
 <line x1='57.60' y1='236.38' x2='50.40' y2='236.38' style='stroke-width: 0.75;' />

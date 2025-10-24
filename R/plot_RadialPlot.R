@@ -437,7 +437,7 @@ plot_RadialPlot <- function(
     cbind(x,
           precision = 1 / x[, 4],
           std.estimate = (x[, 3] - x[, 5]) / x[, 4],
-          std.estimate.plot = NA,
+          std.estimate.plot = NA, # will be filled in further down
           .id = idx)
   })
 
@@ -472,6 +472,7 @@ plot_RadialPlot <- function(
   for(i in 1:length(data)) {
     data[[i]][,8] <- (data[[i]][,3] - z.central.global) / data[[i]][,4]
   }
+  data.global$std.estimate.plot <- unlist(lapply(data, function(x) x[, 8]))
 
   ## print warning for too small scatter
   if (max(abs(1 / data.global[, 6])) < 0.02) {
