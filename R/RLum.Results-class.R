@@ -59,7 +59,7 @@ setClass(
   Class = "RLum.Results",
   slots = list(data = "list"),
   contains = "RLum",
-  prototype = list (data = list())
+  prototype = list(data = list())
 )
 
 

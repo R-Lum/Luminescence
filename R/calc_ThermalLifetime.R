@@ -260,8 +260,8 @@ calc_ThermalLifetime <- function(
     dimnames(lifetimes) <- list(s, E, paste("T =", T, "\u00B0C"))
   }
 
- ## re-calculate lifetimes according to the chosen output unit
- temp.lifetimes <- switch (
+  ## re-calculate lifetimes according to the chosen output unit
+  temp.lifetimes <- switch(
     output_unit,
     "s" = lifetimes,
     "min" = lifetimes / 60,

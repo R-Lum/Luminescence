@@ -91,7 +91,7 @@ setGeneric("bin_RLum.Data", function(object, ...) {
 #' temp.get <- get_RLum(object = temp1)
 #'
 #' @export
-setGeneric("get_RLum", function (object, ...) {
+setGeneric("get_RLum", function(object, ...) {
   standardGeneric("get_RLum")
 })
 
@@ -372,19 +372,19 @@ setMethod("melt_RLum", signature = "list",
 #'
 #' @rdname metadata
 #' @export
-setGeneric("add_metadata<-", function (object, ..., value) {
+setGeneric("add_metadata<-", function(object, ..., value) {
   standardGeneric("add_metadata<-")
 })
 
 #' @rdname metadata
 #' @export
-setGeneric("rename_metadata<-", function (object, ..., value) {
+setGeneric("rename_metadata<-", function(object, ..., value) {
   standardGeneric("rename_metadata<-")
 })
 
 #' @rdname metadata
 #' @export
-setGeneric("replace_metadata<-", function (object, ..., value) {
+setGeneric("replace_metadata<-", function(object, ..., value) {
   standardGeneric("replace_metadata<-")
 })
 
@@ -462,7 +462,7 @@ setMethod("names_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("replicate_RLum", function (object, times = 1) {
+setGeneric("replicate_RLum", function(object, times = 1) {
    standardGeneric("replicate_RLum")
 })
 
@@ -560,8 +560,8 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 #' plot_RLum(object)
 #'
 #' @export
-setGeneric("set_RLum", function (class, originator, .uid = create_UID(),
-                                 .pid = NA_character_, ... ) {
+setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
+                                .pid = NA_character_, ... ) {
   .set_function_name("set_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -800,7 +800,7 @@ setMethod("structure_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("view", function (object, ... ) {
+setGeneric("view", function(object, ... ) {
   standardGeneric("view")
 })
 

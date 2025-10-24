@@ -37,7 +37,7 @@
 #' temp <- import_Data(file)
 #'
 #'@export
-import_Data <- function (
+import_Data <- function(
   file,
   ...,
   fastForward = TRUE,

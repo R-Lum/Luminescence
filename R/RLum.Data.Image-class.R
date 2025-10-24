@@ -54,7 +54,7 @@ setClass(
     info = "list"
   ),
   contains = "RLum.Data",
-  prototype = list (
+  prototype = list(
     recordType = character(),
     curveType = character(),
     data = array(),

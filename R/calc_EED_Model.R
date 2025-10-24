@@ -157,7 +157,7 @@ calc_EED_Model <- function(
     return(var_ratio / mean_ratio^2)
   }
 
-  .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
+  .EED_Simul_Matrix <- function(M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul) {
 
     ## génére une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
     M_Simul[,1] <- expected_dose * exp(sigma_distr * rnorm(Nsimul)) *
@@ -236,12 +236,12 @@ calc_EED_Model <- function(
   # on teste ce rapport et s'il est inf?rieur ? une valeur limite inf?rieure, on demande de relancer le calcul
   # avec davantage de simulations.
 
-  .EED_Calc_Overall_StatUncertainty <- function (M_Data, M_Simul, Ndata, Nsimul, MinNbSimExp){
+  .EED_Calc_Overall_StatUncertainty <- function(M_Data, M_Simul, Ndata, Nsimul, MinNbSimExp) {
     M_SimExpResults <- src_EED_Calc_Overall_StatUncertainty(M_Simul, Ndata, Nsimul, MinNbSimExp)
 
     # colonne 7 : calcule l'erreur totale sur la dose nette corrig?e M_Data[i,7]
     M_Data[,7] <- abs((M_Data[,6]/M_Data[,3])*sqrt((M_SimExpResults[,2]^2)+(M_Data[,2]^2)))
-    return (M_Data)
+    return(M_Data)
   }
 
   # fonction d'initialisation de l'etat initial
@@ -250,7 +250,7 @@ calc_EED_Model <- function(
   .Initial_State_of_OSL <- function(Dosedata, D0, method) {
     SaturationState <- (1 - exp(-max(Dosedata[, 1]) / D0))
     if (method == "max") {
-      return  (SaturationState)
+      return(SaturationState)
     }
     # nocov start
     if (!is.numeric(method) || method > 1 || method < 0) {
@@ -316,7 +316,7 @@ calc_EED_Model <- function(
       M_Simul, set_expected_dose,
       D0, Iinit, Nsimul, Dosedata, M_Data, Ndata){
 
-      M_Simul <- .EED_Simul_Matrix (M_Simul, set_expected_dose, set_sigma_distr, D0, set_kappa, Iinit, Nsimul)
+      M_Simul <- .EED_Simul_Matrix(M_Simul, set_expected_dose, set_sigma_distr, D0, set_kappa, Iinit, Nsimul)
       M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, set_expected_dose, Ndata, Nsimul)
 
       M_Data <- .EED_Calc_Overall_StatUncertainty(
@@ -548,7 +548,7 @@ if(is.null(kappa) || is.null(sigma_distr)){
 }
 
 # Calculation ---------------------------------------------------------------------------------
-M_Simul <- .EED_Simul_Matrix (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
+M_Simul <- .EED_Simul_Matrix(M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
 M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsimul)
 
 M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul, MinNbSimExp)

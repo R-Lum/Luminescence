@@ -93,7 +93,7 @@ merge_RLum<- function(
         ifelse("RLum.Analysis" %in% temp.class.test, "RLum.Analysis", temp.class.test)
 
   ## select which merge function should be used
-  switch (
+  switch(
         objects.class,
         RLum.Data.Image = .throw_error("Merging of 'RLum.Data.Image' objects is currently not supported"),
         RLum.Data.Spectrum = merge_RLum.Data.Spectrum(objects, ...),

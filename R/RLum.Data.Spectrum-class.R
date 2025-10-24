@@ -63,7 +63,7 @@ setClass(
     info = "list"
   ),
   contains = "RLum.Data",
-  prototype = list (
+  prototype = list(
     recordType = NA_character_,
     curveType = NA_character_,
     data = matrix(),

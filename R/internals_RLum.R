@@ -78,7 +78,7 @@
     expr = expr,
     warning = function(w) {
       warning_collector <<- c(warning_collector, w$message)
-      tryInvokeRestart ("muffleWarning")
+      tryInvokeRestart("muffleWarning")
     }
   )
 
@@ -216,7 +216,7 @@
 #' A numeric value corresponding to the weighted median of the input vector.
 #'
 #' @noRd
-.weighted.median <- function (x, w, na.rm = FALSE) {
+.weighted.median <- function(x, w, na.rm = FALSE) {
   ## based on limma::weighted.median
   if (na.rm) {
     keep.idx <- !is.na(x)

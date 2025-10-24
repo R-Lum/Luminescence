@@ -66,7 +66,7 @@
 #' plot_AbanicoPlot(results)
 #'
 #'@export
-calc_gSGC_feldspar <- function (
+calc_gSGC_feldspar <- function(
   data,
   gSGC.type = "50LxTx",
   gSGC.parameters,

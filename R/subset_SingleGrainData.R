@@ -32,7 +32,7 @@
 #'subset_SingleGrainData(object = CWOSL.SAR.Data, selection = selection)
 #'
 #'@export
-subset_SingleGrainData <- function (
+subset_SingleGrainData <- function(
     object,
     selection
 ) {

@@ -68,7 +68,7 @@ plot_RLum <- function(
     .validate_class(object, "RLum")
 
     ## select which plot function should be used and call it
-    switch (
+    switch(
         class(object),
         RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),

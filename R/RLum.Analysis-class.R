@@ -67,7 +67,7 @@ setClass("RLum.Analysis",
            records = "list"
          ),
          contains = "RLum",
-         prototype = list (
+         prototype = list(
            protocol = NA_character_,
            records = list()
          )
@@ -568,7 +568,7 @@ setMethod("structure_RLum",
             on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
-            sapply(object@records, function (x) {
+            sapply(object@records, function(x) {
               .validate_class(x, "RLum.Data.Curve",
                               name = "All elements of 'object'")
             })
