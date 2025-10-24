@@ -156,6 +156,7 @@ test_that("graphical snapshot tests", {
                               plot_RadialPlot(df, centrality = 6))
   vdiffr::expect_doppelganger("RadialPlot summary sub",
                               plot_RadialPlot(df, summary.pos = "sub",
+                                              stat = c("min", "max"),
                                               summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("RadialPlot summary left",
                               plot_RadialPlot(df, summary.pos = "left",

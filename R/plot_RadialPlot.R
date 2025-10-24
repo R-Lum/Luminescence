@@ -80,15 +80,13 @@
 #' @param legend [character] vector (*optional*):
 #' legend content to be added to the plot.
 #'
-#' @param legend.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. `"topright"`)
-#' for the legend to be plotted.
+#' @param legend.pos [numeric] or [character] (*with default*):
+#' optional legend position coordinates or keyword (e.g. `"topright"`).
 #'
-#' @param stats [character]: additional labels of statistically
-#' important values in the plot. One or more out of the following:
-#' - `"min"`,
-#' - `"max"`,
-#' - `"median"`.
+#' @param stats [character] (*optional*):
+#' additional labels of statistically important values in the plot. It can be
+#' one or more of `"min"`, `"max"` and `"median"`; any other values will be
+#' ignored.
 #'
 #' @param rug [logical]:
 #' Option to add a rug to the z-scale, to indicate the location of individual values
@@ -279,7 +277,7 @@ plot_RadialPlot <- function(
   summary.pos = "sub",
   legend,
   legend.pos,
-  stats,
+  stats = "none",
   rug = FALSE,
   plot.ratio,
   bar.col,
@@ -341,13 +339,12 @@ plot_RadialPlot <- function(
                                     "topleft", "top", "topright",
                                     "bottomleft", "bottom", "bottomright"))
   }
-
-  if(missing(stats) == TRUE) {stats <- numeric(0)}
+  .validate_class(stats, "character")
+  .validate_logical_scalar(rug)
 
   if (missing(bar.col)) {
     bar.col <- rep("grey80", length(data))
   }
-
   if (missing(grid.col)) {
     grid.col <- rep("grey70", length(data))
   }
@@ -437,7 +434,7 @@ plot_RadialPlot <- function(
     cbind(x,
           precision = 1 / x[, 4],
           std.estimate = (x[, 3] - x[, 5]) / x[, 4],
-          std.estimate.plot = NA,
+          std.estimate.plot = NA, # will be filled in further down
           .id = idx)
   })
 
@@ -472,6 +469,7 @@ plot_RadialPlot <- function(
   for(i in 1:length(data)) {
     data[[i]][,8] <- (data[[i]][,3] - z.central.global) / data[[i]][,4]
   }
+  data.global$std.estimate.plot <- unlist(lapply(data, function(x) x[, 8]))
 
   ## print warning for too small scatter
   if (max(abs(1 / data.global[, 6])) < 0.02) {
@@ -524,7 +522,7 @@ plot_RadialPlot <- function(
   lwd <- extraArgs$lwd %||% rep(1, length(data))
   pch <- extraArgs$pch %||% rep(1, length(data))
   col <- extraArgs$col %||% 1:length(data)
-  .validate_length(cex, 1)
+  .validate_positive_scalar(cex)
   .validate_length(lty, length(data))
   .validate_length(lwd, length(data))
   .validate_length(pch, length(data))
@@ -685,23 +683,22 @@ plot_RadialPlot <- function(
   }
 
   ## calculate statistical labels
-  if(length(stats == 1)) {stats <- rep(stats, 2)}
   stats.data <- matrix(nrow = 3, ncol = 3)
   data.stats <- as.numeric(data.global[,1])
 
-  if("min" %in% stats == TRUE) {
+  if ("min" %in% stats) {
     stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
     stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6][1]
     stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8][1]
   }
 
-  if("max" %in% stats == TRUE) {
+  if ("max" %in% stats) {
     stats.data[2, 3] <- data.stats[data.stats == max(data.stats)][1]
     stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6][1]
     stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8][1]
   }
 
-  if("median" %in% stats == TRUE) {
+  if ("median" %in% stats) {
     stats.data[3, 3] <- data.stats[data.stats == quantile(data.stats, 0.5, type = 3)]
     stats.data[3, 1] <- data.global[data.stats == stats.data[3, 3], 6][1]
     stats.data[3, 2] <- data.global[data.stats == stats.data[3, 3], 8][1]
@@ -785,7 +782,7 @@ plot_RadialPlot <- function(
   stops <- NULL
   for (i in 1:length(data)) {
     if (!is.sub)
-      stops <- paste(rep("\n", (i - 1) * length(summary)), collapse = "")
+      stops <- strrep("\n", (i - 1) * length(summary))
 
     summary.text <- character(0)
     for (j in 1:length(summary)) {
