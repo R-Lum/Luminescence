@@ -71,7 +71,6 @@
 <text x='367.20' y='43.20' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='215.39px' lengthAdjust='spacingAndGlyphs'>n = 25 | rel. se = 1.91 % | kurtosis = 4.39</text>
 </g>
 <g clip-path='url(#cpNzkuMjB8NjU1LjIwfDUwLjQwfDUwNC4wMA==)'>
-<line x1='79.20' y1='467.96' x2='655.20' y2='467.96' style='stroke-width: 0.75;' />
 <polyline points='277.06,487.76 277.06,480.56 ' style='stroke-width: 1.50;' />
 <polygon points='256.70,487.76 256.70,480.56 312.59,480.56 312.59,487.76 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='256.70,484.16 195.22,484.16 ' style='stroke-width: 0.75;' />

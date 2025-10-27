@@ -670,10 +670,6 @@ plot_KDE <- function(
 
     ## optionally add boxplot
     if (boxplot) {
-
-      ## add zero line
-      abline(h = 0)
-
       ## get extended boxplot data
       boxplot.data <- NULL
       for(i in 1:length(data)) {

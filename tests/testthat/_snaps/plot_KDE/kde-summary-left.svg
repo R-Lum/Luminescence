@@ -75,7 +75,6 @@
 <text x='100.53' y='271.71' style='font-size: 12.00px; font-family: sans;' textLength='89.75px' lengthAdjust='spacingAndGlyphs'>skewness = 1.34</text>
 <text x='100.53' y='286.11' style='font-size: 12.00px; font-family: sans;' textLength='83.07px' lengthAdjust='spacingAndGlyphs'>median = 124.7</text>
 <text x='100.53' y='300.51' style='font-size: 12.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<line x1='79.20' y1='467.96' x2='655.20' y2='467.96' style='stroke-width: 0.75;' />
 <polyline points='277.06,487.76 277.06,480.56 ' style='stroke-width: 1.50;' />
 <polygon points='256.70,487.76 256.70,480.56 312.59,480.56 312.59,487.76 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='256.70,484.16 195.22,484.16 ' style='stroke-width: 0.75;' />
