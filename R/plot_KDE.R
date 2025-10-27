@@ -16,7 +16,6 @@
 #' calculation of the bin-width (parameter `bw`) see
 #' [density].
 #'
-#'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
@@ -30,7 +29,6 @@
 #' - `"in.2s"` (percent of samples in 2-sigma range)
 #' - `"kurtosis"` (kurtosis)
 #' - `"skewness"` (skewness)
-#'
 #'
 #' **Note** that the input data for the statistic summary is sent to function
 #' [calc_Statistics] depending on the log-option for the z-scale. If
@@ -361,9 +359,8 @@ plot_KDE <- function(
            "")
   }
 
-  ## initialize list with a dummy element, it will be removed afterwards
-  label.text <- list(NA)
-
+  ## initialize list
+  label.text <- NULL
   is.sub <- summary.pos[1] == "sub"
   stops <- NULL
   for (i in 1:length(data)) {
@@ -397,14 +394,11 @@ plot_KDE <- function(
                         label = "in 2 sigma", percent = TRUE, digits = 1))
     }
 
-    label.text[[length(label.text) + 1]] <- paste0(
+    label.text[[i]] <- paste0(
         if (is.sub) "" else stops,
         paste(summary.text, collapse = ""),
         stops)
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## remove outer vertical lines from string
   if (is.sub) {
@@ -613,7 +607,6 @@ plot_KDE <- function(
 
   ## optionally add mtext line
   if(mtext != "") {
-
     mtext(text = mtext,
           side = 3,
           line = 0.5,
@@ -682,20 +675,14 @@ plot_KDE <- function(
       abline(h = 0)
 
       ## get extended boxplot data
-      boxplot.data <- list(NA)
-
+      boxplot.data <- NULL
       for(i in 1:length(data)) {
         boxplot.i <- graphics::boxplot(x = data[[i]][,1],
                                        plot = FALSE)
-        boxplot.i$group <- mean(x = data[[i]][,1],
-                                                   na.rm = TRUE)
-        boxplot.i$names <- sd(x = data[[i]][,1],
-                                                   na.rm = TRUE)
-        boxplot.data[[length(boxplot.data) + 1]] <- boxplot.i
+        boxplot.i$group <- mean(data[[i]][, 1], na.rm = TRUE)
+        boxplot.i$names <- sd(data[[i]][, 1], na.rm = TRUE)
+        boxplot.data[[i]] <- boxplot.i
       }
-
-      ## remove dummy list object
-      boxplot.data[[1]] <- NULL
 
       ## get new line hights
       l_height <- par()$cxy[2]
@@ -763,11 +750,8 @@ plot_KDE <- function(
 
     ## optionally add rug
     if (rug) {
-
       for(i in 1:length(data)) {
-
         for(j in 1:nrow(data[[i]])) {
-
           lines(x = c(data[[i]][j,1],
                       data[[i]][j,1]),
                 y = c(0,
