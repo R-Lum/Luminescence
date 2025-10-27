@@ -422,18 +422,25 @@ fancy_scientific <- function(l) {
 #' Retrieve graphical parameters
 #'
 #' @return
-#' A list of graphical parameters that can be restored. The `pin` parameter
-#' is removed because at times (when a pdf file with too small size) it can
-#' become negative, and restoring it would throw an error. The `new` parameter
-#' is set to `FALSE` because calling `par()` with no graphical device open
-#' will set `par("new")` to `TRUE`, which is not what we want to restore, as
-#' otherwise the next plot may accidentally overwrite the previous one.
+#' A list of graphical parameters that can be restored, with the following
+#' exceptions:
+#' - The `pin` parameter is removed because at times (for example, when a pdf
+#' file with too small size is used) it can become negative, and restoring it
+#' would throw an error.
+#' - The `new` parameter is set to `FALSE` because calling `par()` with no
+#' graphical device open will set `par("new")` to `TRUE`, which is not what
+#' we want to restore, as otherwise the next plot may accidentally overwrite
+#' the previous one.
+#' - The `usr` parameter is removed so that additional plot elements can be
+#' added afterwards using the axis scale of the plot. If we restore that, the
+#' axis would range to the default 0-1 interval.
 #'
 #' @noRd
 .par_defaults <- function() {
   pars <- par(no.readonly = TRUE)
   pars$pin <- NULL
   pars$new <- FALSE
+  pars$usr <- NULL
   pars
 }
 
