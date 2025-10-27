@@ -386,6 +386,7 @@ get_Layout <- function(
             xtck   = 12,
             ytck1  = 12,
             ytck2  = 12,
+            mtext  = 10,
             stats  = 12, # optionally vector
             legend = 12 # optionally vector
           ),
