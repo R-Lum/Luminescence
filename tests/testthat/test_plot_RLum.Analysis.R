@@ -219,6 +219,14 @@ test_that("graphical snapshot tests", {
                                   temp[1:6],
                                   combine = TRUE,
                                   records_max = 10))
+  vdiffr::expect_doppelganger("abline after", {
+                              plot_RLum.Analysis(
+                                  temp[1:6],
+                                  subset = list(recordType = "TL"),
+                                  combine = TRUE,
+                                  records_max = 10)
+                              abline(v = 25)
+                              })
   vdiffr::expect_doppelganger("abline outside",
                               plot_RLum.Analysis(
                                   temp[1:8],
