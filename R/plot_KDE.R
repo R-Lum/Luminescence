@@ -752,11 +752,12 @@ plot_KDE <- function(
     if (rug) {
       for(i in 1:length(data)) {
         for(j in 1:nrow(data[[i]])) {
-          lines(x = c(data[[i]][j,1],
-                      data[[i]][j,1]),
-                y = c(0,
-                      -2/8 * l_height),
-                col = col.value.rug[i])
+          rug(data[[i]][j, 1],
+              ticksize = 0.01 * l_height,
+              side = 3,
+              pos = 0,
+              lwd = 1,
+              col = col.value.rug[i])
         }
       }
     }
