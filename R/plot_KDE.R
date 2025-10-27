@@ -595,15 +595,13 @@ plot_KDE <- function(
   }
 
   ## add plot title
-  cex.old <- par()$cex
-  par(cex = layout$kde$font.size$main / 12)
   title(main = main,
         family = layout$kde$font.type$main,
         font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
                        layout$kde$font.deco$main],
         col.main = layout$kde$colour$main,
+        cex = layout$kde$font.size$main / 12,
         line = (toplines + 1.2) * layout$kde$dimension$main / 100)
-  par(cex = cex.old)
 
   ## optionally add mtext line
   if(mtext != "") {
@@ -614,7 +612,7 @@ plot_KDE <- function(
           font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
                          layout$kde$font.deco$mtext],
           col.main = layout$kde$colour$mtext,
-          cex = layout$kde$font.size$mtext / 12)
+          cex = cex * layout$kde$font.size$mtext / 12)
   }
 
   ## add summary content
@@ -631,7 +629,7 @@ plot_KDE <- function(
               line = (toplines + 0.3 - i) * layout$kde$dimension$stats.line / 100,
               text = label.text[[i]],
               col = col.stats[i],
-              cex = layout$kde$font.size$stats / 12)
+              cex = cex * layout$kde$font.size$stats / 12)
     }
   }
 

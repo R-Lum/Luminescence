@@ -143,6 +143,8 @@
 - Space at the bottom of the plot is no longer added when the boxplot is
   not plotted because `values.cumulative = FALSE` (#1110).
 
+- The plot title and subtitle now respect the `cex` option (#1112).
+
 ### `plot_RadialPlot()`
 
 - The function avoids some possible overprinting at the extremes of the
