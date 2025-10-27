@@ -29,12 +29,12 @@
 #' (e.g., `subset = list(curveType = "measured")`)
 #'
 #' @param nrows [integer] (*optional*):
-#' sets number of rows for plot output, if nothing is set the function
-#' tries to find a value.
+#' number of rows in the plot output. If set to `NULL` the function tries to
+#' find a reasonable value.
 #'
 #' @param ncols [integer] (*optional*):
-#' sets number of columns for plot output, if nothing is set the function
-#' tries to find a value.
+#' number of columns in the plot output. If set to `NULL` the function tries to
+#' find a reasonable value.
 #'
 #' @param abline [list] (*optional*):
 #' allows to add ab-lines to the plot. Argument are provided
@@ -121,8 +121,8 @@
 plot_RLum.Analysis <- function(
   object,
   subset = NULL,
-  nrows,
-  ncols,
+  nrows = NULL,
+  ncols = NULL,
   abline = NULL,
   combine = FALSE,
   records_max = NULL,
@@ -162,10 +162,8 @@ plot_RLum.Analysis <- function(
     }
   }
 
-  if (!missing(nrows))
-    .validate_positive_scalar(nrows, int = TRUE)
-  if (!missing(ncols))
-    .validate_positive_scalar(ncols, int = TRUE)
+  .validate_positive_scalar(nrows, int = TRUE, null.ok = TRUE)
+  .validate_positive_scalar(ncols, int = TRUE, null.ok = TRUE)
 
   ## Deal with additional arguments -----------------------------------------
   extraArgs <- list(...)
@@ -212,18 +210,18 @@ plot_RLum.Analysis <- function(
     n.plots <- max(length_RLum(object), 1)
 
   ## set appropriate values for nrows and ncols if not both specified
-  if (missing(nrows) || missing(ncols)) {
+  if (is.null(nrows) || is.null(ncols)) {
     if (n.plots == 1) {
-      if (missing(nrows))
+      if (is.null(nrows))
         nrows <- 1
-      if (missing(ncols))
+      if (is.null(ncols))
         ncols <- 1
 
     } else { # n.plots > 1
-      if (missing(ncols)) {
+      if (is.null(ncols)) {
         ncols <- 2
       }
-      if (missing(nrows)) {
+      if (is.null(nrows)) {
         if (n.plots <= 4) {
           nrows <- ceiling(n.plots / 2)
         } else {
@@ -259,8 +257,8 @@ plot_RLum.Analysis <- function(
       if (is.null(setting))
         return(NULL)
       if (length(setting) == 1 || inherits(setting, "list"))
-        return(rep(setting, length.out = length(temp)))
-      rep(list(setting), length.out = length(temp))
+        return(rep_len(setting, length(temp)))
+      rep_len(list(setting), length(temp))
     })
 
     ##expand abline
@@ -345,7 +343,7 @@ plot_RLum.Analysis <- function(
             list(
               object = temp[[i]],
               col = col,
-              mtext = plot.settings$mtext[[i]] %||% paste("#", i, sep = ""),
+              mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
               par.local = FALSE,
               main = main,
               log = plot.settings$log[[i]],
@@ -406,23 +404,20 @@ plot_RLum.Analysis <- function(
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
 
     ##change graphic settings
-    if (!plot_singlePanels) {
-      if(!missing(ncols) & !missing(nrows)){
+    if (!plot_singlePanels && !is.null(ncols) && !is.null(nrows)) {
         par(mfrow = c(nrows, ncols))
-      }
     }
     ## this 2nd par request is needed as setting mfrow resets the par
     ## settings ... this might not be wanted
     par(cex = plot.settings$cex)
 
     ##expand plot settings list
-    ##expand list
     plot.settings <- lapply(plot.settings, function(setting) {
       if (is.null(setting))
         return(NULL)
       if (is.list(setting))
-        return(rep(setting, length.out = length(temp.recordType)))
-      rep(list(setting), length.out = length(temp.recordType))
+        return(rep_len(setting, length(temp.recordType)))
+      rep_len(list(setting), length(temp.recordType))
     })
 
     ##expand abline
@@ -473,7 +468,7 @@ plot_RLum.Analysis <- function(
         temp.data <- as(object.list[[x]], "data.frame")
 
         ## curve normalisation
-        if (plot.settings$norm[[k]][1] == TRUE ||
+        if (isTRUE(plot.settings$norm[[k]][1]) ||
             plot.settings$norm[[k]][1] %in% c("max", "last", "huot")) {
           temp.data[[2]] <- .normalise_curve(temp.data[[2]],
                                              plot.settings$norm[[k]])
@@ -590,7 +585,7 @@ plot_RLum.Analysis <- function(
           temp.data.list[[n]] <- temp.data.list[[n]][which(temp.data.list[[n]]$x > 0), ]
 
         ##print lines
-        if (plot.settings$type[[k]] == "l" | plot.settings$type[[k]] == "b" ) {
+        if (plot.settings$type[[k]] %in% c("l", "b")) {
           lines(
             temp.data.list[[n]],
             col = col[n],
@@ -600,11 +595,11 @@ plot_RLum.Analysis <- function(
         }
 
         ##add points if requested
-        if (plot.settings$type[[k]] == "p" | plot.settings$type[[k]] == "b" ) {
+        if (plot.settings$type[[k]] %in% c("p", "b")) {
           points(
             temp.data.list[[n]],
             col = col[n],
-            pch = pch[n],
+            pch = pch[n]
           )
         }
       }
@@ -615,7 +610,7 @@ plot_RLum.Analysis <- function(
       }
 
       ##mtext
-      mtext(plot.settings$mtext[[k]], side = 3, cex = .8 * plot.settings$cex[[k]])
+      mtext(plot.settings$mtext[[k]], side = 3, cex = 0.8 * plot.settings$cex[[k]])
 
       ##if legend is outside of the plotting area we need to allow overplotting
       ##AFTER all lines have been drawn
