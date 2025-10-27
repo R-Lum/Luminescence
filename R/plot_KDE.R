@@ -515,7 +515,7 @@ plot_KDE <- function(
   l_height <- par()$cxy[2]
 
   ## optionally update ylim
-  if (boxplot) {
+  if (boxplot && values.cumulative) {
     ylim.plot[1] <- ylim.plot[1] - 1.4 * l_height
   }
 
