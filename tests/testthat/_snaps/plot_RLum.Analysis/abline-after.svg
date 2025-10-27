@@ -66,5 +66,6 @@
 <text x='651.82' y='73.86' style='font-size: 9.60px; font-family: sans;' textLength='33.62px' lengthAdjust='spacingAndGlyphs'>Curve 1</text>
 <text x='651.82' y='85.38' style='font-size: 9.60px; font-family: sans;' textLength='33.62px' lengthAdjust='spacingAndGlyphs'>Curve 2</text>
 <text x='651.82' y='96.90' style='font-size: 9.60px; font-family: sans;' textLength='33.62px' lengthAdjust='spacingAndGlyphs'>Curve 3</text>
+<line x1='146.96' y1='502.56' x2='146.96' y2='59.04' style='stroke-width: 0.75;' />
 </g>
 </svg>
