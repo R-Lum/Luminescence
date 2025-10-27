@@ -97,5 +97,8 @@ test_that("graphical snapshot tests", {
                                        summary.method = "weighted",
                                        summary = c("mean", "in.2s", "skewness",
                                                    "median")))
+  vdiffr::expect_doppelganger("not values.cumulative",
+                              plot_KDE(data = df,
+                                       values.cumulative = FALSE))
   })
 })
