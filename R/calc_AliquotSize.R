@@ -153,7 +153,7 @@ calc_AliquotSize <- function(
   sample.diameter,
   packing.density = 0.65,
   MC = TRUE,
-  grains.counted,
+  grains.counted = NULL,
   sample_carrier.diameter = 9.8,
   plot = TRUE,
   ...
@@ -185,13 +185,15 @@ calc_AliquotSize <- function(
                    "specified for a sample carrier of ", sample_carrier.diameter,
                    " mm, values will be capped to the sample carrier size")
 
-  if (!missing(grains.counted) && MC == TRUE) {
-    MC = FALSE
-    message("\nMonte Carlo simulation is only available for estimating the ",
-            "amount of grains on the sample disc, 'MC' reset to FALSE\n")
+  .validate_logical_scalar(MC)
+  if (!is.null(grains.counted) && MC) {
+    MC <- FALSE
+    .throw_message("Monte Carlo simulation is only available for estimating the ",
+                   "amount of grains on the sample disc, 'MC' reset to FALSE",
+                   error = FALSE)
   }
 
-  if(MC == TRUE && length(grain.size) != 2) {
+  if (MC && length(grain.size) != 2) {
     .throw_error("'grain.size' must be a vector containing the min and max ",
                  "grain size when using Monte Carlo simulations")
   }
@@ -229,13 +231,13 @@ calc_AliquotSize <- function(
   }
 
   # calculate the amount of grains on the aliquot
-  if(missing(grains.counted) == TRUE) {
+  if (is.null(grains.counted)) {
     n.grains<- calc_n(sample.diameter, grain.size, packing.density)
 
     ##========================================================================##
     ## MONTE CARLO SIMULATION
 
-    if(MC == TRUE && range.flag == TRUE) {
+    if (MC && range.flag) {
 
       # create a random set of packing densities assuming a normal
       # distribution with the empirically determined standard deviation of
@@ -301,7 +303,7 @@ calc_AliquotSize <- function(
   ##========================================================================##
   ## CALCULATE PACKING DENSITY
 
-  if (!missing(grains.counted)) {
+  if (!is.null(grains.counted)) {
     area.container <- pi * (sample.diameter / 2)^2
     area.grains <- pi * (grain.size / 1000 / 2)^2 * grains.counted
     packing.density <- area.grains / area.container
@@ -317,29 +319,22 @@ calc_AliquotSize <- function(
     cat("\n\n ---------------------------------------------------------")
     cat("\n mean grain size (microns)  :", grain.size)
     cat("\n sample diameter (mm)       :", sample.diameter)
-    if(missing(grains.counted) == FALSE) {
+    if (!is.null(grains.counted)) {
       if(length(grains.counted) == 1) {
         cat("\n counted grains             :", grains.counted)
-      } else {
-        cat("\n mean counted grains        :", round(mean(grains.counted)))
-      }
-    }
-    if(missing(grains.counted) == TRUE) {
-      cat("\n packing density            :", round(packing.density, 3))
-    }
-    if(missing(grains.counted) == FALSE) {
-      if(length(grains.counted) == 1) {
         cat("\n packing density            :", round(packing.density, 3))
       } else {
+        cat("\n mean counted grains        :", round(mean(grains.counted)))
         cat("\n mean packing density       :", round(mean(packing.density), 3))
         cat("\n standard deviation         :", round(std.d, 3))
       }
     }
-    if(missing(grains.counted) == TRUE) {
+    if (is.null(grains.counted)) {
+      cat("\n packing density            :", round(packing.density, 3))
       cat("\n number of grains           :", round(n.grains, 0))
     }
 
-    if(MC == TRUE && range.flag == TRUE) {
+    if (MC && range.flag) {
       cat("\n\n --------------- Monte Carlo Estimates -------------------")
       cat("\n number of iterations (n)     :", settings$MC.iter)
       cat("\n median                       :", round(MC.stats$median))
@@ -356,7 +351,7 @@ calc_AliquotSize <- function(
   ##RETURN VALUES
   ##==========================================================================##
 
-  if (missing(grains.counted))
+  if (is.null(grains.counted))
     grains.counted <- NA
   else
     n.grains <- NA
@@ -403,25 +398,13 @@ calc_AliquotSize <- function(
     )
     settings <- modifyList(settings, list(...))
 
-    ## extract relevant data
-    MC.n <- object@data$MC$estimates
-    MC.n.kde <- object@data$MC$kde
-    MC.stats <- object@data$MC$statistics
-    MC.q <- object@data$MC$quantile
-    MC.iter <- object@data$args$MC.iter
-
     par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
     ## set layout of plotting device
     nrow.splits <- if (settings$boxplot) 2 else 1
     graphics::layout(matrix(c(1, 1, nrow.splits)), nrow.splits, 1)
-    par(cex = settings$cex)
-
-    ## plot MC estimate distribution
-
-    ## set margins (bottom, left, top, right)
-    par(mar = c(if (settings$boxplot) 2 else 5, 5, 5, 3))
+    par(cex = settings$cex, mar = c(if (settings$boxplot) 2 else 5, 5, 5, 3))
 
     ## plot histogram
     hist(MC.n, freq = FALSE, col = settings$col,
@@ -443,7 +426,7 @@ calc_AliquotSize <- function(
 
     ## add title and subtitle
     if (settings$summary) {
-      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
+      mtext(as.expression(bquote(italic(n) == .(settings$MC.iter) ~ "|" ~
                                  italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
                                  italic(hat(sigma)) == .(round(MC.stats$sd.abs)) ~ "|" ~
                                  italic(frac(hat(sigma), sqrt(n))) == .(round(MC.stats$se.abs)) ~ "|" ~
