@@ -636,7 +636,7 @@ plot_RLum.Results<- function(
            xlab=xlab,  ylim=c(0.5,1.5),
            xaxt="n", yaxt="n", ylab="")
       par(bty="n")
-      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
+      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
     }
   }#EndOf::Case 5 - calc_AliquotSize()
 

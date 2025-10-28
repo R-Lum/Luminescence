@@ -456,7 +456,7 @@ calc_AliquotSize <- function(
       plot(NA, type = "n", xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
            xlab = settings$xlab, ylim = c(0.5, 1.5),
            xaxt = "n", yaxt = "n", ylab = "")
-      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
+      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
     }
   }
 
