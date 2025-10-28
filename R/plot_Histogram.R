@@ -174,7 +174,7 @@ plot_Histogram <- function(
   extraArgs <- list(...)
 
   ## optionally, count and exclude NA values and print result
-  if(na.rm == TRUE) {
+  if (na.rm) {
     n.NA <- sum(is.na(data[,1]))
     if (n.NA > 0) {
       cat(sprintf("%d NA value%s excluded\n", n.NA, ifelse(n.NA > 1, "s", "")))
@@ -241,10 +241,9 @@ plot_Histogram <- function(
   }
 
   ## Optionally, add a normal curve based on the data -------------------------
-  if(normal_curve == TRUE){
-    ## cheat the R check routine, tztztz how neat
+  if (normal_curve) {
+    ## silence notes raised by R CMD check
     x <- NULL
-    rm(x)
 
     ## add normal distribution curve
     curve(dnorm(x,
@@ -321,14 +320,13 @@ plot_Histogram <- function(
            "")
   }
 
-  ## initialize list with a dummy element, it will be removed afterwards
-  label.text <- list(NA)
-
+  ## initialize list
+  label.text <- NULL
   is.sub <- summary.pos[1] == "sub"
   stops <- NULL
   for (i in 1:length(data)) {
     if (!is.sub)
-      stops <- paste(rep("\n", (i - 1) * length(summary)), collapse = "")
+      stops <- strrep("\n", (i - 1) * length(summary))
 
     summary.text <- character(0)
     for (j in 1:length(summary)) {
@@ -361,14 +359,11 @@ plot_Histogram <- function(
           .summary_line("serel.weighted", summary[j], De.stats[i, 18], sep = is.sub,
                         label = "rel. weighted se"))
     }
-    label.text[[length(label.text) + 1]] <- paste0(
+    label.text[[i]] <- paste0(
         if (is.sub) "" else stops,
         paste(summary.text, collapse = ""),
         stops)
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## remove outer vertical lines from string
   if (is.sub) {
@@ -380,7 +375,7 @@ plot_Histogram <- function(
   }
 
   ## convert keywords into summary placement coordinates
-  coords <- .get_keyword_coordinates(summary.pos, settings$xlim, ylim.plot)
+  coords <- .get_keyword_coordinates(summary.pos, settings$xlim, ylim.plot[1:2])
   summary.pos <- coords$pos
   summary.adj <- coords$adj
 
@@ -393,20 +388,18 @@ plot_Histogram <- function(
            labels = label.text[[i]],
            col = colour[2],
            cex = 0.8)
-    } else {
-      if(mtext == "") {
+    } else if (mtext == "") {
         mtext(side = 3,
               line = 1 - i,
               text = label.text[[i]],
               col = colour[2],
               cex = cex.global * 0.8)
-      }
     }
   }
 
   ## Optionally, add standard error plot --------------------------------------
 
-  if(se == TRUE) {
+  if (se) {
     par(new = TRUE)
     plot.data <- data[!is.na(data[,2]),]
 
@@ -449,7 +442,7 @@ plot_Histogram <- function(
     data <- as.data.frame(data)
     colnames(data) <- c("x", "y")
     x <- y <- NULL # suffice CRAN check for no visible binding
-    if (length(grep("paste", as.character(settings$xlab))) > 0)
+    if (any(grepl("paste", as.character(settings$xlab), fixed = TRUE)))
       settings$xlab <- "Equivalent dose [Gy]"
 
     ## create plots ----
@@ -468,10 +461,8 @@ plot_Histogram <- function(
 
     # normal curve ----
     if (normal_curve) {
-
       density.curve <- density(data$x)
       normal.curve <- data.frame(x = density.curve$x, y = density.curve$y)
-
       hist <- plotly::add_trace(hist, data = normal.curve, x = ~x, y = ~y,
                                 inherit = FALSE,
                                 type = "scatter", mode = "lines",
