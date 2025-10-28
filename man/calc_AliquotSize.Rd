@@ -9,7 +9,7 @@ calc_AliquotSize(
   sample.diameter,
   packing.density = 0.65,
   MC = TRUE,
-  grains.counted,
+  grains.counted = NULL,
   sample_carrier.diameter = 9.8,
   plot = TRUE,
   ...
