@@ -375,7 +375,7 @@ plot_Histogram <- function(
   }
 
   ## convert keywords into summary placement coordinates
-  coords <- .get_keyword_coordinates(summary.pos, settings$xlim, ylim.plot)
+  coords <- .get_keyword_coordinates(summary.pos, settings$xlim, ylim.plot[1:2])
   summary.pos <- coords$pos
   summary.adj <- coords$adj
 

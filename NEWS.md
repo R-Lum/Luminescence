@@ -146,6 +146,12 @@
   symbols to use for normal points, point 0 and repeated points,
   respectively (#1072).
 
+### `plot_Histogram()`
+
+- Since version 1.0.0, setting `summary.pos` to one of “left”, “center”
+  or “right” and `normal_curve = TRUE` resulted in the summary table not
+  being visible (#1118).
+
 ### `plot_KDE()`
 
 - Space at the bottom of the plot is no longer added when the boxplot is
