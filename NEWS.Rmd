@@ -67,6 +67,11 @@ misspecification (#1097).
 `bin_size.col` (for `RLum.Data.Spectrum`) has been made stricter, so that
 invalid values produce an error (#1104).
 
+### `calc_AliquotSize()`
+
+* The number of MC iteration is now correctly reported in the plot subtitle
+(#1115).
+
 ### `calc_CosmicDoseRate()`
 
 * The function is now more robust against `NA` values in its input arguments

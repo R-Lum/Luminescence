@@ -398,9 +398,6 @@ calc_AliquotSize <- function(
     )
     settings <- modifyList(settings, list(...))
 
-    ## extract relevant data
-    MC.iter <- object@data$args$MC.iter
-
     par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
@@ -429,7 +426,7 @@ calc_AliquotSize <- function(
 
     ## add title and subtitle
     if (settings$summary) {
-      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
+      mtext(as.expression(bquote(italic(n) == .(settings$MC.iter) ~ "|" ~
                                  italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
                                  italic(hat(sigma)) == .(round(MC.stats$sd.abs)) ~ "|" ~
                                  italic(frac(hat(sigma), sqrt(n))) == .(round(MC.stats$se.abs)) ~ "|" ~
