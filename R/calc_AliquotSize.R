@@ -168,6 +168,9 @@ calc_AliquotSize <- function(
     .throw_error("Please provide the mean grain size or the range ",
                  "of grain sizes (in microns)")
   }
+  if (any(grain.size == 0)) {
+    .throw_error("'grain.size' should contain positive values")
+  }
 
   .validate_positive_scalar(packing.density)
   if (is.infinite(packing.density)) {
@@ -264,7 +267,7 @@ calc_AliquotSize <- function(
       # create random samples assuming a normal distribution
       # with the mean grain size as mean and half the range (min:max)
       # as standard deviation. For a more conservative estimate this
-      # is further devided by 2, so half the range is regarded as
+      # is further divided by 2, so half the range is regarded as
       # two sigma.
       gs.mc<- rnorm(settings$MC.iter, grain.size, diff(gs.range)/4)
 
@@ -272,13 +275,18 @@ calc_AliquotSize <- function(
       # the mean for each sample. This gives an approximation of the variation
       # in mean grain size on the sample disc
       gs.mc.sampleMean <-
-        sapply(1:length(gs.mc),
-               function(x) mean(sample(gs.mc,
-                                       calc_n(
-                                           sample(sd.mc, size = 1),
-                                           grain.size,
-                                           sample(d.mc, size = 1)
-                                       ), replace = TRUE)))
+        if (diff(gs.range) > 0) {
+          sapply(1:length(gs.mc),
+                 function(x) mean(sample(gs.mc,
+                                         calc_n(
+                                             sample(sd.mc, size = 1),
+                                             grain.size,
+                                             sample(d.mc, size = 1)
+                                         ),
+                                         replace = TRUE)))
+        } else {
+          grain.size
+        }
 
       # calculate n for each MC data set
       MC.n <- apply(data.frame(sd.mc, gs.mc.sampleMean, d.mc), 1,

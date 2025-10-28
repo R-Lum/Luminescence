@@ -63,6 +63,9 @@
 
 ### `calc_AliquotSize()`
 
+- The function no longer hangs when `grain.size` is set to a small value
+  and its minimum and maximum values are the same (#1114).
+
 - The number of MC iteration is now correctly reported in the plot
   subtitle (#1115).
 
