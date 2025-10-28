@@ -19,6 +19,8 @@ test_that("input validation", {
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,
                                 MC = TRUE),
                "'grain.size' must be a vector containing the min and max")
+  expect_error(calc_AliquotSize(grain.size = 0, sample.diameter = 9.8),
+               "'grain.size' should contain positive values")
   SW({
   expect_message(calc_AliquotSize(grain.size = 100, packing.density = 1,
                                   sample.diameter = 9.8, grains.counted = 30,
@@ -92,7 +94,7 @@ test_that("snapshot tests", {
 
   expect_message(
   expect_snapshot_RLum(calc_AliquotSize(
-      grain.size = c(100, 200),
+      grain.size = c(200, 100),
       sample.diameter = 8,
       grains.counted = c(2525, 2312, 2880),
       MC.iter = 20,
@@ -108,6 +110,14 @@ test_that("snapshot tests", {
       MC.iter = 20,
       plot = FALSE,
       verbose = TRUE),
+      tolerance = snapshot.tolerance)
+
+  ## regression test - issue 1114
+  expect_snapshot_RLum(calc_AliquotSize(
+      grain.size = c(0.001, 0.001),
+      sample.diameter = 7,
+      MC.iter = 10,
+      plot = FALSE),
       tolerance = snapshot.tolerance)
   })
 })
