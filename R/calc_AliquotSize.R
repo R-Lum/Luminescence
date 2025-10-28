@@ -219,7 +219,7 @@ calc_AliquotSize <- function(
   # calculate the mean grain size
   range.flag<- FALSE
   if(length(grain.size) == 2) {
-    gs.range<- grain.size
+    gs.range <- sort(grain.size)
     grain.size<- mean(grain.size)
     range.flag<- TRUE
   }

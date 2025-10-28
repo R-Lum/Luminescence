@@ -92,7 +92,7 @@ test_that("snapshot tests", {
 
   expect_message(
   expect_snapshot_RLum(calc_AliquotSize(
-      grain.size = c(100, 200),
+      grain.size = c(200, 100),
       sample.diameter = 8,
       grains.counted = c(2525, 2312, 2880),
       MC.iter = 20,
