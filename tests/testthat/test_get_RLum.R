@@ -1,3 +1,4 @@
+## load data
 data(ExampleData.DeValues, envir = environment())
 temp <- calc_CentralDose(ExampleData.DeValues$CA1, plot = FALSE, verbose = FALSE)
 
@@ -30,7 +31,7 @@ test_that("check get_RLum on a list and NULL", {
   expect_null(get_RLum(NULL), "NULL")
 
   expect_warning(res <- get_RLum(list(temp, "test")),
-                 "object #2 in the list was not of type 'RLum'")
+                 "object #2 in the list is not of class 'RLum'")
   expect_length(res, 2)
   res <- get_RLum(list(temp, temp_RLumAnalysis), null.rm = TRUE)
   expect_length(res, 1)
@@ -42,7 +43,8 @@ test_that("check get_RLum on a list and NULL", {
   expect_length(suppressWarnings(get_RLum(l, recordType = "IRSL", null.rm = TRUE)), 0)
 
   ##check class argument
-  a <- list(set_RLum("RLum.Results"), set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))))
+  a <- list(set_RLum("RLum.Results"),
+            set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))))
   expect_type(get_RLum(a, class = "test", drop = FALSE), "list")
   expect_type(get_RLum(a, class = "test", drop = TRUE), "list")
   expect_type(get_RLum(a, class = "RLum.Results", drop = FALSE), "list")
