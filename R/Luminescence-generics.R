@@ -112,7 +112,7 @@ setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
       ## take care of the class argument
       if (!is.null(class)) {
-        sel <- class[1] == vapply(object, function(x) class(x), character(1))
+        sel <- class[1] == vapply(object, function(x) class(x)[1], character(1))
         if (any(sel))
           object <- object[sel]
       }

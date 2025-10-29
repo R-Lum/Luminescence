@@ -50,4 +50,10 @@ test_that("check get_RLum on a list and NULL", {
   expect_type(get_RLum(a, class = "RLum.Results", drop = FALSE), "list")
   expect_type(get_RLum(a, class = "RLum.Analysis", drop = TRUE), "list")
   expect_type(get_RLum(list(temp_RLumResults, temp_RLumAnalysis)), "list")
+
+  ## regression test - issue 1120
+  extra <- iris[1:3, 1:3]
+  class(extra) <- c("test", "class2")
+  expect_warning(expect_length(get_RLum(list(extra, 2, 3), class = "test"), 1),
+                 "object #1 in the list is not of class 'RLum'")
 })
