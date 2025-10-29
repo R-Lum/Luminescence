@@ -112,18 +112,21 @@ setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
       ## take care of the class argument
       if (!is.null(class)) {
-        sel <- class[1] == vapply(object, function(x) class(x), character(1))
+        sel <- class[1] == vapply(object, function(x) class(x)[1], character(1))
         if (any(sel))
           object <- object[sel]
-
-        rm(sel)
       }
 
       ## make remove all non-RLum objects
       selection <- lapply(seq_along(object), function(x) {
         ## get rid of all objects that are not of type RLum, this is better
         ## than leaving that to the user
-        if (inherits(object[[x]], what = "RLum")) {
+        if (!inherits(object[[x]], what = "RLum")) {
+          warning("[get_RLum()] object #", x, " in the list is not of class ",
+                  "'RLum' and has been removed", call. = FALSE)
+          return(NULL)
+        }
+
           ## it might be the case the object already comes with empty objects,
           ## this would cause a crash
           if (inherits(object[[x]], "RLum.Analysis") &&
@@ -131,12 +134,6 @@ setMethod("get_RLum", signature = "list",
             return(NULL)
 
           get_RLum(object[[x]], ...)
-
-        } else {
-          warning(paste0("[get_RLum()] object #",x," in the list was not of type 'RLum' and has been removed!"),
-                  call. = FALSE)
-          return(NULL)
-        }
       })
 
       ## remove empty or NULL objects after the selection ... if wanted
@@ -219,7 +216,7 @@ setMethod("remove_RLum", signature = "list",
             })
 
             ## remove empty elements
-            tmp[vapply(tmp,length, numeric(1)) != 0]
+            tmp[lengths(tmp) > 0]
 })
 
 ## length_RLum() ------------------------------------------------------------
