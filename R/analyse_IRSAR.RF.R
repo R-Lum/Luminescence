@@ -465,7 +465,7 @@ analyse_IRSAR.RF<- function(
 
   extraArgs <- list(...)
 
-  # SELF CALL -----------------------------------------------------------------------------------
+  # SELF CALL ---------------------------------------------------------------
   if (inherits(object, "list")) {
     ## expand input arguments
     rep.length <- length(object)
@@ -540,7 +540,7 @@ analyse_IRSAR.RF<- function(
 
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
-  if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
+  if (length(suppressWarnings(get_RLum(object, curveType = "measured"))) > 0) {
     object <- get_RLum(object, curveType= "measured", drop = FALSE)
   }
 
@@ -594,9 +594,9 @@ analyse_IRSAR.RF<- function(
                  "'REGENERATED'")
   }
 
-  ##===============================================================================================#
+  ##=========================================================================
   ## SET CURVE LIMITS
-  ##===============================================================================================#
+  ##=========================================================================
 
   ##01
   ## get the allowed curve limits
@@ -662,10 +662,10 @@ analyse_IRSAR.RF<- function(
                  "the range of natural channels")
   }
 
-  # Method Control Settings ---------------------------------------------------------------------
-  ##===============================================================================================#
+  # Method Control Settings -------------------------------------------------
+  ##=========================================================================
   ## SET METHOD CONTROL PARAMETER - FOR BOTH METHODS
-  ##===============================================================================================#
+  ##=========================================================================
   ##
   ##set supported values with default
   method_control.settings <- list(
@@ -697,9 +697,8 @@ analyse_IRSAR.RF<- function(
     unsupported.idx <- which(!names(method_control) %in%
                              names(method_control.settings))
     if (length(unsupported.idx) > 0) {
-      .throw_warning("'",  paste(names(method_control)[unsupported.idx],
-                                 collapse = ", "),
-                     "' not supported for 'method_control'. Supported arguments are: ",
+      .throw_warning(.collapse(names(method_control)[unsupported.idx]),
+                     " not supported for 'method_control'. Supported arguments are: ",
                      .collapse(names(method_control.settings)))
     }
 
@@ -745,9 +744,9 @@ analyse_IRSAR.RF<- function(
     txtProgressBar <- FALSE
 
 
-  ##===============================================================================================#
+  ##=========================================================================
   ## SET PLOT PARAMETERS
-  ##===============================================================================================#
+  ##=========================================================================
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
   resolution.RF <- round(mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),digits=1)
 
@@ -766,7 +765,9 @@ analyse_IRSAR.RF<- function(
 
   ##modify list if something was set
   plot.settings <- modifyList(plot.settings, extraArgs)
-  plot.settings$mtext.cex = 0.7 * plot.settings$cex
+  plot.settings$mtext.cex <- 0.7 * plot.settings$cex
+  xlog <- grepl("x", plot.settings$log, fixed = TRUE)
+  ylog <- grepl("y", plot.settings$log, fixed = TRUE)
 
   ##=============================================================================#
   ## ANALYSIS
@@ -775,9 +776,8 @@ analyse_IRSAR.RF<- function(
   ##grep first regenerated curve
   RF_reg <- as.data.frame(rbindlist(lapply(object@records[reg.idx],
                                            function(x) as.data.frame(x@data))))
-    ##correct of the onset of detection by using the first time value
-    if (grepl("SLIDE", method) &&
-        method_control.settings$correct_onset == TRUE) {
+  ## correct of the onset of detection by using the first time value
+  if (grepl("SLIDE", method) && method_control.settings$correct_onset) {
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
     }
 
@@ -789,8 +789,7 @@ analyse_IRSAR.RF<- function(
                                            function(x) as.data.frame(x@data))))
 
   ## correct the onset of detection by using the first time value
-  if (grepl("SLIDE", method) &&
-      method_control.settings$correct_onset == TRUE) {
+  if (grepl("SLIDE", method) && method_control.settings$correct_onset) {
     RF_nat[,1] <- RF_nat[,1] - RF_nat[1,1]
   }
 
@@ -818,9 +817,9 @@ analyse_IRSAR.RF<- function(
       beta = 100
   )
 
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##METHOD FIT
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## REGENERATED SIGNAL
     # set function for fitting ------------------------------------------------
     fit.function <- y ~ phi.0 - (delta.phi * ((1 - exp(
@@ -873,7 +872,7 @@ analyse_IRSAR.RF<- function(
       silent = TRUE
       )
 
-      if(inherits(fit.MC,"try-error") == FALSE) {
+      if (!inherits(fit.MC, "try-error")) {
         fit.MC.coefs <- coef(fit.MC)
         for (val in c("phi.0", "delta.phi", "lambda", "beta"))
           fit.MC.results[i, val] <- fit.MC.coefs[val]
@@ -935,9 +934,9 @@ analyse_IRSAR.RF<- function(
     }
   }
 
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-  ##METHOD SLIDE - ANALYSIS
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ## METHOD SLIDE - ANALYSIS
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   else if(method == "SLIDE" || method == "VSLIDE"){
     ##convert to matrix (in fact above the matrix data were first transferred to
     ##data.frames ... here
@@ -1011,10 +1010,6 @@ analyse_IRSAR.RF<- function(
         ##get all horizontal index value for the local minimum (corresponding to the vslide)
         temp_hslide_indices <- vapply(temp_minimum_list, function(x) {
           x$sliding_vector_min_index}, FUN.VALUE = numeric(length = 1))
-
-        ##get also the vertical slide indices
-        temp_vslide_indices <- vapply(temp_minimum_list, function(x) {
-          x$vslide_index}, FUN.VALUE = numeric(length = 1))
 
         ##get all the minimum values
         temp_minimum <- vapply(temp_minimum_list, function(x) {
@@ -1093,10 +1088,10 @@ analyse_IRSAR.RF<- function(
       temp.trend.fit <- coef(temp.fit)
 
       ##return values and limited if they are not needed
-      if (numerical.only == FALSE) {
-        return(
-          list(
-            De = De,
+      if (numerical.only) {
+        return(list(De = De, De.MC = De.MC))
+      }
+      list(De = De,
             De.MC = De.MC,
             residuals = residuals,
             trend.fit = temp.trend.fit,
@@ -1108,11 +1103,6 @@ analyse_IRSAR.RF<- function(
             num_slide_windows = num_slide_windows,
             squared_residuals = temp.sum.residuals$sliding_vector
           )
-        )
-      }else{
-        return(list(De = De, De.MC = De.MC))
-      }
-
     }##end of function sliding()
 
     ##PERFORM sliding and overwrite values
@@ -1129,7 +1119,7 @@ analyse_IRSAR.RF<- function(
     I_n <- slide$I_n
 
     # ERROR ESTIMATION
-    # MC runs for error calculation ---------------------------------------------------------------
+    # MC runs for error calculation -----------------------------------------
 
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
     ##(i.e., bootstrap from the natural curve distribution)
@@ -1228,9 +1218,9 @@ analyse_IRSAR.RF<- function(
     }
   }
 
-  ##===============================================================================================#
+  ##=========================================================================
   ## TEST PARAMETER
-  ##===============================================================================================#
+  ##=========================================================================
   ## Test parameter are evaluated after all the calculations have been done as
   ## it should be up to the user to decide whether a value should be taken into account or not.
 
@@ -1296,7 +1286,7 @@ analyse_IRSAR.RF<- function(
         TP$intersection_ratio$VALUE <- Inf
 
       }else{
-      this.idx <- IR_RF_reg.corresponding_id + c(1:len.RF_nat.lim) - 1
+      this.idx <- IR_RF_reg.corresponding_id + (1:len.RF_nat.lim) - 1
       TP$intersection_ratio$VALUE <-
         abs(1 - sum(RF_nat.limited[, 2] / IR_RF_nat.max) /
             sum(RF_reg[this.idx, 2] / max(RF_reg[this.idx, 2])))
@@ -1321,7 +1311,7 @@ analyse_IRSAR.RF<- function(
 
   ##(3) calculate dynamic range of regenrated curve
   ##TP$dynamic_ratio
-  if ("dynamic_ratio"%in%names(TP)){
+  if ("dynamic_ratio" %in% names(TP)) {
     TP.dynamic_ratio <- subset(temp.sequence_structure,
                                temp.sequence_structure$protocol.step == "REGENERATED")
     TP$dynamic_ratio$VALUE <- min(TP.dynamic_ratio$y.max / TP.dynamic_ratio$y.min)
@@ -1407,9 +1397,9 @@ analyse_IRSAR.RF<- function(
       }
   }
 
-  ##===============================================================================================#
-  # Plotting ------------------------------------------------------------------------------------
-  ##===============================================================================================#
+  ##=========================================================================
+  ## Plotting
+  ##=========================================================================
   if (plot) {
     par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
@@ -1424,7 +1414,7 @@ analyse_IRSAR.RF<- function(
     par(cex = plot.settings[["cex"]])
 
     ##here control xlim and ylim behaviour
-    xlim <- extraArgs$xlim %||% c(if (grepl("x", plot.settings$log))
+    xlim <- extraArgs$xlim %||% c(if (xlog)
                                     min(temp.sequence_structure$x.min) else 0,
                                   max(temp.sequence_structure$x.max))
     ylim <- extraArgs$ylim %||% c(min(temp.sequence_structure$y.min),
@@ -1440,7 +1430,7 @@ analyse_IRSAR.RF<- function(
       yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
-      log = plot.settings$log,
+      log = plot.settings$log
     )
 
     if(De.status == "FAILED"){
@@ -1496,10 +1486,8 @@ analyse_IRSAR.RF<- function(
     ##Add fitted curve, if possible. This is a graphical control that might be considered
     ##as useful before further analysis will be applied
     if (method_control.settings$show_fit) {
-
       if (!inherits(fit.lambda, "try-error")) {
         fit.lambda_coef <- coef(fit.lambda)
-
         curve(fit.lambda_coef[[1]]-
                 (fit.lambda_coef[[2]]*
                    ((1-exp(-fit.lambda_coef[[3]]*x))^fit.lambda_coef[[4]])),
@@ -1513,13 +1501,12 @@ analyse_IRSAR.RF<- function(
       }
     }
 
-    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## PLOT - METHOD FIT
-    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     if(method == "FIT"){
-
-      ##dummy to cheat R CMD check
-      x<-NULL; rm(x)
+      ## silence notes raised by R CMD check
+      x <- NULL
 
       ##plot fitted curve
       curve(fit.parameters.results["phi.0"]-
@@ -1531,7 +1518,7 @@ analyse_IRSAR.RF<- function(
             col="red")
 
       ##plotting to show the limitations if RF_reg.lim was chosen
-      ##show fitted curve GREY (previous red curve)
+      ## show fitted curve GREY (before red curve)
       curve(fit.parameters.results["phi.0"]-
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
@@ -1571,7 +1558,7 @@ analyse_IRSAR.RF<- function(
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
       ##plot De if De was calculated
-      if(is.na(De) == FALSE & is.nan(De) == FALSE){
+      if (!is.na(De)) {
         lines(c(0,De.lower), c(RF_nat.error.lower,RF_nat.error.lower), lty=2, col="grey")
         lines(c(0,De), c(RF_nat.mean,RF_nat.mean), lty=2, col="red")
         lines(c(0,De.upper), c(RF_nat.error.upper,RF_nat.error.upper), lty=2, col="grey")
@@ -1605,10 +1592,10 @@ analyse_IRSAR.RF<- function(
       }
     }
 
-    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## PLOT - METHOD SLIDE
-    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-    else if(method == "SLIDE" || method == "VSLIDE"){
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    else if (method == "SLIDE" || method == "VSLIDE") {
       ##(0) density plot
       if (method_control.settings$show_density && !is.null(n.MC)) {
         ##showing the density makes only sense when we see at least 10 data points
@@ -1621,16 +1608,10 @@ analyse_IRSAR.RF<- function(
           x.1 <- max(density.De.MC$y)
           x.2 <- min(density.De.MC$y)
 
-          ##with have to limit the scaling a little bit
-          if (RF_nat.limited[1,2] >
-            max(RF_reg.limited[,2]) - (max(RF_reg.limited[,2]) - min(RF_reg.limited[,2]))*.5) {
-
-            y.1 <- max(RF_reg.limited[,2]) - (max(RF_reg.limited[,2]) - min(RF_reg.limited[,2]))*.5
-
-          }else{
-            y.1 <- RF_nat.limited[1,2]
-          }
-
+          ## limit the scaling a little bit
+          threshold.value <- max(RF_reg.limited[, 2]) -
+            (max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])) * 0.5
+          y.1 <- min(RF_nat.limited[1, 2], threshold.value)
           y.2 <- par("usr")[3]
 
           m <- (y.1 - y.2) / (x.1 + x.2)
@@ -1642,7 +1623,6 @@ analyse_IRSAR.RF<- function(
           polygon(density.De.MC$x,
                   density.De.MC$y,
                   col = rgb(0,0.4,0.8,0.5))
-
         }else{
           .throw_warning("Narrow density distribution, ",
                          "no density distribution plotted")
@@ -1667,7 +1647,7 @@ analyse_IRSAR.RF<- function(
       )
 
       ##(4) add arrow at the lowest y-coordinate possible to show the sliding
-      if (plot.settings$log != "y" & plot.settings$log != "xy") {
+      if (!ylog) {
         shape::Arrows(
           x0 = 0,
           y0 = ylim[1],
@@ -1683,7 +1663,7 @@ analyse_IRSAR.RF<- function(
       }
 
       ##(5) add vertical shift as arrow; show nothing if nothing was shifted
-      if (plot.settings$log != "y" & plot.settings$log != "xy" & I_n != 0) {
+      if (!ylog && I_n != 0) {
         shape::Arrows(
           x0 = (0 + par()$usr[1])/2,
           y0 = RF_nat[1,2],
@@ -1765,7 +1745,7 @@ analyse_IRSAR.RF<- function(
           col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))
           col.polygon <- col.ramp(100)
 
-          xright <- if (grepl("x", plot.settings$log)) 10^par("usr")[2] else par("usr")[2]
+          xright <- if (xlog) 10^par("usr")[2] else par("usr")[2]
           shape::filledrectangle(
                      mid = c((xlim[2] + xright) / 2,
                              max(residuals) - diff(range(residuals)) / 2),
@@ -1839,7 +1819,7 @@ analyse_IRSAR.RF<- function(
     }
   }#endif::plot
 
-  # Return --------------------------------------------------------------------------------------
+  # Return ------------------------------------------------------------------
   ##catch up worst case scenarios ... means something went wrong
   if (!exists("fit")) {
     fit  <- list()
