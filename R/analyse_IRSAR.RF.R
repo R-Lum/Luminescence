@@ -1304,16 +1304,14 @@ analyse_IRSAR.RF<- function(
 
   ##(2) check slop of the residuals using a linear fit
   ##TP$residuals_slope
-    if ("residuals_slope" %in% names(TP)) {
-      if (exists("slide")) {
+  if ("residuals_slope" %in% names(TP) && exists("slide")) {
         TP$residuals_slope$VALUE <- abs(slide$trend.fit[2])
 
         if (!is.na(TP$residuals_slope$THRESHOLD)) {
           TP$residuals_slope$STATUS <- ifelse(
             TP$residuals_slope$VALUE > TP$residuals_slope$THRESHOLD, "FAILED", "OK")
         }
-      }
-    }
+  }
 
   ##(3) calculate dynamic range of regenrated curve
   ##TP$dynamic_ratio
@@ -1818,8 +1816,7 @@ analyse_IRSAR.RF<- function(
     }
 
     ## TODO: CONTROL PLOT! can be implemented in appropriate form in a later version
-    if (method %in% c("SLIDE", "VSLIDE")) {
-      if (method_control.settings$trace) {
+    if (method %in% c("SLIDE", "VSLIDE") && method_control.settings$trace) {
         par(new = TRUE)
         plot(
             RF_reg.limited[1:length(slide$squared_residuals),1],
@@ -1833,7 +1830,6 @@ analyse_IRSAR.RF<- function(
             ylim = ylim,
             log = "y"
         )
-      }
     }
   }#endif::plot
 

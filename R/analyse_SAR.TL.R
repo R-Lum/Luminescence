@@ -210,11 +210,10 @@ analyse_SAR.TL <- function(
   ## to calc_TLLxTxRatio()), `dose.points` must divide `length(TL.signal.ID)`
   ## in order for vector recycling to work when further down we do
   ## `LnLxTnTx$Dose <- dose.points`
-  if (!missing(dose.points)) {
-    if ((length(TL.signal.ID) / 2) %% length(dose.points) != 0) {
+  if (!missing(dose.points) &&
+      (length(TL.signal.ID) / 2) %% length(dose.points) != 0) {
       .throw_error("Length of 'dose.points' not compatible with number ",
                    "of signals")
-    }
   }
 
   ##comfort ... translate integral limits from temperature to channel

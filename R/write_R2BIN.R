@@ -243,10 +243,7 @@ write_R2BIN <- function(
   }
 
   ## enables compatibility to the Analyst as the max value for POSITION becomes 48
-  if(compatibility.mode){
-    ##just do if position values > 48
-    if(max(object@METADATA[,"POSITION"])>48){
-
+  if (compatibility.mode && max(object@METADATA[, "POSITION"]) > 48) {
       ##grep relevant IDs
       temp.POSITION48.id <- which(object@METADATA[,"POSITION"]>48)
 
@@ -263,7 +260,6 @@ write_R2BIN <- function(
                                                   "OP:", object@METADATA$POSITION[idx])
         object@METADATA[idx, "POSITION"] <- temp.POSITION48.new[i]
       }
-    }
   }
 
   ##COMMENT

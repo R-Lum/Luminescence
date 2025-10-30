@@ -2028,8 +2028,7 @@ plot_AbanicoPlot <- function(
              font = which(c("normal", "bold", "italic", "bold italic") ==
                             layout$abanico$font.deco$summary)[1],
              cex = layout$abanico$font.size$summary / 12)
-    } else {
-        if (mtext == "") {
+    } else if (mtext == "") {
           mtext(side = 3,
                 line = (shift.lines - 1 + add.shift - i) *
                   layout$abanico$dimension$summary / 100 ,
@@ -2039,7 +2038,6 @@ plot_AbanicoPlot <- function(
                 font = which(c("normal", "bold", "italic", "bold italic") ==
                                layout$abanico$font.deco$summary)[1],
                 cex = cex * layout$abanico$font.size$summary / 12)
-        }
     }
   }
 

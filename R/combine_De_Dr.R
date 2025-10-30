@@ -610,16 +610,9 @@ fit_IAM <- .calc_IndividualAgeModel(
   }
 
   ##some terminal output
-  if(verbose){
-    if (length(out) > 0) {
-      cat(
-        paste0(
-          "\n    >> Outliers detected: ",
-          length(out), "/", length(De),
-          " (", round(length(out) / length(De) * 100, 1), "%)"
-        )
-      )
-    }
+  if (verbose && length(out) > 0) {
+    cat("\n    >> Outliers detected: ", length(out), "/", length(De),
+        " (", round(length(out) / length(De) * 100, 1), "%)", sep = "")
   }
 
   ## apply the removal

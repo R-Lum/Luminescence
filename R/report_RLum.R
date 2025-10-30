@@ -208,9 +208,9 @@ report_RLum <- function(
   # nocov end
 
   # check if files exist
-  if (!is.null(css.file))
-    if(!file.exists(css.file))
+  if (!is.null(css.file) && !file.exists(css.file)) {
       .throw_error("Couldn't find the specified CSS file at '", css.file, "'")
+  }
 
   ## ------------------------------------------------------------------------ ##
   ## STRUCTURE ----
@@ -428,17 +428,14 @@ report_RLum <- function(
         }
 
         # shorten the table if it has more than 15 rows
-        if (options$short_table) {
-          if (is.matrix(table) || is.data.frame(table)) {
-            if (nrow(table) > 15) {
+        if (options$short_table &&
+            (is.matrix(table) || is.data.frame(table)) && nrow(table) > 15) {
               text <- pander::pander_return(
                 rbind(head(table, 5), tail(table, 5)),
                 caption = "shortened (only first and last five rows shown)")
 
               writeLines(text, tmp)
               next
-            }
-          }
         }
 
         # write table using pander and end each table with a horizontal line

@@ -762,11 +762,9 @@ fit_CWCurve<- function(
       rm(stepping)
       } # end if (plot_check2)
 
-    } else {
-      if (verbose)
+    } else if (verbose) {
         .throw_message("Fitting failed, plot without fit produced")
     }#end if try-error for fit
-
     } # end if (plot_check)
   }
 

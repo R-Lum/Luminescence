@@ -194,15 +194,14 @@ analyse_Al2O3C_ITC <- function(
 
   # Calculation ---------------------------------------------------------------------------------
   ##set signal integral
+  max.signal_integral <- nrow(object[[1]][])
   if(is.null(signal_integral)){
-    signal_integral <- c(1:nrow(object[[1]][]))
-  }else{
-    ##check whether the input is valid, otherwise make it valid
-    if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
-      signal_integral <- c(1:nrow(object[[1]][]))
-      .throw_warning("Input for 'signal_integral' corrected to 1:",
-                     max(signal_integral))
-   }
+    signal_integral <- 1:max.signal_integral
+  } else if (min(signal_integral) < 1 ||
+             max(signal_integral) > max.signal_integral) {
+    ## check whether the input is valid, otherwise make it valid
+    signal_integral <- 1:max.signal_integral
+    .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
   }
 
   ##calculate curve sums, assuming the background

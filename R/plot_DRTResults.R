@@ -247,11 +247,9 @@ plot_DRTResults <- function(
   for (i in seq_along(values)) {
 
     ##check for preheat temperature values
-    if(missing(preheat) == FALSE) {
-      if (length(preheat) < nrow(values[[i]])) {
+    if (!missing(preheat) && length(preheat) < nrow(values[[i]])) {
         .throw_error("'preheat' should have length equal to the number ",
                      "of De values")
-      }
     }
 
     ##remove NA values; yes Micha, it is not that simple
@@ -491,14 +489,12 @@ plot_DRTResults <- function(
                labels = label.text[[i]],
                cex = 0.8,
                col = if (multicol) "black" else col[i])
-        } else {
-          if(mtext == "") {
+        } else if(mtext == "") {
             mtext(side = 3,
                   line = shift.lines - i,
                   text = label.text[[i]],
                   col = if (multicol) "black" else col[i],
                   cex = cex * 0.8)
-          }
         }
       }
     } else {
@@ -660,14 +656,12 @@ plot_DRTResults <- function(
              labels = label.text[[i]],
              cex = 0.8,
              col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
-      } else {
-        if(mtext == "") {
+      } else if (mtext == "") {
           mtext(side = 3,
                 line = shift.lines - i,
                 text = label.text[[i]],
                 col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                 cex = cex * 0.8)
-        }
       }
     }
   }

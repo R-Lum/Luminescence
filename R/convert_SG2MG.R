@@ -83,13 +83,12 @@ convert_SG2MG <- function(
 
 
 # Write file --------------------------------------------------------------
-  if(write_file[1]){
-    if(!inherits(try(file.exists(file_name), silent = FALSE), "try-error")){
+  if (write_file[1] &&
+      !inherits(try(file.exists(file_name), silent = FALSE), "try-error")) {
       dirname <- dirname(normalizePath(file_name))
       filename <- strsplit(basename(normalizePath(file_name)), ".", fixed = TRUE)[[1]]
 
       write_R2BIN(object, paste0(dirname,"/",filename[1],"_SG.",filename[2]), ...)
-    }
   }
 
 # Return object -----------------------------------------------------------

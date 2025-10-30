@@ -447,11 +447,10 @@ read_XSYG2R <- function(
 
       ## correct record type in depending on the stimulator
       xml.size <- XML::xmlSize(record)
-      if (recordType == "OSL") {
-        if (XML::xmlAttrs(record[[xml.size]])["stimulator"] %in%
+      if (recordType == "OSL" &&
+          XML::xmlAttrs(record[[xml.size]])["stimulator"] %in%
               c("ir_LED_850", "ir_LD_850")) {
           recordType  <- "IRSL"
-        }
       }
 
       ## loop 3rd level

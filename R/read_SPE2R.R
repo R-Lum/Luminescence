@@ -138,8 +138,8 @@ read_SPE2R <- function(
         download.file(file, destfile = file_link, quiet = !verbose, mode = "wb")
         file <- file_link
         failed <- FALSE
-      }else{
-        if (verbose) cat("FAILED\n")
+      } else if (verbose) {
+        cat("FAILED\n")
       }
     }
 

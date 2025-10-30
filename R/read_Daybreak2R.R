@@ -399,20 +399,13 @@ read_Daybreak2R <- function(
         point.y <-
           suppressWarnings(as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(3,length(temp.data), by = 4)])))
 
-
         ##combine it into a matrix
         data <- matrix(c(point.x,point.y), ncol = 2)
 
-      }else{
-
-        ##we presume this should be irradiation ...
-        if ("IrradTime" %in% names(info)) {
-
+      } else if ("IrradTime" %in% names(info)) {
           point.x <- 1:as.numeric(info$IrradTime)
           point.y <- rep(1, length(point.x))
-
           data <- matrix(c(point.x,point.y), ncol = 2)
-        }
       }
 
       ##update progress bar
@@ -431,7 +424,6 @@ read_Daybreak2R <- function(
           info = info
         )
       )
-
     })
 
     ##close ProgressBar

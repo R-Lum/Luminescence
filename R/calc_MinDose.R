@@ -894,8 +894,7 @@ calc_MinDose <- function(
   ##============================================================================##
   ## CONSOLE PRINT
   ##============================================================================##
-  if (verbose) {
-    if (!bootstrap) {
+  if (verbose && !bootstrap) {
       cat("\n----------- meta data -----------\n")
       print(data.frame(n=length(data[ ,1]),
                        par=par,
@@ -950,7 +949,6 @@ calc_MinDose <- function(
       print(round(data.frame(De=pal,
                              error=gamma_err,
                              row.names=""), 2))
-    }
   }
 
   ##============================================================================##

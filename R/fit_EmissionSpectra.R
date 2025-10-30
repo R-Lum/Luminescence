@@ -226,12 +226,9 @@ fit_EmissionSpectra <- function(
       ##set frame
       if(is.null(frame)){
         frame <- 1:ncol(o@data)
-
-      }else{
-        if(max(frame) > ncol(o@data)|| min(frame) < 1){
+      } else if (max(frame) > ncol(o@data)|| min(frame) < 1) {
           .throw_error("Invalid 'frame', allowed values range from 1 to ",
                        ncol(o@data))
-        }
       }
 
       ##get frame
@@ -256,11 +253,9 @@ fit_EmissionSpectra <- function(
     ##set frame
     if(is.null(frame)){
       frame <- 1:(ncol(object) - 1)
-    }else{
-      if(max(frame) > (ncol(object)-1) || min(frame) < 1){
+    } else if(max(frame) > (ncol(object)-1) || min(frame) < 1) {
         .throw_error("Invalid 'frame', allowed values range from 1 to ",
                      ncol(object) - 1)
-      }
     }
 
     temp <- lapply(frame +1 , function(x) cbind(object[,1],object[,x]))
@@ -447,8 +442,8 @@ fit_EmissionSpectra <- function(
       success_counter <- success_counter + 1
       fit[[success_counter]] <- fit_try
       if (verbose) cat("\r>> Searching components ... \t\t\t[/]")
-    } else{
-      if (verbose) cat("\r>> Searching components ... \t\t\t[\\]")
+    } else if (verbose) {
+      cat("\r>> Searching components ... \t\t\t[\\]")
     }
 
     ##update run counter

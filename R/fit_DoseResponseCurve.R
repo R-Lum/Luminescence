@@ -1263,7 +1263,7 @@ fit_DoseResponseCurve <- function(
     } #end if "try-error" Fit Method
 
     ##close
-    if(txtProgressBar) if(exists("pb")){close(pb)}
+    if (txtProgressBar && exists("pb")) close(pb)
   }
 
   ## GOK --------------------------------------------------------------------

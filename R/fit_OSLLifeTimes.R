@@ -647,20 +647,18 @@ if(plot) {
     ##catch log scale
     if (is.list(plot_settings$log))
       plot_settings$log <- unlist(plot_settings$log)
-    if(grepl(pattern = "x", plot_settings$log, fixed = TRUE)){
-      if(plot_settings$xlim[1] == 0){
+    if (grepl(pattern = "x", plot_settings$log, fixed = TRUE) &&
+        plot_settings$xlim[1] == 0) {
         plot_settings$xlim[1] <- max(min(df_raw[[1]]), 1e-4)
         .throw_warning("log-scale requires x-values > 0, set min xlim to ",
                        round(plot_settings$xlim[1], 4))
-      }
     }
 
-    if(grepl(pattern = "y", plot_settings$log, fixed = TRUE)){
-      if(plot_settings$ylim[1] == 0){
+    if (grepl(pattern = "y", plot_settings$log, fixed = TRUE) &&
+        plot_settings$ylim[1] == 0) {
         plot_settings$ylim[1] <- max(min(df_raw[[2]]), 1e-04)
         .throw_warning("log-scale requires y-values > 0, set min ylim to ",
                        round(plot_settings$ylim[1], 4))
-      }
     }
 
   par.default <- .par_defaults()

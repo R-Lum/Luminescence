@@ -141,8 +141,8 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 
     # where the input field is already "X" we have to check whether the new
     # non-character input is allowed
-    if (!all(is.na(x[[i]]))) {
-      if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
+    if (!all(is.na(x[[i]])) &&
+        any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
         if (anyNA(as.numeric(value[which(value != "X")]))) {
           .throw_warning("Cannot coerce '", value[which(value != "X")],
                          "' to a numeric value, input must be numeric or 'X'\n")
@@ -150,7 +150,6 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
         }
         class.new <- "character"
         value <- as.character(value)
-      }
     }
   }
 

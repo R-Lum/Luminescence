@@ -759,8 +759,7 @@ plot_RLum.Results<- function(
     # optional: plot fitted CW curve
     if (!is.null(fit)) {
       nls.fit <- get_RLum(fit, "fit")
-      if (!inherits(fit, "try-error") & "fitCW.curve" %in% names(object@data$args)) {
-        if (object@data$args$fitCW.curve) {
+      if (!inherits(fit, "try-error") && isTRUE(object@data$args$fitCW.curve)) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1],
                 predict(nls.fit), col = "red", lty = 1)
 
@@ -771,7 +770,6 @@ plot_RLum.Results<- function(
               curve(fit@data$data[[paste0("I0", i)]] * fit@data$data[[paste0("lambda", i)]] * exp(-fit@data$data[[paste0("lambda", i)]] * x),
                     lwd = 1, lty = 4, add = TRUE, col = col_components[i])
           }
-        }
       }
     }
 

@@ -298,11 +298,9 @@ calc_FastRatio <- function(object,
     Cts_L2 <- A[Ch_L2, 2]
 
     # optional: predict the counts from the fitted curve
-    if (fitCW.curve) {
-      if (!inherits(fitCW.res, "try-error")) {
+    if (fitCW.curve && !inherits(fitCW.res, "try-error")) {
         nls <- get_RLum(fitCW.res, "fit")
         Cts_L2 <- predict(nls, list(x = t_L2))
-      }
     }
 
     # L3 ----
@@ -321,11 +319,9 @@ calc_FastRatio <- function(object,
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
 
     # optional: predict the counts from the fitted curve
-    if (fitCW.curve) {
-      if (!inherits(fitCW.res, "try-error")) {
+    if (fitCW.curve && !inherits(fitCW.res, "try-error")) {
         nls <- get_RLum(fitCW.res, "fit")
         Cts_L3 <- mean(predict(nls, list(x = c(t_L3_start, t_L3_end))))
-      }
     }
 
     # Warn if counts are not in decreasing order

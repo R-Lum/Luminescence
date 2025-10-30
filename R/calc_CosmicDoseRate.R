@@ -421,8 +421,7 @@ calc_CosmicDoseRate<- function(
           print(paste("corr.fac:", corr.fac, " diff.one:", corr.fac - 1,
                       " alt.fac:", alt.fac))
 
-      } else {
-        if (settings$verbose)
+      } else if (settings$verbose) {
           cat("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!")
       }
     }

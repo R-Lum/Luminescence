@@ -715,10 +715,8 @@ plot_RadialPlot <- function(
       limits.y[2] <- 1.3 * limits.z.y[2]
     }
   }
-  if(!("xlim" %in% names(extraArgs))) {
-    if(limits.z.x[2] > 1.1 * limits.x[2]) {
+  if (!("xlim" %in% names(extraArgs)) && limits.z.x[2] > 1.1 * limits.x[2]) {
       limits.x[2] <- limits.z.x[2]
-    }
   }
 
   ## calculate and paste statistical summary
@@ -1130,14 +1128,12 @@ plot_RadialPlot <- function(
              labels = label.text[[i]],
              cex = 0.8 * cex,
              col = col[i])
-      } else {
-        if(mtext == "") {
+      } else if (mtext == "") {
           mtext(side = 3,
                 line = shift.lines - 1 - i,
                 text = label.text[[i]],
                 col = col[i],
                 cex = 0.8 * cex)
-        }
       }
     }
 

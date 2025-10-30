@@ -547,13 +547,11 @@ read_BIN2R <- function(
     }
 
     ##print record ID for debugging purposes
-    if(verbose){
-      if(show.record.number == TRUE){
+    if (show.record.number && verbose) {
         cat(temp.ID,",", sep = "")
         if(temp.ID%%10==0){
           cat("\n")
         }
-      }
     }
 
     #empty byte position

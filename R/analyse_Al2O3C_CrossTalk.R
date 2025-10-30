@@ -146,13 +146,10 @@ analyse_Al2O3C_CrossTalk <- function(
   max.signal_integral <- nrow(object[[1]][[1]][])
   if(is.null(signal_integral)){
     signal_integral <- 1:max.signal_integral
-
-  }else{
-    ##check whether the input is valid, otherwise make it valid
-    if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
+  } else if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
+    ## check whether the input is valid, otherwise make it valid
       signal_integral <- 1:max.signal_integral
       .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
-    }
   }
 
   ##check irradiation time correction
