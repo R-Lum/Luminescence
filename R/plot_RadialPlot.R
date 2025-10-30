@@ -350,9 +350,9 @@ plot_RadialPlot <- function(
   }
 
   ## check z-axis log-option for grouped data sets
-  if (inherits(data, "list") && length(data) > 1 && log.z == FALSE) {
-    .throw_warning("Option 'log.z' is not set to 'TRUE' altough ",
-                   "more than one data set (group) is provided.")
+  if (inherits(data, "list") && length(data) > 1 && !log.z) {
+    .throw_warning("'log.z' is set to 'FALSE' altough ",
+                   "more than one data set (group) is provided")
   }
 
   ## optionally, remove NA-values
@@ -407,17 +407,15 @@ plot_RadialPlot <- function(
   ## calculate central values
   data <- lapply(data, function(x) {
     cbind(x,
-          z.central = if (centrality[1] == "mean") {
-                        rep(mean(x[, 3], na.rm = TRUE), nrow(x))
-                      } else if (centrality[1] == "median") {
-                        rep(median(x[, 3], na.rm = TRUE), nrow(x))
-                      } else if (centrality[1] == "mean.weighted") {
-                        sum(x[, 3] / x[, 4]^2) / sum(1 / x[, 4]^2)
-                      } else if (centrality[1] == "median.weighted") {
-                        rep(.weighted.median(x[, 3], w = x[, 4]), nrow(x))
-                      } else if (is.numeric(centrality) && length(centrality) > length(data)) {
-                        rep(median(x[, 3], na.rm = TRUE), nrow(x))
-                      } else NA)
+          z.central = switch(as.character(centrality[1]),
+                             mean = rep(mean(x[, 3], na.rm = TRUE), nrow(x)),
+                             median = rep(median(x[, 3], na.rm = TRUE), nrow(x)),
+                             mean.weighted = sum(x[, 3] / x[, 4]^2) / sum(1 / x[, 4]^2),
+                             median.weighted = rep(.weighted.median(x[, 3], w = x[, 4]), nrow(x)),
+                             if (is.numeric(centrality) && length(centrality) >= length(data)) {
+                               rep(median(x[, 3], na.rm = TRUE), nrow(x))
+                             } else NA)
+          )
   })
 
   if (is.numeric(centrality) && length(centrality) == length(data)) {
@@ -442,25 +440,20 @@ plot_RadialPlot <- function(
   data.global <- if (length(data) > 1) as.data.frame(rbindlist(data)) else data[[1]]
 
   ## calculate global central value
-  z.central.global <-
-    if (centrality[1] == "mean") {
-      mean(data.global[, 3], na.rm = TRUE)
-    } else if (centrality[1] == "median") {
-      median(data.global[, 3], na.rm = TRUE)
-    } else if (centrality[1] == "mean.weighted") {
-      sum(data.global[, 3] / data.global[, 4]^2) / sum(1 / data.global[, 4]^2)
-    } else if (centrality[1] == "median.weighted") {
-      .weighted.median(data.global[, 3], w = data.global[, 4])
-    } else if (is.numeric(centrality) && length(centrality == length(data))) {
-      mean(data.global[, 3], na.rm = TRUE)
-    }
+  z.central.global <- switch(as.character(centrality[1]),
+                             mean = mean(data.global[, 3], na.rm = TRUE),
+                             median = median(data.global[, 3], na.rm = TRUE),
+                             mean.weighted = sum(data.global[, 3] / data.global[, 4]^2) / sum(1 / data.global[, 4]^2),
+                             median.weighted = .weighted.median(data.global[, 3], w = data.global[, 4]),
+                             if (is.numeric(centrality) && length(centrality) >= length(data)) {
+                               mean(data.global[, 3], na.rm = TRUE)
+                             } else NA)
 
   ## optionally adjust central value by user-defined value
-  if(missing(central.value) == FALSE) {
+  if (!missing(central.value)) {
     # ## adjust central value for De.add
     central.value <- central.value + De.add
-
-    z.central.global <- ifelse(log.z == TRUE,
+    z.central.global <- ifelse(log.z,
                                log(central.value),
                                central.value)
   }
@@ -484,14 +477,10 @@ plot_RadialPlot <- function(
 
   if("xlab" %in% names(extraArgs)) {
     xlab <- extraArgs$xlab
-    .validate_length(xlab,  2)
+    .validate_length(xlab, 2)
   } else {
-    xlab <- c(if(log.z == TRUE) {
-        "Relative standard error [%]"
-      } else {
-        "Standard error"
-      },
-      "Precision")
+    xlab <- c(ifelse(log.z, "Relative standard error [%]", "Standard error"),
+              "Precision")
   }
 
   ylab <- extraArgs$ylab %||% "Standardised estimate"
@@ -576,7 +565,7 @@ plot_RadialPlot <- function(
 
   user.limits <- limits.z
 
-  if(log.z == TRUE) {
+  if (log.z) {
     tick.values.major[tick.values.major == 0] <- 1
     tick.values.minor[tick.values.minor == 0] <- 1
     tick.values.major <- log(tick.values.major)
@@ -847,40 +836,32 @@ plot_RadialPlot <- function(
   if(!missing(line)) {
     #line = line + De.add
 
-    if(log.z == TRUE) {line <- log(line)}
+    if (log.z) line <- log(line)
 
-    line.coords <- list(NA)
-
+    line.coords <- NULL
     for(i in 1:length(line)) {
       line.x <- c(limits.x[1], x.coord(line[i]))
       line.y <- c(0, y.coord(line[i], line.x[2]))
-      line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
+      line.coords[[i]] <- rbind(line.x, line.y)
     }
 
-    line.coords[1] <- NULL
-
-    if(missing(line.col) == TRUE) {
+    if (missing(line.col)) {
       line.col <- seq(from = 1, to = length(line.coords))
     }
 
-    if(missing(line.label) == TRUE) {
+    if (missing(line.label)) {
       line.label <- rep("", length(line.coords))
     }
   }
 
   ## calculate rug coordinates
-  if(missing(rug) == FALSE) {
-    if(log.z == TRUE) {
-      rug.values <- log(De.global)
-    } else {
-      rug.values <- De.global
-    }
-
+  if (rug) {
+    rug.values <- if (log.z) log(De.global) else De.global
     rug.coords <- NULL
     for(i in 1:length(rug.values)) {
       rug.x <- x.coord(rug.values[i]) * c(0.988, 0.995)
       rug.y <- y.coord(rug.values[i], rug.x)
-      rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+      rug.coords[[i]] <- rbind(rug.x, rug.y)
     }
   }
 
@@ -924,7 +905,7 @@ plot_RadialPlot <- function(
           text = ylab)
 
     ## calculate upper x-axis label values
-    label.x.upper <- if(log.z == TRUE) {
+    label.x.upper <- if (log.z) {
       as.character(round(1/axTicks(side = 1)[-1] * 100, 1))
     } else {
       as.character(round(1/axTicks(side = 1)[-1], 1))
@@ -963,7 +944,7 @@ plot_RadialPlot <- function(
     }
 
     ## optionally add further lines
-    if(missing(line) == FALSE) {
+    if (!missing(line)) {
       for(i in 1:length(line)) {
         lines(x = line.coords[[i]][1,],
               y = line.coords[[i]][2,],
@@ -1062,7 +1043,7 @@ plot_RadialPlot <- function(
           text = zlab)
 
     ## optionally add rug
-    if(rug == TRUE) {
+    if (rug) {
       for(i in 1:length(rug.coords)) {
         lines(x = rug.coords[[i]][1,],
               y = rug.coords[[i]][2,],
@@ -1088,7 +1069,7 @@ plot_RadialPlot <- function(
     }
 
     ## optionally add legend content
-    if(missing(legend) == FALSE) {
+    if (!missing(legend)) {
       legend(x = legend.pos[1],
              y = 0.8 * legend.pos[2],
              xjust = legend.adj[1],
@@ -1102,7 +1083,7 @@ plot_RadialPlot <- function(
     }
 
     ## plot y-axis
-    if(y.ticks == TRUE) {
+    if (y.ticks) {
       char.height <- par()$cxy[2]
       if (char.height > 4.5 / cex) {
         axis(side = 2, las = 2, at = 0, labels = "\uB1 2", tcl = 0, hadj = 0.5)
@@ -1138,7 +1119,7 @@ plot_RadialPlot <- function(
     }
 
     ##FUN by R Luminescence Team
-    if (fun == TRUE) sTeve() # nocov
+    if (fun) sTeve() # nocov
   }
 
   if(output) {

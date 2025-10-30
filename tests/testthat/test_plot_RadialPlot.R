@@ -44,7 +44,7 @@ test_that("input validation", {
   expect_warning(plot_RadialPlot(ExampleData.DeValues, log.z = FALSE,
                                  xlim = c(0, 5), zlim = c(100, 200),
                                  show = FALSE),
-                 "Option 'log.z' is not set to 'TRUE' altough more than one")
+                 "'log.z' is set to 'FALSE' altough more than one data set")
 })
 
 test_that("check functionality", {
