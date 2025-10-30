@@ -256,7 +256,7 @@
 #' @noRd
 .normalise_curve <- function(data, norm) {
 
-  if (norm == "max" || norm == TRUE) {
+  if (norm == "max" || isTRUE(norm)) {
     data <- data / max(data)
   }
   else if (norm == "last") {
@@ -401,7 +401,7 @@ fancy_scientific <- function(l) {
     side,
     at = as.numeric(minor_ticks),
     lwd.ticks = 0.5,
-    tcl = -.35,
+    tcl = -0.35,
     labels = FALSE)
 
   ## add main axis
@@ -538,7 +538,7 @@ fancy_scientific <- function(l) {
 ) {
   ## loop over all keywords provided
   l <- lapply(keywords, function(k) {
-    if (nchar(k) == 0)
+    if (!nzchar(k))
       return(NULL)
 
     ## strip the prefix if necessary
@@ -585,14 +585,12 @@ fancy_scientific <- function(l) {
 #' @return [list] with only one level left
 #' @noRd
 .unlist_RLum <- function(x){
-  stopifnot(class(x) == "list")
+  stopifnot(is.list(x))
 
-  if(length(x) > 0 && inherits(x[[1]], "list")){
-    x <- unlist(x, recursive = FALSE)
-    .unlist_RLum(x)
-  }else{
+  if (length(x) == 0 || !inherits(x[[1]], "list"))
     return(x)
-  }
+
+  .unlist_RLum(unlist(x, recursive = FALSE))
 }
 
 #++++++++++++++++++++++++++++++
@@ -732,7 +730,7 @@ fancy_scientific <- function(l) {
     }
 
     ##reset rownames and make sure it fits the length
-    rownames(temp_m) <- rep(row_names, length.out = nrow(temp_m))
+    rownames(temp_m) <- rep_len(row_names, nrow(temp_m))
 
   }else{
     rownames(temp_m) <- NULL
@@ -777,7 +775,7 @@ fancy_scientific <- function(l) {
   ##extract arguments (do not consider the first argument, this might be a very
   ##large object)
   args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
-  args_new <- as.list(match.call(f_def, f_call, FALSE))[-c(1:2)]
+  args_new <- as.list(match.call(f_def, f_call, FALSE))[-(1:2)]
 
   ##now we have to make sure that we evaluate all language objects
   ##before passing them further down
@@ -1280,6 +1278,7 @@ SW <- function(expr) {
 
 #' @title Validate scalar variables
 #'
+#' @description
 #' This function is meant to validate unbounded (integer) scalar variables.
 #' The `pos` and `log` arguments are not intended for direct use, they serve
 #' to facilitate the implementation of `.validate_positive_scalar()` and
@@ -1402,7 +1401,7 @@ SW <- function(expr) {
 #'
 #' @noRd
 .collapse <- function(x, quote = TRUE) {
-  paste0(if (quote) sQuote(x, FALSE) else x, collapse=", ")
+  toString(if (quote) sQuote(x, FALSE) else x)
 }
 
 #' Shorten a filename
