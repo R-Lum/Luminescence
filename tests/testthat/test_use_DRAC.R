@@ -25,6 +25,9 @@ test_that("input validation", {
   expect_error(use_DRAC(fake.csv),
                "you are not using the original DRAC v1.2 CSV template")
 
+  expect_error(use_DRAC(test_path("_data/DRAC_Input_Template.csv"), NA),
+               "'name' should be of class 'character' or NULL")
+
   ## exceed allowed limit
   SW({
   expect_warning(input <- template_DRAC(preset = "DRAC-example_quartz",

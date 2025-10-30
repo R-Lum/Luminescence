@@ -10,7 +10,8 @@
 #' CSV-files.
 #'
 #' @param name [character] (*with default*):
-#' Optional user name submitted to DRAC. If omitted, a random name will be generated
+#' Optional user name submitted to DRAC. If `NULL`, a random name will be
+#' generated.
 #'
 #' @param print_references (*with default*):
 #' Print all references used in the input data table to the console.
@@ -52,7 +53,7 @@
 #'
 #' @seealso [template_DRAC], [.as.latex.table]
 #'
-#' @section Function version: 0.16
+#' @section Function version: 0.17
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -116,7 +117,7 @@
 #' @export
 use_DRAC <- function(
   file,
-  name,
+  name = NULL,
   print_references = TRUE,
   citation_style = "text",
   ...
@@ -133,9 +134,8 @@ use_DRAC <- function(
   ##
  # Settings ------------------------------------------------------------------------------------
   settings <- modifyList(list(
-    name = ifelse(missing(name),
-                  paste0(sample(c(LETTERS, letters), runif(1, 2, 4)), collapse = ""),
-                  name),
+    name = name %||% paste(sample(c(LETTERS, letters), runif(1, 2, 4)),
+                           collapse = ""),
     verbose = TRUE,
     url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator",
     ignore_version = FALSE,
@@ -189,6 +189,7 @@ use_DRAC <- function(
   if (nrow(input.raw) > 5000)
     .throw_error("The limit of allowed datasets is 5000!")
 
+  .validate_class(name, "character", null.ok = TRUE)
   .validate_logical_scalar(print_references)
   citation_style <- .validate_args(citation_style,
                                    c("text", "Bibtex", "citation", "html",
