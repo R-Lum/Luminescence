@@ -365,7 +365,7 @@ calc_MinDose <- function(
     if (length(init.values) < length(exp.names) || length(mis.names) > 0) {
       .throw_error("Please provide initial values for all model parameters. ",
                    "\nMissing parameters: ",
-                   paste(mis.names, collapse = ", "))
+                   toString(mis.names))
     }
   }
 

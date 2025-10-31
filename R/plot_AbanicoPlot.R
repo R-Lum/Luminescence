@@ -520,7 +520,7 @@ plot_AbanicoPlot <- function(
     NArm.id <- which(sapply(data, nrow) <= 1)
     data[NArm.id] <- NULL
 
-    .throw_warning("Data sets ", paste(NArm.id, collapse = ", "),
+    .throw_warning("Data sets ", toString(NArm.id),
                    " are found to be empty or consisting of only 1 row. Sets removed!")
 
     rm(NArm.id)

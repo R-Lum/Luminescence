@@ -422,8 +422,8 @@ calc_EED_Model <- function(
         method_control$upper[1:2] <- c(max(s$x[unique(q10[,1])]), max(s$y[unique(q10[,2])]))
 
       if(verbose && method_control$trace){
-        cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ", "))
-        cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ", "))
+        cat("\n >> lower: ", toString(method_control$lower[1:2]))
+        cat("\n >> upper: ", toString(method_control$upper[1:2]))
       }
 
       ##update threshold
