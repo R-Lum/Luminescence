@@ -99,16 +99,15 @@
           }"
 
   data1 <- list(
-    'theta' = theta,
-    'mu' = mu,
-    'sigma' = sigma,
-    'N' = nobs ,
-    'De' = De,
-    's2' = s ^ 2,
-    's02' = sig0[1] ^ 2,
-    'Amin' = Age_range[1],
-    'Amax' = Age_range[2]
-  )
+    theta = theta,
+    mu = mu,
+    sigma = sigma,
+    N = nobs,
+    De = De,
+    s2 = s^2,
+    s02 = sig0[1]^2,
+    Amin = Age_range[1],
+    Amax = Age_range[2])
 
   # Run Bayesian model ------------------------------------------------------
   method_control <- modifyList(
@@ -267,17 +266,14 @@
     val = method_control)
 
   on.exit(close(model), add = TRUE)
-  data <-
-    list(
-      'theta' = theta,
-      'mu' = mu,
-      'sigma' = sigma,
-      'De' = De,
-      'J' =  length(De),
-      's2' = s ^ 2,
-      'Amin' = Age_range[1],
-      'Amax' = Age_range[2]
-    )
+  data <- list(theta = theta,
+               mu = mu,
+               sigma = sigma,
+               De = De,
+               J =  length(De),
+               s2 = s^2,
+               Amin = Age_range[1],
+               Amax = Age_range[2])
 
   ## select model
   if(length(theta) == 1) {

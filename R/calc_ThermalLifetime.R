@@ -27,7 +27,6 @@
 #' \eqn{s} the frequency factor in 1/s,
 #' \eqn{T} the temperature in K and \eqn{k} the Boltzmann constant in eV/K (cf. Furetta, 2010).
 #'
-#'
 #' @param E [numeric] (**required**):
 #' vector of trap depths in eV,
 #' if `profiling = TRUE` only the first two elements are considered
@@ -263,13 +262,13 @@ calc_ThermalLifetime <- function(
   ## re-calculate lifetimes according to the chosen output unit
   temp.lifetimes <- switch(
     output_unit,
-    "s" = lifetimes,
-    "min" = lifetimes / 60,
-    "h" = lifetimes / 60 / 60,
-    "d" = lifetimes / 60 / 60 / 24,
-    "a" = lifetimes / .const$year_s,
-    "ka" = lifetimes / (1e3 * .const$year_s),
-    "Ma" = lifetimes / (1e6 * .const$year_s)
+    s = lifetimes,
+    min = lifetimes / 60,
+    h = lifetimes / 60 / 60,
+    d = lifetimes / 60 / 60 / 24,
+    a = lifetimes / .const$year_s,
+    ka = lifetimes / (1e3 * .const$year_s),
+    Ma = lifetimes / (1e6 * .const$year_s)
   )
 
   ##check for invalid values

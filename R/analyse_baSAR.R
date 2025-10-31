@@ -624,18 +624,17 @@ analyse_baSAR <- function(
       }
 
       ### Bayesian inputs
-      data_Liste  <- list(
-        'Dose' = data.Dose,
-        'Lum' = data.Lum,
-        'sLum' = data.sLum,
-        'LinGC' = LinGC,
-        'ExpoGC' = ExpoGC,
-        'GC_Origin' = GC_Origin,
-        'Limited_cycles' = Limited_cycles,
-        'lower_centralD' = lower_centralD,
-        'upper_centralD' = upper_centralD,
-        'Nb_aliquots' = Nb_aliquots
-      )
+      data_list  <- list(
+        Dose = data.Dose,
+        Lum = data.Lum,
+        sLum = data.sLum,
+        LinGC = LinGC,
+        ExpoGC = ExpoGC,
+        GC_Origin = GC_Origin,
+        Limited_cycles = Limited_cycles,
+        lower_centralD = lower_centralD,
+        upper_centralD = upper_centralD,
+        Nb_aliquots = Nb_aliquots)
 
       if(verbose){
         cat("\n[analyse_baSAR()] ---- baSAR-model ---- \n")
@@ -658,7 +657,7 @@ analyse_baSAR <- function(
       ##set model
       jagsfit <- rjags::jags.model(
           file = textConnection(baSAR_models[[distribution]]),
-          data = data_Liste,
+          data = data_list,
           inits = inits,
           n.chains = n.chains,
           n.adapt = Nb_Iterations,

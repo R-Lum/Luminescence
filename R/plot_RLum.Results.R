@@ -98,10 +98,10 @@ plot_RLum.Results<- function(
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 0: General plot dispatcher ----------
   switch(object@originator,
-      "analyse_SAR.CWOSL" = plot_AbanicoPlot(object),
-      "analyse_pIRIRSequence" = plot_AbanicoPlot(object),
-      "analyse_IRSAR.RF" = plot_AbanicoPlot(object),
-      "calc_FiniteMixture" = do.call(calc_FiniteMixture, c(object, extraArgs)),
+      analyse_SAR.CWOSL = plot_AbanicoPlot(object),
+      analyse_pIRIRSequence = plot_AbanicoPlot(object),
+      analyse_IRSAR.RF = plot_AbanicoPlot(object),
+      calc_FiniteMixture = do.call(calc_FiniteMixture, c(object, extraArgs)),
     NULL
     )
 

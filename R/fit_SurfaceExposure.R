@@ -398,8 +398,8 @@ fit_SurfaceExposure <- function(
 
     # Fill with NA values
     coef <- data.frame(
-      "Estimate" = rep(NA, 3),
-      "Std. Error" = rep(NA, 3),
+      Estimate = rep(NA, 3),
+      `Std. Error` = rep(NA, 3),
       row.names = c("age", "sigmaphi", "mu"), check.names = FALSE
     )
   }

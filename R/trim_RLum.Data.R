@@ -130,9 +130,9 @@ trim_RLum.Data <- function(
     ln <- unlist(lapply(object@records, function(x) {
       ln <- switch(
         class(x)[1],
-        "RLum.Data.Curve" = dim(x@data)[1],
-        "RLum.Data.Spectrum" = dim(x@data)[2],
-        "RLum.Data.Image" = dim(x@data)[3]
+        RLum.Data.Curve = dim(x@data)[1],
+        RLum.Data.Spectrum = dim(x@data)[2],
+        RLum.Data.Image = dim(x@data)[3]
       )
       names(ln) <- x@recordType
       ln
@@ -154,10 +154,10 @@ trim_RLum.Data <- function(
   ## function dispatcher
   .trim_object <- function(obj, type, range) {
     trim.fun <- switch(class(obj)[1],
-                       "RLum.Analysis"      = .trim_RLum.Analysis,
-                       "RLum.Data.Curve"    = .trim_RLum.Data.Curve,
-                       "RLum.Data.Image"    = .trim_RLum.Data.Image,
-                       "RLum.Data.Spectrum" = .trim_RLum.Data.Spectrum)
+                       RLum.Analysis      = .trim_RLum.Analysis,
+                       RLum.Data.Curve    = .trim_RLum.Data.Curve,
+                       RLum.Data.Image    = .trim_RLum.Data.Image,
+                       RLum.Data.Spectrum = .trim_RLum.Data.Spectrum)
     trim.fun(obj, type, range)
   }
 
@@ -170,7 +170,7 @@ trim_RLum.Data <- function(
   if(is.null(recordType)) {
     recordType <- switch(
       class(object)[1],
-      "RLum.Analysis" = unique(vapply(object@records, function(x) x@recordType, character(1))),
+      RLum.Analysis = unique(vapply(object@records, function(x) x@recordType, character(1))),
       object@recordType
     )
   }

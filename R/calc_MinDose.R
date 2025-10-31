@@ -713,8 +713,8 @@ calc_MinDose <- function(
   summary <- data.frame(de=pal,
                         de_err=gamma_err,
                         ci_level = level,
-                        "ci_lower" = conf["gamma", 1],
-                        "ci_upper" = conf["gamma", 2],
+                        ci_lower = conf["gamma", 1],
+                        ci_upper = conf["gamma", 2],
                         par=par,
                         sig=ifelse(log, exp(sig), sig),
                         p0=p0end,
@@ -941,8 +941,8 @@ calc_MinDose <- function(
 
       cat("\n------ De (asymmetric error) -----\n")
       print(round(data.frame(De=pal,
-                             "lower" = conf["gamma", 1],
-                             "upper" = conf["gamma", 2],
+                             lower = conf["gamma", 1],
+                             upper = conf["gamma", 2],
                              row.names=""), 2))
 
       cat("\n------ De (symmetric error) -----\n")

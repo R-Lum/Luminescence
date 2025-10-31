@@ -198,9 +198,9 @@ calc_OSLLxTxRatio <- function(
   ## Lx - coerce if required
   Lx.data <- switch(
     class(Lx.data)[1],
-    "RLum.Data.Curve" = as(Lx.data, "data.frame"),
-    "matrix" = as.data.frame(Lx.data),
-    "data.frame" = Lx.data,
+    RLum.Data.Curve = as(Lx.data, "data.frame"),
+    matrix = as.data.frame(Lx.data),
+    data.frame = Lx.data,
     data.frame(x = 1:length(Lx.data),y = Lx.data)
   )
   len.Lx <- nrow(Lx.data)
@@ -209,9 +209,9 @@ calc_OSLLxTxRatio <- function(
   if(!is.null(Tx.data)){
     Tx.data <- switch(
       class(Tx.data)[1],
-      "RLum.Data.Curve" = as(Tx.data, "data.frame"),
-      "matrix" = as.data.frame(Tx.data),
-      "data.frame" = Tx.data,
+      RLum.Data.Curve = as(Tx.data, "data.frame"),
+      matrix = as.data.frame(Tx.data),
+      data.frame = Tx.data,
       data.frame(x = 1:length(Tx.data),y = Tx.data)
     )
     len.Tx <- nrow(Tx.data)

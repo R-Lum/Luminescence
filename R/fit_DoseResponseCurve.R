@@ -1295,9 +1295,9 @@ fit_DoseResponseCurve <- function(
       y <- object[1, 2]
       De <- switch(
         mode,
-        "interpolation" = suppressWarnings(
+        interpolation = suppressWarnings(
           -(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
-        "extrapolation" = suppressWarnings(
+        extrapolation = suppressWarnings(
           -(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
         NA)
 

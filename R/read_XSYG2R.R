@@ -692,10 +692,10 @@ read_XSYG2R <- function(
   if (auto_linearity_correction) {
     ## set look-up table for common FI PMTs
     count_pair_res <- c(
-      "UVVIS" = 18,
-      "NIR50" = 70,
-      "NIR40" = 70,
-      "ETPMT" = 25)
+      UVVIS = 18,
+      NIR50 = 70,
+      NIR40 = 70,
+      ETPMT = 25)
 
     ## correct only curves that can be corrected
     output <- lapply(output, \(x) {

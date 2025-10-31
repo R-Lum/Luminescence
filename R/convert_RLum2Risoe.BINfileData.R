@@ -116,7 +116,7 @@ convert_RLum2Risoe.BINfileData <- function(
     ## convert
     value <- switch(
       tmp_class,
-      "factor" = as.factor(prototype@METADATA[[field]]),
+      factor = as.factor(prototype@METADATA[[field]]),
       as(prototype@METADATA[[field]], tmp_class)
     )
 

@@ -172,18 +172,18 @@ fit_IsothermalHolding <- function(
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b = 1, Et = 1, s10 = 5),
-    'BTS' = list(A = 1, Eu = 0.1, Et = 2))
+    GOK = list(A = 1, b = 1, Et = 1, s10 = 5),
+    BTS = list(A = 1, Eu = 0.1, Et = 2))
 
   lower <- switch(
     ITL_model,
-    'GOK' = c(0, 0, 0, 0),
-    'BTS' = c(1, 0.3, 1))
+    GOK = c(0, 0, 0, 0),
+    BTS = c(1, 0.3, 1))
 
   upper <- switch(
     ITL_model,
-    'GOK' = c(20, Inf, 3, 20),
-    'BTS' = c(20, 0.5, 3))
+    GOK = c(20, Inf, 3, 20),
+    BTS = c(20, 0.5, 3))
 
   ## Fitting ----------------------------------------------------------------
   ## we have a double loop situation: we have a list with n samples, and

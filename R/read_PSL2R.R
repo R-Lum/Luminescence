@@ -254,12 +254,12 @@ format_Measurements <- function(x, convert, header) {
   settings_cycle <- vals[1]
   settings_stimulation_time <- vals[2]
 
-  settings_list <- list("measurement" = settings_measurement,
-                        "stimulation_unit" = recordType,
-                        "on_time" = settings_on_time,
-                        "off_time" = settings_off_time,
-                        "cycle" = settings_cycle,
-                        "stimulation_time" = settings_stimulation_time)
+  settings_list <- list(measurement = settings_measurement,
+                        stimulation_unit = recordType,
+                        on_time = settings_on_time,
+                        off_time = settings_off_time,
+                        cycle = settings_cycle,
+                        stimulation_time = settings_stimulation_time)
 
   ## terminal counts are given in the last line as count / count_error
   # terminal_count_text_formatted <- gsub("[^0-9]", "",
