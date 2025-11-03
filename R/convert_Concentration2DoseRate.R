@@ -26,8 +26,8 @@
 #'`K` \tab `numeric` \tab K nuclide content in %\cr
 #'`K_SE` \tab `numeric` \tab error on K nuclide content in %\cr
 #'`Th` \tab `numeric` \tab Th nuclide content in ppm\cr
-#'`Th_SE` \tab `numeric` error on Th nuclide content in ppm\cr
-#'`U` \tab `numeric` U nuclide content in ppm\cr
+#'`Th_SE` \tab `numeric` \tab error on Th nuclide content in ppm\cr
+#'`U` \tab `numeric` \tab U nuclide content in ppm\cr
 #'`U_SE` \tab `numeric` \tab error on U nuclide content in ppm\cr
 #'`GrainSize` \tab `numeric` \tab average grain size in µm\cr
 #'`WaterContent` \tab `numeric` \tab mean water content in %\cr

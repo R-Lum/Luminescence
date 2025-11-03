@@ -78,12 +78,12 @@ original .BIN file (using e.g., \code{BINfile <- readBIN2R()} and the slot
 
 \strong{Allowed source types and related values}
 
-\tabular{rllll}{
+\tabular{rlll}{
 \strong{#} \tab \strong{Source type} \tab \strong{T.1/2} \tab \strong{Reference} \cr
 \verb{[1]} \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
-\verb{[2]}\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
+\verb{[2]} \tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
 \verb{[3]} \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
-\verb{[4} \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
+\verb{[4]} \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 }
 \note{
 Please be careful when using the option \code{predict}, especially when a
