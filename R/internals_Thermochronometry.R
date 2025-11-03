@@ -51,7 +51,7 @@
   .validate_args(output_type, c("RLum.Results", "list"))
 
   exists <- file.exists(file)
-  if (any(!exists)) {
+  if (!all(exists)) {
     .throw_error("File '", file[!exists][1], "' does not exist")
   }
   if (any(grepl("xlsx?", tools::file_ext(file), ignore.case = TRUE))) {

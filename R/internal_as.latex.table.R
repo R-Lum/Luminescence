@@ -193,7 +193,7 @@
   ## Subset data frame ----
   if (!missing(select)) {
     is.name <- select %in% names(x)
-    if (any(!is.name))
+    if (!all(is.name))
       .throw_error("Undefined columns selected. Please check provided ",
                    "column names in 'select'.")
     x <- subset(x, select = select)

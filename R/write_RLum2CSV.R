@@ -186,7 +186,7 @@ write_RLum2CSV <- function(
       object_list <- object_list[object_list_rm]
 
       ##set warning
-      if(any(!object_list_rm))
+      if (!all(object_list_rm))
         .throw_warning(length(which(!object_list_rm)),
                        " elements could not be converted to CSV")
 

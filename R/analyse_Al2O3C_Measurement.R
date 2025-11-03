@@ -228,7 +228,7 @@ analyse_Al2O3C_Measurement <- function(
         .throw_message("'travel_dosimeter' specifies every position, nothing corrected")
 
       ##check if the position is valid
-      if(any(!travel_dosimeter%in%results$data$POSITION))
+      if (!all(travel_dosimeter %in% results$data$POSITION))
         .throw_message("Invalid position in 'travel_dosimeter', nothing corrected")
 
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
