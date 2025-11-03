@@ -261,7 +261,7 @@ analyse_FadingMeasurement <- function(
 
     ## support read_XSYG2R()
     originators <- unique(unlist(lapply(object, slot, name = "originator")))
-    if (length(originators) == 1 && originators == "read_XSYG2R") {
+    if (length(originators) == 1 && originators %in% "read_XSYG2R") {
       ## extract irradiation times
       irradiation_times <- extract_IrradiationTimes(object)
 
