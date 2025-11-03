@@ -211,7 +211,7 @@ analyse_FadingMeasurement <- function(
   .validate_positive_scalar(n.MC, int = TRUE)
 
   if (inherits(object, "list")) {
-    wrong.class <- sapply(object, class) != "RLum.Analysis"
+    wrong.class <- !sapply(object, inherits, "RLum.Analysis")
     if (any(wrong.class)) {
       .throw_warning(sum(wrong.class), " unsupported records removed")
 

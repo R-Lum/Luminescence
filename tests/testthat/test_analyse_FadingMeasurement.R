@@ -229,6 +229,12 @@ test_that("regression tests", {
 
   ## issue 616
   expect_output(analyse_FadingMeasurement(df[1:2, ]))
+
+  ## issue 1132
+  class(iris) <- c("data.frame", "extra")
+  expect_error(expect_warning(analyse_FadingMeasurement(list(iris)),
+                              "1 unsupported records removed"),
+               "No valid records in 'object' left")
 })
 
 test_that("graphical snapshot tests", {
