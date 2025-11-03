@@ -30,7 +30,7 @@ test_that("input validation", {
                "'output.object' should be one of 'RLum.Data.Image'")
 
   SW({
-  expect_message(expect_null(read_SPE2R("http://httpbun.org/status/404")),
+  expect_message(expect_null(read_SPE2R("http://httpbingo.org/status/404")),
                  "Error: File does not exist, NULL returned")
   })
 
