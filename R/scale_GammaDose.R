@@ -240,7 +240,7 @@
 scale_GammaDose <- function(
   data,
   conversion_factors = c("Cresswelletal2018", "Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
-  fractional_gamma_dose = c("Aitken1985")[1],
+  fractional_gamma_dose = "Aitken1985",
   verbose = TRUE,
   plot = TRUE,
   plot_singlePanels = FALSE,

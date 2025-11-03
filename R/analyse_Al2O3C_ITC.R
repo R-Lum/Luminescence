@@ -108,7 +108,7 @@ analyse_Al2O3C_ITC <- function(
   object,
   signal_integral = NULL,
   dose_points = c(2,4,8,12,16),
-  recordType = c("OSL (UVVIS)"),
+  recordType = "OSL (UVVIS)",
   method_control = NULL,
   verbose = TRUE,
   plot = TRUE,
