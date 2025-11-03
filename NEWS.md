@@ -43,6 +43,10 @@
 - The function no longer crashes when called on an RLum.Analysis object
   with missing originator (#1130).
 
+- When called with a list containing object with multiple classes, the
+  message produced reports the correct number of objects removed from
+  the analysis (#1132).
+
 ### `analyse_IRSAR.RF()`
 
 - The function no longer crashes when `n.MC = NULL` is used with the
