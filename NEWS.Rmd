@@ -75,6 +75,9 @@ its minimum and maximum values are the same (#1114).
 * The number of MC iteration is now correctly reported in the plot subtitle
 (#1115).
 
+* The function now validates the `MC.iter` argument to avoid an ugly crash if
+a non-positive value is provided (#1124).
+
 ### `calc_CosmicDoseRate()`
 
 * The function is now more robust against `NA` values in its input arguments

@@ -27,6 +27,9 @@ test_that("input validation", {
                                   MC = TRUE),
                  "Monte Carlo simulation is only available for estimating the")
   })
+  expect_error(calc_AliquotSize(grain.size = c(100, 200),
+                                sample.diameter = 3.6, MC.iter = 0),
+               "'MC.iter' should be a single positive integer value or NULL")
 })
 
 test_that("check functionality", {
