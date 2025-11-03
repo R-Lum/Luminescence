@@ -201,7 +201,6 @@ calc_AliquotSize <- function(
                  "grain size when using Monte Carlo simulations")
   }
 
-
   ##==========================================================================##
   ## ... ARGUMENTS
   ##==========================================================================##
@@ -212,6 +211,10 @@ calc_AliquotSize <- function(
 
   # override settings with user arguments
   settings <- modifyList(settings, list(...))
+  if (MC) {
+    .validate_positive_scalar(settings$MC.iter, int = TRUE, null.ok = TRUE,
+                              name = "'MC.iter'")
+  }
 
   MC.n <- MC.stats <- MC.n.kde <- MC.t.test <- MC.q <- NULL
 
