@@ -4,7 +4,6 @@
 #' spectra etc. from one measurements. Objects from this class are produced,
 #' by e.g. [read_XSYG2R], [read_Daybreak2R]
 #'
-#'
 #' @name RLum.Analysis-class
 #'
 #' @docType class

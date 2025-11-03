@@ -101,7 +101,7 @@
 #' **@data**
 #'
 #' \tabular{lll}{
-#'  **`Object`** \tab **`Type`** **`Description`** \cr
+#'  **`Object`** \tab **`Type`** \tab **`Description`** \cr
 #'  `net_transmission_window` \tab `matrix` \tab the resulting net transmission window \cr
 #'  `OD_total` \tab `matrix` \tab the total optical density\cr
 #'  `filter_matrix` \tab `matrix` \tab the filter matrix used for plotting
@@ -110,7 +110,7 @@
 #' **@info**
 #'
 #' \tabular{lll}{
-#' **Object** \tab **Type** **Description** \cr
+#' **Object** \tab **Type**\tab  **Description** \cr
 #' `call` \tab [call] \tab the original function call
 #' }
 #'

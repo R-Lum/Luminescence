@@ -19,12 +19,12 @@
 #'
 #' **Allowed source types and related values**
 #'
-#' \tabular{rllll}{
+#' \tabular{rlll}{
 #'  **#** \tab **Source type** \tab **T.1/2** \tab **Reference** \cr
 #'  `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
-#'  `[2]`\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
+#'  `[2]` \tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
-#'  `[4` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
+#'  `[4]` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 #'
 #' @param measurement.date [character] or [Date] (*with default*): Date of measurement in `"YYYY-MM-DD"`.
 #' If no value is provided, the date will be set to today. The argument can be provided as vector.

@@ -41,7 +41,7 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 \strong{@data}
 
 \tabular{lll}{
-\strong{\code{Object}} \tab \strong{\code{Type}} \strong{\code{Description}} \cr
+\strong{\code{Object}} \tab \strong{\code{Type}} \tab \strong{\code{Description}} \cr
 \code{net_transmission_window} \tab \code{matrix} \tab the resulting net transmission window \cr
 \code{OD_total} \tab \code{matrix} \tab the total optical density\cr
 \code{filter_matrix} \tab \code{matrix} \tab the filter matrix used for plotting
@@ -50,7 +50,7 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 \strong{@info}
 
 \tabular{lll}{
-\strong{Object} \tab \strong{Type} \strong{Description} \cr
+\strong{Object} \tab \strong{Type}\tab  \strong{Description} \cr
 \code{call} \tab \link{call} \tab the original function call
 }
 }

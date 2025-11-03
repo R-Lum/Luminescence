@@ -77,7 +77,7 @@ setClass("RLum.Data.Curve",
 #'
 #' **[RLum.Data.Curve-class]**
 #'
-#' \tabular{lll}{
+#' \tabular{ll}{
 #'  **from** \tab **to**\cr
 #'   `list` \tab `list` \cr
 #'   `data.frame` \tab `data.frame`\cr
