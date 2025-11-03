@@ -64,6 +64,11 @@ test_that("input validation", {
   expect_message(expect_null(analyse_FadingMeasurement(read_PSL2R(psl.file))),
                  "Error: Unknown or unsupported originator, NULL returned")
 
+  ## missing originator
+  data(ExampleData.RLum.Analysis, envir = environment())
+  expect_message(expect_null(analyse_FadingMeasurement(IRSAR.RF.Data)),
+                 "Error: Unknown or unsupported originator, NULL returned")
+
   ## no irradiation steps
   xsyg.file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
   expect_error(analyse_FadingMeasurement(read_XSYG2R(xsyg.file, fastForward = TRUE)),

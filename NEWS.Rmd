@@ -45,6 +45,11 @@ because empty (#1041).
 * The dose response curves are no longer overplotted when there are fewer than
 1000 MCMC iterations (#1058).
 
+### `analyse_FadingMeasurement()`
+
+* The function no longer crashes when called on an RLum.Analysis object with
+missing originator (#1130).
+
 ### `analyse_IRSAR.RF()`
 
 * The function no longer crashes when `n.MC = NULL` is used with the `FIT`
