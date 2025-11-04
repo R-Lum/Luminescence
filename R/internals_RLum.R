@@ -1094,13 +1094,13 @@ SW <- function(expr) {
 #' [base::match.arg] would have very limited use.
 #'
 #' @param arg [character] (**required**): variable to validate.
-#' @param choices [vector] [character] (**required**): a vector of candidate
-#'        values.
+#' @param choices [character] (**required**): vector of candidate values.
 #' @param null.ok [logical] (*with default*): whether a `NULL` value should be
 #'        considered valid (`FALSE` by default).
 #' @param name [character] (*with default*): variable name to report in case
-#'        of error; if not specified it's inferred from the name of the
-#'        variable tested.
+#'        of error; if specified, it's reported as is (so, it may need to be
+#'        quoted by the caller); otherwise, it's inferred from the name of the
+#'        variable tested and reported with quotes.
 #' @param extra [character] (*with default*): additional choice to be reported
 #'        after the valid choices and preceded by "or". If `null.ok = TRUE`,
 #'        the text reported is automatically set to `"or NULL"`, otherwise it
@@ -1156,20 +1156,12 @@ SW <- function(expr) {
 
 #' @title Validate an argument from a list of classes
 #'
-#' @param arg [character] (**required**): variable to validate.
-#' @param classes [vector] [character] (**required**): a vector of candidate
-#'        classes or types.
-#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default).
+#' @param classes [character] (**required**): vector of candidate classes or
+#'        types.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
-#' @param extra [character] (*with default*): additional choice to be reported
-#'        after the valid choices and preceded by "or".
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' If `throw.error = TRUE`, the function throws an error and doesn't return
@@ -1210,17 +1202,13 @@ SW <- function(expr) {
 
 #' @title Validate that a variable is not empty
 #'
-#' @param arg [character] (**required**): variable to validate.
 #' @param what [character] (**required**): the type of the variable, used
 #'        only in the message reported; if not specified it's inferred from
 #'        they type of the variable tested.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' If `throw.error = TRUE`, the function throws an error and doesn't return
@@ -1247,15 +1235,11 @@ SW <- function(expr) {
 
 #' @title Validate the length of a variable
 #'
-#' @param arg [character] (**required**): variable to validate.
 #' @param exp.length [integer] (**required**): the expected length.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' If `throw.error = TRUE`, the function throws an error and doesn't return
@@ -1291,12 +1275,7 @@ SW <- function(expr) {
 #'        (`FALSE` by default).
 #' @param log [logical] (*with default*): whether the value has to be logical
 #'        (`FALSE` by default).
-#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default).
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' The validated value, unless the validation failed with an error thrown.
@@ -1342,12 +1321,8 @@ SW <- function(expr) {
 #'
 #' @param object [RLum] (**required**): object whose originator should be
 #'        checked.
-#' @param choices [character] (**required**): a vector of candidate choices.
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; otherwise, it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
-
+#' @inheritParams .validate_args
+#'
 #' @return
 #' The validated value, unless the validation failed with an error thrown.
 #'
