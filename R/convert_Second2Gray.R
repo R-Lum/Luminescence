@@ -110,10 +110,9 @@ convert_Second2Gray <- function(
       .throw_error("Data frames in 'data' and 'dose.rate' must have the same length")
     }
   } else if (inherits(dose.rate, "RLum.Results")) {
-
-    ## check for right originator
-    if(dose.rate@originator != "calc_SourceDoseRate"){
-      .throw_error("Wrong originator for dose.rate 'RLum.Results' object")
+    if (!.check_originator(dose.rate, "calc_SourceDoseRate")) {
+      .throw_error("'dose.rate' was created by an unsupported function ",
+                   "(originator is'", dose.rate@originator, "')")
     }
 
     dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")

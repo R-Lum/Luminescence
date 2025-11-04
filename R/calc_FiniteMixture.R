@@ -202,7 +202,7 @@ calc_FiniteMixture <- function(
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (inherits(data, "RLum.Results")) {
-    if (data@originator == "calc_FiniteMixture") {
+    if (.check_originator(data, "calc_FiniteMixture")) {
       do.call(.plot_FiniteMixture, c(data, as.list(sys.call())[-(1:2)]))
       return(invisible(data))
     }

@@ -76,7 +76,7 @@ plot_ROI <- function(
                     name = "'object'")
 
     ##ignore all none RLum.Analysis
-    if (!inherits(x, "RLum.Analysis") || x@originator != "read_RF2R")
+    if (!inherits(x, "RLum.Analysis") || !.check_originator(x, "read_RF2R"))
       .throw_error("Object originator '", x@originator, "' not supported")
 
     ##extract some of the elements
@@ -89,8 +89,7 @@ plot_ROI <- function(
   }
 
   if (inherits(object, "RLum.Results") &&
-      ## use %in% instead of == to support the case when originator is NULL
-      object@originator %in% "extract_ROI") {
+      .check_originator(object, "extract_ROI")) {
     m <- object@data$roi_coord
 
   } else {

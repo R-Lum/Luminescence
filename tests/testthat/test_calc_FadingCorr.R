@@ -67,7 +67,7 @@ test_that("check class and length of output", {
   expect_message(
       expect_null(calc_FadingCorr(age.faded = c(0.1,0),
                                g_value = fading, tc = 2592000)),
-               "Unknown originator for the 'g_value' object provided")
+               "'g_value' was created by an unsupported function")
 
   ## auto, seed (Note: this is slow!)
   SW({

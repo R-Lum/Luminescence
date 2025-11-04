@@ -808,7 +808,10 @@ analyse_baSAR <- function(
   ##if the input is already of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if (inherits(object, "RLum.Results")) {
-    if(object@originator == "analyse_baSAR"){
+    if (!.check_originator(object, "analyse_baSAR")) {
+      .throw_error("'object' is of type 'RLum.Results', ",
+                   "but was not produced by analyse_baSAR()")
+    }
 
       ##We want to use previous function arguments and recycle them
 
@@ -931,11 +934,6 @@ analyse_baSAR <- function(
      Doses <- t(input_object[,9:(8 + max_cycles)])
      LxTx <- t(input_object[,(9 + max_cycles):(8 + 2 * max_cycles)])
      LxTx.error <-  t(input_object[,(9 + 2 * max_cycles):(8 + 3 * max_cycles)])
-
-    }else{
-      .throw_error("'object' is of type 'RLum.Results', ",
-                   "but was not produced by analyse_baSAR()")
-    }
 
   }else{
     if(verbose){
