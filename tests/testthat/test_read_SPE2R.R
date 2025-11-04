@@ -1,6 +1,7 @@
 ## path to the SPE file on github, as it's not included in the package
 github.url <- file.path("https://github.com/R-Lum/Luminescence",
                         "raw/master/tests/testthat/_data")
+local.file <- test_path("_data/SPEfile.SPE")
 
 ## `read_SPE2R()` calls `download.file()` which, in turn, uses curl to
 ## perform the actual download. If `verbose = TRUE`, curl is invoked with
@@ -25,8 +26,7 @@ test_that("input validation", {
                "'file' should have length 1")
   expect_message(expect_null(read_SPE2R("error")),
                  "Error: File does not exist, NULL returned")
-  expect_error(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
-                          output.object = "error"),
+  expect_error(read_SPE2R(local.file, output.object = "error"),
                "'output.object' should be one of 'RLum.Data.Image'")
 
   SW({
@@ -56,11 +56,11 @@ test_that("snapshot tests", {
 
   snapshot.tolerance <- 1.5e-6
 
-  expect_snapshot_RLum(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
+  expect_snapshot_RLum(read_SPE2R(local.file,
                                   output.object = "RLum.Data.Spectrum",
                                   verbose = FALSE),
                        tolerance = snapshot.tolerance)
-  expect_snapshot_plain(read_SPE2R(file.path(github.url, "SPEfile.SPE"),
+  expect_snapshot_plain(read_SPE2R(local.file,
                                    output.object = "matrix",
                                    verbose = FALSE),
                         tolerance = snapshot.tolerance)
