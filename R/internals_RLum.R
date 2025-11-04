@@ -1338,6 +1338,20 @@ SW <- function(expr) {
                    name = name %||% .first_argument())
 }
 
+#' @title Check that the originator matches a set of choices
+#'
+#' @param object [RLum] (**required**): object whose originator should be
+#'        checked.
+#' @param choices [character] (**required**): a vector of candidate choices.
+#'
+#' @return
+#' A logical value.
+#'
+#' @noRd
+.check_originator <- function(object, choices) {
+  .hasSlot(object, "originator") && object@originator %in% choices
+}
+
 #' Check that a suggested package is installed
 #'
 #' Report a message with installation instructions if a suggested package

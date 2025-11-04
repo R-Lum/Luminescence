@@ -507,6 +507,15 @@ test_that("Test internals", {
   expect_error(.validate_logical_scalar(NA, name = "The variable"),
                "The variable should be a single logical value")
 
+  ## .check_originator() ----------------------------------------------------
+  expect_true(.check_originator(set_RLum("RLum.Analysis", originator = "orig"),
+                                "orig"))
+  expect_false(.check_originator(set_RLum("RLum.Analysis", originator = "orig"),
+                                 c("orig1", "orig2")))
+  expect_false(.check_originator(set_RLum("RLum.Analysis"), "orig"))
+  expect_false(.check_originator(NULL, "orig"))
+  expect_false(.check_originator(iris, "orig"))
+
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),
