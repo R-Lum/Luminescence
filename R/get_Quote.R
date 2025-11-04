@@ -79,7 +79,7 @@ get_Quote <- function(
     )
 
   ## Check input data
-  if(missing(ID) == TRUE) {
+  if (missing(ID)) {
     ID <- sample(x = seq(from = 1,
                          to = nrow(quotes)),
                  size = 1)

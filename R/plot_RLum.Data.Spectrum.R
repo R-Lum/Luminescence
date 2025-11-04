@@ -291,7 +291,7 @@ plot_RLum.Data.Spectrum <- function(
 
   ##XSYG
   ##check for curveDescripter
-  if("curveDescripter" %in% names(object@info) == TRUE){
+  if ("curveDescripter" %in% names(object@info)) {
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
     xlab <- temp.lab[2]
     ylab <- temp.lab[1]
@@ -379,7 +379,6 @@ plot_RLum.Data.Spectrum <- function(
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
-
     x.vals <- as.numeric(rownames(temp.xyz))
     y.vals <- as.numeric(colnames(temp.xyz))
 
@@ -483,8 +482,6 @@ plot_RLum.Data.Spectrum <- function(
     if (length(x) %% bin.rows != 0 && length(x) > bin.rows) {
       .throw_warning(length(x) %% bin.rows,
                      " channels removed due to row (wavelength) binning")
-
-      ##do it
       temp.xyz <- temp.xyz[-length(x),]
       x <- x[-length(x)]
     }
@@ -867,7 +864,8 @@ if(plot){
     frames <- extraArgs$frames %||% 1:length(y)
 
     for(i in frames) {
-      if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
+      if (!"zlim" %in% names(extraArgs))
+        zlim <- range(temp.xyz[, i])
       plot(x, temp.xyz[,i],
            xlab = xlab,
            ylab = ylab,
@@ -947,7 +945,8 @@ if(plot){
     par(mar = c(3.1, 3.1, 2, 7), xpd = TRUE)
 
     ##grep zlim
-    if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz)}
+    if (!"zlim" %in% names(extraArgs))
+      zlim <- range(temp.xyz)
 
     ##open plot area
     plot(NA, NA,

@@ -584,7 +584,7 @@ analyse_Al2O3C_Measurement <- function(
       )
 
      ##modify on request
-     plot_settings <- modifyList(x = plot_settings, val = list(...),)
+     plot_settings <- modifyList(plot_settings, val = list(...))
 
      ##plot curves
      if(any(grepl("TL", names(object))))

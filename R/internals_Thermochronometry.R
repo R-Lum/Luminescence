@@ -64,7 +64,7 @@
   ## Import -----------------------------------------------------------------
   records <- lapply(file, function(x) {
     ## read the files separating header and body
-    head <- data.table::fread(x, nrows = 3, select = c(1:5))
+    head <- data.table::fread(x, nrows = 3, select = 1:5)
     body <- data.table::fread(x, skip = 3, header = TRUE)
 
     list(
@@ -75,12 +75,12 @@
         T = body[seq(1, nrow(body), 2)][[2]],          # temperature
         Ddot = body[seq(2, nrow(body), 2)][[2]],       # instrument dose rate
         rawdata = lapply(seq(1, nrow(body), 2), function(y) {
-          LxTx <- .extract_numerics(body[y + 1, -c(1:4)])
+          LxTx <- .extract_numerics(body[y + 1, -(1:4)])
           data.table(SAMPLE = basename(tools::file_path_sans_ext(x)),
                      ALQ = ceiling(y / 2),
                      TEMP = body[y][[2]],
                      ## measurement time (irradiation or delay time)
-                     TIME = .extract_numerics(body[y, -c(1:4)]) * 1e+3,
+                     TIME = .extract_numerics(body[y, -(1:4)]) * 1e+3,
                      ## normalise the luminescence signal data to the maximum
                      LxTx = LxTx / max(LxTx))
         })

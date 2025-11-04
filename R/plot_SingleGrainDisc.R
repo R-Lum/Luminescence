@@ -183,8 +183,7 @@ plot_SingleGrainDisc <- function(object,
   }
 
   ## Show NA values
-  if(any(is.na(vn_values_to_show)))
-  {
+  if (anyNA(vn_values_to_show)) {
     points(x = df_disc$x,
            y = df_disc$y,
            cex = 0.5,
@@ -254,8 +253,7 @@ plot_SingleGrainDisc <- function(object,
     vn_pt_cex <- c( n_lb_cex, n_mv_cex,  n_ub_cex)
 
     ## if also NA values
-    if(any(is.na(vn_values_to_show)))
-    {
+    if (anyNA(vn_values_to_show)) {
       vs_legend <- c(vs_legend, "No obs.")
       vn_pch    <- c(vn_pch,     4 )
       vs_lty    <- c(vs_lty,    NA)

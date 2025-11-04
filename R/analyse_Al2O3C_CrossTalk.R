@@ -306,7 +306,7 @@ analyse_Al2O3C_CrossTalk <- function(
           col = col.seq[i]
         )
         text(x = cos(step) * 0.85,
-             y = sin(step) * .85,
+             y = sin(step) * 0.85,
              labels = i)
         step <- step + arc.step
       }

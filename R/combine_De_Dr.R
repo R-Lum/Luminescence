@@ -118,8 +118,8 @@
       n.iter = 5000,
       thin = 1,
       progress.bar = if(verbose) "text" else "none",
-      quiet = if(verbose) FALSE else TRUE,
-      diag = if(verbose) TRUE else FALSE,
+      quiet = !verbose,
+      diag = verbose,
       return_mcmc = FALSE
     ),
     val = method_control)
@@ -259,8 +259,8 @@
       n.iter = 5000,
       thin = 1,
       progress.bar = if(verbose) "text" else "none",
-      quiet = if(verbose) FALSE else TRUE,
-      diag = if(verbose) TRUE else FALSE,
+      quiet = !verbose,
+      diag = verbose,
       return_mcmc = FALSE
     ),
     val = method_control)
@@ -500,7 +500,7 @@ combine_De_Dr <- function(
   Dr,
   int_OD,
   Age_range = c(1,300),
-  outlier_threshold = .05,
+  outlier_threshold = 0.05,
   outlier_method = "default",
   outlier_analysis_plot = FALSE,
   method_control = list(),
@@ -597,7 +597,7 @@ fit_IAM <- .calc_IndividualAgeModel(
     out <- sort(which(test > alpha))
 
   } else {
-    sig_max <- sig0 * ((1 - alpha) / alpha) ^ .5
+    sig_max <- sig0 * ((1 - alpha) / alpha) ^ 0.5
     test <- vapply(1:length(De), function(j){
       mean(fit_IAM$sig_a[, j] >= sig_max)
     }, numeric(1))
@@ -673,7 +673,7 @@ fit_IAM <- .calc_IndividualAgeModel(
 
   ## calculate mean value and quantiles for the ecdf A * Dr
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
-  cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
+  cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(0.025, 0.975))
 
   ## further values to ease the interpretation
   d <- density(fit_BCAM$A)
@@ -717,7 +717,7 @@ if(plot){
     xlab = expression(paste("Index of ", sigma[a])))
 
     ## add axis
-    axis(side = 1, at = 1:length(De), labels = 1:length(De), )
+    axis(side = 1, at = 1:length(De))
     mtext(
       text = paste0(length(out), "/", N, " (", round(length(out) / N * 100, 1), "%)"),
       side = 3,

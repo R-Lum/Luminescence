@@ -230,7 +230,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
     plot(NA,
          xlim = c(0, 100),
          ylim = c(0, 100),
-         axes = F,
+         axes = FALSE,
          frame.plot = FALSE,
          xlab = "",
          ylab = "")
@@ -242,7 +242,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
             lty = 0)
 
     ## draw christmas trees
-    n = n.tree
+    n <- n.tree
     tree.x <- runif(n, 10, 90)
     tree.y <- runif(n, 10, 90)
     tree.size <- runif(n, 0.3, 1.5)

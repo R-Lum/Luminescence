@@ -360,8 +360,8 @@ calc_AverageDose <- function(
   IC <- rbind(IC_delta, IC_sigma_d)
 
   # standard errors
-  sedelta <- sqrt ((1/(Nb_BE-1))*sum((dstar[,1]-mean(dstar[,1]))^2))
-  sesigma_d <- sqrt ((1/(Nb_BE-1))*sum((dstar[,2]-mean(dstar[,2]))^2))
+  sedelta <- sqrt((1 / (Nb_BE - 1)) * sum((dstar[, 1] - mean(dstar[, 1]))^2))
+  sesigma_d <- sqrt((1 / (Nb_BE - 1)) * sum((dstar[, 2] - mean(dstar[, 2]))^2))
 
   ##Terminal output
   if (verbose) {

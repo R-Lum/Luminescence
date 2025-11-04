@@ -9,7 +9,6 @@
 #' Solving of the equation is realised using [uniroot].
 #' Large values for `n.MC` will significantly increase the computation time.
 #'
-#'
 #' @param data [data.frame] (**required**):
 #' input data  the following columns five columns in the given order:
 #' `LnTn`, `LnTn.error`, `Lr1Tr1`, `Lr1Tr1.error`, `Dr1`. Column names are
@@ -354,7 +353,7 @@ for(i in 1:nrow(data)){
 ##============================================================================##
 
     ##replace values in the data.table with values
-    output.data[i, `:=` (DE = De,
+    output.data[i, `:=`(DE = De,
                          DE.ERROR = De.error,
                          ETA = Eta)]
 

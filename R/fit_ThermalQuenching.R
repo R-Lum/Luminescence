@@ -363,7 +363,7 @@ fit_ThermalQuenching <- function(
         c <- fit_coef_MC_full[4,i]
         x <- 0
         curve(A / (1 + exp(C - W / (kB * x))) + c,
-              col = rgb(0, 0, 0, .1), add = TRUE)
+              col = rgb(0, 0, 0, 0.1), add = TRUE)
       }
     }
 

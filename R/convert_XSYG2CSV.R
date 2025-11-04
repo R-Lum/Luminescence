@@ -84,9 +84,8 @@ convert_XSYG2CSV <- function(
   arguments[duplicated(names(arguments))] <- NULL
 
   ##this if-condition prevents NULL in the terminal
-  if(convert_XSYG2R_settings$export == TRUE){
+  if (convert_XSYG2R_settings$export) {
     invisible(do.call("write_RLum2CSV", arguments))
-
   }else{
     do.call("write_RLum2CSV", arguments)
   }

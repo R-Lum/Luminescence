@@ -345,7 +345,7 @@ calc_FiniteMixture <- function(
 
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
-    re <- suppressWarnings(sqrt(diag(vmat)))[-c(1:(k-1))]
+    re <- suppressWarnings(sqrt(diag(vmat)))[-(1:(k-1))]
     re[is.nan(re)] <- NA
 
     sed<- dose*re
@@ -444,7 +444,6 @@ calc_FiniteMixture <- function(
 
     ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
     if (!multiple.components) {
-
       cat("\n llik:                 ", round(llik,4))
       cat("\n BIC:                  ", round(bic,3))
 
@@ -458,7 +457,7 @@ calc_FiniteMixture <- function(
 
       # print (to 2 decimal places) the estimated probabilities of which component
       # each grain is in -- sometimes useful for diagnostic purposes
-      if(grain.probability==TRUE) {
+      if (grain.probability) {
         cat("\n-------- grain probability -------\n\n")
         print(round(pui,2))
       }
@@ -559,7 +558,7 @@ calc_FiniteMixture <- function(
   ##=========##
   ## PLOTTING -----------
   if (plot)
-    try(do.call(.plot_FiniteMixture, c(results, as.list(sys.call())[-c(1,2)])))
+    try(do.call(.plot_FiniteMixture, c(results, as.list(sys.call())[-(1:2)])))
 
   # Return values
   invisible(results)
@@ -602,7 +601,7 @@ calc_FiniteMixture <- function(
 
   ## DEVICE AND PLOT LAYOUT
   n.plots <- length(n.components) #number of PDF plots in plot area #1
-  seq.matrix <- rbind(c(1:n.plots), c(1:n.plots))
+  seq.matrix <- rbind(1:n.plots, 1:n.plots)
   if (settings$plot.proportions)
     seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
   if (settings$plot.criteria)

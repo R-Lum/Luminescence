@@ -137,7 +137,7 @@ plot_RLum.Data.Curve<- function(
     }
 
   xlab <- xlab.xsyg %||% paste0(lab.xlab, " [", lab.unit, "]")
-  ylab <- ylab.xsyg %||% {
+  ylab <- ylab.xsyg %||% (
     if (lab.xlab == "Independent") {
       "Dependent [unknown]"
     } else {
@@ -145,7 +145,7 @@ plot_RLum.Data.Curve<- function(
       sprintf("%s [cts/%.2f %s]", object@recordType,
               round(max(vals) / length(vals), digits = 2), lab.unit)
     }
-  }
+  )
 
   sub <- if (grepl("TL", object@recordType) && "RATE" %in% names(object@info)) {
            paste0("(", object@info$RATE, " K/s)")

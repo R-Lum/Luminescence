@@ -325,7 +325,7 @@ analyse_FadingMeasurement <- function(
         }else{
           rm_records <- sum(TIMESINCEIRR < 0)
           object_clean[TIMESINCEIRR < 0] <- NULL
-          TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
+          TIMESINCEIRR <- TIMESINCEIRR[TIMESINCEIRR >= 0]
         }
 
         .throw_warning("removed ", rm_records, " records with negative ",
@@ -826,7 +826,7 @@ analyse_FadingMeasurement <- function(
         ## FIXME(mcol): this block seems unreachable since 5f63c1f1
         # nocov start
           shape::emptyplot()
-          text(x = .5, y = .5, labels = "All NA values!")
+          text(x = 0.5, y = 0.5, labels = "All NA values!")
         # nocov end
       }else{
         plot(
@@ -836,13 +836,13 @@ analyse_FadingMeasurement <- function(
           xaxt = "n",
           xlab = "Time since irradition [s]",
           sub = expression(paste("[", log[10](t / t[c]), "]")),
-          ylim = plot_settings$ylim %||% {
+          ylim = plot_settings$ylim %||% (
             if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
               c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
             } else {
               c(0.1, 1.1)
             }
-          },
+          ),
           xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
           main = "Signal Fading"
         )
@@ -966,7 +966,7 @@ analyse_FadingMeasurement <- function(
 
       if(all(is.na(g_value.MC))){
         shape::emptyplot()
-        text(x = .5, y = .5, labels = "All NA values!")
+        text(x = 0.5, y = 0.5, labels = "All NA values!")
 
       }else{
         plot(density(g_value.MC),

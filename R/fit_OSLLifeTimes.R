@@ -454,7 +454,7 @@ fit_OSLLifeTimes <- function(
         control = DEoptim::DEoptim.control(
            trace = method_control_setting$DEoptim.trace,
            itermax = method_control_setting$DEoptim.itermax,
-           c = .5,
+           c = 0.5,
            strategy = 2,
            parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
          )

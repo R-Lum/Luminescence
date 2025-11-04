@@ -482,12 +482,12 @@ plot_RLum.Analysis <- function(
       main <- plot.settings$main[[k]] %||% paste(temp.recordType[[k]], "combined")
 
       ##xlab
-      xlab <- plot.settings$xlab[[k]] %||% {
+      xlab <- plot.settings$xlab[[k]] %||% (
         if (temp.recordType[[k]] == "TL")
           "Temperature [\u00B0C]"
         else
           "Time [s]"
-      }
+      )
 
       ##ylab
       ylab <- plot.settings$ylab[[k]] %||% paste(temp.recordType[[k]], "[a.u.]")

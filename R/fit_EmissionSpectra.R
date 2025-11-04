@@ -410,7 +410,7 @@ fit_EmissionSpectra <- function(
     mu <- m[id_peaks,1]
 
     if(!is.null(start_parameters))
-      mu <- c(sort(start_parameters), mu[-c(1:length(start_parameters))])
+      mu <- c(sort(start_parameters), mu[-(1:length(start_parameters))])
 
     ## limit the number of components
     if(!is.null(n_components[1]))
@@ -558,7 +558,7 @@ fit_EmissionSpectra <- function(
       xlim = plot_settings$xlim,
       ylim = plot_settings$ylim,
       main = plot_settings$main,
-      col = rgb(0, 0, 0, .6),
+      col = rgb(0, 0, 0, 0.6),
       xaxt = "n",
       yaxt = "n",
       log = plot_settings$log
@@ -619,7 +619,7 @@ fit_EmissionSpectra <- function(
       xlim = plot_settings$xlim,
       ylab = "",
       xpd = NA,
-      col = rgb(0,0,0,.6),
+      col = rgb(0, 0, 0, 0.6),
       log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
     )
 
@@ -644,8 +644,8 @@ fit_EmissionSpectra <- function(
       side = 1,
       labels = paste0("(",round((h * c) / axTicks(side = 3), 0), " nm)"),
       at = axTicks(side = 3),
-      cex.axis = .7,
-      line = .8,
+      cex.axis = 0.7,
+      line = 0.8,
       tick = FALSE
     )
 

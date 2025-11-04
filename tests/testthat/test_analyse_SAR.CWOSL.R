@@ -193,7 +193,7 @@ test_that("check functionality", {
         recuperation_reference = "stop",
         test = "new",
         exceed.max.regpoint = FALSE),
-      plot = TRUE,
+      plot = TRUE
     ),
     "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
@@ -389,7 +389,7 @@ test_that("advance tests run", {
           "RLum.Data.Curve",
           recordType = "irradiation",
           data = no_irr_object[[1]]@records[[1]]@data,
-          info = no_irr_object[[1]]@records[[1]]@info,
+          info = no_irr_object[[1]]@records[[1]]@info
           ),
           no_irr_object[[2]][[1]], no_irr_object[[2]][[2]]),
       originator = "read_XSYG2R"

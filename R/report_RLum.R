@@ -353,7 +353,7 @@ report_RLum <- function(
     for (i in 1:nrow(elements)) {
       # SKIP ELEMENT?
       # hide @.pid and @.uid if this is a shortened report (default)
-      if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
+      if (elements$bud[i] %in% c(".uid", ".pid") && compact)
         next
 
       # HEADER
@@ -361,7 +361,7 @@ report_RLum <- function(
       links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
       type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
       if (type == "[")
-        type = ""
+        type <- ""
 
       # HTML header level is determined by the elements depth in the object
       # exception: first row is always the object's name and has depth zero

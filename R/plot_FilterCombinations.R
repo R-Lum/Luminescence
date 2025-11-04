@@ -261,7 +261,7 @@ plot_FilterCombinations <- function(
       grid = expression(nx = 10, ny = 10),
       legend = TRUE,
       legend.text = colnames(filter_matrix_transmission),
-      net_transmission.col = rgb(0,0.7,0,.2),
+      net_transmission.col = rgb(0, 0.7, 0, 0.2),
       net_transmission.col_lines = "grey",
       net_transmission.density = 20
     )
@@ -346,7 +346,7 @@ plot_FilterCombinations <- function(
           y = c(net_transmission_window[, 2],
                 rep(0, length(wavelength_range))),
           col = plot_settings$net_transmission.col,
-          border = NA,
+          border = NA
         )
         polygon(
           x = c(wavelength_range, rev(wavelength_range)),

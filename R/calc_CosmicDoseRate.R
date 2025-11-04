@@ -265,8 +265,8 @@ calc_CosmicDoseRate<- function(
     .throw_error("No negative or missing values allowed for 'depth' and 'density'")
   }
 
-  if(corr.fieldChanges == TRUE) {
-    if(is.na(est.age) == TRUE) {
+  if (corr.fieldChanges) {
+    if (is.na(est.age)) {
       .throw_error("Correction for geomagnetic field ",
                    "changes requires an age estimate")
     }
@@ -377,7 +377,7 @@ calc_CosmicDoseRate<- function(
 
 
     ## Additional correction for geomagnetic field change
-    if(corr.fieldChanges==TRUE) {
+    if (corr.fieldChanges) {
 
       if(gml <= 35) {
 
@@ -430,7 +430,7 @@ calc_CosmicDoseRate<- function(
     dc.err<- dc*error/100
 
     # save intermediate results before next sample is calculated
-    if(profile.mode==TRUE) {
+    if (profile.mode) {
       profile.results[i,1]<- round(depth[i],2)
       profile.results[i,2]<- round(d0,4)
       profile.results[i,3]<- round(dc,4)

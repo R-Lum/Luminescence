@@ -253,8 +253,7 @@ plot_DRTResults <- function(
     }
 
     ##remove NA values; yes Micha, it is not that simple
-    if(na.rm  == TRUE){
-
+    if (!na.rm) {
       ##currently we assume that all input data sets comprise a similar of data
       if(!missing(preheat) & i == length(values)){
         ## remove preheat entries corresponding to NA values
@@ -319,7 +318,7 @@ plot_DRTResults <- function(
   ##correct ylim for data set which exceed boundaries
   if ((max(sapply(values, function(x) max(x[, 1], na.rm = TRUE))) > 1.25 ||
        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE))) < 0.75) &&
-       ("ylim" %in% names(extraArgs)) == FALSE){
+       (!"ylim" %in% names(extraArgs))) {
     ylim <- c(
       min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) - max(x[, 2], na.rm = TRUE))),
       max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) + max(x[, 2], na.rm = TRUE))))
@@ -349,13 +348,13 @@ plot_DRTResults <- function(
     xlim <- c(0.5, length(unique(preheat)) + 0.5)
 
   ## assign colour indices
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {
+  col <- extraArgs$col %||% (
     if(missing(preheat) == TRUE) {
       rep(seq(from = 1, to = length(values)), each = length(modes))
     } else {
       rep(seq(from = 1, to = length(values)), length(modes))
     }
-  }
+  )
 
   ## calculate and paste statistical summary
   if(summary.pos[1] != "sub") {
@@ -406,7 +405,7 @@ plot_DRTResults <- function(
   }
 
   ## optionally plot values and error bars
-  if(boxplot == FALSE) {
+  if (!boxplot) {
     ## plot data and error
     if(missing(preheat) == TRUE) {
       ## create empty plot
@@ -461,15 +460,15 @@ plot_DRTResults <- function(
       ## add data and error bars
       for(i in 1:length(values)) {
 
-        points(x = c(1:nrow(values[[i]])),
+        points(x = 1:nrow(values[[i]]),
                y = values[[i]][,1],
                pch = if (oneinput && nrow(values[[i]]) == length(pch)) pch else pch[i],
                col = if (multicol) col else col[i],
                cex = 1.2)
 
-        graphics::arrows(c(1:nrow(values[[i]])),
+        graphics::arrows(1:nrow(values[[i]]),
                values[[i]][,1] + values[[i]][,2],
-               c(1:nrow(values[[i]])),
+               1:nrow(values[[i]]),
                values[[i]][,1] - values[[i]][,2],
                angle = 90,
                length = 0.075,
@@ -685,5 +684,5 @@ plot_DRTResults <- function(
         cex = 0.8 * cex)
 
   ##FUN by R Luminescence Team
-  if (fun == TRUE) sTeve() # nocov
+  if (fun) sTeve() # nocov
 }

@@ -368,10 +368,9 @@ fit_SurfaceExposure <- function(
       use_fun <- fun_global_w_dr
     else
       use_fun <- fun_w_dr
-  } else {
-    if (global_fit)
+  } else if (global_fit) {
       use_fun <- fun_global
-    else
+  } else {
       use_fun <- fun
   }
 
@@ -399,7 +398,7 @@ fit_SurfaceExposure <- function(
     # Fill with NA values
     coef <- data.frame(
       Estimate = rep(NA, 3),
-      `Std. Error` = rep(NA, 3),
+      "Std. Error" = rep(NA, 3),
       row.names = c("age", "sigmaphi", "mu"), check.names = FALSE
     )
   }

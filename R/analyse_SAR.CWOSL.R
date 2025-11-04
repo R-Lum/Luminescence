@@ -403,7 +403,7 @@ error.list <- list()
                          "the signal integral; signal integral for Tx automatically set")
         }
 
-      if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
+    if (!is.null(signal.integral.Tx) && is.null(background.integral.Tx)) {
         background.integral.Tx <- background.integral
         .throw_warning("Signal integral for Tx curves set, but not for the ",
                        "background integral; background integral for Tx automatically set")
@@ -639,7 +639,7 @@ error.list <- list()
 
     # Set regeneration points -------------------------------------------------
     ##overwrite dose point manually
-    if (!is.null(dose.points) & length(dose.points) > 0) {
+    if (!is.null(dose.points) && length(dose.points) > 0) {
       if (length(dose.points) != length(LnLxTnTx$Dose))
         .throw_error("Length of 'dose.points' (", length(dose.points),
                      ") differs from number of curves (", length(LnLxTnTx$Dose), ")")
@@ -1235,7 +1235,7 @@ error.list <- list()
             .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
           }
         }else{
-          plot(1, type="n", axes=F, xlab="", ylab="")
+          plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
           text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
         }
       }

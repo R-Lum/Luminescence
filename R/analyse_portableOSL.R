@@ -389,7 +389,7 @@ analyse_portableOSL <- function(
            y = m[, 2],
            z = m[, 3],
            nx = plot_settings$nx,
-           ny = plot_settings$ny,
+           ny = plot_settings$ny
          ), silent = TRUE)
 
        ## show only warning

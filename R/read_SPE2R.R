@@ -258,7 +258,8 @@ read_SPE2R <- function(
   }
 
   ##set frame.range
-  if(missing(frame.range) == TRUE){frame.range <- c(1,NumFrames)}
+  if (missing(frame.range))
+    frame.range <- c(1, NumFrames)
 
   ##jump
   readBin(con, what = "raw", 542, size = 1, endian = "little")
@@ -392,7 +393,7 @@ read_SPE2R <- function(
   }else if(output.object == "RLum.Data.Image"){
     object <- as(data.list, "RLum.Data.Image")
     object@originator <- "read_SPE2R"
-    object@recordType = "Image"
+    object@recordType <- "Image"
     object@curveType <- "measured"
     object@info <- temp.info
   }

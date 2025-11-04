@@ -288,14 +288,14 @@ extract_IrradiationTimes <- function(
   ## accordingly
   if (.check_originator(temp.sequence, bin.originators)) {
     temp.START <- vapply(temp.sequence, function(x) {
-       paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
+       paste0(get_RLum(x, info.object = "DATE"), get_RLum(x, info.object = "TIME"))
     }, character(1))
 
     fmt <- if (grepl(":", temp.START[1])) "%y%m%d%H:%M:%S" else "%y%m%d%H%M%S"
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {
-      suppressWarnings(get_RLum(x, info.object = c("startDate"))) %||%
+      suppressWarnings(get_RLum(x, info.object = "startDate")) %||%
         as.character(Sys.Date())
     }, character(1))
 
@@ -335,8 +335,8 @@ extract_IrradiationTimes <- function(
 
     ##POSITION of each STEP
     POSITION <- vapply(temp.sequence, function(x){
-      suppressWarnings(get_RLum(x, info.object = c("position"))) %||%
-        get_RLum(x, info.object = c("POSITION"))
+      suppressWarnings(get_RLum(x, info.object = "position")) %||%
+        get_RLum(x, info.object = "POSITION")
     }, numeric(1))
   }
 

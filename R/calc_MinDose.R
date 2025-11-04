@@ -527,7 +527,6 @@ calc_MinDose <- function(
     # recover the data
     zi <- data[ ,1]
     si <- data[ ,2]
-    n <- length(zi)
 
     # in the MAM-3 gamma and mu are assumed to be equal
     if (par == 3)
@@ -918,10 +917,10 @@ calc_MinDose <- function(
         row.names="", check.names = FALSE), 2)
 
       if (log && log.output) {
-        tmp$`log(gamma)` = round(log(tmp$gamma),2)
-        tmp$`log(sigma)` = round(log(tmp$sigma),2)
+        tmp$`log(gamma)` <- round(log(tmp$gamma),2)
+        tmp$`log(sigma)` <- round(log(tmp$sigma),2)
         if (par == 4)
-          tmp$`log(mu)` = round(log(tmp$mu),2)
+          tmp$`log(mu)` <- round(log(tmp$mu),2)
       }
 
       print(tmp)

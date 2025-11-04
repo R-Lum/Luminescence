@@ -183,11 +183,7 @@ convert_Concentration2DoseRate <- function(
       }
 
       for (j in 1:2){
-        if (j== 1){
-          Temp = "beta"
-        } else {
-          Temp = "gamma"
-        }
+        Temp <- if (j == 1) "beta" else "gamma"
 
         ConvFactor <- BaseDataSet.ConversionFactors[[conversion]][[Temp]][[Col]]
         Nuclide <- i * 2
@@ -237,9 +233,9 @@ convert_Concentration2DoseRate <- function(
     for (i in 1:6){
       for (j in 1:2){
         if (j == 1){
-          k = 1.25 #Water content correction for beta
+          k <- 1.25 #Water content correction for beta
         } else {
-          k = 1.14 #Water content correction for gamma
+          k <- 1.14 #Water content correction for gamma
         }
 
         Remain <- i %% 2

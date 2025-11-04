@@ -100,7 +100,7 @@ convert_BIN2CSV <- function(
   arguments[duplicated(names(arguments))] <- NULL
 
   ##this if-condition prevents NULL in the terminal
-  if(convert_BIN2CSV_settings$export == TRUE){
+  if (convert_BIN2CSV_settings$export) {
     invisible(do.call("write_RLum2CSV", arguments))
   }else{
     do.call("write_RLum2CSV", arguments)

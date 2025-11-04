@@ -543,7 +543,7 @@ analyse_SAR.TL <- function(
       ylim = c(0,
                quantile(
                  TL.Plateau.TnTx[c(signal.integral.min:signal.integral.max), 2],
-                 probs = c(0.90), na.rm = TRUE
+                 probs = 0.90, na.rm = TRUE
                ) + 3),
       col = "darkgreen"
     )
@@ -551,7 +551,7 @@ analyse_SAR.TL <- function(
 
     # Plotting Legend ----------------------------------------
     plot(
-      c(1:(length(TL.signal.ID) / 2)),
+      1:(length(TL.signal.ID) / 2),
       rep(8, length(TL.signal.ID) / 2),
       type = "p",
       axes = FALSE,
@@ -564,7 +564,7 @@ analyse_SAR.TL <- function(
     )
 
     ##add text
-    text(c(1:(length(TL.signal.ID) / 2)),
+    text(1:(length(TL.signal.ID) / 2),
          rep(4, length(TL.signal.ID) / 2),
          paste0(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")"))
 

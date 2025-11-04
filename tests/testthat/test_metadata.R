@@ -72,11 +72,11 @@ test_that("input validation", {
                "'subset' should contain a logical expression")
   expect_message(replace_metadata(risoe, "SEL", subset = ID == 99) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
-  expect_message(replace_metadata(risoe, "SEL", subset = ID == NA) <- 0,
+  expect_message(replace_metadata(risoe, "SEL", subset = is.na(ID)) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
   expect_message(replace_metadata(curve, "SEL", subset = SET == 99) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
-  expect_message(replace_metadata(curve, "SEL", subset = ID == NA) <- 0,
+  expect_message(replace_metadata(curve, "SEL", subset = is.na(ID)) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
 })
 

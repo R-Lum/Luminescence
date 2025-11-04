@@ -403,7 +403,7 @@ calc_Huntley2006 <- function(
   }
 
   # check if 'rhop' is actually a positive value
-  if (anyNA(rhop) || !rhop[1] > 0 || any(is.infinite(rhop))) {
+  if (anyNA(rhop) || rhop[1] <= 0 || any(is.infinite(rhop))) {
     .throw_error("'rhop' must be a positive number, the provided value ",
                  "was ", signif(rhop[1], 3), " \u00B1 ", signif(rhop[2], 3))
   }
@@ -700,9 +700,7 @@ calc_Huntley2006 <- function(
   GC.settings$object <- data.unfaded
 
   ## calculate simulated DE
-  suppressWarnings(
-    GC.simulated <- try(do.call(fit_DoseResponseCurve, GC.settings))
-  )
+  GC.simulated <- suppressWarnings(try(do.call(fit_DoseResponseCurve, GC.settings)))
 
   fit_simulated <- NA
   De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA

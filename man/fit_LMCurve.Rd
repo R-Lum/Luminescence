@@ -141,7 +141,8 @@ from package \code{minpack.lm}.
 The function for the fitting has the general
 form:
 
-\deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, + exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))}
+\deqn{y = (exp(0.5) * Im_1 * x / xm_1) * exp(-x^2 / (2 * xm_1^2)) + \ldots +
+           exp(0.5) * Im_i * x / xm_i) * exp(-x^2 / (2 * xm_i^2))}
 
 where \eqn{1 < i < 8}
 

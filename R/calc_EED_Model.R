@@ -553,7 +553,6 @@ M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsim
 
 M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul, MinNbSimExp)
 
-max_dose_simul <- max(M_Simul[,3])
 index_min_uncert <- sort.list(index_min_uncert <-
               rank(M_Data[, 7], ties.method = "first"))
 
@@ -608,7 +607,7 @@ if(plot) {
     freq = FALSE,
     breaks = seq(0, box_width * (1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
     xlim = plot_settings$xlim,
-    border = rgb(0.7,0.1,0,.5),
+    border = rgb(0.7, 0.1, 0, 0.5),
     col = rgb(240,154,149,alpha = 255, maxColorValue = 255),
     main = paste0("Distribution De: ", sample_name),
     xlab = plot_settings$xlab
@@ -619,7 +618,7 @@ if(plot) {
     x = M_Simul[,3],
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
     freq = FALSE,
-    border = rgb(0,0.1,0.8,.5),
+    border = rgb(0, 0.1, 0.8, 0.5),
     col = rgb(122,206,209,alpha = 140, maxColorValue = 255),
     add = TRUE,
     xlab = plot_settings$xlab
@@ -643,7 +642,7 @@ if(plot) {
     freq = FALSE,
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,2])/box_width)), box_width),
     xlim = plot_settings$xlim,
-    border = rgb(0.7,0.1,0,.5),
+    border = rgb(0.7, 0.1, 0, 0.5),
     col = rgb(240,154,149,alpha = 255, maxColorValue = 255),
     main = paste0("Distribution SE(De):", sample_name),
     xlab = plot_settings$xlab
@@ -654,7 +653,7 @@ if(plot) {
     x = M_Simul[,2],
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,2])/box_width)), box_width),
     freq = FALSE,
-    border = rgb(0,0.1,0.8,.5),
+    border = rgb(0, 0.1, 0.8, 0.5),
     col = rgb(122,206,209,alpha = 140, maxColorValue = 255),
     add = TRUE,
     xlab = plot_settings$xlab

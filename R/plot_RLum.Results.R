@@ -166,7 +166,7 @@ plot_RLum.Results<- function(
     # })
 
     ## bootstrap MAM estimates
-    if(object@data$args$bootstrap==TRUE) {
+    if (object@data$args$bootstrap) {
 
       # save previous plot parameter and set new ones
       .pardefault <- .par_defaults()
@@ -188,7 +188,7 @@ plot_RLum.Results<- function(
 
       ## --------- PLOT "RECYCLE" BOOTSTRAP RESULTS ------------ ##
 
-      if(single==TRUE) {
+      if (single) {
         graphics::layout(cbind(c(1, 1, 2, 5, 5, 6), c(3, 3, 4, 7, 7, 8)))
         par(cex = 0.6)
       } else {
@@ -385,7 +385,7 @@ plot_RLum.Results<- function(
         x<- unlist(object@data$profile@profile$gamma$par.vals[,1])
         y<- abs(unlist(object@data$profile@profile$gamma$z))
 
-        if(object@data$args$log == TRUE) {
+        if (object@data$args$log) {
           x<- exp(x)
         }
 
@@ -446,7 +446,8 @@ plot_RLum.Results<- function(
              pch = c(NA,NA,NA,16),
              lty = c(1,1,1,1),
              lwd=c(10,2,2,2),
-             legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)","Profile likelihood", "Grain / aliquot"),
+             legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)",
+                        "Profile likelihood", "Grain / aliquot")
       )
     }##EndOf::Bootstrap_plotting
   }#EndOf::CASE1_MinimumAgeModel-3

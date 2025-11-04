@@ -404,13 +404,13 @@ setMethod("get_RLum",
               .validate_class(record.id, c("integer", "numeric", "logical"),
                               null.ok = TRUE)
               if (is.null(record.id)) {
-                record.id <- c(1:length(object@records))
+                record.id <- 1:length(object@records)
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
               ##values instead of numerical indices
               if (is.logical(record.id)) {
-                record.id <- c(1:length(object@records))[record.id]
+                record.id <- (1:length(object@records))[record.id]
               }
 
               ##check if record.id exists

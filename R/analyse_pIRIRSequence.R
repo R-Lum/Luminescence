@@ -285,7 +285,6 @@ analyse_pIRIRSequence <- function(
   ## Deal with extra arguments
   extraArgs <- list(...)
   main <- extraArgs$main %||% "MEASUREMENT INFO"
-  log <- extraArgs$log %||% ""
   cex <- extraArgs$cex %||% 0.7
 
   ## Enforce a minimum plot device size: this is necessary as otherwise users
@@ -441,8 +440,8 @@ analyse_pIRIRSequence <- function(
   mat <- matrix(layout.matrix, nrow = nrows, ncol = 4, byrow = TRUE)
   graphics::layout(
     mat = mat,
-    widths = c(rep(c(1, 1, 1, .75), 6), c(1, 1, 1, 1)),
-    heights = c(rep(c(1), (2 + 2 * n.loops)), c(0.20, 0.20)))
+    widths = c(rep(c(1, 1, 1, 0.75), 6), 1, 1, 1, 1),
+    heights = c(rep(1, 2 + 2 * n.loops), 0.20, 0.20))
   }
 
   ##(1) INFO PLOT
@@ -596,12 +595,12 @@ if(plot){
 
      ##De values
      lines(c(0, get_RLum(temp.results.final, "data")[j,1]),
-           c(temp.curve.points[1,c("LxTx")], temp.curve.points[1,c("LxTx")]),
+           c(temp.curve.points[1, "LxTx"], temp.curve.points[1, "LxTx"]),
            col = j,
            lty = 2)
 
      lines(c(rep(get_RLum(temp.results.final, "data")[j,1], 2)),
-           c(temp.curve.points[1,c("LxTx")], 0),
+           c(temp.curve.points[1, "LxTx"], 0),
            col = j,
            lty = 2)
 
@@ -616,10 +615,9 @@ if(plot){
 
     ##plot legend
     legend("bottomright", legend = pIRIR.curve.names,
-           lty = 1, col = c(1:length(pIRIR.curve.names)),
+           lty = 1, col = 1:length(pIRIR.curve.names),
            bty = "n",
-           pch = c(1:length(pIRIR.curve.names))
-           )
+           pch = 1:length(pIRIR.curve.names))
 
     ##plot Tn/Tx curves
     ##select signal
@@ -640,8 +638,7 @@ if(plot){
     }
 
     plot(NA, NA,
-       xlim = c(0,nrow(LnLxTnTx.table)/
-                     n.loops),
+       xlim = c(0, nrow(LnLxTnTx.table) / n.loops),
        ylim = if (anyNA(range(temp.curve.TnTx.matrix))) c(0,1) else range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
        ylab = expression(T[x]/T[n]),
@@ -660,10 +657,9 @@ if(plot){
 
    ##plot legend
    legend("bottomleft", legend = pIRIR.curve.names,
-         lty = 1, col = c(1:length(pIRIR.curve.names)),
+         lty = 1, col = 1:length(pIRIR.curve.names),
          bty = "n",
-         pch = c(1:length(pIRIR.curve.names))
-         )
+         pch = 1:length(pIRIR.curve.names))
 
    ##Rejection criteria
    temp.rejection.criteria <- get_RLum(temp.results.final,
@@ -689,7 +685,7 @@ if(plot){
    axis(side = 1, at = c(-0.2,-0.1,0,0.1,0.2), labels = c("- 0.2", "- 0.1","0/1","+ 0.1", "+ 0.2"))
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recycling ratio
-   text(x = -.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
+   text(x = -0.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
    polygon(x = c(-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
                 -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
                 as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
@@ -721,7 +717,7 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recuperation rate
-   text(x = -.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
+   text(x = -0.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
 
    if(length(as.character(temp.rc.recuperation.rate$Threshold))>0){
    polygon(x = c(0,
@@ -745,7 +741,7 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for palaeodose error
-   text(x = -.4, y = 10, "Palaeodose error", pos = 1, srt = 0)
+   text(x = -0.4, y = 10, "Palaeodose error", pos = 1, srt = 0)
    polygon(x = c(0,
                 0,
                 as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
@@ -768,9 +764,9 @@ if(plot){
 
   ##plot legend
   legend("bottomright", legend = pIRIR.curve.names,
-         col = c(1:length(pIRIR.curve.names)),
+         col = 1:length(pIRIR.curve.names),
          bty = "n",
-         pch = c(1:length(pIRIR.curve.names)))
+         pch = 1:length(pIRIR.curve.names))
 }##end plot == TRUE
 
 

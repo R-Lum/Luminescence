@@ -397,7 +397,7 @@ as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
 #' @export
 # nocov start
 is.RLum <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release");
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
   is(x, "RLum")
 }
 

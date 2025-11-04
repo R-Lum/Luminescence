@@ -195,7 +195,7 @@ convert_CW2pLMi<- function(
   ##set P
   ##if no values for P is set selected a P value for a maximum of
   ##two extrapolation points
-  if(missing(P)==TRUE){
+  if (missing(P)) {
     i<-10
     P<-1/i
     t.transformed<-0.5*1/P*t^2
@@ -208,7 +208,6 @@ convert_CW2pLMi<- function(
 
     }#end::while
   }else{
-
     if (P == 0) {
       .throw_error("P has to be > 0")
     }
@@ -245,7 +244,7 @@ convert_CW2pLMi<- function(
 
 
   ##(a) - find index of first rows which contain NA values (needed for extrapolation)
-  temp.sel.id<-min(which(is.na(temp[,2])==FALSE))
+  temp.sel.id <- min(which(!is.na(temp[, 2])))
 
   ##(b) - fit linear function
   fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))

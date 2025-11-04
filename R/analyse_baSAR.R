@@ -495,7 +495,7 @@ analyse_baSAR <- function(
       ##Include or exclude repeated dose points
       if (!fit.includingRepeatedRegPoints) {
         for (i in 1:Nb_aliquots) {
-          temp.logic <- !duplicated(data.Dose[,i], incomparables=c(0))  # logical excluding 0
+          temp.logic <- !duplicated(data.Dose[, i], incomparables = 0) # logical excluding 0
           m <- length(which(!temp.logic))
 
           data.Dose[,i] <-  c(data.Dose[,i][temp.logic], rep(NA, m))
@@ -1886,7 +1886,7 @@ analyse_baSAR <- function(
         lwd = 1.5
       )
       text(
-        x = results[[1]][, c("CENTRAL")],
+        x = results[[1]][, "CENTRAL"],
         y = 16,
         labels = "68 %",
         pos = 3,
@@ -1906,7 +1906,7 @@ analyse_baSAR <- function(
       )
 
       text(
-        x = results[[1]][, c("CENTRAL")],
+        x = results[[1]][, "CENTRAL"],
         y = 17.5,
         labels = "95 %",
         pos = 3,
@@ -1983,9 +1983,9 @@ analyse_baSAR <- function(
                   GC_Origin * plot_matrix[i, "g"] +
                   LinGC * (plot_matrix[i, "c"] * x) +
                   ExpoGC * (plot_matrix[i, "a"] *
-                            (1 - exp (-x / plot_matrix[i, "b"]))),
+                            (1 - exp(-x / plot_matrix[i, "b"]))),
                   add = TRUE,
-                  col = rgb(0, 0, 0, .1)
+                  col = rgb(0, 0, 0, 0.1)
               )
             }
           }else{

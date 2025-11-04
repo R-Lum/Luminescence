@@ -336,20 +336,15 @@ read_Daybreak2R <- function(
     ##(1)
     ##make a list ... this is not essentially needed but it makes things easier
     data.list <- lapply(1:length(records.row_number), function(x) {
-
-      ##grep each element
       if (!is.na(records.row_number[x + 1])) {
         return(file2read[records.row_number[x]:(records.row_number[x + 1] - 1)])
-
       }else{
         return(file2read[records.row_number[x]:length(file2read)])
-
       }
     })
 
       ##clear memory
       rm(file2read)
-
 
     ##TERMINAL FEEDBACK
     if(verbose){

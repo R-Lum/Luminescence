@@ -210,7 +210,7 @@ merge_RLum.Data.Curve<- function(
     temp.matrix <- temp.matrix[, 1] / rowSums(temp.matrix[, -1, drop = FALSE])
 
     ## replace infinities with 0 and throw warning
-    id.inf <- which(is.infinite(temp.matrix) == TRUE)
+    id.inf <- which(is.infinite(temp.matrix))
     if (length(id.inf) > 0) {
       temp.matrix[id.inf]  <- 0
       .throw_warning(length(id.inf),
