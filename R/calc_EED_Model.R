@@ -701,7 +701,7 @@ if(plot) {
      type = "p",
      pch = 1,
      log = "x",
-     main = paste("sample ", sample_name, sep = ""),
+     main = paste0("sample ", sample_name),
      xlab = plot_settings$xlab,
      ylab = "Cumulative mean doses [Gy]",
      xlim = c(min(Dosedata[, 1]), plot_settings$xlim[2]),

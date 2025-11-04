@@ -88,12 +88,11 @@ get_Quote <- function(
   ## check for correct ID and generate qoute
   if(length(ID) < 1 | ID > nrow(quotes)) {
     quote.out <- "Sorry, but this was an impossible task!"
-
   } else {
 
     ## generate qoute(s)
-    if(separated == FALSE) {
-      quote.out <- paste(quotes[ID,1], ": '", quotes[ID,2], "'", sep = "")
+    if (!separated) {
+      quote.out <- paste0(quotes[ID,1], ": '", quotes[ID,2], "'")
     } else {
       quote.out <- quotes[ID,]
     }

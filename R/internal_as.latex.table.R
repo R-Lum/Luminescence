@@ -255,12 +255,12 @@
       pos <- "c"
     }
     if (nchar(pos) == 1)
-      pos <- paste0(rep(pos, ncol(x)), collapse = "")
+      pos <- strrep(pos, ncol(x))
 
     if(tabular_only){
       tex.table.begin <- paste0(
-        paste("  \\begin{tabular}{", pos, "}\n"),
-              "     \\hline \n")
+          "  \\begin{tabular}{", pos, "}\n",
+          "     \\hline \n")
 
       tex.table.end <-  paste0(
         "     \\hline \n",
@@ -271,7 +271,7 @@
         "\\begin{table}[ht] \n",
         "  \\centering \n",
         "  \\begin{adjustbox}{max width=\\textwidth} \n",
-        paste("  \\begin{tabular}{", pos, "}\n"),
+        "  \\begin{tabular}{", pos, "}\n",
         "     \\hline \n")
 
       tex.table.end <-  paste0(

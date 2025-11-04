@@ -281,11 +281,11 @@ plot_DRTResults <- function(
   xlab <- extraArgs$xlab %||% ifelse(missing(preheat) == TRUE,
                                      "# Aliquot", "Preheat temperature [\u00B0C]")
 
-  ylab <- extraArgs$ylab %||% {
+  ylab <- extraArgs$ylab %||% (
     if (!is.null(given.dose) && length(given.dose) > 0 && given.dose[1] > 0)
-      expression(paste("Normalised ", D[e], sep = ""))
-    else expression(paste(D[e], " [s]", sep = ""))
-  }
+      expression(paste("Normalised ", D[e]))
+    else expression(paste(D[e], " [s]"))
+  )
 
   xlim <- extraArgs$xlim %||% (c(0, max(n.values)) + 0.5)
   ylim <- extraArgs$ylim %||% c(0.75, 1.25) # check below for further corrections if boundaries exceed set range
@@ -439,14 +439,14 @@ plot_DRTResults <- function(
           text(
             par()$usr[2],
             (1 + error.range / 100) + 0.02,
-            paste("+", error.range , " %", sep = ""),
+            paste0("+", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
           text(
             par()$usr[2],
             (1 - error.range / 100) - 0.02,
-            paste("-", error.range , "%", sep = ""),
+            paste0("-", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
@@ -534,14 +534,14 @@ plot_DRTResults <- function(
           text(
             par()$usr[2],
             (1 + error.range / 100) + 0.02,
-            paste("+", error.range , " %", sep = ""),
+            paste0("+", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
           text(
             par()$usr[2],
             (1 - error.range / 100) - 0.02,
-            paste("-", error.range , "%", sep = ""),
+            paste0("-", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
@@ -635,9 +635,9 @@ plot_DRTResults <- function(
 
         ## error range labels
         text(par()$usr[2], (1 + error.range / 100) + 0.02,
-             paste("+", error.range ," %", sep = ""), pos = 2, cex = 0.8)
+             paste0("+", error.range ,"%"), pos = 2, cex = 0.8)
         text(par()$usr[2], (1 - error.range / 100) - 0.02,
-             paste("-", error.range ,"%", sep = ""), pos = 2, cex = 0.8)
+             paste0("-", error.range ,"%"), pos = 2, cex = 0.8)
       }
     }
 

@@ -877,35 +877,33 @@ if(plot){
            frame = box,
            xaxt = "n",
            col = col,
-           sub = paste(
+           sub = paste0(
              "(frame ",i, " | ",
-             ifelse(i==1,
-                    paste("0.0 :", round(y[i], digits = 1)),
-                    paste(round(y[i-1], digits = 1),":",
-                          round(y[i], digits =1))),")",
-             sep = ""),
+             paste(ifelse(i == 1, "0.0", round(y[i - 1], digits = 1)),
+                    ":", round(y[i], digits = 1)), ")"),
            type = type,
            pch = pch)
 
       ## add colour rug
       if(rug){
+        par.usr <- par("usr")
           ##rug as continuous rectangle
           i <- floor(seq(1,length(x), length.out = 300))
           graphics::rect(
             xleft = x[i[-length(i)]],
             xright = x[i[-1]],
-            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-            ybottom = par("usr")[3],
+            ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+            ybottom = par.usr[3],
             col = col.rug[i],
             border = NA,
             lwd = 1)
 
           ## add rectangle from zero to first value
           graphics::rect(
-            xleft = par()$usr[1],
+            xleft = par.usr[1],
             xright = x[i[1]],
-            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-            ybottom = par("usr")[3],
+            ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+            ybottom = par.usr[3],
             col = col.rug[1],
             density = 50,
             border = NA,

@@ -61,12 +61,11 @@ readline <- NULL
 .onAttach <- function(libname,pkgname){
 
   ##set startup message
-  try(packageStartupMessage(paste("Welcome to the R package Luminescence version ",
+  try(packageStartupMessage("Welcome to the R package Luminescence version ",
                               packageDescription(pkg="Luminescence")$Version,
                               " [Built: ",
                               trimws(strsplit(packageDescription(pkg="Luminescence")$Built, ";")[[1]][3]),
-                             "]", sep=""),
-                            "\n",
+                            "]\n",
                             get_Quote()), silent=TRUE)
 }
 

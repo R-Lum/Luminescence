@@ -156,7 +156,7 @@ calc_FuchsLang2001 <- function(
       } else {
         usedDeValues[endDeValue, 1] <- data_ordered[endDeValue, 1]
         usedDeValues[endDeValue, 2] <- data_ordered[endDeValue, 2]
-        usedDeValues[endDeValue, 3] <- paste("# ", cv, " %", sep = "")
+        usedDeValues[endDeValue, 3] <- paste("#", cv, "%")
 
         break #break loop
       }

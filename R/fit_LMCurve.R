@@ -423,10 +423,9 @@ fit_LMCurve<- function(
   ##set function for fit equation (according Kitis and Pagonis, 2008)
   ##////equation used for fitting////(start)
   fit.equation<-function(Im.i,xm.i){
-    equation<-parse(
-      text=paste("exp(0.5)*Im[",Im.i,"]*(values[,1]/xm[",xm.i,"])*exp(-values[,1]^2/(2*xm[",xm.i,"]^2))",
-                 collapse="+",sep=""))
-    return(equation)
+    parse(text = paste0("exp(0.5) * Im[", Im.i, "] * (values[, 1] / xm[",
+                        xm.i, "]) * exp(-values[, 1]^2 / (2 * xm[", xm.i, "]^2))",
+                        collapse = "+"))
   }
   ##////equation used for fitting///(end)
   ##------------------------------------------------------------------------##

@@ -408,7 +408,7 @@ analyse_SAR.TL <- function(
        ylab = "TL [a.u.]",
        xlim = range(LnLx_matrix[, 1]),
        ylim = range(LnLx_matrix[, -1]),
-       main = expression(paste(L[n], ",", L[x], " curves", sep = "")),
+       main = expression(paste(L[n], ",", L[x], " curves")),
        log = log
   )
 
@@ -427,7 +427,7 @@ analyse_SAR.TL <- function(
     ylab = paste0("TL [a.u.]"),
     xlim = range(TnTx_matrix[, 1]),
     ylim = range(TnTx_matrix[, -1]),
-    main = expression(paste(T[n], ",", T[x], " curves", sep = "")),
+    main = expression(paste(T[n], ",", T[x], " curves")),
     log = log
   )
 
@@ -470,8 +470,7 @@ analyse_SAR.TL <- function(
         max(signal.integral.temperature) * 1.1
       ),
       ylim = c(0, max(NTL.net.LnLx[, 2])),
-      main = expression(paste("Plateau test ", L[n], ",", L[x], " curves", sep =
-                                ""))
+      main = expression(paste("Plateau test ", L[n], ",", L[x], " curves"))
     )
 
     ##plot single curves
@@ -527,8 +526,7 @@ analyse_SAR.TL <- function(
         max(signal.integral.temperature) * 1.1
       ),
       ylim = c(0, max(NTL.net.TnTx[, 2])),
-      main = expression(paste("plateau Test ", T[n], ",", T[x], " curves", sep =
-                                ""))
+      main = expression(paste("plateau Test ", T[n], ",", T[x], " curves"))
     )
 
     ##plot single curves

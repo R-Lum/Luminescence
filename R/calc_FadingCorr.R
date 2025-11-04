@@ -415,19 +415,17 @@ calc_FadingCorr <- function(
       cat("\n >> g-value re-calculated for the given tc")
     }
 
-    cat(paste(
+    cat(paste0(
       "\n\n .. used g-value:\t",
       round(g_value[1], digits = 3),
       " \u00b1 ",
       round(g_value[2], digits = 3),
-      " %/decade",
-      sep = ""
+      " %/decade"
     ))
-    cat(paste(
+    cat(paste0(
       "\n .. used tc:\t\t",
       format(tc, digits = 4, scientific = TRUE),
-      " ka",
-      sep = ""
+      " ka"
     ))
     cat(paste0(
       "\n .. used kappa:\t\t",
@@ -440,8 +438,7 @@ calc_FadingCorr <- function(
     cat(paste0("\n n.MC: \t\t\t", n.MC))
     cat(paste0(
       "\n observations: \t\t",
-      format(length(tempMC), digits = 2, scientific = TRUE),
-      sep = ""
+      format(length(tempMC), digits = 2, scientific = TRUE)
     ))
     cat("\n ----------------------------------------------")
     cat(paste0(
