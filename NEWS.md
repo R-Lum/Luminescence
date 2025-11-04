@@ -222,6 +222,11 @@
 - The function gained a `pattern` argument to refine the list of files
   to read when a directory path is specified (#1099).
 
+### `read_SPE2R()`
+
+- The function no longer crashes if `frame.range` is misspecified
+  (#1138).
+
 ### `subset.Risoe.BINfileData()`
 
 - The function also updates the `.RESERVED` slot (if present) to keep
