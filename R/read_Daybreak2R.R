@@ -431,10 +431,8 @@ read_Daybreak2R <- function(
 
     ##(3)
     ##Now we have to find out how many aliquots we do have
-    positions.id <-  sapply(RLum.Data.Curve.list, function(x){
-
-      get_RLum(x, info.object = "position")
-    })
+    positions.id <- sapply(RLum.Data.Curve.list,
+                           get_RLum, info.object = "position")
 
     ##(4)
     ##now combine everyting in an RLum.Analysis object in accordance to the position number

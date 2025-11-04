@@ -188,8 +188,7 @@ fit_OSLLifeTimes <- function(
     .validate_not_empty(object)
 
   ##allow RLum.Analysis objects
-  if(all(vapply(object, function(x){
-    inherits(x, "RLum.Analysis")}, logical(1)))){
+  if (all(vapply(object, inherits, "RLum.Analysis", FUN.VALUE = logical(1)))) {
     object <- lapply(object, function(x){x@records})
     object <- .unlist_RLum(object)
   }

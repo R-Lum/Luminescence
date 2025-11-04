@@ -439,9 +439,7 @@ calc_AverageDose <- function(
 
   ##expand all elements in the list
   ##problem: the user might provid only one item, then the code will break
-  plot_settings.user <- lapply(list(...), function(x){
-    rep(x, length = 3)
-  })
+  plot_settings.user <- lapply(list(...), rep, length = 3)
 
   ##modify
   plot_settings <- modifyList(plot_settings, plot_settings.user)

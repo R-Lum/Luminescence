@@ -189,10 +189,8 @@ analyse_pIRIRSequence <- function(
 
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
-
-   lapply(object, function(x) {
-     .validate_class(x, "RLum.Analysis", name = "All elements of 'object'")
-   })
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ## make life easy
     if(missing("signal.integral.min")){

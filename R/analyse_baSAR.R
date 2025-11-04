@@ -954,7 +954,8 @@ analyse_baSAR <- function(
     ##      .. S4
 
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
-    if(inherits(object, "list") && all(vapply(object, function(x){inherits(x, "RLum.Analysis")}, logical(1)))){
+    if (inherits(object, "list") &&
+        all(vapply(object, inherits, "RLum.Analysis", FUN.VALUE = logical(1)))) {
       if (verbose)
         cat("[analyse_baSAR()] List of RLum.Analysis-objects detected ..\n")
 

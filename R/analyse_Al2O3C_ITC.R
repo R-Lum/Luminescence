@@ -120,9 +120,8 @@ analyse_Al2O3C_ITC <- function(
   # SELF CALL -----------------------------------------------------------------------------------
   if (inherits(object, "list")) {
     ##check whether the list contains only RLum.Analysis objects
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ## expand input arguments
     rep.length <- length(object)
@@ -158,10 +157,8 @@ analyse_Al2O3C_ITC <- function(
   .validate_not_empty(object)
   .validate_class(dose_points, c("numeric", "list"))
   if (is.list(dose_points)) {
-    lapply(dose_points, function(x) {
-      .validate_class(x, "numeric",
-                      name = "All elements of 'dose_points'")
-    })
+    lapply(dose_points, .validate_class, "numeric",
+           name = "All elements of 'dose_points'")
   }
   .validate_class(recordType, "character", null.ok = TRUE)
   .validate_class(method_control, "list", null.ok = TRUE)

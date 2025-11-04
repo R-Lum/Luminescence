@@ -156,9 +156,8 @@ analyse_Al2O3C_Measurement <- function(
   ## Self call --------------------------------------------------------------
   if (inherits(object, "list")) {
     .validate_not_empty(object)
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ## expand input arguments
     rep.length <- length(object)

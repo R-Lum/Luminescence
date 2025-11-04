@@ -489,7 +489,7 @@ report_RLum <- function(
   # PLOTTING ----
   if (structure$plot) {
     isRLumList <- is.list(object) &&
-      all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
+      all(sapply(object, inherits, "RLum.Data.Curve"))
     if (inherits(object, "RLum") || isRLumList) {
 
       # mutual exclusivity: it is either a list or an RLum-Object
@@ -626,10 +626,8 @@ report_RLum <- function(
     ## Data frames -----
   } else if (inherits(x, "data.frame")) {
 
-    if (any(sapply(x, function(col) { inherits(col, "matrix") } ))) {
-
+    if (any(sapply(x, inherits, "matrix"))) {
       element <- names(x)
-
       for (i in 1:length(x)) {
         if (grepl(" ", element[i]))
           element[i] <- paste0("`", element[i], "`")

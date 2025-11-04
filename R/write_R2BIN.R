@@ -121,8 +121,7 @@ write_R2BIN <- function(
 
   # Check Risoe.BINfileData Struture ----------------------------------------
   ##check whether the BIN-file DATA slot contains more than 9999 records; needs to be run all the time
-  temp_check <- vapply(object@DATA, function(x) length(x) > 9999,
-                       FUN.VALUE = logical(1))
+  temp_check <- lengths(object@DATA) > 9999L
 
   ##force compatibility
   if(compatibility.mode && any(temp_check)){

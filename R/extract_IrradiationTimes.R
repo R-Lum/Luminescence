@@ -344,8 +344,8 @@ extract_IrradiationTimes <- function(
 
   # Calculate irradiation duration ------------------------------------------------------------
   if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
-    IRR_TIME <- vapply(temp.sequence, function(x) get_RLum(x, info.object = c("IRR_TIME")), numeric(1))
-
+    IRR_TIME <- vapply(temp.sequence, get_RLum, info.object = "IRR_TIME",
+                       FUN.VALUE = numeric(1))
   } else {
     IRR_TIME <- numeric(length = nrow(temp.results))
     temp_last <- 0

@@ -102,9 +102,8 @@ analyse_Al2O3C_CrossTalk <- function(
   .validate_class(object, c("RLum.Analysis", "list"))
   .validate_not_empty(object, class(object)[1])
   if (is.list(object)) {
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, class = "RLum.Analysis",
+           name = "All elements of 'object'")
   }
   .validate_class(signal_integral, c("numeric", "integer"), null.ok = TRUE)
   .validate_class(dose_points, c("numeric", "integer"))

@@ -164,9 +164,8 @@ read_PSL2R <- function(
     }
 
     # format each measurement; this will return a list of RLum.Data.Curve objects
-    measurements_formatted <- lapply(measurements_split, function(x) {
-      format_Measurements(x, convert = as_decay_curve, header = header)
-    })
+    measurements_formatted <- lapply(measurements_split, format_Measurements,
+                                     convert = as_decay_curve, header = header)
 
     # drop dark count measurements if needed
     if (drop_bg) {

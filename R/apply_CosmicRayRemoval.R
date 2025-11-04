@@ -141,8 +141,8 @@ apply_CosmicRayRemoval <- function(
       ##RLum.Analysis
       if(inherits(o, "RLum.Analysis")){
          ##get id of RLum.Data.Spectrum objects in this object
-         record_id.spectra <- which(
-           vapply(o@records, function(x) inherits(x, "RLum.Data.Spectrum"), logical(1)))
+        record_id.spectra <- vapply(o@records, inherits, "RLum.Data.Spectrum",
+                                    FUN.VALUE = logical(1))
 
          ##rewrite o
          temp_o <- o@records[record_id.spectra]

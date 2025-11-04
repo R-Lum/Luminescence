@@ -247,8 +247,7 @@ use_DRAC <- function(
   DRAC_submission.df[] <- lapply(DRAC_submission.df, as.character)
 
   ##paste everything together to get the format we want
-  DRAC_input <- paste0(apply(DRAC_submission.df, 1,
-                             function(x) paste(x, collapse = " ")),
+  DRAC_input <- paste0(apply(DRAC_submission.df, 1, paste, collapse = " "),
                        "\n", collapse = "")
 
   # Send data to DRAC ---------------------------------------------------------------------------

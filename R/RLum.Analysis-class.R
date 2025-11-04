@@ -567,10 +567,8 @@ setMethod("structure_RLum",
             on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
-            sapply(object@records, function(x) {
-              .validate_class(x, "RLum.Data.Curve",
-                              name = "All elements of 'object'")
-            })
+            sapply(object@records, .validate_class, "RLum.Data.Curve",
+                   name = "All elements of 'object'")
 
             ##get length object
             temp.object.length <- length(object@records)
@@ -759,10 +757,7 @@ setMethod(
   f = "smooth_RLum",
   signature = "RLum.Analysis",
   function(object, ...) {
-        object@records <- lapply(object@records, function(x){
-          smooth_RLum(x, ...)
-        })
-
+    object@records <- lapply(object@records, smooth_RLum, ...)
     return(object)
   }
 )

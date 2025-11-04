@@ -95,7 +95,7 @@ NULL
 #' @method plot list
 #' @export
 plot.list <- function(x, y, ...) {
-  if (all(sapply(x, function(x) inherits(x, "RLum")))) {
+  if (all(sapply(x, inherits, "RLum"))) {
     plot_RLum(object = x, ...)
   }
   else {
