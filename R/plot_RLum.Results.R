@@ -106,8 +106,7 @@ plot_RLum.Results<- function(
     )
 
   ## CASE 1: Minimum Age Model / Maximum Age Model -------
-  if (object@originator %in% c("calc_MinDose", "calc_MaxDose")) {
-
+  if (.check_originator(object, c("calc_MinDose", "calc_MaxDose"))) {
     ## single MAM estimate
     # plot profile log likelihood
 
@@ -445,7 +444,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 2: Central Age Model ---------
-  if(object@originator=="calc_CentralDose") {
+  if (.check_originator(object, "calc_CentralDose")) {
 
     # get profile log likelihood data
     sig<- object@data$profile$sig*100
@@ -486,7 +485,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 3: Fuchs & Lang 2001 --------
-  if(object@originator=="calc_FuchsLang2001") {
+  if (.check_originator(object, "calc_FuchsLang2001")) {
 
     ##deal with addition arguments
     extraArgs <- list(...)
@@ -568,7 +567,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size ---------
-  if(object@originator=="calc_AliquotSize") {
+  if (.check_originator(object, "calc_AliquotSize")) {
     ## FIXME(mcol): The following code has been ported to calc_AliquotSize(),
     ## where it has been further updated. This version is preserved to support
     ## the plotting of an RLum.Results object directly, which calc_AliquotSize()
@@ -642,8 +641,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 6: calc_SourceDoseRate() ----------
-  if(object@originator=="calc_SourceDoseRate") {
-
+  if (.check_originator(object, "calc_SourceDoseRate")) {
     ##prepare data
     ##get data
     df <- get_RLum(object = object, data.object = "dose.rate")
@@ -713,8 +711,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 7: Fast Ratio ----------
-  if (object@originator=="calc_FastRatio") {
-
+  if (.check_originator(object, "calc_FastRatio")) {
     # graphical settings
     settings <- list(main = "Fast Ratio",
                      xlab = "t/s",

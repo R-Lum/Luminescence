@@ -89,7 +89,7 @@ fit_IsothermalHolding <- function(
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
 
   } else if (inherits(data, "RLum.Results")) {
-    if (data@originator != ".import_ThermochronometryData") {
+    if (!.check_originator(data, ".import_ThermochronometryData")) {
       .throw_error("'data' has unsupported originator (expected: ",
                    "'.import_ThermochronometryData', found: '",
                    data@originator, "')")
@@ -143,7 +143,7 @@ fit_IsothermalHolding <- function(
   DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
   ## get the rhop value from the fading measurement analysis if available
-  if (inherits(rhop, "RLum.Results") && rhop@originator == "analyse_FadingMeasurement")
+  if (inherits(rhop, "RLum.Results") && .check_originator(rhop, "analyse_FadingMeasurement"))
     rhop <- rhop@data$rho_prime[[1]]
 
   ## Define formulas to fit -------------------------------------------------

@@ -323,7 +323,7 @@ verify_SingleGrainData <- function(
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
 
     ##now we have two cases, depending on where measurement is coming from
-    if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
+    if (.check_originator(object, "Risoe.BINfileData2RLum.Analysis")) {
       ##combine everything to in a data.frame
       selection <- data.frame(
         POSITION = temp_structure$info.POSITION,
@@ -336,7 +336,7 @@ verify_SingleGrainData <- function(
       )
       sel.cols <- c("POSITION", "GRAIN")
 
-    } else if (object@originator == "read_XSYG2R") {
+    } else if (.check_originator(object, "read_XSYG2R")) {
       ##combine everything to in a data.frame
       selection <- data.frame(
         POSITION = if(any(grepl(pattern = "position", names(temp_structure)))){
@@ -361,7 +361,7 @@ verify_SingleGrainData <- function(
 
     ##set up cleanup
     if(cleanup_level == "aliquot") {
-      if (object@originator == "read_XSYG2R") {
+      if (.check_originator(object, "read_XSYG2R")) {
 
         if (!all(is.na(unique_pairs))) {
           selection_id <-
@@ -373,7 +373,7 @@ verify_SingleGrainData <- function(
           selection_id <- NA
         }
 
-      } else if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
+      } else if (.check_originator(object, "Risoe.BINfileData2RLum.Analysis")) {
         selection_id <-
           sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
             which(

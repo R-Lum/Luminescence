@@ -303,7 +303,7 @@ analyse_Al2O3C_Measurement <- function(
       .validate_length(irradiation_time_correction, 2)
     } else {
       ## RLum.Results case
-      if (!irradiation_time_correction@originator %in% "analyse_Al2O3C_ITC") {
+      if (!.check_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")) {
         .throw_error("'irradiation_time_correction' was created by an ",
                      "unsupported function (originator is '",
                      irradiation_time_correction@originator, "')")
@@ -335,7 +335,7 @@ analyse_Al2O3C_Measurement <- function(
     .validate_length(cross_talk_correction, 3)
   } else {
     ## RLum.Results case
-    if (!cross_talk_correction@originator %in% "analyse_Al2O3C_CrossTalk") {
+    if (!.check_originator(cross_talk_correction, "analyse_Al2O3C_CrossTalk")) {
       .throw_error("'cross_talk_correction' was created by an unsupported function ",
                    "(originator is '", cross_talk_correction@originator, "')")
     }

@@ -509,16 +509,14 @@ report_RLum <- function(
 
       if (inherits(object, "RLum.Results")) {
         # AGE MODELS ----
-        models <- c("calc_AverageDose",
-                    "calc_CommonDose",
-                    "calc_CentralDose",
-                    "calc_FiniteMixture",
-                    "calc_MinDose",
-                    "calc_MaxDose",
-                    "calc_IEU",
-                    "calc_FuchsLang2001")
-
-        if (object@originator %in% models) {
+        if (.check_originator(object, c("calc_AverageDose",
+                                        "calc_CommonDose",
+                                        "calc_CentralDose",
+                                        "calc_FiniteMixture",
+                                        "calc_FuchsLang2001",
+                                        "calc_IEU",
+                                        "calc_MaxDose",
+                                        "calc_MinDose"))) {
           writeLines(paste0(
             "```{r}\n",
             "plot_AbanicoPlot(x) \n",

@@ -281,11 +281,12 @@ extract_IrradiationTimes <- function(
 # Grep relevant information -------------------------------------------------------------------
   ##Sequence STEP
   STEP <- names_RLum(temp.sequence)
+  bin.originators <- c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R")
 
   #START time of each step
   ## we try also to support BIN/BINX files with this function if imported
   ## accordingly
-  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+  if (.check_originator(temp.sequence, bin.originators)) {
     temp.START <- vapply(temp.sequence, function(x) {
        paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
     }, character(1))
@@ -343,7 +344,7 @@ extract_IrradiationTimes <- function(
   temp.results <- data.frame(POSITION,STEP,START,DURATION.STEP,END)
 
   # Calculate irradiation duration ------------------------------------------------------------
-  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+  if (.check_originator(temp.sequence, bin.originators)) {
     IRR_TIME <- vapply(temp.sequence, get_RLum, info.object = "IRR_TIME",
                        FUN.VALUE = numeric(1))
   } else {
