@@ -7,7 +7,7 @@
 read_SPE2R(
   file,
   output.object = "RLum.Data.Image",
-  frame.range,
+  frame.range = NULL,
   txtProgressBar = TRUE,
   verbose = TRUE,
   ...
@@ -26,8 +26,10 @@ Additionally, it can be a URL starting with \verb{http://} or \verb{https://}.
 set the output object type. Allowed types are \code{"RLum.Data.Spectrum"},
 \code{"RLum.Data.Image"} or \code{"matrix"}.}
 
-\item{frame.range}{\link{vector} (\emph{optional}):
-limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}.}
+\item{frame.range}{\link{vector}, \link{integer} (\emph{optional}):
+range of frames to read. For example, \code{frame.range = c(1, 10)} selects only
+the first 10 frames. If not specifie, all available frames (up to a maximum
+of 100 if \code{output.object = "RLum.Data.Image"}) are read.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
