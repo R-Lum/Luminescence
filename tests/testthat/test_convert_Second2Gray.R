@@ -23,7 +23,7 @@ test_that("input validation", {
 
   dose.rate@originator <- "unexpected-originator"
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate = dose.rate),
-               "'dose.rate' was created by an unsupported function")
+               "'dose.rate' has an unsupported originator")
 })
 
 test_that("snapshot tests", {

@@ -808,10 +808,7 @@ analyse_baSAR <- function(
   ##if the input is already of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if (inherits(object, "RLum.Results")) {
-    if (!.check_originator(object, "analyse_baSAR")) {
-      .throw_error("'object' is of type 'RLum.Results', ",
-                   "but was not produced by analyse_baSAR()")
-    }
+    .validate_originator(object, "analyse_baSAR")
 
       ##We want to use previous function arguments and recycle them
 

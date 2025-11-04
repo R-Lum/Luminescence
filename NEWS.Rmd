@@ -99,6 +99,11 @@ a non-positive value is provided (#1124).
 * The error message in case of failed surface interpolation is now clearer and
 more complete (#1053).
 
+### `calc_FadingCorr()`
+
+* The function produces an error if `g_value` is an `RLum.Results` object with
+an unsupported originator instead of returning `NULL` (#1136).
+
 ### `calc_Huntley()`
 
 * A warning raised in rare occasions if the number of Monte Carlo iterations

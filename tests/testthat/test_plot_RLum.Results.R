@@ -8,7 +8,7 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Results'")
   expect_error(plot_RLum.Results(set_RLum("RLum.Results",
                                           originator = NA_character_)),
-               "Object originator not supported")
+               "'object' has an unsupported originator")
 })
 
 test_that("check functionality", {

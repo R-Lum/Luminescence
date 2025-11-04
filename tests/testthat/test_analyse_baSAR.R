@@ -384,7 +384,8 @@ test_that("Full check of analyse_baSAR function", {
 
   results2@originator <- "unknown"
   expect_error(analyse_baSAR(object = results2),
-               "'object' is of type 'RLum.Results', but was not produced by")
+               "'object' has an unsupported originator (expected 'analyse_baSAR'",
+               fixed = TRUE)
 
   results2@originator <- "analyse_baSAR"
   results2@data$input_object <- results2$input_object[1:2, ]

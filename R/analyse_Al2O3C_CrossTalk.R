@@ -153,12 +153,8 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##check irradiation time correction
     if (inherits(irradiation_time_correction, "RLum.Results")) {
-      if (!.check_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")) {
-        .throw_error("'irradiation_time_correction' was created by an ",
-                     "unsupported function (originator is '",
-                     irradiation_time_correction@originator, "')")
-      }
-        irradiation_time_correction <- get_RLum(irradiation_time_correction)
+      .validate_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")
+      irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
         ##insert case for more than one observation ...
         if(nrow(irradiation_time_correction)>1){

@@ -303,11 +303,7 @@ analyse_Al2O3C_Measurement <- function(
       .validate_length(irradiation_time_correction, 2)
     } else {
       ## RLum.Results case
-      if (!.check_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")) {
-        .throw_error("'irradiation_time_correction' was created by an ",
-                     "unsupported function (originator is '",
-                     irradiation_time_correction@originator, "')")
-      }
+      .validate_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")
       irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
       ## consider the case for more than one observation ...
@@ -335,10 +331,7 @@ analyse_Al2O3C_Measurement <- function(
     .validate_length(cross_talk_correction, 3)
   } else {
     ## RLum.Results case
-    if (!.check_originator(cross_talk_correction, "analyse_Al2O3C_CrossTalk")) {
-      .throw_error("'cross_talk_correction' was created by an unsupported function ",
-                   "(originator is '", cross_talk_correction@originator, "')")
-    }
+    .validate_originator(cross_talk_correction, "analyse_Al2O3C_CrossTalk")
 
       ## calculate the cross-talk correction values for this particular
       ## carousel position
