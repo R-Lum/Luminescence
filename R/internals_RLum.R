@@ -1338,11 +1338,31 @@ SW <- function(expr) {
                    name = name %||% .first_argument())
 }
 
-#' @title Check that the originator matches a set of choices
+#' @title Validate the originator of an RLum object
 #'
 #' @param object [RLum] (**required**): object whose originator should be
 #'        checked.
 #' @param choices [character] (**required**): a vector of candidate choices.
+#' @param name [character] (*with default*): variable name to report in case
+#'        of error: if specified, it's reported as is; otherwise, it's
+#'        inferred from the name of the variable tested and reported with
+#'        quotes.
+
+#' @return
+#' The validated value, unless the validation failed with an error thrown.
+#'
+#' @noRd
+.validate_originator <- function(object, choices, name = NULL) {
+  if (.check_originator(object, choices))
+    return(object@originator)
+  .throw_error(paste0(name %||% .first_argument(), " has an unsupported originator ",
+                      "(expected ", .collapse(choices), ", but found '",
+                      object@originator, "')"))
+}
+
+#' @title Check that the originator matches a set of choices
+#'
+#' @inheritParams .validate_originator
 #'
 #' @return
 #' A logical value.

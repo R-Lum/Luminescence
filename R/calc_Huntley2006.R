@@ -398,9 +398,7 @@ calc_Huntley2006 <- function(
   } else {
     ## alternatively, an RLum.Results object produced by
     ## analyse_FadingMeasurement() can be provided
-    if (!.check_originator(rhop, "analyse_FadingMeasurement"))
-      .throw_error("'rhop' accepts only RLum.Results objects produced ",
-                   "by 'analyse_FadingMeasurement()'")
+    .validate_originator(rhop, "analyse_FadingMeasurement")
     rhop <- c(rhop@data$rho_prime$MEAN, rhop@data$rho_prime$SD)
   }
 

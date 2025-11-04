@@ -7,6 +7,9 @@ test_that("input validation", {
                "'age.faded' should have length 2")
   expect_error(calc_FadingCorr(c(0.1, 0), "error"),
                "'g_value' should be of class 'numeric', 'integer' or 'RLum.Results'")
+  expect_error(calc_FadingCorr(age.faded = c(0.1,0), tc = 2592000,
+                               g_value = set_RLum("RLum.Results")),
+               "'g_value' has an unsupported originator")
   expect_error(calc_FadingCorr(c(0.1, 0), 1),
                "'g_value' should have length 2")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0)),
@@ -62,12 +65,6 @@ test_that("check class and length of output", {
                                   g_value = fading, tc = 2592000),
                   "RLum.Results")
   })
-
-  fading@originator <- "unexpected"
-  expect_message(
-      expect_null(calc_FadingCorr(age.faded = c(0.1,0),
-                               g_value = fading, tc = 2592000)),
-               "'g_value' was created by an unsupported function")
 
   ## auto, seed (Note: this is slow!)
   SW({

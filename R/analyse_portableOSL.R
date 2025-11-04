@@ -166,8 +166,8 @@ analyse_portableOSL <- function(
                  "of class 'RLum.Data.Curve'")
 
   ## check originator
-  if (!all(sapply(object, .check_originator, "read_PSL2R")))
-    .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
+  lapply(object, .validate_originator, "read_PSL2R",
+         name = "At least one element of 'object'")
 
   ## check length and start of the sequence pattern, we check it further below
   if (length(object) %% 5 != 0 ||

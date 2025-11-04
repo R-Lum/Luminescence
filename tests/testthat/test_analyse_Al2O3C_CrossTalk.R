@@ -35,7 +35,7 @@ test_that("input validation", {
   corr <- set_RLum("RLum.Results")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = corr),
-               "was created by an unsupported function")
+               "'irradiation_time_correction' has an unsupported originator")
   expect_warning(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                           signal_integral = 0),
                  "'signal_integral' corrected to 1:99")

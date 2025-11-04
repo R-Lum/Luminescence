@@ -65,8 +65,18 @@ plot_RLum.Results<- function(
   ##============================================================================##
 
   .validate_class(object, "RLum.Results")
-  if (is.null(object@originator) || is.na(object@originator)) {
-    .throw_error("Object originator not supported")
+  if (is.na(object@originator)) {
+    .validate_originator(object, c("analyse_SAR.CWOSL",
+                                   "analyse_IRSAR.RF",
+                                   "analyse_pIRIRSequence",
+                                   "calc_AliquotSize",
+                                   "calc_CentralDose",
+                                   "calc_FastRatio",
+                                   "calc_FiniteMixture",
+                                   "calc_FuchsLang2001",
+                                   "calc_MinDose",
+                                   "calc_MaxDose",
+                                   "calc_SourceDoseRate"))
   }
 
   ##============================================================================##

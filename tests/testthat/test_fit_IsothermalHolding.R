@@ -11,7 +11,7 @@ test_that("input validation", {
                "File 'error' does not exist")
   expect_error(fit_IsothermalHolding(set_RLum("RLum.Results", data = list(1)),
                                      rhop = 1e-7),
-               "'data' has unsupported originator")
+               "'data' has an unsupported originator")
   expect_error(fit_IsothermalHolding(iris, rhop = 1e-7),
                "'data' has the wrong column headers")
   expect_error(fit_IsothermalHolding(input.csv[1], ITL_model = "error"),

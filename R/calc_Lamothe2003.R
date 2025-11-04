@@ -208,9 +208,7 @@ calc_Lamothe2003 <- function(
     }
 
   }else if(inherits(object, "RLum.Results")){
-    if (!.check_originator(object, c("analyse_SAR.CWOSL", "analyse_pIRIRSequence")))
-      .throw_error("'object' was created by an unsupported function ",
-                   "(originator is '", object@originator, "')")
+    .validate_originator(object, c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
     ## get number of datasets; we have to search for the word "Natural",
     ## everything else is not safe enough

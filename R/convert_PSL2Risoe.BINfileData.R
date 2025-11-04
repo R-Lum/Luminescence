@@ -58,8 +58,8 @@ convert_PSL2Risoe.BINfileData <- function(object, ...) {
   .validate_not_empty(object)
   lapply(object, .validate_class, "RLum.Data.Curve",
          name = "All elements of 'object'")
-  if (!all(sapply(object, .check_originator, "read_PSL2R")))
-    .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
+  lapply(object, .validate_originator, "read_PSL2R",
+         name = "At least one element of 'object'")
 
   ## EXTRACT CURVE INFORMATION ----
   curves <- get_RLum(object)

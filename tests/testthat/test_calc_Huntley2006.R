@@ -53,7 +53,7 @@ test_that("input validation", {
   expect_error(calc_Huntley2006(data, rhop = "test"),
                "'rhop' should be of class 'numeric' or 'RLum.Results'")
   expect_error(calc_Huntley2006(data, rhop = rhop.test),
-               "'rhop' accepts only RLum.Results objects produced by")
+               "'rhop' has an unsupported originator")
   expect_error(calc_Huntley2006(data, rhop = c(0, 4e-7)),
                "'rhop' must be a positive number, the provided value was 0 \u00B1 4e-07")
 

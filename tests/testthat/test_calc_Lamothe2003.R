@@ -64,7 +64,7 @@ test_that("input validation", {
       dose_rate.source = c(1, 2, 3),
       g_value = c(1, 2)
     )),
-    "'object' was created by an unsupported function"
+    "'object' has an unsupported originator"
   )
 
   ##tc

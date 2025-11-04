@@ -110,7 +110,7 @@ test_that("input validation", {
     tmp <- merged
     tmp@records[[1]]@originator <- "error"
     expect_error(analyse_portableOSL(tmp),
-                 regexp = "\\[analyse\\_portableOSL\\(\\)\\] Only objects originating from .+")
+                 "At least one element of 'object' has an unsupported originator")
 
     ## Sequence pattern
     expect_error(analyse_portableOSL(merged[-7], signal.integral = 1:5),

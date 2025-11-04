@@ -216,11 +216,7 @@ calc_FadingCorr <- function(
   .validate_length(age.faded, 2)
   .validate_class(g_value, c("numeric", "integer", "RLum.Results"))
   if(inherits(g_value, "RLum.Results")){
-    if (!.check_originator(g_value, "analyse_FadingMeasurement")) {
-      .throw_message("'g_value' was created by an unsupported function ",
-                     "(originator is '", g_value@originator, "')")
-      return(NULL)
-    }
+    .validate_originator(g_value, "analyse_FadingMeasurement")
     tc <- get_RLum(g_value)[["TC"]]
     g_value <- as.numeric(get_RLum(g_value)[, c("FIT", "SD")])
   } else {

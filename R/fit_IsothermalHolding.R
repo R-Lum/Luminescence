@@ -89,11 +89,7 @@ fit_IsothermalHolding <- function(
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
 
   } else if (inherits(data, "RLum.Results")) {
-    if (!.check_originator(data, ".import_ThermochronometryData")) {
-      .throw_error("'data' has unsupported originator (expected: ",
-                   "'.import_ThermochronometryData', found: '",
-                   data@originator, "')")
-    }
+    .validate_originator(data, ".import_ThermochronometryData")
     records_ITL <- data@data$ITL
 
   } else if (inherits(data, "data.frame")) {
