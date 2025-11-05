@@ -193,6 +193,9 @@ than generating warnings and not showing the summary (#1093).
 * The functionality of the `stats` argument had regressed in version 1.1.1,
 and now has been restored (#1106).
 
+* The function better validates the `zlim` argument, to avoid crashes on
+misspecified axis limits if `log.z = TRUE` (#1140).
+
 ### `plot_RLum.Analysis()`
 
 * Setting `records_max` to a value larger than the number of curves no longer

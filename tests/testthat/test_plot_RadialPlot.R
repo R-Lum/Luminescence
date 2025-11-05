@@ -36,6 +36,8 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_RadialPlot(df, zlim = 1),
+               "'zlim' should have length 2")
   expect_error(plot_RadialPlot(list(df, df), lty = 1),
                "'lty' should have length 2")
 
@@ -143,8 +145,10 @@ test_that("check functionality", {
       #centrality = ,
       central.value = -1,
       log.z = FALSE),
-      "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
+      "z-scale touches 2s-polygon, decrease plot ratio"
     )
+  expect_silent(plot_RadialPlot(df, central.value = -1, log.z = FALSE,
+                                bar.col = "none"))
 })
 
 test_that("graphical snapshot tests", {
@@ -185,4 +189,11 @@ test_that("graphical snapshot tests", {
                                               summary = c("n", "in.2s", "median.weighted"),
                                               rug = TRUE, col = c(2, 3)))
   })
+})
+
+test_that("regression tests", {
+    testthat::skip_on_cran()
+
+    ## issue 1140
+    expect_silent(plot_RadialPlot(df, zlim = c(0, 100)))
 })
