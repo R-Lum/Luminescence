@@ -295,6 +295,7 @@ plot_RadialPlot <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_not_empty(data)
+  .validate_logical_scalar(log.z)
   .validate_class(centrality, c("character", "numeric"))
   if (is.character(centrality)) {
     centrality <- .validate_args(centrality, c("mean", "mean.weighted",
@@ -494,9 +495,14 @@ plot_RadialPlot <- function(
 
   limits.z <- extraArgs$zlim %||% {
     z.span <- (mean(data.global[,1]) * 0.5) / (sd(data.global[,1]) * 100)
-    z.span <- ifelse(z.span > 1, 0.9, z.span)
+    z.span <- min(z.span, 0.89)
     c((0.9 - z.span) * min(data.global[[1]]),
       (1.1 + z.span) * max(data.global[[1]]))
+  }
+  .validate_length(limits.z, 2, name = "'zlim'")
+  limits.z <- sort(limits.z)
+  if (log.z && limits.z[1] <= 0) {
+    limits.z[1] <- 0.01
   }
 
   limits.x <- extraArgs$xlim %||% c(0, max(data.global[,6]))
