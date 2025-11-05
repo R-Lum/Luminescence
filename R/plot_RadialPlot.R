@@ -126,7 +126,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.9
+#' @section Function version: 0.5.10
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -275,8 +275,8 @@ plot_RadialPlot <- function(
   mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
-  legend,
-  legend.pos,
+  legend = NULL,
+  legend.pos = "topright",
   stats = "none",
   rug = FALSE,
   plot.ratio,
@@ -329,16 +329,22 @@ plot_RadialPlot <- function(
       }
   }
 
+  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
+                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
   }
+  .validate_class(legend, "character", null.ok = TRUE)
+  if (is.numeric(legend.pos)) {
+    .validate_length(legend.pos, 2)
+  } else {
+    legend.pos <- .validate_args(legend.pos, valid.pos)
+  }
+
   .validate_class(stats, "character")
   .validate_logical_scalar(rug)
 
@@ -828,9 +834,6 @@ plot_RadialPlot <- function(
   coords <- .get_keyword_coordinates(summary.pos, limits.x, limits.y)
   summary.pos <- coords$pos
   summary.adj <- coords$adj
-  coords <- .get_keyword_coordinates(legend.pos, limits.x, limits.y)
-  legend.pos <- coords$pos
-  legend.adj <- coords$adj
 
   ## calculate line coordinates and further parameters
   if(!missing(line)) {
@@ -1069,7 +1072,10 @@ plot_RadialPlot <- function(
     }
 
     ## optionally add legend content
-    if (!missing(legend)) {
+    if (!is.null(legend)) {
+      coords <- .get_keyword_coordinates(legend.pos, limits.x, limits.y)
+      legend.pos <- coords$pos
+      legend.adj <- coords$adj
       legend(x = legend.pos[1],
              y = 0.8 * legend.pos[2],
              xjust = legend.adj[1],

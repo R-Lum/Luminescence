@@ -16,8 +16,8 @@ plot_AbanicoPlot(
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   summary.method = "MCM",
-  legend,
-  legend.pos,
+  legend = NULL,
+  legend.pos = "topleft",
   stats,
   rug = FALSE,
   kde = TRUE,
@@ -284,7 +284,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.18
+ 0.1.19
 }
 
 \examples{

@@ -233,7 +233,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.18
+#' @section Function version: 0.1.19
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -446,8 +446,8 @@ plot_AbanicoPlot <- function(
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   summary.method = "MCM",
-  legend,
-  legend.pos,
+  legend = NULL,
+  legend.pos = "topleft",
   stats,
   rug = FALSE,
   kde = TRUE,
@@ -574,15 +574,20 @@ plot_AbanicoPlot <- function(
   if (!dispersion %in% main.choices && !grepl("^p[0-9][0-9]$", dispersion))
     dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
 
+  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
+                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
+  }
+  .validate_class(legend, "character", null.ok = TRUE)
+  if (is.numeric(legend.pos)) {
+    .validate_length(legend.pos, 2)
+  } else {
+    legend.pos <- .validate_args(legend.pos, valid.pos)
   }
 
   frame <- .validate_args(frame, c(0, 1, 2, 3))
@@ -1187,7 +1192,7 @@ plot_AbanicoPlot <- function(
     ## this time we swap x and y limits as we are rotated, then apply some
     ## adjustments to the x positioning
     coords <- .get_keyword_coordinates(legend.pos, limits.y, limits.x)
-    if (!missing(legend.pos) &&
+    if (!is.null(legend.pos) &&
         legend.pos[1] %in% c("topleft", "left", "bottomleft")) {
       coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
     }
@@ -1970,7 +1975,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## optionally add legend content
-  if (!missing(legend)) {
+  if (!is.null(legend)) {
     ## store and change font familiy
     par.family <- par()$family
     par(family = layout$abanico$font.type$legend)

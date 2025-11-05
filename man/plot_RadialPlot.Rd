@@ -13,8 +13,8 @@ plot_RadialPlot(
   mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
-  legend,
-  legend.pos,
+  legend = NULL,
+  legend.pos = "topright",
   stats = "none",
   rug = FALSE,
   plot.ratio,
@@ -163,7 +163,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.9
+ 0.5.10
 }
 
 \examples{

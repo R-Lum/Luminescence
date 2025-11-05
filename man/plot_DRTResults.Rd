@@ -13,7 +13,7 @@ plot_DRTResults(
   mtext = "",
   summary = "",
   summary.pos = "topleft",
-  legend,
+  legend = NULL,
   legend.pos = "topright",
   par.local = TRUE,
   na.rm = FALSE,
@@ -113,7 +113,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.14
+ 0.1.15
 }
 
 \examples{

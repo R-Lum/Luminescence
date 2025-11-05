@@ -88,7 +88,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.14
+#' @section Function version: 0.1.15
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -190,7 +190,7 @@ plot_DRTResults <- function(
   mtext = "",
   summary = "",
   summary.pos = "topleft",
-  legend,
+  legend = NULL,
   legend.pos = "topright",
   par.local = TRUE,
   na.rm  = FALSE,
@@ -211,15 +211,21 @@ plot_DRTResults <- function(
                    "reset to FALSE")
   }
 
+  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
+                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
+  }
+  .validate_class(legend, "character", null.ok = TRUE)
+  if (is.numeric(legend.pos)) {
+    .validate_length(legend.pos, 2)
+  }
+  else {
+    legend.pos <- .validate_args(legend.pos, valid.pos)
   }
 
   ## Homogenise and check input data
@@ -386,9 +392,6 @@ plot_DRTResults <- function(
   coords <- .get_keyword_coordinates(summary.pos, xlim, ylim)
   summary.pos <- coords$pos
   summary.adj <- c(coords$adj[1], 1) # always top-aligned
-  coords <- .get_keyword_coordinates(legend.pos, xlim, ylim)
-  legend.pos <- coords$pos
-  legend.adj <- coords$adj
 
   ## Plot output ------------------------------------------------------------
 
@@ -666,7 +669,10 @@ plot_DRTResults <- function(
   }
 
   ## optionally add legend content
-  if(missing(legend) == FALSE) {
+  if (!is.null(legend)) {
+    coords <- .get_keyword_coordinates(legend.pos, xlim, ylim)
+    legend.pos <- coords$pos
+    legend.adj <- coords$adj
     legend(x = legend.pos[1],
            y = legend.pos[2],
            xjust = legend.adj[1],

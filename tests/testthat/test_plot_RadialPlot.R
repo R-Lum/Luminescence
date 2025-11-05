@@ -110,7 +110,7 @@ test_that("check functionality", {
                               centrality = "mean", log.z = TRUE,
                               stats = c("min", "max", "median"),
                               summary = "mean", summary.pos = c(0, 40),
-                              legend = TRUE, legend.pos = c(4, 40),
+                              legend = "Data", legend.pos = c(4, 10),
                               xlab = c("x1", "x2"), xlim = c(0, 20),
                               ylab = "y", ylim = c(-10, 10),
                               zlab = "z", zlim = c(3, 7),
