@@ -145,8 +145,10 @@ test_that("check functionality", {
       #centrality = ,
       central.value = -1,
       log.z = FALSE),
-      "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
+      "z-scale touches 2s-polygon, decrease plot ratio"
     )
+  expect_silent(plot_RadialPlot(df, central.value = -1, log.z = FALSE,
+                                bar.col = "none"))
 })
 
 test_that("graphical snapshot tests", {

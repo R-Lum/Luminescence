@@ -679,8 +679,9 @@ plot_RadialPlot <- function(
   z_2s_lower <- ellipse.x[abs(ellipse.y - polygon_y_min) ==
                             min(abs(ellipse.y - polygon_y_min))]
 
-  if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
-    .throw_warning("z-scale touches 2s-polygon. Decrease plot ratio.")
+  if ((max(polygons[, 3]) >= z_2s_upper || max(polygons[, 3]) >= z_2s_lower) &&
+      bar.col[1] != "none") {
+    .throw_warning("z-scale touches 2s-polygon, decrease plot ratio")
   }
 
   ## calculate statistical labels
