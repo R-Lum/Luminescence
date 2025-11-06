@@ -62,12 +62,13 @@
 #' a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 #' However, *all* pause times are taken into consideration for the analysis.
 #'
-#' @param object [RLum.Analysis-class] (**required**):
-#' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
-#' objects or a [data.frame] with three columns
+#' @param object [RLum.Analysis-class], [data.frame] or [list] (**required**):
+#' input object with the measurement data. Alternatively, a [list] containing
+#' [RLum.Analysis-class] objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-#' Can also be a wide table, i.e. a [data.frame] with a number of columns divisible by 3
-#' and where each triplet has the before mentioned column structure.
+#' Can also be a wide table, i.e. a [data.frame] with a number of columns
+#' divisible by 3 and where each triplet has the before mentioned column
+#' structure.
 #'
 #' **Please note: The input object should solely consists of the curve needed
 #' for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
@@ -82,16 +83,19 @@
 #' @param structure [character] (*with default*):
 #' the structure of the measurement data, one of `'Lx'` or `c('Lx','Tx')`.
 #'
-#' @param signal.integral [vector] (**required**): vector with channels for the signal integral
-#' (e.g., `c(1:10)`). Not required if a `data.frame` with `LxTx` values is provided.
+#' @param signal.integral [vector] (**required**):
+#' vector with channels for the signal integral (e.g., `1:10`). It is not
+#' required if a `data.frame` with `LxTx` values is provided.
 #'
-#' @param background.integral [vector] (**required**): vector with channels for the background integral
-#' (e.g., `c(90:100)`). Not required if a `data.frame` with `LxTx` values is provided.
+#' @param background.integral [vector] (**required**):
+#' vector with channels for the background integral (e.g., `90:100`). It is not
+#' required if a `data.frame` with `LxTx` values is provided.
 #'
-#' @param t_star [character] (*with default*):
-#' method for calculating the time elapsed since irradiation if input is **not** a `data.frame`.
-#' Options are: `'half'` (the default), `'half_complex`, which uses the long equation in Auclair et al. 2003, and
-#' and `'end'`, which takes the time between irradiation and the measurement step.
+#' @param t_star [character], [function] (*with default*):
+#' method for calculating the time elapsed since irradiation if input is
+#' **not** a `data.frame`. Options are: `'half'` (the default), `'half_complex`,
+#' which uses the long equation in Auclair et al. 2003, and `'end'`, which
+#' takes the time between irradiation and the measurement step.
 #' Alternatively, `t_star` can be a function with one parameter which works on `t1`.
 #' For more information see details. \cr
 #'
@@ -107,17 +111,17 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
+#' @param plot_singlePanels [logical] or [numeric] (*with default*):
 #' enable/disable single plot mode, i.e. one plot window per plot.
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot_singlePanels = c(3,4)` draws only the last two plots in separate
 #' windows.
 #'
-#' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
-#' `xlab`, `log`, `mtext`, `plot.trend` (enable/disable trend blue line), and `xlim` for the
-#' two first curve plots, and `ylim` for the fading
-#' curve plot. For further plot customization please use the numerical output of the functions for
-#' own plots.
+#' @param ... further arguments that can be passed to internally used functions.
+#' Supported arguments: `xlab`, `log`, `mtext`, `plot.trend` (enable/disable
+#' trend blue line), and `xlim` for the two first curve plots, and `ylim` for
+#' the fading curve plot. For further plot customization please use the
+#' numerical output of the functions for own plots.
 #'
 #' @return
 #' An [RLum.Results-class] object is returned:
@@ -260,8 +264,15 @@ analyse_FadingMeasurement <- function(
     }
 
     ## support read_XSYG2R()
-    originators <- unique(unlist(lapply(object, slot, name = "originator")))
-    if (length(originators) == 1 && originators %in% "read_XSYG2R") {
+    originator <- unique(unlist(lapply(object, slot, name = "originator")))
+    if (length(originator) > 1 ||
+        !originator %in% c("read_XSYG2R", "read_BIN2R",
+                           "Risoe.BINfileData2RLum.Analysis"))  {
+      .throw_message("Unknown or unsupported originator, NULL returned")
+      return(NULL)
+    }
+
+    if (originator == "read_XSYG2R") {
       ## extract irradiation times
       irradiation_times <- extract_IrradiationTimes(object)
 
@@ -294,8 +305,7 @@ analyse_FadingMeasurement <- function(
       }
 
       ##support read_BIN2R()
-    } else if (length(originators) == 1 &&
-               originators %in% c("read_BIN2R", "Risoe.BINfileData2RLum.Analysis")) {
+    } else if (originator %in% c("read_BIN2R", "Risoe.BINfileData2RLum.Analysis")) {
 
       ##assign object, unlist and drop it
       object_clean <- unlist(get_RLum(object))
@@ -317,16 +327,13 @@ analyse_FadingMeasurement <- function(
         if(all(structure == c("Lx", "Tx"))){
           rm_id <- matrix(TIMESINCEIRR, ncol = 2, byrow = TRUE)
           rm_id[apply(rm_id < 0, MARGIN = 1, any),] <- NA
-          rm_id <- which(is.na(as.numeric(t(rm_id))))
-          object_clean[rm_id] <- NULL
-          TIMESINCEIRR <- TIMESINCEIRR[-rm_id]
-          rm_records <- length(rm_id)
-          rm(rm_id)
+          rm_id <- is.na(as.numeric(t(rm_id)))
         }else{
-          rm_records <- sum(TIMESINCEIRR < 0)
-          object_clean[TIMESINCEIRR < 0] <- NULL
-          TIMESINCEIRR <- TIMESINCEIRR[TIMESINCEIRR >= 0]
+          rm_id <- TIMESINCEIRR < 0
         }
+        object_clean[rm_id] <- NULL
+        TIMESINCEIRR <- TIMESINCEIRR[!rm_id]
+        rm_records <- sum(rm_id)
 
         .throw_warning("removed ", rm_records, " records with negative ",
                        "'time since irradiation'")
@@ -343,10 +350,6 @@ analyse_FadingMeasurement <- function(
       irradiation_times <- vapply(object_clean, function(o){
         o@info$IRR_TIME
       }, numeric(1))
-
-    }else{
-      .throw_message("Unknown or unsupported originator, NULL returned")
-      return(NULL)
     }
 
     ##correct irradiation time for t_star
@@ -360,21 +363,24 @@ analyse_FadingMeasurement <- function(
     if (inherits(t_star, "function")) {
       t_star <- t_star(t1)
     } else {
-      if(t_star == "half"){
-        ##calculate t_star using the simplified equation in Auclair et al. (2003)
-        t_star <- t1 + (t2 - t1)/2
+      t_star <- switch(
+          t_star,
 
-      } else if(t_star == "half_complex"){
-        # calculate t_star after the full equation Auclair et al. (2003)
-        # t0 is an arbitrary constant, we are setting that to 1
-        t0 <- 1
-        t_star <- t0 * 10^((t2 * log10(t2/t0) - t1 * log10(t1/t0) - (t2 - t1) * log10(exp(1))) /
-                     (t2 - t1))
+          ## use the simplified equation in Auclair et al. (2003)
+          "half" = t1 + (t2 - t1) / 2,
 
-      }else if (t_star == "end"){
-        ##set t_start as t_1 (so after the end of irradiation)
-        t_star <- t1
-      }
+          ## use full equation Auclair et al. (2003)
+          ## t0 is an arbitrary constant, we are setting that to 1
+          "half_complex" = {
+            t0 <- 1
+            t_star <- t0 * 10^((t2 * log10(t2/t0) -
+                                t1 * log10(t1/t0) -
+                                (t2 - t1) * log10(exp(1))) / (t2 - t1))
+          },
+
+          ## set t_star to t_1 (so after the end of irradiation)
+          "end" = t1
+      )
     }
 
     ##overwrite TIMESINCEIRR
