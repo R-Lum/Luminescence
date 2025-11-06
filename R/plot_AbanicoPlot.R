@@ -266,8 +266,7 @@
 #'                  log.z = FALSE)
 #'
 #' ## now with output of the plot parameters
-#' plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                           output = TRUE)
+#' plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues)
 #' str(plot1)
 #' plot1$zlim
 #'
@@ -414,8 +413,7 @@
 #' ## now with manually added plot content
 #' ## create empty plot with numeric output
 #' AP <- plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                        pch = NA,
-#'                        output = TRUE)
+#'                        pch = NA)
 #'
 #' ## identify data in 2 sigma range
 #' in_2sigma <- AP$data[[1]]$data.in.2s
