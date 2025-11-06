@@ -47,6 +47,10 @@
   message produced reports the correct number of objects removed from
   the analysis (#1132).
 
+- The function no longer crashes if the normalisation term is zero,
+  which should never happen in real-life analyses, but it may occur if
+  the input data is somewhat malformed (#1144).
+
 ### `analyse_IRSAR.RF()`
 
 - The function no longer crashes when `n.MC = NULL` is used with the

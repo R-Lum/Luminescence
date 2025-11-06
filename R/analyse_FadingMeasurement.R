@@ -468,6 +468,9 @@ analyse_FadingMeasurement <- function(
   idx.tc <- which(TIMESINCEIRR == tc)[1]
   if (length(structure) == 2 || is.null(object)){
     LxTx <- LxTx_table[["LxTx"]]
+    if (LxTx[idx.tc] <= 0) {
+      .throw_error("Normalisation term is not positive, check your input")
+    }
     LxTx_NORM <- LxTx / LxTx[idx.tc]
     LxTx_NORM.ERROR <- LxTx_table[["LxTx.Error"]] / LxTx[idx.tc]
   } else {

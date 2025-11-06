@@ -235,6 +235,16 @@ test_that("regression tests", {
   expect_error(expect_warning(analyse_FadingMeasurement(list(iris)),
                               "1 unsupported records removed"),
                "No valid records in 'object' left")
+
+  ## issue 1144
+  df[1, 1] <-  0
+  expect_error(analyse_FadingMeasurement(df, n.MC = 10, plot = TRUE),
+               "Normalisation term is not positive, check your input")
+  df <- data.frame(Dose = c(1, 450, 1050, 2000, 2550, 450, 0),
+                   LxTx = c(4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018),
+                   LxTx.Error = c(0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002))
+  expect_error(analyse_FadingMeasurement(df, n.MC = 10, plot = TRUE),
+               "Normalisation term is not positive, check your input")
 })
 
 test_that("graphical snapshot tests", {
