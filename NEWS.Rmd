@@ -196,6 +196,11 @@ and now has been restored (#1106).
 * The function better validates the `zlim` argument, to avoid crashes on
 misspecified axis limits if `log.z = TRUE` (#1140).
 
+* The function now always returns invisibly the list of plot parameters,
+independently of the value of the `output` argument. This change made that
+argument redundant, so it was removed. This should have no impact on users;
+if specified, it will be ignored (#1142).
+
 ### `plot_RLum.Analysis()`
 
 * Setting `records_max` to a value larger than the number of curves no longer

@@ -118,7 +118,7 @@ test_that("check functionality", {
                               zlab = "z", zlim = c(3, 7),
                               line = c(3.5, 5.5), y.ticks = FALSE,
                               cex = 0.8, lty = 2, lwd = 2, pch = 2, col = 2,
-                              tck = 1, tcl = 2, output = TRUE),
+                              tck = 1, tcl = 2),
               "list")
 
   plot_RadialPlot(df, show = FALSE, centrality = c(1, 2, 3))

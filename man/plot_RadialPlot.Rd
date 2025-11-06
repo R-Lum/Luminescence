@@ -24,7 +24,6 @@ plot_RadialPlot(
   line,
   line.col,
   line.label,
-  output = FALSE,
   ...
 )
 }
@@ -110,10 +109,6 @@ colour of the additional lines.}
 \item{line.label}{\link{character}:
 labels for the additional lines.}
 
-\item{output}{\link{logical}:
-Optional output of numerical plot parameters. These can be useful to
-reproduce similar plots. Default is \code{FALSE}.}
-
 \item{...}{Further plot arguments to pass. \code{xlab} must be a vector of
 length 2, specifying the upper and lower x-axes labels.}
 }
@@ -181,11 +176,10 @@ plot_RadialPlot(
   data = ExampleData.DeValues,
   log.z = FALSE)
 
-## now with output of the plot parameters
+## store the the plot parameters
 plot1 <- plot_RadialPlot(
   data = ExampleData.DeValues,
-  log.z = FALSE,
-  output = TRUE)
+  log.z = FALSE)
 plot1
 plot1$zlim
 
