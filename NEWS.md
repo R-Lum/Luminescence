@@ -104,6 +104,11 @@
   object with an unsupported originator instead of returning `NULL`
   (#1136).
 
+### `calc_FiniteMixture()`
+
+- The function no longer crashes if the De column contains zeros
+  (#1146).
+
 ### `calc_Huntley()`
 
 - A warning raised in rare occasions if the number of Monte Carlo
