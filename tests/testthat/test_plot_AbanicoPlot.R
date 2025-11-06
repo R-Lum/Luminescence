@@ -43,6 +43,10 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend = 5),
+               "'legend' should be of class 'character'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = 5),
+               "'legend.pos' should have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
                "'frame' should be one of '0', '1', '2' or '3'")
 
