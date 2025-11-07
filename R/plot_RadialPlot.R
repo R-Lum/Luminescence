@@ -367,6 +367,9 @@ plot_RadialPlot <- function(
 
   ## create preliminary global data set
   De.global <- unlist(lapply(data, function(x) x[, 1]))
+  if (length(De.global) < 2) {
+    .throw_error("At least two data points are required")
+  }
 
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
