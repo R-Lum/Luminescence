@@ -272,8 +272,8 @@ calc_CosmicDoseRate<- function(
     }
     .validate_positive_scalar(est.age)
     if(est.age > 80) {
-      cat("\nCAUTION: No geomagnetic field change correction for samples",
-          "older than 80 ka possible, 'corr.fieldChanges' set to FALSE")
+      .throw_message("No geomagnetic field change correction possible for ",
+                     "samples older than 80 ka, 'corr.fieldChanges' set to FALSE")
       corr.fieldChanges<- FALSE
     }
   }

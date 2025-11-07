@@ -50,12 +50,13 @@ test_that("input validation", {
                                    latitude = 38.06451, longitude = 1.49646,
                                    altitude = 364),
                "The number of values for 'density' should either be 1 or")
-
-  expect_output(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+  SW({
+  expect_message(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                     corr.fieldChanges = TRUE, est.age = 100,
                                     latitude = 38.0645, longitude = 1.4964,
                                     altitude = 364),
-                "No geomagnetic field change correction for samples older than 80")
+                 "No geomagnetic field change correction possible for samples")
+  })
   expect_output(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                                     corr.fieldChanges = TRUE, est.age = 20,
                                     latitude = 38.0645, longitude = 1.4964,
