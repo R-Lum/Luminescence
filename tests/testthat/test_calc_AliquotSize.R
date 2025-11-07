@@ -2,9 +2,13 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_AliquotSize(),
-               "Please provide the mean grain size or the range of grain sizes")
+               "grain.size' should be of class 'numeric' or 'integer'")
   expect_error(calc_AliquotSize(grain.size = 1:3),
                "Please provide the mean grain size or the range of grain sizes")
+  expect_error(calc_AliquotSize(grain.size = 0),
+               "'grain.size' should contain positive values")
+  expect_error(calc_AliquotSize(grain.size = NA_real_),
+               "'grain.size' should contain positive values")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = "inf"),
                "'packing.density' should be a single positive value")
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2),
@@ -19,8 +23,6 @@ test_that("input validation", {
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8,
                                 MC = TRUE),
                "'grain.size' must be a vector containing the min and max")
-  expect_error(calc_AliquotSize(grain.size = 0, sample.diameter = 9.8),
-               "'grain.size' should contain positive values")
   SW({
   expect_message(calc_AliquotSize(grain.size = 100, packing.density = 1,
                                   sample.diameter = 9.8, grains.counted = 30,

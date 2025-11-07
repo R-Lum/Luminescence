@@ -163,12 +163,12 @@ calc_AliquotSize <- function(
 
   ## Integrity checks -------------------------------------------------------
 
-  if (missing(grain.size) ||
-      length(grain.size) == 0 || length(grain.size) > 2) {
+  .validate_class(grain.size, c("numeric", "integer"))
+  if (length(grain.size) == 0 || length(grain.size) > 2) {
     .throw_error("Please provide the mean grain size or the range ",
                  "of grain sizes (in microns)")
   }
-  if (any(grain.size == 0)) {
+  if (anyNA(grain.size) || any(grain.size <= 0)) {
     .throw_error("'grain.size' should contain positive values")
   }
 

@@ -85,6 +85,8 @@
 - The function now validates the `MC.iter` argument to avoid an ugly
   crash if a non-positive value is provided (#1124).
 
+- The function now better validates its `grain.size` argument (#1152).
+
 ### `calc_CosmicDoseRate()`
 
 - The function is now more robust against `NA` values in its input
