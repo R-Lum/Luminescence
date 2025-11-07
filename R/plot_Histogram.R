@@ -143,7 +143,8 @@ plot_Histogram <- function(
   }
 
   ## we don't check the second column, as that can be NA
-  .validate_class(data[, 1], "numeric", name = "All columns of 'data'")
+  .validate_class(data[, 1], c("numeric", "integer"),
+                  name = "All columns of 'data'")
 
   .validate_class(cex.global, "numeric")
   .validate_class(summary, "character")
