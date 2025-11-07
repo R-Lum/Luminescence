@@ -188,6 +188,8 @@
 
 - The plot title and subtitle now respect the `cex` option (#1112).
 
+- The function now better validates its input arguments (#1158).
+
 ### `plot_RadialPlot()`
 
 - The function avoids some possible overprinting at the extremes of the

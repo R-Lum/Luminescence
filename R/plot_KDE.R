@@ -82,7 +82,7 @@
 #' One out of `"MCM"` (default), `"weighted"` or `"unweighted"`.
 #' See [calc_Statistics] for details.
 #'
-#' @param bw [character] (*with default*):
+#' @param bw [character], [numeric] (*with default*):
 #' bin-width, chose a numeric value for manual setting.
 #'
 #' @param ... further arguments and graphical parameters passed to [plot].
@@ -228,6 +228,7 @@ plot_KDE <- function(
   if(length(data) == 0)
     .throw_error("Your input is empty due to Inf removal")
 
+  .validate_logical_scalar(na.rm)
   .validate_logical_scalar(values.cumulative)
   .validate_logical_scalar(order)
   .validate_logical_scalar(boxplot)
@@ -243,6 +244,11 @@ plot_KDE <- function(
                                     "topleft", "top", "topright",
                                     "bottomleft", "bottom", "bottomright"))
   }
+  .validate_class(bw, c("character", "numeric"))
+  if (is.numeric(bw))
+    .validate_positive_scalar(bw)
+  else
+    .validate_length(bw, 1)
 
   ## set mtext output
   mtext <- list(...)$mtext %||% ""
@@ -337,10 +343,6 @@ plot_KDE <- function(
 
       ## position of maximum KDE value
       De.stats[i,4] <- De.density[[i]]$x[which.max(De.density[[i]]$y)]
-
-    }else{
-      De.density.range[i,1:4] <- NA
-      De.stats[i,4] <- NA
     }
   }
 
