@@ -56,8 +56,14 @@ get_Layout <- function(
   ## pre-defined layout selections
   if (is.character(layout) && length(layout) == 1) {
 
-    if(layout == "empty") {
+    if (!layout %in% c("empty", "default", "journal")) {
+      .throw_warning("Layout definition not supported, ",
+                     "default layout is used.")
+      return(get_Layout(layout = "default"))
+    }
 
+    switch(layout,
+    "empty" = {
       layout <- list(
 
         ## empty Abanico plot -------------------------------------------------
@@ -249,8 +255,9 @@ get_Layout <- function(
           )
         )
       )
-    } else if(layout == "default") {
+    },
 
+    "default" = {
       layout <- list(
 
         ## default Abanico plot -----------------------------------------------
@@ -443,8 +450,9 @@ get_Layout <- function(
           )
         )
       )
-    } else if(layout == "journal") {
+    },
 
+    "journal" = {
       layout <- list(
 
         ## journal Abanico plot -----------------------------------------------
@@ -639,11 +647,7 @@ get_Layout <- function(
           )
         )
       )
-    } else {
-      .throw_warning("Layout definition not supported, ",
-                     "default layout is used.")
-      layout <- get_Layout(layout = "default")
-    }
+    })
   }
 
   ## return layout parameters
