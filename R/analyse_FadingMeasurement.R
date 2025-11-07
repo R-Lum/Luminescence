@@ -265,7 +265,7 @@ analyse_FadingMeasurement <- function(
 
     ## support read_XSYG2R()
     originator <- unique(unlist(lapply(object, slot, name = "originator")))
-    if (length(originator) > 1 ||
+    if (length(originator) != 1 ||
         !originator %in% c("read_XSYG2R", "read_BIN2R",
                            "Risoe.BINfileData2RLum.Analysis"))  {
       .throw_message("Unknown or unsupported originator, NULL returned")

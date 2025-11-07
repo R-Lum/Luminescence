@@ -40,8 +40,8 @@
 
 ### `analyse_FadingMeasurement()`
 
-- The function no longer crashes when called on an RLum.Analysis object
-  with missing originator (#1130).
+- The function no longer crashes when called on an object with missing
+  originator (#1130, \#1154).
 
 - When called with a list containing object with multiple classes, the
   message produced reports the correct number of objects removed from
