@@ -12,6 +12,8 @@ test_that("input validation", {
                "'data' object must have two columns")
   expect_error(calc_FiniteMixture(data.frame(col = 0:10, 1:11)),
                "'data' must have only positive values in its De column")
+  expect_error(calc_FiniteMixture(data.frame(col = c(1:10, NA), 1:11)),
+               "'data' must have only positive values in its De column")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1),
                "'sigmab' should be a single positive value")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 2),
