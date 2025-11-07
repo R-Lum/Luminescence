@@ -178,7 +178,9 @@ plot_Histogram <- function(
   if (na.rm) {
     n.NA <- sum(is.na(data[,1]))
     if (n.NA > 0) {
-      cat(sprintf("%d NA value%s excluded\n", n.NA, ifelse(n.NA > 1, "s", "")))
+      .throw_message(sprintf("%d NA value%s excluded\n",
+                             n.NA, ifelse(n.NA > 1, "s", "")),
+                     error = FALSE)
       data <- data[!is.na(data[, 1]), ]
     }
   }

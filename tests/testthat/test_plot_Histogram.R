@@ -51,12 +51,12 @@ test_that("check functionality", {
   ## missing values
   df.na <- df
   df.na[10, 1] <- NA
-  expect_output(plot_Histogram(set_RLum("RLum.Results", data = list(df.na)),
-                               summary.pos = "bottom"),
-                "1 NA value excluded")
+  expect_message(plot_Histogram(set_RLum("RLum.Results", data = list(df.na)),
+                                summary.pos = "bottom"),
+                 "1 NA value excluded")
   df.na[20, 1] <- NA
-  expect_output(plot_Histogram(df.na),
-                "2 NA values excluded")
+  expect_message(plot_Histogram(df.na),
+                 "2 NA values excluded")
 })
 
 test_that("graphical snapshot tests", {
