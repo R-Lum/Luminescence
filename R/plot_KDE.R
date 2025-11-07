@@ -228,6 +228,7 @@ plot_KDE <- function(
   if(length(data) == 0)
     .throw_error("Your input is empty due to Inf removal")
 
+  .validate_logical_scalar(na.rm)
   .validate_logical_scalar(values.cumulative)
   .validate_logical_scalar(order)
   .validate_logical_scalar(boxplot)
@@ -243,6 +244,11 @@ plot_KDE <- function(
                                     "topleft", "top", "topright",
                                     "bottomleft", "bottom", "bottomright"))
   }
+  .validate_class(bw, c("character", "numeric"))
+  if (is.numeric(bw))
+    .validate_positive_scalar(bw)
+  else
+    .validate_length(bw, 1)
 
   ## set mtext output
   mtext <- list(...)$mtext %||% ""
