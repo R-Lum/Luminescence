@@ -120,6 +120,11 @@ values (#1146, #1148).
 * A warning raised in rare occasions if the number of Monte Carlo iterations
 is very small has been fixed (#1048).
 
+### `calc_Statistics()`
+
+* The function could crash if an error was exactly zero. This affected also
+the plotting functions that use `calc_Statistics()` (#1160).
+
 ### `combine_De_Dr()`
 
 * It is now possible to control the random seeds used by the JAGS MCMC chains
