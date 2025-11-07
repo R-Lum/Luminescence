@@ -563,6 +563,9 @@ setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
   on.exit(.unset_function_name(), add = TRUE)
 
   .validate_class(class, "character")
+  if (!nzchar(class)) {
+    .throw_error("'class' cannot be an empty character")
+  }
   class(class) <- as.character(class)
 
   if (missing(originator)) {
