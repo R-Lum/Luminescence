@@ -22,6 +22,8 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(plot_RadialPlot(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from data set 1")
+  expect_error(plot_RadialPlot(data.frame(1, 3)),
+               "At least two data points are required")
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' should have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),

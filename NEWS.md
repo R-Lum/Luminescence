@@ -208,6 +208,9 @@
   that argument redundant, so it was removed. This should have no impact
   on users; if specified, it will be ignored (#1142).
 
+- The function stops with an error instead of crashing if the input
+  contains only 1 data point (#1150).
+
 ### `plot_RLum.Analysis()`
 
 - Setting `records_max` to a value larger than the number of curves no
