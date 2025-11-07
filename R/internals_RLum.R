@@ -37,7 +37,7 @@
       return(x)
     })
 
-  return(object)
+  object
 }
 
 #+++++++++++++++++++++
@@ -92,7 +92,7 @@
                    ifelse(w_table == 1, "", sprintf(" [%d times]", w_table)))
     warning(paste(msg, collapse = "\n"), call. = FALSE)
   }
-  return(results)
+  results
 }
 
 #+++++++++++++++++++++
@@ -274,7 +274,7 @@
                    "values replaced by 0")
   }
 
-  return(data)
+  data
 }
 
 #++++++++++++++++++++++++++++++
@@ -319,7 +319,7 @@
     res[1, ] <- round(res[1, ], digits = digits)
   }
 
-  return(res)
+  res
 }
 
 #++++++++++++++++++++++++++++++
@@ -493,7 +493,7 @@ fancy_scientific <- function(l) {
     adj <- c(1, 0)
   }
 
-  return(list(pos = pos, adj = adj))
+  list(pos = pos, adj = adj)
 }
 
 
@@ -563,7 +563,7 @@ fancy_scientific <- function(l) {
   l <- .rm_NULL_elements(l)
 
   ##construct final call
-  return(paste0(prefix, paste(unlist(l), collapse = sep), suffix))
+  paste0(prefix, paste(unlist(l), collapse = sep), suffix)
 }
 
 #++++++++++++++++++++++++++++++
@@ -740,7 +740,7 @@ fancy_scientific <- function(l) {
   if(bin_col) temp_m <- t(temp_m)
 
   ## return
-  return(temp_m)
+  temp_m
 }
 
 #++++++++++++++++++++++++++++++
@@ -823,7 +823,7 @@ fancy_scientific <- function(l) {
     }
   }
 
-  return(args)
+  args
 }
 
 #++++++++++++++++++++++++++++++
@@ -892,7 +892,7 @@ fancy_scientific <- function(l) {
     }
   }
 
-  return(HPDI)
+  HPDI
 }
 
 #++++++++++++++++++++++++++++++
@@ -974,7 +974,7 @@ fancy_scientific <- function(l) {
   }
 
   ## return file path
-  return(out_file_path)
+  out_file_path
 }
 
 #' @title Set/unset the function name for error/warning reporting
@@ -1197,7 +1197,7 @@ SW <- function(expr) {
     .throw_warning(msg)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @title Validate that a variable is not empty
@@ -1230,7 +1230,7 @@ SW <- function(expr) {
     .throw_warning(msg)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @title Validate the length of a variable
@@ -1257,7 +1257,7 @@ SW <- function(expr) {
     .throw_warning(msg)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @title Validate scalar variables
@@ -1376,7 +1376,7 @@ SW <- function(expr) {
     .throw_warning(msg)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' Create a list of objects repeated a given number of times
