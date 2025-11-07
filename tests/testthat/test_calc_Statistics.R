@@ -55,4 +55,7 @@ test_that("snapshot tests", {
   expect_snapshot_plain(calc_Statistics(
       ExampleData.DeValues$BT998, n.MCM = 1000, digits = 2),
       tolerance = snapshot.tolerance)
+
+  expect_snapshot_plain(calc_Statistics(data.frame(1:10, 0:9)),
+                        tolerance = snapshot.tolerance)
 })

@@ -94,8 +94,11 @@ calc_Statistics <- function(
   ## replace Na values in error by 0
   data[is.na(data[,2]),2] <- 0
 
-  if(sum(data[,2]) == 0) {
-    .throw_warning("All errors are NA or zero, automatically set to 10^-9")
+  ## replace zeros by a small value
+  if (any(data[, 2] == 0)) {
+    if (sum(data[, 2]) == 0) {
+      .throw_warning("All errors are NA or zero, automatically set to 10^-9")
+    }
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
