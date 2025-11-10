@@ -15,25 +15,26 @@ calc_SourceDoseRate(
 )
 }
 \arguments{
-\item{measurement.date}{\link{character} or \link{Date} (\emph{with default}): Date of measurement in \code{"YYYY-MM-DD"}.
-If no value is provided, the date will be set to today. The argument can be provided as vector.}
+\item{measurement.date}{\link{character} or \link{Date} (\emph{with default}):
+Date of measurement in \code{"YYYY-MM-DD"} format. If no value is provided, the
+date will be set to today. The argument can be provided as vector.}
 
 \item{calib.date}{\link{character} or \link{Date} (\strong{required}):
-date of source calibration in \code{"YYYY-MM-DD"}}
+date of source calibration in \code{"YYYY-MM-DD"} format.}
 
 \item{calib.dose.rate}{\link{numeric} (\strong{required}):
-dose rate at date of calibration in Gy/s or Gy/min}
+dose rate at date of calibration in Gy/s or Gy/min.}
 
 \item{calib.error}{\link{numeric} (\strong{required}):
-error of dose rate at date of calibration Gy/s or Gy/min}
+error of dose rate at date of calibration Gy/s or Gy/min.}
 
 \item{source.type}{\link{character} (\emph{with default}):
 specify irradiation source (\code{Sr-90}, \code{Co-60}, \code{Cs-137}, \code{Am-214}),
-see details for further information}
+see details for further information.}
 
 \item{dose.rate.unit}{\link{character} (\emph{with default}):
-specify dose rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
-Gy/s as valid for the function \link{convert_Second2Gray}}
+dose rate unit for input (one of \code{Gy/min} or \code{Gy/s}). The output is given in
+Gy/s as valid for the function \link{convert_Second2Gray}.}
 
 \item{predict}{\link{integer} (\emph{with default}):
 option allowing to predict the dose rate of the source over time in days
@@ -96,7 +97,7 @@ but mixes them up. Therefore, it is not recommended to use this option
 when multiple calibration dates (\code{calib.date}) are provided.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{
@@ -127,11 +128,9 @@ dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
                                   predict = 1000)
 plot_RLum(dose.rate)
 
-
 ##(4) export output to a LaTeX table (example using the package 'xtable')
 \dontrun{
 xtable::xtable(get_RLum(dose.rate))
-
 }
 
 }

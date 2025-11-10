@@ -26,25 +26,26 @@
 #'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[4]` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 #'
-#' @param measurement.date [character] or [Date] (*with default*): Date of measurement in `"YYYY-MM-DD"`.
-#' If no value is provided, the date will be set to today. The argument can be provided as vector.
+#' @param measurement.date [character] or [Date] (*with default*):
+#' Date of measurement in `"YYYY-MM-DD"` format. If no value is provided, the
+#' date will be set to today. The argument can be provided as vector.
 #'
 #' @param calib.date [character] or [Date] (**required**):
-#' date of source calibration in `"YYYY-MM-DD"`
+#' date of source calibration in `"YYYY-MM-DD"` format.
 #'
 #' @param calib.dose.rate [numeric] (**required**):
-#' dose rate at date of calibration in Gy/s or Gy/min
+#' dose rate at date of calibration in Gy/s or Gy/min.
 #'
 #' @param calib.error [numeric] (**required**):
-#' error of dose rate at date of calibration Gy/s or Gy/min
+#' error of dose rate at date of calibration Gy/s or Gy/min.
 #'
 #' @param source.type [character] (*with default*):
 #' specify irradiation source (`Sr-90`, `Co-60`, `Cs-137`, `Am-214`),
-#' see details for further information
+#' see details for further information.
 #'
 #' @param dose.rate.unit [character] (*with default*):
-#' specify dose rate unit for input (`Gy/min` or `Gy/s`), the output is given in
-#' Gy/s as valid for the function [convert_Second2Gray]
+#' dose rate unit for input (one of `Gy/min` or `Gy/s`). The output is given in
+#' Gy/s as valid for the function [convert_Second2Gray].
 #'
 #' @param predict [integer] (*with default*):
 #' option allowing to predict the dose rate of the source over time in days
@@ -81,12 +82,11 @@
 #' but mixes them up. Therefore, it is not recommended to use this option
 #' when multiple calibration dates (`calib.date`) are provided.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-#'
 #'
 #' @seealso [convert_Second2Gray], [get_RLum], [plot_RLum]
 #'
@@ -123,11 +123,9 @@
 #'                                   predict = 1000)
 #' plot_RLum(dose.rate)
 #'
-#'
 #'##(4) export output to a LaTeX table (example using the package 'xtable')
 #'\dontrun{
 #' xtable::xtable(get_RLum(dose.rate))
-#'
 #'}
 #'
 #' @export
@@ -144,16 +142,24 @@ calc_SourceDoseRate <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   .validate_class(measurement.date, c("Date", "character"))
-  .validate_class(calib.date, c("Date", "character"))
-
   if (is.character(measurement.date)) {
-        measurement.date <- as.Date(measurement.date)
-      }
-
-  ##calibration date
-  if (is.character(calib.date)) {
-    calib.date <- as.Date(calib.date)
+    measurement.date <- tryCatch(
+        as.Date(measurement.date),
+        error = function(e) {
+          .throw_error("'measurement.date' could not be converted to a Date, ",
+                       e$message)
+        })
   }
+  .validate_class(calib.date, c("Date", "character"))
+  if (is.character(calib.date)) {
+    calib.date <- tryCatch(
+        as.Date(calib.date),
+        error = function(e) {
+          .throw_error("'calib.date' could not be converted to a Date, ",
+                       e$message)
+        })
+  }
+  .validate_positive_scalar(calib.error)
 
   ## source type and dose rate unit
   source.type <- .validate_args(source.type,

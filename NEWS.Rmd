@@ -120,6 +120,11 @@ values (#1146, #1148).
 * A warning raised in rare occasions if the number of Monte Carlo iterations
 is very small has been fixed (#1048).
 
+### `calc_SourceDoseRate()`
+
+* The function returns a clearer error message if dates are specified in an
+unexpected or ambiguous format (#1162).
+
 ### `calc_Statistics()`
 
 * The function could crash if an error was exactly zero. This affected also
