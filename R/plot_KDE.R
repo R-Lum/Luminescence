@@ -748,12 +748,14 @@ plot_KDE <- function(
     if (rug) {
       for(i in 1:length(data)) {
         for(j in 1:nrow(data[[i]])) {
+          suppressWarnings( # some values will be clipped
           rug(data[[i]][j, 1],
               ticksize = 0.01 * l_height,
               side = 3,
               pos = 0,
               lwd = 1,
               col = col.value.rug[i])
+          )
         }
       }
     }
@@ -796,6 +798,7 @@ plot_KDE <- function(
     ## add De error bars
     for(i in 1:length(data)) {
       if (attr(data[[i]], "De.errors.available")) {
+        suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(data[[i]][, 1] - data[[i]][, 2],
                1:length(data[[i]][,1]),
                data[[i]][, 1] + data[[i]][, 2],
@@ -804,6 +807,7 @@ plot_KDE <- function(
                angle = 90,
                length = 0.05,
                col = col.value.bar[i])
+        )
       }
       ## add De measurements
       points(data[[i]][,1], 1:De.stats[i,1],
