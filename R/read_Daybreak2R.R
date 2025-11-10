@@ -357,7 +357,8 @@ read_Daybreak2R <- function(
 
     ##(2)
     ##Loop over the list to create RLum.Data.Curve objects
-    RLum.Data.Curve.list <- lapply(data.list, function(record) {
+    RLum.Data.Curve.list <- lapply(seq_along(data.list), function(x) {
+      record <- data.list[[x]]
       record.length <- length(record)
 
       ##get header length until the argument 'Points'
@@ -379,7 +380,7 @@ read_Daybreak2R <- function(
 
       if(length(header.length)>0){
         ##get measurement data
-        temp.data <- unlist(strsplit(record[-c(1:11)],
+        temp.data <- unlist(strsplit(record[-(1:11)],
                                      split = ";", fixed = TRUE))
 
         ## reshape as [idx, x, y, valid], then take only [x, y]
