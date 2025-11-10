@@ -367,11 +367,11 @@ analyse_FadingMeasurement <- function(
           t_star,
 
           ## use the simplified equation in Auclair et al. (2003)
-          "half" = t1 + (t2 - t1) / 2,
+          half = t1 + (t2 - t1) / 2,
 
           ## use full equation Auclair et al. (2003)
           ## t0 is an arbitrary constant, we are setting that to 1
-          "half_complex" = {
+          half_complex = {
             t0 <- 1
             t_star <- t0 * 10^((t2 * log10(t2/t0) -
                                 t1 * log10(t1/t0) -
@@ -379,7 +379,7 @@ analyse_FadingMeasurement <- function(
           },
 
           ## set t_star to t_1 (so after the end of irradiation)
-          "end" = t1
+          end = t1
       )
     }
 

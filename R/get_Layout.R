@@ -63,7 +63,7 @@ get_Layout <- function(
     }
 
     switch(layout,
-    "empty" = {
+    empty = {
       layout <- list(
 
         ## empty Abanico plot -------------------------------------------------
@@ -257,7 +257,7 @@ get_Layout <- function(
       )
     },
 
-    "default" = {
+    default = {
       layout <- list(
 
         ## default Abanico plot -----------------------------------------------
@@ -452,7 +452,7 @@ get_Layout <- function(
       )
     },
 
-    "journal" = {
+    journal = {
       layout <- list(
 
         ## journal Abanico plot -----------------------------------------------
