@@ -72,13 +72,17 @@ read_Daybreak2R <- function(
   # directory and import them, if this is detected, we proceed as list
 
   .validate_class(file, c("character", "list"))
+  .validate_logical_scalar(raw)
   .validate_logical_scalar(verbose)
+  .validate_logical_scalar(txtProgressBar)
+  if (!verbose)
+    txtProgressBar <- FALSE
 
   if (is.character(file)) {
     .validate_length(file, 1)
 
     ##If this is not really a path we skip this here
-    if (dir.exists(file) & length(dir(file)) > 0) {
+    if (dir.exists(file) && length(dir(file)) > 0) {
       if(verbose){
         cat("[read_Daybreak2R()] Directory detected, trying to extract '*.txt' files ...\n")
       }
@@ -113,13 +117,13 @@ read_Daybreak2R <- function(
   }
 
   ##check for file extension ... distinguish between TXT and DAT
-  if(substr(file, start = nchar(file) - 3, stop = nchar(file)) == ".DAT"){
+  if (endsWith(file, ".DAT")) {
 
-     # Read DAT-file ------------------------------------------------------------------------------
-      on.exit(close(con), add = TRUE)
+    ## Read DAT-file --------------------------------------------------------
+    on.exit(close(con), add = TRUE)
 
       ##screen file to get information on the number of stored records
-      con<-file(file,"rb")
+      con <-file(file, "rb")
       file.data <- file.info(file)
       max.pt<-readBin(con,what="int",6,size=2,endian="little")[6]
       file.size<-file.data$size
@@ -172,7 +176,7 @@ read_Daybreak2R <- function(
       }
 
       ##PROGRESS BAR
-      if(txtProgressBar & verbose){
+      if (txtProgressBar) {
         pb <- txtProgressBar(min=0,max=n.length, char = "=", style=3)
       }
 
@@ -251,28 +255,24 @@ read_Daybreak2R <- function(
         i <- i + 1
 
         ##update progress bar
-        if (txtProgressBar & verbose) {
+        if (txtProgressBar) {
           setTxtProgressBar(pb, i)
         }
-
       }
 
-      ##close ProgressBar
-      if(txtProgressBar & verbose) close(pb)
+    if (txtProgressBar) close(pb)
 
+    ## Output a data.table
+    if (raw) {
+      return(results.DATA)
+    }
 
-      ## Output ... return an RLum.Analysis object or a data.table ... depending on what is wanted
-      if(raw){
-        return(results.DATA)
+    ## Output an RLum.Analysis object
+    ## remove NULL entries, otherwise we have to deal with them later
+    results.DATA <- results.DATA[!sapply(results.DATA[["DATA"]], is.null), ]
 
-      ##Output RLum.Analysis
-      }else{
-
-       ##remove NULL entries, otherwise we have to deal with them later later
-       results.DATA <- results.DATA[!sapply(X = results.DATA[["DATA"]], is.null),]
-
-       ##we need a double loop, as one aliquot defines one object ...
-       output <- lapply(unique(results.DATA[["NDISK"]]), function(i){
+    ## we need a double loop, as one aliquot defines one object ...
+    output <- lapply(unique(results.DATA[["NDISK"]]), function(i) {
 
           ##subset
           DT <- results.DATA[results.DATA[["NDISK"]] == i,]
@@ -299,18 +299,14 @@ read_Daybreak2R <- function(
             records =  records
             )
 
-          ##set pid and return
-          return(.set_pid(temp))
+      .set_pid(temp)
+    })
 
-          })
-
-      ##return object
-      return(output)
-      }
+    return(output)
 
   }else{
 
-    # Read ASCII file -----------------------------------------------------------------------------
+    ## Read ASCII file ------------------------------------------------------
 
     if(verbose){
       cat("\n[read_Daybreak] file extension not of type '.DAT' try to import ASCII-file ... \n")
@@ -319,14 +315,14 @@ read_Daybreak2R <- function(
     ##read file
     file2read <- suppressWarnings(readLines(file))
 
+    ## remove all the empty lines
+    file2read <- file2read[nzchar(file2read)]
+
     ## check whether the file contains non-ASCII characters: the [^ -~]
     ## regexp matches all ASCII characters from space to tilde
     if (any(grepl("[^ -~]", file2read[1]))) {
       .throw_error("The provided file is not ASCII and cannot be imported")
     }
-
-    ##(0) get rid off all the empty lines
-    file2read <- file2read[file2read != ""]
 
     ##(1)
     ##get all rows with the term "[NewRecord]" - that's what we are interested in and it defines
@@ -361,15 +357,14 @@ read_Daybreak2R <- function(
 
     ##(2)
     ##Loop over the list to create RLum.Data.Curve objects
-    RLum.Data.Curve.list <- lapply(1:length(data.list), function(x){
-      ##get length of record
-      record.length <- length(data.list[[x]])
+    RLum.Data.Curve.list <- lapply(data.list, function(record) {
+      record.length <- length(record)
 
       ##get header length until the argument 'Points'
-      header.length <- grep(pattern = "Points", x = data.list[[x]])
+      header.length <- grep("Points", x = record, fixed = TRUE)
 
       last.idx <- if (length(header.length) > 0) header.length else record.length
-      temp.meta_data <- unlist(strsplit(data.list[[x]][2:last.idx],
+      temp.meta_data <- unlist(strsplit(record[2:last.idx],
                                         split = "=", fixed = TRUE))
 
       ##get list names for the info element list
@@ -384,18 +379,12 @@ read_Daybreak2R <- function(
 
       if(length(header.length)>0){
         ##get measurement data
-        temp.data <- unlist(strsplit(unlist(strsplit(
-          data.list[[x]][12:length(data.list[[x]])], split = "="
-        )), split = ";"))
+        temp.data <- unlist(strsplit(record[-c(1:11)],
+                                     split = ";", fixed = TRUE))
 
-        ##grep only data of interest
-        point.x <-
-          suppressWarnings(as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(2, length(temp.data), by = 4)])))
-        point.y <-
-          suppressWarnings(as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(3,length(temp.data), by = 4)])))
-
-        ##combine it into a matrix
-        data <- matrix(c(point.x,point.y), ncol = 2)
+        ## reshape as [idx, x, y, valid], then take only [x, y]
+        temp.data <- matrix(temp.data, ncol = 4, byrow = TRUE)[, 2:3]
+        data <- matrix(as.numeric(temp.data), ncol = 2)
 
       } else if ("IrradTime" %in% names(info)) {
           point.x <- 1:as.numeric(info$IrradTime)
@@ -404,7 +393,7 @@ read_Daybreak2R <- function(
       }
 
       ##update progress bar
-      if (txtProgressBar & verbose) {
+      if (txtProgressBar) {
         setTxtProgressBar(pb, x)
       }
 
@@ -422,7 +411,7 @@ read_Daybreak2R <- function(
     })
 
     ##close ProgressBar
-    if(txtProgressBar & verbose){close(pb)}
+    if (txtProgressBar) close(pb)
 
     ##(3)
     ##Now we have to find out how many aliquots we do have
@@ -450,9 +439,7 @@ read_Daybreak2R <- function(
       )
 
       ##set parent id of records
-      object <- .set_pid(object)
-
-      return(object)
+      .set_pid(object)
     })
 
     ##TERMINAL FEEDBACK
@@ -462,5 +449,5 @@ read_Daybreak2R <- function(
     }
 
     return(RLum.Analysis.list)
-    }
+  }
 }
