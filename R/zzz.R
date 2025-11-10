@@ -104,7 +104,7 @@ readline <- NULL
 #' ##no example available
 #'
 #' @export
-sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
+sTeve <- function(n_frames = 10, t_animation = 2, n.tree = 7, type = NULL) {
   .set_function_name("sTeve")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -119,19 +119,10 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
   month <- as.numeric(strsplit(x = as.character(Sys.Date()), split = "-")[[1]][2])
 
   ## select showtime item based on month or user-defined type
-  if(missing(type) == TRUE) {
-    # nocov start
-    if(month >= 1 & month <= 3) {
-      type <- 1
-    } else if(month >3 & month <= 11) {
-      type <- 2
-    } else if(month > 11 & month <= 12) {
-      type <- 3
-    }
-    # nocov end
+  .validate_positive_scalar(type, int = TRUE, null.ok = TRUE)
+  if (is.null(type)) {
+    type <- as.integer(cut(1:12, c(0, 3, 11, Inf))) # nocov
   }
-  .validate_class(type, c("integer", "numeric"))
-
 
   if(type == 1) {
     ## SHOWTIME OPTION 1
@@ -178,8 +169,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
     r4 <- 0.5
 
     # set angles for each step of mouth opening
-    angles_mouth <- rep(c(0.01, 0.25, 0.5, 0.25),
-                        length.out = n_frames)
+    angles_mouth <- rep_len(c(0.01, 0.25, 0.5, 0.25), n_frames)
 
     for(i in 1:n_frames){
       # define pacman circles

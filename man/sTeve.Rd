@@ -4,7 +4,7 @@
 \alias{sTeve}
 \title{sTeve - sophisticated tool for efficient data validation and evaluation}
 \usage{
-sTeve(n_frames = 10, t_animation = 2, n.tree = 7, type)
+sTeve(n_frames = 10, t_animation = 2, n.tree = 7, type = NULL)
 }
 \arguments{
 \item{n_frames}{\link{integer} (\emph{with default}):
