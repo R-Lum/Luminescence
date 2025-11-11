@@ -16,8 +16,8 @@
 #' \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 #'
 #' In this case the standard error of the dose rate of the beta-source is
-#' treated as systematic (i.e. non-random), it error propagation is omitted.
-#' However, the error must be considered during calculation of the final age.
+#' treated as systematic (i.e. non-random), and error propagation is omitted.
+#' However, the error must be considered during calculation of the final age
 #' (cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian)
 #' for the case the (random) standard error of the beta-source calibration is
 #' 0. Which particular method is requested depends on the situation and cannot
@@ -38,15 +38,15 @@
 #'
 #' @param data [data.frame] (**required**):
 #' input values, structure: data (`values[,1]`) and data error (`values [,2]`)
-#' are required
+#' are required.
 #'
 #' @param dose.rate [RLum.Results-class], [data.frame] or [numeric] (**required**):
 #' `RLum.Results` needs to be originated from the function [calc_SourceDoseRate],
-#' for `vector` dose rate in Gy/s and dose rate error in Gy/s
+#' for `vector` dose rate in Gy/s and dose rate error in Gy/s.
 #'
 #' @param error.propagation [character] (*with default*):
 #' error propagation method used for error calculation (`omit`, `gaussian` or
-#' `absolute`), see details for further information
+#' `absolute`), see details for further information.
 #'
 #' @return
 #' Returns a [data.frame] with converted values.
@@ -100,7 +100,7 @@ convert_Second2Gray <- function(
   .set_function_name("convert_Second2Gray")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
   .validate_class(dose.rate, c("RLum.Results", "data.frame", "numeric"))
@@ -124,21 +124,15 @@ convert_Second2Gray <- function(
   De.error.seconds <- data[,2]
   De.gray <- round(De.seconds * dose.rate[[1]], digits = 2)
 
-  if (error.propagation == "omit") {
-    De.error.gray <- round(dose.rate[[1]] * De.error.seconds,
-                           digits = 3)
-
-  } else if(error.propagation == "gaussian") {
-    De.error.gray <- round(sqrt((dose.rate[[1]] * De.error.seconds) ^ 2 +
-                                (De.seconds * dose.rate[[2]]) ^ 2),
-                           digits = 3)
-
-  } else if (error.propagation == "absolute") {
-    De.error.gray <- round(abs(dose.rate[[1]] * De.error.seconds) +
-                           abs(De.seconds * dose.rate[[2]]),
-                           digits = 3)
-  }
+  De.error.gray <- switch(
+      error.propagation,
+      omit = dose.rate[[1]] * De.error.seconds,
+      gaussian = sqrt((dose.rate[[1]] * De.error.seconds)^2 +
+                      (dose.rate[[2]] * De.seconds)^2),
+      absolute = (abs(dose.rate[[1]] * De.error.seconds) +
+                  abs(dose.rate[[2]] * De.seconds))
+  )
 
   ## Return -----------------------------------------------------------------
-  data.frame(De = De.gray, De.error = De.error.gray)
+  data.frame(De = De.gray, De.error = round(De.error.gray, digits = 3))
 }

@@ -165,14 +165,15 @@
    k <- ceiling(length(x) / 100)
 
   ##smooth data
-  if(method == "mean"){
+  switch(method,
+  mean = {
     data.table::frollmean(x, n = k, fill = fill, align = align)
-
-  }else if(method == "median"){
+  },
+  median = {
     data.table::frollapply(x, n = k, FUN = "median",
                            fill = fill, align = align)
-  }
-  else if (method == "Carter_etal_2018") {
+  },
+  Carter_etal_2018 = {
     ## Code derived with corrections and improvements from the supplementary
     ## materials of Carter et al. (2018)
     ## https://doi.org/10.1016/j.radmeas.2018.05.010
@@ -198,7 +199,7 @@
     x[na.idx] <- data.table::frollmean(x, n = 5, align = "center",
                                        fill = fill, na.rm = TRUE)[na.idx]
     round(x)
-  }
+  })
 }
 
 #' Computation of a weighted median

@@ -620,20 +620,13 @@ calc_FiniteMixture <- function(
   par(cex = 0.8 * settings$cex, xpd = NA)
 
   ## define colour palette for prettier output
-  if (settings$pdf.colors == "colors") {
-    col.n <- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
-               "burlywood4", "magenta4", "mediumpurple3", "brown4", "grey",
-               "aquamarine")
-    poly.border <- FALSE
-  }
-  else if (settings$pdf.colors == "gray") {
-    col.n <- grDevices::gray.colors(length(n.components)*2)
-    poly.border <- FALSE
-  }
-  else if (settings$pdf.colors == "none") {
-    col.n <- rgb(0, 0, 0, 0)
-    poly.border <- TRUE
-  }
+  col.n <- switch(settings$pdf.colors,
+                  colors = c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
+                             "burlywood4", "magenta4", "mediumpurple3", "brown4",
+                             "grey", "aquamarine"),
+                  gray = grDevices::gray.colors(length(n.components) * 2),
+                  none = rgb(0, 0, 0, 0))
+  poly.border <- settings$pdf.colors == "none"
 
   ##--------------------------------------------------------------------------
   ## PLOT 1: EQUIVALENT DOSES OF COMPONENTS
