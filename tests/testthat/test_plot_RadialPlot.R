@@ -141,6 +141,9 @@ test_that("check functionality", {
       log.z = FALSE),
     regexp = "Attention.*")
 
+  expect_message(plot_RadialPlot(df, line = -1),
+                 "Lines with negative value skipped due to 'log.z = TRUE'")
+
   ## trigger warning
   expect_warning(plot_RadialPlot(
       data = df,

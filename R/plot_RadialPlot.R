@@ -836,17 +836,23 @@ plot_RadialPlot <- function(
   if (!is.null(line)) {
     #line = line + De.add
 
-    if (log.z) line <- log(line)
+    if (log.z) {
+      if (any(line < 0)) {
+        line <- line[line >= 0]
+        .throw_message("Lines with negative value skipped due to 'log.z = TRUE'")
+      }
+      line <- log(line)
+    }
 
     line.coords <- NULL
-    for(i in 1:length(line)) {
+    for (i in seq_along(line)) {
       line.x <- c(limits.x[1], x.coord(line[i]))
       line.y <- c(0, y.coord(line[i], line.x[2]))
       line.coords[[i]] <- rbind(line.x, line.y)
     }
 
     if (is.null(line.col)) {
-      line.col <- seq(from = 1, to = length(line.coords))
+      line.col <- seq_along(length(line.coords))
     }
 
     if (is.null(line.label)) {
