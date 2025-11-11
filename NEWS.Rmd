@@ -227,6 +227,9 @@ if specified, it will be ignored (#1142).
 * The function stops with an error instead of crashing if the input contains
 only 1 data point (#1150).
 
+* The function reports a message instead of throwing a warning when adding a
+line with negative value if `log.z = TRUE` (#1164).
+
 ### `plot_RLum.Analysis()`
 
 * Setting `records_max` to a value larger than the number of curves no longer
