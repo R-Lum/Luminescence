@@ -226,7 +226,7 @@
   contains only 1 data point (#1150).
 
 - The function reports a message instead of throwing a warning when
-  adding a line with negative value if `log.z = TRUE` (#1164).
+  adding a line with negative value if `log.z = TRUE` (#1164, \#1168).
 
 ### `plot_RLum.Analysis()`
 

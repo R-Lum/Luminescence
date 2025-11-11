@@ -342,6 +342,7 @@ plot_RadialPlot <- function(
 
   .validate_class(stats, "character")
   .validate_logical_scalar(rug)
+  .validate_class(line, c("numeric", "integer"), null.ok = TRUE)
 
   if (is.null(bar.col)) {
     bar.col <- rep("grey80", length(data))

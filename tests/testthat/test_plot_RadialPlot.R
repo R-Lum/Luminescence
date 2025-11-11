@@ -38,6 +38,8 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_RadialPlot(df, line = c(NA, NA)),
+               "'line' should be of class 'numeric', 'integer' or NULL")
   expect_error(plot_RadialPlot(df, zlim = 1),
                "'zlim' should have length 2")
   expect_error(plot_RadialPlot(list(df, df), lty = 1),
