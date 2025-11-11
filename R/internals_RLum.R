@@ -1083,6 +1083,15 @@ SW <- function(expr) {
                                       sys.call(sys.parent())))[1])
 }
 
+#' @title Throw an error or a warning based on a condition
+#'
+#' @noRd
+.error_or_warning <- function(msg, throw.error) {
+  if (throw.error)
+    .throw_error(msg)
+  .throw_warning(msg)
+}
+
 #' @title Validate a character argument from a list of choices
 #'
 #' @description
@@ -1192,9 +1201,7 @@ SW <- function(expr) {
     }
     msg <- paste0(name %||% .first_argument(), " should be of class ",
                   .collapse(msg.head, quote = FALSE), msg.tail)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
   TRUE
@@ -1225,9 +1232,7 @@ SW <- function(expr) {
 
   if (NROW(arg) == 0 || NCOL(arg) == 0) {
     msg <- paste0(name %||% .first_argument(), " cannot be an empty ", what)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
   TRUE
@@ -1252,9 +1257,7 @@ SW <- function(expr) {
 
   if (length(arg) != exp.length) {
     msg <- paste0(name %||% .first_argument(), " should have length ", exp.length)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
   TRUE
@@ -1371,9 +1374,7 @@ SW <- function(expr) {
     msg <- paste("%s requires the '%s' package: to install it, run",
                  "`install.packages('%s')` in your R console")
     msg <- sprintf(msg, reason, pkg, pkg)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
   TRUE
