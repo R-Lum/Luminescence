@@ -128,7 +128,7 @@ test_that("regression tests", {
   expect_error(analyse_SAR.TL(object, signal.integral.min = 2,
                               signal.integral.max = 2,
                               sequence.structure = seq.structure),
-               "[calc_TLLxTxRatio()] Data types of Lx and Tx data differ",
+               "[calc_TLLxTxRatio()] 'Tx.data.signal' should be of class 'data.frame'",
                fixed = TRUE)
   })
 

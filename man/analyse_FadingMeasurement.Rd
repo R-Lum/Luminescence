@@ -7,8 +7,8 @@
 analyse_FadingMeasurement(
   object,
   structure = c("Lx", "Tx"),
-  signal.integral,
-  background.integral,
+  signal.integral = NULL,
+  background.integral = NULL,
   t_star = "half",
   n.MC = 100,
   verbose = TRUE,
@@ -163,7 +163,7 @@ a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.23
+ 0.1.24
 }
 
 \examples{

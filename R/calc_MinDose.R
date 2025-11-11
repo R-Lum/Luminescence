@@ -170,7 +170,7 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.4.6
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -327,7 +327,7 @@ calc_MinDose <- function(
   log = TRUE,
   par = 3,
   bootstrap = FALSE,
-  init.values,
+  init.values = NULL,
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
@@ -356,7 +356,7 @@ calc_MinDose <- function(
   }
 
   .validate_positive_scalar(sigmab)
-  if (!missing(init.values)) {
+  if (!is.null(init.values)) {
     if (!is.list(init.values)) {
       .throw_error("'init.values' is expected to be a named list")
     }
@@ -450,7 +450,7 @@ calc_MinDose <- function(
   ## START VALUES
   ##============================================================================##
 
-  if (missing(init.values)) {
+  if (is.null(init.values)) {
     start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                                  quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                   sigma = 1.2,

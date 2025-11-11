@@ -3,7 +3,6 @@
 #' S4 class object for luminescence data in R. The object is produced as output
 #' of the function [read_BIN2R].
 #'
-#'
 #' @name Risoe.BINfileData-class
 #'
 #' @docType class
@@ -495,7 +494,7 @@ setMethod("rename_metadata<-",
 #' @export
 setMethod("replace_metadata<-",
           signature= "Risoe.BINfileData",
-          definition = function(object, info_element, subset = NULL, value) {
+          definition = function(object, info_element, subset = NULL, value = NULL) {
             .set_function_name("replace_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 

@@ -8,7 +8,7 @@ plot_RadialPlot(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  central.value,
+  central.value = NULL,
   centrality = "mean.weighted",
   mtext = "",
   summary = c("n", "in.2s"),
@@ -17,13 +17,13 @@ plot_RadialPlot(
   legend.pos = "topright",
   stats = "none",
   rug = FALSE,
-  plot.ratio,
-  bar.col,
+  plot.ratio = NULL,
+  bar.col = NULL,
   y.ticks = TRUE,
-  grid.col,
-  line,
-  line.col,
-  line.label,
+  grid.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.label = NULL,
   ...
 )
 }
@@ -41,7 +41,7 @@ excludes \code{NA} values from the data set prior to any further operations.}
 \item{log.z}{\link{logical} (\emph{with default}):
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
 
-\item{central.value}{\link{numeric}:
+\item{central.value}{\link{numeric} (\emph{optional}):
 User-defined central value, primarily used for horizontal centring
 of the z-axis.}
 
@@ -91,14 +91,14 @@ are plotted outside the z-axis or when the z-axis gets too elliptic.}
 
 \item{bar.col}{\link{character} or \link{numeric} (\emph{with default}):
 colour of the bar showing the 2-sigma range around the central
-value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.}
+value. To disable the bar, use \code{"none"}. Default is \code{"grey80"}.}
 
 \item{y.ticks}{\link{logical}:
 Option to hide y-axis labels. Useful for data with small scatter.}
 
 \item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
 colour of the grid lines (originating at \verb{[0,0]} and stretching to
-the z-scale). To disable grid lines, use \code{"none"}. Default is \code{"grey"}.}
+the z-scale). To disable grid lines, use \code{"none"}. Default is \code{"grey70"}.}
 
 \item{line}{\link{numeric}:
 numeric values of the additional lines to be added.}
@@ -158,7 +158,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.10
+ 0.5.11
 }
 
 \examples{

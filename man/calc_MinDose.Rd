@@ -10,7 +10,7 @@ calc_MinDose(
   log = TRUE,
   par = 3,
   bootstrap = FALSE,
-  init.values,
+  init.values = NULL,
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
@@ -193,7 +193,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.5
+ 0.4.6
 }
 
 \examples{

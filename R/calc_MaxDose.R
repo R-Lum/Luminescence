@@ -1,4 +1,3 @@
-
 #' Apply the maximum age model to a given De distribution
 #'
 #' Function to fit the maximum age model to De data. This is a wrapper function
@@ -60,12 +59,11 @@
 #'
 #' @return Please see [calc_MinDose].
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
-#'
 #'
 #' @seealso [calc_CentralDose], [calc_CommonDose], [calc_FiniteMixture],
 #' [calc_FuchsLang2001], [calc_MinDose]
@@ -128,7 +126,7 @@ calc_MaxDose<- function(
   log=TRUE,
   par=3,
   bootstrap=FALSE,
-  init.values,
+  init.values = NULL,
   plot=TRUE,
   ...
 ){

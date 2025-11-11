@@ -51,7 +51,7 @@
 #' @param log.z [logical] (*with default*):
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
 #'
-#' @param central.value [numeric]:
+#' @param central.value [numeric] (*optional*):
 #' User-defined central value, primarily used for horizontal centring
 #' of the z-axis.
 #'
@@ -99,14 +99,14 @@
 #'
 #' @param bar.col [character] or [numeric] (*with default*):
 #' colour of the bar showing the 2-sigma range around the central
-#' value. To disable the bar, use `"none"`. Default is `"grey"`.
+#' value. To disable the bar, use `"none"`. Default is `"grey80"`.
 #'
 #' @param y.ticks [logical]:
 #' Option to hide y-axis labels. Useful for data with small scatter.
 #'
 #' @param grid.col [character] or [numeric] (*with default*):
 #' colour of the grid lines (originating at `[0,0]` and stretching to
-#' the z-scale). To disable grid lines, use `"none"`. Default is `"grey"`.
+#' the z-scale). To disable grid lines, use `"none"`. Default is `"grey70"`.
 #'
 #' @param line [numeric]:
 #' numeric values of the additional lines to be added.
@@ -122,7 +122,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.10
+#' @section Function version: 0.5.11
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -265,7 +265,7 @@ plot_RadialPlot <- function(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  central.value,
+  central.value = NULL,
   centrality = "mean.weighted",
   mtext = "",
   summary = c("n", "in.2s"),
@@ -274,13 +274,13 @@ plot_RadialPlot <- function(
   legend.pos = "topright",
   stats = "none",
   rug = FALSE,
-  plot.ratio,
-  bar.col,
+  plot.ratio = NULL,
+  bar.col = NULL,
   y.ticks = TRUE,
-  grid.col,
-  line,
-  line.col,
-  line.label,
+  grid.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.label = NULL,
   ...
 ) {
   .set_function_name("plot_RadialPlot")
@@ -343,10 +343,10 @@ plot_RadialPlot <- function(
   .validate_class(stats, "character")
   .validate_logical_scalar(rug)
 
-  if (missing(bar.col)) {
+  if (is.null(bar.col)) {
     bar.col <- rep("grey80", length(data))
   }
-  if (missing(grid.col)) {
+  if (is.null(grid.col)) {
     grid.col <- rep("grey70", length(data))
   }
 
@@ -454,7 +454,7 @@ plot_RadialPlot <- function(
                              } else NA)
 
   ## optionally adjust central value by user-defined value
-  if (!missing(central.value)) {
+  if (!is.null(central.value)) {
     # ## adjust central value for De.add
     central.value <- central.value + De.add
     z.central.global <- ifelse(log.z,
@@ -526,13 +526,6 @@ plot_RadialPlot <- function(
   .validate_length(pch, length(data))
   .validate_length(col, length(data))
 
-  tck <- if("tck" %in% names(extraArgs)) {
-    .validate_length(extraArgs$tck, length(data), name = "'tck'")
-    extraArgs$tck
-  } else {
-    NA
-  }
-
   tcl <- extraArgs$tcl %||% -0.5
   show <- extraArgs$show %||% TRUE
   fun <- isTRUE(extraArgs$fun)
@@ -540,7 +533,7 @@ plot_RadialPlot <- function(
   ## define auxiliary plot parameters -----------------------------------------
 
   ## optionally adjust plot ratio
-  if(missing(plot.ratio)) {
+  if (is.null(plot.ratio)) {
     if(log.z) {
       plot.ratio <- 1 /  (1 * ((max(data.global[,6]) - min(data.global[,6])) /
         (max(data.global[,7]) - min(data.global[,7]))))
@@ -840,7 +833,7 @@ plot_RadialPlot <- function(
   summary.adj <- coords$adj
 
   ## calculate line coordinates and further parameters
-  if(!missing(line)) {
+  if (!is.null(line)) {
     #line = line + De.add
 
     if (log.z) line <- log(line)
@@ -852,11 +845,11 @@ plot_RadialPlot <- function(
       line.coords[[i]] <- rbind(line.x, line.y)
     }
 
-    if (missing(line.col)) {
+    if (is.null(line.col)) {
       line.col <- seq(from = 1, to = length(line.coords))
     }
 
-    if (missing(line.label)) {
+    if (is.null(line.label)) {
       line.label <- rep("", length(line.coords))
     }
   }
@@ -951,8 +944,7 @@ plot_RadialPlot <- function(
     }
 
     ## optionally add further lines
-    if (!missing(line)) {
-      for(i in 1:length(line)) {
+    for (i in seq_along(line)) {
         lines(x = line.coords[[i]][1,],
               y = line.coords[[i]][2,],
               col = line.col[i])
@@ -962,7 +954,6 @@ plot_RadialPlot <- function(
              pos = 2,
              col = line.col[i],
              cex = cex * 0.9)
-      }
     }
 
     ## overplot unwanted parts

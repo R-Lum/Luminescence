@@ -7,9 +7,9 @@
 calc_Huntley2006(
   data,
   LnTn = NULL,
-  rhop,
-  ddot,
-  readerDdot,
+  rhop = NULL,
+  ddot = NULL,
+  readerDdot = NULL,
   normalise = TRUE,
   fit.method = c("EXP", "GOK"),
   lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
@@ -246,7 +246,7 @@ This function has BETA status, in particular for the GOK implementation. Please 
 your results carefully.
 }
 \section{Function version}{
- 0.4.6
+ 0.4.7
 }
 
 \examples{
@@ -277,7 +277,6 @@ kars <- calc_Huntley2006(
  ddot = ddot,
  readerDdot = readerDdot,
  n.MC = 25)
-
 
 \dontrun{
 # You can also provide LnTn values separately via the 'LnTn' argument.

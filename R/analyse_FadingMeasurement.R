@@ -144,7 +144,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.23
+#' @section Function version: 0.1.24
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -196,8 +196,8 @@
 analyse_FadingMeasurement <- function(
   object,
   structure = c("Lx", "Tx"),
-  signal.integral,
-  background.integral,
+  signal.integral = NULL,
+  background.integral = NULL,
   t_star = 'half',
   n.MC = 100,
   verbose = TRUE,

@@ -98,7 +98,7 @@ setMethod("rename_metadata<-",
 setMethod("replace_metadata<-",
           signature = "RLum.Data",
           definition = function(object, info_element, subset = NULL,
-                                verbose = TRUE, value) {
+                                verbose = TRUE, value = NULL) {
             .set_function_name("replace_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 

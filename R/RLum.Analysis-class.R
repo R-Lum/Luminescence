@@ -727,7 +727,7 @@ setMethod("rename_metadata<-",
 #' @export
 setMethod("replace_metadata<-",
           signature= "RLum.Analysis",
-          definition = function(object, info_element, subset = NULL, value) {
+          definition = function(object, info_element, subset = NULL, value = NULL) {
             .set_function_name("replace_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 

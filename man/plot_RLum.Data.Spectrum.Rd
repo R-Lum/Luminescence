@@ -17,7 +17,7 @@ plot_RLum.Data.Spectrum(
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
-  legend.text,
+  legend.text = NULL,
   plot = TRUE,
   ...
 )
@@ -199,7 +199,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.11
+ 0.6.12
 }
 
 \examples{

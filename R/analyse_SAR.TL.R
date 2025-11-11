@@ -71,7 +71,7 @@
 #'
 #' No TL curves will be removed from the input object without further warning.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -114,7 +114,7 @@ analyse_SAR.TL <- function(
   integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
-  dose.points,
+  dose.points = NULL,
   log = "",
   ...
 ) {
@@ -210,7 +210,7 @@ analyse_SAR.TL <- function(
   ## to calc_TLLxTxRatio()), `dose.points` must divide `length(TL.signal.ID)`
   ## in order for vector recycling to work when further down we do
   ## `LnLxTnTx$Dose <- dose.points`
-  if (!missing(dose.points) &&
+  if (!is.null(dose.points) &&
       (length(TL.signal.ID) / 2) %% length(dose.points) != 0) {
       .throw_error("Length of 'dose.points' not compatible with number ",
                    "of signals")
@@ -255,7 +255,7 @@ analyse_SAR.TL <- function(
   }
 
   ##set dose.points manually if argument was set
-  if(!missing(dose.points)){
+  if (!is.null(dose.points)) {
     temp.Dose <- dose.points
     LnLxTnTx$Dose <- dose.points
   }

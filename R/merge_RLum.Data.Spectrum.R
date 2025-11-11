@@ -73,7 +73,7 @@
 #' allows to specify how info elements of the input objects are combined,
 #' e.g. `1` means that just the elements from the first object are kept,
 #' `2` keeps only the info elements from the 2 object etc.
-#' If nothing is provided all elements are combined.
+#' If set to `NULL`, all elements are combined.
 #'
 #' @param max.temp.diff [numeric] (*with default*):
 #' maximum difference in the time/temperature values between the spectra to
@@ -92,7 +92,7 @@
 #' This function is fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
@@ -119,7 +119,7 @@
 merge_RLum.Data.Spectrum <- function(
   object,
   merge.method = "mean",
-  method.info,
+  method.info = NULL,
   max.temp.diff = 0.1
 ) {
   .set_function_name("merge_RLum.Data.Spectrum")
@@ -147,6 +147,7 @@ merge_RLum.Data.Spectrum <- function(
   merge.method <- .validate_args(merge.method,
                                  c("mean", "median", "sum", "sd", "var",
                                    "min", "max", "append", "-", "*", "/"))
+  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(max.temp.diff)
 
   ## Merge objects ----------------------------------------------------------
@@ -250,7 +251,7 @@ merge_RLum.Data.Spectrum <- function(
                                if (merge.method == "append") num.objects else 1)
 
   ## add the info slot
-  temp.info <- if (missing(method.info)) {
+  temp.info <- if (is.null(method.info)) {
                  unlist(lapply(object, function(x) x@info), recursive = FALSE)
                } else {
                  object[[method.info]]@info

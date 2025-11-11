@@ -82,7 +82,7 @@
 #' but mixes them up. Therefore, it is not recommended to use this option
 #' when multiple calibration dates (`calib.date`) are provided.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
@@ -130,7 +130,7 @@
 #'
 #' @export
 calc_SourceDoseRate <- function(
-  measurement.date = Sys.Date(),
+  measurement.date,
   calib.date,
   calib.dose.rate,
   calib.error,
@@ -141,6 +141,8 @@ calc_SourceDoseRate <- function(
   .set_function_name("calc_SourceDoseRate")
   on.exit(.unset_function_name(), add = TRUE)
 
+  if (missing(measurement.date))
+    measurement.date <- Sys.Date()
   .validate_class(measurement.date, c("Date", "character"))
   if (is.character(measurement.date)) {
     measurement.date <- tryCatch(

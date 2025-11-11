@@ -18,7 +18,7 @@ plot_AbanicoPlot(
   summary.method = "MCM",
   legend = NULL,
   legend.pos = "topleft",
-  stats,
+  stats = NULL,
   rug = FALSE,
   kde = TRUE,
   hist = FALSE,
@@ -26,14 +26,14 @@ plot_AbanicoPlot(
   boxplot = FALSE,
   y.axis = TRUE,
   error.bars = FALSE,
-  bar,
-  bar.col,
-  polygon.col,
-  line,
-  line.col,
-  line.lty,
-  line.label,
-  grid.col,
+  bar = NULL,
+  bar.col = NULL,
+  polygon.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.lty = NULL,
+  line.label = NULL,
+  grid.col = NULL,
   frame = 1,
   bw = "SJ",
   interactive = FALSE,
@@ -166,7 +166,7 @@ numeric values of the additional lines to be added.}
 colour of the additional lines.}
 
 \item{line.lty}{\link{integer}:
-line type of additional lines}
+line type of additional lines.}
 
 \item{line.label}{\link{character}:
 labels for the additional lines.}
@@ -284,7 +284,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.19
+ 0.1.20
 }
 
 \examples{

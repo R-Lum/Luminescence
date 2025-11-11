@@ -54,7 +54,7 @@
 #' **This function has still BETA status!** Please further note that a similar
 #' background for both curves results in a zero error and is therefore set to `NA`.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
@@ -71,7 +71,6 @@
 #'
 #' ##convert Risoe.BINfileData into a curve object
 #' temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
-#'
 #'
 #' Lx.data.signal <- get_RLum(temp, record.id=1)
 #' Lx.data.background <- get_RLum(temp, record.id=2)
@@ -93,16 +92,17 @@
 calc_TLLxTxRatio <- function(
   Lx.data.signal,
   Lx.data.background = NULL,
-  Tx.data.signal,
+  Tx.data.signal = NULL,
   Tx.data.background = NULL,
-  signal.integral.min,
-  signal.integral.max
+  signal.integral.min = NULL,
+  signal.integral.max = NULL
 ) {
   .set_function_name("calc_TLLxTxRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(Lx.data.signal, c("data.frame", "RLum.Data.Curve"))
+  .validate_class(Tx.data.signal, c("data.frame", "RLum.Data.Curve"))
   .validate_positive_scalar(signal.integral.min, int = TRUE)
   .validate_positive_scalar(signal.integral.max, int = TRUE)
 

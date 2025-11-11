@@ -71,7 +71,7 @@
 #' allows to specify how info elements of the input objects are combined,
 #' e.g. `1` means that just the elements from the first object are kept,
 #' `2` keeps only the info elements from the 2 object etc.
-#' If nothing is provided all elements are combined.
+#' If set to `NULL`, all elements are combined.
 #'
 #' @return Returns an [RLum.Data.Curve-class] object.
 #'
@@ -85,13 +85,12 @@
 #' This function is fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [merge_RLum], [RLum.Data.Curve-class]
-#'
 #'
 #' @keywords utilities internal
 #'
@@ -117,14 +116,14 @@
 merge_RLum.Data.Curve<- function(
   object,
   merge.method = "mean",
-  method.info
+  method.info = NULL
 ) {
   .set_function_name("merge_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "list")
+  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
 
   ##(1) check if object is of class RLum.Data.Curve
   temp.recordType.test <- sapply(object, function(x) {
@@ -240,7 +239,7 @@ merge_RLum.Data.Curve<- function(
 
   ##unlist is needed here, as otherwise it would cause unexpected behaviour further using
   ##the RLum.object
-  if(missing(method.info)){
+  if (is.null(method.info)) {
     temp.info <- unlist(lapply(object, function(x) x@info), recursive = FALSE)
   }else{
     temp.info <- object[[method.info]]@info

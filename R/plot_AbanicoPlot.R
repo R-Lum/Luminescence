@@ -201,7 +201,7 @@
 #' colour of the additional lines.
 #'
 #' @param line.lty [integer]:
-#' line type of additional lines
+#' line type of additional lines.
 #'
 #' @param line.label [character]:
 #' labels for the additional lines.
@@ -233,7 +233,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.19
+#' @section Function version: 0.1.20
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -446,7 +446,7 @@ plot_AbanicoPlot <- function(
   summary.method = "MCM",
   legend = NULL,
   legend.pos = "topleft",
-  stats,
+  stats = NULL,
   rug = FALSE,
   kde = TRUE,
   hist = FALSE,
@@ -454,14 +454,14 @@ plot_AbanicoPlot <- function(
   boxplot = FALSE,
   y.axis = TRUE,
   error.bars = FALSE,
-  bar,
-  bar.col,
-  polygon.col,
-  line,
-  line.col,
-  line.lty,
-  line.label,
-  grid.col,
+  bar = NULL,
+  bar.col = NULL,
+  polygon.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.lty = NULL,
+  line.label = NULL,
+  grid.col = NULL,
   frame = 1,
   bw = "SJ",
   interactive = FALSE,
@@ -593,13 +593,10 @@ plot_AbanicoPlot <- function(
   ## check/set layout definitions
   layout <- get_Layout(layout = list(...)$layout %||% "default")
 
-  if(missing(stats))
-    stats <- numeric(0)
-
-  if(missing(bar))
+  if (is.null(bar))
     bar <- rep(TRUE, length(data))
 
-  if(missing(bar.col)) {
+  if (is.null(bar.col)) {
     bar.fill <- rep(rep_len(layout$abanico$colour$bar.fill, length(data)),
                     length(bar))
     bar.line <- rep(rep_len(layout$abanico$colour$bar.line, length(data)),
@@ -609,17 +606,15 @@ plot_AbanicoPlot <- function(
     bar.line <- NA
   }
 
-  if(missing(polygon.col)) {
-    polygon.fill <- rep(layout$abanico$colour$poly.fill,
-                        length.out = length(data))
-    polygon.line <- rep(layout$abanico$colour$poly.line,
-                        length.out = length(data))
+  if (is.null(polygon.col)) {
+    polygon.fill <- rep_len(layout$abanico$colour$poly.fill, length(data))
+    polygon.line <- rep_len(layout$abanico$colour$poly.line, length(data))
   } else {
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
 
-  if(missing(grid.col)) {
+  if (is.null(grid.col)) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
   } else {
@@ -1425,7 +1420,7 @@ plot_AbanicoPlot <- function(
     }
 
   ## optionally add further lines
-  if (!missing(line) && length(line) > 0) {
+  if (length(line) > 0) {
 
     ## check if line parameters are RLum.Results objects
     if (is.list(line)) {
@@ -1443,11 +1438,11 @@ plot_AbanicoPlot <- function(
       line <- unlist(line)
     if (log.z)
       line <- log(line)
-    if (missing(line.col))
+    if (is.null(line.col))
       line.col <- seq_along(line)
-    if (missing(line.lty))
+    if (is.null(line.lty))
       line.lty <- rep(1, length(line))
-    if (missing(line.label))
+    if (is.null(line.label))
       line.label <- rep("", length(line))
 
     ## calculate line coordinates and further parameters

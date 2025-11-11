@@ -135,7 +135,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.8.1
+#' @section Function version: 0.8.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -172,9 +172,9 @@
 calc_OSLLxTxRatio <- function(
   Lx.data,
   Tx.data = NULL,
-  signal.integral,
+  signal.integral = NULL,
   signal.integral.Tx = NULL,
-  background.integral,
+  background.integral = NULL,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,

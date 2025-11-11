@@ -169,7 +169,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.11
+#' @section Function version: 0.6.12
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -256,7 +256,7 @@ plot_RLum.Data.Spectrum <- function(
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
-  legend.text,
+  legend.text = NULL,
   plot = TRUE,
   ...
 ) {
@@ -1013,7 +1013,7 @@ if(plot){
     if(box) graphics::box()
 
     ##for missing values - legend.text
-    if(missing(legend.text))
+    if (is.null(legend.text))
       legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
 
     ##legend

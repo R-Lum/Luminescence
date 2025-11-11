@@ -97,7 +97,7 @@
 #' (min = 1, max = 7).
 #'
 #' @param start_values [data.frame] (*optional*):
-#' start parameters for `lm` and `xm` data for the fit. If no start values are given,
+#' starting values for `Im` and `xm` parameters in the fit. If set to `NULL`,
 #' an automatic start value estimation is attempted (see details).
 #'
 #' @param input.dataType [character] (*with default*):
@@ -194,7 +194,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.6
+#' @section Function version: 0.3.7
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -250,7 +250,7 @@ fit_LMCurve<- function(
   values,
   values.bg,
   n.components = 3,
-  start_values,
+  start_values = NULL,
   input.dataType = "LM",
   sample_code = "",
   sample_ID = "",
@@ -450,7 +450,7 @@ fit_LMCurve<- function(
   ##set fit function
   fit.function <- fit.equation(Im.i = 1:n.components, xm.i = 1:n.components)
 
-  if(missing(start_values)){
+  if (is.null(start_values)) {
 
     ##set b (detrapping) values for a 7-component function taken from Jain et al. (2003)
     b.pseudo<-c(32,2.5,0.65,0.15,0.025,0.0025,0.00030)
@@ -458,7 +458,7 @@ fit_LMCurve<- function(
     ##calculate xm parameters from values set based on the pseudo curves
     xm.pseudo<-sqrt(max(values[,1])/b.pseudo)
 
-    ##the Im values obtaind by calculating residuals
+    ## the Im values obtained by calculating residuals
     Im.pseudo <- sapply(xm.pseudo, function(x) {
       xm.residual <- abs(values[, 1] - x)
       values[which.min(xm.residual), 1] # time value of minimum residual
@@ -840,7 +840,7 @@ fit_LMCurve<- function(
     ##==pseudo curve==##------------------------------------------------------#
 
     ##curve for used pseudo values
-    if (inherits(fit, "try-error") && missing(start_values)) {
+    if (inherits(fit, "try-error") && is.null(start_values)) {
       fit.function<-fit.equation(Im.i=1:n.components,xm.i=1:n.components)
       Im<-Im.pseudo[1:n.components]
       xm<-xm.pseudo[1:n.components]

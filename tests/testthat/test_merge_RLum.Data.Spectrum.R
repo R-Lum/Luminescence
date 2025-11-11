@@ -22,6 +22,9 @@ test_that("input validation", {
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                merge.method = "error"),
                "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")
+  expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
+                               method.info = "error"),
+               "'method.info' should be a single positive integer value or NULL")
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_types)),
                "Only similar record types are supported")
 

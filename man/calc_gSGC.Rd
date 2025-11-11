@@ -7,7 +7,7 @@
 calc_gSGC(
   data,
   gSGC.type = "0-250",
-  gSGC.parameters,
+  gSGC.parameters = NULL,
   n.MC = 100,
   verbose = TRUE,
   plot = TRUE,
@@ -67,7 +67,7 @@ Solving of the equation is realised using \link{uniroot}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{

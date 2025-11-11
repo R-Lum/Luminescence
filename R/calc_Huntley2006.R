@@ -219,7 +219,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.6
+#' @section Function version: 0.4.7
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -282,7 +282,6 @@
 #'  readerDdot = readerDdot,
 #'  n.MC = 25)
 #'
-#'
 #' \dontrun{
 #' # You can also provide LnTn values separately via the 'LnTn' argument.
 #' # Note, however, that the data frame for 'data' must then NOT contain
@@ -305,9 +304,9 @@
 calc_Huntley2006 <- function(
     data,
     LnTn = NULL,
-    rhop,
-    ddot,
-    readerDdot,
+    rhop = NULL,
+    ddot = NULL,
+    readerDdot = NULL,
     normalise = TRUE,
     fit.method = c("EXP", "GOK"),
     lower.bounds = c(-Inf, -Inf, -Inf, -Inf),

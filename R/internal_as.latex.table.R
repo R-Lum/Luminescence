@@ -32,10 +32,11 @@
 #'
 #' @param ... options: `verbose`
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author
-#' Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords internal
 #'
@@ -57,7 +58,7 @@
     pos = "c",
     digits = 3,
     rm.zero = TRUE,
-    select,
+    select = NULL,
     split = NULL,
     tabular_only = FALSE,
 ...) {
@@ -75,11 +76,10 @@
     pos = pos,
     digits = digits,
     rm.zero = rm.zero,
+    select = select,
     split = split,
     tabular_only = tabular_only,
     ... = ...)
-  if (!missing(select))
-    args$select <- select
 
   switch(class(x)[1],
          data.frame = do.call(".as.latex.table.data.frame", args),
@@ -98,7 +98,7 @@
     pos = "c",
     digits = 3,
     rm.zero = TRUE,
-    select,
+    select = NULL,
     split = NULL,
     ...) {
 
@@ -167,7 +167,7 @@
     comments = TRUE,
     pos = "c",
     digits = 3,
-    select,
+    select = NULL,
     split = NULL,
     tabular_only = FALSE,
     ...) {
@@ -191,7 +191,7 @@
   options <- modifyList(options, list(...))
 
   ## Subset data frame ----
-  if (!missing(select)) {
+  if (!is.null(select)) {
     is.name <- select %in% names(x)
     if (!all(is.name))
       .throw_error("Undefined columns selected. Please check provided ",

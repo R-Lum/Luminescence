@@ -7,12 +7,12 @@
 #' @param data [character] or [data.frame] (**required**): file path or data
 #' frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".
 #'
+#' @param rhop [numeric] or [RLum.Results-class] (*with default*):
+#' a vector of rho prime values (one for each sample) or an [RLum.Results-class]
+#' object produced by [analyse_FadingMeasurement].
+#'
 #' @param ITL_model [character] (*with default*): model to be fitted, either
 #' `"GOK"` or `"BTS"`.
-#'
-#' @param rhop [numeric] or [RLum.Results-class] (*with default*): a vector
-#' of rho prime values (one for each sample) or an [RLum.Results-class] object
-#' produced by [analyse_FadingMeasurement]
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
@@ -59,8 +59,8 @@
 #' @export
 fit_IsothermalHolding <- function(
     data,
-    ITL_model = "GOK",
     rhop,
+    ITL_model = "GOK",
     plot = TRUE,
     verbose = TRUE,
     txtProgressBar = TRUE,
@@ -79,8 +79,8 @@ fit_IsothermalHolding <- function(
   ## - the rhop value has uncertainties, which are not yet considered
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
-  ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
   .validate_class(rhop, c("numeric", "RLum.Results"))
+  ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)

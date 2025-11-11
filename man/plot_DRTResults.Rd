@@ -8,7 +8,7 @@ plot_DRTResults(
   values,
   given.dose = NULL,
   error.range = 10,
-  preheat,
+  preheat = NULL,
   boxplot = FALSE,
   mtext = "",
   summary = "",
@@ -113,7 +113,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.15
+ 0.1.16
 }
 
 \examples{

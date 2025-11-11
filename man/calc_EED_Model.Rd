@@ -7,7 +7,7 @@
 calc_EED_Model(
   data,
   D0 = 120L,
-  expected_dose,
+  expected_dose = NULL,
   MinIndivDose = NULL,
   MaxIndivDose = NULL,
   kappa = NULL,
@@ -28,7 +28,8 @@ SE(De). Values are expected in Gy}
 \item{D0}{\link{integer} (\emph{with default}): D0 value (in Gy), defining the
 characterisation behaviour of the quartz.}
 
-\item{expected_dose}{\link{numeric} (\strong{required}): expected equivalent dose}
+\item{expected_dose}{\link{numeric} (\strong{required}):
+expected equivalent dose.}
 
 \item{MinIndivDose}{\link{numeric} (\emph{with default}): value specifying the minimum dose taken into
 account for the plateau. \code{NULL} applies all values.}
@@ -80,11 +81,10 @@ is used to estimated those values.
 \code{iter_max} \tab - \tab \code{1000} \tab maximum number for iterations for used to find kappa and sigma \cr
 \code{trace} \tab - \tab \code{FALSE} \tab enable/disable terminal trace mode; overwritten by global argument \code{verbose}\cr
 \code{trace_plot} \tab - \tab \code{FALSE} \tab enable/disable additional trace plot output; overwritten by global argument \code{verbose} \cr
-
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

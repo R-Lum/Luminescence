@@ -5,7 +5,7 @@
 \title{Calculation of the source dose rate via the date of measurement}
 \usage{
 calc_SourceDoseRate(
-  measurement.date = Sys.Date(),
+  measurement.date,
   calib.date,
   calib.dose.rate,
   calib.error,
@@ -97,7 +97,7 @@ but mixes them up. Therefore, it is not recommended to use this option
 when multiple calibration dates (\code{calib.date}) are provided.
 }
 \section{Function version}{
- 0.3.3
+ 0.3.4
 }
 
 \examples{

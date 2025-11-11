@@ -17,7 +17,6 @@
 #'  `iter_max` \tab - \tab `1000` \tab maximum number for iterations for used to find kappa and sigma \cr
 #'  `trace` \tab - \tab `FALSE` \tab enable/disable terminal trace mode; overwritten by global argument `verbose`\cr
 #'  `trace_plot` \tab - \tab `FALSE` \tab enable/disable additional trace plot output; overwritten by global argument `verbose` \cr
-#'
 #' }
 #'
 #' @param data [data.frame] (**required**): input data consisting of two columns, the De and the
@@ -26,7 +25,8 @@
 #' @param D0 [integer] (*with default*): D0 value (in Gy), defining the
 #' characterisation behaviour of the quartz.
 #'
-#' @param expected_dose [numeric] (**required**): expected equivalent dose
+#' @param expected_dose [numeric] (**required**):
+#' expected equivalent dose.
 #'
 #' @param MinIndivDose [numeric] (*with default*): value specifying the minimum dose taken into
 #' account for the plateau. `NULL` applies all values.
@@ -62,7 +62,7 @@
 #' @author Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France),
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @references Guibert, P., Christophe, C., Urbanova, P., Guérin, G., Blain, S., 2017.
 #' Modelling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
@@ -98,7 +98,7 @@
 calc_EED_Model <- function(
   data,
   D0 = 120L,
-  expected_dose,
+  expected_dose = NULL,
   MinIndivDose = NULL,
   MaxIndivDose = NULL,
   kappa = NULL,

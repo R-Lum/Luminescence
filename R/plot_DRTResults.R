@@ -88,7 +88,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.15
+#' @section Function version: 0.1.16
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -185,7 +185,7 @@ plot_DRTResults <- function(
   values,
   given.dose = NULL,
   error.range = 10,
-  preheat,
+  preheat = NULL,
   boxplot = FALSE,
   mtext = "",
   summary = "",
@@ -205,7 +205,7 @@ plot_DRTResults <- function(
   .validate_class(given.dose, "numeric", null.ok = TRUE)
 
   ##avoid crash for wrongly set boxlot argument
-  if(missing(preheat) & boxplot == TRUE){
+  if (is.null(preheat) && boxplot) {
     boxplot <- FALSE
     .throw_warning("Option 'boxplot' requires a value in 'preheat', ",
                    "reset to FALSE")
@@ -261,7 +261,7 @@ plot_DRTResults <- function(
     ##remove NA values; yes Micha, it is not that simple
     if (!na.rm) {
       ##currently we assume that all input data sets comprise a similar of data
-      if(!missing(preheat) & i == length(values)){
+      if (!is.null(preheat) && i == length(values)) {
         ## remove preheat entries corresponding to NA values
         preheat <- preheat[!is.na(values[[i]][, 1]) &
                            !is.na(values[[i]][, 2])]
@@ -283,7 +283,7 @@ plot_DRTResults <- function(
   extraArgs <- list(...) # read out additional arguments list
 
   main <- extraArgs$main %||% "Dose recovery test"
-  xlab <- extraArgs$xlab %||% ifelse(missing(preheat) == TRUE,
+  xlab <- extraArgs$xlab %||% ifelse(is.null(preheat),
                                      "# Aliquot", "Preheat temperature [\u00B0C]")
 
   ylab <- extraArgs$ylab %||% (
@@ -331,7 +331,7 @@ plot_DRTResults <- function(
   }
 
   ## optionally group data by preheat temperature
-  if (!missing(preheat)) {
+  if (!is.null(preheat)) {
     modes <- as.numeric(names(table(preheat)))
     values.preheat <- values.boxplot <- list()
     for(i in 1:length(modes)) {
@@ -355,7 +355,7 @@ plot_DRTResults <- function(
 
   ## assign colour indices
   col <- extraArgs$col %||% (
-    if(missing(preheat) == TRUE) {
+    if (is.null(preheat)) {
       rep(seq(from = 1, to = length(values)), each = length(modes))
     } else {
       rep(seq(from = 1, to = length(values)), length(modes))
@@ -410,7 +410,7 @@ plot_DRTResults <- function(
   ## optionally plot values and error bars
   if (!boxplot) {
     ## plot data and error
-    if(missing(preheat) == TRUE) {
+    if (is.null(preheat)) {
       ## create empty plot
       plot(NA,NA,
            xlim = xlim,
@@ -462,7 +462,6 @@ plot_DRTResults <- function(
 
       ## add data and error bars
       for(i in 1:length(values)) {
-
         points(x = 1:nrow(values[[i]]),
                y = values[[i]][,1],
                pch = if (oneinput && nrow(values[[i]]) == length(pch)) pch else pch[i],

@@ -35,7 +35,7 @@
 #' **`@info`**\cr
 #' `$ call`` ([call]) the original function call
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Harrison Gray, USGS (United States),
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -69,7 +69,7 @@
 calc_gSGC_feldspar <- function(
   data,
   gSGC.type = "50LxTx",
-  gSGC.parameters,
+  gSGC.parameters = NULL,
   n.MC = 100,
   plot = FALSE
 ) {
@@ -102,9 +102,10 @@ calc_gSGC_feldspar <- function(
     D0_3 = c( 2780, 3280, 2520, 1950, 3100, 4960, 2060, 3130, 4760, 1780, 2800, 5120, 1380, 2360, 4060)
   )
   .validate_args(gSGC.type, params$Type)
+  .validate_class(gSGC.parameters, "data.frame", null.ok = TRUE)
 
   # these are user specified parameters if they so desire
-  if (!missing(gSGC.parameters)){
+  if (!is.null(gSGC.parameters)) {
     y1 <- gSGC.parameters$y1
     y1_err <- gSGC.parameters$y1_err
     D1 <- gSGC.parameters$D1

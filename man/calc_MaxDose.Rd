@@ -10,7 +10,7 @@ calc_MaxDose(
   log = TRUE,
   par = 3,
   bootstrap = FALSE,
-  init.values,
+  init.values = NULL,
   plot = TRUE,
   ...
 )
@@ -82,7 +82,7 @@ When all calculations are done the results are then converted as follows
 Please see \link{calc_MinDose}.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.2
 }
 
 \examples{

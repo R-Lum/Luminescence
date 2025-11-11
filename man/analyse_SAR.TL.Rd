@@ -12,7 +12,7 @@ analyse_SAR.TL(
   integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
-  dose.points,
+  dose.points = NULL,
   log = "",
   ...
 )
@@ -92,7 +92,7 @@ background see Aitken and Smith (1988)
 No TL curves will be removed from the input object without further warning.
 }
 \section{Function version}{
- 0.3.0
+ 0.3.1
 }
 
 \examples{

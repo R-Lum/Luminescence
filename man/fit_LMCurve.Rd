@@ -8,7 +8,7 @@ fit_LMCurve(
   values,
   values.bg,
   n.components = 3,
-  start_values,
+  start_values = NULL,
   input.dataType = "LM",
   sample_code = "",
   sample_ID = "",
@@ -40,7 +40,7 @@ fixed number of components that are to be recognised during fitting
 (min = 1, max = 7).}
 
 \item{start_values}{\link{data.frame} (\emph{optional}):
-start parameters for \code{lm} and \code{xm} data for the fit. If no start values are given,
+starting values for \code{Im} and \code{xm} parameters in the fit. If set to \code{NULL},
 an automatic start value estimation is attempted (see details).}
 
 \item{input.dataType}{\link{character} (\emph{with default}):
@@ -222,7 +222,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.6
+ 0.3.7
 }
 
 \examples{
