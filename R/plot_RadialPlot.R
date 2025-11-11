@@ -854,17 +854,6 @@ plot_RadialPlot <- function(
     }
   }
 
-  ## calculate rug coordinates
-  if (rug) {
-    rug.values <- if (log.z) log(De.global) else De.global
-    rug.coords <- NULL
-    for(i in 1:length(rug.values)) {
-      rug.x <- x.coord(rug.values[i]) * c(0.988, 0.995)
-      rug.y <- y.coord(rug.values[i], rug.x)
-      rug.coords[[i]] <- rbind(rug.x, rug.y)
-    }
-  }
-
   ## Generate plot ------------------------------------------------------------
 
   ## check if plotting is enabled
@@ -1042,9 +1031,13 @@ plot_RadialPlot <- function(
 
     ## optionally add rug
     if (rug) {
-      for(i in 1:length(rug.coords)) {
-        lines(x = rug.coords[[i]][1,],
-              y = rug.coords[[i]][2,],
+      rug.values <- if (log.z) log(De.global) else De.global
+
+      for (i in 1:length(rug.values)) {
+        rug.x <- x.coord(rug.values[i]) * c(0.988, 0.995)
+        rug.y <- y.coord(rug.values[i], rug.x)
+        lines(x = rug.x,
+              y = rug.y,
               col = col[data.global[i,9]])
       }
     }
