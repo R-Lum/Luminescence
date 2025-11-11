@@ -69,8 +69,6 @@ synth_1 <- data.frame(depth = x,
 fit_SurfaceExposure(synth_1, mu = mu, sigmaphi = sigmaphi)
 
 
-
-
 ## ExampleData.SurfaceExposure$sample_2
 sigmaphi <- 5e-10
 age <- 10000
@@ -92,7 +90,6 @@ synth_2 <- data.frame(depth = x,
 fit_SurfaceExposure(synth_2, mu = mu, sigmaphi = sigmaphi, Ddot = 2.5, D0 = D0)
 
 
-
 ## ExampleData.SurfaceExposure$set_1
 sigmaphi <- 5e-10
 mu <- 0.9
@@ -111,7 +108,6 @@ for (i in 1:length(age)) {
 
 ## VALIDATE set_1
 fit_SurfaceExposure(synth_3, age = age, sigmaphi = sigmaphi)
-
 
 
 ## ExampleData.SurfaceExposure$set_2

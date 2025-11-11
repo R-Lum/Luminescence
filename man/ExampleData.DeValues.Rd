@@ -33,7 +33,6 @@ data(ExampleData.DeValues, envir = environment())
 De.values <- convert_Second2Gray(ExampleData.DeValues$BT998,
                          dose.rate = c(0.0438, 0.0019))
 
-
 plot_Histogram(De.values, xlab = "De [Gy]")
 
 }

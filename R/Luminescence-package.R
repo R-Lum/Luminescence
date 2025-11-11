@@ -66,6 +66,12 @@
 #' * since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
 #' DFG Heisenberg programme No 505822867.
 #'
+#' * since 08/2024: The future and sustainable development of 'Luminescence'
+#' towards better reproducibility and usability is supported through the DFG
+#' programme "REPLAY: REProducible Luminescence Data AnalYses" No 528704761,
+#' led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE) and Dr Thomas
+#' Kolb (PI at Justus-Liebig-University Giessen, DE).
+#'
 #' * All other authors gratefully received additional funding from various public funding bodies.
 #'
 #' @references
@@ -248,7 +254,6 @@ NULL
 #' A [`data.frame`]. Please see `?scale_GammaDose()` for a detailed description
 #' of its structure.
 #'
-#'
 #' @section Version: 0.1
 #'
 #' @keywords datasets
@@ -287,7 +292,6 @@ NULL
 #'
 #' Collection of data from various sources needed for cosmic dose rate
 #' calculation
-#'
 #'
 #' @format
 #'
@@ -469,7 +473,6 @@ NULL
 #' @aliases CWOSL.SAR.Data TL.SAR.Data
 NULL
 
-
 #' Example CW-OSL curve data for the package Luminescence
 #'
 #' `data.frame` containing CW-OSL curve data (time, counts)
@@ -480,10 +483,8 @@ NULL
 #'
 #' @format Data frame with 1000 observations on the following 2 variables:
 #'
-#'
 #' - `list("x")`: a numeric vector, time
 #' - `list("y")`: a numeric vector, counts
-#'
 #'
 #' @references
 #' Baartman, J.E.M., Veldkamp, A., Schoorl, J.M., Wallinga, J.,
@@ -523,8 +524,6 @@ NULL
 #' @aliases CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
 NULL
 
-
-
 #' Example portable OSL curve data for the package Luminescence
 #'
 #' A `list` of [RLum.Analysis-class] objects, each containing
@@ -556,8 +555,6 @@ NULL
 #'
 NULL
 
-
-
 #' Example data for fit_LMCurve() in the package Luminescence
 #'
 #' Linearly modulated (LM) measurement data from a quartz sample from Norway
@@ -580,7 +577,6 @@ NULL
 #' Material: \tab Beach deposit, coarse grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader\cr
 #' }
 #'
-#'
 #' @keywords datasets internal
 #'
 #' @examples
@@ -592,7 +588,6 @@ NULL
 #' @name ExampleData.FittingLM
 #' @aliases values.curve values.curveBG
 NULL
-
 
 #' Example Lx/Tx data from CW-OSL SAR measurement
 #'
@@ -622,7 +617,6 @@ NULL
 #' @name ExampleData.LxTxData
 #' @aliases LxTxData
 NULL
-
 
 #' Example Lx and Tx curve data from an artificial OSL measurement
 #'
@@ -773,7 +767,6 @@ NULL
 #' [read_SPE2R] to R to produce an
 #' [RLum.Data.Image-class] object.
 #'
-#'
 #' @format Object of class [RLum.Data.Image-class]
 #'
 #' @section Version: 0.1
@@ -806,7 +799,6 @@ NULL
 #'
 #' @name ExampleData.RLum.Data.Image
 NULL
-
 
 #' Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 #' reader
@@ -908,14 +900,12 @@ NULL
 #' @aliases OSL.SARMeasurement TL.Spectrum
 NULL
 
-
 #' Example De data sets for the package Luminescence
 #'
 #' Equivalent dose (De) values measured for a fine grain quartz sample from a
 #' loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz
 #' sample from a fluvial deposit in the rock shelter of Cueva Anton
 #' (Murcia/Spain).
-#'
 #'
 #' @format A [list] with two elements, each containing a two column [data.frame]:
 #'
@@ -976,12 +966,10 @@ NULL
 #' De.values <- convert_Second2Gray(ExampleData.DeValues$BT998,
 #'                          dose.rate = c(0.0438, 0.0019))
 #'
-#'
 #' plot_Histogram(De.values, xlab = "De [Gy]")
 #'
 #' @name ExampleData.DeValues
 NULL
-
 
 #' Example data for feldspar fading measurements
 #'
@@ -989,7 +977,6 @@ NULL
 #' IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose
 #' measurement data of the same sample, which can be used to apply a
 #' fading correction to.
-#'
 #'
 #' @format A [list] with two elements, each containing a further [list] of
 #' [data.frame]s containing the data on the fading and equivalent dose measurements:
@@ -1001,7 +988,6 @@ NULL
 #' `..$IR100`: Fading data of the IR100 signal.\cr
 #' `..$IR150`: Fading data of the IR150 signal.\cr
 #' `..$IR225`: Fading data of the IR225 signal.\cr
-#'
 #'
 #' `$equivalentDose.data`: A named of [data.frame]s,
 #' each having three named columns (`dose, LxTx, LxTx.error`).\cr
@@ -1034,7 +1020,6 @@ NULL
 #' Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s \cr
 #' Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate)
 #' }
-#'
 #'
 #' @keywords datasets
 #'
@@ -1073,10 +1058,8 @@ NULL
 #' IR50_Age <- De / 7.00
 #' IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
 #'
-#'
 #' @name ExampleData.Fading
 NULL
-
 
 #' Example OSL surface exposure dating data
 #'
@@ -1148,8 +1131,6 @@ NULL
 #' fit_SurfaceExposure(synth_1, mu = mu, sigmaphi = sigmaphi)
 #'
 #'
-#'
-#'
 #' ## ExampleData.SurfaceExposure$sample_2
 #' sigmaphi <- 5e-10
 #' age <- 10000
@@ -1171,7 +1152,6 @@ NULL
 #' fit_SurfaceExposure(synth_2, mu = mu, sigmaphi = sigmaphi, Ddot = 2.5, D0 = D0)
 #'
 #'
-#'
 #' ## ExampleData.SurfaceExposure$set_1
 #' sigmaphi <- 5e-10
 #' mu <- 0.9
@@ -1190,7 +1170,6 @@ NULL
 #'
 #' ## VALIDATE set_1
 #' fit_SurfaceExposure(synth_3, age = age, sigmaphi = sigmaphi)
-#'
 #'
 #'
 #' ## ExampleData.SurfaceExposure$set_2
@@ -1280,9 +1259,7 @@ NULL
 #'
 #' \describe{
 #' `ExampleData.TR_OSL`: A single [RLum.Data.Curve-class] object with the TR-OSL data
-#'
 #' }
-#'
 #'
 #' @seealso [fit_OSLLifeTimes]
 #'
@@ -1358,7 +1335,6 @@ NULL
 #' **Type:** XSYG-file stump \cr
 #' **Info:** XSYG-file with some basic curves to test functions \cr
 #' **Reference:** no reference available
-#'
 #'
 #' @keywords datasets
 #' @name extdata
