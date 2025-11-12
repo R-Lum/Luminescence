@@ -853,7 +853,7 @@ plot_RadialPlot <- function(
     }
 
     if (is.null(line.col)) {
-      line.col <- seq_along(length(line.coords))
+      line.col <- seq_along(line.coords)
     }
 
     if (is.null(line.label)) {
