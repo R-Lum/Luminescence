@@ -172,6 +172,12 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("RadialPlot summary left",
                               plot_RadialPlot(df, summary.pos = "left",
                                               summary = c("mean", "in.2s", "skewness")))
+  vdiffr::expect_doppelganger("summary line cex",
+                              plot_RadialPlot(df, summary.pos = "topleft",
+                                              summary = "seabs.weighted",
+                                              line = c(4.5, 6.5),
+                                              line.label = c("4.5", "6.5"),
+                                              cex = 2))
   vdiffr::expect_doppelganger("central value xlim zlim pch",
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               central.value = 69.9,
