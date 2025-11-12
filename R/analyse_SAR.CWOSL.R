@@ -348,15 +348,14 @@ error.list <- list()
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
+  .validate_logical_scalar(trim_channels)
   .validate_logical_scalar(onlyLxTxTable)
 
   ## trim OSL or IRSL channels
-  if(trim_channels[1]) {
+  if (trim_channels) {
     ## fetch names with OSL and IRSL
     tmp_names <- unique(vapply(object@records, function(x) x@recordType, character(1)))
-
-    ## grep only the one with OSL and IRSL in it
-    tmp_names <- tmp_names[grepl(pattern = "(?:OSL|IRSL)", x = tmp_names, perl = TRUE)]
+    tmp_names <- grep("(?:OSL|IRSL)", tmp_names, value = TRUE, perl = TRUE)
 
     ## trim
     object <- trim_RLum.Data(object, recordType = tmp_names)
@@ -376,24 +375,20 @@ error.list <- list()
   ##build signal and background integrals
   signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
   background.integral <- c(background.integral.min[1]:background.integral.max[1])
+    signal.integral.Tx <- NULL
+    background.integral.Tx <- NULL
 
         ##account for the case that Lx and Tx integral differ
         if (length(signal.integral.min) == 2 &
             length(signal.integral.max) == 2) {
           signal.integral.Tx <-
             c(signal.integral.min[2]:signal.integral.max[2])
-
-        }else{
-          signal.integral.Tx <- NULL
         }
 
         if (length(background.integral.min) == 2 &
             length(background.integral.max) == 2) {
           background.integral.Tx <-
             c(background.integral.min[2]:background.integral.max[2])
-
-        }else{
-          background.integral.Tx <- NULL
         }
 
         ##Account for the case that the use did not provide everything ...
@@ -492,7 +487,7 @@ error.list <- list()
     }
 
     ## remove irradiation curves
-    object <- get_RLum(object, record.id = c(!temp.ltype %in% "irradiation"), drop = FALSE)
+    object <- get_RLum(object, record.id = !temp.ltype %in% "irradiation", drop = FALSE)
   }
 
   ##check if the wanted curves are a multiple of two
@@ -514,8 +509,12 @@ error.list <- list()
                                         quote = FALSE), ")")
   }
 
-  ##just proceed if error list is empty
-  if (length(error.list) == 0) {
+  ## return early in case of errors
+  if (length(error.list) > 0) {
+    .throw_warning(paste(unlist(error.list), collapse = "\n"),
+                   "\n... >> nothing was done here!")
+    return(invisible(NULL))
+  }
 
     ##check background integral
     if (!all(is.na(signal.integral)) &&
@@ -567,18 +566,14 @@ error.list <- list()
 
         .throw_warning(
           "Background integral for Tx out of bounds. Set to: c(",
-          min(background.integral.Tx),
-          ":",
-          max(background.integral.Tx),
-          ")"
+          min(background.integral.Tx), ":", max(background.integral.Tx), ")"
         )
       }
     }
 
   # Grep Curves -------------------------------------------------------------
-   ##grep relevant curves from RLum.Analysis object
-    OSL.Curves.ID <-
-      get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
+  ## extract relevant curves from RLum.Analysis object
+  OSL.Curves.ID <- get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
 
     ##separate curves by Lx and Tx (it makes it much easier)
     OSL.Curves.ID.Lx <-
@@ -597,7 +592,7 @@ error.list <- list()
 
 # Calculate LnLxTnTx values  --------------------------------------------------
   ##calculate LxTx values using external function
-  LnLxTnTx <- try(lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
+  LnLxTnTx <- try(lapply(seq(1, length(OSL.Curves.ID), by = 2), function(x) {
       if(!is.null(OSL.component) && length(OSL.component) > 0){
        temp.LnLxTnTx <- get_RLum(
           calc_OSLLxTxDecomposed(
@@ -624,11 +619,11 @@ error.list <- list()
       temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME %||% NA
       temp.LnLxTnTx <- cbind(Dose = temp.Dose, temp.LnLxTnTx)
 
-      }), silent = TRUE)
+  }), silent = TRUE)
 
-    ##this is basically for the OSL.component case to avoid that everything
-    ##fails if something goes wrong therein
-    if(inherits(LnLxTnTx, "try-error")){
+  ## this is basically for the OSL.component case to avoid that everything
+  ## fails if something goes wrong therein
+  if (inherits(LnLxTnTx, "try-error")) {
       .throw_message("Something went wrong while generating the LxTx table, ",
                      "NULL returned")
       return(NULL)
@@ -647,14 +642,13 @@ error.list <- list()
       LnLxTnTx$Dose <- dose.points
     }
 
-    ## set test dose points
-    LnLxTnTx$Test_Dose <- rep(dose.points.test %||% -1,
-                              length.out = nrow(LnLxTnTx))
+  ## set test dose points
+  LnLxTnTx$Test_Dose <- rep_len(dose.points.test %||% -1, nrow(LnLxTnTx))
 
-    ##check whether we have dose points at all
-    if (is.null(dose.points) & anyNA(LnLxTnTx$Dose)) {
+  ##check whether we have dose points at all
+  if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
       .throw_error("'dose.points' contains NA values or have not been set")
-    }
+  }
 
     ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
     ##not, it is probably a Dose Recovery Test with the given dose that is treated as the
@@ -666,9 +660,8 @@ error.list <- list()
       LnLxTnTx$Dose[1] <- 0
     }
 
-
-## Label dose points -------------------------------------------------------
-    dose <- LnLxTnTx$Dose
+  ## Label dose points ------------------------------------------------------
+  dose <- LnLxTnTx$Dose
 
     ## preset names
     dose_names <- paste0("R", seq_along(dose) - 1)
@@ -690,11 +683,11 @@ error.list <- list()
         stringsAsFactors = FALSE),
       LnLxTnTx)
 
-# Calculate rejection criteria --------------------------------------------
-    RecyclingRatio <- Recuperation <- NA
+  ## Calculate rejection criteria -------------------------------------------
+  RecyclingRatio <- Recuperation <- NA
 
-    ## Calculate Recycling Ratio -----------------------------------------------
-    if(any(LnLxTnTx$Repeated)) {
+  ## Calculate Recycling Ratio ----------------------------------------------
+  if (any(LnLxTnTx$Repeated)) {
       ## get repeated and previous dose points
       repeated <- LnLxTnTx[LnLxTnTx$Repeated, ]
       previous <- data.table::rbindlist(
@@ -788,11 +781,11 @@ error.list <- list()
 
     RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
 
-# Plotting ----------------------------------------------------------------
-    if (plot) {
+  ## Plotting ---------------------------------------------------------------
+  if (plot) {
       ## the graphical parameters cannot be restored unconditionally, as that
       ## may affect the analyse_pIRIRSequence() plots
-      if (plot_onePage || plot_singlePanels[1] == FALSE) {
+      if (plot_onePage || !plot_singlePanels[1]) {
         par.default <- .par_defaults()
         on.exit(par(par.default), add = TRUE)
       }
@@ -821,7 +814,7 @@ error.list <- list()
       }
 
     ## Plotting - old way config ----------------------------------------------
-      if (plot_singlePanels[1] == FALSE) {
+      if (!plot_singlePanels[1]) {
         graphics::layout(matrix(
           c(1, 1, 3, 3,
             1, 1, 3, 3,
@@ -1045,14 +1038,6 @@ error.list <- list()
     }##end plot
 
   ## (6) Plot Dose-Response Curve --------------------------------------------
-    ##create data.frame
-    temp.sample <- data.frame(
-      Dose = LnLxTnTx$Dose,
-      LxTx = LnLxTnTx$LxTx,
-      LxTx.Error = LnLxTnTx$LxTx.Error,
-      TnTx = LnLxTnTx$Net_TnTx,
-      Test_Dose = LnLxTnTx$Test_Dose
-    )
 
     ##overall plot option selection for plot.single.sel
     plot <- if (plot[1] && 6 %in% plot.single.sel) TRUE else FALSE
@@ -1084,13 +1069,22 @@ error.list <- list()
     temp.GC <- temp.GC.all.na
     temp.GC.fit.Formula <- NULL
 
-  # Calculate Dose-response curve -------------------------------------------
-    if (!onlyLxTxTable) {
-      temp.GC <- do.call(
-        fit_DoseResponseCurve,
-        args = c(list(object = temp.sample), list(...)))
+  ## Calculate Dose-response curve ------------------------------------------
+  if (!onlyLxTxTable) {
 
-      if (is.null(temp.GC)) {
+    ## create data.frame
+    temp.sample <- data.frame(
+        Dose = LnLxTnTx$Dose,
+        LxTx = LnLxTnTx$LxTx,
+        LxTx.Error = LnLxTnTx$LxTx.Error,
+        TnTx = LnLxTnTx$Net_TnTx,
+        Test_Dose = LnLxTnTx$Test_Dose
+    )
+
+    temp.GC <- do.call(fit_DoseResponseCurve,
+                       args = c(list(object = temp.sample), list(...)))
+
+    if (is.null(temp.GC)) {
           temp.GC <- temp.GC.all.na
           temp.GC.fit.Formula <- NA
 
@@ -1102,7 +1096,7 @@ error.list <- list()
               shape::emptyplot()
             }
           }
-      } else {
+    } else {
           if(plot) {
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
@@ -1163,10 +1157,10 @@ error.list <- list()
                                 RC.Status = status,
                                 stringsAsFactors = FALSE)
       }
-    }
+  }
 
-      ##add information on the integration limits
-    temp.GC.extended <-
+  ## add information on the integration limits
+  temp.GC.extended <-
         data.frame(
           signal.range = paste(min(signal.integral),":",
                                max(signal.integral)),
@@ -1254,15 +1248,8 @@ error.list <- list()
       .plot_RCCriteria(temp.rejection.criteria)
     }
 
-
-    # Return -------------------------------------------------------------------
-    invisible(temp.results.final)
-
-  }else{
-    .throw_warning(paste(unlist(error.list), collapse = "\n"),
-                   "\n... >> nothing was done here!")
-    invisible(NULL)
-  }
+  ## Return -----------------------------------------------------------------
+  invisible(temp.results.final)
 }
 
 
