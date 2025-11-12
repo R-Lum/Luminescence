@@ -949,7 +949,7 @@ plot_RadialPlot <- function(
              labels = line.label[i],
              pos = 2,
              col = line.col[i],
-             cex = cex * 0.9)
+             cex = 0.9)
     }
 
     ## overplot unwanted parts
@@ -1108,7 +1108,7 @@ plot_RadialPlot <- function(
              y = 0.8 * summary.pos[2],
              adj = summary.adj,
              labels = label.text[[i]],
-             cex = 0.8 * cex,
+             cex = 0.8,
              col = col[i])
       } else if (mtext == "") {
           mtext(side = 3,
