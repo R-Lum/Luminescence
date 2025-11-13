@@ -1,46 +1,53 @@
 #' @title Bayesian models (baSAR) applied on luminescence data
 #'
-#' @description This function allows the application of Bayesian models on luminescence data, measured
-#' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
-#' it follows the idea proposed by Combès et al., 2015 of using an hierarchical model for estimating
-#' a central equivalent dose from a set of luminescence measurements. This function is (I) the adoption
-#' of this approach for the R environment and (II) an extension and a technical refinement of the
-#' published code.
+#' @description
+#' This function allows the application of Bayesian models on luminescence data
+#' measured with the single-aliquot regenerative-dose (SAR, Murray and Wintle,
+#' 2000) protocol. In particular, it follows the idea proposed by Combès et al.,
+#' 2015 of using an hierarchical model for estimating a central equivalent dose
+#' from a set of luminescence measurements. This function (I) implements this
+#' approach for the R environment and (II) provides an extension and a technical
+#' refinement of the published code.
 #'
 #' @details
-#' Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
-#' and applying the hierarchical model and (II) a data pre-processing part. The Bayesian core can be run
-#' independently, if the input data are sufficient (see below). The data pre-processing part was
-#' implemented to simplify the analysis for the user as all needed data pre-processing is done
-#' by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
-#' data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
-#' `LxTx`, the `LxTx` error and the dose values for all regeneration points.
+#' Internally the function consists of two parts: (I) a Bayesian core that
+#' performs the hierarchical modelling and calculations, and (II) a data
+#' pre-processing stage. The Bayesian core can be run independently if sufficient
+#' input data are provided (see below). The data pre-processing stage exists
+#' to simplify the user workflow by preparing all required inputs; in principle
+#' it is enough to provide a BIN/BINX-file with the SAR measurement data. For
+#' the Bayesian analysis for each aliquot the following information are needed
+#' from the SAR analysis: `LxTx`, the `LxTx` error and the dose values for all
+#' regeneration points.
 #'
 #' **How is the systematic error contribution calculated?**
 #'
-#' Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
-#' and added to final central dose by:
+#' Standard errors (so far) provided with the source dose rate are considered
+#' as systematic uncertainties and added to final central dose by:
 #'
 #' \deqn{systematic.error = 1/n \sum SE(source.doserate)}
 #'
 #' \deqn{SE(central.dose.final) = \sqrt{SE(central.dose)^2 + systematic.error^2}}
 #'
-#' Please note that this approach is rather rough and can only be valid if the source dose rate
-#' errors, in case different readers had been used, are similar. In cases where more than
-#' one source dose rate is provided a warning is given.
+#' Please note that this approach is rather rough and can only be valid if the
+#' source dose rate errors, in case different readers had been used, are
+#' similar. In cases where more than one source dose rate is provided a
+#' warning is given.
 #'
 #' **Input / output scenarios**
 #'
-#' Various inputs are allowed for this function. Unfortunately this makes the function handling rather
-#' complex, but at the same time very powerful. Available scenarios:
+#' Various inputs are allowed for this function. Unfortunately this makes the
+#' function handling rather complex, but at the same time very powerful.
+#' Available scenarios:
 #'
 #' **(1) - `object` is BIN-file or link to a BIN-file**
 #'
-#' Finally it does not matter how the information of the BIN/BINX file are provided. The function
-#' supports **(a)** either a path to a file or directory or a `list` of file names or paths or
-#' **(b)** a [Risoe.BINfileData-class] object or a list of these objects. The latter one can
-#' be produced by using the function [read_BIN2R], but this function is called automatically
-#' if only a file name and/or a path is provided. In both cases it will become the data that can be
+#' It does not matter how the information of the BIN/BINX file are provided.
+#' The function supports **(a)** either a path to a file or directory or a
+#' `list` of file names or paths or  **(b)** a [Risoe.BINfileData-class] object
+#' or a list of these objects. The latter one can be produced by using function
+#' [read_BIN2R], but this function is called automatically if only a file name
+#' and/or a path is provided. In both cases it will become the data that can be
 #' used for the analysis.
 #'
 #' `[CSV_file = NULL]`
@@ -63,9 +70,8 @@
 #'  2. Calculate De values using the function [plot_GrowthCurve]
 #'
 #' The CSV file should contain the BIN-file names and the aliquots selected
-#' for the further analysis. This allows a manual selection of input data, as the automatic selection
-#' by [verify_SingleGrainData] might be not totally sufficient.
-#'
+#' for the further analysis. This allows a manual selection of input data, as
+#' the automatic selection by [verify_SingleGrainData] might not be sufficient.
 #'
 #' **(2) - `object` `RLum.Results object`**
 #'
@@ -1320,7 +1326,7 @@ analyse_baSAR <- function(
 
     ## now we override, keep in mind that we do not care about the pattern
     if(!is.null(irradiation_times))
-      irrad_time.vector <- rep(irradiation_times, length.out = length(irrad_time.vector))
+      irrad_time.vector <- rep_len(irradiation_times, length(irrad_time.vector))
 
     ##if all irradiation times are 0 we should stop here
     if (length(unique(irrad_time.vector)) == 1) {
@@ -1338,14 +1344,14 @@ analyse_baSAR <- function(
 
       ## disc (position)
       disc_logic <- disc_selected == measured_discs.vector
-      if (all(disc_logic == FALSE)) {
+      if (!any(disc_logic)) {
         .throw_message(sprintf(msg, unique(fname), "position", disc_selected))
         return(NULL)
       }
 
       ## grain
       grain_logic <- grain_selected == measured_grains.vector
-      if (all(grain_logic == FALSE)) {
+      if (!any(grain_logic)) {
         .throw_message(sprintf(msg, unique(fname), "grain", grain_selected))
         return(NULL)
       }
@@ -1353,7 +1359,8 @@ analyse_baSAR <- function(
       ## if the test passed, compile index list
       index_list <- n_index.vector[disc_logic & grain_logic]
 
-      if (Mono_grain == FALSE)  {grain_selected <-1}
+      if (!Mono_grain)
+        grain_selected <- 1
 
       for (t in index_list) {
               dose.value <- irrad_time.vector[t]
@@ -1834,11 +1841,11 @@ analyse_baSAR <- function(
     ##define boxplot colours ... we have red and orange
     box.col <- vapply(seq_len(ncol(aliquot_quantiles)), function(x) {
       idx <- 1
-      if (aliquot_quantiles[2,x] < results[[1]][, c("CENTRAL_Q_.16")] ||
-          aliquot_quantiles[1,x] > results[[1]][, c("CENTRAL_Q_.84")])
+      if (aliquot_quantiles[2, x] < results[[1]][, "CENTRAL_Q_.16"] ||
+          aliquot_quantiles[1, x] > results[[1]][, "CENTRAL_Q_.84"])
         idx <- idx + 1
-      if (aliquot_quantiles[2,x] < results[[1]][, c("CENTRAL_Q_.025")] ||
-          aliquot_quantiles[1,x] > results[[1]][, c("CENTRAL_Q_.975")])
+      if (aliquot_quantiles[2, x] < results[[1]][, "CENTRAL_Q_.025"] ||
+          aliquot_quantiles[1, x] > results[[1]][, "CENTRAL_Q_.975"])
         idx <- idx + 1
       c("white", "orange", col[2])[idx]
     }, FUN.VALUE = character(1))
@@ -1878,8 +1885,8 @@ analyse_baSAR <- function(
       ##HPD - 68%
       lines(
         x = c(
-          results[[1]][, c("CENTRAL_Q_.16")], results[[1]][, c("CENTRAL_Q_.16")],
-          results[[1]][, c("CENTRAL_Q_.84")], results[[1]][, c("CENTRAL_Q_.84")]),
+          results[[1]][, "CENTRAL_Q_.16"], results[[1]][, "CENTRAL_Q_.16"],
+          results[[1]][, "CENTRAL_Q_.84"], results[[1]][, "CENTRAL_Q_.84"]),
         y = c(par()$usr[3], 16, 16, par()$usr[3]),
         lty = 3,
         col = col[3],
@@ -1897,8 +1904,8 @@ analyse_baSAR <- function(
       ##HPD - 98 %%
       lines(
         x = c(
-          results[[1]][, c("CENTRAL_Q_.025")], results[[1]][, c("CENTRAL_Q_.025")],
-          results[[1]][, c("CENTRAL_Q_.975")], results[[1]][, c("CENTRAL_Q_.975")]),
+          results[[1]][, "CENTRAL_Q_.025"], results[[1]][, "CENTRAL_Q_.025"],
+          results[[1]][, "CENTRAL_Q_.975"], results[[1]][, "CENTRAL_Q_.975"]),
         y = c(par()$usr[3], 17.5, 17.5, par()$usr[3]),
         lty = 3,
         col = col[2],
