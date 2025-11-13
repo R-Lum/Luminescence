@@ -51,9 +51,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
       strEnds <- seq(limit-1, ls.n + limit, limit)
       blockString <- paste(mapply(function(start, end) {
         trimmedString <- paste(substr(ls, start, end), "\n\t\t\t")
-        if (substr(trimmedString, 1, 1) == " ")
-          trimmedString <- gsub("^[ ]*", "", trimmedString)
-        return(trimmedString)
+        trimws(trimmedString, "left", whitespace = " ")
       }, strStarts, strEnds), collapse="")
 
       msg <- paste(attributes(x[[i]])$key, "=>",names(x)[i], "\n",
@@ -175,11 +173,9 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   }
 
   # for 'factor' and 'character' elements only 'character' input is allowed
-  if (class.old == "factor" || class.old == "character") {
-    if (class.new != "character") {
+  if (class.old %in% c("factor", "character") && class.new != "character") {
       .throw_warning(names(x)[i], ": Input must be of class 'character'")
       return(x)
-    }
   }
 
   ## CHECK IF VALID OPTION ----
@@ -188,12 +184,11 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   # the input is converted to a factor to keep the information.
   if (class.old == "factor") {
     levels <- levels(x[[i]])
-    if (any(`%in%`(value, levels) == FALSE)) {
+    if (!all(value %in% levels)) {
       .throw_error(names(x)[i], ": Invalid option, valid options are: ",
                      .collapse(levels))
-    } else {
-      value <- factor(value, levels)
     }
+    value <- factor(value, levels)
   }
 
   ## WRITE NEW VALUES ----
