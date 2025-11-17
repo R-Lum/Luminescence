@@ -203,12 +203,12 @@ plot_DRTResults <- function(
 
   .validate_not_empty(values)
   .validate_class(given.dose, "numeric", null.ok = TRUE)
+  .validate_logical_scalar(boxplot)
 
   ##avoid crash for wrongly set boxlot argument
   if (is.null(preheat) && boxplot) {
     boxplot <- FALSE
-    .throw_warning("Option 'boxplot' requires a value in 'preheat', ",
-                   "reset to FALSE")
+    .throw_warning("'boxplot' requires a value in 'preheat', reset to FALSE")
   }
 
   valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
