@@ -561,13 +561,13 @@ setMethod("remove_RLum",
 #'
 #' @export
 setMethod("structure_RLum",
-          signature= "RLum.Analysis",
+          signature = "RLum.Analysis",
           definition = function(object, fullExtent = FALSE) {
             .set_function_name("structure_RLum")
             on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
-            sapply(object@records, .validate_class, "RLum.Data.Curve",
+            lapply(object@records, .validate_class, "RLum.Data.Curve",
                    name = "All elements of 'object'")
 
             ##get length object
@@ -581,11 +581,11 @@ setMethod("structure_RLum",
               vapply(object@records, function(x) x@recordType, character(1))
 
             ##PROTOCOL STEP
-            temp.protocol.step <-rep(NA_character_, temp.object.length)
+            temp.protocol.step <- rep_len(NA_character_, temp.object.length)
 
             ## GET LIMITS
             temp.limits <- t(vapply(object@records, function(x) {
-              c(nrow(x@data), min(x@data[, 1]), max(x@data[, 1]), min(x@data[, 2]), max(x@data[, 2]))
+              c(nrow(x@data), range(x@data[, 1]), range(x@data[, 2]))
             }, numeric(5)))
 
             temp.n.channels <- temp.limits[, 1]
@@ -595,16 +595,18 @@ setMethod("structure_RLum",
             temp.y.max <- temp.limits[, 5]
 
             ##.uid
-            temp.uid <- unlist(lapply(object@records, function(x) x@.uid ))
+            temp.uid <- vapply(object@records, function(x) x@.uid, character(1))
 
             ##.pid
             temp.pid <- lapply(object@records, function(x) x@.pid )
 
             ##originator
-            temp.originator <- unlist(lapply(object@records, function(x) x@originator ))
+            temp.originator <- vapply(object@records, function(x) x@originator,
+                                      character(1))
 
             ##curveType
-            temp.curveType <- unlist(lapply(object@records, function(x) x@curveType ))
+            temp.curveType <- vapply(object@records, function(x) x@curveType,
+                                     character(1))
 
             ##info elements as character value
             if (fullExtent) {
@@ -628,8 +630,7 @@ setMethod("structure_RLum",
             }
 
             ##combine output to a data.frame
-            return(
-              data.frame(
+            data.frame(
                 id = temp.id,
                 recordType = temp.recordType,
                 curveType = temp.curveType,
@@ -644,7 +645,6 @@ setMethod("structure_RLum",
                 .pid = I(as.list(temp.pid)),
                 info = if(fullExtent) temp.info.elements else I(temp.info.elements),
                 stringsAsFactors = FALSE
-              )
             )
           })
 

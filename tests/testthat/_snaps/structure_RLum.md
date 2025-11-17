@@ -386,7 +386,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "recordType", "protocol.step", "n.channels", "x.min", "x.max", "y.min", "y.max", ".pid", "info"]
+          "value": ["id", "recordType", "curveType", "protocol.step", "n.channels", "x.min", "x.max", "y.min", "y.max", "originator", ".uid", ".pid", "info"]
         },
         "class": {
           "type": "character",
@@ -416,7 +416,7 @@
           "value": []
         },
         {
-          "type": "double",
+          "type": "character",
           "attributes": {},
           "value": []
         },
@@ -437,6 +437,21 @@
         },
         {
           "type": "double",
+          "attributes": {},
+          "value": []
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": []
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": []
+        },
+        {
+          "type": "character",
           "attributes": {},
           "value": []
         },
