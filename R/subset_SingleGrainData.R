@@ -39,7 +39,7 @@ subset_SingleGrainData <- function(
   .set_function_name("subset_SingleGrainData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "Risoe.BINfileData")
 
   ## try to work with selection

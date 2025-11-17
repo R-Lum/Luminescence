@@ -107,7 +107,7 @@ convert_Activity2Concentration <- function(
   .set_function_name("convert_Activity2Concentration")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(data, "data.frame")
 
   if(ncol(data)<3)

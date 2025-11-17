@@ -54,7 +54,7 @@ plot_OSLAgeSummary <- function(
   .set_function_name("plot_OSLAgeSummary")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Results", "numeric"))
   .validate_positive_scalar(level)
   .validate_positive_scalar(digits, int = TRUE)

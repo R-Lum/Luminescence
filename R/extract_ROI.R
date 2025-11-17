@@ -64,7 +64,7 @@ extract_ROI <- function(
   if (inherits(object, "list"))
     return(merge_RLum(lapply(object, extract_ROI, roi = roi, plot = plot)))
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Data.Image", "matrix", "array"),
                   extra = "a 'list' of such objects")

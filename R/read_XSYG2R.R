@@ -351,7 +351,7 @@ read_XSYG2R <- function(
     return(spectrum.matrix)
   }
 
-  # (1) Integrity tests -----------------------------------------------------
+  # (1) Integrity checks ----------------------------------------------------
   ##set HUGE for larger nodes
   HUGE <- 524288
 

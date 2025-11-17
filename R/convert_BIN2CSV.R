@@ -47,7 +47,7 @@ convert_BIN2CSV <- function(
   .set_function_name("convert_BIN2CSV")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(file, c("character", "Risoe.BINfileData"))
   .validate_not_empty(file)
