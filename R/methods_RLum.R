@@ -457,16 +457,12 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 #' @method unlist RLum.Analysis
 #' @export
 unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
-
   temp <- get_RLum(object = x, recursive = recursive, ... )
-  if(recursive){
-    unlist(lapply(1:length(temp), function(x){
+  if (!recursive)
+    return(temp)
+  unlist(lapply(1:length(temp), function(x){
       get_RLum(temp)
     }), recursive = FALSE)
-
-  }else{
-    return(temp)
-  }
 }
 
 

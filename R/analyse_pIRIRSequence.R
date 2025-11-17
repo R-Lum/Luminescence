@@ -244,8 +244,7 @@ analyse_pIRIRSequence <- function(
     ##DO NOT use invisible here, this will stop the function from stopping
     if(length(results) == 0)
       return(NULL)
-    else
-      return(results)
+    return(results)
   }
 
   ## Integrity checks -------------------------------------------------------

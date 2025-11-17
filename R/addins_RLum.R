@@ -52,11 +52,11 @@
 
     ##parse answer
     answer <- readline()
+    if (tolower(answer) != "y")
+      return(invisible())
 
-    if(tolower(answer) == "y"){
-      utils::install.packages("rstudioapi", dependencies = TRUE)
-    }
-  }else{
+    utils::install.packages("rstudioapi", dependencies = TRUE)
+  }
 
   ##parse code
   code <- rstudioapi::getActiveDocumentContext()$contents
@@ -66,9 +66,8 @@
 
   ##list lines
   cat("\n", "[", length(id), " issue(s)]\n", sep = "")
-   for(i in id){
+  for (i in id) {
     cat(" line ", i, ": ->", code[i], "\n", sep = "")
-   }
   }
   # nocov end
 }

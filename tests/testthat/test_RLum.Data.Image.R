@@ -49,6 +49,8 @@ test_that("check class ", {
   expect_length(res, 0)
 
   ## check edge cases
-  expect_error(as(from_array, "matrix"), "No viable coercion to matrix, object contains multiple frames. Please convert to array instead.")
-  expect_error(as(from_array, "data.frame"), "No viable coercion to data.frame, object contains multiple frames.")
+  expect_error(as(from_array, "matrix"),
+               "object contains multiple frames, please convert to array instead")
+  expect_error(as(from_array, "data.frame"),
+               "No viable coercion to data.frame, object contains multiple frames")
 })

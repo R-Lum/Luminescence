@@ -1059,6 +1059,8 @@ if(plot){
 attr(temp.xyz, "colour") <- col
 attr(temp.xyz, "pmat") <- pmat
 
-## return visible or not
-if(plot) invisible(temp.xyz) else return(temp.xyz)
+  ## return visible or not
+  if (plot)
+    return(invisible(temp.xyz))
+  return(temp.xyz)
 }

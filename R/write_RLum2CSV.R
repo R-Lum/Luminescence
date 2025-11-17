@@ -204,7 +204,10 @@ write_RLum2CSV <- function(
   }
 
   # Export --------------------------------------------------------------------------------------
-  if(export){
+  if (!export) {
+    return(object_list)
+  }
+
     ##set export settings for write.table
     export_settings.default <- list(
       append = FALSE,
@@ -238,8 +241,4 @@ write_RLum2CSV <- function(
         qmethod =  export_settings$qmethod,
         fileEncoding =  export_settings$fileEncoding)
     }
-
-  }else{
-    return(object_list)
-  }
 }

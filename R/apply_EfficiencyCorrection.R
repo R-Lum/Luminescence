@@ -58,12 +58,11 @@ apply_EfficiencyCorrection <- function(
   ##case we have a list
   if(inherits(object, "list")){
     output_list <- lapply(object, function(o){
-      if (inherits(o, c("RLum.Data.Spectrum", "RLum.Analysis"))) {
-        apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
-      }else{
+      if (!inherits(o, c("RLum.Data.Spectrum", "RLum.Analysis"))) {
         .throw_warning("Skipping '", class(o), "' object in input list")
         return(o)
       }
+      apply_EfficiencyCorrection(o, spectral.efficiency)
     })
 
     return(output_list)
@@ -72,13 +71,11 @@ apply_EfficiencyCorrection <- function(
   ##the case of an RLum.Analysis object
   if(inherits(object, "RLum.Analysis")){
     object@records <- lapply(object@records, function(o){
-      if(inherits(o, "RLum.Data.Spectrum")){
-        apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
-
-      }else{
+      if (!inherits(o, "RLum.Data.Spectrum")) {
         .throw_warning("Skipping '", class(o), "' object in input list")
         return(o)
       }
+      apply_EfficiencyCorrection(o, spectral.efficiency)
     })
 
     return(object)

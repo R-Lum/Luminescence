@@ -308,7 +308,10 @@ calc_gSGC_feldspar <- function(
   set_RLum("RLum.Results",
       data = list(
         data = df,
-        m.MC = lapply(l, function(x) {if(is.na(x[[1]])) {return(x)} else {x$m.MC} })
+        m.MC = lapply(l, function(x) {
+          if (is.na(x[[1]])) return(x)
+          x$m.MC
+        })
       ),
       info = list(
         call = sys.call()
