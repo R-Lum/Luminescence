@@ -131,7 +131,8 @@ calc_CentralDose <- function(
   colnames(data) <- c("ED", "ED_Error")
 
   ## don't allow log transformation if there are non-positive values
-  if (any(data[, 1] <= 0) && log == TRUE) {
+  .validate_logical_scalar(log)
+  if (log && any(data[, 1] <= 0)) {
     log <- FALSE
     .throw_warning("'data' contains non-positive De values, 'log' set to FALSE")
   }
