@@ -233,6 +233,9 @@ line with negative value if `log.z = TRUE` (#1164, #1168).
 * The summary text and line labels now scale better at high `cex` values
 (#1170).
 
+* The function no lonver crashes if `central.value` is a non-positive value
+when `log.z = TRUE` (#1173).
+
 ### `plot_RLum.Analysis()`
 
 * Setting `records_max` to a value larger than the number of curves no longer

@@ -458,6 +458,8 @@ plot_RadialPlot <- function(
   if (!is.null(central.value)) {
     # ## adjust central value for De.add
     central.value <- central.value + De.add
+    if (log.z)
+      .validate_positive_scalar(central.value)
     z.central.global <- ifelse(log.z,
                                log(central.value),
                                central.value)
