@@ -111,8 +111,7 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
                    package = "Luminescence"))
   valid_conversion_factors <- c("Guerinetal2011", "Cresswelletal2018",
                                 "AdamiecAitken1998", "Liritzisetal2013")
-  stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
-                valid_conversion_factors))
+  stopifnot(names(BaseDataSet.ConversionFactors) %in% valid_conversion_factors)
   conversion <- .validate_args(conversion, valid_conversion_factors)
 
   # Calculate Dose Rate -----------------------------------------------------

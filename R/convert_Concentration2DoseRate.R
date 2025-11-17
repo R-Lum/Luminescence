@@ -159,8 +159,7 @@ convert_Concentration2DoseRate <- function(
   ## in first position, as that is our default value
   valid_conversion_factors <- c("Guerinetal2011", "Cresswelletal2018",
                                 "AdamiecAitken1998", "Liritzisetal2013")
-  stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
-                valid_conversion_factors))
+  stopifnot(names(BaseDataSet.ConversionFactors) %in% valid_conversion_factors)
   conversion <- .validate_args(conversion, valid_conversion_factors)
 
   if(!any(input[,1] %in% c("FS","Q")))
