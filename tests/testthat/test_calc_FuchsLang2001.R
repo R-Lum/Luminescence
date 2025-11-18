@@ -13,43 +13,36 @@ test_that("input validation", {
                "'data' should have 2 columns")
 })
 
-test_that("check class and length of output", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  ##the simple and silent run
-  temp <- expect_s4_class(
-    calc_FuchsLang2001(
-      data = ExampleData.DeValues$BT998,
-      cvThreshold = 5,
-      plot = FALSE,
-      verbose = FALSE),
-    "RLum.Results")
+  snapshot.tolerance <- 1.5e-6
 
-  ##regression tests
-  expect_equal(length(temp), 4)
-  expect_equal(get_RLum(temp)$de, 2866.11)
-  expect_equal(get_RLum(temp)$de_err, 157.35)
-  expect_equal(get_RLum(temp)$de_weighted, 2846.66)
-  expect_equal(get_RLum(temp)$de_weighted_err, 20.58)
-  expect_equal(get_RLum(temp)$n.usedDeValues, 22)
+  expect_snapshot_RLum(temp <- calc_FuchsLang2001(data = ExampleData.DeValues$BT998,
+                                          cvThreshold = 5,
+                                          plot = FALSE,
+                                          verbose = FALSE),
+                       tolerance = snapshot.tolerance)
 
   ## using an RLum.Results object as input
   SW({
-  expect_s4_class(calc_FuchsLang2001(data = temp, startDeValue = 24,
-                                     plot = FALSE),
-                  "RLum.Results")
+  expect_snapshot_RLum(calc_FuchsLang2001(data = temp, startDeValue = 24,
+                                          plot = FALSE),
+                       tolerance = snapshot.tolerance)
   })
+})
 
-  ##the check output
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
   SW({
-  output <- expect_s4_class(
-    calc_FuchsLang2001(
-      data = ExampleData.DeValues$BT998,
-      cvThreshold = 5,
-      plot = TRUE,
-      verbose = TRUE
-
-    ), "RLum.Results")
+  vdiffr::expect_doppelganger("default",
+                              calc_FuchsLang2001(ExampleData.DeValues$BT998))
+  vdiffr::expect_doppelganger("cvDefault startDeValue",
+                              calc_FuchsLang2001(ExampleData.DeValues$BT998,
+                                                 cvDefault = 3,
+                                                 startDeValue = 5))
   })
 })
 
