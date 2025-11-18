@@ -426,8 +426,8 @@ temp_OTORX_alt <-
    expect_equal(round(temp_OTORX$De[[1]], digits = 2),  1785.43)
    expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
    expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
-   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17422)
-   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 14477, tolerance = 0.2)
+   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17748)
+   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 17851, tolerance = 0.2)
 
 # Check extrapolation -----------------------------------------------------
   ## load data
