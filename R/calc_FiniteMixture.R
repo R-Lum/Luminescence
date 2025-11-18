@@ -276,16 +276,19 @@ calc_FiniteMixture <- function(
     grain.probability.n<- vector(mode = "list", length = length(n.components))
   }
 
+  ## calculate yu = log(ED), su = se(logED), n = number of grains
+  yu <- log(data$ED)
+  su <- data$ED_Error / data$ED
+  n <- length(yu)
+
+  num.iters <- 499L
+  wu <- 1/(sigmab^2 + su^2)
+  rwu <- sqrt(wu)
+
   ## start actual calculation (loop) for each provided maximum components to
   ## be fitted.
   for(i in 1:length(n.components)) {
-
     k<- n.components[i]
-
-    # calculate yu = log(ED),  su = se(logED),  n = number of grains
-    yu<- log(data$ED)
-    su<- data$ED_Error/data$ED
-    n<- length(yu)
 
     # compute starting values
     pui<- matrix(0,n,k)
@@ -298,11 +301,7 @@ calc_FiniteMixture <- function(
     #	mu<- quantile(yu,(1:k)/(k+1))
 
     # compute maximum log likelihood estimates
-    nit<- 499L
-    wu<- 1/(sigmab^2 + su^2)
-    rwu<- sqrt(wu)
-
-    for(j in 1:nit){
+    for (j in 1:num.iters) {
       for(i in 1:k)
       {
         fui <- rwu * exp(-0.5 * wu * (yu - mu[i])^2)
