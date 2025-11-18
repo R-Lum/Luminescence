@@ -24,8 +24,8 @@ calc_FiniteMixture(
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{sigmab}{\link{numeric} (\strong{required}):
-spread in De values given as a fraction (e.g. 0.2). This value represents
-the expected overdispersion in the data should the sample be well-bleached
+spread in De values (given as a fraction, e.g. 0.2), representing the
+expected overdispersion in the data should the sample be well-bleached
 (Cunningham & Wallinga 2012, p. 100).}
 
 \item{n.components}{\link{numeric} (\strong{required}):
@@ -59,7 +59,9 @@ Ignored if \code{n.components} has length 1.}
 plot the statistical criteria (BIC and log-likelihood).
 Ignored if \code{n.components} has length 1.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable the  plot output.}
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable the plot output. This is ignored and no plot is produced if
+\code{n.components} has length 1.}
 
 \item{...}{other parameters to control the plot output. Supported are
 \code{cex}, \code{main}, \code{main.densities}, \code{main.proportions}, \code{main.criteria},
@@ -126,7 +128,7 @@ per cent) calculated by the FMM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each value of \emph{k}.
 }
 \section{Function version}{
- 0.4.3
+ 0.4.4
 }
 
 \examples{

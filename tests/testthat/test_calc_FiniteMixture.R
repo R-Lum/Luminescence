@@ -57,11 +57,12 @@ test_that("check functionality", {
 
   ## more coverage
   SW({
-  expect_warning(calc_FiniteMixture(
+  expect_warning(expect_message(calc_FiniteMixture(
     ExampleData.DeValues$CA1[2:9, ],
     sigmab = 0.1,
     n.components = 3,
     verbose = TRUE),
+    "'n.components' specified only one component, nothing plotted"),
     "The model produced NA values: either the input data are inapplicable")
   })
 

@@ -42,8 +42,8 @@
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
 #' @param sigmab [numeric] (**required**):
-#' spread in De values given as a fraction (e.g. 0.2). This value represents
-#' the expected overdispersion in the data should the sample be well-bleached
+#' spread in De values (given as a fraction, e.g. 0.2), representing the
+#' expected overdispersion in the data should the sample be well-bleached
 #' (Cunningham & Wallinga 2012, p. 100).
 #'
 #' @param n.components [numeric] (**required**):
@@ -77,7 +77,9 @@
 #' plot the statistical criteria (BIC and log-likelihood).
 #' Ignored if `n.components` has length 1.
 #'
-#' @param plot [logical] (*with default*): enable/disable the  plot output.
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output. This is ignored and no plot is produced if
+#' `n.components` has length 1.
 #'
 #' @param ... other parameters to control the plot output. Supported are
 #' `cex`, `main`, `main.densities`, `main.proportions`, `main.criteria`,
@@ -105,7 +107,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.4
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -572,6 +574,8 @@ calc_FiniteMixture <- function(
 ## on the same object.
 .plot_FiniteMixture <- function(object, ...) {
   if (length(object@data$args$n.components) == 1) {
+    .throw_message("'n.components' specified only one component, nothing plotted",
+                   error = FALSE)
     return()
   }
 
