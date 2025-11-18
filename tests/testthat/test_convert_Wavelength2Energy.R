@@ -1,3 +1,9 @@
+## artifical dataset according to Mooney et al. (2013)
+lambda <- seq(400, 800, 50)
+data <- cbind(lambda, 1)
+rownames(data) <- lambda
+colnames(data) <- 1:ncol(data)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -16,14 +22,6 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ## Set up test scenario ---------------------------------------------------
-
-  #create artifical dataset according to Mooney et al. (2013)
-  lambda <- seq(400,800,50)
-  data <- matrix(data = rep(1, 2 * length(lambda)), ncol = 2)
-  rownames(data) <- lambda
-  colnames(data) <- 1:ncol(data)
-
   ##set plot function
   p <- function(m) {
     plot(x = m[, 1], y = m[, 2])
@@ -33,10 +31,11 @@ test_that("check functionality", {
     }
   }
 
-  ## Test --------------------------------------------------------------------
+  snapshot.tolerance <- 1.5e-6
 
   ##test all three allowed input objects
-  expect_type(convert_Wavelength2Energy(data), "double")
+  expect_snapshot_plain(convert_Wavelength2Energy(data),
+                        tolerance = snapshot.tolerance)
   expect_s3_class(convert_Wavelength2Energy(as.data.frame(data)), class = "data.frame")
   object <- set_RLum(class = "RLum.Data.Spectrum", data = data[,1,drop = FALSE])
   expect_s4_class(convert_Wavelength2Energy(object), class = "RLum.Data.Spectrum")
@@ -47,10 +46,10 @@ test_that("check functionality", {
   expect_type(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), "list")
 
   ##test order argument
-  expect_type(convert_Wavelength2Energy(data, order = TRUE), "double")
-  res <- convert_Wavelength2Energy(object, order = TRUE)
-  expect_equal(order(rownames(res@data)),
-               1:nrow(res@data))
+  expect_snapshot_plain(convert_Wavelength2Energy(data, order = TRUE),
+                        tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(convert_Wavelength2Energy(object, order = TRUE),
+                        tolerance = snapshot.tolerance)
 
   ##test special treatment of RLum.Data.Spectrum objects
   object@info[["curveDescripter"]] <- "energy"

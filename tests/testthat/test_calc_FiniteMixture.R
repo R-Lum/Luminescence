@@ -31,30 +31,29 @@ test_that("input validation", {
                "'pdf.colors' should be one of 'gray', 'colors' or 'none'")
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
 
   ## simple run
   SW({
-  temp <- expect_s4_class(calc_FiniteMixture(
+  expect_snapshot_RLum(calc_FiniteMixture(
     ExampleData.DeValues$CA1,
     sigmab = 0.2,
     n.components = 2,
     grain.probability = TRUE,
-    verbose = TRUE), "RLum.Results")
+    verbose = TRUE),
+    tolerance = snapshot.tolerance)
   })
 
-  ## check length of output
-  expect_equal(length(temp), 10)
-
-  ## check for numerical regression
-  results <- get_RLum(temp)
-  expect_equal(results$de[1], 31.5299)
-  expect_equal(results$de[2], 72.0333)
-  expect_equal(results$de_err[1], 3.6387)
-  expect_equal(results$de_err[2], 2.4082)
-  expect_equal(results$proportion[1], 0.1096)
-  expect_equal(results$proportion[2], 0.8904)
+  expect_snapshot_RLum(calc_FiniteMixture(
+    ExampleData.DeValues$CA1,
+    sigmab = 0.2,
+    n.components = 3:5,
+    grain.probability = TRUE,
+    verbose = FALSE),
+    tolerance = snapshot.tolerance)
 
   ## more coverage
   SW({
