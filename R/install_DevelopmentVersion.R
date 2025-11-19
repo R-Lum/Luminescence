@@ -64,7 +64,7 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
     }
     if (reply != "y")
         reply <- NULL
-    }
+  }
 
     # detach the 'Luminescence' package
     try(detach(name = "package:Luminescence", unload = TRUE, force = TRUE),
@@ -72,7 +72,8 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
 
     # try to unload the dynamic library
     dynLibs <- sapply(.dynLibs(), function(x) x[["path"]] )
-    try(dyn.unload(dynLibs[grep("Luminescence", dynLibs)]), silent = TRUE)
+    try(dyn.unload(grep("Luminescence", dynLibs, value = TRUE, fixed = TRUE)),
+        silent = TRUE)
 
     # install the development version
     devtools::install_github(paste0("r-lum/luminescence@", branch))

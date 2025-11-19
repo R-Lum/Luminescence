@@ -155,7 +155,7 @@ plot_RLum.Data.Curve<- function(
          }
 
   ## curve normalisation
-  if (norm != FALSE) {
+  if (!isFALSE(norm)) {
     object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
   }
 

@@ -1099,7 +1099,7 @@ read_BIN2R <- function(
     ##check whether the position is valid at all
     if (results.METADATA[, all(position %in% POSITION)]) {
       keep.positions <- results.METADATA[, POSITION %in% position]
-      results.METADATA <- results.METADATA[keep.positions == TRUE, ]
+      results.METADATA <- results.METADATA[(keep.positions), ]
       results.DATA <- results.DATA[keep.positions]
       results.RESERVED <- results.RESERVED[keep.positions]
 

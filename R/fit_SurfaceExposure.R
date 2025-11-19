@@ -444,13 +444,13 @@ fit_SurfaceExposure <- function(
       pch = 21,
       col = "black",
       bg = "red",
-      xlab = if (!coord_flip) "Depth (mm)" else "OSL intensity (Ln/Tn)",
-      ylab = if (!coord_flip) "OSL intensity (Ln/Tn)" else "Depth (mm)",
+      xlab = if (coord_flip) "OSL intensity (Ln/Tn)" else "Depth (mm)",
+      ylab = if (coord_flip) "Depth (mm)" else "OSL intensity (Ln/Tn)",
       cex = 1.0,
       lty = 1,
       lwd = 1,
       log = "",
-      ylim = if (!coord_flip) range(pretty(data[ ,2])) else rev(range(pretty(data[ ,2]))),
+      ylim = if (coord_flip) rev(range(pretty(data[, 2]))) else range(pretty(data[, 2])),
       xlim = range(pretty(data[ ,1]))
     )
 

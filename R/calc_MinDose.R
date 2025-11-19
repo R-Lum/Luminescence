@@ -724,9 +724,9 @@ calc_MinDose <- function(
                init.values=start, log.output = log.output,
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
 
-  if (!is.na(summary$mu) && !is.na(summary$de)) {
+  if (!is.na(summary$mu) && !is.na(summary$de) &&
     ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
-    if (summary$de > exp(summary$mu))
+    summary$de > exp(summary$mu)) {
       .throw_warning("Gamma is larger than mu, consider running the model ",
                      "with new boundary values (see details '?calc_MinDose')")
   }

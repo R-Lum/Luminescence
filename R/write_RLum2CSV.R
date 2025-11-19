@@ -130,8 +130,8 @@ write_RLum2CSV <- function(
   .validate_logical_scalar(compact)
 
   ## check export path
-  if (export == TRUE) {
-    if (is.null(path) || nchar(path) == 0) {
+  if (export) {
+    if (is.null(path) || !nzchar(path)) {
       path <- getwd()
       .throw_message("Path automatically set to: ", path, error = FALSE)
     } else if (!dir.exists(path)) {

@@ -316,7 +316,7 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
-  if(any(duplicated(colnames(object@data)))) {
+  if (anyDuplicated(colnames(object@data)) > 0) {
     .throw_warning("Duplicated column names found, replaced by index")
     colnames(object@data) <- 1:ncol(object@data[])
   }
@@ -832,7 +832,7 @@ if(plot){
       col = col
     )
 
-    if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
+    if (is.null(extraArgs$contour) || !isFALSE(extraArgs$contour)) {
       graphics::contour(x, y, temp.xyz,
               col = extraArgs$contour.col %||% rgb(1, 1, 1, 0.8),
               labcex = labcex * cex,

@@ -309,7 +309,7 @@ analyse_SAR.TL <- function(
     temp[, status := fifelse(abs(1 - value) > rej.thresh, "FAILED", "OK")]
 
     ## keep only the repeated doses
-    RecyclingRatio <- temp[Repeated == TRUE,
+    RecyclingRatio <- temp[(Repeated),
                            list(criterion, value, threshold, status)]
   }
 

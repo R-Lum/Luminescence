@@ -359,7 +359,7 @@ report_RLum <- function(
       # HEADER
       short.name <- elements$bud[i]
       links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
-      type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
+      type <- ifelse(nzchar(links), substr(links, nchar(links), nchar(links)), "")
       if (type == "[")
         type <- ""
 
@@ -413,7 +413,7 @@ report_RLum <- function(
         # compatible with pander::pander
         if (is.null(table) | length(table) == 0)
           table <- "NULL"
-        if (any(class(table) == "raw"))
+        if (any(is.raw(table)))
           table <- as.character(table)
 
         # exception: surround objects of class "call" with <pre> tags to prevent
@@ -507,9 +507,8 @@ report_RLum <- function(
         "```"),
         tmp)
 
-      if (inherits(object, "RLum.Results")) {
-        # AGE MODELS ----
-        if (.check_originator(object, c("calc_AverageDose",
+      if (inherits(object, "RLum.Results") &&
+          .check_originator(object, c("calc_AverageDose",
                                         "calc_CommonDose",
                                         "calc_CentralDose",
                                         "calc_FiniteMixture",
@@ -517,7 +516,7 @@ report_RLum <- function(
                                         "calc_IEU",
                                         "calc_MaxDose",
                                         "calc_MinDose"))) {
-          writeLines(paste0(
+        writeLines(paste0(
             "```{r}\n",
             "plot_AbanicoPlot(x) \n",
             "plot_Histogram(x) \n",
@@ -525,7 +524,6 @@ report_RLum <- function(
             "plot_ViolinPlot(x) \n",
             "```"),
             tmp)
-        }
       }
     }
   }#EndOf::Plot
@@ -680,8 +678,8 @@ report_RLum <- function(
   df$col <- as.integer(df$col)
   df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["),
                               function(x) x[length(x)]))
-  if (length(grep("]", df$bud)) != 0)
-    df$bud[grep("]", df$bud)] <- paste0("[[", df$bud[grep("]", df$bud)])
+  if (any(grepl("]", df$bud, fixed = TRUE)))
+    df$bud[grep("]", df$bud)] <- paste0("[[", grep("]", df$bud, value = TRUE))
   df$bud.freq <- NA # 1:nrow(df)
 
   # reorder data.frame

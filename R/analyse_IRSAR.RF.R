@@ -1385,7 +1385,7 @@ analyse_IRSAR.RF<- function(
       TP.data.frame <- as.data.frame(
         cbind(
           POSITION =  as.integer(aliquot.position),
-          PARAMETER = c(names(TP)),
+          PARAMETER = names(TP),
           do.call(data.table::rbindlist, args = list(l = TP)),
           SEQUENCE_NAME = aliquot.sequence_name,
           UID = NA
