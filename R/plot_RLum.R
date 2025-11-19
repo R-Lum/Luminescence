@@ -109,7 +109,7 @@ plot_RLum <- function(
           mtext <- paste("Record:", 1:length(object))
         }
       }else{
-        mtext <- rep(mtext, length.out = length(object))
+        mtext <- rep_len(mtext, length(object))
       }
       for (i in 1:length(object)) {
         RLum.dispatcher(

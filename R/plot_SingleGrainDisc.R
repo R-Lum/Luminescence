@@ -149,7 +149,7 @@ plot_SingleGrainDisc <- function(object,
   vn_values_to_show <- vn_values_to_show[-101]
 
   ## Plotting  -----------------------
-  df_disc <- data.frame(x = rep(1:10, length.out=100),
+  df_disc <- data.frame(x = rep_len(1:10, 100),
                         y = rep(1:10, each=10)
   )
 

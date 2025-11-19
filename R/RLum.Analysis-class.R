@@ -837,7 +837,7 @@ setMethod(
       .throw_error("'decreasing' should be of class 'logical'")
 
     ## recycle decreasing to match selection
-    decreasing <- rep(decreasing, length.out = length(info_element) + 1)
+    decreasing <- rep_len(decreasing, length(info_element) + 1)
 
     ## translate to -1 and 1 to match data.table requirements
     decreasing[decreasing] <- -1

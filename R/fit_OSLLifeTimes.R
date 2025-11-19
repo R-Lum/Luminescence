@@ -208,7 +208,7 @@ fit_OSLLifeTimes <- function(
   arg_list <- NULL
   if(!is.null(arg_names)){
     arg_list <- lapply(arg_names , function(x){
-      unlist(rep(list(...)[[x]], length.out = length(object)))
+      unlist(rep_len(list(...)[[x]], length(object)))
     })
 
     ## make sure we organise this list (not nice but it works)

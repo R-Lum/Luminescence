@@ -603,7 +603,7 @@ if(plot) {
   ## Histograms with the data
   ##(1) first histogram showing the natural distribution
   hist(
-    x = rep(Dosedata[,1], length.out = length(M_Simul[,3])),
+    x = rep_len(Dosedata[, 1], length(M_Simul[, 3])),
     freq = FALSE,
     breaks = seq(0, box_width * (1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
     xlim = plot_settings$xlim,
@@ -638,7 +638,7 @@ if(plot) {
   ## Histograms with the error for the data
   ##(3) first histogram showing the natural distribution
   hist(
-    x = rep(Dosedata[,2], length.out = length(M_Simul[,2])),
+    x = rep_len(Dosedata[, 2], length(M_Simul[, 2])),
     freq = FALSE,
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,2])/box_width)), box_width),
     xlim = plot_settings$xlim,
