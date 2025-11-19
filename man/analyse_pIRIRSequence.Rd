@@ -79,8 +79,7 @@ returned containing the following elements:
 The output should be accessed using the function \link{get_RLum}.
 }
 \description{
-The function performs an analysis of post-IR IRSL sequences
-including curve
+The function performs an analysis of post-IR IRSL sequences including curve
 fitting on \linkS4class{RLum.Analysis} objects.
 }
 \details{
@@ -92,12 +91,13 @@ functionality provided by  \link{analyse_SAR.CWOSL}.
 
 \strong{Defining the sequence structure}
 
-The argument \code{sequence.structure} expects a shortened pattern of your sequence structure and was
-mainly introduced to ease the use of the function. For example: If your measurement data contains
-the following curves: \code{TL}, \code{IRSL}, \code{IRSL}, \code{TL}, \code{IRSL}, \code{IRSL}, the sequence pattern in \code{sequence.structure}
-becomes \code{c('TL', 'IRSL', 'IRSL')}. The second part of your sequence for one cycle should be
-similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
-have to be removed before using the function.
+The argument \code{sequence.structure} expects a shortened pattern of your
+sequence structure and was mainly introduced to ease the use of the function.
+For example: If your measurement data contains the following curves: \code{TL},
+\code{IRSL}, \code{IRSL}, \code{TL}, \code{IRSL}, \code{IRSL}, the pattern in \code{sequence.structure}
+becomes \code{c('TL', 'IRSL', 'IRSL')}. The second part of your sequence for one
+cycle should be similar and can be discarded. If this is not the case (e.g.,
+additional hotbleach) such curves must be removed before using the function.
 
 \strong{If the input is a \code{list}}
 

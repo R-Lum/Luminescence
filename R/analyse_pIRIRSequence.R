@@ -1,7 +1,7 @@
 #' @title Analyse post-IR IRSL measurement sequences
 #'
-#' @description The function performs an analysis of post-IR IRSL sequences
-#' including curve
+#' @description
+#' The function performs an analysis of post-IR IRSL sequences including curve
 #' fitting on [RLum.Analysis-class] objects.
 #'
 #' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
@@ -12,12 +12,13 @@
 #'
 #' **Defining the sequence structure**
 #'
-#' The argument `sequence.structure` expects a shortened pattern of your sequence structure and was
-#' mainly introduced to ease the use of the function. For example: If your measurement data contains
-#' the following curves: `TL`, `IRSL`, `IRSL`, `TL`, `IRSL`, `IRSL`, the sequence pattern in `sequence.structure`
-#' becomes `c('TL', 'IRSL', 'IRSL')`. The second part of your sequence for one cycle should be
-#' similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
-#' have to be removed before using the function.
+#' The argument `sequence.structure` expects a shortened pattern of your
+#' sequence structure and was mainly introduced to ease the use of the function.
+#' For example: If your measurement data contains the following curves: `TL`,
+#' `IRSL`, `IRSL`, `TL`, `IRSL`, `IRSL`, the pattern in `sequence.structure`
+#' becomes `c('TL', 'IRSL', 'IRSL')`. The second part of your sequence for one
+#' cycle should be similar and can be discarded. If this is not the case (e.g.,
+#' additional hotbleach) such curves must be removed before using the function.
 #'
 #' **If the input is a `list`**
 #'

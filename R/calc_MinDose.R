@@ -54,7 +54,7 @@
 #' **Bootstrap**
 #'
 #' When `bootstrap=TRUE` the function applies the bootstrapping method as
-#' described in Wallinga & Cunningham (2012). By default, the minimum age model
+#' described in Cunningham & Wallinga (2012). By default, the minimum age model
 #' produces 1000 first level and 3000 second level bootstrap replicates. The
 #' uncertainty on `sigmab` is 0.04 by default. These values can be changed by
 #' using the arguments `bs.M` (first level replicates), `bs.N`
@@ -96,9 +96,8 @@
 #' for [data.frame]: two columns for De and De error.
 #'
 #' @param sigmab [numeric] (**required**):
-#' additional spread in De values.
-#' This value represents the expected overdispersion in the data should the sample be
-#' well-bleached (Cunningham & Walling 2012, p. 100).
+#' additional spread in De values, representing the expected overdispersion in
+#' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' `sigmab` must be provided in the same absolute units of the De values (seconds or Gray).

@@ -28,10 +28,11 @@ If a \code{list} is provided as input all other parameters can be provided as
 
 \item{sequence_structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Allowed steps are \code{NATURAL} and
-\code{REGENERATED}, and at least one of each must appear.
-In addition any other character is allowed in the sequence structure;
-such curves will be ignored during the analysis. If \code{sequence_structure}
-is shorter than the number of curves in \code{object}, it is recycled.}
+\code{REGENERATED}, and at least one of each must appear. In addition, any other
+character is allowed in the sequence structure; such curves will be ignored
+during the analysis. If \code{sequence_structure} is shorter than the number of
+curves in \code{object}, it is recycled. If multiple \code{NATURAL} and \code{REGENERATED}
+steps are specified, the corresponding measurements are stacked.}
 
 \item{RF_nat.lim}{\link{vector} (\emph{with default}):
 set minimum and maximum channel range for natural signal fitting and sliding.

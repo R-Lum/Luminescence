@@ -30,9 +30,8 @@
 #' for [data.frame]: two columns with De `(data[ ,1])` and De error `(data[ ,2])`.
 #'
 #' @param sigmab [numeric] (**required**):
-#' additional spread in De values.
-#' This value represents the expected overdispersion in the data should the sample be
-#' well-bleached (Cunningham & Walling 2012, p. 100).
+#' additional spread in De values, representing the expected overdispersion in
+#' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).

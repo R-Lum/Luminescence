@@ -189,10 +189,11 @@
 #'
 #' @param sequence_structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Allowed steps are `NATURAL` and
-#' `REGENERATED`, and at least one of each must appear.
-#' In addition any other character is allowed in the sequence structure;
-#' such curves will be ignored during the analysis. If `sequence_structure`
-#' is shorter than the number of curves in `object`, it is recycled.
+#' `REGENERATED`, and at least one of each must appear. In addition, any other
+#' character is allowed in the sequence structure; such curves will be ignored
+#' during the analysis. If `sequence_structure` is shorter than the number of
+#' curves in `object`, it is recycled. If multiple `NATURAL` and `REGENERATED`
+#' steps are specified, the corresponding measurements are stacked.
 #'
 #' @param RF_nat.lim [vector] (*with default*):
 #' set minimum and maximum channel range for natural signal fitting and sliding.
