@@ -123,15 +123,14 @@
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <polygon points='360.00,276.48 662.40,276.48 662.40,57.60 360.00,57.60 ' style='stroke-width: 0.75; fill: none;' />
-<polygon points='401.62,54.86 407.66,54.86 407.66,48.82 401.62,48.82 ' style='stroke-width: 0.75; stroke: none; fill: #CD0000;' />
-<polygon points='423.86,54.86 429.90,54.86 429.90,48.82 423.86,48.82 ' style='stroke-width: 0.75; stroke: none; fill: #6959CD;' />
-<polygon points='446.09,54.86 452.14,54.86 452.14,48.82 446.09,48.82 ' style='stroke-width: 0.75; stroke: none; fill: #2E8B57;' />
-<polygon points='468.33,54.86 474.38,54.86 474.38,48.82 468.33,48.82 ' style='stroke-width: 0.75; stroke: none; fill: #CD853F;' />
-<text x='408.10' y='53.16' style='font-size: 9.60px; font-family: sans;' textLength='10.14px' lengthAdjust='spacingAndGlyphs'>c1</text>
-<text x='430.34' y='53.16' style='font-size: 9.60px; font-family: sans;' textLength='10.14px' lengthAdjust='spacingAndGlyphs'>c2</text>
-<text x='452.57' y='53.16' style='font-size: 9.60px; font-family: sans;' textLength='10.14px' lengthAdjust='spacingAndGlyphs'>c3</text>
-<text x='474.81' y='53.16' style='font-size: 9.60px; font-family: sans;' textLength='10.14px' lengthAdjust='spacingAndGlyphs'>c4</text>
-<text x='360.00' y='55.30' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='59.78px' lengthAdjust='spacingAndGlyphs'>Components: </text>
+<circle cx='613.15' cy='69.12' r='2.81' style='stroke-width: 0.75; stroke: #CD0000; fill: #CD0000;' />
+<circle cx='613.15' cy='80.64' r='2.81' style='stroke-width: 0.75; stroke: #6959CD; fill: #6959CD;' />
+<circle cx='613.15' cy='92.16' r='2.81' style='stroke-width: 0.75; stroke: #2E8B57; fill: #2E8B57;' />
+<circle cx='613.15' cy='103.68' r='2.81' style='stroke-width: 0.75; stroke: #CD853F; fill: #CD853F;' />
+<text x='621.79' y='72.42' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 1</text>
+<text x='621.79' y='83.94' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 2</text>
+<text x='621.79' y='95.46' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 3</text>
+<text x='621.79' y='106.98' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 4</text>
 </g>
 <defs>
   <clipPath id='cpNTcuNjB8NjYyLjQwfDMyMi41Nnw0MDguOTY='>
