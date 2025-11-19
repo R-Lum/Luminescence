@@ -47,6 +47,8 @@ The object returned contains the following elements:
 \item{fit}{\link{list} with the fitted models}
 \item{coefs}{\link{data.frame} containing the fitted coefficients for the models}
 \item{data}{\link{data.frame} containing the data used in the fitting process}
+
+It may return \code{NULL} if no model could be fitted.
 }
 \description{
 ##TODO

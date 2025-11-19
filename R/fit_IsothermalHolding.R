@@ -45,6 +45,8 @@
 #' \item{coefs}{[data.frame] containing the fitted coefficients for the models}
 #' \item{data}{[data.frame] containing the data used in the fitting process}
 #'
+#' It may return `NULL` if no model could be fitted.
+#'
 #' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
 #'
 #' @references
@@ -321,13 +323,14 @@ fit_IsothermalHolding <- function(
     ITL_params[, s10 := format.iqr(s10_median, s10_Q_0.25, s10_Q_0.75)]
 
 
-    fmt <- "%20s | %22s | %22s |\n"
+    fmt <- "%20s | %23s | %23s |\n"
     cat("\n---- Isothermal holding parameters [median (IQR)] ----\n\n")
     cat(sprintf(fmt, "SAMPLE", "Et", "log10(s)"))
     for (i in seq(nrow(ITL_params))) {
       row <- ITL_params[i, ]
       cat(sprintf(fmt, row$SAMPLE, row$Et, row$s10))
     }
+    cat("\n")
 
     ITL_params[, c("Et", "s10") := NULL]
   }
