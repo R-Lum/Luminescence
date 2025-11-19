@@ -217,10 +217,6 @@ calc_gSGC_feldspar <- function(
 
           if (!inherits(temp2, "try-error")){
             temp.MC.matrix[j,8] <- temp2$root
-
-          } else {
-            # give an NA if uniroot cannot find a root (usually due to bad random values)
-            temp.MC.matrix[j,8] <- NA
           }
         }
 
