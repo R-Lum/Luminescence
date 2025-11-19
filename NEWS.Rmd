@@ -115,6 +115,9 @@ an unsupported originator instead of returning `NULL` (#1136).
 * The function no longer crashes if the De column contains zeros or missing
 values (#1146, #1148).
 
+* The legend for the components is positioned consistently also at `cex`
+values other than 1 and is drawn also when `pdf.colors = "gray"` (#1175).
+
 ### `calc_Huntley()`
 
 * A warning raised in rare occasions if the number of Monte Carlo iterations

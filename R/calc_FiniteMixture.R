@@ -772,25 +772,13 @@ calc_FiniteMixture <- function(
       axis(side = 2, labels = TRUE)
     }
 
-    if (settings$pdf.colors == "colors") {
-      ## create legend labels
-      dose.lab.legend <- paste0("c", 1:n.components[length(n.components)])
-
-      ncol.temp <- min(max(n.components), 8)
-      yadj <- if (max(n.components) > 8) 1.025 else 0.93
-
-      ## add legend
-      if (i == n.plots) {
-        legend(graphics::grconvertX(0.55, from = "ndc", to = "user"),
-               graphics::grconvertY(yadj, from = "ndc", to = "user"),
-               legend = dose.lab.legend,
-               col = col.n[1:max(n.components)],
-               pch = 15, adj = c(0,0.2), pt.cex = 1.4,
-               bty = "n", ncol = ncol.temp, x.intersp = 0.4)
-
-        mtext("Components: ", cex = 0.8 * settings$cex,
-              at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
-      }
+    if (settings$pdf.colors != "none" && i == n.plots) {
+      legend("topright",
+             legend = paste("Comp.", 1:max(n.components)),
+             col = col.n[1:max(n.components)],
+             pch = 19,
+             pt.cex = 1.3,
+             bty = "n")
     }
 
   } ## EndOf::k-loop and Plot 1

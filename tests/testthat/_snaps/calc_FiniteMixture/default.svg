@@ -109,6 +109,12 @@
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <polygon points='360.00,276.48 662.40,276.48 662.40,57.60 360.00,57.60 ' style='stroke-width: 0.75; fill: none;' />
+<circle cx='613.15' cy='69.12' r='2.81' style='stroke-width: 0.75; stroke: #4D4D4D; fill: #4D4D4D;' />
+<circle cx='613.15' cy='80.64' r='2.81' style='stroke-width: 0.75; stroke: #969696; fill: #969696;' />
+<circle cx='613.15' cy='92.16' r='2.81' style='stroke-width: 0.75; stroke: #C3C3C3; fill: #C3C3C3;' />
+<text x='621.79' y='72.42' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 1</text>
+<text x='621.79' y='83.94' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 2</text>
+<text x='621.79' y='95.46' style='font-size: 9.60px; font-family: sans;' textLength='36.29px' lengthAdjust='spacingAndGlyphs'>Comp. 3</text>
 </g>
 <defs>
   <clipPath id='cpNTcuNjB8NjYyLjQwfDMyMi41Nnw0MDguOTY='>
