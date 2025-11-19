@@ -203,6 +203,9 @@ calc_OSLLxTxRatio <- function(
     data.frame = Lx.data,
     data.frame(x = 1:length(Lx.data),y = Lx.data)
   )
+  if (ncol(Lx.data) < 2) {
+    .throw_error("'Lx.data' should have 2 columns")
+  }
   len.Lx <- nrow(Lx.data)
 
   ## Tx - coerce if required
@@ -214,6 +217,9 @@ calc_OSLLxTxRatio <- function(
       data.frame = Tx.data,
       data.frame(x = 1:length(Tx.data),y = Tx.data)
     )
+    if (ncol(Tx.data) < 2) {
+      .throw_error("'Tx.data' should have 2 columns")
+    }
     len.Tx <- nrow(Tx.data)
 
     ## check channel number

@@ -120,6 +120,11 @@
 - A warning raised in rare occasions if the number of Monte Carlo
   iterations is very small has been fixed (#1048).
 
+### `calc_OSLLxTxRatio()`
+
+- The `Lx.data` and `Tx.data` arguments are now better validated
+  (#1178).
+
 ### `calc_SourceDoseRate()`
 
 - The function returns a clearer error message if dates are specified in
