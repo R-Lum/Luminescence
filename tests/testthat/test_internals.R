@@ -440,6 +440,8 @@ test_that("Test internals", {
                "'iris' should be a single value")
   expect_error(.validate_scalar(iris[, 1, drop = FALSE]),
                "'iris' should be a single value")
+  expect_error(.validate_scalar(iris[1, 0, drop = FALSE]),
+               "'iris' should be a single value")
   expect_error(.validate_scalar(iris, null.ok = TRUE),
                "'iris' should be a single value or NULL")
   expect_error(.validate_scalar(-1:2, name = "'var'"),
