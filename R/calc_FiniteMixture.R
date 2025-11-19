@@ -616,11 +616,11 @@ calc_FiniteMixture <- function(
   ## create device layout
   graphics::layout(seq.matrix)
 
-  ## outer margins (bottom, left, top, right)
-  par(oma = c(1, 5, 3, 5))
-
   ## general plot parameters (global scaling, allow overplotting)
   par(cex = 0.8 * settings$cex, xpd = NA)
+
+  ## set margins (bottom, left, top, right)
+  par(mar = c(2, 0, 2, 0), oma = c(0.6, 5, 1.3, 5))
 
   ## define colour palette for prettier output
   col.n <- switch(settings$pdf.colors,
@@ -648,9 +648,6 @@ calc_FiniteMixture <- function(
   ## create empty plot without x-axis
   for (i in 1:n.plots) {
     pos.n <- seq(from = 1, to = n.components[i] * 3, by = 3)
-
-    ## set margins (bottom, left, top, right)
-    par(mar = c(2, 0, 2, 0))
 
     ## empty plot area
     plot(NA, NA,
@@ -741,13 +738,9 @@ calc_FiniteMixture <- function(
     ## draw additional info during first k-cycle
     if (i == 1) {
 
-      ## plot title
-      mtext(settings$main.densities,
-            side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
-
       ## main title
       mtext(settings$main,
-            side = 3, font = 2, line = 3.5, adj = 0.5, cex = settings$cex,
+            side = 3, font = 2, line = 1.8, adj = 0.5, cex = settings$cex,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## subtitle
@@ -758,10 +751,14 @@ calc_FiniteMixture <- function(
                                            else "")
                                        ))
       mtext(subtitle,
-            side = 3, font = 1, line = 2.2, adj = 0.5,
+            side = 3, font = 1, line = 0.5,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"),
             col = ifelse(has.nas, 2, 1),
             cex = 0.9 * settings$cex)
+
+      ## plot title
+      mtext(settings$main.densities,
+            side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
 
       ## x-axis label
       mtext("Density [a.u.]",
