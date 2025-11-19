@@ -288,6 +288,11 @@ fit_IsothermalHolding <- function(
     close(pb)
   }
 
+  if (is.null(fitted.coefs)) {
+    .throw_warning("No ITL model could be fitted")
+    return(NULL)
+  }
+
   ## summarize the parameters of interest (Et, s10) in terms of median and
   ## interquartile range
   ITL_params <- tapply(fitted.coefs, sample_id, function(coefs) {
@@ -374,7 +379,7 @@ fit_IsothermalHolding <- function(
         log = plot_settings$log,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        main = rep(plot_settings$main, length.out = length(sample_id))[i])
+        main = rep_len(plot_settings$main, length(sample_id))[i])
 
       ## add plot subtitle
       mtext(side = 3, plot_settings$mtext, cex = 0.7 * plot_settings$cex)
@@ -388,7 +393,7 @@ fit_IsothermalHolding <- function(
           lines(
             x = x,
             y = y,
-            col = rep(plot_settings$col[c], length.out = length(isoT)))
+            col = rep_len(plot_settings$col[c], length(isoT)))
         }
 
         ## plot the points (don't use matplot because this would assume

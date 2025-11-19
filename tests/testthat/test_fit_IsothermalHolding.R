@@ -43,6 +43,11 @@ test_that("check functionality", {
   data <- .import_ThermochronometryData(input.csv[1])
   expect_s4_class(fit_IsothermalHolding(data, rhop = 1e-7, mfrow = c(2, 2)),
                   "RLum.Results")
+
+  expect_warning(expect_null(fit_IsothermalHolding(input.csv[1], rhop = 1e-1,
+                                                   ITL_model = "BTS",
+                                                   num_s_values_bts = 2)),
+                 "No ITL model could be fitted")
   })
 })
 
