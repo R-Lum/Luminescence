@@ -38,7 +38,6 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
   .validate_logical_scalar(force_install)
   .validate_class(branch, "character", length = 1)
 
-  # nocov start
   message("\n[install_DevelopmentVersion]\n")
   message("----\n",
           "For package prerequisites, make sure to have read the following:\n",
@@ -47,17 +46,20 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
 
   ## check if 'devtools' is available and install if not
   if (!requireNamespace("devtools", quietly = TRUE)) {
+    # nocov start
     message("Please install the 'devtools' package first by running ",
             "the following command:\n\n install.packages('devtools')\n")
     return(invisible())
+    # nocov end
   }
 
   if (!force_install) {
-    message("Please copy and run the following code in your R command-line:\n")
-    message("devtools::install_github('R-Lum/luminescence@", branch, "')\n")
+    message("Please copy and run the following code in your R terminal:\n",
+            "devtools::install_github('R-Lum/luminescence@", branch, "')\n")
     return(invisible())
   }
 
+  # nocov start
   reply <- NULL
   while (is.null(reply)) {
     message("Proceed with the installation?\n",
