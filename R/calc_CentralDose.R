@@ -189,13 +189,12 @@ calc_CentralDose <- function(
   # calculate starting values and weights
   sigma <- 0.15 # keep in mind that this is a relative value
   wu <- 1 / (sigma^2 + su^2)
-  delta <- sum(wu * yu) / sum(wu)
-  n <- length(yu)
 
   # compute mle's
   for (j in 1:200) {
-    delta <- sum(wu * yu) / sum(wu)
-    sigma <- sigma * sqrt(sum((wu^2) * (yu - delta)^2 / sum(wu)))
+    sum_wu <- sum(wu)
+    delta <- sum(wu * yu) / sum_wu
+    sigma <- sigma * sqrt(sum((wu^2) * (yu - delta)^2) / sum_wu)
     wu <- 1 / (sigma^2 + su^2)
 
     # print iterations
@@ -256,7 +255,7 @@ calc_CentralDose <- function(
   if (options$verbose) {
     cat("\n [calc_CentralDose]")
     cat("\n\n----------- meta data ----------------")
-    cat("\n n:                      ", n)
+    cat("\n n:                      ", length(yu))
     cat("\n log:                    ", log)
     cat("\n----------- dose estimate ------------")
     cat("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2))
