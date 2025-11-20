@@ -37,6 +37,9 @@ using the `inherits()` function, as in `inherits(object, "RLum.Data.Curve")`
 
 * The function no longer crashes if `dose_point` is misspecified (#1073).
 
+* The function no longer crashes when called on an `RLum.Analysis` object
+rather than on a list of them (#1182).
+
 ### `analyse_baSAR()`
 
 * The function no longer crashes if all objects in the input list are removed

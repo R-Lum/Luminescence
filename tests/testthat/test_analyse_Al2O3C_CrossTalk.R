@@ -71,3 +71,10 @@ test_that("check functionality", {
                                irradiation_time_correction = corr),
       tolerance = snapshot.tolerance)
 })
+
+test_that("regression tests", {
+  skip_on_cran()
+
+  ## issue 1182
+  expect_silent(analyse_Al2O3C_CrossTalk(data_ITC))
+})
