@@ -347,12 +347,7 @@ setMethod(f = "show",
                                 quote = FALSE)
               date <- .collapse(unique(object@METADATA[id_128, "DATE"]),
                                 quote = FALSE)
-              run.range <- suppressWarnings(range(object@METADATA[id_128,"RUN"]))
-              set.range <- suppressWarnings(range(object@METADATA[id_128,"SET"]))
               grain.range <- suppressWarnings(range(object@METADATA[id_128,"GRAIN"]))
-
-              pos.range <- suppressWarnings(range(object@METADATA[id_128,"POSITION"]))
-
               records.type.count <- vapply(seq_along(records.type), function(x){
                 paste0(names(records.type[x]),"\t(n = ", records.type[x],")")
                }, character(1))
@@ -371,12 +366,15 @@ setMethod(f = "show",
               cat("\n\tSystem ID:           ", ifelse(systemID == 0,"0 (unknown)", systemID))
               cat("\n\tOverall records:     ", records.overall)
               cat("\n\tRecords type:        ", records.type.count)
-              cat("\n\tPosition range:      ", pos.range[1],":",pos.range[2])
-                if(max(grain.range) > 0)
-                  cat("\n\tGrain range:         ", grain.range[1],":",grain.range[2])
-
-              cat("\n\tRun range:           ", run.range[1],":",run.range[2])
-              cat("\n\tSet range:           ", set.range[1], ":", set.range[2])
+              cat("\n\tPosition range:      ",
+                  .format_range(object@METADATA[id_128, "POSITION"], sep = " : "))
+              if (max(grain.range) > 0)
+                cat("\n\tGrain range:         ",
+                    .format_range(object@METADATA[id_128, "GRAIN"], sep = " : "))
+              cat("\n\tRun range:           ",
+                  .format_range(object@METADATA[id_128, "RUN"], sep = " : "))
+              cat("\n\tSet range:           ",
+                  .format_range(object@METADATA[id_128, "SET"], sep = " : "))
 
               ## if id_128
               if(any(!id_128))

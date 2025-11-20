@@ -1415,6 +1415,23 @@ SW <- function(expr) {
   toString(if (quote) sQuote(x, FALSE) else x)
 }
 
+#' Compute and format the range of a vector
+#'
+#' @param vals [numeric] (**required**): A numeric vector.
+#' @param sep [character] (*with default*): Separator character.
+#' @param nsmall [integer] (*with default*): Minimum number of digits to the
+#'        right of the decimal point.
+#'
+#' @return
+#' A string with the range of the vector formatted as `min:max`.
+#'
+#' @noRd
+.format_range <- function(vals, sep = ":", nsmall = 0L) {
+  rng <- tryCatch(range(vals, na.rm = TRUE),
+                  warning = function(w) c(NA, NA))
+  paste(format(rng, nsmall = nsmall, trim = TRUE), collapse = sep)
+}
+
 #' Shorten a filename
 #'
 #' Shorten a filename to the given width by cutting out characters from the

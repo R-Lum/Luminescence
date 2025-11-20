@@ -621,7 +621,7 @@ analyse_IRSAR.RF<- function(
     if (min(RF_nat.lim) < 1 || max(RF_nat.lim) > max.channels.nat) {
       RF_nat.lim <- c(1, max.channels.nat)
       .throw_warning("'RF_nat.lim' out of bounds, reset to c(",
-                     paste(range(RF_nat.lim), collapse = ":"),")")
+                     .format_range(RF_nat.lim, sep = ", "), ")")
     }
   }
 
@@ -638,7 +638,7 @@ analyse_IRSAR.RF<- function(
     if (min(RF_reg.lim) < 1 || max(RF_reg.lim) > max.channels.reg) {
       RF_reg.lim <- c(1, max.channels.reg)
       .throw_warning("'RF_reg.lim' out of bounds, reset to c(",
-                     paste(range(RF_reg.lim), collapse = ":"), ")")
+                     .format_range(RF_reg.lim, sep = ", "), ")")
     }
   }
 
@@ -654,7 +654,7 @@ analyse_IRSAR.RF<- function(
     }
 
     .throw_warning("'RF_reg.lim' defines too short an interval, reset to c(",
-                   paste(range(RF_reg.lim), collapse=":"), ")")
+                   .format_range(RF_reg.lim, sep = ", "), ")")
   }
 
   ## check again that we can actually slide the curve
@@ -1840,8 +1840,8 @@ analyse_IRSAR.RF<- function(
       DE.LOWER = De.lower,
       DE.UPPER = De.upper,
       DE.STATUS = De.status,
-      RF_NAT.LIM = paste(RF_nat.lim, collapse = ":"),
-      RF_REG.LIM = paste(RF_reg.lim, collapse = ":"),
+      RF_NAT.LIM = .format_range(RF_nat.lim),
+      RF_REG.LIM = .format_range(RF_reg.lim),
       POSITION =  as.integer(aliquot.position),
       DATE = aliquot.date,
       SEQUENCE_NAME = aliquot.sequence_name,

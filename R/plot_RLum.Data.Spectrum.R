@@ -450,7 +450,7 @@ plot_RLum.Data.Spectrum <- function(
       bg.channels[bg.channels >= ncol(bg.xyz)] <- ncol(bg.xyz)
 
       .throw_warning("'bg.channels' out of range, corrected to: ",
-                     min(bg.channels), ":", max(bg.channels))
+                     .format_range(bg.channels))
     }
 
     ## the challenge we have here is that we want to maintain
@@ -1045,7 +1045,7 @@ if(plot){
          xlim = ylim,
          ylim = zlim,
          col = col,
-         sub = paste0("(channel range: ", min(xlim), " : ", max(xlim), ")"),
+         sub = paste0("(channel range: ", .format_range(xlim, sep = " : "), ")"),
          type = type,
          pch = pch)
   }

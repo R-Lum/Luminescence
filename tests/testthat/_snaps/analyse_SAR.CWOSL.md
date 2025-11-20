@@ -131,22 +131,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["1 : 2"]
+                  "value": ["1:2"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["900 : 1000"]
+                  "value": ["900:1000"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["NA : NA"]
+                  "value": ["NA:NA"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["NA : NA"]
+                  "value": ["NA:NA"]
                 },
                 {
                   "type": "double",
@@ -467,22 +467,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["1 : 2", "1 : 2"]
+                  "value": ["1:2", "1:2"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["900 : 1000", "900 : 1000"]
+                  "value": ["900:1000", "900:1000"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["NA : NA", "NA : NA"]
+                  "value": ["NA:NA", "NA:NA"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["NA : NA", "NA : NA"]
+                  "value": ["NA:NA", "NA:NA"]
                 },
                 {
                   "type": "integer",
@@ -803,22 +803,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["1 : 2"]
+                  "value": ["1:2"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["900 : 1000"]
+                  "value": ["900:1000"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["NA : NA"]
+                  "value": ["NA:NA"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["NA : NA"]
+                  "value": ["NA:NA"]
                 },
                 {
                   "type": "double",

@@ -542,9 +542,8 @@ error.list <- list()
         background.integral <- c((max(signal.integral) + 1):max(background.integral))
       }
 
-      .throw_warning("Background integral out of bounds. Set to: c(",
-                     min(background.integral), ":", max(background.integral),
-                     ")")
+      .throw_warning("Background integral out of bounds, set to ",
+                     .format_range(background.integral))
     }
 
     ##Do the same for the Tx-if set
@@ -564,10 +563,8 @@ error.list <- list()
             c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
         }
 
-        .throw_warning(
-          "Background integral for Tx out of bounds. Set to: c(",
-          min(background.integral.Tx), ":", max(background.integral.Tx), ")"
-        )
+        .throw_warning("Background integral for Tx out of bounds, set to ",
+                       .format_range(background.integral.Tx))
       }
     }
 
@@ -601,7 +598,6 @@ error.list <- list()
             OSL.component = OSL.component,
             digits = 4,
             sig0 = sig0))
-
       } else {
        temp.LnLxTnTx <- get_RLum(
           calc_OSLLxTxRatio(
@@ -1160,18 +1156,12 @@ error.list <- list()
   }
 
   ## add information on the integration limits
-  temp.GC.extended <-
-        data.frame(
-          signal.range = paste(min(signal.integral),":",
-                               max(signal.integral)),
-          background.range = paste(min(background.integral),":",
-                                   max(background.integral)),
-          signal.range.Tx = paste(min(signal.integral.Tx %||% NA), ":",
-                                  max(signal.integral.Tx %||% NA)),
-          background.range.Tx = paste(min(background.integral.Tx %||% NA) , ":",
-                                      max(background.integral.Tx %||% NA)),
-          stringsAsFactors = FALSE
-        )
+  temp.GC.extended <- data.frame(
+      signal.range = .format_range(signal.integral),
+      background.range = .format_range(background.integral),
+      signal.range.Tx = .format_range(signal.integral.Tx %||% NA),
+      background.range.Tx = .format_range(background.integral.Tx %||% NA),
+      stringsAsFactors = FALSE)
 
 # Set return Values -----------------------------------------------------------
     ##generate unique identifier

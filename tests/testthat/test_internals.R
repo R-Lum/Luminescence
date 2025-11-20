@@ -553,6 +553,24 @@ test_that("Test internals", {
                "1, 2, 3")
   expect_equal(.collapse(NULL), "")
 
+  ## .format_range() ________________________________________________________
+  expect_equal(.format_range(1:10),
+               "1:10")
+  expect_equal(.format_range(c(1, 10, NA, 8)),
+               "1:10")
+  expect_equal(.format_range(c(-1, -10, NA, -8)),
+               "-10:-1")
+  expect_equal(.format_range(NULL),
+               "NA:NA")
+  expect_equal(.format_range(c(NA, NA, NA)),
+               "NA:NA")
+  expect_equal(.format_range(c(0, 1, -1), sep = ", "),
+               "-1, 1")
+  expect_equal(.format_range(c(0.53, 1.39, 1.14)),
+               "0.53:1.39")
+  expect_equal(.format_range(c(0.53, 1.39, 1.14), nsmall = 3),
+               "0.530:1.390")
+
   ## .shorten_filename() ----------------------------------------------------
   expect_equal(.shorten_filename("/path/to/filename"),
                "/path/to/filename")
