@@ -201,7 +201,6 @@ fit_ThermalQuenching <- function(
   f <- y ~ A / (1 + exp(C - W / (kB * x))) + c
 
   ##set translate values in data.frame to absolute temperature
-  data_raw <- data
   data[[1]] <- data[[1]] + .const$C2K
 
   ##start parameter
