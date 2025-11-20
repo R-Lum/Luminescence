@@ -31,6 +31,13 @@
 #'
 #' @export
 install_DevelopmentVersion <- function(force_install = FALSE, branch = "master") {
+  .set_function_name("install_DevelopmentVersion")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## input validation
+  .validate_logical_scalar(force_install)
+  .validate_class(branch, "character", length = 1)
+
   # nocov start
   message("\n[install_DevelopmentVersion]\n")
   message("----\n",
