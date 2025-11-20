@@ -480,13 +480,11 @@ plot_RLum.Results<- function(
     sigU<- sig95[ntf]
 
     # put them on the graph
-    abline(v=sigL)
-    abline(v=sigmax)
-    abline(v=sigU)
+    res <- c(sigL, sigmax, sigU)
+    abline(v = res)
     dx<- 0.006
     dy<- 0.2
     ytext<- min(llik) + dy
-    res<- c(sigL,sigmax,sigU)
     text(res+dx,rep(ytext,3),round(res,2),adj=0)
 
     # restore previous plot parameters
