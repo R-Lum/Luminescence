@@ -8,8 +8,8 @@
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 #' calculation of the `Lx/Tx` value the function [calc_OSLLxTxRatio] is
-#' used. To **change the way the Lx/Tx error is calculated** use the arguments
-#' `background.count.distribution` and `sigmab`, which will be passed to the function
+#' used. To **change the way the Lx/Tx error is calculated** use arguments
+#' `background.count.distribution` and `sigmab`, which will be passed to
 #' [calc_OSLLxTxRatio].
 #'
 #' **What is part of a SAR sequence?**
@@ -28,8 +28,8 @@
 #' **Argument `object` is of type `list`**
 #'
 #' If the argument `object` is of type [list] containing **only**
-#' [RLum.Analysis-class] objects, the function re-calls itself as often as elements
-#' are in the list. This is useful if an entire measurement wanted to be analysed without
+#' [RLum.Analysis-class] objects, the function re-calls itself on each element
+#' in the list. This is useful if to analyse an entire measurement without
 #' writing separate for-loops. To gain in full control of the parameters (e.g., `dose.points`) for
 #' every aliquot (corresponding to one [RLum.Analysis-class] object in the list), in
 #' this case the arguments can be provided as [list]. This `list` should
@@ -202,7 +202,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.11.0
+#' @section Function version: 0.11.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -342,8 +342,6 @@ if(is.list(object)){
 }
 
 # CONFIG  -----------------------------------------------------------------
-##set error list, this allows to set error messages without breaking the function
-error.list <- list()
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
@@ -370,29 +368,24 @@ error.list <- list()
     if(is.null(OSL.component))
     .throw_warning("No signal or background integral applied ",
                    "as they were set to NA")
-
   } else {
-  ##build signal and background integrals
-  signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
-  background.integral <- c(background.integral.min[1]:background.integral.max[1])
+    ## build signal and background integrals
+    signal.integral <- signal.integral.min[1]:signal.integral.max[1]
+    background.integral <- background.integral.min[1]:background.integral.max[1]
     signal.integral.Tx <- NULL
     background.integral.Tx <- NULL
 
-        ##account for the case that Lx and Tx integral differ
-        if (length(signal.integral.min) == 2 &
-            length(signal.integral.max) == 2) {
-          signal.integral.Tx <-
-            c(signal.integral.min[2]:signal.integral.max[2])
-        }
+    ## account for the case that Lx and Tx integral differ
+    if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2) {
+      signal.integral.Tx <- signal.integral.min[2]:signal.integral.max[2]
+    }
 
-        if (length(background.integral.min) == 2 &
-            length(background.integral.max) == 2) {
-          background.integral.Tx <-
-            c(background.integral.min[2]:background.integral.max[2])
-        }
+    if (length(background.integral.min) == 2 && length(background.integral.max) == 2) {
+      background.integral.Tx <- background.integral.min[2]:background.integral.max[2]
+    }
 
-        ##Account for the case that the use did not provide everything ...
-        if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
+    ## account for the case that the uset did not provide everything ...
+    if (is.null(signal.integral.Tx) && !is.null(background.integral.Tx)) {
           signal.integral.Tx <- signal.integral
           .throw_warning("Background integral for Tx curves set, but not for ",
                          "the signal integral; signal integral for Tx automatically set")
@@ -477,7 +470,6 @@ error.list <- list()
 
   ##FI lexsyg devices provide irradiation information in a separate curve
   if(any("irradiation" %in% temp.ltype)){
-    ##grep irradiation times
     temp.irradiation <- extract_IrradiationTimes(object)@data$irr.times[["IRR_TIME"]]
 
     ##write this into the records
@@ -489,6 +481,9 @@ error.list <- list()
     ## remove irradiation curves
     object <- get_RLum(object, record.id = !temp.ltype %in% "irradiation", drop = FALSE)
   }
+
+  ## collect error messages to be reported together
+  error.list <- list()
 
   ##check if the wanted curves are a multiple of two
   ##gsub removes unwanted information from the curves
@@ -519,9 +514,7 @@ error.list <- list()
     ##check background integral
     if (!all(is.na(signal.integral)) &&
         max(signal.integral) == min(signal.integral)) {
-      signal.integral <-
-        c(min(signal.integral) : (max(signal.integral) + 1))
-
+      signal.integral <- min(signal.integral):(max(signal.integral) + 1)
       .throw_warning("Integral signal limits cannot be equal, reset automatically")
     }
 
@@ -590,7 +583,7 @@ error.list <- list()
 # Calculate LnLxTnTx values  --------------------------------------------------
   ##calculate LxTx values using external function
   LnLxTnTx <- try(lapply(seq(1, length(OSL.Curves.ID), by = 2), function(x) {
-      if(!is.null(OSL.component) && length(OSL.component) > 0){
+      if (length(OSL.component) > 0) {
        temp.LnLxTnTx <- get_RLum(
           calc_OSLLxTxDecomposed(
             Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
@@ -628,15 +621,15 @@ error.list <- list()
     ##combine
     LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
 
-    # Set regeneration points -------------------------------------------------
-    ##overwrite dose point manually
-    if (!is.null(dose.points) && length(dose.points) > 0) {
+  ## Set regeneration points ------------------------------------------------
+  ## overwrite dose point manually
+  if (length(dose.points) > 0) {
       if (length(dose.points) != length(LnLxTnTx$Dose))
         .throw_error("Length of 'dose.points' (", length(dose.points),
                      ") differs from number of curves (", length(LnLxTnTx$Dose), ")")
 
       LnLxTnTx$Dose <- dose.points
-    }
+  }
 
   ## set test dose points
   LnLxTnTx$Test_Dose <- rep_len(dose.points.test %||% -1, nrow(LnLxTnTx))
@@ -1418,12 +1411,9 @@ error.list <- list()
   }
 
   ##mark integration limit Lx curves
-  rec <- record_list[[curve_ids[1]]]@data
-  abline(v = c(
-    rec[min(signal_integral),1],
-    rec[max(signal_integral),1],
-    rec[min(background_integral),1],
-    rec[max(background_integral),1]),
+  rec <- record_list[[curve_ids[1]]]@data[, 1]
+  abline(v = c(rec[range(signal_integral)],
+               rec[range(background_integral)]),
     lty = 2,
     col = "gray")
 }
