@@ -30,19 +30,19 @@ Please note that in case of a matrix row names and col names are set
 automatically if not provided.}
 
 \item{par.local}{\link{logical} (\emph{with default}):
-use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
-If \code{par.local = FALSE} global parameters are inherited.}
+use local graphical parameters for plotting, e.g. the plot is shown in one
+column and one row. If \code{par.local = FALSE} global parameters are inherited.}
 
-\item{plot.type}{\link{character} (\emph{with default}): for a 3D-plot use \code{persp}
-or \code{interactive}; for a 2D-plot you can use \code{image}, \code{contour},
-\code{single} or \code{multiple.lines} (along the time or temperature axis)
-or \code{transect} (along the wavelength axis)}
+\item{plot.type}{\link{character} (\emph{with default}):
+for a 3D-plot use \code{"persp"} or \code{"interactive"}; for a 2D-plot you can use
+\code{"image"}, \code{"contour"}, \code{"single"} or \code{"multiple.lines"} (along the time or
+temperature axis) or \code{"transect"} (along the wavelength axis).}
 
 \item{optical.wavelength.colours}{\link{logical} (\emph{with default}):
 use optical wavelength colour palette. Note: For this, the spectrum range is
-limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}. If you provide already
-binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
-using the bin number.}
+limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}. If
+you provide already binned spectra, the colour assignment is likely to be
+wrong, since the colour gradients are calculated using the bin number.}
 
 \item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}):
 spectrum used for the background subtraction. The background spectrum should
@@ -71,12 +71,13 @@ allow summing-up channel counts (vertical binning) for plotting,
 e.g. \code{bin.cols = 2} two channels are summed up.
 Binning is applied after the background subtraction.}
 
-\item{norm}{\link{character} (\emph{optional}): Normalise data to the maximum (\code{norm = "max"}) or
-minimum (\code{norm = "min"}) count values. The normalisation is applied after the binning.}
+\item{norm}{\link{character} (\emph{optional}):
+Normalise data to the maximum (\code{norm = "max"}) or minimum (\code{norm = "min"})
+count values. The normalisation is applied after binning.}
 
 \item{rug}{\link{logical} (\emph{with default}):
 enable/disable colour rug. Currently only implemented for plot
-type \code{multiple.lines} and \code{single}}
+type \code{multiple.lines} and \code{single}.}
 
 \item{limit_counts}{\link{numeric} (\emph{optional}):
 value to limit all count values to this value, i.e. all count values above
@@ -92,27 +93,28 @@ the spectrum is recalculated in terms of intensity, see details.}
 
 \item{legend.text}{\link{character} (\emph{with default}):
 possibility to provide own legend text. This argument is only considered for
-plot types providing a legend, e.g. \code{plot.type="transect"}}
+plot types providing a legend, e.g. \code{plot.type = "transect"}.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output. If
 the plot output is disabled, the \link{matrix} used for the plotting and the
 calculated colour values (as attributes) are returned. This way, the
 (binned, transformed etc.) output can be used in other functions and
-packages, such as plotting with the package \code{'plot3D'}}
+packages, such as plotting with the package \code{'plot3D'}.}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function.}
 }
 \value{
-Returns a plot and the transformed \code{matrix} used for plotting with some useful
-attributes such as the \code{colour} and \code{pmat} (the transpose matrix from \link[graphics:persp]{graphics::persp})
+Returns a plot and the transformed \code{matrix} used for plotting with some
+useful attributes such as \code{colour} and \code{pmat} (the transpose matrix from
+\link[graphics:persp]{graphics::persp}).
 }
 \description{
 The function provides a standardised plot output for spectrum data of an
-\linkS4class{RLum.Data.Spectrum} class object. The purpose of this function is to provide
-easy and straight-forward spectra plotting, not provide a full customised access to
-all plot parameters. If this is wanted, standard R plot functionality should be used
-instead.
+\linkS4class{RLum.Data.Spectrum} class object. The purpose of this function is to
+provide easy and straightforward spectra plotting, not a fully customised
+access to all plot parameters. If this is wanted, standard R plot
+functionality should be used instead.
 
 \strong{Matrix structure} \cr (cf. \linkS4class{RLum.Data.Spectrum})
 \itemize{
@@ -188,18 +190,18 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 
 \strong{Further arguments that will be passed (depending on the plot type)}
 
-\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{box},
-\code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
+\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{zlim}, \code{main}, \code{mtext},
+\code{box}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
 \code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
 \code{contour}, \code{contour.col} (\code{"image"}), \code{labcex} (\code{"image"}, \code{"contour"}),
-\code{n_breaks} (\verb{"image}), \code{legend} (\code{TRUE}/\code{FALSE}),
+\code{n_breaks} (\code{"image"}), \code{legend} (\code{TRUE}/\code{FALSE}),
 \code{legend.pos} (\code{"image"}), \code{legend.horiz} (\code{TRUE}/\code{FALSE} | \code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.12
+ 0.6.13
 }
 
 \examples{
