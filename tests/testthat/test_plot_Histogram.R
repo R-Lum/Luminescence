@@ -24,9 +24,9 @@ test_that("input validation", {
   expect_error(plot_Histogram(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_Histogram(df, colour = "black"),
-               "'colour' should have length 4")
+               "'colour' should be of class 'character' and have length 4")
   expect_error(plot_Histogram(df, ylim = c(0, 1)),
-               "'ylim' should have length 4")
+               "'ylim' should be of class 'numeric' and have length 4")
 })
 
 test_that("check functionality", {

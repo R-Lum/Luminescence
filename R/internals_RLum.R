@@ -1162,6 +1162,10 @@ SW <- function(expr) {
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
+#' @param length [integer] (*with default*): if not `NULL`, validate that
+#'        the length matches the one provided. This can be used only when
+#'        `classes` contains only base vector types, not [RLum-class] objects
+#'        or container types.
 #' @inheritParams .validate_args
 #'
 #' @return
@@ -1171,12 +1175,13 @@ SW <- function(expr) {
 #'
 #' @noRd
 .validate_class <- function(arg, classes, null.ok = FALSE, throw.error = TRUE,
-                            name = NULL, extra = NULL) {
+                            length = NULL, name = NULL, extra = NULL) {
 
   if (!missing(arg) && is.null(arg) && null.ok)
     return(TRUE)
 
-  if (missing(arg) || sum(inherits(arg, classes)) == 0L) {
+  if (missing(arg) || sum(inherits(arg, classes)) == 0L ||
+      !is.null(length) && length(arg) != length) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
     classes.extra <- c(sQuote(classes, q = FALSE), extra)
@@ -1185,6 +1190,8 @@ SW <- function(expr) {
 
     msg <- paste0(name %||% .first_argument(), " should be of class ",
                   .collapse(classes.extra, quote = FALSE, last_sep = " or "))
+    if (!is.null(length))
+      msg <- paste0(msg, " and have length ", length)
     .error_or_warning(msg, throw.error)
     return(FALSE)
   }
@@ -1238,7 +1245,6 @@ SW <- function(expr) {
 #' @noRd
 .validate_length <- function(arg, exp.length, throw.error = TRUE,
                             name = NULL) {
-
   if (length(arg) != exp.length) {
     msg <- paste0(name %||% .first_argument(), " should have length ", exp.length)
     .error_or_warning(msg, throw.error)

@@ -174,8 +174,7 @@ plot_DetPlot <- function(
    args_default <- as.list(f_def)[-(1:2)]
 
     ## detect cores
-    .validate_class(multicore, c("logical", "numeric", "integer"))
-    .validate_length(multicore, 1)
+    .validate_class(multicore, c("logical", "numeric", "integer"), length = 1)
     cores <- if (is.logical(multicore) && multicore) {
                parallel::detectCores() # nocov
              } else {

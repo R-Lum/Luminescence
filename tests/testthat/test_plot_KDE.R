@@ -27,11 +27,13 @@ test_that("input validation", {
   expect_error(plot_KDE(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_KDE(df, bw = df),
-               "'bw' should be of class 'character' or 'numeric'")
+               "'bw' should be of class 'character' or 'numeric' and have length 1")
   expect_error(plot_KDE(df, bw = c(0, 1)),
+               "'bw' should be of class 'character' or 'numeric' and have length 1")
+  expect_error(plot_KDE(df, bw = -1),
                "'bw' should be a single positive value")
   expect_error(plot_KDE(df, ylim = c(0, 1)),
-               "'ylim' should have length 4")
+               "'ylim' should be of class 'numeric' and have length 4")
 
   expect_warning(plot_KDE(df[1, ]),
                  "Single data point found, no density calculated")

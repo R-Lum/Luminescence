@@ -60,7 +60,7 @@ apply_Crosstalk <- function(object,
     vn_values <- get_RLum(object)
   }
   .validate_length(vn_values, 100, name = "'object'")
-  .validate_scalar(n_crosstalk)
+  .validate_class(n_crosstalk, "numeric", length = 1)
 
   vb_na_s <- is.na(vn_values)
   vn_values[vb_na_s] <- 0

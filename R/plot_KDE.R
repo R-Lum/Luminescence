@@ -244,11 +244,9 @@ plot_KDE <- function(
                                     "topleft", "top", "topright",
                                     "bottomleft", "bottom", "bottomright"))
   }
-  .validate_class(bw, c("character", "numeric"))
+  .validate_class(bw, c("character", "numeric"), length = 1)
   if (is.numeric(bw))
     .validate_positive_scalar(bw)
-  else
-    .validate_length(bw, 1)
 
   ## set mtext output
   mtext <- list(...)$mtext %||% ""
@@ -425,7 +423,7 @@ plot_KDE <- function(
 
   if ("ylim" %in% ...names()) {
     ylim.plot <- list(...)$ylim
-    .validate_length(ylim.plot, 4, name = "'ylim'")
+    .validate_class(ylim.plot, "numeric", length = 4, name = "'ylim'")
   } else if (!is.na(De.density.range[1])) {
       ylim.plot <- c(De.density.range[3],
                      De.density.range[4],

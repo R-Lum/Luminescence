@@ -161,7 +161,7 @@ plot_Histogram <- function(
   .validate_logical_scalar(se)
   .validate_logical_scalar(rug)
   .validate_logical_scalar(normal_curve)
-  .validate_length(colour, 4)
+  .validate_class(colour, "character", length = 4)
 
   ## handle error-free data sets
   if (length(data) < 2 || all(is.na(data[, 2]))) {
@@ -198,7 +198,7 @@ plot_Histogram <- function(
 
   if("ylim" %in% names(extraArgs)) {
     ylim.plot <- extraArgs$ylim
-    .validate_length(ylim.plot, 4, name = "'ylim'")
+    .validate_class(ylim.plot, "numeric", length = 4, name = "'ylim'")
   } else {
     H.lim <- hist(data[,1],
                   breaks = breaks.plot,

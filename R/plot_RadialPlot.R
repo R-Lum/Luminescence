@@ -484,7 +484,7 @@ plot_RadialPlot <- function(
 
   if("xlab" %in% names(extraArgs)) {
     xlab <- extraArgs$xlab
-    .validate_length(xlab, 2)
+    .validate_class(xlab, "character", length = 2)
   } else {
     xlab <- c(ifelse(log.z, "Relative standard error [%]", "Standard error"),
               "Precision")
@@ -499,7 +499,7 @@ plot_RadialPlot <- function(
     c((0.9 - z.span) * min(data.global[[1]]),
       (1.1 + z.span) * max(data.global[[1]]))
   }
-  .validate_length(limits.z, 2, name = "'zlim'")
+  .validate_class(limits.z, "numeric", length = 2, name = "'zlim'")
   limits.z <- sort(limits.z)
   if (log.z && limits.z[1] <= 0) {
     limits.z[1] <- 0.01

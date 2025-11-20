@@ -27,7 +27,7 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(df, central.value = -1),
                "'central.value' should be a single positive value")
   expect_error(plot_RadialPlot(df, xlab = "x"),
-               "'xlab' should have length 2")
+               "'xlab' should be of class 'character' and have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),
                "'centrality' should be of class 'character' or 'numeric'")
   expect_error(plot_RadialPlot(df, centrality = "error"),
@@ -43,7 +43,7 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(df, line = c(NA, NA)),
                "'line' should be of class 'numeric', 'integer' or NULL")
   expect_error(plot_RadialPlot(df, zlim = 1),
-               "'zlim' should have length 2")
+               "'zlim' should be of class 'numeric' and have length 2")
   expect_error(plot_RadialPlot(list(df, df), lty = 1),
                "'lty' should have length 2")
 

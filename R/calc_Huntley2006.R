@@ -324,7 +324,7 @@ calc_Huntley2006 <- function(
   .validate_not_empty(data)
   .validate_class(LnTn, "data.frame", null.ok = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
-  .validate_length(lower.bounds, 4)
+  .validate_class(lower.bounds, "numeric", length = 4)
   .validate_logical_scalar(summary)
   .validate_logical_scalar(plot)
 
@@ -408,10 +408,8 @@ calc_Huntley2006 <- function(
   }
 
   ## Check ddot & readerDdot
-  .validate_class(ddot, "numeric")
-  .validate_length(ddot, 2)
-  .validate_class(readerDdot, "numeric")
-  .validate_length(readerDdot, 2)
+  .validate_class(ddot, "numeric", length = 2)
+  .validate_class(readerDdot, "numeric", length = 2)
 
   ## set up the parallel cluster
   .validate_positive_scalar(cores, int = TRUE)

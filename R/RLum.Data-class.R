@@ -40,8 +40,7 @@ setMethod("add_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-            .validate_class(info_element, "character")
-            .validate_length(info_element, 1)
+            .validate_class(info_element, "character", length = 1)
             valid.names <- names(object@info)
             if (info_element %in% valid.names) {
               .throw_error("'info_element' already present, to modify it ",
@@ -68,8 +67,7 @@ setMethod("rename_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-            .validate_class(info_element, "character")
-            .validate_length(info_element, 1)
+            .validate_class(info_element, "character", length = 1)
             valid.names <- names(object@info)
             if (!info_element %in% valid.names) {
               .throw_error("'info_element' not recognised (",

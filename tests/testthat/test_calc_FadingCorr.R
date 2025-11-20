@@ -2,9 +2,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(calc_FadingCorr("error"),
-               "'age.faded' should be of class 'numeric' or 'integer'")
+               "'age.faded' should be of class 'numeric' or 'integer' and have length 2")
   expect_error(calc_FadingCorr(1),
-               "'age.faded' should have length 2")
+               "'age.faded' should be of class 'numeric' or 'integer' and have length 2")
   expect_error(calc_FadingCorr(c(0.1, 0), "error"),
                "'g_value' should be of class 'numeric', 'integer' or 'RLum.Results'")
   expect_error(calc_FadingCorr(age.faded = c(0.1,0), tc = 2592000,
@@ -24,10 +24,10 @@ test_that("input validation", {
                "'n.MC' should be a single positive integer value")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = 2592000, interval = "error"),
-               "'interval' should be of class 'numeric'")
+               "'interval' should be of class 'numeric' and have length 2")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = 2592000, interval = 1),
-               "'interval' should have length 2")
+               "'interval' should be of class 'numeric' and have length 2")
   expect_error(calc_FadingCorr(age.faded = c(0.1, 0), g_value = c(5.0, 1.0),
                                tc = 2592000, txtProgressBar = "error"),
                "'txtProgressBar' should be a single logical value")

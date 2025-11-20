@@ -212,8 +212,7 @@ calc_FadingCorr <- function(
 
   ## Integrity checks -------------------------------------------------------
 
-  .validate_class(age.faded, c("numeric", "integer"))
-  .validate_length(age.faded, 2)
+  .validate_class(age.faded, c("numeric", "integer"), length = 2)
   .validate_class(g_value, c("numeric", "integer", "RLum.Results"))
   if(inherits(g_value, "RLum.Results")){
     .validate_originator(g_value, "analyse_FadingMeasurement")
@@ -226,8 +225,7 @@ calc_FadingCorr <- function(
   ## tc is validated only now, as it may be set in the previous block
   .validate_positive_scalar(tc)
   .validate_positive_scalar(tc.g_value)
-  .validate_class(interval, "numeric")
-  .validate_length(interval, 2)
+  .validate_class(interval, "numeric", length = 2)
   .validate_logical_scalar(txtProgressBar)
   .validate_logical_scalar(verbose)
 

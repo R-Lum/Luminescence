@@ -372,6 +372,8 @@ test_that("Test internals", {
                "is missing, with no default")
   expect_error(.validate_class(test <- 1:5, "data.frame"),
                "'test' should be of class 'data.frame'")
+  expect_error(.validate_class(test <- 1:5, "data.frame", length = 2),
+               "'test' should be of class 'data.frame' and have length 2")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame", "numeric")),
                "'test' should be of class 'list', 'data.frame' or 'numeric'")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame")),

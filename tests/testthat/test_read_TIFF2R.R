@@ -2,9 +2,9 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(read_TIFF2R(data.frame()),
-               "'file' should be of class 'character'")
+               "'file' should be of class 'character' and have length 1")
   expect_error(read_TIFF2R(character(0)),
-               "'file' should have length 1")
+               "'file' should be of class 'character' and have length 1")
   expect_error(object = read_TIFF2R(file = "text"),
                "[read_TIFF2R()] File does not exist or is not readable",
                fixed = TRUE)

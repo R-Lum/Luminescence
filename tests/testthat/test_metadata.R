@@ -15,9 +15,9 @@ test_that("input validation", {
   expect_error(add_metadata(curve, list()) <- 1,
                "'info_element' should be of class 'character'")
   expect_error(add_metadata(risoe, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(add_metadata(curve, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(add_metadata(risoe, "POSITION") <- 1,
                "'info_element' already present, to modify it you should use")
   expect_error(add_metadata(curve, "POSITION") <- 1,
@@ -33,9 +33,9 @@ test_that("input validation", {
   expect_error(rename_metadata(curve, list()) <- 1,
                "'info_element' should be of class 'character'")
   expect_error(rename_metadata(risoe, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(rename_metadata(curve, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(rename_metadata(risoe, "error") <- 1,
                "'info_element' not recognised ('error'), valid terms are",
                fixed = TRUE)

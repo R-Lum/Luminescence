@@ -28,10 +28,10 @@ test_that("input validation", {
 
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve,
                               Ch_L3 = 50),
-               "'Ch_L3' should have length 2")
+               "'Ch_L3' should be of class 'integer', 'numeric' or NULL and have length 2")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve,
                               Ch_L3 = c(40, 50, 60)),
-               "'Ch_L3' should have length 2")
+               "'Ch_L3' should be of class 'integer', 'numeric' or NULL and have length 2")
   expect_error(calc_FastRatio(obj, Ch_L3 = list(4, 5)),
                "'Ch_L3' should be of class 'integer', 'numeric' or NULL")
   expect_error(calc_FastRatio(obj, Ch_L3 = c(0, 2)),
@@ -55,9 +55,9 @@ test_that("input validation", {
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, x2 = -12),
                "'x2' should be a single positive value")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = TRUE),
-               "'dead.channels' should be of class 'integer' or 'numeric'")
+               "'dead.channels' should be of class 'integer' or 'numeric' and")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = 1),
-               "'dead.channels' should have length 2")
+               "'dead.channels' should be of class 'integer' or 'numeric' and have length 2")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, dead.channels = c(-1, 1)),
                "All elements of 'dead.channels' should be non-negative")
   expect_error(calc_FastRatio(data.frame(NA, 1:4, 1:4)),

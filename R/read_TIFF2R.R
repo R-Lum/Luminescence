@@ -67,8 +67,7 @@ read_TIFF2R <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(file, "character")
-  .validate_length(file, 1)
+  .validate_class(file, "character", length = 1)
   .require_suggested_package("tiff", "Importing TIFF files")
 
   if(!file.exists(file))
