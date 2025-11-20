@@ -551,6 +551,13 @@ test_that("Test internals", {
                "'1', '2', '3'")
   expect_equal(.collapse(1:3, quote = FALSE),
                "1, 2, 3")
+  expect_equal(.collapse(1:2, quote = FALSE, last_sep = " or "),
+               "1 or 2")
+  expect_equal(.collapse(1:3, quote = FALSE, last_sep = " or "),
+               "1, 2 or 3")
+  expect_equal(.collapse(as.factor(c("060920", "070920", "080920", "090920")),
+                         quote = FALSE),
+               "060920, 070920, 080920, 090920")
   expect_equal(.collapse(NULL), "")
 
   ## .format_range() ________________________________________________________

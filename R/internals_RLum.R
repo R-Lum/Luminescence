@@ -1147,19 +1147,10 @@ SW <- function(expr) {
   if (null.ok)
     choices.extra <- c(choices.extra, "NULL")
 
-  ## use an 'or' instead of a comma before the last choice
-  if (length(choices.extra) > 1) {
-    msg.head <- head(choices.extra, -1)
-    msg.tail <- paste(" or", tail(choices.extra, 1))
-  } else {
-    msg.head <- choices.extra
-    msg.tail <- NULL
-  }
-
   idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
   if (all(idx.match == 0L))
     .throw_error(name %||% .first_argument(), " should be one of ",
-                 .collapse(msg.head, quote = FALSE), msg.tail)
+                 .collapse(choices.extra, quote = FALSE, last_sep = " or "))
   idx <- idx.match[idx.match > 0L]
   choices[idx]
 }
@@ -1192,16 +1183,8 @@ SW <- function(expr) {
     if (null.ok)
       classes.extra <- c(classes.extra, "NULL")
 
-    ## use an 'or' instead of a comma before the last choice
-    if (length(classes.extra) > 1) {
-      msg.head <- head(classes.extra, -1)
-      msg.tail <- paste(" or", tail(classes.extra, 1))
-    } else {
-      msg.head <- classes.extra
-      msg.tail <- NULL
-    }
     msg <- paste0(name %||% .first_argument(), " should be of class ",
-                  .collapse(msg.head, quote = FALSE), msg.tail)
+                  .collapse(classes.extra, quote = FALSE, last_sep = " or "))
     .error_or_warning(msg, throw.error)
     return(FALSE)
   }
@@ -1401,18 +1384,26 @@ SW <- function(expr) {
 #' Collapse the elements of a vector into a comma-separated string, with
 #' the option of quoting each element.
 #'
-#' @param x [vector] A vector of elements to be collapsed into a comma-separated
-#'        string.
-#' @param quote [logical] (*with default*) Whether each element should be
+#' @param x [vector] (**required**): A vector of elements to be collapsed into
+#'        a comma-separated string.
+#' @param quote [logical] (*with default*): Whether each element should be
 #'        surrounded by single quotes (`TRUE` by default).
+#' @param last_sep [character] (*with default*): Separator to use before the
+#'        last element (`", "` by default). This should contain the desired
+#'        spacing around it (e.g. " or ").
 #'
 #' @return
 #' A comma-separated string where each element of the original vector is
 #' optionally surrounded by single quotes.
 #'
 #' @noRd
-.collapse <- function(x, quote = TRUE) {
-  toString(if (quote) sQuote(x, FALSE) else x)
+.collapse <- function(x, quote = TRUE, last_sep = ", ") {
+  x <- if (quote) sQuote(x, FALSE) else as.character(x)
+  if (length(x) < 2)
+    return(toString(x))
+  head <- head(x, -2)
+  tail <- paste0(tail(x, 2)[1], last_sep, tail(x, 1))
+  toString(c(head, tail))
 }
 
 #' Compute and format the range of a vector
