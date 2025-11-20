@@ -204,7 +204,7 @@ plot_RLum.Analysis <- function(
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
   if (combine) {
-    n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
+    n.plots <- length(unique(structure_RLum(object)$recordType))
   }
   else
     n.plots <- max(length_RLum(object), 1)
