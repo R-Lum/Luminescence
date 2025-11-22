@@ -285,6 +285,11 @@ read when a directory path is specified (#1099).
 * The function also updates the `.RESERVED` slot (if present) to keep only the
 elements selected (#1089).
 
+### `verify_SingleGrainData()`
+
+* The function crashed on empty `RLum.Analysis-class` objects. Now a warning
+and `NULL` is returned. 
+
 ## Other changes
 
 * The `ExampleData.portableOSL` file has been updated with surface coordinates

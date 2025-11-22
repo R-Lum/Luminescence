@@ -41,6 +41,21 @@ test_that("check functionality", {
   expect_equal(res@originator, "verify_SingleGrainData")
   expect_length(res@records, 5)
 
+  ## check for empty object in a list
+  object_empty <- list(
+    set_RLum(class = "RLum.Analysis", originator = "Risoe.BINfileData2RLum.Analysis"),
+    set_RLum(
+      class = "RLum.Analysis",
+      originator = "Risoe.BINfileData2RLum.Analysis",
+      records = list(set_RLum(
+        "RLum.Data.Curve",
+        data = matrix(1:100, ncol = 2),
+        info = list(POSITION = 1, GRAIN = 1)
+      ))
+    )
+  )
+  expect_warning(verify_SingleGrainData(object_empty), regexp = "Cannot process empty RLum.Analysis objects. NULL returned!")
+
   ## threshold too high, empty object generated
   expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
                                               cleanup_level = "curve",

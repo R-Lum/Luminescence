@@ -102,7 +102,7 @@
 #' strongly recommended to use the argument `cleanup = TRUE` carefully if
 #' the cleanup works only on curves.
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
 #'
 #' @author
@@ -224,7 +224,6 @@ verify_SingleGrainData <- function(
       c(mean(x), stats::var(x))
     }, numeric(2)))
 
-
     ##DIFF
     temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
 
@@ -299,6 +298,13 @@ verify_SingleGrainData <- function(
     ##RLum.Analysis and list with RLum.Analysis objects
     ## ... and yes it make sense not to mix that up with the code above
   } else if (inherits(object,"RLum.Analysis")) {
+    ## check for empty records
+    if(length(object@records) == 0) {
+      .throw_warning("Cannot process empty RLum.Analysis objects. NULL returned!")
+      return(NULL)
+
+    }
+
     ##first extract all count values from all curves
     object_list <- lapply(object@records, function(x){
       ##yes, would work differently, but it is faster
