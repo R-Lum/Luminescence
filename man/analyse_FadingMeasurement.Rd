@@ -31,10 +31,10 @@ for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
 the object originated from an XSYG file, also the irradiation steps must
 be preserved in the input object.}
 
-If data from multiple aliquots are provided please \strong{see the details below} with regard to
-Lx/Tx normalisation. \strong{The function assumes that all your measurements are related to
-one (comparable) sample. If you have to treat independent samples, you have use this function
-in a loop.}}
+If data from multiple aliquots are provided please \strong{see the details below}
+with regard to Lx/Tx normalisation. \strong{The function assumes that all your
+measurements are related to one (comparable) sample. If you have to treat
+independent samples, you have use this function in a loop.}}
 
 \item{structure}{\link{character} (\emph{with default}):
 the structure of the measurement data, one of \code{'Lx'} or \code{c('Lx','Tx')}.}
@@ -108,9 +108,10 @@ Additionally, the density of recombination centres (rho') is estimated after
 Kars et al. (2008).
 }
 \details{
-All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
-in the output object the g-value normalised to 2-days is provided. The output of this function
-can be passed to the function \link{calc_FadingCorr}.
+All provided output corresponds to the \eqn{tc} value obtained by this
+analysis. Additionally, the g-value normalised to 2-days is provided in the
+output object. The output of this function can be passed to the function
+\link{calc_FadingCorr}.
 
 \strong{Fitting and error estimation}
 
@@ -149,13 +150,14 @@ procedure as for the g-value is applied (see above).
 
 \strong{Multiple aliquots & Lx/Tx normalisation}
 
-Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}} values
-by the \eqn{\frac{L_x}{T_x}} value of the
-prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
+Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}}
+values by the \eqn{\frac{L_x}{T_x}} value of the prompt measurement of the
+first aliquot. This implicitly assumes that there are no systematic
 inter-aliquot variations in the \eqn{\frac{L_x}{T_x}} values.
 If deemed necessary to normalise the \eqn{\frac{L_x}{T_x}} values  of each
 aliquot by its individual prompt measurement please do so \strong{before} running
-\link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
+\link{analyse_FadingMeasurement} and provide the already normalised values for
+\code{object} instead.
 
 \strong{Shine-down curve plots}
 Please note that the shine-down curve plots are for information only. As such
@@ -163,7 +165,7 @@ a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.24
+ 0.1.25
 }
 
 \examples{

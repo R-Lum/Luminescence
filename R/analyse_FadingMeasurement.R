@@ -8,9 +8,10 @@
 #' Kars et al. (2008).
 #'
 #' @details
-#' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
-#' in the output object the g-value normalised to 2-days is provided. The output of this function
-#' can be passed to the function [calc_FadingCorr].
+#' All provided output corresponds to the \eqn{tc} value obtained by this
+#' analysis. Additionally, the g-value normalised to 2-days is provided in the
+#' output object. The output of this function can be passed to the function
+#' [calc_FadingCorr].
 #'
 #' **Fitting and error estimation**
 #'
@@ -49,13 +50,14 @@
 #'
 #' **Multiple aliquots & Lx/Tx normalisation**
 #'
-#' Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}} values
-#' by the \eqn{\frac{L_x}{T_x}} value of the
-#' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
+#' Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}}
+#' values by the \eqn{\frac{L_x}{T_x}} value of the prompt measurement of the
+#' first aliquot. This implicitly assumes that there are no systematic
 #' inter-aliquot variations in the \eqn{\frac{L_x}{T_x}} values.
 #' If deemed necessary to normalise the \eqn{\frac{L_x}{T_x}} values  of each
 #' aliquot by its individual prompt measurement please do so **before** running
-#' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
+#' [analyse_FadingMeasurement] and provide the already normalised values for
+#' `object` instead.
 #'
 #' **Shine-down curve plots**
 #' Please note that the shine-down curve plots are for information only. As such
@@ -75,10 +77,10 @@
 #' the object originated from an XSYG file, also the irradiation steps must
 #' be preserved in the input object.**
 #'
-#' If data from multiple aliquots are provided please **see the details below** with regard to
-#' Lx/Tx normalisation. **The function assumes that all your measurements are related to
-#' one (comparable) sample. If you have to treat independent samples, you have use this function
-#' in a loop.**
+#' If data from multiple aliquots are provided please **see the details below**
+#' with regard to Lx/Tx normalisation. **The function assumes that all your
+#' measurements are related to one (comparable) sample. If you have to treat
+#' independent samples, you have use this function in a loop.**
 #'
 #' @param structure [character] (*with default*):
 #' the structure of the measurement data, one of `'Lx'` or `c('Lx','Tx')`.
@@ -144,7 +146,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.24
+#' @section Function version: 0.1.25
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -672,160 +674,75 @@ analyse_FadingMeasurement <- function(
     if (is.logical(plot_singlePanels))
       plot_singlePanels <- 1:4
 
-    ## plot Lx-curves -----
+    ## compute integration limits for plots
     if (!is.null(object)) {
       if (length(structure) == 2) {
-
-        if (1 %in% plot_singlePanels) {
-          records <- object_clean[seq(1, length(object_clean), by = 2)]
-          plot_RLum(
-            set_RLum(class = "RLum.Analysis",
-                     records = records),
-            combine = length(records) > 1,
-            col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
-            ))[1:length(records)],
-            records_max = 10,
-            plot_singlePanels = TRUE,
-            legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
-            xlab = plot_settings$xlab,
-            xlim = plot_settings$xlim,
-            log = plot_settings$log,
-            legend.pos = "outside",
-            main = bquote(L[x] ~ "- curve"),
-            mtext = plot_settings$mtext
-          )
-
-          ##add integration limits
-          abline(v = c(
-            object_clean[[1]][range(signal.integral), 1],
-            object_clean[[1]][range(background.integral), 1]),
-            lty = c(2,2,2,2),
-            col = c("green", "green", "red", "red"))
-        }
-
-        # plot Tx-curves ----
-        if (2 %in% plot_singlePanels) {
-          records <- object_clean[seq(2, length(object_clean), by = 2)]
-          plot_RLum(
-            set_RLum(class = "RLum.Analysis",
-                     records = records),
-            combine = length(records) > 1,
-            records_max = 10,
-            plot_singlePanels = TRUE,
-            legend.text = paste(round(irradiation_times.unique, 1), "s"),
-            xlab = plot_settings$xlab,
-            log = plot_settings$log,
-            legend.pos = "outside",
-            main = bquote(T[x] ~ "- curve"),
-            mtext = plot_settings$mtext
-          )
-
-          if (is.null(list(...)$signal.integral.Tx)) {
-            ##add integration limits
-            abline(v = c(
-              object_clean[[1]][range(signal.integral), 1],
-              object_clean[[1]][range(background.integral), 1]),
-              lty = c(2,2,2,2),
-              col = c("green", "green", "red", "red"))
-
-          } else{
-            ##add integration limits
-            abline(
-              v = range(list(...)$signal.integral.Tx) *
-                max(as.matrix(object_clean[[1]][, 1])) /
-                nrow(as.matrix(object_clean[[1]])),
-              lty = 2,
-              col = "green"
-            )
-            abline(
-              v = range(list(...)$background.integral.Tx) *
-                max(as.matrix(object_clean[[1]][, 1])) /
-                nrow(as.matrix(object_clean[[1]])),
-              lty = 2,
-              col = "red"
-            )
-          }
-        }
-      } else{
-        if (1 %in% plot_singlePanels) {
-          plot_RLum(
-            set_RLum(class = "RLum.Analysis", records = object_clean),
-            combine = length(object_clean) > 1,
-            records_max = 10,
-            plot_singlePanels = TRUE,
-            legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
-            legend.pos = "outside",
-            xlab = plot_settings$xlab,
-            log = plot_settings$log,
-            main = bquote(L[x] ~ " - curves"),
-            mtext = plot_settings$mtext
-          )
-
-          ##add integration limits
-          abline(
-            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
-              nrow(as.matrix(object_clean[[1]])),
-            lty = 2,
-            col = "green"
-          )
-          abline(
-            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
-              nrow(as.matrix(object_clean[[1]])),
-            lty = 2,
-            col = "red"
-          )
-        }
-
-        ##empty Tx plot
-        if (2 %in% plot_singlePanels) {
-          plot(
-            NA,
-            NA,
-            xlim = c(0, 1),
-            ylim = c(0, 1),
-            xlab = "",
-            ylab = "",
-            axes = FALSE
-          )
-          text(x = 0.5,
-               y = 0.5,
-               labels = expression(paste("No ", T[x], " curves detected")))
-        }
+        int.limits.lx <- c(object_clean[[1]][range(signal.integral), 1],
+                           object_clean[[1]][range(background.integral), 1])
+      } else {
+        int.limits.lx <- c(range(signal.integral), range(background.integral)) *
+          max(as.matrix(object_clean[[1]][, 1])) /
+          nrow(as.matrix(object_clean[[1]]))
       }
-
-    }else{
-      if (1 %in% plot_singlePanels) {
-        ##empty Lx plot
-        plot(
-          NA,
-          NA,
-          xlim = c(0, 1),
-          ylim = c(0, 1),
-          xlab = "",
-          ylab = "",
-          axes = FALSE
-        )
-        text(x = 0.5,
-             y = 0.5,
-             labels = expression(paste("No ", L[x], " curves detected")))
+      if (is.null(list(...)$signal.integral.Tx)) {
+        int.limits.tx <- int.limits.lx
+      } else {
+        int.limits.tx <- c(range(list(...)$signal.integral.Tx),
+                           range(list(...)$background.integral.Tx)) *
+          max(as.matrix(object_clean[[1]][, 1])) /
+          nrow(as.matrix(object_clean[[1]]))
       }
+    }
 
-      if (2 %in% plot_singlePanels) {
-        ##empty Tx plot
-        plot(
-          NA,
-          NA,
-          xlim = c(0, 1),
-          ylim = c(0, 1),
-          xlab = "",
-          ylab = "",
-          axes = FALSE
-        )
-        text(x = 0.5,
-             y = 0.5,
-             labels = expression(paste("No ", T[x], " curves detected")))
-      }
+    ## plot Lx-curves -----
+    if (!is.null(object) && 1 %in% plot_singlePanels) {
+      records <- object_clean[seq(1, length(object_clean), by = length(structure))]
+      plot_RLum(
+          set_RLum(class = "RLum.Analysis",
+                   records = records),
+          combine = length(records) > 1,
+          records_max = 10,
+          plot_singlePanels = TRUE,
+          legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
+          xlab = plot_settings$xlab,
+          xlim = plot_settings$xlim,
+          log = plot_settings$log,
+          legend.pos = "outside",
+          main = bquote(L[x] ~ "- curve"),
+          mtext = plot_settings$mtext
+      )
+      abline(v = int.limits.lx, lty = 2,
+             col = c("green", "green", "red", "red"))
+    } else {
+      ## empty Lx plot
+      shape::emptyplot()
+      text(x = 0.5, y = 0.5,
+           labels = expression(paste("No ", L[x], " curves detected")))
+    }
+
+    ## plot Tx-curves ----
+    if (!is.null(object) && length(structure) == 2 && 2 %in% plot_singlePanels) {
+      records <- object_clean[seq(2, length(object_clean), by = 2)]
+      plot_RLum(
+          set_RLum(class = "RLum.Analysis",
+                   records = records),
+          combine = length(records) > 1,
+          records_max = 10,
+          plot_singlePanels = TRUE,
+          legend.text = paste(round(irradiation_times.unique, 1), "s"),
+          xlab = plot_settings$xlab,
+          log = plot_settings$log,
+          legend.pos = "outside",
+          main = bquote(T[x] ~ "- curve"),
+          mtext = plot_settings$mtext
+      )
+      abline(v = int.limits.tx, lty = 2,
+             col = c("green", "green", "red", "red"))
+    } else {
+      ## empty Tx plot
+      shape::emptyplot()
+      text(x = 0.5, y = 0.5,
+           labels = expression(paste("No ", T[x], " curves detected")))
     }
 
     ## plot fading ----
