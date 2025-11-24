@@ -111,4 +111,9 @@ test_that("regression tests", {
   ## issue 769
   expect_silent(plot_DRTResults(list(df, df * 2), preheat = rep(200, 5),
                                 boxplot = TRUE))
+
+  ## issue 1184
+  expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000)))
+  expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000),
+                                preheat = rep(200, 5)))
 })
