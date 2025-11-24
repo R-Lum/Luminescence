@@ -646,6 +646,16 @@ test_that("graphical snapshot tests", {
                                   background.integral.max = 900,
                                   log = "xy",
                                   plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("onlyLxTxTable",
+                              analyse_SAR.CWOSL(
+                                  object = object,
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 2,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  onlyLxTxTable = TRUE,
+                                  plot_onePage = TRUE))
   })
 })
 
