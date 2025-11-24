@@ -264,15 +264,11 @@ analyse_pIRIRSequence <- function(
   }
 
   ## check allowed values in sequence structure
-  temp.collect.invalid.terms <- .collapse(
-      sequence.structure[!grepl("TL",  sequence.structure) &
-                         !grepl("IR",  sequence.structure) &
-                         !grepl("OSL", sequence.structure) &
-                         !grepl("EXCLUDE", sequence.structure)])
-
-  if (temp.collect.invalid.terms != "") {
-    .throw_error(temp.collect.invalid.terms,
-                 " not allowed in 'sequence.structure'")
+  invalid.terms <- .collapse(unique(grep("TL|IR|OSL|EXCLUDE", sequence.structure,
+                                         invert = TRUE, value = TRUE)),
+                             last_sep = " and ")
+  if (invalid.terms != "") {
+    .throw_error(invalid.terms, " not allowed in 'sequence.structure'")
   }
 
   ## deprecated argument

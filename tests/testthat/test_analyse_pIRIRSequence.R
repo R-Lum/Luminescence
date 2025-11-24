@@ -162,8 +162,9 @@ test_that("input validation", {
                                      signal.integral.max = 2,
                                      background.integral.min = 900,
                                      background.integral.max = 1000,
-                                     sequence.structure = c("IR50", "error")),
-               "'error' not allowed in 'sequence.structure'")
+                                     sequence.structure = c("IR50", "error",
+                                                            "error2", "error2")),
+               "'error' and 'error2' not allowed in 'sequence.structure'")
 
   SW({
   expect_warning(expect_error(analyse_pIRIRSequence(list(object)),
