@@ -347,6 +347,8 @@ if(is.list(object)){
   .validate_class(object, "RLum.Analysis")
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
   .validate_logical_scalar(trim_channels)
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(plot_onePage)
   .validate_logical_scalar(onlyLxTxTable)
 
   ## trim OSL or IRSL channels
@@ -1028,8 +1030,11 @@ if(is.list(object)){
 
   ## (6) Plot Dose-Response Curve --------------------------------------------
 
-    ##overall plot option selection for plot.single.sel
-    plot <- if (plot[1] && 6 %in% plot.single.sel) TRUE else FALSE
+  ## overall plot option selection for plot.single.sel
+  plot <- plot && 6 %in% plot.single.sel
+
+  ## if we don't compute the dose-response curve, we'll insert empty subplots
+  insert.emptyDRCPlots <- onlyLxTxTable
 
     ## this must be kept in sync with fit_DoseResponseCurve()
     temp.GC.all.na <- data.frame(
@@ -1074,17 +1079,9 @@ if(is.list(object)){
                        args = c(list(object = temp.sample), list(...)))
 
     if (is.null(temp.GC)) {
-          temp.GC <- temp.GC.all.na
-          temp.GC.fit.Formula <- NA
-
-          ##create empty plots if needed, otherwise subsequent functions may crash
-          if(plot){
-            shape::emptyplot()
-            if (extraArgs$plot_extended %||% TRUE) {
-              shape::emptyplot()
-              shape::emptyplot()
-            }
-          }
+      temp.GC <- temp.GC.all.na
+      temp.GC.fit.Formula <- NA
+      insert.emptyDRCPlots <- TRUE
     } else {
           if(plot) {
             do.call(plot_DoseResponseCurve, args = modifyList(
@@ -1146,6 +1143,15 @@ if(is.list(object)){
                                 RC.Status = status,
                                 stringsAsFactors = FALSE)
       }
+  }
+
+  ## insert empty plots, otherwise the ordering may get messed up
+  if (plot && insert.emptyDRCPlots) {
+    shape::emptyplot()
+    if (extraArgs$plot_extended %||% TRUE) {
+      shape::emptyplot()
+      shape::emptyplot()
+    }
   }
 
   ## add information on the integration limits

@@ -77,6 +77,12 @@ with the `...` argument `labcex` and scale with `cex` (#1075).
 * The `coord` argument is now better validated to avoid a crash in case of
 misspecification (#1097).
 
+### `analyse_SAR.CWOSL()`
+
+* Insert empty subplots when `onlyLxTxTable = TRUE` is used, to avoid messing
+up the usual ordering of plots, which would lead to a crash if the option was
+set from `analyse_pIRIRSequence()` (#1186).
+
 ### `bin_RLum.Data()`
 
 * Validation of the `bin_size` (for `RLum.Data.Curve`), `bin_size.row` and
