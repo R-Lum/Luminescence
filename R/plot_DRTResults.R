@@ -88,7 +88,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.16
+#' @section Function version: 0.1.17
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -468,6 +468,7 @@ plot_DRTResults <- function(
                col = if (multicol) col else col[i],
                cex = 1.2)
 
+        suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(1:nrow(values[[i]]),
                values[[i]][,1] + values[[i]][,2],
                1:nrow(values[[i]]),
@@ -476,6 +477,7 @@ plot_DRTResults <- function(
                length = 0.075,
                code = 3,
                col = if (multicol) col else col[i])
+        )
 
         ## add summary content
         if(summary.pos[1] != "sub") {
@@ -557,6 +559,7 @@ plot_DRTResults <- function(
                col = col[i],
                cex = 1.2)
 
+        suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(values.preheat[[i]][,3],
                values.preheat[[i]][,1] + values.preheat[[i]][,2],
                values.preheat[[i]][,3],
@@ -565,6 +568,7 @@ plot_DRTResults <- function(
                length = 0.075,
                code = 3,
                col = col[i])
+        )
       }
     }
   }
