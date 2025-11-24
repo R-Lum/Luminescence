@@ -280,5 +280,13 @@ test_that("graphical snapshot tests", {
                                                         structure = c("Lx", "Tx"),
                                                         t_star = identity,
                                                         n.MC = 10))
+  vdiffr::expect_doppelganger("integral tx",
+                              analyse_FadingMeasurement(object,
+                                                        signal.integral = 1:2,
+                                                        background.integral = 10:40,
+                                                        signal.integral.Tx = 4:8,
+                                                        background.integral.Tx = 30:40,
+                                                        structure = c("Lx", "Tx"),
+                                                        n.MC = 10))
   })
 })
