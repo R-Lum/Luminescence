@@ -70,26 +70,24 @@ NumericMatrix create_RLumDataCurve_matrix(
       NumericVector heat_ramp_start = seq_RLum(LOW, AN_TEMP, TOLDELAY);
       //
       //(B) - the plateau
-      //B is simply TOLON
+      int B_start = heat_ramp_start.length();
+      int B_end = B_start + TOLON;
       //
       //(C) - the end ramping
       NumericVector heat_ramp_end = seq_RLum(AN_TEMP, HIGH, TOLOFF);
 
       //set index counters
-      int c = 0;
+      int i, c = 0;
 
       //fill vector for temperature
-      for(int i = 0; i < X.length(); i++){
-        if(i < heat_ramp_start.length()){
+      for (i = 0; i < B_start; i++) {
           X[i] = heat_ramp_start[i];
-
-        } else if (i >= heat_ramp_start.length() && i < heat_ramp_start.length() + TOLON) {
+      }
+      for (i = B_start; i < B_end; i++) {
           X[i] = AN_TEMP;
-
-        }else if(i >= heat_ramp_start.length() + TOLON){
+      }
+      for (i = B_end; i < NPOINTS; i++, c++) {
           X[i] = heat_ramp_end[c];
-          c++;
-        }
       }
     }else{
       X = seq_RLum(LOW, HIGH, NPOINTS);
