@@ -1197,7 +1197,11 @@ if(is.list(object)){
     )
 
   ## (7) Plot IRSL curve/Single Grain --------------------------------------------
-    if (plot[1] && 8 %in% plot.single.sel) {
+  if (plot[1] && 8 %in% plot.single.sel) {
+    ## split the device area in two so that the IRSL curve can be plotted
+    ## alongside the rejection criteria
+    if (!plot_singlePanels[1]) par(mfrow = c(1,2))
+
       ## check grain an pos and plot single grain disc marker
       ## if we don't have single grain, we can safely use the other
       ## plot option because this kind of test is almost never
@@ -1226,9 +1230,6 @@ if(is.list(object)){
 
     ## (8) Plot recjection criteria -------------------------------------
     if (plot && 7 %in% plot.single.sel) {
-      ##set graphical parameter
-      if (!plot_singlePanels[1]) par(mfrow = c(1,2))
-
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(
         temp.results.final,
