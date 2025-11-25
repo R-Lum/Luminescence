@@ -344,10 +344,8 @@ fit_IsothermalHolding <- function(
     ## define plot settings
     plot_settings <- modifyList(
       x = list(
-        xlim = range(vapply(df_raw_list, function(x) range(x$TIME), numeric(2))),
-        ylim = range(vapply(df_raw_list, function(x) {
-          max_LxTx <- suppressWarnings(max(x$LxTx_ERROR, na.rm = TRUE))
-          range(x$LxTx, na.rm = TRUE) + if (is.infinite(max_LxTx)) 0 else max_LxTx}, numeric(2))),
+        xlim = range(lapply(df_raw_list, function(x) range(x$TIME))) * c(0.5, 10),
+        ylim = c(0, 1.03),
         log = "x",
         xlab = "Isothermal holding time [s]",
         ylab = expression(paste("Norm. lumin. [", L[x]/T[x], "]")),
@@ -383,6 +381,7 @@ fit_IsothermalHolding <- function(
         log = plot_settings$log,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
+        yaxs = "i",
         main = rep_len(plot_settings$main, length(sample_id))[i])
 
       ## add plot subtitle
@@ -406,6 +405,7 @@ fit_IsothermalHolding <- function(
         points(
           x = df_pts[["TIME"]],
           y = df_pts[["LxTx"]],
+          xpd = TRUE,
           pch = plot_settings$pch,
           bg = plot_settings$col[c],
           col = plot_settings$col.border)
