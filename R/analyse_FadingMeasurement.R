@@ -713,7 +713,7 @@ analyse_FadingMeasurement <- function(
       )
       abline(v = int.limits.lx, lty = 2,
              col = c("green", "green", "red", "red"))
-    } else {
+    } else if (1 %in% plot_singlePanels) {
       ## empty Lx plot
       shape::emptyplot()
       text(x = 0.5, y = 0.5,
@@ -738,7 +738,7 @@ analyse_FadingMeasurement <- function(
       )
       abline(v = int.limits.tx, lty = 2,
              col = c("green", "green", "red", "red"))
-    } else {
+    } else if (2 %in% plot_singlePanels) {
       ## empty Tx plot
       shape::emptyplot()
       text(x = 0.5, y = 0.5,
