@@ -1196,8 +1196,12 @@ if(is.list(object)){
       info = list(call = sys.call())
     )
 
-  ## (7) Plot IRSL curve/Single Grain --------------------------------------------
-    if (plot[1] && 8 %in% plot.single.sel) {
+  ## (7) Plot IRSL curve/Single Grain ---------------------------------------
+  if (plot[1] && 8 %in% plot.single.sel) {
+    ## split the device area in two so that the IRSL curve can be plotted
+    ## alongside the rejection criteria
+    if (!plot_singlePanels[1]) par(mfrow = c(1,2))
+
       ## check grain an pos and plot single grain disc marker
       ## if we don't have single grain, we can safely use the other
       ## plot option because this kind of test is almost never
@@ -1210,13 +1214,11 @@ if(is.list(object)){
         temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
         if(length(temp.IRSL) != 0){
           .validate_class(temp.IRSL, c("RLum.Data.Curve", "list"))
-          if(inherits(temp.IRSL, "RLum.Data.Curve")){
-            plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
-
-          }else if(inherits(temp.IRSL, "list")){
-            plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
+          if (inherits(temp.IRSL, "list")) {
+            temp.IRSL <- temp.IRSL[[length(temp.IRSL)]]
             .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
           }
+          plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
         }else{
           plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
           text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
@@ -1224,11 +1226,8 @@ if(is.list(object)){
       }
     }
 
-    ## (8) Plot recjection criteria -------------------------------------
-    if (plot && 7 %in% plot.single.sel) {
-      ##set graphical parameter
-      if (!plot_singlePanels[1]) par(mfrow = c(1,2))
-
+  ## (8) Plot rejection criteria --------------------------------------------
+  if (plot && 7 %in% plot.single.sel) {
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(
         temp.results.final,
