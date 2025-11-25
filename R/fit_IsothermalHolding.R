@@ -295,11 +295,13 @@ fit_IsothermalHolding <- function(
     return(NULL)
   }
 
-  ## summarize the parameters of interest (Et, s10) in terms of median and
+  ## summarize the parameters of interest (Et, s10) in terms of mean, median and
   ## interquartile range
   ITL_params <- tapply(fitted.coefs, sample_id, function(coefs) {
-    data.frame(t(c(Et = quantile(coefs$Et, c(0.5, 0.25, 0.75), na.rm = TRUE),
-                   s10 = quantile(coefs$s10, c(0.5, 0.25, 0.75), na.rm = TRUE))))
+    data.frame(t(c(Et = c(mean = mean(coefs$Et, na.rm = TRUE),
+                          quantile(coefs$Et, c(0.5, 0.25, 0.75), na.rm = TRUE)),
+                   s10 = c(mean = mean(coefs$s10, na.rm = TRUE),
+                           quantile(coefs$s10, c(0.5, 0.25, 0.75), na.rm = TRUE)))))
   })
 
   ## sort the ITL_params list, as tapply() may have put the results in a
@@ -308,23 +310,22 @@ fit_IsothermalHolding <- function(
 
   ## convert to a data table
   ITL_params <- rbindlist(ITL_params[sample_id], idcol = "SAMPLE")
-  colnames(ITL_params)[-1] <- c("Et_median", "Et_Q_0.25", "Et_Q_0.75",
-                                  "s10_median", "s10_Q_0.25", "s10_Q_0.75")
+  colnames(ITL_params)[-1] <- c("Et_mean", "Et_median", "Et_Q_0.25", "Et_Q_0.75",
+                                "s10_mean", "s10_median", "s10_Q_0.25", "s10_Q_0.75")
 
   if (verbose) {
     ## silence notes raised by R CMD check
-    Et <- Et_Q_0.25 <- Et_Q_0.75 <- Et_median <- NULL
-    s10 <- s10_Q_0.25 <- s10_Q_0.75 <- s10_median <- NULL
+    Et <- Et_Q_0.25 <- Et_Q_0.75 <- Et_median <- Et_mean <- NULL
+    s10 <- s10_Q_0.25 <- s10_Q_0.75 <- s10_median <- Et_mean <- NULL
 
-    ## report as median (IQR)
-    format.iqr <- function(x1, x2, x3, n = 3) sprintf("%.*f (%.*f, %.*f)",
-                                             n, x1, n, x2, n, x3)
-    ITL_params[, Et := format.iqr(Et_median, Et_Q_0.25, Et_Q_0.75)]
-    ITL_params[, s10 := format.iqr(s10_median, s10_Q_0.25, s10_Q_0.75)]
+    ## report as mean; median (IQR)
+    format.out <- function(x, x1, x2, x3, n = 3)
+      sprintf("%.*f;   %.*f (%.*f, %.*f)", n, x, n, x1, n, x2, n, x3)
+    ITL_params[, Et := format.out(Et_mean, Et_median, Et_Q_0.25, Et_Q_0.75)]
+    ITL_params[, s10 := format.out(s10_mean, s10_median, s10_Q_0.25, s10_Q_0.75)]
 
-
-    fmt <- "%20s | %23s | %23s |\n"
-    cat("\n---- Isothermal holding parameters [median (IQR)] ----\n\n")
+    fmt <- "%20s | %30s | %30s |\n"
+    cat("\n---- Isothermal holding parameters [mean; median (IQR)] ----\n\n")
     cat(sprintf(fmt, "SAMPLE", "Et", "log10(s)"))
     for (i in seq(nrow(ITL_params))) {
       row <- ITL_params[i, ]
@@ -343,10 +344,8 @@ fit_IsothermalHolding <- function(
     ## define plot settings
     plot_settings <- modifyList(
       x = list(
-        xlim = range(vapply(df_raw_list, function(x) range(x$TIME), numeric(2))),
-        ylim = range(vapply(df_raw_list, function(x) {
-          max_LxTx <- suppressWarnings(max(x$LxTx_ERROR, na.rm = TRUE))
-          range(x$LxTx, na.rm = TRUE) + if (is.infinite(max_LxTx)) 0 else max_LxTx}, numeric(2))),
+        xlim = range(lapply(df_raw_list, function(x) range(x$TIME))) * c(0.5, 10),
+        ylim = c(0, 1.03),
         log = "x",
         xlab = "Isothermal holding time [s]",
         ylab = expression(paste("Norm. lumin. [", L[x]/T[x], "]")),
@@ -382,6 +381,7 @@ fit_IsothermalHolding <- function(
         log = plot_settings$log,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
+        yaxs = "i",
         main = rep_len(plot_settings$main, length(sample_id))[i])
 
       ## add plot subtitle
@@ -405,6 +405,7 @@ fit_IsothermalHolding <- function(
         points(
           x = df_pts[["TIME"]],
           y = df_pts[["LxTx"]],
+          xpd = TRUE,
           pch = plot_settings$pch,
           bg = plot_settings$col[c],
           col = plot_settings$col.border)
