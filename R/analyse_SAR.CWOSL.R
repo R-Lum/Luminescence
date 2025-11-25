@@ -742,12 +742,11 @@ if(is.list(object)){
         rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
       ## set better ratio by given the absolute margin depending
-      ## on whether we are have values larger or smaller 1
-      if(RecyclingRatio > 1)
-        temp.threshold[1:length(RecyclingRatio)] <- temp.threshold[1:length(RecyclingRatio)] + 1
-      else
-        temp.threshold[1:length(RecyclingRatio)] <- 1 - temp.threshold[1:length(RecyclingRatio)]
-
+      ## on whether we have values larger or smaller than 1
+      idx.gt1 <- which(RecyclingRatio > 1)
+      temp.threshold[idx.gt1] <- temp.threshold[idx.gt1] + 1
+      idx.lt1 <- which(RecyclingRatio < 1)
+      temp.threshold[idx.lt1] <- 1 - temp.threshold[idx.lt1]
     }
 
     ##Recuperation

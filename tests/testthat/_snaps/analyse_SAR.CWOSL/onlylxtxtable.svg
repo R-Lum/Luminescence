@@ -403,9 +403,9 @@
 <polyline points='630.08,394.65 713.28,394.65 ' style='stroke-width: 0.19;' />
 <polyline points='630.08,329.94 713.28,329.94 ' style='stroke-width: 0.19;' />
 <polyline points='630.08,265.24 713.28,265.24 ' style='stroke-width: 0.19;' />
-<text x='694.79' y='399.10' text-anchor='end' style='font-size: 4.32px; font-family: sans;' textLength='15.86px' lengthAdjust='spacingAndGlyphs'>1 &lt;&gt; 0.1</text>
-<text x='694.79' y='334.40' text-anchor='end' style='font-size: 4.32px; font-family: sans;' textLength='15.86px' lengthAdjust='spacingAndGlyphs'>0 &lt;&gt; 0.1</text>
-<text x='694.79' y='269.70' text-anchor='end' style='font-size: 4.32px; font-family: sans;' textLength='15.86px' lengthAdjust='spacingAndGlyphs'>0 &lt;&gt; 0.1</text>
+<text x='694.79' y='399.10' text-anchor='end' style='font-size: 4.32px; font-family: sans;' textLength='15.86px' lengthAdjust='spacingAndGlyphs'>1 &lt;= 1.1</text>
+<text x='694.79' y='334.40' text-anchor='end' style='font-size: 4.32px; font-family: sans;' textLength='15.86px' lengthAdjust='spacingAndGlyphs'>0 &lt;= 0.1</text>
+<text x='694.79' y='269.70' text-anchor='end' style='font-size: 4.32px; font-family: sans;' textLength='15.86px' lengthAdjust='spacingAndGlyphs'>0 &lt;= 0.1</text>
 <circle cx='708.66' cy='427.00' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='708.66' cy='362.29' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='708.66' cy='297.59' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
