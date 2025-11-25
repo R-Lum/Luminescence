@@ -682,11 +682,13 @@ if(plot){
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recycling ratio
    text(x = -0.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
-   polygon(x = c(-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-                -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]),
-          y = c(21,29,29,21), col = "gray", border = NA)
+   thres_range <- as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1] - 1
+
+   polygon(
+     x = c(-thres_range, -thres_range, thres_range, thres_range),
+     y = c(21, 29, 29, 21),
+     col = "gray",
+     border = NA)
     polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
 
    ##consider possibility of multiple pIRIR signals and multiple recycling ratios

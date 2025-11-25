@@ -833,7 +833,7 @@
 <text x='582.22' y='443.36' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='19.61px' lengthAdjust='spacingAndGlyphs'>(450)</text>
 <text x='693.33' y='433.28' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='10.74px' lengthAdjust='spacingAndGlyphs'>R0</text>
 <text x='693.33' y='443.36' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='10.27px' lengthAdjust='spacingAndGlyphs'>(0)</text>
-<line x1='0.00' y1='412.44' x2='720.00' y2='412.44' style='stroke-width: 0.38;' />
+<line x1='0.00000000000000099' y1='412.44' x2='720.00' y2='412.44' style='stroke-width: 0.38;' />
 </g>
 <defs>
   <clipPath id='cpNDI1LjMzfDU1NC44M3wzMTUuNjF8MzYwLjAy'>
@@ -1439,7 +1439,7 @@
 </g>
 <g clip-path='url(#cpNDI1LjMzfDY5OC44M3w0ODAuMTl8NTI0LjU5)'>
 <text x='460.78' y='491.69' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='55.10px' lengthAdjust='spacingAndGlyphs'>Recycling ratio</text>
-<polygon points='283.51,494.17 283.51,483.20 840.65,483.20 840.65,494.17 ' style='stroke-width: 0.75; stroke: none; fill: #BEBEBE;' />
+<polygon points='536.76,494.17 536.76,483.20 587.40,483.20 587.40,494.17 ' style='stroke-width: 0.75; stroke: none; fill: #BEBEBE;' />
 <polygon points='486.11,494.17 486.11,483.20 638.05,483.20 638.05,494.17 ' style='stroke-width: 0.75; fill: none;' />
 <circle cx='574.77' cy='488.68' r='1.89' style='stroke-width: 0.75;' />
 <circle cx='574.77' cy='488.68' r='1.89' style='stroke-width: 0.75;' />
