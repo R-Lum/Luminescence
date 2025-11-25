@@ -113,7 +113,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.16
+ 0.1.17
 }
 
 \examples{
