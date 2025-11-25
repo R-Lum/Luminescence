@@ -88,6 +88,12 @@ set from `analyse_pIRIRSequence()` (#1186).
 regression introduced in v1.1.0 (#1188; thanks to @DirkMittelstrass for
 reporting).
 
+* The visualisation of the 'Checks' (former rejection criteria) was not very 
+intuitive. To improve the situation, we now display correct inequality symbols, 
+such as `<=` or `>=` instead of `<>` (which as meant to be understood as a comparator). 
+Furthermore, the recycling ratio now better shows the set limit depending on 
+whether the ratio is smaller or larger than one. 
+
 ### `bin_RLum.Data()`
 
 * Validation of the `bin_size` (for `RLum.Data.Curve`), `bin_size.row` and

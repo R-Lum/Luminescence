@@ -727,6 +727,7 @@ if(is.list(object)){
        rep(rejection.criteria$recycling.ratio, length(RecyclingRatio)),
        rep(rejection.criteria$recuperation.rate, length(Recuperation))) / 100
 
+
     ## compare a single value with a threshold (either can be NA)
     .status_from_threshold <- function(value, threshold) {
       if (is.na(threshold) || isTRUE(value <= threshold))
@@ -736,9 +737,18 @@ if(is.list(object)){
 
     ##RecyclingRatio
     temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
-    if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio))
+    if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio)) {
       temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (
         rejection.criteria$recycling.ratio / 100)] <- "FAILED"
+
+      ## set better ratio by given the absolute margin depending
+      ## on whether we are have values larger or smaller 1
+      if(RecyclingRatio > 1)
+        temp.threshold[1:length(RecyclingRatio)] <- temp.threshold[1:length(RecyclingRatio)] + 1
+      else
+        temp.threshold[1:length(RecyclingRatio)] <- 1 - temp.threshold[1:length(RecyclingRatio)]
+
+    }
 
     ##Recuperation
     temp.status.Recuperation <- sapply(Recuperation, function(value) {
@@ -1341,10 +1351,14 @@ if(is.list(object)){
     lines(x = c(0.1,1), y = rep(y_coord_l[i],2), lwd = 0.25)
   }
 
+  ## set labels
+  x$Value <- round(x$Value, 1)
+  x$Threshold <- round(x$Threshold, 2)
+  x$sign <- ifelse(x$Value > x$Threshold, ">=", "<=")
   text(
     x = 0.8,
     y = y_coord_l,
-    labels = paste0(round(x$Value, 1), " <> ", round(x$Threshold, 2)),
+    labels = paste(x$Value, x$sign, x$Threshold),
     cex = 0.6,
     adj = c(1, 1.5))
 
