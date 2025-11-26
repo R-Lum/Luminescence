@@ -338,8 +338,6 @@ fit_IsothermalHolding <- function(
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {
-    par.default <- .par_defaults()
-    on.exit(par(par.default), add = TRUE)
 
     ## define plot settings
     plot_settings <- modifyList(
@@ -367,8 +365,14 @@ fit_IsothermalHolding <- function(
     ## value for all provided data
     x <- c(1:1e+03,seq(1e+03,plot_settings$xlim[2], length.out = 10000))
 
-    ## par settings (the check for mfrow ensures that it works in the analysis function)
+    ## par settings
+    ## the check for mfrow not being null prevents mfrow from being restored on
+    ## exit when this function is called from analyse_ThermochronometryData(),
+    ## because restoring mfrow (even if to the same value) causes the graphical
+    ## device to start a new page
     if (!is.null(plot_settings$mfrow)) {
+      par.default <- .par_defaults()
+      on.exit(par(par.default), add = TRUE)
       par(cex = plot_settings$cex, mfrow = plot_settings$mfrow)
     }
 
