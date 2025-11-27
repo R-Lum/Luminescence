@@ -181,8 +181,10 @@ fit_IsothermalHolding <- function(
   ## switch the models
   start <- switch(
     ITL_model,
-    GOK = list(A = 1, b = 1, Et = 1, s10 = 5),
-    BTS = list(A = 1, Eu = 0.1, Et = 2))
+    # https://github.com/GeorginaKing/OSLThermo/blob/5f32762e2cea87aac26d65aeabe9a434b2ce19a7/Stage2a_Fitparameters.m#L311
+    GOK = list(A = 1, b = 4, Et = 1.4, s10 = 9),
+    # https://github.com/GeorginaKing/OSLThermo/blob/5f32762e2cea87aac26d65aeabe9a434b2ce19a7/Stage2a_Fitparameters.m#L297
+    BTS = list(A = 1, Eu = 0.1, Et = 1.4))
 
   lower <- switch(
     ITL_model,
@@ -247,7 +249,7 @@ fit_IsothermalHolding <- function(
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        all.s10 <- rnorm(num_s_values_bts, mean = 10, sd = 1.5)
+        all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
         fit <- lapply(1:length(all.s10), function(idx) {
           s10 <- all.s10[idx]
           t <- try(minpack.lm::nlsLM(
