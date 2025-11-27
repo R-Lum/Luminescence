@@ -285,8 +285,8 @@
 
 - The function now supports the `...` argument `mtext` (#1031).
 
-- The positioning of axis ticks and labels in raster plots of
-  low-resolution images has been improved, and pixel numbering starts
+- The positioning of axis ticks and labels in raster and contour plots
+  of low-resolution images has been improved, and pixel numbering starts
   consistently from 1 (#1191).
 
 ### `plot_RLum.Data.Spectrum()`
