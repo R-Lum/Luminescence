@@ -30,7 +30,7 @@ Supported types are \code{plot.raster}, \code{contour}}
 to the specific plot functions. Standard supported parameters are \code{xlim},
 \code{ylim}, \code{zlim}, \code{xlab}, \code{ylab}, \code{main}, \code{mtext}, \code{legend} (\code{TRUE} or \code{FALSE}),
 \code{col}, \code{cex}, \code{axes} (\code{TRUE} or \code{FALSE}), \code{zlim_image} (adjust the z-scale
-over different images), \code{stretch}.}
+over different images), \code{stretch}, \code{digits}, scientific (\code{TRUE} or \code{FALSE}).}
 }
 \value{
 Returns a plot
