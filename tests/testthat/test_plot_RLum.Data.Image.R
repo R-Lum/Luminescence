@@ -43,6 +43,7 @@ test_that("graphical snapshot tests", {
                                                    plot.type = "plot.raster",
                                                    frames = 1,
                                                    stretch = NULL,
+                                                   scientific = FALSE,
                                                    zlim_image = c(0, 1)))
   vdiffr::expect_doppelganger("contour",
                               plot_RLum.Data.Image(image,

@@ -289,6 +289,10 @@
   of low-resolution images has been improved, and pixel numbering starts
   consistently from 1 (#1191).
 
+- The function gained support for the arguments `digits` and
+  `scientific`. Moreover, it is possible to specify multiple plot titles
+  in `main`. Thanks to @Zink-Antoine for the contribution (#1197).
+
 ### `plot_RLum.Data.Spectrum()`
 
 - The function doesn’t crash anymore if `bg.spectrum` is used and `ylim`

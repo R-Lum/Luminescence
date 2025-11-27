@@ -37,7 +37,7 @@
 #' to the specific plot functions. Standard supported parameters are `xlim`,
 #' `ylim`, `zlim`, `xlab`, `ylab`, `main`, `mtext`, `legend` (`TRUE` or `FALSE`),
 #' `col`, `cex`, `axes` (`TRUE` or `FALSE`), `zlim_image` (adjust the z-scale
-#' over different images), `stretch`.
+#' over different images), `stretch`, `digits`, scientific (`TRUE` or `FALSE`).
 #'
 #' @return Returns a plot
 #'
@@ -140,7 +140,9 @@ plot_settings <- modifyList(x = list(
     useRaster = TRUE,
     stretch = "hist",
     col = c(grDevices::hcl.colors(50, palette = "Inferno")),
-    cex = 1
+    cex = 1,
+    digits = 1,
+    scientific = TRUE
   ), val = list(...), keep.null = TRUE)
 
   ## set frames
@@ -181,7 +183,9 @@ plot_settings <- modifyList(x = list(
         zlim = plot_settings$zlim_image %||% range(image),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        main = paste0(plot_settings$main, " #",i),
+        main = ifelse(length(plot_settings$main) == 1,
+                      paste0(plot_settings$main, " #", i),
+                      paste0(plot_settings$main[i])),
         col = plot_settings$col)
       graphics::box()
 
@@ -213,7 +217,8 @@ plot_settings <- modifyList(x = list(
           x = par()$usr[4] * 1.04,
           y = par()$usr[2],
           labels = format(plot_settings$zlim_image[2] %||% max(x),
-                          digits = 1, scientific = TRUE),
+                          digits = plot_settings$digits,
+                          scientific = plot_settings$scientific),
           xpd = TRUE,
           cex = 0.7,
           srt = 270,
@@ -222,7 +227,8 @@ plot_settings <- modifyList(x = list(
           x = par()$usr[4] * 1.04,
           y = par()$usr[3],
           labels = format(plot_settings$zlim_image[1] %||% min(x),
-                          digits = 1, scientific = TRUE),
+                          digits = plot_settings$digits,
+                          scientific = plot_settings$scientific),
           xpd = TRUE,
           cex = 0.7,
           pos = 3,
@@ -242,7 +248,9 @@ plot_settings <- modifyList(x = list(
         zlim = plot_settings$zlim_image %||% range(x),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        main = paste0(plot_settings$main, " #",i),
+        main = ifelse(length(plot_settings$main) == 1,
+                      paste0(plot_settings$main, " #", i),
+                      paste0(plot_settings$main[i])),
         col = plot_settings$col)
       graphics::box()
      }
