@@ -54,11 +54,17 @@ get_Layout <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## pre-defined layout selections
-  if(is.character(layout) == TRUE & length(layout) == 1) {
+  if (is.character(layout) && length(layout) == 1) {
 
-    if(layout == "empty") {
+    if (!layout %in% c("empty", "default", "journal")) {
+      .throw_warning("Layout definition not supported, ",
+                     "default layout is used.")
+      return(get_Layout(layout = "default"))
+    }
 
-      layout = list(
+    switch(layout,
+    empty = {
+      layout <- list(
 
         ## empty Abanico plot -------------------------------------------------
         abanico = list(
@@ -249,9 +255,10 @@ get_Layout <- function(
           )
         )
       )
-    } else if(layout == "default") {
+    },
 
-      layout = list(
+    default = {
+      layout <- list(
 
         ## default Abanico plot -----------------------------------------------
         abanico = list(
@@ -386,6 +393,7 @@ get_Layout <- function(
             xtck   = 12,
             ytck1  = 12,
             ytck2  = 12,
+            mtext  = 10,
             stats  = 12, # optionally vector
             legend = 12 # optionally vector
           ),
@@ -422,7 +430,7 @@ get_Layout <- function(
             boxplot.fill    = NULL, # boxplot fill colour
             mean.point       = 1, # mean line colour
             sd.line          = 1, # sd bar colour
-            background      = NULL), # background colour
+            background      = NA), # background colour
 
           dimension = list(
             figure.width    = "auto", # figure width in mm
@@ -442,9 +450,10 @@ get_Layout <- function(
           )
         )
       )
-    } else if(layout == "journal") {
+    },
 
-      layout = list(
+    journal = {
+      layout <- list(
 
         ## journal Abanico plot -----------------------------------------------
         abanico = list(
@@ -638,15 +647,7 @@ get_Layout <- function(
           )
         )
       )
-    } else {
-      .throw_warning("Layout definition not supported, ",
-                     "default layout is used.")
-      layout <- get_Layout(layout = "default")
-    }
-  } else if(is.list(layout) == TRUE) {
-
-    ## user-specific layout definition assignment
-    layout <- layout
+    })
   }
 
   ## return layout parameters

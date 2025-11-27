@@ -32,3 +32,13 @@ test_that("check functionality", {
                   "RLum.Results")
   })
 })
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              analyse_ThermochronometryData(input.csv[1]))
+  })
+})

@@ -71,7 +71,7 @@
 #' allows to specify how info elements of the input objects are combined,
 #' e.g. `1` means that just the elements from the first object are kept,
 #' `2` keeps only the info elements from the 2 object etc.
-#' If nothing is provided all elements are combined.
+#' If set to `NULL`, all elements are combined.
 #'
 #' @return Returns an [RLum.Data.Curve-class] object.
 #'
@@ -85,13 +85,12 @@
 #' This function is fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [merge_RLum], [RLum.Data.Curve-class]
-#'
 #'
 #' @keywords utilities internal
 #'
@@ -117,14 +116,14 @@
 merge_RLum.Data.Curve<- function(
   object,
   merge.method = "mean",
-  method.info
+  method.info = NULL
 ) {
   .set_function_name("merge_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "list")
+  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
 
   ##(1) check if object is of class RLum.Data.Curve
   temp.recordType.test <- sapply(object, function(x) {
@@ -176,47 +175,33 @@ merge_RLum.Data.Curve<- function(
   }
 
   ##(2) apply selected method for merging
-  if(merge.method == "sum"){
-    temp.matrix <- rowSums(temp.matrix)
+  temp.matrix <- switch(merge.method,
+                        sum = rowSums(temp.matrix),
+                        mean = rowMeans(temp.matrix),
+                        median = matrixStats::rowMedians(temp.matrix),
+                        sd = matrixStats::rowSds(temp.matrix),
+                        var = matrixStats::rowVars(temp.matrix),
+                        max = matrixStats::rowMaxs(temp.matrix),
+                        min = matrixStats::rowMins(temp.matrix),
+                        append = sapply(temp.matrix, c),
+                        "-" = {
+                          temp.matrix[, 1] - rowSums(temp.matrix[, -1, drop = FALSE])
+                        },
+                        "*" = {
+                          temp.matrix[, 1] * rowSums(temp.matrix[, -1, drop = FALSE])
+                        },
+                        "/" = {
+                          temp <- temp.matrix[, 1] / rowSums(temp.matrix[, -1, drop = FALSE])
 
-  }else if(merge.method == "mean"){
-    temp.matrix <- rowMeans(temp.matrix)
-
-  }else if(merge.method == "median"){
-    temp.matrix <- matrixStats::rowMedians(temp.matrix)
-
-  }else if(merge.method == "sd"){
-    temp.matrix <- matrixStats::rowSds(temp.matrix)
-
-  }else if(merge.method == "var"){
-    temp.matrix <- matrixStats::rowVars(temp.matrix)
-
-  }else if(merge.method == "max"){
-    temp.matrix <- matrixStats::rowMaxs(temp.matrix)
-
-  }else if(merge.method == "min"){
-    temp.matrix <- matrixStats::rowMins(temp.matrix)
-
-  }else if(merge.method == "append") {
-    temp.matrix <- sapply(temp.matrix, c)
-
-  }else if(merge.method == "-"){
-    temp.matrix <- temp.matrix[, 1] - rowSums(temp.matrix[, -1, drop = FALSE])
-
-  }else if(merge.method == "*"){
-    temp.matrix <- temp.matrix[, 1] * rowSums(temp.matrix[, -1, drop = FALSE])
-
-  }else if(merge.method == "/"){
-    temp.matrix <- temp.matrix[, 1] / rowSums(temp.matrix[, -1, drop = FALSE])
-
-    ## replace infinities with 0 and throw warning
-    id.inf <- which(is.infinite(temp.matrix) == TRUE)
-    if (length(id.inf) > 0) {
-      temp.matrix[id.inf]  <- 0
-      .throw_warning(length(id.inf),
-                     " 'inf' values have been replaced by 0 in the matrix")
-    }
-  }
+                          ## replace infinities with 0 and throw warning
+                          id.inf <- which(is.infinite(temp))
+                          if (length(id.inf) > 0) {
+                            temp[id.inf]  <- 0
+                            .throw_warning(length(id.inf),
+                                           " 'Inf' values replaced by 0 in the matrix")
+                          }
+                          temp
+                        })
 
   ## add back the first column to RLum.Data.Curve objects
   #If we append the data of the second to the first curve we have to recalculate
@@ -240,7 +225,7 @@ merge_RLum.Data.Curve<- function(
 
   ##unlist is needed here, as otherwise it would cause unexpected behaviour further using
   ##the RLum.object
-  if(missing(method.info)){
+  if (is.null(method.info)) {
     temp.info <- unlist(lapply(object, function(x) x@info), recursive = FALSE)
   }else{
     temp.info <- object[[method.info]]@info

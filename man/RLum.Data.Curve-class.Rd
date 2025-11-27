@@ -10,10 +10,11 @@ Class for representing luminescence curve data.
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")}
+\item{\code{recordType}}{Object of class "character" containing the type of the curve (e.g. "TL" or
+"OSL").}
 
 \item{\code{curveType}}{Object of class "character" containing curve type, allowed values are
-"measured" or "predefined"}
+"measured" or "predefined".}
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
@@ -26,7 +27,7 @@ de-constructing the object. For example:
 
 would just change the \code{recordType}. Missing arguments  the value is taken
 from the input object in 'data' (which is already an \code{RLum.Data.Curve}
-object in this example)}
+object in this example).}
 }}
 
 \note{

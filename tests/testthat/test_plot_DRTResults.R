@@ -22,7 +22,7 @@ test_that("input validation", {
   expect_error(plot_DRTResults(df, given.dose = c(2800, 3000)),
                "'given.dose' should have length equal to the number of input")
   expect_warning(plot_DRTResults(df, boxplot = TRUE),
-                 "Option 'boxplot' requires a value in 'preheat'")
+                 "'boxplot' requires a value in 'preheat', reset to FALSE")
   expect_error(plot_DRTResults(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_DRTResults(df, summary.pos = 5),
@@ -111,4 +111,9 @@ test_that("regression tests", {
   ## issue 769
   expect_silent(plot_DRTResults(list(df, df * 2), preheat = rep(200, 5),
                                 boxplot = TRUE))
+
+  ## issue 1184
+  expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000)))
+  expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000),
+                                preheat = rep(200, 5)))
 })

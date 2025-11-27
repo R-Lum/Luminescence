@@ -201,7 +201,6 @@ fit_ThermalQuenching <- function(
   f <- y ~ A / (1 + exp(C - W / (kB * x))) + c
 
   ##set translate values in data.frame to absolute temperature
-  data_raw <- data
   data[[1]] <- data[[1]] + .const$C2K
 
   ##start parameter
@@ -271,11 +270,9 @@ fit_ThermalQuenching <- function(
       ), silent = TRUE)
 
       ##return value
-      if(inherits(temp, 'try-error')) {
+      if (inherits(temp, "try-error"))
         return(NULL) # nocov
-      } else{
-        temp
-      }
+      temp
   })
 
   ## remove NULL (the fit was not successful)
@@ -363,7 +360,7 @@ fit_ThermalQuenching <- function(
         c <- fit_coef_MC_full[4,i]
         x <- 0
         curve(A / (1 + exp(C - W / (kB * x))) + c,
-              col = rgb(0, 0, 0, .1), add = TRUE)
+              col = rgb(0, 0, 0, 0.1), add = TRUE)
       }
     }
 

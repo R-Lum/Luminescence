@@ -1,10 +1,11 @@
 #' @title Plot function for an RLum.Data.Spectrum S4 class object
 #'
-#' @description  The function provides a standardised plot output for spectrum data of an
-#' [RLum.Data.Spectrum-class] class object. The purpose of this function is to provide
-#' easy and straight-forward spectra plotting, not provide a full customised access to
-#' all plot parameters. If this is wanted, standard R plot functionality should be used
-#' instead.
+#' @description
+#' The function provides a standardised plot output for spectrum data of an
+#' [RLum.Data.Spectrum-class] class object. The purpose of this function is to
+#' provide easy and straightforward spectra plotting, not a fully customised
+#' access to all plot parameters. If this is wanted, standard R plot
+#' functionality should be used instead.
 #'
 #' **Matrix structure** \cr (cf. [RLum.Data.Spectrum-class])
 #'
@@ -77,11 +78,11 @@
 #'
 #' **Further arguments that will be passed (depending on the plot type)**
 #'
-#' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `box`,
-#' `zlim`, `main`, `mtext`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
+#' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `zlim`, `main`, `mtext`,
+#' `box`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
 #' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
 #' `contour`, `contour.col` (`"image"`), `labcex` (`"image"`, `"contour"`),
-#' `n_breaks` (`"image`), `legend` (`TRUE`/`FALSE`),
+#' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`),
 #' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
 #' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
@@ -91,19 +92,19 @@
 #' automatically if not provided.
 #'
 #' @param par.local [logical] (*with default*):
-#' use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If `par.local = FALSE` global parameters are inherited.
+#' use local graphical parameters for plotting, e.g. the plot is shown in one
+#' column and one row. If `par.local = FALSE` global parameters are inherited.
 #'
-#' @param plot.type [character] (*with default*): for a 3D-plot use `persp`
-#' or `interactive`; for a 2D-plot you can use `image`, `contour`,
-#' `single` or `multiple.lines` (along the time or temperature axis)
-#' or `transect` (along the wavelength axis)
+#' @param plot.type [character] (*with default*):
+#' for a 3D-plot use `"persp"` or `"interactive"`; for a 2D-plot you can use
+#' `"image"`, `"contour"`, `"single"` or `"multiple.lines"` (along the time or
+#' temperature axis) or `"transect"` (along the wavelength axis).
 #'
 #' @param optical.wavelength.colours [logical] (*with default*):
 #' use optical wavelength colour palette. Note: For this, the spectrum range is
-#' limited: `c(350,750)`. Own colours can be set with the argument `col`. If you provide already
-#' binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
-#' using the bin number.
+#' limited: `c(350,750)`. Own colours can be set with the argument `col`. If
+#' you provide already binned spectra, the colour assignment is likely to be
+#' wrong, since the colour gradients are calculated using the bin number.
 #'
 #' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*):
 #' spectrum used for the background subtraction. The background spectrum should
@@ -132,12 +133,13 @@
 #' e.g. `bin.cols = 2` two channels are summed up.
 #' Binning is applied after the background subtraction.
 #'
-#' @param norm [character] (*optional*): Normalise data to the maximum (`norm = "max"`) or
-#' minimum (`norm = "min"`) count values. The normalisation is applied after the binning.
+#' @param norm [character] (*optional*):
+#' Normalise data to the maximum (`norm = "max"`) or minimum (`norm = "min"`)
+#' count values. The normalisation is applied after binning.
 #'
 #' @param rug [logical] (*with default*):
 #' enable/disable colour rug. Currently only implemented for plot
-#' type `multiple.lines` and `single`
+#' type `multiple.lines` and `single`.
 #'
 #' @param limit_counts [numeric] (*optional*):
 #' value to limit all count values to this value, i.e. all count values above
@@ -153,23 +155,25 @@
 #'
 #' @param legend.text [character] (*with default*):
 #' possibility to provide own legend text. This argument is only considered for
-#' plot types providing a legend, e.g. `plot.type="transect"`
+#' plot types providing a legend, e.g. `plot.type = "transect"`.
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output. If
 #' the plot output is disabled, the [matrix] used for the plotting and the
 #' calculated colour values (as attributes) are returned. This way, the
 #' (binned, transformed etc.) output can be used in other functions and
-#' packages, such as plotting with the package `'plot3D'`
+#' packages, such as plotting with the package `'plot3D'`.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.
 #'
-#' @return Returns a plot and the transformed `matrix` used for plotting with some useful
-#' attributes such as the `colour` and `pmat` (the transpose matrix from [graphics::persp])
+#' @return
+#' Returns a plot and the transformed `matrix` used for plotting with some
+#' useful attributes such as `colour` and `pmat` (the transpose matrix from
+#' [graphics::persp]).
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.11
+#' @section Function version: 0.6.13
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -256,7 +260,7 @@ plot_RLum.Data.Spectrum <- function(
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
-  legend.text,
+  legend.text = NULL,
   plot = TRUE,
   ...
 ) {
@@ -291,7 +295,7 @@ plot_RLum.Data.Spectrum <- function(
 
   ##XSYG
   ##check for curveDescripter
-  if("curveDescripter" %in% names(object@info) == TRUE){
+  if ("curveDescripter" %in% names(object@info)) {
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
     xlab <- temp.lab[2]
     ylab <- temp.lab[1]
@@ -316,7 +320,7 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
-  if(any(duplicated(colnames(object@data)))) {
+  if (anyDuplicated(colnames(object@data)) > 0) {
     .throw_warning("Duplicated column names found, replaced by index")
     colnames(object@data) <- 1:ncol(object@data[])
   }
@@ -379,7 +383,6 @@ plot_RLum.Data.Spectrum <- function(
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
-
     x.vals <- as.numeric(rownames(temp.xyz))
     y.vals <- as.numeric(colnames(temp.xyz))
 
@@ -420,7 +423,6 @@ plot_RLum.Data.Spectrum <- function(
 
         ##modify row order (otherwise subsequent functions, like persp, have a problem)
         bg.xyz <- bg.xyz[order(as.numeric(rownames(bg.xyz))),,drop = FALSE]
-        rownames(bg.xyz) <- sort(as.numeric(rownames(bg.xyz)))
     }
 
     ## reduce for xlim
@@ -451,7 +453,7 @@ plot_RLum.Data.Spectrum <- function(
       bg.channels[bg.channels >= ncol(bg.xyz)] <- ncol(bg.xyz)
 
       .throw_warning("'bg.channels' out of range, corrected to: ",
-                     min(bg.channels), ":", max(bg.channels))
+                     .format_range(bg.channels))
     }
 
     ## the challenge we have here is that we want to maintain
@@ -483,8 +485,6 @@ plot_RLum.Data.Spectrum <- function(
     if (length(x) %% bin.rows != 0 && length(x) > bin.rows) {
       .throw_warning(length(x) %% bin.rows,
                      " channels removed due to row (wavelength) binning")
-
-      ##do it
       temp.xyz <- temp.xyz[-length(x),]
       x <- x[-length(x)]
     }
@@ -498,8 +498,6 @@ plot_RLum.Data.Spectrum <- function(
     if (length(y) %% bin.cols != 0 && length(y) > bin.cols) {
       .throw_warning(length(y) %% bin.cols,
                      " channels removed due to column (frame) binning")
-
-      ##do it
       temp.xyz <- temp.xyz[,-length(y)]
       y <- y[-length(y)]
     }
@@ -509,8 +507,8 @@ plot_RLum.Data.Spectrum <- function(
   if(!is.null(limit_counts[1])) {
     if(min(temp.xyz) > limit_counts[1]) {
       limit_counts <- floor(limit_counts[1] + min(temp.xyz))
-      .throw_warning(
-        "Lowest count value is larger than the set count threshold. Set limit_counts = ", limit_counts, ".")
+      .throw_warning("'limit_counts' is smaller than the lowest count value, ",
+                     "'limit_counts' reset to ", limit_counts)
     }
 
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
@@ -520,8 +518,7 @@ plot_RLum.Data.Spectrum <- function(
   if(!is.null(norm)){
     if(norm == "min")
       temp.xyz <- temp.xyz/min(temp.xyz)
-
-    if(norm == "max")
+    else if (norm == "max")
       temp.xyz <- temp.xyz/max(temp.xyz)
   }
 
@@ -787,12 +784,8 @@ if(plot){
        p <-  plotly::layout(
          p = p,
          scene = list(
-           xaxis = list(
-             title = ylab
-           ),
-           yaxis = list(
-             title = xlab
-           ),
+           xaxis = list(title = ylab),
+           yaxis = list(title = xlab),
            zaxis = list(title = zlab)
          ),
          title = main
@@ -835,7 +828,7 @@ if(plot){
       col = col
     )
 
-    if (is.null(extraArgs$contour) || extraArgs$contour != FALSE) {
+    if (is.null(extraArgs$contour) || !isFALSE(extraArgs$contour)) {
       graphics::contour(x, y, temp.xyz,
               col = extraArgs$contour.col %||% rgb(1, 1, 1, 0.8),
               labcex = labcex * cex,
@@ -867,7 +860,8 @@ if(plot){
     frames <- extraArgs$frames %||% 1:length(y)
 
     for(i in frames) {
-      if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
+      if (!"zlim" %in% names(extraArgs))
+        zlim <- range(temp.xyz[, i])
       plot(x, temp.xyz[,i],
            xlab = xlab,
            ylab = ylab,
@@ -877,35 +871,33 @@ if(plot){
            frame = box,
            xaxt = "n",
            col = col,
-           sub = paste(
+           sub = paste0(
              "(frame ",i, " | ",
-             ifelse(i==1,
-                    paste("0.0 :", round(y[i], digits = 1)),
-                    paste(round(y[i-1], digits = 1),":",
-                          round(y[i], digits =1))),")",
-             sep = ""),
+             paste(ifelse(i == 1, "0.0", round(y[i - 1], digits = 1)),
+                    ":", round(y[i], digits = 1)), ")"),
            type = type,
            pch = pch)
 
       ## add colour rug
       if(rug){
+        par.usr <- par("usr")
           ##rug as continuous rectangle
           i <- floor(seq(1,length(x), length.out = 300))
           graphics::rect(
             xleft = x[i[-length(i)]],
             xright = x[i[-1]],
-            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-            ybottom = par("usr")[3],
+            ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+            ybottom = par.usr[3],
             col = col.rug[i],
             border = NA,
             lwd = 1)
 
           ## add rectangle from zero to first value
           graphics::rect(
-            xleft = par()$usr[1],
+            xleft = par.usr[1],
             xright = x[i[1]],
-            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-            ybottom = par("usr")[3],
+            ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+            ybottom = par.usr[3],
             col = col.rug[1],
             density = 50,
             border = NA,
@@ -914,9 +906,9 @@ if(plot){
           ## add rectangle from the last value to end of plot
           graphics::rect(
             xleft = x[i[length(i)]],
-            xright = par()$usr[2],
-            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-            ybottom = par("usr")[3],
+            xright = par.usr[2],
+            ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+            ybottom = par.usr[3],
             col = col.rug[length(col.rug)],
             density = 50,
             border = NA,
@@ -949,7 +941,8 @@ if(plot){
     par(mar = c(3.1, 3.1, 2, 7), xpd = TRUE)
 
     ##grep zlim
-    if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz)}
+    if (!"zlim" %in% names(extraArgs))
+      zlim <- range(temp.xyz)
 
     ##open plot area
     plot(NA, NA,
@@ -965,23 +958,24 @@ if(plot){
 
     ## add colour rug
     if(rug){
+      par.usr <- par("usr")
       ##rug as continuous rectangle
       i <- floor(seq(1,length(x), length.out = 300))
       graphics::rect(
         xleft = x[i[-length(i)]],
         xright = x[i[-1]],
-        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-        ybottom = par("usr")[3],
+        ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+        ybottom = par.usr[3],
         col = col.rug[i],
         border = NA,
         lwd = NA)
 
       ## add rectangle from zero to first value
       graphics::rect(
-        xleft = par()$usr[1],
+        xleft = par.usr[1],
         xright = x[i[1]],
-        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-        ybottom = par("usr")[3],
+        ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+        ybottom = par.usr[3],
         col = col.rug[1],
         density = 50,
         border = NA,
@@ -990,9 +984,9 @@ if(plot){
       ## add rectangle from the last value to end of plot
       graphics::rect(
         xleft = x[i[length(i)]],
-        xright = par()$usr[2],
-        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
-        ybottom = par("usr")[3],
+        xright = par.usr[2],
+        ytop = par.usr[3] + diff(c(par.usr[3], min(zlim))) * 0.9,
+        ybottom = par.usr[3],
         col = col.rug[length(col.rug)],
         density = 50,
         border = NA,
@@ -1016,7 +1010,7 @@ if(plot){
     if(box) graphics::box()
 
     ##for missing values - legend.text
-    if(missing(legend.text))
+    if (is.null(legend.text))
       legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
 
     ##legend
@@ -1048,7 +1042,7 @@ if(plot){
          xlim = ylim,
          ylim = zlim,
          col = col,
-         sub = paste0("(channel range: ", min(xlim), " : ", max(xlim), ")"),
+         sub = paste0("(channel range: ", .format_range(xlim, sep = " : "), ")"),
          type = type,
          pch = pch)
   }
@@ -1062,6 +1056,8 @@ if(plot){
 attr(temp.xyz, "colour") <- col
 attr(temp.xyz, "pmat") <- pmat
 
-## return visible or not
-if(plot) invisible(temp.xyz) else return(temp.xyz)
+  ## return visible or not
+  if (plot)
+    return(invisible(temp.xyz))
+  return(temp.xyz)
 }

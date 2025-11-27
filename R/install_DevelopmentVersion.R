@@ -31,7 +31,13 @@
 #'
 #' @export
 install_DevelopmentVersion <- function(force_install = FALSE, branch = "master") {
-  # nocov start
+  .set_function_name("install_DevelopmentVersion")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## input validation
+  .validate_logical_scalar(force_install)
+  .validate_class(branch, "character", length = 1)
+
   message("\n[install_DevelopmentVersion]\n")
   message("----\n",
           "For package prerequisites, make sure to have read the following:\n",
@@ -40,17 +46,20 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
 
   ## check if 'devtools' is available and install if not
   if (!requireNamespace("devtools", quietly = TRUE)) {
+    # nocov start
     message("Please install the 'devtools' package first by running ",
             "the following command:\n\n install.packages('devtools')\n")
     return(invisible())
+    # nocov end
   }
 
   if (!force_install) {
-    message("Please copy and run the following code in your R command-line:\n")
-    message("devtools::install_github('R-Lum/luminescence@", branch, "')\n")
+    message("Please copy and run the following code in your R terminal:\n",
+            "devtools::install_github('R-Lum/luminescence@", branch, "')\n")
     return(invisible())
   }
 
+  # nocov start
   reply <- NULL
   while (is.null(reply)) {
     message("Proceed with the installation?\n",
@@ -64,7 +73,7 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
     }
     if (reply != "y")
         reply <- NULL
-    }
+  }
 
     # detach the 'Luminescence' package
     try(detach(name = "package:Luminescence", unload = TRUE, force = TRUE),
@@ -72,7 +81,8 @@ install_DevelopmentVersion <- function(force_install = FALSE, branch = "master")
 
     # try to unload the dynamic library
     dynLibs <- sapply(.dynLibs(), function(x) x[["path"]] )
-    try(dyn.unload(dynLibs[grep("Luminescence", dynLibs)]), silent = TRUE)
+    try(dyn.unload(grep("Luminescence", dynLibs, value = TRUE, fixed = TRUE)),
+        silent = TRUE)
 
     # install the development version
     devtools::install_github(paste0("r-lum/luminescence@", branch))

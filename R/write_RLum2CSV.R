@@ -130,8 +130,8 @@ write_RLum2CSV <- function(
   .validate_logical_scalar(compact)
 
   ## check export path
-  if (export == TRUE) {
-    if (is.null(path) || nchar(path) == 0) {
+  if (export) {
+    if (is.null(path) || !nzchar(path)) {
       path <- getwd()
       .throw_message("Path automatically set to: ", path, error = FALSE)
     } else if (!dir.exists(path)) {
@@ -186,7 +186,7 @@ write_RLum2CSV <- function(
       object_list <- object_list[object_list_rm]
 
       ##set warning
-      if(any(!object_list_rm))
+      if (!all(object_list_rm))
         .throw_warning(length(which(!object_list_rm)),
                        " elements could not be converted to CSV")
 
@@ -204,7 +204,10 @@ write_RLum2CSV <- function(
   }
 
   # Export --------------------------------------------------------------------------------------
-  if(export){
+  if (!export) {
+    return(object_list)
+  }
+
     ##set export settings for write.table
     export_settings.default <- list(
       append = FALSE,
@@ -238,8 +241,4 @@ write_RLum2CSV <- function(
         qmethod =  export_settings$qmethod,
         fileEncoding =  export_settings$fileEncoding)
     }
-
-  }else{
-    return(object_list)
-  }
 }

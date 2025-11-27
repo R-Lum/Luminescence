@@ -212,17 +212,12 @@ calc_FadingCorr <- function(
 
   ## Integrity checks -------------------------------------------------------
 
-  .validate_class(age.faded, c("numeric", "integer"))
-  .validate_length(age.faded, 2)
+  .validate_class(age.faded, c("numeric", "integer"), length = 2)
   .validate_class(g_value, c("numeric", "integer", "RLum.Results"))
   if(inherits(g_value, "RLum.Results")){
-    if(g_value@originator == "analyse_FadingMeasurement"){
-      tc <- get_RLum(g_value)[["TC"]]
-      g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
-    }else{
-      .throw_message("Unknown originator for the 'g_value' object provided")
-      return(NULL)
-    }
+    .validate_originator(g_value, "analyse_FadingMeasurement")
+    tc <- get_RLum(g_value)[["TC"]]
+    g_value <- as.numeric(get_RLum(g_value)[, c("FIT", "SD")])
   } else {
     .validate_length(g_value, 2)
   }
@@ -230,8 +225,7 @@ calc_FadingCorr <- function(
   ## tc is validated only now, as it may be set in the previous block
   .validate_positive_scalar(tc)
   .validate_positive_scalar(tc.g_value)
-  .validate_class(interval, "numeric")
-  .validate_length(interval, 2)
+  .validate_class(interval, "numeric", length = 2)
   .validate_logical_scalar(txtProgressBar)
   .validate_logical_scalar(verbose)
 
@@ -415,19 +409,17 @@ calc_FadingCorr <- function(
       cat("\n >> g-value re-calculated for the given tc")
     }
 
-    cat(paste(
+    cat(paste0(
       "\n\n .. used g-value:\t",
       round(g_value[1], digits = 3),
       " \u00b1 ",
       round(g_value[2], digits = 3),
-      " %/decade",
-      sep = ""
+      " %/decade"
     ))
-    cat(paste(
+    cat(paste0(
       "\n .. used tc:\t\t",
       format(tc, digits = 4, scientific = TRUE),
-      " ka",
-      sep = ""
+      " ka"
     ))
     cat(paste0(
       "\n .. used kappa:\t\t",
@@ -440,8 +432,7 @@ calc_FadingCorr <- function(
     cat(paste0("\n n.MC: \t\t\t", n.MC))
     cat(paste0(
       "\n observations: \t\t",
-      format(length(tempMC), digits = 2, scientific = TRUE),
-      sep = ""
+      format(length(tempMC), digits = 2, scientific = TRUE)
     ))
     cat("\n ----------------------------------------------")
     cat(paste0(

@@ -88,7 +88,7 @@ analyse_Al2O3C_CrossTalk <- function(
   object,
   signal_integral = NULL,
   dose_points = c(0,4),
-  recordType = c("OSL (UVVIS)"),
+  recordType = "OSL (UVVIS)",
   irradiation_time_correction = NULL,
   method_control = NULL,
   plot = TRUE,
@@ -102,9 +102,10 @@ analyse_Al2O3C_CrossTalk <- function(
   .validate_class(object, c("RLum.Analysis", "list"))
   .validate_not_empty(object, class(object)[1])
   if (is.list(object)) {
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, class = "RLum.Analysis",
+           name = "All elements of 'object'")
+  } else {
+    object <- list(object)
   }
   .validate_class(signal_integral, c("numeric", "integer"), null.ok = TRUE)
   .validate_class(dose_points, c("numeric", "integer"))
@@ -146,19 +147,16 @@ analyse_Al2O3C_CrossTalk <- function(
   max.signal_integral <- nrow(object[[1]][[1]][])
   if(is.null(signal_integral)){
     signal_integral <- 1:max.signal_integral
-
-  }else{
-    ##check whether the input is valid, otherwise make it valid
-    if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
+  } else if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
+    ## check whether the input is valid, otherwise make it valid
       signal_integral <- 1:max.signal_integral
       .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
-    }
   }
 
   ##check irradiation time correction
     if (inherits(irradiation_time_correction, "RLum.Results")) {
-      if (irradiation_time_correction@originator %in% "analyse_Al2O3C_ITC") {
-        irradiation_time_correction <- get_RLum(irradiation_time_correction)
+      .validate_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")
+      irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
         ##insert case for more than one observation ...
         if(nrow(irradiation_time_correction)>1){
@@ -167,10 +165,6 @@ analyse_Al2O3C_CrossTalk <- function(
         }else{
           irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
         }
-      } else{
-        .throw_error("The object provided for 'irradiation_time_correction' ",
-                     "was created by an unsupported function")
-      }
     }
 
   # Calculation ---------------------------------------------------------------------------------
@@ -314,7 +308,7 @@ analyse_Al2O3C_CrossTalk <- function(
           col = col.seq[i]
         )
         text(x = cos(step) * 0.85,
-             y = sin(step) * .85,
+             y = sin(step) * 0.85,
              labels = i)
         step <- step + arc.step
       }

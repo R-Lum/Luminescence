@@ -26,7 +26,7 @@ test_that("test conversion from single grain data to multiple grain data", {
   ## test write option
   ## create environment
   dir <- tempdir()
-  tmp <- paste0(dir, "/test.bin")
+  tmp <- file.path(dir, "test.bin")
   SW({
   write_file_test <- write_R2BIN(
       read_BIN2R(file = test_path("_data/BINfile_V4.bin")),

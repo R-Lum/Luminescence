@@ -8,7 +8,6 @@ One \linkS4class{RLum.Data.Curve} dataset imported using the function \link{read
 
 \describe{
 \code{ExampleData.TR_OSL}: A single \linkS4class{RLum.Data.Curve} object with the TR-OSL data
-
 }
 }
 \description{

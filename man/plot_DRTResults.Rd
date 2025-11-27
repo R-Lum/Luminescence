@@ -8,12 +8,12 @@ plot_DRTResults(
   values,
   given.dose = NULL,
   error.range = 10,
-  preheat,
+  preheat = NULL,
   boxplot = FALSE,
   mtext = "",
   summary = "",
   summary.pos = "topleft",
-  legend,
+  legend = NULL,
   legend.pos = "topright",
   par.local = TRUE,
   na.rm = FALSE,
@@ -113,7 +113,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.14
+ 0.1.17
 }
 
 \examples{

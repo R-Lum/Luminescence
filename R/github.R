@@ -71,12 +71,9 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
   .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
   ## input validation
-  .validate_class(user, "character")
-  .validate_length(user, 1)
-  .validate_class(repo, "character")
-  .validate_length(repo, 1)
-  .validate_class(branch, "character")
-  .validate_length(branch, 1)
+  .validate_class(user, "character", length = 1)
+  .validate_class(repo, "character", length = 1)
+  .validate_class(branch, "character", length = 1)
   .validate_positive_scalar(n, int = TRUE)
 
   # fetch available branches and check if provided branch exists
@@ -128,10 +125,8 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
   on.exit(.unset_function_name(), add = TRUE)
   .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
-  .validate_class(user, "character")
-  .validate_length(user, 1)
-  .validate_class(repo, "character")
-  .validate_length(repo, 1)
+  .validate_class(user, "character", length = 1)
+  .validate_class(repo, "character", length = 1)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user, "/", repo, "/branches")
@@ -178,10 +173,8 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
   on.exit(.unset_function_name(), add = TRUE)
   .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
 
-  .validate_class(user, "character")
-  .validate_length(user, 1)
-  .validate_class(repo, "character")
-  .validate_length(repo, 1)
+  .validate_class(user, "character", length = 1)
+  .validate_class(repo, "character", length = 1)
 
   # build URL and retrieve content
   url <- paste0("https://api.github.com/repos/", user,"/", repo, "/issues")

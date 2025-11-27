@@ -17,7 +17,6 @@
 #'  `iter_max` \tab - \tab `1000` \tab maximum number for iterations for used to find kappa and sigma \cr
 #'  `trace` \tab - \tab `FALSE` \tab enable/disable terminal trace mode; overwritten by global argument `verbose`\cr
 #'  `trace_plot` \tab - \tab `FALSE` \tab enable/disable additional trace plot output; overwritten by global argument `verbose` \cr
-#'
 #' }
 #'
 #' @param data [data.frame] (**required**): input data consisting of two columns, the De and the
@@ -26,7 +25,8 @@
 #' @param D0 [integer] (*with default*): D0 value (in Gy), defining the
 #' characterisation behaviour of the quartz.
 #'
-#' @param expected_dose [numeric] (**required**): expected equivalent dose
+#' @param expected_dose [numeric] (**required**):
+#' expected equivalent dose.
 #'
 #' @param MinIndivDose [numeric] (*with default*): value specifying the minimum dose taken into
 #' account for the plateau. `NULL` applies all values.
@@ -62,7 +62,7 @@
 #' @author Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France),
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @references Guibert, P., Christophe, C., Urbanova, P., Guérin, G., Blain, S., 2017.
 #' Modelling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
@@ -98,7 +98,7 @@
 calc_EED_Model <- function(
   data,
   D0 = 120L,
-  expected_dose,
+  expected_dose = NULL,
   MinIndivDose = NULL,
   MaxIndivDose = NULL,
   kappa = NULL,
@@ -157,7 +157,7 @@ calc_EED_Model <- function(
     return(var_ratio / mean_ratio^2)
   }
 
-  .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
+  .EED_Simul_Matrix <- function(M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul) {
 
     ## génére une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
     M_Simul[,1] <- expected_dose * exp(sigma_distr * rnorm(Nsimul)) *
@@ -236,12 +236,12 @@ calc_EED_Model <- function(
   # on teste ce rapport et s'il est inf?rieur ? une valeur limite inf?rieure, on demande de relancer le calcul
   # avec davantage de simulations.
 
-  .EED_Calc_Overall_StatUncertainty <- function (M_Data, M_Simul, Ndata, Nsimul, MinNbSimExp){
+  .EED_Calc_Overall_StatUncertainty <- function(M_Data, M_Simul, Ndata, Nsimul, MinNbSimExp) {
     M_SimExpResults <- src_EED_Calc_Overall_StatUncertainty(M_Simul, Ndata, Nsimul, MinNbSimExp)
 
     # colonne 7 : calcule l'erreur totale sur la dose nette corrig?e M_Data[i,7]
     M_Data[,7] <- abs((M_Data[,6]/M_Data[,3])*sqrt((M_SimExpResults[,2]^2)+(M_Data[,2]^2)))
-    return (M_Data)
+    return(M_Data)
   }
 
   # fonction d'initialisation de l'etat initial
@@ -250,7 +250,7 @@ calc_EED_Model <- function(
   .Initial_State_of_OSL <- function(Dosedata, D0, method) {
     SaturationState <- (1 - exp(-max(Dosedata[, 1]) / D0))
     if (method == "max") {
-      return  (SaturationState)
+      return(SaturationState)
     }
     # nocov start
     if (!is.numeric(method) || method > 1 || method < 0) {
@@ -316,7 +316,7 @@ calc_EED_Model <- function(
       M_Simul, set_expected_dose,
       D0, Iinit, Nsimul, Dosedata, M_Data, Ndata){
 
-      M_Simul <- .EED_Simul_Matrix (M_Simul, set_expected_dose, set_sigma_distr, D0, set_kappa, Iinit, Nsimul)
+      M_Simul <- .EED_Simul_Matrix(M_Simul, set_expected_dose, set_sigma_distr, D0, set_kappa, Iinit, Nsimul)
       M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, set_expected_dose, Ndata, Nsimul)
 
       M_Data <- .EED_Calc_Overall_StatUncertainty(
@@ -422,8 +422,8 @@ calc_EED_Model <- function(
         method_control$upper[1:2] <- c(max(s$x[unique(q10[,1])]), max(s$y[unique(q10[,2])]))
 
       if(verbose && method_control$trace){
-        cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ", "))
-        cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ", "))
+        cat("\n >> lower: ", toString(method_control$lower[1:2]))
+        cat("\n >> upper: ", toString(method_control$upper[1:2]))
       }
 
       ##update threshold
@@ -548,12 +548,11 @@ if(is.null(kappa) || is.null(sigma_distr)){
 }
 
 # Calculation ---------------------------------------------------------------------------------
-M_Simul <- .EED_Simul_Matrix (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
+M_Simul <- .EED_Simul_Matrix(M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
 M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsimul)
 
 M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul, MinNbSimExp)
 
-max_dose_simul <- max(M_Simul[,3])
 index_min_uncert <- sort.list(index_min_uncert <-
               rank(M_Data[, 7], ties.method = "first"))
 
@@ -604,11 +603,11 @@ if(plot) {
   ## Histograms with the data
   ##(1) first histogram showing the natural distribution
   hist(
-    x = rep(Dosedata[,1], length.out = length(M_Simul[,3])),
+    x = rep_len(Dosedata[, 1], length(M_Simul[, 3])),
     freq = FALSE,
     breaks = seq(0, box_width * (1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
     xlim = plot_settings$xlim,
-    border = rgb(0.7,0.1,0,.5),
+    border = rgb(0.7, 0.1, 0, 0.5),
     col = rgb(240,154,149,alpha = 255, maxColorValue = 255),
     main = paste0("Distribution De: ", sample_name),
     xlab = plot_settings$xlab
@@ -619,7 +618,7 @@ if(plot) {
     x = M_Simul[,3],
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
     freq = FALSE,
-    border = rgb(0,0.1,0.8,.5),
+    border = rgb(0, 0.1, 0.8, 0.5),
     col = rgb(122,206,209,alpha = 140, maxColorValue = 255),
     add = TRUE,
     xlab = plot_settings$xlab
@@ -639,11 +638,11 @@ if(plot) {
   ## Histograms with the error for the data
   ##(3) first histogram showing the natural distribution
   hist(
-    x = rep(Dosedata[,2], length.out = length(M_Simul[,2])),
+    x = rep_len(Dosedata[, 2], length(M_Simul[, 2])),
     freq = FALSE,
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,2])/box_width)), box_width),
     xlim = plot_settings$xlim,
-    border = rgb(0.7,0.1,0,.5),
+    border = rgb(0.7, 0.1, 0, 0.5),
     col = rgb(240,154,149,alpha = 255, maxColorValue = 255),
     main = paste0("Distribution SE(De):", sample_name),
     xlab = plot_settings$xlab
@@ -654,7 +653,7 @@ if(plot) {
     x = M_Simul[,2],
     breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,2])/box_width)), box_width),
     freq = FALSE,
-    border = rgb(0,0.1,0.8,.5),
+    border = rgb(0, 0.1, 0.8, 0.5),
     col = rgb(122,206,209,alpha = 140, maxColorValue = 255),
     add = TRUE,
     xlab = plot_settings$xlab
@@ -701,7 +700,7 @@ if(plot) {
      type = "p",
      pch = 1,
      log = "x",
-     main = paste("sample ", sample_name, sep = ""),
+     main = paste0("sample ", sample_name),
      xlab = plot_settings$xlab,
      ylab = "Cumulative mean doses [Gy]",
      xlim = c(min(Dosedata[, 1]), plot_settings$xlim[2]),

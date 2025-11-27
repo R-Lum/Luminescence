@@ -166,8 +166,8 @@ analyse_portableOSL <- function(
                  "of class 'RLum.Data.Curve'")
 
   ## check originator
-  if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
-    .throw_error("Only objects originating from 'read_PSL2R()' are allowed")
+  lapply(object, .validate_originator, "read_PSL2R",
+         name = "At least one element of 'object'")
 
   ## check length and start of the sequence pattern, we check it further below
   if (length(object) %% 5 != 0 ||
@@ -184,8 +184,7 @@ analyse_portableOSL <- function(
 
   ## set the maximum signal_integral allowed: as this must be valid across all
   ## records, we cap it to the minimum number of points
-  num.points <- min(sapply(get_RLum(object, recordType = c("OSL", "IRSL")),
-                             length))
+  num.points <- min(lengths(get_RLum(object, recordType = c("OSL", "IRSL"))))
   if (max(signal.integral) > num.points || min(signal.integral) < 1) {
     orig.signal.int <- signal.integral
     signal.integral <- pmin(pmax(signal.integral, 1), num.points)
@@ -209,15 +208,11 @@ analyse_portableOSL <- function(
   ## returns a list
   ### get OSL -------
   OSL <- .unlist_RLum(list(get_RLum(object, recordType = "OSL")))
-  OSL <- do.call(rbind, lapply(OSL, function(x) {
-    .posl_get_signal(x, signal.integral)
-  }))
+  OSL <- do.call(rbind, lapply(OSL, .posl_get_signal, signal.integral))
 
   ### get IRSL -------
   IRSL <- .unlist_RLum(list(get_RLum(object, recordType = "IRSL")))
-  IRSL <- do.call(rbind, lapply(IRSL, function(x) {
-    .posl_get_signal(x, signal.integral)
-  }))
+  IRSL <- do.call(rbind, lapply(IRSL, .posl_get_signal, signal.integral))
 
   if (nrow(OSL) != nrow(IRSL)) {
     .throw_error("Sequence pattern not supported: the number of OSL records ",
@@ -236,9 +231,7 @@ analyse_portableOSL <- function(
   }
 
   DARK_COUNT <- lapply(seq(1, num.dark.count, 3), function(x) DARK_COUNT[x:(x+2)])
-  DARK_COUNT <- do.call(rbind, lapply(DARK_COUNT, function(x) {
-    .posl_get_dark_count(x)
-  }))
+  DARK_COUNT <- do.call(rbind, lapply(DARK_COUNT, .posl_get_dark_count))
 
   ### NORMALISE ----
   if (normalise) {
@@ -396,7 +389,7 @@ analyse_portableOSL <- function(
            y = m[, 2],
            z = m[, 3],
            nx = plot_settings$nx,
-           ny = plot_settings$ny,
+           ny = plot_settings$ny
          ), silent = TRUE)
 
        ## show only warning

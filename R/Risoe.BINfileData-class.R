@@ -3,7 +3,6 @@
 #' S4 class object for luminescence data in R. The object is produced as output
 #' of the function [read_BIN2R].
 #'
-#'
 #' @name Risoe.BINfileData-class
 #'
 #' @docType class
@@ -348,12 +347,7 @@ setMethod(f = "show",
                                 quote = FALSE)
               date <- .collapse(unique(object@METADATA[id_128, "DATE"]),
                                 quote = FALSE)
-              run.range <- suppressWarnings(range(object@METADATA[id_128,"RUN"]))
-              set.range <- suppressWarnings(range(object@METADATA[id_128,"SET"]))
               grain.range <- suppressWarnings(range(object@METADATA[id_128,"GRAIN"]))
-
-              pos.range <- suppressWarnings(range(object@METADATA[id_128,"POSITION"]))
-
               records.type.count <- vapply(seq_along(records.type), function(x){
                 paste0(names(records.type[x]),"\t(n = ", records.type[x],")")
                }, character(1))
@@ -372,12 +366,15 @@ setMethod(f = "show",
               cat("\n\tSystem ID:           ", ifelse(systemID == 0,"0 (unknown)", systemID))
               cat("\n\tOverall records:     ", records.overall)
               cat("\n\tRecords type:        ", records.type.count)
-              cat("\n\tPosition range:      ", pos.range[1],":",pos.range[2])
-                if(max(grain.range) > 0)
-                  cat("\n\tGrain range:         ", grain.range[1],":",grain.range[2])
-
-              cat("\n\tRun range:           ", run.range[1],":",run.range[2])
-              cat("\n\tSet range:           ", set.range[1], ":", set.range[2])
+              cat("\n\tPosition range:      ",
+                  .format_range(object@METADATA[id_128, "POSITION"], sep = " : "))
+              if (max(grain.range) > 0)
+                cat("\n\tGrain range:         ",
+                    .format_range(object@METADATA[id_128, "GRAIN"], sep = " : "))
+              cat("\n\tRun range:           ",
+                  .format_range(object@METADATA[id_128, "RUN"], sep = " : "))
+              cat("\n\tSet range:           ",
+                  .format_range(object@METADATA[id_128, "SET"], sep = " : "))
 
               ## if id_128
               if(any(!id_128))
@@ -441,8 +438,7 @@ setMethod("add_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-            .validate_class(info_element, "character")
-            .validate_length(info_element, 1)
+            .validate_class(info_element, "character", length = 1)
             valid.names <- colnames(object@METADATA)
             if (info_element %in% valid.names) {
               .throw_error("'info_element' already present, to modify it ",
@@ -469,8 +465,7 @@ setMethod("rename_metadata<-",
             on.exit(.unset_function_name(), add = TRUE)
 
             ## Integrity checks ---------------------------------------------
-            .validate_class(info_element, "character")
-            .validate_length(info_element, 1)
+            .validate_class(info_element, "character", length = 1)
             valid.names <- colnames(object@METADATA)
             if (!info_element %in% valid.names) {
               .throw_error("'info_element' not recognised (",
@@ -495,7 +490,7 @@ setMethod("rename_metadata<-",
 #' @export
 setMethod("replace_metadata<-",
           signature= "Risoe.BINfileData",
-          definition = function(object, info_element, subset = NULL, value) {
+          definition = function(object, info_element, subset = NULL, value = NULL) {
             .set_function_name("replace_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 
@@ -569,7 +564,7 @@ setMethod(
     ## input validation
     .validate_class(info_element, "character")
     valid.names <- colnames(object@METADATA)
-    if (any(!info_element %in% valid.names)) {
+    if (!all(info_element %in% valid.names)) {
       .throw_error("Invalid 'info_element' name, valid names are: ",
                    .collapse(valid.names))
     }

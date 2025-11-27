@@ -7,11 +7,12 @@
 #' @docType class
 #'
 #' @slot recordType
-#' Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")
+#' Object of class "character" containing the type of the curve (e.g. "TL" or
+#' "OSL").
 #'
 #' @slot curveType
 #' Object of class "character" containing curve type, allowed values are
-#' "measured" or "predefined"
+#' "measured" or "predefined".
 #'
 #' @slot data
 #' Object of class [matrix] containing curve x and y data.
@@ -24,8 +25,7 @@
 #' ```
 #' would just change the `recordType`. Missing arguments  the value is taken
 #' from the input object in 'data' (which is already an `RLum.Data.Curve`
-#' object in this example)
-#'
+#' object in this example).
 #'
 #' @note
 #' The class should only contain data for a single curve. For additional
@@ -61,7 +61,7 @@ setClass("RLum.Data.Curve",
            data = "matrix"
            ),
          contains = "RLum.Data",
-         prototype = list (
+         prototype = list(
            recordType = NA_character_,
            curveType = NA_character_,
            data = matrix(data = 0, ncol = 2)
@@ -77,7 +77,7 @@ setClass("RLum.Data.Curve",
 #'
 #' **[RLum.Data.Curve-class]**
 #'
-#' \tabular{lll}{
+#' \tabular{ll}{
 #'  **from** \tab **to**\cr
 #'   `list` \tab `list` \cr
 #'   `data.frame` \tab `data.frame`\cr
@@ -118,7 +118,6 @@ setAs("RLum.Data.Curve", "list",
 ##COERCE RLum.Data.Curve >> data.frame AND data.frame >> RLum.Data.Curve
 setAs("data.frame", "RLum.Data.Curve",
       function(from,to){
-
               new(to,
                   recordType = "unknown curve type",
                   curveType = NA_character_,
@@ -219,41 +218,28 @@ setMethod(
       if(missing(recordType))
         recordType <- data@recordType
 
-      ##check for missing data ... not possible as data is the object itself
-
       ##check for missing info
       if(missing(info))
         info <- data@info
 
-      ##check for missing .uid and .pid and originator
-      ##>> no this is always taken from the old object here
-
-      ##set empty class from object
-      newRLumDataCurve <- new("RLum.Data.Curve")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataCurve@recordType <- recordType
-      newRLumDataCurve@curveType <- curveType
-      newRLumDataCurve@data <- data@data
-      newRLumDataCurve@info <- info
-      newRLumDataCurve@originator <- data@originator
-      newRLumDataCurve@.uid <- data@.uid
-      newRLumDataCurve@.pid <- data@.pid
-
-    } else {
-
-      ##set empty class form object
-      newRLumDataCurve <- new("RLum.Data.Curve")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataCurve@originator <- originator
-      newRLumDataCurve@recordType <- recordType
-      newRLumDataCurve@curveType <- curveType
-      newRLumDataCurve@data <- data
-      newRLumDataCurve@info <- info
-      newRLumDataCurve@.uid <- .uid
-      newRLumDataCurve@.pid <- .pid
+      originator <- data@originator
+      .uid <- data@.uid
+      .pid <- data@.pid
+      data <- data@data
     }
+
+    ## set empty class form object
+    newRLumDataCurve <- new("RLum.Data.Curve")
+
+    ## fill - this is the faster way, filling in new() costs ...
+    newRLumDataCurve@originator <- originator
+    newRLumDataCurve@recordType <- recordType
+    newRLumDataCurve@curveType <- curveType
+    newRLumDataCurve@data <- data
+    newRLumDataCurve@info <- info
+    newRLumDataCurve@.uid <- .uid
+    newRLumDataCurve@.pid <- .pid
+
     return(newRLumDataCurve)
   }
 )
@@ -272,27 +258,21 @@ setMethod("get_RLum",
           .set_function_name("get_RLum")
           on.exit(.unset_function_name(), add = TRUE)
 
-           if(!is.null(info.object)) {
-              if(info.object %in% names(object@info)){
-                unlist(object@info[info.object])
+    if (is.null(info.object)) {
+      return(object@data)
+    }
+    if (length(object@info) == 0) {
+      .throw_warning("'object' has no info objects, NULL returned")
+      return(NULL)
+    }
+    if (!info.object %in% names(object@info)) {
+      .throw_warning("Invalid 'info.object' name, valid names are: ",
+                     .collapse(names(object@info)))
+      return(NULL)
+    }
 
-              }else{
-                ##check for entries
-                if(length(object@info) == 0){
-                  .throw_warning("This RLum.Data.Curve object has no ",
-                                 "info objects, NULL returned")
-                  return(NULL)
-                }
-                .throw_warning("Invalid 'info.object' name, valid names are: ",
-                               .collapse(names(object@info)))
-                return(NULL)
-              }
-
-           } else {
-             ## if info.object == NULL just show the curve values
-             object@data
-           }
-          })
+    unlist(object@info[info.object])
+  })
 
 
 ## length_RLum() ------------------------------------------------------------

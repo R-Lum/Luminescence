@@ -360,8 +360,8 @@ calc_AverageDose <- function(
   IC <- rbind(IC_delta, IC_sigma_d)
 
   # standard errors
-  sedelta <- sqrt ((1/(Nb_BE-1))*sum((dstar[,1]-mean(dstar[,1]))^2))
-  sesigma_d <- sqrt ((1/(Nb_BE-1))*sum((dstar[,2]-mean(dstar[,2]))^2))
+  sedelta <- sqrt((1 / (Nb_BE - 1)) * sum((dstar[, 1] - mean(dstar[, 1]))^2))
+  sesigma_d <- sqrt((1 / (Nb_BE - 1)) * sum((dstar[, 2] - mean(dstar[, 2]))^2))
 
   ##Terminal output
   if (verbose) {
@@ -439,9 +439,7 @@ calc_AverageDose <- function(
 
   ##expand all elements in the list
   ##problem: the user might provid only one item, then the code will break
-  plot_settings.user <- lapply(list(...), function(x){
-    rep(x, length = 3)
-  })
+  plot_settings.user <- lapply(list(...), rep, length = 3)
 
   ##modify
   plot_settings <- modifyList(plot_settings, plot_settings.user)

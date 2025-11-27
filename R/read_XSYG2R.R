@@ -351,7 +351,7 @@ read_XSYG2R <- function(
     return(spectrum.matrix)
   }
 
-  # (1) Integrity tests -----------------------------------------------------
+  # (1) Integrity checks ----------------------------------------------------
   ##set HUGE for larger nodes
   HUGE <- 524288
 
@@ -447,11 +447,10 @@ read_XSYG2R <- function(
 
       ## correct record type in depending on the stimulator
       xml.size <- XML::xmlSize(record)
-      if (recordType == "OSL") {
-        if (XML::xmlAttrs(record[[xml.size]])["stimulator"] %in%
+      if (recordType == "OSL" &&
+          XML::xmlAttrs(record[[xml.size]])["stimulator"] %in%
               c("ir_LED_850", "ir_LD_850")) {
           recordType  <- "IRSL"
-        }
       }
 
       ## loop 3rd level
@@ -693,10 +692,10 @@ read_XSYG2R <- function(
   if (auto_linearity_correction) {
     ## set look-up table for common FI PMTs
     count_pair_res <- c(
-      "UVVIS" = 18,
-      "NIR50" = 70,
-      "NIR40" = 70,
-      "ETPMT" = 25)
+      UVVIS = 18,
+      NIR50 = 70,
+      NIR40 = 70,
+      ETPMT = 25)
 
     ## correct only curves that can be corrected
     output <- lapply(output, \(x) {

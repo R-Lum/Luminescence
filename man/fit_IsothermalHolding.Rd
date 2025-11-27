@@ -6,8 +6,9 @@
 \usage{
 fit_IsothermalHolding(
   data,
-  ITL_model = "GOK",
   rhop,
+  ITL_model = "GOK",
+  normalise_LxTx = TRUE,
   plot = TRUE,
   verbose = TRUE,
   txtProgressBar = TRUE,
@@ -19,12 +20,16 @@ fit_IsothermalHolding(
 \item{data}{\link{character} or \link{data.frame} (\strong{required}): file path or data
 frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".}
 
+\item{rhop}{\link{numeric} or \linkS4class{RLum.Results} (\emph{with default}):
+a vector of rho prime values (one for each sample) or an \linkS4class{RLum.Results}
+object produced by \link{analyse_FadingMeasurement}.}
+
 \item{ITL_model}{\link{character} (\emph{with default}): model to be fitted, either
 \code{"GOK"} or \code{"BTS"}.}
 
-\item{rhop}{\link{numeric} or \linkS4class{RLum.Results} (\emph{with default}): a vector
-of rho prime values (one for each sample) or an \linkS4class{RLum.Results} object
-produced by \link{analyse_FadingMeasurement}}
+\item{normalise_LxTx}{\link{logical} (\emph{with default}):
+whether the \code{LxTx} data should be normalised to its maximum value (\code{TRUE}
+by default).}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
@@ -47,6 +52,8 @@ The object returned contains the following elements:
 \item{fit}{\link{list} with the fitted models}
 \item{coefs}{\link{data.frame} containing the fitted coefficients for the models}
 \item{data}{\link{data.frame} containing the data used in the fitting process}
+
+It may return \code{NULL} if no model could be fitted.
 }
 \description{
 ##TODO

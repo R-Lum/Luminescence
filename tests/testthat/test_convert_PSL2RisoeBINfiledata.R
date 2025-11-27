@@ -27,6 +27,5 @@ test_that("check functionality", {
   fake <- merged
   fake@records[10][[1]]@originator <- "unexpected-originator"
   expect_error(convert_PSL2Risoe.BINfileData(fake),
-               "Only objects originating from 'read_PSL2R()' are allowed",
-               fixed=TRUE)
+               "At least one element of 'object' has an unsupported originator")
 })

@@ -63,7 +63,7 @@ setClass(
     info = "list"
   ),
   contains = "RLum.Data",
-  prototype = list (
+  prototype = list(
     recordType = NA_character_,
     curveType = NA_character_,
     data = matrix(),
@@ -81,10 +81,10 @@ setClass(
 #'
 #' **[RLum.Data.Spectrum-class]**
 #'
-#' \tabular{lll}{
+#' \tabular{ll}{
 #'   **from** \tab **to**\cr
 #'   `data.frame` \tab `data.frame`\cr
-#'   `matrix` \tab `matrix`
+#'   `matrix` \tab `matrix` \cr
 #'   `list` \tab `list`
 #' }
 #'

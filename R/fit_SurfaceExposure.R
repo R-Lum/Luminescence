@@ -368,10 +368,9 @@ fit_SurfaceExposure <- function(
       use_fun <- fun_global_w_dr
     else
       use_fun <- fun_w_dr
-  } else {
-    if (global_fit)
+  } else if (global_fit) {
       use_fun <- fun_global
-    else
+  } else {
       use_fun <- fun
   }
 
@@ -398,7 +397,7 @@ fit_SurfaceExposure <- function(
 
     # Fill with NA values
     coef <- data.frame(
-      "Estimate" = rep(NA, 3),
+      Estimate = rep(NA, 3),
       "Std. Error" = rep(NA, 3),
       row.names = c("age", "sigmaphi", "mu"), check.names = FALSE
     )
@@ -445,13 +444,13 @@ fit_SurfaceExposure <- function(
       pch = 21,
       col = "black",
       bg = "red",
-      xlab = if (!coord_flip) "Depth (mm)" else "OSL intensity (Ln/Tn)",
-      ylab = if (!coord_flip) "OSL intensity (Ln/Tn)" else "Depth (mm)",
+      xlab = if (coord_flip) "OSL intensity (Ln/Tn)" else "Depth (mm)",
+      ylab = if (coord_flip) "Depth (mm)" else "OSL intensity (Ln/Tn)",
       cex = 1.0,
       lty = 1,
       lwd = 1,
       log = "",
-      ylim = if (!coord_flip) range(pretty(data[ ,2])) else rev(range(pretty(data[ ,2]))),
+      ylim = if (coord_flip) rev(range(pretty(data[, 2]))) else range(pretty(data[, 2])),
       xlim = range(pretty(data[ ,1]))
     )
 

@@ -182,7 +182,6 @@ convert_CW2pPMi<- function(
     temp.values <- as(values, "data.frame")
 
   }else{
-
     temp.values <- values
   }
 
@@ -203,7 +202,7 @@ convert_CW2pPMi<- function(
   ##set P
   ##if no values for P is set selected a P value for a maximum of
   ##two extrapolation points
-  if(missing(P)==TRUE){
+  if (missing(P)) {
     i<-1
     P<-1/i
     t.transformed<-(1/3)*(1/P^2)*t^3
@@ -214,12 +213,10 @@ convert_CW2pPMi<- function(
       i<-i+1
     }
   }else{
-
     t.transformed<-(1/3)*(1/P^2)*t^3
   }
 
   # (4) Interpolation ---------------------------------------------------------
-
 
   ##interpolate values, values beyond the range return NA values
   CW_OSL.interpolated <- approx(t, CW_OSL.log, xout=t.transformed, rule=1 )
@@ -231,7 +228,7 @@ convert_CW2pPMi<- function(
   # (5) Extrapolate first values of the curve ---------------------------------
 
   ##(a) - find index of first rows which contain NA values (needed for extrapolation)
-  temp.sel.id<-min(which(is.na(temp[,2])==FALSE))
+  temp.sel.id <- min(which(!is.na(temp[, 2])))
 
   ##(b) - fit linear function
   fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))

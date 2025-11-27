@@ -37,7 +37,7 @@
       return(x)
     })
 
-  return(object)
+  object
 }
 
 #+++++++++++++++++++++
@@ -78,7 +78,7 @@
     expr = expr,
     warning = function(w) {
       warning_collector <<- c(warning_collector, w$message)
-      tryInvokeRestart ("muffleWarning")
+      tryInvokeRestart("muffleWarning")
     }
   )
 
@@ -92,7 +92,7 @@
                    ifelse(w_table == 1, "", sprintf(" [%d times]", w_table)))
     warning(paste(msg, collapse = "\n"), call. = FALSE)
   }
-  return(results)
+  results
 }
 
 #+++++++++++++++++++++
@@ -165,14 +165,15 @@
    k <- ceiling(length(x) / 100)
 
   ##smooth data
-  if(method == "mean"){
+  switch(method,
+  mean = {
     data.table::frollmean(x, n = k, fill = fill, align = align)
-
-  }else if(method == "median"){
+  },
+  median = {
     data.table::frollapply(x, n = k, FUN = "median",
                            fill = fill, align = align)
-  }
-  else if (method == "Carter_etal_2018") {
+  },
+  Carter_etal_2018 = {
     ## Code derived with corrections and improvements from the supplementary
     ## materials of Carter et al. (2018)
     ## https://doi.org/10.1016/j.radmeas.2018.05.010
@@ -198,7 +199,7 @@
     x[na.idx] <- data.table::frollmean(x, n = 5, align = "center",
                                        fill = fill, na.rm = TRUE)[na.idx]
     round(x)
-  }
+  })
 }
 
 #' Computation of a weighted median
@@ -216,7 +217,7 @@
 #' A numeric value corresponding to the weighted median of the input vector.
 #'
 #' @noRd
-.weighted.median <- function (x, w, na.rm = FALSE) {
+.weighted.median <- function(x, w, na.rm = FALSE) {
   ## based on limma::weighted.median
   if (na.rm) {
     keep.idx <- !is.na(x)
@@ -256,7 +257,7 @@
 #' @noRd
 .normalise_curve <- function(data, norm) {
 
-  if (norm == "max" || norm == TRUE) {
+  if (norm == "max" || isTRUE(norm)) {
     data <- data / max(data)
   }
   else if (norm == "last") {
@@ -274,7 +275,7 @@
                    "values replaced by 0")
   }
 
-  return(data)
+  data
 }
 
 #++++++++++++++++++++++++++++++
@@ -319,7 +320,7 @@
     res[1, ] <- round(res[1, ], digits = digits)
   }
 
-  return(res)
+  res
 }
 
 #++++++++++++++++++++++++++++++
@@ -401,7 +402,7 @@ fancy_scientific <- function(l) {
     side,
     at = as.numeric(minor_ticks),
     lwd.ticks = 0.5,
-    tcl = -.35,
+    tcl = -0.35,
     labels = FALSE)
 
   ## add main axis
@@ -422,18 +423,25 @@ fancy_scientific <- function(l) {
 #' Retrieve graphical parameters
 #'
 #' @return
-#' A list of graphical parameters that can be restored. The `pin` parameter
-#' is removed because at times (when a pdf file with too small size) it can
-#' become negative, and restoring it would throw an error. The `new` parameter
-#' is set to `FALSE` because calling `par()` with no graphical device open
-#' will set `par("new")` to `TRUE`, which is not what we want to restore, as
-#' otherwise the next plot may accidentally overwrite the previous one.
+#' A list of graphical parameters that can be restored, with the following
+#' exceptions:
+#' - The `pin` parameter is removed because at times (for example, when a pdf
+#' file with too small size is used) it can become negative, and restoring it
+#' would throw an error.
+#' - The `new` parameter is set to `FALSE` because calling `par()` with no
+#' graphical device open will set `par("new")` to `TRUE`, which is not what
+#' we want to restore, as otherwise the next plot may accidentally overwrite
+#' the previous one.
+#' - The `usr` parameter is removed so that additional plot elements can be
+#' added afterwards using the axis scale of the plot. If we restore that, the
+#' axis would range to the default 0-1 interval.
 #'
 #' @noRd
 .par_defaults <- function() {
   pars <- par(no.readonly = TRUE)
   pars$pin <- NULL
   pars$new <- FALSE
+  pars$usr <- NULL
   pars
 }
 
@@ -486,7 +494,7 @@ fancy_scientific <- function(l) {
     adj <- c(1, 0)
   }
 
-  return(list(pos = pos, adj = adj))
+  list(pos = pos, adj = adj)
 }
 
 
@@ -531,7 +539,7 @@ fancy_scientific <- function(l) {
 ) {
   ## loop over all keywords provided
   l <- lapply(keywords, function(k) {
-    if (nchar(k) == 0)
+    if (!nzchar(k))
       return(NULL)
 
     ## strip the prefix if necessary
@@ -556,7 +564,7 @@ fancy_scientific <- function(l) {
   l <- .rm_NULL_elements(l)
 
   ##construct final call
-  return(paste0(prefix, paste(unlist(l), collapse = sep), suffix))
+  paste0(prefix, paste(unlist(l), collapse = sep), suffix)
 }
 
 #++++++++++++++++++++++++++++++
@@ -578,14 +586,12 @@ fancy_scientific <- function(l) {
 #' @return [list] with only one level left
 #' @noRd
 .unlist_RLum <- function(x){
-  stopifnot(class(x) == "list")
+  stopifnot(is.list(x))
 
-  if(length(x) > 0 && inherits(x[[1]], "list")){
-    x <- unlist(x, recursive = FALSE)
-    .unlist_RLum(x)
-  }else{
+  if (length(x) == 0 || !inherits(x[[1]], "list"))
     return(x)
-  }
+
+  .unlist_RLum(unlist(x, recursive = FALSE))
 }
 
 #++++++++++++++++++++++++++++++
@@ -725,7 +731,7 @@ fancy_scientific <- function(l) {
     }
 
     ##reset rownames and make sure it fits the length
-    rownames(temp_m) <- rep(row_names, length.out = nrow(temp_m))
+    rownames(temp_m) <- rep_len(row_names, nrow(temp_m))
 
   }else{
     rownames(temp_m) <- NULL
@@ -735,7 +741,7 @@ fancy_scientific <- function(l) {
   if(bin_col) temp_m <- t(temp_m)
 
   ## return
-  return(temp_m)
+  temp_m
 }
 
 #++++++++++++++++++++++++++++++
@@ -770,7 +776,7 @@ fancy_scientific <- function(l) {
   ##extract arguments (do not consider the first argument, this might be a very
   ##large object)
   args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
-  args_new <- as.list(match.call(f_def, f_call, FALSE))[-c(1:2)]
+  args_new <- as.list(match.call(f_def, f_call, FALSE))[-(1:2)]
 
   ##now we have to make sure that we evaluate all language objects
   ##before passing them further down
@@ -818,7 +824,7 @@ fancy_scientific <- function(l) {
     }
   }
 
-  return(args)
+  args
 }
 
 #++++++++++++++++++++++++++++++
@@ -887,7 +893,7 @@ fancy_scientific <- function(l) {
     }
   }
 
-  return(HPDI)
+  HPDI
 }
 
 #++++++++++++++++++++++++++++++
@@ -969,7 +975,7 @@ fancy_scientific <- function(l) {
   }
 
   ## return file path
-  return(out_file_path)
+  out_file_path
 }
 
 #' @title Set/unset the function name for error/warning reporting
@@ -1078,6 +1084,15 @@ SW <- function(expr) {
                                       sys.call(sys.parent())))[1])
 }
 
+#' @title Throw an error or a warning based on a condition
+#'
+#' @noRd
+.error_or_warning <- function(msg, throw.error) {
+  if (throw.error)
+    .throw_error(msg)
+  .throw_warning(msg)
+}
+
 #' @title Validate a character argument from a list of choices
 #'
 #' @description
@@ -1089,13 +1104,13 @@ SW <- function(expr) {
 #' [base::match.arg] would have very limited use.
 #'
 #' @param arg [character] (**required**): variable to validate.
-#' @param choices [vector] [character] (**required**): a vector of candidate
-#'        values.
+#' @param choices [character] (**required**): vector of candidate values.
 #' @param null.ok [logical] (*with default*): whether a `NULL` value should be
 #'        considered valid (`FALSE` by default).
 #' @param name [character] (*with default*): variable name to report in case
-#'        of error; if not specified it's inferred from the name of the
-#'        variable tested.
+#'        of error; if specified, it's reported as is (so, it may need to be
+#'        quoted by the caller); otherwise, it's inferred from the name of the
+#'        variable tested and reported with quotes.
 #' @param extra [character] (*with default*): additional choice to be reported
 #'        after the valid choices and preceded by "or". If `null.ok = TRUE`,
 #'        the text reported is automatically set to `"or NULL"`, otherwise it
@@ -1132,39 +1147,26 @@ SW <- function(expr) {
   if (null.ok)
     choices.extra <- c(choices.extra, "NULL")
 
-  ## use an 'or' instead of a comma before the last choice
-  if (length(choices.extra) > 1) {
-    msg.head <- head(choices.extra, -1)
-    msg.tail <- paste(" or", tail(choices.extra, 1))
-  } else {
-    msg.head <- choices.extra
-    msg.tail <- NULL
-  }
-
   idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
   if (all(idx.match == 0L))
     .throw_error(name %||% .first_argument(), " should be one of ",
-                 .collapse(msg.head, quote = FALSE), msg.tail)
+                 .collapse(choices.extra, quote = FALSE, last_sep = " or "))
   idx <- idx.match[idx.match > 0L]
   choices[idx]
 }
 
 #' @title Validate an argument from a list of classes
 #'
-#' @param arg [character] (**required**): variable to validate.
-#' @param classes [vector] [character] (**required**): a vector of candidate
-#'        classes or types.
-#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default).
+#' @param classes [character] (**required**): vector of candidate classes or
+#'        types.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
-#' @param extra [character] (*with default*): additional choice to be reported
-#'        after the valid choices and preceded by "or".
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @param length [integer] (*with default*): if not `NULL`, validate that
+#'        the length matches the one provided. This can be used only when
+#'        `classes` contains only base vector types, not [RLum-class] objects
+#'        or container types.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' If `throw.error = TRUE`, the function throws an error and doesn't return
@@ -1173,49 +1175,38 @@ SW <- function(expr) {
 #'
 #' @noRd
 .validate_class <- function(arg, classes, null.ok = FALSE, throw.error = TRUE,
-                            name = NULL, extra = NULL) {
+                            length = NULL, name = NULL, extra = NULL) {
 
   if (!missing(arg) && is.null(arg) && null.ok)
     return(TRUE)
 
-  if (missing(arg) || sum(inherits(arg, classes)) == 0L) {
+  if (missing(arg) || sum(inherits(arg, classes)) == 0L ||
+      !is.null(length) && length(arg) != length) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
     classes.extra <- c(sQuote(classes, q = FALSE), extra)
     if (null.ok)
       classes.extra <- c(classes.extra, "NULL")
 
-    ## use an 'or' instead of a comma before the last choice
-    if (length(classes.extra) > 1) {
-      msg.head <- head(classes.extra, -1)
-      msg.tail <- paste(" or", tail(classes.extra, 1))
-    } else {
-      msg.head <- classes.extra
-      msg.tail <- NULL
-    }
     msg <- paste0(name %||% .first_argument(), " should be of class ",
-                  .collapse(msg.head, quote = FALSE), msg.tail)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+                  .collapse(classes.extra, quote = FALSE, last_sep = " or "))
+    if (!is.null(length))
+      msg <- paste0(msg, " and have length ", length)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @title Validate that a variable is not empty
 #'
-#' @param arg [character] (**required**): variable to validate.
 #' @param what [character] (**required**): the type of the variable, used
 #'        only in the message reported; if not specified it's inferred from
 #'        they type of the variable tested.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' If `throw.error = TRUE`, the function throws an error and doesn't return
@@ -1232,25 +1223,19 @@ SW <- function(expr) {
 
   if (NROW(arg) == 0 || NCOL(arg) == 0) {
     msg <- paste0(name %||% .first_argument(), " cannot be an empty ", what)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @title Validate the length of a variable
 #'
-#' @param arg [character] (**required**): variable to validate.
 #' @param exp.length [integer] (**required**): the expected length.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' If `throw.error = TRUE`, the function throws an error and doesn't return
@@ -1260,19 +1245,17 @@ SW <- function(expr) {
 #' @noRd
 .validate_length <- function(arg, exp.length, throw.error = TRUE,
                             name = NULL) {
-
   if (length(arg) != exp.length) {
     msg <- paste0(name %||% .first_argument(), " should have length ", exp.length)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @title Validate scalar variables
 #'
+#' @description
 #' This function is meant to validate unbounded (integer) scalar variables.
 #' The `pos` and `log` arguments are not intended for direct use, they serve
 #' to facilitate the implementation of `.validate_positive_scalar()` and
@@ -1285,12 +1268,7 @@ SW <- function(expr) {
 #'        (`FALSE` by default).
 #' @param log [logical] (*with default*): whether the value has to be logical
 #'        (`FALSE` by default).
-#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
-#'        considered valid (`FALSE` by default).
-#' @param name [character] (*with default*): variable name to report in case
-#'        of error: if specified, it's reported as is; if not specified it's
-#'        inferred from the name of the variable tested and reported with
-#'        quotes.
+#' @inheritParams .validate_args
 #'
 #' @return
 #' The validated value, unless the validation failed with an error thrown.
@@ -1300,7 +1278,7 @@ SW <- function(expr) {
                              null.ok = FALSE, name = NULL) {
   if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
-  if (missing(val) || length(val) != 1 || is.na(val) ||
+  if (missing(val) || NROW(val) != 1 || NCOL(val) != 1 || is.na(val) ||
       (!log && !is.numeric(val)) || (log && !is.logical(val)) ||
       (int && (is.infinite(val) || val != as.integer(val))) ||
       (pos && val <= 0)) {
@@ -1332,6 +1310,36 @@ SW <- function(expr) {
                    name = name %||% .first_argument())
 }
 
+#' @title Validate the originator of an RLum object
+#'
+#' @param object [RLum] (**required**): object whose originator should be
+#'        checked.
+#' @inheritParams .validate_args
+#'
+#' @return
+#' The validated value, unless the validation failed with an error thrown.
+#'
+#' @noRd
+.validate_originator <- function(object, choices, name = NULL) {
+  if (.check_originator(object, choices))
+    return(object@originator)
+  .throw_error(paste0(name %||% .first_argument(), " has an unsupported originator ",
+                      "(expected ", .collapse(choices), ", but found '",
+                      object@originator, "')"))
+}
+
+#' @title Check that the originator matches a set of choices
+#'
+#' @inheritParams .validate_originator
+#'
+#' @return
+#' A logical value.
+#'
+#' @noRd
+.check_originator <- function(object, choices) {
+  .hasSlot(object, "originator") && object@originator %in% choices
+}
+
 #' Check that a suggested package is installed
 #'
 #' Report a message with installation instructions if a suggested package
@@ -1356,12 +1364,10 @@ SW <- function(expr) {
     msg <- paste("%s requires the '%s' package: to install it, run",
                  "`install.packages('%s')` in your R console")
     msg <- sprintf(msg, reason, pkg, pkg)
-    if (throw.error)
-      .throw_error(msg)
-    .throw_warning(msg)
+    .error_or_warning(msg, throw.error)
     return(FALSE)
   }
-  return(TRUE)
+  TRUE
 }
 
 #' Create a list of objects repeated a given number of times
@@ -1384,18 +1390,43 @@ SW <- function(expr) {
 #' Collapse the elements of a vector into a comma-separated string, with
 #' the option of quoting each element.
 #'
-#' @param x [vector] A vector of elements to be collapsed into a comma-separated
-#'        string.
-#' @param quote [logical] (*with default*) Whether each element should be
+#' @param x [vector] (**required**): A vector of elements to be collapsed into
+#'        a comma-separated string.
+#' @param quote [logical] (*with default*): Whether each element should be
 #'        surrounded by single quotes (`TRUE` by default).
+#' @param last_sep [character] (*with default*): Separator to use before the
+#'        last element (`", "` by default). This should contain the desired
+#'        spacing around it (e.g. " or ").
 #'
 #' @return
 #' A comma-separated string where each element of the original vector is
 #' optionally surrounded by single quotes.
 #'
 #' @noRd
-.collapse <- function(x, quote = TRUE) {
-  paste0(if (quote) sQuote(x, FALSE) else x, collapse=", ")
+.collapse <- function(x, quote = TRUE, last_sep = ", ") {
+  x <- if (quote) sQuote(x, FALSE) else as.character(x)
+  if (length(x) < 2)
+    return(toString(x))
+  head <- head(x, -2)
+  tail <- paste0(tail(x, 2)[1], last_sep, tail(x, 1))
+  toString(c(head, tail))
+}
+
+#' Compute and format the range of a vector
+#'
+#' @param vals [numeric] (**required**): A numeric vector.
+#' @param sep [character] (*with default*): Separator character.
+#' @param nsmall [integer] (*with default*): Minimum number of digits to the
+#'        right of the decimal point.
+#'
+#' @return
+#' A string with the range of the vector formatted as `min:max`.
+#'
+#' @noRd
+.format_range <- function(vals, sep = ":", nsmall = 0L) {
+  rng <- tryCatch(range(vals, na.rm = TRUE),
+                  warning = function(w) c(NA, NA))
+  paste(format(rng, nsmall = nsmall, trim = TRUE), collapse = sep)
 }
 
 #' Shorten a filename

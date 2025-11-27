@@ -216,7 +216,7 @@ calc_MoransI <- function(object,
     ## Local helper function: reshuffle (=permutate) observations, an test if Moran's I
     ## from reshuffled observations if equal or above the calculated Moran's I
     reshuffle_and_test <- function(vn_values, n_moransI, df_neighbours) {
-      vn_values_reshuffled <- rep(NA, length.out = length(vn_values))
+      vn_values_reshuffled <- rep_len(NA_real_, length(vn_values))
       vn_values_reshuffled[vb_contains_observation] <- sample(vn_values[vb_contains_observation])
       (calc_MoransI(object = vn_values_reshuffled,
                     df_neighbours = df_neighbours) >= n_moransI)

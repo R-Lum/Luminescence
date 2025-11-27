@@ -78,10 +78,7 @@ convert_Daybreak2CSV <- function(
   arguments[duplicated(names(arguments))] <- NULL
 
   ##this if-condition prevents NULL in the terminal
-  if(convert_Daybreak2R_settings$export == TRUE){
-    invisible(do.call("write_RLum2CSV", arguments))
-
-  }else{
-    do.call("write_RLum2CSV", arguments)
-  }
+  if (convert_Daybreak2R_settings$export)
+    return(invisible(do.call("write_RLum2CSV", arguments)))
+  do.call("write_RLum2CSV", arguments)
 }

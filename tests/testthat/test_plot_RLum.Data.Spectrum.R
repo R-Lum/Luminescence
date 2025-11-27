@@ -200,7 +200,7 @@ test_that("graphical snapshot tests", {
                                                       phi = 45,
                                                       ticktype = "simple",
                                                       bin.rows = 5),
-                              "Lowest count value is larger than the set count threshold"))
+                              "'limit_counts' is smaller than the lowest count value"))
   vdiffr::expect_doppelganger("image",
                               expect_warning(
                               plot_RLum.Data.Spectrum(TL.Spectrum,

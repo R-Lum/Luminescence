@@ -95,7 +95,7 @@ NULL
 #' @method plot list
 #' @export
 plot.list <- function(x, y, ...) {
-  if (all(sapply(x, function(x) inherits(x, "RLum")))) {
+  if (all(sapply(x, inherits, "RLum"))) {
     plot_RLum(object = x, ...)
   }
   else {
@@ -397,7 +397,7 @@ as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
 #' @export
 # nocov start
 is.RLum <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release");
+  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
   is(x, "RLum")
 }
 
@@ -457,16 +457,12 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 #' @method unlist RLum.Analysis
 #' @export
 unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
-
   temp <- get_RLum(object = x, recursive = recursive, ... )
-  if(recursive){
-    unlist(lapply(1:length(temp), function(x){
+  if (!recursive)
+    return(temp)
+  unlist(lapply(1:length(temp), function(x){
       get_RLum(temp)
     }), recursive = FALSE)
-
-  }else{
-    return(temp)
-  }
 }
 
 

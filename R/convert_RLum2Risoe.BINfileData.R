@@ -40,12 +40,9 @@ convert_RLum2Risoe.BINfileData <- function(
   .set_function_name("convert_RLum2Risoe.BINfileData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # Self call -----------------------------------------------------------------------------------
+  # Self call ---------------------------------------------------------------
   if (inherits(object, "list")) {
-    object_list <-
-      lapply(object, function(x) {
-        convert_RLum2Risoe.BINfileData(x)
-      })
+    object_list <- lapply(object, convert_RLum2Risoe.BINfileData)
 
     ##merge objects
     if (length(object_list) == 1)
@@ -116,7 +113,7 @@ convert_RLum2Risoe.BINfileData <- function(
     ## convert
     value <- switch(
       tmp_class,
-      "factor" = as.factor(prototype@METADATA[[field]]),
+      factor = as.factor(prototype@METADATA[[field]]),
       as(prototype@METADATA[[field]], tmp_class)
     )
 

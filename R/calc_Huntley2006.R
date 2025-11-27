@@ -219,7 +219,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.6
+#' @section Function version: 0.4.7
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -282,7 +282,6 @@
 #'  readerDdot = readerDdot,
 #'  n.MC = 25)
 #'
-#'
 #' \dontrun{
 #' # You can also provide LnTn values separately via the 'LnTn' argument.
 #' # Note, however, that the data frame for 'data' must then NOT contain
@@ -305,9 +304,9 @@
 calc_Huntley2006 <- function(
     data,
     LnTn = NULL,
-    rhop,
-    ddot,
-    readerDdot,
+    rhop = NULL,
+    ddot = NULL,
+    readerDdot = NULL,
     normalise = TRUE,
     fit.method = c("EXP", "GOK"),
     lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
@@ -325,7 +324,7 @@ calc_Huntley2006 <- function(
   .validate_not_empty(data)
   .validate_class(LnTn, "data.frame", null.ok = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
-  .validate_length(lower.bounds, 4)
+  .validate_class(lower.bounds, "numeric", length = 4)
   .validate_logical_scalar(summary)
   .validate_logical_scalar(plot)
 
@@ -398,23 +397,19 @@ calc_Huntley2006 <- function(
   } else {
     ## alternatively, an RLum.Results object produced by
     ## analyse_FadingMeasurement() can be provided
-    if (is.na(rhop@originator) || rhop@originator != "analyse_FadingMeasurement")
-      .throw_error("'rhop' accepts only RLum.Results objects produced ",
-                   "by 'analyse_FadingMeasurement()'")
+    .validate_originator(rhop, "analyse_FadingMeasurement")
     rhop <- c(rhop@data$rho_prime$MEAN, rhop@data$rho_prime$SD)
   }
 
   # check if 'rhop' is actually a positive value
-  if (anyNA(rhop) || !rhop[1] > 0 || any(is.infinite(rhop))) {
+  if (anyNA(rhop) || rhop[1] <= 0 || any(is.infinite(rhop))) {
     .throw_error("'rhop' must be a positive number, the provided value ",
                  "was ", signif(rhop[1], 3), " \u00B1 ", signif(rhop[2], 3))
   }
 
   ## Check ddot & readerDdot
-  .validate_class(ddot, "numeric")
-  .validate_length(ddot, 2)
-  .validate_class(readerDdot, "numeric")
-  .validate_length(readerDdot, 2)
+  .validate_class(ddot, "numeric", length = 2)
+  .validate_class(readerDdot, "numeric", length = 2)
 
   ## set up the parallel cluster
   .validate_positive_scalar(cores, int = TRUE)
@@ -702,9 +697,7 @@ calc_Huntley2006 <- function(
   GC.settings$object <- data.unfaded
 
   ## calculate simulated DE
-  suppressWarnings(
-    GC.simulated <- try(do.call(fit_DoseResponseCurve, GC.settings))
-  )
+  GC.simulated <- suppressWarnings(try(do.call(fit_DoseResponseCurve, GC.settings)))
 
   fit_simulated <- NA
   De.sim <- De.error.sim <- D0.sim.Gy <- D0.sim.Gy.error <- NA
@@ -1063,26 +1056,26 @@ calc_Huntley2006 <- function(
     class = "RLum.Results",
     data = list(
       results = data.frame(
-        "nN" = nN,
-        "nN.error" = nN.error,
-        "nN_SS" = nN_SS,
-        "nN_SS.error" = nN_SS.error,
-        "Meas_De" = abs(De.measured),
-        "Meas_De.error" = De.measured.error,
-        "Meas_D0" =  D0.measured,
-        "Meas_D0.error" = D0.measured.error,
-        "Meas_Age" = Age.measured,
-        "Meas_Age.error" = Age.measured.error,
-        "Sim_De" = De.sim,
-        "Sim_De.error" = De.error.sim,
-        "Sim_D0" = D0.sim.Gy,
-        "Sim_D0.error" = D0.sim.Gy.error,
-        "Sim_Age" = Age.sim,
-        "Sim_Age.error" = Age.sim.error,
-        "Sim_Age_2D0" = Age.sim.2D0,
-        "Sim_Age_2D0.error" = Age.sim.2D0.error,
-        "Unfaded_D0" = D0.unfaded,
-        "Unfaded_D0.error" = D0.error.unfaded,
+        nN = nN,
+        nN.error = nN.error,
+        nN_SS = nN_SS,
+        nN_SS.error = nN_SS.error,
+        Meas_De = abs(De.measured),
+        Meas_De.error = De.measured.error,
+        Meas_D0 =  D0.measured,
+        Meas_D0.error = D0.measured.error,
+        Meas_Age = Age.measured,
+        Meas_Age.error = Age.measured.error,
+        Sim_De = De.sim,
+        Sim_De.error = De.error.sim,
+        Sim_D0 = D0.sim.Gy,
+        Sim_D0.error = D0.sim.Gy.error,
+        Sim_Age = Age.sim,
+        Sim_Age.error = Age.sim.error,
+        Sim_Age_2D0 = Age.sim.2D0,
+        Sim_Age_2D0.error = Age.sim.2D0.error,
+        Unfaded_D0 = D0.unfaded,
+        Unfaded_D0.error = D0.error.unfaded,
         row.names = NULL),
       data = data,
       Ln = c(Ln, Ln.error),

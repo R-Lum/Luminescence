@@ -67,6 +67,11 @@ the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could contin
 maintaining the package.
 \item since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
 DFG Heisenberg programme No 505822867.
+\item since 08/2024: The future and sustainable development of 'Luminescence'
+towards better reproducibility and usability is supported through the DFG
+programme "REPLAY: REProducible Luminescence Data AnalYses" No 528704761,
+led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE) and Dr Thomas
+Kolb (PI at Justus-Liebig-University Giessen, DE).
 \item All other authors gratefully received additional funding from various public funding bodies.
 }
 }

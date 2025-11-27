@@ -13,7 +13,8 @@
 #' The function for the fitting has the general
 #' form:
 #'
-#' \deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, + exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))}
+#' \deqn{y = (exp(0.5) * Im_1 * x / xm_1) * exp(-x^2 / (2 * xm_1^2)) + \ldots +
+#'            exp(0.5) * Im_i * x / xm_i) * exp(-x^2 / (2 * xm_i^2))}
 #'
 #' where \eqn{1 < i < 8}
 #'
@@ -96,7 +97,7 @@
 #' (min = 1, max = 7).
 #'
 #' @param start_values [data.frame] (*optional*):
-#' start parameters for `lm` and `xm` data for the fit. If no start values are given,
+#' starting values for `Im` and `xm` parameters in the fit. If set to `NULL`,
 #' an automatic start value estimation is attempted (see details).
 #'
 #' @param input.dataType [character] (*with default*):
@@ -193,7 +194,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.6
+#' @section Function version: 0.3.7
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -249,7 +250,7 @@ fit_LMCurve<- function(
   values,
   values.bg,
   n.components = 3,
-  start_values,
+  start_values = NULL,
   input.dataType = "LM",
   sample_code = "",
   sample_ID = "",
@@ -423,10 +424,9 @@ fit_LMCurve<- function(
   ##set function for fit equation (according Kitis and Pagonis, 2008)
   ##////equation used for fitting////(start)
   fit.equation<-function(Im.i,xm.i){
-    equation<-parse(
-      text=paste("exp(0.5)*Im[",Im.i,"]*(values[,1]/xm[",xm.i,"])*exp(-values[,1]^2/(2*xm[",xm.i,"]^2))",
-                 collapse="+",sep=""))
-    return(equation)
+    parse(text = paste0("exp(0.5) * Im[", Im.i, "] * (values[, 1] / xm[",
+                        xm.i, "]) * exp(-values[, 1]^2 / (2 * xm[", xm.i, "]^2))",
+                        collapse = "+"))
   }
   ##////equation used for fitting///(end)
   ##------------------------------------------------------------------------##
@@ -450,7 +450,7 @@ fit_LMCurve<- function(
   ##set fit function
   fit.function <- fit.equation(Im.i = 1:n.components, xm.i = 1:n.components)
 
-  if(missing(start_values)){
+  if (is.null(start_values)) {
 
     ##set b (detrapping) values for a 7-component function taken from Jain et al. (2003)
     b.pseudo<-c(32,2.5,0.65,0.15,0.025,0.0025,0.00030)
@@ -458,7 +458,7 @@ fit_LMCurve<- function(
     ##calculate xm parameters from values set based on the pseudo curves
     xm.pseudo<-sqrt(max(values[,1])/b.pseudo)
 
-    ##the Im values obtaind by calculating residuals
+    ## the Im values obtained by calculating residuals
     Im.pseudo <- sapply(xm.pseudo, function(x) {
       xm.residual <- abs(values[, 1] - x)
       values[which.min(xm.residual), 1] # time value of minimum residual
@@ -627,7 +627,7 @@ fit_LMCurve<- function(
                                (eval(fit.function))*100)
 
     ##avoid NaN values (might happen with synthetic curves)
-    y.contribution_first[is.nan(y.contribution_first)==TRUE] <- 0
+    y.contribution_first[is.nan(y.contribution_first)] <- 0
 
     ##set values in matrix
     component.contribution.matrix[,3] <- 100
@@ -649,7 +649,7 @@ fit_LMCurve<- function(
                                 (eval(fit.function))*100)
 
         ##avoid NaN values
-        y.contribution_next[is.nan(y.contribution_next)==TRUE] <- 0
+        y.contribution_next[is.nan(y.contribution_next)] <- 0
 
         ##set values in matrix
         component.contribution.matrix[, k[i]] <- 100-y.contribution_prev
@@ -672,7 +672,7 @@ fit_LMCurve<- function(
                             (eval(fit.function))*100)
 
     ##avoid NaN values
-    y.contribution_last[is.nan(y.contribution_last)==TRUE]<-0
+    y.contribution_last[is.nan(y.contribution_last)] <- 0
 
     component.contribution.matrix[,((2*length(xm))+1)] <- y.contribution_last
     component.contribution.matrix[,((2*length(xm))+2)] <- 0
@@ -840,7 +840,7 @@ fit_LMCurve<- function(
     ##==pseudo curve==##------------------------------------------------------#
 
     ##curve for used pseudo values
-    if (inherits(fit, "try-error") && missing(start_values)) {
+    if (inherits(fit, "try-error") && is.null(start_values)) {
       fit.function<-fit.equation(Im.i=1:n.components,xm.i=1:n.components)
       Im<-Im.pseudo[1:n.components]
       xm<-xm.pseudo[1:n.components]
@@ -856,9 +856,8 @@ fit_LMCurve<- function(
 
       ##draw information text on plot
       text(min(values[,1]),max(values[,2]),"FITTING ERROR!",pos=4)
-
-      ##additional legend
-      legend("topright",c("pseudo sum function"),lty=2,lwd=2,col="red",bty="n")
+      legend("topright", "pseudo sum function",
+             lty = 2, lwd = 2, col = "red", bty = "n")
     }
     ##==pseudo curve==##------------------------------------------------------##
 
@@ -937,7 +936,7 @@ fit_LMCurve<- function(
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 
-    if (settings$fun == TRUE) sTeve() # nocov
+    if (settings$fun) sTeve() # nocov
 
     } # end if (plot_check)
   }

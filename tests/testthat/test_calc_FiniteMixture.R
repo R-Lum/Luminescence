@@ -10,6 +10,10 @@ test_that("input validation", {
                "'data' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(calc_FiniteMixture(data.frame(col = 1:10)),
                "'data' object must have two columns")
+  expect_error(calc_FiniteMixture(data.frame(col = 0:10, 1:11)),
+               "'data' must have only positive values in its De column")
+  expect_error(calc_FiniteMixture(data.frame(col = c(1:10, NA), 1:11)),
+               "'data' must have only positive values in its De column")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1),
                "'sigmab' should be a single positive value")
   expect_error(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 2),
@@ -27,38 +31,38 @@ test_that("input validation", {
                "'pdf.colors' should be one of 'gray', 'colors' or 'none'")
 })
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
 
   ## simple run
   SW({
-  temp <- expect_s4_class(calc_FiniteMixture(
+  expect_snapshot_RLum(calc_FiniteMixture(
     ExampleData.DeValues$CA1,
     sigmab = 0.2,
     n.components = 2,
     grain.probability = TRUE,
-    verbose = TRUE), "RLum.Results")
+    verbose = TRUE),
+    tolerance = snapshot.tolerance)
   })
 
-  ## check length of output
-  expect_equal(length(temp), 10)
-
-  ## check for numerical regression
-  results <- get_RLum(temp)
-  expect_equal(results$de[1], 31.5299)
-  expect_equal(results$de[2], 72.0333)
-  expect_equal(results$de_err[1], 3.6387)
-  expect_equal(results$de_err[2], 2.4082)
-  expect_equal(results$proportion[1], 0.1096)
-  expect_equal(results$proportion[2], 0.8904)
+  expect_snapshot_RLum(calc_FiniteMixture(
+    ExampleData.DeValues$CA1,
+    sigmab = 0.2,
+    n.components = 3:5,
+    grain.probability = TRUE,
+    verbose = FALSE),
+    tolerance = snapshot.tolerance)
 
   ## more coverage
   SW({
-  expect_warning(calc_FiniteMixture(
+  expect_warning(expect_message(calc_FiniteMixture(
     ExampleData.DeValues$CA1[2:9, ],
     sigmab = 0.1,
     n.components = 3,
     verbose = TRUE),
+    "'n.components' specified only one component, nothing plotted"),
     "The model produced NA values: either the input data are inapplicable")
   })
 
@@ -86,7 +90,6 @@ test_that("graphical snapshot tests", {
                                   trace = TRUE,
                                   main = "Plot title",
                                   verbose = TRUE))
-
   vdiffr::expect_doppelganger("cex pdf.weights",
                               calc_FiniteMixture(
                                   ExampleData.DeValues$CA1,
@@ -96,6 +99,14 @@ test_that("graphical snapshot tests", {
                                   pdf.weights = FALSE,
                                   pdf.colors = "none",
                                   cex = 2))
+  vdiffr::expect_doppelganger("NA values only pdf",
+                              calc_FiniteMixture(
+                                  ExampleData.DeValues$CA1,
+                                  sigmab = 0.25,
+                                  n.components = 2:4,
+                                  pdf.colors = "colors",
+                                  plot.proportions = FALSE,
+                                  plot.criteria = FALSE))
 
   ## plot with plot_RLum.Results
   res <- calc_FiniteMixture(ExampleData.DeValues$CA1,

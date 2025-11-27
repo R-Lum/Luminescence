@@ -155,7 +155,7 @@ test_that("check functionality", {
     xlab = "Temperature recorded [log \u00B0C]", ylab = "log TL [a.u.]",
     xlim = c(0, 200), ylim = c(0, 1), lty = c(1, 2),
     legend.col = get("col", pos = .LuminescenceEnv)[1:4],
-    legend.pos = "outside",
+    legend.pos = "outside"
   ))
 
   ##test arguments
@@ -219,6 +219,14 @@ test_that("graphical snapshot tests", {
                                   temp[1:6],
                                   combine = TRUE,
                                   records_max = 10))
+  vdiffr::expect_doppelganger("abline after", {
+                              plot_RLum.Analysis(
+                                  temp[1:6],
+                                  subset = list(recordType = "TL"),
+                                  combine = TRUE,
+                                  records_max = 10)
+                              abline(v = 25)
+                              })
   vdiffr::expect_doppelganger("abline outside",
                               plot_RLum.Analysis(
                                   temp[1:8],

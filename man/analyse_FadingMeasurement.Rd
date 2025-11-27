@@ -7,8 +7,8 @@
 analyse_FadingMeasurement(
   object,
   structure = c("Lx", "Tx"),
-  signal.integral,
-  background.integral,
+  signal.integral = NULL,
+  background.integral = NULL,
   t_star = "half",
   n.MC = 100,
   verbose = TRUE,
@@ -18,36 +18,40 @@ analyse_FadingMeasurement(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-input object with the measurement data. Alternatively, a \link{list} containing \linkS4class{RLum.Analysis}
-objects or a \link{data.frame} with three columns
+\item{object}{\linkS4class{RLum.Analysis}, \link{data.frame} or \link{list} (\strong{required}):
+input object with the measurement data. Alternatively, a \link{list} containing
+\linkS4class{RLum.Analysis} objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-Can also be a wide table, i.e. a \link{data.frame} with a number of columns divisible by 3
-and where each triplet has the before mentioned column structure.
+Can also be a wide table, i.e. a \link{data.frame} with a number of columns
+divisible by 3 and where each triplet has the before mentioned column
+structure.
 
 \strong{Please note: The input object should solely consists of the curve needed
 for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
 the object originated from an XSYG file, also the irradiation steps must
 be preserved in the input object.}
 
-If data from multiple aliquots are provided please \strong{see the details below} with regard to
-Lx/Tx normalisation. \strong{The function assumes that all your measurements are related to
-one (comparable) sample. If you have to treat independent samples, you have use this function
-in a loop.}}
+If data from multiple aliquots are provided please \strong{see the details below}
+with regard to Lx/Tx normalisation. \strong{The function assumes that all your
+measurements are related to one (comparable) sample. If you have to treat
+independent samples, you have use this function in a loop.}}
 
 \item{structure}{\link{character} (\emph{with default}):
 the structure of the measurement data, one of \code{'Lx'} or \code{c('Lx','Tx')}.}
 
-\item{signal.integral}{\link{vector} (\strong{required}): vector with channels for the signal integral
-(e.g., \code{c(1:10)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
+\item{signal.integral}{\link{vector} (\strong{required}):
+vector with channels for the signal integral (e.g., \code{1:10}). It is not
+required if a \code{data.frame} with \code{LxTx} values is provided.}
 
-\item{background.integral}{\link{vector} (\strong{required}): vector with channels for the background integral
-(e.g., \code{c(90:100)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
+\item{background.integral}{\link{vector} (\strong{required}):
+vector with channels for the background integral (e.g., \code{90:100}). It is not
+required if a \code{data.frame} with \code{LxTx} values is provided.}
 
-\item{t_star}{\link{character} (\emph{with default}):
-method for calculating the time elapsed since irradiation if input is \strong{not} a \code{data.frame}.
-Options are: \code{'half'} (the default), \verb{'half_complex}, which uses the long equation in Auclair et al. 2003, and
-and \code{'end'}, which takes the time between irradiation and the measurement step.
+\item{t_star}{\link{character}, \link{function} (\emph{with default}):
+method for calculating the time elapsed since irradiation if input is
+\strong{not} a \code{data.frame}. Options are: \code{'half'} (the default), \verb{'half_complex},
+which uses the long equation in Auclair et al. 2003, and \code{'end'}, which
+takes the time between irradiation and the measurement step.
 Alternatively, \code{t_star} can be a function with one parameter which works on \code{t1}.
 For more information see details. \cr
 
@@ -63,17 +67,17 @@ enable/disable output to the terminal.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
+\item{plot_singlePanels}{\link{logical} or \link{numeric} (\emph{with default}):
 enable/disable single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot_singlePanels = c(3,4)} draws only the last two plots in separate
 windows.}
 
-\item{...}{(\emph{optional}) further arguments that can be passed to internally used functions. Supported arguments:
-\code{xlab}, \code{log}, \code{mtext}, \code{plot.trend} (enable/disable trend blue line), and \code{xlim} for the
-two first curve plots, and \code{ylim} for the fading
-curve plot. For further plot customization please use the numerical output of the functions for
-own plots.}
+\item{...}{further arguments that can be passed to internally used functions.
+Supported arguments: \code{xlab}, \code{log}, \code{mtext}, \code{plot.trend} (enable/disable
+trend blue line), and \code{xlim} for the two first curve plots, and \code{ylim} for
+the fading curve plot. For further plot customization please use the
+numerical output of the functions for own plots.}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -104,9 +108,10 @@ Additionally, the density of recombination centres (rho') is estimated after
 Kars et al. (2008).
 }
 \details{
-All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
-in the output object the g-value normalised to 2-days is provided. The output of this function
-can be passed to the function \link{calc_FadingCorr}.
+All provided output corresponds to the \eqn{tc} value obtained by this
+analysis. Additionally, the g-value normalised to 2-days is provided in the
+output object. The output of this function can be passed to the function
+\link{calc_FadingCorr}.
 
 \strong{Fitting and error estimation}
 
@@ -145,13 +150,14 @@ procedure as for the g-value is applied (see above).
 
 \strong{Multiple aliquots & Lx/Tx normalisation}
 
-Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}} values
-by the \eqn{\frac{L_x}{T_x}} value of the
-prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
+Be aware that this function will always normalise all \eqn{\frac{L_x}{T_x}}
+values by the \eqn{\frac{L_x}{T_x}} value of the prompt measurement of the
+first aliquot. This implicitly assumes that there are no systematic
 inter-aliquot variations in the \eqn{\frac{L_x}{T_x}} values.
 If deemed necessary to normalise the \eqn{\frac{L_x}{T_x}} values  of each
 aliquot by its individual prompt measurement please do so \strong{before} running
-\link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
+\link{analyse_FadingMeasurement} and provide the already normalised values for
+\code{object} instead.
 
 \strong{Shine-down curve plots}
 Please note that the shine-down curve plots are for information only. As such
@@ -159,7 +165,7 @@ a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.23
+ 0.1.25
 }
 
 \examples{

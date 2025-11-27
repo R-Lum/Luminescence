@@ -17,8 +17,10 @@
 #' set the output object type. Allowed types are `"RLum.Data.Spectrum"`,
 #' `"RLum.Data.Image"` or `"matrix"`.
 #'
-#' @param frame.range [vector] (*optional*):
-#' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`.
+#' @param frame.range [vector], [integer] (*optional*):
+#' range of frames to read. For example, `frame.range = c(1, 10)` selects only
+#' the first 10 frames. If not specifie, all available frames (up to a maximum
+#' of 100 if `output.object = "RLum.Data.Image"`) are read.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. Ignored if `verbose = FALSE`.
@@ -104,7 +106,7 @@
 read_SPE2R <- function(
   file,
   output.object = "RLum.Data.Image",
-  frame.range,
+  frame.range = NULL,
   txtProgressBar = TRUE,
   verbose = TRUE,
   ...
@@ -113,11 +115,13 @@ read_SPE2R <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(file, "character")
   .validate_length(file, 1)
   .validate_args(output.object,
                  c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"))
+  .validate_class(frame.range, c("integer", "numeric"), null.ok = TRUE)
+  if (anyNA(frame.range) || any(frame.range <= 0))
+    .throw_error("'frame.range' should contain positive values")
 
   ##check if file exists
   if(!file.exists(file)){
@@ -138,8 +142,8 @@ read_SPE2R <- function(
         download.file(file, destfile = file_link, quiet = !verbose, mode = "wb")
         file <- file_link
         failed <- FALSE
-      }else{
-        if (verbose) cat("FAILED\n")
+      } else if (verbose) {
+        cat("FAILED\n")
       }
     }
 
@@ -250,15 +254,19 @@ read_SPE2R <- function(
 
   ##number of frames in file.
   NumFrames <- readBin(con, what="int", 1, size=4, endian="little", signed = TRUE)
-  if(NumFrames > 100 & missing(frame.range) & output.object == "RLum.Data.Image"){
+  if (NumFrames > 100 && is.null(frame.range) &&
+      output.object == "RLum.Data.Image") {
     # nocov start
     .throw_error("This file contains > 100 frames (", NumFrames, "), ",
                  "use argument 'frame.range' to force import")
     # nocov end
   }
 
-  ##set frame.range
-  if(missing(frame.range) == TRUE){frame.range <- c(1,NumFrames)}
+  ## set frame.range
+  frame.range <- if (is.null(frame.range))
+                   c(1, NumFrames)
+                 else
+                   pmin(pmax(range(frame.range), 1), NumFrames)
 
   ##jump
   readBin(con, what = "raw", 542, size = 1, endian = "little")
@@ -392,7 +400,7 @@ read_SPE2R <- function(
   }else if(output.object == "RLum.Data.Image"){
     object <- as(data.list, "RLum.Data.Image")
     object@originator <- "read_SPE2R"
-    object@recordType = "Image"
+    object@recordType <- "Image"
     object@curveType <- "measured"
     object@info <- temp.info
   }

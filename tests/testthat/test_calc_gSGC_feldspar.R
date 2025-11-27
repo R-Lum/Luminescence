@@ -46,19 +46,21 @@ test_that("test functionality", {
     Lr1Tr1.error = rnorm(n=n_samples, mean=0.05, sd=0.002),
     Dr1 = rep(100,n_samples))
 
-  results <- expect_s4_class(calc_gSGC_feldspar(
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(calc_gSGC_feldspar(
     data = data,
     gSGC.type = "50LxTx",
     n.MC = 20,
     plot = TRUE),
-    "RLum.Results")
+    tolerance = snapshot.tolerance)
 
   ## more coverage
   set.seed(733)
   data$LnTn <- rnorm(n = n_samples, mean = 1.0, sd = 0.02)
-  results <- expect_s4_class(calc_gSGC_feldspar(
+  expect_snapshot_RLum(calc_gSGC_feldspar(
       data = data, gSGC.type = "50LxTx", n.MC = 10, plot = TRUE),
-      "RLum.Results")
+      tolerance = snapshot.tolerance)
 
   ## test own curve parameters
   SW({

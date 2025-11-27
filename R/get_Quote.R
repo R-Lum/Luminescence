@@ -79,26 +79,18 @@ get_Quote <- function(
     )
 
   ## Check input data
-  if(missing(ID) == TRUE) {
+  if (missing(ID)) {
     ID <- sample(x = seq(from = 1,
                          to = nrow(quotes)),
                  size = 1)
   }
 
   ## check for correct ID and generate qoute
-  if(length(ID) < 1 | ID > nrow(quotes)) {
-    quote.out <- "Sorry, but this was an impossible task!"
-
+  if (length(ID) < 1 || ID > nrow(quotes)) {
+    "Sorry, but this was an impossible task!"
+  } else if (separated) {
+    quotes[ID, ]
   } else {
-
-    ## generate qoute(s)
-    if(separated == FALSE) {
-      quote.out <- paste(quotes[ID,1], ": '", quotes[ID,2], "'", sep = "")
-    } else {
-      quote.out <- quotes[ID,]
-    }
+    paste0(quotes[ID, 1], ": '", quotes[ID, 2], "'")
   }
-
-  ## return quotes
-  return(quote.out)
 }

@@ -77,6 +77,7 @@ plot_RLum.Data.Image <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Data.Image")
+  plot.type <- .validate_args(plot.type, c("plot.raster", "contour"))
 
   ## extract object
   object <- object@data
@@ -108,7 +109,21 @@ plot_RLum.Data.Image <- function(
   return(x)
 }
 
- plot.type <- .validate_args(plot.type, c("plot.raster", "contour"))
+  .ticks.lab.at <- function(max.size) {
+    if (max.size < 13) {
+      lab <- 1:max.size
+    } else {
+      lab <- pretty(1:max.size, n = min(5, max.size))
+      lab[lab == 0] <- 1
+      lab <- lab[lab <= max.size]
+      if (max.size - max(lab) > 2)
+        lab <- c(lab, max.size)
+    }
+    ## the centre of the first and last squares are respectively at 0
+    ## and 1, all others are spread linearly between these two
+    at <- lab / max.size
+    list(lab = lab, at = (at - at[1]) / (1 - at[1]))
+  }
 
 # Plot settings -----------------------------------------------------------
 plot_settings <- modifyList(x = list(
@@ -174,15 +189,11 @@ plot_settings <- modifyList(x = list(
 
       ## axes
       if(plot_settings$axes) {
-        xlab <- pretty(1:dim(x)[1])
-        xlab<-xlab[-length(xlab)]
-        xat <- seq(0,1-dim(x)[1]%%100/dim(x)[1],length.out = length(xlab))
-        graphics::axis(side = 1, at = xat, labels = xlab)
+        xticks <- .ticks.lab.at(nrow(x))
+        graphics::axis(side = 1, at = xticks$at, labels = xticks$lab)
 
-        ylab <- pretty(1:dim(x)[2])
-        ylab<-xlab[-length(ylab)]
-        yat <- seq(0,1-dim(x)[2]%%100/dim(x)[2],length.out = length(ylab))
-        graphics::axis(side = 2, at = yat, labels = ylab)
+        yticks <- .ticks.lab.at(ncol(x))
+        graphics::axis(side = 2, at = yticks$at, labels = yticks$lab)
       }
 
       ## add legend
@@ -246,15 +257,10 @@ plot_settings <- modifyList(x = list(
 
     ## axes
     if(plot_settings$axes) {
-      xlab <- pretty(1:dim(x)[1])
-      xlab<-xlab[-length(xlab)]
-      xat <- seq(0,1-dim(x)[1]%%100/dim(x)[1],length.out = length(xlab))
-      graphics::axis(side = 1, at = xat, labels = xlab)
-
-      ylab <- pretty(1:dim(x)[2])
-      ylab<-xlab[-length(ylab)]
-      yat <- seq(0,1-dim(x)[2]%%100/dim(x)[2],length.out = length(ylab))
-      graphics::axis(side = 2, at = yat, labels = ylab)
+      xticks <- .ticks.lab.at(nrow(x))
+      yticks <- .ticks.lab.at(ncol(x))
+      graphics::axis(side = 1, at = xticks$at, labels = xticks$lab)
+      graphics::axis(side = 2, at = yticks$at, labels = yticks$lab)
     }
 
      ## add mtext

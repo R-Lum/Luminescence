@@ -119,7 +119,7 @@ strongly recommended to use the argument \code{cleanup = TRUE} carefully if
 the cleanup works only on curves.
 }
 \section{Function version}{
- 0.2.5
+ 0.2.6
 }
 
 \examples{

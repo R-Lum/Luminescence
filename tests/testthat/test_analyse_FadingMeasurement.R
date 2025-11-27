@@ -64,6 +64,13 @@ test_that("input validation", {
   expect_message(expect_null(analyse_FadingMeasurement(read_PSL2R(psl.file))),
                  "Error: Unknown or unsupported originator, NULL returned")
 
+  ## missing originator
+  data(ExampleData.RLum.Analysis, envir = environment())
+  expect_message(expect_null(analyse_FadingMeasurement(IRSAR.RF.Data)),
+                 "Error: Unknown or unsupported originator, NULL returned")
+  expect_message(expect_null(analyse_FadingMeasurement(list())),
+                 "Error: Unknown or unsupported originator, NULL returned")
+
   ## no irradiation steps
   xsyg.file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
   expect_error(analyse_FadingMeasurement(read_XSYG2R(xsyg.file, fastForward = TRUE)),
@@ -224,6 +231,22 @@ test_that("regression tests", {
 
   ## issue 616
   expect_output(analyse_FadingMeasurement(df[1:2, ]))
+
+  ## issue 1132
+  class(iris) <- c("data.frame", "extra")
+  expect_error(expect_warning(analyse_FadingMeasurement(list(iris)),
+                              "1 unsupported records removed"),
+               "No valid records in 'object' left")
+
+  ## issue 1144
+  df[1, 1] <-  0
+  expect_error(analyse_FadingMeasurement(df, n.MC = 10, plot = TRUE),
+               "Normalisation term is not positive, check your input")
+  df <- data.frame(Dose = c(1, 450, 1050, 2000, 2550, 450, 0),
+                   LxTx = c(4.269, 1.532, 3.007, 4.571, 5.259, 1.609, 0.018),
+                   LxTx.Error = c(0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002))
+  expect_error(analyse_FadingMeasurement(df, n.MC = 10, plot = TRUE),
+               "Normalisation term is not positive, check your input")
 })
 
 test_that("graphical snapshot tests", {
@@ -256,6 +279,14 @@ test_that("graphical snapshot tests", {
                                                         background.integral = 10:40,
                                                         structure = c("Lx", "Tx"),
                                                         t_star = identity,
+                                                        n.MC = 10))
+  vdiffr::expect_doppelganger("integral tx",
+                              analyse_FadingMeasurement(object,
+                                                        signal.integral = 1:2,
+                                                        background.integral = 10:40,
+                                                        signal.integral.Tx = 4:8,
+                                                        background.integral.Tx = 30:40,
+                                                        structure = c("Lx", "Tx"),
                                                         n.MC = 10))
   })
 })

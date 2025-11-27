@@ -2,7 +2,7 @@
 % Please edit documentation in R/correct_PMTLinearity.R
 \name{correct_PMTLinearity}
 \alias{correct_PMTLinearity}
-\title{Linearity Correction for Photomultiplier tubes (PMT)}
+\title{Dead-time (linearity) Correction for Photomultiplier tubes (PMT)}
 \usage{
 correct_PMTLinearity(object, PMT_pulse_pair_resolution = NULL)
 }
@@ -17,7 +17,7 @@ in ns. Values can be found on the PMT datasheets. If \code{NULL} nothing is done
 Returns the same type of object type as \code{object}.
 }
 \description{
-Correct linearity of PMT counts to avoid saturation effects, depending
+Correct dead-time (also linearity) of PMT counts to avoid saturation effects, depending
 on pulse-pair-resolution of individual PMTs.
 }
 \details{

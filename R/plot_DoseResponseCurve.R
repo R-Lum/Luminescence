@@ -349,11 +349,9 @@ plot_DoseResponseCurve <- function(
       if(plot_settings$density_rug[1])
         suppressWarnings(graphics::rug(x = x.natural, side = 3))
 
-    } else if (mode == "extrapolation"){
-      if (!is.na(De)) {
+    } else if (mode == "extrapolation" && !is.na(De)) {
         abline(v = De, lty = 2, col = col[2])
         lines(x = c(0,De), y = c(0,0), lty = 2, col = col[2])
-      }
     }
 
     ## insert fit and result

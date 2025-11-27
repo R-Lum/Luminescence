@@ -1,7 +1,7 @@
 #' @title Analyse post-IR IRSL measurement sequences
 #'
-#' @description The function performs an analysis of post-IR IRSL sequences
-#' including curve
+#' @description
+#' The function performs an analysis of post-IR IRSL sequences including curve
 #' fitting on [RLum.Analysis-class] objects.
 #'
 #' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
@@ -12,12 +12,13 @@
 #'
 #' **Defining the sequence structure**
 #'
-#' The argument `sequence.structure` expects a shortened pattern of your sequence structure and was
-#' mainly introduced to ease the use of the function. For example: If your measurement data contains
-#' the following curves: `TL`, `IRSL`, `IRSL`, `TL`, `IRSL`, `IRSL`, the sequence pattern in `sequence.structure`
-#' becomes `c('TL', 'IRSL', 'IRSL')`. The second part of your sequence for one cycle should be
-#' similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
-#' have to be removed before using the function.
+#' The argument `sequence.structure` expects a shortened pattern of your
+#' sequence structure and was mainly introduced to ease the use of the function.
+#' For example: If your measurement data contains the following curves: `TL`,
+#' `IRSL`, `IRSL`, `TL`, `IRSL`, `IRSL`, the pattern in `sequence.structure`
+#' becomes `c('TL', 'IRSL', 'IRSL')`. The second part of your sequence for one
+#' cycle should be similar and can be discarded. If this is not the case (e.g.,
+#' additional hotbleach) such curves must be removed before using the function.
 #'
 #' **If the input is a `list`**
 #'
@@ -189,10 +190,8 @@ analyse_pIRIRSequence <- function(
 
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
-
-   lapply(object, function(x) {
-     .validate_class(x, "RLum.Analysis", name = "All elements of 'object'")
-   })
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ## make life easy
     if(missing("signal.integral.min")){
@@ -246,8 +245,7 @@ analyse_pIRIRSequence <- function(
     ##DO NOT use invisible here, this will stop the function from stopping
     if(length(results) == 0)
       return(NULL)
-    else
-      return(results)
+    return(results)
   }
 
   ## Integrity checks -------------------------------------------------------
@@ -266,15 +264,11 @@ analyse_pIRIRSequence <- function(
   }
 
   ## check allowed values in sequence structure
-  temp.collect.invalid.terms <- .collapse(
-      sequence.structure[!grepl("TL",  sequence.structure) &
-                         !grepl("IR",  sequence.structure) &
-                         !grepl("OSL", sequence.structure) &
-                         !grepl("EXCLUDE", sequence.structure)])
-
-  if (temp.collect.invalid.terms != "") {
-    .throw_error(temp.collect.invalid.terms,
-                 " not allowed in 'sequence.structure'")
+  invalid.terms <- .collapse(unique(grep("TL|IR|OSL|EXCLUDE", sequence.structure,
+                                         invert = TRUE, value = TRUE)),
+                             last_sep = " and ")
+  if (invalid.terms != "") {
+    .throw_error(invalid.terms, " not allowed in 'sequence.structure'")
   }
 
   ## deprecated argument
@@ -287,7 +281,6 @@ analyse_pIRIRSequence <- function(
   ## Deal with extra arguments
   extraArgs <- list(...)
   main <- extraArgs$main %||% "MEASUREMENT INFO"
-  log <- extraArgs$log %||% ""
   cex <- extraArgs$cex %||% 0.7
 
   ## Enforce a minimum plot device size: this is necessary as otherwise users
@@ -443,8 +436,8 @@ analyse_pIRIRSequence <- function(
   mat <- matrix(layout.matrix, nrow = nrows, ncol = 4, byrow = TRUE)
   graphics::layout(
     mat = mat,
-    widths = c(rep(c(1, 1, 1, .75), 6), c(1, 1, 1, 1)),
-    heights = c(rep(c(1), (2 + 2 * n.loops)), c(0.20, 0.20)))
+    widths = c(rep(c(1, 1, 1, 0.75), 6), 1, 1, 1, 1),
+    heights = c(rep(1, 2 + 2 * n.loops), 0.20, 0.20))
   }
 
   ##(1) INFO PLOT
@@ -598,12 +591,12 @@ if(plot){
 
      ##De values
      lines(c(0, get_RLum(temp.results.final, "data")[j,1]),
-           c(temp.curve.points[1,c("LxTx")], temp.curve.points[1,c("LxTx")]),
+           c(temp.curve.points[1, "LxTx"], temp.curve.points[1, "LxTx"]),
            col = j,
            lty = 2)
 
      lines(c(rep(get_RLum(temp.results.final, "data")[j,1], 2)),
-           c(temp.curve.points[1,c("LxTx")], 0),
+           c(temp.curve.points[1, "LxTx"], 0),
            col = j,
            lty = 2)
 
@@ -618,10 +611,9 @@ if(plot){
 
     ##plot legend
     legend("bottomright", legend = pIRIR.curve.names,
-           lty = 1, col = c(1:length(pIRIR.curve.names)),
+           lty = 1, col = 1:length(pIRIR.curve.names),
            bty = "n",
-           pch = c(1:length(pIRIR.curve.names))
-           )
+           pch = 1:length(pIRIR.curve.names))
 
     ##plot Tn/Tx curves
     ##select signal
@@ -642,8 +634,7 @@ if(plot){
     }
 
     plot(NA, NA,
-       xlim = c(0,nrow(LnLxTnTx.table)/
-                     n.loops),
+       xlim = c(0, nrow(LnLxTnTx.table) / n.loops),
        ylim = if (anyNA(range(temp.curve.TnTx.matrix))) c(0,1) else range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
        ylab = expression(T[x]/T[n]),
@@ -662,10 +653,9 @@ if(plot){
 
    ##plot legend
    legend("bottomleft", legend = pIRIR.curve.names,
-         lty = 1, col = c(1:length(pIRIR.curve.names)),
+         lty = 1, col = 1:length(pIRIR.curve.names),
          bty = "n",
-         pch = c(1:length(pIRIR.curve.names))
-         )
+         pch = 1:length(pIRIR.curve.names))
 
    ##Rejection criteria
    temp.rejection.criteria <- get_RLum(temp.results.final,
@@ -691,12 +681,14 @@ if(plot){
    axis(side = 1, at = c(-0.2,-0.1,0,0.1,0.2), labels = c("- 0.2", "- 0.1","0/1","+ 0.1", "+ 0.2"))
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recycling ratio
-   text(x = -.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
-   polygon(x = c(-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-                -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
-                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]),
-          y = c(21,29,29,21), col = "gray", border = NA)
+   text(x = -0.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
+   thres_range <- as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1] - 1
+
+   polygon(
+     x = c(-thres_range, -thres_range, thres_range, thres_range),
+     y = c(21, 29, 29, 21),
+     col = "gray",
+     border = NA)
     polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
 
    ##consider possibility of multiple pIRIR signals and multiple recycling ratios
@@ -723,7 +715,7 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recuperation rate
-   text(x = -.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
+   text(x = -0.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
 
    if(length(as.character(temp.rc.recuperation.rate$Threshold))>0){
    polygon(x = c(0,
@@ -747,7 +739,7 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for palaeodose error
-   text(x = -.4, y = 10, "Palaeodose error", pos = 1, srt = 0)
+   text(x = -0.4, y = 10, "Palaeodose error", pos = 1, srt = 0)
    polygon(x = c(0,
                 0,
                 as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
@@ -770,9 +762,9 @@ if(plot){
 
   ##plot legend
   legend("bottomright", legend = pIRIR.curve.names,
-         col = c(1:length(pIRIR.curve.names)),
+         col = 1:length(pIRIR.curve.names),
          bty = "n",
-         pch = c(1:length(pIRIR.curve.names)))
+         pch = 1:length(pIRIR.curve.names))
 }##end plot == TRUE
 
 

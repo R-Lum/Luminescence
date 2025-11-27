@@ -22,8 +22,12 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(plot_RadialPlot(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from data set 1")
+  expect_error(plot_RadialPlot(data.frame(1, 3)),
+               "At least two data points are required")
+  expect_error(plot_RadialPlot(df, central.value = -1),
+               "'central.value' should be a single positive value")
   expect_error(plot_RadialPlot(df, xlab = "x"),
-               "'xlab' should have length 2")
+               "'xlab' should be of class 'character' and have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),
                "'centrality' should be of class 'character' or 'numeric'")
   expect_error(plot_RadialPlot(df, centrality = "error"),
@@ -36,6 +40,10 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_RadialPlot(df, line = c(NA, NA)),
+               "'line' should be of class 'numeric', 'integer' or NULL")
+  expect_error(plot_RadialPlot(df, zlim = 1),
+               "'zlim' should be of class 'numeric' and have length 2")
   expect_error(plot_RadialPlot(list(df, df), lty = 1),
                "'lty' should have length 2")
 
@@ -44,7 +52,7 @@ test_that("input validation", {
   expect_warning(plot_RadialPlot(ExampleData.DeValues, log.z = FALSE,
                                  xlim = c(0, 5), zlim = c(100, 200),
                                  show = FALSE),
-                 "Option 'log.z' is not set to 'TRUE' altough more than one")
+                 "'log.z' is set to 'FALSE' altough more than one data set")
 })
 
 test_that("check functionality", {
@@ -110,13 +118,13 @@ test_that("check functionality", {
                               centrality = "mean", log.z = TRUE,
                               stats = c("min", "max", "median"),
                               summary = "mean", summary.pos = c(0, 40),
-                              legend = TRUE, legend.pos = c(4, 40),
+                              legend = "Data", legend.pos = c(4, 10),
                               xlab = c("x1", "x2"), xlim = c(0, 20),
                               ylab = "y", ylim = c(-10, 10),
                               zlab = "z", zlim = c(3, 7),
                               line = c(3.5, 5.5), y.ticks = FALSE,
                               cex = 0.8, lty = 2, lwd = 2, pch = 2, col = 2,
-                              tck = 1, tcl = 2, output = TRUE),
+                              tck = 1, tcl = 2),
               "list")
 
   plot_RadialPlot(df, show = FALSE, centrality = c(1, 2, 3))
@@ -137,14 +145,19 @@ test_that("check functionality", {
       log.z = FALSE),
     regexp = "Attention.*")
 
+  expect_message(plot_RadialPlot(df, line = -1),
+                 "Lines with negative value skipped due to 'log.z = TRUE'")
+
   ## trigger warning
   expect_warning(plot_RadialPlot(
       data = df,
       #centrality = ,
       central.value = -1,
       log.z = FALSE),
-      "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
+      "z-scale touches 2s-polygon, decrease plot ratio"
     )
+  expect_silent(plot_RadialPlot(df, central.value = -1, log.z = FALSE,
+                                bar.col = "none"))
 })
 
 test_that("graphical snapshot tests", {
@@ -156,10 +169,17 @@ test_that("graphical snapshot tests", {
                               plot_RadialPlot(df, centrality = 6))
   vdiffr::expect_doppelganger("RadialPlot summary sub",
                               plot_RadialPlot(df, summary.pos = "sub",
+                                              stat = c("min", "max"),
                                               summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("RadialPlot summary left",
                               plot_RadialPlot(df, summary.pos = "left",
                                               summary = c("mean", "in.2s", "skewness")))
+  vdiffr::expect_doppelganger("summary line cex",
+                              plot_RadialPlot(df, summary.pos = "topleft",
+                                              summary = "seabs.weighted",
+                                              line = c(4.5, 6.5),
+                                              line.label = c("4.5", "6.5"),
+                                              cex = 2))
   vdiffr::expect_doppelganger("central value xlim zlim pch",
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               central.value = 69.9,
@@ -177,6 +197,13 @@ test_that("graphical snapshot tests", {
                                               xlim = c(0, 30),
                                               zlim = c(5, 1000),
                                               plot.ratio = 0))
+  vdiffr::expect_doppelganger("regression 1194",
+                              plot_RadialPlot(ExampleData.DeValues$CA1,
+                                              xlim = c(0, 0.416),
+                                              zlim = c(55, 87),
+                                              log.z = FALSE,
+                                              central.value = 13,
+                                              centrality = 'mean'))
   df2 <- data.frame(x = df$x - 1, y = df$y * 0.75)
   vdiffr::expect_doppelganger("RadialPlot list",
                               plot_RadialPlot(list(df, df2),
@@ -184,4 +211,11 @@ test_that("graphical snapshot tests", {
                                               summary = c("n", "in.2s", "median.weighted"),
                                               rug = TRUE, col = c(2, 3)))
   })
+})
+
+test_that("regression tests", {
+    testthat::skip_on_cran()
+
+    ## issue 1140
+    expect_silent(plot_RadialPlot(df, zlim = c(0, 100)))
 })

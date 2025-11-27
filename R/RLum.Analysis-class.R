@@ -4,7 +4,6 @@
 #' spectra etc. from one measurements. Objects from this class are produced,
 #' by e.g. [read_XSYG2R], [read_Daybreak2R]
 #'
-#'
 #' @name RLum.Analysis-class
 #'
 #' @docType class
@@ -67,7 +66,7 @@ setClass("RLum.Analysis",
            records = "list"
          ),
          contains = "RLum",
-         prototype = list (
+         prototype = list(
            protocol = NA_character_,
            records = list()
          )
@@ -326,7 +325,7 @@ setMethod("get_RLum",
                 lapply(object@records, function(el) {
                   val <- c(curveType = el@curveType, recordType = el@recordType, unlist(el@info))
                   # add missing info elements and set NA
-                  if (any(!info_el %in% names(val))) {
+                  if (!all(info_el %in% names(val))) {
                     new <- info_el[!info_el %in% names(val)]
                     val <- c(val, setNames(rep("", length(new)), new))
                   }
@@ -405,13 +404,13 @@ setMethod("get_RLum",
               .validate_class(record.id, c("integer", "numeric", "logical"),
                               null.ok = TRUE)
               if (is.null(record.id)) {
-                record.id <- c(1:length(object@records))
+                record.id <- 1:length(object@records)
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
               ##values instead of numerical indices
               if (is.logical(record.id)) {
-                record.id <- c(1:length(object@records))[record.id]
+                record.id <- (1:length(object@records))[record.id]
               }
 
               ##check if record.id exists
@@ -562,16 +561,14 @@ setMethod("remove_RLum",
 #'
 #' @export
 setMethod("structure_RLum",
-          signature= "RLum.Analysis",
+          signature = "RLum.Analysis",
           definition = function(object, fullExtent = FALSE) {
             .set_function_name("structure_RLum")
             on.exit(.unset_function_name(), add = TRUE)
 
             ##check if the object containing other elements than allowed
-            sapply(object@records, function (x) {
-              .validate_class(x, "RLum.Data.Curve",
-                              name = "All elements of 'object'")
-            })
+            lapply(object@records, .validate_class, "RLum.Data.Curve",
+                   name = "All elements of 'object'")
 
             ##get length object
             temp.object.length <- length(object@records)
@@ -584,11 +581,11 @@ setMethod("structure_RLum",
               vapply(object@records, function(x) x@recordType, character(1))
 
             ##PROTOCOL STEP
-            temp.protocol.step <-rep(NA_character_, temp.object.length)
+            temp.protocol.step <- rep_len(NA_character_, temp.object.length)
 
             ## GET LIMITS
             temp.limits <- t(vapply(object@records, function(x) {
-              c(nrow(x@data), min(x@data[, 1]), max(x@data[, 1]), min(x@data[, 2]), max(x@data[, 2]))
+              c(nrow(x@data), range(x@data[, 1]), range(x@data[, 2]))
             }, numeric(5)))
 
             temp.n.channels <- temp.limits[, 1]
@@ -598,16 +595,18 @@ setMethod("structure_RLum",
             temp.y.max <- temp.limits[, 5]
 
             ##.uid
-            temp.uid <- unlist(lapply(object@records, function(x) x@.uid ))
+            temp.uid <- vapply(object@records, function(x) x@.uid, character(1))
 
             ##.pid
             temp.pid <- lapply(object@records, function(x) x@.pid )
 
             ##originator
-            temp.originator <- unlist(lapply(object@records, function(x) x@originator ))
+            temp.originator <- vapply(object@records, function(x) x@originator,
+                                      character(1))
 
             ##curveType
-            temp.curveType <- unlist(lapply(object@records, function(x) x@curveType ))
+            temp.curveType <- vapply(object@records, function(x) x@curveType,
+                                     character(1))
 
             ##info elements as character value
             if (fullExtent) {
@@ -631,8 +630,7 @@ setMethod("structure_RLum",
             }
 
             ##combine output to a data.frame
-            return(
-              data.frame(
+            data.frame(
                 id = temp.id,
                 recordType = temp.recordType,
                 curveType = temp.curveType,
@@ -647,7 +645,6 @@ setMethod("structure_RLum",
                 .pid = I(as.list(temp.pid)),
                 info = if(fullExtent) temp.info.elements else I(temp.info.elements),
                 stringsAsFactors = FALSE
-              )
             )
           })
 
@@ -730,7 +727,7 @@ setMethod("rename_metadata<-",
 #' @export
 setMethod("replace_metadata<-",
           signature= "RLum.Analysis",
-          definition = function(object, info_element, subset = NULL, value) {
+          definition = function(object, info_element, subset = NULL, value = NULL) {
             .set_function_name("replace_metadata")
             on.exit(.unset_function_name(), add = TRUE)
 
@@ -760,10 +757,7 @@ setMethod(
   f = "smooth_RLum",
   signature = "RLum.Analysis",
   function(object, ...) {
-        object@records <- lapply(object@records, function(x){
-          smooth_RLum(x, ...)
-        })
-
+    object@records <- lapply(object@records, smooth_RLum, ...)
     return(object)
   }
 )
@@ -813,7 +807,7 @@ setMethod(
     .validate_class(slot, "character", null.ok = TRUE)
     if (!is.null(slot)) {
       valid.names <- slotNames(object@records[[1]])
-      if (any(!slot %in% valid.names)) {
+      if (!all(slot %in% valid.names)) {
         .throw_error("Invalid 'slot' name, valid names are: ",
                      .collapse(valid.names))
       }
@@ -828,7 +822,7 @@ setMethod(
       valid.names <- c(
         "XY_LENGTH", "NCOL", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX",
         names(object@records[[1]]@info))
-      if (any(!info_element %in% valid.names)) {
+      if (!all(info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
       }
@@ -843,7 +837,7 @@ setMethod(
       .throw_error("'decreasing' should be of class 'logical'")
 
     ## recycle decreasing to match selection
-    decreasing <- rep(decreasing, length.out = length(info_element) + 1)
+    decreasing <- rep_len(decreasing, length(info_element) + 1)
 
     ## translate to -1 and 1 to match data.table requirements
     decreasing[decreasing] <- -1

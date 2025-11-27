@@ -16,7 +16,6 @@
 #' calculation of the bin-width (parameter `bw`) see
 #' [density].
 #'
-#'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
@@ -30,7 +29,6 @@
 #' - `"in.2s"` (percent of samples in 2-sigma range)
 #' - `"kurtosis"` (kurtosis)
 #' - `"skewness"` (skewness)
-#'
 #'
 #' **Note** that the input data for the statistic summary is sent to function
 #' [calc_Statistics] depending on the log-option for the z-scale. If
@@ -84,7 +82,7 @@
 #' One out of `"MCM"` (default), `"weighted"` or `"unweighted"`.
 #' See [calc_Statistics] for details.
 #'
-#' @param bw [character] (*with default*):
+#' @param bw [character], [numeric] (*with default*):
 #' bin-width, chose a numeric value for manual setting.
 #'
 #' @param ... further arguments and graphical parameters passed to [plot].
@@ -230,6 +228,7 @@ plot_KDE <- function(
   if(length(data) == 0)
     .throw_error("Your input is empty due to Inf removal")
 
+  .validate_logical_scalar(na.rm)
   .validate_logical_scalar(values.cumulative)
   .validate_logical_scalar(order)
   .validate_logical_scalar(boxplot)
@@ -245,6 +244,9 @@ plot_KDE <- function(
                                     "topleft", "top", "topright",
                                     "bottomleft", "bottom", "bottomright"))
   }
+  .validate_class(bw, c("character", "numeric"), length = 1)
+  if (is.numeric(bw))
+    .validate_positive_scalar(bw)
 
   ## set mtext output
   mtext <- list(...)$mtext %||% ""
@@ -255,7 +257,7 @@ plot_KDE <- function(
   ## data preparation steps ---------------------------------------------------
 
   ## optionally, count and exclude NA values and print result
-  if(na.rm == TRUE) {
+  if (na.rm) {
     for(i in 1:length(data)) {
       na.idx <- which(is.na(data[[i]][, 1]))
       n.NA <- length(na.idx)
@@ -268,7 +270,7 @@ plot_KDE <- function(
   }
 
   ## optionally, order data set
-  if(order == TRUE) {
+  if (order) {
     for(i in 1:length(data)) {
       data[[i]] <- data[[i]][order(data[[i]][,1]),]
     }
@@ -339,10 +341,6 @@ plot_KDE <- function(
 
       ## position of maximum KDE value
       De.stats[i,4] <- De.density[[i]]$x[which.max(De.density[[i]]$y)]
-
-    }else{
-      De.density.range[i,1:4] <- NA
-      De.stats[i,4] <- NA
     }
   }
 
@@ -361,14 +359,13 @@ plot_KDE <- function(
            "")
   }
 
-  ## initialize list with a dummy element, it will be removed afterwards
-  label.text <- list(NA)
-
+  ## initialize list
+  label.text <- NULL
   is.sub <- summary.pos[1] == "sub"
   stops <- NULL
   for (i in 1:length(data)) {
     if (!is.sub)
-      stops <- paste(rep("\n", (i - 1) * length(summary)), collapse = "")
+      stops <- strrep("\n", (i - 1) * length(summary))
 
     summary.text <- character(0)
     for (j in 1:length(summary)) {
@@ -397,14 +394,11 @@ plot_KDE <- function(
                         label = "in 2 sigma", percent = TRUE, digits = 1))
     }
 
-    label.text[[length(label.text) + 1]] <- paste0(
+    label.text[[i]] <- paste0(
         if (is.sub) "" else stops,
         paste(summary.text, collapse = ""),
         stops)
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## remove outer vertical lines from string
   if (is.sub) {
@@ -429,20 +423,17 @@ plot_KDE <- function(
 
   if ("ylim" %in% ...names()) {
     ylim.plot <- list(...)$ylim
-    .validate_length(ylim.plot, 4, name = "'ylim'")
-  } else {
-    if(!is.na(De.density.range[1])){
+    .validate_class(ylim.plot, "numeric", length = 4, name = "'ylim'")
+  } else if (!is.na(De.density.range[1])) {
       ylim.plot <- c(De.density.range[3],
                      De.density.range[4],
                      0,
                      max(De.stats[,1]))
-
-    }else{
+  } else {
       ylim.plot <- c(0,
                      max(De.stats[,1]),
                      0,
                      max(De.stats[,1]))
-    }
   }
 
   log.option <- list(...)$log %||% ""
@@ -452,15 +443,6 @@ plot_KDE <- function(
   fun <- isTRUE(list(...)$fun)
 
   if ("col" %in% ...names()) {
-    col.main <- list(...)$col
-    col.xlab <- 1
-    col.ylab1 <- 1
-    col.ylab2 <- 1
-    col.xtck <- 1
-    col.ytck1 <- 1
-    col.ytck2 <- 1
-    col.box <- 1
-    col.mtext <- 1
     col.stats <- list(...)$col
     col.kde.line <- list(...)$col
     col.kde.fill <- NA
@@ -469,11 +451,6 @@ plot_KDE <- function(
     col.value.rug <- list(...)$col
     col.boxplot.line <- list(...)$col
     col.boxplot.fill <- NA
-    col.mean.line <- adjustcolor(col = list(...)$col,
-                                 alpha.f = 0.4)
-    col.sd.bar <- adjustcolor(col = list(...)$col,
-                              alpha.f = 0.4)
-    col.background <- NA
   } else {
     .set_colour_value <- function(layout_value) {
       if (length(layout_value) == 1)
@@ -481,15 +458,6 @@ plot_KDE <- function(
       else
         layout_value
     }
-    col.main <- .set_colour_value(layout$kde$colour$main)
-    col.xlab <- .set_colour_value(layout$kde$colour$xlab)
-    col.ylab1 <- .set_colour_value(layout$kde$colour$ylab1)
-    col.ylab2 <- .set_colour_value(layout$kde$colour$ylab2)
-    col.xtck <- .set_colour_value(layout$kde$colour$xtck)
-    col.ytck1 <- .set_colour_value(layout$kde$colour$ytck1)
-    col.ytck2 <- .set_colour_value(layout$kde$colour$ytck2)
-    col.box <- .set_colour_value(layout$kde$colour$box)
-    col.mtext <- .set_colour_value(layout$kde$colour$mtext)
     col.stats <- .set_colour_value(layout$kde$colour$stats)
     col.kde.line <- .set_colour_value(layout$kde$colour$kde.line)
     col.kde.fill <- .set_colour_value(layout$kde$colour$kde.fill)
@@ -498,9 +466,6 @@ plot_KDE <- function(
     col.value.rug <- .set_colour_value(layout$kde$colour$value.rug)
     col.boxplot.line <- .set_colour_value(layout$kde$colour$boxplot.line)
     col.boxplot.fill <- .set_colour_value(layout$kde$colour$boxplot.fill)
-    col.mean.line <- .set_colour_value(layout$kde$colour$mean.point)
-    col.sd.bar <- .set_colour_value(layout$kde$colour$sd.line)
-    col.background <- .set_colour_value(layout$kde$colour$background)
   }
 
   ## convert keywords into summary placement coordinates
@@ -519,10 +484,8 @@ plot_KDE <- function(
   }
 
   ## extract original plot parameters
-  par(bg = layout$kde$colour$background)
-  bg.original <- par()$bg
-
   par(mar = c(5, 5.5, 2.5 + toplines, 4.5),
+      bg = layout$kde$colour$background,
       xpd = FALSE,
       cex = cex)
 
@@ -546,7 +509,7 @@ plot_KDE <- function(
   l_height <- par()$cxy[2]
 
   ## optionally update ylim
-  if(boxplot == TRUE) {
+  if (boxplot && values.cumulative) {
     ylim.plot[1] <- ylim.plot[1] - 1.4 * l_height
   }
 
@@ -632,19 +595,16 @@ plot_KDE <- function(
   }
 
   ## add plot title
-  cex.old <- par()$cex
-  par(cex = layout$kde$font.size$main / 12)
   title(main = main,
         family = layout$kde$font.type$main,
         font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
                        layout$kde$font.deco$main],
         col.main = layout$kde$colour$main,
+        cex = layout$kde$font.size$main / 12,
         line = (toplines + 1.2) * layout$kde$dimension$main / 100)
-  par(cex = cex.old)
 
   ## optionally add mtext line
   if(mtext != "") {
-
     mtext(text = mtext,
           side = 3,
           line = 0.5,
@@ -652,12 +612,11 @@ plot_KDE <- function(
           font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
                          layout$kde$font.deco$mtext],
           col.main = layout$kde$colour$mtext,
-          cex = layout$kde$font.size$mtext / 12)
+          cex = cex * layout$kde$font.size$mtext / 12)
   }
 
   ## add summary content
   for(i in 1:length(data)) {
-
     if (!is.sub) {
       text(x = summary.pos[1],
            y = summary.pos[2],
@@ -665,19 +624,16 @@ plot_KDE <- function(
            labels = label.text[[i]],
            col = col.stats[i],
            cex = layout$kde$font.size$stats / 12)
-    } else {
-
-      if(mtext == "") {
+    } else if (mtext == "") {
         mtext(side = 3,
               line = (toplines + 0.3 - i) * layout$kde$dimension$stats.line / 100,
               text = label.text[[i]],
               col = col.stats[i],
-              cex = layout$kde$font.size$stats / 12)
-      }
+              cex = cex * layout$kde$font.size$stats / 12)
     }
   }
 
-  if(values.cumulative == TRUE) {
+  if (values.cumulative) {
 
     ## create empty overlay plot
     par(new = TRUE) # adjust plot options
@@ -695,8 +651,7 @@ plot_KDE <- function(
     l_height <- par()$cxy[2]
 
     ## optionally update ylim
-    if(boxplot == TRUE) {
-
+    if (boxplot) {
       ylim.plot[3] <- ylim.plot[3] - 1.4 * l_height
     }
 
@@ -712,26 +667,16 @@ plot_KDE <- function(
          axes = FALSE)
 
     ## optionally add boxplot
-    if(boxplot == TRUE) {
-
-      ## add zero line
-      abline(h = 0)
-
+    if (boxplot) {
       ## get extended boxplot data
-      boxplot.data <- list(NA)
-
+      boxplot.data <- NULL
       for(i in 1:length(data)) {
         boxplot.i <- graphics::boxplot(x = data[[i]][,1],
                                        plot = FALSE)
-        boxplot.i$group <- mean(x = data[[i]][,1],
-                                                   na.rm = TRUE)
-        boxplot.i$names <- sd(x = data[[i]][,1],
-                                                   na.rm = TRUE)
-        boxplot.data[[length(boxplot.data) + 1]] <- boxplot.i
+        boxplot.i$group <- mean(data[[i]][, 1], na.rm = TRUE)
+        boxplot.i$names <- sd(data[[i]][, 1], na.rm = TRUE)
+        boxplot.data[[i]] <- boxplot.i
       }
-
-      ## remove dummy list object
-      boxplot.data[[1]] <- NULL
 
       ## get new line hights
       l_height <- par()$cxy[2]
@@ -798,17 +743,17 @@ plot_KDE <- function(
     }
 
     ## optionally add rug
-    if(rug == TRUE) {
-
+    if (rug) {
       for(i in 1:length(data)) {
-
         for(j in 1:nrow(data[[i]])) {
-
-          lines(x = c(data[[i]][j,1],
-                      data[[i]][j,1]),
-                y = c(0,
-                      -2/8 * l_height),
-                col = col.value.rug[i])
+          suppressWarnings( # some values will be clipped
+          rug(data[[i]][j, 1],
+              ticksize = 0.01 * l_height,
+              side = 3,
+              pos = 0,
+              lwd = 1,
+              col = col.value.rug[i])
+          )
         }
       }
     }
@@ -851,6 +796,7 @@ plot_KDE <- function(
     ## add De error bars
     for(i in 1:length(data)) {
       if (attr(data[[i]], "De.errors.available")) {
+        suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(data[[i]][, 1] - data[[i]][, 2],
                1:length(data[[i]][,1]),
                data[[i]][, 1] + data[[i]][, 2],
@@ -859,6 +805,7 @@ plot_KDE <- function(
                angle = 90,
                length = 0.05,
                col = col.value.bar[i])
+        )
       }
       ## add De measurements
       points(data[[i]][,1], 1:De.stats[i,1],
@@ -867,21 +814,8 @@ plot_KDE <- function(
     }
   }
 
-  ## add empty plot
-  par(new = TRUE)
-  plot(NA,
-       ann = FALSE,
-       axes = FALSE,
-       xlim     = xlim.plot,
-       ylim     = ylim.plot[1:2],
-       log      = log.option,
-       cex      = cex,
-       cex.lab  = cex,
-       cex.main = cex,
-       cex.axis = cex)
-
   ## FUN by R Luminescence Team
-  if (fun == TRUE) sTeve() # nocov
+  if (fun) sTeve() # nocov
 
   invisible(list(De.stats = De.stats,
                  summary.pos = summary.pos,

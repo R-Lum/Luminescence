@@ -31,7 +31,7 @@ test_that("input validation", {
 
   SW({
   expect_warning(analyse_Al2O3C_ITC(data_ITC, signal_integral = 0),
-                 "Input for 'signal_integral' corrected to 1:99")
+                 "'signal_integral' corrected to 1:99")
   })
 })
 

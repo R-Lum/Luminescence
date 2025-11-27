@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(plot_AbanicoPlot(data = "error"),
                "All elements of 'data' should be of class 'data.frame'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues[, 1, drop = FALSE]),
-               "Data set (1) has fewer than 2 columns: data without errors",
+               "Data set 1 has fewer than 2 columns: data without errors",
                fixed = TRUE)
 
   expect_message(expect_null(plot_AbanicoPlot(list())),
@@ -19,7 +19,7 @@ test_that("input validation", {
   expect_warning(expect_message(
       expect_null(plot_AbanicoPlot(ExampleData.DeValues[1, ])),
       "Error: After removing invalid entries, nothing is plotted"),
-      "Data sets 1 are found to be empty or consisting of only 1 row")
+      "Data set 1 empty or consisting of only 1 row, removed")
 
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
                "'plot.ratio' should be a single positive value")
@@ -43,6 +43,10 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend = 5),
+               "'legend' should be of class 'character'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = 5),
+               "'legend.pos' should have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
                "'frame' should be one of '0', '1', '2' or '3'")
 
@@ -262,13 +266,13 @@ test_that("more coverage", {
                                   xlab = c("x1", "x2", "x3"), lty = 2,
                                   dispersion = "2sd",
                                   at = seq(20, 120, nrow(data.na) - 1)),
-                 "Data set (1): 1 NA value excluded",
+                 "Data set 1: 1 NA value excluded",
                  fixed = TRUE)
   expect_message(plot_AbanicoPlot(data.na, y.axis = TRUE,
                                   yaxt = "y",
                                   summary.pos = "bottomright",
                                   dispersion = "2sd"),
-                 "Data set (1): 1 NA value excluded",
+                 "Data set 1: 1 NA value excluded",
                  fixed = TRUE)
 
   ## further edge tests ... check for wrong bw parameter
@@ -287,7 +291,7 @@ test_that("more coverage", {
   expect_warning(
     object = plot_AbanicoPlot(
     data = data.frame(x = c(0,1), y = c(0.1, 0.1))),
-    regexp = "Found zero values in x-column of dataset 1: set log.z = FALSE")
+    "Found zero values in x-column of dataset 1, 'log.z' set to FALSE")
 
   ## handling of negative values; before it produced wrong plots
  expect_silent(plot_AbanicoPlot(data = data.frame(

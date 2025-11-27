@@ -88,7 +88,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.14
+#' @section Function version: 0.1.17
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -185,12 +185,12 @@ plot_DRTResults <- function(
   values,
   given.dose = NULL,
   error.range = 10,
-  preheat,
+  preheat = NULL,
   boxplot = FALSE,
   mtext = "",
   summary = "",
   summary.pos = "topleft",
-  legend,
+  legend = NULL,
   legend.pos = "topright",
   par.local = TRUE,
   na.rm  = FALSE,
@@ -203,23 +203,29 @@ plot_DRTResults <- function(
 
   .validate_not_empty(values)
   .validate_class(given.dose, "numeric", null.ok = TRUE)
+  .validate_logical_scalar(boxplot)
 
   ##avoid crash for wrongly set boxlot argument
-  if(missing(preheat) & boxplot == TRUE){
+  if (is.null(preheat) && boxplot) {
     boxplot <- FALSE
-    .throw_warning("Option 'boxplot' requires a value in 'preheat', ",
-                   "reset to FALSE")
+    .throw_warning("'boxplot' requires a value in 'preheat', reset to FALSE")
   }
 
+  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
+                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
+  }
+  .validate_class(legend, "character", null.ok = TRUE)
+  if (is.numeric(legend.pos)) {
+    .validate_length(legend.pos, 2)
+  }
+  else {
+    legend.pos <- .validate_args(legend.pos, valid.pos)
   }
 
   ## Homogenise and check input data
@@ -247,18 +253,15 @@ plot_DRTResults <- function(
   for (i in seq_along(values)) {
 
     ##check for preheat temperature values
-    if(missing(preheat) == FALSE) {
-      if (length(preheat) < nrow(values[[i]])) {
+    if (!missing(preheat) && length(preheat) < nrow(values[[i]])) {
         .throw_error("'preheat' should have length equal to the number ",
                      "of De values")
-      }
     }
 
     ##remove NA values; yes Micha, it is not that simple
-    if(na.rm  == TRUE){
-
+    if (!na.rm) {
       ##currently we assume that all input data sets comprise a similar of data
-      if(!missing(preheat) & i == length(values)){
+      if (!is.null(preheat) && i == length(values)) {
         ## remove preheat entries corresponding to NA values
         preheat <- preheat[!is.na(values[[i]][, 1]) &
                            !is.na(values[[i]][, 2])]
@@ -280,14 +283,14 @@ plot_DRTResults <- function(
   extraArgs <- list(...) # read out additional arguments list
 
   main <- extraArgs$main %||% "Dose recovery test"
-  xlab <- extraArgs$xlab %||% ifelse(missing(preheat) == TRUE,
+  xlab <- extraArgs$xlab %||% ifelse(is.null(preheat),
                                      "# Aliquot", "Preheat temperature [\u00B0C]")
 
-  ylab <- extraArgs$ylab %||% {
+  ylab <- extraArgs$ylab %||% (
     if (!is.null(given.dose) && length(given.dose) > 0 && given.dose[1] > 0)
-      expression(paste("Normalised ", D[e], sep = ""))
-    else expression(paste(D[e], " [s]", sep = ""))
-  }
+      expression(paste("Normalised ", D[e]))
+    else expression(paste(D[e], " [s]"))
+  )
 
   xlim <- extraArgs$xlim %||% (c(0, max(n.values)) + 0.5)
   ylim <- extraArgs$ylim %||% c(0.75, 1.25) # check below for further corrections if boundaries exceed set range
@@ -321,14 +324,14 @@ plot_DRTResults <- function(
   ##correct ylim for data set which exceed boundaries
   if ((max(sapply(values, function(x) max(x[, 1], na.rm = TRUE))) > 1.25 ||
        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE))) < 0.75) &&
-       ("ylim" %in% names(extraArgs)) == FALSE){
+       (!"ylim" %in% names(extraArgs))) {
     ylim <- c(
       min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) - max(x[, 2], na.rm = TRUE))),
       max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) + max(x[, 2], na.rm = TRUE))))
   }
 
   ## optionally group data by preheat temperature
-  if (!missing(preheat)) {
+  if (!is.null(preheat)) {
     modes <- as.numeric(names(table(preheat)))
     values.preheat <- values.boxplot <- list()
     for(i in 1:length(modes)) {
@@ -351,13 +354,13 @@ plot_DRTResults <- function(
     xlim <- c(0.5, length(unique(preheat)) + 0.5)
 
   ## assign colour indices
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {
-    if(missing(preheat) == TRUE) {
+  col <- extraArgs$col %||% (
+    if (is.null(preheat)) {
       rep(seq(from = 1, to = length(values)), each = length(modes))
     } else {
       rep(seq(from = 1, to = length(values)), length(modes))
     }
-  }
+  )
 
   ## calculate and paste statistical summary
   if(summary.pos[1] != "sub") {
@@ -389,9 +392,6 @@ plot_DRTResults <- function(
   coords <- .get_keyword_coordinates(summary.pos, xlim, ylim)
   summary.pos <- coords$pos
   summary.adj <- c(coords$adj[1], 1) # always top-aligned
-  coords <- .get_keyword_coordinates(legend.pos, xlim, ylim)
-  legend.pos <- coords$pos
-  legend.adj <- coords$adj
 
   ## Plot output ------------------------------------------------------------
 
@@ -408,9 +408,9 @@ plot_DRTResults <- function(
   }
 
   ## optionally plot values and error bars
-  if(boxplot == FALSE) {
+  if (!boxplot) {
     ## plot data and error
-    if(missing(preheat) == TRUE) {
+    if (is.null(preheat)) {
       ## create empty plot
       plot(NA,NA,
            xlim = xlim,
@@ -441,14 +441,14 @@ plot_DRTResults <- function(
           text(
             par()$usr[2],
             (1 + error.range / 100) + 0.02,
-            paste("+", error.range , " %", sep = ""),
+            paste0("+", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
           text(
             par()$usr[2],
             (1 - error.range / 100) - 0.02,
-            paste("-", error.range , "%", sep = ""),
+            paste0("-", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
@@ -462,21 +462,22 @@ plot_DRTResults <- function(
 
       ## add data and error bars
       for(i in 1:length(values)) {
-
-        points(x = c(1:nrow(values[[i]])),
+        points(x = 1:nrow(values[[i]]),
                y = values[[i]][,1],
                pch = if (oneinput && nrow(values[[i]]) == length(pch)) pch else pch[i],
                col = if (multicol) col else col[i],
                cex = 1.2)
 
-        graphics::arrows(c(1:nrow(values[[i]])),
+        suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
+        graphics::arrows(1:nrow(values[[i]]),
                values[[i]][,1] + values[[i]][,2],
-               c(1:nrow(values[[i]])),
+               1:nrow(values[[i]]),
                values[[i]][,1] - values[[i]][,2],
                angle = 90,
                length = 0.075,
                code = 3,
                col = if (multicol) col else col[i])
+        )
 
         ## add summary content
         if(summary.pos[1] != "sub") {
@@ -491,14 +492,12 @@ plot_DRTResults <- function(
                labels = label.text[[i]],
                cex = 0.8,
                col = if (multicol) "black" else col[i])
-        } else {
-          if(mtext == "") {
+        } else if(mtext == "") {
             mtext(side = 3,
                   line = shift.lines - i,
                   text = label.text[[i]],
                   col = if (multicol) "black" else col[i],
                   cex = cex * 0.8)
-          }
         }
       }
     } else {
@@ -538,14 +537,14 @@ plot_DRTResults <- function(
           text(
             par()$usr[2],
             (1 + error.range / 100) + 0.02,
-            paste("+", error.range , " %", sep = ""),
+            paste0("+", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
           text(
             par()$usr[2],
             (1 - error.range / 100) - 0.02,
-            paste("-", error.range , "%", sep = ""),
+            paste0("-", error.range , "%"),
             pos = 2,
             cex = 0.8
           )
@@ -560,6 +559,7 @@ plot_DRTResults <- function(
                col = col[i],
                cex = 1.2)
 
+        suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(values.preheat[[i]][,3],
                values.preheat[[i]][,1] + values.preheat[[i]][,2],
                values.preheat[[i]][,3],
@@ -568,6 +568,7 @@ plot_DRTResults <- function(
                length = 0.075,
                code = 3,
                col = col[i])
+        )
       }
     }
   }
@@ -639,9 +640,9 @@ plot_DRTResults <- function(
 
         ## error range labels
         text(par()$usr[2], (1 + error.range / 100) + 0.02,
-             paste("+", error.range ," %", sep = ""), pos = 2, cex = 0.8)
+             paste0("+", error.range ,"%"), pos = 2, cex = 0.8)
         text(par()$usr[2], (1 - error.range / 100) - 0.02,
-             paste("-", error.range ,"%", sep = ""), pos = 2, cex = 0.8)
+             paste0("-", error.range ,"%"), pos = 2, cex = 0.8)
       }
     }
 
@@ -660,20 +661,21 @@ plot_DRTResults <- function(
              labels = label.text[[i]],
              cex = 0.8,
              col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
-      } else {
-        if(mtext == "") {
+      } else if (mtext == "") {
           mtext(side = 3,
                 line = shift.lines - i,
                 text = label.text[[i]],
                 col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                 cex = cex * 0.8)
-        }
       }
     }
   }
 
   ## optionally add legend content
-  if(missing(legend) == FALSE) {
+  if (!is.null(legend)) {
+    coords <- .get_keyword_coordinates(legend.pos, xlim, ylim)
+    legend.pos <- coords$pos
+    legend.adj <- coords$adj
     legend(x = legend.pos[1],
            y = legend.pos[2],
            xjust = legend.adj[1],
@@ -691,5 +693,5 @@ plot_DRTResults <- function(
         cex = 0.8 * cex)
 
   ##FUN by R Luminescence Team
-  if (fun == TRUE) sTeve() # nocov
+  if (fun) sTeve() # nocov
 }

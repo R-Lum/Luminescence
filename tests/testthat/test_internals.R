@@ -372,6 +372,8 @@ test_that("Test internals", {
                "is missing, with no default")
   expect_error(.validate_class(test <- 1:5, "data.frame"),
                "'test' should be of class 'data.frame'")
+  expect_error(.validate_class(test <- 1:5, "data.frame", length = 2),
+               "'test' should be of class 'data.frame' and have length 2")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame", "numeric")),
                "'test' should be of class 'list', 'data.frame' or 'numeric'")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame")),
@@ -437,6 +439,10 @@ test_that("Test internals", {
   expect_error(.validate_scalar(test <- NULL),
                "'test' should be a single value")
   expect_error(.validate_scalar(iris),
+               "'iris' should be a single value")
+  expect_error(.validate_scalar(iris[, 1, drop = FALSE]),
+               "'iris' should be a single value")
+  expect_error(.validate_scalar(iris[1, 0, drop = FALSE]),
                "'iris' should be a single value")
   expect_error(.validate_scalar(iris, null.ok = TRUE),
                "'iris' should be a single value or NULL")
@@ -507,6 +513,23 @@ test_that("Test internals", {
   expect_error(.validate_logical_scalar(NA, name = "The variable"),
                "The variable should be a single logical value")
 
+  ## .validate_originator() ----------------------------------------------------
+  expect_error(.validate_originator(set_RLum("RLum.Analysis"), "orig"),
+               "'NA' has an unsupported originator (expected 'orig', but found",
+               fixed = TRUE)
+  expect_equal(.validate_originator(set_RLum("RLum.Analysis", originator = "orig"),
+                                    "orig"),
+               "orig")
+
+  ## .check_originator() ----------------------------------------------------
+  expect_true(.check_originator(set_RLum("RLum.Analysis", originator = "orig"),
+                                "orig"))
+  expect_false(.check_originator(set_RLum("RLum.Analysis", originator = "orig"),
+                                 c("orig1", "orig2")))
+  expect_false(.check_originator(set_RLum("RLum.Analysis"), "orig"))
+  expect_false(.check_originator(NULL, "orig"))
+  expect_false(.check_originator(iris, "orig"))
+
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),
@@ -530,7 +553,32 @@ test_that("Test internals", {
                "'1', '2', '3'")
   expect_equal(.collapse(1:3, quote = FALSE),
                "1, 2, 3")
+  expect_equal(.collapse(1:2, quote = FALSE, last_sep = " or "),
+               "1 or 2")
+  expect_equal(.collapse(1:3, quote = FALSE, last_sep = " or "),
+               "1, 2 or 3")
+  expect_equal(.collapse(as.factor(c("060920", "070920", "080920", "090920")),
+                         quote = FALSE),
+               "060920, 070920, 080920, 090920")
   expect_equal(.collapse(NULL), "")
+
+  ## .format_range() ________________________________________________________
+  expect_equal(.format_range(1:10),
+               "1:10")
+  expect_equal(.format_range(c(1, 10, NA, 8)),
+               "1:10")
+  expect_equal(.format_range(c(-1, -10, NA, -8)),
+               "-10:-1")
+  expect_equal(.format_range(NULL),
+               "NA:NA")
+  expect_equal(.format_range(c(NA, NA, NA)),
+               "NA:NA")
+  expect_equal(.format_range(c(0, 1, -1), sep = ", "),
+               "-1, 1")
+  expect_equal(.format_range(c(0.53, 1.39, 1.14)),
+               "0.53:1.39")
+  expect_equal(.format_range(c(0.53, 1.39, 1.14), nsmall = 3),
+               "0.530:1.390")
 
   ## .shorten_filename() ----------------------------------------------------
   expect_equal(.shorten_filename("/path/to/filename"),

@@ -64,7 +64,7 @@ extract_ROI <- function(
   if (inherits(object, "list"))
     return(merge_RLum(lapply(object, extract_ROI, roi = roi, plot = plot)))
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, c("RLum.Data.Image", "matrix", "array"),
                   extra = "a 'list' of such objects")
@@ -178,10 +178,10 @@ extract_ROI <- function(
   ## create summary using matrixStats
   roi_summary <- matrix(unlist(
     switch(roi_fun,
-      "mean" = lapply(roi_signals,  matrixStats::colMeans2),
-      "median" = lapply(roi_signals,  matrixStats::colMedians),
-      "sd" = lapply(roi_signals,  matrixStats::colSds),
-      "sum" = lapply(roi_signals,  matrixStats::colSums2))),
+      mean = lapply(roi_signals, matrixStats::colMeans2),
+      median = lapply(roi_signals, matrixStats::colMedians),
+      sd = lapply(roi_signals, matrixStats::colSds),
+      sum = lapply(roi_signals, matrixStats::colSums2))),
     ncol = length(roi_signals))
 
   ## set names to make it easier

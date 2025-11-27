@@ -22,7 +22,7 @@
 #'
 #'@returns Always returns a [list]; empty or filled with [RLum.Analysis-class] objects
 #'
-#'@seealso `r paste0("[", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]", collapse = ", ")`
+#' @seealso `r toString(paste0("[", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]"))`
 #'
 #'@keywords datagen
 #'
@@ -37,7 +37,7 @@
 #' temp <- import_Data(file)
 #'
 #'@export
-import_Data <- function (
+import_Data <- function(
   file,
   ...,
   fastForward = TRUE,

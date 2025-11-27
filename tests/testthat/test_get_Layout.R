@@ -5,6 +5,9 @@ test_that("input validation", {
               "list")
   expect_type(get_Layout("journal"),
               "list")
+  expect_warning(expect_type(res <- get_Layout(NA_character_),
+                             "list"),
+                 "Layout definition not supported, default layout is used")
   expect_warning(res <- get_Layout("error"),
                  "Layout definition not supported, default layout is used")
   expect_equal(res,

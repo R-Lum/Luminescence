@@ -370,3 +370,189 @@
       ]
     }
 
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["weighted", "unweighted", "MCM"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["n", "mean", "median", "sd.abs", "sd.rel", "se.abs", "se.rel", "skewness", "kurtosis"]
+            }
+          },
+          "value": [
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [10]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [5.5]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [5.5]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [3.02765035]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [55.04818826]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [0.95742711]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [17.4077656]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [0]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [1.43836364]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["n", "mean", "median", "sd.abs", "sd.rel", "se.abs", "se.rel", "skewness", "kurtosis"]
+            }
+          },
+          "value": [
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [10]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [5.5]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [5.5]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [3.02765035]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [55.04818826]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [0.95742711]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [17.4077656]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [0]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [1.43836364]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["n", "mean", "median", "sd.abs", "sd.rel", "se.abs", "se.rel", "skewness", "kurtosis"]
+            }
+          },
+          "value": [
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [10]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [5.5]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [5.5]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [3.02765035]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [55.04818826]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [0.95742711]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [17.4077656]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [0]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [1.43836364]
+            }
+          ]
+        }
+      ]
+    }
+

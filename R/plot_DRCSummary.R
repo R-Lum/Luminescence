@@ -141,13 +141,11 @@ if(inherits(object, "list")){
   ## set limit
   if (is.null(sel_curves)) {
     sel_curves <- 1:length(object@data$Formula)
-  } else {
-      if(min(sel_curves) < 1 ||
+  } else if (min(sel_curves) < 1 ||
          max(sel_curves) > length(object@data$Formula) ||
          length(sel_curves) > length(object@data$Formula)){
         .throw_warning("'sel_curves' out of bounds, reset to full dataset")
         sel_curves <- 1:length(object@data$Formula)
-      }
   }
 
     ## check the whether the fitting was all the same

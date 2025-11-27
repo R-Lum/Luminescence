@@ -103,7 +103,7 @@ write_R2BIN <- function(
   ##set supported BIN format version
   VERSION.supported <- as.raw(c(3, 4, 5, 6, 7, 8))
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "Risoe.BINfileData")
   .validate_class(file, "character")
@@ -121,8 +121,7 @@ write_R2BIN <- function(
 
   # Check Risoe.BINfileData Struture ----------------------------------------
   ##check whether the BIN-file DATA slot contains more than 9999 records; needs to be run all the time
-  temp_check <- vapply(object@DATA, function(x) length(x) > 9999,
-                       FUN.VALUE = logical(1))
+  temp_check <- lengths(object@DATA) > 9999L
 
   ##force compatibility
   if(compatibility.mode && any(temp_check)){
@@ -243,10 +242,7 @@ write_R2BIN <- function(
   }
 
   ## enables compatibility to the Analyst as the max value for POSITION becomes 48
-  if(compatibility.mode){
-    ##just do if position values > 48
-    if(max(object@METADATA[,"POSITION"])>48){
-
+  if (compatibility.mode && max(object@METADATA[, "POSITION"]) > 48) {
       ##grep relevant IDs
       temp.POSITION48.id <- which(object@METADATA[,"POSITION"]>48)
 
@@ -263,7 +259,6 @@ write_R2BIN <- function(
                                                   "OP:", object@METADATA$POSITION[idx])
         object@METADATA[idx, "POSITION"] <- temp.POSITION48.new[i]
       }
-    }
   }
 
   ##COMMENT
@@ -314,7 +309,7 @@ write_R2BIN <- function(
   ##TAG and SEL
   ##in TAG information on the SEL are storred, here the values are copied to TAG
   ##before export
-  object@METADATA[,"TAG"] <- ifelse(object@METADATA[,"SEL"] == TRUE, 1, 0)
+  object@METADATA[, "TAG"] <- as.integer(object@METADATA[, "SEL"])
 
   # SET FILE AND VALUES -----------------------------------------------------
   con <- file(file, "wb")
@@ -419,7 +414,7 @@ write_R2BIN <- function(
       }
 
       ##DATE
-      writeBin(as.integer(6),
+      writeBin(6L,
                con,
                size = 1 ,
                endian="little")
@@ -531,8 +526,7 @@ write_R2BIN <- function(
 
       ##avoid problems with empty sample names
       if(SAMPLE_SIZE == 0){
-
-        SAMPLE_SIZE <- as.integer(2)
+        SAMPLE_SIZE <- 2L
         object@METADATA[ID,"SAMPLE"] <- "  "
       }
 
@@ -559,7 +553,7 @@ write_R2BIN <- function(
 
       ##avoid problems with empty comments
       if(COMMENT_SIZE == 0){
-        COMMENT_SIZE <- as.integer(2)
+        COMMENT_SIZE <- 2L
         object@METADATA[ID,"COMMENT"] <- "  "
       }
 
@@ -739,7 +733,7 @@ write_R2BIN <- function(
   }
   ## ====================================================
   ## version > 06
-  if(version == 05 | version == 06 | version == 07 | version == 08){
+  if (version == 05 || version == 06 || version == 07 || version == 08) {
     ##start loop for export BIN data
     while(ID<=n.records) {
       ##VERSION
@@ -813,7 +807,7 @@ write_R2BIN <- function(
 
       ##avoid problems with empty comments
       if(COMMENT_SIZE == 0){
-        COMMENT_SIZE <- as.integer(2)
+        COMMENT_SIZE <- 2L
         object@METADATA[ID,"COMMENT"] <- "  "
       }
 
@@ -845,8 +839,8 @@ write_R2BIN <- function(
       ##FNAME
       FNAME_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"FNAME"]), type="bytes"))
 
-        ##correct for case that this is of 0 length
-        if(is.na(FNAME_SIZE) || length(FNAME_SIZE) == 0){FNAME_SIZE <- as.integer(0)}
+      ## correct for case that this is of 0 length
+      if (is.na(FNAME_SIZE) || length(FNAME_SIZE) == 0) FNAME_SIZE <- 0L
 
       writeBin(FNAME_SIZE,
                con,
@@ -913,7 +907,7 @@ write_R2BIN <- function(
       }
 
       ##DATE
-      writeBin(as.integer(6),
+      writeBin(6L,
                con,
                size = 1 ,
                endian="little")

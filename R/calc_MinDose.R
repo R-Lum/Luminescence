@@ -54,7 +54,7 @@
 #' **Bootstrap**
 #'
 #' When `bootstrap=TRUE` the function applies the bootstrapping method as
-#' described in Wallinga & Cunningham (2012). By default, the minimum age model
+#' described in Cunningham & Wallinga (2012). By default, the minimum age model
 #' produces 1000 first level and 3000 second level bootstrap replicates. The
 #' uncertainty on `sigmab` is 0.04 by default. These values can be changed by
 #' using the arguments `bs.M` (first level replicates), `bs.N`
@@ -96,9 +96,8 @@
 #' for [data.frame]: two columns for De and De error.
 #'
 #' @param sigmab [numeric] (**required**):
-#' additional spread in De values.
-#' This value represents the expected overdispersion in the data should the sample be
-#' well-bleached (Cunningham & Walling 2012, p. 100).
+#' additional spread in De values, representing the expected overdispersion in
+#' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' `sigmab` must be provided in the same absolute units of the De values (seconds or Gray).
@@ -170,7 +169,7 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.4.6
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -327,7 +326,7 @@ calc_MinDose <- function(
   log = TRUE,
   par = 3,
   bootstrap = FALSE,
-  init.values,
+  init.values = NULL,
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
@@ -347,7 +346,7 @@ calc_MinDose <- function(
     .throw_error("'data' should have 2 columns")
   }
 
-  if (any(!stats::complete.cases(data))) {
+  if (!all(stats::complete.cases(data))) {
     .throw_message("Warning: Input data contained NA/NaN values, ",
                    "which were removed prior to calculations", error = FALSE)
     data <- data[stats::complete.cases(data), ]
@@ -356,7 +355,7 @@ calc_MinDose <- function(
   }
 
   .validate_positive_scalar(sigmab)
-  if (!missing(init.values)) {
+  if (!is.null(init.values)) {
     if (!is.list(init.values)) {
       .throw_error("'init.values' is expected to be a named list")
     }
@@ -365,7 +364,7 @@ calc_MinDose <- function(
     if (length(init.values) < length(exp.names) || length(mis.names) > 0) {
       .throw_error("Please provide initial values for all model parameters. ",
                    "\nMissing parameters: ",
-                   paste(mis.names, collapse = ", "))
+                   toString(mis.names))
     }
   }
 
@@ -450,7 +449,7 @@ calc_MinDose <- function(
   ## START VALUES
   ##============================================================================##
 
-  if (missing(init.values)) {
+  if (is.null(init.values)) {
     start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                                  quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                   sigma = 1.2,
@@ -527,7 +526,6 @@ calc_MinDose <- function(
     # recover the data
     zi <- data[ ,1]
     si <- data[ ,2]
-    n <- length(zi)
 
     # in the MAM-3 gamma and mu are assumed to be equal
     if (par == 3)
@@ -713,8 +711,8 @@ calc_MinDose <- function(
   summary <- data.frame(de=pal,
                         de_err=gamma_err,
                         ci_level = level,
-                        "ci_lower" = conf["gamma", 1],
-                        "ci_upper" = conf["gamma", 2],
+                        ci_lower = conf["gamma", 1],
+                        ci_upper = conf["gamma", 2],
                         par=par,
                         sig=ifelse(log, exp(sig), sig),
                         p0=p0end,
@@ -726,9 +724,9 @@ calc_MinDose <- function(
                init.values=start, log.output = log.output,
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
 
-  if (!is.na(summary$mu) && !is.na(summary$de)) {
+  if (!is.na(summary$mu) && !is.na(summary$de) &&
     ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
-    if (summary$de > exp(summary$mu))
+    summary$de > exp(summary$mu)) {
       .throw_warning("Gamma is larger than mu, consider running the model ",
                      "with new boundary values (see details '?calc_MinDose')")
   }
@@ -894,8 +892,7 @@ calc_MinDose <- function(
   ##============================================================================##
   ## CONSOLE PRINT
   ##============================================================================##
-  if (verbose) {
-    if (!bootstrap) {
+  if (verbose && !bootstrap) {
       cat("\n----------- meta data -----------\n")
       print(data.frame(n=length(data[ ,1]),
                        par=par,
@@ -919,10 +916,10 @@ calc_MinDose <- function(
         row.names="", check.names = FALSE), 2)
 
       if (log && log.output) {
-        tmp$`log(gamma)` = round(log(tmp$gamma),2)
-        tmp$`log(sigma)` = round(log(tmp$sigma),2)
+        tmp$`log(gamma)` <- round(log(tmp$gamma),2)
+        tmp$`log(sigma)` <- round(log(tmp$sigma),2)
         if (par == 4)
-          tmp$`log(mu)` = round(log(tmp$mu),2)
+          tmp$`log(mu)` <- round(log(tmp$mu),2)
       }
 
       print(tmp)
@@ -942,15 +939,14 @@ calc_MinDose <- function(
 
       cat("\n------ De (asymmetric error) -----\n")
       print(round(data.frame(De=pal,
-                             "lower" = conf["gamma", 1],
-                             "upper" = conf["gamma", 2],
+                             lower = conf["gamma", 1],
+                             upper = conf["gamma", 2],
                              row.names=""), 2))
 
       cat("\n------ De (symmetric error) -----\n")
       print(round(data.frame(De=pal,
                              error=gamma_err,
                              row.names=""), 2))
-    }
   }
 
   ##============================================================================##

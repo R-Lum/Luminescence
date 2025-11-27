@@ -102,7 +102,7 @@
 #' strongly recommended to use the argument `cleanup = TRUE` carefully if
 #' the cleanup works only on curves.
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
 #'
 #' @author
@@ -224,7 +224,6 @@ verify_SingleGrainData <- function(
       c(mean(x), stats::var(x))
     }, numeric(2)))
 
-
     ##DIFF
     temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
 
@@ -299,6 +298,13 @@ verify_SingleGrainData <- function(
     ##RLum.Analysis and list with RLum.Analysis objects
     ## ... and yes it make sense not to mix that up with the code above
   } else if (inherits(object,"RLum.Analysis")) {
+    ## check for empty records
+    if(length(object@records) == 0) {
+      .throw_warning("Cannot process empty RLum.Analysis objects. NULL returned!")
+      return(NULL)
+
+    }
+
     ##first extract all count values from all curves
     object_list <- lapply(object@records, function(x){
       ##yes, would work differently, but it is faster
@@ -323,7 +329,7 @@ verify_SingleGrainData <- function(
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
 
     ##now we have two cases, depending on where measurement is coming from
-    if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
+    if (.check_originator(object, "Risoe.BINfileData2RLum.Analysis")) {
       ##combine everything to in a data.frame
       selection <- data.frame(
         POSITION = temp_structure$info.POSITION,
@@ -336,7 +342,7 @@ verify_SingleGrainData <- function(
       )
       sel.cols <- c("POSITION", "GRAIN")
 
-    } else if (object@originator == "read_XSYG2R") {
+    } else if (.check_originator(object, "read_XSYG2R")) {
       ##combine everything to in a data.frame
       selection <- data.frame(
         POSITION = if(any(grepl(pattern = "position", names(temp_structure)))){
@@ -361,7 +367,7 @@ verify_SingleGrainData <- function(
 
     ##set up cleanup
     if(cleanup_level == "aliquot") {
-      if (object@originator == "read_XSYG2R") {
+      if (.check_originator(object, "read_XSYG2R")) {
 
         if (!all(is.na(unique_pairs))) {
           selection_id <-
@@ -373,7 +379,7 @@ verify_SingleGrainData <- function(
           selection_id <- NA
         }
 
-      } else if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
+      } else if (.check_originator(object, "Risoe.BINfileData2RLum.Analysis")) {
         selection_id <-
           sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
             which(

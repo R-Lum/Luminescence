@@ -47,8 +47,8 @@ COLUMN \tab DATA TYPE \tab DESCRIPTION\cr
 \code{K} \tab \code{numeric} \tab K nuclide content in \%\cr
 \code{K_SE} \tab \code{numeric} \tab error on K nuclide content in \%\cr
 \code{Th} \tab \code{numeric} \tab Th nuclide content in ppm\cr
-\code{Th_SE} \tab \code{numeric} error on Th nuclide content in ppm\cr
-\code{U} \tab \code{numeric} U nuclide content in ppm\cr
+\code{Th_SE} \tab \code{numeric} \tab error on Th nuclide content in ppm\cr
+\code{U} \tab \code{numeric} \tab U nuclide content in ppm\cr
 \code{U_SE} \tab \code{numeric} \tab error on U nuclide content in ppm\cr
 \code{GrainSize} \tab \code{numeric} \tab average grain size in µm\cr
 \code{WaterContent} \tab \code{numeric} \tab mean water content in \%\cr

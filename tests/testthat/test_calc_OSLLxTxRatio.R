@@ -88,6 +88,10 @@ test_that("input validation", {
                "'Tx.data' should be of class 'RLum.Data.Curve', 'data.frame', 'numeric', 'matrix'")
   expect_error(calc_OSLLxTxRatio("error", "error"),
                "'Lx.data' should be of class 'RLum.Data.Curve', 'data.frame'")
+  expect_error(calc_OSLLxTxRatio(Lx.data[, 1, drop = FALSE]),
+               "'Lx.data' should have 2 columns")
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data[, 1, drop = FALSE]),
+               "'Tx.data' should have 2 columns")
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], Tx.data),
                "Different number of channels for Lx (10) and Tx (100)",
                fixed = TRUE)

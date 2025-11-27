@@ -7,7 +7,7 @@
 calc_gSGC_feldspar(
   data,
   gSGC.type = "50LxTx",
-  gSGC.parameters,
+  gSGC.parameters = NULL,
   n.MC = 100,
   plot = FALSE
 )
@@ -52,7 +52,7 @@ Implementation of the gSGC approach for feldspar MET-pIRIR by Li et al. (2015)
 ##TODO
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

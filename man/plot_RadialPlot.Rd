@@ -8,23 +8,22 @@ plot_RadialPlot(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  central.value,
+  central.value = NULL,
   centrality = "mean.weighted",
   mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
-  legend,
-  legend.pos,
-  stats,
+  legend = NULL,
+  legend.pos = "topright",
+  stats = "none",
   rug = FALSE,
-  plot.ratio,
-  bar.col,
+  plot.ratio = NULL,
+  bar.col = NULL,
   y.ticks = TRUE,
-  grid.col,
-  line,
-  line.col,
-  line.label,
-  output = FALSE,
+  grid.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.label = NULL,
   ...
 )
 }
@@ -42,7 +41,7 @@ excludes \code{NA} values from the data set prior to any further operations.}
 \item{log.z}{\link{logical} (\emph{with default}):
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
 
-\item{central.value}{\link{numeric}:
+\item{central.value}{\link{numeric} (\emph{optional}):
 User-defined central value, primarily used for horizontal centring
 of the z-axis.}
 
@@ -73,17 +72,13 @@ option is only possible if \code{mtext} is not used.}
 \item{legend}{\link{character} vector (\emph{optional}):
 legend content to be added to the plot.}
 
-\item{legend.pos}{\link{numeric} or \link{character} (with
-default): optional position coordinates or keyword (e.g. \code{"topright"})
-for the legend to be plotted.}
+\item{legend.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional legend position coordinates or keyword (e.g. \code{"topright"}).}
 
-\item{stats}{\link{character}: additional labels of statistically
-important values in the plot. One or more out of the following:
-\itemize{
-\item \code{"min"},
-\item \code{"max"},
-\item \code{"median"}.
-}}
+\item{stats}{\link{character} (\emph{optional}):
+additional labels of statistically important values in the plot. It can be
+one or more of \code{"min"}, \code{"max"} and \code{"median"}; any other values will be
+ignored.}
 
 \item{rug}{\link{logical}:
 Option to add a rug to the z-scale, to indicate the location of individual values}
@@ -96,14 +91,14 @@ are plotted outside the z-axis or when the z-axis gets too elliptic.}
 
 \item{bar.col}{\link{character} or \link{numeric} (\emph{with default}):
 colour of the bar showing the 2-sigma range around the central
-value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.}
+value. To disable the bar, use \code{"none"}. Default is \code{"grey80"}.}
 
 \item{y.ticks}{\link{logical}:
 Option to hide y-axis labels. Useful for data with small scatter.}
 
 \item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
 colour of the grid lines (originating at \verb{[0,0]} and stretching to
-the z-scale). To disable grid lines, use \code{"none"}. Default is \code{"grey"}.}
+the z-scale). To disable grid lines, use \code{"none"}. Default is \code{"grey70"}.}
 
 \item{line}{\link{numeric}:
 numeric values of the additional lines to be added.}
@@ -113,10 +108,6 @@ colour of the additional lines.}
 
 \item{line.label}{\link{character}:
 labels for the additional lines.}
-
-\item{output}{\link{logical}:
-Optional output of numerical plot parameters. These can be useful to
-reproduce similar plots. Default is \code{FALSE}.}
 
 \item{...}{Further plot arguments to pass. \code{xlab} must be a vector of
 length 2, specifying the upper and lower x-axes labels.}
@@ -167,7 +158,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.9
+ 0.5.11
 }
 
 \examples{
@@ -185,11 +176,10 @@ plot_RadialPlot(
   data = ExampleData.DeValues,
   log.z = FALSE)
 
-## now with output of the plot parameters
+## store the the plot parameters
 plot1 <- plot_RadialPlot(
   data = ExampleData.DeValues,
-  log.z = FALSE,
-  output = TRUE)
+  log.z = FALSE)
 plot1
 plot1$zlim
 

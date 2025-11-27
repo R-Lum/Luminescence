@@ -52,7 +52,7 @@ test_that("check functionality", {
   suppressWarnings( # silence repeated warning
   expect_warning(expect_s4_class(TL.curve.3 / TL.curve.1,
                                  "RLum.Data.Curve"),
-                 "8 'inf' values have been replaced by 0 in the matrix"))
+                 "8 'Inf' values replaced by 0 in the matrix"))
   expect_s4_class(TL.curve.1 * TL.curve.3, "RLum.Data.Curve")
 
   ## only one curve
@@ -105,7 +105,7 @@ test_that("snapshot tests", {
   expect_warning(
       expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_zeros),
                                                  merge.method = "/")),
-      "3 'inf' values have been replaced by 0 in the matrix")
+      "3 'Inf' values replaced by 0 in the matrix")
   expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                              merge.method = "append"))
 })

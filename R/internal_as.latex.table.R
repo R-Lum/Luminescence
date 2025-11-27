@@ -32,10 +32,11 @@
 #'
 #' @param ... options: `verbose`
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author
-#' Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @keywords internal
 #'
@@ -57,7 +58,7 @@
     pos = "c",
     digits = 3,
     rm.zero = TRUE,
-    select,
+    select = NULL,
     split = NULL,
     tabular_only = FALSE,
 ...) {
@@ -75,11 +76,10 @@
     pos = pos,
     digits = digits,
     rm.zero = rm.zero,
+    select = select,
     split = split,
     tabular_only = tabular_only,
     ... = ...)
-  if (!missing(select))
-    args$select <- select
 
   switch(class(x)[1],
          data.frame = do.call(".as.latex.table.data.frame", args),
@@ -98,12 +98,12 @@
     pos = "c",
     digits = 3,
     rm.zero = TRUE,
-    select,
+    select = NULL,
     split = NULL,
     ...) {
 
   ## Object: DRAC.highlights
-  if (x@originator %in% "use_DRAC") {
+  if (.check_originator(x, "use_DRAC")) {
     x <- get_RLum(x)$highlights
     x <- .digits(x, digits)
 
@@ -167,7 +167,7 @@
     comments = TRUE,
     pos = "c",
     digits = 3,
-    select,
+    select = NULL,
     split = NULL,
     tabular_only = FALSE,
     ...) {
@@ -191,9 +191,9 @@
   options <- modifyList(options, list(...))
 
   ## Subset data frame ----
-  if (!missing(select)) {
+  if (!is.null(select)) {
     is.name <- select %in% names(x)
-    if (any(!is.name))
+    if (!all(is.name))
       .throw_error("Undefined columns selected. Please check provided ",
                    "column names in 'select'.")
     x <- subset(x, select = select)
@@ -255,12 +255,12 @@
       pos <- "c"
     }
     if (nchar(pos) == 1)
-      pos <- paste0(rep(pos, ncol(x)), collapse = "")
+      pos <- strrep(pos, ncol(x))
 
     if(tabular_only){
       tex.table.begin <- paste0(
-        paste("  \\begin{tabular}{", pos, "}\n"),
-              "     \\hline \n")
+          "  \\begin{tabular}{", pos, "}\n",
+          "     \\hline \n")
 
       tex.table.end <-  paste0(
         "     \\hline \n",
@@ -271,7 +271,7 @@
         "\\begin{table}[ht] \n",
         "  \\centering \n",
         "  \\begin{adjustbox}{max width=\\textwidth} \n",
-        paste("  \\begin{tabular}{", pos, "}\n"),
+        "  \\begin{tabular}{", pos, "}\n",
         "     \\hline \n")
 
       tex.table.end <-  paste0(

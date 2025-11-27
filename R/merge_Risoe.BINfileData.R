@@ -101,7 +101,7 @@ merge_Risoe.BINfileData <- function(
 
   if (is.character(input.objects)) {
     for(i in 1:length(input.objects)){
-      if(file.exists(input.objects[i])==FALSE){
+      if (!file.exists(input.objects[i])) {
         .throw_error("File '", input.objects[i], "' does not exist")
       }
     }

@@ -10,7 +10,7 @@ calc_MinDose(
   log = TRUE,
   par = 3,
   bootstrap = FALSE,
-  init.values,
+  init.values = NULL,
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
@@ -23,9 +23,8 @@ calc_MinDose(
 for \link{data.frame}: two columns for De and De error.}
 
 \item{sigmab}{\link{numeric} (\strong{required}):
-additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be
-well-bleached (Cunningham & Walling 2012, p. 100).
+additional spread in De values, representing the expected overdispersion in
+the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 \code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
@@ -144,7 +143,7 @@ use arguments \code{gamma.lower}, \code{gamma.upper}, \code{sigma.lower}, \code{
 \strong{Bootstrap}
 
 When \code{bootstrap=TRUE} the function applies the bootstrapping method as
-described in Wallinga & Cunningham (2012). By default, the minimum age model
+described in Cunningham & Wallinga (2012). By default, the minimum age model
 produces 1000 first level and 3000 second level bootstrap replicates. The
 uncertainty on \code{sigmab} is 0.04 by default. These values can be changed by
 using the arguments \code{bs.M} (first level replicates), \code{bs.N}
@@ -193,7 +192,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.5
+ 0.4.6
 }
 
 \examples{

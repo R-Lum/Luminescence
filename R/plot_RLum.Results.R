@@ -65,8 +65,18 @@ plot_RLum.Results<- function(
   ##============================================================================##
 
   .validate_class(object, "RLum.Results")
-  if (is.null(object@originator) || is.na(object@originator)) {
-    .throw_error("Object originator not supported")
+  if (is.na(object@originator)) {
+    .validate_originator(object, c("analyse_SAR.CWOSL",
+                                   "analyse_IRSAR.RF",
+                                   "analyse_pIRIRSequence",
+                                   "calc_AliquotSize",
+                                   "calc_CentralDose",
+                                   "calc_FastRatio",
+                                   "calc_FiniteMixture",
+                                   "calc_FuchsLang2001",
+                                   "calc_MinDose",
+                                   "calc_MaxDose",
+                                   "calc_SourceDoseRate"))
   }
 
   ##============================================================================##
@@ -98,16 +108,15 @@ plot_RLum.Results<- function(
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 0: General plot dispatcher ----------
   switch(object@originator,
-      "analyse_SAR.CWOSL" = plot_AbanicoPlot(object),
-      "analyse_pIRIRSequence" = plot_AbanicoPlot(object),
-      "analyse_IRSAR.RF" = plot_AbanicoPlot(object),
-      "calc_FiniteMixture" = do.call(calc_FiniteMixture, c(object, extraArgs)),
+      analyse_SAR.CWOSL = plot_AbanicoPlot(object),
+      analyse_pIRIRSequence = plot_AbanicoPlot(object),
+      analyse_IRSAR.RF = plot_AbanicoPlot(object),
+      calc_FiniteMixture = do.call(calc_FiniteMixture, c(object, extraArgs)),
     NULL
     )
 
   ## CASE 1: Minimum Age Model / Maximum Age Model -------
-  if (object@originator %in% c("calc_MinDose", "calc_MaxDose")) {
-
+  if (.check_originator(object, c("calc_MinDose", "calc_MaxDose"))) {
     ## single MAM estimate
     # plot profile log likelihood
 
@@ -157,7 +166,7 @@ plot_RLum.Results<- function(
     # })
 
     ## bootstrap MAM estimates
-    if(object@data$args$bootstrap==TRUE) {
+    if (object@data$args$bootstrap) {
 
       # save previous plot parameter and set new ones
       .pardefault <- .par_defaults()
@@ -179,7 +188,7 @@ plot_RLum.Results<- function(
 
       ## --------- PLOT "RECYCLE" BOOTSTRAP RESULTS ------------ ##
 
-      if(single==TRUE) {
+      if (single) {
         graphics::layout(cbind(c(1, 1, 2, 5, 5, 6), c(3, 3, 4, 7, 7, 8)))
         par(cex = 0.6)
       } else {
@@ -376,7 +385,7 @@ plot_RLum.Results<- function(
         x<- unlist(object@data$profile@profile$gamma$par.vals[,1])
         y<- abs(unlist(object@data$profile@profile$gamma$z))
 
-        if(object@data$args$log == TRUE) {
+        if (object@data$args$log) {
           x<- exp(x)
         }
 
@@ -437,7 +446,8 @@ plot_RLum.Results<- function(
              pch = c(NA,NA,NA,16),
              lty = c(1,1,1,1),
              lwd=c(10,2,2,2),
-             legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)","Profile likelihood", "Grain / aliquot"),
+             legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)",
+                        "Profile likelihood", "Grain / aliquot")
       )
     }##EndOf::Bootstrap_plotting
   }#EndOf::CASE1_MinimumAgeModel-3
@@ -445,7 +455,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 2: Central Age Model ---------
-  if(object@originator=="calc_CentralDose") {
+  if (.check_originator(object, "calc_CentralDose")) {
 
     # get profile log likelihood data
     sig<- object@data$profile$sig*100
@@ -470,13 +480,11 @@ plot_RLum.Results<- function(
     sigU<- sig95[ntf]
 
     # put them on the graph
-    abline(v=sigL)
-    abline(v=sigmax)
-    abline(v=sigU)
+    res <- c(sigL, sigmax, sigU)
+    abline(v = res)
     dx<- 0.006
     dy<- 0.2
     ytext<- min(llik) + dy
-    res<- c(sigL,sigmax,sigU)
     text(res+dx,rep(ytext,3),round(res,2),adj=0)
 
     # restore previous plot parameters
@@ -486,7 +494,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 3: Fuchs & Lang 2001 --------
-  if(object@originator=="calc_FuchsLang2001") {
+  if (.check_originator(object, "calc_FuchsLang2001")) {
 
     ##deal with addition arguments
     extraArgs <- list(...)
@@ -568,7 +576,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size ---------
-  if(object@originator=="calc_AliquotSize") {
+  if (.check_originator(object, "calc_AliquotSize")) {
     ## FIXME(mcol): The following code has been ported to calc_AliquotSize(),
     ## where it has been further updated. This version is preserved to support
     ## the plotting of an RLum.Results object directly, which calc_AliquotSize()
@@ -636,14 +644,13 @@ plot_RLum.Results<- function(
            xlab=xlab,  ylim=c(0.5,1.5),
            xaxt="n", yaxt="n", ylab="")
       par(bty="n")
-      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n")
+      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
     }
   }#EndOf::Case 5 - calc_AliquotSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 6: calc_SourceDoseRate() ----------
-  if(object@originator=="calc_SourceDoseRate") {
-
+  if (.check_originator(object, "calc_SourceDoseRate")) {
     ##prepare data
     ##get data
     df <- get_RLum(object = object, data.object = "dose.rate")
@@ -713,8 +720,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 7: Fast Ratio ----------
-  if (object@originator=="calc_FastRatio") {
-
+  if (.check_originator(object, "calc_FastRatio")) {
     # graphical settings
     settings <- list(main = "Fast Ratio",
                      xlab = "t/s",
@@ -759,8 +765,7 @@ plot_RLum.Results<- function(
     # optional: plot fitted CW curve
     if (!is.null(fit)) {
       nls.fit <- get_RLum(fit, "fit")
-      if (!inherits(fit, "try-error") & "fitCW.curve" %in% names(object@data$args)) {
-        if (object@data$args$fitCW.curve) {
+      if (!inherits(fit, "try-error") && isTRUE(object@data$args$fitCW.curve)) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1],
                 predict(nls.fit), col = "red", lty = 1)
 
@@ -771,7 +776,6 @@ plot_RLum.Results<- function(
               curve(fit@data$data[[paste0("I0", i)]] * fit@data$data[[paste0("lambda", i)]] * exp(-fit@data$data[[paste0("lambda", i)]] * x),
                     lwd = 1, lty = 4, add = TRUE, col = col_components[i])
           }
-        }
       }
     }
 

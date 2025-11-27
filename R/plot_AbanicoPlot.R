@@ -201,7 +201,7 @@
 #' colour of the additional lines.
 #'
 #' @param line.lty [integer]:
-#' line type of additional lines
+#' line type of additional lines.
 #'
 #' @param line.label [character]:
 #' labels for the additional lines.
@@ -233,7 +233,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.18
+#' @section Function version: 0.1.20
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -266,8 +266,7 @@
 #'                  log.z = FALSE)
 #'
 #' ## now with output of the plot parameters
-#' plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                           output = TRUE)
+#' plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues)
 #' str(plot1)
 #' plot1$zlim
 #'
@@ -414,8 +413,7 @@
 #' ## now with manually added plot content
 #' ## create empty plot with numeric output
 #' AP <- plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                        pch = NA,
-#'                        output = TRUE)
+#'                        pch = NA)
 #'
 #' ## identify data in 2 sigma range
 #' in_2sigma <- AP$data[[1]]$data.in.2s
@@ -446,9 +444,9 @@ plot_AbanicoPlot <- function(
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   summary.method = "MCM",
-  legend,
-  legend.pos,
-  stats,
+  legend = NULL,
+  legend.pos = "topleft",
+  stats = NULL,
   rug = FALSE,
   kde = TRUE,
   hist = FALSE,
@@ -456,14 +454,14 @@ plot_AbanicoPlot <- function(
   boxplot = FALSE,
   y.axis = TRUE,
   error.bars = FALSE,
-  bar,
-  bar.col,
-  polygon.col,
-  line,
-  line.col,
-  line.lty,
-  line.label,
-  grid.col,
+  bar = NULL,
+  bar.col = NULL,
+  polygon.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.lty = NULL,
+  line.label = NULL,
+  grid.col = NULL,
   frame = 1,
   bw = "SJ",
   interactive = FALSE,
@@ -487,20 +485,20 @@ plot_AbanicoPlot <- function(
       data[[i]] <- get_RLum(data[[i]], "data")
 
       if (ncol(data[[i]]) < 2) {
-        .throw_error("Data set (", i, ") has fewer than 2 columns: data ",
+        .throw_error("Data set ", i, " has fewer than 2 columns: data ",
                      "without errors cannot be displayed")
       }
 
-      data[[i]] <- data[[i]][,c(1:2)]
+      data[[i]] <- data[[i]][, 1:2]
   }
 
   ## optionally, remove NA-values
-  if(na.rm == TRUE) {
+  if (na.rm) {
     for(i in seq_along(data)) {
       n.NA <- sum(!stats::complete.cases(data[[i]]))
       if (n.NA > 0) {
-        .throw_message("Data set (", i, "): ", n.NA, " NA value",
-                       ifelse (n.NA > 1, "s", ""), " excluded", error = FALSE)
+        .throw_message("Data set ", i, ": ", n.NA, " NA value",
+                       ifelse(n.NA > 1, "s", ""), " excluded", error = FALSE)
         data[[i]] <- na.exclude(data[[i]])
       }
     }
@@ -515,15 +513,12 @@ plot_AbanicoPlot <- function(
   }
   ##(2)
   ##check for sets with only 1 row or 0 rows at all
-  else if(any(sapply(data, nrow) <= 1)){
+  else if (any(sapply(data, nrow) < 2)) {
     ##select problematic sets and remove the entries from the list
     NArm.id <- which(sapply(data, nrow) <= 1)
     data[NArm.id] <- NULL
-
-    .throw_warning("Data sets ", paste(NArm.id, collapse = ", "),
-                   " are found to be empty or consisting of only 1 row. Sets removed!")
-
-    rm(NArm.id)
+    .throw_warning("Data set ", toString(NArm.id),
+                   " empty or consisting of only 1 row, removed")
 
     ##unfortunately, the data set might become now empty at all
     if(length(data) == 0){
@@ -534,22 +529,22 @@ plot_AbanicoPlot <- function(
 
   ## check for zero-error values
   for(i in 1:length(data)) {
-    if(sum(data[[i]][,2] == 0) > 0) {
+    if (any(data[[i]][, 2] == 0)) {
       data[[i]] <- data[[i]][data[[i]][,2] > 0,]
-
-      if(nrow(data[[i]]) < 1) {
+      if (nrow(data[[i]]) < 1){
         .throw_error("Data set contains only values with zero errors")
       }
-
       .throw_warning("Values with zero errors cannot be displayed and were removed")
     }
   }
 
   ## check for 0 values in dataset for log
-  if (log.z[1]) {
+  .validate_logical_scalar(log.z)
+  if (log.z) {
     for(i in 1:length(data)) {
       if(any(data[[i]][[1]] == 0)) {
-        .throw_warning("Found zero values in x-column of dataset ", i, ": set log.z = FALSE")
+        .throw_warning("Found zero values in x-column of dataset ", i,
+                       ", 'log.z' set to FALSE")
         log.z <- FALSE
       }
     }
@@ -577,15 +572,20 @@ plot_AbanicoPlot <- function(
   if (!dispersion %in% main.choices && !grepl("^p[0-9][0-9]$", dispersion))
     dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
 
+  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
+                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
   }
   else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
+    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
+  }
+  .validate_class(legend, "character", null.ok = TRUE)
+  if (is.numeric(legend.pos)) {
+    .validate_length(legend.pos, 2)
+  } else {
+    legend.pos <- .validate_args(legend.pos, valid.pos)
   }
 
   frame <- .validate_args(frame, c(0, 1, 2, 3))
@@ -593,33 +593,28 @@ plot_AbanicoPlot <- function(
   ## check/set layout definitions
   layout <- get_Layout(layout = list(...)$layout %||% "default")
 
-  if(missing(stats))
-    stats <- numeric(0)
-
-  if(missing(bar))
+  if (is.null(bar))
     bar <- rep(TRUE, length(data))
 
-  if(missing(bar.col)) {
-    bar.fill <- rep(x = rep(x = layout$abanico$colour$bar.fill,
-                            length.out = length(data)), length(bar))
-    bar.line <- rep(rep(layout$abanico$colour$bar.line,
-                        length.out = length(data)), length(bar))
+  if (is.null(bar.col)) {
+    bar.fill <- rep(rep_len(layout$abanico$colour$bar.fill, length(data)),
+                    length(bar))
+    bar.line <- rep(rep_len(layout$abanico$colour$bar.line, length(data)),
+                    length(bar))
   } else {
     bar.fill <- bar.col
     bar.line <- NA
   }
 
-  if(missing(polygon.col)) {
-    polygon.fill <- rep(layout$abanico$colour$poly.fill,
-                        length.out = length(data))
-    polygon.line <- rep(layout$abanico$colour$poly.line,
-                        length.out = length(data))
+  if (is.null(polygon.col)) {
+    polygon.fill <- rep_len(layout$abanico$colour$poly.fill, length(data))
+    polygon.line <- rep_len(layout$abanico$colour$poly.line, length(data))
   } else {
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
 
-  if(missing(grid.col)) {
+  if (is.null(grid.col)) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
   } else {
@@ -663,7 +658,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## optionally add correction dose to data set and adjust error
-  if(log.z[1]) {
+  if (log.z) {
     for(i in 1:length(data))
       data[[i]][,1] <- data[[i]][,1] + De.add
 
@@ -696,7 +691,7 @@ plot_AbanicoPlot <- function(
   } else {
     ## z.0 is numeric
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE,
+      rep(ifelse(log.z,
                  log(z.0),
                  z.0),
           length(data[[x]][,3]))})
@@ -715,7 +710,7 @@ plot_AbanicoPlot <- function(
   })
 
   ## append optional weights for KDE curve
-  use.weights <- "weights" %in% names(extraArgs) && extraArgs$weights == TRUE
+  use.weights <- "weights" %in% names(extraArgs) && extraArgs$weights
   data <- lapply(data, function(x) {
     cbind(x,
           weights = if (use.weights) (1 / x[, 2]) / sum(1 / x[, 2]^2)
@@ -755,8 +750,8 @@ plot_AbanicoPlot <- function(
     z.central.global <- stats.global$unweighted[[z.0]]
   } else  if(z.0 == "mean.weighted") {
     z.central.global <- stats.global$weighted$mean
-  } else if(is.numeric(z.0) == TRUE) {
-    z.central.global <- ifelse(log.z == TRUE,
+  } else if(is.numeric(z.0)) {
+    z.central.global <- ifelse(log.z,
                                log(z.0),
                                z.0)
   }
@@ -789,7 +784,6 @@ plot_AbanicoPlot <- function(
 
   ## print message for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
-    small.sigma <- TRUE
     .throw_message("Small standardised estimate scatter, toggle off y.axis?",
                    error = FALSE)
   }
@@ -973,32 +967,27 @@ plot_AbanicoPlot <- function(
       between(tick.values.major, min(tick.values.minor), max(tick.values.minor))]
   tick.values.minor <- tick.values.minor[
       between(tick.values.minor, limits.z[1], limits.z[2])]
+  label.z.text <- signif(tick.values.major, 3)
 
-  if(log.z[1]) {
+  if (log.z) {
     tick.values.major[tick.values.major == 0] <- 1
     tick.values.minor[tick.values.minor == 0] <- 1
 
     tick.values.major <- log(tick.values.major)
     tick.values.minor <- log(tick.values.minor)
+    label.z.text <- signif(exp(tick.values.major) - De.add, 3)
   }
 
   ## calculate z-axis radius
   r <- max(sqrt((limits.x[2])^2 + (data.global[,7] * f)^2))
 
-  ## create z-axes labels
-  if(log.z[1]) {
-    label.z.text <- signif(exp(tick.values.major) - De.add, 3)
-  } else {
-    label.z.text <- signif(tick.values.major, 3)
-  }
-
   ## calculate node coordinates for semi-circle
-  ellipse.values <- c(min(ifelse(log.z == TRUE,
+  ellipse.values <- c(min(ifelse(log.z,
                                  log(limits.z[1]),
                                  limits.z[1]),
                           tick.values.major,
                           tick.values.minor),
-                      max(ifelse(log.z == TRUE,
+                      max(ifelse(log.z,
                                  log(limits.z[2]),
                                  limits.z[2]),
                           tick.values.major,
@@ -1017,19 +1006,19 @@ plot_AbanicoPlot <- function(
   stats.data <- matrix(nrow = 3, ncol = 3)
   data.stats <- as.numeric(data.global[,1])
 
-  if("min" %in% stats == TRUE) {
+  if ("min" %in% stats) {
     stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
     stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6][1]
     stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8][1]
   }
 
-  if("max" %in% stats == TRUE) {
+  if ("max" %in% stats) {
     stats.data[2, 3] <- data.stats[data.stats == max(data.stats)][1]
     stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6][1]
     stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8][1]
   }
 
-  if("median" %in% stats == TRUE) {
+  if ("median" %in% stats) {
     stats.data[3, 3] <- data.stats[data.stats == quantile(data.stats, 0.5, type = 3)]
     stats.data[3, 1] <- data.global[data.stats == stats.data[3, 3], 6][1]
     stats.data[3, 2] <- data.global[data.stats == stats.data[3, 3], 8][1]
@@ -1050,7 +1039,7 @@ plot_AbanicoPlot <- function(
       limits.y[2] <- 1.3 * limits.z.y[2]
     }
 
-    if(rotate == TRUE) {
+    if (rotate) {
       limits.y <- c(-max(abs(limits.y)), max(abs(limits.y)))
     }
   }
@@ -1091,7 +1080,7 @@ plot_AbanicoPlot <- function(
     De.stats[i,12] <- statistics$kurtosis
 
     ## account for log.z-option
-    if(log.z[1]) {
+    if (log.z) {
       De.stats[i,2:4] <- exp(De.stats[i,2:4]) - De.add
     }
 
@@ -1123,7 +1112,7 @@ plot_AbanicoPlot <- function(
   label.text <- list()
   for (i in 1:length(data)) {
     if (!is.sub)
-      stops <- paste(rep("\n", (i - 1) * length(summary)), collapse = "")
+      stops <- strrep("\n", (i - 1) * length(summary))
 
     summary.text <- character(0)
     for (j in 1:length(summary)) {
@@ -1196,7 +1185,7 @@ plot_AbanicoPlot <- function(
     ## this time we swap x and y limits as we are rotated, then apply some
     ## adjustments to the x positioning
     coords <- .get_keyword_coordinates(legend.pos, limits.y, limits.x)
-    if (!missing(legend.pos) &&
+    if (!is.null(legend.pos) &&
         legend.pos[1] %in% c("topleft", "left", "bottomleft")) {
       coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
     }
@@ -1205,14 +1194,13 @@ plot_AbanicoPlot <- function(
   }
 
   ## define cartesian plot origins
-  if(rotate == FALSE) {
+  if (!rotate) {
     xy.0 <- c(min(ellipse[,1]) * lostintranslation, min(ellipse[,2]))
   } else {
     xy.0 <- c(min(ellipse[,1]), min(ellipse[,2]) * lostintranslation)
   }
 
   ## calculate coordinates for dispersion polygon overlay
-  y.max.x <- 2 * limits.x[2] / max(data.global[6])
   y.max <- if (!rotate) par()$usr[2] else par()$usr[4]
 
   polygons.x <- c(limits.x[1], limits.x[2], xy.0[rotate.idx], y.max, y.max,
@@ -1221,26 +1209,26 @@ plot_AbanicoPlot <- function(
   for(i in 1:length(data)) {
     if(dispersion == "qr") {
       ci.lo_up <- quantile(data[[i]][, 1], c(0.25, 0.75))
-    } else if(grepl(x = dispersion, pattern = "p") == TRUE) {
+    } else if (grepl("p", dispersion)) {
       ci.plot <- as.numeric(strsplit(x = dispersion,
                                      split = "p")[[1]][2])
       ci.plot <- (100 - ci.plot) / 100
       ci.lo_up <- quantile(data[[i]][, 1], c(ci.plot, 1 - ci.plot))
     } else if(dispersion == "sd") {
-      if(log.z == TRUE) {
+      if (log.z) {
         ci.lo_up <- exp(mean(log(data[[i]][, 1])) + c(-1, 1) * sd(log(data[[i]][, 1])))
       } else {
         ci.lo_up <- mean(data[[i]][, 1]) + c(-1, 1) * sd(data[[i]][, 1])
       }
     } else if(dispersion == "2sd") {
-      if(log.z == TRUE) {
+      if (log.z) {
         ci.lo_up <- exp(mean(log(data[[i]][, 1])) + c(-2, 2) * sd(log(data[[i]][, 1])))
       } else {
         ci.lo_up <- mean(data[[i]][, 1]) + c(-2, 2) * sd(data[[i]][, 1])
       }
     }
 
-    if(log.z == TRUE) {
+    if (log.z) {
       ci.lo_up[which(ci.lo_up < 0)] <- 1
       ci.lo_up <- log(ci.lo_up)
     }
@@ -1347,7 +1335,7 @@ plot_AbanicoPlot <- function(
                                         if (log.z) 100 else 1, 1))
 
     ## optionally, plot 2-sigma-bar
-    if (bar[1] != FALSE) {
+    if (!isFALSE(bar[1])) {
       if (is.logical(bar)) {
         bar <- sapply(data, function(x) x[1, 5])
       } else if (log.z) {
@@ -1418,7 +1406,7 @@ plot_AbanicoPlot <- function(
     }
 
     ## optionally, plot lines for each bar
-    if (lwd[1] > 0 && lty[1] > 0 && bar[1] != FALSE) {
+    if (lwd[1] > 0 && lty[1] > 0 && !isFALSE(bar[1])) {
       for (i in 1:length(data)) {
         z.line <- if (length(bar) == 1) bar[1] else bar[i]
         x2 <- r / sqrt(1 + f^2 * (z.line - z.central.global)^2)
@@ -1432,7 +1420,7 @@ plot_AbanicoPlot <- function(
     }
 
   ## optionally add further lines
-  if (!missing(line) && length(line) > 0) {
+  if (length(line) > 0) {
 
     ## check if line parameters are RLum.Results objects
     if (is.list(line)) {
@@ -1450,11 +1438,11 @@ plot_AbanicoPlot <- function(
       line <- unlist(line)
     if (log.z)
       line <- log(line)
-    if (missing(line.col))
+    if (is.null(line.col))
       line.col <- seq_along(line)
-    if (missing(line.lty))
+    if (is.null(line.lty))
       line.lty <- rep(1, length(line))
-    if (missing(line.label))
+    if (is.null(line.label))
       line.label <- rep("", length(line))
 
     ## calculate line coordinates and further parameters
@@ -1681,7 +1669,7 @@ plot_AbanicoPlot <- function(
       arrow.x <- data[[i]][, 6]
       arrow.y1 <- data[[i]][, 1] - data[[i]][, 2]
       arrow.y2 <- data[[i]][, 1] + data[[i]][, 2]
-      if (log.z == TRUE) {
+      if (log.z) {
         arrow.y1 <- log(arrow.y1)
         arrow.y2 <- log(arrow.y2)
       }
@@ -1980,7 +1968,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## optionally add legend content
-  if (!missing(legend)) {
+  if (!is.null(legend)) {
     ## store and change font familiy
     par.family <- par()$family
     par(family = layout$abanico$font.type$legend)
@@ -2028,8 +2016,7 @@ plot_AbanicoPlot <- function(
              font = which(c("normal", "bold", "italic", "bold italic") ==
                             layout$abanico$font.deco$summary)[1],
              cex = layout$abanico$font.size$summary / 12)
-    } else {
-        if (mtext == "") {
+    } else if (mtext == "") {
           mtext(side = 3,
                 line = (shift.lines - 1 + add.shift - i) *
                   layout$abanico$dimension$summary / 100 ,
@@ -2039,7 +2026,6 @@ plot_AbanicoPlot <- function(
                 font = which(c("normal", "bold", "italic", "bold italic") ==
                                layout$abanico$font.deco$summary)[1],
                 cex = cex * layout$abanico$font.size$summary / 12)
-        }
     }
   }
 

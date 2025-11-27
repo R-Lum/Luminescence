@@ -114,13 +114,13 @@ test_that("input validation", {
                "'USER' exceeds storage limit")
 
   temp <- new
-  temp@METADATA[1, "SAMPLE"] <- paste0(rep("a", 25), collapse="")
+  temp@METADATA[1, "SAMPLE"] <- strrep("a", 25)
   expect_error(write_R2BIN(object = temp, file = "test"),
                "'SAMPLE' exceeds storage limit")
 
   temp <- new
   temp@DATA[[2]] <- 1:25000
-  temp@METADATA[1, "POSITION"] <- paste0(rep("a", 50), collapse="")
+  temp@METADATA[1, "POSITION"] <- strrep("a", 50)
   expect_error(write_R2BIN(object = temp, file = "test"),
                "records contain more than 9,999 data points")
   expect_warning(

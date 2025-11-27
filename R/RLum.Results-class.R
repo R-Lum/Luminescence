@@ -59,7 +59,7 @@ setClass(
   Class = "RLum.Results",
   slots = list(data = "list"),
   contains = "RLum",
-  prototype = list (data = list())
+  prototype = list(data = list())
 )
 
 
@@ -176,13 +176,9 @@ setMethod(
     .set_function_name("get_RLum")
     on.exit(.unset_function_name(), add = TRUE)
 
-    ##if info.object is set, only the info objects are returned
+    ## if info.object is set, only the info objects are returned if present
     if (!is.null(info.object)) {
-      if (info.object %in% names(object@info)) {
-        unlist(object@info[info.object])
-
-      } else {
-        ##check for entries
+      if (!info.object %in% names(object@info)) {
         if (length(object@info) == 0) {
           .throw_warning("This 'RLum.Results' object has no info objects, ",
                          "NULL returned")
@@ -192,70 +188,48 @@ setMethod(
         }
         return(NULL)
       }
+      return(unlist(object@info[info.object]))
+    }
 
-    } else{
-      if (!missing(data.object)) {
-        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        .validate_class(data.object, c("character", "numeric"))
+    if (!missing(data.object)) {
+      ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      .validate_class(data.object, c("character", "numeric"))
 
-        ##CASE1: data.object is of type 'character'
-        if (is.character(data.object)) {
-          #check if the provided names are available
-          if (all(data.object %in% names(object@data))) {
-            ##account for multiple inputs
-            if (length(data.object) > 1) {
-              temp.return <- sapply(data.object, function(x) {
-                object@data[[x]]
-              })
-
-            } else{
-              temp.return <- list(data.object = object@data[[data.object]])
-            }
-          } else {
+      ## CASE 1: data.object is of type 'character'
+      if (is.character(data.object) &&
+          !all(data.object %in% names(object@data))) {
             .throw_error("Unknown 'data.object', valid names are: ",
                          .collapse(names(object@data)))
-          }
-        }
-
-        ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ##CASE2: data.object is of type 'numeric'
-        else if (is.numeric(data.object)) {
-          ##check if index is valid
-          if (max(data.object) > length(object@data)) {
-            .throw_error("'data.object' index out of bounds")
-          } else if (length(data.object) > 1) {
-            temp.return <- lapply(data.object, function(x) {
-              object@data[[x]]
-            })
-          } else {
-            temp.return <- list(object@data[[data.object]])
-          }
-
-          ##restore names as that get los with this method
-          names(temp.return) <-
-            names(object@data)[data.object]
-        }
-
-        ##the CASE data.object is missing
-      } else{
-        ##return always the first object if nothing is specified
-        temp.return <- object@data[1]
       }
 
-      ##CHECK whether an RLum.Results object needs to be produced ...
-      ##This will just be the case if the funtion havn't returned something before
-      if (drop) {
+      ## CASE 2: data.object is of type 'numeric'
+      if (is.numeric(data.object) && max(data.object) > length(object@data)) {
+            .throw_error("'data.object' index out of bounds")
+      }
+
+      ## extract the chosen subset of objects
+      temp.return <- lapply(data.object, function(x) object@data[[x]])
+
+      ## restore names as they get lost if data.object is numeric
+      names(temp.return) <- names(object@data)[data.object]
+
+    } else {
+      ## CASE 3: data.object is missing
+        ##return always the first object if nothing is specified
+        temp.return <- object@data[1]
+    }
+
+    ## check whether an RLum.Results object needs to be produced
+    if (drop) {
         ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
         ##should always return the lowest possible element here
         return(temp.return[[1]])
-      } else{
-        return(set_RLum(
+    }
+    set_RLum(
           "RLum.Results",
           originator = object@originator,
           data = temp.return
-        ))
-      }
-    }
+        )
   }
 )
 

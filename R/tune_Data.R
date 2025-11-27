@@ -51,15 +51,12 @@ tune_Data <- function(
   .set_function_name("tune_Data")
   on.exit(.unset_function_name(), add = TRUE)
 
-  if(missing(decrease.error) == FALSE) {
-
+  if (!missing(decrease.error)) {
     error.rel <- data[,2] / data[,1]
-
     data[,2] <- error.rel * (1 - decrease.error) * data[,1]
   }
 
-  if(missing(increase.data) == FALSE) {
-
+  if (!missing(increase.data)) {
     n <- round(x = increase.data * 100,
                digits = 0)
 
@@ -78,8 +75,9 @@ tune_Data <- function(
     x.merge <- c(data[,1], x.new)
     e.merge <- c(data[,2], e.new)
 
-    e.merge <- e.merge[order(x.merge)]
-    x.merge <- x.merge[order(x.merge)]
+    ord <- order(x.merge)
+    e.merge <- e.merge[ord]
+    x.merge <- x.merge[ord]
 
     data.out <- data.frame(x.merge, e.merge)
 

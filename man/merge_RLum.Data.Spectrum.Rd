@@ -7,7 +7,7 @@
 merge_RLum.Data.Spectrum(
   object,
   merge.method = "mean",
-  method.info,
+  method.info = NULL,
   max.temp.diff = 0.1
 )
 }
@@ -25,7 +25,7 @@ be taken from the first object in the list.}
 allows to specify how info elements of the input objects are combined,
 e.g. \code{1} means that just the elements from the first object are kept,
 \code{2} keeps only the info elements from the 2 object etc.
-If nothing is provided all elements are combined.}
+If set to \code{NULL}, all elements are combined.}
 
 \item{max.temp.diff}{\link{numeric} (\emph{with default}):
 maximum difference in the time/temperature values between the spectra to
@@ -107,7 +107,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{

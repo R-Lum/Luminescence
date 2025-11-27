@@ -208,9 +208,9 @@ report_RLum <- function(
   # nocov end
 
   # check if files exist
-  if (!is.null(css.file))
-    if(!file.exists(css.file))
+  if (!is.null(css.file) && !file.exists(css.file)) {
       .throw_error("Couldn't find the specified CSS file at '", css.file, "'")
+  }
 
   ## ------------------------------------------------------------------------ ##
   ## STRUCTURE ----
@@ -353,15 +353,15 @@ report_RLum <- function(
     for (i in 1:nrow(elements)) {
       # SKIP ELEMENT?
       # hide @.pid and @.uid if this is a shortened report (default)
-      if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
+      if (elements$bud[i] %in% c(".uid", ".pid") && compact)
         next
 
       # HEADER
       short.name <- elements$bud[i]
       links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
-      type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
+      type <- ifelse(nzchar(links), substr(links, nchar(links), nchar(links)), "")
       if (type == "[")
-        type = ""
+        type <- ""
 
       # HTML header level is determined by the elements depth in the object
       # exception: first row is always the object's name and has depth zero
@@ -413,7 +413,7 @@ report_RLum <- function(
         # compatible with pander::pander
         if (is.null(table) | length(table) == 0)
           table <- "NULL"
-        if (any(class(table) == "raw"))
+        if (any(is.raw(table)))
           table <- as.character(table)
 
         # exception: surround objects of class "call" with <pre> tags to prevent
@@ -428,17 +428,14 @@ report_RLum <- function(
         }
 
         # shorten the table if it has more than 15 rows
-        if (options$short_table) {
-          if (is.matrix(table) || is.data.frame(table)) {
-            if (nrow(table) > 15) {
+        if (options$short_table &&
+            (is.matrix(table) || is.data.frame(table)) && nrow(table) > 15) {
               text <- pander::pander_return(
                 rbind(head(table, 5), tail(table, 5)),
                 caption = "shortened (only first and last five rows shown)")
 
               writeLines(text, tmp)
               next
-            }
-          }
         }
 
         # write table using pander and end each table with a horizontal line
@@ -492,7 +489,7 @@ report_RLum <- function(
   # PLOTTING ----
   if (structure$plot) {
     isRLumList <- is.list(object) &&
-      all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
+      all(sapply(object, inherits, "RLum.Data.Curve"))
     if (inherits(object, "RLum") || isRLumList) {
 
       # mutual exclusivity: it is either a list or an RLum-Object
@@ -510,19 +507,16 @@ report_RLum <- function(
         "```"),
         tmp)
 
-      if (inherits(object, "RLum.Results")) {
-        # AGE MODELS ----
-        models <- c("calc_AverageDose",
-                    "calc_CommonDose",
-                    "calc_CentralDose",
-                    "calc_FiniteMixture",
-                    "calc_MinDose",
-                    "calc_MaxDose",
-                    "calc_IEU",
-                    "calc_FuchsLang2001")
-
-        if (object@originator %in% models) {
-          writeLines(paste0(
+      if (inherits(object, "RLum.Results") &&
+          .check_originator(object, c("calc_AverageDose",
+                                        "calc_CommonDose",
+                                        "calc_CentralDose",
+                                        "calc_FiniteMixture",
+                                        "calc_FuchsLang2001",
+                                        "calc_IEU",
+                                        "calc_MaxDose",
+                                        "calc_MinDose"))) {
+        writeLines(paste0(
             "```{r}\n",
             "plot_AbanicoPlot(x) \n",
             "plot_Histogram(x) \n",
@@ -530,7 +524,6 @@ report_RLum <- function(
             "plot_ViolinPlot(x) \n",
             "```"),
             tmp)
-        }
       }
     }
   }#EndOf::Plot
@@ -629,10 +622,8 @@ report_RLum <- function(
     ## Data frames -----
   } else if (inherits(x, "data.frame")) {
 
-    if (any(sapply(x, function(col) { inherits(col, "matrix") } ))) {
-
+    if (any(sapply(x, inherits, "matrix"))) {
       element <- names(x)
-
       for (i in 1:length(x)) {
         if (grepl(" ", element[i]))
           element[i] <- paste0("`", element[i], "`")
@@ -687,8 +678,8 @@ report_RLum <- function(
   df$col <- as.integer(df$col)
   df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["),
                               function(x) x[length(x)]))
-  if (length(grep("]", df$bud)) != 0)
-    df$bud[grep("]", df$bud)] <- paste0("[[", df$bud[grep("]", df$bud)])
+  if (any(grepl("]", df$bud, fixed = TRUE)))
+    df$bud[grep("]", df$bud)] <- paste0("[[", grep("]", df$bud, value = TRUE))
   df$bud.freq <- NA # 1:nrow(df)
 
   # reorder data.frame

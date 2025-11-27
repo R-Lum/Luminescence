@@ -32,14 +32,14 @@
 #'subset_SingleGrainData(object = CWOSL.SAR.Data, selection = selection)
 #'
 #'@export
-subset_SingleGrainData <- function (
+subset_SingleGrainData <- function(
     object,
     selection
 ) {
   .set_function_name("subset_SingleGrainData")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, "Risoe.BINfileData")
 
   ## try to work with selection

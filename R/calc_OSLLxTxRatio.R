@@ -135,7 +135,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.8.1
+#' @section Function version: 0.8.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -172,9 +172,9 @@
 calc_OSLLxTxRatio <- function(
   Lx.data,
   Tx.data = NULL,
-  signal.integral,
+  signal.integral = NULL,
   signal.integral.Tx = NULL,
-  background.integral,
+  background.integral = NULL,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,
@@ -198,22 +198,28 @@ calc_OSLLxTxRatio <- function(
   ## Lx - coerce if required
   Lx.data <- switch(
     class(Lx.data)[1],
-    "RLum.Data.Curve" = as(Lx.data, "data.frame"),
-    "matrix" = as.data.frame(Lx.data),
-    "data.frame" = Lx.data,
+    RLum.Data.Curve = as(Lx.data, "data.frame"),
+    matrix = as.data.frame(Lx.data),
+    data.frame = Lx.data,
     data.frame(x = 1:length(Lx.data),y = Lx.data)
   )
+  if (ncol(Lx.data) < 2) {
+    .throw_error("'Lx.data' should have 2 columns")
+  }
   len.Lx <- nrow(Lx.data)
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
     Tx.data <- switch(
       class(Tx.data)[1],
-      "RLum.Data.Curve" = as(Tx.data, "data.frame"),
-      "matrix" = as.data.frame(Tx.data),
-      "data.frame" = Tx.data,
+      RLum.Data.Curve = as(Tx.data, "data.frame"),
+      matrix = as.data.frame(Tx.data),
+      data.frame = Tx.data,
       data.frame(x = 1:length(Tx.data),y = Tx.data)
     )
+    if (ncol(Tx.data) < 2) {
+      .throw_error("'Tx.data' should have 2 columns")
+    }
     len.Tx <- nrow(Tx.data)
 
     ## check channel number
@@ -319,7 +325,7 @@ calc_OSLLxTxRatio <- function(
   LnLx <- Lx.signal - Lx.background
 
   ##TnTx
-  Tx.curve <- ifelse(is.na(Tx.data[,1])==FALSE, Tx.data[,2], NA)
+  Tx.curve <- ifelse(is.na(Tx.data[, 1]), NA, Tx.data[, 2])
   Tx.signal <- sum(Tx.curve[signal.integral.Tx])
 
   ##use previous BG
@@ -394,7 +400,7 @@ calc_OSLLxTxRatio <- function(
   } else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
-    if (!anyNA(Tx.data) && m.Tx < 25 && use_previousBG == FALSE) {
+    if (!anyNA(Tx.data) && m.Tx < 25 && !use_previousBG) {
       .throw_warning("Number of background channels for Tx < 25, ",
                      "error estimation might not be reliable")
     }

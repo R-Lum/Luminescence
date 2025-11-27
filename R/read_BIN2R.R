@@ -547,13 +547,11 @@ read_BIN2R <- function(
     }
 
     ##print record ID for debugging purposes
-    if(verbose){
-      if(show.record.number == TRUE){
+    if (show.record.number && verbose) {
         cat(temp.ID,",", sep = "")
         if(temp.ID%%10==0){
           cat("\n")
         }
-      }
     }
 
     #empty byte position
@@ -1101,7 +1099,7 @@ read_BIN2R <- function(
     ##check whether the position is valid at all
     if (results.METADATA[, all(position %in% POSITION)]) {
       keep.positions <- results.METADATA[, POSITION %in% position]
-      results.METADATA <- results.METADATA[keep.positions == TRUE, ]
+      results.METADATA <- results.METADATA[(keep.positions), ]
       results.DATA <- results.DATA[keep.positions]
       results.RESERVED <- results.RESERVED[keep.positions]
 
@@ -1209,7 +1207,7 @@ read_BIN2R <- function(
 
   ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
   ## This can happen if the user uses different equipment
-  if (results.METADATA[, all(FNAME == "")]) {
+  if (results.METADATA[, !any(nzchar(FNAME))]) {
     results.METADATA[, FNAME := tools::file_path_sans_ext(basename(file))]
   }
 

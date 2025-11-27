@@ -8,7 +8,7 @@ analyse_Al2O3C_CrossTalk(
   object,
   signal_integral = NULL,
   dose_points = c(0, 4),
-  recordType = c("OSL (UVVIS)"),
+  recordType = "OSL (UVVIS)",
   irradiation_time_correction = NULL,
   method_control = NULL,
   plot = TRUE,

@@ -1,7 +1,7 @@
-#' @title Linearity Correction for Photomultiplier tubes (PMT)
+#' @title Dead-time (linearity) Correction for Photomultiplier tubes (PMT)
 #'
 #' @description
-#' Correct linearity of PMT counts to avoid saturation effects, depending
+#' Correct dead-time (also linearity) of PMT counts to avoid saturation effects, depending
 #' on pulse-pair-resolution of individual PMTs.
 #'
 #' @details

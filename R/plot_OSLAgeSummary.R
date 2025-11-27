@@ -54,19 +54,20 @@ plot_OSLAgeSummary <- function(
   .set_function_name("plot_OSLAgeSummary")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Results", "numeric"))
   .validate_positive_scalar(level)
   .validate_positive_scalar(digits, int = TRUE)
 
   if (inherits(object, "RLum.Results")) {
-    if (object@originator %in% c(".calc_BayesianCentralAgeModel",
-                                 ".calc_IndividualAgeModel")) {
+    if (.check_originator(object, c(".calc_BayesianCentralAgeModel",
+                                    ".calc_IndividualAgeModel"))) {
       data.object <- "A"
-    } else if (object@originator %in% "combine_De_Dr") {
+    } else if (.check_originator(object, "combine_De_Dr")) {
       data.object <- "Ages"
     } else {
-      .throw_error("Object originator '", object@originator, "' not supported")
+      .throw_error("'object' was created by an unsupported function ",
+                   "(originator is '", object@originator, "')")
     }
     object <- get_RLum(object, data.object = data.object)
   }

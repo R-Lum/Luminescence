@@ -148,7 +148,7 @@ test_that("get_RLum", {
   SW({
   expect_message(expect_null(get_RLum(obj, subset = (recordType == "error"))),
                  "'subset' expression produced an empty selection, NULL returned")
-  expect_message(expect_null(get_RLum(obj, subset = (recordType == NA))),
+  expect_message(expect_null(get_RLum(obj, subset = NA)),
                  "'subset' expression produced an empty selection, NULL returned")
   })
 })

@@ -130,7 +130,7 @@ remove_SignalBackground <- function(
         recordType = recordType,
         data = matrix(
           c(m_ref[,1],
-            rep(object_bg[,max(ncol(object_bg))], length.out = nrow(m_ref))),
+            rep_len(object_bg[, max(ncol(object_bg))], nrow(m_ref))),
           ncol = 2))
     }
 
@@ -139,7 +139,7 @@ remove_SignalBackground <- function(
       object_bg <- list(object_bg)
 
     ## if we have an object for bg, we take this an recycle it to the length
-    object_bg <- rep(object_bg, length.out = length(id_pairs))
+    object_bg <- rep_len(object_bg, length(id_pairs))
 
     ## set id signal
     id_signal <- id_bg <- id_pairs

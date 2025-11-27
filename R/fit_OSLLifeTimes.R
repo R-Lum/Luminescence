@@ -188,8 +188,7 @@ fit_OSLLifeTimes <- function(
     .validate_not_empty(object)
 
   ##allow RLum.Analysis objects
-  if(all(vapply(object, function(x){
-    inherits(x, "RLum.Analysis")}, logical(1)))){
+  if (all(vapply(object, inherits, "RLum.Analysis", FUN.VALUE = logical(1)))) {
     object <- lapply(object, function(x){x@records})
     object <- .unlist_RLum(object)
   }
@@ -209,7 +208,7 @@ fit_OSLLifeTimes <- function(
   arg_list <- NULL
   if(!is.null(arg_names)){
     arg_list <- lapply(arg_names , function(x){
-      unlist(rep(list(...)[[x]], length.out = length(object)))
+      unlist(rep_len(list(...)[[x]], length(object)))
     })
 
     ## make sure we organise this list (not nice but it works)
@@ -455,7 +454,7 @@ fit_OSLLifeTimes <- function(
         control = DEoptim::DEoptim.control(
            trace = method_control_setting$DEoptim.trace,
            itermax = method_control_setting$DEoptim.itermax,
-           c = .5,
+           c = 0.5,
            strategy = 2,
            parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
          )
@@ -647,20 +646,18 @@ if(plot) {
     ##catch log scale
     if (is.list(plot_settings$log))
       plot_settings$log <- unlist(plot_settings$log)
-    if(grepl(pattern = "x", plot_settings$log, fixed = TRUE)){
-      if(plot_settings$xlim[1] == 0){
+    if (grepl(pattern = "x", plot_settings$log, fixed = TRUE) &&
+        plot_settings$xlim[1] == 0) {
         plot_settings$xlim[1] <- max(min(df_raw[[1]]), 1e-4)
         .throw_warning("log-scale requires x-values > 0, set min xlim to ",
                        round(plot_settings$xlim[1], 4))
-      }
     }
 
-    if(grepl(pattern = "y", plot_settings$log, fixed = TRUE)){
-      if(plot_settings$ylim[1] == 0){
+    if (grepl(pattern = "y", plot_settings$log, fixed = TRUE) &&
+        plot_settings$ylim[1] == 0) {
         plot_settings$ylim[1] <- max(min(df_raw[[2]]), 1e-04)
         .throw_warning("log-scale requires y-values > 0, set min ylim to ",
                        round(plot_settings$ylim[1], 4))
-      }
     }
 
   par.default <- .par_defaults()

@@ -193,7 +193,7 @@ test_that("check functionality", {
         recuperation_reference = "stop",
         test = "new",
         exceed.max.regpoint = FALSE),
-      plot = TRUE,
+      plot = TRUE
     ),
     "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
@@ -389,7 +389,7 @@ test_that("advance tests run", {
           "RLum.Data.Curve",
           recordType = "irradiation",
           data = no_irr_object[[1]]@records[[1]]@data,
-          info = no_irr_object[[1]]@records[[1]]@info,
+          info = no_irr_object[[1]]@records[[1]]@info
           ),
           no_irr_object[[2]][[1]], no_irr_object[[2]][[2]]),
       originator = "read_XSYG2R"
@@ -645,6 +645,16 @@ test_that("graphical snapshot tests", {
                                   background.integral.min = 600,
                                   background.integral.max = 900,
                                   log = "xy",
+                                  plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("onlyLxTxTable",
+                              analyse_SAR.CWOSL(
+                                  object = object,
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 2,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  onlyLxTxTable = TRUE,
                                   plot_onePage = TRUE))
   })
 })

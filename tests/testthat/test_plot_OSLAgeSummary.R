@@ -10,11 +10,11 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(plot_OSLAgeSummary(set_RLum("RLum.Results", data = list(),
                                            originator = "error")),
-               "Object originator 'error' not supported")
+               "'object' was created by an unsupported function")
 
   empty <- set_RLum("RLum.Results", originator = NA_character_)
   expect_error(plot_OSLAgeSummary(empty),
-               "Object originator 'NA' not supported")
+               "'object' was created by an unsupported function")
   expect_error(plot_OSLAgeSummary(object, level = 0),
                "'level' should be a single positive value")
   expect_error(plot_OSLAgeSummary(object, digits = 1.2),

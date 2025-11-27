@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(apply_Crosstalk("error"),
                "'object' should be of class 'RLum.Results', 'numeric' or 'integer'")
   expect_error(apply_Crosstalk(obj, n_crosstalk = "error"),
-               "'n_crosstalk' should be a single value")
+               "'n_crosstalk' should be of class 'numeric' and have length 1")
 })
 
 test_that("check functionality", {

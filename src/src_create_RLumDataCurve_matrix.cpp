@@ -15,18 +15,17 @@ using namespace Rcpp;
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
 // .. no export
-NumericVector seq_RLum(double from, double to, double length_out) {
+NumericVector seq_RLum(double from, double to, int length_out) {
 
   //calculate by
   double by = (to - from) / length_out;
 
   //set sequence vector and so set the first channel
-  NumericVector sequence(static_cast<int>(length_out), (from + by));
+  NumericVector sequence(length_out, from + by);
 
   //loop and create sequence
-  for (int i=1; i < static_cast<int>(length_out); i++)
+  for (int i = 1; i < length_out; i++)
     sequence[i] = sequence[i-1] + by;
-
 
   return sequence;
 }
@@ -45,7 +44,6 @@ NumericMatrix create_RLumDataCurve_matrix(
   int TOLDELAY,
   int TOLON,
   int TOLOFF
-
 ){
 
   //generate X vectors
@@ -60,7 +58,7 @@ NumericMatrix create_RLumDataCurve_matrix(
 
       //provide a fall-back for non-conform  BIN/BINX-files, otherwise the
       //the TL curves are wrong without having a reason shown
-      if((TOLON == 0) & (TOLOFF == 0) & (TOLDELAY == 0)){
+      if (TOLON == 0 && TOLOFF == 0 && TOLDELAY == 0) {
         Rcout << "[src_create_RLumDataCurve_matrix()] BIN/BINX-file non-conform. TL curve may be wrong!\n";
         TOLOFF = NPOINTS;
       }
@@ -69,32 +67,30 @@ NumericMatrix create_RLumDataCurve_matrix(
       //be combined
       //
       //(A) - the start ramping
-      NumericVector heat_ramp_start = seq_RLum(LOW,AN_TEMP,static_cast<double>(TOLDELAY));
+      NumericVector heat_ramp_start = seq_RLum(LOW, AN_TEMP, TOLDELAY);
       //
       //(B) - the plateau
-      //B is simply TOLON
+      int B_start = heat_ramp_start.length();
+      int B_end = B_start + TOLON;
       //
       //(C) - the end ramping
-      NumericVector heat_ramp_end = seq_RLum(AN_TEMP, HIGH, static_cast<double>(TOLOFF));
+      NumericVector heat_ramp_end = seq_RLum(AN_TEMP, HIGH, TOLOFF);
 
       //set index counters
-      int c = 0;
+      int i, c = 0;
 
       //fill vector for temperature
-      for(int i = 0; i < X.length(); i++){
-        if(i < heat_ramp_start.length()){
+      for (i = 0; i < B_start; i++) {
           X[i] = heat_ramp_start[i];
-
-        }else if(i >= heat_ramp_start.length() && i < heat_ramp_start.length() + static_cast<double>(TOLON)){
+      }
+      for (i = B_start; i < B_end; i++) {
           X[i] = AN_TEMP;
-
-        }else if(i >= heat_ramp_start.length() + TOLON){
+      }
+      for (i = B_end; i < NPOINTS; i++, c++) {
           X[i] = heat_ramp_end[c];
-          c++;
-        }
       }
     }else{
-      X = seq_RLum(LOW, HIGH, static_cast<double>(NPOINTS));
+      X = seq_RLum(LOW, HIGH, NPOINTS);
     }
 
     //set final matrix
@@ -112,6 +108,5 @@ NumericMatrix create_RLumDataCurve_matrix(
     curve_matrix(0,1) = NumericVector::get_na();
 
     return(curve_matrix);
-
   }
 }

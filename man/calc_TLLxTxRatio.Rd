@@ -7,10 +7,10 @@
 calc_TLLxTxRatio(
   Lx.data.signal,
   Lx.data.background = NULL,
-  Tx.data.signal,
+  Tx.data.signal = NULL,
   Tx.data.background = NULL,
-  signal.integral.min,
-  signal.integral.max
+  signal.integral.min = NULL,
+  signal.integral.max = NULL
 )
 }
 \arguments{
@@ -68,7 +68,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.3
+ 0.3.4
 }
 
 \examples{
@@ -78,7 +78,6 @@ data(ExampleData.BINfileData, envir = environment())
 
 ##convert Risoe.BINfileData into a curve object
 temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
-
 
 Lx.data.signal <- get_RLum(temp, record.id=1)
 Lx.data.background <- get_RLum(temp, record.id=2)

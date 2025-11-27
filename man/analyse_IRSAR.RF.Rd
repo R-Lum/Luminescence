@@ -28,10 +28,11 @@ If a \code{list} is provided as input all other parameters can be provided as
 
 \item{sequence_structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Allowed steps are \code{NATURAL} and
-\code{REGENERATED}, and at least one of each must appear.
-In addition any other character is allowed in the sequence structure;
-such curves will be ignored during the analysis. If \code{sequence_structure}
-is shorter than the number of curves in \code{object}, it is recycled.}
+\code{REGENERATED}, and at least one of each must appear. In addition, any other
+character is allowed in the sequence structure; such curves will be ignored
+during the analysis. If \code{sequence_structure} is shorter than the number of
+curves in \code{object}, it is recycled. If multiple \code{NATURAL} and \code{REGENERATED}
+steps are specified, the corresponding measurements are stacked.}
 
 \item{RF_nat.lim}{\link{vector} (\emph{with default}):
 set minimum and maximum channel range for natural signal fitting and sliding.
@@ -192,7 +193,8 @@ Three methods are supported to obtain the \eqn{D_{e}}:
 \strong{\code{method = "FIT"}}
 
 The principle is described above and follows the original suggestions by
-Erfurt et al., 2003. For the fitting the mean count value of the \code{RF_nat} curve is used.
+Erfurt et al., 2003. For the fitting, the mean count value of the \code{RF_nat}
+curve is used.
 
 Function used for the fitting (according to Erfurt et al. (2003)):
 
@@ -238,37 +240,45 @@ the methods for De estimation are preset with meaningful default values,
 which can however be modified using the \code{method_control} argument, e.g.,
 \code{method_control = list(trace = TRUE)}. Supported parameters are:
 
-\tabular{lll}{
-\strong{PARAMETER} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
-\code{trace}   \tab \code{FIT}, \code{SLIDE} or \code{VSLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
-\code{trace_vslide} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
-\code{maxiter} \tab \code{FIT} \tab as in \link{nls}\cr
-\code{warnOnly} \tab \code{FIT} \tab as in \link{nls}\cr
-\code{minFactor} \tab \code{FIT} \tab as in \link{nls}\cr
-\code{correct_onset} \tab \code{SLIDE} or \code{VSLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
-as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
-enable/disable KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
-enable/disable the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
-This controls the number of MC runs within the sliding (assessing the possible minimum values).
-The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
-function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
-This argument sets the boundaries for a vertical curve
-sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
-Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
-reasonable vertical sliding range (\strong{recommended}). \code{NULL} applies no vertical sliding.
-The default is \code{NULL}.\cr
-\code{num_slide_windows} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
-This argument controls how many differently-sized windows are tested when
-sliding: the higher the value (up to a maximum of 10), the more time is
-spent in searching the global optimum. The default is 3, which attempts to
-strike a balance between quality of the fit and computation speed.\cr
-\code{cores} \tab \code{SLIDE} or \code{VSLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
-for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
-the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
+\emph{For FIT}
+\itemize{
+\item \code{trace} (\link{logical}, default: \code{FALSE}): as in \link{nls}; shows sum of squared
+residuals.
+\item \code{maxiter} (\link{integer}, default: 500): as in \link{nls}.
+\item \code{warnOnly} (\link{logical}, default: \code{FALSE}): as in \link{nls}.
+\item \code{minFactor} (\link{numeric}, default: \code{1 / 4096}): as in \link{nls}.
+}
+
+\emph{For SLIDE or VSLIDE}
+\itemize{
+\item \code{trace} (\link{logical}, default: \code{FALSE}): as in \link{nls}; shows sum of squared
+residuals.
+\item \code{trace_vslide} (\link{logical}, default: \code{FALSE}): enable/disable the tracing
+of the vertical sliding.
+\item \code{correct_onset} (\link{logical}, default: \code{TRUE}): whether the curves should
+be shifted along the x-axis by the first channel, as light is expected in
+the first channel.
+\item \code{show_density} (\link{logical}, default: \code{TRUE}): enable/disable KDE plots for
+MC run results. Nothing is shown if the distribution is too narrow.
+\item \code{show_fit} (\link{logical}, default: \code{FALSE}): enable/disable the plot of the
+fitted curve routinely obtained during the evaluation.
+\item \code{n.MC} (\link{integer}, default: 1000): number of Monte Carlo runs within the
+sliding (assessing the possible minimum values). \strong{Note}: This parameter
+is not the same as the function argument \code{n.MC}.
+\item \code{vslide_range} (\link{numeric} or \link{character}, default: "auto"): boundaries
+for the vertical curve sliding. The argument expects a vector with absolute
+minimum and maximum (e.g., \code{c(-1000,1000)}). The default "auto" mode
+detects the reasonable vertical sliding range (\emph{recommended}). \code{NULL}
+disables the vertical sliding.
+\item \code{num_slide_windows} (\link{integer}, default: 3): number of  differently-sized
+windows tested when sliding: the higher the value (up to a maximum of 10),
+the more time is spent in searching the global optimum. The default setting
+attempts to strike a balance between quality of the fit and computation
+speed.
+\item \code{cores} (\link{numeric} or \link{character}, default: \code{NULL}): number of cores
+allocated for a parallel processing of the Monte-Carlo runs. The default
+value corresponds to single-threaded computation; the recommended values is
+\code{"auto"}, which assigns all but two of the available cores.
 }
 
 \strong{Error estimation}
@@ -281,66 +291,63 @@ For \strong{\code{method = "SLIDE"}} and \strong{\code{method = "VSLIDE"}}, the 
 by bootstrapping the residuals of the slid curve to construct new natural
 curves for a Monte Carlo simulation. The error is returned in two ways:
 (a) the standard deviation of the \eqn{D_{e}} obtained from the MC runs and
-(b) the confidence interval using the  2.5 \% (lower) and the 97.5 \% (upper)
+(b) the confidence interval using the 2.5 \% (lower) and the 97.5 \% (upper)
 quantiles. The results of the MC runs are returned with the function output.
 
 \strong{Test parameters}
 
-The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
-which will be evaluated during the function run. If a threshold is set and
-it is exceeded, the
-test parameter status will be set to \code{"FAILED"}. Intentionally this parameter is not termed
-\code{'rejection criteria'} as not all test parameters are evaluated for both methods and some parameters
-are calculated but not evaluated by default. Common for all parameters are the allowed argument options
-\code{NA} and \code{NULL}. If the parameter is set to \code{NA} the value is calculated but the
-result will not be evaluated, therefore it will have no effect on the
-status (\code{"OK"} or \code{"FAILED"}) of the parameter.
-Setting the parameter to \code{NULL} disables the parameter entirely and the parameter will be
-also removed from the function output. This might be useful in cases where a particular parameter
-requires a long computation time. Currently supported parameters are:
+The argument \code{test_parameters} allows to pass thresholds for several test
+parameters, which will be evaluated during the function run. If a threshold
+is set and it is exceeded, the test parameter status will be set to
+\code{"FAILED"}. This argument is intentionally not termed \code{'rejection criteria'}
+as not all test parameters are evaluated for both methods and some parameters
+are calculated but not evaluated by default.
 
-\code{curves_ratio} \link{numeric} (default: \code{1.001}):
-
-The ratio of \eqn{RF_{nat}} over \eqn{RF_{reg}} in the range of\eqn{RF_{nat}} of is calculated
-and should not exceed the threshold value.
-
-\code{intersection_ratio} \link{numeric} (default: \code{NA}):
-
-Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
-This value indicates intersection of the RF-curves and should be close to 0 if the curves
-have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
-curve is obtained using the maximum count value of the \code{RF_nat} curve and only this segment (fitting to
-the \code{RF_nat} curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
-found at all, \code{Inf} is returned.
-
-\code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}
+\code{NA} and \code{NULL} are the allowed values for all parameters. If the parameter
+is set to \code{NA}, the value is calculated but the result will not be evaluated,
+therefore it will have no effect on the status (\code{"OK"} or \code{"FAILED"}) of
+the parameter. Setting the parameter to \code{NULL} disables the parameter
+entirely and the parameter will also be removed from the function output.
+This might be useful in cases where a particular parameter requires a long
+computation time. Currently supported parameters are:
+\itemize{
+\item \code{curves_ratio} (\link{numeric}, default: \code{1.001}):
+the ratio of \eqn{RF_{nat}} to \eqn{RF_{reg}} is calculated over the range
+spanned by \eqn{RF_{nat}}, and should not exceed the threshold value.
+\item \code{intersection_ratio} (\link{numeric}, default: \code{NA}):
+calculated as absolute difference from 1 of the ratio of the integral of
+the normalised RF-curves. This value indicates intersection of the RF-curves
+and should be close to 0 if the curves have a similar shape. For this
+calculation first the corresponding time-count pair value on the RF_reg
+curve is obtained using the maximum count value of the \code{RF_nat} curve and
+only this segment (fitting to the \code{RF_nat} curve) on the RF_reg curve is
+taken for further calculating this ratio. If nothing is found at all, \code{Inf}
+is returned.
+\item \code{residuals_slope} (\link{numeric}, default: \code{NA}; only for \code{method = "SLIDE"}
 and \verb{"VSLIDE}"):
-
-A linear function is fitted on the residuals after sliding.
-The corresponding slope can be used to discard values as a high (positive, negative) slope
-may indicate that both curves are fundamentally different and the method cannot be applied at all.
+a linear function is fitted on the residuals after sliding.
+The corresponding slope can be used to discard values as a high (positive,
+negative) slope may indicate that both curves are fundamentally different
+and the method cannot be applied at all.
 By default, the value of this parameter is calculated but not evaluated.
-
-\code{curves_bounds} \link{numeric} (default: \eqn{max(RF_{reg_counts})}:
-
-This measure uses the maximum time (x) value of the regenerated curve.
-The maximum time (x) value of the natural curve cannot be larger than this value. However, although
-this is not recommended the value can be changed or disabled.
-
-\code{dynamic_ratio} \link{numeric} (default: \code{NA}):
-
-The dynamic ratio of the regenerated curve is calculated as ratio of the
+\item \code{curves_bounds} (\link{numeric}, default: \eqn{max(RF_{reg_counts})}):
+this measure uses the maximum time (x) value of the regenerated curve.
+The maximum time (x) value of the natural curve cannot be larger than this
+value. However, although this is not recommended the value can be changed
+or disabled.
+\item \code{dynamic_ratio} (\link{numeric}, default: \code{NA}):
+the dynamic ratio of the regenerated curve is calculated as ratio of the
 minimum and maximum count values.
-
-\code{lambda}, \code{beta} and \code{delta.phi} \link{numeric} (default: \code{NA}):
-
-The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
-the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
-For \code{method = "FIT"} this parameter is obtained during the fitting, for \code{method = "SLIDE"} a
-rather rough estimation is made using the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} and the equation
-given above.
+\item \code{lambda}, \code{beta} and \code{delta.phi} \link{numeric} (default: \code{NA}):
+the stretched exponential function suggested by Erfurt et al. (2003)
+describing the decay of the RF signal, comprises several parameters that
+might be useful to evaluate the shape of the curves. For \code{method = "FIT"},
+this parameter is obtained during the fitting; for \code{method = "SLIDE"} a
+rather rough estimation is made using the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} and
+the equation given above.
 Note: As this procedure requests more computation time, it is performed only
 if all three parameters are set.
+}
 }
 \note{
 This function assumes that there is no sensitivity change during the

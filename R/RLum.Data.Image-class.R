@@ -54,7 +54,7 @@ setClass(
     info = "list"
   ),
   contains = "RLum.Data",
-  prototype = list (
+  prototype = list(
     recordType = character(),
     curveType = character(),
     data = array(),
@@ -90,15 +90,13 @@ setAs("data.frame", "RLum.Data.Image",
 
 ## to data.frame ----
 setAs("RLum.Data.Image", "data.frame",
-        function(from){
-          if(dim(from@data)[3] == 1) {
-             as.data.frame(from@data[,,1])
-
-          } else {
-            stop("No viable coercion to data.frame, object contains multiple frames.",
-                 call. = FALSE)
-          }
-        })
+      function(from) {
+        if (dim(from@data)[3] != 1) {
+          stop("No viable coercion to data.frame, object contains multiple frames",
+               call. = FALSE)
+        }
+        as.data.frame(from@data[, , 1])
+      })
 
 
 ## from matrix   ----
@@ -114,11 +112,11 @@ setAs("matrix", "RLum.Data.Image",
 ## to matrix ----
 setAs("RLum.Data.Image", "matrix",
       function(from){
-        if(dim(from@data)[3] == 1) {
-          from@data[,,1, drop = TRUE]
-        } else {
-         stop("No viable coercion to matrix, object contains multiple frames. Please convert to array instead.", call. = FALSE)
+        if (dim(from@data)[3] != 1) {
+          stop("No viable coercion to matrix, object contains multiple frames, ",
+               "please convert to array instead", call. = FALSE)
         }
+        from@data[, , 1, drop = TRUE]
       })
 
 ## from array ----

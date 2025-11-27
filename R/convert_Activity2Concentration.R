@@ -107,7 +107,7 @@ convert_Activity2Concentration <- function(
   .set_function_name("convert_Activity2Concentration")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity tests --------------------------------------------------------
+  ## Integrity checks -------------------------------------------------------
   .validate_class(data, "data.frame")
 
   if(ncol(data)<3)
@@ -132,7 +132,7 @@ convert_Activity2Concentration <- function(
     "ABUND. ERROR (mug/g or mass. %)")
 
   ##set column for output
-  output$NUCLIDE = data[[1]]
+  output$NUCLIDE <- data[[1]]
 
   ## check input unit
   ## we silently let the old input values unflagged for back compatibility reasons

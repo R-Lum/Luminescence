@@ -128,10 +128,10 @@
 <line x1='629.05' y1='511.20' x2='629.05' y2='497.81' style='stroke-width: 0.38;' />
 </g>
 <g clip-path='url(#cpNjQuODB8NjU1LjIwfDY0LjgwfDUxMS4yMA==)'>
-<text x='86.67' y='272.81' style='font-size: 9.60px; font-family: sans;' textLength='58.99px' lengthAdjust='spacingAndGlyphs'>mean = 69.93</text>
-<text x='86.67' y='284.33' style='font-size: 9.60px; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.04</text>
-<text x='86.67' y='295.85' style='font-size: 9.60px; font-family: sans;' textLength='107.56px' lengthAdjust='spacingAndGlyphs'>weighted median = 47.23</text>
-<text x='86.67' y='307.37' style='font-size: 9.60px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='86.67' y='274.02' style='font-size: 9.60px; font-family: sans;' textLength='58.99px' lengthAdjust='spacingAndGlyphs'>mean = 69.93</text>
+<text x='86.67' y='285.54' style='font-size: 9.60px; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.04</text>
+<text x='86.67' y='297.06' style='font-size: 9.60px; font-family: sans;' textLength='107.56px' lengthAdjust='spacingAndGlyphs'>weighted median = 47.23</text>
+<text x='86.67' y='308.58' style='font-size: 9.60px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <circle cx='176.41' cy='492.51' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='206.02' cy='494.67' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='230.08' cy='488.20' r='2.70' style='stroke-width: 0.75;' />

@@ -108,7 +108,7 @@ analyse_Al2O3C_ITC <- function(
   object,
   signal_integral = NULL,
   dose_points = c(2,4,8,12,16),
-  recordType = c("OSL (UVVIS)"),
+  recordType = "OSL (UVVIS)",
   method_control = NULL,
   verbose = TRUE,
   plot = TRUE,
@@ -120,9 +120,8 @@ analyse_Al2O3C_ITC <- function(
   # SELF CALL -----------------------------------------------------------------------------------
   if (inherits(object, "list")) {
     ##check whether the list contains only RLum.Analysis objects
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ## expand input arguments
     rep.length <- length(object)
@@ -158,10 +157,8 @@ analyse_Al2O3C_ITC <- function(
   .validate_not_empty(object)
   .validate_class(dose_points, c("numeric", "list"))
   if (is.list(dose_points)) {
-    lapply(dose_points, function(x) {
-      .validate_class(x, "numeric",
-                      name = "All elements of 'dose_points'")
-    })
+    lapply(dose_points, .validate_class, "numeric",
+           name = "All elements of 'dose_points'")
   }
   .validate_class(recordType, "character", null.ok = TRUE)
   .validate_class(method_control, "list", null.ok = TRUE)
@@ -194,15 +191,14 @@ analyse_Al2O3C_ITC <- function(
 
   # Calculation ---------------------------------------------------------------------------------
   ##set signal integral
+  max.signal_integral <- nrow(object[[1]][])
   if(is.null(signal_integral)){
-    signal_integral <- c(1:nrow(object[[1]][]))
-  }else{
-    ##check whether the input is valid, otherwise make it valid
-    if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
-      signal_integral <- c(1:nrow(object[[1]][]))
-      .throw_warning("Input for 'signal_integral' corrected to 1:",
-                     max(signal_integral))
-   }
+    signal_integral <- 1:max.signal_integral
+  } else if (min(signal_integral) < 1 ||
+             max(signal_integral) > max.signal_integral) {
+    ## check whether the input is valid, otherwise make it valid
+    signal_integral <- 1:max.signal_integral
+    .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
   }
 
   ##calculate curve sums, assuming the background

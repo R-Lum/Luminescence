@@ -3,8 +3,12 @@ test_that("input validation", {
 
   expect_error(calc_SourceDoseRate(data.frame()),
                "'measurement.date' should be of class 'Date' or 'character'")
+  expect_error(calc_SourceDoseRate("20241001"),
+               "'measurement.date' could not be converted to a Date, character")
   expect_error(calc_SourceDoseRate("2024-10-01", data.frame()),
                "'calib.date' should be of class 'Date' or 'character'")
+  expect_error(calc_SourceDoseRate("2024-10-01", "01.10.2024"),
+               "'calib.date' could not be converted to a Date, character string")
   expect_error(calc_SourceDoseRate("2018-01-02", "2014-12-19", 0.0438, 0.0019,
                                    source.type = "error"),
                "'source.type' should be one of 'Sr-90', 'Am-214', 'Co-60' or")

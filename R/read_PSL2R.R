@@ -164,9 +164,8 @@ read_PSL2R <- function(
     }
 
     # format each measurement; this will return a list of RLum.Data.Curve objects
-    measurements_formatted <- lapply(measurements_split, function(x) {
-      format_Measurements(x, convert = as_decay_curve, header = header)
-    })
+    measurements_formatted <- lapply(measurements_split, format_Measurements,
+                                     convert = as_decay_curve, header = header)
 
     # drop dark count measurements if needed
     if (drop_bg) {
@@ -254,12 +253,12 @@ format_Measurements <- function(x, convert, header) {
   settings_cycle <- vals[1]
   settings_stimulation_time <- vals[2]
 
-  settings_list <- list("measurement" = settings_measurement,
-                        "stimulation_unit" = recordType,
-                        "on_time" = settings_on_time,
-                        "off_time" = settings_off_time,
-                        "cycle" = settings_cycle,
-                        "stimulation_time" = settings_stimulation_time)
+  settings_list <- list(measurement = settings_measurement,
+                        stimulation_unit = recordType,
+                        on_time = settings_on_time,
+                        off_time = settings_off_time,
+                        cycle = settings_cycle,
+                        stimulation_time = settings_stimulation_time)
 
   ## terminal counts are given in the last line as count / count_error
   # terminal_count_text_formatted <- gsub("[^0-9]", "",

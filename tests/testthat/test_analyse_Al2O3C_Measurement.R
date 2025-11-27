@@ -28,7 +28,7 @@ test_that("input validation", {
                "'irradiation_time_correction' should have length 2")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation = set_RLum("RLum.Results")),
-               "was created by an unsupported function")
+               "'irradiation_time_correction' has an unsupported originator")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           irradiation_time_correction = "a"),
                "should be of class 'RLum.Results', 'numeric' or NULL")
@@ -40,7 +40,7 @@ test_that("input validation", {
                "'cross_talk_correction' should have length 3")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           cross_talk_correction = set_RLum("RLum.Results")),
-               "was created by an unsupported function")
+               "'cross_talk_correction' has an unsupported originator")
 
   expect_warning(Luminescence:::.warningCatcher(
                                      analyse_Al2O3C_Measurement(object = data_CrossTalk, signal_integral = 1000)))

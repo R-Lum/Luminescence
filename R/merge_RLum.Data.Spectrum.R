@@ -73,7 +73,7 @@
 #' allows to specify how info elements of the input objects are combined,
 #' e.g. `1` means that just the elements from the first object are kept,
 #' `2` keeps only the info elements from the 2 object etc.
-#' If nothing is provided all elements are combined.
+#' If set to `NULL`, all elements are combined.
 #'
 #' @param max.temp.diff [numeric] (*with default*):
 #' maximum difference in the time/temperature values between the spectra to
@@ -92,7 +92,7 @@
 #' This function is fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
@@ -119,7 +119,7 @@
 merge_RLum.Data.Spectrum <- function(
   object,
   merge.method = "mean",
-  method.info,
+  method.info = NULL,
   max.temp.diff = 0.1
 ) {
   .set_function_name("merge_RLum.Data.Spectrum")
@@ -147,6 +147,7 @@ merge_RLum.Data.Spectrum <- function(
   merge.method <- .validate_args(merge.method,
                                  c("mean", "median", "sum", "sd", "var",
                                    "min", "max", "append", "-", "*", "/"))
+  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(max.temp.diff)
 
   ## Merge objects ----------------------------------------------------------
@@ -192,57 +193,45 @@ merge_RLum.Data.Spectrum <- function(
   num.cols <- check.cols[1]
   temp.matrix <- array(temp.matrix, c(num.rows, num.cols, num.objects))
 
-  if (merge.method == "sum") {
-    temp.matrix <- apply(temp.matrix, 2, rowSums)
+  temp.matrix <- switch(merge.method,
+                        sum = apply(temp.matrix, 2, rowSums),
+                        mean = apply(temp.matrix, 2, rowMeans),
+                        median = apply(temp.matrix, 2, matrixStats::rowMedians),
+                        sd = apply(temp.matrix, 2, matrixStats::rowSds),
+                        var = apply(temp.matrix, 2, matrixStats::rowVars),
+                        max = apply(temp.matrix, 2, matrixStats::rowMaxs),
+                        min = apply(temp.matrix, 2, matrixStats::rowMins),
+                        append = array(temp.matrix, c(num.rows, num.cols * num.objects)),
+                        "-" = {
+                          if (num.objects > 2) {
+                            temp.matrix[, , 1] - rowSums(temp.matrix[, , -1])
+                          } else {
+                            temp.matrix[, , 1] - temp.matrix[, , 2]
+                          }
+                        },
+                        "*" = {
+                          if (num.objects > 2) {
+                            temp.matrix[, , 1] * rowSums(temp.matrix[, , -1])
+                          } else {
+                            temp.matrix[, , 1] * temp.matrix[, , 2]
+                          }
+                        },
+                        "/" = {
+                          temp <- if (num.objects > 2) {
+                                    temp.matrix[, , 1] / rowSums(temp.matrix[, , -1])
+                                  } else {
+                                    temp.matrix[, , 1] / temp.matrix[, , 2]
+                                  }
 
-  } else if (merge.method == "mean") {
-    temp.matrix <- apply(temp.matrix, 2, rowMeans)
-
-  } else if (merge.method == "median") {
-    temp.matrix <- apply(temp.matrix, 2, matrixStats::rowMedians)
-
-  } else if (merge.method == "sd") {
-    temp.matrix <- apply(temp.matrix, 2, matrixStats::rowSds)
-
-  } else if (merge.method == "var") {
-    temp.matrix <- apply(temp.matrix, 2, matrixStats::rowVars)
-
-  } else if (merge.method == "max") {
-    temp.matrix <- apply(temp.matrix, 2, matrixStats::rowMaxs)
-
-  } else if (merge.method == "min") {
-    temp.matrix <- apply(temp.matrix, 2, matrixStats::rowMins)
-
-  } else if (merge.method == "append") {
-    temp.matrix <- array(temp.matrix, c(num.rows, num.cols * num.objects))
-
-  } else if (merge.method == "-") {
-    if (num.objects > 2) {
-      temp.matrix <- temp.matrix[, , 1] - rowSums(temp.matrix[, , -1])
-    } else {
-      temp.matrix <- temp.matrix[, , 1] - temp.matrix[, , 2]
-    }
-  } else if (merge.method == "*") {
-    if (num.objects > 2) {
-      temp.matrix <- temp.matrix[, , 1] * rowSums(temp.matrix[, , -1])
-    } else {
-      temp.matrix <- temp.matrix[, , 1] * temp.matrix[, , 2]
-    }
-  } else if (merge.method == "/") {
-    if (num.objects > 2) {
-      temp.matrix <- temp.matrix[, , 1] / rowSums(temp.matrix[, , -1])
-    } else {
-      temp.matrix <- temp.matrix[, , 1] / temp.matrix[, , 2]
-    }
-
-    ## replace infinities with 0 and throw warning
-    idx.inf <- which(is.infinite(temp.matrix))
-    if (length(idx.inf) > 0) {
-      temp.matrix[idx.inf]  <- 0
-      .throw_warning(length(idx.inf),
-                     " 'inf' values have been replaced by 0 in the matrix")
-    }
-  }
+                          ## replace infinities with 0 and throw warning
+                          idx.inf <- which(is.infinite(temp))
+                          if (length(idx.inf) > 0) {
+                            temp[idx.inf]  <- 0
+                            .throw_warning(length(idx.inf),
+                                           " 'inf' values replaced by 0 in the matrix")
+                          }
+                          temp
+                        })
 
   ## restore row and column names from the first object
   rownames(temp.matrix) <- rownames(object[[1]]@data)
@@ -250,7 +239,7 @@ merge_RLum.Data.Spectrum <- function(
                                if (merge.method == "append") num.objects else 1)
 
   ## add the info slot
-  temp.info <- if (missing(method.info)) {
+  temp.info <- if (is.null(method.info)) {
                  unlist(lapply(object, function(x) x@info), recursive = FALSE)
                } else {
                  object[[method.info]]@info

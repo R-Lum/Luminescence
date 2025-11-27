@@ -26,8 +26,8 @@
 #'`K` \tab `numeric` \tab K nuclide content in %\cr
 #'`K_SE` \tab `numeric` \tab error on K nuclide content in %\cr
 #'`Th` \tab `numeric` \tab Th nuclide content in ppm\cr
-#'`Th_SE` \tab `numeric` error on Th nuclide content in ppm\cr
-#'`U` \tab `numeric` U nuclide content in ppm\cr
+#'`Th_SE` \tab `numeric` \tab error on Th nuclide content in ppm\cr
+#'`U` \tab `numeric` \tab U nuclide content in ppm\cr
 #'`U_SE` \tab `numeric` \tab error on U nuclide content in ppm\cr
 #'`GrainSize` \tab `numeric` \tab average grain size in µm\cr
 #'`WaterContent` \tab `numeric` \tab mean water content in %\cr
@@ -159,8 +159,7 @@ convert_Concentration2DoseRate <- function(
   ## in first position, as that is our default value
   valid_conversion_factors <- c("Guerinetal2011", "Cresswelletal2018",
                                 "AdamiecAitken1998", "Liritzisetal2013")
-  stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
-                valid_conversion_factors))
+  stopifnot(names(BaseDataSet.ConversionFactors) %in% valid_conversion_factors)
   conversion <- .validate_args(conversion, valid_conversion_factors)
 
   if(!any(input[,1] %in% c("FS","Q")))
@@ -183,11 +182,7 @@ convert_Concentration2DoseRate <- function(
       }
 
       for (j in 1:2){
-        if (j== 1){
-          Temp = "beta"
-        } else {
-          Temp = "gamma"
-        }
+        Temp <- if (j == 1) "beta" else "gamma"
 
         ConvFactor <- BaseDataSet.ConversionFactors[[conversion]][[Temp]][[Col]]
         Nuclide <- i * 2
@@ -237,9 +232,9 @@ convert_Concentration2DoseRate <- function(
     for (i in 1:6){
       for (j in 1:2){
         if (j == 1){
-          k = 1.25 #Water content correction for beta
+          k <- 1.25 #Water content correction for beta
         } else {
-          k = 1.14 #Water content correction for gamma
+          k <- 1.14 #Water content correction for gamma
         }
 
         Remain <- i %% 2

@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 1.1.1.9000
-Date: 2025-09-11
+Version: 1.1.1.9000-3
+Date: 2025-11-25
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
@@ -76,6 +76,6 @@ VignetteBuilder: R.rsp, knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Config/testthat/edition: 3
 Config/testthat/parallel: TRUE

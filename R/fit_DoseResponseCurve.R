@@ -1263,7 +1263,7 @@ fit_DoseResponseCurve <- function(
     } #end if "try-error" Fit Method
 
     ##close
-    if(txtProgressBar) if(exists("pb")){close(pb)}
+    if (txtProgressBar && exists("pb")) close(pb)
   }
 
   ## GOK --------------------------------------------------------------------
@@ -1295,9 +1295,9 @@ fit_DoseResponseCurve <- function(
       y <- object[1, 2]
       De <- switch(
         mode,
-        "interpolation" = suppressWarnings(
+        interpolation = suppressWarnings(
           -(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
-        "extrapolation" = suppressWarnings(
+        extrapolation = suppressWarnings(
           -(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
         NA)
 
@@ -1852,7 +1852,7 @@ fit_DoseResponseCurve <- function(
   ## fit object, which can be done with these lines:
   ##   f <- function(x) .toFormula(fit.functionXXX, env = currn_env)
   ##   fit$m$formula <- f
-  stopifnot(grepl("^fit_function", str) == FALSE)
+  stopifnot(!startsWith("fit_function", str))
 
   ## replace parameters with fitted coefficients
   for (i in 1:length(param)) {
@@ -1933,7 +1933,7 @@ fit_DoseResponseCurve <- function(
   if(all(abs(Q) < 1e-06))
     r <- 1 - exp(-D/D63)
   else if (any(abs(Q) < 1e-06))
-    stop("[.D2nN()] Unsupported zero and non-zero Q", .call = FALSE)
+    .throw_error("Unsupported zero and non-zero Q in .D2nN()")
   else
     r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * (D + a) /D63))) / Q
 

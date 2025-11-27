@@ -7,8 +7,8 @@
 plot_RLum.Analysis(
   object,
   subset = NULL,
-  nrows,
-  ncols,
+  nrows = NULL,
+  ncols = NULL,
   abline = NULL,
   combine = FALSE,
   records_max = NULL,
@@ -27,12 +27,12 @@ directly passed to the function \link{get_RLum}
 (e.g., \code{subset = list(curveType = "measured")})}
 
 \item{nrows}{\link{integer} (\emph{optional}):
-sets number of rows for plot output, if nothing is set the function
-tries to find a value.}
+number of rows in the plot output. If set to \code{NULL} the function tries to
+find a reasonable value.}
 
 \item{ncols}{\link{integer} (\emph{optional}):
-sets number of columns for plot output, if nothing is set the function
-tries to find a value.}
+number of columns in the plot output. If set to \code{NULL} the function tries to
+find a reasonable value.}
 
 \item{abline}{\link{list} (\emph{optional}):
 allows to add ab-lines to the plot. Argument are provided

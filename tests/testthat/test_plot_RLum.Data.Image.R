@@ -1,6 +1,7 @@
 ## create dataset to test
 set.seed(1)
 image <- as(array(rnorm(1000), dim = c(10,10,10)), "RLum.Data.Image")
+image18 <- as(array(rnorm(18 * 18), dim = c(18, 18, 1)), "RLum.Data.Image")
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -48,5 +49,8 @@ test_that("graphical snapshot tests", {
                                                    plot.type = "contour",
                                                    mtext = "Test",
                                                    frames = 5))
+  vdiffr::expect_doppelganger("contour 18",
+                              plot_RLum.Data.Image(image18,
+                                                   plot.type = "contour"))
   })
 })

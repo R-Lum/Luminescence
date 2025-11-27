@@ -226,12 +226,9 @@ fit_EmissionSpectra <- function(
       ##set frame
       if(is.null(frame)){
         frame <- 1:ncol(o@data)
-
-      }else{
-        if(max(frame) > ncol(o@data)|| min(frame) < 1){
+      } else if (max(frame) > ncol(o@data)|| min(frame) < 1) {
           .throw_error("Invalid 'frame', allowed values range from 1 to ",
                        ncol(o@data))
-        }
       }
 
       ##get frame
@@ -256,11 +253,9 @@ fit_EmissionSpectra <- function(
     ##set frame
     if(is.null(frame)){
       frame <- 1:(ncol(object) - 1)
-    }else{
-      if(max(frame) > (ncol(object)-1) || min(frame) < 1){
+    } else if(max(frame) > (ncol(object)-1) || min(frame) < 1) {
         .throw_error("Invalid 'frame', allowed values range from 1 to ",
                      ncol(object) - 1)
-      }
     }
 
     temp <- lapply(frame +1 , function(x) cbind(object[,1],object[,x]))
@@ -415,7 +410,7 @@ fit_EmissionSpectra <- function(
     mu <- m[id_peaks,1]
 
     if(!is.null(start_parameters))
-      mu <- c(sort(start_parameters), mu[-c(1:length(start_parameters))])
+      mu <- c(sort(start_parameters), mu[-(1:length(start_parameters))])
 
     ## limit the number of components
     if(!is.null(n_components[1]))
@@ -447,8 +442,8 @@ fit_EmissionSpectra <- function(
       success_counter <- success_counter + 1
       fit[[success_counter]] <- fit_try
       if (verbose) cat("\r>> Searching components ... \t\t\t[/]")
-    } else{
-      if (verbose) cat("\r>> Searching components ... \t\t\t[\\]")
+    } else if (verbose) {
+      cat("\r>> Searching components ... \t\t\t[\\]")
     }
 
     ##update run counter
@@ -563,7 +558,7 @@ fit_EmissionSpectra <- function(
       xlim = plot_settings$xlim,
       ylim = plot_settings$ylim,
       main = plot_settings$main,
-      col = rgb(0, 0, 0, .6),
+      col = rgb(0, 0, 0, 0.6),
       xaxt = "n",
       yaxt = "n",
       log = plot_settings$log
@@ -624,7 +619,7 @@ fit_EmissionSpectra <- function(
       xlim = plot_settings$xlim,
       ylab = "",
       xpd = NA,
-      col = rgb(0,0,0,.6),
+      col = rgb(0, 0, 0, 0.6),
       log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
     )
 
@@ -649,8 +644,8 @@ fit_EmissionSpectra <- function(
       side = 1,
       labels = paste0("(",round((h * c) / axTicks(side = 3), 0), " nm)"),
       at = axTicks(side = 3),
-      cex.axis = .7,
-      line = .8,
+      cex.axis = 0.7,
+      line = 0.8,
       tick = FALSE
     )
 

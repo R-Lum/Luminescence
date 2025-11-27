@@ -141,8 +141,8 @@ apply_CosmicRayRemoval <- function(
       ##RLum.Analysis
       if(inherits(o, "RLum.Analysis")){
          ##get id of RLum.Data.Spectrum objects in this object
-         record_id.spectra <- which(
-           vapply(o@records, function(x) inherits(x, "RLum.Data.Spectrum"), logical(1)))
+        record_id.spectra <- vapply(o@records, inherits, "RLum.Data.Spectrum",
+                                    FUN.VALUE = logical(1))
 
          ##rewrite o
          temp_o <- o@records[record_id.spectra]
@@ -208,36 +208,38 @@ apply_CosmicRayRemoval <- function(
     keep.null = TRUE)
 
   # Apply methods -0------------------------------------------------------------
+  object.data.temp.smooth <- switch(method,
+
   ## +++++++++++++++++++++++++++++++++++ (smooth) ++++++++++++++++++++++++++++##
-  if(method == "smooth"){
+  smooth = {
     ##apply smooth
-    object.data.temp.smooth <- apply(
+    apply(
       X = object@data,
       MARGIN = MARGIN,
       FUN = stats::smooth,
       kind = extraArgs$kind[1],
       twiceit = extraArgs$twiceit[1]
     )
+  },
 
   ## +++++++++++++++++++++++++++++++++++ (smooth.spline) +++++++++++++++++++++##
-  }else if(method == "smooth.spline"){
+  smooth.spline = {
     ## wrap the function in a new function to access the data more easily
     temp_smooth.spline <- function(x, spar){
       stats::smooth.spline(x, spar = spar)$y
     }
 
     ##apply smooth.spline
-    object.data.temp.smooth <-
-      apply(
+    apply(
         X = object@data,
         MARGIN = MARGIN,
         FUN = temp_smooth.spline,
         spar = extraArgs$spar[1])
+  },
 
   ## +++++++++++++++++++++++++++++++++++ (smooth_RLum) +++++++++++++++++++++##
-  }else if(method == "smooth_RLum"){
-    object.data.temp.smooth <-
-      apply(
+  smooth_RLum = {
+    object.data.temp.smooth <- apply(
         X = object@data,
         MARGIN = MARGIN,
         FUN = .smoothing,
@@ -262,12 +264,14 @@ apply_CosmicRayRemoval <- function(
           object@data <- object@data[-id_NA,, drop = FALSE]
       }
     }
+    object.data.temp.smooth
+  },
 
   ## +++++++++++++++++++++++++++++++++++ (Pych) ++++++++++++++++++++++++++++++##
-  }else if(method == "Pych"){
+  Pych = {
     ## apply smoothing
     frame.idx <- 0
-    object.data.temp.smooth <- apply(object@data, 2, function(data.col) {
+    apply(object@data, 2, function(data.col) {
       frame.idx <<- frame.idx + 1
       ##(1) - calculate sd for each subframe
       temp.sd <- sd(data.col)
@@ -342,7 +346,6 @@ apply_CosmicRayRemoval <- function(
       }
 
       ##(9) - return information on the amount of removed cosmic-rays
-
       if(verbose){
         #sum up removed counts values above the threshold
         sum.corrected.channels <- try(
@@ -356,10 +359,9 @@ apply_CosmicRayRemoval <- function(
                        " channels corrected in frame ", frame.idx, "\n", error = FALSE)
       }
 
-      ##return object
       return(data.col)
     })#end loop
-  }
+  })
 
   ## Rotate matrix if required
   if (MARGIN[1] == 1 && method != "Pych")

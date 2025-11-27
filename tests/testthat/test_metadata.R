@@ -15,9 +15,9 @@ test_that("input validation", {
   expect_error(add_metadata(curve, list()) <- 1,
                "'info_element' should be of class 'character'")
   expect_error(add_metadata(risoe, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(add_metadata(curve, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(add_metadata(risoe, "POSITION") <- 1,
                "'info_element' already present, to modify it you should use")
   expect_error(add_metadata(curve, "POSITION") <- 1,
@@ -33,9 +33,9 @@ test_that("input validation", {
   expect_error(rename_metadata(curve, list()) <- 1,
                "'info_element' should be of class 'character'")
   expect_error(rename_metadata(risoe, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(rename_metadata(curve, c("VAL1", "VAL2")) <- 1,
-               "'info_element' should have length 1")
+               "'info_element' should be of class 'character' and have length 1")
   expect_error(rename_metadata(risoe, "error") <- 1,
                "'info_element' not recognised ('error'), valid terms are",
                fixed = TRUE)
@@ -72,11 +72,11 @@ test_that("input validation", {
                "'subset' should contain a logical expression")
   expect_message(replace_metadata(risoe, "SEL", subset = ID == 99) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
-  expect_message(replace_metadata(risoe, "SEL", subset = ID == NA) <- 0,
+  expect_message(replace_metadata(risoe, "SEL", subset = NA) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
   expect_message(replace_metadata(curve, "SEL", subset = SET == 99) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
-  expect_message(replace_metadata(curve, "SEL", subset = ID == NA) <- 0,
+  expect_message(replace_metadata(curve, "SEL", subset = NA) <- 0,
                  "'subset' expression produced an empty selection, nothing done")
 })
 

@@ -12,7 +12,7 @@
   pos = "c",
   digits = 3,
   rm.zero = TRUE,
-  select,
+  select = NULL,
   split = NULL,
   tabular_only = FALSE,
   ...
@@ -55,7 +55,7 @@ This function takes a \link{data.frame} and returns a table in LaTeX code that
 can be copied into any TeX document.
 }
 \section{Function version}{
- 0.2.0
+ 0.2.1
 }
 
 \examples{
@@ -66,6 +66,7 @@ can be copied into any TeX document.
 
 }
 \author{
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Christoph Burow, University of Cologne (Germany) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{internal}

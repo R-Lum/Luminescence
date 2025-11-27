@@ -21,9 +21,8 @@
 #' Records containing missing values will be removed.
 #'
 #' @param sigmab [numeric] (*with default*):
-#' additional spread in De values.
-#' This value represents the expected overdispersion in the data should the sample be
-#' well-bleached (Cunningham & Walling 2012, p. 100).
+#' additional spread in De values, representing the expected overdispersion in
+#' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
@@ -131,7 +130,8 @@ calc_CentralDose <- function(
   colnames(data) <- c("ED", "ED_Error")
 
   ## don't allow log transformation if there are non-positive values
-  if (any(data[, 1] <= 0) && log == TRUE) {
+  .validate_logical_scalar(log)
+  if (log && any(data[, 1] <= 0)) {
     log <- FALSE
     .throw_warning("'data' contains non-positive De values, 'log' set to FALSE")
   }
@@ -189,13 +189,12 @@ calc_CentralDose <- function(
   # calculate starting values and weights
   sigma <- 0.15 # keep in mind that this is a relative value
   wu <- 1 / (sigma^2 + su^2)
-  delta <- sum(wu * yu) / sum(wu)
-  n <- length(yu)
 
   # compute mle's
   for (j in 1:200) {
-    delta <- sum(wu * yu) / sum(wu)
-    sigma <- sigma * sqrt(sum((wu^2) * (yu - delta)^2 / sum(wu)))
+    sum_wu <- sum(wu)
+    delta <- sum(wu * yu) / sum_wu
+    sigma <- sigma * sqrt(sum((wu^2) * (yu - delta)^2) / sum_wu)
     wu <- 1 / (sigma^2 + su^2)
 
     # print iterations
@@ -256,7 +255,7 @@ calc_CentralDose <- function(
   if (options$verbose) {
     cat("\n [calc_CentralDose]")
     cat("\n\n----------- meta data ----------------")
-    cat("\n n:                      ", n)
+    cat("\n n:                      ", length(yu))
     cat("\n log:                    ", log)
     cat("\n----------- dose estimate ------------")
     cat("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2))

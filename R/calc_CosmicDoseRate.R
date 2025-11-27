@@ -265,15 +265,15 @@ calc_CosmicDoseRate<- function(
     .throw_error("No negative or missing values allowed for 'depth' and 'density'")
   }
 
-  if(corr.fieldChanges == TRUE) {
-    if(is.na(est.age) == TRUE) {
+  if (corr.fieldChanges) {
+    if (is.na(est.age)) {
       .throw_error("Correction for geomagnetic field ",
                    "changes requires an age estimate")
     }
     .validate_positive_scalar(est.age)
     if(est.age > 80) {
-      cat("\nCAUTION: No geomagnetic field change correction for samples",
-          "older than 80 ka possible, 'corr.fieldChanges' set to FALSE")
+      .throw_message("No geomagnetic field change correction possible for ",
+                     "samples older than 80 ka, 'corr.fieldChanges' set to FALSE")
       corr.fieldChanges<- FALSE
     }
   }
@@ -377,7 +377,7 @@ calc_CosmicDoseRate<- function(
 
 
     ## Additional correction for geomagnetic field change
-    if(corr.fieldChanges==TRUE) {
+    if (corr.fieldChanges) {
 
       if(gml <= 35) {
 
@@ -418,11 +418,10 @@ calc_CosmicDoseRate<- function(
         dc<- dc * corr.fac
 
         if (settings$verbose)
-          print(paste("corr.fac:", corr.fac, " diff.one:", corr.fac - 1,
-                      " alt.fac:", alt.fac))
+          cat("corr.fac:", corr.fac, " diff.one:", corr.fac - 1,
+              " alt.fac:", alt.fac, "\n")
 
-      } else {
-        if (settings$verbose)
+      } else if (settings$verbose) {
           cat("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!")
       }
     }
@@ -431,7 +430,7 @@ calc_CosmicDoseRate<- function(
     dc.err<- dc*error/100
 
     # save intermediate results before next sample is calculated
-    if(profile.mode==TRUE) {
+    if (profile.mode) {
       profile.results[i,1]<- round(depth[i],2)
       profile.results[i,2]<- round(d0,4)
       profile.results[i,3]<- round(dc,4)

@@ -7,12 +7,16 @@
 #' @param data [character] or [data.frame] (**required**): file path or data
 #' frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".
 #'
+#' @param rhop [numeric] or [RLum.Results-class] (*with default*):
+#' a vector of rho prime values (one for each sample) or an [RLum.Results-class]
+#' object produced by [analyse_FadingMeasurement].
+#'
 #' @param ITL_model [character] (*with default*): model to be fitted, either
 #' `"GOK"` or `"BTS"`.
 #'
-#' @param rhop [numeric] or [RLum.Results-class] (*with default*): a vector
-#' of rho prime values (one for each sample) or an [RLum.Results-class] object
-#' produced by [analyse_FadingMeasurement]
+#' @param normalise_LxTx [logical] (*with default*):
+#' whether the `LxTx` data should be normalised to its maximum value (`TRUE`
+#' by default).
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
@@ -45,6 +49,8 @@
 #' \item{coefs}{[data.frame] containing the fitted coefficients for the models}
 #' \item{data}{[data.frame] containing the data used in the fitting process}
 #'
+#' It may return `NULL` if no model could be fitted.
+#'
 #' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
 #'
 #' @references
@@ -59,8 +65,9 @@
 #' @export
 fit_IsothermalHolding <- function(
     data,
-    ITL_model = "GOK",
     rhop,
+    ITL_model = "GOK",
+    normalise_LxTx = TRUE,
     plot = TRUE,
     verbose = TRUE,
     txtProgressBar = TRUE,
@@ -79,8 +86,9 @@ fit_IsothermalHolding <- function(
   ## - the rhop value has uncertainties, which are not yet considered
 
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
-  ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
   .validate_class(rhop, c("numeric", "RLum.Results"))
+  ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_logical_scalar(normalise_LxTx)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
@@ -89,11 +97,7 @@ fit_IsothermalHolding <- function(
     records_ITL <- .import_ThermochronometryData(file = data, output_type = "RLum.Results")@data$ITL
 
   } else if (inherits(data, "RLum.Results")) {
-    if (data@originator != ".import_ThermochronometryData") {
-      .throw_error("'data' has unsupported originator (expected: ",
-                   "'.import_ThermochronometryData', found: '",
-                   data@originator, "')")
-    }
+    .validate_originator(data, ".import_ThermochronometryData")
     records_ITL <- data@data$ITL
 
   } else if (inherits(data, "data.frame")) {
@@ -113,6 +117,11 @@ fit_IsothermalHolding <- function(
   ###### --- Extract data from RLum.Results for ITL fitting --- #####
   ## get unique sample names; we will use this to filter the data
   sample_id <- unique(records_ITL[["SAMPLE"]])
+
+  ## data normalisation
+  if (normalise_LxTx) {
+    records_ITL$LxTx <- .normalise_curve(records_ITL$LxTx, "max")
+  }
 
   ## extract data.frames for each sample with all information
   df_raw_list <- lapply(sample_id, function(x) records_ITL[records_ITL$SAMPLE == x, ])
@@ -143,7 +152,7 @@ fit_IsothermalHolding <- function(
   DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
   ## get the rhop value from the fading measurement analysis if available
-  if (inherits(rhop, "RLum.Results") && rhop@originator == "analyse_FadingMeasurement")
+  if (inherits(rhop, "RLum.Results") && .check_originator(rhop, "analyse_FadingMeasurement"))
     rhop <- rhop@data$rho_prime[[1]]
 
   ## Define formulas to fit -------------------------------------------------
@@ -172,18 +181,20 @@ fit_IsothermalHolding <- function(
   ## switch the models
   start <- switch(
     ITL_model,
-    'GOK' = list(A = 1, b = 1, Et = 1, s10 = 5),
-    'BTS' = list(A = 1, Eu = 0.1, Et = 2))
+    # https://github.com/GeorginaKing/OSLThermo/blob/5f32762e2cea87aac26d65aeabe9a434b2ce19a7/Stage2a_Fitparameters.m#L311
+    GOK = list(A = 1, b = 4, Et = 1.4, s10 = 9),
+    # https://github.com/GeorginaKing/OSLThermo/blob/5f32762e2cea87aac26d65aeabe9a434b2ce19a7/Stage2a_Fitparameters.m#L297
+    BTS = list(A = 1, Eu = 0.1, Et = 1.4))
 
   lower <- switch(
     ITL_model,
-    'GOK' = c(0, 0, 0, 0),
-    'BTS' = c(1, 0.3, 1))
+    GOK = c(0, 0, 0, 0),
+    BTS = c(1, 0.3, 1))
 
   upper <- switch(
     ITL_model,
-    'GOK' = c(20, Inf, 3, 20),
-    'BTS' = c(20, 0.5, 3))
+    GOK = c(20, Inf, 3, 20),
+    BTS = c(20, 0.5, 3))
 
   ## Fitting ----------------------------------------------------------------
   ## we have a double loop situation: we have a list with n samples, and
@@ -238,7 +249,7 @@ fit_IsothermalHolding <- function(
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        all.s10 <- rnorm(num_s_values_bts, mean = 10, sd = 1.5)
+        all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
         fit <- lapply(1:length(all.s10), function(idx) {
           s10 <- all.s10[idx]
           t <- try(minpack.lm::nlsLM(
@@ -292,11 +303,18 @@ fit_IsothermalHolding <- function(
     close(pb)
   }
 
-  ## summarize the parameters of interest (Et, s10) in terms of median and
+  if (is.null(fitted.coefs)) {
+    .throw_warning("No ITL model could be fitted")
+    return(NULL)
+  }
+
+  ## summarize the parameters of interest (Et, s10) in terms of mean, median and
   ## interquartile range
   ITL_params <- tapply(fitted.coefs, sample_id, function(coefs) {
-    data.frame(t(c(Et = quantile(coefs$Et, c(0.5, 0.25, 0.75), na.rm = TRUE),
-                   s10 = quantile(coefs$s10, c(0.5, 0.25, 0.75), na.rm = TRUE))))
+    data.frame(t(c(Et = c(mean = mean(coefs$Et, na.rm = TRUE),
+                          quantile(coefs$Et, c(0.5, 0.25, 0.75), na.rm = TRUE)),
+                   s10 = c(mean = mean(coefs$s10, na.rm = TRUE),
+                           quantile(coefs$s10, c(0.5, 0.25, 0.75), na.rm = TRUE)))))
   })
 
   ## sort the ITL_params list, as tapply() may have put the results in a
@@ -305,44 +323,40 @@ fit_IsothermalHolding <- function(
 
   ## convert to a data table
   ITL_params <- rbindlist(ITL_params[sample_id], idcol = "SAMPLE")
-  colnames(ITL_params)[-1] <- c("Et_median", "Et_Q_0.25", "Et_Q_0.75",
-                                  "s10_median", "s10_Q_0.25", "s10_Q_0.75")
+  colnames(ITL_params)[-1] <- c("Et_mean", "Et_median", "Et_Q_0.25", "Et_Q_0.75",
+                                "s10_mean", "s10_median", "s10_Q_0.25", "s10_Q_0.75")
 
   if (verbose) {
     ## silence notes raised by R CMD check
-    Et <- Et_Q_0.25 <- Et_Q_0.75 <- Et_median <- NULL
-    s10 <- s10_Q_0.25 <- s10_Q_0.75 <- s10_median <- NULL
+    Et <- Et_Q_0.25 <- Et_Q_0.75 <- Et_median <- Et_mean <- NULL
+    s10 <- s10_Q_0.25 <- s10_Q_0.75 <- s10_median <- Et_mean <- NULL
 
-    ## report as median (IQR)
-    format.iqr <- function(x1, x2, x3, n = 3) sprintf("%.*f (%.*f, %.*f)",
-                                             n, x1, n, x2, n, x3)
-    ITL_params[, Et := format.iqr(Et_median, Et_Q_0.25, Et_Q_0.75)]
-    ITL_params[, s10 := format.iqr(s10_median, s10_Q_0.25, s10_Q_0.75)]
+    ## report as mean; median (IQR)
+    format.out <- function(x, x1, x2, x3, n = 3)
+      sprintf("%.*f;   %.*f (%.*f, %.*f)", n, x, n, x1, n, x2, n, x3)
+    ITL_params[, Et := format.out(Et_mean, Et_median, Et_Q_0.25, Et_Q_0.75)]
+    ITL_params[, s10 := format.out(s10_mean, s10_median, s10_Q_0.25, s10_Q_0.75)]
 
-
-    fmt <- "%20s | %22s | %22s |\n"
-    cat("\n---- Isothermal holding parameters [median (IQR)] ----\n\n")
+    fmt <- "%20s | %30s | %30s |\n"
+    cat("\n---- Isothermal holding parameters [mean; median (IQR)] ----\n\n")
     cat(sprintf(fmt, "SAMPLE", "Et", "log10(s)"))
     for (i in seq(nrow(ITL_params))) {
       row <- ITL_params[i, ]
       cat(sprintf(fmt, row$SAMPLE, row$Et, row$s10))
     }
+    cat("\n")
 
     ITL_params[, c("Et", "s10") := NULL]
   }
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {
-    par.default <- .par_defaults()
-    on.exit(par(par.default), add = TRUE)
 
     ## define plot settings
     plot_settings <- modifyList(
       x = list(
-        xlim = range(vapply(df_raw_list, function(x) range(x$TIME), numeric(2))),
-        ylim = range(vapply(df_raw_list, function(x) {
-          max_LxTx <- suppressWarnings(max(x$LxTx_ERROR, na.rm = TRUE))
-          range(x$LxTx, na.rm = TRUE) + if (is.infinite(max_LxTx)) 0 else max_LxTx}, numeric(2))),
+        xlim = range(lapply(df_raw_list, function(x) range(x$TIME))) * c(0.5, 10),
+        ylim = c(0, 1.03),
         log = "x",
         xlab = "Isothermal holding time [s]",
         ylab = expression(paste("Norm. lumin. [", L[x]/T[x], "]")),
@@ -364,8 +378,14 @@ fit_IsothermalHolding <- function(
     ## value for all provided data
     x <- c(1:1e+03,seq(1e+03,plot_settings$xlim[2], length.out = 10000))
 
-    ## par settings (the check for mfrow ensures that it works in the analysis function)
+    ## par settings
+    ## the check for mfrow not being null prevents mfrow from being restored on
+    ## exit when this function is called from analyse_ThermochronometryData(),
+    ## because restoring mfrow (even if to the same value) causes the graphical
+    ## device to start a new page
     if (!is.null(plot_settings$mfrow)) {
+      par.default <- .par_defaults()
+      on.exit(par(par.default), add = TRUE)
       par(cex = plot_settings$cex, mfrow = plot_settings$mfrow)
     }
 
@@ -378,7 +398,8 @@ fit_IsothermalHolding <- function(
         log = plot_settings$log,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        main = rep(plot_settings$main, length.out = length(sample_id))[i])
+        yaxs = "i",
+        main = rep_len(plot_settings$main, length(sample_id))[i])
 
       ## add plot subtitle
       mtext(side = 3, plot_settings$mtext, cex = 0.7 * plot_settings$cex)
@@ -392,7 +413,7 @@ fit_IsothermalHolding <- function(
           lines(
             x = x,
             y = y,
-            col = rep(plot_settings$col[c], length.out = length(isoT)))
+            col = rep_len(plot_settings$col[c], length(isoT)))
         }
 
         ## plot the points (don't use matplot because this would assume
@@ -401,6 +422,7 @@ fit_IsothermalHolding <- function(
         points(
           x = df_pts[["TIME"]],
           y = df_pts[["LxTx"]],
+          xpd = TRUE,
           pch = plot_settings$pch,
           bg = plot_settings$col[c],
           col = plot_settings$col.border)

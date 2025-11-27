@@ -60,7 +60,7 @@ keyword indicating the method used to calculate the statistic summary.
 One out of \code{"MCM"} (default), \code{"weighted"} or \code{"unweighted"}.
 See \link{calc_Statistics} for details.}
 
-\item{bw}{\link{character} (\emph{with default}):
+\item{bw}{\link{character}, \link{numeric} (\emph{with default}):
 bin-width, chose a numeric value for manual setting.}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}.}

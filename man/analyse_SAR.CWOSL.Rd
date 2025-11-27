@@ -147,8 +147,8 @@ object, including growth curve fitting.
 The function performs an analysis for a standard SAR protocol measurements
 introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 calculation of the \code{Lx/Tx} value the function \link{calc_OSLLxTxRatio} is
-used. To \strong{change the way the Lx/Tx error is calculated} use the arguments
-\code{background.count.distribution} and \code{sigmab}, which will be passed to the function
+used. To \strong{change the way the Lx/Tx error is calculated} use arguments
+\code{background.count.distribution} and \code{sigmab}, which will be passed to
 \link{calc_OSLLxTxRatio}.
 
 \strong{What is part of a SAR sequence?}
@@ -167,8 +167,8 @@ e.g., as part of XSYG files.
 \strong{Argument \code{object} is of type \code{list}}
 
 If the argument \code{object} is of type \link{list} containing \strong{only}
-\linkS4class{RLum.Analysis} objects, the function re-calls itself as often as elements
-are in the list. This is useful if an entire measurement wanted to be analysed without
+\linkS4class{RLum.Analysis} objects, the function re-calls itself on each element
+in the list. This is useful if to analyse an entire measurement without
 writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
 every aliquot (corresponding to one \linkS4class{RLum.Analysis} object in the list), in
 this case the arguments can be provided as \link{list}. This \code{list} should
@@ -227,7 +227,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.11.0
+ 0.11.1
 }
 
 \examples{

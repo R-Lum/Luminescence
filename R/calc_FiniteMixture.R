@@ -42,8 +42,8 @@
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
 #' @param sigmab [numeric] (**required**):
-#' spread in De values given as a fraction (e.g. 0.2). This value represents
-#' the expected overdispersion in the data should the sample be well-bleached
+#' spread in De values (given as a fraction, e.g. 0.2), representing the
+#' expected overdispersion in the data should the sample be well-bleached
 #' (Cunningham & Wallinga 2012, p. 100).
 #'
 #' @param n.components [numeric] (**required**):
@@ -77,7 +77,9 @@
 #' plot the statistical criteria (BIC and log-likelihood).
 #' Ignored if `n.components` has length 1.
 #'
-#' @param plot [logical] (*with default*): enable/disable the  plot output.
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output. This is ignored and no plot is produced if
+#' `n.components` has length 1.
 #'
 #' @param ... other parameters to control the plot output. Supported are
 #' `cex`, `main`, `main.densities`, `main.proportions`, `main.criteria`,
@@ -105,7 +107,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.4
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -202,7 +204,7 @@ calc_FiniteMixture <- function(
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   if (inherits(data, "RLum.Results")) {
-    if (data@originator == "calc_FiniteMixture") {
+    if (.check_originator(data, "calc_FiniteMixture")) {
       do.call(.plot_FiniteMixture, c(data, as.list(sys.call())[-(1:2)]))
       return(invisible(data))
     }
@@ -210,6 +212,9 @@ calc_FiniteMixture <- function(
   }
   if (ncol(data) < 2) {
     .throw_error("'data' object must have two columns")
+  }
+  if (anyNA(data[, 1]) || any(data[, 1] == 0)) {
+    .throw_error("'data' must have only positive values in its De column")
   }
   .validate_positive_scalar(sigmab)
   if (sigmab < 0 || sigmab > 1) {
@@ -271,16 +276,19 @@ calc_FiniteMixture <- function(
     grain.probability.n<- vector(mode = "list", length = length(n.components))
   }
 
+  ## calculate yu = log(ED), su = se(logED), n = number of grains
+  yu <- log(data$ED)
+  su <- data$ED_Error / data$ED
+  n <- length(yu)
+
+  num.iters <- 499L
+  wu <- 1/(sigmab^2 + su^2)
+  rwu <- sqrt(wu)
+
   ## start actual calculation (loop) for each provided maximum components to
   ## be fitted.
   for(i in 1:length(n.components)) {
-
     k<- n.components[i]
-
-    # calculate yu = log(ED),  su = se(logED),  n = number of grains
-    yu<- log(data$ED)
-    su<- data$ED_Error/data$ED
-    n<- length(yu)
 
     # compute starting values
     pui<- matrix(0,n,k)
@@ -293,11 +301,7 @@ calc_FiniteMixture <- function(
     #	mu<- quantile(yu,(1:k)/(k+1))
 
     # compute maximum log likelihood estimates
-    nit<- 499L
-    wu<- 1/(sigmab^2 + su^2)
-    rwu<- sqrt(wu)
-
-    for(j in 1:nit){
+    for (j in 1:num.iters) {
       for(i in 1:k)
       {
         fui <- rwu * exp(-0.5 * wu * (yu - mu[i])^2)
@@ -345,7 +349,7 @@ calc_FiniteMixture <- function(
 
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
-    re <- suppressWarnings(sqrt(diag(vmat)))[-c(1:(k-1))]
+    re <- suppressWarnings(sqrt(diag(vmat)))[-(1:(k-1))]
     re[is.nan(re)] <- NA
 
     sed<- dose*re
@@ -444,7 +448,6 @@ calc_FiniteMixture <- function(
 
     ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
     if (!multiple.components) {
-
       cat("\n llik:                 ", round(llik,4))
       cat("\n BIC:                  ", round(bic,3))
 
@@ -458,7 +461,7 @@ calc_FiniteMixture <- function(
 
       # print (to 2 decimal places) the estimated probabilities of which component
       # each grain is in -- sometimes useful for diagnostic purposes
-      if(grain.probability==TRUE) {
+      if (grain.probability) {
         cat("\n-------- grain probability -------\n\n")
         print(round(pui,2))
       }
@@ -559,7 +562,7 @@ calc_FiniteMixture <- function(
   ##=========##
   ## PLOTTING -----------
   if (plot)
-    try(do.call(.plot_FiniteMixture, c(results, as.list(sys.call())[-c(1,2)])))
+    try(do.call(.plot_FiniteMixture, c(results, as.list(sys.call())[-(1:2)])))
 
   # Return values
   invisible(results)
@@ -570,6 +573,8 @@ calc_FiniteMixture <- function(
 ## on the same object.
 .plot_FiniteMixture <- function(object, ...) {
   if (length(object@data$args$n.components) == 1) {
+    .throw_message("'n.components' specified only one component, nothing plotted",
+                   error = FALSE)
     return()
   }
 
@@ -602,7 +607,7 @@ calc_FiniteMixture <- function(
 
   ## DEVICE AND PLOT LAYOUT
   n.plots <- length(n.components) #number of PDF plots in plot area #1
-  seq.matrix <- rbind(c(1:n.plots), c(1:n.plots))
+  seq.matrix <- rbind(1:n.plots, 1:n.plots)
   if (settings$plot.proportions)
     seq.matrix <- rbind(seq.matrix, rep(max(seq.matrix) + 1))
   if (settings$plot.criteria)
@@ -611,27 +616,20 @@ calc_FiniteMixture <- function(
   ## create device layout
   graphics::layout(seq.matrix)
 
-  ## outer margins (bottom, left, top, right)
-  par(oma = c(1, 5, 3, 5))
-
   ## general plot parameters (global scaling, allow overplotting)
   par(cex = 0.8 * settings$cex, xpd = NA)
 
+  ## set margins (bottom, left, top, right)
+  par(mar = c(2, 0, 2, 0), oma = c(0.6, 5, 1.3, 5))
+
   ## define colour palette for prettier output
-  if (settings$pdf.colors == "colors") {
-    col.n <- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
-               "burlywood4", "magenta4", "mediumpurple3", "brown4", "grey",
-               "aquamarine")
-    poly.border <- FALSE
-  }
-  else if (settings$pdf.colors == "gray") {
-    col.n <- grDevices::gray.colors(length(n.components)*2)
-    poly.border <- FALSE
-  }
-  else if (settings$pdf.colors == "none") {
-    col.n <- rgb(0, 0, 0, 0)
-    poly.border <- TRUE
-  }
+  col.n <- switch(settings$pdf.colors,
+                  colors = c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
+                             "burlywood4", "magenta4", "mediumpurple3", "brown4",
+                             "grey", "aquamarine"),
+                  gray = grDevices::gray.colors(length(n.components) * 2),
+                  none = rgb(0, 0, 0, 0))
+  poly.border <- settings$pdf.colors == "none"
 
   ##--------------------------------------------------------------------------
   ## PLOT 1: EQUIVALENT DOSES OF COMPONENTS
@@ -650,9 +648,6 @@ calc_FiniteMixture <- function(
   ## create empty plot without x-axis
   for (i in 1:n.plots) {
     pos.n <- seq(from = 1, to = n.components[i] * 3, by = 3)
-
-    ## set margins (bottom, left, top, right)
-    par(mar = c(2, 0, 2, 0))
 
     ## empty plot area
     plot(NA, NA,
@@ -743,13 +738,9 @@ calc_FiniteMixture <- function(
     ## draw additional info during first k-cycle
     if (i == 1) {
 
-      ## plot title
-      mtext(settings$main.densities,
-            side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
-
       ## main title
       mtext(settings$main,
-            side = 3, font = 2, line = 3.5, adj = 0.5, cex = settings$cex,
+            side = 3, font = 2, line = 1.8, adj = 0.5, cex = settings$cex,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
 
       ## subtitle
@@ -760,10 +751,14 @@ calc_FiniteMixture <- function(
                                            else "")
                                        ))
       mtext(subtitle,
-            side = 3, font = 1, line = 2.2, adj = 0.5,
+            side = 3, font = 1, line = 0.5,
             at = graphics::grconvertX(0.5, from = "ndc", to = "user"),
             col = ifelse(has.nas, 2, 1),
             cex = 0.9 * settings$cex)
+
+      ## plot title
+      mtext(settings$main.densities,
+            side = 3, font = 2, line = 0, adj = 0, cex = 0.8 * settings$cex)
 
       ## x-axis label
       mtext("Density [a.u.]",
@@ -774,25 +769,13 @@ calc_FiniteMixture <- function(
       axis(side = 2, labels = TRUE)
     }
 
-    if (settings$pdf.colors == "colors") {
-      ## create legend labels
-      dose.lab.legend <- paste0("c", 1:n.components[length(n.components)])
-
-      ncol.temp <- min(max(n.components), 8)
-      yadj <- if (max(n.components) > 8) 1.025 else 0.93
-
-      ## add legend
-      if (i == n.plots) {
-        legend(graphics::grconvertX(0.55, from = "ndc", to = "user"),
-               graphics::grconvertY(yadj, from = "ndc", to = "user"),
-               legend = dose.lab.legend,
-               col = col.n[1:max(n.components)],
-               pch = 15, adj = c(0,0.2), pt.cex = 1.4,
-               bty = "n", ncol = ncol.temp, x.intersp = 0.4)
-
-        mtext("Components: ", cex = 0.8 * settings$cex,
-              at = graphics::grconvertX(0.5, from = "ndc", to = "user"))
-      }
+    if (settings$pdf.colors != "none" && i == n.plots) {
+      legend("topright",
+             legend = paste("Comp.", 1:max(n.components)),
+             col = col.n[1:max(n.components)],
+             pch = 19,
+             pt.cex = 1.3,
+             bty = "n")
     }
 
   } ## EndOf::k-loop and Plot 1

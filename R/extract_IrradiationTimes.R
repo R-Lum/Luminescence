@@ -281,20 +281,21 @@ extract_IrradiationTimes <- function(
 # Grep relevant information -------------------------------------------------------------------
   ##Sequence STEP
   STEP <- names_RLum(temp.sequence)
+  bin.originators <- c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R")
 
   #START time of each step
   ## we try also to support BIN/BINX files with this function if imported
   ## accordingly
-  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+  if (.check_originator(temp.sequence, bin.originators)) {
     temp.START <- vapply(temp.sequence, function(x) {
-       paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
+       paste0(get_RLum(x, info.object = "DATE"), get_RLum(x, info.object = "TIME"))
     }, character(1))
 
     fmt <- if (grepl(":", temp.START[1])) "%y%m%d%H:%M:%S" else "%y%m%d%H%M%S"
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {
-      suppressWarnings(get_RLum(x, info.object = c("startDate"))) %||%
+      suppressWarnings(get_RLum(x, info.object = "startDate")) %||%
         as.character(Sys.Date())
     }, character(1))
 
@@ -334,8 +335,8 @@ extract_IrradiationTimes <- function(
 
     ##POSITION of each STEP
     POSITION <- vapply(temp.sequence, function(x){
-      suppressWarnings(get_RLum(x, info.object = c("position"))) %||%
-        get_RLum(x, info.object = c("POSITION"))
+      suppressWarnings(get_RLum(x, info.object = "position")) %||%
+        get_RLum(x, info.object = "POSITION")
     }, numeric(1))
   }
 
@@ -343,9 +344,9 @@ extract_IrradiationTimes <- function(
   temp.results <- data.frame(POSITION,STEP,START,DURATION.STEP,END)
 
   # Calculate irradiation duration ------------------------------------------------------------
-  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
-    IRR_TIME <- vapply(temp.sequence, function(x) get_RLum(x, info.object = c("IRR_TIME")), numeric(1))
-
+  if (.check_originator(temp.sequence, bin.originators)) {
+    IRR_TIME <- vapply(temp.sequence, get_RLum, info.object = "IRR_TIME",
+                       FUN.VALUE = numeric(1))
   } else {
     IRR_TIME <- numeric(length = nrow(temp.results))
     temp_last <- 0

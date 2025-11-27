@@ -4,7 +4,7 @@
 \alias{merge_RLum.Data.Curve}
 \title{Merge function for RLum.Data.Curve S4 class objects}
 \usage{
-merge_RLum.Data.Curve(object, merge.method = "mean", method.info)
+merge_RLum.Data.Curve(object, merge.method = "mean", method.info = NULL)
 }
 \arguments{
 \item{object}{\link{list} of \linkS4class{RLum.Data.Curve} (\strong{required}):
@@ -20,7 +20,7 @@ be taken from the first curve in the list.}
 allows to specify how info elements of the input objects are combined,
 e.g. \code{1} means that just the elements from the first object are kept,
 \code{2} keeps only the info elements from the 2 object etc.
-If nothing is provided all elements are combined.}
+If set to \code{NULL}, all elements are combined.}
 }
 \value{
 Returns an \linkS4class{RLum.Data.Curve} object.
@@ -97,7 +97,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.1
+ 0.2.2
 }
 
 \examples{

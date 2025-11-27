@@ -240,7 +240,7 @@
 scale_GammaDose <- function(
   data,
   conversion_factors = c("Cresswelletal2018", "Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
-  fractional_gamma_dose = c("Aitken1985")[1],
+  fractional_gamma_dose = "Aitken1985",
   verbose = TRUE,
   plot = TRUE,
   plot_singlePanels = FALSE,
@@ -316,8 +316,7 @@ scale_GammaDose <- function(
   ## in first position, as that is our default value
   valid_conversion_factors <- c("Cresswelletal2018", "Guerinetal2011",
                                 "AdamiecAitken1998", "Liritzisetal2013")
-  stopifnot(all(names(BaseDataSet.ConversionFactors) %in%
-                valid_conversion_factors))
+  stopifnot(names(BaseDataSet.ConversionFactors) %in% valid_conversion_factors)
   conversion_factors <- .validate_args(conversion_factors,
                                        valid_conversion_factors)
   fractional_gamma_dose <- .validate_args(fractional_gamma_dose,
@@ -381,20 +380,18 @@ scale_GammaDose <- function(
       approx(z, x, n = 1000, method = "linear")
     }, frac_dose[, c("K", "Th", "U")])
 
-    x1 = data$thickness[n]
-    x2 = 0
-    C1 = which.min(abs(interpol$K$x - x1))
-    C2 = which.min(abs(interpol$K$x - x2))
+    x1 <- data$thickness[n]
+    x2 <- 0
+    C1 <- which.min(abs(interpol$K$x - x1))
+    C2 <- which.min(abs(interpol$K$x - x2))
 
     ## MAP: iterate over NUCLIDE
     do.call(cbind, Map(function(x) {
-
-      y1 = interpol[[x]]$y[C1]
-      y2 = interpol[[x]]$y[C2]
+      y1 <- interpol[[x]]$y[C1]
+      y2 <- interpol[[x]]$y[C2]
 
       ### ----
       if (n != target) {
-
         if (n < target) {
           k <-  n + 1
           seq <- k:target

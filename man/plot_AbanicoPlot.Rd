@@ -16,9 +16,9 @@ plot_AbanicoPlot(
   summary = c("n", "in.2s"),
   summary.pos = "sub",
   summary.method = "MCM",
-  legend,
-  legend.pos,
-  stats,
+  legend = NULL,
+  legend.pos = "topleft",
+  stats = NULL,
   rug = FALSE,
   kde = TRUE,
   hist = FALSE,
@@ -26,14 +26,14 @@ plot_AbanicoPlot(
   boxplot = FALSE,
   y.axis = TRUE,
   error.bars = FALSE,
-  bar,
-  bar.col,
-  polygon.col,
-  line,
-  line.col,
-  line.lty,
-  line.label,
-  grid.col,
+  bar = NULL,
+  bar.col = NULL,
+  polygon.col = NULL,
+  line = NULL,
+  line.col = NULL,
+  line.lty = NULL,
+  line.label = NULL,
+  grid.col = NULL,
   frame = 1,
   bw = "SJ",
   interactive = FALSE,
@@ -166,7 +166,7 @@ numeric values of the additional lines to be added.}
 colour of the additional lines.}
 
 \item{line.lty}{\link{integer}:
-line type of additional lines}
+line type of additional lines.}
 
 \item{line.label}{\link{character}:
 labels for the additional lines.}
@@ -284,7 +284,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.18
+ 0.1.20
 }
 
 \examples{
@@ -301,8 +301,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
                  log.z = FALSE)
 
 ## now with output of the plot parameters
-plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
-                          output = TRUE)
+plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues)
 str(plot1)
 plot1$zlim
 
@@ -448,8 +447,7 @@ plot_AbanicoPlot(
 ## now with manually added plot content
 ## create empty plot with numeric output
 AP <- plot_AbanicoPlot(data = ExampleData.DeValues,
-                       pch = NA,
-                       output = TRUE)
+                       pch = NA)
 
 ## identify data in 2 sigma range
 in_2sigma <- AP$data[[1]]$data.in.2s

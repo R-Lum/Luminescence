@@ -156,9 +156,8 @@ analyse_Al2O3C_Measurement <- function(
   ## Self call --------------------------------------------------------------
   if (inherits(object, "list")) {
     .validate_not_empty(object)
-    lapply(object,
-           function(x) .validate_class(x, "RLum.Analysis",
-                                       name = "All elements of 'object'"))
+    lapply(object, .validate_class, "RLum.Analysis",
+           name = "All elements of 'object'")
 
     ## expand input arguments
     rep.length <- length(object)
@@ -228,7 +227,7 @@ analyse_Al2O3C_Measurement <- function(
         .throw_message("'travel_dosimeter' specifies every position, nothing corrected")
 
       ##check if the position is valid
-      if(any(!travel_dosimeter%in%results$data$POSITION))
+      if (!all(travel_dosimeter %in% results$data$POSITION))
         .throw_message("Invalid position in 'travel_dosimeter', nothing corrected")
 
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
@@ -288,16 +287,14 @@ analyse_Al2O3C_Measurement <- function(
   }
 
   ##set signal integral
+  max.signal_integral <- nrow(object[[1]][])
   if(is.null(signal_integral)){
-   signal_integral <- c(1:nrow(object[[1]][]))
-
-  }else{
-    ##check whether the input is valid, otherwise make it valid
-    if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
-      signal_integral <- c(1:nrow(object[[1]][]))
-      .throw_warning("Input for 'signal_integral' corrected to 1:",
-                     nrow(object[[1]][]))
-    }
+   signal_integral <- 1:max.signal_integral
+  } else if (min(signal_integral) < 1 ||
+             max(signal_integral) > max.signal_integral) {
+    ## check whether the input is valid, otherwise make it valid
+    signal_integral <- 1:max.signal_integral
+    .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
   }
 
   ## Set Irradiation Time Correction ---------------
@@ -306,11 +303,7 @@ analyse_Al2O3C_Measurement <- function(
       .validate_length(irradiation_time_correction, 2)
     } else {
       ## RLum.Results case
-      if (!irradiation_time_correction@originator %in% "analyse_Al2O3C_ITC") {
-        .throw_error("'irradiation_time_correction' was created by an ",
-                     "unsupported function (originator is '",
-                     irradiation_time_correction@originator, "')")
-      }
+      .validate_originator(irradiation_time_correction, "analyse_Al2O3C_ITC")
       irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
       ## consider the case for more than one observation ...
@@ -338,10 +331,7 @@ analyse_Al2O3C_Measurement <- function(
     .validate_length(cross_talk_correction, 3)
   } else {
     ## RLum.Results case
-    if (!cross_talk_correction@originator %in% "analyse_Al2O3C_CrossTalk") {
-      .throw_error("'cross_talk_correction' was created by an unsupported function ",
-                   "(originator is '", cross_talk_correction@originator, "')")
-    }
+    .validate_originator(cross_talk_correction, "analyse_Al2O3C_CrossTalk")
 
       ## calculate the cross-talk correction values for this particular
       ## carousel position
@@ -521,10 +511,9 @@ analyse_Al2O3C_Measurement <- function(
      ##get curves ids holding the information on the stimulation power
      temp_curves_OSL <- get_RLum(object_raw, recordType = "OSL", curveType = "measured")
      temp_curves_OSL <- lapply(temp_curves_OSL, function(o){
-       if("stimulator"%in%names(o@info)){
-         if(grepl(o@info$stimulator, pattern = "LED", fixed = TRUE)){
+       if ("stimulator" %in% names(o@info) &&
+           grepl(o@info$stimulator, pattern = "LED", fixed = TRUE)) {
            return(o)
-         }
        }
       return(NULL)
      })
@@ -595,7 +584,7 @@ analyse_Al2O3C_Measurement <- function(
       )
 
      ##modify on request
-     plot_settings <- modifyList(x = plot_settings, val = list(...),)
+     plot_settings <- modifyList(plot_settings, val = list(...))
 
      ##plot curves
      if(any(grepl("TL", names(object))))

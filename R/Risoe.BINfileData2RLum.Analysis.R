@@ -105,13 +105,11 @@ Risoe.BINfileData2RLum.Analysis<- function(
   positions.valid <- unique(object@METADATA[["POSITION"]])
   if (is.null(pos)) {
     pos <- positions.valid
-  } else {
+  } else if (length(setdiff(pos, positions.valid)) > 0) {
     ## remove invalid positions from the input
-    if (length(setdiff(pos, positions.valid)) > 0) {
       .throw_warning("Invalid position number skipped: ",
                      .collapse(setdiff(pos, positions.valid), quote = FALSE))
       pos <- intersect(pos, positions.valid)
-    }
   }
 
   # Grep run and set data ---------------------------------------------------
@@ -120,56 +118,46 @@ Risoe.BINfileData2RLum.Analysis<- function(
   grain.valid <- unique(object@METADATA[["GRAIN"]])
   if (is.null(grain)) {
     grain <- grain.valid
-  } else {
-      if(length(setdiff(grain, grain.valid)) > 0){
+  } else if (length(setdiff(grain, grain.valid)) > 0) {
         .throw_warning("Invalid grain number skipped: ",
                        .collapse(setdiff(grain, grain.valid), quote = FALSE))
         grain <- intersect(grain, grain.valid)
-      }
   }
 
   ## run
   run.valid <- unique(object@METADATA[["RUN"]])
   if (is.null(run)) {
     run <- run.valid
-  } else {
-    if (length(setdiff(run, run.valid)) > 0) {
+  } else if (length(setdiff(run, run.valid)) > 0) {
       .throw_error("'run' contains invalid runs, valid runs are: ",
                    .collapse(run.valid, quote = FALSE))
-    }
   }
 
   ## set
   set.valid <- unique(object@METADATA[["SET"]])
   if (is.null(set)) {
     set <- set.valid
-  } else {
-    if (length(setdiff(set, set.valid)) > 0) {
+  } else if (length(setdiff(set, set.valid)) > 0) {
       .throw_error("'set' contains invalid sets, valid sets are: ",
                    .collapse(set.valid, quote = FALSE))
-    }
   }
 
   ## ltype
   ltype.valid <- unique(object@METADATA[["LTYPE"]])
   if (is.null(ltype)) {
     ltype <- ltype.valid
-  } else {
-    if (length(setdiff(ltype, ltype.valid)) > 0) {
+  } else if (length(setdiff(ltype, ltype.valid)) > 0) {
       .throw_error("'ltype' contains invalid ltypes, valid ltypes are: ",
                    .collapse(ltype.valid, quote = TRUE))
-    }
   }
 
   ## dtype
   dtype.valid <- unique(object@METADATA[["DTYPE"]])
   if (is.null(dtype)) {
     dtype <- dtype.valid
-  } else {
-    if (length(setdiff(dtype, dtype.valid)) > 0) {
+  } else if (length(setdiff(dtype, dtype.valid)) > 0) {
       .throw_error("'dtype' contains invalid dtypes, valid dtypes are: ",
                    .collapse(dtype.valid, quote = TRUE))
-    }
   }
 
     # Select values and convert them-----------------------------------------------------------

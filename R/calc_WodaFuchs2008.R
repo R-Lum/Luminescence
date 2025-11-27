@@ -121,7 +121,7 @@ calc_WodaFuchs2008 <- function(
 
   if (n_breaks <= 3) {
     .throw_warning("Fewer than 4 bins produced, 'breaks' set to 4")
-    n_breaks = 4
+    n_breaks <- 4
   }
 
   ## calculate histogram

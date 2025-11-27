@@ -6,7 +6,7 @@
 \usage{
 plot_ROI(
   object,
-  exclude_ROI = c(1),
+  exclude_ROI = 1,
   dist_thre = -Inf,
   dim.CCD = NULL,
   bg_image = NULL,
