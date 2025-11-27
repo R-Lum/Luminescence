@@ -914,6 +914,7 @@ plot_RadialPlot <- function(
       for(i in 1:length(data)) {
         polygon(x = polygons[i,1:4],
                 y = polygons[i,5:8],
+                xpd = FALSE,
                 lty = "blank",
                 col = bar.col[i])
       }
@@ -955,8 +956,16 @@ plot_RadialPlot <- function(
     }
 
     ## overplot unwanted parts
-    polygon(x = c(ellipse[,1], limits.x[2] * 2, limits.x[2] * 2),
-            y = c(ellipse[,2], max(ellipse[,2]), min(ellipse[,2])),
+    bex <- ellipse[1, 1]                    # start of ellipse (x)
+    bey <- min(ellipse[1, 2], -2)           # start of ellipse (y)
+    eex <- ellipse[num.values, 1]           # end of ellipse (x)
+    par.usr <- par("usr")
+    x1 <- min(par.usr[1], ellipse[, 1])     # left
+    x2 <- max(par.usr[2], ellipse[, 1])     # right
+    y1 <- min(par.usr[1], ellipse[, 2], -2) # bottom
+    y2 <- max(par.usr[2], ellipse[, 2], 2)  # top
+    polygon(x = c(ellipse[, 1], eex, x2, x2, x1, x1,  bex),
+            y = c(ellipse[, 2], y2,  y2, y1, y1, bey, bey),
             col = "white",
             lty = 0)
 
