@@ -8,6 +8,7 @@ fit_IsothermalHolding(
   data,
   rhop,
   ITL_model = "GOK",
+  normalise_LxTx = TRUE,
   plot = TRUE,
   verbose = TRUE,
   txtProgressBar = TRUE,
@@ -25,6 +26,10 @@ object produced by \link{analyse_FadingMeasurement}.}
 
 \item{ITL_model}{\link{character} (\emph{with default}): model to be fitted, either
 \code{"GOK"} or \code{"BTS"}.}
+
+\item{normalise_LxTx}{\link{logical} (\emph{with default}):
+whether the \code{LxTx} data should be normalised to its maximum value (\code{TRUE}
+by default).}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 

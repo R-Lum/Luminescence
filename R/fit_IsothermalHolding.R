@@ -14,6 +14,10 @@
 #' @param ITL_model [character] (*with default*): model to be fitted, either
 #' `"GOK"` or `"BTS"`.
 #'
+#' @param normalise_LxTx [logical] (*with default*):
+#' whether the `LxTx` data should be normalised to its maximum value (`TRUE`
+#' by default).
+#'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
@@ -63,6 +67,7 @@ fit_IsothermalHolding <- function(
     data,
     rhop,
     ITL_model = "GOK",
+    normalise_LxTx = TRUE,
     plot = TRUE,
     verbose = TRUE,
     txtProgressBar = TRUE,
@@ -83,6 +88,7 @@ fit_IsothermalHolding <- function(
   .validate_class(data, c("character", "RLum.Results", "data.frame"))
   .validate_class(rhop, c("numeric", "RLum.Results"))
   ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
+  .validate_logical_scalar(normalise_LxTx)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
@@ -111,6 +117,11 @@ fit_IsothermalHolding <- function(
   ###### --- Extract data from RLum.Results for ITL fitting --- #####
   ## get unique sample names; we will use this to filter the data
   sample_id <- unique(records_ITL[["SAMPLE"]])
+
+  ## data normalisation
+  if (normalise_LxTx) {
+    records_ITL$LxTx <- .normalise_curve(records_ITL$LxTx, "max")
+  }
 
   ## extract data.frames for each sample with all information
   df_raw_list <- lapply(sample_id, function(x) records_ITL[records_ITL$SAMPLE == x, ])
