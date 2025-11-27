@@ -172,15 +172,23 @@ plot_settings <- modifyList(x = list(
 
       ## axes
       if(plot_settings$axes) {
-        xlab <- pretty(1:dim(x)[1])
-        xlab[c(1,length(xlab))] <- c(0,dim(x)[1])
-        xat <- seq(0,1,length.out = length(xlab))
-        graphics::axis(side = 1, at = xat, labels = xlab)
+        .ticks.lab.at <- function(max.size) {
+          if (max.size < 13) {
+            lab <- 1:max.size
+          } else {
+            lab <- pretty(1:max.size, n = min(4, max.size))
+            lab[lab == 0] <- 1
+          }
+          ## the centre of the first and last squares are respectively at 0
+          ## and 1, all others are spread linearly between these two
+          at <- lab / max.size
+          list(lab = lab, at = (at - at[1]) / (1 - at[1]))
+        }
+        xticks <- .ticks.lab.at(nrow(x))
+        graphics::axis(side = 1, at = xticks$at, labels = xticks$lab)
 
-        ylab <- pretty(1:dim(x)[2])
-        ylab[c(1,length(ylab))] <- c(0,dim(x)[2])
-        yat <- seq(0,1,length.out = length(ylab))
-        graphics::axis(side = 2, at = yat, labels = ylab)
+        yticks <- .ticks.lab.at(ncol(x))
+        graphics::axis(side = 2, at = yticks$at, labels = yticks$lab)
       }
 
       ## add legend
