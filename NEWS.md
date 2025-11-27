@@ -269,6 +269,10 @@
 - The function no lonver crashes if `central.value` is a non-positive
   value when `log.z = TRUE` (#1173).
 
+- Some graphical artifacts related to the 2-sigma bar, which would
+  appear for extreme settings of the `central.value` argument have been
+  fixed (#1194).
+
 ### `plot_RLum.Analysis()`
 
 - Setting `records_max` to a value larger than the number of curves no
