@@ -63,7 +63,7 @@ wanted, please use \code{zlim_image} to maintain a particular value range over a
 series of images.
 }
 \section{Function version}{
- 0.2.1
+ 0.2.2
 }
 
 \examples{

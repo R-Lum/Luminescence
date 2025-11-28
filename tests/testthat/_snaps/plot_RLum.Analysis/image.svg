@@ -68,8 +68,8 @@
 <rect x='682.31' y='154.80' width='11.02' height='25.92' style='stroke-width: 0.75; fill: #F8B93E;' />
 <rect x='682.31' y='128.88' width='11.02' height='25.92' style='stroke-width: 0.75; fill: #F9DB6B;' />
 <rect x='682.31' y='102.96' width='11.02' height='25.92' style='stroke-width: 0.75; fill: #FFFE9E;' />
-<text transform='translate(698.83,50.40) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='23.60px' lengthAdjust='spacingAndGlyphs'>2e+00</text>
 <text transform='translate(698.83,504.00) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='26.39px' lengthAdjust='spacingAndGlyphs'>-2e+00</text>
+<text transform='translate(698.83,50.40) rotate(-270)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='25.93px' lengthAdjust='spacingAndGlyphs'> 2e+00</text>
 <text x='370.80' y='54.72' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>#1</text>
 </g>
 <defs>

@@ -47,7 +47,7 @@
 #' wanted, please use `zlim_image` to maintain a particular value range over a
 #' series of images.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -169,43 +169,51 @@ plot_settings <- modifyList(x = list(
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
 
-  if (plot.type == "plot.raster") {
-# plot.raster -------------------------------------------------------------
-    for(i in 1:dim(object)[3]) {
-      par(mar = c(4.5, 4.5, 4, 3))
-      x <- object[, , i, drop = FALSE]
-      image <-.stretch(x, type = plot_settings$stretch)
+  for (i in 1:dim(object)[3]) {
+    x <- object[, , i, drop = FALSE]
+    range_x <- range(x)
+    main <- ifelse(length(plot_settings$main) == 1,
+                   paste0(plot_settings$main, " #", i),
+                   paste0(plot_settings$main[i]))
 
-      graphics::image(
-        x = image,
-        useRaster = plot_settings$useRaster,
+    if (plot.type == "plot.raster") {
+      par(mar = c(4.5, 4.5, 4, 3))
+      plot.fun <- graphics::image
+      x <-.stretch(x, type = plot_settings$stretch)
+      useRaster <- plot_settings$useRaster
+    } else if (plot.type == "contour") {
+      plot.fun <- graphics::contour
+      x <- x[, , 1]
+      useRaster <- NULL
+    }
+    do.call(plot.fun, list(
+        x = x,
+        useRaster = useRaster,
+        main = main,
         axes = FALSE,
-        zlim = plot_settings$zlim_image %||% range(image),
+        zlim = plot_settings$zlim_image %||% range(x),
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        main = ifelse(length(plot_settings$main) == 1,
-                      paste0(plot_settings$main, " #", i),
-                      paste0(plot_settings$main[i])),
-        col = plot_settings$col)
-      graphics::box()
+        col = plot_settings$col))
+    graphics::box()
 
-      ## axes
-      if(plot_settings$axes) {
+    ## axes
+    if (plot_settings$axes) {
         xticks <- .ticks.lab.at(nrow(x))
         graphics::axis(side = 1, at = xticks$at, labels = xticks$lab)
-
         yticks <- .ticks.lab.at(ncol(x))
         graphics::axis(side = 2, at = yticks$at, labels = yticks$lab)
-      }
+    }
 
-      ## add legend
-      if(plot_settings$legend) {
+    ## add legend
+    if (plot.type == "plot.raster" && plot_settings$legend) {
         col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 14)]
         slices <- seq(0,1,length.out = 15)
+        par.usr <- par("usr")
         for(s in 1:(length(slices) - 1)){
           graphics::rect(
-            xleft = par()$usr[4] * 1.01,
-            xright = par()$usr[4] * 1.03,
+            xleft = par.usr[4] * 1.01,
+            xright = par.usr[4] * 1.03,
             ybottom = slices[s],
             ytop =  slices[s + 1],
             col = col_grad[s],
@@ -214,56 +222,18 @@ plot_settings <- modifyList(x = list(
         }
 
         text(
-          x = par()$usr[4] * 1.04,
-          y = par()$usr[2],
-          labels = format(plot_settings$zlim_image[2] %||% max(x),
+          x = c(par.usr[4], par.usr[4]) * 1.04,
+          y = c(par.usr[3], par.usr[2]),
+          labels = format(plot_settings$zlim_image %||% range_x,
                           digits = plot_settings$digits,
                           scientific = plot_settings$scientific),
           xpd = TRUE,
           cex = 0.7,
           srt = 270,
           pos = 3)
-        text(
-          x = par()$usr[4] * 1.04,
-          y = par()$usr[3],
-          labels = format(plot_settings$zlim_image[1] %||% min(x),
-                          digits = plot_settings$digits,
-                          scientific = plot_settings$scientific),
-          xpd = TRUE,
-          cex = 0.7,
-          pos = 3,
-          srt = 270)
-      }
-
-      ## add mtext
-      mtext(side = 3, plot_settings$mtext)
     }
 
-  }else if(plot.type == "contour"){
-     for(i in 1:dim(object)[3]) {
-      x <- object[, , i, drop = FALSE]
-      graphics::contour(
-        x = x[,,1],
-        axes = FALSE,
-        zlim = plot_settings$zlim_image %||% range(x),
-        xlab = plot_settings$xlab,
-        ylab = plot_settings$ylab,
-        main = ifelse(length(plot_settings$main) == 1,
-                      paste0(plot_settings$main, " #", i),
-                      paste0(plot_settings$main[i])),
-        col = plot_settings$col)
-      graphics::box()
-     }
-
-    ## axes
-    if(plot_settings$axes) {
-      xticks <- .ticks.lab.at(nrow(x))
-      yticks <- .ticks.lab.at(ncol(x))
-      graphics::axis(side = 1, at = xticks$at, labels = xticks$lab)
-      graphics::axis(side = 2, at = yticks$at, labels = yticks$lab)
-    }
-
-     ## add mtext
-     mtext(side = 3, plot_settings$mtext)
+    ## add mtext
+    mtext(side = 3, plot_settings$mtext)
   }
 }
