@@ -327,3 +327,7 @@ and `NULL` is returned.
 
 * The `ExampleData.portableOSL` file has been updated with surface coordinates
 (#1095).
+
+* Documentation for all example data (including synthetic datasets) is now
+more easily findable from RStudio (#1166; thanks to @DirkMittelstrass for
+reporting).
