@@ -1252,7 +1252,7 @@ NULL
 
 #' Example TR-OSL data
 #'
-#' Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
+#' Single TR-OSL curve obtained by Schmidt et al. (2019) for quartz sample BT729
 #' (origin: Trebgast Valley, Germany, quartz, 90-200 µm, unpublished data).
 #'
 #' @format One [RLum.Data.Curve-class] dataset imported using the function [read_XSYG2R]
@@ -1263,9 +1263,9 @@ NULL
 #'
 #' @seealso [fit_OSLLifeTimes]
 #'
-#' @references Schmidt, C., Simmank, O., Kreutzer, S., under review.
-#' Time-Resolved Optically Stimulated Luminescence of Quartz in the Nanosecond Time Domain. Journal
-#' of Luminescence, 1-90
+#' @references Schmidt, C., Simmank, O., Kreutzer, S., 2019.
+#' Time-Resolved Optically Stimulated Luminescence of Quartz in the Nanosecond Time Domain.
+#' Journal of Luminescence 213, 376-387.
 #'
 #' @keywords datasets
 #'
