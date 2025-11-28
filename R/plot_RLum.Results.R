@@ -576,12 +576,12 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size ---------
-  if (.check_originator(object, "calc_AliquotSize")) {
+  if (.check_originator(object, "calc_AliquotSize") &&
+      !is.null(object@data$MC$estimates)) {
     ## FIXME(mcol): The following code has been ported to calc_AliquotSize(),
     ## where it has been further updated. This version is preserved to support
     ## the plotting of an RLum.Results object directly, which calc_AliquotSize()
     ## doesn't yet support.
-    if(!is.null(object@data$MC$estimates)) {
       extraArgs <- list(...)
 
       main <- extraArgs$main %||% "Monte Carlo Simulation"
@@ -645,7 +645,6 @@ plot_RLum.Results<- function(
            xaxt="n", yaxt="n", ylab="")
       par(bty="n")
       graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
-    }
   }#EndOf::Case 5 - calc_AliquotSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
