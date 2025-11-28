@@ -489,30 +489,6 @@ calc_MinDose <- function(
 
   boundaries <- modifyList(boundaries, list(...))
 
-  # combine lower and upper boundary values to vectors
-  xlb <- c(boundaries$gamma.lower,
-           boundaries$sigma.lower,
-           boundaries$p0.lower)
-  xub <- c(boundaries$gamma.upper,
-           exp(boundaries$sigma.upper),
-           boundaries$p0.lower)
-  if (log) {
-    if (!is.infinite(xlb[1])) # gamma.lower
-      xlb[1] <- log(xlb[1])
-    if (!is.infinite(xub[1])) # gamma.upper
-      xub[1] <- log(xub[1])
-  }
-  if (par == 4) {
-    xlb <- c(xlb,
-             ifelse(log,
-                    ifelse(is.infinite(boundaries$mu.lower), -Inf, log(boundaries$mu.lower)),
-                    boundaries$mu.lower))
-    xub <- c(xub,
-             ifelse(log,
-                    ifelse(is.infinite(boundaries$mu.upper), -Inf, log(boundaries$mu.upper)),
-                    boundaries$mu.upper))
-  }
-
   ##============================================================================##
   ## AUXILIARY FUNCTIONS
   ##============================================================================##
