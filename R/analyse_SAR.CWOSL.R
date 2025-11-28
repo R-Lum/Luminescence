@@ -1423,9 +1423,8 @@ if(is.list(object)){
     text = set_mtext,
     cex = set_cex * 0.7)
 
-  records_data_list <- lapply(curve_ids, \(x) record_list[[x]]@data)
-  for (i in seq_along(records_data_list)) {
-    lines(records_data_list[[i]], col = set_col[i])
+  for (idx in seq_along(curve_ids)) {
+    lines(record_list[[curve_ids[idx]]]@data, col = set_col[idx])
   }
 
   ##mark integration limit Lx curves
