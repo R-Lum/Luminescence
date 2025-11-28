@@ -329,7 +329,7 @@ fit_IsothermalHolding <- function(
   if (verbose) {
     ## silence notes raised by R CMD check
     Et <- Et_Q_0.25 <- Et_Q_0.75 <- Et_median <- Et_mean <- NULL
-    s10 <- s10_Q_0.25 <- s10_Q_0.75 <- s10_median <- Et_mean <- NULL
+    s10 <- s10_Q_0.25 <- s10_Q_0.75 <- s10_median <- s10_mean <- NULL
 
     ## report as mean; median (IQR)
     format.out <- function(x, x1, x2, x3, n = 3)
