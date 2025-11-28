@@ -9,7 +9,6 @@
 #' plotting of equivalent dose distributions.
 #'
 #' @name Luminescence-package
-#'
 #' @aliases Luminescence-package Luminescence
 #'
 #' @details
@@ -404,7 +403,43 @@ NULL
 #' @docType data
 #' @name BaseDataSet.CosmicDoseRate
 #' @aliases values.cosmic.Softcomp values.factor.Altitude values.par.FJH
+NULL
+
+#' @title All examples
+#' @description
+#' These examples are fully documented:
 #'
+#' \itemize{
+#' \item [ExampleData.CobbleData]
+#' \item [ExampleData.DeValues]
+#' \item [ExampleData.Fading]
+#' \item [ExampleData.portableOSL]
+#' \item [ExampleData.RLum.Data.Image]
+#' \item [ExampleData.ScaleGammaDose]
+#' \item [ExampleData.SurfaceExposure]
+#' \item [ExampleData.TR_OSL]
+#' }
+#'
+#' The following ones are also available, but are visible only via the
+#' internal documentation, as they correspond to unpublished or synthetic data:
+#'
+#' \itemize{
+#' \item [ExampleData.Al2O3C]
+#' \item [ExampleData.BINfileData]
+#' \item [ExampleData.CW_OSL_Curve]
+#' \item [ExampleData.FittingLM]
+#' \item [ExampleData.LxTxData]
+#' \item [ExampleData.LxTxOSLData]
+#' \item [ExampleData.MortarData]
+#' \item [ExampleData.RF70Curves]
+#' \item [ExampleData.RLum.Analysis]
+#' \item [ExampleData.XSYG]
+#' }
+#'
+#' @keywords datasets
+#'
+#' @docType data
+#' @name ExampleData
 NULL
 
 #' @title Example data from a SAR OSL and SAR TL measurement for the package
@@ -413,7 +448,7 @@ NULL
 #' @description Example data from a SAR OSL and TL measurement for package Luminescence
 #' directly extracted from a Risoe BIN-file and provided in an object of type
 #' [Risoe.BINfileData-class]
-
+#'
 #' @format
 #'
 #' `CWOSL.SAR.Data`: SAR OSL measurement data
@@ -477,8 +512,6 @@ NULL
 #'
 #' `data.frame` containing CW-OSL curve data (time, counts)
 #'
-#' @name ExampleData.CW_OSL_Curve
-#'
 #' @docType data
 #'
 #' @format Data frame with 1000 observations on the following 2 variables:
@@ -521,6 +554,7 @@ NULL
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #' plot(ExampleData.CW_OSL_Curve)
 #'
+#' @name ExampleData.CW_OSL_Curve
 #' @aliases CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
 NULL
 
