@@ -244,7 +244,9 @@ fit_IsothermalHolding <- function(
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
+        ## all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
+        all.s10 <- stats::qnorm(seq(0.01, 0.99, length.out = num_s_values_bts),
+                                mean = 9, sd = 1.5)
         fit <- lapply(1:length(all.s10), function(idx) {
           s10 <- all.s10[idx]
           t <- try(minpack.lm::nlsLM(
