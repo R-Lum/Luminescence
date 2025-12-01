@@ -129,15 +129,11 @@ fit_IsothermalHolding <- function(
   ## allow to control how many random values for the s parameter should be
   ## generated when fitting the BTS model
   extraArgs <- list(...)
-  if (!is.null(extraArgs$num_s_values_bts)) {
-    num_s_values_bts <- .validate_positive_scalar(extraArgs$num_s_values_bts,
-                                                  int = TRUE, name = "'num_s_values_bts'")
-  } else {
-    num_s_values_bts <- 1000
-  }
-
-  if (ITL_model == "GOK")
-    num_s_values_bts <- 1
+  num_s_values_bts <- if (ITL_model == "BTS")
+                        .validate_positive_scalar(extraArgs$num_s_values_bts,
+                                                  int = TRUE, null.ok = TRUE,
+                                                  name = "'num_s_values_bts'") %||% 1000
+                      else 1
 
   ## initialise the progress bar
   if (txtProgressBar) {
@@ -337,7 +333,7 @@ fit_IsothermalHolding <- function(
     ITL_params[, Et := format.out(Et_mean, Et_median, Et_Q_0.25, Et_Q_0.75)]
     ITL_params[, s10 := format.out(s10_mean, s10_median, s10_Q_0.25, s10_Q_0.75)]
 
-    fmt <- "%20s | %30s | %30s |\n"
+    fmt <- "%20s | %30s | %32s |\n"
     cat("\n---- Isothermal holding parameters [mean; median (IQR)] ----\n\n")
     cat(sprintf(fmt, "SAMPLE", "Et", "log10(s)"))
     for (i in seq(nrow(ITL_params))) {
