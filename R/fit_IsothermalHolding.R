@@ -129,15 +129,11 @@ fit_IsothermalHolding <- function(
   ## allow to control how many random values for the s parameter should be
   ## generated when fitting the BTS model
   extraArgs <- list(...)
-  if (!is.null(extraArgs$num_s_values_bts)) {
-    num_s_values_bts <- .validate_positive_scalar(extraArgs$num_s_values_bts,
-                                                  int = TRUE, name = "'num_s_values_bts'")
-  } else {
-    num_s_values_bts <- 1000
-  }
-
-  if (ITL_model == "GOK")
-    num_s_values_bts <- 1
+  num_s_values_bts <- if (ITL_model == "BTS")
+                        .validate_positive_scalar(extraArgs$num_s_values_bts,
+                                                  int = TRUE, null.ok = TRUE,
+                                                  name = "'num_s_values_bts'") %||% 1000
+                      else 1
 
   ## initialise the progress bar
   if (txtProgressBar) {
@@ -149,7 +145,6 @@ fit_IsothermalHolding <- function(
   ###### --- Perform ITL fitting --- #####
   # Define variables --------------------------------------------------------
   kB <- .const$kB  # Boltzmann constant (eV/K)
-  DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
   ## get the rhop value from the fading measurement analysis if available
   if (inherits(rhop, "RLum.Results") && .check_originator(rhop, "analyse_FadingMeasurement"))
@@ -175,7 +170,7 @@ fit_IsothermalHolding <- function(
     ## however, then we would use minpack.lm::nls.lm() instead ... perhaps
     ## in the future
     f_BTS_cpp_part(
-      x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop)
+      x, A, Eu, s10, Et, kB, T_K, Et, rhop)
   }
 
   ## switch the models
@@ -189,7 +184,7 @@ fit_IsothermalHolding <- function(
   lower <- switch(
     ITL_model,
     GOK = c(0, 0, 0, 0),
-    BTS = c(1, 0.3, 1))
+    BTS = c(0, 0, 1))
 
   upper <- switch(
     ITL_model,
@@ -249,7 +244,9 @@ fit_IsothermalHolding <- function(
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
+        ## all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
+        all.s10 <- stats::qnorm(seq(0.01, 0.99, length.out = num_s_values_bts),
+                                mean = 9, sd = 1.5)
         fit <- lapply(1:length(all.s10), function(idx) {
           s10 <- all.s10[idx]
           t <- try(minpack.lm::nlsLM(
@@ -337,7 +334,7 @@ fit_IsothermalHolding <- function(
     ITL_params[, Et := format.out(Et_mean, Et_median, Et_Q_0.25, Et_Q_0.75)]
     ITL_params[, s10 := format.out(s10_mean, s10_median, s10_Q_0.25, s10_Q_0.75)]
 
-    fmt <- "%20s | %30s | %30s |\n"
+    fmt <- "%20s | %30s | %32s |\n"
     cat("\n---- Isothermal holding parameters [mean; median (IQR)] ----\n\n")
     cat(sprintf(fmt, "SAMPLE", "Et", "log10(s)"))
     for (i in seq(nrow(ITL_params))) {
