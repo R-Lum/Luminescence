@@ -43,23 +43,24 @@ NumericVector f_BTS_cpp_part(
 
   // precompute constant part of the outer term
   double log_factor = std::log(1.8 * 3e15);
+  double s = std::pow(10.0, s10);
 
   for (int i = 0; i < nx; ++i) {
     double t = x[i];
 
     // precompute outside the integral for this t
-    double outer = std::exp(-rhop * std::pow(log_factor + std::log(250.0 + t), 3.0));
+    double kars = std::exp(-rhop * std::pow(log_factor + std::log(250.0 + t), 3.0));
 
     // define integrand as a lambda
     std::function<double(double)> integrand = [&](double Eb) { // # nocov
       double exp1 = std::exp(-Eb / Eu);
-      double exp2 = std::exp(-std::pow(10.0, s10) * t * std::exp(-(Et - Eb) / (kB * T_K)));
+      double exp2 = std::exp(-s * t * std::exp(-(Et - Eb) / (kB * T_K)));
       return A * exp1 * exp2;
     };
 
     double integral = integrate_simpson(integrand, 0.0, DeltaE, 100);
 
-    out[i] = outer * integral;
+    out[i] = kars * integral;
   }
   return out;
 }
