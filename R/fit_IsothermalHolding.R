@@ -145,7 +145,6 @@ fit_IsothermalHolding <- function(
   ###### --- Perform ITL fitting --- #####
   # Define variables --------------------------------------------------------
   kB <- .const$kB  # Boltzmann constant (eV/K)
-  DeltaE <- 1.5 # upper limit of integration (in eV), see Li&Li (2013), p.6
 
   ## get the rhop value from the fading measurement analysis if available
   if (inherits(rhop, "RLum.Results") && .check_originator(rhop, "analyse_FadingMeasurement"))
@@ -171,7 +170,7 @@ fit_IsothermalHolding <- function(
     ## however, then we would use minpack.lm::nls.lm() instead ... perhaps
     ## in the future
     f_BTS_cpp_part(
-      x, A, Eu, s10, Et, kB, T_K, DeltaE, rhop)
+      x, A, Eu, s10, Et, kB, T_K, Et, rhop)
   }
 
   ## switch the models
