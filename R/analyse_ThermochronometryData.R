@@ -5,16 +5,18 @@
 #'
 #' @details ##TODO
 #'
-#' @param object [character] (**required**): path to a CSV file ##TODO;
+#' @param object [character] (**required**):
+#' path to a CSV file ##TODO;
 #' alternatively a [vector] of paths
 #'
-#' @param ITL_model [character] (*with default*): type of model to fit,
-#' either `"GOK"` (default) or `"BTS"`
+#' @param ITL_model [character] (*with default*):
+#' type of model to fit, either `"GOK"` (default) or `"BTS"`.
 #'
-#' @param plot [logical] (*with default*): enable/disable the plot output.
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output.
 #'
-#' @param verbose [logical] (*with default*): enable/disable output to the
-#' terminal.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #' @param ... further parameters passed to [fit_IsothermalHolding]
 #'
@@ -27,9 +29,33 @@
 #' @keywords datagen
 #'
 #' @return
-#' An [RLum.Results-class] object is returned: ##TODO
+#' An [RLum.Results-class] object is returned:
 #'
-#' @seealso [analyse_FadingMeasurement], [fit_IsothermalHolding]
+#' Slot: **@data**
+#'
+#' \tabular{lll}{
+#'  **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
+#' `FAD` \tab `RLum.Results` \tab results of the fading measurement \cr
+#' `ITL` \tab `RLum.Results` \tab results of the isothermal holding \cr
+#' `DRC` \tab `RLum.Results` \tab results of the dose response curve \cr
+#' }
+#'
+#' Slot: **@info**
+#'
+#' \tabular{lll}{
+#' **OBJECT** \tab `TYPE` \tab `COMMENT`\cr
+#' `call` \tab `call` \tab the original function call\cr
+#' }
+#'
+#' @references
+#'
+#' Bouscary, C., King, G.E, Kranz-Bartz, M., Bernard, M., Biswas, R.H., Bossin,
+#' L., Duverger, A., Guralnik, B., Herman, F., Nanni, U., Stalder, N., Valla,
+#' P.G., Visnjevic, V., Wen, X., 2025.
+#' OSLThermo and ESRThermo: Libraries of code for trapped-charge thermochronometry.
+#'
+#' @seealso [analyse_FadingMeasurement], [fit_IsothermalHolding],
+#' [fit_DoseResponseCurve]
 #'
 #' @examples
 #' # example code ##TODO
@@ -76,13 +102,11 @@ analyse_ThermochronometryData <- function(
   results_combined <- lapply(seq_along(sample_names), function(i) {
     # (1) Fading data ------------------------------------------------------------
     ## get fading object for this particular sample
-    FAD <- object@data$FAD[object@data$FAD$SAMPLE == sample_names[i],]
-
-    ## extract the data we need (three columns)
-    df_FAD <- FAD[,c("LxTx", "LxTx_ERROR", "TIME")]
+    df_FAD <- object@data$FAD[object@data$FAD$SAMPLE == sample_names[i],
+                              c("LxTx", "LxTx_ERROR", "TIME")]
 
     ## set NA values in LxTx error to 0
-    df_FAD[is.na(df_FAD[["LxTx_ERROR"]]),"LxTx_ERROR"] <- 0
+    df_FAD$LxTx_ERROR[is.na(df_FAD$LxTx_ERROR)] <- 0
 
     results_FAD <- analyse_FadingMeasurement(
       object = df_FAD,
@@ -107,14 +131,15 @@ analyse_ThermochronometryData <- function(
 
     ## get DRC data in correct form
     df_DRC <- df_DRC[,c("TIME", "LxTx", "LxTx_ERROR", "ALQ")]
-    df_DRC[is.na(df_DRC[["LxTx_ERROR"]]),"LxTx_ERROR"] <- 0
+    df_DRC$LxTx_ERROR[is.na(df_DRC$LxTx_ERROR)] <- 0
 
     ## add dose rate if available
     if (!is.null(object@info$Ddot_DRC)) {
       Ddot_DRC <- object@info$Ddot_DRC[[i]]
       ## we have to do this aliquot wise
       for (d in unique(df_DRC[["ALQ"]])) {
-        df_DRC[df_DRC[["ALQ"]] == d,"TIME"] <- df_DRC[df_DRC[["ALQ"]] == d, "TIME"] * Ddot_DRC[d]
+        aliquot <- df_DRC$ALQ == d
+        df_DRC$TIME[aliquot] <- df_DRC$TIME[aliquot] * Ddot_DRC[d]
       }
 
       ## adjust column names
@@ -131,7 +156,7 @@ analyse_ThermochronometryData <- function(
     ## DRC plotting
     plot_DoseResponseCurve(
       object = results_DRC,
-      xlab = if (any("DOSE" %in% colnames(df_DRC))) "Dose [Gy]" else "Dose [s]",
+      xlab = if ("DOSE" %in% colnames(df_DRC)) "Dose [Gy]" else "Dose [s]",
       log = "x",
       plot_extended = FALSE,
       main = sample_names[i])

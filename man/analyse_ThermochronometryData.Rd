@@ -13,21 +13,39 @@ analyse_ThermochronometryData(
 )
 }
 \arguments{
-\item{object}{\link{character} (\strong{required}): path to a CSV file ##TODO;
+\item{object}{\link{character} (\strong{required}):
+path to a CSV file ##TODO;
 alternatively a \link{vector} of paths}
 
-\item{ITL_model}{\link{character} (\emph{with default}): type of model to fit,
-either \code{"GOK"} (default) or \code{"BTS"}}
+\item{ITL_model}{\link{character} (\emph{with default}):
+type of model to fit, either \code{"GOK"} (default) or \code{"BTS"}.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable the plot output.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal.}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{...}{further parameters passed to \link{fit_IsothermalHolding}}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned: ##TODO
+An \linkS4class{RLum.Results} object is returned:
+
+Slot: \strong{@data}
+
+\tabular{lll}{
+\strong{OBJECT} \tab \strong{TYPE} \tab \strong{COMMENT}\cr
+\code{FAD} \tab \code{RLum.Results} \tab results of the fading measurement \cr
+\code{ITL} \tab \code{RLum.Results} \tab results of the isothermal holding \cr
+\code{DRC} \tab \code{RLum.Results} \tab results of the dose response curve \cr
+}
+
+Slot: \strong{@info}
+
+\tabular{lll}{
+\strong{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\code{call} \tab \code{call} \tab the original function call\cr
+}
 }
 \description{
 Analyse thermochronometry data based on MatLab code written
@@ -44,8 +62,15 @@ by XXX and XXX and XXX
 # example code ##TODO
 
 }
+\references{
+Bouscary, C., King, G.E, Kranz-Bartz, M., Bernard, M., Biswas, R.H., Bossin,
+L., Duverger, A., Guralnik, B., Herman, F., Nanni, U., Stalder, N., Valla,
+P.G., Visnjevic, V., Wen, X., 2025.
+OSLThermo and ESRThermo: Libraries of code for trapped-charge thermochronometry.
+}
 \seealso{
-\link{analyse_FadingMeasurement}, \link{fit_IsothermalHolding}
+\link{analyse_FadingMeasurement}, \link{fit_IsothermalHolding},
+\link{fit_DoseResponseCurve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),
