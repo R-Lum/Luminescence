@@ -189,7 +189,7 @@ fit_IsothermalHolding <- function(
   lower <- switch(
     ITL_model,
     GOK = c(0, 0, 0, 0),
-    BTS = c(1, 0.3, 1))
+    BTS = c(0, 0, 1))
 
   upper <- switch(
     ITL_model,
