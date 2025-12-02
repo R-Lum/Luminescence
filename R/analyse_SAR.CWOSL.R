@@ -1009,7 +1009,7 @@ if(is.list(object)){
 
         ## add legend text
         text(x, y, paste0(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")"),
-             offset = 1, pos = 1)
+             offset = 1, pos = 1, xpd = NA)
 
         ##add line
         abline(h = 10,lwd = 0.5)
