@@ -200,8 +200,9 @@ analyse_pIRIRSequence <- function(
     }
 
     if(missing("signal.integral.max")){
-      signal.integral.max <- 2
-      .throw_warning("'signal.integral.max' missing, set to 2")
+      signal.integral.max <- signal.integral.min + 1
+      .throw_warning("'signal.integral.max' missing, set to ",
+                     signal.integral.max)
     }
 
     .validate_class(background.integral.min, c("integer", "numeric"))
@@ -322,7 +323,6 @@ analyse_pIRIRSequence <- function(
   }
 
   ##(2) Apply user sequence structure
-  ##get sequence structure
   temp.sequence.structure  <- structure_RLum(object)
 
     ##try to account for a very common mistake
@@ -346,14 +346,11 @@ analyse_pIRIRSequence <- function(
   }
 
   ##remove values that have been excluded
-  temp.sequence.rm.id <- temp.sequence.structure[
-    temp.sequence.structure[,"protocol.step"] == "EXCLUDE" ,"id"]
+  rm.id <- temp.sequence.structure$id[temp.sequence.structure$protocol.step == "EXCLUDE"]
 
-  if(length(temp.sequence.rm.id)>0){
-
+  if (length(rm.id) > 0) {
     ##remove from object
-    object  <- get_RLum(
-      object, record.id = -temp.sequence.rm.id, drop = FALSE)
+    object  <- get_RLum(object, record.id = -rm.id, drop = FALSE)
 
     ##remove from sequence structure
     sequence.structure  <- sequence.structure[sequence.structure != "EXCLUDE"]
@@ -364,9 +361,7 @@ analyse_pIRIRSequence <- function(
     temp.sequence.structure[, "protocol.step"] <- rep(
       sequence.structure, nrow(temp.sequence.structure)/2/length(temp.sequence.structure))
 
-    ##print warning message
-    .throw_warning(length(temp.sequence.rm.id),
-                   " records have been removed due to EXCLUDE")
+    .throw_warning(length(rm.id), " records have been removed due to EXCLUDE")
   }
 
 ##============================================================================##
@@ -450,7 +445,6 @@ analyse_pIRIRSequence <- function(
 
     text(0.5,0.5, paste(sequence.structure, collapse = "\n"), cex = cex *2)
   }
-
 
   ##(2) set loop
   for(i in 1:n.loops){
@@ -541,7 +535,6 @@ analyse_pIRIRSequence <- function(
       ##merge results
       if (exists("temp.results.final")) {
         temp.results.final <- merge_RLum(list(temp.results.final, temp.results))
-
       } else{
         temp.results.final <- temp.results
       }
@@ -572,31 +565,23 @@ if(plot){
     ##set x for expression evaluation
     x <- seq(0,max(LnLxTnTx.table$Dose)*1.05, length.out = 100)
 
-    for(j in 1:length(pIRIR.curve.names)){
-     ##dose points
-     temp.curve.points <-  LnLxTnTx.table[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
+  for (j in 1:length(pIRIR.curve.names)) {
+    ## dose points
+    curve.points <- LnLxTnTx.table[LnLxTnTx.table$Signal == pIRIR.curve.names[j],
+                                   c("Dose", "LxTx", "LxTx.Error")]
 
-     temp.curve.points <- temp.curve.points[
-       temp.curve.points[,"Signal"] == pIRIR.curve.names[j],
-       c("Dose", "LxTx", "LxTx.Error")]
+    points(curve.points[-1, c("Dose", "LxTx")], col = j, pch = j)
+    segments(x0 = curve.points$Dose[-1],
+             y0 = curve.points$LxTx[-1] - curve.points$LxTx.Error[-1],
+             x1 = curve.points$Dose[-1],
+             y1 = curve.points$LxTx[-1] + curve.points$LxTx.Error[-1],
+             col = j)
 
-     points(temp.curve.points[-1,c("Dose", "LxTx")], col = j, pch = j)
-     segments(x0 = temp.curve.points[-1,c("Dose")],
-              y0 = temp.curve.points[-1,c("LxTx")] -
-                temp.curve.points[-1,c("LxTx.Error")],
-              x1 = temp.curve.points[-1,c("Dose")],
-              y1 = temp.curve.points[-1,c("LxTx")] +
-                temp.curve.points[-1,c("LxTx.Error")],
-              col = j)
-
-     ##De values
-     lines(c(0, get_RLum(temp.results.final, "data")[j,1]),
-           c(temp.curve.points[1, "LxTx"], temp.curve.points[1, "LxTx"]),
-           col = j,
-           lty = 2)
-
-     lines(c(rep(get_RLum(temp.results.final, "data")[j,1], 2)),
-           c(temp.curve.points[1, "LxTx"], 0),
+    ## De values
+    De <- get_RLum(temp.results.final, "data")[j, 1]
+    Lx <- curve.points$LxTx[1]
+    lines(c(0, De, De, De),
+          c(Lx, Lx, Lx, 0),
            col = j,
            lty = 2)
 
@@ -605,7 +590,7 @@ if(plot){
         temp.results.final, "Formula")[[pIRIR.curve.names[j]]]
 
      try(lines(x, eval(temp.curve.formula), col = j), silent = TRUE)
-    }
+  }
 
     rm(x)
 
@@ -772,5 +757,5 @@ if(plot){
 # Return Values -----------------------------------------------------------
 ##============================================================================##
 
-  return(temp.results.final)
+  temp.results.final
 }
