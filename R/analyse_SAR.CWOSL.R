@@ -355,7 +355,7 @@ if(is.list(object)){
   if (trim_channels) {
     ## fetch names with OSL and IRSL
     tmp_names <- unique(vapply(object@records, function(x) x@recordType, character(1)))
-    tmp_names <- grep("(?:OSL|IRSL)", tmp_names, value = TRUE, perl = TRUE)
+    tmp_names <- grep("OSL|IRSL", tmp_names, value = TRUE, perl = TRUE)
 
     ## trim
     object <- trim_RLum.Data(object, recordType = tmp_names)
