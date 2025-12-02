@@ -196,6 +196,13 @@ test_that("check functionality", {
       plot = TRUE
     ),
     "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 rejection.criteria = list(recuperation_reference = NULL)),
+    "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
    # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters

@@ -691,9 +691,9 @@ if(is.list(object)){
           nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
     }
 
-    ## Calculate Recuperation Rate ---------------------------------------------
-    ## check for incorrect key words
-    if (!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[, "Name"])
+  ## Calculate Recuperation Rate --------------------------------------------
+  if (is.null(rejection.criteria$recuperation_reference) ||
+      !rejection.criteria$recuperation_reference[1] %in% LnLxTnTx$Name)
       .throw_error("Recuperation reference invalid, valid values are: ",
                    .collapse(LnLxTnTx[, "Name"]))
 
