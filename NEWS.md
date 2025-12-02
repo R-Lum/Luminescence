@@ -59,6 +59,10 @@
 - The function no longer crashes when `n.MC = NULL` is used with the
   `FIT` method (#1055).
 
+### `analyse_pIRIRSequence()`
+
+- The names in the curves legend are no longer cut off (#1206).
+
 ### `analyse_portableOSL()`
 
 - The size of the contour labels for `mode = "surface"` can now be
