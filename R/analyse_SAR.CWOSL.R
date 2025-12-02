@@ -638,7 +638,7 @@ if(is.list(object)){
 
   ##check whether we have dose points at all
   if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
-      .throw_error("'dose.points' contains NA values or have not been set")
+    .throw_error("'dose.points' contains NA values or was not set")
   }
 
     ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
@@ -697,12 +697,10 @@ if(is.list(object)){
       .throw_error("Recuperation reference invalid, valid values are: ",
                    .collapse(LnLxTnTx[, "Name"]))
 
-    ##Recuperation Rate (capable of handling multiple type of recuperation values)
-    if ("R0" %in% LnLxTnTx$Name) {
-      Recuperation <- vapply(seq_len(sum(LnLxTnTx$Name == "R0")), \(x) {
-                 LnLxTnTx[LnLxTnTx[["Name"]] == "R0","LxTx"][x] /
-                 LnLxTnTx[LnLxTnTx[["Name"]] == rejection.criteria$recuperation_reference[1],"LxTx"]
-               }, numeric(1))
+  ## Recuperation Rate (capable of handling multiple type of recuperation values)
+  if ("R0" %in% LnLxTnTx$Name) {
+    Recuperation <- LnLxTnTx$LxTx[LnLxTnTx$Name == "R0"] /
+      LnLxTnTx$LxTx[LnLxTnTx$Name == rejection.criteria$recuperation_reference[1]]
 
      ##transform and name
      Recuperation <- t(setNames(
@@ -714,13 +712,6 @@ if(is.list(object)){
     }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
-    ## get name of the criteria
-    temp.criteria <- c(colnames(RecyclingRatio) %||% NA_character_,
-                       colnames(Recuperation) %||% NA_character_)
-
-    ## get value
-    temp.value <- c(RecyclingRatio, Recuperation)
-
     ## set threshold
     temp.threshold <-
       c(
@@ -732,7 +723,7 @@ if(is.list(object)){
     .status_from_threshold <- function(value, threshold) {
       if (is.na(threshold) || isTRUE(value <= threshold))
         return("OK")
-      return("FAILED")
+      "FAILED"
     }
 
     ##RecyclingRatio
@@ -772,8 +763,9 @@ if(is.list(object)){
     )
 
     RejectionCriteria <- data.frame(
-      Criteria = temp.criteria,
-      Value = temp.value,
+      Criteria = c(colnames(RecyclingRatio) %||% NA_character_,
+                   colnames(Recuperation) %||% NA_character_),
+      Value = c(RecyclingRatio, Recuperation),
       Threshold = temp.threshold,
       Status = c(temp.status.RecyclingRatio,temp.status.Recuperation),
       stringsAsFactors = FALSE
@@ -796,33 +788,25 @@ if(is.list(object)){
       ## get record list
       record_list <- object@records
 
-      # plot everyting on one page ... doing it here is much cleaner than
-      ## Plotting - one Page config ---------------------------------------------
-      if(plot_onePage){
+    layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
+                              1, 1, 3, 3, 6, 6, 8,
+                              2, 2, 4, 4, 9, 9, 10,
+                              2, 2, 4, 4, 9, 9, 10,
+                              5, 5, 5, 5, 5, 5, 5),
+                            nrow = 5, ncol = 7, byrow = TRUE)
 
+    ## Plotting - one Page config -------------------------------------------
+    if (plot_onePage) {
       plot_singlePanels <- TRUE
-      graphics::layout(matrix(
-        c(1, 1, 3, 3, 6, 6, 7,
-          1, 1, 3, 3, 6, 6, 8,
-          2, 2, 4, 4, 9, 9, 10,
-          2, 2, 4, 4, 9, 9, 10,
-          5, 5, 5, 5, 5, 5, 5), 5, 7, byrow = TRUE
-      ))
+      graphics::layout(layout.matrix)
       par(oma = c(0, 0, 0, 0),
           mar = c(4, 4, 3, 1),
           cex = cex * 0.6)
       }
 
-    ## Plotting - old way config ----------------------------------------------
-      if (!plot_singlePanels[1]) {
-        graphics::layout(matrix(
-          c(1, 1, 3, 3,
-            1, 1, 3, 3,
-            2, 2, 4, 4,
-            2, 2, 4, 4,
-            5, 5, 5, 5), 5, 4, byrow = TRUE
-        ))
-
+    ## Plotting - old way config --------------------------------------------
+    if (!plot_singlePanels[1]) {
+        graphics::layout(layout.matrix[, 1:4])
         par(
           oma = c(0,0,0,0), mar = c(4,4,3,3), cex = cex * 0.6
         )
@@ -881,7 +865,7 @@ if(is.list(object)){
             xlim = xlim_range,
             ylim = ylim_range,
             main = main,
-            log = if (log == "y" | log == "xy") "y"  else "")
+            log = gsub("x", "", log))
 
           #provide curve information as mtext, to keep the space for the header
           mtext(
@@ -890,9 +874,8 @@ if(is.list(object)){
             cex = cex * 0.7)
 
           ##plot TL curves
-          records_data_list <- lapply(TL.Curves.ID.Lx, \(x) record_list[[x]]@data)
-          for (i in seq_along(records_data_list)) {
-            lines(records_data_list[[i]], col = col[i])
+          for (i in seq_along(TL.Curves.ID.Lx)) {
+            lines(record_list[[TL.Curves.ID.Lx[i]]]@data, col = col[i])
           }
 
         }else{
@@ -967,9 +950,8 @@ if(is.list(object)){
             cex = cex * 0.7)
 
           ##plot TL curves
-          records_data_list <- lapply(TL.Curves.ID.Tx, \(x) record_list[[x]]@data)
-          for (i in seq_along(records_data_list)) {
-            lines(records_data_list[[i]], col = col[i])
+          for (i in seq_along(TL.Curves.ID.Tx)) {
+            lines(record_list[[TL.Curves.ID.Tx[i]]]@data, col = col[i])
           }
 
         }else{
@@ -1175,21 +1157,13 @@ if(is.list(object)){
     ##generate unique identifier
     UID <- create_UID()
 
-    ## get position numbers
-    POSITION <- unique(unlist(lapply(object@records, function(x){
-      chk <- grepl(pattern = "position", tolower(names(x@info)), fixed = TRUE)
-      if (any(chk))
-        return(x@info[chk])
-      return(NA)
-    })))[1]
+  ## get position numbers
+  POSITION <- unique(unlist(lapply(object@records,
+                                   function(x) x@info$POSITION %||% NA)))[1]
 
-    ## get grain numbers
-    GRAIN <- unique(unlist(lapply(object@records, function(x) {
-      chk <- grepl(pattern = "grain", tolower(names(x@info)), fixed = TRUE)
-      if (any(chk))
-        return(x@info[chk])
-      return(NA)
-    })))[1]
+  ## get grain numbers
+  GRAIN <- unique(unlist(lapply(object@records,
+                                function(x) x@info$GRAIN %||% NA)))[1]
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",

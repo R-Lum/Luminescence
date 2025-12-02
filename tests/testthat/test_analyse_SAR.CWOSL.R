@@ -465,7 +465,8 @@ test_that("advance tests run", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE),
-     regexp = "\\[analyse\\_SAR\\.CWOSL\\(\\)\\] 'dose.points' contains NA values or have not been set")
+     regexp = "[analyse_SAR.CWOSL()] 'dose.points' contains NA values or was not set",
+     fixed = TRUE)
 
    ##get null for single list element
    unsuitable_type <- object[1]
