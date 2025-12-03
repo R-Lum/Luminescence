@@ -70,6 +70,9 @@ method (#1055).
 
 * The names in the curves legend are no longer cut off (#1206).
 
+* Labels and legend in the rejection criteria plot are better positioned and
+no longer cut off (#1208).
+
 ### `analyse_portableOSL()`
 
 * The size of the contour labels for `mode = "surface"` can now be controlled

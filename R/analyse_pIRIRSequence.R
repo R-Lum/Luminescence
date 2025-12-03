@@ -666,9 +666,8 @@ if(plot){
    axis(side = 1, at = c(-0.2,-0.1,0,0.1,0.2), labels = c("- 0.2", "- 0.1","0/1","+ 0.1", "+ 0.2"))
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recycling ratio
-   text(x = -0.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
+   text(x = -0.3, y = 25, "Recycling ratio", pos = 2, offset = 0.5, xpd = TRUE)
    thres_range <- as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1] - 1
-
    polygon(
      x = c(-thres_range, -thres_range, thres_range, thres_range),
      y = c(21, 29, 29, 21),
@@ -690,7 +689,6 @@ if(plot){
                y = 25,
                pch = col.id,
                col = col.id)
-
         }
         col.id <- col.id + 1
    }
@@ -700,7 +698,7 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recuperation rate
-   text(x = -0.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
+   text(x = -0.3, y = 15, "Recuperation rate", pos = 2, offset = 0.5, xpd = TRUE)
 
    if(length(as.character(temp.rc.recuperation.rate$Threshold))>0){
    polygon(x = c(0,
@@ -711,7 +709,6 @@ if(plot){
 
    polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
    polygon(x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45)
-
 
   for(i in 1:nrow(temp.rc.recuperation.rate)){
 
@@ -724,7 +721,7 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for palaeodose error
-   text(x = -0.4, y = 10, "Palaeodose error", pos = 1, srt = 0)
+   text(x = -0.3, y = 5, "Palaeodose error", pos = 2, offset = 0.5, xpd = TRUE)
    polygon(x = c(0,
                 0,
                 as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
@@ -742,14 +739,18 @@ if(plot){
    }
 
    ##add 0 value
-   lines(x = c(0,0), y = c(0,19), lwd = 1.5*cex)
-   lines(x = c(0,0), y = c(20,29), lwd = 1.5*cex)
+   lines(x = c(0, 0), y = c(21, 29), lwd = 2)
+   lines(x = c(0, 0), y = c(11, 19), lwd = 2)
+   lines(x = c(0, 0), y = c(1, 9), lwd = 2)
 
   ##plot legend
-  legend("bottomright", legend = pIRIR.curve.names,
+  legend(0.3, 15,
+         legend = pIRIR.curve.names,
          col = 1:length(pIRIR.curve.names),
+         pch = 1:length(pIRIR.curve.names),
+         yjust = 0.5,
          bty = "n",
-         pch = 1:length(pIRIR.curve.names))
+         xpd = TRUE)
 }##end plot == TRUE
 
 
