@@ -1439,14 +1439,20 @@
 <text x='562.08' y='542.74' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='11.68px' lengthAdjust='spacingAndGlyphs'>0/1</text>
 <text x='587.40' y='542.74' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='18.92px' lengthAdjust='spacingAndGlyphs'>+ 0.1</text>
 </g>
+<g clip-path='url(#cpMzg0LjAwfDcyMC4wMHw0MzguODZ8NTc2LjAw)'>
+<text x='481.07' y='490.61' text-anchor='end' style='font-size: 8.40px; font-family: sans;' textLength='55.10px' lengthAdjust='spacingAndGlyphs'>Recycling ratio</text>
+</g>
 <g clip-path='url(#cpNDI1LjMzfDY5OC44M3w0ODAuMTl8NTI0LjU5)'>
-<text x='460.78' y='491.69' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='55.10px' lengthAdjust='spacingAndGlyphs'>Recycling ratio</text>
 <polygon points='536.76,494.17 536.76,483.20 587.40,483.20 587.40,494.17 ' style='stroke-width: 0.75; stroke: none; fill: #BEBEBE;' />
 <polygon points='486.11,494.17 486.11,483.20 638.05,483.20 638.05,494.17 ' style='stroke-width: 0.75; fill: none;' />
 <circle cx='574.77' cy='488.68' r='1.89' style='stroke-width: 0.75;' />
 <circle cx='574.77' cy='488.68' r='1.89' style='stroke-width: 0.75;' />
 <polygon points='574.77,485.74 577.31,490.15 572.22,490.15 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
-<text x='460.78' y='505.39' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='66.78px' lengthAdjust='spacingAndGlyphs'>Recuperation rate</text>
+</g>
+<g clip-path='url(#cpMzg0LjAwfDcyMC4wMHw0MzguODZ8NTc2LjAw)'>
+<text x='481.07' y='504.32' text-anchor='end' style='font-size: 8.40px; font-family: sans;' textLength='66.78px' lengthAdjust='spacingAndGlyphs'>Recuperation rate</text>
+</g>
+<g clip-path='url(#cpNDI1LjMzfDY5OC44M3w0ODAuMTl8NTI0LjU5)'>
 <polygon points='562.08,507.87 562.08,496.91 587.40,496.91 587.40,507.87 ' style='stroke-width: 0.75; stroke: none; fill: #BEBEBE;' />
 <polygon points='486.11,507.87 486.11,496.91 638.05,496.91 638.05,507.87 ' style='stroke-width: 0.75; fill: none;' />
 <line x1='486.11' y1='497.10' x2='486.30' y2='496.91' style='stroke-width: 0.75;' />
@@ -1461,7 +1467,11 @@
 <polygon points='486.11,507.87 486.11,496.91 562.08,496.91 562.08,507.87 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
 <circle cx='569.82' cy='502.39' r='1.89' style='stroke-width: 0.75;' />
 <polygon points='569.07,499.45 571.61,503.86 566.52,503.86 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
-<text x='460.78' y='519.10' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='64.45px' lengthAdjust='spacingAndGlyphs'>Palaeodose error</text>
+</g>
+<g clip-path='url(#cpMzg0LjAwfDcyMC4wMHw0MzguODZ8NTc2LjAw)'>
+<text x='481.07' y='518.02' text-anchor='end' style='font-size: 8.40px; font-family: sans;' textLength='64.45px' lengthAdjust='spacingAndGlyphs'>Palaeodose error</text>
+</g>
+<g clip-path='url(#cpNDI1LjMzfDY5OC44M3w0ODAuMTl8NTI0LjU5)'>
 <polygon points='562.08,521.58 562.08,510.61 587.40,510.61 587.40,521.58 ' style='stroke-width: 0.75; stroke: none; fill: #BEBEBE;' />
 <polygon points='486.11,521.58 486.11,510.61 638.05,510.61 638.05,521.58 ' style='stroke-width: 0.75; fill: none;' />
 <line x1='486.11' y1='517.46' x2='492.96' y2='510.61' style='stroke-width: 0.75;' />
@@ -1475,12 +1485,15 @@
 <polygon points='486.11,521.58 486.11,510.61 562.08,510.61 562.08,521.58 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
 <circle cx='569.82' cy='516.09' r='1.89' style='stroke-width: 0.75;' />
 <polygon points='569.07,513.16 571.61,517.56 566.52,517.56 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
-<polyline points='562.08,522.95 562.08,496.91 ' style='stroke-width: 0.79;' />
-<polyline points='562.08,495.54 562.08,483.20 ' style='stroke-width: 0.79;' />
-<circle cx='636.58' cy='504.43' r='1.89' style='stroke-width: 0.75;' />
-<polygon points='636.58,511.57 639.12,515.98 634.03,515.98 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
-<text x='644.14' y='507.32' style='font-size: 8.40px; font-family: sans;' textLength='50.91px' lengthAdjust='spacingAndGlyphs'>pseudoIRSL1</text>
-<text x='644.14' y='517.40' style='font-size: 8.40px; font-family: sans;' textLength='50.91px' lengthAdjust='spacingAndGlyphs'>pseudoIRSL2</text>
+<polyline points='562.08,494.17 562.08,483.20 ' style='stroke-width: 1.50;' />
+<polyline points='562.08,507.87 562.08,496.91 ' style='stroke-width: 1.50;' />
+<polyline points='562.08,521.58 562.08,510.61 ' style='stroke-width: 1.50;' />
+</g>
+<g clip-path='url(#cpMzg0LjAwfDcyMC4wMHw0MzguODZ8NTc2LjAw)'>
+<circle cx='645.61' cy='497.35' r='1.89' style='stroke-width: 0.75;' />
+<polygon points='645.61,504.49 648.16,508.90 643.07,508.90 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
+<text x='653.17' y='500.24' style='font-size: 8.40px; font-family: sans;' textLength='50.91px' lengthAdjust='spacingAndGlyphs'>pseudoIRSL1</text>
+<text x='653.17' y='510.32' style='font-size: 8.40px; font-family: sans;' textLength='50.91px' lengthAdjust='spacingAndGlyphs'>pseudoIRSL2</text>
 </g>
 <defs>
   <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
