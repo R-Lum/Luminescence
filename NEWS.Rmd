@@ -66,6 +66,9 @@ is somewhat malformed (#1144).
 * The function no longer crashes when `n.MC = NULL` is used with the `FIT`
 method (#1055).
 
+* The function has been optimized to be faster during the bootstrap phase for
+the `SLIDE` and `VSLIDE` methods, with speed-ups in the region of 20% (#1210).
+
 ### `analyse_pIRIRSequence()`
 
 * The names in the curves legend are no longer cut off (#1206).

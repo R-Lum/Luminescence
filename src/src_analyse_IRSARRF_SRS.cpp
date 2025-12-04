@@ -12,7 +12,6 @@
 
 #include <sstream>
 #include <RcppArmadillo.h>
-#include <RcppArmadilloExtensions/sample.h>
 
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
@@ -147,21 +146,21 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   //use this values to bootstrap and find minimum values and to account for the variation
   //that may result from this method itself (the minimum lays within a valley of minima)
   //
-  //using the obtained sliding vector and the function RcppArmadillo::sample() (which equals the
-  //function sample() in R, but faster)
-  //http://gallery.rcpp.org/articles/using-the-Rcpp-based-sample-implementation
-
   //this follows the way described in Frouin et al., 2017 ... still ...
+  // to find the bootstrap minima, we draw one index at a time and compare the
+  // value at that index to the current smallest value; this corresponds to
+  // extracting a sample with replacement
   arma::vec results_vector_min_MC(n_MC);
   for (int i = 0; i < n_MC; ++i) {
-    results_vector_min_MC[i] = min(
-      RcppArmadillo::sample(
-        results,
-        results.size(),
-        TRUE,
-        NumericVector::create()
-      )
-    );
+    double min = std::numeric_limits<double>::max();
+    for (size_t j = 0; j < res_size; ++j) {
+      // generate a random index between 0 and res_size - 1
+      double val = results[static_cast<size_t>(unif_rand() * res_size)];
+      if (val < min) {
+        min = val;
+      }
+    }
+    results_vector_min_MC[i] = min;
   }
 
   //build list with four elements
