@@ -70,6 +70,10 @@
 - Labels and legend in the rejection criteria plot are better positioned
   and no longer cut off (#1208).
 
+- The dashed lines in the summarised DRC plot have been extended to
+  reach the outer box instead of leaving small white gaps at the
+  extremes (#1215).
+
 ### `analyse_portableOSL()`
 
 - The size of the contour labels for `mode = "surface"` can now be
