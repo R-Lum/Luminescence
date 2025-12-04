@@ -962,8 +962,8 @@ plot_RadialPlot <- function(
     par.usr <- par("usr")
     x1 <- min(par.usr[1], ellipse[, 1])     # left
     x2 <- max(par.usr[2], ellipse[, 1])     # right
-    y1 <- min(par.usr[1], ellipse[, 2], -2) # bottom
-    y2 <- max(par.usr[2], ellipse[, 2], 2)  # top
+    y1 <- min(par.usr[3], ellipse[, 2], -2) # bottom
+    y2 <- max(par.usr[4], ellipse[, 2], 2)  # top
     polygon(x = c(ellipse[, 1], eex, x2, x2, x1, x1,  bex),
             y = c(ellipse[, 2], y2,  y2, y1, y1, bey, bey),
             col = "white",
