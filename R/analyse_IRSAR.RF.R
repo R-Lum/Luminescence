@@ -604,7 +604,9 @@ analyse_IRSAR.RF<- function(
   max.channels.nat <- sum(temp.sequence_structure$n.channels[nat.idx])
   max.channels.reg <- sum(temp.sequence_structure$n.channels[reg.idx])
   if (max.channels.nat > max.channels.reg) {
-    .throw_error("Number of data channels in RF_nat > RF_reg is not supported")
+    .throw_error("The number of data channels for the natural (", max.channels.nat,
+                 ") cannot exceed that of the regenerated (", max.channels.reg,
+                 "), check your 'sequence_structure'")
   }
 
   ## 02 - check boundaries

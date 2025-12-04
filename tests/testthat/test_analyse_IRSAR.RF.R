@@ -39,7 +39,8 @@ test_that("input validation", {
                "'sequence_structure' is missing one of 'NATURAL' or")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data,
                                 sequence_struct = c("REGENERATED", "NATURAL")),
-               "Number of data channels in RF_nat > RF_reg")
+               "The number of data channels for the natural (524) cannot exceed",
+               fixed = TRUE)
 
   ## RF_nat.lim
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, RF_nat.lim = "error"),
