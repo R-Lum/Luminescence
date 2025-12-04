@@ -495,7 +495,7 @@ plot_DoseResponseCurve <- function(
               cex.main = 0.8,
               type = "o",
               pch = 20)
-          lines(c(1, length(sample[, "TnTx"])), c(1, 1), lty = 2, col = "gray")
+          lines(c(0, nrow(sample) + 1), c(1, 1), lty = 2, col = "gray")
         } else {
           plot(NA, NA, xlim = c(0, 10), ylim = c(0, 10),
                axes = FALSE, xlab = "", ylab = "",
