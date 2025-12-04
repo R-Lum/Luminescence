@@ -580,8 +580,8 @@ if(plot){
     ## De values
     De <- get_RLum(temp.results.final, "data")[j, 1]
     Lx <- curve.points$LxTx[1]
-    lines(c(0, De, De, De),
-          c(Lx, Lx, Lx, 0),
+    lines(c(-100, De, De, De),
+          c(Lx, Lx, Lx, -100),
            col = j,
            lty = 2)
 
