@@ -562,7 +562,7 @@ setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
   .set_function_name("set_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  .validate_class(class, "character")
+  .validate_class(class, "character", length = 1)
   if (!nzchar(class)) {
     .throw_error("'class' cannot be an empty character")
   }
