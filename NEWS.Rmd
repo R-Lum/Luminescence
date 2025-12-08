@@ -79,6 +79,9 @@ no longer cut off (#1208).
 * The dashed lines in the summarised DRC plot have been extended to reach the
 outer box instead of leaving small white gaps at the extremes (#1215).
 
+* The space around the plots when using `plot_singlePanels = FALSE` has been
+reduced, so that plots can be a bit more detailed (#1219).
+
 ### `analyse_portableOSL()`
 
 * The size of the contour labels for `mode = "surface"` can now be controlled
@@ -109,6 +112,9 @@ depending on whether the ratio is smaller or larger than one.
 
 * The function crashed if the `rejection.criteria` list specified a `NULL`
 value for `recuperation_reference` (#1204).
+
+* The space around the plots when using `plot_onePage = TRUE` has been
+reduced, so that plots can be a bit more detailed (#1219).
 
 ### `bin_RLum.Data()`
 
@@ -232,6 +238,9 @@ repeated points, respectively (#1072).
 
 * The baseline line in the sensitivity plot has been extended to reach the
 outer box instead of leaving small white gaps at the extremes (#1213).
+
+* The space around the plots has been reduced, so that plots can be a bit more
+detailed (#1219).
 
 ### `plot_DRTResponse()`
 

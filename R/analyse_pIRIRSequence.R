@@ -560,6 +560,8 @@ if(plot){
        ylim = c(min(min.LxTx - max.LxTx.Error, 0), max.LxTx + max.LxTx.Error),
        xlab = "Dose [s]",
        ylab = expression(L[x]/T[x]),
+       mgp = c(2, 0.7, 0),
+       tcl = -0.4,
        xpd = NA,
        main = "Summarised Dose Response Curves")
 
@@ -624,6 +626,8 @@ if(plot){
        ylim = if (anyNA(range(temp.curve.TnTx.matrix))) c(0,1) else range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
        ylab = expression(T[x]/T[n]),
+       mgp = c(2, 0.7, 0),
+       tcl = -0.4,
        main = "Sensitivity change")
 
     ##zero line
