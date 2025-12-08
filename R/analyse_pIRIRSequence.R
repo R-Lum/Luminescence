@@ -560,6 +560,7 @@ if(plot){
        ylim = c(min(min.LxTx - max.LxTx.Error, 0), max.LxTx + max.LxTx.Error),
        xlab = "Dose [s]",
        ylab = expression(L[x]/T[x]),
+       xpd = NA,
        main = "Summarised Dose Response Curves")
 
     ##set x for expression evaluation

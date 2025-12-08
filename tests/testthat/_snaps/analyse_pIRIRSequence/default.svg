@@ -1270,13 +1270,6 @@
 <text transform='translate(29.23,508.05) rotate(-90)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text transform='translate(29.23,493.63) rotate(-90)' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>4</text>
 <polygon points='41.33,524.59 170.83,524.59 170.83,480.19 41.33,480.19 ' style='stroke-width: 0.75; fill: none;' />
-</g>
-<defs>
-  <clipPath id='cpMC4wMHwxOTIuMDB8NDM4Ljg2fDU3Ni4wMA=='>
-    <rect x='0.00' y='438.86' width='192.00' height='137.14' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMC4wMHwxOTIuMDB8NDM4Ljg2fDU3Ni4wMA==)'>
 <text x='106.08' y='462.99' text-anchor='middle' style='font-size: 10.08px; font-weight: bold; font-family: sans;' textLength='165.87px' lengthAdjust='spacingAndGlyphs'>Summarised Dose Response Curves</text>
 <text x='106.08' y='562.90' text-anchor='middle' style='font-size: 8.40px; font-family: sans;' textLength='30.82px' lengthAdjust='spacingAndGlyphs'>Dose [s]</text>
 <text transform='translate(7.52,512.45) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>L</text>
