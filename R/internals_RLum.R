@@ -1278,7 +1278,7 @@ SW <- function(expr) {
                              null.ok = FALSE, name = NULL) {
   if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
-  if (missing(val) || NROW(val) != 1 || NCOL(val) != 1 || is.na(val) ||
+  if (missing(val) || NROW(val) != 1 || NCOL(val) != 1 || !is.null(dim(val)) || is.na(val) ||
       (!log && !is.numeric(val)) || (log && !is.logical(val)) ||
       (int && (is.infinite(val) || val != as.integer(val))) ||
       (pos && val <= 0)) {

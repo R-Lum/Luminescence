@@ -446,6 +446,8 @@ test_that("Test internals", {
                "'iris' should be a single value")
   expect_error(.validate_scalar(iris, null.ok = TRUE),
                "'iris' should be a single value or NULL")
+  expect_error(.validate_scalar(array(1, c(1, 1, 0))),
+               "'NA' should be a single value")
   expect_error(.validate_scalar(-1:2, name = "'var'"),
                "'var' should be a single value")
   expect_error(.validate_scalar(Inf, int = TRUE, name = "'var'"),
