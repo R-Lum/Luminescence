@@ -484,8 +484,8 @@ plot_RLum.Results<- function(
     tf<- abs(llik+1.92) < 0.05
     sig95<- sig[tf]
     ntf<- length(sig95)
-    sigL<- sig95[1]
-    sigU<- sig95[ntf]
+    sigL <- ifelse(sig95[1] < sigmax, sig95[1], NA)
+    sigU <- ifelse(sig95[ntf] > sigmax, sig95[ntf], NA)
 
     # put them on the graph
     res <- c(sigL, sigmax, sigU)
