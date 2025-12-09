@@ -72,6 +72,8 @@ calc_HomogeneityTest <- function(
     .throw_error("'data' should have 2 columns")
   }
   data <- data[, 1:2]
+  lapply(data, function(x) .validate_class(x, c("numeric", "integer"),
+                                           name = "All columns of 'data'"))
   .validate_logical_scalar(log)
 
   ##==========================================================================##
