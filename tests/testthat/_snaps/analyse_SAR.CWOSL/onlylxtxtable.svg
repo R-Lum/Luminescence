@@ -400,10 +400,12 @@
 <g clip-path='url(#cpNjE3LjE0fDcyMC4wMHwyMzAuNDB8NDYwLjgw)'>
 <text x='667.06' y='247.20' text-anchor='middle' style='font-size: 8.64px; font-weight: bold; font-family: sans;' textLength='28.82px' lengthAdjust='spacingAndGlyphs'>Checks</text>
 </g>
-<g clip-path='url(#cpNjE3LjE0fDcxNi45OHwyNTguMDV8NDUyLjE2)'>
-<text x='702.19' y='429.23' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='54.38px' lengthAdjust='spacingAndGlyphs'>Recyclin... (R5/R1)</text>
-<text x='702.19' y='364.52' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='53.67px' lengthAdjust='spacingAndGlyphs'>Recupera...tural) 1</text>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<text x='702.19' y='429.23' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='66.99px' lengthAdjust='spacingAndGlyphs'>Recycling ratio (R5/R1)</text>
+<text x='702.19' y='364.52' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='83.93px' lengthAdjust='spacingAndGlyphs'>Recuperation rate (Natural) 1</text>
 <text x='702.19' y='299.82' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='42.14px' lengthAdjust='spacingAndGlyphs'>Testdose error</text>
+</g>
+<g clip-path='url(#cpNjE3LjE0fDcxNi45OHwyNTguMDV8NDUyLjE2)'>
 <polyline points='630.08,394.65 713.28,394.65 ' style='stroke-width: 0.19;' />
 <polyline points='630.08,329.94 713.28,329.94 ' style='stroke-width: 0.19;' />
 <polyline points='630.08,265.24 713.28,265.24 ' style='stroke-width: 0.19;' />

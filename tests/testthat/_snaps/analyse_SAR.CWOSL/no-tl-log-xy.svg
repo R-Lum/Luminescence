@@ -707,12 +707,14 @@
 <g clip-path='url(#cpNjE3LjE0fDcyMC4wMHwyMzAuNDB8NDYwLjgw)'>
 <text x='667.06' y='247.20' text-anchor='middle' style='font-size: 8.64px; font-weight: bold; font-family: sans;' textLength='28.82px' lengthAdjust='spacingAndGlyphs'>Checks</text>
 </g>
-<g clip-path='url(#cpNjE3LjE0fDcxNi45OHwyNTguMDV8NDUyLjE2)'>
-<text x='702.19' y='429.23' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='54.38px' lengthAdjust='spacingAndGlyphs'>Recyclin... (R5/R1)</text>
-<text x='702.19' y='393.28' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='53.67px' lengthAdjust='spacingAndGlyphs'>Recupera...tural) 1</text>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<text x='702.19' y='429.23' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='66.99px' lengthAdjust='spacingAndGlyphs'>Recycling ratio (R5/R1)</text>
+<text x='702.19' y='393.28' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='83.93px' lengthAdjust='spacingAndGlyphs'>Recuperation rate (Natural) 1</text>
 <text x='702.19' y='357.33' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='42.14px' lengthAdjust='spacingAndGlyphs'>Testdose error</text>
 <text x='702.19' y='321.39' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='49.72px' lengthAdjust='spacingAndGlyphs'>Palaeodose error</text>
-<text x='702.19' y='285.44' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='56.02px' lengthAdjust='spacingAndGlyphs'>De &gt; max...se point</text>
+<text x='702.19' y='285.44' text-anchor='end' style='font-size: 6.48px; font-family: sans;' textLength='61.43px' lengthAdjust='spacingAndGlyphs'>De &gt; max. dose point</text>
+</g>
+<g clip-path='url(#cpNjE3LjE0fDcxNi45OHwyNTguMDV8NDUyLjE2)'>
 <polyline points='630.08,409.02 713.28,409.02 ' style='stroke-width: 0.19;' />
 <polyline points='630.08,373.08 713.28,373.08 ' style='stroke-width: 0.19;' />
 <polyline points='630.08,337.13 713.28,337.13 ' style='stroke-width: 0.19;' />

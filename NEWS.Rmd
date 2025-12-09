@@ -116,6 +116,9 @@ value for `recuperation_reference` (#1204).
 * The space around the plots when using `plot_onePage = TRUE` has been
 reduced, so that plots can be a bit more detailed (#1219).
 
+* The labels in the rejection criteria plot are now shortened only when the
+available horizontal space is not wide enough (#1222).
+
 ### `bin_RLum.Data()`
 
 * Validation of the `bin_size` (for `RLum.Data.Curve`), `bin_size.row` and

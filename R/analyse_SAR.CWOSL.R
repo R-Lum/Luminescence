@@ -1318,12 +1318,25 @@ if(is.list(object)){
     ylab = "",
     xlab = "")
 
+  ## find how many characters can be fitted in the available space
+  usr <- par("usr")
+  avail.width <- par("pin")[1] / (usr[2] - usr[1])
+  longest.label <- x[[1]][which.max(nchar(x[[1]]))]
+  label.length <- nchar(longest.label)
+  repeat {
+    if (strwidth(.shorten_filename(longest.label, label.length),
+                 cex = 0.9, units = "in") < avail.width)
+      break
+    label.length <- label.length - 1
+  }
+
   ## plot names
   text(
     x = 0.88,
     y = y_coord[seq(1,length(y_coord),2)],
-    labels = .shorten_filename(x[[1]], 19),
+    labels = .shorten_filename(x[[1]], label.length),
     cex = 0.9,
+    xpd = NA,
     adj = c(1, 0.5))
 
   ## add lines with criteria
