@@ -462,11 +462,19 @@ plot_RLum.Results<- function(
     llik<- object@data$profile$llik
 
     # save previous plot parameter and set new ones
-    .pardefault <- .par_defaults()
+    par.default <- .par_defaults()
+    par(mar = c(4, 4, 3, 1) + 0.1, las = 1, cex.axis = 1.2, cex.lab = 1.2)
 
-    # plot the profile log likeihood
-    par(oma=c(2,1,2,1),las=1,cex.axis=1.2, cex.lab=1.2)
-    plot(sig,llik,type="l",xlab=as.expression(bquote(sigma[OD]~"[%]")),ylab="Log likelihood",lwd=1.5)
+    ## don't display log-likelihoods more negative than -100
+    y.min <- max(-100, min(llik))
+
+    ## plot the profile log likelihood
+    plot(sig, llik,
+         ylim = c(y.min, 0),
+         xlab = as.expression(bquote(sigma[OD] ~ "[%]")),
+         ylab = "Log likelihood",
+         type = "l",
+         lwd = 1.5)
     abline(h=0,lty=3)
     abline(h=-1.92,lty=3)
     title(as.expression(bquote("Profile log likelihood for" ~ sigma[OD])))
@@ -476,19 +484,16 @@ plot_RLum.Results<- function(
     tf<- abs(llik+1.92) < 0.05
     sig95<- sig[tf]
     ntf<- length(sig95)
-    sigL<- sig95[1]
-    sigU<- sig95[ntf]
+    sigL <- ifelse(sig95[1] < sigmax, sig95[1], NA)
+    sigU <- ifelse(sig95[ntf] > sigmax, sig95[ntf], NA)
 
     # put them on the graph
     res <- c(sigL, sigmax, sigU)
     abline(v = res)
-    dx<- 0.006
-    dy<- 0.2
-    ytext<- min(llik) + dy
-    text(res+dx,rep(ytext,3),round(res,2),adj=0)
+    text(res, y.min, labels = round(res, 2), adj = 0, pos = 4, offset = 0.3)
 
     # restore previous plot parameters
-    par(.pardefault)
+    par(par.default)
   }##EndOf::Case 2 - calc_CentralDose()
 
 
