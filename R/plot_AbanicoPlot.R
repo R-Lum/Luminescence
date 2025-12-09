@@ -1578,11 +1578,9 @@ plot_AbanicoPlot <- function(
     cex.axis <- layout$abanico$font.size$ylab / 12
     if (y.axis) {
       char.height <- par()$cxy[2]
-      tick.space <- grDevices::axisTicks(usr = limits.y, log = FALSE)
-      tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
 
       ## this comes into play for panel plots, e.g., par(mfrow = c(4,4))
-      if (tick.space < char.height * 1.7) {
+      if (char.height > 4.5 / cex) {
         axis(side = 3 - rotate.idx,
              at = c(-2, 2),
              tcl = -layout$abanico$dimension$ytcl / 200,
