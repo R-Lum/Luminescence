@@ -48,4 +48,8 @@ test_that("regression tests", {
   expect_s4_class(
       calc_HomogeneityTest(data.frame(1:4, NA), verbose = FALSE),
       "RLum.Results")
+
+  ## issue 1224
+  expect_silent(calc_HomogeneityTest(data.frame(1:4, 2:5, letters[1:4]),
+                                     verbose = FALSE))
 })
