@@ -12,6 +12,8 @@ test_that("input validation", {
                "'data' cannot be an empty data.frame")
   expect_error(calc_HomogeneityTest(iris[, 1, drop = FALSE]),
                "'data' should have 2 columns")
+  expect_error(calc_HomogeneityTest(data.frame(1:4, letters[1:4])),
+               "All columns of 'data' should be of class 'numeric' or 'integer'")
 })
 
 test_that("check values from output example", {
@@ -46,6 +48,10 @@ test_that("regression tests", {
 
   ## issue 924
   expect_s4_class(
-      calc_HomogeneityTest(data.frame(1:4, NA), verbose = FALSE),
+      calc_HomogeneityTest(data.frame(1:4, NA_real_), verbose = FALSE),
       "RLum.Results")
+
+  ## issue 1224
+  expect_silent(calc_HomogeneityTest(data.frame(1:4, 2:5, letters[1:4]),
+                                     verbose = FALSE))
 })

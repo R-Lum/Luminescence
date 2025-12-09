@@ -71,6 +71,9 @@ calc_HomogeneityTest <- function(
   if (ncol(data) < 2) {
     .throw_error("'data' should have 2 columns")
   }
+  data <- data[, 1:2]
+  lapply(data, function(x) .validate_class(x, c("numeric", "integer"),
+                                           name = "All columns of 'data'"))
   .validate_logical_scalar(log)
 
   ##==========================================================================##
@@ -85,7 +88,7 @@ calc_HomogeneityTest <- function(
   ## CALCULATIONS
   ##============================================================================##
   if(log) {
-    if (any(data[, 1:2] < 0, na.rm = TRUE))
+    if (any(data < 0, na.rm = TRUE))
       .throw_warning("'data' contains negative values and 'log = TRUE', ",
                      "check your input")
     dat <- log(data)

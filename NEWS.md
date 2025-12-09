@@ -163,6 +163,11 @@
   values other than 1 and is drawn also when `pdf.colors = "gray"`
   (#1175).
 
+### `calc_HomogeneityTest()`
+
+- The function ignores all columns after the first two, as they could
+  lead to crashes if they contained non-numeric values (#1224).
+
 ### `calc_Huntley()`
 
 - A warning raised in rare occasions if the number of Monte Carlo
