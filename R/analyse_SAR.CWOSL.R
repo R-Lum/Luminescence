@@ -800,7 +800,7 @@ if(is.list(object)){
       plot_singlePanels <- TRUE
       graphics::layout(layout.matrix)
       par(oma = c(0, 0, 0, 0),
-          mar = c(4, 4, 3, 1),
+          mar = c(4, 3, 3, 1),
           cex = cex * 0.6)
       }
 
@@ -821,11 +821,14 @@ if(is.list(object)){
         plot.single.sel <- c(1,2,3,4,5,6,7,8)
 
       } else {
-        ##check for values in the single output of the function and convert
-        plot.single.sel <- if (!is.logical(plot_singlePanels))
-          plot_singlePanels
-        else
-          c(1,2,3,4,5,6,7,8)
+        plot.single.sel <- 1:8
+
+        ## check for values in the single output of the function and convert
+        if (!is.logical(plot_singlePanels)) {
+          ## this is used when called from analyse_pIRIRSequence()
+          par(mar = c(4, 3, 3, 1))
+          plot.single.sel <- plot_singlePanels
+        }
       }
 
       ##warning if number of curves exceed colour values
@@ -865,6 +868,8 @@ if(is.list(object)){
             xlim = xlim_range,
             ylim = ylim_range,
             main = main,
+            mgp = c(2, 0.7, 0),
+            tcl = -0.4,
             log = gsub("x", "", log))
 
           #provide curve information as mtext, to keep the space for the header
@@ -941,6 +946,8 @@ if(is.list(object)){
             xlim = xlim_range,
             ylim = ylim_range,
             main = main,
+            mgp = c(2, 0.7, 0),
+            tcl = -0.4,
             log = gsub("x", "", log))
 
           #provide curve information as mtext, to keep the space for the header
@@ -1201,7 +1208,8 @@ if(is.list(object)){
             temp.IRSL <- temp.IRSL[[length(temp.IRSL)]]
             .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
           }
-          plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
+          plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE,
+                               mgp = c(2, 0.7, 0), tcl = -0.4)
         }else{
           plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
           text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
@@ -1389,6 +1397,8 @@ if(is.list(object)){
     xlim = xlim_range,
     ylim = ylim_range,
     main = set_main,
+    mgp = c(2, 0.7, 0),
+    tcl = -0.4,
     log = set_log)
 
   #provide curve information as mtext, to keep the space for the header

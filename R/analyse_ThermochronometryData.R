@@ -159,6 +159,9 @@ analyse_ThermochronometryData <- function(
       xlab = if ("DOSE" %in% colnames(df_DRC)) "Dose [Gy]" else "Dose [s]",
       log = "x",
       plot_extended = FALSE,
+      mar = c(5.1, 4.1, 4.1, 2.1),
+      mgp = c(3, 1, 0),
+      tcl = -0.5,
       main = sample_names[i])
 
     ## return single lists
