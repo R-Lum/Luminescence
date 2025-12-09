@@ -135,6 +135,13 @@
 
 - The function now better validates its `grain.size` argument (#1152).
 
+### `calc_CentralDose()`
+
+- The profile log-likelihood plot is now cut at a log-likelihood of
+  -100, so that for profiles with log-likelihoods more negative than
+  that don’t get too squashed in the region of interest (#1227; thanks
+  to @DirkMittelstrass for reporting).
+
 ### `calc_CosmicDoseRate()`
 
 - The function is now more robust against `NA` values in its input
