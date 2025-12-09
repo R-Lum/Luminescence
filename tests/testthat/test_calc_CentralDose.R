@@ -34,17 +34,7 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  snapshot.tolerance <- 1.5e-6
-  expect_snapshot_RLum(temp,
-                       tolerance = snapshot.tolerance)
   SW({
-  expect_snapshot_RLum(calc_CentralDose(ExampleData.DeValues$CA1,
-                                        log = FALSE, trace = TRUE),
-                       tolerance = snapshot.tolerance)
-
-  expect_snapshot_RLum(calc_CentralDose(temp_NA, log = FALSE),
-                       tolerance = snapshot.tolerance)
-
   ## negative De values
   neg_vals <- data.frame(De = c(-0.56, -0.16, 0.0, 0.04),
                          De.err = c(0.15, 0.1, 0.12, 0.1))
@@ -59,10 +49,46 @@ test_that("check functionality", {
   res1@info$call <- res2@info$call <- NULL
   res1@.uid <- res2@.uid <- NA_character_
   expect_equal(res1, res2)
+  })
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+  expect_snapshot_RLum(temp,
+                       tolerance = snapshot.tolerance)
+  SW({
+  expect_snapshot_RLum(calc_CentralDose(ExampleData.DeValues$CA1,
+                                        log = FALSE, trace = TRUE),
+                       tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_CentralDose(temp_NA, log = FALSE),
+                       tolerance = snapshot.tolerance)
 
   ## more coverage
   df <- data.frame(De = c(1e-160, 1e-156, 1e-120, 4e-22),
                    De.err = c(1e5, 1e40, 1e12, 1e28))
-  expect_snapshot_RLum(calc_CentralDose(df))
+  expect_snapshot_RLum(calc_CentralDose(df),
+                       tolerance = snapshot.tolerance)
+  })
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              calc_CentralDose(ExampleData.DeValues$CA1))
+  vdiffr::expect_doppelganger("log = FALSE",
+                              calc_CentralDose(ExampleData.DeValues$CA1,
+                                               log = FALSE))
+  vdiffr::expect_doppelganger("sigmab 0.2",
+                              calc_CentralDose(ExampleData.DeValues$CA1,
+                                               sigmab = 0.2))
+  vdiffr::expect_doppelganger("sigmab 0.3",
+                              calc_CentralDose(ExampleData.DeValues$CA1,
+                                               sigmab = 0.3))
   })
 })

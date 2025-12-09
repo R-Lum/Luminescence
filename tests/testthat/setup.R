@@ -4,6 +4,11 @@
 
 ## the ... can be used to set the tolerance
 expect_snapshot_RLum <- function(object, ...) {
+  if (inherits(object, "list")) {
+    for (idx in seq_along(object))
+      expect_snapshot_RLum(object[[idx]])
+    return()
+  }
   object@.uid <- NA_character_
   object@.pid <- NA_character_
   object@info[names(object@info) == "call"] <- NULL # may be multiple "call"
@@ -44,6 +49,9 @@ expect_snapshot_RLum <- function(object, ...) {
   if ("info" %in% slotNames(object)) {
     if ("call" %in% names(object@info)) {
       object@info$call <- NULL
+    }
+    if ("file" %in% names(object@info)) {
+      object@info$file <- NULL
     }
   }
   if ("records" %in% slotNames(object)) {
