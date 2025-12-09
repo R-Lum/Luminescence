@@ -29,30 +29,13 @@ test_that("input validation", {
                  "'file.BINX' is not supported in self-call mode")
 })
 
-test_that("Test the extraction of irradiation times", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ##general test
-  SW({
-  res <- expect_s4_class(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE),
-                         "RLum.Results")
-
-  res_a <- expect_type(extract_IrradiationTimes(list(xsyg, xsyg), txtProgressBar = FALSE, return_same_as_input = TRUE),
-                         "list")
+  res_a <- extract_IrradiationTimes(list(xsyg), txtProgressBar = FALSE,
+                                    return_same_as_input = TRUE)
+  expect_type(res_a, "list")
   expect_s4_class(res_a[[1]], "RLum.Analysis")
-
-  expect_s4_class(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE, return_same_as_input = TRUE),
-                       "RLum.Analysis")
-
-  })
-
-  ##check whether it makes sense
-  expect_equal(sum(res$irr.times$IRR_TIME), 80)
-
-  ## recordType
-  res <- extract_IrradiationTimes(list(xsyg), recordType = list("OSL (UVVIS)"),
-                                  txtProgressBar = FALSE)
-  expect_true(all(res[[1]]@data$irr.times$STEP == "OSL (UVVIS)"))
 
   ## apply the function to something previously imported via read_BIN2R
   SW({
@@ -92,4 +75,19 @@ test_that("Test the extraction of irradiation times", {
    ## use TL curves with NA
    tmp <- read_XSYG2R(xsyg, verbose = FALSE, fastForward = TRUE)
    expect_s4_class(extract_IrradiationTimes(tmp[[1]]), class = "RLum.Results")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE,
+                                                return_same_as_input = TRUE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(extract_IrradiationTimes(list(xsyg), txtProgressBar = FALSE,
+                                                recordType = list("OSL (UVVIS)")),
+                       tolerance = snapshot.tolerance)
 })
