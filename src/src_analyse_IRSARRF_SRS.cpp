@@ -79,24 +79,21 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   do {
 
     for (size_t t = 0; t < two_size; ++t) {
-
-      //HORIZONTAL SLIDING CORE -------------------------------------------------------------(start)
-
-      results.zeros();
+      // HORIZONTAL SLIDING CORE --------------------------------------------
       auto curr_vslide_range = vslide_range[t_leftright[t]];
 
-      //slide the curves against each other
+      // slide the curves against each other and compute the sum of squared residuals
       for (unsigned int i = 0u; i < res_size; ++i) {
-        // calculate the sum of squared residuals along one curve
-
+        const double *reg = values_regenerated_limited.memptr() + i;
+        const double *nat = values_natural_limited.memptr();
+        double sum = 0.0;
         for (unsigned int j = 0u; j < nat_size; ++j) {
-          double residual = values_regenerated_limited[j + i] -
-            (values_natural_limited[j] + curr_vslide_range);
-          results[i] += residual * residual;
+          double residual = reg[j] - (nat[j] + curr_vslide_range);
+          sum += residual * residual;
         }
+        results[i] = sum;
       }
 
-      //HORIZONTAL SLIDING CORE ---------------------------------------------------------------(end)
       c_leftright[t] = min(results);
     }
 
