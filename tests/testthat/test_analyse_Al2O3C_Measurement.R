@@ -45,6 +45,11 @@ test_that("input validation", {
   expect_warning(Luminescence:::.warningCatcher(
                                      analyse_Al2O3C_Measurement(object = data_CrossTalk, signal_integral = 1000)))
   })
+
+  data(ExampleData.RF70Curves, envir = environment())
+  expect_warning(expect_error(analyse_Al2O3C_Measurement(RF70Curves),
+                              "No records with recordType 'OSL (UVVIS)'", fixed = TRUE),
+                 "This request produced an empty list of records")
 })
 
 test_that("check functionality", {

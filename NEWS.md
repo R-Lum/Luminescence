@@ -33,6 +33,12 @@
 - The function no longer crashes when called on an `RLum.Analysis`
   object rather than on a list of them (#1182).
 
+### `analyse_Al2O3C_Measurement()`
+
+- The function no longer crashes when called on RLum.Analysis objects
+  that do not contain records of type `"OSL (UVVIS)"` or `"TL (UVVIS)"`
+  (#1232).
+
 ### `analyse_baSAR()`
 
 - The function no longer crashes if all objects in the input list are
