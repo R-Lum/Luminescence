@@ -284,6 +284,9 @@ analyse_Al2O3C_Measurement <- function(
   if(!is.null(recordType)){
     object_raw <- object
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
+    if (length(object) == 0) {
+      .throw_error("No records with recordType ", .collapse(recordType), " found")
+    }
   }
 
   ##set signal integral
