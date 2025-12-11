@@ -292,8 +292,11 @@ use_DRAC <- function(
       if (reply %in% c("Y", "y", "1")) {
         ## convert to html and extract the error fields
         html <- XML::htmlParse(DRAC.content, asText = TRUE)
-        error <- XML::xpathSApply(html, "//div[@class='drac_field_error']",
-                                  XML::xmlValue)
+        node <- XML::getNodeSet(html, "//div[@class='drac_field_error']")
+        error <- sapply(node, function(x) {
+          line <- paste0(sapply(XML::xmlChildren(x), XML::saveXML), collapse = "")
+          trimws(gsub("\\s*<br/>", "\n", line))
+        })
 
         ## extract the fragment we are given if no drac_field_error is found
         if (length(error) == 0)
