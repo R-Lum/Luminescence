@@ -8,8 +8,7 @@ DEVEL := 1
 ## controlled by the DEVEL variable set before
 AS_CRAN := TRUE
 EXCLUDE_MODULES := \
-	'module_check_ReverseDependencies', \
-	'module_write_codemetar' \
+	'module_check_ReverseDependencies' \
 	$(NULL)
 ifeq ($(DEVEL), 1)
   AS_CRAN := FALSE
@@ -17,6 +16,7 @@ ifeq ($(DEVEL), 1)
 	'module_add_RLumTeam', \
 	'module_add_HowToCite', \
 	'module_write_BibTeX', \
+	'module_write_codemetar', \
 	'module_write_FunctionList', \
 	'module_write_PDF_manual' \
 	$(NULL)
