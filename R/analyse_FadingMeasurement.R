@@ -222,7 +222,7 @@ analyse_FadingMeasurement <- function(
       .throw_warning(sum(wrong.class), " unsupported records removed")
 
       ## remove unwanted stuff
-      object[wrong.class] <- NULL
+      object <- object[!wrong.class]
       if (length(object) == 0) {
         .throw_error("No valid records in 'object' left")
       }

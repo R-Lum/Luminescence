@@ -247,6 +247,12 @@ test_that("regression tests", {
                    LxTx.Error = c(0.076, 0.029, 0.054, 0.081, 0.09, 0.029, 0.002))
   expect_error(analyse_FadingMeasurement(df, n.MC = 10, plot = TRUE),
                "Normalisation term is not positive, check your input")
+
+  ## issue 1236
+  input <- template_DRAC(preset = "DRAC-example_quartz", notification = FALSE)
+  expect_warning(expect_error(analyse_FadingMeasurement(input),
+                              "No valid records in 'object' left"),
+                 "53 unsupported records removed")
 })
 
 test_that("graphical snapshot tests", {
