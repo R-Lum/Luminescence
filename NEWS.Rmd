@@ -66,6 +66,9 @@ produced reports the correct number of objects removed from the analysis
 should never happen in real-life analyses, but it may occur if the input data
 is somewhat malformed (#1144).
 
+* The function no longer crashes when attempting to remove undesired objects
+from a list-like class that overloads the `[<-` S3 method (#1236).
+
 ### `analyse_IRSAR.RF()`
 
 * The function no longer crashes when `n.MC = NULL` is used with the `FIT`
