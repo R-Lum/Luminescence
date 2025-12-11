@@ -1312,7 +1312,7 @@ SW <- function(expr) {
 
 #' @title Validate the originator of an RLum object
 #'
-#' @param object [RLum] (**required**): object whose originator should be
+#' @param object [RLum-class] (**required**): object whose originator should be
 #'        checked.
 #' @inheritParams .validate_args
 #'
