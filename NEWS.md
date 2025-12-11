@@ -4,8 +4,6 @@
 
 **This package version requires R \>= 4.4**
 
-## New functions
-
 ## Removed functions and deprecations
 
 - The functions `CW2pHMi()`, `CW2pLM()`, `CW2pLMi()` and `CW2pPMi()`
@@ -393,3 +391,834 @@
 - Documentation for all example data (including synthetic datasets) is
   now more easily findable from RStudio (#1166; thanks to
   @DirkMittelstrass for reporting).
+
+------------------------------------------------------------------------
+
+# Changes in version 1.1.1 (2025-09-11)
+
+## New functions
+
+- `correct_PMTLinearity()`: A helper function to correct luminescence
+  signals measured with a PMT for count linearity (#920).
+
+## Removed functions and deprecations
+
+- Functions `calc_Kars2008()` (defunct since 0.9.26),
+  `Analyse_SAR.OSLdata()` (since 1.0.0), `PSL2Risoe.BINfileData()`
+  (since 1.0.0) and `Second2Gray()` (since 1.0.0) have been removed from
+  the package. Their functionality can be found in functions
+  `calc_Huntley2006()`, `analyse_SAR.CWOSL()`,
+  `convert_PSL2Risoe.BINfileData()` and `convert_Second2Gray()`,
+  respectively.
+
+- Function `get_Risoe.BINfileData()` has been removed as it was not used
+  and provided no benefits to the user (#945).
+
+## Bugfixes and changes
+
+## `add_metadata<-()`
+
+- The function throws an error if trying to assign a `NULL` value
+  instead of silently ignoring it (#946).
+
+### `analyse_Al2O3C_ITC()`
+
+- The function returns early if the fitting of the dose response curve
+  fails (#979).
+
+### `analyse_Al2O3C_Measurement()`
+
+- The function allows to specify the `cross_talk_argument` as a numeric
+  vector of length 3, as was already documented (#930).
+
+### `analyse_SAR.CWOSL()`
+
+- The function crashed if any of the curves had `NA` as its `recordType`
+  (#867).
+
+### `apply_CosmicRayRemoval()`
+
+- The `method` argument of `smooth_RLum()` was not reachable via `...`
+  as the `apply_CosmicRayRemoval()` already has an argument called
+  `method`. Now the `...` argument is called `method_smooth_RLum` and
+  works as expected (9b27467).
+
+- The function crashed if method = “Pych”`and`MARGIN = 1\` were
+  specified. The function now better validates its inputs and no longer
+  returns invisibly but normally (#987).
+
+### `calc_AliquotSize()`
+
+- The legend text now scales better at non-default cex settings (#849).
+
+### `calc_Huntley2006()`
+
+- If the user set the `n.MC` argument, this was also used in the fitting
+  of the dose response curve. This was not the expected behaviour, and
+  resulted in poor performance (a 2x slowdown for `n.MC = 10000`). This
+  regression was introduced in version 1.0.0 (#867).
+
+### `calc_MaxDose()`
+
+- The function crashed if `sigmab` was set to a very small value (#898).
+
+### `calc_MinDose()`
+
+- The function crashed when bootstrapping with `bs.M = 1`. Now the
+  `bs.M` parameter is silently reset to 2 in that case, although such
+  low values are discouraged as they may trigger a warning during loess
+  fitting (#900).
+
+- The function crashed when all rows in the input data set contained
+  `NA` values (#915).
+
+### `calc_Statistics()`
+
+- The computation of the weighted median is now correct, while before it
+  corresponded to the simple (unweighted) median (#905).
+
+### `fit_CWCurve()`
+
+- The function hanged on particularly small datasets as it tried to fit
+  too many components for the available data (#953).
+
+### `fit_DoseResponseCurve()`
+
+- The object returned now contains an additional `.De.raw` column to
+  store the calculated De value computed by the fitting function “as
+  is”, without setting meaningless results to `NA`. The `De` and
+  `.De.raw` columns differ only for `mode = "interpolation"`, where the
+  first sets the De to `NA` if negative, while the latter doesn’t. It is
+  then up to the user to decide what to do with those values, bearing in
+  mind that they may be arbitrary when negative (#957).
+
+- The message reported for `fit.method = "QDR"` now states correctly
+  whether the fit succeeded or failed (#961).
+
+- The computation of De.MC, De.Error and HPDI for
+  `mode = "interpolation"` has been modified to account correctly for
+  possible negative De values resulting from the fit (#963).
+
+- Previously, a single `NA` value in the Monte Carlo results prevented
+  the computation of Highest Density Intervals (HPDI). This limitation
+  has been removed, and now HPDIs are reported in more cases (#976).
+
+- The columns of the `results$De` data frame are now reported in a
+  different order; an additional “Mode” column reports the value of the
+  `mode` argument; columns meant for internal use have been moved to the
+  end and their names are now prefixed with `.` (#974).
+
+### `fit_LMCurve()`
+
+- The automatic correction of the x-axis limits when `log = "x"` is
+  specified and the lowest value is set to `0` threw the correct warning
+  but actually did nothing (38e4324).
+
+### `fit_OSLLifeTimes()`
+
+- The function ensures that the `signal_range` argument doesn’t contain
+  negative values instead of crashing (#896).
+
+### `get_RLum()`
+
+- The function doesn’t crash anymore on `RLum.Analysis` objects if using
+  the `record.id` argument removes all available records (#873).
+
+- An internal optimization increased the performance of the function.
+  The difference is not perceivable on single calls to `get_RLum()`, but
+  the change brings a visible speed up when `merge_RLum()` is called
+  over a sufficiently large number of `RLum.Analysis` objects (#875).
+
+### `merge_Risoe.BINfileData()`
+
+- The function gained argument `verbose` to allow disabling the output
+  from `read_BIN2R()` and `write_R2BIN()` (#950).
+
+### `plot_AbanicoPlot()`
+
+- The positioning of the y-axis label has been improved to be centred
+  around the zero line (#847). The z-axis tickmarks and labels are
+  better drawn at non-default cex values (#865).
+
+- The minor grid lines were drawn incorrectly in a rotated plot (#849).
+
+- Some plot elements didn’t scale correctly at non-default cex values
+  (#861, \#879).
+
+- The `frame` argument is now respected also when the plot is rotated
+  (#863).
+
+- The weighted median is computed correctly when `summary = "median"`
+  and `summary.method = "weighted"` are used (#905).
+
+### `plot_DoseResponseCurve()`
+
+- We added support for the `log` graphical parameter, which can be used
+  if the fit was obtained with mode other than `"extrapolation"` (#820).
+
+- The normal curve drawn as part of the histogram plot could appear very
+  jagged or even as a straight line, as it could happen that too few
+  points were actually used when drawing the curve (#843).
+
+- The legend symbols did not match anymore the plotted regeneration/dose
+  points. This also affected functions such as `analyse_SAR.CWOSL()` and
+  `analyse_pIRIRSequence()` (9ba54e65).
+
+- The legend positioning can now be controlled via the `...` argument
+  `legend.pos` (#959).
+
+### `plot_DRCSummary()`
+
+- The dose-response curve is now plotted as expected, after a regression
+  in 1.1.0 caused the function to produce an empty plot (#969).
+
+### `plot_DRTResults()`
+
+- Points didn’t scale correctly at non-default `cex` values (#879).
+
+- Option `summary = "weighted$median"` is now officially supported
+  (#905).
+
+### `plot_Histogram()`
+
+- Option `summary = "median.weighted"` is now officially supported
+  (#905).
+
+### `plot_KDE()`
+
+- Outlier points didn’t scale correctly at non-default `cex` values
+  (#879).
+
+- The weighted median is computed correctly when `summary = "median"`
+  and `summary.method = "weighted"` are used (#905).
+
+### `plot_RadialPlot()`
+
+- Option `summary = "median.weighted"` is now officially supported
+  (#905).
+
+### `plot_Risoe.BINfileData()`
+
+- Input arguments are validate more strictly to avoid unexpected crashes
+  in case of misspecification (#964).
+
+- The x-axis label for TL curves now reports temperature rather than
+  time, consistently with the data shown (#971).
+
+### `plot_RLum.Analysis()`
+
+- The legend text now scales better at non-default `cex` settings
+  (#854).
+
+### `plot_RLum.Data.Curve()`
+
+- The function gained a new logical argument `interactive` that enables
+  interactive plotting of curves using `plotly::plot_ly()`. It requires
+  the suggested package `'plotly'` to be installed (e4746eaa).
+
+### `plot_RLum.Data.Spectrum()`
+
+- Types `image` and `contour` gained more control of the contour line
+  labels through the argument `labcex`.
+
+- For plot types `"image"` and `"multiple.lines"` the `...` logical
+  argument `legend` was added.
+
+- Plot type `"image"` further gained a legend with support through `...`
+  for `legend.pos`, `legend.horiz` and `n_breaks` to control the number
+  of colours in the graphic.
+
+### `read_BIN2R()`
+
+- The `FNAME` metadata field is no longer left empty if the BIN-file
+  didn’t specify one, but it’s populated with the BIN-file name without
+  extension. This is the behaviour that was present up to version
+  0.9.26, but version 1.0.0 had regressed it (#928).
+
+### `read_XSYG2R()`
+
+- Add support for the new function `correct_PMTLinearity()` (#920).
+
+### `smooth_RLum()`
+
+- Add support for the Poisson smoother of Carter et al. (2018), which
+  can be accessed by setting `method = "Carter_etal_2018"`. This is
+  helpful to ensure that the dark-background counts signals measured by
+  a photomultiplier tube follow a Poisson statistic, and smooths
+  non-conforming values according to an average over four neighbours
+  (#921).
+
+### `trim_RLum.Data()`
+
+- The function crashed if both values specified in the `trim_range`
+  argument exceeded the number of channels available (#871).
+
+### `use_DRAC()`
+
+- Report the message produced by the DRAC server more reliably in case
+  of error (#982).
+
+------------------------------------------------------------------------
+
+# Changes in version 1.1.0 (2025-06-11)
+
+## New functions
+
+- `remove_SignalBackground()`: A user-friendly method to subtract
+  background signals from various curves in `RLum.Analysis` objects
+  without resorting to `lapply()` loops. Depending on the record type,
+  the function identifies pairs of curves; for instance, if in a
+  sequence, a `TL` curve is immediately followed by another `TL` curve,
+  the second curve is recognised as the background signal, subtracted
+  using `merge_RLum()` and subsequently removed from the object (if
+  desired). Alternatively, a set of potential background curves can be
+  specified.
+
+- `remove_RLum()`: This function further completes the set of methods
+  that can handle and modify `RLum-class` objects. It operates on
+  `RLum.Analysis` objects or a `list` of such objects to remove unwanted
+  records from datasets. Although the function calls `get_RLum()` and
+  relies on its functionality, the new implementation facilitates a more
+  logical workflow and analysis pipeline.
+
+- `.as.latex.table()`: Converts `RLum.Results` objects where suitable to
+  `LaTeX` ready tables, for instance, objects produced by `use_DRAC()`.
+  The function has been present in the package as an internal function
+  for many years; now it is exported and better linked to make it
+  discoverable.
+
+## New datasets
+
+- `RF70Curves` is a new dataset consisting of two IR-RF curves measured
+  with the RF70 protocol. This new dataset provides a more realistic
+  example for `analyse_IRSAR.RF()`.
+
+## Breaking changes
+
+- Function `get_Quote()` is no longer exported, but remains available as
+  an internal function. This is unlikely to affect any user of the
+  package, as the function was only meant to report a random quote at
+  startup (#644).
+
+- In the functions `fit_DoseResponseCurve()` and `plot_GrowthCurve()`,
+  the `fit.method` option `LambertW` was replaced by the more correct
+  term `OTOR`.
+
+- Argument `cex.global` has been removed from `plot_DoseResponseCurve()`
+  (and consequently also from `plot_GrowthCurve()`), and if set it will
+  be silently ignored. Users can set the `cex` graphical parameter via
+  `...` in its place (#831).
+
+- The `fit.method` and `fit.advanced` arguments of function
+  `fit_LMCurve()` have been removed. The default fitting method has been
+  changed from `port` to `LM`, and support for the `port` algorithm has
+  been removed. From now on, argument `fit.method` is silently ignored,
+  unless `fit.method = 'port'` is used, in which case a deprecation
+  warning is thrown (#793).
+
+- The fundamental physical constants used in the package (such as
+  Boltzmann constant, Planck constant, etc.) have been uniformed to
+  those reported in the [NIST Reference on Constants, Units and
+  Uncertainty](https://physics.nist.gov/cuu/Constants/). This may affect
+  the numerical results of the following functions: `calc_FastRatio()`,
+  `calc_Huntley2006()`, `calc_SourceDoseRate()`,
+  `calc_ThermalLifetime()`, `convert_Activity2Concentration()`,
+  `convert_Wavelength2Energy()`, `fit_CWCurve()`, `fit_LMCurve()`,
+  `fit_SurfaceExposure()`, `fit_ThermalQuenching()` (#693).
+
+## Bugfixes and changes
+
+### `analyse_baSAR()`
+
+- The function crashed if only one aliquot was kept (#834).
+
+### `analyse_FadingMeasurement()`
+
+- The function crashed if the number of `Lx` and `Tx` curves was not
+  equal when `structure = c("Lx", "Tx")`, which is the default. The
+  check that the number of points within each pair of curves has also
+  been improved, and the function now produces more helpful error
+  messages (#616).
+
+- The function tests are now less rigorous for different `Lx` and `Tx`
+  sizes. While they should match, numerical rounding issues in the data
+  returned by the measurement devices could previously result in
+  rejection of records, although this had no actual meaning for the data
+  analysis.
+
+### `analyse_IRSAR.RF()`
+
+- The legend and subtitle texts now scale better at non-default cex
+  settings (#803).
+
+- The printing of progress bars and messages to the terminal can now be
+  controlled via the `...` argument `verbose`. Previously this could
+  only be done via the `txtProgressBar` argument (which is still
+  supported), but the new option makes the interface consistent with
+  most other functions (#805).
+
+- The `mtext` and `cex` options are respected if `method = "None"`
+  (#807).
+
+- The residual plot correctly respects the logarithmic transformation of
+  the x-axis when `log = "x"` or `log = "xy"` are specified (#814,
+  \#825).
+
+- The function now deals correctly also with input objects containing
+  multiple curves (#816).
+
+- The residual indicator rectangle, which is drawn when `method` is
+  either `SLIDE` or `VSLIDE`, is also drawn when `log = "x"` (#821).
+
+- The plotting of the density is silently disabled if `n.MC = NULL`,
+  which avoids a spurious warning (#823).
+
+### `analyse_pIRIRSequence()`
+
+- The function now respects the `cex` graphical argument, and its plot
+  output has been subtly improved thanks to various fixes that have
+  occurred especially in `plot_DoseResponseCurve()` (#831).
+
+### `analyse_portableOSL()`
+
+- The function now returns an error if `mode` is something other than
+  `"profile"` or `"surface"`.
+
+- The `mode` argument was not respected when operating over a list of
+  objects (#673).
+
+- The function crashed when using `mode = "surface"` if the plotting
+  limits were too tight and left only one point (#675).
+
+- The check on the validity of the `signal.integral` argument has been
+  improved, and now it occurs only once, so at most one warning is
+  raised if the argument is set to a value exceeding the valid range
+  (#678, \#680).
+
+- The function returns a clearer message when no x-coordinates were
+  measured and `mode = "surface"` was used (#682).
+
+- The `cex` and `type` graphical parameters can now configured via the
+  `...` argument (#684).
+
+- The expected sequence pattern of the input object is validated more
+  thoroughly to avoid crashes in case of misspecification (#687).
+
+- The graphical `...` argument `contour` never produced a meaningful
+  contour plot due to an internal error (#686). Along, arguments
+  `contour_nlevels` and `contour_col` are now supported through `...` to
+  better control the number and colour of contour lines.
+
+### `analyse_SAR.CWOSL()`
+
+- Add support for `fit.method = 'OTORX'` following the changes in
+  `fit_DoseResponseCurve()`; this change includes the new argument
+  `dose.points.test` that is only of use in combination with the `OTORX`
+  fit.
+
+- Add new graphical output if the measurements were single grain
+  measurements, in such case a disc with the position and grain number
+  marked in shown. This plot replaces the IRSL curve check plot, but
+  only for single grain data (#797).
+
+- The rejection criteria plot was rewritten and now provides an easier
+  to grasp visual feedback (#797, \#798).
+
+- The `IRSL`/`Single Grain` panel swapped place with the rejection
+  criteria panel; the plot numbers remained unchanged to avoid
+  regression.
+
+- More code optimisation for better readability (#802)
+
+### `analyse_SAR.TL()`
+
+- A check on the `sequence.structure` argument ensures that a “SIGNAL”
+  entry has been specified (#779).
+
+### `calc_AliquotSize()`
+
+- The new argument `sample_carrier.diameter` allows to specify a value
+  for the diameter of the sample carrier, which up to now was hardcoded
+  to the very common 9.8 mm size (#623).
+
+- Several graphical parameters can now configured via `...` arguments,
+  so that the plot appearance can be fully customized (#671).
+
+### `calc_AverageDose()`
+
+- A bug in the implementation prevented the default plot settings from
+  being modified via `...` as advertised. Now custom settings are
+  respected (#658).
+
+### `calc_FiniteMixture()`
+
+- The function doesn’t crash anymore if the `n.components` argument
+  specifies non-consecutive values (#691).
+
+- The function sometimes failed to plot some of the densities when the
+  number of components was set to a value of 8 or more (#704).
+
+- The density plots would not always be coloured completely, but
+  especially for high values of `sigmab` there would be an unfilled area
+  at the base of the densities (#706).
+
+- If the very first iteration over the components during plotting was
+  skipped, then the function crashed as a quantity computed only in that
+  iteration was not available. This happened for very specific
+  combinations of `sigmab` and `n.components` (#708).
+
+- Another crash occurred when height of the largest density curve could
+  not be estimated due to the presence of too many `NA` values in the
+  intermediate computations (#710).
+
+- The check for significance of each component added to the model has
+  been corrected to be more statistically rigorous (#703).
+
+- Blank gaps appearing to the sides of the proportion of components plot
+  for high number of components have been removed (#713), as well as
+  extra slices appearing due to rounding errors (#715).
+
+- The plot can be better configured via the new `plot.criteria` argument
+  to control whether the statistical criteria curves should be drawn.
+  Moreover, support for the `...` options has been added: `cex` to
+  control the overall scaling, `main.densities`, `main.proportions` and
+  `main.criteria` to set the subplot titles (#717).
+
+- Plots are now generated even when results contain `NA` values, as they
+  in general don’t affect the plot. However, when that happens we report
+  it in the plot subtitle (#718).
+
+### `calc_Huntley2006()`
+
+- Support was added for multicore computations via the `cores` argument,
+  and for the nls-fitting control options `maxiter` and `trace`.
+
+- The fitting of the simulated curve with the GOK model has been made
+  more robust: when an initial fit of the model fails, the fit is
+  attempted again with 10 different values for `D0` and the best fit is
+  used. This should reduce the number of occasions in which the error
+  message “Could not fit simulated model curve, check suitability of
+  model and parameters” is reported (#660).
+
+- The function crashed if all simulated Lx/Tx values were identical and
+  approximately zero, which could happen if the `rhop` argument was set
+  to a large enough value (#725).
+
+- An error message has been improved so that it doesn’t suggest setting
+  the ‘fit.bounds = FALSE’ argument if it has already been set (#729).
+
+- The computation of the x-axis limits has been improved to avoid having
+  too much unused horizontal space, especially for
+  `mode = "extrapolation"` (#731).
+
+- The scaling of the plot can now be controlled via the `cex` argument
+  (#735).
+
+- The plot margins are set more precisely and avoid the summary text to
+  be cut off (#737).
+
+### `calc_MinDose()`
+
+- The function now warns if the number of bootstrap replicates is too
+  low to perform the loess fitting (#721).
+
+### `calc_OSLLxTxRatio()`
+
+- The function returned a warning for wrong integral settings for the
+  `Tx` curve even if no `Tx` curve was provided.
+
+- The function does not check any more of different object types for
+  `Lx.data` and `Tx.data` but validate objects for allowed types (this
+  should have no user-visible effects).
+
+### `convert_Concentration2DoseRate()`
+
+- The function validates its input values more thoroughly (#613).
+
+### `extract_IrradiationTimes()`
+
+- The function tries a little bit harder to extract the correct duration
+  of TL steps, rendering the data output hopefully a little bit more
+  intelligible (#651).
+
+- The function gained a new argument called `return_same_as_input`, with
+  default value of `FALSE`. If set to `TRUE`, the input object (usually
+  an `RLum.Analysis` object or a `list` of them) is returned with
+  updated info elements for `IRR_TIME` and `TIMESINCEIRR`. This makes
+  the `RLum.Analysis` object compatible with functions that explicitly
+  search for those two objects, such as those in the
+  `'OSLdecomposition'` package (#752).
+
+### `fit_DoseResponseCurve()`
+
+- The function now allocates less memory for storing intermediate values
+  (#610).
+
+- Add initial support for `OTORX` fitting following Lawless and
+  Timar-Gabor 2024 (#677). The code implementation follows the Python
+  reference by [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py)
+  with an addition for an allowed offset parameter `a` set if
+  `fit.force_through_origin = FALSE`. This also enables to support
+  `mode = "extrapolation"` (thanks to John Lawless for his input).
+
+- The code of the function was optimised in several places to improve
+  code readability and reduce redundant calls.
+
+- The models for `EXP`, `EXP+LIN`, `EXP+EXP` and `GOK` are now available
+  in C++. This cut the required computation times in half in benchmark
+  scenarios. More importantly, this performance scales with the number
+  of Monte Carlo runs.
+
+### `fit_EmissionSpectra()`
+
+- Fix crash when attempting to plot a frame with non-positive counts
+  (#761).
+
+### `fit_LMCurve()`
+
+- If the user asks logarithmic scaling in the y-axis, using either
+  `log = "y"` or `log = "xy"`, this is now ignored when plotting
+  residuals and component contributions (#755).
+
+- The plot has been slightly reworked to reduce the cases of “margin too
+  large” errors and to work better at high settings of `cex` (#757).
+
+- Missing values in the input data are now silently removed (#759,
+  \#763).
+
+- The plotting of residuals, component contributions and legend can now
+  be disabled, and the legend position can be controlled (#785).
+
+- The error computed when using option `fit.calcError = TRUE` is now
+  returned correctly, instead of being left to `NA` (#789).
+
+- Argument `bg.subtraction` also accepts the option `"none"` to disable
+  background subtraction even if `values.bg` is provided (#795).
+
+### `fit_SurfaceExposure()`
+
+- It is now possible to specify different values for the light
+  attenuation coefficient `mu` when a list of input data is provided
+  (#667).
+
+### `fit_ThermalQuenching()`
+
+- The `trace` option, which can be specified via the `method_control`
+  argument, is now respected.
+
+- The model now get internally reformulated into a mathematically
+  equivalent expression that is easier to fit. This should reduce the
+  number of occasions when the function fails to find a valid solution
+  and improve the uncertainty estimation (#696).
+
+### `get_RLum()`
+
+- The argument `subset` can now be provided as a character that
+  represents a logical expression. Before, it always required a logical
+  expression, but this may lead to odd effects due to the early
+  evaluation happening in R and might not be wanted. Providing `subset`
+  as a character is now a viable workaround in those situations.
+
+### `import_Data()`
+
+- The function uses the most common formats (BINX and XSYG) before
+  trying all others.
+
+### `merge_RLum.Data.Curve()`
+
+- The function does no longer stops for differing channel resolutions,
+  but it does issue a warning. The user is responsible for the
+  consequences.
+
+### `plot_DetPlot()`
+
+- The logic for multicore support was incorrect, which resulted in
+  always starting a parallel cluster even when `multicore = FALSE`
+  (#742).
+
+### `plot_DoseResponseCurve()`
+
+- The response curve always tries to the get the 0 point in the mode
+  `interpolation` and `alternate` (#677).
+
+- Minor graphical polish to limit overplotting and also plot a density
+  curve for the `L_n/T_n` signal.
+
+- If `mode = "alternate"`, the message that the equivalent dose could
+  not be fitted is no longer shown.
+
+- Argument `cex.global` has been removed and will be silently ignored
+  (#831).
+
+### `plot_DRCSummary()`
+
+- Add support for `fit.method = 'OTORX'` following the change in
+  `fit_DoseResponseCurve()` (#677).
+
+### `plot_DRTResults()`
+
+- The summary and legend texts now scale better at non-default cex
+  settings (#765).
+
+- Argument `given.dose` is better validated against misspecifications,
+  and setting it to 0 is equivalent to leaving it at its default `NULL`
+  value, which corresponds to avoiding data normalization (#767, \#799).
+
+- The function crashed when multiple inputs were used with
+  `boxplot = TRUE` and all preheat values were identical (#769).
+
+- Plot title, summary text and legend are now better positioned (#773,
+  \#774, \#781).
+
+- A bug in the way colours and symbols are assigned to plot points has
+  been fixed (#777).
+
+- The horizontal axis doesn’t include anymore a spurious extra tick that
+  didn’t correspond to any aliquot (#783).
+
+### `plot_GrowthCurve()`
+
+- Add support for `fit.method = 'OTORX'` following the change in
+  `fit_DoseResponseCurve()` (#677).
+
+- Argument `cex.global` has been removed and will be silently ignored
+  (#831).
+
+### `plot_Histogram()`
+
+- The function now doesn’t produce warnings when the input consists of a
+  single-column data frame, as it assumes that the De error is 10^-9
+  (#744).
+
+- The right margin is now smaller when errors are not plotted, as there
+  is no need to leave space for the standard error axis (#748).
+
+- The summary text now scales better at non-default cex settings (#750).
+
+### `plot_KDE()`
+
+- The function validates its input values more thoroughly (#635).
+
+- Setting `summary.pos` to one of “left”, “center” or “right” resulted
+  in the summary table not being visible (#642).
+
+- Argument `output` has been removed, and it will be ignored if set
+  (#700).
+
+### `plot_RadialPlot()`
+
+- The function validates its input values more thoroughly (#639).
+
+- The legend text now scales better at non-default cex settings (#746).
+
+### `plot_RLum.Data.Curve()`
+
+- We added comprehensive support for base R plotting arguments utilised
+  by `plot.default()` and `par()`. This enhancement ensures that all
+  available arguments are fully supported (#646).
+
+- The function gained a new logical argument named `auto_scale`. When
+  set in conjunction with either `xlim` or `ylim`, this argument
+  automatically adjusts the plot range to align with the corresponding
+  settings for `xlim` or `ylim`. For instance, if a user intends to plot
+  OSL curves but initially selects the `xlim` range `c(10:30)` to
+  examine the background, the initial count values may be excessively
+  large, resulting in limited visibility. With the introduction of the
+  `auto_scale` option, the `ylim` values are automatically adjusted to
+  compensate for this scenario. The `auto_scale` argument is also
+  accessible through `plot_RLum.Analysis()` and `plot_RLum()` (#646).
+
+### `plot_RLum.Data.Spectrum()`
+
+- The channel-wise background subtraction was essentially broken if a
+  background spectrum with the same setting was provided. The function
+  always calculated the arithmetic mean. This was fixed, and the manual
+  updated accordingly.
+
+- If a background spectrum was provided, the behaviour of the plot
+  output was sometimes hard to understand without knowledge of the
+  underlying code. This behaviour was improved and now `ylim` will also
+  affect the background spectrum if `bg.channels = NULL` (the default).
+
+- The function could crash if column names were missing and the
+  1bg.spectrum\` argument was used (#726).
+
+### `read_TIFF2R()`
+
+- The argument `file` can now be provided as a `list` or a character
+  vector.
+
+- The function gained a new logical argument called `merge2stack` that
+  can be used if `file` is either a `list` or a character vector of
+  length \> 1. If set to `TRUE`, images are combined into one image
+  stack.
+
+### `read_XSYG2R()`
+
+- A redundant computation has been removed, and the function is now
+  marginally faster on files where the detector is not a spectrometer
+  (#753).
+
+- Prepare import for an updated version of LexStudio2 (\>=v2.31.1) where
+  the horizontal hardware binning finally works after \>10 years, but
+  the changes introduce a lot of `NaN` values that would cause a crash
+  of the function.
+
+- Minor code refactoring for a small speed boost if spectrometer
+  measurements are imported.
+
+### `scale_GammaDose()`
+
+- Argument `plot_singlePanels` now works as documented, that is it
+  produces all plots in a single page when set to `FALSE` (default), and
+  one plot per page when set to `TRUE` (#698).
+
+### `sort_RLum()`
+
+- The sorting mechanism for `RLum.Analysis` objects has been enhanced.
+  It now enables sorting based on multiple parameters, including sorting
+  all available `info_elements` in a prioritised manner (#606, \#620).
+
+- Sorting now works on a list of `RLum.Analysis` objects. If the list
+  contains elements of a different type, they are passed through
+  unchanged. The output is again a list (#620).
+
+### `structure_RLum()`
+
+- The function now returns a less messy data frame because it
+  encapsulates `.pid` and `info` as lists within the data frame. The
+  function is primarily used internally to facilitate a rapid
+  exploration of `RLum.Analysis` object structures. However, the change
+  may potentially break existing code in extremely rare circumstances.
+
+### `template_DRAC()`
+
+- The function now throws messages instead of warnings for wanted
+  coercions; however, it will be hard on failed coercions that would
+  cause `use_DRAC()` to fail.
+
+### `use_DRAC()`
+
+- The function now checks for DRAC specific URL parts if a custom URL is
+  provided; this avoids long searches for unspecific errors.
+
+- Due to the internal masking of submitted values, the initial row order
+  got mixed up; regression from \#438. The order is maintained and the
+  row index corrected; in other words, the masking should now be again
+  invisible to the user.
+
+### `verify_SingleGrainData()`
+
+- The function crashed if an object originating from `read_XSYG2R()`
+  contained positions in its `info` field (#740).
+
+### `write_R2TIFF()`
+
+- The function now supports the export of more than one image slice.
+
+## Internals
+
+- The internal function `create_UID()` has undergone further
+  optimisation for speed, resulting in a significant performance
+  improvement. Additionally, it now generates a hash value with a
+  consistent length instead of a time stamp with a random number.
