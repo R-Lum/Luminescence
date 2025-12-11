@@ -1324,8 +1324,8 @@ if(is.list(object)){
   longest.label <- x[[1]][which.max(nchar(x[[1]]))]
   label.length <- nchar(longest.label)
   repeat {
-    if (strwidth(.shorten_filename(longest.label, label.length),
-                 cex = 0.9, units = "in") < avail.width)
+    if (graphics::strwidth(.shorten_filename(longest.label, label.length),
+                           cex = 0.9, units = "in") < avail.width)
       break
     label.length <- label.length - 1
   }
