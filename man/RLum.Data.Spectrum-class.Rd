@@ -57,5 +57,5 @@ plot_RLum(TL.Spectrum)
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{classes}

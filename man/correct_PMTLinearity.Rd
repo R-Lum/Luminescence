@@ -38,7 +38,12 @@ This function is an adaptation of core from the R package
 o <- set_RLum("RLum.Data.Curve")
 correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Mittelstrass, D., 2025. correct_PMTLinearity(): Dead-time (linearity) Correction for Photomultiplier tubes (PMT). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Hamamatsu Photonics K.K., 2017. Photomultiplier Tubes: Basics and Applications, 4th edition. ed. Hamamatsu.
 
@@ -48,5 +53,5 @@ component analysis for optically stimulated luminescence. \doi{10.32614/CRAN.pac
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Dirk Mittelstrass, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{manip}

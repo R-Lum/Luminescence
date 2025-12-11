@@ -158,7 +158,12 @@ FMM
 ## fitted components
 get_RLum(object = FMM, data.object = "components")
 
+} 
+
+\section{How to cite}{
+Burow, C., Colombo, M., 2025. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Galbraith, R.F. & Green, P.F., 1990. Estimating the component
 ages in a finite mixture. Nuclear Tracks and Radiation Measurements 17,
@@ -205,4 +210,4 @@ reproducible distribution?. Ancient TL 26, 3-10.
 Christoph Burow, University of Cologne (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2006.
-}
+, RLum Developer Team}

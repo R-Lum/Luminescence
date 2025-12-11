@@ -65,6 +65,6 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{classes}
 \keyword{methods}

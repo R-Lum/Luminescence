@@ -85,7 +85,12 @@ object2 <- CWOSL.SAR.Data
 
 object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2025. merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, Aberystwyth.
 }
@@ -94,6 +99,6 @@ Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, A
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{IO}
 \keyword{manip}
