@@ -44,8 +44,7 @@ test_that("input validation", {
                fixed = TRUE)
 })
 
-##Full check
-test_that("Test DRAC", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
  ##use manual example
@@ -129,4 +128,19 @@ test_that("Test DRAC", {
   expect_error(use_DRAC(t),
                "Transmission failed with HTTP status code: 313")
  })
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  ## communicate with insufficient input
+  t <- template_DRAC(preset = "DRAC-example_quartz", notification = FALSE)
+  t[52] <- 0.0
+  local_mocked_bindings(readline = function(prompt) "Y")
+  set.seed(1)
+  SW({
+  expect_snapshot_output(expect_error(
+      use_DRAC(t),
+      "The response from the server did not contain DRAC output"))
+  })
 })
