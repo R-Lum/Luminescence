@@ -1,2 +1,2 @@
-PKG_CPPFLAGS=-I../inst/include -DARMA_USE_CURRENT
+PKG_CPPFLAGS=-include ../inst/include/RLum_Rf_rnbeta.h -I../inst/include -DARMA_USE_CURRENT
 CXX_STD = CXX17
