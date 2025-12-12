@@ -157,7 +157,7 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSXG file are skipped.
 #'
-#' @section Function version: 0.7.1
+#' @section Function version: 0.8.0
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -453,6 +453,9 @@ read_XSYG2R <- function(
           recordType  <- "IRSL"
       }
 
+      ## get all record attributes
+      attrs_record <- XML::xmlAttrs(record)
+
       ## loop 3rd level
       lapply(1:xml.size, function(j) {
         curve <- record[[j]]
@@ -464,10 +467,15 @@ read_XSYG2R <- function(
           ##get detector
           temp.sequence.object.detector <- as.character(attrs["detector"])
 
+          ## combine attributes
+          attrs_comb <- as.list(c(attrs, attrs_record))
+          attrs_comb <- attrs_comb[!duplicated(names(attrs_comb))]
+
           ##get additional information
-          temp.sequence.object.info <- c(as.list(attrs),
-                                         position = as.integer(as.character(sequence.header["position", ])),
-                                         name = as.character(sequence.header["name", ]))
+          temp.sequence.object.info <- c(
+            attrs_comb,
+            position = as.integer(as.character(sequence.header["position", ])),
+            name = as.character(sequence.header["name", ]))
 
           ## TL curve recalculation ============================================
           if(recalculate.TL.curves){

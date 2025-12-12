@@ -18,5 +18,9 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `read_XSYG2R()`
+
+* Attributes from the record level are now all included in the `@info` slot, as 
+long as they are not duplicated. Hence then can be used to further filter the curves. 
 
 ## Other changes
