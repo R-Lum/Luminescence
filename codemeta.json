@@ -4,16 +4,16 @@
   "identifier": "Luminescence",
   "description": "A collection of various R functions for the purpose of Luminescence dating data analysis. This includes, amongst others, data import, export, application of age models, curve deconvolution, sequence analysis and plotting of equivalent dose distributions.",
   "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
-  "codeRepository": "https://github.com/mcol/Luminescence",
+  "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -157,7 +157,7 @@
     {
       "@type": "Person",
       "givenName": "Guillaume",
-      "familyName": "Guerin",
+      "familyName": "Guérin",
       "@id": "https://orcid.org/0000-0001-6298-5579"
     },
     {
@@ -394,7 +394,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 4.3"
+      "version": ">= 4.4"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -569,7 +569,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "12340.218KB",
+  "fileSize": "7566.187KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -680,7 +680,7 @@
       ],
       "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
       "url": "https://r-lum.github.io/Luminescence/",
-      "description": "R package version 1.0.0"
+      "description": "R package version 1.1.2"
     },
     {
       "@type": "ScholarlyArticle",
@@ -1151,7 +1151,8 @@
     }
   ],
   "relatedLink": ["https://r-lum.github.io/Luminescence/", "https://CRAN.R-project.org/package=Luminescence"],
-  "releaseNotes": "https://github.com/mcol/Luminescence/blob/master/NEWS.md",
+  "releaseNotes": "https://github.com/R-Lum/Luminescence/blob/main/NEWS.md",
+  "readme": "https://github.com/R-Lum/Luminescence/blob/master/README.md",
   "contIntegration": ["https://github.com/R-Lum/Luminescence/actions", "https://app.codecov.io/github/R-Lum/Luminescence?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active"
 }
