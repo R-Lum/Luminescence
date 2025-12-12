@@ -1,0 +1,119 @@
+# Trim Channels of RLum.Data-class Objects
+
+Trim off the number of channels of
+[RLum.Data](https://r-lum.github.io/Luminescence/reference/RLum.Data-class.md)
+objects of similar record type on the time domain. This function is
+useful in cases where objects have different lengths (short/longer
+measurement time) but should be analysed jointly by other functions.
+
+## Usage
+
+``` r
+trim_RLum.Data(object, recordType = NULL, trim_range = NULL)
+```
+
+## Arguments
+
+- object:
+
+  [RLum.Data](https://r-lum.github.io/Luminescence/reference/RLum.Data-class.md)
+  [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+  (**required**): input object, can be a
+  [list](https://rdrr.io/r/base/list.html) of objects. Please note that
+  in the latter case the function works only isolated on each element of
+  the [list](https://rdrr.io/r/base/list.html).
+
+- recordType:
+
+  [character](https://rdrr.io/r/base/character.html) (*optional*): type
+  of the record where the trim should be applied. If not set, the types
+  are determined automatically and applied for each record type classes.
+  Can be provided as [list](https://rdrr.io/r/base/list.html).
+
+- trim_range:
+
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): sets the
+  range of indices to keep. If only one value is given, this is taken to
+  be the minimum; if two values are given, then the range is defined
+  between the two values (inclusive). Any value beyond the second is
+  silently ignored. If nothing is set (default), then all curves are
+  trimmed to the same maximum length.
+
+## Value
+
+A trimmed object or [list](https://rdrr.io/r/base/list.html) of such
+objects similar to the input objects
+
+## Details
+
+The function has two modes of operation:
+
+1.  Single
+    [RLum.Data](https://r-lum.github.io/Luminescence/reference/RLum.Data-class.md)
+    objects or a [list](https://rdrr.io/r/base/list.html) of such
+    objects: the function is applied separately over each object.
+
+2.  Multiple curves via
+    [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+    or a [list](https://rdrr.io/r/base/list.html) of such objects: in
+    this mode, the function first determines the minimum number of
+    channels for each category of records and then jointly processes
+    them. For instance, if the object contains one TL curve with 100
+    channels and two OSL curves with 100 and 99 channels, respectively,
+    then the minimum would be set to 100 channels for the TL curve and
+    to 99 for the OSL curves. If no further parameters are applied, the
+    function will shorten all OSL curves to 99 channels, but leave the
+    TL curve untouched.
+
+## Function version
+
+0.2
+
+## See also
+
+[RLum.Data](https://r-lum.github.io/Luminescence/reference/RLum.Data-class.md),
+[RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+
+## Author
+
+Sebastian Kreutzer, Institute of Geography, Heidelberg University
+(Germany) , RLum Developer Team
+
+## How to cite
+
+Kreutzer, S., 2025. trim_RLum.Data(): Trim Channels of RLum.Data-class
+Objects. Function version 0.2. In: Kreutzer, S., Burow, C., Dietze, M.,
+Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
+Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.1.2. https://r-lum.github.io/Luminescence/
+
+## Examples
+
+``` r
+## trim all TL curves in the object to channels 10 to 20
+data(ExampleData.BINfileData, envir = environment())
+temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
+
+c <- trim_RLum.Data(
+object = temp,
+recordType = "TL",
+trim_range = c(10,20))
+
+plot_RLum.Analysis(
+object = c,
+combine = TRUE,
+subset = list(recordType = "TL"))
+
+
+## simulate a situation where one OSL curve
+## in the dataset has only 999 channels instead of 1000
+## all curves should be limited to 999
+temp@records[[2]]@data <- temp@records[[2]]@data[-nrow(temp[[2]]@data),]
+
+c <- trim_RLum.Data(object = temp)
+nrow(c@records[[4]]@data)
+#> [1] 999
+
+```

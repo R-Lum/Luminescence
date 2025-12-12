@@ -9,7 +9,7 @@ object, including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ object, including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR CW-OSL Measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
@@ -223,8 +223,8 @@ background counts and the dose points</p></dd>
     <p>The function performs an analysis for a standard SAR protocol measurements
 introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 calculation of the <code>Lx/Tx</code> value the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a> is
-used. To <strong>change the way the Lx/Tx error is calculated</strong> use the arguments
-<code>background.count.distribution</code> and <code>sigmab</code>, which will be passed to the function
+used. To <strong>change the way the Lx/Tx error is calculated</strong> use arguments
+<code>background.count.distribution</code> and <code>sigmab</code>, which will be passed to
 <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>.</p>
 <p><strong>What is part of a SAR sequence?</strong></p>
 <p>The function is rather picky when it comes down to accepted curve input
@@ -239,8 +239,8 @@ indicates the duration of the irradiation, the dose and test dose points,
 e.g., as part of XSYG files.</p>
 <p><strong>Argument <code>object</code> is of type <code>list</code></strong></p>
 <p>If the argument <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> containing <strong>only</strong>
-<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects, the function re-calls itself as often as elements
-are in the list. This is useful if an entire measurement wanted to be analysed without
+<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects, the function re-calls itself on each element
+in the list. This is useful if to analyse an entire measurement without
 writing separate for-loops. To gain in full control of the parameters (e.g., <code>dose.points</code>) for
 every aliquot (corresponding to one <a href="RLum.Analysis-class.html">RLum.Analysis</a> object in the list), in
 this case the arguments can be provided as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>. This <code>list</code> should
@@ -286,11 +286,11 @@ function does <strong>not</strong> overwrite values preset in <code>IRR_TIME</co
 </ol></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.11.0</p>
+    <p>0.11.1</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.11.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.11.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -356,9 +356,9 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot  .De.raw</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EXP interpolation 1611.046  1708.69 1570.575 1763.294 1668.251 1668.251</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RC.Status signal.range background.range signal.range.Tx background.range.Tx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        OK        1 : 2       900 : 1000         NA : NA             NA : NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        OK          1:2         900:1000           NA:NA               NA:NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ALQ POS GRAIN              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   1     0 462fb781923b40c9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   1     0 5708d0a6ba7b4f22</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -379,13 +379,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976 1.61426805 0.027647946        -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190 0.01629624 0.002491179        -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 462fb781923b40c9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 462fb781923b40c9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 462fb781923b40c9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 462fb781923b40c9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 462fb781923b40c9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 462fb781923b40c9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 462fb781923b40c9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 5708d0a6ba7b4f22</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Run example with special case for</span></span></span>
 <span class="r-in"><span><span class="co">## the OTORX fit</span></span></span>
@@ -412,7 +412,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

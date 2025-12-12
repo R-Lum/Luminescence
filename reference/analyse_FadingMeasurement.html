@@ -15,7 +15,7 @@ Kars et al. (2008)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ Kars et al. (2008)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse fading measurements and returns the fading rate per decade (g-value)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/analyse_FadingMeasurement.R" class="external-link"><code>R/analyse_FadingMeasurement.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_FadingMeasurement.R" class="external-link"><code>R/analyse_FadingMeasurement.R</code></a></small>
       <div class="d-none name"><code>analyse_FadingMeasurement.Rd</code></div>
     </div>
 
@@ -53,8 +53,8 @@ Kars et al. (2008).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_FadingMeasurement</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lx"</span>, <span class="st">"Tx"</span><span class="op">)</span>,</span>
-<span>  <span class="va">signal.integral</span>,</span>
-<span>  <span class="va">background.integral</span>,</span>
+<span>  signal.integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background.integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  t_star <span class="op">=</span> <span class="st">"half"</span>,</span>
 <span>  n.MC <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -69,20 +69,21 @@ Kars et al. (2008).</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
-input object with the measurement data. Alternatively, a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> containing <a href="RLum.Analysis-class.html">RLum.Analysis</a>
-objects or a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with three columns
+<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<strong>required</strong>):
+input object with the measurement data. Alternatively, a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> containing
+<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects or a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-Can also be a wide table, i.e. a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with a number of columns divisible by 3
-and where each triplet has the before mentioned column structure.</p>
+Can also be a wide table, i.e. a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with a number of columns
+divisible by 3 and where each triplet has the before mentioned column
+structure.</p>
 <p><strong>Please note: The input object should solely consists of the curve needed
 for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
 the object originated from an XSYG file, also the irradiation steps must
 be preserved in the input object.</strong></p>
-<p>If data from multiple aliquots are provided please <strong>see the details below</strong> with regard to
-Lx/Tx normalisation. <strong>The function assumes that all your measurements are related to
-one (comparable) sample. If you have to treat independent samples, you have use this function
-in a loop.</strong></p></dd>
+<p>If data from multiple aliquots are provided please <strong>see the details below</strong>
+with regard to Lx/Tx normalisation. <strong>The function assumes that all your
+measurements are related to one (comparable) sample. If you have to treat
+independent samples, you have use this function in a loop.</strong></p></dd>
 
 
 <dt id="arg-structure">structure<a class="anchor" aria-label="anchor" href="#arg-structure"></a></dt>
@@ -91,20 +92,23 @@ the structure of the measurement data, one of <code>'Lx'</code> or <code>c('Lx',
 
 
 <dt id="arg-signal-integral">signal.integral<a class="anchor" aria-label="anchor" href="#arg-signal-integral"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>): vector with channels for the signal integral
-(e.g., <code>c(1:10)</code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
+vector with channels for the signal integral (e.g., <code>1:10</code>). It is not
+required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
 
 
 <dt id="arg-background-integral">background.integral<a class="anchor" aria-label="anchor" href="#arg-background-integral"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>): vector with channels for the background integral
-(e.g., <code>c(90:100)</code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
+vector with channels for the background integral (e.g., <code>90:100</code>). It is not
+required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
 
 
 <dt id="arg-t-star">t_star<a class="anchor" aria-label="anchor" href="#arg-t-star"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-method for calculating the time elapsed since irradiation if input is <strong>not</strong> a <code>data.frame</code>.
-Options are: <code>'half'</code> (the default), <code>'half_complex</code>, which uses the long equation in Auclair et al. 2003, and
-and <code>'end'</code>, which takes the time between irradiation and the measurement step.
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, <a href="https://rdrr.io/r/base/function.html" class="external-link">function</a> (<em>with default</em>):
+method for calculating the time elapsed since irradiation if input is
+<strong>not</strong> a <code>data.frame</code>. Options are: <code>'half'</code> (the default), <code>'half_complex</code>,
+which uses the long equation in Auclair et al. 2003, and <code>'end'</code>, which
+takes the time between irradiation and the measurement step.
 Alternatively, <code>t_star</code> can be a function with one parameter which works on <code>t1</code>.
 For more information see details. <br></p>
 <p><em><code>t_star</code> has no effect if the input is a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, because this input comes
@@ -127,7 +131,7 @@ enable/disable the plot output.</p></dd>
 
 
 <dt id="arg-plot-singlepanels">plot_singlePanels<a class="anchor" aria-label="anchor" href="#arg-plot-singlepanels"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>) or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 enable/disable single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
 <code>plot_singlePanels = c(3,4)</code> draws only the last two plots in separate
@@ -135,11 +139,11 @@ windows.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>(<em>optional</em>) further arguments that can be passed to internally used functions. Supported arguments:
-<code>xlab</code>, <code>log</code>, <code>mtext</code>, <code>plot.trend</code> (enable/disable trend blue line), and <code>xlim</code> for the
-two first curve plots, and <code>ylim</code> for the fading
-curve plot. For further plot customization please use the numerical output of the functions for
-own plots.</p></dd>
+<dd><p>further arguments that can be passed to internally used functions.
+Supported arguments: <code>xlab</code>, <code>log</code>, <code>mtext</code>, <code>plot.trend</code> (enable/disable
+trend blue line), and <code>xlim</code> for the two first curve plots, and <code>ylim</code> for
+the fading curve plot. For further plot customization please use the
+numerical output of the functions for own plots.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -150,9 +154,10 @@ own plots.</p></dd>
 <table class="table table"><tr><td><strong>OBJECT</strong></td><td><code>TYPE</code></td><td><code>COMMENT</code></td></tr><tr><td><code>call</code></td><td><code>call</code></td><td>the original function call</td></tr></table></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>All provided output corresponds to the \(tc\) value obtained by this analysis. Additionally
-in the output object the g-value normalised to 2-days is provided. The output of this function
-can be passed to the function <a href="calc_FadingCorr.html">calc_FadingCorr</a>.</p>
+    <p>All provided output corresponds to the \(tc\) value obtained by this
+analysis. Additionally, the g-value normalised to 2-days is provided in the
+output object. The output of this function can be passed to the function
+<a href="calc_FadingCorr.html">calc_FadingCorr</a>.</p>
 <p><strong>Fitting and error estimation</strong></p>
 <p>For the fitting the function <a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm</a> is used without applying weights. For the
 error estimation all input values, except <code>tc</code>, as the precision can be considered as sufficiently
@@ -181,13 +186,14 @@ by fitting equation 5 in Kars et al. (2008) to the data. For the fitting the fun
 <a href="https://rdrr.io/r/stats/nls.html" class="external-link">stats::nls</a> is used without applying weights. For the error estimation the same
 procedure as for the g-value is applied (see above).</p>
 <p><strong>Multiple aliquots &amp; Lx/Tx normalisation</strong></p>
-<p>Be aware that this function will always normalise all \(\frac{L_x}{T_x}\) values
-by the \(\frac{L_x}{T_x}\) value of the
-prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
+<p>Be aware that this function will always normalise all \(\frac{L_x}{T_x}\)
+values by the \(\frac{L_x}{T_x}\) value of the prompt measurement of the
+first aliquot. This implicitly assumes that there are no systematic
 inter-aliquot variations in the \(\frac{L_x}{T_x}\) values.
 If deemed necessary to normalise the \(\frac{L_x}{T_x}\) values  of each
 aliquot by its individual prompt measurement please do so <strong>before</strong> running
-analyse_FadingMeasurement and provide the already normalised values for <code>object</code> instead.</p>
+analyse_FadingMeasurement and provide the already normalised values for
+<code>object</code> instead.</p>
 <p><strong>Shine-down curve plots</strong>
 Please note that the shine-down curve plots are for information only. As such
 a maximum of five pause steps are plotted to avoid graphically overloaded plots.
@@ -195,11 +201,11 @@ However, <em>all</em> pause times are taken into consideration for the analysis.
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.23</p>
+    <p>0.1.25</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Burow, C., 2025. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.23. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Burow, C., 2025. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.25. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -292,7 +298,7 @@ Christoph Burow, University of Cologne (Germany)
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

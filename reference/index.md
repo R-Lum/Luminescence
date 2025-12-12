@@ -1,0 +1,527 @@
+# Package index
+
+## All functions
+
+- [`BaseDataSet`](https://r-lum.github.io/Luminescence/reference/BaseDataSet.md)
+  [`BaseDataSet.ConversionFactors`](https://r-lum.github.io/Luminescence/reference/BaseDataSet.md)
+  [`BaseDataSet.GrainSizeAttenuation`](https://r-lum.github.io/Luminescence/reference/BaseDataSet.md)
+  [`BaseDataSet.FractionalGammaDose`](https://r-lum.github.io/Luminescence/reference/BaseDataSet.md)
+  : Base datasets
+
+- [`ExampleData.CobbleData`](https://r-lum.github.io/Luminescence/reference/ExampleData.CobbleData.md)
+  : Example data for calc_CobbleDoseRate()
+
+- [`ExampleData.DeValues`](https://r-lum.github.io/Luminescence/reference/ExampleData.DeValues.md)
+  : Example De data sets for the package Luminescence
+
+- [`ExampleData.Fading`](https://r-lum.github.io/Luminescence/reference/ExampleData.Fading.md)
+  : Example data for feldspar fading measurements
+
+- [`ExampleData.RLum.Data.Image`](https://r-lum.github.io/Luminescence/reference/ExampleData.RLum.Data.Image.md)
+  : Example data as RLum.Data.Image objects
+
+- [`ExampleData`](https://r-lum.github.io/Luminescence/reference/ExampleData.md)
+  : All examples
+
+- [`ExampleData.ScaleGammaDose`](https://r-lum.github.io/Luminescence/reference/ExampleData.ScaleGammaDose.md)
+  : Example data for scale_GammaDose()
+
+- [`ExampleData.SurfaceExposure`](https://r-lum.github.io/Luminescence/reference/ExampleData.SurfaceExposure.md)
+  : Example OSL surface exposure dating data
+
+- [`ExampleData.TR_OSL`](https://r-lum.github.io/Luminescence/reference/ExampleData.TR_OSL.md)
+  : Example TR-OSL data
+
+- [`ExampleData.portableOSL`](https://r-lum.github.io/Luminescence/reference/ExampleData.portableOSL.md)
+  : Example portable OSL curve data for the package Luminescence
+
+- [`github_commits()`](https://r-lum.github.io/Luminescence/reference/GitHub-API.md)
+  [`github_branches()`](https://r-lum.github.io/Luminescence/reference/GitHub-API.md)
+  [`github_issues()`](https://r-lum.github.io/Luminescence/reference/GitHub-API.md)
+  : GitHub API - Deprecated
+
+- [`Luminescence-package`](https://r-lum.github.io/Luminescence/reference/Luminescence-package.md)
+  [`Luminescence`](https://r-lum.github.io/Luminescence/reference/Luminescence-package.md)
+  :
+
+  Comprehensive Luminescence Dating Data Analysis  
+  ![r-luminescence.org](figures/Luminescence_logo.png)
+
+- [`RLum-class`](https://r-lum.github.io/Luminescence/reference/RLum-class.md)
+  :
+
+  Class `"RLum"`
+
+- [`RLum.Analysis-class`](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+  :
+
+  Class `"RLum.Analysis"`
+
+- [`RLum.Data.Curve-class`](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+  :
+
+  Class `"RLum.Data.Curve"`
+
+- [`RLum.Data.Image-class`](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)
+  :
+
+  Class `"RLum.Data.Image"`
+
+- [`RLum.Data.Spectrum-class`](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md)
+  :
+
+  Class `"RLum.Data.Spectrum"`
+
+- [`RLum.Results-class`](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+  :
+
+  Class `"RLum.Results"`
+
+- [`set_Risoe.BINfileData(`*`<ANY>`*`)`](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
+  :
+
+  Class `"Risoe.BINfileData"`
+
+- [`Risoe.BINfileData2RLum.Analysis()`](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData2RLum.Analysis.md)
+  : Convert Risoe.BINfileData object to an RLum.Analysis object
+
+- [`analyse_Al2O3C_CrossTalk()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_CrossTalk.md)
+  : Al2O3:C Reader Cross-Talk Analysis
+
+- [`analyse_Al2O3C_ITC()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_ITC.md)
+  : Al2O3 Irradiation Time Correction Analysis
+
+- [`analyse_Al2O3C_Measurement()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_Measurement.md)
+  : Al2O3:C Passive Dosimeter Measurement Analysis
+
+- [`analyse_FadingMeasurement()`](https://r-lum.github.io/Luminescence/reference/analyse_FadingMeasurement.md)
+  : Analyse fading measurements and returns the fading rate per decade
+  (g-value)
+
+- [`analyse_IRSAR.RF()`](https://r-lum.github.io/Luminescence/reference/analyse_IRSAR.RF.md)
+  : Analyse IRSAR RF measurements
+
+- [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
+  : Analyse SAR CW-OSL Measurements
+
+- [`analyse_SAR.TL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.TL.md)
+  : Analyse SAR TL measurements
+
+- [`analyse_baSAR()`](https://r-lum.github.io/Luminescence/reference/analyse_baSAR.md)
+  : Bayesian models (baSAR) applied on luminescence data
+
+- [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)
+  : Analyse post-IR IRSL measurement sequences
+
+- [`analyse_portableOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_portableOSL.md)
+  : Analyse portable CW-OSL measurements
+
+- [`apply_CosmicRayRemoval()`](https://r-lum.github.io/Luminescence/reference/apply_CosmicRayRemoval.md)
+  : Cosmic-ray removal and spectrum smoothing for RLum.Data.Spectrum
+  objects
+
+- [`apply_Crosstalk()`](https://r-lum.github.io/Luminescence/reference/apply_Crosstalk.md)
+  : Apply crosstalk
+
+- [`apply_EfficiencyCorrection()`](https://r-lum.github.io/Luminescence/reference/apply_EfficiencyCorrection.md)
+  : Function to apply spectral efficiency correction to
+  RLum.Data.Spectrum S4 class objects
+
+- [`as`](https://r-lum.github.io/Luminescence/reference/as.md) : as() -
+  RLum-object coercion
+
+- [`bin_RLum.Data()`](https://r-lum.github.io/Luminescence/reference/bin_RLum.Data.md)
+  : Channel binning for RLum.Data-class objects
+
+- [`calc_AliquotSize()`](https://r-lum.github.io/Luminescence/reference/calc_AliquotSize.md)
+  : Estimate the amount of grains on an aliquot
+
+- [`calc_AverageDose()`](https://r-lum.github.io/Luminescence/reference/calc_AverageDose.md)
+  : Calculate the Average Dose and the dose rate dispersion
+
+- [`calc_CentralDose()`](https://r-lum.github.io/Luminescence/reference/calc_CentralDose.md)
+  : Apply the central age model (CAM) after Galbraith et al. (1999) to a
+  given De distribution
+
+- [`calc_CobbleDoseRate()`](https://r-lum.github.io/Luminescence/reference/calc_CobbleDoseRate.md)
+  : Calculate dose rate of slices in a spherical cobble
+
+- [`calc_CommonDose()`](https://r-lum.github.io/Luminescence/reference/calc_CommonDose.md)
+  : Apply the (un-)logged common age model after Galbraith et al. (1999)
+  to a given De distribution
+
+- [`calc_CosmicDoseRate()`](https://r-lum.github.io/Luminescence/reference/calc_CosmicDoseRate.md)
+  : Calculate the cosmic dose rate
+
+- [`calc_EED_Model()`](https://r-lum.github.io/Luminescence/reference/calc_EED_Model.md)
+  : Modelling Exponential Exposure Distribution
+
+- [`calc_FadingCorr()`](https://r-lum.github.io/Luminescence/reference/calc_FadingCorr.md)
+  : Fading Correction after Huntley & Lamothe (2001)
+
+- [`calc_FastRatio()`](https://r-lum.github.io/Luminescence/reference/calc_FastRatio.md)
+  : Calculate the Fast Ratio for CW-OSL curves
+
+- [`calc_FiniteMixture()`](https://r-lum.github.io/Luminescence/reference/calc_FiniteMixture.md)
+  : Apply the finite mixture model (FMM) after Galbraith (2005) to a
+  given De distribution
+
+- [`calc_FuchsLang2001()`](https://r-lum.github.io/Luminescence/reference/calc_FuchsLang2001.md)
+  : Apply the model after Fuchs & Lang (2001) to a given De distribution
+
+- [`calc_HomogeneityTest()`](https://r-lum.github.io/Luminescence/reference/calc_HomogeneityTest.md)
+  : Apply a simple homogeneity test after Galbraith (2003)
+
+- [`calc_Huntley2006()`](https://r-lum.github.io/Luminescence/reference/calc_Huntley2006.md)
+  : Apply the Huntley (2006) model
+
+- [`calc_IEU()`](https://r-lum.github.io/Luminescence/reference/calc_IEU.md)
+  : Apply the internal-external-uncertainty (IEU) model after Thomsen et
+  al. (2007) to a given De distribution
+
+- [`calc_Lamothe2003()`](https://r-lum.github.io/Luminescence/reference/calc_Lamothe2003.md)
+  : Apply fading correction after Lamothe et al., 2003
+
+- [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md)
+  : Apply the maximum age model to a given De distribution
+
+- [`calc_MinDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
+  : (Un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+
+- [`calc_MoransI()`](https://r-lum.github.io/Luminescence/reference/calc_MoransI.md)
+  : Calculate Moran's I
+
+- [`calc_OSLLxTxDecomposed()`](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxDecomposed.md)
+  : Calculate Lx/Tx ratio for decomposed CW-OSL signal components
+
+- [`calc_OSLLxTxRatio()`](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
+  :
+
+  Calculate `Lx/Tx` ratio for CW-OSL curves
+
+- [`calc_SourceDoseRate()`](https://r-lum.github.io/Luminescence/reference/calc_SourceDoseRate.md)
+  : Calculation of the source dose rate via the date of measurement
+
+- [`calc_Statistics()`](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
+  : Function to calculate statistic measures
+
+- [`calc_TLLxTxRatio()`](https://r-lum.github.io/Luminescence/reference/calc_TLLxTxRatio.md)
+  : Calculate the Lx/Tx ratio for a given set of TL curves -beta
+  version-
+
+- [`calc_ThermalLifetime()`](https://r-lum.github.io/Luminescence/reference/calc_ThermalLifetime.md)
+  : Calculates the Thermal Lifetime using the Arrhenius equation
+
+- [`calc_WodaFuchs2008()`](https://r-lum.github.io/Luminescence/reference/calc_WodaFuchs2008.md)
+  : Obtain the equivalent dose using the approach by Woda and Fuchs 2008
+
+- [`calc_gSGC()`](https://r-lum.github.io/Luminescence/reference/calc_gSGC.md)
+  : Calculate De value based on the gSGC by Li et al., 2015
+
+- [`calc_gSGC_feldspar()`](https://r-lum.github.io/Luminescence/reference/calc_gSGC_feldspar.md)
+  : Calculate Global Standardised Growth Curve (gSGC) for Feldspar
+  MET-pIRIR
+
+- [`combine_De_Dr()`](https://r-lum.github.io/Luminescence/reference/combine_De_Dr.md)
+  : Combine Dose Rate and Equivalent Dose Distribution
+
+- [`convert_Activity2Concentration()`](https://r-lum.github.io/Luminescence/reference/convert_Activity2Concentration.md)
+  : Convert Nuclide Activities to Abundance and Vice Versa
+
+- [`convert_BIN2CSV()`](https://r-lum.github.io/Luminescence/reference/convert_BIN2CSV.md)
+  : Export Risoe BIN-file(s) to CSV-files
+
+- [`convert_CW2pHMi()`](https://r-lum.github.io/Luminescence/reference/convert_CW2pHMi.md)
+  : Transform a CW-OSL curve into a pHM-OSL curve via interpolation
+  under hyperbolic modulation conditions
+
+- [`convert_CW2pLM()`](https://r-lum.github.io/Luminescence/reference/convert_CW2pLM.md)
+  : Transform a CW-OSL curve into a pLM-OSL curve
+
+- [`convert_CW2pLMi()`](https://r-lum.github.io/Luminescence/reference/convert_CW2pLMi.md)
+  : Transform a CW-OSL curve into a pLM-OSL curve via interpolation
+  under linear modulation conditions
+
+- [`convert_CW2pPMi()`](https://r-lum.github.io/Luminescence/reference/convert_CW2pPMi.md)
+  : Transform a CW-OSL curve into a pPM-OSL curve via interpolation
+  under parabolic modulation conditions
+
+- [`convert_Concentration2DoseRate()`](https://r-lum.github.io/Luminescence/reference/convert_Concentration2DoseRate.md)
+  : Dose-rate conversion function
+
+- [`convert_Daybreak2CSV()`](https://r-lum.github.io/Luminescence/reference/convert_Daybreak2CSV.md)
+  : Export measurement data produced by a Daybreak luminescence reader
+  to CSV-files
+
+- [`convert_PSL2CSV()`](https://r-lum.github.io/Luminescence/reference/convert_PSL2CSV.md)
+  : Export PSL-file(s) to CSV-files
+
+- [`convert_PSL2Risoe.BINfileData()`](https://r-lum.github.io/Luminescence/reference/convert_PSL2Risoe.BINfileData.md)
+  : Convert portable OSL data to a Risoe.BINfileData object
+
+- [`convert_RLum2Risoe.BINfileData()`](https://r-lum.github.io/Luminescence/reference/convert_RLum2Risoe.BINfileData.md)
+  : Converts RLum.Analysis and RLum.Data.Curve objects to
+  RLum2Risoe.BINfileData objects
+
+- [`convert_SG2MG()`](https://r-lum.github.io/Luminescence/reference/convert_SG2MG.md)
+  : Converts Single-Grain Data to Multiple-Grain Data
+
+- [`convert_Second2Gray()`](https://r-lum.github.io/Luminescence/reference/convert_Second2Gray.md)
+  : Converting equivalent dose values from seconds (s) to Gray (Gy)
+
+- [`convert_Wavelength2Energy()`](https://r-lum.github.io/Luminescence/reference/convert_Wavelength2Energy.md)
+  : Emission Spectra Conversion from Wavelength to Energy Scales
+  (Jacobian Conversion)
+
+- [`convert_XSYG2CSV()`](https://r-lum.github.io/Luminescence/reference/convert_XSYG2CSV.md)
+  : Export XSYG-file(s) to CSV-files
+
+- [`correct_PMTLinearity()`](https://r-lum.github.io/Luminescence/reference/correct_PMTLinearity.md)
+  : Dead-time (linearity) Correction for Photomultiplier tubes (PMT)
+
+- [`extdata`](https://r-lum.github.io/Luminescence/reference/extdata.md)
+  : Collection of External Data
+
+- [`extract_IrradiationTimes()`](https://r-lum.github.io/Luminescence/reference/extract_IrradiationTimes.md)
+  :
+
+  Extract Irradiation Times from an XSYG-file or `RLum.Analysis` object
+
+- [`extract_ROI()`](https://r-lum.github.io/Luminescence/reference/extract_ROI.md)
+  : Extract Pixel Values through Circular Region-of-Interests (ROI) from
+  an Image
+
+- [`fit_CWCurve()`](https://r-lum.github.io/Luminescence/reference/fit_CWCurve.md)
+  : Nonlinear Least Squares Fit for CW-OSL curves -beta version-
+
+- [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
+  : Fit a dose-response curve for luminescence data (Lx/Tx against dose)
+
+- [`fit_EmissionSpectra()`](https://r-lum.github.io/Luminescence/reference/fit_EmissionSpectra.md)
+  : Luminescence Emission Spectra Deconvolution
+
+- [`fit_LMCurve()`](https://r-lum.github.io/Luminescence/reference/fit_LMCurve.md)
+  : Non-linear Least Squares Fit for LM-OSL curves
+
+- [`fit_OSLLifeTimes()`](https://r-lum.github.io/Luminescence/reference/fit_OSLLifeTimes.md)
+  : Fitting and Deconvolution of OSL Lifetime Components
+
+- [`fit_SurfaceExposure()`](https://r-lum.github.io/Luminescence/reference/fit_SurfaceExposure.md)
+  : Nonlinear Least Squares Fit for OSL surface exposure data
+
+- [`fit_ThermalQuenching()`](https://r-lum.github.io/Luminescence/reference/fit_ThermalQuenching.md)
+  : Fitting Thermal Quenching Data
+
+- [`get_Layout()`](https://r-lum.github.io/Luminescence/reference/get_Layout.md)
+  : Collection of layout definitions
+
+- [`get_RLum()`](https://r-lum.github.io/Luminescence/reference/get_RLum.md)
+  : General accessor function for RLum-class objects
+
+- [`get_rightAnswer()`](https://r-lum.github.io/Luminescence/reference/get_rightAnswer.md)
+  : Function to get the right answer
+
+- [`import_Data()`](https://r-lum.github.io/Luminescence/reference/import_Data.md)
+  : Import Luminescence Data into R
+
+- [`install_DevelopmentVersion()`](https://r-lum.github.io/Luminescence/reference/install_DevelopmentVersion.md)
+  : Attempts to install the development version of the 'Luminescence'
+  package
+
+- [`length_RLum()`](https://r-lum.github.io/Luminescence/reference/length_RLum.md)
+  : Length retrieval function for RLum-class objects
+
+- [`melt_RLum()`](https://r-lum.github.io/Luminescence/reference/melt_RLum.md)
+  : Melt RLum-class objects into a flat data.frame
+
+- [`merge_RLum()`](https://r-lum.github.io/Luminescence/reference/merge_RLum.md)
+  : General merge function for RLum-class objects
+
+- [`merge_Risoe.BINfileData()`](https://r-lum.github.io/Luminescence/reference/merge_Risoe.BINfileData.md)
+  : Merge Risoe.BINfileData objects or Risoe BIN-files
+
+- [`` `add_metadata<-`() ``](https://r-lum.github.io/Luminescence/reference/metadata.md)
+  [`` `rename_metadata<-`() ``](https://r-lum.github.io/Luminescence/reference/metadata.md)
+  [`` `replace_metadata<-`() ``](https://r-lum.github.io/Luminescence/reference/metadata.md)
+  : Safe manipulation of object metadata
+
+- [`names_RLum()`](https://r-lum.github.io/Luminescence/reference/names_RLum.md)
+  : Name retrieval function for RLum-class objects
+
+- [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
+  : Function to create an Abanico Plot.
+
+- [`plot_DRCSummary()`](https://r-lum.github.io/Luminescence/reference/plot_DRCSummary.md)
+  : Create a Dose-Response Curve Summary Plot
+
+- [`plot_DRTResults()`](https://r-lum.github.io/Luminescence/reference/plot_DRTResults.md)
+  : Visualise dose recovery test results
+
+- [`plot_DetPlot()`](https://r-lum.github.io/Luminescence/reference/plot_DetPlot.md)
+  : Create De(t) plot
+
+- [`plot_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
+  : Plot a dose-response curve for luminescence data (Lx/Tx against
+  dose)
+
+- [`plot_FilterCombinations()`](https://r-lum.github.io/Luminescence/reference/plot_FilterCombinations.md)
+  : Plot filter combinations along with the (optional) net transmission
+  window
+
+- [`plot_GrowthCurve()`](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)
+  : Fit and plot a dose-response curve for luminescence data (Lx/Tx
+  against dose)
+
+- [`plot_Histogram()`](https://r-lum.github.io/Luminescence/reference/plot_Histogram.md)
+  : Plot a histogram with separate error plot
+
+- [`plot_KDE()`](https://r-lum.github.io/Luminescence/reference/plot_KDE.md)
+  : Plot kernel density estimate with statistics
+
+- [`plot_MoranScatterplot()`](https://r-lum.github.io/Luminescence/reference/plot_MoranScatterplot.md)
+  : Moran Scatter Plot: Visualizing Spatial Dependency
+
+- [`plot_NRt()`](https://r-lum.github.io/Luminescence/reference/plot_NRt.md)
+  : Visualise natural/regenerated signal ratios
+
+- [`plot_OSLAgeSummary()`](https://r-lum.github.io/Luminescence/reference/plot_OSLAgeSummary.md)
+  : Plot Posterior OSL-Age Summary
+
+- [`plot_RLum.Analysis()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Analysis.md)
+  :
+
+  Plot function for an `RLum.Analysis` S4 class object
+
+- [`plot_RLum.Data.Curve()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Curve.md)
+  : Plot function for an RLum.Data.Curve S4 class object
+
+- [`plot_RLum.Data.Image()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Image.md)
+  :
+
+  Plot function for an `RLum.Data.Image` S4 class object
+
+- [`plot_RLum.Data.Spectrum()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Spectrum.md)
+  : Plot function for an RLum.Data.Spectrum S4 class object
+
+- [`plot_RLum()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.md)
+  : General plot function for RLum S4 class objects
+
+- [`plot_RLum.Results()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Results.md)
+  : Plot function for an RLum.Results S4 class object
+
+- [`plot_ROI()`](https://r-lum.github.io/Luminescence/reference/plot_ROI.md)
+  : Create Regions of Interest (ROI) Graphic
+
+- [`plot_RadialPlot()`](https://r-lum.github.io/Luminescence/reference/plot_RadialPlot.md)
+  : Function to create a Radial Plot
+
+- [`plot_Risoe.BINfileData()`](https://r-lum.github.io/Luminescence/reference/plot_Risoe.BINfileData.md)
+  : Plot Single Luminescence Curves from a Risoe.BINfileData-class
+  object
+
+- [`plot_SingleGrainDisc()`](https://r-lum.github.io/Luminescence/reference/plot_SingleGrainDisc.md)
+  : Plot a disc with its values
+
+- [`plot_ViolinPlot()`](https://r-lum.github.io/Luminescence/reference/plot_ViolinPlot.md)
+  : Create a violin plot
+
+- [`read_BIN2R()`](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)
+  : Import Risø BIN/BINX-files into R
+
+- [`read_Daybreak2R()`](https://r-lum.github.io/Luminescence/reference/read_Daybreak2R.md)
+  : Import measurement data produced by a Daybreak TL/OSL reader into R
+
+- [`read_HeliosOSL2R()`](https://r-lum.github.io/Luminescence/reference/read_HeliosOSL2R.md)
+  : Import Luminescence Data from Helios Luminescence Reader
+
+- [`read_PSL2R()`](https://r-lum.github.io/Luminescence/reference/read_PSL2R.md)
+  : Import SUERC portable OSL Reader PSL files into R
+
+- [`read_RF2R()`](https://r-lum.github.io/Luminescence/reference/read_RF2R.md)
+  : Import RF-files to R
+
+- [`read_SPE2R()`](https://r-lum.github.io/Luminescence/reference/read_SPE2R.md)
+  : Import Princeton Instruments (TM) SPE-file into R
+
+- [`read_TIFF2R()`](https://r-lum.github.io/Luminescence/reference/read_TIFF2R.md)
+  : Import TIFF Image Data into R
+
+- [`read_XSYG2R()`](https://r-lum.github.io/Luminescence/reference/read_XSYG2R.md)
+  : Import XSYG files into R
+
+- [`remove_RLum()`](https://r-lum.github.io/Luminescence/reference/remove_RLum.md)
+  : Strips records from RLum-class objects
+
+- [`remove_SignalBackground()`](https://r-lum.github.io/Luminescence/reference/remove_SignalBackground.md)
+  :
+
+  Remove Signal Background from `RLum.Data.Curve` Objects
+
+- [`replicate_RLum()`](https://r-lum.github.io/Luminescence/reference/replicate_RLum.md)
+  : General replication function for RLum-class objects
+
+- [`report_RLum()`](https://r-lum.github.io/Luminescence/reference/report_RLum.md)
+  : Create a HTML-report for (RLum) objects
+
+- [`sTeve()`](https://r-lum.github.io/Luminescence/reference/sTeve.md) :
+  sTeve - sophisticated tool for efficient data validation and
+  evaluation
+
+- [`scale_GammaDose()`](https://r-lum.github.io/Luminescence/reference/scale_GammaDose.md)
+  : Calculate the gamma dose deposited within a sample taking
+  layer-to-layer variations in radioactivity into account (according to
+  Aitken, 1985)
+
+- [`set_RLum()`](https://r-lum.github.io/Luminescence/reference/set_RLum.md)
+  : General setter function for RLum-class objects
+
+- [`set_Risoe.BINfileData()`](https://r-lum.github.io/Luminescence/reference/set_Risoe.BINfileData.md)
+  : General setter function for Risoe.BINfileData objects
+
+- [`show(`*`<RLum.Analysis>`*`)`](https://r-lum.github.io/Luminescence/reference/show.md)
+  [`show(`*`<RLum.Data.Curve>`*`)`](https://r-lum.github.io/Luminescence/reference/show.md)
+  [`show(`*`<RLum.Data.Image>`*`)`](https://r-lum.github.io/Luminescence/reference/show.md)
+  [`show(`*`<RLum.Data.Spectrum>`*`)`](https://r-lum.github.io/Luminescence/reference/show.md)
+  [`show(`*`<RLum.Results>`*`)`](https://r-lum.github.io/Luminescence/reference/show.md)
+  [`show(`*`<Risoe.BINfileData>`*`)`](https://r-lum.github.io/Luminescence/reference/show.md)
+  : Show the structure of RLum-class and Risoe.BINfileData-class objects
+
+- [`smooth_RLum()`](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md)
+  : Smoothing of data for RLum-class objects
+
+- [`sort_RLum()`](https://r-lum.github.io/Luminescence/reference/sort_RLum.md)
+  : Sort data for RLum-class and Risoe.BINfileData-class objects
+
+- [`structure_RLum()`](https://r-lum.github.io/Luminescence/reference/structure_RLum.md)
+  : General structure function for RLum-class objects
+
+- [`subset_SingleGrainData()`](https://r-lum.github.io/Luminescence/reference/subset_SingleGrainData.md)
+  : Simple Subsetting of Single Grain Data from Risø BIN/BINX files
+
+- [`template_DRAC()`](https://r-lum.github.io/Luminescence/reference/template_DRAC.md)
+  : Create a DRAC input data template (v1.2)
+
+- [`trim_RLum.Data()`](https://r-lum.github.io/Luminescence/reference/trim_RLum.Data.md)
+  : Trim Channels of RLum.Data-class Objects
+
+- [`tune_Data()`](https://r-lum.github.io/Luminescence/reference/tune_Data.md)
+  : Tune data for experimental purpose
+
+- [`use_DRAC()`](https://r-lum.github.io/Luminescence/reference/use_DRAC.md)
+  : Use DRAC to calculate dose rate data
+
+- [`verify_SingleGrainData()`](https://r-lum.github.io/Luminescence/reference/verify_SingleGrainData.md)
+  : Verify single grain data sets and check for invalid grains, i.e.
+  zero-light level grains
+
+- [`view()`](https://r-lum.github.io/Luminescence/reference/view.md) :
+  Convenience data visualisation function
+
+- [`write_R2BIN()`](https://r-lum.github.io/Luminescence/reference/write_R2BIN.md)
+  : Export Risoe.BINfileData into Risø BIN/BINX-file
+
+- [`write_R2TIFF()`](https://r-lum.github.io/Luminescence/reference/write_R2TIFF.md)
+  : Export RLum.Data.Image and RLum.Data.Spectrum objects to TIFF Images
+
+- [`write_RLum2CSV()`](https://r-lum.github.io/Luminescence/reference/write_RLum2CSV.md)
+  : Export RLum-objects to CSV

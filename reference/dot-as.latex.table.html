@@ -9,7 +9,7 @@ can be copied into any TeX document."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ can be copied into any TeX document."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create LaTeX tables from data.frames and RLum objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/internal_as.latex.table.R" class="external-link"><code>R/internal_as.latex.table.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/internal_as.latex.table.R" class="external-link"><code>R/internal_as.latex.table.R</code></a></small>
       <div class="d-none name"><code>dot-as.latex.table.Rd</code></div>
     </div>
 
@@ -49,7 +49,7 @@ can be copied into any TeX document.</p>
 <span>  pos <span class="op">=</span> <span class="st">"c"</span>,</span>
 <span>  digits <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  rm.zero <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  <span class="va">select</span>,</span>
+<span>  select <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  split <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tabular_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -116,16 +116,17 @@ table environment is returned. This gives a lot of additional flexibility at han
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.0</p>
+    <p>0.2.1</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Christoph Burow, University of Cologne (Germany) <br>
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., 2025. .as.latex.table(): Create LaTeX tables from data.frames and RLum objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., 2025. .as.latex.table(): Create LaTeX tables from data.frames and RLum objects. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -136,7 +137,7 @@ table environment is returned. This gives a lot of additional flexibility at han
 <span class="r-out co"><span class="r-pr">#&gt;</span> \begin{table}[ht] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \centering </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{adjustbox}{max width=\textwidth} </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{tabular}{ cc }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{tabular}{cc}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      \hline </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	\multicolumn{1}{p{2cm}}{\centering x } &amp; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	\multicolumn{1}{p{2cm}}{\centering y }\\ </span>
@@ -160,7 +161,7 @@ table environment is returned. This gives a lot of additional flexibility at han
 <span class="r-out co"><span class="r-pr">#&gt;</span> \begin{table}[ht] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \centering </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{adjustbox}{max width=\textwidth} </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{tabular}{ lr }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{tabular}{lr}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      \hline </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	\multicolumn{1}{p{2cm}}{\centering x } &amp; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	\multicolumn{1}{p{2cm}}{\centering y }\\ </span>
@@ -184,7 +185,7 @@ table environment is returned. This gives a lot of additional flexibility at han
 <span class="r-out co"><span class="r-pr">#&gt;</span> \begin{table}[ht] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \centering </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{adjustbox}{max width=\textwidth} </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{tabular}{ r }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   \begin{tabular}{r}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      \hline </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	\multicolumn{1}{p{2cm}}{\centering y }\\ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> \hline </span>
@@ -214,7 +215,7 @@ table environment is returned. This gives a lot of additional flexibility at han
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

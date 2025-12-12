@@ -13,7 +13,7 @@ fading correction to."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ fading correction to."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Example data for feldspar fading measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/Luminescence-package.R" class="external-link"><code>R/Luminescence-package.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/Luminescence-package.R" class="external-link"><code>R/Luminescence-package.R</code></a></small>
       <div class="d-none name"><code>ExampleData.Fading.Rd</code></div>
     </div>
 
@@ -108,11 +108,11 @@ doi:10.1016/j.quageo.2016.01.004</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> T_0.5 interpolated:	 NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> T_0.5 predicted:	 4e+11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> g-value:		 5.18 ± 0.81 (%/decade)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> g-value (norm. 2 days):	 6.01 ± 0.83 (%/decade)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g-value:		 5.18 ± 0.79 (%/decade)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g-value (norm. 2 days):	 6.01 ± 0.8 (%/decade)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rho':			 3.84e-06 ± 5.73e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log10(rho'):		 -5.42 ± 0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rho':			 3.91e-06 ± 5.96e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log10(rho'):		 -5.41 ± 0.07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Show g-value and rho' results</span></span></span>
@@ -120,15 +120,19 @@ doi:10.1016/j.quageo.2016.01.004</p>
 <span class="r-in"><span><span class="va">rhop</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IR50_fading.res</span>, <span class="st">"rho_prime"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gval</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        FIT     MEAN        SD  Q_0.025   Q_0.16   Q_0.84  Q_0.975  TC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 5.182106 5.258865 0.8125234 3.551775 4.382441 6.038182 6.578953 378</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED T_0.5_PREDICTED</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x      6.010655           0.8304729                 NA    395648134315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x           18339400088           18339400088 b033d2fff851ae40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    FIT     MEAN        SD  Q_0.025   Q_0.16   Q_0.84  Q_0.975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> G_VALUE_2DAYS 5.182106 5.083589 0.7855371 3.389336 4.360077 5.876208 6.381322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                TC G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> G_VALUE_2DAYS 378      6.010655           0.8023017                 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               T_0.5_PREDICTED T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> G_VALUE_2DAYS    395648134315           18339400088           18339400088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            UID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> G_VALUE_2DAYS 8c8759b488004fa0</span>
 <span class="r-in"><span><span class="va">rhop</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.84449e-06 5.729207e-07 2.827287e-06 3.251058e-06 4.344972e-06 5.024033e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            FIT         MEAN           SD      Q_0.025       Q_0.16       Q_0.84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.911342e-06 3.911342e-06 5.964428e-07 2.809934e-06 3.361524e-06 4.507872e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Q_0.975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5.101797e-06</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get LxTx values of the IR50 DE measurement</span></span></span>
 <span class="r-in"><span><span class="va">IR50_De.LxTx</span> <span class="op">&lt;-</span> <span class="va">ExampleData.Fading</span><span class="op">$</span><span class="va">equivalentDose.data</span><span class="op">$</span><span class="va">IR50</span></span></span>
@@ -152,18 +156,17 @@ doi:10.1016/j.quageo.2016.01.004</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used g-value:	5.182 ± 0.813 %/decade</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used g-value:	5.182 ± 0.786 %/decade</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. used tc:		1.198e-08 ka</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used kappa:		0.0225 ± 0.0035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used kappa:		0.0225 ± 0.0034</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ----------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  seed: 			 NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  n.MC: 			10000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  observations: 		10000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ----------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		139.6261 ka ± 15.8519 ka</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		288.1629 ka ± 71.1981 ka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		139.6261 ka ± 14.7635 ka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		288.1629 ka ± 67.2483 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -176,7 +179,7 @@ doi:10.1016/j.quageo.2016.01.004</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

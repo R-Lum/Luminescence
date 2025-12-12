@@ -9,7 +9,7 @@ CSV file is passed to the DRAC website and results are re-imported into R."></he
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ CSV file is passed to the DRAC website and results are re-imported into R."></he
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Use DRAC to calculate dose rate data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/use_DRAC.R" class="external-link"><code>R/use_DRAC.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/use_DRAC.R" class="external-link"><code>R/use_DRAC.R</code></a></small>
       <div class="d-none name"><code>use_DRAC.Rd</code></div>
     </div>
 
@@ -41,7 +41,13 @@ CSV file is passed to the DRAC website and results are re-imported into R.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_DRAC</span><span class="op">(</span><span class="va">file</span>, <span class="va">name</span>, print_references <span class="op">=</span> <span class="cn">TRUE</span>, citation_style <span class="op">=</span> <span class="st">"text"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_DRAC</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  print_references <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  citation_style <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -58,7 +64,8 @@ CSV-files.</p></dd>
 
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-Optional user name submitted to DRAC. If omitted, a random name will be generated</p></dd>
+Optional user name submitted to DRAC. If <code>NULL</code>, a random name will be
+generated.</p></dd>
 
 
 <dt id="arg-print-references">print_references<a class="anchor" aria-label="anchor" href="#arg-print-references"></a></dt>
@@ -104,11 +111,11 @@ if the version has changed, but not the column order</p></li>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.16</p>
+    <p>0.17</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Burow, C., 2025. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Burow, C., 2025. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -212,7 +219,7 @@ Christoph Burow, University of Cologne (Germany)
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

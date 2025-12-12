@@ -8,8 +8,8 @@ Provided calculation error propagation methods for error calculation
 (1) omit (default)
 $$se(De) [Gy] = se(De) [s] * DR [Gy/s]$$
 In this case the standard error of the dose rate of the beta-source is
-treated as systematic (i.e. non-random), it error propagation is omitted.
-However, the error must be considered during calculation of the final age.
+treated as systematic (i.e. non-random), and error propagation is omitted.
+However, the error must be considered during calculation of the final age
 (cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian)
 for the case the (random) standard error of the beta-source calibration is
 0. Which particular method is requested depends on the situation and cannot
@@ -28,8 +28,8 @@ Provided calculation error propagation methods for error calculation
 (1) omit (default)
 $$se(De) [Gy] = se(De) [s] * DR [Gy/s]$$
 In this case the standard error of the dose rate of the beta-source is
-treated as systematic (i.e. non-random), it error propagation is omitted.
-However, the error must be considered during calculation of the final age.
+treated as systematic (i.e. non-random), and error propagation is omitted.
+However, the error must be considered during calculation of the final age
 (cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian)
 for the case the (random) standard error of the beta-source calibration is
 0. Which particular method is requested depends on the situation and cannot
@@ -47,7 +47,7 @@ Applicable under the assumption that errors of De and se are correlated."></head
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@ Applicable under the assumption that errors of De and se are correlated."></head
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Converting equivalent dose values from seconds (s) to Gray (Gy)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/convert_Second2Gray.R" class="external-link"><code>R/convert_Second2Gray.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/convert_Second2Gray.R" class="external-link"><code>R/convert_Second2Gray.R</code></a></small>
       <div class="d-none name"><code>convert_Second2Gray.Rd</code></div>
     </div>
 
@@ -82,8 +82,8 @@ Applicable under the assumption that errors of De and se are correlated."></head
 <p><strong>(1) <code>omit</code></strong> (default)</p>
 <p>$$se(De) [Gy] = se(De) [s] * DR [Gy/s]$$</p>
 <p>In this case the standard error of the dose rate of the beta-source is
-treated as systematic (i.e. non-random), it error propagation is omitted.
-However, the error must be considered during calculation of the final age.
+treated as systematic (i.e. non-random), and error propagation is omitted.
+However, the error must be considered during calculation of the final age
 (cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian)
 for the case the (random) standard error of the beta-source calibration is
 0. Which particular method is requested depends on the situation and cannot
@@ -108,19 +108,19 @@ be prescriptive.</p>
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 input values, structure: data (<code>values[,1]</code>) and data error (<code>values [,2]</code>)
-are required</p></dd>
+are required.</p></dd>
 
 
 <dt id="arg-dose-rate">dose.rate<a class="anchor" aria-label="anchor" href="#arg-dose-rate"></a></dt>
 <dd><p><a href="RLum.Results-class.html">RLum.Results</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 <code>RLum.Results</code> needs to be originated from the function <a href="calc_SourceDoseRate.html">calc_SourceDoseRate</a>,
-for <code>vector</code> dose rate in Gy/s and dose rate error in Gy/s</p></dd>
+for <code>vector</code> dose rate in Gy/s and dose rate error in Gy/s.</p></dd>
 
 
 <dt id="arg-error-propagation">error.propagation<a class="anchor" aria-label="anchor" href="#arg-error-propagation"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 error propagation method used for error calculation (<code>omit</code>, <code>gaussian</code> or
-<code>absolute</code>), see details for further information</p></dd>
+<code>absolute</code>), see details for further information.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -139,7 +139,7 @@ be of the same length as the data frame provided with the argument <code>data</c
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Fuchs, M.C., 2025. convert_Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Fuchs, M.C., 2025. convert_Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -242,7 +242,7 @@ Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Ge
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

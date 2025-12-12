@@ -15,7 +15,7 @@ references)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ references)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import Princeton Instruments (TM) SPE-file into R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/read_SPE2R.R" class="external-link"><code>R/read_SPE2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/read_SPE2R.R" class="external-link"><code>R/read_SPE2R.R</code></a></small>
       <div class="d-none name"><code>read_SPE2R.Rd</code></div>
     </div>
 
@@ -53,7 +53,7 @@ references).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_SPE2R</span><span class="op">(</span></span>
 <span>  <span class="va">file</span>,</span>
 <span>  output.object <span class="op">=</span> <span class="st">"RLum.Data.Image"</span>,</span>
-<span>  <span class="va">frame.range</span>,</span>
+<span>  frame.range <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -79,8 +79,10 @@ set the output object type. Allowed types are <code>"RLum.Data.Spectrum"</code>,
 
 
 <dt id="arg-frame-range">frame.range<a class="anchor" aria-label="anchor" href="#arg-frame-range"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
-limit frame range, e.g. select first 100 frames by <code>frame.range = c(1,100)</code>.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a>, <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+range of frames to read. For example, <code>frame.range = c(1, 10)</code> selects only
+the first 10 frames. If not specifie, all available frames (up to a maximum
+of 100 if <code>output.object = "RLum.Data.Image"</code>) are read.</p></dd>
 
 
 <dt id="arg-txtprogressbar">txtProgressBar<a class="anchor" aria-label="anchor" href="#arg-txtprogressbar"></a></dt>
@@ -128,7 +130,7 @@ meaning that the same results can be obtained by using the function
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -183,7 +185,7 @@ Format Specification, Version 1.A (for document URL please use an internet searc
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

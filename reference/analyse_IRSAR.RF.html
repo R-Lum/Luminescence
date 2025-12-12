@@ -9,7 +9,7 @@ using the protocol according to Erfurt et al. (2003) and beyond."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ using the protocol according to Erfurt et al. (2003) and beyond."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse IRSAR RF measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/analyse_IRSAR.RF.R" class="external-link"><code>R/analyse_IRSAR.RF.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_IRSAR.RF.R" class="external-link"><code>R/analyse_IRSAR.RF.R</code></a></small>
       <div class="d-none name"><code>analyse_IRSAR.RF.Rd</code></div>
     </div>
 
@@ -72,10 +72,11 @@ If a <code>list</code> is provided as input all other parameters can be provided
 <dt id="arg-sequence-structure">sequence_structure<a class="anchor" aria-label="anchor" href="#arg-sequence-structure"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specifies the general sequence structure. Allowed steps are <code>NATURAL</code> and
-<code>REGENERATED</code>, and at least one of each must appear.
-In addition any other character is allowed in the sequence structure;
-such curves will be ignored during the analysis. If <code>sequence_structure</code>
-is shorter than the number of curves in <code>object</code>, it is recycled.</p></dd>
+<code>REGENERATED</code>, and at least one of each must appear. In addition, any other
+character is allowed in the sequence structure; such curves will be ignored
+during the analysis. If <code>sequence_structure</code> is shorter than the number of
+curves in <code>object</code>, it is recycled. If multiple <code>NATURAL</code> and <code>REGENERATED</code>
+steps are specified, the corresponding measurements are stacked.</p></dd>
 
 
 <dt id="arg-rf-nat-lim">RF_nat.lim<a class="anchor" aria-label="anchor" href="#arg-rf-nat-lim"></a></dt>
@@ -189,7 +190,8 @@ signal.</p>
 <code>method = "FIT"</code>, <code>method = "SLIDE"</code> and <code>method = "VSLIDE"</code>:</p>
 <p><strong><code>method = "FIT"</code></strong></p>
 <p>The principle is described above and follows the original suggestions by
-Erfurt et al., 2003. For the fitting the mean count value of the <code>RF_nat</code> curve is used.</p>
+Erfurt et al., 2003. For the fitting, the mean count value of the <code>RF_nat</code>
+curve is used.</p>
 <p>Function used for the fitting (according to Erfurt et al. (2003)):</p>
 <p>$$\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta$$</p>
 <p>with
@@ -221,24 +223,40 @@ range is set automatically, but can be set manually by changing the
 the methods for De estimation are preset with meaningful default values,
 which can however be modified using the <code>method_control</code> argument, e.g.,
 <code>method_control = list(trace = TRUE)</code>. Supported parameters are:</p>
-<table class="table table"><tr><td><strong>PARAMETER</strong></td><td><strong>METHOD</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>trace</code></td><td><code>FIT</code>, <code>SLIDE</code> or <code>VSLIDE</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>; shows sum of squared residuals</td></tr><tr><td><code>trace_vslide</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> argument to enable or disable the tracing of the vertical sliding</td></tr><tr><td><code>maxiter</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>warnOnly</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>minFactor</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>correct_onset</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td>The logical argument shifts the curves along the x-axis by the first channel,
-as light is expected in the first channel. The default value is <code>TRUE</code>.</td></tr><tr><td><code>show_density</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
-enable/disable KDE plots for MC run results. If the distribution is too narrow nothing is shown.</td></tr><tr><td><code>show_fit</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
-enable/disable the plot of the fitted curve routinely obtained during the evaluation.</td></tr><tr><td><code>n.MC</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-This controls the number of MC runs within the sliding (assessing the possible minimum values).
-The default <code>n.MC = 1000</code>. Note: This parameter is not the same as controlled by the
-function argument <code>n.MC</code>.</td></tr><tr><td><code>vslide_range</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-This argument sets the boundaries for a vertical curve
-sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., <code>c(-1000,1000)</code>).
-Alternatively the values <code>NULL</code> and <code>'auto'</code> are allowed. The automatic mode detects the
-reasonable vertical sliding range (<strong>recommended</strong>). <code>NULL</code> applies no vertical sliding.
-The default is <code>NULL</code>.</td></tr><tr><td><code>num_slide_windows</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-This argument controls how many differently-sized windows are tested when
-sliding: the higher the value (up to a maximum of 10), the more time is
-spent in searching the global optimum. The default is 3, which attempts to
-strike a balance between quality of the fit and computation speed.</td></tr><tr><td><code>cores</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><code>number</code> or <code>character</code> (<em>with default</em>): set number of cores to be allocated
-for a parallel processing of the Monte-Carlo runs. The default value is <code>NULL</code> (single thread),
-the recommended values is <code>'auto'</code>. An optional number (e.g., <code>cores</code> = 8) assigns a value manually.</td></tr></table><p><strong>Error estimation</strong></p>
+<p><em>For FIT</em></p><ul><li><p><code>trace</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>FALSE</code>): as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>; shows sum of squared
+residuals.</p></li>
+<li><p><code>maxiter</code> (<a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, default: 500): as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>.</p></li>
+<li><p><code>warnOnly</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>FALSE</code>): as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>.</p></li>
+<li><p><code>minFactor</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>, default: <code>1 / 4096</code>): as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>.</p></li>
+</ul><p><em>For SLIDE or VSLIDE</em></p><ul><li><p><code>trace</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>FALSE</code>): as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>; shows sum of squared
+residuals.</p></li>
+<li><p><code>trace_vslide</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>FALSE</code>): enable/disable the tracing
+of the vertical sliding.</p></li>
+<li><p><code>correct_onset</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>TRUE</code>): whether the curves should
+be shifted along the x-axis by the first channel, as light is expected in
+the first channel.</p></li>
+<li><p><code>show_density</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>TRUE</code>): enable/disable KDE plots for
+MC run results. Nothing is shown if the distribution is too narrow.</p></li>
+<li><p><code>show_fit</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, default: <code>FALSE</code>): enable/disable the plot of the
+fitted curve routinely obtained during the evaluation.</p></li>
+<li><p><code>n.MC</code> (<a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, default: 1000): number of Monte Carlo runs within the
+sliding (assessing the possible minimum values). <strong>Note</strong>: This parameter
+is not the same as the function argument <code>n.MC</code>.</p></li>
+<li><p><code>vslide_range</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, default: "auto"): boundaries
+for the vertical curve sliding. The argument expects a vector with absolute
+minimum and maximum (e.g., <code>c(-1000,1000)</code>). The default "auto" mode
+detects the reasonable vertical sliding range (<em>recommended</em>). <code>NULL</code>
+disables the vertical sliding.</p></li>
+<li><p><code>num_slide_windows</code> (<a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, default: 3): number of  differently-sized
+windows tested when sliding: the higher the value (up to a maximum of 10),
+the more time is spent in searching the global optimum. The default setting
+attempts to strike a balance between quality of the fit and computation
+speed.</p></li>
+<li><p><code>cores</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, default: <code>NULL</code>): number of cores
+allocated for a parallel processing of the Monte-Carlo runs. The default
+value corresponds to single-threaded computation; the recommended values is
+<code>"auto"</code>, which assigns all but two of the available cores.</p></li>
+</ul><p><strong>Error estimation</strong></p>
 <p>For <strong><code>method = "FIT"</code></strong>, the \(D_{e}\) error range is obtained by using
 the 2.5 % (lower) and the 97.5 % (upper) quantiles of the \(RF_{nat}\)
 curve.</p>
@@ -246,53 +264,58 @@ curve.</p>
 by bootstrapping the residuals of the slid curve to construct new natural
 curves for a Monte Carlo simulation. The error is returned in two ways:
 (a) the standard deviation of the \(D_{e}\) obtained from the MC runs and
-(b) the confidence interval using the  2.5 % (lower) and the 97.5 % (upper)
+(b) the confidence interval using the 2.5 % (lower) and the 97.5 % (upper)
 quantiles. The results of the MC runs are returned with the function output.</p>
 <p><strong>Test parameters</strong></p>
-<p>The argument <code>test_parameters</code> allows to pass some thresholds for several test parameters,
-which will be evaluated during the function run. If a threshold is set and
-it is exceeded, the
-test parameter status will be set to <code>"FAILED"</code>. Intentionally this parameter is not termed
-<code>'rejection criteria'</code> as not all test parameters are evaluated for both methods and some parameters
-are calculated but not evaluated by default. Common for all parameters are the allowed argument options
-<code>NA</code> and <code>NULL</code>. If the parameter is set to <code>NA</code> the value is calculated but the
-result will not be evaluated, therefore it will have no effect on the
-status (<code>"OK"</code> or <code>"FAILED"</code>) of the parameter.
-Setting the parameter to <code>NULL</code> disables the parameter entirely and the parameter will be
-also removed from the function output. This might be useful in cases where a particular parameter
-requires a long computation time. Currently supported parameters are:</p>
-<p><code>curves_ratio</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>1.001</code>):</p>
-<p>The ratio of \(RF_{nat}\) over \(RF_{reg}\) in the range of\(RF_{nat}\) of is calculated
-and should not exceed the threshold value.</p>
-<p><code>intersection_ratio</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>NA</code>):</p>
-<p>Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
-This value indicates intersection of the RF-curves and should be close to 0 if the curves
-have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
-curve is obtained using the maximum count value of the <code>RF_nat</code> curve and only this segment (fitting to
-the <code>RF_nat</code> curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
-found at all, <code>Inf</code> is returned.</p>
-<p><code>residuals_slope</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>NA</code>; only for <code>method = "SLIDE"</code>
-and <code>"VSLIDE</code>"):</p>
-<p>A linear function is fitted on the residuals after sliding.
-The corresponding slope can be used to discard values as a high (positive, negative) slope
-may indicate that both curves are fundamentally different and the method cannot be applied at all.
-By default, the value of this parameter is calculated but not evaluated.</p>
-<p><code>curves_bounds</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: \(max(RF_{reg_counts})\):</p>
-<p>This measure uses the maximum time (x) value of the regenerated curve.
-The maximum time (x) value of the natural curve cannot be larger than this value. However, although
-this is not recommended the value can be changed or disabled.</p>
-<p><code>dynamic_ratio</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>NA</code>):</p>
-<p>The dynamic ratio of the regenerated curve is calculated as ratio of the
-minimum and maximum count values.</p>
-<p><code>lambda</code>, <code>beta</code> and <code>delta.phi</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>NA</code>):</p>
-<p>The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
-the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
-For <code>method = "FIT"</code> this parameter is obtained during the fitting, for <code>method = "SLIDE"</code> a
-rather rough estimation is made using the function <a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a> and the equation
-given above.
+<p>The argument <code>test_parameters</code> allows to pass thresholds for several test
+parameters, which will be evaluated during the function run. If a threshold
+is set and it is exceeded, the test parameter status will be set to
+<code>"FAILED"</code>. This argument is intentionally not termed <code>'rejection criteria'</code>
+as not all test parameters are evaluated for both methods and some parameters
+are calculated but not evaluated by default.</p>
+<p><code>NA</code> and <code>NULL</code> are the allowed values for all parameters. If the parameter
+is set to <code>NA</code>, the value is calculated but the result will not be evaluated,
+therefore it will have no effect on the status (<code>"OK"</code> or <code>"FAILED"</code>) of
+the parameter. Setting the parameter to <code>NULL</code> disables the parameter
+entirely and the parameter will also be removed from the function output.
+This might be useful in cases where a particular parameter requires a long
+computation time. Currently supported parameters are:</p><ul><li><p><code>curves_ratio</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>, default: <code>1.001</code>):
+the ratio of \(RF_{nat}\) to \(RF_{reg}\) is calculated over the range
+spanned by \(RF_{nat}\), and should not exceed the threshold value.</p></li>
+<li><p><code>intersection_ratio</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>, default: <code>NA</code>):
+calculated as absolute difference from 1 of the ratio of the integral of
+the normalised RF-curves. This value indicates intersection of the RF-curves
+and should be close to 0 if the curves have a similar shape. For this
+calculation first the corresponding time-count pair value on the RF_reg
+curve is obtained using the maximum count value of the <code>RF_nat</code> curve and
+only this segment (fitting to the <code>RF_nat</code> curve) on the RF_reg curve is
+taken for further calculating this ratio. If nothing is found at all, <code>Inf</code>
+is returned.</p></li>
+<li><p><code>residuals_slope</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>, default: <code>NA</code>; only for <code>method = "SLIDE"</code>
+and <code>"VSLIDE</code>"):
+a linear function is fitted on the residuals after sliding.
+The corresponding slope can be used to discard values as a high (positive,
+negative) slope may indicate that both curves are fundamentally different
+and the method cannot be applied at all.
+By default, the value of this parameter is calculated but not evaluated.</p></li>
+<li><p><code>curves_bounds</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>, default: \(max(RF_{reg_counts})\)):
+this measure uses the maximum time (x) value of the regenerated curve.
+The maximum time (x) value of the natural curve cannot be larger than this
+value. However, although this is not recommended the value can be changed
+or disabled.</p></li>
+<li><p><code>dynamic_ratio</code> (<a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>, default: <code>NA</code>):
+the dynamic ratio of the regenerated curve is calculated as ratio of the
+minimum and maximum count values.</p></li>
+<li><p><code>lambda</code>, <code>beta</code> and <code>delta.phi</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>NA</code>):
+the stretched exponential function suggested by Erfurt et al. (2003)
+describing the decay of the RF signal, comprises several parameters that
+might be useful to evaluate the shape of the curves. For <code>method = "FIT"</code>,
+this parameter is obtained during the fitting; for <code>method = "SLIDE"</code> a
+rather rough estimation is made using the function <a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a> and
+the equation given above.
 Note: As this procedure requests more computation time, it is performed only
-if all three parameters are set.</p>
-    </div>
+if all three parameters are set.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>This function assumes that there is no sensitivity change during the
@@ -305,7 +328,7 @@ findings by Buylaert et al. (2012).</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2025. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -388,7 +411,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 <span class="r-out co"><span class="r-pr">#&gt;</span>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DATE SEQUENCE_NAME              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 1a86172dc227ae53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 60c54b4e1a98286b</span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"test_parameters"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA</span>
@@ -400,14 +423,14 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       NA               beta        NA 5.418718e-01     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8       NA          delta.phi        NA 2.103400e+03     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 1a86172dc227ae53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 1a86172dc227ae53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 60c54b4e1a98286b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 60c54b4e1a98286b</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(2) perform analysis using the method 'SLIDE'</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RF70Curves</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -441,7 +464,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

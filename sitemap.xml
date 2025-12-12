@@ -8,10 +8,8 @@
 <url><loc>https://r-lum.github.io/Luminescence/authors.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/index.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/news/index.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.ConversionFactors.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.CosmicDoseRate.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.FractionalGammaDose.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.GrainSizeAttenuation.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/BaseDataSet.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.Al2O3C.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.BINfileData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.CW_OSL_Curve.html</loc></url>
@@ -29,6 +27,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.SurfaceExposure.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.TR_OSL.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.XSYG.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.portableOSL.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/GitHub-API.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/Luminescence-package.html</loc></url>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/calc_CommonDose.R" class="external-link"><code>R/calc_CommonDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_CommonDose.R" class="external-link"><code>R/calc_CommonDose.R</code></a></small>
       <div class="d-none name"><code>calc_CommonDose.Rd</code></div>
     </div>
 
@@ -52,9 +52,8 @@ for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.
 
 <dt id="arg-sigmab">sigmab<a class="anchor" aria-label="anchor" href="#arg-sigmab"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
-additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be
-well-bleached (Cunningham &amp; Walling 2012, p. 100).
+additional spread in De values, representing the expected overdispersion in
+the data should the sample be well-bleached (Cunningham &amp; Wallinga 2012, p. 100).
 <strong>NOTE</strong>: For the logged model (<code>log = TRUE</code>) this value must be
 a fraction, e.g. 0.2 (= 20%). If the un-logged model is used (<code>log = FALSE</code>),
 <code>sigmab</code> must be provided in the same absolute units of the De values
@@ -110,7 +109,7 @@ error (Galbraith &amp; Roberts 2012, p. 14).</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2025. calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., 2025. calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -168,6 +167,15 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  rel. SE [%]:             1.26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: calc_CommonDose()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 data: 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  	 .. $summary : data.frame</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $data : data.frame</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $args : list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $call : call</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -180,7 +188,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

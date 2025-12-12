@@ -15,7 +15,7 @@ thicknesses and distances to the sample."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ thicknesses and distances to the sample."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/scale_GammaDose.R" class="external-link"><code>R/scale_GammaDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/scale_GammaDose.R" class="external-link"><code>R/scale_GammaDose.R</code></a></small>
       <div class="d-none name"><code>scale_GammaDose.Rd</code></div>
     </div>
 
@@ -54,7 +54,7 @@ thicknesses and distances to the sample.</p>
 <span>  <span class="va">data</span>,</span>
 <span>  conversion_factors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cresswelletal2018"</span>, <span class="st">"Guerinetal2011"</span>, <span class="st">"AdamiecAitken1998"</span>,</span>
 <span>    <span class="st">"Liritzisetal2013"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  fractional_gamma_dose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Aitken1985"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  fractional_gamma_dose <span class="op">=</span> <span class="st">"Aitken1985"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_singlePanels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -180,7 +180,7 @@ the example dataset (<code>data('ExampleData.ScaleGammaDose')</code>, see exampl
 conversion factors should be used to calculate the gamma dose rates.
 The options are:</p><ul><li><p><code>"Cresswelletal2018"</code> (Cresswell et al., 2018)</p></li>
 <li><p><code>"Liritzisetal2013"</code> (Liritzis et al., 2013)</p></li>
-<li><p><code>"Guerinetal2011"</code> (Guerin et al., 2011)</p></li>
+<li><p><code>"Guerinetal2011"</code> (Guérin et al., 2011)</p></li>
 <li><p><code>"AdamiecAitken1998"</code> (Adamiec and Aitken, 1998)</p></li>
 </ul><p><strong>Water content</strong></p>
 <p>The water content provided by the user should be calculated according to:</p>
@@ -229,7 +229,7 @@ been very helpful when writing this function.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Riedesel, S., Autzen, M., Burow, C., 2025. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Riedesel, S., Autzen, M., Burow, C., 2025. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -239,7 +239,7 @@ Ancient TL 16, 37-46.</p>
 <p>Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
 Dose rate conversion parameters: Assessment of nuclear data.
 Radiation Measurements 120, 195-201.</p>
-<p>Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+<p>Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 factors: update. Ancient TL, 29, 5-8.</p>
 <p>Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 A re-evaluation of radiation dose-rate conversion factors. Mediterranean
@@ -248,7 +248,7 @@ Archaeology and Archaeometry 13, 1-15.</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="ExampleData.ScaleGammaDose.html">ExampleData.ScaleGammaDose</a>,
-<a href="BaseDataSet.ConversionFactors.html">BaseDataSet.ConversionFactors</a>, <a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approx</a>, <a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></p></div>
+<a href="BaseDataSet.html">BaseDataSet.ConversionFactors</a>, <a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approx</a>, <a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -330,7 +330,7 @@ Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

@@ -11,7 +11,7 @@ and the IRSL/OSL ratio."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ and the IRSL/OSL ratio."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse portable CW-OSL measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/analyse_portableOSL.R" class="external-link"><code>R/analyse_portableOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_portableOSL.R" class="external-link"><code>R/analyse_portableOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_portableOSL.Rd</code></div>
     </div>
 
@@ -115,7 +115,9 @@ usually a profile photo), <code>bg_img_positions</code> (a vector with the four 
 positions, see <a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">graphics::rasterImage</a>), <code>zlab</code> (here x-axis labelling).
 Additional parameters for <code>mode = "surface"</code> are <code>surface_value</code>
 (<a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> with names of the surfaces to plot), <code>col_ramp</code>, <code>legend</code>
-(<code>TRUE</code>/<code>FALSE</code>), <code>contour</code> (<code>TRUE</code>/<code>FALSE</code>),<code> </code>contour_nlevels<code>, </code>contour_col<code>, ' zlim</code>.</p></dd>
+(<code>TRUE</code>/<code>FALSE</code>), <code>contour</code> (<code>TRUE</code>/<code>FALSE</code>), <code>contour_nlevels</code>,
+<code>contour_col</code>, <code>nx</code> and <code>ny</code> (size of the interpolation grid),
+<code>labcex</code> (scaling of the contour labels), <code>zlim</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -168,7 +170,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., Colombo, M., 2025. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., Colombo, M., 2025. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -214,35 +216,35 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-plt img"><img src="analyse_portableOSL-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ID RUN        BSL    BSL_error       IRSL   IRSL_error BSL_depletion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11 ALU 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 ALU 0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 ALU 2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 ALU 0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 13 ALU 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 ALU 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 ALU 0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7 ALU 1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 14 ALU 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 ALU 1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 ALU 1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 ALU 0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 ALU 0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 ALU 1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6 ALU 1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7 ALU 1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 ALU 0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 ALU 2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 ALU 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11 ALU 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 12 ALU 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 13 ALU 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 14 ALU 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    IRSL_depletion IRSL_BSL_RATIO       DARK DARK_error COORD_X COORD_Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.9158216      1.0438371  1.1111111   8.568500       0       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.9087895      1.0705490 -0.8222222  12.384537       0       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1.0233685      1.2615183 -0.2444444   8.931954       0       3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       1.0190504      1.0587828 -0.1555556   8.355607       0       4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.9352608      1.0134461 -7.5333333  39.122535       0       5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.9506562      0.9821737  0.5111111  14.822621       0       6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1.0143051      0.8683659 -2.8888889  11.954882       0       7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       0.9835481      1.4235234  0.5333333   7.322444       0       8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.9673997      0.9942316 -2.6444444  11.790126       0       9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      0.9799674      1.0244482  1.4000000  12.498000       0      10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1.0160485      0.8609933  0.2666667  11.993180       0      11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      1.0718821      0.9848262 -6.4222222  38.856665       0      12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      1.1398779      0.7963831  1.0222222   6.471929       0      13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      1.0740241      0.9767372 -1.0666667   4.750120       0      14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6 ALU 1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    IRSL_depletion IRSL_BSL_RATIO       DARK DARK_error    COORD_X      COORD_Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1.0160485      0.8609933  0.2666667  11.993180 0.27724979 0.0005183129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       1.0190504      1.0587828 -0.1555556   8.355607 0.58580031 0.0089457957</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.9673997      0.9942316 -2.6444444  11.790126 0.22160140 0.0242339098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       0.9835481      1.4235234  0.5333333   7.322444 0.46629524 0.2078233170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      1.1398779      0.7963831  1.0222222   6.471929 0.71032245 0.2461373017</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      0.9799674      1.0244482  1.4000000  12.498000 0.50747820 0.3067685061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.9158216      1.0438371  1.1111111   8.568500 0.26550866 0.3721238996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1.0143051      0.8683659 -2.8888889  11.954882 0.98890930 0.3977454533</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      1.0740241      0.9767372 -1.0666667   4.750120 0.25403373 0.6378272984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.9352608      1.0134461 -7.5333333  39.122535 0.20021445 0.6852185957</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.9087895      1.0705490 -0.8222222  12.384537 0.18488226 0.7023740360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1.0233685      1.2615183 -0.2444444   8.931954 0.16804153 0.8075163991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      1.0718821      0.9848262 -6.4222222  38.856665 0.06936092 0.8177751987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.9506562      0.9821737  0.5111111  14.822621 0.60626830 0.9376419729</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -255,7 +257,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

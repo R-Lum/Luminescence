@@ -13,7 +13,7 @@ from a mixture of normal distributions."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ from a mixture of normal distributions."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.1/R/calc_FiniteMixture.R" class="external-link"><code>R/calc_FiniteMixture.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_FiniteMixture.R" class="external-link"><code>R/calc_FiniteMixture.R</code></a></small>
       <div class="d-none name"><code>calc_FiniteMixture.Rd</code></div>
     </div>
 
@@ -73,8 +73,8 @@ for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.
 
 <dt id="arg-sigmab">sigmab<a class="anchor" aria-label="anchor" href="#arg-sigmab"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
-spread in De values given as a fraction (e.g. 0.2). This value represents
-the expected overdispersion in the data should the sample be well-bleached
+spread in De values (given as a fraction, e.g. 0.2), representing the
+expected overdispersion in the data should the sample be well-bleached
 (Cunningham &amp; Wallinga 2012, p. 100).</p></dd>
 
 
@@ -124,7 +124,9 @@ Ignored if <code>n.components</code> has length 1.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable the  plot output.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enable/disable the plot output. This is ignored and no plot is produced if
+<code>n.components</code> has length 1.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -203,11 +205,11 @@ and maximum log-likelihood estimates for each value of <em>k</em>.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.4.3</p>
+    <p>0.4.4</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Colombo, M., 2025. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.1. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Colombo, M., 2025. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -365,6 +367,7 @@ Based on a rewritten S script of Rex Galbraith, 2006.
 <span class="r-out co"><span class="r-pr">#&gt;</span>  llik:                   -44.96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  BIC:                    94.047</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [calc_FiniteMixture()] 'n.components' specified only one component, nothing plotted</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## (2) repeat the finite mixture model for 2, 3 and 4 maximum number of fitted</span></span></span>
 <span class="r-in"><span><span class="co">## components and save results</span></span></span>
@@ -460,7 +463,7 @@ Based on a rewritten S script of Rex Galbraith, 2006.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
