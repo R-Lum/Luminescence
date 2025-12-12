@@ -21,6 +21,7 @@ header-includes:
 ### `read_XSYG2R()`
 
 * Attributes from the record level are now all included in the `@info` slot, as 
-long as they are not duplicated. Hence then can be used to further filter the curves. 
+long as they do not duplicate the attributes from the curve level. 
+Hence, those attributes are now available for filtering (#1239).
 
 ## Other changes
